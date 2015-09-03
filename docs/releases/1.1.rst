@@ -67,6 +67,7 @@ Minor features
  * Added aliases for the ``self`` template variable to accommodate Jinja as a templating engine: ``page`` for pages, ``field_panel`` for field panels / edit handlers, and ``value`` for blocks
  * Added signposting text to the explorer to steer editors away from creating pages at the root level unless they are setting up new sites
  * "Clear choice" and "Edit this page" buttons are no longer shown on the page field of the group page permissions form
+ * Altered styling of stream controls to be more like all other buttons
 
 Bug fixes
 ~~~~~~~~~
