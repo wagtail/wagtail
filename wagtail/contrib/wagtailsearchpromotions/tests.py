@@ -1,5 +1,3 @@
-import unittest
-
 from django.test import TestCase
 from django.core.urlresolvers import reverse
 
@@ -73,7 +71,6 @@ class TestGetSearchPromotionsTemplateTag(TestCase):
         search_picks = list(get_search_promotions("root page"))
         self.assertEqual(search_picks, [pick])
 
-    @unittest.expectedFailure
     def test_get_search_promotions_with_none_query_string(self):
         search_picks = list(get_search_promotions(None))
         self.assertEqual(search_picks, [])
