@@ -197,3 +197,30 @@ If a snippet model inherits from ``wagtail.wagtailsearch.index.Indexed``, as des
       search_fields = [
           index.SearchField('text', partial_match=True),
       ]
+
+
+Tagging snippets
+----------------
+
+Adding tags to snippets is very similar to adding tags to pages. The only difference is that :class:`taggit.manager.TaggableManager` should be used in the place of :class:`~modelcluster.contrib.taggit.ClusterTaggableManager`.
+
+.. code-block:: python
+
+    from modelcluster.fields import ParentalKey
+    from taggit.models import TaggedItemBase
+    from taggit.managers import TaggableManager
+
+    class AdvertTag(TaggedItemBase):
+        content_object = ParentalKey('demo.Advert', related_name='tagged_items')
+
+    @register_snippet
+    class Advert(models.Model):
+        ...
+        tags = TaggableManager(through=BlogPageTag, blank=True)
+
+        panels = [
+            ...
+            FieldPanel('tags'),
+        ]
+
+The :ref:`documentation on tagging pages <tagging>` has more information on how to use tags in views.

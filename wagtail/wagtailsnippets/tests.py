@@ -5,6 +5,8 @@ from django.contrib.auth import get_user_model
 from django.contrib.auth.models import Permission
 from django.core.exceptions import ImproperlyConfigured
 
+from taggit.models import Tag
+
 from wagtail.tests.utils import WagtailTestUtils
 from wagtail.tests.testapp.models import Advert, SnippetChooserModel
 from wagtail.tests.snippets.models import AlphaSnippet, ZuluSnippet, RegisterDecorator, RegisterFunction, SearchableSnippet
@@ -142,6 +144,23 @@ class TestSnippetCreateView(TestCase, WagtailTestUtils):
         self.assertEqual(snippets.count(), 1)
         self.assertEqual(snippets.first().url, 'http://www.example.com/')
 
+    def test_create_with_tags(self):
+        tags = ['hello', 'world']
+        response = self.post(post_data={'text': 'test_advert',
+                                        'url': 'http://example.com/',
+                                        'tags': ', '.join(tags)})
+
+        self.assertRedirects(response, reverse('wagtailsnippets:list',
+                                               args=('tests', 'advert')))
+
+        snippet = Advert.objects.get(text='test_advert')
+
+        expected_tags = list(Tag.objects.order_by('name').filter(name__in=tags))
+        self.assertEqual(len(expected_tags), 2)
+        self.assertEqual(
+            list(snippet.tags.order_by('name')),
+            expected_tags)
+
 
 class TestSnippetEditView(TestCase, WagtailTestUtils):
     fixtures = ['test.json']
@@ -186,6 +205,23 @@ class TestSnippetEditView(TestCase, WagtailTestUtils):
         snippets = Advert.objects.filter(text='edited_test_advert')
         self.assertEqual(snippets.count(), 1)
         self.assertEqual(snippets.first().url, 'http://www.example.com/edited')
+
+    def test_edit_with_tags(self):
+        tags = ['hello', 'world']
+        response = self.post(post_data={'text': 'edited_test_advert',
+                                        'url': 'http://www.example.com/edited',
+                                        'tags': ', '.join(tags)})
+
+        self.assertRedirects(response, reverse('wagtailsnippets:list',
+                                               args=('tests', 'advert')))
+
+        snippet = Advert.objects.get(text='edited_test_advert')
+
+        expected_tags = list(Tag.objects.order_by('name').filter(name__in=tags))
+        self.assertEqual(len(expected_tags), 2)
+        self.assertEqual(
+            list(snippet.tags.order_by('name')),
+            expected_tags)
 
 
 class TestSnippetDelete(TestCase, WagtailTestUtils):
