@@ -1,5 +1,6 @@
-__version__ = '1.1a0'
+__version__ = '1.1rc1'
 default_app_config = 'wagtail.wagtailcore.apps.WagtailCoreAppConfig'
+
 
 def setup():
     import warnings
