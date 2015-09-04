@@ -69,6 +69,7 @@ Minor features
  * "Clear choice" and "Edit this page" buttons are no longer shown on the page field of the group page permissions form
  * Altered styling of stream controls to be more like all other buttons
  * Added ability to mark page models as not available for creation using the flag ``is_creatable``; pages that are abstract Django models are automatically made non-creatable
+ * New translations for Norwegian Bokmål and Icelandic
 
 Bug fixes
 ~~~~~~~~~
