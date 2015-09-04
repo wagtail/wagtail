@@ -31,6 +31,7 @@ Changelog
  * Added signposting text to the explorer to steer editors away from creating pages at the root level unless they are setting up new sites
  * "Clear choice" and "Edit this page" buttons are no longer shown on the page field of the group page permissions form
  * Altered styling of stream controls to be more like all other buttons
+ * Added ability to mark page models as not available for creation using the flag `is_creatable`; pages that are abstract Django models are automatically made non-creatable
  * Fix: Text areas in the non-default tab of the page editor now resize to the correct height
  * Fix: Tabs in "insert link" modal in the rich text editor no longer disappear (Tim Heap)
  * Fix: H2 elements in rich text fields were accidentally given a click() binding when put insite a collapsible multi field panel
