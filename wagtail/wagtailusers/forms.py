@@ -43,8 +43,13 @@ class UsernameForm(forms.ModelForm):
 
 
 class UserCreationForm(UsernameForm):
-
     required_css_class = "required"
+
+    error_messages = {
+        'duplicate_username': _("A user with that username already exists."),
+        'password_mismatch': _("The two password fields didn't match."),
+    }
+
     is_superuser = forms.BooleanField(
         label=_("Administrator"),
         required=False,
