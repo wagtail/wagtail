@@ -96,6 +96,8 @@ class TestUserCreateView(TestCase, WagtailTestUtils):
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'wagtailusers/users/create.html')
 
+        self.assertTrue(response.context['form'].errors['password2'])
+
         # Check that the user was not created
         users = get_user_model().objects.filter(username='testuser')
         self.assertEqual(users.count(), 0)
