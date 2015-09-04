@@ -151,8 +151,6 @@ class TestOldStyleRoutablePage(TestNewStyleRoutablePage, WagtailTestUtils):
             # prevent this class appearing in the global PAGE_MODEL_CLASSES list, as
             # its non-standard location causes failures when translating from content types
             # back to models
-            is_abstract = True
-
             class Meta:
                 abstract = True
 

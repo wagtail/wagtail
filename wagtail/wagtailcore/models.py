@@ -2,10 +2,10 @@ from __future__ import unicode_literals
 
 import logging
 import json
+import warnings
+
 from collections import defaultdict
-
 from modelcluster.models import ClusterableModel, get_all_child_relations
-
 import django
 from django.db import models, connection, transaction
 from django.db.models import Q
@@ -41,6 +41,8 @@ from wagtail.wagtailcore.signals import page_published, page_unpublished
 
 from wagtail.wagtailsearch import index
 from wagtail.wagtailsearch.backends import get_search_backend
+
+from wagtail.utils.deprecation import RemovedInWagtail13Warning
 
 
 logger = logging.getLogger('wagtail.core')
@@ -263,11 +265,18 @@ class PageBase(models.base.ModelBase):
         cls._clean_subpage_types = None  # to be filled in on first call to cls.clean_subpage_types
         cls._clean_parent_page_types = None  # to be filled in on first call to cls.clean_parent_page_types
 
-        if not dct.get('is_abstract'):
-            # subclasses are only abstract if the subclass itself defines itself so
-            cls.is_abstract = False
+        # All pages should be creatable unless explicitly set otherwise.
+        # This attribute is not inheritable.
+        if 'is_creatable' not in dct:
+            if 'is_abstract' in dct:
+                warnings.warn(
+                    "The is_abstract flag is deprecated - use is_creatable instead.",
+                    RemovedInWagtail13Warning)
+                cls.is_creatable = not dct['is_abstract']
+            else:
+                cls.is_creatable = not cls._meta.abstract
 
-        if not cls.is_abstract:
+        if cls.is_creatable:
             # register this type in the list of page content types
             PAGE_MODEL_CLASSES.append(cls)
 
@@ -309,6 +318,9 @@ class Page(six.with_metaclass(PageBase, MP_Node, ClusterableModel, index.Indexed
         index.FilterField('show_in_menus'),
     )
 
+    # Do not allow plain Page instances to be created through the Wagtail admin
+    is_creatable = False
+
     def __init__(self, *args, **kwargs):
         super(Page, self).__init__(*args, **kwargs)
         if not self.id and not self.content_type_id:
@@ -319,8 +331,6 @@ class Page(six.with_metaclass(PageBase, MP_Node, ClusterableModel, index.Indexed
 
     def __str__(self):
         return self.title
-
-    is_abstract = True  # don't offer Page in the list of page types a superuser can create
 
     def set_url_path(self, parent):
         """

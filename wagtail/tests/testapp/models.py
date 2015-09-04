@@ -440,3 +440,17 @@ class StreamPage(Page):
     ])
 
     api_fields = ('body',)
+
+
+class MTIBasePage(Page):
+    is_creatable = False
+
+
+class MTIChildPage(MTIBasePage):
+    # Should be creatable by default, no need to set anything
+    pass
+
+
+class AbstractPage(Page):
+    class Meta:
+        abstract = True

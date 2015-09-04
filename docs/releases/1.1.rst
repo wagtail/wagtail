@@ -68,6 +68,7 @@ Minor features
  * Added signposting text to the explorer to steer editors away from creating pages at the root level unless they are setting up new sites
  * "Clear choice" and "Edit this page" buttons are no longer shown on the page field of the group page permissions form
  * Altered styling of stream controls to be more like all other buttons
+ * Added ability to mark page models as not available for creation using the flag ``is_creatable``; pages that are abstract Django models are automatically made non-creatable
 
 Bug fixes
 ~~~~~~~~~
@@ -111,3 +112,13 @@ project, you will need to update these to point to the :mod:`wagtail.contrib.wag
 
 If you created your project using the ``wagtail start`` command with Wagtail 1.0,
 you will probably have references to this model in the ``search/views.py`` file.
+
+
+``is_abstract`` flag on page models has been replaced by ``is_creatable``
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Previous versions of Wagtail provided an undocumented ``is_abstract`` flag on page models - not to be confused with Django's ``abstract`` Meta flag - to indicate that it should not be included in the list of available page types for creation. (Typically this would be used on model classes that were designed to be subclassed to create new page types, rather than used directly.) To avoid confusion with Django's distinct concept of abstract models, this has now been replaced by a new flag, ``is_creatable``.
+
+If you have used ``is_abstract = True`` on any of your models, you should now change this to ``is_creatable = False``.
+
+It is not necessary to include this flag if the model is abstract in the Django sense (i.e. it has ``abstract = True`` in the model's ``Meta`` class), since it would never be valid to create pages of that type.
