@@ -779,3 +779,6 @@ class TestIsCreatable(TestCase):
             self.assertEqual(len(ws), 1)
             warning = ws[0]
             self.assertIn("is_creatable", text_type(warning.message))
+
+            self.assertFalse(AbstractPage.is_creatable)
+            self.assertNotIn(AbstractPage, PAGE_MODEL_CLASSES)
