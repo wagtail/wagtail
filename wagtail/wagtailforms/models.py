@@ -112,7 +112,7 @@ def get_form_types():
     if _FORM_CONTENT_TYPES is None:
         _FORM_CONTENT_TYPES = [
             ct for ct in get_page_types()
-            if issubclass(ct.model_class(), AbstractForm)
+            if ct.model_class() and issubclass(ct.model_class(), AbstractForm)
         ]
     return _FORM_CONTENT_TYPES
 
