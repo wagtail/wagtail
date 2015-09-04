@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-08-26 14:28+0100\n"
-"PO-Revision-Date: 2015-08-26 13:37+0000\n"
+"POT-Creation-Date: 2015-09-02 20:07+0100\n"
+"PO-Revision-Date: 2015-09-02 19:12+0000\n"
 "Last-Translator: Karl Hobley <karl@torchbox.com>\n"
 "Language-Team: Russian (http://www.transifex.com/torchbox/wagtail/language/"
 "ru/)\n"
@@ -49,9 +49,6 @@ msgid ""
 msgstr ""
 "Если выбрано, этот сайт будет обрабатывать запросы для всех имеющихся имен "
 "хостов, не закрепленных за другими сайтами"
-
-msgid "Site"
-msgstr "Сайт"
 
 #, python-format
 msgid ""
@@ -171,11 +168,11 @@ msgstr "Сожержимое JSON"
 msgid "Approved go live at"
 msgstr "Подтверждено к публикации"
 
-msgid "Page Revision"
-msgstr "Ревизия Страницы"
-
 msgid "Add/edit pages you own"
 msgstr "Добавить/редактировать свои страницы"
+
+msgid "Edit any page"
+msgstr "Редактировать любую страницу"
 
 msgid "Publish any page"
 msgstr "Опубликовать любую страницу"
@@ -189,14 +186,8 @@ msgstr "Группа"
 msgid "Permission type"
 msgstr "Тип прав"
 
-msgid "Group Page Permission"
-msgstr "Права на страницу у группы"
-
 msgid "Password"
 msgstr "Пароль"
-
-msgid "Page View Restriction"
-msgstr "Ограничения на просмотр страницы"
 
 msgid "Value cannot be entirely whitespace characters"
 msgstr "Значение не может состоять полностью из пробельных символов"

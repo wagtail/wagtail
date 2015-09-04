@@ -11,8 +11,8 @@ msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2015-08-26 14:28+0100\n"
-"PO-Revision-Date: 2015-04-21 08:40+0000\n"
-"Last-Translator: Karl Hobley <karl@torchbox.com>\n"
+"PO-Revision-Date: 2015-09-03 20:06+0000\n"
+"Last-Translator: Dan Braghis\n"
 "Language-Team: Romanian (http://www.transifex.com/torchbox/wagtail/language/"
 "ro/)\n"
 "MIME-Version: 1.0\n"
@@ -67,14 +67,26 @@ msgstr "Administratorii pot gestiona conturi de utilizator."
 msgid "A group with that name already exists."
 msgstr "Un grup cu acest nume există deja."
 
+msgid "Submitted notifications"
+msgstr "Notificări depuse"
+
 msgid "Receive notification when a page is submitted for moderation"
 msgstr "Primește o notificăre când o pagină este trimisă pentru moderare"
+
+msgid "Approved notifications"
+msgstr "Notificări aprobate"
 
 msgid "Receive notification when your page edit is approved"
 msgstr "Primește o notificare când modificarea paginii este aprobată"
 
+msgid "Rejected notifications"
+msgstr "Notificări respinse"
+
 msgid "Receive notification when your page edit is rejected"
 msgstr "Primește o notificare când modificărea paginii este respinsă"
+
+msgid "User Profile"
+msgstr "Profil utilizator"
 
 msgid "Delete group"
 msgstr "Șterge grup"
@@ -86,6 +98,12 @@ msgid ""
 msgstr ""
 "Grupul '%(group_name)s' are <strong>%(group_user_count)s</strong> "
 "utilizatori alocați."
+
+msgid ""
+"Deleting this group will revoke this group's permissions from all member "
+"users."
+msgstr ""
+"Ștergerea acestui grup va revoca permsiunile de la toți utilizatorii membri."
 
 msgid "Are you sure you want to delete this group?"
 msgstr "Sigur doriți să ștergeți acest grup?"
@@ -119,6 +137,15 @@ msgstr "Șterge"
 
 msgid "Other permissions"
 msgstr "Alte permisiuni"
+
+msgid "Page permissions"
+msgstr "Permisiuni pagină"
+
+msgid "Page"
+msgstr "Pagină"
+
+msgid "Permission type"
+msgstr "Tip permisiune"
 
 msgid "Add a page permission"
 msgstr "Adaugă permisiune de pagină"
@@ -209,6 +236,9 @@ msgstr "Caută grupuri"
 #, python-brace-format
 msgid "Group '{0}' created."
 msgstr "Grupul '{0}' a fost creat."
+
+msgid "Edit"
+msgstr "Editează"
 
 msgid "The group could not be created due to errors."
 msgstr "Grupul nu a fost creat din cauza erorilor."

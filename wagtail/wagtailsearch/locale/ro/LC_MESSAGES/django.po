@@ -11,8 +11,8 @@ msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2015-08-26 14:28+0100\n"
-"PO-Revision-Date: 2015-08-26 13:37+0000\n"
-"Last-Translator: Karl Hobley <karl@torchbox.com>\n"
+"PO-Revision-Date: 2015-09-03 20:20+0000\n"
+"Last-Translator: Dan Braghis\n"
 "Language-Team: Romanian (http://www.transifex.com/torchbox/wagtail/language/"
 "ro/)\n"
 "MIME-Version: 1.0\n"
@@ -24,6 +24,17 @@ msgstr ""
 
 msgid "Search term(s)/phrase"
 msgstr "Termeni/frază de căutare"
+
+msgid ""
+"Enter the full search string to match. An exact match is required for your "
+"Promoted Results to be displayed, wildcards are NOT allowed."
+msgstr ""
+"Introduceți șirul complet de căutare. Este nevoie de o potrivire exactă "
+"pentru a afișa selecțiile \n"
+"dvs. editoriale. Metacaractere NU sunt permise."
+
+msgid "Query Daily Hits"
+msgstr "Interogări zilnice"
 
 msgid "Popular search terms"
 msgstr "Termeni populari de căutare"
@@ -39,3 +50,9 @@ msgstr "Vizualizări (ultima săptămână)"
 
 msgid "No results found"
 msgstr "Nu sunt rezultate"
+
+msgid "Date"
+msgstr "Dată"
+
+msgid "Choose from popular search terms"
+msgstr "Alege din termeni populari de căutare"

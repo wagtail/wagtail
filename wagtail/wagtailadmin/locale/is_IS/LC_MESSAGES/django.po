@@ -10,8 +10,8 @@ msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2015-08-26 14:28+0100\n"
-"PO-Revision-Date: 2015-08-26 13:37+0000\n"
-"Last-Translator: Karl Hobley <karl@torchbox.com>\n"
+"PO-Revision-Date: 2015-09-01 08:27+0000\n"
+"Last-Translator: Arnar Tumi Þorsteinsson <arnartumi@gmail.com>\n"
 "Language-Team: Icelandic (Iceland) (http://www.transifex.com/torchbox/"
 "wagtail/language/is_IS/)\n"
 "MIME-Version: 1.0\n"
@@ -35,11 +35,22 @@ msgstr "Leitarfrasi"
 msgid "Enter password"
 msgstr "Sláðu inn lykilorð"
 
+#, python-format
+msgid "Enter your %s"
+msgstr "Sláðu inn %s"
+
 msgid "Enter your email address to reset your password"
 msgstr "Sláðu inn netfangið þitt til að endursetja lykilorðið þitt."
 
 msgid "Please fill your email address."
 msgstr "Vinsamlegast sláðu inn netfangið þitt."
+
+msgid ""
+"Sorry, you cannot reset your password here as your user account is managed "
+"by another server."
+msgstr ""
+"Því miður geturðu ekki endurstillt lykilorðið þitt hérna þar sem reikningnum "
+"þínum er stýrt af öðrum server."
 
 msgid "This email address is not recognised."
 msgstr "Þetta netfang er ekki á skrá."
@@ -74,6 +85,12 @@ msgstr "Í birtingu"
 msgid "Private, accessible with the following password"
 msgstr "Læst, aðgengileg með eftirfarandi lykilorði"
 
+msgid "This field is required."
+msgstr "Þennan reit þarf að fylla út."
+
+msgid "Account"
+msgstr "Reikningur"
+
 msgid "Set gravatar"
 msgstr "Setja notandamynd"
 
@@ -104,6 +121,9 @@ msgstr "Sláðu inn nýtt lykilorð"
 msgid "The passwords do not match. Please try again."
 msgstr "Lykilorðin eru ekki þau sömu. Vinsamlegast reynið aftur"
 
+msgid "Check your email"
+msgstr "Athugaðu tölvupósthólfið þitt"
+
 msgid "Password reset"
 msgstr "Endursetja lykilorð"
 
@@ -130,6 +150,12 @@ msgstr "Veldu síðu"
 
 msgid "Add an email link"
 msgstr "Bæta við hlekk á netfang"
+
+msgid "Yes, delete"
+msgstr "Já, eyða"
+
+msgid "Save"
+msgstr "Vista"
 
 msgid "Title"
 msgstr "Titill"

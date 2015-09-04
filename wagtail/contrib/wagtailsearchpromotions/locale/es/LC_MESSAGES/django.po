@@ -12,8 +12,8 @@ msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2015-08-26 14:46+0100\n"
-"PO-Revision-Date: 2015-08-26 14:14+0000\n"
-"Last-Translator: Karl Hobley <karl@torchbox.com>\n"
+"PO-Revision-Date: 2015-08-27 01:32+0000\n"
+"Last-Translator: José Alaguna <alagunajs@gmail.com>\n"
 "Language-Team: Spanish (http://www.transifex.com/torchbox/wagtail/language/"
 "es/)\n"
 "MIME-Version: 1.0\n"
@@ -32,6 +32,12 @@ msgstr "Página"
 
 msgid "Description"
 msgstr "Descripción"
+
+msgid "Search promotion"
+msgstr "Promover búsqueda"
+
+msgid "Add search pick"
+msgstr "Añadir selección de búsqueda"
 
 msgid ""
 "\n"
@@ -147,6 +153,17 @@ msgid "Sorry, no promoted results match \"<em>%(query_string)s</em>\""
 msgstr ""
 "Lo sentimos, resultados promovidos no encontrados \"<em>%(query_string)s</em>"
 "\""
+
+#, python-format
+msgid ""
+"No promoted results have been created. Why not <a href="
+"\"%(wagtailsearchpromotions_add_url)s\">add one</a>?"
+msgstr ""
+"Resultados promovidos no han sido creados. ¿Por que no <a href="
+"\"%(wagtailsearchpromotions_add_url)s\">agregar uno</a>?"
+
+msgid "Search promoted results"
+msgstr "Buscar resultados promovidos"
 
 #, python-brace-format
 msgid "Editor's picks for '{0}' created."

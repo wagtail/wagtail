@@ -16,8 +16,8 @@ msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2015-08-26 14:28+0100\n"
-"PO-Revision-Date: 2015-08-26 13:37+0000\n"
-"Last-Translator: Karl Hobley <karl@torchbox.com>\n"
+"PO-Revision-Date: 2015-08-26 21:40+0000\n"
+"Last-Translator: Eugene MechanisM <contact@mechanism.name>\n"
 "Language-Team: Russian (http://www.transifex.com/torchbox/wagtail/language/"
 "ru/)\n"
 "MIME-Version: 1.0\n"
@@ -268,6 +268,12 @@ msgstr "Вставить ссылку"
 
 msgid "Add an external link"
 msgstr "Добавить внешнюю ссылку"
+
+msgid "Yes, delete"
+msgstr "Да, удалить"
+
+msgid "Save"
+msgstr "Сохранить"
 
 #, python-format
 msgid "Welcome to the %(site_name)s Wagtail CMS"
@@ -641,6 +647,29 @@ msgstr "Выбрать новую родительскую страницу дл
 #, python-format
 msgid "Select a new parent page for <span>%(title)s</span>"
 msgstr "Выбрать новую родительскую страницу для <span>%(title)s</span>"
+
+#, python-format
+msgid ""
+"\n"
+"                There is one matching page\n"
+"            "
+msgid_plural ""
+"\n"
+"                There are %(counter)s matching pages\n"
+"            "
+msgstr[0] ""
+"\n"
+"Имеется одна совпадающая страница"
+msgstr[1] ""
+"\n"
+"Имеется %(counter)s совпадающих страниц"
+msgstr[2] ""
+"\n"
+"Имеется %(counter)s совпадающих страниц"
+msgstr[3] ""
+"\n"
+"                Имеется %(counter)s совпадающих страниц\n"
+"            "
 
 msgid "Other searches"
 msgstr "Другие поиски"

@@ -9,8 +9,8 @@ msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2015-08-26 14:28+0100\n"
-"PO-Revision-Date: 2015-08-26 13:37+0000\n"
-"Last-Translator: Karl Hobley <karl@torchbox.com>\n"
+"PO-Revision-Date: 2015-09-03 19:59+0000\n"
+"Last-Translator: Dan Braghis\n"
 "Language-Team: Romanian (http://www.transifex.com/torchbox/wagtail/language/"
 "ro/)\n"
 "MIME-Version: 1.0\n"
@@ -35,6 +35,10 @@ msgstr "Termen de căutare"
 msgid "Enter password"
 msgstr "Introduceți parola"
 
+#, python-format
+msgid "Enter your %s"
+msgstr "Introduceți %s"
+
 msgid "Enter your email address to reset your password"
 msgstr "Introduceți adresa de e-mail pentru a reseta parola"
 
@@ -53,6 +57,9 @@ msgstr "Adresa e-mail nu este recunoscută."
 
 msgid "New title"
 msgstr "Titlu nou"
+
+msgid "New parent page"
+msgstr "Pagină părinte nouă"
 
 msgid "Copy subpages"
 msgstr "Copiere subpagini"
@@ -165,6 +172,26 @@ msgstr "Link extern"
 msgid "Email link"
 msgstr "Link e-mail"
 
+#, python-format
+msgid ""
+"\n"
+"        There is one match\n"
+"    "
+msgid_plural ""
+"\n"
+"        There are %(counter)s matches\n"
+"    "
+msgstr[0] ""
+"\n"
+"Există o potrivire"
+msgstr[1] ""
+"\n"
+"Sunt %(counter)s potriviri"
+msgstr[2] ""
+"\n"
+"\n"
+"Sunt %(counter)s potriviri"
+
 msgid "Choose"
 msgstr "Alege"
 
@@ -258,6 +285,9 @@ msgstr "Pagina \"%(title)s\" a fost aprobată."
 
 msgid "You can view the page here:"
 msgstr "Puteți vedea pagina aici:"
+
+msgid "Edit your notification preferences here:"
+msgstr "Editează preferințele de notificare aici:"
 
 #, python-format
 msgid "The page \"%(title)s\" has been rejected"

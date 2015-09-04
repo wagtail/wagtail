@@ -9,8 +9,8 @@ msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2015-08-26 14:28+0100\n"
-"PO-Revision-Date: 2015-08-26 13:37+0000\n"
-"Last-Translator: Karl Hobley <karl@torchbox.com>\n"
+"PO-Revision-Date: 2015-08-26 21:49+0000\n"
+"Last-Translator: Eugene MechanisM <contact@mechanism.name>\n"
 "Language-Team: Russian (http://www.transifex.com/torchbox/wagtail/language/"
 "ru/)\n"
 "MIME-Version: 1.0\n"
@@ -104,6 +104,16 @@ msgstr "Адрес отправителя"
 msgid "Subject"
 msgstr "Тема"
 
+#, python-format
+msgid "Delete %(title)s"
+msgstr "Удалить %(title)s"
+
+msgid "Delete"
+msgstr "Удалить"
+
+msgid "Delete it"
+msgstr "Удалить"
+
 msgid "Forms"
 msgstr "Формы"
 
@@ -136,6 +146,9 @@ msgstr "Происхождение"
 
 msgid "Submission Date"
 msgstr "Дата Заполнения"
+
+msgid "Actions"
+msgstr "Действия"
 
 msgid "No form pages have been created."
 msgstr "Страниц с формами не было создано."

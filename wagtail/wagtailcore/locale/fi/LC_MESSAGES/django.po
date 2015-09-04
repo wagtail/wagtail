@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-08-26 14:28+0100\n"
-"PO-Revision-Date: 2015-08-26 13:37+0000\n"
+"POT-Creation-Date: 2015-09-02 20:07+0100\n"
+"PO-Revision-Date: 2015-09-02 19:12+0000\n"
 "Last-Translator: Karl Hobley <karl@torchbox.com>\n"
 "Language-Team: Finnish (http://www.transifex.com/torchbox/wagtail/language/"
 "fi/)\n"
@@ -46,9 +46,6 @@ msgid ""
 msgstr ""
 "Mikäli valittu, tämä sivusto käsittelee kaikkien palvelinnimien kutsut "
 "joilla ei ole omaa sivusto määritystä"
-
-msgid "Site"
-msgstr "Sivusto"
 
 #, python-format
 msgid ""
@@ -166,9 +163,6 @@ msgstr "Sisältö JSON muodossa"
 msgid "Approved go live at"
 msgstr "Julkaisu hyväksytty"
 
-msgid "Page Revision"
-msgstr "Sivun versio"
-
 msgid "Add/edit pages you own"
 msgstr "Lisää/muokkaa sivuja jota omistat"
 
@@ -184,14 +178,8 @@ msgstr "Ryhmä"
 msgid "Permission type"
 msgstr "Oikeudet"
 
-msgid "Group Page Permission"
-msgstr "Ryhmä "
-
 msgid "Password"
 msgstr "Salasana"
-
-msgid "Page View Restriction"
-msgstr "Sivun katselurajoitus"
 
 msgid "Value cannot be entirely whitespace characters"
 msgstr ""

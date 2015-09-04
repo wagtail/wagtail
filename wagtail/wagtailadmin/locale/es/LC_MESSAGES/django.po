@@ -14,8 +14,8 @@ msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2015-08-26 14:28+0100\n"
-"PO-Revision-Date: 2015-08-26 13:37+0000\n"
-"Last-Translator: Karl Hobley <karl@torchbox.com>\n"
+"PO-Revision-Date: 2015-08-27 01:38+0000\n"
+"Last-Translator: José Alaguna <alagunajs@gmail.com>\n"
 "Language-Team: Spanish (http://www.transifex.com/torchbox/wagtail/language/"
 "es/)\n"
 "MIME-Version: 1.0\n"
@@ -244,6 +244,26 @@ msgstr "Seleccionar"
 msgid "Choose a page"
 msgstr "Elige una página"
 
+#, python-format
+msgid ""
+"\n"
+"                Only pages of type \"%(type)s\" may be chosen for this "
+"field. Search results will exclude pages of other types.\n"
+"                "
+msgid_plural ""
+"\n"
+"                Only the following page types may be chosen for this field: "
+"%(type)s. Search results will exclude pages of other types.\n"
+"            "
+msgstr[0] ""
+"\n"
+"Sólo páginas de tipo \"%(type)s\" pueden ser elegidas para este campo. Los "
+"resultados de búsqueda excluirán páginas de tipos distintos."
+msgstr[1] ""
+"\n"
+"Sólo las páginas del siguiente tipo pueden ser elegidas para este campo: "
+"%(type)s. Los resultados de búsqueda excluirán páginas de otros tipos."
+
 msgid "Add an email link"
 msgstr "Añade un enlace de correo electrónico"
 
@@ -252,6 +272,12 @@ msgstr "Inserta un enlace"
 
 msgid "Add an external link"
 msgstr "Añade un enlace externo"
+
+msgid "Yes, delete"
+msgstr "Sí, eliminar"
+
+msgid "Save"
+msgstr "Guardar"
 
 #, python-format
 msgid "Welcome to the %(site_name)s Wagtail CMS"
@@ -558,6 +584,13 @@ msgstr "Llevar"
 msgid "Updated"
 msgstr "Actualizada"
 
+msgid "No pages have been created at this location."
+msgstr "No se han creado páginas en esta ubicación."
+
+#, python-format
+msgid "Why not <a href=\"%(add_page_url)s\">create one</a>?"
+msgstr "Por qué no <a href=\"%(add_page_url)s\">añadir una</a>?"
+
 msgid "This page is locked to further editing"
 msgstr "Esta página se encuentra bloqueada para su edición"
 
@@ -589,6 +622,15 @@ msgstr ""
 msgid "Add child page"
 msgstr "Añadir página hija"
 
+#, python-format
+msgid ""
+"\n"
+"        Page %(page_number)s of %(num_pages)s.\n"
+"    "
+msgstr ""
+"\n"
+"Página %(page_number)s de %(num_pages)s."
+
 msgid "Previous"
 msgstr "Anterior"
 
@@ -614,6 +656,22 @@ msgstr "Selecciona una nueva página padre para %(title)s"
 #, python-format
 msgid "Select a new parent page for <span>%(title)s</span>"
 msgstr "Selecciona una nueva página padre para <span>%(title)s</span>"
+
+#, python-format
+msgid ""
+"\n"
+"                There is one matching page\n"
+"            "
+msgid_plural ""
+"\n"
+"                There are %(counter)s matching pages\n"
+"            "
+msgstr[0] ""
+"\n"
+"Hay una página coincidente"
+msgstr[1] ""
+"\n"
+"Hay %(counter)s páginas coincidentes"
 
 msgid "Other searches"
 msgstr "Otras búsquedas"
@@ -737,6 +795,9 @@ msgstr "Añadir página hija"
 
 msgid "Add"
 msgstr "Agregar"
+
+msgid "Sorry, you do not have permission to access this area."
+msgstr "Lo sentimos, no tienes permisos para acceder a esta área."
 
 msgid "Your password has been changed successfully!"
 msgstr "¡Tu contraseña ha sido cambiada con éxito!"

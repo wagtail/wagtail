@@ -9,8 +9,8 @@ msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2015-08-26 14:28+0100\n"
-"PO-Revision-Date: 2015-08-26 13:37+0000\n"
-"Last-Translator: Karl Hobley <karl@torchbox.com>\n"
+"PO-Revision-Date: 2015-09-03 20:42+0000\n"
+"Last-Translator: Dan Braghis\n"
 "Language-Team: Romanian (http://www.transifex.com/torchbox/wagtail/language/"
 "ro/)\n"
 "MIME-Version: 1.0\n"
@@ -24,12 +24,31 @@ msgid "GIF, JPEG, PNG"
 msgstr "GIF, JPEG, PNG"
 
 #, python-format
+msgid ""
+"Supported formats: %(supported_formats)s. Maximum filesize: "
+"%(max_upload_size)s."
+msgstr ""
+"Formate suportate: %(supported_formats)s. Mărime maximă: %(max_upload_size)s."
+
+#, python-format
+msgid "Supported formats: %(supported_formats)s."
+msgstr "Formate suportate:  %(supported_formats)s."
+
+#, python-format
 msgid "Not a supported image format. Supported formats: %s."
 msgstr "Format de imagine neacceptat. Formate suportate: %s."
 
 #, python-format
 msgid "Not a valid %s image."
 msgstr "Imaginea %s nu este validă."
+
+#, python-format
+msgid "This file is too big (%%s). Maximum filesize %s."
+msgstr "Acest fișier este prea mare (%%s). Mărime maximă: %s."
+
+#, python-format
+msgid "This file is too big. Maximum filesize %s."
+msgstr "Acest fișier este prea mare. Mărime maximă: %s."
 
 msgid "Filter"
 msgstr "Filtrează"
@@ -66,6 +85,12 @@ msgstr "Titlu"
 
 msgid "File"
 msgstr "Fișier"
+
+msgid "Created at"
+msgstr "Creat la"
+
+msgid "Uploaded by user"
+msgstr "Încărcat de utlizator"
 
 msgid "Tags"
 msgstr "Etichete"
@@ -110,6 +135,28 @@ msgstr "Alege un format"
 msgid "Insert image"
 msgstr "Inserează imagine"
 
+#, python-format
+msgid ""
+"\n"
+"        <span>%(total)s</span> Image\n"
+"    "
+msgid_plural ""
+"\n"
+"        <span>%(total)s</span> Images\n"
+"    "
+msgstr[0] ""
+"\n"
+"<span>%(total)s</span> imagine"
+msgstr[1] ""
+"\n"
+"<span>%(total)s</span> imagini"
+msgstr[2] ""
+"\n"
+"<span>%(total)s</span> imagini"
+
+msgid "Change image file:"
+msgstr "Schimbă fișierul imaginii:"
+
 msgid "Add an image"
 msgstr "Adaugă o imagine"
 
@@ -143,6 +190,15 @@ msgstr "Punctul focal curent este afișat"
 
 msgid "URL Generator"
 msgstr "Generator URL"
+
+msgid "Max dimensions"
+msgstr "Dimensiuni maxime"
+
+msgid "Filesize"
+msgstr "Mărime fișier"
+
+msgid "File not found"
+msgstr "Fișierul nu a fost găsit"
 
 msgid "Images"
 msgstr "Imagini"
@@ -213,6 +269,9 @@ msgstr "Caută imagini"
 msgid "Image '{0}' updated."
 msgstr "Imaginea '{0}' a fost actualizată."
 
+msgid "Edit again"
+msgstr "Editează din nou"
+
 msgid "The image could not be saved due to errors."
 msgstr "Imaginea nu a fost salvată din cauza erorilor."
 
@@ -224,8 +283,14 @@ msgstr "Imaginea '{0}' a fost ștearsă."
 msgid "Image '{0}' added."
 msgstr "Imaginea '{0}' a fost adăugată."
 
+msgid "Edit"
+msgstr "Editează"
+
 msgid "The image could not be created due to errors."
 msgstr "Imaginea nu a fost creată din cauza erorilor."
 
 msgid "Choose another image"
 msgstr "Alege altă imagine"
+
+msgid "Edit this image"
+msgstr "Editează această imagine"

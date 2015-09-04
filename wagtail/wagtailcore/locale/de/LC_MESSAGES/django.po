@@ -11,8 +11,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-08-26 14:28+0100\n"
-"PO-Revision-Date: 2015-08-26 13:37+0000\n"
+"POT-Creation-Date: 2015-09-02 20:07+0100\n"
+"PO-Revision-Date: 2015-09-02 19:12+0000\n"
 "Last-Translator: Karl Hobley <karl@torchbox.com>\n"
 "Language-Team: German (http://www.transifex.com/torchbox/wagtail/language/"
 "de/)\n"
@@ -49,9 +49,6 @@ msgid ""
 msgstr ""
 "Falls ausgewählt wird diese Seite Anfragen für alle Hostnamen annehmen, die "
 "keinen eigenen Seiteneintrag haben."
-
-msgid "Site"
-msgstr "Webseite"
 
 #, python-format
 msgid ""
@@ -170,9 +167,6 @@ msgstr "JSON Inhalt"
 msgid "Approved go live at"
 msgstr "Freigegeben zur Veröffentlichung am"
 
-msgid "Page Revision"
-msgstr "Seitenrevision"
-
 msgid "Add/edit pages you own"
 msgstr "Bearbeiten/Hinzufügen von Seiten, die Sie besitzen"
 
@@ -187,9 +181,6 @@ msgstr "Gruppe"
 
 msgid "Permission type"
 msgstr "Berechtigungstyp"
-
-msgid "Group Page Permission"
-msgstr "Gruppen Seitenberechtigungen"
 
 msgid "Password"
 msgstr "Passwort"

@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-08-26 14:28+0100\n"
-"PO-Revision-Date: 2015-08-26 13:37+0000\n"
+"POT-Creation-Date: 2015-09-02 20:07+0100\n"
+"PO-Revision-Date: 2015-09-02 19:12+0000\n"
 "Last-Translator: Karl Hobley <karl@torchbox.com>\n"
 "Language-Team: French (http://www.transifex.com/torchbox/wagtail/language/"
 "fr/)\n"
@@ -49,9 +49,6 @@ msgid ""
 msgstr ""
 "Si oui, ce site gérera toutes les requêtes des autres noms d'hôtes qui n'ont "
 "pas de site défini."
-
-msgid "Site"
-msgstr "Site"
 
 #, python-format
 msgid ""
@@ -171,9 +168,6 @@ msgstr "Contenu JSON"
 msgid "Approved go live at"
 msgstr "Approuvée le"
 
-msgid "Page Revision"
-msgstr "Version de page"
-
 msgid "Add/edit pages you own"
 msgstr "Ajouter/modifier vos pages"
 
@@ -189,14 +183,8 @@ msgstr "Group"
 msgid "Permission type"
 msgstr "Type de permission"
 
-msgid "Group Page Permission"
-msgstr "Permission de page par groupe"
-
 msgid "Password"
 msgstr "Mot de passe"
-
-msgid "Page View Restriction"
-msgstr "Confidentialité de page"
 
 msgid "Value cannot be entirely whitespace characters"
 msgstr "La valeur ne peut pas uniquement être des espaces blancs"

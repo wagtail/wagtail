@@ -3,14 +3,14 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# Dan Braghis, 2014
+# Dan Braghis, 2014-2015
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2015-08-26 14:28+0100\n"
-"PO-Revision-Date: 2015-04-21 08:40+0000\n"
-"Last-Translator: Karl Hobley <karl@torchbox.com>\n"
+"PO-Revision-Date: 2015-09-03 20:36+0000\n"
+"Last-Translator: Dan Braghis\n"
 "Language-Team: Romanian (http://www.transifex.com/torchbox/wagtail/language/"
 "ro/)\n"
 "MIME-Version: 1.0\n"
@@ -26,8 +26,17 @@ msgstr "Titlu"
 msgid "File"
 msgstr "Fișier"
 
+msgid "Created at"
+msgstr "Creat la"
+
+msgid "Uploaded by user"
+msgstr "Încărcat de utlizator"
+
 msgid "Tags"
 msgstr "Etichete"
+
+msgid "Document"
+msgstr "Document"
 
 msgid "Choose a document"
 msgstr "Alege document"
@@ -98,6 +107,12 @@ msgstr "Editare %(title)s"
 msgid "Editing"
 msgstr "Editare"
 
+msgid "Filesize"
+msgstr "Mărime fișier"
+
+msgid "File not found"
+msgstr "Fișierul nu a fost găsit"
+
 msgid "Documents"
 msgstr "Documente"
 
@@ -131,12 +146,35 @@ msgstr "Status"
 msgid "Edit this page"
 msgstr "Editează această pagină"
 
+#, python-format
+msgid ""
+"\n"
+"        <span>%(total)s</span> Document\n"
+"    "
+msgid_plural ""
+"\n"
+"        <span>%(total)s</span> Documents\n"
+"    "
+msgstr[0] ""
+"\n"
+"<span>%(total)s</span> document\n"
+"    "
+msgstr[1] ""
+"\n"
+"<span>%(total)s</span> documente"
+msgstr[2] ""
+"\n"
+"<span>%(total)s</span> documente"
+
 msgid "Search documents"
 msgstr "Caută documente"
 
 #, python-brace-format
 msgid "Document '{0}' added."
 msgstr "Documentul '{0}' a fost adăugat."
+
+msgid "Edit"
+msgstr "Editează"
 
 msgid "The document could not be saved due to errors."
 msgstr "Documentul nu a fost salvat din cauza erorilor."
@@ -145,9 +183,19 @@ msgstr "Documentul nu a fost salvat din cauza erorilor."
 msgid "Document '{0}' updated"
 msgstr "Documentul '{0}' a fost actualizat."
 
+msgid ""
+"The file could not be found. Please change the source or delete the document"
+msgstr "Fișierul nu a fost găsit. Schimbă sursa sau sterge documentul"
+
+msgid "Delete"
+msgstr "Șterge"
+
 #, python-brace-format
 msgid "Document '{0}' deleted."
 msgstr "Documentul '{0}' a fost șters."
 
 msgid "Choose another document"
 msgstr "Alege alt document"
+
+msgid "Edit this document"
+msgstr "Editează acest document"
