@@ -6,7 +6,7 @@ from django.contrib.auth.forms import AuthenticationForm, PasswordResetForm
 from django.utils.translation import ugettext as _
 from django.utils.translation import ungettext, ugettext_lazy
 from wagtail.wagtailadmin.widgets import AdminPageChooser
-from wagtail.wagtailcore.models import Page
+from wagtail.wagtailcore.models import Page, Collection
 
 class URLOrAbsolutePathValidator(validators.URLValidator):
     @staticmethod
@@ -184,3 +184,9 @@ class PageViewRestrictionForm(forms.Form):
             del cleaned_data['password']
 
         return cleaned_data
+
+
+class CollectionForm(forms.ModelForm):
+    class Meta:
+        model = Collection
+        fields = ('name',)
