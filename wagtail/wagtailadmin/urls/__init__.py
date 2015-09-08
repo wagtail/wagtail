@@ -3,6 +3,7 @@ from django.contrib.auth.decorators import permission_required
 from django.views.decorators.cache import cache_control
 
 from wagtail.wagtailadmin.urls import pages as wagtailadmin_pages_urls
+from wagtail.wagtailadmin.urls import collections as wagtailadmin_collections_urls
 from wagtail.wagtailadmin.urls import password_reset as wagtailadmin_password_reset_urls
 from wagtail.wagtailadmin.views import account, chooser, home, pages, tags, userbar
 from wagtail.wagtailcore import hooks
@@ -30,6 +31,8 @@ urlpatterns = [
     url(r'^choose-email-link/$', chooser.email_link, name='wagtailadmin_choose_page_email_link'),
 
     url(r'^tag-autocomplete/$', tags.autocomplete, name='wagtailadmin_tag_autocomplete'),
+
+    url(r'^collections/', include(wagtailadmin_collections_urls, namespace='wagtailadmin_collections')),
 
     url(r'^account/$', account.account, name='wagtailadmin_account'),
     url(r'^account/change_password/$', account.change_password, name='wagtailadmin_account_change_password'),

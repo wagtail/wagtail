@@ -16,7 +16,7 @@ from modelcluster.forms import ClusterForm, ClusterFormMetaclass
 from taggit.managers import TaggableManager
 
 from wagtail.wagtailadmin import widgets
-from wagtail.wagtailcore.models import Page
+from wagtail.wagtailcore.models import Page, Collection
 
 
 class URLOrAbsolutePathValidator(validators.URLValidator):
@@ -311,3 +311,9 @@ class WagtailAdminPageForm(WagtailAdminModelForm):
             self.add_error('expire_at', forms.ValidationError(_('Expiry date/time must be in the future')))
 
         return cleaned_data
+
+
+class CollectionForm(forms.ModelForm):
+    class Meta:
+        model = Collection
+        fields = ('name',)
