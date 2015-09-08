@@ -10,9 +10,16 @@
     <div class="nice-padding">
         <form action="{{ view.get_edit_url }}" method="POST">
             {% csrf_token %}
-        
+
+            {% block hidden_fields %}
+                {% for field in form.hidden_fields %}{{ field }}{% endfor %}
+            {% endblock %}
+
             <ul class="fields">
                 {% block form %}
+                    {% for field in form.visible_fields %}
+                        {% include "wagtailadmin/shared/field_as_li.html" %}
+                    {% endfor %}
                 {% endblock %}
                 
                 <li>
