@@ -35,7 +35,7 @@ from django.utils import six
 from treebeard.mp_tree import MP_Node
 
 from wagtail.wagtailcore.utils import camelcase_to_underscore, resolve_model_string
-from wagtail.wagtailcore.query import PageQuerySet
+from wagtail.wagtailcore.query import PageQuerySet, TreeQuerySet
 from wagtail.wagtailcore.url_routing import RouteResult
 from wagtail.wagtailcore.signals import page_published, page_unpublished
 
@@ -1703,3 +1703,42 @@ class PageViewRestriction(models.Model):
     class Meta:
         verbose_name = _('page view restriction')
         verbose_name_plural = _('page view restrictions')
+
+
+class BaseCollectionManager(models.Manager):
+    def get_queryset(self):
+        return TreeQuerySet(self.model).order_by('path')
+
+CollectionManager = BaseCollectionManager.from_queryset(TreeQuerySet)
+
+
+@python_2_unicode_compatible
+class Collection(MP_Node):
+    """
+    A location in which resources such as images and documents can be grouped
+    """
+    name = models.CharField(max_length=255, verbose_name=_('name'))
+
+    objects = CollectionManager()
+
+    def __str__(self):
+        return self.name
+
+    def get_ancestors(self, inclusive=False):
+        return Collection.objects.ancestor_of(self, inclusive)
+
+    def get_descendants(self, inclusive=False):
+        return Collection.objects.descendant_of(self, inclusive)
+
+    def get_siblings(self, inclusive=True):
+        return Collection.objects.sibling_of(self, inclusive)
+
+    def get_next_siblings(self, inclusive=False):
+        return self.get_siblings(inclusive).filter(path__gte=self.path).order_by('path')
+
+    def get_prev_siblings(self, inclusive=False):
+        return self.get_siblings(inclusive).filter(path__lte=self.path).order_by('-path')
+
+    class Meta:
+        verbose_name = _('collection')
+        verbose_name_plural = _('collections')
