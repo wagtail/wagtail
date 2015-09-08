@@ -1482,3 +1482,18 @@ class PageViewRestriction(models.Model):
     class Meta:
         verbose_name = _('page view restriction')
         verbose_name_plural = _('page view restrictions')
+
+
+@python_2_unicode_compatible
+class Collection(MP_Node):
+    """
+    A location in which resources such as images and documents can be grouped
+    """
+    name = models.CharField(max_length=255, verbose_name=_('Name'))
+
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        verbose_name = _('collection')
+        verbose_name_plural = _('collections')
