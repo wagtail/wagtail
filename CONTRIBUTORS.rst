@@ -45,6 +45,7 @@ Contributors
 * signalkraft
 * Mac Chapman
 * Nar Chhantyal
+* Scot Hacker
 
 Translators
 ===========
