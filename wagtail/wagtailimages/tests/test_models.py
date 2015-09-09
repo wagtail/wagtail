@@ -164,6 +164,28 @@ class TestRenditions(TestCase):
         self.assertEqual(first_rendition, second_rendition)
 
 
+class TestSinglePixelRenditions(TestCase):
+    def setUp(self):
+        # Create an image for running tests on
+        self.image = Image.objects.create(
+            title="Test image",
+            file=get_test_image_file(width=1, height=1),
+        )
+
+    def test_resize(self):
+        rendition = self.image.get_rendition('fill-100x100')
+        self.assertEqual(rendition.width, 1)
+        self.assertEqual(rendition.height, 1)
+
+        rendition = self.image.get_rendition('fill-100x150')
+        self.assertEqual(rendition.width, 1)
+        self.assertEqual(rendition.height, 1)
+
+        rendition = self.image.get_rendition('fill-150x100')
+        self.assertEqual(rendition.width, 1)
+        self.assertEqual(rendition.height, 1)
+
+
 class TestRenditionsWand(TestCase):
     def setUp(self):
         try:

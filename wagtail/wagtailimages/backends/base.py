@@ -1,5 +1,7 @@
 from __future__ import division
 
+import math
+
 from django.conf import settings
 
 from wagtail.wagtailimages.rect import Rect
@@ -242,7 +244,9 @@ class BaseImageBackend(object):
             bottom = im_height
 
         # Crop!
-        return self.resize_to_min(self.crop(image, Rect(left, top, right, bottom)), size)
+        return self.resize_to_min(self.crop(image,
+            Rect(math.floor(left), math.floor(top), math.ceil(right), math.ceil(bottom))
+        ), size)
 
     def no_operation(self, image, param, focal_point=None):
         """Return the image unchanged"""
