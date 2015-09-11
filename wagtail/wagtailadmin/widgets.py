@@ -119,15 +119,25 @@ class AdminPageChooser(AdminChooser):
 
     def __init__(self, content_type=None, **kwargs):
         super(AdminPageChooser, self).__init__(**kwargs)
+        self._target_content_types = content_type
 
-        self.target_content_types = content_type or ContentType.objects.get_for_model(Page)
-        # Make sure target_content_types is a list or tuple
-        if not isinstance(self.target_content_types, (list, tuple)):
-            self.target_content_types = [self.target_content_types]
+        # Make sure _target_content_types is a list or tuple
+        if not isinstance(self._target_content_types, (list, tuple)):
+            self._target_content_types = [self._target_content_types]
+
+    def get_target_content_types(self):
+        """
+        Returns a list of ContentTypes that are available in the chooser.
+        """
+        # Note: This method cannot be merged into __init__ or a database
+        # lookup may be performed before the app is ready. See #1673
+        return self._target_content_types or [ContentType.objects.get_for_model(Page)]
 
     def render_html(self, name, value, attrs):
-        if len(self.target_content_types) == 1:
-            model_class = self.target_content_types[0].model_class()
+        target_content_types = self.get_target_content_types()
+
+        if len(target_content_types) == 1:
+            model_class = target_content_types[0].model_class()
         else:
             model_class = Page
 
@@ -147,9 +157,11 @@ class AdminPageChooser(AdminChooser):
         if isinstance(value, Page):
             page = value
         else:
+            target_content_types = self.get_target_content_types()
+
             # Value is an ID look up object
-            if len(self.target_content_types) == 1:
-                model_class = self.target_content_types[0].model_class()
+            if len(target_content_types) == 1:
+                model_class = target_content_types[0].model_class()
             else:
                 model_class = Page
 
