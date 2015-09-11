@@ -5,6 +5,7 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.utils.encoding import python_2_unicode_compatible
 
 from taggit.models import TaggedItemBase
+from taggit.managers import TaggableManager
 
 from modelcluster.fields import ParentalKey
 from modelcluster.contrib.taggit import ClusterTaggableManager
@@ -216,6 +217,13 @@ EventPage.promote_panels = [
 ]
 
 
+# Just to be able to test multi table inheritance
+class SingleEventPage(EventPage):
+    excerpt = models.TextField(max_length=255, blank=True, null=True, help_text="Short text to describe what is this action about")
+
+SingleEventPage.content_panels = [FieldPanel('excerpt')] + EventPage.content_panels
+
+
 # Event index (has a separate AJAX template, and a custom template context)
 class EventIndex(Page):
     intro = RichTextField(blank=True)
@@ -281,8 +289,12 @@ EventIndex.content_panels = [
 class FormField(AbstractFormField):
     page = ParentalKey('FormPage', related_name='form_fields')
 
+
 class FormPage(AbstractEmailForm):
-    pass
+    def get_context(self, request):
+        context = super(FormPage, self).get_context(request)
+        context['greeting'] = "hello world"
+        return context
 
 FormPage.content_panels = [
     FieldPanel('title', classname="full title"),
@@ -302,14 +314,22 @@ class AdvertPlacement(models.Model):
     advert = models.ForeignKey('tests.Advert', related_name='+')
     colour = models.CharField(max_length=255)
 
+
+class AdvertTag(TaggedItemBase):
+    content_object = ParentalKey('Advert', related_name='tagged_items')
+
+
 @python_2_unicode_compatible
 class Advert(models.Model):
     url = models.URLField(null=True, blank=True)
     text = models.CharField(max_length=255)
 
+    tags = TaggableManager(through=AdvertTag, blank=True)
+
     panels = [
         FieldPanel('url'),
         FieldPanel('text'),
+        FieldPanel('tags'),
     ]
 
     def __str__(self):
@@ -420,3 +440,17 @@ class StreamPage(Page):
     ])
 
     api_fields = ('body',)
+
+
+class MTIBasePage(Page):
+    is_creatable = False
+
+
+class MTIChildPage(MTIBasePage):
+    # Should be creatable by default, no need to set anything
+    pass
+
+
+class AbstractPage(Page):
+    class Meta:
+        abstract = True

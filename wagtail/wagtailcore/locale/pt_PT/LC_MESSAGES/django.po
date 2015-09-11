@@ -9,10 +9,10 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-04-21 09:38+0100\n"
-"PO-Revision-Date: 2015-04-29 17:35+0000\n"
-"Last-Translator: Tiago Henriques <trinosauro@gmail.com>\n"
-"Language-Team: Portuguese (Portugal) (http://www.transifex.com/projects/p/"
+"POT-Creation-Date: 2015-09-02 20:07+0100\n"
+"PO-Revision-Date: 2015-09-02 19:12+0000\n"
+"Last-Translator: Karl Hobley <karl@torchbox.com>\n"
+"Language-Team: Portuguese (Portugal) (http://www.transifex.com/torchbox/"
 "wagtail/language/pt_PT/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -48,9 +48,6 @@ msgid ""
 msgstr ""
 "Se verdadeiro, este site irá processar pedidos de todos os outros nomes de "
 "servidor que não tenham um site próprio"
-
-msgid "Site"
-msgstr "Site"
 
 #, python-format
 msgid ""
@@ -170,14 +167,8 @@ msgstr "Conteúdo JSON"
 msgid "Approved go live at"
 msgstr "Aprovado para publicação a"
 
-msgid "Page Revision"
-msgstr "Versão da Página"
-
 msgid "Add/edit pages you own"
 msgstr "Crie/altere as suas páginas"
-
-msgid "Add/edit any page"
-msgstr "Crie/altere qualquer página"
 
 msgid "Publish any page"
 msgstr "Publicar qualquer página"
@@ -191,14 +182,8 @@ msgstr "Grupo"
 msgid "Permission type"
 msgstr "Tipo de permissão"
 
-msgid "Group Page Permission"
-msgstr "Permissão de Página de Grupo"
-
 msgid "Password"
 msgstr "Senha"
-
-msgid "Page View Restriction"
-msgstr "Restrição de Visualização de Página"
 
 msgid "Value cannot be entirely whitespace characters"
 msgstr "O valor não pode conter apenas espaços em branco"

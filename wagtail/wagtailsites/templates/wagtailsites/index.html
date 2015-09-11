@@ -1,15 +1,7 @@
-{% extends "wagtailadmin/base.html" %}
+{% extends "wagtailadmin/generic/index.html" %}
 {% load i18n %}
-{% block titletag %}{% trans "Sites" %}{% endblock %}
-{% block content %}
-    {% trans "Sites" as sites_str %}
-    {% if perms.wagtailcore.add_site %}
-        {% trans "Add a site" as add_a_site_str %}
-        {% include "wagtailadmin/shared/header.html" with title=sites_str add_link="wagtailsites:add" add_text=add_a_site_str icon="site" %}
-    {% else %}
-        {% include "wagtailadmin/shared/header.html" with title=sites_str icon="site" %}
-    {% endif %}
 
+{% block listing %}
     <div class="nice-padding">
         <div id="sites-list">
             <table class="listing">

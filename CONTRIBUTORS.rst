@@ -58,6 +58,12 @@ Contributors
 * Mitchel Cabuloy
 * Piet Delport
 * Tom Christie
+* Michael van Tellingen
+* Scot Hacker
+* Kyungil Choi
+* Joss Ingram
+* Christoph Lipp
+
 
 Translators
 ===========
@@ -77,9 +83,11 @@ Translators
 * German: Karl Sander, Johannes Spielmann, m0rph3u5, pcraston, Tammo van Lessen
 * Greek: Serafeim Papastefanos, Jim Dal
 * Hebrew (Israel): bjesus, Lior Abazon
+* Icelandic: Arnar Tumi Þorsteinsson, saevarom
 * Italian: Andrea Tagliazucchi, Claudio Bantaloukas, Alessio Di Stasio, Giacomo Ghizzani
 * Japanese: Daigo Shitara, Toshikazu Michisu
 * Mongolian: Delgermurun Purevkhuu, miiiga
+* Norwegian Bokmål: Eirik Krogstad
 * Polish: Łukasz Bołdys
 * Portuguese (Brazil): Gilson Filho, Douglas Miranda, Thiago Cangussu, João Luiz Lorencetti, Gladson Brito, Marcelo J. Both
 * Portuguese (Portugal): Jose Lourenco, Tiago Henriques

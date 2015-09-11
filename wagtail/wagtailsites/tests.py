@@ -238,7 +238,7 @@ class TestSiteDeleteView(TestCase, WagtailTestUtils):
     def test_simple(self):
         response = self.get()
         self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, 'wagtailsites/confirm_delete.html')
+        self.assertTemplateUsed(response, 'wagtailadmin/generic/confirm_delete.html')
 
     def test_nonexistant_redirect(self):
         self.assertEqual(self.get(site_id=100000).status_code, 404)
@@ -319,7 +319,7 @@ class TestLimitedPermissions(TestCase, WagtailTestUtils):
         delete_url = reverse('wagtailsites:delete', args=(self.localhost.id,))
         response = self.client.get(delete_url)
         self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, 'wagtailsites/confirm_delete.html')
+        self.assertTemplateUsed(response, 'wagtailadmin/generic/confirm_delete.html')
 
     def test_delete(self):
         delete_url = reverse('wagtailsites:delete', args=(self.localhost.id,))

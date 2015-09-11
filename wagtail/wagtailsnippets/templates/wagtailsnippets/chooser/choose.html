@@ -3,11 +3,20 @@
 {% include "wagtailadmin/shared/header.html" with title=choose_str subtitle=snippet_type_name icon="snippet" %}
 
 <div class="nice-padding">
-    {% if items %}
-    	{% include "wagtailsnippets/chooser/list.html" with choosing=1 %}
-    {% else %}
-    	{% url 'wagtailsnippets:add' content_type.app_label content_type.model as wagtailsnippets_create_snippet_url %}
-    	<p>{% blocktrans %}You haven't created any {{ snippet_type_name }} snippets. Why not <a href="{{ wagtailsnippets_create_snippet_url }}" target="_blank">create one now{% endblocktrans %}</p>
-    {% endif %}
+    {# Need to keep the form in the HTML, even if the snippet is not searchable #}
+    {# This is to allow pagination links to be generated from the form action URL #}
+    <form class="snippet-search search-bar" action="{% url 'wagtailsnippets:choose' content_type.app_label content_type.model %}" method="GET">
+        {% if is_searchable %}
+            <ul class="fields">
+                {% for field in search_form %}
+                    {% include "wagtailadmin/shared/field_as_li.html" with field=field %}
+                {% endfor %}
+                <li class="submit"><input type="submit" value="{% trans 'Search' %}" /></li>
+            </ul>
+        {% endif %}
+    </form>
 
+    <div id="search-results" class="listing snippets">
+        {% include "wagtailsnippets/chooser/results.html" with choosing=1 %}
+    </div>
 </div>

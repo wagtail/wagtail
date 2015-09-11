@@ -2,9 +2,11 @@ from __future__ import unicode_literals
 
 import logging
 import json
+import warnings
 
+from collections import defaultdict
 from modelcluster.models import ClusterableModel, get_all_child_relations
-
+import django
 from django.db import models, connection, transaction
 from django.db.models import Q
 from django.db.models.signals import post_save, pre_delete, post_delete
@@ -40,8 +42,12 @@ from wagtail.wagtailcore.signals import page_published, page_unpublished
 from wagtail.wagtailsearch import index
 from wagtail.wagtailsearch.backends import get_search_backend
 
+from wagtail.utils.deprecation import RemovedInWagtail13Warning
+
 
 logger = logging.getLogger('wagtail.core')
+
+PAGE_TEMPLATE_VAR = 'page'
 
 
 class SiteManager(models.Manager):
@@ -58,7 +64,8 @@ class Site(models.Model):
 
     class Meta:
         unique_together = ('hostname', 'port')
-        verbose_name = _('Site')
+        verbose_name = _('site')
+        verbose_name_plural = _('sites')
 
     def natural_key(self):
         return (self.hostname, self.port)
@@ -258,11 +265,18 @@ class PageBase(models.base.ModelBase):
         cls._clean_subpage_types = None  # to be filled in on first call to cls.clean_subpage_types
         cls._clean_parent_page_types = None  # to be filled in on first call to cls.clean_parent_page_types
 
-        if not dct.get('is_abstract'):
-            # subclasses are only abstract if the subclass itself defines itself so
-            cls.is_abstract = False
+        # All pages should be creatable unless explicitly set otherwise.
+        # This attribute is not inheritable.
+        if 'is_creatable' not in dct:
+            if 'is_abstract' in dct:
+                warnings.warn(
+                    "The is_abstract flag is deprecated - use is_creatable instead.",
+                    RemovedInWagtail13Warning)
+                cls.is_creatable = not dct['is_abstract']
+            else:
+                cls.is_creatable = not cls._meta.abstract
 
-        if not cls.is_abstract:
+        if cls.is_creatable:
             # register this type in the list of page content types
             PAGE_MODEL_CLASSES.append(cls)
 
@@ -301,7 +315,11 @@ class Page(six.with_metaclass(PageBase, MP_Node, ClusterableModel, index.Indexed
         index.FilterField('path'),
         index.FilterField('depth'),
         index.FilterField('locked'),
+        index.FilterField('show_in_menus'),
     )
+
+    # Do not allow plain Page instances to be created through the Wagtail admin
+    is_creatable = False
 
     def __init__(self, *args, **kwargs):
         super(Page, self).__init__(*args, **kwargs)
@@ -313,8 +331,6 @@ class Page(six.with_metaclass(PageBase, MP_Node, ClusterableModel, index.Indexed
 
     def __str__(self):
         return self.title
-
-    is_abstract = True  # don't offer Page in the list of page types a superuser can create
 
     def set_url_path(self, parent):
         """
@@ -546,6 +562,7 @@ class Page(six.with_metaclass(PageBase, MP_Node, ClusterableModel, index.Indexed
 
     def get_context(self, request, *args, **kwargs):
         return {
+            PAGE_TEMPLATE_VAR: self,
             'self': self,
             'request': request,
         }
@@ -589,7 +606,7 @@ class Page(six.with_metaclass(PageBase, MP_Node, ClusterableModel, index.Indexed
         Return None if the page is not routable.
         """
         root_paths = Site.get_site_root_paths()
-        for (id, root_path, root_url) in Site.get_site_root_paths():
+        for (id, root_path, root_url) in root_paths:
             if self.url_path.startswith(root_path):
                 return ('' if len(root_paths) == 1 else root_url) + reverse('wagtail_serve', args=(self.url_path[len(root_path):],))
 
@@ -763,13 +780,34 @@ class Page(six.with_metaclass(PageBase, MP_Node, ClusterableModel, index.Indexed
         logger.info("Page moved: \"%s\" id=%d path=%s", self.title, self.id, new_url_path)
 
     def copy(self, recursive=False, to=None, update_attrs=None, copy_revisions=True, keep_live=True, user=None):
-        # Make a copy
-        page_copy = Page.objects.get(id=self.id).specific
-        page_copy.pk = None
-        page_copy.id = None
-        page_copy.depth = None
-        page_copy.numchild = 0
-        page_copy.path = None
+        # Fill dict with self.specific values
+        exclude_fields = ['id', 'path', 'depth', 'numchild', 'url_path', 'path']
+        specific_self = self.specific
+        specific_dict = {}
+
+        if django.VERSION >= (1, 8):
+            for field in specific_self._meta.get_fields():
+                # Ignore explicitly excluded fields
+                if field.name in exclude_fields:
+                    continue
+
+                # Ignore reverse relations
+                if field.auto_created:
+                    continue
+
+                # Ignore parent links (page_ptr)
+                if isinstance(field, models.OneToOneField) and field.parent_link:
+                    continue
+
+                specific_dict[field.name] = getattr(specific_self, field.name)
+        else:
+            # Django 1.7
+            for field in specific_self._meta.fields:
+                if field.name not in exclude_fields and not (field.rel is not None and field.rel.parent_link):
+                    specific_dict[field.name] = getattr(specific_self, field.name)
+
+        # New instance from prepared dict values, in case the instance class implements multiple levels inheritance
+        page_copy = self.specific_class(**specific_dict)
 
         if not keep_live:
             page_copy.live = False
@@ -787,17 +825,26 @@ class Page(six.with_metaclass(PageBase, MP_Node, ClusterableModel, index.Indexed
         else:
             page_copy = self.add_sibling(instance=page_copy)
 
+        # A dict that maps child objects to their new ids
+        # Used to remap child object ids in revisions
+        child_object_id_map = defaultdict(dict)
+
         # Copy child objects
         specific_self = self.specific
         for child_relation in get_all_child_relations(specific_self):
+            accessor_name = child_relation.get_accessor_name()
             parental_key_name = child_relation.field.attname
-            child_objects = getattr(specific_self, child_relation.get_accessor_name(), None)
+            child_objects = getattr(specific_self, accessor_name, None)
 
             if child_objects:
                 for child_object in child_objects.all():
+                    old_pk = child_object.pk
                     child_object.pk = None
                     setattr(child_object, parental_key_name, page_copy.id)
                     child_object.save()
+
+                    # Add mapping to new primary key (so we can apply this change to revisions)
+                    child_object_id_map[accessor_name][old_pk] = child_object.pk
 
         # Copy revisions
         if copy_revisions:
@@ -812,8 +859,9 @@ class Page(six.with_metaclass(PageBase, MP_Node, ClusterableModel, index.Indexed
                 revision_content['pk'] = page_copy.pk
 
                 for child_relation in get_all_child_relations(specific_self):
+                    accessor_name = child_relation.get_accessor_name()
                     try:
-                        child_objects = revision_content[child_relation.get_accessor_name()]
+                        child_objects = revision_content[accessor_name]
                     except KeyError:
                         # KeyErrors are possible if the revision was created
                         # before this child relation was added to the database
@@ -821,6 +869,11 @@ class Page(six.with_metaclass(PageBase, MP_Node, ClusterableModel, index.Indexed
 
                     for child_object in child_objects:
                         child_object[child_relation.field.name] = page_copy.pk
+
+                        # Remap primary key to copied versions
+                        # If the primary key is not recognised (eg, the child object has been deleted from the database)
+                        # set the primary key to None
+                        child_object['pk'] = child_object_id_map[accessor_name].get(child_object['pk'], None)
 
                 revision.content_json = json.dumps(revision_content)
 
@@ -1002,6 +1055,10 @@ class Page(six.with_metaclass(PageBase, MP_Node, ClusterableModel, index.Indexed
         context['action_url'] = action_url
         return TemplateResponse(request, self.password_required_template, context)
 
+    class Meta:
+        verbose_name = _('page')
+        verbose_name_plural = _('pages')
+
 
 def get_navigation_menu_items():
     # Get all pages that appear in the navigation menu: ones which have children,
@@ -1074,7 +1131,7 @@ class SubmittedRevisionsManager(models.Manager):
 @python_2_unicode_compatible
 class PageRevision(models.Model):
     page = models.ForeignKey('Page', verbose_name=_('Page'), related_name='revisions')
-    submitted_for_moderation = models.BooleanField(verbose_name=_('Submitted for moderation'), default=False)
+    submitted_for_moderation = models.BooleanField(verbose_name=_('Submitted for moderation'), default=False, db_index=True)
     created_at = models.DateTimeField(verbose_name=_('Created at'))
     user = models.ForeignKey(settings.AUTH_USER_MODEL, verbose_name=_('User'), null=True, blank=True)
     content_json = models.TextField(verbose_name=_('Content JSON'))
@@ -1177,12 +1234,13 @@ class PageRevision(models.Model):
         return '"' + six.text_type(self.page) + '" at ' + six.text_type(self.created_at)
 
     class Meta:
-        verbose_name = _('Page Revision')
+        verbose_name = _('page revision')
+        verbose_name_plural = _('page revisions')
 
 
 PAGE_PERMISSION_TYPE_CHOICES = [
     ('add', _('Add/edit pages you own')),
-    ('edit', _('Add/edit any page')),
+    ('edit', _('Edit any page')),
     ('publish', _('Publish any page')),
     ('lock', _('Lock/unlock any page')),
 ]
@@ -1195,7 +1253,8 @@ class GroupPagePermission(models.Model):
 
     class Meta:
         unique_together = ('group', 'page', 'permission_type')
-        verbose_name = _('Group Page Permission')
+        verbose_name = _('group page permission')
+        verbose_name_plural = _('group page permissions')
 
 
 class UserPagePermissionsProxy(object):
@@ -1421,4 +1480,5 @@ class PageViewRestriction(models.Model):
     password = models.CharField(verbose_name=_('Password'), max_length=255)
 
     class Meta:
-        verbose_name = _('Page View Restriction')
+        verbose_name = _('page view restriction')
+        verbose_name_plural = _('page view restrictions')

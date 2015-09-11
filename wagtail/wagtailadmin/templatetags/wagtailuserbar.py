@@ -1,7 +1,7 @@
 from django import template
 from django.template.loader import render_to_string
 
-from wagtail.wagtailcore.models import Page
+from wagtail.wagtailcore.models import Page, PAGE_TEMPLATE_VAR
 
 
 register = template.Library()
@@ -16,10 +16,13 @@ def wagtailuserbar(context):
     if not request.user.has_perm('wagtailadmin.access_admin'):
         return ''
 
-    # Only render if the context contains a 'self' variable referencing a saved page
-    if 'self' in context and isinstance(context['self'], Page) and context['self'].id is not None:
-        pass
-    else:
+    # Only render if the context contains a 'PAGE_TEMPLATE_VAR' variable
+    # referencing a saved page
+    if PAGE_TEMPLATE_VAR not in context:
+        return ''
+
+    page = context[PAGE_TEMPLATE_VAR]
+    if not isinstance(page, Page) or page.id is None:
         return ''
 
     try:
@@ -30,6 +33,6 @@ def wagtailuserbar(context):
     # Render the frame to contain the userbar items
     return render_to_string('wagtailadmin/userbar/frame.html', {
         'request': request,
-        'page': context,
+        'page': page,
         'revision_id': revision_id
     })

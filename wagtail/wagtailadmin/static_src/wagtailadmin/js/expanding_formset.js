@@ -8,6 +8,12 @@ function buildExpandingFormset(prefix, opts) {
     var totalFormsInput = $('#' + prefix + '-TOTAL_FORMS');
     var formCount = parseInt(totalFormsInput.val(), 10);
 
+    if (opts.onInit) {
+        for (var i = 0; i < formCount; i++) {
+            opts.onInit(i);
+        }
+    }
+
     var emptyFormTemplate = document.getElementById(prefix + '-EMPTY_FORM_TEMPLATE');
     if (emptyFormTemplate.innerText) {
         emptyFormTemplate = emptyFormTemplate.innerText;
@@ -20,9 +26,8 @@ function buildExpandingFormset(prefix, opts) {
             .replace(/__prefix__/g, formCount)
             .replace(/<-(-*)\/script>/g, '<$1/script>');
         formContainer.append(newFormHtml);
-        if (opts.onAdd) {
-            opts.onAdd(formCount);
-        }
+        if (opts.onAdd) opts.onAdd(formCount);
+        if (opts.onInit) opts.onInit(formCount);
 
         formCount++;
         totalFormsInput.val(formCount);

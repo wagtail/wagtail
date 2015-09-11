@@ -8,6 +8,8 @@ li.sequence-member{
 
     &:hover{
         background-color:$color-input-focus;
+        border:1px solid darken($color-input-focus, 10%);
+        border-width:1px 0;
 
         .sequence-member-inner{
             > .struct-block > label,
@@ -44,6 +46,10 @@ li.sequence-member{
         @include clearfix;
         position:relative;
         padding:1.5em 50px;
+
+        .sequence-member:hover{
+            border:0;
+        }
 
         /* sequences within sequences, such as a ListBlock within StructBlock*/
         > .sequence .sequence-inner{
@@ -124,25 +130,29 @@ should be borderless and full-width
 
 /* Controls for ordering and deletion of items in a sequence */
 .sequence-controls{
-    @include border-radius(5px);
+    @include border-radius(2px 0 0 0);
     @include transition(opacity 0.2s ease);
+    border:1px solid darken($color-input-focus, 10%);
+    border-width:1px 1px 0 1px;
     opacity:0;
     visibility:hidden;
     position:absolute;
-    top:-1.5em; right:1em;
+    top:-30px; right:0;
     z-index:1;
     overflow:visible;
     background-color:$color-input-focus;
-    padding:0.2rem 1em;
+    padding:0 0 0 1em;
+    height:30px;
 
     h3{
         margin:0;
         font-size:0.7rem;
         display:inline-block;
         margin-right:1em;
-        line-height:1.4rem;
+        line-height:1.8rem;
 
         label{
+            color: $color-teal;
             font-weight:normal;
             text-transform:uppercase;
             float:none;
@@ -153,9 +163,8 @@ should be borderless and full-width
     }
 
     button.icon.text-replace{
-        @include border-radius(50%);
-        width:1.4rem;
-        height:1.4rem;
+        width:1.8rem;
+        height:1.8rem;
 
         &:before{
             line-height:1.3em;
@@ -164,16 +173,9 @@ should be borderless and full-width
     }
 
     /* .buttons only exists for menus in stream_member.html */
-    .buttons{
-        display:inline-block; 
+    .button-group{
+        float:right;
     }
-
-    .buttons,
-    label{
-        @include transition(opacity 0.2s ease);
-        opacity:0.4;
-    }
-
         &:hover .buttons,
         &:hover label{
             opacity:1;
@@ -186,7 +188,13 @@ should be borderless and full-width
 
 /* list controls are slightly different as they require closer proximity to their associated fields */
 .list-controls{
-    top:1.5em
+    @include border-radius(0);
+    background:transparent;
+    top:1.5em;
+    border:0;
+    padding:0;
+    overflow:hidden;
+    height:auto;
 }
 
 .sequence-type-list .object-help{

@@ -4,7 +4,6 @@ from django.core import urlresolvers
 from django.utils.html import format_html, format_html_join
 from django.utils.translation import ugettext_lazy as _
 from django.contrib.auth.models import Permission
-from django.contrib.contenttypes.models import ContentType
 
 from wagtail.wagtailcore import hooks
 from wagtail.wagtailadmin.menu import MenuItem
@@ -24,7 +23,8 @@ def register_admin_urls():
 
 class ImagesMenuItem(MenuItem):
     def is_shown(self, request):
-        return request.user.has_perm('wagtailimages.add_image')
+        return request.user.has_perm('wagtailimages.add_image') or request.user.has_perm('wagtailimages.change_image')
+
 
 @hooks.register('register_admin_menu_item')
 def register_images_menu_item():
@@ -53,9 +53,8 @@ def editor_js():
 
 @hooks.register('register_permissions')
 def register_permissions():
-    image_content_type = ContentType.objects.get(app_label='wagtailimages', model='image')
-    image_permissions = Permission.objects.filter(content_type=image_content_type)
-    return image_permissions
+    return Permission.objects.filter(content_type__app_label='wagtailimages',
+        codename__in=['add_image', 'change_image'])
 
 
 @hooks.register('register_image_operations')
@@ -83,6 +82,7 @@ class ImagesSummaryItem(SummaryItem):
         return {
             'total_images': get_image_model().objects.count(),
         }
+
 
 @hooks.register('construct_homepage_summary_items')
 def add_images_summary_item(request, items):

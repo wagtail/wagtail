@@ -143,7 +143,7 @@ FieldRowPanel
 PageChooserPanel
 ----------------
 
-.. class:: PageChooserPanel(field_name, model=None)
+.. class:: PageChooserPanel(field_name, page_type=None)
 
     You can explicitly link :class:`~wagtail.wagtailcore.models.Page`-derived models together using the :class:`~wagtail.wagtailcore.models.Page` model and ``PageChooserPanel``.
 
@@ -166,7 +166,9 @@ PageChooserPanel
                 PageChooserPanel('related_page', 'demo.PublisherPage'),
             ]
 
-    ``PageChooserPanel`` takes two arguments: a field name and an optional page type. Specifying a page type (in the form of an ``"appname.modelname"`` string) will filter the chooser to display only pages of that type.
+    ``PageChooserPanel`` takes two arguments: a field name and an optional page type. Specifying a page type (in the form of an ``"appname.modelname"`` string) will filter the chooser to display only pages of that type. A list or tuple of page types can also be passed in, to allow choosing a page that matches any of those page types::
+
+        PageChooserPanel('related_page', ['demo.PublisherPage', 'demo.AuthorPage'])
 
 ImageChooserPanel
 -----------------
@@ -231,9 +233,13 @@ DocumentChooserPanel
 SnippetChooserPanel
 -------------------
 
-.. class:: wagtail.wagtailsnippets.edit_handlers.SnippetChooserPanel(field_name, model)
+.. versionchanged:: 1.1
 
-    Snippets are vanilla Django models you create yourself without a Wagtail-provided base class. So using them as a field in a page requires specifying your own ``appname.modelname``. A chooser, ``SnippetChooserPanel``, is provided which takes the field name and snippet class.
+    Before Wagtail 1.1, it was necessary to pass the snippet model class as a second parameter to ``SnippetChooserPanel``. This is now automatically picked up from the field.
+
+.. class:: wagtail.wagtailsnippets.edit_handlers.SnippetChooserPanel(field_name, snippet_type=None)
+
+    Snippets are vanilla Django models you create yourself without a Wagtail-provided base class. A chooser, ``SnippetChooserPanel``, is provided which takes the field name as an argument.
 
     .. code-block:: python
 
@@ -249,7 +255,7 @@ SnippetChooserPanel
           )
 
           content_panels = Page.content_panels + [
-              SnippetChooserPanel('advert', Advert),
+              SnippetChooserPanel('advert'),
           ]
 
     See :ref:`snippets` for more information.

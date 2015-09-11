@@ -586,7 +586,7 @@ class TestPageDetail(TestCase):
         self.assertEqual(content['date'], '2013-12-02')
 
         # Check that the tags were serialised properly
-        self.assertEqual(content['tags'], ['wagtail', 'bird'])
+        self.assertEqual(content['tags'], ['bird', 'wagtail'])
 
         # Check that the feed image was serialised properly
         self.assertIsInstance(content['feed_image'], dict)

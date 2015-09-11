@@ -7,10 +7,10 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-04-21 09:39+0100\n"
+"POT-Creation-Date: 2015-08-26 14:28+0100\n"
 "PO-Revision-Date: 2015-04-21 08:40+0000\n"
 "Last-Translator: Karl Hobley <karl@torchbox.com>\n"
-"Language-Team: Chinese (http://www.transifex.com/projects/p/wagtail/language/"
+"Language-Team: Chinese (http://www.transifex.com/torchbox/wagtail/language/"
 "zh/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -18,11 +18,29 @@ msgstr ""
 "Language: zh\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
+msgid "Required. 30 characters or fewer. Letters, digits and @/./+/-/_ only."
+msgstr "必填，30个字符以内。仅字母，数字，数字和 @/./+/-/_"
+
+msgid "This value may contain only letters, numbers and @/./+/-/_ characters."
+msgstr "这个值只能含有字母，数字，数字和 @/./+/-/_"
+
 msgid "Administrator"
 msgstr "管理员"
 
 msgid "If ticked, this user has the ability to manage user accounts."
 msgstr "如果已选，这个用户将有权限管理用户账号"
+
+msgid "Password"
+msgstr "密码"
+
+msgid "Leave blank if not changing."
+msgstr "留空如果不修改"
+
+msgid "Password confirmation"
+msgstr "密码确认"
+
+msgid "Enter the same password as above, for verification."
+msgstr "输入和上面一样的密码用于验证"
 
 msgid "Email"
 msgstr "电子邮件"
@@ -38,27 +56,6 @@ msgstr "一个用户已经占用那个用户名"
 
 msgid "The two password fields didn't match."
 msgstr "两个密码不匹配"
-
-msgid "Username"
-msgstr "用户名"
-
-msgid "Required. 30 characters or fewer. Letters, digits and @/./+/-/_ only."
-msgstr "必填，30个字符以内。仅字母，数字，数字和 @/./+/-/_"
-
-msgid "This value may contain only letters, numbers and @/./+/-/_ characters."
-msgstr "这个值只能含有字母，数字，数字和 @/./+/-/_"
-
-msgid "Password"
-msgstr "密码"
-
-msgid "Leave blank if not changing."
-msgstr "留空如果不修改"
-
-msgid "Password confirmation"
-msgstr "密码确认"
-
-msgid "Enter the same password as above, for verification."
-msgstr "输入和上面一样的密码用于验证"
 
 msgid "Administrators have the ability to manage user accounts."
 msgstr "管理员们有管理用户账号的权限"
@@ -86,6 +83,9 @@ msgstr "用户"
 
 msgid "Add a user"
 msgstr "添加用户"
+
+msgid "Username"
+msgstr "用户名"
 
 msgid "Level"
 msgstr "等级"

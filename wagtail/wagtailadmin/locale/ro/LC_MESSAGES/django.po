@@ -8,11 +8,11 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-04-21 09:38+0100\n"
-"PO-Revision-Date: 2015-04-17 11:48+0000\n"
-"Last-Translator: Karl Hobley <karl@torchbox.com>\n"
-"Language-Team: Romanian (http://www.transifex.com/projects/p/wagtail/"
-"language/ro/)\n"
+"POT-Creation-Date: 2015-08-26 14:28+0100\n"
+"PO-Revision-Date: 2015-09-03 19:59+0000\n"
+"Last-Translator: Dan Braghis\n"
+"Language-Team: Romanian (http://www.transifex.com/torchbox/wagtail/language/"
+"ro/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -35,6 +35,10 @@ msgstr "Termen de căutare"
 msgid "Enter password"
 msgstr "Introduceți parola"
 
+#, python-format
+msgid "Enter your %s"
+msgstr "Introduceți %s"
+
 msgid "Enter your email address to reset your password"
 msgstr "Introduceți adresa de e-mail pentru a reseta parola"
 
@@ -53,6 +57,9 @@ msgstr "Adresa e-mail nu este recunoscută."
 
 msgid "New title"
 msgstr "Titlu nou"
+
+msgid "New parent page"
+msgstr "Pagină părinte nouă"
 
 msgid "Copy subpages"
 msgstr "Copiere subpagini"
@@ -144,6 +151,15 @@ msgstr "Bord"
 msgid "Menu"
 msgstr "Meniu"
 
+msgid "Move up"
+msgstr "Deplasează în sus"
+
+msgid "Move down"
+msgstr "Deplasează în jos"
+
+msgid "Delete"
+msgstr "Șterge"
+
 msgid "Explorer"
 msgstr "Explorator"
 
@@ -155,6 +171,26 @@ msgstr "Link extern"
 
 msgid "Email link"
 msgstr "Link e-mail"
+
+#, python-format
+msgid ""
+"\n"
+"        There is one match\n"
+"    "
+msgid_plural ""
+"\n"
+"        There are %(counter)s matches\n"
+"    "
+msgstr[0] ""
+"\n"
+"Există o potrivire"
+msgstr[1] ""
+"\n"
+"Sunt %(counter)s potriviri"
+msgstr[2] ""
+"\n"
+"\n"
+"Sunt %(counter)s potriviri"
 
 msgid "Choose"
 msgstr "Alege"
@@ -170,15 +206,6 @@ msgstr "Inserează link"
 
 msgid "Add an external link"
 msgstr "Adaugă un link extern"
-
-msgid "Move up"
-msgstr "Deplasează în sus"
-
-msgid "Move down"
-msgstr "Deplasează în jos"
-
-msgid "Delete"
-msgstr "Șterge"
 
 #, python-format
 msgid "Welcome to the %(site_name)s Wagtail CMS"
@@ -258,6 +285,9 @@ msgstr "Pagina \"%(title)s\" a fost aprobată."
 
 msgid "You can view the page here:"
 msgstr "Puteți vedea pagina aici:"
+
+msgid "Edit your notification preferences here:"
+msgstr "Editează preferințele de notificare aici:"
 
 #, python-format
 msgid "The page \"%(title)s\" has been rejected"
@@ -434,33 +464,11 @@ msgstr "de către %(modified_by)s"
 msgid "Exploring %(title)s"
 msgstr "Explorare %(title)s"
 
-msgid "Updated"
-msgstr "Actualizată"
-
 msgid "Drag"
 msgstr "Glisează"
 
-msgid "No pages have been created."
-msgstr "Nu a fost creată nici o pagină."
-
-#, python-format
-msgid "Why not <a href=\"%(add_page_url)s\">add one</a>?"
-msgstr "De ce să nu <a href=\"%(add_page_url)s\">adăugați una</a>?"
-
-#, python-format
-msgid ""
-"\n"
-"            Page %(page_number)s of %(num_pages)s.\n"
-"        "
-msgstr ""
-"\n"
-"Pagina %(page_number)s din %(num_pages)s."
-
-msgid "Previous"
-msgstr "Precedent"
-
-msgid "Next"
-msgstr "Următor"
+msgid "Updated"
+msgstr "Actualizată"
 
 msgid "Explore"
 msgstr "Explorează"
@@ -479,6 +487,12 @@ msgstr "Adaugă subpagină"
 msgid "Add child page"
 msgstr "Adaugă pagină dependentă"
 
+msgid "Previous"
+msgstr "Precedent"
+
+msgid "Next"
+msgstr "Următor"
+
 msgid "Disable ordering of child pages"
 msgstr "Dezactivează rânduirea paginilor dependente"
 
@@ -496,25 +510,6 @@ msgstr "Alege o pagină de bază nouă pentru %(title)s"
 msgid "Select a new parent page for <span>%(title)s</span>"
 msgstr "Alege o pagină de bază nouă pentru <span>%(title)s</span>"
 
-#, python-format
-msgid ""
-"\n"
-"                    There is one matching page\n"
-"                "
-msgid_plural ""
-"\n"
-"                    There are %(counter)s matching pages\n"
-"                "
-msgstr[0] ""
-"\n"
-"O singură pagină se potrivește"
-msgstr[1] ""
-"\n"
-"%(counter)s pagini se potrivesc"
-msgstr[2] ""
-"\n"
-"%(counter)s pagini se potrivesc"
-
 msgid "Other searches"
 msgstr "Alte căutări"
 
@@ -526,15 +521,6 @@ msgstr "Documente"
 
 msgid "Users"
 msgstr "Utilizatori"
-
-#, python-format
-msgid ""
-"\n"
-"                Page %(page_number)s of %(num_pages)s.\n"
-"            "
-msgstr ""
-"\n"
-"Pagina %(page_number)s din %(num_pages)s."
 
 #, python-format
 msgid "Sorry, no pages match <em>\"%(query_string)s\"</em>"
@@ -636,16 +622,6 @@ msgstr "Parola a fost schimbată cu succes!"
 msgid "Your preferences have been updated successfully!"
 msgstr "Preferințele au fost schimbare cu success!"
 
-msgid "This slug is already in use"
-msgstr "Această fisă a fost deja folosită"
-
-msgid "Go live date/time must be before expiry date/time"
-msgstr ""
-"Data/timpul de publicare trebuie să fie înaintea datei/timpului de expirare"
-
-msgid "Expiry date/time must be in the future"
-msgstr "Data/timpul de expirare trebuie să fie în viitor"
-
 #, python-brace-format
 msgid "Page '{0}' created."
 msgstr "Pagina '{0}' a fost creată."
@@ -673,6 +649,16 @@ msgstr "Pagina nu a fost salvată din cauza erorilor de validare."
 
 msgid "This page is currently awaiting moderation"
 msgstr "Această pagină este în moderare"
+
+msgid "This slug is already in use"
+msgstr "Această fisă a fost deja folosită"
+
+msgid "Go live date/time must be before expiry date/time"
+msgstr ""
+"Data/timpul de publicare trebuie să fie înaintea datei/timpului de expirare"
+
+msgid "Expiry date/time must be in the future"
+msgstr "Data/timpul de expirare trebuie să fie în viitor"
 
 #, python-brace-format
 msgid "Page '{0}' deleted."

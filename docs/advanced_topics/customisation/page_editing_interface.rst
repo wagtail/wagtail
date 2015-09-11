@@ -23,7 +23,7 @@ As standard, Wagtail organises panels into three tabs: 'Content', 'Promote' and 
             FieldPanel('body', classname="full"),
         ]
         sidebar_content_panels = [
-            SnippetChooserPanel('advert', Advert),
+            SnippetChooserPanel('advert'),
             InlinePanel('related_links', label="Related links"),
         ]
 

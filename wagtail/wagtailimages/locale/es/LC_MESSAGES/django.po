@@ -14,10 +14,10 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-04-21 09:39+0100\n"
-"PO-Revision-Date: 2015-04-21 11:03+0000\n"
-"Last-Translator: chimeno <daniel@chimeno.me>\n"
-"Language-Team: Spanish (http://www.transifex.com/projects/p/wagtail/language/"
+"POT-Creation-Date: 2015-08-26 14:28+0100\n"
+"PO-Revision-Date: 2015-08-27 01:25+0000\n"
+"Last-Translator: José Alaguna <alagunajs@gmail.com>\n"
+"Language-Team: Spanish (http://www.transifex.com/torchbox/wagtail/language/"
 "es/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -27,26 +27,6 @@ msgstr ""
 
 msgid "GIF, JPEG, PNG"
 msgstr "GIF, JPEG, PNG"
-
-#, python-format
-msgid "Not a supported image format. Supported formats: %s."
-msgstr "No esta soportado el formato de imagen. Formatos soportados: %s."
-
-#, python-format
-msgid "Not a valid %s image."
-msgstr "No es una imagen valida %s."
-
-#, python-format
-msgid "This file is too big. Maximum filesize %(max_upload_size)s."
-msgstr ""
-"Este archivo es demasiado grande. El tamaño máximo de archivo es: "
-"%(max_upload_size)s."
-
-#, python-format
-msgid "This file is too big (%%(max_upload_size)s). Maximum filesize %s."
-msgstr ""
-"Este archivo es demasiado grande (%%(max_upload_size)s). El tamaño máximo de "
-"archivo es: %s."
 
 #, python-format
 msgid ""
@@ -59,6 +39,23 @@ msgstr ""
 #, python-format
 msgid "Supported formats: %(supported_formats)s."
 msgstr "Formatos soportados: %(supported_formats)s."
+
+#, python-format
+msgid "Not a supported image format. Supported formats: %s."
+msgstr "No esta soportado el formato de imagen. Formatos soportados: %s."
+
+#, python-format
+msgid "Not a valid %s image."
+msgstr "No es una imagen valida %s."
+
+#, python-format
+msgid "This file is too big (%%s). Maximum filesize %s."
+msgstr ""
+"Este archivo es demasiado grande (%%s). El tamaño máximo de archivo es: %s."
+
+#, python-format
+msgid "This file is too big. Maximum filesize %s."
+msgstr "Este archivo es demasiado grande. El tamaño máximo de archivo es: %s."
 
 msgid "Filter"
 msgstr "Filtro"

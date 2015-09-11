@@ -6,15 +6,16 @@
 # jim dal <dimitrisdal@gmail.com>, 2014
 # serafeim <serafeim@torchbox.com>, 2014
 # serafeim <serafeim@torchbox.com>, 2014
+# dotoree <vdotoree@yahoo.gr>, 2015
 # Wasilis Mandratzis-Walz, 2015
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-04-21 09:39+0100\n"
-"PO-Revision-Date: 2015-04-21 08:40+0000\n"
+"POT-Creation-Date: 2015-08-26 14:28+0100\n"
+"PO-Revision-Date: 2015-08-26 13:37+0000\n"
 "Last-Translator: Karl Hobley <karl@torchbox.com>\n"
-"Language-Team: Greek (http://www.transifex.com/projects/p/wagtail/language/"
+"Language-Team: Greek (http://www.transifex.com/torchbox/wagtail/language/"
 "el/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -24,27 +25,6 @@ msgstr ""
 
 msgid "GIF, JPEG, PNG"
 msgstr "GIF, JPEG, PNG"
-
-#, python-format
-msgid "Not a supported image format. Supported formats: %s."
-msgstr ""
-"Δεν είναι μια υποστηριζόμενη μορφή εικόνας. Υποστηριζόμενες μορφές: %s."
-
-#, python-format
-msgid "Not a valid %s image."
-msgstr "Μη έγκυρη %s εικόνα."
-
-#, python-format
-msgid "This file is too big. Maximum filesize %(max_upload_size)s."
-msgstr ""
-"Αυτό το αρχείο είναι πολύ μεγάλο. Μέγιστο μέγεθος αρχείου "
-"%(max_upload_size)s."
-
-#, python-format
-msgid "This file is too big (%%(max_upload_size)s). Maximum filesize %s."
-msgstr ""
-"Αυτό το αρχείο είναι πολύ μεγάλο (%%(max_upload_size)s). Μέγιστο μέγεθος "
-"αρχείου %s."
 
 #, python-format
 msgid ""
@@ -57,6 +37,15 @@ msgstr ""
 #, python-format
 msgid "Supported formats: %(supported_formats)s."
 msgstr "Υποστηριζόμενες μορφές: %(supported_formats)s."
+
+#, python-format
+msgid "Not a supported image format. Supported formats: %s."
+msgstr ""
+"Δεν είναι μια υποστηριζόμενη μορφή εικόνας. Υποστηριζόμενες μορφές: %s."
+
+#, python-format
+msgid "Not a valid %s image."
+msgstr "Μη έγκυρη %s εικόνα."
 
 msgid "Filter"
 msgstr "Φίλτρο"
@@ -93,6 +82,12 @@ msgstr "Τίτλος"
 
 msgid "File"
 msgstr "Αρχείο"
+
+msgid "Created at"
+msgstr "Δημιουργήθηκε την"
+
+msgid "Uploaded by user"
+msgstr "Ανεβασμένο από χρήστη"
 
 msgid "Tags"
 msgstr "Ετικέτες"

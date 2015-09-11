@@ -3,7 +3,9 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# Arne Turpyn <info@arneturpyn.com>, 2015
 # Brecht Dervaux <info@dervauxbrecht.be>, 2015
+# Huib Keemink <huib@creativedutchmen.com>, 2015
 # mahulst, 2014
 # mahulst, 2014
 # Samuel Leeuwenburg, 2014
@@ -12,10 +14,10 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-04-21 09:38+0100\n"
-"PO-Revision-Date: 2015-05-12 12:38+0000\n"
-"Last-Translator: Brecht Dervaux <info@dervauxbrecht.be>\n"
-"Language-Team: Dutch (http://www.transifex.com/projects/p/wagtail/language/"
+"POT-Creation-Date: 2015-08-26 14:28+0100\n"
+"PO-Revision-Date: 2015-08-29 10:14+0000\n"
+"Last-Translator: Arne Turpyn <info@arneturpyn.com>\n"
+"Language-Team: Dutch (http://www.transifex.com/torchbox/wagtail/language/"
 "nl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -191,6 +193,15 @@ msgstr "Menu"
 msgid "Add another"
 msgstr "Voeg nog een toe."
 
+msgid "Move up"
+msgstr "Verplaats omhoog"
+
+msgid "Move down"
+msgstr "Verplaats naar beneden"
+
+msgid "Delete"
+msgstr "Verwijder"
+
 msgid "Explorer"
 msgstr "Verkenner"
 
@@ -217,15 +228,6 @@ msgstr "Link invoegen"
 
 msgid "Add an external link"
 msgstr "Voeg een externe link toe"
-
-msgid "Move up"
-msgstr "Verplaats omhoog"
-
-msgid "Move down"
-msgstr "Verplaats naar beneden"
-
-msgid "Delete"
-msgstr "Verwijder"
 
 #, python-format
 msgid "Welcome to the %(site_name)s Wagtail CMS"
@@ -492,24 +494,11 @@ msgstr "door %(modified_by)s"
 msgid "Exploring %(title)s"
 msgstr "%(title)s aan het verkennen"
 
-msgid "Updated"
-msgstr "Aangepast"
-
 msgid "Drag"
 msgstr "Sleep"
 
-msgid "No pages have been created."
-msgstr "Er zijn geen pagina's aangemaakt"
-
-#, python-format
-msgid "Why not <a href=\"%(add_page_url)s\">add one</a>?"
-msgstr "Waarom niet <a href=\"%(add_page_url)s\">een toevoegen</a>?"
-
-msgid "Previous"
-msgstr "Vorige"
-
-msgid "Next"
-msgstr "Volgende"
+msgid "Updated"
+msgstr "Aangepast"
 
 msgid "This page is locked to further editing"
 msgstr "Deze pagina is geblokkeerd voor verdere aanpassingen"
@@ -542,6 +531,12 @@ msgstr ""
 msgid "Add child page"
 msgstr "Voeg child pagina toe"
 
+msgid "Previous"
+msgstr "Vorige"
+
+msgid "Next"
+msgstr "Volgende"
+
 msgid "This page is protected from public view"
 msgstr "Deze pagina is beschermd tegen publieke zichtbaarheid"
 
@@ -562,45 +557,17 @@ msgstr "Selecteer een nieuwe ouderpagina voor %(title)s"
 msgid "Select a new parent page for <span>%(title)s</span>"
 msgstr "Selecteer een nieuwe ouderpagina voor <span>%(title)s</span>"
 
-#, python-format
-msgid ""
-"\n"
-"                    There is one matching page\n"
-"                "
-msgid_plural ""
-"\n"
-"                    There are %(counter)s matching pages\n"
-"                "
-msgstr[0] ""
-"\n"
-"                    Er is een passende pagina\n"
-"                "
-msgstr[1] ""
-"\n"
-"                    Er zijn %(counter)s passende pagina's\n"
-"                "
-
 msgid "Other searches"
 msgstr "Andere zoekresultaten"
 
 msgid "Images"
-msgstr "Plaatjes"
+msgstr "Afbeeldingen"
 
 msgid "Documents"
 msgstr "Documenten"
 
 msgid "Users"
 msgstr "Gebruikers"
-
-#, python-format
-msgid ""
-"\n"
-"                Page %(page_number)s of %(num_pages)s.\n"
-"            "
-msgstr ""
-"\n"
-"                Pagina %(page_number)s van %(num_pages)s.\n"
-"            "
 
 #, python-format
 msgid "Sorry, no pages match <em>\"%(query_string)s\"</em>"
@@ -715,9 +682,6 @@ msgstr "Voeg een kindpagina toe"
 msgid "Add"
 msgstr "Toevoegen"
 
-msgid "This slug is already in use"
-msgstr "Deze slug is al ingebruik"
-
 #, python-brace-format
 msgid "Page '{0}' created."
 msgstr "Pagina '{0}' aangemaakt."
@@ -731,6 +695,12 @@ msgstr "Pagina '{0}' gepubliceerd."
 
 msgid "The page could not be saved due to validation errors"
 msgstr "Deze pagina kon niet opgeslagen worden vanwege validatie fouten"
+
+msgid "This slug is already in use"
+msgstr "Deze slug is al ingebruik"
+
+msgid "Expiry date/time must be in the future"
+msgstr "Vervaldatum moet in de toekomst zijn."
 
 #, python-brace-format
 msgid "Page '{0}' deleted."
@@ -747,6 +717,19 @@ msgstr "Pagina '{0}' en {1} subpaginas gekopieerd."
 #, python-brace-format
 msgid "Page '{0}' copied."
 msgstr "Pagina '{0}' gekopieerd."
+
+msgid "Content"
+msgstr "Inhoud"
+
+msgid "Promote"
+msgstr "Promoot"
+
+msgid "Settings"
+msgstr "Instellingen"
+
+#, python-brace-format
+msgid "Page '{0}' is now locked."
+msgstr "Pagina '{0}' is geblokkeerd."
 
 msgid "Choose an item"
 msgstr "Kies een item"

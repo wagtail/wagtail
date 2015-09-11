@@ -11,10 +11,10 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-04-21 09:38+0100\n"
-"PO-Revision-Date: 2015-05-02 04:13+0000\n"
-"Last-Translator: Douglas Miranda <douglasmirandasilva@gmail.com>\n"
-"Language-Team: Portuguese (Brazil) (http://www.transifex.com/projects/p/"
+"POT-Creation-Date: 2015-08-26 14:28+0100\n"
+"PO-Revision-Date: 2015-08-26 13:37+0000\n"
+"Last-Translator: Karl Hobley <karl@torchbox.com>\n"
+"Language-Team: Portuguese (Brazil) (http://www.transifex.com/torchbox/"
 "wagtail/language/pt_BR/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -64,10 +64,10 @@ msgid "New slug"
 msgstr "Novo slug"
 
 msgid "New parent page"
-msgstr "Nova página pai"
+msgstr "Nova página raíz"
 
 msgid "This copy will be a child of this given parent page."
-msgstr "Esta cópia será uma filha desta página pai"
+msgstr "Esta cópia será uma subpágina desta página raíz."
 
 msgid "Copy subpages"
 msgstr "Copiar subpáginas"
@@ -82,7 +82,7 @@ msgid "Publish copied page"
 msgstr "Publicar página copiada"
 
 msgid "This page is live. Would you like to publish its copy as well?"
-msgstr "Esta página está ao vivo. Gostaria de publicar sua cópia também?"
+msgstr "Esta página está publicada. Gostaria de publicar sua cópia também?"
 
 msgid "Publish copies"
 msgstr "Publicar cópias"
@@ -98,13 +98,13 @@ msgstr[0] ""
 "%(count)s página está sendo copiada ao vivo. Você gostaria de publicar sua "
 "cópia?"
 msgstr[1] ""
-"%(count)s das páginas que estão sendo copiadas, estão ao vivo. Você gostaria "
-"de publicar suas cópias?"
+"%(count)s das páginas que estão sendo copiadas, estão publicadas. Você "
+"gostaria de publicar suas cópias?"
 
 #, python-format
 msgid ""
 "This slug is already in use within the context of its parent page \"%s\""
-msgstr "Este endereço já está em uso no contexto desta página pai \"%s\""
+msgstr "Este endereço já está em uso no contexto desta página raíz \"%s\""
 
 msgid "Public"
 msgstr "Público"
@@ -126,9 +126,9 @@ msgid ""
 "address. With a Gravatar account you can set an avatar for any number of "
 "other email addresses you use."
 msgstr ""
-"Sua imagem é fornecido pelo Gravatar e está ligado ao seu e-mail. Com sua "
-"conta do Gravatar você pode definir um avatar para qualquer quantidade de e-"
-"mails que você usa."
+"Sua imagem de exibição é fornecida pelo Gravatar e está conectada ao seu "
+"endereço de e-mail. Com uma conta Gravatar você pode definir uma imagem de "
+"exibição para qualquer e-mail que você usa."
 
 msgid "Change password"
 msgstr "Alterar senha"
@@ -194,6 +194,15 @@ msgstr "Menu"
 msgid "Add another"
 msgstr "Adicionar outro"
 
+msgid "Move up"
+msgstr "Mover para cima"
+
+msgid "Move down"
+msgstr "Mover para baixo"
+
+msgid "Delete"
+msgstr "Excluir"
+
 msgid "Explorer"
 msgstr "Explorador"
 
@@ -205,17 +214,6 @@ msgstr "Link externo"
 
 msgid "Email link"
 msgstr "Link de e-mail"
-
-#, python-format
-msgid ""
-"\n"
-"        Only pages of type \"%(type)s\" may be chosen for this field. Search "
-"results will exclude pages of other types.\n"
-"    "
-msgstr ""
-"\n"
-"Somente páginas do tipo \"%(type)s\" podem ser escolhidas para este campo. "
-"Os resultados da busca não irão conter páginas de outros tipos."
 
 #, python-format
 msgid ""
@@ -248,15 +246,6 @@ msgstr "Insira um link"
 msgid "Add an external link"
 msgstr "Adicione um link externo"
 
-msgid "Move up"
-msgstr "Mover para cima"
-
-msgid "Move down"
-msgstr "Mover para baixo"
-
-msgid "Delete"
-msgstr "Excluir"
-
 #, python-format
 msgid "Welcome to the %(site_name)s Wagtail CMS"
 msgstr "Bem vindo ao %(site_name)s Wagtail CMS"
@@ -275,7 +264,7 @@ msgid "Title"
 msgstr "Título"
 
 msgid "Parent"
-msgstr "Pai"
+msgstr "Página Raíz"
 
 msgid "Type"
 msgstr "Tipo"
@@ -311,7 +300,7 @@ msgid "Draft"
 msgstr "Rascunho"
 
 msgid "Live"
-msgstr "Ao vivo"
+msgstr "Online"
 
 msgid "Site summary"
 msgstr "Resumo do site"
@@ -386,14 +375,15 @@ msgid "Page privacy"
 msgstr "Página privada"
 
 msgid "This page has been made private by a parent page."
-msgstr "Essa página foi feita privativa por uma página principal."
+msgstr "Essa página foi feita privativa por uma página raíz."
 
 msgid "You can edit the privacy settings on:"
 msgstr "Você pode editar as configurações de privacidade em:"
 
 msgid "Privacy changes apply to all children of this page too."
 msgstr ""
-"Alterações na privacidade também se aplicam a todas as filhas desta página"
+"Alterações na privacidade também se aplicam a todas as subpáginas desta "
+"página."
 
 msgid "Edit lock"
 msgstr "Editar bloqueio"
@@ -553,34 +543,11 @@ msgstr "por %(modified_by)s"
 msgid "Exploring %(title)s"
 msgstr "Explorando %(title)s"
 
-msgid "Updated"
-msgstr "Atualizada"
-
 msgid "Drag"
 msgstr "Arrastar"
 
-msgid "No pages have been created."
-msgstr "Nenhuma página foi criada."
-
-#, python-format
-msgid "Why not <a href=\"%(add_page_url)s\">add one</a>?"
-msgstr "Por que não <a href=\"%(add_page_url)s\">adicionar uma</a>?"
-
-#, python-format
-msgid ""
-"\n"
-"            Page %(page_number)s of %(num_pages)s.\n"
-"        "
-msgstr ""
-"\n"
-"            Página %(page_number)s de %(num_pages)s.\n"
-"        "
-
-msgid "Previous"
-msgstr "Anterior"
-
-msgid "Next"
-msgstr "Próximo"
+msgid "Updated"
+msgstr "Atualizada"
 
 msgid "This page is locked to further editing"
 msgstr "Esta página está bloqueada para futuras edições"
@@ -613,6 +580,12 @@ msgstr ""
 msgid "Add child page"
 msgstr "Adicionar subpágina"
 
+msgid "Previous"
+msgstr "Anterior"
+
+msgid "Next"
+msgstr "Próximo"
+
 msgid "This page is protected from public view"
 msgstr "Esta página está protegida da visualização pública"
 
@@ -627,29 +600,11 @@ msgstr "Habilitar ordenação de subpáginas"
 
 #, python-format
 msgid "Select a new parent page for %(title)s"
-msgstr "Selecione uma nova página pai para %(title)s"
+msgstr "Selecione uma nova página raíz para %(title)s"
 
 #, python-format
 msgid "Select a new parent page for <span>%(title)s</span>"
-msgstr "Selecione uma nova página pai <span>%(title)s</span>"
-
-#, python-format
-msgid ""
-"\n"
-"                    There is one matching page\n"
-"                "
-msgid_plural ""
-"\n"
-"                    There are %(counter)s matching pages\n"
-"                "
-msgstr[0] ""
-"\n"
-"                    Há uma página correspondente\n"
-"                "
-msgstr[1] ""
-"\n"
-"                    Existem %(counter)s páginas que correspondem\n"
-"                "
+msgstr "Selecione uma nova página raíz para <span>%(title)s</span>"
 
 msgid "Other searches"
 msgstr "Outras buscas"
@@ -662,16 +617,6 @@ msgstr "Documentos"
 
 msgid "Users"
 msgstr "Usuários"
-
-#, python-format
-msgid ""
-"\n"
-"                Page %(page_number)s of %(num_pages)s.\n"
-"            "
-msgstr ""
-"\n"
-"                Página %(page_number)s de %(num_pages)s.\n"
-"            "
 
 #, python-format
 msgid "Sorry, no pages match <em>\"%(query_string)s\"</em>"
@@ -792,15 +737,6 @@ msgstr "Sua senha foi alterada com sucesso!"
 msgid "Your preferences have been updated successfully!"
 msgstr "Suas preferências foram atualizadas com sucesso!"
 
-msgid "This slug is already in use"
-msgstr "Esse endereço já existe"
-
-msgid "Go live date/time must be before expiry date/time"
-msgstr "Data/hora para ficar online  deve ser antes da data/hora de expiração"
-
-msgid "Expiry date/time must be in the future"
-msgstr "Data/hora de expiração deve ser no futuro."
-
 #, python-brace-format
 msgid "Page '{0}' created and published."
 msgstr "Página '{0}' criada e publicada."
@@ -842,6 +778,15 @@ msgstr "A página não pode ser salva devido a erros de validação"
 
 msgid "This page is currently awaiting moderation"
 msgstr "Essa página está atualmente esperando moderação"
+
+msgid "This slug is already in use"
+msgstr "Esse endereço já existe"
+
+msgid "Go live date/time must be before expiry date/time"
+msgstr "Data/hora para ficar online deve ser antes da data/hora de expiração"
+
+msgid "Expiry date/time must be in the future"
+msgstr "Data/hora de expiração deve ser no futuro."
 
 #, python-brace-format
 msgid "Page '{0}' deleted."

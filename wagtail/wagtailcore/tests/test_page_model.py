@@ -1,5 +1,6 @@
 import datetime
 import json
+import warnings
 
 import pytz
 
@@ -9,9 +10,13 @@ from django.http import HttpRequest, Http404
 from django.contrib.contenttypes.models import ContentType
 from django.contrib.auth import get_user_model
 from django.contrib.auth.models import AnonymousUser
+from django.utils.six import text_type
 
-from wagtail.wagtailcore.models import Page, Site
-from wagtail.tests.testapp.models import EventPage, EventIndex, SimplePage, BusinessIndex, BusinessSubIndex, BusinessChild, StandardIndex
+from wagtail.wagtailcore.models import Page, Site, PAGE_MODEL_CLASSES
+from wagtail.tests.testapp.models import (
+    SingleEventPage, EventPage, EventIndex, SimplePage,
+    BusinessIndex, BusinessSubIndex, BusinessChild, StandardIndex,
+    MTIBasePage, MTIChildPage, AbstractPage)
 
 
 class TestSiteRouting(TestCase):
@@ -448,6 +453,11 @@ class TestCopyPage(TestCase):
         self.assertEqual(new_revision_content['pk'], new_christmas_event.id)
         self.assertEqual(new_revision_content['speakers'][0]['page'], new_christmas_event.id)
 
+        # Also, check that the child objects in the new revision are given new IDs
+        old_speakers_ids = set(christmas_event.speakers.values_list('id', flat=True))
+        new_speakers_ids = set(speaker['pk'] for speaker in new_revision_content['speakers'])
+        self.assertFalse(old_speakers_ids.intersection(new_speakers_ids), "Child objects in revisions were not given a new primary key")
+
     def test_copy_page_copies_revisions_and_doesnt_submit_for_moderation(self):
         christmas_event = EventPage.objects.get(url_path='/home/events/christmas/')
         christmas_event.save_revision(submitted_for_moderation=True)
@@ -604,6 +614,28 @@ class TestCopyPage(TestCase):
         # Check that the user on the last revision is correct
         self.assertEqual(new_christmas_event.get_latest_revision().user, event_moderator)
 
+    def test_copy_multi_table_inheritance(self):
+        saint_patrick_event = SingleEventPage.objects.get(url_path='/home/events/saint-patrick/')
+
+        # Copy it
+        new_saint_patrick_event = saint_patrick_event.copy(update_attrs={'slug': 'new-saint-patrick'})
+
+        # Check that new_saint_patrick_event is correct
+        self.assertIsInstance(new_saint_patrick_event, SingleEventPage)
+        self.assertEqual(new_saint_patrick_event.excerpt, saint_patrick_event.excerpt)
+
+        # Check that new_saint_patrick_event is a different page, including parents from both EventPage and Page
+        self.assertNotEqual(saint_patrick_event.id, new_saint_patrick_event.id)
+        self.assertNotEqual(saint_patrick_event.eventpage_ptr.id, new_saint_patrick_event.eventpage_ptr.id)
+        self.assertNotEqual(saint_patrick_event.eventpage_ptr.page_ptr.id, new_saint_patrick_event.eventpage_ptr.page_ptr.id)
+
+        # Check that the url path was updated
+        self.assertEqual(new_saint_patrick_event.url_path, '/home/events/new-saint-patrick/')
+
+        # Check that both parent instance exists
+        self.assertIsInstance(EventPage.objects.get(id=new_saint_patrick_event.id), EventPage)
+        self.assertIsInstance(Page.objects.get(id=new_saint_patrick_event.id), Page)
+
 
 class TestSubpageTypeBusinessRules(TestCase):
     def test_allowed_subpage_types(self):
@@ -704,3 +736,49 @@ class TestIssue1216(TestCase):
         new_christmas_event = EventPage.objects.get(id=christmas_event.id)
         expected_url_path = "/home/%s/%s/" % (new_event_index_slug, new_christmas_slug)
         self.assertEqual(new_christmas_event.url_path, expected_url_path)
+
+
+class TestIsCreatable(TestCase):
+    def test_is_creatable_default(self):
+        """By default, pages should be creatable"""
+        self.assertTrue(SimplePage.is_creatable)
+        self.assertIn(SimplePage, PAGE_MODEL_CLASSES)
+
+    def test_is_creatable_false(self):
+        """Page types should be able to disable their creation"""
+        self.assertFalse(MTIBasePage.is_creatable)
+        self.assertNotIn(MTIBasePage, PAGE_MODEL_CLASSES)
+
+    def test_is_creatable_not_inherited(self):
+        """
+        is_creatable should not be inherited in the normal manner, and should
+        default to True unless set otherwise
+        """
+        self.assertTrue(MTIChildPage.is_creatable)
+        self.assertIn(MTIChildPage, PAGE_MODEL_CLASSES)
+
+    def test_abstract_pages(self):
+        """
+        Abstract models should not be creatable
+        """
+        self.assertFalse(AbstractPage.is_creatable)
+        self.assertNotIn(AbstractPage, PAGE_MODEL_CLASSES)
+
+    def test_is_abstract(self):
+        """
+        is_abstract has been deprecated. Check that it still works, but issues
+        a deprecation warning
+        """
+        with warnings.catch_warnings(record=True) as ws:
+            class IsAbstractPage(Page):
+                is_abstract = True
+
+                class Meta:
+                    abstract = True
+
+            self.assertEqual(len(ws), 1)
+            warning = ws[0]
+            self.assertIn("is_creatable", text_type(warning.message))
+
+            self.assertFalse(AbstractPage.is_creatable)
+            self.assertNotIn(AbstractPage, PAGE_MODEL_CLASSES)

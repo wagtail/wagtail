@@ -8,10 +8,10 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-04-21 09:39+0100\n"
+"POT-Creation-Date: 2015-08-26 14:28+0100\n"
 "PO-Revision-Date: 2015-06-29 09:40+0000\n"
 "Last-Translator: Giacomo Ghizzani <giacomo.ghz@gmail.com>\n"
-"Language-Team: Italian (http://www.transifex.com/projects/p/wagtail/language/"
+"Language-Team: Italian (http://www.transifex.com/torchbox/wagtail/language/"
 "it/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -19,12 +19,32 @@ msgstr ""
 "Language: it\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
+msgid "Required. 30 characters or fewer. Letters, digits and @/./+/-/_ only."
+msgstr ""
+"Obbligatorio. 30 caratteri o meno. Sono ammessi soltanto lettere, cifre e "
+"@ / / + / -. / _."
+
+msgid "This value may contain only letters, numbers and @/./+/-/_ characters."
+msgstr "Questo valore può contenere soltanto lettere, numeri e @/./+/-/_"
+
 msgid "Administrator"
 msgstr "Amministratore"
 
 msgid "If ticked, this user has the ability to manage user accounts."
 msgstr ""
 "Se selezionata, l'utente ha la possibilità di gestire gli account utente."
+
+msgid "Password"
+msgstr "Password"
+
+msgid "Leave blank if not changing."
+msgstr "Lascia vuoto se non lo cambi."
+
+msgid "Password confirmation"
+msgstr "Conferma password"
+
+msgid "Enter the same password as above, for verification."
+msgstr "Inserire la stessa password di sopra, per verifica."
 
 msgid "Email"
 msgstr "Email"
@@ -40,29 +60,6 @@ msgstr "Username esistente."
 
 msgid "The two password fields didn't match."
 msgstr "Le password non corrispondono"
-
-msgid "Username"
-msgstr "Username"
-
-msgid "Required. 30 characters or fewer. Letters, digits and @/./+/-/_ only."
-msgstr ""
-"Obbligatorio. 30 caratteri o meno. Sono ammessi soltanto lettere, cifre e "
-"@ / / + / -. / _."
-
-msgid "This value may contain only letters, numbers and @/./+/-/_ characters."
-msgstr "Questo valore può contenere soltanto lettere, numeri e @/./+/-/_"
-
-msgid "Password"
-msgstr "Password"
-
-msgid "Leave blank if not changing."
-msgstr "Lascia vuoto se non lo cambi."
-
-msgid "Password confirmation"
-msgstr "Conferma password"
-
-msgid "Enter the same password as above, for verification."
-msgstr "Inserire la stessa password di sopra, per verifica."
 
 msgid "Administrators have the ability to manage user accounts."
 msgstr "Gli amministratori hanno la possibilità di gestire gli account utente."
@@ -182,6 +179,9 @@ msgstr "Utenti"
 
 msgid "Add a user"
 msgstr "Aggiungi un utente"
+
+msgid "Username"
+msgstr "Username"
 
 msgid "Level"
 msgstr "Livello"

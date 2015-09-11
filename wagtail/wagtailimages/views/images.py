@@ -1,18 +1,17 @@
 import os
-import json
 
 from django.shortcuts import render, redirect, get_object_or_404
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
-from django.contrib.auth.decorators import permission_required
 from django.core.exceptions import PermissionDenied
 from django.utils.translation import ugettext as _
 from django.views.decorators.vary import vary_on_headers
 from django.core.urlresolvers import reverse, NoReverseMatch
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
 
 from wagtail.wagtailcore.models import Site
 from wagtail.wagtailadmin.forms import SearchForm
 from wagtail.wagtailadmin import messages
+from wagtail.wagtailadmin.utils import permission_required, any_permission_required
 from wagtail.wagtailsearch.backends import get_search_backends
 
 from wagtail.wagtailimages.models import get_image_model, Filter
@@ -21,7 +20,7 @@ from wagtail.wagtailimages.utils import generate_signature
 from wagtail.wagtailimages.exceptions import InvalidFilterSpecError
 
 
-@permission_required('wagtailimages.add_image')
+@any_permission_required('wagtailimages.add_image', 'wagtailimages.change_image')
 @vary_on_headers('X-Requested-With')
 def index(request):
     Image = get_image_model()
@@ -123,15 +122,9 @@ def edit(request, image_id):
     except NoReverseMatch:
         url_generator_enabled = False
 
-    try:
-        local_path = image.file.path
-    except NotImplementedError:
-        # Image is hosted externally (eg, S3)
-        local_path = None
-
-    if local_path:
+    if image.is_stored_locally():
         # Give error if image file doesn't exist
-        if not os.path.isfile(local_path):
+        if not os.path.isfile(image.file.path):
             messages.error(request, _("The source image file could not be found. Please change the source or delete the image.").format(image.title), buttons=[
                 messages.button(reverse('wagtailimages:delete', args=(image.id,)), _('Delete'))
             ])
@@ -162,23 +155,19 @@ def url_generator(request, image_id):
     })
 
 
-def json_response(document, status=200):
-    return HttpResponse(json.dumps(document), content_type='application/json', status=status)
-
-
 def generate_url(request, image_id, filter_spec):
     # Get the image
     Image = get_image_model()
     try:
         image = Image.objects.get(id=image_id)
     except Image.DoesNotExist:
-        return json_response({
+        return JsonResponse({
             'error': "Cannot find image."
         }, status=404)
 
     # Check if this user has edit permission on this image
     if not image.is_editable_by_user(request.user):
-        return json_response({
+        return JsonResponse({
             'error': "You do not have permission to generate a URL for this image."
         }, status=403)
 
@@ -186,7 +175,7 @@ def generate_url(request, image_id, filter_spec):
     try:
         Filter(spec=filter_spec).operations
     except InvalidFilterSpecError:
-        return json_response({
+        return JsonResponse({
             'error': "Invalid filter spec."
         }, status=400)
 
@@ -203,7 +192,7 @@ def generate_url(request, image_id, filter_spec):
     # Generate preview url
     preview_url = reverse('wagtailimages:preview', args=(image_id, filter_spec))
 
-    return json_response({'url': site_root_url + url, 'preview_url': preview_url}, status=200)
+    return JsonResponse({'url': site_root_url + url, 'preview_url': preview_url}, status=200)
 
 
 def preview(request, image_id, filter_spec):

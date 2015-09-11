@@ -8,10 +8,10 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-04-21 09:38+0100\n"
-"PO-Revision-Date: 2015-04-17 11:48+0000\n"
+"POT-Creation-Date: 2015-08-26 14:28+0100\n"
+"PO-Revision-Date: 2015-08-26 13:37+0000\n"
 "Last-Translator: Karl Hobley <karl@torchbox.com>\n"
-"Language-Team: Czech (http://www.transifex.com/projects/p/wagtail/language/"
+"Language-Team: Czech (http://www.transifex.com/torchbox/wagtail/language/"
 "cs/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -181,6 +181,15 @@ msgstr "Dashboard"
 msgid "Menu"
 msgstr "Menu"
 
+msgid "Move up"
+msgstr "Posunout nahoru"
+
+msgid "Move down"
+msgstr "Posunout dolů"
+
+msgid "Delete"
+msgstr "Smazat"
+
 msgid "Explorer"
 msgstr "Obsah"
 
@@ -207,15 +216,6 @@ msgstr "Vložit odkaz"
 
 msgid "Add an external link"
 msgstr "Vložit externí odkaz"
-
-msgid "Move up"
-msgstr "Posunout nahoru"
-
-msgid "Move down"
-msgstr "Posunout dolů"
-
-msgid "Delete"
-msgstr "Smazat"
 
 #, python-format
 msgid "Welcome to the %(site_name)s Wagtail CMS"
@@ -486,33 +486,11 @@ msgstr "uživatelem %(modified_by)s"
 msgid "Exploring %(title)s"
 msgstr "Obsah pod %(title)s"
 
-msgid "Updated"
-msgstr "Uloženo"
-
 msgid "Drag"
 msgstr "Přetáhnout myší"
 
-msgid "No pages have been created."
-msgstr "Nejsou vytvořeny žádné stránky."
-
-#, python-format
-msgid "Why not <a href=\"%(add_page_url)s\">add one</a>?"
-msgstr "Novou stránku můžete založit <a href=\"%(add_page_url)s\">zde</a>."
-
-#, python-format
-msgid ""
-"\n"
-"            Page %(page_number)s of %(num_pages)s.\n"
-"        "
-msgstr ""
-"\n"
-"Strana %(page_number)s z %(num_pages)s."
-
-msgid "Previous"
-msgstr "Předchozí"
-
-msgid "Next"
-msgstr "Následující"
+msgid "Updated"
+msgstr "Uloženo"
 
 msgid "This page is locked to further editing"
 msgstr "Tato stránka je uzamčena pro další úpravy"
@@ -534,6 +512,12 @@ msgstr "Přidat podstránku"
 msgid "Add child page"
 msgstr "Přidat podstránku"
 
+msgid "Previous"
+msgstr "Předchozí"
+
+msgid "Next"
+msgstr "Následující"
+
 msgid "This page is protected from public view"
 msgstr "Tato stránka není veřejně viditelná"
 
@@ -554,25 +538,6 @@ msgstr "Zvolte novou nadřazenou stránku pro %(title)s"
 msgid "Select a new parent page for <span>%(title)s</span>"
 msgstr "Zvolte novou nadřazenou stránku pro <span>%(title)s</span>"
 
-#, python-format
-msgid ""
-"\n"
-"                    There is one matching page\n"
-"                "
-msgid_plural ""
-"\n"
-"                    There are %(counter)s matching pages\n"
-"                "
-msgstr[0] ""
-"\n"
-"Nalezena 1 stránka"
-msgstr[1] ""
-"\n"
-"Nalezeno %(counter)s stránek"
-msgstr[2] ""
-"\n"
-"Nalezeno %(counter)s stránek"
-
 msgid "Other searches"
 msgstr "Další hledání"
 
@@ -584,15 +549,6 @@ msgstr "Dokumenty"
 
 msgid "Users"
 msgstr "Uživatelé"
-
-#, python-format
-msgid ""
-"\n"
-"                Page %(page_number)s of %(num_pages)s.\n"
-"            "
-msgstr ""
-"\n"
-"Strana %(page_number)s z %(num_pages)s."
 
 #, python-format
 msgid "Sorry, no pages match <em>\"%(query_string)s\"</em>"
@@ -694,15 +650,6 @@ msgstr "Vaše heslo bylo úspěšně změněno."
 msgid "Your preferences have been updated successfully!"
 msgstr "Vaše nastavení bylo uloženo."
 
-msgid "This slug is already in use"
-msgstr "Název pro URL musí být unikátní"
-
-msgid "Go live date/time must be before expiry date/time"
-msgstr "Datum/čas zveřejnění musí být dřívější než datum/čas expirace"
-
-msgid "Expiry date/time must be in the future"
-msgstr "Datum/čas expirace musí být v budoucnosti"
-
 #, python-brace-format
 msgid "Page '{0}' created."
 msgstr "Stránka '{0}' byla vytvořena."
@@ -730,6 +677,15 @@ msgstr "Stránku nelze uložit, zkontrolujte správné vyplnění polí"
 
 msgid "This page is currently awaiting moderation"
 msgstr "Stránka nyní čeká na schválení"
+
+msgid "This slug is already in use"
+msgstr "Název pro URL musí být unikátní"
+
+msgid "Go live date/time must be before expiry date/time"
+msgstr "Datum/čas zveřejnění musí být dřívější než datum/čas expirace"
+
+msgid "Expiry date/time must be in the future"
+msgstr "Datum/čas expirace musí být v budoucnosti"
 
 #, python-brace-format
 msgid "Page '{0}' deleted."

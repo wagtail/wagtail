@@ -1,4 +1,5 @@
 from mock import patch
+from bs4 import BeautifulSoup
 
 from django.test import TestCase
 
@@ -9,16 +10,13 @@ from wagtail.wagtailcore.rich_text import (
     expand_db_html,
     RichText
 )
-from bs4 import BeautifulSoup
 
 
 class TestPageLinkHandler(TestCase):
     fixtures = ['test.json']
 
     def test_get_db_attributes(self):
-        soup = BeautifulSoup(
-            '<a data-id="test-id">foo</a>'
-        )
+        soup = BeautifulSoup('<a data-id="test-id">foo</a>', 'html5lib')
         tag = soup.a
         result = PageLinkHandler.get_db_attributes(tag)
         self.assertEqual(result,
@@ -49,9 +47,7 @@ class TestPageLinkHandler(TestCase):
 
 class TestDbWhiteLister(TestCase):
     def test_clean_tag_node_div(self):
-        soup = BeautifulSoup(
-            '<div>foo</div>'
-        )
+        soup = BeautifulSoup('<div>foo</div>', 'html5lib')
         tag = soup.div
         self.assertEqual(tag.name, 'div')
         DbWhitelister.clean_tag_node(soup, tag)
@@ -59,7 +55,8 @@ class TestDbWhiteLister(TestCase):
 
     def test_clean_tag_node_with_data_embedtype(self):
         soup = BeautifulSoup(
-            '<p><a data-embedtype="image" data-id=1 data-format="left" data-alt="bar" irrelevant="baz">foo</a></p>'
+            '<p><a data-embedtype="image" data-id=1 data-format="left" data-alt="bar" irrelevant="baz">foo</a></p>',
+            'html5lib'
         )
         tag = soup.p
         DbWhitelister.clean_tag_node(soup, tag)
@@ -68,16 +65,15 @@ class TestDbWhiteLister(TestCase):
 
     def test_clean_tag_node_with_data_linktype(self):
         soup = BeautifulSoup(
-            '<a data-linktype="document" data-id="1" irrelevant="baz">foo</a>'
+            '<a data-linktype="document" data-id="1" irrelevant="baz">foo</a>',
+            'html5lib'
         )
         tag = soup.a
         DbWhitelister.clean_tag_node(soup, tag)
         self.assertEqual(str(tag), '<a id="1" linktype="document">foo</a>')
 
     def test_clean_tag_node(self):
-        soup = BeautifulSoup(
-            '<a irrelevant="baz">foo</a>'
-        )
+        soup = BeautifulSoup('<a irrelevant="baz">foo</a>', 'html5lib')
         tag = soup.a
         DbWhitelister.clean_tag_node(soup, tag)
         self.assertEqual(str(tag), '<a>foo</a>')

@@ -6,15 +6,16 @@
 # jim dal <dimitrisdal@gmail.com>, 2014
 # serafeim <serafeim@torchbox.com>, 2014
 # serafeim <serafeim@torchbox.com>, 2014
+# dotoree <vdotoree@yahoo.gr>, 2015
 # Wasilis Mandratzis-Walz, 2015
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-04-21 09:38+0100\n"
-"PO-Revision-Date: 2015-04-21 08:40+0000\n"
+"POT-Creation-Date: 2015-09-02 20:07+0100\n"
+"PO-Revision-Date: 2015-09-02 19:12+0000\n"
 "Last-Translator: Karl Hobley <karl@torchbox.com>\n"
-"Language-Team: Greek (http://www.transifex.com/projects/p/wagtail/language/"
+"Language-Team: Greek (http://www.transifex.com/torchbox/wagtail/language/"
 "el/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -76,6 +77,21 @@ msgstr ""
 "Το όνομα της σελίδας έτσι όπως θα εμφανίζεται στις διευθύνσεις, π.χ http://"
 "domain.com/blog/[my-slug]/"
 
+msgid "Content type"
+msgstr "Τύπος περιεχομένου"
+
+msgid "Live"
+msgstr "Στον Αέρα"
+
+msgid "Has unpublished changes"
+msgstr "Έχει αδημοσίευτες αλλαγές"
+
+msgid "URL path"
+msgstr "Διεύθυνση URL"
+
+msgid "Owner"
+msgstr "Ιδιοκτήτης"
+
 msgid "Page title"
 msgstr "Τίτλος σελίδας"
 
@@ -107,6 +123,18 @@ msgstr "Παρακαλούμε προσθέστε μια ημερομηνία σ
 msgid "Expiry date/time"
 msgstr "Ημερομηνία/ώρα λήξης"
 
+msgid "Expired"
+msgstr "Έχει λήξει"
+
+msgid "Locked"
+msgstr "Κλειδωμένο"
+
+msgid "First published at"
+msgstr "Πρώτη δημοσίευση"
+
+msgid "Latest revision created at"
+msgstr "Τελευταία αναθεώρηση δημιουργήθηκε στις"
+
 msgid "expired"
 msgstr "έχει λήξει"
 
@@ -128,11 +156,23 @@ msgstr "Προεπιλογή"
 msgid "Page"
 msgstr "Σελίδα"
 
+msgid "Submitted for moderation"
+msgstr "Υποβλήθηκαν για έλεγχο"
+
+msgid "Created at"
+msgstr "Δημιουργήθηκε την"
+
+msgid "User"
+msgstr "Χρήστης"
+
+msgid "Content JSON"
+msgstr "Περιεχόμενο JSON"
+
+msgid "Approved go live at"
+msgstr "Εγκρίθηκε βγει στον αέρα στις"
+
 msgid "Add/edit pages you own"
 msgstr "Προσθήκη σελίδων/Επεξεργασία αυτων που έχετε στην κατοχή σας"
-
-msgid "Add/edit any page"
-msgstr "Προσθήκη σελίδων/Επεξεργασία καθε σελιδας"
 
 msgid "Publish any page"
 msgstr "Δημοσίευση καθε σελίδας"

@@ -1,12 +1,11 @@
-import json
-
 from django.shortcuts import render, get_object_or_404
-from django.contrib.auth.decorators import permission_required
 from django.views.decorators.http import require_POST
 from django.core.exceptions import PermissionDenied
 from django.views.decorators.vary import vary_on_headers
-from django.http import HttpResponse, HttpResponseBadRequest
+from django.http import JsonResponse, HttpResponseBadRequest
 from django.utils.encoding import force_text
+
+from wagtail.wagtailadmin.utils import permission_required
 
 from wagtail.wagtailsearch.backends import get_search_backends
 
@@ -14,10 +13,6 @@ from wagtail.wagtailimages.models import get_image_model
 from wagtail.wagtailimages.forms import get_image_form
 from wagtail.wagtailimages.fields import ALLOWED_EXTENSIONS
 from wagtail.utils.compat import render_to_string
-
-
-def json_response(document):
-    return HttpResponse(json.dumps(document), content_type='application/json')
 
 
 def get_image_edit_form(ImageModel):
@@ -66,7 +61,7 @@ def add(request):
             image.save()
 
             # Success! Send back an edit form for this image to the user
-            return json_response({
+            return JsonResponse({
                 'success': True,
                 'image_id': int(image.id),
                 'form': render_to_string('wagtailimages/multiple/edit_form.html', {
@@ -76,7 +71,7 @@ def add(request):
             })
         else:
             # Validation error
-            return json_response({
+            return JsonResponse({
                 'success': False,
 
                 # https://github.com/django/django/blob/stable/1.6.x/django/forms/util.py#L45
@@ -116,12 +111,12 @@ def edit(request, image_id, callback=None):
         for backend in get_search_backends():
             backend.add(image)
 
-        return json_response({
+        return JsonResponse({
             'success': True,
             'image_id': int(image_id),
         })
     else:
-        return json_response({
+        return JsonResponse({
             'success': False,
             'image_id': int(image_id),
             'form': render_to_string('wagtailimages/multiple/edit_form.html', {
@@ -143,7 +138,7 @@ def delete(request, image_id):
 
     image.delete()
 
-    return json_response({
+    return JsonResponse({
         'success': True,
         'image_id': int(image_id),
     })

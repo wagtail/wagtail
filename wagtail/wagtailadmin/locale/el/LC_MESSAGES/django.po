@@ -11,10 +11,10 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-04-21 09:38+0100\n"
-"PO-Revision-Date: 2015-04-17 12:59+0000\n"
-"Last-Translator: Wasilis Mandratzis-Walz\n"
-"Language-Team: Greek (http://www.transifex.com/projects/p/wagtail/language/"
+"POT-Creation-Date: 2015-08-26 14:28+0100\n"
+"PO-Revision-Date: 2015-08-26 13:37+0000\n"
+"Last-Translator: Karl Hobley <karl@torchbox.com>\n"
+"Language-Team: Greek (http://www.transifex.com/torchbox/wagtail/language/"
 "el/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -199,6 +199,15 @@ msgstr "Μενού"
 msgid "Add another"
 msgstr "Προσθήκη ένος άλλου"
 
+msgid "Move up"
+msgstr "Μετακίνηση πάνω"
+
+msgid "Move down"
+msgstr "Μετακίνηση κάτω"
+
+msgid "Delete"
+msgstr "Διαγραφή"
+
 msgid "Explorer"
 msgstr "Εξερευνητής"
 
@@ -210,17 +219,6 @@ msgstr "Εξωτερική σύνδεση"
 
 msgid "Email link"
 msgstr "Σύνδεση με email"
-
-#, python-format
-msgid ""
-"\n"
-"        Only pages of type \"%(type)s\" may be chosen for this field. Search "
-"results will exclude pages of other types.\n"
-"    "
-msgstr ""
-"\n"
-"Μόνο σελίδες του τύπου \"%(type)s\" μπορουν να επιλεγθουν για αυτό το πεδίο. "
-"Τα αποτελέσματα αναζήτησης θα αποκλείσουν τις σελίδες των άλλων τύπων."
 
 #, python-format
 msgid ""
@@ -252,15 +250,6 @@ msgstr "Εισαγωγή σύνδεσης"
 
 msgid "Add an external link"
 msgstr "Προσθήκη εξωτερικής σύνδεσης"
-
-msgid "Move up"
-msgstr "Μετακίνηση πάνω"
-
-msgid "Move down"
-msgstr "Μετακίνηση κάτω"
-
-msgid "Delete"
-msgstr "Διαγραφή"
 
 #, python-format
 msgid "Welcome to the %(site_name)s Wagtail CMS"
@@ -562,33 +551,11 @@ msgstr "από %(modified_by)s"
 msgid "Exploring %(title)s"
 msgstr "Εξερεύνηση %(title)s"
 
-msgid "Updated"
-msgstr "Ενημέρωση"
-
 msgid "Drag"
 msgstr "Τραβήξτε"
 
-msgid "No pages have been created."
-msgstr "Δεν έχουν δημιουργηθεί σελίδες."
-
-#, python-format
-msgid "Why not <a href=\"%(add_page_url)s\">add one</a>?"
-msgstr "Θέλετε να <a href=\"%(add_page_url)s\">προσθέσετε μία</a>;"
-
-#, python-format
-msgid ""
-"\n"
-"            Page %(page_number)s of %(num_pages)s.\n"
-"        "
-msgstr ""
-"\n"
-"Σελίδα %(page_number)s από %(num_pages)s."
-
-msgid "Previous"
-msgstr "Προηγούμενο"
-
-msgid "Next"
-msgstr "Επόμενο"
+msgid "Updated"
+msgstr "Ενημέρωση"
 
 msgid "This page is locked to further editing"
 msgstr "Αυτή η σελίδα έχει κλειδωθεί για περαιτέρω επεξεργασία"
@@ -621,6 +588,12 @@ msgstr ""
 msgid "Add child page"
 msgstr "Προσθήκη σελίδας-παιδί"
 
+msgid "Previous"
+msgstr "Προηγούμενο"
+
+msgid "Next"
+msgstr "Επόμενο"
+
 msgid "This page is protected from public view"
 msgstr "Αυτή η σελίδα προστατεύεται από τη δημοσιότητα"
 
@@ -641,24 +614,6 @@ msgstr "Επιλογή πατρικής σελίδας για την %(title)s"
 msgid "Select a new parent page for <span>%(title)s</span>"
 msgstr "Επιλογή νέας πατρικής σελίδας για την <span>%(title)s</span>"
 
-#, python-format
-msgid ""
-"\n"
-"                    There is one matching page\n"
-"                "
-msgid_plural ""
-"\n"
-"                    There are %(counter)s matching pages\n"
-"                "
-msgstr[0] ""
-"\n"
-"                    Υπάρχει μία σελίδα που ταιριάζει\n"
-"                "
-msgstr[1] ""
-"\n"
-"                    Υπάρχουν %(counter)s σελίδες που ταιριάζουν\n"
-"                "
-
 msgid "Other searches"
 msgstr "Άλλες αναζητήσεις"
 
@@ -670,15 +625,6 @@ msgstr "Έγγραφα"
 
 msgid "Users"
 msgstr "Χρήστες"
-
-#, python-format
-msgid ""
-"\n"
-"                Page %(page_number)s of %(num_pages)s.\n"
-"            "
-msgstr ""
-"\n"
-"Σελίδα %(page_number)s of %(num_pages)s."
 
 #, python-format
 msgid "Sorry, no pages match <em>\"%(query_string)s\"</em>"
@@ -800,17 +746,6 @@ msgstr "Ο κωδικός σας αλλάχτηκε με επιτυχία!"
 msgid "Your preferences have been updated successfully!"
 msgstr "Οι προτιμήσεις σας έχουν ενημερωθεί επιτυχώς!"
 
-msgid "This slug is already in use"
-msgstr "Το slug χρησιμοποιείται"
-
-msgid "Go live date/time must be before expiry date/time"
-msgstr ""
-"Μετάβαση ζωντανής ημερομηνίας/ώρας πρέπει να είναι πριν από την ημερομηνία "
-"λήξης/ώρας"
-
-msgid "Expiry date/time must be in the future"
-msgstr "Η ημερομηνία/ώρα λήξης πρέπει να είναι μελλοντική"
-
 #, python-brace-format
 msgid "Page '{0}' created and published."
 msgstr "Η σελίδα '{0}' δημιουργήθηκε και δημοσιεύθηκε."
@@ -852,6 +787,17 @@ msgstr "Δε ήταν δυνατή η αποθήκευση της σελίδας
 
 msgid "This page is currently awaiting moderation"
 msgstr "Η σελίδα δεν είναι προς έλεγχο"
+
+msgid "This slug is already in use"
+msgstr "Το slug χρησιμοποιείται"
+
+msgid "Go live date/time must be before expiry date/time"
+msgstr ""
+"Μετάβαση ζωντανής ημερομηνίας/ώρας πρέπει να είναι πριν από την ημερομηνία "
+"λήξης/ώρας"
+
+msgid "Expiry date/time must be in the future"
+msgstr "Η ημερομηνία/ώρα λήξης πρέπει να είναι μελλοντική"
 
 #, python-brace-format
 msgid "Page '{0}' deleted."

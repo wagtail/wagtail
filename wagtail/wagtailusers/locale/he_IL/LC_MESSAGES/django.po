@@ -8,10 +8,10 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-04-21 09:39+0100\n"
+"POT-Creation-Date: 2015-08-26 14:28+0100\n"
 "PO-Revision-Date: 2015-06-20 14:13+0000\n"
 "Last-Translator: lior abazon <abazon@v15.org.il>\n"
-"Language-Team: Hebrew (Israel) (http://www.transifex.com/projects/p/wagtail/"
+"Language-Team: Hebrew (Israel) (http://www.transifex.com/torchbox/wagtail/"
 "language/he_IL/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -19,11 +19,29 @@ msgstr ""
 "Language: he_IL\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
+msgid "Required. 30 characters or fewer. Letters, digits and @/./+/-/_ only."
+msgstr "נחוץ. 30 תווים או פחות. אותיות, ספרות ו @/./+/-/_  בלבד"
+
+msgid "This value may contain only letters, numbers and @/./+/-/_ characters."
+msgstr "ערך זה יכול להכיל אותיות, ספרות והתווים @/./+/-/_  בלבד"
+
 msgid "Administrator"
 msgstr "מנהל"
 
 msgid "If ticked, this user has the ability to manage user accounts."
 msgstr "אם מסומן, המשתמש הזה מקבל את היכולת לנהל חשבונות משתמשים"
+
+msgid "Password"
+msgstr "סיסמא"
+
+msgid "Leave blank if not changing."
+msgstr "השאירו ריק אם לא משנים"
+
+msgid "Password confirmation"
+msgstr "אישור סיסמא"
+
+msgid "Enter the same password as above, for verification."
+msgstr "הכניסו אותה סיסמא שוב, עבור וידוא"
 
 msgid "Email"
 msgstr "דואר אלקטרוני"
@@ -39,27 +57,6 @@ msgstr "שם משתמש קיים במערכת"
 
 msgid "The two password fields didn't match."
 msgstr "שתי הסיסמאות לא מתאימות"
-
-msgid "Username"
-msgstr "שם משתמש"
-
-msgid "Required. 30 characters or fewer. Letters, digits and @/./+/-/_ only."
-msgstr "נחוץ. 30 תווים או פחות. אותיות, ספרות ו @/./+/-/_  בלבד"
-
-msgid "This value may contain only letters, numbers and @/./+/-/_ characters."
-msgstr "ערך זה יכול להכיל אותיות, ספרות והתווים @/./+/-/_  בלבד"
-
-msgid "Password"
-msgstr "סיסמא"
-
-msgid "Leave blank if not changing."
-msgstr "השאירו ריק אם לא משנים"
-
-msgid "Password confirmation"
-msgstr "אישור סיסמא"
-
-msgid "Enter the same password as above, for verification."
-msgstr "הכניסו אותה סיסמא שוב, עבור וידוא"
 
 msgid "Administrators have the ability to manage user accounts."
 msgstr "מנהלים יכולים לנהל חשבונות משתמשים"
@@ -161,6 +158,9 @@ msgstr "משתמשים"
 
 msgid "Add a user"
 msgstr "הוספת משתמש"
+
+msgid "Username"
+msgstr "שם משתמש"
 
 msgid "Level"
 msgstr "רמה"

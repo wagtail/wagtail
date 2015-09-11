@@ -9,10 +9,12 @@ from wagtail.wagtailsearch import forms as search_forms
 from wagtail.wagtailsearch.models import Query
 from wagtail.wagtailadmin.forms import SearchForm
 from wagtail.wagtailadmin import messages
+from wagtail.wagtailadmin.utils import permission_required, any_permission_required
 
 from wagtail.contrib.wagtailsearchpromotions import forms
 
 
+@any_permission_required('wagtailsearchpromotions.add_searchpromotion', 'wagtailsearchpromotions.change_searchpromotion', 'wagtailsearchpromotions.delete_searchpromotion')
 @vary_on_headers('X-Requested-With')
 def index(request):
     is_searching = False
@@ -71,6 +73,7 @@ def save_searchpicks(query, new_query, searchpicks_formset):
         return False
 
 
+@permission_required('wagtailsearchpromotions.add_searchpromotion')
 def add(request):
     if request.POST:
         # Get query
@@ -102,6 +105,7 @@ def add(request):
     })
 
 
+@permission_required('wagtailsearchpromotions.change_searchpromotion')
 def edit(request, query_id):
     query = get_object_or_404(Query, id=query_id)
 
@@ -137,6 +141,7 @@ def edit(request, query_id):
     })
 
 
+@permission_required('wagtailsearchpromotions.delete_searchpromotion')
 def delete(request, query_id):
     query = get_object_or_404(Query, id=query_id)
 

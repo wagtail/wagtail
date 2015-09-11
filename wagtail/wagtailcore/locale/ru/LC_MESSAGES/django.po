@@ -9,10 +9,10 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-04-21 09:38+0100\n"
-"PO-Revision-Date: 2015-04-28 07:26+0000\n"
-"Last-Translator: Eugene MechanisM <contact@mechanism.name>\n"
-"Language-Team: Russian (http://www.transifex.com/projects/p/wagtail/language/"
+"POT-Creation-Date: 2015-09-02 20:07+0100\n"
+"PO-Revision-Date: 2015-09-02 19:12+0000\n"
+"Last-Translator: Karl Hobley <karl@torchbox.com>\n"
+"Language-Team: Russian (http://www.transifex.com/torchbox/wagtail/language/"
 "ru/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -49,9 +49,6 @@ msgid ""
 msgstr ""
 "Если выбрано, этот сайт будет обрабатывать запросы для всех имеющихся имен "
 "хостов, не закрепленных за другими сайтами"
-
-msgid "Site"
-msgstr "Сайт"
 
 #, python-format
 msgid ""
@@ -171,14 +168,11 @@ msgstr "Сожержимое JSON"
 msgid "Approved go live at"
 msgstr "Подтверждено к публикации"
 
-msgid "Page Revision"
-msgstr "Ревизия Страницы"
-
 msgid "Add/edit pages you own"
 msgstr "Добавить/редактировать свои страницы"
 
-msgid "Add/edit any page"
-msgstr "Добавить/редактировать любую страницу"
+msgid "Edit any page"
+msgstr "Редактировать любую страницу"
 
 msgid "Publish any page"
 msgstr "Опубликовать любую страницу"
@@ -192,14 +186,8 @@ msgstr "Группа"
 msgid "Permission type"
 msgstr "Тип прав"
 
-msgid "Group Page Permission"
-msgstr "Права на страницу у группы"
-
 msgid "Password"
 msgstr "Пароль"
-
-msgid "Page View Restriction"
-msgstr "Ограничения на просмотр страницы"
 
 msgid "Value cannot be entirely whitespace characters"
 msgstr "Значение не может состоять полностью из пробельных символов"

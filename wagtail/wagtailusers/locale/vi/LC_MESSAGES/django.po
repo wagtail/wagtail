@@ -8,10 +8,10 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-04-21 09:39+0100\n"
+"POT-Creation-Date: 2015-08-26 14:28+0100\n"
 "PO-Revision-Date: 2015-04-21 08:40+0000\n"
 "Last-Translator: Karl Hobley <karl@torchbox.com>\n"
-"Language-Team: Vietnamese (http://www.transifex.com/projects/p/wagtail/"
+"Language-Team: Vietnamese (http://www.transifex.com/torchbox/wagtail/"
 "language/vi/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -19,8 +19,26 @@ msgstr ""
 "Language: vi\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
+msgid "Required. 30 characters or fewer. Letters, digits and @/./+/-/_ only."
+msgstr "Cần nhập. 30 ký tự hoặc ít hơn. Chỉ chấp nhận kí tự, số và @/./+/-/_."
+
+msgid "This value may contain only letters, numbers and @/./+/-/_ characters."
+msgstr "Giá trị này chỉ chấp nhận ký tự, số và @/./+/-/_."
+
 msgid "If ticked, this user has the ability to manage user accounts."
 msgstr "Nếu chọn, người dùng này có thể quản lý các tài khoản."
+
+msgid "Password"
+msgstr "Mật khẩu"
+
+msgid "Leave blank if not changing."
+msgstr "Để trống nếu không thay đổi."
+
+msgid "Password confirmation"
+msgstr "Xác nhận lại mật khẩu"
+
+msgid "Enter the same password as above, for verification."
+msgstr "Nhập lại mật khẩu phía trên để xác nhận."
 
 msgid "Email"
 msgstr "Email"
@@ -36,27 +54,6 @@ msgstr "Người dùng với username này đã tồn tại."
 
 msgid "The two password fields didn't match."
 msgstr "Hai mật khẩu không giống nhau."
-
-msgid "Username"
-msgstr "Username"
-
-msgid "Required. 30 characters or fewer. Letters, digits and @/./+/-/_ only."
-msgstr "Cần nhập. 30 ký tự hoặc ít hơn. Chỉ chấp nhận kí tự, số và @/./+/-/_."
-
-msgid "This value may contain only letters, numbers and @/./+/-/_ characters."
-msgstr "Giá trị này chỉ chấp nhận ký tự, số và @/./+/-/_."
-
-msgid "Password"
-msgstr "Mật khẩu"
-
-msgid "Leave blank if not changing."
-msgstr "Để trống nếu không thay đổi."
-
-msgid "Password confirmation"
-msgstr "Xác nhận lại mật khẩu"
-
-msgid "Enter the same password as above, for verification."
-msgstr "Nhập lại mật khẩu phía trên để xác nhận."
 
 msgid "Administrators have the ability to manage user accounts."
 msgstr "Người điều hành có khả năng quản lý các tài khoản."
@@ -114,6 +111,9 @@ msgstr "Người dùng"
 
 msgid "Add a user"
 msgstr "Thêm người dùng"
+
+msgid "Username"
+msgstr "Username"
 
 msgid "Status"
 msgstr "Trạng thái"

@@ -1,10 +1,11 @@
+from django.db.models import Q
 from django.conf.urls import include, url
 from django.core import urlresolvers
 from django.contrib.auth.models import Permission
-from django.contrib.contenttypes.models import ContentType
 from django.utils.translation import ugettext_lazy as _
 
 from wagtail.wagtailcore import hooks
+from wagtail.wagtailcore.compat import AUTH_USER_APP_LABEL, AUTH_USER_MODEL_NAME
 from wagtail.wagtailadmin.menu import MenuItem
 
 from wagtail.wagtailusers.urls import users, groups
@@ -18,22 +19,49 @@ def register_admin_urls():
     ]
 
 
-class AuthMenuItem(MenuItem):
+# Typically we would check the permission 'auth.change_user' (and 'auth.add_user' /
+# 'auth.delete_user') for user management actions, but this may vary according to
+# the AUTH_USER_MODEL setting
+add_user_perm = "{0}.add_{1}".format(AUTH_USER_APP_LABEL, AUTH_USER_MODEL_NAME.lower())
+change_user_perm = "{0}.change_{1}".format(AUTH_USER_APP_LABEL, AUTH_USER_MODEL_NAME.lower())
+delete_user_perm = "{0}.delete_{1}".format(AUTH_USER_APP_LABEL, AUTH_USER_MODEL_NAME.lower())
+
+
+class UsersMenuItem(MenuItem):
     def is_shown(self, request):
-        return request.user.has_module_perms('auth')
+        return (
+            request.user.has_perm(add_user_perm)
+            or request.user.has_perm(change_user_perm)
+            or request.user.has_perm(delete_user_perm)
+        )
+
 
 @hooks.register('register_settings_menu_item')
 def register_users_menu_item():
-    return AuthMenuItem(_('Users'), urlresolvers.reverse('wagtailusers_users:index'), classnames='icon icon-user', order=600)
+    return UsersMenuItem(_('Users'), urlresolvers.reverse('wagtailusers_users:index'), classnames='icon icon-user', order=600)
+
+
+class GroupsMenuItem(MenuItem):
+    def is_shown(self, request):
+        return (
+            request.user.has_perm('auth.add_group')
+            or request.user.has_perm('auth.change_group')
+            or request.user.has_perm('auth.delete_group')
+        )
+
 
 @hooks.register('register_settings_menu_item')
 def register_groups_menu_item():
-    return AuthMenuItem(_('Groups'), urlresolvers.reverse('wagtailusers_groups:index'), classnames='icon icon-group', order=601)
+    return GroupsMenuItem(_('Groups'), urlresolvers.reverse('wagtailusers_groups:index'), classnames='icon icon-group', order=601)
 
 
 @hooks.register('register_permissions')
 def register_permissions():
-    user_profile_content_types = ContentType.objects.filter(app_label='wagtailusers', model='userprofile')
-    auth_content_types = ContentType.objects.filter(app_label='auth', model__in=['group', 'user'])
-    relevant_content_types = user_profile_content_types | auth_content_types
-    return Permission.objects.filter(content_type__in=relevant_content_types)
+    user_permissions = Q(content_type__app_label=AUTH_USER_APP_LABEL, codename__in=[
+        'add_%s' % AUTH_USER_MODEL_NAME.lower(),
+        'change_%s' % AUTH_USER_MODEL_NAME.lower(),
+        'delete_%s' % AUTH_USER_MODEL_NAME.lower(),
+    ])
+    group_permissions = Q(content_type__app_label='auth', codename__in=['add_group', 'change_group', 'delete_group'])
+
+    return Permission.objects.filter(user_permissions | group_permissions)

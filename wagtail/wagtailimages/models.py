@@ -63,7 +63,7 @@ class AbstractImage(models.Model, TagSearchable):
     file = models.ImageField(verbose_name=_('File'), upload_to=get_upload_to, width_field='width', height_field='height')
     width = models.IntegerField(verbose_name=_('Width'), editable=False)
     height = models.IntegerField(verbose_name=_('Height'), editable=False)
-    created_at = models.DateTimeField(verbose_name=_('Created at'), auto_now_add=True)
+    created_at = models.DateTimeField(verbose_name=_('Created at'), auto_now_add=True, db_index=True)
     uploaded_by_user = models.ForeignKey(settings.AUTH_USER_MODEL, verbose_name=_('Uploaded by user'), null=True, blank=True, editable=False)
 
     tags = TaggableManager(help_text=None, blank=True, verbose_name=_('Tags'))
@@ -74,6 +74,17 @@ class AbstractImage(models.Model, TagSearchable):
     focal_point_height = models.PositiveIntegerField(null=True, blank=True)
 
     file_size = models.PositiveIntegerField(null=True, editable=False)
+
+    def is_stored_locally(self):
+        """
+        Returns True if the image is hosted on the local filesystem
+        """
+        try:
+            self.file.path
+
+            return True
+        except NotImplementedError:
+            return False
 
     def get_file_size(self):
         if self.file_size is None:
@@ -92,7 +103,7 @@ class AbstractImage(models.Model, TagSearchable):
 
     @property
     def usage_url(self):
-        return reverse('wagtailimages_image_usage',
+        return reverse('wagtailimages:image_usage',
                        args=(self.id,))
 
     search_fields = TagSearchable.search_fields + (
@@ -107,8 +118,18 @@ class AbstractImage(models.Model, TagSearchable):
         # Open file if it is closed
         close_file = False
         try:
+            image_file = self.file
+
             if self.file.closed:
-                self.file.open('rb')
+                # Reopen the file
+                if self.is_stored_locally():
+                    self.file.open('rb')
+                else:
+                    # Some external storage backends don't allow reopening
+                    # the file. Get a fresh file instance. #1397
+                    storage = self._meta.get_field('file').storage
+                    image_file = storage.open(self.file.name, 'rb')
+
                 close_file = True
         except IOError as e:
             # re-throw this as a SourceImageIOError so that calling code can distinguish
@@ -116,13 +137,13 @@ class AbstractImage(models.Model, TagSearchable):
             raise SourceImageIOError(text_type(e))
 
         # Seek to beginning
-        self.file.seek(0)
+        image_file.seek(0)
 
         try:
-            yield WillowImage.open(self.file)
+            yield WillowImage.open(image_file)
         finally:
             if close_file:
-                self.file.close()
+                image_file.close()
 
     def get_rect(self):
         return Rect(0, 0, self.width, self.height)

@@ -1,0 +1,18 @@
+==========================================
+Wagtail 1.2 release notes - IN DEVELOPMENT
+==========================================
+
+.. contents::
+    :local:
+    :depth: 1
+
+
+What's new
+==========
+
+
+Bug fixes
+~~~~~~~~~
+
+ * Deleting a page permission from the groups admin UI does not immediately submit the form
+

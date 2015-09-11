@@ -131,7 +131,6 @@ class AbstractForm(Page):
     """
 
     form_builder = FormBuilder
-    is_abstract = True  # Don't display me in "Add"
 
     def __init__(self, *args, **kwargs):
         super(AbstractForm, self).__init__(*args, **kwargs)
@@ -171,16 +170,21 @@ class AbstractForm(Page):
 
                 # render the landing_page
                 # TODO: It is much better to redirect to it
-                return render(request, self.landing_page_template, {
-                    'self': self,
-                })
+                return render(
+                    request,
+                    self.landing_page_template,
+                    self.get_context(request)
+                )
         else:
             form = self.get_form()
 
-        return render(request, self.template, {
-            'self': self,
-            'form': form,
-        })
+        context = self.get_context(request)
+        context['form'] = form
+        return render(
+            request,
+            self.template,
+            context
+        )
 
     preview_modes = [
         ('form', 'Form'),
@@ -189,9 +193,11 @@ class AbstractForm(Page):
 
     def serve_preview(self, request, mode):
         if mode == 'landing':
-            return render(request, self.landing_page_template, {
-                'self': self,
-            })
+            return render(
+                request,
+                self.landing_page_template,
+                self.get_context(request)
+            )
         else:
             return super(AbstractForm, self).serve_preview(request, mode)
 
@@ -200,7 +206,6 @@ class AbstractEmailForm(AbstractForm):
     """
     A Form Page that sends email. Pages implementing a form to be send to an email should inherit from it
     """
-    is_abstract = True  # Don't display me in "Add"
 
     to_address = models.CharField(verbose_name=_('To address'), max_length=255, blank=True, help_text=_("Optional - form submissions will be emailed to this address"))
     from_address = models.CharField(verbose_name=_('From address'), max_length=255, blank=True)

@@ -9,10 +9,10 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-04-21 09:38+0100\n"
-"PO-Revision-Date: 2015-06-29 16:35+0000\n"
-"Last-Translator: hanfeng <appweb.cn@gmail.com>\n"
-"Language-Team: Chinese (China) (http://www.transifex.com/projects/p/wagtail/"
+"POT-Creation-Date: 2015-08-26 14:28+0100\n"
+"PO-Revision-Date: 2015-08-26 13:37+0000\n"
+"Last-Translator: Karl Hobley <karl@torchbox.com>\n"
+"Language-Team: Chinese (China) (http://www.transifex.com/torchbox/wagtail/"
 "language/zh_CN/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -185,6 +185,15 @@ msgstr "菜单"
 msgid "Add another"
 msgstr "添加另外一个"
 
+msgid "Move up"
+msgstr "上移"
+
+msgid "Move down"
+msgstr "下移"
+
+msgid "Delete"
+msgstr "删除"
+
 msgid "Explorer"
 msgstr "资源管理"
 
@@ -196,17 +205,6 @@ msgstr "外部链接"
 
 msgid "Email link"
 msgstr "电子邮件连接"
-
-#, python-format
-msgid ""
-"\n"
-"        Only pages of type \"%(type)s\" may be chosen for this field. Search "
-"results will exclude pages of other types.\n"
-"    "
-msgstr ""
-"\n"
-"            这里只能选择 \"%(type)s\"类型的页面。搜索结果会过滤掉其它类型。\n"
-"        "
 
 #, python-format
 msgid ""
@@ -236,15 +234,6 @@ msgstr "插入链接"
 
 msgid "Add an external link"
 msgstr "添加一个外部链接"
-
-msgid "Move up"
-msgstr "上移"
-
-msgid "Move down"
-msgstr "下移"
-
-msgid "Delete"
-msgstr "删除"
 
 #, python-format
 msgid "Welcome to the %(site_name)s Wagtail CMS"
@@ -529,34 +518,11 @@ msgstr "被 %(modified_by)s"
 msgid "Exploring %(title)s"
 msgstr "浏览 %(title)s"
 
-msgid "Updated"
-msgstr "已更新"
-
 msgid "Drag"
 msgstr "拖曳"
 
-msgid "No pages have been created."
-msgstr "还没有创建页面。"
-
-#, python-format
-msgid "Why not <a href=\"%(add_page_url)s\">add one</a>?"
-msgstr "为啥不<a href=\"%(add_page_url)s\">创建一个</a>?"
-
-#, python-format
-msgid ""
-"\n"
-"            Page %(page_number)s of %(num_pages)s.\n"
-"        "
-msgstr ""
-"\n"
-"            页面 %(page_number)s / %(num_pages)s.\n"
-"        "
-
-msgid "Previous"
-msgstr "上一个"
-
-msgid "Next"
-msgstr "下一个"
+msgid "Updated"
+msgstr "已更新"
 
 msgid "This page is locked to further editing"
 msgstr "此页面已锁定，无法编辑"
@@ -587,6 +553,12 @@ msgstr "此页面已发布，但并没有配置站点，所以无法查看。"
 msgid "Add child page"
 msgstr "添加子页面"
 
+msgid "Previous"
+msgstr "上一个"
+
+msgid "Next"
+msgstr "下一个"
+
 msgid "This page is protected from public view"
 msgstr "此页面已受保护，公众不可见。"
 
@@ -607,20 +579,6 @@ msgstr "为 %(title)s选择新父节点"
 msgid "Select a new parent page for <span>%(title)s</span>"
 msgstr "为<span>%(title)s</span>选择新的父节点"
 
-#, python-format
-msgid ""
-"\n"
-"                    There is one matching page\n"
-"                "
-msgid_plural ""
-"\n"
-"                    There are %(counter)s matching pages\n"
-"                "
-msgstr[0] ""
-"\n"
-"                    有%(counter)s个符合要求的页面\n"
-"                "
-
 msgid "Other searches"
 msgstr "其它搜索"
 
@@ -632,16 +590,6 @@ msgstr "文档"
 
 msgid "Users"
 msgstr "用户"
-
-#, python-format
-msgid ""
-"\n"
-"                Page %(page_number)s of %(num_pages)s.\n"
-"            "
-msgstr ""
-"\n"
-"                页面 %(page_number)s / %(num_pages)s.\n"
-"            "
 
 #, python-format
 msgid "Sorry, no pages match <em>\"%(query_string)s\"</em>"
@@ -757,15 +705,6 @@ msgstr "密码成功修改！"
 msgid "Your preferences have been updated successfully!"
 msgstr "参数成功更新！"
 
-msgid "This slug is already in use"
-msgstr "此缩略名已被使用"
-
-msgid "Go live date/time must be before expiry date/time"
-msgstr "发布日期/时间必须早于过期日期/时间"
-
-msgid "Expiry date/time must be in the future"
-msgstr "过期日期/时间必须是未来时间。"
-
 #, python-brace-format
 msgid "Page '{0}' created and published."
 msgstr "页面'{0}'已创建并发布。"
@@ -807,6 +746,15 @@ msgstr "页面无法保存。出现验证错误。"
 
 msgid "This page is currently awaiting moderation"
 msgstr "页面等待审核中"
+
+msgid "This slug is already in use"
+msgstr "此缩略名已被使用"
+
+msgid "Go live date/time must be before expiry date/time"
+msgstr "发布日期/时间必须早于过期日期/时间"
+
+msgid "Expiry date/time must be in the future"
+msgstr "过期日期/时间必须是未来时间。"
 
 #, python-brace-format
 msgid "Page '{0}' deleted."

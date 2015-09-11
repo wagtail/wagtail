@@ -8,7 +8,7 @@ We recommend using the `Wagtail demo site <https://github.com/torchbox/wagtailde
 
 Install the wagtaildemo following the instructions in the `wagtaildemo README <https://github.com/torchbox/wagtaildemo/blob/master/README.md>`_, then continue with the instructions below.
 
-Clone a copy of `the Wagtail codebase <https://github.com/torchbox/wagtail>`_ alongside your demo site at the same level. So in the directory containing wagtaildemo, run::
+Clone a copy of `the Wagtail codebase <https://github.com/torchbox/wagtail>`_ alongside your demo site at the same level. So in the directory containing the wagtaildemo repo, run::
 
     git clone https://github.com/torchbox/wagtail.git
 

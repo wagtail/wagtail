@@ -10,11 +10,11 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-04-21 09:38+0100\n"
-"PO-Revision-Date: 2015-04-17 11:48+0000\n"
+"POT-Creation-Date: 2015-08-26 14:28+0100\n"
+"PO-Revision-Date: 2015-08-26 13:37+0000\n"
 "Last-Translator: Karl Hobley <karl@torchbox.com>\n"
-"Language-Team: Galician (http://www.transifex.com/projects/p/wagtail/"
-"language/gl/)\n"
+"Language-Team: Galician (http://www.transifex.com/torchbox/wagtail/language/"
+"gl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -118,6 +118,15 @@ msgstr "Panel de control"
 msgid "Menu"
 msgstr "Menú"
 
+msgid "Move up"
+msgstr "Subir"
+
+msgid "Move down"
+msgstr "Baixar"
+
+msgid "Delete"
+msgstr "Eliminar"
+
 msgid "Explorer"
 msgstr "Explorador"
 
@@ -141,15 +150,6 @@ msgstr "Inserta unha ligazón"
 
 msgid "Add an external link"
 msgstr "Engade unha ligazón externa"
-
-msgid "Move up"
-msgstr "Subir"
-
-msgid "Move down"
-msgstr "Baixar"
-
-msgid "Delete"
-msgstr "Eliminar"
 
 #, python-format
 msgid "Welcome to the %(site_name)s Wagtail CMS"
@@ -372,19 +372,6 @@ msgstr "Explorando %(title)s"
 msgid "Drag"
 msgstr "Levar"
 
-msgid "No pages have been created."
-msgstr "Non foi creada ningunha páxina."
-
-#, python-format
-msgid "Why not <a href=\"%(add_page_url)s\">add one</a>?"
-msgstr "¿Por qué non <a href=\"%(add_page_url)s\">engadir unha</a>?"
-
-msgid "Previous"
-msgstr "Anterior"
-
-msgid "Next"
-msgstr "Seguinte"
-
 msgid "Explore"
 msgstr "Explorar"
 
@@ -397,6 +384,12 @@ msgstr "Engadir subpáxina"
 
 msgid "Add child page"
 msgstr "Engadir páxina filla"
+
+msgid "Previous"
+msgstr "Anterior"
+
+msgid "Next"
+msgstr "Seguinte"
 
 msgid "Disable ordering of child pages"
 msgstr "Deshabilitar organización de páxinas fillas"
@@ -425,16 +418,6 @@ msgid "Users"
 msgstr "Usuarios"
 
 #, python-format
-msgid ""
-"\n"
-"                Page %(page_number)s of %(num_pages)s.\n"
-"            "
-msgstr ""
-"\n"
-"                Páxina %(page_number)s de %(num_pages)s.\n"
-"            "
-
-#, python-format
 msgid "Sorry, no pages match <em>\"%(query_string)s\"</em>"
 msgstr "Sentímolo, ningunha páxina contén <em>\"%(query_string)s\"</em>"
 
@@ -453,9 +436,6 @@ msgstr "Páxina %(page_num)s de %(total_pages)s."
 
 msgid "Your password has been changed successfully!"
 msgstr "¡O teu contrasinal foi cambiado correctamente!"
-
-msgid "This slug is already in use"
-msgstr "Este slug ya está en uso"
 
 #, python-brace-format
 msgid "Page '{0}' created."
@@ -478,6 +458,9 @@ msgstr "A páxina non puido ser gardada debido a erros de validación"
 
 msgid "This page is currently awaiting moderation"
 msgstr "A páxina está á espera de ser moderada"
+
+msgid "This slug is already in use"
+msgstr "Este slug ya está en uso"
 
 #, python-brace-format
 msgid "Page '{0}' deleted."

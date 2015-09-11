@@ -79,6 +79,13 @@ class TestImage(TestCase):
         self.assertEqual(self.image.focal_point_width, None)
         self.assertEqual(self.image.focal_point_height, None)
 
+    def test_is_stored_locally(self):
+        self.assertTrue(self.image.is_stored_locally())
+
+    @override_settings(DEFAULT_FILE_STORAGE='wagtail.tests.dummy_external_storage.DummyExternalStorage')
+    def test_is_stored_locally_with_external_storage(self):
+        self.assertFalse(self.image.is_stored_locally())
+
 
 class TestImagePermissions(TestCase):
     def setUp(self):
