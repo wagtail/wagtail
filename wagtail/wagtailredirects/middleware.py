@@ -1,4 +1,5 @@
 from django import http
+from django.utils.six.moves.urllib.parse import urlparse
 
 from wagtail.wagtailredirects import models
 
@@ -12,13 +13,16 @@ class RedirectMiddleware(object):
 
         # Get the path
         path = models.Redirect.normalise_path(request.get_full_path())
+        path_without_query = urlparse(path)[2]
 
         # Find redirect
         try:
             redirect = models.Redirect.get_for_site(request.site).get(old_path=path)
         except models.Redirect.DoesNotExist:
-            # No redirect found, return the 400 page
-            return response
+            try:
+                redirect = models.Redirect.get_for_site(request.site).get(old_path=path_without_query)
+            except models.Redirect.DoesNotExist:
+                return response
 
         if redirect.is_permanent:
             return http.HttpResponsePermanentRedirect(redirect.link)
