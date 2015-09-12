@@ -28,4 +28,3 @@ class RedirectMiddleware(object):
             return http.HttpResponsePermanentRedirect(redirect.link)
         else:
             return http.HttpResponseRedirect(redirect.link)
-
