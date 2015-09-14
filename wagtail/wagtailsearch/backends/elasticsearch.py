@@ -467,6 +467,9 @@ class ElasticSearchAtomicIndexRebuilder(ElasticSearchIndexRebuilder):
 
 
 class ElasticSearch(BaseSearch):
+    search_query_class = ElasticSearchQuery
+    search_results_class = ElasticSearchResults
+
     def __init__(self, params):
         super(ElasticSearch, self).__init__(params)
 
@@ -578,9 +581,6 @@ class ElasticSearch(BaseSearch):
             )
         except NotFoundError:
             pass  # Document doesn't exist, ignore this exception
-
-    def _search(self, queryset, query_string, fields=None):
-        return ElasticSearchResults(self, ElasticSearchQuery(queryset, query_string, fields=fields))
 
 
 SearchBackend = ElasticSearch

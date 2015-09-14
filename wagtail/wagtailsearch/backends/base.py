@@ -173,6 +173,9 @@ class BaseSearchResults(object):
 
 
 class BaseSearch(object):
+    search_query_class = None
+    search_results_class = None
+
     def __init__(self, params):
         pass
 
@@ -195,9 +198,6 @@ class BaseSearch(object):
         raise NotImplementedError
 
     def delete(self, obj):
-        raise NotImplementedError
-
-    def _search(self, queryset, query_string, fields=None):
         raise NotImplementedError
 
     def search(self, query_string, model_or_queryset, fields=None, filters=None, prefetch_related=None):
@@ -227,4 +227,5 @@ class BaseSearch(object):
                 queryset = queryset.prefetch_related(prefetch)
 
         # Search
-        return self._search(queryset, query_string, fields=fields)
+        search_query = self.search_query_class(queryset, query_string, fields=fields)
+        return self.search_results_class(self, search_query)

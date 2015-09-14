@@ -72,6 +72,9 @@ class DBSearchResults(BaseSearchResults):
 
 
 class DBSearch(BaseSearch):
+    search_query_class = DBSearchQuery
+    search_results_class = DBSearchResults
+
     def __init__(self, params):
         super(DBSearch, self).__init__(params)
 
@@ -92,9 +95,6 @@ class DBSearch(BaseSearch):
 
     def delete(self, obj):
         pass # Not needed
-
-    def _search(self, queryset, query_string, fields=None):
-        return DBSearchResults(self, DBSearchQuery(queryset, query_string, fields=fields))
 
 
 SearchBackend = DBSearch
