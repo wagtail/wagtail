@@ -88,10 +88,8 @@ class TestRedirects(TestCase):
         # Navagate to the redirect with a different query string
         # This should strip out the query string and match redirect_without_query_string
         r_no_qs = c.get('/redirectme/?utm_source=irrelevant')
-        print(r_no_qs)
         self.assertEqual(r_no_qs.status_code, 301)
         self.assertTrue(r_no_qs.has_header('Location'))
-        print(r_no_qs['Location'])
         self.assertEqual(r_no_qs['Location'][-21:], '/without-query-string')
 
 class TestRedirectsIndexView(TestCase, WagtailTestUtils):
