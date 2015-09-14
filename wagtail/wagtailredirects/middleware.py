@@ -13,12 +13,18 @@ class RedirectMiddleware(object):
 
         # Get the path
         path = models.Redirect.normalise_path(request.get_full_path())
+
+        # Get the path without the query string or params
         path_without_query = urlparse(path)[2]
 
         # Find redirect
         try:
             redirect = models.Redirect.get_for_site(request.site).get(old_path=path)
         except models.Redirect.DoesNotExist:
+            if path == path_without_query:
+                # don't try again if we know we will get the same response
+                return response
+
             try:
                 redirect = models.Redirect.get_for_site(request.site).get(old_path=path_without_query)
             except models.Redirect.DoesNotExist:
