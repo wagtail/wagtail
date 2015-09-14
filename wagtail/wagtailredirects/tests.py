@@ -79,13 +79,13 @@ class TestRedirects(TestCase):
         redirect_without_query_string = models.Redirect(old_path='/redirectme', redirect_link='/without-query-string')
         redirect_without_query_string.save()
 
-        # Navagate to the redirect with the query string
+        # Navigate to the redirect with the query string
         r_matching_qs = c.get('/redirectme/?foo=Bar')
         self.assertEqual(r_matching_qs.status_code, 301)
         self.assertTrue(r_matching_qs.has_header('Location'))
         self.assertEqual(r_matching_qs['Location'][-23:], '/with-query-string-only')
 
-        # Navagate to the redirect with a different query string
+        # Navigate to the redirect with a different query string
         # This should strip out the query string and match redirect_without_query_string
         r_no_qs = c.get('/redirectme/?utm_source=irrelevant')
         self.assertEqual(r_no_qs.status_code, 301)
