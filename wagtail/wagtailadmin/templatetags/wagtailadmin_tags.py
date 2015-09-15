@@ -76,15 +76,6 @@ def widgettype(bound_field):
             return ""
 
 
-
-@register.filter
-def meta_description(model):
-    try:
-        return model.model_class()._meta.description
-    except:
-        return ""
-
-
 @register.assignment_tag(takes_context=True)
 def page_permissions(context, page):
     """
