@@ -7,7 +7,7 @@ Changelog
  * Fix: Deleting a page permission from the groups admin UI does not immediately submit the form
 
 
-1.1 (xx.xx.xxxx)
+1.1 (15.09.2015)
 ~~~~~~~~~~~~~~~~
 
  * Implemented the `specific()` method on PageQuerySet, to return pages as their most specific type
