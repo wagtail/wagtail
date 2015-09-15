@@ -2,7 +2,10 @@ from .base import *
 
 
 DEBUG = False
-TEMPLATE_DEBUG = False
+DEBUG_TEMPLATE = False
+
+for i in range(0, len(TEMPLATES) - 1):
+    TEMPLATES[i]['OPTIONS']['debug'] = DEBUG_TEMPLATE
 
 
 try:
