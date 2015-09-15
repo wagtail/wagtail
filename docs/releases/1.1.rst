@@ -26,6 +26,13 @@ Atomic rebuilding of Elasticsearch indexes
 
 The Elasticsearch search backend now accepts an experimental ``ATOMIC_REBUILD`` flag which ensures that the existing search index continues to be available while the ``update_index`` task is running. See :ref:`wagtailsearch_backends_atomic_rebuild`.
 
+The :mod:`~wagtail.contrib.wagtailapi` module now uses Django REST Framework
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+The ``wagtailapi`` module is now built on Django REST Framework and it now also has a `library of serialisers <https://github.com/torchbox/wagtail/blob/stable/1.1.x/wagtail/contrib/wagtailapi/serializers.py>`_ that you can use in your own REST Framework based APIs. No user-facing changes have been made.
+
+We hope to support more REST framework features, such as a browsable API, in future releases.
+
 Permissions fixes in the admin interface
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -42,11 +49,9 @@ Searchable snippets
 
 Snippets that inherit from ``wagtail.wagtailsearch.index.Indexed`` are now given a search box on the snippet chooser and listing pages. See :ref:`wagtailsnippets_making_snippets_searchable`.
 
-
 Minor features
 ~~~~~~~~~~~~~~
 
- * The :mod:`~wagtail.contrib.wagtailapi` module has been refactored to use Django REST Framework
  * Implemented deletion of form submissions
  * Implemented pagination in the page chooser modal
  * Changed INSTALLED_APPS in project template to list apps in precedence order
