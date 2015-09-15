@@ -31,15 +31,6 @@ def get_snippet_type_name(content_type):
     )
 
 
-def get_snippet_type_description(content_type):
-    """ return the meta description of the class associated with the given content type """
-    opts = content_type.model_class()._meta
-    try:
-        return force_text(opts.description)
-    except:
-        return ''
-
-
 def get_content_type_from_url_params(app_name, model_name):
     """
     retrieve a content type from an app_name / model_name combo.
@@ -76,7 +67,6 @@ def index(request):
     snippet_types = [
         (
             get_snippet_type_name(content_type)[1],
-            get_snippet_type_description(content_type),
             content_type
         )
         for content_type in get_snippet_content_types()
