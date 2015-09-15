@@ -1,6 +1,8 @@
 from __future__ import absolute_import
 
 import json
+import six
+import warnings
 
 from django.utils.six.moves.urllib.parse import urlparse
 
@@ -11,6 +13,7 @@ from django.utils.crypto import get_random_string
 
 from wagtail.wagtailsearch.backends.base import BaseSearch, BaseSearchQuery, BaseSearchResults
 from wagtail.wagtailsearch.index import SearchField, FilterField, class_is_indexed
+from wagtail.utils.deprecation import RemovedInWagtail14Warning
 
 
 INDEX_SETTINGS = {
@@ -245,8 +248,7 @@ class ElasticSearchQuery(BaseSearchQuery):
 
             return filter_out
 
-    def to_es(self):
-        # Query
+    def get_inner_query(self):
         if self.query_string is not None:
             fields = self.fields or ['_all', '_partials']
 
@@ -274,7 +276,9 @@ class ElasticSearchQuery(BaseSearchQuery):
                 'match_all': {}
             }
 
-        # Filters
+        return query
+
+    def get_filters(self):
         filters = []
 
         # Filter by content type
@@ -289,35 +293,67 @@ class ElasticSearchQuery(BaseSearchQuery):
         if queryset_filters:
             filters.append(queryset_filters)
 
+        return filters
+
+    def get_query(self):
+        inner_query = self.get_inner_query()
+        filters = self.get_filters()
+
         if len(filters) == 1:
-            query = {
+            return {
                 'filtered': {
-                    'query': query,
+                    'query': inner_query,
                     'filter': filters[0],
                 }
             }
         elif len(filters) > 1:
-            query = {
+            return {
                 'filtered': {
-                    'query': query,
+                    'query': inner_query,
                     'filter': {
                         'and': filters,
                     }
                 }
             }
-
-        return query
+        else:
+            return inner_query
 
     def __repr__(self):
-        return json.dumps(self.to_es())
+        return json.dumps(self.get_query())
+
+    def to_es(self):
+        warnings.warn(
+            "The ElasticSearchQuery.to_es() method is deprecated. "
+            "Please use the ElasticSearchQuery.get_query() method instead.",
+            RemovedInWagtail14Warning, stacklevel=2)
+
+        return self.get_query()
 
 
 class ElasticSearchResults(BaseSearchResults):
+    def _get_es_body(self, for_count=False):
+        # If to_es has been overridden, call it and raise a deprecation warning
+        if isinstance(self.query, ElasticSearchQuery) and six.get_method_function(self.query.to_es) != ElasticSearchQuery.to_es:
+            warnings.warn(
+                "The .to_es() method on Elasticsearch query classes is deprecated. "
+                "Please rename {class_name}.to_es() to {class_name}.get_query()".format(
+                    class_name=self.query.__class__.__name__
+                ),
+                RemovedInWagtail14Warning, stacklevel=2)
+
+            return {
+                'query': self.query.to_es(),
+            }
+        else:
+            return {
+                'query': self.query.get_query()
+            }
+
     def _do_search(self):
         # Params for elasticsearch query
         params = dict(
             index=self.backend.es_index,
-            body=dict(query=self.query.to_es()),
+            body=self._get_es_body(),
             _source=False,
             fields='pk',
             from_=self.start,
@@ -345,13 +381,10 @@ class ElasticSearchResults(BaseSearchResults):
         return [results[str(pk)] for pk in pks if results[str(pk)]]
 
     def _do_count(self):
-        # Get query
-        query = self.query.to_es()
-
         # Get count
         hit_count = self.backend.es.count(
             index=self.backend.es_index,
-            body=dict(query=query),
+            body=self._get_es_body(for_count=True),
         )['count']
 
         # Add limits
