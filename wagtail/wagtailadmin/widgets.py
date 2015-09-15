@@ -5,6 +5,7 @@ import json
 from django.core.urlresolvers import reverse
 from django.forms import widgets
 from django.contrib.contenttypes.models import ContentType
+from django.utils.functional import cached_property
 from django.utils.translation import ugettext_lazy as _
 from django.template.loader import render_to_string
 
@@ -119,11 +120,15 @@ class AdminPageChooser(AdminChooser):
 
     def __init__(self, content_type=None, **kwargs):
         super(AdminPageChooser, self).__init__(**kwargs)
+        self._content_type = content_type
 
-        self.target_content_types = content_type or ContentType.objects.get_for_model(Page)
+    @cached_property
+    def target_content_types(self):
+        target_content_types = self._content_type or ContentType.objects.get_for_model(Page)
         # Make sure target_content_types is a list or tuple
-        if not isinstance(self.target_content_types, (list, tuple)):
-            self.target_content_types = [self.target_content_types]
+        if not isinstance(target_content_types, (list, tuple)):
+            target_content_types = [target_content_types]
+        return target_content_types
 
     def render_html(self, name, value, attrs):
         if len(self.target_content_types) == 1:
