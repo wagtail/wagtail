@@ -115,8 +115,8 @@ Changelog
  * Added new translations for Croatian and Finnish
 
 
-0.8.9 (xx.xx.xxxx) - IN DEVELOPMENT
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+0.8.9 (16.09.2015)
+~~~~~~~~~~~~~~~~~~
 * Fix: When copying a page, IDs of child objects within page revision records were not remapped to the new objects; this would cause those objects to be lost from the original page when editing the new one
 * Fix: Search no longer crashes when auto-indexing a model that doesn't have an id field (Scot Hacker)
 * Fix: Resizing single pixel images with the "fill" filter no longer raises "ZeroDivisionError" or "tile cannot extend outside image"
