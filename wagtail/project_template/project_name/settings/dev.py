@@ -3,10 +3,9 @@ from .base import *
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
-DEBUG_TEMPLATE = True
 
-for i in range(0, len(TEMPLATES) - 1):
-    TEMPLATES[i]['OPTIONS']['debug'] = DEBUG_TEMPLATE
+for template_engine in TEMPLATES:
+    template_engine['OPTIONS']['debug'] = True
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = '{{ secret_key }}'
