@@ -16,12 +16,11 @@ class RedirectMiddleware(object):
         # Find redirect
         try:
             redirect = models.Redirect.get_for_site(request.site).get(old_path=path)
+        except models.Redirect.DoesNotExist:
+            # No redirect found, return the 400 page
+            return response
 
-            if redirect.is_permanent:
-                return http.HttpResponsePermanentRedirect(redirect.link)
-            else:
-                return http.HttpResponseRedirect(redirect.link)
-        except:
-            pass
-
-        return response
+        if redirect.is_permanent:
+            return http.HttpResponsePermanentRedirect(redirect.link)
+        else:
+            return http.HttpResponseRedirect(redirect.link)
