@@ -80,3 +80,8 @@ You might like to start by reviewing the `coding guidelines <http://docs.wagtail
 Send us a particularly useful pull request and we'll post you a `t-shirt <https://twitter.com/WagtailCMS/status/432166799464210432/photo/1>`_.
 
 We also welcome translations for Wagtail's interface. Translation work should be submitted through `Transifex <https://www.transifex.com/projects/p/wagtail/>`_.
+
+
+.. image:: https://badges.gitter.im/Join%20Chat.svg
+   :alt: Join the chat at https://gitter.im/torchbox/wagtail
+   :target: https://gitter.im/torchbox/wagtail?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge
