@@ -4,6 +4,8 @@ Changelog
 1.2 (xx.xx.xxxx)
 ~~~~~~~~~~~~~~~~
 
+ * WagtailRedirectMiddleware can now ignore the query string if there is no redirect that exactly matches it (Michael Cordover)
+ * Order of URL parameters now ignored by redirect middleware (Michael Cordover)
  * Fix: Deleting a page permission from the groups admin UI does not immediately submit the form
 
 
