@@ -20,11 +20,9 @@ class TestRedirects(TestCase):
         self.assertEqual(path, normalise_path('Hello/world.html/;fizz=three;buzz=five?foo=Bar&Baz=quux2')) # Trailing slashes are ignored
         self.assertEqual(path, normalise_path('/Hello/world.html;fizz=three;buzz=five?foo=Bar&Baz=quux2#cool')) # Fragments are ignored
         self.assertEqual(path, normalise_path('/Hello/world.html;fizz=three;buzz=five?Baz=quux2&foo=Bar')) # Order of query string parameters is ignored
+        self.assertEqual(path, normalise_path('/Hello/world.html;buzz=five;fizz=three?foo=Bar&Baz=quux2')) # Order of parameters is ignored
         self.assertEqual(path, normalise_path('  /Hello/world.html;fizz=three;buzz=five?foo=Bar&Baz=quux2')) # Leading whitespace
         self.assertEqual(path, normalise_path('/Hello/world.html;fizz=three;buzz=five?foo=Bar&Baz=quux2  ')) # Trailing whitespace
-
-        # This assertion should be changed if parameter order is important
-        self.assertEqual(path, normalise_path('/Hello/world.html;buzz=five;fizz=three?foo=Bar&Baz=quux2')) # Order of parameters is ignored
 
         # Test against different paths
         self.assertNotEqual(path, normalise_path('/hello/world.html;fizz=three;buzz=five?foo=Bar&Baz=quux2')) # 'hello' is lowercase
