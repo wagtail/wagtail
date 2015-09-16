@@ -7,7 +7,7 @@
 
     <div class="nice-padding">
         <ul class="listing">
-            {% for name, description, content_type in snippet_types %}
+            {% for name, content_type in snippet_types %}
                 <li>
                     <div class="row row-flush title">
                         <h2>
@@ -15,7 +15,6 @@
                                 {{ name|capfirst }}
                             </a>
                         </h2>
-                        <small class="col6">{{ description }}</small>
                     </div>
                 </li>
             {% endfor %}

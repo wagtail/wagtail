@@ -19,6 +19,14 @@ matrix:
    - env: TOXENV=py34-dj18-postgres
    - env: TOXENV=py34-dj18-sqlite
    - env: TOXENV=py34-dj18-mysql
+   - env: TOXENV=py35-dj18-postgres
+     python: 3.5
+   - env: TOXENV=py35-dj18-sqlite
+     python: 3.5
+   - env: TOXENV=py35-dj18-mysql
+     python: 3.5
+  allow_failures:
+    - python: 3.5
 
 # Services
 services:

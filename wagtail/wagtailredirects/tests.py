@@ -11,25 +11,29 @@ class TestRedirects(TestCase):
         normalise_path = models.Redirect.normalise_path
 
         # Create a path
-        path = normalise_path('/Hello/world.html?foo=Bar&Baz=quux2')
+        path = normalise_path('/Hello/world.html;fizz=three;buzz=five?foo=Bar&Baz=quux2')
 
         # Test against equivalant paths
-        self.assertEqual(path, normalise_path('/Hello/world.html?foo=Bar&Baz=quux2')) # The exact same URL
-        self.assertEqual(path, normalise_path('http://mywebsite.com:8000/Hello/world.html?foo=Bar&Baz=quux2')) # Scheme, hostname and port ignored
-        self.assertEqual(path, normalise_path('Hello/world.html?foo=Bar&Baz=quux2')) # Leading slash can be omitted
-        self.assertEqual(path, normalise_path('Hello/world.html/?foo=Bar&Baz=quux2')) # Trailing slashes are ignored
-        self.assertEqual(path, normalise_path('/Hello/world.html?foo=Bar&Baz=quux2#cool')) # Fragments are ignored
-        self.assertEqual(path, normalise_path('/Hello/world.html?Baz=quux2&foo=Bar')) # Order of query string parameters are ignored
-        self.assertEqual(path, normalise_path('  /Hello/world.html?foo=Bar&Baz=quux2')) # Leading whitespace
-        self.assertEqual(path, normalise_path('/Hello/world.html?foo=Bar&Baz=quux2  ')) # Trailing whitespace
+        self.assertEqual(path, normalise_path('/Hello/world.html;fizz=three;buzz=five?foo=Bar&Baz=quux2')) # The exact same URL
+        self.assertEqual(path, normalise_path('http://mywebsite.com:8000/Hello/world.html;fizz=three;buzz=five?foo=Bar&Baz=quux2')) # Scheme, hostname and port ignored
+        self.assertEqual(path, normalise_path('Hello/world.html;fizz=three;buzz=five?foo=Bar&Baz=quux2')) # Leading slash can be omitted
+        self.assertEqual(path, normalise_path('Hello/world.html/;fizz=three;buzz=five?foo=Bar&Baz=quux2')) # Trailing slashes are ignored
+        self.assertEqual(path, normalise_path('/Hello/world.html;fizz=three;buzz=five?foo=Bar&Baz=quux2#cool')) # Fragments are ignored
+        self.assertEqual(path, normalise_path('/Hello/world.html;fizz=three;buzz=five?Baz=quux2&foo=Bar')) # Order of query string parameters is ignored
+        self.assertEqual(path, normalise_path('/Hello/world.html;buzz=five;fizz=three?foo=Bar&Baz=quux2')) # Order of parameters is ignored
+        self.assertEqual(path, normalise_path('  /Hello/world.html;fizz=three;buzz=five?foo=Bar&Baz=quux2')) # Leading whitespace
+        self.assertEqual(path, normalise_path('/Hello/world.html;fizz=three;buzz=five?foo=Bar&Baz=quux2  ')) # Trailing whitespace
 
         # Test against different paths
-        self.assertNotEqual(path, normalise_path('/hello/world.html?foo=Bar&Baz=quux2')) # 'hello' is lowercase
-        self.assertNotEqual(path, normalise_path('/Hello/world?foo=Bar&Baz=quux2')) # No '.html'
-        self.assertNotEqual(path, normalise_path('/Hello/world.html?foo=bar&Baz=Quux2')) # Query string parameters have wrong case
-        self.assertNotEqual(path, normalise_path('/Hello/world.html?foo=Bar&baz=quux2')) # ditto
-        self.assertNotEqual(path, normalise_path('/Hello/WORLD.html?foo=Bar&Baz=quux2')) # 'WORLD' is uppercase
-        self.assertNotEqual(path, normalise_path('/Hello/world.htm?foo=Bar&Baz=quux2')) # '.htm' is not the same as '.html'
+        self.assertNotEqual(path, normalise_path('/hello/world.html;fizz=three;buzz=five?foo=Bar&Baz=quux2')) # 'hello' is lowercase
+        self.assertNotEqual(path, normalise_path('/Hello/world;fizz=three;buzz=five?foo=Bar&Baz=quux2')) # No '.html'
+        self.assertNotEqual(path, normalise_path('/Hello/world.html;fizz=three;buzz=five?foo=bar&Baz=Quux2')) # Query string parameter value has wrong case
+        self.assertNotEqual(path, normalise_path('/Hello/world.html;fizz=three;buzz=five?foo=Bar&baz=quux2')) # Query string parameter name has wrong case
+        self.assertNotEqual(path, normalise_path('/Hello/world.html;fizz=three;buzz=Five?foo=Bar&Baz=quux2')) # Parameter value has wrong case
+        self.assertNotEqual(path, normalise_path('/Hello/world.html;Fizz=three;buzz=five?foo=Bar&Baz=quux2')) # Parameter name has wrong case
+        self.assertNotEqual(path, normalise_path('/Hello/world.html?foo=Bar&Baz=quux2')) # Missing params
+        self.assertNotEqual(path, normalise_path('/Hello/WORLD.html;fizz=three;buzz=five?foo=Bar&Baz=quux2')) # 'WORLD' is uppercase
+        self.assertNotEqual(path, normalise_path('/Hello/world.htm;fizz=three;buzz=five?foo=Bar&Baz=quux2')) # '.htm' is not the same as '.html'
 
         # Normalise some rubbish to make sure it doesn't crash
         normalise_path('This is not a URL')
@@ -67,6 +71,30 @@ class TestRedirects(TestCase):
         self.assertEqual(r.status_code, 302)
         self.assertTrue(r.has_header('Location'))
 
+    def test_redirect_stripping_query_string(self):
+        # Get a client
+        c = Client()
+
+        # Create a redirect which includes a query string
+        redirect_with_query_string = models.Redirect(old_path='/redirectme?foo=Bar', redirect_link='/with-query-string-only')
+        redirect_with_query_string.save()
+
+        # ... and another redirect without the query string
+        redirect_without_query_string = models.Redirect(old_path='/redirectme', redirect_link='/without-query-string')
+        redirect_without_query_string.save()
+
+        # Navigate to the redirect with the query string
+        r_matching_qs = c.get('/redirectme/?foo=Bar')
+        self.assertEqual(r_matching_qs.status_code, 301)
+        self.assertTrue(r_matching_qs.has_header('Location'))
+        self.assertEqual(r_matching_qs['Location'][-23:], '/with-query-string-only')
+
+        # Navigate to the redirect with a different query string
+        # This should strip out the query string and match redirect_without_query_string
+        r_no_qs = c.get('/redirectme/?utm_source=irrelevant')
+        self.assertEqual(r_no_qs.status_code, 301)
+        self.assertTrue(r_no_qs.has_header('Location'))
+        self.assertEqual(r_no_qs['Location'][-21:], '/without-query-string')
 
 class TestRedirectsIndexView(TestCase, WagtailTestUtils):
     def setUp(self):

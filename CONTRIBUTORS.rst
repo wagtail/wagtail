@@ -63,6 +63,7 @@ Contributors
 * Kyungil Choi
 * Joss Ingram
 * Christoph Lipp
+* Michael Cordover
 
 
 Translators
