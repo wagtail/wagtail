@@ -179,7 +179,7 @@ The information above relates to images defined via image-specific fields in you
 
 Images embedded in Rich Text fields can't be controlled by the template developer as easily. There are no image objects to work with, so the ``{% image %}`` can't be used. Instead editors can choose from one of a number of image "Formats" at the point of inserting images into their text.
 
-Wagtail comes with three pre-defined image formats, but more can be defined in python by the developer. These formats are:
+Wagtail comes with three pre-defined image formats, but more can be defined in Python by the developer. These formats are:
 
 .. glossary::
 
