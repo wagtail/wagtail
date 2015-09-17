@@ -197,5 +197,3 @@ Wagtail comes with three pre-defined image formats, but more can be defined in P
     The CSS classes added to images do **not** come with any accompanying stylesheets, or inline styles. e.g the ``left`` class will do nothing, by default. The developer is expected to add these classes to their front end CSS files, to define what exactly ``left``, ``right`` or ``full-width`` means *to them*.
 
 For more information about image formats, including creating your own, see :ref:`rich_text_image_formats`
-
-
