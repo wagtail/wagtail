@@ -32,11 +32,11 @@
 
         self.toggle = function() {
             if (self.container.hasClass('stream-menu-closed')) {
-              if (opts.childBlocks.length == 1) {
-                if (opts.onChooseBlock) opts.onChooseBlock(opts.childBlocks[0]);
-              } else {
-                self.show();
-              }
+                if (opts.childBlocks.length == 1) {
+                    if (opts.onChooseBlock) opts.onChooseBlock(opts.childBlocks[0]);
+                } else {
+                    self.show();
+                }
             } else {
                 self.hide();
             }
