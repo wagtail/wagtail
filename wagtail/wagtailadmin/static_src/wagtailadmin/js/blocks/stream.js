@@ -30,10 +30,15 @@
             self.container.addClass('stream-menu-closed');
         };
 
+        self.addFirstBlock = function() {
+            if (opts.onChooseBlock) opts.onChooseBlock(opts.childBlocks[0]);
+        };
+
         self.toggle = function() {
             if (self.container.hasClass('stream-menu-closed')) {
                 if (opts.childBlocks.length == 1) {
-                    if (opts.onChooseBlock) opts.onChooseBlock(opts.childBlocks[0]);
+                    /* If there's only one block type, add it automatically */
+                    self.addFirstBlock();
                 } else {
                     self.show();
                 }
