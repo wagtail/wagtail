@@ -316,6 +316,8 @@ class Page(six.with_metaclass(PageBase, MP_Node, ClusterableModel, index.Indexed
         index.FilterField('depth'),
         index.FilterField('locked'),
         index.FilterField('show_in_menus'),
+        index.FilterField('first_published_at'),
+        index.FilterField('latest_revision_created_at'),
     )
 
     # Do not allow plain Page instances to be created through the Wagtail admin
