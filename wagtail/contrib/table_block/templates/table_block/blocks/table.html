@@ -1,0 +1,30 @@
+<div class="table">
+    <table>
+        {% if table_header %}
+            <thead>
+            <tr>
+                {% for column in table_header %}
+                    <th>
+                        {% if column.strip %}
+                            {{ column.strip|safe|linebreaksbr }}
+                        {% endif %}
+                    </th>
+                {% endfor %}
+            </tr>
+            </thead>
+        {% endif %}
+        <tbody>
+        {% for row in data %}
+            <tr>
+                {% for column in row %}
+                    <td>
+                        {% if column.strip %}
+                            {{ column.strip|safe|linebreaksbr }}
+                        {% endif %}
+                    </td>
+                {% endfor %}
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
