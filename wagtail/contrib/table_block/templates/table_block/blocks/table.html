@@ -1,0 +1,38 @@
+<div class="table">
+    <table>
+        {% if table_header %}
+            <thead>
+            <tr>
+                {% for column in table_header %}
+                    <th>
+                        {% if column.strip %}
+                            {{ column.strip|safe|linebreaksbr }}
+                        {% endif %}
+                    </th>
+                {% endfor %}
+            </tr>
+            </thead>
+        {% endif %}
+        <tbody>
+        {% for row in data %}
+            <tr>
+                {% for column in row %}
+                    {% if first_col_is_header and forloop.first %}
+	                    <th>
+	                        {% if column.strip %}
+	                            {{ column.strip|safe|linebreaksbr }}
+	                        {% endif %}
+	                    </th>
+	                 {% else %}
+                        <td>
+                            {% if column.strip %}
+                                {{ column.strip|safe|linebreaksbr }}
+                            {% endif %}
+                        </td>
+	                 {% endif %}
+                {% endfor %}
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
