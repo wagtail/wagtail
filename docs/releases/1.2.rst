@@ -12,6 +12,7 @@ What's new
 
  * WagtailRedirectMiddleware can now ignore the query string if there is no redirect that exactly matches it
  * Order of URL parameters now ignored by redirect middleware
+ * Added SQL Server compatibility to image migration
 
 Bug fixes
 ~~~~~~~~~

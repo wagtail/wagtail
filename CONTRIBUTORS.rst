@@ -64,6 +64,7 @@ Contributors
 * Joss Ingram
 * Christoph Lipp
 * Michael Cordover
+* Timothy Allen
 
 
 Translators
