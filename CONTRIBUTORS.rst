@@ -65,6 +65,7 @@ Contributors
 * Christoph Lipp
 * Michael Cordover
 * Timothy Allen
+* Rob Shelton
 
 
 Translators

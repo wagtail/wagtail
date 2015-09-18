@@ -7,6 +7,7 @@ Changelog
  * WagtailRedirectMiddleware can now ignore the query string if there is no redirect that exactly matches it (Michael Cordover)
  * Order of URL parameters now ignored by redirect middleware (Michael Cordover)
  * Added SQL Server compatibility to image migration (Timothy Allen)
+ * Added classnames to Wagtail rich text editor buttons to aid custom styling (Rob Shelton)
  * Fix: Deleting a page permission from the groups admin UI does not immediately submit the form
 
 
