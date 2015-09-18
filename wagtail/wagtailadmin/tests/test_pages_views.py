@@ -16,7 +16,7 @@ from wagtail.tests.testapp.models import (
     BusinessIndex, BusinessChild, BusinessSubIndex,
     TaggedPage, Advert, AdvertPlacement)
 from wagtail.tests.utils import WagtailTestUtils
-from wagtail.wagtailcore.models import Page, PageRevision
+from wagtail.wagtailcore.models import Page, PageRevision, Site
 from wagtail.wagtailcore.signals import page_published, page_unpublished
 from wagtail.wagtailusers.models import UserProfile
 
@@ -835,6 +835,23 @@ class TestPageEdit(TestCase, WagtailTestUtils):
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'tests/simple_page.html')
         self.assertContains(response, "I&#39;ve been edited!")
+
+    def test_preview_uses_correct_site(self):
+        # create a Site record for the child page
+        Site.objects.create(hostname='childpage.example.com', root_page=self.child_page)
+
+        post_data = {
+            'title': "I've been edited!",
+            'content': "Some content",
+            'slug': 'hello-world',
+            'action-submit': "Submit",
+        }
+        response = self.client.post(reverse('wagtailadmin_pages:preview_on_edit', args=(self.child_page.id, )), post_data)
+
+        # Check that the correct site object has been selected by the site middleware
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'tests/simple_page.html')
+        self.assertEqual(response.context['request'].site.hostname, 'childpage.example.com')
 
 
 class TestPageEditReordering(TestCase, WagtailTestUtils):
