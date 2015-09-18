@@ -10,7 +10,7 @@
                 var button, widget;
 
                 widget = this;
-                button = jQuery('<span class="' + this.widgetName + '"></span>');
+                button = $('<span class="' + this.widgetName + '"></span>');
                 button.hallobutton({
                     uuid: this.options.uuid,
                     editable: this.options.editable,
