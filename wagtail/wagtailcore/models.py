@@ -938,6 +938,7 @@ class Page(six.with_metaclass(PageBase, MP_Node, ClusterableModel, index.Indexed
             'PATH_INFO': path,
             'SERVER_NAME': hostname,
             'SERVER_PORT': port,
+            'HTTP_HOST': hostname,
             'wsgi.input': StringIO(),
         })
 
