@@ -1,0 +1,15 @@
+{% extends "wagtailadmin/base.html" %}
+{% load i18n %}
+{% block titletag %}{% blocktrans with title=page.title%}Unshare {{ title }}{% endblocktrans %}{% endblock %}
+{% block content %}
+    {% trans "Unshare" as unshare_str %}
+    {% include "wagtailadmin/shared/header.html" with title=unshare_str subtitle=page.title icon="doc-empty-inverse" %}
+
+    <div class="nice-padding">
+        <p>{% trans "Are you sure you want to unshare this page?" %}</p>
+        <form action="{% url 'wagtailadmin_pages:unshare' page.id %}" method="POST">
+            {% csrf_token %}
+            <input type="submit" value="{% trans 'Yes, unshare it' %}">
+        </form>
+    </div>
+{% endblock %}

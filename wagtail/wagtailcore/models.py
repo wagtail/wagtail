@@ -1241,6 +1241,7 @@ class PageRevision(models.Model):
 PAGE_PERMISSION_TYPE_CHOICES = [
     ('add', _('Add/edit pages you own')),
     ('edit', _('Edit any page')),
+    ('share', _('Share any page')),
     ('publish', _('Publish any page')),
     ('lock', _('Lock/unlock any page')),
 ]
@@ -1410,6 +1411,22 @@ class PagePermissionTester(object):
 
         return self.user.is_superuser or ('publish' in self.permissions)
 
+    def can_unshare(self):
+        if not self.user.is_active:
+            return False
+        if (not self.page.live) or self.page_is_root:
+            return False
+
+        return self.user.is_superuser or ('share' in self.permissions)
+
+    def can_share(self):
+        if not self.user.is_active:
+            return False
+        if self.page_is_root:
+            return False
+
+        return self.user.is_superuser or ('share' in self.permissions)
+
     def can_set_view_restrictions(self):
         return self.can_publish()
 
@@ -1429,6 +1446,17 @@ class PagePermissionTester(object):
             return False
 
         return self.user.is_superuser or ('publish' in self.permissions)
+
+    def can_share_subpage(self):
+        """
+        See description of can_publish_subpage but for the share permission.
+        """
+        if not self.user.is_active:
+            return False
+        if not self.page.specific_class.allowed_subpage_types():  # this page model has an empty subpage_types list, so no subpages are allowed
+            return False
+
+        return self.user.is_superuser or ('share' in self.permissions)
 
     def can_reorder_children(self):
         """

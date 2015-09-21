@@ -504,6 +504,25 @@ def unpublish(request, page_id):
     })
 
 
+def unshare(request, page_id):
+    page = get_object_or_404(Page, id=page_id).specific
+    if not page.permissions_for_user(request.user).can_unshare():
+        raise PermissionDenied
+
+    if request.method == 'POST':
+        page.unpublish()
+
+        messages.success(request, _("Page '{0}' unshared.").format(page.title), buttons=[
+            messages.button(reverse('wagtailadmin_pages:edit', args=(page.id,)), _('Edit'))
+        ])
+
+        return redirect('wagtailadmin_explore', page.get_parent().id)
+
+    return render(request, 'wagtailadmin/pages/confirm_unshare.html', {
+        'page': page,
+    })
+
+
 def move_choose_destination(request, page_to_move_id, viewed_page_id=None):
     page_to_move = get_object_or_404(Page, id=page_to_move_id)
     page_perms = page_to_move.permissions_for_user(request.user)
