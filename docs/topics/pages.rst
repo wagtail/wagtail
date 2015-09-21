@@ -14,7 +14,7 @@ As all page types are Django models, you can use any field type that Django prov
     `Model syntax <https://docs.djangoproject.com/en/1.7/topics/db/models/>`_
 
 
-An example Wagtail Page Model
+An example Wagtail page model
 =============================
 
 This example represents a typical blog post:
@@ -23,13 +23,19 @@ This example represents a typical blog post:
 
     from django.db import models
 
-    from wagtail.wagtailcore.models import Page
+    from modelcluster.fields import ParentalKey
+
+    from wagtail.wagtailcore.models import Page, Orderable
     from wagtail.wagtailcore.fields import RichTextField
-    from wagtail.wagtailadmin.edit_handlers import FieldPanel, MultiFieldPanel
+    from wagtail.wagtailadmin.edit_handlers import FieldPanel, MultiFieldPanel, InlinePanel
     from wagtail.wagtailimages.edit_handlers import ImageChooserPanel
+    from wagtail.wagtailsearch import index
 
 
     class BlogPage(Page):
+
+        # Database fields
+
         body = RichTextField()
         date = models.DateField("Post date")
         feed_image = models.ForeignKey(
@@ -40,9 +46,21 @@ This example represents a typical blog post:
             related_name='+'
         )
 
+
+        # Search index configuraiton
+
+        search_fields = Page.search_fields + (
+            index.SearchField('body'),
+            index.FilterField('date'),
+        )
+
+
+        # Editor panels configuration
+
         content_panels = Page.content_panels + [
             FieldPanel('date'),
             FieldPanel('body', classname="full"),
+            InlinePanel('related_links', label="Related links"),
         ]
 
         promote_panels = [
@@ -50,69 +68,157 @@ This example represents a typical blog post:
             ImageChooserPanel('feed_image'),
         ]
 
+
+        # Parent/sub page type rules
+
+        parent_page_types = ['blog.BlogIndex']
+        subpage_types = []
+
+
+    class BlogPageRelatedLink(Orderable):
+        page = ParentalKey(BlogPage, related_name='related_links')
+        name = models.CharField(max_length=255)
+        url = models.URLField()
+
+        panels = [
+            FieldPanel('name'),
+            FieldPanel('url'),
+        ]
+
 .. tip::
+
     To keep track of ``Page`` models and avoid class name clashes, it can be helpful to suffix model class names with "Page" e.g BlogPage, ListingIndexPage. 
 
-In the example above the ``BlogPage`` class defines three properties: ``body``, ``date``, and ``feed_image``. These are a mix of basic Django models (``DateField``), Wagtail fields (:class:`~wagtail.wagtailcore.fields.RichTextField`), and a pointer to a Wagtail model (:class:`~wagtail.wagtailimages.models.Image`).
 
-Below that the ``content_panels`` and ``promote_panels`` lists define the capabilities and layout of the page editing interface in the Wagtail admin. The lists are filled with "panels" and "choosers", which will provide a fine-grain interface for inputting the model's content. The :class:`~wagtail.wagtailimages.edit_handlers.ImageChooserPanel`, for instance, lets one browse the image library, upload new images and input image metadata. The :class:`~wagtail.wagtailcore.fields.RichTextField` is the basic field for creating web-ready website rich text, including text formatting and embedded media like images and video. The Wagtail admin offers other choices for fields, Panels, and Choosers, with the option of creating your own to precisely fit your content without workarounds or other compromises.
+Writing page models
+===================
 
-Your models may be even more complex, with methods overriding the built-in functionality of the :class:`~wagtail.wagtailcore.models.Page` to achieve webdev magic. Or, you can keep your models simple and let Wagtail's built-in functionality do the work.
+Here we'll describe each section of the above example to help you create your own page models.
 
-Setting up the page editor interface
-====================================
 
-Wagtail provides a highly-customisable editing interface consisting of several components:
+Database fields
+---------------
 
-  * **Fields** — built-in content types to augment the basic types provided by Django
-  * **Panels** — the basic editing blocks for fields, groups of fields, and related object clusters
-  * **Choosers** — interfaces for finding related objects in a ForeignKey relationship
+Each Wagtail page type is a Django model, which are each represented in the database as a table.
 
-Configuring your models to use these components will shape the Wagtail editor to your needs. Wagtail also provides an API for injecting custom CSS and JavaScript for further customisation, including extending the ``hallo.js`` rich text editor.
+Each page type can have its own set of fields. For example, a news article may have body text and a published date whereas an event page may need separate fields for venue and start/finish times.
 
-There is also an Edit Handler API for creating your own Wagtail editor components.
+In Wagtail, you can use any Django field class. Most field classes provided by `third party apps <https://code.djangoproject.com/wiki/DjangoResources#Djangoapplicationcomponents>`_ should work as well.
 
-Defining Panels
-~~~~~~~~~~~~~~~
+Wagtail provides a couple of field classes of its own as well:
 
-A "panel" is the basic editing block in Wagtail. Wagtail will automatically pick the appropriate editing widget for most Django field types; implementers just need to add a panel for each field they want to show in the Wagtail page editor, in the order they want them to appear.
+ - ``RichTextField`` - For rich text content
+ - ``StreamField`` - A block-based content field (see: :doc:`/topics/streamfield`)
 
-Wagtail provides a tabbed interface to help organise panels. Three such tabs are provided:
+For tagging, Wagtail fully supports `django-taggit <https://django-taggit.readthedocs.org/en/latest/>`_ so we recommend using that.
 
-* ``content_panels`` is the main tab, used for the bulk of your model's fields.
-* ``promote_panels`` is suggested for organising fields regarding the promotion of the page around the site and the Internet. For example, a field to dictate whether the page should show in site-wide menus, descriptive text that should appear in site search results, SEO-friendly titles, OpenGraph meta tag content and other machine-readable information.
-* ``settings_panels`` is essentially for non-copy fields. By default it contains the page's scheduled publishing fields. Other suggested fields could include a field to switch between one layout/style and another.
 
-Let's look at an example of a panel definition:
+Search
+------
 
-.. code-block:: python
+The ``search_fields`` attribute defines which fields are added to the search index and how they are indexed.
 
-  class ExamplePage(Page):
-    # field definitions omitted
-    ...
+This should be set to a tuple, of ``SearchField`` and ``FilterField`` objects. ``SearchField`` adds a field for full-text search. ``FilterField`` adds a field for filtering the results. A field can be indexed with both ``SearchField`` and ``FilterField`` at the same time (but only one instance of each).
 
-    content_panels = Page.content_panels + [
-      FieldPanel('body', classname="full"),
-      FieldRowPanel([
-        FieldPanel('start_date', classname="col3"),
-        FieldPanel('end_date', classname="col3"),
-      ]),
-      ImageChooserPanel('splash_image'),
-      DocumentChooserPanel('free_download'),
-      PageChooserPanel('related_page'),
-    ]
+In the above example, we've indexed ``body`` for full-text search and ``date`` for filtering.
 
-    promote_panels = [
-      MultiFieldPanel(Page.promote_panels, "Common page configuration"),
-    ]
+The arguments that these field types accept are documented `here <wagtailsearch_indexing_fields>`_.
 
-After the :class:`~wagtail.wagtailcore.models.Page`-derived class definition, just add lists of panel definitions to order and organise the Wagtail page editing interface for your model.
+
+Editor panels
+-------------
+
+There are a few attributes for defining edit panels on a page model. Each represents the list of panels on their respective tabs in the page editor interface.
+
+ - ``content_panels`` - For content, such as main body text
+ - ``promote_panels`` - For metadata, such as tags, thumbnail image and SEO title
+ - ``settings_panels`` - For settings, such as publish date
+
+Each of these attributes is set a list of ``EditHandler`` objects which defines which fields appear on which tabs and how they are structured on each tab.
+
+Here's a summary of the ``EditHandler`` classes that Wagtail provides out of the box. See :doc:`/reference/pages/panels` for full descriptions.
+
+**Basic**
+
+These allow editing of model fields, the ``FieldPanel`` class will choose the correct widget based on the type of the field. ``StreamField`` fields need to use a specialised panel class.
+
+ - :class:`~wagtail.wagtailadmin.edit_handlers.FieldPanel`
+ - :class:`~wagtail.wagtailadmin.edit_handlers.StreamFieldPanel`
+
+**Structural**
+
+These are used for structuring fields in the interface.
+
+ - :class:`~wagtail.wagtailadmin.edit_handlers.MultiFieldPanel` - For grouping similar fields together
+ - :class:`~wagtail.wagtailadmin.edit_handlers.InlinePanel` - For inlining child models
+ - :class:`~wagtail.wagtailadmin.edit_handlers.FieldRowPanel` - For organising multiple fields into a single row
+
+**Chooser**
+
+``ForeignKey`` fields to certain models can use one of the below ``ChooserPanel`` classes. These add a nice modal-based chooser interface (and the image/document choosers also allow uploading new files without leaving the page editor).
+
+ - :class:`~wagtail.wagtailadmin.edit_handlers.PageChooserPanel`
+ - :class:`~wagtail.wagtailimages.edit_handlers.ImageChooserPanel`
+ - :class:`~wagtail.wagtaildocs.edit_handlers.DocumentChooserPanel`
+ - :class:`~wagtail.wagtailsnippets.edit_handlers.SnippetChooserPanel`
+
+.. note::
+
+    In order to use one of these choosers, the model being linked to must either be a page, image, document or snippet.
+
+    Linking to any other model type is currently unsupported, you will need to use ``FieldPanel`` which will create a dropdown box.
+
+
+TODO: We probably should link to "customising the editor interface" here
+
+Parent/sub page type rules
+--------------------------
+
+These two attributes allow you to control where page types may be used in your site. It allows you to define rules like "blog entries may only be created under a blog index".
+
+Both take a list of model classes or model names. Model names are of the format ``app_label.ModelName``. If the ``app_label`` is omitted, the same app is assumed.
+
+- ``parent_page_types`` limits which page types this types can be created under
+- ``subpage_types`` limits which page types that can be created under this type
+
+By default, any page type can be created under any page type and it is not necessary to set these attributes if that's the desired behaviour.
+
+Setting ``parent_page_types`` to an empty list is a good way of preventing a particular page type from being created in the editor interface.
+
+
+Template rendering
+==================
+
+Lots to cover here.
+
+Template naming convention
+How templates are called (what is the default context)
+How to override behaviour
+ - get_context
+ - serve not as important, but mention them anyway
+
+
+Child models
+============
+
+TODO: https://pypi.python.org/pypi/django-modelcluster
+
+
+Database representation
+=======================
+
+Querying pages
+==============
+
+TODO: In these two sections, we must describe multi-table inheritance...
+
+NOTE: The reason I renamed this to "page models" is because I think it would be a good place to also describe "general usage" of pages, such as finding the specific object, the url or overriding the template/template context. I think that things like creating pages programmatically probably should be documented elsewhere but linked to from here.
 
 Tips
 ====
 
 Friendly model names
-~~~~~~~~~~~~~~~~~~~~
+--------------------
 
 Make your model names more friendly to users of Wagtail using Django's internal ``Meta`` class with a ``verbose_name`` e.g
 
