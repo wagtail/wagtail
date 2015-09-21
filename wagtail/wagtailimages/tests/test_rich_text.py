@@ -47,13 +47,3 @@ class TestImageEmbedHandler(TestCase):
             True
         )
         self.assertIn('<img data-embedtype="image" data-id="1" data-format="left" data-alt="test-alt" class="richtext-image left"', result)
-
-    @patch('wagtail.wagtailimages.models.Image')
-    @patch('django.core.files.File')
-    def test_expand_db_attributes_for_editor_throws_exception(self, mock_file, mock_image):
-        result = ImageEmbedHandler.expand_db_attributes(
-            {'id': 1,
-             'format': 'left'},
-            True
-        )
-        self.assertEqual(result, '')
