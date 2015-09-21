@@ -18,6 +18,7 @@ urlpatterns = [
     url(r'^(\d+)/add_subpage/$', pages.add_subpage, name='add_subpage'),
     url(r'^(\d+)/delete/$', pages.delete, name='delete'),
     url(r'^(\d+)/unpublish/$', pages.unpublish, name='unpublish'),
+    url(r'^(\d+)/unshare/$', pages.unshare, name='unshare'),
 
     url(r'^search/$', pages.search, name='search'),
 

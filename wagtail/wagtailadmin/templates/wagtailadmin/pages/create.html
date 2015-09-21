@@ -30,7 +30,10 @@
                         <div class="dropdown-toggle icon icon-arrow-up"></div>
                         <ul role="menu">
                             {% if parent_page_perms.can_publish_subpage %}
-                                <li><input type="submit" name="action-publish" value="{% trans 'Publish' %}" class="button" /></li>
+                                <li><input type="submit" name="action-publish" value="{% trans 'Publish to WWW' %}" class="button" /></li>
+                            {% endif %}
+                            {% if parent_page_perms.can_share %}
+                                <li><input type="submit" name="action-share" value="{% trans 'Share on Content' %}" class="button" /></li>
                             {% endif %}
                             <li><input type="submit" name="action-submit" value="{% trans 'Submit for moderation' %}" class="button" /></li>
                         </ul>
