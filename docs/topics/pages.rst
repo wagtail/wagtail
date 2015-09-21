@@ -1,6 +1,6 @@
-====================
-Creating page models
-====================
+===========
+Page models
+===========
 
 Each page type (a.k.a Content type) in Wagtail is represented by a Django model. All page models must inherit from the :class:`wagtail.wagtailcore.models.Page` class.
 
