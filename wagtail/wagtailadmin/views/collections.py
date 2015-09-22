@@ -27,6 +27,12 @@ class Create(CreateView):
     index_url_name = 'wagtailadmin_collections:index'
     header_icon = 'collection'
 
+    def save_instance(self, form):
+        instance = form.save(commit=False)
+        root_collection = Collection.get_first_root_node()
+        root_collection.add_child(instance=instance)
+        return instance
+
 
 class Edit(EditView):
     permission_required = 'wagtailcore.change_collection'

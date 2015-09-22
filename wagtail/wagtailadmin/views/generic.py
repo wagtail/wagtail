@@ -67,10 +67,17 @@ class CreateView(PermissionCheckedMixin, View):
         self.form = self.form_class()
         return self.render_to_response()
 
+    def save_instance(self, form):
+        """
+        Called after the form is successfully validated - saves the object to the db
+        and returns the new object. Override this to implement custom save logic.
+        """
+        return form.save()
+
     def post(self, request):
         self.form = self.form_class(request.POST)
         if self.form.is_valid():
-            instance = self.form.save()
+            instance = self.save_instance(self.form)
 
             messages.success(request, self.success_message.format(instance), buttons=[
                 messages.button(reverse(self.edit_url_name, args=(instance.id,)), _('Edit'))
@@ -100,6 +107,13 @@ class EditView(PermissionCheckedMixin, View):
     def get_delete_url(self):
         return reverse(self.delete_url_name, args=(self.instance.id,))
 
+    def save_instance(self, form):
+        """
+        Called after the form is successfully validated - saves the object to the db.
+        Override this to implement custom save logic.
+        """
+        return form.save()
+
     def get(self, request, instance_id):
         self.instance = get_object_or_404(self.model, id=instance_id)
         self.form = self.form_class(instance=self.instance)
@@ -109,7 +123,7 @@ class EditView(PermissionCheckedMixin, View):
         self.instance = get_object_or_404(self.model, id=instance_id)
         self.form = self.form_class(request.POST, instance=self.instance)
         if self.form.is_valid():
-            self.form.save()
+            self.save_instance(self.form)
             messages.success(request, self.success_message.format(self.instance), buttons=[
                 messages.button(reverse(self.edit_url_name, args=(self.instance.id,)), _('Edit'))
             ])
