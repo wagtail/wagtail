@@ -16,6 +16,10 @@ class Index(IndexView):
     add_item_label = __("Add a collection")
     header_icon = 'collection'
 
+    def get_queryset(self):
+        # Only return children of the root node, so that the root is not editable
+        return Collection.get_first_root_node().get_children()
+
 
 class Create(CreateView):
     permission_required = 'wagtailcore.add_collection'
