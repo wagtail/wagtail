@@ -98,6 +98,9 @@ class EditView(PermissionCheckedMixin, View):
     context_object_name = None
     template_name = 'wagtailadmin/generic/edit.html'
 
+    def get_queryset(self):
+        return self.model.objects.all()
+
     def get_page_subtitle(self):
         return str(self.instance)
 
@@ -115,12 +118,12 @@ class EditView(PermissionCheckedMixin, View):
         return form.save()
 
     def get(self, request, instance_id):
-        self.instance = get_object_or_404(self.model, id=instance_id)
+        self.instance = get_object_or_404(self.get_queryset(), id=instance_id)
         self.form = self.form_class(instance=self.instance)
         return self.render_to_response()
 
     def post(self, request, instance_id):
-        self.instance = get_object_or_404(self.model, id=instance_id)
+        self.instance = get_object_or_404(self.get_queryset(), id=instance_id)
         self.form = self.form_class(request.POST, instance=self.instance)
         if self.form.is_valid():
             self.save_instance(self.form)
@@ -150,6 +153,9 @@ class DeleteView(PermissionCheckedMixin, View):
     template_name = 'wagtailadmin/generic/confirm_delete.html'
     context_object_name = None
 
+    def get_queryset(self):
+        return self.model.objects.all()
+
     def get_page_subtitle(self):
         return str(self.instance)
 
@@ -157,7 +163,7 @@ class DeleteView(PermissionCheckedMixin, View):
         return reverse(self.delete_url_name, args=(self.instance.id,))
 
     def get(self, request, instance_id):
-        self.instance = get_object_or_404(self.model, id=instance_id)
+        self.instance = get_object_or_404(self.get_queryset(), id=instance_id)
 
         context = {
             'view': self,
@@ -169,7 +175,7 @@ class DeleteView(PermissionCheckedMixin, View):
         return render(request, self.template_name, context)
 
     def post(self, request, instance_id):
-        self.instance = get_object_or_404(self.model, id=instance_id)
+        self.instance = get_object_or_404(self.get_queryset(), id=instance_id)
         self.instance.delete()
         messages.success(request, self.success_message.format(self.instance))
         return redirect(self.index_url_name)
