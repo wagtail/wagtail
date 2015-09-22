@@ -16,6 +16,10 @@ class Index(IndexView):
     add_item_label = __("Add a collection")
     header_icon = 'folder-open-1'
 
+    def get_queryset(self):
+        # Only return children of the root node, so that the root is not editable
+        return Collection.get_first_root_node().get_children()
+
 
 class Create(CreateView):
     permission_policy = collection_permission_policy
@@ -48,6 +52,10 @@ class Edit(EditView):
     context_object_name = 'collection'
     header_icon = 'folder-open-1'
 
+    def get_queryset(self):
+        # Only return children of the root node, so that the root is not editable
+        return Collection.get_first_root_node().get_children()
+
 
 class Delete(DeleteView):
     permission_policy = collection_permission_policy
@@ -58,3 +66,7 @@ class Delete(DeleteView):
     page_title = __("Delete collection")
     confirmation_message = __("Are you sure you want to delete this collection?")
     header_icon = 'folder-open-1'
+
+    def get_queryset(self):
+        # Only return children of the root node, so that the root is not editable
+        return Collection.get_first_root_node().get_children()
