@@ -18,6 +18,20 @@ class TestCollectionsIndexView(TestCase, WagtailTestUtils):
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'wagtailadmin/collections/index.html')
 
+        # Initially there should be no collections listed
+        # (Root should not be shown)
+        self.assertContains(response, "No collections have been created.")
+
+        root_collection = Collection.get_first_root_node()
+        self.collection = root_collection.add_child(name="Holiday snaps")
+
+        # Now the listing should contain our collection
+        response = self.get()
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'wagtailadmin/collections/index.html')
+        self.assertNotContains(response, "No collections have been created.")
+        self.assertContains(response, "Holiday snaps")
+
 
 class TestAddCollection(TestCase, WagtailTestUtils):
     def setUp(self):
@@ -54,8 +68,8 @@ class TestAddCollection(TestCase, WagtailTestUtils):
 class TestEditCollection(TestCase, WagtailTestUtils):
     def setUp(self):
         self.login()
-        root_collection = Collection.get_first_root_node()
-        self.collection = root_collection.add_child(name="Holiday snaps")
+        self.root_collection = Collection.get_first_root_node()
+        self.collection = self.root_collection.add_child(name="Holiday snaps")
 
     def get(self, params={}, collection_id=None):
         return self.client.get(
@@ -72,6 +86,10 @@ class TestEditCollection(TestCase, WagtailTestUtils):
     def test_get(self):
         response = self.get()
         self.assertEqual(response.status_code, 200)
+
+    def test_cannot_edit_root_collection(self):
+        response = self.get(collection_id=self.root_collection.id)
+        self.assertEqual(response.status_code, 404)
 
     def test_get_nonexistent_collection(self):
         response = self.get(collection_id=100000)
@@ -95,8 +113,8 @@ class TestEditCollection(TestCase, WagtailTestUtils):
 class TestDeleteCollection(TestCase, WagtailTestUtils):
     def setUp(self):
         self.login()
-        root_collection = Collection.get_first_root_node()
-        self.collection = root_collection.add_child(name="Holiday snaps")
+        self.root_collection = Collection.get_first_root_node()
+        self.collection = self.root_collection.add_child(name="Holiday snaps")
 
     def get(self, params={}, collection_id=None):
         return self.client.get(
@@ -113,6 +131,10 @@ class TestDeleteCollection(TestCase, WagtailTestUtils):
     def test_get(self):
         response = self.get()
         self.assertEqual(response.status_code, 200)
+
+    def test_cannot_delete_root_collection(self):
+        response = self.get(collection_id=self.root_collection.id)
+        self.assertEqual(response.status_code, 404)
 
     def test_get_nonexistent_collection(self):
         response = self.get(collection_id=100000)
