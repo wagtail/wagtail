@@ -1742,3 +1742,23 @@ class Collection(MP_Node):
     class Meta:
         verbose_name = _('collection')
         verbose_name_plural = _('collections')
+
+
+def get_root_collection_id():
+    return Collection.get_first_root_node().id
+
+
+class CollectionMember(models.Model):
+    """
+    Base class for models that are categorised into collections
+    """
+    collection = models.ForeignKey(
+        Collection,
+        default=get_root_collection_id,
+        verbose_name=_('collection'),
+        related_name='+',
+        on_delete=models.CASCADE
+    )
+
+    class Meta:
+        abstract = True
