@@ -17,7 +17,7 @@ from django.core.handlers.wsgi import WSGIRequest
 from django.core.handlers.base import BaseHandler
 from django.core.urlresolvers import reverse
 from django.contrib.contenttypes.models import ContentType
-from django.contrib.auth.models import Group
+from django.contrib.auth.models import Group, Permission
 from django.conf import settings
 from django.template.response import TemplateResponse
 from django.utils import timezone
@@ -1511,3 +1511,17 @@ class CollectionMember(models.Model):
 
     class Meta:
         abstract = True
+
+
+class GroupCollectionPermission(models.Model):
+    """
+    A rule indicating that a group has permission for some action (e.g. "create document")
+    within a specified collection.
+    """
+    group = models.ForeignKey(Group, verbose_name=_('group'), related_name='collection_permissions')
+    collection = models.ForeignKey(Collection, verbose_name=_('collection'), related_name='group_permissions')
+    permission = models.ForeignKey(Permission, verbose_name=_('permission'))
+
+    class Meta:
+        unique_together = ('group', 'collection', 'permission')
+        verbose_name = _('group collection permission')
