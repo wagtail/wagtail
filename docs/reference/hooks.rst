@@ -271,3 +271,10 @@ The available hooks are:
   .. versionadded:: 0.7
 
   Return a queryset of Permission objects to be shown in the Groups administration area.
+
+.. _register_collection_permissions:
+
+``register_collection_permissions``
+  .. versionadded:: 1.2
+
+  Return a queryset of Permission objects to be included in the 'collection permissions' dropdown within the Groups administration area.
