@@ -1,6 +1,6 @@
 from django.apps import AppConfig
 
-from . import checks
+from . import checks  # NOQA
 
 
 class WagtailImagesAppConfig(AppConfig):
