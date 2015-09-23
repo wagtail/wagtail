@@ -1,5 +1,7 @@
 from django.apps import AppConfig
 
+from . import checks
+
 
 class WagtailImagesAppConfig(AppConfig):
     name = 'wagtail.wagtailimages'
