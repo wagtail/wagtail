@@ -43,4 +43,4 @@ class CollectionsMenuItem(MenuItem):
 
 @hooks.register('register_settings_menu_item')
 def register_collections_menu_item():
-    return CollectionsMenuItem(_('Collections'), urlresolvers.reverse('wagtailadmin_collections:index'), classnames='icon icon-collection', order=700)
+    return CollectionsMenuItem(_('Collections'), urlresolvers.reverse('wagtailadmin_collections:index'), classnames='icon icon-folder-open-1', order=700)

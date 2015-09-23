@@ -14,7 +14,7 @@ class Index(IndexView):
     add_permission_name = 'wagtailcore.add_collection'
     page_title = __("Collections")
     add_item_label = __("Add a collection")
-    header_icon = 'collection'
+    header_icon = 'folder-open-1'
 
     def get_queryset(self):
         # Only return children of the root node, so that the root is not editable
@@ -29,7 +29,7 @@ class Create(CreateView):
     add_url_name = 'wagtailadmin_collections:add'
     edit_url_name = 'wagtailadmin_collections:edit'
     index_url_name = 'wagtailadmin_collections:index'
-    header_icon = 'collection'
+    header_icon = 'folder-open-1'
 
     def save_instance(self, form):
         instance = form.save(commit=False)
@@ -50,7 +50,7 @@ class Edit(EditView):
     delete_url_name = 'wagtailadmin_collections:delete'
     delete_permission_name = 'wagtailcore.delete_collection'
     context_object_name = 'collection'
-    header_icon = 'collection'
+    header_icon = 'folder-open-1'
 
     def get_queryset(self):
         # Only return children of the root node, so that the root is not editable
@@ -65,7 +65,7 @@ class Delete(DeleteView):
     delete_url_name = 'wagtailadmin_collections:delete'
     page_title = __("Delete collection")
     confirmation_message = __("Are you sure you want to delete this collection?")
-    header_icon = 'collection'
+    header_icon = 'folder-open-1'
 
     def get_queryset(self):
         # Only return children of the root node, so that the root is not editable
