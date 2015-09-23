@@ -98,3 +98,46 @@ This is because ``Page`` enforces ordering QuerySets by path. Instead you must a
 .. code-block:: python
 
     news_items = NewsItemPage.objects.live().order_by('-publication_date')
+
+Page custom managers
+--------------------
+
+``Page`` enforces its own 'objects' manager in its ``__init__`` method, so you cannot add a custom manager at the 'objects' attribute.
+
+.. code-block:: python
+
+    class EventPageQuerySet(PageQuerySet):
+
+        def future(self):
+            return self.filter(
+                start_date__gte=timezone.localtime(timezone.now()).date()
+            )
+
+    class EventPage(Page):
+        start_date = models.DateField()
+
+        objects = EventPageQuerySet.as_manager()  # will not work
+
+To use a custom manager you must choose a different attribute name. Make sure to subclass ``wagtail.wagtailcore.models.PageManager``.
+
+.. code-block:: python
+
+    from django.db import models
+    from django.utils import timezone
+    from wagtail.wagtailcore.models import Page, PageManager
+
+
+    class FutureEventPageManager(PageManager):
+
+        def get_queryset(self):
+            return super().get_queryset().filter(
+                start_date__gte=timezone.localtime(timezone.now()).date()
+            )
+
+
+    class EventPage(Page):
+        start_date = models.DateField()
+
+        future_events = FutureEventPageManager()
+
+Then you can use ``EventPage.future_events`` in the manner you might expect.
