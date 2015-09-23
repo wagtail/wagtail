@@ -118,7 +118,7 @@ Page custom managers
 
         objects = EventPageQuerySet.as_manager()  # will not work
 
-To use a custom manager you must choose a different attribute name. Make sure to subclass ``wagtail.wagtailcor.models.PageManager``.
+To use a custom manager you must choose a different attribute name. Make sure to subclass ``wagtail.wagtailcore.models.PageManager``.
 
 .. code-block:: python
 
