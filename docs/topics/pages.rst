@@ -166,10 +166,14 @@ These are used for structuring fields in the interface.
 
     In order to use one of these choosers, the model being linked to must either be a page, image, document or snippet.
 
-    Linking to any other model type is currently unsupported, you will need to use ``FieldPanel`` which will create a dropdown box.
+    Linking to any other model type is currently unsupported, you should use ``FieldPanel`` which will create a dropdown box.
 
 
-TODO: We probably should link to "customising the editor interface" here
+Customising the page editor interface
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+The page editor can be customised further. See :doc:`/advanced_topics/customisation/page_editing_interface`.
+
 
 Parent/sub page type rules
 --------------------------
@@ -189,7 +193,7 @@ Setting ``parent_page_types`` to an empty list is a good way of preventing a par
 Template rendering
 ==================
 
-Each page model can be given a template to render whenever a user browses to an instance of it on the site frontend. This is the most common way to get Wagtail content to end users.
+Each page model can be given a HTML template which is rendered when a user browses to a page on the site frontend. This is the simplest and most common way to get Wagtail content to end users (but not the only way).
 
 
 Adding a template for a page model
