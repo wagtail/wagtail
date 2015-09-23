@@ -265,7 +265,23 @@ GroupPagePermissionFormSet = inlineformset_factory(
 )
 
 
+class PermissionChoiceField(forms.ModelChoiceField):
+    def label_from_instance(self, obj):
+        return obj.name
+
+
 class GroupCollectionPermissionForm(forms.ModelForm):
+    permission = PermissionChoiceField(queryset=Permission.objects.none())
+
+    def __init__(self, *args, **kwargs):
+        super(GroupCollectionPermissionForm, self).__init__(*args, **kwargs)
+
+        self.registered_permissions = Permission.objects.none()
+        for fn in hooks.get_hooks('register_collection_permissions'):
+            self.registered_permissions = self.registered_permissions | fn()
+
+        self.fields['permission'].queryset = self.registered_permissions
+
     class Meta:
         model = GroupCollectionPermission
         fields = ('collection', 'permission')
