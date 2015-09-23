@@ -5,34 +5,48 @@ from django.core.checks import register, Warning
 from willow.image import Image
 
 
+_has_jpeg_support = None
+_has_png_support = None
+
+
 def has_jpeg_support():
-    wagtail_jpg = os.path.join(os.path.dirname(__file__), 'check_files', 'wagtail.jpg')
-    is_ok = True
-    f = open(wagtail_jpg, 'rb')
+    global _has_jpeg_support
 
-    try:
-        Image.open(f)
-    except (IOError, Image.LoaderError):
-        is_ok = False
-    finally:
-        f.close()
+    if _has_jpeg_support is None:
+        wagtail_jpg = os.path.join(os.path.dirname(__file__), 'check_files', 'wagtail.jpg')
+        succeeded = True
+        f = open(wagtail_jpg, 'rb')
 
-    return is_ok
+        try:
+            Image.open(f)
+        except (IOError, Image.LoaderError):
+            succeeded = False
+        finally:
+            f.close()
+
+        _has_jpeg_support = succeeded
+
+    return _has_jpeg_support
 
 
 def has_png_support():
-    wagtail_png = os.path.join(os.path.dirname(__file__), 'check_files', 'wagtail.png')
-    is_ok = True
-    f = open(wagtail_png, 'rb')
+    global _has_png_support
 
-    try:
-        Image.open(f)
-    except (IOError, Image.LoaderError):
-        is_ok = False
-    finally:
-        f.close()
+    if _has_png_support is None:
+        wagtail_png = os.path.join(os.path.dirname(__file__), 'check_files', 'wagtail.png')
+        succeeded = True
+        f = open(wagtail_png, 'rb')
 
-    return is_ok
+        try:
+            Image.open(f)
+        except (IOError, Image.LoaderError):
+            succeeded = False
+        finally:
+            f.close()
+
+        _has_png_support = succeeded
+
+    return _has_png_support
 
 
 @register()
