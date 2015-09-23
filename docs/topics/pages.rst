@@ -189,13 +189,119 @@ Setting ``parent_page_types`` to an empty list is a good way of preventing a par
 Template rendering
 ==================
 
-Lots to cover here.
+Each page model can be given a template to render whenever a user browses to an instance of it on the site frontend. This is the most common way to get Wagtail content to end users.
 
-Template naming convention
-How templates are called (what is the default context)
-How to override behaviour
- - get_context
- - serve not as important, but mention them anyway
+
+Adding a template for a page model
+----------------------------------
+
+Wagtail automatically chooses a name for the template based on the app label and model class name.
+
+Format: ``<app_label>/<model_name (snake cased)>.html``
+
+For example, the template for the above blog page will be: ``blog/blog_page.html``
+
+You just need to create a template in a location where it can be accessed with this name.
+
+
+Template context
+----------------
+
+Wagtail renders templates with the ``self`` variable bound to the page instance being rendered. Use this access the content of the page. For example, to get the title of the current page, do ``{{ self.title }}``. All variables provided by `context processors <TODO LINK REQUIRED>`_ are also available.
+
+
+Customising template context
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+All pages have a ``get_context`` method that is called whenever the template is rendered and returns a dictionary of variables to bind into the template.
+
+To add more variables to the template, override this method on the page model class:
+
+.. code-block:: python
+
+    class BlogIndexPage(Page):
+        ...
+
+        def get_context(self, request):
+            # Call default get_context method
+            context = super(BlogIndexPage, self).get_context(request)
+
+            # Add extra variables and return the updated context
+            context['blog_entries'] = BlogPage.objects.child_of(self).live()
+            return context
+
+
+The variables can then be used in the template:
+
+.. code-block:: HTML+Django
+
+    {{ self.title }}
+
+    {% for entry in blog_entries %}
+        {{ entry.title }}
+    {% endfor %}
+
+
+Changing the template
+---------------------
+
+Set ``template`` attribute on the class to change the template:
+
+.. code-block:: python
+
+    class BlogPage(Page):
+        ...
+
+        template = 'other_template.html'
+
+
+Dynamically choosing the template
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+The template can be changed on a per-instance basis by defining a ``get_template`` method on the page class:
+
+.. code-block:: python
+
+    class BlogPage(Page):
+        ...
+
+        use_other_template = models.BooleanField()
+
+        def get_template(self, request):
+            if self.use_other_template:
+                return 'blog/other_blog_page.html'
+
+            return 'blog/blog_page.html'
+
+In this example, pages that have the ``use_other_template`` boolean field set will use the ``other_blog_page.html`` template. All other pages will use the default ``blog/blog_page.html``.
+
+
+More control over page rendering
+--------------------------------
+
+The default behaviour of rendering a template when a user visits a page can be completely overriden.
+
+All page classes have a ``serve()`` method, that internally calls the ``get_context`` and ``get_template`` methods and renders the template. This method is similar to a Django view function, taking a Django ``Request`` object and returning a Django ``Response`` object.
+
+For example, this can be overriden to make the ``BlogPage`` model respond with a JSON representation of itself:
+
+.. code-block:: python
+
+    from django.http import JsonResponse
+
+
+    class BlogPage(Page):
+        ...
+
+        def serve(self, request):
+            return JsonResponse({
+                'title': self.title,
+                'body': self.body,
+                'date': self.date,
+
+                # Resizes the image to 300px width and gets a URL to it
+                'feed_image': self.feed_image.get_rendition('width-300').url,
+            })
 
 
 Child models
