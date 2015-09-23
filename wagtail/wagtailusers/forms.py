@@ -7,7 +7,7 @@ from django.forms.models import inlineformset_factory
 from wagtail.wagtailcore import hooks
 from wagtail.wagtailadmin.widgets import AdminPageChooser
 from wagtail.wagtailusers.models import UserProfile
-from wagtail.wagtailcore.models import Page, UserPagePermissionsProxy, GroupPagePermission
+from wagtail.wagtailcore.models import Page, UserPagePermissionsProxy, GroupPagePermission, GroupCollectionPermission
 
 
 User = get_user_model()
@@ -262,6 +262,35 @@ GroupPagePermissionFormSet = inlineformset_factory(
     formset=BaseGroupPagePermissionFormSet,
     extra=0,
     fields=('page', 'permission_type'),
+)
+
+
+class GroupCollectionPermissionForm(forms.ModelForm):
+    class Meta:
+        model = GroupCollectionPermission
+        fields = ('collection', 'permission')
+
+
+class BaseGroupCollectionPermissionFormSet(forms.models.BaseInlineFormSet):
+    def __init__(self, *args, **kwargs):
+        super(BaseGroupCollectionPermissionFormSet, self).__init__(*args, **kwargs)
+        self.form = GroupCollectionPermissionForm
+        for form in self.forms:
+            form.fields['DELETE'].widget = forms.HiddenInput()
+
+    @property
+    def empty_form(self):
+        empty_form = super(BaseGroupCollectionPermissionFormSet, self).empty_form
+        empty_form.fields['DELETE'].widget = forms.HiddenInput()
+        return empty_form
+
+
+GroupCollectionPermissionFormSet = inlineformset_factory(
+    Group,
+    GroupCollectionPermission,
+    formset=BaseGroupCollectionPermissionFormSet,
+    extra=0,
+    fields=('collection', 'permission'),
 )
 
 
