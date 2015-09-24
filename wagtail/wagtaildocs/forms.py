@@ -12,8 +12,27 @@ class DocumentForm(forms.ModelForm):
         user = kwargs.pop('user', None)
 
         super(DocumentForm, self).__init__(*args, **kwargs)
-        if is_using_collections and user is not None:
-            self.fields['collection'].queryset = collections_with_add_permission_for_user(user)
+
+        if is_using_collections:
+            if user is None:
+                self.collections = Collection.objects.all()
+            else:
+                self.collections = collections_with_add_permission_for_user(user)
+
+            if len(self.collections) == 0:
+                raise Exception("Cannot construct DocumentForm for a user with no document collection permissions")
+            elif len(self.collections) == 1:
+                # don't show collection field if only one collection is available
+                del self.fields['collection']
+            else:
+                self.fields['collection'].queryset = self.collections
+
+    def save(self, commit=True):
+        if is_using_collections and len(self.collections) == 1:
+            # populate the instance's collection field with the one available collection
+            self.instance.collection = self.collections[0]
+
+        return super(DocumentForm, self).save(commit=commit)
 
     class Meta:
         model = Document
