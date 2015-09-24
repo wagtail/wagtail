@@ -62,6 +62,7 @@ Minor features
  * ``page_unpublish`` signal is now fired for each page that was unpublished by a call to ``PageQuerySet.unpublish()``
  * Add `get_upload_to` method to `AbstractImage`, to allow overriding the default image upload path (Ben Emery)
  * Notification emails are now sent per user (Matthew Downey)
+ * Added the ability to override the default manager on Page models
  * New translations for Arabic and Latvian
 
 

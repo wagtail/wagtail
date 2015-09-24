@@ -1,5 +1,6 @@
 from __future__ import unicode_literals
 
+
 import logging
 import json
 import warnings
@@ -229,8 +230,13 @@ class PageBase(models.base.ModelBase):
             # don't proceed with all this page type registration stuff
             return
 
-        # Add page manager
-        PageManager().contribute_to_class(cls, 'objects')
+        # Override the default `objects` attribute with a `PageManager`.
+        # Managers are not inherited by MTI child models, so `Page` subclasses
+        # will get a plain `Manager` instead of a `PageManager`.
+        # If the developer has set their own custom `Manager` subclass, do not
+        # clobber it.
+        if type(cls.objects) is models.Manager:
+            PageManager().contribute_to_class(cls, 'objects')
 
         if 'template' not in dct:
             # Define a default template path derived from the app name and model name
@@ -342,6 +348,8 @@ class Page(six.with_metaclass(PageBase, MP_Node, ClusterableModel, index.Indexed
     # Do not allow plain Page instances to be created through the Wagtail admin
     is_creatable = False
 
+    objects = PageManager()
+
     def __init__(self, *args, **kwargs):
         super(Page, self).__init__(*args, **kwargs)
         if not self.id and not self.content_type_id:
@@ -452,6 +460,17 @@ class Page(six.with_metaclass(PageBase, MP_Node, ClusterableModel, index.Indexed
                             id='wagtailcore.W001',
                         )
                     )
+
+        if not isinstance(cls.objects, PageManager):
+            errors.append(
+                checks.Error(
+                    "Manager does not inherit from PageManager",
+                    hint="Ensure that custom Page managers inherit from {}.{}".format(
+                        PageManager.__module__, PageManager.__name__),
+                    obj=cls,
+                    id='wagtailcore.E002',
+                )
+            )
 
         return errors
 
