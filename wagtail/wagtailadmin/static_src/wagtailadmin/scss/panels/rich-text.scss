@@ -30,6 +30,16 @@
 .hallotoolbar button{
     @include border-radius(0);
     height:2.4em;
+    border: 1px solid $color-grey-3;
+  	background: white;
+  	font-weight: normal;
+  	color: $color-grey-1-1;
+    &:hover {
+      border: 1px solid #49c0c1;
+      background: $color-teal;
+      font-weight: normal;
+      color: white;
+    }
 }
 
 .richtext {
