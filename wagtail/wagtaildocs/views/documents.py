@@ -10,7 +10,7 @@ from wagtail.wagtailsearch.backends import get_search_backends
 from wagtail.wagtailadmin import messages
 
 from wagtail.wagtaildocs.models import Document
-from wagtail.wagtaildocs.permissions import document_permission_required, any_document_permission_required, user_can_edit_document
+from wagtail.wagtaildocs.permissions import document_permission_required, any_document_permission_required, user_can_edit_document, user_has_document_permission
 from wagtail.wagtaildocs.forms import DocumentForm
 
 
@@ -72,6 +72,7 @@ def index(request):
             'query_string': query_string,
             'is_searching': bool(query_string),
 
+            'can_add_document': user_has_document_permission(request.user, 'wagtaildocs.add_document'),
             'search_form': form,
             'popular_tags': Document.popular_tags(),
         })

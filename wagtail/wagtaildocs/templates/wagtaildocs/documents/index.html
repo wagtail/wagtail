@@ -14,7 +14,7 @@
 {% block content %}
     {% trans "Documents" as doc_str %}
 
-    {% if perms.wagtaildocs.add_document %}
+    {% if can_add_document %}
         {% trans "Add a document" as add_doc_str %}
         {% include "wagtailadmin/shared/header.html" with title=doc_str add_link="wagtaildocs:add" icon="doc-full-inverse" add_text=add_doc_str search_url="wagtaildocs:index" %}
     {% else %}
