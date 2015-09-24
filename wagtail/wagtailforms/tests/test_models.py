@@ -4,7 +4,7 @@ from __future__ import absolute_import, unicode_literals
 import json
 
 from django.core import mail
-from django.test import TestCase
+from django.test import RequestFactory, TestCase
 
 from wagtail.tests.testapp.models import CustomFormPageSubmission, FormField, JadeFormPage
 from wagtail.tests.utils import WagtailTestUtils
@@ -394,4 +394,6 @@ class TestNonHtmlExtension(TestCase):
 
     def test_non_html_extension(self):
         form_page = JadeFormPage(title="test")
-        self.assertEqual(form_page.landing_page_template, "tests/form_page_landing.jade")
+        self.assertEqual(
+            form_page.get_landing_page_template(RequestFactory().get('/test/')),
+            "tests/form_page_landing.jade")

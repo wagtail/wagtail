@@ -2,9 +2,10 @@ from __future__ import absolute_import, unicode_literals
 
 import json
 import logging
+import warnings
 from collections import defaultdict
-from django import VERSION as DJANGO_VERSION
 
+from django import VERSION as DJANGO_VERSION
 from django.conf import settings
 from django.contrib.auth.models import Group, Permission
 from django.contrib.contenttypes.models import ContentType
@@ -31,6 +32,7 @@ from django.utils.translation import ugettext_lazy as _
 from modelcluster.models import ClusterableModel, get_all_child_relations
 from treebeard.mp_tree import MP_Node
 
+from wagtail.utils.deprecation import RemovedInWagtail110Warning
 from wagtail.wagtailcore.query import PageQuerySet, TreeQuerySet
 from wagtail.wagtailcore.signals import page_published, page_unpublished
 from wagtail.wagtailcore.url_routing import RouteResult
@@ -261,12 +263,6 @@ class PageBase(models.base.ModelBase):
             # don't proceed with all this page type registration stuff
             return
 
-        if 'template' not in dct:
-            # Define a default template path derived from the app name and model name
-            cls.template = "%s/%s.html" % (cls._meta.app_label, camelcase_to_underscore(name))
-
-        if 'ajax_template' not in dct:
-            cls.ajax_template = None
 
         cls._clean_subpage_models = None  # to be filled in on first call to cls.clean_subpage_models
         cls._clean_parent_page_models = None  # to be filled in on first call to cls.clean_parent_page_models
@@ -760,11 +756,48 @@ class Page(six.with_metaclass(PageBase, AbstractPage, index.Indexed, Clusterable
             'request': request,
         }
 
+    @property
+    def template(self):
+        warnings.warn(
+            "The automatically generated template attribute is deprecated - "
+            "use Page.get_template() or set an explicit template attribute .",
+            category=RemovedInWagtail110Warning, stacklevel=2)
+        return "%s/%s.html" % (self._meta.app_label, camelcase_to_underscore(self._meta.object_name))
+
+    @property
+    def ajax_template(self):
+        warnings.warn(
+            "The automatically generated ajax_template attribute is deprecated - "
+            "use Page.get_template() or set an explicit ajax_template attribute .",
+            category=RemovedInWagtail110Warning, stacklevel=2)
+        return "%s/%s.html" % (self._meta.app_label, camelcase_to_underscore(self._meta.object_name))
+
     def get_template(self, request, *args, **kwargs):
-        if request.is_ajax():
-            return self.ajax_template or self.template
-        else:
+        """
+        Get the template name for this Page class.
+
+        * If `request.is_ajax()`, and the Page has an `ajax_template`
+          attribute, that template will be used.
+        * Otherwise, if the Page has a `template` attribute, that will be used.
+        * Otherwise, a template name of `"app/model_name.html"` will be
+          generated.
+        """
+        # RemovedInWagtail110Warning: `is_auto` and `is_ajax_auto`.
+        # `template` and `ajax_template` attributes will just be set to None
+        # in Wagtail 1.10, and the `is_auto` and `is_ajax_auto` variables
+        # removed.
+        is_auto = type(self).template is Page.template
+        is_ajax_auto = type(self).ajax_template is Page.ajax_template
+
+        # If the request is AJAX, and an `ajax_template` has been set
+        if request.is_ajax() and not is_ajax_auto and self.ajax_template is not None:
+            return self.ajax_template
+        # Otherwise, if `template` has been set
+        elif not is_auto and self.template is not None:
             return self.template
+        # Otherwise, generate a template name
+        else:
+            return "%s/%s.html" % (self._meta.app_label, camelcase_to_underscore(self._meta.object_name))
 
     def serve(self, request, *args, **kwargs):
         request.is_preview = getattr(request, 'is_preview', False)

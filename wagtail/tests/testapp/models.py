@@ -146,7 +146,6 @@ class PageWithOldStyleRouteMethod(Page):
     we need to continue accepting this convention (albeit as a deprecated API).
     """
     content = models.TextField()
-    template = 'tests/simple_page.html'
 
     def route(self, request, path_components):
         return self.serve(request)
@@ -430,7 +429,7 @@ class FormPageWithCustomSubmission(AbstractEmailForm):
         if self.get_submission_class().objects.filter(page=self, user__pk=request.user.pk).exists():
             return render(
                 request,
-                self.template,
+                self.get_template(request),
                 self.get_context(request)
             )
 
@@ -527,6 +526,9 @@ register_snippet(AdvertWithTabbedInterface)
 class StandardIndex(Page):
     """ Index for the site """
     parent_page_types = [Page]
+
+    template = 'index.html'
+    ajax_template = 'ajax.html'
 
 
 # A custom panel setup where all Promote fields are placed in the Content tab instead;

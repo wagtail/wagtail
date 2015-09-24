@@ -2,6 +2,7 @@ from __future__ import absolute_import, unicode_literals
 
 import json
 import os
+import warnings
 
 from django.contrib.contenttypes.models import ContentType
 from django.core.serializers.json import DjangoJSONEncoder
@@ -13,6 +14,7 @@ from django.utils.text import slugify
 from django.utils.translation import ugettext_lazy as _
 from unidecode import unidecode
 
+from wagtail.utils.deprecation import RemovedInWagtail110Warning
 from wagtail.wagtailadmin.edit_handlers import FieldPanel
 from wagtail.wagtailadmin.utils import send_mail
 from wagtail.wagtailcore import hooks
@@ -160,11 +162,16 @@ class AbstractForm(Page):
 
     base_form_class = WagtailAdminFormPageForm
 
-    def __init__(self, *args, **kwargs):
-        super(AbstractForm, self).__init__(*args, **kwargs)
-        if not hasattr(self, 'landing_page_template'):
-            name, ext = os.path.splitext(self.template)
-            self.landing_page_template = name + '_landing' + ext
+    @property
+    def landing_page_template(self):
+        warnings.warn(
+            "The automatically generated landing_page_template attribute is deprecated - "
+            "use AbstractForm.get_landing_page_template(request), or "
+            "set an explicit landing_page_template attribute instead.",
+            category=RemovedInWagtail110Warning, stacklevel=2)
+
+        name, ext = os.path.splitext(self.template)
+        return name + '_landing' + ext
 
     class Meta:
         abstract = True
@@ -208,7 +215,17 @@ class AbstractForm(Page):
         return form_class(*args, **form_params)
 
     def get_landing_page_template(self, request, *args, **kwargs):
-        return self.landing_page_template
+        # Check if a specific template has been set.
+        # RemovedInWagtail110Warning: `is_auto_landing`. See Page.get_template()
+        is_auto_landing = type(self).landing_page_template is AbstractForm.landing_page_template
+        if not is_auto_landing and self.landing_page_template is not None:
+            return self.landing_page_template
+
+        # Generate a template name by appending "_landing.html" to the regular
+        # template name
+        template = self.get_template(request, *args, **kwargs)
+        template_root, template_ext = os.path.splitext(template)
+        return template_root + '_landing' + template_ext
 
     def get_submission_class(self):
         """

@@ -2,6 +2,7 @@ from __future__ import absolute_import, unicode_literals
 
 import datetime
 import json
+import warnings
 
 import pytz
 from django.contrib.auth import get_user_model
@@ -19,6 +20,7 @@ from wagtail.tests.testapp.models import (
     GenericSnippetPage, ManyToManyBlogPage, MTIBasePage, MTIChildPage, MyCustomPage, OneToOnePage,
     SimplePage, SingleEventPage, SingletonPage, StandardIndex, TaggedPage)
 from wagtail.tests.utils import WagtailTestUtils
+from wagtail.utils.deprecation import RemovedInWagtail110Warning
 from wagtail.wagtailcore.models import Page, PageManager, Site, get_page_models
 
 
@@ -1229,3 +1231,49 @@ class TestDummyRequest(TestCase):
 
         # '*' is not a valid hostname, so ensure that we replace it with something sensible
         self.assertNotEqual(request.META['HTTP_HOST'], '*')
+
+
+class TestTemplates(TestCase):
+    def setUp(self):
+        self.request = HttpRequest()
+        self.request.path = '/'
+        site = Site.objects.first()
+        self.request.site = site
+
+    def test_automatic_template_name(self):
+        event_page = EventPage()
+        # RemovedInWagtail110Warning: Assert this is None instead
+        # self.assertIsNone(EventPage.template)
+        self.assertIs(EventPage.template, Page.template)
+
+        self.assertEqual(event_page.get_template(self.request),
+                         'tests/event_page.html')
+
+    def test_manual_template_name(self):
+        index = StandardIndex()
+        self.assertEqual(index.get_template(self.request), 'index.html')
+
+    def test_manual_ajax_template_name(self):
+        self.request.META['HTTP_X_REQUESTED_WITH'] = 'XMLHttpRequest'
+        index = StandardIndex()
+        self.assertEqual(index.get_template(self.request), 'ajax.html')
+
+    def test_deprecated_template_attribute(self):
+        # RemovedInWagtail110Warning: This whole test
+        event_page = EventPage()
+
+        with warnings.catch_warnings(record=True) as ws:
+            warnings.resetwarnings()
+            warnings.simplefilter('always')
+            event_page.template
+
+            self.assertEqual(len(ws), 1)
+            self.assertIs(ws[0].category, RemovedInWagtail110Warning)
+
+        with warnings.catch_warnings(record=True) as ws:
+            warnings.resetwarnings()
+            warnings.simplefilter('always')
+            event_page.ajax_template
+
+            self.assertEqual(len(ws), 1)
+            self.assertIs(ws[0].category, RemovedInWagtail110Warning)
