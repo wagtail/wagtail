@@ -94,18 +94,20 @@ def user_can_edit_document(user, document):
         return False
 
 
-def collections_with_add_permission_for_user(user):
+def collections_with_permission_for_user(user, permission_name):
     """
-    Return a queryset of collections that this user can add documents to
+    Return a queryset of collections that this user has the specified permission over,
+    taking permission propagation into child selections into account
     """
     if is_using_collections:
         if user.is_superuser:
             return Collection.objects.all()
         else:
+            app_label, codename = permission_name.split('.')
             base_paths = Collection.objects.filter(
                 group_permissions__group__in=user.groups.all(),
-                group_permissions__permission__content_type__app_label='wagtaildocs',
-                group_permissions__permission__codename='add_document'
+                group_permissions__permission__content_type__app_label=app_label,
+                group_permissions__permission__codename=codename
             ).values_list('path', flat=True)
 
             if base_paths:
@@ -117,3 +119,20 @@ def collections_with_add_permission_for_user(user):
                 return Collection.objects.none()
     else:
         return Collection.objects.none()
+
+
+def collections_with_add_permission_for_user(user):
+    """
+    Return a queryset of collections that this user can add documents to
+    """
+    return collections_with_permission_for_user(user, 'wagtaildocs.add_document')
+
+
+def documents_editable_by_user(user):
+    """
+    Return a queryset of documents editable by the given user
+    """
+    return Document.objects.filter(
+        Q(collection__in=collections_with_permission_for_user(user, 'wagtaildocs.change_document'))
+        | Q(collection__in=collections_with_permission_for_user(user, 'wagtaildocs.add_document'), uploaded_by_user=user)
+    )

@@ -10,7 +10,7 @@ from wagtail.wagtailsearch.backends import get_search_backends
 from wagtail.wagtailadmin import messages
 
 from wagtail.wagtaildocs.models import Document
-from wagtail.wagtaildocs.permissions import document_permission_required, any_document_permission_required, user_can_edit_document, user_has_document_permission
+from wagtail.wagtaildocs.permissions import document_permission_required, any_document_permission_required, user_can_edit_document, user_has_document_permission, documents_editable_by_user
 from wagtail.wagtaildocs.forms import DocumentForm
 
 
@@ -18,7 +18,7 @@ from wagtail.wagtaildocs.forms import DocumentForm
 @vary_on_headers('X-Requested-With')
 def index(request):
     # Get documents
-    documents = Document.objects.all()
+    documents = documents_editable_by_user(request.user)
 
     # Ordering
     if 'ordering' in request.GET and request.GET['ordering'] in ['title', '-created_at']:
@@ -27,22 +27,13 @@ def index(request):
         ordering = '-created_at'
     documents = documents.order_by(ordering)
 
-    # Permissions
-    if not request.user.has_perm('wagtaildocs.change_document'):
-        # restrict to the user's own documents
-        documents = documents.filter(uploaded_by_user=request.user)
-
     # Search
     query_string = None
     if 'q' in request.GET:
         form = SearchForm(request.GET, placeholder=_("Search documents"))
         if form.is_valid():
             query_string = form.cleaned_data['q']
-            if not request.user.has_perm('wagtaildocs.change_document'):
-                # restrict to the user's own documents
-                documents = Document.search(query_string, filters={'uploaded_by_user_id': request.user.id})
-            else:
-                documents = Document.search(query_string)
+            documents = documents.search(query_string)
     else:
         form = SearchForm(placeholder=_("Search documents"))
 
