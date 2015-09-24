@@ -5,12 +5,13 @@ ul.sequence{
 li.sequence-member{
     @include clearfix;
     position:relative;
+    border-style: solid;
+    border-color: transparent;
+    border-width: 1px 0;
 
     &:hover{
         background-color:$color-input-focus;
-        box-shadow:
-          inset 0 1px 0 darken($color-input-focus, 10%),
-          inset 0 -1px 0 darken($color-input-focus, 10%);
+        border-color: darken($color-input-focus, 10%);
 
         .sequence-member-inner{
             > .struct-block > label,
@@ -48,8 +49,8 @@ li.sequence-member{
         position:relative;
         padding:1.5em 50px;
 
-        .sequence-member:hover{
-            box-shadow:none;
+        .sequence-member {
+            border: 0;
         }
 
         /* sequences within sequences, such as a ListBlock within StructBlock*/
