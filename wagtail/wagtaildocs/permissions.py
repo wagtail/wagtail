@@ -2,8 +2,10 @@
 # These check either Django's auth framework, or wagtailcore.GroupCollectionPermission
 # depending on whether the Document model is configured to use collections.
 
+from django.db.models import Q
+
 from wagtail.wagtailadmin.utils import user_passes_test
-from wagtail.wagtailcore.models import CollectionMember, GroupCollectionPermission
+from wagtail.wagtailcore.models import Collection, CollectionMember, GroupCollectionPermission
 from wagtail.wagtaildocs.models import Document
 
 is_using_collections = issubclass(Document, CollectionMember)
@@ -90,3 +92,28 @@ def user_can_edit_document(user, document):
         return True
     else:
         return False
+
+
+def collections_with_add_permission_for_user(user):
+    """
+    Return a queryset of collections that this user can add documents to
+    """
+    if is_using_collections:
+        if user.is_superuser:
+            return Collection.objects.all()
+        else:
+            base_paths = Collection.objects.filter(
+                group_permissions__group__in=user.groups.all(),
+                group_permissions__permission__content_type__app_label='wagtaildocs',
+                group_permissions__permission__codename='add_document'
+            ).values_list('path', flat=True)
+
+            if base_paths:
+                filters = Q(path__startswith=base_paths[0])
+                for path in base_paths[1:]:
+                    filters = filters | Q(path__startswith=path)
+                return Collection.objects.filter(filters)
+            else:
+                return Collection.objects.none()
+    else:
+        return Collection.objects.none()
