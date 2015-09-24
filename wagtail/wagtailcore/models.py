@@ -171,28 +171,7 @@ def get_page_types():
     return _PAGE_CONTENT_TYPES
 
 
-class PageManager(models.Manager):
-    def get_queryset(self):
-        return PageQuerySet(self.model).order_by('path')
-
-    def live(self):
-        return self.get_queryset().live()
-
-    def not_live(self):
-        return self.get_queryset().not_live()
-
-    def in_menu(self):
-        return self.get_queryset().in_menu()
-
-    def not_in_menu(self):
-        return self.get_queryset().not_in_menu()
-
-    def page(self, other):
-        return self.get_queryset().page(other)
-
-    def not_page(self, other):
-        return self.get_queryset().not_page(other)
-
+class TreeManagerMixin():
     def descendant_of(self, other, inclusive=False):
         return self.get_queryset().descendant_of(other, inclusive)
 
@@ -222,6 +201,29 @@ class PageManager(models.Manager):
 
     def not_sibling_of(self, other, inclusive=False):
         return self.get_queryset().not_sibling_of(other, inclusive)
+
+
+class PageManager(TreeManagerMixin, models.Manager):
+    def get_queryset(self):
+        return PageQuerySet(self.model).order_by('path')
+
+    def live(self):
+        return self.get_queryset().live()
+
+    def not_live(self):
+        return self.get_queryset().not_live()
+
+    def in_menu(self):
+        return self.get_queryset().in_menu()
+
+    def not_in_menu(self):
+        return self.get_queryset().not_in_menu()
+
+    def page(self, other):
+        return self.get_queryset().page(other)
+
+    def not_page(self, other):
+        return self.get_queryset().not_page(other)
 
     def type(self, model):
         return self.get_queryset().type(model)
