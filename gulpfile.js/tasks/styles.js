@@ -40,7 +40,7 @@ gulp.task('styles:sass', function () {
             // Changing the suffix is done by Sass automatically
             return file.base
                 .replace(
-                    '/' + config.srcDir + '/', 
+                    '/' + config.srcDir + '/',
                     '/' + config.destDir + '/'
                 )
                 .replace('/scss/', '/css/');

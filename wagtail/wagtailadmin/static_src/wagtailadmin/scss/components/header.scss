@@ -128,16 +128,16 @@ header{
         }
 
         .col3{
-            @include column(3);
+            @include span-columns(3);
         }
         .col3.addbutton{
             width:auto;
         }
         .col6{
-            @include column(6);
+            @include span-columns(6);
         }
         .col9{
-            @include column(9);
+            @include span-columns(9);
         }
         .breadcrumb{
             margin-left:-($desktop-nice-padding);

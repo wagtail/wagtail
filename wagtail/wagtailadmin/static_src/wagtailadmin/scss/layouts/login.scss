@@ -1,6 +1,7 @@
-@import "wagtailadmin/scss/variables.scss";
-@import "wagtailadmin/scss/mixins.scss";
-@import "wagtailadmin/scss/grid.scss";
+@import "wagtailadmin/scss/vendor/bourbon/bourbon";
+@import "wagtailadmin/scss/vendor/neat/neat";
+@import "wagtailadmin/scss/variables";
+@import "wagtailadmin/scss/mixins";
 
 // overrides default nice padding defined in variables.scss
 $desktop-nice-padding: 100px;
@@ -87,11 +88,11 @@ form{
         }
         .iconfield .input:before{
             display:none;
-        }   
+        }
 
     /* Special full-width, one-off fields i.e a single text or textarea input */
     .full input{
-        @include border-radius(0px);
+        border-radius: 0px;
         padding-left:$mobile-nice-padding;
         padding-right:$mobile-nice-padding;
         font-weight:300;
@@ -122,7 +123,7 @@ form{
         }
 
         li{
-            @include border-radius(3px);
+            border-radius: 3px;
         }
     }
 }

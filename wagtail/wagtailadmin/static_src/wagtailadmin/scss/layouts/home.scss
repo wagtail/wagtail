@@ -1,6 +1,7 @@
-@import "wagtailadmin/scss/variables.scss";
-@import "wagtailadmin/scss/mixins.scss";
-@import "wagtailadmin/scss/grid.scss";
+@import "wagtailadmin/scss/vendor/bourbon/bourbon";
+@import "wagtailadmin/scss/vendor/neat/neat";
+@import "wagtailadmin/scss/variables";
+@import "wagtailadmin/scss/mixins";
 
 h1{
     font-weight:300;
@@ -25,19 +26,19 @@ header{
 }
 
 .summary{
-    @include clearfix();
+    @include clearfix;
     background-color:$color-grey-5;
     margin-bottom:2em;
     padding-top:2em;
     padding-bottom:2em;
 
     ul.stats{
-        @include clearfix();
+        @include clearfix;
         @include unlist();
         width:100%;
 
         li{
-            @include column(4);
+            @include span-columns(4);
 
             &:before{
                 opacity:0.2;
@@ -63,7 +64,7 @@ header{
     }
 
     .search-bar{
-        @include clearfix();
+        @include clearfix;
         border-top:1px solid $color-grey-4;
         padding:1em 0 0 0;
 

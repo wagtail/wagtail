@@ -1,12 +1,14 @@
-@import "wagtailadmin/scss/variables.scss";
-@import "wagtailadmin/scss/mixins.scss";
+@import "wagtailadmin/scss/vendor/bourbon/bourbon";
+@import "wagtailadmin/scss/vendor/neat/neat";
+@import "wagtailadmin/scss/variables";
+@import "wagtailadmin/scss/mixins";
 
 .focal-point-chooser {
     position: relative;
 
     .current-focal-point-indicator {
         @include transition(opacity 0.2s ease);
-        @include box-shadow(1px 1px 10px 0px rgba(0,0,0,1));
+        box-shadow: 1px 1px 10px 0px rgba(0,0,0,1);
         position: absolute;
         border: 1px solid $color-teal;
         opacity: 0.5;

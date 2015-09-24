@@ -1,23 +1,25 @@
-@import "wagtailadmin/scss/variables.scss";
-@import "wagtailadmin/scss/mixins.scss";
-@import "wagtailadmin/scss/grid.scss";
+@import "wagtailadmin/scss/vendor/bourbon/bourbon";
+@import "wagtailadmin/scss/vendor/neat/neat";
 
-@import "wagtailadmin/scss/components/explorer.scss";
-@import "wagtailadmin/scss/components/icons.scss";
-@import "wagtailadmin/scss/components/typography.scss";
-@import "wagtailadmin/scss/components/tabs.scss";
-@import "wagtailadmin/scss/components/dropdowns.scss";
-@import "wagtailadmin/scss/components/modals.scss";
-@import "wagtailadmin/scss/components/forms.scss";
-@import "wagtailadmin/scss/components/listing.scss";
-@import "wagtailadmin/scss/components/messages.scss";
-@import "wagtailadmin/scss/components/formatters.scss";
-@import "wagtailadmin/scss/components/header.scss";
-@import "wagtailadmin/scss/components/progressbar.scss";
-@import "wagtailadmin/scss/components/datetimepicker.scss";
-@import "wagtailadmin/scss/components/main-nav.scss";
+@import "wagtailadmin/scss/variables";
+@import "wagtailadmin/scss/mixins";
 
-@import "wagtailadmin/scss/fonts.scss";
+@import "wagtailadmin/scss/components/explorer";
+@import "wagtailadmin/scss/components/icons";
+@import "wagtailadmin/scss/components/typography";
+@import "wagtailadmin/scss/components/tabs";
+@import "wagtailadmin/scss/components/dropdowns";
+@import "wagtailadmin/scss/components/modals";
+@import "wagtailadmin/scss/components/forms";
+@import "wagtailadmin/scss/components/listing";
+@import "wagtailadmin/scss/components/messages";
+@import "wagtailadmin/scss/components/formatters";
+@import "wagtailadmin/scss/components/header";
+@import "wagtailadmin/scss/components/progressbar";
+@import "wagtailadmin/scss/components/datetimepicker";
+@import "wagtailadmin/scss/components/main-nav";
+
+@import "wagtailadmin/scss/fonts";
 
 html{
     background:$color-grey-4;
@@ -55,8 +57,9 @@ body{
 }
 
 .wrapper{
-    @include transition-transform(0.2s ease);
-    @include clearfix();
+    @include transition(transform 0.2s ease);
+    @include clearfix;
+    box-sizing: content-box;
 }
 
 .nav-wrapper{
@@ -92,6 +95,7 @@ body{
     position: relative;
     background-color:$color-grey-4;
     border-bottom:1px solid $color-grey-3;
+    box-sizing: border-box;
 }
     .content{
         @include row();
@@ -104,8 +108,8 @@ body{
 footer{
     @include transition(all 0.2s ease);
     @include row();
-    @include border-radius(3px 3px 0 0);
-    @include box-shadow(0px 0px 2px rgba(255,255,255,0.5));
+    border-radius: 3px 3px 0 0;
+    box-shadow: 0px 0px 2px rgba(255,255,255,0.5);
     @include transition(bottom 0.5s ease 1s);
     background: $color-grey-1;
     position:fixed;
@@ -124,19 +128,19 @@ footer{
 
     .actions{
         width:250px;
-        margin-right:$grid-gutter-width/2;
+        margin-right:$gutter/2;
     }
 
     .meta{
         float:right;
         text-align:right;
-        padding-right:$grid-gutter-width/2;
+        padding-right:$gutter/2;
         line-height:3.5em;
         font-size:0.85em;
 
         p{
             margin:0;
-            margin-right:$grid-gutter-width;
+            margin-right:$gutter;
             white-space: nowrap;
         }
     }
@@ -160,7 +164,7 @@ footer{
 }
 
 .breadcrumb{
-    @include clearfix();
+    @include clearfix;
     overflow:hidden;
     padding-top:1.4em;
     font-size:0.85em;
@@ -248,11 +252,11 @@ footer{
 }
 
 .clearfix{
-    @include clearfix();
+    @include clearfix;
 }
 
 .row{
-    @include clearfix();
+    @include clearfix;
 }
 
 .nice-padding{
@@ -288,40 +292,40 @@ footer, .logo{
 
 @media screen and (min-width: $breakpoint-mobile){
     .col1{
-        @include column(1);
+        @include span-columns(1);
     }
     .col2{
-        @include column(2);
+        @include span-columns(2);
     }
     .col3{
-         @include column(3);
+         @include span-columns(3);
     }
     .col4{
-        @include column(4);
+        @include span-columns(4);
     }
     .col5{
-        @include column(5);
+        @include span-columns(5);
     }
     .col6{
-        @include column(6);
+        @include span-columns(6);
     }
     .col7{
-        @include column(7);
+        @include span-columns(7);
     }
     .col8{
-        @include column(8);
+        @include span-columns(8);
     }
     .col9{
-        @include column(9);
+        @include span-columns(9);
     }
     .col10{
-        @include column(10);
+        @include span-columns(10);
     }
     .col11{
-        @include column(11);
+        @include span-columns(11);
     }
     .col12{
-        @include column(12);
+        @include span-columns(12);
     }
 
     .divider-before{
@@ -333,9 +337,6 @@ footer, .logo{
 
     .row{
         @include row();
-    }
-    .row-flush{
-        @include row-flush();
     }
 
     .nice-padding{
@@ -423,6 +424,14 @@ footer, .logo{
     .nav-wrapper.submenu-active {
         z-index: 200;
     }
+}
+
+.visuallyhidden{
+    @include visuallyhidden;
+}
+
+.visuallyvisible{
+    @include visuallyvisible;
 }
 
 @media screen and (min-width: 90em){

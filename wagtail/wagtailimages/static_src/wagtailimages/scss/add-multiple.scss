@@ -1,6 +1,8 @@
-@import "wagtailadmin/scss/variables.scss";
-@import "wagtailadmin/scss/mixins.scss";
-@import "wagtailadmin/scss/grid.scss";
+@import "wagtailadmin/scss/vendor/bourbon/bourbon";
+@import "wagtailadmin/scss/vendor/neat/neat";
+@import "wagtailadmin/scss/variables";
+@import "wagtailadmin/scss/mixins";
+
 
 .replace-file-input{
     display:inline-block;
@@ -60,7 +62,7 @@
         left:20%;
         right:20%;
         width:60%;
-        @include box-shadow(0 0 5px 2px rgba(255, 255, 255, 0.4));
+        box-shadow: 0 0 5px 2px rgba(255, 255, 255, 0.4);
     }
     .thumb{
         top:0;right:0;bottom:0;left:0;
@@ -89,7 +91,7 @@
 
     .hasthumb{
         &:before{
-            display:none;        
+            display:none;
         }
     }
 
@@ -116,7 +118,7 @@
         .preview{
             display:none;
         }
-        
+
         .status-msg.failure{
             display:block;
         }

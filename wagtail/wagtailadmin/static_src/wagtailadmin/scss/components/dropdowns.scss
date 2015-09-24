@@ -1,6 +1,6 @@
 .dropdown{
     position:relative;
-    @include clearfix();
+    @include clearfix;
 
     input[type=submit], input[type=reset], input[type=button], button, .button{
         padding:0;
@@ -64,7 +64,7 @@
         a, input[type=submit], input[type=reset], input[type=button], .button, button{
             font-size:0.95em;
             -webkit-font-smoothing: auto;
-            @include border-radius(0);
+            border-radius: 0;
         }
 
         label{
@@ -82,7 +82,7 @@
     }
 
     &.open ul{
-        @include box-shadow(0px 3px 3px 0 rgba(0,0,0,0.2));
+        box-shadow: 0px 3px 3px 0 rgba(0,0,0,0.2);
         opacity:1;
         left:0;
         display:block;
@@ -99,7 +99,7 @@
 
 
     &.dropup ul{
-        @include box-shadow(0px -3px 3px 0 rgba(0,0,0,0.2));
+        box-shadow: 0px -3px 3px 0 rgba(0,0,0,0.2);
         top:auto;
         bottom:100%;
 
@@ -144,14 +144,14 @@
     
     &.dropdown-button{
         .dropdown-toggle{
-            @include border-radius(0 3px 3px 0);
+            border-radius: 0 3px 3px 0;
         }
         &.open{
             > input[type=button], > input[type=submit], > button, > .button{
-                @include border-radius(3px 3px 0px 0px);
+                border-radius: 3px 3px 0px 0px;
             }
             .dropdown-toggle{
-                @include border-radius(0 3px 0 0);
+                border-radius: 0 3px 0 0;
             }
         }
     }
@@ -159,10 +159,10 @@
     &.dropup.dropdown-button{
         &.open{
             > input[type=button], > input[type=submit], > button, > .button{
-                @include border-radius(0 0 3px 3px);
+                border-radius: 0 0 3px 3px;
             }
             .dropdown-toggle{
-                @include border-radius(0 0 3px 0);
+                border-radius: 0 0 3px 0;
             }
         }
     }

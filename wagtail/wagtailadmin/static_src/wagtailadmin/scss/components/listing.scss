@@ -178,7 +178,7 @@ ul.listing{
     }
 
     .actions{
-        @include clearfix();
+        @include clearfix;
         margin-top:0.8em;
         text-transform:uppercase;
         margin-bottom:-0.5em;
@@ -449,7 +449,7 @@ table.listing{
 /* listing filters */
 
 .listing-filter{
-    @include clearfix();
+    @include clearfix;
     background-color:$color-grey-5;
     border-width:1px 0;
     margin:3em 0;
@@ -464,7 +464,7 @@ table.listing{
 }
 .filter-options{
     @include unlist();
-    @include clearfix();
+    @include clearfix;
     overflow:hidden;
 
     li{
@@ -480,7 +480,7 @@ table.listing{
            float:left;
         }
         &.images {
-            @include clearfix();
+            @include clearfix;
             border: 1px solid $color-grey-4;
             border-width:0 0 0 1px !important;
 

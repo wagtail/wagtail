@@ -1,6 +1,8 @@
-@import "wagtailadmin/scss/variables.scss";
-@import "wagtailadmin/scss/mixins.scss";
-@import "wagtailadmin/scss/grid.scss";
+@import "wagtailadmin/scss/vendor/bourbon/bourbon";
+@import "wagtailadmin/scss/vendor/neat/neat";
+@import "wagtailadmin/scss/variables";
+@import "wagtailadmin/scss/mixins";
+
 
 section{
     border-top:1px solid $color-grey-3;
@@ -17,10 +19,10 @@ section{
 }
 
 #palette{
-    @include clearfix();
+    @include clearfix;
 
     ul{
-        @include clearfix();
+        @include clearfix;
         @include unlist();
     }
 
