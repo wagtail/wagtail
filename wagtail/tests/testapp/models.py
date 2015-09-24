@@ -17,7 +17,7 @@ from modelcluster.models import ClusterableModel
 from modelcluster.contrib.taggit import ClusterTaggableManager
 
 from wagtail.contrib.settings.models import BaseSetting, register_setting
-from wagtail.wagtailcore.models import Page, Orderable
+from wagtail.wagtailcore.models import Page, Orderable, PageManager
 from wagtail.wagtailcore.fields import RichTextField, StreamField
 from wagtail.wagtailcore.blocks import CharBlock, RichTextBlock
 from wagtail.wagtailadmin.edit_handlers import (
@@ -577,3 +577,11 @@ class CustomImageFilePath(AbstractImage):
 
         self.file.seek(original_position)
         return os.path.join(folder_name, checksum[:3], filename)
+
+
+class CustomManager(PageManager):
+    pass
+
+
+class CustomManagerPage(Page):
+    objects = CustomManager()

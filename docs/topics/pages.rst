@@ -440,26 +440,25 @@ This is because ``Page`` enforces ordering QuerySets by path. Instead you must a
 
     news_items = NewsItemPage.objects.live().order_by('-publication_date')
 
-Page custom managers
+Custom Page managers
 --------------------
 
 ``Page`` enforces its own 'objects' manager in its ``__init__`` method, so you cannot add a custom manager at the 'objects' attribute.
 
 .. code-block:: python
 
-    class EventPageQuerySet(PageQuerySet):
+    from django.db import models
+    from wagtail.wagtailcore.models import Page, PageManager
 
-        def future(self):
-            return self.filter(
-                start_date__gte=timezone.localtime(timezone.now()).date()
-            )
+    class EventPageManager(PageManager):
+        """ Custom manager for Event pages """
 
     class EventPage(Page):
         start_date = models.DateField()
 
-        objects = EventPageQuerySet.as_manager()  # will not work
+        objects = EventPageManager()
 
-To use a custom manager you must choose a different attribute name. Make sure to subclass ``wagtail.wagtailcore.models.PageManager``.
+If you want to use a custom QuerySet, you can use :func:`~django.db.models.managers.Manager.from_queryset` to build a custom Manager:
 
 .. code-block:: python
 
@@ -468,17 +467,14 @@ To use a custom manager you must choose a different attribute name. Make sure to
     from wagtail.wagtailcore.models import Page, PageManager
 
 
-    class FutureEventPageManager(PageManager):
+    class EventPageQuerySet(PageQuerySet):
 
-        def get_queryset(self):
-            return super().get_queryset().filter(
-                start_date__gte=timezone.localtime(timezone.now()).date()
-            )
+        def future(self):
+            return self.filter(
+                start_date__gte=timezone.localtime(timezone.now()).date())
 
 
     class EventPage(Page):
         start_date = models.DateField()
 
-        future_events = FutureEventPageManager()
-
-Then you can use ``EventPage.future_events`` in the manner you might expect.
+        objects = PageManager.from_queryset(EventQuerySet)
