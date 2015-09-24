@@ -12,6 +12,7 @@ from wagtail.wagtailadmin.site_summary import SummaryItem
 
 from wagtail.wagtaildocs import admin_urls
 from wagtail.wagtaildocs.models import Document
+from wagtail.wagtaildocs.permissions import user_has_any_document_permission
 from wagtail.wagtaildocs.rich_text import DocumentLinkHandler
 
 
@@ -24,7 +25,7 @@ def register_admin_urls():
 
 class DocumentsMenuItem(MenuItem):
     def is_shown(self, request):
-        return request.user.has_perm('wagtaildocs.add_document') or request.user.has_perm('wagtaildocs.change_document')
+        return user_has_any_document_permission(request.user)
 
 
 @hooks.register('register_admin_menu_item')

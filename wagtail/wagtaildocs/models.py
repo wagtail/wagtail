@@ -60,14 +60,8 @@ class Document(CollectionMember, TagSearchable):
                        args=(self.id,))
 
     def is_editable_by_user(self, user):
-        if user.has_perm('wagtaildocs.change_document'):
-            # user has global permission to change documents
-            return True
-        elif user.has_perm('wagtaildocs.add_document') and self.uploaded_by_user == user:
-            # user has document add permission, which also implicitly provides permission to edit their own documents
-            return True
-        else:
-            return False
+        from wagtail.wagtaildocs.permissions import user_can_edit_document
+        return user_can_edit_document(user, self)
 
     class Meta:
         verbose_name = _('Document')

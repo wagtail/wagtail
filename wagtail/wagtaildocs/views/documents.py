@@ -6,15 +6,15 @@ from django.views.decorators.vary import vary_on_headers
 from django.core.urlresolvers import reverse
 
 from wagtail.wagtailadmin.forms import SearchForm
-from wagtail.wagtailadmin.utils import permission_required, any_permission_required
 from wagtail.wagtailsearch.backends import get_search_backends
 from wagtail.wagtailadmin import messages
 
 from wagtail.wagtaildocs.models import Document
+from wagtail.wagtaildocs.permissions import document_permission_required, any_document_permission_required, user_can_edit_document
 from wagtail.wagtaildocs.forms import DocumentForm
 
 
-@any_permission_required('wagtaildocs.add_document', 'wagtaildocs.change_document')
+@any_document_permission_required()
 @vary_on_headers('X-Requested-With')
 def index(request):
     # Get documents
@@ -77,7 +77,7 @@ def index(request):
         })
 
 
-@permission_required('wagtaildocs.add_document')
+@document_permission_required('wagtaildocs.add_document')
 def add(request):
     if request.POST:
         doc = Document(uploaded_by_user=request.user)
@@ -106,7 +106,7 @@ def add(request):
 def edit(request, document_id):
     doc = get_object_or_404(Document, id=document_id)
 
-    if not doc.is_editable_by_user(request.user):
+    if not user_can_edit_document(request.user, doc):
         raise PermissionDenied
 
     if request.POST:
@@ -158,7 +158,7 @@ def edit(request, document_id):
 def delete(request, document_id):
     doc = get_object_or_404(Document, id=document_id)
 
-    if not doc.is_editable_by_user(request.user):
+    if not user_can_edit_document(request.user, doc):
         raise PermissionDenied
 
     if request.POST:
