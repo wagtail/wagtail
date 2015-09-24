@@ -1,0 +1,38 @@
+@charset "UTF-8";
+
+/// Makes an element a outer container by centring it in the viewport, clearing its floats, and setting its `max-width`.
+/// Although optional, using `outer-container` is recommended. The mixin can be called on more than one element per page, as long as they are not nested.
+///
+/// @param {Number [unit]} $local-max-width [$max-width]
+///   Max width to be applied to the element. Can be a percentage or a measure.
+///
+/// @example scss - Usage
+///   .element {
+///     @include outer-container(100%);
+///   }
+///
+/// @example css - CSS Output
+///   .element {
+///     *zoom: 1;
+///     max-width: 100%;
+///     margin-left: auto;
+///     margin-right: auto;
+///   }
+///
+///   .element:before, .element:after {
+///     content: " ";
+///     display: table;
+///   }
+///
+///   .element:after {
+///     clear: both;
+///   }
+
+@mixin outer-container($local-max-width: $max-width) {
+  @include clearfix;
+  max-width: $local-max-width;
+  margin: {
+    left: auto;
+    right: auto;
+  }
+}

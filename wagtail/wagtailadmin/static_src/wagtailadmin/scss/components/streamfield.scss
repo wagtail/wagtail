@@ -26,12 +26,12 @@ li.sequence-member{
 
    
     .struct-block .fields{
-        @include column(10);
+        @include span-columns(10);
         padding-left:0;
         padding-right:0;
     }
     .struct-block .sequence-container{
-        @include column(9);
+        @include span-columns(9);
         padding-left:0;
         padding-right:0;
 
@@ -53,13 +53,13 @@ li.sequence-member{
 
         /* sequences within sequences, such as a ListBlock within StructBlock*/
         > .sequence .sequence-inner{
-            @include column(10);
+            @include span-columns(10);
             padding-left:0;
             padding-right:0;
         }
 
         .sequence-type-list .sequence-container-inner{
-            @include column(10);
+            @include span-columns(10);
             padding-left:0;
             padding-right:0;
         }
@@ -130,7 +130,7 @@ should be borderless and full-width
 
 /* Controls for ordering and deletion of items in a sequence */
 .sequence-controls{
-    @include border-radius(2px 0 0 0);
+    border-radius: 2px 0 0 0;
     @include transition(opacity 0.2s ease);
     border:1px solid darken($color-input-focus, 10%);
     border-width:1px 1px 0 1px;
@@ -188,7 +188,7 @@ should be borderless and full-width
 
 /* list controls are slightly different as they require closer proximity to their associated fields */
 .list-controls{
-    @include border-radius(0);
+    border-radius: 0;
     background:transparent;
     top:1.5em;
     border:0;
@@ -204,7 +204,7 @@ should be borderless and full-width
 /* Menu of other blocks to be added at each position */
 .stream-menu{
     @include transition(all 0.2s ease);
-    @include box-shadow(inset 0 0 45px rgba(0,0,0,0.3));
+    box-shadow: inset 0 0 45px rgba(0,0,0,0.3);
     position:relative;
     background-color:$color-grey-1;
     opacity:1;
@@ -212,7 +212,7 @@ should be borderless and full-width
 
     .toggle{
         @include transition(color 0.2s ease);
-        @include border-radius(50px);
+        border-radius: 50px;
         position:absolute;
         top:-0.5em;
         left:0;
@@ -261,8 +261,8 @@ should be borderless and full-width
     }
 
     li{
-        @include column(3);
-        padding-bottom:$grid-gutter-width;
+        @include span-columns(3);
+        padding-bottom:$gutter;
         padding-left:0;
         padding-right:0;
 
@@ -312,7 +312,7 @@ should be borderless and full-width
     }
 
     &.stream-menu-closed{
-        @include box-shadow(none);
+        box-shadow: none;
 
         .stream-menu-inner ul{
             @include transform(scale(0.9));
@@ -341,7 +341,7 @@ should be borderless and full-width
 
     @media screen and (min-width: $breakpoint-mobile){
         li{
-            @include column(2);
+            @include span-columns(2);
             &:nth-child(4n+1){
                 clear:none;
             }

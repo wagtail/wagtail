@@ -1,0 +1,15 @@
+@charset "UTF-8";
+
+@if $border-box-sizing == true {
+  html { // http://bit.ly/1qk2tVR
+    box-sizing: border-box;
+  }
+
+  * {
+    &,
+    &::after,
+    &::before {
+      box-sizing: inherit;
+    }
+  }
+}

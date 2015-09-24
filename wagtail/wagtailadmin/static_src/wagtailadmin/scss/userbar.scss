@@ -1,9 +1,12 @@
-@import "wagtailadmin/scss/variables.scss";
-@import "wagtailadmin/scss/mixins.scss";
+@import "wagtailadmin/scss/vendor/bourbon/bourbon";
+@import "wagtailadmin/scss/vendor/neat/neat";
 
-@import "wagtailadmin/scss/components/icons.scss";
+@import "wagtailadmin/scss/variables";
+@import "wagtailadmin/scss/mixins";
 
-@import "wagtailadmin/scss/fonts.scss";
+@import "wagtailadmin/scss/components/icons";
+
+@import "wagtailadmin/scss/fonts";
 
 html, body{
     background-color:transparent;

@@ -1,5 +1,7 @@
-@import "wagtailadmin/scss/variables.scss";
-@import "wagtailadmin/scss/mixins.scss";
+@import "wagtailadmin/scss/vendor/bourbon/bourbon";
+@import "wagtailadmin/scss/vendor/neat/neat";
+@import "wagtailadmin/scss/variables";
+@import "wagtailadmin/scss/mixins";
 
 .hallotoolbar{
     position:absolute;
@@ -28,7 +30,7 @@
 }
 
 .hallotoolbar button{
-    @include border-radius(0);
+    border-radius: 0;
     height:2.4em;
 }
 

@@ -10,8 +10,8 @@ $font-root: "../../wagtailadmin/fonts/";
 
 /* grid settings */
 $grid-columns: 12;
-$grid-gutter-width: 3%;
-$grid-max-width: 1200px;
+$gutter: 3%;
+$max-width: 1200px;
 $grid-content-indent:0.7;
 
 $mobile-nice-padding: 20px;
@@ -63,3 +63,7 @@ $color-text-input: $color-grey-1;
 /* misc sizing */
 $thumbnail-width: 130px;
 $menu-width: 180px;
+
+/* Utility variable - you should never need to modify this */
+$gridsystem_width: $grid-columns * 1px;
+$padding: $gutter * 0.5;

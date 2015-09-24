@@ -1,0 +1,25 @@
+@charset "UTF-8";
+
+/// Adds padding to the element.
+///
+/// @param {List} $padding [flex-gutter()]
+///   A list of padding value(s) to use. Passing `default` in the list will result in using the gutter width as a padding value.
+///
+/// @example scss - Usage
+///   .element {
+///     @include pad(30px -20px 10px default);
+///   }
+///
+/// @example css - CSS Output
+///   .element {
+///     padding: 30px -20px 10px 2.35765%;
+///   }
+
+@mixin pad($padding: flex-gutter()) {
+  $padding-list: null;
+  @each $value in $padding {
+    $value: if($value == 'default', flex-gutter(), $value);
+    $padding-list: join($padding-list, $value);
+  }
+  padding: $padding-list;
+}

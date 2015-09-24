@@ -1,0 +1,51 @@
+@charset "UTF-8";
+
+/// Sets the relative width of a single grid column. The unit used should be the same one used to define `$gutter`. To learn more about modular-scale() see [Bourbon docs](http://bourbon.io/docs/#modular-scale). Set with a `!global` flag.
+///
+/// @type Number (Unit)
+
+$column: modular-scale(3, 1em, $golden) !default;
+
+/// Sets the relative width of a single grid gutter. The unit used should be the same one used to define `$column`. To learn more about modular-scale() see [Bourbon docs](http://bourbon.io/docs/#modular-scale). Set with the `!global` flag.
+///
+/// @type Number (Unit)
+
+$gutter: modular-scale(1, 1em, $golden) !default;
+
+/// Sets the total number of columns in the grid. Its value can be overridden inside a media query using the `media()` mixin. Set with the `!global` flag.
+///
+/// @type Number (Unitless)
+
+$grid-columns: 12 !default;
+
+/// Sets the max-width property of the element that includes `outer-container()`. To learn more about `em()` see [Bourbon docs](http://bourbon.io/docs/#px-to-em). Set with the `!global` flag.
+///
+/// @type Number (Unit)
+///
+$max-width: em(1088) !default;
+
+/// When set to true, it sets the box-sizing property of all elements to `border-box`. Set with a `!global` flag.
+///
+/// @type Bool
+///
+/// @example css - CSS Output
+///   html {
+///     box-sizing: border-box; }
+///
+///   *, *::after, *::before {
+///     box-sizing: inherit;
+///   }
+
+$border-box-sizing: true !default;
+
+/// Sets the default [media feature](http://www.w3.org/TR/css3-mediaqueries/#media) that `media()` and `new-breakpoint()` revert to when only a breakpoint value is passed. Set with a `!global` flag.
+///
+/// @type String
+
+$default-feature: min-width; // Default @media feature for the breakpoint() mixin
+
+///Sets the default layout direction of the grid. Can be `LTR` or `RTL`. Set with a `!global` flag.
+///
+///@type String
+
+$default-layout-direction: LTR !default;

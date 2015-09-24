@@ -1,0 +1,114 @@
+// Not function for Libsass compatibility
+// https://github.com/sass/libsass/issues/368
+@function is-not($value) {
+  @return if($value, false, true);
+}
+
+// Checks if a number is even
+@function is-even($int) {
+  @return $int % 2 == 0;
+}
+
+// Checks if an element belongs to a list or not
+@function belongs-to($tested-item, $list) {
+  @return is-not(not-belongs-to($tested-item, $list));
+}
+
+@function not-belongs-to($tested-item, $list) {
+  @return is-not(index($list, $tested-item));
+}
+
+// Contains display value
+@function contains-display-value($query) {
+  @return belongs-to(table, $query)
+       or belongs-to(block, $query)
+       or belongs-to(inline-block, $query)
+       or belongs-to(inline, $query);
+}
+
+// Parses the first argument of span-columns()
+@function container-span($span: $span) {
+  @if length($span) == 3 {
+    $container-columns: nth($span, 3);
+    @return $container-columns;
+  } @else if length($span) == 2 {
+    $container-columns: nth($span, 2);
+    @return $container-columns;
+  }
+
+  @return $grid-columns;
+}
+
+@function container-shift($shift: $shift) {
+  $parent-columns: $grid-columns !default !global;
+
+  @if length($shift) == 3 {
+    $container-columns: nth($shift, 3);
+    @return $container-columns;
+  } @else if length($shift) == 2 {
+    $container-columns: nth($shift, 2);
+    @return $container-columns;
+  }
+
+  @return $parent-columns;
+}
+
+// Generates a striped background
+@function gradient-stops($grid-columns, $color: $visual-grid-color) {
+  $transparent: transparent;
+
+  $column-width: flex-grid(1, $grid-columns);
+  $gutter-width: flex-gutter($grid-columns);
+  $column-offset: $column-width;
+
+  $values: ($transparent 0, $color 0);
+
+  @for $i from 1 to $grid-columns*2 {
+    @if is-even($i) {
+      $values: append($values, $transparent $column-offset, comma);
+      $values: append($values, $color $column-offset, comma);
+      $column-offset: $column-offset + $column-width;
+    } @else {
+      $values: append($values, $color $column-offset, comma);
+      $values: append($values, $transparent $column-offset, comma);
+      $column-offset: $column-offset + $gutter-width;
+    }
+  }
+
+  @return $values;
+}
+
+// Layout direction
+@function get-direction($layout, $default) {
+  $direction: null;
+
+  @if to-upper-case($layout) == "LTR" or to-upper-case($layout) == "RTL" {
+    $direction: direction-from-layout($layout);
+  } @else {
+    $direction: direction-from-layout($default);
+  }
+
+  @return $direction;
+}
+
+@function direction-from-layout($layout) {
+  $direction: null;
+
+  @if to-upper-case($layout) == "LTR" {
+    $direction: right;
+  } @else {
+    $direction: left;
+  }
+
+  @return $direction;
+}
+
+@function get-opposite-direction($direction) {
+  $opposite-direction: left;
+
+  @if $direction == "left" {
+    $opposite-direction: right;
+  }
+
+  @return $opposite-direction;
+}

@@ -93,7 +93,7 @@ $submenu-color:darken($color-grey-1, 5%);
         }
 
         .account{
-            @include clearfix();
+            @include clearfix;
 
 
             .avatar{
@@ -149,7 +149,7 @@ $submenu-color:darken($color-grey-1, 5%);
         input, button{
             font-size:1em;
             border:0;
-            @include border-radius(0);
+            border-radius: 0;
         }
         input{
             cursor:pointer;
@@ -285,7 +285,7 @@ body.explorer-open {
 
         }
         .account{
-            @include clearfix();
+            @include clearfix;
             padding-right:0;
             padding-left:15px;
 
@@ -356,7 +356,7 @@ body.explorer-open {
             }
         }
         .nav-submenu{
-            @include box-shadow(2px 0 2px rgba(0,0,0,0.35));
+            box-shadow: 2px 0 2px rgba(0,0,0,0.35);
             @include transition(width 0.2s ease);
             width:$menu-width;
             padding:0 0 1.5em 0;

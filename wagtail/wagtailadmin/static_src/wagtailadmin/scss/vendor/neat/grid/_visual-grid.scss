@@ -1,0 +1,42 @@
+@charset "UTF-8";
+
+@mixin grid-column-gradient($values...) {
+  background-image: -webkit-linear-gradient(left, $values);
+  background-image: -moz-linear-gradient(left, $values);
+  background-image: -ms-linear-gradient(left, $values);
+  background-image: -o-linear-gradient(left, $values);
+  background-image: unquote("linear-gradient(to left, #{$values})");
+}
+
+@if $visual-grid == true or $visual-grid == yes {
+  body:before {
+    @include grid-column-gradient(gradient-stops($grid-columns));
+    content: "";
+    display: inline-block;
+    height: 100%;
+    left: 0;
+    margin: 0 auto;
+    max-width: $max-width;
+    opacity: $visual-grid-opacity;
+    pointer-events: none;
+    position: fixed;
+    right: 0;
+    width: 100%;
+
+    @if $visual-grid-index == back {
+      z-index: -1;
+    }
+
+    @else if $visual-grid-index == front {
+      z-index: 9999;
+    }
+
+    @each $breakpoint in $visual-grid-breakpoints {
+      @if $breakpoint {
+        @include media($breakpoint) {
+          @include grid-column-gradient(gradient-stops($grid-columns));
+        }
+      }
+    }
+  }
+}

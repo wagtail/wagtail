@@ -1,5 +1,7 @@
-@import "wagtailadmin/scss/variables.scss";
-@import "wagtailadmin/scss/mixins.scss";
+@import "wagtailadmin/scss/vendor/bourbon/bourbon";
+@import "wagtailadmin/scss/vendor/neat/neat";
+@import "wagtailadmin/scss/variables";
+@import "wagtailadmin/scss/mixins";
 
 /* This font is just a single spinner glyph */
 @font-face {
@@ -25,7 +27,7 @@ html,body {
     font-size:0em;
     z-index:999999;
     background:white;
-    
+
     &.remove{
         @include transition(all 0.3s ease);
         bottom:-100%;
@@ -60,7 +62,7 @@ html,body {
         width:1em;
         animation: spin 0.8s infinite linear;
         -webkit-animation: spin 0.8s infinite linear;
-        -moz-animation: spin 0.8s infinite linear;   
+        -moz-animation: spin 0.8s infinite linear;
     }
 }
 

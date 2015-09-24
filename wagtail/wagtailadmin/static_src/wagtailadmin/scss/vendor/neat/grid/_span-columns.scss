@@ -1,0 +1,94 @@
+@charset "UTF-8";
+
+/// Specifies the number of columns an element should span. If the selector is nested the number of columns of its parent element should be passed as an argument as well.
+///
+/// @param {List} $span
+///   A list containing `$columns`, the unitless number of columns the element spans (required), and `$container-columns`, the number of columns the parent element spans (optional).
+///
+///   If only one value is passed, it is assumed that it's `$columns` and that that `$container-columns` is equal to `$grid-columns`, the total number of columns in the grid.
+///
+///   The values can be separated with any string such as `of`, `/`, etc.
+///
+///   `$columns` also accepts decimals for when it's necessary to break out of the standard grid. E.g. Passing `2.4` in a standard 12 column grid will divide the row into 5 columns.
+///
+/// @param {String} $display [block]
+///   Sets the display property of the element. By default it sets the display propert of the element to `block`.
+///
+///   If passed `block-collapse`, it also removes the margin gutter by adding it to the element width.
+///
+///   If passed `table`, it sets the display property to `table-cell` and calculates the width of the element without taking gutters into consideration. The result does not align with the block-based grid.
+///
+/// @example scss - Usage
+///   .element {
+///     @include span-columns(6);
+///
+///    .nested-element {
+///      @include span-columns(2 of 6);
+///    }
+///  }
+///
+/// @example css - CSS Output
+///   .element {
+///     display: block;
+///     float: left;
+///     margin-right: 2.35765%;
+///     width: 48.82117%;
+///   }
+///
+///   .element:last-child {
+///     margin-right: 0;
+///   }
+///
+///   .element .nested-element {
+///     display: block;
+///     float: left;
+///     margin-right: 4.82916%;
+///     width: 30.11389%;
+///   }
+///
+///   .element .nested-element:last-child {
+///     margin-right: 0;
+///   }
+
+@mixin span-columns($span: $columns of $container-columns, $display: block) {
+  $columns: nth($span, 1);
+  $container-columns: container-span($span);
+
+  $parent-columns: get-parent-columns($container-columns) !global;
+
+  $direction: get-direction($layout-direction, $default-layout-direction);
+  $opposite-direction: get-opposite-direction($direction);
+
+  $display-table: is-display-table($container-display-table, $display);
+
+  @if $display-table  {
+    display: table-cell;
+    width: percentage($columns / $container-columns);
+  } @else {
+    float: #{$opposite-direction};
+
+    @if $display != no-display {
+      display: block;
+    }
+
+    @if $display == collapse {
+      @include -neat-warn("The 'collapse' argument will be deprecated. Use 'block-collapse' instead.");
+    }
+
+    @if $display == collapse or $display == block-collapse {
+      width: flex-grid($columns, $container-columns) + flex-gutter($container-columns);
+
+      &:last-child {
+        width: flex-grid($columns, $container-columns);
+      }
+
+    } @else {
+      margin-#{$direction}: flex-gutter($container-columns);
+      width: flex-grid($columns, $container-columns);
+
+      &:last-child {
+        margin-#{$direction}: 0;
+      }
+    }
+  }
+}

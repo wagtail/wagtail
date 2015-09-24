@@ -1,0 +1,52 @@
+@charset "UTF-8";
+
+/// Designates the element as a row of columns in the grid layout. It clears the floats on the element and sets its display property. Rows can't be nested, but there can be more than one row element—with different display properties—per layout.
+///
+/// @param {String} $display [default]
+///  Sets the display property of the element and the display context that will be used by its children. Can be `block` or `table`.
+///
+/// @param {String} $direction [$default-layout-direction]
+///  Sets the layout direction. Can be `LTR` (left-to-right) or `RTL` (right-to-left).
+///
+/// @example scss - Usage
+///  .element {
+///    @include row();
+///  }
+///
+/// @example css - CSS Output
+///  .element {
+///    *zoom: 1;
+///    display: block;
+///  }
+///
+/// .element:before, .element:after {
+///   content: " ";
+///   display: table;
+/// }
+///
+/// .element:after {
+///   clear: both;
+/// }
+
+@mixin row($display: default, $direction: $default-layout-direction) {
+  @if $direction != $default-layout-direction {
+    @include -neat-warn("The $direction argument will be deprecated in future versions in favor of the direction(){...} mixin.");
+  }
+
+  $layout-direction: $direction !global;
+
+  @if $display != default {
+    @include -neat-warn("The $display argument will be deprecated in future versions in favor of the display(){...} mixin.");
+  }
+
+  @if $display == table {
+    display: table;
+    @include fill-parent;
+    table-layout: fixed;
+    $container-display-table: true !global;
+  } @else {
+    @include clearfix;
+    display: block;
+    $container-display-table: false !global;
+  }
+}

@@ -1,0 +1,27 @@
+@charset "UTF-8";
+
+/// Displays the visual grid when set to true. The overlaid grid may be few pixels off depending on the browser's rendering engine and pixel rounding algorithm. Set with the `!global` flag.
+///
+/// @type Bool
+
+$visual-grid: false !default;
+
+/// Sets the visual grid color. Set with `!global` flag.
+///
+/// @type Color
+
+$visual-grid-color: #eee !default;
+
+/// Sets the `z-index` property of the visual grid. Can be `back` (behind content) or `front` (in front of content). Set with `!global` flag.
+///
+/// @type String
+
+$visual-grid-index: back !default;
+
+/// Sets the opacity property of the visual grid. Set with `!global` flag.
+///
+/// @type Number (unitless)
+
+$visual-grid-opacity: 0.4 !default;
+
+$visual-grid-breakpoints: () !default;

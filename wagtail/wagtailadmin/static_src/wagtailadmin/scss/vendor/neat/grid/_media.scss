@@ -1,0 +1,92 @@
+@charset "UTF-8";
+
+/// Outputs a media-query block with an optional grid context (the total number of columns used in the grid).
+///
+/// @param {List} $query
+///   A list of media query features and values, where each `$feature` should have a corresponding `$value`.
+///   For a list of valid values for `$feature`, click [here](http://www.w3.org/TR/css3-mediaqueries/#media1).
+///
+///   If there is only a single `$value` in `$query`, `$default-feature` is going to be used.
+///
+///   The number of total columns in the grid can be set by passing `$columns` at the end of the list (overrides `$total-columns`).
+///
+///
+/// @param {Number (unitless)} $total-columns [$grid-columns]
+///   - Number of columns to use in the new grid context. Can be set as a shorthand in the first parameter.
+///
+/// @example scss - Usage
+///   .responsive-element {
+///      @include media(769px) {
+///        @include span-columns(6);
+///      }
+///   }
+///
+///  .new-context-element {
+///    @include media(min-width 320px max-width 480px, 6) {
+///      @include span-columns(6);
+///    }
+///  }
+///
+/// @example css - CSS Output
+///  @media screen and (min-width: 769px) {
+///    .responsive-element {
+///      display: block;
+///      float: left;
+///      margin-right: 2.35765%;
+///      width: 48.82117%;
+///    }
+///
+///    .responsive-element:last-child {
+///      margin-right: 0;
+///    }
+///  }
+///
+///  @media screen and (min-width: 320px) and (max-width: 480px) {
+///    .new-context-element {
+///      display: block;
+///      float: left;
+///      margin-right: 4.82916%;
+///      width: 100%;
+///    }
+///
+///    .new-context-element:last-child {
+///      margin-right: 0;
+///    }
+///  }
+
+@mixin media($query: $feature $value $columns, $total-columns: $grid-columns) {
+  @if length($query) == 1 {
+    @media screen and ($default-feature: nth($query, 1)) {
+      $default-grid-columns: $grid-columns;
+      $grid-columns: $total-columns !global;
+      @content;
+      $grid-columns: $default-grid-columns !global;
+    }
+  } @else {
+    $loop-to: length($query);
+    $media-query: "screen and ";
+    $default-grid-columns: $grid-columns;
+    $grid-columns: $total-columns !global;
+
+    @if is-not(is-even(length($query))) {
+      $grid-columns: nth($query, $loop-to) !global;
+      $loop-to: $loop-to - 1;
+    }
+
+    $i: 1;
+    @while $i <= $loop-to {
+      $media-query: $media-query + "(" + nth($query, $i) + ": " + nth($query, $i + 1) + ") ";
+
+      @if ($i + 1) != $loop-to {
+        $media-query: $media-query + "and ";
+      }
+
+      $i: $i + 2;
+    }
+
+    @media #{$media-query} {
+      @content;
+      $grid-columns: $default-grid-columns !global;
+    }
+  }
+}
