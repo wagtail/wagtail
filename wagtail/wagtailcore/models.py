@@ -35,7 +35,7 @@ from django.utils import six
 from treebeard.mp_tree import MP_Node
 
 from wagtail.wagtailcore.utils import camelcase_to_underscore, resolve_model_string
-from wagtail.wagtailcore.query import PageQuerySet
+from wagtail.wagtailcore.query import PageQuerySet, TreeQuerySet
 from wagtail.wagtailcore.url_routing import RouteResult
 from wagtail.wagtailcore.signals import page_published, page_unpublished
 
@@ -1486,6 +1486,11 @@ class PageViewRestriction(models.Model):
         verbose_name_plural = _('page view restrictions')
 
 
+class CollectionManager(TreeManagerMixin, models.Manager):
+    def get_queryset(self):
+        return TreeQuerySet(self.model).order_by('path')
+
+
 @python_2_unicode_compatible
 class Collection(MP_Node):
     """
@@ -1493,8 +1498,25 @@ class Collection(MP_Node):
     """
     name = models.CharField(max_length=255, verbose_name=_('Name'))
 
+    objects = CollectionManager()
+
     def __str__(self):
         return self.name
+
+    def get_ancestors(self, inclusive=False):
+        return Collection.objects.ancestor_of(self, inclusive)
+
+    def get_descendants(self, inclusive=False):
+        return Collection.objects.descendant_of(self, inclusive)
+
+    def get_siblings(self, inclusive=True):
+        return Collection.objects.sibling_of(self, inclusive)
+
+    def get_next_siblings(self, inclusive=False):
+        return Collection.get_siblings(inclusive).filter(path__gte=self.path).order_by('path')
+
+    def get_prev_siblings(self, inclusive=False):
+        return Collection.get_siblings(inclusive).filter(path__lte=self.path).order_by('-path')
 
     class Meta:
         verbose_name = _('collection')
