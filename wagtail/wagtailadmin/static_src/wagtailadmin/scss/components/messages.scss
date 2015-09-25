@@ -28,7 +28,7 @@
         color: white;
     }
 
-    li: before {
+    li:before {
         margin-right: 0.5em;
         font-size: 1.5em;
         vertical-align: middle;
@@ -39,7 +39,7 @@
     .error {
         background-color: $color-red;
 
-        &: before {
+        &:before {
             font-family: wagtail;
             content: "!";
         }
@@ -47,7 +47,7 @@
     .warning {
         background-color: $color-orange;
 
-        &: before {
+        &:before {
             font-family: wagtail;
             content: "!";
         }
@@ -55,19 +55,19 @@
     .success {
         background-color: $color-green;
 
-        &: before {
+        &:before {
             font-family: wagtail;
             content: "9";
         }
     }
 
-    .success .button: hover {
+    .success .button:hover {
         background-color: $color-teal-dark;
     }
     .button-secondary {
         border-color: rgba(255,255,255,0.5);
         color: rgba(255,255,255,0.8);
-        &: hover {
+        &:hover {
             border-color: transparent;
             color: white;
         }

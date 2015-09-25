@@ -1,10 +1,10 @@
 @mixin clearfix() {
-    &: before,
-    &: after {
+    &:before,
+    &:after {
         content: " ";
         display: table;
     }
-    &: after {
+    &:after {
         clear: both;
     }
 }
@@ -97,7 +97,7 @@
     position: absolute;
     width: 1px;
 
-    &: active, &: focus {
+    &:active, &:focus {
         clip: auto;
         height: auto;
         margin: 0;

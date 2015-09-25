@@ -19,7 +19,7 @@ $submenu-color: darken($color-grey-1, 5%);
         cursor: pointer;
         position: absolute;
 
-        &: before {
+        &:before {
             font-size: 40px;
             color: white;
             line-height: 40px;
@@ -54,8 +54,8 @@ $submenu-color: darken($color-grey-1, 5%);
             font-size: 0.95em;
             font-weight: 300;
 
-            &: hover,
-            &: focus {
+            &:hover,
+            &:focus {
                 outline: none;
                 background-color: rgba(100,100,100,0.15);
                 color: white;
@@ -68,14 +68,14 @@ $submenu-color: darken($color-grey-1, 5%);
             white-space: nowrap;
             border-left: 3px solid transparent;
 
-            &: before {
+            &:before {
                 font-size: 1rem;
                 vertical-align: -20%;
                 margin-right: 0.5em;
             }
 
             /* only really used for spinners and settings menu */
-            &: after {
+            &:after {
                 font-size: 1.5em;
                 margin: 0;
                 position: absolute;
@@ -122,11 +122,11 @@ $submenu-color: darken($color-grey-1, 5%);
             white-space: normal;
             padding: 0.9em 1.7em 0.9em 4.5em;
 
-            &: before {
+            &:before {
                 margin-left: -1.5em;
             }
 
-            &: hover {
+            &:hover {
                 background-color: rgba(100,100,100,0.2);
             }
         }
@@ -162,10 +162,10 @@ $submenu-color: darken($color-grey-1, 5%);
             color: #AAA;
             padding: 0.8em 2.5em 0.8em 1em;
 
-            &: hover {
+            &:hover {
                 background-color: darken($color-grey-2, 10%);
             }
-            &: active, &: focus {
+            &:active, &:focus {
                 background-color: darken($color-grey-2, 5%);
                 color: white;
             }
@@ -179,7 +179,7 @@ $submenu-color: darken($color-grey-1, 5%);
             width: 3em; height: 100%;
             overflow: hidden;
 
-            &: before {
+            &:before {
                 font-family: wagtail;
                 font-weight: 200;
                 text-transform: none;
@@ -214,7 +214,7 @@ body.nav-open {
     border-bottom: 1px solid rgba(200, 200, 200, 0.1);
     cursor: pointer;
 
-    &: hover {
+    &:hover {
         color: white;
     }
 }
@@ -299,7 +299,7 @@ body.explorer-open {
                 border: 0;
                 float: left;
 
-                &: before {
+                &:before {
                     text-shadow: none;
                 }
             }
@@ -307,7 +307,7 @@ body.explorer-open {
                 width: 120px;
             }
         }
-        a.submenu-trigger: after {
+        a.submenu-trigger:after {
             content: "n";
         }
     }
@@ -337,7 +337,7 @@ body.explorer-open {
             text-align: center;
             color: #AAA;
 
-            &: before {
+            &:before {
                 font-size: 4em;
                 display: block;
                 text-align: center;
@@ -354,7 +354,7 @@ body.explorer-open {
         > a {
             text-shadow: -1px -1px 0px rgba(0,0,0,0.3);
 
-            &: hover {
+            &:hover {
                 background-color: transparent;
             }
         }
@@ -397,7 +397,7 @@ body.explorer-open {
             margin-left: 0;
             width: $menu-width;
         }
-        .explorer: before {
+        .explorer:before {
             display: none;
         }
         .nav-main {

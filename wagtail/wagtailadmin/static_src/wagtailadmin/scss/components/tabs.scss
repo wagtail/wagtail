@@ -26,14 +26,14 @@
         max-height: 1.2em;
         overflow: hidden;
 
-        &: hover {
+        &:hover {
             color: white;
             border-top-color: $color-teal-dark;
         }
     }
 
     a.errors {
-        &: after {
+        &:after {
             @include border-radius(50px);
             @include box-shadow(1px 2px 2px rgba(0, 0, 0, 0.1));
             position: absolute;
@@ -59,7 +59,7 @@
     }
 
     li.settings a {
-        &: before {
+        &:before {
             font-family: wagtail;
             vertical-align: middle;
             text-transform: none;

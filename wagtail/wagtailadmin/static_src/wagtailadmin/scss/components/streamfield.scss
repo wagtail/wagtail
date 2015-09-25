@@ -24,7 +24,7 @@ li.sequence-member {
         }
     }
 
-    &: hover .object-help {
+    &:hover .object-help {
         opacity: 1;
     }
    
@@ -99,7 +99,7 @@ li.sequence-member {
             padding: 0;
         }
         .unchosen {
-            &: before {
+            &:before {
                 float: none;
                 font-size: 4em;
                 margin: 0;
@@ -169,7 +169,7 @@ should be borderless and full-width
         width: 1.8rem;
         height: 1.8rem;
 
-        &: before {
+        &:before {
             line-height: 1.3em;
             font-size: 0.9rem;
         }
@@ -179,8 +179,8 @@ should be borderless and full-width
     .button-group {
         float: right;
     }
-        &: hover .buttons,
-        &: hover label {
+        &:hover .buttons,
+        &:hover label {
             opacity: 1;
         }
 
@@ -235,7 +235,7 @@ should be borderless and full-width
             @include visuallyhidden();
         }
 
-        &: before {
+        &:before {
             @include transform(rotate(-45deg));
             position: absolute;
             font-family: wagtail;
@@ -269,7 +269,7 @@ should be borderless and full-width
         padding-left: 0;
         padding-right: 0;
 
-        &: nth-child(4n+1) {
+        &:nth-child(4n+1) {
             clear: left;
         }
     }
@@ -297,7 +297,7 @@ should be borderless and full-width
             box-sizing: border-box;
         }
 
-        &: before {
+        &:before {
             display: block;
             font-family: wagtail;
             font-size: 2em;
@@ -307,8 +307,8 @@ should be borderless and full-width
             text-align: center;
         }
 
-        &: hover,
-        &: focus {
+        &:hover,
+        &:focus {
             background-color: $color-teal;
             color: white;
         }
@@ -325,15 +325,15 @@ should be borderless and full-width
         .toggle {
             color: $color-grey-3;
             background-color: white;
-            &: before {
+            &:before {
                 @include transform(rotate(0deg));
             }
-            &: focus {
+            &:focus {
                 color: $color-teal;
             }
         }
 
-        &: hover {
+        &:hover {
             border-top-color: $color-teal;
 
             .toggle {
@@ -345,10 +345,10 @@ should be borderless and full-width
     @media screen and (min-width: $breakpoint-mobile) {
         li {
             @include column(2);
-            &: nth-child(4n+1) {
+            &:nth-child(4n+1) {
                 clear: none;
             }
-            &: nth-child(6n+1) {
+            &:nth-child(6n+1) {
                 clear: left;
             }
         }
@@ -361,7 +361,7 @@ should be borderless and full-width
     opacity: 0;
     visibility: hidden;
 }
-.sequence-member: hover {
+.sequence-member:hover {
     .sequence-controls {
         visibility: visible;
         opacity: 1;
@@ -373,7 +373,7 @@ should be borderless and full-width
 }
 
 @media screen and (min-width: $breakpoint-mobile) {
-    .object li.sequence-member: hover .object-help {
+    .object li.sequence-member:hover .object-help {
         opacity: 1;
     }
 

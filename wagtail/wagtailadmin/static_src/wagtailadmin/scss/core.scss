@@ -80,7 +80,7 @@ body {
         border: 0;
         margin-right: 1em;
     }
-    &: hover {
+    &:hover {
         color: white;
     }
 }
@@ -188,7 +188,7 @@ footer {
             line-height: 1.6em;
             padding-right: 1em;
 
-            &: after {
+            &:after {
                 right: 0;
                 // z-index: 5;
                 position: absolute;
@@ -201,13 +201,13 @@ footer {
             }
         }
 
-        &: hover {
+        &:hover {
             background: $color-teal-dark;
             a {
                 color: white;
             }
         }
-        &: hover: after {
+        &:hover:after {
             border-left-color: $color-teal-dark;
         }
 
@@ -218,13 +218,13 @@ footer {
                 width: 3em;
                 font-size: 1em;
 
-                &: before {
+                &:before {
                     line-height: 1em;
                     font-size: 1.15rem;
                     line-height: 0.85em;
                     padding-top: 0.10em;
                 }
-                &: after {
+                &:after {
                     right: -0.3em;
                 }
             }
@@ -232,7 +232,7 @@ footer {
     }
 
     header &  li {
-        &: before {
+        &:before {
             border-left: 1em solid white;
             position: absolute; left: 0; top: 0;
         }
@@ -384,7 +384,7 @@ footer, .logo {
 
         li {
             a, span {
-                &: after {
+                &:after {
                     color: $color-teal;
                 }
             }

@@ -34,7 +34,7 @@ $explorer-z-index: 500;
         position: relative;
         border-top: 1px solid $color-grey-1-1;
 
-        &: first-child {
+        &:first-child {
             border-top: 0;
         }
     }
@@ -50,13 +50,13 @@ $explorer-z-index: 500;
         text-overflow: ellipsis;
         overflow: hidden;
 
-        &: before {
+        &:before {
             opacity: 0.5;
             margin-right: 0.5em;
             font-size: 1.5em;
         }
 
-        &: hover {
+        &:hover {
             background: $color-teal-dark;
             color: white;
         }
@@ -80,7 +80,7 @@ $explorer-z-index: 500;
         cursor: pointer;
         border-left: 1px solid rgba(255,255,255,0.2);
 
-        &: before {
+        &:before {
             padding: 0.55em 0;
             display: block;
             width: 100%;
@@ -88,7 +88,7 @@ $explorer-z-index: 500;
             font-size: 1.7em;
         }
 
-        &: hover {
+        &:hover {
             background: $color-teal-dark;
         }
     }
@@ -97,7 +97,7 @@ $explorer-z-index: 500;
         display: none;
     }
 
-    /*.no-touch .explorer li a: hover {
+    /*.no-touch .explorer li a:hover {
         background: rgba(255,248,213,0.1);
     }*/
 
@@ -106,11 +106,11 @@ $explorer-z-index: 500;
 
     }
 
-    li.dl-back: after {
+    li.dl-back:after {
 
     }
 
-    li > a: after {
+    li > a:after {
 
     }
 

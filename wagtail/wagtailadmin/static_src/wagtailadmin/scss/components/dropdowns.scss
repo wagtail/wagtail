@@ -45,14 +45,14 @@
             padding: 1em;
             font-weight: normal;
 
-            &: hover {
+            &:hover {
                 background-color: $color-teal-darker;
             }
             &.icon {
                 padding-right: 5em;
 
-                &: before,
-                &: after {
+                &:before,
+                &:after {
                     right: 1em;
                 }
             }
@@ -121,17 +121,17 @@
         padding: 0 0.5em;
         text-align: center;
 
-        &: before,
-        &: after {
+        &:before,
+        &:after {
             margin: 0;
         }
 
-        &: before {
+        &:before {
             width: 1em;
             font-size: 1.2rem;
         }
 
-        &: hover {
+        &:hover {
             background-color: $color-teal-darker;
         }
     }
@@ -179,7 +179,7 @@
         a {
             color: $color-grey-2;
 
-            &: hover {
+            &:hover {
                 background-color: $color-grey-3;
             }
         }

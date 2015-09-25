@@ -39,7 +39,7 @@ header {
         li {
             @include column(4);
 
-            &: before {
+            &:before {
                 opacity: 0.2;
                 font-size: 6em;
                 float: left;

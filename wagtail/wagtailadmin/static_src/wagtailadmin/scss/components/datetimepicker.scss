@@ -63,7 +63,7 @@
 		text-transform: none;
 		text-align: center;
 
-		&: before {
+		&:before {
 			font-size: 1.5em;
 			font-family: wagtail;
 			width: 1em;
@@ -71,14 +71,14 @@
 			text-align: center;
 			margin: 0;
 		}
-		&: hover {
+		&:hover {
 			color: $color-teal-darker;
 		}
 	}
 	.xdsoft_prev {
 		float: left;
 
-		&: before {
+		&:before {
 			content: "z";
 		}
 	}
@@ -86,7 +86,7 @@
 		float: left;
 		margin-left: 5px;
 
-		&: before {
+		&:before {
 			content: "W";
 		}
 	}
@@ -94,7 +94,7 @@
 	.xdsoft_next {
 		float: right;
 
-		&: before {
+		&:before {
 			content: "n";
 		}
 	}
@@ -115,16 +115,16 @@
 			width: 100%;
 			padding: 0;
 
-			&: before {
+			&:before {
 				width: 100%;
 			}
 		}
 
-		.xdsoft_prev: before {
+		.xdsoft_prev:before {
 			content: "e";
 		}
 
-		.xdsoft_next: before {
+		.xdsoft_next:before {
 			content: "q";
 		}
 
@@ -147,7 +147,7 @@
 				height: 2.3em;
 				line-height: 2.3em;
 
-				&: first-child {
+				&:first-child {
 					border-top-width: 0px;
 				}
 			}
@@ -169,7 +169,7 @@
 		text-align: center;
 		cursor: pointer;
 
-		&: hover {
+		&:hover {
 			text-decoration: underline;
 		}
 
@@ -188,7 +188,7 @@
 			&.xdsoft_monthselect {right: -7px;}
 			&.xdsoft_yearselect {right: 2px;}
 
-			> div > .xdsoft_option: hover {
+			> div > .xdsoft_option:hover {
 				color: #fff;
 			    background: #ff8000;
 			}
@@ -260,8 +260,8 @@
 	.xdsoft_calendar td.xdsoft_other_month.xdsoft_disabled {
 		opacity: 0.2;
 	}
-	.xdsoft_calendar td: hover,
-	.xdsoft_timepicker .xdsoft_time_box > div > div: hover {
+	.xdsoft_calendar td:hover,
+	.xdsoft_timepicker .xdsoft_time_box > div > div:hover {
 		color: #fff;
 	    background: $color-teal;
 	}

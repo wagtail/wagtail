@@ -50,15 +50,15 @@ ul.listing {
             color: inherit;
             position: relative;
 
-            &.icon: after {
+            &.icon:after {
                 opacity: 0.5;
                 right: 0;
             }
         }
     }
 
-    &.full-width td: first-child,
-    &.full-width th: first-child {
+    &.full-width td:first-child,
+    &.full-width th:first-child {
         padding-left: 20px;
     }
 
@@ -80,7 +80,7 @@ ul.listing {
         tr {
             border-top: 1px dashed $color-input-border;
             
-            &: first-child {
+            &:first-child {
                 border-top: 1px dashed $color-input-border;
             }
         }
@@ -89,7 +89,7 @@ ul.listing {
     &.full-width tbody {
         border: 0;
     }
-    &.full-width tbody tr: hover {
+    &.full-width tbody tr:hover {
         background-color: #FDFDFD;
     }
 
@@ -98,11 +98,11 @@ ul.listing {
             display: block;
             @include transition(none);
         }
-        tbody tr: hover {
+        tbody tr:hover {
             background-color: $color-teal;
             color: white;
 
-            .title a, .title a: hover {
+            .title a, .title a:hover {
                 color: white;
             }
             .status-tag {
@@ -115,7 +115,7 @@ ul.listing {
         tbody tr.disabled td.children {
             opacity: 1;
         }
-        tbody tr.disabled: hover {
+        tbody tr.disabled:hover {
             background-color: inherit;
             color: inherit;
 
@@ -170,7 +170,7 @@ ul.listing {
                 color: inherit;
                 text-decoration: none;
 
-                &: hover {
+                &:hover {
                     color: $color-link;
                 }
             }
@@ -200,7 +200,7 @@ ul.listing {
         border-color: $color-grey-3;
         background: white;
 
-        &: hover {
+        &:hover {
             border-color: $color-teal;
             background-color: $color-teal;
         }
@@ -219,7 +219,7 @@ ul.listing {
     .no-children {
         padding: 0 !important;
        
-        &: hover {
+        &:hover {
             background-color: $color-grey-5;
         }
 
@@ -233,7 +233,7 @@ ul.listing {
         color: $color-teal;
         display: block;
         
-        &: before {
+        &:before {
             font-size: 3rem;
         }
     }
@@ -242,38 +242,38 @@ ul.listing {
         color: $color-grey-3;
         display: block;
         
-        &: before {
+        &:before {
             font-size: 1.5rem;
         }
-        &: hover {
+        &:hover {
             color: $color-teal;
         }
     }
 
-    &.small .children a: before {
+    &.small .children a:before {
         font-size: 30px;
     }
 
     .ord {
         padding-left: 10px !important;
     }
-    th.ord a: before {
+    th.ord a:before {
         width: 1em;
         font-size: 15px;
     }
-    th.ord a: hover: before {
+    th.ord a:hover:before {
         color: $color-teal;
     }
     .handle {
         cursor: move;
         width: 20px;
 
-        &: before {
+        &:before {
             font-size: 20px;
             color: $color-grey-3;
             width: 1em;
         }
-        &: hover: before {
+        &:hover:before {
             color: $color-text-base;
         }
     }
@@ -297,7 +297,7 @@ ul.listing {
         height: 80px;
         background-color: $color-grey-1;
 
-        &: hover {
+        &:hover {
             background-color: $color-grey-1;
         }
         td {
@@ -323,7 +323,7 @@ ul.listing {
             a {
                 @include transition(opacity 0.2s ease);
             }
-            a: hover {
+            a:hover {
                 opacity: 0.7;
             }
         }
@@ -335,7 +335,7 @@ ul.listing {
             color: white;
             border-color: $color-teal-darker;
 
-            &: hover {
+            &:hover {
                 color: white;
                 background: $color-teal-darker;
             }
@@ -396,7 +396,7 @@ table.listing {
                 font-size: 1.8em;
                 font-weight: 500;
 
-                a: hover {
+                a:hover {
                     color: white;
                 }
             }
@@ -497,7 +497,7 @@ table.listing {
                     text-align: center;
                     height: 180px;
 
-                    &: before {
+                    &:before {
                         content: '';
                         display: inline-block;
                         height: 100%;
@@ -511,7 +511,7 @@ table.listing {
                     }
                 }
 
-                &: hover {
+                &:hover {
                     background-color: #FDFDFD;
 
                     img {
@@ -530,7 +530,7 @@ table.listing {
         .index .actions {
             visibility: visible;
         }
-        td: hover .actions {
+        td:hover .actions {
             visibility: visible;
         }
         .no-children {
@@ -540,18 +540,18 @@ table.listing {
                 opacity: 0;
             }
         }
-        tr: hover .no-children a {
+        tr:hover .no-children a {
             opacity: 1;
         }
-        tr: hover .children {
+        tr:hover .children {
             background-color: $color-teal;
 
-            a: before {
+            a:before {
                 color: white;
             }
         }
 
-        td.children: hover {
+        td.children:hover {
             background-color: $color-teal-darker;
         }
 
@@ -560,8 +560,8 @@ table.listing {
             padding-left: 50px;
         }
 
-        &.full-width td: first-child,
-        &.full-width th: first-child {
+        &.full-width td:first-child,
+        &.full-width th:first-child {
             padding-left: 50px;
         }
 

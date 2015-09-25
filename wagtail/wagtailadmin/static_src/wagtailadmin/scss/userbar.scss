@@ -27,7 +27,7 @@ nav {
             left: 50px;
         }
 
-        &: hover {
+        &:hover {
             ul {
                 height: 300px;
             }
@@ -46,14 +46,14 @@ nav {
     color: $color-text-base;
     padding: 0;
 
-    &.icon: before {
+    &.icon:before {
         @include transition(color 0.2s ease);
         font-size: 35px;
         margin: 0.2em 0.15em;
         display: block;
     }
 
-    &: hover: before {
+    &:hover:before {
         color: black;
     }
 }
@@ -74,7 +74,7 @@ li {
     position: relative;
     padding-bottom: 1px;
 
-    &: hover {
+    &:hover {
         width: 10em;
     }
 }
@@ -89,14 +89,14 @@ li, .home {
     background-color: $color-teal;
     color: $color-teal;
 
-    &: before {
+    &:before {
         margin-right: 0.4em;
         vertical-align: middle;
         font-size: 1.7em;
         color: white;
     }
 
-    &: hover {
+    &:hover {
         background-color: $color-teal-dark;
         color: white;
     }
@@ -130,7 +130,7 @@ div.action {
         text-align: left;
         padding-left: 3.5em;
     }
-    &: before {
+    &:before {
         position: absolute;
         top: 0.4em;
         left: 0.5em;

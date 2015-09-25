@@ -55,7 +55,7 @@ input, textarea, select, .richtext, .tagit {
     outline: none;
 
     /* what the hell firefox? Spare us your opinions */
-    &: :-moz-focus-inner {
+    &::-moz-focus-inner {
         padding: 0 !important; 
         border: 0 !important;
         margin-top: -3px !important; 
@@ -63,20 +63,19 @@ input, textarea, select, .richtext, .tagit {
         line-height: 1em !important;
     }
 
-    &: hover {
+    &:hover {
         background-color: white;
     }
-    &: focus {
+    &:focus {
         border-color: darken($color-input-focus, 40%);
         outline: none;
         background-color: $color-input-focus;
     }
 
-    &:disabled, &[disabled], &: disabled:hover, &[disabled]:hover {
+    &:disabled, &[disabled], &:disabled:hover, &[disabled]:hover {
         background-color: inherit;
         cursor: not-allowed;
         color: $color-grey-4;
-
     }  
 }
 
@@ -91,7 +90,7 @@ input, textarea, select, .richtext, .tagit {
     }
 
     /* Add select arrow back on browsers where native ui has been removed */
-    select ~ span: after {
+    select ~ span:after {
         @include border-radius(0 6px 6px 0);
         z-index: 0;
         position: absolute;
@@ -133,7 +132,7 @@ input[type=radio] {
     margin-right: 15px;
 }
 
-input[type=radio]: before {
+input[type=radio]:before {
     @include border-radius(100%);
     font-family: wagtail;
     font-style: normal;
@@ -152,7 +151,7 @@ input[type=radio]: before {
     color: $color-grey-4;
     border: 1px solid $color-grey-4;
 }
-input[type=radio]: checked: before {
+input[type=radio]:checked:before {
     content: "K";
     color: $color-teal;
 }
@@ -164,7 +163,7 @@ input[type=checkbox] {
     margin-right: 15px;
 }
 
-input[type=checkbox]: before {
+input[type=checkbox]:before {
     font-family: wagtail;
     font-style: normal;
     text-align: center;
@@ -180,7 +179,7 @@ input[type=checkbox]: before {
     border: 1px solid $color-grey-4;
     color: white;
 }
-input[type=checkbox]: checked: before {
+input[type=checkbox]:checked:before {
     color: $color-teal;
 }
 
@@ -228,7 +227,7 @@ input[type=submit], input[type=reset], input[type=button], .button, button {
         width: 1.8rem;
         height: 1.8rem;
 
-        &: before {
+        &:before {
             line-height: 1.7em;
         }
     }
@@ -236,7 +235,7 @@ input[type=submit], input[type=reset], input[type=button], .button, button {
     &.button-neutral {
         color: $color-grey-2;
 
-        &: hover {
+        &:hover {
             color: $color-teal;
         }
     }
@@ -250,12 +249,12 @@ input[type=submit], input[type=reset], input[type=button], .button, button {
             color: $color-button-yes;
             background-color: transparent;
         }
-        &: hover {
+        &:hover {
             color: white;
             border-color: transparent;
             background-color: $color-button-yes-hover;
         }
-        &.button-nobg: hover {
+        &.button-nobg:hover {
             color: $color-button-yes;
             background-color: transparent;
         }
@@ -269,12 +268,12 @@ input[type=submit], input[type=reset], input[type=button], .button, button {
             color: $color-button-no;
             background-color: transparent;
         }
-        &: hover {
+        &:hover {
             color: white;
             border-color: transparent;
             background-color: $color-button-no-hover;
         }
-        &.button-nobg: hover {
+        &.button-nobg:hover {
             color: $color-button-no;
             background-color: transparent;
         }
@@ -290,7 +289,7 @@ input[type=submit], input[type=reset], input[type=button], .button, button {
         border: 0;
         padding-left: 3.5em;
 
-        &: before {
+        &:before {
             font-size: 1rem;
             position: absolute;
             left: 0;
@@ -307,7 +306,7 @@ input[type=submit], input[type=reset], input[type=button], .button, button {
     &.button-small.bicolor {
         padding-left: 3.5em;
 
-        &: before {
+        &:before {
             width: 2em;
             font-size: 0.9rem;
             line-height: 1.65em;
@@ -364,7 +363,7 @@ input[type=submit], input[type=reset], input[type=button], .button, button {
         border: 0 !important;
     }
 
-    &: hover {
+    &:hover {
         background-color: $color-button-hover;
         color: white;
         border-color: transparent;
@@ -420,7 +419,7 @@ input[type=submit], input[type=reset], input[type=button], .button, button {
             width: 2.2rem;
             height: 2.2rem;
 
-            &: before {
+            &:before {
                 line-height: 2.1em;
             }
         }   
@@ -430,7 +429,7 @@ input[type=submit], input[type=reset], input[type=button], .button, button {
                 height: 1.8rem;
                 width: 1.8rem;
 
-                &: before {
+                &:before {
                     line-height: 1.7em;
                 }
             }
@@ -439,7 +438,7 @@ input[type=submit], input[type=reset], input[type=button], .button, button {
         &.bicolor {
             padding-left: 3.7em;
 
-            &: before {
+            &:before {
                 width: 2em;
                 line-height: 2.2em;
                 font-size: 1.1rem;
@@ -450,7 +449,7 @@ input[type=submit], input[type=reset], input[type=button], .button, button {
             line-height: 2.2em;
             padding-left: 3.2em;
 
-            &: before {
+            &:before {
                 width: 1.8em;
                 line-height: 1.65em;
             }
@@ -492,13 +491,13 @@ input[type=submit], input[type=reset], input[type=button], button {
         margin-right: 1px;
         margin-left: 0;
 
-        &: only-child {
+        &:only-child {
             @include border-radius(3);
         }
-        &: first-child {
+        &:first-child {
             @include border-radius(3px 0 0 3px);
         }
-        &: last-child {
+        &:last-child {
             @include border-radius(0 3px 3px 0);
             margin-right: 0;
         }
@@ -553,7 +552,7 @@ input[type=submit], input[type=reset], input[type=button], button {
             float: left;
             margin-right: 1px;
 
-            &: last-child {
+            &:last-child {
                 margin-right: 0;
             }
         }
@@ -590,15 +589,15 @@ input[type=submit], input[type=reset], input[type=button], button {
     color: $color-grey-2;
 }
 
-fieldset: hover > .help,
+fieldset:hover > .help,
 .field.focused + .help,
-.field: focus + .help,
-.field: hover + .help,
+.field:focus + .help,
+.field:hover + .help,
 li.focused > .help {
     opacity: 1;
 }
 
-.required .field > label: after {
+.required .field > label:after {
     content: "*";
     color: $color-red;
     font-weight: bold;
@@ -632,7 +631,7 @@ li.focused > .help {
     .input {
         position: relative;
 
-        &: before, &: after {
+        &:before, &:after {
             font-family: wagtail;
             position: absolute;
             top: 0.5em;
@@ -640,10 +639,10 @@ li.focused > .help {
             font-size: 2em;
             color: $color-grey-3;
         }
-        &: before {
+        &:before {
             left: 0.3em;
         }
-        &: after {
+        &:after {
             right: 0.5em;
         }
     }
@@ -655,21 +654,21 @@ li.focused > .help {
     /* smaller fields required slight repositioning of icons */
     &.field-small {
         .input {
-            &: before, &: after {
+            &:before, &:after {
                 font-size: 1.3rem; /* REMs are necessary here because IE doesn't treat generated content correctly */
                 top: 0.3em;
             }
-            &: before {
+            &:before {
                 left: 0.5em;
             }
-            &: after {
+            &:after {
                 right: 0.5em;
             }
         }
     }
 
     /* special case for search spinners */
-    &.icon-spinner: after {
+    &.icon-spinner:after {
         color: $color-teal;
         opacity: 0.8;
         text-align: center;
@@ -679,20 +678,20 @@ li.focused > .help {
 
 .date_field,
 .date_time_field {
-    .input: before {
-        @extend .icon-date: before;
+    .input:before {
+        @extend .icon-date:before;
     }
 }
 
 .time_field {
-    .input: before {
-        @extend .icon-time: before;
+    .input:before {
+        @extend .icon-time:before;
     }
 }
 
 .url_field {
-    .input: before {
-        @extend .icon-link: before;
+    .input:before {
+        @extend .icon-link:before;
     }
 }
 
@@ -746,7 +745,7 @@ li.focused > .help {
     &.col9,
     &.col10,
     &.col11,
-    &.col12 {clear: both;}
+    &.col12 { clear: both;}
 }
 
 li.inline .field {
@@ -761,11 +760,11 @@ li.inline .field {
     &.col9,
     &.col10,
     &.col11,
-    &.col12 {clear: none;}
+    &.col12 { clear: none;}
 }
 
 /* solve gutter issues of inline fields */
-ul.inline li: first-child, li.inline: first-child {
+ul.inline li:first-child, li.inline:first-child {
     margin-left: -$grid-gutter-width / 2;
 }
 
@@ -787,7 +786,7 @@ ul.inline li: first-child, li.inline: first-child {
     .unchosen, .chosen {
         position: relative;
 
-        &: before {
+        &:before {
             vertical-align: middle;
             font-family: wagtail;
             content: "";
@@ -840,14 +839,14 @@ ul.inline li: first-child, li.inline: first-child {
 
 .page-chooser {
     .unchosen, .chosen {
-        &: before {
+        &:before {
             content: "b";
         }
     }
 }
 .snippet-chooser {
     .unchosen, .chosen {
-        &: before {
+        &:before {
             content: "D";
         }
     }
@@ -855,7 +854,7 @@ ul.inline li: first-child, li.inline: first-child {
 
 .document-chooser {
     .unchosen, .chosen {
-        &: before {
+        &:before {
             content: "r";
         }
     }
@@ -863,14 +862,14 @@ ul.inline li: first-child, li.inline: first-child {
 
 .image-chooser {
     .unchosen, .chosen {
-        &: before {
+        &:before {
             content: "o";
         }
     }
     .chosen {
         padding-left: $thumbnail-width;   
 
-        &: before {
+        &:before {
             content: "";
         }
         .preview-image{
@@ -917,20 +916,20 @@ ul.tagit li.tagit-choice-editable {
         background: none;
     }
 
-    .ui-icon-close: before {
+    .ui-icon-close:before {
         font-family: wagtail;
         display: block;
         color: $color-grey-3;
         content: "g";
     }
-    .ui-icon-close: hover: before {
+    .ui-icon-close:hover:before {
         color: $color-red
     }
 }
 
 /* search-bars */
 .search-bar {
-    .required .field > label: after {
+    .required .field > label:after {
         display: none;
     }
 }

@@ -17,7 +17,7 @@
         border: 0;
     }
 
-    &: before {
+    &:before {
         @include border-radius(100%);
         color: $color-grey-3;
         border: 2px solid $color-grey-3;
@@ -38,7 +38,7 @@
         width: 25px;
         height: 25px;
 
-        &: before {
+        &:before {
             margin: 0;
             width: 22px;
             height: 22px;
@@ -49,7 +49,7 @@
         }
     }
 
-    &.avatar-on-dark: before {
+    &.avatar-on-dark:before {
         color: $color-grey-2;
         border-color: $color-grey-2; 
     }
@@ -76,16 +76,16 @@
     display: block;
     position: relative;
 
-    &: before {
+    &:before {
         position: absolute;
         display: none;
         content: attr(title);
     }
 
-    &: hover {
+    &:hover {
         visibility: hidden;
 
-        &: before {
+        &:before {
             visibility: visible;
             display: block;
         }
@@ -96,7 +96,7 @@
 .nolink {
     color: $color-text-base;
 
-    &: hover {
+    &:hover {
         color: $color-teal;
     }
 }
@@ -121,13 +121,13 @@
         background: white
     }
 }
-form.status-tag: hover,
-a.status-tag: hover,
-a.status-tag.primary: hover {
+form.status-tag:hover,
+a.status-tag:hover,
+a.status-tag.primary:hover {
     border-color: $color-teal;
     color: $color-teal;
 }
-form.status-tag: hover {
+form.status-tag:hover {
     border-color: $color-teal-dark;
     background-color: $color-teal-darker;
     color: white;
@@ -135,7 +135,7 @@ form.status-tag: hover {
 
 .privacy-indicator {
     .label-private, .label-public {
-        &: before {
+        &:before {
             font-size: 1.5em;
             color: $color-teal;
         }
@@ -164,7 +164,7 @@ form.status-tag: hover {
     @include border-radius(2px);
 
 
-    &: before {
+    &:before {
         font-family: wagtail;
         display: inline-block;
         color: white;
@@ -176,7 +176,7 @@ form.status-tag: hover {
         margin-right: 0.8em;
     }
 }
-a.tag: hover {
+a.tag:hover {
     background-color: $color-teal-darker;
     color: white;
 }
@@ -196,18 +196,18 @@ a.tag: hover {
     &.loading {
         position: relative;
 
-        &: before, &: after {
+        &:before, &:after {
             position: absolute;
             display: block;
         }
 
-        &: before {
+        &:before {
             content: "";
             top: -5px;left: -5px;bottom: -5px;right: -5px;
             z-index: 1;
             background-color: rgba(255,255,255,0.5);
         }
-        &: after {
+        &:after {
             font-size: 30px;
             width: 30px;
             line-height: 30px;

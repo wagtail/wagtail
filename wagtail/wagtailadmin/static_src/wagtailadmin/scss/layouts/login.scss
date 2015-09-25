@@ -52,7 +52,7 @@ form {
         padding: 1.1em 2.4em;
         height: 3.5em;
     }
-    input[type=checkbox]: before {
+    input[type=checkbox]:before {
         background-color: #333;
         color: #555;
         border: 1px solid #555;
@@ -74,7 +74,7 @@ form {
                     border-top: 1px dashed $color-input-border;
                 }
             }
-            &: first-child input {
+            &:first-child input {
                 border: 0;
             }
         }
@@ -85,7 +85,7 @@ form {
         .field {
             padding: 0;
         }
-        .iconfield .input: before {
+        .iconfield .input:before {
             display: none;
         }   
 
@@ -117,7 +117,7 @@ form {
     ul {
         margin: 0;
 
-        &: before {
+        &:before {
             display: none;
         }
 
@@ -142,7 +142,7 @@ form {
         height: 100%;
         padding: 0 $desktop-nice-padding;
 
-        &: before {
+        &:before {
             content: '';
             width: 0px;
             display: inline-block;
@@ -160,7 +160,7 @@ form {
         margin: 0px (-$desktop-nice-padding);
 
         .iconfield {
-            .input: before {
+            .input:before {
                 display: inline-block;
                 position: absolute;
                 color: $color-grey-4;

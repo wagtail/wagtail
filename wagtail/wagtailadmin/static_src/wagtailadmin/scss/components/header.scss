@@ -17,7 +17,7 @@ header {
     h1 {
         padding: 0.2em 0;
 
-        &.icon: before {
+        &.icon:before {
             width: 1em;
             display: none;
             margin-right: 0.4em;
@@ -32,7 +32,7 @@ header {
     .left {
         float: left;
 
-        .hasform &: first-child {
+        .hasform &:first-child {
             padding-bottom: 0.5em;
             float: none;
         }
@@ -63,7 +63,7 @@ header {
     */
     .button {
         background-color: $color-teal-darker;
-        &: hover {
+        &:hover {
             background-color: $color-teal-dark;
         }
     }
@@ -80,7 +80,7 @@ header {
     input[type=text], select {
         border-width: 0;
 
-        &: focus {
+        &:focus {
             background-color: white;
         }
     }
@@ -110,7 +110,7 @@ header {
             float: left;
             margin-right: 0;
 
-            &: first-child {
+            &:first-child {
                 padding-bottom: 0;
                 float: left;
             }
@@ -123,7 +123,7 @@ header {
             }
         }
 
-        h1.icon: before {
+        h1.icon:before {
             display: inline-block;
         }
 

@@ -31,7 +31,7 @@ html,body {
         bottom: -100%;
     }
 
-    &: before {
+    &:before {
         content: '';
         width: 0px;
         display: inline-block;
@@ -48,7 +48,7 @@ html,body {
     height: 120px;
     vertical-align: middle;
 
-    &: after {
+    &:after {
         font-size: 120px;
         line-height: 120px;
         color: $color-teal;
