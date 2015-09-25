@@ -130,7 +130,6 @@
     .richtext{
         padding-top:1em; /* to provide space for editor buttons */
         padding-bottom:1em;
-        @include transition(padding .2s ease);
 
         &.expanded{
             padding-top:5em; /* to provide space for editor buttons */
@@ -169,7 +168,7 @@
             padding-top:3em; /* to provide space for editor buttons */
             padding-bottom:3em;
 
-            &.inEditMode{
+            &.expanded{
                 padding-top:5em; /* to provide space for editor buttons */
                 padding-bottom:5em;
             }

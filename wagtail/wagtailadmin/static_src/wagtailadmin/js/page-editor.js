@@ -34,9 +34,6 @@ function makeRichTextEditable(id) {
 
     var closestObj = input.closest('.object');
 
-    /* Events for when CSS transitions end, for various browsers */
-    var transitionEvents = 'webkitTransitionEnd otransitionend oTransitionEnd msTransitionEnd transitionend';
-
     richText.hallo({
         toolbar: 'halloToolbarFixed',
         toolbarCssClass: (closestObj.hasClass('full')) ? 'full' : (closestObj.hasClass('stream-field')) ? 'stream-field' : '',
@@ -49,17 +46,18 @@ function makeRichTextEditable(id) {
         }
     }).bind('paste', function(event, data) {
         setTimeout(removeStyling, 1);
-    /* Reset the position of Hallo toolbar after the input boxes finish resizing */
+    /* Animate the fields open when you click into them. */
     }).bind('halloactivated', function(event, data) {
-        $(event.target).one(transitionEvents, function(e) {
-            data.turnOn();
+        $(event.target).addClass('expanded', 200, function(e) {
+            /* Hallo's toolbar will reposition itself on the scroll event.
+            This is useful since animating the fields can cause it to be
+            positioned badly initially. */
+            $(window).trigger('scroll');
         });
-        $(event.target).addClass('expanded');
     }).bind('hallodeactivated', function(event, data) {
-        $(event.target).one(transitionEvents, function(e) {
-            data.turnOff();
+        $(event.target).removeClass('expanded', 200, function(e) {
+            $(window).trigger('scroll');
         });
-        $(event.target).removeClass('expanded');
     });
 }
 
