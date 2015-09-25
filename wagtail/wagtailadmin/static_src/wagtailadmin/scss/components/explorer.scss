@@ -4,15 +4,15 @@ max z-index: unknown;
 */
 
 
-$explorer-z-index:500;
+$explorer-z-index: 500;
 
 .explorer {
-    pointer-events:none;
+    pointer-events: none;
     width: 100%;
     position: relative;
-    top:0;
-    left:0;
-    display:none;
+    top: 0;
+    left: 0;
+    display: none;
     -webkit-perspective: 1000px;
     -moz-perspective: 1000px;
     perspective: 1000px;
@@ -23,7 +23,7 @@ $explorer-z-index:500;
     ul {
         background: $color-grey-1;
         padding: 0;
-        margin:0;
+        margin: 0;
         list-style: none;
         -webkit-transform-style: preserve-3d;
         -moz-transform-style: preserve-3d;
@@ -32,72 +32,72 @@ $explorer-z-index:500;
 
     li {
         position: relative;
-        border-top:1px solid $color-grey-1-1;
+        border-top: 1px solid $color-grey-1-1;
 
-        &:first-child{
-            border-top:0;
+        &: first-child {
+            border-top: 0;
         }
     }
 
     a {
-        text-decoration:none;
-        padding:0.9em;
-        color:white;
+        text-decoration: none;
+        padding: 0.9em;
+        color: white;
         display: block;
         position: relative;
         outline: none;
         white-space: nowrap;
-        text-overflow:ellipsis;
-        overflow:hidden;
+        text-overflow: ellipsis;
+        overflow: hidden;
 
-        &:before{
-            opacity:0.5;
-            margin-right:0.5em;
-            font-size:1.5em;
+        &: before {
+            opacity: 0.5;
+            margin-right: 0.5em;
+            font-size: 1.5em;
         }
 
-        &:hover{
-            background:$color-teal-dark;
-            color:white;
+        &: hover {
+            background: $color-teal-dark;
+            color: white;
         }
     }
 
-    .has-children a{
-        padding-right:5em;
+    .has-children a {
+        padding-right: 5em;
     }
 
 
-    .children{
-        position:absolute;
-        z-index:$explorer-z-index + 1;
-        right:0;
-        top:0;
-        width:4em;
-        text-align:center;
-        height:100%;
-        color:white;
-        background-color:$color-grey-1;
-        cursor:pointer;
-        border-left:1px solid rgba(255,255,255,0.2);
+    .children {
+        position: absolute;
+        z-index: $explorer-z-index + 1;
+        right: 0;
+        top: 0;
+        width: 4em;
+        text-align: center;
+        height: 100%;
+        color: white;
+        background-color: $color-grey-1;
+        cursor: pointer;
+        border-left: 1px solid rgba(255,255,255,0.2);
 
-        &:before{
+        &: before {
             padding: 0.55em 0;
             display: block;
             width: 100%;
             text-align: center;
-            font-size:1.7em;
+            font-size: 1.7em;
         }
 
-        &:hover{
-            background:$color-teal-dark;
+        &: hover {
+            background: $color-teal-dark;
         }
     }
     .dl-subviewopen > .children,
-    .dl-subview > .children{
-        display:none;
+    .dl-subview > .children {
+        display: none;
     }
 
-    /*.no-touch .explorer li a:hover {
+    /*.no-touch .explorer li a: hover {
         background: rgba(255,248,213,0.1);
     }*/
 
@@ -106,11 +106,11 @@ $explorer-z-index:500;
 
     }
 
-    li.dl-back:after {
+    li.dl-back: after {
 
     }
 
-    li > a:after {
+    li > a: after {
 
     }
 
@@ -921,7 +921,7 @@ $explorer-z-index:500;
 }
 
 /* Transitions */
-.children{
+.children {
     @include transition(all 0.2s linear);
 }
 .dl-menu.dl-menu-toggle {

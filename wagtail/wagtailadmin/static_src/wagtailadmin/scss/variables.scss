@@ -2,7 +2,7 @@
 
 /* We can't use absolute paths here, because those are dependent on Django's
 STATIC_URL setting. However, django-compressor consistently places the compiled
-CSS into ${STATIC_URL}/CACHE/css/ regardless of compilation mode, so we can
+CSS into $ {STATIC_URL}/CACHE/css/ regardless of compilation mode, so we can
 reliably use relative paths to get back to STATIC_URL. */
 
 $static-root: "../../wagtailadmin/images/";
@@ -12,7 +12,7 @@ $font-root: "../../wagtailadmin/fonts/";
 $grid-columns: 12;
 $grid-gutter-width: 3%;
 $grid-max-width: 1200px;
-$grid-content-indent:0.7;
+$grid-content-indent: 0.7;
 
 $mobile-nice-padding: 20px;
 $desktop-nice-padding: 50px;
@@ -29,7 +29,7 @@ $color-teal-darker: darken($color-teal, 10%);
 $color-teal-dark: #246060;
 $color-blue: #71b2d4;
 $color-red: #cd3238;
-$color-orange:#e9b04d;
+$color-orange: #e9b04d;
 $color-green: #189370;
 $color-salmon: #f37e77;
 $color-salmon-light: #fcf2f2;

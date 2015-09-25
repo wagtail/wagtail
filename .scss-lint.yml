@@ -1,6 +1,5 @@
 
-scss_files: 'wagtail/*/static/**/*.scss'
-exclude: 'wagtail/**/static/**/vendor/*.scss'
+scss_files: 'wagtail/wagtailadmin/static_src/**/*.scss'
 
 linters:
     BorderZero:
