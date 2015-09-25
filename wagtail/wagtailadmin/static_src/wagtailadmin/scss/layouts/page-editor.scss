@@ -132,7 +132,7 @@
         padding-bottom:1em;
         @include transition(padding .2s ease);
 
-        &.inEditMode{
+        &.expanded{
             padding-top:5em; /* to provide space for editor buttons */
             padding-bottom:2em;
         }
