@@ -1,6 +1,6 @@
-@import "wagtailadmin/scss/variables.scss";
-@import "wagtailadmin/scss/mixins.scss";
-@import "wagtailadmin/scss/grid.scss";
+@import 'wagtailadmin/scss/variables.scss';
+@import 'wagtailadmin/scss/mixins.scss';
+@import 'wagtailadmin/scss/grid.scss';
 
 // overrides default nice padding defined in variables.scss
 $desktop-nice-padding: 100px;
@@ -15,7 +15,7 @@ html {
 }
 
 body {
-    margin-left: 0px;
+    margin-left: 0;
     height: 100%;
 }
 
@@ -144,7 +144,7 @@ form {
 
         &:before {
             content: '';
-            width: 0px;
+            width: 0;
             display: inline-block;
             height: 100%;
             vertical-align: middle;
@@ -157,7 +157,7 @@ form {
     }
 
     .full {
-        margin: 0px (-$desktop-nice-padding);
+        margin: 0 (-$desktop-nice-padding);
 
         .iconfield {
             .input:before {

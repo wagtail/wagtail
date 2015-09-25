@@ -1,7 +1,7 @@
-@import "wagtailadmin/scss/variables.scss";
-@import "wagtailadmin/scss/mixins.scss";
-@import "wagtailadmin/scss/grid.scss";
-@import "wagtailadmin/scss/components/streamfield.scss";
+@import 'wagtailadmin/scss/variables.scss';
+@import 'wagtailadmin/scss/mixins.scss';
+@import 'wagtailadmin/scss/grid.scss';
+@import 'wagtailadmin/scss/components/streamfield.scss';
 
 .page-editor {
     .content-wrapper {
@@ -60,7 +60,7 @@
         &:before {
             display: block;
             float: left;
-            content: "?";
+            content: '?';
             border: 1px solid $color-grey-2;
             color: $color-grey-2;
             @include border-radius(100%);
@@ -108,15 +108,15 @@
             text-shadow: none;
             font-family: wagtail;
             text-transform: none;
-            content: "q";
+            content: 'q';
             text-align: center;
             display: block;
             position: absolute;
             z-index: 2;
             font-size: 2em;
-            top: 0px;
+            top: 0;
             line-height: 1.8em;
-            left: 0px;
+            left: 0;
             width: 1.7em;
             color: white;
             padding: 0;
@@ -140,7 +140,7 @@
 
     &.required {
         > h2 label:after {
-            content: "*";
+            content: '*';
             color: $color-red;
             font-weight: bold;
             display: inline-block;
@@ -211,7 +211,7 @@
     /* special panel for the publishing fields, requires a bit more pizzazz */
     &.publishing {
         h2:before {
-            content: "7";
+            content: '7';
             font-size: 1.8rem;
             line-height: 1.4em;
             width: 1.4em;
@@ -254,8 +254,8 @@
             @include transition(background-color 0.2s ease);
             position: relative;
             z-index: 2;
-            top: 0px;
-            left: 0px;
+            top: 0;
+            left: 0;
             width: 3.3em;
             padding: 0;
             margin: 0 0 0 -20px;

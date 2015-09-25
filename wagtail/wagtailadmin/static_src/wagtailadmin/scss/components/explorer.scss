@@ -136,9 +136,9 @@ $explorer-z-index: 500;
 
     /*
     When a submenu is openend, we will hide all li siblings.
-    For that we give a class to the parent menu called "dl-subview".
+    For that we give a class to the parent menu called 'dl-subview'.
     We also hide the submenu link.
-    The opened submenu will get the class "dl-subviewopen".
+    The opened submenu will get the class 'dl-subviewopen'.
     All this is done for any sub-level being entered.
     */
     .dl-menu.dl-subview li,
@@ -159,7 +159,7 @@ $explorer-z-index: 500;
     > .dl-submenu {
         position: absolute;
         width: 100%;
-        top: 0px;
+        top: 0;
         left: 0;
     }
 }

@@ -1,5 +1,5 @@
-@import "wagtailadmin/scss/variables.scss";
-@import "wagtailadmin/scss/mixins.scss";
+@import 'wagtailadmin/scss/variables.scss';
+@import 'wagtailadmin/scss/mixins.scss';
 
 .hallotoolbar {
     position: absolute;
@@ -82,7 +82,7 @@
         list-style-type: decimal !important;
     }
 
-    /* Delete controls on embedded blocks with contenteditable="false" */
+    /* Delete controls on embedded blocks with contenteditable='false' */
     .rich-text-deletable {
         position: relative;
         a.delete-control {

@@ -45,7 +45,7 @@ a {
 }
 
 code {
-    @include box-shadow(inset 0px 0px 4px 0px rgba(0, 0, 0, 0.2));
+    @include box-shadow(inset 0 0 4px 0 rgba(0, 0, 0, 0.2));
     background-color: $color-fieldset-hover;
     padding: 2px 5px;
 }
@@ -103,7 +103,7 @@ dd {
             position: absolute;
             left: 1em;
             top: 0.7em;
-            content: "?";
+            content: '?';
             font-size: 1.4em;
         }
     }
@@ -120,7 +120,7 @@ dd {
 
         &:before {
             color: $color-orange;
-            content: "!";
+            content: '!';
         }
     }
 
@@ -129,7 +129,7 @@ dd {
 
         &:before {
             color: $color-red;
-            content: "!";
+            content: '!';
         }
     }
 

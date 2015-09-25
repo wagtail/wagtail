@@ -1,6 +1,6 @@
-@import "wagtailadmin/scss/variables.scss";
-@import "wagtailadmin/scss/mixins.scss";
-@import "wagtailadmin/scss/grid.scss";
+@import 'wagtailadmin/scss/variables.scss';
+@import 'wagtailadmin/scss/mixins.scss';
+@import 'wagtailadmin/scss/grid.scss';
 
 .replace-file-input {
     display: inline-block;
@@ -19,12 +19,12 @@
         display: block;
         font-size: 5em;
 
-        &: hover {
+        &:hover {
             cursor: pointer;
         }
     }
 
-    &: hover {
+    &:hover {
         cursor: pointer;
 
         button {
@@ -50,7 +50,7 @@
         max-width: 100%;
         margin: auto;
     }
-    .progress, .thumb, .thumb: before, canvas, img {
+    .progress, .thumb, .thumb:before, canvas, img {
         position: absolute;
         max-width: 100%;
     }
@@ -63,19 +63,22 @@
         @include box-shadow(0 0 5px 2px rgba(255, 255, 255, 0.4));
     }
     .thumb {
-        top: 0;right: 0;bottom: 0;left: 0;
+        top: 0; 
+        right: 0;
+        bottom: 0;
+        left: 0;
         z-index: 1;
         width: 100%;
     }
 
-    .thumb: before, canvas, img {
+    .thumb:before, canvas, img {
         left: 0;
         right: 0;
         top: 0;
         bottom: 0;
         margin: auto;
     }
-    .thumb: before {
+    .thumb:before {
         z-index: 2;
         top: 0;
         width: 1em;
@@ -88,7 +91,7 @@
     }
 
     .hasthumb {
-        &: before {
+        &:before {
             display: none;        
         }
     }
