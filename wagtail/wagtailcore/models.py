@@ -166,7 +166,7 @@ def get_page_types():
     global _PAGE_CONTENT_TYPES
     if len(_PAGE_CONTENT_TYPES) != len(PAGE_MODEL_CLASSES):
         _PAGE_CONTENT_TYPES = [
-            ContentType.objects.get_for_model(cls) for cls in PAGE_MODEL_CLASSES
+            ContentType.objects.get_for_model(cls, for_concrete_model=False) for cls in PAGE_MODEL_CLASSES
         ]
     return _PAGE_CONTENT_TYPES
 
@@ -242,6 +242,11 @@ class PageManager(models.Manager):
         return self.get_queryset().specific()
 
 
+class ProxyPageManager(PageManager):
+    def get_queryset(self):
+        return super().get_queryset().type(self.model)
+
+
 class PageBase(models.base.ModelBase):
     """Metaclass for Page"""
     def __init__(cls, name, bases, dct):
@@ -253,7 +258,11 @@ class PageBase(models.base.ModelBase):
             return
 
         # Add page manager
-        PageManager().contribute_to_class(cls, 'objects')
+        if cls._meta.proxy:
+            # TODO: Allow users to opt-in to using this manager
+            ProxyPageManager().contribute_to_class(cls, 'objects')
+        else:
+            PageManager().contribute_to_class(cls, 'objects')
 
         if 'template' not in dct:
             # Define a default template path derived from the app name and model name
@@ -327,7 +336,7 @@ class Page(six.with_metaclass(PageBase, MP_Node, ClusterableModel, index.Indexed
             # this model is being newly created rather than retrieved from the db;
             # set content type to correctly represent the model class that this was
             # created as
-            self.content_type = ContentType.objects.get_for_model(self)
+            self.content_type = ContentType.objects.get_for_model(self, for_concrete_model=False)
 
     def __str__(self):
         return self.title
@@ -622,7 +631,7 @@ class Page(six.with_metaclass(PageBase, MP_Node, ClusterableModel, index.Indexed
 
     @classmethod
     def get_indexed_objects(cls):
-        content_type = ContentType.objects.get_for_model(cls)
+        content_type = ContentType.objects.get_for_model(cls, for_concrete_model=False)
         return super(Page, cls).get_indexed_objects().filter(content_type=content_type)
 
     def get_indexed_instance(self):
@@ -673,7 +682,7 @@ class Page(six.with_metaclass(PageBase, MP_Node, ClusterableModel, index.Indexed
                 except LookupError as err:
                     raise ImproperlyConfigured("{0}.subpage_types must be a list of 'app_label.model_name' strings, given {1!r}".format(
                         cls.__name__, err.args[1]))
-                res = list(map(ContentType.objects.get_for_model, models))
+                res = [ContentType.objects.get_for_model(model, for_concrete_model=False) for model in models]
 
             cls._clean_subpage_types = res
 
@@ -697,7 +706,7 @@ class Page(six.with_metaclass(PageBase, MP_Node, ClusterableModel, index.Indexed
                 except LookupError as err:
                     raise ImproperlyConfigured("{0}.parent_page_types must be a list of 'app_label.model_name' strings, given {1!r}".format(
                         cls.__name__, err.args[1]))
-                res = list(map(ContentType.objects.get_for_model, models))
+                res = [ContentType.objects.get_for_model(model, for_concrete_model=False) for model in models]
 
             cls._clean_parent_page_types = res
 
@@ -708,7 +717,7 @@ class Page(six.with_metaclass(PageBase, MP_Node, ClusterableModel, index.Indexed
         """
         Returns the list of page types that this page type can be a subpage of
         """
-        cls_ct = ContentType.objects.get_for_model(cls)
+        cls_ct = ContentType.objects.get_for_model(cls, for_concrete_model=False)
         return [ct for ct in cls.clean_parent_page_types()
                 if cls_ct in ct.model_class().clean_subpage_types()]
 
@@ -722,7 +731,7 @@ class Page(six.with_metaclass(PageBase, MP_Node, ClusterableModel, index.Indexed
         if cls == Page:
             return get_page_types()
 
-        cls_ct = ContentType.objects.get_for_model(cls)
+        cls_ct = ContentType.objects.get_for_model(cls, for_concrete_model=False)
         return [ct for ct in cls.clean_subpage_types()
                 if cls_ct in ct.model_class().clean_parent_page_types()]
 
