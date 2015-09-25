@@ -148,7 +148,7 @@
         }
         &.open {
             > input[type=button], > input[type=submit], > button, > .button {
-                @include border-radius(3px 3px 0px 0px);
+                @include border-radius(3px 3px 0 0);
             }
             .dropdown-toggle {
                 @include border-radius(0 3px 0 0);

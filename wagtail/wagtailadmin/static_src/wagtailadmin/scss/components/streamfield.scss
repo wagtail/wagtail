@@ -239,7 +239,7 @@ should be borderless and full-width
             @include transform(rotate(-45deg));
             position: absolute;
             font-family: wagtail;
-            content: "B";
+            content: 'B';
             line-height: 1em;
             text-align: center;
         }

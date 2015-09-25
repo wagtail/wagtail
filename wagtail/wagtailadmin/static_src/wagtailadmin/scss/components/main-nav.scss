@@ -23,13 +23,13 @@ $submenu-color: darken($color-grey-1, 5%);
             font-size: 40px;
             color: white;
             line-height: 40px;
-            content: "\2261";
+            content: '\2261';
         }
     }
 
     .nav-main {
         top: 43px;
-        bottom: 0px;
+        bottom: 0;
         overflow: auto;
         width: 100%;
 
@@ -59,7 +59,7 @@ $submenu-color: darken($color-grey-1, 5%);
                 outline: none;
                 background-color: rgba(100,100,100,0.15);
                 color: white;
-                text-shadow: -1px -1px 0px rgba(0,0,0,0.3);
+                text-shadow: -1px -1px 0 rgba(0,0,0,0.3);
             }
         }
 
@@ -88,7 +88,7 @@ $submenu-color: darken($color-grey-1, 5%);
 
         .menu-active {
             background: $selected-highlight;
-            text-shadow: -1px -1px 0px rgba(0,0,0,0.3);
+            text-shadow: -1px -1px 0 rgba(0,0,0,0.3);
 
             & > a {
                 border-left-color: $color-salmon;
@@ -183,7 +183,7 @@ $submenu-color: darken($color-grey-1, 5%);
                 font-family: wagtail;
                 font-weight: 200;
                 text-transform: none;
-                content: "f";
+                content: 'f';
                 display: block;
                 height: 100%;
                 line-height: 3.3em;
@@ -308,7 +308,7 @@ body.explorer-open {
             }
         }
         a.submenu-trigger:after {
-            content: "n";
+            content: 'n';
         }
     }
 
@@ -351,7 +351,7 @@ body.explorer-open {
         background: $submenu-color;
 
         > a {
-            text-shadow: -1px -1px 0px rgba(0,0,0,0.3);
+            text-shadow: -1px -1px 0 rgba(0,0,0,0.3);
 
             &:hover {
                 background-color: transparent;
@@ -410,7 +410,7 @@ body.explorer-open {
        all and (-ms-high-contrast: active) {
     .wrapper {
         @include transition(left 0.2s ease);
-        left: 0px;
+        left: 0;
     }
     body.nav-open {
         .wrapper {
@@ -434,7 +434,7 @@ body.explorer-open {
        all and (min-width: $breakpoint-mobile) and (-ms-high-contrast: active){
     body.explorer-open{
         .wrapper {
-            left: 0px;
+            left: 0;
         }
         .nav-wrapper {
             width: $menu-width;

@@ -94,12 +94,12 @@ input, textarea, select, .richtext, .tagit {
         @include border-radius(0 6px 6px 0);
         z-index: 0;
         position: absolute;
-        right: 0px;
+        right: 0;
         top: 1px;
-        bottom: 0px;
+        bottom: 0;
         width: 1.5em;
         font-family: wagtail;
-        content: "q";
+        content: 'q';
         border: 1px solid $color-input-border;
         border-width: 0 0 0 1px;
         text-align: center;
@@ -108,7 +108,7 @@ input, textarea, select, .richtext, .tagit {
         pointer-events: none;
         color: $color-grey-3;
         background-color: $color-fieldset-hover;
-        margin: 0px 1px 1px 0;
+        margin: 0 1px 1px 0;
 
         .ie & {
             display: none;
@@ -142,7 +142,7 @@ input[type=radio]:before {
     left: -2px;
     cursor: pointer;
     display: block;
-    content: "K";
+    content: 'K';
     width: 1em;
     height: 1em;
     line-height: 1.1em;
@@ -152,7 +152,7 @@ input[type=radio]:before {
     border: 1px solid $color-grey-4;
 }
 input[type=radio]:checked:before {
-    content: "K";
+    content: 'K';
     color: $color-teal;
 }
 
@@ -171,7 +171,7 @@ input[type=checkbox]:before {
     top: -5px;
     cursor: pointer;
     display: block;
-    content: "x";
+    content: 'x';
     line-height: 20px;
     width: 20px;
     height: 20px;
@@ -353,7 +353,7 @@ input[type=submit], input[type=reset], input[type=button], .button, button {
         color: lighten($color-grey-2, 15%) !important;
         cursor: not-allowed;
     }
-    &.button-secondary: disabled, &.button-secondary[disabled], &.button-secondary.disabled {
+    &.button-secondary:disabled, &.button-secondary[disabled], &.button-secondary.disabled {
         background-color: white !important;
         border-color: $color-grey-3 !important;
         color: $color-grey-3 !important;
@@ -598,7 +598,7 @@ li.focused > .help {
 }
 
 .required .field > label:after {
-    content: "*";
+    content: '*';
     color: $color-red;
     font-weight: bold;
     display: inline-block;
@@ -647,7 +647,7 @@ li.focused > .help {
         }
     }
 
-    input: not([type=radio]), input: not([type=checkbox]), input: not([type=submit]), input: not([type=button]) {
+    input:not([type=radio]), input:not([type=checkbox]), input:not([type=submit]), input:not([type=button]) {
         padding-left: 2.5em;
     }
 
@@ -769,7 +769,7 @@ ul.inline li:first-child, li.inline:first-child {
 }
 
 
-/* TODO this chooser style has been made more generic based on two identical methods for choosing pages and images that were previously included in their own less files in each app directory (and since deleted). It would be best if an admin "theme" provided all the design for a UI in a single place, but should that be a series of overrides to the css provided from an app? If so, perhaps those two previous less files should be re-instated and then overriden here? hmm. */
+/* TODO this chooser style has been made more generic based on two identical methods for choosing pages and images that were previously included in their own less files in each app directory (and since deleted). It would be best if an admin 'theme' provided all the design for a UI in a single place, but should that be a series of overrides to the css provided from an app? If so, perhaps those two previous less files should be re-instated and then overriden here? hmm. */
 
 .chooser {
     /* We show the 'chosen' state...*/
@@ -789,7 +789,7 @@ ul.inline li:first-child, li.inline:first-child {
         &:before {
             vertical-align: middle;
             font-family: wagtail;
-            content: "";
+            content: '';
             position: relative;
             display: block;
             float: left;
@@ -840,14 +840,14 @@ ul.inline li:first-child, li.inline:first-child {
 .page-chooser {
     .unchosen, .chosen {
         &:before {
-            content: "b";
+            content: 'b';
         }
     }
 }
 .snippet-chooser {
     .unchosen, .chosen {
         &:before {
-            content: "D";
+            content: 'D';
         }
     }
 }
@@ -855,7 +855,7 @@ ul.inline li:first-child, li.inline:first-child {
 .document-chooser {
     .unchosen, .chosen {
         &:before {
-            content: "r";
+            content: 'r';
         }
     }
 }
@@ -863,14 +863,14 @@ ul.inline li:first-child, li.inline:first-child {
 .image-chooser {
     .unchosen, .chosen {
         &:before {
-            content: "o";
+            content: 'o';
         }
     }
     .chosen {
         padding-left: $thumbnail-width;   
 
         &:before {
-            content: "";
+            content: '';
         }
         .preview-image{
             float:left;
@@ -899,7 +899,7 @@ ul.inline li:first-child, li.inline:first-child {
         border: 0;
     }
 }
-ul.tagit input[type="text"] {
+ul.tagit input[type='text'] {
     padding: 0.2em 0.5em !important; /* having to use important, FML*/
 }
 ul.tagit li.tagit-choice-editable {
@@ -920,7 +920,7 @@ ul.tagit li.tagit-choice-editable {
         font-family: wagtail;
         display: block;
         color: $color-grey-3;
-        content: "g";
+        content: 'g';
     }
     .ui-icon-close:hover:before {
         color: $color-red

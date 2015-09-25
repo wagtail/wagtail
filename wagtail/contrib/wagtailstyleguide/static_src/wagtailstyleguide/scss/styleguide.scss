@@ -1,13 +1,13 @@
-@import "wagtailadmin/scss/variables.scss";
-@import "wagtailadmin/scss/mixins.scss";
-@import "wagtailadmin/scss/grid.scss";
+@import 'wagtailadmin/scss/variables.scss';
+@import 'wagtailadmin/scss/mixins.scss';
+@import 'wagtailadmin/scss/grid.scss';
 
 section {
     border-top: 1px solid $color-grey-3;
     margin-top: 2em;
     padding: 0 0 2em 0;
 
-    > h2: first-child {
+    > h2:first-child {
         margin: 0;
         font-size: 1em;
         background: $color-grey-4;
@@ -95,7 +95,7 @@ section {
     .spinner {
         position: relative;
     }
-    .icon-spinner: after {
+    .icon-spinner:after {
         position: absolute;
     }
 }

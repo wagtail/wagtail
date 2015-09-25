@@ -70,7 +70,7 @@
     }
 }
 
-/* Displays "timesince" formatted date with full date on hover */
+/* Displays 'timesince' formatted date with full date on hover */
 .human-readable-date {
     overflow: hidden;
     display: block;
@@ -113,7 +113,7 @@
     -webkit-font-smoothing: auto;
     font-size: 0.80em;
     margin: 0 0.5em 0.5em 0.5em;
-    background: white url("# {$static-root}bg-dark-diag.svg");
+    background: white url('# {$static-root}bg-dark-diag.svg');
 
     &.primary {
         color: $color-grey-2;
@@ -168,7 +168,7 @@ form.status-tag:hover {
         font-family: wagtail;
         display: inline-block;
         color: white;
-        content: "u";
+        content: 'u';
         padding-right: 0.5em;
     }
 
@@ -202,7 +202,7 @@ a.tag:hover {
         }
 
         &:before {
-            content: "";
+            content: '';
             top: -5px;left: -5px;bottom: -5px;right: -5px;
             z-index: 1;
             background-color: rgba(255,255,255,0.5);
@@ -218,7 +218,7 @@ a.tag:hover {
             animation: spin 0.5s infinite linear;
             -webkit-animation: spin 0.5s infinite linear;
             -moz-animation: spin 0.5s infinite linear;
-            content: "1";
+            content: '1';
             z-index: 2;
             color: $color-teal;
         }

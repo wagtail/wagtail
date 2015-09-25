@@ -1,8 +1,8 @@
 # Useful regexes to fix lint errors
-# search "([^\ ])\{" replace "$1 {"
-# search "([^\&]):([^\ \n]*);" replace "$1: $2;"
+# SpaceBeforeBrace: search "([^\ ])\{" replace "$1 {"
+# SpaceAfterPropertyColon: search "([^\&]):([^\ \n]*);" replace "$1: $2;"
 
-scss_files: 'wagtail/wagtailadmin/static_src/**/*.scss'
+scss_files: 'wagtail/**/static_src/**/scss/**/*.scss'
 
 linters:
     BorderZero:
@@ -24,6 +24,9 @@ linters:
         space_before_bang: true
         space_after_bang: false
 
+    PropertySortOrder:
+        enabled: false
+
     Comment:
         enabled: true
 
@@ -31,7 +34,7 @@ linters:
         enabled: true
 
     DuplicateProperty:
-        enabled: false
+        enabled: true
 
     ElsePlacement:
         enabled: true
@@ -64,7 +67,7 @@ linters:
         enabled: true
 
     LeadingZero:
-        style: exclude_zero
+        enabled: false
 
     MergeableSelector:
         enabled: false
@@ -84,6 +87,8 @@ linters:
             - js_class
         ignored_types:
             - element
+        exclude:
+            - '**/datetimepicker.scss'
 
     PlaceholderInExtend:
         enabled: true

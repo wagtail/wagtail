@@ -1,23 +1,23 @@
-@import "wagtailadmin/scss/variables.scss";
-@import "wagtailadmin/scss/mixins.scss";
-@import "wagtailadmin/scss/grid.scss";
+@import 'wagtailadmin/scss/variables.scss';
+@import 'wagtailadmin/scss/mixins.scss';
+@import 'wagtailadmin/scss/grid.scss';
 
-@import "wagtailadmin/scss/components/explorer.scss";
-@import "wagtailadmin/scss/components/icons.scss";
-@import "wagtailadmin/scss/components/typography.scss";
-@import "wagtailadmin/scss/components/tabs.scss";
-@import "wagtailadmin/scss/components/dropdowns.scss";
-@import "wagtailadmin/scss/components/modals.scss";
-@import "wagtailadmin/scss/components/forms.scss";
-@import "wagtailadmin/scss/components/listing.scss";
-@import "wagtailadmin/scss/components/messages.scss";
-@import "wagtailadmin/scss/components/formatters.scss";
-@import "wagtailadmin/scss/components/header.scss";
-@import "wagtailadmin/scss/components/progressbar.scss";
-@import "wagtailadmin/scss/components/datetimepicker.scss";
-@import "wagtailadmin/scss/components/main-nav.scss";
+@import 'wagtailadmin/scss/components/explorer.scss';
+@import 'wagtailadmin/scss/components/icons.scss';
+@import 'wagtailadmin/scss/components/typography.scss';
+@import 'wagtailadmin/scss/components/tabs.scss';
+@import 'wagtailadmin/scss/components/dropdowns.scss';
+@import 'wagtailadmin/scss/components/modals.scss';
+@import 'wagtailadmin/scss/components/forms.scss';
+@import 'wagtailadmin/scss/components/listing.scss';
+@import 'wagtailadmin/scss/components/messages.scss';
+@import 'wagtailadmin/scss/components/formatters.scss';
+@import 'wagtailadmin/scss/components/header.scss';
+@import 'wagtailadmin/scss/components/progressbar.scss';
+@import 'wagtailadmin/scss/components/datetimepicker.scss';
+@import 'wagtailadmin/scss/components/main-nav.scss';
 
-@import "wagtailadmin/scss/fonts.scss";
+@import 'wagtailadmin/scss/fonts.scss';
 
 html {
     background: $color-grey-4;
@@ -105,7 +105,7 @@ footer {
     @include transition(all 0.2s ease);
     @include row();
     @include border-radius(3px 3px 0 0);
-    @include box-shadow(0px 0px 2px rgba(255,255,255,0.5));
+    @include box-shadow(0 0 2px rgba(255,255,255,0.5));
     @include transition(bottom 0.5s ease 1s);
     background: $color-grey-1;
     position: fixed;
@@ -142,16 +142,16 @@ footer {
     }
 }
 
-:: -webkit-scrollbar {
+::-webkit-scrollbar {
     height: 10px;
     width: 10px;
     background: $color-grey-1;
 }
-:: -webkit-scrollbar-thumb {
+::-webkit-scrollbar-thumb {
     background: $color-grey-2;
     -webkit-border-radius: 1ex;
 }
-:: -webkit-scrollbar-corner {
+::-webkit-scrollbar-corner {
     background: $color-grey-1;
 }
 
@@ -193,7 +193,7 @@ footer {
                 // z-index: 5;
                 position: absolute;
                 font-family: wagtail;
-                content: "n";
+                content: 'n';
                 padding-left: 20px;
                 font-size: 2em;
                 color: $color-teal-darker;

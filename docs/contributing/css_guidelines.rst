@@ -23,6 +23,22 @@ automatically recompiling when any changes are observed, by running:
 
     $ npm start
 
+
+Linting SCSS
+~~~~~~~~~~~~
+
+The guidelines are included in a ``.scss-lint.yml`` file so that you can
+check that your code conforms to the style guide.
+
+Run the linter with ``scss-lint`` from the wagtail project root.
+You'll need to have the linter installed to do this. You can get it by
+running:
+
+.. code-block:: bash
+
+    gem install scss-lint
+
+
 Spacing
 ~~~~~~~
 

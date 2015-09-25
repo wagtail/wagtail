@@ -1,5 +1,5 @@
 /* 
-    Messages are specific to Django's "Messaging" system which adds messages into the session, 
+    Messages are specific to Django's 'Messaging' system which adds messages into the session, 
     for display on the next page visited. These appear as an animated banner at the top of the page.
 
     For inline help text, see typography.scss
@@ -41,7 +41,7 @@
 
         &:before {
             font-family: wagtail;
-            content: "!";
+            content: '!';
         }
     }
     .warning {
@@ -49,7 +49,7 @@
 
         &:before {
             font-family: wagtail;
-            content: "!";
+            content: '!';
         }
     }
     .success {
@@ -57,7 +57,7 @@
 
         &:before {
             font-family: wagtail;
-            content: "9";
+            content: '9';
         }
     }
 
