@@ -1,29 +1,29 @@
 @import "wagtailadmin/scss/variables.scss";
 @import "wagtailadmin/scss/mixins.scss";
 
-.hallotoolbar{
-    position:absolute;
-    z-index:5;
-    margin-top:4em;
-    margin-left:1.2em;
+.hallotoolbar {
+    position: absolute;
+    z-index: 5;
+    margin-top: 4em;
+    margin-left: 1.2em;
 
-    &.affixed{
-        position:fixed;
-        margin-top:0;
+    &.affixed {
+        position: fixed;
+        margin-top: 0;
     }
 
 }
 /* full is added to hallotoolbar when invoked on a field set to the full layout style */
-.hallotoolbar.full{
-    margin-left:$mobile-nice-padding;
+.hallotoolbar.full {
+    margin-left: $mobile-nice-padding;
 }
 /* stream-field is added to hallotoolbar when invoked on a field within a stream-field */
-.hallotoolbar.stream-field{
-    margin-top:-1em;
-    margin-left:0;
+.hallotoolbar.stream-field {
+    margin-top: -1em;
+    margin-left: 0;
 
-    &.affixed{
-        margin-top:0;
+    &.affixed {
+        margin-top: 0;
     }
 }
 
@@ -45,26 +45,26 @@
 
 .richtext {
     font-family: $font-serif;
-    padding-top:4em;
-    min-height:50px;
+    padding-top: 4em;
+    min-height: 50px;
     overflow: hidden;
-    line-height:1.5em;
+    line-height: 1.5em;
 
     /* Resetting various html tags that have been messed with by Wagtail's main css */
-    h1{
-        text-transform:none;
+    h1 {
+        text-transform: none;
     }
     h2 {
-        text-transform:none;
-        display:block !important;
+        text-transform: none;
+        display: block !important;
     }
     h1 span {
         font-weight: normal;
         color: inherit;
     }
     *:before,
-    *:after{
-        display:none;
+    *:after {
+        display: none;
     }
 
     ol,
@@ -72,14 +72,14 @@
         margin: 1em 0;
         padding: 0 0 0 40px;
     }
-    li{
-        display:list-item !important;
+    li {
+        display: list-item !important;
     }
-    ul li{
-        list-style-type:disc !important;
+    ul li {
+        list-style-type: disc !important;
     }
-    ol li{
-        list-style-type:decimal !important;
+    ol li {
+        list-style-type: decimal !important;
     }
 
     /* Delete controls on embedded blocks with contenteditable="false" */
@@ -91,11 +91,11 @@
             cursor: pointer;
             display: none;
 
-            &:before{
-                background-color:rgba(255,255,255,0.8);
+            &:before {
+                background-color: rgba(255,255,255,0.8);
             }
-            &:hover:before{
-                background-color:white;
+            &:hover:before {
+                background-color: white;
             }
         }
     }
@@ -110,15 +110,15 @@
     to make them better reflect their appearance on the front-end (however, it's arguably better for editors
     NOT to be thinking about a specific visual appearance when they choose heading levels...) */
 
-    h1,h2,h3,h4,h5,h6{
-        font-family:inherit;
+    h1,h2,h3,h4,h5,h6 {
+        font-family: inherit;
     }
-    h1{} /* shouldn't be used */
+    h1 {} /* shouldn't be used */
 
     h2 {
         font-size: 2em;
         line-height: 1.2em;
-        clear:both;
+        clear: both;
     }
     h3 {
         font-size: 1.7em;
@@ -153,7 +153,7 @@
     .richtext-image {
         margin-top: 3px; /* close as possible to match line-height space above p */
         img {
-            width:100%;
+            width: 100%;
         }
         figcaption {
             display: block;
@@ -176,8 +176,8 @@
     }
 }
 
-@media screen and (min-width: $breakpoint-mobile){
-    .hallotoolbar.full{
-        margin-left:$desktop-nice-padding;
+@media screen and (min-width: $breakpoint-mobile) {
+    .hallotoolbar.full {
+        margin-left: $desktop-nice-padding;
     }
 }

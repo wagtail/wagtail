@@ -1,6 +1,8 @@
+# Useful regexes to fix lint errors
+# search "([^\ ])\{" replace "$1 {"
+# search "([^\&]):([^\ \n]*);" replace "$1: $2;"
 
-scss_files: 'wagtail/*/static/**/*.scss'
-exclude: 'wagtail/**/static/**/vendor/*.scss'
+scss_files: 'wagtail/wagtailadmin/static_src/**/*.scss'
 
 linters:
     BorderZero:
