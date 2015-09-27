@@ -234,6 +234,7 @@ class TestPageCreation(TestCase, WagtailTestUtils):
         # check for SimplePage where is no file field
         response = self.client.get(reverse('wagtailadmin_pages:add', args=('tests', 'simplepage', self.root_page.id)))
         self.assertEqual(response.status_code, 200)
+        self.assertNotContains(response, 'enctype="multipart/form-data"')
         self.assertTemplateUsed(response, 'wagtailadmin/pages/create.html')
 
         # check for FilePage which has file field
