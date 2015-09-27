@@ -130,6 +130,17 @@ class PageWithOldStyleRouteMethod(Page):
         return self.serve(request)
 
 
+# File page
+class FilePage(Page):
+    file_field = models.FileField()
+
+
+FilePage.content_panels = [
+    FieldPanel('title', classname="full title"),
+    FieldPanel('file_field'),
+]
+
+
 # Event page
 
 class EventPageCarouselItem(Orderable, CarouselItem):
