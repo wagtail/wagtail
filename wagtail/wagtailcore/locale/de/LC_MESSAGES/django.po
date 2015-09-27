@@ -65,7 +65,7 @@ msgid "The page title as you'd like it to be seen by the public"
 msgstr "Der Seitentitel, der öffentlich angezeigt werden soll"
 
 msgid "Slug"
-msgstr "Kugel"
+msgstr "Kurztitel"
 
 msgid ""
 "The name of the page as it will appear in URLs e.g http://domain.com/blog/"
