@@ -29,6 +29,18 @@ class TestUserbarTag(TestCase):
 
         self.assertIn("<!-- Wagtail user bar embed code -->", content)
 
+    def test_userbar_tag_self(self):
+        """
+        Ensure the userbar renders with `self` instead of `PAGE_TEMPLATE_VAR`
+        """
+        template = Template("{% load wagtailuserbar %}{% wagtailuserbar %}")
+        content = template.render(Context({
+            'self': self.homepage,
+            'request': self.dummy_request(self.user),
+        }))
+
+        self.assertIn("<!-- Wagtail user bar embed code -->", content)
+
     def test_userbar_tag_anonymous_user(self):
         template = Template("{% load wagtailuserbar %}{% wagtailuserbar %}")
         content = template.render(Context({
