@@ -27,6 +27,7 @@ from django.core.urlresolvers import reverse
 from unidecode import unidecode
 
 from wagtail.wagtailcore import hooks
+from wagtail.wagtailcore.models import CollectionMember
 from wagtail.wagtailadmin.taggable import TagSearchable
 from wagtail.wagtailsearch import index
 from wagtail.wagtailsearch.queryset import SearchableQuerySetMixin
@@ -52,7 +53,7 @@ def get_upload_to(instance, filename):
 
 
 @python_2_unicode_compatible
-class AbstractImage(models.Model, TagSearchable):
+class AbstractImage(CollectionMember, TagSearchable):
     title = models.CharField(max_length=255, verbose_name=_('title'))
     file = models.ImageField(
         verbose_name=_('file'), upload_to=get_upload_to, width_field='width', height_field='height'
