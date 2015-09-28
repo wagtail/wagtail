@@ -161,7 +161,7 @@ class PageQuerySet(MP_NodeQuerySet):
         content_types = ContentType.objects.get_for_models(*[
             model for model in apps.get_models()
             if issubclass(model, klass)
-        ]).values()
+        ], for_concrete_model=False).values()
 
         return Q(content_type__in=content_types)
 
