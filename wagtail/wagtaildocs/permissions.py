@@ -148,7 +148,9 @@ def documents_editable_by_user(user):
     """
     Return a queryset of documents editable by the given user
     """
+    collections_with_change_permission = collections_with_permission_for_user(user, 'wagtaildocs.change_document').values_list('id', flat=True)
+    collections_with_add_permission = collections_with_permission_for_user(user, 'wagtaildocs.add_document').values_list('id', flat=True)
     return Document.objects.filter(
-        Q(collection__in=collections_with_permission_for_user(user, 'wagtaildocs.change_document'))
-        | Q(collection__in=collections_with_permission_for_user(user, 'wagtaildocs.add_document'), uploaded_by_user=user)
+        Q(collection_id__in=list(collections_with_change_permission))
+        | Q(collection_id__in=list(collections_with_add_permission), uploaded_by_user=user)
     )

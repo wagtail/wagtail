@@ -6,7 +6,7 @@ from django.views.decorators.vary import vary_on_headers
 from django.core.urlresolvers import reverse
 
 from wagtail.wagtailadmin.forms import SearchForm
-from wagtail.wagtailsearch.backends import get_search_backends
+from wagtail.wagtailsearch.backends import get_search_backend, get_search_backends
 from wagtail.wagtailadmin import messages
 
 from wagtail.wagtaildocs.models import Document
@@ -32,8 +32,9 @@ def index(request):
     if 'q' in request.GET:
         form = SearchForm(request.GET, placeholder=_("Search documents"))
         if form.is_valid():
+            s = get_search_backend()
             query_string = form.cleaned_data['q']
-            documents = documents.search(query_string)
+            documents = s.search(query_string, documents)
     else:
         form = SearchForm(placeholder=_("Search documents"))
 

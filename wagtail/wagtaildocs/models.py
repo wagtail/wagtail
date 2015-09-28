@@ -28,7 +28,7 @@ class Document(CollectionMember, TagSearchable):
 
     tags = TaggableManager(help_text=None, blank=True, verbose_name=_('Tags'))
 
-    search_fields = TagSearchable.search_fields + (
+    search_fields = TagSearchable.search_fields + CollectionMember.search_fields + (
         index.FilterField('uploaded_by_user'),
     )
 
