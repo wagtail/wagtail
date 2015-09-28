@@ -128,6 +128,22 @@ def collections_with_add_permission_for_user(user):
     return collections_with_permission_for_user(user, 'wagtaildocs.add_document')
 
 
+def target_collections_for_move(user, document):
+    """
+    Return a queryset of collections that this user can move the specified document to.
+    (It is assumed that the user has edit permission for the document)
+    """
+    if is_using_collections:
+        if user.is_superuser:
+            return Collection.objects.all()
+        else:
+            # user can leave it in its current collection, or move it to one where they
+            # have 'add' permission
+            return collections_with_add_permission_for_user(user) | Collection.objects.filter(id=document.collection_id)
+    else:
+        return Collection.objects.none()
+
+
 def documents_editable_by_user(user):
     """
     Return a queryset of documents editable by the given user

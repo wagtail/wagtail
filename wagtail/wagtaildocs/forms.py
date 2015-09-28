@@ -2,7 +2,8 @@ from django import forms
 
 from wagtail.wagtailcore.models import Collection
 from wagtail.wagtaildocs.models import Document
-from wagtail.wagtaildocs.permissions import is_using_collections, collections_with_add_permission_for_user
+from wagtail.wagtaildocs.permissions import \
+    is_using_collections, collections_with_add_permission_for_user, target_collections_for_move
 
 
 class DocumentForm(forms.ModelForm):
@@ -16,7 +17,11 @@ class DocumentForm(forms.ModelForm):
         if is_using_collections:
             if user is None:
                 self.collections = Collection.objects.all()
+            elif self.instance and self.instance.collection:
+                # editing an existing document
+                self.collections = target_collections_for_move(user, self.instance)
             else:
+                # adding a new document
                 self.collections = collections_with_add_permission_for_user(user)
 
             if len(self.collections) == 0:
