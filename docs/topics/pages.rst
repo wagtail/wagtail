@@ -308,10 +308,57 @@ For example, this can be overriden to make the ``BlogPage`` model respond with a
             })
 
 
-Child models
-============
+Inline models
+=============
 
-TODO: https://pypi.python.org/pypi/django-modelcluster
+Wagtail can nest the content of other models within the page. This is useful for creating repeated fields, such as related links or items to display in a carousel. Inline model content is also versioned with the rest of the page content.
+
+Each inline model requires the following:
+
+ - It must inherit from :class:`wagtail.wagtailcore.models.Orderable`
+ - It must have a ``ParentalKey`` to the parent model
+
+.. note:: django-modelcluster and ParentalKey
+
+    The model inlining feature is provided to by `django-modelcluster <TODO>`_ and the ``ParentalKey`` field type must be imported from there:
+
+    ..code-block:: python
+
+        from modelcluster.fields import ParentalKey
+
+    ``ParentalKey`` is a subclass of Django's ``ForeignKey`` and takes the same arguments
+
+
+For example, the following inline model can be used to add related links (a list of name, url pairs) to the ``BlogPage`` model:
+
+.. code-block:: python
+
+    from django.db import models
+    from modelcluster.fields import ParentalKey
+    from wagtail.wagtailcore.models import Orderable
+
+
+    class BlogPageRelatedLink(Orderable):
+        page = ParentalKey(BlogPage, related_name='related_links')
+        name = models.CharField(max_length=255)
+        url = models.URLField()
+
+        panels = [
+            FieldPanel('name'),
+            FieldPanel('url'),
+        ]
+
+To add this to the admin interface, use the :class:`~wagtail.wagtailadmin.edit_handlers.InlinePanel` edit panel class:
+
+.. code-block:: python
+
+    content_panels = [
+        ...
+
+        InlinePanel('related_links', label="Related links"),
+    ]
+
+The first argument must match the value of the ``related_name`` attribute of the ``ParentalKey``.
 
 
 Database representation
