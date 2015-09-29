@@ -11,7 +11,7 @@ from wagtail.wagtailimages.models import get_image_model
 from wagtail.wagtailimages.forms import get_image_form
 from wagtail.wagtailimages.fields import ALLOWED_EXTENSIONS
 from wagtail.wagtailimages.permissions import \
-    image_permission_required, user_can_edit_image
+    image_permission_required, user_can_edit_image, is_using_collections, collections_with_add_permission_for_user
 from wagtail.utils.compat import render_to_string
 
 
@@ -39,6 +39,16 @@ def add(request):
     Image = get_image_model()
     ImageForm = get_image_form(Image)
 
+    if is_using_collections:
+        collections = collections_with_add_permission_for_user(request.user)
+        if len(collections) > 1:
+            collections_to_choose = collections
+        else:
+            # no need to show a collections chooser
+            collections_to_choose = None
+    else:
+        collections_to_choose = None
+
     if request.method == 'POST':
         if not request.is_ajax():
             return HttpResponseBadRequest("Cannot POST to this view without AJAX")
@@ -49,9 +59,10 @@ def add(request):
         # Build a form for validation
         form = ImageForm({
             'title': request.FILES['files[]'].name,
+            'collection': request.POST.get('collection')
         }, {
             'file': request.FILES['files[]'],
-        })
+        }, user=request.user)
 
         if form.is_valid():
             # Save it
@@ -66,7 +77,7 @@ def add(request):
                 'image_id': int(image.id),
                 'form': render_to_string('wagtailimages/multiple/edit_form.html', {
                     'image': image,
-                    'form': get_image_edit_form(Image)(instance=image, prefix='image-%d' % image.id),
+                    'form': get_image_edit_form(Image)(instance=image, prefix='image-%d' % image.id, user=request.user),
                 }, request=request),
             })
         else:
@@ -78,7 +89,7 @@ def add(request):
                 'error_message': '\n'.join(['\n'.join([force_text(i) for i in v]) for k, v in form.errors.items()]),
             })
     else:
-        form = ImageForm()
+        form = ImageForm(user=request.user)
 
     return render(request, 'wagtailimages/multiple/add.html', {
         'max_filesize': form.fields['file'].max_upload_size,
@@ -86,6 +97,7 @@ def add(request):
         'allowed_extensions': ALLOWED_EXTENSIONS,
         'error_max_file_size': form.fields['file'].error_messages['file_too_large_unknown_size'],
         'error_accepted_file_types': form.fields['file'].error_messages['invalid_image'],
+        'collections': collections_to_choose,
     })
 
 
@@ -102,7 +114,7 @@ def edit(request, image_id, callback=None):
     if not user_can_edit_image(request.user, image):
         raise PermissionDenied
 
-    form = ImageForm(request.POST, request.FILES, instance=image, prefix='image-' + image_id)
+    form = ImageForm(request.POST, request.FILES, instance=image, prefix='image-' + image_id, user=request.user)
 
     if form.is_valid():
         form.save()
