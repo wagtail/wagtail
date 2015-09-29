@@ -361,15 +361,45 @@ To add this to the admin interface, use the :class:`~wagtail.wagtailadmin.edit_h
 The first argument must match the value of the ``related_name`` attribute of the ``ParentalKey``.
 
 
-Database representation
-=======================
+Working with pages
+==================
 
-Querying pages
-==============
+Wagtail uses Django's `multi-table inheritance <https://docs.djangoproject.com/en/1.8/topics/db/models/#multi-table-inheritance>`_ feature to allow multiple page models to be used in the same tree.
 
-TODO: In these two sections, we must describe multi-table inheritance...
+Each page is added to both Wagtail's builtin :class:`~wagtail.wagtailcore.models.Page` model as well as it's user-defined model (such as the ``BlogPage`` model created earlier).
 
-NOTE: The reason I renamed this to "page models" is because I think it would be a good place to also describe "general usage" of pages, such as finding the specific object, the url or overriding the template/template context. I think that things like creating pages programmatically probably should be documented elsewhere but linked to from here.
+Pages can exist in Python code in two forms, an instance of ``Page`` or an instance of the page model.
+
+ When working with multiple page types together, you will typically use instances of Wagtail's :class:`~wagtail.wagtailcore.models.Page` model, which doesn't give you access to any fields specific to their type.
+
+.. code-block:: python
+
+    # Get all pages in the database
+    >>> from wagtail.wagtailcore.models import Page
+    >>> Page.objects.all()
+    [<Page: Homepage>, <Page: About us>, <Page: Blog>, <Page: A Blog post>, <Page: Another Blog post>]
+
+When working with a single page type, you can work with instances of the user-defined model that gives access to all the fields available in ``Page`` and any user defined fields for that type.
+
+.. code-block:: python
+
+    # Get all blog entries in the database
+    >>> BlogPage.objects.all()
+    [<BlogPage: A Blog post>, <BlogPage: Another Blog post>]
+
+You can convert a ``Page`` object to a specific object using the ``.specific`` property (this may require performing a query each time you use it).
+
+.. code-block:: python
+
+    >>> page = Page.objects.get(title="A Blog post")
+    >>> page
+    <Page: A Blog post>
+
+    # Note: the blog post is an instance of Page so we cannot access body, date or feed_image
+
+    >>> page.specific
+    <BlogPage: A Blog post>
+
 
 Tips
 ====
