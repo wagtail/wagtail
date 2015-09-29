@@ -809,3 +809,27 @@ class TestEditOnlyPermissions(TestCase, WagtailTestUtils):
         response = self.client.get(reverse('wagtailimages:add_multiple'))
         # permission should be denied
         self.assertRedirects(response, reverse('wagtailadmin_home'))
+
+
+class TestImageAddMultipleView(TestCase, WagtailTestUtils):
+    def test_as_superuser(self):
+        self.login()
+        response = self.client.get(reverse('wagtailimages:add_multiple'))
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'wagtailimages/multiple/add.html')
+
+    def test_as_ordinary_editor(self):
+        user = get_user_model().objects.create_user(username='editor', email='editor@email.com', password='password')
+
+        add_permission = Permission.objects.get(content_type__app_label='wagtailimages', codename='add_image')
+        admin_permission = Permission.objects.get(content_type__app_label='wagtailadmin', codename='access_admin')
+        image_adders_group = Group.objects.create(name='Image adders')
+        image_adders_group.permissions.add(admin_permission)
+        GroupCollectionPermission.objects.create(group=image_adders_group, collection=Collection.get_first_root_node(), permission=add_permission)
+        user.groups.add(image_adders_group)
+
+        self.client.login(username='editor', password='password')
+
+        response = self.client.get(reverse('wagtailimages:add_multiple'))
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'wagtailimages/multiple/add.html')
