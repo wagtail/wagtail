@@ -11,40 +11,32 @@ from django.http import HttpResponse, JsonResponse
 from wagtail.wagtailcore.models import Site
 from wagtail.wagtailadmin.forms import SearchForm
 from wagtail.wagtailadmin import messages
-from wagtail.wagtailadmin.utils import permission_required, any_permission_required
-from wagtail.wagtailsearch.backends import get_search_backends
+from wagtail.wagtailsearch.backends import get_search_backends, get_search_backend
 
 from wagtail.wagtailimages.models import get_image_model, Filter
 from wagtail.wagtailimages.forms import get_image_form, URLGeneratorForm
+from wagtail.wagtailimages.permissions import \
+    image_permission_required, any_image_permission_required, user_can_edit_image, user_has_image_permission, images_editable_by_user
 from wagtail.wagtailimages.utils import generate_signature
 from wagtail.wagtailimages.exceptions import InvalidFilterSpecError
 
 
-@any_permission_required('wagtailimages.add_image', 'wagtailimages.change_image')
+@any_image_permission_required()
 @vary_on_headers('X-Requested-With')
 def index(request):
     Image = get_image_model()
 
     # Get images
-    images = Image.objects.order_by('-created_at')
-
-    # Permissions
-    if not request.user.has_perm('wagtailimages.change_image'):
-        # restrict to the user's own images
-        images = images.filter(uploaded_by_user=request.user)
+    images = images_editable_by_user(request.user)
 
     # Search
     query_string = None
     if 'q' in request.GET:
         form = SearchForm(request.GET, placeholder=_("Search images"))
         if form.is_valid():
+            s = get_search_backend()
             query_string = form.cleaned_data['q']
-
-            if not request.user.has_perm('wagtailimages.change_image'):
-                # restrict to the user's own images
-                images = Image.search(query_string, filters={'uploaded_by_user_id': request.user.id})
-            else:
-                images = Image.search(query_string)
+            images = s.search(query_string, images)
     else:
         form = SearchForm(placeholder=_("Search images"))
 
@@ -72,6 +64,7 @@ def index(request):
             'query_string': query_string,
             'is_searching': bool(query_string),
 
+            'can_add_image': user_has_image_permission(request.user, 'wagtailimages.add_image'),
             'search_form': form,
             'popular_tags': Image.popular_tags(),
         })
@@ -83,7 +76,7 @@ def edit(request, image_id):
 
     image = get_object_or_404(Image, id=image_id)
 
-    if not image.is_editable_by_user(request.user):
+    if not user_can_edit_image(request.user, image):
         raise PermissionDenied
 
     if request.POST:
@@ -140,7 +133,7 @@ def edit(request, image_id):
 def url_generator(request, image_id):
     image = get_object_or_404(get_image_model(), id=image_id)
 
-    if not image.is_editable_by_user(request.user):
+    if not user_can_edit_image(request.user, image):
         raise PermissionDenied
 
     form = URLGeneratorForm(initial={
@@ -166,7 +159,7 @@ def generate_url(request, image_id, filter_spec):
         }, status=404)
 
     # Check if this user has edit permission on this image
-    if not image.is_editable_by_user(request.user):
+    if not user_can_edit_image(request.user, image):
         return JsonResponse({
             'error': "You do not have permission to generate a URL for this image."
         }, status=403)
@@ -209,7 +202,7 @@ def preview(request, image_id, filter_spec):
 def delete(request, image_id):
     image = get_object_or_404(get_image_model(), id=image_id)
 
-    if not image.is_editable_by_user(request.user):
+    if not user_can_edit_image(request.user, image):
         raise PermissionDenied
 
     if request.POST:
@@ -222,7 +215,7 @@ def delete(request, image_id):
     })
 
 
-@permission_required('wagtailimages.add_image')
+@image_permission_required('wagtailimages.add_image')
 def add(request):
     ImageModel = get_image_model()
     ImageForm = get_image_form(ImageModel)
