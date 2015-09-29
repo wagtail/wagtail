@@ -17,7 +17,7 @@ class DocumentForm(forms.ModelForm):
         if is_using_collections:
             if user is None:
                 self.collections = Collection.objects.all()
-            elif self.instance and self.instance.collection:
+            elif self.instance and self.instance.id:
                 # editing an existing document
                 self.collections = target_collections_for_move(user, self.instance)
             else:

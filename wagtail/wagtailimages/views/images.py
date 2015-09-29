@@ -81,7 +81,7 @@ def edit(request, image_id):
 
     if request.POST:
         original_file = image.file
-        form = ImageForm(request.POST, request.FILES, instance=image)
+        form = ImageForm(request.POST, request.FILES, instance=image, user=request.user)
         if form.is_valid():
             if 'file' in form.changed_data:
                 # if providing a new image file, delete the old one and all renditions.
@@ -106,7 +106,7 @@ def edit(request, image_id):
         else:
             messages.error(request, _("The image could not be saved due to errors."))
     else:
-        form = ImageForm(instance=image)
+        form = ImageForm(instance=image, user=request.user)
 
     # Check if we should enable the frontend url generator
     try:
@@ -222,7 +222,7 @@ def add(request):
 
     if request.POST:
         image = ImageModel(uploaded_by_user=request.user)
-        form = ImageForm(request.POST, request.FILES, instance=image)
+        form = ImageForm(request.POST, request.FILES, instance=image, user=request.user)
         if form.is_valid():
             # Set image file size
             image.file_size = image.file.size
@@ -240,7 +240,7 @@ def add(request):
         else:
             messages.error(request, _("The image could not be created due to errors."))
     else:
-        form = ImageForm()
+        form = ImageForm(user=request.user)
 
     return render(request, "wagtailimages/images/add.html", {
         'form': form,
