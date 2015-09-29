@@ -4,6 +4,8 @@ from django.core.urlresolvers import reverse
 from django.shortcuts import get_object_or_404, render
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
+from modelcluster.models import get_field_value
+
 from wagtail.wagtailadmin.modal_workflow import render_modal_workflow
 from wagtail.wagtailadmin.forms import SearchForm
 from wagtail.wagtailadmin.utils import permission_required
@@ -13,7 +15,6 @@ from wagtail.wagtailimages.models import get_image_model
 from wagtail.wagtailimages.forms import get_image_form, ImageInsertionForm
 from wagtail.wagtailimages.formats import get_image_format
 
-
 def get_image_json(image):
     """
     helper function: given an image, return the json to pass back to the
@@ -22,7 +23,7 @@ def get_image_json(image):
     preview_image = image.get_rendition('max-130x100')
 
     return json.dumps({
-        'id': image.id,
+        'id': get_field_value(image._meta.get_field("id"), image),
         'edit_link': reverse('wagtailimages:edit', args=(image.id,)),
         'title': image.title,
         'preview': {
