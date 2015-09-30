@@ -1,3 +1,5 @@
+.. _styleguide:
+
 UI Styleguide
 =============
 
