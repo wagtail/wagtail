@@ -1,39 +1,53 @@
 Development
 -----------
 
-Using the demo site & Vagrant
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Setting up a local copy of `the Wagtail git repository <https://github.com/torchbox/wagtail>`_ is slightly more involved than running a release package of Wagtail, as it requires `Node.js <https://nodejs.org/>`_ and NPM for building Javascript and CSS assets. (This is not required when running a release version, as the compiled assets are included in the release package.)
 
-We recommend using the `Wagtail demo site <https://github.com/torchbox/wagtaildemo/>`_ which uses Vagrant, as a basis for developing Wagtail itself.
+If you're happy to develop on a virtual machine, the `vagrant-wagtail-develop <https://github.com/torchbox/vagrant-wagtail-develop>`_ setup script is the fastest way to get up and running. This will provide you with a running instance of the `Wagtail demo site <https://github.com/torchbox/wagtaildemo/>`_, with the Wagtail and wagtaildemo codebases available as shared folders for editing on your host machine.
 
-Install the wagtaildemo following the instructions in the `wagtaildemo README <https://github.com/torchbox/wagtaildemo/blob/master/README.md>`_, then continue with the instructions below.
+(Build scripts for other platforms would be very much welcomed - if you create one, please let us know via the `Wagtail Developers group <https://groups.google.com/forum/#!forum/wagtail-developers>`_!)
 
-Clone a copy of `the Wagtail codebase <https://github.com/torchbox/wagtail>`_ alongside your demo site at the same level. So in the directory containing the wagtaildemo repo, run::
+If you'd prefer to set up all the components manually, read on. These instructions assume that you're familiar with using pip and virtualenv to manage Python packages.
+
+
+Setting up the Wagtail codebase
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Install Node.js, any version between v0.10.x and v0.12.x. Instructions for installing Node.js can be found on the `Node.js download page <https://nodejs.org/download/>`_. You will also need to install the **libjpeg** and **zlib** libraries, if you haven't done so already - see Pillow's `platform-specific installation instructions <http://pillow.readthedocs.org/en/latest/installation.html#external-libraries>`_.
+
+Clone a copy of `the Wagtail codebase <https://github.com/torchbox/wagtail>`_:
+
+.. code-block:: bash
 
     git clone https://github.com/torchbox/wagtail.git
+    cd wagtail
 
-Enable the Vagrantfile included with the demo - this ensures you can edit the Wagtail codebase from outside Vagrant::
+With your preferred virtualenv activated, install the Wagtail package in development mode:
 
-    cd wagtaildemo
-    cp Vagrantfile.local.example Vagrantfile.local
+.. code-block:: bash
 
-If you clone Wagtail's codebase to somewhere other than one level above, edit ``Vagrantfile.local`` to specify the alternate path.
+    python setup.py develop
 
-Lastly, we tell Django to use your freshly cloned Wagtail codebase as the source of Wagtail CMS, not the pip-installed version that came with wagtaildemo::
+Install the tool chain for building static assets:
 
-    cp wagtaildemo/settings/local.py.example wagtaildemo/settings/local.py
+.. code-block:: bash
 
-Uncomment the lines from ``import sys`` onward, and edit the rest of ``local.py`` as appropriate.
+    npm install
 
-If your VM is currently running, you'll then need to run ``vagrant halt`` followed by ``vagrant up`` for the changes to take effect.
+Compile the assets:
 
+.. code-block:: bash
+
+    npm run build
+
+Any Wagtail sites you start up in this virtualenv will now run against this development instance of Wagtail. We recommend using the `Wagtail demo site <https://github.com/torchbox/wagtaildemo/>`_ as a basis for developing Wagtail.
 
 Development dependencies
 ~~~~~~~~~~~~~~~~~~~~~~~~
 
 Developing Wagtail requires additional Python modules for testing and documentation.
 
-The list of dependencies is in the Wagtail root directory in ``requirements-dev.txt`` and if you've used the Vagrant environment above, can be installed thus, from the Wagtail codebase root directory::
+The list of dependencies is in the Wagtail root directory in ``requirements-dev.txt`` and can be installed thus, from the Wagtail codebase root directory::
 
     pip install -r requirements-dev.txt
 
@@ -43,32 +57,13 @@ The list of dependencies is in the Wagtail root directory in ``requirements-dev.
 Testing
 ~~~~~~~
 
-Wagtail has unit tests which should be run before submitting pull requests.
-
-**Testing virtual environment** (skip this if working in Vagrant box)
-
-If you are using Python 3.3 or above, run the following commands in your shell
-at the root of the Wagtail repo::
-
-    pyvenv venv
-    source venv/bin/activate
-    python setup.py develop
-    pip install -r requirements-dev.txt
-
-For Python 2, you will need to install the ``virtualenv`` package and replace
-the first line above with:
-
-    virtualenv venv
-
-**Running the tests**
-
 From the root of the Wagtail codebase, run the following command to run all the tests::
 
     python runtests.py
 
 **Running only some of the tests**
 
-At the time of writing, Wagtail has nearly 1000 tests which takes a while to
+At the time of writing, Wagtail has well over 1000 tests, which takes a while to
 run. You can run tests for only one part of Wagtail by passing in the path as
 an argument to ``runtests.py``::
 
@@ -106,13 +101,6 @@ Compiling static assets
 ~~~~~~~~~~~~~~~~~~~~~~~
 
 All static assets such as JavaScript, CSS, images, and fonts for the Wagtail admin are compiled from their respective sources by ``gulp``. The compiled assets are not committed to the repository, and are compiled before packaging each new release. Compiled assets should not be submitted as part of a pull request.
-
-To compile the assets, Node.js and the compilation tool chain need to be installed. Instructions for installing Node.js can be found on the `Node.js download page <https://nodejs.org/download/>`_. Once Node.js is installed, installing the tool chain is done via ``npm``:
-
-.. code-block:: bash
-
-    $ cd /path/to/wagtail
-    $ npm install
 
 To compile the assets, run:
 
