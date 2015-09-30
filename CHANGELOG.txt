@@ -9,6 +9,7 @@ Changelog
  * Added SQL Server compatibility to image migration (Timothy Allen)
  * Added classnames to Wagtail rich text editor buttons to aid custom styling (Rob Shelton)
  * Fix: Deleting a page permission from the groups admin UI does not immediately submit the form
+ * Fix: Wagtail userbar is shown on pages that do not pass a `page` variable to the template (e.g. because they override the `serve` method)
 
 
 1.1 (15.09.2015)

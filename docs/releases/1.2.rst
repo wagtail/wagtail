@@ -19,4 +19,4 @@ Bug fixes
 ~~~~~~~~~
 
  * Deleting a page permission from the groups admin UI does not immediately submit the form
-
+ * Wagtail userbar is shown on pages that do not pass a ``page`` variable to the template (e.g. because they override the ``serve`` method)
