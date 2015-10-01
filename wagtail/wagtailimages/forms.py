@@ -4,12 +4,12 @@ from django import forms
 from django.forms.models import modelform_factory
 from django.utils.translation import ugettext as _
 
-from wagtail.wagtailcore.models import Collection
+from wagtail.wagtailcore.models import Collection, CollectionMember
 from wagtail.utils.deprecation import RemovedInWagtail12Warning
 from wagtail.wagtailimages.formats import get_image_formats
 from wagtail.wagtailimages.fields import WagtailImageField
 from wagtail.wagtailimages.permissions import \
-    is_using_collections, collections_with_add_permission_for_user, target_collections_for_move
+    collections_with_add_permission_for_user, target_collections_for_move
 
 
 # Callback to allow us to override the default form field for the image file field
@@ -28,8 +28,10 @@ class BaseImageForm(forms.ModelForm):
 
         super(BaseImageForm, self).__init__(*args, **kwargs)
 
+        self.is_using_collections = issubclass(self._meta.model, CollectionMember)
+
         if 'collection' in self.fields:
-            if is_using_collections:
+            if self.is_using_collections:
                 if user is None:
                     self.collections = Collection.objects.all()
                 elif self.instance and self.instance.id:
@@ -50,7 +52,7 @@ class BaseImageForm(forms.ModelForm):
                 del self.fields['collection']
 
     def save(self, commit=True):
-        if is_using_collections and len(self.collections) == 1:
+        if self.is_using_collections and len(self.collections) == 1:
             # populate the instance's collection field with the one available collection
             self.instance.collection = self.collections[0]
 
@@ -60,7 +62,7 @@ class BaseImageForm(forms.ModelForm):
 def get_image_form(model):
     if hasattr(model, 'admin_form_fields'):
         fields = model.admin_form_fields
-        if is_using_collections and 'collection' not in fields:
+        if issubclass(model, CollectionMember) and 'collection' not in fields:
             # force addition of the 'collection' field, because leaving it out can
             # cause dubious results when multiple collections exist (e.g adding the
             # image to the root collection where the user may not have permission) -
