@@ -1,3 +1,5 @@
+from __future__ import absolute_import
+
 import jinja2
 from jinja2.ext import Extension
 

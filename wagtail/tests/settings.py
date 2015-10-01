@@ -56,6 +56,17 @@ if django.VERSION >= (1, 8):
                 ],
             },
         },
+        {
+            'BACKEND': 'django.template.backends.jinja2.Jinja2',
+            'APP_DIRS': True,
+            'OPTIONS': {
+                'extensions': [
+                    'wagtail.wagtailcore.templatetags.jinja2.core',
+                    'wagtail.wagtailadmin.templatetags.jinja2.userbar',
+                    'wagtail.wagtailimages.templatetags.jinja2.images',
+                ],
+            },
+        },
     ]
 else:
     TEMPLATE_CONTEXT_PROCESSORS = global_settings.TEMPLATE_CONTEXT_PROCESSORS + (
