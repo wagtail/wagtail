@@ -2,7 +2,7 @@
 from __future__ import unicode_literals
 
 from django import VERSION as DJANGO_VERSION
-from django.db import models, migrations
+from django.db import migrations
 
 
 def get_document_permissions(apps):
