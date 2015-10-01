@@ -77,7 +77,7 @@ def search(
                     if hasattr(result_specific, attr)
                 ))
 
-            return JsonResponse(search_results_json)
+            return JsonResponse(search_results_json, safe=False)
         else:
             return JsonResponse([], safe=False)
     else: # Render a template
