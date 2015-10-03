@@ -101,9 +101,12 @@ class RelatedField(relations.RelatedField):
     meta_field_serializer_class = MetaField
 
     def to_representation(self, value):
+        meta_serializer = self.meta_field_serializer_class()
+        meta_serializer.bind('meta', self)
+
         return OrderedDict([
             ('id', value.pk),
-            ('meta', self.meta_field_serializer_class().to_representation(value)),
+            ('meta', meta_serializer.to_representation(value)),
         ])
 
 
@@ -163,7 +166,7 @@ class ChildRelationField(Field):
 
     def to_representation(self, value):
         serializer_class = get_serializer_class(value.model, self.child_fields)
-        serializer = serializer_class()
+        serializer = serializer_class(context=self.context)
 
         return [
             serializer.to_representation(child_object)
