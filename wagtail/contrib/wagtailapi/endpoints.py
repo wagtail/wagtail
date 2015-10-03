@@ -41,6 +41,9 @@ class BaseAPIEndpoint(GenericViewSet):
 
         # Used by jQuery for cache-busting. See #1671
         '_',
+
+        # Required by BrowsableAPIRenderer
+        'format',
     ])
     extra_api_fields = []
     name = None  # Set on subclass.
