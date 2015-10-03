@@ -51,9 +51,8 @@ def index(request):
     if 'ordering' in request.GET:
         ordering = request.GET['ordering']
 
-        if ordering in ['name', 'username']:
-            if ordering != 'name':
-                users = users.order_by(ordering)
+        if ordering == 'username':
+            users = users.order_by(ordering)
     else:
         ordering = 'name'
 
