@@ -6,12 +6,7 @@ from django.utils.six import text_type
 
 from rest_framework import renderers
 
-from .utils import URLPath, ObjectDetailURL, get_base_url
-
-
-def get_full_url(request, path):
-    base_url = get_base_url(request) or ''
-    return base_url + path
+from .utils import ObjectDetailURL, get_full_url
 
 
 def find_model_detail_view(model, endpoints):
@@ -30,9 +25,7 @@ class WagtailJSONRenderer(renderers.BaseRenderer):
 
         class WagtailAPIJSONEncoder(DjangoJSONEncoder):
             def default(self, o):
-                if isinstance(o, URLPath):
-                    return get_full_url(request, o.path)
-                elif isinstance(o, ObjectDetailURL):
+                if isinstance(o, ObjectDetailURL):
                     detail_view = find_model_detail_view(o.model, endpoints)
 
                     if detail_view:

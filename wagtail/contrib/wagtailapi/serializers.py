@@ -13,7 +13,7 @@ from rest_framework import relations
 from wagtail.utils.compat import get_related_model
 from wagtail.wagtailcore import fields as wagtailcore_fields
 
-from .utils import ObjectDetailURL, URLPath, pages_for_site
+from .utils import ObjectDetailURL, get_full_url, pages_for_site
 
 
 class MetaField(Field):
@@ -79,7 +79,7 @@ class DocumentMetaField(MetaField):
 
         # Add download url
         if self.context.get('show_details', False):
-            data['download_url'] = URLPath(document.url)
+            data['download_url'] = get_full_url(self.context['request'], document.url)
 
         return data
 
