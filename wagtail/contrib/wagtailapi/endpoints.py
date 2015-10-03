@@ -9,6 +9,7 @@ from django.core.urlresolvers import reverse
 from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.viewsets import GenericViewSet
+from rest_framework.renderers import JSONRenderer
 
 from wagtail.wagtailcore.models import Page
 from wagtail.wagtailimages.models import get_image_model
@@ -19,14 +20,13 @@ from .filters import (
     FieldsFilter, OrderingFilter, SearchFilter,
     ChildOfFilter, DescendantOfFilter
 )
-from .renderers import WagtailJSONRenderer
 from .pagination import WagtailPagination
 from .serializers import BaseSerializer, PageSerializer, DocumentSerializer, ImageSerializer, get_serializer_class
 from .utils import BadRequestError
 
 
 class BaseAPIEndpoint(GenericViewSet):
-    renderer_classes = [WagtailJSONRenderer]
+    renderer_classes = [JSONRenderer]
     pagination_class = WagtailPagination
     base_serializer_class = BaseSerializer
     filter_backends = []
@@ -151,11 +151,7 @@ class BaseAPIEndpoint(GenericViewSet):
 
     def get_renderer_context(self):
         context = super(BaseAPIEndpoint, self).get_renderer_context()
-        context['endpoints'] = [
-            PagesAPIEndpoint,
-            ImagesAPIEndpoint,
-            DocumentsAPIEndpoint
-        ]
+        context['indent'] = 4
         return context
 
     @classmethod

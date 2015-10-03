@@ -8,12 +8,6 @@ class BadRequestError(Exception):
     pass
 
 
-class ObjectDetailURL(object):
-    def __init__(self, model, pk):
-        self.model = model
-        self.pk = pk
-
-
 def get_base_url(request=None):
     base_url = getattr(settings, 'WAGTAILAPI_BASE_URL', request.site.root_url if request else None)
 
