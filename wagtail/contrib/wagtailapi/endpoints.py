@@ -9,7 +9,7 @@ from django.core.urlresolvers import reverse
 from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.viewsets import GenericViewSet
-from rest_framework.renderers import JSONRenderer
+from rest_framework.renderers import JSONRenderer, BrowsableAPIRenderer
 
 from wagtail.wagtailcore.models import Page
 from wagtail.wagtailimages.models import get_image_model
@@ -26,7 +26,7 @@ from .utils import BadRequestError
 
 
 class BaseAPIEndpoint(GenericViewSet):
-    renderer_classes = [JSONRenderer]
+    renderer_classes = [JSONRenderer, BrowsableAPIRenderer]
     pagination_class = WagtailPagination
     base_serializer_class = BaseSerializer
     filter_backends = []
