@@ -13,6 +13,19 @@ class WagtailAPIRouter(object):
     def register_endpoint(self, name, class_):
         self._endpoints[name] = class_
 
+    def get_model_endpoint(self, model):
+        for name, class_ in self._endpoints.items():
+            if issubclass(model, class_.model):
+                return name, class_
+
+    def get_object_detail_urlpath(self, model, pk):
+        endpoint = self.get_model_endpoint(model)
+
+        if endpoint:
+            endpoint_name, endpoint_class = endpoint[0], endpoint[1]
+            url_namespace = self.url_namespace + ':' + endpoint_name
+            return endpoint_class.get_object_detail_urlpath(model, pk, namespace=url_namespace)
+
     def wrap_view(self, func):
         @functools.wraps(func)
         def wrapped(request, *args, **kwargs):

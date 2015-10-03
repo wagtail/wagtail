@@ -13,7 +13,7 @@ from rest_framework import relations
 from wagtail.utils.compat import get_related_model
 from wagtail.wagtailcore import fields as wagtailcore_fields
 
-from .utils import ObjectDetailURL, get_full_url, pages_for_site
+from .utils import get_full_url, pages_for_site
 
 
 class MetaField(Field):
@@ -35,7 +35,7 @@ class MetaField(Field):
     def to_representation(self, obj):
         return OrderedDict([
             ('type', type(obj)._meta.app_label + '.' + type(obj).__name__),
-            ('detail_url', ObjectDetailURL(type(obj), obj.pk)),
+            ('detail_url', get_full_url(self.context['request'], self.context['router'].get_object_detail_urlpath(type(obj), obj.pk))),
         ])
 
 
@@ -55,7 +55,7 @@ class PageMetaField(MetaField):
     def to_representation(self, page):
         return OrderedDict([
             ('type', page.specific_class._meta.app_label + '.' + page.specific_class.__name__),
-            ('detail_url', ObjectDetailURL(type(page), page.pk)),
+            ('detail_url', get_full_url(self.context['request'], self.context['router'].get_object_detail_urlpath(type(page), page.pk))),
         ])
 
 
@@ -74,7 +74,7 @@ class DocumentMetaField(MetaField):
     def to_representation(self, document):
         data = OrderedDict([
             ('type', "wagtaildocs.Document"),
-            ('detail_url', ObjectDetailURL(type(document), document.pk)),
+            ('detail_url', get_full_url(self.context['request'], self.context['router'].get_object_detail_urlpath(type(document), document.pk))),
         ])
 
         # Add download url

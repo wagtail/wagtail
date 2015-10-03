@@ -4,6 +4,7 @@ from collections import OrderedDict
 
 from django.conf.urls import url
 from django.http import Http404
+from django.core.urlresolvers import reverse
 
 from rest_framework import status
 from rest_framework.response import Response
@@ -140,6 +141,7 @@ class BaseAPIEndpoint(GenericViewSet):
         context = {
             'request': self.request,
             'view': self,
+            'router': self.request.wagtailapi_router
         }
 
         if self.action == 'detail_view':
@@ -165,6 +167,15 @@ class BaseAPIEndpoint(GenericViewSet):
             url(r'^$', cls.as_view({'get': 'listing_view'}), name='listing'),
             url(r'^(?P<pk>\d+)/$', cls.as_view({'get': 'detail_view'}), name='detail'),
         ]
+
+    @classmethod
+    def get_object_detail_urlpath(cls, model, pk, namespace=''):
+        if namespace:
+            url_name = namespace + ':detail'
+        else:
+            url_name = 'detail'
+
+        return reverse(url_name, args=(pk, ))
 
 
 class PagesAPIEndpoint(BaseAPIEndpoint):
