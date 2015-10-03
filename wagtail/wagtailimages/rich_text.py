@@ -31,15 +31,15 @@ class ImageEmbedHandler(object):
         Image = get_image_model()
         try:
             image = Image.objects.get(id=attrs['id'])
-            format = get_image_format(attrs['format'])
+            image_format = get_image_format(attrs['format'])
 
             if for_editor:
                 try:
-                    return format.image_to_editor_html(image, attrs['alt'])
+                    return image_format.image_to_editor_html(image, attrs['alt'])
                 except:
                     return ''
             else:
-                return format.image_to_html(image, attrs['alt'])
+                return image_format.image_to_html(image, attrs['alt'])
 
         except Image.DoesNotExist:
             return "<img>"
