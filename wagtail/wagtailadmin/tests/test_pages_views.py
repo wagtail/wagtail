@@ -671,10 +671,10 @@ class TestPageEdit(TestCase, WagtailTestUtils):
         post_data = {
             'title': "I've been edited!",
             'content': "Some content",
-            'slug': 'hello-world',
+            'slug': 'hello-world-new',
             'action-publish': "Publish",
         }
-        response = self.client.post(reverse('wagtailadmin_pages:edit', args=(self.child_page.id, )), post_data)
+        response = self.client.post(reverse('wagtailadmin_pages:edit', args=(self.child_page.id, )), post_data, follow=True)
 
         # Should be redirected to explorer
         self.assertRedirects(response, reverse('wagtailadmin_explore', args=(self.root_page.id, )))
@@ -696,6 +696,11 @@ class TestPageEdit(TestCase, WagtailTestUtils):
 
         # first_published_at should not change as it was already set
         self.assertEqual(first_published_at, child_page_new.first_published_at)
+
+        # The "View Live" button should have the updated slug.
+        for message in response.context['messages']:
+            self.assertIn('hello-world-new', message.message)
+            break
 
     def test_edit_post_publish_scheduled(self):
         go_live_at = timezone.now() + timedelta(days=1)
