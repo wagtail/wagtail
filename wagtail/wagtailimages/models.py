@@ -10,7 +10,7 @@ from taggit.managers import TaggableManager
 from willow.image import Image as WillowImage
 
 from django.core.files import File
-from django.core.exceptions import ImproperlyConfigured, ObjectDoesNotExist
+from django.core.exceptions import ImproperlyConfigured
 from django.db import models
 from django.db.models.signals import pre_delete, pre_save
 from django.dispatch.dispatcher import receiver
@@ -223,7 +223,7 @@ class AbstractImage(models.Model, TagSearchable):
                 filter=filter,
                 focal_point_key=cache_key,
             )
-        except ObjectDoesNotExist:
+        except Rendition.DoesNotExist:
             # Generate the rendition image
             generated_image, output_format = filter.run(self, BytesIO())
 
