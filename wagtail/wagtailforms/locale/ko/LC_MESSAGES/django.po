@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-04-21 09:39+0100\n"
-"PO-Revision-Date: 2015-07-23 10:49+0000\n"
+"POT-Creation-Date: 2015-08-26 14:28+0100\n"
+"PO-Revision-Date: 2015-08-27 01:42+0000\n"
 "Last-Translator: Ji Han Chung <jihanchung20@gmail.com>\n"
 "Language-Team: Korean (http://www.transifex.com/torchbox/wagtail/language/"
 "ko/)\n"
@@ -101,6 +101,19 @@ msgstr "양식 주소"
 msgid "Subject"
 msgstr "주제"
 
+#, python-format
+msgid "Delete %(title)s"
+msgstr "%(title)s 삭제"
+
+msgid "Delete"
+msgstr "삭제"
+
+msgid "Are you sure you want to delete this form submission?"
+msgstr "이 제출양식을 정말로 삭제하실 건가요?"
+
+msgid "Delete it"
+msgstr "삭제"
+
 msgid "Forms"
 msgstr "양식"
 
@@ -134,5 +147,11 @@ msgstr "오리지날"
 msgid "Submission Date"
 msgstr "제출 날짜"
 
+msgid "Actions"
+msgstr "액션"
+
 msgid "No form pages have been created."
 msgstr "양식용 페이지가 생성되지 않았습니다."
+
+msgid "Submission deleted."
+msgstr "제출양식이 삭제되었습니다"

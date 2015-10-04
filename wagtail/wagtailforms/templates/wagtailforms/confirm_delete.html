@@ -1,0 +1,19 @@
+{% extends "wagtailadmin/base.html" %}
+{% load i18n %}
+{% block titletag %}{% blocktrans with title=page.title %}Delete {{ title }}{% endblocktrans %}{% endblock %}
+{% block bodyclass %}menu-explorer{% endblock %}
+
+{% block content %}
+    {% trans "Delete" as del_str %}
+    {% include "wagtailadmin/shared/header.html" with title=del_str subtitle=page.title icon="doc-empty-inverse" %}
+
+    <div class="nice-padding">
+        <p>
+            {% trans 'Are you sure you want to delete this form submission?' %}
+        </p>
+        <form action="{% url 'wagtailforms:delete_submission' page.id submission.id %}" method="POST">
+            {% csrf_token %}
+            <input type="submit" value="{% trans 'Delete it' %}" class="serious">
+        </form>
+    </div>
+{% endblock %}

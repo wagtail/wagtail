@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-04-21 09:39+0100\n"
+"POT-Creation-Date: 2015-08-26 14:28+0100\n"
 "PO-Revision-Date: 2015-04-21 08:40+0000\n"
 "Last-Translator: Karl Hobley <karl@torchbox.com>\n"
 "Language-Team: Czech (http://www.transifex.com/torchbox/wagtail/language/"
@@ -19,11 +19,33 @@ msgstr ""
 "Language: cs\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
 
+msgid "Required. 30 characters or fewer. Letters, digits and @/./+/-/_ only."
+msgstr ""
+"Povinné pole, maximálně 30 znaků. Povolené znaky: písmena bez diakritiky, "
+"číslice, @, ., +, -, _."
+
+msgid "This value may contain only letters, numbers and @/./+/-/_ characters."
+msgstr ""
+"Toto pole může obsahovat pouze písmena bez diakritiky, číslice, @, ., +, -, "
+"_."
+
 msgid "Administrator"
 msgstr "Administrátor"
 
 msgid "If ticked, this user has the ability to manage user accounts."
 msgstr "Povolí tomuto uživateli spravovat uživatelské účty."
+
+msgid "Password"
+msgstr "Heslo"
+
+msgid "Leave blank if not changing."
+msgstr "Nevyplňuje, chcete-li zachovat současné heslo."
+
+msgid "Password confirmation"
+msgstr "Potvrzení hesla"
+
+msgid "Enter the same password as above, for verification."
+msgstr "Pro zabránění překlepům zadejte heslo ještě jednou."
 
 msgid "Email"
 msgstr "E-mail"
@@ -39,31 +61,6 @@ msgstr "Toto uživatelské jméno již existuje."
 
 msgid "The two password fields didn't match."
 msgstr "Zadaná hesla se neshodují."
-
-msgid "Username"
-msgstr "Uživatelské jméno"
-
-msgid "Required. 30 characters or fewer. Letters, digits and @/./+/-/_ only."
-msgstr ""
-"Povinné pole, maximálně 30 znaků. Povolené znaky: písmena bez diakritiky, "
-"číslice, @, ., +, -, _."
-
-msgid "This value may contain only letters, numbers and @/./+/-/_ characters."
-msgstr ""
-"Toto pole může obsahovat pouze písmena bez diakritiky, číslice, @, ., +, -, "
-"_."
-
-msgid "Password"
-msgstr "Heslo"
-
-msgid "Leave blank if not changing."
-msgstr "Nevyplňuje, chcete-li zachovat současné heslo."
-
-msgid "Password confirmation"
-msgstr "Potvrzení hesla"
-
-msgid "Enter the same password as above, for verification."
-msgstr "Pro zabránění překlepům zadejte heslo ještě jednou."
 
 msgid "Administrators have the ability to manage user accounts."
 msgstr "Administrátoři mohou spravovat uživatelské účty."
@@ -155,6 +152,9 @@ msgstr "Uživatelé"
 
 msgid "Add a user"
 msgstr "Přidat uživatele"
+
+msgid "Username"
+msgstr "Uživatelské jméno"
 
 msgid "Level"
 msgstr "Úroveň"

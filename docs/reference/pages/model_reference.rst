@@ -153,6 +153,10 @@ In addition to the model fields provided, ``Page`` has many properties and metho
 
         Defines which template file should be used to render the login form for Protected pages using this model. This overrides the default, defined using ``PASSWORD_REQUIRED_TEMPLATE`` in your settings. See :ref:`private_pages`
 
+    .. attribute:: is_creatable
+
+        Controls if this page can be created through the Wagtail administration. Defaults to True, and is not inherited by subclasses. This is useful when using `multi-table inheritance <https://docs.djangoproject.com/en/1.8/topics/db/models/#multi-table-inheritance>`_, to stop the base model from being created as an actual page.
+
 ``Site``
 ========
 

@@ -1,13 +1,27 @@
 Changelog
 =========
 
-1.1 (xx.xx.xxxx)
+1.2 (xx.xx.xxxx)
+~~~~~~~~~~~~~~~~
+
+ * WagtailRedirectMiddleware can now ignore the query string if there is no redirect that exactly matches it (Michael Cordover)
+ * Order of URL parameters now ignored by redirect middleware (Michael Cordover)
+ * Added SQL Server compatibility to image migration (Timothy Allen)
+ * Added classnames to Wagtail rich text editor buttons to aid custom styling (Rob Shelton)
+ * Fix: Deleting a page permission from the groups admin UI does not immediately submit the form
+ * Fix: Wagtail userbar is shown on pages that do not pass a `page` variable to the template (e.g. because they override the `serve` method)
+
+
+1.1 (15.09.2015)
 ~~~~~~~~~~~~~~~~
 
  * Implemented the `specific()` method on PageQuerySet, to return pages as their most specific type
  * "Promoted search results" has moved into its own module
  * Elasticsearch backend now supports an experimental `ATOMIC_REBUILD` flag to keep the existing index available while the `update_index` task is running
- * The wagtailapi module has been refactored to use Django REST Framework
+ * The wagtailapi module has been refactored to use Django REST Framework (Tom Christie)
+ * A number of permissions fixes have been made to the Wagtail admin interface. See release notes for a list of specific changes made.
+ * Snippets that inherit from `wagtail.wagtailsearch.index.Indexed` now appear as searchable within the Wagtail admin
+ * Implemented deletion of form submissions (Kyungil Choi)
  * Implemented pagination in the page chooser modal
  * Changed INSTALLED_APPS in project template to list apps in precedence order (Piet Delport)
  * The `{% image %}` tag now supports filters on the image variable, e.g. `{% image primary_img|default:secondary_img width-500 %}`
@@ -17,11 +31,33 @@ Changelog
  * Added optional directory argument to "wagtail start" command (Mitchel Cabuloy)
  * Non-superusers can now view/edit/delete sites if they have the correct permissions
  * Image file size is now stored in the database, to avoid unnecessary filesystem lookups
+ * Page URL lookups hit the cache/database less often (Michael van Tellingen)
  * Updated URLs within the admin backend to use namespaces
  * The `update_index` task now indexes objects in batches of 1000, to indicate progress and avoid excessive memory use
+ * Added database indexes on PageRevision and Image to improve performance on large sites
+ * Search in page chooser now uses Wagtail's search framework, to order results by relevance
+ * `PageChooserPanel` now supports passing a list (or tuple) of accepted page types
+ * The snippet type parameter of `SnippetChooserPanel` can now be omitted, or passed as a model name string rather than a model class (Joss Ingram)
+ * Added aliases for the `self` template variable to accommodate Jinja as a templating engine: `page` for pages, `field_panel` for field panels / edit handlers, and `value` for blocks
+ * Added signposting text to the explorer to steer editors away from creating pages at the root level unless they are setting up new sites
+ * "Clear choice" and "Edit this page" buttons are no longer shown on the page field of the group page permissions form
+ * Altered styling of stream controls to be more like all other buttons
+ * Added ability to mark page models as not available for creation using the flag `is_creatable`; pages that are abstract Django models are automatically made non-creatable
+ * New translations for Norwegian Bokmål and Icelandic
  * Fix: Text areas in the non-default tab of the page editor now resize to the correct height
  * Fix: Tabs in "insert link" modal in the rich text editor no longer disappear (Tim Heap)
  * Fix: H2 elements in rich text fields were accidentally given a click() binding when put insite a collapsible multi field panel
+ * Fix: The wagtailimages module is now compatible with remote storage backends that do not allow reopening closed files
+ * Fix: Search no longer crashes when auto-indexing a model that doesn't have an id field (Scot Hacker)
+ * Fix: The `wagtailfrontendcache` module's HTTP backend has been rewritten to reliably direct requests to the configured cache hostname
+ * Fix: Resizing single pixel images with the "fill" filter no longer raises "ZeroDivisionError" or "tile cannot extend outside image"
+ * Fix: The queryset returned from `search` operations when using the database search backend now correctly preserves additional properties of the original query, such as `prefetch_related` / `select_related`
+ * Fix: Responses from the external image URL generator are correctly marked as streaming and will no longer fail when used with Django's cache middleware
+ * Fix: Page copy now works with pages that use multiple inheritance (Jordi Joan)
+ * Fix: Form builder pages now pick up template variables defined in the `get_context` method (Christoph Lipp)
+ * Fix: When copying a page, IDs of child objects within page revision records were not remapped to the new objects; this would cause those objects to be lost from the original page when editing the new one
+ * Fix: Newly added redirects now take effect on all sites, rather than just the site that the Wagtail admin backend was accessed through
+ * Fix: Add user form no longer throws a hard error on validation failure
 
 
 1.0 (16.07.2015)
@@ -82,6 +118,19 @@ Changelog
  * Made the built-in project template follow the Django one, with several Wagtail-specific additions. The template comes with two apps (home and search)
  * `with_metaclass` is now imported from Django's bundled copy of the `six` library, to avoid errors on Mac OS X from an outdated system copy of the library being imported
  * Added new translations for Croatian and Finnish
+
+
+0.8.10 (16.09.2015)
+~~~~~~~~~~~~~~~~~~~
+* Fix: When copying a page, IDs of child objects within page revision records were not remapped to the new objects; this would cause those objects to be lost from the original page when editing the new one
+* Fix: Search no longer crashes when auto-indexing a model that doesn't have an id field (Scot Hacker)
+* Fix: Resizing single pixel images with the "fill" filter no longer raises "ZeroDivisionError" or "tile cannot extend outside image"
+
+
+0.8.9 (16.09.2015)
+~~~~~~~~~~~~~~~~~~
+
+[release withdrawn due to packaging issues]
 
 
 0.8.8 (18.06.2015)

@@ -40,6 +40,9 @@ class Redirect(models.Model):
 
     @staticmethod
     def normalise_path(url):
+        # Strip whitespace
+        url = url.strip()
+
         # Parse url
         url_parsed = urlparse(url)
 
@@ -51,10 +54,18 @@ class Redirect(models.Model):
         if path.endswith('/'):
             path = path[:-1]
 
+        # Parameters must be sorted alphabetically
+        parameters = url_parsed[3]
+        parameters_components = parameters.split(';')
+        parameters = ';'.join(sorted(parameters_components))
+
         # Query string components must be sorted alphabetically
         query_string = url_parsed[4]
         query_string_components = query_string.split('&')
         query_string = '&'.join(sorted(query_string_components))
+
+        if parameters:
+            path = path + ';' + parameters
 
         # Add query string to path
         if query_string:

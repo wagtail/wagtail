@@ -126,6 +126,70 @@ class TestPageExplorer(TestCase, WagtailTestUtils):
         self.assertEqual(response.context['pages'].number, response.context['pages'].paginator.num_pages)
 
 
+class TestPageExplorerSignposting(TestCase, WagtailTestUtils):
+    fixtures = ['test.json']
+
+    def setUp(self):
+        # Find root page
+        self.root_page = Page.objects.get(id=1)
+
+        # Find page with an associated site
+        self.site_page = Page.objects.get(id=2)
+
+        # Add another top-level page (which will have no corresponding site record)
+        self.no_site_page = SimplePage(
+            title="Hello world!",
+            slug="hello-world",
+        )
+        self.root_page.add_child(instance=self.no_site_page)
+
+    def test_admin_at_root(self):
+        self.client.login(username='superuser', password='password')
+        response = self.client.get(reverse('wagtailadmin_explore_root'))
+        self.assertEqual(response.status_code, 200)
+        # Administrator (or user with add_site permission) should get the full message
+        # about configuring sites
+        self.assertContains(response, "The root level is where you can add new sites to your Wagtail installation. Pages created here will not be accessible at any URL until they are associated with a site.")
+        self.assertContains(response, """<a href="/admin/sites/">Configure a site now.</a>""")
+
+    def test_admin_at_non_site_page(self):
+        self.client.login(username='superuser', password='password')
+        response = self.client.get(reverse('wagtailadmin_explore', args=(self.no_site_page.id, )))
+        self.assertEqual(response.status_code, 200)
+        # Administrator (or user with add_site permission) should get a warning about
+        # unroutable pages, and be directed to the site config area
+        self.assertContains(response, "There is no site set up for this location. Pages created here will not be accessible at any URL until a site is associated with this location.")
+        self.assertContains(response, """<a href="/admin/sites/">Configure a site now.</a>""")
+
+    def test_admin_at_site_page(self):
+        self.client.login(username='superuser', password='password')
+        response = self.client.get(reverse('wagtailadmin_explore', args=(self.site_page.id, )))
+        self.assertEqual(response.status_code, 200)
+        # There should be no warning message here
+        self.assertNotContains(response, "Pages created here will not be accessible")
+
+    def test_nonadmin_at_root(self):
+        self.client.login(username='siteeditor', password='password')
+        response = self.client.get(reverse('wagtailadmin_explore_root'))
+        self.assertEqual(response.status_code, 200)
+        # Non-admin should get a simple "create pages as children of the homepage" prompt
+        self.assertContains(response, "Pages created here will not be accessible at any URL. To add pages to an existing site, create them as children of the homepage.")
+
+    def test_nonadmin_at_non_site_page(self):
+        self.client.login(username='siteeditor', password='password')
+        response = self.client.get(reverse('wagtailadmin_explore', args=(self.no_site_page.id, )))
+        self.assertEqual(response.status_code, 200)
+        # Non-admin should get a warning about unroutable pages
+        self.assertContains(response, "There is no site record for this location. Pages created here will not be accessible at any URL.")
+
+    def test_nonadmin_at_site_page(self):
+        self.client.login(username='siteeditor', password='password')
+        response = self.client.get(reverse('wagtailadmin_explore', args=(self.site_page.id, )))
+        self.assertEqual(response.status_code, 200)
+        # There should be no warning message here
+        self.assertNotContains(response, "Pages created here will not be accessible")
+
+
 class TestPageCreation(TestCase, WagtailTestUtils):
     def setUp(self):
         # Find root page

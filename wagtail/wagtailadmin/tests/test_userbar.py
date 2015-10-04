@@ -6,7 +6,7 @@ from django.contrib.auth import get_user_model
 from django.contrib.auth.models import AnonymousUser
 
 from wagtail.tests.utils import WagtailTestUtils
-from wagtail.wagtailcore.models import Page
+from wagtail.wagtailcore.models import Page, PAGE_TEMPLATE_VAR
 from wagtail.tests.testapp.models import BusinessIndex, BusinessChild
 
 
@@ -23,6 +23,18 @@ class TestUserbarTag(TestCase):
     def test_userbar_tag(self):
         template = Template("{% load wagtailuserbar %}{% wagtailuserbar %}")
         content = template.render(Context({
+            PAGE_TEMPLATE_VAR: self.homepage,
+            'request': self.dummy_request(self.user),
+        }))
+
+        self.assertIn("<!-- Wagtail user bar embed code -->", content)
+
+    def test_userbar_tag_self(self):
+        """
+        Ensure the userbar renders with `self` instead of `PAGE_TEMPLATE_VAR`
+        """
+        template = Template("{% load wagtailuserbar %}{% wagtailuserbar %}")
+        content = template.render(Context({
             'self': self.homepage,
             'request': self.dummy_request(self.user),
         }))
@@ -32,7 +44,7 @@ class TestUserbarTag(TestCase):
     def test_userbar_tag_anonymous_user(self):
         template = Template("{% load wagtailuserbar %}{% wagtailuserbar %}")
         content = template.render(Context({
-            'self': self.homepage,
+            PAGE_TEMPLATE_VAR: self.homepage,
             'request': self.dummy_request(),
         }))
 

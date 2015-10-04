@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-04-21 09:38+0100\n"
-"PO-Revision-Date: 2015-04-17 11:48+0000\n"
+"POT-Creation-Date: 2015-08-26 14:28+0100\n"
+"PO-Revision-Date: 2015-08-26 13:37+0000\n"
 "Last-Translator: Karl Hobley <karl@torchbox.com>\n"
 "Language-Team: Catalan (http://www.transifex.com/torchbox/wagtail/language/"
 "ca/)\n"
@@ -113,6 +113,15 @@ msgstr "Tauler de control"
 msgid "Menu"
 msgstr "Menú"
 
+msgid "Move up"
+msgstr "Puja"
+
+msgid "Move down"
+msgstr "Baixa"
+
+msgid "Delete"
+msgstr "Esborra"
+
 msgid "Explorer"
 msgstr "Explorador"
 
@@ -136,15 +145,6 @@ msgstr "Insereix un enllaç"
 
 msgid "Add an external link"
 msgstr "Afegeix un enllaç extern"
-
-msgid "Move up"
-msgstr "Puja"
-
-msgid "Move down"
-msgstr "Baixa"
-
-msgid "Delete"
-msgstr "Esborra"
 
 #, python-format
 msgid "Welcome to the %(site_name)s Wagtail CMS"
@@ -364,19 +364,6 @@ msgstr "Explorant %(title)s"
 msgid "Drag"
 msgstr "Agafa"
 
-msgid "No pages have been created."
-msgstr "No s'han creat pàgines."
-
-#, python-format
-msgid "Why not <a href=\"%(add_page_url)s\">add one</a>?"
-msgstr "Per què no <a href=\"%(add_page_url)s\">afegeixes una</a>?"
-
-msgid "Previous"
-msgstr "Anterior"
-
-msgid "Next"
-msgstr "Següent"
-
 msgid "Explore"
 msgstr "Explora"
 
@@ -389,6 +376,12 @@ msgstr "Afegeix subpàgina"
 
 msgid "Add child page"
 msgstr "Afegeix una pàgina filla"
+
+msgid "Previous"
+msgstr "Anterior"
+
+msgid "Next"
+msgstr "Següent"
 
 msgid "Disable ordering of child pages"
 msgstr "Desactiva l'ordenació de les pàgines fill"
@@ -417,15 +410,6 @@ msgid "Users"
 msgstr "Usuaris"
 
 #, python-format
-msgid ""
-"\n"
-"                Page %(page_number)s of %(num_pages)s.\n"
-"            "
-msgstr ""
-"\n"
-"Pàgina %(page_number)s de %(num_pages)s."
-
-#, python-format
 msgid "Sorry, no pages match <em>\"%(query_string)s\"</em>"
 msgstr "Ho sentim, cap pàgina coincideix amb <em>\"%(query_string)s\"</em>"
 
@@ -444,9 +428,6 @@ msgstr "Pàgina %(page_num)s de %(total_pages)s."
 
 msgid "Your password has been changed successfully!"
 msgstr "S'ha canviat la teva contrasenya!"
-
-msgid "This slug is already in use"
-msgstr "Aquest llimac ja està en ús"
 
 #, python-brace-format
 msgid "Page '{0}' created."
@@ -469,6 +450,9 @@ msgstr "La pàgina no s'ha pogut guardar degut a errors de validació"
 
 msgid "This page is currently awaiting moderation"
 msgstr "Aquesta pàgina està esperant moderació"
+
+msgid "This slug is already in use"
+msgstr "Aquest llimac ja està en ús"
 
 #, python-brace-format
 msgid "Page '{0}' deleted."

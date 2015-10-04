@@ -8,9 +8,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-04-21 09:39+0100\n"
-"PO-Revision-Date: 2015-07-16 20:59+0000\n"
-"Last-Translator: Ludwig Kjellström <ludwig.kjellstrom@amnesty.se>\n"
+"POT-Creation-Date: 2015-08-26 14:28+0100\n"
+"PO-Revision-Date: 2015-08-26 13:37+0000\n"
+"Last-Translator: Karl Hobley <karl@torchbox.com>\n"
 "Language-Team: Swedish (http://www.transifex.com/torchbox/wagtail/language/"
 "sv/)\n"
 "MIME-Version: 1.0\n"
@@ -24,30 +24,6 @@ msgstr "Välj en topp-sida"
 
 msgid "Choose a different root page"
 msgstr "Välj en annan topp-sida"
-
-msgid "Delete site"
-msgstr "Ta bort webbplats"
-
-msgid "Are you sure you want to delete this site?"
-msgstr "Är du säker på att du vill ta bort denna webbplats?"
-
-msgid "Yes, delete"
-msgstr "Ja, ta bort"
-
-msgid "Add site"
-msgstr "Lägg till webbplats"
-
-msgid "Save"
-msgstr "Spara"
-
-msgid "Editing"
-msgstr "Redigera"
-
-msgid "Sites"
-msgstr "Webbplatser"
-
-msgid "Add a site"
-msgstr "Lägg till en webbplats"
 
 msgid "Site"
 msgstr "Webbplats"
@@ -64,23 +40,5 @@ msgstr "Standardwebbplats?"
 msgid "Default"
 msgstr "Standardwebbplats"
 
-#, python-brace-format
-msgid "Site '{0}' created."
-msgstr "Lade till webbplats '{0}'."
-
-msgid "Edit"
-msgstr "Redigera"
-
-msgid "The site could not be created due to errors."
-msgstr "Webbplatsen kunde inte läggas till på grund av ett eller flera fel."
-
-#, python-brace-format
-msgid "Site '{0}' updated."
-msgstr "Uppdaterade webbplats '{0}'."
-
-msgid "The site could not be saved due to errors."
-msgstr "Webbplatsen kunde inte sparas på grund av ett eller flera fel."
-
-#, python-brace-format
-msgid "Site '{0}' deleted."
-msgstr "Webbplats '{0}' borttagen."
+msgid "Sites"
+msgstr "Webbplatser"

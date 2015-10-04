@@ -155,11 +155,11 @@ Using an example from the Wagtail demo site, here's what the tag model and the r
 
     from modelcluster.fields import ParentalKey
     from modelcluster.contrib.taggit import ClusterTaggableManager
-    from taggit.models import Tag, TaggedItemBase
-    ...
+    from taggit.models import TaggedItemBase
+
     class BlogPageTag(TaggedItemBase):
         content_object = ParentalKey('demo.BlogPage', related_name='tagged_items')
-    ...
+
     class BlogPage(Page):
         ...
         tags = ClusterTaggableManager(through=BlogPageTag, blank=True)

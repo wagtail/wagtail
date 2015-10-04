@@ -7,7 +7,7 @@ from django.forms.models import inlineformset_factory
 from wagtail.wagtailcore import hooks
 from wagtail.wagtailadmin.widgets import AdminPageChooser
 from wagtail.wagtailusers.models import UserProfile
-from wagtail.wagtailcore.models import UserPagePermissionsProxy, GroupPagePermission
+from wagtail.wagtailcore.models import Page, UserPagePermissionsProxy, GroupPagePermission
 
 
 User = get_user_model()
@@ -43,8 +43,13 @@ class UsernameForm(forms.ModelForm):
 
 
 class UserCreationForm(UsernameForm):
-
     required_css_class = "required"
+
+    error_messages = {
+        'duplicate_username': _("A user with that username already exists."),
+        'password_mismatch': _("The two password fields didn't match."),
+    }
+
     is_superuser = forms.BooleanField(
         label=_("Administrator"),
         required=False,
@@ -229,9 +234,8 @@ class GroupForm(forms.ModelForm):
 
 
 class GroupPagePermissionForm(forms.ModelForm):
-    def __init__(self, *args, **kwargs):
-        super(GroupPagePermissionForm, self).__init__(*args, **kwargs)
-        self.fields['page'].widget = AdminPageChooser()
+    page = forms.ModelChoiceField(queryset=Page.objects.all(),
+        widget=AdminPageChooser(show_edit_link=False))
 
     class Meta:
         model = GroupPagePermission

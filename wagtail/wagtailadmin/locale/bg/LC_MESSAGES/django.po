@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-04-21 09:38+0100\n"
-"PO-Revision-Date: 2015-04-17 11:48+0000\n"
+"POT-Creation-Date: 2015-08-26 14:28+0100\n"
+"PO-Revision-Date: 2015-08-26 13:37+0000\n"
 "Last-Translator: Karl Hobley <karl@torchbox.com>\n"
 "Language-Team: Bulgarian (http://www.transifex.com/torchbox/wagtail/language/"
 "bg/)\n"
@@ -108,6 +108,15 @@ msgstr "Работно Табло"
 msgid "Menu"
 msgstr "Меню"
 
+msgid "Move up"
+msgstr "Нагоре"
+
+msgid "Move down"
+msgstr "Надолу"
+
+msgid "Delete"
+msgstr "Изтрий"
+
 msgid "Explorer"
 msgstr "Файлов мениджър"
 
@@ -131,15 +140,6 @@ msgstr "Добави линк"
 
 msgid "Add an external link"
 msgstr "Добави външен линк"
-
-msgid "Move up"
-msgstr "Нагоре"
-
-msgid "Move down"
-msgstr "Надолу"
-
-msgid "Delete"
-msgstr "Изтрий"
 
 #, python-format
 msgid "Welcome to the %(site_name)s Wagtail CMS"
@@ -359,19 +359,6 @@ msgstr "Преглед на %(title)s"
 msgid "Drag"
 msgstr "Плъзнете"
 
-msgid "No pages have been created."
-msgstr "Не бяха създадени никакви страници."
-
-#, python-format
-msgid "Why not <a href=\"%(add_page_url)s\">add one</a>?"
-msgstr "Защо не <a href=\"%(add_page_url)s\">добавите една</a>?"
-
-msgid "Previous"
-msgstr "Предишно"
-
-msgid "Next"
-msgstr "Следващо"
-
 msgid "Explore"
 msgstr "Мениджър"
 
@@ -384,6 +371,12 @@ msgstr "Добавете подстраница"
 
 msgid "Add child page"
 msgstr "Добави дъщерна страница"
+
+msgid "Previous"
+msgstr "Предишно"
+
+msgid "Next"
+msgstr "Следващо"
 
 msgid "Disable ordering of child pages"
 msgstr "Отменете подредбата на дъщерни страници"
@@ -411,16 +404,6 @@ msgstr "Документи"
 msgid "Users"
 msgstr "Потребители"
 
-#, python-format
-msgid ""
-"\n"
-"                Page %(page_number)s of %(num_pages)s.\n"
-"            "
-msgstr ""
-"\n"
-"                Страница %(page_number)s от %(num_pages)s.\n"
-"            "
-
 msgid "Enter a search term above"
 msgstr "Добавете дума за търсене по-горе"
 
@@ -436,9 +419,6 @@ msgstr "Страница %(page_num)s от %(total_pages)s."
 
 msgid "Your password has been changed successfully!"
 msgstr "Паролата ви бе променена успешно!"
-
-msgid "This slug is already in use"
-msgstr "Този слъг е вече в употреба"
 
 #, python-brace-format
 msgid "Page '{0}' created."
@@ -461,6 +441,9 @@ msgstr "Тази страница не можеше да бъде запазен
 
 msgid "This page is currently awaiting moderation"
 msgstr "Тази страница очаква да бъде модерирана"
+
+msgid "This slug is already in use"
+msgstr "Този слъг е вече в употреба"
 
 #, python-brace-format
 msgid "Page '{0}' deleted."

@@ -11,9 +11,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-04-21 09:39+0100\n"
-"PO-Revision-Date: 2015-08-13 07:18+0000\n"
-"Last-Translator: dotoree <vdotoree@yahoo.gr>\n"
+"POT-Creation-Date: 2015-08-26 14:28+0100\n"
+"PO-Revision-Date: 2015-08-26 13:37+0000\n"
+"Last-Translator: Karl Hobley <karl@torchbox.com>\n"
 "Language-Team: Greek (http://www.transifex.com/torchbox/wagtail/language/"
 "el/)\n"
 "MIME-Version: 1.0\n"
@@ -25,153 +25,8 @@ msgstr ""
 msgid "Search term(s)/phrase"
 msgstr "Όροι/φράση αναζήτησης"
 
-msgid ""
-"Enter the full search string to match. An exact match is required for your "
-"Editors Picks to be displayed, wildcards are NOT allowed."
-msgstr ""
-"Συμπληρώστε το πλήρες κείμενο για αναζήτηση.\n"
-"Για να εμφανιστεί η επιλογή των συντακτών σας\n"
-"απαιτείται ακριβές ταίριασμα, δεν επιτρέπονται\n"
-"αστεράκια."
-
-msgid "Please specify at least one recommendation for this search term."
-msgstr ""
-"Παρακαλείστε να διευκρινίσετε τουλάχιστον μία σύσταση για αυτόν τον όρο "
-"αναζήτησης."
-
 msgid "Query Daily Hits"
 msgstr "Καθημερινές Εμφανίσεις Ερωτημάτων"
-
-msgid "Page"
-msgstr "Σελίδα"
-
-msgid "Description"
-msgstr "Περιγραφή"
-
-msgid "Editor's Pick"
-msgstr "Επιλογή Συντάκτη"
-
-msgid "Add editor's pick"
-msgstr "Προσθήκη επιλογής συντακτών"
-
-msgid ""
-"\n"
-"                <p>Promoted search results are a means of recommending "
-"specific pages that might not organically come high up in search results. E."
-"g recommending your primary donation page to a user searching with the less "
-"common term \"<em>giving</em>\".</p>\n"
-"            "
-msgstr ""
-"\n"
-"<p>Οι επιλογές συντακτών είναι ένας τρόπος πρότασης συγκεκριμένων σελίδων οι "
-"οποίες κανονικά δε θα βρίσκονται ψηλά στα αποτελέσματα της αναζήτησης. </p>"
-
-msgid ""
-"\n"
-"                <p>The \"Search term(s)/phrase\" field below must contain "
-"the full and exact search for which you wish to provide recommended results, "
-"<em>including</em> any misspellings/user error. To help, you can choose from "
-"search terms that have been popular with users of your site.</p>\n"
-"            "
-msgstr ""
-"\n"
-"\n"
-"<p>Το πεδίο \"όρος(οι)/φράσεις\" παρακάτω πρέπει να περιέχει το πλήρες και "
-"ακριβές κείμενο για το οποίο θέλετε να παρέχετε προτεινόμενα αποτελέσματα, "
-"<em>συμπεριλαμβανομένων</em> τυχόν ορθογραφικών λαθών. Προς βοήθεια, "
-"μπορείτε να επιλέξετε όρους αναζήτησης που ήταν δημοφιλείς στους χρήστες.</p>"
-
-msgid "Save"
-msgstr "Αποθήκευση"
-
-#, python-format
-msgid "Delete %(query)s"
-msgstr "Διαγραφή %(query)s"
-
-msgid "Delete"
-msgstr "Διαγραφή"
-
-msgid ""
-"Are you sure you want to delete all promoted results for this search term?"
-msgstr ""
-"Είστε σίγουρος ότι θέλετε να διαγράψετε όλες τις επιλογές συντακτών για τον "
-"εν λόγω όρο αναζήτησης;"
-
-msgid "Yes, delete"
-msgstr "Ναι, να διαγραφεί"
-
-#, python-format
-msgid "Editing %(query)s"
-msgstr "Επεξεργασία %(query)s"
-
-msgid "Editing"
-msgstr "Διόρθωση"
-
-msgid "Move up"
-msgstr "Πάνω"
-
-msgid "Move down"
-msgstr "Κάτω"
-
-msgid "Promoted search result"
-msgstr "Προωθείται το αποτέλεσμα αναζήτησης"
-
-msgid "Add recommended page"
-msgstr "Προσθήκη προτεινόμενης σελίδας"
-
-msgid "Search Terms"
-msgstr "Όροι αναζήτησης"
-
-msgid "Promoted search results"
-msgstr "Προωθουνται τα αποτέλεσματα αναζήτησης"
-
-msgid "Add new promoted result"
-msgstr "Προσθήκη νέου προωθείμενου αποτελέσματος"
-
-msgid "Search term(s)"
-msgstr "Όροι αναζήτησης"
-
-msgid "Promoted results"
-msgstr "Προωθημενα αποτελέσματα"
-
-msgid "Views (past week)"
-msgstr "Εμφανίσεις (την περασμένη εβδομάδα)"
-
-msgid "Edit this pick"
-msgstr "Διόρθωση"
-
-msgid "None"
-msgstr "Καμία"
-
-#, python-format
-msgid ""
-"\n"
-"            There is one match\n"
-"        "
-msgid_plural ""
-"\n"
-"            There are %(counter)s matches\n"
-"        "
-msgstr[0] ""
-"\n"
-"Βρέθηκε ένα αποτέλεσμα"
-msgstr[1] ""
-"\n"
-"Βρέθηκαν %(counter)s αποτελέσματα"
-
-#, python-format
-msgid "Sorry, no promoted results match \"<em>%(query_string)s</em>\""
-msgstr ""
-"Λυπούμαστε, καμία ανακατεύθυνση δε ταιριάζει με το \"<em>%(query_string)s</"
-"em>\""
-
-#, python-format
-msgid ""
-"No promoted results have been created. Why not <a href="
-"\"%(wagtailsearch_editorspicks_add_url)s\">add one</a>?"
-msgstr ""
-"Δεν υπάρχουν επιλογές συντακτών. Θέλετε να <a href="
-"\"%(wagtailsearch_editorspicks_add_url)s\">προσθέσετε μία</a>;"
 
 msgid "Popular search terms"
 msgstr "Δημοφιλείς όροι αναζήτησης"
@@ -182,6 +37,9 @@ msgstr "Αναζήτηση"
 msgid "Terms"
 msgstr "Όροι"
 
+msgid "Views (past week)"
+msgstr "Εμφανίσεις (την περασμένη εβδομάδα)"
+
 msgid "No results found"
 msgstr "Δε βρέθηκαν αποτελέσματα"
 
@@ -190,26 +48,3 @@ msgstr "Ημερομηνία"
 
 msgid "Choose from popular search terms"
 msgstr "Επιλέξτε από δημοφιλείς όρους αναζήτησης"
-
-msgid "Search editor's picks"
-msgstr "Αναζήτηση επιλογών συντακτών"
-
-#, python-brace-format
-msgid "Editor's picks for '{0}' created."
-msgstr "Επιτυχής δημιουργία επιλογή συντακτών για το '{0}'."
-
-msgid "Edit"
-msgstr "Επεξεργασία"
-
-msgid "Recommendations have not been created due to errors"
-msgstr "Οι συστάσεις δεν έχουν δημιουργηθεί λόγω σφαλμάτων"
-
-#, python-brace-format
-msgid "Editor's picks for '{0}' updated."
-msgstr "Επιτυχής διόθρωση επιλογής συντακτών για το '{0}'."
-
-msgid "Recommendations have not been saved due to errors"
-msgstr "Οι συστάσεις δεν έχουν αποθηκευτεί λόγω σφαλμάτων"
-
-msgid "Editor's picks deleted."
-msgstr "Επιτυχής διαγραφή επιλογής συντακτών."

@@ -3,6 +3,7 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# Florian <flori@vorlif.org>, 2015
 # Johannes Spielmann <j@spielmannsolutions.com>, 2014
 # Johannes Spielmann <j@spielmannsolutions.com>, 2014
 # M0rph 3u5 <transifex@m0rph3u5.net>, 2014
@@ -12,9 +13,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-04-21 09:39+0100\n"
-"PO-Revision-Date: 2015-06-28 22:36+0000\n"
-"Last-Translator: Tammo van Lessen <tvanlessen@gmail.com>\n"
+"POT-Creation-Date: 2015-08-26 14:28+0100\n"
+"PO-Revision-Date: 2015-08-19 19:08+0000\n"
+"Last-Translator: Florian <flori@vorlif.org>\n"
 "Language-Team: German (http://www.transifex.com/torchbox/wagtail/language/"
 "de/)\n"
 "MIME-Version: 1.0\n"
@@ -23,12 +24,34 @@ msgstr ""
 "Language: de\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
+msgid "Required. 30 characters or fewer. Letters, digits and @/./+/-/_ only."
+msgstr ""
+"Erforderlich. Bis zu 30 Zeichen. Buchstaben, Zahlen und die Sonderzeichen \"@"
+"\", \".\", \"+\", und \"_\"."
+
+msgid "This value may contain only letters, numbers and @/./+/-/_ characters."
+msgstr ""
+"Dieser Wert darf nur Buchstaben, Zahlen und die Sonderzeichen \"@\", \".\", "
+"\"+\", und \"_\" enthalten."
+
 msgid "Administrator"
 msgstr "Administrator"
 
 msgid "If ticked, this user has the ability to manage user accounts."
 msgstr ""
 "Wenn ausgewählt hat der Benutzer die Möglichkeit Benutzerkonten zu verwalten."
+
+msgid "Password"
+msgstr "Passwort"
+
+msgid "Leave blank if not changing."
+msgstr "Freilassen um nicht zu ändern."
+
+msgid "Password confirmation"
+msgstr "Passwort wiederholen"
+
+msgid "Enter the same password as above, for verification."
+msgstr "Geben Sie das gleiche Passwort wie oben zur Übrprüfung ein."
 
 msgid "Email"
 msgstr "Email"
@@ -44,31 +67,6 @@ msgstr "Es existiert bereits ein Benutzer mit diesem Benutzernamen."
 
 msgid "The two password fields didn't match."
 msgstr "Die beiden Passwortfelder stimmen nicht überein."
-
-msgid "Username"
-msgstr "Benutzername"
-
-msgid "Required. 30 characters or fewer. Letters, digits and @/./+/-/_ only."
-msgstr ""
-"Pflicht. Bis zu 30 Zeichen. Buchstaben, Zahlen und die Sonderzeichen \"@\", "
-"\".\", \"+\", und \"_\"."
-
-msgid "This value may contain only letters, numbers and @/./+/-/_ characters."
-msgstr ""
-"Dieser Wert darf nur Buchstaben, Zahlen und die Sonderzeichen \"@\", \".\", "
-"\"+\", und \"_\" enthalten."
-
-msgid "Password"
-msgstr "Passwort"
-
-msgid "Leave blank if not changing."
-msgstr "Freilassen um nicht zu ändern."
-
-msgid "Password confirmation"
-msgstr "Passwort wiederholen"
-
-msgid "Enter the same password as above, for verification."
-msgstr "Geben Sie das gleiche Passwort wie oben zur Übrprüfung ein."
 
 msgid "Administrators have the ability to manage user accounts."
 msgstr "Administratoren haben die Möglichkeit Benutzerkonten zu verwalten."
@@ -189,6 +187,9 @@ msgstr "Benutzer"
 
 msgid "Add a user"
 msgstr "Einen Benutzer hinzufügen"
+
+msgid "Username"
+msgstr "Benutzername"
 
 msgid "Level"
 msgstr "Level"

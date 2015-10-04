@@ -15,8 +15,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-04-21 09:38+0100\n"
-"PO-Revision-Date: 2015-07-09 04:33+0000\n"
+"POT-Creation-Date: 2015-08-26 14:28+0100\n"
+"PO-Revision-Date: 2015-08-26 21:40+0000\n"
 "Last-Translator: Eugene MechanisM <contact@mechanism.name>\n"
 "Language-Team: Russian (http://www.transifex.com/torchbox/wagtail/language/"
 "ru/)\n"
@@ -211,6 +211,15 @@ msgstr "Меню"
 msgid "Add another"
 msgstr "Добавить еще"
 
+msgid "Move up"
+msgstr "Двигать наверх"
+
+msgid "Move down"
+msgstr "Двигать вниз"
+
+msgid "Delete"
+msgstr "Удалить"
+
 msgid "Explorer"
 msgstr "Проводник"
 
@@ -222,18 +231,6 @@ msgstr "Внешняя ссылка"
 
 msgid "Email link"
 msgstr "Ссылка на адрес электронной почты"
-
-#, python-format
-msgid ""
-"\n"
-"        Only pages of type \"%(type)s\" may be chosen for this field. Search "
-"results will exclude pages of other types.\n"
-"    "
-msgstr ""
-"\n"
-"        Только страницы типа \"%(type)s\" могут быть использованы для этого "
-"поля. В результатах поиска будут исключены страницы других типов.\n"
-"    "
 
 #, python-format
 msgid ""
@@ -272,14 +269,11 @@ msgstr "Вставить ссылку"
 msgid "Add an external link"
 msgstr "Добавить внешнюю ссылку"
 
-msgid "Move up"
-msgstr "Двигать наверх"
+msgid "Yes, delete"
+msgstr "Да, удалить"
 
-msgid "Move down"
-msgstr "Двигать вниз"
-
-msgid "Delete"
-msgstr "Удалить"
+msgid "Save"
+msgstr "Сохранить"
 
 #, python-format
 msgid "Welcome to the %(site_name)s Wagtail CMS"
@@ -591,34 +585,11 @@ msgstr "от %(modified_by)s"
 msgid "Exploring %(title)s"
 msgstr "Обзор %(title)s"
 
-msgid "Updated"
-msgstr "Обновлено"
-
 msgid "Drag"
 msgstr "Перетянуть"
 
-msgid "No pages have been created."
-msgstr "Страниц не было создано."
-
-#, python-format
-msgid "Why not <a href=\"%(add_page_url)s\">add one</a>?"
-msgstr "Почему бы не <a href=\"%(add_page_url)s\">добавить одну</a>?"
-
-#, python-format
-msgid ""
-"\n"
-"            Page %(page_number)s of %(num_pages)s.\n"
-"        "
-msgstr ""
-"\n"
-"            Страница %(page_number)s из %(num_pages)s.\n"
-"        "
-
-msgid "Previous"
-msgstr "Предыдущая"
-
-msgid "Next"
-msgstr "Следующая"
+msgid "Updated"
+msgstr "Обновлено"
 
 msgid "This page is locked to further editing"
 msgstr "Эта страница заблокирована для дальнейшего редактирования"
@@ -651,6 +622,12 @@ msgstr ""
 msgid "Add child page"
 msgstr "Добавить дочернюю страницу"
 
+msgid "Previous"
+msgstr "Предыдущая"
+
+msgid "Next"
+msgstr "Следующая"
+
 msgid "This page is protected from public view"
 msgstr "Эта страница защещена от публичного просмотра"
 
@@ -674,28 +651,25 @@ msgstr "Выбрать новую родительскую страницу дл
 #, python-format
 msgid ""
 "\n"
-"                    There is one matching page\n"
-"                "
+"                There is one matching page\n"
+"            "
 msgid_plural ""
 "\n"
-"                    There are %(counter)s matching pages\n"
-"                "
+"                There are %(counter)s matching pages\n"
+"            "
 msgstr[0] ""
 "\n"
-"                    Найдена одна совпадающая страница\n"
-"                "
+"Имеется одна совпадающая страница"
 msgstr[1] ""
 "\n"
-"                   Найдено %(counter)s совпадающих страниц\n"
-"                "
+"Имеется %(counter)s совпадающих страниц"
 msgstr[2] ""
 "\n"
-"                    Найдено %(counter)s совпадающих страниц\n"
-"                "
+"Имеется %(counter)s совпадающих страниц"
 msgstr[3] ""
 "\n"
-"                    Найдено %(counter)s совпадающих страниц\n"
-"                "
+"                Имеется %(counter)s совпадающих страниц\n"
+"            "
 
 msgid "Other searches"
 msgstr "Другие поиски"
@@ -708,16 +682,6 @@ msgstr "Документы"
 
 msgid "Users"
 msgstr "Пользователи"
-
-#, python-format
-msgid ""
-"\n"
-"                Page %(page_number)s of %(num_pages)s.\n"
-"            "
-msgstr ""
-"\n"
-"                Страница %(page_number)s из %(num_pages)s.\n"
-"            "
 
 #, python-format
 msgid "Sorry, no pages match <em>\"%(query_string)s\"</em>"
@@ -837,16 +801,6 @@ msgstr "Ваш пароль успешно изменен!"
 msgid "Your preferences have been updated successfully!"
 msgstr "Ваши настройки успешно изменены!"
 
-msgid "This slug is already in use"
-msgstr "Этот слаг уже используется"
-
-msgid "Go live date/time must be before expiry date/time"
-msgstr ""
-"Дата/время публикации должно быть раньше даты/времени снятия с публикации."
-
-msgid "Expiry date/time must be in the future"
-msgstr "Дата/время снятия с публикации должно быть в будущем."
-
 #, python-brace-format
 msgid "Page '{0}' created and published."
 msgstr "Страница '{0}' создана и опубликована."
@@ -888,6 +842,16 @@ msgstr "Страница не может быть сохранена из-за �
 
 msgid "This page is currently awaiting moderation"
 msgstr "Эта страница в данный момент ожидает модерации"
+
+msgid "This slug is already in use"
+msgstr "Этот слаг уже используется"
+
+msgid "Go live date/time must be before expiry date/time"
+msgstr ""
+"Дата/время публикации должно быть раньше даты/времени снятия с публикации."
+
+msgid "Expiry date/time must be in the future"
+msgstr "Дата/время снятия с публикации должно быть в будущем."
 
 #, python-brace-format
 msgid "Page '{0}' deleted."

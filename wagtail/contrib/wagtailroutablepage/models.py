@@ -138,7 +138,5 @@ class RoutablePage(RoutablePageMixin, Page):
     added to it.
     """
 
-    is_abstract = True
-
     class Meta:
         abstract = True

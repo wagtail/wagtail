@@ -4,9 +4,7 @@ Deploying Wagtail
 On your server
 ~~~~~~~~~~~~~~
 
-Wagtail is straightforward to deploy on modern Linux-based distributions, but see the section on :doc:`performance </advanced_topics/performance>` for the non-Python services we recommend. If you are running Debian or Ubuntu, this installation script for our Vagrant box may be useful:
-
-`github.com/torchbox/wagtaildemo/blob/master/etc/install/install.sh <https://github.com/torchbox/wagtaildemo/blob/master/etc/install/install.sh>`_
+Wagtail is straightforward to deploy on modern Linux-based distributions, but see the section on :doc:`performance </advanced_topics/performance>` for the non-Python services we recommend.
 
 Our current preferences are for Nginx, Gunicorn and supervisor on Debian, but Wagtail should run with any of the combinations detailed in Django's `deployment documentation <https://docs.djangoproject.com/en/dev/howto/deployment/>`_.
 

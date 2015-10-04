@@ -25,7 +25,8 @@ class TestBackendConfiguration(TestCase):
         self.assertEqual(set(backends.keys()), set(['varnish']))
         self.assertIsInstance(backends['varnish'], HTTPBackend)
 
-        self.assertEqual(backends['varnish'].cache_location, 'http://localhost:8000')
+        self.assertEqual(backends['varnish'].cache_scheme, 'http')
+        self.assertEqual(backends['varnish'].cache_netloc, 'localhost:8000')
 
     def test_cloudflare(self):
         backends = get_backends(backend_settings={
@@ -78,7 +79,8 @@ class TestBackendConfiguration(TestCase):
 
         self.assertEqual(set(backends.keys()), set(['default']))
         self.assertIsInstance(backends['default'], HTTPBackend)
-        self.assertEqual(backends['default'].cache_location, 'http://localhost:8000')
+        self.assertEqual(backends['default'].cache_scheme, 'http')
+        self.assertEqual(backends['default'].cache_netloc, 'localhost:8000')
 
 
 PURGED_URLS = []

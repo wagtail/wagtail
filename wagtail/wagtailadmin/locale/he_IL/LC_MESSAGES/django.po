@@ -9,9 +9,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-04-21 09:38+0100\n"
-"PO-Revision-Date: 2015-08-10 16:03+0000\n"
-"Last-Translator: bjesus <bjesus@gmail.com>\n"
+"POT-Creation-Date: 2015-08-26 14:28+0100\n"
+"PO-Revision-Date: 2015-08-26 13:37+0000\n"
+"Last-Translator: Karl Hobley <karl@torchbox.com>\n"
 "Language-Team: Hebrew (Israel) (http://www.transifex.com/torchbox/wagtail/"
 "language/he_IL/)\n"
 "MIME-Version: 1.0\n"
@@ -188,6 +188,15 @@ msgstr "תפריט"
 msgid "Add another"
 msgstr "הוסיפו עוד"
 
+msgid "Move up"
+msgstr "עברו מעלה"
+
+msgid "Move down"
+msgstr "עברו מטה"
+
+msgid "Delete"
+msgstr "מחיקה"
+
 msgid "Explorer"
 msgstr "סיור"
 
@@ -199,17 +208,6 @@ msgstr "קישור חיצוני"
 
 msgid "Email link"
 msgstr "קישור דואר אלקטרוני"
-
-#, python-format
-msgid ""
-"\n"
-"        Only pages of type \"%(type)s\" may be chosen for this field. Search "
-"results will exclude pages of other types.\n"
-"    "
-msgstr ""
-"\n"
-"ניתן לבחור רק בעמודים מהסוג \"%(type)s\" עבור השדה הזה. תוצאות החיפוש לא "
-"יכללו דפים מסוגים אחרים."
 
 #, python-format
 msgid ""
@@ -241,15 +239,6 @@ msgstr "הכניסו קישור"
 
 msgid "Add an external link"
 msgstr "הוסיפו קישור חיצוני"
-
-msgid "Move up"
-msgstr "עברו מעלה"
-
-msgid "Move down"
-msgstr "עברו מטה"
-
-msgid "Delete"
-msgstr "מחיקה"
 
 #, python-format
 msgid "Welcome to the %(site_name)s Wagtail CMS"
@@ -539,33 +528,11 @@ msgstr "מאת %(modified_by)s"
 msgid "Exploring %(title)s"
 msgstr "מסייר ב%(title)s"
 
-msgid "Updated"
-msgstr "עדכן"
-
 msgid "Drag"
 msgstr "גרור"
 
-msgid "No pages have been created."
-msgstr "אפס עמודים נוצרו "
-
-#, python-format
-msgid "Why not <a href=\"%(add_page_url)s\">add one</a>?"
-msgstr "למה לא <a href=\"%(add_page_url)s\">להוסיף אחד</a>?"
-
-#, python-format
-msgid ""
-"\n"
-"            Page %(page_number)s of %(num_pages)s.\n"
-"        "
-msgstr ""
-"\n"
-" עמוד %(page_number)s מתוך %(num_pages)s."
-
-msgid "Previous"
-msgstr "קודם"
-
-msgid "Next"
-msgstr "הבא"
+msgid "Updated"
+msgstr "עדכן"
 
 msgid "This page is locked to further editing"
 msgstr "עמוד זה נעול לעריכה"
@@ -596,6 +563,12 @@ msgstr "עמוד זה מפורסם אך לא קיים באתר, לכן אין א
 msgid "Add child page"
 msgstr "הוספת תת-עמוד"
 
+msgid "Previous"
+msgstr "קודם"
+
+msgid "Next"
+msgstr "הבא"
+
 msgid "This page is protected from public view"
 msgstr "עמוד זה מוגן מתצוגה פומבית"
 
@@ -616,22 +589,6 @@ msgstr "בחירת עמוד הורה חדש עבור %(title)s"
 msgid "Select a new parent page for <span>%(title)s</span>"
 msgstr "בחירת עמוד הורה חדש עבור <span>%(title)s</span>"
 
-#, python-format
-msgid ""
-"\n"
-"                    There is one matching page\n"
-"                "
-msgid_plural ""
-"\n"
-"                    There are %(counter)s matching pages\n"
-"                "
-msgstr[0] ""
-"\n"
-"יש עמוד תואם אחד"
-msgstr[1] ""
-"\n"
-"יש  %(counter)s דפים תואמים"
-
 msgid "Other searches"
 msgstr "חיפושים אחרים"
 
@@ -643,15 +600,6 @@ msgstr "מסמכים"
 
 msgid "Users"
 msgstr "משתמשים"
-
-#, python-format
-msgid ""
-"\n"
-"                Page %(page_number)s of %(num_pages)s.\n"
-"            "
-msgstr ""
-"\n"
-" עמוד %(page_number)s מתוך %(num_pages)s."
 
 #, python-format
 msgid "Sorry, no pages match <em>\"%(query_string)s\"</em>"
@@ -768,15 +716,6 @@ msgstr "סיסמתכם שונתה בהצלחה!"
 msgid "Your preferences have been updated successfully!"
 msgstr "העדופיתכם עודכנו בהצלחה!"
 
-msgid "This slug is already in use"
-msgstr "שדה זה כבר בשימוש"
-
-msgid "Go live date/time must be before expiry date/time"
-msgstr "זמן פרסום חייב להיות לפני זמן תפוגת תוקף"
-
-msgid "Expiry date/time must be in the future"
-msgstr "זמן תפוגה חייב להיות בעתיד"
-
 #, python-brace-format
 msgid "Page '{0}' created and published."
 msgstr "עמוד {0} נוצר ופורסם"
@@ -818,6 +757,15 @@ msgstr "העמוד לא ניתן לשמירה עקב שגיאות אישור"
 
 msgid "This page is currently awaiting moderation"
 msgstr "העמוד ממתין לעריכה"
+
+msgid "This slug is already in use"
+msgstr "שדה זה כבר בשימוש"
+
+msgid "Go live date/time must be before expiry date/time"
+msgstr "זמן פרסום חייב להיות לפני זמן תפוגת תוקף"
+
+msgid "Expiry date/time must be in the future"
+msgstr "זמן תפוגה חייב להיות בעתיד"
 
 #, python-brace-format
 msgid "Page '{0}' deleted."

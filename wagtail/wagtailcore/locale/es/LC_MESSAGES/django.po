@@ -15,8 +15,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-04-21 09:38+0100\n"
-"PO-Revision-Date: 2015-04-22 02:20+0000\n"
+"POT-Creation-Date: 2015-09-02 20:07+0100\n"
+"PO-Revision-Date: 2015-09-03 02:46+0000\n"
 "Last-Translator: José Alaguna <alagunajs@gmail.com>\n"
 "Language-Team: Spanish (http://www.transifex.com/torchbox/wagtail/language/"
 "es/)\n"
@@ -55,8 +55,11 @@ msgstr ""
 "Si es afirmativo, este sitio manejará solicitudes para todos los demás "
 "nombres de host que no tengan un sitio para sí mismos"
 
-msgid "Site"
-msgstr "Sitio"
+msgid "site"
+msgstr "sitio"
+
+msgid "sites"
+msgstr "sitios"
 
 #, python-format
 msgid ""
@@ -156,6 +159,12 @@ msgstr "Ver en vivo"
 msgid "Default"
 msgstr "Predeterminado"
 
+msgid "page"
+msgstr "página"
+
+msgid "pages"
+msgstr "páginas"
+
 msgid "Page"
 msgstr "Página"
 
@@ -174,14 +183,17 @@ msgstr "Contenido JSON"
 msgid "Approved go live at"
 msgstr "Aprobado para publicación"
 
-msgid "Page Revision"
-msgstr "Revisión de página"
+msgid "page revision"
+msgstr "revisión de página"
+
+msgid "page revisions"
+msgstr "revisiones de página"
 
 msgid "Add/edit pages you own"
 msgstr "Añadir/editar tus propias páginas"
 
-msgid "Add/edit any page"
-msgstr "Añadir/editar cualquier página"
+msgid "Edit any page"
+msgstr "Editar cualquier página"
 
 msgid "Publish any page"
 msgstr "Publicar cualquier página"
@@ -195,14 +207,20 @@ msgstr "Grupo"
 msgid "Permission type"
 msgstr "Tipo de permiso"
 
-msgid "Group Page Permission"
-msgstr "Grupo de permisos de página"
+msgid "group page permission"
+msgstr "grupo de permisos de página"
+
+msgid "group page permissions"
+msgstr "grupos de permisos de páginas"
 
 msgid "Password"
 msgstr "Contraseña"
 
-msgid "Page View Restriction"
-msgstr "Página de vista restringida"
+msgid "page view restriction"
+msgstr "restricción de vista de página"
+
+msgid "page view restrictions"
+msgstr "restricciones de vista de página"
 
 msgid "Value cannot be entirely whitespace characters"
 msgstr "El valor no puede consistir enteramente en espacios en blanco"

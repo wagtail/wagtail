@@ -11,9 +11,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-04-21 09:39+0100\n"
-"PO-Revision-Date: 2015-06-29 18:49+0000\n"
-"Last-Translator: mattwestcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2015-08-26 14:28+0100\n"
+"PO-Revision-Date: 2015-08-26 21:43+0000\n"
+"Last-Translator: Eugene MechanisM <contact@mechanism.name>\n"
 "Language-Team: Russian (http://www.transifex.com/torchbox/wagtail/language/"
 "ru/)\n"
 "MIME-Version: 1.0\n"
@@ -28,26 +28,6 @@ msgid "GIF, JPEG, PNG"
 msgstr "GIF, JPEG, PNG"
 
 #, python-format
-msgid "Not a supported image format. Supported formats: %s."
-msgstr "Не поддерживаемый формат изображения. Поддерживаемые форматы: %s."
-
-#, python-format
-msgid "Not a valid %s image."
-msgstr "Невалидное %s изображение."
-
-#, python-format
-msgid "This file is too big. Maximum filesize %(max_upload_size)s."
-msgstr ""
-"Этот файл слишком большой. Максимально допустимый размер файла "
-"%(max_upload_size)s."
-
-#, python-format
-msgid "This file is too big (%%(max_upload_size)s). Maximum filesize %s."
-msgstr ""
-"Этот файл слишком большой (%%(max_upload_size)s). Максимально допустимый "
-"размер файла %s."
-
-#, python-format
 msgid ""
 "Supported formats: %(supported_formats)s. Maximum filesize: "
 "%(max_upload_size)s."
@@ -58,6 +38,22 @@ msgstr ""
 #, python-format
 msgid "Supported formats: %(supported_formats)s."
 msgstr "Поддерживаемые форматы: %(supported_formats)s."
+
+#, python-format
+msgid "Not a supported image format. Supported formats: %s."
+msgstr "Не поддерживаемый формат изображения. Поддерживаемые форматы: %s."
+
+#, python-format
+msgid "Not a valid %s image."
+msgstr "Невалидное %s изображение."
+
+#, python-format
+msgid "This file is too big (%%s). Maximum filesize %s."
+msgstr "Файл слишком большой (%%s). Максимальный размер файла %s."
+
+#, python-format
+msgid "This file is too big. Maximum filesize %s."
+msgstr "Файл слишком большой. Максимальный размер файла %s."
 
 msgid "Filter"
 msgstr "Фильтр"

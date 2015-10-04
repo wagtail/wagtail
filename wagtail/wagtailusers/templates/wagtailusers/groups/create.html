@@ -33,9 +33,5 @@
 {% endblock %}
 
 {% block extra_js %}
-    {% include "wagtailadmin/pages/_editor_js.html" %}
-
-    <script>
-        {% include "wagtailusers/groups/includes/page_permissions_formset.js" with formset=formset only %}
-    </script>
+    {% include "wagtailusers/groups/includes/group_form_js.html" %}
 {% endblock %}

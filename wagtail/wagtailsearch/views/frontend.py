@@ -1,8 +1,6 @@
-import json
-
 from django.conf import settings
 from django.shortcuts import render
-from django.http import HttpResponse
+from django.http import JsonResponse
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 from wagtail.wagtailcore import models
@@ -66,7 +64,8 @@ def search(
         query = None
         search_results = None
 
-    if use_json: # Return a json response
+    if use_json:
+        # Return a json response
         if search_results:
             search_results_json = []
             for result in search_results:
@@ -78,9 +77,9 @@ def search(
                     if hasattr(result_specific, attr)
                 ))
 
-            return HttpResponse(json.dumps(search_results_json))
+            return JsonResponse(search_results_json, safe=False)
         else:
-            return HttpResponse('[]')
+            return JsonResponse([], safe=False)
     else: # Render a template
         if request.is_ajax() and template_ajax:
             template = template_ajax

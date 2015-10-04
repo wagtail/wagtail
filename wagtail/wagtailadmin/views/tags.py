@@ -1,8 +1,6 @@
-import json
-
 from taggit.models import Tag
 
-from django.http import HttpResponse
+from django.http import JsonResponse
 
 
 def autocomplete(request):
@@ -12,6 +10,4 @@ def autocomplete(request):
     else:
         tags = Tag.objects.none()
 
-    response = json.dumps([tag.name for tag in tags])
-
-    return HttpResponse(response, content_type='text/javascript')
+    return JsonResponse([tag.name for tag in tags], safe=False)

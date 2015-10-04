@@ -1,6 +1,7 @@
 from django.core import urlresolvers
 from django.conf.urls import include, url
 from django.utils.translation import ugettext_lazy as _
+from django.contrib.auth.models import Permission
 
 from wagtail.wagtailcore import hooks
 from wagtail.contrib.wagtailsearchpromotions import admin_urls
@@ -17,10 +18,19 @@ def register_admin_urls():
 
 class SearchPicksMenuItem(MenuItem):
     def is_shown(self, request):
-        # TEMPORARY: Only show if the user is a superuser
-        return request.user.is_superuser
+        return (
+            request.user.has_perm('wagtailsearchpromotions.add_searchpromotion')
+            or request.user.has_perm('wagtailsearchpromotions.change_searchpromotion')
+            or request.user.has_perm('wagtailsearchpromotions.delete_searchpromotion')
+        )
 
 
 @hooks.register('register_settings_menu_item')
 def register_search_picks_menu_item():
     return SearchPicksMenuItem(_('Promoted search results'), urlresolvers.reverse('wagtailsearchpromotions:index'), classnames='icon icon-pick', order=900)
+
+
+@hooks.register('register_permissions')
+def register_permissions():
+    return Permission.objects.filter(content_type__app_label='wagtailsearchpromotions',
+        codename__in=['add_searchpromotion', 'change_searchpromotion', 'delete_searchpromotion'])

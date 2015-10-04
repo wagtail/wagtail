@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-04-21 09:39+0100\n"
+"POT-Creation-Date: 2015-08-26 14:28+0100\n"
 "PO-Revision-Date: 2015-07-23 15:04+0000\n"
 "Last-Translator: Ji Han Chung <jihanchung20@gmail.com>\n"
 "Language-Team: Korean (http://www.transifex.com/torchbox/wagtail/language/"
@@ -19,12 +19,31 @@ msgstr ""
 "Language: ko\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
+msgid "Required. 30 characters or fewer. Letters, digits and @/./+/-/_ only."
+msgstr ""
+"필수사항. 15 자 이하로 작성하여야 하며 문자, 숫자 및 @/./+/-/_ 만 가능합니다."
+
+msgid "This value may contain only letters, numbers and @/./+/-/_ characters."
+msgstr "이 값은 오직 문자, 숫자 및 @/./+/-/_ 로 포함하였을 것입니다."
+
 msgid "Administrator"
 msgstr "관리자"
 
 msgid "If ticked, this user has the ability to manage user accounts."
 msgstr ""
 "선택한 경우, 이 사용자는 사용자 계정을 관리할 수 있는 권한을 가지게 됩니다."
+
+msgid "Password"
+msgstr "비밀번호"
+
+msgid "Leave blank if not changing."
+msgstr "변경되지 않았으면 빈칸으로 남겨 두시기 바랍니다"
+
+msgid "Password confirmation"
+msgstr "비밀번호 확인"
+
+msgid "Enter the same password as above, for verification."
+msgstr "확인을 위해, 위의 비밀번호를 똑같이 적어주시기 바랍니다."
 
 msgid "Email"
 msgstr "이메일"
@@ -40,28 +59,6 @@ msgstr "이 사용자명은 이미 사용되고 있습니다."
 
 msgid "The two password fields didn't match."
 msgstr "두 개의 비밀번호가 일치하지 않습니다."
-
-msgid "Username"
-msgstr "사용자명"
-
-msgid "Required. 30 characters or fewer. Letters, digits and @/./+/-/_ only."
-msgstr ""
-"필수사항. 15 자 이하로 작성하여야 하며 문자, 숫자 및 @/./+/-/_ 만 가능합니다."
-
-msgid "This value may contain only letters, numbers and @/./+/-/_ characters."
-msgstr "이 값은 오직 문자, 숫자 및 @/./+/-/_ 로 포함하였을 것입니다."
-
-msgid "Password"
-msgstr "비밀번호"
-
-msgid "Leave blank if not changing."
-msgstr "변경되지 않았으면 빈칸으로 남겨 두시기 바랍니다"
-
-msgid "Password confirmation"
-msgstr "비밀번호 확인"
-
-msgid "Enter the same password as above, for verification."
-msgstr "확인을 위해, 위의 비밀번호를 똑같이 적어주시기 바랍니다."
 
 msgid "Administrators have the ability to manage user accounts."
 msgstr "관리자는 사용자 계정을 관리할 수 있는 권한을 가지고 있습니다."
@@ -180,6 +177,9 @@ msgstr "사용자"
 
 msgid "Add a user"
 msgstr "사용자 추가"
+
+msgid "Username"
+msgstr "사용자명"
 
 msgid "Level"
 msgstr "레벨"

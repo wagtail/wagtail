@@ -182,6 +182,7 @@ class TestFrontendServeView(TestCase):
 
         # Check response
         self.assertEqual(response.status_code, 200)
+        self.assertTrue(response.streaming)
         self.assertEqual(response['Content-Type'], 'image/png')
 
     def test_get_invalid_signature(self):
@@ -291,13 +292,20 @@ class TestGetImageForm(TestCase, WagtailTestUtils):
 
     def test_custom_image_model_without_admin_form_fields_raises_warning(self):
         self.reset_warning_registry()
-        with warnings.catch_warnings(record=True) as w:
+        with warnings.catch_warnings(record=True) as raw_warnings:
             form = get_image_form(CustomImageWithoutAdminFormFields)
 
             # Check that a RemovedInWagtail12Warning has been triggered
-            self.assertEqual(len(w), 1)
-            self.assertTrue(issubclass(w[-1].category, RemovedInWagtail12Warning))
-            self.assertTrue("Add admin_form_fields = (tuple of field names) to CustomImageWithoutAdminFormFields" in str(w[-1].message))
+
+            # Ignore any ResourceWarnings. TODO: remove this when we've stopped ResourceWarnings from happening...
+            try:
+                clean_warnings = [w for w in raw_warnings if not issubclass(w.category, ResourceWarning)]
+            except NameError:  # ResourceWarning only exists on Python >= 3.2
+                clean_warnings = raw_warnings
+
+            self.assertEqual(len(clean_warnings), 1)
+            self.assertTrue(issubclass(clean_warnings[-1].category, RemovedInWagtail12Warning))
+            self.assertTrue("Add admin_form_fields = (tuple of field names) to CustomImageWithoutAdminFormFields" in str(clean_warnings[-1].message))
 
         # All fields, including the not editable one should be on the form
         self.assertEqual(list(form.base_fields.keys()), [

@@ -3,10 +3,10 @@ import json
 from django.core.urlresolvers import reverse
 from django.shortcuts import get_object_or_404, render
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
-from django.contrib.auth.decorators import permission_required
 
 from wagtail.wagtailadmin.modal_workflow import render_modal_workflow
 from wagtail.wagtailadmin.forms import SearchForm
+from wagtail.wagtailadmin.utils import permission_required
 from wagtail.wagtailsearch.backends import get_search_backends
 
 from wagtail.wagtailimages.models import get_image_model
@@ -51,14 +51,14 @@ def chooser(request):
             # page number
             p = request.GET.get("p", 1)
 
-            images = Image.search(q, results_per_page=10, page=p)
+            images = Image.search(q, results_per_page=12, page=p)
 
             is_searching = True
 
         else:
             images = Image.objects.order_by('-created_at')
             p = request.GET.get("p", 1)
-            paginator = Paginator(images, 10)
+            paginator = Paginator(images, 12)
 
             try:
                 images = paginator.page(p)
@@ -80,7 +80,7 @@ def chooser(request):
 
         images = Image.objects.order_by('-created_at')
         p = request.GET.get("p", 1)
-        paginator = Paginator(images, 10)
+        paginator = Paginator(images, 12)
 
         try:
             images = paginator.page(p)

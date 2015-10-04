@@ -367,7 +367,7 @@ class TestPageChooserPanel(TestCase):
 
     def test_render_js_init(self):
         result = self.page_chooser_panel.render_as_field()
-        expected_js = 'createPageChooser("{id}", "{model}", {parent});'.format(
+        expected_js = 'createPageChooser("{id}", ["{model}"], {parent});'.format(
             id="id_page", model="wagtailcore.page", parent=self.events_index_page.id)
 
         self.assertIn(expected_js, result)
@@ -400,7 +400,7 @@ class TestPageChooserPanel(TestCase):
         page_chooser_panel = self.MyPageChooserPanel(instance=self.test_instance, form=form)
 
         result = page_chooser_panel.render_as_field()
-        expected_js = 'createPageChooser("{id}", "{model}", {parent});'.format(
+        expected_js = 'createPageChooser("{id}", ["{model}"], {parent});'.format(
             id="id_page", model="tests.eventpage", parent=self.events_index_page.id)
 
         self.assertIn(expected_js, result)
@@ -414,7 +414,7 @@ class TestPageChooserPanel(TestCase):
         page_chooser_panel = self.MyPageChooserPanel(instance=self.test_instance, form=form)
 
         result = page_chooser_panel.render_as_field()
-        expected_js = 'createPageChooser("{id}", "{model}", {parent});'.format(
+        expected_js = 'createPageChooser("{id}", ["{model}"], {parent});'.format(
             id="id_page", model="tests.eventpage", parent=self.events_index_page.id)
 
         self.assertIn(expected_js, result)
@@ -423,8 +423,8 @@ class TestPageChooserPanel(TestCase):
         result = PageChooserPanel(
             'barbecue',
             'wagtailcore.site'
-        ).bind_to_model(PageChooserModel).target_content_type()
-        self.assertEqual(result.name, 'Site')
+        ).bind_to_model(PageChooserModel).target_content_type()[0]
+        self.assertEqual(result.name, 'site')
 
     def test_target_content_type_malformed_type(self):
         result = PageChooserPanel(

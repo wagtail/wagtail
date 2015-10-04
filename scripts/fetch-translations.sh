@@ -11,7 +11,7 @@ tx pull -a --minimum-perc=30
 # These things are only needed by translators (which they won't be seen by) and make the translation updates difficult to check
 find ../wagtail -iname *.po ! -iwholename */en/* -exec msgattrib --translated --no-fuzzy --no-obsolete --no-location -o {} {} \;
 
-# Run makemessages on each app
+# Run compilemessages on each app
 for d in $(find ../wagtail -iname *.po | sed 's|\(.*\)/locale.*|\1|' | sort -u);
 do
     pushd $d

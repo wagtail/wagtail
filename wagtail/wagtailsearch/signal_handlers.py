@@ -10,7 +10,7 @@ def get_indexed_instance(instance):
         return
 
     # Make sure that the instance is in its class's indexed objects
-    if not type(indexed_instance).get_indexed_objects().filter(id=indexed_instance.id).exists():
+    if not type(indexed_instance).get_indexed_objects().filter(pk=indexed_instance.pk).exists():
         return
 
     return indexed_instance

@@ -1,7 +1,7 @@
 {% load i18n wagtailadmin_tags %}
 <h2>{% trans "Page permissions" %}</h2>
 
-{{ formset.management_form }}{# what is this? #}
+{{ formset.management_form }}
 
 <table class="listing">
     <col width="40%"/>
@@ -32,7 +32,7 @@
 
 <script type="text/django-form-template" id="id_{{ formset.prefix }}-EMPTY_FORM_TEMPLATE">
 {% escapescript %}
-    <tr>
+    <tr id="inline_child_{{ formset.empty_form.prefix }}">
         {% include "wagtailusers/groups/includes/page_permissions_form.html" with form=formset.empty_form only %}
     </tr>
 {% endescapescript %}

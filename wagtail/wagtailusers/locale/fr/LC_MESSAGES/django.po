@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-04-21 09:39+0100\n"
+"POT-Creation-Date: 2015-08-26 14:28+0100\n"
 "PO-Revision-Date: 2015-04-21 15:58+0000\n"
 "Last-Translator: Benoît Bar <bar.benoit@gmail.com>\n"
 "Language-Team: French (http://www.transifex.com/torchbox/wagtail/language/"
@@ -21,12 +21,32 @@ msgstr ""
 "Language: fr\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
+msgid "Required. 30 characters or fewer. Letters, digits and @/./+/-/_ only."
+msgstr ""
+"Requis. 30 caractères ou moins. Seulement des lettres, chiffres et @/./+/-/"
+"_ ."
+
+msgid "This value may contain only letters, numbers and @/./+/-/_ characters."
+msgstr "Cette valeur ne peut contenir que des lettres, chiffres et @/./+/-/_ ."
+
 msgid "Administrator"
 msgstr "Administrateur"
 
 msgid "If ticked, this user has the ability to manage user accounts."
 msgstr ""
 "Si coché, cet utilisateur aura la capacité de gérer les comptes utilisateurs."
+
+msgid "Password"
+msgstr "Mot de passe"
+
+msgid "Leave blank if not changing."
+msgstr "Laisser vide si il n'y a pas de changement."
+
+msgid "Password confirmation"
+msgstr "Confirmation de mot de passe"
+
+msgid "Enter the same password as above, for verification."
+msgstr "Entrer le même qu'au dessus, pour vérification."
 
 msgid "Email"
 msgstr "E-mail"
@@ -42,29 +62,6 @@ msgstr "Un utilisateur avec cet identifiant existe déjà."
 
 msgid "The two password fields didn't match."
 msgstr "Les deux champs mot de passe ne correspondent pas."
-
-msgid "Username"
-msgstr "Identifiant"
-
-msgid "Required. 30 characters or fewer. Letters, digits and @/./+/-/_ only."
-msgstr ""
-"Requis. 30 caractères ou moins. Seulement des lettres, chiffres et @/./+/-/"
-"_ ."
-
-msgid "This value may contain only letters, numbers and @/./+/-/_ characters."
-msgstr "Cette valeur ne peut contenir que des lettres, chiffres et @/./+/-/_ ."
-
-msgid "Password"
-msgstr "Mot de passe"
-
-msgid "Leave blank if not changing."
-msgstr "Laisser vide si il n'y a pas de changement."
-
-msgid "Password confirmation"
-msgstr "Confirmation de mot de passe"
-
-msgid "Enter the same password as above, for verification."
-msgstr "Entrer le même qu'au dessus, pour vérification."
 
 msgid "Administrators have the ability to manage user accounts."
 msgstr "Les administrateurs ont la capacité de gérer les comptes utilisateur."
@@ -186,6 +183,9 @@ msgstr "Utilisateurs"
 
 msgid "Add a user"
 msgstr "Ajouter un utilisateur"
+
+msgid "Username"
+msgstr "Identifiant"
 
 msgid "Level"
 msgstr "Niveau"

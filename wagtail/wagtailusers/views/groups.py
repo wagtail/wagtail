@@ -1,6 +1,5 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.models import Group
-from django.contrib.auth.decorators import permission_required, user_passes_test
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.core.urlresolvers import reverse
 from django.utils.translation import ugettext as _
@@ -8,17 +7,11 @@ from django.views.decorators.vary import vary_on_headers
 
 from wagtail.wagtailadmin import messages
 from wagtail.wagtailadmin.forms import SearchForm
+from wagtail.wagtailadmin.utils import permission_required, any_permission_required
 from wagtail.wagtailusers.forms import GroupForm, GroupPagePermissionFormSet
 
 
-def user_has_group_model_perm(user):
-    for verb in ['add', 'change', 'delete']:
-        if user.has_perm('auth.%s_group' % verb):
-            return True
-    return False
-
-
-@user_passes_test(user_has_group_model_perm)
+@any_permission_required('auth.add_group', 'auth.change_group', 'auth.delete_group')
 @vary_on_headers('X-Requested-With')
 def index(request):
     q = None

@@ -9,9 +9,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-04-21 09:38+0100\n"
-"PO-Revision-Date: 2015-07-08 15:26+0000\n"
-"Last-Translator: Giacomo Ghizzani <giacomo.ghz@gmail.com>\n"
+"POT-Creation-Date: 2015-09-02 20:07+0100\n"
+"PO-Revision-Date: 2015-09-02 19:12+0000\n"
+"Last-Translator: Karl Hobley <karl@torchbox.com>\n"
 "Language-Team: Italian (http://www.transifex.com/torchbox/wagtail/language/"
 "it/)\n"
 "MIME-Version: 1.0\n"
@@ -46,9 +46,6 @@ msgid ""
 "If true, this site will handle requests for all other hostnames that do not "
 "have a site entry of their own"
 msgstr "Se true, questo sito gestirà le richieste di tutti gli altri hostname"
-
-msgid "Site"
-msgstr "Sito"
 
 #, python-format
 msgid ""
@@ -162,14 +159,8 @@ msgstr "Contenuto JSON"
 msgid "Approved go live at"
 msgstr "Approvata alle"
 
-msgid "Page Revision"
-msgstr "Revisione pagina"
-
 msgid "Add/edit pages you own"
 msgstr "Aggiungi/modifica pagine di tua proprietà"
-
-msgid "Add/edit any page"
-msgstr "Aggiungi/modifica ogni pagina"
 
 msgid "Publish any page"
 msgstr "Pubblica ogni pagina"
@@ -182,9 +173,6 @@ msgstr "Gruppo"
 
 msgid "Permission type"
 msgstr "Tipo di permesso"
-
-msgid "Group Page Permission"
-msgstr "Permesso della pagina del gruppo"
 
 msgid "Password"
 msgstr "Parola chiave"

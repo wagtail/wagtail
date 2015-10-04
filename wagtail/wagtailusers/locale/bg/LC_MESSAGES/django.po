@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-04-21 09:39+0100\n"
+"POT-Creation-Date: 2015-08-26 14:28+0100\n"
 "PO-Revision-Date: 2015-04-21 08:40+0000\n"
 "Last-Translator: Karl Hobley <karl@torchbox.com>\n"
 "Language-Team: Bulgarian (http://www.transifex.com/torchbox/wagtail/language/"
@@ -20,6 +20,13 @@ msgstr ""
 "Language: bg\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
+msgid "Required. 30 characters or fewer. Letters, digits and @/./+/-/_ only."
+msgstr ""
+"Задължително. 30 знака или по-малко. Букви, цифри и @ / / + / -. / Само _."
+
+msgid "This value may contain only letters, numbers and @/./+/-/_ characters."
+msgstr "Това поле може да съдържа само букви, числа и символите  @/./+/-/_"
+
 msgid "Administrator"
 msgstr "Администратор"
 
@@ -27,6 +34,18 @@ msgid "If ticked, this user has the ability to manage user accounts."
 msgstr ""
 "Ако има отметка, този потребител е в състояние да управлява потребителски "
 "акаунти."
+
+msgid "Password"
+msgstr "Парола"
+
+msgid "Leave blank if not changing."
+msgstr "Остави празно, ако няма да се променя."
+
+msgid "Password confirmation"
+msgstr "Подвърждение на парола"
+
+msgid "Enter the same password as above, for verification."
+msgstr "Въведете същата парола, като по-горе, за проверка."
 
 msgid "Email"
 msgstr "Имейл"
@@ -42,28 +61,6 @@ msgstr "Потребител с това име вече съществува."
 
 msgid "The two password fields didn't match."
 msgstr "Паролите не съвпадат."
-
-msgid "Username"
-msgstr "Потребителско име"
-
-msgid "Required. 30 characters or fewer. Letters, digits and @/./+/-/_ only."
-msgstr ""
-"Задължително. 30 знака или по-малко. Букви, цифри и @ / / + / -. / Само _."
-
-msgid "This value may contain only letters, numbers and @/./+/-/_ characters."
-msgstr "Това поле може да съдържа само букви, числа и символите  @/./+/-/_"
-
-msgid "Password"
-msgstr "Парола"
-
-msgid "Leave blank if not changing."
-msgstr "Остави празно, ако няма да се променя."
-
-msgid "Password confirmation"
-msgstr "Подвърждение на парола"
-
-msgid "Enter the same password as above, for verification."
-msgstr "Въведете същата парола, като по-горе, за проверка."
 
 msgid "Administrators have the ability to manage user accounts."
 msgstr ""
@@ -92,6 +89,9 @@ msgstr "Потребители"
 
 msgid "Add a user"
 msgstr "Добави потребител"
+
+msgid "Username"
+msgstr "Потребителско име"
 
 msgid "Level"
 msgstr "Ниво"

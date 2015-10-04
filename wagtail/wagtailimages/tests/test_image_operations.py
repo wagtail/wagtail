@@ -154,7 +154,7 @@ class TestFillOperation(ImageOperationTestCase):
         # Basic usage with an oddly-sized original image
         # This checks for a rounding precision issue (#968)
         ('fill-200x200', Image(width=539, height=720), [
-            ('crop', ((0, 90, 539, 629), ), {}),
+            ('crop', ((0, 90, 539, 630), ), {}),
             ('resize', ((200, 200), ), {}),
         ]),
 
@@ -258,7 +258,32 @@ class TestFillOperation(ImageOperationTestCase):
         ), [
             # This operation could probably be optimised out
             ('crop', ((0, 0, 1500, 1500), ), {}),
-        ])
+        ]),
+
+
+        # A few tests for single pixel images
+
+        ('fill-100x100', Image(
+            width=1,
+            height=1,
+        ), [
+            ('crop', ((0, 0, 1, 1), ), {}),
+        ]),
+
+        # This one once gave a ZeroDivisionError
+        ('fill-100x150', Image(
+            width=1,
+            height=1,
+        ), [
+            ('crop', ((0, 0, 1, 1), ), {}),
+        ]),
+
+        ('fill-150x100', Image(
+            width=1,
+            height=1,
+        ), [
+            ('crop', ((0, 0, 1, 1), ), {}),
+        ]),
     ]
 
 TestFillOperation.setup_test_methods()

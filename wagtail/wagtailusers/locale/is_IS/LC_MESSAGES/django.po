@@ -1,0 +1,120 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# Arnar Tumi Þorsteinsson <arnartumi@gmail.com>, 2015
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2015-08-26 14:28+0100\n"
+"PO-Revision-Date: 2015-09-01 08:34+0000\n"
+"Last-Translator: Arnar Tumi Þorsteinsson <arnartumi@gmail.com>\n"
+"Language-Team: Icelandic (Iceland) (http://www.transifex.com/torchbox/"
+"wagtail/language/is_IS/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: is_IS\n"
+"Plural-Forms: nplurals=2; plural=(n % 10 != 1 || n % 100 == 11);\n"
+
+msgid "Required. 30 characters or fewer. Letters, digits and @/./+/-/_ only."
+msgstr ""
+"Þarf að fylla út. 30 slög eða færri. Bókstafir, tölustafir og  @/./+/-/_ er "
+"leyft."
+
+msgid "Email"
+msgstr "Email"
+
+msgid "First Name"
+msgstr "Fornafn"
+
+msgid "Last Name"
+msgstr "Eftirnafn"
+
+msgid "A user with that username already exists."
+msgstr "Þetta notandanafn er þegar í notkun."
+
+msgid "The two password fields didn't match."
+msgstr "Lykilorðareitirnir tveir stóðust ekki á"
+
+msgid "A group with that name already exists."
+msgstr "Hópur með þessu nafni er þegar til."
+
+msgid "Delete group"
+msgstr "Eyða hóp"
+
+msgid "Yes, delete"
+msgstr "Já, eyða"
+
+msgid "Add group"
+msgstr "Bæta við hóp"
+
+msgid "Editing"
+msgstr "Breyti"
+
+msgid "Save"
+msgstr "Vista"
+
+msgid "Name"
+msgstr "Nafn"
+
+msgid "Add"
+msgstr "Bæta við"
+
+msgid "Change"
+msgstr "Breyta"
+
+msgid "Delete"
+msgstr "Eyða"
+
+msgid "Page"
+msgstr "Síða"
+
+msgid "groups"
+msgstr "hópar"
+
+msgid "Add a group"
+msgstr "Bæta við hóp"
+
+msgid "Add user"
+msgstr "Bæta við notanda"
+
+msgid "Users"
+msgstr "Notendur"
+
+msgid "Add a user"
+msgstr "Bæta við notanda"
+
+msgid "Username"
+msgstr "Notandanafn"
+
+msgid "Status"
+msgstr "Staða"
+
+msgid "Active"
+msgstr "Virkur"
+
+msgid "Inactive"
+msgstr "Óvirkur"
+
+msgid "Search groups"
+msgstr "Leita í hópum"
+
+msgid "Edit"
+msgstr "Breyta"
+
+msgid "Search users"
+msgstr "Leita í notendum"
+
+msgid "The user could not be created due to errors."
+msgstr ""
+"Ekki var hægt að búa til notandann þar sem hann stóðst ekki villuprófanir"
+
+msgid "The user could not be saved due to errors."
+msgstr ""
+"Ekki var hægt að búa til notandann þar sem hann stóðst ekki villuprófanir"
+
+msgid "Groups"
+msgstr "Hópar"

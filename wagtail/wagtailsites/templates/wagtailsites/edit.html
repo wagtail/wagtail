@@ -1,32 +1,7 @@
-{% extends "wagtailadmin/base.html" %}
-{% load i18n %}
+{% extends "wagtailadmin/generic/edit.html" %}
 
-{% block titletag %}{% trans "Editing" %} {{ site.hostname }}{% endblock %}
-
-{% block content %}
-
-    {% trans "Editing" as editing_str %}
-    {% include "wagtailadmin/shared/header.html" with title=editing_str subtitle=site.hostname icon="site" %}
-
-    <div class="nice-padding">
-        <form action="{% url 'wagtailsites:edit' site.id %}" method="POST">
-            {% csrf_token %}
-        
-            <ul class="fields">
-                {% include "wagtailadmin/shared/field_as_li.html" with field=form.hostname %}
-                {% include "wagtailadmin/shared/field_as_li.html" with field=form.port %}
-                {% include "wagtailadmin/shared/field_as_li.html" with field=form.root_page %}
-                {% include "wagtailadmin/shared/field_as_li.html" with field=form.is_default_site %}
-                
-                <li>
-                    <input type="submit" value="{% trans 'Save' %}" />
-                    {% if perms.wagtailcore.delete_site %}
-                        <a href="{% url 'wagtailsites:delete' site.id %}" class="button button-secondary no">{% trans "Delete site" %}</a>
-                    {% endif %}
-                </li>
-            </ul>
-        </form>
-    </div>
+{% block form %}
+    {% include "wagtailsites/_form.html" %}
 {% endblock %}
 
 {% block extra_js %}
