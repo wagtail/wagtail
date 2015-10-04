@@ -1,4 +1,3 @@
-from django.conf import settings
 from django.conf.urls import url, include
 from django.contrib.auth.decorators import permission_required
 from django.views.decorators.cache import cache_control
@@ -33,6 +32,7 @@ urlpatterns = [
     url(r'^tag-autocomplete/$', tags.autocomplete, name='wagtailadmin_tag_autocomplete'),
 
     url(r'^account/$', account.account, name='wagtailadmin_account'),
+    url(r'^account/change_password/$', account.change_password, name='wagtailadmin_account_change_password'),
     url(r'^account/notification_preferences/$', account.notification_preferences, name='wagtailadmin_account_notification_preferences'),
     url(r'^logout/$', account.logout, name='wagtailadmin_logout'),
 ]
@@ -62,18 +62,10 @@ urlpatterns += [
     # as they need to fail with a 403 error rather than redirect to the login page
     url(r'^userbar/(\d+)/$', userbar.for_frontend, name='wagtailadmin_userbar_frontend'),
     url(r'^userbar/moderation/(\d+)/$', userbar.for_moderation, name='wagtailadmin_userbar_moderation'),
+
+    # Password reset
+    url(r'^password_reset/', include(wagtailadmin_password_reset_urls)),
 ]
-
-if getattr(settings, 'WAGTAIL_PASSWORD_RESET_ENABLED', True):
-    urlpatterns += [
-        url(r'^password_reset/', include(wagtailadmin_password_reset_urls)),
-    ]
-
-if getattr(settings, 'WAGTAIL_PASSWORD_MANAGEMENT_ENABLED', True):
-    urlpatterns += [
-        url(r'^account/change_password/$', account.change_password, name='wagtailadmin_account_change_password'),
-    ]
-
 
 # Decorate all views with cache settings to prevent caching
 urlpatterns = decorate_urlpatterns(urlpatterns,
