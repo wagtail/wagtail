@@ -211,7 +211,7 @@ You just need to create a template in a location where it can be accessed with t
 Template context
 ----------------
 
-Wagtail renders templates with the ``self`` variable bound to the page instance being rendered. Use this access the content of the page. For example, to get the title of the current page, do ``{{ self.title }}``. All variables provided by `context processors <TODO LINK REQUIRED>`_ are also available.
+Wagtail renders templates with the ``self`` variable bound to the page instance being rendered. Use this access the content of the page. For example, to get the title of the current page, do ``{{ self.title }}``. All variables provided by `context processors <https://docs.djangoproject.com/en/1.8/ref/templates/api/#subclassing-context-requestcontext>`_ are also available.
 
 
 Customising template context
@@ -320,7 +320,7 @@ Each inline model requires the following:
 
 .. note:: django-modelcluster and ParentalKey
 
-    The model inlining feature is provided to by `django-modelcluster <TODO>`_ and the ``ParentalKey`` field type must be imported from there:
+    The model inlining feature is provided to by `django-modelcluster <https://github.com/torchbox/django-modelcluster>`_ and the ``ParentalKey`` field type must be imported from there:
 
     ..code-block:: python
 
