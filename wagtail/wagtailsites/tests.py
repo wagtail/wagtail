@@ -41,13 +41,15 @@ class TestSiteCreateView(TestCase, WagtailTestUtils):
     def post(self, post_data={}):
         return self.client.post(reverse('wagtailsites:add'), post_data)
 
-    def create_site(self, hostname='testsite', port=80, is_default_site=False, root_page=None):
+    def create_site(self, hostname='testsite', port=80, site_name=None, root_page=None, is_default_site=False):
         root_page = root_page or self.home_page
         Site.objects.create(
             hostname=hostname,
             port=port,
-            is_default_site=is_default_site,
-            root_page=root_page)
+            site_name=site_name,
+            root_page=root_page,
+            is_default_site=is_default_site
+        )
 
     def test_default_fixtures_present(self):
         # we should have loaded with a single site
@@ -136,6 +138,7 @@ class TestSiteEditView(TestCase, WagtailTestUtils):
         post_defaults = {
             'hostname': site.hostname,
             'port': site.port,
+            'site_name': site.site_name,
             'root_page': site.root_page.id,
         }
         for k, v in six.iteritems(post_defaults):
@@ -156,16 +159,20 @@ class TestSiteEditView(TestCase, WagtailTestUtils):
         self.assertEqual(self.get(site_id=100000).status_code, 404)
 
     def test_edit(self):
-        edited_hostname = 'edited'
+        edited_hostname = 'edited_hostname'
+        edited_site_name = 'edited_site_name'
         response = self.post({
             'hostname': edited_hostname,
+            'site_name': edited_site_name,
         })
 
         # Should redirect back to index
         self.assertRedirects(response, reverse('wagtailsites:index'))
 
         # Check that the site was edited
-        self.assertEqual(Site.objects.get(id=self.localhost.id).hostname, edited_hostname)
+        site = Site.objects.get(id=self.localhost.id)
+        self.assertEqual(site.hostname, edited_hostname)
+        self.assertEqual(site.site_name, edited_site_name)
 
     def test_changing_the_default_site_workflow(self):
         # First create a second, non-default, site
@@ -302,10 +309,12 @@ class TestLimitedPermissions(TestCase, WagtailTestUtils):
 
     def test_edit(self):
         edit_url = reverse('wagtailsites:edit', args=(self.localhost.id,))
-        edited_hostname = 'edited'
+        edited_hostname = 'edited_hostname'
+        edited_site_name = 'edited_site_name'
         response = self.client.post(edit_url, {
             'hostname': edited_hostname,
             'port': 80,
+            'site_name': edited_site_name,
             'root_page': self.home_page.id,
         })
 
@@ -313,7 +322,9 @@ class TestLimitedPermissions(TestCase, WagtailTestUtils):
         self.assertRedirects(response, reverse('wagtailsites:index'))
 
         # Check that the site was edited
-        self.assertEqual(Site.objects.get(id=self.localhost.id).hostname, edited_hostname)
+        site = Site.objects.get(id=self.localhost.id)
+        self.assertEqual(site.hostname, edited_hostname)
+        self.assertEqual(site.site_name, edited_site_name)
 
     def test_get_delete_view(self):
         delete_url = reverse('wagtailsites:delete', args=(self.localhost.id,))
