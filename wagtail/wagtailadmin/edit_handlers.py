@@ -12,7 +12,7 @@ from django.utils.six import text_type
 from django import forms
 from django.forms.models import fields_for_model
 from django.contrib.contenttypes.models import ContentType
-from django.core.exceptions import ObjectDoesNotExist, ImproperlyConfigured
+from django.core.exceptions import ImproperlyConfigured
 from django.utils.translation import ugettext_lazy
 
 from taggit.managers import TaggableManager
@@ -526,9 +526,11 @@ class BaseChooserPanel(BaseFieldPanel):
     """
 
     def get_chosen_item(self):
+        field = self.instance._meta.get_field(self.field_name)
+        related_model = get_related_model(field.related)
         try:
             return getattr(self.instance, self.field_name)
-        except ObjectDoesNotExist:
+        except related_model.DoesNotExist:
             # if the ForeignKey is null=False, Django decides to raise
             # a DoesNotExist exception here, rather than returning None
             # like every other unpopulated field type. Yay consistency!

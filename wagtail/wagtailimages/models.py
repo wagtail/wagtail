@@ -10,7 +10,7 @@ from taggit.managers import TaggableManager
 from willow.image import Image as WillowImage
 
 from django.core.files import File
-from django.core.exceptions import ImproperlyConfigured, ObjectDoesNotExist
+from django.core.exceptions import ImproperlyConfigured
 from django.db import models
 from django.db.models.signals import pre_delete, pre_save
 from django.dispatch.dispatcher import receiver
@@ -31,6 +31,7 @@ from wagtail.wagtailsearch import index
 from wagtail.wagtailimages.rect import Rect
 from wagtail.wagtailimages.exceptions import InvalidFilterSpecError
 from wagtail.wagtailadmin.utils import get_object_usage
+from wagtail.utils.compat import get_related_model
 from wagtail.utils.deprecation import RemovedInWagtail12Warning
 
 
@@ -210,6 +211,11 @@ class AbstractImage(models.Model, TagSearchable):
 
         return Rect.from_point(x, y, width, height)
 
+    @classmethod
+    def get_rendition_model(cls):
+        """ Get the Rendition model for this Image model """
+        return get_related_model(cls.renditions.related)
+
     def get_rendition(self, filter):
         if not hasattr(filter, 'run'):
             # assume we've been passed a filter spec string, rather than a Filter object
@@ -217,13 +223,14 @@ class AbstractImage(models.Model, TagSearchable):
             filter, created = Filter.objects.get_or_create(spec=filter)
 
         cache_key = filter.get_cache_key(self)
+        Rendition = self.get_rendition_model()
 
         try:
             rendition = self.renditions.get(
                 filter=filter,
                 focal_point_key=cache_key,
             )
-        except ObjectDoesNotExist:
+        except Rendition.DoesNotExist:
             # Generate the rendition image
             generated_image, output_format = filter.run(self, BytesIO())
 

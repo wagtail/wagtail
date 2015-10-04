@@ -128,6 +128,9 @@ class TestRenditions(TestCase):
             file=get_test_image_file(),
         )
 
+    def test_get_rendition_model(self):
+        self.assertIs(Image.get_rendition_model(), Rendition)
+
     def test_minification(self):
         rendition = self.image.get_rendition('width-400')
 
