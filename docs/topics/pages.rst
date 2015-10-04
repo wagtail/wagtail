@@ -219,7 +219,7 @@ Customising template context
 
 All pages have a ``get_context`` method that is called whenever the template is rendered and returns a dictionary of variables to bind into the template.
 
-To add more variables to the template, override this method on the page model class:
+To add more variables to the template context, you can override this method:
 
 .. code-block:: python
 
@@ -227,7 +227,6 @@ To add more variables to the template, override this method on the page model cl
         ...
 
         def get_context(self, request):
-            # Call default get_context method
             context = super(BlogIndexPage, self).get_context(request)
 
             # Add extra variables and return the updated context
@@ -249,7 +248,7 @@ The variables can then be used in the template:
 Changing the template
 ---------------------
 
-Set ``template`` attribute on the class to change the template:
+Set the ``template`` attribute on the class to use a different template file:
 
 .. code-block:: python
 
@@ -262,7 +261,7 @@ Set ``template`` attribute on the class to change the template:
 Dynamically choosing the template
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-The template can be changed on a per-instance basis by defining a ``get_template`` method on the page class:
+The template can be changed on a per-instance basis by defining a ``get_template`` method on the page class. This method is called every time the page is rendered:
 
 .. code-block:: python
 
@@ -283,11 +282,11 @@ In this example, pages that have the ``use_other_template`` boolean field set wi
 More control over page rendering
 --------------------------------
 
-The default behaviour of rendering a template when a user visits a page can be completely overriden.
-
 All page classes have a ``serve()`` method, that internally calls the ``get_context`` and ``get_template`` methods and renders the template. This method is similar to a Django view function, taking a Django ``Request`` object and returning a Django ``Response`` object.
 
-For example, this can be overriden to make the ``BlogPage`` model respond with a JSON representation of itself:
+This method can also be overridden for complete control over page rendering.
+
+For example, here's a way you could make a page respond with a ``JSON`` representation of itself:
 
 .. code-block:: python
 
