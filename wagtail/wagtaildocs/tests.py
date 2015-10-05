@@ -547,8 +547,16 @@ class TestServeView(TestCase):
         self.document = models.Document(title="Test document")
         self.document.file.save('example.doc', ContentFile("A boring example document"))
 
-    def get(self):
-        return self.client.get(reverse('wagtaildocs_serve', args=(self.document.id, 'example.doc')))
+    def get(self, close_response=True):
+        response = self.client.get(reverse('wagtaildocs_serve', args=(self.document.id, 'example.doc')))
+
+        # Streaming responses require the file to be open until the content has been fully transferred
+        # As we don't do that in most tests, we should manually close the file to prevent ResourceWarnings
+        # being raised
+        if close_response:
+            response.close()
+
+        return response
 
     def test_response_code(self):
         self.assertEqual(self.get().status_code, 200)
@@ -567,7 +575,10 @@ class TestServeView(TestCase):
         self.assertTrue(self.get().streaming)
 
     def test_content(self):
-        self.assertEqual(b"".join(self.get().streaming_content), b"A boring example document")
+        response = self.get(close_response=False)
+        self.assertEqual(b"".join(response.streaming_content), b"A boring example document")
+
+        response.close()
 
     def test_document_served_fired(self):
         mock_handler = mock.MagicMock()
@@ -586,6 +597,11 @@ class TestServeView(TestCase):
     @unittest.expectedFailure
     def test_with_incorrect_filename(self):
         response = self.client.get(reverse('wagtaildocs_serve', args=(self.document.id, 'incorrectfilename')))
+
+        # Temporary: At the moment, the request succeeds so it retuns a StreamingHTTPResponse which must be closed
+        # Remove this when the view starts returning 404 errors as it should
+        response.close()
+
         self.assertEqual(response.status_code, 404)
 
     def clear_sendfile_cache(self):
@@ -605,8 +621,16 @@ class TestServeViewWithSendfile(TestCase):
         self.document = models.Document(title="Test document")
         self.document.file.save('example.doc', ContentFile("A boring example document"))
 
-    def get(self):
-        return self.client.get(reverse('wagtaildocs_serve', args=(self.document.id, 'example.doc')))
+    def get(self, close_response=True):
+        response = self.client.get(reverse('wagtaildocs_serve', args=(self.document.id, 'example.doc')))
+
+        # Streaming responses require the file to be open until the content has been fully trasferred
+        # As we don't do that in most tests, we should manually close the file to prevent ResourceWarnings
+        # being raised
+        if close_response:
+            response.close()
+
+        return response
 
     def clear_sendfile_cache(self):
         from wagtail.utils.sendfile import _get_sendfile
@@ -653,6 +677,8 @@ class TestServeWithUnicodeFilename(TestCase):
     def test_response_code(self):
         response = self.client.get(reverse('wagtaildocs_serve', args=(self.document.id, self.filename)))
         self.assertEqual(response.status_code, 200)
+
+        response.close()
 
 
 class TestDocumentRichTextLinkHandler(TestCase):
