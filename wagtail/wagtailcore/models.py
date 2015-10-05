@@ -554,7 +554,7 @@ class Page(six.with_metaclass(PageBase, MP_Node, ClusterableModel, index.Indexed
             if commit:
                 self.save()
 
-            page_unpublished.send(sender=self.specific_class, instance=self.specific)
+            page_unpublished.send(sender=self.specific_class, instance=self.specific, revision=self)
 
             logger.info("Page unpublished: \"%s\" id=%d", self.title, self.id)
 
@@ -1223,8 +1223,9 @@ class PageRevision(models.Model):
         self.submitted_for_moderation = False
         page.revisions.update(submitted_for_moderation=False)
 
+
         if page.live:
-            page_published.send(sender=page.specific_class, instance=page.specific)
+            page_published.send(sender=page.specific_class, instance=page.specific, revision=self)
 
             logger.info("Page published: \"%s\" id=%d revision_id=%d", page.title, page.id, self.id)
         elif page.go_live_at:
