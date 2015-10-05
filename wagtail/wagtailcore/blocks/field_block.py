@@ -76,6 +76,21 @@ class FieldBlock(Block):
         # the one this block works with natively
         return self.value_from_form(self.field.clean(self.value_for_form(value)))
 
+    def get_searchable_content(self, value):
+        if isinstance(self.field, forms.ChoiceField):
+            # If the field is a ChoiceField, return the display value
+            text_value = force_text(value)
+            for k, v in self.field.choices:
+                if isinstance(v, (list, tuple)):
+                    # This is an optgroup, so look inside the group for options
+                    for k2, v2 in v:
+                        if value == k2 or text_value == force_text(k2):
+                            return [v2]
+                else:
+                    if value == k or text_value == force_text(k):
+                        return [v]
+        return super(FieldBlock, self).get_searchable_content(value)
+
 
 class CharBlock(FieldBlock):
     def __init__(self, required=True, help_text=None, max_length=None, min_length=None, **kwargs):
