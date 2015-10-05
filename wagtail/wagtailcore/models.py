@@ -554,7 +554,7 @@ class Page(six.with_metaclass(PageBase, MP_Node, ClusterableModel, index.Indexed
             if commit:
                 self.save()
 
-            page_unpublished.send(sender=self.specific_class, instance=self.specific, revision=self)
+            page_unpublished.send(sender=self.specific_class, instance=self.specific)
 
             logger.info("Page unpublished: \"%s\" id=%d", self.title, self.id)
 
