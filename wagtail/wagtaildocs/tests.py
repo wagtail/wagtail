@@ -563,9 +563,10 @@ class TestServeView(TestCase):
     def test_response_code(self):
         self.assertEqual(self.get().status_code, 200)
 
-    @unittest.expectedFailure  # Filename has a random string appended to it
     def test_content_disposition_header(self):
-        self.assertEqual(self.get()['Content-Disposition'], 'attachment; filename=example.doc')
+        self.assertEqual(
+            self.get()['Content-Disposition'],
+            'attachment; filename="{}"'.format(self.document.filename))
 
     def test_content_length_header(self):
         self.assertEqual(self.get()['Content-Length'], '25')
