@@ -6,6 +6,10 @@ from wagtail.utils.urlpatterns import decorate_urlpatterns
 
 
 class WagtailAPIRouter(object):
+    """
+    A class that provides routing and cross-linking for a collection
+    of API endpoints
+    """
     def __init__(self, url_namespace):
         self.url_namespace = url_namespace
         self._endpoints = {}
@@ -14,11 +18,23 @@ class WagtailAPIRouter(object):
         self._endpoints[name] = class_
 
     def get_model_endpoint(self, model):
+        """
+        Finds the endpoint in the API that represents a model
+
+        Returns a (name, endpoint_class) tuple. Or None if an
+        endpoint is not found.
+        """
         for name, class_ in self._endpoints.items():
             if issubclass(model, class_.model):
                 return name, class_
 
     def get_object_detail_urlpath(self, model, pk):
+        """
+        Returns a URL path (excluding scheme and hostname) to the detail
+        page of an object.
+
+        Returns None if the object is not represented by any endpoints.
+        """
         endpoint = self.get_model_endpoint(model)
 
         if endpoint:
@@ -50,4 +66,11 @@ class WagtailAPIRouter(object):
 
     @property
     def urls(self):
+        """
+        A shortcut to allow quick registration of the API in a URLconf.
+
+        Use with Django's include() function:
+
+            url(r'api/', include(myapi.urls)),
+        """
         return self.get_urlpatterns(), self.url_namespace, self.url_namespace
