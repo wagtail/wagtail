@@ -17,6 +17,9 @@ def resolve_model_string(model_string, default_app=None):
     """
     Resolve an 'app_label.model_name' string into an actual model class.
     If a model class is passed in, just return that.
+
+    Raises a LookupError if a model can not be found, or ValueError if passed
+    something that is neither a model or a string.
     """
     if isinstance(model_string, string_types):
         try:
