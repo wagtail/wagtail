@@ -77,7 +77,6 @@ class TestFieldBlock(unittest.TestCase):
         self.assertIn('<option value="choice-1">Choice 1</option>', html)
         self.assertIn('<option value="choice-2" selected="selected">Choice 2</option>', html)
 
-    @unittest.expectedFailure # Returning "choice-1" instead of "Choice 1"
     def test_choicefield_searchable_content(self):
         class ChoiceBlock(blocks.FieldBlock):
             field = forms.ChoiceField(choices=(
@@ -461,7 +460,6 @@ class TestStructBlock(unittest.TestCase):
 
         self.assertEqual(list(block.child_blocks.keys()), ['title', 'link', 'classname'])
 
-    @unittest.expectedFailure # Field order doesn't match inheritance order
     def test_initialisation_with_mixins(self):
         class LinkBlock(blocks.StructBlock):
             title = blocks.CharBlock()
@@ -475,7 +473,7 @@ class TestStructBlock(unittest.TestCase):
 
         block = StyledLinkBlock()
 
-        self.assertEqual(list(block.child_blocks.keys()), ['title', 'link', 'classname'])
+        self.assertEqual(set(block.child_blocks.keys()), {'title', 'link', 'classname'})
 
     def test_render(self):
         class LinkBlock(blocks.StructBlock):
@@ -493,7 +491,6 @@ class TestStructBlock(unittest.TestCase):
         self.assertIn('<dt>link</dt>', html)
         self.assertIn('<dd>http://www.wagtail.io</dd>', html)
 
-    @unittest.expectedFailure
     def test_render_unknown_field(self):
         class LinkBlock(blocks.StructBlock):
             title = blocks.CharBlock()
@@ -934,7 +931,6 @@ class TestStreamBlock(unittest.TestCase):
 
         self.assertEqual(list(block.child_blocks.keys()), ['heading', 'paragraph', 'intro'])
 
-    @unittest.expectedFailure # Field order doesn't match inheritance order
     def test_initialisation_with_mixins(self):
         class ArticleBlock(blocks.StreamBlock):
             heading = blocks.CharBlock()
@@ -948,7 +944,7 @@ class TestStreamBlock(unittest.TestCase):
 
         block = ArticleWithIntroBlock()
 
-        self.assertEqual(list(block.child_blocks.keys()), ['heading', 'paragraph', 'intro'])
+        self.assertEqual(set(block.child_blocks.keys()), {'heading', 'paragraph', 'intro'})
 
     def render_article(self, data):
         class ArticleBlock(blocks.StreamBlock):

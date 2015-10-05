@@ -160,6 +160,10 @@ class BaseStructBlock(Block):
 
         return errors
 
+    def render(self, value):
+        value = {k: v for k, v in value.items() if k in self.child_blocks}
+        return super(BaseStructBlock, self).render(value)
+
 
 class StructBlock(six.with_metaclass(DeclarativeSubBlocksMetaclass, BaseStructBlock)):
     pass
