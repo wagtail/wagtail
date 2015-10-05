@@ -2,7 +2,7 @@
 Page models
 ===========
 
-Each page type (a.k.a Content type) in Wagtail is represented by a Django model. All page models must inherit from the :class:`wagtail.wagtailcore.models.Page` class.
+Each page type (a.k.a. content type) in Wagtail is represented by a Django model. All page models must inherit from the :class:`wagtail.wagtailcore.models.Page` class.
 
 As all page types are Django models, you can use any field type that Django provides. See `Model field reference <https://docs.djangoproject.com/en/1.7/ref/models/fields/>`_ for a complete list of field types you can use. Wagtail also provides :class:`~wagtail.wagtailcore.fields.RichTextField` which provides a WYSIWYG editor for editing rich-text content.
 
@@ -10,8 +10,9 @@ As all page types are Django models, you can use any field type that Django prov
 .. topic:: Django models
 
     If you're not yet familiar with Django models, have a quick look at the following links to get you started:
-    `Creating models <https://docs.djangoproject.com/en/1.7/intro/tutorial01/#creating-models>`_
-    `Model syntax <https://docs.djangoproject.com/en/1.7/topics/db/models/>`_
+
+    * `Creating models <https://docs.djangoproject.com/en/1.7/intro/tutorial01/#creating-models>`_
+    * `Model syntax <https://docs.djangoproject.com/en/1.7/topics/db/models/>`_
 
 
 An example Wagtail page model
@@ -69,7 +70,7 @@ This example represents a typical blog post:
         ]
 
 
-        # Parent/sub page type rules
+        # Parent page / subpage type rules
 
         parent_page_types = ['blog.BlogIndex']
         subpage_types = []
@@ -99,13 +100,13 @@ Here we'll describe each section of the above example to help you create your ow
 Database fields
 ---------------
 
-Each Wagtail page type is a Django model, which are each represented in the database as a table.
+Each Wagtail page type is a Django model, represented in the database as a separate table.
 
-Each page type can have its own set of fields. For example, a news article may have body text and a published date whereas an event page may need separate fields for venue and start/finish times.
+Each page type can have its own set of fields. For example, a news article may have body text and a published date, whereas an event page may need separate fields for venue and start/finish times.
 
 In Wagtail, you can use any Django field class. Most field classes provided by `third party apps <https://code.djangoproject.com/wiki/DjangoResources#Djangoapplicationcomponents>`_ should work as well.
 
-Wagtail provides a couple of field classes of its own as well:
+Wagtail also provides a couple of field classes of its own:
 
  - ``RichTextField`` - For rich text content
  - ``StreamField`` - A block-based content field (see: :doc:`/topics/streamfield`)
@@ -118,23 +119,23 @@ Search
 
 The ``search_fields`` attribute defines which fields are added to the search index and how they are indexed.
 
-This should be set to a tuple, of ``SearchField`` and ``FilterField`` objects. ``SearchField`` adds a field for full-text search. ``FilterField`` adds a field for filtering the results. A field can be indexed with both ``SearchField`` and ``FilterField`` at the same time (but only one instance of each).
+This should be a tuple of ``SearchField`` and ``FilterField`` objects. ``SearchField`` adds a field for full-text search. ``FilterField`` adds a field for filtering the results. A field can be indexed with both ``SearchField`` and ``FilterField`` at the same time (but only one instance of each).
 
 In the above example, we've indexed ``body`` for full-text search and ``date`` for filtering.
 
-The arguments that these field types accept are documented `here <wagtailsearch_indexing_fields>`_.
+The arguments that these field types accept are documented here: :ref:`wagtailsearch_indexing_fields`
 
 
 Editor panels
 -------------
 
-There are a few attributes for defining edit panels on a page model. Each represents the list of panels on their respective tabs in the page editor interface.
+There are a few attributes for defining how the page's fields will be arranged in the page editor interface:
 
  - ``content_panels`` - For content, such as main body text
  - ``promote_panels`` - For metadata, such as tags, thumbnail image and SEO title
  - ``settings_panels`` - For settings, such as publish date
 
-Each of these attributes is set a list of ``EditHandler`` objects which defines which fields appear on which tabs and how they are structured on each tab.
+Each of these attributes is set to list of ``EditHandler`` objects, which defines which fields appear on which tabs and how they are structured on each tab.
 
 Here's a summary of the ``EditHandler`` classes that Wagtail provides out of the box. See :doc:`/reference/pages/panels` for full descriptions.
 
@@ -166,7 +167,7 @@ These are used for structuring fields in the interface.
 
     In order to use one of these choosers, the model being linked to must either be a page, image, document or snippet.
 
-    Linking to any other model type is currently unsupported, you should use ``FieldPanel`` which will create a dropdown box.
+    To link to any other model type, you should use ``FieldPanel``, which will create a dropdown box.
 
 
 Customising the page editor interface
@@ -175,15 +176,15 @@ Customising the page editor interface
 The page editor can be customised further. See :doc:`/advanced_topics/customisation/page_editing_interface`.
 
 
-Parent/sub page type rules
---------------------------
+Parent page / subpage type rules
+--------------------------------
 
 These two attributes allow you to control where page types may be used in your site. It allows you to define rules like "blog entries may only be created under a blog index".
 
 Both take a list of model classes or model names. Model names are of the format ``app_label.ModelName``. If the ``app_label`` is omitted, the same app is assumed.
 
-- ``parent_page_types`` limits which page types this types can be created under
-- ``subpage_types`` limits which page types that can be created under this type
+- ``parent_page_types`` limits which page types this type can be created under
+- ``subpage_types`` limits which page types can be created under this type
 
 By default, any page type can be created under any page type and it is not necessary to set these attributes if that's the desired behaviour.
 
@@ -211,7 +212,7 @@ You just need to create a template in a location where it can be accessed with t
 Template context
 ----------------
 
-Wagtail renders templates with the ``self`` variable bound to the page instance being rendered. Use this access the content of the page. For example, to get the title of the current page, do ``{{ self.title }}``. All variables provided by `context processors <https://docs.djangoproject.com/en/1.8/ref/templates/api/#subclassing-context-requestcontext>`_ are also available.
+Wagtail renders templates with the ``self`` variable bound to the page instance being rendered. Use this to access the content of the page. For example, to get the title of the current page, do ``{{ self.title }}``. All variables provided by `context processors <https://docs.djangoproject.com/en/1.8/ref/templates/api/#subclassing-context-requestcontext>`_ are also available.
 
 
 Customising template context
@@ -286,7 +287,7 @@ All page classes have a ``serve()`` method, that internally calls the ``get_cont
 
 This method can also be overridden for complete control over page rendering.
 
-For example, here's a way you could make a page respond with a ``JSON`` representation of itself:
+For example, here's a way you could make a page respond with a JSON representation of itself:
 
 .. code-block:: python
 
@@ -319,13 +320,13 @@ Each inline model requires the following:
 
 .. note:: django-modelcluster and ParentalKey
 
-    The model inlining feature is provided to by `django-modelcluster <https://github.com/torchbox/django-modelcluster>`_ and the ``ParentalKey`` field type must be imported from there:
+    The model inlining feature is provided by `django-modelcluster <https://github.com/torchbox/django-modelcluster>`_ and the ``ParentalKey`` field type must be imported from there:
 
-    ..code-block:: python
+    .. code-block:: python
 
         from modelcluster.fields import ParentalKey
 
-    ``ParentalKey`` is a subclass of Django's ``ForeignKey`` and takes the same arguments
+    ``ParentalKey`` is a subclass of Django's ``ForeignKey``, and takes the same arguments.
 
 
 For example, the following inline model can be used to add related links (a list of name, url pairs) to the ``BlogPage`` model:
@@ -365,7 +366,7 @@ Working with pages
 
 Wagtail uses Django's `multi-table inheritance <https://docs.djangoproject.com/en/1.8/topics/db/models/#multi-table-inheritance>`_ feature to allow multiple page models to be used in the same tree.
 
-Each page is added to both Wagtail's builtin :class:`~wagtail.wagtailcore.models.Page` model as well as it's user-defined model (such as the ``BlogPage`` model created earlier).
+Each page is added to both Wagtail's builtin :class:`~wagtail.wagtailcore.models.Page` model as well as its user-defined model (such as the ``BlogPage`` model created earlier).
 
 Pages can exist in Python code in two forms, an instance of ``Page`` or an instance of the page model.
 
@@ -386,7 +387,7 @@ When working with a single page type, you can work with instances of the user-de
     >>> BlogPage.objects.all()
     [<BlogPage: A Blog post>, <BlogPage: Another Blog post>]
 
-You can convert a ``Page`` object to a specific object using the ``.specific`` property (this may require performing a query each time you use it).
+You can convert a ``Page`` object to a specific object using the ``.specific`` property (this may cause an additional database lookup).
 
 .. code-block:: python
 
@@ -406,7 +407,7 @@ Tips
 Friendly model names
 --------------------
 
-Make your model names more friendly to users of Wagtail using Django's internal ``Meta`` class with a ``verbose_name`` e.g
+You can make your model names more friendly to users of Wagtail by using Django's internal ``Meta`` class with a ``verbose_name``, e.g.:
 
 .. code-block:: python
     

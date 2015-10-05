@@ -26,7 +26,7 @@ FieldPanel
 
     .. attribute:: FieldPanel.widget (optional)
 
-        This parameter allows you to specify a `django form widget`_ to use instead of the default widget for this field type.
+        This parameter allows you to specify a `Django form widget`_ to use instead of the default widget for this field type.
 
 .. _django form widget: https://docs.djangoproject.com/en/dev/ref/forms/widgets/
 
@@ -35,7 +35,7 @@ MultiFieldPanel
 
 .. class:: MultiFieldPanel(children, heading="", classname=None)
 
-    This panel condenses several :class:`~wagtail.wagtailadmin.edit_handlers.FieldPanel`` s or choosers, from a ``list`` or ``tuple``, under a single ``heading`` string.
+    This panel condenses several :class:`~wagtail.wagtailadmin.edit_handlers.FieldPanel` s or choosers, from a ``list`` or ``tuple``, under a single ``heading`` string.
 
     .. attribute:: MultiFieldPanel.children
 
