@@ -21,6 +21,7 @@ from django.conf import settings
 from django.utils.translation import ugettext_lazy as _
 from django.utils.encoding import python_2_unicode_compatible
 from django.utils.functional import cached_property
+from django.utils.six import string_types
 from django.core.urlresolvers import reverse
 
 from unidecode import unidecode
@@ -211,9 +212,7 @@ class AbstractImage(models.Model, TagSearchable):
         return Rect.from_point(x, y, width, height)
 
     def get_rendition(self, filter):
-        if not hasattr(filter, 'run'):
-            # assume we've been passed a filter spec string, rather than a Filter object
-            # TODO: keep an in-memory cache of filters, to avoid a db lookup
+        if isinstance(filter, string_types):
             filter, created = Filter.objects.get_or_create(spec=filter)
 
         cache_key = filter.get_cache_key(self)
