@@ -24,7 +24,7 @@ This signal is emitted from a ``PageRevision`` when a revision is set to `publis
 :revision: The ``PageRevision`` that was published
 :kwargs: Any other arguments passed to ``page_published.send()``.
 
-To listen to a signal, implment ``page_published.connect(receiver, sender, **kwargs)``. Here's a simple
+To listen to a signal, implement ``page_published.connect(receiver, sender, **kwargs)``. Here's a simple
 example showing how you might notify your team when something is published:
 
 .. code-block:: python
