@@ -28,7 +28,6 @@ This will create a new folder ``mysite``, based on a template containing all you
 
 Inside your ``mysite`` folder, we now just run the setup steps necessary for any Django project::
 
-    pip install -r requirements.txt
     ./manage.py migrate
     ./manage.py createsuperuser
     ./manage.py runserver
