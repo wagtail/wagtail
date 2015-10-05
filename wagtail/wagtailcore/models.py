@@ -1223,7 +1223,6 @@ class PageRevision(models.Model):
         self.submitted_for_moderation = False
         page.revisions.update(submitted_for_moderation=False)
 
-
         if page.live:
             page_published.send(sender=page.specific_class, instance=page.specific, revision=self)
 
