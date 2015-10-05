@@ -1224,7 +1224,7 @@ class PageRevision(models.Model):
         page.revisions.update(submitted_for_moderation=False)
 
         if page.live:
-            page_published.send(sender=page.specific_class, instance=page.specific)
+            page_published.send(sender=page.specific_class, instance=page.specific, revision=self)
 
             logger.info("Page published: \"%s\" id=%d revision_id=%d", page.title, page.id, self.id)
         elif page.go_live_at:
