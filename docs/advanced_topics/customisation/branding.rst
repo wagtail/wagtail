@@ -1,3 +1,5 @@
+.. _custom_branding:
+
 Custom branding
 ===============
 
