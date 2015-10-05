@@ -135,7 +135,7 @@ There are a few attributes for defining how the page's fields will be arranged i
  - ``promote_panels`` - For metadata, such as tags, thumbnail image and SEO title
  - ``settings_panels`` - For settings, such as publish date
 
-Each of these attributes is set to list of ``EditHandler`` objects, which defines which fields appear on which tabs and how they are structured on each tab.
+Each of these attributes is set to a list of ``EditHandler`` objects, which defines which fields appear on which tabs and how they are structured on each tab.
 
 Here's a summary of the ``EditHandler`` classes that Wagtail provides out of the box. See :doc:`/reference/pages/panels` for full descriptions.
 
