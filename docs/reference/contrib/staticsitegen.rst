@@ -12,13 +12,13 @@ Installing ``django-medusa``
 
 First, install ``django-medusa`` and ``django-sendfile`` from pip:
 
-.. code::
+.. code-block:: sh
 
     pip install django-medusa django-sendfile
 
 Then add ``django_medusa`` and ``wagtail.contrib.wagtailmedusa`` to ``INSTALLED_APPS``:
 
-.. code:: python
+.. code-block:: python
 
     INSTALLED_APPS = [
        ...
@@ -28,7 +28,7 @@ Then add ``django_medusa`` and ``wagtail.contrib.wagtailmedusa`` to ``INSTALLED_
 
 Define ``MEDUSA_RENDERER_CLASS``, ``MEDUSA_DEPLOY_DIR`` and ``SENDFILE_BACKEND`` in settings:
 
-.. code:: python
+.. code-block:: python
 
     MEDUSA_RENDERER_CLASS = 'django_medusa.renderers.DiskStaticSiteRenderer'
     MEDUSA_DEPLOY_DIR = os.path.join(BASE_DIR, 'build')
@@ -56,7 +56,7 @@ Wagtail provides a mixin (``wagtail.contrib.wagtailroutablepage.models.RoutableP
 
 Example:
 
-.. code:: python
+.. code-block:: python
 
     from wagtail.contrib.wagtailroutablepage.models import RoutablePageMixin, route
 
@@ -71,7 +71,7 @@ Example:
 
 Then in the template, you can use the ``{% routablepageurl %}`` tag to link between the pages:
 
-.. code:: html+Django
+.. code-block:: html+django
 
     {% load wagtailroutablepage_tags %}
 
@@ -94,7 +94,7 @@ For page types that override the ``route`` method, we need to let ``django-medus
 
 For example, the BlogIndex above would need to yield one URL for each page of results:
 
-.. code:: python
+.. code-block:: python
 
     def get_static_site_paths(self):
         # Get page count

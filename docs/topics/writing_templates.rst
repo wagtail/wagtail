@@ -89,7 +89,7 @@ The syntax for the tag is thus::
 
 For example:
 
-.. code-block:: django
+.. code-block:: html+django
 
     {% load wagtailimages_tags %}
     ...
@@ -112,7 +112,7 @@ This filter takes a chunk of HTML content and renders it as safe HTML in the pag
 
 Only fields using ``RichTextField`` need this applied in the template.
 
-.. code-block:: django
+.. code-block:: html+django
 
     {% load wagtailcore_tags %}
     ...
@@ -152,7 +152,7 @@ Internal links (tag)
 
 Takes a Page object and returns a relative URL (``/foo/bar/``) if within the same site as the current page, or absolute (``http://example.com/foo/bar/``) if not.
 
-.. code-block:: django
+.. code-block:: html+django
 
     {% load wagtailcore_tags %}
     ...
@@ -163,7 +163,7 @@ slugurl
 
 Takes any ``slug`` as defined in a page's "Promote" tab and returns the URL for the matching Page. Like ``pageurl``, will try to provide a relative link if possible, but will default to an absolute link if on a different site. This is most useful when creating shared page furniture e.g top level navigation or site-wide links.
 
-.. code-block:: django
+.. code-block:: html+django
 
     {% load wagtailcore_tags %}
     ...
@@ -177,7 +177,7 @@ Static files (tag)
 
 Used to load anything from your static files directory. Use of this tag avoids rewriting all static paths if hosting arrangements change, as they might between  local and a live environments.
 
-.. code-block:: django
+.. code-block:: html+django
 
     {% load static %}
     ...
@@ -192,7 +192,7 @@ Wagtail User Bar
 
 This tag provides a contextual flyout menu on the top-right of a page for logged-in users. The menu gives editors the ability to edit the current page or add another at the same level. Moderators are also given the ability to accept or reject a page previewed as part of content moderation.
 
-.. code-block:: django
+.. code-block:: html+django
 
     {% load wagtailuserbar %}
     ...

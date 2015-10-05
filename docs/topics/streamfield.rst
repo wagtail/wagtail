@@ -360,14 +360,14 @@ Template rendering
 
 The simplest way to render the contents of a StreamField into your template is to output it as a variable, like any other field:
 
-.. code-block:: django
+.. code-block:: html+django
 
     {{ self.body }}
 
 
 This will render each block of the stream in turn, wrapped in a ``<div class="block-my_block_name">`` element (where ``my_block_name`` is the block name given in the StreamField definition). If you wish to provide your own HTML markup, you can instead iterate over the field's value to access each block in turn:
 
-.. code-block:: django
+.. code-block:: html+django
 
     <article>
         {% for block in self.body %}
@@ -378,7 +378,7 @@ This will render each block of the stream in turn, wrapped in a ``<div class="bl
 
 For more control over the rendering of specific block types, each block object provides ``block_type`` and ``value`` properties:
 
-.. code-block:: django
+.. code-block:: html+django
 
     <article>
         {% for block in self.body %}
@@ -428,7 +428,7 @@ Or, when defined as a subclass of StructBlock:
 
 Within the template, the block value is accessible as the variable ``self``:
 
-.. code-block:: django
+.. code-block:: html+django
 
     {% load wagtailimages_tags %}
 

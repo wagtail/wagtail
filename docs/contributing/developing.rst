@@ -17,26 +17,26 @@ Install Node.js, any version between v0.10.x and v0.12.x. Instructions for insta
 
 Clone a copy of `the Wagtail codebase <https://github.com/torchbox/wagtail>`_:
 
-.. code-block:: bash
+.. code-block:: sh
 
     git clone https://github.com/torchbox/wagtail.git
     cd wagtail
 
 With your preferred virtualenv activated, install the Wagtail package in development mode:
 
-.. code-block:: bash
+.. code-block:: sh
 
     python setup.py develop
 
 Install the tool chain for building static assets:
 
-.. code-block:: bash
+.. code-block:: sh
 
     npm install
 
 Compile the assets:
 
-.. code-block:: bash
+.. code-block:: sh
 
     npm run build
 
@@ -104,12 +104,12 @@ All static assets such as JavaScript, CSS, images, and fonts for the Wagtail adm
 
 To compile the assets, run:
 
-.. code-block:: bash
+.. code-block:: sh
 
-    $ npm run build
+    npm run build
 
 This must be done after every change to the source files. To watch the source files for changes and then automatically recompile the assets, run:
 
-.. code-block:: bash
+.. code-block:: sh
 
-    $ npm start
+    npm start

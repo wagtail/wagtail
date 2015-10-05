@@ -21,7 +21,6 @@ The project template
         Vagrantfile
         readme.rst
         requirements.txt
-        
 
 The "core" app
 ----------------

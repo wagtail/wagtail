@@ -71,7 +71,7 @@ If you have multiple backends and would only like to update one of them, you can
 
 For example, to update just the default backend:
 
-.. code-block:: none
+.. code-block:: sh
 
     python manage.py update_index --backend default
 
