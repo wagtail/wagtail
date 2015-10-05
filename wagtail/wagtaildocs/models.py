@@ -40,11 +40,7 @@ class Document(models.Model, TagSearchable):
 
     @property
     def file_extension(self):
-        parts = self.filename.split('.')
-        if len(parts) > 1:
-            return parts[-1]
-        else:
-            return ''
+        return os.path.splitext(self.filename)[1][1:]
 
     @property
     def url(self):
