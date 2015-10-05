@@ -12,7 +12,7 @@ Usage
 
 Add ``wagtail.wagtailforms`` to your ``INSTALLED_APPS``:
 
-.. code:: python
+.. code-block:: python
 
     INSTALLED_APPS = [
        ...
@@ -22,7 +22,7 @@ Add ``wagtail.wagtailforms`` to your ``INSTALLED_APPS``:
 Within the ``models.py`` of one of your apps, create a model that extends ``wagtailforms.models.AbstractEmailForm``:
 
 
-.. code:: python
+.. code-block:: python
 
     from modelcluster.fields import ParentalKey
     from wagtail.wagtailadmin.edit_handlers import (FieldPanel, InlinePanel,
@@ -55,7 +55,7 @@ If you do not want your form page type to offer form-to-email functionality, you
 
 You now need to create two templates named ``form_page.html`` and ``form_page_landing.html`` (where ``form_page`` is the underscore-formatted version of the class name). ``form_page.html`` differs from a standard Wagtail template in that it is passed a variable ``form``, containing a Django ``Form`` object, in addition to the usual ``self`` variable. A very basic template for the form would thus be:
 
-.. code:: html
+.. code-block:: html
 
     {% load wagtailcore_tags %}
     <html>

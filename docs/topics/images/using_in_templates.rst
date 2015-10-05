@@ -11,7 +11,7 @@ The syntax for the tag is thus::
 
 For example:
 
-.. code-block:: django
+.. code-block:: html+django
 
     {% load wagtailimages_tags %}
     ...
@@ -34,7 +34,7 @@ The available resizing methods are:
     ``max`` 
         (takes two dimensions)
 
-        .. code-block:: django
+        .. code-block:: html+django
 
             {% image self.photo max-1000x500 %}
 
@@ -45,7 +45,7 @@ The available resizing methods are:
     ``min`` 
         (takes two dimensions)
 
-        .. code-block:: django
+        .. code-block:: html+django
 
             {% image self.photo min-500x200 %}
 
@@ -56,7 +56,7 @@ The available resizing methods are:
     ``width`` 
         (takes one dimension)
 
-        .. code-block:: django
+        .. code-block:: html+django
 
             {% image self.photo width-640 %}
 
@@ -65,7 +65,7 @@ The available resizing methods are:
     ``height`` 
         (takes one dimension)
 
-        .. code-block:: django
+        .. code-block:: html+django
 
             {% image self.photo height-480 %}
 
@@ -74,7 +74,7 @@ The available resizing methods are:
     ``fill`` 
         (takes two dimensions and an optional ``-c`` parameter)
 
-        .. code-block:: django
+        .. code-block:: html+django
 
             {% image self.photo fill-200x200 %}
 
@@ -96,7 +96,7 @@ The available resizing methods are:
 
         You can do this by appending ``-c<percentage>`` at the end of the method. For example, if you would like the image to be cropped as closely as possible to its focal point, add ``-c100`` to the end of the method.
 
-        .. code-block:: django
+        .. code-block:: html+django
 
             {% image self.photo fill-200x200-c100 %}
 
@@ -107,7 +107,7 @@ The available resizing methods are:
     ``original`` 
         (takes no dimensions)
 
-        .. code-block:: django
+        .. code-block:: html+django
 
             {% image self.photo original %}
 
@@ -130,7 +130,7 @@ Wagtail provides two shortcuts to give greater control over the ``img`` element:
 
 Extra attributes can be specified with the syntax ``attribute="value"``:
 
-.. code-block:: django
+.. code-block:: html+django
 
     {% image self.photo width-400 class="foo" id="bar" %}
 
@@ -141,7 +141,7 @@ No validation is performed on attributes added in this way so it's possible to a
 
 Wagtail can assign the image data to another variable using Django's ``as`` syntax:
 
-.. code-block:: django
+.. code-block:: html+django
 
     {% image self.photo width-400 as tmp_photo %}
 
@@ -167,7 +167,7 @@ The ``attrs`` shortcut
 
 You can also use the ``attrs`` property as a shorthand to output the attributes ``src``, ``width``, ``height`` and ``alt`` in one go:
 
-.. code-block:: django
+.. code-block:: html+django
 
     <img {{ tmp_photo.attrs }} class="my-custom-class" />
 

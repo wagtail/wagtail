@@ -129,7 +129,7 @@ Here's an example of how this could be implemented (with English as the main lan
 
 You can make use of these methods in your template by doing:
 
-.. code-block:: django
+.. code-block:: html+django
 
     {% if self.english_page and self.get_language != 'en' %}
         <a href="{{ self.english_page.url }}">{% trans "View in English" %}</a>

@@ -69,7 +69,7 @@ First, add a new python file to a ``templatetags`` folder within your app. The d
 
 Here's what's in the template used by the template tag:
 
-.. code-block:: django
+.. code-block:: html+django
 
   {% for advert in adverts %}
     <p>
@@ -81,7 +81,7 @@ Here's what's in the template used by the template tag:
 
 Then in your own page templates, you can include your snippet template tag with:
 
-.. code-block:: django
+.. code-block:: html+django
 
   {% block content %}
   
@@ -162,7 +162,7 @@ To attach multiple adverts to a page, the ``SnippetChooserPanel`` can be placed 
 
 These child objects are now accessible through the page's ``advert_placements`` property, and from there we can access the linked Advert snippet as ``advert``. In the template for ``BookPage``, we could include the following:
 
-.. code-block:: django
+.. code-block:: html+django
 
   {% for advert_placement in self.advert_placements.all %}
     <p><a href="{{ advert_placement.advert.url }}">{{ advert_placement.advert.text }}</a></p>

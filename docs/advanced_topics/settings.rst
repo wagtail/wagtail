@@ -192,9 +192,9 @@ Providing an API key for the Embedly service will use that as a embed backend, w
 
 To use Embedly, you must also install their Python module:
 
-.. code-block:: bash
+.. code-block:: sh
 
-  $ pip install embedly
+  pip install embedly
 
 
 Images
