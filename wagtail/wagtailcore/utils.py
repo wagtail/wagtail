@@ -37,10 +37,12 @@ def resolve_model_string(model_string, default_app=None):
         return model_string
 
     else:
-        raise LookupError("Can not resolve {0!r} into a model".format(model_string), model_string)
+        raise ValueError("Can not resolve {0!r} into a model".format(model_string), model_string)
 
 
 SCRIPT_RE = re.compile(r'<(-*)/script>')
+
+
 def escape_script(text):
     """
     Escape `</script>` tags in 'text' so that it can be placed within a `<script>` block without
