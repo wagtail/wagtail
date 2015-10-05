@@ -14,6 +14,8 @@ What's new
  * Order of URL parameters now ignored by redirect middleware
  * Added SQL Server compatibility to image migration
  * Added classnames to Wagtail rich text editor buttons to aid custom styling
+ * Simplified body_class in default homepage template
+ * page_published signal now called with the revision object that was published
 
 Bug fixes
 ~~~~~~~~~
