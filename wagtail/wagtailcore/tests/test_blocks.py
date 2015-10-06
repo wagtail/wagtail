@@ -6,7 +6,7 @@ import unittest
 from django import forms
 from django.forms.utils import ErrorList
 from django.core.exceptions import ValidationError
-from django.test import TestCase
+from django.test import TestCase, SimpleTestCase
 from django.utils.safestring import mark_safe, SafeData
 
 from wagtail.wagtailcore import blocks
@@ -447,7 +447,7 @@ class TestMeta(unittest.TestCase):
         self.assertEqual(block.meta.test, 'Foo')
 
 
-class TestStructBlock(unittest.TestCase):
+class TestStructBlock(SimpleTestCase):
     def test_initialisation(self):
         block = blocks.StructBlock([
             ('title', blocks.CharBlock()),
@@ -514,13 +514,17 @@ class TestStructBlock(unittest.TestCase):
             'title': "Wagtail site",
             'link': 'http://www.wagtail.io',
         })
+        expected_html = '\n'.join([
+            '<dl>',
+            '<dt>title</dt>',
+            '<dd>Wagtail site</dd>',
+            '<dt>link</dt>',
+            '<dd>http://www.wagtail.io</dd>',
+            '</dl>',
+        ])
 
-        self.assertIn('<dt>title</dt>', html)
-        self.assertIn('<dd>Wagtail site</dd>', html)
-        self.assertIn('<dt>link</dt>', html)
-        self.assertIn('<dd>http://www.wagtail.io</dd>', html)
+        self.assertHTMLEqual(html, expected_html)
 
-    @unittest.expectedFailure
     def test_render_unknown_field(self):
         class LinkBlock(blocks.StructBlock):
             title = blocks.CharBlock()
