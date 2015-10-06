@@ -38,9 +38,9 @@ class TestFieldBlock(unittest.TestCase):
 
     def test_charfield_render_form_with_error(self):
         block = blocks.CharBlock()
-        html = block.render_form("Hello world!",
-            errors=ErrorList([ValidationError("This field is required.")])
-        )
+        html = block.render_form(
+            "Hello world!",
+            errors=ErrorList([ValidationError("This field is required.")]))
 
         self.assertIn('This field is required.', html)
 
@@ -77,18 +77,16 @@ class TestFieldBlock(unittest.TestCase):
         self.assertIn('<option value="choice-1">Choice 1</option>', html)
         self.assertIn('<option value="choice-2" selected="selected">Choice 2</option>', html)
 
-    @unittest.expectedFailure # Returning "choice-1" instead of "Choice 1"
-    def test_choicefield_searchable_content(self):
-        class ChoiceBlock(blocks.FieldBlock):
-            field = forms.ChoiceField(choices=(
-                ('choice-1', "Choice 1"),
-                ('choice-2', "Choice 2"),
-            ))
-
-        block = ChoiceBlock()
-        content = block.get_searchable_content("choice-1")
-
-        self.assertEqual(content, ["Choice 1"])
+    def test_searchable_content(self):
+        """
+        FieldBlock should not return anything for `get_searchable_content` by
+        default. Subclasses are free to override it and provide relevant
+        content.
+        """
+        class CustomBlock(blocks.FieldBlock):
+            field = forms.CharField(required=True)
+        block = CustomBlock()
+        self.assertEqual(block.get_searchable_content("foo bar"), [])
 
     def test_form_handling_is_independent_of_serialisation(self):
         class Base64EncodingCharBlock(blocks.CharBlock):
@@ -310,6 +308,35 @@ class TestChoiceBlock(unittest.TestCase):
                 },
             )
         )
+
+    def test_searchable_content(self):
+        block = blocks.ChoiceBlock(choices=[
+            ('choice-1', "Choice 1"),
+            ('choice-2', "Choice 2"),
+        ])
+        self.assertEqual(block.get_searchable_content("choice-1"),
+                         ["Choice 1"])
+
+    def test_optgroup_searchable_content(self):
+        block = blocks.ChoiceBlock(choices=[
+            ('Section 1', [
+                ('1-1', "Block 1"),
+                ('1-2', "Block 2"),
+            ]),
+            ('Section 2', [
+                ('2-1', "Block 1"),
+                ('2-2', "Block 2"),
+            ]),
+        ])
+        self.assertEqual(block.get_searchable_content("2-2"),
+                         ["Section 2", "Block 2"])
+
+    def test_invalid_searchable_content(self):
+        block = blocks.ChoiceBlock(choices=[
+            ('one', 'One'),
+            ('two', 'Two'),
+        ])
+        self.assertEqual(block.get_searchable_content('three'), [])
 
 
 class TestRawHTMLBlock(unittest.TestCase):
