@@ -488,8 +488,19 @@ class TestStructBlock(SimpleTestCase):
 
         self.assertEqual(list(block.child_blocks.keys()), ['title', 'link', 'classname'])
 
-    @unittest.expectedFailure # Field order doesn't match inheritance order
     def test_initialisation_with_mixins(self):
+        """
+        The order of fields of classes with multiple parent classes is slightly
+        surprising at first. Child fields are inherited in a bottom-up order,
+        by traversing the MRO in reverse. In the example below,
+        ``StyledLinkBlock`` will have an MRO of::
+
+            [StyledLinkBlock, StylingMixin, LinkBlock, StructBlock, ...]
+
+        This will result in ``classname`` appearing *after* ``title`` and
+        ``link`` in ``StyleLinkBlock`.child_blocks`, even though
+        ``StylingMixin`` appeared before ``LinkBlock``.
+        """
         class LinkBlock(blocks.StructBlock):
             title = blocks.CharBlock()
             link = blocks.URLBlock()
@@ -497,12 +508,13 @@ class TestStructBlock(SimpleTestCase):
         class StylingMixin(blocks.StructBlock):
             classname = blocks.CharBlock()
 
-        class StyledLinkBlock(LinkBlock, StylingMixin):
-            pass
+        class StyledLinkBlock(StylingMixin, LinkBlock):
+            source = blocks.CharBlock()
 
         block = StyledLinkBlock()
 
-        self.assertEqual(list(block.child_blocks.keys()), ['title', 'link', 'classname'])
+        self.assertEqual(list(block.child_blocks.keys()),
+                         ['title', 'link', 'classname', 'source'])
 
     def test_render(self):
         class LinkBlock(blocks.StructBlock):
@@ -965,8 +977,19 @@ class TestStreamBlock(unittest.TestCase):
 
         self.assertEqual(list(block.child_blocks.keys()), ['heading', 'paragraph', 'intro'])
 
-    @unittest.expectedFailure # Field order doesn't match inheritance order
     def test_initialisation_with_mixins(self):
+        """
+        The order of child blocks of ``StreamBlock``\s with multiple parent
+        classes is slightly surprising at first. Child blocks are inherited in
+        a bottom-up order, by traversing the MRO in reverse. In the example
+        below, ``ArticleWithIntroBlock`` will have an MRO of::
+
+            [ArticleWithIntroBlock, IntroMixin, ArticleBlock, StreamBlock, ...]
+
+        This will result in ``intro`` appearing *after* ``heading`` and
+        ``paragraph`` in ``ArticleWithIntroBlock.child_blocks``, even though
+        ``IntroMixin`` appeared before ``ArticleBlock``.
+        """
         class ArticleBlock(blocks.StreamBlock):
             heading = blocks.CharBlock()
             paragraph = blocks.CharBlock()
@@ -974,12 +997,13 @@ class TestStreamBlock(unittest.TestCase):
         class IntroMixin(blocks.StreamBlock):
             intro = blocks.CharBlock()
 
-        class ArticleWithIntroBlock(ArticleBlock, IntroMixin):
-            pass
+        class ArticleWithIntroBlock(IntroMixin, ArticleBlock):
+            by_line = blocks.CharBlock()
 
         block = ArticleWithIntroBlock()
 
-        self.assertEqual(list(block.child_blocks.keys()), ['heading', 'paragraph', 'intro'])
+        self.assertEqual(list(block.child_blocks.keys()),
+                         ['heading', 'paragraph', 'intro', 'by_line'])
 
     def render_article(self, data):
         class ArticleBlock(blocks.StreamBlock):
