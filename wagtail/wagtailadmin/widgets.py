@@ -69,6 +69,10 @@ class AdminChooser(WidgetWithScript, widgets.Input):
     link_to_chosen_text = _("Edit this item")
     show_edit_link = True
 
+    # when looping over form fields, this one should appear in visible_fields, not hidden_fields
+    # despite the underlying input being type="hidden"
+    is_hidden = False
+
     def get_instance(self, model_class, value):
         # helper method for cleanly turning 'value' into an instance object
         if value is None:
