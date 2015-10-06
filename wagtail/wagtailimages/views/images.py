@@ -27,7 +27,7 @@ def index(request):
     Image = get_image_model()
 
     # Get images
-    images = images_editable_by_user(request.user)
+    images = images_editable_by_user(request.user).order_by('-created_at')
 
     # Search
     query_string = None
