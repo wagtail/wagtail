@@ -18,5 +18,6 @@
 {% endblock %}
 
 {% block extra_js %}
+    {{ block.super }}
     {% include "wagtailadmin/pages/_editor_js.html" %}
 {% endblock %}

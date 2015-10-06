@@ -2,6 +2,8 @@
 {% load wagtailimages_tags compress static i18n %}
 {% block titletag %}{% blocktrans with title=image.title %}Editing image {{ title }}{% endblocktrans %}{% endblock %}
 {% block extra_css %}
+    {{ block.super }}
+
     {% include "wagtailadmin/shared/tag_field_css.html" %}
 
     <!-- Focal point chooser -->
@@ -12,6 +14,8 @@
 {% endblock %}
 
 {% block extra_js %}
+    {{ block.super }}
+
     {% include "wagtailadmin/shared/tag_field_js.html" %}
 
     <!-- Focal point chooser -->

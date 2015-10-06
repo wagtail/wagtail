@@ -3,6 +3,7 @@
 {% load gravatar %}
 {% block titletag %}{% trans "Users" %}{% endblock %}
 {% block extra_js %}
+    {{ block.super }}
     <script>
         window.headerSearch = {
             url: "{% url 'wagtailusers_users:index' %}",
