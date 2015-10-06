@@ -10,6 +10,7 @@ from wagtail.wagtailcore.models import get_navigation_menu_items, UserPagePermis
 from wagtail.wagtailcore.utils import camelcase_to_underscore, escape_script
 from wagtail.wagtailcore.utils import cautious_slugify as _cautious_slugify
 from wagtail.wagtailadmin.menu import admin_menu
+from wagtail.wagtailadmin.search import admin_search_areas
 
 
 register = template.Library()
@@ -38,6 +39,18 @@ def main_nav(context):
         'menu_html': admin_menu.render_html(request),
         'request': request,
     }
+
+
+@register.inclusion_tag('wagtailadmin/shared/search_other.html', takes_context=True)
+def search_other(context, query):
+    request = context['request']
+
+    return {
+        'options_html': admin_search_areas.render_html(request),
+        'query_string': query,
+        'request': request,
+    }
+
 
 @register.simple_tag
 def main_nav_js():

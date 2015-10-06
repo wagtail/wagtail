@@ -1,0 +1,6 @@
+{% if not active %}
+    <li>
+        <a href="{{ url  }}?q={{ query_string|urlencode }}" class="{{ classnames }}"{{ attr_string }}>{{ label }}</a>
+     </li>
+ {% endif %}
+ 
