@@ -14,6 +14,7 @@ Changelog
  * Added spinner animations to long-running form submissions
  * Fix: Deleting a page permission from the groups admin UI does not immediately submit the form
  * Fix: Wagtail userbar is shown on pages that do not pass a `page` variable to the template (e.g. because they override the `serve` method)
+ * Fix: request.site now set correctly on page preview when the page is not in the default site
 
 
 1.1 (15.09.2015)
