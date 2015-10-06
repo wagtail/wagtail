@@ -6,12 +6,12 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 from wagtail.wagtailadmin.modal_workflow import render_modal_workflow
 from wagtail.wagtailadmin.forms import SearchForm
-from wagtail.wagtailadmin.utils import permission_required
 from wagtail.wagtailsearch.backends import get_search_backends
 
 from wagtail.wagtailimages.models import get_image_model
 from wagtail.wagtailimages.forms import get_image_form, ImageInsertionForm
 from wagtail.wagtailimages.formats import get_image_format
+from wagtail.wagtailimages.permissions import image_permission_required, user_has_image_permission
 
 
 def get_image_json(image):
@@ -36,9 +36,9 @@ def get_image_json(image):
 def chooser(request):
     Image = get_image_model()
 
-    if request.user.has_perm('wagtailimages.add_image'):
+    if user_has_image_permission(request.user, 'wagtailimages.add_image'):
         ImageForm = get_image_form(Image)
-        uploadform = ImageForm()
+        uploadform = ImageForm(user=request.user)
     else:
         uploadform = None
 
@@ -109,7 +109,7 @@ def image_chosen(request, image_id):
     )
 
 
-@permission_required('wagtailimages.add_image')
+@image_permission_required('wagtailimages.add_image')
 def chooser_upload(request):
     Image = get_image_model()
     ImageForm = get_image_form(Image)
@@ -118,7 +118,7 @@ def chooser_upload(request):
 
     if request.POST:
         image = Image(uploaded_by_user=request.user)
-        form = ImageForm(request.POST, request.FILES, instance=image)
+        form = ImageForm(request.POST, request.FILES, instance=image, user=request.user)
 
         if form.is_valid():
             form.save()
@@ -140,7 +140,7 @@ def chooser_upload(request):
                     {'image_json': get_image_json(image)}
                 )
     else:
-        form = ImageForm()
+        form = ImageForm(user=request.user)
 
     images = Image.objects.order_by('title')
 
