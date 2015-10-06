@@ -1,3 +1,5 @@
+.. _writing_templates:
+
 =================
 Writing templates
 =================
@@ -80,7 +82,6 @@ In addition to Django's standard tags and filters, Wagtail provides some of its 
 Images (tag)
 ~~~~~~~~~~~~
 
-
 The ``image`` tag inserts an XHTML-compatible ``img`` element into the page, setting its ``src``, ``width``, ``height`` and ``alt``. See also :ref:`image_tag_alt`.
 
 The syntax for the tag is thus::
@@ -147,6 +148,8 @@ Wagtail embeds and images are included at their full width, which may overflow t
 Internal links (tag)
 ~~~~~~~~~~~~~~~~~~~~
 
+.. _pageurl_tag:
+
 ``pageurl``
 -----------
 
@@ -158,8 +161,10 @@ Takes a Page object and returns a relative URL (``/foo/bar/``) if within the sam
     ...
     <a href="{% pageurl self.blog_page %}">
 
-slugurl
---------
+.. _slugurl_tag:
+
+``slugurl``
+------------
 
 Takes any ``slug`` as defined in a page's "Promote" tab and returns the URL for the matching Page. Like ``pageurl``, will try to provide a relative link if possible, but will default to an absolute link if on a different site. This is most useful when creating shared page furniture e.g top level navigation or site-wide links.
 
@@ -186,6 +191,7 @@ Used to load anything from your static files directory. Use of this tag avoids r
 Notice that the full path name is not required and the path snippet you enter only need begin with the parent app's directory name.
 
 
+.. _wagtailuserbar_tag:
 
 Wagtail User Bar
 ================

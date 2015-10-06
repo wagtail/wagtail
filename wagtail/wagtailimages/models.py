@@ -454,6 +454,9 @@ class AbstractRendition(models.Model):
         else:
             return mark_safe('<img %s>' % self.attrs)
 
+    def __html__(self):
+        return self.img_tag()
+
     class Meta:
         abstract = True
 
