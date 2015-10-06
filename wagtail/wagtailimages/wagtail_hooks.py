@@ -8,6 +8,7 @@ from django.contrib.auth.models import Permission
 from wagtail.wagtailcore import hooks
 from wagtail.wagtailadmin.menu import MenuItem
 from wagtail.wagtailadmin.site_summary import SummaryItem
+from wagtail.wagtailadmin.search import SearchArea
 
 from wagtail.wagtailimages import admin_urls, image_operations
 from wagtail.wagtailimages.models import get_image_model
@@ -91,3 +92,17 @@ class ImagesSummaryItem(SummaryItem):
 @hooks.register('construct_homepage_summary_items')
 def add_images_summary_item(request, items):
     items.append(ImagesSummaryItem(request))
+
+
+class ImagesSearchArea(SearchArea):
+    def is_shown(self, request):
+        return request.user.has_perm('wagtailimages.add_image') or request.user.has_perm('wagtailimages.change_image')
+
+
+@hooks.register('register_admin_search_area')
+def register_images_search_area():
+    return ImagesSearchArea(
+        _('Images'), urlresolvers.reverse('wagtailimages:index'),
+        name='images',
+        classnames='icon icon-image',
+        order=200)
