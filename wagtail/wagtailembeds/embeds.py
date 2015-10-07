@@ -16,11 +16,14 @@ from wagtail.wagtailembeds.models import Embed
 class EmbedException(Exception):
     pass
 
+
 class EmbedNotFoundException(EmbedException):
     pass
 
+
 class EmbedlyException(EmbedException):
     pass
+
 
 class AccessDeniedEmbedlyException(EmbedlyException):
     pass

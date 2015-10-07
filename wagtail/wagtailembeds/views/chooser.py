@@ -15,8 +15,6 @@ from wagtail.wagtailembeds import embeds
 from wagtail.wagtailembeds.embeds import EmbedNotFoundException, EmbedlyException, AccessDeniedEmbedlyException
 from wagtail.wagtailembeds.models import Embed
 
-from wagtail.wagtailembeds.embeds import oembed
-
 
 def get_embed_json(embed):
     """
