@@ -152,11 +152,11 @@ def get_embed(url, max_width=None, finder=None):
     # Create database record
     embed, created = Embed.objects.get_or_create(
         url=url,
-        max_width=max_width,
         defaults=embed_dict,
     )
 
     # Save
+    embed.max_width = max_width
     embed.last_updated = datetime.now()
     embed.save()
 

@@ -1,5 +1,9 @@
+{% load static %}
+
 <div class="embed-placeholder" contenteditable="false" data-embedtype="media" data-url="{{ embed.url }}">
-    <h3>{{ embed.title }}</h3>
+    {% if embed.title %}
+        <h3>{{ embed.title }}</h3>
+    {% endif %}
     <p>URL: {{ embed.url }}</p>
     {% if embed.provider_name %}
         <p>Provider: {{ embed.provider_name }}</p>
@@ -9,5 +13,7 @@
     {% endif %}
     {% if embed.thumbnail_url %}
         <img src="{{ embed.thumbnail_url }}" alt="{{ embed.title }}">
+    {% else %}
+        <img width="40" src="{% static 'wagtailadmin/images/wagtail-logo.svg' %}" alt="{{ embed.title }}">
     {% endif %}
 </div>

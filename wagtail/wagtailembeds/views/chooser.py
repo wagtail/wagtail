@@ -10,9 +10,12 @@ from wagtail.wagtailadmin.modal_workflow import render_modal_workflow
 from wagtail.wagtailadmin.forms import SearchForm
 from wagtail.wagtailembeds.forms import EmbedForm
 from wagtail.wagtailembeds.format import embed_to_editor_html
+from wagtail.wagtailembeds import embeds
 
 from wagtail.wagtailembeds.embeds import EmbedNotFoundException, EmbedlyException, AccessDeniedEmbedlyException
 from wagtail.wagtailembeds.models import Embed
+
+from wagtail.wagtailembeds.embeds import oembed
 
 
 def get_embed_json(embed):
@@ -97,10 +100,9 @@ def chooser_upload(request):
         form = EmbedForm(request.POST, request.FILES)
 
         if form.is_valid():
-            error = None
             try:
-                embed_html = embed_to_editor_html(form.cleaned_data['url'])
-                embed = get_object_or_404(Embed, url=form.cleaned_data['url'])
+                embed = embeds.get_embed(form.cleaned_data['url'])
+                embed_html = embed_to_editor_html(embed.url)
                 embed_json = get_embed_json(embed)
                 return render_modal_workflow(
                     request, None, 'wagtailembeds/chooser/embed_chosen.js',

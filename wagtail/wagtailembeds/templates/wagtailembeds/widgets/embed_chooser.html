@@ -1,5 +1,5 @@
 {% extends "wagtailadmin/widgets/chooser.html" %}
-
+{% load static %}
 {% block chooser_class %}embed-chooser{% endblock %}
 
 {% block chosen_state_view %}
@@ -7,8 +7,8 @@
         {% if embed.thumbnail_url %}
             <img src="{{ embed.thumbnail_url }}" >
         {% else %}
-            <img>
+            <img width="40" src="{% static 'wagtailadmin/images/wagtail-logo.svg' %}" alt="{{ embed.title }}">
         {% endif %}
     </div>
-    <span class="title">{% if embed.title %}{{ embed.title }}{% endif %}</span>
+    <span class="title">{% if embed.title %}{{ embed.title }}{% else %}{{ embed.url }}{% endif %}</span>
 {% endblock %}
