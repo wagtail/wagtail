@@ -1,5 +1,6 @@
 import django.utils.six.moves.urllib.request
 from django.utils.six.moves.urllib.error import URLError
+from django.core.urlresolvers import reverse
 
 from mock import patch
 import unittest
@@ -115,6 +116,7 @@ class TestChooser(TestCase, WagtailTestUtils):
         self.assertEqual(r.status_code, 200)
 
         # TODO: Test submitting
+
 
 class TestEmbedly(TestCase):
     @unittest.skipIf(no_embedly, "Embedly is not installed")
@@ -511,3 +513,68 @@ class TestMediaEmbedHandler(TestCase):
         )
 
         self.assertEqual(result, '')
+
+
+class TestEmbedChooserView(TestCase, WagtailTestUtils):
+    def setUp(self):
+        self.login()
+
+    def test_simple(self):
+        response = self.client.get(reverse('wagtailembeds:chooser'))
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'wagtailembeds/chooser/chooser.html')
+        self.assertTemplateUsed(response, 'wagtailembeds/chooser/chooser.js')
+
+    def test_search(self):
+        response = self.client.get(reverse('wagtailembeds:chooser'), {'q': "Hello"})
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.context['query_string'], "Hello")
+
+
+class TestEmbedChooserChosenView(TestCase, WagtailTestUtils):
+    def setUp(self):
+        self.login()
+
+    def dummy_finder(self, url, max_width=None):
+
+        # Return a pretend record
+        return {
+            'title': "Test: " + url,
+            'type': 'video',
+            'thumbnail_url': '',
+            'width': max_width if max_width else 640,
+            'height': 480,
+            'html': "<p>Blah blah blah</p>",
+        }
+
+    def test_simple(self):
+        embed = get_embed('www.test.com/1234', finder=self.dummy_finder)
+        response = self.client.get(reverse('wagtailembeds:embed_chosen', args=(embed.id,)))
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'wagtailembeds/chooser/embed_chosen.js')
+
+
+class TestEmbedChooserUploadView(TestCase, WagtailTestUtils):
+    def setUp(self):
+        self.login()
+
+    def test_simple(self):
+        response = self.client.get(reverse('wagtailembeds:chooser_upload'))
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'wagtailembeds/chooser/chooser.html')
+        self.assertTemplateUsed(response, 'wagtailembeds/chooser/chooser.js')
+
+    def test_post(self):
+
+        # Submit
+        post_data = {
+            'url': "https://www.youtube.com/watch?v=ElAJbhkH2lU",
+        }
+        response = self.client.post(reverse('wagtailembeds:chooser_upload'), post_data)
+
+        # Check that the response is a javascript file saying the embed was chosen
+        self.assertTemplateUsed(response, 'wagtailembeds/chooser/embed_chosen.js')
+        self.assertContains(response, "modal.respond('embedChosen'")
+
+        # Embed should be created
+        self.assertTrue(Embed.objects.filter(url="https://www.youtube.com/watch?v=ElAJbhkH2lU").exists())

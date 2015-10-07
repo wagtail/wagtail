@@ -159,7 +159,8 @@ def get_embed(url, max_width=None, finder=None):
     )
 
     # Save
-    embed.max_width = max_width
+    if max_width:
+        embed.max_width = max_width
     embed.last_updated = datetime.now()
     embed.save()
 
