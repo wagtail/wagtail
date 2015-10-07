@@ -6,11 +6,13 @@ from django.utils.translation import ugettext_lazy as _
 from django.contrib.auth.models import Permission
 
 from wagtail.wagtailcore import hooks
+from wagtail.wagtailcore.models import CollectionMember
 from wagtail.wagtailadmin.menu import MenuItem
 from wagtail.wagtailadmin.site_summary import SummaryItem
 
 from wagtail.wagtaildocs import admin_urls
 from wagtail.wagtaildocs.models import Document
+from wagtail.wagtaildocs.permissions import user_has_any_document_permission
 from wagtail.wagtaildocs.rich_text import DocumentLinkHandler
 
 
@@ -23,7 +25,7 @@ def register_admin_urls():
 
 class DocumentsMenuItem(MenuItem):
     def is_shown(self, request):
-        return request.user.has_perm('wagtaildocs.add_document') or request.user.has_perm('wagtaildocs.change_document')
+        return user_has_any_document_permission(request.user)
 
 
 @hooks.register('register_admin_menu_item')
@@ -51,10 +53,19 @@ def editor_js():
     )
 
 
-@hooks.register('register_permissions')
 def register_permissions():
     return Permission.objects.filter(content_type__app_label='wagtaildocs',
         codename__in=['add_document', 'change_document'])
+
+
+if issubclass(Document, CollectionMember):
+    # Register document permissions to appear within the 'Collection permissions' section
+    # of the group admin
+    hooks.register('register_collection_permissions', register_permissions)
+else:
+    # Register document permissions to appear within the main Permissions section
+    # of the group admin
+    hooks.register('register_permissions', register_permissions)
 
 
 @hooks.register('register_rich_text_link_handler')

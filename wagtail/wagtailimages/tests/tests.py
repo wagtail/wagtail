@@ -274,6 +274,7 @@ class TestGetImageForm(TestCase, WagtailTestUtils):
             'focal_point_y',
             'focal_point_width',
             'focal_point_height',
+            'collection',
         ])
 
     def test_admin_form_fields_attribute(self):

@@ -6,9 +6,11 @@ from django.test import TestCase, override_settings
 from django.utils.http import urlquote
 from django.core.urlresolvers import reverse
 from django.contrib.auth import get_user_model
-from django.contrib.auth.models import Permission
+from django.contrib.auth.models import Permission, Group
 from django.core.files.uploadedfile import SimpleUploadedFile
 from django.template.defaultfilters import filesizeformat
+
+from wagtail.wagtailcore.models import Collection, GroupCollectionPermission
 
 # Get the chars that Django considers safe to leave unescaped in a URL
 # This list changed in Django 1.8:  https://github.com/django/django/commit/e167e96cfea670422ca75d0b35fe7c4195f25b63
@@ -771,7 +773,10 @@ class TestEditOnlyPermissions(TestCase, WagtailTestUtils):
         user = get_user_model().objects.create_user(username='changeonly', email='changeonly@example.com', password='password')
         change_permission = Permission.objects.get(content_type__app_label='wagtailimages', codename='change_image')
         admin_permission = Permission.objects.get(content_type__app_label='wagtailadmin', codename='access_admin')
-        user.user_permissions.add(change_permission, admin_permission)
+        image_changers_group = Group.objects.create(name='Image changers')
+        image_changers_group.permissions.add(admin_permission)
+        GroupCollectionPermission.objects.create(group=image_changers_group, collection=Collection.get_first_root_node(), permission=change_permission)
+        user.groups.add(image_changers_group)
         self.client.login(username='changeonly', password='password')
 
     def test_get_index(self):
@@ -804,3 +809,27 @@ class TestEditOnlyPermissions(TestCase, WagtailTestUtils):
         response = self.client.get(reverse('wagtailimages:add_multiple'))
         # permission should be denied
         self.assertRedirects(response, reverse('wagtailadmin_home'))
+
+
+class TestImageAddMultipleView(TestCase, WagtailTestUtils):
+    def test_as_superuser(self):
+        self.login()
+        response = self.client.get(reverse('wagtailimages:add_multiple'))
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'wagtailimages/multiple/add.html')
+
+    def test_as_ordinary_editor(self):
+        user = get_user_model().objects.create_user(username='editor', email='editor@email.com', password='password')
+
+        add_permission = Permission.objects.get(content_type__app_label='wagtailimages', codename='add_image')
+        admin_permission = Permission.objects.get(content_type__app_label='wagtailadmin', codename='access_admin')
+        image_adders_group = Group.objects.create(name='Image adders')
+        image_adders_group.permissions.add(admin_permission)
+        GroupCollectionPermission.objects.create(group=image_adders_group, collection=Collection.get_first_root_node(), permission=add_permission)
+        user.groups.add(image_adders_group)
+
+        self.client.login(username='editor', password='password')
+
+        response = self.client.get(reverse('wagtailimages:add_multiple'))
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'wagtailimages/multiple/add.html')

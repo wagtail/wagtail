@@ -4,9 +4,12 @@ from django import forms
 from django.forms.models import modelform_factory
 from django.utils.translation import ugettext as _
 
+from wagtail.wagtailcore.models import Collection, CollectionMember
 from wagtail.utils.deprecation import RemovedInWagtail12Warning
 from wagtail.wagtailimages.formats import get_image_formats
 from wagtail.wagtailimages.fields import WagtailImageField
+from wagtail.wagtailimages.permissions import \
+    collections_with_add_permission_for_user, target_collections_for_move
 
 
 # Callback to allow us to override the default form field for the image file field
@@ -19,9 +22,52 @@ def formfield_for_dbfield(db_field, **kwargs):
     return db_field.formfield(**kwargs)
 
 
+class BaseImageForm(forms.ModelForm):
+    def __init__(self, *args, **kwargs):
+        user = kwargs.pop('user', None)
+
+        super(BaseImageForm, self).__init__(*args, **kwargs)
+
+        self.is_using_collections = issubclass(self._meta.model, CollectionMember)
+
+        if 'collection' in self.fields:
+            if self.is_using_collections:
+                if user is None:
+                    self.collections = Collection.objects.all()
+                elif self.instance and self.instance.id:
+                    # editing an existing image
+                    self.collections = target_collections_for_move(user, self.instance)
+                else:
+                    # adding a new image
+                    self.collections = collections_with_add_permission_for_user(user)
+
+                if len(self.collections) == 0:
+                    raise Exception("Cannot construct BaseImageForm for a user with no image collection permissions")
+                elif len(self.collections) == 1:
+                    # don't show collection field if only one collection is available
+                    del self.fields['collection']
+                else:
+                    self.fields['collection'].queryset = self.collections
+            else:
+                del self.fields['collection']
+
+    def save(self, commit=True):
+        if self.is_using_collections and len(self.collections) == 1:
+            # populate the instance's collection field with the one available collection
+            self.instance.collection = self.collections[0]
+
+        return super(BaseImageForm, self).save(commit=commit)
+
+
 def get_image_form(model):
     if hasattr(model, 'admin_form_fields'):
         fields = model.admin_form_fields
+        if issubclass(model, CollectionMember) and 'collection' not in fields:
+            # force addition of the 'collection' field, because leaving it out can
+            # cause dubious results when multiple collections exist (e.g adding the
+            # image to the root collection where the user may not have permission) -
+            # and when only one collection exists, it will get hidden anyway.
+            fields = list(fields) + ['collection']
     else:
         fields = '__all__'
 
@@ -33,6 +79,7 @@ def get_image_form(model):
 
     return modelform_factory(
         model,
+        form=BaseImageForm,
         fields=fields,
         formfield_callback=formfield_for_dbfield,
         # set the 'file' widget to a FileInput rather than the default ClearableFileInput

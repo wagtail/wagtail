@@ -6,19 +6,19 @@ from django.views.decorators.vary import vary_on_headers
 from django.core.urlresolvers import reverse
 
 from wagtail.wagtailadmin.forms import SearchForm
-from wagtail.wagtailadmin.utils import permission_required, any_permission_required
-from wagtail.wagtailsearch.backends import get_search_backends
+from wagtail.wagtailsearch.backends import get_search_backend, get_search_backends
 from wagtail.wagtailadmin import messages
 
 from wagtail.wagtaildocs.models import Document
+from wagtail.wagtaildocs.permissions import document_permission_required, any_document_permission_required, user_can_edit_document, user_has_document_permission, documents_editable_by_user
 from wagtail.wagtaildocs.forms import DocumentForm
 
 
-@any_permission_required('wagtaildocs.add_document', 'wagtaildocs.change_document')
+@any_document_permission_required()
 @vary_on_headers('X-Requested-With')
 def index(request):
     # Get documents
-    documents = Document.objects.all()
+    documents = documents_editable_by_user(request.user)
 
     # Ordering
     if 'ordering' in request.GET and request.GET['ordering'] in ['title', '-created_at']:
@@ -27,22 +27,14 @@ def index(request):
         ordering = '-created_at'
     documents = documents.order_by(ordering)
 
-    # Permissions
-    if not request.user.has_perm('wagtaildocs.change_document'):
-        # restrict to the user's own documents
-        documents = documents.filter(uploaded_by_user=request.user)
-
     # Search
     query_string = None
     if 'q' in request.GET:
         form = SearchForm(request.GET, placeholder=_("Search documents"))
         if form.is_valid():
+            s = get_search_backend()
             query_string = form.cleaned_data['q']
-            if not request.user.has_perm('wagtaildocs.change_document'):
-                # restrict to the user's own documents
-                documents = Document.search(query_string, filters={'uploaded_by_user_id': request.user.id})
-            else:
-                documents = Document.search(query_string)
+            documents = s.search(query_string, documents)
     else:
         form = SearchForm(placeholder=_("Search documents"))
 
@@ -72,16 +64,17 @@ def index(request):
             'query_string': query_string,
             'is_searching': bool(query_string),
 
+            'can_add_document': user_has_document_permission(request.user, 'wagtaildocs.add_document'),
             'search_form': form,
             'popular_tags': Document.popular_tags(),
         })
 
 
-@permission_required('wagtaildocs.add_document')
+@document_permission_required('wagtaildocs.add_document')
 def add(request):
     if request.POST:
         doc = Document(uploaded_by_user=request.user)
-        form = DocumentForm(request.POST, request.FILES, instance=doc)
+        form = DocumentForm(request.POST, request.FILES, instance=doc, user=request.user)
         if form.is_valid():
             form.save()
 
@@ -96,7 +89,7 @@ def add(request):
         else:
             messages.error(request, _("The document could not be saved due to errors."))
     else:
-        form = DocumentForm()
+        form = DocumentForm(user=request.user)
 
     return render(request, "wagtaildocs/documents/add.html", {
         'form': form,
@@ -106,12 +99,12 @@ def add(request):
 def edit(request, document_id):
     doc = get_object_or_404(Document, id=document_id)
 
-    if not doc.is_editable_by_user(request.user):
+    if not user_can_edit_document(request.user, doc):
         raise PermissionDenied
 
     if request.POST:
         original_file = doc.file
-        form = DocumentForm(request.POST, request.FILES, instance=doc)
+        form = DocumentForm(request.POST, request.FILES, instance=doc, user=request.user)
         if form.is_valid():
             if 'file' in form.changed_data:
                 # if providing a new document file, delete the old one.
@@ -131,7 +124,7 @@ def edit(request, document_id):
         else:
             messages.error(request, _("The document could not be saved due to errors."))
     else:
-        form = DocumentForm(instance=doc)
+        form = DocumentForm(instance=doc, user=request.user)
 
     filesize = None
 
@@ -158,7 +151,7 @@ def edit(request, document_id):
 def delete(request, document_id):
     doc = get_object_or_404(Document, id=document_id)
 
-    if not doc.is_editable_by_user(request.user):
+    if not user_can_edit_document(request.user, doc):
         raise PermissionDenied
 
     if request.POST:

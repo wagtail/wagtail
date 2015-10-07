@@ -15,11 +15,12 @@ from django.utils.encoding import python_2_unicode_compatible
 
 from wagtail.wagtailadmin.taggable import TagSearchable
 from wagtail.wagtailadmin.utils import get_object_usage
+from wagtail.wagtailcore.models import CollectionMember
 from wagtail.wagtailsearch import index
 
 
 @python_2_unicode_compatible
-class Document(models.Model, TagSearchable):
+class Document(CollectionMember, TagSearchable):
     title = models.CharField(max_length=255, verbose_name=_('Title'))
     file = models.FileField(upload_to='documents', verbose_name=_('File'))
     created_at = models.DateTimeField(verbose_name=_('Created at'), auto_now_add=True)
@@ -27,7 +28,7 @@ class Document(models.Model, TagSearchable):
 
     tags = TaggableManager(help_text=None, blank=True, verbose_name=_('Tags'))
 
-    search_fields = TagSearchable.search_fields + (
+    search_fields = TagSearchable.search_fields + CollectionMember.search_fields + (
         index.FilterField('uploaded_by_user'),
     )
 
@@ -55,14 +56,8 @@ class Document(models.Model, TagSearchable):
                        args=(self.id,))
 
     def is_editable_by_user(self, user):
-        if user.has_perm('wagtaildocs.change_document'):
-            # user has global permission to change documents
-            return True
-        elif user.has_perm('wagtaildocs.add_document') and self.uploaded_by_user == user:
-            # user has document add permission, which also implicitly provides permission to edit their own documents
-            return True
-        else:
-            return False
+        from wagtail.wagtaildocs.permissions import user_can_edit_document
+        return user_can_edit_document(user, self)
 
     class Meta:
         verbose_name = _('Document')

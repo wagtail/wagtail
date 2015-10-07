@@ -17,7 +17,7 @@ from django.core.handlers.wsgi import WSGIRequest
 from django.core.handlers.base import BaseHandler
 from django.core.urlresolvers import reverse
 from django.contrib.contenttypes.models import ContentType
-from django.contrib.auth.models import Group
+from django.contrib.auth.models import Group, Permission
 from django.conf import settings
 from django.template.response import TemplateResponse
 from django.utils import timezone
@@ -35,7 +35,7 @@ from django.utils import six
 from treebeard.mp_tree import MP_Node
 
 from wagtail.wagtailcore.utils import camelcase_to_underscore, resolve_model_string
-from wagtail.wagtailcore.query import PageQuerySet
+from wagtail.wagtailcore.query import PageQuerySet, TreeQuerySet
 from wagtail.wagtailcore.url_routing import RouteResult
 from wagtail.wagtailcore.signals import page_published, page_unpublished
 
@@ -171,28 +171,7 @@ def get_page_types():
     return _PAGE_CONTENT_TYPES
 
 
-class PageManager(models.Manager):
-    def get_queryset(self):
-        return PageQuerySet(self.model).order_by('path')
-
-    def live(self):
-        return self.get_queryset().live()
-
-    def not_live(self):
-        return self.get_queryset().not_live()
-
-    def in_menu(self):
-        return self.get_queryset().in_menu()
-
-    def not_in_menu(self):
-        return self.get_queryset().not_in_menu()
-
-    def page(self, other):
-        return self.get_queryset().page(other)
-
-    def not_page(self, other):
-        return self.get_queryset().not_page(other)
-
+class TreeManagerMixin():
     def descendant_of(self, other, inclusive=False):
         return self.get_queryset().descendant_of(other, inclusive)
 
@@ -222,6 +201,29 @@ class PageManager(models.Manager):
 
     def not_sibling_of(self, other, inclusive=False):
         return self.get_queryset().not_sibling_of(other, inclusive)
+
+
+class PageManager(TreeManagerMixin, models.Manager):
+    def get_queryset(self):
+        return PageQuerySet(self.model).order_by('path')
+
+    def live(self):
+        return self.get_queryset().live()
+
+    def not_live(self):
+        return self.get_queryset().not_live()
+
+    def in_menu(self):
+        return self.get_queryset().in_menu()
+
+    def not_in_menu(self):
+        return self.get_queryset().not_in_menu()
+
+    def page(self, other):
+        return self.get_queryset().page(other)
+
+    def not_page(self, other):
+        return self.get_queryset().not_page(other)
 
     def type(self, model):
         return self.get_queryset().type(model)
@@ -1483,3 +1485,72 @@ class PageViewRestriction(models.Model):
     class Meta:
         verbose_name = _('page view restriction')
         verbose_name_plural = _('page view restrictions')
+
+
+class CollectionManager(TreeManagerMixin, models.Manager):
+    def get_queryset(self):
+        return TreeQuerySet(self.model).order_by('path')
+
+
+@python_2_unicode_compatible
+class Collection(MP_Node):
+    """
+    A location in which resources such as images and documents can be grouped
+    """
+    name = models.CharField(max_length=255, verbose_name=_('Name'))
+
+    objects = CollectionManager()
+
+    def __str__(self):
+        return self.name
+
+    def get_ancestors(self, inclusive=False):
+        return Collection.objects.ancestor_of(self, inclusive)
+
+    def get_descendants(self, inclusive=False):
+        return Collection.objects.descendant_of(self, inclusive)
+
+    def get_siblings(self, inclusive=True):
+        return Collection.objects.sibling_of(self, inclusive)
+
+    def get_next_siblings(self, inclusive=False):
+        return Collection.get_siblings(inclusive).filter(path__gte=self.path).order_by('path')
+
+    def get_prev_siblings(self, inclusive=False):
+        return Collection.get_siblings(inclusive).filter(path__lte=self.path).order_by('-path')
+
+    class Meta:
+        verbose_name = _('collection')
+        verbose_name_plural = _('collections')
+
+
+def get_root_collection_id():
+    return Collection.get_first_root_node().id
+
+
+class CollectionMember(models.Model):
+    """
+    Base class for models that are categorised into collections
+    """
+    collection = models.ForeignKey(Collection, default=get_root_collection_id, verbose_name=_('collection'), related_name='+')
+
+    search_fields = (
+        index.FilterField('collection_id'),
+    )
+
+    class Meta:
+        abstract = True
+
+
+class GroupCollectionPermission(models.Model):
+    """
+    A rule indicating that a group has permission for some action (e.g. "create document")
+    within a specified collection.
+    """
+    group = models.ForeignKey(Group, verbose_name=_('group'), related_name='collection_permissions')
+    collection = models.ForeignKey(Collection, verbose_name=_('collection'), related_name='group_permissions')
+    permission = models.ForeignKey(Permission, verbose_name=_('permission'))
+
+    class Meta:
+        unique_together = ('group', 'collection', 'permission')
+        verbose_name = _('group collection permission')

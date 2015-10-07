@@ -26,7 +26,10 @@
                     {% format_permissions permission_bound_field=form.permissions %}
                 </li>
                 <li>
-                    {% include "wagtailusers/groups/includes/page_permissions_formset.html" with formset=formset only %}
+                    {% include "wagtailusers/groups/includes/page_permissions_formset.html" with formset=page_permission_formset only %}
+                </li>
+                <li>
+                    {% include "wagtailusers/groups/includes/collection_permission_formset.html" with formset=collection_permission_formset only %}
                 </li>
                 <li><input type="submit" value='{% trans "Add group" %}' /></li>
             </ul>

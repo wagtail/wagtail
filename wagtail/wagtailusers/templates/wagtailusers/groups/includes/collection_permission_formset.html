@@ -1,0 +1,18 @@
+{% extends "wagtailusers/groups/includes/resource_permission_formset.html" %}
+
+{% load i18n %}
+
+{% block title %}{% trans "Collection permissions" %}{% endblock %}
+{% block resource_type_heading %}{% trans "Collection" %}{% endblock %}
+
+{% block form %}
+    {% include "wagtailusers/groups/includes/collection_permission_form.html" with form=form only %}
+{% endblock %}
+
+{% block empty_form %}
+    {% include "wagtailusers/groups/includes/collection_permission_form.html" with form=formset.empty_form only %}
+{% endblock %}
+
+{% block add_button %}
+    <a class="button bicolor icon icon-plus" id="id_{{ formset.prefix }}-ADD" value="Add">{% trans "Add a collection permission" %}</a>
+{% endblock %}

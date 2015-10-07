@@ -11,7 +11,7 @@ from django.core.files.uploadedfile import SimpleUploadedFile
 from django.db.utils import IntegrityError
 
 from wagtail.tests.utils import WagtailTestUtils
-from wagtail.wagtailcore.models import Page
+from wagtail.wagtailcore.models import Page, Collection, GroupCollectionPermission
 from wagtail.tests.testapp.models import EventPage, EventPageCarouselItem
 from wagtail.wagtailimages.models import Rendition, SourceImageIOError
 from wagtail.wagtailimages.rect import Rect
@@ -92,13 +92,22 @@ class TestImagePermissions(TestCase):
         # Create some user accounts for testing permissions
         User = get_user_model()
         self.user = User.objects.create_user(username='user', email='user@email.com', password='password')
+
         self.owner = User.objects.create_user(username='owner', email='owner@email.com', password='password')
+        image_adder_group = Group.objects.create(name='Image adders')
+        self.owner.groups.add(image_adder_group)
+
         self.editor = User.objects.create_user(username='editor', email='editor@email.com', password='password')
         self.editor.groups.add(Group.objects.get(name='Editors'))
+
         self.administrator = User.objects.create_superuser(username='administrator', email='administrator@email.com', password='password')
 
         # Owner user must have the add_image permission
-        self.owner.user_permissions.add(Permission.objects.get(codename='add_image'))
+        GroupCollectionPermission.objects.create(
+            group=image_adder_group,
+            collection=Collection.get_first_root_node(),
+            permission=Permission.objects.get(codename='add_image')
+        )
 
         # Create an image for running tests on
         self.image = Image.objects.create(

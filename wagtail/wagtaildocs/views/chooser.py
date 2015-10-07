@@ -6,11 +6,11 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 from wagtail.wagtailadmin.modal_workflow import render_modal_workflow
 from wagtail.wagtailadmin.forms import SearchForm
-from wagtail.wagtailadmin.utils import permission_required
 from wagtail.wagtailsearch.backends import get_search_backends
 
 from wagtail.wagtaildocs.models import Document
 from wagtail.wagtaildocs.forms import DocumentForm
+from wagtail.wagtaildocs.permissions import document_permission_required, user_has_document_permission
 
 
 def get_document_json(document):
@@ -27,8 +27,8 @@ def get_document_json(document):
 
 
 def chooser(request):
-    if request.user.has_perm('wagtaildocs.add_document'):
-        uploadform = DocumentForm()
+    if user_has_document_permission(request.user, 'wagtaildocs.add_document'):
+        uploadform = DocumentForm(user=request.user)
     else:
         uploadform = None
 
@@ -99,11 +99,11 @@ def document_chosen(request, document_id):
     )
 
 
-@permission_required('wagtaildocs.add_document')
+@document_permission_required('wagtaildocs.add_document')
 def chooser_upload(request):
     if request.POST:
         document = Document(uploaded_by_user=request.user)
-        form = DocumentForm(request.POST, request.FILES, instance=document)
+        form = DocumentForm(request.POST, request.FILES, instance=document, user=request.user)
 
         if form.is_valid():
             form.save()
@@ -117,7 +117,7 @@ def chooser_upload(request):
                 {'document_json': get_document_json(document)}
             )
     else:
-        form = DocumentForm()
+        form = DocumentForm(user=request.user)
 
     documents = Document.objects.order_by('title')
 

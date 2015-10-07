@@ -17,7 +17,7 @@
 {% block content %}
     {% trans "Images" as im_str %}
 
-    {% if perms.wagtailimages.add_image %}
+    {% if can_add_image %}
         {% trans "Add an image" as add_img_str %}
         {% include "wagtailadmin/shared/header.html" with title=im_str add_link="wagtailimages:add_multiple" icon="image" add_text=add_img_str search_url="wagtailimages:index" %}
     {% else %}

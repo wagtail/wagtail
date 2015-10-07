@@ -209,6 +209,9 @@ class TestGroupCreateView(TestCase, WagtailTestUtils):
             'page_permissions-TOTAL_FORMS': ['0'],
             'page_permissions-MAX_NUM_FORMS': ['1000'],
             'page_permissions-INITIAL_FORMS': ['0'],
+            'collection_permissions-TOTAL_FORMS': ['0'],
+            'collection_permissions-MAX_NUM_FORMS': ['1000'],
+            'collection_permissions-INITIAL_FORMS': ['0'],
         }
         for k, v in six.iteritems(post_defaults):
             post_data[k] = post_data.get(k, v)
@@ -298,7 +301,10 @@ class TestGroupEditView(TestCase, WagtailTestUtils):
             'page_permissions-INITIAL_FORMS': ['1'],  # as we have one page permission already
             'page_permissions-0-id': [self.root_add_permission.id],
             'page_permissions-0-page': [self.root_add_permission.page.id],
-            'page_permissions-0-permission_type': [self.root_add_permission.permission_type]
+            'page_permissions-0-permission_type': [self.root_add_permission.permission_type],
+            'collection_permissions-TOTAL_FORMS': ['0'],
+            'collection_permissions-MAX_NUM_FORMS': ['1000'],
+            'collection_permissions-INITIAL_FORMS': ['0'],
         }
         for k, v in six.iteritems(post_defaults):
             post_data[k] = post_data.get(k, v)
