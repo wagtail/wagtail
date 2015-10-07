@@ -1,5 +1,4 @@
 from datetime import date
-import warnings
 
 from django.core.exceptions import ImproperlyConfigured
 from django.test import TestCase
@@ -22,7 +21,6 @@ from wagtail.wagtailcore.models import Page, Site
 from wagtail.wagtailcore.fields import RichTextArea
 from wagtail.tests.testapp.models import PageChooserModel, EventPageChooserModel, EventPage, EventPageSpeaker, SimplePage
 from wagtail.tests.utils import WagtailTestUtils
-from wagtail.utils.deprecation import RemovedInWagtail12Warning
 
 
 class TestGetFormForModel(TestCase):
@@ -523,34 +521,6 @@ class TestInlinePanel(TestCase, WagtailTestUtils):
 
         # render_js_init must provide the JS initializer
         self.assertIn('var panel = InlinePanel({', panel.render_js_init())
-
-    def test_old_style_inlinepanel_declaration(self):
-        """
-        Check that the deprecated form of InlinePanel declaration (where the base model is passed
-        as the first arg) still works
-        """
-        self.reset_warning_registry()
-        with warnings.catch_warnings(record=True) as w:
-            SpeakerInlinePanelDef = InlinePanel(EventPage, 'speakers', label="Speakers")
-
-            # Check that a RemovedInWagtail12Warning has been triggered
-            self.assertEqual(len(w), 1)
-            self.assertTrue(issubclass(w[-1].category, RemovedInWagtail12Warning))
-            self.assertTrue("InlinePanel(EventPage, 'speakers') should be changed to InlinePanel('speakers')" in str(w[-1].message))
-
-        SpeakerInlinePanel = SpeakerInlinePanelDef.bind_to_model(EventPage)
-        EventPageForm = SpeakerInlinePanel.get_form_class(EventPage)
-
-        # SpeakerInlinePanel should instruct the form class to include a 'speakers' formset
-        self.assertEqual(['speakers'], list(EventPageForm.formsets.keys()))
-
-        event_page = EventPage.objects.get(slug='christmas')
-        form = EventPageForm(instance=event_page)
-        panel = SpeakerInlinePanel(instance=event_page, form=form)
-
-        result = panel.render_as_field()
-        self.assertIn('<label for="id_speakers-0-first_name">Name:</label>', result)
-        self.assertIn('value="Father"', result)
 
     def test_invalid_inlinepanel_declaration(self):
         with self.ignore_deprecation_warnings():

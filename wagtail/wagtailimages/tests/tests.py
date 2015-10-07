@@ -1,5 +1,3 @@
-import warnings
-
 from mock import MagicMock
 
 from django.test import TestCase
@@ -9,8 +7,7 @@ from django.core.urlresolvers import reverse
 
 from taggit.forms import TagField, TagWidget
 
-from wagtail.utils.deprecation import RemovedInWagtail12Warning
-from wagtail.tests.testapp.models import CustomImageWithAdminFormFields, CustomImageWithoutAdminFormFields
+from wagtail.tests.testapp.models import CustomImage
 from wagtail.tests.utils import WagtailTestUtils
 from wagtail.wagtailimages.utils import generate_signature, verify_signature
 from wagtail.wagtailimages.rect import Rect
@@ -277,7 +274,7 @@ class TestGetImageForm(TestCase, WagtailTestUtils):
         ])
 
     def test_admin_form_fields_attribute(self):
-        form = get_image_form(CustomImageWithAdminFormFields)
+        form = get_image_form(CustomImage)
 
         self.assertEqual(list(form.base_fields.keys()), [
             'title',
@@ -288,36 +285,6 @@ class TestGetImageForm(TestCase, WagtailTestUtils):
             'focal_point_width',
             'focal_point_height',
             'caption',
-        ])
-
-    def test_custom_image_model_without_admin_form_fields_raises_warning(self):
-        self.reset_warning_registry()
-        with warnings.catch_warnings(record=True) as raw_warnings:
-            form = get_image_form(CustomImageWithoutAdminFormFields)
-
-            # Check that a RemovedInWagtail12Warning has been triggered
-
-            # Ignore any ResourceWarnings. TODO: remove this when we've stopped ResourceWarnings from happening...
-            try:
-                clean_warnings = [w for w in raw_warnings if not issubclass(w.category, ResourceWarning)]
-            except NameError:  # ResourceWarning only exists on Python >= 3.2
-                clean_warnings = raw_warnings
-
-            self.assertEqual(len(clean_warnings), 1)
-            self.assertTrue(issubclass(clean_warnings[-1].category, RemovedInWagtail12Warning))
-            self.assertTrue("Add admin_form_fields = (tuple of field names) to CustomImageWithoutAdminFormFields" in str(clean_warnings[-1].message))
-
-        # All fields, including the not editable one should be on the form
-        self.assertEqual(list(form.base_fields.keys()), [
-            'title',
-            'file',
-            'focal_point_x',
-            'focal_point_y',
-            'focal_point_width',
-            'focal_point_height',
-            'caption',
-            'not_editable_field',
-            'tags',
         ])
 
     def test_file_field(self):

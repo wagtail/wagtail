@@ -1,13 +1,9 @@
-import warnings
-
 from django.shortcuts import render
 from django.contrib.auth.decorators import permission_required
 
 from wagtail.wagtailadmin.userbar import EditPageItem, AddPageItem, ApproveModerationEditPageItem, RejectModerationEditPageItem
 from wagtail.wagtailcore import hooks
 from wagtail.wagtailcore.models import Page, PageRevision
-
-from wagtail.utils.deprecation import RemovedInWagtail12Warning
 
 
 @permission_required('wagtailadmin.access_admin', raise_exception=True)
@@ -16,9 +12,6 @@ def for_frontend(request, page_id):
         EditPageItem(Page.objects.get(id=page_id)),
         AddPageItem(Page.objects.get(id=page_id)),
     ]
-
-    # TODO: Remove in 1.2 release
-    run_deprecated_edit_bird_hook(request, items)
 
     for fn in hooks.get_hooks('construct_wagtail_userbar'):
         fn(request, items)
@@ -44,9 +37,6 @@ def for_moderation(request, revision_id):
         RejectModerationEditPageItem(PageRevision.objects.get(id=revision_id)),
     ]
 
-    # TODO: Remove in 1.2 release
-    run_deprecated_edit_bird_hook(request, items)
-
     for fn in hooks.get_hooks('construct_wagtail_userbar'):
         fn(request, items)
 
@@ -60,13 +50,3 @@ def for_moderation(request, revision_id):
     return render(request, 'wagtailadmin/userbar/base.html', {
         'items': rendered_items,
     })
-
-
-def run_deprecated_edit_bird_hook(request, items):
-    for fn in hooks.get_hooks('construct_wagtail_edit_bird'):
-        fn(request, items)
-
-        warnings.warn(
-            "The 'construct_wagtail_edit_bird' hook has been renamed to 'construct_wagtail_userbar'."
-            "Please update function '%s' in '%s'." % (fn.__name__, fn.__module__), RemovedInWagtail12Warning
-        )

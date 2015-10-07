@@ -410,12 +410,7 @@ class SnippetChooserModel(models.Model):
     ]
 
 
-class CustomImageWithoutAdminFormFields(AbstractImage):
-    caption = models.CharField(max_length=255)
-    not_editable_field = models.CharField(max_length=255)
-
-
-class CustomImageWithAdminFormFields(AbstractImage):
+class CustomImage(AbstractImage):
     caption = models.CharField(max_length=255)
     not_editable_field = models.CharField(max_length=255)
 

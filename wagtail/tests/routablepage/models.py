@@ -1,5 +1,4 @@
 from django.http import HttpResponse
-from django.conf.urls import url
 
 from wagtail.contrib.wagtailroutablepage.models import RoutablePage, route
 
@@ -8,28 +7,7 @@ def routable_page_external_view(request, arg="ARG NOT SET"):
     return HttpResponse("EXTERNAL VIEW: " + arg)
 
 
-class OldStyleRoutablePageTest(RoutablePage):
-    subpage_urls = (
-        url(r'^$', 'main', name='main'),
-        url(r'^archive/year/(\d+)/$', 'archive_by_year', name='archive_by_year'),
-        url(r'^archive/author/(?P<author_slug>.+)/$', 'archive_by_author', name='archive_by_author'),
-        url(r'^external/(.+)/$', routable_page_external_view, name='external_view')
-    )
-
-    # Don't show deprecation warning for this class to keep test log clean
-    _disable_subpage_urls_deprecation_warning = True
-
-    def archive_by_year(self, request, year):
-        return HttpResponse("ARCHIVE BY YEAR: " + str(year))
-
-    def archive_by_author(self, request, author_slug):
-        return HttpResponse("ARCHIVE BY AUTHOR: " + author_slug)
-
-    def main(self, request):
-        return HttpResponse("MAIN VIEW")
-
-
-class NewStyleRoutablePageTest(RoutablePage):
+class RoutablePageTest(RoutablePage):
     @route(r'^$')
     def main(self, request):
         return HttpResponse("MAIN VIEW")
