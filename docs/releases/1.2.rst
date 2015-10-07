@@ -18,6 +18,14 @@ The core templatetags (``pageurl``, ``slugurl``, ``image``, ``richtext`` and ``w
 See: :doc:`/advanced_topics/jinja2`
 
 
+Improved search mechanism for images and documents
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Wagtail's image and document models now provide a ``search`` method on their QuerySets, making it easy to perform searches on filtered data sets.
+
+See: :ref:`wagtailsearch_images_documents_custom_models`
+
+
 Minor features
 ~~~~~~~~~~~~~~
 
@@ -36,3 +44,22 @@ Bug fixes
  * Deleting a page permission from the groups admin UI does not immediately submit the form
  * Wagtail userbar is shown on pages that do not pass a ``page`` variable to the template (e.g. because they override the ``serve`` method)
  * ``request.site`` now set correctly on page preview when the page is not in the default site
+
+
+Upgrade considerations
+======================
+
+``Image.search`` and ``Document.search`` methods are deprecated
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+The ``Image.search`` and ``Document.search`` methods have been deprecated in favour of the new QuerySet-based search mechanism - see :ref:`wagtailsearch_images_documents_custom_models`. Code using the old ``search`` methods should be updated to search on QuerySets instead; for example:
+
+.. code-block:: python
+
+    Image.search("Hello", filters={'uploaded_by_user': user})
+
+can be rewritten as:
+
+.. code-block:: python
+
+    Image.objects.filter(uploaded_by_user=user).search("Hello")

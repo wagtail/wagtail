@@ -108,6 +108,8 @@ Promoted search results
 This functionality is provided by the :mod:`~wagtail.contrib.wagtailsearchpromotions` contrib module.
 
 
+.. _wagtailsearch_images_documents_custom_models:
+
 Searching Images, Documents and custom models
 =============================================
 
