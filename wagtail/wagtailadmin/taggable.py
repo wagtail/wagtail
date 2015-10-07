@@ -7,7 +7,7 @@ from django.db.models import Count
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 from wagtail.wagtailsearch import index
-from wagtail.utils.deprecation import RemovedInWagtail13Warning
+from wagtail.utils.deprecation import RemovedInWagtail14Warning
 
 
 class TagSearchable(index.Indexed):
@@ -34,7 +34,7 @@ class TagSearchable(index.Indexed):
         warnings.warn(
             "The {class_name}.search() method is deprecated. "
             "Please use the {class_name}.objects.search() method instead.".format(class_name=cls.__name__),
-            RemovedInWagtail13Warning, stacklevel=2)
+            RemovedInWagtail14Warning, stacklevel=2)
 
         results = cls.objects.all()
 

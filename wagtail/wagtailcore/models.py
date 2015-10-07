@@ -42,7 +42,7 @@ from wagtail.wagtailcore.signals import page_published, page_unpublished
 from wagtail.wagtailsearch import index
 from wagtail.wagtailsearch.backends import get_search_backend
 
-from wagtail.utils.deprecation import RemovedInWagtail13Warning
+from wagtail.utils.deprecation import RemovedInWagtail13Warning, RemovedInWagtail14Warning
 
 
 logger = logging.getLogger('wagtail.core')
@@ -641,7 +641,7 @@ class Page(six.with_metaclass(PageBase, MP_Node, ClusterableModel, index.Indexed
         warnings.warn(
             "The Page.search() method is deprecated. "
             "Please use the Page.objects.search() method instead.",
-            RemovedInWagtail13Warning, stacklevel=2)
+            RemovedInWagtail14Warning, stacklevel=2)
 
         # Filters
         filters = extra_filters.copy()
