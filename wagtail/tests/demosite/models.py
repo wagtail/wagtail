@@ -1,12 +1,12 @@
 from datetime import date
 
 from django.db import models
-from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 from modelcluster.fields import ParentalKey
 from modelcluster.contrib.taggit import ClusterTaggableManager
 from taggit.models import TaggedItemBase
 
+from wagtail.utils.pagination import paginate
 from wagtail.wagtailcore.models import Page, Orderable
 from wagtail.wagtailcore.fields import RichTextField
 from wagtail.wagtailadmin.edit_handlers import FieldPanel, MultiFieldPanel, \
@@ -334,15 +334,7 @@ class BlogIndexPage(Page):
         if tag:
             entries = entries.filter(tags__name=tag)
 
-        # Pagination
-        page = request.GET.get('page')
-        paginator = Paginator(entries, 10)  # Show 10 entries per page
-        try:
-            entries = paginator.page(page)
-        except PageNotAnInteger:
-            entries = paginator.page(1)
-        except EmptyPage:
-            entries = paginator.page(paginator.num_pages)
+        paginator, entries = paginate(request, entries, page_key='page', per_page=10)
 
         # Update template context
         context = super(BlogIndexPage, self).get_context(request)

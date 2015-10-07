@@ -1,32 +1,22 @@
-{% load i18n %}
+{% load i18n wagtailadmin_tags %}
 
 {% comment %}
-Pagination include for page listings.
-
-Accepts the following parameters:
-
-page - a django.core.pagination Page object
-base_url - a URL string that we can append ?p=page_number to
-query_params - any additional query params to include in the link
-    (urlencoded but not html-escaped, and without the joining '&')
-classnames - additional classnames to put on the <a> element
-
-TODO: Port all existing uses of shared/_pagination_nav.html over to this new API (extending the API as necessary to cover special cases), so that this can become a replacement for shared/_pagination_nav.html.
+Pagination for page listings. Used by the `{% paginate %}` template tag.
 {% endcomment %}
 
 <div class="pagination">
-    <p>{% blocktrans with page_number=page.number num_pages=page.paginator.num_pages %}
+    <p>{% blocktrans with page_number=page.number num_pages=paginator.num_pages %}
         Page {{ page_number }} of {{ num_pages }}.
     {% endblocktrans %}</p>
     <ul>
         <li class="prev">
             {% if page.has_previous %}
-                <a href="{{ base_url }}?p={{ page.previous_page_number }}{% if query_params %}&amp;{{ query_params }}{% endif %}" class="icon icon-arrow-left {{ classnames }}">{% trans "Previous" %}</a>
+                <a data-page="{{ page.previous_page_number }}" href="{{ base_url }}{% pagination_querystring page.previous_page_number page_key=page_key %}" class="icon icon-arrow-left {{ classnames }}">{% trans "Previous" %}</a>
             {% endif %}
         </li>
         <li class="next">
             {% if page.has_next %}
-                <a href="{{ base_url }}?p={{ page.next_page_number }}{% if query_params %}&amp;{{ query_params }}{% endif %}" class="icon icon-arrow-right-after {{ classnames }}">{% trans 'Next' %}</a>
+                <a data-page="{{ page.next_page_number }}" href="{{ base_url }}{% pagination_querystring page.next_page_number page_key=page_key %}" class="icon icon-arrow-right-after {{ classnames }}">{% trans "Next" %}</a>
             {% endif %}
         </li>
     </ul>
