@@ -25,7 +25,7 @@ from wagtail.wagtaildocs import models
 from wagtail.wagtaildocs.rich_text import DocumentLinkHandler
 
 
-class TestImageQuerySet(TestCase):
+class TestDocumentQuerySet(TestCase):
     def test_search_method(self):
         # Make a test document
         document = models.Document.objects.create(title="Test document")
