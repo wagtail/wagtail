@@ -87,6 +87,19 @@ class TestImage(TestCase):
         self.assertFalse(self.image.is_stored_locally())
 
 
+class TestImageQuerySet(TestCase):
+    def test_search_method(self):
+        # Create an image for running tests on
+        image = Image.objects.create(
+            title="Test image",
+            file=get_test_image_file(),
+        )
+
+        # Search for it
+        results = Image.objects.search("Test")
+        self.assertEqual(list(results), [image])
+
+
 class TestImagePermissions(TestCase):
     def setUp(self):
         # Create some user accounts for testing permissions

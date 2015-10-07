@@ -38,11 +38,7 @@ def index(request):
         form = SearchForm(request.GET, placeholder=_("Search documents"))
         if form.is_valid():
             query_string = form.cleaned_data['q']
-            if not request.user.has_perm('wagtaildocs.change_document'):
-                # restrict to the user's own documents
-                documents = Document.search(query_string, filters={'uploaded_by_user_id': request.user.id})
-            else:
-                documents = Document.search(query_string)
+            documents = documents.search(query_string)
     else:
         form = SearchForm(placeholder=_("Search documents"))
 
