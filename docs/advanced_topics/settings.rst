@@ -184,7 +184,7 @@ Use a custom embed finder function, which takes a URL and returns a dict with me
 .. code-block:: python
 
   # not a working key, get your own!
-  EMBEDLY_KEY = '253e433d59dc4d2xa266e9e0de0cb830'
+  WAGTAILEMBEDS_EMBEDLY_KEY = '253e433d59dc4d2xa266e9e0de0cb830'
 
 Providing an API key for the Embedly service will use that as a embed backend, with a more extensive list of providers, as well as analytics and other features. For more information, see `Embedly`_.
 
@@ -515,7 +515,7 @@ These two files should reside in your project directory (``myproject/myproject/`
 
   # If you want to use Embedly for embeds, supply a key
   # (this key doesn't work, get your own!)
-  # EMBEDLY_KEY = '253e433d59dc4d2xa266e9e0de0cb830'
+  # WAGTAILEMBEDS_EMBEDLY_KEY = '253e433d59dc4d2xa266e9e0de0cb830'
 
 
 ``urls.py``
