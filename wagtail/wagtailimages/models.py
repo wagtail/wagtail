@@ -28,6 +28,7 @@ from unidecode import unidecode
 from wagtail.wagtailcore import hooks
 from wagtail.wagtailadmin.taggable import TagSearchable
 from wagtail.wagtailsearch import index
+from wagtail.wagtailsearch.backends import get_search_backend
 from wagtail.wagtailimages.rect import Rect
 from wagtail.wagtailimages.exceptions import InvalidFilterSpecError
 from wagtail.wagtailadmin.utils import get_object_usage
@@ -39,6 +40,15 @@ class SourceImageIOError(IOError):
     Custom exception to distinguish IOErrors that were thrown while opening the source image
     """
     pass
+
+
+class ImageQuerySet(models.QuerySet):
+    def search(self, query_string, fields=None, backend='default'):
+        """
+        This runs a search query on all the images in the QuerySet
+        """
+        search_backend = get_search_backend(backend)
+        return search_backend.search(query_string, self, fields=fields)
 
 
 def get_upload_to(instance, filename):
@@ -74,6 +84,8 @@ class AbstractImage(models.Model, TagSearchable):
     focal_point_height = models.PositiveIntegerField(null=True, blank=True)
 
     file_size = models.PositiveIntegerField(null=True, editable=False)
+
+    objects = ImageQuerySet.as_manager()
 
     def is_stored_locally(self):
         """
