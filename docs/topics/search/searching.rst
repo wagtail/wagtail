@@ -111,30 +111,37 @@ This functionality is provided by the :mod:`~wagtail.contrib.wagtailsearchpromot
 Searching Images, Documents and custom models
 =============================================
 
-You can search these by using the ``search`` method on the search backend:
+Wagtail's document and image models provide a ``search`` method on their QuerySets, just as pages do:
 
 .. code-block:: python
 
     >>> from wagtail.wagtailimages.models import Image
+
+    >>> Image.objects.filter(uploaded_by_user=user).search("Hello")
+    [<Image: Hello>, <Image: Hello world!>]
+
+
+:ref:`Custom models <wagtailsearch_indexing_models>` can be searched by using the ``search`` method on the search backend directly:
+
+.. code-block:: python
+
+    >>> from myapp.models import Book
     >>> from wagtail.wagtailsearch.backends import get_search_backend
 
-    # Search images
+    # Search books
     >>> s = get_search_backend()
-    >>> s.search("Hello", Image)
-    [<Image: Hello>, <Image: Hello world!>]
+    >>> s.search("Great", Book)
+    [<Book: Great Expectations>, <Book: The Great Gatsby>]
 
 
 You can also pass a QuerySet into the ``search`` method which allows you to add filters to your search results:
 
 .. code-block:: python
 
-    >>> from wagtail.wagtailimages.models import Image
+    >>> from myapp.models import Book
     >>> from wagtail.wagtailsearch.backends import get_search_backend
 
-    # Search images
+    # Search books
     >>> s = get_search_backend()
-    >>> s.search("Hello", Image.objects.filter(uploaded_by_user=user))
-    [<Image: Hello>]
-
-
-This should work the same way for Documents and :ref:`custom models <wagtailsearch_indexing_models>` as well.
+    >>> s.search("Great", Book.objects.filter(published_date__year__lt=1900))
+    [<Book: Great Expectations>]
