@@ -3,7 +3,6 @@ from __future__ import unicode_literals
 import os.path
 import hashlib
 from contextlib import contextmanager
-import warnings
 
 
 from taggit.managers import TaggableManager
@@ -33,7 +32,6 @@ from wagtail.wagtailimages.rect import Rect
 from wagtail.wagtailimages.exceptions import InvalidFilterSpecError
 from wagtail.wagtailadmin.utils import get_object_usage
 from wagtail.utils.compat import get_related_model
-from wagtail.utils.deprecation import RemovedInWagtail12Warning
 
 
 class SourceImageIOError(IOError):
@@ -373,13 +371,6 @@ class Filter(models.Model):
                 # Allow changing of JPEG compression quality
                 if hasattr(settings, 'WAGTAILIMAGES_JPEG_QUALITY'):
                     quality = settings.WAGTAILIMAGES_JPEG_QUALITY
-                elif hasattr(settings, 'IMAGE_COMPRESSION_QUALITY'):
-                    quality = settings.IMAGE_COMPRESSION_QUALITY
-
-                    warnings.warn(
-                        "The IMAGE_COMPRESSION_QUALITY setting has been renamed to "
-                        "WAGTAILIMAGES_JPEG_QUALITY. Please update your settings.",
-                        RemovedInWagtail12Warning)
                 else:
                     quality = 85
 

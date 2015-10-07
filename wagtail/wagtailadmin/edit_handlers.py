@@ -1,7 +1,6 @@
 from __future__ import unicode_literals
 
 import copy
-import warnings
 
 from modelcluster.forms import ClusterForm, ClusterFormMetaclass
 
@@ -20,7 +19,6 @@ from taggit.managers import TaggableManager
 from wagtail.wagtailadmin import widgets
 from wagtail.wagtailcore.models import Page
 from wagtail.wagtailcore.utils import camelcase_to_underscore, resolve_model_string
-from wagtail.utils.deprecation import RemovedInWagtail12Warning
 from wagtail.utils.compat import get_related_model
 
 
@@ -682,29 +680,11 @@ class BaseInlinePanel(EditHandler):
 
 
 class InlinePanel(object):
-    def __init__(self, *args, **kwargs):
-        # prior to Wagtail 0.9, InlinePanel required two params, base_model and relation_name.
-        # base_model is no longer required; we set up relations based on the model passed to
-        # bind_to_model instead
-        if len(args) == 1:  # new-style: InlinePanel(relation_name)
-            self.relation_name = args[0]
-        elif len(args) == 2:  # old-style: InlinePanel(base_model, relation_name)
-            self.relation_name = args[1]
-
-            warnings.warn(
-                "InlinePanel no longer needs to be passed a model parameter. "
-                "InlinePanel({classname}, '{relname}') should be changed to InlinePanel('{relname}')".format(
-                    classname=args[0].__name__, relname=self.relation_name
-                ), RemovedInWagtail12Warning, stacklevel=2)
-        else:
-            raise TypeError("InlinePanel() takes exactly 1 argument (%d given)" % len(args))
-
-        self.panels = kwargs.pop('panels', None)
-        self.label = kwargs.pop('label', '')
-        self.help_text = kwargs.pop('help_text', '')
-
-        if kwargs:
-            raise TypeError("InlinePanel got an unexpected keyword argument '%s'" % kwargs.keys()[0])
+    def __init__(self, relation_name, panels=None, label='', help_text=''):
+        self.relation_name = relation_name
+        self.panels = panels
+        self.label = label
+        self.help_text = help_text
 
     def bind_to_model(self, model):
         return type(str('_InlinePanel'), (BaseInlinePanel,), {

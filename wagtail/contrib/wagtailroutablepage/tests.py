@@ -1,20 +1,13 @@
-import unittest
-import warnings
-
-import django
 from django.test import TestCase, RequestFactory
 from django.core.urlresolvers import NoReverseMatch
 
 from wagtail.wagtailcore.models import Page, Site
-from wagtail.tests.routablepage.models import OldStyleRoutablePageTest, NewStyleRoutablePageTest, routable_page_external_view
-from wagtail.tests.utils import WagtailTestUtils
+from wagtail.tests.routablepage.models import RoutablePageTest
 from wagtail.contrib.wagtailroutablepage.templatetags.wagtailroutablepage_tags import routablepageurl
-from wagtail.contrib.wagtailroutablepage.models import RoutablePageMixin
-from wagtail.utils.deprecation import RemovedInWagtail12Warning
 
 
-class TestNewStyleRoutablePage(TestCase):
-    model = NewStyleRoutablePageTest
+class TestRoutablePage(TestCase):
+    model = RoutablePageTest
 
     def setUp(self):
         self.home_page = Page.objects.get(id=2)
@@ -119,59 +112,10 @@ class TestNewStyleRoutablePage(TestCase):
         self.assertContains(response, "EXTERNAL VIEW: ARG NOT SET")
 
 
-@unittest.skipIf(django.VERSION >= (1, 8), "Old style routable pages don't work on Django 1.8")
-class TestOldStyleRoutablePage(TestNewStyleRoutablePage, WagtailTestUtils):
-    model = OldStyleRoutablePageTest
-
-    def test_resolve_external_view(self):
-        view, args, kwargs = self.routable_page.resolve_subpage('/external/joe-bloggs/')
-
-        self.assertEqual(view, routable_page_external_view)
-        self.assertEqual(args, ('joe-bloggs', ))
-        self.assertEqual(kwargs, {})
-
-    test_resolve_external_view_other_route = None
-    test_reverse_external_view_other_route = None
-    test_get_external_view_other_route = None
-
-    test_reverse_overridden_name = None
-    test_reverse_overridden_name_default_doesnt_work = None
-
-    def test_deprecation_warning(self):
-        from django.conf.urls import url
-
-        class TestPageModel(RoutablePageMixin, Page):
-            subpage_urls = (
-                url('r^$', 'main'),
-            )
-
-            def main(self, request):
-                pass
-
-            # prevent this class appearing in the global PAGE_MODEL_CLASSES list, as
-            # its non-standard location causes failures when translating from content types
-            # back to models
-            class Meta:
-                abstract = True
-
-        # Calling check() should raise a deprecation warning
-        # This would usually be called by Django when it loads
-        self.reset_warning_registry()
-        with warnings.catch_warnings(record=True) as w:
-            TestPageModel.check()
-
-            # Check that a RemovedInWagtail12Warning has been triggered
-            self.assertEqual(len(w), 1)
-            self.assertTrue(issubclass(w[-1].category, RemovedInWagtail12Warning))
-            self.assertEqual("wagtailroutablepage.TestPageModel: subpage_urls "
-                             "is deprecated. Use the @route decorator to "
-                             "define page routes instead.", str(w[-1].message))
-
-
 class TestRoutablePageTemplateTag(TestCase):
     def setUp(self):
         self.home_page = Page.objects.get(id=2)
-        self.routable_page = self.home_page.add_child(instance=NewStyleRoutablePageTest(
+        self.routable_page = self.home_page.add_child(instance=RoutablePageTest(
             title="Routable Page",
             slug='routable-page',
             live=True,
