@@ -53,23 +53,23 @@ class TestImageListing(TestCase):
             self.assertEqual(image['meta']['detail_url'], 'http://localhost/api/v2beta/images/%d/' % image['id'])
 
 
-    # EXTRA FIELDS
+    #  FIELDS
 
-    def test_extra_fields_default(self):
+    def test_fields_default(self):
         response = self.get_response()
         content = json.loads(response.content.decode('UTF-8'))
 
         for image in content['results']:
-            self.assertEqual(set(image.keys()), {'id', 'meta', 'title'})
+            self.assertEqual(set(image.keys()), {'id', 'meta', 'title', 'width', 'height', 'tags'})
 
-    def test_extra_fields(self):
+    def test_fields(self):
         response = self.get_response(fields='title,width,height')
         content = json.loads(response.content.decode('UTF-8'))
 
         for image in content['results']:
             self.assertEqual(set(image.keys()), {'id', 'meta', 'title', 'width', 'height'})
 
-    def test_extra_fields_tags(self):
+    def test_fields_tags(self):
         response = self.get_response(fields='tags')
         content = json.loads(response.content.decode('UTF-8'))
 
@@ -77,14 +77,14 @@ class TestImageListing(TestCase):
             self.assertEqual(set(image.keys()), {'id', 'meta', 'tags'})
             self.assertIsInstance(image['tags'], list)
 
-    def test_extra_fields_which_are_not_in_api_fields_gives_error(self):
+    def test_fields_which_are_not_in_api_fields_gives_error(self):
         response = self.get_response(fields='uploaded_by_user')
         content = json.loads(response.content.decode('UTF-8'))
 
         self.assertEqual(response.status_code, 400)
         self.assertEqual(content, {'message': "unknown fields: uploaded_by_user"})
 
-    def test_extra_fields_unknown_field_gives_error(self):
+    def test_fields_unknown_field_gives_error(self):
         response = self.get_response(fields='123,title,abc')
         content = json.loads(response.content.decode('UTF-8'))
 
