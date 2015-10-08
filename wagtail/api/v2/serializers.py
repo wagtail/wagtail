@@ -57,12 +57,14 @@ class PageMetaField(MetaField):
     "meta": {
         "type": "blog.BlogPage",
         "detail_url": "http://api.example.com/v1/pages/1/"
+        "html_url": "http://www.example.com/blog/blog-post/"
     }
     """
     def to_representation(self, page):
         return OrderedDict([
             ('type', page.specific_class._meta.app_label + '.' + page.specific_class.__name__),
             ('detail_url', get_object_detail_url(self.context, type(page), page.pk)),
+            ('html_url', page.full_url),
         ])
 
 
