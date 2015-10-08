@@ -140,7 +140,7 @@ class BaseAPIEndpoint(GenericViewSet):
         fields = ['id', 'meta'] + fields
 
         # If showing details, add the parent field
-        if isinstance(self, PagesAPIEndpoint) and self.get_serializer_context().get('show_details', False):
+        if isinstance(self, PagesAPIEndpoint) and self.action == 'detail_view':
             fields.insert(2, 'parent')
 
         return get_serializer_class(model, fields, base=self.base_serializer_class)
@@ -149,16 +149,11 @@ class BaseAPIEndpoint(GenericViewSet):
         """
         The serialization context differs between listing and detail views.
         """
-        context = {
+        return {
             'request': self.request,
             'view': self,
             'router': self.request.wagtailapi_router
         }
-
-        if self.action == 'detail_view':
-            context['show_details'] = True
-
-        return context
 
     def get_renderer_context(self):
         context = super(BaseAPIEndpoint, self).get_renderer_context()
