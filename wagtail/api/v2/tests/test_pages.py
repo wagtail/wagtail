@@ -53,11 +53,11 @@ class TestPageListing(TestCase):
         self.assertIn('pages', content)
         self.assertIsInstance(content['pages'], list)
 
-        # Check that each page has a meta section with type and detail_url attributes
+        # Check that each page has a meta section with type, detail_url and html_url attributes
         for page in content['pages']:
             self.assertIn('meta', page)
             self.assertIsInstance(page['meta'], dict)
-            self.assertEqual(set(page['meta'].keys()), {'type', 'detail_url'})
+            self.assertEqual(set(page['meta'].keys()), {'type', 'detail_url', 'html_url'})
 
     def test_unpublished_pages_dont_appear_in_list(self):
         total_count = get_total_page_count()
@@ -564,15 +564,20 @@ class TestPageDetail(TestCase):
         self.assertIn('detail_url', content['meta'])
         self.assertEqual(content['meta']['detail_url'], 'http://localhost/api/v2beta/pages/16/')
 
+        # Check the meta html_url
+        self.assertIn('html_url', content['meta'])
+        self.assertEqual(content['meta']['html_url'], 'http://localhost/blog-index/blog-post/')
+
         # Check the parent field
         self.assertIn('parent', content)
         self.assertIsInstance(content['parent'], dict)
         self.assertEqual(set(content['parent'].keys()), {'id', 'meta'})
         self.assertEqual(content['parent']['id'], 5)
         self.assertIsInstance(content['parent']['meta'], dict)
-        self.assertEqual(set(content['parent']['meta'].keys()), {'type', 'detail_url'})
+        self.assertEqual(set(content['parent']['meta'].keys()), {'type', 'detail_url', 'html_url'})
         self.assertEqual(content['parent']['meta']['type'], 'demosite.BlogIndexPage')
         self.assertEqual(content['parent']['meta']['detail_url'], 'http://localhost/api/v2beta/pages/5/')
+        self.assertEqual(content['parent']['meta']['html_url'], 'http://localhost/blog-index/')
 
         # Check that the custom fields are included
         self.assertIn('date', content)
