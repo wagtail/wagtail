@@ -38,6 +38,6 @@ class WagtailPagination(BasePagination):
     def get_paginated_response(self, data):
         data = OrderedDict([
             ('total_count', self.total_count),
-            (self.view.name, data),
+            ('results', data),
         ])
         return Response(data)
