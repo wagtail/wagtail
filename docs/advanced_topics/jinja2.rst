@@ -58,7 +58,7 @@ Generate a URL for a Page with a slug:
 
 .. code-block:: html+jinja
 
-    <a href="{{ pageurl("about") }}">About us</a>
+    <a href="{{ slugurl("about") }}">About us</a>
 
 See :ref:`slugurl_tag` for more information
 
