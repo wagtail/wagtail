@@ -40,14 +40,10 @@ class TestPageListing(TestCase):
         # Will crash if the JSON is invalid
         content = json.loads(response.content.decode('UTF-8'))
 
-        # Check that the meta section is there
-        self.assertIn('meta', content)
-        self.assertIsInstance(content['meta'], dict)
-
         # Check that the total count is there and correct
-        self.assertIn('total_count', content['meta'])
-        self.assertIsInstance(content['meta']['total_count'], int)
-        self.assertEqual(content['meta']['total_count'], get_total_page_count())
+        self.assertIn('total_count', content)
+        self.assertIsInstance(content['total_count'], int)
+        self.assertEqual(content['total_count'], get_total_page_count())
 
         # Check that the pages section is there
         self.assertIn('pages', content)
@@ -67,7 +63,7 @@ class TestPageListing(TestCase):
 
         response = self.get_response()
         content = json.loads(response.content.decode('UTF-8'))
-        self.assertEqual(content['meta']['total_count'], total_count - 1)
+        self.assertEqual(content['total_count'], total_count - 1)
 
     def test_private_pages_dont_appear_in_list(self):
         total_count = get_total_page_count()
@@ -80,7 +76,7 @@ class TestPageListing(TestCase):
 
         response = self.get_response()
         content = json.loads(response.content.decode('UTF-8'))
-        self.assertEqual(content['meta']['total_count'], new_total_count)
+        self.assertEqual(content['total_count'], new_total_count)
 
 
     # TYPE FILTER
@@ -97,7 +93,7 @@ class TestPageListing(TestCase):
         content = json.loads(response.content.decode('UTF-8'))
 
         # Total count must be reduced as this filters the results
-        self.assertEqual(content['meta']['total_count'], 3)
+        self.assertEqual(content['total_count'], 3)
 
     def test_non_existant_type_gives_error(self):
         response = self.get_response(type='demosite.IDontExist')
@@ -428,7 +424,7 @@ class TestPageListing(TestCase):
         content = json.loads(response.content.decode('UTF-8'))
 
         # The total count must not be affected by "limit"
-        self.assertEqual(content['meta']['total_count'], get_total_page_count())
+        self.assertEqual(content['total_count'], get_total_page_count())
 
     def test_limit_not_integer_gives_error(self):
         response = self.get_response(limit='abc')
@@ -481,7 +477,7 @@ class TestPageListing(TestCase):
         content = json.loads(response.content.decode('UTF-8'))
 
         # The total count must not be affected by "offset"
-        self.assertEqual(content['meta']['total_count'], get_total_page_count())
+        self.assertEqual(content['total_count'], get_total_page_count())
 
     def test_offset_not_integer_gives_error(self):
         response = self.get_response(offset='abc')
