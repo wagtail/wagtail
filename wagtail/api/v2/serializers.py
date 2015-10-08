@@ -84,11 +84,8 @@ class DocumentMetaField(MetaField):
         data = OrderedDict([
             ('type', "wagtaildocs.Document"),
             ('detail_url', get_object_detail_url(self.context, type(document), document.pk)),
+            ('download_url', get_full_url(self.context['request'], document.url)),
         ])
-
-        # Add download url
-        if self.context.get('show_details', False):
-            data['download_url'] = get_full_url(self.context['request'], document.url)
 
         return data
 
