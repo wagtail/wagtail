@@ -17,7 +17,7 @@ class TestDocumentListing(TestCase):
         return self.client.get(reverse('wagtailapi_v2:documents:listing'), params)
 
     def get_document_id_list(self, content):
-        return [page['id'] for page in content['documents']]
+        return [document['id'] for document in content['results']]
 
 
     # BASIC TESTS
@@ -36,12 +36,12 @@ class TestDocumentListing(TestCase):
         self.assertIsInstance(content['total_count'], int)
         self.assertEqual(content['total_count'], Document.objects.count())
 
-        # Check that the documents section is there
-        self.assertIn('documents', content)
-        self.assertIsInstance(content['documents'], list)
+        # Check that the results section is there
+        self.assertIn('results', content)
+        self.assertIsInstance(content['results'], list)
 
         # Check that each document has a meta section with type and detail_url attributes
-        for document in content['documents']:
+        for document in content['results']:
             self.assertIn('meta', document)
             self.assertIsInstance(document['meta'], dict)
             self.assertEqual(set(document['meta'].keys()), {'type', 'detail_url', 'download_url'})
@@ -62,21 +62,21 @@ class TestDocumentListing(TestCase):
         response = self.get_response()
         content = json.loads(response.content.decode('UTF-8'))
 
-        for document in content['documents']:
+        for document in content['results']:
             self.assertEqual(set(document.keys()), {'id', 'meta', 'title'})
 
     def test_extra_fields(self):
         response = self.get_response(fields='title,tags')
         content = json.loads(response.content.decode('UTF-8'))
 
-        for document in content['documents']:
+        for document in content['results']:
             self.assertEqual(set(document.keys()), {'id', 'meta', 'title', 'tags'})
 
     def test_extra_fields_tags(self):
         response = self.get_response(fields='tags')
         content = json.loads(response.content.decode('UTF-8'))
 
-        for document in content['documents']:
+        for document in content['results']:
             self.assertIsInstance(document['tags'], list)
 
     def test_extra_fields_which_are_not_in_api_fields_gives_error(self):
@@ -182,7 +182,7 @@ class TestDocumentListing(TestCase):
         response = self.get_response(limit=2)
         content = json.loads(response.content.decode('UTF-8'))
 
-        self.assertEqual(len(content['documents']), 2)
+        self.assertEqual(len(content['results']), 2)
 
     def test_limit_total_count(self):
         response = self.get_response(limit=2)
@@ -220,7 +220,7 @@ class TestDocumentListing(TestCase):
         response = self.get_response()
         content = json.loads(response.content.decode('UTF-8'))
 
-        self.assertEqual(len(content['documents']), 2)
+        self.assertEqual(len(content['results']), 2)
 
 
     # OFFSET
