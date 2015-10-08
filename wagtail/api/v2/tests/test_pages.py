@@ -26,7 +26,7 @@ class TestPageListing(TestCase):
         return self.client.get(reverse('wagtailapi_v2:pages:listing'), params)
 
     def get_page_id_list(self, content):
-        return [page['id'] for page in content['pages']]
+        return [page['id'] for page in content['results']]
 
 
     # BASIC TESTS
@@ -45,12 +45,12 @@ class TestPageListing(TestCase):
         self.assertIsInstance(content['total_count'], int)
         self.assertEqual(content['total_count'], get_total_page_count())
 
-        # Check that the pages section is there
-        self.assertIn('pages', content)
-        self.assertIsInstance(content['pages'], list)
+        # Check that the results section is there
+        self.assertIn('results', content)
+        self.assertIsInstance(content['results'], list)
 
         # Check that each page has a meta section with type, detail_url and html_url attributes
-        for page in content['pages']:
+        for page in content['results']:
             self.assertIn('meta', page)
             self.assertIsInstance(page['meta'], dict)
             self.assertEqual(set(page['meta'].keys()), {'type', 'detail_url', 'html_url'})
@@ -85,7 +85,7 @@ class TestPageListing(TestCase):
         response = self.get_response(type='demosite.BlogEntryPage')
         content = json.loads(response.content.decode('UTF-8'))
 
-        for page in content['pages']:
+        for page in content['results']:
             self.assertEqual(page['meta']['type'], 'demosite.BlogEntryPage')
 
     def test_type_filter_total_count(self):
@@ -115,21 +115,21 @@ class TestPageListing(TestCase):
         response = self.get_response(type='demosite.BlogEntryPage')
         content = json.loads(response.content.decode('UTF-8'))
 
-        for page in content['pages']:
+        for page in content['results']:
             self.assertEqual(set(page.keys()), {'id', 'meta', 'title'})
 
     def test_extra_fields(self):
         response = self.get_response(type='demosite.BlogEntryPage', fields='title,date,feed_image')
         content = json.loads(response.content.decode('UTF-8'))
 
-        for page in content['pages']:
+        for page in content['results']:
             self.assertEqual(set(page.keys()), {'id', 'meta', 'title', 'date', 'feed_image'})
 
     def test_extra_fields_child_relation(self):
         response = self.get_response(type='demosite.BlogEntryPage', fields='title,related_links')
         content = json.loads(response.content.decode('UTF-8'))
 
-        for page in content['pages']:
+        for page in content['results']:
             self.assertEqual(set(page.keys()), {'id', 'meta', 'title', 'related_links'})
             self.assertIsInstance(page['related_links'], list)
 
@@ -137,7 +137,7 @@ class TestPageListing(TestCase):
         response = self.get_response(type='demosite.BlogEntryPage', fields='title,date,feed_image')
         content = json.loads(response.content.decode('UTF-8'))
 
-        for page in content['pages']:
+        for page in content['results']:
             feed_image = page['feed_image']
 
             if feed_image is not None:
@@ -153,7 +153,7 @@ class TestPageListing(TestCase):
         response = self.get_response(type='demosite.BlogEntryPage', fields='tags')
         content = json.loads(response.content.decode('UTF-8'))
 
-        for page in content['pages']:
+        for page in content['results']:
             self.assertEqual(set(page.keys()), {'id', 'meta', 'tags'})
             self.assertIsInstance(page['tags'], list)
 
@@ -173,7 +173,7 @@ class TestPageListing(TestCase):
             'feed_image',
             'related_links',
         ]
-        self.assertEqual(list(content['pages'][0].keys()), field_order)
+        self.assertEqual(list(content['results'][0].keys()), field_order)
 
     def test_extra_fields_without_type_gives_error(self):
         response = self.get_response(fields='title,related_links')
@@ -417,7 +417,7 @@ class TestPageListing(TestCase):
         response = self.get_response(limit=2)
         content = json.loads(response.content.decode('UTF-8'))
 
-        self.assertEqual(len(content['pages']), 2)
+        self.assertEqual(len(content['results']), 2)
 
     def test_limit_total_count(self):
         response = self.get_response(limit=2)
@@ -455,7 +455,7 @@ class TestPageListing(TestCase):
         response = self.get_response()
         content = json.loads(response.content.decode('UTF-8'))
 
-        self.assertEqual(len(content['pages']), 2)
+        self.assertEqual(len(content['results']), 2)
 
 
     # OFFSET
