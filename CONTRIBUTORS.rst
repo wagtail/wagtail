@@ -66,6 +66,7 @@ Contributors
 * Michael Cordover
 * Timothy Allen
 * Rob Shelton
+* Anurag Sharma
 
 
 Translators
