@@ -563,9 +563,10 @@ class TestServeView(TestCase):
     def test_response_code(self):
         self.assertEqual(self.get().status_code, 200)
 
-    @unittest.expectedFailure  # Filename has a random string appended to it
     def test_content_disposition_header(self):
-        self.assertEqual(self.get()['Content-Disposition'], 'attachment; filename=example.doc')
+        self.assertEqual(
+            self.get()['Content-Disposition'],
+            'attachment; filename="{}"'.format(self.document.filename))
 
     def test_content_length_header(self):
         self.assertEqual(self.get()['Content-Length'], '25')
@@ -593,10 +594,15 @@ class TestServeView(TestCase):
         response = self.client.get(reverse('wagtaildocs_serve', args=(1000, 'blahblahblah', )))
         self.assertEqual(response.status_code, 404)
 
-    @unittest.expectedFailure
     def test_with_incorrect_filename(self):
+        """
+        Wagtail should be forgiving with filenames at the end of the URL. These
+        filenames are to make the URL look nice, and to provide a fallback for
+        browsers that do not handle the 'Content-Disposition' header filename
+        component. They should not be validated.
+        """
         response = self.client.get(reverse('wagtaildocs_serve', args=(self.document.id, 'incorrectfilename')))
-        self.assertEqual(response.status_code, 404)
+        self.assertEqual(response.status_code, 200)
 
     def clear_sendfile_cache(self):
         from wagtail.utils.sendfile import _get_sendfile
