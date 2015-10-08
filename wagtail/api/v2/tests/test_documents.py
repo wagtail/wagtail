@@ -48,13 +48,16 @@ class TestDocumentListing(TestCase):
         for document in content['documents']:
             self.assertIn('meta', document)
             self.assertIsInstance(document['meta'], dict)
-            self.assertEqual(set(document['meta'].keys()), {'type', 'detail_url'})
+            self.assertEqual(set(document['meta'].keys()), {'type', 'detail_url', 'download_url'})
 
             # Type should always be wagtaildocs.Document
             self.assertEqual(document['meta']['type'], 'wagtaildocs.Document')
 
             # Check detail_url
             self.assertEqual(document['meta']['detail_url'], 'http://localhost/api/v2beta/documents/%d/' % document['id'])
+
+            # Check download_url
+            self.assertTrue(document['meta']['download_url'].startswith('http://localhost/documents/%d/' % document['id']))
 
 
     # EXTRA FIELDS
