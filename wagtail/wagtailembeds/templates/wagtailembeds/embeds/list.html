@@ -27,17 +27,17 @@
         </tr>
     </thead>
     <tbody>
-        {% for doc in documents %}
+        {% for embed in embeds %}
             <tr>
                 <td class="title">
                     {% if choosing %}
-                        <h2><a href="{% url 'wagtaildocs:document_chosen' doc.id %}" class="document-choice">{{ doc.title }}</a></h2>
+                        <h2><a href="{% url 'wagtailembeds:embed_chosen' embed.id %}" class="document-choice">{{ embed.title }}</a></h2>
                     {% else %}
-                        <h2><a href="{% url 'wagtaildocs:edit' doc.id %}">{{ doc.title }}</a></h2>
+                        <h2><a href="{% url 'wagtailembeds:edit' embed.id %}">{{ embed.title }}</a></h2>
                     {% endif %}
                 </td>
-                <td><a href="{{ doc.url }}" class="nolink">{{ doc.filename }}</a></td>
-                <td><div class="human-readable-date" title="{{ doc.created_at|date:"d M Y H:i" }}">{{ doc.created_at|timesince }} ago</div></td>
+                <td><a href="{{ embed.url }}" class="nolink">{{ embed.filename }}</a></td>
+                <td><div class="human-readable-date" title="{{ embed.created_at|date:"d M Y H:i" }}">{{ embed.created_at|timesince }} ago</div></td>
             </tr>
         {% endfor %}
     </tbody>

@@ -43,6 +43,7 @@ class Embed(models.Model, TagSearchable):
     class Meta:
         unique_together = ('url', 'max_width')
         verbose_name = _('Embed')
+        ordering = ['-last_updated', ]
 
     def __str__(self):
         return self.url

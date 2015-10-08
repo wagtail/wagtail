@@ -38,6 +38,10 @@ class AdminEmbedChooser(AdminChooser):
             return (value, value.url)
         else:
             try:
-                return (model_class.objects.get(url=value), value)
+                instances = model_class.objects.filter(url=value)
+                if instances:
+                    return (instances[0], value)
+                else:
+                    return (None, None)
             except model_class.DoesNotExist:
                 return (None, None)

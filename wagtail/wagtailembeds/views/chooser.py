@@ -46,45 +46,55 @@ def chooser(request):
             # page number
             p = request.GET.get("p", 1)
 
-            embeds = Embed.search(q, results_per_page=10, page=p)
+            _embeds = list(Embed.search(q, results_per_page=10, page=p))
 
+            # Remove duplicates by url
+            embeds_to_return = []
+            urls = set()
+            for embed in _embeds:
+                if embed.url not in urls:
+                    embeds_to_return.append(embed)
+                    urls.add(embed.url)
+
+            _embeds = embeds_to_return
             is_searching = True
 
         else:
-            embeds = Embed.objects.order_by('-last_updated')
+            _embeds = embeds.get_simplified_embeds()
             p = request.GET.get("p", 1)
-            paginator = Paginator(embeds, 10)
+            paginator = Paginator(_embeds, 10)
 
             try:
-                embeds = paginator.page(p)
+                _embeds = paginator.page(p)
             except PageNotAnInteger:
-                embeds = paginator.page(1)
+                _embeds = paginator.page(1)
             except EmptyPage:
-                embeds = paginator.page(paginator.num_pages)
+                _embeds = paginator.page(paginator.num_pages)
 
             is_searching = False
 
         return render(request, "wagtailembeds/chooser/results.html", {
-            'embeds': embeds,
+            'embeds': _embeds,
             'is_searching': is_searching,
             'query_string': q
         })
     else:
         searchform = SearchForm()
 
-        embeds = Embed.objects.order_by('-last_updated')
+        _embeds = embeds.get_simplified_embeds()
+
         p = request.GET.get("p", 1)
-        paginator = Paginator(embeds, 10)
+        paginator = Paginator(_embeds, 10)
 
         try:
-            embeds = paginator.page(p)
+            _embeds = paginator.page(p)
         except PageNotAnInteger:
-            embeds = paginator.page(1)
+            _embeds = paginator.page(1)
         except EmptyPage:
-            embeds = paginator.page(paginator.num_pages)
+            _embeds = paginator.page(paginator.num_pages)
 
     return render_modal_workflow(request, 'wagtailembeds/chooser/chooser.html', 'wagtailembeds/chooser/chooser.js', {
-        'embeds': embeds,
+        'embeds': _embeds,
         'form': uploadform,
         'searchform': searchform,
         'is_searching': False,

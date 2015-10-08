@@ -155,13 +155,22 @@ def get_embed(url, max_width=None, finder=None):
     # Create database record
     embed, created = Embed.objects.get_or_create(
         url=url,
+        max_width=max_width,
         defaults=embed_dict,
     )
 
     # Save
-    if max_width:
-        embed.max_width = max_width
     embed.last_updated = datetime.now()
     embed.save()
 
     return embed
+
+
+def get_simplified_embeds():
+    # No need to return multiple embeds for each url
+    embeds = []
+    embed_urls = set(Embed.objects.values_list('url', flat=True))
+    for embed_url in embed_urls:
+        # Appending the first one is enough
+        embeds.append(Embed.objects.filter(url=embed_url)[0])
+    return embeds
