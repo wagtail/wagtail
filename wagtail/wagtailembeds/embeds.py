@@ -123,12 +123,7 @@ def get_default_finder():
         return import_string(settings.WAGTAILEMBEDS_EMBED_FINDER)
 
     # Use embedly if the embedly key is set
-    if hasattr(settings, 'WAGTAILEMBEDS_EMBEDLY_KEY'):
-        return embedly
-    elif hasattr(settings, 'EMBEDLY_KEY'):
-        warnings.warn(
-            "use WAGTAILEMBEDS_EMBEDLY_KEY instead.",
-            RemovedInWagtail14Warning)
+    if hasattr(settings, 'WAGTAILEMBEDS_EMBEDLY_KEY') or hasattr(settings, 'EMBEDLY_KEY')::
         return embedly
 
     # Fall back to oembed
