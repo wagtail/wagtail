@@ -109,23 +109,23 @@ class TestPageListing(TestCase):
         self.assertEqual(response.status_code, 400)
         self.assertEqual(content, {'message': "type doesn't exist"})
 
-    # EXTRA FIELDS
+    # FIELDS
 
-    def test_extra_fields_default(self):
+    def test_fields_default(self):
         response = self.get_response(type='demosite.BlogEntryPage')
         content = json.loads(response.content.decode('UTF-8'))
 
         for page in content['results']:
-            self.assertEqual(set(page.keys()), {'id', 'meta', 'title'})
+            self.assertEqual(set(page.keys()), {'id', 'meta', 'title', 'date', 'related_links', 'feed_image', 'body', 'carousel_items', 'tags'})
 
-    def test_extra_fields(self):
+    def test_fields(self):
         response = self.get_response(type='demosite.BlogEntryPage', fields='title,date,feed_image')
         content = json.loads(response.content.decode('UTF-8'))
 
         for page in content['results']:
             self.assertEqual(set(page.keys()), {'id', 'meta', 'title', 'date', 'feed_image'})
 
-    def test_extra_fields_child_relation(self):
+    def test_fields_child_relation(self):
         response = self.get_response(type='demosite.BlogEntryPage', fields='title,related_links')
         content = json.loads(response.content.decode('UTF-8'))
 
@@ -133,7 +133,7 @@ class TestPageListing(TestCase):
             self.assertEqual(set(page.keys()), {'id', 'meta', 'title', 'related_links'})
             self.assertIsInstance(page['related_links'], list)
 
-    def test_extra_fields_foreign_key(self):
+    def test_fields_foreign_key(self):
         response = self.get_response(type='demosite.BlogEntryPage', fields='title,date,feed_image')
         content = json.loads(response.content.decode('UTF-8'))
 
@@ -149,7 +149,7 @@ class TestPageListing(TestCase):
                 self.assertEqual(feed_image['meta']['type'], 'wagtailimages.Image')
                 self.assertEqual(feed_image['meta']['detail_url'], 'http://localhost/api/v2beta/images/%d/' % feed_image['id'])
 
-    def test_extra_fields_tags(self):
+    def test_fields_tags(self):
         response = self.get_response(type='demosite.BlogEntryPage', fields='tags')
         content = json.loads(response.content.decode('UTF-8'))
 
@@ -157,7 +157,7 @@ class TestPageListing(TestCase):
             self.assertEqual(set(page.keys()), {'id', 'meta', 'tags'})
             self.assertIsInstance(page['tags'], list)
 
-    def test_extra_field_ordering(self):
+    def test_fields_ordering(self):
         response = self.get_response(type='demosite.BlogEntryPage', fields='date,title,feed_image,related_links')
 
         # Will crash if the JSON is invalid
@@ -175,21 +175,21 @@ class TestPageListing(TestCase):
         ]
         self.assertEqual(list(content['results'][0].keys()), field_order)
 
-    def test_extra_fields_without_type_gives_error(self):
+    def test_fields_without_type_gives_error(self):
         response = self.get_response(fields='title,related_links')
         content = json.loads(response.content.decode('UTF-8'))
 
         self.assertEqual(response.status_code, 400)
         self.assertEqual(content, {'message': "unknown fields: related_links"})
 
-    def test_extra_fields_which_are_not_in_api_fields_gives_error(self):
+    def test_fields_which_are_not_in_api_fields_gives_error(self):
         response = self.get_response(fields='path')
         content = json.loads(response.content.decode('UTF-8'))
 
         self.assertEqual(response.status_code, 400)
         self.assertEqual(content, {'message': "unknown fields: path"})
 
-    def test_extra_fields_unknown_field_gives_error(self):
+    def test_fields_unknown_field_gives_error(self):
         response = self.get_response(fields='123,title,abc')
         content = json.loads(response.content.decode('UTF-8'))
 
