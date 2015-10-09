@@ -156,6 +156,7 @@ function InlinePanel(opts) {
             $('#' + deleteInputId).val('1');
             $('#' + childId).addClass('deleted').slideUp(function() {
                 self.updateMoveButtonDisabledStates();
+                self.updateAddButtonState();
                 self.setHasContent();
             });
         });
@@ -210,6 +211,7 @@ function InlinePanel(opts) {
         if ($('#' + deleteInputId).val() === '1') {
             $('#' + childId).addClass('deleted').hide(0, function() {
                 self.updateMoveButtonDisabledStates();
+                self.updateAddButtonState();
                 self.setHasContent();
             });
 
@@ -226,6 +228,19 @@ function InlinePanel(opts) {
                 $('ul.controls .inline-child-move-up', this).toggleClass('disabled', i === 0).toggleClass('enabled', i !== 0);
                 $('ul.controls .inline-child-move-down', this).toggleClass('disabled', i === forms.length - 1).toggleClass('enabled', i != forms.length - 1);
             });
+        }
+    };
+
+    self.updateAddButtonState = function() {
+        if (opts.maxForms) {
+            var forms = self.formsUl.children('li:visible');
+            var addButton = $('#' + opts.formsetPrefix + '-ADD');
+
+            if (forms.length >= opts.maxForms) {
+                addButton.addClass("disabled");
+            } else {
+                addButton.removeClass("disabled");
+            }
         }
     };
 
@@ -270,6 +285,7 @@ function InlinePanel(opts) {
             }
 
             self.updateMoveButtonDisabledStates();
+            self.updateAddButtonState();
 
             if (opts.onAdd) opts.onAdd();
         }
