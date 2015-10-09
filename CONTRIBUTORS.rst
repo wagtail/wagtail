@@ -67,6 +67,7 @@ Contributors
 * Timothy Allen
 * Rob Shelton
 * Anurag Sharma
+* Maximilian Stauss
 
 
 Translators
