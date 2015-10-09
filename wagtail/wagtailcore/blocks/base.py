@@ -200,7 +200,7 @@ class Block(six.with_metaclass(BaseBlock, object)):
         """
         return value
 
-    def render(self, value):
+    def render(self, value, extra_context=None):
         """
         Return a text rendering of 'value', suitable for display on templates. By default, this will
         use a template if a 'template' property is specified on the block, and fall back on render_basic
@@ -208,10 +208,12 @@ class Block(six.with_metaclass(BaseBlock, object)):
         """
         template = getattr(self.meta, 'template', None)
         if template:
-            return render_to_string(template, {
+            context = {
                 'self': value,
                 self.TEMPLATE_VAR: value,
-            })
+            }
+            context.update(extra_context or {})
+            return render_to_string(template, context)
         else:
             return self.render_basic(value)
 
