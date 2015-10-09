@@ -8,6 +8,7 @@ from taggit.models import TaggedItemBase
 from taggit.managers import TaggableManager
 
 from modelcluster.fields import ParentalKey
+from modelcluster.models import ClusterableModel
 from modelcluster.contrib.taggit import ClusterTaggableManager
 
 from wagtail.wagtailcore.models import Page, Orderable
@@ -320,7 +321,7 @@ class AdvertTag(TaggedItemBase):
 
 
 @python_2_unicode_compatible
-class Advert(models.Model):
+class Advert(ClusterableModel):
     url = models.URLField(null=True, blank=True)
     text = models.CharField(max_length=255)
 
