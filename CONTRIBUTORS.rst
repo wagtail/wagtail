@@ -68,6 +68,7 @@ Contributors
 * Rob Shelton
 * Anurag Sharma
 * Maximilian Stauss
+* Salvador Faria
 
 
 Translators
