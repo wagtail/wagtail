@@ -26,6 +26,14 @@ Wagtail's image and document models now provide a ``search`` method on their Que
 See: :ref:`wagtailsearch_images_documents_custom_models`
 
 
+``max_num`` and ``min_num`` parameters on inline panels
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Inline panels now accept the optional parameters ``max_num`` and ``min_num``, to specify the maximum / minimum number of child items that must exist in order for the page to be valid.
+
+See: :ref:`inline_panels`
+
+
 Minor features
 ~~~~~~~~~~~~~~
 

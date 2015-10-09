@@ -626,6 +626,10 @@ class BaseInlinePanel(EditHandler):
             cls.relation_name: {
                 'fields': child_edit_handler_class.required_fields(),
                 'widgets': child_edit_handler_class.widget_overrides(),
+                'min_num': cls.min_num,
+                'validate_min': cls.min_num is not None,
+                'max_num': cls.max_num,
+                'validate_max': cls.max_num is not None
             }
         }
 
@@ -680,11 +684,13 @@ class BaseInlinePanel(EditHandler):
 
 
 class InlinePanel(object):
-    def __init__(self, relation_name, panels=None, label='', help_text=''):
+    def __init__(self, relation_name, panels=None, label='', help_text='', min_num=None, max_num=None):
         self.relation_name = relation_name
         self.panels = panels
         self.label = label
         self.help_text = help_text
+        self.min_num = min_num
+        self.max_num = max_num
 
     def bind_to_model(self, model):
         return type(str('_InlinePanel'), (BaseInlinePanel,), {
@@ -694,6 +700,8 @@ class InlinePanel(object):
             'panels': self.panels,
             'heading': self.label,
             'help_text': self.help_text,  # TODO: can we pick this out of the foreign key definition as an alternative? (with a bit of help from the inlineformset object, as we do for label/heading)
+            'min_num': self.min_num,
+            'max_num': self.max_num
         })
 
 
