@@ -442,6 +442,28 @@ Within the template, the block value is accessible as the variable ``self``:
 The line ``self.bound_blocks.biography.render`` warrants further explanation. While blocks such as RichTextBlock are aware of their own rendering, the actual block *values* (as returned when accessing properties of a StructBlock, such as ``self.biography``), are just plain Python values such as strings. To access the block's proper HTML rendering, you must retrieve the 'bound block' - an object which has access to both the rendering method and the value - via the ``bound_blocks`` property.
 
 
+To pass additional context variables to the template, block subclasses can override the ``get_context`` method:
+
+.. code-block:: python
+
+    import datetime
+
+    class EventBlock(blocks.StructBlock):
+        title = blocks.CharBlock(required=True)
+        date = blocks.DateBlock(required=True)
+
+        def get_context(self, value):
+            context = super(EventBlock, self).get_context(value)
+            context['is_happening_today'] = (value['date'] == datetime.date.today())
+            return context
+
+        class Meta:
+            template = 'myapp/blocks/event.html'
+
+
+In this example, the variable ``is_happening_today`` will be made available within the block template.
+
+
 Custom block types
 ------------------
 
