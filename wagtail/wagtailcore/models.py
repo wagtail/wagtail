@@ -58,9 +58,30 @@ class SiteManager(models.Manager):
 @python_2_unicode_compatible
 class Site(models.Model):
     hostname = models.CharField(verbose_name=_('Hostname'), max_length=255, db_index=True)
-    port = models.IntegerField(verbose_name=_('Port'), default=80, help_text=_("Set this to something other than 80 if you need a specific port number to appear in URLs (e.g. development on port 8000). Does not affect request handling (so port forwarding still works)."))
+    port = models.IntegerField(
+        verbose_name=_('Port'),
+        default=80,
+        help_text=_(
+            "Set this to something other than 80 if you need a specific port number to appear in URLs (e.g. "
+            "development on port 8000). Does not affect request handling (so port forwarding still works)."
+        )
+    )
+    site_name = models.CharField(
+        verbose_name=_('Site name'),
+        max_length=255,
+        db_index=True,
+        null=True,
+        blank=True,
+        help_text=_("Human-readable name for the site.")
+    )
     root_page = models.ForeignKey('Page', verbose_name=_('Root page'), related_name='sites_rooted_here')
-    is_default_site = models.BooleanField(verbose_name=_('Is default site'), default=False, help_text=_("If true, this site will handle requests for all other hostnames that do not have a site entry of their own"))
+    is_default_site = models.BooleanField(
+        verbose_name=_('Is default site'),
+        default=False,
+        help_text=_(
+            "If true, this site will handle requests for all other hostnames that do not have a site entry of their own"
+        )
+    )
 
     class Meta:
         unique_together = ('hostname', 'port')
