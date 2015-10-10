@@ -237,9 +237,9 @@ function InlinePanel(opts) {
             var addButton = $('#' + opts.formsetPrefix + '-ADD');
 
             if (forms.length >= opts.maxForms) {
-                addButton.addClass("disabled");
+                addButton.addClass('disabled');
             } else {
-                addButton.removeClass("disabled");
+                addButton.removeClass('disabled');
             }
         }
     };
