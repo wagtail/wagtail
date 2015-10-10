@@ -67,7 +67,8 @@ def add_subpage(request, parent_page_id):
 
     page_types = [
         (model.get_verbose_name(), model._meta.app_label, model._meta.model_name)
-        for model in parent_page.creatable_subpage_models()
+        for model in type(parent_page).creatable_subpage_models()
+        if model.can_create_at(parent_page)
     ]
     # sort by lower-cased version of verbose name
     page_types.sort(key=lambda page_type: page_type[0].lower())

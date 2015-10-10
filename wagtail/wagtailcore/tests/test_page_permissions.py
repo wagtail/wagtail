@@ -141,8 +141,8 @@ class TestPagePermission(TestCase):
 
     def test_superuser_has_full_permissions(self):
         user = get_user_model().objects.get(username='superuser')
-        homepage = Page.objects.get(url_path='/home/')
-        root = Page.objects.get(url_path='/')
+        homepage = Page.objects.get(url_path='/home/').specific
+        root = Page.objects.get(url_path='/').specific
         unpublished_event_page = EventPage.objects.get(url_path='/home/events/tentative-unpublished-event/')
         board_meetings_page = BusinessSubIndex.objects.get(url_path='/home/events/businessy-events/board-meetings/')
 
