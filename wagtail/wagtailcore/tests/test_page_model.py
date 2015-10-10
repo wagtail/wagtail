@@ -16,8 +16,12 @@ from wagtail.tests.testapp.models import (
     BusinessIndex, BusinessSubIndex, BusinessChild, StandardIndex,
     MTIBasePage, MTIChildPage, AbstractPage, TaggedPage,
     BlogCategory, BlogCategoryBlogPage, Advert, ManyToManyBlogPage,
-    GenericSnippetPage, BusinessNowherePage)
+    GenericSnippetPage, BusinessNowherePage, SingletonPage)
 from wagtail.tests.utils import WagtailTestUtils
+
+
+def get_ct(model):
+    return ContentType.objects.get_for_model(model)
 
 
 class TestSiteRouting(TestCase):
@@ -235,7 +239,6 @@ class TestServeView(TestCase):
     def tearDown(self):
         from django.core.urlresolvers import clear_url_caches
         clear_url_caches()
-
 
     def test_serve(self):
         response = self.client.get('/events/christmas/')
@@ -743,20 +746,20 @@ class TestSubpageTypeBusinessRules(TestCase, WagtailTestUtils):
         with self.ignore_deprecation_warnings():
             # SimplePage does not define any restrictions on subpage types
             # SimplePage is a valid subpage of SimplePage
-            self.assertIn(ContentType.objects.get_for_model(SimplePage), SimplePage.allowed_subpage_types())
+            self.assertIn(get_ct(SimplePage), SimplePage.allowed_subpage_types())
             # BusinessIndex is a valid subpage of SimplePage
-            self.assertIn(ContentType.objects.get_for_model(BusinessIndex), SimplePage.allowed_subpage_types())
+            self.assertIn(get_ct(BusinessIndex), SimplePage.allowed_subpage_types())
             # BusinessSubIndex is not valid, because it explicitly omits SimplePage from parent_page_types
-            self.assertNotIn(ContentType.objects.get_for_model(BusinessSubIndex), SimplePage.allowed_subpage_types())
+            self.assertNotIn(get_ct(BusinessSubIndex), SimplePage.allowed_subpage_types())
 
             # BusinessChild has an empty subpage_types list, so does not allow anything
-            self.assertNotIn(ContentType.objects.get_for_model(SimplePage), BusinessChild.allowed_subpage_types())
-            self.assertNotIn(ContentType.objects.get_for_model(BusinessIndex), BusinessChild.allowed_subpage_types())
-            self.assertNotIn(ContentType.objects.get_for_model(BusinessSubIndex), BusinessChild.allowed_subpage_types())
+            self.assertNotIn(get_ct(SimplePage), BusinessChild.allowed_subpage_types())
+            self.assertNotIn(get_ct(BusinessIndex), BusinessChild.allowed_subpage_types())
+            self.assertNotIn(get_ct(BusinessSubIndex), BusinessChild.allowed_subpage_types())
 
             # BusinessSubIndex only allows BusinessChild as subpage type
-            self.assertNotIn(ContentType.objects.get_for_model(SimplePage), BusinessSubIndex.allowed_subpage_types())
-            self.assertIn(ContentType.objects.get_for_model(BusinessChild), BusinessSubIndex.allowed_subpage_types())
+            self.assertNotIn(get_ct(SimplePage), BusinessSubIndex.allowed_subpage_types())
+            self.assertIn(get_ct(BusinessChild), BusinessSubIndex.allowed_subpage_types())
 
     def test_allowed_parent_page_models(self):
         # SimplePage does not define any restrictions on parent page types
@@ -783,17 +786,80 @@ class TestSubpageTypeBusinessRules(TestCase, WagtailTestUtils):
         with self.ignore_deprecation_warnings():
             # SimplePage does not define any restrictions on parent page types
             # SimplePage is a valid parent page of SimplePage
-            self.assertIn(ContentType.objects.get_for_model(SimplePage), SimplePage.allowed_parent_page_types())
+            self.assertIn(get_ct(SimplePage), SimplePage.allowed_parent_page_types())
             # BusinessChild cannot be a parent of anything
-            self.assertNotIn(ContentType.objects.get_for_model(BusinessChild), SimplePage.allowed_parent_page_types())
+            self.assertNotIn(get_ct(BusinessChild), SimplePage.allowed_parent_page_types())
 
             # BusinessNowherePage does not allow anything as a parent
-            self.assertNotIn(ContentType.objects.get_for_model(SimplePage), BusinessNowherePage.allowed_parent_page_types())
-            self.assertNotIn(ContentType.objects.get_for_model(StandardIndex), BusinessNowherePage.allowed_parent_page_types())
+            self.assertNotIn(get_ct(SimplePage), BusinessNowherePage.allowed_parent_page_types())
+            self.assertNotIn(get_ct(StandardIndex), BusinessNowherePage.allowed_parent_page_types())
 
             # BusinessSubIndex only allows BusinessIndex as a parent
-            self.assertNotIn(ContentType.objects.get_for_model(SimplePage), BusinessSubIndex.allowed_parent_page_types())
-            self.assertIn(ContentType.objects.get_for_model(BusinessIndex), BusinessSubIndex.allowed_parent_page_types())
+            self.assertNotIn(get_ct(SimplePage), BusinessSubIndex.allowed_parent_page_types())
+            self.assertIn(get_ct(BusinessIndex), BusinessSubIndex.allowed_parent_page_types())
+
+    def test_can_exist_under(self):
+        self.assertTrue(SimplePage.can_exist_under(SimplePage()))
+
+        # StandardIndex should only be allowed under a Page
+        self.assertTrue(StandardIndex.can_exist_under(Page()))
+        self.assertFalse(StandardIndex.can_exist_under(SimplePage()))
+
+        # The Business pages are quite restrictive in their structure
+        self.assertTrue(BusinessSubIndex.can_exist_under(BusinessIndex()))
+        self.assertTrue(BusinessChild.can_exist_under(BusinessIndex()))
+        self.assertTrue(BusinessChild.can_exist_under(BusinessSubIndex()))
+
+        self.assertFalse(BusinessSubIndex.can_exist_under(SimplePage()))
+        self.assertFalse(BusinessSubIndex.can_exist_under(BusinessSubIndex()))
+        self.assertFalse(BusinessChild.can_exist_under(SimplePage()))
+
+    def test_can_create_at(self):
+        # Pages are not `is_creatable`, and should not be creatable
+        self.assertFalse(Page.can_create_at(Page()))
+
+        # SimplePage can be created under a simple page
+        self.assertTrue(SimplePage.can_create_at(SimplePage()))
+
+        # StandardIndex can be created under a Page, but not a SimplePage
+        self.assertTrue(StandardIndex.can_create_at(Page()))
+        self.assertFalse(StandardIndex.can_create_at(SimplePage()))
+
+        # The Business pages are quite restrictive in their structure
+        self.assertTrue(BusinessSubIndex.can_create_at(BusinessIndex()))
+        self.assertTrue(BusinessChild.can_create_at(BusinessIndex()))
+        self.assertTrue(BusinessChild.can_create_at(BusinessSubIndex()))
+
+        self.assertFalse(BusinessChild.can_create_at(SimplePage()))
+        self.assertFalse(BusinessSubIndex.can_create_at(SimplePage()))
+
+    def test_can_move_to(self):
+        self.assertTrue(SimplePage().can_move_to(SimplePage()))
+
+        # StandardIndex should only be allowed under a Page
+        self.assertTrue(StandardIndex().can_move_to(Page()))
+        self.assertFalse(StandardIndex().can_move_to(SimplePage()))
+
+        # The Business pages are quite restrictive in their structure
+        self.assertTrue(BusinessSubIndex().can_move_to(BusinessIndex()))
+        self.assertTrue(BusinessChild().can_move_to(BusinessIndex()))
+        self.assertTrue(BusinessChild().can_move_to(BusinessSubIndex()))
+
+        self.assertFalse(BusinessChild().can_move_to(SimplePage()))
+        self.assertFalse(BusinessSubIndex().can_move_to(SimplePage()))
+
+    def test_singleton_page_creation(self):
+        root_page = Page.objects.get(url_path='/home/')
+
+        # A single singleton page should be creatable
+        self.assertTrue(SingletonPage.can_create_at(root_page))
+
+        # Create a singleton page
+        root_page.add_child(instance=SingletonPage(
+            title='singleton', slug='singleton'))
+
+        # A second singleton page should not be creatable
+        self.assertFalse(SingletonPage.can_create_at(root_page))
 
 
 class TestIssue735(TestCase):

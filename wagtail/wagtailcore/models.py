@@ -751,6 +751,31 @@ class Page(six.with_metaclass(PageBase, MP_Node, ClusterableModel, index.Indexed
         ]
 
     @classmethod
+    def can_exist_under(cls, parent):
+        """
+        Checks if this page type can exist as a subpage under a parent page
+        instance.
+
+        See also: :func:`Page.can_create_at` and :func:`Page.can_move_to`
+        """
+        return cls in parent.specific_class.allowed_subpage_models()
+
+    @classmethod
+    def can_create_at(cls, parent):
+        """
+        Checks if this page type can be created as a subpage under a parent
+        page instance.
+        """
+        return cls.is_creatable and cls.can_exist_under(parent)
+
+    def can_move_to(self, parent):
+        """
+        Checks if this page instance can be moved to be a subpage of a parent
+        page instance.
+        """
+        return self.can_exist_under(parent)
+
+    @classmethod
     def get_verbose_name(cls):
         """
             Returns the human-readable "verbose name" of this page model e.g "Blog page".
@@ -1388,7 +1413,7 @@ class PagePermissionTester(object):
     def can_add_subpage(self):
         if not self.user.is_active:
             return False
-        if not self.page.specific_class.allowed_subpage_models():  # this page model has an empty subpage_types list, so no subpages are allowed
+        if not self.page.specific_class.creatable_subpage_models():
             return False
         return self.user.is_superuser or ('add' in self.permissions)
 
@@ -1457,7 +1482,7 @@ class PagePermissionTester(object):
         """
         if not self.user.is_active:
             return False
-        if not self.page.specific_class.allowed_subpage_models():  # this page model has an empty subpage_types list, so no subpages are allowed
+        if not self.page.specific_class.creatable_subpage_models():
             return False
 
         return self.user.is_superuser or ('publish' in self.permissions)
@@ -1484,7 +1509,7 @@ class PagePermissionTester(object):
 
         # reject moves that are forbidden by subpage_types / parent_page_types rules
         # (these rules apply to superusers too)
-        if ContentType.objects.get_for_model(self.page.specific_class) not in destination.allowed_subpage_types():
+        if not self.page.specific.can_move_to(destination):
             return False
 
         # shortcut the trivial 'everything' / 'nothing' permissions
