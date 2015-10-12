@@ -201,6 +201,14 @@ class TestElasticSearchQuery(TestCase):
         expected_result = {'filtered': {'filter': {'prefix': {'content_type': 'searchtests_searchtest'}}, 'query': {'match_all': {}}}}
         self.assertDictEqual(query.to_es(), expected_result)
 
+    def test_and_operator(self):
+        # Create a query
+        query = self.ElasticSearchQuery(models.SearchTest.objects.all(), "Hello", operator='and')
+
+        # Check it
+        expected_result = {'filtered': {'filter': {'prefix': {'content_type': 'searchtests_searchtest'}}, 'query': {'multi_match': {'query': 'Hello', 'fields': ['_all', '_partials'], 'operator': 'and'}}}}
+        self.assertDictEqual(query.to_es(), expected_result)
+
     def test_filter(self):
         # Create a query
         query = self.ElasticSearchQuery(models.SearchTest.objects.filter(title="Test"), "Hello")
@@ -250,6 +258,14 @@ class TestElasticSearchQuery(TestCase):
 
         # Check it
         expected_result = {'filtered': {'filter': {'prefix': {'content_type': 'searchtests_searchtest'}}, 'query': {'match': {'title': 'Hello'}}}}
+        self.assertDictEqual(query.to_es(), expected_result)
+
+    def test_fields_with_and_operator(self):
+        # Create a query
+        query = self.ElasticSearchQuery(models.SearchTest.objects.all(), "Hello", fields=['title'], operator='and')
+
+        # Check it
+        expected_result = {'filtered': {'filter': {'prefix': {'content_type': 'searchtests_searchtest'}}, 'query': {'match': {'title': 'Hello', 'operator': 'and'}}}}
         self.assertDictEqual(query.to_es(), expected_result)
 
     def test_exact_lookup(self):

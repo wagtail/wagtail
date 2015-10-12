@@ -43,12 +43,12 @@ class SourceImageIOError(IOError):
 
 
 class ImageQuerySet(models.QuerySet):
-    def search(self, query_string, fields=None, backend='default'):
+    def search(self, query_string, fields=None, operator=None, backend='default'):
         """
         This runs a search query on all the images in the QuerySet
         """
         search_backend = get_search_backend(backend)
-        return search_backend.search(query_string, self, fields=fields)
+        return search_backend.search(query_string, self, fields=fields, operator=operator)
 
 
 def get_upload_to(instance, filename):

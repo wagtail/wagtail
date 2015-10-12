@@ -156,6 +156,8 @@ class ElasticSearchMapping(object):
 
 
 class ElasticSearchQuery(BaseSearchQuery):
+    DEFAULT_OPERATOR = 'or'
+
     def _process_lookup(self, field, lookup, value):
         # Get the name of the field in the index
         field_index_name = field.get_index_name(self.queryset.model)
@@ -254,6 +256,9 @@ class ElasticSearchQuery(BaseSearchQuery):
                         fields[0]: self.query_string,
                     }
                 }
+
+                if self.operator != 'or':
+                    query['match']['operator'] = self.operator
             else:
                 query = {
                     'multi_match': {
@@ -261,6 +266,9 @@ class ElasticSearchQuery(BaseSearchQuery):
                         'fields': fields,
                     }
                 }
+
+                if self.operator != 'or':
+                    query['multi_match']['operator'] = self.operator
         else:
             query = {
                 'match_all': {}
