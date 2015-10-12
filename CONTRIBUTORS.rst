@@ -69,6 +69,7 @@ Contributors
 * Anurag Sharma
 * Maximilian Stauss
 * Salvador Faria
+* Alex Gleason
 
 
 Translators
