@@ -318,6 +318,37 @@ class ElasticSearchQuery(BaseSearchQuery):
         else:
             return inner_query
 
+    def get_sort(self):
+        # Ordering by relevance is the default in Elasticsearch
+        if self.order_by_relevance:
+            return
+
+        # Get queryset and make sure its ordered
+        if self.queryset.ordered:
+            order_by_fields = self.queryset.query.order_by
+            sort = []
+
+            for order_by_field in order_by_fields:
+                reverse = False
+                field_name = order_by_field
+
+                if order_by_field.startswith('-'):
+                    reverse = True
+                    field_name = order_by_field[1:]
+
+                field = self._get_filterable_field(field_name)
+                field_index_name = field.get_index_name(self.queryset.model)
+
+                sort.append({
+                    field_index_name: 'desc' if reverse else 'asc'
+                })
+
+            return sort
+
+        else:
+            # Order by pk field
+            return ['pk']
+
     def __repr__(self):
         return json.dumps(self.get_query())
 
@@ -341,13 +372,21 @@ class ElasticSearchResults(BaseSearchResults):
                 ),
                 RemovedInWagtail14Warning, stacklevel=2)
 
-            return {
+            body = {
                 'query': self.query.to_es(),
             }
         else:
-            return {
+            body = {
                 'query': self.query.get_query()
             }
+
+        if not for_count:
+            sort = self.query.get_sort()
+
+            if sort is not None:
+                body['sort'] = sort
+
+        return body
 
     def _do_search(self):
         # Params for elasticsearch query

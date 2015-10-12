@@ -383,6 +383,7 @@ class TestElasticSearchResults(TestCase):
         query = mock.MagicMock()
         query.queryset = models.SearchTest.objects.all()
         query.get_query.return_value = 'QUERY'
+        query.get_sort.return_value = None
         return self.ElasticSearchResults(backend, query)
 
     def construct_search_response(self, results):
