@@ -41,34 +41,45 @@ All other methods of ``PageQuerySet`` can be used with ``search()``. For example
     The ``search()`` method will convert your ``QuerySet`` into an instance of one of Wagtail's ``SearchResults`` classes (depending on backend). This means that you must perform filtering before calling ``search()``.
 
 
-Searching other models
-----------------------
+.. _wagtailsearch_images_documents_custom_models:
 
-All other models, which aren't automatically given the ``search()`` method on their ``QuerySet``, can instead search by calling the backend directly:
+Searching Images, Documents and custom models
+---------------------------------------------
+
+Wagtail's document and image models provide a ``search`` method on their QuerySets, just as pages do:
 
 .. code-block:: python
 
     >>> from wagtail.wagtailimages.models import Image
-    >>> from wagtail.wagtailsearch.backends import get_search_backend
 
-    # Search images
-    >>> s = get_search_backend()
-    >>> s.search("Hello", Image)
+    >>> Image.objects.filter(uploaded_by_user=user).search("Hello")
     [<Image: Hello>, <Image: Hello world!>]
 
-Here, we're calling ``.search()`` on the backend which takes two positional arguments: the query string and a model/queryset.
 
-Here's an example of searching a standard ``QuerySet``:
+:ref:`Custom models <wagtailsearch_indexing_models>` can be searched by using the ``search`` method on the search backend directly:
 
 .. code-block:: python
 
-    >>> from wagtail.wagtailimages.models import Image
+    >>> from myapp.models import Book
     >>> from wagtail.wagtailsearch.backends import get_search_backend
 
-    # Search images
+    # Search books
     >>> s = get_search_backend()
-    >>> s.search("Hello", Image.objects.filter(uploaded_by_user=user))
-    [<Image: Hello>]
+    >>> s.search("Great", Book)
+    [<Book: Great Expectations>, <Book: The Great Gatsby>]
+
+
+You can also pass a QuerySet into the ``search`` method which allows you to add filters to your search results:
+
+.. code-block:: python
+
+    >>> from myapp.models import Book
+    >>> from wagtail.wagtailsearch.backends import get_search_backend
+
+    # Search books
+    >>> s = get_search_backend()
+    >>> s.search("Great", Book.objects.filter(published_date__year__lt=1900))
+    [<Book: Great Expectations>]
 
 
 Specifying the fields to search
@@ -204,44 +215,3 @@ Promoted search results
 "Promoted search results" allow editors to explicitly link relevant content to search terms, so results pages can contain curated content in addition to results from the search engine.
 
 This functionality is provided by the :mod:`~wagtail.contrib.wagtailsearchpromotions` contrib module.
-
-
-.. _wagtailsearch_images_documents_custom_models:
-
-Searching Images, Documents and custom models
-=============================================
-
-Wagtail's document and image models provide a ``search`` method on their QuerySets, just as pages do:
-
-.. code-block:: python
-
-    >>> from wagtail.wagtailimages.models import Image
-
-    >>> Image.objects.filter(uploaded_by_user=user).search("Hello")
-    [<Image: Hello>, <Image: Hello world!>]
-
-
-:ref:`Custom models <wagtailsearch_indexing_models>` can be searched by using the ``search`` method on the search backend directly:
-
-.. code-block:: python
-
-    >>> from myapp.models import Book
-    >>> from wagtail.wagtailsearch.backends import get_search_backend
-
-    # Search books
-    >>> s = get_search_backend()
-    >>> s.search("Great", Book)
-    [<Book: Great Expectations>, <Book: The Great Gatsby>]
-
-
-You can also pass a QuerySet into the ``search`` method which allows you to add filters to your search results:
-
-.. code-block:: python
-
-    >>> from myapp.models import Book
-    >>> from wagtail.wagtailsearch.backends import get_search_backend
-
-    # Search books
-    >>> s = get_search_backend()
-    >>> s.search("Great", Book.objects.filter(published_date__year__lt=1900))
-    [<Book: Great Expectations>]
