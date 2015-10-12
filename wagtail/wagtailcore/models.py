@@ -1534,7 +1534,7 @@ class CollectionMember(models.Model):
     collection = models.ForeignKey(Collection, default=get_root_collection_id, verbose_name=_('collection'), related_name='+')
 
     search_fields = (
-        index.FilterField('collection_id'),
+        index.FilterField('collection'),
     )
 
     class Meta:

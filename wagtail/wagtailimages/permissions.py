@@ -152,6 +152,6 @@ def images_editable_by_user(user):
     collections_with_change_permission = collections_with_permission_for_user(user, 'wagtailimages.change_image').values_list('id', flat=True)
     collections_with_add_permission = collections_with_permission_for_user(user, 'wagtailimages.add_image').values_list('id', flat=True)
     return Image.objects.filter(
-        Q(collection_id__in=list(collections_with_change_permission))
-        | Q(collection_id__in=list(collections_with_add_permission), uploaded_by_user=user)
+        Q(collection__in=list(collections_with_change_permission))
+        | Q(collection__in=list(collections_with_add_permission), uploaded_by_user=user)
     )
