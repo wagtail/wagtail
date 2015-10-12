@@ -88,12 +88,36 @@ class TestPageListing(TestCase):
         for page in content['results']:
             self.assertEqual(page['meta']['type'], 'demosite.BlogEntryPage')
 
+            # All fields in specific type available
+            self.assertEqual(set(page.keys()), {'id', 'meta', 'title', 'related_links', 'date', 'body', 'tags', 'feed_image', 'carousel_items'})
+
     def test_type_filter_total_count(self):
         response = self.get_response(type='demosite.BlogEntryPage')
         content = json.loads(response.content.decode('UTF-8'))
 
         # Total count must be reduced as this filters the results
         self.assertEqual(content['total_count'], 3)
+
+    def test_type_filter_multiple(self):
+        response = self.get_response(type='demosite.BlogEntryPage,demosite.EventPage')
+        content = json.loads(response.content.decode('UTF-8'))
+
+        blog_page_seen = False
+        event_page_seen = False
+
+        for page in content['results']:
+            self.assertIn(page['meta']['type'], ['demosite.BlogEntryPage', 'demosite.EventPage'])
+
+            if page['meta']['type'] == 'demosite.BlogEntryPage':
+                blog_page_seen = True
+            elif page['meta']['type'] == 'demosite.EventPage':
+                event_page_seen = True
+
+            # Only generic fields available
+            self.assertEqual(set(page.keys()), {'id', 'meta', 'title'})
+
+        self.assertTrue(blog_page_seen, "No blog pages were found in the results")
+        self.assertTrue(event_page_seen, "No event pages were found in the results")
 
     def test_non_existant_type_gives_error(self):
         response = self.get_response(type='demosite.IDontExist')
