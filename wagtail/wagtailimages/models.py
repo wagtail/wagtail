@@ -5,10 +5,10 @@ import hashlib
 from contextlib import contextmanager
 from collections import OrderedDict
 
-
 from taggit.managers import TaggableManager
 from willow.image import Image as WillowImage
 
+import django
 from django.core.files import File
 from django.core.exceptions import ImproperlyConfigured
 from django.db import models
@@ -226,7 +226,10 @@ class AbstractImage(models.Model, TagSearchable):
     @classmethod
     def get_rendition_model(cls):
         """ Get the Rendition model for this Image model """
-        return get_related_model(cls.renditions.related)
+        if django.VERSION >= (1, 9):
+            return get_related_model(cls.renditions.rel)
+        else:
+            return get_related_model(cls.renditions.related)
 
     def get_rendition(self, filter):
         if isinstance(filter, string_types):
