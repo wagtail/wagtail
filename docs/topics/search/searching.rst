@@ -9,10 +9,16 @@ Searching
 
 .. _wagtailsearch_searching_pages:
 
-Searching Pages
-===============
+Searching QuerySets
+===================
 
-Wagtail provides a ``search`` method on the QuerySet for all page models:
+Wagtail search is built on Django's `QuerySet API <https://docs.djangoproject.com/en/1.8/ref/models/querysets/>`_. You should be able to search any Django QuerySet provided the model and the fields being filtered on have been added to the search index.
+
+
+Searching Pages
+---------------
+
+Wagtail provides a shortcut for searching pages: the ``.search()`` ``QuerySet`` method. You can call this on any ``PageQuerySet``. For example:
 
 .. code-block:: python
 
@@ -21,12 +27,61 @@ Wagtail provides a ``search`` method on the QuerySet for all page models:
     >>> EventPage.objects.filter(date__gt=timezone.now()).search("Hello world!")
 
 
-All methods of ``PageQuerySet`` are supported by ``wagtailsearch``:
+All other methods of ``PageQuerySet`` can be used with ``search()``. For example:
 
 .. code-block:: python
 
     # Search all live EventPages that are under the events index
     >>> EventPage.objects.live().descendant_of(events_index).search("Event")
+    [<EventPage: Event 1>, <EventPage: Event 2>]
+
+
+.. note::
+
+    The ``search()`` method will convert your ``QuerySet`` into an instance of one of Wagtail's ``SearchResults`` classes (depending on backend). This means that you must perform filtering before calling ``search()``.
+
+
+Searching other models
+----------------------
+
+All other models, which aren't automatically given the ``search()`` method on their ``QuerySet``, can instead search by calling the backend directly:
+
+.. code-block:: python
+
+    >>> from wagtail.wagtailimages.models import Image
+    >>> from wagtail.wagtailsearch.backends import get_search_backend
+
+    # Search images
+    >>> s = get_search_backend()
+    >>> s.search("Hello", Image)
+    [<Image: Hello>, <Image: Hello world!>]
+
+Here, we're calling ``.search()`` on the backend which takes two positional arguments: the query string and a model/queryset.
+
+Here's an example of searching a standard ``QuerySet``:
+
+.. code-block:: python
+
+    >>> from wagtail.wagtailimages.models import Image
+    >>> from wagtail.wagtailsearch.backends import get_search_backend
+
+    # Search images
+    >>> s = get_search_backend()
+    >>> s.search("Hello", Image.objects.filter(uploaded_by_user=user))
+    [<Image: Hello>]
+
+
+Specifying the fields to search
+-------------------------------
+
+By default, Wagtail will search all fields that have been indexed using ``index.SearchField``.
+
+This can be limited to a certian set of fields using the ``fields`` keyword argument:
+
+.. code-block:: python
+
+    # Search just the title field
+    >>> EventPage.objects.search("Event", fields=["title"])
     [<EventPage: Event 1>, <EventPage: Event 2>]
 
 
