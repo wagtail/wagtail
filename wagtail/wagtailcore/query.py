@@ -197,12 +197,12 @@ class PageQuerySet(MP_NodeQuerySet):
         """
         return self.exclude(self.public_q())
 
-    def search(self, query_string, fields=None, backend='default'):
+    def search(self, query_string, fields=None, operator=None, backend='default'):
         """
         This runs a search query on all the pages in the QuerySet
         """
         search_backend = get_search_backend(backend)
-        return search_backend.search(query_string, self, fields=fields)
+        return search_backend.search(query_string, self, fields=fields, operator=operator)
 
     def unpublish(self):
         """

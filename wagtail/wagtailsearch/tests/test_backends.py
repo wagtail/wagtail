@@ -76,6 +76,18 @@ class BackendTests(WagtailTestUtils):
         results = self.backend.search("World", models.SearchTest)
         self.assertEqual(set(results), {self.testa, self.testd.searchtest_ptr})
 
+    def test_operator_or(self):
+        # All records that match any term should be returned
+        results = self.backend.search("Hello world", models.SearchTest, operator='or')
+
+        self.assertEqual(set(results), {self.testa, self.testb, self.testc.searchtest_ptr, self.testd.searchtest_ptr})
+
+    def test_operator_and(self):
+        # Records must match all search terms to be returned
+        results = self.backend.search("Hello world", models.SearchTest, operator='and')
+
+        self.assertEqual(set(results), {self.testa})
+
     def test_callable_indexed_field(self):
         results = self.backend.search("Callable", models.SearchTest)
         self.assertEqual(set(results), {self.testa, self.testb, self.testc.searchtest_ptr, self.testd.searchtest_ptr})

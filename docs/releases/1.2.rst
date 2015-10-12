@@ -18,12 +18,12 @@ The core templatetags (``pageurl``, ``slugurl``, ``image``, ``richtext`` and ``w
 See: :doc:`/advanced_topics/jinja2`
 
 
-Improved search mechanism for images and documents
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Search API improvements
+~~~~~~~~~~~~~~~~~~~~~~~
 
-Wagtail's image and document models now provide a ``search`` method on their QuerySets, making it easy to perform searches on filtered data sets.
+Wagtail's image and document models now provide a ``search`` method on their QuerySets, making it easy to perform searches on filtered data sets. In addition, search methods now accept an ``operator`` keyword argument, to determine whether multiple search terms will be treated as 'or' (any term may match) or 'and' (all terms must match).
 
-See: :ref:`wagtailsearch_images_documents_custom_models`
+See: :ref:`wagtailsearch_searching`
 
 
 ``max_num`` and ``min_num`` parameters on inline panels

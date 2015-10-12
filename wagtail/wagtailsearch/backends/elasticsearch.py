@@ -156,6 +156,8 @@ class ElasticSearchMapping(object):
 
 
 class ElasticSearchQuery(BaseSearchQuery):
+    DEFAULT_OPERATOR = 'or'
+
     def _process_lookup(self, field, lookup, value):
         # Get the name of the field in the index
         field_index_name = field.get_index_name(self.queryset.model)
@@ -254,6 +256,9 @@ class ElasticSearchQuery(BaseSearchQuery):
                         fields[0]: self.query_string,
                     }
                 }
+
+                if self.operator != 'or':
+                    query['match']['operator'] = self.operator
             else:
                 query = {
                     'multi_match': {
@@ -261,6 +266,9 @@ class ElasticSearchQuery(BaseSearchQuery):
                         'fields': fields,
                     }
                 }
+
+                if self.operator != 'or':
+                    query['multi_match']['operator'] = self.operator
         else:
             query = {
                 'match_all': {}
@@ -467,6 +475,9 @@ class ElasticSearchAtomicIndexRebuilder(ElasticSearchIndexRebuilder):
 
 
 class ElasticSearch(BaseSearch):
+    search_query_class = ElasticSearchQuery
+    search_results_class = ElasticSearchResults
+
     def __init__(self, params):
         super(ElasticSearch, self).__init__(params)
 
@@ -578,9 +589,6 @@ class ElasticSearch(BaseSearch):
             )
         except NotFoundError:
             pass  # Document doesn't exist, ignore this exception
-
-    def _search(self, queryset, query_string, fields=None):
-        return ElasticSearchResults(self, ElasticSearchQuery(queryset, query_string, fields=fields))
 
 
 SearchBackend = ElasticSearch
