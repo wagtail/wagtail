@@ -171,7 +171,7 @@ def get_page_types():
     return _PAGE_CONTENT_TYPES
 
 
-class TreeManagerMixin():
+class TreeManagerMixin(object):
     def descendant_of(self, other, inclusive=False):
         return self.get_queryset().descendant_of(other, inclusive)
 
