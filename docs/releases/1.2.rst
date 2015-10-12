@@ -46,6 +46,7 @@ Minor features
  * Added a favicon to the admin interface, customisable by overriding the ``branding_favicon`` block (see :ref:`custom_branding`).
  * Added spinner animations to long-running form submissions
  * The EMBEDLY_KEY setting has been renamed to WAGTAILEMBEDS_EMBEDLY_KEY
+ * StreamField blocks are now added automatically, without showing the block types menu, if only one block type exists (Alex Gleason)
 
 Bug fixes
 ~~~~~~~~~
