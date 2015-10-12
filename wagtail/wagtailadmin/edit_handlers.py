@@ -4,6 +4,7 @@ import copy
 
 from modelcluster.forms import ClusterForm, ClusterFormMetaclass
 
+import django
 from django.db import models
 from django.template.loader import render_to_string
 from django.utils.safestring import mark_safe
@@ -695,10 +696,15 @@ class InlinePanel(object):
         self.max_num = max_num
 
     def bind_to_model(self, model):
+        if django.VERSION >= (1, 9):
+            related = getattr(model, self.relation_name).rel
+        else:
+            related = getattr(model, self.relation_name).related
+
         return type(str('_InlinePanel'), (BaseInlinePanel,), {
             'model': model,
             'relation_name': self.relation_name,
-            'related': getattr(model, self.relation_name).related,
+            'related': related,
             'panels': self.panels,
             'heading': self.label,
             'help_text': self.help_text,  # TODO: can we pick this out of the foreign key definition as an alternative? (with a bit of help from the inlineformset object, as we do for label/heading)
