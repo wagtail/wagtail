@@ -167,6 +167,38 @@ class TestElasticSearchBackend(BackendTests, TestCase):
         # Should find the result
         self.assertEqual(len(results), 1)
 
+    def test_custom_ordering(self):
+        # Reset the index
+        self.backend.reset_index()
+        self.backend.add_type(models.SearchTest)
+
+        # Add some test data
+        # a is more relevant, but b is more recent
+        a = models.SearchTest()
+        a.title = "Hello Hello World"
+        a.live = True
+        a.published_date = datetime.date(2015, 10, 11)
+        a.save()
+        self.backend.add(a)
+
+        b = models.SearchTest()
+        b.title = "Hello World"
+        b.live = True
+        b.published_date = datetime.date(2015, 10, 12)
+        b.save()
+        self.backend.add(b)
+
+        # Refresh the index
+        self.backend.refresh_index()
+
+        # Do a search ordered by relevence
+        results = self.backend.search("Hello", models.SearchTest.objects.all())
+        self.assertEqual(list(results), [a, b])
+
+        # Do a search ordered by published date
+        results = self.backend.search("Hello", models.SearchTest.objects.order_by('-published_date'), order_by_relevance=False)
+        self.assertEqual(list(results), [b, a])
+
 
 class TestElasticSearchQuery(TestCase):
     def assertDictEqual(self, a, b):
@@ -352,6 +384,30 @@ class TestElasticSearchQuery(TestCase):
         # Check it
         expected_result = {'filtered': {'filter': {'and': [{'prefix': {'content_type': 'searchtests_searchtest'}}, {'range': {'published_date_filter': {'gte': '2014-04-29', 'lte': '2014-08-19'}}}]}, 'query': {'multi_match': {'query': 'Hello', 'fields': ['_all', '_partials']}}}}
         self.assertDictEqual(query.get_query(), expected_result)
+
+    def test_custom_ordering(self):
+        # Create a query
+        query = self.ElasticSearchQuery(models.SearchTest.objects.order_by('published_date'), "Hello", order_by_relevance=False)
+
+        # Check it
+        expected_result = [{'published_date_filter': 'asc'}]
+        self.assertDictEqual(query.get_sort(), expected_result)
+
+    def test_custom_ordering_reversed(self):
+        # Create a query
+        query = self.ElasticSearchQuery(models.SearchTest.objects.order_by('-published_date'), "Hello", order_by_relevance=False)
+
+        # Check it
+        expected_result = [{'published_date_filter': 'desc'}]
+        self.assertDictEqual(query.get_sort(), expected_result)
+
+    def test_custom_ordering_multiple(self):
+        # Create a query
+        query = self.ElasticSearchQuery(models.SearchTest.objects.order_by('published_date', 'live'), "Hello", order_by_relevance=False)
+
+        # Check it
+        expected_result = [{'published_date_filter': 'asc'}, {'live_filter': 'asc'}]
+        self.assertDictEqual(query.get_sort(), expected_result)
 
 
 class TestElasticSearchResults(TestCase):
