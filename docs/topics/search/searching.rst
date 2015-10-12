@@ -139,6 +139,16 @@ Here's an example of using the "operator" keyword argument:
     [<Thing: Hello world>]
 
 
+For page, image and document models, the ``operator`` keyword argument is also supported on the QuerySet's ``search`` method:
+
+.. code-block:: python
+
+    >>> Page.objects.search("Hello world", operator="or")
+
+    # All pages containing either "hello" or "world" are returned
+    [<Page: Hello World>, <Page: Hello>, <Page: World>]
+
+
 .. _wagtailsearch_frontend_views:
 
 
