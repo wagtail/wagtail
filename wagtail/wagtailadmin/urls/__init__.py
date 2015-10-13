@@ -5,12 +5,15 @@ from django.views.decorators.cache import cache_control
 from wagtail.wagtailadmin.urls import pages as wagtailadmin_pages_urls
 from wagtail.wagtailadmin.urls import password_reset as wagtailadmin_password_reset_urls
 from wagtail.wagtailadmin.views import account, chooser, home, pages, tags, userbar
+from wagtail.wagtailadmin.api import admin_api_v1
 from wagtail.wagtailcore import hooks
 from wagtail.utils.urlpatterns import decorate_urlpatterns
 
 
 urlpatterns = [
     url(r'^$', home.home, name='wagtailadmin_home'),
+
+    url(r'api/v1beta/', include(admin_api_v1.urls)),
 
     url(r'^failwhale/$', home.error_test, name='wagtailadmin_error_test'),
 
