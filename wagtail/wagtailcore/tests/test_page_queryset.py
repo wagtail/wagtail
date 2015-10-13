@@ -322,6 +322,32 @@ class TestPageQuerySet(TestCase):
         self.assertTrue(pages.filter(id=event.id).exists())
 
 
+class TestPageQuerySetSearch(TestCase):
+    fixtures = ['test.json']
+
+    def test_search(self):
+        pages = EventPage.objects.search('moon', fields=['location'])
+
+        self.assertEqual(pages.count(), 2)
+        self.assertIn(Page.objects.get(url_path='/home/events/tentative-unpublished-event/').specific, pages)
+        self.assertIn(Page.objects.get(url_path='/home/events/someone-elses-event/').specific, pages)
+
+    def test_custom_order(self):
+        pages = EventPage.objects.order_by('url_path').search('moon', fields=['location'], order_by_relevance=False)
+
+        self.assertEqual(list(pages), [
+            Page.objects.get(url_path='/home/events/someone-elses-event/').specific,
+            Page.objects.get(url_path='/home/events/tentative-unpublished-event/').specific,
+        ])
+
+        pages = EventPage.objects.order_by('-url_path').search('moon', fields=['location'], order_by_relevance=False)
+
+        self.assertEqual(list(pages), [
+            Page.objects.get(url_path='/home/events/tentative-unpublished-event/').specific,
+            Page.objects.get(url_path='/home/events/someone-elses-event/').specific,
+        ])
+
+
 class TestSpecificQuery(TestCase):
     """
     Test the .specific() queryset method. This is isolated in its own test case

@@ -34,6 +34,15 @@ class TestDocumentQuerySet(TestCase):
         results = models.Document.objects.search("Test")
         self.assertEqual(list(results), [document])
 
+    def test_custom_ordering(self):
+        aaa_document = models.Document.objects.create(title="AAA Test document")
+        zzz_document = models.Document.objects.create(title="ZZZ Test document")
+
+        results = models.Document.objects.order_by('title').search("Test")
+        self.assertEqual(list(results), [aaa_document, zzz_document])
+        results = models.Document.objects.order_by('-title').search("Test")
+        self.assertEqual(list(results), [zzz_document, aaa_document])
+
 
 class TestDocumentPermissions(TestCase):
     def setUp(self):

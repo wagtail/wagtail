@@ -20,12 +20,14 @@ from wagtail.wagtailsearch.backends import get_search_backend
 
 
 class DocumentQuerySet(models.QuerySet):
-    def search(self, query_string, fields=None, operator=None, backend='default'):
+    def search(self, query_string, fields=None,
+            operator=None, order_by_relevance=True, backend='default'):
         """
         This runs a search query on all the documents in the QuerySet
         """
         search_backend = get_search_backend(backend)
-        return search_backend.search(query_string, self, fields=fields, operator=operator)
+        return search_backend.search(query_string, self, fields=fields,
+            operator=operator, order_by_relevance=order_by_relevance)
 
 
 @python_2_unicode_compatible
