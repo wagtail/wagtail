@@ -131,14 +131,14 @@ You can make use of these methods in your template by doing:
 
 .. code-block:: html+django
 
-    {% if self.english_page and self.get_language != 'en' %}
-        <a href="{{ self.english_page.url }}">{% trans "View in English" %}</a>
+    {% if page.english_page and page.get_language != 'en' %}
+        <a href="{{ page.english_page.url }}">{% trans "View in English" %}</a>
     {% endif %}
 
-    {% if self.french_page and self.get_language != 'fr' %}
-        <a href="{{ self.french_page.url }}">{% trans "View in French" %}</a>
+    {% if page.french_page and page.get_language != 'fr' %}
+        <a href="{{ page.french_page.url }}">{% trans "View in French" %}</a>
     {% endif %}
 
-    {% if self.spanish_page and self.get_language != 'es' %}
-        <a href="{{ self.spanish_page.url }}">{% trans "View in Spanish" %}</a>
+    {% if page.spanish_page and page.get_language != 'es' %}
+        <a href="{{ page.spanish_page.url }}">{% trans "View in Spanish" %}</a>
     {% endif %}

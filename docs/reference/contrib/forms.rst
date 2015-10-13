@@ -53,19 +53,19 @@ Within the ``models.py`` of one of your apps, create a model that extends ``wagt
 
 If you do not want your form page type to offer form-to-email functionality, you can inherit from AbstractForm instead of ``AbstractEmailForm``, and omit the ``to_address``, ``from_address`` and ``subject`` fields from the ``content_panels`` definition.
 
-You now need to create two templates named ``form_page.html`` and ``form_page_landing.html`` (where ``form_page`` is the underscore-formatted version of the class name). ``form_page.html`` differs from a standard Wagtail template in that it is passed a variable ``form``, containing a Django ``Form`` object, in addition to the usual ``self`` variable. A very basic template for the form would thus be:
+You now need to create two templates named ``form_page.html`` and ``form_page_landing.html`` (where ``form_page`` is the underscore-formatted version of the class name). ``form_page.html`` differs from a standard Wagtail template in that it is passed a variable ``form``, containing a Django ``Form`` object, in addition to the usual ``page`` variable. A very basic template for the form would thus be:
 
 .. code-block:: html
 
     {% load wagtailcore_tags %}
     <html>
         <head>
-            <title>{{ self.title }}</title>
+            <title>{{ page.title }}</title>
         </head>
         <body>
-            <h1>{{ self.title }}</h1>
-            {{ self.intro|richtext }}
-            <form action="{% pageurl self %}" method="POST">
+            <h1>{{ page.title }}</h1>
+            {{ page.intro|richtext }}
+            <form action="{% pageurl page %}" method="POST">
                 {% csrf_token %}
                 {{ form.as_p }}
                 <input type="submit">

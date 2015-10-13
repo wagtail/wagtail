@@ -76,11 +76,11 @@ Then in the template, you can use the ``{% routablepageurl %}`` tag to link betw
     {% load wagtailroutablepage_tags %}
 
     {% if results.has_previous %}
-        <a href="{% routablepageurl self 'page' results.previous_page_number %}">Next page</a>
+        <a href="{% routablepageurl page 'page' results.previous_page_number %}">Next page</a>
     {% else %}
 
     {% if results.has_next %}
-        <a href="{% routablepageurl self 'page' results.next_page_number %}">Next page</a>
+        <a href="{% routablepageurl page 'page' results.next_page_number %}">Next page</a>
     {% else %}
 
 
