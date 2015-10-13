@@ -332,6 +332,20 @@ class TestPageQuerySetSearch(TestCase):
         self.assertIn(Page.objects.get(url_path='/home/events/tentative-unpublished-event/').specific, pages)
         self.assertIn(Page.objects.get(url_path='/home/events/someone-elses-event/').specific, pages)
 
+    def test_operators(self):
+        results = EventPage.objects.search("moon ponies", operator='and')
+
+        self.assertEqual(list(results), [
+            Page.objects.get(url_path='/home/events/tentative-unpublished-event/').specific
+        ])
+
+        results = EventPage.objects.search("moon ponies", operator='or')
+        sorted_results = sorted(results, key=lambda page: page.url_path)
+        self.assertEqual(sorted_results, [
+            Page.objects.get(url_path='/home/events/someone-elses-event/').specific,
+            Page.objects.get(url_path='/home/events/tentative-unpublished-event/').specific,
+        ])
+
     def test_custom_order(self):
         pages = EventPage.objects.order_by('url_path').search('moon', fields=['location'], order_by_relevance=False)
 
