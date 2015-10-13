@@ -51,6 +51,7 @@ Minor features
  * The EMBEDLY_KEY setting has been renamed to WAGTAILEMBEDS_EMBEDLY_KEY
  * StreamField blocks are now added automatically, without showing the block types menu, if only one block type exists (Alex Gleason)
  * The ``first_published_at`` and ``latest_revision_created_at`` fields on page models are now available as filter fields on search queries
+ * Wagtail admin now standardises on a single thumbnail image size, to reduce the overhead of creating multiple renditions
 
 Bug fixes
 ~~~~~~~~~
