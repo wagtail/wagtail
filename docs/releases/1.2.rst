@@ -21,7 +21,10 @@ See: :doc:`/advanced_topics/jinja2`
 Search API improvements
 ~~~~~~~~~~~~~~~~~~~~~~~
 
-Wagtail's image and document models now provide a ``search`` method on their QuerySets, making it easy to perform searches on filtered data sets. In addition, search methods now accept an ``operator`` keyword argument, to determine whether multiple search terms will be treated as 'or' (any term may match) or 'and' (all terms must match).
+Wagtail's image and document models now provide a ``search`` method on their QuerySets, making it easy to perform searches on filtered data sets. In addition, search methods now accept two new keyword arguments:
+
+ * ``operator``, to determine whether multiple search terms will be treated as 'or' (any term may match) or 'and' (all terms must match);
+ * ``order_by_relevance``, set to True (the default) to order by relevance or False to preserve the QuerySet's original ordering.
 
 See: :ref:`wagtailsearch_searching`
 
