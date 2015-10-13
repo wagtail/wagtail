@@ -99,6 +99,38 @@ class TestImageQuerySet(TestCase):
         results = Image.objects.search("Test")
         self.assertEqual(list(results), [image])
 
+    def test_operators(self):
+        aaa_image = Image.objects.create(
+            title="AAA Test image",
+            file=get_test_image_file(),
+        )
+        zzz_image = Image.objects.create(
+            title="ZZZ Test image",
+            file=get_test_image_file(),
+        )
+
+        results = Image.objects.search("aaa test", operator='and')
+        self.assertEqual(list(results), [aaa_image])
+
+        results = Image.objects.search("aaa test", operator='or')
+        sorted_results = sorted(results, key=lambda img: img.title)
+        self.assertEqual(sorted_results, [aaa_image, zzz_image])
+
+    def test_custom_ordering(self):
+        aaa_image = Image.objects.create(
+            title="AAA Test image",
+            file=get_test_image_file(),
+        )
+        zzz_image = Image.objects.create(
+            title="ZZZ Test image",
+            file=get_test_image_file(),
+        )
+
+        results = Image.objects.order_by('title').search("Test")
+        self.assertEqual(list(results), [aaa_image, zzz_image])
+        results = Image.objects.order_by('-title').search("Test")
+        self.assertEqual(list(results), [zzz_image, aaa_image])
+
 
 class TestImagePermissions(TestCase):
     def setUp(self):

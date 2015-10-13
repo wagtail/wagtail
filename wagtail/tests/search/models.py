@@ -43,6 +43,9 @@ class SearchTest(models.Model, index.Indexed):
         # Return the child if there is one, otherwise return self
         return child or self
 
+    def __str__(self):
+        return self.title
+
 
 class SearchTestChild(SearchTest):
     subtitle = models.CharField(max_length=255, null=True, blank=True)

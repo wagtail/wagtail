@@ -235,8 +235,10 @@ class PageManager(models.Manager):
     def not_public(self):
         return self.get_queryset().not_public()
 
-    def search(self, query_string, fields=None, backend='default'):
-        return self.get_queryset().search(query_string, fields=fields, backend=backend)
+    def search(self, query_string, fields=None,
+            operator=None, order_by_relevance=True, backend='default'):
+        return self.get_queryset().search(query_string, fields=fields,
+            operator=operator, order_by_relevance=order_by_relevance, backend=backend)
 
     def specific(self):
         return self.get_queryset().specific()

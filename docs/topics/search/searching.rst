@@ -138,7 +138,6 @@ Here's an example of using the "operator" keyword argument:
     # Only "hello world" returned as that's the only item that contains both terms
     [<Thing: Hello world>]
 
-
 For page, image and document models, the ``operator`` keyword argument is also supported on the QuerySet's ``search`` method:
 
 .. code-block:: python
@@ -147,6 +146,24 @@ For page, image and document models, the ``operator`` keyword argument is also s
 
     # All pages containing either "hello" or "world" are returned
     [<Page: Hello World>, <Page: Hello>, <Page: World>]
+
+
+Custom ordering
+^^^^^^^^^^^^^^^
+
+.. versionadded:: 1.2
+
+By default, search results are ordered by relevance, if the backend supports it. To preserve the QuerySet's existing ordering, the ``order_by_relevance`` keyword argument needs to be set to ``False`` on the ``search()`` method.
+
+For example:
+
+.. code-block:: python
+
+    # Get a list of events ordered by date
+    >>> EventPage.objects.order_by('date').search("Event", order_by_relevance=False)
+
+    # Events ordered by date
+    [<EventPage: Easter>, <EventPage: Halloween>, <EventPage: Christmas>]
 
 
 .. _wagtailsearch_frontend_views:

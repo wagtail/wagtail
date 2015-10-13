@@ -167,6 +167,38 @@ class TestElasticSearchBackend(BackendTests, TestCase):
         # Should find the result
         self.assertEqual(len(results), 1)
 
+    def test_custom_ordering(self):
+        # Reset the index
+        self.backend.reset_index()
+        self.backend.add_type(models.SearchTest)
+
+        # Add some test data
+        # a is more relevant, but b is more recent
+        a = models.SearchTest()
+        a.title = "Hello Hello World"
+        a.live = True
+        a.published_date = datetime.date(2015, 10, 11)
+        a.save()
+        self.backend.add(a)
+
+        b = models.SearchTest()
+        b.title = "Hello World"
+        b.live = True
+        b.published_date = datetime.date(2015, 10, 12)
+        b.save()
+        self.backend.add(b)
+
+        # Refresh the index
+        self.backend.refresh_index()
+
+        # Do a search ordered by relevence
+        results = self.backend.search("Hello", models.SearchTest.objects.all())
+        self.assertEqual(list(results), [a, b])
+
+        # Do a search ordered by published date
+        results = self.backend.search("Hello", models.SearchTest.objects.order_by('-published_date'), order_by_relevance=False)
+        self.assertEqual(list(results), [b, a])
+
 
 class TestElasticSearchQuery(TestCase):
     def assertDictEqual(self, a, b):
@@ -191,7 +223,7 @@ class TestElasticSearchQuery(TestCase):
 
         # Check it
         expected_result = {'filtered': {'filter': {'prefix': {'content_type': 'searchtests_searchtest'}}, 'query': {'multi_match': {'query': 'Hello', 'fields': ['_all', '_partials']}}}}
-        self.assertDictEqual(query.to_es(), expected_result)
+        self.assertDictEqual(query.get_query(), expected_result)
 
     def test_none_query_string(self):
         # Create a query
@@ -199,7 +231,7 @@ class TestElasticSearchQuery(TestCase):
 
         # Check it
         expected_result = {'filtered': {'filter': {'prefix': {'content_type': 'searchtests_searchtest'}}, 'query': {'match_all': {}}}}
-        self.assertDictEqual(query.to_es(), expected_result)
+        self.assertDictEqual(query.get_query(), expected_result)
 
     def test_and_operator(self):
         # Create a query
@@ -207,7 +239,7 @@ class TestElasticSearchQuery(TestCase):
 
         # Check it
         expected_result = {'filtered': {'filter': {'prefix': {'content_type': 'searchtests_searchtest'}}, 'query': {'multi_match': {'query': 'Hello', 'fields': ['_all', '_partials'], 'operator': 'and'}}}}
-        self.assertDictEqual(query.to_es(), expected_result)
+        self.assertDictEqual(query.get_query(), expected_result)
 
     def test_filter(self):
         # Create a query
@@ -215,7 +247,7 @@ class TestElasticSearchQuery(TestCase):
 
         # Check it
         expected_result = {'filtered': {'filter': {'and': [{'prefix': {'content_type': 'searchtests_searchtest'}}, {'term': {'title_filter': 'Test'}}]}, 'query': {'multi_match': {'query': 'Hello', 'fields': ['_all', '_partials']}}}}
-        self.assertDictEqual(query.to_es(), expected_result)
+        self.assertDictEqual(query.get_query(), expected_result)
 
     def test_and_filter(self):
         # Create a query
@@ -225,7 +257,7 @@ class TestElasticSearchQuery(TestCase):
         expected_result = {'filtered': {'filter': {'and': [{'prefix': {'content_type': 'searchtests_searchtest'}}, {'and': [{'term': {'live_filter': True}}, {'term': {'title_filter': 'Test'}}]}]}, 'query': {'multi_match': {'query': 'Hello', 'fields': ['_all', '_partials']}}}}
 
         # Make sure field filters are sorted (as they can be in any order which may cause false positives)
-        query = query.to_es()
+        query = query.get_query()
         field_filters = query['filtered']['filter']['and'][1]['and']
         field_filters[:] = sorted(field_filters, key=lambda f: list(f['term'].keys())[0])
 
@@ -236,7 +268,7 @@ class TestElasticSearchQuery(TestCase):
         query = self.ElasticSearchQuery(models.SearchTest.objects.filter(Q(title="Test") | Q(live=True)), "Hello")
 
         # Make sure field filters are sorted (as they can be in any order which may cause false positives)
-        query = query.to_es()
+        query = query.get_query()
         field_filters = query['filtered']['filter']['and'][1]['or']
         field_filters[:] = sorted(field_filters, key=lambda f: list(f['term'].keys())[0])
 
@@ -250,7 +282,7 @@ class TestElasticSearchQuery(TestCase):
 
         # Check it
         expected_result = {'filtered': {'filter': {'and': [{'prefix': {'content_type': 'searchtests_searchtest'}}, {'not': {'term': {'live_filter': True}}}]}, 'query': {'multi_match': {'query': 'Hello', 'fields': ['_all', '_partials']}}}}
-        self.assertDictEqual(query.to_es(), expected_result)
+        self.assertDictEqual(query.get_query(), expected_result)
 
     def test_fields(self):
         # Create a query
@@ -258,7 +290,7 @@ class TestElasticSearchQuery(TestCase):
 
         # Check it
         expected_result = {'filtered': {'filter': {'prefix': {'content_type': 'searchtests_searchtest'}}, 'query': {'match': {'title': 'Hello'}}}}
-        self.assertDictEqual(query.to_es(), expected_result)
+        self.assertDictEqual(query.get_query(), expected_result)
 
     def test_fields_with_and_operator(self):
         # Create a query
@@ -266,7 +298,7 @@ class TestElasticSearchQuery(TestCase):
 
         # Check it
         expected_result = {'filtered': {'filter': {'prefix': {'content_type': 'searchtests_searchtest'}}, 'query': {'match': {'title': 'Hello', 'operator': 'and'}}}}
-        self.assertDictEqual(query.to_es(), expected_result)
+        self.assertDictEqual(query.get_query(), expected_result)
 
     def test_exact_lookup(self):
         # Create a query
@@ -274,7 +306,7 @@ class TestElasticSearchQuery(TestCase):
 
         # Check it
         expected_result = {'filtered': {'filter': {'and': [{'prefix': {'content_type': 'searchtests_searchtest'}}, {'term': {'title_filter': 'Test'}}]}, 'query': {'multi_match': {'query': 'Hello', 'fields': ['_all', '_partials']}}}}
-        self.assertDictEqual(query.to_es(), expected_result)
+        self.assertDictEqual(query.get_query(), expected_result)
 
     def test_none_lookup(self):
         # Create a query
@@ -282,7 +314,7 @@ class TestElasticSearchQuery(TestCase):
 
         # Check it
         expected_result = {'filtered': {'filter': {'and': [{'prefix': {'content_type': 'searchtests_searchtest'}}, {'missing': {'field': 'title_filter'}}]}, 'query': {'multi_match': {'query': 'Hello', 'fields': ['_all', '_partials']}}}}
-        self.assertDictEqual(query.to_es(), expected_result)
+        self.assertDictEqual(query.get_query(), expected_result)
 
     def test_isnull_true_lookup(self):
         # Create a query
@@ -290,7 +322,7 @@ class TestElasticSearchQuery(TestCase):
 
         # Check it
         expected_result = {'filtered': {'filter': {'and': [{'prefix': {'content_type': 'searchtests_searchtest'}}, {'missing': {'field': 'title_filter'}}]}, 'query': {'multi_match': {'query': 'Hello', 'fields': ['_all', '_partials']}}}}
-        self.assertDictEqual(query.to_es(), expected_result)
+        self.assertDictEqual(query.get_query(), expected_result)
 
     def test_isnull_false_lookup(self):
         # Create a query
@@ -298,7 +330,7 @@ class TestElasticSearchQuery(TestCase):
 
         # Check it
         expected_result = {'filtered': {'filter': {'and': [{'prefix': {'content_type': 'searchtests_searchtest'}}, {'not': {'missing': {'field': 'title_filter'}}}]}, 'query': {'multi_match': {'query': 'Hello', 'fields': ['_all', '_partials']}}}}
-        self.assertDictEqual(query.to_es(), expected_result)
+        self.assertDictEqual(query.get_query(), expected_result)
 
     def test_startswith_lookup(self):
         # Create a query
@@ -306,7 +338,7 @@ class TestElasticSearchQuery(TestCase):
 
         # Check it
         expected_result = {'filtered': {'filter': {'and': [{'prefix': {'content_type': 'searchtests_searchtest'}}, {'prefix': {'title_filter': 'Test'}}]}, 'query': {'multi_match': {'query': 'Hello', 'fields': ['_all', '_partials']}}}}
-        self.assertDictEqual(query.to_es(), expected_result)
+        self.assertDictEqual(query.get_query(), expected_result)
 
     def test_gt_lookup(self):
         # This also tests conversion of python dates to strings
@@ -316,7 +348,7 @@ class TestElasticSearchQuery(TestCase):
 
         # Check it
         expected_result = {'filtered': {'filter': {'and': [{'prefix': {'content_type': 'searchtests_searchtest'}}, {'range': {'published_date_filter': {'gt': '2014-04-29'}}}]}, 'query': {'multi_match': {'query': 'Hello', 'fields': ['_all', '_partials']}}}}
-        self.assertDictEqual(query.to_es(), expected_result)
+        self.assertDictEqual(query.get_query(), expected_result)
 
     def test_lt_lookup(self):
         # Create a query
@@ -324,7 +356,7 @@ class TestElasticSearchQuery(TestCase):
 
         # Check it
         expected_result = {'filtered': {'filter': {'and': [{'prefix': {'content_type': 'searchtests_searchtest'}}, {'range': {'published_date_filter': {'lt': '2014-04-29'}}}]}, 'query': {'multi_match': {'query': 'Hello', 'fields': ['_all', '_partials']}}}}
-        self.assertDictEqual(query.to_es(), expected_result)
+        self.assertDictEqual(query.get_query(), expected_result)
 
     def test_gte_lookup(self):
         # Create a query
@@ -332,7 +364,7 @@ class TestElasticSearchQuery(TestCase):
 
         # Check it
         expected_result = {'filtered': {'filter': {'and': [{'prefix': {'content_type': 'searchtests_searchtest'}}, {'range': {'published_date_filter': {'gte': '2014-04-29'}}}]}, 'query': {'multi_match': {'query': 'Hello', 'fields': ['_all', '_partials']}}}}
-        self.assertDictEqual(query.to_es(), expected_result)
+        self.assertDictEqual(query.get_query(), expected_result)
 
     def test_lte_lookup(self):
         # Create a query
@@ -340,7 +372,7 @@ class TestElasticSearchQuery(TestCase):
 
         # Check it
         expected_result = {'filtered': {'filter': {'and': [{'prefix': {'content_type': 'searchtests_searchtest'}}, {'range': {'published_date_filter': {'lte': '2014-04-29'}}}]}, 'query': {'multi_match': {'query': 'Hello', 'fields': ['_all', '_partials']}}}}
-        self.assertDictEqual(query.to_es(), expected_result)
+        self.assertDictEqual(query.get_query(), expected_result)
 
     def test_range_lookup(self):
         start_date = datetime.datetime(2014, 4, 29)
@@ -351,7 +383,31 @@ class TestElasticSearchQuery(TestCase):
 
         # Check it
         expected_result = {'filtered': {'filter': {'and': [{'prefix': {'content_type': 'searchtests_searchtest'}}, {'range': {'published_date_filter': {'gte': '2014-04-29', 'lte': '2014-08-19'}}}]}, 'query': {'multi_match': {'query': 'Hello', 'fields': ['_all', '_partials']}}}}
-        self.assertDictEqual(query.to_es(), expected_result)
+        self.assertDictEqual(query.get_query(), expected_result)
+
+    def test_custom_ordering(self):
+        # Create a query
+        query = self.ElasticSearchQuery(models.SearchTest.objects.order_by('published_date'), "Hello", order_by_relevance=False)
+
+        # Check it
+        expected_result = [{'published_date_filter': 'asc'}]
+        self.assertDictEqual(query.get_sort(), expected_result)
+
+    def test_custom_ordering_reversed(self):
+        # Create a query
+        query = self.ElasticSearchQuery(models.SearchTest.objects.order_by('-published_date'), "Hello", order_by_relevance=False)
+
+        # Check it
+        expected_result = [{'published_date_filter': 'desc'}]
+        self.assertDictEqual(query.get_sort(), expected_result)
+
+    def test_custom_ordering_multiple(self):
+        # Create a query
+        query = self.ElasticSearchQuery(models.SearchTest.objects.order_by('published_date', 'live'), "Hello", order_by_relevance=False)
+
+        # Check it
+        expected_result = [{'published_date_filter': 'asc'}, {'live_filter': 'asc'}]
+        self.assertDictEqual(query.get_sort(), expected_result)
 
 
 class TestElasticSearchResults(TestCase):
@@ -382,7 +438,8 @@ class TestElasticSearchResults(TestCase):
         backend = self.ElasticSearch({})
         query = mock.MagicMock()
         query.queryset = models.SearchTest.objects.all()
-        query.to_es.return_value = 'QUERY'
+        query.get_query.return_value = 'QUERY'
+        query.get_sort.return_value = None
         return self.ElasticSearchResults(backend, query)
 
     def construct_search_response(self, results):

@@ -7,10 +7,10 @@ from django.apps import apps
 
 from treebeard.mp_tree import MP_NodeQuerySet
 
-from wagtail.wagtailsearch.backends import get_search_backend
+from wagtail.wagtailsearch.queryset import SearchableQuerySetMixin
 
 
-class PageQuerySet(MP_NodeQuerySet):
+class PageQuerySet(SearchableQuerySetMixin, MP_NodeQuerySet):
     def live_q(self):
         return Q(live=True)
 
@@ -196,13 +196,6 @@ class PageQuerySet(MP_NodeQuerySet):
         This filters the QuerySet to only contain pages that are in a private section
         """
         return self.exclude(self.public_q())
-
-    def search(self, query_string, fields=None, operator=None, backend='default'):
-        """
-        This runs a search query on all the pages in the QuerySet
-        """
-        search_backend = get_search_backend(backend)
-        return search_backend.search(query_string, self, fields=fields, operator=operator)
 
     def unpublish(self):
         """
