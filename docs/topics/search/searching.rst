@@ -153,7 +153,7 @@ Custom ordering
 
 .. versionadded:: 1.2
 
-By default, search results are ordered by relevance, if the backend supports it. To order by a custom field, the ``order_by_relevance`` keyword argument needs to be set to ``False`` on the ``search()`` method.
+By default, search results are ordered by relevance, if the backend supports it. To preserve the QuerySet's existing ordering, the ``order_by_relevance`` keyword argument needs to be set to ``False`` on the ``search()`` method.
 
 For example:
 
@@ -163,7 +163,7 @@ For example:
     >>> EventPage.objects.order_by('date').search("Event", order_by_relevance=False)
 
     # Events ordered by date
-    [<EventPage: Easter>, <EventPage: Haloween>, <EventPage: Christmas>]
+    [<EventPage: Easter>, <EventPage: Halloween>, <EventPage: Christmas>]
 
 
 .. _wagtailsearch_frontend_views:
