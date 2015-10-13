@@ -871,8 +871,19 @@ ul.inline li:first-child, li.inline:first-child{
         }
         .preview-image{
             float:left;
-            margin-left:-($thumbnail-width);
-            margin-right:1em;
+            margin-left: -($thumbnail-width);
+            margin-right: 1em;
+            max-width: $thumbnail-width;
+
+            // Resize standard Wagtail thumbnail size (165x165) to 130 for space-saving purposes.
+            // We could request a 130x130 rendition, but that's just unnecessary and burdens installations
+            // where images are store off-site with higher rendering times.
+            img{
+                max-width: $thumbnail-width;
+                max-height: $thumbnail-width;
+                height: auto;
+                width: auto;
+            }
         }
     }
 }
