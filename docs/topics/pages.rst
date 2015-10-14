@@ -212,7 +212,7 @@ You just need to create a template in a location where it can be accessed with t
 Template context
 ----------------
 
-Wagtail renders templates with the ``self`` variable bound to the page instance being rendered. Use this to access the content of the page. For example, to get the title of the current page, do ``{{ self.title }}``. All variables provided by `context processors <https://docs.djangoproject.com/en/1.8/ref/templates/api/#subclassing-context-requestcontext>`_ are also available.
+Wagtail renders templates with the ``page`` variable bound to the page instance being rendered. Use this to access the content of the page. For example, to get the title of the current page, do ``{{ page.title }}``. All variables provided by `context processors <https://docs.djangoproject.com/en/1.8/ref/templates/api/#subclassing-context-requestcontext>`_ are also available.
 
 
 Customising template context
@@ -239,7 +239,7 @@ The variables can then be used in the template:
 
 .. code-block:: HTML+Django
 
-    {{ self.title }}
+    {{ page.title }}
 
     {% for entry in blog_entries %}
         {{ entry.title }}

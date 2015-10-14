@@ -17,7 +17,7 @@ By setting ``PASSWORD_REQUIRED_TEMPLATE`` in your Django settings file, you can 
 
   PASSWORD_REQUIRED_TEMPLATE = 'myapp/password_required.html'
 
-This template will receive the same set of context variables that the blocked page would pass to its own template via ``get_context()`` - including ``self`` to refer to the page object itself - plus the following additional variables (which override any of the page's own context variables of the same name):
+This template will receive the same set of context variables that the blocked page would pass to its own template via ``get_context()`` - including ``page`` to refer to the page object itself - plus the following additional variables (which override any of the page's own context variables of the same name):
 
  - **form** - A Django form object for the password prompt; this will contain a field named ``password`` as its only visible field. A number of hidden fields may also be present, so the page must loop over ``form.hidden_fields`` if not using one of Django's rendering helpers such as ``form.as_p``.
  - **action_url** - The URL that the password form should be submitted to, as a POST request.

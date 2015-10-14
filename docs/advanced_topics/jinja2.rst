@@ -35,7 +35,7 @@ By default, the Jinja environment does not have any Django functions or filters.
 ``self`` in templates
 =====================
 
-In Django templates, ``self`` is used to refer to the current page, stream block, or field panel. In Jinja, ``self`` is reserved for internal use. When writing Jinja templates, use ``page`` to refer to pages, ``value`` for stream blocks, and ``field_panel`` for field panels.
+In Django templates, ``self`` can be used to refer to the current page, stream block, or field panel. In Jinja, ``self`` is reserved for internal use. When writing Jinja templates, use ``page`` to refer to pages, ``value`` for stream blocks, and ``field_panel`` for field panels.
 
 Template functions & filters
 ============================

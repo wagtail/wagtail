@@ -117,7 +117,7 @@ In the above example, the list of adverts is a fixed list, displayed as part of 
   ]
 
 
-The snippet could then be accessed within your template as ``self.advert``.
+The snippet could then be accessed within your template as ``page.advert``.
 
 To attach multiple adverts to a page, the ``SnippetChooserPanel`` can be placed on an inline child object of ``BookPage``, rather than on ``BookPage`` itself. Here this child model is named ``BookPageAdvertPlacement`` (so called because there is one such object for each time that an advert is placed on a BookPage):
 
@@ -164,7 +164,7 @@ These child objects are now accessible through the page's ``advert_placements`` 
 
 .. code-block:: html+django
 
-  {% for advert_placement in self.advert_placements.all %}
+  {% for advert_placement in page.advert_placements.all %}
     <p><a href="{{ advert_placement.advert.url }}">{{ advert_placement.advert.text }}</a></p>
   {% endfor %}
 
