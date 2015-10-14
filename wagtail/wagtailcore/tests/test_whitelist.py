@@ -143,3 +143,8 @@ class TestWhitelister(TestCase):
         string = '<b foo="bar">snowman <barbecue>Yorkshire</barbecue></b>'
         cleaned_string = Whitelister.clean(string)
         self.assertEqual(cleaned_string, '<b>snowman Yorkshire</b>')
+
+    def test_clean_comments(self):
+        string = '<b>snowman Yorkshire<!--[if gte mso 10]>MS word junk<![endif]--></b>'
+        cleaned_string = Whitelister.clean(string)
+        self.assertEqual(cleaned_string, '<b>snowman Yorkshire</b>')
