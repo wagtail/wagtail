@@ -6,7 +6,7 @@ import unittest
 from django import forms
 from django.forms.utils import ErrorList
 from django.core.exceptions import ValidationError
-from django.test import TestCase
+from django.test import TestCase, SimpleTestCase
 from django.utils.safestring import mark_safe, SafeData
 
 from wagtail.wagtailcore import blocks
@@ -38,9 +38,9 @@ class TestFieldBlock(unittest.TestCase):
 
     def test_charfield_render_form_with_error(self):
         block = blocks.CharBlock()
-        html = block.render_form("Hello world!",
-            errors=ErrorList([ValidationError("This field is required.")])
-        )
+        html = block.render_form(
+            "Hello world!",
+            errors=ErrorList([ValidationError("This field is required.")]))
 
         self.assertIn('This field is required.', html)
 
@@ -77,18 +77,16 @@ class TestFieldBlock(unittest.TestCase):
         self.assertIn('<option value="choice-1">Choice 1</option>', html)
         self.assertIn('<option value="choice-2" selected="selected">Choice 2</option>', html)
 
-    @unittest.expectedFailure # Returning "choice-1" instead of "Choice 1"
-    def test_choicefield_searchable_content(self):
-        class ChoiceBlock(blocks.FieldBlock):
-            field = forms.ChoiceField(choices=(
-                ('choice-1', "Choice 1"),
-                ('choice-2', "Choice 2"),
-            ))
-
-        block = ChoiceBlock()
-        content = block.get_searchable_content("choice-1")
-
-        self.assertEqual(content, ["Choice 1"])
+    def test_searchable_content(self):
+        """
+        FieldBlock should not return anything for `get_searchable_content` by
+        default. Subclasses are free to override it and provide relevant
+        content.
+        """
+        class CustomBlock(blocks.FieldBlock):
+            field = forms.CharField(required=True)
+        block = CustomBlock()
+        self.assertEqual(block.get_searchable_content("foo bar"), [])
 
     def test_form_handling_is_independent_of_serialisation(self):
         class Base64EncodingCharBlock(blocks.CharBlock):
@@ -311,6 +309,35 @@ class TestChoiceBlock(unittest.TestCase):
             )
         )
 
+    def test_searchable_content(self):
+        block = blocks.ChoiceBlock(choices=[
+            ('choice-1', "Choice 1"),
+            ('choice-2', "Choice 2"),
+        ])
+        self.assertEqual(block.get_searchable_content("choice-1"),
+                         ["Choice 1"])
+
+    def test_optgroup_searchable_content(self):
+        block = blocks.ChoiceBlock(choices=[
+            ('Section 1', [
+                ('1-1', "Block 1"),
+                ('1-2', "Block 2"),
+            ]),
+            ('Section 2', [
+                ('2-1', "Block 1"),
+                ('2-2', "Block 2"),
+            ]),
+        ])
+        self.assertEqual(block.get_searchable_content("2-2"),
+                         ["Section 2", "Block 2"])
+
+    def test_invalid_searchable_content(self):
+        block = blocks.ChoiceBlock(choices=[
+            ('one', 'One'),
+            ('two', 'Two'),
+        ])
+        self.assertEqual(block.get_searchable_content('three'), [])
+
 
 class TestRawHTMLBlock(unittest.TestCase):
     def test_get_default_with_fallback_value(self):
@@ -420,7 +447,7 @@ class TestMeta(unittest.TestCase):
         self.assertEqual(block.meta.test, 'Foo')
 
 
-class TestStructBlock(unittest.TestCase):
+class TestStructBlock(SimpleTestCase):
     def test_initialisation(self):
         block = blocks.StructBlock([
             ('title', blocks.CharBlock()),
@@ -461,8 +488,19 @@ class TestStructBlock(unittest.TestCase):
 
         self.assertEqual(list(block.child_blocks.keys()), ['title', 'link', 'classname'])
 
-    @unittest.expectedFailure # Field order doesn't match inheritance order
     def test_initialisation_with_mixins(self):
+        """
+        The order of fields of classes with multiple parent classes is slightly
+        surprising at first. Child fields are inherited in a bottom-up order,
+        by traversing the MRO in reverse. In the example below,
+        ``StyledLinkBlock`` will have an MRO of::
+
+            [StyledLinkBlock, StylingMixin, LinkBlock, StructBlock, ...]
+
+        This will result in ``classname`` appearing *after* ``title`` and
+        ``link`` in ``StyleLinkBlock`.child_blocks`, even though
+        ``StylingMixin`` appeared before ``LinkBlock``.
+        """
         class LinkBlock(blocks.StructBlock):
             title = blocks.CharBlock()
             link = blocks.URLBlock()
@@ -470,12 +508,13 @@ class TestStructBlock(unittest.TestCase):
         class StylingMixin(blocks.StructBlock):
             classname = blocks.CharBlock()
 
-        class StyledLinkBlock(LinkBlock, StylingMixin):
-            pass
+        class StyledLinkBlock(StylingMixin, LinkBlock):
+            source = blocks.CharBlock()
 
         block = StyledLinkBlock()
 
-        self.assertEqual(list(block.child_blocks.keys()), ['title', 'link', 'classname'])
+        self.assertEqual(list(block.child_blocks.keys()),
+                         ['title', 'link', 'classname', 'source'])
 
     def test_render(self):
         class LinkBlock(blocks.StructBlock):
@@ -487,13 +526,17 @@ class TestStructBlock(unittest.TestCase):
             'title': "Wagtail site",
             'link': 'http://www.wagtail.io',
         })
+        expected_html = '\n'.join([
+            '<dl>',
+            '<dt>title</dt>',
+            '<dd>Wagtail site</dd>',
+            '<dt>link</dt>',
+            '<dd>http://www.wagtail.io</dd>',
+            '</dl>',
+        ])
 
-        self.assertIn('<dt>title</dt>', html)
-        self.assertIn('<dd>Wagtail site</dd>', html)
-        self.assertIn('<dt>link</dt>', html)
-        self.assertIn('<dd>http://www.wagtail.io</dd>', html)
+        self.assertHTMLEqual(html, expected_html)
 
-    @unittest.expectedFailure
     def test_render_unknown_field(self):
         class LinkBlock(blocks.StructBlock):
             title = blocks.CharBlock()
@@ -934,8 +977,19 @@ class TestStreamBlock(unittest.TestCase):
 
         self.assertEqual(list(block.child_blocks.keys()), ['heading', 'paragraph', 'intro'])
 
-    @unittest.expectedFailure # Field order doesn't match inheritance order
     def test_initialisation_with_mixins(self):
+        """
+        The order of child blocks of ``StreamBlock``\s with multiple parent
+        classes is slightly surprising at first. Child blocks are inherited in
+        a bottom-up order, by traversing the MRO in reverse. In the example
+        below, ``ArticleWithIntroBlock`` will have an MRO of::
+
+            [ArticleWithIntroBlock, IntroMixin, ArticleBlock, StreamBlock, ...]
+
+        This will result in ``intro`` appearing *after* ``heading`` and
+        ``paragraph`` in ``ArticleWithIntroBlock.child_blocks``, even though
+        ``IntroMixin`` appeared before ``ArticleBlock``.
+        """
         class ArticleBlock(blocks.StreamBlock):
             heading = blocks.CharBlock()
             paragraph = blocks.CharBlock()
@@ -943,12 +997,13 @@ class TestStreamBlock(unittest.TestCase):
         class IntroMixin(blocks.StreamBlock):
             intro = blocks.CharBlock()
 
-        class ArticleWithIntroBlock(ArticleBlock, IntroMixin):
-            pass
+        class ArticleWithIntroBlock(IntroMixin, ArticleBlock):
+            by_line = blocks.CharBlock()
 
         block = ArticleWithIntroBlock()
 
-        self.assertEqual(list(block.child_blocks.keys()), ['heading', 'paragraph', 'intro'])
+        self.assertEqual(list(block.child_blocks.keys()),
+                         ['heading', 'paragraph', 'intro', 'by_line'])
 
     def render_article(self, data):
         class ArticleBlock(blocks.StreamBlock):
