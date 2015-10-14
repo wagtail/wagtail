@@ -192,10 +192,26 @@ class TestPageQuerySet(TestCase):
         # Test that events index is in pages
         self.assertTrue(pages.filter(id=events_index.id).exists())
 
-    def test_sibling_of(self):
+    def test_sibling_of_default(self):
+        """
+        sibling_of should default to an inclusive definition of sibling
+        if 'inclusive' flag not passed
+        """
         events_index = Page.objects.get(url_path='/home/events/')
         event = Page.objects.get(url_path='/home/events/christmas/')
         pages = Page.objects.sibling_of(event)
+
+        # Check that all pages are children of events_index
+        for page in pages:
+            self.assertEqual(page.get_parent(), events_index)
+
+        # Check that the event is included
+        self.assertTrue(pages.filter(id=event.id).exists())
+
+    def test_sibling_of_exclusive(self):
+        events_index = Page.objects.get(url_path='/home/events/')
+        event = Page.objects.get(url_path='/home/events/christmas/')
+        pages = Page.objects.sibling_of(event, inclusive=False)
 
         # Check that all pages are children of events_index
         for page in pages:
@@ -216,10 +232,30 @@ class TestPageQuerySet(TestCase):
         # Check that the event is included
         self.assertTrue(pages.filter(id=event.id).exists())
 
-    def test_not_sibling_of(self):
+    def test_not_sibling_of_default(self):
+        """
+        not_sibling_of should default to an inclusive definition of sibling -
+        i.e. eliminate self from the results as well -
+        if 'inclusive' flag not passed
+        """
         events_index = Page.objects.get(url_path='/home/events/')
         event = Page.objects.get(url_path='/home/events/christmas/')
         pages = Page.objects.not_sibling_of(event)
+
+        # Check that all pages are not children of events_index
+        for page in pages:
+            self.assertNotEqual(page.get_parent(), events_index)
+
+        # Check that the event is not included
+        self.assertFalse(pages.filter(id=event.id).exists())
+
+        # Test that events index is in pages
+        self.assertTrue(pages.filter(id=events_index.id).exists())
+
+    def test_not_sibling_of_exclusive(self):
+        events_index = Page.objects.get(url_path='/home/events/')
+        event = Page.objects.get(url_path='/home/events/christmas/')
+        pages = Page.objects.not_sibling_of(event, inclusive=False)
 
         # Check that all pages are not children of events_index
         for page in pages:

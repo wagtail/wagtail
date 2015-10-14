@@ -171,77 +171,11 @@ def get_page_types():
     return _PAGE_CONTENT_TYPES
 
 
-class PageManager(models.Manager):
+class BasePageManager(models.Manager):
     def get_queryset(self):
         return PageQuerySet(self.model).order_by('path')
 
-    def live(self):
-        return self.get_queryset().live()
-
-    def not_live(self):
-        return self.get_queryset().not_live()
-
-    def in_menu(self):
-        return self.get_queryset().in_menu()
-
-    def not_in_menu(self):
-        return self.get_queryset().not_in_menu()
-
-    def page(self, other):
-        return self.get_queryset().page(other)
-
-    def not_page(self, other):
-        return self.get_queryset().not_page(other)
-
-    def descendant_of(self, other, inclusive=False):
-        return self.get_queryset().descendant_of(other, inclusive)
-
-    def not_descendant_of(self, other, inclusive=False):
-        return self.get_queryset().not_descendant_of(other, inclusive)
-
-    def child_of(self, other):
-        return self.get_queryset().child_of(other)
-
-    def not_child_of(self, other):
-        return self.get_queryset().not_child_of(other)
-
-    def ancestor_of(self, other, inclusive=False):
-        return self.get_queryset().ancestor_of(other, inclusive)
-
-    def not_ancestor_of(self, other, inclusive=False):
-        return self.get_queryset().not_ancestor_of(other, inclusive)
-
-    def parent_of(self, other):
-        return self.get_queryset().parent_of(other)
-
-    def not_parent_of(self, other):
-        return self.get_queryset().not_parent_of(other)
-
-    def sibling_of(self, other, inclusive=False):
-        return self.get_queryset().sibling_of(other, inclusive)
-
-    def not_sibling_of(self, other, inclusive=False):
-        return self.get_queryset().not_sibling_of(other, inclusive)
-
-    def type(self, model):
-        return self.get_queryset().type(model)
-
-    def not_type(self, model):
-        return self.get_queryset().not_type(model)
-
-    def public(self):
-        return self.get_queryset().public()
-
-    def not_public(self):
-        return self.get_queryset().not_public()
-
-    def search(self, query_string, fields=None,
-            operator=None, order_by_relevance=True, backend='default'):
-        return self.get_queryset().search(query_string, fields=fields,
-            operator=operator, order_by_relevance=order_by_relevance, backend=backend)
-
-    def specific(self):
-        return self.get_queryset().specific()
+PageManager = BasePageManager.from_queryset(PageQuerySet)
 
 
 class PageBase(models.base.ModelBase):
