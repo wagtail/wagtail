@@ -64,6 +64,7 @@ Bug fixes
  * ``request.site`` now set correctly on page preview when the page is not in the default site
  * Project template no longer raises a deprecation warning (Maximilian Stauss)
  * ``PageManager.sibling_of(page)`` and ``PageManager.not_sibling_of(page)`` now default to inclusive (i.e. ``page`` is considered a sibling of itself), for consistency with other sibling methods
+ * The "view live" button displayed after publishing a page now correctly reflects any changes made to the page slug (Ryan Pineo)
 
 
 Upgrade considerations

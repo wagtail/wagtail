@@ -70,6 +70,7 @@ Contributors
 * Maximilian Stauss
 * Salvador Faria
 * Alex Gleason
+* Ryan Pineo
 
 
 Translators
