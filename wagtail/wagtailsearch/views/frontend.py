@@ -38,13 +38,18 @@ def search(
 
     # Search
     if query_string != '':
-        search_results = models.Page.search(
-            query_string,
-            show_unpublished=show_unpublished,
-            search_title_only=search_title_only,
-            extra_filters=extra_filters,
-            path=path if path else request.site.root_page.path
-        )
+        pages = models.Page.objects.filter(path__startswith=(path or request.site.root_page.path))
+
+        if not show_unpublished:
+            pages = pages.live()
+
+        if extra_filters:
+            pages = pages.filter(**extra_filters)
+
+        if search_title_only:
+            search_results = pages.search(query_string, fields=['title'])
+        else:
+            search_results = pages.search(query_string)
 
         # Get query object
         query = Query.get(query_string)
