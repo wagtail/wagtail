@@ -39,7 +39,7 @@ For more information, see the Django documentation for the `application director
 Page content
 ~~~~~~~~~~~~
 
-The data/content entered into each page is accessed/output through Django's ``{{ double-brace }}`` notation. Each field from the model must be accessed by prefixing ``self.``. e.g the page title ``{{ self.title }}`` or another field ``{{ self.author }}``.
+The data/content entered into each page is accessed/output through Django's ``{{ double-brace }}`` notation. Each field from the model must be accessed by prefixing ``page.``. e.g the page title ``{{ page.title }}`` or another field ``{{ page.author }}``.
 
 Additionally ``request.`` is available and contains Django's request object.
 
@@ -95,10 +95,10 @@ For example:
     {% load wagtailimages_tags %}
     ...
 
-    {% image self.photo width-400 %}
+    {% image page.photo width-400 %}
 
     <!-- or a square thumbnail: -->
-    {% image self.photo fill-80x80 %}
+    {% image page.photo fill-80x80 %}
 
 
 See :ref:`image_tag` for full documentation.
@@ -117,7 +117,7 @@ Only fields using ``RichTextField`` need this applied in the template.
 
     {% load wagtailcore_tags %}
     ...
-    {{ self.body|richtext }}
+    {{ page.body|richtext }}
 
 Responsive Embeds
 -----------------
@@ -159,7 +159,7 @@ Takes a Page object and returns a relative URL (``/foo/bar/``) if within the sam
 
     {% load wagtailcore_tags %}
     ...
-    <a href="{% pageurl self.blog_page %}">
+    <a href="{% pageurl page.blog_page %}">
 
 .. _slugurl_tag:
 
@@ -172,7 +172,7 @@ Takes any ``slug`` as defined in a page's "Promote" tab and returns the URL for 
 
     {% load wagtailcore_tags %}
     ...
-    <a href="{% slugurl self.your_slug %}">
+    <a href="{% slugurl page.your_slug %}">
 
 
 .. _static_tag:

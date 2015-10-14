@@ -15,6 +15,8 @@ Jinja2 support
 
 The core templatetags (``pageurl``, ``slugurl``, ``image``, ``richtext`` and ``wagtailuserbar``) are now compatible with Jinja2 so it's now possible to use Jinja2 as the template engine for your Wagtail site.
 
+Note that the variable name ``self`` is reserved in Jinja2, and so Wagtail now provides alternative variable names where ``self`` was previously used: ``page`` to refer to page objects, and ``value`` to refer to StreamField blocks. All code examples in this documentation have now been updated to use the new variable names, for compatibility with Jinja2; however, users of the default Django template engine can continue to use ``self``.
+
 See: :doc:`/advanced_topics/jinja2`
 
 

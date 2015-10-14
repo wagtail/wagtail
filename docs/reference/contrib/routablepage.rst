@@ -137,6 +137,6 @@ The ``routablepageurl`` template tag
 
         {% load wagtailroutablepage_tags %}
 
-        {% routablepageurl self "feed" %}
-        {% routablepageurl self "archive" 2014 08 14 %}
-        {% routablepageurl self "food" foo="bar" baz="quux" %}
+        {% routablepageurl page "feed" %}
+        {% routablepageurl page "archive" 2014 08 14 %}
+        {% routablepageurl page "food" foo="bar" baz="quux" %}
