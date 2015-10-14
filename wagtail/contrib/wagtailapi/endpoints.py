@@ -37,6 +37,9 @@ class BaseAPIEndpoint(GenericViewSet):
         'fields',
         'order',
         'search',
+
+        # Used by jQuery for cache-busting. See #1671
+        '_',
     ])
     extra_api_fields = []
     name = None  # Set on subclass.
