@@ -3,7 +3,7 @@ A generic HTML whitelisting engine, designed to accommodate subclassing to overr
 specific rules.
 """
 import re
-from bs4 import BeautifulSoup, NavigableString, Tag
+from bs4 import BeautifulSoup, NavigableString, Tag, Comment
 
 
 ALLOWED_URL_SCHEMES = ['http', 'https', 'ftp', 'mailto', 'tel']
@@ -111,7 +111,12 @@ class Whitelister(object):
             cls.clean_unknown_node(doc, node)
 
     @classmethod
-    def clean_string_node(cls, doc, str):
+    def clean_string_node(cls, doc, node):
+        # Remove comments
+        if isinstance(node, Comment):
+            node.extract()
+            return
+
         # by default, nothing needs to be done to whitelist string nodes
         pass
 
