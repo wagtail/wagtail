@@ -236,8 +236,8 @@ def edit(request, page_id):
             # Publish
             if is_publishing:
                 revision.publish()
-                # Need to reload the page because the url has changed and we
-                # need access to it for the "View Live" button.
+                # Need to reload the page because the URL may have changed, and we
+                # need the up-to-date URL for the "View Live" button.
                 page = Page.objects.get(pk=page.pk)
 
             # Notifications
