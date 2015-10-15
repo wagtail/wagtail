@@ -24,15 +24,15 @@ A full list of features
 - A customisable list view, allowing you to control what values are displayed
   for each row, available options for result filtering, default ordering, and
   more.
-- Access your list views from the CMS easily with automatically generated menu
-  items, with automatic 'active item' highlighting. Control the label text and
-  icons used with easy-to-change attributes on your class.
+- Access your list views from the Wagtail admin menu easily with automatically
+  generated menu items, with automatic 'active item' highlighting. Control the
+  label text and icons used with easy-to-change attributes on your class.
 - An additional ``ModelAdminGroup`` class, that allows you to group your
   related models, and list them together in their own submenu, for a more
   logical user experience.
 - Simple, robust **add** and **edit** views for your non-Page models that use
   the panel configurations defined on your model using Wagtail's edit panels.
-- For Page models, the system cleverly directs to Wagtail's existing add and
+- For Page models, the system directs to Wagtail's existing add and
   edit views, and returns you back to the correct list page, for a seamless
   experience.
 - Full respect for permissions assigned to your Wagtail users and groups. Users
@@ -78,8 +78,8 @@ A simple example
 ^^^^^^^^^^^^^^^^
 
 You have a model in your app, and you want a listing page specifically for that
-model, with a menu item added to the menu in Wagtail's CMS so that you can get
-to it.
+model, with a menu item added to the menu in the Wagtail admin area so that you
+can get to it.
 
 ``wagtail_hooks.py`` in your app directory would look something like this:
 
