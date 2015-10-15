@@ -18,7 +18,7 @@ from .utils import (
 
 class WagtailRegisterable(object):
     """
-    Base class, providing a more convinient way for ModelAdmin or
+    Base class, providing a more convenient way for ModelAdmin or
     ModelAdminGroup instances to be registered with Wagtail's admin area.
     """
 
