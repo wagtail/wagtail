@@ -59,16 +59,6 @@ The templates directory contains ``base.html``, ``404.html`` and ``500.html``. T
 The static directory contains an empty JavaScript and SASS file. Wagtail uses ``django-compressor`` for compiling and compressing static files. For more information, see: `Django Compressor Documentation <http://django-compressor.readthedocs.org/en/latest/>`_
 
 
-Vagrant configuration
----------------------
-
-Location: ``/Vagrantfile`` and ``/vagrant/``
-
-If you have Vagrant installed, these files let you easily setup a development environment with PostgreSQL and Elasticsearch inside a virtual machine.
-
-If you do not want to use Vagrant, you can just delete these files.
-
-
 Django settings
 ---------------
 
