@@ -18,6 +18,15 @@ $(function() {
                 $explorer.load($this.data('explorer-menu-url'), function() {
                     $this.removeClass('icon-spinner');
 
+                    if ($explorer.find('.dl-menu li').length === 0) {
+                        /*
+                        AJAX fetch returned an empty dl-menu UL, i.e. no pages exist whatsoever.
+                        Take the user directly to the page explorer view, since we aren't giving
+                        them anything to click on to get there...
+                        */
+                        document.location.href = $this.attr('href');
+                    }
+
                     $explorer.addClass('dl-menuwrapper').dlmenu({
                         animationClasses: {
                             classin: 'dl-animate-in-2',
