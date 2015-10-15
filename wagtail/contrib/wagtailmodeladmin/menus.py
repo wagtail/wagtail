@@ -4,7 +4,7 @@ from wagtail.wagtailadmin.menu import Menu, MenuItem, SubmenuMenuItem
 class ModelAdminMenuItem(MenuItem):
     """
     A sub-class of wagtail's MenuItem, used by PageModelAdmin to add a link
-    to it's listing page
+    to its listing page
     """
     def __init__(self, model_admin, order):
         self.model_admin = model_admin
@@ -22,7 +22,7 @@ class ModelAdminMenuItem(MenuItem):
 class GroupMenuItem(SubmenuMenuItem):
     """
     A sub-class of wagtail's SubmenuMenuItem, used by ModelAdminGroup to add a
-    link to the admin menu with it's own submenu, linking to various listing
+    link to the admin menu with its own submenu, linking to various listing
     pages
     """
     def __init__(self, modeladmingroup, order, menu):
