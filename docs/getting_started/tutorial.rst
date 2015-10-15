@@ -364,10 +364,6 @@ can be BlogPages or external links. Change ``blog/models.py`` to
             abstract = True
 
 
-    class BlogIndexRelatedLink(Orderable, RelatedLink):
-        page = ParentalKey('BlogIndexPage', related_name='related_links')
-
-
     class BlogIndexPage(Page):
         intro = RichTextField(blank=True)
 
@@ -375,6 +371,10 @@ can be BlogPages or external links. Change ``blog/models.py`` to
             FieldPanel('intro', classname="full"),
             InlinePanel('related_links', label="Related links"),
         ]
+
+
+    class BlogIndexRelatedLink(Orderable, RelatedLink):
+        page = ParentalKey('BlogIndexPage', related_name='related_links')
 
 .. figure:: ../_static/images/tutorial/tutorial_7.png
    :alt: Blog index edit screen
