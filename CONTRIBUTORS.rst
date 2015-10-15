@@ -87,6 +87,7 @@ Contributors
 * Maris Serzans
 * Shu Ishida
 * Ben Kerle
+* Christian Peters
 
 
 Translators

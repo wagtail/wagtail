@@ -19,6 +19,7 @@ Changelog
  * Notification emails are now sent per user (Matthew Downey)
  * Added the ability to override the default manager on Page models
  * Added an optional human-friendly `site_name` field to sites (Timo Rieber)
+ * Added success message after updating image from the image upload view (Christian Peters)
  * New translations for Arabic and Latvian
  * Fix: HTTP cache purge now works again on Python 2 (Mitchel Cabuloy)
  * Fix: Locked pages can no longer be unpublished (Alex Bridge)
