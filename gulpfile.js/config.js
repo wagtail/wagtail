@@ -55,6 +55,12 @@ var apps = [
             'wagtailstyleguide/scss/styleguide.scss'
         ],
     }),
+    new App('wagtail/contrib/wagtailmodeladmin', {
+        'scss': [
+            'wagtailmodeladmin/scss/index.scss',
+            'wagtailmodeladmin/scss/choose_parent_page.scss',
+        ],
+    }),
 ];
 
 module.exports = {

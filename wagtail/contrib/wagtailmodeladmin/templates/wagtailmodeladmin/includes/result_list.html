@@ -1,0 +1,28 @@
+{% load i18n admin_static wagtailmodeladmin_tags %}
+{% if results %}
+<table class="listing full-width">
+    <thead>
+        <tr>
+            {% for header in result_headers %}
+            <th scope="col" {{ header.class_attrib }}>
+               {% if header.sortable %}<a href="{{ header.url_primary }}" class="teal icon {% if header.ascending %}icon-arrow-up-after{% else %}icon-arrow-down-after{% endif %}">{% endif %}
+               {{ header.text|capfirst }}
+               {% if header.sortable %}</a>{% endif %}
+           </th>
+           {% endfor %}
+       </tr>
+    </thead>
+    <tbody>
+    {% for result in results %}
+        <tr class="{% cycle 'odd' 'even' %}">
+            {% result_row_display view object_list result forloop.counter0 %}
+        </tr>
+    {% endfor %}
+</tbody>
+</table> 
+{% else %}
+  <div class="nice-padding no-search-results">
+    <p>{% blocktrans with model_name_plural as name %}Sorry, there are no {{ name }} matching your search parameters.{% endblocktrans %}</p>
+  </div>  
+{% endif %}
+
