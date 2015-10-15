@@ -52,11 +52,11 @@ This app is here to help get you started quicker by providing a ``HomePage`` mod
 Default templates and static files
 ----------------------------------
 
-Location: ``/mysite/templates/`` and ``/mysite/static/``
+Location: ``/mysite/mysite/templates/`` and ``/mysite/mysite/static/``
 
 The templates directory contains ``base.html``, ``404.html`` and ``500.html``. These files are very commonly needed on Wagtail sites to they have been added into the template.
 
-The static directory contains an empty JavaScript and SASS file. Wagtail uses ``django-compressor`` for compiling and compressing static files. For more information, see: `Django Compressor Documentation <http://django-compressor.readthedocs.org/en/latest/>`_
+The static directory contains an empty JavaScript and CSS file.
 
 
 Django settings
