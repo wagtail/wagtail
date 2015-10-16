@@ -370,6 +370,20 @@ class TestPageChooserPanel(TestCase):
 
         self.assertIn(expected_js, result)
 
+    def test_render_js_init_with_can_choose_root_true(self):
+        # construct an alternative page chooser panel object, with can_choose_root=True
+        MyPageChooserPanel = PageChooserPanel('page', can_choose_root=True).bind_to_model(PageChooserModel)
+        PageChooserForm = MyPageChooserPanel.get_form_class(PageChooserModel)
+
+        form = PageChooserForm(instance=self.test_instance)
+        page_chooser_panel = MyPageChooserPanel(instance=self.test_instance, form=form)
+        result = page_chooser_panel.render_as_field()
+
+        # the canChooseRoot flag on createPageChooser should now be true
+        expected_js = 'createPageChooser("{id}", ["{model}"], {parent}, true);'.format(
+            id="id_page", model="wagtailcore.page", parent=self.events_index_page.id)
+        self.assertIn(expected_js, result)
+
     def test_get_chosen_item(self):
         result = self.page_chooser_panel.get_chosen_item()
         self.assertEqual(result, self.christmas_page)
