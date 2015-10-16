@@ -72,6 +72,7 @@ Contributors
 * Alex Gleason
 * Ryan Pineo
 * Petr Vacha
+* Josh Barr
 
 
 Translators

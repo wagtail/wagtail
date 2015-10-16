@@ -9,4 +9,5 @@ Reference
     contrib/index
     management_commands
     hooks
+    signals
     project_template
