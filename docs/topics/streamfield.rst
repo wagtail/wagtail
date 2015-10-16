@@ -188,7 +188,13 @@ PageChooserBlock
 
 ``wagtail.wagtailcore.blocks.PageChooserBlock``
 
-A control for selecting a page object, using Wagtail's page browser. The keyword argument ``required`` is accepted.
+A control for selecting a page object, using Wagtail's page browser. The following keyword arguments are accepted:
+
+``required`` (default: True)
+  If true, the field cannot be left blank.
+
+``can_choose_root`` (default: False)
+  If true, the editor can choose the tree root as a page. Normally this would be undesirable, since the tree root is never a usable page, but in some specialised cases it may be appropriate; for example, a block providing a feed of related articles could use a PageChooserBlock to select which subsection articles will be taken from, with the root corresponding to 'everywhere'.
 
 DocumentChooserBlock
 ~~~~~~~~~~~~~~~~~~~~
