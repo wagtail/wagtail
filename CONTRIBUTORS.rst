@@ -71,6 +71,7 @@ Contributors
 * Salvador Faria
 * Alex Gleason
 * Ryan Pineo
+* Petr Vacha
 
 
 Translators
