@@ -1,4 +1,4 @@
-function createPageChooser(id, pageTypes, openAtParentId) {
+function createPageChooser(id, pageTypes, openAtParentId, canChooseRoot) {
     var chooserElement = $('#' + id + '-chooser');
     var pageTitle = chooserElement.find('.title');
     var input = $('#' + id);
@@ -10,9 +10,14 @@ function createPageChooser(id, pageTypes, openAtParentId) {
             initialUrl += openAtParentId + '/';
         }
 
+        var urlParams = {page_type: pageTypes.join(',')};
+        if (canChooseRoot) {
+            urlParams.can_choose_root = 'true';
+        }
+
         ModalWorkflow({
             url: initialUrl,
-            urlParams: { page_type: pageTypes.join(',') },
+            urlParams: urlParams,
             responses: {
                 pageChosen: function(pageData) {
                     input.val(pageData.id);

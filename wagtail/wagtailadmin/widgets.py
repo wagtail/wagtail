@@ -166,7 +166,7 @@ class AdminPageChooser(AdminChooser):
 
         parent = page.get_parent() if page else None
 
-        return "createPageChooser({id}, {content_type}, {parent});".format(
+        return "createPageChooser({id}, {content_type}, {parent}, false);".format(
             id=json.dumps(id_),
             content_type=json.dumps([
                 '{app}.{model}'.format(
