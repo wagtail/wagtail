@@ -69,8 +69,10 @@ def browse(request, parent_page_id=None):
     else:
         desired_classes = (Page, )
 
+    can_choose_root = request.GET.get('can_choose_root', False)
+
     # Parent page can be chosen if it is a instance of desired_classes
-    parent_page.can_choose = issubclass(parent_page.specific_class or Page, desired_classes)
+    parent_page.can_choose = issubclass(parent_page.specific_class or Page, desired_classes) and (can_choose_root or not parent_page.is_root())
 
     # Pagination
     # We apply pagination first so we don't need to walk the entire list

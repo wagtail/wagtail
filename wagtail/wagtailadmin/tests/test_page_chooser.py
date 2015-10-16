@@ -27,6 +27,22 @@ class TestChooserBrowse(TestCase, WagtailTestUtils):
         self.assertTemplateUsed(response, 'wagtailadmin/chooser/browse.html')
 
 
+class TestCanChooseRootFlag(TestCase, WagtailTestUtils):
+    def setUp(self):
+        self.login()
+
+    def get(self, params={}):
+        return self.client.get(reverse('wagtailadmin_choose_page'), params)
+
+    def test_cannot_choose_root_by_default(self):
+        response = self.get()
+        self.assertNotContains(response, '/admin/pages/1/edit/')
+
+    def test_can_choose_root(self):
+        response = self.get({'can_choose_root': 'true'})
+        self.assertContains(response, '/admin/pages/1/edit/')
+
+
 class TestChooserBrowseChild(TestCase, WagtailTestUtils):
     def setUp(self):
         self.root_page = Page.objects.get(id=2)
