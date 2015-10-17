@@ -14,7 +14,7 @@ class TestSearchPromotions(TestCase):
             query=Query.get("root page"),
             page_id=1,
             sort_order=0,
-            description="First search pick",
+            description="First search promotion",
         )
 
         # Check
