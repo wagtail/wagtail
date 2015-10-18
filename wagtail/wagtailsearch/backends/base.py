@@ -16,10 +16,14 @@ class FieldError(Exception):
 
 
 class BaseSearchQuery(object):
-    def __init__(self, queryset, query_string, fields=None):
+    DEFAULT_OPERATOR = 'or'
+
+    def __init__(self, queryset, query_string, fields=None, operator=None, order_by_relevance=True):
         self.queryset = queryset
         self.query_string = query_string
         self.fields = fields
+        self.operator = operator or self.DEFAULT_OPERATOR
+        self.order_by_relevance = order_by_relevance
 
     def _get_searchable_field(self, field_attname):
         # Get field
@@ -173,6 +177,9 @@ class BaseSearchResults(object):
 
 
 class BaseSearch(object):
+    search_query_class = None
+    search_results_class = None
+
     def __init__(self, params):
         pass
 
@@ -197,10 +204,7 @@ class BaseSearch(object):
     def delete(self, obj):
         raise NotImplementedError
 
-    def _search(self, queryset, query_string, fields=None):
-        raise NotImplementedError
-
-    def search(self, query_string, model_or_queryset, fields=None, filters=None, prefetch_related=None):
+    def search(self, query_string, model_or_queryset, fields=None, filters=None, prefetch_related=None, operator=None, order_by_relevance=True):
         # Find model/queryset
         if isinstance(model_or_queryset, QuerySet):
             model = model_or_queryset.model
@@ -226,5 +230,12 @@ class BaseSearch(object):
             for prefetch in prefetch_related:
                 queryset = queryset.prefetch_related(prefetch)
 
+        # Check operator
+        if operator is not None:
+            operator = operator.lower()
+            if operator not in ['or', 'and']:
+                raise ValueError("operator must be either 'or' or 'and'")
+
         # Search
-        return self._search(queryset, query_string, fields=fields)
+        search_query = self.search_query_class(queryset, query_string, fields=fields, operator=operator, order_by_relevance=order_by_relevance)
+        return self.search_results_class(self, search_query)

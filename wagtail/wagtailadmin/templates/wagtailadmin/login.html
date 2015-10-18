@@ -4,6 +4,8 @@
 {% block bodyclass %}login{% endblock %}
 
 {% block extra_css %}
+    {{ block.super }}
+
     {% compress css %}
         <link rel="stylesheet" href="{% static 'wagtailadmin/css/layouts/login.css' %}" type="text/css" />
     {% endcompress %}
@@ -56,7 +58,7 @@
                     </li>
                 {% endcomment %}
                 <li class="submit">
-                    <input type="submit" value="{% trans 'Sign in' %}" tabindex="3"/>
+                    <button type="submit" class="button-longrunning" tabindex="3" data-clicked-text="Signing in..."><span class="icon icon-spinner"></span><em>{% trans 'Sign in' %}</em></button>
                 </li>
             </ul>
         </form>
@@ -64,6 +66,7 @@
 {% endblock %}
 
 {% block extra_js %}
+{{ block.super }}
 <script>
     $(function(){
         $('form input[name=username]').focus();

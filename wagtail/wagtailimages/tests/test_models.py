@@ -87,6 +87,51 @@ class TestImage(TestCase):
         self.assertFalse(self.image.is_stored_locally())
 
 
+class TestImageQuerySet(TestCase):
+    def test_search_method(self):
+        # Create an image for running tests on
+        image = Image.objects.create(
+            title="Test image",
+            file=get_test_image_file(),
+        )
+
+        # Search for it
+        results = Image.objects.search("Test")
+        self.assertEqual(list(results), [image])
+
+    def test_operators(self):
+        aaa_image = Image.objects.create(
+            title="AAA Test image",
+            file=get_test_image_file(),
+        )
+        zzz_image = Image.objects.create(
+            title="ZZZ Test image",
+            file=get_test_image_file(),
+        )
+
+        results = Image.objects.search("aaa test", operator='and')
+        self.assertEqual(list(results), [aaa_image])
+
+        results = Image.objects.search("aaa test", operator='or')
+        sorted_results = sorted(results, key=lambda img: img.title)
+        self.assertEqual(sorted_results, [aaa_image, zzz_image])
+
+    def test_custom_ordering(self):
+        aaa_image = Image.objects.create(
+            title="AAA Test image",
+            file=get_test_image_file(),
+        )
+        zzz_image = Image.objects.create(
+            title="ZZZ Test image",
+            file=get_test_image_file(),
+        )
+
+        results = Image.objects.order_by('title').search("Test")
+        self.assertEqual(list(results), [aaa_image, zzz_image])
+        results = Image.objects.order_by('-title').search("Test")
+        self.assertEqual(list(results), [zzz_image, aaa_image])
+
+
 class TestImagePermissions(TestCase):
     def setUp(self):
         # Create some user accounts for testing permissions
@@ -127,6 +172,9 @@ class TestRenditions(TestCase):
             title="Test image",
             file=get_test_image_file(),
         )
+
+    def test_get_rendition_model(self):
+        self.assertIs(Image.get_rendition_model(), Rendition)
 
     def test_minification(self):
         rendition = self.image.get_rendition('width-400')

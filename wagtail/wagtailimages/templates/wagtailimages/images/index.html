@@ -4,6 +4,7 @@
 
 {% block titletag %}{% trans "Images" %}{% endblock %}
 {% block extra_js %}
+    {{ block.super }}
     <script>
         window.headerSearch = {
             url: "{% url 'wagtailimages:index' %}",

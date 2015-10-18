@@ -1,11 +1,11 @@
-{% load i18n %}
+{% load i18n wagtailadmin_tags %}
 {% trans "Add an email link" as email_str %}
 {% include "wagtailadmin/shared/header.html" with title=email_str %}
 
 <div class="nice-padding">
     {% include 'wagtailadmin/chooser/_link_types.html' with current='email' %}
 
-    <form action="{% url 'wagtailadmin_choose_page_email_link' %}?{{ querystring }}" method="post">
+    <form action="{% url 'wagtailadmin_choose_page_email_link' %}?{% querystring %}" method="post">
         {% csrf_token %}
         <ul class="fields">
             {% for field in form %}

@@ -1,9 +1,6 @@
 {% extends "wagtailadmin/generic/edit.html" %}
 
-{% block form %}
-    {% include "wagtailsites/_form.html" %}
-{% endblock %}
-
 {% block extra_js %}
+    {{ block.super }}
     {% include "wagtailadmin/pages/_editor_js.html" %}
 {% endblock %}

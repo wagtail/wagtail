@@ -1,58 +1,9 @@
 .. _editing-api:
 
-Setting up the page editor interface
-====================================
-
-Wagtail provides a highly-customisable editing interface consisting of several components:
-
-  * **Fields** — built-in content types to augment the basic types provided by Django
-  * **Panels** — the basic editing blocks for fields, groups of fields, and related object clusters
-  * **Choosers** — interfaces for finding related objects in a ForeignKey relationship
-
-Configuring your models to use these components will shape the Wagtail editor to your needs. Wagtail also provides an API for injecting custom CSS and JavaScript for further customisation, including extending the ``hallo.js`` rich text editor.
-
-There is also an Edit Handler API for creating your own Wagtail editor components.
-
-Defining Panels
-~~~~~~~~~~~~~~~
-
-A "panel" is the basic editing block in Wagtail. Wagtail will automatically pick the appropriate editing widget for most Django field types; implementers just need to add a panel for each field they want to show in the Wagtail page editor, in the order they want them to appear.
-
-Wagtail provides a tabbed interface to help organise panels. Three such tabs are provided:
-
-* ``content_panels`` is the main tab, used for the bulk of your model's fields.
-* ``promote_panels`` is suggested for organising fields regarding the promotion of the page around the site and the Internet. For example, a field to dictate whether the page should show in site-wide menus, descriptive text that should appear in site search results, SEO-friendly titles, OpenGraph meta tag content and other machine-readable information.
-* ``settings_panels`` is essentially for non-copy fields. By default it contains the page's scheduled publishing fields. Other suggested fields could include a field to switch between one layout/style and another.
-
-Let's look at an example of a panel definition:
-
-.. code-block:: python
-
-  class ExamplePage(Page):
-    # field definitions omitted
-    ...
-
-    content_panels = Page.content_panels + [
-      FieldPanel('body', classname="full"),
-      FieldRowPanel([
-        FieldPanel('start_date', classname="col3"),
-        FieldPanel('end_date', classname="col3"),
-      ]),
-      ImageChooserPanel('splash_image'),
-      DocumentChooserPanel('free_download'),
-      PageChooserPanel('related_page'),
-    ]
-
-    promote_panels = [
-      MultiFieldPanel(Page.promote_panels, "Common page configuration"),
-    ]
-
-After the :class:`~wagtail.wagtailcore.models.Page`-derived class definition, just add lists of panel definitions to order and organise the Wagtail page editing interface for your model.
-
 Available panel types
-~~~~~~~~~~~~~~~~~~~~~
+=====================
 
-.. module:: wagtail.wagtailadmin.edit_handers
+.. module:: wagtail.wagtailadmin.edit_handlers
 
 FieldPanel
 ----------
@@ -75,7 +26,7 @@ FieldPanel
 
     .. attribute:: FieldPanel.widget (optional)
 
-        This parameter allows you to specify a `django form widget`_ to use instead of the default widget for this field type.
+        This parameter allows you to specify a `Django form widget`_ to use instead of the default widget for this field type.
 
 .. _django form widget: https://docs.djangoproject.com/en/dev/ref/forms/widgets/
 
@@ -84,7 +35,7 @@ MultiFieldPanel
 
 .. class:: MultiFieldPanel(children, heading="", classname=None)
 
-    This panel condenses several :class:`~wagtail.wagtailadmin.edit_handlers.FieldPanel`` s or choosers, from a ``list`` or ``tuple``, under a single ``heading`` string.
+    This panel condenses several :class:`~wagtail.wagtailadmin.edit_handlers.FieldPanel` s or choosers, from a ``list`` or ``tuple``, under a single ``heading`` string.
 
     .. attribute:: MultiFieldPanel.children
 
@@ -115,7 +66,7 @@ MultiFieldPanel
 InlinePanel
 -----------
 
-.. class:: InlinePanel(relation_name, panels=None, classname=None, label='', help_text='')
+.. class:: InlinePanel(relation_name, panels=None, classname=None, label='', help_text='', min_num=None, max_num=None)
 
     This panel allows for the creation of a "cluster" of related objects over a join to a separate model, such as a list of related links or slides to an image carousel.
 
@@ -173,7 +124,9 @@ PageChooserPanel
 ImageChooserPanel
 -----------------
 
-.. class:: wagtail.wagtailimages.edit_handlers.ImageChooserPanel(field_name)
+.. module:: wagtail.wagtailimages.edit_handlers
+
+.. class:: ImageChooserPanel(field_name)
 
     Wagtail includes a unified image library, which you can access in your models through the :class:`~wagtail.wagtailimages.models.Image` model and the ``ImageChooserPanel`` chooser. Here's how:
 
@@ -205,7 +158,9 @@ ImageChooserPanel
 DocumentChooserPanel
 --------------------
 
-.. class:: wagtail.wagtaildocs.edit_handlers.DocumentChooserPanel(field_name)
+.. module:: wagtail.wagtaildocs.edit_handlers
+
+.. class:: DocumentChooserPanel(field_name)
 
     For files in other formats, Wagtail provides a generic file store through the :class:`~wagtail.wagtaildocs.models.Document` model:
 
@@ -237,7 +192,9 @@ SnippetChooserPanel
 
     Before Wagtail 1.1, it was necessary to pass the snippet model class as a second parameter to ``SnippetChooserPanel``. This is now automatically picked up from the field.
 
-.. class:: wagtail.wagtailsnippets.edit_handlers.SnippetChooserPanel(field_name, snippet_type=None)
+.. module:: wagtail.wagtailsnippets.edit_handlers
+
+.. class:: SnippetChooserPanel(field_name, snippet_type=None)
 
     Snippets are vanilla Django models you create yourself without a Wagtail-provided base class. A chooser, ``SnippetChooserPanel``, is provided which takes the field name as an argument.
 
@@ -259,6 +216,7 @@ SnippetChooserPanel
           ]
 
     See :ref:`snippets` for more information.
+
 
 Built-in Fields and Choosers
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -348,9 +306,9 @@ The ``RelatedLink`` class is a vanilla Django abstract model. The ``BookPageRela
 
 .. code-block:: python
 
-    InlinePanel( relation_name, panels=None, label='', help_text='' )
+    InlinePanel( relation_name, panels=None, label='', help_text='', min_num=None, max_num=None )
 
-The ``relation_name`` is the ``related_name`` label given to the cluster's ``ParentalKey`` relation. You can add the ``panels`` manually or make them part of the cluster model. Finally, ``label`` and ``help_text`` provide a heading and caption, respectively, for the Wagtail editor.
+The ``relation_name`` is the ``related_name`` label given to the cluster's ``ParentalKey`` relation. You can add the ``panels`` manually or make them part of the cluster model. ``label`` and ``help_text`` provide a heading and caption, respectively, for the Wagtail editor. Finally, ``min_num`` and ``max_num`` allow you to set the minimum/maximum number of forms that the user must submit.
 
 .. versionchanged:: 1.0
 

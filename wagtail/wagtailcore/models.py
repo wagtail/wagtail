@@ -24,7 +24,7 @@ from django.utils import timezone
 from django.utils.six import StringIO
 from django.utils.six.moves.urllib.parse import urlparse
 from django.utils.translation import ugettext_lazy as _
-from django.core.exceptions import ValidationError, ImproperlyConfigured, ObjectDoesNotExist
+from django.core.exceptions import ValidationError, ImproperlyConfigured
 from django.utils.functional import cached_property
 from django.utils.encoding import python_2_unicode_compatible
 from django.core import checks
@@ -42,7 +42,7 @@ from wagtail.wagtailcore.signals import page_published, page_unpublished
 from wagtail.wagtailsearch import index
 from wagtail.wagtailsearch.backends import get_search_backend
 
-from wagtail.utils.deprecation import RemovedInWagtail13Warning
+from wagtail.utils.deprecation import RemovedInWagtail13Warning, RemovedInWagtail14Warning
 
 
 logger = logging.getLogger('wagtail.core')
@@ -171,75 +171,11 @@ def get_page_types():
     return _PAGE_CONTENT_TYPES
 
 
-class PageManager(models.Manager):
+class BasePageManager(models.Manager):
     def get_queryset(self):
         return PageQuerySet(self.model).order_by('path')
 
-    def live(self):
-        return self.get_queryset().live()
-
-    def not_live(self):
-        return self.get_queryset().not_live()
-
-    def in_menu(self):
-        return self.get_queryset().in_menu()
-
-    def not_in_menu(self):
-        return self.get_queryset().not_in_menu()
-
-    def page(self, other):
-        return self.get_queryset().page(other)
-
-    def not_page(self, other):
-        return self.get_queryset().not_page(other)
-
-    def descendant_of(self, other, inclusive=False):
-        return self.get_queryset().descendant_of(other, inclusive)
-
-    def not_descendant_of(self, other, inclusive=False):
-        return self.get_queryset().not_descendant_of(other, inclusive)
-
-    def child_of(self, other):
-        return self.get_queryset().child_of(other)
-
-    def not_child_of(self, other):
-        return self.get_queryset().not_child_of(other)
-
-    def ancestor_of(self, other, inclusive=False):
-        return self.get_queryset().ancestor_of(other, inclusive)
-
-    def not_ancestor_of(self, other, inclusive=False):
-        return self.get_queryset().not_ancestor_of(other, inclusive)
-
-    def parent_of(self, other):
-        return self.get_queryset().parent_of(other)
-
-    def not_parent_of(self, other):
-        return self.get_queryset().not_parent_of(other)
-
-    def sibling_of(self, other, inclusive=False):
-        return self.get_queryset().sibling_of(other, inclusive)
-
-    def not_sibling_of(self, other, inclusive=False):
-        return self.get_queryset().not_sibling_of(other, inclusive)
-
-    def type(self, model):
-        return self.get_queryset().type(model)
-
-    def not_type(self, model):
-        return self.get_queryset().not_type(model)
-
-    def public(self):
-        return self.get_queryset().public()
-
-    def not_public(self):
-        return self.get_queryset().not_public()
-
-    def search(self, query_string, fields=None, backend='default'):
-        return self.get_queryset().search(query_string, fields=fields, backend=backend)
-
-    def specific(self):
-        return self.get_queryset().specific()
+PageManager = BasePageManager.from_queryset(PageQuerySet)
 
 
 class PageBase(models.base.ModelBase):
@@ -316,6 +252,8 @@ class Page(six.with_metaclass(PageBase, MP_Node, ClusterableModel, index.Indexed
         index.FilterField('depth'),
         index.FilterField('locked'),
         index.FilterField('show_in_menus'),
+        index.FilterField('first_published_at'),
+        index.FilterField('latest_revision_created_at'),
     )
 
     # Do not allow plain Page instances to be created through the Wagtail admin
@@ -632,11 +570,17 @@ class Page(six.with_metaclass(PageBase, MP_Node, ClusterableModel, index.Indexed
         # return None.
         try:
             return self.specific
-        except ObjectDoesNotExist:
+        except self.specific_class.DoesNotExist:
             return None
 
     @classmethod
     def search(cls, query_string, show_unpublished=False, search_title_only=False, extra_filters={}, prefetch_related=[], path=None):
+        # This is deprecated use Page.objects.search() instead
+        warnings.warn(
+            "The Page.search() method is deprecated. "
+            "Please use the Page.objects.search() method instead.",
+            RemovedInWagtail14Warning, stacklevel=2)
+
         # Filters
         filters = extra_filters.copy()
         if not show_unpublished:
@@ -938,6 +882,7 @@ class Page(six.with_metaclass(PageBase, MP_Node, ClusterableModel, index.Indexed
             'PATH_INFO': path,
             'SERVER_NAME': hostname,
             'SERVER_PORT': port,
+            'HTTP_HOST': hostname,
             'wsgi.input': StringIO(),
         })
 
@@ -1224,7 +1169,7 @@ class PageRevision(models.Model):
         page.revisions.update(submitted_for_moderation=False)
 
         if page.live:
-            page_published.send(sender=page.specific_class, instance=page.specific)
+            page_published.send(sender=page.specific_class, instance=page.specific, revision=self)
 
             logger.info("Page published: \"%s\" id=%d revision_id=%d", page.title, page.id, self.id)
         elif page.go_live_at:

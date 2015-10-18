@@ -4,6 +4,8 @@ from wagtail.wagtailsearch.backends.base import BaseSearch, BaseSearchQuery, Bas
 
 
 class DBSearchQuery(BaseSearchQuery):
+    DEFAULT_OPERATOR = 'and'
+
     def _process_lookup(self, field, lookup, value):
         return models.Q(**{field.get_attname(self.queryset.model) + '__' + lookup: value})
 
@@ -52,7 +54,10 @@ class DBSearchQuery(BaseSearchQuery):
                     # Filter on this field
                     term_query |= models.Q(**{'%s__icontains' % field_name: term})
 
-                q &= term_query
+                if self.operator == 'or':
+                    q |= term_query
+                elif self.operator == 'and':
+                    q &= term_query
 
         return q
 
@@ -72,6 +77,9 @@ class DBSearchResults(BaseSearchResults):
 
 
 class DBSearch(BaseSearch):
+    search_query_class = DBSearchQuery
+    search_results_class = DBSearchResults
+
     def __init__(self, params):
         super(DBSearch, self).__init__(params)
 
@@ -92,9 +100,6 @@ class DBSearch(BaseSearch):
 
     def delete(self, obj):
         pass # Not needed
-
-    def _search(self, queryset, query_string, fields=None):
-        return DBSearchResults(self, DBSearchQuery(queryset, query_string, fields=fields))
 
 
 SearchBackend = DBSearch

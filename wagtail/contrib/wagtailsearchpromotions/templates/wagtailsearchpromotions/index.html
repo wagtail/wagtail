@@ -3,6 +3,7 @@
 {% block titletag %}{% trans "Search Terms" %}{% endblock %}
 
 {% block extra_js %}
+    {{ block.super }}
     <script>
         window.headerSearch = {
             url: "{% url 'wagtailsearchpromotions:index' %}",

@@ -1,6 +1,8 @@
 from __future__ import absolute_import
 
 import json
+import six
+import warnings
 
 from django.utils.six.moves.urllib.parse import urlparse
 
@@ -11,6 +13,7 @@ from django.utils.crypto import get_random_string
 
 from wagtail.wagtailsearch.backends.base import BaseSearch, BaseSearchQuery, BaseSearchResults
 from wagtail.wagtailsearch.index import SearchField, FilterField, class_is_indexed
+from wagtail.utils.deprecation import RemovedInWagtail14Warning
 
 
 INDEX_SETTINGS = {
@@ -156,6 +159,8 @@ class ElasticSearchMapping(object):
 
 
 class ElasticSearchQuery(BaseSearchQuery):
+    DEFAULT_OPERATOR = 'or'
+
     def _process_lookup(self, field, lookup, value):
         # Get the name of the field in the index
         field_index_name = field.get_index_name(self.queryset.model)
@@ -243,8 +248,7 @@ class ElasticSearchQuery(BaseSearchQuery):
 
             return filter_out
 
-    def to_es(self):
-        # Query
+    def get_inner_query(self):
         if self.query_string is not None:
             fields = self.fields or ['_all', '_partials']
 
@@ -254,6 +258,9 @@ class ElasticSearchQuery(BaseSearchQuery):
                         fields[0]: self.query_string,
                     }
                 }
+
+                if self.operator != 'or':
+                    query['match']['operator'] = self.operator
             else:
                 query = {
                     'multi_match': {
@@ -261,12 +268,17 @@ class ElasticSearchQuery(BaseSearchQuery):
                         'fields': fields,
                     }
                 }
+
+                if self.operator != 'or':
+                    query['multi_match']['operator'] = self.operator
         else:
             query = {
                 'match_all': {}
             }
 
-        # Filters
+        return query
+
+    def get_filters(self):
         filters = []
 
         # Filter by content type
@@ -281,35 +293,106 @@ class ElasticSearchQuery(BaseSearchQuery):
         if queryset_filters:
             filters.append(queryset_filters)
 
+        return filters
+
+    def get_query(self):
+        inner_query = self.get_inner_query()
+        filters = self.get_filters()
+
         if len(filters) == 1:
-            query = {
+            return {
                 'filtered': {
-                    'query': query,
+                    'query': inner_query,
                     'filter': filters[0],
                 }
             }
         elif len(filters) > 1:
-            query = {
+            return {
                 'filtered': {
-                    'query': query,
+                    'query': inner_query,
                     'filter': {
                         'and': filters,
                     }
                 }
             }
+        else:
+            return inner_query
 
-        return query
+    def get_sort(self):
+        # Ordering by relevance is the default in Elasticsearch
+        if self.order_by_relevance:
+            return
+
+        # Get queryset and make sure its ordered
+        if self.queryset.ordered:
+            order_by_fields = self.queryset.query.order_by
+            sort = []
+
+            for order_by_field in order_by_fields:
+                reverse = False
+                field_name = order_by_field
+
+                if order_by_field.startswith('-'):
+                    reverse = True
+                    field_name = order_by_field[1:]
+
+                field = self._get_filterable_field(field_name)
+                field_index_name = field.get_index_name(self.queryset.model)
+
+                sort.append({
+                    field_index_name: 'desc' if reverse else 'asc'
+                })
+
+            return sort
+
+        else:
+            # Order by pk field
+            return ['pk']
 
     def __repr__(self):
-        return json.dumps(self.to_es())
+        return json.dumps(self.get_query())
+
+    def to_es(self):
+        warnings.warn(
+            "The ElasticSearchQuery.to_es() method is deprecated. "
+            "Please use the ElasticSearchQuery.get_query() method instead.",
+            RemovedInWagtail14Warning, stacklevel=2)
+
+        return self.get_query()
 
 
 class ElasticSearchResults(BaseSearchResults):
+    def _get_es_body(self, for_count=False):
+        # If to_es has been overridden, call it and raise a deprecation warning
+        if isinstance(self.query, ElasticSearchQuery) and six.get_method_function(self.query.to_es) != ElasticSearchQuery.to_es:
+            warnings.warn(
+                "The .to_es() method on Elasticsearch query classes is deprecated. "
+                "Please rename {class_name}.to_es() to {class_name}.get_query()".format(
+                    class_name=self.query.__class__.__name__
+                ),
+                RemovedInWagtail14Warning, stacklevel=2)
+
+            body = {
+                'query': self.query.to_es(),
+            }
+        else:
+            body = {
+                'query': self.query.get_query()
+            }
+
+        if not for_count:
+            sort = self.query.get_sort()
+
+            if sort is not None:
+                body['sort'] = sort
+
+        return body
+
     def _do_search(self):
         # Params for elasticsearch query
         params = dict(
             index=self.backend.es_index,
-            body=dict(query=self.query.to_es()),
+            body=self._get_es_body(),
             _source=False,
             fields='pk',
             from_=self.start,
@@ -337,13 +420,10 @@ class ElasticSearchResults(BaseSearchResults):
         return [results[str(pk)] for pk in pks if results[str(pk)]]
 
     def _do_count(self):
-        # Get query
-        query = self.query.to_es()
-
         # Get count
         hit_count = self.backend.es.count(
             index=self.backend.es_index,
-            body=dict(query=query),
+            body=self._get_es_body(for_count=True),
         )['count']
 
         # Add limits
@@ -467,6 +547,9 @@ class ElasticSearchAtomicIndexRebuilder(ElasticSearchIndexRebuilder):
 
 
 class ElasticSearch(BaseSearch):
+    search_query_class = ElasticSearchQuery
+    search_results_class = ElasticSearchResults
+
     def __init__(self, params):
         super(ElasticSearch, self).__init__(params)
 
@@ -578,9 +661,6 @@ class ElasticSearch(BaseSearch):
             )
         except NotFoundError:
             pass  # Document doesn't exist, ignore this exception
-
-    def _search(self, queryset, query_string, fields=None):
-        return ElasticSearchResults(self, ElasticSearchQuery(queryset, query_string, fields=fields))
 
 
 SearchBackend = ElasticSearch

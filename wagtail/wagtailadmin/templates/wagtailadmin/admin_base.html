@@ -10,6 +10,10 @@
     {% block extra_css %}{% endblock %}
 {% endblock %}
 
+{% block branding_favicon %}
+    <link rel="shortcut icon" href="{% static 'wagtailadmin/images/favicon.ico' %}" />
+{% endblock %}
+
 {% block js %}
     
     {% compress js %}

@@ -1,9 +1,10 @@
 Authors
 ================
 
-* Matthew Westcott matthew.westcott@torchbox.com twitter: @gasmanic
-* David Cranwell david.cranwell@torchbox.com twitter: @davecranwell
-* Karl Hobley karl.hobley@torchbox.com
+* Matthew Westcott (Torchbox) twitter: @gasmanic
+* David Cranwell (Torchbox) twitter: @davecranwell
+* Karl Hobley (Torchbox) twitter: @kaedroho
+* Tim Heap (Takeflight)
 
 Contributors
 ============
@@ -29,7 +30,6 @@ Contributors
 * Tom Talbot
 * Jeffrey Hearn
 * Robert Clark
-* Tim Heap
 * Nathan Brizendine
 * thenewguy
 * John-Scott Atlakson
@@ -66,6 +66,13 @@ Contributors
 * Michael Cordover
 * Timothy Allen
 * Rob Shelton
+* Anurag Sharma
+* Maximilian Stauss
+* Salvador Faria
+* Alex Gleason
+* Ryan Pineo
+* Petr Vacha
+* Josh Barr
 
 
 Translators

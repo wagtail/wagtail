@@ -2,6 +2,8 @@
 {% load wagtailadmin_tags compress i18n static gravatar %}
 
 {% block extra_css %}
+    {{ block.super }}
+
     {% compress css %}
         <link rel="stylesheet" href="{% static 'wagtailstyleguide/css/styleguide.css' %}" type="text/css" />
     {% endcompress %}
@@ -224,7 +226,7 @@
 
         <section id="pagination">
             <h2>Pagination</h2>
-            {% include "wagtailadmin/shared/pagination_nav.html" with items=fake_pagination linkurl="wagtailadmin_explore" %}
+            {% paginate example_page %}
         </section>
 
         <section id="buttons">
@@ -291,7 +293,29 @@
             <a href="#" class="button no">No</a>
             <a href="#" class="button button-small no">No</a> 
 
-            
+            <h3>Buttons with internal loading indicators (currently only <code>button</code> supported)</h3>
+            <p class="help-block help-warning">Note that in some browsers, clicking these buttons minutely affects the appearance of Dropdown buttons, below. This is yet to be resolved.</p>
+            <button class="button-longrunning"><span class="icon icon-spinner"></span>Click me</button>
+
+            <h4>Secondary</h4>
+            <button class="button-secondary button-longrunning"><span class="icon icon-spinner"></span>Click me</button>
+
+            <h4>Small</h4>
+            <button class="button-small button-longrunning"><span class="icon icon-spinner"></span>Click me</button>
+           
+            <h4>Buttons where the text is replaced on click</h4>
+            <button class="button-longrunning" data-clicked-text="Test"><span class="icon icon-spinner"></span><em>Click me</em></button>
+
+            <h4>Arbitrarily bigger</h4>
+            <style>
+                #button-arbitrarily-bigger{
+                    font-size:1.5em;
+                    padding:1.1em 2.4em;
+                    height:3.5em;
+                }
+            </style>
+            <button class="button-longrunning" id="button-arbitrarily-bigger"><span class="icon icon-spinner"></span>Click me</button>
+
             <h3>Mixtures</h3>
 
             <button class="icon text-replace yes icon-tick">A proper button</button>
@@ -583,6 +607,8 @@
 {% endblock %}
 
 {% block extra_js %}
+    {{ block.super }}
+
     {% include "wagtailadmin/pages/_editor_js.html" %}
     <script>
         $(function(){

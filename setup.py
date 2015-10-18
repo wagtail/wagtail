@@ -2,10 +2,8 @@
 
 import sys
 
-from setuptools.command.sdist import sdist
-
 from wagtail.wagtailcore import __version__
-from wagtail.utils.setup import assets, add_subcommand, check_bdist_egg
+from wagtail.utils.setup import assets, sdist, check_bdist_egg
 
 try:
     from setuptools import setup, find_packages
@@ -25,7 +23,7 @@ except ImportError:
 install_requires = [
     "Django>=1.7.1,<1.9",
     "django-compressor>=1.4",
-    "django-modelcluster>=0.6",
+    "django-modelcluster>=1.0",
     "django-taggit>=0.13.0",
     "django-treebeard==3.0",
     "djangorestframework>=3.1.3",
@@ -70,7 +68,7 @@ setup(
     """,
     zip_safe=False,
     cmdclass={
-        'sdist': add_subcommand(sdist, [('assets', None)]),
+        'sdist': sdist,
         'bdist_egg': check_bdist_egg,
         'assets': assets,
     },

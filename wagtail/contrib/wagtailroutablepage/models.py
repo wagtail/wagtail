@@ -1,15 +1,11 @@
 from __future__ import unicode_literals
 
-import warnings
-
 from django.http import Http404
 from django.core.urlresolvers import RegexURLResolver
 from django.conf.urls import url
-from django.utils.six import string_types
 
 from wagtail.wagtailcore.models import Page
 from wagtail.wagtailcore.url_routing import RouteResult
-from wagtail.utils.deprecation import RemovedInWagtail12Warning
 
 
 _creation_counter = 0
@@ -44,24 +40,7 @@ class RoutablePageMixin(object):
     subpage_urls = None
 
     @classmethod
-    def check(cls, **kwargs):
-        if cls.subpage_urls and not hasattr(cls, '_disable_subpage_urls_deprecation_warning'):
-            warnings.warn(
-                "{app_label}.{classname}: subpage_urls is deprecated. Use the "
-                "@route decorator to define page routes instead.".format(
-                    app_label=cls._meta.app_label,
-                    classname=cls.__name__,
-                ), RemovedInWagtail12Warning)
-
-        return super(RoutablePageMixin, cls).check(**kwargs)
-
-    @classmethod
     def get_subpage_urls(cls):
-        # Old style
-        if cls.subpage_urls:
-            return cls.subpage_urls
-
-        # New style
         routes = []
         for attr in dir(cls):
             val = getattr(cls, attr)
@@ -96,14 +75,8 @@ class RoutablePageMixin(object):
         """
         view, args, kwargs = self.get_resolver().resolve(path)
 
-        if self.subpage_urls:  # Old style
-            # If view is a string, find it as an attribute of self
-            if isinstance(view, string_types):
-                view = getattr(self, view)
-
-        else:  # New style
-            # Bind the method
-            view = view.__get__(self, type(self))
+        # Bind the method
+        view = view.__get__(self, type(self))
 
         return view, args, kwargs
 

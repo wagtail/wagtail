@@ -4,6 +4,7 @@
 {% block titletag %}{% trans "Editing" %} {{ group.name }}{% endblock %}
 
 {% block extra_css %}
+    {{ block.super }}
     {% compress css %}
         <link rel="stylesheet" href="{% static 'wagtailusers/css/groups_edit.css' %}" type="text/css" />
     {% endcompress %}
@@ -41,5 +42,6 @@
 {% endblock %}
 
 {% block extra_js %}
+    {{ block.super }}
     {% include "wagtailusers/groups/includes/group_form_js.html" %}
 {% endblock %}

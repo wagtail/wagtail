@@ -3,7 +3,6 @@ import functools
 from optparse import make_option
 
 from django.core.management.base import BaseCommand
-from django.core.exceptions import ObjectDoesNotExist
 from django.db import models
 from django.db.models import Q
 from django.utils import six
@@ -31,7 +30,7 @@ class Command(BaseCommand):
         for page in Page.objects.all():
             try:
                 page.specific
-            except ObjectDoesNotExist:
+            except page.specific_class.DoesNotExist:
                 self.stdout.write("Page %d (%s) is missing a subclass record; deleting." % (page.id, page.title))
                 any_problems_fixed = True
                 page.delete()

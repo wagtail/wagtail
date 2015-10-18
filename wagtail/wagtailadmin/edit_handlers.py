@@ -1,7 +1,6 @@
 from __future__ import unicode_literals
 
 import copy
-import warnings
 
 from modelcluster.forms import ClusterForm, ClusterFormMetaclass
 
@@ -12,7 +11,7 @@ from django.utils.six import text_type
 from django import forms
 from django.forms.models import fields_for_model
 from django.contrib.contenttypes.models import ContentType
-from django.core.exceptions import ObjectDoesNotExist, ImproperlyConfigured
+from django.core.exceptions import ImproperlyConfigured
 from django.utils.translation import ugettext_lazy
 
 from taggit.managers import TaggableManager
@@ -20,7 +19,6 @@ from taggit.managers import TaggableManager
 from wagtail.wagtailadmin import widgets
 from wagtail.wagtailcore.models import Page
 from wagtail.wagtailcore.utils import camelcase_to_underscore, resolve_model_string
-from wagtail.utils.deprecation import RemovedInWagtail12Warning
 from wagtail.utils.compat import get_related_model
 
 
@@ -526,9 +524,11 @@ class BaseChooserPanel(BaseFieldPanel):
     """
 
     def get_chosen_item(self):
+        field = self.instance._meta.get_field(self.field_name)
+        related_model = get_related_model(field.related)
         try:
             return getattr(self.instance, self.field_name)
-        except ObjectDoesNotExist:
+        except related_model.DoesNotExist:
             # if the ForeignKey is null=False, Django decides to raise
             # a DoesNotExist exception here, rather than returning None
             # like every other unpopulated field type. Yay consistency!
@@ -626,6 +626,10 @@ class BaseInlinePanel(EditHandler):
             cls.relation_name: {
                 'fields': child_edit_handler_class.required_fields(),
                 'widgets': child_edit_handler_class.widget_overrides(),
+                'min_num': cls.min_num,
+                'validate_min': cls.min_num is not None,
+                'max_num': cls.max_num,
+                'validate_max': cls.max_num is not None
             }
         }
 
@@ -680,29 +684,13 @@ class BaseInlinePanel(EditHandler):
 
 
 class InlinePanel(object):
-    def __init__(self, *args, **kwargs):
-        # prior to Wagtail 0.9, InlinePanel required two params, base_model and relation_name.
-        # base_model is no longer required; we set up relations based on the model passed to
-        # bind_to_model instead
-        if len(args) == 1:  # new-style: InlinePanel(relation_name)
-            self.relation_name = args[0]
-        elif len(args) == 2:  # old-style: InlinePanel(base_model, relation_name)
-            self.relation_name = args[1]
-
-            warnings.warn(
-                "InlinePanel no longer needs to be passed a model parameter. "
-                "InlinePanel({classname}, '{relname}') should be changed to InlinePanel('{relname}')".format(
-                    classname=args[0].__name__, relname=self.relation_name
-                ), RemovedInWagtail12Warning, stacklevel=2)
-        else:
-            raise TypeError("InlinePanel() takes exactly 1 argument (%d given)" % len(args))
-
-        self.panels = kwargs.pop('panels', None)
-        self.label = kwargs.pop('label', '')
-        self.help_text = kwargs.pop('help_text', '')
-
-        if kwargs:
-            raise TypeError("InlinePanel got an unexpected keyword argument '%s'" % kwargs.keys()[0])
+    def __init__(self, relation_name, panels=None, label='', help_text='', min_num=None, max_num=None):
+        self.relation_name = relation_name
+        self.panels = panels
+        self.label = label
+        self.help_text = help_text
+        self.min_num = min_num
+        self.max_num = max_num
 
     def bind_to_model(self, model):
         return type(str('_InlinePanel'), (BaseInlinePanel,), {
@@ -712,6 +700,8 @@ class InlinePanel(object):
             'panels': self.panels,
             'heading': self.label,
             'help_text': self.help_text,  # TODO: can we pick this out of the foreign key definition as an alternative? (with a bit of help from the inlineformset object, as we do for label/heading)
+            'min_num': self.min_num,
+            'max_num': self.max_num
         })
 
 

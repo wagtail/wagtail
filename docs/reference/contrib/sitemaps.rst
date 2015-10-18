@@ -43,6 +43,7 @@ By default, the sitemap uses the hostname defined in the Wagtail Admin's ``Sites
 default site is called ``localhost``, then URLs in the sitemap will look like:
 
  .. code-block:: xml
+
     <url>
         <loc>http://localhost/about/</loc>
         <lastmod>2015-09-26</lastmod>
@@ -53,6 +54,7 @@ For tools like Google Search Tools to properly index your site, you need to set 
 will contain the correct URLs:
 
  .. code-block:: xml
+
     <url>
         <loc>http://mysite.com/about/</loc>
         <lastmod>2015-09-26</lastmod>

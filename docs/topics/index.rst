@@ -5,7 +5,7 @@ Topics
 .. toctree::
     :maxdepth: 2
 
-    creating_pages
+    pages
     writing_templates
     images/index
     search/index

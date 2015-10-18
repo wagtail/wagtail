@@ -15,6 +15,16 @@ EMBED_TYPES = (
 
 @python_2_unicode_compatible
 class Embed(models.Model):
+    """
+    When embed code is fetched from a provider (eg, youtube) we cache that code
+    in the database so we don't need to ask for it again.
+
+    This model is used for caching the embed html code. It also stores some
+    metadata which gets displayed in the editor.
+
+    If an instance of this model is deleted, it will be automatically refetched
+    next time the embed code is needed.
+    """
     url = models.URLField()
     max_width = models.SmallIntegerField(null=True, blank=True)
     type = models.CharField(max_length=10, choices=EMBED_TYPES)

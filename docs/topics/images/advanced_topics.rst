@@ -117,7 +117,7 @@ Installing OpenCV on Debian/Ubuntu
 
 Debian and ubuntu provide an apt-get package called ``python-opencv``:
 
- .. code-block:: bash
+ .. code-block:: sh
 
     sudo apt-get install python-opencv python-numpy
 

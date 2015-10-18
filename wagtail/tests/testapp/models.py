@@ -8,6 +8,7 @@ from taggit.models import TaggedItemBase
 from taggit.managers import TaggableManager
 
 from modelcluster.fields import ParentalKey
+from modelcluster.models import ClusterableModel
 from modelcluster.contrib.taggit import ClusterTaggableManager
 
 from wagtail.wagtailcore.models import Page, Orderable
@@ -128,6 +129,17 @@ class PageWithOldStyleRouteMethod(Page):
 
     def route(self, request, path_components):
         return self.serve(request)
+
+
+# File page
+class FilePage(Page):
+    file_field = models.FileField()
+
+
+FilePage.content_panels = [
+    FieldPanel('title', classname="full title"),
+    FieldPanel('file_field'),
+]
 
 
 # Event page
@@ -320,7 +332,7 @@ class AdvertTag(TaggedItemBase):
 
 
 @python_2_unicode_compatible
-class Advert(models.Model):
+class Advert(ClusterableModel):
     url = models.URLField(null=True, blank=True)
     text = models.CharField(max_length=255)
 
@@ -410,12 +422,7 @@ class SnippetChooserModel(models.Model):
     ]
 
 
-class CustomImageWithoutAdminFormFields(AbstractImage):
-    caption = models.CharField(max_length=255)
-    not_editable_field = models.CharField(max_length=255)
-
-
-class CustomImageWithAdminFormFields(AbstractImage):
+class CustomImage(AbstractImage):
     caption = models.CharField(max_length=255)
     not_editable_field = models.CharField(max_length=255)
 

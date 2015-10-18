@@ -13,6 +13,6 @@ The presentation of your content, the actual webpages, includes the normal use o
 
     theory
     model_recipes
-    editing_api
+    panels
     model_reference
     queryset_reference

@@ -1,5 +1,3 @@
-import warnings
-
 from mock import MagicMock
 
 from django.test import TestCase
@@ -9,11 +7,10 @@ from django.core.urlresolvers import reverse
 
 from taggit.forms import TagField, TagWidget
 
-from wagtail.utils.deprecation import RemovedInWagtail12Warning
-from wagtail.tests.testapp.models import CustomImageWithAdminFormFields, CustomImageWithoutAdminFormFields
+from wagtail.tests.testapp.models import CustomImage
 from wagtail.tests.utils import WagtailTestUtils
 from wagtail.wagtailimages.utils import generate_signature, verify_signature
-from wagtail.wagtailimages.rect import Rect
+from wagtail.wagtailimages.rect import Rect, Vector
 from wagtail.wagtailimages.formats import Format, get_image_format, register_image_format
 from wagtail.wagtailimages.models import Image as WagtailImage
 from wagtail.wagtailimages.forms import get_image_form
@@ -243,15 +240,39 @@ class TestRect(TestCase):
 
     def test_size(self):
         rect = Rect(100, 150, 200, 350)
+        self.assertIsInstance(rect.size, Vector)
         self.assertEqual(rect.size, (100, 200))
         self.assertEqual(rect.width, 100)
         self.assertEqual(rect.height, 200)
 
+    def test_set_size_with_tuple(self):
+        rect = Rect(100, 150, 200, 350)
+        rect.size = (200, 400)
+        self.assertEqual(rect, (50, 50, 250, 450))
+
+    def test_set_size_with_vector(self):
+        rect = Rect(100, 150, 200, 350)
+        rect.size = Vector(200, 400)
+        self.assertEqual(rect, (50, 50, 250, 450))
+
     def test_centroid(self):
         rect = Rect(100, 150, 200, 350)
+        self.assertIsInstance(rect.centroid, Vector)
         self.assertEqual(rect.centroid, (150, 250))
+        self.assertEqual(rect.x, 150)
+        self.assertEqual(rect.y, 250)
         self.assertEqual(rect.centroid_x, 150)
         self.assertEqual(rect.centroid_y, 250)
+
+    def test_set_centroid_with_tuple(self):
+        rect = Rect(100, 150, 200, 350)
+        rect.centroid = (500, 500)
+        self.assertEqual(rect, (450, 400, 550, 600))
+
+    def test_set_centroid_with_vector(self):
+        rect = Rect(100, 150, 200, 350)
+        rect.centroid = Vector(500, 500)
+        self.assertEqual(rect, (450, 400, 550, 600))
 
     def test_repr(self):
         rect = Rect(100, 150, 200, 250)
@@ -277,7 +298,7 @@ class TestGetImageForm(TestCase, WagtailTestUtils):
         ])
 
     def test_admin_form_fields_attribute(self):
-        form = get_image_form(CustomImageWithAdminFormFields)
+        form = get_image_form(CustomImage)
 
         self.assertEqual(list(form.base_fields.keys()), [
             'title',
@@ -288,36 +309,6 @@ class TestGetImageForm(TestCase, WagtailTestUtils):
             'focal_point_width',
             'focal_point_height',
             'caption',
-        ])
-
-    def test_custom_image_model_without_admin_form_fields_raises_warning(self):
-        self.reset_warning_registry()
-        with warnings.catch_warnings(record=True) as raw_warnings:
-            form = get_image_form(CustomImageWithoutAdminFormFields)
-
-            # Check that a RemovedInWagtail12Warning has been triggered
-
-            # Ignore any ResourceWarnings. TODO: remove this when we've stopped ResourceWarnings from happening...
-            try:
-                clean_warnings = [w for w in raw_warnings if not issubclass(w.category, ResourceWarning)]
-            except NameError:  # ResourceWarning only exists on Python >= 3.2
-                clean_warnings = raw_warnings
-
-            self.assertEqual(len(clean_warnings), 1)
-            self.assertTrue(issubclass(clean_warnings[-1].category, RemovedInWagtail12Warning))
-            self.assertTrue("Add admin_form_fields = (tuple of field names) to CustomImageWithoutAdminFormFields" in str(clean_warnings[-1].message))
-
-        # All fields, including the not editable one should be on the form
-        self.assertEqual(list(form.base_fields.keys()), [
-            'title',
-            'file',
-            'focal_point_x',
-            'focal_point_y',
-            'focal_point_width',
-            'focal_point_height',
-            'caption',
-            'not_editable_field',
-            'tags',
         ])
 
     def test_file_field(self):

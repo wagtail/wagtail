@@ -5,18 +5,18 @@ from django.test import TestCase
 from django.core.urlresolvers import reverse
 from django.contrib.auth import get_user_model
 from django.contrib.auth.models import Group, Permission
-from django.core import mail
-from django.core.paginator import Paginator
+from django.core import mail, paginator
+from django.core.files.base import ContentFile
 from django.db.models.signals import pre_delete, post_delete
 from django.utils import timezone
 
 from wagtail.tests.testapp.models import (
-    SimplePage, EventPage, EventPageCarouselItem,
+    SimplePage, FilePage, EventPage, EventPageCarouselItem,
     StandardIndex, StandardChild,
     BusinessIndex, BusinessChild, BusinessSubIndex,
     TaggedPage, Advert, AdvertPlacement)
 from wagtail.tests.utils import WagtailTestUtils
-from wagtail.wagtailcore.models import Page, PageRevision
+from wagtail.wagtailcore.models import Page, PageRevision, Site
 from wagtail.wagtailcore.signals import page_published, page_unpublished
 from wagtail.wagtailusers.models import UserProfile
 
@@ -80,7 +80,7 @@ class TestPageExplorer(TestCase, WagtailTestUtils):
         self.assertEqual(response.context['ordering'], 'ord')
 
         # Pages must not be paginated
-        self.assertNotIsInstance(response.context['pages'], Paginator)
+        self.assertNotIsInstance(response.context['pages'], paginator.Page)
 
     def make_pages(self):
         for i in range(150):
@@ -225,6 +225,21 @@ class TestPageCreation(TestCase, WagtailTestUtils):
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, '<a href="#content" class="active">Content</a>')
         self.assertContains(response, '<a href="#promote" class="">Promote</a>')
+
+    def test_create_multipart(self):
+        """
+        Test checks if 'enctype="multipart/form-data"' is added and only to forms that require multipart encoding.
+        """
+        # check for SimplePage where is no file field
+        response = self.client.get(reverse('wagtailadmin_pages:add', args=('tests', 'simplepage', self.root_page.id)))
+        self.assertEqual(response.status_code, 200)
+        self.assertNotContains(response, 'enctype="multipart/form-data"')
+        self.assertTemplateUsed(response, 'wagtailadmin/pages/create.html')
+
+        # check for FilePage which has file field
+        response = self.client.get(reverse('wagtailadmin_pages:add', args=('tests', 'filepage', self.root_page.id)))
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, 'enctype="multipart/form-data"')
 
     def test_create_page_without_promote_tab(self):
         """
@@ -529,6 +544,18 @@ class TestPageEdit(TestCase, WagtailTestUtils):
         child_page.save_revision().publish()
         self.child_page = SimplePage.objects.get(id=child_page.id)
 
+        # Add file page
+        fake_file = ContentFile("File for testing multipart")
+        fake_file.name = 'test.txt'
+        file_page = FilePage(
+            title="File Page",
+            slug="file-page",
+            file_field=fake_file,
+        )
+        self.root_page.add_child(instance=file_page)
+        file_page.save_revision().publish()
+        self.file_page = FilePage.objects.get(id=file_page.id)
+
         # Add event page (to test edit handlers)
         self.event_page = EventPage()
         self.event_page.title = "Event page"
@@ -542,6 +569,21 @@ class TestPageEdit(TestCase, WagtailTestUtils):
         # Tests that the edit page loads
         response = self.client.get(reverse('wagtailadmin_pages:edit', args=(self.event_page.id, )))
         self.assertEqual(response.status_code, 200)
+
+    def test_edit_multipart(self):
+        """
+        Test checks if 'enctype="multipart/form-data"' is added and only to forms that require multipart encoding.
+        """
+        # check for SimplePage where is no file field
+        response = self.client.get(reverse('wagtailadmin_pages:edit', args=(self.event_page.id, )))
+        self.assertEqual(response.status_code, 200)
+        self.assertNotContains(response, 'enctype="multipart/form-data"')
+        self.assertTemplateUsed(response, 'wagtailadmin/pages/edit.html')
+
+        # check for FilePage which has file field
+        response = self.client.get(reverse('wagtailadmin_pages:edit', args=(self.file_page.id, )))
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, 'enctype="multipart/form-data"')
 
     def test_page_edit_bad_permissions(self):
         # Remove privileges from user
@@ -671,10 +713,10 @@ class TestPageEdit(TestCase, WagtailTestUtils):
         post_data = {
             'title': "I've been edited!",
             'content': "Some content",
-            'slug': 'hello-world',
+            'slug': 'hello-world-new',
             'action-publish': "Publish",
         }
-        response = self.client.post(reverse('wagtailadmin_pages:edit', args=(self.child_page.id, )), post_data)
+        response = self.client.post(reverse('wagtailadmin_pages:edit', args=(self.child_page.id, )), post_data, follow=True)
 
         # Should be redirected to explorer
         self.assertRedirects(response, reverse('wagtailadmin_explore', args=(self.root_page.id, )))
@@ -696,6 +738,11 @@ class TestPageEdit(TestCase, WagtailTestUtils):
 
         # first_published_at should not change as it was already set
         self.assertEqual(first_published_at, child_page_new.first_published_at)
+
+        # The "View Live" button should have the updated slug.
+        for message in response.context['messages']:
+            self.assertIn('hello-world-new', message.message)
+            break
 
     def test_edit_post_publish_scheduled(self):
         go_live_at = timezone.now() + timedelta(days=1)
@@ -835,6 +882,23 @@ class TestPageEdit(TestCase, WagtailTestUtils):
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'tests/simple_page.html')
         self.assertContains(response, "I&#39;ve been edited!")
+
+    def test_preview_uses_correct_site(self):
+        # create a Site record for the child page
+        Site.objects.create(hostname='childpage.example.com', root_page=self.child_page)
+
+        post_data = {
+            'title': "I've been edited!",
+            'content': "Some content",
+            'slug': 'hello-world',
+            'action-submit': "Submit",
+        }
+        response = self.client.post(reverse('wagtailadmin_pages:preview_on_edit', args=(self.child_page.id, )), post_data)
+
+        # Check that the correct site object has been selected by the site middleware
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'tests/simple_page.html')
+        self.assertEqual(response.context['request'].site.hostname, 'childpage.example.com')
 
 
 class TestPageEditReordering(TestCase, WagtailTestUtils):

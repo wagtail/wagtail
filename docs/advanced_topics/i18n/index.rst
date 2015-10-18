@@ -196,11 +196,11 @@ For example, here's how we would apply this to the above ``BlogPage`` model:
 
 Finally, in the template, reference the accessors instead of the underlying database fields:
 
-.. code-block:: html+Django
+.. code-block:: html+django
 
-    {{ self.translated_title }}
+    {{ page.translated_title }}
 
-    {{ self.body }}
+    {{ page.body }}
 
 
 Other approaches

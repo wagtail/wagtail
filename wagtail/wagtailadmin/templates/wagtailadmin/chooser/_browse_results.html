@@ -1,4 +1,4 @@
-{% load i18n %}
+{% load i18n wagtailadmin_tags %}
 
 <h2>{% trans "Explorer" %}</h2>
 {% include "wagtailadmin/shared/breadcrumb.html" with page=parent_page choosing=1 %}
@@ -7,5 +7,5 @@
     {% include "wagtailadmin/pages/listing/_list_choose.html" with allow_navigation=1 orderable=0 pages=pages parent_page=parent_page %}
 
     {% url 'wagtailadmin_choose_page_child' parent_page.id as pagination_base_url %}
-    {% include "wagtailadmin/pages/listing/_pagination.html" with page=pages base_url=pagination_base_url query_params=querystring classnames="navigate-pages" only %}
+    {% paginate pages base_url=pagination_base_url classnames="navigate-pages" %}
 {% endif %}

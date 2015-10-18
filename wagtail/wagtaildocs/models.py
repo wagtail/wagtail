@@ -16,6 +16,11 @@ from django.utils.encoding import python_2_unicode_compatible
 from wagtail.wagtailadmin.taggable import TagSearchable
 from wagtail.wagtailadmin.utils import get_object_usage
 from wagtail.wagtailsearch import index
+from wagtail.wagtailsearch.queryset import SearchableQuerySetMixin
+
+
+class DocumentQuerySet(SearchableQuerySetMixin, models.QuerySet):
+    pass
 
 
 @python_2_unicode_compatible
@@ -26,6 +31,8 @@ class Document(models.Model, TagSearchable):
     uploaded_by_user = models.ForeignKey(settings.AUTH_USER_MODEL, verbose_name=_('Uploaded by user'), null=True, blank=True, editable=False)
 
     tags = TaggableManager(help_text=None, blank=True, verbose_name=_('Tags'))
+
+    objects = DocumentQuerySet.as_manager()
 
     search_fields = TagSearchable.search_fields + (
         index.FilterField('uploaded_by_user'),
@@ -40,11 +47,7 @@ class Document(models.Model, TagSearchable):
 
     @property
     def file_extension(self):
-        parts = self.filename.split('.')
-        if len(parts) > 1:
-            return parts[-1]
-        else:
-            return ''
+        return os.path.splitext(self.filename)[1][1:]
 
     @property
     def url(self):

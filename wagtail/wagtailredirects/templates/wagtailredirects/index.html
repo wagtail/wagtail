@@ -3,6 +3,7 @@
 {% block titletag %}{% trans "Redirects" %}{% endblock %}
 
 {% block extra_js %}
+    {{ block.super }}
     <script>
         window.headerSearch = {
             url: "{% url 'wagtailredirects:index' %}",

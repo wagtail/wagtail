@@ -183,6 +183,6 @@ Run the linter with ``scss-lint .`` from the wagtail project root.
 You'll need to have the linter installed to do this. You can get it by
 running:
 
-.. code-block:: bash
+.. code-block:: sh
 
     gem install scss-lint

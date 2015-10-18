@@ -360,17 +360,17 @@ Template rendering
 
 The simplest way to render the contents of a StreamField into your template is to output it as a variable, like any other field:
 
-.. code-block:: django
+.. code-block:: html+django
 
-    {{ self.body }}
+    {{ page.body }}
 
 
 This will render each block of the stream in turn, wrapped in a ``<div class="block-my_block_name">`` element (where ``my_block_name`` is the block name given in the StreamField definition). If you wish to provide your own HTML markup, you can instead iterate over the field's value to access each block in turn:
 
-.. code-block:: django
+.. code-block:: html+django
 
     <article>
-        {% for block in self.body %}
+        {% for block in page.body %}
             <section>{{ block }}</section>
         {% endfor %}
     </article>
@@ -378,10 +378,10 @@ This will render each block of the stream in turn, wrapped in a ``<div class="bl
 
 For more control over the rendering of specific block types, each block object provides ``block_type`` and ``value`` properties:
 
-.. code-block:: django
+.. code-block:: html+django
 
     <article>
-        {% for block in self.body %}
+        {% for block in page.body %}
             {% if block.block_type == 'heading' %}
                 <h1>{{ block.value }}</h1>
             {% else %}
@@ -426,20 +426,20 @@ Or, when defined as a subclass of StructBlock:
             icon = 'user'
 
 
-Within the template, the block value is accessible as the variable ``self``:
+Within the template, the block value is accessible as the variable ``value``:
 
-.. code-block:: django
+.. code-block:: html+django
 
     {% load wagtailimages_tags %}
 
     <div class="person">
-        {% image self.photo width-400 %}
-        <h2>{{ self.first_name }} {{ self.surname }}</h2>
-        {{ self.bound_blocks.biography.render }}
+        {% image value.photo width-400 %}
+        <h2>{{ value.first_name }} {{ value.surname }}</h2>
+        {{ value.bound_blocks.biography.render }}
     </div>
 
 
-The line ``self.bound_blocks.biography.render`` warrants further explanation. While blocks such as RichTextBlock are aware of their own rendering, the actual block *values* (as returned when accessing properties of a StructBlock, such as ``self.biography``), are just plain Python values such as strings. To access the block's proper HTML rendering, you must retrieve the 'bound block' - an object which has access to both the rendering method and the value - via the ``bound_blocks`` property.
+The line ``value.bound_blocks.biography.render`` warrants further explanation. While blocks such as RichTextBlock are aware of their own rendering, the actual block *values* (as returned when accessing properties of a StructBlock, such as ``value.biography``), are just plain Python values such as strings. To access the block's proper HTML rendering, you must retrieve the 'bound block' - an object which has access to both the rendering method and the value - via the ``bound_blocks`` property.
 
 
 Custom block types

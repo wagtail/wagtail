@@ -18,6 +18,10 @@ class TestAdminPageChooserWidget(TestCase):
         )
         self.root_page.add_child(instance=self.child_page)
 
+    def test_not_hidden(self):
+        widget = widgets.AdminPageChooser()
+        self.assertFalse(widget.is_hidden)
+
     def test_render_html(self):
         widget = widgets.AdminPageChooser()
 

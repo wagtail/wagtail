@@ -393,7 +393,8 @@ class DeclarativeSubBlocksMetaclass(BaseBlock):
     (cheerfully stolen from https://github.com/django/django/blob/master/django/forms/forms.py)
     """
     def __new__(mcs, name, bases, attrs):
-        # Collect sub-blocks from current class.
+        # Collect sub-blocks declared on the current class.
+        # These are available on the class as `declared_blocks`
         current_blocks = []
         for key, value in list(attrs.items()):
             if isinstance(value, Block):
@@ -403,23 +404,22 @@ class DeclarativeSubBlocksMetaclass(BaseBlock):
         current_blocks.sort(key=lambda x: x[1].creation_counter)
         attrs['declared_blocks'] = collections.OrderedDict(current_blocks)
 
-        new_class = (super(DeclarativeSubBlocksMetaclass, mcs)
-            .__new__(mcs, name, bases, attrs))
+        new_class = (super(DeclarativeSubBlocksMetaclass, mcs).__new__(
+            mcs, name, bases, attrs))
 
-        # Walk through the MRO.
-        declared_blocks = collections.OrderedDict()
+        # Walk through the MRO, collecting all inherited sub-blocks, to make
+        # the combined `base_blocks`.
+        base_blocks = collections.OrderedDict()
         for base in reversed(new_class.__mro__):
             # Collect sub-blocks from base class.
             if hasattr(base, 'declared_blocks'):
-                declared_blocks.update(base.declared_blocks)
+                base_blocks.update(base.declared_blocks)
 
             # Field shadowing.
             for attr, value in base.__dict__.items():
-                if value is None and attr in declared_blocks:
-                    declared_blocks.pop(attr)
-
-        new_class.base_blocks = declared_blocks
-        new_class.declared_blocks = declared_blocks
+                if value is None and attr in base_blocks:
+                    base_blocks.pop(attr)
+        new_class.base_blocks = base_blocks
 
         return new_class
 

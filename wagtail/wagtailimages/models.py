@@ -3,7 +3,6 @@ from __future__ import unicode_literals
 import os.path
 import hashlib
 from contextlib import contextmanager
-import warnings
 
 
 from taggit.managers import TaggableManager
@@ -21,6 +20,7 @@ from django.conf import settings
 from django.utils.translation import ugettext_lazy as _
 from django.utils.encoding import python_2_unicode_compatible
 from django.utils.functional import cached_property
+from django.utils.six import string_types
 from django.core.urlresolvers import reverse
 
 from unidecode import unidecode
@@ -28,16 +28,21 @@ from unidecode import unidecode
 from wagtail.wagtailcore import hooks
 from wagtail.wagtailadmin.taggable import TagSearchable
 from wagtail.wagtailsearch import index
+from wagtail.wagtailsearch.queryset import SearchableQuerySetMixin
 from wagtail.wagtailimages.rect import Rect
 from wagtail.wagtailimages.exceptions import InvalidFilterSpecError
 from wagtail.wagtailadmin.utils import get_object_usage
-from wagtail.utils.deprecation import RemovedInWagtail12Warning
+from wagtail.utils.compat import get_related_model
 
 
 class SourceImageIOError(IOError):
     """
     Custom exception to distinguish IOErrors that were thrown while opening the source image
     """
+    pass
+
+
+class ImageQuerySet(SearchableQuerySetMixin, models.QuerySet):
     pass
 
 
@@ -74,6 +79,8 @@ class AbstractImage(models.Model, TagSearchable):
     focal_point_height = models.PositiveIntegerField(null=True, blank=True)
 
     file_size = models.PositiveIntegerField(null=True, editable=False)
+
+    objects = ImageQuerySet.as_manager()
 
     def is_stored_locally(self):
         """
@@ -210,13 +217,17 @@ class AbstractImage(models.Model, TagSearchable):
 
         return Rect.from_point(x, y, width, height)
 
+    @classmethod
+    def get_rendition_model(cls):
+        """ Get the Rendition model for this Image model """
+        return get_related_model(cls.renditions.related)
+
     def get_rendition(self, filter):
-        if not hasattr(filter, 'run'):
-            # assume we've been passed a filter spec string, rather than a Filter object
-            # TODO: keep an in-memory cache of filters, to avoid a db lookup
+        if isinstance(filter, string_types):
             filter, created = Filter.objects.get_or_create(spec=filter)
 
         cache_key = filter.get_cache_key(self)
+        Rendition = self.get_rendition_model()
 
         try:
             rendition = self.renditions.get(
@@ -367,13 +378,6 @@ class Filter(models.Model):
                 # Allow changing of JPEG compression quality
                 if hasattr(settings, 'WAGTAILIMAGES_JPEG_QUALITY'):
                     quality = settings.WAGTAILIMAGES_JPEG_QUALITY
-                elif hasattr(settings, 'IMAGE_COMPRESSION_QUALITY'):
-                    quality = settings.IMAGE_COMPRESSION_QUALITY
-
-                    warnings.warn(
-                        "The IMAGE_COMPRESSION_QUALITY setting has been renamed to "
-                        "WAGTAILIMAGES_JPEG_QUALITY. Please update your settings.",
-                        RemovedInWagtail12Warning)
                 else:
                     quality = 85
 
@@ -447,6 +451,9 @@ class AbstractRendition(models.Model):
             return mark_safe('<img %s %s>' % (self.attrs, extra_attributes_string))
         else:
             return mark_safe('<img %s>' % self.attrs)
+
+    def __html__(self):
+        return self.img_tag()
 
     class Meta:
         abstract = True

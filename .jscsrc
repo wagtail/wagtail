@@ -11,6 +11,7 @@
         "node_modules/**",
         "**/*.min.js",
         "**/vendor/**/*.js",
+        "./wagtail/wagtailadmin/static/**",
         "./wagtail/wagtailadmin/templates/wagtailadmin/edit_handlers/inline_panel.js",
         "./wagtail/contrib/wagtailsearchpromotions/templates/wagtailsearchpromotions/includes/searchpromotions_formset.js",
         "./wagtail/wagtailusers/templates/wagtailusers/groups/includes/page_permissions_formset.js",

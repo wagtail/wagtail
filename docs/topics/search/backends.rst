@@ -98,7 +98,7 @@ Prerequisites are the `Elasticsearch`_ service itself and, via pip, the `elastic
 .. _Elasticsearch: https://www.elastic.co/products/elasticsearch
 
 
-.. code-block:: guess
+.. code-block:: sh
 
   pip install elasticsearch
 

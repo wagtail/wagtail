@@ -25,6 +25,36 @@ from wagtail.wagtaildocs import models
 from wagtail.wagtaildocs.rich_text import DocumentLinkHandler
 
 
+class TestDocumentQuerySet(TestCase):
+    def test_search_method(self):
+        # Make a test document
+        document = models.Document.objects.create(title="Test document")
+
+        # Search for it
+        results = models.Document.objects.search("Test")
+        self.assertEqual(list(results), [document])
+
+    def test_operators(self):
+        aaa_document = models.Document.objects.create(title="AAA Test document")
+        zzz_document = models.Document.objects.create(title="ZZZ Test document")
+
+        results = models.Document.objects.search("aaa test", operator='and')
+        self.assertEqual(list(results), [aaa_document])
+
+        results = models.Document.objects.search("aaa test", operator='or')
+        sorted_results = sorted(results, key=lambda doc: doc.title)
+        self.assertEqual(sorted_results, [aaa_document, zzz_document])
+
+    def test_custom_ordering(self):
+        aaa_document = models.Document.objects.create(title="AAA Test document")
+        zzz_document = models.Document.objects.create(title="ZZZ Test document")
+
+        results = models.Document.objects.order_by('title').search("Test")
+        self.assertEqual(list(results), [aaa_document, zzz_document])
+        results = models.Document.objects.order_by('-title').search("Test")
+        self.assertEqual(list(results), [zzz_document, aaa_document])
+
+
 class TestDocumentPermissions(TestCase):
     def setUp(self):
         # Create some user accounts for testing permissions
@@ -553,9 +583,10 @@ class TestServeView(TestCase):
     def test_response_code(self):
         self.assertEqual(self.get().status_code, 200)
 
-    @unittest.expectedFailure  # Filename has a random string appended to it
     def test_content_disposition_header(self):
-        self.assertEqual(self.get()['Content-Disposition'], 'attachment; filename=example.doc')
+        self.assertEqual(
+            self.get()['Content-Disposition'],
+            'attachment; filename="{}"'.format(self.document.filename))
 
     def test_content_length_header(self):
         self.assertEqual(self.get()['Content-Length'], '25')
@@ -583,10 +614,15 @@ class TestServeView(TestCase):
         response = self.client.get(reverse('wagtaildocs_serve', args=(1000, 'blahblahblah', )))
         self.assertEqual(response.status_code, 404)
 
-    @unittest.expectedFailure
     def test_with_incorrect_filename(self):
+        """
+        Wagtail should be forgiving with filenames at the end of the URL. These
+        filenames are to make the URL look nice, and to provide a fallback for
+        browsers that do not handle the 'Content-Disposition' header filename
+        component. They should not be validated.
+        """
         response = self.client.get(reverse('wagtaildocs_serve', args=(self.document.id, 'incorrectfilename')))
-        self.assertEqual(response.status_code, 404)
+        self.assertEqual(response.status_code, 200)
 
     def clear_sendfile_cache(self):
         from wagtail.utils.sendfile import _get_sendfile

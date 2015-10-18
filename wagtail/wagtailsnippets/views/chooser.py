@@ -1,11 +1,11 @@
 import json
 
-from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.core.urlresolvers import reverse
 from django.shortcuts import render, get_object_or_404
 from django.utils.six import text_type
 from django.utils.translation import ugettext as _
 
+from wagtail.utils.pagination import paginate
 from wagtail.wagtailadmin.modal_workflow import render_modal_workflow
 from wagtail.wagtailadmin.forms import SearchForm
 from wagtail.wagtailsearch.index import class_is_indexed
@@ -43,15 +43,7 @@ def choose(request, content_type_app_name, content_type_model_name):
         })
 
     # Pagination
-    p = request.GET.get("p", 1)
-    paginator = Paginator(items, 25)
-
-    try:
-        paginated_items = paginator.page(p)
-    except PageNotAnInteger:
-        paginated_items = paginator.page(1)
-    except EmptyPage:
-        paginated_items = paginator.page(paginator.num_pages)
+    paginator, paginated_items = paginate(request, items, per_page=25)
 
     # If paginating or searching, render "results.html"
     if request.GET.get('results', None) == 'true':

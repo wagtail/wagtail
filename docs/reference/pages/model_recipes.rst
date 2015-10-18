@@ -7,7 +7,7 @@ Recipes
 Overriding the :meth:`~wagtail.wagtailcore.models.Page.serve` Method
 --------------------------------------------------------------------
 
-Wagtail defaults to serving :class:`~wagtail.wagtailcore.models.Page`-derived models by passing ``self`` to a Django HTML template matching the model's name, but suppose you wanted to serve something other than HTML? You can override the :meth:`~wagtail.wagtailcore.models.Page.serve` method provided by the :class:`~wagtail.wagtailcore.models.Page` class and handle the Django request and response more directly.
+Wagtail defaults to serving :class:`~wagtail.wagtailcore.models.Page`-derived models by passing a reference to the page object to a Django HTML template matching the model's name, but suppose you wanted to serve something other than HTML? You can override the :meth:`~wagtail.wagtailcore.models.Page.serve` method provided by the :class:`~wagtail.wagtailcore.models.Page` class and handle the Django request and response more directly.
 
 Consider this example from the Wagtail demo site's ``models.py``, which serves an ``EventPage`` object as an iCal file if the ``format`` variable is set in the request:
 
@@ -113,7 +113,7 @@ First, ``models.py``:
 
         def serve(self, path_components=[]):
             return render(request, self.template, {
-                'self': self,
+                'page': page,
                 'echo': ' '.join(path_components),
             })
 
@@ -187,18 +187,18 @@ Now that we have the many-to-many tag relationship in place, we can fit in a way
                 blogs = blogs.filter(tags__name=tag)
 
             return render(request, self.template, {
-                'self': self,
+                'page': page,
                 'blogs': blogs,
             })
 
 Here, ``blogs.filter(tags__name=tag)`` invokes a reverse Django queryset filter on the ``BlogPageTag`` model to optionally limit the ``BlogPage`` objects sent to the template for rendering. Now, lets render both sides of the relation by showing the tags associated with an object and a way of showing all of the objects associated with each tag. This could be added to the ``blog_page.html`` template:
 
-.. code-block:: django
+.. code-block:: html+django
 
-    {% for tag in self.tags.all %}
-        <a href="{% pageurl self.blog_index %}?tag={{ tag }}">{{ tag }}</a>
+    {% for tag in page.tags.all %}
+        <a href="{% pageurl page.blog_index %}?tag={{ tag }}">{{ tag }}</a>
     {% endfor %}
 
-Iterating through ``self.tags.all`` will display each tag associated with ``self``, while the link(s) back to the index make use of the filter option added to the ``BlogIndexPage`` model. A Django query could also use the ``tagged_items`` related name field to get ``BlogPage`` objects associated with a tag.
+Iterating through ``page.tags.all`` will display each tag associated with ``page``, while the link(s) back to the index make use of the filter option added to the ``BlogIndexPage`` model. A Django query could also use the ``tagged_items`` related name field to get ``BlogPage`` objects associated with a tag.
 
 This is just one possible way of creating a taxonomy for Wagtail objects. With all of the components for a taxonomy available through Wagtail, you should be able to fulfill even the most exotic taxonomic schemes.

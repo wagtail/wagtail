@@ -8,14 +8,14 @@ import wagtail.contrib.wagtailroutablepage.models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('wagtailcore', '0013_update_golive_expire_help_text'),
+        ('wagtailcore', '0019_verbose_names_cleanup'),
     ]
 
     operations = [
         migrations.CreateModel(
             name='RoutablePageTest',
             fields=[
-                ('page_ptr', models.OneToOneField(to='wagtailcore.Page', serialize=False, auto_created=True, primary_key=True, parent_link=True)),
+                ('page_ptr', models.OneToOneField(parent_link=True, auto_created=True, serialize=False, to='wagtailcore.Page', primary_key=True)),
             ],
             options={
                 'abstract': False,

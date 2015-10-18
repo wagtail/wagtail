@@ -192,10 +192,26 @@ class TestPageQuerySet(TestCase):
         # Test that events index is in pages
         self.assertTrue(pages.filter(id=events_index.id).exists())
 
-    def test_sibling_of(self):
+    def test_sibling_of_default(self):
+        """
+        sibling_of should default to an inclusive definition of sibling
+        if 'inclusive' flag not passed
+        """
         events_index = Page.objects.get(url_path='/home/events/')
         event = Page.objects.get(url_path='/home/events/christmas/')
         pages = Page.objects.sibling_of(event)
+
+        # Check that all pages are children of events_index
+        for page in pages:
+            self.assertEqual(page.get_parent(), events_index)
+
+        # Check that the event is included
+        self.assertTrue(pages.filter(id=event.id).exists())
+
+    def test_sibling_of_exclusive(self):
+        events_index = Page.objects.get(url_path='/home/events/')
+        event = Page.objects.get(url_path='/home/events/christmas/')
+        pages = Page.objects.sibling_of(event, inclusive=False)
 
         # Check that all pages are children of events_index
         for page in pages:
@@ -216,10 +232,30 @@ class TestPageQuerySet(TestCase):
         # Check that the event is included
         self.assertTrue(pages.filter(id=event.id).exists())
 
-    def test_not_sibling_of(self):
+    def test_not_sibling_of_default(self):
+        """
+        not_sibling_of should default to an inclusive definition of sibling -
+        i.e. eliminate self from the results as well -
+        if 'inclusive' flag not passed
+        """
         events_index = Page.objects.get(url_path='/home/events/')
         event = Page.objects.get(url_path='/home/events/christmas/')
         pages = Page.objects.not_sibling_of(event)
+
+        # Check that all pages are not children of events_index
+        for page in pages:
+            self.assertNotEqual(page.get_parent(), events_index)
+
+        # Check that the event is not included
+        self.assertFalse(pages.filter(id=event.id).exists())
+
+        # Test that events index is in pages
+        self.assertTrue(pages.filter(id=events_index.id).exists())
+
+    def test_not_sibling_of_exclusive(self):
+        events_index = Page.objects.get(url_path='/home/events/')
+        event = Page.objects.get(url_path='/home/events/christmas/')
+        pages = Page.objects.not_sibling_of(event, inclusive=False)
 
         # Check that all pages are not children of events_index
         for page in pages:
@@ -320,6 +356,46 @@ class TestPageQuerySet(TestCase):
 
         # Check that the event is in the results
         self.assertTrue(pages.filter(id=event.id).exists())
+
+
+class TestPageQuerySetSearch(TestCase):
+    fixtures = ['test.json']
+
+    def test_search(self):
+        pages = EventPage.objects.search('moon', fields=['location'])
+
+        self.assertEqual(pages.count(), 2)
+        self.assertIn(Page.objects.get(url_path='/home/events/tentative-unpublished-event/').specific, pages)
+        self.assertIn(Page.objects.get(url_path='/home/events/someone-elses-event/').specific, pages)
+
+    def test_operators(self):
+        results = EventPage.objects.search("moon ponies", operator='and')
+
+        self.assertEqual(list(results), [
+            Page.objects.get(url_path='/home/events/tentative-unpublished-event/').specific
+        ])
+
+        results = EventPage.objects.search("moon ponies", operator='or')
+        sorted_results = sorted(results, key=lambda page: page.url_path)
+        self.assertEqual(sorted_results, [
+            Page.objects.get(url_path='/home/events/someone-elses-event/').specific,
+            Page.objects.get(url_path='/home/events/tentative-unpublished-event/').specific,
+        ])
+
+    def test_custom_order(self):
+        pages = EventPage.objects.order_by('url_path').search('moon', fields=['location'], order_by_relevance=False)
+
+        self.assertEqual(list(pages), [
+            Page.objects.get(url_path='/home/events/someone-elses-event/').specific,
+            Page.objects.get(url_path='/home/events/tentative-unpublished-event/').specific,
+        ])
+
+        pages = EventPage.objects.order_by('-url_path').search('moon', fields=['location'], order_by_relevance=False)
+
+        self.assertEqual(list(pages), [
+            Page.objects.get(url_path='/home/events/tentative-unpublished-event/').specific,
+            Page.objects.get(url_path='/home/events/someone-elses-event/').specific,
+        ])
 
 
 class TestSpecificQuery(TestCase):

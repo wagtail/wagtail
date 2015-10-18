@@ -1,7 +1,16 @@
 {% load wagtailadmin_tags  %}
 
 {{ self.formset.management_form }}
+
 <ul class="multiple" id="id_{{ self.formset.prefix }}-FORMS">
+    {% if self.formset.non_form_errors %}
+        <li class="error-message">
+            {% for error in self.formset.non_form_errors %}
+                <span>{{ error|escape }}</span>
+            {% endfor %}
+        </li>
+    {% endif %}
+
     {% for child in self.children %}
         {% include "wagtailadmin/edit_handlers/inline_panel_child.html" %}
     {% endfor %}

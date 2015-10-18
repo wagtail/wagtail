@@ -2,6 +2,8 @@
 {% load i18n %}
 {% block titletag %}{% trans 'Search' %}{% endblock %}
 {% block extra_js %}
+    {{ block.super }}
+
     <script>
         window.headerSearch = {
             url: "{% url 'wagtailadmin_pages:search' %}",

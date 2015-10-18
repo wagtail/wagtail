@@ -2,8 +2,8 @@ import json
 
 from django.core.urlresolvers import reverse
 from django.shortcuts import get_object_or_404, render
-from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
+from wagtail.utils.pagination import paginate
 from wagtail.wagtailadmin.modal_workflow import render_modal_workflow
 from wagtail.wagtailadmin.forms import SearchForm
 from wagtail.wagtailadmin.utils import permission_required
@@ -19,7 +19,7 @@ def get_image_json(image):
     helper function: given an image, return the json to pass back to the
     image chooser panel
     """
-    preview_image = image.get_rendition('max-130x100')
+    preview_image = image.get_rendition('max-165x165')
 
     return json.dumps({
         'id': image.id,
@@ -48,26 +48,14 @@ def chooser(request):
         if searchform.is_valid():
             q = searchform.cleaned_data['q']
 
-            # page number
-            p = request.GET.get("p", 1)
-
-            images = Image.search(q, results_per_page=12, page=p)
-
+            images = Image.objects.search(q)
             is_searching = True
-
         else:
             images = Image.objects.order_by('-created_at')
-            p = request.GET.get("p", 1)
-            paginator = Paginator(images, 12)
-
-            try:
-                images = paginator.page(p)
-            except PageNotAnInteger:
-                images = paginator.page(1)
-            except EmptyPage:
-                images = paginator.page(paginator.num_pages)
-
             is_searching = False
+
+        # Pagination
+        paginator, images = paginate(request, images, per_page=12)
 
         return render(request, "wagtailimages/chooser/results.html", {
             'images': images,
@@ -79,15 +67,7 @@ def chooser(request):
         searchform = SearchForm()
 
         images = Image.objects.order_by('-created_at')
-        p = request.GET.get("p", 1)
-        paginator = Paginator(images, 12)
-
-        try:
-            images = paginator.page(p)
-        except PageNotAnInteger:
-            images = paginator.page(1)
-        except EmptyPage:
-            images = paginator.page(paginator.num_pages)
+        paginator, images = paginate(request, images, per_page=12)
 
     return render_modal_workflow(request, 'wagtailimages/chooser/chooser.html', 'wagtailimages/chooser/chooser.js', {
         'images': images,

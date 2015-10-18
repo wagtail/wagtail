@@ -1,11 +1,11 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import get_user_model
-from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.core.urlresolvers import reverse
 from django.db.models import Q
 from django.utils.translation import ugettext as _
 from django.views.decorators.vary import vary_on_headers
 
+from wagtail.utils.pagination import paginate
 from wagtail.wagtailadmin import messages
 from wagtail.wagtailadmin.forms import SearchForm
 from wagtail.wagtailadmin.utils import permission_required, any_permission_required
@@ -26,7 +26,6 @@ delete_user_perm = "{0}.delete_{1}".format(AUTH_USER_APP_LABEL, AUTH_USER_MODEL_
 @vary_on_headers('X-Requested-With')
 def index(request):
     q = None
-    p = request.GET.get("p", 1)
     is_searching = False
 
     if 'q' in request.GET:
@@ -56,14 +55,7 @@ def index(request):
     else:
         ordering = 'name'
 
-    paginator = Paginator(users, 20)
-
-    try:
-        users = paginator.page(p)
-    except PageNotAnInteger:
-        users = paginator.page(1)
-    except EmptyPage:
-        users = paginator.page(paginator.num_pages)
+    paginator, users = paginate(request, users)
 
     if request.is_ajax():
         return render(request, "wagtailusers/users/results.html", {

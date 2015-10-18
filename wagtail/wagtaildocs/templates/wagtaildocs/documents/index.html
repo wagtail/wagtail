@@ -2,6 +2,7 @@
 {% load i18n %}
 {% block titletag %}Documents{% endblock %}
 {% block extra_js %}
+    {{ block.super }}
     <script>
         window.headerSearch = {
             url: "{% url 'wagtaildocs:index' %}",

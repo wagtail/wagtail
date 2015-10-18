@@ -4,12 +4,33 @@ Changelog
 1.2 (xx.xx.xxxx)
 ~~~~~~~~~~~~~~~~
 
+ * Core templatetags (pageurl, image, wagtailuserbar, etc) are now compatible with Jinja2
+ * Image and document models now provide a `search` method on their QuerySets
+ * Search methods now accept an `operator` argument to determine whether multiple terms are ORed or ANDed together
+ * Search methods now accept an `order_by_relevance` argument, which can be set to False to preserve the original QuerySet ordering
+ * InlinePanel now accepts `max_num` and `min_num` arguments to limit the number of inline items
+ * 'Add' button on inline panels is disabled when `max_num` is reached (Salvador Faria)
  * WagtailRedirectMiddleware can now ignore the query string if there is no redirect that exactly matches it (Michael Cordover)
  * Order of URL parameters now ignored by redirect middleware (Michael Cordover)
  * Added SQL Server compatibility to image migration (Timothy Allen)
  * Added classnames to Wagtail rich text editor buttons to aid custom styling (Rob Shelton)
+ * Simplified body_class in default homepage template (Josh Barr)
+ * page_published signal now called with the revision object that was published (Josh Barr)
+ * Added an overrideable favicon to the admin interface
+ * Added spinner animations to long-running form submissions
+ * The EMBEDLY_KEY setting has been renamed to WAGTAILEMBEDS_EMBEDLY_KEY (Anurag Sharma)
+ * StreamField blocks are now added automatically, without showing the block types menu, if only one block type exists (Alex Gleason)
+ * Wagtail admin now standardises on a single thumbnail image size, to reduce the overhead of creating multiple renditions
+ * The `first_published_at` and `latest_revision_created_at` fields on page models are now available as filter fields on search queries
+ * Rich text fields now strip out HTML comments
+ * Page editor form now sets enctype="multipart/form-data" as appropriate, allowing FileField to be used on page models (Petr Vacha)
  * Fix: Deleting a page permission from the groups admin UI does not immediately submit the form
  * Fix: Wagtail userbar is shown on pages that do not pass a `page` variable to the template (e.g. because they override the `serve` method)
+ * Fix: request.site now set correctly on page preview when the page is not in the default site
+ * Fix: Project template no longer raises a deprecation warning (Maximilian Stauss)
+ * Fix: `PageManager.sibling_of(page)` and `PageManager.not_sibling_of(page)` now default to inclusive (i.e. `page` is considered a sibling of itself), for consistency with other sibling methods
+ * Fix: The "view live" button displayed after publishing a page now correctly reflects any changes made to the page slug (Ryan Pineo)
+ * Fix: API endpoints now accept and ignore the `_` query parameter used by jQuery for cache-busting
 
 
 1.1 (15.09.2015)
