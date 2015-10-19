@@ -96,7 +96,7 @@ class CloudfrontBackend(BaseBackend):
 
     def purge(self, url):
         try:
-            response = client.create_invalidation(
+            self.client.create_invalidation(
                 DistributionId=self.cloudfront_distribution_id,
                 InvalidationBatch={
                     'Paths': {
