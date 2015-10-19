@@ -8,7 +8,7 @@ Frontend cache invalidator
    * Multiple backend support added
    * Cloudflare support added
 
-Many websites use a frontend cache such as Varnish, Squid or Cloudflare to gain extra performance. The downside of using a frontend cache though is that they don't respond well to updating content and will often keep an old version of a page cached after it has been updated.
+Many websites use a frontend cache such as Varnish, Squid, Cloudflare or Cloudfront to gain extra performance. The downside of using a frontend cache though is that they don't respond well to updating content and will often keep an old version of a page cached after it has been updated.
 
 This document describes how to configure Wagtail to purge old versions of pages from a frontend cache whenever a page gets updated.
 
@@ -93,6 +93,8 @@ Add an item into the ``WAGTAILFRONTENDCACHE`` and set the ``BACKEND`` parameter 
             'DISTRIBUTION_ID': 'your-distribution-id',
         },
     }
+
+Configuration of credentials can done in multiple ways. You won't need to store them in your Django settings file. You can read more about this here: `Boto 3 Docs <http://boto3.readthedocs.org/en/latest/guide/configuration.html>`_
 
 
 Advanced usage
