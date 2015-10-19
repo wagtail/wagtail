@@ -1,8 +1,10 @@
 from __future__ import absolute_import, unicode_literals
 
 import boto3
+import botocore
 import json
 import logging
+import uuid
 
 from django.utils.six.moves.urllib.error import HTTPError, URLError
 from django.utils.six.moves.urllib.parse import urlencode, urlparse, urlunparse
@@ -93,4 +95,19 @@ class CloudfrontBackend(BaseBackend):
         self.cloudfront_distribution_id = params.pop('DISTRIBUTION_ID')
 
     def purge(self, url):
-        pass
+        try:
+            response = client.create_invalidation(
+                DistributionId=self.cloudfront_distribution_id,
+                InvalidationBatch={
+                    'Paths': {
+                        'Quantity': 1,
+                        'Items': [
+                            url,
+                        ]
+                    },
+                    'CallerReference': str(uuid.uuid4())
+                }
+            )
+        except botocore.exceptions.ClientError as e:
+            logger.error("Couldn't purge '%s' from Cloudfront. ClientError: %s %s", url, e.response['Error']['Code'], e.response['Error']['Message'])
+            return
