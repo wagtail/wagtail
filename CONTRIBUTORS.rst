@@ -1,5 +1,5 @@
 Authors
-================
+=======
 
 * Matthew Westcott (Torchbox) twitter: @gasmanic
 * David Cranwell (Torchbox) twitter: @davecranwell
@@ -73,7 +73,7 @@ Contributors
 * Ryan Pineo
 * Petr Vacha
 * Josh Barr
-
+* Richard Mitchell (Isotoma Limited)
 
 Translators
 ===========

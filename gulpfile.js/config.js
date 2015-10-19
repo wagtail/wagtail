@@ -38,6 +38,7 @@ var apps = [
     new App('wagtail/wagtaildocs'),
     new App('wagtail/wagtailembeds'),
     new App('wagtail/wagtailforms'),
+    new App('wagtail/wagtailhalloeditor'),
     new App('wagtail/wagtailimages', {
         'scss': [
             'wagtailimages/scss/add-multiple.scss',

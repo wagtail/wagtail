@@ -211,6 +211,35 @@ The available hooks are:
     @hooks.register('insert_editor_js')
     def editor_js():
       js_files = [
+        'demo/js/credit-card-input.js',
+      ]
+      js_includes = format_html_join('\n', '<script src="{0}{1}"></script>',
+        ((settings.STATIC_URL, filename) for filename in js_files)
+      )
+      return js_includes + format_html(
+        """
+        <script>
+          localizeCreditCardInput('en-gb');
+        </script>
+        """
+      )
+
+
+.. _insert_editor_js:
+
+``insert_hallo_js``
+  Add additional Javascript files or code snippets to the ``hallo.js`` editor. Output must be compatible with ``compress``, as local static includes or string.
+
+  .. code-block:: python
+
+    from django.utils.html import format_html, format_html_join
+    from django.conf import settings
+
+    from wagtail.wagtailcore import hooks
+
+    @hooks.register('insert_hallo_js')
+    def editor_js():
+      js_files = [
         'demo/js/hallo-plugins/hallo-demo-plugin.js',
       ]
       js_includes = format_html_join('\n', '<script src="{0}{1}"></script>',
@@ -242,6 +271,25 @@ The available hooks are:
       return format_html('<link rel="stylesheet" href="' \
       + settings.STATIC_URL \
       + 'demo/css/vendor/font-awesome/css/font-awesome.min.css">')
+
+
+.. _insert_hallo_css:
+
+``insert_hallo_css``
+  Add additional CSS or SCSS files or snippets to ``hallo.js``. Output must be compatible with ``compress``, as local static includes or string.
+
+  .. code-block:: python
+
+    from django.utils.html import format_html
+    from django.conf import settings
+
+    from wagtail.wagtailcore import hooks
+
+    @hooks.register('insert_hallo_css')
+    def editor_css():
+      return format_html('<link rel="stylesheet" href="' \
+      + settings.STATIC_URL \
+      + 'demo/css/custom-styles.css">')
 
 .. _construct_whitelister_element_rules:
 

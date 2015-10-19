@@ -1,18 +1,69 @@
 from __future__ import absolute_import, unicode_literals
 
 import json
+import sys
 
-from django.db import models
 from django import forms
+from django.conf import settings
+from django.core.exceptions import ImproperlyConfigured
 from django.core.serializers.json import DjangoJSONEncoder
-from django.utils.six import with_metaclass, string_types
+from django.db import models
+from django.utils.module_loading import import_string
+from django.utils.six import with_metaclass, string_types, reraise
 
 from wagtail.wagtailcore.rich_text import DbWhitelister, expand_db_html
 from wagtail.utils.widgets import WidgetWithScript
 from wagtail.wagtailcore.blocks import Block, StreamBlock, StreamValue, BlockField
 
 
+class BaseRichTextEditor(object):
+
+    def __init__(self, widget):
+        self.widget = widget
+
+    def render_js_init(self, id_, name, value):
+        return ""
+
+
+DEFAULT_RICH_TEXT_EDITOR_CLASS = None
+
+
+def configure_default_rich_text_editor(editor_class_name=None):
+    # Try Hallo as default if none is define in settings
+    editor_class = None
+    if editor_class_name is None:
+        editor_class_name = getattr(settings, 'WAGTAIL_DEFAULT_RICH_TEXT_EDITOR', None)
+    if editor_class_name is None:
+        # Fallback to Hallo
+        # Can't use ``apps.get_app`` since ``wagtailhalloeditor`` defines no models.
+        try:
+            from wagtail.wagtailhalloeditor.editor import HalloEditor
+            editor_class = HalloEditor
+        except ImportError:
+            # If wagtailhalloeditor is unavailable for some reason, use a stub.
+            editor_class = BaseRichTextEditor
+    elif callable(editor_class_name):
+        # an actual class or factory has been assigned to the setting. Just use that.
+        editor_class = editor_class_name
+
+    if editor_class is None:
+        try:
+            editor_class = import_string(editor_class_name)
+        except (AttributeError, ImportError):
+            exc = ImproperlyConfigured(
+                'Editor class (WAGTAIL_DEFAULT_RICH_TEXT_EDITOR) does not exist, {!r}.'.format(
+                    editor_class_name
+                ))
+            reraise(ImproperlyConfigured, exc, sys.exc_info()[2])
+
+    global DEFAULT_RICH_TEXT_EDITOR_CLASS
+    DEFAULT_RICH_TEXT_EDITOR_CLASS = editor_class
+
+
 class RichTextArea(WidgetWithScript, forms.Textarea):
+
+    rich_text_editor_class = None
+
     def get_panel(self):
         from wagtail.wagtailadmin.edit_handlers import RichTextFieldPanel
         return RichTextFieldPanel
@@ -24,8 +75,15 @@ class RichTextArea(WidgetWithScript, forms.Textarea):
             translated_value = expand_db_html(value, for_editor=True)
         return super(RichTextArea, self).render(name, translated_value, attrs)
 
+    @property
+    def rich_text_editor(self):
+        editor_class = self.rich_text_editor_class
+        if editor_class is None:
+            editor_class = DEFAULT_RICH_TEXT_EDITOR_CLASS
+        return editor_class(self)
+
     def render_js_init(self, id_, name, value):
-        return "makeRichTextEditable({0});".format(json.dumps(id_))
+        return self.rich_text_editor.render_js_init(id_, name, value)
 
     def value_from_datadict(self, data, files, name):
         original_value = super(RichTextArea, self).value_from_datadict(data, files, name)
