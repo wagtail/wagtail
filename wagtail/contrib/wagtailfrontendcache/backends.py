@@ -1,5 +1,6 @@
 from __future__ import absolute_import, unicode_literals
 
+import boto3
 import json
 import logging
 
@@ -88,6 +89,7 @@ class CloudflareBackend(BaseBackend):
 
 class CloudfrontBackend(BaseBackend):
     def __init__(self, params):
+        self.client = boto3.client('cloudfront')
         self.cloudfront_distribution_id = params.pop('DISTRIBUTION_ID')
 
     def purge(self, url):
