@@ -372,6 +372,7 @@ $(function() {
     if (!$('body').hasClass('page-is-live')) {
         initSlugAutoPopulate();
     }
+
     initSlugCleaning();
     initErrorDetection();
     initCollapsibleBlocks();
