@@ -4,10 +4,12 @@ from collections import OrderedDict
 
 from django.conf.urls import url
 from django.http import Http404
+from django.core.urlresolvers import reverse
 
 from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.viewsets import GenericViewSet
+from rest_framework.renderers import JSONRenderer
 
 from wagtail.wagtailcore.models import Page
 from wagtail.wagtailimages.models import get_image_model
@@ -18,14 +20,13 @@ from .filters import (
     FieldsFilter, OrderingFilter, SearchFilter,
     ChildOfFilter, DescendantOfFilter
 )
-from .renderers import WagtailJSONRenderer
 from .pagination import WagtailPagination
 from .serializers import BaseSerializer, PageSerializer, DocumentSerializer, ImageSerializer, get_serializer_class
 from .utils import BadRequestError
 
 
 class BaseAPIEndpoint(GenericViewSet):
-    renderer_classes = [WagtailJSONRenderer]
+    renderer_classes = [JSONRenderer]
     pagination_class = WagtailPagination
     base_serializer_class = BaseSerializer
     filter_backends = []
@@ -140,6 +141,7 @@ class BaseAPIEndpoint(GenericViewSet):
         context = {
             'request': self.request,
             'view': self,
+            'router': self.request.wagtailapi_router
         }
 
         if self.action == 'detail_view':
@@ -149,11 +151,7 @@ class BaseAPIEndpoint(GenericViewSet):
 
     def get_renderer_context(self):
         context = super(BaseAPIEndpoint, self).get_renderer_context()
-        context['endpoints'] = [
-            PagesAPIEndpoint,
-            ImagesAPIEndpoint,
-            DocumentsAPIEndpoint
-        ]
+        context['indent'] = 4
         return context
 
     @classmethod
@@ -165,6 +163,15 @@ class BaseAPIEndpoint(GenericViewSet):
             url(r'^$', cls.as_view({'get': 'listing_view'}), name='listing'),
             url(r'^(?P<pk>\d+)/$', cls.as_view({'get': 'detail_view'}), name='detail'),
         ]
+
+    @classmethod
+    def get_object_detail_urlpath(cls, model, pk, namespace=''):
+        if namespace:
+            url_name = namespace + ':detail'
+        else:
+            url_name = 'detail'
+
+        return reverse(url_name, args=(pk, ))
 
 
 class PagesAPIEndpoint(BaseAPIEndpoint):
