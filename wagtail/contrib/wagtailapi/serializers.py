@@ -13,7 +13,14 @@ from rest_framework import relations
 from wagtail.utils.compat import get_related_model
 from wagtail.wagtailcore import fields as wagtailcore_fields
 
-from .utils import ObjectDetailURL, URLPath, pages_for_site
+from .utils import get_full_url, pages_for_site
+
+
+def get_object_detail_url(context, model, pk):
+    url_path = context['router'].get_object_detail_urlpath(model, pk)
+
+    if url_path:
+        return get_full_url(context['request'], url_path)
 
 
 class MetaField(Field):
@@ -35,7 +42,7 @@ class MetaField(Field):
     def to_representation(self, obj):
         return OrderedDict([
             ('type', type(obj)._meta.app_label + '.' + type(obj).__name__),
-            ('detail_url', ObjectDetailURL(type(obj), obj.pk)),
+            ('detail_url', get_object_detail_url(self.context, type(obj), obj.pk)),
         ])
 
 
@@ -55,7 +62,7 @@ class PageMetaField(MetaField):
     def to_representation(self, page):
         return OrderedDict([
             ('type', page.specific_class._meta.app_label + '.' + page.specific_class.__name__),
-            ('detail_url', ObjectDetailURL(type(page), page.pk)),
+            ('detail_url', get_object_detail_url(self.context, type(page), page.pk)),
         ])
 
 
@@ -74,12 +81,12 @@ class DocumentMetaField(MetaField):
     def to_representation(self, document):
         data = OrderedDict([
             ('type', "wagtaildocs.Document"),
-            ('detail_url', ObjectDetailURL(type(document), document.pk)),
+            ('detail_url', get_object_detail_url(self.context, type(document), document.pk)),
         ])
 
         # Add download url
         if self.context.get('show_details', False):
-            data['download_url'] = URLPath(document.url)
+            data['download_url'] = get_full_url(self.context['request'], document.url)
 
         return data
 
@@ -101,9 +108,12 @@ class RelatedField(relations.RelatedField):
     meta_field_serializer_class = MetaField
 
     def to_representation(self, value):
+        meta_serializer = self.meta_field_serializer_class()
+        meta_serializer.bind('meta', self)
+
         return OrderedDict([
             ('id', value.pk),
-            ('meta', self.meta_field_serializer_class().to_representation(value)),
+            ('meta', meta_serializer.to_representation(value)),
         ])
 
 
@@ -163,7 +173,7 @@ class ChildRelationField(Field):
 
     def to_representation(self, value):
         serializer_class = get_serializer_class(value.model, self.child_fields)
-        serializer = serializer_class()
+        serializer = serializer_class(context=self.context)
 
         return [
             serializer.to_representation(child_object)
