@@ -79,6 +79,10 @@ Add an item into the ``WAGTAILFRONTENDCACHE`` and set the ``BACKEND`` parameter 
 Cloudfront
 ^^^^^^^^^^
 
+Within Amazon Web Services you will need at least one Cloudfront web distribution. If you don't have one, you can do this here: `Cloudfront getting started <https://aws.amazon.com/cloudfront/>`_
+
+Add an item into the ``WAGTAILFRONTENDCACHE`` and set the ``BACKEND`` parameter to ``wagtail.contrib.wagtailfrontendcache.backends.CloudfrontBackend``. This backend requires on extra parameter, ``DISTRIBUTION_ID`` (your Cloudfront generated distrubition id).
+
 .. code-block:: python
 
     # settings.py
