@@ -76,6 +76,21 @@ Add an item into the ``WAGTAILFRONTENDCACHE`` and set the ``BACKEND`` parameter 
     }
 
 
+Cloudfront
+^^^^^^^^^^
+
+.. code-block:: python
+
+    # settings.py
+
+    WAGTAILFRONTENDCACHE = {
+        'cloudfront': {
+            'BACKEND': 'wagtail.contrib.wagtailfrontendcache.backends.CloudfrontBackend',
+            'DISTRIBUTION_ID': 'your-distribution-id',
+        },
+    }
+
+
 Advanced usage
 --------------
 

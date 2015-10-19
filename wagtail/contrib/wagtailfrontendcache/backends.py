@@ -84,3 +84,11 @@ class CloudflareBackend(BaseBackend):
         if response_json['result'] == 'error':
             logger.error("Couldn't purge '%s' from Cloudflare. Cloudflare error '%s'", url, response_json['msg'])
             return
+
+
+class CloudfrontBackend(BaseBackend):
+    def __init__(self, params):
+        self.cloudfront_distribution_id = params.pop('DISTRIBUTION_ID')
+
+    def purge(self, url):
+        pass
