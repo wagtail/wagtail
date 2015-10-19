@@ -1439,3 +1439,14 @@ class TestSystemCheck(TestCase):
         self.assertEqual(errors[1].id, 'wagtailcore.E001')
         self.assertEqual(errors[1].hint, "Block names cannot contain spaces")
         self.assertEqual(errors[0].obj, failing_block_2)
+
+
+class TestTemplateRendering(TestCase):
+    def test_render_with_custom_context(self):
+        from wagtail.tests.testapp.blocks import LinkBlock
+
+        block = LinkBlock()
+        value = block.to_python({'title': 'Torchbox', 'url': 'http://torchbox.com/'})
+        result = block.render(value)
+
+        self.assertEqual(result, '<a href="http://torchbox.com/" class="important">Torchbox</a>')
