@@ -441,6 +441,7 @@ Within the template, the block value is accessible as the variable ``value``:
 
 The line ``value.bound_blocks.biography.render`` warrants further explanation. While blocks such as RichTextBlock are aware of their own rendering, the actual block *values* (as returned when accessing properties of a StructBlock, such as ``value.biography``), are just plain Python values such as strings. To access the block's proper HTML rendering, you must retrieve the 'bound block' - an object which has access to both the rendering method and the value - via the ``bound_blocks`` property.
 
+.. _streamfield_get_context:
 
 To pass additional context variables to the template, block subclasses can override the ``get_context`` method:
 

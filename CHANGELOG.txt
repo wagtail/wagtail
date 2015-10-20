@@ -10,6 +10,7 @@ Changelog
  * Search methods now accept an `order_by_relevance` argument, which can be set to False to preserve the original QuerySet ordering
  * InlinePanel now accepts `max_num` and `min_num` arguments to limit the number of inline items
  * 'Add' button on inline panels is disabled when `max_num` is reached (Salvador Faria)
+ * StreamField blocks now provide a `get_context` method for passing additional variables to the block template
  * WagtailRedirectMiddleware can now ignore the query string if there is no redirect that exactly matches it (Michael Cordover)
  * Order of URL parameters now ignored by redirect middleware (Michael Cordover)
  * Added SQL Server compatibility to image migration (Timothy Allen)
@@ -24,6 +25,8 @@ Changelog
  * The `first_published_at` and `latest_revision_created_at` fields on page models are now available as filter fields on search queries
  * Rich text fields now strip out HTML comments
  * Page editor form now sets enctype="multipart/form-data" as appropriate, allowing FileField to be used on page models (Petr Vacha)
+ * Explorer navigation menu on a completely empty page tree now takes you to the root level, rather than doing nothing
+ * Fix: Page slugs are no longer auto-updated from the page title if the page is already published
  * Fix: Deleting a page permission from the groups admin UI does not immediately submit the form
  * Fix: Wagtail userbar is shown on pages that do not pass a `page` variable to the template (e.g. because they override the `serve` method)
  * Fix: request.site now set correctly on page preview when the page is not in the default site

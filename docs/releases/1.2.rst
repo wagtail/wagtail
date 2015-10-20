@@ -39,6 +39,12 @@ Inline panels now accept the optional parameters ``max_num`` and ``min_num``, to
 See: :ref:`inline_panels`
 
 
+``get_context`` on StreamField blocks
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+StreamField blocks now :ref:`provide a get_context method <streamfield_get_context>` that can be overridden to pass additional variables to the block's template.
+
+
 Minor features
 ~~~~~~~~~~~~~~
 
@@ -56,10 +62,12 @@ Minor features
  * Wagtail admin now standardises on a single thumbnail image size, to reduce the overhead of creating multiple renditions
  * Rich text fields now strip out HTML comments
  * Page editor form now sets ``enctype="multipart/form-data"`` as appropriate, allowing FileField to be used on page models (Petr Vacha)
+ * Explorer navigation menu on a completely empty page tree now takes you to the root level, rather than doing nothing
 
 Bug fixes
 ~~~~~~~~~
 
+ * Page slugs are no longer auto-updated from the page title if the page is already published
  * Deleting a page permission from the groups admin UI does not immediately submit the form
  * Wagtail userbar is shown on pages that do not pass a ``page`` variable to the template (e.g. because they override the ``serve`` method)
  * ``request.site`` now set correctly on page preview when the page is not in the default site
