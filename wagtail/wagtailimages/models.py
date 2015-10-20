@@ -360,10 +360,9 @@ class Filter(models.Model):
 
             # Split size and quality aspects
             _parts = op_spec.split('_c_')
-
             try:
                 self.quality = _parts[1]
-            except Exception:
+            except IndexError:
                 self.quality = False
 
             op_spec_parts = _parts[0].split('-')
@@ -385,17 +384,15 @@ class Filter(models.Model):
             output_format = willow.original_format
 
             if willow.original_format == 'jpeg':
+
                 # Allow setting of JPEG compression quality
                 if not self.quality:
                     if hasattr(settings, 'WAGTAILIMAGES_JPEG_QUALITY'):
-                        quality = settings.WAGTAILIMAGES_JPEG_QUALITY
+                        self.quality = settings.WAGTAILIMAGES_JPEG_QUALITY
                     else:
-                        quality = 85    # Default
-                else:
-                    # Per tag setting
-                    quality = int(self.quality)
+                        self.quality = 85    # Default
 
-                willow.save_as_jpeg(output, quality=quality)
+                willow.save_as_jpeg(output, quality=self.quality)
 
             if willow.original_format == 'gif':
                 # Convert image to PNG if it's not animated
