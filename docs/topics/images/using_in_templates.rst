@@ -175,7 +175,7 @@ You can also use the ``attrs`` property as a shorthand to output the attributes 
 Jpeg image compression
 ------------------------
 
-You can control jpeg compression per tag, overriding the default of 85 or the project wide ``WAGTAILIMAGES_JPEG_QUALITY`` setting, using a ``compress`` speccification:
+You can control jpeg compression per tag, overriding the default of 85 or the project wide ``WAGTAILIMAGES_JPEG_QUALITY`` setting, using a ``compress`` spec:
 
     .. code-block:: html+django
 
