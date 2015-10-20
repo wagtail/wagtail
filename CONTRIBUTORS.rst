@@ -73,6 +73,7 @@ Contributors
 * Ryan Pineo
 * Petr Vacha
 * Josh Barr
+* Sævar Öfjörð Magnússon
 
 
 Translators
@@ -93,7 +94,7 @@ Translators
 * German: Karl Sander, Johannes Spielmann, m0rph3u5, pcraston, Tammo van Lessen
 * Greek: Serafeim Papastefanos, Jim Dal
 * Hebrew (Israel): bjesus, Lior Abazon
-* Icelandic: Arnar Tumi Þorsteinsson, saevarom
+* Icelandic: Arnar Tumi Þorsteinsson, Sævar Öfjörð Magnússon
 * Italian: Andrea Tagliazucchi, Claudio Bantaloukas, Alessio Di Stasio, Giacomo Ghizzani
 * Japanese: Daigo Shitara, Toshikazu Michisu
 * Mongolian: Delgermurun Purevkhuu, miiiga

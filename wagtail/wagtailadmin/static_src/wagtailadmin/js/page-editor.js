@@ -296,7 +296,7 @@ function InlinePanel(opts) {
 
 function cleanForSlug(val, useURLify) {
     if (URLify != undefined && useURLify !== false) { // Check to be sure that URLify function exists, and that we want to use it.
-        return URLify(val, val.length);
+        return URLify(val);
     } else { // If not just do the "replace"
         return val.replace(/\s/g, '-').replace(/[^A-Za-z0-9\-\_]/g, '').toLowerCase();
     }

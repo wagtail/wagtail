@@ -67,7 +67,7 @@ Bug fixes
  * ``PageManager.sibling_of(page)`` and ``PageManager.not_sibling_of(page)`` now default to inclusive (i.e. ``page`` is considered a sibling of itself), for consistency with other sibling methods
  * The "view live" button displayed after publishing a page now correctly reflects any changes made to the page slug (Ryan Pineo)
  * API endpoints now accept and ignore the ``_`` query parameter used by jQuery for cache-busting
-
+ * Page slugs are no longer cut off when Unicode characters are expanded into multiple characters (Sævar Öfjörð Magnússon)
 
 Upgrade considerations
 ======================
