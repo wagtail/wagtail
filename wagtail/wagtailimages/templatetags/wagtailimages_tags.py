@@ -16,7 +16,7 @@ def image(parser, token):
     bits = bits[2:]     # Grab everything else
 
     as_bits = []
-    compress=None
+    compress = None
 
     # Parse out 'as' item and compression spec
     for index, item in enumerate(bits):
