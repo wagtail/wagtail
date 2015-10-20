@@ -1,3 +1,4 @@
+import re
 from django import template
 from django.utils.functional import cached_property
 
@@ -8,34 +9,52 @@ register = template.Library()
 
 @register.tag(name="image")
 def image(parser, token):
+
     bits = token.split_contents()[1:]
     image_expr = parser.compile_filter(bits[0])
-    filter_spec = bits[1]
-    bits = bits[2:]
+    filter_spec = bits[1]   # Grab the filter Spec
+    bits = bits[2:]     # Grab everything else
 
-    if len(bits) == 2 and bits[0] == 'as':
-        # token is of the form {% image self.photo max-320x200 as img %}
-        return ImageNode(image_expr, filter_spec, output_var_name=bits[1])
-    else:
-        # token is of the form {% image self.photo max-320x200 %} - all additional tokens
-        # should be kwargs, which become attributes
-        attrs = {}
-        for bit in bits:
-            try:
-                name, value = bit.split('=')
-            except ValueError:
-                raise template.TemplateSyntaxError("'image' tag should be of the form {% image self.photo max-320x200 [ custom-attr=\"value\" ... ] %} or {% image self.photo max-320x200 as img %}")
-            attrs[name] = parser.compile_filter(value)  # setup to resolve context variables as value
+    as_bits = []
+    compress=None
 
-        return ImageNode(image_expr, filter_spec, attrs=attrs)
+    # Parse out 'as' item and compression spec
+    for index, item in enumerate(bits):
+        if item == 'as' and bits[index + 1]:    # Check fo 'as' and alias
+            bits = bits[:index]   # Reassign remaining bits
+            as_bits = bits[index:]
+
+        compression = re.match(r"^compress\-([0-9]{1,2})$", item)
+        if compression:
+            compress = compression.group(1)
+            bits.pop(index)
+
+    as_bit = False
+    if len(as_bits) == 2 and as_bits[0] == 'as':
+        as_bit = as_bits[1]
+
+    # token is of the form {% image self.photo max-320x200 compress-55 %} - all additional tokens
+    # should be kwargs, which become attributes
+    attrs = {}
+    for bit in bits:
+        try:
+            name, value = bit.split('=')
+        except ValueError:
+            raise template.TemplateSyntaxError("'image' tag should be of the form {% image self.photo max-320x200 [ compress-[compress-ratio] custom-attr=\"value\" ... ] %} or {% image self.photo max-320x200 as img %}")
+        attrs[name] = parser.compile_filter(value)  # setup to resolve context variables as value
+
+    return ImageNode(image_expr, filter_spec, attrs=attrs, output_var_name=as_bit, compress=compress)
 
 
 class ImageNode(template.Node):
-    def __init__(self, image_expr, filter_spec, output_var_name=None, attrs={}):
+    def __init__(self, image_expr, filter_spec, output_var_name=None, attrs={}, compress=None):
         self.image_expr = image_expr
         self.output_var_name = output_var_name
         self.attrs = attrs
         self.filter_spec = filter_spec
+
+        if compress:
+            self.filter_spec = "%s_c_%s" % (self.filter_spec, compress)
 
     @cached_property
     def filter(self):
