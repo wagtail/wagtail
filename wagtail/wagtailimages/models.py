@@ -358,8 +358,10 @@ class Filter(models.Model):
         operations = []
         for op_spec in self.spec.split():
 
-            # Split size and quality aspects
+            # Split operation and compress specs
             _parts = op_spec.split('_c_')
+            
+            # Set self.quality for later use
             try:
                 self.quality = _parts[1]
             except IndexError:
