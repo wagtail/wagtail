@@ -360,7 +360,7 @@ class Filter(models.Model):
 
             # Split operation and compress specs
             _parts = op_spec.split('_c_')
-            
+
             # Set self.quality for later use
             try:
                 self.quality = _parts[1]
