@@ -55,6 +55,7 @@ Minor features
  * The ``first_published_at`` and ``latest_revision_created_at`` fields on page models are now available as filter fields on search queries
  * Wagtail admin now standardises on a single thumbnail image size, to reduce the overhead of creating multiple renditions
  * Rich text fields now strip out HTML comments
+ * Page editor form now sets ``enctype="multipart/form-data"`` as appropriate, allowing FileField to be used on page models (Petr Vacha)
 
 Bug fixes
 ~~~~~~~~~

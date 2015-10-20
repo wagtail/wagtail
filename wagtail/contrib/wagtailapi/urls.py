@@ -1,17 +1,16 @@
 from __future__ import absolute_import
 
-from django.conf.urls import url, include
+from django.conf.urls import url
 
 from .endpoints import PagesAPIEndpoint, ImagesAPIEndpoint, DocumentsAPIEndpoint
+from .router import WagtailAPIRouter
 
 
-v1 = [
-    url(r'^pages/', include(PagesAPIEndpoint.get_urlpatterns(), namespace='pages')),
-    url(r'^images/', include(ImagesAPIEndpoint.get_urlpatterns(), namespace='images')),
-    url(r'^documents/', include(DocumentsAPIEndpoint.get_urlpatterns(), namespace='documents'))
-]
-
+v1 = WagtailAPIRouter('wagtailapi_v1')
+v1.register_endpoint('pages', PagesAPIEndpoint)
+v1.register_endpoint('images', ImagesAPIEndpoint)
+v1.register_endpoint('documents', DocumentsAPIEndpoint)
 
 urlpatterns = [
-    url(r'^v1/', include(v1, namespace='wagtailapi_v1')),
+    url(r'^v1/', v1.urls),
 ]

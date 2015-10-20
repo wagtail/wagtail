@@ -2,10 +2,8 @@
 
 import sys
 
-from setuptools.command.sdist import sdist
-
 from wagtail.wagtailcore import __version__
-from wagtail.utils.setup import assets, add_subcommand, check_bdist_egg
+from wagtail.utils.setup import assets, sdist, check_bdist_egg
 
 try:
     from setuptools import setup, find_packages
@@ -70,7 +68,7 @@ setup(
     """,
     zip_safe=False,
     cmdclass={
-        'sdist': add_subcommand(sdist, [('assets', None)]),
+        'sdist': sdist,
         'bdist_egg': check_bdist_egg,
         'assets': assets,
     },

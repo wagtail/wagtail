@@ -303,15 +303,19 @@ function cleanForSlug(val, useURLify) {
 }
 
 function initSlugAutoPopulate() {
+    var slugFollowsTitle = false;
+
     $('#id_title').on('focus', function() {
-        $('#id_slug').data('previous-val', $('#id_slug').val());
-        $(this).data('previous-val', $(this).val());
+        /* slug should only follow the title field if its value matched the title's value at the time of focus */
+        var currentSlug = $('#id_slug').val();
+        var slugifiedTitle = cleanForSlug(this.value);
+        slugFollowsTitle = (currentSlug == slugifiedTitle);
     });
 
     $('#id_title').on('keyup keydown keypress blur', function() {
-        if ($('body').hasClass('create') || (!$('#id_slug').data('previous-val').length || cleanForSlug($('#id_title').data('previous-val')) === $('#id_slug').data('previous-val'))) {
-            // only update slug if the page is being created from scratch, if slug is completely blank, or if title and slug prior to typing were identical
-            $('#id_slug').val(cleanForSlug($('#id_title').val()));
+        if (slugFollowsTitle) {
+            var slugifiedTitle = cleanForSlug(this.value);
+            $('#id_slug').val(slugifiedTitle);
         }
     });
 }
@@ -364,7 +368,11 @@ function initCollapsibleBlocks() {
 }
 
 $(function() {
-    initSlugAutoPopulate();
+    /* Only non-live pages should auto-populate the slug from the title */
+    if (!$('body').hasClass('page-is-live')) {
+        initSlugAutoPopulate();
+    }
+
     initSlugCleaning();
     initErrorDetection();
     initCollapsibleBlocks();

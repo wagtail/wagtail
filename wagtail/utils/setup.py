@@ -3,13 +3,22 @@ from __future__ import absolute_import, print_function, unicode_literals
 import os
 import subprocess
 
-from distutils.core import Command
-
+from setuptools import Command
 from setuptools.command.bdist_egg import bdist_egg
+from setuptools.command.sdist import sdist as base_sdist
 
 
-class assets(Command):
+class assets_mixin(object):
 
+    def compile_assets(self):
+        try:
+            subprocess.check_call(['npm', 'run', 'build'])
+        except (OSError, subprocess.CalledProcessError) as e:
+            print('Error compiling assets: ' + str(e))
+            raise SystemExit(1)
+
+
+class assets(Command, assets_mixin):
     user_options = []
 
     def initialize_options(self):
@@ -19,11 +28,13 @@ class assets(Command):
         pass
 
     def run(self):
-        try:
-            subprocess.check_call(['npm', 'run', 'build'])
-        except (OSError, subprocess.CalledProcessError) as e:
-            print('Error compiling assets: ' + str(e))
-            raise SystemExit(1)
+        self.compile_assets()
+
+
+class sdist(base_sdist, assets_mixin):
+    def run(self):
+        self.compile_assets()
+        base_sdist.run(self)
 
 
 class check_bdist_egg(bdist_egg):
@@ -41,12 +52,3 @@ class check_bdist_egg(bdist_egg):
                 "docs/contributing/css_guidelines.rst",
                 "************************************************************",
             ]))
-
-
-def add_subcommand(command, extra_sub_commands):
-    # Sadly, as commands are old-style classes, `type()` can not be used to
-    # construct these.
-    class CompileAnd(command):
-        sub_commands = command.sub_commands + extra_sub_commands
-    CompileAnd.__name__ = command.__name__
-    return CompileAnd
