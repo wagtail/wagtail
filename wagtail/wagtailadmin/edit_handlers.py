@@ -19,7 +19,7 @@ from taggit.managers import TaggableManager
 from wagtail.wagtailadmin import widgets
 from wagtail.wagtailcore.models import Page
 from wagtail.wagtailcore.utils import camelcase_to_underscore, resolve_model_string
-from wagtail.utils.compat import get_related_model
+from wagtail.utils.compat import get_related_model, get_related_parent_model
 
 
 # Form field properties to override whenever we encounter a model field
@@ -525,7 +525,7 @@ class BaseChooserPanel(BaseFieldPanel):
 
     def get_chosen_item(self):
         field = self.instance._meta.get_field(self.field_name)
-        related_model = get_related_model(field.related)
+        related_model = get_related_parent_model(field.related)
         try:
             return getattr(self.instance, self.field_name)
         except related_model.DoesNotExist:

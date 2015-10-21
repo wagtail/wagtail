@@ -255,10 +255,10 @@ class TestSnippetChooserPanel(TestCase):
         test_snippet = model.objects.create(
             advert=Advert.objects.create(text=self.advert_text))
 
-        edit_handler_class = get_snippet_edit_handler(model)
-        form_class = edit_handler_class.get_form_class(model)
-        form = form_class(instance=test_snippet)
-        edit_handler = edit_handler_class(instance=test_snippet, form=form)
+        self.edit_handler_class = get_snippet_edit_handler(model)
+        self.form_class = self.edit_handler_class.get_form_class(model)
+        form = self.form_class(instance=test_snippet)
+        edit_handler = self.edit_handler_class(instance=test_snippet, form=form)
 
         self.snippet_chooser_panel = [
             panel for panel in edit_handler.children
@@ -271,6 +271,19 @@ class TestSnippetChooserPanel(TestCase):
     def test_render_as_field(self):
         field_html = self.snippet_chooser_panel.render_as_field()
         self.assertIn(self.advert_text, field_html)
+        self.assertIn("Choose advert", field_html)
+        self.assertIn("Choose another advert", field_html)
+
+    def test_render_as_empty_field(self):
+        test_snippet = SnippetChooserModel()
+        form = self.form_class(instance=test_snippet)
+        edit_handler = self.edit_handler_class(instance=test_snippet, form=form)
+
+        snippet_chooser_panel = [
+            panel for panel in edit_handler.children
+            if getattr(panel, 'field_name', None) == 'advert'][0]
+
+        field_html = snippet_chooser_panel.render_as_field()
         self.assertIn("Choose advert", field_html)
         self.assertIn("Choose another advert", field_html)
 
