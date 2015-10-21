@@ -6,9 +6,32 @@ from wagtail.wagtailadmin.menu import MenuItem
 from wagtail.wagtailcore import hooks
 
 
+class SettingMenuItem(MenuItem):
+    def __init__(self, model, icon='cog', classnames='', **kwargs):
+
+        icon_classes = 'icon icon-' + icon
+        if classnames:
+            classnames += ' ' + icon_classes
+        else:
+            classnames = icon_classes
+
+        self.model = model
+        super(SettingMenuItem, self).__init__(
+            label=capfirst(model._meta.verbose_name),
+            url=reverse('wagtailsettings_edit', args=[
+                model._meta.app_label, model._meta.model_name]),
+            classnames=classnames,
+            **kwargs)
+
+    def is_shown(self, request):
+        perm = '{}.change_{}'.format(
+            self.model._meta.app_label, self.model._meta.model_name)
+        return request.user.has_perm(perm)
+
+
 class Registry(list):
 
-    def register(self, model, icon='cog', **kwargs):
+    def register(self, model, **kwargs):
         """
         Register a model as a setting, adding it to the wagtail admin menu
         """
@@ -18,20 +41,10 @@ class Registry(list):
             return model
         self.append(model)
 
-        icon_classes = 'icon icon-' + icon
-        if 'classnames' in kwargs:
-            kwargs['classnames'] += ' ' + icon_classes
-        else:
-            kwargs['classnames'] = icon_classes
-
         # Register a new menu item in the settings menu
         @hooks.register('register_settings_menu_item')
         def hook():
-            return MenuItem(
-                capfirst(model._meta.verbose_name),
-                reverse('wagtailsettings_edit', args=[
-                    model._meta.app_label, model._meta.model_name]),
-                **kwargs)
+            return SettingMenuItem(model, **kwargs)
 
         return model
 
