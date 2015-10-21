@@ -116,20 +116,20 @@ def search(request, parent_page_id=None):
             depth=1  # never include root
         )
         pages = filter_page_type(pages, desired_classes)
-        pages = pages.search(search_form.cleaned_data['q'], fields=['title'])[:10]
+        pages = pages.search(search_form.cleaned_data['q'], fields=['title'])
     else:
         pages = Page.objects.none()
 
-    shown_pages = []
+    paginator, pages = paginate(request, pages, per_page=25)
+
     for page in pages:
         page.can_choose = True
-        shown_pages.append(page)
 
     return render(
         request, 'wagtailadmin/chooser/_search_results.html',
         shared_context(request, {
             'searchform': search_form,
-            'pages': shown_pages,
+            'pages': pages,
             'page_type_string': page_type_string,
         })
     )
