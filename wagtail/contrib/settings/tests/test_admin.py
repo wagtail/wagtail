@@ -7,6 +7,7 @@ from django.utils.text import capfirst
 from wagtail.contrib.settings.registry import SettingMenuItem
 from wagtail.tests.testapp.models import IconSetting, TestSetting
 from wagtail.tests.utils import WagtailTestUtils
+from wagtail.wagtailcore import hooks
 from wagtail.wagtailcore.models import Site
 
 
@@ -17,9 +18,7 @@ class TestSettingMenu(TestCase, WagtailTestUtils):
         user = get_user_model().objects.create_user(
             username='test', email='test@email.com', password='password')
         user.user_permissions.add(Permission.objects.get_by_natural_key(
-            codename='access_admin',
-            app_label='wagtailadmin',
-            model='admin'))
+            codename='access_admin', app_label='wagtailadmin', model='admin'))
         self.client.login(username='test', password='password')
         return user
 
@@ -120,3 +119,14 @@ class TestSettingEditView(TestCase, WagtailTestUtils):
         setting = TestSetting.objects.get(site=default_site)
         self.assertEqual(setting.title, 'Edited site title')
         self.assertEqual(setting.email, 'test@example.com')
+
+
+class TestAdminPermission(TestCase, WagtailTestUtils):
+    def test_registered_permission(self):
+        permission = Permission.objects.get_by_natural_key(
+            app_label='tests', model='testsetting', codename='change_testsetting')
+        for fn in hooks.get_hooks('register_permissions'):
+            if permission in fn():
+                break
+        else:
+            self.fail('Change permission for tests.TestSetting not registered')

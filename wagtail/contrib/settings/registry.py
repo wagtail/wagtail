@@ -1,9 +1,11 @@
 from django.apps import apps
+from django.contrib.auth.models import Permission
 from django.core.urlresolvers import reverse
 from django.utils.text import capfirst
 
 from wagtail.wagtailadmin.menu import MenuItem
 from wagtail.wagtailcore import hooks
+from .permissions import user_can_edit_setting_type
 
 
 class SettingMenuItem(MenuItem):
@@ -24,9 +26,7 @@ class SettingMenuItem(MenuItem):
             **kwargs)
 
     def is_shown(self, request):
-        perm = '{}.change_{}'.format(
-            self.model._meta.app_label, self.model._meta.model_name)
-        return request.user.has_perm(perm)
+        return user_can_edit_setting_type(request.user, self.model)
 
 
 class Registry(list):
@@ -43,8 +43,14 @@ class Registry(list):
 
         # Register a new menu item in the settings menu
         @hooks.register('register_settings_menu_item')
-        def hook():
+        def menu_hook():
             return SettingMenuItem(model, **kwargs)
+
+        @hooks.register('register_permissions')
+        def permissions_hook():
+            return Permission.objects.filter(
+                content_type__app_label=model._meta.app_label,
+                codename='change_{}'.format(model._meta.model_name))
 
         return model
 
