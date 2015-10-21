@@ -1,3 +1,5 @@
+from __future__ import absolute_import, unicode_literals
+
 from django.contrib.auth import get_user_model
 from django.contrib.auth.models import Permission
 from django.core.urlresolvers import reverse
@@ -8,7 +10,7 @@ from wagtail.contrib.settings.registry import SettingMenuItem
 from wagtail.tests.testapp.models import IconSetting, TestSetting
 from wagtail.tests.utils import WagtailTestUtils
 from wagtail.wagtailcore import hooks
-from wagtail.wagtailcore.models import Site
+from wagtail.wagtailcore.models import Page, Site
 
 
 class TestSettingMenu(TestCase, WagtailTestUtils):
@@ -42,19 +44,22 @@ class TestSettingMenu(TestCase, WagtailTestUtils):
         self.assertEqual(classnames, {'icon', 'icon-tag', 'test-class'})
 
 
-class TestSettingCreateView(TestCase, WagtailTestUtils):
+class BaseTestSettingView(TestCase, WagtailTestUtils):
+    def get(self, site_pk=1, params={}):
+        url = self.edit_url('tests', 'testsetting', site_pk=site_pk)
+        return self.client.get(url, params)
+
+    def post(self, site_pk=1, post_data={}):
+        url = self.edit_url('tests', 'testsetting', site_pk=site_pk)
+        return self.client.post(url, post_data)
+
+    def edit_url(self, app, model, site_pk=1):
+        return reverse('wagtailsettings_edit', args=[site_pk, app, model])
+
+
+class TestSettingCreateView(BaseTestSettingView):
     def setUp(self):
         self.login()
-
-    def get(self, params={}):
-        return self.client.get(
-            reverse('wagtailsettings_edit', args=('tests', 'testsetting')),
-            params)
-
-    def post(self, post_data={}):
-        return self.client.post(
-            reverse('wagtailsettings_edit', args=('tests', 'testsetting')),
-            post_data)
 
     def test_status_code(self):
         self.assertEqual(self.get().status_code, 200)
@@ -75,7 +80,7 @@ class TestSettingCreateView(TestCase, WagtailTestUtils):
         self.assertEqual(setting.email, 'test@example.com')
 
 
-class TestSettingEditView(TestCase, WagtailTestUtils):
+class TestSettingEditView(BaseTestSettingView):
     def setUp(self):
         default_site = Site.objects.get(is_default_site=True)
 
@@ -87,22 +92,11 @@ class TestSettingEditView(TestCase, WagtailTestUtils):
 
         self.login()
 
-    def get(self, params={}):
-        return self.client.get(
-            reverse('wagtailsettings_edit', args=('tests', 'testsetting')),
-            params)
-
-    def post(self, post_data={}):
-        return self.client.post(
-            reverse('wagtailsettings_edit', args=('tests', 'testsetting')),
-            post_data)
-
     def test_status_code(self):
         self.assertEqual(self.get().status_code, 200)
 
     def test_non_existant_model(self):
-        response = self.client.get(
-            reverse('wagtailsettings_edit', args=('tests', 'foo')))
+        response = self.client.get(self.edit_url('test', 'foo'))
         self.assertEqual(response.status_code, 404)
 
     def test_edit_invalid(self):
@@ -119,6 +113,74 @@ class TestSettingEditView(TestCase, WagtailTestUtils):
         setting = TestSetting.objects.get(site=default_site)
         self.assertEqual(setting.title, 'Edited site title')
         self.assertEqual(setting.email, 'test@example.com')
+
+
+class TestMultiSite(BaseTestSettingView):
+    def setUp(self):
+        self.default_site = Site.objects.get(is_default_site=True)
+        self.other_site = Site.objects.create(hostname='example.com', root_page=Page.objects.get(pk=2))
+        self.login()
+
+    def test_redirect_to_default(self):
+        """
+        Should redirect to the setting for the default site.
+        """
+        start_url = reverse('wagtailsettings_edit', args=[
+            'tests', 'testsetting'])
+        dest_url = 'http://testserver' + reverse('wagtailsettings_edit', args=[
+            self.default_site.pk, 'tests', 'testsetting'])
+        response = self.client.get(start_url, follow=True)
+        self.assertEqual([(dest_url, 302)], response.redirect_chain)
+
+    def test_redirect_to_current(self):
+        """
+        Should redirect to the setting for the current site taken from the URL,
+        by default
+        """
+        start_url = reverse('wagtailsettings_edit', args=[
+            'tests', 'testsetting'])
+        dest_url = 'http://example.com' + reverse('wagtailsettings_edit', args=[
+            self.other_site.pk, 'tests', 'testsetting'])
+        response = self.client.get(start_url, follow=True, HTTP_HOST=self.other_site.hostname)
+        self.assertEqual([(dest_url, 302)], response.redirect_chain)
+
+    def test_switcher(self):
+        """ Check that the switcher form exists in the page """
+        response = self.get()
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, 'id="settings-site-switch"')
+
+    def test_unknown_site(self):
+        """ Check that unknown sites throw a 404 """
+        response = self.get(site_pk=3)
+        self.assertEqual(response.status_code, 404)
+
+    def test_edit(self):
+        """
+        Check that editing settings in multi-site mode edits the correct
+        setting, and leaves the other ones alone
+        """
+        TestSetting.objects.create(
+            title='default',
+            email='default@example.com',
+            site=self.default_site)
+        TestSetting.objects.create(
+            title='other',
+            email='other@example.com',
+            site=self.other_site)
+        response = self.post(site_pk=self.other_site.pk, post_data={
+            'title': 'other-new', 'email': 'other-other@example.com'})
+        self.assertEqual(response.status_code, 302)
+
+        # Check that the correct setting was updated
+        other_setting = TestSetting.for_site(self.other_site)
+        self.assertEqual(other_setting.title, 'other-new')
+        self.assertEqual(other_setting.email, 'other-other@example.com')
+
+        # Check that the other setting was not updated
+        default_setting = TestSetting.for_site(self.default_site)
+        self.assertEqual(default_setting.title, 'default')
+        self.assertEqual(default_setting.email, 'default@example.com')
 
 
 class TestAdminPermission(TestCase, WagtailTestUtils):
