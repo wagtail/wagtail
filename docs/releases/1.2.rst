@@ -48,7 +48,7 @@ StreamField blocks now :ref:`provide a get_context method <streamfield_get_conte
 Browsable API
 ~~~~~~~~~~~~~
 
-The Wagtail API now incorporates the browsable front-end provided by Django Rest Framework. Note that this must be enabled by adding ``'rest_framework'`` to your project's ``INSTALLED_APPS`` setting.
+The Wagtail API now incorporates the browsable front-end provided by Django REST Framework. Note that this must be enabled by adding ``'rest_framework'`` to your project's ``INSTALLED_APPS`` setting.
 
 
 Minor features
