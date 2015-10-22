@@ -771,7 +771,7 @@ class ConfirmDeleteView(ObjectSpecificView):
     def confirmation_message(self):
         return _(
             "Are you sure you want to delete this %s? If other things in your "
-            "site are related to it, they may also be effected."
+            "site are related to it, they may also be affected."
         ) % self.model_name
 
     def get(self, request, *args, **kwargs):
