@@ -1,6 +1,10 @@
+import warnings
+
 from django.apps import AppConfig, apps
 from django.conf import settings
 from django.core.exceptions import ImproperlyConfigured
+
+from wagtail.utils.deprecation import RemovedInWagtail14Warning
 
 
 class WagtailAPIAppConfig(AppConfig):
@@ -16,3 +20,9 @@ class WagtailAPIAppConfig(AppConfig):
                 register_signal_handlers()
             else:
                 raise ImproperlyConfigured("The setting 'WAGTAILAPI_USE_FRONTENDCACHE' is True but 'wagtail.contrib.wagtailfrontendcache' is not in INSTALLED_APPS.")
+
+        if not apps.is_installed('rest_framework'):
+            warnings.warn(
+                "The 'wagtailapi' module now requires 'rest_framework' to be installed. "
+                "Please add 'rest_framework' to INSTALLED_APPS.",
+                RemovedInWagtail14Warning)

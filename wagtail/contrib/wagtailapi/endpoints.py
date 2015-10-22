@@ -5,11 +5,12 @@ from collections import OrderedDict
 from django.conf.urls import url
 from django.http import Http404
 from django.core.urlresolvers import reverse
+from django.apps import apps
 
 from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.viewsets import GenericViewSet
-from rest_framework.renderers import JSONRenderer
+from rest_framework.renderers import JSONRenderer, BrowsableAPIRenderer
 
 from wagtail.wagtailcore.models import Page
 from wagtail.wagtailimages.models import get_image_model
@@ -27,10 +28,17 @@ from .utils import BadRequestError
 
 class BaseAPIEndpoint(GenericViewSet):
     renderer_classes = [JSONRenderer]
+
+    # The BrowsableAPIRenderer requires rest_framework to be installed
+    # Remove this check in Wagtail 1.4 as rest_framework will be required
+    # RemovedInWagtail14Warning
+    if apps.is_installed('rest_framework'):
+        renderer_classes.append(BrowsableAPIRenderer)
+
     pagination_class = WagtailPagination
     base_serializer_class = BaseSerializer
     filter_backends = []
-    model = None # Set on subclass
+    model = None  # Set on subclass
 
     known_query_parameters = frozenset([
         'limit',
@@ -41,6 +49,9 @@ class BaseAPIEndpoint(GenericViewSet):
 
         # Used by jQuery for cache-busting. See #1671
         '_',
+
+        # Required by BrowsableAPIRenderer
+        'format',
     ])
     extra_api_fields = []
     name = None  # Set on subclass.
@@ -105,7 +116,7 @@ class BaseAPIEndpoint(GenericViewSet):
 
         # Get all available fields
         all_fields = self.get_api_fields(model)
-        all_fields = list(OrderedDict.fromkeys(all_fields)) # Removes any duplicates in case the developer put "title" in api_fields
+        all_fields = list(OrderedDict.fromkeys(all_fields))  # Removes any duplicates in case the developer put "title" in api_fields
 
         if self.action == 'listing_view':
             # Listing views just show the title field and any other allowed field the user specified
