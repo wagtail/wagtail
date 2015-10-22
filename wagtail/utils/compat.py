@@ -12,6 +12,15 @@ def get_related_model(rel):
         return rel.model
 
 
+def get_related_parent_model(rel):
+    # In Django 1.7 and under, the parent model is accessed by doing: rel.parent_model
+    # This was renamed in Django 1.8 to rel.model.
+    if django.VERSION >= (1, 8):
+        return rel.model
+    else:
+        return rel.parent_model
+
+
 def render_to_string(template_name, context=None, request=None, **kwargs):
     if django.VERSION >= (1, 8):
         return loader.render_to_string(

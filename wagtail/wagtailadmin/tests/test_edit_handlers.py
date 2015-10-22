@@ -382,6 +382,16 @@ class TestPageChooserPanel(TestCase):
             '<a href="/admin/pages/%d/edit/" class="edit-link button button-small button-secondary" target="_blank">Edit this page</a>' % self.christmas_page.id,
             result)
 
+    def test_render_as_empty_field(self):
+        test_instance = PageChooserModel()
+        form = self.PageChooserForm(instance=test_instance)
+        page_chooser_panel = self.MyPageChooserPanel(instance=test_instance, form=form)
+        result = page_chooser_panel.render_as_field()
+
+        self.assertIn('<p class="help">help text</p>', result)
+        self.assertIn('<span class="title"></span>', result)
+        self.assertIn('Choose a page', result)
+
     def test_render_error(self):
         form = self.PageChooserForm({'page': ''}, instance=self.test_instance)
         self.assertFalse(form.is_valid())
