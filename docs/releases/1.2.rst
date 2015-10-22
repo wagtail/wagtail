@@ -45,6 +45,12 @@ See: :ref:`inline_panels`
 StreamField blocks now :ref:`provide a get_context method <streamfield_get_context>` that can be overridden to pass additional variables to the block's template.
 
 
+Browsable API
+~~~~~~~~~~~~~
+
+The Wagtail API now incorporates the browsable front-end provided by Django Rest Framework. Note that this must be enabled by adding ``'rest_framework'`` to your project's ``INSTALLED_APPS`` setting.
+
+
 Minor features
 ~~~~~~~~~~~~~~
 
@@ -135,3 +141,9 @@ can be rewritten as:
 .. code-block:: python
 
     Image.objects.filter(uploaded_by_user=user).search("Hello")
+
+
+Wagtail API requires adding ``rest_framework`` to INSTALLED_APPS
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+If you have the Wagtail API (``wagtail.contrib.wagtailapi``) enabled, you must now add ``'rest_framework'`` to your project's ``INSTALLED_APPS`` setting. In the current version the API will continue to function without this app, but the browsable front-end will not be available; this ability will be dropped in a future release.
