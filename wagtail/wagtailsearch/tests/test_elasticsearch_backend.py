@@ -321,6 +321,22 @@ class TestElasticSearchQuery(TestCase):
         expected_result = {'filtered': {'filter': {'prefix': {'content_type': 'searchtests_searchtest'}}, 'query': {'match': {'title': {'query': 'Hello', 'operator': 'and'}}}}}
         self.assertDictEqual(query.get_query(), expected_result)
 
+    def test_multiple_fields(self):
+        # Create a query
+        query = self.ElasticSearchQuery(models.SearchTest.objects.all(), "Hello", fields=['title', 'content'])
+
+        # Check it
+        expected_result = {'filtered': {'filter': {'prefix': {'content_type': 'searchtests_searchtest'}}, 'query': {'multi_match': {'fields': ['title', 'content'], 'query': 'Hello'}}}}
+        self.assertDictEqual(query.get_query(), expected_result)
+
+    def test_multiple_fields_with_and_operator(self):
+        # Create a query
+        query = self.ElasticSearchQuery(models.SearchTest.objects.all(), "Hello", fields=['title', 'content'], operator='and')
+
+        # Check it
+        expected_result = {'filtered': {'filter': {'prefix': {'content_type': 'searchtests_searchtest'}}, 'query': {'multi_match': {'fields': ['title', 'content'], 'query': 'Hello', 'operator': 'and'}}}}
+        self.assertDictEqual(query.get_query(), expected_result)
+
     def test_exact_lookup(self):
         # Create a query
         query = self.ElasticSearchQuery(models.SearchTest.objects.filter(title__exact="Test"), "Hello")
