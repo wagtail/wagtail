@@ -6,7 +6,7 @@ These are Sphinx docs, automatically built at http://docs.wagtail.io when the ma
 
 To build the documentation for browsing, from this directory run: 
 
-    ``make html`` 
+    make html 
 
 then open ``_build/html/index.html`` in a browser.
 
