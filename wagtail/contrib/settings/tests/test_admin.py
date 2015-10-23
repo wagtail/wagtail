@@ -144,6 +144,18 @@ class TestMultiSite(BaseTestSettingView):
         response = self.client.get(start_url, follow=True, HTTP_HOST=self.other_site.hostname)
         self.assertEqual([(dest_url, 302)], response.redirect_chain)
 
+    def test_with_no_current_site(self):
+        """
+        Redirection should not break if the current request does not correspond to a site
+        """
+        self.default_site.is_default_site = False
+        self.default_site.save()
+
+        start_url = reverse('wagtailsettings_edit', args=[
+            'tests', 'testsetting'])
+        response = self.client.get(start_url, follow=True, HTTP_HOST="noneoftheabove.example.com")
+        self.assertEqual(302, response.redirect_chain[0][1])
+
     def test_switcher(self):
         """ Check that the switcher form exists in the page """
         response = self.get()
