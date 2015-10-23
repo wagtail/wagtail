@@ -36,7 +36,7 @@ def edit_current_site(request, app_name, model_name):
     # Redirect the user to the edit page for the current site
     # (or the current request does not correspond to a site, the first site in the list)
     site = request.site or Site.objects.first()
-    return redirect('wagtailsettings_edit', site.pk, app_name, model_name)
+    return redirect('wagtailsettings:edit', site.pk, app_name, model_name)
 
 
 def edit(request, site_pk, app_name, model_name):
@@ -64,7 +64,7 @@ def edit(request, site_pk, app_name, model_name):
                     instance=instance
                 )
             )
-            return redirect('wagtailsettings_edit', site.pk, app_name, model_name)
+            return redirect('wagtailsettings:edit', site.pk, app_name, model_name)
         else:
             messages.error(request, _("The setting could not be saved due to errors."))
             edit_handler = edit_handler_class(instance=instance, form=form)

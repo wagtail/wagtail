@@ -23,5 +23,5 @@ class SiteSwitchForm(forms.Form):
 
     @classmethod
     def get_change_url(cls, site, model):
-        return reverse('wagtailsettings_edit', args=[
+        return reverse('wagtailsettings:edit', args=[
             site.pk, model._meta.app_label, model._meta.model_name])

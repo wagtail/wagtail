@@ -29,14 +29,14 @@ class TestSettingMenu(TestCase, WagtailTestUtils):
         response = self.client.get(reverse('wagtailadmin_home'))
 
         self.assertContains(response, capfirst(TestSetting._meta.verbose_name))
-        self.assertContains(response, reverse('wagtailsettings_edit', args=('tests', 'testsetting')))
+        self.assertContains(response, reverse('wagtailsettings:edit', args=('tests', 'testsetting')))
 
     def test_menu_item_no_permissions(self):
         self.login_only_admin()
         response = self.client.get(reverse('wagtailadmin_home'))
 
         self.assertNotContains(response, TestSetting._meta.verbose_name)
-        self.assertNotContains(response, reverse('wagtailsettings_edit', args=('tests', 'testsetting')))
+        self.assertNotContains(response, reverse('wagtailsettings:edit', args=('tests', 'testsetting')))
 
     def test_menu_item_icon(self):
         menu_item = SettingMenuItem(IconSetting, icon='tag', classnames='test-class')
@@ -54,7 +54,7 @@ class BaseTestSettingView(TestCase, WagtailTestUtils):
         return self.client.post(url, post_data)
 
     def edit_url(self, app, model, site_pk=1):
-        return reverse('wagtailsettings_edit', args=[site_pk, app, model])
+        return reverse('wagtailsettings:edit', args=[site_pk, app, model])
 
 
 class TestSettingCreateView(BaseTestSettingView):
@@ -125,9 +125,9 @@ class TestMultiSite(BaseTestSettingView):
         """
         Should redirect to the setting for the default site.
         """
-        start_url = reverse('wagtailsettings_edit', args=[
+        start_url = reverse('wagtailsettings:edit', args=[
             'tests', 'testsetting'])
-        dest_url = 'http://testserver' + reverse('wagtailsettings_edit', args=[
+        dest_url = 'http://testserver' + reverse('wagtailsettings:edit', args=[
             self.default_site.pk, 'tests', 'testsetting'])
         response = self.client.get(start_url, follow=True)
         self.assertEqual([(dest_url, 302)], response.redirect_chain)
@@ -137,9 +137,9 @@ class TestMultiSite(BaseTestSettingView):
         Should redirect to the setting for the current site taken from the URL,
         by default
         """
-        start_url = reverse('wagtailsettings_edit', args=[
+        start_url = reverse('wagtailsettings:edit', args=[
             'tests', 'testsetting'])
-        dest_url = 'http://example.com' + reverse('wagtailsettings_edit', args=[
+        dest_url = 'http://example.com' + reverse('wagtailsettings:edit', args=[
             self.other_site.pk, 'tests', 'testsetting'])
         response = self.client.get(start_url, follow=True, HTTP_HOST=self.other_site.hostname)
         self.assertEqual([(dest_url, 302)], response.redirect_chain)
@@ -151,7 +151,7 @@ class TestMultiSite(BaseTestSettingView):
         self.default_site.is_default_site = False
         self.default_site.save()
 
-        start_url = reverse('wagtailsettings_edit', args=[
+        start_url = reverse('wagtailsettings:edit', args=[
             'tests', 'testsetting'])
         response = self.client.get(start_url, follow=True, HTTP_HOST="noneoftheabove.example.com")
         self.assertEqual(302, response.redirect_chain[0][1])
