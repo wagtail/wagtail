@@ -4,6 +4,7 @@ Changelog
 1.2 (xx.xx.xxxx)
 ~~~~~~~~~~~~~~~~
 
+ * Added `wagtail.contrib.settings`, a module to allow administrators to edit site-specific settings
  * Core templatetags (pageurl, image, wagtailuserbar, etc) are now compatible with Jinja2
  * Image and document models now provide a `search` method on their QuerySets
  * Search methods now accept an `operator` argument to determine whether multiple terms are ORed or ANDed together
