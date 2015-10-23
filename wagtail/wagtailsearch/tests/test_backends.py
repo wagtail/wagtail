@@ -117,6 +117,10 @@ class BackendTests(WagtailTestUtils):
         results = self.backend.search(None, models.SearchTestChild)
         self.assertEqual(set(results), {self.testc, self.testd})
 
+    def test_child_model_with_id_filter(self):
+        results = self.backend.search("World", models.SearchTestChild.objects.filter(id=self.testd.id))
+        self.assertEqual(set(results), {self.testd})
+
     def test_delete(self):
         # Delete one of the objects
         self.backend.delete(self.testa)
