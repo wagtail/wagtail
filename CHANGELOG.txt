@@ -38,6 +38,7 @@ Changelog
  * Fix: `MenuItem` `url` parameter can now take a lazy URL (Adon Metcalfe, rayrayndwiga)
  * Fix: Added missing translation tag to InlinePanel 'Add' button (jnns)
  * Fix: Restored correct highlighting behaviour of rich text toolbar buttons
+ * Fix: Rendering a missing image through ImageChooserBlock no longer breaks the whole page (Christian Peters)
 
 1.2 (12.11.2015)
 ~~~~~~~~~~~~~~~~
