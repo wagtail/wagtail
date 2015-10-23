@@ -110,4 +110,3 @@ class CloudfrontBackend(BaseBackend):
             )
         except botocore.exceptions.ClientError as e:
             logger.error("Couldn't purge '%s' from Cloudfront. ClientError: %s %s", url, e.response['Error']['Code'], e.response['Error']['Message'])
-            return
