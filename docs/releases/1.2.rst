@@ -82,6 +82,7 @@ Bug fixes
  * The "view live" button displayed after publishing a page now correctly reflects any changes made to the page slug (Ryan Pineo)
  * API endpoints now accept and ignore the ``_`` query parameter used by jQuery for cache-busting
  * Page slugs are no longer cut off when Unicode characters are expanded into multiple characters (Sævar Öfjörð Magnússon)
+ * Searching a specific page model while filtering it by either ID or tree position no longer raises an error (Ashia Zawaduk)
  * Scrolling an over-long explorer menu no longer causes white background to show through (Alex Gleason)
 
 Upgrade considerations
