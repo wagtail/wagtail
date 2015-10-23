@@ -1,6 +1,8 @@
 from django.utils.functional import cached_property
 
 from wagtail.wagtailcore.blocks import ChooserBlock
+from wagtail.wagtailimages.models import SourceImageIOError
+
 
 class ImageChooserBlock(ChooserBlock):
     @cached_property
@@ -15,6 +17,9 @@ class ImageChooserBlock(ChooserBlock):
 
     def render_basic(self, value):
         if value:
-            return value.get_rendition('original').img_tag()
+            try:
+                return value.get_rendition('original').img_tag()
+            except SourceImageIOError:
+                return ''
         else:
             return ''
