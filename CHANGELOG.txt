@@ -38,6 +38,7 @@ Changelog
  * Fix: Page slugs are no longer cut off when Unicode characters are expanded into multiple characters (Sævar Öfjörð Magnússon)
  * Fix: Searching a specific page model while filtering it by either ID or tree position no longer raises an error (Ashia Zawaduk)
  * Fix: Scrolling an over-long explorer menu no longer causes white background to show through (Alex Gleason)
+ * Fix: Removed jitter when hovering over StreamField blocks (Alex Gleason)
 
 1.1 (15.09.2015)
 ~~~~~~~~~~~~~~~~
