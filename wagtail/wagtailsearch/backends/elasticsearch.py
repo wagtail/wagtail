@@ -253,14 +253,21 @@ class ElasticSearchQuery(BaseSearchQuery):
             fields = self.fields or ['_all', '_partials']
 
             if len(fields) == 1:
-                query = {
-                    'match': {
-                        fields[0]: self.query_string,
+                if self.operator == 'or':
+                    query = {
+                        'match': {
+                            fields[0]: self.query_string,
+                        }
                     }
-                }
-
-                if self.operator != 'or':
-                    query['match']['operator'] = self.operator
+                else:
+                    query = {
+                        'match': {
+                            fields[0]: {
+                                'query': self.query_string,
+                                'operator': self.operator,
+                            }
+                        }
+                    }
             else:
                 query = {
                     'multi_match': {
