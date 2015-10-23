@@ -1,0 +1,53 @@
+{% extends "wagtailadmin/base.html" %}
+{% load i18n %}
+{% block titletag %}{% blocktrans %}Editing {{ setting_type_name}} - {{ instance }}{% endblocktrans %}{% endblock %}
+{% block bodyclass %}menu-settings{% endblock %}
+{% block content %}
+    <header class="nice-padding">
+        <div class="row">
+            <div class="left">
+                <div class="col">
+                    <h1 class="icon icon-cogs">
+                        {% trans "Editing" %}
+                        <span>{{ setting_type_name|capfirst }}</span>
+                    </h1>
+                </div>
+            </div>
+            <div class="right">
+                {% if site_switcher %}
+                <form method="get" id="settings-site-switch">
+                    <label for="{{ site_switcher.site.id_for_label }}">
+                        Site:
+                    </label>
+                    {{ site_switcher.site }}
+                </form>
+                {% endif %}
+            </div>
+        </div>
+    </header>
+
+    <form action="{% url 'wagtailsettings:edit' site.pk opts.app_label opts.model_name %}" method="POST">
+        {% csrf_token %}
+        {{ edit_handler.render_form_content }}
+
+        <footer>
+            <ul>
+                <li class="actions">
+                    <input type="submit" value="{% trans 'Save' %}" class="button" />
+                </li>
+            </ul>
+        </footer>
+    </form>
+
+{% endblock %}
+
+{% block extra_css %}
+    {% include "wagtailadmin/pages/_editor_css.html" %}
+    {{ form.media.css }}
+    {{ site_switcher.media.css }}
+{% endblock %}
+{% block extra_js %}
+    {% include "wagtailadmin/pages/_editor_js.html" %}
+    {{ form.media.js }}
+    {{ site_switcher.media.js }}
+{% endblock %}

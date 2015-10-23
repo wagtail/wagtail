@@ -10,6 +10,14 @@ Wagtail 1.2 release notes - IN DEVELOPMENT
 What's new
 ==========
 
+Site settings module
+~~~~~~~~~~~~~~~~~~~~
+
+Wagtail now includes a contrib module (previously available as the `wagtailsettings <https://pypi.python.org/pypi/wagtailsettings/>`_ package) to allow administrators to edit site-specific settings.
+
+See: :doc:`/reference/contrib/settings`
+
+
 Jinja2 support
 ~~~~~~~~~~~~~~
 

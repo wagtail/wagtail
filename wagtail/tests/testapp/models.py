@@ -11,6 +11,7 @@ from modelcluster.fields import ParentalKey
 from modelcluster.models import ClusterableModel
 from modelcluster.contrib.taggit import ClusterTaggableManager
 
+from wagtail.contrib.settings.models import BaseSetting, register_setting
 from wagtail.wagtailcore.models import Page, Orderable
 from wagtail.wagtailcore.fields import RichTextField, StreamField
 from wagtail.wagtailcore.blocks import CharBlock, RichTextBlock
@@ -319,7 +320,6 @@ FormPage.content_panels = [
 ]
 
 
-
 # Snippets
 class AdvertPlacement(models.Model):
     page = ParentalKey('wagtailcore.Page', related_name='advert_placements')
@@ -378,6 +378,7 @@ StandardChild.edit_handler = TabbedInterface([
     ObjectList([], heading='Dinosaurs'),
 ])
 
+
 class BusinessIndex(Page):
     """ Can be placed anywhere, can only have Business children """
     subpage_types = ['tests.BusinessChild', 'tests.BusinessSubIndex']
@@ -411,8 +412,10 @@ TaggedPage.content_panels = [
 class PageChooserModel(models.Model):
     page = models.ForeignKey('wagtailcore.Page', help_text='help text')
 
+
 class EventPageChooserModel(models.Model):
     page = models.ForeignKey('tests.EventPage', help_text='more help text')
+
 
 class SnippetChooserModel(models.Model):
     advert = models.ForeignKey(Advert, help_text='help text')
@@ -461,3 +464,18 @@ class MTIChildPage(MTIBasePage):
 class AbstractPage(Page):
     class Meta:
         abstract = True
+
+
+@register_setting
+class TestSetting(BaseSetting):
+    title = models.CharField(max_length=100)
+    email = models.EmailField(max_length=50)
+
+
+@register_setting(icon="tag")
+class IconSetting(BaseSetting):
+    pass
+
+
+class NotYetRegisteredSetting(BaseSetting):
+    pass
