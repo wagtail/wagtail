@@ -74,6 +74,7 @@ Contributors
 * Petr Vacha
 * Josh Barr
 * Sævar Öfjörð Magnússon
+* Ashia Zawaduk
 
 
 Translators

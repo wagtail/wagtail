@@ -35,6 +35,7 @@ Changelog
  * Fix: The "view live" button displayed after publishing a page now correctly reflects any changes made to the page slug (Ryan Pineo)
  * Fix: API endpoints now accept and ignore the `_` query parameter used by jQuery for cache-busting
  * Fix: Page slugs are no longer cut off when Unicode characters are expanded into multiple characters (Sævar Öfjörð Magnússon)
+ * Fix: Searching a specific page model while filtering it by either ID or tree position no longer raises an error (Ashia Zawaduk)
 
 1.1 (15.09.2015)
 ~~~~~~~~~~~~~~~~
