@@ -11,7 +11,7 @@ class SiteSwitchForm(forms.Form):
 
     class Media:
         js = [
-            'settings/js/site-switcher.js',
+            'wagtailsettings/js/site-switcher.js',
         ]
 
     def __init__(self, current_site, model, **kwargs):

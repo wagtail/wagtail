@@ -54,7 +54,9 @@ var apps = [
             'wagtailstyleguide/scss/styleguide.scss'
         ],
     }),
-    new App('wagtail/contrib/settings'),
+    new App('wagtail/contrib/settings', {
+        'appName': 'wagtailsettings',
+    }),
 ];
 
 module.exports = {
