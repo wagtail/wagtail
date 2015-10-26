@@ -190,7 +190,6 @@ class TestRenditions(TestCase):
         self.assertEqual(rendition.width, 100)
         self.assertEqual(rendition.height, 75)
 
-
     def test_resize_to_min(self):
         rendition = self.image.get_rendition('min-120x120')
 
@@ -212,6 +211,10 @@ class TestRenditions(TestCase):
 
         # Check that they are the same object
         self.assertEqual(first_rendition, second_rendition)
+
+    def test_alt_attribute(self):
+        rendition = self.image.get_rendition('width-400')
+        self.assertEqual(rendition.alt, "Test image")
 
 
 class TestUsageCount(TestCase):
