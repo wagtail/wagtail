@@ -4,8 +4,6 @@ from django.db import models
 from django.utils.six.moves.urllib.parse import urlparse
 from django.utils.translation import ugettext_lazy as _
 
-from wagtail.wagtailadmin.edit_handlers import FieldPanel, MultiFieldPanel, PageChooserPanel
-
 
 class Redirect(models.Model):
     old_path = models.CharField(verbose_name=_("Redirect from"), max_length=255, unique=True, db_index=True)
@@ -79,12 +77,3 @@ class Redirect(models.Model):
 
     class Meta:
         verbose_name = _('Redirect')
-
-Redirect.content_panels = [
-    MultiFieldPanel([
-        FieldPanel('old_path'),
-        FieldPanel('is_permanent'),
-        PageChooserPanel('redirect_page'),
-        FieldPanel('redirect_link'),
-    ])
-]
