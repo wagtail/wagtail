@@ -1,5 +1,4 @@
 from django.test import TestCase
-from django.test.client import Client
 from wagtail.wagtailredirects import models
 from wagtail.tests.utils import WagtailTestUtils
 from django.core.urlresolvers import reverse
@@ -42,39 +41,30 @@ class TestRedirects(TestCase):
         normalise_path('C:\\Program Files (x86)\\Some random program\\file.txt')
 
     def test_basic_redirect(self):
-        # Get a client
-        c = Client()
-
         # Create a redirect
         redirect = models.Redirect(old_path='/redirectme', redirect_link='/redirectto')
         redirect.save()
 
         # Navigate to it
-        r = c.get('/redirectme/')
+        r = self.client.get('/redirectme/')
 
         # Check that we were redirected
         self.assertEqual(r.status_code, 301)
         self.assertTrue(r.has_header('Location'))
 
     def test_temporary_redirect(self):
-        # Get a client
-        c = Client()
-
         # Create a redirect
         redirect = models.Redirect(old_path='/redirectme', redirect_link='/redirectto', is_permanent=False)
         redirect.save()
 
         # Navigate to it
-        r = c.get('/redirectme/')
+        r = self.client.get('/redirectme/')
 
         # Check that we were redirected temporarily
         self.assertEqual(r.status_code, 302)
         self.assertTrue(r.has_header('Location'))
 
     def test_redirect_stripping_query_string(self):
-        # Get a client
-        c = Client()
-
         # Create a redirect which includes a query string
         redirect_with_query_string = models.Redirect(old_path='/redirectme?foo=Bar', redirect_link='/with-query-string-only')
         redirect_with_query_string.save()
@@ -84,14 +74,14 @@ class TestRedirects(TestCase):
         redirect_without_query_string.save()
 
         # Navigate to the redirect with the query string
-        r_matching_qs = c.get('/redirectme/?foo=Bar')
+        r_matching_qs = self.client.get('/redirectme/?foo=Bar')
         self.assertEqual(r_matching_qs.status_code, 301)
         self.assertTrue(r_matching_qs.has_header('Location'))
         self.assertEqual(r_matching_qs['Location'][-23:], '/with-query-string-only')
 
         # Navigate to the redirect with a different query string
         # This should strip out the query string and match redirect_without_query_string
-        r_no_qs = c.get('/redirectme/?utm_source=irrelevant')
+        r_no_qs = self.client.get('/redirectme/?utm_source=irrelevant')
         self.assertEqual(r_no_qs.status_code, 301)
         self.assertTrue(r_no_qs.has_header('Location'))
         self.assertEqual(r_no_qs['Location'][-21:], '/without-query-string')
