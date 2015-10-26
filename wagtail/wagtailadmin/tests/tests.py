@@ -1,8 +1,13 @@
+# -*- coding: utf-8 -*-
+
+from __future__ import unicode_literals
+
 import json
 
 from django.test import TestCase, override_settings
 from django.core.urlresolvers import reverse
 from django.core import mail
+from django.contrib.auth import get_user_model
 
 from taggit.models import Tag
 
@@ -40,6 +45,15 @@ class TestHome(TestCase, WagtailTestUtils):
         self.assertIn('no-cache', response['Cache-Control'])
         self.assertIn('no-store', response['Cache-Control'])
         self.assertIn('max-age=0', response['Cache-Control'])
+
+    def test_nonascii_email(self):
+        # Test that non-ASCII email addresses don't break the admin; previously these would
+        # cause a failure when generating Gravatar URLs
+        get_user_model().objects.create_superuser(username='snowman', email='☃@thenorthpole.com', password='password')
+        # Login
+        self.client.login(username='snowman', password='password')
+        response = self.client.get(reverse('wagtailadmin_home'))
+        self.assertEqual(response.status_code, 200)
 
 
 class TestEditorHooks(TestCase, WagtailTestUtils):
