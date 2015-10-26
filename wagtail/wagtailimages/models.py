@@ -440,9 +440,13 @@ class AbstractRendition(models.Model):
         return self.file.url
 
     @property
+    def alt(self):
+        return self.image.title
+
+    @property
     def attrs(self):
         return mark_safe(
-            'src="%s" width="%d" height="%d" alt="%s"' % (escape(self.url), self.width, self.height, escape(self.image.title))
+            'src="%s" width="%d" height="%d" alt="%s"' % (escape(self.url), self.width, self.height, escape(self.alt))
         )
 
     def img_tag(self, extra_attributes=None):
