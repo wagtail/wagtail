@@ -93,6 +93,7 @@ Bug fixes
  * Searching a specific page model while filtering it by either ID or tree position no longer raises an error (Ashia Zawaduk)
  * Scrolling an over-long explorer menu no longer causes white background to show through (Alex Gleason)
  * Removed jitter when hovering over StreamField blocks (Alex Gleason)
+ * Non-ASCII email addresses no longer throw errors when generating Gravatar URLs (Denis Voskvitsov, Kyle Stratis)
 
 Upgrade considerations
 ======================
