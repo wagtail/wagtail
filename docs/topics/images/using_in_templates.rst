@@ -146,16 +146,16 @@ Wagtail can assign the image data to another variable using Django's ``as`` synt
     {% image page.photo width-400 as tmp_photo %}
 
     <img src="{{ tmp_photo.url }}" width="{{ tmp_photo.width }}" 
-        height="{{ tmp_photo.height }}" alt="{{ page.photo.title }}" class="my-custom-class" />
+        height="{{ tmp_photo.height }}" alt="{{ tmp_photo.alt }}" class="my-custom-class" />
         
 
 This syntax exposes the underlying image "Rendition" (``tmp_photo``) to the developer. A "Rendition" contains just the information specific to the way you've requested to format the image i.e dimensions and source URL.
 
 If your site defines a custom image model using ``AbstractImage``, then any additional fields you add to an image e.g a copyright holder, are **not** part of the image *rendition*, they're part of the image *model*. 
 
-Therefore in the above example, if you'd added the field ``foo`` to your AbstractImage you'd access it using ``{{ page.photo.foo }}`` not ``{{ tmp_photo.foo }}``. 
+Therefore in the above example, if you'd added the field ``author`` to your AbstractImage you'd access it using ``{{ page.photo.author }}`` not ``{{ tmp_photo.author }}``.
 
-(Due to the links in the database between renditions and their parent image, you could also access it as ``{{ tmp_photo.image.foo }}`` but this is clearly confusing.)
+(Due to the links in the database between renditions and their parent image, you could also access it as ``{{ tmp_photo.image.author }}`` but this is clearly confusing.)
 
 
 .. Note::      
