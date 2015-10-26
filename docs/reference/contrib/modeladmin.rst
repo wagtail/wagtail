@@ -7,7 +7,7 @@
 
 The ``wagtailmodeladmin`` module allows you to create customisable listing
 pages for any model in your Wagtail project, and add navigation elements to the
-Wagtail admin are so that you can reach them. Simply extend the `ModelAdmin`
+Wagtail admin area so that you can reach them. Simply extend the `ModelAdmin`
 class, override a few attributes to suit your needs, register it with Wagtail
 using an easy one-line method (you can copy and paste from the examples below),
 and you're good to go.
