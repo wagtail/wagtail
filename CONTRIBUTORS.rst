@@ -75,6 +75,8 @@ Contributors
 * Josh Barr
 * Sævar Öfjörð Magnússon
 * Ashia Zawaduk
+* Denis Voskvitsov
+* Kyle Stratis
 
 
 Translators
