@@ -77,6 +77,7 @@ Contributors
 * Ashia Zawaduk
 * Denis Voskvitsov
 * Kyle Stratis
+* Sergey Nikitin
 
 
 Translators

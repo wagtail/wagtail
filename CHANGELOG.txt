@@ -42,6 +42,7 @@ Changelog
  * Fix: Removed jitter when hovering over StreamField blocks (Alex Gleason)
  * Fix: Non-ASCII email addresses no longer throw errors when generating Gravatar URLs (Denis Voskvitsov, Kyle Stratis)
  * Fix: Dropdowns for ForeignKeys are now styled consistently (Ashia Zawaduk)
+ * Fix: Date choosers now appear on top of StreamField menus (Sergey Nikitin)
 
 1.1 (15.09.2015)
 ~~~~~~~~~~~~~~~~
