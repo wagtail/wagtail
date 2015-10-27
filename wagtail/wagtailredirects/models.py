@@ -4,12 +4,10 @@ from django.db import models
 from django.utils.six.moves.urllib.parse import urlparse
 from django.utils.translation import ugettext_lazy as _
 
-from wagtail.wagtailadmin.edit_handlers import FieldPanel, MultiFieldPanel, PageChooserPanel
-
 
 class Redirect(models.Model):
-    old_path = models.CharField(verbose_name=_("Redirect from"), max_length=255, unique=True, db_index=True)
-    site = models.ForeignKey('wagtailcore.Site', verbose_name=_('Site'), null=True, blank=True, related_name='redirects', db_index=True, editable=False)
+    old_path = models.CharField(verbose_name=_("Redirect from"), max_length=255, db_index=True)
+    site = models.ForeignKey('wagtailcore.Site', verbose_name=_('Site'), null=True, blank=True, related_name='redirects', db_index=True)
     is_permanent = models.BooleanField(verbose_name=_("Permanent"), default=True, help_text=_("Recommended. Permanent redirects ensure search engines forget the old page (the 'Redirect from') and index the new page instead."))
     redirect_page = models.ForeignKey('wagtailcore.Page', verbose_name=_("Redirect to a page"), null=True, blank=True)
     redirect_link = models.URLField(verbose_name=_("Redirect to any URL"), blank=True)
@@ -79,12 +77,4 @@ class Redirect(models.Model):
 
     class Meta:
         verbose_name = _('Redirect')
-
-Redirect.content_panels = [
-    MultiFieldPanel([
-        FieldPanel('old_path'),
-        FieldPanel('is_permanent'),
-        PageChooserPanel('redirect_page'),
-        FieldPanel('redirect_link'),
-    ])
-]
+        unique_together = [('old_path', 'site')]
