@@ -172,6 +172,7 @@ class TestRedirectsAddView(TestCase, WagtailTestUtils):
     def test_add(self):
         response = self.post({
             'old_path': '/test',
+            'site': '',
             'is_permanent': 'on',
             'redirect_link': 'http://www.test.com/',
         })
@@ -184,6 +185,24 @@ class TestRedirectsAddView(TestCase, WagtailTestUtils):
         self.assertEqual(redirects.count(), 1)
         self.assertEqual(redirects.first().redirect_link, 'http://www.test.com/')
         self.assertEqual(redirects.first().site, None)
+
+    def test_add_with_site(self):
+        localhost = Site.objects.get(hostname='localhost')
+        response = self.post({
+            'old_path': '/test',
+            'site': localhost.id,
+            'is_permanent': 'on',
+            'redirect_link': 'http://www.test.com/',
+        })
+
+        # Should redirect back to index
+        self.assertRedirects(response, reverse('wagtailredirects:index'))
+
+        # Check that the redirect was created
+        redirects = models.Redirect.objects.filter(old_path='/test')
+        self.assertEqual(redirects.count(), 1)
+        self.assertEqual(redirects.first().redirect_link, 'http://www.test.com/')
+        self.assertEqual(redirects.first().site, localhost)
 
     def test_add_validation_error(self):
         response = self.post({
@@ -223,6 +242,7 @@ class TestRedirectsEditView(TestCase, WagtailTestUtils):
         response = self.post({
             'old_path': '/test',
             'is_permanent': 'on',
+            'site': '',
             'redirect_link': 'http://www.test.com/ive-been-edited',
         })
 
@@ -233,6 +253,26 @@ class TestRedirectsEditView(TestCase, WagtailTestUtils):
         redirects = models.Redirect.objects.filter(old_path='/test')
         self.assertEqual(redirects.count(), 1)
         self.assertEqual(redirects.first().redirect_link, 'http://www.test.com/ive-been-edited')
+        self.assertEqual(redirects.first().site, None)
+
+    def test_edit_with_site(self):
+        localhost = Site.objects.get(hostname='localhost')
+
+        response = self.post({
+            'old_path': '/test',
+            'is_permanent': 'on',
+            'site': localhost.id,
+            'redirect_link': 'http://www.test.com/ive-been-edited',
+        })
+
+        # Should redirect back to index
+        self.assertRedirects(response, reverse('wagtailredirects:index'))
+
+        # Check that the redirect was edited
+        redirects = models.Redirect.objects.filter(old_path='/test')
+        self.assertEqual(redirects.count(), 1)
+        self.assertEqual(redirects.first().redirect_link, 'http://www.test.com/ive-been-edited')
+        self.assertEqual(redirects.first().site, localhost)
 
     def test_edit_validation_error(self):
         response = self.post({
