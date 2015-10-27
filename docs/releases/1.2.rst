@@ -28,6 +28,12 @@ Note that the variable name ``self`` is reserved in Jinja2, and so Wagtail now p
 See: :doc:`/advanced_topics/jinja2`
 
 
+Site-specific redirects
+~~~~~~~~~~~~~~~~~~~~~~~
+
+You can now create redirects for a particular site using the admin interface.
+
+
 Search API improvements
 ~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -94,6 +100,7 @@ Bug fixes
  * Scrolling an over-long explorer menu no longer causes white background to show through (Alex Gleason)
  * Removed jitter when hovering over StreamField blocks (Alex Gleason)
  * Non-ASCII email addresses no longer throw errors when generating Gravatar URLs (Denis Voskvitsov, Kyle Stratis)
+ * Dropdown for ``ForeignKey`` s are now styled consistently (Ashia Zawaduk)
 
 Upgrade considerations
 ======================
