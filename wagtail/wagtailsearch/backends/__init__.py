@@ -3,9 +3,9 @@
 # https://github.com/django/django/blob/5d263dee304fdaf95e18d2f0619d6925984a7f02/django/core/cache/__init__.py
 
 import sys
-import six
 from importlib import import_module
 
+from django.utils import six
 from django.utils.module_loading import import_string
 from django.core.exceptions import ImproperlyConfigured
 from django.conf import settings
