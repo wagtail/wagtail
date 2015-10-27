@@ -18,7 +18,7 @@ def index(request):
     query_string = request.GET.get('q', "")
     ordering = request.GET.get('ordering', 'old_path')
 
-    redirects = models.Redirect.get_for_site(site=request.site).prefetch_related('redirect_page')
+    redirects = models.Redirect.objects.prefetch_related('redirect_page', 'site')
 
     # Search
     if query_string:
