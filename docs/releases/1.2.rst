@@ -83,6 +83,7 @@ Minor features
  * Rich text fields now strip out HTML comments
  * Page editor form now sets ``enctype="multipart/form-data"`` as appropriate, allowing FileField to be used on page models (Petr Vacha)
  * Explorer navigation menu on a completely empty page tree now takes you to the root level, rather than doing nothing
+ * Added animation and fixed display issues when focusing a rich text field (Alex Gleason)
 
 Bug fixes
 ~~~~~~~~~

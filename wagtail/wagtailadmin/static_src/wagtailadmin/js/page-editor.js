@@ -46,6 +46,18 @@ function makeRichTextEditable(id) {
         }
     }).bind('paste', function(event, data) {
         setTimeout(removeStyling, 1);
+    /* Animate the fields open when you click into them. */
+    }).bind('halloactivated', function(event, data) {
+        $(event.target).addClass('expanded', 200, function(e) {
+            /* Hallo's toolbar will reposition itself on the scroll event.
+            This is useful since animating the fields can cause it to be
+            positioned badly initially. */
+            $(window).trigger('scroll');
+        });
+    }).bind('hallodeactivated', function(event, data) {
+        $(event.target).removeClass('expanded', 200, function(e) {
+            $(window).trigger('scroll');
+        });
     });
 }
 

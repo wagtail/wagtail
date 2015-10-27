@@ -131,10 +131,11 @@
         padding-top:1em; /* to provide space for editor buttons */
         padding-bottom:1em;
 
-        &.inEditMode{
+        &.expanded{
             padding-top:5em; /* to provide space for editor buttons */
             padding-bottom:2em;
         }
+
     }
 
     &.required{
@@ -167,7 +168,7 @@
             padding-top:3em; /* to provide space for editor buttons */
             padding-bottom:3em;
 
-            &.inEditMode{
+            &.expanded{
                 padding-top:5em; /* to provide space for editor buttons */
                 padding-bottom:5em;
             }
@@ -201,7 +202,7 @@
             max-width:none;
         }
 
-        .block_field > .field-content{ 
+        .block_field > .field-content{
             width:100%;
             display:block;
         }
@@ -215,7 +216,7 @@
             line-height:1.4em;
             width:1.4em;
         }
-       
+
     }
 
     .multiple{
@@ -298,7 +299,7 @@
                 cursor: pointer;
             }
         }
-        
+
 
         &.collapsed{
             h2{
@@ -311,8 +312,8 @@
 }
 
 /* Custom styles that make some fields look more important */
-.full input, 
-.full textarea, 
+.full input,
+.full textarea,
 .full .richtext{
     @include nice-padding();
     @include border-radius(0px);
@@ -413,7 +414,7 @@ footer .preview{
                 display: block;
                 float: none;
                 width: auto;
-                padding: inherit; 
+                padding: inherit;
             }
         }
         .multiple{

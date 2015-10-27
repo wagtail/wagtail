@@ -44,7 +44,7 @@ CODE FOR SETTING UP SPECIFIC UI WIDGETS, SUCH AS DELETE BUTTONS OR MENUS, DOES N
             /* set this list member's hidden 'deleted' flag to true */
             $('#' + self.prefix + '-deleted').val('1');
             /* hide the list item */
-            self.container.fadeOut();
+            self.container.slideUp().dequeue().fadeOut();
         };
 
         self._markAdded = function() {
