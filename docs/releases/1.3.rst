@@ -68,6 +68,7 @@ Minor features
  * Added the ability to override the default manager on Page models
  * Added an optional human-friendly ``site_name`` field to sites (Timo Rieber)
  * Added success message after updating image from the image upload view (Christian Peters)
+ * Added a ``request.is_preview`` variable for templates to distinguish between previewing and live (Denis Voskvitsov)
  * New translations for Arabic and Latvian
 
 
