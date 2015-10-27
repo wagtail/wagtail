@@ -155,6 +155,8 @@ class TestRedirectsIndexView(TestCase, WagtailTestUtils):
 
 
 class TestRedirectsAddView(TestCase, WagtailTestUtils):
+    fixtures = ['test.json']
+
     def setUp(self):
         self.login()
 
@@ -207,12 +209,58 @@ class TestRedirectsAddView(TestCase, WagtailTestUtils):
     def test_add_validation_error(self):
         response = self.post({
             'old_path': '',
+            'site': '',
             'is_permanent': 'on',
             'redirect_link': 'http://www.test.com/',
         })
 
         # Should not redirect to index
         self.assertEqual(response.status_code, 200)
+
+    def test_cannot_add_duplicate_with_no_site(self):
+        models.Redirect.objects.create(old_path='/test', site=None, redirect_link='http://elsewhere.com/')
+        response = self.post({
+            'old_path': '/test',
+            'site': '',
+            'is_permanent': 'on',
+            'redirect_link': 'http://www.test.com/',
+        })
+
+        # Should not redirect to index
+        self.assertEqual(response.status_code, 200)
+
+    def test_cannot_add_duplicate_on_same_site(self):
+        localhost = Site.objects.get(hostname='localhost')
+        models.Redirect.objects.create(old_path='/test', site=localhost, redirect_link='http://elsewhere.com/')
+        response = self.post({
+            'old_path': '/test',
+            'site': localhost.pk,
+            'is_permanent': 'on',
+            'redirect_link': 'http://www.test.com/',
+        })
+
+        # Should not redirect to index
+        self.assertEqual(response.status_code, 200)
+
+    def test_can_reuse_path_on_other_site(self):
+        localhost = Site.objects.get(hostname='localhost')
+        contact_page = Page.objects.get(url_path='/home/contact-us/')
+        other_site = Site.objects.create(hostname='other.example.com', port=80, root_page=contact_page)
+
+        models.Redirect.objects.create(old_path='/test', site=localhost, redirect_link='http://elsewhere.com/')
+        response = self.post({
+            'old_path': '/test',
+            'site': other_site.pk,
+            'is_permanent': 'on',
+            'redirect_link': 'http://www.test.com/',
+        })
+
+        # Should redirect back to index
+        self.assertRedirects(response, reverse('wagtailredirects:index'))
+
+        # Check that the redirect was created
+        redirects = models.Redirect.objects.filter(redirect_link='http://www.test.com/')
+        self.assertEqual(redirects.count(), 1)
 
 
 class TestRedirectsEditView(TestCase, WagtailTestUtils):
@@ -278,6 +326,19 @@ class TestRedirectsEditView(TestCase, WagtailTestUtils):
         response = self.post({
             'old_path': '',
             'is_permanent': 'on',
+            'site': '',
+            'redirect_link': 'http://www.test.com/ive-been-edited',
+        })
+
+        # Should not redirect to index
+        self.assertEqual(response.status_code, 200)
+
+    def test_edit_duplicate(self):
+        models.Redirect.objects.create(old_path='/othertest', site=None, redirect_link='http://elsewhere.com/')
+        response = self.post({
+            'old_path': '/othertest',
+            'is_permanent': 'on',
+            'site': '',
             'redirect_link': 'http://www.test.com/ive-been-edited',
         })
 
