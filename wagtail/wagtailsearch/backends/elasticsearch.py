@@ -1,9 +1,9 @@
 from __future__ import absolute_import
 
 import json
-import six
 import warnings
 
+from django.utils import six
 from django.utils.six.moves.urllib.parse import urlparse
 
 from elasticsearch import Elasticsearch, NotFoundError
