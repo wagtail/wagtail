@@ -512,6 +512,8 @@ class Page(six.with_metaclass(PageBase, MP_Node, ClusterableModel, index.Indexed
             return self.template
 
     def serve(self, request, *args, **kwargs):
+        request.is_preview = getattr(request, 'is_preview', False)
+
         return TemplateResponse(
             request,
             self.get_template(request, *args, **kwargs),
@@ -937,6 +939,8 @@ class Page(six.with_metaclass(PageBase, MP_Node, ClusterableModel, index.Indexed
         here - this ensures that request.user and other properties are set appropriately for
         the wagtail user bar to be displayed. This request will always be a GET.
         """
+        request.is_preview = True
+
         return self.serve(request)
 
     def get_cached_paths(self):
