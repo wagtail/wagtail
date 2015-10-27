@@ -1,10 +1,13 @@
 from django.test import TestCase
 from wagtail.wagtailredirects import models
+from wagtail.wagtailcore.models import Page, Site
 from wagtail.tests.utils import WagtailTestUtils
 from django.core.urlresolvers import reverse
 
 
 class TestRedirects(TestCase):
+    fixtures = ['test.json']
+
     def test_path_normalisation(self):
         # Shortcut to normalise function (to keep things tidy)
         normalise_path = models.Redirect.normalise_path
@@ -85,6 +88,46 @@ class TestRedirects(TestCase):
         self.assertEqual(r_no_qs.status_code, 301)
         self.assertTrue(r_no_qs.has_header('Location'))
         self.assertEqual(r_no_qs['Location'][-21:], '/without-query-string')
+
+    def test_redirect_to_page(self):
+        christmas_page = Page.objects.get(url_path='/home/events/christmas/')
+        models.Redirect.objects.create(old_path='/xmas', redirect_page=christmas_page)
+
+        response = self.client.get('/xmas/', HTTP_HOST='test.example.com')
+        self.assertEqual(response.status_code, 301)
+        # if only one site exists, our redirect response preserves the request hostname
+        self.assertEqual(response['Location'], 'http://test.example.com/events/christmas/')
+
+    def test_redirect_from_any_site(self):
+        contact_page = Page.objects.get(url_path='/home/contact-us/')
+        Site.objects.create(hostname='other.example.com', port=80, root_page=contact_page)
+
+        christmas_page = Page.objects.get(url_path='/home/events/christmas/')
+        models.Redirect.objects.create(old_path='/xmas', redirect_page=christmas_page)
+
+        # no site was specified on the redirect, so it should redirect regardless of hostname
+        response = self.client.get('/xmas/', HTTP_HOST='localhost')
+        self.assertEqual(response.status_code, 301)
+        self.assertEqual(response['Location'], 'http://localhost/events/christmas/')
+
+        response = self.client.get('/xmas/', HTTP_HOST='other.example.com')
+        self.assertEqual(response.status_code, 301)
+        self.assertEqual(response['Location'], 'http://localhost/events/christmas/')
+
+    def test_redirect_from_specific_site(self):
+        contact_page = Page.objects.get(url_path='/home/contact-us/')
+        other_site = Site.objects.create(hostname='other.example.com', port=80, root_page=contact_page)
+
+        christmas_page = Page.objects.get(url_path='/home/events/christmas/')
+        models.Redirect.objects.create(old_path='/xmas', redirect_page=christmas_page, site=other_site)
+
+        # redirect should only respond when site is other_site
+        response = self.client.get('/xmas/', HTTP_HOST='other.example.com')
+        self.assertEqual(response.status_code, 301)
+        self.assertEqual(response['Location'], 'http://localhost/events/christmas/')
+
+        response = self.client.get('/xmas/', HTTP_HOST='localhost')
+        self.assertEqual(response.status_code, 404)
 
 
 class TestRedirectsIndexView(TestCase, WagtailTestUtils):
