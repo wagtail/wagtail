@@ -16,7 +16,7 @@
     "gulp": "~3.8.11",
     "gulp-autoprefixer": "~1.0.1",
     "gulp-rename": "^1.2.2",
-    "gulp-sass": "~1.0.0",
+    "gulp-sass": "~2.0.0",
     "gulp-sourcemaps": "~1.2.2",
     "gulp-util": "~2.2.14",
     "jscs": "^1.12.0",
