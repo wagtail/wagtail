@@ -19,14 +19,14 @@ from wagtail.wagtailcore import blocks
 from wagtail.tests.utils import WagtailTestUtils
 
 from wagtail.wagtailembeds.rich_text import MediaEmbedHandler
-from wagtail.wagtailembeds.embeds import (
-    EmbedNotFoundException,
+from wagtail.wagtailembeds.embeds import get_embed
+from wagtail.wagtailembeds.exceptions import EmbedNotFoundException
+from wagtail.wagtailembeds.finders.embedly import (
     EmbedlyException,
     AccessDeniedEmbedlyException,
-    get_embed,
     embedly as wagtail_embedly,
-    oembed as wagtail_oembed,
 )
+from wagtail.wagtailembeds.finders.oembed import oembed as wagtail_oembed
 from wagtail.wagtailembeds.templatetags.wagtailembeds_tags import embed as embed_filter
 from wagtail.wagtailembeds.blocks import EmbedBlock, EmbedValue
 from wagtail.wagtailembeds.models import Embed

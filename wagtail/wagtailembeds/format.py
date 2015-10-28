@@ -3,6 +3,7 @@ from __future__ import division  # Use true division
 from django.template.loader import render_to_string
 
 from wagtail.wagtailembeds import embeds
+from wagtail.wagtailembeds.exceptions import EmbedException
 
 
 def embed_to_frontend_html(url):
@@ -20,7 +21,7 @@ def embed_to_frontend_html(url):
             'embed': embed,
             'ratio': ratio,
         })
-    except embeds.EmbedException:
+    except EmbedException:
         # silently ignore failed embeds, rather than letting them crash the page
         return ''
 
