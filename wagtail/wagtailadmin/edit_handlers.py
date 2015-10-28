@@ -120,8 +120,12 @@ def get_form_for_model(
 
     # Give this new form class a reasonable name.
     class_name = model.__name__ + str('Form')
+    bases = (object,)
+    if hasattr(form_class, 'Meta'):
+        bases = (form_class.Meta,) + bases
+
     form_class_attrs = {
-        'Meta': type(str('Meta'), (object,), attrs)
+        'Meta': type(str('Meta'), bases, attrs)
     }
 
     metaclass = type(form_class)
@@ -776,6 +780,32 @@ Page.promote_panels = [
 Page.settings_panels = [
     PublishingPanel()
 ]
+
+Page.base_form_class = WagtailAdminModelForm
+
+
+@classmethod
+@lru_cache()
+def get_edit_handler(cls):
+    if hasattr(cls, 'edit_handler'):
+        return cls.edit_handler.bind_to_model(cls)
+
+    # construct a TabbedInterface made up of content_panels, promote_panels
+    # and settings_panels, skipping any which are empty
+    tabs = []
+
+    if cls.content_panels:
+        tabs.append(ObjectList(cls.content_panels, heading=ugettext_lazy('Content')))
+    if cls.promote_panels:
+        tabs.append(ObjectList(cls.promote_panels, heading=ugettext_lazy('Promote')))
+    if cls.settings_panels:
+        tabs.append(ObjectList(cls.settings_panels, heading=ugettext_lazy('Settings'), classname="settings"))
+
+    EditHandler = TabbedInterface(tabs, base_form_class=cls.base_form_class)
+    return EditHandler.bind_to_model(cls)
+
+
+Page.get_edit_handler = get_edit_handler
 
 
 class BaseStreamFieldPanel(BaseFieldPanel):

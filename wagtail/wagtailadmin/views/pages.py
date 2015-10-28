@@ -12,7 +12,6 @@ from django.views.decorators.vary import vary_on_headers
 from django.db.models import Count
 
 from wagtail.utils.pagination import paginate
-from wagtail.wagtailadmin.edit_handlers import TabbedInterface, ObjectList
 from wagtail.wagtailadmin.forms import SearchForm, CopyForm
 from wagtail.wagtailadmin.utils import send_notification
 from wagtail.wagtailadmin import signals
@@ -142,7 +141,7 @@ def create(request, content_type_app_name, content_type_model_name, parent_page_
         raise PermissionDenied
 
     page = page_class(owner=request.user)
-    edit_handler_class = get_page_edit_handler(page_class)
+    edit_handler_class = page_class.get_edit_handler()
     form_class = edit_handler_class.get_form_class(page_class)
 
     if request.POST:
@@ -225,13 +224,14 @@ def edit(request, page_id):
     parent = page.get_parent()
 
     content_type = ContentType.objects.get_for_model(page)
+    page_class = content_type.model_class()
 
     page_perms = page.permissions_for_user(request.user)
     if not page_perms.can_edit():
         raise PermissionDenied
 
-    edit_handler_class = get_page_edit_handler(page.__class__)
-    form_class = edit_handler_class.get_form_class(page.__class__)
+    edit_handler_class = page_class.get_edit_handler()
+    form_class = edit_handler_class.get_form_class(page_class)
 
     errors_debug = None
 
@@ -390,8 +390,10 @@ def preview_on_edit(request, page_id):
     # Receive the form submission that would typically be posted to the 'edit' view. If submission is valid,
     # return the rendered page; if not, re-render the edit form
     page = get_object_or_404(Page, id=page_id).get_latest_revision_as_page()
-    edit_handler_class = get_page_edit_handler(page.__class__)
-    form_class = edit_handler_class.get_form_class(page.__class__)
+    content_type = page.content_type
+    page_class = content_type.model_class()
+    edit_handler_class = page_class.get_edit_handler()
+    form_class = edit_handler_class.get_form_class(page_class)
 
     form = form_class(request.POST, request.FILES, instance=page)
 
@@ -425,7 +427,7 @@ def preview_on_create(request, content_type_app_name, content_type_model_name, p
 
     page_class = content_type.model_class()
     page = page_class()
-    edit_handler_class = get_page_edit_handler(page_class)
+    edit_handler_class = page_class.get_edit_handler()
     form_class = edit_handler_class.get_form_class(page_class)
 
     form = form_class(request.POST, request.FILES, instance=page)
@@ -667,31 +669,6 @@ def copy(request, page_id):
     })
 
 
-PAGE_EDIT_HANDLERS = {}
-
-
-def get_page_edit_handler(page_class):
-    if page_class not in PAGE_EDIT_HANDLERS:
-        if hasattr(page_class, 'edit_handler'):
-            # use the edit handler specified on the page class
-            edit_handler = page_class.edit_handler
-        else:
-            # construct a TabbedInterface made up of content_panels, promote_panels
-            # and settings_panels, skipping any which are empty
-            tabs = []
-
-            if page_class.content_panels:
-                tabs.append(ObjectList(page_class.content_panels, heading=_('Content')))
-            if page_class.promote_panels:
-                tabs.append(ObjectList(page_class.promote_panels, heading=_('Promote')))
-            if page_class.settings_panels:
-                tabs.append(ObjectList(page_class.settings_panels, heading=_('Settings'), classname="settings"))
-
-            edit_handler = TabbedInterface(tabs)
-
-        PAGE_EDIT_HANDLERS[page_class] = edit_handler.bind_to_model(page_class)
-
-    return PAGE_EDIT_HANDLERS[page_class]
 
 
 @vary_on_headers('X-Requested-With')
