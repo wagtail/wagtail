@@ -49,6 +49,14 @@ class TestGetDefaultFinder(TestCase):
     def test_find_oembed(self):
         self.assertEqual(get_default_finder(), wagtail_oembed)
 
+    @override_settings(WAGTAILEMBEDS_EMBED_FINDER='wagtail.wagtailembeds.finders.embedly')
+    def test_find_embedly_from_module(self):
+        self.assertEqual(get_default_finder(), wagtail_embedly)
+
+    @override_settings(WAGTAILEMBEDS_EMBED_FINDER='wagtail.wagtailembeds.finders.oembed')
+    def test_find_oembed_from_module(self):
+        self.assertEqual(get_default_finder(), wagtail_oembed)
+
     @override_settings(WAGTAILEMBEDS_EMBED_FINDER='wagtail.wagtailembeds.embeds.embedly')
     def test_find_old_embedly(self):
         self.assertEqual(get_default_finder(), wagtail_embedly)

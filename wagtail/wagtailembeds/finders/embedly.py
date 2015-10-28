@@ -55,3 +55,6 @@ def embedly(url, max_width=None, key=None):
         'height': oembed.get('height'),
         'html': html,
     }
+
+
+find_embed = embedly

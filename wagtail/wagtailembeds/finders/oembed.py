@@ -49,3 +49,6 @@ def oembed(url, max_width=None):
         'height': oembed.get('height'),
         'html': html,
     }
+
+
+find_embed = oembed
