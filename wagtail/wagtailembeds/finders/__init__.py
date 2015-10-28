@@ -1,9 +1,6 @@
 from django.utils.module_loading import import_string
 from django.conf import settings
 
-from wagtail.wagtailembeds.finders.oembed import oembed
-from wagtail.wagtailembeds.finders.embedly import embedly
-
 
 MOVED_FINDERS = {
     'wagtail.wagtailembeds.embeds.embedly': 'wagtail.wagtailembeds.finders.embedly.embedly',
@@ -19,11 +16,12 @@ def get_default_finder():
         if finder_name in MOVED_FINDERS:
             finder_name = MOVED_FINDERS[finder_name]
 
-        return import_string(finder_name)
+    elif hasattr(settings, 'WAGTAILEMBEDS_EMBEDLY_KEY'):
+        # Default to Embedly as an embedly key is set
+        finder_name = 'wagtail.wagtailembeds.finders.embedly.embedly'
 
-    # Use embedly if the embedly key is set
-    if hasattr(settings, 'WAGTAILEMBEDS_EMBEDLY_KEY'):
-        return embedly
+    else:
+        # Default to oembed
+        finder_name = 'wagtail.wagtailembeds.finders.oembed.oembed'
 
-    # Fall back to oembed
-    return oembed
+    return import_string(finder_name)
