@@ -92,7 +92,7 @@ WagtailAdminModelForm = WagtailAdminModelFormMetaclass(str('WagtailAdminModelFor
 
 
 def get_form_for_model(
-    model,
+    model, form_class=WagtailAdminModelForm,
     fields=None, exclude=None, formsets=None, exclude_formsets=None, widgets=None
 ):
 
@@ -124,7 +124,8 @@ def get_form_for_model(
         'Meta': type(str('Meta'), (object,), attrs)
     }
 
-    return WagtailAdminModelFormMetaclass(class_name, (WagtailAdminModelForm,), form_class_attrs)
+    metaclass = type(form_class)
+    return metaclass(class_name, (form_class,), form_class_attrs)
 
 
 def extract_panel_definitions_from_model_class(model, exclude=None):
@@ -183,19 +184,6 @@ class EditHandler(object):
     @classmethod
     def html_declarations(cls):
         return ''
-
-    # the top-level edit handler is responsible for providing a form class that can produce forms
-    # acceptable to the edit handler
-    _form_class = None
-
-    @classmethod
-    def get_form_class(cls, model):
-        if cls._form_class is None:
-            cls._form_class = get_form_for_model(
-                model,
-                fields=cls.required_fields(),
-                formsets=cls.required_formsets(), widgets=cls.widget_overrides())
-        return cls._form_class
 
     def __init__(self, instance=None, form=None):
         if not instance:
@@ -341,30 +329,62 @@ class BaseCompositeEditHandler(EditHandler):
         }))
 
 
-class BaseTabbedInterface(BaseCompositeEditHandler):
+class BaseFormEditHandler(BaseCompositeEditHandler):
+    """
+    Base class for edit handlers that can construct a form class for all their
+    child edit handlers.
+    """
+
+    # The form class used as the base for constructing specific forms for this
+    # edit handler.  Subclasses can override this attribute to provide a form
+    # with custom validation, for example.  Custom forms must subclass
+    # WagtailAdminModelForm
+    base_form_class = WagtailAdminModelForm
+
+    @classmethod
+    @lru_cache()
+    def get_form_class(cls, model):
+        """
+        Construct a form class that has all the fields and formsets named in
+        the children of this edit handler.
+        """
+        return get_form_for_model(
+            model,
+            form_class=cls.base_form_class,
+            fields=cls.required_fields(),
+            formsets=cls.required_formsets(),
+            widgets=cls.widget_overrides())
+
+
+class BaseTabbedInterface(BaseFormEditHandler):
     template = "wagtailadmin/edit_handlers/tabbed_interface.html"
 
 
 class TabbedInterface(object):
-    def __init__(self, children):
+    def __init__(self, children, base_form_class=BaseFormEditHandler.base_form_class):
         self.children = children
+        self.base_form_class = base_form_class
 
     def bind_to_model(self, model):
         return type(str('_TabbedInterface'), (BaseTabbedInterface,), {
             'model': model,
             'children': [child.bind_to_model(model) for child in self.children],
+            'base_form_class': self.base_form_class,
         })
 
 
-class BaseObjectList(BaseCompositeEditHandler):
+class BaseObjectList(BaseFormEditHandler):
     template = "wagtailadmin/edit_handlers/object_list.html"
 
 
 class ObjectList(object):
-    def __init__(self, children, heading="", classname=""):
+
+    def __init__(self, children, heading="", classname="",
+                 base_form_class=BaseFormEditHandler.base_form_class):
         self.children = children
         self.heading = heading
         self.classname = classname
+        self.base_form_class = base_form_class
 
     def bind_to_model(self, model):
         return type(str('_ObjectList'), (BaseObjectList,), {
@@ -372,6 +392,7 @@ class ObjectList(object):
             'children': [child.bind_to_model(model) for child in self.children],
             'heading': self.heading,
             'classname': self.classname,
+            'base_form_class': self.base_form_class,
         })
 
 
