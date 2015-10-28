@@ -348,10 +348,11 @@ class TestPageChooserPanel(TestCase):
         model = PageChooserModel  # a model with a foreign key to Page which we want to render as a page chooser
 
         # a PageChooserPanel class that works on PageChooserModel's 'page' field
-        self.MyPageChooserPanel = PageChooserPanel('page').bind_to_model(PageChooserModel)
+        self.EditHandler = ObjectList([PageChooserPanel('page')]).bind_to_model(PageChooserModel)
+        self.MyPageChooserPanel = self.EditHandler.children[0]
 
         # build a form class containing the fields that MyPageChooserPanel wants
-        self.PageChooserForm = self.MyPageChooserPanel.get_form_class(PageChooserModel)
+        self.PageChooserForm = self.EditHandler.get_form_class(PageChooserModel)
 
         # a test instance of PageChooserModel, pointing to the 'christmas' page
         self.christmas_page = Page.objects.get(slug='christmas')
@@ -418,10 +419,13 @@ class TestPageChooserPanel(TestCase):
     def test_override_page_type(self):
         # Model has a foreign key to Page, but we specify EventPage in the PageChooserPanel
         # to restrict the chooser to that page type
-        MyPageChooserPanel = PageChooserPanel('page', 'tests.EventPage').bind_to_model(EventPageChooserModel)
-        PageChooserForm = MyPageChooserPanel.get_form_class(EventPageChooserModel)
+        MyPageObjectList = ObjectList([
+            PageChooserPanel('page', 'tests.EventPage')
+        ]).bind_to_model(EventPageChooserModel)
+        MyPageChooserPanel = MyPageObjectList.children[0]
+        PageChooserForm = MyPageObjectList.get_form_class(EventPageChooserModel)
         form = PageChooserForm(instance=self.test_instance)
-        page_chooser_panel = self.MyPageChooserPanel(instance=self.test_instance, form=form)
+        page_chooser_panel = MyPageChooserPanel(instance=self.test_instance, form=form)
 
         result = page_chooser_panel.render_as_field()
         expected_js = 'createPageChooser("{id}", ["{model}"], {parent}, false);'.format(
@@ -432,10 +436,11 @@ class TestPageChooserPanel(TestCase):
     def test_autodetect_page_type(self):
         # Model has a foreign key to EventPage, which we want to autodetect
         # instead of specifying the page type in PageChooserPanel
-        MyPageChooserPanel = PageChooserPanel('page').bind_to_model(EventPageChooserModel)
-        PageChooserForm = MyPageChooserPanel.get_form_class(EventPageChooserModel)
+        MyPageObjectList = ObjectList([PageChooserPanel('page')]).bind_to_model(EventPageChooserModel)
+        MyPageChooserPanel = MyPageObjectList.children[0]
+        PageChooserForm = MyPageObjectList.get_form_class(EventPageChooserModel)
         form = PageChooserForm(instance=self.test_instance)
-        page_chooser_panel = self.MyPageChooserPanel(instance=self.test_instance, form=form)
+        page_chooser_panel = MyPageChooserPanel(instance=self.test_instance, form=form)
 
         result = page_chooser_panel.render_as_field()
         expected_js = 'createPageChooser("{id}", ["{model}"], {parent}, false);'.format(
@@ -475,8 +480,9 @@ class TestInlinePanel(TestCase, WagtailTestUtils):
         Check that the inline panel renders the panels set on the model
         when no 'panels' parameter is passed in the InlinePanel definition
         """
-        SpeakerInlinePanel = InlinePanel('speakers', label="Speakers").bind_to_model(EventPage)
-        EventPageForm = SpeakerInlinePanel.get_form_class(EventPage)
+        SpeakerObjectList = ObjectList([InlinePanel('speakers', label="Speakers")]).bind_to_model(EventPage)
+        SpeakerInlinePanel = SpeakerObjectList.children[0]
+        EventPageForm = SpeakerObjectList.get_form_class(EventPage)
 
         # SpeakerInlinePanel should instruct the form class to include a 'speakers' formset
         self.assertEqual(['speakers'], list(EventPageForm.formsets.keys()))
@@ -510,11 +516,14 @@ class TestInlinePanel(TestCase, WagtailTestUtils):
         Check that inline panel renders the panels listed in the InlinePanel definition
         where one is specified
         """
-        SpeakerInlinePanel = InlinePanel('speakers', label="Speakers", panels=[
-            FieldPanel('first_name', widget=forms.Textarea),
-            ImageChooserPanel('image'),
+        SpeakerObjectList = ObjectList([
+            InlinePanel('speakers', label="Speakers", panels=[
+                FieldPanel('first_name', widget=forms.Textarea),
+                ImageChooserPanel('image'),
+            ]),
         ]).bind_to_model(EventPage)
-        EventPageForm = SpeakerInlinePanel.get_form_class(EventPage)
+        SpeakerInlinePanel = SpeakerObjectList.children[0]
+        EventPageForm = SpeakerObjectList.get_form_class(EventPage)
 
         # SpeakerInlinePanel should instruct the form class to include a 'speakers' formset
         self.assertEqual(['speakers'], list(EventPageForm.formsets.keys()))
