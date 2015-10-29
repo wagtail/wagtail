@@ -16,7 +16,8 @@ from wagtail.wagtailcore.models import Page, Site, PAGE_MODEL_CLASSES
 from wagtail.tests.testapp.models import (
     SingleEventPage, EventPage, EventIndex, SimplePage,
     BusinessIndex, BusinessSubIndex, BusinessChild, StandardIndex,
-    MTIBasePage, MTIChildPage, AbstractPage, TaggedPage)
+    MTIBasePage, MTIChildPage, AbstractPage, TaggedPage,
+    BlogCategory, BlogCategoryBlogPage, Advert, ManyToManyBlogPage)
 
 
 class TestSiteRouting(TestCase):
@@ -665,6 +666,27 @@ class TestCopyPage(TestCase):
             item_id not in old_tagged_item_ids
             for item_id in new_tagged_item_ids
         ]))
+
+    def test_copy_page_with_m2m_relations(self):
+        # create and publish a ManyToManyBlogPage under Events
+        event_index = Page.objects.get(url_path='/home/events/')
+        category = BlogCategory.objects.create(name='Birds')
+        advert = Advert.objects.create(url='http://www.heinz.com/', text="beanz meanz heinz")
+
+        blog_page = ManyToManyBlogPage(title='My blog page', slug='my-blog-page')
+        event_index.add_child(instance=blog_page)
+
+        blog_page.adverts.add(advert)
+        BlogCategoryBlogPage.objects.create(category=category, page=blog_page)
+        blog_page.save_revision().publish()
+
+        # copy to underneath homepage
+        homepage = Page.objects.get(url_path='/home/')
+        new_blog_page = blog_page.copy(to=homepage)
+
+        # M2M relations are not formally supported, so for now we're only interested in
+        # the copy operation as a whole succeeding, rather than the child objects being copied
+        self.assertNotEqual(blog_page.id, new_blog_page.id)
 
 
 class TestSubpageTypeBusinessRules(TestCase):

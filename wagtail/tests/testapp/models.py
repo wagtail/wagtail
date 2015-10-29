@@ -479,3 +479,27 @@ class IconSetting(BaseSetting):
 
 class NotYetRegisteredSetting(BaseSetting):
     pass
+
+
+class BlogCategory(models.Model):
+    name = models.CharField(unique=True, max_length=80)
+
+
+class BlogCategoryBlogPage(models.Model):
+    category = models.ForeignKey(BlogCategory, related_name="+")
+    page = ParentalKey('ManyToManyBlogPage', related_name='categories')
+    panels = [
+        FieldPanel('category'),
+    ]
+
+
+class ManyToManyBlogPage(Page):
+    """
+    A page type with two different kinds of M2M relation.
+    We don't formally support these, but we don't want them to cause
+    hard breakages either.
+    """
+    body = RichTextField(blank=True)
+    adverts = models.ManyToManyField(Advert, blank=True)
+    blog_categories = models.ManyToManyField(
+        BlogCategory, through=BlogCategoryBlogPage, blank=True)
