@@ -1,8 +1,11 @@
+import mock
+
 from datetime import date
 
+from django import forms
+from django.core import checks
 from django.core.exceptions import ImproperlyConfigured
 from django.test import TestCase
-from django import forms
 
 from wagtail.wagtailadmin.edit_handlers import (
     get_form_for_model,
@@ -117,6 +120,9 @@ class TestGetFormForModel(TestCase):
 
 class TestPageEditHandlers(TestCase):
     def test_get_edit_handler(self):
+        """
+        Forms for pages should have a base class of WagtailAdminPageForm.
+        """
         EditHandler = EventPage.get_edit_handler()
         EventPageForm = EditHandler.get_form_class(EventPage)
 
@@ -124,12 +130,37 @@ class TestPageEditHandlers(TestCase):
         self.assertTrue(issubclass(EventPageForm, WagtailAdminPageForm))
 
     def test_get_form_for_page_with_custom_base(self):
+        """
+        ValidatedPage sets a custom base_form_class. This should be used as the
+        base class when constructing a form for ValidatedPages
+        """
         EditHandler = ValidatedPage.get_edit_handler()
         GeneratedValidatedPageForm = EditHandler.get_form_class(ValidatedPage)
 
         # The generated form should inherit from ValidatedPageForm, because
-        # ValidatedPageForm.base_form_class == ValidatedPageForm
+        # ValidatedPage.base_form_class == ValidatedPageForm
         self.assertTrue(issubclass(GeneratedValidatedPageForm, ValidatedPageForm))
+
+    def test_check_invalid_base_form_class(self):
+        class BadFormClass(object):
+            pass
+
+        # Clear any old EditHandlers generated
+        ValidatedPage.get_edit_handler.cache_clear()
+
+        with mock.patch.object(ValidatedPage, 'base_form_class', new=BadFormClass):
+            errors = ValidatedPage.check()
+            self.assertEqual(len(errors), 1)
+
+            error = errors[0]
+            self.assertEqual(error, checks.Error(
+                "base_form_class does not extend WagtailAdminPageForm",
+                hint="Ensure that wagtail.wagtailadmin.tests.test_edit_handlers.BadFormClass extends WagtailAdminPageForm",
+                obj=ValidatedPage,
+                id='wagtailcore.E002'))
+
+        # Clear the bad EditHandler generated just now
+        ValidatedPage.get_edit_handler.cache_clear()
 
 
 class TestExtractPanelDefinitionsFromModelClass(TestCase):
