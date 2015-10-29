@@ -118,6 +118,11 @@ class RelatedLink(LinkFields):
 class SimplePage(Page):
     content = models.TextField()
 
+    content_panels = [
+        FieldPanel('title', classname="full title"),
+        FieldPanel('content'),
+    ]
+
 
 class PageWithOldStyleRouteMethod(Page):
     """
