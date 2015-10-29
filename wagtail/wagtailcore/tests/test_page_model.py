@@ -16,7 +16,7 @@ from wagtail.wagtailcore.models import Page, Site, PAGE_MODEL_CLASSES
 from wagtail.tests.testapp.models import (
     SingleEventPage, EventPage, EventIndex, SimplePage,
     BusinessIndex, BusinessSubIndex, BusinessChild, StandardIndex,
-    MTIBasePage, MTIChildPage, AbstractPage)
+    MTIBasePage, MTIChildPage, AbstractPage, TaggedPage)
 
 
 class TestSiteRouting(TestCase):
@@ -635,6 +635,36 @@ class TestCopyPage(TestCase):
         # Check that both parent instance exists
         self.assertIsInstance(EventPage.objects.get(id=new_saint_patrick_event.id), EventPage)
         self.assertIsInstance(Page.objects.get(id=new_saint_patrick_event.id), Page)
+
+    def test_copy_page_copies_tags(self):
+        # create and publish a TaggedPage under Events
+        event_index = Page.objects.get(url_path='/home/events/')
+        tagged_page = TaggedPage(title='My tagged page', slug='my-tagged-page')
+        tagged_page.tags.add('wagtail', 'bird')
+        event_index.add_child(instance=tagged_page)
+        tagged_page.save_revision().publish()
+
+        old_tagged_item_ids = [item.id for item in tagged_page.tagged_items.all()]
+        # there should be two items here, with defined (truthy) IDs
+        self.assertEqual(len(old_tagged_item_ids), 2)
+        self.assertTrue(all(old_tagged_item_ids))
+
+        # copy to underneath homepage
+        homepage = Page.objects.get(url_path='/home/')
+        new_tagged_page = tagged_page.copy(to=homepage)
+
+        self.assertNotEqual(tagged_page.id, new_tagged_page.id)
+
+        # new page should also have two tags
+        new_tagged_item_ids = [item.id for item in new_tagged_page.tagged_items.all()]
+        self.assertEqual(len(new_tagged_item_ids), 2)
+        self.assertTrue(all(new_tagged_item_ids))
+
+        # new tagged_item IDs should differ from old ones
+        self.assertTrue(all([
+            item_id not in old_tagged_item_ids
+            for item_id in new_tagged_item_ids
+        ]))
 
 
 class TestSubpageTypeBusinessRules(TestCase):
