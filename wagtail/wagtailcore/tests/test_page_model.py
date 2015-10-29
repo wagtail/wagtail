@@ -17,7 +17,8 @@ from wagtail.tests.testapp.models import (
     SingleEventPage, EventPage, EventIndex, SimplePage,
     BusinessIndex, BusinessSubIndex, BusinessChild, StandardIndex,
     MTIBasePage, MTIChildPage, AbstractPage, TaggedPage,
-    BlogCategory, BlogCategoryBlogPage, Advert, ManyToManyBlogPage)
+    BlogCategory, BlogCategoryBlogPage, Advert, ManyToManyBlogPage,
+    GenericSnippetPage)
 
 
 class TestSiteRouting(TestCase):
@@ -687,6 +688,24 @@ class TestCopyPage(TestCase):
         # M2M relations are not formally supported, so for now we're only interested in
         # the copy operation as a whole succeeding, rather than the child objects being copied
         self.assertNotEqual(blog_page.id, new_blog_page.id)
+
+    def test_copy_page_with_generic_foreign_key(self):
+        # create and publish a GenericSnippetPage under Events
+        event_index = Page.objects.get(url_path='/home/events/')
+        advert = Advert.objects.create(url='http://www.heinz.com/', text="beanz meanz heinz")
+
+        page = GenericSnippetPage(title='My snippet page', slug='my-snippet-page')
+        page.snippet_content_object = advert
+        event_index.add_child(instance=page)
+
+        page.save_revision().publish()
+
+        # copy to underneath homepage
+        homepage = Page.objects.get(url_path='/home/')
+        new_page = page.copy(to=homepage)
+
+        self.assertNotEqual(page.id, new_page.id)
+        self.assertEqual(new_page.snippet_content_object, advert)
 
 
 class TestSubpageTypeBusinessRules(TestCase):

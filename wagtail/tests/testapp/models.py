@@ -3,6 +3,8 @@ from __future__ import unicode_literals
 from django.db import models
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.utils.encoding import python_2_unicode_compatible
+from django.contrib.contenttypes.fields import GenericForeignKey
+from django.contrib.contenttypes.models import ContentType
 
 from taggit.models import TaggedItemBase
 from taggit.managers import TaggableManager
@@ -503,3 +505,13 @@ class ManyToManyBlogPage(Page):
     adverts = models.ManyToManyField(Advert, blank=True)
     blog_categories = models.ManyToManyField(
         BlogCategory, through=BlogCategoryBlogPage, blank=True)
+
+
+class GenericSnippetPage(Page):
+    """
+    A page containing a reference to an arbitrary snippet (or any model for that matter)
+    linked by a GenericForeignKey
+    """
+    snippet_content_type = models.ForeignKey(ContentType, on_delete=models.SET_NULL, null=True)
+    snippet_object_id = models.PositiveIntegerField(null=True)
+    snippet_content_object = GenericForeignKey('snippet_content_type', 'snippet_object_id')
