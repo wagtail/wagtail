@@ -1,94 +1,31 @@
 from __future__ import unicode_literals
 
-import copy
-
-from modelcluster.forms import ClusterForm, ClusterFormMetaclass
-
 import django
-from django.db import models
-from django.template.loader import render_to_string
-from django.utils.safestring import mark_safe
-from django.utils.six import text_type
 from django import forms
-from django.forms.models import fields_for_model
 from django.contrib.contenttypes.models import ContentType
 from django.core.exceptions import ImproperlyConfigured
+from django.forms.models import fields_for_model
+from django.template.loader import render_to_string
+from django.utils.lru_cache import lru_cache
+from django.utils.safestring import mark_safe
+from django.utils.six import text_type
 from django.utils.translation import ugettext_lazy
-
-from taggit.managers import TaggableManager
 
 from wagtail.wagtailadmin import widgets
 from wagtail.wagtailcore.models import Page
-from wagtail.wagtailcore.utils import camelcase_to_underscore, resolve_model_string
+from wagtail.wagtailcore.utils import (
+    camelcase_to_underscore, resolve_model_string)
 
-
-# Form field properties to override whenever we encounter a model field
-# that matches one of these types - including subclasses
-FORM_FIELD_OVERRIDES = {
-    models.DateField: {'widget': widgets.AdminDateInput},
-    models.TimeField: {'widget': widgets.AdminTimeInput},
-    models.DateTimeField: {'widget': widgets.AdminDateTimeInput},
-    TaggableManager: {'widget': widgets.AdminTagWidget},
-}
-
-# Form field properties to override whenever we encounter a model field
-# that matches one of these types exactly, ignoring subclasses.
-# (This allows us to override the widget for models.TextField, but leave
-# the RichTextField widget alone)
-DIRECT_FORM_FIELD_OVERRIDES = {
-    models.TextField: {'widget': widgets.AdminAutoHeightTextInput},
-}
-
-
-# Callback to allow us to override the default form fields provided for each model field.
-def formfield_for_dbfield(db_field, **kwargs):
-    # adapted from django/contrib/admin/options.py
-
-    overrides = None
-
-    # If we've got overrides for the formfield defined, use 'em. **kwargs
-    # passed to formfield_for_dbfield override the defaults.
-    if db_field.__class__ in DIRECT_FORM_FIELD_OVERRIDES:
-        overrides = DIRECT_FORM_FIELD_OVERRIDES[db_field.__class__]
-    else:
-        for klass in db_field.__class__.mro():
-            if klass in FORM_FIELD_OVERRIDES:
-                overrides = FORM_FIELD_OVERRIDES[klass]
-                break
-
-    if overrides:
-        kwargs = dict(copy.deepcopy(overrides), **kwargs)
-
-    return db_field.formfield(**kwargs)
+# DIRECT_FORM_FIELD_OVERRIDES, FORM_FIELD_OVERRIDES are imported for backwards
+# compatibility, as people are likely importing them from here and then
+# appending their own overrides
+from .forms import (  # NOQA
+    DIRECT_FORM_FIELD_OVERRIDES, FORM_FIELD_OVERRIDES, WagtailAdminModelForm,
+    WagtailAdminPageForm, formfield_for_dbfield)
 
 
 def widget_with_script(widget, script):
     return mark_safe('{0}<script>{1}</script>'.format(widget, script))
-
-
-class WagtailAdminModelFormMetaclass(ClusterFormMetaclass):
-    # Override the behaviour of the regular ModelForm metaclass -
-    # which handles the translation of model fields to form fields -
-    # to use our own formfield_for_dbfield function to do that translation.
-    # This is done by sneaking a formfield_callback property into the class
-    # being defined (unless the class already provides a formfield_callback
-    # of its own).
-
-    # while we're at it, we'll also set extra_form_count to 0, as we're creating
-    # extra forms in JS
-    extra_form_count = 0
-
-    def __new__(cls, name, bases, attrs):
-        if 'formfield_callback' not in attrs or attrs['formfield_callback'] is None:
-            attrs['formfield_callback'] = formfield_for_dbfield
-
-        new_class = super(WagtailAdminModelFormMetaclass, cls).__new__(cls, name, bases, attrs)
-        return new_class
-
-WagtailAdminModelForm = WagtailAdminModelFormMetaclass(str('WagtailAdminModelForm'), (ClusterForm,), {})
-
-# Now, any model forms built off WagtailAdminModelForm instead of ModelForm should pick up
-# the nice form fields defined in FORM_FIELD_OVERRIDES.
 
 
 def get_form_for_model(
@@ -97,24 +34,15 @@ def get_form_for_model(
 ):
 
     # django's modelform_factory with a bit of custom behaviour
-    # (dealing with Treebeard's tree-related fields that really should have
-    # been editable=False)
     attrs = {'model': model}
-
     if fields is not None:
         attrs['fields'] = fields
-
     if exclude is not None:
         attrs['exclude'] = exclude
-    if issubclass(model, Page):
-        attrs['exclude'] = attrs.get('exclude', []) + ['content_type', 'path', 'depth', 'numchild']
-
     if widgets is not None:
         attrs['widgets'] = widgets
-
     if formsets is not None:
         attrs['formsets'] = formsets
-
     if exclude_formsets is not None:
         attrs['exclude_formsets'] = exclude_formsets
 
@@ -141,8 +69,6 @@ def extract_panel_definitions_from_model_class(model, exclude=None):
     _exclude = []
     if exclude:
         _exclude.extend(exclude)
-    if issubclass(model, Page):
-        _exclude = ['content_type', 'path', 'depth', 'numchild']
 
     fields = fields_for_model(model, exclude=_exclude, formfield_callback=formfield_for_dbfield)
 
@@ -781,7 +707,7 @@ Page.settings_panels = [
     PublishingPanel()
 ]
 
-Page.base_form_class = WagtailAdminModelForm
+Page.base_form_class = WagtailAdminPageForm
 
 
 @classmethod

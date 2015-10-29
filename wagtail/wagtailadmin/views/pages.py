@@ -1,10 +1,8 @@
-import django
 from django.http import Http404, HttpResponse
 from django.shortcuts import render, redirect, get_object_or_404
-from django.core.exceptions import ValidationError, PermissionDenied
+from django.core.exceptions import PermissionDenied
 from django.contrib.contenttypes.models import ContentType
 from django.core.urlresolvers import reverse
-from django.utils import timezone
 from django.utils.translation import ugettext as _
 from django.utils.http import is_safe_url
 from django.views.decorators.http import require_GET, require_POST
@@ -18,7 +16,6 @@ from wagtail.wagtailadmin import signals
 
 from wagtail.wagtailcore import hooks
 from wagtail.wagtailcore.models import Page, PageRevision, get_navigation_menu_items
-
 from wagtail.wagtailadmin import messages
 
 
@@ -145,8 +142,8 @@ def create(request, content_type_app_name, content_type_model_name, parent_page_
     form_class = edit_handler_class.get_form_class(page_class)
 
     if request.POST:
-        form = form_class(request.POST, request.FILES, instance=page)
-        validate_page_form(form, parent_page)
+        form = form_class(request.POST, request.FILES, instance=page,
+                          parent_page=parent_page)
 
         if form.is_valid():
             page = form.save(commit=False)
@@ -236,8 +233,8 @@ def edit(request, page_id):
     errors_debug = None
 
     if request.POST:
-        form = form_class(request.POST, request.FILES, instance=page)
-        validate_page_form(form, parent, page)
+        form = form_class(request.POST, request.FILES, instance=page,
+                          parent_page=parent)
 
         if form.is_valid() and not page.locked:
             page = form.save(commit=False)
@@ -315,48 +312,6 @@ def edit(request, page_id):
     })
 
 
-def validate_page_form(form, parent_page, instance=None):
-    # Strip whitespace in title and seo_title fields
-    # This is done for us in Django 1.9 and above
-    if django.VERSION < (1, 9):
-        def clean_title():
-            return form.cleaned_data['title'].strip()
-
-        def clean_seo_title():
-            return form.cleaned_data['seo_title'].strip()
-
-        form.clean_title = clean_title
-        form.clean_seo_title = clean_seo_title
-
-    # Perform default validation
-    form.full_clean()
-
-    if 'slug' in form.cleaned_data:
-        # Get siblings for the page
-        siblings = parent_page.get_children()
-        if instance and instance.id:
-            siblings = siblings.exclude(id=instance.id)
-
-        # Make sure the slug isn't being used by a sibling
-        if siblings.filter(slug=form.cleaned_data['slug']).exists():
-            form.add_error('slug', ValidationError(_("This slug is already in use")))
-
-    # Check scheduled publishing fields
-    go_live_at = form.cleaned_data.get('go_live_at')
-    expire_at = form.cleaned_data.get('expire_at')
-
-    # Go live must be before expire
-    if go_live_at and expire_at:
-        if go_live_at > expire_at:
-            msg = _('Go live date/time must be before expiry date/time')
-            form.add_error('go_live_at', ValidationError(msg))
-            form.add_error('expire_at', ValidationError(msg))
-
-    # Expire at must be in the future
-    if expire_at and expire_at < timezone.now():
-        form.add_error('expire_at', ValidationError(_('Expiry date/time must be in the future')))
-
-
 def delete(request, page_id):
     page = get_object_or_404(Page, id=page_id)
     if not page.permissions_for_user(request.user).can_delete():
@@ -392,10 +347,11 @@ def preview_on_edit(request, page_id):
     page = get_object_or_404(Page, id=page_id).get_latest_revision_as_page()
     content_type = page.content_type
     page_class = content_type.model_class()
+    parent_page = page.get_parent().specific
     edit_handler_class = page_class.get_edit_handler()
     form_class = edit_handler_class.get_form_class(page_class)
 
-    form = form_class(request.POST, request.FILES, instance=page)
+    form = form_class(request.POST, request.FILES, instance=page, parent_page=parent_page)
 
     if form.is_valid():
         form.save(commit=False)
@@ -429,14 +385,14 @@ def preview_on_create(request, content_type_app_name, content_type_model_name, p
     page = page_class()
     edit_handler_class = page_class.get_edit_handler()
     form_class = edit_handler_class.get_form_class(page_class)
+    parent_page = get_object_or_404(Page, id=parent_page_id).specific
 
-    form = form_class(request.POST, request.FILES, instance=page)
+    form = form_class(request.POST, request.FILES, instance=page, parent_page=parent_page)
 
     if form.is_valid():
         form.save(commit=False)
 
         # ensure that our unsaved page instance has a suitable url set
-        parent_page = get_object_or_404(Page, id=parent_page_id).specific
         page.set_url_path(parent_page)
 
         # Set treebeard attributes
@@ -450,7 +406,6 @@ def preview_on_create(request, content_type_app_name, content_type_model_name, p
 
     else:
         edit_handler = edit_handler_class(instance=page, form=form)
-        parent_page = get_object_or_404(Page, id=parent_page_id).specific
 
         response = render(request, 'wagtailadmin/pages/create.html', {
             'content_type': content_type,
@@ -667,8 +622,6 @@ def copy(request, page_id):
         'page': page,
         'form': form,
     })
-
-
 
 
 @vary_on_headers('X-Requested-With')

@@ -15,6 +15,7 @@ from wagtail.wagtailadmin.edit_handlers import (
     InlinePanel,
 )
 
+from wagtail.wagtailadmin.forms import WagtailAdminModelForm, WagtailAdminPageForm
 from wagtail.wagtailadmin.widgets import AdminPageChooser, AdminDateInput, AdminAutoHeightTextInput
 from wagtail.wagtailimages.edit_handlers import ImageChooserPanel
 from wagtail.wagtailcore.models import Page, Site
@@ -27,9 +28,11 @@ from wagtail.tests.utils import WagtailTestUtils
 
 class TestGetFormForModel(TestCase):
     def test_get_form_for_model(self):
-        EventPageForm = get_form_for_model(EventPage)
+        EventPageForm = get_form_for_model(EventPage, form_class=WagtailAdminPageForm)
         form = EventPageForm()
 
+        # form should be a subclass of WagtailAdminModelForm
+        self.assertTrue(issubclass(EventPageForm, WagtailAdminModelForm))
         # form should contain a title field (from the base Page)
         self.assertEqual(type(form.fields['title']), forms.CharField)
         # and 'date_from' from EventPage
@@ -48,19 +51,21 @@ class TestGetFormForModel(TestCase):
         # Test that field overrides defined through DIRECT_FORM_FIELD_OVERRIDES
         # are applied
 
-        SimplePageForm = get_form_for_model(SimplePage)
+        SimplePageForm = get_form_for_model(SimplePage, form_class=WagtailAdminPageForm)
         simple_form = SimplePageForm()
         # plain TextFields should use AdminAutoHeightTextInput as the widget
         self.assertEqual(type(simple_form.fields['content'].widget), AdminAutoHeightTextInput)
 
         # This override should NOT be applied to subclasses of TextField such as
         # RichTextField - they should retain their default widgets
-        EventPageForm = get_form_for_model(EventPage)
+        EventPageForm = get_form_for_model(EventPage, form_class=WagtailAdminPageForm)
         event_form = EventPageForm()
         self.assertEqual(type(event_form.fields['body'].widget), RichTextArea)
 
     def test_get_form_for_model_with_specific_fields(self):
-        EventPageForm = get_form_for_model(EventPage, fields=['date_from'], formsets=['speakers'])
+        EventPageForm = get_form_for_model(
+            EventPage, form_class=WagtailAdminPageForm, fields=['date_from'],
+            formsets=['speakers'])
         form = EventPageForm()
 
         # form should contain date_from but not title
@@ -73,7 +78,9 @@ class TestGetFormForModel(TestCase):
         self.assertNotIn('related_links', form.formsets)
 
     def test_get_form_for_model_with_excluded_fields(self):
-        EventPageForm = get_form_for_model(EventPage, exclude=['title'], exclude_formsets=['related_links'])
+        EventPageForm = get_form_for_model(
+            EventPage, form_class=WagtailAdminPageForm,
+            exclude=['title'], exclude_formsets=['related_links'])
         form = EventPageForm()
 
         # form should contain date_from but not title
@@ -81,26 +88,39 @@ class TestGetFormForModel(TestCase):
         self.assertEqual(type(form.fields['date_from'].widget), AdminDateInput)
         self.assertNotIn('title', form.fields)
 
-        # 'path' should still be excluded even though it isn't explicitly in the exclude list
-        self.assertNotIn('path', form.fields)
+        # 'path' is not excluded any more, as the excluded fields were overridden
+        self.assertIn('path', form.fields)
 
         # formsets should include speakers but not related_links
         self.assertIn('speakers', form.formsets)
         self.assertNotIn('related_links', form.formsets)
 
     def test_get_form_for_model_with_widget_overides_by_class(self):
-        EventPageForm = get_form_for_model(EventPage, widgets={'date_from': forms.PasswordInput})
+        EventPageForm = get_form_for_model(
+            EventPage, form_class=WagtailAdminPageForm,
+            widgets={'date_from': forms.PasswordInput})
         form = EventPageForm()
 
         self.assertEqual(type(form.fields['date_from']), forms.DateField)
         self.assertEqual(type(form.fields['date_from'].widget), forms.PasswordInput)
 
     def test_get_form_for_model_with_widget_overides_by_instance(self):
-        EventPageForm = get_form_for_model(EventPage, widgets={'date_from': forms.PasswordInput()})
+        EventPageForm = get_form_for_model(
+            EventPage, form_class=WagtailAdminPageForm,
+            widgets={'date_from': forms.PasswordInput()})
         form = EventPageForm()
 
         self.assertEqual(type(form.fields['date_from']), forms.DateField)
         self.assertEqual(type(form.fields['date_from'].widget), forms.PasswordInput)
+
+
+class TestPageEditHandlers(TestCase):
+    def test_get_edit_handler(self):
+        EditHandler = EventPage.get_edit_handler()
+        EventPageForm = EditHandler.get_form_class(EventPage)
+
+        # The generated form should inherit from WagtailAdminPageForm
+        self.assertTrue(issubclass(EventPageForm, WagtailAdminPageForm))
 
 
 class TestExtractPanelDefinitionsFromModelClass(TestCase):
@@ -127,12 +147,6 @@ class TestExtractPanelDefinitionsFromModelClass(TestCase):
         # returned panel types should respect modelfield.get_panel() - used on RichTextField
         self.assertTrue(any([
             isinstance(panel, RichTextFieldPanel) and panel.field_name == 'body'
-            for panel in panels
-        ]))
-
-        # treebeard fields should be excluded
-        self.assertFalse(any([
-            panel.field_name == 'path'
             for panel in panels
         ]))
 
@@ -261,7 +275,8 @@ class TestObjectList(TestCase):
 
 class TestFieldPanel(TestCase):
     def setUp(self):
-        self.EventPageForm = get_form_for_model(EventPage, formsets=[])
+        self.EventPageForm = get_form_for_model(
+            EventPage, form_class=WagtailAdminPageForm, formsets=[])
         self.event = EventPage(title='Abergavenny sheepdog trials',
                                date_from=date(2014, 7, 20), date_to=date(2014, 7, 21))
 
