@@ -69,6 +69,7 @@ Minor features
  * Added an optional human-friendly ``site_name`` field to sites (Timo Rieber)
  * Added success message after updating image from the image upload view (Christian Peters)
  * Added a ``request.is_preview`` variable for templates to distinguish between previewing and live (Denis Voskvitsov)
+ * 'Pages' link on site stats dashboard now links to the site homepage when only one site exists, rather than the root level
  * New translations for Arabic and Latvian
 
 

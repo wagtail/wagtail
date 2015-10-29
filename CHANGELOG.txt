@@ -25,6 +25,7 @@ Changelog
  * Added success message after updating image from the image upload view (Christian Peters)
  * Added a `request.is_preview` variable for templates to distinguish between previewing and live (Denis Voskvitsov)
  * New translations for Arabic and Latvian
+ * 'Pages' link on site stats dashboard now links to the site homepage when only one site exists, rather than the root level
  * Fix: Images and page revisions created by a user are no longer deleted when the user is deleted (Rich Atkinson)
  * Fix: HTTP cache purge now works again on Python 2 (Mitchel Cabuloy)
  * Fix: Locked pages can no longer be unpublished (Alex Bridge)
