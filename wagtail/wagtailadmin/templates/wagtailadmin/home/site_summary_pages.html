@@ -1,7 +1,7 @@
 {% load i18n wagtailadmin_tags %}
 
 <li class="icon icon-doc-empty-inverse">
-    <a href="{% url 'wagtailadmin_explore_root' %}">
+<a href="{% if single_site %}{% url 'wagtailadmin_explore' root_page.pk %}{% else %}{% url 'wagtailadmin_explore_root' %}{% endif %}">
     {% blocktrans count counter=total_pages with total_pages|intcomma as total %}
         <span>{{ total }}</span> Page
     {% plural %}
