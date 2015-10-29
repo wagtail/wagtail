@@ -32,6 +32,8 @@ from wagtail.wagtailsearch import index
 from wagtail.wagtailimages.models import AbstractImage, Image
 from wagtail.wagtailimages.blocks import ImageChooserBlock
 
+from .forms import ValidatedPageForm
+
 
 EVENT_AUDIENCE_CHOICES = (
     ('public', "Public"),
@@ -602,3 +604,12 @@ class MyBasePage(Page):
 
 class MyCustomPage(MyBasePage):
     pass
+
+
+class ValidatedPage(Page):
+    foo = models.CharField(max_length=255)
+
+    base_form_class = ValidatedPageForm
+    content_panels = Page.content_panels + [
+        FieldPanel('foo'),
+    ]
