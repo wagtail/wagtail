@@ -20,9 +20,10 @@ from wagtail.wagtailadmin.widgets import AdminPageChooser, AdminDateInput, Admin
 from wagtail.wagtailimages.edit_handlers import ImageChooserPanel
 from wagtail.wagtailcore.models import Page, Site
 from wagtail.wagtailcore.fields import RichTextArea
+from wagtail.tests.testapp.forms import ValidatedPageForm
 from wagtail.tests.testapp.models import (
-    PageChooserModel, EventPageChooserModel, EventPage, EventPageSpeaker, SimplePage
-)
+    PageChooserModel, EventPageChooserModel, EventPage, EventPageSpeaker,
+    SimplePage, ValidatedPage)
 from wagtail.tests.utils import WagtailTestUtils
 
 
@@ -121,6 +122,14 @@ class TestPageEditHandlers(TestCase):
 
         # The generated form should inherit from WagtailAdminPageForm
         self.assertTrue(issubclass(EventPageForm, WagtailAdminPageForm))
+
+    def test_get_form_for_page_with_custom_base(self):
+        EditHandler = ValidatedPage.get_edit_handler()
+        GeneratedValidatedPageForm = EditHandler.get_form_class(ValidatedPage)
+
+        # The generated form should inherit from ValidatedPageForm, because
+        # ValidatedPageForm.base_form_class == ValidatedPageForm
+        self.assertTrue(issubclass(GeneratedValidatedPageForm, ValidatedPageForm))
 
 
 class TestExtractPanelDefinitionsFromModelClass(TestCase):
