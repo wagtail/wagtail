@@ -245,12 +245,11 @@ class StreamValue(collections.Sequence):
     (which keep track of block types in a way that the values alone wouldn't).
     """
 
-    @python_2_unicode_compatible
     class StreamChild(BoundBlock):
-        """Provides some extensions to BoundBlock to make it more natural to work with on front-end templates"""
-        def __str__(self):
-            """Render the value according to the block's native rendering"""
-            return self.block.render(self.value)
+        """
+        Extends BoundBlock with methods that make logical sense in the context of
+        children of StreamField, but not necessarily elsewhere that BoundBlock is used
+        """
 
         @property
         def block_type(self):

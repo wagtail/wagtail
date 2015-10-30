@@ -567,6 +567,22 @@ class TestStructBlock(SimpleTestCase):
         # Don't render the extra item
         self.assertNotIn('<dt>image</dt>', html)
 
+    def test_render_bound_block(self):
+        # the string representation of a bound block should be the value as rendered by
+        # the associated block
+        class SectionBlock(blocks.StructBlock):
+            title = blocks.CharBlock()
+            body = blocks.RichTextBlock()
+
+        block = SectionBlock()
+        struct_value = block.to_python({
+            'title': 'hello',
+            'body': '<b>world</b>',
+        })
+        body_bound_block = struct_value.bound_blocks['body']
+        expected = '<div class="rich-text"><b>world</b></div>'
+        self.assertEqual(str(body_bound_block), expected)
+
     def test_render_form(self):
         class LinkBlock(blocks.StructBlock):
             title = blocks.CharBlock()
