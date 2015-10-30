@@ -6,7 +6,6 @@ from django.contrib.contenttypes.models import ContentType
 from django.core.exceptions import ImproperlyConfigured
 from django.forms.models import fields_for_model
 from django.template.loader import render_to_string
-from django.utils.lru_cache import lru_cache
 from django.utils.safestring import mark_safe
 from django.utils.six import text_type
 from django.utils.translation import ugettext_lazy
@@ -15,6 +14,8 @@ from wagtail.wagtailadmin import widgets
 from wagtail.wagtailcore.models import Page
 from wagtail.wagtailcore.utils import (
     camelcase_to_underscore, resolve_model_string)
+
+from wagtail.utils.decorators import cached_classmethod
 
 # DIRECT_FORM_FIELD_OVERRIDES, FORM_FIELD_OVERRIDES are imported for backwards
 # compatibility, as people are likely importing them from here and then
@@ -271,19 +272,22 @@ class BaseFormEditHandler(BaseCompositeEditHandler):
     # WagtailAdminModelForm
     base_form_class = WagtailAdminModelForm
 
+    _form_class = None
+
     @classmethod
-    @lru_cache()
     def get_form_class(cls, model):
         """
         Construct a form class that has all the fields and formsets named in
         the children of this edit handler.
         """
-        return get_form_for_model(
-            model,
-            form_class=cls.base_form_class,
-            fields=cls.required_fields(),
-            formsets=cls.required_formsets(),
-            widgets=cls.widget_overrides())
+        if cls._form_class is None:
+            cls._form_class = get_form_for_model(
+                model,
+                form_class=cls.base_form_class,
+                fields=cls.required_fields(),
+                formsets=cls.required_formsets(),
+                widgets=cls.widget_overrides())
+        return cls._form_class
 
 
 class BaseTabbedInterface(BaseFormEditHandler):
@@ -710,9 +714,11 @@ Page.settings_panels = [
 Page.base_form_class = WagtailAdminPageForm
 
 
-@classmethod
-@lru_cache()
+@cached_classmethod
 def get_edit_handler(cls):
+    """
+    Get the EditHandler to use in the Wagtail admin when editing this page type.
+    """
     if hasattr(cls, 'edit_handler'):
         return cls.edit_handler.bind_to_model(cls)
 
