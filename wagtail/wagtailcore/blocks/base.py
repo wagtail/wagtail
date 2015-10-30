@@ -389,6 +389,10 @@ class BoundBlock(object):
     def id_for_label(self):
         return self.block.id_for_label(self.prefix)
 
+    def __str__(self):
+        """Render the value according to the block's native rendering"""
+        return self.block.render(self.value)
+
 
 class DeclarativeSubBlocksMetaclass(BaseBlock):
     """
