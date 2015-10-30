@@ -429,8 +429,12 @@ class TestPageChooserPanel(TestCase):
 
     def test_render_js_init_with_can_choose_root_true(self):
         # construct an alternative page chooser panel object, with can_choose_root=True
-        MyPageChooserPanel = PageChooserPanel('page', can_choose_root=True).bind_to_model(PageChooserModel)
-        PageChooserForm = MyPageChooserPanel.get_form_class(PageChooserModel)
+
+        MyPageObjectList = ObjectList([
+            PageChooserPanel('page', can_choose_root=True)
+        ]).bind_to_model(PageChooserModel)
+        MyPageChooserPanel = MyPageObjectList.children[0]
+        PageChooserForm = MyPageObjectList.get_form_class(EventPageChooserModel)
 
         form = PageChooserForm(instance=self.test_instance)
         page_chooser_panel = MyPageChooserPanel(instance=self.test_instance, form=form)
