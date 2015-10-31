@@ -522,10 +522,10 @@ class TestStructBlock(SimpleTestCase):
             link = blocks.URLBlock()
 
         block = LinkBlock()
-        html = block.render({
+        html = block.render(block.to_python({
             'title': "Wagtail site",
             'link': 'http://www.wagtail.io',
-        })
+        }))
         expected_html = '\n'.join([
             '<dl>',
             '<dt>title</dt>',
@@ -543,11 +543,11 @@ class TestStructBlock(SimpleTestCase):
             link = blocks.URLBlock()
 
         block = LinkBlock()
-        html = block.render({
+        html = block.render(block.to_python({
             'title': "Wagtail site",
             'link': 'http://www.wagtail.io',
             'image': 10,
-        })
+        }))
 
         self.assertIn('<dt>title</dt>', html)
         self.assertIn('<dd>Wagtail site</dd>', html)
@@ -563,10 +563,10 @@ class TestStructBlock(SimpleTestCase):
             link = blocks.URLBlock()
 
         block = LinkBlock()
-        html = block.render_form({
+        html = block.render_form(block.to_python({
             'title': "Wagtail site",
             'link': 'http://www.wagtail.io',
-        }, prefix='mylink')
+        }), prefix='mylink')
 
         self.assertIn('<div class="struct-block">', html)
         self.assertIn('<div class="field char_field widget-text_input fieldname-title">', html)
@@ -580,11 +580,11 @@ class TestStructBlock(SimpleTestCase):
             link = blocks.URLBlock()
 
         block = LinkBlock()
-        html = block.render_form({
+        html = block.render_form(block.to_python({
             'title': "Wagtail site",
             'link': 'http://www.wagtail.io',
             'image': 10,
-        }, prefix='mylink')
+        }), prefix='mylink')
 
         self.assertIn('<input id="mylink-title" name="mylink-title" placeholder="Title" type="text" value="Wagtail site" />', html)
         self.assertIn('<input id="mylink-link" name="mylink-link" placeholder="Link" type="url" value="http://www.wagtail.io" />', html)
@@ -598,7 +598,7 @@ class TestStructBlock(SimpleTestCase):
             link = blocks.URLBlock(default="http://www.torchbox.com")
 
         block = LinkBlock()
-        html = block.render_form({}, prefix='mylink')
+        html = block.render_form(block.to_python({}), prefix='mylink')
 
         self.assertIn('<input id="mylink-title" name="mylink-title" placeholder="Title" type="text" value="Torchbox" />', html)
         self.assertIn('<input id="mylink-link" name="mylink-link" placeholder="Link" type="url" value="http://www.torchbox.com" />', html)
@@ -612,19 +612,19 @@ class TestStructBlock(SimpleTestCase):
                 help_text = "Self-promotion is encouraged"
 
         block = LinkBlock()
-        html = block.render_form({
+        html = block.render_form(block.to_python({
             'title': "Wagtail site",
             'link': 'http://www.wagtail.io',
-        }, prefix='mylink')
+        }), prefix='mylink')
 
         self.assertIn('<div class="object-help help">Self-promotion is encouraged</div>', html)
 
         # check it can be overridden in the block constructor
         block = LinkBlock(help_text="Self-promotion is discouraged")
-        html = block.render_form({
+        html = block.render_form(block.to_python({
             'title': "Wagtail site",
             'link': 'http://www.wagtail.io',
-        }, prefix='mylink')
+        }), prefix='mylink')
 
         self.assertIn('<div class="object-help help">Self-promotion is discouraged</div>', html)
 
@@ -657,10 +657,10 @@ class TestStructBlock(SimpleTestCase):
             link = blocks.URLBlock()
 
         block = LinkBlock()
-        content = block.get_searchable_content({
+        content = block.get_searchable_content(block.to_python({
             'title': "Wagtail site",
             'link': 'http://www.wagtail.io',
-        })
+        }))
 
         self.assertEqual(content, ["Wagtail site"])
 
