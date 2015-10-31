@@ -55,6 +55,7 @@ urlpatterns = [
         account.language_preferences,
         name='wagtailadmin_account_language_preferences'
     ),
+    url(r'^account/user_preferences/$', account.user_preferences, name='wagtailadmin_account_user_preferences'),
     url(r'^logout/$', account.logout, name='wagtailadmin_logout'),
 ]
 

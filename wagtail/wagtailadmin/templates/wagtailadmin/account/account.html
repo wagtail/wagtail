@@ -51,7 +51,15 @@
                     </small>
                 </li>
             {% endif %}
+            <li class="row row-flush">
+                <div class="col6">
+                    <a href="{% url 'wagtailadmin_account_user_preferences' %}" class="button button-primary">{% trans "User preferences" %}</a>
+                </div>
 
+                <small class="col6">
+                    {% trans "Change your preferences when accessing the wagtail admin." %}
+                </small>
+            </li>
         </ul>
     </div>
 {% endblock %}

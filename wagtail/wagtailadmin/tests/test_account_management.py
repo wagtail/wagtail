@@ -342,6 +342,29 @@ class TestAccountSection(TestCase, WagtailTestUtils):
         }
         response = self.client.post(reverse('wagtailadmin_account_language_preferences'), post_data)
 
+    def test_user_preferences_view(self):
+        """
+        This tests that the user preferences view responds with the
+        user preferences page
+        """
+        # Get user preferences page
+        response = self.client.get(reverse('wagtailadmin_account_user_preferences'))
+
+        # Check that the user recieved a user preferences page
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'wagtailadmin/account/user_preferences.html')
+
+    def test_user_preferences_view_post(self):
+        """
+        This posts to the user preferences view and checks that the
+        user's profile is updated
+        """
+        # Post new values to the user preferences page
+        post_data = {
+            'show_welcome_screen': 'false',
+        }
+        response = self.client.post(reverse('wagtailadmin_account_user_preferences'), post_data)
+
         # Check that the user was redirected to the account page
         self.assertRedirects(response, reverse('wagtailadmin_account'))
 
@@ -361,6 +384,10 @@ class TestAccountSection(TestCase, WagtailTestUtils):
     def test_not_show_options_if_only_one_language_is_permitted(self):
         response = self.client.post(reverse('wagtailadmin_account'))
         self.assertNotContains(response, 'Language Preferences')
+        profile = UserProfile.get_for_user(get_user_model().objects.get(username='test'))
+
+        # Check that the user preferences are as submitted
+        self.assertFalse(profile.show_welcome_screen)
 
 
 class TestAccountManagementForNonModerator(TestCase, WagtailTestUtils):

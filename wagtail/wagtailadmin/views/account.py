@@ -19,6 +19,7 @@ from wagtail.wagtailadmin import forms
 from wagtail.wagtailadmin.utils import get_available_admin_languages
 from wagtail.wagtailcore.models import UserPagePermissionsProxy
 from wagtail.wagtailusers.forms import NotificationPreferencesForm, PreferredLanguageForm
+from wagtail.wagtailusers.forms import NotificationPreferencesForm, UserPreferencesForm
 from wagtail.wagtailusers.models import UserProfile
 
 
@@ -125,6 +126,20 @@ def language_preferences(request):
         form = PreferredLanguageForm(instance=UserProfile.get_for_user(request.user))
 
     return render(request, 'wagtailadmin/account/language_preferences.html', {
+
+def user_preferences(request):
+
+    if request.POST:
+        form = UserPreferencesForm(request.POST, instance=UserProfile.get_for_user(request.user))
+
+        if form.is_valid():
+            form.save()
+            messages.success(request, _("Your preferences have been updated successfully!"))
+            return redirect('wagtailadmin_account')
+    else:
+        form = UserPreferencesForm(instance=UserProfile.get_for_user(request.user))
+
+    return render(request, 'wagtailadmin/account/user_preferences.html', {
         'form': form,
     })
 

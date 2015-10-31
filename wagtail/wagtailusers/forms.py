@@ -387,3 +387,8 @@ class PreferredLanguageForm(forms.ModelForm):
     class Meta:
         model = UserProfile
         fields = ("preferred_language",)
+
+class UserPreferencesForm(forms.ModelForm):
+    class Meta:
+        model = UserProfile
+        fields = ("show_welcome_screen",)
