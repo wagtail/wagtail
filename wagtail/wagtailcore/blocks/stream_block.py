@@ -243,7 +243,6 @@ class StreamValue(collections.Sequence):
     (which keep track of block types in a way that the values alone wouldn't).
     """
 
-    @python_2_unicode_compatible
     class StreamChild(BoundBlock):
         """
         Extends BoundBlock with methods that make logical sense in the context of
