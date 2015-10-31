@@ -13,6 +13,8 @@ from wagtail.wagtailcore import blocks
 from wagtail.wagtailcore.rich_text import RichText
 from wagtail.wagtailcore.models import Page
 
+from wagtail.tests.testapp.blocks import SectionBlock
+
 import base64
 
 
@@ -713,6 +715,16 @@ class TestStructBlock(SimpleTestCase):
         value = block.to_python({'title': 'Torchbox', 'link': 'not a url'})
         with self.assertRaises(ValidationError):
             block.clean(value)
+
+    def test_bound_blocks_are_available_on_template(self):
+        """
+        Test that we are able to use value.bound_blocks within templates
+        to access a child block's own HTML rendering
+        """
+        block = SectionBlock()
+        value = block.to_python({'title': 'Hello', 'body': '<i>italic</i> world'})
+        result = block.render(value)
+        self.assertEqual(result, """<h1>Hello</h1><div class="rich-text"><i>italic</i> world</div>""")
 
 
 class TestListBlock(unittest.TestCase):
