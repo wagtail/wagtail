@@ -35,6 +35,11 @@ class UserProfile(models.Model):
         max_length=10,
         help_text=_("Select language for the admin"),
         default=''
+
+    show_welcome_screen = models.BooleanField(
+        verbose_name=_('Welcome screen'),
+        default=True,
+        help_text=_("Show welcome screen on every login")
     )
 
     @classmethod
