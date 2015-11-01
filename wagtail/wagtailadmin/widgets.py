@@ -142,6 +142,9 @@ class AdminPageChooser(AdminChooser):
 
         instance, value = self.get_instance_and_id(model_class, value)
 
+        if value and not isinstance(value, int):
+            value = value.pk
+
         original_field_html = super(AdminPageChooser, self).render_html(name, value, attrs)
 
         return render_to_string("wagtailadmin/widgets/page_chooser.html", {

@@ -366,15 +366,26 @@ class ChooserBlock(FieldBlock):
 
 
 class PageChooserBlock(ChooserBlock):
+    def __init__(self, model_string=None, **kwargs):
+        super(PageChooserBlock, self).__init__(**kwargs)
+        self.model_string = model_string
+
     @cached_property
     def target_model(self):
-        from wagtail.wagtailcore.models import Page  # TODO: allow limiting to specific page types
+        from wagtail.wagtailcore.models import Page
         return Page
 
     @cached_property
     def widget(self):
         from wagtail.wagtailadmin.widgets import AdminPageChooser
-        return AdminPageChooser
+        if self.model_string:
+            from django.contrib.contenttypes.models import ContentType
+            from wagtail.wagtailcore.utils import resolve_model_string
+            model = resolve_model_string(self.model_string)
+            ct = ContentType.objects.get_for_model(model)
+            return AdminPageChooser(ct)
+        else:
+            return AdminPageChooser
 
     def render_basic(self, value):
         if value:
