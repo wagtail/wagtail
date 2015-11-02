@@ -29,7 +29,8 @@
         border: none;
     }
 
-    .xdsoft_datepicker, .xdsoft_timepicker {
+    .xdsoft_datepicker, 
+    .xdsoft_timepicker {
         display: none;
 
         &.active {
@@ -52,7 +53,9 @@
         text-align: center;
     }
 
-    .xdsoft_next, .xdsoft_prev, .xdsoft_today_button {
+    .xdsoft_next, 
+    .xdsoft_prev, 
+    .xdsoft_today_button {
         background-color: transparent;
         cursor: pointer;
         display: block;
@@ -223,7 +226,8 @@
         td > div {
             padding-right: 5px;
         }
-        td, th {
+        td,
+        th {
             width: 14.285%;
             border: 1px solid #DDDDDD;
             color: #666666;

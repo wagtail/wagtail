@@ -7,10 +7,12 @@
     .content-wrapper {
         margin-bottom: 10em;
     }
+
     .breadcrumb {
         margin-top: -1.2em;
         margin-bottom: 2em;
     }
+
     .modal .breadcrumb {
         margin: 0;
         background-color: transparent;
@@ -18,9 +20,11 @@
         a {
             color: $color-grey-2;
         }
+
         li:hover {
             background-color: $color-grey-4;
         }
+
         .home {
             padding-left: 0;
         }
@@ -104,7 +108,8 @@
             font-size: inherit;
         }
 
-        &:before, label:before {
+        &:before, 
+        label:before {
             text-shadow: none;
             font-family: wagtail;
             text-transform: none;
@@ -294,7 +299,8 @@
         min-height: 41px;
 
         h2 {
-            &:before, label:before {
+            &:before, 
+            label:before {
                 content: '6';
                 cursor: pointer;
             }
@@ -303,7 +309,8 @@
 
         &.collapsed {
             h2 {
-                &:before, label:before {
+                &:before, 
+                label:before {
                     content: '5';
                 }
             }
@@ -332,7 +339,8 @@
 
 /* Footer control bar for perfoming actions on the page */
 footer .preview {
-    button, .button {
+    button, 
+    .button {
         background-color: lighten($color-grey-2,10%);
         border-color: lighten($color-grey-2,10%);
 
@@ -342,7 +350,10 @@ footer .preview {
         }
     }
     .dropdown {
-        input[type=button], input[type=submit], button, .button {
+        input[type=button], 
+        input[type=submit], 
+        button, 
+        .button {
             background-color: lighten($color-grey-2,10%);
             border-color: lighten($color-grey-2,10%);
 
@@ -351,7 +362,8 @@ footer .preview {
                 border-color: $color-grey-2;
             }
         }
-        ul, .dropdown-toggle {
+        ul, 
+        .dropdown-toggle {
             background-color: lighten($color-grey-2,10%);
         }
         .dropdown-toggle:hover,
@@ -404,12 +416,17 @@ footer .preview {
                 margin-left: -51px;
                 padding: 3.2em 0 0 0;
             }
-            input, textarea, .richtext {
+
+            input, 
+            textarea, 
+            .richtext {
                 border-width: 0 1px;
             }
+
             .field {
                 padding: 0;
             }
+
             .field-content {
                 display: block;
                 float: none;
@@ -417,6 +434,7 @@ footer .preview {
                 padding: inherit;
             }
         }
+
         .multiple {
             @include column(10);
             padding-left: 0;

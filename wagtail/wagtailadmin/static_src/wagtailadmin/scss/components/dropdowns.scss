@@ -2,7 +2,11 @@
     position: relative;
     @include clearfix();
 
-    input[type=submit], input[type=reset], input[type=button], button, .button {
+    input[type=submit], 
+    input[type=reset], 
+    input[type=button], 
+    button, 
+    .button {
         padding: 0;
         display: block;
         width: 100%;
@@ -12,7 +16,10 @@
         padding-left: 1em;
         float: left;
     }
-    input[type=submit], input[type=reset], input[type=button], button {
+    input[type=submit], 
+    input[type=reset], 
+    input[type=button],
+    button {
         line-height: inherit;
     }
 
