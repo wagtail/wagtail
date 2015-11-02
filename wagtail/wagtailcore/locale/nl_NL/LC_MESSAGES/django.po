@@ -1,0 +1,219 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# Franklin Kingma <franklin@statix.net>, 2015
+# Maarten Kling <kling.maarten@gmail.com>, 2015
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2015-09-02 20:07+0100\n"
+"PO-Revision-Date: 2015-10-09 11:14+0000\n"
+"Last-Translator: Maarten Kling <kling.maarten@gmail.com>\n"
+"Language-Team: Dutch (Netherlands) (http://www.transifex.com/torchbox/"
+"wagtail/language/nl_NL/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: nl_NL\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Hostname"
+msgstr "Hostname"
+
+msgid "Port"
+msgstr "Poort"
+
+msgid ""
+"Set this to something other than 80 if you need a specific port number to "
+"appear in URLs (e.g. development on port 8000). Does not affect request "
+"handling (so port forwarding still works)."
+msgstr ""
+"Zet dit naar iets anders dan 80 als er een specifieke poortnummer in de URL "
+"moet komen (bv development op poort 8000). Heeft geen effect op request "
+"afhandeling (dus port forwarding blijft werken)."
+
+msgid "Root page"
+msgstr "Root pagina"
+
+msgid "Is default site"
+msgstr "Is default site"
+
+msgid ""
+"If true, this site will handle requests for all other hostnames that do not "
+"have a site entry of their own"
+msgstr ""
+"Indien waar, zal deze site alle requests voor alle andere hostnames afvangen "
+"welke niet een site van zichzelf hebben."
+
+msgid "site"
+msgstr "site"
+
+msgid "sites"
+msgstr "sites"
+
+#, python-format
+msgid ""
+"%(hostname)s is already configured as the default site. You must unset that "
+"before you can save this site as default."
+msgstr ""
+"%(hostname)s is al geconfigureerd als de default site. Deze moet worden "
+"aangepast voordat deze site als default kan worden aangemerkt."
+
+msgid "Title"
+msgstr "Titel"
+
+msgid "The page title as you'd like it to be seen by the public"
+msgstr "De pagina titel zoals je wilt dat het publiek deze ziet"
+
+msgid "Slug"
+msgstr "Slug"
+
+msgid ""
+"The name of the page as it will appear in URLs e.g http://domain.com/blog/"
+"[my-slug]/"
+msgstr ""
+"De naam van de pagina zoals deze in de URL komt http://domain.com/blog/[my-"
+"slug]/"
+
+msgid "Content type"
+msgstr "Content type"
+
+msgid "Live"
+msgstr "Live"
+
+msgid "Has unpublished changes"
+msgstr "Heeft ongepubliceerde wijzigingen"
+
+msgid "URL path"
+msgstr "URL path"
+
+msgid "Owner"
+msgstr "Eigenaar"
+
+msgid "Page title"
+msgstr "Pagina titel"
+
+msgid ""
+"Optional. 'Search Engine Friendly' title. This will appear at the top of the "
+"browser window."
+msgstr ""
+"Optioneel. 'Zoekmachine vriendelijke' titel. Deze titel wordt getoond in de "
+"top van de browser."
+
+msgid "Show in menus"
+msgstr "Toon in menu"
+
+msgid ""
+"Whether a link to this page will appear in automatically generated menus"
+msgstr "Of de link naar deze pagina in automatisch gegenereerde menu's komt"
+
+msgid "Search description"
+msgstr "Zoek beschrijving"
+
+msgid "Go live date/time"
+msgstr "Ga live datum/tijd"
+
+msgid "Please add a date-time in the form YYYY-MM-DD hh:mm."
+msgstr "Voeg een datum/tijd in als YYYY-MM-DD hh:mm."
+
+msgid "Expiry date/time"
+msgstr "Verloop datum/tijd"
+
+msgid "Expired"
+msgstr "Verlopen"
+
+msgid "Locked"
+msgstr "Op slot"
+
+msgid "First published at"
+msgstr "Voor het eerst gepubliceerd op"
+
+msgid "Latest revision created at"
+msgstr "Laatste revisie aangemaakt op"
+
+msgid "expired"
+msgstr "verlopen"
+
+msgid "scheduled"
+msgstr "gepland"
+
+msgid "draft"
+msgstr "concept"
+
+msgid "live + draft"
+msgstr "live + concept"
+
+msgid "live"
+msgstr "live"
+
+msgid "Default"
+msgstr "Default"
+
+msgid "page"
+msgstr "pagina"
+
+msgid "pages"
+msgstr "pagina's"
+
+msgid "Page"
+msgstr "Pagina"
+
+msgid "Submitted for moderation"
+msgstr "Aangeboden voor moderatie"
+
+msgid "Created at"
+msgstr "Aangemaakt op"
+
+msgid "User"
+msgstr "Gebruiker"
+
+msgid "Content JSON"
+msgstr "Content JSON"
+
+msgid "Approved go live at"
+msgstr "Goedgekeurd om live te gaan op"
+
+msgid "page revision"
+msgstr "pagina revisie"
+
+msgid "page revisions"
+msgstr "pagina revisie"
+
+msgid "Add/edit pages you own"
+msgstr "Voeg toe/wijzig een pagina in uw eigendom"
+
+msgid "Edit any page"
+msgstr "Wijzig een pagina"
+
+msgid "Publish any page"
+msgstr "Publiceer een pagina"
+
+msgid "Lock/unlock any page"
+msgstr "Blokkeer/deblokkeer een pagina"
+
+msgid "Group"
+msgstr "Groep"
+
+msgid "Permission type"
+msgstr "Recht type"
+
+msgid "group page permission"
+msgstr "groep pagina recht"
+
+msgid "group page permissions"
+msgstr "groep pagina rechten"
+
+msgid "Password"
+msgstr "Wachtwoord"
+
+msgid "page view restriction"
+msgstr "pagina weergave recht"
+
+msgid "page view restrictions"
+msgstr "pagina weergave rechten"
+
+msgid "Value cannot be entirely whitespace characters"
+msgstr "Waarde kan niet volledig bestaan uit spaties"

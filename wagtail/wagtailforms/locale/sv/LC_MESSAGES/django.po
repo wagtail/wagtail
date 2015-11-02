@@ -3,14 +3,15 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# Hannes Lohmander <c.hannes.l@gmail.com>, 2015
 # Ludwig Kjellström <ludwig.kjellstrom@amnesty.se>, 2015
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2015-08-26 14:28+0100\n"
-"PO-Revision-Date: 2015-08-26 13:37+0000\n"
-"Last-Translator: Karl Hobley <karl@torchbox.com>\n"
+"PO-Revision-Date: 2015-09-15 13:05+0000\n"
+"Last-Translator: Hannes Lohmander <c.hannes.l@gmail.com>\n"
 "Language-Team: Swedish (http://www.transifex.com/torchbox/wagtail/language/"
 "sv/)\n"
 "MIME-Version: 1.0\n"
@@ -100,6 +101,9 @@ msgstr "Avsändaradress"
 
 msgid "Subject"
 msgstr "Ämne"
+
+msgid "Delete"
+msgstr "Ta bort"
 
 msgid "Forms"
 msgstr "Formulär"

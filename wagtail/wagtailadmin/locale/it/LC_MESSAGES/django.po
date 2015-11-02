@@ -11,8 +11,8 @@ msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2015-08-26 14:28+0100\n"
-"PO-Revision-Date: 2015-08-26 13:37+0000\n"
-"Last-Translator: Karl Hobley <karl@torchbox.com>\n"
+"PO-Revision-Date: 2015-10-01 14:59+0000\n"
+"Last-Translator: Giacomo Ghizzani <giacomo.ghz@gmail.com>\n"
 "Language-Team: Italian (http://www.transifex.com/torchbox/wagtail/language/"
 "it/)\n"
 "MIME-Version: 1.0\n"
@@ -194,10 +194,10 @@ msgid "Add another"
 msgstr "Aggiungi un altro"
 
 msgid "Move up"
-msgstr "Vai su"
+msgstr "Sposta su"
 
 msgid "Move down"
-msgstr "Vai giù"
+msgstr "Sposta giù"
 
 msgid "Delete"
 msgstr "Elimina"
@@ -238,6 +238,28 @@ msgstr "Scegli"
 msgid "Choose a page"
 msgstr "Scegli una pagina"
 
+#, python-format
+msgid ""
+"\n"
+"                Only pages of type \"%(type)s\" may be chosen for this "
+"field. Search results will exclude pages of other types.\n"
+"                "
+msgid_plural ""
+"\n"
+"                Only the following page types may be chosen for this field: "
+"%(type)s. Search results will exclude pages of other types.\n"
+"            "
+msgstr[0] ""
+"\n"
+"Soltanto pagine del tipo \"%(type)s\" possono essere usate per questo campo. "
+"I risultati della ricerca escluderanno pagine di altri tipi.\n"
+"                "
+msgstr[1] ""
+"\n"
+"Soltanto i seguenti tipi di pagina possono essere usati per questo campo: "
+"%(type)s. I risultati della ricerca escluderanno pagine di altri tipi.\n"
+"            "
+
 msgid "Add an email link"
 msgstr "Aggiungi un collegamento email"
 
@@ -247,9 +269,15 @@ msgstr "Inserisci collegamento"
 msgid "Add an external link"
 msgstr "Aggiungi collegamento esterno"
 
+msgid "Yes, delete"
+msgstr "Si, elimina"
+
+msgid "Save"
+msgstr "Salva"
+
 #, python-format
 msgid "Welcome to the %(site_name)s Wagtail CMS"
-msgstr "Benvenuto nel %(site_name)s Wagtail CMS"
+msgstr "Benvenuto in %(site_name)s - Wagtail CMS"
 
 msgid ""
 "This is your dashboard on which helpful information about content you've "
@@ -449,11 +477,12 @@ msgid ""
 "Alternatively you can unpublish the page. This removes the page from public "
 "view and you can edit or publish it again later."
 msgstr ""
-"In alternative puoi non pubblicare la pagina. Ciò rimuove la pagina dalla "
-"visione pubblica e puoi modificare o pubblicare la pagina più avanti."
+"In alternativa puoi annullare la pubblicazione della pagina. Questo rimuove "
+"la pagina dalla visione pubblica e puoi modificare o pubblicare la pagina "
+"più avanti."
 
 msgid "Delete it"
-msgstr "Cancellalo"
+msgstr "Eliminala"
 
 msgid "Unpublish it"
 msgstr "Annulla pubblicazione"
@@ -487,7 +516,7 @@ msgid "Unpublish"
 msgstr "Annulla pubblicazione"
 
 msgid "Are you sure you want to unpublish this page?"
-msgstr "Sei sicuro di voler non pubblicare questa pagina?"
+msgstr "Sei sicuro di voler annullare la pubblicazione di questa pagina?"
 
 msgid "Yes, unpublish it"
 msgstr "Si, annulla la pubblicazione"
@@ -553,12 +582,19 @@ msgstr "Trascina"
 msgid "Updated"
 msgstr "Aggiornato"
 
+msgid "No pages have been created at this location."
+msgstr "Nessuna pagina creata in questa posizione."
+
+#, python-format
+msgid "Why not <a href=\"%(add_page_url)s\">create one</a>?"
+msgstr "Perché non ne <a href=\"%(add_page_url)s\">crei una</a>?"
+
 msgid "This page is locked to further editing"
 msgstr "Questa pagina è bloccata per ulteriori modifiche"
 
 #, python-format
 msgid "Explore subpages of '%(title)s'"
-msgstr "Esplora sottopagina di '%(title)s'"
+msgstr "Esplora sottopagine di '%(title)s'"
 
 msgid "Explore"
 msgstr "Esplora"
@@ -583,6 +619,16 @@ msgstr ""
 
 msgid "Add child page"
 msgstr "Aggiungi pagina figlio"
+
+#, python-format
+msgid ""
+"\n"
+"        Page %(page_number)s of %(num_pages)s.\n"
+"    "
+msgstr ""
+"\n"
+"Pagina %(page_number)s di %(num_pages)s.\n"
+"    "
 
 msgid "Previous"
 msgstr "Precedente"
@@ -609,6 +655,23 @@ msgstr "Seleziona una nuova pagina padre per %(title)s"
 #, python-format
 msgid "Select a new parent page for <span>%(title)s</span>"
 msgstr "Seleziona una nuova pagina padre per <span>%(title)s</span>"
+
+#, python-format
+msgid ""
+"\n"
+"                There is one matching page\n"
+"            "
+msgid_plural ""
+"\n"
+"                There are %(counter)s matching pages\n"
+"            "
+msgstr[0] ""
+"\n"
+"C'è una pagina corrispondente"
+msgstr[1] ""
+"\n"
+"Ci sono %(counter)s pagine corrispondenti\n"
+"            "
 
 msgid "Other searches"
 msgstr "Altre ricerche"
@@ -735,6 +798,9 @@ msgstr "Aggiungi pagina figlio"
 msgid "Add"
 msgstr "Aggiungi"
 
+msgid "Sorry, you do not have permission to access this area."
+msgstr "Spiacente, non hai i permessi per accedere a questa area."
+
 msgid "Your password has been changed successfully!"
 msgstr "La tua password è stato modificata con successo"
 
@@ -842,6 +908,9 @@ msgstr "Scegli un elemento"
 
 msgid "Choose another item"
 msgstr "Scegli un' altro elemento"
+
+msgid "Clear choice"
+msgstr "Togli scelta"
 
 msgid "Edit this item"
 msgstr "Modifica questo elemento"

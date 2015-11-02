@@ -30,6 +30,7 @@ Changelog
  * Explorer navigation menu on a completely empty page tree now takes you to the root level, rather than doing nothing
  * Added animation and fixed display issues when focusing a rich text field (Alex Gleason)
  * Added a system check to warn if Pillow is compiled without JPEG / PNG support
+ * New translations for Dutch (Netherlands), Georgian, Swedish and Turkish (Turkey)
  * Fix: Page slugs are no longer auto-updated from the page title if the page is already published
  * Fix: Deleting a page permission from the groups admin UI does not immediately submit the form
  * Fix: Wagtail userbar is shown on pages that do not pass a `page` variable to the template (e.g. because they override the `serve` method)

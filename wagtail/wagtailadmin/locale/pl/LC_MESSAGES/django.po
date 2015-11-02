@@ -4,14 +4,15 @@
 #
 # Translators:
 # utek <mail@utek.pl>, 2014
+# Mateusz <undefined5102@gmail.com>, 2015
 # utek <mail@utek.pl>, 2014
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2015-08-26 14:28+0100\n"
-"PO-Revision-Date: 2015-08-26 13:37+0000\n"
-"Last-Translator: Karl Hobley <karl@torchbox.com>\n"
+"PO-Revision-Date: 2015-09-11 16:31+0000\n"
+"Last-Translator: Mateusz <undefined5102@gmail.com>\n"
 "Language-Team: Polish (http://www.transifex.com/torchbox/wagtail/language/"
 "pl/)\n"
 "MIME-Version: 1.0\n"
@@ -20,6 +21,9 @@ msgstr ""
 "Language: pl\n"
 "Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
 "|| n%100>=20) ? 1 : 2);\n"
+
+msgid "Scheduled publishing"
+msgstr "Zaplanowane opublikowanie"
 
 msgid "Common page configuration"
 msgstr "Wspólna konfiguracja stron"
@@ -32,6 +36,10 @@ msgstr "Wyszukiwania fraza"
 
 msgid "Enter password"
 msgstr "Wpisz hasło"
+
+#, python-format
+msgid "Enter your %s"
+msgstr "Wpisz %s"
 
 msgid "Enter your email address to reset your password"
 msgstr "Podaj swój adres email aby zresetować hasło"
@@ -54,6 +62,12 @@ msgstr "Nowy tytuł"
 
 msgid "New slug"
 msgstr "Nowy slug"
+
+msgid "New parent page"
+msgstr "Nowa strona nadrzędna"
+
+msgid "This copy will be a child of this given parent page."
+msgstr "Ta kopia będzie podrzędna dla wybranej strony."
 
 msgid "Copy subpages"
 msgstr "Kopiuj podstrony"
@@ -161,6 +175,9 @@ msgstr "Kokpit"
 msgid "Menu"
 msgstr "Menu"
 
+msgid "Add another"
+msgstr "Dodaj kolejny"
+
 msgid "Move up"
 msgstr "Przesuń w górę"
 
@@ -182,6 +199,29 @@ msgstr "Link zewnętrzny"
 msgid "Email link"
 msgstr "Wyślij link pocztą email"
 
+#, python-format
+msgid ""
+"\n"
+"        There is one match\n"
+"    "
+msgid_plural ""
+"\n"
+"        There are %(counter)s matches\n"
+"    "
+msgstr[0] ""
+"\n"
+"Znaleziono jedno dopasowanie"
+msgstr[1] ""
+"\n"
+"Znaleziono %(counter)s dopasowań"
+msgstr[2] ""
+"\n"
+"Znaleziono %(counter)s dopasowań\n"
+"        "
+
+msgid "Choose"
+msgstr "Wybierz"
+
 msgid "Choose a page"
 msgstr "Wybierz stronę"
 
@@ -193,6 +233,12 @@ msgstr "Wstaw link"
 
 msgid "Add an external link"
 msgstr "Dodaj link zewnętrzny"
+
+msgid "Yes, delete"
+msgstr "Tak, usuń"
+
+msgid "Save"
+msgstr "Zapisz"
 
 #, python-format
 msgid "Welcome to the %(site_name)s Wagtail CMS"
@@ -253,8 +299,32 @@ msgstr "Opublikowana"
 msgid "Site summary"
 msgstr "Streszczenie strony"
 
+#, python-format
+msgid ""
+"\n"
+"        <span>%(total)s</span> Page\n"
+"    "
+msgid_plural ""
+"\n"
+"        <span>%(total)s</span> Pages\n"
+"    "
+msgstr[0] ""
+"\n"
+"<span>%(total)s</span> Strona"
+msgstr[1] ""
+"\n"
+"<span>%(total)s</span> Stron"
+msgstr[2] ""
+"\n"
+"<span>%(total)s</span> Stron"
+
 msgid "Sign in"
 msgstr "Zaloguj się"
+
+#, python-format
+msgid "Your %(username_field)s and password didn't match. Please try again."
+msgstr ""
+"Twoje %(username_field)s i hasło nie pasuje. Proszę spróbować ponownie."
 
 msgid "Sign in to Wagtail"
 msgstr "Zaloguj się do Wagtaila"
@@ -306,6 +376,20 @@ msgstr "Ta strona jest prywatna ze względu na stronę rodzica."
 
 msgid "You can edit the privacy settings on:"
 msgstr "Możesz zmieniać ustawienia prywatności na:"
+
+msgid "Privacy changes apply to all children of this page too."
+msgstr ""
+"<b>Notatka:</b> zmiany prywatności obejmują wszystkie podstrony należące do "
+"tej strony."
+
+msgid "Edit lock"
+msgstr "Edytuj blokadę"
+
+msgid "Locked"
+msgstr "Zablokowany"
+
+msgid "Unlocked"
+msgstr "Odblokowany"
 
 msgid "Privacy"
 msgstr "Prywatność"
@@ -437,6 +521,9 @@ msgstr "Opublikuj"
 msgid "Submit for moderation"
 msgstr "Przekaż do przeglądu"
 
+msgid "Page locked"
+msgstr "Strona zablokowana"
+
 msgid "Save draft"
 msgstr "Zapisz szkic"
 
@@ -455,6 +542,23 @@ msgstr "Przeglądaj %(title)s"
 msgid "Drag"
 msgstr "Przeciągnij"
 
+msgid "Updated"
+msgstr "Uaktualnij"
+
+msgid "No pages have been created at this location."
+msgstr "Nie utworzono żadnej strony w tej lokalizacji."
+
+#, python-format
+msgid "Why not <a href=\"%(add_page_url)s\">create one</a>?"
+msgstr "Czemu nie <a href=\"%(add_page_url)s\">dodać jednej</a>?"
+
+msgid "This page is locked to further editing"
+msgstr "Strona ma zablokowaną edycję"
+
+#, python-format
+msgid "Explore subpages of '%(title)s'"
+msgstr "Przeglądaj podstrony '%(title)s'"
+
 msgid "Explore"
 msgstr "Przeglądaj"
 
@@ -472,11 +576,24 @@ msgstr "Dodaj podstronę"
 msgid "Add child page"
 msgstr "Dodaj stronę podrzędną"
 
+#, python-format
+msgid ""
+"\n"
+"        Page %(page_number)s of %(num_pages)s.\n"
+"    "
+msgstr ""
+"\n"
+"Strona %(page_number)s z %(num_pages)s.\n"
+"            "
+
 msgid "Previous"
 msgstr "Wstecz"
 
 msgid "Next"
 msgstr "Naprzód"
+
+msgid "This page is protected from public view"
+msgstr "Strona nie jest publicznie dostępna"
 
 msgid "Disable ordering of child pages"
 msgstr "Wyłącz sortowanie stron podrzędnych"
@@ -494,6 +611,25 @@ msgstr "Wybierz nową stronę nadrzędną dla %(title)s"
 #, python-format
 msgid "Select a new parent page for <span>%(title)s</span>"
 msgstr "Wybierz nową stronę nadrzędną dla <span>%(title)s</span>"
+
+#, python-format
+msgid ""
+"\n"
+"                There is one matching page\n"
+"            "
+msgid_plural ""
+"\n"
+"                There are %(counter)s matching pages\n"
+"            "
+msgstr[0] ""
+"\n"
+"Znaleziono jedną pasującą stronę"
+msgstr[1] ""
+"\n"
+"Znaleziono %(counter)s pasujących stron"
+msgstr[2] ""
+"\n"
+"Znaleziono %(counter)s pasujących stron"
 
 msgid "Other searches"
 msgstr "Inne wyszukiwania"
@@ -584,6 +720,9 @@ msgstr[0] "Użyto %(useage_count)s raz"
 msgstr[1] "Użyto %(useage_count)s razy"
 msgstr[2] "Użyto %(useage_count)s razy"
 
+msgid "Edit your account"
+msgstr "Edytuj swoje konto"
+
 msgid "Log out"
 msgstr "Wyloguj się"
 
@@ -591,20 +730,44 @@ msgstr "Wyloguj się"
 msgid "Page %(page_num)s of %(total_pages)s."
 msgstr "Strona %(page_num)s z %(total_pages)s."
 
+msgid "Javascript is required to use Wagtail, but it is currently disabled"
+msgstr ""
+"Obsługa Javascript jest wymagana przez Wagtail, ale obecnie jest wyłączona"
+
 msgid "User bar"
 msgstr "Pasek użytkownika"
 
 msgid "Go to Wagtail admin interface"
 msgstr "Idź do panelu administratora Wagtaila"
 
+msgid "Add a child page"
+msgstr "Dodaj podstronę"
+
 msgid "Add"
 msgstr "Dodaj"
+
+msgid "Sorry, you do not have permission to access this area."
+msgstr "Przepraszamy, ale nie posiadasz praw dostępu do tego miejsca."
 
 msgid "Your password has been changed successfully!"
 msgstr "Twoje hasło zostało zmienione poprawnie!"
 
 msgid "Your preferences have been updated successfully!"
 msgstr "Twoje ustawienia zostały zaktualizowane!"
+
+#, python-brace-format
+msgid "Page '{0}' created and published."
+msgstr "Strona '{0}' została utworzona i opublikowana."
+
+msgid "View live"
+msgstr "Podgląd"
+
+#, python-brace-format
+msgid "Page '{0}' created and submitted for moderation."
+msgstr "Strona '{0}' utworzona i przekazana do moderacji."
+
+msgid "View draft"
+msgstr "Pokaż szablon"
 
 #, python-brace-format
 msgid "Page '{0}' created."
@@ -624,6 +787,9 @@ msgstr "Przesłano stronę '{0}' do przeglądu."
 #, python-brace-format
 msgid "Page '{0}' updated."
 msgstr "Uaktualniono stronę '{0}'."
+
+msgid "The page could not be saved as it is locked"
+msgstr "Nie można zapisać zmian zablokownej strony"
 
 msgid "The page could not be saved due to validation errors"
 msgstr "Strona nie mogła zostać zapisana z powodu błędów poprawności."
@@ -660,6 +826,12 @@ msgstr "Strona '{0}' i podstrony {1} zostały skopiowane."
 msgid "Page '{0}' copied."
 msgstr "Strona '{0}' została skopiowana."
 
+msgid "Content"
+msgstr "Treść"
+
+msgid "Settings"
+msgstr "Ustawienia"
+
 #, python-brace-format
 msgid "The page '{0}' is not currently awaiting moderation."
 msgstr "Strona '{0}' nie oczekuje na przejrzenie."
@@ -667,6 +839,14 @@ msgstr "Strona '{0}' nie oczekuje na przejrzenie."
 #, python-brace-format
 msgid "Page '{0}' rejected for publication."
 msgstr "Strona '{0}' została odrzucona."
+
+#, python-brace-format
+msgid "Page '{0}' is now locked."
+msgstr "Strona '{0}' jest teraz zablokowana."
+
+#, python-brace-format
+msgid "Page '{0}' is now unlocked."
+msgstr "Strona '{0}' jest teraz odblokowana."
 
 msgid "Choose an item"
 msgstr "Wybierz rzecz"
@@ -676,6 +856,9 @@ msgstr "Wybierz inną rzecz"
 
 msgid "Clear choice"
 msgstr "Wyczyść wybór"
+
+msgid "Edit this item"
+msgstr "Edytuj element"
 
 msgid "Choose another page"
 msgstr "Wybierz inną stronę"

@@ -6,13 +6,14 @@
 # Bertrand Bordage <bordage.bertrand@gmail.com>, 2015
 # nahuel, 2014
 # nahuel, 2014
+# Tom Dyson <tom@torchbox.com>, 2015
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2015-09-02 20:07+0100\n"
-"PO-Revision-Date: 2015-09-02 19:12+0000\n"
-"Last-Translator: Karl Hobley <karl@torchbox.com>\n"
+"PO-Revision-Date: 2015-10-09 12:50+0000\n"
+"Last-Translator: Tom Dyson <tom@torchbox.com>\n"
 "Language-Team: French (http://www.transifex.com/torchbox/wagtail/language/"
 "fr/)\n"
 "MIME-Version: 1.0\n"
@@ -49,6 +50,12 @@ msgid ""
 msgstr ""
 "Si oui, ce site gérera toutes les requêtes des autres noms d'hôtes qui n'ont "
 "pas de site défini."
+
+msgid "site"
+msgstr "site"
+
+msgid "sites"
+msgstr "sites"
 
 #, python-format
 msgid ""
@@ -150,6 +157,12 @@ msgstr "publiée"
 msgid "Default"
 msgstr "Par défaut"
 
+msgid "page"
+msgstr "page"
+
+msgid "pages"
+msgstr "pages"
+
 msgid "Page"
 msgstr "Page"
 
@@ -168,8 +181,17 @@ msgstr "Contenu JSON"
 msgid "Approved go live at"
 msgstr "Approuvée le"
 
+msgid "page revision"
+msgstr "version de page"
+
+msgid "page revisions"
+msgstr "versions de page"
+
 msgid "Add/edit pages you own"
 msgstr "Ajouter/modifier vos pages"
+
+msgid "Edit any page"
+msgstr "Modifier n'importe quelle page"
 
 msgid "Publish any page"
 msgstr "Publier n'importe quelle page"
@@ -183,8 +205,20 @@ msgstr "Group"
 msgid "Permission type"
 msgstr "Type de permission"
 
+msgid "group page permission"
+msgstr "permission de page par groupe"
+
+msgid "group page permissions"
+msgstr "permissions de page par groupe"
+
 msgid "Password"
 msgstr "Mot de passe"
+
+msgid "page view restriction"
+msgstr "confidentialité de page"
+
+msgid "page view restrictions"
+msgstr "confidentialités de page"
 
 msgid "Value cannot be entirely whitespace characters"
 msgstr "La valeur ne peut pas uniquement être des espaces blancs"

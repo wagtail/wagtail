@@ -5,7 +5,7 @@
 # Translators:
 # Claudemiro Alves Feitosa Neto <dimiro1@gmail.com>, 2015
 # Douglas Miranda <douglasmirandasilva@gmail.com>, 2014-2015
-# Gilson Filho <contato@gilsondev.com>, 2014
+# Gilson Filho <me@gilsondev.in>, 2014
 # Gladson <gladsonbrito@gmail.com>, 2014
 msgid ""
 msgstr ""

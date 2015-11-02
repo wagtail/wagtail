@@ -86,29 +86,33 @@ Translators
 * Basque: Unai Zalakain
 * Bulgarian: Lyuboslav Petrov
 * Catalan: David Llop
-* Chinese: Victoria Chan, Leway Colin, hanfeng, qiulin, Tulpar Turamat, wwj718
-* Chinese (China): hanfeng, Lihan Li, ufoym
-* Chinese (Taiwan): wdv4758h, jshc
+* Chinese: hanfeng, Lihan Li
+* Chinese (China): hanfeng, Jian Li
+* Chinese (Taiwan): Lihan Li
 * Croatian: Luka Matijević
-* Czech: Jiri Stepanek
-* Dutch: t.vandemeer, mahulst, Samuel Leeuwenburg
+* Czech: Ivan Pomykacz, Jiri Stepanek
+* Dutch: benny_AT_it_digin.com, Bram, Brecht Dervaux, Huib Keemink, Samuel Leeuwenburg, mahulst, Michael van Tellingen, Arne Turpyn
+* Dutch (Netherlands): Bram, Franklin Kingma, Maarten Kling
 * Finnish: Glen Somerville
-* French: Sylvain Fankhauser, sephii, Adrihein, Bertrand Bordage, Romain Hardouin, linibou, nahuel, Benoît Bar
-* Galician: fooflare, fonso
-* German: Karl Sander, Johannes Spielmann, m0rph3u5, pcraston, Tammo van Lessen
-* Greek: Serafeim Papastefanos, Jim Dal
+* French: Adrien, Timothy Allen, Bertrand Bordage, André Bouatchidzé, Tom Dyson, nahuel
+* Galician: fooflare
+* Georgian: André Bouatchidzé
+* German: Ettore Atalan, Patrick Craston, Florian, Henrik Kröger, Tammo van Lessen, Wasilis Mandratzis-Walz, m0rph3u5, Max Pfeiffer, Karl Sander, Johannes Spielmann
+* Greek: Jim Dal, dotoree, Wasilis Mandratzis-Walz, NeotheOne, Serafeim Papastefanos
 * Hebrew (Israel): bjesus, Lior Abazon
 * Icelandic: Arnar Tumi Þorsteinsson, Sævar Öfjörð Magnússon
-* Italian: Andrea Tagliazucchi, Claudio Bantaloukas, Alessio Di Stasio, Giacomo Ghizzani
-* Japanese: Daigo Shitara, Toshikazu Michisu
-* Mongolian: Delgermurun Purevkhuu, miiiga
+* Italian: Claudio Bantaloukas, Giacomo Ghizzani, Alessio Di Stasio, Andrea Tagliazucchi
+* Japanese: Sangmin Ahn, Daigo Shitara
+* Korean: Kyungil Choi, Ji Han Chung
+* Mongolian: Delgermurun Purevkhuu
 * Norwegian Bokmål: Eirik Krogstad
-* Polish: Łukasz Bołdys
-* Portuguese (Brazil): Gilson Filho, Douglas Miranda, Thiago Cangussu, João Luiz Lorencetti, Gladson Brito, Marcelo J. Both
-* Portuguese (Portugal): Jose Lourenco, Tiago Henriques
+* Polish: Mateusz, utek
+* Portuguese (Brazil): Claudemiro Alves Feitosa Neto, Gladson Brito, Thiago Cangussu, Gilson Filho, João Luiz Lorencetti, Douglas Miranda
+* Portuguese (Portugal): Gladson Brito, Thiago Cangussu, Tiago Henriques, Jose Lourenco, Douglas Miranda
 * Romanian: Dan Braghis
-* Russian: ice9, HNKNTA, MechanisM, Andrey Tykhonov, Kirill Drozdov, Liliana Kastilio, Sergey Komarov
-* Spanish: Unai Zalakain, fooflare, Yusuf (Josè) Luis
+* Russian: ajk, Daniil, HNKNTA, Sergey Komarov, Eugene MechanisM
+* Spanish: José Alaguna, Mauricio Baeza, Daniel Chimeno, fonso, fooflare, Joaquín Tita, Unai Zalakain
+* Swedish: Hannes Lohmander, Ludwig Kjellström
+* Turkish (Turkey): José Alaguna
 * Ukrainian: Andrey Tykhonov, Mykola Zamkovoi
-* Vietnamese: binhle, Luan Nguyen
-* Korean: Ji Han Chung
+* Vietnamese: Luan Nguyen
