@@ -14,6 +14,7 @@ Changelog
  * InlinePanel now accepts `max_num` and `min_num` arguments to limit the number of inline items
  * 'Add' button on inline panels is disabled when `max_num` is reached (Salvador Faria)
  * StreamField blocks now provide a `get_context` method for passing additional variables to the block template
+ * Wagtail API now incorporates the browsable front-end provided by Django REST Framework
  * WagtailRedirectMiddleware can now ignore the query string if there is no redirect that exactly matches it (Michael Cordover)
  * Order of URL parameters now ignored by redirect middleware (Michael Cordover)
  * Added SQL Server compatibility to image migration (Timothy Allen)
