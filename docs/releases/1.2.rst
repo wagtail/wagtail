@@ -85,6 +85,7 @@ Minor features
  * Explorer navigation menu on a completely empty page tree now takes you to the root level, rather than doing nothing
  * Added animation and fixed display issues when focusing a rich text field (Alex Gleason)
  * Added a system check to warn if Pillow is compiled without JPEG / PNG support
+ * Page chooser now prevents users from selecting the root node where this would be invalid
  * New translations for Dutch (Netherlands), Georgian, Swedish and Turkish (Turkey)
 
 Bug fixes
@@ -106,7 +107,8 @@ Bug fixes
  * Dropdown for ``ForeignKey`` s are now styled consistently (Ashia Zawaduk)
  * Date choosers now appear on top of StreamField menus (Sergey Nikitin)
  * Fixed a migration error that was raised when block-updating from 0.8 to 1.1+
- * :meth:`Page.copy() <wagtail.wagtailcore.models.Page.copy>` no longer breaks on models with a ``ManyToManyField``
+ * :meth:`Page.copy() <wagtail.wagtailcore.models.Page.copy>` no longer breaks on models with a ``ClusterTaggableManager`` or ``ManyToManyField``
+ * Validation errors when inserting an embed into a rich text area are now reported back to the editor
 
 Upgrade considerations
 ======================

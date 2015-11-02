@@ -31,6 +31,7 @@ Changelog
  * Explorer navigation menu on a completely empty page tree now takes you to the root level, rather than doing nothing
  * Added animation and fixed display issues when focusing a rich text field (Alex Gleason)
  * Added a system check to warn if Pillow is compiled without JPEG / PNG support
+ * Page chooser now prevents users from selecting the root node where this would be invalid
  * New translations for Dutch (Netherlands), Georgian, Swedish and Turkish (Turkey)
  * Fix: Page slugs are no longer auto-updated from the page title if the page is already published
  * Fix: Deleting a page permission from the groups admin UI does not immediately submit the form
@@ -48,7 +49,8 @@ Changelog
  * Fix: Dropdowns for ForeignKeys are now styled consistently (Ashia Zawaduk)
  * Fix: Date choosers now appear on top of StreamField menus (Sergey Nikitin)
  * Fix: Fixed a migration error that was raised when block-updating from 0.8 to 1.1+
- * Fix: Page copy no longer breaks on models with a many to many field
+ * Fix: Page copy no longer breaks on models with a ClusterTaggableManager or ManyToManyField
+ * Fix: Validation errors when inserting an embed into a rich text area are now reported back to the editor
 
 
 1.1 (15.09.2015)
