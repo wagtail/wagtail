@@ -12,3 +12,11 @@ class LinkBlock(blocks.StructBlock):
 
     class Meta:
         template = 'tests/blocks/link_block.html'
+
+
+class SectionBlock(blocks.StructBlock):
+    title = blocks.CharBlock()
+    body = blocks.RichTextBlock()
+
+    class Meta:
+        template = 'tests/blocks/section_block.html'
