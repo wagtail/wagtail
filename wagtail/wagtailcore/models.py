@@ -474,6 +474,15 @@ class Page(six.with_metaclass(PageBase, MP_Node, ClusterableModel, index.Indexed
         return self.revisions.order_by('-created_at', '-id').first()
 
     def get_latest_revision_as_page(self):
+        if not self.has_unpublished_changes:
+            # Use the live database copy in preference to the revision record, as:
+            # 1) this will pick up any changes that have been made directly to the model,
+            #    such as automated data imports;
+            # 2) it ensures that inline child objects pick up real database IDs even if
+            #    those are absent from the revision data. (If this wasn't the case, the child
+            #    objects would be recreated with new IDs on next publish - see #1853)
+            return self.specific
+
         latest_revision = self.get_latest_revision()
 
         if latest_revision:
@@ -831,7 +840,7 @@ class Page(six.with_metaclass(PageBase, MP_Node, ClusterableModel, index.Indexed
 
         # Create a new revision
         # This code serves a few purposes:
-        # * It makes sure update_attrs gets applied to the latest revision so the changes are reflected in the editor
+        # * It makes sure update_attrs gets applied to the latest revision
         # * It bumps the last_revision_created_at value so the new page gets ordered as if it was just created
         # * It sets the user of the new revision so it's possible to see who copied the page by looking at its history
         latest_revision = page_copy.get_latest_revision_as_page()

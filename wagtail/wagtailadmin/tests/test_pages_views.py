@@ -900,6 +900,33 @@ class TestPageEdit(TestCase, WagtailTestUtils):
         self.assertTemplateUsed(response, 'tests/simple_page.html')
         self.assertEqual(response.context['request'].site.hostname, 'childpage.example.com')
 
+    def test_editor_picks_up_direct_model_edits(self):
+        # If a page has no draft edits, the editor should show the version from the live database
+        # record rather than the latest revision record. This ensures that the edit interface
+        # reflects any changes made directly on the model.
+        self.child_page.title = "This title only exists on the live database record"
+        self.child_page.save()
+
+        response = self.client.get(reverse('wagtailadmin_pages:edit', args=(self.child_page.id, )))
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, "This title only exists on the live database record")
+
+    def test_editor_does_not_pick_up_direct_model_edits_when_draft_edits_exist(self):
+        # If a page has draft edits, we should always show those in the editor, not the live
+        # database record
+        self.child_page.content = "Some content with a draft edit"
+        self.child_page.save_revision()
+
+        # make an independent change to the live database record
+        self.child_page = SimplePage.objects.get(id=self.child_page.id)
+        self.child_page.title = "This title only exists on the live database record"
+        self.child_page.save()
+
+        response = self.client.get(reverse('wagtailadmin_pages:edit', args=(self.child_page.id, )))
+        self.assertEqual(response.status_code, 200)
+        self.assertNotContains(response, "This title only exists on the live database record")
+        self.assertContains(response, "Some content with a draft edit")
+
 
 class TestPageEditReordering(TestCase, WagtailTestUtils):
     def setUp(self):
