@@ -85,6 +85,7 @@ Minor features
  * Explorer navigation menu on a completely empty page tree now takes you to the root level, rather than doing nothing
  * Added animation and fixed display issues when focusing a rich text field (Alex Gleason)
  * Added a system check to warn if Pillow is compiled without JPEG / PNG support
+ * New translations for Dutch (Netherlands), Georgian, Swedish and Turkish (Turkey)
 
 Bug fixes
 ~~~~~~~~~
