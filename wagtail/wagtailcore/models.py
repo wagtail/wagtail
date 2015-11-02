@@ -739,6 +739,11 @@ class Page(six.with_metaclass(PageBase, MP_Node, ClusterableModel, index.Indexed
                 if field.auto_created:
                     continue
 
+                # Ignore m2m relations - they will be copied as child objects
+                # if modelcluster supports them at all (as it does for tags)
+                if field.many_to_many:
+                    continue
+
                 # Ignore parent links (page_ptr)
                 if isinstance(field, models.OneToOneField) and field.parent_link:
                     continue
