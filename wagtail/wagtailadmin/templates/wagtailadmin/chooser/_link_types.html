@@ -1,22 +1,22 @@
-{% load i18n %}
+{% load i18n wagtailadmin_tags %}
 {% if allow_external_link or allow_email_link or current == 'external' or current == 'email' %}
     <p class="link-types">
         {% if current == 'internal' %}
             <b>{% trans "Internal link" %}</b>
         {% else %}
-            <a href="{% url 'wagtailadmin_choose_page' %}?{{ querystring }}">{% trans "Internal link" %}</a>
+            <a href="{% url 'wagtailadmin_choose_page' %}{% querystring p=None %}">{% trans "Internal link" %}</a>
         {% endif %}
 
         {% if current == 'external' %}
             | <b>{% trans "External link" %}</b>
         {% elif allow_external_link %}
-            | <a href="{% url 'wagtailadmin_choose_page_external_link' %}?{{ querystring }}">{% trans "External link" %}</a>
+            | <a href="{% url 'wagtailadmin_choose_page_external_link' %}{% querystring p=None %}">{% trans "External link" %}</a>
         {% endif %}
 
         {% if current == 'email' %}
             | <b>{% trans "Email link" %}</b>
         {% elif allow_email_link %}
-            | <a href="{% url 'wagtailadmin_choose_page_email_link' %}?{{ querystring }}">{% trans "Email link" %}</a>
+            | <a href="{% url 'wagtailadmin_choose_page_email_link' %}{% querystring p=None %}">{% trans "Email link" %}</a>
         {% endif %}
     </p>
 {% endif %}
