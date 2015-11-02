@@ -9,7 +9,8 @@ header {
         color: white;
     }
 
-    h1, h2 {
+    h1, 
+    h2 {
         margin: 0;
         color: white;
     }
@@ -46,7 +47,8 @@ header {
     &.merged {
         margin-bottom: 0;
     }
-    &.tab-merged, &.no-border {
+    &.tab-merged, 
+    &.no-border {
         border: 0;
     }
     &.merged.no-border {
@@ -77,7 +79,8 @@ header {
         @include visuallyhidden();
     }
 
-    input[type=text], select {
+    input[type=text], 
+    select {
         border-width: 0;
 
         &:focus {
@@ -118,7 +121,8 @@ header {
         .second {
             clear: none;
 
-            .right, .left {
+            .right, 
+            .left {
                 float: right;
             }
         }

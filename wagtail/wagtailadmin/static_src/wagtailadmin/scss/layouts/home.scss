@@ -6,15 +6,19 @@ h1 {
     font-weight: 300;
     font-size: 2.2em;
 }
+
 header {
     .col1 {
         width: 50px;
         margin-right: 1em;
         padding: 0;
     }
-    h1,h2 {
+
+    h1,
+    h2 {
         color: white;
     }
+
     h2 {
         text-transform: none;
     }
@@ -71,10 +75,12 @@ header {
             display: inline-block;
             margin-right: 1em;
         }
+
         .fields {
             display: inline-block;
             clear: none;
         }
+
         .field {
             display: inline-block;
         }
@@ -82,6 +88,7 @@ header {
         label {
             display: inline-blo;
         }
+
         input {
             background-color: white;
         }

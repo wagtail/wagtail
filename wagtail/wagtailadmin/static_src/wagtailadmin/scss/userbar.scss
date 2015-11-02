@@ -5,7 +5,8 @@
 
 @import 'wagtailadmin/scss/fonts.scss';
 
-html, body {
+html, 
+body {
     background-color: transparent;
 }
 body {
@@ -80,7 +81,8 @@ li {
 }
 
 /* all items or pseudo-items must float right */
-li, .home {
+li,
+.home {
     float: right;
 }
 
@@ -103,7 +105,8 @@ li, .home {
 }
 
 /* actions which can be accomplished just with a link tag */
-a.action, a {
+a.action, 
+a {
     display: block;
     width: 10em;
     text-align: left;

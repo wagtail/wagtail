@@ -5,7 +5,8 @@
 */
 
 form {
-    ul, li {
+    ul, 
+    li {
         list-style-type: none;
     }
     ul {
@@ -24,7 +25,8 @@ legend {
     @include visuallyhidden();
 }
 
-label, .label {
+label, 
+.label {
     text-transform: none;
     font-weight: bold;
     color: $color-grey-1;
@@ -40,7 +42,11 @@ label, .label {
     }
 }
 
-input, textarea, select, .richtext, .tagit {
+input, 
+textarea, 
+select, 
+.richtext, 
+.tagit {
     @include border-radius(6px);
     @include border-box();
     width: 100%;
@@ -72,7 +78,10 @@ input, textarea, select, .richtext, .tagit {
         background-color: $color-input-focus;
     }
 
-    &:disabled, &[disabled], &:disabled:hover, &[disabled]:hover {
+    &:disabled, 
+    &[disabled], 
+    &:disabled:hover, 
+    &[disabled]:hover {
         background-color: inherit;
         cursor: not-allowed;
         color: $color-grey-4;
@@ -119,7 +128,8 @@ input, textarea, select, .richtext, .tagit {
 }
 
 /* radio and check boxes */
-input[type=radio], input[type=checkbox] {
+input[type=radio], 
+input[type=checkbox] {
     @include border-radius(0);
     cursor: pointer;
     border: 0;
@@ -186,7 +196,11 @@ input[type=checkbox]:checked:before {
 /* Core button style 
 Note that these styles include methods to render buttons the same x-browser, described here: 
 http: //cbjdigital.com/blog/2010/08/bulletproof_css_input_button_heights */
-input[type=submit], input[type=reset], input[type=button], .button, button {
+input[type=submit], 
+input[type=reset], 
+input[type=button], 
+.button, 
+button {
     font-family: Open Sans,Arial,sans-serif;
     @include border-radius(3px);
     width: auto;
@@ -259,7 +273,8 @@ input[type=submit], input[type=reset], input[type=button], .button, button {
             background-color: transparent;
         }
     }
-    &.no, &.serious {
+    &.no, 
+    &.serious {
         background-color: $color-button-no;
         border: 1px solid $color-button-no;
 
@@ -347,13 +362,17 @@ input[type=submit], input[type=reset], input[type=button], .button, button {
         -moz-box-sizing: border-box;
     }
 
-    &:disabled, &[disabled], &.disabled {
+    &:disabled, 
+    &[disabled], 
+    &.disabled {
         background-color: $color-grey-3 !important;
         border-color: $color-grey-3 !important;
         color: lighten($color-grey-2, 15%) !important;
         cursor: not-allowed;
     }
-    &.button-secondary:disabled, &.button-secondary[disabled], &.button-secondary.disabled {
+    &.button-secondary:disabled, 
+    &.button-secondary[disabled], 
+    &.button-secondary.disabled {
         background-color: white !important;
         border-color: $color-grey-3 !important;
         color: $color-grey-3 !important;
@@ -471,7 +490,10 @@ a.button {
 }
 
 /* Special styles to counteract Firefox's completely unwarranted assumptions about button styles */
-input[type=submit], input[type=reset], input[type=button], button {
+input[type=submit], 
+input[type=reset], 
+input[type=button], 
+button {
     padding: 0 1em;
 
     @media screen and (min-width: $breakpoint-mobile) {
@@ -485,7 +507,11 @@ input[type=submit], input[type=reset], input[type=button], button {
 .button-group {
     @include clearfix;
 
-    input[type=submit], input[type=reset], input[type=button], .button, button {
+    input[type=submit], 
+    input[type=reset], 
+    input[type=button], 
+    .button, 
+    button {
         @include border-radius(0);
         float: left;
         margin-right: 1px;
@@ -504,7 +530,11 @@ input[type=submit], input[type=reset], input[type=button], button {
     }
 
     &.button-group-square {
-        &,input[type=submit], input[type=reset], input[type=button], .button, button {
+        &,input[type=submit], 
+        input[type=reset], 
+        input[type=button], 
+        .button, 
+        button {
             @include border-radius(0);
         }
     }
@@ -577,7 +607,8 @@ input[type=submit], input[type=reset], input[type=button], button {
 }
 
 /* Other text */
-.help, .error-message {
+.help, 
+.error-message {
     font-size: 0.85em;
     font-weight: normal;
     margin: 0.5em 0 0 0;
@@ -607,7 +638,10 @@ li.focused > .help {
     font-size: 13px;
 }
 
-.error input, .error textarea, .error select, .error .tagit {
+.error input, 
+.error textarea, 
+.error select, 
+.error .tagit {
     border-color: $color-red;
     background-color: $color-input-error-bg;
 }
@@ -615,7 +649,8 @@ li.focused > .help {
 /* Layouts for particular kinds of of fields */
 
 /* permanently show checkbox/radio help as they have no focus state */
-.boolean_field .help, .radio .help {
+.boolean_field .help, 
+.radio .help {
     opacity: 1;
 }
 
@@ -631,7 +666,8 @@ li.focused > .help {
     .input {
         position: relative;
 
-        &:before, &:after {
+        &:before, 
+        &:after {
             font-family: wagtail;
             position: absolute;
             top: 0.5em;
@@ -647,14 +683,18 @@ li.focused > .help {
         }
     }
 
-    input:not([type=radio]), input:not([type=checkbox]), input:not([type=submit]), input:not([type=button]) {
+    input:not([type=radio]), 
+    input:not([type=checkbox]), 
+    input:not([type=submit]), 
+    input:not([type=button]) {
         padding-left: 2.5em;
     }
 
     /* smaller fields required slight repositioning of icons */
     &.field-small {
         .input {
-            &:before, &:after {
+            &:before, 
+            &:after {
                 font-size: 1.3rem; /* REMs are necessary here because IE doesn't treat generated content correctly */
                 top: 0.3em;
             }
@@ -727,7 +767,11 @@ li.focused > .help {
 /* field sizing and alignment */
 
 .field-small {
-    input, textarea, select, .richtext, .tagit {
+    input, 
+    textarea, 
+    select, 
+    .richtext, 
+    .tagit {
         @include border-radius(3px);
         padding: 0.4em 1em;
     }
@@ -764,7 +808,8 @@ li.inline .field {
 }
 
 /* solve gutter issues of inline fields */
-ul.inline li:first-child, li.inline:first-child {
+ul.inline li:first-child, 
+li.inline:first-child {
     margin-left: -$grid-gutter-width / 2;
 }
 
@@ -783,7 +828,8 @@ ul.inline li:first-child, li.inline:first-child {
     .chosen {
         display: block;
     }
-    .unchosen, .chosen {
+    .unchosen, 
+    .chosen {
         position: relative;
 
         &:before {
@@ -838,14 +884,16 @@ ul.inline li:first-child, li.inline:first-child {
 }
 
 .page-chooser {
-    .unchosen, .chosen {
+    .unchosen, 
+    .chosen {
         &:before {
             content: 'b';
         }
     }
 }
 .snippet-chooser {
-    .unchosen, .chosen {
+    .unchosen, 
+    .chosen {
         &:before {
             content: 'D';
         }
@@ -853,7 +901,8 @@ ul.inline li:first-child, li.inline:first-child {
 }
 
 .document-chooser {
-    .unchosen, .chosen {
+    .unchosen, 
+    .chosen {
         &:before {
             content: 'r';
         }
@@ -861,7 +910,8 @@ ul.inline li:first-child, li.inline:first-child {
 }
 
 .image-chooser {
-    .unchosen, .chosen {
+    .unchosen, 
+    .chosen {
         &:before {
             content: 'o';
         }
@@ -954,10 +1004,16 @@ ul.tagit li.tagit-choice-editable {
 
 
 /* Transitions */
-fieldset, input, textarea, select {
+fieldset, 
+input, 
+textarea, 
+select {
     @include transition(background-color 0.2s ease);
 }
-input[type=submit], input[type=reset], input[type=button], .button, button {
+input[type=submit], 
+input[type=reset], 
+input[type=button], 
+.button, button {
     @include transition(background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease);
 }
 .help {

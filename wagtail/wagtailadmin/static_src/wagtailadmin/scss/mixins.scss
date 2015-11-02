@@ -10,11 +10,14 @@
 }
 
 @mixin unlist() {
-    &, ul, li {
+    &, 
+    ul, 
+    li {
         list-style-type: none;
         font-style: normal;
     }
-    &, ul {
+    &, 
+    ul {
         margin-top: 0;
         margin-bottom: 0;
         padding-left: 0;
@@ -97,7 +100,8 @@
     position: absolute;
     width: 1px;
 
-    &:active, &:focus {
+    &:active, 
+    &:focus {
         clip: auto;
         height: auto;
         margin: 0;

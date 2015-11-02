@@ -110,9 +110,15 @@
     to make them better reflect their appearance on the front-end (however, it's arguably better for editors
     NOT to be thinking about a specific visual appearance when they choose heading levels...) */
 
-    h1,h2,h3,h4,h5,h6 {
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
         font-family: inherit;
     }
+
     h1 {} /* shouldn't be used */
 
     h2 {
@@ -120,14 +126,17 @@
         line-height: 1.2em;
         clear: both;
     }
+
     h3 {
         font-size: 1.7em;
         line-height: 1.194em;
     }
+
     h4 {
         font-size: 1.5em;
         line-height: 1.267em;
     }
+
     h5 {
         /* used for large body text, not really heading */
         font-size: 1.200em;
@@ -152,9 +161,11 @@
 
     .richtext-image {
         margin-top: 3px; /* close as possible to match line-height space above p */
+
         img {
             width: 100%;
         }
+
         figcaption {
             display: block;
             width: 100%;
@@ -162,13 +173,16 @@
             margin-top: 16px;
             margin-bottom: 16px;
         }
+
         &.small {
             max-width: 45%;
         }
+
         &.left {
             float: left;
             margin-right: 16px;
         }
+
         &.right {
             float: right;
             margin-left: 16px;
