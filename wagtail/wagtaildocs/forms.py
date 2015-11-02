@@ -12,3 +12,13 @@ def get_document_form(model):
             'tags': widgets.AdminTagWidget,
             'file': forms.FileInput()
         })
+
+
+def get_document_multi_form(model):
+    return modelform_factory(
+        model,
+        fields=['title', 'tags'],
+        widgets={
+            'tags': widgets.AdminTagWidget,
+            'file': forms.FileInput()
+        })
