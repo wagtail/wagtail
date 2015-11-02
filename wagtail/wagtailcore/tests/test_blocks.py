@@ -1314,12 +1314,18 @@ class TestPageChooserBlock(TestCase):
 
         empty_form_html = block.render_form(None, 'page')
         self.assertIn('<input id="page" name="page" placeholder="" type="hidden" />', empty_form_html)
+        self.assertIn('createPageChooser("page", ["wagtailcore.page"], null, false);', empty_form_html)
 
         christmas_page = Page.objects.get(slug='christmas')
         christmas_form_html = block.render_form(christmas_page, 'page')
         expected_html = '<input id="page" name="page" placeholder="" type="hidden" value="%d" />' % christmas_page.id
         self.assertIn(expected_html, christmas_form_html)
         self.assertIn("pick a page, any page", christmas_form_html)
+
+    def test_form_render_with_can_choose_root(self):
+        block = blocks.PageChooserBlock(help_text="pick a page, any page", can_choose_root=True)
+        empty_form_html = block.render_form(None, 'page')
+        self.assertIn('createPageChooser("page", ["wagtailcore.page"], null, true);', empty_form_html)
 
     def test_form_response(self):
         block = blocks.PageChooserBlock()

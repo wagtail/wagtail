@@ -552,7 +552,7 @@ class BasePageChooserPanel(BaseChooserPanel):
     @classmethod
     def widget_overrides(cls):
         return {cls.field_name: widgets.AdminPageChooser(
-            content_type=cls.target_content_type())}
+            content_type=cls.target_content_type(), can_choose_root=cls.can_choose_root)}
 
     @classmethod
     def target_content_type(cls):
@@ -579,7 +579,7 @@ class BasePageChooserPanel(BaseChooserPanel):
 
 
 class PageChooserPanel(object):
-    def __init__(self, field_name, page_type=None):
+    def __init__(self, field_name, page_type=None, can_choose_root=False):
         self.field_name = field_name
 
         if page_type:
@@ -590,12 +590,14 @@ class PageChooserPanel(object):
             page_type = []
 
         self.page_type = page_type
+        self.can_choose_root = can_choose_root
 
     def bind_to_model(self, model):
         return type(str('_PageChooserPanel'), (BasePageChooserPanel,), {
             'model': model,
             'field_name': self.field_name,
             'page_type': self.page_type,
+            'can_choose_root': self.can_choose_root,
         })
 
 
