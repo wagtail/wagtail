@@ -177,6 +177,8 @@ If you have the Wagtail API (``wagtail.contrib.wagtailapi``) enabled, you must n
 :meth:`Page.get_latest_revision_as_page() <wagtail.wagtailcore.models.Page.get_latest_revision_as_page>` now returns live page object when there are no draft changes
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Previously, this method always returned the content of the latest revision. Now, it will only do so if the ``has_unpublished_changes`` flag is set (aka, the page is in ``live + draft`` state).
+If you have any application code that makes direct updates to page data, at the model or database level, be aware that the way these edits are reflected in the page editor has changed.
 
-This also means that the behaviour has changed in the editor interface. Any changes made directly to a live page object will be immediately reflected in the editor without needing to update the latest revision (but note, the old behaviour is still used for pages in ``live + draft`` state).
+Previously, the ``get_latest_revision_as_page`` method - used by the page editor to return the current page revision for editing - always retrieved data from the page's revision history. Now, it will only do so if the page has unpublished changes (i.e. the page is in ``live + draft`` state) - pages which have received no draft edits since being published will return the page's live data instead.
+
+As a result, any changes made directly to a live page object will be immediately reflected in the editor without needing to update the latest revision record (but note, the old behaviour is still used for pages in ``live + draft`` state).
