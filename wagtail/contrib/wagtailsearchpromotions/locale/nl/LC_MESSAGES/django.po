@@ -1,0 +1,57 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# benny_AT_it_digin.com <benny@it-digin.com>, 2015
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2015-08-26 14:46+0100\n"
+"PO-Revision-Date: 2015-10-03 01:00+0000\n"
+"Last-Translator: benny_AT_it_digin.com <benny@it-digin.com>\n"
+"Language-Team: Dutch (http://www.transifex.com/torchbox/wagtail/language/"
+"nl/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: nl\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Page"
+msgstr "Pagina"
+
+msgid "Description"
+msgstr "Beschrijving"
+
+msgid "Save"
+msgstr "Bewaar"
+
+#, python-format
+msgid "Delete %(query)s"
+msgstr "Verwijder %(query)s"
+
+msgid "Delete"
+msgstr "Verwijder"
+
+msgid "Yes, delete"
+msgstr "Ja, verwijder"
+
+msgid "Search Terms"
+msgstr "Zoektermen"
+
+msgid "Search term(s)"
+msgstr "Zoekterm(en)"
+
+msgid "None"
+msgstr "Geen"
+
+msgid "Edit"
+msgstr "Bewerl"
+
+msgid "Recommendations have not been created due to errors"
+msgstr "Aanbevelingen zijn niet aangemaakt door fouten"
+
+msgid "Recommendations have not been saved due to errors"
+msgstr "Aanbevelingen zijn niet bewaard door fouten"

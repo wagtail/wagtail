@@ -5,6 +5,8 @@
 # Translators:
 # Florian <flori@vorlif.org>, 2015
 # Johannes Spielmann <j@spielmannsolutions.com>, 2014
+# mattwestcott <matthew@torchbox.com>, 2015
+# Max Pfeiffer <max.pfeiffer@alp-phone.ch>, 2015
 # Tammo van Lessen <tvanlessen@gmail.com>, 2015
 # Wasilis Mandratzis-Walz, 2015
 msgid ""
@@ -12,8 +14,8 @@ msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2015-09-02 20:07+0100\n"
-"PO-Revision-Date: 2015-09-02 19:12+0000\n"
-"Last-Translator: Karl Hobley <karl@torchbox.com>\n"
+"PO-Revision-Date: 2015-09-27 19:03+0000\n"
+"Last-Translator: mattwestcott <matthew@torchbox.com>\n"
 "Language-Team: German (http://www.transifex.com/torchbox/wagtail/language/"
 "de/)\n"
 "MIME-Version: 1.0\n"
@@ -50,6 +52,12 @@ msgstr ""
 "Falls ausgewählt wird diese Seite Anfragen für alle Hostnamen annehmen, die "
 "keinen eigenen Seiteneintrag haben."
 
+msgid "site"
+msgstr "Webseite"
+
+msgid "sites"
+msgstr "Webseiten"
+
 #, python-format
 msgid ""
 "%(hostname)s is already configured as the default site. You must unset that "
@@ -65,7 +73,7 @@ msgid "The page title as you'd like it to be seen by the public"
 msgstr "Der Seitentitel, der öffentlich angezeigt werden soll"
 
 msgid "Slug"
-msgstr "Kugel"
+msgstr "Kurztitel"
 
 msgid ""
 "The name of the page as it will appear in URLs e.g http://domain.com/blog/"
@@ -149,6 +157,12 @@ msgstr "Veröffentlicht"
 msgid "Default"
 msgstr "Standard"
 
+msgid "page"
+msgstr "Seite"
+
+msgid "pages"
+msgstr "Seiten"
+
 msgid "Page"
 msgstr "Seite"
 
@@ -167,8 +181,17 @@ msgstr "JSON Inhalt"
 msgid "Approved go live at"
 msgstr "Freigegeben zur Veröffentlichung am"
 
+msgid "page revision"
+msgstr "Seitenrevision"
+
+msgid "page revisions"
+msgstr "Seiten Revisionen"
+
 msgid "Add/edit pages you own"
 msgstr "Bearbeiten/Hinzufügen von Seiten, die Sie besitzen"
+
+msgid "Edit any page"
+msgstr "Jede Seite bearbeiten."
 
 msgid "Publish any page"
 msgstr "Jede Seite veröffentlichen"
@@ -182,8 +205,20 @@ msgstr "Gruppe"
 msgid "Permission type"
 msgstr "Berechtigungstyp"
 
+msgid "group page permission"
+msgstr "Gruppen Seitenberechtigung"
+
+msgid "group page permissions"
+msgstr "Gruppen Seitenberechtigungen"
+
 msgid "Password"
 msgstr "Passwort"
+
+msgid "page view restriction"
+msgstr "Seiten Ansichtsrestriktion"
+
+msgid "page view restrictions"
+msgstr "Seiten Ansichtsrestriktionen"
 
 msgid "Value cannot be entirely whitespace characters"
 msgstr "Der Wert darf nicht vollständig Leerzeichen enthalten"

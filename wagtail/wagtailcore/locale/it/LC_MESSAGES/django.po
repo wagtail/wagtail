@@ -10,8 +10,8 @@ msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2015-09-02 20:07+0100\n"
-"PO-Revision-Date: 2015-09-02 19:12+0000\n"
-"Last-Translator: Karl Hobley <karl@torchbox.com>\n"
+"PO-Revision-Date: 2015-09-24 09:41+0000\n"
+"Last-Translator: Giacomo Ghizzani <giacomo.ghz@gmail.com>\n"
 "Language-Team: Italian (http://www.transifex.com/torchbox/wagtail/language/"
 "it/)\n"
 "MIME-Version: 1.0\n"
@@ -46,6 +46,12 @@ msgid ""
 "If true, this site will handle requests for all other hostnames that do not "
 "have a site entry of their own"
 msgstr "Se true, questo sito gestirà le richieste di tutti gli altri hostname"
+
+msgid "site"
+msgstr "sito"
+
+msgid "sites"
+msgstr "siti"
 
 #, python-format
 msgid ""
@@ -141,6 +147,12 @@ msgstr "live"
 msgid "Default"
 msgstr "Default"
 
+msgid "page"
+msgstr "pagina"
+
+msgid "pages"
+msgstr "pagine"
+
 msgid "Page"
 msgstr "Pagina"
 
@@ -159,8 +171,17 @@ msgstr "Contenuto JSON"
 msgid "Approved go live at"
 msgstr "Approvata alle"
 
+msgid "page revision"
+msgstr "revisione pagina"
+
+msgid "page revisions"
+msgstr "revisioni pagina"
+
 msgid "Add/edit pages you own"
 msgstr "Aggiungi/modifica pagine di tua proprietà"
+
+msgid "Edit any page"
+msgstr "Modificare qualche pagina"
 
 msgid "Publish any page"
 msgstr "Pubblica ogni pagina"
@@ -175,7 +196,7 @@ msgid "Permission type"
 msgstr "Tipo di permesso"
 
 msgid "Password"
-msgstr "Parola chiave"
+msgstr "Password"
 
 msgid "Value cannot be entirely whitespace characters"
 msgstr "Il valore non può contenere spazi bianchi"

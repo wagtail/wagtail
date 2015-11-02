@@ -4,13 +4,14 @@
 #
 # Translators:
 # Ji Han Chung <jihanchung20@gmail.com>, 2015
+# Kyungil Choi <hanpama@gmail.com>, 2015
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2015-08-26 14:28+0100\n"
-"PO-Revision-Date: 2015-07-23 15:04+0000\n"
-"Last-Translator: Ji Han Chung <jihanchung20@gmail.com>\n"
+"PO-Revision-Date: 2015-10-20 02:37+0000\n"
+"Last-Translator: Kyungil Choi <hanpama@gmail.com>\n"
 "Language-Team: Korean (http://www.transifex.com/torchbox/wagtail/language/"
 "ko/)\n"
 "MIME-Version: 1.0\n"
@@ -64,7 +65,7 @@ msgid "Administrators have the ability to manage user accounts."
 msgstr "관리자는 사용자 계정을 관리할 수 있는 권한을 가지고 있습니다."
 
 msgid "A group with that name already exists."
-msgstr "이 이름을 가진 그룹은 이미 사용하고 있습니다."
+msgstr "해당 이름의 그룹은 이미 사용되고 있습니다."
 
 msgid "Submitted notifications"
 msgstr "제출된 알림"
@@ -101,8 +102,7 @@ msgstr ""
 msgid ""
 "Deleting this group will revoke this group's permissions from all member "
 "users."
-msgstr ""
-"이 그룹을 지우면 모든 멤버 유저들로부터 그룹의 퍼미션들이 폐지될 것입니다."
+msgstr "이 그룹을 지우면 모든 구성원들의 그룹 권한이 폐지됩니다."
 
 msgid "Are you sure you want to delete this group?"
 msgstr "이 그룹을 정말 삭제할까요?"
@@ -120,7 +120,7 @@ msgid "Save"
 msgstr "저장"
 
 msgid "Object permissions"
-msgstr "오브젝트 허가"
+msgstr "오브젝트 권한"
 
 msgid "Name"
 msgstr "이름"
@@ -135,19 +135,19 @@ msgid "Delete"
 msgstr "삭제"
 
 msgid "Other permissions"
-msgstr "다른 퍼미션"
+msgstr "다른 권한"
 
 msgid "Page permissions"
-msgstr "페이지 퍼미션"
+msgstr "페이지 권한"
 
 msgid "Page"
 msgstr "페이지"
 
 msgid "Permission type"
-msgstr "퍼미션 형태"
+msgstr "권한 형태"
 
 msgid "Add a page permission"
-msgstr "페이지 퍼미션 추가"
+msgstr "페이지 권한 추가"
 
 msgid "groups"
 msgstr "그룹"

@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2015-08-26 14:28+0100\n"
-"PO-Revision-Date: 2015-04-21 08:40+0000\n"
+"PO-Revision-Date: 2015-10-30 06:49+0000\n"
 "Last-Translator: Karl Hobley <karl@torchbox.com>\n"
 "Language-Team: Czech (http://www.transifex.com/torchbox/wagtail/language/"
 "cs/)\n"
@@ -142,6 +142,9 @@ msgstr "Dokument nebyl uložen, zkontrolujte správné vyplnění polí."
 #, python-brace-format
 msgid "Document '{0}' updated"
 msgstr "Dokument '{0}' byl upraven"
+
+msgid "Delete"
+msgstr "Smazat"
 
 #, python-brace-format
 msgid "Document '{0}' deleted."

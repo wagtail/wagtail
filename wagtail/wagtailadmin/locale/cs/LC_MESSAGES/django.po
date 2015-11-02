@@ -3,14 +3,15 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# Ivan Pomykacz <mist@alastify.cz>, 2015
 # Jiri Stepanek <stepiiicz@gmail.com>, 2015
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2015-08-26 14:28+0100\n"
-"PO-Revision-Date: 2015-08-26 13:37+0000\n"
-"Last-Translator: Karl Hobley <karl@torchbox.com>\n"
+"PO-Revision-Date: 2015-10-30 08:04+0000\n"
+"Last-Translator: Ivan Pomykacz <mist@alastify.cz>\n"
 "Language-Team: Czech (http://www.transifex.com/torchbox/wagtail/language/"
 "cs/)\n"
 "MIME-Version: 1.0\n"
@@ -492,8 +493,19 @@ msgstr "Přetáhnout myší"
 msgid "Updated"
 msgstr "Uloženo"
 
+msgid "No pages have been created at this location."
+msgstr "V tomto umístění nebyly zatím vytvořeny žádné stránky."
+
+#, python-format
+msgid "Why not <a href=\"%(add_page_url)s\">create one</a>?"
+msgstr "<a href=\"%(add_page_url)s\">Založit</a> novou stránku."
+
 msgid "This page is locked to further editing"
 msgstr "Tato stránka je uzamčena pro další úpravy"
+
+#, python-format
+msgid "Explore subpages of '%(title)s'"
+msgstr "Prozkoumat podstránky '%(title)s'"
 
 msgid "Explore"
 msgstr "Prozkoumat"
@@ -511,6 +523,15 @@ msgstr "Přidat podstránku"
 
 msgid "Add child page"
 msgstr "Přidat podstránku"
+
+#, python-format
+msgid ""
+"\n"
+"        Page %(page_number)s of %(num_pages)s.\n"
+"    "
+msgstr ""
+"\n"
+"Strana %(page_number)s / %(num_pages)s."
 
 msgid "Previous"
 msgstr "Předchozí"
@@ -537,6 +558,25 @@ msgstr "Zvolte novou nadřazenou stránku pro %(title)s"
 #, python-format
 msgid "Select a new parent page for <span>%(title)s</span>"
 msgstr "Zvolte novou nadřazenou stránku pro <span>%(title)s</span>"
+
+#, python-format
+msgid ""
+"\n"
+"                There is one matching page\n"
+"            "
+msgid_plural ""
+"\n"
+"                There are %(counter)s matching pages\n"
+"            "
+msgstr[0] ""
+"\n"
+"Nalezena jedna shoda"
+msgstr[1] ""
+"\n"
+"Celkem vyhovujících stran: %(counter)s"
+msgstr[2] ""
+"\n"
+"Celkem vyhovujících stran: %(counter)s"
 
 msgid "Other searches"
 msgstr "Další hledání"

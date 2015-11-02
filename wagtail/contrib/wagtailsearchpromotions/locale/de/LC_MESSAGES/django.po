@@ -4,6 +4,7 @@
 #
 # Translators:
 # M0rph 3u5 <transifex@m0rph3u5.net>, 2014
+# Max Pfeiffer <max.pfeiffer@alp-phone.ch>, 2015
 # pcraston <patrick@craston.com>, 2014
 # Tammo van Lessen <tvanlessen@gmail.com>, 2015
 # Wasilis Mandratzis-Walz, 2015
@@ -12,8 +13,8 @@ msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2015-08-26 14:46+0100\n"
-"PO-Revision-Date: 2015-08-26 14:14+0000\n"
-"Last-Translator: Karl Hobley <karl@torchbox.com>\n"
+"PO-Revision-Date: 2015-09-22 13:16+0000\n"
+"Last-Translator: Max Pfeiffer <max.pfeiffer@alp-phone.ch>\n"
 "Language-Team: German (http://www.transifex.com/torchbox/wagtail/language/"
 "de/)\n"
 "MIME-Version: 1.0\n"
@@ -30,6 +31,12 @@ msgstr "Seite"
 
 msgid "Description"
 msgstr "Beschreibung"
+
+msgid "Search promotion"
+msgstr "Hervorgehobene Suchergebnisse"
+
+msgid "Add search pick"
+msgstr "Suchauswahl hinzufügen"
 
 msgid ""
 "\n"
@@ -147,6 +154,17 @@ msgid "Sorry, no promoted results match \"<em>%(query_string)s</em>\""
 msgstr ""
 "Leider gibt es keine hervorgehobenen Suchergebnisse, die zu \"<em>"
 "%(query_string)s</em>\" passen."
+
+#, python-format
+msgid ""
+"No promoted results have been created. Why not <a href="
+"\"%(wagtailsearchpromotions_add_url)s\">add one</a>?"
+msgstr ""
+"Es wurden keine hervorgehobenen Suchbegriffe angelegt. Warum <a href="
+"\"%(wagtailsearchpromotions_add_url)s\">fügen Sie nicht einen hinzu</a>?"
+
+msgid "Search promoted results"
+msgstr "Suche hervorgehobene Ergebnisse"
 
 #, python-brace-format
 msgid "Editor's picks for '{0}' created."

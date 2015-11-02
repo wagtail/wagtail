@@ -7,13 +7,14 @@
 # Bertrand Bordage <bordage.bertrand@gmail.com>, 2015
 # nahuel, 2014
 # nahuel, 2014
+# Timothy Allen <flipper@peregrinesalon.com>, 2015
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2015-08-26 14:28+0100\n"
-"PO-Revision-Date: 2015-08-26 13:37+0000\n"
-"Last-Translator: Karl Hobley <karl@torchbox.com>\n"
+"PO-Revision-Date: 2015-10-09 12:51+0000\n"
+"Last-Translator: Timothy Allen <flipper@peregrinesalon.com>\n"
 "Language-Team: French (http://www.transifex.com/torchbox/wagtail/language/"
 "fr/)\n"
 "MIME-Version: 1.0\n"
@@ -44,6 +45,15 @@ msgstr "Format d'image non supporté. Formats supportés : %s."
 #, python-format
 msgid "Not a valid %s image."
 msgstr "Image %s non valide."
+
+#, python-format
+msgid "This file is too big (%%s). Maximum filesize %s."
+msgstr ""
+"Ce fichier est trop gros (%%s). La taille de fichier maximale est de %s."
+
+#, python-format
+msgid "This file is too big. Maximum filesize %s."
+msgstr "Ce fichier est trop gros. La taille de fichier maximale est %s."
 
 msgid "Filter"
 msgstr "Filtre"

@@ -4,14 +4,15 @@
 #
 # Translators:
 # Johannes Spielmann <j@spielmannsolutions.com>, 2014-2015
+# Max Pfeiffer <max.pfeiffer@alp-phone.ch>, 2015
 # Tammo van Lessen <tvanlessen@gmail.com>, 2015
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2015-08-26 14:28+0100\n"
-"PO-Revision-Date: 2015-08-26 13:37+0000\n"
-"Last-Translator: Karl Hobley <karl@torchbox.com>\n"
+"PO-Revision-Date: 2015-09-22 13:20+0000\n"
+"Last-Translator: Max Pfeiffer <max.pfeiffer@alp-phone.ch>\n"
 "Language-Team: German (http://www.transifex.com/torchbox/wagtail/language/"
 "de/)\n"
 "MIME-Version: 1.0\n"
@@ -103,6 +104,19 @@ msgstr "Von-Adresse"
 msgid "Subject"
 msgstr "Betreff"
 
+#, python-format
+msgid "Delete %(title)s"
+msgstr "%(title)s löschen"
+
+msgid "Delete"
+msgstr "Löschen"
+
+msgid "Are you sure you want to delete this form submission?"
+msgstr "Sind Sie sicher, dass Sie diese Formular Vorlage löschen wollen?"
+
+msgid "Delete it"
+msgstr "Löschen"
+
 msgid "Forms"
 msgstr "Formulare"
 
@@ -136,5 +150,11 @@ msgstr "Ursprung"
 msgid "Submission Date"
 msgstr "Einreichungsdatum"
 
+msgid "Actions"
+msgstr "Aktionen"
+
 msgid "No form pages have been created."
 msgstr "Es wurden keine Formularseiten angelegt."
+
+msgid "Submission deleted."
+msgstr "Vorlage gelöscht."

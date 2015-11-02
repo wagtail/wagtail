@@ -1,0 +1,52 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# Maarten Kling <kling.maarten@gmail.com>, 2015
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2015-08-26 14:28+0100\n"
+"PO-Revision-Date: 2015-10-09 11:14+0000\n"
+"Last-Translator: Maarten Kling <kling.maarten@gmail.com>\n"
+"Language-Team: Dutch (Netherlands) (http://www.transifex.com/torchbox/"
+"wagtail/language/nl_NL/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: nl_NL\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Please enter a valid URL"
+msgstr "Voeg een geldige URL in"
+
+msgid "URL"
+msgstr "URL"
+
+msgid "Embed"
+msgstr "Embed"
+
+msgid "Insert embed"
+msgstr "Voeg embed toe"
+
+msgid "Insert"
+msgstr "Invoegen"
+
+msgid ""
+"There seems to be a problem with your embedly API key. Please check your "
+"settings."
+msgstr ""
+"Het lijkt erop dat er een probleem is met de embedly API key. Controleer de "
+"instellingen. "
+
+msgid "Cannot find an embed for this URL."
+msgstr "Kan geen embed voor deze URL vinden."
+
+msgid ""
+"There seems to be an error with Embedly while trying to embed this URL. "
+"Please try again later."
+msgstr ""
+"Er lijkt een fout op te treden met Embedly tijdens het embeden van deze URL. "
+"Probeer het later nog eens."
