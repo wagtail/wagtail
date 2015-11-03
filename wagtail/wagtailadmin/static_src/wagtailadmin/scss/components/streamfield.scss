@@ -1,7 +1,8 @@
 ul.sequence {
-    position: relative;
     @include clearfix;
+    position: relative;
 }
+
 li.sequence-member {
     @include clearfix;
     position:relative;
@@ -27,12 +28,13 @@ li.sequence-member {
     &:hover .object-help {
         opacity: 1;
     }
-   
+
     .struct-block .fields {
         @include column(10);
         padding-left: 0;
         padding-right: 0;
     }
+
     .struct-block .sequence-container {
         @include column(9);
         padding-left: 0;
@@ -40,11 +42,10 @@ li.sequence-member {
 
         .sequence-member-inner {
             padding: 1.5em 0;
-            padding: 1.5em 0;
         }
     }
 
-    /* The top level sequence doesn't have a sequnce-member-inner. This block is basically for things that should only affect inner blocks */
+    // The top level sequence doesn't have a sequnce-member-inner. This block is basically for things that should only affect inner blocks
     .sequence-member-inner {
         @include clearfix;
         position: relative;
@@ -54,7 +55,7 @@ li.sequence-member {
             border: 0;
         }
 
-        /* sequences within sequences, such as a ListBlock within StructBlock*/
+        // sequences within sequences, such as a ListBlock within StructBlock
         > .sequence .sequence-inner {
             @include column(10);
             padding-left: 0;
@@ -66,6 +67,7 @@ li.sequence-member {
             padding-left: 0;
             padding-right: 0;
         }
+
         .sequence-type-list .sequence-member-inner {
             padding: 0;
             padding-top: 0.5em;
@@ -73,17 +75,17 @@ li.sequence-member {
         }
     }
 
-
     .fields > li {
         position: relative;
     }
 }
 
-/* Image chooser as direct descendant of top-level streamfield has special display */
+// Image chooser as direct descendant of top-level streamfield has special display
 .sequence-member-inner > .widget-admin_image_chooser {
     label {
         display: none;
     }
+
     .field-content {
         display: block;
         float: none;
@@ -94,10 +96,12 @@ li.sequence-member {
         border: 1px solid $color-grey-4;
         padding: 1em;
     }
+
     .chooser {
         .chosen {
             padding: 0;
         }
+
         .unchosen {
             &:before {
                 float: none;
@@ -105,21 +109,22 @@ li.sequence-member {
                 margin: 0;
             }
         }
+
         .preview-image {
             float: none;
             margin: 0;
         }
     }
+
     .actions li {
         display: inline-block;
         float: none;
     }
 }
 
-/*
-This horridly specific selector ensures text inputs, rich text fields and textareas that are direct children of highest level sequence
-should be borderless and full-width
-*/
+
+// This horridly specific selector ensures text inputs, rich text fields and textareas 
+// that are direct children of highest level sequence should be borderless and full-width
 .block_field > .field-content > .input > .sequence-container > .sequence-container-inner > .sequence > .sequence-member > .sequence-member-inner {
     > .widget-text_input input,
     > .widget-rich_text_area .richtext,
@@ -131,16 +136,17 @@ should be borderless and full-width
     }
 }
 
-/* Controls for ordering and deletion of items in a sequence */
+// Controls for ordering and deletion of items in a sequence
 .sequence-controls {
     @include border-radius(2px 0 0 0);
     @include transition(opacity 0.2s ease);
     border: 1px solid darken($color-input-focus, 10%);
-    border-width: 1px 1px 0 1px;
+    border-width: 1px 1px 0;
     opacity: 0;
     visibility: hidden;
     position: absolute;
-    top: -30px; right: 0;
+    top: -30px; 
+    right: 0;
     z-index: 1;
     overflow: visible;
     background-color: $color-input-focus;
@@ -175,21 +181,22 @@ should be borderless and full-width
         }
     }
 
-    /* .buttons only exists for menus in stream_member.html */
+    // .buttons only exists for menus in stream_member.html
     .button-group {
         float: right;
     }
-        &:hover .buttons,
-        &:hover label {
-            opacity: 1;
-        }
+
+    &:hover .buttons,
+    &:hover label {
+        opacity: 1;
+    }
 
     .disabled {
         display: none;
     }       
 }
 
-/* list controls are slightly different as they require closer proximity to their associated fields */
+// list controls are slightly different as they require closer proximity to their associated fields
 .list-controls {
     @include border-radius(0);
     background: transparent;
@@ -201,13 +208,13 @@ should be borderless and full-width
 }
 
 .sequence-type-list .object-help {
-    margin-top: 1.5em !important;
+    margin-top: 1.5em;
 }
 
-/* Menu of other blocks to be added at each position */
+// Menu of other blocks to be added at each position 
 .stream-menu {
     @include transition(all 0.2s ease);
-    @include box-shadow(inset 0 0 45px rgba(0,0,0,0.3));
+    @include box-shadow(inset 0 0 45px rgba(0, 0, 0, 0.3));
     position: relative;
     background-color: $color-grey-1;
     opacity: 1;
@@ -228,7 +235,7 @@ should be borderless and full-width
         display: block;
         z-index: 5;
         color: $color-grey-1;
-        background-color: white;
+        background-color: $color-white;
         outline: none;
 
         span {
@@ -246,20 +253,20 @@ should be borderless and full-width
     }
 
     .stream-menu-inner {
-        @include transform(translate3d(0,0,0));
+        @include transform(translate3d(0, 0, 0));
         max-width: 50em;
         margin: auto;
         overflow: hidden;
     }
 
     ul {
-        @include transform(translate3d(0,0,0));
+        @include transform(translate3d(0, 0, 0));
         @include transition(all 0.2s ease);
         @include transform(scale(1));
         @include clearfix;
         visibility: visible;
         opacity: 1;
-        padding: 1em 1em 0 1em;
+        padding: 1em 1em 0;
         overflow: hidden;
     }
 
@@ -274,7 +281,6 @@ should be borderless and full-width
         }
     }
 
-
     button {
         @include transition(all 0.2s ease);
         background-color: transparent;
@@ -283,7 +289,7 @@ should be borderless and full-width
         height: auto;
         display: block;
         width: 100%;
-        padding: 0 0 0.5em 0;
+        padding: 0 0 0.5em;
         outline: $color-teal;
         overflow: visible;
 
@@ -310,7 +316,7 @@ should be borderless and full-width
         &:hover,
         &:focus {
             background-color: $color-teal;
-            color: white;
+            color: $color-white;
         }
     }
 
@@ -324,10 +330,12 @@ should be borderless and full-width
 
         .toggle {
             color: $color-grey-3;
-            background-color: white;
+            background-color: $color-white;
+
             &:before {
                 @include transform(rotate(0deg));
             }
+
             &:focus {
                 color: $color-teal;
             }
@@ -345,27 +353,33 @@ should be borderless and full-width
     @media screen and (min-width: $breakpoint-mobile) {
         li {
             @include column(2);
+
             &:nth-child(4n+1) {
                 clear: none;
             }
+
             &:nth-child(6n+1) {
                 clear: left;
             }
         }
     }
 }
+
 .sequence-member .stream-menu {
-    margin: auto auto 0em auto;
+    margin: auto auto 0;
 }
+
 .sequence-member .stream-menu-closed {
     opacity: 0;
     visibility: hidden;
 }
+
 .sequence-member:hover {
     .sequence-controls {
         visibility: visible;
         opacity: 1;
     }
+
     .stream-menu {
         visibility: visible;
         opacity: 1;
@@ -376,5 +390,4 @@ should be borderless and full-width
     .object li.sequence-member:hover .object-help {
         opacity: 1;
     }
-
 }

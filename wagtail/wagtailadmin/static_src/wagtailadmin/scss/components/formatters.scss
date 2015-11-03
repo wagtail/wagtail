@@ -1,4 +1,4 @@
-/* user avatars, with fallback to placeholder graphic if no gravatar exists */
+// user avatars, with fallback to placeholder graphic if no gravatar exists
 .avatar {
     @include border-radius(100%);
     position: relative;
@@ -10,10 +10,12 @@
     height: 50px;
 
     img {
+        @include border-radius(100%);
         position: absolute;
         z-index: 2;
-        top: 0;left: 0;right: 0;
-        @include border-radius(100%);
+        top: 0;
+        left: 0;
+        right: 0;
         border: 0;
     }
 
@@ -26,7 +28,7 @@
         width: 42px;
         height: 42px;
         line-height: 42px;
-        margin: 2px 0 0 0;
+        margin: 2px 0 0;
         z-index: 1;
         left: 0;
         font-size: 22px;
@@ -58,11 +60,14 @@
 .media-placeholder {
     width: 600px;
     height: 400px;
-    background-color: #CCC;
+    background-color: #ccc;
     padding: 5px;
-    h3, p {
+
+    h3, 
+    p {
         margin: 0;
     }
+
     img {
         max-width: 350px;
         max-height: 350px;
@@ -70,7 +75,7 @@
     }
 }
 
-/* Displays 'timesince' formatted date with full date on hover */
+// Displays 'timesince' formatted date with full date on hover
 .human-readable-date {
     overflow: hidden;
     display: block;
@@ -92,7 +97,7 @@
     }
 }
 
-/* makes a link look like regular text */
+// makes a link look like regular text
 .nolink {
     color: $color-text-base;
 
@@ -101,50 +106,55 @@
     }
 }
 
-/* Status tags */
+// Status tags
 .status-tag {
+    @include border-radius(2px);
     text-align: center;
     display: inline-block;
-    @include border-radius(2px);
     text-transform: uppercase;
-    padding: 0em 0.5em;
-    border: 1px solid lighten($color-grey-2,30%);
-    color: lighten($color-grey-2,30%);
+    padding: 0 0.5em;
+    border: 1px solid lighten($color-grey-2, 30%);
+    color: lighten($color-grey-2, 30%);
     -webkit-font-smoothing: auto;
-    font-size: 0.80em;
-    margin: 0 0.5em 0.5em 0.5em;
-    background: white url('# {$static-root}bg-dark-diag.svg');
+    font-size: 0.8em;
+    margin: 0 0.5em 0.5em;
+    background: #fff url('#{$static-root}bg-dark-diag.svg');
 
     &.primary {
         color: $color-grey-2;
         border: 1px solid $color-grey-2;
-        background: white
+        background: #fff;
     }
 }
+
 form.status-tag:hover,
 a.status-tag:hover,
 a.status-tag.primary:hover {
     border-color: $color-teal;
     color: $color-teal;
 }
+
 form.status-tag:hover {
     border-color: $color-teal-dark;
     background-color: $color-teal-darker;
-    color: white;
+    color: $color-white;
 }
 
 .privacy-indicator {
-    .label-private, .label-public {
+    .label-private, 
+    .label-public {
         &:before {
             font-size: 1.5em;
             color: $color-teal;
         }
     }
+
     &.public {
         .label-private { 
             display: none;
         }
     }
+
     &.private {
         .label-public {
             display: none;
@@ -153,21 +163,20 @@ form.status-tag:hover {
 }
 
 
-/* free tagging tags from taggit */
+// free tagging tags from taggit
 .tag {
+    @include border-radius(2px);
     background-color: $color-teal;
     padding-right: 0.5em;
     padding: 0.2em 0.5em;
-    color: white;
+    color: $color-white;
     line-height: 2em;
     white-space: nowrap;
-    @include border-radius(2px);
-
 
     &:before {
         font-family: wagtail;
         display: inline-block;
-        color: white;
+        color: $color-white;
         content: 'u';
         padding-right: 0.5em;
     }
@@ -176,37 +185,43 @@ form.status-tag:hover {
         margin-right: 0.8em;
     }
 }
+
 a.tag:hover {
     background-color: $color-teal-darker;
-    color: white;
+    color: $color-white;
 }
-
 
 .taglist {
     font-size: 0.9em;
     line-height: 2.4em;
+
     h3 {
         display: inline;
         margin-right: 1em;
     }
 }
 
-/* Loading mask: overlays a certain area with a loading spinner and a faded out cover to prevent interaction */
+// Loading mask: overlays a certain area with a loading spinner and a faded out cover to prevent interaction
 .loading-mask {
     &.loading {
         position: relative;
 
-        &:before, &:after {
+        &:before, 
+        &:after {
             position: absolute;
             display: block;
         }
 
         &:before {
             content: '';
-            top: -5px;left: -5px;bottom: -5px;right: -5px;
+            top: -5px; 
+            left: -5px;
+            bottom: -5px;
+            right: -5px;
             z-index: 1;
-            background-color: rgba(255,255,255,0.5);
+            background-color: rgba(255, 255, 255, 0.5);
         }
+
         &:after {
             font-size: 30px;
             width: 30px;
@@ -231,18 +246,18 @@ hr {
     margin: 1.5em 0;
 }
 
-/* general image style */
+// general image style
 img {
     max-width: 100%;
     height: auto;
 }
 
-/* Show a transparency grid in background */
+// Show a transparency grid in background
 .show-transparency {
-    background: url('# {$static-root}transparency.svg');
+    background: url('#{$static-root}transparency.svg');
 }
 
-/* make a block-level element inline */
+// make a block-level element inline
 .inline {
     display: inline;
 }
@@ -259,7 +274,7 @@ img {
     @include unlist();
 }
 
-/* utility class to allow things to be scrollable if their contents can't wrap more nicely */
+// utility class to allow things to be scrollable if their contents can't wrap more nicely
 .overflow {
     overflow: auto;
 }
@@ -268,6 +283,7 @@ img {
     &.success {
         color: $color-green;
     }
+
     &.failure {
         color: $color-red;
     }

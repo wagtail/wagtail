@@ -1,6 +1,6 @@
-@import 'wagtailadmin/scss/variables.scss';
-@import 'wagtailadmin/scss/mixins.scss';
-@import 'wagtailadmin/scss/grid.scss';
+@import 'wagtailadmin/scss/variables';
+@import 'wagtailadmin/scss/mixins';
+@import 'wagtailadmin/scss/grid';
 
 .replace-file-input {
     display: inline-block;
@@ -8,7 +8,7 @@
     overflow: hidden;
     padding-bottom: 2px;
 
-    input[type=file] {
+    [type=file] {
         padding: 0;
         opacity: 0;
         position: absolute;
@@ -37,6 +37,7 @@
     > li {
         padding: 1em;
     }
+
     .left {
         text-align: center;
     }
@@ -50,18 +51,25 @@
         max-width: 100%;
         margin: auto;
     }
-    .progress, .thumb, .thumb:before, canvas, img {
+
+    .progress, 
+    .thumb, 
+    .thumb:before, 
+    canvas, 
+    img {
         position: absolute;
         max-width: 100%;
     }
+
     .progress {
+        @include box-shadow(0 0 5px 2px rgba(255, 255, 255, 0.4));
         z-index: 4;
         top: 60%;
         left: 20%;
         right: 20%;
         width: 60%;
-        @include box-shadow(0 0 5px 2px rgba(255, 255, 255, 0.4));
     }
+
     .thumb {
         top: 0; 
         right: 0;
@@ -71,13 +79,16 @@
         width: 100%;
     }
 
-    .thumb:before, canvas, img {
+    .thumb:before, 
+    canvas, 
+    img {
         left: 0;
         right: 0;
         top: 0;
         bottom: 0;
         margin: auto;
     }
+
     .thumb:before {
         z-index: 2;
         top: 0;
@@ -86,7 +97,9 @@
         line-height: 1.4em;
         color: lighten($color-grey-4, 4%);
     }
-    canvas, img {
+
+    canvas, 
+    img {
         z-index: 3;
     }
 
@@ -105,14 +118,13 @@
             opacity: 0;
         }
     }
-    .upload-uploading {
 
-    }
     .upload-success {
         .status-msg.success {
             display: block;
         }
     }
+
     .upload-failure {
         border-color: $color-red;
 

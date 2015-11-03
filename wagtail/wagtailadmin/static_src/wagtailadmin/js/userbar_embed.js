@@ -37,6 +37,7 @@
 
     f = d.createElement('iframe');
     f.id = 'wagtail-userbar';
+    f.className = 'wagtail-userbar';
     f.frameborder = '0';
     f.allowtransparency = 'true';
     f.scrolling = 'no';

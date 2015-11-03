@@ -5,8 +5,8 @@
     opacity: 0;
 
     &.active {
-        opacity: 1;
         @include transition(opacity 0.3s ease);
+        opacity: 1;
     } 
 
     .bar {
@@ -16,7 +16,7 @@
         box-sizing: border-box;
         text-align: right;
         line-height: 1.2em;
-        color: white;
+        color: $color-white;
         font-size: 0.85em;
         background-color: $color-teal;
         height: 1.2em;

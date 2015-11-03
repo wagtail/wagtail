@@ -11,6 +11,7 @@
         position: relative;
         margin-right: 1px;
     }
+
     a {
         @include transition(border-color 0.2s ease);
         background-color: lighten($color-teal-darker, 3%);
@@ -21,13 +22,13 @@
         text-decoration: none;
         display: block;
         padding: 0.7em;
-        color: white;
+        color: $color-white;
         border-top: 0.3em solid lighten($color-teal-darker, 3%);
         max-height: 1.2em;
         overflow: hidden;
 
         &:hover {
-            color: white;
+            color: $color-white;
             border-top-color: $color-teal-dark;
         }
     }
@@ -41,7 +42,7 @@
             top: -0.5em;
             z-index: 5;
             min-width: 0.9em;
-            color: white;
+            color: $color-white;
             background: $color-red;
             content: attr(data-count);
             padding: 0 0.3em;
@@ -54,7 +55,7 @@
     li.active a {
         @include box-shadow(none);
         color: $color-grey-1;
-        background-color: white;
+        background-color: $color-white;
         border-top: 0.3em solid $color-grey-1;
     }
 
@@ -72,12 +73,13 @@
         }
     }
 
-    /* For cases where tab-nav should merge with header */
+    // For cases where tab-nav should merge with header
     &.merged {
         margin-top: 0;
         background-color: $color-header-bg;
     }
 }
+
 .tab-content {
     section {
         display: none;
@@ -91,7 +93,7 @@
 
 @media screen and (min-width: $breakpoint-mobile) {
     .tab-nav {
-        /* For cases where tab-nav should merge with header */
+        // For cases where tab-nav should merge with header 
         &.merged {
             background-color: $color-header-bg;
         }

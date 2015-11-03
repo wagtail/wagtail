@@ -1,16 +1,15 @@
-@import 'wagtailadmin/scss/variables.scss';
-@import 'wagtailadmin/scss/mixins.scss';
-
-@import 'wagtailadmin/scss/components/icons.scss';
-
-@import 'wagtailadmin/scss/fonts.scss';
+@import 'wagtailadmin/scss/variables';
+@import 'wagtailadmin/scss/mixins';
+@import 'wagtailadmin/scss/components/icons';
+@import 'wagtailadmin/scss/fonts';
 
 html, 
 body {
     background-color: transparent;
 }
+
 body {
-    -webkit-font-smoothing: antialiased; /* Do not remove! */
+    -webkit-font-smoothing: antialiased; // Do not remove!
     font-family: Open Sans,Arial,sans-serif;
     font-size: 80%;
 }
@@ -19,11 +18,12 @@ nav {
     padding: 0 0 3em 3em;
     float: right;
 
-    /* moving menu only for browser that can support hover and transitions */
+    // moving menu only for browser that can support hover and transitions
     .no-touch .ready & {
         ul {
             height: 0;
         }
+
         li {
             left: 50px;
         }
@@ -32,6 +32,7 @@ nav {
             ul {
                 height: 300px;
             }
+
             li {
                 left: 0;
             }
@@ -43,7 +44,7 @@ nav {
     width: 3.5em;
     height: 3.5em;
     margin-bottom: 1px;
-    background-color: white;
+    background-color: $color-white;
     color: $color-text-base;
     padding: 0;
 
@@ -55,7 +56,7 @@ nav {
     }
 
     &:hover:before {
-        color: black;
+        color: $color-black;
     }
 }
 
@@ -80,7 +81,7 @@ li {
     }
 }
 
-/* all items or pseudo-items must float right */
+// all items or pseudo-items must float right
 li,
 .home {
     float: right;
@@ -95,16 +96,16 @@ li,
         margin-right: 0.4em;
         vertical-align: middle;
         font-size: 1.7em;
-        color: white;
+        color: $color-white;
     }
 
     &:hover {
         background-color: $color-teal-dark;
-        color: white;
+        color: $color-white;
     }
 }
 
-/* actions which can be accomplished just with a link tag */
+// actions which can be accomplished just with a link tag
 a.action, 
 a {
     display: block;
@@ -116,11 +117,11 @@ a {
     padding: 0.85em 1em;
 }
 
-/* actions which require wrapping a form input */
+// actions which require wrapping a form input
 div.action {
     input {
-        color: white;
-        -webkit-font-smoothing: antialiased; /* Do not remove! */
+        color: $color-white;
+        -webkit-font-smoothing: antialiased; // Do not remove!
         font-family: Open Sans,Arial,sans-serif;
         border: 0;
         background: none;
@@ -133,6 +134,7 @@ div.action {
         text-align: left;
         padding-left: 3.5em;
     }
+
     &:before {
         position: absolute;
         top: 0.4em;

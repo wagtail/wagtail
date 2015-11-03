@@ -61,7 +61,7 @@ kbd {
     @include border-radius(3px);
     font-family: Open Sans, Arial, sans-serif;
     border: 1px solid $color-grey-2;
-    border-color: rgba(0,0,0,0.2);
+    border-color: rgba(0, 0, 0, 0.2);
     padding: 0.3em 0.5em;
 }
 
@@ -86,7 +86,7 @@ dd {
     margin-bottom: 1em;
 }
 
-/* Help text formatters */
+// Help text formatters
 
 .help-block {
     padding: 1em;

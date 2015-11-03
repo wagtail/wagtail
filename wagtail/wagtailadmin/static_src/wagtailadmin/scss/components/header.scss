@@ -3,16 +3,16 @@ header {
     padding-bottom: 1em;
     background-color: $color-header-bg;
     margin-bottom: 2em;
-    color: white;
+    color: $color-white;
 
     a {
-        color: white;
+        color: $color-white;
     }
 
     h1, 
     h2 {
         margin: 0;
-        color: white;
+        color: $color-white;
     }
 
     h1 {
@@ -30,6 +30,7 @@ header {
         float: left;
         margin-right: 2em;
     }
+
     .left {
         float: left;
 
@@ -38,39 +39,40 @@ header {
             float: none;
         }
     }
+
     .right {
         text-align: right;
         float: right;
     }
 
-    /* For case where content below header should merge with it */
+    // For case where content below header should merge with it
     &.merged {
         margin-bottom: 0;
     }
+
     &.tab-merged, 
     &.no-border {
         border: 0;
     }
+
     &.merged.no-border {
         padding-bottom: 0;
     }
+
     &.no-v-padding {
         padding-top: 0;
         padding-bottom: 0;
     }
-    /*
-    &.hasform h1 {
-        margin-top: 0.2em;
-    }
-    */
+
     .button {
         background-color: $color-teal-darker;
+
         &:hover {
             background-color: $color-teal-dark;
         }
     }
 
-    /* necessary on mobile only to make way for hamburger menu */
+    // necessary on mobile only to make way for hamburger menu
     &.nice-padding {
         padding-left: $desktop-nice-padding;
     }
@@ -84,15 +86,17 @@ header {
         border-width: 0;
 
         &:focus {
-            background-color: white;
+            background-color: $color-white;
         }
     }
 
     .fields {
         margin-top: -0.5em;
+
         li {
             padding-bottom: 0;
         }
+
         .field {
             padding: 0;
         }
@@ -118,6 +122,7 @@ header {
                 float: left;
             }
         }
+
         .second {
             clear: none;
 
@@ -134,15 +139,19 @@ header {
         .col3 {
             @include column(3);
         }
+
         .col3.addbutton {
             width: auto;
         }
+
         .col6 {
             @include column(6);
         }
+
         .col9 {
             @include column(9);
         }
+
         .breadcrumb {
             margin-left: -($desktop-nice-padding);
             margin-right: -($desktop-nice-padding);
