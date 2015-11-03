@@ -18,7 +18,7 @@ linters:
         enabled: true
 
     ColorVariable:
-        enabled: true
+        enabled: false
 
     BangFormat:
         space_before_bang: true
@@ -62,6 +62,8 @@ linters:
 
     ImportantRule:
         enabled: true
+        exclude:
+            - '**/datetimepicker.scss'
 
     ImportPath:
         enabled: true
@@ -76,10 +78,10 @@ linters:
         allow_leading_underscore: true
 
     NestingDepth:
-        max_depth: 4
+        max_depth: 5
 
     SelectorDepth:
-        max_depth: 3
+        enabled: false
 
     SelectorFormat:
         convention: hyphenated_lowercase
@@ -87,18 +89,25 @@ linters:
             - js_class
         ignored_types:
             - element
-        exclude:
+        # There are regretably quite a few exlusions here, made necessary by
+        # a) the conversion of django field/widget names to underscored class names
+        # b) the use of third party code such as Hallo.js which uses classes with snakeCaseClasses.
+        exclude: 
+            - '**/rich-text.scss'
+            - '**/forms.scss'
+            - '**/streamfield.scss'
+            - '**/page-editor.scss'
             - '**/datetimepicker.scss'
 
     PlaceholderInExtend:
-        enabled: true
+        enabled: false
 
     PropertyCount:
         enabled: false
 
     QualifyingElement:
-        allow_element_with_attribute: false
-        allow_element_with_class: false
+        allow_element_with_attribute: true
+        allow_element_with_class: true
         allow_element_with_id: false
 
     Shorthand:
@@ -144,7 +153,7 @@ linters:
         enbabled: true
 
     UrlFormat:
-        enabled: true
+        enabled: false
 
     UrlQuotes:
         enabled: true
