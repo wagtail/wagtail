@@ -136,9 +136,9 @@
         padding-top: 1em; // to provide space for editor buttons
         padding-bottom: 1em;
 
-        &.expanded{
-            padding-top:5em; /* to provide space for editor buttons */
-            padding-bottom:2em;
+        &.expanded {
+            padding-top: 5em; // to provide space for editor buttons
+            padding-bottom: 2em;
         }
 
     }
@@ -175,8 +175,8 @@
             padding-bottom: 3em;
 
             &.expanded{
-                padding-top:5em; /* to provide space for editor buttons */
-                padding-bottom:5em;
+                padding-top: 5em; // to provide space for editor buttons
+                padding-bottom: 5em;
             }
         }
 
@@ -305,12 +305,7 @@
                 cursor: pointer;
             }
         }
-<<<<<<< HEAD
 
-
-=======
-        
->>>>>>> finished linting
         &.collapsed {
             h2 {
                 &:before, 
@@ -322,17 +317,10 @@
     }
 }
 
-<<<<<<< HEAD
-/* Custom styles that make some fields look more important */
-.full input,
-.full textarea,
-.full .richtext{
-=======
 // Custom styles that make some fields look more important
 .full input, 
 .full textarea, 
 .full .richtext {
->>>>>>> finished linting
     @include nice-padding();
     @include border-radius(0);
     padding-top: 2em;

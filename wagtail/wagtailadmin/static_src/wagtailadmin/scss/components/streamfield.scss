@@ -6,15 +6,12 @@ ul.sequence {
 li.sequence-member {
     @include clearfix;
     position:relative;
-    border-style: solid;
-    border-color: transparent;
+    border: 1px solid transparent;
     border-width: 1px 0;
 
     &:hover{
         background-color:$color-input-focus;
         border-color: darken($color-input-focus, 10%);
-        border: 1px solid darken($color-input-focus, 10%);
-        border-width: 1px 0;
 
         .sequence-member-inner {
             > .struct-block > label,
@@ -51,7 +48,7 @@ li.sequence-member {
         position: relative;
         padding: 1.5em 50px;
 
-        .sequence-member:hover {
+        .sequence-member {
             border: 0;
         }
 
@@ -138,7 +135,7 @@ li.sequence-member {
 
 // Controls for ordering and deletion of items in a sequence
 .sequence-controls {
-    @include border-radius(2px 0 0 0);
+    @include border-radius(2px 0 0);
     @include transition(opacity 0.2s ease);
     border: 1px solid darken($color-input-focus, 10%);
     border-width: 1px 1px 0;

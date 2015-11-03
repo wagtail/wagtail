@@ -75,7 +75,7 @@ select,
     &:disabled:hover, 
     &[disabled]:hover {
         background-color: inherit;
-        cursor: not-allowed;
+        cursor: default;
         color: $color-grey-4;
     }  
 }
@@ -365,7 +365,7 @@ button {
         background-color: $color-grey-3 !important;
         border-color: $color-grey-3 !important;
         color: lighten($color-grey-2, 15%) !important;
-        cursor: not-allowed;
+        cursor: default;
     }
     &.button-secondary:disabled, 
     &.button-secondary[disabled], 
