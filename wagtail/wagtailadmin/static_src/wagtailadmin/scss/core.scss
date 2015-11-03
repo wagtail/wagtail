@@ -55,8 +55,8 @@ body {
 }
 
 .wrapper {
-    @include transition-transform(0.2s ease);
     @include clearfix();
+    transition: transform 0.2s ease;
 }
 
 .nav-wrapper {
@@ -104,10 +104,10 @@ body {
 
 footer {
     @include transition(all 0.2s ease);
-    @include row();
-    @include border-radius(3px 3px 0 0);
-    @include box-shadow(0 0 2px rgba(255, 255, 255, 0.5));
     @include transition(bottom 0.5s ease 1s);
+    @include row();
+    border-radius: 3px 3px 0 0;
+    box-shadow: 0px 0px 2px rgba(255, 255, 255, 0.5);    
     background: $color-grey-1;
     position: fixed;
     bottom: 0;

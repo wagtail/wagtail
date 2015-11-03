@@ -52,13 +52,13 @@ a {
 }
 
 code {
-    @include box-shadow(inset 0 0 4px 0 rgba(0, 0, 0, 0.2));
+    box-shadow: inset 0px 0px 4px 0px rgba(0, 0, 0, 0.2);
     background-color: $color-fieldset-hover;
     padding: 2px 5px;
 }
 
 kbd {
-    @include border-radius(3px);
+    border-radius: 3px;
     font-family: Open Sans, Arial, sans-serif;
     border: 1px solid $color-grey-2;
     border-color: rgba(0, 0, 0, 0.2);
@@ -110,7 +110,7 @@ dd {
     .help-info, 
     .help-warning, 
     .help-critical {
-        @include border-radius(3px);
+        border-radius: 3px;
         padding-left: 3.5em;
         position: relative;
 

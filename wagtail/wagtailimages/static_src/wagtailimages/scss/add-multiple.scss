@@ -62,7 +62,7 @@
     }
 
     .progress {
-        @include box-shadow(0 0 5px 2px rgba(255, 255, 255, 0.4));
+        box-shadow: 0 0 5px 2px rgba(255, 255, 255, 0.4);
         z-index: 4;
         top: 60%;
         left: 20%;

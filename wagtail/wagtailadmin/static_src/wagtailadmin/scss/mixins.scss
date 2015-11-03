@@ -26,63 +26,10 @@
     }
 }
 
-
-@mixin filter($filter...) {
-    -webkit-filter: $filter;
-    -moz-filter: $filter;
-    -ms-filter: $filter;
-    -o-filter: $filter;
-    filter: $filter;
-}
-
-@mixin transition($transition...) {
-    body.ready & {
-        -webkit-transition: $transition;
-        -moz-transition: $transition;
-        -o-transition: $transition;
+@mixin transition($transition...){
+    body.ready &{
         transition: $transition;
     }
-}
-
-@mixin transition-immediate($transition...) {
-    -webkit-transition: $transition;
-    -moz-transition: $transition;
-    -o-transition: $transition;
-    transition: $transition;
-}
-
-@mixin transition-transform($transition...) {
-    -webkit-transition: -webkit-transform $transition;
-    -moz-transition: -moz-transform $transition;
-    -o-transition: -o-transform $transition;
-    transition: transform $transition;
-}
-
-@mixin transition-delay($delay...) {
-    body.ready & {
-        -webkit-transition-delay: $delay;
-        -moz-transition-delay: $delay;
-        -o-transition-delay: $delay;
-        transition-delay: $delay;
-    }
-}
-
-@mixin transform($transform) {
-    -moz-transform: $transform;
-    -webkit-transform: $transform;
-    -o-transform: $transform;
-    -ms-transform: $transform;
-    transform: $transform;
-}
-
-@mixin border-radius($radius) {
-    -webkit-border-radius: $radius;
-    border-radius: $radius;
-}
-
-@mixin box-shadow($shadow) {
-    -webkit-box-shadow: $shadow; // e.g inset 2px 2px 3px 2px rgba(0, 0, 0, 1)
-    box-shadow: $shadow;
 }
 
 @mixin visuallyhidden {

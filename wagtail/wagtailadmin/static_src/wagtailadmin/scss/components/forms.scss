@@ -47,8 +47,8 @@ textarea,
 select, 
 .richtext, 
 .tagit {
-    @include border-radius(6px);
-    @include border-box();
+    box-sizing: border-box;
+    border-radius: 6px;
     width: 100%;
     font-family: Open Sans,Arial,sans-serif;
     border: 1px solid $color-input-border;
@@ -92,7 +92,7 @@ select,
 
     // Add select arrow back on browsers where native ui has been removed
     select ~ span:after {
-        @include border-radius(0 6px 6px 0);
+        border-radius: 0 6px 6px 0;
         z-index: 0;
         position: absolute;
         right: 0;
@@ -122,7 +122,7 @@ select,
 // radio and check boxes
 input[type=radio], 
 input[type=checkbox] {
-    @include border-radius(0);
+    border-radius: 0;
     cursor: pointer;
     border: 0;
 }
@@ -135,7 +135,7 @@ input[type=radio] {
 }
 
 input[type=radio]:before {
-    @include border-radius(100%);
+    border-radius: 100%;
     font-family: wagtail;
     font-style: normal;
     text-align: center;
@@ -195,7 +195,7 @@ input[type=reset],
 input[type=button], 
 .button, 
 button {
-    @include border-radius(3px);
+    border-radius: 3px;
     font-family: Open Sans,Arial,sans-serif;
     width: auto;
     height: 2.4em;
@@ -216,7 +216,6 @@ button {
     box-sizing: border-box;
     -webkit-font-smoothing: auto;
     -moz-appearance: none;
-    -moz-box-sizing: border-box;
 
     &.button-small {
         padding: 0 0.8em;
@@ -336,7 +335,7 @@ button {
 
     // A completely unstyled button
     &.unbutton {
-        @include border-radius(0);
+        border-radius: 0;
         width: auto;
         height: auto;
         padding: 0;
@@ -356,7 +355,6 @@ button {
         box-sizing: border-box;
         -webkit-font-smoothing: auto;
         -moz-appearance: none;
-        -moz-box-sizing: border-box;
     }
 
     &:hover {
@@ -372,7 +370,7 @@ button {
     &.button-longrunning {
         span {
             @include transition(all 0.3s ease);
-            @include transform(scale(0.9));
+            transform: scale(0.9);
             display: inline-block;
             height: 0.9em;
             position: relative;
@@ -388,7 +386,7 @@ button {
         }
 
         &.button-longrunning-active span {
-            @include transform(scale(1));
+            transform: scale(1);
             visibility: visible;
             width: 1em;
             opacity: 0.8;
@@ -509,21 +507,21 @@ button {
     input[type=button], 
     .button, 
     button {
-        @include border-radius(0);
+        border-radius: 0;
         float: left;
         margin-right: 1px;
         margin-left: 0;
 
         &:only-child {
-            @include border-radius(3);
+            border-radius: 3px;
         }
 
         &:first-child {
-            @include border-radius(3px 0 0 3px);
+            border-radius: 3px 0 0 3px;
         }
 
         &:last-child {
-            @include border-radius(0 3px 3px 0);
+            border-radius: 0 3px 3px 0;
             margin-right: 0;
         }
     }
@@ -535,7 +533,7 @@ button {
         input[type=button], 
         .button, 
         button {
-            @include border-radius(0);
+            border-radius: 0;
         }
     }
 }
@@ -548,7 +546,7 @@ button {
 
     > li {
         @include row();
-        @include border-radius(2px);
+        border-radius: 2px;
         position: relative;
         overflow: hidden;
         background-color: $color-white;
@@ -778,7 +776,7 @@ li.focused > .help {
     select, 
     .richtext, 
     .tagit {
-        @include border-radius(3px);
+        border-radius: 3px;
         padding: 0.4em 1em;
     }
 }
@@ -1012,7 +1010,7 @@ li.inline:first-child {
 
 // file drop zones
 .drop-zone {
-    @include border-radius(5px);
+    border-radius: 5px;
     border: 2px dashed $color-grey-4;
     padding: $mobile-nice-padding;
     background-color: $color-grey-5;

@@ -155,7 +155,7 @@ $submenu-color: darken($color-grey-1, 5%);
 
     input, 
     button {
-        @include border-radius(0);
+        border-radius: 0;
         font-size: 1em;
         border: 0;
     }
@@ -371,8 +371,8 @@ body.explorer-open {
         }
 
         .nav-submenu {
-            @include box-shadow(2px 0 2px rgba(0, 0, 0, 0.35));
             @include transition(width 0.2s ease);
+            box-shadow: 2px 0 2px rgba(0, 0, 0, 0.35);
             width: $menu-width;
             padding: 0 0 1.5em;
 
@@ -431,7 +431,7 @@ body.explorer-open {
 
     body.nav-open {
         .wrapper {
-            @include transform(none);
+            transform: none;
             left: $menu-width;
             position: relative;
         }
@@ -439,7 +439,7 @@ body.explorer-open {
 
     body.explorer-open {
         .wrapper {
-            @include transform(none);
+            transform: none;
             left: $menu-width*2;
         }
 
