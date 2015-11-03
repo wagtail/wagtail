@@ -10,49 +10,10 @@ from treebeard.mp_tree import MP_NodeQuerySet
 from wagtail.wagtailsearch.queryset import SearchableQuerySetMixin
 
 
-class PageQuerySet(SearchableQuerySetMixin, MP_NodeQuerySet):
-    def live_q(self):
-        return Q(live=True)
-
-    def live(self):
-        """
-        This filters the QuerySet to only contain published pages.
-        """
-        return self.filter(self.live_q())
-
-    def not_live(self):
-        """
-        This filters the QuerySet to only contain unpublished pages.
-        """
-        return self.exclude(self.live_q())
-
-    def in_menu_q(self):
-        return Q(show_in_menus=True)
-
-    def in_menu(self):
-        """
-        This filters the QuerySet to only contain pages that are in the menus.
-        """
-        return self.filter(self.in_menu_q())
-
-    def not_in_menu(self):
-        return self.exclude(self.in_menu_q())
-
-    def page_q(self, other):
-        return Q(id=other.id)
-
-    def page(self, other):
-        """
-        This filters the QuerySet so it only contains the specified page.
-        """
-        return self.filter(self.page_q(other))
-
-    def not_page(self, other):
-        """
-        This filters the QuerySet so it doesn't contain the specified page.
-        """
-        return self.exclude(self.page_q(other))
-
+class TreeQuerySet(MP_NodeQuerySet):
+    """
+    Extends Treebeard's MP_NodeQuerySet with additional useful tree-related operations.
+    """
     def descendant_of_q(self, other, inclusive=False):
         q = Q(path__startswith=other.path) & Q(depth__gte=other.depth)
 
@@ -156,6 +117,50 @@ class PageQuerySet(SearchableQuerySetMixin, MP_NodeQuerySet):
         If inclusive is set to False, the page will be included the results.
         """
         return self.exclude(self.sibling_of_q(other, inclusive))
+
+
+class PageQuerySet(SearchableQuerySetMixin, TreeQuerySet):
+    def live_q(self):
+        return Q(live=True)
+
+    def live(self):
+        """
+        This filters the QuerySet to only contain published pages.
+        """
+        return self.filter(self.live_q())
+
+    def not_live(self):
+        """
+        This filters the QuerySet to only contain unpublished pages.
+        """
+        return self.exclude(self.live_q())
+
+    def in_menu_q(self):
+        return Q(show_in_menus=True)
+
+    def in_menu(self):
+        """
+        This filters the QuerySet to only contain pages that are in the menus.
+        """
+        return self.filter(self.in_menu_q())
+
+    def not_in_menu(self):
+        return self.exclude(self.in_menu_q())
+
+    def page_q(self, other):
+        return Q(id=other.id)
+
+    def page(self, other):
+        """
+        This filters the QuerySet so it only contains the specified page.
+        """
+        return self.filter(self.page_q(other))
+
+    def not_page(self, other):
+        """
+        This filters the QuerySet so it doesn't contain the specified page.
+        """
+        return self.exclude(self.page_q(other))
 
     def type_q(self, klass):
         content_types = ContentType.objects.get_for_models(*[
