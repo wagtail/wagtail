@@ -45,5 +45,5 @@ gulp.task('styles:sass', function () {
                 )
                 .replace('/scss/', '/css/');
         }))
-       // .on('error', gutil.log);
+        .on('error', gutil.log);
 });
