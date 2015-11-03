@@ -1,5 +1,5 @@
 .progress {
-    @include border-radius(1.2em);
+    border-radius: 1.2em;
     background-color: $color-teal-dark;
     border: 1px solid $color-teal;
     opacity: 0;
@@ -10,8 +10,8 @@
     } 
 
     .bar {
-        @include border-radius(1.5em);
         @include transition(width 0.3s ease);
+        border-radius: 1.5em;
         overflow: hidden;
         box-sizing: border-box;
         text-align: right;

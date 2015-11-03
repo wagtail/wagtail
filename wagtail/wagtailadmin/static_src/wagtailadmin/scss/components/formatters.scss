@@ -1,6 +1,6 @@
 // user avatars, with fallback to placeholder graphic if no gravatar exists
 .avatar {
-    @include border-radius(100%);
+    border-radius: 100%;
     position: relative;
     display: inline-block;
     vertical-align: middle;
@@ -10,7 +10,7 @@
     height: 50px;
 
     img {
-        @include border-radius(100%);
+        border-radius: 100%;
         position: absolute;
         z-index: 2;
         top: 0;
@@ -20,7 +20,7 @@
     }
 
     &:before {
-        @include border-radius(100%);
+        border-radius: 100%;
         color: $color-grey-3;
         border: 2px solid $color-grey-3;
         text-align: center;
@@ -108,7 +108,7 @@
 
 // Status tags
 .status-tag {
-    @include border-radius(2px);
+    border-radius: 2px;
     text-align: center;
     display: inline-block;
     text-transform: uppercase;
@@ -162,10 +162,9 @@ form.status-tag:hover {
     }
 }
 
-
 // free tagging tags from taggit
 .tag {
-    @include border-radius(2px);
+    border-radius: 2px;
     background-color: $color-teal;
     padding-right: 0.5em;
     padding: 0.2em 0.5em;

@@ -9,7 +9,6 @@ $zindex-modal-background: 500;
     }
 }
 
-
 // Kill the scroll on the body
 .modal-open {
     overflow: hidden;
@@ -22,7 +21,7 @@ $zindex-modal-background: 500;
 
 // Container that the modal scrolls within
 .modal {
-    @include border-box();
+    box-sizing: border-box;
     display: none;
     overflow: auto;
     overflow-y: scroll;
@@ -36,7 +35,7 @@ $zindex-modal-background: 500;
 
 // Shell div to position the modal with bottom padding
 .modal-dialog {
-    @include border-box();
+    box-sizing: border-box;
     margin-left: auto;
     margin-right: auto;
     padding: 0;
@@ -55,8 +54,8 @@ $zindex-modal-background: 500;
 
 // Actual modal
 .modal-content {
-    @include border-box();
-    @include border-radius(3px);
+    box-sizing: border-box;
+    border-radius: 3px;
     width: 98.7%;
     position: relative;
     background-color: $color-white;

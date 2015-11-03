@@ -106,7 +106,7 @@ form {
 
     // Special full-width, one-off fields i.e a single text or textarea input
     .full input {
-        @include border-radius(0);
+        border-radius: 0px;
         padding-left: $mobile-nice-padding;
         padding-right: $mobile-nice-padding;
         font-weight: 300;
@@ -138,7 +138,7 @@ form {
         }
 
         li {
-            @include border-radius(3px);
+            border-radius: 3px;
         }
     }
 }
