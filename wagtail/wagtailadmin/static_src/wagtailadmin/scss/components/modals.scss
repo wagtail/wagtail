@@ -1,8 +1,8 @@
 $zindex-modal-background: 500;
 
 .fade {
-    opacity: 0;
     @include transition(opacity .15s linear);
+    opacity: 0;
     
     &.in {
         opacity: 1;
@@ -39,7 +39,6 @@ $zindex-modal-background: 500;
     @include border-box();
     margin-left: auto;
     margin-right: auto;
-    width: auto;
     padding: 0;
     z-index: ($zindex-modal-background + 10);
     height: 90%;
@@ -58,9 +57,9 @@ $zindex-modal-background: 500;
 .modal-content {
     @include border-box();
     @include border-radius(3px);
-    width: 98.70%;
+    width: 98.7%;
     position: relative;
-    background-color: white;
+    background-color: $color-white;
     outline: none;
     margin-top: 2em;
     padding-bottom: 3em;
@@ -77,7 +76,8 @@ $zindex-modal-background: 500;
     bottom: 0;
     left: 0;
     z-index: ($zindex-modal-background - 10);
-    background-color: black;
+    background-color: $color-black;
+    
     // Fade for backdrop
     &.fade { opacity: 0; }
     &.in { opacity: 0.5; }
@@ -108,9 +108,10 @@ $zindex-modal-background: 500;
         padding: 0 0 2em $menu-width;
     }
 }
+
 @media screen and (min-width: $breakpoint-desktop-larger) {
     .modal-dialog {
         max-width: $breakpoint-desktop-larger;
-        padding: 0 0 2em 0;
+        padding: 0 0 2em;
     }
 }

@@ -1,7 +1,7 @@
-@import 'wagtailadmin/scss/variables.scss';
-@import 'wagtailadmin/scss/mixins.scss';
-@import 'wagtailadmin/scss/grid.scss';
-@import 'wagtailadmin/scss/components/streamfield.scss';
+@import 'wagtailadmin/scss/variables';
+@import 'wagtailadmin/scss/mixins';
+@import 'wagtailadmin/scss/grid';
+@import 'wagtailadmin/scss/components/streamfield';
 
 .page-editor {
     .content-wrapper {
@@ -31,11 +31,11 @@
     }
 }
 
-/* An object is the basic wrapper around any field or group of fields in the editor interface */
+// An object is the basic wrapper around any field or group of fields in the editor interface
 .object {
+    @include nice-padding();
     position: relative;
     overflow: hidden;
-    @include nice-padding();
 
     &:first-child {
         border: 0;
@@ -62,12 +62,12 @@
         padding-left: 3em;
 
         &:before {
+            @include border-radius(100%);
             display: block;
             float: left;
             content: '?';
             border: 1px solid $color-grey-2;
             color: $color-grey-2;
-            @include border-radius(100%);
             height: 15px;
             width: 15px;
             line-height: 15px;
@@ -88,7 +88,7 @@
         text-transform: uppercase;
         padding: 0.9em 0 0.9em 4.1em;
         font-size: 0.95em;
-        margin: 0 0 0.2em 0;
+        margin: 0 0 0.2em;
         line-height: 1.5em;
         font-weight: normal;
         position: absolute;
@@ -123,7 +123,7 @@
             line-height: 1.8em;
             left: 0;
             width: 1.7em;
-            color: white;
+            color: $color-white;
             padding: 0;
             margin: 0;
             background-color: $color-salmon;
@@ -133,7 +133,7 @@
     }
 
     .richtext {
-        padding-top: 1em; /* to provide space for editor buttons */
+        padding-top: 1em; // to provide space for editor buttons
         padding-bottom: 1em;
 
         &.expanded{
@@ -155,7 +155,7 @@
         }
     }
 
-    /* Special full-width, one-off fields i.e a single text or textarea input */
+    // Special full-width, one-off fields i.e a single text or textarea input
     &.full {
         .object-help {
             display: block;
@@ -165,12 +165,13 @@
             display: block;
             float: none;
         }
+
         li {
             padding: 0;
         }
 
         .richtext {
-            padding-top: 3em; /* to provide space for editor buttons */
+            padding-top: 3em; // to provide space for editor buttons
             padding-bottom: 3em;
 
             &.expanded{
@@ -192,7 +193,7 @@
         }
     }
 
-    /* cursory styling for streamfield. Main styling in components/streamfield.scss */
+    // cursory styling for streamfield. Main styling in components/streamfield.scss
     &.stream-field {
         padding-left: 0;
         padding-right: 0;
@@ -201,7 +202,7 @@
             display: none;
         }
 
-        /* Undo column widths usually applied to the contents of a field panel */
+        // Undo column widths usually applied to the contents of a field panel
         > fieldset {
             width: 100%;
             max-width: none;
@@ -213,7 +214,7 @@
         }
     }
 
-    /* special panel for the publishing fields, requires a bit more pizzazz */
+    // special panel for the publishing fields, requires a bit more pizzazz
     &.publishing {
         h2:before {
             content: '7';
@@ -221,11 +222,10 @@
             line-height: 1.4em;
             width: 1.4em;
         }
-
     }
 
     .multiple {
-        padding: 4.5em 0 0 0;
+        padding: 4.5em 0 0;
 
         fieldset {
             padding-top: 0;
@@ -237,7 +237,7 @@
         max-width: 100%;
     }
 
-    /* removes top padding from multiples used within another panel */
+    // removes top padding from multiples used within another panel
     .fields .multiple {
         padding-top: 0;
     }
@@ -247,14 +247,14 @@
     }
 
     &.empty {
-        border-bottom: 1px solid white;
+        border-bottom: 1px solid $color-white;
 
         > h2 {
-            margin: 0 0;
-            border-bottom: 1px solid white;
+            margin: 0;
+            border-bottom: 1px solid $color-white;
         }
 
-        /* wrapper around add button for mutliple objects. Default version is wordless plus button for contracted groups of fields */
+        // wrapper around add button for mutliple objects. Default version is wordless plus button for contracted groups of fields
         .add {
             @include transition(background-color 0.2s ease);
             position: relative;
@@ -270,13 +270,13 @@
                 @include border-radius(0);
                 overflow: visible;
                 background-color: $color-salmon-light;
-                font-size: 0; /* helps fake the effect of t.ext-replace class, which can't be used here. */
+                font-size: 0; // helps fake the effect of t.ext-replace class, which can't be used here.
                 width: 2em;
 
                 &:before {
                     position: relative;
                     padding: 0;
-                    line-height: 1.8em; /* specific height required as parent 'a' has no height */
+                    line-height: 1.8em; // specific height required as parent 'a' has no height
                     font-size: 1.4rem;
                     width: 1.8em;
                     background-color: $color-salmon;
@@ -294,8 +294,8 @@
     }
 
     &.collapsible {
-        /* li.collapsed gets its height from the fieldset only, which is now hidden
-        and h2 has position: absolute which doesn't add to it either, so it would be 0 without this */
+        // li.collapsed gets its height from the fieldset only, which is now hidden
+        // and h2 has position: absolute which doesn't add to it either, so it would be 0 without this
         min-height: 41px;
 
         h2 {
@@ -305,8 +305,12 @@
                 cursor: pointer;
             }
         }
+<<<<<<< HEAD
 
 
+=======
+        
+>>>>>>> finished linting
         &.collapsed {
             h2 {
                 &:before, 
@@ -318,12 +322,19 @@
     }
 }
 
+<<<<<<< HEAD
 /* Custom styles that make some fields look more important */
 .full input,
 .full textarea,
 .full .richtext{
+=======
+// Custom styles that make some fields look more important
+.full input, 
+.full textarea, 
+.full .richtext {
+>>>>>>> finished linting
     @include nice-padding();
-    @include border-radius(0px);
+    @include border-radius(0);
     padding-top: 2em;
     padding-bottom: 2em;
     font-size: 1.2em;
@@ -337,35 +348,38 @@
     font-family: Bitter, Georgia, serif;
 }
 
-/* Footer control bar for perfoming actions on the page */
+// Footer control bar for perfoming actions on the page
 footer .preview {
     button, 
     .button {
-        background-color: lighten($color-grey-2,10%);
-        border-color: lighten($color-grey-2,10%);
+        background-color: lighten($color-grey-2, 10%);
+        border-color: lighten($color-grey-2, 10%);
 
         &:hover {
             background-color: $color-grey-2;
             border-color: $color-grey-2;
         }
     }
+
     .dropdown {
         input[type=button], 
         input[type=submit], 
         button, 
         .button {
-            background-color: lighten($color-grey-2,10%);
-            border-color: lighten($color-grey-2,10%);
+            background-color: lighten($color-grey-2, 10%);
+            border-color: lighten($color-grey-2, 10%);
 
             &:hover {
                 background-color: $color-grey-2;
                 border-color: $color-grey-2;
             }
         }
+
         ul, 
         .dropdown-toggle {
-            background-color: lighten($color-grey-2,10%);
+            background-color: lighten($color-grey-2, 10%);
         }
+
         .dropdown-toggle:hover,
         &.open > .button + .dropdown-toggle {
             background-color: $color-grey-2;
@@ -377,10 +391,11 @@ footer .preview {
     .page-editor .breadcrumb {
         margin-top: -1.8em;
     }
+
     .object {
         fieldset {
-            max-width: 1024px;
             @include column(10);
+            max-width: 1024px;
             padding-left: 0;
             padding-right: 0;
 
@@ -406,7 +421,7 @@ footer .preview {
         &.stream-field {
             &:hover .object-help,
             .object-help {
-                opacity: 0
+                opacity: 0;
             }
         }
 
@@ -414,7 +429,7 @@ footer .preview {
             fieldset {
                 @include column(11);
                 margin-left: -51px;
-                padding: 3.2em 0 0 0;
+                padding: 3.2em 0 0;
             }
 
             input, 

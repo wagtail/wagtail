@@ -1,6 +1,6 @@
-@import 'wagtailadmin/scss/variables.scss';
-@import 'wagtailadmin/scss/mixins.scss';
-@import 'wagtailadmin/scss/grid.scss';
+@import 'wagtailadmin/scss/variables';
+@import 'wagtailadmin/scss/mixins';
+@import 'wagtailadmin/scss/grid';
 
 h1 {
     font-weight: 300;
@@ -16,7 +16,7 @@ header {
 
     h1,
     h2 {
-        color: white;
+        color: $color-white;
     }
 
     h2 {
@@ -69,7 +69,7 @@ header {
     .search-bar {
         @include clearfix();
         border-top: 1px solid $color-grey-4;
-        padding: 1em 0 0 0;
+        padding: 1em 0 0;
 
         h2 {
             display: inline-block;
@@ -90,7 +90,7 @@ header {
         }
 
         input {
-            background-color: white;
+            background-color: $color-white;
         }
     }
 }

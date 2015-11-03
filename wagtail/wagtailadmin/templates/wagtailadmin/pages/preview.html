@@ -8,9 +8,9 @@
         {% endcompress %}
     </head>
     <body class="ready">
-        <div id="loading-spinner-wrapper">
-            <div id="loading-spinner"></div>
+        <div id="loading-spinner-wrapper" class="loading-spinner-wrapper">
+            <div id="loading-spinner" class="loading-spinner"></div>
         </div>
-        <iframe id="preview-frame" src="{% url 'wagtailadmin_pages:preview_loading' %}"></iframe>
+        <iframe id="preview-frame" class="preview-frame" src="{% url 'wagtailadmin_pages:preview_loading' %}"></iframe>
     </body>
 </html>

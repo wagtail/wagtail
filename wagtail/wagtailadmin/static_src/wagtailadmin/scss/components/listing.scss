@@ -1,4 +1,5 @@
-/* General listings, like for pages, images or snippets */
+// General listings, like for pages, images or snippets
+
 ul.listing {
     @include unlist();
 }
@@ -11,6 +12,7 @@ ul.listing {
     ul {
         @include unlist();
     }
+
     > li {
         padding: 1em 0;
         border-bottom: 1px dashed $color-input-border;
@@ -21,11 +23,13 @@ ul.listing {
         font-size: 1em;
     }
 
-    td, th {
+    td, 
+    th {
         padding: 1.2em 1em;
     }
 
-    &.small td, th {
+    &.small td, 
+    th {
         padding: 0.6em 1em;
     }
 
@@ -41,6 +45,7 @@ ul.listing {
             white-space: nowrap;
             text-transform: uppercase;
         }
+
         th.children {
             border: 0;
         }
@@ -63,14 +68,15 @@ ul.listing {
     }
 
     &.full-width {
-        margin-bottom: -3em; /* this negates the padding added to the bottom of .content */
+        margin-bottom: -3em; // this negates the padding added to the bottom of .content
     }
+
     &.full-width th {
         background-color: $color-thead-bg;
     }
 
     .table-headers {
-        border-bottom: 1px solid  $color-grey-4
+        border-bottom: 1px solid  $color-grey-4;
     }
 
     tbody {
@@ -89,32 +95,39 @@ ul.listing {
     &.full-width tbody {
         border: 0;
     }
+
     &.full-width tbody tr:hover {
-        background-color: #FDFDFD;
+        background-color: #fdfdfd;
     }
 
     &.chooser {
         tbody .title a {
-            display: block;
             @include transition(none);
+            display: block;
         }
+
         tbody tr:hover {
             background-color: $color-teal;
-            color: white;
+            color: $color-white;
 
-            .title a, .title a:hover {
-                color: white;
+            .title a, 
+            .title a:hover {
+                color: $color-white;
             }
+
             .status-tag {
-                border-color: white;
+                border-color: $color-white;
             }
         }
+
         tbody tr.disabled td {
             opacity: 0.25;
         }
+
         tbody tr.disabled td.children {
             opacity: 1;
         }
+
         tbody tr.disabled:hover {
             background-color: inherit;
             color: inherit;
@@ -122,6 +135,7 @@ ul.listing {
             .title {
                 cursor: not-allowed;
             }
+
             .status-tag {
                 border-color: inherit;
             }
@@ -136,7 +150,7 @@ ul.listing {
         padding-left: 20px;
     }
 
-    /* specific columns */
+    // specific columns
     .bulk {
         padding-right: 0;
 
@@ -146,12 +160,13 @@ ul.listing {
             width: 100%;
             position: relative;
         }
+
         label span {
             @include visuallyhidden();
         }
+
         input {
             margin-top: 3px;
-
         }
     }
 
@@ -191,14 +206,14 @@ ul.listing {
         li {
             float: left;
             padding: 0 0.5em 0 0;
-            margin: 0 0 0.5em 0;
+            margin: 0 0 0.5em;
             line-height: 1em;
         }
     }
 
     .button-secondary {
         border-color: $color-grey-3;
-        background: white;
+        background: $color-white;
 
         &:hover {
             border-color: $color-teal;
@@ -207,7 +222,7 @@ ul.listing {
     }
     
     .button-secondary {
-        background-color: white;
+        background-color: $color-white;
     }
 
     .moderate-actions form {
@@ -217,7 +232,7 @@ ul.listing {
 
     .children,
     .no-children {
-        padding: 0 !important;
+        padding: 0;
        
         &:hover {
             background-color: $color-grey-5;
@@ -245,6 +260,7 @@ ul.listing {
         &:before {
             font-size: 1.5rem;
         }
+
         &:hover {
             color: $color-teal;
         }
@@ -254,16 +270,20 @@ ul.listing {
         font-size: 30px;
     }
 
-    .ord {
-        padding-left: 10px !important;
+    th.ord,
+    &.full-width th:first-child.ord {
+        padding-left: 10px;
     }
+
     th.ord a:before {
         width: 1em;
         font-size: 15px;
     }
+
     th.ord a:hover:before {
         color: $color-teal;
     }
+
     .handle {
         cursor: move;
         width: 20px;
@@ -273,6 +293,7 @@ ul.listing {
             color: $color-grey-3;
             width: 1em;
         }
+
         &:hover:before {
             color: $color-text-base;
         }
@@ -286,13 +307,13 @@ ul.listing {
             display: none;
 
         }
-        .ord,.title {
+
+        .ord,
+        .title {
             display: table-cell;
         }
-        .ord {
-
-        }
     }
+
     .dropzone {
         height: 80px;
         background-color: $color-grey-1;
@@ -300,8 +321,9 @@ ul.listing {
         &:hover {
             background-color: $color-grey-1;
         }
+
         td {
-            padding: 0 !important;
+            padding: 0;
         }
     }
 
@@ -323,20 +345,23 @@ ul.listing {
             a {
                 @include transition(opacity 0.2s ease);
             }
+
             a:hover {
                 opacity: 0.7;
             }
         }
+
         .actions {
             margin-top: 1em;
         }
+
         .button {
             background-color: transparent;
-            color: white;
+            color: $color-white;
             border-color: $color-teal-darker;
 
             &:hover {
-                color: white;
+                color: $color-white;
                 background: $color-teal-darker;
             }
 
@@ -354,24 +379,25 @@ ul.listing {
 
     &.images img {
         @include transition(border-color 0.2s ease);
-        border: 3px solid white;
+        border: 3px solid $color-white;
     }
 }
+
 ul.listing {
     border-top: 1px dashed $color-input-border;
     margin-bottom: 2em;
 }
+
 table.listing {
     width: 100%;
 }
 
-
- /* explorer specific tweaks */
+// explorer specific tweaks
 .page-explorer .listing {
     position: relative;
 
     .index {
-        color: white;
+        color: $color-white;
         background-color: $color-header-bg;
 
         td {
@@ -386,18 +412,19 @@ table.listing {
             right: 5%;
             top: 2em;
         }
+
         .locked-indicator {
             font-size: 0.8em;
         }
 
         .title {
             h2 {
-                color: white;
+                color: $color-white;
                 font-size: 1.8em;
                 font-weight: 500;
 
                 a:hover {
-                    color: white;
+                    color: $color-white;
                 }
             }
 
@@ -408,10 +435,12 @@ table.listing {
         .ord {
             padding-right: 0;
         }
+
         .title {
             padding-left: 0;
         }
     }
+
     tbody .title {
         padding-left: 0;
     }
@@ -419,21 +448,27 @@ table.listing {
 
 .pagination {
     text-align: center;
+
     p {
         margin: 0;
     }
+
     ul {
         @include unlist();
     }
+
     ul {
         margin-top: -1.7em;
     }
+
     li {
         line-height: 1em;
     }
+
     .prev {
         float: left;
     }
+
     .next {
         float: right;
     }
@@ -442,11 +477,11 @@ table.listing {
 .listing.full-width + .pagination {
     margin-top: 3em;
     border-top: 1px dashed #d9d9d9;
-    padding: 2em 50px 0 50px;
+    padding: 2em 50px 0;
 }
 
 
-/* listing filters */
+// listing filters
 
 .listing-filter {
     @include clearfix();
@@ -454,14 +489,16 @@ table.listing {
     border-width: 1px 0;
     margin: 3em 0;
 }
+
 .filter-title {
     float: left;
     text-transform: uppercase;
     font-size: 0.95em;
     padding: 1em;
-    margin: 0 1em 0 0 ;
+    margin: 0 1em 0 0;
     background-color: $color-grey-4;
 }
+
 .filter-options {
     @include unlist();
     @include clearfix();
@@ -477,12 +514,13 @@ table.listing {
 @media screen and (min-width: $breakpoint-mobile) {
     .listing {
         &.horiz > li {
-           float: left;
+            float: left;
         }
+
         &.images {
             @include clearfix();
             border: 1px solid $color-grey-4;
-            border-width: 0 0 0 1px !important;
+            border-width: 0 0 0 1px;
 
             > li {
                 padding: 1.3em;
@@ -512,27 +550,31 @@ table.listing {
                 }
 
                 &:hover {
-                    background-color: #FDFDFD;
+                    background-color: #fdfdfd;
 
                     img {
                         border-color: $color-teal;
                     }
                 }
             }
+
             a {
                 color: inherit;
             }
+        }
 
-        }
         .actions {
-           visibility: hidden;
+            visibility: hidden;
         }
+
         .index .actions {
             visibility: visible;
         }
+
         td:hover .actions {
             visibility: visible;
         }
+
         .no-children {
             border-color: transparent;
             
@@ -540,21 +582,22 @@ table.listing {
                 opacity: 0;
             }
         }
+
         tr:hover .no-children a {
             opacity: 1;
         }
+
         tr:hover .children {
             background-color: $color-teal;
 
             a:before {
-                color: white;
+                color: $color-white;
             }
         }
 
         td.children:hover {
             background-color: $color-teal-darker;
         }
-
 
         table .no-results-message {
             padding-left: 50px;
@@ -571,14 +614,17 @@ table.listing {
     }
 }
 
-/* Transitions */
+// Transitions
 .listing {
     thead .dropdown ul {
         @include transition(none);
     }
-    .children, .no-children {
+
+    .children,
+    .no-children {
         @include transition(background-color 0.2s ease);
     }
+
     .children a,
     .no-children a {
         @include transition(all 0.2s ease);

@@ -1,9 +1,7 @@
-/* 
-    Messages are specific to Django's 'Messaging' system which adds messages into the session, 
-    for display on the next page visited. These appear as an animated banner at the top of the page.
-
-    For inline help text, see typography.scss
-*/
+// Messages are specific to Django's 'Messaging' system which adds messages into the session, 
+// for display on the next page visited. These appear as an animated banner at the top of the page.
+//
+// For inline help text, see typography.scss
 
 .messages {
     position: relative;
@@ -21,11 +19,12 @@
         top: -100px;
         opacity: 0;
     }
+
     li {
         @include nice-padding;
         padding-top: 1.3em;
         padding-bottom: 1.3em;
-        color: white;
+        color: $color-white;
     }
 
     li:before {
@@ -44,6 +43,7 @@
             content: '!';
         }
     }
+
     .warning {
         background-color: $color-orange;
 
@@ -52,6 +52,7 @@
             content: '!';
         }
     }
+
     .success {
         background-color: $color-green;
 
@@ -64,12 +65,14 @@
     .success .button:hover {
         background-color: $color-teal-dark;
     }
+
     .button-secondary {
-        border-color: rgba(255,255,255,0.5);
-        color: rgba(255,255,255,0.8);
+        border-color: rgba(255, 255, 255, 0.5);
+        color: rgba(255, 255, 255, 0.8);
+
         &:hover {
             border-color: transparent;
-            color: white;
+            color: $color-white;
         }
     }
 }

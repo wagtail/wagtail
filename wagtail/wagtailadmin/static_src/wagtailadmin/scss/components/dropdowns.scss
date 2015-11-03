@@ -1,6 +1,6 @@
 .dropdown {
-    position: relative;
     @include clearfix();
+    position: relative;
 
     input[type=submit], 
     input[type=reset], 
@@ -16,6 +16,7 @@
         padding-left: 1em;
         float: left;
     }
+
     input[type=submit], 
     input[type=reset], 
     input[type=button],
@@ -35,9 +36,9 @@
 
         li {
             float: none;
-            border-color: rgba(255,255,255,0.2);
+            border-color: rgba(255, 255, 255, 0.2);
             border-style: solid;
-            border-width: 1px 0 0 0;
+            border-width: 1px 0 0;
             overflow: hidden;
         }
 
@@ -48,13 +49,14 @@
             text-decoration: none;
             text-transform: uppercase;
             display: block;
-            color: white;
+            color: $color-white;
             padding: 1em;
             font-weight: normal;
 
             &:hover {
                 background-color: $color-teal-darker;
             }
+
             &.icon {
                 padding-right: 5em;
 
@@ -63,15 +65,21 @@
                     right: 1em;
                 }
             }
+
             &.shortcut {
                 padding-right: 7em;
             }
         }
 
-        a, input[type=submit], input[type=reset], input[type=button], .button, button {
+        a, 
+        input[type=submit], 
+        input[type=reset], 
+        input[type=button], 
+        .button, 
+        button {
+            @include border-radius(0);
             font-size: 0.95em;
             -webkit-font-smoothing: auto;
-            @include border-radius(0);
         }
 
         label {
@@ -83,13 +91,13 @@
             right: 1em;
             font-weight: 600;
             font-size: 0.8em;
-            color: rgba(0,0,0,0.3);
+            color: rgba(0, 0, 0, 0.3);
         }
 
     }
 
     &.open ul {
-        @include box-shadow(0px 3px 3px 0 rgba(0,0,0,0.2));
+        @include box-shadow(0 3px 3px 0 rgba(0, 0, 0, 0.2));
         opacity: 1;
         left: 0;
         display: block;
@@ -106,23 +114,23 @@
 
 
     &.dropup ul {
-        @include box-shadow(0px -3px 3px 0 rgba(0,0,0,0.2));
+        @include box-shadow(0 -3px 3px 0 rgba(0, 0, 0, 0.2));
         top: auto;
         bottom: 100%;
 
         li { 
-            border-width: 0 0 1px 0;
+            border-width: 0 0 1px;
         }
     }   
 
     .dropdown-toggle {
-        color: white;
+        color: $color-white;
         text-transform: uppercase;
         background-color: $color-teal;
         line-height: 2.8em;
         cursor: pointer;
         height: 100%;
-        border-left: 1px solid rgba(255,255,255,0.2);
+        border-left: 1px solid rgba(255, 255, 255, 0.2);
         position: absolute;
         right: 0;
         padding: 0 0.5em;
@@ -147,16 +155,21 @@
         background-color: $color-teal-darker;
     }
 
-    /* Styles for dropdowns which are also buttons e.g page editor */
-    
+    // Styles for dropdowns which are also buttons e.g page editor
+
     &.dropdown-button {
         .dropdown-toggle {
             @include border-radius(0 3px 3px 0);
         }
+
         &.open {
-            > input[type=button], > input[type=submit], > button, > .button {
+            > input[type=button], 
+            > input[type=submit], 
+            > button, 
+            > .button {
                 @include border-radius(3px 3px 0 0);
             }
+
             .dropdown-toggle {
                 @include border-radius(0 3px 0 0);
             }
@@ -165,9 +178,13 @@
 
     &.dropup.dropdown-button {
         &.open {
-            > input[type=button], > input[type=submit], > button, > .button {
+            > input[type=button],
+            > input[type=submit], 
+            > button, 
+            > .button {
                 @include border-radius(0 0 3px 3px);
             }
+
             .dropdown-toggle {
                 @include border-radius(0 0 3px 0);
             }
@@ -177,10 +194,10 @@
 
 .dropdown.white {
     ul {
-        background-color: white;
+        background-color: $color-white;
 
         li {
-            border-top: 1px solid rgba(0,0,0,0.1);
+            border-top: 1px solid rgba(0, 0, 0, 0.1);
         }
 
         a {
@@ -193,7 +210,7 @@
     }
 }
 
-/* Transitions */
+// Transitions
 .dropdown ul {
     @include transition(opacity 0.2s linear);
 }

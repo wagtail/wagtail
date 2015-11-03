@@ -1,11 +1,13 @@
-@import 'wagtailadmin/scss/variables.scss';
-@import 'wagtailadmin/scss/mixins.scss';
-@import 'wagtailadmin/scss/grid.scss';
+@import 'wagtailadmin/scss/variables';
+@import 'wagtailadmin/scss/mixins';
+@import 'wagtailadmin/scss/grid';
 
 // overrides default nice padding defined in variables.scss
 $desktop-nice-padding: 100px;
 
-html, body, .content-wrapper {
+html, 
+body, 
+.content-wrapper {
     background-color: $color-grey-1;
     color: $color-grey-3;
 }
@@ -22,6 +24,7 @@ body {
 .content-wrapper {
     border: 0;
 }
+
 .wrapper {
     padding-left: $mobile-nice-padding;
     padding-right: $mobile-nice-padding;
@@ -33,33 +36,40 @@ h1 {
     font-weight: 300;
     font-size: 2em;
     line-height: 1em;
-    color: white;
+    color: $color-white;
     text-transform: none;
     white-space: nowrap;
 }
+
 form {
     width: 100%;
+
     ul {
         @include unlist();
     }
 }
+
     label {
         width: auto;
-        color: white;
+        color: $color-white;
     }
+
     input[type=submit] {
         font-size: 1.5em;
         padding: 1.1em 2.4em;
         height: 3.5em;
     }
+
     input[type=checkbox]:before {
         background-color: #333;
         color: #555;
         border: 1px solid #555;
     }
+
     .fields {
         max-width: none;
     }
+
         .fields li {
             padding: 1em 0;
 
@@ -70,28 +80,33 @@ form {
                 label {
                     display: none;
                 }
+
                 input {
                     border-top: 1px dashed $color-input-border;
                 }
             }
+
             &:first-child input {
                 border: 0;
             }
         }
+
         .fields .checkbox {
             padding-top: 2em;
             padding-bottom: 2em;
         }
+
         .field {
             padding: 0;
         }
+
         .iconfield .input:before {
             display: none;
         }   
 
-    /* Special full-width, one-off fields i.e a single text or textarea input */
+    // Special full-width, one-off fields i.e a single text or textarea input
     .full input {
-        @include border-radius(0px);
+        @include border-radius(0);
         padding-left: $mobile-nice-padding;
         padding-right: $mobile-nice-padding;
         font-weight: 300;
@@ -101,6 +116,7 @@ form {
         font-size: 1.6em;
         line-height: 1.6em;
     }
+
     .help {
         opacity: 1;
         position: absolute;
@@ -136,7 +152,7 @@ form {
         vertical-align: middle;
     }
 
-    /* centres login form vertically */
+    // centres login form vertically
     .wrapper {
         position: relative;
         height: 100%;

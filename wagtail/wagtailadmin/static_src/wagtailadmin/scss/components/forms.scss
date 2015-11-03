@@ -1,14 +1,14 @@
-/* 
-    These are the generic stylings for forms of any type. 
-    If you're styling something specific to the page editing interface,
-    it probably ought to go in layouts/page-editor.scss
-*/
+// These are the generic stylings for forms of any type. 
+// If you're styling something specific to the page editing interface,
+// it probably ought to go in layouts/page-editor.scss
 
 form {
     ul, 
+
     li {
         list-style-type: none;
     }
+
     ul {
         margin: 0;
         padding: 0;
@@ -17,7 +17,7 @@ form {
 
 fieldset {
     border: 0;
-    padding: 0 0 2em 0;
+    padding: 0 0 2em;
     margin: 0;
 }
 
@@ -32,7 +32,7 @@ label,
     color: $color-grey-1;
     font-size: 1.1em;
     display: block;
-    padding: 0 0 0.8em 0;
+    padding: 0 0 0.8em;
     margin: 0;
     line-height: 1.3em;
 
@@ -60,18 +60,10 @@ select,
     font-weight: 300;
     outline: none;
 
-    /* what the hell firefox? Spare us your opinions */
-    &::-moz-focus-inner {
-        padding: 0 !important; 
-        border: 0 !important;
-        margin-top: -3px !important; 
-        margin-bottom: -2px !important; 
-        line-height: 1em !important;
+    &:hover {
+        background-color: $color-white;
     }
 
-    &:hover {
-        background-color: white;
-    }
     &:focus {
         border-color: darken($color-input-focus, 40%);
         outline: none;
@@ -88,7 +80,7 @@ select,
     }  
 }
 
-/* select boxes */
+// select boxes
 .choice_field .input,
 .model_choice_field .input,
 .typed_choice_field .input{
@@ -98,7 +90,7 @@ select,
         outline: none;
     }
 
-    /* Add select arrow back on browsers where native ui has been removed */
+    // Add select arrow back on browsers where native ui has been removed
     select ~ span:after {
         @include border-radius(0 6px 6px 0);
         z-index: 0;
@@ -127,7 +119,7 @@ select,
     
 }
 
-/* radio and check boxes */
+// radio and check boxes
 input[type=radio], 
 input[type=checkbox] {
     @include border-radius(0);
@@ -157,10 +149,11 @@ input[type=radio]:before {
     height: 1em;
     line-height: 1.1em;
     padding: 4px;
-    background-color: white;
+    background-color: $color-white;
     color: $color-grey-4;
     border: 1px solid $color-grey-4;
 }
+
 input[type=radio]:checked:before {
     content: 'K';
     color: $color-teal;
@@ -185,24 +178,25 @@ input[type=checkbox]:before {
     line-height: 20px;
     width: 20px;
     height: 20px;
-    background-color: white;
+    background-color: $color-white;
     border: 1px solid $color-grey-4;
-    color: white;
+    color: $color-white;
 }
+
 input[type=checkbox]:checked:before {
     color: $color-teal;
 }
 
-/* Core button style 
-Note that these styles include methods to render buttons the same x-browser, described here: 
-http: //cbjdigital.com/blog/2010/08/bulletproof_css_input_button_heights */
+// Core button style 
+// Note that these styles include methods to render buttons the same x-browser, described here: 
+// http: //cbjdigital.com/blog/2010/08/bulletproof_css_input_button_heights
 input[type=submit], 
 input[type=reset], 
 input[type=button], 
 .button, 
 button {
-    font-family: Open Sans,Arial,sans-serif;
     @include border-radius(3px);
+    font-family: Open Sans,Arial,sans-serif;
     width: auto;
     height: 2.4em;
     padding: 0 1em;
@@ -212,7 +206,7 @@ button {
     display: inline-block;
     background-color: $color-button;
     border: 1px solid $color-button;
-    color: white;
+    color: $color-white;
     text-decoration: none;
     text-transform: uppercase;
     white-space: nowrap;
@@ -235,9 +229,9 @@ button {
         background-color: transparent;
     }
 
-    /* Buttons which are only an icon */
+    // Buttons which are only an icon
     &.icon.text-replace {
-        font-size: 0; /* unavoidable duplication of setting in icons.scss */
+        font-size: 0; // unavoidable duplication of setting in icons.scss
         width: 1.8rem;
         height: 1.8rem;
 
@@ -263,16 +257,19 @@ button {
             color: $color-button-yes;
             background-color: transparent;
         }
+
         &:hover {
-            color: white;
+            color: $color-white;
             border-color: transparent;
             background-color: $color-button-yes-hover;
         }
+
         &.button-nobg:hover {
             color: $color-button-yes;
             background-color: transparent;
         }
     }
+
     &.no, 
     &.serious {
         background-color: $color-button-no;
@@ -283,11 +280,13 @@ button {
             color: $color-button-no;
             background-color: transparent;
         }
+
         &:hover {
-            color: white;
+            color: $color-white;
             border-color: transparent;
             background-color: $color-button-no-hover;
         }
+
         &.button-nobg:hover {
             color: $color-button-no;
             background-color: transparent;
@@ -298,7 +297,6 @@ button {
         border: 0;
         background-color: transparent;
     }
-
 
     &.bicolor {
         border: 0;
@@ -313,7 +311,7 @@ button {
             line-height: 1.85em;
             height: 100%;
             text-align: center;    
-            background-color: rgba(0,0,0,0.2);
+            background-color: rgba(0, 0, 0, 0.2);
             display: block;
         }
     }
@@ -338,10 +336,9 @@ button {
 
     // A completely unstyled button
     &.unbutton {
-        @include border-radius(0px);
+        @include border-radius(0);
         width: auto;
         height: auto;
-        /*line-height: auto;*/
         padding: 0;
         font-size: inherit;
         font-weight: normal;
@@ -382,9 +379,10 @@ button {
         border: 0 !important;
     }
 
+
     &:hover {
         background-color: $color-button-hover;
-        color: white;
+        color: $color-white;
         border-color: transparent;
 
         &.hover-no {
@@ -431,8 +429,6 @@ button {
         font-size:0.95em;
         padding:0 1.4em;
         height: 3em; 
-        
-        /*line-height: 3em;*/
 
         &.icon.text-replace {
             width: 2.2rem;
@@ -489,7 +485,7 @@ a.button {
     }
 }
 
-/* Special styles to counteract Firefox's completely unwarranted assumptions about button styles */
+// Special styles to counteract Firefox's completely unwarranted assumptions about button styles
 input[type=submit], 
 input[type=reset], 
 input[type=button], 
@@ -502,7 +498,6 @@ button {
         }
     }
 }
-
 
 .button-group {
     @include clearfix;
@@ -520,9 +515,11 @@ button {
         &:only-child {
             @include border-radius(3);
         }
+
         &:first-child {
             @include border-radius(3px 0 0 3px);
         }
+
         &:last-child {
             @include border-radius(0 3px 3px 0);
             margin-right: 0;
@@ -530,7 +527,8 @@ button {
     }
 
     &.button-group-square {
-        &,input[type=submit], 
+        &,
+        input[type=submit], 
         input[type=reset], 
         input[type=button], 
         .button, 
@@ -548,18 +546,19 @@ button {
 
     > li {
         @include row();
+        @include border-radius(2px);
         position: relative;
         overflow: hidden;
-        background-color: white;
-        padding: 1em 10em 1em 1.5em; /* 10em padding leaves room for controls */
+        background-color: $color-white;
+        padding: 1em 10em 1em 1.5em; // 10em padding leaves room for controls
         margin-bottom: 1em;
-        border: 1px solid lighten($color-grey-4, 3%); /* really trying to avoid creating more greys, but this one is better than grey 4 or 5 */
-        @include border-radius(2px);
+        border: 1px solid lighten($color-grey-4, 3%); // really trying to avoid creating more greys, but this one is better than grey 4 or 5
     }
 
     &.moving {
         position: relative;
     }
+
     li.moving {
         position: absolute;
         width: 100%;
@@ -570,13 +569,13 @@ button {
         padding-bottom: 0;
     }
 
-    /* Object controls */
+    // Object controls
     .controls {
         position: absolute;
         z-index: 1;
         right: 1em;
         top: 1em;
-        color: white;
+        color: $color-white;
 
         li {
             float: left;
@@ -595,7 +594,7 @@ button {
 
 }
 
-/* wrapper around add button for mutliple objects */
+// wrapper around add button for mutliple objects
 .add {
     font-weight: 700;
     cursor: pointer;
@@ -606,16 +605,18 @@ button {
     clear: both;
 }
 
-/* Other text */
+// Other text
 .help, 
 .error-message {
     font-size: 0.85em;
     font-weight: normal;
-    margin: 0.5em 0 0 0;
+    margin: 0.5em 0 0;
 }
+
 .error-message {
     color: $color-red;
 }
+
 .help {
     color: $color-grey-2;
 }
@@ -646,19 +647,18 @@ li.focused > .help {
     background-color: $color-input-error-bg;
 }
 
-/* Layouts for particular kinds of of fields */
+// Layouts for particular kinds of of fields
 
-/* permanently show checkbox/radio help as they have no focus state */
+// permanently show checkbox/radio help as they have no focus state
 .boolean_field .help, 
 .radio .help {
     opacity: 1;
 }
 
-/* 
-    This is expected to go on the parent of the input/select/textarea
-    so in most cases .input
-*/
-.iconfield, /* generic */
+// This is expected to go on the parent of the input/select/textarea
+// so in most cases .input
+
+.iconfield, // generic
 .date_field,
 .time_field,
 .date_time_field,
@@ -675,9 +675,11 @@ li.focused > .help {
             font-size: 2em;
             color: $color-grey-3;
         }
+
         &:before {
             left: 0.3em;
         }
+
         &:after {
             right: 0.5em;
         }
@@ -690,24 +692,26 @@ li.focused > .help {
         padding-left: 2.5em;
     }
 
-    /* smaller fields required slight repositioning of icons */
+    // smaller fields required slight repositioning of icons 
     &.field-small {
         .input {
             &:before, 
             &:after {
-                font-size: 1.3rem; /* REMs are necessary here because IE doesn't treat generated content correctly */
+                font-size: 1.3rem; // REMs are necessary here because IE doesn't treat generated content correctly
                 top: 0.3em;
             }
+
             &:before {
                 left: 0.5em;
             }
+
             &:after {
                 right: 0.5em;
             }
         }
     }
 
-    /* special case for search spinners */
+    // special case for search spinners
     &.icon-spinner:after {
         color: $color-teal;
         opacity: 0.8;
@@ -736,7 +740,7 @@ li.focused > .help {
 }
 
 
-/* This is specifically for model that are a generated set of checkboxes/radios */
+// This is specifically for model that are a generated set of checkboxes/radios
 .model_multiple_choice_field .input li,
 .choice_field .input li {
     label {
@@ -756,7 +760,7 @@ li.focused > .help {
 .field-row {
     @include clearfix();
 
-    /* negative margin the bottom so it doesn't add too much space */
+    // negative margin the bottom so it doesn't add too much space
     margin-bottom: -1.2em;
 }
 
@@ -764,7 +768,7 @@ li.focused > .help {
     clear: both;
 }
 
-/* field sizing and alignment */
+// field sizing and alignment
 
 .field-small {
     input, 
@@ -807,17 +811,22 @@ li.inline .field {
     &.col12 { clear: none;}
 }
 
-/* solve gutter issues of inline fields */
+// solve gutter issues of inline fields
 ul.inline li:first-child, 
 li.inline:first-child {
     margin-left: -$grid-gutter-width / 2;
 }
 
 
-/* TODO this chooser style has been made more generic based on two identical methods for choosing pages and images that were previously included in their own less files in each app directory (and since deleted). It would be best if an admin 'theme' provided all the design for a UI in a single place, but should that be a series of overrides to the css provided from an app? If so, perhaps those two previous less files should be re-instated and then overriden here? hmm. */
+// TODO this chooser style has been made more generic based on two identical methods 
+// for choosing pages and images that were previously included in their own less files 
+// in each app directory (and since deleted). It would be best if an admin 'theme' provided 
+// all the design for a UI in a single place, but should that be a series of overrides to 
+// the css provided from an app? If so, perhaps those two previous less files should be 
+// re-instated and then overriden here? hmm.
 
 .chooser {
-    /* We show the 'chosen' state...*/
+    // We show the 'chosen' state...
     @include clearfix();
 
     input[type=text] {
@@ -825,9 +834,11 @@ li.inline:first-child {
         width: 50%;
         margin-right: 1em;
     }
+
     .chosen {
         display: block;
     }
+
     .unchosen, 
     .chosen {
         position: relative;
@@ -845,13 +856,14 @@ li.inline:first-child {
             margin-right: 0.3em;
         }
     }
+
     .unchosen {
         display: none;
     }
 
     .actions {
-        overflow: hidden;
         @include clearfix;
+        overflow: hidden;
         
         li {
             float: left;
@@ -859,14 +871,14 @@ li.inline:first-child {
         }
     }
 
-    /* ...unless the .page-chooser has the 'blank' class set */
+    // ...unless the .page-chooser has the 'blank' class set
     &.blank {
         .chosen { display: none; }
         .unchosen { display: block; }
     }
 }
 
-/* standard way of doing a chooser where the chosen object's title is overlayed */
+// standard way of doing a chooser where the chosen object's title is overlayed
 .page-chooser,
 .snippet-chooser,
 .document-chooser {
@@ -876,6 +888,7 @@ li.inline:first-child {
             display: block;
             padding-left: 3em;
         }
+
         .actions {
             clear: both;
             padding-top: 0.6em;
@@ -891,6 +904,7 @@ li.inline:first-child {
         }
     }
 }
+
 .snippet-chooser {
     .unchosen, 
     .chosen {
@@ -916,14 +930,16 @@ li.inline:first-child {
             content: 'o';
         }
     }
+
     .chosen {
         padding-left: $thumbnail-width;   
 
         &:before {
             content: '';
         }
-        .preview-image{
-            float:left;
+
+        .preview-image {
+            float: left;
             margin-left: -($thumbnail-width);
             margin-right: 1em;
             max-width: $thumbnail-width;
@@ -941,7 +957,7 @@ li.inline:first-child {
     }
 }
 
-/* taggit tagging */
+// taggit tagging
 .tagit {
     padding: 0.6em 1.2em;
 
@@ -949,13 +965,20 @@ li.inline:first-child {
         border: 0;
     }
 }
-ul.tagit input[type='text'] {
-    padding: 0.2em 0.5em !important; /* having to use important, FML*/
+
+// Additional specificity (.admin_tag_widget ) required to override tagit stylesheets,
+// which get added after the core CSS, and otherweise trump our styles.
+.admin_tag_widget ul.tagit input[type='text'] {
+    padding: 0.2em 0.5em;
 }
-ul.tagit li.tagit-choice-editable {
-    padding: 0 23px 0 0 !important; /* having to use important, FML*/
+
+// Additional specificity (.admin_tag_widget ) required to override tagit stylesheets,
+// which get added after the core CSS, and otherweise trump our styles.
+.admin_tag_widget ul.tagit li.tagit-choice-editable {
+    padding: 0 23px 0 0;
 }
-.ui-front { /* provided by jqueryui but not high enough an index */
+
+.ui-front { // provided by jqueryui but not high enough an index
     z-index: 1000;
 }
 
@@ -972,19 +995,20 @@ ul.tagit li.tagit-choice-editable {
         color: $color-grey-3;
         content: 'g';
     }
+
     .ui-icon-close:hover:before {
-        color: $color-red
+        color: $color-red;
     }
 }
 
-/* search-bars */
+// search-bars
 .search-bar {
     .required .field > label:after {
         display: none;
     }
 }
 
-/* file drop zones */
+// file drop zones
 .drop-zone {
     @include border-radius(5px);
     border: 2px dashed $color-grey-4;
@@ -996,26 +1020,29 @@ ul.tagit li.tagit-choice-editable {
     .drop-zone-help {
         border: 0;
     }
+
     &.hovered {
         border-color: $color-teal;
         background-color: $color-input-focus;
     }
 }
 
-
-/* Transitions */
+// Transitions
 fieldset, 
 input, 
 textarea, 
 select {
     @include transition(background-color 0.2s ease);
 }
+
 input[type=submit], 
 input[type=reset], 
 input[type=button], 
-.button, button {
+.button, 
+button {
     @include transition(background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease);
 }
+
 .help {
     @include transition(opacity 0.2s ease);
 }
@@ -1039,7 +1066,7 @@ input[type=button],
     .label-above {
         .field > label {
             display: block;
-            padding: 0 0 0.8em 0;
+            padding: 0 0 0.8em;
             float: none;
             width: auto;
         }
@@ -1048,6 +1075,7 @@ input[type=button],
     .help {
         opacity: 1;
     }
+
     .fields {
         max-width: 800px;
     }
@@ -1057,30 +1085,34 @@ input[type=button],
     }
 
     .field-content {
-        @include column(10,0);
+        @include column(10, 0);
     } 
 
     .field-col {
         float: left;
-        padding-left: 0 !important;
+        padding-left: 0;
 
-        /* anything less than 4 columns or greater than 6 is impractical */
+        // anything less than 4 columns or greater than 6 is impractical
         &.col4 {
             label {
-                @include column(2,0,4);
+                @include column(2, 0, 4);
             }
+
             .field-content {
                 @include column(2, $padding, 4);
+                padding-left: 0;
             }
         }
+
         &.col6 {
             label {
-                @include column(2,0,6);
+                @include column(2, 0, 6);
             }
+
             .field-content {
                 @include column(4, $padding, 6);
+                padding-left: 0;
             }
         }
     }
-  
 }
