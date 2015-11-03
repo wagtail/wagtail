@@ -83,8 +83,8 @@ select,
 // select boxes
 .choice_field .input,
 .model_choice_field .input,
-.typed_choice_field .input{
-    position:relative;
+.typed_choice_field .input {
+    position: relative;
 
     select {
         outline: none;
@@ -359,27 +359,6 @@ button {
         -moz-box-sizing: border-box;
     }
 
-    &:disabled, 
-    &[disabled], 
-    &.disabled {
-        background-color: $color-grey-3 !important;
-        border-color: $color-grey-3 !important;
-        color: lighten($color-grey-2, 15%) !important;
-        cursor: default;
-    }
-    &.button-secondary:disabled, 
-    &.button-secondary[disabled], 
-    &.button-secondary.disabled {
-        background-color: white !important;
-        border-color: $color-grey-3 !important;
-        color: $color-grey-3 !important;
-    }
-
-    &.button-nostroke {
-        border: 0 !important;
-    }
-
-
     &:hover {
         background-color: $color-button-hover;
         color: $color-white;
@@ -390,44 +369,67 @@ button {
         }
     }
 
-    &.button-longrunning{
-        span{
+    &.button-longrunning {
+        span {
             @include transition(all 0.3s ease);
             @include transform(scale(0.9));
-            display:inline-block;
-            height:0.9em;
-            position:relative;
-            opacity:0;
-            width:0;
-            visibility:hidden;
-            text-align:center;
-            padding-right:0em;
-        }
-        em{
-            font-style:normal;
-        }
-        &.button-longrunning-active span{
-            @include transform(scale(1));
-            visibility:visible;
-            width:1em;
-            opacity:0.8;
-            padding-right:0.5em;
+            display: inline-block;
+            height: 0.9em;
+            position: relative;
+            opacity: 0;
+            width: 0;
+            visibility: hidden;
+            text-align: center;
+            padding-right: 0;
         }
 
-        .icon-spinner:after{
-            text-align:center;
-            position:absolute;
-            left:0;
-            margin:0;
-            line-height:1em;
+        em {
+            font-style: normal;
+        }
+
+        &.button-longrunning-active span {
+            @include transform(scale(1));
+            visibility: visible;
+            width: 1em;
+            opacity: 0.8;
+            padding-right: 0.5em;
+        }
+
+        .icon-spinner:after {
+            text-align: center;
+            position: absolute;
+            left: 0;
+            margin: 0;
+            line-height: 1em;
             display: inline-block;
-            font-size:1em;
+            font-size: 1em;
         }
     }
 
+    &:disabled, 
+    &[disabled], 
+    &.disabled {
+        background-color: $color-grey-3;
+        border-color: $color-grey-3;
+        color: lighten($color-grey-2, 15%);
+        cursor: default;
+    }
+
+    &.button-secondary:disabled, 
+    &.button-secondary[disabled], 
+    &.button-secondary.disabled {
+        background-color: $color-white;
+        border-color: $color-grey-3;
+        color: $color-grey-3;
+    }
+
+    &.button-nostroke {
+        border: 0;
+    }
+
     @media screen and (min-width: $breakpoint-mobile){
-        font-size:0.95em;
-        padding:0 1.4em;
+        font-size: 0.95em;
+        padding: 0 1.4em;
         height: 3em; 
 
         &.icon.text-replace {
@@ -947,7 +949,7 @@ li.inline:first-child {
             // Resize standard Wagtail thumbnail size (165x165) to 130 for space-saving purposes.
             // We could request a 130x130 rendition, but that's just unnecessary and burdens installations
             // where images are store off-site with higher rendering times.
-            img{
+            img {
                 max-width: $thumbnail-width;
                 max-height: $thumbnail-width;
                 height: auto;

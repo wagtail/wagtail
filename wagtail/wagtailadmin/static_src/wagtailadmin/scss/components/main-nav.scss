@@ -6,8 +6,8 @@ $submenu-color: darken($color-grey-1, 5%);
     margin-left: -$menu-width;
     width: $menu-width;
     float: left;
-    height:100%;
-    min-height:800px;
+    height: 100%;
+    min-height: 800px;
     background: $color-grey-1;
     
     .inner {
@@ -450,8 +450,8 @@ body.explorer-open {
 }
 
 @media all and (min-width: $breakpoint-mobile) and (-ms-high-contrast: none),
-       all and (min-width: $breakpoint-mobile) and (-ms-high-contrast: active){
-    body.explorer-open{
+       all and (min-width: $breakpoint-mobile) and (-ms-high-contrast: active) {
+    body.explorer-open {
         .wrapper {
             left: 0;
         }

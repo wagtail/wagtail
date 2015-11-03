@@ -5,12 +5,12 @@ ul.sequence {
 
 li.sequence-member {
     @include clearfix;
-    position:relative;
+    position: relative;
     border: 1px solid transparent;
     border-width: 1px 0;
 
-    &:hover{
-        background-color:$color-input-focus;
+    &:hover {
+        background-color: $color-input-focus;
         border-color: darken($color-input-focus, 10%);
 
         .sequence-member-inner {
