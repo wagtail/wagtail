@@ -89,19 +89,21 @@ $(function() {
         $('.tab-nav a[href="' + $(this).attr('href') + '"]').click();
     });
 
-    $('.dropdown-toggle').bind('click', function() {
-        $(this).closest('.dropdown').toggleClass('open');
+    $('.dropdown').each(function(){
+        var $dropdown = $(this);
 
-        // Stop event propagating so the "close all dropdowns on body clicks" code (below) doesn't immediately close the dropdown
-        return false;
-    });
+        $('.dropdown-toggle', $dropdown).on('click', function(e) {
+            e.stopPropagation();
+            $dropdown.toggleClass('open');
+        });
 
-    /* close all dropdowns on body clicks */
-    $(document).on('click', function(e) {
-        var relTarg = e.relatedTarget || e.toElement;
-        if (!$(relTarg).hasClass('dropdown-toggle')) {
-            $('.dropdown').removeClass('open');
-        }
+        $('body').on('click', function(e) {
+            var relTarg = e.relatedTarget || e.toElement;
+            // Only close dropdown if the click target wasn't a child of this dropdown
+            if (!$(relTarg).parents().is($dropdown)) {
+                $dropdown.removeClass('open');
+            }
+        });
     });
 
     /* Dropzones */
