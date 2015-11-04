@@ -1,6 +1,5 @@
 import datetime
 import json
-import warnings
 
 import pytz
 
@@ -10,7 +9,6 @@ from django.http import HttpRequest, Http404
 from django.contrib.contenttypes.models import ContentType
 from django.contrib.auth import get_user_model
 from django.contrib.auth.models import AnonymousUser
-from django.utils.six import text_type
 
 from wagtail.wagtailcore.models import Page, Site, PAGE_MODEL_CLASSES
 from wagtail.tests.testapp.models import (
@@ -841,22 +839,3 @@ class TestIsCreatable(TestCase):
         """
         self.assertFalse(AbstractPage.is_creatable)
         self.assertNotIn(AbstractPage, PAGE_MODEL_CLASSES)
-
-    def test_is_abstract(self):
-        """
-        is_abstract has been deprecated. Check that it still works, but issues
-        a deprecation warning
-        """
-        with warnings.catch_warnings(record=True) as ws:
-            class IsAbstractPage(Page):
-                is_abstract = True
-
-                class Meta:
-                    abstract = True
-
-            self.assertEqual(len(ws), 1)
-            warning = ws[0]
-            self.assertIn("is_creatable", text_type(warning.message))
-
-            self.assertFalse(AbstractPage.is_creatable)
-            self.assertNotIn(AbstractPage, PAGE_MODEL_CLASSES)
