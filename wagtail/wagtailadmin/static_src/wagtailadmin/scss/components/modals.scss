@@ -1,8 +1,8 @@
 $zindex-modal-background: 500;
 
 .fade {
-    opacity: 0;
     @include transition(opacity .15s linear);
+    opacity: 0;
     
     &.in {
         opacity: 1;
@@ -14,9 +14,9 @@ $zindex-modal-background: 500;
 .modal-open {
     overflow: hidden;
 
-    .content-wrapper{
-        -webkit-transform:none;
-        transform:none;
+    .content-wrapper {
+        -webkit-transform: none;
+        transform: none;
     }
 }
 
@@ -39,13 +39,12 @@ $zindex-modal-background: 500;
     @include border-box();
     margin-left: auto;
     margin-right: auto;
-    width: auto;
-    padding: 0px;
+    padding: 0;
     z-index: ($zindex-modal-background + 10);
-    height:90%;
-    width:85%;
+    height: 90%;
+    width: 85%;
 
-    &:before{
+    &:before {
         content: '';
         display: inline-block;
         height: 100%;
@@ -58,15 +57,15 @@ $zindex-modal-background: 500;
 .modal-content {
     @include border-box();
     @include border-radius(3px);
-    width:98.70%;
+    width: 98.7%;
     position: relative;
-    background-color: white;
+    background-color: $color-white;
     outline: none;
-    margin-top:2em;
-    padding-bottom:3em;
-    display:inline-block;
+    margin-top: 2em;
+    padding-bottom: 3em;
+    display: inline-block;
     vertical-align: middle;
-    overflow:hidden;
+    overflow: hidden;
 }
 
 // Modal background
@@ -77,40 +76,42 @@ $zindex-modal-background: 500;
     bottom: 0;
     left: 0;
     z-index: ($zindex-modal-background - 10);
-    background-color: black;
+    background-color: $color-black;
+    
     // Fade for backdrop
-    &.fade { opacity:0; }
-    &.in { opacity:0.5; }
+    &.fade { opacity: 0; }
+    &.in { opacity: 0.5; }
 }
 
-.modal .close{
-    padding:0;
-    position:absolute;
-    width:50px;
-    height:50px;
-    top:10px;
-    right:10px;
-    z-index:1;
+.modal .close {
+    padding: 0;
+    position: absolute;
+    width: 50px;
+    height: 50px;
+    top: 10px;
+    right: 10px;
+    z-index: 1;
 }
 
 // Where all modal content resides
 .modal-body {
     position: relative;
-    padding-bottom:2em;
+    padding-bottom: 2em;
 
-    header{
-        padding-right:100px;
+    header {
+        padding-right: 100px;
     }
 }
 
 @media screen and (min-width: $breakpoint-mobile) {
     .modal-dialog {
-        padding:0px 0 2em $menu-width;
+        padding: 0 0 2em $menu-width;
     }
 }
-@media screen and (min-width: $breakpoint-desktop-larger){
+
+@media screen and (min-width: $breakpoint-desktop-larger) {
     .modal-dialog {
-        max-width:$breakpoint-desktop-larger;
-        padding:0 0 2em 0;
+        max-width: $breakpoint-desktop-larger;
+        padding: 0 0 2em;
     }
 }
