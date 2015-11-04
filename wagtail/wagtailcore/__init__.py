@@ -1,4 +1,4 @@
-__version__ = '1.2rc1'
+__version__ = '1.3a1'
 default_app_config = 'wagtail.wagtailcore.apps.WagtailCoreAppConfig'
 
 
