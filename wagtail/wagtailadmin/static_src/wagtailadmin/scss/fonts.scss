@@ -28,14 +28,15 @@
 }
 
 @include webfont(Open Sans, opensans-light, 300, normal);
-//@include webfont(Open Sans, opensans-lightitalic, 300, italic);
+@include webfont(Open Sans, opensans-lightitalic, 300, italic);
 @include webfont(Open Sans, opensans-regular, 400, normal);
-//@include webfont(Open Sans, opensans-italic, 400, italic);
+@include webfont(Open Sans, opensans-italic, 400, italic);
 @include webfont(Open Sans, opensans-semibold, 600, normal);
-//@include webfont(Open Sans, opensans-semibolditalic, 600, italic);
+@include webfont(Open Sans, opensans-semibolditalic, 600, italic);
 @include webfont(Open Sans, opensans-bold, 700, normal);
-//@include webfont(Open Sans, opensans-bolditalic, 700, italic);
-
+@include webfont(Open Sans, opensans-bolditalic, 700, italic);
+@include webfont(Roboto Slab, robotoslab-regular, 400, normal);
+@include webfont(Roboto Slab, robotoslab-bold, 700, normal);
 
 /* The wagtail font isn't available in WOFF2, so a @font-face is set here without a mixin. */
 @font-face {
