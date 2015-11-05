@@ -5,6 +5,7 @@ from django.forms.utils import flatatt
 from django.utils.text import slugify
 from django.utils.safestring import mark_safe
 from django.utils.six import text_type
+from django.utils.functional import cached_property, total_ordering
 
 from django.utils.six import with_metaclass
 
@@ -13,6 +14,7 @@ from wagtail.wagtailcore import hooks
 from wagtail.wagtailadmin.forms import SearchForm
 
 
+@total_ordering
 class SearchArea(with_metaclass(MediaDefiningClass)):
     template = 'wagtailadmin/shared/search_area.html'
 
@@ -28,6 +30,12 @@ class SearchArea(with_metaclass(MediaDefiningClass)):
         else:
             self.attr_string = ""
 
+    def __lt__(self, other):
+        return (self.order, self.label) < (other.order, other.label)
+
+    def __eq__(self, other):
+        return (self.order, self.label) == (other.order, other.label)
+
     def is_shown(self, request):
         """
         Whether this search area should be shown for the given request; permission
@@ -35,17 +43,20 @@ class SearchArea(with_metaclass(MediaDefiningClass)):
         """
         return True
 
-    def is_active(self, request):
-        return request.path.startswith(self.url)
+    def is_active(self, request, current=None):
+        if current is None:
+            return request.path.startswith(self.url)
+        else:
+            return self.name == current
 
-    def render_html(self, request, query):
+    def render_html(self, request, query, current=None):
         return render_to_string(self.template, {
             'name': self.name,
             'url': self.url,
             'classnames': self.classnames,
             'attr_string': self.attr_string,
             'label': self.label,
-            'active': self.is_active(request),
+            'active': self.is_active(request, current),
             'query_string': query
         }, request=request)
 
@@ -54,23 +65,16 @@ class Search(object):
     def __init__(self, register_hook_name, construct_hook_name=None):
         self.register_hook_name = register_hook_name
         self.construct_hook_name = construct_hook_name
-        # _registered_search_areas will be populated on first access to the
-        # registered_search_areas property. We can't populate it in __init__ because
-        # we can't rely on all hooks modules to have been imported at the point that
-        # we create the admin_search and settings_search instances
-        self._registered_search_areas = None
 
-    @property
+    @cached_property
     def registered_search_areas(self):
-        if self._registered_search_areas is None:
-            self._registered_search_areas = [fn() for fn in hooks.get_hooks(self.register_hook_name)]
-        return self._registered_search_areas
+        return sorted([fn() for fn in hooks.get_hooks(self.register_hook_name)])
 
     def search_items_for_request(self, request):
         return [item for item in self.registered_search_areas if item.is_shown(request)]
 
-    def active_search(self, request):
-        return [item for item in self.search_items_for_request(request) if item.is_active(request)]
+    def active_search(self, request, current=None):
+        return [item for item in self.search_items_for_request(request) if item.is_active(request, current)]
 
     @property
     def media(self):
@@ -79,7 +83,7 @@ class Search(object):
             media += item.media
         return media
 
-    def render_html(self, request):
+    def render_html(self, request, current=None):
         search_areas = self.search_items_for_request(request)
 
         # Get query parameter
@@ -94,8 +98,8 @@ class Search(object):
                 fn(request, search_areas)
 
         rendered_search_areas = []
-        for item in sorted(search_areas, key=lambda i: i.order):
-            rendered_search_areas.append(item.render_html(request, query))
+        for item in search_areas:
+            rendered_search_areas.append(item.render_html(request, query, current))
 
         return mark_safe(''.join(rendered_search_areas))
 

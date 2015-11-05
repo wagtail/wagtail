@@ -42,11 +42,11 @@ def main_nav(context):
 
 
 @register.inclusion_tag('wagtailadmin/shared/search_other.html', takes_context=True)
-def search_other(context):
+def search_other(context, current=None):
     request = context['request']
 
     return {
-        'options_html': admin_search_areas.render_html(request),
+        'options_html': admin_search_areas.render_html(request, current),
         'request': request,
     }
 

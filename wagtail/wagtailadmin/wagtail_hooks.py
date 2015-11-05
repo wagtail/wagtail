@@ -33,13 +33,9 @@ def register_permissions():
     return Permission.objects.filter(content_type__app_label='wagtailadmin', codename='access_admin')
 
 
-class PagesSearchArea(SearchArea):
-    pass
-
-
 @hooks.register('register_admin_search_area')
 def register_pages_search_area():
-    return PagesSearchArea(
+    return SearchArea(
         _('Pages'), urlresolvers.reverse('wagtailadmin_pages:search'),
         name='pages',
         classnames='icon icon-folder-open-inverse',
