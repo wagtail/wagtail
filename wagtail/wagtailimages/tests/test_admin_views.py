@@ -409,11 +409,6 @@ class TestMultipleImageUploader(TestCase, WagtailTestUtils):
         self.assertEqual(response['Content-Type'], 'application/json')
         self.assertTemplateUsed(response, 'wagtailimages/images/includes/image_listing_item.html')
 
-        # Check image
-        self.assertIn('image', response.context)
-        self.assertEqual(response.context['image'].title, 'test.png')
-        self.assertTrue(response.context['image'].file_size)
-
         # Check JSON
         response_json = json.loads(response.content.decode())
         self.assertIn('image_id', response_json)
@@ -449,7 +444,7 @@ class TestMultipleImageUploader(TestCase, WagtailTestUtils):
         }, HTTP_X_REQUESTED_WITH='XMLHttpRequest')
 
         # Check response
-        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.status_code, 400)
         self.assertEqual(response['Content-Type'], 'application/json')
 
         # Check JSON
