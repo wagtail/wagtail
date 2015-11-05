@@ -13,7 +13,7 @@
         }
 
         $(function() {
-            $('#collection_browser_collection_id').change(function() {
+            $('#collection_chooser_collection_id').change(function() {
                 this.form.submit();
             })
         });
@@ -34,22 +34,7 @@
         {% if collections %}
             <form class="image-search search-bar" action="{% url 'wagtailimages:index' %}" method="GET">
                 <ul class="fields">
-                    <li>
-                        <div class="field choice_field select">
-                            <label for="collection_browser_collection_id">{% trans "Collection" %}:</label>
-                            <div class="field-content">
-                                <div class="input">
-                                    <select id="collection_browser_collection_id" name="collection_id">
-                                        <option value="">{% trans "All collections" %}</option>
-                                        {% for collection in collections %}
-                                            <option value="{{ collection.id }}" {% if collection == current_collection %}selected="selected"{% endif %}>{{ collection.name }}</option>
-                                        {% endfor %}
-                                    </select>
-                                    <span></span>
-                                </div>
-                            </div>
-                        </div>
-                    </li>
+                    {% include "wagtailadmin/shared/collection_chooser.html" %}
                 </ul>
             </form>
         {% endif %}
