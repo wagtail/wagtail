@@ -7,6 +7,7 @@ from wagtail.utils.pagination import paginate
 from wagtail.wagtailadmin.modal_workflow import render_modal_workflow
 from wagtail.wagtailadmin.forms import SearchForm
 from wagtail.wagtailadmin.utils import PermissionPolicyChecker
+from wagtail.wagtailcore.models import Collection
 from wagtail.wagtailsearch.backends import get_search_backends
 
 from wagtail.wagtaildocs.models import get_document_model
@@ -43,15 +44,21 @@ def chooser(request):
 
     q = None
     is_searching = False
-    if 'q' in request.GET or 'p' in request.GET:
+    if 'q' in request.GET or 'p' in request.GET or 'collection_id' in request.GET:
+        documents = Document.objects.all()
+
+        collection_id = request.GET.get('collection_id')
+        if collection_id:
+            documents = documents.filter(collection=collection_id)
+
         searchform = SearchForm(request.GET)
         if searchform.is_valid():
             q = searchform.cleaned_data['q']
 
-            documents = Document.objects.search(q)
+            documents = documents.search(q)
             is_searching = True
         else:
-            documents = Document.objects.order_by('-created_at')
+            documents = documents.order_by('-created_at')
             is_searching = False
 
         # Pagination
@@ -65,6 +72,10 @@ def chooser(request):
     else:
         searchform = SearchForm()
 
+        collections = Collection.objects.all()
+        if len(collections) < 2:
+            collections = None
+
         documents = Document.objects.order_by('-created_at')
         paginator, documents = paginate(request, documents, per_page=10)
 
@@ -72,6 +83,7 @@ def chooser(request):
         'documents': documents,
         'uploadform': uploadform,
         'searchform': searchform,
+        'collections': collections,
         'is_searching': False,
     })
 
