@@ -63,7 +63,7 @@ def index(request):
 
         return render(request, 'wagtailimages/images/index.html', {
             'max_filesize': image_form.fields['file'].max_upload_size,
-            'help_text':  image_form.fields['file'].help_text,
+            'help_text': image_form.fields['file'].help_text,
             'allowed_extensions': ALLOWED_EXTENSIONS,
             'error_max_file_size': image_form.fields['file'].error_messages['file_too_large_unknown_size'],
             'error_accepted_file_types': image_form.fields['file'].error_messages['invalid_image'],
