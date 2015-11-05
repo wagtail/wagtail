@@ -1,5 +1,6 @@
 {% extends "wagtailadmin/base.html" %}
-{% load wagtailimages_tags i18n compress static %}
+{% load i18n %}
+{% load wagtailimages_tags compress static %}
 
 {% block titletag %}{% trans "Images" %}{% endblock %}
 {% block extra_js %}
@@ -57,28 +58,24 @@
 {% endblock %}
 
 {% block content %}
-    {% trans "Images" as im_str %}
-    {% if perms.wagtailimages.add_image %}
-        {% trans "Add an image" as add_img_str %}
-        {% include "wagtailadmin/shared/header.html" with title=im_str add_link="wagtailimages:add" icon="image" add_text=add_img_str search_url="wagtailimages:index" %}
-    {% else %}
-        {% include "wagtailadmin/shared/header.html" with title=im_str icon="image" search_url="wagtailimages:index" %}
-    {% endif %}
+    {% include "wagtailadmin/shared/header.html" with title=im_str icon="image" search_url="wagtailimages:index" %}
 
     <div class="nice-padding">
         <div id="image-results">
-            <div class="drop-zone">
-                <p>{% trans "Drag and drop images into this area to upload immediately." %}</p>
-                <p>{{ help_text }}
-                
-                <form action="{% url 'wagtailimages_add_ajax' %}" method="POST" enctype="multipart/form-data">
-                    <div class="replace-file-input">
-                        <button class="bicolor icon icon-plus">{% trans "Or choose from your computer" %}</button>
-                        <input id="fileupload" type="file" name="files[]" data-url="{% url 'wagtailimages_add_ajax' %}" multiple>
-                    </div>
-                    {% csrf_token %}
-                </form>
-            </div>
+            {% if perms.wagtailimages.add_image %}
+                <div class="drop-zone">
+                    <p>{% trans "Drag and drop images into this area to upload immediately." %}</p>
+                    <p>{{ help_text }}
+                    
+                    <form action="{% url 'wagtailimages:add_ajax' %}" method="POST" enctype="multipart/form-data">
+                        <div class="replace-file-input">
+                            <button class="bicolor icon icon-plus">{% trans "Or choose from your computer" %}</button>
+                            <input id="fileupload" type="file" name="files[]" data-url="{% url 'wagtailimages:add_ajax' %}" multiple>
+                        </div>
+                        {% csrf_token %}
+                    </form>
+                </div>
+            {% endif %}
 
             {% include "wagtailimages/images/results.html" %}
         </div>

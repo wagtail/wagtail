@@ -378,31 +378,31 @@ ul.listing {
     }
 
     &.images {
-        .image{
+        .image {
             position: relative;
         }
         
-        .progress{
+        .progress {
             position: absolute;
             top: 50%;
             left: 0;
             right: 0;
         }
 
-        .upload-success .image{
+        .upload-success .image {
             @include transition(all 0.3s cubic-bezier(0.175, 0.885, 0.320, 1.275));
             @include transform(translate3d(0,0,0));
             @include transform(scale(0.5));
         }
-        .upload-success-response .image{
+        .upload-success-response .image {
             @include transform(scale(1));
         }
 
-        .upload-failure{
-            display:none;
+        .upload-failure {
+            display: none;
         }
 
-        img{
+        img {
             @include transition(border-color 0.2s ease);
             border: 3px solid $color-white;
         }
@@ -558,8 +558,13 @@ table.listing {
                 border-width: 1px 1px 1px 0;
 
                 .image {
+<<<<<<< HEAD
                     text-align: center;
                     height: 180px;
+=======
+                    text-align:center;
+                    height:180px;
+>>>>>>> linted scss and added new perms wrapper around drop zone
 
                     &:before {
                         content: '';
@@ -585,7 +590,7 @@ table.listing {
                     }
                 }
 
-                .progress{
+                .progress {
                     left: 1.3em;
                     right: 1.3em;
                 }
