@@ -33,7 +33,7 @@
                 dropZone: $('.drop-zone'),
                 newItemContainer: $('#upload-list-item'),
                 addUploadsTo: $('#image-results > ul.listing'),
-                simpleUploadUrl: "{% url 'wagtailimages_add_image' %}",
+                simpleUploadUrl: "{% url 'wagtailimages:add' %}",
                 acceptFileTypes: /\.({{ allowed_extensions|join:"|" }})$/i, //must be regex
                 maxFileSize: {{ max_filesize|default:"null" }}, //numeric format
                 messages: {
@@ -68,11 +68,11 @@
                     <p>{{ help_text }}
                     
                     <form action="{% url 'wagtailimages:add_ajax' %}" method="POST" enctype="multipart/form-data">
+                        {% csrf_token %}
                         <div class="replace-file-input">
                             <button class="bicolor icon icon-plus">{% trans "Or choose from your computer" %}</button>
                             <input id="fileupload" type="file" name="files[]" data-url="{% url 'wagtailimages:add_ajax' %}" multiple>
                         </div>
-                        {% csrf_token %}
                     </form>
                 </div>
             {% endif %}
