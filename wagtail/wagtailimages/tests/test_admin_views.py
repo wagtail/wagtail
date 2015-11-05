@@ -672,8 +672,3 @@ class TestEditOnlyPermissions(TestCase, WagtailTestUtils):
         response = self.client.get(reverse('wagtailimages:delete', args=(self.image.id,)))
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'wagtailimages/images/confirm_delete.html')
-
-    def test_get_add_multiple(self):
-        response = self.client.get(reverse('wagtailimages:add_multiple'))
-        # permission should be denied
-        self.assertRedirects(response, reverse('wagtailadmin_home'))
