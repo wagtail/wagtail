@@ -65,7 +65,7 @@ def index(request):
             'max_filesize': image_form.fields['file'].max_upload_size,
             'help_text':  image_form.fields['file'].help_text,
             'allowed_extensions': ALLOWED_EXTENSIONS,
-            'error_max_file_size': image_form.fields['file'].error_messages['file_too_large'],
+            'error_max_file_size': image_form.fields['file'].error_messages['file_too_large_unknown_size'],
             'error_accepted_file_types': image_form.fields['file'].error_messages['invalid_image'],
             'images': images,
             'query_string': query_string,
@@ -278,7 +278,6 @@ def add_ajax(request):
             image.uploaded_by_user = request.user
             image.save()
 
-            # Success! Send back an edit form for this image to the user
             return JsonResponse({
                 'success': True,
                 'image_id': int(image.id),
