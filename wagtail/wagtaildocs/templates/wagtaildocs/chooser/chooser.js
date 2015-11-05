@@ -17,7 +17,10 @@ function(modal) {
     function search() {
         $.ajax({
             url: searchUrl,
-            data: {q: $('#id_q').val()},
+            data: {
+                q: $('#id_q').val(),
+                collection_id: $('#collection_chooser_collection_id').val()
+            },
             success: function(data, status) {
                 $('#search-results').html(data);
                 ajaxifyLinks($('#search-results'));
@@ -79,6 +82,8 @@ function(modal) {
         var wait = setTimeout(search, 50);
         $(this).data('timer', wait);
     });
+
+    $('#collection_chooser_collection_id').change(search);
 
     {% url 'wagtailadmin_tag_autocomplete' as autocomplete_url %}
     $('#id_tags', modal.body).tagit({
