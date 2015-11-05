@@ -208,7 +208,7 @@ The available hooks are:
   :attrs: additional HTML attributes to apply to the link.
   :order: an integer which determines the item's position in the list of options.
 
-  Setting the URL can be achieved using reverse() on the target search page. The GET parameter 'q' will appended to the given URL.
+  Setting the URL can be achieved using reverse() on the target search page. The GET parameter 'q' will be appended to the given URL.
 
   A template tag, ``search_other`` is provided by the ``wagtailadmin_tags`` template module. This tag takes a single, optional parameter, ``current``, which allows you to specify the ``name`` of the search option currently active. If the parameter is not given, the hook defaults to a reverse lookup of the page's URL for comparison against the ``url`` parameter.
 
