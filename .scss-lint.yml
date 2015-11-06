@@ -1,6 +1,6 @@
 
-scss_files: 'wagtail/*/static/**/*.scss'
-exclude: 'wagtail/**/static/**/vendor/*.scss'
+scss_files: 'wagtail/*/static_src/**/*.scss'
+exclude: 'wagtail/**/static_src/**/vendor/*.scss'
 
 linters:
     BorderZero:
@@ -87,6 +87,9 @@ linters:
         enabled: true
 
     PropertyCount:
+        enabled: false
+
+    PropertySortOrder:
         enabled: false
 
     QualifyingElement:
