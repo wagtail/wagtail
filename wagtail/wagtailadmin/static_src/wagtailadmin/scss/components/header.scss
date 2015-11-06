@@ -1,147 +1,167 @@
-header{
-    padding-top:1em;
-    padding-bottom:1em;
+header {
+    padding-top: 1em;
+    padding-bottom: 1em;
     background-color: $color-header-bg;
-    margin-bottom:2em;
-    color:white;
+    margin-bottom: 2em;
+    color: $color-white;
 
-    a{
-        color:white;
+    a {
+        color: $color-white;
     }
 
-    h1, h2{
-        margin:0;
-        color:white;
+    h1,
+    h2 {
+        margin: 0;
+        color: $color-white;
     }
 
-    h1{
-        padding:0.2em 0;
+    h1 {
+        padding: .2em 0;
 
-        &.icon:before{
-            width:1em;
-            display:none;
-            margin-right:0.4em;
-            font-size:1.5em;
+        &.icon:before {
+            width: 1em;
+            display: none;
+            margin-right: .4em;
+            font-size: 1.5em;
         }
     }
 
-    .col{
-        float:left;
-        margin-right:2em;
-    }
-    .left{
-        float:left;
-
-        .hasform &:first-child{
-            padding-bottom:0.5em;
-            float:none;
-        }
-    }
-    .right{
-        text-align:right;
-        float:right;
+    .col {
+        float: left;
+        margin-right: 2em;
     }
 
-    /* For case where content below header should merge with it */
-    &.merged{
-        margin-bottom:0;
-    }
-    &.tab-merged, &.no-border{
-        border:0;
-    }
-    &.merged.no-border{
-        padding-bottom:0;
-    }
-    &.no-v-padding{
-        padding-top:0;
-        padding-bottom:0;
-    }
-    /*
-    &.hasform h1{
-        margin-top:0.2em;
-    }
-    */
-    .button{
-        background-color:$color-teal-darker;
-        &:hover{
-            background-color:$color-teal-dark;
+    .left {
+        float: left;
+
+        .hasform &:first-child {
+            padding-bottom: .5em;
+            float: none;
         }
     }
 
-    /* necessary on mobile only to make way for hamburger menu */
-    &.nice-padding{
-        padding-left:$desktop-nice-padding;
+    .right {
+        text-align: right;
+        float: right;
     }
 
-    label{
+    // For case where content below header should merge with it
+    &.merged {
+        margin-bottom: 0;
+    }
+
+    &.tab-merged,
+    &.no-border {
+        border: 0;
+    }
+
+    &.merged.no-border {
+        padding-bottom: 0;
+    }
+
+    &.no-v-padding {
+        padding-top: 0;
+        padding-bottom: 0;
+    }
+
+    //  &.hasform h1{
+    //      margin-top:0.2em;
+    //  }
+
+    .button {
+        background-color: $color-teal-darker;
+
+        &:hover {
+            background-color: $color-teal-dark;
+        }
+    }
+
+    // necessary on mobile only to make way for hamburger menu
+    &.nice-padding {
+        padding-left: $desktop-nice-padding;
+    }
+
+    label {
         @include visuallyhidden();
     }
 
-    input[type=text], select{
-        border-width:0;
+    [type=text],
+    select {
+        border-width: 0;
 
-        &:focus{
-            background-color:white;
+        &:focus {
+            background-color: $color-white;
         }
     }
 
-    .fields{
-        margin-top:-0.5em;
-        li{
-            padding-bottom:0;
+    .fields {
+        margin-top: -.5em;
+
+        li {
+            padding-bottom: 0;
         }
-        .field{
-            padding:0;
+
+        .field {
+            padding: 0;
         }
     }
 
-    .field-content{
-        width:auto;
-        padding:0;
+    .field-content {
+        width: auto;
+        padding: 0;
     }
 }
 
 @media screen and (min-width: $breakpoint-mobile){
-    header{
-        padding-top:1.5em;
-        padding-bottom:1.5em;
+    header {
+        padding-top: 1.5em;
+        padding-bottom: 1.5em;
 
-        .left{
-            float:left;
-            margin-right:0;
+        .left {
+            float: left;
+            margin-right: 0;
 
-            &:first-child{
-                padding-bottom:0;
-                float:left;
-            }
-        }
-        .second{
-            clear:none;
-
-            .right, .left{
-                float:right;
+            &:first-child {
+                padding-bottom: 0;
+                float: left;
             }
         }
 
-        h1.icon:before{
-            display:inline-block;
+        .second {
+            clear: none;
+
+            .right,
+            .left {
+                float: right;
+            }
         }
 
-        .col3{
+        // scss-lint:disable QualifyingElement
+        h1.icon:before {
+        // scss-lint:enable QualifyingElement
+            display: inline-block;
+        }
+
+        .col3 {
             @include column(3);
         }
-        .col3.addbutton{
-            width:auto;
+
+        .col3.addbutton {
+            width: auto;
         }
-        .col6{
+
+        .col6 {
             @include column(6);
         }
-        .col9{
+
+        .col9 {
             @include column(9);
         }
-        .breadcrumb{
-            margin-left:-($desktop-nice-padding);
-            margin-right:-($desktop-nice-padding);
+
+        .breadcrumb {
+            margin-left: -($desktop-nice-padding);
+            margin-right: -($desktop-nice-padding);
         }
     }
 }
+

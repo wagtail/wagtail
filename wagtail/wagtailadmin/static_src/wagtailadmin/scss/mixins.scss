@@ -1,75 +1,83 @@
 @mixin clearfix() {
     &:before,
     &:after {
-        content: " ";
+        content: ' ';
         display: table;
     }
+
     &:after {
         clear: both;
     }
 }
 
-@mixin unlist(){
-    &, ul, li{
-        list-style-type:none;
+@mixin unlist() {
+    &,
+    ul,
+    li {
+        list-style-type: none;
         font-style: normal;
     }
-    &, ul{
-        margin-top:0;
-        margin-bottom:0;
-        padding-left:0;
+
+    &,
+    ul {
+        margin-top: 0;
+        margin-bottom: 0;
+        padding-left: 0;
     }
 }
 
 
-@mixin filter($filter...){
+@mixin filter($filter...) {
     -webkit-filter: $filter;
-       -moz-filter: $filter;
-        -ms-filter: $filter;
-         -o-filter: $filter;
-            filter: $filter;
+    -moz-filter: $filter;
+    -ms-filter: $filter;
+    -o-filter: $filter;
+    filter: $filter;
 }
 
-@mixin transition($transition...){
-    body.ready &{
+@mixin transition($transition...) {
+    .ready & {
         -webkit-transition: $transition;
-           -moz-transition: $transition;
-             -o-transition: $transition;
-                transition: $transition;
+        -moz-transition: $transition;
+        -o-transition: $transition;
+        transition: $transition;
     }
 }
-@mixin transition-immediate($transition...){
+
+@mixin transition-immediate($transition...) {
     -webkit-transition: $transition;
-       -moz-transition: $transition;
-         -o-transition: $transition;
-            transition: $transition;
+    -moz-transition: $transition;
+    -o-transition: $transition;
+    transition: $transition;
 }
 
 @mixin transition-transform($transition...) {
-  -webkit-transition: -webkit-transform $transition;
-     -moz-transition: -moz-transform $transition;
-       -o-transition: -o-transform $transition;
-          transition: transform $transition;
+    -webkit-transition: -webkit-transform $transition;
+    -moz-transition: -moz-transform $transition;
+    -o-transition: -o-transform $transition;
+    transition: transform $transition;
 }
 
-@mixin transition-delay($delay...){
-    body.ready &{
+@mixin transition-delay($delay...) {
+    .ready & {
         -webkit-transition-delay: $delay;
-           -moz-transition-delay: $delay;
-             -o-transition-delay: $delay;
-                transition-delay: $delay;
+        -moz-transition-delay: $delay;
+        -o-transition-delay: $delay;
+        transition-delay: $delay;
     }
 }
 
+// scss-lint:disable ImportantRule
 @mixin notransition() {
     -webkit-transition: none !important;
-       -moz-transition: none !important;
-         -o-transition: none !important;
-        -ms-transition: none !important;
-            transition: none !important;
+    -moz-transition: none !important;
+    -o-transition: none !important;
+    -ms-transition: none !important;
+    transition: none !important;
 }
+// scss-lint:enable ImportantRule
 
-@mixin transform($transform){
+@mixin transform($transform) {
     -moz-transform: $transform;
     -webkit-transform: $transform;
     -o-transform: $transform;
@@ -77,17 +85,17 @@
     transform: $transform;
 }
 
-@mixin border-radius($radius){
+@mixin border-radius($radius) {
     -webkit-border-radius: $radius;
-            border-radius: $radius;
+    border-radius: $radius;
 }
 
-@mixin box-shadow($shadow){
+@mixin box-shadow($shadow) {
     -webkit-box-shadow: $shadow; //e.g inset 2px 2px 3px 2px rgba(0, 0, 0, 1)
-            box-shadow: $shadow;
+    box-shadow: $shadow;
 }
 
-@mixin visuallyhidden{
+@mixin visuallyhidden {
     border: 0;
     clip: rect(0 0 0 0);
     height: 1px;
@@ -97,7 +105,8 @@
     position: absolute;
     width: 1px;
 
-    &:active, &:focus {
+    &:active,
+    &:focus {
         clip: auto;
         height: auto;
         margin: 0;
@@ -106,19 +115,21 @@
         width: auto;
     }
 }
-.visuallyhidden{
+
+.visuallyhidden {
     @include visuallyhidden;
 }
 
-@mixin visuallyvisible{
-    clip:none;
-    height:auto;
-    width:auto;
-    margin:auto;
-    overflow:visible;
-    position:initial;
+@mixin visuallyvisible {
+    clip: none;
+    height: auto;
+    width: auto;
+    margin: auto;
+    overflow: visible;
+    position: initial;
 }
 
-.visuallyvisible{
+.visuallyvisible {
     @include visuallyvisible;
 }
+
