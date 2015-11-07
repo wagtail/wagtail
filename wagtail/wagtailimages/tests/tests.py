@@ -3,6 +3,7 @@ from __future__ import absolute_import, unicode_literals
 import os
 
 from django import forms, template
+from django.core.exceptions import ImproperlyConfigured
 from django.core.urlresolvers import reverse
 from django.test import TestCase
 from django.utils import six
@@ -253,6 +254,30 @@ class TestFrontendServeView(TestCase):
 
         # URL pattern should not match
         self.assertEqual(response.status_code, 404)
+
+    def test_get_with_serve_action(self):
+        signature = generate_signature(self.image.id, 'fill-800x600')
+        response = self.client.get(reverse('wagtailimages_serve_action_serve', args=(signature, self.image.id, 'fill-800x600')))
+
+        self.assertEqual(response.status_code, 200)
+        self.assertTrue(response.streaming)
+        self.assertEqual(response['Content-Type'], 'image/png')
+
+    def test_get_with_redirect_action(self):
+        signature = generate_signature(self.image.id, 'fill-800x600')
+        response = self.client.get(reverse('wagtailimages_serve_action_redirect', args=(signature, self.image.id, 'fill-800x600')))
+
+        expected_redirect_url = 'http://testserver/media/images/{filename[0]}.2e16d0ba.fill-800x600{filename[1]}'.format(
+            filename=os.path.splitext(os.path.basename(self.image.file.path))
+        )
+
+        self.assertRedirects(response, expected_redirect_url, status_code=301, fetch_redirect_response=False)
+
+    def test_get_with_unknown_action(self):
+        signature = generate_signature(self.image.id, 'fill-800x600')
+
+        with self.assertRaises(ImproperlyConfigured):
+            self.client.get(reverse('wagtailimages_serve_action_unknown', args=(signature, self.image.id, 'fill-800x600')))
 
     def test_get_invalid_signature(self):
         """
