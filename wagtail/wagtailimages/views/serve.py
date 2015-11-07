@@ -14,8 +14,10 @@ from wagtail.wagtailimages.utils import verify_signature
 
 
 class ServeView(View):
+    model = get_image_model()
+
     def get(self, request, signature, image_id, filter_spec):
-        image = get_object_or_404(get_image_model(), id=image_id)
+        image = get_object_or_404(self.model, id=image_id)
 
         if not verify_signature(signature.encode(), image_id, filter_spec):
             raise PermissionDenied
