@@ -1,5 +1,7 @@
 from __future__ import absolute_import, unicode_literals
 
+import os
+
 from django import forms, template
 from django.core.urlresolvers import reverse
 from django.test import TestCase
@@ -254,6 +256,23 @@ class TestFrontendServeView(TestCase):
 
         # Check response
         self.assertEqual(response.status_code, 400)
+
+    def test_get_missing_source_image_file(self):
+        """
+        Test that a missing image file gives a 410 response
+
+        When the source image file is missing, it is presumed deleted so we
+        return a 410 "Gone" response.
+        """
+        # Delete the image file
+        os.remove(self.image.file.path)
+
+        # Get the image
+        signature = generate_signature(self.image.id, 'fill-800x600')
+        response = self.client.get(reverse('wagtailimages_serve', args=(signature, self.image.id, 'fill-800x600')))
+
+        # Check response
+        self.assertEqual(response.status_code, 410)
 
 
 class TestRect(TestCase):
