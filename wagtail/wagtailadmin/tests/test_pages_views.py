@@ -2420,7 +2420,7 @@ class TestRecentEditsPanel(TestCase, WagtailTestUtils):
 
         # Bob hasn't edited anything yet
         response = self.client.get(reverse('wagtailadmin_home'))
-        self.assertNotIn('Your most recent edits', response.content)
+        self.assertNotIn('Your most recent edits', response.content.decode('utf-8'))
 
         # Login as Alice
         self.client.logout()
@@ -2431,7 +2431,7 @@ class TestRecentEditsPanel(TestCase, WagtailTestUtils):
 
         # Edit should show up on dashboard
         response = self.go_to_dashboard_response()
-        self.assertIn('Your most recent edits', response.content)
+        self.assertIn('Your most recent edits', response.content.decode('utf-8'))
 
         # Bob changes something
         self.client.login(username='bob', password='password')
@@ -2439,7 +2439,7 @@ class TestRecentEditsPanel(TestCase, WagtailTestUtils):
 
         # Edit shows up on Bobs dashboard
         response = self.go_to_dashboard_response()
-        self.assertIn('Your most recent edits', response.content)
+        self.assertIn('Your most recent edits', response.content.decode('utf-8'))
 
         # Login as Alice again
         self.client.logout()
@@ -2447,4 +2447,4 @@ class TestRecentEditsPanel(TestCase, WagtailTestUtils):
 
         # Alice's dashboard should still list that first edit
         response = self.go_to_dashboard_response()
-        self.assertIn('Your most recent edits', response.content)
+        self.assertIn('Your most recent edits', response.content.decode('utf-8'))
