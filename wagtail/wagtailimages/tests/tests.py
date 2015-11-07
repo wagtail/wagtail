@@ -226,6 +226,34 @@ class TestFrontendServeView(TestCase):
         self.assertTrue(response.streaming)
         self.assertEqual(response['Content-Type'], 'image/png')
 
+    def test_get_with_extra_component(self):
+        """
+        Test that a filename can be optionally added to the end of the URL.
+        """
+        # Generate signature
+        signature = generate_signature(self.image.id, 'fill-800x600')
+
+        # Get the image
+        response = self.client.get(reverse('wagtailimages_serve', args=(signature, self.image.id, 'fill-800x600')) + 'test.png')
+
+        # Check response
+        self.assertEqual(response.status_code, 200)
+        self.assertTrue(response.streaming)
+        self.assertEqual(response['Content-Type'], 'image/png')
+
+    def test_get_with_too_many_extra_components(self):
+        """
+        A filename can be appended to the end of the URL, but it must not contain a '/'
+        """
+        # Generate signature
+        signature = generate_signature(self.image.id, 'fill-800x600')
+
+        # Get the image
+        response = self.client.get(reverse('wagtailimages_serve', args=(signature, self.image.id, 'fill-800x600')) + 'test/test.png')
+
+        # URL pattern should not match
+        self.assertEqual(response.status_code, 404)
+
     def test_get_invalid_signature(self):
         """
         Test that an invalid signature returns a 403 response

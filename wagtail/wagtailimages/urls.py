@@ -5,5 +5,5 @@ from django.conf.urls import url
 from wagtail.wagtailimages.views.serve import serve
 
 urlpatterns = [
-    url(r'^(.*)/(\d*)/(.*)/$', serve, name='wagtailimages_serve'),
+    url(r'^([^/]*)/(\d*)/([^/]*)/[^/]*$', serve, name='wagtailimages_serve'),
 ]
