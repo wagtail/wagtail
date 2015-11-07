@@ -4,6 +4,7 @@ Changelog
 1.2 (xx.xx.xxxx)
 ~~~~~~~~~~~~~~~~
 
+ * Added helper text for tags explaining the need for quoting multi-word tags. [#1874] (Kees Hink)
  * Added `wagtail.contrib.settings`, a module to allow administrators to edit site-specific settings
  * Core templatetags (pageurl, image, wagtailuserbar, etc) are now compatible with Jinja2
  * Redirects can now be created for specific sites

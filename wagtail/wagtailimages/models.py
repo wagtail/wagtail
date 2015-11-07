@@ -71,7 +71,12 @@ class AbstractImage(models.Model, TagSearchable):
     created_at = models.DateTimeField(verbose_name=_('Created at'), auto_now_add=True, db_index=True)
     uploaded_by_user = models.ForeignKey(settings.AUTH_USER_MODEL, verbose_name=_('Uploaded by user'), null=True, blank=True, editable=False)
 
-    tags = TaggableManager(help_text=None, blank=True, verbose_name=_('Tags'))
+    tags = TaggableManager(
+        help_text=_('Multi-word tags should be enclosed in quotes, '
+                    'otherwise they would appear as separate tags.'),
+        blank=True,
+        verbose_name=_('Tags'),
+    )
 
     focal_point_x = models.PositiveIntegerField(null=True, blank=True)
     focal_point_y = models.PositiveIntegerField(null=True, blank=True)
