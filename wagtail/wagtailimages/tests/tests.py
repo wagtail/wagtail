@@ -17,8 +17,7 @@ from wagtail.wagtailimages.formats import Format, get_image_format, register_ima
 from wagtail.wagtailimages.forms import get_image_form
 from wagtail.wagtailimages.models import Image as WagtailImage
 from wagtail.wagtailimages.rect import Rect, Vector
-from wagtail.wagtailimages.utils import generate_signature, verify_signature
-from wagtail.wagtailimages.views.serve import ServeView
+from wagtail.wagtailimages.views.serve import ServeView, generate_signature, verify_signature
 
 from .utils import Image, get_test_image_file
 

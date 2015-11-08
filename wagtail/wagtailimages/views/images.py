@@ -17,7 +17,7 @@ from wagtail.wagtailimages.exceptions import InvalidFilterSpecError
 from wagtail.wagtailimages.forms import URLGeneratorForm, get_image_form
 from wagtail.wagtailimages.models import Filter, get_image_model
 from wagtail.wagtailimages.permissions import permission_policy
-from wagtail.wagtailimages.utils import generate_signature
+from wagtail.wagtailimages.views.serve import generate_signature
 from wagtail.wagtailsearch.backends import get_search_backends
 
 permission_checker = PermissionPolicyChecker(permission_policy)

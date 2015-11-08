@@ -12,7 +12,7 @@ from django.utils.http import urlquote
 
 from wagtail.tests.utils import WagtailTestUtils
 from wagtail.wagtailcore.models import Collection, GroupCollectionPermission
-from wagtail.wagtailimages.utils import generate_signature
+from wagtail.wagtailimages.views.serve import generate_signature
 
 from .utils import Image, get_test_image_file
 
@@ -23,8 +23,6 @@ try:
     urlquote_safechars = RFC3986_SUBDELIMS + str('/~:@')
 except ImportError:  # < Django 1,8
     urlquote_safechars = '/'
-
-
 
 
 class TestImageIndexView(TestCase, WagtailTestUtils):
