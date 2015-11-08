@@ -17,40 +17,33 @@ from wagtail.wagtailimages.exceptions import InvalidFilterSpecError
 from wagtail.wagtailimages.models import SourceImageIOError, get_image_model
 
 
+def generate_signature(image_id, filter_spec, key=None):
+    if key is None:
+        key = settings.SECRET_KEY
+
+    # Key must be a bytes object
+    if isinstance(key, text_type):
+        key = key.encode()
+
+    # Based on libthumbor hmac generation
+    # https://github.com/thumbor/libthumbor/blob/b19dc58cf84787e08c8e397ab322e86268bb4345/libthumbor/crypto.py#L50
+    url = str(image_id) + '/' + str(filter_spec) + '/'
+    return base64.urlsafe_b64encode(hmac.new(key, url.encode(), hashlib.sha1).digest())
+
+
+def verify_signature(signature, image_id, filter_spec, key=None):
+    return signature == generate_signature(image_id, filter_spec, key=key)
+
+
 class ServeView(View):
     model = get_image_model()
     action = 'serve'
     key = None
 
-    def get_key(self):
-        if self.key is not None:
-            return self.key
-        else:
-            return settings.SECRET_KEY
-
-    def generate_signature(self, image_id, filter_spec):
-        key = self.get_key()
-
-        # Key must be a bytes object
-        if isinstance(key, text_type):
-            key = key.encode()
-
-        # Get primary key of image instance
-        if isinstance(image_id, self.model):
-            image_id = image_id.id
-
-        # Based on libthumbor hmac generation
-        # https://github.com/thumbor/libthumbor/blob/b19dc58cf84787e08c8e397ab322e86268bb4345/libthumbor/crypto.py#L50
-        url = str(image_id) + '/' + str(filter_spec) + '/'
-        return base64.urlsafe_b64encode(hmac.new(key, url.encode(), hashlib.sha1).digest())
-
-    def verify_signature(self, signature, image_id, filter_spec):
-        return signature == self.generate_signature(image_id, filter_spec)
-
     def get(self, request, signature, image_id, filter_spec):
         image = get_object_or_404(self.model, id=image_id)
 
-        if not self.verify_signature(signature.encode(), image_id, filter_spec):
+        if not verify_signature(signature.encode(), image_id, filter_spec, key=self.key):
             raise PermissionDenied
 
         # Get/generate the rendition
@@ -75,5 +68,3 @@ class ServeView(View):
 
 
 serve = ServeView.as_view()
-generate_signature = ServeView().generate_signature
-verify_signature = ServeView().verify_signature
