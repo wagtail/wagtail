@@ -1,7 +1,11 @@
 from __future__ import absolute_import, unicode_literals
 
-from wagtail.wagtailimages.views.serve import ServeView
+import warnings
 
+from wagtail.utils.deprecation import RemovedInWagtail15Warning
+from wagtail.wagtailimages.views.serve import generate_signature, verify_signature  # noqa
 
-generate_signature = ServeView().generate_signature
-verify_signature = ServeView().verify_signature
+warnings.warn(
+    "The 'generate_signature' and 'verify_signature' functions have been moved. "
+    "Please import them from the 'wagtail.wagtailimages.views.serve' module instead.",
+    RemovedInWagtail15Warning)

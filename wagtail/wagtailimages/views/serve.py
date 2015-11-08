@@ -75,3 +75,5 @@ class ServeView(View):
 
 
 serve = ServeView.as_view()
+generate_signature = ServeView().generate_signature
+verify_signature = ServeView().verify_signature
