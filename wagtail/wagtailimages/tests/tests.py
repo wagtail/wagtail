@@ -17,7 +17,7 @@ from wagtail.wagtailimages.formats import Format, get_image_format, register_ima
 from wagtail.wagtailimages.forms import get_image_form
 from wagtail.wagtailimages.models import Image as WagtailImage
 from wagtail.wagtailimages.rect import Rect, Vector
-from wagtail.wagtailimages.views.serve import ServeView, generate_signature, verify_signature
+from wagtail.wagtailimages.views.serve import generate_signature, verify_signature
 
 from .utils import Image, get_test_image_file
 
@@ -284,16 +284,28 @@ class TestFrontendServeView(TestCase):
         Test that that the key can be changed on the view
         """
         # Generate signature
-        signature = generate_signature(self.image.id, 'fill-800x600')
-        custom_signature = ServeView(key='custom').generate_signature(self.image.id, 'fill-800x600')
-
-        self.assertNotEqual(signature, custom_signature)
+        signature = generate_signature(self.image.id, 'fill-800x600', key='custom')
 
         # Get the image
-        response = self.client.get(reverse('wagtailimages_serve_custom_key', args=(custom_signature, self.image.id, 'fill-800x600')) + 'test.png')
+        response = self.client.get(reverse('wagtailimages_serve_custom_key', args=(signature, self.image.id, 'fill-800x600')) + 'test.png')
 
         # Check response
         self.assertEqual(response.status_code, 200)
+
+    def test_get_with_custom_key_using_default_key(self):
+        """
+        Test that that the key can be changed on the view
+
+        This tests that the default key no longer works when the key is changed on the view
+        """
+        # Generate signature
+        signature = generate_signature(self.image.id, 'fill-800x600')
+
+        # Get the image
+        response = self.client.get(reverse('wagtailimages_serve_custom_key', args=(signature, self.image.id, 'fill-800x600')) + 'test.png')
+
+        # Check response
+        self.assertEqual(response.status_code, 403)
 
     def test_get_invalid_signature(self):
         """
