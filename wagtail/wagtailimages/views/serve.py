@@ -41,10 +41,10 @@ class ServeView(View):
     key = None
 
     def get(self, request, signature, image_id, filter_spec):
-        image = get_object_or_404(self.model, id=image_id)
-
         if not verify_signature(signature.encode(), image_id, filter_spec, key=self.key):
             raise PermissionDenied
+
+        image = get_object_or_404(self.model, id=image_id)
 
         # Get/generate the rendition
         try:
