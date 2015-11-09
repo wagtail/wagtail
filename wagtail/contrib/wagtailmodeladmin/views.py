@@ -152,7 +152,7 @@ class WMAFormView(WMABaseView, FormView):
 
     def get_success_message(self, instance):
         return _("{model_name} '{instance}' created.").format(
-            model_name=self.model_name, instance=instance),
+            model_name=self.model_name, instance=instance)
 
     def get_success_message_buttons(self, instance):
         return [
