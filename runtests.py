@@ -22,6 +22,10 @@ def runtests():
         os.environ['DATABASE_ENGINE'] = 'django.db.backends.postgresql_psycopg2'
         args.remove('--postgres')
 
+    if '--elasticsearch' in args:
+        os.environ.setdefault('ELASTICSEARCH_URL', 'http://localhost:9200')
+        args.remove('--elasticsearch')
+
     argv = sys.argv[:1] + ['test'] + args
     try:
         execute_from_command_line(argv)

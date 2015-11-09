@@ -92,16 +92,19 @@ the tests against it.
 
 To test Elasticsearch, you need to have the ``elasticsearch`` package installed.
 
-Once installed, Wagtail will attempt to connect to a local instance of
-Elasticsearch (``http://localhost:9200``) and use the index ``test_wagtail``.
+Once installed, you can test Wagtail with Elasticsearch by passing the
+``--elasticsearch`` argument to ``runtests.py``::
+
+    python runtests.py --elasticsearch
+
+
+Wagtail will attempt to connect to a local instance of Elasticsearch
+(``http://localhost:9200``) and use the index ``test_wagtail``.
 
 If your Elasticsearch instance is located somewhere else, you can set the
 ``ELASTICSEARCH_URL`` environment variable to point to its location::
 
-    ELASTICSEARCH_URL=http://my-elasticsearch-instance:9200 python runtests.py
-
-If you no longer want Wagtail to test against Elasticsearch, uninstall the
-``elasticsearch`` package.
+    ELASTICSEARCH_URL=http://my-elasticsearch-instance:9200 python runtests.py --elasticsearch
 
 Compiling static assets
 ~~~~~~~~~~~~~~~~~~~~~~~
