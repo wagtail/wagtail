@@ -71,16 +71,22 @@ an argument to ``runtests.py``::
 
 **Testing against PostgreSQL**
 
-By default, Wagtail tests against SQLite. If you need to test against a
-different database, set the ``DATABASE_ENGINE`` environment variable to the
-name of the Django database backend to test against::
+By default, Wagtail tests against SQLite. You can switch to using PostgreSQL by
+using the ``--postgres`` argument::
 
-    DATABASE_ENGINE=django.db.backends.postgresql_psycopg2 python runtests.py
-
-This will create a new database called ``test_wagtail`` in PostgreSQL and run
-the tests against it.
+    python runtests.py --postgres
 
 If you need to use a different user, password or host. Use the ``PGUSER``, ``PGPASSWORD`` and ``PGHOST`` environment variables.
+
+**Testing against a different database**
+
+If you need to test against a different database, set the ``DATABASE_ENGINE``
+environment variable to the name of the Django database backend to test against::
+
+    DATABASE_ENGINE=django.db.backends.mysql python runtests.py
+
+This will create a new database called ``test_wagtail`` in MySQL and run
+the tests against it.
 
 **Testing Elasticsearch**
 
