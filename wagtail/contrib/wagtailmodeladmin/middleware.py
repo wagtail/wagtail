@@ -12,28 +12,36 @@ class ModelAdminMiddleware(object):
     """
 
     def process_request(self, request):
-        referer_url = request.META.get('HTTP_REFERER')
-        return_to_index_url = request.session.get('return_to_index_url')
+        """
+        Ignore unnecessary actions for static file requests, posts, or ajax
+        requests. We're only interested in redirecting following a 'natural'
+        request redirection within the admin area.
+        """
+        if all((
+            request.path.startswith('/admin/'),
+            request.method == 'GET',
+            not request.is_ajax()
+        )):
 
-        try:
-            resolver_match = resolve(request.path)
+            referer_url = request.META.get('HTTP_REFERER')
+            return_to_index_url = request.session.get('return_to_index_url')
 
-            if all((
-                return_to_index_url,
-                referer_url,
-                resolver_match.url_name == 'wagtailadmin_explore',
-            )):
-                referer_match = resolve(urlparse(referer_url).path)
-                referer_url_name = referer_match.url_name
-                referer_ns = referer_match.namespace
+            try:
+                if all((
+                    return_to_index_url,
+                    referer_url,
+                    resolve(request.path).url_name == 'wagtailadmin_explore',
+                )):
+                    referer_match = resolve(urlparse(referer_url).path)
+                    if all((
+                        referer_match.namespace == 'wagtailadmin_pages',
+                        referer_match.url_name in (
+                            'add', 'edit', 'delete', 'unpublish', 'copy'),
+                    )):
+                        del request.session['return_to_index_url']
+                        return HttpResponseRedirect(return_to_index_url)
 
-                if referer_ns == 'wagtailadmin_pages' and referer_url_name in (
-                    'add', 'edit', 'delete', 'unpublish', 'copy'
-                ):
-                    del request.session['return_to_index_url']
-                    return HttpResponseRedirect(return_to_index_url)
-
-        except Resolver404:
-            pass
+            except Resolver404:
+                pass
 
         return None
