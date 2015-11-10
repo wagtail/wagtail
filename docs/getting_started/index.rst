@@ -47,3 +47,4 @@ There are a few optional packages which are not installed by default but are rec
 
     tutorial
     demo_site
+    integrating_into_django
