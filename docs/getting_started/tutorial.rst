@@ -1,6 +1,9 @@
 Your first Wagtail site
 =======================
 
+.. note::
+   This tutorial covers setting up a brand new Wagtail project. If you'd like to add Wagtail to an existing Django project instead, see :doc:`integrating_into_django`.
+
 1. Install Wagtail and its dependencies::
 
     pip install wagtail
