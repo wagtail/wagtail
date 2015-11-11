@@ -74,6 +74,7 @@ Minor features
 Bug fixes
 ~~~~~~~~~
 
+ * Images and page revisions created by a user are no longer deleted when the user is deleted (Rich Atkinson)
  * HTTP cache purge now works again on Python 2 (Mitchel Cabuloy)
  * Locked pages can no longer be unpublished (Alex Bridge)
  * Site records now implement ``get_by_natural_key``

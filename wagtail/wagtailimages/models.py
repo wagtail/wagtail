@@ -62,7 +62,8 @@ class AbstractImage(models.Model, TagSearchable):
     height = models.IntegerField(verbose_name=_('height'), editable=False)
     created_at = models.DateTimeField(verbose_name=_('created at'), auto_now_add=True, db_index=True)
     uploaded_by_user = models.ForeignKey(
-        settings.AUTH_USER_MODEL, verbose_name=_('uploaded by user'), null=True, blank=True, editable=False
+        settings.AUTH_USER_MODEL, verbose_name=_('uploaded by user'),
+        null=True, blank=True, editable=False, on_delete=models.SET_NULL
     )
 
     tags = TaggableManager(help_text=None, blank=True, verbose_name=_('tags'))

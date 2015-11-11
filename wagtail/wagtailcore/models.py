@@ -1338,7 +1338,10 @@ class PageRevision(models.Model):
         db_index=True
     )
     created_at = models.DateTimeField(verbose_name=_('created at'))
-    user = models.ForeignKey(settings.AUTH_USER_MODEL, verbose_name=_('user'), null=True, blank=True)
+    user = models.ForeignKey(
+        settings.AUTH_USER_MODEL, verbose_name=_('user'), null=True, blank=True,
+        on_delete=models.SET_NULL
+    )
     content_json = models.TextField(verbose_name=_('content JSON'))
     approved_go_live_at = models.DateTimeField(verbose_name=_('approved go live at'), null=True, blank=True)
 

@@ -90,6 +90,7 @@ Contributors
 * Christian Peters
 * Adon Metcalfe
 * rayrayndwiga
+* Rich Atkinson
 
 
 Translators

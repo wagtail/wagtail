@@ -24,6 +24,7 @@ Changelog
  * Added an optional human-friendly `site_name` field to sites (Timo Rieber)
  * Added success message after updating image from the image upload view (Christian Peters)
  * New translations for Arabic and Latvian
+ * Fix: Images and page revisions created by a user are no longer deleted when the user is deleted (Rich Atkinson)
  * Fix: HTTP cache purge now works again on Python 2 (Mitchel Cabuloy)
  * Fix: Locked pages can no longer be unpublished (Alex Bridge)
  * Fix: Site records now implement `get_by_natural_key`
