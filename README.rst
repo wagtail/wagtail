@@ -69,7 +69,7 @@ Wagtail is sponsored by `Torchbox <https://torchbox.com/>`_. If you need help im
 
 Compatibility
 ~~~~~~~~~~~~~
-Wagtail supports Django 1.7.1+ on Python 2.7, 3.3 and 3.4. Supported database backends are PostgreSQL, MySQL and SQLite.
+Wagtail supports Django 1.7.1+ on Python 2.7, 3.3, 3.4 and 3.5. Supported database backends are PostgreSQL, MySQL and SQLite.
 
 Contributing
 ~~~~~~~~~~~~
