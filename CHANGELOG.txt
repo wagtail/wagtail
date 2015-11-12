@@ -1,7 +1,7 @@
 Changelog
 =========
 
-1.2 (xx.xx.xxxx)
+1.2 (12.11.2015)
 ~~~~~~~~~~~~~~~~
 
  * Added `wagtail.contrib.settings`, a module to allow administrators to edit site-specific settings
