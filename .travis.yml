@@ -26,8 +26,6 @@ matrix:
      python: 3.5
    - env: TOXENV=py35-dj18-mysql
      python: 3.5
-  allow_failures:
-    - python: 3.5
 
 # Services
 services:
