@@ -14,11 +14,6 @@ class Migration(migrations.Migration):
 
     operations = [
         migrations.AlterField(
-            model_name='page',
-            name='owner',
-            field=models.ForeignKey(related_name='owned_pages', on_delete=django.db.models.deletion.SET_NULL, verbose_name='Owner', blank=True, to=settings.AUTH_USER_MODEL, null=True),
-        ),
-        migrations.AlterField(
             model_name='pagerevision',
             name='user',
             field=models.ForeignKey(on_delete=django.db.models.deletion.SET_NULL, verbose_name='User', blank=True, to=settings.AUTH_USER_MODEL, null=True),
