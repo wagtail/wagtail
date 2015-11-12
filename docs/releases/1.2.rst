@@ -65,6 +65,12 @@ Browsable API
 The Wagtail API now incorporates the browsable front-end provided by Django REST Framework. Note that this must be enabled by adding ``'rest_framework'`` to your project's ``INSTALLED_APPS`` setting.
 
 
+Python 3.5 support
+~~~~~~~~~~~~~~~~~~
+
+Wagtail now supports Python 3.5 when run in conjunction with Django 1.8.6 or later.
+
+
 Minor features
 ~~~~~~~~~~~~~~
 
