@@ -223,8 +223,7 @@ class TestRenditions(TestCase):
             bad_image.get_rendition('width-500', fallback_to_not_found=False)
 
         rendition = bad_image.get_rendition('width-500')
-
-        print(rendition)
+        self.assertEqual(rendition.file.name, 'not-found')
 
 
 class TestUsageCount(TestCase):
