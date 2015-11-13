@@ -1,7 +1,7 @@
 from django import template
 from django.utils.functional import cached_property
 
-from wagtail.wagtailimages.models import Filter, SourceImageIOError
+from wagtail.wagtailimages.models import Filter
 
 register = template.Library()
 

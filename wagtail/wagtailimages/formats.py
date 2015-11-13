@@ -1,7 +1,6 @@
 from django.utils.html import escape
 
 from wagtail.utils.apps import get_app_submodules
-from wagtail.wagtailimages.models import SourceImageIOError
 
 
 class Format(object):
