@@ -217,8 +217,6 @@ class TestRenditions(TestCase):
 
     def test_fallback_to_not_found(self):
         bad_image = Image.objects.get(id=1)
-        print(bad_image.file)
-
         with self.assertRaises(SourceImageIOError):
             bad_image.get_rendition('width-500', fallback_to_not_found=False)
 
