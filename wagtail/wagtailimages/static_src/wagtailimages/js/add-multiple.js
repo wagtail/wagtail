@@ -25,7 +25,6 @@ $(function() {
             maxFileSize: window.fileupload_opts.errormessages.max_file_size
         },
         add: function(e, data) {
-            $('.messages').empty();
             var $this = $(this);
             var that = $this.data('blueimp-fileupload') || $this.data('fileupload')
             var li = $($('#upload-list-item').html()).addClass('upload-uploading')
@@ -135,8 +134,6 @@ $(function() {
 
         $.post(this.action, form.serialize(), function(data) {
             if (data.success) {
-                var statusText = $('.status-msg.update-success').text();
-                addMessage('success', statusText);
                 itemElement.slideUp(function() {$(this).remove()});
             } else {
                 form.replaceWith(data.form);
