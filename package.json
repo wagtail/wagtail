@@ -11,7 +11,7 @@
   },
   "browserify-shim": {},
   "devDependencies": {
-    "browserify": "~3.36.0",
+    "browserify": "~3.46.1",
     "browserify-shim": "~3.4.1",
     "gulp": "~3.8.11",
     "gulp-autoprefixer": "~1.0.1",
