@@ -355,6 +355,10 @@ body.explorer-open {
             &:hover{
                 background-color:transparent;
             }
+
+            &.submenu-trigger:after{
+                content:"z";
+            }
         }
         .nav-submenu{
             @include box-shadow(2px 0 2px rgba(0,0,0,0.35));
