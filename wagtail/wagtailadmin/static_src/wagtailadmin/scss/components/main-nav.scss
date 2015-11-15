@@ -108,10 +108,15 @@ $submenu-color:darken($color-grey-1, 5%);
                 width:100%;
             }
         }
+
+        .submenu-trigger:after {
+            content: 'q';
+        }
     }
 
     .nav-submenu{
         background:$submenu-color;
+        display: none;
 
         h2{
             display:none;
@@ -132,6 +137,16 @@ $submenu-color:darken($color-grey-1, 5%);
 
         li{
             border:0;
+        }
+    }
+
+    .submenu-active {
+        .submenu-trigger:after {
+            content: 'e';
+        }
+
+        .nav-submenu {
+            display: block;
         }
     }
 
@@ -356,8 +371,8 @@ body.explorer-open {
                 background-color:transparent;
             }
 
-            &.submenu-trigger:after{
-                content:"z";
+            &.submenu-trigger:after {
+                content: 'z';
             }
         }
         .nav-submenu{
