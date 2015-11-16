@@ -86,9 +86,9 @@ This example represents a typical blog post:
             FieldPanel('url'),
         ]
 
-.. tip::
+.. important::
 
-    To keep track of ``Page`` models and avoid class name clashes, it can be helpful to suffix model class names with "Page" e.g BlogPage, ListingIndexPage. 
+    Ensure that none of your field names are the same as your class names. This will cause errors due to the way Django handles relations (`read more <https://github.com/torchbox/wagtail/issues/503>`_). In our examples we have avoided this by appending "Page" to each model name.
 
 
 Writing page models
@@ -410,7 +410,7 @@ Friendly model names
 You can make your model names more friendly to users of Wagtail by using Django's internal ``Meta`` class with a ``verbose_name``, e.g.:
 
 .. code-block:: python
-    
+
     class HomePage(Page):
         ...
 
