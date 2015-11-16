@@ -653,6 +653,7 @@ class CreateView(WMAFormView):
             return permission_denied(request)
 
         if self.is_pagemodel:
+            self.prime_session_for_redirection()
             user = request.user
             parents = self.permission_helper.get_valid_parent_pages(user)
             parent_count = parents.count()
