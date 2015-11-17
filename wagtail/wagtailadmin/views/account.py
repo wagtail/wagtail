@@ -1,9 +1,11 @@
+from functools import wraps
+
 from django.conf import settings
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.contrib.auth.forms import SetPasswordForm
-from django.contrib.auth.views import logout as auth_logout, login as auth_login
-from django.contrib.auth import update_session_auth_hash
+from django.contrib.auth import update_session_auth_hash, views as auth_views
+from django.http import Http404
 from django.utils.translation import ugettext as _
 from django.views.decorators.debug import sensitive_post_parameters
 from django.views.decorators.cache import never_cache
@@ -25,6 +27,9 @@ def account(request):
 
 
 def change_password(request):
+    if not getattr(settings, 'WAGTAIL_PASSWORD_MANAGEMENT_ENABLED', True):
+        raise Http404
+
     can_change_password = request.user.has_usable_password()
 
     if can_change_password:
@@ -48,8 +53,21 @@ def change_password(request):
     })
 
 
-def notification_preferences(request):
+def _wrap_password_reset_view(view_func):
+    @wraps(view_func)
+    def wrapper(*args, **kwargs):
+        if not getattr(settings, 'WAGTAIL_PASSWORD_RESET_ENABLED', True):
+            raise Http404
+        return view_func(*args, **kwargs)
+    return wrapper
 
+password_reset = _wrap_password_reset_view(auth_views.password_reset)
+password_reset_done = _wrap_password_reset_view(auth_views.password_reset_done)
+password_reset_confirm = _wrap_password_reset_view(auth_views.password_reset_confirm)
+password_reset_complete = _wrap_password_reset_view(auth_views.password_reset_complete)
+
+
+def notification_preferences(request):
     if request.POST:
         form = NotificationPreferencesForm(request.POST, instance=UserProfile.get_for_user(request.user))
 
@@ -77,18 +95,18 @@ def login(request):
         return redirect('wagtailadmin_home')
     else:
         from django.contrib.auth import get_user_model
-        return auth_login(request,
+        return auth_views.login(request,
             template_name='wagtailadmin/login.html',
             authentication_form=forms.LoginForm,
             extra_context={
-                'show_password_reset': getattr(settings, 'WAGTAIL_PASSWORD_MANAGEMENT_ENABLED', True),
+                'show_password_reset': getattr(settings, 'WAGTAIL_PASSWORD_RESET_ENABLED', True),
                 'username_field': get_user_model().USERNAME_FIELD,
             },
         )
 
 
 def logout(request):
-    response = auth_logout(request, next_page='wagtailadmin_login')
+    response = auth_views.logout(request, next_page='wagtailadmin_login')
 
     # By default, logging out will generate a fresh sessionid cookie. We want to use the
     # absence of sessionid as an indication that front-end pages are being viewed by a
