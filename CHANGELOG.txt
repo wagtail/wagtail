@@ -4,6 +4,7 @@ Changelog
 1.3 (xx.xx.xxxx)
 ~~~~~~~~~~~~~~~~
 
+ * Fix: HTTP cache purge now works again on Python 2 (Mitchel Cabuloy)
 
 1.2 (12.11.2015)
 ~~~~~~~~~~~~~~~~

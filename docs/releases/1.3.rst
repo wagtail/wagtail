@@ -18,6 +18,8 @@ Minor features
 Bug fixes
 ~~~~~~~~~
 
+ * HTTP cache purge now works again on Python 2 (Mitchel Cabuloy)
+
 
 Upgrade considerations
 ======================
