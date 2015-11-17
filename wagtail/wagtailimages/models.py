@@ -386,12 +386,14 @@ class Filter(models.Model):
 
     def run(self, image, output):
         with image.get_willow_image() as willow:
+            original_format = willow.format_name
+
             for operation in self.operations:
-                operation.run(willow, image)
+                willow = operation.run(willow, image) or willow
 
-            output_format = willow.original_format
+            output_format = original_format
 
-            if willow.original_format == 'jpeg':
+            if original_format == 'jpeg':
                 # Allow changing of JPEG compression quality
                 if hasattr(settings, 'WAGTAILIMAGES_JPEG_QUALITY'):
                     quality = settings.WAGTAILIMAGES_JPEG_QUALITY
@@ -399,19 +401,19 @@ class Filter(models.Model):
                     quality = 85
 
                 willow.save_as_jpeg(output, quality=quality)
-            if willow.original_format == 'gif':
+            elif original_format == 'gif':
                 # Convert image to PNG if it's not animated
                 if not willow.has_animation():
                     output_format = 'png'
                     willow.save_as_png(output)
                 else:
                     willow.save_as_gif(output)
-            if willow.original_format == 'bmp':
+            elif original_format == 'bmp':
                 # Convert to PNG
                 output_format = 'png'
                 willow.save_as_png(output)
             else:
-                willow.save(willow.original_format, output)
+                willow.save(original_format, output)
 
         return output, output_format
 

@@ -15,6 +15,8 @@ class WillowOperationRecorder(object):
     This class pretends to be a Willow image but instead, it records
     the operations that have been performed on the image for testing
     """
+    format_name = 'jpeg'
+
     def __init__(self, start_size):
         self.ran_operations = []
         self.start_size = start_size
@@ -22,6 +24,7 @@ class WillowOperationRecorder(object):
     def __getattr__(self, attr):
         def operation(*args, **kwargs):
             self.ran_operations.append((attr, args, kwargs))
+            return self
 
         return operation
 
