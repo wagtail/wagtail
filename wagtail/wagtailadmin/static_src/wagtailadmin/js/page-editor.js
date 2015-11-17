@@ -34,8 +34,8 @@ function makeRichTextEditable(id) {
     */
     }).bind('paste', function(event, data) {
         event.preventDefault();
-        var text = event.originalEvent.clipboardData.getData("text/plain");
-        document.execCommand("insertHTML", false, text);
+        var text = event.originalEvent.clipboardData.getData('text/plain');
+        document.execCommand('insertHTML', false, text);
     /* Animate the fields open when you click into them. */
     }).bind('halloactivated', function(event, data) {
         $(event.target).addClass('expanded', 200, function(e) {
