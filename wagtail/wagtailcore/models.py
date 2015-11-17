@@ -62,6 +62,8 @@ class Site(models.Model):
     root_page = models.ForeignKey('Page', verbose_name=_('Root page'), related_name='sites_rooted_here')
     is_default_site = models.BooleanField(verbose_name=_('Is default site'), default=False, help_text=_("If true, this site will handle requests for all other hostnames that do not have a site entry of their own"))
 
+    objects = SiteManager()
+
     class Meta:
         unique_together = ('hostname', 'port')
         verbose_name = _('site')
@@ -146,6 +148,7 @@ class Site(models.Model):
             cache.set('wagtail_site_root_paths', result, 3600)
 
         return result
+
 
 # Clear the wagtail_site_root_paths from the cache whenever Site records are updated
 @receiver(post_save, sender=Site)
