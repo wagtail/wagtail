@@ -26,6 +26,7 @@ Bug fixes
 
  * HTTP cache purge now works again on Python 2 (Mitchel Cabuloy)
  * Locked pages can no longer be unpublished (Alex Bridge)
+ * Site records now implement ``get_by_natural_key``
 
 
 Upgrade considerations

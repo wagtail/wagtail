@@ -11,6 +11,7 @@ Changelog
  * Added keyboard shortcuts for preview and save in the page editor
  * Fix: HTTP cache purge now works again on Python 2 (Mitchel Cabuloy)
  * Fix: Locked pages can no longer be unpublished (Alex Bridge)
+ * Fix: Site records now implement `get_by_natural_key`
 
 1.2 (12.11.2015)
 ~~~~~~~~~~~~~~~~
