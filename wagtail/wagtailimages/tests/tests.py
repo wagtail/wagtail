@@ -1,4 +1,4 @@
-from mock import MagicMock, patch
+from mock import MagicMock
 
 from django.test import TestCase
 from django import template, forms
