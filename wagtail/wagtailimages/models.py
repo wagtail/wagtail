@@ -222,7 +222,7 @@ class AbstractImage(models.Model, TagSearchable):
         """ Get the Rendition model for this Image model """
         return get_related_model(cls.renditions.related)
 
-    def get_rendition(self, filter, fallback_to_not_found=True):
+    def get_rendition(self, filter):
         if isinstance(filter, string_types):
             filter, created = Filter.objects.get_or_create(spec=filter)
 
@@ -235,19 +235,8 @@ class AbstractImage(models.Model, TagSearchable):
                 focal_point_key=cache_key,
             )
         except Rendition.DoesNotExist:
-            try:
-                # Generate the rendition image
-                generated_image, output_format = filter.run(self, BytesIO())
-            except SourceImageIOError:
-                # Image file is (probably) missing from /media/original_images - generate a dummy
-                # rendition so that we just output a broken image, rather than crashing out completely
-                # during rendering.
-                if fallback_to_not_found:
-                    Rendition = self.renditions.model  # pick up any custom Image / Rendition classes that may be in use
-                    rendition = Rendition(image=self, width=0, height=0)
-                    rendition.file.name = 'not-found'
-                    return rendition
-                raise
+            # Generate the rendition image
+            generated_image, output_format = filter.run(self, BytesIO())
 
             # Generate filename
             input_filename = os.path.basename(self.file.name)

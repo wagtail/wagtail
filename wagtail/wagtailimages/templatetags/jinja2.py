@@ -2,12 +2,14 @@ from __future__ import absolute_import
 
 from jinja2.ext import Extension
 
+from ..shortcuts import get_rendition_or_not_found
+
 
 def image(image, filterspec, **attrs):
     if not image:
         return ''
 
-    rendition = image.get_rendition(filterspec)
+    rendition = get_rendition_or_not_found(image, filterspec)
 
     if attrs:
         return rendition.img_tag(attrs)

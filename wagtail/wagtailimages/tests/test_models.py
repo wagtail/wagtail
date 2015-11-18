@@ -167,8 +167,6 @@ class TestImagePermissions(TestCase):
 
 class TestRenditions(TestCase):
 
-    fixtures = ['test.json']
-
     def setUp(self):
         # Create an image for running tests on
         self.image = Image.objects.create(
@@ -214,14 +212,6 @@ class TestRenditions(TestCase):
 
         # Check that they are the same object
         self.assertEqual(first_rendition, second_rendition)
-
-    def test_fallback_to_not_found(self):
-        bad_image = Image.objects.get(id=1)
-        with self.assertRaises(SourceImageIOError):
-            bad_image.get_rendition('width-500', fallback_to_not_found=False)
-
-        rendition = bad_image.get_rendition('width-500')
-        self.assertEqual(rendition.file.name, 'not-found')
 
 
 class TestUsageCount(TestCase):

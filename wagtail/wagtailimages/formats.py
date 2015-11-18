@@ -1,6 +1,7 @@
 from django.utils.html import escape
 
 from wagtail.utils.apps import get_app_submodules
+from .shortcuts import get_rendition_or_not_found
 
 
 class Format(object):
@@ -25,7 +26,7 @@ class Format(object):
         )
 
     def image_to_html(self, image, alt_text, extra_attributes=''):
-        rendition = image.get_rendition(self.filter_spec)
+        rendition = get_rendition_or_not_found(image, self.filter_spec)
 
         if self.classnames:
             class_attr = 'class="%s" ' % escape(self.classnames)

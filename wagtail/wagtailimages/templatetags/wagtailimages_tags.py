@@ -2,6 +2,7 @@ from django import template
 from django.utils.functional import cached_property
 
 from wagtail.wagtailimages.models import Filter
+from wagtail.wagtailimages.shortcuts import get_rendition_or_not_found
 
 register = template.Library()
 
@@ -51,7 +52,7 @@ class ImageNode(template.Node):
         if not image:
             return ''
 
-        rendition = image.get_rendition(self.filter)
+        rendition = get_rendition_or_not_found(image, self.filter)
 
         if self.output_var_name:
             # return the rendition object in the given variable
