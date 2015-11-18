@@ -215,13 +215,13 @@ Password Management
 
   WAGTAIL_PASSWORD_MANAGEMENT_ENABLED = True
 
-This allows users to change their passwords.
+This specifies whether users are allowed to change their passwords (enabled by default).
 
 .. code-block:: python
 
   WAGTAIL_PASSWORD_RESET_ENABLED = True
 
-This allows users to reset their passwords.
+This specifies whether users are allowed to reset their passwords. Defaults to the same as ``WAGTAIL_PASSWORD_MANAGEMENT_ENABLED``.
 
 
 

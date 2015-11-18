@@ -16,18 +16,32 @@ from wagtail.wagtailusers.models import UserProfile
 from wagtail.wagtailcore.models import UserPagePermissionsProxy
 
 
+# Helper functions to check password management settings to enable/disable views as appropriate.
+# These are functions rather than class-level constants so that they can be overridden in tests
+# by override_settings
+
+def password_management_enabled():
+    return getattr(settings, 'WAGTAIL_PASSWORD_MANAGEMENT_ENABLED', True)
+
+
+def password_reset_enabled():
+    return getattr(settings, 'WAGTAIL_PASSWORD_RESET_ENABLED', password_management_enabled())
+
+
+# Views
+
 def account(request):
     user_perms = UserPagePermissionsProxy(request.user)
     show_notification_preferences = user_perms.can_edit_pages() or user_perms.can_publish_pages()
 
     return render(request, 'wagtailadmin/account/account.html', {
-        'show_change_password': getattr(settings, 'WAGTAIL_PASSWORD_MANAGEMENT_ENABLED', True) and request.user.has_usable_password(),
+        'show_change_password': password_management_enabled() and request.user.has_usable_password(),
         'show_notification_preferences': show_notification_preferences
     })
 
 
 def change_password(request):
-    if not getattr(settings, 'WAGTAIL_PASSWORD_MANAGEMENT_ENABLED', True):
+    if not password_management_enabled():
         raise Http404
 
     can_change_password = request.user.has_usable_password()
@@ -56,7 +70,7 @@ def change_password(request):
 def _wrap_password_reset_view(view_func):
     @wraps(view_func)
     def wrapper(*args, **kwargs):
-        if not getattr(settings, 'WAGTAIL_PASSWORD_RESET_ENABLED', True):
+        if not password_reset_enabled():
             raise Http404
         return view_func(*args, **kwargs)
     return wrapper
@@ -99,7 +113,7 @@ def login(request):
             template_name='wagtailadmin/login.html',
             authentication_form=forms.LoginForm,
             extra_context={
-                'show_password_reset': getattr(settings, 'WAGTAIL_PASSWORD_RESET_ENABLED', True),
+                'show_password_reset': password_reset_enabled(),
                 'username_field': get_user_model().USERNAME_FIELD,
             },
         )
