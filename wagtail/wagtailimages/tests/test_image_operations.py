@@ -1,6 +1,6 @@
 import unittest
 
-from mock import patch, Mock
+from mock import Mock
 
 from django.utils.six import BytesIO
 from wagtail.wagtailcore import hooks
