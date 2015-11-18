@@ -82,10 +82,9 @@ class TestImageTag(TestCase):
         self.assertTrue('height="300"' in result)
 
     def test_image_tag_with_chained_filters(self):
-        result = self.render_image_tag(self.image, 'width-400|height-150')
-        self.assertTrue('width="200"' in result)
+        result = self.render_image_tag(self.image, 'fill-200x200|height-150')
+        self.assertTrue('width="150"' in result)
         self.assertTrue('height="150"' in result)
-
 
 
 class TestMissingImage(TestCase):
