@@ -348,7 +348,7 @@ class Filter(models.Model):
     but could potentially involve colour processing, etc.
     """
 
-    # The spec pattern is operation1-var1-var2|operation2-var1-var
+    # The spec pattern is operation1-var1-var2|operation2-var1
     spec = models.CharField(max_length=255, db_index=True, unique=True)
 
     @cached_property
