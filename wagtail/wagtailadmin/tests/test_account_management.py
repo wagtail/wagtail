@@ -136,7 +136,7 @@ class TestAccountSection(TestCase, WagtailTestUtils):
 
     def test_account_view(self):
         """
-        This tests that the login view responds with a login page
+        This tests that the accounts view responds with an index page
         """
         # Get account page
         response = self.client.get(reverse('wagtailadmin_account'))
@@ -144,6 +144,18 @@ class TestAccountSection(TestCase, WagtailTestUtils):
         # Check that the user recieved an account page
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'wagtailadmin/account/account.html')
+        # Page should contain a 'Change password' option
+        self.assertContains(response, "Change password")
+
+    @override_settings(WAGTAIL_PASSWORD_MANAGEMENT_ENABLED=False)
+    def test_account_view_with_password_management_disabled(self):
+        # Get account page
+        response = self.client.get(reverse('wagtailadmin_account'))
+
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'wagtailadmin/account/account.html')
+        # Page should NOT contain a 'Change password' option
+        self.assertNotContains(response, "Change password")
 
     def test_change_password_view(self):
         """
