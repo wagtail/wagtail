@@ -166,6 +166,7 @@ class TestImagePermissions(TestCase):
 
 
 class TestRenditions(TestCase):
+
     def setUp(self):
         # Create an image for running tests on
         self.image = Image.objects.create(
@@ -189,7 +190,6 @@ class TestRenditions(TestCase):
         # Check size
         self.assertEqual(rendition.width, 100)
         self.assertEqual(rendition.height, 75)
-
 
     def test_resize_to_min(self):
         rendition = self.image.get_rendition('min-120x120')
