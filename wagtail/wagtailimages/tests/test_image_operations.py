@@ -408,5 +408,3 @@ class TestFilter(unittest.TestCase):
         fil.run(image, BytesIO())
 
         self.assertEqual(operation_instance.run.call_count, 2)
-
-
