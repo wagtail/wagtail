@@ -78,6 +78,7 @@ Contributors
 * Denis Voskvitsov
 * Kyle Stratis
 * Sergey Nikitin
+* John Draper
 
 
 Translators
