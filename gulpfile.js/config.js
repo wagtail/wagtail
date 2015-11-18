@@ -37,7 +37,6 @@ var apps = [
     }),
     new App('wagtail/wagtaildocs'),
     new App('wagtail/wagtailembeds'),
-    new App('wagtail/wagtailforms'),
     new App('wagtail/wagtailimages', {
         'scss': [
             'wagtailimages/scss/add-multiple.scss',
@@ -54,6 +53,9 @@ var apps = [
         'scss': [
             'wagtailstyleguide/scss/styleguide.scss'
         ],
+    }),
+    new App('wagtail/contrib/settings', {
+        'appName': 'wagtailsettings',
     }),
 ];
 

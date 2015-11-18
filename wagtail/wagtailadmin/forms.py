@@ -116,7 +116,7 @@ class CopyForm(forms.Form):
         self.fields['new_parent_page'] = forms.ModelChoiceField(
             initial=self.page.get_parent(),
             queryset=Page.objects.all(),
-            widget=AdminPageChooser(),
+            widget=AdminPageChooser(can_choose_root=True),
             label=_("New parent page"),
             help_text=_("This copy will be a child of this given parent page.")
         )

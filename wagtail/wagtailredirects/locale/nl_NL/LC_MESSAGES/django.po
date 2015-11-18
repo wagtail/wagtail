@@ -1,0 +1,146 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# Maarten Kling <kling.maarten@gmail.com>, 2015
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2015-08-26 14:28+0100\n"
+"PO-Revision-Date: 2015-10-09 11:14+0000\n"
+"Last-Translator: Maarten Kling <kling.maarten@gmail.com>\n"
+"Language-Team: Dutch (Netherlands) (http://www.transifex.com/torchbox/"
+"wagtail/language/nl_NL/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: nl_NL\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Redirect from"
+msgstr "Redirect van"
+
+msgid "Site"
+msgstr "Site"
+
+msgid "Permanent"
+msgstr "Blijvend"
+
+msgid ""
+"Recommended. Permanent redirects ensure search engines forget the old page "
+"(the 'Redirect from') and index the new page instead."
+msgstr ""
+"Aangeraden. Permanente redirects zorgen ervoor dat zoekmachines de oude "
+"pagina ('redirect van') vergeten en de nieuwe pagina indexeren."
+
+msgid "Redirect to a page"
+msgstr "Redirect naar een pagina"
+
+msgid "Redirect to any URL"
+msgstr "Redirect naar een URL"
+
+msgid "Redirect"
+msgstr "Redirect"
+
+msgid "Add redirect"
+msgstr "Voeg redirect toe"
+
+msgid "Save"
+msgstr "Opslaan"
+
+#, python-format
+msgid "Delete redirect %(title)s"
+msgstr "Verwijder redirect %(title)s"
+
+msgid "Delete"
+msgstr "Verwijder"
+
+msgid "Are you sure you want to delete this redirect?"
+msgstr "Weet je zeker dat je deze redirect wilt verwijderen?"
+
+msgid "Yes, delete"
+msgstr "Ja, verwijder"
+
+#, python-format
+msgid "Editing %(title)s"
+msgstr "Wijzigen %(title)s"
+
+msgid "Editing"
+msgstr "Wijzigen"
+
+msgid "Delete redirect"
+msgstr "Verwijder redirect"
+
+msgid "Redirects"
+msgstr "Redirects"
+
+msgid "From"
+msgstr "Van"
+
+msgid "To"
+msgstr "Naar"
+
+msgid "Type"
+msgstr "Type"
+
+msgid "Edit this redirect"
+msgstr "Wijzig deze redirect"
+
+msgid "primary"
+msgstr "primair"
+
+#, python-format
+msgid ""
+"\n"
+"            There is one match\n"
+"        "
+msgid_plural ""
+"\n"
+"            There are %(counter)s matches\n"
+"        "
+msgstr[0] ""
+"\n"
+"            Er is één resultaat\n"
+"        "
+msgstr[1] ""
+"\n"
+"            Er zijn %(counter)s resultaten\n"
+"        "
+
+#, python-format
+msgid "Sorry, no redirects match \"<em>%(query_string)s</em>\""
+msgstr "Sorry, geen redirects gevonden \"<em>%(query_string)s</em>\""
+
+#, python-format
+msgid ""
+"No redirects have been created. Why not <a href="
+"\"%(wagtailredirects_add_redirect_url)s\">add one</a>?"
+msgstr ""
+"Er zijn nog geen redirects gemaakt. Waarom niet één <a href="
+"\"%(wagtailredirects_add_redirect_url)s\">toevoegen</a>?"
+
+msgid "Search redirects"
+msgstr "Zoek redirects"
+
+#, python-brace-format
+msgid "Redirect '{0}' updated."
+msgstr "Redirect '{0}' gewijzigd."
+
+msgid "Edit"
+msgstr "Wijzig"
+
+msgid "The redirect could not be saved due to errors."
+msgstr "De redirect kon niet worden opgeslagen door fouten."
+
+#, python-brace-format
+msgid "Redirect '{0}' deleted."
+msgstr "Redirect '{0}' verwijderd."
+
+#, python-brace-format
+msgid "Redirect '{0}' added."
+msgstr "Redirect '{0}' toegevoegd."
+
+msgid "The redirect could not be created due to errors."
+msgstr "De redirect kon niet worden aangemaakt door fouten."

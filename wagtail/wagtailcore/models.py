@@ -42,7 +42,7 @@ from wagtail.wagtailcore.signals import page_published, page_unpublished
 from wagtail.wagtailsearch import index
 from wagtail.wagtailsearch.backends import get_search_backend
 
-from wagtail.utils.deprecation import RemovedInWagtail13Warning, RemovedInWagtail14Warning
+from wagtail.utils.deprecation import RemovedInWagtail14Warning
 
 
 logger = logging.getLogger('wagtail.core')
@@ -204,13 +204,7 @@ class PageBase(models.base.ModelBase):
         # All pages should be creatable unless explicitly set otherwise.
         # This attribute is not inheritable.
         if 'is_creatable' not in dct:
-            if 'is_abstract' in dct:
-                warnings.warn(
-                    "The is_abstract flag is deprecated - use is_creatable instead.",
-                    RemovedInWagtail13Warning)
-                cls.is_creatable = not dct['is_abstract']
-            else:
-                cls.is_creatable = not cls._meta.abstract
+            cls.is_creatable = not cls._meta.abstract
 
         if cls.is_creatable:
             # register this type in the list of page content types
@@ -239,7 +233,7 @@ class Page(six.with_metaclass(PageBase, MP_Node, ClusterableModel, index.Indexed
 
     locked = models.BooleanField(verbose_name=_('Locked'), default=False, editable=False)
 
-    first_published_at = models.DateTimeField(verbose_name=_('First published at'), null=True, editable=False)
+    first_published_at = models.DateTimeField(verbose_name=_('First published at'), null=True, editable=False, db_index=True)
     latest_revision_created_at = models.DateTimeField(verbose_name=_('Latest revision created at'), null=True, editable=False)
 
     search_fields = (
@@ -474,6 +468,15 @@ class Page(six.with_metaclass(PageBase, MP_Node, ClusterableModel, index.Indexed
         return self.revisions.order_by('-created_at', '-id').first()
 
     def get_latest_revision_as_page(self):
+        if not self.has_unpublished_changes:
+            # Use the live database copy in preference to the revision record, as:
+            # 1) this will pick up any changes that have been made directly to the model,
+            #    such as automated data imports;
+            # 2) it ensures that inline child objects pick up real database IDs even if
+            #    those are absent from the revision data. (If this wasn't the case, the child
+            #    objects would be recreated with new IDs on next publish - see #1853)
+            return self.specific
+
         latest_revision = self.get_latest_revision()
 
         if latest_revision:
@@ -739,6 +742,11 @@ class Page(six.with_metaclass(PageBase, MP_Node, ClusterableModel, index.Indexed
                 if field.auto_created:
                     continue
 
+                # Ignore m2m relations - they will be copied as child objects
+                # if modelcluster supports them at all (as it does for tags)
+                if field.many_to_many:
+                    continue
+
                 # Ignore parent links (page_ptr)
                 if isinstance(field, models.OneToOneField) and field.parent_link:
                     continue
@@ -826,7 +834,7 @@ class Page(six.with_metaclass(PageBase, MP_Node, ClusterableModel, index.Indexed
 
         # Create a new revision
         # This code serves a few purposes:
-        # * It makes sure update_attrs gets applied to the latest revision so the changes are reflected in the editor
+        # * It makes sure update_attrs gets applied to the latest revision
         # * It bumps the last_revision_created_at value so the new page gets ordered as if it was just created
         # * It sets the user of the new revision so it's possible to see who copied the page by looking at its history
         latest_revision = page_copy.get_latest_revision_as_page()

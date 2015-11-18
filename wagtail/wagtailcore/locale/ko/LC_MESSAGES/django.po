@@ -4,13 +4,14 @@
 #
 # Translators:
 # Ji Han Chung <jihanchung20@gmail.com>, 2015
+# Kyungil Choi <hanpama@gmail.com>, 2015
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2015-09-02 20:07+0100\n"
-"PO-Revision-Date: 2015-09-02 19:12+0000\n"
-"Last-Translator: Karl Hobley <karl@torchbox.com>\n"
+"PO-Revision-Date: 2015-10-20 02:35+0000\n"
+"Last-Translator: Kyungil Choi <hanpama@gmail.com>\n"
 "Language-Team: Korean (http://www.transifex.com/torchbox/wagtail/language/"
 "ko/)\n"
 "MIME-Version: 1.0\n"
@@ -46,6 +47,12 @@ msgid ""
 msgstr ""
 "만약 값이 'true'라면, 이 사이트는 접속 권한이 없는 다른 호스트명을 위한 요청"
 "들을 수행할 것입니다."
+
+msgid "site"
+msgstr "사이트"
+
+msgid "sites"
+msgstr "사이트"
 
 #, python-format
 msgid ""
@@ -144,6 +151,12 @@ msgstr "라이브"
 msgid "Default"
 msgstr "기본값"
 
+msgid "page"
+msgstr "페이지"
+
+msgid "pages"
+msgstr "페이지"
+
 msgid "Page"
 msgstr "페이지"
 
@@ -162,8 +175,17 @@ msgstr "JSON  콘텐츠"
 msgid "Approved go live at"
 msgstr "승인된 라이브로 간 시점"
 
+msgid "page revision"
+msgstr "페이지 검토"
+
+msgid "page revisions"
+msgstr "페이지 검토"
+
 msgid "Add/edit pages you own"
 msgstr "당신이 소유한 페이지들 추가/수정"
+
+msgid "Edit any page"
+msgstr "페이지 수정"
 
 msgid "Publish any page"
 msgstr "페이지 퍼블리싱"
@@ -175,10 +197,22 @@ msgid "Group"
 msgstr "그룹"
 
 msgid "Permission type"
-msgstr "퍼미션 형태"
+msgstr "권한 형태"
+
+msgid "group page permission"
+msgstr "그룹 페이지 권한"
+
+msgid "group page permissions"
+msgstr "그룹 페이지 권한"
 
 msgid "Password"
 msgstr "비밀번호"
+
+msgid "page view restriction"
+msgstr "페이지 보기 제한"
+
+msgid "page view restrictions"
+msgstr "페이지 보기 제한"
 
 msgid "Value cannot be entirely whitespace characters"
 msgstr "값은 전체가 여백만으로 저장할 수 없습니다."

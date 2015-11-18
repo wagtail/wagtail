@@ -5,11 +5,13 @@ ul.sequence{
 li.sequence-member{
     @include clearfix;
     position:relative;
+    border-style: solid;
+    border-color: transparent;
+    border-width: 1px 0;
 
     &:hover{
         background-color:$color-input-focus;
-        border:1px solid darken($color-input-focus, 10%);
-        border-width:1px 0;
+        border-color: darken($color-input-focus, 10%);
 
         .sequence-member-inner{
             > .struct-block > label,
@@ -24,7 +26,7 @@ li.sequence-member{
         opacity:1;
     }
 
-   
+
     .struct-block .fields{
         @include column(10);
         padding-left:0;
@@ -47,8 +49,8 @@ li.sequence-member{
         position:relative;
         padding:1.5em 50px;
 
-        .sequence-member:hover{
-            border:0;
+        .sequence-member {
+            border: 0;
         }
 
         /* sequences within sequences, such as a ListBlock within StructBlock*/
@@ -120,7 +122,7 @@ should be borderless and full-width
 .block_field > .field-content > .input > .sequence-container > .sequence-container-inner > .sequence > .sequence-member > .sequence-member-inner{
     > .widget-text_input input,
     > .widget-rich_text_area .richtext,
-    > .widget-textarea textarea{ 
+    > .widget-textarea textarea{
         border:0;
         padding:0;
         background-color:transparent;
@@ -180,10 +182,10 @@ should be borderless and full-width
         &:hover label{
             opacity:1;
         }
-   
+
     .disabled{
         display:none;
-    }       
+    }
 }
 
 /* list controls are slightly different as they require closer proximity to their associated fields */
@@ -270,7 +272,7 @@ should be borderless and full-width
             clear:left;
         }
     }
-    
+
 
     button{
         @include transition(all 0.2s ease);
@@ -328,7 +330,7 @@ should be borderless and full-width
             &:focus{
                 color:$color-teal;
             }
-        }        
+        }
 
         &:hover{
             border-top-color:$color-teal;
@@ -336,7 +338,7 @@ should be borderless and full-width
             .toggle{
                 color:$color-teal;
             }
-        }   
+        }
     }
 
     @media screen and (min-width: $breakpoint-mobile){

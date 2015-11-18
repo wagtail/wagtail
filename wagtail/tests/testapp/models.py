@@ -3,6 +3,8 @@ from __future__ import unicode_literals
 from django.db import models
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.utils.encoding import python_2_unicode_compatible
+from django.contrib.contenttypes.fields import GenericForeignKey
+from django.contrib.contenttypes.models import ContentType
 
 from taggit.models import TaggedItemBase
 from taggit.managers import TaggableManager
@@ -11,6 +13,7 @@ from modelcluster.fields import ParentalKey
 from modelcluster.models import ClusterableModel
 from modelcluster.contrib.taggit import ClusterTaggableManager
 
+from wagtail.contrib.settings.models import BaseSetting, register_setting
 from wagtail.wagtailcore.models import Page, Orderable
 from wagtail.wagtailcore.fields import RichTextField, StreamField
 from wagtail.wagtailcore.blocks import CharBlock, RichTextBlock
@@ -117,6 +120,11 @@ class RelatedLink(LinkFields):
 class SimplePage(Page):
     content = models.TextField()
 
+    content_panels = [
+        FieldPanel('title', classname="full title"),
+        FieldPanel('content'),
+    ]
+
 
 class PageWithOldStyleRouteMethod(Page):
     """
@@ -129,6 +137,17 @@ class PageWithOldStyleRouteMethod(Page):
 
     def route(self, request, path_components):
         return self.serve(request)
+
+
+# File page
+class FilePage(Page):
+    file_field = models.FileField()
+
+
+FilePage.content_panels = [
+    FieldPanel('title', classname="full title"),
+    FieldPanel('file_field'),
+]
 
 
 # Event page
@@ -308,7 +327,6 @@ FormPage.content_panels = [
 ]
 
 
-
 # Snippets
 class AdvertPlacement(models.Model):
     page = ParentalKey('wagtailcore.Page', related_name='advert_placements')
@@ -367,6 +385,7 @@ StandardChild.edit_handler = TabbedInterface([
     ObjectList([], heading='Dinosaurs'),
 ])
 
+
 class BusinessIndex(Page):
     """ Can be placed anywhere, can only have Business children """
     subpage_types = ['tests.BusinessChild', 'tests.BusinessSubIndex']
@@ -400,8 +419,10 @@ TaggedPage.content_panels = [
 class PageChooserModel(models.Model):
     page = models.ForeignKey('wagtailcore.Page', help_text='help text')
 
+
 class EventPageChooserModel(models.Model):
     page = models.ForeignKey('tests.EventPage', help_text='more help text')
+
 
 class SnippetChooserModel(models.Model):
     advert = models.ForeignKey(Advert, help_text='help text')
@@ -450,3 +471,52 @@ class MTIChildPage(MTIBasePage):
 class AbstractPage(Page):
     class Meta:
         abstract = True
+
+
+@register_setting
+class TestSetting(BaseSetting):
+    title = models.CharField(max_length=100)
+    email = models.EmailField(max_length=50)
+
+
+@register_setting(icon="tag")
+class IconSetting(BaseSetting):
+    pass
+
+
+class NotYetRegisteredSetting(BaseSetting):
+    pass
+
+
+class BlogCategory(models.Model):
+    name = models.CharField(unique=True, max_length=80)
+
+
+class BlogCategoryBlogPage(models.Model):
+    category = models.ForeignKey(BlogCategory, related_name="+")
+    page = ParentalKey('ManyToManyBlogPage', related_name='categories')
+    panels = [
+        FieldPanel('category'),
+    ]
+
+
+class ManyToManyBlogPage(Page):
+    """
+    A page type with two different kinds of M2M relation.
+    We don't formally support these, but we don't want them to cause
+    hard breakages either.
+    """
+    body = RichTextField(blank=True)
+    adverts = models.ManyToManyField(Advert, blank=True)
+    blog_categories = models.ManyToManyField(
+        BlogCategory, through=BlogCategoryBlogPage, blank=True)
+
+
+class GenericSnippetPage(Page):
+    """
+    A page containing a reference to an arbitrary snippet (or any model for that matter)
+    linked by a GenericForeignKey
+    """
+    snippet_content_type = models.ForeignKey(ContentType, on_delete=models.SET_NULL, null=True)
+    snippet_object_id = models.PositiveIntegerField(null=True)
+    snippet_content_object = GenericForeignKey('snippet_content_type', 'snippet_object_id')

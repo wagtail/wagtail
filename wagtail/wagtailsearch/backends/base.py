@@ -71,6 +71,10 @@ class BaseSearchQuery(object):
             lookup = where_node.lookup_name
             value = where_node.rhs
 
+            # Ignore pointer fields that show up in specific page type queries
+            if field_attname.endswith('_ptr_id'):
+                return
+
             # Process the filter
             return self._process_filter(field_attname, lookup, value)
 

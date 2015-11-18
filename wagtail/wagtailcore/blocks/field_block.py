@@ -366,6 +366,10 @@ class ChooserBlock(FieldBlock):
 
 
 class PageChooserBlock(ChooserBlock):
+    def __init__(self, can_choose_root=False, **kwargs):
+        self.can_choose_root = can_choose_root
+        super(PageChooserBlock, self).__init__(**kwargs)
+
     @cached_property
     def target_model(self):
         from wagtail.wagtailcore.models import Page  # TODO: allow limiting to specific page types
@@ -374,7 +378,7 @@ class PageChooserBlock(ChooserBlock):
     @cached_property
     def widget(self):
         from wagtail.wagtailadmin.widgets import AdminPageChooser
-        return AdminPageChooser
+        return AdminPageChooser(can_choose_root=self.can_choose_root)
 
     def render_basic(self, value):
         if value:

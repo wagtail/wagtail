@@ -1,6 +1,9 @@
 Your first Wagtail site
 =======================
 
+.. note::
+   This tutorial covers setting up a brand new Wagtail project. If you'd like to add Wagtail to an existing Django project instead, see :doc:`integrating_into_django`.
+
 1. Install Wagtail and its dependencies::
 
     pip install wagtail
@@ -364,10 +367,6 @@ can be BlogPages or external links. Change ``blog/models.py`` to
             abstract = True
 
 
-    class BlogIndexRelatedLink(Orderable, RelatedLink):
-        page = ParentalKey('BlogIndexPage', related_name='related_links')
-
-
     class BlogIndexPage(Page):
         intro = RichTextField(blank=True)
 
@@ -375,6 +374,10 @@ can be BlogPages or external links. Change ``blog/models.py`` to
             FieldPanel('intro', classname="full"),
             InlinePanel('related_links', label="Related links"),
         ]
+
+
+    class BlogIndexRelatedLink(Orderable, RelatedLink):
+        page = ParentalKey('BlogIndexPage', related_name='related_links')
 
 .. figure:: ../_static/images/tutorial/tutorial_7.png
    :alt: Blog index edit screen

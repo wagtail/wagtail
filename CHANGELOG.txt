@@ -1,15 +1,27 @@
 Changelog
 =========
 
-1.2 (xx.xx.xxxx)
+1.3 (xx.xx.xxxx)
 ~~~~~~~~~~~~~~~~
 
+ * Added `WAGTAIL_PASSWORD_RESET_ENABLED` setting to allow password resets to be disabled independently of the password management interface (John Draper)
+ * Fix: HTTP cache purge now works again on Python 2 (Mitchel Cabuloy)
+
+1.2 (12.11.2015)
+~~~~~~~~~~~~~~~~
+
+ * Added `wagtail.contrib.settings`, a module to allow administrators to edit site-specific settings
  * Core templatetags (pageurl, image, wagtailuserbar, etc) are now compatible with Jinja2
+ * Redirects can now be created for specific sites
+ * The Page.get_latest_revision_as_page method now returns the live page object if there are no draft changes to the page
  * Image and document models now provide a `search` method on their QuerySets
  * Search methods now accept an `operator` argument to determine whether multiple terms are ORed or ANDed together
  * Search methods now accept an `order_by_relevance` argument, which can be set to False to preserve the original QuerySet ordering
  * InlinePanel now accepts `max_num` and `min_num` arguments to limit the number of inline items
  * 'Add' button on inline panels is disabled when `max_num` is reached (Salvador Faria)
+ * StreamField blocks now provide a `get_context` method for passing additional variables to the block template
+ * Wagtail API now incorporates the browsable front-end provided by Django REST Framework
+ * Python 3.5 support
  * WagtailRedirectMiddleware can now ignore the query string if there is no redirect that exactly matches it (Michael Cordover)
  * Order of URL parameters now ignored by redirect middleware (Michael Cordover)
  * Added SQL Server compatibility to image migration (Timothy Allen)
@@ -23,6 +35,13 @@ Changelog
  * Wagtail admin now standardises on a single thumbnail image size, to reduce the overhead of creating multiple renditions
  * The `first_published_at` and `latest_revision_created_at` fields on page models are now available as filter fields on search queries
  * Rich text fields now strip out HTML comments
+ * Page editor form now sets enctype="multipart/form-data" as appropriate, allowing FileField to be used on page models (Petr Vacha)
+ * Explorer navigation menu on a completely empty page tree now takes you to the root level, rather than doing nothing
+ * Added animation and fixed display issues when focusing a rich text field (Alex Gleason)
+ * Added a system check to warn if Pillow is compiled without JPEG / PNG support
+ * Page chooser now prevents users from selecting the root node where this would be invalid
+ * New translations for Dutch (Netherlands), Georgian, Swedish and Turkish (Turkey)
+ * Fix: Page slugs are no longer auto-updated from the page title if the page is already published
  * Fix: Deleting a page permission from the groups admin UI does not immediately submit the form
  * Fix: Wagtail userbar is shown on pages that do not pass a `page` variable to the template (e.g. because they override the `serve` method)
  * Fix: request.site now set correctly on page preview when the page is not in the default site
@@ -30,6 +49,16 @@ Changelog
  * Fix: `PageManager.sibling_of(page)` and `PageManager.not_sibling_of(page)` now default to inclusive (i.e. `page` is considered a sibling of itself), for consistency with other sibling methods
  * Fix: The "view live" button displayed after publishing a page now correctly reflects any changes made to the page slug (Ryan Pineo)
  * Fix: API endpoints now accept and ignore the `_` query parameter used by jQuery for cache-busting
+ * Fix: Page slugs are no longer cut off when Unicode characters are expanded into multiple characters (Sævar Öfjörð Magnússon)
+ * Fix: Searching a specific page model while filtering it by either ID or tree position no longer raises an error (Ashia Zawaduk)
+ * Fix: Scrolling an over-long explorer menu no longer causes white background to show through (Alex Gleason)
+ * Fix: Removed jitter when hovering over StreamField blocks (Alex Gleason)
+ * Fix: Non-ASCII email addresses no longer throw errors when generating Gravatar URLs (Denis Voskvitsov, Kyle Stratis)
+ * Fix: Dropdowns for ForeignKeys are now styled consistently (Ashia Zawaduk)
+ * Fix: Date choosers now appear on top of StreamField menus (Sergey Nikitin)
+ * Fix: Fixed a migration error that was raised when block-updating from 0.8 to 1.1+
+ * Fix: Page copy no longer breaks on models with a ClusterTaggableManager or ManyToManyField
+ * Fix: Validation errors when inserting an embed into a rich text area are now reported back to the editor
 
 
 1.1 (15.09.2015)

@@ -160,11 +160,6 @@ class BaseStructBlock(Block):
 
         return errors
 
-    def render(self, value):
-        value = collections.OrderedDict(
-            (key, value.get(key)) for key in self.child_blocks.keys())
-        return super(BaseStructBlock, self).render(value)
-
 
 class StructBlock(six.with_metaclass(DeclarativeSubBlocksMetaclass, BaseStructBlock)):
     pass

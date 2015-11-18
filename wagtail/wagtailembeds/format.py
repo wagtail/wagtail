@@ -21,17 +21,15 @@ def embed_to_frontend_html(url):
             'ratio': ratio,
         })
     except embeds.EmbedException:
+        # silently ignore failed embeds, rather than letting them crash the page
         return ''
 
 
 def embed_to_editor_html(url):
-    try:
-        embed = embeds.get_embed(url)
+    embed = embeds.get_embed(url)
+    # catching EmbedException is the responsibility of the caller
 
-        # Render template
-        return render_to_string('wagtailembeds/embed_editor.html', {
-            'embed': embed,
-        })
-    except embeds.EmbedException:
-        # Could be replaced with a nice error message
-        return ''
+    # Render template
+    return render_to_string('wagtailembeds/embed_editor.html', {
+        'embed': embed,
+    })

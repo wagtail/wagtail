@@ -1,6 +1,5 @@
 import datetime
 import json
-import warnings
 
 import pytz
 
@@ -10,13 +9,14 @@ from django.http import HttpRequest, Http404
 from django.contrib.contenttypes.models import ContentType
 from django.contrib.auth import get_user_model
 from django.contrib.auth.models import AnonymousUser
-from django.utils.six import text_type
 
 from wagtail.wagtailcore.models import Page, Site, PAGE_MODEL_CLASSES
 from wagtail.tests.testapp.models import (
     SingleEventPage, EventPage, EventIndex, SimplePage,
     BusinessIndex, BusinessSubIndex, BusinessChild, StandardIndex,
-    MTIBasePage, MTIChildPage, AbstractPage)
+    MTIBasePage, MTIChildPage, AbstractPage, TaggedPage,
+    BlogCategory, BlogCategoryBlogPage, Advert, ManyToManyBlogPage,
+    GenericSnippetPage)
 
 
 class TestSiteRouting(TestCase):
@@ -447,6 +447,13 @@ class TestCopyPage(TestCase):
         self.assertEqual(latest_revision.title, "New christmas event")
         self.assertEqual(latest_revision.slug, 'new-christmas-event')
 
+        # get_latest_revision_as_page might bypass the revisions table if it determines
+        # that there are no draft edits since publish - so retrieve it explicitly from the
+        # revision data, to ensure it's been updated there too
+        latest_revision = new_christmas_event.get_latest_revision().as_page_object()
+        self.assertEqual(latest_revision.title, "New christmas event")
+        self.assertEqual(latest_revision.slug, 'new-christmas-event')
+
         # Check that the ids within the revision were updated correctly
         new_revision = new_christmas_event.revisions.first()
         new_revision_content = json.loads(new_revision.content_json)
@@ -636,6 +643,75 @@ class TestCopyPage(TestCase):
         self.assertIsInstance(EventPage.objects.get(id=new_saint_patrick_event.id), EventPage)
         self.assertIsInstance(Page.objects.get(id=new_saint_patrick_event.id), Page)
 
+    def test_copy_page_copies_tags(self):
+        # create and publish a TaggedPage under Events
+        event_index = Page.objects.get(url_path='/home/events/')
+        tagged_page = TaggedPage(title='My tagged page', slug='my-tagged-page')
+        tagged_page.tags.add('wagtail', 'bird')
+        event_index.add_child(instance=tagged_page)
+        tagged_page.save_revision().publish()
+
+        old_tagged_item_ids = [item.id for item in tagged_page.tagged_items.all()]
+        # there should be two items here, with defined (truthy) IDs
+        self.assertEqual(len(old_tagged_item_ids), 2)
+        self.assertTrue(all(old_tagged_item_ids))
+
+        # copy to underneath homepage
+        homepage = Page.objects.get(url_path='/home/')
+        new_tagged_page = tagged_page.copy(to=homepage)
+
+        self.assertNotEqual(tagged_page.id, new_tagged_page.id)
+
+        # new page should also have two tags
+        new_tagged_item_ids = [item.id for item in new_tagged_page.tagged_items.all()]
+        self.assertEqual(len(new_tagged_item_ids), 2)
+        self.assertTrue(all(new_tagged_item_ids))
+
+        # new tagged_item IDs should differ from old ones
+        self.assertTrue(all([
+            item_id not in old_tagged_item_ids
+            for item_id in new_tagged_item_ids
+        ]))
+
+    def test_copy_page_with_m2m_relations(self):
+        # create and publish a ManyToManyBlogPage under Events
+        event_index = Page.objects.get(url_path='/home/events/')
+        category = BlogCategory.objects.create(name='Birds')
+        advert = Advert.objects.create(url='http://www.heinz.com/', text="beanz meanz heinz")
+
+        blog_page = ManyToManyBlogPage(title='My blog page', slug='my-blog-page')
+        event_index.add_child(instance=blog_page)
+
+        blog_page.adverts.add(advert)
+        BlogCategoryBlogPage.objects.create(category=category, page=blog_page)
+        blog_page.save_revision().publish()
+
+        # copy to underneath homepage
+        homepage = Page.objects.get(url_path='/home/')
+        new_blog_page = blog_page.copy(to=homepage)
+
+        # M2M relations are not formally supported, so for now we're only interested in
+        # the copy operation as a whole succeeding, rather than the child objects being copied
+        self.assertNotEqual(blog_page.id, new_blog_page.id)
+
+    def test_copy_page_with_generic_foreign_key(self):
+        # create and publish a GenericSnippetPage under Events
+        event_index = Page.objects.get(url_path='/home/events/')
+        advert = Advert.objects.create(url='http://www.heinz.com/', text="beanz meanz heinz")
+
+        page = GenericSnippetPage(title='My snippet page', slug='my-snippet-page')
+        page.snippet_content_object = advert
+        event_index.add_child(instance=page)
+
+        page.save_revision().publish()
+
+        # copy to underneath homepage
+        homepage = Page.objects.get(url_path='/home/')
+        new_page = page.copy(to=homepage)
+
+        self.assertNotEqual(page.id, new_page.id)
+        self.assertEqual(new_page.snippet_content_object, advert)
+
 
 class TestSubpageTypeBusinessRules(TestCase):
     def test_allowed_subpage_types(self):
@@ -763,22 +839,3 @@ class TestIsCreatable(TestCase):
         """
         self.assertFalse(AbstractPage.is_creatable)
         self.assertNotIn(AbstractPage, PAGE_MODEL_CLASSES)
-
-    def test_is_abstract(self):
-        """
-        is_abstract has been deprecated. Check that it still works, but issues
-        a deprecation warning
-        """
-        with warnings.catch_warnings(record=True) as ws:
-            class IsAbstractPage(Page):
-                is_abstract = True
-
-                class Meta:
-                    abstract = True
-
-            self.assertEqual(len(ws), 1)
-            warning = ws[0]
-            self.assertIn("is_creatable", text_type(warning.message))
-
-            self.assertFalse(AbstractPage.is_creatable)
-            self.assertNotIn(AbstractPage, PAGE_MODEL_CLASSES)

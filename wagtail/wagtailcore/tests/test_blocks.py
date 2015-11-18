@@ -13,6 +13,8 @@ from wagtail.wagtailcore import blocks
 from wagtail.wagtailcore.rich_text import RichText
 from wagtail.wagtailcore.models import Page
 
+from wagtail.tests.testapp.blocks import SectionBlock
+
 import base64
 
 
@@ -522,10 +524,10 @@ class TestStructBlock(SimpleTestCase):
             link = blocks.URLBlock()
 
         block = LinkBlock()
-        html = block.render({
+        html = block.render(block.to_python({
             'title': "Wagtail site",
             'link': 'http://www.wagtail.io',
-        })
+        }))
         expected_html = '\n'.join([
             '<dl>',
             '<dt>title</dt>',
@@ -543,11 +545,11 @@ class TestStructBlock(SimpleTestCase):
             link = blocks.URLBlock()
 
         block = LinkBlock()
-        html = block.render({
+        html = block.render(block.to_python({
             'title': "Wagtail site",
             'link': 'http://www.wagtail.io',
             'image': 10,
-        })
+        }))
 
         self.assertIn('<dt>title</dt>', html)
         self.assertIn('<dd>Wagtail site</dd>', html)
@@ -563,10 +565,10 @@ class TestStructBlock(SimpleTestCase):
             link = blocks.URLBlock()
 
         block = LinkBlock()
-        html = block.render_form({
+        html = block.render_form(block.to_python({
             'title': "Wagtail site",
             'link': 'http://www.wagtail.io',
-        }, prefix='mylink')
+        }), prefix='mylink')
 
         self.assertIn('<div class="struct-block">', html)
         self.assertIn('<div class="field char_field widget-text_input fieldname-title">', html)
@@ -580,11 +582,11 @@ class TestStructBlock(SimpleTestCase):
             link = blocks.URLBlock()
 
         block = LinkBlock()
-        html = block.render_form({
+        html = block.render_form(block.to_python({
             'title': "Wagtail site",
             'link': 'http://www.wagtail.io',
             'image': 10,
-        }, prefix='mylink')
+        }), prefix='mylink')
 
         self.assertIn('<input id="mylink-title" name="mylink-title" placeholder="Title" type="text" value="Wagtail site" />', html)
         self.assertIn('<input id="mylink-link" name="mylink-link" placeholder="Link" type="url" value="http://www.wagtail.io" />', html)
@@ -598,7 +600,7 @@ class TestStructBlock(SimpleTestCase):
             link = blocks.URLBlock(default="http://www.torchbox.com")
 
         block = LinkBlock()
-        html = block.render_form({}, prefix='mylink')
+        html = block.render_form(block.to_python({}), prefix='mylink')
 
         self.assertIn('<input id="mylink-title" name="mylink-title" placeholder="Title" type="text" value="Torchbox" />', html)
         self.assertIn('<input id="mylink-link" name="mylink-link" placeholder="Link" type="url" value="http://www.torchbox.com" />', html)
@@ -612,19 +614,19 @@ class TestStructBlock(SimpleTestCase):
                 help_text = "Self-promotion is encouraged"
 
         block = LinkBlock()
-        html = block.render_form({
+        html = block.render_form(block.to_python({
             'title': "Wagtail site",
             'link': 'http://www.wagtail.io',
-        }, prefix='mylink')
+        }), prefix='mylink')
 
         self.assertIn('<div class="object-help help">Self-promotion is encouraged</div>', html)
 
         # check it can be overridden in the block constructor
         block = LinkBlock(help_text="Self-promotion is discouraged")
-        html = block.render_form({
+        html = block.render_form(block.to_python({
             'title': "Wagtail site",
             'link': 'http://www.wagtail.io',
-        }, prefix='mylink')
+        }), prefix='mylink')
 
         self.assertIn('<div class="object-help help">Self-promotion is discouraged</div>', html)
 
@@ -657,10 +659,10 @@ class TestStructBlock(SimpleTestCase):
             link = blocks.URLBlock()
 
         block = LinkBlock()
-        content = block.get_searchable_content({
+        content = block.get_searchable_content(block.to_python({
             'title': "Wagtail site",
             'link': 'http://www.wagtail.io',
-        })
+        }))
 
         self.assertEqual(content, ["Wagtail site"])
 
@@ -713,6 +715,16 @@ class TestStructBlock(SimpleTestCase):
         value = block.to_python({'title': 'Torchbox', 'link': 'not a url'})
         with self.assertRaises(ValidationError):
             block.clean(value)
+
+    def test_bound_blocks_are_available_on_template(self):
+        """
+        Test that we are able to use value.bound_blocks within templates
+        to access a child block's own HTML rendering
+        """
+        block = SectionBlock()
+        value = block.to_python({'title': 'Hello', 'body': '<i>italic</i> world'})
+        result = block.render(value)
+        self.assertEqual(result, """<h1>Hello</h1><div class="rich-text"><i>italic</i> world</div>""")
 
 
 class TestListBlock(unittest.TestCase):
@@ -1302,12 +1314,18 @@ class TestPageChooserBlock(TestCase):
 
         empty_form_html = block.render_form(None, 'page')
         self.assertIn('<input id="page" name="page" placeholder="" type="hidden" />', empty_form_html)
+        self.assertIn('createPageChooser("page", ["wagtailcore.page"], null, false);', empty_form_html)
 
         christmas_page = Page.objects.get(slug='christmas')
         christmas_form_html = block.render_form(christmas_page, 'page')
         expected_html = '<input id="page" name="page" placeholder="" type="hidden" value="%d" />' % christmas_page.id
         self.assertIn(expected_html, christmas_form_html)
         self.assertIn("pick a page, any page", christmas_form_html)
+
+    def test_form_render_with_can_choose_root(self):
+        block = blocks.PageChooserBlock(help_text="pick a page, any page", can_choose_root=True)
+        empty_form_html = block.render_form(None, 'page')
+        self.assertIn('createPageChooser("page", ["wagtailcore.page"], null, true);', empty_form_html)
 
     def test_form_response(self):
         block = blocks.PageChooserBlock()
@@ -1439,3 +1457,14 @@ class TestSystemCheck(TestCase):
         self.assertEqual(errors[1].id, 'wagtailcore.E001')
         self.assertEqual(errors[1].hint, "Block names cannot contain spaces")
         self.assertEqual(errors[0].obj, failing_block_2)
+
+
+class TestTemplateRendering(TestCase):
+    def test_render_with_custom_context(self):
+        from wagtail.tests.testapp.blocks import LinkBlock
+
+        block = LinkBlock()
+        value = block.to_python({'title': 'Torchbox', 'url': 'http://torchbox.com/'})
+        result = block.render(value)
+
+        self.assertEqual(result, '<a href="http://torchbox.com/" class="important">Torchbox</a>')

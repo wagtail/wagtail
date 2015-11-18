@@ -1,14 +1,14 @@
-{% load i18n %}
+{% load i18n wagtailadmin_tags %}
 
 <ul class="breadcrumb">
     {% for page in page.get_ancestors %}
         {% if page.is_root %}
-            <li class="home"><a href="{% if choosing %}{% url 'wagtailadmin_choose_page_child' page.id %}?{{ querystring }}{% else %}{% url 'wagtailadmin_explore_root' %}{% endif %}" class="{% if choosing %}navigate-pages{% endif %} icon icon-home text-replace">{% trans 'Home' %}</a></li>
+            <li class="home"><a href="{% if choosing %}{% url 'wagtailadmin_choose_page_child' page.id %}{% querystring p=None %}{% else %}{% url 'wagtailadmin_explore_root' %}{% endif %}" class="{% if choosing %}navigate-pages{% endif %} icon icon-home text-replace">{% trans 'Home' %}</a></li>
         {% else %}
-            <li><a href="{% if choosing %}{% url 'wagtailadmin_choose_page_child' page.id %}?{{ querystring }}{% else %}{% url 'wagtailadmin_explore' page.id %}{% endif %}" {% if choosing %}class="navigate-pages"{% endif %}>{{ page.title }}</a></li>
+            <li><a href="{% if choosing %}{% url 'wagtailadmin_choose_page_child' page.id %}{% querystring p=None %}{% else %}{% url 'wagtailadmin_explore' page.id %}{% endif %}" {% if choosing %}class="navigate-pages"{% endif %}>{{ page.title }}</a></li>
         {% endif %}
     {% endfor %}
     {% if include_self %}
-        <li><a href="{% if choosing %}{% url 'wagtailadmin_choose_page_child' page.id %}?{{ querystring }}{% else %}{% url 'wagtailadmin_explore' page.id %}{% endif %}" {% if choosing %}class="navigate-pages"{% endif %}>{{ page.title }}</a></li>
+        <li><a href="{% if choosing %}{% url 'wagtailadmin_choose_page_child' page.id %}{% querystring p=None %}{% else %}{% url 'wagtailadmin_explore' page.id %}{% endif %}" {% if choosing %}class="navigate-pages"{% endif %}>{{ page.title }}</a></li>
     {% endif %}
 </ul>

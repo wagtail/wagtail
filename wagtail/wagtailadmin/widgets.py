@@ -122,9 +122,10 @@ class AdminPageChooser(AdminChooser):
     choose_another_text = _('Choose another page')
     link_to_chosen_text = _('Edit this page')
 
-    def __init__(self, content_type=None, **kwargs):
+    def __init__(self, content_type=None, can_choose_root=False, **kwargs):
         super(AdminPageChooser, self).__init__(**kwargs)
         self._content_type = content_type
+        self.can_choose_root = can_choose_root
 
     @cached_property
     def target_content_types(self):
@@ -166,7 +167,7 @@ class AdminPageChooser(AdminChooser):
 
         parent = page.get_parent() if page else None
 
-        return "createPageChooser({id}, {content_type}, {parent});".format(
+        return "createPageChooser({id}, {content_type}, {parent}, {can_choose_root});".format(
             id=json.dumps(id_),
             content_type=json.dumps([
                 '{app}.{model}'.format(
@@ -174,4 +175,6 @@ class AdminPageChooser(AdminChooser):
                     model=content_type.model)
                 for content_type in self.target_content_types
             ]),
-            parent=json.dumps(parent.id if parent else None))
+            parent=json.dumps(parent.id if parent else None),
+            can_choose_root=('true' if self.can_choose_root else 'false')
+        )

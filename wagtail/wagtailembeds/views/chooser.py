@@ -8,7 +8,6 @@ from wagtail.wagtailembeds.format import embed_to_editor_html
 from wagtail.wagtailembeds.embeds import EmbedNotFoundException, EmbedlyException, AccessDeniedEmbedlyException
 
 
-
 def chooser(request):
     form = EmbedForm()
 

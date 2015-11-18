@@ -188,7 +188,13 @@ PageChooserBlock
 
 ``wagtail.wagtailcore.blocks.PageChooserBlock``
 
-A control for selecting a page object, using Wagtail's page browser. The keyword argument ``required`` is accepted.
+A control for selecting a page object, using Wagtail's page browser. The following keyword arguments are accepted:
+
+``required`` (default: True)
+  If true, the field cannot be left blank.
+
+``can_choose_root`` (default: False)
+  If true, the editor can choose the tree root as a page. Normally this would be undesirable, since the tree root is never a usable page, but in some specialised cases it may be appropriate; for example, a block providing a feed of related articles could use a PageChooserBlock to select which subsection articles will be taken from, with the root corresponding to 'everywhere'.
 
 DocumentChooserBlock
 ~~~~~~~~~~~~~~~~~~~~
@@ -440,6 +446,29 @@ Within the template, the block value is accessible as the variable ``value``:
 
 
 The line ``value.bound_blocks.biography.render`` warrants further explanation. While blocks such as RichTextBlock are aware of their own rendering, the actual block *values* (as returned when accessing properties of a StructBlock, such as ``value.biography``), are just plain Python values such as strings. To access the block's proper HTML rendering, you must retrieve the 'bound block' - an object which has access to both the rendering method and the value - via the ``bound_blocks`` property.
+
+.. _streamfield_get_context:
+
+To pass additional context variables to the template, block subclasses can override the ``get_context`` method:
+
+.. code-block:: python
+
+    import datetime
+
+    class EventBlock(blocks.StructBlock):
+        title = blocks.CharBlock(required=True)
+        date = blocks.DateBlock(required=True)
+
+        def get_context(self, value):
+            context = super(EventBlock, self).get_context(value)
+            context['is_happening_today'] = (value['date'] == datetime.date.today())
+            return context
+
+        class Meta:
+            template = 'myapp/blocks/event.html'
+
+
+In this example, the variable ``is_happening_today`` will be made available within the block template.
 
 
 Custom block types

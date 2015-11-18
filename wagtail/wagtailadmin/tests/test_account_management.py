@@ -1,6 +1,6 @@
 from __future__ import unicode_literals
 
-from django.test import TestCase
+from django.test import TestCase, override_settings
 from django.core.urlresolvers import reverse
 from django.contrib.auth import get_user_model
 from django.contrib.auth.models import Group, Permission
@@ -136,7 +136,7 @@ class TestAccountSection(TestCase, WagtailTestUtils):
 
     def test_account_view(self):
         """
-        This tests that the login view responds with a login page
+        This tests that the accounts view responds with an index page
         """
         # Get account page
         response = self.client.get(reverse('wagtailadmin_account'))
@@ -144,6 +144,18 @@ class TestAccountSection(TestCase, WagtailTestUtils):
         # Check that the user recieved an account page
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'wagtailadmin/account/account.html')
+        # Page should contain a 'Change password' option
+        self.assertContains(response, "Change password")
+
+    @override_settings(WAGTAIL_PASSWORD_MANAGEMENT_ENABLED=False)
+    def test_account_view_with_password_management_disabled(self):
+        # Get account page
+        response = self.client.get(reverse('wagtailadmin_account'))
+
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'wagtailadmin/account/account.html')
+        # Page should NOT contain a 'Change password' option
+        self.assertNotContains(response, "Change password")
 
     def test_change_password_view(self):
         """
@@ -155,6 +167,18 @@ class TestAccountSection(TestCase, WagtailTestUtils):
         # Check that the user recieved a change password page
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'wagtailadmin/account/change_password.html')
+
+    @override_settings(WAGTAIL_PASSWORD_MANAGEMENT_ENABLED=False)
+    def test_change_password_view_disabled(self):
+        """
+        This tests that the change password view responds with a 404
+        when setting WAGTAIL_PASSWORD_MANAGEMENT_ENABLED is False
+        """
+        # Get change password page
+        response = self.client.get(reverse('wagtailadmin_account_change_password'))
+
+        # Check that the user recieved a 404
+        self.assertEqual(response.status_code, 404)
 
     def test_change_password_view_post(self):
         """

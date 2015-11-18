@@ -19,7 +19,7 @@ from taggit.managers import TaggableManager
 from wagtail.wagtailadmin import widgets
 from wagtail.wagtailcore.models import Page
 from wagtail.wagtailcore.utils import camelcase_to_underscore, resolve_model_string
-from wagtail.utils.compat import get_related_model
+from wagtail.utils.compat import get_related_model, get_related_parent_model
 
 
 # Form field properties to override whenever we encounter a model field
@@ -525,7 +525,7 @@ class BaseChooserPanel(BaseFieldPanel):
 
     def get_chosen_item(self):
         field = self.instance._meta.get_field(self.field_name)
-        related_model = get_related_model(field.related)
+        related_model = get_related_parent_model(field.related)
         try:
             return getattr(self.instance, self.field_name)
         except related_model.DoesNotExist:
@@ -552,7 +552,7 @@ class BasePageChooserPanel(BaseChooserPanel):
     @classmethod
     def widget_overrides(cls):
         return {cls.field_name: widgets.AdminPageChooser(
-            content_type=cls.target_content_type())}
+            content_type=cls.target_content_type(), can_choose_root=cls.can_choose_root)}
 
     @classmethod
     def target_content_type(cls):
@@ -579,7 +579,7 @@ class BasePageChooserPanel(BaseChooserPanel):
 
 
 class PageChooserPanel(object):
-    def __init__(self, field_name, page_type=None):
+    def __init__(self, field_name, page_type=None, can_choose_root=False):
         self.field_name = field_name
 
         if page_type:
@@ -590,12 +590,14 @@ class PageChooserPanel(object):
             page_type = []
 
         self.page_type = page_type
+        self.can_choose_root = can_choose_root
 
     def bind_to_model(self, model):
         return type(str('_PageChooserPanel'), (BasePageChooserPanel,), {
             'model': model,
             'field_name': self.field_name,
             'page_type': self.page_type,
+            'can_choose_root': self.can_choose_root,
         })
 
 

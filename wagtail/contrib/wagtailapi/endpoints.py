@@ -4,10 +4,13 @@ from collections import OrderedDict
 
 from django.conf.urls import url
 from django.http import Http404
+from django.core.urlresolvers import reverse
+from django.apps import apps
 
 from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.viewsets import GenericViewSet
+from rest_framework.renderers import JSONRenderer, BrowsableAPIRenderer
 
 from wagtail.wagtailcore.models import Page
 from wagtail.wagtailimages.models import get_image_model
@@ -18,18 +21,24 @@ from .filters import (
     FieldsFilter, OrderingFilter, SearchFilter,
     ChildOfFilter, DescendantOfFilter
 )
-from .renderers import WagtailJSONRenderer
 from .pagination import WagtailPagination
 from .serializers import BaseSerializer, PageSerializer, DocumentSerializer, ImageSerializer, get_serializer_class
 from .utils import BadRequestError
 
 
 class BaseAPIEndpoint(GenericViewSet):
-    renderer_classes = [WagtailJSONRenderer]
+    renderer_classes = [JSONRenderer]
+
+    # The BrowsableAPIRenderer requires rest_framework to be installed
+    # Remove this check in Wagtail 1.4 as rest_framework will be required
+    # RemovedInWagtail14Warning
+    if apps.is_installed('rest_framework'):
+        renderer_classes.append(BrowsableAPIRenderer)
+
     pagination_class = WagtailPagination
     base_serializer_class = BaseSerializer
-    filter_classes = []
-    queryset = None  # Set on subclasses or implement `get_queryset()`.
+    filter_backends = []
+    model = None  # Set on subclass
 
     known_query_parameters = frozenset([
         'limit',
@@ -40,9 +49,15 @@ class BaseAPIEndpoint(GenericViewSet):
 
         # Used by jQuery for cache-busting. See #1671
         '_',
+
+        # Required by BrowsableAPIRenderer
+        'format',
     ])
     extra_api_fields = []
     name = None  # Set on subclass.
+
+    def get_queryset(self):
+        return self.model.objects.all().order_by('id')
 
     def listing_view(self, request):
         queryset = self.get_queryset()
@@ -101,7 +116,7 @@ class BaseAPIEndpoint(GenericViewSet):
 
         # Get all available fields
         all_fields = self.get_api_fields(model)
-        all_fields = list(OrderedDict.fromkeys(all_fields)) # Removes any duplicates in case the developer put "title" in api_fields
+        all_fields = list(OrderedDict.fromkeys(all_fields))  # Removes any duplicates in case the developer put "title" in api_fields
 
         if self.action == 'listing_view':
             # Listing views just show the title field and any other allowed field the user specified
@@ -134,27 +149,20 @@ class BaseAPIEndpoint(GenericViewSet):
         """
         The serialization context differs between listing and detail views.
         """
-        request = self.request
-
-        if self.action == 'listing_view':
-            return {
-                'request': request,
-                'view': self,
-            }
-
-        return {
-            'request': request,
+        context = {
+            'request': self.request,
             'view': self,
-            'show_details': True
+            'router': self.request.wagtailapi_router
         }
+
+        if self.action == 'detail_view':
+            context['show_details'] = True
+
+        return context
 
     def get_renderer_context(self):
         context = super(BaseAPIEndpoint, self).get_renderer_context()
-        context['endpoints'] = [
-            PagesAPIEndpoint,
-            ImagesAPIEndpoint,
-            DocumentsAPIEndpoint
-        ]
+        context['indent'] = 4
         return context
 
     @classmethod
@@ -168,8 +176,13 @@ class BaseAPIEndpoint(GenericViewSet):
         ]
 
     @classmethod
-    def has_model(cls, model):
-        return NotImplemented
+    def get_object_detail_urlpath(cls, model, pk, namespace=''):
+        if namespace:
+            url_name = namespace + ':detail'
+        else:
+            url_name = 'detail'
+
+        return reverse(url_name, args=(pk, ))
 
 
 class PagesAPIEndpoint(BaseAPIEndpoint):
@@ -188,6 +201,7 @@ class PagesAPIEndpoint(BaseAPIEndpoint):
     ])
     extra_api_fields = ['title']
     name = 'pages'
+    model = Page
 
     def get_queryset(self):
         request = self.request
@@ -216,30 +230,18 @@ class PagesAPIEndpoint(BaseAPIEndpoint):
         base = super(PagesAPIEndpoint, self).get_object()
         return base.specific
 
-    @classmethod
-    def has_model(cls, model):
-        return issubclass(model, Page)
-
 
 class ImagesAPIEndpoint(BaseAPIEndpoint):
-    queryset = get_image_model().objects.all().order_by('id')
     base_serializer_class = ImageSerializer
     filter_backends = [FieldsFilter, OrderingFilter, SearchFilter]
     extra_api_fields = ['title', 'tags', 'width', 'height']
     name = 'images'
-
-    @classmethod
-    def has_model(cls, model):
-        return model == get_image_model()
+    model = get_image_model()
 
 
 class DocumentsAPIEndpoint(BaseAPIEndpoint):
-    queryset = Document.objects.all().order_by('id')
     base_serializer_class = DocumentSerializer
     filter_backends = [FieldsFilter, OrderingFilter, SearchFilter]
     extra_api_fields = ['title', 'tags']
     name = 'documents'
-
-    @classmethod
-    def has_model(cls, model):
-        return model == Document
+    model = Document

@@ -6,11 +6,12 @@ from django.core.urlresolvers import reverse
 from django.contrib.auth import get_user_model
 from django.contrib.auth.models import Group, Permission
 from django.core import mail, paginator
+from django.core.files.base import ContentFile
 from django.db.models.signals import pre_delete, post_delete
 from django.utils import timezone
 
 from wagtail.tests.testapp.models import (
-    SimplePage, EventPage, EventPageCarouselItem,
+    SimplePage, FilePage, EventPage, EventPageCarouselItem,
     StandardIndex, StandardChild,
     BusinessIndex, BusinessChild, BusinessSubIndex,
     TaggedPage, Advert, AdvertPlacement)
@@ -224,6 +225,21 @@ class TestPageCreation(TestCase, WagtailTestUtils):
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, '<a href="#content" class="active">Content</a>')
         self.assertContains(response, '<a href="#promote" class="">Promote</a>')
+
+    def test_create_multipart(self):
+        """
+        Test checks if 'enctype="multipart/form-data"' is added and only to forms that require multipart encoding.
+        """
+        # check for SimplePage where is no file field
+        response = self.client.get(reverse('wagtailadmin_pages:add', args=('tests', 'simplepage', self.root_page.id)))
+        self.assertEqual(response.status_code, 200)
+        self.assertNotContains(response, 'enctype="multipart/form-data"')
+        self.assertTemplateUsed(response, 'wagtailadmin/pages/create.html')
+
+        # check for FilePage which has file field
+        response = self.client.get(reverse('wagtailadmin_pages:add', args=('tests', 'filepage', self.root_page.id)))
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, 'enctype="multipart/form-data"')
 
     def test_create_page_without_promote_tab(self):
         """
@@ -528,6 +544,18 @@ class TestPageEdit(TestCase, WagtailTestUtils):
         child_page.save_revision().publish()
         self.child_page = SimplePage.objects.get(id=child_page.id)
 
+        # Add file page
+        fake_file = ContentFile("File for testing multipart")
+        fake_file.name = 'test.txt'
+        file_page = FilePage(
+            title="File Page",
+            slug="file-page",
+            file_field=fake_file,
+        )
+        self.root_page.add_child(instance=file_page)
+        file_page.save_revision().publish()
+        self.file_page = FilePage.objects.get(id=file_page.id)
+
         # Add event page (to test edit handlers)
         self.event_page = EventPage()
         self.event_page.title = "Event page"
@@ -541,6 +569,21 @@ class TestPageEdit(TestCase, WagtailTestUtils):
         # Tests that the edit page loads
         response = self.client.get(reverse('wagtailadmin_pages:edit', args=(self.event_page.id, )))
         self.assertEqual(response.status_code, 200)
+
+    def test_edit_multipart(self):
+        """
+        Test checks if 'enctype="multipart/form-data"' is added and only to forms that require multipart encoding.
+        """
+        # check for SimplePage where is no file field
+        response = self.client.get(reverse('wagtailadmin_pages:edit', args=(self.event_page.id, )))
+        self.assertEqual(response.status_code, 200)
+        self.assertNotContains(response, 'enctype="multipart/form-data"')
+        self.assertTemplateUsed(response, 'wagtailadmin/pages/edit.html')
+
+        # check for FilePage which has file field
+        response = self.client.get(reverse('wagtailadmin_pages:edit', args=(self.file_page.id, )))
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, 'enctype="multipart/form-data"')
 
     def test_page_edit_bad_permissions(self):
         # Remove privileges from user
@@ -856,6 +899,33 @@ class TestPageEdit(TestCase, WagtailTestUtils):
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'tests/simple_page.html')
         self.assertEqual(response.context['request'].site.hostname, 'childpage.example.com')
+
+    def test_editor_picks_up_direct_model_edits(self):
+        # If a page has no draft edits, the editor should show the version from the live database
+        # record rather than the latest revision record. This ensures that the edit interface
+        # reflects any changes made directly on the model.
+        self.child_page.title = "This title only exists on the live database record"
+        self.child_page.save()
+
+        response = self.client.get(reverse('wagtailadmin_pages:edit', args=(self.child_page.id, )))
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, "This title only exists on the live database record")
+
+    def test_editor_does_not_pick_up_direct_model_edits_when_draft_edits_exist(self):
+        # If a page has draft edits, we should always show those in the editor, not the live
+        # database record
+        self.child_page.content = "Some content with a draft edit"
+        self.child_page.save_revision()
+
+        # make an independent change to the live database record
+        self.child_page = SimplePage.objects.get(id=self.child_page.id)
+        self.child_page.title = "This title only exists on the live database record"
+        self.child_page.save()
+
+        response = self.client.get(reverse('wagtailadmin_pages:edit', args=(self.child_page.id, )))
+        self.assertEqual(response.status_code, 200)
+        self.assertNotContains(response, "This title only exists on the live database record")
+        self.assertContains(response, "Some content with a draft edit")
 
 
 class TestPageEditReordering(TestCase, WagtailTestUtils):

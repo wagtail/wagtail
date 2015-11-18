@@ -53,6 +53,7 @@ if django.VERSION >= (1, 8):
                     'django.contrib.messages.context_processors.messages',
                     'django.template.context_processors.request',
                     'wagtail.tests.context_processors.do_not_use_static_url',
+                    'wagtail.contrib.settings.context_processors.settings',
                 ],
             },
         },
@@ -72,6 +73,7 @@ else:
     TEMPLATE_CONTEXT_PROCESSORS = global_settings.TEMPLATE_CONTEXT_PROCESSORS + (
         'django.core.context_processors.request',
         'wagtail.tests.context_processors.do_not_use_static_url',
+        'wagtail.contrib.settings.context_processors.settings',
     )
 
 MIDDLEWARE_CLASSES = (
@@ -106,6 +108,7 @@ INSTALLED_APPS = (
     'wagtail.contrib.wagtailfrontendcache',
     'wagtail.contrib.wagtailapi',
     'wagtail.contrib.wagtailsearchpromotions',
+    'wagtail.contrib.settings',
     'wagtail.wagtailforms',
     'wagtail.wagtailsearch',
     'wagtail.wagtailembeds',

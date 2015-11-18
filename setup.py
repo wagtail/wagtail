@@ -2,10 +2,8 @@
 
 import sys
 
-from setuptools.command.sdist import sdist
-
 from wagtail.wagtailcore import __version__
-from wagtail.utils.setup import assets, add_subcommand, check_bdist_egg
+from wagtail.utils.setup import assets, sdist, check_bdist_egg
 
 try:
     from setuptools import setup, find_packages
@@ -33,7 +31,7 @@ install_requires = [
     "beautifulsoup4>=4.3.2",
     "html5lib==0.999",
     "Unidecode>=0.04.14",
-    "Willow==0.2.1",
+    "Willow>=0.2.2,<0.3",
 ]
 
 
@@ -60,7 +58,10 @@ setup(
         'Programming Language :: Python :: 3',
         'Programming Language :: Python :: 3.3',
         'Programming Language :: Python :: 3.4',
+        'Programming Language :: Python :: 3.5',
         'Framework :: Django',
+        'Framework :: Django :: 1.7',
+        'Framework :: Django :: 1.8',
         'Topic :: Internet :: WWW/HTTP :: Site Management',
     ],
     install_requires=install_requires,
@@ -70,7 +71,7 @@ setup(
     """,
     zip_safe=False,
     cmdclass={
-        'sdist': add_subcommand(sdist, [('assets', None)]),
+        'sdist': sdist,
         'bdist_egg': check_bdist_egg,
         'assets': assets,
     },

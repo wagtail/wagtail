@@ -4,16 +4,18 @@
 #
 # Translators:
 # Adrien <laadrien@gmail.com>, 2014
+# André Bouatchidzé <a@anbz.net>, 2015
 # Bertrand Bordage <bordage.bertrand@gmail.com>, 2015
 # nahuel, 2014
 # nahuel, 2014
+# Tom Dyson <tom@torchbox.com>, 2015
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2015-08-26 14:28+0100\n"
-"PO-Revision-Date: 2015-08-26 13:37+0000\n"
-"Last-Translator: Karl Hobley <karl@torchbox.com>\n"
+"PO-Revision-Date: 2015-10-13 12:12+0000\n"
+"Last-Translator: André Bouatchidzé <a@anbz.net>\n"
 "Language-Team: French (http://www.transifex.com/torchbox/wagtail/language/"
 "fr/)\n"
 "MIME-Version: 1.0\n"
@@ -247,6 +249,12 @@ msgstr "Insérer un lien"
 
 msgid "Add an external link"
 msgstr "Ajouter un lien externe"
+
+msgid "Yes, delete"
+msgstr "Oui, supprimer"
+
+msgid "Save"
+msgstr "Sauvegarder"
 
 #, python-format
 msgid "Welcome to the %(site_name)s Wagtail CMS"
@@ -585,6 +593,16 @@ msgstr ""
 
 msgid "Add child page"
 msgstr "Ajouter une sous-page"
+
+#, python-format
+msgid ""
+"\n"
+"        Page %(page_number)s of %(num_pages)s.\n"
+"    "
+msgstr ""
+"\n"
+"        Page %(page_number)s sur %(num_pages)s.\n"
+"    "
 
 msgid "Previous"
 msgstr "Précédent"
