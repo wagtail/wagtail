@@ -10,24 +10,30 @@ register = template.Library()
 def image(parser, token):
     bits = token.split_contents()[1:]
     image_expr = parser.compile_filter(bits[0])
-    filter_spec = bits[1]
-    bits = bits[2:]
+    bits = bits[1:]
 
-    if len(bits) == 2 and bits[0] == 'as':
-        # token is of the form {% image self.photo max-320x200 as img %}
-        return ImageNode(image_expr, filter_spec, output_var_name=bits[1])
-    else:
-        # token is of the form {% image self.photo max-320x200 %} - all additional tokens
-        # should be kwargs, which become attributes
-        attrs = {}
-        for bit in bits:
+    filter_specs = []
+    attrs = {}
+
+    as_context = False
+    for bit in bits:
+        if bit == 'as':
+            # token is of the form {% image self.photo max-320x200 as img %}
+            as_context = True
+        elif as_context:
+            return ImageNode(image_expr, '|'.join(filter_specs), output_var_name=bit)
+        else:
             try:
                 name, value = bit.split('=')
+                attrs[name] = parser.compile_filter(value)  # setup to resolve context variables as value
             except ValueError:
-                raise template.TemplateSyntaxError("'image' tag should be of the form {% image self.photo max-320x200 [ custom-attr=\"value\" ... ] %} or {% image self.photo max-320x200 as img %}")
-            attrs[name] = parser.compile_filter(value)  # setup to resolve context variables as value
+                filter_specs.append(bit)
 
-        return ImageNode(image_expr, filter_spec, attrs=attrs)
+    if as_context:
+        # context was introduced but no variable given ...
+        raise template.TemplateSyntaxError("'image' tag should be of the form {% image self.photo max-320x200 [ custom-attr=\"value\" ... ] %} or {% image self.photo max-320x200 as img %}")
+
+    return ImageNode(image_expr, '|'.join(filter_specs), attrs=attrs)
 
 
 class ImageNode(template.Node):

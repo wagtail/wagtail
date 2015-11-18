@@ -1,8 +1,12 @@
 import unittest
 
+from mock import patch, Mock
+
+from django.utils.six import BytesIO
 from wagtail.wagtailimages import image_operations
 from wagtail.wagtailimages.exceptions import InvalidFilterSpecError
 from wagtail.wagtailimages.models import Image, Filter
+from wagtail.wagtailimages.tests.utils import get_test_image_file
 
 
 class WillowOperationRecorder(object):
@@ -378,3 +382,31 @@ class TestCacheKey(unittest.TestCase):
         cache_key = fil.get_cache_key(image)
 
         self.assertEqual(cache_key, '0bbe3b2f')
+
+
+class TestFilter(unittest.TestCase):
+
+    @patch('wagtail.wagtailimages.models.hooks')
+    def test_runs_operations(self, patched_hooks):
+
+        operation_instance = Mock()
+        operation_instance.run = Mock()
+
+        def faked_hooks():
+            return [
+                ('operation1', Mock(return_value=operation_instance)),
+                ('operation2', Mock(return_value=operation_instance))
+            ]
+
+        patched_hooks.get_hooks = Mock(return_value=[faked_hooks])
+
+        fil = Filter(spec='operation1|operation2')
+        image = Image.objects.create(
+            title="Test image",
+            file=get_test_image_file(),
+        )
+        fil.run(image, BytesIO())
+
+        self.assertEqual(operation_instance.run.call_count, 2)
+
+

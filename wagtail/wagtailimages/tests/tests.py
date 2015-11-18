@@ -1,4 +1,4 @@
-from mock import MagicMock
+from mock import MagicMock, patch
 
 from django.test import TestCase
 from django import template, forms
@@ -80,6 +80,12 @@ class TestImageTag(TestCase):
         result = self.render_image_tag_with_filters(self.image)
         self.assertTrue('width="400"' in result)
         self.assertTrue('height="300"' in result)
+
+    def test_image_tag_with_chained_filters(self):
+        result = self.render_image_tag(self.image, 'width-400|height-150')
+        self.assertTrue('width="200"' in result)
+        self.assertTrue('height="150"' in result)
+
 
 
 class TestMissingImage(TestCase):
