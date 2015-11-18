@@ -199,9 +199,10 @@ class PageQuerySet(SearchableQuerySetMixin, MP_NodeQuerySet):
 
     def unpublish(self):
         """
-        This unpublishes all pages in the QuerySet
+        This unpublishes all live pages in the QuerySet
         """
-        self.update(live=False, has_unpublished_changes=True)
+        for page in self.live():
+            page.unpublish()
 
     def specific(self):
         """
