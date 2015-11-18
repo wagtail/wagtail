@@ -14,6 +14,8 @@ What's new
 Minor features
 ~~~~~~~~~~~~~~
 
+ * Added ``WAGTAIL_PASSWORD_RESET_ENABLED`` setting to allow password resets to be disabled independently of the password management interface (John Draper)
+
 
 Bug fixes
 ~~~~~~~~~
