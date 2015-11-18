@@ -25,6 +25,7 @@ Changelog
  * Added a system check to warn developers who use a custom Wagtail build but forgot to build the admin css
  * Added success message after updating image from the image upload view (Christian Peters)
  * Added a `request.is_preview` variable for templates to distinguish between previewing and live (Denis Voskvitsov)
+ * Added support for chaining multiple image operations on the `{% image %}` tag (Christian Peters)
  * New translations for Arabic and Latvian
  * 'Pages' link on site stats dashboard now links to the site homepage when only one site exists, rather than the root level
  * Fix: Images and page revisions created by a user are no longer deleted when the user is deleted (Rich Atkinson)
