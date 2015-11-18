@@ -343,10 +343,12 @@ def get_image_model():
 
 class Filter(models.Model):
     """
-    Represents an operation that can be applied to an Image to produce a rendition
+    Represents one or more operations that can be applied to an Image to produce a rendition
     appropriate for final display on the website. Usually this would be a resize operation,
     but could potentially involve colour processing, etc.
     """
+
+    # The spec pattern is operation1-var1-var2|operation2-var1-var
     spec = models.CharField(max_length=255, db_index=True, unique=True)
 
     @cached_property
@@ -356,7 +358,7 @@ class Filter(models.Model):
 
         # Build list of operation objects
         operations = []
-        for op_spec in self.spec.split():
+        for op_spec in self.spec.split('|'):
             op_spec_parts = op_spec.split('-')
 
             if op_spec_parts[0] not in self._registered_operations:
@@ -364,7 +366,6 @@ class Filter(models.Model):
 
             op_class = self._registered_operations[op_spec_parts[0]]
             operations.append(op_class(*op_spec_parts))
-
         return operations
 
     def run(self, image, output):
