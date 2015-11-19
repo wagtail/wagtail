@@ -6,6 +6,7 @@ Changelog
 
  * Added `WAGTAIL_PASSWORD_RESET_ENABLED` setting to allow password resets to be disabled independently of the password management interface (John Draper)
  * Updated fonts for more comprehensive Unicode support
+ * Added ``.alt`` attribute to image renditions
  * Fix: HTTP cache purge now works again on Python 2 (Mitchel Cabuloy)
 
 1.2 (12.11.2015)
