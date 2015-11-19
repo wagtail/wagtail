@@ -166,6 +166,16 @@ class RelatedFields(object):
             return getattr(obj, self.field_name)
 
     def select_on_queryset(self, queryset):
+        """
+        This method runs either prefetch_related or select_related on the queryset
+        to improve indexing speed of the relation.
+
+        It decides which method to call based on the number of related objects:
+         - single (eg ForeignKey, OneToOne), it runs select_related
+         - multiple (eg ManyToMany, reverse ForeignKey) it runs prefetch_related
+
+        This optimisation currently doesn't support reverse relations on Django 1.7.
+        """
         try:
             field = self.get_field(queryset.model)
         except FieldDoesNotExist:
