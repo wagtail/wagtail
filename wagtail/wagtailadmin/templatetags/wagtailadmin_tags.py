@@ -1,5 +1,7 @@
 from __future__ import unicode_literals
 
+import itertools
+
 from django.conf import settings
 from django import template
 from django.contrib.humanize.templatetags.humanize import intcomma
@@ -281,3 +283,14 @@ def paginate(context, page, base_url='', page_key=DEFAULT_PAGE_KEY,
         'page_key': page_key,
         'paginator': page.paginator,
     }
+
+
+@register.inclusion_tag("wagtailadmin/pages/listing/_buttons.html",
+                        takes_context=True)
+def page_listing_buttons(context, page, page_perms, is_parent=False):
+    button_hooks = hooks.get_hooks('register_page_listing_buttons')
+    buttons = sorted(itertools.chain.from_iterable(
+        hook(page, page_perms, is_parent)
+        for hook in button_hooks))
+    print(buttons)
+    return {'page': page, 'buttons': buttons}
