@@ -39,11 +39,11 @@ class SearchForm(forms.Form):
 
 
 class ExternalLinkChooserForm(forms.Form):
-    url = URLOrAbsolutePathField(required=True)
+    url = URLOrAbsolutePathField(required=True, label=ugettext_lazy("URL"))
 
 
 class ExternalLinkChooserWithLinkTextForm(forms.Form):
-    url = URLOrAbsolutePathField(required=True)
+    url = URLOrAbsolutePathField(required=True, label=ugettext_lazy("URL"))
     link_text = forms.CharField(required=True)
 
 
