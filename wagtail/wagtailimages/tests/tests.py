@@ -58,7 +58,7 @@ class TestImageTag(TestCase):
         self.assertTrue('alt="Test image"' in result)
 
     def render_image_tag_with_extra_attributes(self, image, title):
-        temp = template.Template('{% load wagtailimages_tags %}{% image image_obj width-400 class="photo" title=title|lower %}')
+        temp = template.Template('{% load wagtailimages_tags %}{% image image_obj width-400 class="photo" title=title|lower alt="Alternate" %}')
         context = template.Context({'image_obj': image, 'title': title})
         return temp.render(context)
 
@@ -69,6 +69,7 @@ class TestImageTag(TestCase):
         self.assertTrue('width="400"' in result)
         self.assertTrue('height="300"' in result)
         self.assertTrue('class="photo"' in result)
+        self.assertTrue('alt="Alternate"' in result)
         self.assertTrue('title="my wonderful title"' in result)
 
     def render_image_tag_with_filters(self, image):
