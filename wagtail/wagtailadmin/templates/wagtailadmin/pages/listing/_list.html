@@ -37,7 +37,7 @@
                 <td></td>
             </tr>
         {% endif %}
-    
+
         {% block post_parent_page_headers %}
         {% endblock %}
     </thead>
@@ -49,7 +49,7 @@
                     {% if show_ordering_column %}
                         <td class="ord">{% if orderable and ordering == "ord" %}<div class="handle icon icon-grip text-replace">{% trans 'Drag' %}</div>{% endif %}</td>
                     {% endif %}
-                    <td class="title" valign="top">
+                    <td class="title" valign="top" data-listing-page-title>
                         {% block page_title %}
                         {% endblock %}
                     </td>

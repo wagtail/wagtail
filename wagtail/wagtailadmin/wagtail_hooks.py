@@ -5,7 +5,7 @@ from django.utils.translation import ugettext_lazy as _
 
 from wagtail.wagtailadmin.menu import MenuItem, SubmenuMenuItem, settings_menu
 from wagtail.wagtailadmin.search import SearchArea
-from wagtail.wagtailadmin.widgets import Button, PageListingButton
+from wagtail.wagtailadmin.widgets import Button, ButtonWithDropdownFromHook, PageListingButton
 from wagtail.wagtailcore import hooks
 from wagtail.wagtailcore.permissions import collection_permission_policy
 
@@ -67,17 +67,29 @@ def page_listing_buttons(page, page_perms, is_parent=False):
                                 attrs={'target': '_blank'}, priority=20)
     if page.live and page.url:
         yield PageListingButton(_('Live'), page.url, attrs={'target': "_blank"}, priority=30)
-    if page_perms.can_move():
-        yield PageListingButton(_('Move'), reverse('wagtailadmin_pages:move', args=[page.id]), priority=40)
-    if not page.is_root():
-        yield PageListingButton(_('Copy'), reverse('wagtailadmin_pages:copy', args=[page.id]), priority=50)
-    if page_perms.can_delete():
-        yield PageListingButton(_('Delete'), reverse('wagtailadmin_pages:delete', args=[page.id]), priority=60)
-    if page_perms.can_unpublish():
-        yield PageListingButton(_('Unpublish'), reverse('wagtailadmin_pages:unpublish', args=[page.id]), priority=70)
     if page_perms.can_add_subpage():
         if is_parent:
             yield Button(_('Add child page'), reverse('wagtailadmin_pages:add_subpage', args=[page.id]),
-                         classes={'button', 'button-small', 'bicolor', 'icon', 'white', 'icon-plus'}, priority=80)
+                         classes={'button', 'button-small', 'bicolor', 'icon', 'white', 'icon-plus'}, priority=40)
         else:
-            yield PageListingButton(_('Add child page'), reverse('wagtailadmin_pages:add_subpage', args=[page.id]), priority=80)
+            yield PageListingButton(_('Add child page'), reverse('wagtailadmin_pages:add_subpage', args=[page.id]), priority=40)
+
+    yield ButtonWithDropdownFromHook(
+        _('More'),
+        hook_name='register_page_listing_more_buttons',
+        page=page,
+        page_perms=page_perms,
+        is_parent=is_parent,
+        attrs={'target': '_blank'}, priority=50)
+
+
+@hooks.register('register_page_listing_more_buttons')
+def page_listing_more_buttons(page, page_perms, is_parent=False):
+    if page_perms.can_move():
+        yield Button(_('Move'), reverse('wagtailadmin_pages:move', args=[page.id]), priority=10)
+    if not page.is_root():
+        yield Button(_('Copy'), reverse('wagtailadmin_pages:copy', args=[page.id]), priority=20)
+    if page_perms.can_delete():
+        yield Button(_('Delete'), reverse('wagtailadmin_pages:delete', args=[page.id]), priority=30)
+    if page_perms.can_unpublish():
+        yield Button(_('Unpublish'), reverse('wagtailadmin_pages:unpublish', args=[page.id]), priority=40)

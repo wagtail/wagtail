@@ -291,5 +291,4 @@ def page_listing_buttons(context, page, page_perms, is_parent=False):
     buttons = sorted(itertools.chain.from_iterable(
         hook(page, page_perms, is_parent)
         for hook in button_hooks))
-    print(buttons)
     return {'page': page, 'buttons': buttons}

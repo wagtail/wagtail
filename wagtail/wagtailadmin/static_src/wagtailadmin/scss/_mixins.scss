@@ -19,14 +19,12 @@
 
 @mixin unlist() {
     &,
-    ul,
     li {
         list-style-type: none;
         font-style: normal;
     }
 
-    &,
-    ul {
+    & {
         margin-top: 0;
         margin-bottom: 0;
         padding-left: 0;

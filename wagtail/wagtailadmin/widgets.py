@@ -1,5 +1,6 @@
 from __future__ import absolute_import, unicode_literals
 
+import itertools
 import json
 from functools import total_ordering
 
@@ -16,6 +17,7 @@ from django.utils.translation import ugettext_lazy as _
 from taggit.forms import TagWidget
 
 from wagtail.utils.widgets import WidgetWithScript
+from wagtail.wagtailcore import hooks
 from wagtail.wagtailcore.models import Page
 
 
@@ -231,3 +233,35 @@ class PageListingButton(Button):
     def __init__(self, label, url, classes=set(), **kwargs):
         classes = {'button', 'button-small', 'button-secondary'} | set(classes)
         super(PageListingButton, self).__init__(label, url, classes=classes, **kwargs)
+
+
+class BaseDropdownMenuButton(Button):
+    def __init__(self, *args, **kwargs):
+        super(BaseDropdownMenuButton, self).__init__(*args, url=None, **kwargs)
+
+    def get_buttons_in_dropdown(self):
+        raise NotImplementedError
+
+    def render(self):
+        return render_to_string(self.template_name, {
+            'buttons': self.get_buttons_in_dropdown(),
+            'label': self.label,
+            'is_parent': self.is_parent})
+
+
+class ButtonWithDropdownFromHook(BaseDropdownMenuButton):
+    template_name = 'wagtailadmin/pages/listing/_button_with_dropdown.html'
+
+    def __init__(self, label, hook_name, page, page_perms, is_parent, **kwargs):
+        self.hook_name = hook_name
+        self.page = page
+        self.page_perms = page_perms
+        self.is_parent = is_parent
+
+        super(ButtonWithDropdownFromHook, self).__init__(label, **kwargs)
+
+    def get_buttons_in_dropdown(self):
+        button_hooks = hooks.get_hooks(self.hook_name)
+        return sorted(itertools.chain.from_iterable(
+            hook(self.page, self.page_perms, self.is_parent)
+            for hook in button_hooks))
