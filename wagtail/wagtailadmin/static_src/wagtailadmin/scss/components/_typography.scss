@@ -41,7 +41,7 @@ p {
 }
 
 a {
-    @include transition(color 0.2s ease, background-color 0.2s ease);
+    // @include transition(color 0.2s ease, background-color 0.2s ease);
     outline: none;
     color: $color-link;
     text-decoration: none;
@@ -157,3 +157,7 @@ dd {
             content: '!';
         }
     }
+
+.u-para {
+    margin-bottom: 1rem;
+}
