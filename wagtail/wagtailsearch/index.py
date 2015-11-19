@@ -1,3 +1,4 @@
+import django
 from django.db import models
 from django.db.models.fields.related import RelatedField
 from django.apps import apps
@@ -167,9 +168,20 @@ class RelatedFields(object):
         field = self.get_field(queryset.model)
 
         if isinstance(field, RelatedField):
-            if field.many_to_one or field.one_to_one:
-                queryset = queryset.select_related(self.field_name)
-            elif field.one_to_many or field.many_to_many:
-                queryset = queryset.prefetch_related(self.field_name)
+            if django.VERSION >= (1, 8):
+                if field.many_to_one or field.one_to_one:
+                    queryset = queryset.select_related(self.field_name)
+                elif field.one_to_many or field.many_to_many:
+                    queryset = queryset.prefetch_related(self.field_name)
+            else:
+                from django.db.models.fields.related import ForeignKey
+
+                if isinstance(field, ForeignKey):
+                    # select_related for ForeignKey and OneToOneField
+                    queryset = queryset.select_related(self.field_name)
+                else:
+                    # prefetch_related for anything else (ManyToManyField,
+                    # reverse relations, tags)
+                    queryset = queryset.prefetch_related(self.field_name)
 
         return queryset
