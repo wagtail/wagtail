@@ -90,10 +90,8 @@ the tests against it.
 
 **Testing Elasticsearch**
 
-To test Elasticsearch, you need to have the ``elasticsearch`` package installed.
-
-Once installed, you can test Wagtail with Elasticsearch by passing the
-``--elasticsearch`` argument to ``runtests.py``::
+You can test Wagtail against Elasticsearch by passing the ``--elasticsearch``
+argument to ``runtests.py``::
 
     python runtests.py --elasticsearch
 
