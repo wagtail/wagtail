@@ -17,6 +17,7 @@ Minor features
  * Added ``WAGTAIL_PASSWORD_RESET_ENABLED`` setting to allow password resets to be disabled independently of the password management interface (John Draper)
  * Updated fonts for more comprehensive Unicode support
  * Added ``.alt`` attribute to image renditions
+ * The default ``src``, ``width``, ``height`` and ``alt`` attributes can now be overridden by attributes passed to the ``{% image %}`` tag
 
 
 Bug fixes
