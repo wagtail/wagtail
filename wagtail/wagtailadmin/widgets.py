@@ -1,13 +1,17 @@
 from __future__ import absolute_import, unicode_literals
 
 import json
+from functools import total_ordering
 
 from django.contrib.contenttypes.models import ContentType
 from django.core.urlresolvers import reverse
 from django.forms import widgets
+from django.forms.utils import flatatt
 from django.template.loader import render_to_string
+from django.utils.encoding import python_2_unicode_compatible
 from django.utils.formats import get_format
 from django.utils.functional import cached_property
+from django.utils.html import format_html
 from django.utils.translation import ugettext_lazy as _
 from taggit.forms import TagWidget
 
@@ -185,3 +189,45 @@ class AdminPageChooser(AdminChooser):
             parent=json.dumps(parent.id if parent else None),
             can_choose_root=('true' if self.can_choose_root else 'false')
         )
+
+
+@python_2_unicode_compatible
+@total_ordering
+class Button(object):
+    def __init__(self, label, url, classes=set(), attrs={}, priority=1000):
+        self.label = label
+        self.url = url
+        self.classes = classes
+        self.attrs = attrs.copy()
+        self.priority = priority
+
+    def render(self):
+        attrs = {'href': self.url, 'class': ' '.join(sorted(self.classes))}
+        attrs.update(self.attrs)
+        return format_html('<a{}>{}</a>', flatatt(attrs), self.label)
+
+    def __str__(self):
+        return self.render()
+
+    def __repr__(self):
+        return '<Button: {}>'.format(self.label)
+
+    def __lt__(self, other):
+        if not isinstance(other, Button):
+            return NotImplemented
+        return (self.priority, self.label) < (other.priority, other.label)
+
+    def __eq__(self, other):
+        if not isinstance(other, Button):
+            return NotImplemented
+        return (self.label == other.label and
+                self.url == other.url and
+                self.classes == other.classes and
+                self.attrs == other.attrs and
+                self.priority == other.priority)
+
+
+class PageListingButton(Button):
+    def __init__(self, label, url, classes=set(), **kwargs):
+        classes = {'button', 'button-small', 'button-secondary'} | set(classes)
+        super(PageListingButton, self).__init__(label, url, classes=classes, **kwargs)
