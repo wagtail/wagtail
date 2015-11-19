@@ -1,6 +1,7 @@
 import django
 from django.db import models
-from django.db.models.fields.related import RelatedField
+from django.db.models.fields import FieldDoesNotExist
+from django.db.models.fields.related import RelatedField, ForeignObjectRel, OneToOneRel
 from django.apps import apps
 
 
@@ -165,7 +166,10 @@ class RelatedFields(object):
             return getattr(obj, self.field_name)
 
     def select_on_queryset(self, queryset):
-        field = self.get_field(queryset.model)
+        try:
+            field = self.get_field(queryset.model)
+        except FieldDoesNotExist:
+            return queryset
 
         if isinstance(field, RelatedField):
             if django.VERSION >= (1, 8):
@@ -180,8 +184,18 @@ class RelatedFields(object):
                     # select_related for ForeignKey and OneToOneField
                     queryset = queryset.select_related(self.field_name)
                 else:
-                    # prefetch_related for anything else (ManyToManyField,
-                    # reverse relations, tags)
+                    # prefetch_related for anything else (ManyToManyField, tags)
                     queryset = queryset.prefetch_related(self.field_name)
+
+        elif isinstance(field, ForeignObjectRel):
+            # Reverse relation
+            # Note: we will never get here on Django 1.7 and below as get_field
+            # does not return reverse relations
+            if isinstance(field, OneToOneRel):
+                # select_related for reverse OneToOneField
+                queryset = queryset.select_related(self.field_name)
+            else:
+                # prefetch_related for anything else (reverse ForeignKey/ManyToManyField)
+                queryset = queryset.prefetch_related(self.field_name)
 
         return queryset
