@@ -165,7 +165,18 @@ PAGE_MODEL_CLASSES = []
 _PAGE_CONTENT_TYPES = []
 
 
+def get_page_models():
+    """
+    Returns a list of all non-abstract Page model classes defined in this project.
+    """
+    return PAGE_MODEL_CLASSES
+
+
 def get_page_types():
+    """
+    Returns a list of ContentType objects for all non-abstract Page model classes
+    defined in this project.
+    """
     global _PAGE_CONTENT_TYPES
     if len(_PAGE_CONTENT_TYPES) != len(PAGE_MODEL_CLASSES):
         _PAGE_CONTENT_TYPES = [
