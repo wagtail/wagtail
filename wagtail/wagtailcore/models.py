@@ -212,7 +212,7 @@ class PageBase(models.base.ModelBase):
         if 'ajax_template' not in dct:
             cls.ajax_template = None
 
-        cls._clean_subpage_types = None  # to be filled in on first call to cls.clean_subpage_types
+        cls._clean_subpage_models = None  # to be filled in on first call to cls.clean_subpage_models
         cls._clean_parent_page_types = None  # to be filled in on first call to cls.clean_parent_page_types
 
         # All pages should be creatable unless explicitly set otherwise.
@@ -617,28 +617,34 @@ class Page(six.with_metaclass(PageBase, MP_Node, ClusterableModel, index.Indexed
         return s.search(query_string, cls, fields=fields, filters=filters, prefetch_related=prefetch_related)
 
     @classmethod
-    def clean_subpage_types(cls):
+    def clean_subpage_models(cls):
         """
-        Returns the list of subpage types, with strings converted to class objects
-        where required
+        Returns the list of subpage types, normalised as model classes
         """
-        if cls._clean_subpage_types is None:
+        if cls._clean_subpage_models is None:
             subpage_types = getattr(cls, 'subpage_types', None)
             if subpage_types is None:
                 # if subpage_types is not specified on the Page class, allow all page types as subpages
-                res = get_page_types()
+                cls._clean_subpage_models = get_page_models()
             else:
                 try:
-                    models = [resolve_model_string(model_string, cls._meta.app_label)
-                              for model_string in subpage_types]
+                    cls._clean_subpage_models = [
+                        resolve_model_string(model_string, cls._meta.app_label)
+                        for model_string in subpage_types
+                    ]
                 except LookupError as err:
                     raise ImproperlyConfigured("{0}.subpage_types must be a list of 'app_label.model_name' strings, given {1!r}".format(
                         cls.__name__, err.args[1]))
-                res = list(map(ContentType.objects.get_for_model, models))
 
-            cls._clean_subpage_types = res
+        return cls._clean_subpage_models
 
-        return cls._clean_subpage_types
+    @classmethod
+    def clean_subpage_types(cls):
+        """
+        Returns the list of subpage types, normalised as ContentType objects
+        """
+        models = cls.clean_subpage_models()
+        return ContentType.objects.get_for_models(*models).values()
 
     @classmethod
     def clean_parent_page_types(cls):
