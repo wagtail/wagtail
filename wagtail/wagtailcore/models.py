@@ -698,18 +698,29 @@ class Page(six.with_metaclass(PageBase, MP_Node, ClusterableModel, index.Indexed
         return ContentType.objects.get_for_models(*models).values()
 
     @classmethod
-    def allowed_subpage_types(cls):
+    def allowed_subpage_models(cls):
         """
-        Returns the list of page types that this page type can be a subpage of
+        Returns the list of page types that this page type can be a parent of,
+        as a list of model classes
         """
         # Special case the 'Page' class, such as the Root page or Home page -
         # otherwise you can not add initial pages when setting up a site
         if cls == Page:
-            return get_page_types()
+            return get_page_models()
 
-        cls_ct = ContentType.objects.get_for_model(cls)
-        return [ct for ct in cls.clean_subpage_types()
-                if cls_ct in ct.model_class().clean_parent_page_types()]
+        return [
+            subpage_model for subpage_model in cls.clean_subpage_models()
+            if cls in subpage_model.clean_parent_page_models()
+        ]
+
+    @classmethod
+    def allowed_subpage_types(cls):
+        """
+        Returns the list of page types that this page type can be a parent of,
+        as a list of ContentType objects
+        """
+        models = cls.allowed_subpage_models()
+        return ContentType.objects.get_for_models(*models).values()
 
     @classmethod
     def get_verbose_name(cls):
