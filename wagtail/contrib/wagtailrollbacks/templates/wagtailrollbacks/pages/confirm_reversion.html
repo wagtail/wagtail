@@ -1,0 +1,23 @@
+{% extends "wagtailadmin/base.html" %}
+{% load i18n %}
+
+{% block titletag %}{% blocktrans with title=page.title %}Rollback {{ title }}{% endblocktrans %}{% endblock %}
+
+{% block content %}
+    {% trans "Rollback" as rollback_str %}
+    {% include "wagtailadmin/shared/header.html" with title=rollback_str subtitle=page.title icon="doc-empty-inverse" %}
+
+    <div class="nice-padding">
+        <p>
+            {% blocktrans with created=revision.created_at %}Are you sure you want to rollback this page to the <b>{{ created }}</b> version?{% endblocktrans %}
+        </p>
+        <form action="{% url 'wagtailrollbacks:confirm_page_reversion' revision_id=revision.pk %}" method="POST">
+            {% csrf_token %}
+            <input type="submit" value="{% trans 'Save version as draft' %}" class="button" {% if revision.page.locked %}disabled="true"{% endif %} />
+            {% if page_perms.can_publish %}
+                <input type="submit" name="action-publish" value="{% trans 'Publish version' %}" class="button" {% if revision.page.locked %}disabled="true"{% endif %} />
+            {% endif %}
+            <input type="submit" name="action-submit" value="{% trans 'Submit version for moderation' %}" class="button" {% if revision.page.locked %}disabled="true"{% endif %} />
+        </form>
+    </div>
+{% endblock %}

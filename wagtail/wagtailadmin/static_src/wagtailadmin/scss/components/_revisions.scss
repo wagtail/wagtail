@@ -1,0 +1,72 @@
+.diff__revision-selector.diff__revision-selector.diff__revision-selector.diff__revision-selector {
+    font-size: .875rem;
+    display: inline-block;
+    width: 300px;
+    padding: .5em;
+    border-radius: .25em;
+}
+
+.diff__column-header {
+    min-height: 2rem;
+}
+
+.diff {
+    width: 90%;
+    table-layout: fixed;
+    background-color: #F9F8F8;
+    border: solid 1px #E8E8E8;
+}
+
+.diff colgroup {
+    border: none;
+}
+
+.diff_header {
+    color: #aaa;
+    font-family: courier, monospace;
+}
+
+.diff_next {
+    width: 0em;
+    overflow: hidden;
+    background-color: #fff;
+}
+
+.diff_next a {
+    display: none;
+}
+
+.diff_header {
+    width: 2em;
+}
+
+.diff td {
+    padding: .5em;
+}
+
+.diff_sub {
+    background-color: #F7EAEF;
+}
+.diff_add {
+    background-color: #D9EFC1;
+}
+
+.diff_chg {
+    background-color: #F9F0AD;
+}
+
+.diff__title {
+    text-transform: capitalize;
+}
+
+.diff__page-title {
+    float:left;
+    width:45%;
+    margin-right: 1.5rem;
+}
+
+.diff__full-width {
+    width: 100%;
+    float: none;
+    clear: both;
+}

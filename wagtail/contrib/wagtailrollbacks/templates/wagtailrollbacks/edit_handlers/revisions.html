@@ -1,0 +1,40 @@
+{% load gravatar i18n %}
+
+<table class="listing">
+    <thead>
+    <tr class="table-headers">
+        <th>{% trans 'Revision' %}</th>
+        <th>{% trans 'Saved By' %}</th>
+    </tr>
+    </thead>
+    <tbody>
+        {% for revision in revisions %}
+            <tr>
+                <td>
+                    <h2>{% blocktrans with created=revision.created_at %}{{ created }}{% endblocktrans %}</h2>
+                    <ul class="actions">
+                        <li><a href="{% url 'wagtailrollbacks:confirm_page_reversion' revision_id=revision.pk %}" class="button button-small button-secondary{% if page.locked %} disabled{% endif %}">{% trans 'Revert' %}</a></li>
+                        <li><a href="{% url 'wagtailrollbacks:preview_page_diff' revision_id=revision.pk %}" class="button button-small button-secondary">{% trans 'Compare' %}</a></li>
+                        <li><a href="{% url 'wagtailrollbacks:preview_page_version' revision_id=revision.pk %}" class="button button-small button-secondary">{% trans 'Preview' %}</a></li>
+                    </ul>
+                </td>
+                <td><span class="avatar small icon icon-user">{% if revision.user.email %}<img src="{% gravatar_url revision.user.email 25 %}" />{% endif %}</span> <em>{{ revision.user.get_full_name|default:revision.user.get_username }}</em></td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
+<div class="pagination">
+    <p>{% blocktrans with page_num=revisions.number total_pages=revisions.paginator.num_pages %}Page {{ page_num }} of {{ total_pages }}.{% endblocktrans %}</p>
+    <ul>
+        <li class="prev">
+            {% if revisions.has_previous %}
+                <a href="{% url 'wagtailrollbacks:page_revisions' page_id=page.pk %}?p={{ revisions.previous_page_number }}" class="icon icon-arrow-left-after">{% trans 'Previous' %}</a>
+            {% endif %}
+        </li>
+        <li class="next">
+            {% if revisions.has_next %}
+                <a href="{% url 'wagtailrollbacks:page_revisions' page_id=page.pk %}?p={{ revisions.next_page_number }}" class="icon icon-arrow-right-after">{% trans 'Next' %}</a>
+            {% endif %}
+        </li>
+    </ul>
+</div>

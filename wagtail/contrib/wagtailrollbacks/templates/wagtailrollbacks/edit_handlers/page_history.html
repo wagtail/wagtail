@@ -1,0 +1,13 @@
+{% load i18n %}
+
+<h2><label>{% trans 'Page History' %}</label></h2>
+<fieldset>
+    <legend>{% trans 'Page History' %}</legend>
+    {% if self.instance.revisions.all %}
+        <div id="revisions">
+            {% include 'wagtailrollbacks/edit_handlers/revisions.html' with page=self.instance %}
+        </div>
+    {% else %}
+        <p>{% trans 'This page does not yet have any revisions.' %}</p>
+    {% endif %}
+</fieldset>
