@@ -3,7 +3,6 @@ Contains Wagtail CMS integration hooks.
 """
 from django.conf.urls import include
 from django.conf.urls import url
-from django.utils.html import format_html
 
 from wagtail.wagtailcore import hooks
 
@@ -15,6 +14,7 @@ def register_admin_urls():
     return [
         url(r'^rollback/', include(admin_urls, namespace='wagtailrollbacks')),
     ]
+
 
 @hooks.register('insert_editor_js')
 def editor_js():

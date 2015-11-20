@@ -15,6 +15,7 @@ from wagtail.tests.utils import WagtailTestUtils
 
 
 class TestPageRevisionsView(TestCase, WagtailTestUtils):
+
     def setUp(self):
         # Login.
         self.user = self.login()
@@ -24,17 +25,17 @@ class TestPageRevisionsView(TestCase, WagtailTestUtils):
 
         # Add child page.
         self.child_page = SimplePage(
-            title   = 'Test Page',
-            slug    = 'test-page',
+            title='Test Page',
+            slug='test-page',
         )
         self.root_page.add_child(instance=self.child_page)
 
         # Create revisions.
         for i in range(20):
             self.child_page.save_revision(
-                user                        = self.user,
-                submitted_for_moderation    = False,
-                approved_go_live_at         = None
+                user=self.user,
+                submitted_for_moderation=False,
+                approved_go_live_at=None
             )
 
     def get_get_permission_denied(self):
@@ -54,8 +55,8 @@ class TestPageRevisionsView(TestCase, WagtailTestUtils):
 
     def test_pagination(self):
         # Generate the response.
-        page_num    = 2
-        response    = self.get({'p': 2})
+        page_num = 2
+        response = self.get({'p': 2})
 
         # Check assertions.
         self.assertEqual(response.status_code, 200)
@@ -90,10 +91,12 @@ class TestPageRevisionsView(TestCase, WagtailTestUtils):
         )
         self.assertEqual(
             response.context['revisions'].number,
-           response.context['revisions'].paginator.num_pages
+            response.context['revisions'].paginator.num_pages
         )
 
+
 class TestRevisionPreviewView(TestCase, WagtailTestUtils):
+
     def setUp(self):
         # Login.
         self.user = self.login()
@@ -103,17 +106,17 @@ class TestRevisionPreviewView(TestCase, WagtailTestUtils):
 
         # Add child page.
         self.child_page = SimplePage(
-            title   = 'Test Page',
-            slug    = 'test-page',
+            title='Test Page',
+            slug='test-page',
         )
         self.root_page.add_child(instance=self.child_page)
 
         # Create revisions.
         for i in range(20):
             self.child_page.save_revision(
-                user                        = self.user,
-                submitted_for_moderation    = False,
-                approved_go_live_at         = None
+                user=self.user,
+                submitted_for_moderation=False,
+                approved_go_live_at=None
             )
 
     def get_url(self):
@@ -135,7 +138,9 @@ class TestRevisionPreviewView(TestCase, WagtailTestUtils):
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'tests/simple_page.html')
 
+
 class TestConfirmPageReversionView(TestCase, WagtailTestUtils):
+
     def setUp(self):
         # Login.
         self.user = self.login()
@@ -145,17 +150,17 @@ class TestConfirmPageReversionView(TestCase, WagtailTestUtils):
 
         # Add child page.
         self.child_page = SimplePage(
-            title   = 'Test Page',
-            slug    = 'test-page',
+            title='Test Page',
+            slug='test-page',
         )
         self.root_page.add_child(instance=self.child_page)
 
         # Create revisions.
         for i in range(20):
             self.child_page.save_revision(
-                user                        = self.user,
-                submitted_for_moderation    = False,
-                approved_go_live_at         = None
+                user=self.user,
+                submitted_for_moderation=False,
+                approved_go_live_at=None
             )
 
     def get_url(self):
@@ -198,8 +203,8 @@ class TestConfirmPageReversionView(TestCase, WagtailTestUtils):
         )
 
     def test_post_publish(self):
-        post_data   = {'action-publish': True}
-        response    = self.client.post(self.get_url(), post_data)
+        post_data = {'action-publish': True}
+        response = self.client.post(self.get_url(), post_data)
 
         self.assertRedirects(
             response,
@@ -207,8 +212,8 @@ class TestConfirmPageReversionView(TestCase, WagtailTestUtils):
         )
 
     def test_post_submit(self):
-        post_data   = {'action-submit': True}
-        response    = self.client.post(self.get_url(), post_data)
+        post_data = {'action-submit': True}
+        response = self.client.post(self.get_url(), post_data)
 
         self.assertRedirects(
             response,

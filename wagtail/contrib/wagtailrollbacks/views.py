@@ -25,6 +25,7 @@ from wagtail.wagtailcore.models import (
 
 from datetime import date
 import difflib
+import six
 
 
 def get_revisions(page, page_num=1):
@@ -76,9 +77,9 @@ def page_revisions(request, page_id, template_name='wagtailrollbacks/edit_handle
         request,
         template_name,
         {
-            'page':         page,
-            'revisions':    revisions,
-            'p':            page_num,
+            'page': page,
+            'revisions': revisions,
+            'p': page_num,
         }
     )
 
@@ -175,9 +176,9 @@ def confirm_page_reversion(request, revision_id, template_name='wagtailrollbacks
         request,
         template_name,
         {
-            'page':         page,
-            'revision':     revision,
-            'page_perms':   page_perms
+            'page': page,
+            'revision': revision,
+            'page_perms': page_perms
         }
     )
 
@@ -252,7 +253,7 @@ def diff_fields(a, b):
     if isinstance(a, bool) and isinstance(b, bool):
         return diff_bool(a, b)
 
-    if isinstance(a, basestring) and isinstance(b, basestring):
+    if isinstance(a, six.string_types) and isinstance(b, six.string_types):
         return diff_text(a, b)
 
     return None
@@ -309,14 +310,14 @@ def preview_page_diff(request, revision_id, diff_id=None, template_name='wagtail
         request,
         template_name,
         {
-            'page':             page,
-            'revision':         revision,
-            'fields':           revision_fields,
-            'head':             head_fields,
-            'compare_page':     latest,
+            'page': page,
+            'revision': revision,
+            'fields': revision_fields,
+            'head': head_fields,
+            'compare_page': latest,
             'compare_revision': latest_revision_obj,
-            'revisions':        revisions,
-            'diff_id':          diff_id,
-            'deltas':           [d for d in deltas if d['html'] is not None]
+            'revisions': revisions,
+            'diff_id': diff_id,
+            'deltas': [d for d in deltas if d['html'] is not None]
         }
     )

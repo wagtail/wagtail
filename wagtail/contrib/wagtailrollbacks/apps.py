@@ -8,16 +8,14 @@ from django.contrib.admin.apps import SimpleAdminConfig
 from django.utils.functional import cached_property
 from django.utils.translation import ugettext_lazy as _
 
-from wagtailplus.utils.edit_handlers import add_panel_to_edit_handler
-
-from wagtailplus.wagtailrollbacks.edit_handlers import HistoryPanel
+from .edit_handlers import add_panel_to_edit_handler, HistoryPanel
 
 
 logger = logging.getLogger('wagtail.core')
 
 
 class WagtailRollbacksAppConfig(SimpleAdminConfig):
-    name = 'wagtail.contrib.rollbacks'
+    name = 'wagtail.contrib.wagtailrollbacks'
     label = 'wagtailrollbacks'
     verbose_name = 'Rollbacks'
 
