@@ -213,7 +213,7 @@ class PageBase(models.base.ModelBase):
             cls.ajax_template = None
 
         cls._clean_subpage_models = None  # to be filled in on first call to cls.clean_subpage_models
-        cls._clean_parent_page_types = None  # to be filled in on first call to cls.clean_parent_page_types
+        cls._clean_parent_page_models = None  # to be filled in on first call to cls.clean_parent_page_models
 
         # All pages should be creatable unless explicitly set otherwise.
         # This attribute is not inheritable.
@@ -647,28 +647,35 @@ class Page(six.with_metaclass(PageBase, MP_Node, ClusterableModel, index.Indexed
         return ContentType.objects.get_for_models(*models).values()
 
     @classmethod
-    def clean_parent_page_types(cls):
+    def clean_parent_page_models(cls):
         """
-        Returns the list of parent page types, with strings converted to class
-        objects where required
+        Returns the list of parent page types, normalised as model classes
         """
-        if cls._clean_parent_page_types is None:
+
+        if cls._clean_parent_page_models is None:
             parent_page_types = getattr(cls, 'parent_page_types', None)
             if parent_page_types is None:
                 # if parent_page_types is not specified on the Page class, allow all page types as subpages
-                res = get_page_types()
+                cls._clean_parent_page_models = get_page_models()
             else:
                 try:
-                    models = [resolve_model_string(model_string, cls._meta.app_label)
-                              for model_string in parent_page_types]
+                    cls._clean_parent_page_models = [
+                        resolve_model_string(model_string, cls._meta.app_label)
+                        for model_string in parent_page_types
+                    ]
                 except LookupError as err:
                     raise ImproperlyConfigured("{0}.parent_page_types must be a list of 'app_label.model_name' strings, given {1!r}".format(
                         cls.__name__, err.args[1]))
-                res = list(map(ContentType.objects.get_for_model, models))
 
-            cls._clean_parent_page_types = res
+        return cls._clean_parent_page_models
 
-        return cls._clean_parent_page_types
+    @classmethod
+    def clean_parent_page_types(cls):
+        """
+        Returns the list of parent page types, normalised as ContentType objects
+        """
+        models = cls.clean_parent_page_models()
+        return ContentType.objects.get_for_models(*models).values()
 
     @classmethod
     def allowed_parent_page_types(cls):
