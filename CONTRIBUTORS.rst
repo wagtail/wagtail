@@ -79,6 +79,7 @@ Contributors
 * Kyle Stratis
 * Sergey Nikitin
 * John Draper
+* Rich Brennan
 
 
 Translators
