@@ -1,0 +1,87 @@
+{% extends "wagtailadmin/base.html" %}
+{% load wagtailadmin_tags %}
+{% load static from staticfiles %}
+{% load gravatar %}
+{% load i18n %}
+
+{% block titletag %}{% blocktrans with title=page.title %}Rollback {{ title }}{% endblocktrans %}{% endblock %}
+
+{% block content %}
+    {% trans "Compare revisions" as rollback_str %}
+    {% trans "Revision" as revision_str %}
+    {% trans "Saved by" as saved_by_str %}
+    {% trans "Compare with" as compare_with_str %}
+    {% trans "Latest revision" as latest_str %}
+    {% trans "Back to edit" as edit_str %}
+    {% trans "These revisions are the same, or there's no text content to compare." as identical_revision_message %}
+
+    {% include "wagtailadmin/shared/breadcrumb.html" with page=page %}
+    {% include "wagtailadmin/shared/header.html" with title=rollback_str subtitle=page.title icon="doc-empty-inverse" %}
+
+    <div class="nice-padding">
+        <p>
+            <a class="button" href="{% url 'wagtailadmin_pages:edit' page.id %}">{{ edit_str }}</a>
+        </p>
+
+        <hr />
+
+        <div class="diff__page-title">
+            <h2 class="diff__column-header">
+                {{ revision_str }} #{{ revision.pk }}
+            </h2>
+            <p>
+               {{ saved_by_str }} <strong>{{ revision.user }} at {{ revision.created_at }}</strong>
+            </p>
+            <hr />
+        </div>
+
+        <div class="diff__page-title">
+            <h2 class="diff__column-header">
+                {{ compare_with_str }}:
+
+                <select class="diff__revision-selector" name="" data-rev>
+                        <option value="{% url 'wagtailrollbacks:preview_page_diff' revision_id=revision.pk %}">
+                            {{ latest_str }}
+                        </option>
+                    {% for rev in revisions %}
+                        <option value="{% url 'wagtailrollbacks:preview_page_diff' revision_id=revision.pk diff_id=rev.pk %}" {% if diff_id == rev.id %}selected="selected"{% endif %}>
+                            #{{ rev.pk}}: {{ rev.created_at }} by {{ rev.user }}
+                        </option>
+                    {% endfor %}
+                </select>
+            </h2>
+
+            <p>
+                {{ saved_by_str }} <strong>{{ compare_revision.user }}</strong> at {{ compare_revision.created_at }}
+            </p>
+            <hr />
+        </div>
+
+        {% if deltas|length > 0 %}
+            <div class="diff__full-width">
+                {% for delta in deltas %}
+                    <h3 class="diff__title">
+                        {{ delta.field_name }}
+                    </h3>
+                    {{ delta.html|safe }}
+                {% endfor %}
+            </div>
+        {% else %}
+            <div class="diff__full-width">
+                <h2>
+                    {{ identical_revision_message }}
+                </h2>
+            </div>
+        {% endif %}
+
+    </div>
+    <script>
+        (function(){
+            $('[data-rev]').change(function(e) {
+                var val = e.target.value;
+                window.location.href =  e.target.value;
+            });
+        })();
+    </script>
+{% endblock %}
+

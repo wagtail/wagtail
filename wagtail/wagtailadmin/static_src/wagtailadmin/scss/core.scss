@@ -16,6 +16,8 @@
 @import "wagtailadmin/scss/components/progressbar.scss";
 @import "wagtailadmin/scss/components/datetimepicker.scss";
 @import "wagtailadmin/scss/components/main-nav.scss";
+@import "wagtailadmin/scss/components/revisions";
+
 
 @import "wagtailadmin/scss/fonts.scss";
 
@@ -446,3 +448,6 @@ footer,
 .nav-main a, a{
     @include transition(color 0.2s ease, background-color 0.2s ease);
 }
+
+
+
