@@ -3,7 +3,7 @@ from django.db import models
 
 from modelcluster.models import get_all_child_relations
 
-from wagtail.wagtailcore.models import PageRevision, get_page_types
+from wagtail.wagtailcore.models import PageRevision, get_page_models
 
 
 def replace_in_model(model, from_text, to_text):
@@ -27,9 +27,8 @@ class Command(BaseCommand):
             revision.content_json = revision.content_json.replace(from_text, to_text)
             revision.save(update_fields=['content_json'])
 
-        for content_type in get_page_types():
-            self.stdout.write("scanning %s" % content_type.name)
-            page_class = content_type.model_class()
+        for page_class in get_page_models():
+            self.stdout.write("scanning %s" % page_class._meta.verbose_name)
 
             child_relation_names = [rel.get_accessor_name() for rel in get_all_child_relations(page_class)]
 
