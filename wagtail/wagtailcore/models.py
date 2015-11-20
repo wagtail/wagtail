@@ -164,6 +164,13 @@ def clear_site_root_paths_on_delete(sender, instance, **kwargs):
 PAGE_MODEL_CLASSES = []
 
 
+def get_content_type_list(models):
+    """
+    Helper function to return a list of content types, given a list of models
+    """
+    return ContentType.objects.get_for_models(*models).values()
+
+
 def get_page_models():
     """
     Returns a list of all non-abstract Page model classes defined in this project.
@@ -176,9 +183,7 @@ def get_page_types():
     Returns a list of ContentType objects for all non-abstract Page model classes
     defined in this project.
     """
-    return [
-        ContentType.objects.get_for_model(cls) for cls in PAGE_MODEL_CLASSES
-    ]
+    return get_content_type_list(PAGE_MODEL_CLASSES)
 
 
 class BasePageManager(models.Manager):
@@ -639,8 +644,7 @@ class Page(six.with_metaclass(PageBase, MP_Node, ClusterableModel, index.Indexed
         """
         Returns the list of subpage types, normalised as ContentType objects
         """
-        models = cls.clean_subpage_models()
-        return ContentType.objects.get_for_models(*models).values()
+        return get_content_type_list(cls.clean_subpage_models())
 
     @classmethod
     def clean_parent_page_models(cls):
@@ -670,8 +674,7 @@ class Page(six.with_metaclass(PageBase, MP_Node, ClusterableModel, index.Indexed
         """
         Returns the list of parent page types, normalised as ContentType objects
         """
-        models = cls.clean_parent_page_models()
-        return ContentType.objects.get_for_models(*models).values()
+        return get_content_type_list(cls.clean_parent_page_models())
 
     @classmethod
     def allowed_parent_page_models(cls):
@@ -690,8 +693,7 @@ class Page(six.with_metaclass(PageBase, MP_Node, ClusterableModel, index.Indexed
         Returns the list of page types that this page type can be a subpage of,
         as a list of ContentType objects
         """
-        models = cls.allowed_parent_page_models()
-        return ContentType.objects.get_for_models(*models).values()
+        return get_content_type_list(cls.allowed_parent_page_models())
 
     @classmethod
     def allowed_subpage_models(cls):
@@ -715,8 +717,7 @@ class Page(six.with_metaclass(PageBase, MP_Node, ClusterableModel, index.Indexed
         Returns the list of page types that this page type can be a parent of,
         as a list of ContentType objects
         """
-        models = cls.allowed_subpage_models()
-        return ContentType.objects.get_for_models(*models).values()
+        return get_content_type_list(cls.allowed_subpage_models())
 
     @classmethod
     def get_verbose_name(cls):
