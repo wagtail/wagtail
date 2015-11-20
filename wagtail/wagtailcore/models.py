@@ -162,7 +162,6 @@ def clear_site_root_paths_on_delete(sender, instance, **kwargs):
 
 
 PAGE_MODEL_CLASSES = []
-_PAGE_CONTENT_TYPES = []
 
 
 def get_page_models():
@@ -177,12 +176,9 @@ def get_page_types():
     Returns a list of ContentType objects for all non-abstract Page model classes
     defined in this project.
     """
-    global _PAGE_CONTENT_TYPES
-    if len(_PAGE_CONTENT_TYPES) != len(PAGE_MODEL_CLASSES):
-        _PAGE_CONTENT_TYPES = [
-            ContentType.objects.get_for_model(cls) for cls in PAGE_MODEL_CLASSES
-        ]
-    return _PAGE_CONTENT_TYPES
+    return [
+        ContentType.objects.get_for_model(cls) for cls in PAGE_MODEL_CLASSES
+    ]
 
 
 class BasePageManager(models.Manager):
