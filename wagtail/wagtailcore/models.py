@@ -678,13 +678,24 @@ class Page(six.with_metaclass(PageBase, MP_Node, ClusterableModel, index.Indexed
         return ContentType.objects.get_for_models(*models).values()
 
     @classmethod
+    def allowed_parent_page_models(cls):
+        """
+        Returns the list of page types that this page type can be a subpage of,
+        as a list of model classes
+        """
+        return [
+            parent_model for parent_model in cls.clean_parent_page_models()
+            if cls in parent_model.clean_subpage_models()
+        ]
+
+    @classmethod
     def allowed_parent_page_types(cls):
         """
-        Returns the list of page types that this page type can be a subpage of
+        Returns the list of page types that this page type can be a subpage of,
+        as a list of ContentType objects
         """
-        cls_ct = ContentType.objects.get_for_model(cls)
-        return [ct for ct in cls.clean_parent_page_types()
-                if cls_ct in ct.model_class().clean_subpage_types()]
+        models = cls.allowed_parent_page_models()
+        return ContentType.objects.get_for_models(*models).values()
 
     @classmethod
     def allowed_subpage_types(cls):
