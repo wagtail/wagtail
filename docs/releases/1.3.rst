@@ -31,3 +31,14 @@ Bug fixes
 
 Upgrade considerations
 ======================
+
+ContentType-returning methods in wagtailcore are deprecated
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+The following internal functions and methods in ``wagtail.wagtailcore.models``, which return a list of ``ContentType`` objects, have been deprecated. Any uses of these in your code should be replaced by the corresponding new function which returns a list of model classes instead:
+
+ * ``get_page_types()`` - replaced by ``get_page_models()``
+ * ``Page.clean_subpage_types()`` - replaced by ``Page.clean_subpage_models()``
+ * ``Page.clean_parent_page_types()`` - replaced by ``Page.clean_parent_page_models()``
+ * ``Page.allowed_parent_page_types()`` - replaced by ``Page.allowed_parent_page_models()``
+ * ``Page.allowed_subpage_types()`` - replaced by ``Page.allowed_subpage_models()``

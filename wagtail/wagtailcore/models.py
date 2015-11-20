@@ -42,7 +42,7 @@ from wagtail.wagtailcore.signals import page_published, page_unpublished
 from wagtail.wagtailsearch import index
 from wagtail.wagtailsearch.backends import get_search_backend
 
-from wagtail.utils.deprecation import RemovedInWagtail14Warning
+from wagtail.utils.deprecation import RemovedInWagtail14Warning, RemovedInWagtail15Warning
 
 
 logger = logging.getLogger('wagtail.core')
@@ -180,9 +180,14 @@ def get_page_models():
 
 def get_page_types():
     """
+    DEPRECATED.
     Returns a list of ContentType objects for all non-abstract Page model classes
     defined in this project.
     """
+    warnings.warn(
+        "get_page_types is deprecated - please use get_page_models instead",
+        RemovedInWagtail15Warning, stacklevel=2)
+
     return get_content_type_list(PAGE_MODEL_CLASSES)
 
 
@@ -642,8 +647,13 @@ class Page(six.with_metaclass(PageBase, MP_Node, ClusterableModel, index.Indexed
     @classmethod
     def clean_subpage_types(cls):
         """
+        DEPRECATED.
         Returns the list of subpage types, normalised as ContentType objects
         """
+        warnings.warn(
+            "clean_subpage_types is deprecated - please use clean_subpage_models instead",
+            RemovedInWagtail15Warning, stacklevel=2)
+
         return get_content_type_list(cls.clean_subpage_models())
 
     @classmethod
@@ -672,8 +682,13 @@ class Page(six.with_metaclass(PageBase, MP_Node, ClusterableModel, index.Indexed
     @classmethod
     def clean_parent_page_types(cls):
         """
+        DEPRECATED.
         Returns the list of parent page types, normalised as ContentType objects
         """
+        warnings.warn(
+            "clean_parent_page_types is deprecated - please use clean_parent_page_models instead",
+            RemovedInWagtail15Warning, stacklevel=2)
+
         return get_content_type_list(cls.clean_parent_page_models())
 
     @classmethod
@@ -690,9 +705,14 @@ class Page(six.with_metaclass(PageBase, MP_Node, ClusterableModel, index.Indexed
     @classmethod
     def allowed_parent_page_types(cls):
         """
+        DEPRECATED.
         Returns the list of page types that this page type can be a subpage of,
         as a list of ContentType objects
         """
+        warnings.warn(
+            "allowed_parent_page_types is deprecated - please use allowed_parent_page_models instead",
+            RemovedInWagtail15Warning, stacklevel=2)
+
         return get_content_type_list(cls.allowed_parent_page_models())
 
     @classmethod
@@ -714,9 +734,14 @@ class Page(six.with_metaclass(PageBase, MP_Node, ClusterableModel, index.Indexed
     @classmethod
     def allowed_subpage_types(cls):
         """
+        DEPRECATED.
         Returns the list of page types that this page type can be a parent of,
         as a list of ContentType objects
         """
+        warnings.warn(
+            "allowed_subpage_types is deprecated - please use allowed_subpage_models instead",
+            RemovedInWagtail15Warning, stacklevel=2)
+
         return get_content_type_list(cls.allowed_subpage_models())
 
     @classmethod
