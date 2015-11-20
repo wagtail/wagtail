@@ -12,8 +12,9 @@ from django.utils.text import slugify
 from django.utils.encoding import python_2_unicode_compatible
 from django.utils.six import text_type
 from django.core.serializers.json import DjangoJSONEncoder
+from django.contrib.contenttypes.models import ContentType
 
-from wagtail.wagtailcore.models import Page, Orderable, UserPagePermissionsProxy, get_page_types
+from wagtail.wagtailcore.models import Page, Orderable, UserPagePermissionsProxy, get_page_models
 from wagtail.wagtailadmin.edit_handlers import FieldPanel
 from wagtail.wagtailadmin.utils import send_mail
 
@@ -110,10 +111,14 @@ _FORM_CONTENT_TYPES = None
 def get_form_types():
     global _FORM_CONTENT_TYPES
     if _FORM_CONTENT_TYPES is None:
-        _FORM_CONTENT_TYPES = [
-            ct for ct in get_page_types()
-            if issubclass(ct.model_class(), AbstractForm)
+        form_models = [
+            model for model in get_page_models()
+            if issubclass(model, AbstractForm)
         ]
+
+        _FORM_CONTENT_TYPES = list(
+            ContentType.objects.get_for_models(*form_models).values()
+        )
     return _FORM_CONTENT_TYPES
 
 
