@@ -65,15 +65,18 @@ def add_subpage(request, parent_page_id):
     if not parent_page.permissions_for_user(request.user).can_add_subpage():
         raise PermissionDenied
 
-    page_types = sorted(parent_page.allowed_subpage_types(),
-        key=lambda pagetype: pagetype.model_class().get_verbose_name().lower()
-    )
+    page_types = [
+        (model.get_verbose_name(), model._meta.app_label, model._meta.model_name)
+        for model in parent_page.allowed_subpage_models()
+    ]
+    # sort by lower-cased version of verbose name
+    page_types.sort(key=lambda page_type: page_type[0].lower())
 
     if len(page_types) == 1:
         # Only one page type is available - redirect straight to the create form rather than
         # making the user choose
-        content_type = page_types[0]
-        return redirect('wagtailadmin_pages:add', content_type.app_label, content_type.model, parent_page.id)
+        verbose_name, app_label, model_name = page_types[0]
+        return redirect('wagtailadmin_pages:add', app_label, model_name, parent_page.id)
 
     return render(request, 'wagtailadmin/pages/add_subpage.html', {
         'parent_page': parent_page,
@@ -124,7 +127,7 @@ def create(request, content_type_app_name, content_type_model_name, parent_page_
         raise Http404
 
     # page must be in the list of allowed subpage types for this parent ID
-    if content_type not in parent_page.allowed_subpage_types():
+    if page_class not in parent_page.allowed_subpage_models():
         raise PermissionDenied
 
     page = page_class(owner=request.user)
