@@ -303,10 +303,13 @@ class TestPagePermission(TestCase):
     def test_lock_page_for_superuser(self):
         user = get_user_model().objects.get(username='superuser')
         christmas_page = EventPage.objects.get(url_path='/home/events/christmas/')
+        locked_page = Page.objects.get(url_path='/home/my-locked-page/')
 
         perms = UserPagePermissionsProxy(user).for_page(christmas_page)
+        locked_perms = UserPagePermissionsProxy(user).for_page(locked_page)
 
         self.assertTrue(perms.can_lock())
+        self.assertFalse(locked_perms.can_unpublish()) # locked pages can't be unpublished
 
     def test_lock_page_for_moderator(self):
         user = get_user_model().objects.get(username='eventmoderator')

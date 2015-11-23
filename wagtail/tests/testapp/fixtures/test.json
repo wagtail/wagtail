@@ -23,7 +23,7 @@
     "model": "wagtailcore.page",
     "fields": {
         "title": "Welcome to the Wagtail test site!",
-        "numchild": 5,
+        "numchild": 6,
         "show_in_menus": false,
         "live": true,
         "depth": 2,
@@ -33,7 +33,6 @@
         "slug": "home"
     }
 },
-
 {
     "pk": 3,
     "model": "wagtailcore.page",
@@ -379,7 +378,22 @@
         "cost": "free"
     }
 },
-
+{
+    "pk": 14,
+    "model": "wagtailcore.page",
+    "fields": {
+        "title": "My locked page",
+        "numchild": 0,
+        "show_in_menus": true,
+        "live": true,
+        "depth": 3,
+        "content_type": ["wagtailcore", "page"],
+        "path": "000100010006",
+        "url_path": "/home/my-locked-page/",
+        "slug": "my-locked-page",
+        "locked": true
+    }
+},
 {
     "pk": 1,
     "model": "wagtailcore.site",
