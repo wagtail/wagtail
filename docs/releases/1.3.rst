@@ -24,6 +24,7 @@ Bug fixes
 ~~~~~~~~~
 
  * HTTP cache purge now works again on Python 2 (Mitchel Cabuloy)
+ * Locked pages can no longer be unpublished (Alex Bridge)
 
 
 Upgrade considerations

@@ -9,6 +9,7 @@ Changelog
  * Added `.alt` attribute to image renditions
  * The default `src`, `width`, `height` and `alt` attributes can now be overridden by attributes passed to the `{% image %}` tag
  * Fix: HTTP cache purge now works again on Python 2 (Mitchel Cabuloy)
+ * Fix: Locked pages can no longer be unpublished (Alex Bridge)
 
 1.2 (12.11.2015)
 ~~~~~~~~~~~~~~~~

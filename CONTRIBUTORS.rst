@@ -80,6 +80,7 @@ Contributors
 * Sergey Nikitin
 * John Draper
 * Rich Brennan
+* Alex Bridge
 
 
 Translators
