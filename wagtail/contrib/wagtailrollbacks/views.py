@@ -23,12 +23,14 @@ from wagtail.wagtailcore.models import (
     PageRevision
 )
 
-from datetime import date
-import difflib
-import six
+
+from .diff_tools import model_to_dict
+from django.db.models.fields.related import OneToOneField
+from dictdiffer import diff as dict_diff
 
 
-def get_revisions(page, page_num=1):
+
+def get_revisions(page, page_num=1, paginator_number=10):
     """
     Returns paginated queryset of PageRevision instances for
     specified Page instance.
@@ -43,7 +45,7 @@ def get_revisions(page, page_num=1):
     if current:
         revisions.exclude(id=current.id)
 
-    paginator = Paginator(revisions, 5)
+    paginator = Paginator(revisions, paginator_number)
 
     try:
         revisions = paginator.page(page_num)
@@ -183,6 +185,8 @@ def confirm_page_reversion(request, revision_id, template_name='wagtailrollbacks
     )
 
 
+
+
 def get_revision_fields(page):
     """
     Filters system fields out of diffs
@@ -198,13 +202,12 @@ def get_revision_fields(page):
         'latest_revision_created_at'
     ]
 
-    for field in page._meta.fields:
+    for field in page.specific._meta.fields:
 
         if field.name in exclude:
             continue
 
-        # TODO: find a more elegant way to exclude pointers
-        if field.name.endswith('_ptr'):
+        if isinstance(field, OneToOneField) and '_ptr' in field.name:
             continue
 
         d = {
@@ -217,49 +220,37 @@ def get_revision_fields(page):
 
         field_defs.append(d)
 
-    return field_defs
+    related = {}
+
+    for attrib in filter(lambda a: not a.startswith('__'), dir(page)):
+        value = getattr(page, attrib, False)
+
+        # Quack quack
+        if hasattr(value, 'get_queryset') and 'DeferringRelatedManager' in value.__class__.__name__:
+            related[attrib] = [x for x in value.get_queryset()]
+
+    return field_defs, related
 
 
-def diff_text(a, b):
-    d = difflib.HtmlDiff()
-    lines_a = a.splitlines()
-    lines_b = b.splitlines()
-    return d.make_table(lines_a, lines_b, context=True)
-
-
-def diff_bool(a, b):
-    d = difflib.HtmlDiff()
-    lines_a = ['%s' % a]
-    lines_b = ['%s' % b]
-    return d.make_table(lines_a, lines_b, context=True)
-
-
-def diff_date(a, b):
-    d = difflib.HtmlDiff()
-    lines_a = ['%s' % a]
-    lines_b = ['%s' % b]
-    return d.make_table(lines_a, lines_b, context=True)
-
-
-def diff_fields(a, b):
+def get_related_serial(related):
     """
-    Determine which differ to use. These work on the string
-    representation of the field's value, so we transform values into strings
-    if they're not already.
+    Returns serialised representations of related items
     """
-    if isinstance(a, date) and isinstance(b, date):
-        return diff_date(a, b)
+    serialised = dict()
 
-    if isinstance(a, bool) and isinstance(b, bool):
-        return diff_bool(a, b)
+    for key, values in related.iteritems():
+        serialised[key] = []
 
-    if isinstance(a, six.string_types) and isinstance(b, six.string_types):
-        return diff_text(a, b)
+        for value in values:
+            serialised[key].append(model_to_dict(value))
 
-    return None
+    return serialised
 
 
-def preview_page_diff(request, revision_id, diff_id=None, template_name='wagtailrollbacks/edit_handlers/diff.html'):
+
+
+
+def preview_page_diff(request, revision_id, revision_2_id=None, template_name='wagtailrollbacks/edit_handlers/diff.html'):
     """
     Provides the ability to compare simple text values of two pages, and
     highlights chnages between them using difflib
@@ -267,57 +258,122 @@ def preview_page_diff(request, revision_id, diff_id=None, template_name='wagtail
     TODO:
      - Handle relations (eg, Images, StreamFields, etc)
      - Nice messages for nodes that don't have any diffable text content.
-
     """
-    revision = get_object_or_404(PageRevision, pk=revision_id)
-    page = revision.as_page_object()
-    page_perms = page.permissions_for_user(request.user)
+    revision_1 = get_object_or_404(PageRevision, pk=revision_id)
+    page_1 = revision_1.as_page_object()
+    page_perms = page_1.permissions_for_user(request.user)
 
     if not page_perms.can_edit():
         raise PermissionDenied
 
     page_num = request.GET.get('p', 1)
-    revisions = get_revisions(page, page_num)
+    revisions = get_revisions(page_1, page_num, paginator_number=20)
 
-    if diff_id is not None:
-        diff_id = int(diff_id)
-        latest = get_object_or_404(PageRevision, pk=diff_id).as_page_object()
+    if revision_2_id is not None:
+        revision_2_id = int(revision_2_id)
+        page_2 = get_object_or_404(PageRevision, pk=revision_2_id).as_page_object()
+        revision_2 = get_object_or_404(PageRevision, pk=revision_2_id)
+
+    # Get latest revision by default
     else:
-        latest = get_object_or_404(Page, id=page.id).get_latest_revision_as_page()
+        page_2 = get_object_or_404(Page, id=page_1.id).get_latest_revision_as_page()
+        revision_2 = page_2.get_latest_revision()
 
-    latest_revision_obj = latest.get_latest_revision()
+    # Always compare oldest to newest
+    if revision_1.pk > revision_2.pk:
+        revision_1, revision_2 = [revision_2, revision_1]
+        page_1, page_2 = [page_2, page_1]
 
-    revision_fields = get_revision_fields(page)
-    head_fields = get_revision_fields(latest)
+    revisions = [rev for rev in revisions if rev.pk is not revision_1.pk]
 
-    # Don't compare things to themselves.
-    revisions = [rev for rev in revisions if rev.pk is not revision.pk]
-    deltas = []
+    # revision_1_fields, revision_1_related = get_revision_fields(page_1)
+    # revision_2_fields, revision_2_related = get_revision_fields(page_2)
 
-    for idx, field in enumerate(revision_fields):
-        if 'value' in head_fields[idx]:
-            diff_result = diff_fields(field['value'], head_fields[idx]['value'])
+    revision_1_fields = model_to_dict(page_1)
+    revision_2_fields = model_to_dict(page_2)
 
-            # TODO: Find a better way to determine if there's no differences
-            # in the diff results.
-            if diff_result is not None and 'No Differences Found' not in diff_result:
-                deltas.append({
-                    'html': diff_result,
-                    'field_name': field['name']
+    difference = list(dict_diff(revision_1_fields, revision_2_fields))
+
+
+    formatted_difference = []
+
+    for change in difference:
+        item = change
+        title = item[1]
+
+        if isinstance(title, list):
+            title = {
+                'label': title[0],
+                'index': title[1]
+            }
+        else:
+            title = {
+                'label': title
+            }
+
+        change = item[2]
+        new_change = []
+
+        if isinstance(change, list):
+            for operation in change:
+                key = operation[0]
+                value = operation[1]
+
+                new_change.append({
+                    'key': key,
+                    'value': value,
+                    'type': str(type(value).__name__)
                 })
+        else:
+            new_change = change
+
+        formatted_difference.append({
+            'action': item[0],
+            'title': title,
+            'change': new_change
+        })
+
+    # print difference
+    # print formatted_difference
+
+    # # Don't compare things to themselves.
+    # text_deltas = []
+
+    # # Diff simple text fields
+    # for idx, field in enumerate(revision_1_fields):
+
+    #     if 'value' in revision_2_fields[idx]:
+    #         diff_result = diff_fields(field['value'], revision_2_fields[idx]['value'])
+
+    #         # TODO: Find a better way to determine if there's no differences
+    #         # in the diff results.
+    #         if diff_result is not None and 'No Differences Found' not in diff_result:
+    #             text_deltas.append({
+    #                 'html': diff_result,
+    #                 'field_name': field['name']
+    #             })
+
+    # # Diff related objects
+
+    # serial_a = get_related_serial(revision_1_related)
+    # serial_b = get_related_serial(revision_2_related)
+
+
+
 
     return render(
         request,
         template_name,
         {
-            'page': page,
-            'revision': revision,
-            'fields': revision_fields,
-            'head': head_fields,
-            'compare_page': latest,
-            'compare_revision': latest_revision_obj,
+            'page': page_1,
+            'revision': revision_1,
+            'fields': revision_1_fields,
+            'head': revision_2_fields,
+            'compare_page': page_2,
+            'compare_revision': revision_2,
             'revisions': revisions,
-            'diff_id': diff_id,
-            'deltas': [d for d in deltas if d['html'] is not None]
+            'diff_id': revision_2_id,
+            'difference': formatted_difference
+            # 'deltas': [d for d in text_deltas if d['html'] is not None]
         }
     )

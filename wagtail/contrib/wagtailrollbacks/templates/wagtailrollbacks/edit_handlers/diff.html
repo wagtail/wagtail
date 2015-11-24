@@ -44,7 +44,7 @@
                             {{ latest_str }}
                         </option>
                     {% for rev in revisions %}
-                        <option value="{% url 'wagtailrollbacks:preview_page_diff' revision_id=revision.pk diff_id=rev.pk %}" {% if diff_id == rev.id %}selected="selected"{% endif %}>
+                        <option value="{% url 'wagtailrollbacks:preview_page_diff' revision_id=revision.pk revision_2_id=rev.pk %}" {% if diff_id == rev.id %}selected="selected"{% endif %}>
                             #{{ rev.pk}}: {{ rev.created_at }} by {{ rev.user }}
                         </option>
                     {% endfor %}
@@ -57,7 +57,76 @@
             <hr />
         </div>
 
-        {% if deltas|length > 0 %}
+
+        {% if difference|length > 0 %}
+            <div class="diff__full-width">
+            {% for change in difference %}
+
+                <h3 class="diff__title">
+                    {{ change.title.label }}
+
+                    {% if change.title.index != None %}
+
+                    {% endif %}
+                </h3>
+
+                <table class="diff">
+                    <tr>
+                        <td class='diff_header'>
+
+                        </td>
+                        <td>
+                            {% if change.action == 'change' %}
+                                <span class="diff_sub">
+                                    {{ change.change.0 }}
+                                </span>
+                            {% endif %}
+                            {% if change.action == 'add' and change.title.index != None %}
+                                Modified object at index {{ change.title.index }}
+                            {% endif %}
+                        </td>
+                        <td>
+                            {% if change.action == 'change' %}
+                                <span class="diff_add">
+                                    {{ change.change.1 }}
+                                </span>
+                            {% endif %}
+                            {% if change.action == 'add' %}
+                                <ul>
+                                    {% for op in change.change %}
+                                    <li>
+                                        <strong>{{ op.key }}:</strong>
+
+                                            {% if op.type == 'dict' %}
+                                                {% for key, val in op.value.iteritems %}
+                                                <p>
+                                                    <strong>{{ key }}</strong>
+                                                    <span class="diff_add">{{ val }}</span>
+                                                </p>
+                                                {% endfor %}
+                                            {% else %}
+                                            <span class="diff_add">
+                                                {{ op.value }}
+                                            </span>
+                                            {% endif %}
+
+                                        </span>
+                                    </li>
+                                    {% endfor %}
+                                </ul>
+                            {% endif %}
+                        </td>
+                    </tr>
+                </table>
+
+
+            {% endfor %}
+            </div>
+
+        {% endif %}
+
+
+        {% if deltas|length > 0 or related_object_diffs|length > 0 %}
             <div class="diff__full-width">
                 {% for delta in deltas %}
                     <h3 class="diff__title">
@@ -66,7 +135,53 @@
                     {{ delta.html|safe }}
                 {% endfor %}
             </div>
-        {% else %}
+
+            <div class="diff__full-width">
+                {% if related_object_diffs|length > 0 %}
+
+                    {% if deltas|length > 0 %}
+                        <hr />
+                    {% endif %}
+
+                <h2>Changes to relationships</h2>
+                {% endif %}
+
+
+                {% for object in related_object_diffs %}
+
+                    {% if object.diff|length > 0 %}
+                        <h3 class="diff__title">{{ object.name }}</h3>
+                        {% for change in object.diff %}
+                            <h3 class="diff__title">
+                               {{ change.1.1 }}
+                            </h3>
+                            <table class="diff">
+                                <tr>
+                                    <td class='diff_header'>
+
+                                    </td>
+                                    <td>
+                                        <span class="{% if change.0 == 'add' %}diff_add{% else %}diff_sub{% endif %}">
+                                            {{ change.2.0 }}
+                                        </span>
+                                    </td>
+                                    <td>
+                                        <span class="diff_add">
+                                            {{ change.2.1 }}
+                                        </span>
+                                    </td>
+                                </tr>
+                            </table>
+                        {% endfor %}
+                    {% endif %}
+                {% endfor %}
+
+
+            </div>
+
+        {% endif %}
+
+        {% if difference|length == 0 %}
             <div class="diff__full-width">
                 <h2>
                     {{ identical_revision_message }}
