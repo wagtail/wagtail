@@ -38,7 +38,6 @@ Within the ``models.py`` of one of your apps, create a model that extends ``wagt
         thank_you_text = RichTextField(blank=True)
 
         content_panels = AbstractEmailForm.content_panels + [
-            FieldPanel('title', classname="full title"),
             FieldPanel('intro', classname="full"),
             InlinePanel('form_fields', label="Form fields"),
             FieldPanel('thank_you_text', classname="full"),
