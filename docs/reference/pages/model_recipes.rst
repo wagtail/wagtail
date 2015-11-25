@@ -93,7 +93,6 @@ First, ``models.py``:
     from django.shortcuts import render
     from wagtail.wagtailcore.url_routing import RouteResult
     from django.http.response import Http404
-    from wagtail.wagtailadmin.edit_handlers import FieldPanel, MultiFieldPanel
     from wagtail.wagtailcore.models import Page
     
     ...
@@ -117,13 +116,6 @@ First, ``models.py``:
                 'echo': ' '.join(path_components),
             })
 
-    Echoer.content_panels = [
-        FieldPanel('title', classname="full title"),
-    ]
-
-    Echoer.promote_panels = [
-        MultiFieldPanel(Page.promote_panels, "Common page configuration"),
-    ]
 
 This model, ``Echoer``, doesn't define any properties, but does subclass ``Page`` so objects will be able to have a custom title and slug. The template just has to display our ``{{ echo }}`` property.
 
@@ -164,10 +156,10 @@ Using an example from the Wagtail demo site, here's what the tag model and the r
         ...
         tags = ClusterTaggableManager(through=BlogPageTag, blank=True)
 
-    BlogPage.promote_panels = [
-        ...
-        FieldPanel('tags'),
-    ]
+        promote_panels = Page.promote_panels + [
+            ...
+            FieldPanel('tags'),
+        ]
 
 Wagtail's admin provides a nice interface for inputting tags into your content, with typeahead tag completion and friendly tag icons.
 
