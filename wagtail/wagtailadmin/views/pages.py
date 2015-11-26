@@ -679,7 +679,7 @@ def search(request):
         if form.is_valid():
             q = form.cleaned_data['q']
 
-            search_fields = getattr(settings, 'WAGTAIL_ADMIN_PAGE_SEARCH_FIELDS', ['title'])
+            search_fields = getattr(settings, 'WAGTAILADMIN_PAGE_SEARCH_FIELDS', ['title'])
 
             pages = Page.objects.all().prefetch_related('content_type').search(q, fields=search_fields)
             paginator, pages = paginate(request, pages)
