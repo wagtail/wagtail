@@ -34,11 +34,11 @@ Using StreamField
             ('image', ImageChooserBlock()),
         ])
 
-    BlogPage.content_panels = [
-        FieldPanel('author'),
-        FieldPanel('date'),
-        StreamFieldPanel('body'),
-    ]
+        content_panels = Page.content_panels + [
+            FieldPanel('author'),
+            FieldPanel('date'),
+            StreamFieldPanel('body'),
+        ]
 
 
 Note: StreamField is not backwards compatible with other field types such as RichTextField; if you migrate an existing field to StreamField, the existing data will be lost.

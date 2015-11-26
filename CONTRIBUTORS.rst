@@ -78,6 +78,9 @@ Contributors
 * Denis Voskvitsov
 * Kyle Stratis
 * Sergey Nikitin
+* John Draper
+* Rich Brennan
+* Alex Bridge
 
 
 Translators

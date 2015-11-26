@@ -55,8 +55,8 @@ class TestImagesJinja(TestCase):
 
     def test_image_attributes(self):
         self.assertHTMLEqual(
-            self.render('{{ image(myimage, "width-200", class="test") }}', {'myimage': self.image}),
-            '<img alt="Test image" src="{}" width="200" height="150" class="test">'.format(
+            self.render('{{ image(myimage, "width-200", alt="alternate", class="test") }}', {'myimage': self.image}),
+            '<img alt="alternate" src="{}" width="200" height="150" class="test">'.format(
                 self.get_image_filename(self.image, "width-200")))
 
     def test_image_assignment(self):

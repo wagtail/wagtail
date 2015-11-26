@@ -14,10 +14,10 @@
     "browserify": "~3.46.1",
     "browserify-shim": "~3.4.1",
     "gulp": "~3.8.11",
-    "gulp-autoprefixer": "~1.0.1",
+    "gulp-autoprefixer": "~3.0.2",
     "gulp-rename": "^1.2.2",
-    "gulp-sass": "~2.0.0",
-    "gulp-sourcemaps": "~1.2.2",
+    "gulp-sass": "~2.0.4",
+    "gulp-sourcemaps": "~1.5.2",
     "gulp-util": "~2.2.14",
     "jscs": "^1.12.0",
     "require-dir": "^0.3.0"

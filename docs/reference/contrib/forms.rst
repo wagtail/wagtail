@@ -37,17 +37,16 @@ Within the ``models.py`` of one of your apps, create a model that extends ``wagt
         intro = RichTextField(blank=True)
         thank_you_text = RichTextField(blank=True)
 
-    FormPage.content_panels = [
-        FieldPanel('title', classname="full title"),
-        FieldPanel('intro', classname="full"),
-        InlinePanel('form_fields', label="Form fields"),
-        FieldPanel('thank_you_text', classname="full"),
-        MultiFieldPanel([
-            FieldPanel('to_address', classname="full"),
-            FieldPanel('from_address', classname="full"),
-            FieldPanel('subject', classname="full"),
-        ], "Email")
-    ]
+        content_panels = AbstractEmailForm.content_panels + [
+            FieldPanel('intro', classname="full"),
+            InlinePanel('form_fields', label="Form fields"),
+            FieldPanel('thank_you_text', classname="full"),
+            MultiFieldPanel([
+                FieldPanel('to_address', classname="full"),
+                FieldPanel('from_address', classname="full"),
+                FieldPanel('subject', classname="full"),
+            ], "Email")
+        ]
 
 ``AbstractEmailForm`` defines the fields ``to_address``, ``from_address`` and ``subject``, and expects ``form_fields`` to be defined. Any additional fields are treated as ordinary page content - note that ``FormPage`` is responsible for serving both the form page itself and the landing page after submission, so the model definition should include all necessary content fields for both of those views.
 

@@ -9,6 +9,7 @@ from django.utils.http import is_safe_url
 from django.views.decorators.http import require_GET, require_POST
 from django.views.decorators.vary import vary_on_headers
 from django.db.models import Count
+from django.conf import settings
 
 from wagtail.utils.pagination import paginate
 from wagtail.wagtailadmin.edit_handlers import TabbedInterface, ObjectList
@@ -678,7 +679,9 @@ def search(request):
         if form.is_valid():
             q = form.cleaned_data['q']
 
-            pages = Page.objects.all().prefetch_related('content_type').search(q, fields=['title'])
+            search_fields = getattr(settings, 'WAGTAIL_ADMIN_PAGE_SEARCH_FIELDS', ['title'])
+
+            pages = Page.objects.all().prefetch_related('content_type').search(q, fields=search_fields)
             paginator, pages = paginate(request, pages)
     else:
         form = SearchForm()

@@ -1,7 +1,7 @@
-@import "wagtailadmin/scss/variables.scss";
-@import "wagtailadmin/scss/mixins.scss";
+@import 'wagtailadmin/scss/variables';
+@import 'wagtailadmin/scss/mixins';
 
-/* This font is just a single spinner glyph */
+// This font is just a single spinner glyph
 @font-face {
     font-family: 'wagtail';
     src: url(data:application/x-font-ttf;charset=utf-8;base64,AAEAAAALAIAAAwAwT1MvMggiBucAAAC8AAAAYGNtYXAAIwC5AAABHAAAAExnYXNwAAAAEAAAAWgAAAAIZ2x5Zu2pTysAAAFwAAAA0GhlYWQAoBqvAAACQAAAADZoaGVhA+IB5gAAAngAAAAkaG10eAMAAAAAAAKcAAAAFGxvY2EAKAB8AAACsAAAAAxtYXhwAAgAMwAAArwAAAAgbmFtZTAOqMkAAALcAAABOXBvc3QAAwAAAAAEGAAAACAAAwIAAZAABQAAAUwBZgAAAEcBTAFmAAAA9QAZAIQAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAABAAAAAMQHg/+D/4AHgACAAAAABAAAAAAAAAAAAAAAgAAAAAAACAAAAAwAAABQAAwABAAAAFAAEADgAAAAKAAgAAgACAAEAIAAx//3//wAAAAAAIAAx//3//wAB/+P/0wADAAEAAAAAAAAAAAAAAAEAAf//AA8AAQAAAAAAAAAAAAIAADc5AQAAAAABAAAAAAAAAAAAAgAANzkBAAAAAAEAAAAAAAAAAAACAAA3OQEAAAAAAgAA/+ACAAHgABcAMAAANy4DNTQ+Ah8BByYOAhUUHgIXBxcnNz4DJzYuAic/AR4DBxYOAiNLEhwTCihGXTUgIChGNB4HDxQOKLAhISdHMx8BAQgOFQ0mBxEdEgsBASlFXjQrEiouMRo0XkUpAR8hAR8zRycUJCQeDwR0IR8BHTVFKRImIiANBSgSKi4xGjVdRigAAAEAAAABAADi0eQAXw889QALAgAAAAAAz8Bs+QAAAADPwGz5AAD/4AIAAeAAAAAIAAIAAAAAAAAAAQAAAeD/4AAAAgAAAAAAAgAAAQAAAAAAAAAAAAAAAAAAAAUAAAAAAAAAAAAAAAABAAAAAgAAAAAAAAAACgAUAB4AaAABAAAABQAxAAIAAAAAAAIAAAAAAAAAAAAAAAAAAAAAAAAADgCuAAEAAAAAAAEADgAAAAEAAAAAAAIADgBHAAEAAAAAAAMADgAkAAEAAAAAAAQADgBVAAEAAAAAAAUAFgAOAAEAAAAAAAYABwAyAAEAAAAAAAoAKABjAAMAAQQJAAEADgAAAAMAAQQJAAIADgBHAAMAAQQJAAMADgAkAAMAAQQJAAQADgBVAAMAAQQJAAUAFgAOAAMAAQQJAAYADgA5AAMAAQQJAAoAKABjAHcAYQBnAHQAYQBpAGwAVgBlAHIAcwBpAG8AbgAgADEALgAwAHcAYQBnAHQAYQBpAGx3YWd0YWlsAHcAYQBnAHQAYQBpAGwAUgBlAGcAdQBsAGEAcgB3AGEAZwB0AGEAaQBsAEcAZQBuAGUAcgBhAHQAZQBkACAAYgB5ACAASQBjAG8ATQBvAG8AbgAAAAADAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA) format('truetype'),
@@ -10,76 +10,79 @@
     font-style: normal;
 }
 
-html,body {
-    height:100%;
-    padding:0;
-    margin:0;
+html,
+body {
+    height: 100%;
+    padding: 0;
+    margin: 0;
 }
 
-#loading-spinner-wrapper{
-    position:fixed;
-    bottom:0;
-    text-align:center;
-    height:100%;
-    width:100%;
-    font-size:0em;
-    z-index:999999;
-    background:white;
+.loading-spinner-wrapper {
+    position: fixed;
+    bottom: 0;
+    text-align: center;
+    height: 100%;
+    width: 100%;
+    font-size: 0;
+    z-index: 999999;
+    background: $color-white;
     
-    &.remove{
+    &.remove {
         @include transition(all 0.3s ease);
-        bottom:-100%;
+        bottom: -100%;
     }
 
     &:before {
         content: '';
-        width:0px;
+        width: 0;
         display: inline-block;
         height: 100%;
         vertical-align: middle;
-        margin-left:-0.4em;
+        margin-left: -0.4em;
     }
 }
 
-#loading-spinner{
-    position:relative;
-    display:inline-block;
-    width:120px;
-    height:120px;
-    vertical-align:middle;
+.loading-spinner {
+    position: relative;
+    display: inline-block;
+    width: 120px;
+    height: 120px;
+    vertical-align: middle;
 
-    &:after{
-        font-size:120px;
-        line-height:120px;
-        color:$color-teal;
-        position:absolute;
-        left:0;
-        top:0;
-        font-family:wagtail;
-        content:"1";
-        width:1em;
+    &:after {
+        font-size: 120px;
+        line-height: 120px;
+        color: $color-teal;
+        position: absolute;
+        left: 0;
+        top: 0;
+        font-family: wagtail;
+        content: '1';
+        width: 1em;
         animation: spin 0.8s infinite linear;
         -webkit-animation: spin 0.8s infinite linear;
         -moz-animation: spin 0.8s infinite linear;   
     }
 }
 
-#preview-frame{
-    height:100%;
-    width:100%;
-    position:absolute;
-    z-index:1;
-    border:0;
+.preview-frame {
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    z-index: 1;
+    border: 0;
 }
 
 @keyframes spin {
     from { transform: rotate(0deg); }
     to { transform: rotate(360deg); }
 }
+
 @-webkit-keyframes spin {
     from { -webkit-transform: rotate(0deg); }
     to { -webkit-transform: rotate(360deg); }
 }
+
 @-moz-keyframes spin {
     from { -moz-transform: rotate(0deg); }
     to { -moz-transform: rotate(360deg); }

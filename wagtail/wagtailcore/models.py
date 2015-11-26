@@ -1352,6 +1352,8 @@ class PagePermissionTester(object):
             return False
         if (not self.page.live) or self.page_is_root:
             return False
+        if self.page.locked:
+            return False
 
         return self.user.is_superuser or ('publish' in self.permissions)
 

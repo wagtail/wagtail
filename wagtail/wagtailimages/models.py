@@ -3,6 +3,7 @@ from __future__ import unicode_literals
 import os.path
 import hashlib
 from contextlib import contextmanager
+from collections import OrderedDict
 
 
 from taggit.managers import TaggableManager
@@ -15,7 +16,7 @@ from django.db.models.signals import pre_delete, pre_save
 from django.dispatch.dispatcher import receiver
 from django.utils.safestring import mark_safe
 from django.utils.six import BytesIO, text_type
-from django.utils.html import escape, format_html_join
+from django.forms.widgets import flatatt
 from django.conf import settings
 from django.utils.translation import ugettext_lazy as _
 from django.utils.encoding import python_2_unicode_compatible
@@ -440,17 +441,33 @@ class AbstractRendition(models.Model):
         return self.file.url
 
     @property
-    def attrs(self):
-        return mark_safe(
-            'src="%s" width="%d" height="%d" alt="%s"' % (escape(self.url), self.width, self.height, escape(self.image.title))
-        )
+    def alt(self):
+        return self.image.title
 
-    def img_tag(self, extra_attributes=None):
-        if extra_attributes:
-            extra_attributes_string = format_html_join(' ', '{0}="{1}"', extra_attributes.items())
-            return mark_safe('<img %s %s>' % (self.attrs, extra_attributes_string))
-        else:
-            return mark_safe('<img %s>' % self.attrs)
+    @property
+    def attrs(self):
+        """
+        The src, width, height, and alt attributes for an <img> tag, as a HTML
+        string
+        """
+        return flatatt(self.attrs_dict)
+
+    @property
+    def attrs_dict(self):
+        """
+        A dict of the src, width, height, and alt attributes for an <img> tag.
+        """
+        return OrderedDict([
+            ('src', self.url),
+            ('width', self.width),
+            ('height', self.height),
+            ('alt', self.alt),
+        ])
+
+    def img_tag(self, extra_attributes={}):
+        attrs = self.attrs_dict.copy()
+        attrs.update(extra_attributes)
+        return mark_safe('<img{}>'.format(flatatt(attrs)))
 
     def __html__(self):
         return self.img_tag()

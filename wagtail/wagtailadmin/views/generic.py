@@ -58,6 +58,8 @@ class IndexView(PermissionCheckedMixin, View):
 
 
 class CreateView(PermissionCheckedMixin, View):
+    template_name = 'wagtailadmin/generic/create.html'
+
     def get_add_url(self):
         return reverse(self.add_url_name)
 
@@ -87,6 +89,7 @@ class CreateView(PermissionCheckedMixin, View):
 class EditView(PermissionCheckedMixin, View):
     page_title = __("Editing")
     context_object_name = None
+    template_name = 'wagtailadmin/generic/edit.html'
 
     def get_page_subtitle(self):
         return str(self.instance)

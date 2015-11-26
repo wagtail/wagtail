@@ -110,11 +110,10 @@ In the above example, the list of adverts is a fixed list, displayed as part of 
           related_name='+'
       )
   
-  
-  BookPage.content_panels = [
-      SnippetChooserPanel('advert'),
-      # ...
-  ]
+      content_panels = Page.content_panels + [
+          SnippetChooserPanel('advert'),
+          # ...
+      ]
 
 
 The snippet could then be accessed within your template as ``page.advert``.
@@ -126,7 +125,7 @@ To attach multiple adverts to a page, the ``SnippetChooserPanel`` can be placed 
 
   from django.db import models
 
-  from wagtail.wagtailcore.models import Page
+  from wagtail.wagtailcore.models import Page, Orderable
   from wagtail.wagtailsnippets.edit_handlers import SnippetChooserPanel
 
   from modelcluster.fields import ParentalKey
@@ -152,11 +151,10 @@ To attach multiple adverts to a page, the ``SnippetChooserPanel`` can be placed 
   class BookPage(Page):
       ...
   
-  
-  BookPage.content_panels = [
-      InlinePanel('advert_placements', label="Adverts"),
-      # ...
-  ]
+      content_panels = Page.content_panels + [
+          InlinePanel('advert_placements', label="Adverts"),
+          # ...
+      ]
 
 
 

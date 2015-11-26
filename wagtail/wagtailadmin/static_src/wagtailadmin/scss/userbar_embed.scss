@@ -1,14 +1,14 @@
-#wagtail-userbar{
-    background:transparent;
-    position:fixed;
-    top:0;
-    right:0;
-    z-index:9000;
-    border:0;
-    width:150px;
-    height:300px;
+.wagtail-userbar {
+    background: transparent;
+    position: fixed;
+    top: 0;
+    right: 0;
+    z-index: 9000;
+    border: 0;
+    width: 150px;
+    height: 300px;
     -webkit-transition: opacity 0.2s ease;
-       -moz-transition: opacity 0.2s ease;
-         -o-transition: opacity 0.2s ease;
-            transition: opacity 0.2s ease;
+    -moz-transition: opacity 0.2s ease;
+    -o-transition: opacity 0.2s ease;
+    transition: opacity 0.2s ease;
 }
