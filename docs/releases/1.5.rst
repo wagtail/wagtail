@@ -34,6 +34,7 @@ Minor features
  * Highlight current day in date picker (Jonas Lergell)
  * Eliminated the deprecated ``register.assignment_tag`` on Django 1.9 (Josh Schneier)
  * Increased size of Save button on site settings (Liam Brenner)
+ * Optimised Site.find_for_request to only perform one database query (Matthew Downey)
 
 Bug fixes
 ~~~~~~~~~

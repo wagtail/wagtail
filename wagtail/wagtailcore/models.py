@@ -14,7 +14,7 @@ from django.core.handlers.base import BaseHandler
 from django.core.handlers.wsgi import WSGIRequest
 from django.core.urlresolvers import reverse
 from django.db import connection, models, transaction
-from django.db.models import Q
+from django.db.models import Q, Case, When, IntegerField
 from django.db.models.signals import post_delete, post_save, pre_delete
 from django.dispatch.dispatcher import receiver
 from django.http import Http404
@@ -40,6 +40,12 @@ from wagtail.wagtailsearch import index
 logger = logging.getLogger('wagtail.core')
 
 PAGE_TEMPLATE_VAR = 'page'
+
+
+MATCH_HOSTNAME_PORT = 0
+MATCH_HOSTNAME_DEFAULT = 1
+MATCH_DEFAULT = 2
+MATCH_HOSTNAME = 3
 
 
 class SiteManager(models.Manager):
@@ -106,26 +112,49 @@ class Site(models.Model):
         NB this means that high-numbered ports on an extant hostname may
         still be routed to a different hostname which is set as the default
         """
+
         try:
             hostname = request.get_host().split(':')[0]
-            try:
-                # find a Site matching this specific hostname
-                return Site.objects.get(hostname=hostname)  # Site.DoesNotExist here goes to the final except clause
-            except Site.MultipleObjectsReturned:
-                # as there were more than one, try matching by port too
-                try:
-                    port = request.get_port()
-                except AttributeError:
-                    # Request.get_port is Django 1.9+
-                    # KeyError here falls out below
-                    port = request.META['SERVER_PORT']
-                return Site.objects.get(hostname=hostname, port=int(port))
-                # Site.DoesNotExist here goes to the final except clause
-        except (Site.DoesNotExist, KeyError):
-            # If no matching site exists, or request does not specify an HTTP_HOST (which
-            # will often be the case for the Django test client), look for a catch-all Site.
-            # If that fails, let the Site.DoesNotExist propagate back to the caller
-            return Site.objects.get(is_default_site=True)
+        except KeyError:
+            hostname = None
+
+        try:
+            port = request.get_port()
+        except (AttributeError, KeyError):
+            port = request.META.get('SERVER_PORT')
+
+        sites = list(Site.objects.annotate(match=Case(
+            # annotate the results by best choice descending
+
+            # put exact hostname+port match first
+            When(hostname=hostname, port=port, then=MATCH_HOSTNAME_PORT),
+
+            # then put hostname+default (better than just hostname or just default)
+            When(hostname=hostname, is_default_site=True, then=MATCH_HOSTNAME_DEFAULT),
+
+            # then match default with different hostname. there is only ever
+            # one default, so order it above (possibly multiple) hostname
+            # matches so we can use sites[0] below to access it
+            When(is_default_site=True, then=MATCH_DEFAULT),
+
+            # because of the filter below, if it's not default then its a hostname match
+            default=MATCH_HOSTNAME,
+
+            output_field=IntegerField(),
+        )).filter(Q(hostname=hostname) | Q(is_default_site=True)).order_by('match'))
+
+        if sites:
+            # if theres a unique match or hostname (with port or default) match
+            if len(sites) == 1 or sites[0].match in (MATCH_HOSTNAME_PORT, MATCH_HOSTNAME_DEFAULT):
+                return sites[0]
+
+            # if there is a default match with a different hostname, see if
+            # there are many hostname matches. if only 1 then use that instead
+            # otherwise we use the default
+            if sites[0].match == MATCH_DEFAULT:
+                return sites[len(sites) == 2]
+
+        raise Site.DoesNotExist()
 
     @property
     def root_url(self):
