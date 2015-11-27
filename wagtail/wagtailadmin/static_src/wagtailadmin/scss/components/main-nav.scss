@@ -15,7 +15,7 @@ $submenu-color: darken($color-grey-1, 5%);
     }
 }
 
-.nav-toggle {
+.nav-toggle.icon {
     left: $mobile-nice-padding;
     cursor: pointer;
     position: absolute;
