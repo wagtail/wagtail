@@ -127,7 +127,7 @@ class Site(models.Model):
             for site in site_list:
                 if site.port == port:
                     return site
-        except KeyError, ValueError:
+        except (KeyError, ValueError):
             pass
 
         # return default
