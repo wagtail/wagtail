@@ -21,6 +21,21 @@ function escapeHtml(text) {
     });
 }
 
+function initTagField(id, autocompleteUrl) {
+    $('#' + id).tagit({
+        autocomplete: {source: autocompleteUrl},
+        preprocessTag: function(val) {
+            // Double quote a tag if it contains a space
+            // and if it isn't already quoted.
+            if (val && val[0] != '"' && val.indexOf(' ') > -1) {
+                return '"' + val + '"';
+            }
+
+            return val;
+        }
+    });
+}
+
 $(function() {
     // Add class to the body from which transitions may be hung so they don't appear to transition as the page loads
     $('body').addClass('ready');
@@ -183,3 +198,4 @@ $(function() {
         }, 10);
     });
 });
+
