@@ -26,8 +26,8 @@
     }
 }
 
-@mixin transition($transition...){
-    body.ready &{
+@mixin transition($transition...) {
+    body.ready & {
         transition: $transition;
     }
 }

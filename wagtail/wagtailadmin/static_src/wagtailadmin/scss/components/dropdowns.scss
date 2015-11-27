@@ -97,7 +97,7 @@
     }
 
     &.open ul {
-        box-shadow(0 3px 3px 0 rgba(0, 0, 0, 0.2);
+        box-shadow: 0 3px 3px 0 rgba(0, 0, 0, 0.2);
         opacity: 1;
         left: 0;
         display: block;
@@ -113,7 +113,7 @@
     }
 
     &.dropup ul {
-        box-shadow(0 -3px 3px 0 rgba(0, 0, 0, 0.2);
+        box-shadow: 0 -3px 3px 0 rgba(0, 0, 0, 0.2);
         top: auto;
         bottom: 100%;
 
@@ -185,7 +185,7 @@
             }
 
             .dropdown-toggle {
-                border-radius: 0 0 3px 0;
+                border-radius: 0 0 3px;
             }
         }
     }
