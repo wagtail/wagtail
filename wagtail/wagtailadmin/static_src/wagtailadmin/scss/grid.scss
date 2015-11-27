@@ -1,24 +1,10 @@
 // Utility variable - you should never need to modify this
 $padding: $grid-gutter-width*0.5;
 
-// Ensure grid columns are set to border-boxes. This is essential
-@mixin border-box() {
-    -webkit-box-sizing: border-box;
-    -moz-box-sizing: border-box;
-    box-sizing: border-box;
-}
-
-@mixin content-box() {
-    -webkit-box-sizing: content-box;
-    -moz-box-sizing: content-box;
-    box-sizing: content-box;
-}
-
 // Our row container
 @mixin row($padding: 0) {
     @include clearfix();
-    @include border-box();
-
+    box-sizing: border-box;
     display: block;
     margin-right: auto;
     margin-left: auto;
@@ -33,8 +19,7 @@ $padding: $grid-gutter-width*0.5;
 
 // Our column container
 @mixin column($x, $padding: $padding, $grid-columns: $grid-columns) {
-    @include border-box();
-
+    box-sizing: border-box;
     display: inline;
     float: left;
     width: 100%*($x / $grid-columns);
@@ -43,8 +28,7 @@ $padding: $grid-gutter-width*0.5;
 }
 
 @mixin table-column($x, $padding: $padding, $grid-columns: $grid-columns) {
-    @include border-box();
-
+    box-sizing: border-box;
     width: 100%*($x / $grid-columns);
 }
 
