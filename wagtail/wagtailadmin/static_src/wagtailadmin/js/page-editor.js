@@ -379,6 +379,18 @@ function initCollapsibleBlocks() {
     });
 }
 
+function initKeyboardShortcuts() {
+    Mousetrap.bind(['mod+p'], function(e) {
+        $('.action-preview').trigger('click');
+        return false;
+    });
+
+    Mousetrap.bind(['mod+s'], function(e) {
+        $('.action-save').trigger('click');
+        return false;
+    });
+}
+
 $(function() {
     /* Only non-live pages should auto-populate the slug from the title */
     if (!$('body').hasClass('page-is-live')) {
@@ -388,6 +400,7 @@ $(function() {
     initSlugCleaning();
     initErrorDetection();
     initCollapsibleBlocks();
+    initKeyboardShortcuts();
 
     $('.richtext [contenteditable="false"]').each(function() {
         insertRichTextDeleteControl(this);
