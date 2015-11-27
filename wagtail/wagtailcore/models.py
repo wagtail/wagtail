@@ -88,20 +88,52 @@ class Site(models.Model):
         NB this means that high-numbered ports on an extant hostname may
         still be routed to a different hostname which is set as the default
         """
+
+        # default site q
+        q = Q(is_default_site=True)
+
+        # hostname q
         try:
-            hostname = request.META['HTTP_HOST'].split(':')[0]  # KeyError here goes to the final except clause
-            try:
-                # find a Site matching this specific hostname
-                return Site.objects.get(hostname=hostname)  # Site.DoesNotExist here goes to the final except clause
-            except Site.MultipleObjectsReturned:
-                # as there were more than one, try matching by port too
-                port = request.META['SERVER_PORT']  # KeyError here goes to the final except clause
-                return Site.objects.get(hostname=hostname, port=int(port))  # Site.DoesNotExist here goes to the final except clause
-        except (Site.DoesNotExist, KeyError):
-            # If no matching site exists, or request does not specify an HTTP_HOST (which
-            # will often be the case for the Django test client), look for a catch-all Site.
-            # If that fails, let the Site.DoesNotExist propagate back to the caller
-            return Site.objects.get(is_default_site=True)
+            hostname = request.META['HTTP_HOST'].split(':')[0]
+            q |= Q(hostname=hostname)
+        except KeyError:
+            pass
+
+        # get all matching sites
+        # order by -is_default_site so first item is default (if any)
+        site_list = Site.objects.filter(q).order_by('-is_default_site')
+
+        # only one result (fastpath)
+        if len(site_list) == 1:
+            return site_list[0]
+
+        # DoesNotExist
+        if len(site_list) == 0:
+            raise Site.DoesNotExist()
+
+        # extract default site from site_list (if any)
+        default_site = None
+        if site_list[0].is_default_site:
+            default_site = site_list[0]
+            site_list = site_list[1:]
+
+        # match non-ambiguous hostname
+        if len(site_list) == 1:
+            return site_list[0]
+
+        # check for matching port
+        try:
+            port = int(request.META['SERVER_PORT'])
+            for site in site_list:
+                if site.port == port:
+                    return site
+        except KeyError, ValueError:
+            pass
+
+        # return default
+        if not default_site:
+            raise Site.DoesNotExist()
+        return default_site
 
     @property
     def root_url(self):
