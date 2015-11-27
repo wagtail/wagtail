@@ -100,8 +100,8 @@ class Site(models.Model):
             pass
 
         # get all matching sites
-        # order by -is_default_site so first item is default (if any)
-        site_list = Site.objects.filter(q).order_by('-is_default_site')
+        # order by is_default_site so if there is a default it is either first or last
+        site_list = list(Site.objects.filter(q).order_by('is_default_site'))
 
         # only one result (fastpath)
         if len(site_list) == 1:
@@ -112,10 +112,14 @@ class Site(models.Model):
             raise Site.DoesNotExist()
 
         # extract default site from site_list (if any)
+        # we need to check both ends as different dbs store and order booleans differently (see django #19726)
         default_site = None
         if site_list[0].is_default_site:
             default_site = site_list[0]
             site_list = site_list[1:]
+        elif site_list[-1].is_default_site:
+            default_site = site_list[-1]
+            site_list = site_list[:-1]
 
         # match non-ambiguous hostname
         if len(site_list) == 1:
