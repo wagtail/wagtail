@@ -29,6 +29,7 @@ class TestSiteRouting(TestCase):
         self.events_site = Site.objects.create(hostname='events.example.com', root_page=events_page)
         self.alternate_port_events_site = Site.objects.create(hostname='events.example.com', root_page=events_page, port='8765')
         self.about_site = Site.objects.create(hostname='about.example.com', root_page=about_page)
+        self.alternate_port_default_site = Site.objects.create(hostname=self.default_site.hostname, port='8765', root_page=self.default_site.root_page)
         self.unrecognised_port = '8000'
         self.unrecognised_hostname = 'unknown.site.com'
 

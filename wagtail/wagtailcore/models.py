@@ -111,15 +111,18 @@ class Site(models.Model):
         if len(site_list) == 0:
             raise Site.DoesNotExist()
 
-        # extract default site from site_list (if any)
+        # find the default_site (if any)
+        # remove from list if hostname does not match
         # we need to check both ends as different dbs store and order booleans differently (see django #19726)
         default_site = None
         if site_list[0].is_default_site:
             default_site = site_list[0]
-            site_list = site_list[1:]
+            if default_site.hostname != hostname:
+                site_list = site_list[1:]
         elif site_list[-1].is_default_site:
             default_site = site_list[-1]
-            site_list = site_list[:-1]
+            if default_site.hostname != hostname:
+                site_list = site_list[:-1]
 
         # match non-ambiguous hostname
         if len(site_list) == 1:
