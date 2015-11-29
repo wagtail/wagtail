@@ -2224,10 +2224,12 @@ class TestNotificationPreferences(TestCase, WagtailTestUtils):
         self.submit()
 
         # Check that both the moderators got an email, and no others
-        self.assertEqual(len(mail.outbox), 1)
-        self.assertIn(self.moderator.email, mail.outbox[0].to)
-        self.assertIn(self.moderator2.email, mail.outbox[0].to)
-        self.assertEqual(len(mail.outbox[0].to), 2)
+        self.assertEqual(len(mail.outbox), 2)
+        email_to = mail.outbox[0].to + mail.outbox[1].to
+        self.assertIn(self.moderator.email, email_to)
+        self.assertIn(self.moderator2.email, email_to)
+        self.assertEqual(len(mail.outbox[0].to), 1)
+        self.assertEqual(len(mail.outbox[1].to), 1)
 
     def test_submit_notification_preferences_respected(self):
         # moderator2 doesn't want emails

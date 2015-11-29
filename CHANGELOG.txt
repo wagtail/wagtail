@@ -14,6 +14,7 @@ Changelog
  * `wagtailadmin.utils.send_mail` now passes extra keyword arguments to Django's `send_mail` function (Matthew Downey)
  * `page_unpublish` signal is now fired for each page that was unpublished by a call to `PageQuerySet.unpublish()`
  * Add `get_upload_to` method to `AbstractImage`, to allow overriding the default image upload path (Ben Emery)
+ * Notification emails are now sent per user (Matthew Downey)
  * New translations for Arabic and Latvian
  * Fix: HTTP cache purge now works again on Python 2 (Mitchel Cabuloy)
  * Fix: Locked pages can no longer be unpublished (Alex Bridge)
