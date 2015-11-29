@@ -1,4 +1,11 @@
-{% extends 'wagtailadmin/notifications/base_notification.html' %}{% block notification %}{% load i18n %}{% blocktrans with title=revision.page.title|safe %}The page "{{ title }}" has been approved{% endblocktrans %}
+{% extends 'wagtailadmin/notifications/base_notification.html' %}
+
+{% load i18n %}
+
+{% block subject %}{% blocktrans with title=revision.page.title|safe %}The page "{{ title }}" has been approved{% endblocktrans %}{% endblock %}
+
+{% block notification %}
 {% blocktrans with title=revision.page.title|safe %}The page "{{ title }}" has been approved.{% endblocktrans %}
 
-{% trans "You can view the page here:" %} {{ revision.page.full_url }}{% endblock %}
+{% trans "You can view the page here:" %} {{ revision.page.full_url }}
+{% endblock %}

@@ -153,20 +153,23 @@ def send_notification(page_revision_id, notification, excluded_user_id):
         return
 
     # Get list of email addresses
-    email_addresses = [
-        recipient.email for recipient in recipients
+    email_recipients = [
+        recipient for recipient in recipients
         if recipient.email and recipient.id != excluded_user_id and getattr(UserProfile.get_for_user(recipient), notification + '_notifications')
     ]
 
     # Return if there are no email addresses
-    if not email_addresses:
+    if not email_recipients:
         return
 
-    # Get email subject and content
+    # Get template
     template = 'wagtailadmin/notifications/' + notification + '.html'
-    rendered_template = render_to_string(template, dict(revision=revision, settings=settings)).split('\n')
-    email_subject = rendered_template[0]
-    email_content = '\n'.join(rendered_template[1:])
 
-    # Send email
-    send_mail(email_subject, email_content, email_addresses)
+    # Send emails
+    for recipient in email_recipients:
+
+        # Get email subject and content
+        email_subject, email_content = render_to_string(template, dict(user=recipient, revision=revision, settings=settings)).split('\n', 1)
+
+        # Send email
+        send_mail(email_subject, email_content, [recipient.email])
