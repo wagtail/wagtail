@@ -135,7 +135,7 @@ def send_mail(subject, message, recipient_list, from_email=None, **kwargs):
         else:
             from_email = 'webmaster@localhost'
 
-    django_send_mail(subject, message, from_email, recipient_list, **kwargs)
+    return django_send_mail(subject, message, from_email, recipient_list, **kwargs)
 
 
 def send_notification(page_revision_id, notification, excluded_user_id):
