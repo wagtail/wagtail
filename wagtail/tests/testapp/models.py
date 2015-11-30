@@ -413,9 +413,9 @@ class StreamModel(models.Model):
         ('image', ImageChooserBlock()),
     ])
 
+
 class CustomImageFilePath(AbstractImage):
-    @staticmethod
-    def get_upload_to(instance, filename):
+    def get_upload_to(self, filename):
         """Create a path that's file-system friendly.
 
         By hashing the file's contents we guarantee an equal distribution
@@ -424,22 +424,22 @@ class CustomImageFilePath(AbstractImage):
         different contents - this isn't guaranteed as we're only using
         the first three characters of the checksum.
         """
-        original_filepath = AbstractImage.get_upload_to(instance, filename)
+        original_filepath = super(CustomImageFilePath, self).get_upload_to(filename)
         folder_name, filename = original_filepath.split(os.path.sep)
 
         # Ensure that we consume the entire file, we can't guarantee that
         # the stream has not be partially (or entirely) consumed by
         # another process
-        original_position = instance.file.tell()
-        instance.file.seek(0)
+        original_position = self.file.tell()
+        self.file.seek(0)
         hash256 = hashlib.sha256()
 
         while True:
-            data = instance.file.read(256)
+            data = self.file.read(256)
             if not data:
                 break
             hash256.update(data)
         checksum = hash256.hexdigest()
 
-        instance.file.seek(original_position)
+        self.file.seek(original_position)
         return os.path.join(folder_name, checksum[:3], filename)

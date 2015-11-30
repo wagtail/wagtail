@@ -43,7 +43,8 @@ class SourceImageIOError(IOError):
 
 def get_upload_to(instance, filename):
     # Dumb proxy to instance method.
-    return instance.get_upload_to(instance, filename)
+    return instance.get_upload_to(filename)
+
 
 @python_2_unicode_compatible
 class AbstractImage(models.Model, TagSearchable):
@@ -61,10 +62,9 @@ class AbstractImage(models.Model, TagSearchable):
     focal_point_width = models.PositiveIntegerField(null=True, blank=True)
     focal_point_height = models.PositiveIntegerField(null=True, blank=True)
 
-    @staticmethod
-    def get_upload_to(instance, filename):
+    def get_upload_to(self, filename):
         folder_name = 'original_images'
-        filename = instance.file.field.storage.get_valid_name(filename)
+        filename = self.file.field.storage.get_valid_name(filename)
 
         # do a unidecode in the filename and then
         # replace non-ascii characters in filename with _ , to sidestep issues with filesystem encoding
