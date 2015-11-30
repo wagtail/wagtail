@@ -179,7 +179,7 @@ footer {
         white-space: nowrap;
         line-height: 1.5em;
 
-        a, 
+        a,
         span {
             color: lighten($color-teal, 40%);
             display: block;
@@ -238,8 +238,8 @@ footer {
     header &  li {
         &:before {
             border-left: 1em solid $color-white;
-            position: absolute; 
-            left: 0; 
+            position: absolute;
+            left: 0;
             top: 0;
         }
     }
@@ -386,6 +386,11 @@ footer,
             margin: auto;
             display: block;
         }
+
+        img:hover {
+            transform: rotate(4deg);
+            transition: all 0.1s ease-in-out 0.1s;
+        }
     }
 
     footer {
@@ -404,7 +409,7 @@ footer,
         background: $color-teal-darker;
 
         li {
-            a, 
+            a,
             span {
                 &:after {
                     color: $color-teal;
@@ -469,7 +474,7 @@ footer,
     @include transition(all 0.2s ease);
 }
 
-.nav-main a, 
+.nav-main a,
 a {
     @include transition(color 0.2s ease, background-color 0.2s ease);
 }
