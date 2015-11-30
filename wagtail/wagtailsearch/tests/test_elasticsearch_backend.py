@@ -1,16 +1,25 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 
+import os
 import unittest
 import datetime
 import json
 
 import mock
+from elasticsearch.serializer import JSONSerializer
 
 from django.test import TestCase
 from django.db.models import Q
 
 from wagtail.wagtailsearch.backends import get_search_backend
+from wagtail.wagtailsearch.backends.elasticsearch import (
+    ElasticSearch,
+    ElasticSearchMapping,
+    ElasticSearchResults,
+    ElasticSearchQuery,
+    ElasticSearchAtomicIndexRebuilder,
+)
 
 from wagtail.tests.search import models
 from .test_backends import BackendTests
@@ -223,24 +232,12 @@ class TestElasticSearchBackend(BackendTests, TestCase):
 
 class TestElasticSearchQuery(TestCase):
     def assertDictEqual(self, a, b):
-        default = self.JSONSerializer().default
+        default = JSONSerializer().default
         self.assertEqual(json.dumps(a, sort_keys=True, default=default), json.dumps(b, sort_keys=True, default=default))
-
-    def setUp(self):
-        # Import using a try-catch block to prevent crashes if the elasticsearch-py
-        # module is not installed
-        try:
-            from wagtail.wagtailsearch.backends.elasticsearch import ElasticSearchQuery
-            from elasticsearch.serializer import JSONSerializer
-        except ImportError:
-            raise unittest.SkipTest("elasticsearch-py not installed")
-
-        self.ElasticSearchQuery = ElasticSearchQuery
-        self.JSONSerializer = JSONSerializer
 
     def test_simple(self):
         # Create a query
-        query = self.ElasticSearchQuery(models.SearchTest.objects.all(), "Hello")
+        query = ElasticSearchQuery(models.SearchTest.objects.all(), "Hello")
 
         # Check it
         expected_result = {'filtered': {'filter': {'prefix': {'content_type': 'searchtests_searchtest'}}, 'query': {'multi_match': {'query': 'Hello', 'fields': ['_all', '_partials']}}}}
@@ -248,7 +245,7 @@ class TestElasticSearchQuery(TestCase):
 
     def test_none_query_string(self):
         # Create a query
-        query = self.ElasticSearchQuery(models.SearchTest.objects.all(), None)
+        query = ElasticSearchQuery(models.SearchTest.objects.all(), None)
 
         # Check it
         expected_result = {'filtered': {'filter': {'prefix': {'content_type': 'searchtests_searchtest'}}, 'query': {'match_all': {}}}}
@@ -256,7 +253,7 @@ class TestElasticSearchQuery(TestCase):
 
     def test_and_operator(self):
         # Create a query
-        query = self.ElasticSearchQuery(models.SearchTest.objects.all(), "Hello", operator='and')
+        query = ElasticSearchQuery(models.SearchTest.objects.all(), "Hello", operator='and')
 
         # Check it
         expected_result = {'filtered': {'filter': {'prefix': {'content_type': 'searchtests_searchtest'}}, 'query': {'multi_match': {'query': 'Hello', 'fields': ['_all', '_partials'], 'operator': 'and'}}}}
@@ -264,7 +261,7 @@ class TestElasticSearchQuery(TestCase):
 
     def test_filter(self):
         # Create a query
-        query = self.ElasticSearchQuery(models.SearchTest.objects.filter(title="Test"), "Hello")
+        query = ElasticSearchQuery(models.SearchTest.objects.filter(title="Test"), "Hello")
 
         # Check it
         expected_result = {'filtered': {'filter': {'and': [{'prefix': {'content_type': 'searchtests_searchtest'}}, {'term': {'title_filter': 'Test'}}]}, 'query': {'multi_match': {'query': 'Hello', 'fields': ['_all', '_partials']}}}}
@@ -272,7 +269,7 @@ class TestElasticSearchQuery(TestCase):
 
     def test_and_filter(self):
         # Create a query
-        query = self.ElasticSearchQuery(models.SearchTest.objects.filter(title="Test", live=True), "Hello")
+        query = ElasticSearchQuery(models.SearchTest.objects.filter(title="Test", live=True), "Hello")
 
         # Check it
         expected_result = {'filtered': {'filter': {'and': [{'prefix': {'content_type': 'searchtests_searchtest'}}, {'and': [{'term': {'live_filter': True}}, {'term': {'title_filter': 'Test'}}]}]}, 'query': {'multi_match': {'query': 'Hello', 'fields': ['_all', '_partials']}}}}
@@ -286,7 +283,7 @@ class TestElasticSearchQuery(TestCase):
 
     def test_or_filter(self):
         # Create a query
-        query = self.ElasticSearchQuery(models.SearchTest.objects.filter(Q(title="Test") | Q(live=True)), "Hello")
+        query = ElasticSearchQuery(models.SearchTest.objects.filter(Q(title="Test") | Q(live=True)), "Hello")
 
         # Make sure field filters are sorted (as they can be in any order which may cause false positives)
         query = query.get_query()
@@ -299,7 +296,7 @@ class TestElasticSearchQuery(TestCase):
 
     def test_negated_filter(self):
         # Create a query
-        query = self.ElasticSearchQuery(models.SearchTest.objects.exclude(live=True), "Hello")
+        query = ElasticSearchQuery(models.SearchTest.objects.exclude(live=True), "Hello")
 
         # Check it
         expected_result = {'filtered': {'filter': {'and': [{'prefix': {'content_type': 'searchtests_searchtest'}}, {'not': {'term': {'live_filter': True}}}]}, 'query': {'multi_match': {'query': 'Hello', 'fields': ['_all', '_partials']}}}}
@@ -307,7 +304,7 @@ class TestElasticSearchQuery(TestCase):
 
     def test_fields(self):
         # Create a query
-        query = self.ElasticSearchQuery(models.SearchTest.objects.all(), "Hello", fields=['title'])
+        query = ElasticSearchQuery(models.SearchTest.objects.all(), "Hello", fields=['title'])
 
         # Check it
         expected_result = {'filtered': {'filter': {'prefix': {'content_type': 'searchtests_searchtest'}}, 'query': {'match': {'title': 'Hello'}}}}
@@ -315,7 +312,7 @@ class TestElasticSearchQuery(TestCase):
 
     def test_fields_with_and_operator(self):
         # Create a query
-        query = self.ElasticSearchQuery(models.SearchTest.objects.all(), "Hello", fields=['title'], operator='and')
+        query = ElasticSearchQuery(models.SearchTest.objects.all(), "Hello", fields=['title'], operator='and')
 
         # Check it
         expected_result = {'filtered': {'filter': {'prefix': {'content_type': 'searchtests_searchtest'}}, 'query': {'match': {'title': {'query': 'Hello', 'operator': 'and'}}}}}
@@ -323,7 +320,7 @@ class TestElasticSearchQuery(TestCase):
 
     def test_multiple_fields(self):
         # Create a query
-        query = self.ElasticSearchQuery(models.SearchTest.objects.all(), "Hello", fields=['title', 'content'])
+        query = ElasticSearchQuery(models.SearchTest.objects.all(), "Hello", fields=['title', 'content'])
 
         # Check it
         expected_result = {'filtered': {'filter': {'prefix': {'content_type': 'searchtests_searchtest'}}, 'query': {'multi_match': {'fields': ['title', 'content'], 'query': 'Hello'}}}}
@@ -331,7 +328,7 @@ class TestElasticSearchQuery(TestCase):
 
     def test_multiple_fields_with_and_operator(self):
         # Create a query
-        query = self.ElasticSearchQuery(models.SearchTest.objects.all(), "Hello", fields=['title', 'content'], operator='and')
+        query = ElasticSearchQuery(models.SearchTest.objects.all(), "Hello", fields=['title', 'content'], operator='and')
 
         # Check it
         expected_result = {'filtered': {'filter': {'prefix': {'content_type': 'searchtests_searchtest'}}, 'query': {'multi_match': {'fields': ['title', 'content'], 'query': 'Hello', 'operator': 'and'}}}}
@@ -339,7 +336,7 @@ class TestElasticSearchQuery(TestCase):
 
     def test_exact_lookup(self):
         # Create a query
-        query = self.ElasticSearchQuery(models.SearchTest.objects.filter(title__exact="Test"), "Hello")
+        query = ElasticSearchQuery(models.SearchTest.objects.filter(title__exact="Test"), "Hello")
 
         # Check it
         expected_result = {'filtered': {'filter': {'and': [{'prefix': {'content_type': 'searchtests_searchtest'}}, {'term': {'title_filter': 'Test'}}]}, 'query': {'multi_match': {'query': 'Hello', 'fields': ['_all', '_partials']}}}}
@@ -347,7 +344,7 @@ class TestElasticSearchQuery(TestCase):
 
     def test_none_lookup(self):
         # Create a query
-        query = self.ElasticSearchQuery(models.SearchTest.objects.filter(title=None), "Hello")
+        query = ElasticSearchQuery(models.SearchTest.objects.filter(title=None), "Hello")
 
         # Check it
         expected_result = {'filtered': {'filter': {'and': [{'prefix': {'content_type': 'searchtests_searchtest'}}, {'missing': {'field': 'title_filter'}}]}, 'query': {'multi_match': {'query': 'Hello', 'fields': ['_all', '_partials']}}}}
@@ -355,7 +352,7 @@ class TestElasticSearchQuery(TestCase):
 
     def test_isnull_true_lookup(self):
         # Create a query
-        query = self.ElasticSearchQuery(models.SearchTest.objects.filter(title__isnull=True), "Hello")
+        query = ElasticSearchQuery(models.SearchTest.objects.filter(title__isnull=True), "Hello")
 
         # Check it
         expected_result = {'filtered': {'filter': {'and': [{'prefix': {'content_type': 'searchtests_searchtest'}}, {'missing': {'field': 'title_filter'}}]}, 'query': {'multi_match': {'query': 'Hello', 'fields': ['_all', '_partials']}}}}
@@ -363,7 +360,7 @@ class TestElasticSearchQuery(TestCase):
 
     def test_isnull_false_lookup(self):
         # Create a query
-        query = self.ElasticSearchQuery(models.SearchTest.objects.filter(title__isnull=False), "Hello")
+        query = ElasticSearchQuery(models.SearchTest.objects.filter(title__isnull=False), "Hello")
 
         # Check it
         expected_result = {'filtered': {'filter': {'and': [{'prefix': {'content_type': 'searchtests_searchtest'}}, {'not': {'missing': {'field': 'title_filter'}}}]}, 'query': {'multi_match': {'query': 'Hello', 'fields': ['_all', '_partials']}}}}
@@ -371,7 +368,7 @@ class TestElasticSearchQuery(TestCase):
 
     def test_startswith_lookup(self):
         # Create a query
-        query = self.ElasticSearchQuery(models.SearchTest.objects.filter(title__startswith="Test"), "Hello")
+        query = ElasticSearchQuery(models.SearchTest.objects.filter(title__startswith="Test"), "Hello")
 
         # Check it
         expected_result = {'filtered': {'filter': {'and': [{'prefix': {'content_type': 'searchtests_searchtest'}}, {'prefix': {'title_filter': 'Test'}}]}, 'query': {'multi_match': {'query': 'Hello', 'fields': ['_all', '_partials']}}}}
@@ -381,7 +378,7 @@ class TestElasticSearchQuery(TestCase):
         # This also tests conversion of python dates to strings
 
         # Create a query
-        query = self.ElasticSearchQuery(models.SearchTest.objects.filter(published_date__gt=datetime.datetime(2014, 4, 29)), "Hello")
+        query = ElasticSearchQuery(models.SearchTest.objects.filter(published_date__gt=datetime.datetime(2014, 4, 29)), "Hello")
 
         # Check it
         expected_result = {'filtered': {'filter': {'and': [{'prefix': {'content_type': 'searchtests_searchtest'}}, {'range': {'published_date_filter': {'gt': '2014-04-29'}}}]}, 'query': {'multi_match': {'query': 'Hello', 'fields': ['_all', '_partials']}}}}
@@ -389,7 +386,7 @@ class TestElasticSearchQuery(TestCase):
 
     def test_lt_lookup(self):
         # Create a query
-        query = self.ElasticSearchQuery(models.SearchTest.objects.filter(published_date__lt=datetime.datetime(2014, 4, 29)), "Hello")
+        query = ElasticSearchQuery(models.SearchTest.objects.filter(published_date__lt=datetime.datetime(2014, 4, 29)), "Hello")
 
         # Check it
         expected_result = {'filtered': {'filter': {'and': [{'prefix': {'content_type': 'searchtests_searchtest'}}, {'range': {'published_date_filter': {'lt': '2014-04-29'}}}]}, 'query': {'multi_match': {'query': 'Hello', 'fields': ['_all', '_partials']}}}}
@@ -397,7 +394,7 @@ class TestElasticSearchQuery(TestCase):
 
     def test_gte_lookup(self):
         # Create a query
-        query = self.ElasticSearchQuery(models.SearchTest.objects.filter(published_date__gte=datetime.datetime(2014, 4, 29)), "Hello")
+        query = ElasticSearchQuery(models.SearchTest.objects.filter(published_date__gte=datetime.datetime(2014, 4, 29)), "Hello")
 
         # Check it
         expected_result = {'filtered': {'filter': {'and': [{'prefix': {'content_type': 'searchtests_searchtest'}}, {'range': {'published_date_filter': {'gte': '2014-04-29'}}}]}, 'query': {'multi_match': {'query': 'Hello', 'fields': ['_all', '_partials']}}}}
@@ -405,7 +402,7 @@ class TestElasticSearchQuery(TestCase):
 
     def test_lte_lookup(self):
         # Create a query
-        query = self.ElasticSearchQuery(models.SearchTest.objects.filter(published_date__lte=datetime.datetime(2014, 4, 29)), "Hello")
+        query = ElasticSearchQuery(models.SearchTest.objects.filter(published_date__lte=datetime.datetime(2014, 4, 29)), "Hello")
 
         # Check it
         expected_result = {'filtered': {'filter': {'and': [{'prefix': {'content_type': 'searchtests_searchtest'}}, {'range': {'published_date_filter': {'lte': '2014-04-29'}}}]}, 'query': {'multi_match': {'query': 'Hello', 'fields': ['_all', '_partials']}}}}
@@ -416,7 +413,7 @@ class TestElasticSearchQuery(TestCase):
         end_date = datetime.datetime(2014, 8, 19)
 
         # Create a query
-        query = self.ElasticSearchQuery(models.SearchTest.objects.filter(published_date__range=(start_date, end_date)), "Hello")
+        query = ElasticSearchQuery(models.SearchTest.objects.filter(published_date__range=(start_date, end_date)), "Hello")
 
         # Check it
         expected_result = {'filtered': {'filter': {'and': [{'prefix': {'content_type': 'searchtests_searchtest'}}, {'range': {'published_date_filter': {'gte': '2014-04-29', 'lte': '2014-08-19'}}}]}, 'query': {'multi_match': {'query': 'Hello', 'fields': ['_all', '_partials']}}}}
@@ -424,7 +421,7 @@ class TestElasticSearchQuery(TestCase):
 
     def test_custom_ordering(self):
         # Create a query
-        query = self.ElasticSearchQuery(models.SearchTest.objects.order_by('published_date'), "Hello", order_by_relevance=False)
+        query = ElasticSearchQuery(models.SearchTest.objects.order_by('published_date'), "Hello", order_by_relevance=False)
 
         # Check it
         expected_result = [{'published_date_filter': 'asc'}]
@@ -432,7 +429,7 @@ class TestElasticSearchQuery(TestCase):
 
     def test_custom_ordering_reversed(self):
         # Create a query
-        query = self.ElasticSearchQuery(models.SearchTest.objects.order_by('-published_date'), "Hello", order_by_relevance=False)
+        query = ElasticSearchQuery(models.SearchTest.objects.order_by('-published_date'), "Hello", order_by_relevance=False)
 
         # Check it
         expected_result = [{'published_date_filter': 'desc'}]
@@ -440,7 +437,7 @@ class TestElasticSearchQuery(TestCase):
 
     def test_custom_ordering_multiple(self):
         # Create a query
-        query = self.ElasticSearchQuery(models.SearchTest.objects.order_by('published_date', 'live'), "Hello", order_by_relevance=False)
+        query = ElasticSearchQuery(models.SearchTest.objects.order_by('published_date', 'live'), "Hello", order_by_relevance=False)
 
         # Check it
         expected_result = [{'published_date_filter': 'asc'}, {'live_filter': 'asc'}]
@@ -449,35 +446,22 @@ class TestElasticSearchQuery(TestCase):
 
 class TestElasticSearchResults(TestCase):
     def assertDictEqual(self, a, b):
-        default = self.JSONSerializer().default
+        default = JSONSerializer().default
         self.assertEqual(json.dumps(a, sort_keys=True, default=default), json.dumps(b, sort_keys=True, default=default))
 
     def setUp(self):
-        # Import using a try-catch block to prevent crashes if the elasticsearch-py
-        # module is not installed
-        try:
-            from wagtail.wagtailsearch.backends.elasticsearch import ElasticSearch
-            from wagtail.wagtailsearch.backends.elasticsearch import ElasticSearchResults
-            from elasticsearch.serializer import JSONSerializer
-        except ImportError:
-            raise unittest.SkipTest("elasticsearch-py not installed")
-
-        self.ElasticSearch = ElasticSearch
-        self.ElasticSearchResults = ElasticSearchResults
-        self.JSONSerializer = JSONSerializer
-
         self.objects = []
 
         for i in range(3):
             self.objects.append(models.SearchTest.objects.create(title=str(i)))
 
     def get_results(self):
-        backend = self.ElasticSearch({})
+        backend = ElasticSearch({})
         query = mock.MagicMock()
         query.queryset = models.SearchTest.objects.all()
         query.get_query.return_value = 'QUERY'
         query.get_sort.return_value = None
-        return self.ElasticSearchResults(backend, query)
+        return ElasticSearchResults(backend, query)
 
     def construct_search_response(self, results):
         return {
@@ -634,20 +618,10 @@ class TestElasticSearchResults(TestCase):
 
 class TestElasticSearchMapping(TestCase):
     def assertDictEqual(self, a, b):
-        default = self.JSONSerializer().default
+        default = JSONSerializer().default
         self.assertEqual(json.dumps(a, sort_keys=True, default=default), json.dumps(b, sort_keys=True, default=default))
 
     def setUp(self):
-        # Import using a try-catch block to prevent crashes if the elasticsearch-py
-        # module is not installed
-        try:
-            from wagtail.wagtailsearch.backends.elasticsearch import ElasticSearchMapping
-            from elasticsearch.serializer import JSONSerializer
-        except ImportError:
-            raise unittest.SkipTest("elasticsearch-py not installed")
-
-        self.JSONSerializer = JSONSerializer
-
         # Create ES mapping
         self.es_mapping = ElasticSearchMapping(models.SearchTest)
 
@@ -706,20 +680,10 @@ class TestElasticSearchMapping(TestCase):
 
 class TestElasticSearchMappingInheritance(TestCase):
     def assertDictEqual(self, a, b):
-        default = self.JSONSerializer().default
+        default = JSONSerializer().default
         self.assertEqual(json.dumps(a, sort_keys=True, default=default), json.dumps(b, sort_keys=True, default=default))
 
     def setUp(self):
-        # Import using a try-catch block to prevent crashes if the elasticsearch-py
-        # module is not installed
-        try:
-            from wagtail.wagtailsearch.backends.elasticsearch import ElasticSearchMapping
-            from elasticsearch.serializer import JSONSerializer
-        except ImportError:
-            raise unittest.SkipTest("elasticsearch-py not installed")
-
-        self.JSONSerializer = JSONSerializer
-
         # Create ES mapping
         self.es_mapping = ElasticSearchMapping(models.SearchTestChild)
 
@@ -796,18 +760,8 @@ class TestElasticSearchMappingInheritance(TestCase):
 
 
 class TestBackendConfiguration(TestCase):
-    def setUp(self):
-        # Import using a try-catch block to prevent crashes if the elasticsearch-py
-        # module is not installed
-        try:
-            from wagtail.wagtailsearch.backends.elasticsearch import ElasticSearch
-        except ImportError:
-            raise unittest.SkipTest("elasticsearch-py not installed")
-
-        self.ElasticSearch = ElasticSearch
-
     def test_default_settings(self):
-        backend = self.ElasticSearch(params={})
+        backend = ElasticSearch(params={})
 
         self.assertEqual(len(backend.es_hosts), 1)
         self.assertEqual(backend.es_hosts[0]['host'], 'localhost')
@@ -816,7 +770,7 @@ class TestBackendConfiguration(TestCase):
 
     def test_hosts(self):
         # This tests that HOSTS goes to es_hosts
-        backend = self.ElasticSearch(params={
+        backend = ElasticSearch(params={
             'HOSTS': [
                 {
                     'host': '127.0.0.1',
@@ -833,7 +787,7 @@ class TestBackendConfiguration(TestCase):
 
     def test_urls(self):
         # This test backwards compatibility with old URLS setting
-        backend = self.ElasticSearch(params={
+        backend = ElasticSearch(params={
             'URLS': [
                 'http://localhost:12345',
                 'https://127.0.0.1:54321',
@@ -862,26 +816,13 @@ class TestBackendConfiguration(TestCase):
         self.assertEqual(backend.es_hosts[3]['url_prefix'], '/hello')
 
 
+@unittest.skipUnless(os.environ.get('ELASTICSEARCH_URL', False), "ELASTICSEARCH_URL not set")
 class TestRebuilder(TestCase):
     def assertDictEqual(self, a, b):
-        default = self.JSONSerializer().default
+        default = JSONSerializer().default
         self.assertEqual(json.dumps(a, sort_keys=True, default=default), json.dumps(b, sort_keys=True, default=default))
 
     def setUp(self):
-        # Import using a try-catch block to prevent crashes if the elasticsearch-py
-        # module is not installed
-        try:
-            from wagtail.wagtailsearch.backends.elasticsearch import ElasticSearch
-            from wagtail.wagtailsearch.backends.elasticsearch import ElasticSearchMapping
-            from elasticsearch import NotFoundError, JSONSerializer
-        except ImportError:
-            raise unittest.SkipTest("elasticsearch-py not installed")
-
-        self.ElasticSearch = ElasticSearch
-        self.ElasticSearchMapping = ElasticSearchMapping
-        self.NotFoundError = NotFoundError
-        self.JSONSerializer = JSONSerializer
-
         self.backend = get_search_backend('elasticsearch')
         self.es = self.backend.es
         self.rebuilder = self.backend.get_rebuilder()
@@ -921,7 +862,7 @@ class TestRebuilder(TestCase):
         self.rebuilder.add_model(models.SearchTest)
 
         # Check the mapping went into Elasticsearch correctly
-        mapping = self.ElasticSearchMapping(models.SearchTest)
+        mapping = ElasticSearchMapping(models.SearchTest)
         response = self.es.indices.get_mapping(self.backend.es_index, mapping.get_document_type())
 
         # Make some minor tweaks to the mapping so it matches what is in ES
@@ -937,20 +878,9 @@ class TestRebuilder(TestCase):
         self.assertDictEqual(expected_mapping, response[self.backend.es_index]['mappings'])
 
 
+@unittest.skipUnless(os.environ.get('ELASTICSEARCH_URL', False), "ELASTICSEARCH_URL not set")
 class TestAtomicRebuilder(TestCase):
     def setUp(self):
-        # Import using a try-catch block to prevent crashes if the elasticsearch-py
-        # module is not installed
-        try:
-            from wagtail.wagtailsearch.backends.elasticsearch import ElasticSearch
-            from wagtail.wagtailsearch.backends.elasticsearch import ElasticSearchAtomicIndexRebuilder
-            from elasticsearch import NotFoundError
-        except ImportError:
-            raise unittest.SkipTest("elasticsearch-py not installed")
-
-        self.ElasticSearch = ElasticSearch
-        self.NotFoundError = NotFoundError
-
         self.backend = get_search_backend('elasticsearch')
         self.backend.rebuilder_class = ElasticSearchAtomicIndexRebuilder
         self.es = self.backend.es
