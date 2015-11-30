@@ -85,9 +85,15 @@ class TreeQuerySet(MP_NodeQuerySet):
         return Q(path=self.model._get_parent_path_from_path(other.path))
 
     def parent_of(self, other):
+        """
+        This filters the QuerySet to only contain the parent of the specified page.
+        """
         return self.filter(self.parent_of_q(other))
 
     def not_parent_of(self, other):
+        """
+        This filters the QuerySet to exclude the parent of the specified page.
+        """
         return self.exclude(self.parent_of_q(other))
 
     def sibling_of_q(self, other, inclusive=True):
@@ -114,7 +120,7 @@ class TreeQuerySet(MP_NodeQuerySet):
 
         By default, inclusive is set to True so it will exclude the specified page from the results.
 
-        If inclusive is set to False, the page will be included the results.
+        If inclusive is set to False, the page will be included in the results.
         """
         return self.exclude(self.sibling_of_q(other, inclusive))
 
@@ -145,6 +151,9 @@ class PageQuerySet(SearchableQuerySetMixin, TreeQuerySet):
         return self.filter(self.in_menu_q())
 
     def not_in_menu(self):
+        """
+        This filters the QuerySet to only contain pages that are not in the menus.
+        """
         return self.exclude(self.in_menu_q())
 
     def page_q(self, other):
@@ -204,7 +213,7 @@ class PageQuerySet(SearchableQuerySetMixin, TreeQuerySet):
 
     def unpublish(self):
         """
-        This unpublishes all pages in the QuerySet
+        This unpublishes all pages in the QuerySet.
         """
         self.update(live=False, has_unpublished_changes=True)
 
