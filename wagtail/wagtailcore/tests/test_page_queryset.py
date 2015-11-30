@@ -294,6 +294,11 @@ class TestPageQuerySet(TestCase):
         event = Page.objects.get(url_path='/home/events/someone-elses-event/')
         self.assertTrue(pages.filter(id=event.id).exists())
 
+        # Check that "Saint Patrick" (an instance of SingleEventPage, a subclass of EventPage)
+        # is in the results
+        event = Page.objects.get(url_path='/home/events/saint-patrick/')
+        self.assertTrue(pages.filter(id=event.id).exists())
+
     def test_type_includes_subclasses(self):
         from wagtail.wagtailforms.models import AbstractEmailForm
         pages = Page.objects.type(AbstractEmailForm)
@@ -316,6 +321,38 @@ class TestPageQuerySet(TestCase):
         # Check that the homepage is in the results
         homepage = Page.objects.get(url_path='/home/')
         self.assertTrue(pages.filter(id=homepage.id).exists())
+
+    def test_exact_type(self):
+        pages = Page.objects.exact_type(EventPage)
+
+        # Check that all objects are EventPages (and not a subclass)
+        for page in pages:
+            self.assertEqual(type(page.specific), EventPage)
+
+        # Check that "someone elses event" is in the results
+        event = Page.objects.get(url_path='/home/events/someone-elses-event/')
+        self.assertTrue(pages.filter(id=event.id).exists())
+
+        # Check that "Saint Patrick" (an instance of SingleEventPage, a subclass of EventPage)
+        # is NOT in the results
+        event = Page.objects.get(url_path='/home/events/saint-patrick/')
+        self.assertFalse(pages.filter(id=event.id).exists())
+
+    def test_not_exact_type(self):
+        pages = Page.objects.not_exact_type(EventPage)
+
+        # Check that no objects are EventPages
+        for page in pages:
+            self.assertNotEqual(type(page.specific), EventPage)
+
+        # Check that the homepage is in the results
+        homepage = Page.objects.get(url_path='/home/')
+        self.assertTrue(pages.filter(id=homepage.id).exists())
+
+        # Check that "Saint Patrick" (an instance of SingleEventPage, a subclass of EventPage)
+        # is in the results
+        event = Page.objects.get(url_path='/home/events/saint-patrick/')
+        self.assertTrue(pages.filter(id=event.id).exists())
 
     def test_public(self):
         events_index = Page.objects.get(url_path='/home/events/')

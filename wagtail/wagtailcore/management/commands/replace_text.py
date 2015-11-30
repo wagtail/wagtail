@@ -32,7 +32,10 @@ class Command(BaseCommand):
 
             child_relation_names = [rel.get_accessor_name() for rel in get_all_child_relations(page_class)]
 
-            for page in page_class.objects.all():
+            # Find all pages of this exact type; exclude subclasses, as they will
+            # appear in the get_page_models() list in their own right, and this
+            # ensures that replacement happens only once
+            for page in page_class.objects.exact_type(page_class):
                 replace_in_model(page, from_text, to_text)
                 for child_rel in child_relation_names:
                     for child in getattr(page, child_rel).all():

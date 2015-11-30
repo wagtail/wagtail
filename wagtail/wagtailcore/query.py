@@ -191,6 +191,23 @@ class PageQuerySet(SearchableQuerySetMixin, TreeQuerySet):
         """
         return self.exclude(self.type_q(model))
 
+    def exact_type_q(self, klass):
+        return Q(content_type=ContentType.objects.get_for_model(klass))
+
+    def exact_type(self, model):
+        """
+        This filters the QuerySet to only contain pages that are an instance of the specified model
+        (matching the model exactly, not subclasses).
+        """
+        return self.filter(self.exact_type_q(model))
+
+    def not_exact_type(self, model):
+        """
+        This filters the QuerySet to not contain any pages which are an instance of the specified model
+        (matching the model exactly, not subclasses).
+        """
+        return self.exclude(self.exact_type_q(model))
+
     def public_q(self):
         from wagtail.wagtailcore.models import PageViewRestriction
 

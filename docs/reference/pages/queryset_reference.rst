@@ -202,6 +202,24 @@ Reference
 
     .. automethod:: not_type
 
+    .. automethod:: exact_type
+
+        Example:
+
+        .. code-block:: python
+
+            # Find all pages that are of the exact type EventPage
+            event_pages = Page.objects.exact_type(EventPage)
+
+    .. automethod:: not_exact_type
+
+        Example:
+
+        .. code-block:: python
+
+            # Find all pages that are not of the exact type EventPage (but may be a subclass)
+            non_event_pages = Page.objects.not_exact_type(EventPage)
+
     .. automethod:: unpublish
 
         Example:
