@@ -1,16 +1,16 @@
+import warnings
+
 from functools import wraps
 
 from django.template.loader import render_to_string
 from django.core.mail import send_mail as django_send_mail
 from django.conf import settings
-from django.contrib.auth import get_user_model
-from django.db.models import Q
 from django.shortcuts import redirect
 from django.utils.translation import ugettext as _
 
 from modelcluster.fields import ParentalKey
 
-from wagtail.wagtailcore.models import Page, PageRevision, GroupPagePermission
+from wagtail.wagtailcore.models import Page, PageRevision
 from wagtail.wagtailusers.models import UserProfile
 from wagtail.utils.compat import get_related_model
 
@@ -51,19 +51,11 @@ def get_object_usage(obj):
 
 
 def users_with_page_permission(page, permission_type, include_superusers=True):
-    # Get user model
-    User = get_user_model()
-
-    # Find GroupPagePermission records of the given type that apply to this page or an ancestor
-    ancestors_and_self = list(page.get_ancestors()) + [page]
-    perm = GroupPagePermission.objects.filter(permission_type=permission_type, page__in=ancestors_and_self)
-    q = Q(groups__page_permissions=perm)
-
-    # Include superusers
-    if include_superusers:
-        q |= Q(is_superuser=True)
-
-    return User.objects.filter(is_active=True).filter(q).distinct()
+    warnings.warn(
+        "users_with_page_permission is deprecated - please use Page.get_users_with_permission instead",
+        stacklevel=2,
+    )
+    return page.get_users_with_permission(permission_type, include_superusers)
 
 
 def permission_denied(request):
@@ -145,7 +137,7 @@ def send_notification(page_revision_id, notification, excluded_user_id):
     # Get list of recipients
     if notification == 'submitted':
         # Get list of publishers
-        recipients = users_with_page_permission(revision.page, 'publish')
+        recipients = revision.page.get_users_with_permission('publish')
     elif notification in ['rejected', 'approved']:
         # Get submitter
         recipients = [revision.user]
