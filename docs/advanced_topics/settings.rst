@@ -207,7 +207,6 @@ Images
 This setting lets you provide your own image model for use in Wagtail, which might extend the built-in ``AbstractImage`` class or replace it entirely.
 
 
-
 Password Management
 -------------------
 
@@ -222,7 +221,6 @@ This specifies whether users are allowed to change their passwords (enabled by d
   WAGTAIL_PASSWORD_RESET_ENABLED = True
 
 This specifies whether users are allowed to reset their passwords. Defaults to the same as ``WAGTAIL_PASSWORD_MANAGEMENT_ENABLED``.
-
 
 
 Email Notifications
@@ -255,6 +253,16 @@ Private Pages
   PASSWORD_REQUIRED_TEMPLATE = 'myapp/password_required.html'
 
 This is the path to the Django template which will be used to display the "password required" form when a user accesses a private page. For more details, see the :ref:`private_pages` documentation.
+
+
+Case-Insensitive Tags
+---------------------
+
+.. code-block:: python
+
+  TAGGIT_CASE_INSENSITIVE = True
+
+Tags are case-sensitive by default ('music' and 'Music' are treated as distinct tags). In many cases the reverse behaviour is preferable. 
 
 
 Other Django Settings Used by Wagtail
@@ -534,6 +542,9 @@ These two files should reside in your project directory (``myproject/myproject/`
   # If you want to use Embedly for embeds, supply a key
   # (this key doesn't work, get your own!)
   # WAGTAILEMBEDS_EMBEDLY_KEY = '253e433d59dc4d2xa266e9e0de0cb830'
+  
+  # Reverse the default case-sensitive handling of tags
+  TAGGIT_CASE_INSENSITIVE = True
 
 
 ``urls.py``
@@ -575,6 +586,5 @@ These two files should reside in your project directory (``myproject/myproject/`
       urlpatterns += patterns('',
           (r'^favicon\.ico$', RedirectView.as_view(url=settings.STATIC_URL + 'myapp/images/favicon.ico'))
       )
-
 
 
