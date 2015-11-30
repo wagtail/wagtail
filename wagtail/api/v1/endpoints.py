@@ -21,9 +21,9 @@ from .filters import (
     FieldsFilter, OrderingFilter, SearchFilter,
     ChildOfFilter, DescendantOfFilter
 )
+from ..shared.utils import BadRequestError
 from .pagination import WagtailPagination
 from .serializers import BaseSerializer, PageSerializer, DocumentSerializer, ImageSerializer, get_serializer_class
-from .utils import BadRequestError
 
 
 class BaseAPIEndpoint(GenericViewSet):

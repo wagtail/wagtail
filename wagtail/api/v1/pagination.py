@@ -5,7 +5,7 @@ from django.conf import settings
 from rest_framework.pagination import BasePagination
 from rest_framework.response import Response
 
-from .utils import BadRequestError
+from ..shared.utils import BadRequestError
 
 
 class WagtailPagination(BasePagination):

@@ -8,7 +8,7 @@ from wagtail.wagtaildocs.models import Document
 
 from wagtail.contrib.wagtailfrontendcache.utils import purge_url_from_cache
 
-from .utils import get_base_url
+from ..shared.utils import get_base_url
 
 
 def purge_page_from_cache(instance, **kwargs):

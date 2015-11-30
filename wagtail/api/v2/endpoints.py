@@ -20,9 +20,9 @@ from .filters import (
     FieldsFilter, OrderingFilter, SearchFilter,
     ChildOfFilter, DescendantOfFilter
 )
+from ..shared.utils import BadRequestError, page_models_from_string, filter_page_type
 from .pagination import WagtailPagination
 from .serializers import BaseSerializer, PageSerializer, DocumentSerializer, ImageSerializer, get_serializer_class
-from .utils import BadRequestError, page_models_from_string, filter_page_type
 
 
 class BaseAPIEndpoint(GenericViewSet):
