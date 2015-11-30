@@ -207,6 +207,40 @@ class TestPageCreation(TestCase, WagtailTestUtils):
         self.assertNotContains(response, "MTI Base Page")
         # List of available page types should not contain abstract pages
         self.assertNotContains(response, "Abstract Page")
+        # List of available page types should not contain pages whose parent_page_types forbid it
+        self.assertNotContains(response, "Business Child")
+
+    def test_add_subpage_with_subpage_types(self):
+        # Add a BusinessIndex to test business rules in
+        business_index = BusinessIndex(
+            title="Hello world!",
+            slug="hello-world",
+        )
+        self.root_page.add_child(instance=business_index)
+
+        response = self.client.get(reverse('wagtailadmin_pages:add_subpage', args=(business_index.id, )))
+        self.assertEqual(response.status_code, 200)
+
+        self.assertContains(response, "Business Child")
+        # List should not contain page types not in the subpage_types list
+        self.assertNotContains(response, "Simple Page")
+
+    def test_add_subpage_with_one_valid_subpage_type(self):
+        # Add a BusinessSubIndex to test business rules in
+        business_index = BusinessIndex(
+            title="Hello world!",
+            slug="hello-world",
+        )
+        self.root_page.add_child(instance=business_index)
+        business_subindex = BusinessSubIndex(
+            title="Hello world!",
+            slug="hello-world",
+        )
+        business_index.add_child(instance=business_subindex)
+
+        response = self.client.get(reverse('wagtailadmin_pages:add_subpage', args=(business_subindex.id, )))
+        # Should be redirected to the 'add' page for BusinessChild, the only valid subpage type
+        self.assertRedirects(response, reverse('wagtailadmin_pages:add', args=('tests', 'businesschild', business_subindex.id)))
 
     def test_add_subpage_bad_permissions(self):
         # Remove privileges from user

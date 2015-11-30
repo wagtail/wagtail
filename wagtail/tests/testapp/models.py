@@ -359,8 +359,8 @@ register_snippet(Advert)
 
 
 class StandardIndex(Page):
-    """ Index for the site, not allowed to be placed anywhere """
-    parent_page_types = []
+    """ Index for the site """
+    pass
 
 
 # A custom panel setup where all Promote fields are placed in the Content tab instead;
@@ -401,6 +401,11 @@ class BusinessChild(Page):
     """ Can only be placed under Business indexes, no children allowed """
     subpage_types = []
     parent_page_types = ['tests.BusinessIndex', BusinessSubIndex]
+
+
+class BusinessNowherePage(Page):
+    """ Not allowed to be placed anywhere """
+    parent_page_types = []
 
 
 class TaggedPageTag(TaggedItemBase):

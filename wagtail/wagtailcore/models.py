@@ -721,11 +721,6 @@ class Page(six.with_metaclass(PageBase, MP_Node, ClusterableModel, index.Indexed
         Returns the list of page types that this page type can be a parent of,
         as a list of model classes
         """
-        # Special case the 'Page' class, such as the Root page or Home page -
-        # otherwise you can not add initial pages when setting up a site
-        if cls == Page:
-            return get_page_models()
-
         return [
             subpage_model for subpage_model in cls.clean_subpage_models()
             if cls in subpage_model.clean_parent_page_models()

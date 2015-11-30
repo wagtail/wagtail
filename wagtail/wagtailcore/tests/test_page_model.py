@@ -16,7 +16,7 @@ from wagtail.tests.testapp.models import (
     BusinessIndex, BusinessSubIndex, BusinessChild, StandardIndex,
     MTIBasePage, MTIChildPage, AbstractPage, TaggedPage,
     BlogCategory, BlogCategoryBlogPage, Advert, ManyToManyBlogPage,
-    GenericSnippetPage)
+    GenericSnippetPage, BusinessNowherePage)
 from wagtail.tests.utils import WagtailTestUtils
 
 
@@ -765,9 +765,9 @@ class TestSubpageTypeBusinessRules(TestCase, WagtailTestUtils):
         # BusinessChild cannot be a parent of anything
         self.assertNotIn(BusinessChild, SimplePage.allowed_parent_page_models())
 
-        # StandardIndex does not allow anything as a parent
-        self.assertNotIn(SimplePage, StandardIndex.allowed_parent_page_models())
-        self.assertNotIn(StandardIndex, StandardIndex.allowed_parent_page_models())
+        # BusinessNowherePage does not allow anything as a parent
+        self.assertNotIn(SimplePage, BusinessNowherePage.allowed_parent_page_models())
+        self.assertNotIn(StandardIndex, BusinessNowherePage.allowed_parent_page_models())
 
         # BusinessSubIndex only allows BusinessIndex as a parent
         self.assertNotIn(SimplePage, BusinessSubIndex.allowed_parent_page_models())
@@ -787,9 +787,9 @@ class TestSubpageTypeBusinessRules(TestCase, WagtailTestUtils):
             # BusinessChild cannot be a parent of anything
             self.assertNotIn(ContentType.objects.get_for_model(BusinessChild), SimplePage.allowed_parent_page_types())
 
-            # StandardIndex does not allow anything as a parent
-            self.assertNotIn(ContentType.objects.get_for_model(SimplePage), StandardIndex.allowed_parent_page_types())
-            self.assertNotIn(ContentType.objects.get_for_model(StandardIndex), StandardIndex.allowed_parent_page_types())
+            # BusinessNowherePage does not allow anything as a parent
+            self.assertNotIn(ContentType.objects.get_for_model(SimplePage), BusinessNowherePage.allowed_parent_page_types())
+            self.assertNotIn(ContentType.objects.get_for_model(StandardIndex), BusinessNowherePage.allowed_parent_page_types())
 
             # BusinessSubIndex only allows BusinessIndex as a parent
             self.assertNotIn(ContentType.objects.get_for_model(SimplePage), BusinessSubIndex.allowed_parent_page_types())
