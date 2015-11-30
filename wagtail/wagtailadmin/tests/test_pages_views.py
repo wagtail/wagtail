@@ -202,6 +202,12 @@ class TestPageCreation(TestCase, WagtailTestUtils):
         response = self.client.get(reverse('wagtailadmin_pages:add_subpage', args=(self.root_page.id, )))
         self.assertEqual(response.status_code, 200)
 
+        self.assertContains(response, "Simple Page")
+        # List of available page types should not contain pages with is_creatable = False
+        self.assertNotContains(response, "MTI Base Page")
+        # List of available page types should not contain abstract pages
+        self.assertNotContains(response, "Abstract Page")
+
     def test_add_subpage_bad_permissions(self):
         # Remove privileges from user
         self.user.is_superuser = False

@@ -871,7 +871,8 @@ class TestIsCreatable(TestCase):
     def test_is_creatable_false(self):
         """Page types should be able to disable their creation"""
         self.assertFalse(MTIBasePage.is_creatable)
-        self.assertNotIn(MTIBasePage, get_page_models())
+        # non-creatable pages should still appear in the get_page_models list
+        self.assertIn(MTIBasePage, get_page_models())
 
     def test_is_creatable_not_inherited(self):
         """

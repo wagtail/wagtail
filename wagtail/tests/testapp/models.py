@@ -462,6 +462,9 @@ class StreamPage(Page):
 class MTIBasePage(Page):
     is_creatable = False
 
+    class Meta:
+        verbose_name = "MTI Base page"
+
 
 class MTIChildPage(MTIBasePage):
     # Should be creatable by default, no need to set anything

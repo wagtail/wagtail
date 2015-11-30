@@ -226,7 +226,7 @@ class PageBase(models.base.ModelBase):
         if 'is_creatable' not in dct:
             cls.is_creatable = not cls._meta.abstract
 
-        if cls.is_creatable:
+        if not cls._meta.abstract:
             # register this type in the list of page content types
             PAGE_MODEL_CLASSES.append(cls)
 
