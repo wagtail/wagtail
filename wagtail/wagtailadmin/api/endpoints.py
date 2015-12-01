@@ -3,7 +3,7 @@ from wagtail.api.v2.endpoints import PagesAPIEndpoint, ImagesAPIEndpoint, Docume
 
 from wagtail.wagtailcore.models import Page
 
-from .serializers import AdminPageSerializer
+from .serializers import AdminPageSerializer, AdminImageSerializer
 
 
 class PagesAdminAPIEndpoint(PagesAPIEndpoint):
@@ -37,7 +37,7 @@ class PagesAdminAPIEndpoint(PagesAPIEndpoint):
 
 
 class ImagesAdminAPIEndpoint(ImagesAPIEndpoint):
-    pass
+    base_serializer_class = AdminImageSerializer
 
 
 class DocumentsAdminAPIEndpoint(DocumentsAPIEndpoint):

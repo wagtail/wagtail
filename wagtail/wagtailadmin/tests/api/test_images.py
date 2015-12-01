@@ -4,6 +4,7 @@ from django.test.utils import override_settings
 from django.core.urlresolvers import reverse
 
 from wagtail.wagtailimages.models import get_image_model
+from wagtail.wagtailimages.tests.utils import get_test_image_file
 
 from .utils import AdminAPITestCase
 
@@ -38,11 +39,11 @@ class TestImageListing(AdminAPITestCase):
         self.assertIn('results', content)
         self.assertIsInstance(content['results'], list)
 
-        # Check that each image has a meta section with type and detail_url attributes
+        # Check that each image has a meta section with type, detail_url, thumbnail and source_image_error attributes
         for image in content['results']:
             self.assertIn('meta', image)
             self.assertIsInstance(image['meta'], dict)
-            self.assertEqual(set(image['meta'].keys()), {'type', 'detail_url'})
+            self.assertEqual(set(image['meta'].keys()), {'type', 'detail_url', 'thumbnail', 'source_image_error'})  # ADMINAPI CHANGE
 
             # Type should always be wagtailimages.Image
             self.assertEqual(image['meta']['type'], 'wagtailimages.Image')
@@ -313,6 +314,19 @@ class TestImageDetail(AdminAPITestCase):
         self.assertIn('detail_url', content['meta'])
         self.assertEqual(content['meta']['detail_url'], 'http://localhost/admin/api/v1beta/images/5/')
 
+        # Check the meta thumbnail
+        # ADMINAPI CHANGE
+        # Note: This is None because the source image doesn't exist
+        #       See test_thumbnail below for working example
+        self.assertIn('thumbnail', content['meta'])
+        self.assertIsNone(content['meta']['thumbnail'])
+
+        # Check the meta source_image_error
+        # ADMINAPI CHANGE
+        # Note: This field wouldn't exist under normal circumstances
+        self.assertIn('source_image_error', content['meta'])
+        self.assertEqual(content['meta']['source_image_error'], True)
+
         # Check the title field
         self.assertIn('title', content)
         self.assertEqual(content['title'], "James Joyce")
@@ -337,3 +351,23 @@ class TestImageDetail(AdminAPITestCase):
 
         self.assertIn('tags', content)
         self.assertEqual(content['tags'], ['hello', 'world'])
+
+    def test_thumbnail(self):  # ADMINAPI CHANGE
+        # Add a new image with source file
+        image = get_image_model().objects.create(
+            title="Test image",
+            file=get_test_image_file(),
+        )
+
+        response = self.get_response(image.id)
+        content = json.loads(response.content.decode('UTF-8'))
+
+        self.assertIn('thumbnail', content['meta'])
+        self.assertEqual(content['meta']['thumbnail'], {
+            'url': '/media/images/test.max-165x165.png',
+            'width': 165,
+            'height': 123
+        })
+
+        # Check that source_image_error didn't appear
+        self.assertNotIn('source_image_error', content['meta'])
