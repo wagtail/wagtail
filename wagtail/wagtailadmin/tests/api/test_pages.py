@@ -13,8 +13,8 @@ from .utils import AdminAPITestCase
 
 
 def get_total_page_count():
-    # Need to take away 1 as the root page is invisible over the API
-    return Page.objects.live().public().count() - 1
+    # Need to take away 1 as the root page is invisible over the API by default
+    return Page.objects.count() - 1
 
 
 class TestPageListing(AdminAPITestCase):
@@ -53,7 +53,7 @@ class TestPageListing(AdminAPITestCase):
             self.assertIsInstance(page['meta'], dict)
             self.assertEqual(set(page['meta'].keys()), {'type', 'detail_url', 'html_url'})
 
-    def test_unpublished_pages_dont_appear_in_list(self):
+    def test_unpublished_pages_appear_in_list(self):  # ADMINAPI CHANGE
         total_count = get_total_page_count()
 
         page = models.BlogEntryPage.objects.get(id=16)
@@ -61,16 +61,16 @@ class TestPageListing(AdminAPITestCase):
 
         response = self.get_response()
         content = json.loads(response.content.decode('UTF-8'))
-        self.assertEqual(content['total_count'], total_count - 1)
+        self.assertEqual(content['total_count'], total_count)
 
-    def test_private_pages_dont_appear_in_list(self):
+    def test_private_pages_appear_in_list(self):  # ADMINAPI CHANGE
         total_count = get_total_page_count()
 
         page = models.BlogIndexPage.objects.get(id=5)
         page.view_restrictions.create(password='test')
 
         new_total_count = get_total_page_count()
-        self.assertNotEqual(total_count, new_total_count)
+        self.assertEqual(total_count, total_count)
 
         response = self.get_response()
         content = json.loads(response.content.decode('UTF-8'))
