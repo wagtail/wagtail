@@ -12,14 +12,15 @@ class AdminPageMetaField(PageMetaField):
     """
     A subclass of PageMetaField for the admin API.
 
-    This adds the "status" field to the representation
+    This adds the "status" and "has_children" fields
 
     Example:
 
     "meta": {
         ...
 
-        "status": "live"
+        "status": "live",
+        "has_children": true
     }
     """
     def to_representation(self, page):
