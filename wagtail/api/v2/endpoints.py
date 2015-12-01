@@ -188,6 +188,15 @@ class BaseAPIEndpoint(GenericViewSet):
         ]
 
     @classmethod
+    def get_model_listing_urlpath(cls, model, namespace=''):
+        if namespace:
+            url_name = namespace + ':listing'
+        else:
+            url_name = 'listing'
+
+        return reverse(url_name)
+
+    @classmethod
     def get_object_detail_urlpath(cls, model, pk, namespace=''):
         if namespace:
             url_name = namespace + ':detail'
