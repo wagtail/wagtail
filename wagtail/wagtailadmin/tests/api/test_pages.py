@@ -1,8 +1,10 @@
 import json
 import collections
+import datetime
 
 from django.test.utils import override_settings
 from django.core.urlresolvers import reverse
+from django.utils import timezone
 
 from wagtail.wagtailcore.models import Page
 
@@ -47,11 +49,11 @@ class TestPageListing(AdminAPITestCase):
         self.assertIn('results', content)
         self.assertIsInstance(content['results'], list)
 
-        # Check that each page has a meta section with type, detail_url and html_url attributes
+        # Check that each page has a meta section with type, detail_url, html_url and status attributes
         for page in content['results']:
             self.assertIn('meta', page)
             self.assertIsInstance(page['meta'], dict)
-            self.assertEqual(set(page['meta'].keys()), {'type', 'detail_url', 'html_url'})
+            self.assertEqual(set(page['meta'].keys()), {'type', 'detail_url', 'html_url', 'status'})  # ADMINAPI CHANGE
 
     def test_unpublished_pages_appear_in_list(self):  # ADMINAPI CHANGE
         total_count = get_total_page_count()
@@ -586,6 +588,11 @@ class TestPageDetail(AdminAPITestCase):
         self.assertIn('html_url', content['meta'])
         self.assertEqual(content['meta']['html_url'], 'http://localhost/blog-index/blog-post/')
 
+        # Check the meta status
+        # ADMINAPI CHANGE
+        self.assertIn('status', content['meta'])
+        self.assertEqual(content['meta']['status'], 'live')
+
         # Check the parent field
         self.assertIn('parent', content)
         self.assertIsInstance(content['parent'], dict)
@@ -662,6 +669,49 @@ class TestPageDetail(AdminAPITestCase):
 
         self.assertIn('related_links', content)
         self.assertEqual(content['feed_image'], None)
+
+    def test_meta_status_draft(self):  # ADMINAPI CHANGE
+        # Unpublish the page
+        Page.objects.get(id=16).unpublish()
+
+        response = self.get_response(16)
+        content = json.loads(response.content.decode('UTF-8'))
+
+        self.assertIn('status', content['meta'])
+        self.assertEqual(content['meta']['status'], 'draft')
+
+    def test_meta_status_live_draft(self):  # ADMINAPI CHANGE
+        # Save revision without republish
+        Page.objects.get(id=16).save_revision()
+
+        response = self.get_response(16)
+        content = json.loads(response.content.decode('UTF-8'))
+
+        self.assertIn('status', content['meta'])
+        self.assertEqual(content['meta']['status'], 'live + draft')
+
+    def test_meta_status_scheduled(self):  # ADMINAPI CHANGE
+        # Unpublish and save revision with go live date in the future
+        Page.objects.get(id=16).unpublish()
+        tomorrow = timezone.now() + datetime.timedelta(days=1)
+        Page.objects.get(id=16).save_revision(approved_go_live_at=tomorrow)
+
+        response = self.get_response(16)
+        content = json.loads(response.content.decode('UTF-8'))
+
+        self.assertIn('status', content['meta'])
+        self.assertEqual(content['meta']['status'], 'scheduled')
+
+    def test_meta_status_expired(self):  # ADMINAPI CHANGE
+        # Unpublish and set expired flag
+        Page.objects.get(id=16).unpublish()
+        Page.objects.filter(id=16).update(expired=True)
+
+        response = self.get_response(16)
+        content = json.loads(response.content.decode('UTF-8'))
+
+        self.assertIn('status', content['meta'])
+        self.assertEqual(content['meta']['status'], 'expired')
 
 
 class TestPageDetailWithStreamField(AdminAPITestCase):
