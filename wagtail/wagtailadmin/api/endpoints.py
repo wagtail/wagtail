@@ -3,8 +3,12 @@ from wagtail.api.v2.endpoints import PagesAPIEndpoint, ImagesAPIEndpoint, Docume
 
 from wagtail.wagtailcore.models import Page
 
+from .serializers import AdminPageSerializer
+
 
 class PagesAdminAPIEndpoint(PagesAPIEndpoint):
+    base_serializer_class = AdminPageSerializer
+
     def get_queryset(self):
         request = self.request
 
