@@ -759,16 +759,9 @@ class Page(six.with_metaclass(PageBase, MP_Node, ClusterableModel, index.Indexed
 
         See also: :func:`Page.can_create_at` and :func:`Page.can_move_to`
         """
-        if type(parent) is Page:
-            # The root page is always a `Page`. Every page type should be
-            # allowed to exist here - even if their `parent_page_types()` say
-            # otherwise
-            return True
-        cls_ct = ContentType.objects.get_for_model(cls)
-        parent_ct = ContentType.objects.get_for_model(parent.specific_class)
         return parent.can_have_subpages() \
-            and cls_ct in parent.allowed_subpage_types() \
-            and parent_ct in cls.allowed_parent_page_types()
+            and cls in parent.allowed_subpage_models() \
+            and parent.specific_class in cls.allowed_parent_page_models()
 
     @classmethod
     def can_create_at(cls, parent):
@@ -790,7 +783,7 @@ class Page(six.with_metaclass(PageBase, MP_Node, ClusterableModel, index.Indexed
         Checks if this page instance can have subpages. A page can have
         subpages if there are any allowed subpage types.
         """
-        return bool(self.allowed_subpage_types())
+        return bool(self.allowed_subpage_models())
 
     @classmethod
     def get_verbose_name(cls):
