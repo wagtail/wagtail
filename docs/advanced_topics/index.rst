@@ -13,3 +13,4 @@ Advanced topics
     customisation/index
     third_party_tutorials
     jinja2
+    testing
