@@ -12,6 +12,7 @@ Changelog
  * Fix: HTTP cache purge now works again on Python 2 (Mitchel Cabuloy)
  * Fix: Locked pages can no longer be unpublished (Alex Bridge)
  * Fix: Site records now implement `get_by_natural_key`
+ * Fix: Creating pages at the root level (and any other instances of the base `Page` model) now properly respects the `parent_page_types` setting
 
 1.2 (12.11.2015)
 ~~~~~~~~~~~~~~~~

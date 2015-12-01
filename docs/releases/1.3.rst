@@ -27,6 +27,7 @@ Bug fixes
  * HTTP cache purge now works again on Python 2 (Mitchel Cabuloy)
  * Locked pages can no longer be unpublished (Alex Bridge)
  * Site records now implement ``get_by_natural_key``
+ * Creating pages at the root level (and any other instances of the base ``Page`` model) now properly respects the `parent_page_types` setting
 
 
 Upgrade considerations
@@ -42,3 +43,5 @@ The following internal functions and methods in ``wagtail.wagtailcore.models``, 
  * ``Page.clean_parent_page_types()`` - replaced by ``Page.clean_parent_page_models()``
  * ``Page.allowed_parent_page_types()`` - replaced by ``Page.allowed_parent_page_models()``
  * ``Page.allowed_subpage_types()`` - replaced by ``Page.allowed_subpage_models()``
+
+In addition, note that these methods now return page types that are marked as ``is_creatable = False``, including the base ``Page`` class. (Abstract models are not included, as before.)
