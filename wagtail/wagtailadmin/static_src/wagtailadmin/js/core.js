@@ -30,6 +30,7 @@ function initTagField(id, autocompleteUrl) {
             if (val && val[0] != '"' && val.indexOf(' ') > -1) {
                 return '"' + val + '"';
             }
+
             return val;
         }
     });
