@@ -591,7 +591,11 @@ class TestPageDetail(AdminAPITestCase):
         # Check the meta status
         # ADMINAPI CHANGE
         self.assertIn('status', content['meta'])
-        self.assertEqual(content['meta']['status'], 'live')
+        self.assertEqual(content['meta']['status'], {
+            'status': 'live',
+            'live': True,
+            'has_unpublished_changes': False
+        })
 
         # Check the meta has_children
         # ADMINAPI CHANGE
@@ -683,7 +687,11 @@ class TestPageDetail(AdminAPITestCase):
         content = json.loads(response.content.decode('UTF-8'))
 
         self.assertIn('status', content['meta'])
-        self.assertEqual(content['meta']['status'], 'draft')
+        self.assertEqual(content['meta']['status'], {
+            'status': 'draft',
+            'live': False,
+            'has_unpublished_changes': True
+        })
 
     def test_meta_status_live_draft(self):  # ADMINAPI CHANGE
         # Save revision without republish
@@ -693,7 +701,11 @@ class TestPageDetail(AdminAPITestCase):
         content = json.loads(response.content.decode('UTF-8'))
 
         self.assertIn('status', content['meta'])
-        self.assertEqual(content['meta']['status'], 'live + draft')
+        self.assertEqual(content['meta']['status'], {
+            'status': 'live + draft',
+            'live': True,
+            'has_unpublished_changes': True
+        })
 
     def test_meta_status_scheduled(self):  # ADMINAPI CHANGE
         # Unpublish and save revision with go live date in the future
@@ -705,7 +717,11 @@ class TestPageDetail(AdminAPITestCase):
         content = json.loads(response.content.decode('UTF-8'))
 
         self.assertIn('status', content['meta'])
-        self.assertEqual(content['meta']['status'], 'scheduled')
+        self.assertEqual(content['meta']['status'], {
+            'status': 'scheduled',
+            'live': False,
+            'has_unpublished_changes': True
+        })
 
     def test_meta_status_expired(self):  # ADMINAPI CHANGE
         # Unpublish and set expired flag
@@ -716,7 +732,11 @@ class TestPageDetail(AdminAPITestCase):
         content = json.loads(response.content.decode('UTF-8'))
 
         self.assertIn('status', content['meta'])
-        self.assertEqual(content['meta']['status'], 'expired')
+        self.assertEqual(content['meta']['status'], {
+            'status': 'expired',
+            'live': False,
+            'has_unpublished_changes': True
+        })
 
     def test_meta_has_children_is_true_for_parent(self):  # ADMINAPI CHANGE
         # Homepage should have children
