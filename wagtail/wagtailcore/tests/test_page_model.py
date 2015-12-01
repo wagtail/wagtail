@@ -799,7 +799,8 @@ class TestSubpageTypeBusinessRules(TestCase, WagtailTestUtils):
             self.assertIn(get_ct(BusinessIndex), BusinessSubIndex.allowed_parent_page_types())
 
     def test_can_have_subpages(self):
-        # Pages should allow everything to exist under them
+        # Pages allow everything by default, unless the page says
+        # otherwise. It allows subpages
         self.assertTrue(Page().can_have_subpages())
         # Simple pages allow everything by default, unless the page says
         # otherwise. It allows subpages
@@ -810,8 +811,7 @@ class TestSubpageTypeBusinessRules(TestCase, WagtailTestUtils):
     def test_can_exist_under(self):
         self.assertTrue(SimplePage.can_exist_under(SimplePage()))
 
-        # StandardIndex should only be allowed under a Page, as it has an empty
-        # parent_page_types
+        # StandardIndex should only be allowed under a Page
         self.assertTrue(StandardIndex.can_exist_under(Page()))
         self.assertFalse(StandardIndex.can_exist_under(SimplePage()))
 
@@ -847,16 +847,16 @@ class TestSubpageTypeBusinessRules(TestCase, WagtailTestUtils):
         self.assertTrue(SimplePage().can_move_to(SimplePage()))
 
         # StandardIndex should only be allowed under a Page
-        self.assertTrue(StandardIndex.can_exist_under(Page()))
-        self.assertFalse(StandardIndex.can_exist_under(SimplePage()))
+        self.assertTrue(StandardIndex().can_move_to(Page()))
+        self.assertFalse(StandardIndex().can_move_to(SimplePage()))
 
         # The Business pages are quite restrictive in their structure
-        self.assertTrue(BusinessSubIndex.can_exist_under(BusinessIndex()))
-        self.assertTrue(BusinessChild.can_exist_under(BusinessIndex()))
-        self.assertTrue(BusinessChild.can_exist_under(BusinessSubIndex()))
+        self.assertTrue(BusinessSubIndex().can_move_to(BusinessIndex()))
+        self.assertTrue(BusinessChild().can_move_to(BusinessIndex()))
+        self.assertTrue(BusinessChild().can_move_to(BusinessSubIndex()))
 
-        self.assertFalse(BusinessChild.can_exist_under(SimplePage()))
-        self.assertFalse(BusinessSubIndex.can_exist_under(SimplePage()))
+        self.assertFalse(BusinessChild().can_move_to(SimplePage()))
+        self.assertFalse(BusinessSubIndex().can_move_to(SimplePage()))
 
     def test_singleton_page_creation(self):
         root_page = Page.objects.get(url_path='/home/')
