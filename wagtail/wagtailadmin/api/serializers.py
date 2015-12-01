@@ -19,13 +19,22 @@ class AdminPageMetaField(PageMetaField):
     "meta": {
         ...
 
-        "status": "live",
+        "status": {
+            "status": "live",
+            "live": true,
+            "has_unpublished_changes": false
+        },
         "has_children": true
     }
     """
     def to_representation(self, page):
         data = super(AdminPageMetaField, self).to_representation(page)
-        data['status'] = page.status_string
+        data['status'] = OrderedDict([
+            ('status', page.status_string),
+            ('live', page.live),
+            ('has_unpublished_changes', page.has_unpublished_changes),
+        ])
+
         data['has_children'] = page.numchild > 0
         return data
 
