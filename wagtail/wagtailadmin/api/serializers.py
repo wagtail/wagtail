@@ -18,6 +18,7 @@ class AdminPageMetaField(PageMetaField):
     def to_representation(self, page):
         data = super(AdminPageMetaField, self).to_representation(page)
         data['status'] = page.status_string
+        data['has_children'] = page.numchild > 0
         return data
 
 

@@ -49,11 +49,11 @@ class TestPageListing(AdminAPITestCase):
         self.assertIn('results', content)
         self.assertIsInstance(content['results'], list)
 
-        # Check that each page has a meta section with type, detail_url, html_url and status attributes
+        # Check that each page has a meta section with type, detail_url, html_url, status and has_children attributes
         for page in content['results']:
             self.assertIn('meta', page)
             self.assertIsInstance(page['meta'], dict)
-            self.assertEqual(set(page['meta'].keys()), {'type', 'detail_url', 'html_url', 'status'})  # ADMINAPI CHANGE
+            self.assertEqual(set(page['meta'].keys()), {'type', 'detail_url', 'html_url', 'status', 'has_children'})  # ADMINAPI CHANGE
 
     def test_unpublished_pages_appear_in_list(self):  # ADMINAPI CHANGE
         total_count = get_total_page_count()
@@ -593,6 +593,11 @@ class TestPageDetail(AdminAPITestCase):
         self.assertIn('status', content['meta'])
         self.assertEqual(content['meta']['status'], 'live')
 
+        # Check the meta has_children
+        # ADMINAPI CHANGE
+        self.assertIn('has_children', content['meta'])
+        self.assertEqual(content['meta']['has_children'], False)
+
         # Check the parent field
         self.assertIn('parent', content)
         self.assertIsInstance(content['parent'], dict)
@@ -712,6 +717,14 @@ class TestPageDetail(AdminAPITestCase):
 
         self.assertIn('status', content['meta'])
         self.assertEqual(content['meta']['status'], 'expired')
+
+    def test_meta_has_children_is_true_for_parent(self):  # ADMINAPI CHANGE
+        # Homepage should have children
+        response = self.get_response(2)
+        content = json.loads(response.content.decode('UTF-8'))
+
+        self.assertIn('has_children', content['meta'])
+        self.assertEqual(content['meta']['has_children'], True)
 
 
 class TestPageDetailWithStreamField(AdminAPITestCase):
