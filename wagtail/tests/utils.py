@@ -141,3 +141,31 @@ class WagtailPageTests(WagtailTestUtils, TestCase):
                 child_model._meta.app_label, child_model._meta.model_name,
                 response.redirect_chain))
             raise self.failureException(msg)
+
+    def assertAllowedSubpageTypes(self, parent_model, child_models, msg=None):
+        """
+        Test that the only page types that can be created under
+        ``parent_model`` are ``child_models``.
+
+        The list of allowed child models may differ from those set in
+        ``Page.subpage_types``, if the child models have set
+        ``Page.parent_page_types``.
+        """
+        self.assertEqual(
+            set(ct.model_class() for ct in parent_model.clean_subpage_types()),
+            set(child_models),
+            msg=msg)
+
+    def assertAllowedParentPageTypes(self, child_model, parent_models, msg=None):
+        """
+        Test that the only page types that ``child_model`` can be created under
+        are ``parent_models``.
+
+        The list of allowed parent models may differ from those set in
+        ``Page.parent_page_types``, if the parent models have set
+        ``Page.subpage_types``.
+        """
+        self.assertEqual(
+            set(ct.model_class() for ct in child_model.clean_parent_page_types()),
+            set(parent_models),
+            msg=None)

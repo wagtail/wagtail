@@ -2,10 +2,12 @@ from __future__ import absolute_import, unicode_literals
 
 import json
 
+from django.utils import six
 from wagtail.tests.testapp.models import (
-    BusinessChild, EventIndex, EventPage, SimplePage, StreamPage)
+    BusinessChild, BusinessIndex, BusinessSubIndex, EventIndex, EventPage,
+    SimplePage, StreamPage)
 from wagtail.tests.utils import WagtailPageTests
-from wagtail.wagtailcore.models import Page, Site
+from wagtail.wagtailcore.models import PAGE_MODEL_CLASSES, Page, Site
 
 
 class TestWagtailPageTests(WagtailPageTests):
@@ -13,6 +15,12 @@ class TestWagtailPageTests(WagtailPageTests):
         super(TestWagtailPageTests, self).setUp()
         site = Site.objects.get(is_default_site=True)
         self.root = site.root_page.specific
+
+    def assertRaisesRegex(self, *args, **kwargs):
+        if six.PY3:
+            return super(TestWagtailPageTests, self).assertRaisesRegex(*args, **kwargs)
+        else:
+            return self.assertRaisesRegexp(*args, **kwargs)
 
     def test_assert_can_create_at(self):
         # It should be possible to create an EventPage under an EventIndex,
@@ -47,11 +55,25 @@ class TestWagtailPageTests(WagtailPageTests):
         simple_page = SimplePage(title='Simple Page', slug='simple')
         self.root.add_child(instance=simple_page)
         # This should raise an error, as a BusinessChild can not be created under a SimplePage
-        with self.assertRaisesRegexp(AssertionError, r'Can not create a tests.businesschild under a tests.simplepage'):
+        with self.assertRaisesRegex(AssertionError, r'Can not create a tests.businesschild under a tests.simplepage'):
             self.assertCanCreate(simple_page, BusinessChild, {})
 
     def test_assert_can_create_validation_error(self):
         # This should raise some validation errors, complaining about missing
         # title and slug fields
-        with self.assertRaisesRegexp(AssertionError, r'\bslug:\n[\s\S]*\btitle:\n'):
+        with self.assertRaisesRegex(AssertionError, r'\bslug:\n[\s\S]*\btitle:\n'):
             self.assertCanCreate(self.root, SimplePage, {})
+
+    def test_assert_allowed_subpage_types(self):
+        self.assertAllowedSubpageTypes(BusinessIndex, {BusinessChild, BusinessSubIndex})
+        self.assertAllowedSubpageTypes(BusinessChild, {})
+        self.assertAllowedSubpageTypes(Page, PAGE_MODEL_CLASSES)
+        with self.assertRaises(AssertionError):
+            self.assertAllowedSubpageTypes(BusinessSubIndex, {BusinessSubIndex, BusinessChild})
+
+    def test_assert_allowed_parent_page_types(self):
+        self.assertAllowedParentPageTypes(BusinessChild, {BusinessIndex, BusinessSubIndex})
+        self.assertAllowedParentPageTypes(BusinessSubIndex, {BusinessIndex})
+        self.assertAllowedParentPageTypes(BusinessIndex, PAGE_MODEL_CLASSES)
+        with self.assertRaises(AssertionError):
+            self.assertAllowedParentPageTypes(BusinessSubIndex, {BusinessSubIndex, BusinessIndex})
