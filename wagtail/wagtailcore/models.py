@@ -740,6 +740,17 @@ class Page(six.with_metaclass(PageBase, MP_Node, ClusterableModel, index.Indexed
         return get_content_type_list(cls.allowed_subpage_models())
 
     @classmethod
+    def creatable_subpage_models(cls):
+        """
+        Returns the list of page types that may be created under this page type,
+        as a list of model classes
+        """
+        return [
+            page_model for page_model in cls.allowed_subpage_models()
+            if page_model.is_creatable
+        ]
+
+    @classmethod
     def get_verbose_name(cls):
         """
             Returns the human-readable "verbose name" of this page model e.g "Blog page".

@@ -314,6 +314,37 @@ class TestPageCreation(TestCase, WagtailTestUtils):
         # Check that the user recieved a 403 response
         self.assertEqual(response.status_code, 403)
 
+    def test_cannot_create_page_with_is_creatable_false(self):
+        # tests.MTIBasePage has is_creatable=False, so attempting to add a new one
+        # should fail with permission denied
+        response = self.client.get(
+            reverse('wagtailadmin_pages:add', args=('tests', 'mtibasepage', self.root_page.id))
+        )
+        self.assertEqual(response.status_code, 403)
+
+    def test_cannot_create_page_with_wrong_parent_page_types(self):
+        # tests.BusinessChild has limited parent_page_types, so attempting to add
+        # a new one at the root level should fail with permission denied
+        response = self.client.get(
+            reverse('wagtailadmin_pages:add', args=('tests', 'businesschild', self.root_page.id))
+        )
+        self.assertEqual(response.status_code, 403)
+
+    def test_cannot_create_page_with_wrong_subpage_types(self):
+        # Add a BusinessIndex to test business rules in
+        business_index = BusinessIndex(
+            title="Hello world!",
+            slug="hello-world",
+        )
+        self.root_page.add_child(instance=business_index)
+
+        # BusinessIndex has limited subpage_types, so attempting to add a SimplePage
+        # underneath it should fail with permission denied
+        response = self.client.get(
+            reverse('wagtailadmin_pages:add', args=('tests', 'simplepage', business_index.id))
+        )
+        self.assertEqual(response.status_code, 403)
+
     def test_create_simplepage_post(self):
         post_data = {
             'title': "New page!",

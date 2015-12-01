@@ -67,8 +67,7 @@ def add_subpage(request, parent_page_id):
 
     page_types = [
         (model.get_verbose_name(), model._meta.app_label, model._meta.model_name)
-        for model in parent_page.allowed_subpage_models()
-        if model.is_creatable
+        for model in parent_page.creatable_subpage_models()
     ]
     # sort by lower-cased version of verbose name
     page_types.sort(key=lambda page_type: page_type[0].lower())
@@ -128,7 +127,7 @@ def create(request, content_type_app_name, content_type_model_name, parent_page_
         raise Http404
 
     # page must be in the list of allowed subpage types for this parent ID
-    if page_class not in parent_page.allowed_subpage_models():
+    if page_class not in parent_page.creatable_subpage_models():
         raise PermissionDenied
 
     page = page_class(owner=request.user)
