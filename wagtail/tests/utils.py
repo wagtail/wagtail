@@ -73,7 +73,8 @@ class WagtailPageTests(WagtailTestUtils, TestCase):
     def assertCanCreateAt(self, parent_model, child_model, msg=None):
         """
         Assert a particular child Page type can be created under a parent
-        Page type.
+        Page type. ``parent_model`` and ``child_model`` should be the Page
+        classes being tested.
         """
         if not self._testCanCreateAt(parent_model, child_model):
             msg = self._formatMessage(msg, "Can not create a %s.%s under a %s.%s" % (
@@ -84,7 +85,8 @@ class WagtailPageTests(WagtailTestUtils, TestCase):
     def assertCanNotCreateAt(self, parent_model, child_model, msg=None):
         """
         Assert a particular child Page type can not be created under a parent
-        Page type.
+        Page type. ``parent_model`` and ``child_model`` should be the Page
+        classes being tested.
         """
         if self._testCanCreateAt(parent_model, child_model):
             msg = self._formatMessage(msg, "Can create a %s.%s under a %s.%s" % (
@@ -95,7 +97,11 @@ class WagtailPageTests(WagtailTestUtils, TestCase):
     def assertCanCreate(self, parent, child_model, data, msg=None):
         """
         Assert that a child of the given Page type can be created under the
-        parent, using the supplied POST data
+        parent, using the supplied POST data.
+
+        ``parent`` should be a Page instance, and ``child_model`` should be a
+        Page subclass. ``data`` should be a dict that will be POSTed at the
+        Wagtail admin Page creation method.
         """
         self.assertCanCreateAt(parent.specific_class, child_model)
 
