@@ -1,18 +1,27 @@
 from collections import OrderedDict
 
+from wagtail.api.shared.utils import get_full_url
 from wagtail.api.v2.serializers import (
     PageMetaField, PageSerializer,
     MetaField, ImageSerializer,
 )
 
+from wagtail.wagtailcore.models import Page
 from wagtail.wagtailimages.models import SourceImageIOError
+
+
+def get_model_listing_url(context, model):
+    url_path = context['router'].get_model_listing_urlpath(model)
+
+    if url_path:
+        return get_full_url(context['request'], url_path)
 
 
 class AdminPageMetaField(PageMetaField):
     """
     A subclass of PageMetaField for the admin API.
 
-    This adds the "status" and "has_children" fields
+    This adds the "status" and "children" fields
 
     Example:
 
@@ -24,7 +33,10 @@ class AdminPageMetaField(PageMetaField):
             "live": true,
             "has_unpublished_changes": false
         },
-        "has_children": true
+        "children": {
+            "count": 1,
+            "listing_url": "/api/v1/pages/?child_of=2"
+        }
     }
     """
     def to_representation(self, page):
@@ -35,7 +47,10 @@ class AdminPageMetaField(PageMetaField):
             ('has_unpublished_changes', page.has_unpublished_changes),
         ])
 
-        data['has_children'] = page.numchild > 0
+        data['children'] = OrderedDict([
+            ('count', page.numchild),
+            ('listing_url', get_model_listing_url(self.context, Page) + '?child_of=' + str(page.id)),
+        ])
         return data
 
 
