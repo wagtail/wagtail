@@ -49,11 +49,11 @@ class TestPageListing(AdminAPITestCase):
         self.assertIn('results', content)
         self.assertIsInstance(content['results'], list)
 
-        # Check that each page has a meta section with type, detail_url, html_url, status and has_children attributes
+        # Check that each page has a meta section with type, detail_url, html_url, status and children attributes
         for page in content['results']:
             self.assertIn('meta', page)
             self.assertIsInstance(page['meta'], dict)
-            self.assertEqual(set(page['meta'].keys()), {'type', 'detail_url', 'html_url', 'status', 'has_children'})  # ADMINAPI CHANGE
+            self.assertEqual(set(page['meta'].keys()), {'type', 'detail_url', 'html_url', 'status', 'children'})  # ADMINAPI CHANGE
 
     def test_unpublished_pages_appear_in_list(self):  # ADMINAPI CHANGE
         total_count = get_total_page_count()
@@ -597,10 +597,13 @@ class TestPageDetail(AdminAPITestCase):
             'has_unpublished_changes': False
         })
 
-        # Check the meta has_children
+        # Check the meta children
         # ADMINAPI CHANGE
-        self.assertIn('has_children', content['meta'])
-        self.assertEqual(content['meta']['has_children'], False)
+        self.assertIn('children', content['meta'])
+        self.assertEqual(content['meta']['children'], {
+            'count': 0,
+            'listing_url': 'http://localhost/admin/api/v1beta/pages/?child_of=16'
+        })
 
         # Check the parent field
         self.assertIn('parent', content)
@@ -738,13 +741,16 @@ class TestPageDetail(AdminAPITestCase):
             'has_unpublished_changes': True
         })
 
-    def test_meta_has_children_is_true_for_parent(self):  # ADMINAPI CHANGE
+    def test_meta_children_for_parent(self):  # ADMINAPI CHANGE
         # Homepage should have children
         response = self.get_response(2)
         content = json.loads(response.content.decode('UTF-8'))
 
-        self.assertIn('has_children', content['meta'])
-        self.assertEqual(content['meta']['has_children'], True)
+        self.assertIn('children', content['meta'])
+        self.assertEqual(content['meta']['children'], {
+            'count': 5,
+            'listing_url': 'http://localhost/admin/api/v1beta/pages/?child_of=2'
+        })
 
 
 class TestPageDetailWithStreamField(AdminAPITestCase):
