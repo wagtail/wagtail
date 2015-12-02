@@ -28,6 +28,7 @@ Bug fixes
  * Locked pages can no longer be unpublished (Alex Bridge)
  * Site records now implement ``get_by_natural_key``
  * Creating pages at the root level (and any other instances of the base ``Page`` model) now properly respects the `parent_page_types` setting
+ * Settings menu now opens correctly from the page editor and styleguide views
 
 
 Upgrade considerations

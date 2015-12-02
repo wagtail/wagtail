@@ -264,8 +264,6 @@
 .icon-spinner:after {
     width: 1em;
     animation: spin 0.5s infinite linear;
-    -webkit-animation: spin 0.5s infinite linear;
-    -moz-animation: spin 0.5s infinite linear;
     content: '1';
 }
 
@@ -374,25 +372,5 @@
 
     to {
         transform: rotate(360deg);
-    }
-}
-
-@-webkit-keyframes spin {
-    from {
-        -webkit-transform: rotate(0deg);
-    }
-
-    to {
-        -webkit-transform: rotate(360deg);
-    }
-}
-
-@-moz-keyframes spin {
-    from {
-        -moz-transform: rotate(0deg);
-    }
-
-    to {
-        -moz-transform: rotate(360deg);
     }
 }
