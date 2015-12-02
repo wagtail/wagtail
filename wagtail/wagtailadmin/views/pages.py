@@ -1,3 +1,4 @@
+import django
 from django.http import Http404, HttpResponse
 from django.shortcuts import render, redirect, get_object_or_404
 from django.core.exceptions import ValidationError, PermissionDenied
@@ -18,7 +19,6 @@ from wagtail.wagtailadmin import signals
 
 from wagtail.wagtailcore import hooks
 from wagtail.wagtailcore.models import Page, PageRevision, get_navigation_menu_items
-from wagtail.wagtailcore.validators import validate_not_whitespace
 
 from wagtail.wagtailadmin import messages
 
@@ -299,7 +299,19 @@ def edit(request, page_id):
 
 
 def validate_page_form(form, parent_page, instance=None):
-    # Perform default validation first
+    # Strip whitespace in title and seo_title fields
+    # This is done for us in Django 1.9 and above
+    if django.VERSION < (1, 9):
+        def clean_title():
+            return form.cleaned_data['title'].strip()
+
+        def clean_seo_title():
+            return form.cleaned_data['seo_title'].strip()
+
+        form.clean_title = clean_title
+        form.clean_seo_title = clean_seo_title
+
+    # Perform default validation
     form.full_clean()
 
     if 'slug' in form.cleaned_data:
@@ -311,20 +323,6 @@ def validate_page_form(form, parent_page, instance=None):
         # Make sure the slug isn't being used by a sibling
         if siblings.filter(slug=form.cleaned_data['slug']).exists():
             form.add_error('slug', ValidationError(_("This slug is already in use")))
-
-    # Check that the title and seo_title are not entirely whitespace
-    if 'title' in form.cleaned_data:
-        try:
-            validate_not_whitespace(form.cleaned_data['title'])
-        except ValidationError as error:
-            form.add_error('title', error)
-
-    if 'seo_title' in form.cleaned_data:
-        if form.cleaned_data['seo_title']:
-            try:
-                validate_not_whitespace(form.cleaned_data['seo_title'])
-            except ValidationError as error:
-                form.add_error('seo_title', error)
 
     # Check scheduled publishing fields
     go_live_at = form.cleaned_data.get('go_live_at')
