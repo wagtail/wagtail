@@ -4,6 +4,7 @@ from django.utils.translation import ugettext_lazy as _
 
 from wagtail.wagtailcore import hooks
 from wagtail.wagtailadmin.menu import MenuItem, SubmenuMenuItem, settings_menu
+from wagtail.wagtailadmin.search import SearchArea
 
 
 class ExplorerMenuItem(MenuItem):
@@ -30,3 +31,12 @@ def register_settings_menu():
 @hooks.register('register_permissions')
 def register_permissions():
     return Permission.objects.filter(content_type__app_label='wagtailadmin', codename='access_admin')
+
+
+@hooks.register('register_admin_search_area')
+def register_pages_search_area():
+    return SearchArea(
+        _('Pages'), urlresolvers.reverse('wagtailadmin_pages:search'),
+        name='pages',
+        classnames='icon icon-folder-open-inverse',
+        order=100)

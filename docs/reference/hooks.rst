@@ -195,6 +195,35 @@ The available hooks are:
       if request.user.username == 'frank':
         menu_items[:] = [item for item in menu_items if item.name != 'explorer']
 
+.. _register_admin_search_area:
+
+``register_admin_search_area``
+
+  Add an item to the Wagtail admin search "Other Searches". Behaviour of this hook is similar to ``register_admin_menu_item``. The callable passed to this hook must return an instance of ``wagtail.wagtailadmin.search.SearchArea``. New items can be constructed from the ``SearchArea`` class by passing the following parameters:
+
+  :label: text displayed in the "Other Searches" option box.
+  :name: an internal name used to identify the search option; defaults to the slugified form of the label.
+  :url: the URL of the target search page.
+  :classnames: additional CSS classnames applied to the link, used to give it an icon.
+  :attrs: additional HTML attributes to apply to the link.
+  :order: an integer which determines the item's position in the list of options.
+
+  Setting the URL can be achieved using reverse() on the target search page. The GET parameter 'q' will be appended to the given URL.
+
+  A template tag, ``search_other`` is provided by the ``wagtailadmin_tags`` template module. This tag takes a single, optional parameter, ``current``, which allows you to specify the ``name`` of the search option currently active. If the parameter is not given, the hook defaults to a reverse lookup of the page's URL for comparison against the ``url`` parameter.
+
+
+  ``SearchArea`` can be subclassed to customise the HTML output, specify Javascript files required by the option, or conditionally show or hide the item for specific requests (for example, to apply permission checks); see the source code (``wagtail/wagtailadmin/search.py``) for details.
+
+  .. code-block:: python
+
+    from django.core.urlresolvers import reverse
+    from wagtail.wagtailcore import hooks
+    from wagtail.wagtailadmin.search import SearchArea
+
+    @hooks.register('register_admin_search_area')
+    def register_frank_search_area():
+      return SearchArea('Frank', reverse('frank'), classnames='icon icon-folder-inverse', order=10000)
 
 .. _insert_editor_js:
 
