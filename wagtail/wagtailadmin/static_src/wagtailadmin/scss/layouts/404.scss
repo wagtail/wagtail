@@ -4,24 +4,30 @@
     0% {
         transform: rotate(0deg);
     }
+
     53% {
         transform: rotate(-120deg);
     }
+
     68% {
         transform: rotate(-100deg);
     }
+
     76% {
         transform: rotate(-120deg);
     }
+
     83% {
         transform: rotate(-110deg);
     }
+
     100% {
         transform: rotate(-120deg);
     }
 }
 
-html, body{
+html, 
+body {
     height: 100%;
     width: 100%;
     overflow: hidden;
