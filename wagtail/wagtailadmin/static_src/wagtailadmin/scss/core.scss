@@ -385,10 +385,13 @@ footer,
             float: none;
             margin: auto;
             display: block;
+        }
+
+        img.wagtail-logo {
             transition: all 0.25s cubic-bezier(0.28, 0.15, 0, 2.1);
         }
 
-        img:hover {
+        img:hover.wagtail-logo {
             transform: rotate(4deg);
         }
     }
