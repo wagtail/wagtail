@@ -30,6 +30,7 @@ var apps = [
             'wagtailadmin/scss/layouts/home.scss',
             'wagtailadmin/scss/layouts/page-editor.scss',
             'wagtailadmin/scss/layouts/preview.scss',
+            'wagtailadmin/scss/layouts/404.scss',
             'wagtailadmin/scss/panels/rich-text.scss',
             'wagtailadmin/scss/userbar.scss',
             'wagtailadmin/scss/userbar_embed.scss',

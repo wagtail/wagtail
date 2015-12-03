@@ -1,0 +1,35 @@
+{% extends "wagtailadmin/skeleton.html" %}
+{% load i18n %}
+{% load compress static wagtailadmin_tags %}
+
+{% block css %}
+    {% compress css %}
+        <link rel="stylesheet" href="{% static 'wagtailadmin/css/core.css' %}" type="text/css" />
+        <link rel="stylesheet" href="{% static 'wagtailadmin/css/layouts/404.css' %}" type="text/css" />
+    {% endcompress %}
+
+    {% block extra_css %}{% endblock %}
+{% endblock %}
+
+{% block branding_favicon %}
+    <link rel="shortcut icon" href="{% static 'wagtailadmin/images/favicon.ico' %}" />
+{% endblock %}
+
+{% block furniture %}
+    <div class="content-wrapper">
+        <h1>{% trans "Sorry, that page doesn't exist." %}</h1>
+        <h2>{% trans "That page is no more, it has ceased to be. It is an ex-page!" %}</h2>
+        <img src="{% static 'wagtailadmin/images/wagtail-logo.svg' %}" alt="" width="200" title="{% trans 'ELLO, WAGTAAAIIILL!!!' %}" class="polly" />
+    </div>
+{% endblock %}
+
+{% block js %}    
+    {% block extra_js %}
+        <script>
+            var timer = setTimeout(function(){
+                var polly = document.querySelectorAll('.polly');
+                polly[0].classList.add('there-he-moved'); 
+            }, 500)
+        </script>
+    {% endblock %}
+{% endblock %}
