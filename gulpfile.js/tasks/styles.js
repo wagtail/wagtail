@@ -25,8 +25,6 @@ gulp.task('styles:sass', function () {
     // its own Sass files that need to be compiled.
     var sources = flatten(config.apps.map(function(app) { return app.scssSources(); }));
 
-    console.log(sources);
-
     return gulp.src(sources)
         .pipe(sass({
             errLogToConsole: true,
