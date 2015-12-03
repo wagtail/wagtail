@@ -379,7 +379,7 @@ ul.listing {
 
     &.images {
         .image {
-            @include transition(all 0.3s cubic-bezier(0.175, 0.885, 0.320, 1.275));
+            @include transition(all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275));
             position: relative;
         }
         
@@ -395,7 +395,7 @@ ul.listing {
         .upload-success .image { 
             img,
             canvas {
-                @include transition(opacity 0.3s cubic-bezier(0.175, 0.885, 0.320, 1.275));
+                @include transition(opacity 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275));
                 opacity: 0.5;
             }
         }
@@ -586,7 +586,7 @@ table.listing {
 
                     // img is obvious I'd hope. Canvas is for images displayed using file API and query upload plugins
                     img, 
-                    canvas{
+                    canvas {
                         display: inline-block;
                         vertical-align: middle;
                     }

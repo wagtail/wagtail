@@ -80,8 +80,8 @@
 .ready .messages ul,
 .messages.new.appear ul {
     transition: top 0.5s ease, opacity 0.5s ease, max-height 1.2s ease;
-    opacity:1;
-    top:0;
+    opacity: 1;
+    top: 0;
 }
 
 .messages.new ul {
