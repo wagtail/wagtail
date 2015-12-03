@@ -433,7 +433,7 @@ class Filter(models.Model):
 
 
 class AbstractRendition(models.Model):
-    filter = models.ForeignKey('Filter', related_name='+')
+    filter = models.ForeignKey(Filter, related_name='+')
     file = models.ImageField(upload_to='images', width_field='width', height_field='height')
     width = models.IntegerField(editable=False)
     height = models.IntegerField(editable=False)
@@ -480,7 +480,7 @@ class AbstractRendition(models.Model):
 
 
 class Rendition(AbstractRendition):
-    image = models.ForeignKey('Image', related_name='renditions')
+    image = models.ForeignKey(Image, related_name='renditions')
 
     class Meta:
         unique_together = (
