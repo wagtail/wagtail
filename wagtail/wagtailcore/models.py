@@ -759,8 +759,7 @@ class Page(six.with_metaclass(PageBase, MP_Node, ClusterableModel, index.Indexed
 
         See also: :func:`Page.can_create_at` and :func:`Page.can_move_to`
         """
-        return parent.can_have_subpages() \
-            and cls in parent.allowed_subpage_models() \
+        return cls in parent.allowed_subpage_models() \
             and parent.specific_class in cls.allowed_parent_page_models()
 
     @classmethod
@@ -777,13 +776,6 @@ class Page(six.with_metaclass(PageBase, MP_Node, ClusterableModel, index.Indexed
         page instance.
         """
         return self.can_exist_under(parent)
-
-    def can_have_subpages(self):
-        """
-        Checks if this page instance can have subpages. A page can have
-        subpages if there are any allowed subpage types.
-        """
-        return bool(self.allowed_subpage_models())
 
     @classmethod
     def get_verbose_name(cls):
@@ -1423,7 +1415,7 @@ class PagePermissionTester(object):
     def can_add_subpage(self):
         if not self.user.is_active:
             return False
-        if not self.page.specific.can_have_subpages():
+        if not self.page.specific.allowed_subpage_models():
             return False
         return self.user.is_superuser or ('add' in self.permissions)
 
@@ -1492,7 +1484,7 @@ class PagePermissionTester(object):
         """
         if not self.user.is_active:
             return False
-        if not self.page.specific.can_have_subpages():
+        if not self.page.specific.allowed_subpage_models():
             return False
 
         return self.user.is_superuser or ('publish' in self.permissions)

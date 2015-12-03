@@ -798,16 +798,6 @@ class TestSubpageTypeBusinessRules(TestCase, WagtailTestUtils):
             self.assertNotIn(get_ct(SimplePage), BusinessSubIndex.allowed_parent_page_types())
             self.assertIn(get_ct(BusinessIndex), BusinessSubIndex.allowed_parent_page_types())
 
-    def test_can_have_subpages(self):
-        # Pages allow everything by default, unless the page says
-        # otherwise. It allows subpages
-        self.assertTrue(Page().can_have_subpages())
-        # Simple pages allow everything by default, unless the page says
-        # otherwise. It allows subpages
-        self.assertTrue(SimplePage().can_have_subpages())
-        # BusinessChild explicitly disallows subpages
-        self.assertFalse(BusinessChild().can_have_subpages())
-
     def test_can_exist_under(self):
         self.assertTrue(SimplePage.can_exist_under(SimplePage()))
 
