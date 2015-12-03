@@ -17,6 +17,7 @@ from django.core.handlers.wsgi import WSGIRequest
 from django.core.handlers.base import BaseHandler
 from django.core.urlresolvers import reverse
 from django.contrib.contenttypes.models import ContentType
+from django.contrib.auth import get_user_model
 from django.contrib.auth.models import Group
 from django.conf import settings
 from django.template.response import TemplateResponse
@@ -1094,6 +1095,28 @@ class Page(six.with_metaclass(PageBase, MP_Node, ClusterableModel, index.Indexed
     def get_view_restrictions(self):
         """Return a query set of all page view restrictions that apply to this page"""
         return PageViewRestriction.objects.filter(page__in=self.get_ancestors(inclusive=True))
+
+    def get_users_with_permission(self, permission_type, include_superusers=True):
+        """
+        May be overriden by a derived page class in order to add additional
+        permissions to an individual page, outside of a group.
+
+        Args:
+            permission_type: str of permission type
+            include_superusers: bool indicating whether or not all superusers should be included
+
+        Returns:
+            QuerySet of users with "permission_type" permission.
+        """
+        # Find GroupPagePermission records of the given type that apply to this page or an ancestor
+        ancestors_and_self = list(self.get_ancestors()) + [self]
+        perm = GroupPagePermission.objects.filter(permission_type=permission_type, page__in=ancestors_and_self)
+        q = Q(groups__page_permissions=perm)
+
+        if include_superusers:
+            q |= Q(is_superuser=True)
+
+        return get_user_model().objects.filter(is_active=True).filter(q)
 
     password_required_template = getattr(settings, 'PASSWORD_REQUIRED_TEMPLATE', 'wagtailcore/password_required.html')
 
