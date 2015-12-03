@@ -51,7 +51,7 @@ msgid "Password confirmation"
 msgstr "Passwort wiederholen"
 
 msgid "Enter the same password as above, for verification."
-msgstr "Geben Sie das gleiche Passwort wie oben zur Übrprüfung ein."
+msgstr "Geben Sie das gleiche Passwort wie oben zur Überprüfung ein."
 
 msgid "Email"
 msgstr "Email"
