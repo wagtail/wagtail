@@ -19,6 +19,7 @@ Minor features
  * Added ``.alt`` attribute to image renditions
  * The default ``src``, ``width``, ``height`` and ``alt`` attributes can now be overridden by attributes passed to the ``{% image %}`` tag
  * Added keyboard shortcuts for preview and save in the page editor
+ * Added ``Page`` methods ``can_exist_under``, ``can_create_at``, ``can_move_to`` for customising page type business rules
 
 
 Bug fixes
@@ -29,6 +30,7 @@ Bug fixes
  * Site records now implement ``get_by_natural_key``
  * Creating pages at the root level (and any other instances of the base ``Page`` model) now properly respects the `parent_page_types` setting
  * Settings menu now opens correctly from the page editor and styleguide views
+ * ``subpage_types`` / ``parent_page_types`` business rules are now enforced when moving pages
 
 
 Upgrade considerations
