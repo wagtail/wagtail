@@ -114,40 +114,46 @@ In addition to the model fields provided, ``Page`` has many properties and metho
     .. automethod:: get_siblings
 
     .. attribute:: search_fields
-        
+
         A list of fields to be indexed by the search engine. See Search docs :ref:`wagtailsearch_indexing_fields`
 
     .. attribute:: subpage_types
 
-        A whitelist of page models which can be created as children of this page type e.g a ``BlogIndex`` page might allow ``BlogPage``, but not ``JobPage`` e.g
+        A whitelist of page models which can be created as children of this page type. For example, a ``BlogIndex`` page might allow a ``BlogPage`` as a child, but not a ``JobPage``:
 
         .. code-block:: python
 
             class BlogIndex(Page):
                 subpage_types = ['mysite.BlogPage', 'mysite.BlogArchivePage']
-                
-        The creation of child pages can be blocked altogether for a given page by setting it's subpage_types attribute to an empty array e.g
-        
+
+        The creation of child pages can be blocked altogether for a given page by setting it's subpage_types attribute to an empty array:
+
         .. code-block:: python
 
             class BlogPage(Page):
                 subpage_types = []
-                
+
     .. attribute:: parent_page_types
 
-        A whitelist of page models which are allowed as parent page types e.g a ``BlogPage`` may only allow itself to be created below the ``BlogIndex`` page e.g
+        A whitelist of page models which are allowed as parent page types. For example, a ``BlogPage`` may only allow itself to be created below the ``BlogIndex`` page:
 
         .. code-block:: python
 
             class BlogPage(Page):
                 parent_page_types = ['mysite.BlogIndexPage']
-                
-        Pages can block themselves from being created at all by setting parent_page_types to an empty array (this is useful for creating unique pages that should only be created once) e.g
-        
+
+        Pages can block themselves from being created at all by setting parent_page_types to an empty array (this is useful for creating unique pages that should only be created once):
+
         .. code-block:: python
 
             class HiddenPage(Page):
                 parent_page_types = []
+
+    .. automethod:: can_exist_under
+
+    .. automethod:: can_create_at
+
+    .. automethod:: can_move_to
 
     .. attribute:: password_required_template
 
