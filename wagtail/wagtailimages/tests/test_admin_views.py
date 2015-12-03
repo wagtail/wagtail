@@ -377,7 +377,7 @@ class TestImageChooserUploadView(TestCase, WagtailTestUtils):
 
 class TestMultipleImageUploader(TestCase, WagtailTestUtils):
     """
-    This tests the multiple image upload views located in wagtailimages/views/multiple.py
+    This tests the multiple image uploader found in the images index
     """
     def setUp(self):
         self.login()
@@ -388,50 +388,24 @@ class TestMultipleImageUploader(TestCase, WagtailTestUtils):
             file=get_test_image_file(),
         )
 
-    def test_add(self):
-        """
-        This tests that the add view responds correctly on a GET request
-        """
-        # Send request
-        response = self.client.get(reverse('wagtailimages:add_multiple'))
-
-        # Check response
-        self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, 'wagtailimages/multiple/add.html')
-
-    @override_settings(WAGTAILIMAGES_MAX_UPLOAD_SIZE=1000)
-    def test_add_max_file_size_context_variables(self):
-        response = self.client.get(reverse('wagtailimages:add_multiple'))
-
-        self.assertEqual(response.context['max_filesize'], 1000)
-        self.assertEqual(response.context['error_max_file_size'], "This file is too big. Maximum filesize 1000\xa0bytes.")
-
     def test_add_post(self):
         """
-        This tests that a POST request to the add view saves the image and returns an edit form
+        This tests that a POST request to the add view saves the image and returns an html snippet
+        linking to that image, for use in a listing
         """
-        response = self.client.post(reverse('wagtailimages:add_multiple'), {
+        response = self.client.post(reverse('wagtailimages:add_ajax'), {
             'files[]': SimpleUploadedFile('test.png', get_test_image_file().file.getvalue()),
         }, HTTP_X_REQUESTED_WITH='XMLHttpRequest')
 
         # Check response
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response['Content-Type'], 'application/json')
-        self.assertTemplateUsed(response, 'wagtailimages/multiple/edit_form.html')
-
-        # Check image
-        self.assertIn('image', response.context)
-        self.assertEqual(response.context['image'].title, 'test.png')
-        self.assertTrue(response.context['image'].file_size)
-
-        # Check form
-        self.assertIn('form', response.context)
-        self.assertEqual(response.context['form'].initial['title'], 'test.png')
+        self.assertTemplateUsed(response, 'wagtailimages/images/includes/image_listing_item.html')
 
         # Check JSON
         response_json = json.loads(response.content.decode())
         self.assertIn('image_id', response_json)
-        self.assertIn('form', response_json)
+        self.assertIn('content', response_json)
         self.assertIn('success', response_json)
         self.assertEqual(response_json['image_id'], response.context['image'].id)
         self.assertTrue(response_json['success'])
@@ -440,7 +414,7 @@ class TestMultipleImageUploader(TestCase, WagtailTestUtils):
         """
         This tests that only AJAX requests are allowed to POST to the add view
         """
-        response = self.client.post(reverse('wagtailimages:add_multiple'), {})
+        response = self.client.post(reverse('wagtailimages:add_ajax'), {})
 
         # Check response
         self.assertEqual(response.status_code, 400)
@@ -449,7 +423,7 @@ class TestMultipleImageUploader(TestCase, WagtailTestUtils):
         """
         This tests that the add view checks for a file when a user POSTs to it
         """
-        response = self.client.post(reverse('wagtailimages:add_multiple'), {}, HTTP_X_REQUESTED_WITH='XMLHttpRequest')
+        response = self.client.post(reverse('wagtailimages:add_ajax'), {}, HTTP_X_REQUESTED_WITH='XMLHttpRequest')
 
         # Check response
         self.assertEqual(response.status_code, 400)
@@ -458,135 +432,22 @@ class TestMultipleImageUploader(TestCase, WagtailTestUtils):
         """
         This tests that the add view checks for a file when a user POSTs to it
         """
-        response = self.client.post(reverse('wagtailimages:add_multiple'), {
+        response = self.client.post(reverse('wagtailimages:add_ajax'), {
             'files[]': SimpleUploadedFile('test.png', b"This is not an image!"),
         }, HTTP_X_REQUESTED_WITH='XMLHttpRequest')
 
         # Check response
-        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.status_code, 400)
         self.assertEqual(response['Content-Type'], 'application/json')
 
         # Check JSON
         response_json = json.loads(response.content.decode())
         self.assertNotIn('image_id', response_json)
-        self.assertNotIn('form', response_json)
+        self.assertNotIn('content', response_json)
         self.assertIn('success', response_json)
         self.assertIn('error_message', response_json)
         self.assertFalse(response_json['success'])
         self.assertEqual(response_json['error_message'], "Not a supported image format. Supported formats: GIF, JPEG, PNG.")
-
-    def test_edit_get(self):
-        """
-        This tests that a GET request to the edit view returns a 405 "METHOD NOT ALLOWED" response
-        """
-        # Send request
-        response = self.client.get(reverse('wagtailimages:edit_multiple', args=(self.image.id, )))
-
-        # Check response
-        self.assertEqual(response.status_code, 405)
-
-    def test_edit_post(self):
-        """
-        This tests that a POST request to the edit view edits the image
-        """
-        # Send request
-        response = self.client.post(reverse('wagtailimages:edit_multiple', args=(self.image.id, )), {
-            ('image-%d-title' % self.image.id): "New title!",
-            ('image-%d-tags' % self.image.id): "",
-        }, HTTP_X_REQUESTED_WITH='XMLHttpRequest')
-
-        # Check response
-        self.assertEqual(response.status_code, 200)
-        self.assertEqual(response['Content-Type'], 'application/json')
-
-        # Check JSON
-        response_json = json.loads(response.content.decode())
-        self.assertIn('image_id', response_json)
-        self.assertNotIn('form', response_json)
-        self.assertIn('success', response_json)
-        self.assertEqual(response_json['image_id'], self.image.id)
-        self.assertTrue(response_json['success'])
-
-    def test_edit_post_noajax(self):
-        """
-        This tests that a POST request to the edit view without AJAX returns a 400 response
-        """
-        # Send request
-        response = self.client.post(reverse('wagtailimages:edit_multiple', args=(self.image.id, )), {
-            ('image-%d-title' % self.image.id): "New title!",
-            ('image-%d-tags' % self.image.id): "",
-        })
-
-        # Check response
-        self.assertEqual(response.status_code, 400)
-
-    def test_edit_post_validation_error(self):
-        """
-        This tests that a POST request to the edit page returns a json document with "success=False"
-        and a form with the validation error indicated
-        """
-        # Send request
-        response = self.client.post(reverse('wagtailimages:edit_multiple', args=(self.image.id, )), {
-            ('image-%d-title' % self.image.id): "",  # Required
-            ('image-%d-tags' % self.image.id): "",
-        }, HTTP_X_REQUESTED_WITH='XMLHttpRequest')
-
-        # Check response
-        self.assertEqual(response.status_code, 200)
-        self.assertEqual(response['Content-Type'], 'application/json')
-        self.assertTemplateUsed(response, 'wagtailimages/multiple/edit_form.html')
-
-        # Check that a form error was raised
-        self.assertFormError(response, 'form', 'title', "This field is required.")
-
-        # Check JSON
-        response_json = json.loads(response.content.decode())
-        self.assertIn('image_id', response_json)
-        self.assertIn('form', response_json)
-        self.assertIn('success', response_json)
-        self.assertEqual(response_json['image_id'], self.image.id)
-        self.assertFalse(response_json['success'])
-
-    def test_delete_get(self):
-        """
-        This tests that a GET request to the delete view returns a 405 "METHOD NOT ALLOWED" response
-        """
-        # Send request
-        response = self.client.get(reverse('wagtailimages:delete_multiple', args=(self.image.id, )))
-
-        # Check response
-        self.assertEqual(response.status_code, 405)
-
-    def test_delete_post(self):
-        """
-        This tests that a POST request to the delete view deletes the image
-        """
-        # Send request
-        response = self.client.post(reverse('wagtailimages:delete_multiple', args=(self.image.id, )), HTTP_X_REQUESTED_WITH='XMLHttpRequest')
-
-        # Check response
-        self.assertEqual(response.status_code, 200)
-        self.assertEqual(response['Content-Type'], 'application/json')
-
-        # Make sure the image is deleted
-        self.assertFalse(Image.objects.filter(id=self.image.id).exists())
-
-        # Check JSON
-        response_json = json.loads(response.content.decode())
-        self.assertIn('image_id', response_json)
-        self.assertIn('success', response_json)
-        self.assertEqual(response_json['image_id'], self.image.id)
-        self.assertTrue(response_json['success'])
-
-    def test_delete_post_noajax(self):
-        """
-        This tests that a POST request to the delete view without AJAX returns a 400 response
-        """
-        # Send request
-        response = self.client.post(reverse('wagtailimages:delete_multiple', args=(self.image.id, )))
-
-        # Check response
-        self.assertEqual(response.status_code, 400)
 
 
 class TestURLGeneratorView(TestCase, WagtailTestUtils):
@@ -799,8 +660,3 @@ class TestEditOnlyPermissions(TestCase, WagtailTestUtils):
         response = self.client.get(reverse('wagtailimages:delete', args=(self.image.id,)))
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'wagtailimages/images/confirm_delete.html')
-
-    def test_get_add_multiple(self):
-        response = self.client.get(reverse('wagtailimages:add_multiple'))
-        # permission should be denied
-        self.assertRedirects(response, reverse('wagtailadmin_home'))
