@@ -31,6 +31,7 @@ Bug fixes
  * Creating pages at the root level (and any other instances of the base ``Page`` model) now properly respects the `parent_page_types` setting
  * Settings menu now opens correctly from the page editor and styleguide views
  * ``subpage_types`` / ``parent_page_types`` business rules are now enforced when moving pages
+ * Multi-word tags on images and documents are now correctly preserved as a single tag (LKozlowski)
 
 
 Upgrade considerations

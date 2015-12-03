@@ -82,6 +82,7 @@ Contributors
 * Rich Brennan
 * Alex Bridge
 * Tamriel
+* LKozlowski
 
 
 Translators
