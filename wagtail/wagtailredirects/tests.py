@@ -49,11 +49,10 @@ class TestRedirects(TestCase):
         redirect.save()
 
         # Navigate to it
-        r = self.client.get('/redirectme/')
+        response = self.client.get('/redirectme/')
 
         # Check that we were redirected
-        self.assertEqual(r.status_code, 301)
-        self.assertTrue(r.has_header('Location'))
+        self.assertRedirects(response, '/redirectto', status_code=301, fetch_redirect_response=False)
 
     def test_temporary_redirect(self):
         # Create a redirect
@@ -61,11 +60,10 @@ class TestRedirects(TestCase):
         redirect.save()
 
         # Navigate to it
-        r = self.client.get('/redirectme/')
+        response = self.client.get('/redirectme/')
 
         # Check that we were redirected temporarily
-        self.assertEqual(r.status_code, 302)
-        self.assertTrue(r.has_header('Location'))
+        self.assertRedirects(response, '/redirectto', status_code=302, fetch_redirect_response=False)
 
     def test_redirect_stripping_query_string(self):
         # Create a redirect which includes a query string
@@ -78,25 +76,19 @@ class TestRedirects(TestCase):
 
         # Navigate to the redirect with the query string
         r_matching_qs = self.client.get('/redirectme/?foo=Bar')
-        self.assertEqual(r_matching_qs.status_code, 301)
-        self.assertTrue(r_matching_qs.has_header('Location'))
-        self.assertEqual(r_matching_qs['Location'][-23:], '/with-query-string-only')
+        self.assertRedirects(r_matching_qs, '/with-query-string-only', status_code=301, fetch_redirect_response=False)
 
         # Navigate to the redirect with a different query string
         # This should strip out the query string and match redirect_without_query_string
         r_no_qs = self.client.get('/redirectme/?utm_source=irrelevant')
-        self.assertEqual(r_no_qs.status_code, 301)
-        self.assertTrue(r_no_qs.has_header('Location'))
-        self.assertEqual(r_no_qs['Location'][-21:], '/without-query-string')
+        self.assertRedirects(r_no_qs, '/without-query-string', status_code=301, fetch_redirect_response=False)
 
     def test_redirect_to_page(self):
         christmas_page = Page.objects.get(url_path='/home/events/christmas/')
         models.Redirect.objects.create(old_path='/xmas', redirect_page=christmas_page)
 
         response = self.client.get('/xmas/', HTTP_HOST='test.example.com')
-        self.assertEqual(response.status_code, 301)
-        # if only one site exists, our redirect response preserves the request hostname
-        self.assertEqual(response['Location'], 'http://test.example.com/events/christmas/')
+        self.assertRedirects(response, 'http://test.example.com/events/christmas/', status_code=301, fetch_redirect_response=False)
 
     def test_redirect_from_any_site(self):
         contact_page = Page.objects.get(url_path='/home/contact-us/')
@@ -107,12 +99,10 @@ class TestRedirects(TestCase):
 
         # no site was specified on the redirect, so it should redirect regardless of hostname
         response = self.client.get('/xmas/', HTTP_HOST='localhost')
-        self.assertEqual(response.status_code, 301)
-        self.assertEqual(response['Location'], 'http://localhost/events/christmas/')
+        self.assertRedirects(response, 'http://localhost/events/christmas/', status_code=301, fetch_redirect_response=False)
 
         response = self.client.get('/xmas/', HTTP_HOST='other.example.com')
-        self.assertEqual(response.status_code, 301)
-        self.assertEqual(response['Location'], 'http://localhost/events/christmas/')
+        self.assertRedirects(response, 'http://localhost/events/christmas/', status_code=301, fetch_redirect_response=False)
 
     def test_redirect_from_specific_site(self):
         contact_page = Page.objects.get(url_path='/home/contact-us/')
@@ -123,8 +113,7 @@ class TestRedirects(TestCase):
 
         # redirect should only respond when site is other_site
         response = self.client.get('/xmas/', HTTP_HOST='other.example.com')
-        self.assertEqual(response.status_code, 301)
-        self.assertEqual(response['Location'], 'http://localhost/events/christmas/')
+        self.assertRedirects(response, 'http://localhost/events/christmas/', status_code=301, fetch_redirect_response=False)
 
         response = self.client.get('/xmas/', HTTP_HOST='localhost')
         self.assertEqual(response.status_code, 404)
