@@ -165,11 +165,19 @@ def send_notification(page_revision_id, notification, excluded_user_id):
     # Get template
     template = 'wagtailadmin/notifications/' + notification + '.html'
 
+    # Common context to template
+    context = {
+        "revision": revision,
+        "settings": settings,
+    }
+
     # Send emails
     for recipient in email_recipients:
+        # update context with this recipient
+        context["user"] = recipient
 
         # Get email subject and content
-        email_subject, email_content = render_to_string(template, dict(user=recipient, revision=revision, settings=settings)).split('\n', 1)
+        email_subject, email_content = render_to_string(template, context).split('\n', 1)
 
         # Send email
         send_mail(email_subject, email_content, [recipient.email])
