@@ -401,11 +401,11 @@ ul.listing {
         }
 
         .upload-success .image {
-            @include transform(translate3d(0,0,0) scale(0.5));
+            transform: translate3d(0, 0, 0) scale(0.5);
         }
 
         .upload-success-loaded .image {
-            @include transform(translate3d(0,0,0) scale(1));
+            transform: translate3d(0, 0, 0) scale(1);
 
             img,
             canvas {
@@ -573,13 +573,8 @@ table.listing {
                 border-width: 1px 1px 1px 0;
 
                 .image {
-<<<<<<< HEAD
                     text-align: center;
                     height: 180px;
-=======
-                    text-align:center;
-                    height:180px;
->>>>>>> linted scss and added new perms wrapper around drop zone
 
                     &:before {
                         content: '';
