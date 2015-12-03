@@ -63,7 +63,7 @@ linters:
     ImportantRule:
         enabled: true
         exclude:
-            - '**/datetimepicker.scss'
+            - '**/_datetimepicker.scss'
 
     ImportPath:
         enabled: true
@@ -94,10 +94,10 @@ linters:
         # b) the use of third party code such as Hallo.js which uses classes with snakeCaseClasses.
         exclude: 
             - '**/rich-text.scss'
-            - '**/forms.scss'
-            - '**/streamfield.scss'
+            - '**/_forms.scss'
+            - '**/_streamfield.scss'
             - '**/page-editor.scss'
-            - '**/datetimepicker.scss'
+            - '**/_datetimepicker.scss'
 
     PlaceholderInExtend:
         enabled: false
