@@ -81,6 +81,7 @@ Contributors
 * John Draper
 * Rich Brennan
 * Alex Bridge
+* Tamriel
 
 
 Translators

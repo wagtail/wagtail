@@ -83,6 +83,10 @@ Then in your own page templates, you can include your snippet template tag with:
 
 .. code-block:: html+django
 
+  {% load wagtailcore_tags demo_tags %}
+
+  ...
+
   {% block content %}
   
     ...
