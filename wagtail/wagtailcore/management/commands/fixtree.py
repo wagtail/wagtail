@@ -13,7 +13,8 @@ from wagtail.wagtailcore.models import Page
 class Command(BaseCommand):
     help = "Checks for data integrity errors on the page tree, and fixes them where possible."
     base_options = (
-        make_option('--noinput', action='store_false', dest='interactive', default=True,
+        make_option(
+            '--noinput', action='store_false', dest='interactive', default=True,
             help='If provided, any fixes requiring user interaction will be skipped.'
         ),
     )

@@ -17,7 +17,8 @@ def register_admin_urls():
 
 @hooks.register('insert_editor_js')
 def editor_js():
-    return format_html("""
+    return format_html(
+        """
             <script src="{0}{1}"></script>
             <script>
                 window.chooserUrls.embedsChooser = '{2}';
