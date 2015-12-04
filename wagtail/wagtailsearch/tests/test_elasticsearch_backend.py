@@ -491,7 +491,7 @@ class TestElasticSearchResults(TestCase):
         search.return_value = self.construct_search_response([])
         results = self.get_results()
 
-        list(results) # Performs search
+        list(results)  # Performs search
 
         search.assert_any_call(
             from_=0,
@@ -507,7 +507,7 @@ class TestElasticSearchResults(TestCase):
         search.return_value = self.construct_search_response([self.objects[0].id])
         results = self.get_results()
 
-        results[10] # Performs search
+        results[10]  # Performs search
 
         search.assert_any_call(
             from_=10,
@@ -523,7 +523,7 @@ class TestElasticSearchResults(TestCase):
         search.return_value = self.construct_search_response([])
         results = self.get_results()[1:4]
 
-        list(results) # Performs search
+        list(results)  # Performs search
 
         search.assert_any_call(
             from_=1,
@@ -539,7 +539,7 @@ class TestElasticSearchResults(TestCase):
         search.return_value = self.construct_search_response([])
         results = self.get_results()[10:][:10]
 
-        list(results) # Performs search
+        list(results)  # Performs search
 
         search.assert_any_call(
             from_=10,
@@ -556,7 +556,7 @@ class TestElasticSearchResults(TestCase):
         search.return_value = self.construct_search_response([self.objects[0].id])
         results = self.get_results()[10:]
 
-        results[10] # Performs search
+        results[10]  # Performs search
 
         search.assert_any_call(
             from_=20,
@@ -589,9 +589,9 @@ class TestElasticSearchResults(TestCase):
         self.assertEqual(len(results), 2)
 
     @mock.patch('elasticsearch.Elasticsearch.search')
-    def test_duplicate_results(self, search): # Duplicates will not be removed
+    def test_duplicate_results(self, search):  # Duplicates will not be removed
         search.return_value = self.construct_search_response([self.objects[0].id, self.objects[0].id])
-        results = list(self.get_results()) # Must cast to list so we only create one query
+        results = list(self.get_results())  # Must cast to list so we only create one query
 
         self.assertEqual(len(results), 2)
         self.assertEqual(results[0], self.objects[0])
@@ -600,7 +600,7 @@ class TestElasticSearchResults(TestCase):
     @mock.patch('elasticsearch.Elasticsearch.search')
     def test_result_order(self, search):
         search.return_value = self.construct_search_response([self.objects[0].id, self.objects[1].id, self.objects[2].id])
-        results = list(self.get_results()) # Must cast to list so we only create one query
+        results = list(self.get_results())  # Must cast to list so we only create one query
 
         self.assertEqual(results[0], self.objects[0])
         self.assertEqual(results[1], self.objects[1])
@@ -609,7 +609,7 @@ class TestElasticSearchResults(TestCase):
     @mock.patch('elasticsearch.Elasticsearch.search')
     def test_result_order_2(self, search):
         search.return_value = self.construct_search_response([self.objects[2].id, self.objects[1].id, self.objects[0].id])
-        results = list(self.get_results()) # Must cast to list so we only create one query
+        results = list(self.get_results())  # Must cast to list so we only create one query
 
         self.assertEqual(results[0], self.objects[2])
         self.assertEqual(results[1], self.objects[1])

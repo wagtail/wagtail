@@ -915,7 +915,7 @@ class TestPageEdit(TestCase, WagtailTestUtils):
         # Check that the moderator got an email
         self.assertEqual(len(mail.outbox), 1)
         self.assertEqual(mail.outbox[0].to, ['moderator@email.com'])
-        self.assertEqual(mail.outbox[0].subject, 'The page "Hello world!" has been submitted for moderation') # Note: should this be "I've been edited!"?
+        self.assertEqual(mail.outbox[0].subject, 'The page "Hello world!" has been submitted for moderation')  # Note: should this be "I've been edited!"?
 
     def test_page_edit_post_existing_slug(self):
         # This tests the existing slug checking on page edit
@@ -1073,7 +1073,7 @@ class TestPageEditReordering(TestCase, WagtailTestUtils):
 
     def test_reorder_with_validation_error(self):
         post_data = {
-            'title': "", # Validation error
+            'title': "",  # Validation error
             'slug': 'event-page',
 
             'date_from': '01/01/2014',

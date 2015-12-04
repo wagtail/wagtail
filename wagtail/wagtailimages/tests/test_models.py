@@ -287,7 +287,7 @@ class TestGetWillowImage(TestCase):
         # should raise a SourceImageIOError
         with self.assertRaises(SourceImageIOError):
             with bad_image.get_willow_image():
-                self.fail() # Shouldn't get here
+                self.fail()  # Shouldn't get here
 
     def test_closes_image(self):
         # This tests that willow closes images after use

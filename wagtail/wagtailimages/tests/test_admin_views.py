@@ -527,7 +527,7 @@ class TestMultipleImageUploader(TestCase, WagtailTestUtils):
         """
         # Send request
         response = self.client.post(reverse('wagtailimages:edit_multiple', args=(self.image.id, )), {
-            ('image-%d-title' % self.image.id): "", # Required
+            ('image-%d-title' % self.image.id): "",  # Required
             ('image-%d-tags' % self.image.id): "",
         }, HTTP_X_REQUESTED_WITH='XMLHttpRequest')
 
