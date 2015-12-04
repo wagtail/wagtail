@@ -180,18 +180,15 @@ class TestTagsAutocomplete(TestCase, WagtailTestUtils):
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response['Content-Type'], 'application/json')
         data = json.loads(response.content.decode('utf-8'))
-
         self.assertEqual(data, [])
-        
-        
+
+
 class TestMenuItem(TestCase, WagtailTestUtils):
-    
     def setUp(self):
         self.login()
-        response = self.client.get( reverse('wagtailadmin_home') )
+        response = self.client.get(reverse('wagtailadmin_home'))
         self.request = response.wsgi_request
-             
+
     def test_menuitem_reverse_lazy_url_pass(self):
-            
-        menuitem =  MenuItem(_('Test'), reverse_lazy('wagtailadmin_home'))
+        menuitem = MenuItem(_('Test'), reverse_lazy('wagtailadmin_home'))
         self.assertEqual(menuitem.is_active(self.request), True)
