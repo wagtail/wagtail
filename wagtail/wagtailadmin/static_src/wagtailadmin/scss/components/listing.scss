@@ -377,9 +377,50 @@ ul.listing {
         opacity: 0.7;
     }
 
-    &.images img {
-        @include transition(border-color 0.2s ease);
-        border: 3px solid $color-white;
+    &.images {
+        .image {
+            @include transition(all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275));
+            position: relative;
+        }
+        
+        .progress {
+            position: absolute;
+            z-index: 1;
+            top: 50%;
+            left: 0;
+            right: 0;
+        }
+
+        .upload-uploading .image, 
+        .upload-success .image { 
+            img,
+            canvas {
+                @include transition(opacity 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275));
+                opacity: 0.5;
+            }
+        }
+
+        .upload-success .image {
+            transform: translate3d(0, 0, 0) scale(0.5);
+        }
+
+        .upload-success-loaded .image {
+            transform: translate3d(0, 0, 0) scale(1);
+
+            img,
+            canvas {
+                opacity: 1;
+            }
+        }
+
+        .upload-failure {
+            display: none;
+        }
+
+        img {
+            @include transition(border-color 0.2s ease);
+            border: 3px solid $color-white;
+        }
     }
 }
 
@@ -543,7 +584,9 @@ table.listing {
                         margin-right: -0.25em;
                     }
 
-                    img {
+                    // img is obvious I'd hope. Canvas is for images displayed using file API and query upload plugins
+                    img, 
+                    canvas {
                         display: inline-block;
                         vertical-align: middle;
                     }
@@ -555,6 +598,11 @@ table.listing {
                     img {
                         border-color: $color-teal;
                     }
+                }
+
+                .progress {
+                    left: 1.3em;
+                    right: 1.3em;
                 }
             }
 

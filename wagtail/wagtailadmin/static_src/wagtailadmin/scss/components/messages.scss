@@ -77,16 +77,16 @@
     }
 }
 
-.messages.new ul {
-    transition: none;
-    top: -100px;
-}
-
 .ready .messages ul,
-.messages.appear ul {
+.messages.new.appear ul {
     transition: top 0.5s ease, opacity 0.5s ease, max-height 1.2s ease;
     opacity: 1;
     top: 0;
+}
+
+.messages.new ul {
+    transition: none;
+    top: -100px;
 }
 
 @media screen and (min-width: $breakpoint-mobile) {

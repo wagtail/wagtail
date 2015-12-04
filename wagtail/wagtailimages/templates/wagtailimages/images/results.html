@@ -1,5 +1,5 @@
-{% load wagtailimages_tags wagtailadmin_tags %}
-{% load i18n %}
+{% load wagtailimages_tags wagtailadmin_tags i18n %}
+
 {% if images %}
     {% if is_searching %}
         <h2>
@@ -9,17 +9,12 @@
             There are {{ counter }} matches
         {% endblocktrans %}
         </h2>
-    {% else %}
-        <h2>{% trans "Latest images" %}</h2>
     {% endif %}
 
     <ul class="listing horiz images">
         {% for image in images %}
             <li>
-                <a class="image-choice" href="{% url 'wagtailimages:edit' image.id %}">
-                    <div class="image">{% image image max-165x165 class="show-transparency" %}</div>
-                    <h3>{{ image.title|ellipsistrim:60 }}</h3>
-                </a>
+                {% include "wagtailimages/images/includes/image_listing_item.html" %}
             </li>
         {% endfor %}
     </ul>

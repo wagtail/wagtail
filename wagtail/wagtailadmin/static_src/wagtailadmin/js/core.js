@@ -1,6 +1,6 @@
 /* generic function for adding a message to message area through JS alone */
 function addMessage(status, text) {
-    $('.messages').addClass('new').empty().append('<ul><li class="' + status + '">' + text + '</li></ul>');
+    $('.messages').addClass('new').find('ul').append('<li class="' + status + '">' + text + '</li>');
     var addMsgTimeout = setTimeout(function() {
         $('.messages').addClass('appear');
         clearTimeout(addMsgTimeout);

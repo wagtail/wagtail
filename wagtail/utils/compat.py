@@ -35,6 +35,6 @@ def render_to_string(template_name, context=None, request=None, **kwargs):
         return loader.render_to_string(
             template_name,
             dictionary=context,
-            context_instance=RequestContext(request),
+            context_instance=RequestContext(request) if request else None,
             **kwargs
         )
