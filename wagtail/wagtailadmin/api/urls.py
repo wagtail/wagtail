@@ -13,5 +13,5 @@ v1.register_endpoint('images', ImagesAdminAPIEndpoint)
 v1.register_endpoint('documents', DocumentsAdminAPIEndpoint)
 
 urlpatterns = [
-    url(r'^v1beta/', v1.urls),
+    url(r'^v2beta/', v1.urls),
 ]
