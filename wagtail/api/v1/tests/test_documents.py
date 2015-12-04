@@ -7,7 +7,7 @@ from django.core.urlresolvers import reverse
 
 from wagtail.wagtaildocs.models import Document
 
-from wagtail.contrib.wagtailapi import signal_handlers
+from wagtail.api.v1 import signal_handlers
 
 
 class TestDocumentListing(TestCase):
