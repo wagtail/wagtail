@@ -1,0 +1,97 @@
+@import 'wagtailadmin/scss/variables';
+
+@keyframes bounce {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    53% {
+        transform: rotate(-120deg);
+    }
+
+    68% {
+        transform: rotate(-100deg);
+    }
+
+    76% {
+        transform: rotate(-120deg);
+    }
+
+    83% {
+        transform: rotate(-110deg);
+    }
+
+    100% {
+        transform: rotate(-120deg);
+    }
+}
+
+html, 
+body {
+    height: 100%;
+    width: 100%;
+    overflow: hidden;
+}
+
+.wrapper {
+    padding: 20px;
+    text-align: center;
+}
+
+.content-wrapper {
+    width: auto;
+    height: auto;
+    float: none;
+    text-align: center;
+    max-width: 45em;
+    margin: 2em auto;
+    border: 0;
+}
+
+h1 {
+    font-weight: 300;
+    font-size: 2em;
+    line-height: 1.2em;
+    text-transform: none;
+    margin-bottom: 1em;
+}
+
+h2 {
+    line-height: 1.4em;
+}
+
+.polly {
+    position: relative;
+    height: 70vh;
+    width: auto;
+    max-width: 17em;
+}
+
+.there-he-moved {
+    animation: bounce 0.8s ease-in;
+    animation-fill-mode: forwards;
+}
+
+@media screen and (min-width: $breakpoint-mobile) {
+    .wrapper {
+        padding: 20px;
+    }
+
+    .content-wrapper {
+        margin: 5em auto;
+    }
+
+    h1 {
+        font-size: 3em;
+    }
+
+    .polly {
+        max-width: none;
+    }
+}
+
+@media screen and (min-width: 90em) {
+    .wrapper {
+        max-width: none;
+    }
+}
