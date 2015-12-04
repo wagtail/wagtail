@@ -33,4 +33,4 @@ def register_redirects_menu_item():
 @hooks.register('register_permissions')
 def register_permissions():
     return Permission.objects.filter(content_type__app_label='wagtailredirects',
-        codename__in=['add_redirect', 'change_redirect', 'delete_redirect'])
+                                     codename__in=['add_redirect', 'change_redirect', 'delete_redirect'])

@@ -46,7 +46,8 @@ for fn in hooks.get_hooks('register_admin_urls'):
 
 
 # Add "wagtailadmin.access_admin" permission check
-urlpatterns = decorate_urlpatterns(urlpatterns,
+urlpatterns = decorate_urlpatterns(
+    urlpatterns,
     permission_required(
         'wagtailadmin.access_admin',
         login_url='wagtailadmin_login'
@@ -68,6 +69,7 @@ urlpatterns += [
 ]
 
 # Decorate all views with cache settings to prevent caching
-urlpatterns = decorate_urlpatterns(urlpatterns,
+urlpatterns = decorate_urlpatterns(
+    urlpatterns,
     cache_control(private=True, no_cache=True, no_store=True, max_age=0)
 )

@@ -78,7 +78,7 @@ class BaseStructBlock(Block):
             (
                 name,
                 block.bind(value.get(name, block.get_default()),
-                    prefix="%s-%s" % (prefix, name), errors=error_dict.get(name))
+                           prefix="%s-%s" % (prefix, name), errors=error_dict.get(name))
             )
             for name, block in self.child_blocks.items()
         ])

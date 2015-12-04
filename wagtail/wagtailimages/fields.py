@@ -73,7 +73,7 @@ class WagtailImageField(ImageField):
             except IOError:
                 # Uploaded file is not even an image file (or corrupted)
                 raise ValidationError(self.error_messages['invalid_image_known_format'],
-                    code='invalid_image_known_format')
+                                      code='invalid_image_known_format')
 
             f.seek(file_position)
         else:

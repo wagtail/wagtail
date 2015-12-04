@@ -33,4 +33,4 @@ def register_search_picks_menu_item():
 @hooks.register('register_permissions')
 def register_permissions():
     return Permission.objects.filter(content_type__app_label='wagtailsearchpromotions',
-        codename__in=['add_searchpromotion', 'change_searchpromotion', 'delete_searchpromotion'])
+                                     codename__in=['add_searchpromotion', 'change_searchpromotion', 'delete_searchpromotion'])

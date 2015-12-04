@@ -281,7 +281,8 @@ class TestSnippetChooserPanel(TestCase):
 
         snippet_chooser_panel = [
             panel for panel in edit_handler.children
-            if getattr(panel, 'field_name', None) == 'advert'][0]
+            if getattr(panel, 'field_name', None) == 'advert'
+        ][0]
 
         field_html = snippet_chooser_panel.render_as_field()
         self.assertIn("Choose advert", field_html)
@@ -478,7 +479,7 @@ class TestAddOnlyPermissions(TestCase, WagtailTestUtils):
 
     def test_get_index(self):
         response = self.client.get(reverse('wagtailsnippets:list',
-            args=('tests', 'advert')))
+                                   args=('tests', 'advert')))
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'wagtailsnippets/snippets/type_index.html')
 
@@ -487,13 +488,13 @@ class TestAddOnlyPermissions(TestCase, WagtailTestUtils):
 
     def test_get_add(self):
         response = self.client.get(reverse('wagtailsnippets:add',
-            args=('tests', 'advert')))
+                                   args=('tests', 'advert')))
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'wagtailsnippets/snippets/create.html')
 
     def test_get_edit(self):
         response = self.client.get(reverse('wagtailsnippets:edit',
-            args=('tests', 'advert', self.test_snippet.id)))
+                                   args=('tests', 'advert', self.test_snippet.id)))
         # permission should be denied
         self.assertRedirects(response, reverse('wagtailadmin_home'))
 
@@ -518,7 +519,7 @@ class TestEditOnlyPermissions(TestCase, WagtailTestUtils):
 
     def test_get_index(self):
         response = self.client.get(reverse('wagtailsnippets:list',
-            args=('tests', 'advert')))
+                                   args=('tests', 'advert')))
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'wagtailsnippets/snippets/type_index.html')
 
@@ -527,13 +528,13 @@ class TestEditOnlyPermissions(TestCase, WagtailTestUtils):
 
     def test_get_add(self):
         response = self.client.get(reverse('wagtailsnippets:add',
-            args=('tests', 'advert')))
+                                   args=('tests', 'advert')))
         # permission should be denied
         self.assertRedirects(response, reverse('wagtailadmin_home'))
 
     def test_get_edit(self):
         response = self.client.get(reverse('wagtailsnippets:edit',
-            args=('tests', 'advert', self.test_snippet.id)))
+                                   args=('tests', 'advert', self.test_snippet.id)))
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'wagtailsnippets/snippets/edit.html')
 
@@ -558,7 +559,7 @@ class TestDeleteOnlyPermissions(TestCase, WagtailTestUtils):
 
     def test_get_index(self):
         response = self.client.get(reverse('wagtailsnippets:list',
-            args=('tests', 'advert')))
+                                   args=('tests', 'advert')))
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'wagtailsnippets/snippets/type_index.html')
 
@@ -567,13 +568,13 @@ class TestDeleteOnlyPermissions(TestCase, WagtailTestUtils):
 
     def test_get_add(self):
         response = self.client.get(reverse('wagtailsnippets:add',
-            args=('tests', 'advert')))
+                                   args=('tests', 'advert')))
         # permission should be denied
         self.assertRedirects(response, reverse('wagtailadmin_home'))
 
     def test_get_edit(self):
         response = self.client.get(reverse('wagtailsnippets:edit',
-            args=('tests', 'advert', self.test_snippet.id)))
+                                   args=('tests', 'advert', self.test_snippet.id)))
         # permission should be denied
         self.assertRedirects(response, reverse('wagtailadmin_home'))
 

@@ -261,7 +261,7 @@ class TestFieldPanel(TestCase):
     def setUp(self):
         self.EventPageForm = get_form_for_model(EventPage, formsets=[])
         self.event = EventPage(title='Abergavenny sheepdog trials',
-            date_from=date(2014, 7, 20), date_to=date(2014, 7, 21))
+                               date_from=date(2014, 7, 20), date_to=date(2014, 7, 21))
 
         self.EndDatePanel = FieldPanel('date_to', classname='full-width').bind_to_model(EventPage)
 
