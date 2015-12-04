@@ -67,7 +67,6 @@ class TestPagePermission(TestCase):
         self.assertTrue(board_meetings_perms.can_move())
         self.assertFalse(board_meetings_perms.can_move_to(christmas_page))  # cannot move because the parent_page_types rule of BusinessSubIndex forbids EventPage as a parent
 
-
     def test_publisher_page_permissions(self):
         event_moderator = get_user_model().objects.get(username='eventmoderator')
         homepage = Page.objects.get(url_path='/home/')

@@ -37,7 +37,6 @@ class TestPagePrivacy(TestCase):
         response = self.client.get('/secret-plans/')
         self.assertEqual(response.templates[0].name, 'tests/simple_page.html')
 
-
     def test_view_restrictions_apply_to_subpages(self):
         underpants_page = Page.objects.get(url_path='/home/secret-plans/steal-underpants/')
         response = self.client.get('/secret-plans/steal-underpants/')

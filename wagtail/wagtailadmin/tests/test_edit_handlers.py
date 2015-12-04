@@ -57,7 +57,6 @@ class TestGetFormForModel(TestCase):
         event_form = EventPageForm()
         self.assertEqual(type(event_form.fields['body'].widget), RichTextArea)
 
-
     def test_get_form_for_model_with_specific_fields(self):
         EventPageForm = get_form_for_model(EventPage, fields=['date_from'], formsets=['speakers'])
         form = EventPageForm()

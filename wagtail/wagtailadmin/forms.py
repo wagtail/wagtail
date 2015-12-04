@@ -74,7 +74,6 @@ class LoginForm(AuthenticationForm):
         self.fields['username'].widget.attrs['placeholder'] = ugettext_lazy("Enter your %s") % self.username_field.verbose_name
 
 
-
 class PasswordResetForm(PasswordResetForm):
     email = forms.EmailField(label=ugettext_lazy("Enter your email address to reset your password"), max_length=254)
 

@@ -17,7 +17,6 @@ def formfield_for_dbfield(db_field, **kwargs):
     return db_field.formfield(**kwargs)
 
 
-
 def get_image_form(model):
     return modelform_factory(
         model,

@@ -83,7 +83,6 @@ def initial_data(apps, schema_editor):
         permission_type='edit',
     )
 
-
     # 0005 - add_page_lock_permission_to_moderators
     GroupPagePermission.objects.create(
         group=moderators_group,

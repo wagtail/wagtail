@@ -364,7 +364,6 @@ class Page(six.with_metaclass(PageBase, MP_Node, ClusterableModel, index.Indexed
 
         field_exceptions += ['content_type']
 
-
         for field in cls._meta.fields:
             if isinstance(field, models.ForeignKey) and field.name not in field_exceptions:
                 if field.rel.on_delete == models.CASCADE:
