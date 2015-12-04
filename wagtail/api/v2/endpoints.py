@@ -195,7 +195,14 @@ class PagesAPIEndpoint(BaseAPIEndpoint):
         'child_of',
         'descendant_of',
     ])
-    extra_api_fields = ['title']
+    extra_api_fields = [
+        'title',
+        'slug',
+        'show_in_menus',
+        'seo_title',
+        'search_description',
+        'first_published_at',
+    ]
     name = 'pages'
     model = Page
 
