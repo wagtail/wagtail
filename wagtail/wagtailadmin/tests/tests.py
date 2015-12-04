@@ -15,6 +15,10 @@ from wagtail.tests.utils import WagtailTestUtils
 from wagtail.wagtailcore.models import Page
 from wagtail.wagtailadmin.utils import send_mail
 
+from django.core.urlresolvers import reverse_lazy
+from wagtail.wagtailadmin.menu import MenuItem
+from django.utils.translation import ugettext_lazy as _
+
 
 class TestHome(TestCase, WagtailTestUtils):
     def setUp(self):
@@ -193,5 +197,15 @@ class TestTagsAutocomplete(TestCase, WagtailTestUtils):
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response['Content-Type'], 'application/json')
         data = json.loads(response.content.decode('utf-8'))
-
         self.assertEqual(data, [])
+
+
+class TestMenuItem(TestCase, WagtailTestUtils):
+    def setUp(self):
+        self.login()
+        response = self.client.get(reverse('wagtailadmin_home'))
+        self.request = response.wsgi_request
+
+    def test_menuitem_reverse_lazy_url_pass(self):
+        menuitem = MenuItem(_('Test'), reverse_lazy('wagtailadmin_home'))
+        self.assertEqual(menuitem.is_active(self.request), True)
