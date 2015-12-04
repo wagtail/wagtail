@@ -89,7 +89,7 @@ class TestPageListing(TestCase):
             self.assertEqual(page['meta']['type'], 'demosite.BlogEntryPage')
 
             # All fields in specific type available
-            self.assertEqual(set(page.keys()), {'id', 'meta', 'title', 'related_links', 'date', 'body', 'tags', 'feed_image', 'carousel_items'})
+            self.assertEqual(set(page.keys()), {'id', 'meta', 'title', 'slug', 'show_in_menus', 'seo_title', 'search_description', 'first_published_at', 'related_links', 'date', 'body', 'tags', 'feed_image', 'carousel_items'})
 
     def test_type_filter_total_count(self):
         response = self.get_response(type='demosite.BlogEntryPage')
@@ -114,7 +114,7 @@ class TestPageListing(TestCase):
                 event_page_seen = True
 
             # Only generic fields available
-            self.assertEqual(set(page.keys()), {'id', 'meta', 'title'})
+            self.assertEqual(set(page.keys()), {'id', 'meta', 'title', 'slug', 'show_in_menus', 'seo_title', 'search_description', 'first_published_at'})
 
         self.assertTrue(blog_page_seen, "No blog pages were found in the results")
         self.assertTrue(event_page_seen, "No event pages were found in the results")
@@ -140,7 +140,7 @@ class TestPageListing(TestCase):
         content = json.loads(response.content.decode('UTF-8'))
 
         for page in content['results']:
-            self.assertEqual(set(page.keys()), {'id', 'meta', 'title', 'date', 'related_links', 'feed_image', 'body', 'carousel_items', 'tags'})
+            self.assertEqual(set(page.keys()), {'id', 'meta', 'title', 'slug', 'show_in_menus', 'seo_title', 'search_description', 'first_published_at', 'date', 'related_links', 'feed_image', 'body', 'carousel_items', 'tags'})
 
     def test_fields(self):
         response = self.get_response(type='demosite.BlogEntryPage', fields='title,date,feed_image')
@@ -647,6 +647,11 @@ class TestPageDetail(TestCase):
             'meta',
             'parent',
             'title',
+            'slug',
+            'show_in_menus',
+            'seo_title',
+            'search_description',
+            'first_published_at',
             'body',
             'tags',
             'date',
