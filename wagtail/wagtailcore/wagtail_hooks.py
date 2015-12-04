@@ -2,6 +2,7 @@ from django.core.urlresolvers import reverse
 
 from wagtail.wagtailcore import hooks
 
+
 @hooks.register('before_serve_page')
 def check_view_restrictions(page, request, serve_args, serve_kwargs):
     """

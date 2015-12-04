@@ -31,6 +31,7 @@ def remove_duplicate_renditions(apps, schema_editor):
             ) AND focal_point_key IS NULL
         """)
 
+
 class Migration(migrations.Migration):
 
     dependencies = [

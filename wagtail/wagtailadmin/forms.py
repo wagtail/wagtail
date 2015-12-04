@@ -8,6 +8,7 @@ from django.utils.translation import ungettext, ugettext_lazy
 from wagtail.wagtailadmin.widgets import AdminPageChooser
 from wagtail.wagtailcore.models import Page
 
+
 class URLOrAbsolutePathValidator(validators.URLValidator):
     @staticmethod
     def is_absolute_path(value):
@@ -18,6 +19,7 @@ class URLOrAbsolutePathValidator(validators.URLValidator):
             return None
         else:
             return super(URLOrAbsolutePathValidator, self).__call__(value)
+
 
 class URLOrAbsolutePathField(forms.URLField):
     widget = TextInput

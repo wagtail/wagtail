@@ -420,12 +420,14 @@ TaggedPage.content_panels = [
     FieldPanel('tags'),
 ]
 
+
 class SingletonPage(Page):
     @classmethod
     def can_create_at(cls, parent):
         # You can only create one of these!
         return super(SingletonPage, cls).can_create_at(parent) \
             and not cls.objects.exists()
+
 
 class PageChooserModel(models.Model):
     page = models.ForeignKey('wagtailcore.Page', help_text='help text')

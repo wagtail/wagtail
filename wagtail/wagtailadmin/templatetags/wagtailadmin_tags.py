@@ -18,6 +18,7 @@ register = template.Library()
 
 register.filter('intcomma', intcomma)
 
+
 @register.inclusion_tag('wagtailadmin/shared/explorer_nav.html')
 def explorer_nav():
     return {
@@ -40,6 +41,7 @@ def main_nav(context):
         'menu_html': admin_menu.render_html(request),
         'request': request,
     }
+
 
 @register.simple_tag
 def main_nav_js():
@@ -170,6 +172,7 @@ def render_with_errors(bound_field):
         return widget.render_with_errors(bound_field.html_name, bound_field.value(), attrs={'id': bound_field.auto_id}, errors=bound_field.errors)
     else:
         return bound_field.as_widget()
+
 
 @register.filter
 def has_unrendered_errors(bound_field):

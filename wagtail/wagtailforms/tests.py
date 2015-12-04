@@ -429,6 +429,7 @@ class TestDeleteFormSubmission(TestCase):
         # Check that the deletion has not happened
         self.assertEqual(FormSubmission.objects.count(), 2)
 
+
 class TestIssue798(TestCase):
     fixtures = ['test.json']
 

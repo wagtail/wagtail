@@ -470,6 +470,7 @@ def preview(request):
     """
     return render(request, 'wagtailadmin/pages/preview.html')
 
+
 def preview_loading(request):
     """
     This page is blank, but must be real HTML so its DOM can be written to once the preview of the page has rendered

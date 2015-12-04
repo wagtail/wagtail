@@ -24,6 +24,7 @@ class SnippetsMenuItem(MenuItem):
     def is_shown(self, request):
         return user_can_edit_snippets(request.user)
 
+
 @hooks.register('register_admin_menu_item')
 def register_snippets_menu_item():
     return SnippetsMenuItem(_('Snippets'), urlresolvers.reverse('wagtailsnippets:index'), classnames='icon icon-snippet', order=500)

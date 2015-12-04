@@ -18,11 +18,14 @@ from wagtail.utils.deprecation import RemovedInWagtail14Warning
 class EmbedException(Exception):
     pass
 
+
 class EmbedNotFoundException(EmbedException):
     pass
 
+
 class EmbedlyException(EmbedException):
     pass
+
 
 class AccessDeniedEmbedlyException(EmbedlyException):
     pass

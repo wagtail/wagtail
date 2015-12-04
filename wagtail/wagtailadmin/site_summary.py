@@ -25,6 +25,7 @@ class PagesSummaryItem(SummaryItem):
             'total_pages': Page.objects.count() - 1,  # subtract 1 because the root node is not a real page
         }
 
+
 @hooks.register('construct_homepage_summary_items')
 def add_pages_summary_item(request, items):
     items.append(PagesSummaryItem(request))

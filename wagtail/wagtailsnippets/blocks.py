@@ -5,6 +5,7 @@ from django.contrib.contenttypes.models import ContentType
 
 from wagtail.wagtailcore.blocks import ChooserBlock
 
+
 class SnippetChooserBlock(ChooserBlock):
     def __init__(self, target_model, **kwargs):
         super(SnippetChooserBlock, self).__init__(**kwargs)
