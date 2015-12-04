@@ -83,6 +83,7 @@ Contributors
 * Alex Bridge
 * Tamriel
 * LKozlowski
+* Matthew Downey
 
 
 Translators

@@ -20,6 +20,7 @@ Minor features
  * The default ``src``, ``width``, ``height`` and ``alt`` attributes can now be overridden by attributes passed to the ``{% image %}`` tag
  * Added keyboard shortcuts for preview and save in the page editor
  * Added ``Page`` methods ``can_exist_under``, ``can_create_at``, ``can_move_to`` for customising page type business rules
+ * ``wagtailadmin.utils.send_mail`` now passes extra keyword arguments to Django's ``send_mail`` function (Matthew Downey)
 
 
 Bug fixes
