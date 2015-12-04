@@ -103,9 +103,9 @@ def list_submissions(request, page_id):
         })
 
     return render(request, 'wagtailforms/index_submissions.html', {
-         'form_page': form_page,
-         'select_date_form': select_date_form,
-         'submissions': submissions,
-         'data_headings': data_headings,
-         'data_rows': data_rows
+        'form_page': form_page,
+        'select_date_form': select_date_form,
+        'submissions': submissions,
+        'data_headings': data_headings,
+        'data_rows': data_rows
     })

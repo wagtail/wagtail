@@ -468,16 +468,16 @@ class TestElasticSearchResults(TestCase):
             '_shards': {'failed': 0, 'successful': 5, 'total': 5},
             'hits': {
                 'hits': [
-                     {
-                         '_id': 'searchtests_searchtest:' + str(result),
-                         '_index': 'wagtail',
-                         '_score': 1,
-                         '_type': 'searchtests_searchtest',
-                         'fields': {
-                             'pk': [str(result)],
-                         }
-                     }
-                     for result in results
+                    {
+                        '_id': 'searchtests_searchtest:' + str(result),
+                        '_index': 'wagtail',
+                        '_score': 1,
+                        '_type': 'searchtests_searchtest',
+                        'fields': {
+                            'pk': [str(result)],
+                        }
+                    }
+                    for result in results
                 ],
                 'max_score': 1,
                 'total': len(results)
