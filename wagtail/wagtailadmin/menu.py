@@ -35,7 +35,7 @@ class MenuItem(with_metaclass(MediaDefiningClass)):
         return True
 
     def is_active(self, request):
-        return request.path.startswith(self.url)
+        return request.path.startswith(text_type(self.url))
 
     def render_html(self, request):
         return render_to_string(self.template, {
