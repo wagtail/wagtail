@@ -4,6 +4,7 @@ from django.conf import settings
 from django import template
 from django.contrib.humanize.templatetags.humanize import intcomma
 from django.template.defaultfilters import stringfilter
+from django.utils.safestring import mark_safe
 
 from wagtail.wagtailcore import hooks
 from wagtail.wagtailcore.models import get_navigation_menu_items, UserPagePermissionsProxy, PageViewRestriction
@@ -125,7 +126,7 @@ def hook_output(hook_name):
     Note that the output is not escaped - it is the hook function's responsibility to escape unsafe content.
     """
     snippets = [fn() for fn in hooks.get_hooks(hook_name)]
-    return ''.join(snippets)
+    return mark_safe(''.join(snippets))
 
 
 @register.assignment_tag
