@@ -1,6 +1,9 @@
 from __future__ import absolute_import
 
-from jinja2.ext import Extension
+try:
+    from jinja2.ext import Extension
+except:
+    Extension = object
 
 from wagtail.wagtailimages.models import SourceImageIOError
 

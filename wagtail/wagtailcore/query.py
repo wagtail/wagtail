@@ -280,9 +280,9 @@ def specific_iterator(qs):
 # considerably, in a way that is not easily compatible between the two versions
 if DJANGO_VERSION >= (1, 9):
     # TODO Test this once Wagtail runs under Django 1.9.
-    from django.db.models.query import BaseIterator
+    from django.db.models.query import BaseIterable
 
-    class SpecificIterator(BaseIterator):
+    class SpecificIterator(BaseIterable):
         __iter__ = specific_iterator
 
 else:
