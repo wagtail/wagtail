@@ -1,7 +1,10 @@
-from django.apps import AppConfig
+import warnings
+from wagtail.utils.deprecation import RemovedInWagtail13Warning
+
+warnings.warn(
+    "The wagtail.contrib.wagtailstyleguide module has been renamed to "
+    "wagtail.contrib.styleguide. Please update your INSTALLED_APPS setting",
+    RemovedInWagtail13Warning)
 
 
-class WagtailStyleGuideAppConfig(AppConfig):
-    name = 'wagtail.contrib.wagtailstyleguide'
-    label = 'wagtailstyleguide'
-    verbose_name = "Wagtail style guide"
+from wagtail.contrib.sitemaps.apps import WagtailStyleGuideAppConfig  # noqa
