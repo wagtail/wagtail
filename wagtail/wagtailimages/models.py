@@ -358,7 +358,17 @@ class Filter(models.Model):
         # Build list of operation objects
         operations = []
         for op_spec in self.spec.split():
-            op_spec_parts = op_spec.split('-')
+
+            # Split operation and compress specs
+            _parts = op_spec.split('_c_')
+
+            # Set self.quality for later use
+            try:
+                self.quality = _parts[1]
+            except IndexError:
+                self.quality = False
+
+            op_spec_parts = _parts[0].split('-')
 
             if op_spec_parts[0] not in self._registered_operations:
                 raise InvalidFilterSpecError("Unrecognised operation: %s" % op_spec_parts[0])
@@ -369,6 +379,7 @@ class Filter(models.Model):
         return operations
 
     def run(self, image, output):
+
         with image.get_willow_image() as willow:
             for operation in self.operations:
                 operation.run(willow, image)
@@ -376,13 +387,16 @@ class Filter(models.Model):
             output_format = willow.original_format
 
             if willow.original_format == 'jpeg':
-                # Allow changing of JPEG compression quality
-                if hasattr(settings, 'WAGTAILIMAGES_JPEG_QUALITY'):
-                    quality = settings.WAGTAILIMAGES_JPEG_QUALITY
-                else:
-                    quality = 85
 
-                willow.save_as_jpeg(output, quality=quality)
+                # Allow setting of JPEG compression quality
+                if not self.quality:
+                    if hasattr(settings, 'WAGTAILIMAGES_JPEG_QUALITY'):
+                        self.quality = settings.WAGTAILIMAGES_JPEG_QUALITY
+                    else:
+                        self.quality = 85    # Default
+
+                willow.save_as_jpeg(output, quality=self.quality)
+
             if willow.original_format == 'gif':
                 # Convert image to PNG if it's not animated
                 if not willow.has_animation():
