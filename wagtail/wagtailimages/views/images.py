@@ -23,6 +23,7 @@ from wagtail.wagtailimages.exceptions import InvalidFilterSpecError
 
 from wagtail.wagtailimages.fields import ALLOWED_EXTENSIONS
 
+
 @any_permission_required('wagtailimages.add_image', 'wagtailimages.change_image')
 @vary_on_headers('X-Requested-With')
 def index(request):
