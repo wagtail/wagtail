@@ -10,6 +10,7 @@ Changelog
  * The default `src`, `width`, `height` and `alt` attributes can now be overridden by attributes passed to the `{% image %}` tag
  * Fix: HTTP cache purge now works again on Python 2 (Mitchel Cabuloy)
  * Fix: Locked pages can no longer be unpublished (Alex Bridge)
+ * Notification emails are now sent per user (Matthew Downey)
 
 1.2 (12.11.2015)
 ~~~~~~~~~~~~~~~~

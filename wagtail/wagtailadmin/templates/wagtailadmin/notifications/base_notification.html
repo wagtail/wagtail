@@ -1,4 +1,4 @@
 {% load i18n %}{% block subject %}{% endblock %}
-{% block greeting %}{% trans "Hello" %} {% user.get_short_name %},{% endblock %}
+{% block greeting %}{% trans "Hello" %} {{ user.get_short_name }},{% endblock %}
 {% block notification %}{% endblock %}
 {% trans "Edit your notification preferences here:" %} {{ settings.BASE_URL }}{% url 'wagtailadmin_account_notification_preferences' %}

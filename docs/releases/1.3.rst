@@ -18,6 +18,7 @@ Minor features
  * Updated fonts for more comprehensive Unicode support
  * Added ``.alt`` attribute to image renditions
  * The default ``src``, ``width``, ``height`` and ``alt`` attributes can now be overridden by attributes passed to the ``{% image %}`` tag
+ * Notification emails are now sent per user (Matthew Downey)
 
 
 Bug fixes
