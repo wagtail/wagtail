@@ -14,13 +14,23 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='page',
             name='expire_at',
-            field=models.DateTimeField(help_text='Please add a date-time in the form YYYY-MM-DD hh:mm.', null=True, verbose_name='Expiry date/time', blank=True),
+            field=models.DateTimeField(
+                help_text='Please add a date-time in the form YYYY-MM-DD hh:mm.',
+                null=True,
+                verbose_name='Expiry date/time',
+                blank=True
+            ),
             preserve_default=True,
         ),
         migrations.AlterField(
             model_name='page',
             name='go_live_at',
-            field=models.DateTimeField(help_text='Please add a date-time in the form YYYY-MM-DD hh:mm.', null=True, verbose_name='Go live date/time', blank=True),
+            field=models.DateTimeField(
+                help_text='Please add a date-time in the form YYYY-MM-DD hh:mm.',
+                null=True,
+                verbose_name='Go live date/time',
+                blank=True
+            ),
             preserve_default=True,
         ),
     ]

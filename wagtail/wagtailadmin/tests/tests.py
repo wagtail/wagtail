@@ -29,13 +29,22 @@ class TestHome(TestCase, WagtailTestUtils):
         response = self.client.get(reverse('wagtailadmin_home'))
         self.assertEqual(response.status_code, 200)
         # check that media attached to menu items is correctly pulled in
-        self.assertContains(response, '<script type="text/javascript" src="/static/wagtailadmin/js/explorer-menu.js"></script>')
+        self.assertContains(
+            response,
+            '<script type="text/javascript" src="/static/wagtailadmin/js/explorer-menu.js"></script>'
+        )
         # check that custom menu items (including classname / attrs parameters) are pulled in
-        self.assertContains(response, '<a href="http://www.tomroyal.com/teaandkittens/" class="icon icon-kitten" data-fluffy="yes">Kittens!</a>')
+        self.assertContains(
+            response,
+            '<a href="http://www.tomroyal.com/teaandkittens/" class="icon icon-kitten" data-fluffy="yes">Kittens!</a>'
+        )
 
         # check that is_shown is respected on menu items
         response = self.client.get(reverse('wagtailadmin_home') + '?hide-kittens=true')
-        self.assertNotContains(response, '<a href="http://www.tomroyal.com/teaandkittens/" class="icon icon-kitten" data-fluffy="yes">Kittens!</a>')
+        self.assertNotContains(
+            response,
+            '<a href="http://www.tomroyal.com/teaandkittens/" class="icon icon-kitten" data-fluffy="yes">Kittens!</a>'
+        )
 
     def test_never_cache_header(self):
         # This tests that wagtailadmins global cache settings have been applied correctly

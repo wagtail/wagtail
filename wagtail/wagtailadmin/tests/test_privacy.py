@@ -48,7 +48,8 @@ class TestSetPrivacyView(TestCase, WagtailTestUtils):
 
     def test_get_private(self):
         """
-        This tests that the restriction type and password fields as set correctly when a user opens the set_privacy view on a public page
+        This tests that the restriction type and password fields as set correctly
+        when a user opens the set_privacy view on a public page
         """
         response = self.client.get(reverse('wagtailadmin_pages:set_privacy', args=(self.private_page.id, )))
 
@@ -63,7 +64,8 @@ class TestSetPrivacyView(TestCase, WagtailTestUtils):
 
     def test_get_private_child(self):
         """
-        This tests that the set_privacy view tells the user that the password restriction has been applied to an ancestor
+        This tests that the set_privacy view tells the user
+        that the password restriction has been applied to an ancestor
         """
         response = self.client.get(reverse('wagtailadmin_pages:set_privacy', args=(self.private_child_page.id, )))
 
@@ -208,7 +210,8 @@ class TestPrivacyIndicators(TestCase, WagtailTestUtils):
 
     def test_explorer_list_private(self):
         """
-        This tests that there is a padlock displayed next to the private child page in the private pages explorer listing
+        This tests that there is a padlock displayed
+        next to the private child page in the private pages explorer listing
         """
         response = self.client.get(reverse('wagtailadmin_explore', args=(self.private_page.id, )))
 

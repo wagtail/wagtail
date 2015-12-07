@@ -48,7 +48,10 @@ class TestAuthentication(TestCase, WagtailTestUtils):
 
         # Check that the user was logged in
         self.assertTrue('_auth_user_id' in self.client.session)
-        self.assertEqual(str(self.client.session['_auth_user_id']), str(get_user_model().objects.get(username='test').id))
+        self.assertEqual(
+            str(self.client.session['_auth_user_id']),
+            str(get_user_model().objects.get(username='test').id)
+        )
 
     def test_already_logged_in_redirect(self):
         """
@@ -287,7 +290,11 @@ class TestAccountManagementForAdminOnlyUser(TestCase, WagtailTestUtils):
         admin_only_group = Group.objects.create(name='Admin Only')
         admin_only_group.permissions.add(Permission.objects.get(codename='access_admin'))
 
-        self.admin_only_user = get_user_model().objects.create_user('admin_only_user', 'admin_only_user@example.com', 'password')
+        self.admin_only_user = get_user_model().objects.create_user(
+            'admin_only_user',
+            'admin_only_user@example.com',
+            'password'
+        )
         self.admin_only_user.groups.add(admin_only_group)
 
         self.client.login(username=self.admin_only_user.username, password='password')

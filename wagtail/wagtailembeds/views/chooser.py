@@ -33,14 +33,22 @@ def chooser_upload(request):
             except EmbedNotFoundException:
                 error = _("Cannot find an embed for this URL.")
             except EmbedlyException:
-                error = _("There seems to be an error with Embedly while trying to embed this URL. Please try again later.")
+                error = _(
+                    "There seems to be an error with Embedly while trying to embed this URL."
+                    " Please try again later."
+                )
 
             if error:
                 errors = form._errors.setdefault('url', ErrorList())
                 errors.append(error)
-                return render_modal_workflow(request, 'wagtailembeds/chooser/chooser.html', 'wagtailembeds/chooser/chooser.js', {
-                    'form': form,
-                })
+                return render_modal_workflow(
+                    request,
+                    'wagtailembeds/chooser/chooser.html',
+                    'wagtailembeds/chooser/chooser.js',
+                    {
+                        'form': form,
+                    }
+                )
     else:
         form = EmbedForm()
 

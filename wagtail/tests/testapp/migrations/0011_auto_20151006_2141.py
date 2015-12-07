@@ -22,7 +22,15 @@ class Migration(migrations.Migration):
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
                 ('title', models.CharField(verbose_name='Title', max_length=255)),
-                ('file', models.ImageField(verbose_name='File', upload_to=wagtail.wagtailimages.models.get_upload_to, height_field='height', width_field='width')),
+                (
+                    'file',
+                    models.ImageField(
+                        verbose_name='File',
+                        upload_to=wagtail.wagtailimages.models.get_upload_to,
+                        height_field='height',
+                        width_field='width'
+                    )
+                ),
                 ('width', models.IntegerField(verbose_name='Width', editable=False)),
                 ('height', models.IntegerField(verbose_name='Height', editable=False)),
                 ('created_at', models.DateTimeField(db_index=True, verbose_name='Created at', auto_now_add=True)),
@@ -33,8 +41,26 @@ class Migration(migrations.Migration):
                 ('file_size', models.PositiveIntegerField(editable=False, null=True)),
                 ('caption', models.CharField(max_length=255)),
                 ('not_editable_field', models.CharField(max_length=255)),
-                ('tags', taggit.managers.TaggableManager(blank=True, help_text=None, through='taggit.TaggedItem', verbose_name='Tags', to='taggit.Tag')),
-                ('uploaded_by_user', models.ForeignKey(blank=True, editable=False, verbose_name='Uploaded by user', null=True, to=settings.AUTH_USER_MODEL)),
+                (
+                    'tags',
+                    taggit.managers.TaggableManager(
+                        blank=True,
+                        help_text=None,
+                        through='taggit.TaggedItem',
+                        verbose_name='Tags',
+                        to='taggit.Tag'
+                    )
+                ),
+                (
+                    'uploaded_by_user',
+                    models.ForeignKey(
+                        blank=True,
+                        editable=False,
+                        verbose_name='Uploaded by user',
+                        null=True,
+                        to=settings.AUTH_USER_MODEL
+                    )
+                ),
             ],
             options={
                 'abstract': False,

@@ -14,6 +14,14 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='grouppagepermission',
             name='permission_type',
-            field=models.CharField(max_length=20, choices=[('add', 'Add/edit pages you own'), ('edit', 'Add/edit any page'), ('publish', 'Publish any page'), ('lock', 'Lock/unlock any page')]),
+            field=models.CharField(
+                max_length=20,
+                choices=[
+                    ('add', 'Add/edit pages you own'),
+                    ('edit', 'Add/edit any page'),
+                    ('publish', 'Publish any page'),
+                    ('lock', 'Lock/unlock any page')
+                ]
+            ),
         ),
     ]

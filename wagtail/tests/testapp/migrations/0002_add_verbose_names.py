@@ -25,7 +25,13 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='customimagewithadminformfields',
             name='uploaded_by_user',
-            field=models.ForeignKey(blank=True, editable=False, to=settings.AUTH_USER_MODEL, null=True, verbose_name='Uploaded by user'),
+            field=models.ForeignKey(
+                blank=True,
+                editable=False,
+                to=settings.AUTH_USER_MODEL,
+                null=True,
+                verbose_name='Uploaded by user'
+            ),
         ),
         migrations.AlterField(
             model_name='customimagewithadminformfields',
@@ -45,7 +51,13 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='customimagewithoutadminformfields',
             name='uploaded_by_user',
-            field=models.ForeignKey(blank=True, editable=False, to=settings.AUTH_USER_MODEL, null=True, verbose_name='Uploaded by user'),
+            field=models.ForeignKey(
+                blank=True,
+                editable=False,
+                to=settings.AUTH_USER_MODEL,
+                null=True,
+                verbose_name='Uploaded by user'
+            ),
         ),
         migrations.AlterField(
             model_name='customimagewithoutadminformfields',
@@ -55,17 +67,43 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='formfield',
             name='choices',
-            field=models.CharField(help_text='Comma separated list of choices. Only applicable in checkboxes, radio and dropdown.', max_length=512, verbose_name='Choices', blank=True),
+            field=models.CharField(
+                help_text='Comma separated list of choices. Only applicable in checkboxes, radio and dropdown.',
+                max_length=512,
+                verbose_name='Choices',
+                blank=True
+            ),
         ),
         migrations.AlterField(
             model_name='formfield',
             name='default_value',
-            field=models.CharField(help_text='Default value. Comma separated values supported for checkboxes.', max_length=255, verbose_name='Default value', blank=True),
+            field=models.CharField(
+                help_text='Default value. Comma separated values supported for checkboxes.',
+                max_length=255,
+                verbose_name='Default value',
+                blank=True
+            ),
         ),
         migrations.AlterField(
             model_name='formfield',
             name='field_type',
-            field=models.CharField(max_length=16, verbose_name='Field type', choices=[('singleline', 'Single line text'), ('multiline', 'Multi-line text'), ('email', 'Email'), ('number', 'Number'), ('url', 'URL'), ('checkbox', 'Checkbox'), ('checkboxes', 'Checkboxes'), ('dropdown', 'Drop down'), ('radio', 'Radio buttons'), ('date', 'Date'), ('datetime', 'Date/time')]),
+            field=models.CharField(
+                max_length=16,
+                verbose_name='Field type',
+                choices=[
+                    ('singleline', 'Single line text'),
+                    ('multiline', 'Multi-line text'),
+                    ('email', 'Email'),
+                    ('number', 'Number'),
+                    ('url', 'URL'),
+                    ('checkbox', 'Checkbox'),
+                    ('checkboxes', 'Checkboxes'),
+                    ('dropdown', 'Drop down'),
+                    ('radio', 'Radio buttons'),
+                    ('date', 'Date'),
+                    ('datetime', 'Date/time')
+                ]
+            ),
         ),
         migrations.AlterField(
             model_name='formfield',
@@ -95,6 +133,11 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='formpage',
             name='to_address',
-            field=models.CharField(help_text='Optional - form submissions will be emailed to this address', max_length=255, verbose_name='To address', blank=True),
+            field=models.CharField(
+                help_text='Optional - form submissions will be emailed to this address',
+                max_length=255,
+                verbose_name='To address',
+                blank=True
+            ),
         ),
     ]

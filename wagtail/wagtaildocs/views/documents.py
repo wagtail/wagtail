@@ -132,9 +132,11 @@ def edit(request, document_id):
             pass
 
     if not filesize:
-        messages.error(request, _("The file could not be found. Please change the source or delete the document"), buttons=[
-            messages.button(reverse('wagtaildocs:delete', args=(doc.id,)), _('Delete'))
-        ])
+        messages.error(
+            request,
+            _("The file could not be found. Please change the source or delete the document"),
+            buttons=[messages.button(reverse('wagtaildocs:delete', args=(doc.id,)), _('Delete'))]
+        )
 
     return render(request, "wagtaildocs/documents/edit.html", {
         'document': doc,

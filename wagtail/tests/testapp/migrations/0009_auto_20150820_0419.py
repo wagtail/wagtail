@@ -28,6 +28,12 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='advert',
             name='tags',
-            field=taggit.managers.TaggableManager(to='taggit.Tag', through='tests.AdvertTag', blank=True, help_text='A comma-separated list of tags.', verbose_name='Tags'),
+            field=taggit.managers.TaggableManager(
+                to='taggit.Tag',
+                through='tests.AdvertTag',
+                blank=True,
+                help_text='A comma-separated list of tags.',
+                verbose_name='Tags'
+            ),
         ),
     ]

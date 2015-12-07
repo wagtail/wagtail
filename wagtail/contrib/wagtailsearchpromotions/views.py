@@ -88,11 +88,11 @@ def add(request):
                 return redirect('wagtailsearchpromotions:index')
             else:
                 if len(searchpicks_formset.non_form_errors()):
-                    messages.error(request, " ".join(error for error in searchpicks_formset.non_form_errors()))
                     # formset level error (e.g. no forms submitted)
+                    messages.error(request, " ".join(error for error in searchpicks_formset.non_form_errors()))
                 else:
-                    messages.error(request, _("Recommendations have not been created due to errors"))
                     # specific errors will be displayed within form fields
+                    messages.error(request, _("Recommendations have not been created due to errors"))
         else:
             searchpicks_formset = forms.SearchPromotionsFormSet()
     else:
