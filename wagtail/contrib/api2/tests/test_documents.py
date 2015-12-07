@@ -7,14 +7,14 @@ from django.core.urlresolvers import reverse
 
 from wagtail.wagtaildocs.models import Document
 
-from wagtail.contrib.wagtailapi import signal_handlers
+from wagtail.contrib.api2 import signal_handlers
 
 
 class TestDocumentListing(TestCase):
     fixtures = ['demosite.json']
 
     def get_response(self, **params):
-        return self.client.get(reverse('wagtailapi_v1:documents:listing'), params)
+        return self.client.get(reverse('wagtailapi_v2:documents:listing'), params)
 
     def get_document_id_list(self, content):
         return [page['id'] for page in content['documents']]
@@ -54,7 +54,7 @@ class TestDocumentListing(TestCase):
             self.assertEqual(document['meta']['type'], 'wagtaildocs.Document')
 
             # Check detail_url
-            self.assertEqual(document['meta']['detail_url'], 'http://localhost/api/v1/documents/%d/' % document['id'])
+            self.assertEqual(document['meta']['detail_url'], 'http://localhost/api/v2beta/documents/%d/' % document['id'])
 
 
     # EXTRA FIELDS
@@ -290,7 +290,7 @@ class TestDocumentDetail(TestCase):
     fixtures = ['demosite.json']
 
     def get_response(self, image_id, **params):
-        return self.client.get(reverse('wagtailapi_v1:documents:detail', args=(image_id, )), params)
+        return self.client.get(reverse('wagtailapi_v2:documents:detail', args=(image_id, )), params)
 
     def test_basic(self):
         response = self.get_response(1)
@@ -315,7 +315,7 @@ class TestDocumentDetail(TestCase):
 
         # Check the meta detail_url
         self.assertIn('detail_url', content['meta'])
-        self.assertEqual(content['meta']['detail_url'], 'http://localhost/api/v1/documents/1/')
+        self.assertEqual(content['meta']['detail_url'], 'http://localhost/api/v2beta/documents/1/')
 
         # Check the meta download_url
         self.assertIn('download_url', content['meta'])
@@ -374,9 +374,9 @@ class TestDocumentCacheInvalidation(TestCase):
     def test_resave_document_purges(self, purge):
         Document.objects.get(id=5).save()
 
-        purge.assert_any_call('http://api.example.com/api/v1/documents/5/')
+        purge.assert_any_call('http://api.example.com/api/v2beta/documents/5/')
 
     def test_delete_document_purges(self, purge):
         Document.objects.get(id=5).delete()
 
-        purge.assert_any_call('http://api.example.com/api/v1/documents/5/')
+        purge.assert_any_call('http://api.example.com/api/v2beta/documents/5/')

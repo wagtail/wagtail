@@ -3,7 +3,7 @@ from __future__ import absolute_import
 from django.conf.urls import url
 
 from .endpoints import PagesAPIEndpoint, ImagesAPIEndpoint, DocumentsAPIEndpoint
-from .router import WagtailAPIRouter
+from ..shared.router import WagtailAPIRouter
 
 
 v1 = WagtailAPIRouter('wagtailapi_v1')

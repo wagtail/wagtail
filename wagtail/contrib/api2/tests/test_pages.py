@@ -8,7 +8,7 @@ from django.core.urlresolvers import reverse
 
 from wagtail.wagtailcore.models import Page
 
-from wagtail.contrib.wagtailapi import signal_handlers
+from wagtail.contrib.api2 import signal_handlers
 
 from wagtail.tests.demosite import models
 from wagtail.tests.testapp.models import StreamPage
@@ -23,7 +23,7 @@ class TestPageListing(TestCase):
     fixtures = ['demosite.json']
 
     def get_response(self, **params):
-        return self.client.get(reverse('wagtailapi_v1:pages:listing'), params)
+        return self.client.get(reverse('wagtailapi_v2:pages:listing'), params)
 
     def get_page_id_list(self, content):
         return [page['id'] for page in content['pages']]
@@ -151,7 +151,7 @@ class TestPageListing(TestCase):
                 self.assertIsInstance(feed_image['meta'], dict)
                 self.assertEqual(set(feed_image['meta'].keys()), {'type', 'detail_url'})
                 self.assertEqual(feed_image['meta']['type'], 'wagtailimages.Image')
-                self.assertEqual(feed_image['meta']['detail_url'], 'http://localhost/api/v1/images/%d/' % feed_image['id'])
+                self.assertEqual(feed_image['meta']['detail_url'], 'http://localhost/api/v2beta/images/%d/' % feed_image['id'])
 
     def test_extra_fields_tags(self):
         response = self.get_response(type='demosite.BlogEntryPage', fields='tags')
@@ -537,7 +537,7 @@ class TestPageDetail(TestCase):
     fixtures = ['demosite.json']
 
     def get_response(self, page_id, **params):
-        return self.client.get(reverse('wagtailapi_v1:pages:detail', args=(page_id, )), params)
+        return self.client.get(reverse('wagtailapi_v2:pages:detail', args=(page_id, )), params)
 
     def test_basic(self):
         response = self.get_response(16)
@@ -562,7 +562,7 @@ class TestPageDetail(TestCase):
 
         # Check the meta detail_url
         self.assertIn('detail_url', content['meta'])
-        self.assertEqual(content['meta']['detail_url'], 'http://localhost/api/v1/pages/16/')
+        self.assertEqual(content['meta']['detail_url'], 'http://localhost/api/v2beta/pages/16/')
 
         # Check the parent field
         self.assertIn('parent', content)
@@ -572,7 +572,7 @@ class TestPageDetail(TestCase):
         self.assertIsInstance(content['parent']['meta'], dict)
         self.assertEqual(set(content['parent']['meta'].keys()), {'type', 'detail_url'})
         self.assertEqual(content['parent']['meta']['type'], 'demosite.BlogIndexPage')
-        self.assertEqual(content['parent']['meta']['detail_url'], 'http://localhost/api/v1/pages/5/')
+        self.assertEqual(content['parent']['meta']['detail_url'], 'http://localhost/api/v2beta/pages/5/')
 
         # Check that the custom fields are included
         self.assertIn('date', content)
@@ -595,7 +595,7 @@ class TestPageDetail(TestCase):
         self.assertIsInstance(content['feed_image']['meta'], dict)
         self.assertEqual(set(content['feed_image']['meta'].keys()), {'type', 'detail_url'})
         self.assertEqual(content['feed_image']['meta']['type'], 'wagtailimages.Image')
-        self.assertEqual(content['feed_image']['meta']['detail_url'], 'http://localhost/api/v1/images/7/')
+        self.assertEqual(content['feed_image']['meta']['detail_url'], 'http://localhost/api/v2beta/images/7/')
 
         # Check that the child relations were serialised properly
         self.assertEqual(content['related_links'], [])
@@ -658,7 +658,7 @@ class TestPageDetailWithStreamField(TestCase):
     def test_can_fetch_streamfield_content(self):
         stream_page = self.make_stream_page('[{"type": "text", "value": "foo"}]')
 
-        response_url = reverse('wagtailapi_v1:pages:detail', args=(stream_page.id, ))
+        response_url = reverse('wagtailapi_v2:pages:detail', args=(stream_page.id, ))
         response = self.client.get(response_url)
 
         self.assertEqual(response.status_code, 200)
@@ -674,7 +674,7 @@ class TestPageDetailWithStreamField(TestCase):
     def test_image_block(self):
         stream_page = self.make_stream_page('[{"type": "image", "value": 1}]')
 
-        response_url = reverse('wagtailapi_v1:pages:detail', args=(stream_page.id, ))
+        response_url = reverse('wagtailapi_v2:pages:detail', args=(stream_page.id, ))
         response = self.client.get(response_url)
         content = json.loads(response.content.decode('utf-8'))
 
@@ -708,17 +708,17 @@ class TestPageCacheInvalidation(TestCase):
     def test_republish_page_purges(self, purge):
         Page.objects.get(id=2).save_revision().publish()
 
-        purge.assert_any_call('http://api.example.com/api/v1/pages/2/')
+        purge.assert_any_call('http://api.example.com/api/v2beta/pages/2/')
 
     def test_unpublish_page_purges(self, purge):
         Page.objects.get(id=2).unpublish()
 
-        purge.assert_any_call('http://api.example.com/api/v1/pages/2/')
+        purge.assert_any_call('http://api.example.com/api/v2beta/pages/2/')
 
     def test_delete_page_purges(self, purge):
         Page.objects.get(id=16).delete()
 
-        purge.assert_any_call('http://api.example.com/api/v1/pages/16/')
+        purge.assert_any_call('http://api.example.com/api/v2beta/pages/16/')
 
     def test_save_draft_doesnt_purge(self, purge):
         Page.objects.get(id=2).save_revision()
