@@ -186,7 +186,7 @@ class BaseSearchResults(object):
         return repr(data)
 
 
-class BaseSearch(object):
+class BaseSearchIndex(object):
     query_class = None
     results_class = None
 
@@ -252,3 +252,7 @@ class BaseSearch(object):
             queryset, query_string, fields=fields, operator=operator, order_by_relevance=order_by_relevance
         )
         return self.results_class(self, search_query)
+
+
+# Backwards compatibility
+BaseSearch = BaseSearchIndex  # noqa

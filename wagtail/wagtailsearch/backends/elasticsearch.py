@@ -12,7 +12,7 @@ from elasticsearch.helpers import bulk
 from django.db import models
 from django.utils.crypto import get_random_string
 
-from wagtail.wagtailsearch.backends.base import BaseSearch, BaseSearchQuery, BaseSearchResults
+from wagtail.wagtailsearch.backends.base import BaseSearchIndex, BaseSearchQuery, BaseSearchResults
 from wagtail.wagtailsearch.index import SearchField, FilterField, RelatedFields, class_is_indexed
 from wagtail.utils.deprecation import RemovedInWagtail14Warning
 
@@ -558,7 +558,7 @@ class ElasticSearchAtomicIndexRebuilder(ElasticSearchIndexRebuilder):
                     pass
 
 
-class ElasticSearch(BaseSearch):
+class ElasticSearchIndex(BaseSearchIndex):
     query_class = ElasticSearchQuery
     results_class = ElasticSearchResults
     mapping_class = ElasticSearchMapping
@@ -610,7 +610,7 @@ class ElasticSearch(BaseSearch):
     }
 
     def __init__(self, params):
-        super(ElasticSearch, self).__init__(params)
+        super(ElasticSearchIndex, self).__init__(params)
 
         # Get settings
         self.hosts = params.pop('HOSTS', None)
@@ -726,4 +726,7 @@ class ElasticSearch(BaseSearch):
             pass  # Document doesn't exist, ignore this exception
 
 
-SearchBackend = ElasticSearch
+SearchBackend = ElasticSearchIndex
+
+# Backwards compatibility
+ElasticSearch = ElasticSearchIndex  # noqa
