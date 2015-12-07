@@ -177,7 +177,10 @@ class TestSearchPromotionsAddView(TestCase, WagtailTestUtils):
 
         # User should be given an error
         self.assertEqual(response.status_code, 200)
-        self.assertFormsetError(response, 'searchpicks_formset', None, None, "Please specify at least one recommendation for this search term.")
+        self.assertFormsetError(
+            response, 'searchpicks_formset', None, None,
+            "Please specify at least one recommendation for this search term."
+        )
 
 
 class TestSearchPromotionsEditView(TestCase, WagtailTestUtils):
@@ -306,7 +309,10 @@ class TestSearchPromotionsEditView(TestCase, WagtailTestUtils):
 
         # User should be given an error
         self.assertEqual(response.status_code, 200)
-        self.assertFormsetError(response, 'searchpicks_formset', None, None, "Please specify at least one recommendation for this search term.")
+        self.assertFormsetError(
+            response, 'searchpicks_formset', None, None,
+            "Please specify at least one recommendation for this search term."
+        )
 
 
 class TestSearchPromotionsDeleteView(TestCase, WagtailTestUtils):
