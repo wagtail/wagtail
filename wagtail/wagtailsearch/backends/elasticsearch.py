@@ -63,7 +63,7 @@ INDEX_SETTINGS = {
 
 
 class ElasticSearchMapping(object):
-    TYPE_MAP = {
+    type_map = {
         'AutoField': 'integer',
         'BinaryField': 'binary',
         'BooleanField': 'boolean',
@@ -105,7 +105,7 @@ class ElasticSearchMapping(object):
 
             return field.get_index_name(self.model), mapping
         else:
-            mapping = {'type': self.TYPE_MAP.get(field.get_type(self.model), 'string')}
+            mapping = {'type': self.type_map.get(field.get_type(self.model), 'string')}
 
             if isinstance(field, SearchField):
                 if field.boost:
