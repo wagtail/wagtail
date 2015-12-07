@@ -28,7 +28,14 @@ class WagtailTestUtils(object):
         # rethrow all warnings that were not DeprecationWarnings or PendingDeprecationWarnings
         for w in warning_list:
             if not issubclass(w.category, (DeprecationWarning, PendingDeprecationWarning)):
-                warnings.showwarning(message=w.message, category=w.category, filename=w.filename, lineno=w.lineno, file=w.file, line=w.line)
+                warnings.showwarning(
+                    message=w.message,
+                    category=w.category,
+                    filename=w.filename,
+                    lineno=w.lineno,
+                    file=w.file,
+                    line=w.line
+                )
 
     # borrowed from https://github.com/django/django/commit/9f427617e4559012e1c2fd8fce46cbe225d8515d
     @staticmethod

@@ -15,7 +15,16 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='SingletonPage',
             fields=[
-                ('page_ptr', models.OneToOneField(parent_link=True, auto_created=True, primary_key=True, serialize=False, to='wagtailcore.Page')),
+                (
+                    'page_ptr',
+                    models.OneToOneField(
+                        parent_link=True,
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        to='wagtailcore.Page'
+                    )
+                ),
             ],
             options={
                 'abstract': False,

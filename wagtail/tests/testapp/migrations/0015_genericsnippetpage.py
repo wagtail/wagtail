@@ -17,9 +17,25 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='GenericSnippetPage',
             fields=[
-                ('page_ptr', models.OneToOneField(primary_key=True, parent_link=True, auto_created=True, to='wagtailcore.Page', serialize=False)),
+                (
+                    'page_ptr',
+                    models.OneToOneField(
+                        primary_key=True,
+                        parent_link=True,
+                        auto_created=True,
+                        to='wagtailcore.Page',
+                        serialize=False
+                    )
+                ),
                 ('snippet_object_id', models.PositiveIntegerField(null=True)),
-                ('snippet_content_type', models.ForeignKey(null=True, to='contenttypes.ContentType', on_delete=django.db.models.deletion.SET_NULL)),
+                (
+                    'snippet_content_type',
+                    models.ForeignKey(
+                        null=True,
+                        to='contenttypes.ContentType',
+                        on_delete=django.db.models.deletion.SET_NULL
+                    )
+                ),
             ],
             options={
                 'abstract': False,

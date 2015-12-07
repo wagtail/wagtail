@@ -18,8 +18,26 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='StreamPage',
             fields=[
-                ('page_ptr', models.OneToOneField(auto_created=True, to='wagtailcore.Page', serialize=False, parent_link=True, primary_key=True)),
-                ('body', wagtail.wagtailcore.fields.StreamField((('text', wagtail.wagtailcore.blocks.CharBlock()), ('rich_text', wagtail.wagtailcore.blocks.RichTextBlock()), ('image', wagtail.wagtailimages.blocks.ImageChooserBlock())))),
+                (
+                    'page_ptr',
+                    models.OneToOneField(
+                        auto_created=True,
+                        to='wagtailcore.Page',
+                        serialize=False,
+                        parent_link=True,
+                        primary_key=True
+                    )
+                ),
+                (
+                    'body',
+                    wagtail.wagtailcore.fields.StreamField(
+                        (
+                            ('text', wagtail.wagtailcore.blocks.CharBlock()),
+                            ('rich_text', wagtail.wagtailcore.blocks.RichTextBlock()),
+                            ('image', wagtail.wagtailimages.blocks.ImageChooserBlock())
+                        )
+                    )
+                ),
             ],
             options={
                 'abstract': False,

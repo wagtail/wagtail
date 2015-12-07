@@ -16,7 +16,10 @@ class TestPagePrivacy(TestCase):
 
         submit_url = "/_util/authenticate_with_password/%d/%d/" % (self.view_restriction.id, self.secret_plans_page.id)
         self.assertContains(response, '<form action="%s"' % submit_url)
-        self.assertContains(response, '<input id="id_return_url" name="return_url" type="hidden" value="/secret-plans/" />')
+        self.assertContains(
+            response,
+            '<input id="id_return_url" name="return_url" type="hidden" value="/secret-plans/" />'
+        )
 
         # posting the wrong password should redisplay the password page
         response = self.client.post(submit_url, {
@@ -47,7 +50,10 @@ class TestPagePrivacy(TestCase):
         submit_url = "/_util/authenticate_with_password/%d/%d/" % (self.view_restriction.id, underpants_page.id)
         self.assertContains(response, '<title>Steal underpants</title>')
         self.assertContains(response, '<form action="%s"' % submit_url)
-        self.assertContains(response, '<input id="id_return_url" name="return_url" type="hidden" value="/secret-plans/steal-underpants/" />')
+        self.assertContains(
+            response,
+            '<input id="id_return_url" name="return_url" type="hidden" value="/secret-plans/steal-underpants/" />'
+        )
 
         # posting the wrong password should redisplay the password page
         response = self.client.post(submit_url, {

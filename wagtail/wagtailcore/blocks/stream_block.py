@@ -31,7 +31,8 @@ class BaseStreamBlock(Block):
 
         super(BaseStreamBlock, self).__init__(**kwargs)
 
-        self.child_blocks = self.base_blocks.copy()  # create a local (shallow) copy of base_blocks so that it can be supplemented by local_blocks
+        # create a local (shallow) copy of base_blocks so that it can be supplemented by local_blocks
+        self.child_blocks = self.base_blocks.copy()
         if local_blocks:
             for name, block in local_blocks:
                 block.set_name(name)

@@ -564,11 +564,17 @@ class BasePageChooserPanel(BaseChooserPanel):
                     try:
                         target_models.append(resolve_model_string(page_type))
                     except LookupError:
-                        raise ImproperlyConfigured("{0}.page_type must be of the form 'app_label.model_name', given {1!r}".format(
-                            cls.__name__, page_type))
+                        raise ImproperlyConfigured(
+                            "{0}.page_type must be of the form 'app_label.model_name', given {1!r}".format(
+                                cls.__name__, page_type
+                            )
+                        )
                     except ValueError:
-                        raise ImproperlyConfigured("{0}.page_type refers to model {1!r} that has not been installed".format(
-                            cls.__name__, page_type))
+                        raise ImproperlyConfigured(
+                            "{0}.page_type refers to model {1!r} that has not been installed".format(
+                                cls.__name__, page_type
+                            )
+                        )
 
                 cls._target_content_type = list(ContentType.objects.get_for_models(*target_models).values())
             else:
@@ -609,7 +615,10 @@ class BaseInlinePanel(EditHandler):
             return cls.panels
         # Failing that, get it from the model
         else:
-            return extract_panel_definitions_from_model_class(get_related_model(cls.related), exclude=[cls.related.field.name])
+            return extract_panel_definitions_from_model_class(
+                get_related_model(cls.related),
+                exclude=[cls.related.field.name]
+            )
 
     _child_edit_handler_class = None
 
@@ -617,7 +626,10 @@ class BaseInlinePanel(EditHandler):
     def get_child_edit_handler_class(cls):
         if cls._child_edit_handler_class is None:
             panels = cls.get_panel_definitions()
-            cls._child_edit_handler_class = MultiFieldPanel(panels, heading=cls.heading).bind_to_model(get_related_model(cls.related))
+            cls._child_edit_handler_class = MultiFieldPanel(
+                panels,
+                heading=cls.heading
+            ).bind_to_model(get_related_model(cls.related))
 
         return cls._child_edit_handler_class
 
@@ -701,7 +713,9 @@ class InlinePanel(object):
             'related': getattr(model, self.relation_name).related,
             'panels': self.panels,
             'heading': self.label,
-            'help_text': self.help_text,  # TODO: can we pick this out of the foreign key definition as an alternative? (with a bit of help from the inlineformset object, as we do for label/heading)
+            'help_text': self.help_text,
+            # TODO: can we pick this out of the foreign key definition as an alternative?
+            # (with a bit of help from the inlineformset object, as we do for label/heading)
             'min_num': self.min_num,
             'max_num': self.max_num
         })

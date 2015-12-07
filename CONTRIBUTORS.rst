@@ -84,6 +84,7 @@ Contributors
 * Tamriel
 * LKozlowski
 * Matthew Downey
+* Maris Serzans
 
 
 Translators
