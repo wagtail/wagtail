@@ -425,7 +425,7 @@ class ElasticSearchResults(BaseSearchResults):
         if self.stop is not None:
             params['size'] = self.stop - self.start
 
-        # Send to ElasticSearch
+        # Send to Elasticsearch
         hits = self.backend.es.search(**params)
 
         # Get pks from results
@@ -439,7 +439,7 @@ class ElasticSearchResults(BaseSearchResults):
         for obj in queryset:
             results[str(obj.pk)] = obj
 
-        # Return results in order given by ElasticSearch
+        # Return results in order given by Elasticsearch
         return [results[str(pk)] for pk in pks if results[str(pk)]]
 
     def _do_count(self):
@@ -616,8 +616,8 @@ class ElasticSearch(BaseSearch):
                     'http_auth': http_auth,
                 })
 
-        # Get ElasticSearch interface
-        # Any remaining params are passed into the ElasticSearch constructor
+        # Get Elasticsearch interface
+        # Any remaining params are passed into the Elasticsearch constructor
         self.es = Elasticsearch(
             hosts=self.es_hosts,
             timeout=self.es_timeout,
