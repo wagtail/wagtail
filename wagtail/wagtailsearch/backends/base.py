@@ -103,8 +103,8 @@ class BaseSearchQuery(object):
 
 
 class BaseSearchResults(object):
-    def __init__(self, backend, query, prefetch_related=None):
-        self.backend = backend
+    def __init__(self, index, query, prefetch_related=None):
+        self.index = index
         self.query = query
         self.prefetch_related = prefetch_related
         self.start = 0
@@ -127,7 +127,7 @@ class BaseSearchResults(object):
 
     def _clone(self):
         klass = self.__class__
-        new = klass(self.backend, self.query, prefetch_related=self.prefetch_related)
+        new = klass(self.index, self.query, prefetch_related=self.prefetch_related)
         new.start = self.start
         new.stop = self.stop
         return new

@@ -397,7 +397,7 @@ class ElasticSearchResults(BaseSearchResults):
     def _do_search(self):
         # Params for elasticsearch query
         params = dict(
-            index=self.backend.name,
+            index=self.index.name,
             body=self._get_es_body(),
             _source=False,
             fields='pk',
@@ -409,7 +409,7 @@ class ElasticSearchResults(BaseSearchResults):
             params['size'] = self.stop - self.start
 
         # Send to Elasticsearch
-        hits = self.backend.es.search(**params)
+        hits = self.index.es.search(**params)
 
         # Get pks from results
         pks = [hit['fields']['pk'][0] for hit in hits['hits']['hits']]
@@ -427,8 +427,8 @@ class ElasticSearchResults(BaseSearchResults):
 
     def _do_count(self):
         # Get count
-        hit_count = self.backend.es.count(
-            index=self.backend.name,
+        hit_count = self.index.es.count(
+            index=self.index.name,
             body=self._get_es_body(for_count=True),
         )['count']
 
