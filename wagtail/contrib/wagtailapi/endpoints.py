@@ -101,7 +101,7 @@ class BaseAPIEndpoint(GenericViewSet):
 
         # All query paramters must be either a field or an operation
         allowed_parameters = set(self.get_api_fields(queryset.model))
-        allowed_parameters = allowed_parameters.union(self.known_parameters)
+        allowed_parameters = allowed_parameters.union(self.known_query_parameters)
         allowed_parameters.add('id')
         unknown_parameters = query_parameters - allowed_parameters
         if unknown_parameters:
