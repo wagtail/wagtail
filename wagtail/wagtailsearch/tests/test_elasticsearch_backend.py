@@ -13,7 +13,7 @@ from django.test import TestCase
 from django.db.models import Q
 
 from wagtail.wagtailsearch.backends import get_search_backend
-from wagtail.wagtailsearch.backends.elasticsearch import ElasticSearch
+from wagtail.wagtailsearch.backends.elasticsearch import ElasticSearchIndex
 
 from wagtail.tests.search import models
 from .test_backends import BackendTests
@@ -233,7 +233,7 @@ class TestElasticSearchQuery(TestCase):
             json.dumps(a, sort_keys=True, default=default), json.dumps(b, sort_keys=True, default=default)
         )
 
-    query_class = ElasticSearch.query_class
+    query_class = ElasticSearchIndex.query_class
 
     def test_simple(self):
         # Create a query
@@ -539,12 +539,12 @@ class TestElasticSearchResults(TestCase):
             self.objects.append(models.SearchTest.objects.create(title=str(i)))
 
     def get_results(self):
-        backend = ElasticSearch({})
+        index = ElasticSearchIndex({})
         query = mock.MagicMock()
         query.queryset = models.SearchTest.objects.all()
         query.get_query.return_value = 'QUERY'
         query.get_sort.return_value = None
-        return backend.results_class(backend, query)
+        return index.results_class(index, query)
 
     def construct_search_response(self, results):
         return {
@@ -712,7 +712,7 @@ class TestElasticSearchMapping(TestCase):
 
     def setUp(self):
         # Create ES mapping
-        self.es_mapping = ElasticSearch.mapping_class(models.SearchTest)
+        self.es_mapping = ElasticSearchIndex.mapping_class(models.SearchTest)
 
         # Create ES document
         self.obj = models.SearchTest(title="Hello")
@@ -794,7 +794,7 @@ class TestElasticSearchMappingInheritance(TestCase):
 
     def setUp(self):
         # Create ES mapping
-        self.es_mapping = ElasticSearch.mapping_class(models.SearchTestChild)
+        self.es_mapping = ElasticSearchIndex.mapping_class(models.SearchTestChild)
 
         # Create ES document
         self.obj = models.SearchTestChild(title="Hello", subtitle="World", page_id=1)
@@ -897,16 +897,16 @@ class TestElasticSearchMappingInheritance(TestCase):
 
 class TestBackendConfiguration(TestCase):
     def test_default_settings(self):
-        backend = ElasticSearch(params={})
+        index = ElasticSearchIndex(params={})
 
-        self.assertEqual(len(backend.hosts), 1)
-        self.assertEqual(backend.hosts[0]['host'], 'localhost')
-        self.assertEqual(backend.hosts[0]['port'], 9200)
-        self.assertEqual(backend.hosts[0]['use_ssl'], False)
+        self.assertEqual(len(index.hosts), 1)
+        self.assertEqual(index.hosts[0]['host'], 'localhost')
+        self.assertEqual(index.hosts[0]['port'], 9200)
+        self.assertEqual(index.hosts[0]['use_ssl'], False)
 
     def test_hosts(self):
         # This tests that HOSTS goes to es_hosts
-        backend = ElasticSearch(params={
+        index = ElasticSearchIndex(params={
             'HOSTS': [
                 {
                     'host': '127.0.0.1',
@@ -916,14 +916,14 @@ class TestBackendConfiguration(TestCase):
             ]
         })
 
-        self.assertEqual(len(backend.hosts), 1)
-        self.assertEqual(backend.hosts[0]['host'], '127.0.0.1')
-        self.assertEqual(backend.hosts[0]['port'], 9300)
-        self.assertEqual(backend.hosts[0]['use_ssl'], True)
+        self.assertEqual(len(index.hosts), 1)
+        self.assertEqual(index.hosts[0]['host'], '127.0.0.1')
+        self.assertEqual(index.hosts[0]['port'], 9300)
+        self.assertEqual(index.hosts[0]['use_ssl'], True)
 
     def test_urls(self):
         # This test backwards compatibility with old URLS setting
-        backend = ElasticSearch(params={
+        index = ElasticSearchIndex(params={
             'URLS': [
                 'http://localhost:12345',
                 'https://127.0.0.1:54321',
@@ -932,24 +932,24 @@ class TestBackendConfiguration(TestCase):
             ],
         })
 
-        self.assertEqual(len(backend.hosts), 4)
-        self.assertEqual(backend.hosts[0]['host'], 'localhost')
-        self.assertEqual(backend.hosts[0]['port'], 12345)
-        self.assertEqual(backend.hosts[0]['use_ssl'], False)
+        self.assertEqual(len(index.hosts), 4)
+        self.assertEqual(index.hosts[0]['host'], 'localhost')
+        self.assertEqual(index.hosts[0]['port'], 12345)
+        self.assertEqual(index.hosts[0]['use_ssl'], False)
 
-        self.assertEqual(backend.hosts[1]['host'], '127.0.0.1')
-        self.assertEqual(backend.hosts[1]['port'], 54321)
-        self.assertEqual(backend.hosts[1]['use_ssl'], True)
+        self.assertEqual(index.hosts[1]['host'], '127.0.0.1')
+        self.assertEqual(index.hosts[1]['port'], 54321)
+        self.assertEqual(index.hosts[1]['use_ssl'], True)
 
-        self.assertEqual(backend.hosts[2]['host'], 'elasticsearch.mysite.com')
-        self.assertEqual(backend.hosts[2]['port'], 80)
-        self.assertEqual(backend.hosts[2]['use_ssl'], False)
-        self.assertEqual(backend.hosts[2]['http_auth'], ('username', 'password'))
+        self.assertEqual(index.hosts[2]['host'], 'elasticsearch.mysite.com')
+        self.assertEqual(index.hosts[2]['port'], 80)
+        self.assertEqual(index.hosts[2]['use_ssl'], False)
+        self.assertEqual(index.hosts[2]['http_auth'], ('username', 'password'))
 
-        self.assertEqual(backend.hosts[3]['host'], 'elasticsearch.mysite.com')
-        self.assertEqual(backend.hosts[3]['port'], 443)
-        self.assertEqual(backend.hosts[3]['use_ssl'], True)
-        self.assertEqual(backend.hosts[3]['url_prefix'], '/hello')
+        self.assertEqual(index.hosts[3]['host'], 'elasticsearch.mysite.com')
+        self.assertEqual(index.hosts[3]['port'], 443)
+        self.assertEqual(index.hosts[3]['use_ssl'], True)
+        self.assertEqual(index.hosts[3]['url_prefix'], '/hello')
 
 
 @unittest.skipUnless(os.environ.get('ELASTICSEARCH_URL', False), "ELASTICSEARCH_URL not set")
@@ -1004,7 +1004,7 @@ class TestRebuilder(TestCase):
         self.rebuilder.add_model(models.SearchTest)
 
         # Check the mapping went into Elasticsearch correctly
-        mapping = ElasticSearch.mapping_class(models.SearchTest)
+        mapping = ElasticSearchIndex.mapping_class(models.SearchTest)
         response = self.es.indices.get_mapping(self.backend.name, mapping.get_document_type())
 
         # Make some minor tweaks to the mapping so it matches what is in ES
