@@ -605,6 +605,8 @@ class ElasticSearch(BaseSearch):
     query_class = ElasticSearchQuery
     results_class = ElasticSearchResults
     mapping_class = ElasticSearchMapping
+    basic_rebuilder_class = ElasticSearchIndexRebuilder
+    atomic_rebuilder_class = ElasticSearchAtomicIndexRebuilder
 
     def __init__(self, params):
         super(ElasticSearch, self).__init__(params)
@@ -615,9 +617,9 @@ class ElasticSearch(BaseSearch):
         self.es_timeout = params.pop('TIMEOUT', 10)
 
         if params.pop('ATOMIC_REBUILD', False):
-            self.rebuilder_class = ElasticSearchAtomicIndexRebuilder
+            self.rebuilder_class = self.atomic_rebuilder_class
         else:
-            self.rebuilder_class = ElasticSearchIndexRebuilder
+            self.rebuilder_class = self.basic_rebuilder_class
 
         # If HOSTS is not set, convert URLS setting to HOSTS
         es_urls = params.pop('URLS', ['http://localhost:9200'])
