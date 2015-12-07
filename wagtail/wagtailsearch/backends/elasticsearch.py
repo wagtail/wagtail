@@ -14,51 +14,6 @@ from wagtail.wagtailsearch.backends.base import BaseSearch, BaseSearchQuery, Bas
 from wagtail.wagtailsearch.index import SearchField, FilterField, RelatedFields, class_is_indexed
 
 
-INDEX_SETTINGS = {
-    'settings': {
-        'analysis': {
-            'analyzer': {
-                'ngram_analyzer': {
-                    'type': 'custom',
-                    'tokenizer': 'lowercase',
-                    'filter': ['asciifolding', 'ngram']
-                },
-                'edgengram_analyzer': {
-                    'type': 'custom',
-                    'tokenizer': 'lowercase',
-                    'filter': ['asciifolding', 'edgengram']
-                }
-            },
-            'tokenizer': {
-                'ngram_tokenizer': {
-                    'type': 'nGram',
-                    'min_gram': 3,
-                    'max_gram': 15,
-                },
-                'edgengram_tokenizer': {
-                    'type': 'edgeNGram',
-                    'min_gram': 2,
-                    'max_gram': 15,
-                    'side': 'front'
-                }
-            },
-            'filter': {
-                'ngram': {
-                    'type': 'nGram',
-                    'min_gram': 3,
-                    'max_gram': 15
-                },
-                'edgengram': {
-                    'type': 'edgeNGram',
-                    'min_gram': 1,
-                    'max_gram': 15
-                }
-            }
-        }
-    }
-}
-
-
 class ElasticSearchMapping(object):
     type_map = {
         'AutoField': 'integer',
@@ -462,6 +417,7 @@ class ElasticSearchIndexRebuilder(object):
         self.es = index.es
         self.index_name = index.name
         self.mapping_class = index.mapping_class
+        self.index_settings = index.settings
 
     def reset_index(self):
         # Delete old index
@@ -471,7 +427,7 @@ class ElasticSearchIndexRebuilder(object):
             pass
 
         # Create new index
-        self.es.indices.create(self.index_name, INDEX_SETTINGS)
+        self.es.indices.create(self.index_name, self.index_settings)
 
     def start(self):
         # Reset the index
@@ -520,6 +476,7 @@ class ElasticSearchAtomicIndexRebuilder(ElasticSearchIndexRebuilder):
         self.alias_name = index.name
         self.index_name = self.alias_name + '_' + get_random_string(7).lower()
         self.mapping_class = index.mapping_class
+        self.index_settings = index.settings
 
     def reset_index(self):
         # Delete old index using the alias
@@ -530,14 +487,14 @@ class ElasticSearchAtomicIndexRebuilder(ElasticSearchIndexRebuilder):
             pass
 
         # Create new index
-        self.es.indices.create(self.index_name, INDEX_SETTINGS)
+        self.es.indices.create(self.index_name, self.index_settings)
 
         # Create a new alias
         self.es.indices.put_alias(name=self.alias_name, index=self.index_name)
 
     def start(self):
         # Create the new index
-        self.es.indices.create(self.index_name, INDEX_SETTINGS)
+        self.es.indices.create(self.index_name, self.index_settings)
 
     def finish(self):
         # Refresh the new index
@@ -579,6 +536,50 @@ class ElasticSearch(BaseSearch):
     mapping_class = ElasticSearchMapping
     basic_rebuilder_class = ElasticSearchIndexRebuilder
     atomic_rebuilder_class = ElasticSearchAtomicIndexRebuilder
+
+    settings = {
+        'settings': {
+            'analysis': {
+                'analyzer': {
+                    'ngram_analyzer': {
+                        'type': 'custom',
+                        'tokenizer': 'lowercase',
+                        'filter': ['asciifolding', 'ngram']
+                    },
+                    'edgengram_analyzer': {
+                        'type': 'custom',
+                        'tokenizer': 'lowercase',
+                        'filter': ['asciifolding', 'edgengram']
+                    }
+                },
+                'tokenizer': {
+                    'ngram_tokenizer': {
+                        'type': 'nGram',
+                        'min_gram': 3,
+                        'max_gram': 15,
+                    },
+                    'edgengram_tokenizer': {
+                        'type': 'edgeNGram',
+                        'min_gram': 2,
+                        'max_gram': 15,
+                        'side': 'front'
+                    }
+                },
+                'filter': {
+                    'ngram': {
+                        'type': 'nGram',
+                        'min_gram': 3,
+                        'max_gram': 15
+                    },
+                    'edgengram': {
+                        'type': 'edgeNGram',
+                        'min_gram': 1,
+                        'max_gram': 15
+                    }
+                }
+            }
+        }
+    }
 
     def __init__(self, params):
         super(ElasticSearch, self).__init__(params)
