@@ -458,9 +458,9 @@ class ElasticSearchResults(BaseSearchResults):
 
 
 class ElasticSearchIndexRebuilder(object):
-    def __init__(self, es, index_name):
-        self.es = es
-        self.index_name = index_name
+    def __init__(self, index):
+        self.es = index.es
+        self.index_name = index.es_index
 
     def reset_index(self):
         # Delete old index
@@ -514,10 +514,10 @@ class ElasticSearchIndexRebuilder(object):
 
 
 class ElasticSearchAtomicIndexRebuilder(ElasticSearchIndexRebuilder):
-    def __init__(self, es, alias_name):
-        self.es = es
-        self.alias_name = alias_name
-        self.index_name = alias_name + '_' + get_random_string(7).lower()
+    def __init__(self, index):
+        self.es = index.es
+        self.alias_name = index.es_index
+        self.index_name = self.alias_name + '_' + get_random_string(7).lower()
 
     def reset_index(self):
         # Delete old index using the alias
@@ -619,7 +619,7 @@ class ElasticSearch(BaseSearch):
             **params)
 
     def get_rebuilder(self):
-        return self.rebuilder_class(self.es, self.es_index)
+        return self.rebuilder_class(self)
 
     def reset_index(self):
         # Use the rebuilder to reset the index
