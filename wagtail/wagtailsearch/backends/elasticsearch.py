@@ -600,8 +600,8 @@ class ElasticSearchAtomicIndexRebuilder(ElasticSearchIndexRebuilder):
 
 
 class ElasticSearch(BaseSearch):
-    search_query_class = ElasticSearchQuery
-    search_results_class = ElasticSearchResults
+    query_class = ElasticSearchQuery
+    results_class = ElasticSearchResults
 
     def __init__(self, params):
         super(ElasticSearch, self).__init__(params)
