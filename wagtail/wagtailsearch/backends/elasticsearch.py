@@ -461,6 +461,7 @@ class ElasticSearchIndexRebuilder(object):
     def __init__(self, index):
         self.es = index.es
         self.index_name = index.es_index
+        self.mapping_class = index.mapping_class
 
     def reset_index(self):
         # Delete old index
@@ -478,7 +479,7 @@ class ElasticSearchIndexRebuilder(object):
 
     def add_model(self, model):
         # Get mapping
-        mapping = ElasticSearchMapping(model)
+        mapping = self.mapping_class(model)
 
         # Put mapping
         self.es.indices.put_mapping(
@@ -490,7 +491,7 @@ class ElasticSearchIndexRebuilder(object):
             return
 
         # Get mapping
-        mapping = ElasticSearchMapping(model)
+        mapping = self.mapping_class(model)
         doc_type = mapping.get_document_type()
 
         # Create list of actions
@@ -518,6 +519,7 @@ class ElasticSearchAtomicIndexRebuilder(ElasticSearchIndexRebuilder):
         self.es = index.es
         self.alias_name = index.es_index
         self.index_name = self.alias_name + '_' + get_random_string(7).lower()
+        self.mapping_class = index.mapping_class
 
     def reset_index(self):
         # Delete old index using the alias
@@ -574,6 +576,7 @@ class ElasticSearchAtomicIndexRebuilder(ElasticSearchIndexRebuilder):
 class ElasticSearch(BaseSearch):
     query_class = ElasticSearchQuery
     results_class = ElasticSearchResults
+    mapping_class = ElasticSearchMapping
 
     def __init__(self, params):
         super(ElasticSearch, self).__init__(params)
@@ -627,7 +630,7 @@ class ElasticSearch(BaseSearch):
 
     def add_type(self, model):
         # Get mapping
-        mapping = ElasticSearchMapping(model)
+        mapping = self.mapping_class(model)
 
         # Put mapping
         self.es.indices.put_mapping(
@@ -643,7 +646,7 @@ class ElasticSearch(BaseSearch):
             return
 
         # Get mapping
-        mapping = ElasticSearchMapping(obj.__class__)
+        mapping = self.mapping_class(obj.__class__)
 
         # Add document to index
         self.es.index(
@@ -655,7 +658,7 @@ class ElasticSearch(BaseSearch):
             return
 
         # Get mapping
-        mapping = ElasticSearchMapping(model)
+        mapping = self.mapping_class(model)
         doc_type = mapping.get_document_type()
 
         # Create list of actions
@@ -679,7 +682,7 @@ class ElasticSearch(BaseSearch):
             return
 
         # Get mapping
-        mapping = ElasticSearchMapping(obj.__class__)
+        mapping = self.mapping_class(obj.__class__)
 
         # Delete document
         try:
