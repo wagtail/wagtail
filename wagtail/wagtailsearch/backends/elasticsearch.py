@@ -414,7 +414,7 @@ class ElasticSearchResults(BaseSearchResults):
     def _do_search(self):
         # Params for elasticsearch query
         params = dict(
-            index=self.backend.es_index,
+            index=self.backend.name,
             body=self._get_es_body(),
             _source=False,
             fields='pk',
@@ -445,7 +445,7 @@ class ElasticSearchResults(BaseSearchResults):
     def _do_count(self):
         # Get count
         hit_count = self.backend.es.count(
-            index=self.backend.es_index,
+            index=self.backend.name,
             body=self._get_es_body(for_count=True),
         )['count']
 
@@ -460,7 +460,7 @@ class ElasticSearchResults(BaseSearchResults):
 class ElasticSearchIndexRebuilder(object):
     def __init__(self, index):
         self.es = index.es
-        self.index_name = index.es_index
+        self.index_name = index.name
         self.mapping_class = index.mapping_class
 
     def reset_index(self):
@@ -517,7 +517,7 @@ class ElasticSearchIndexRebuilder(object):
 class ElasticSearchAtomicIndexRebuilder(ElasticSearchIndexRebuilder):
     def __init__(self, index):
         self.es = index.es
-        self.alias_name = index.es_index
+        self.alias_name = index.name
         self.index_name = self.alias_name + '_' + get_random_string(7).lower()
         self.mapping_class = index.mapping_class
 
@@ -584,9 +584,9 @@ class ElasticSearch(BaseSearch):
         super(ElasticSearch, self).__init__(params)
 
         # Get settings
-        self.es_hosts = params.pop('HOSTS', None)
-        self.es_index = params.pop('INDEX', 'wagtail')
-        self.es_timeout = params.pop('TIMEOUT', 10)
+        self.hosts = params.pop('HOSTS', None)
+        self.name = params.pop('INDEX', 'wagtail')
+        self.timeout = params.pop('TIMEOUT', 10)
 
         if params.pop('ATOMIC_REBUILD', False):
             self.rebuilder_class = self.atomic_rebuilder_class
@@ -595,8 +595,8 @@ class ElasticSearch(BaseSearch):
 
         # If HOSTS is not set, convert URLS setting to HOSTS
         es_urls = params.pop('URLS', ['http://localhost:9200'])
-        if self.es_hosts is None:
-            self.es_hosts = []
+        if self.hosts is None:
+            self.hosts = []
 
             for url in es_urls:
                 parsed_url = urlparse(url)
@@ -608,7 +608,7 @@ class ElasticSearch(BaseSearch):
                 if parsed_url.username is not None and parsed_url.password is not None:
                     http_auth = (parsed_url.username, parsed_url.password)
 
-                self.es_hosts.append({
+                self.hosts.append({
                     'host': parsed_url.hostname,
                     'port': port,
                     'url_prefix': parsed_url.path,
@@ -619,8 +619,8 @@ class ElasticSearch(BaseSearch):
         # Get Elasticsearch interface
         # Any remaining params are passed into the Elasticsearch constructor
         self.es = Elasticsearch(
-            hosts=self.es_hosts,
-            timeout=self.es_timeout,
+            hosts=self.hosts,
+            timeout=self.timeout,
             **params)
 
     def get_rebuilder(self):
@@ -636,11 +636,11 @@ class ElasticSearch(BaseSearch):
 
         # Put mapping
         self.es.indices.put_mapping(
-            index=self.es_index, doc_type=mapping.get_document_type(), body=mapping.get_mapping()
+            index=self.name, doc_type=mapping.get_document_type(), body=mapping.get_mapping()
         )
 
     def refresh_index(self):
-        self.es.indices.refresh(self.es_index)
+        self.es.indices.refresh(self.name)
 
     def add(self, obj):
         # Make sure the object can be indexed
@@ -652,7 +652,7 @@ class ElasticSearch(BaseSearch):
 
         # Add document to index
         self.es.index(
-            self.es_index, mapping.get_document_type(), mapping.get_document(obj), id=mapping.get_document_id(obj)
+            self.name, mapping.get_document_type(), mapping.get_document(obj), id=mapping.get_document_id(obj)
         )
 
     def add_bulk(self, model, obj_list):
@@ -668,7 +668,7 @@ class ElasticSearch(BaseSearch):
         for obj in obj_list:
             # Create the action
             action = {
-                '_index': self.es_index,
+                '_index': self.name,
                 '_type': doc_type,
                 '_id': mapping.get_document_id(obj),
             }
@@ -689,7 +689,7 @@ class ElasticSearch(BaseSearch):
         # Delete document
         try:
             self.es.delete(
-                self.es_index,
+                self.name,
                 mapping.get_document_type(),
                 mapping.get_document_id(obj),
             )
