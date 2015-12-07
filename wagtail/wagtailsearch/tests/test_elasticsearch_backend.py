@@ -899,10 +899,10 @@ class TestBackendConfiguration(TestCase):
     def test_default_settings(self):
         backend = ElasticSearch(params={})
 
-        self.assertEqual(len(backend.es_hosts), 1)
-        self.assertEqual(backend.es_hosts[0]['host'], 'localhost')
-        self.assertEqual(backend.es_hosts[0]['port'], 9200)
-        self.assertEqual(backend.es_hosts[0]['use_ssl'], False)
+        self.assertEqual(len(backend.hosts), 1)
+        self.assertEqual(backend.hosts[0]['host'], 'localhost')
+        self.assertEqual(backend.hosts[0]['port'], 9200)
+        self.assertEqual(backend.hosts[0]['use_ssl'], False)
 
     def test_hosts(self):
         # This tests that HOSTS goes to es_hosts
@@ -916,10 +916,10 @@ class TestBackendConfiguration(TestCase):
             ]
         })
 
-        self.assertEqual(len(backend.es_hosts), 1)
-        self.assertEqual(backend.es_hosts[0]['host'], '127.0.0.1')
-        self.assertEqual(backend.es_hosts[0]['port'], 9300)
-        self.assertEqual(backend.es_hosts[0]['use_ssl'], True)
+        self.assertEqual(len(backend.hosts), 1)
+        self.assertEqual(backend.hosts[0]['host'], '127.0.0.1')
+        self.assertEqual(backend.hosts[0]['port'], 9300)
+        self.assertEqual(backend.hosts[0]['use_ssl'], True)
 
     def test_urls(self):
         # This test backwards compatibility with old URLS setting
@@ -932,24 +932,24 @@ class TestBackendConfiguration(TestCase):
             ],
         })
 
-        self.assertEqual(len(backend.es_hosts), 4)
-        self.assertEqual(backend.es_hosts[0]['host'], 'localhost')
-        self.assertEqual(backend.es_hosts[0]['port'], 12345)
-        self.assertEqual(backend.es_hosts[0]['use_ssl'], False)
+        self.assertEqual(len(backend.hosts), 4)
+        self.assertEqual(backend.hosts[0]['host'], 'localhost')
+        self.assertEqual(backend.hosts[0]['port'], 12345)
+        self.assertEqual(backend.hosts[0]['use_ssl'], False)
 
-        self.assertEqual(backend.es_hosts[1]['host'], '127.0.0.1')
-        self.assertEqual(backend.es_hosts[1]['port'], 54321)
-        self.assertEqual(backend.es_hosts[1]['use_ssl'], True)
+        self.assertEqual(backend.hosts[1]['host'], '127.0.0.1')
+        self.assertEqual(backend.hosts[1]['port'], 54321)
+        self.assertEqual(backend.hosts[1]['use_ssl'], True)
 
-        self.assertEqual(backend.es_hosts[2]['host'], 'elasticsearch.mysite.com')
-        self.assertEqual(backend.es_hosts[2]['port'], 80)
-        self.assertEqual(backend.es_hosts[2]['use_ssl'], False)
-        self.assertEqual(backend.es_hosts[2]['http_auth'], ('username', 'password'))
+        self.assertEqual(backend.hosts[2]['host'], 'elasticsearch.mysite.com')
+        self.assertEqual(backend.hosts[2]['port'], 80)
+        self.assertEqual(backend.hosts[2]['use_ssl'], False)
+        self.assertEqual(backend.hosts[2]['http_auth'], ('username', 'password'))
 
-        self.assertEqual(backend.es_hosts[3]['host'], 'elasticsearch.mysite.com')
-        self.assertEqual(backend.es_hosts[3]['port'], 443)
-        self.assertEqual(backend.es_hosts[3]['use_ssl'], True)
-        self.assertEqual(backend.es_hosts[3]['url_prefix'], '/hello')
+        self.assertEqual(backend.hosts[3]['host'], 'elasticsearch.mysite.com')
+        self.assertEqual(backend.hosts[3]['port'], 443)
+        self.assertEqual(backend.hosts[3]['use_ssl'], True)
+        self.assertEqual(backend.hosts[3]['url_prefix'], '/hello')
 
 
 @unittest.skipUnless(os.environ.get('ELASTICSEARCH_URL', False), "ELASTICSEARCH_URL not set")
@@ -970,23 +970,23 @@ class TestRebuilder(TestCase):
     def test_start_creates_index(self):
         # First, make sure the index is deleted
         try:
-            self.es.indices.delete(self.backend.es_index)
+            self.es.indices.delete(self.backend.name)
         except self.NotFoundError:
             pass
 
-        self.assertFalse(self.es.indices.exists(self.backend.es_index))
+        self.assertFalse(self.es.indices.exists(self.backend.name))
 
         # Run start
         self.rebuilder.start()
 
         # Check the index exists
-        self.assertTrue(self.es.indices.exists(self.backend.es_index))
+        self.assertTrue(self.es.indices.exists(self.backend.name))
 
     def test_start_deletes_existing_index(self):
         # Put an alias into the index so we can check it was deleted
-        self.es.indices.put_alias(name='this_index_should_be_deleted', index=self.backend.es_index)
+        self.es.indices.put_alias(name='this_index_should_be_deleted', index=self.backend.name)
         self.assertTrue(
-            self.es.indices.exists_alias(name='this_index_should_be_deleted', index=self.backend.es_index)
+            self.es.indices.exists_alias(name='this_index_should_be_deleted', index=self.backend.name)
         )
 
         # Run start
@@ -994,7 +994,7 @@ class TestRebuilder(TestCase):
 
         # The alias should be gone (proving the index was deleted and recreated)
         self.assertFalse(
-            self.es.indices.exists_alias(name='this_index_should_be_deleted', index=self.backend.es_index)
+            self.es.indices.exists_alias(name='this_index_should_be_deleted', index=self.backend.name)
         )
 
     def test_add_model(self):
@@ -1005,7 +1005,7 @@ class TestRebuilder(TestCase):
 
         # Check the mapping went into Elasticsearch correctly
         mapping = ElasticSearch.mapping_class(models.SearchTest)
-        response = self.es.indices.get_mapping(self.backend.es_index, mapping.get_document_type())
+        response = self.es.indices.get_mapping(self.backend.name, mapping.get_document_type())
 
         # Make some minor tweaks to the mapping so it matches what is in ES
         # These are generally minor issues with the way Wagtail is
@@ -1019,7 +1019,7 @@ class TestRebuilder(TestCase):
             'dateOptionalTime'
         expected_mapping['searchtests_searchtest']['properties']['published_date_filter'].pop('index')
 
-        self.assertDictEqual(expected_mapping, response[self.backend.es_index]['mappings'])
+        self.assertDictEqual(expected_mapping, response[self.backend.name]['mappings'])
 
 
 @unittest.skipUnless(os.environ.get('ELASTICSEARCH_URL', False), "ELASTICSEARCH_URL not set")
