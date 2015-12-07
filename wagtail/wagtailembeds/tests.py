@@ -480,7 +480,10 @@ class TestMediaEmbedHandler(TestCase):
             {'url': 'http://www.youtube.com/watch/'},
             True
         )
-        self.assertIn('<div class="embed-placeholder" contenteditable="false" data-embedtype="media" data-url="http://www.youtube.com/watch/">', result)
+        self.assertIn(
+            '<div class="embed-placeholder" contenteditable="false" data-embedtype="media"'
+            ' data-url="http://www.youtube.com/watch/">', result
+        )
         self.assertIn('<h3>test title</h3>', result)
         self.assertIn('<p>URL: http://www.youtube.com/watch/</p>', result)
         self.assertIn('<p>Provider: test provider name</p>', result)

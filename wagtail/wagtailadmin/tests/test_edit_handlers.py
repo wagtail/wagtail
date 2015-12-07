@@ -19,7 +19,8 @@ from wagtail.wagtailadmin.widgets import AdminPageChooser, AdminDateInput, Admin
 from wagtail.wagtailimages.edit_handlers import ImageChooserPanel
 from wagtail.wagtailcore.models import Page, Site
 from wagtail.wagtailcore.fields import RichTextArea
-from wagtail.tests.testapp.models import PageChooserModel, EventPageChooserModel, EventPage, EventPageSpeaker, SimplePage
+from wagtail.tests.testapp.models import PageChooserModel, EventPageChooserModel, EventPage, \
+    EventPageSpeaker, SimplePage
 from wagtail.tests.utils import WagtailTestUtils
 
 
@@ -392,7 +393,8 @@ class TestPageChooserPanel(TestCase):
         self.assertIn('<p class="help">help text</p>', result)
         self.assertIn('<span class="title">Christmas</span>', result)
         self.assertIn(
-            '<a href="/admin/pages/%d/edit/" class="edit-link button button-small button-secondary" target="_blank">Edit this page</a>' % self.christmas_page.id,
+            '<a href="/admin/pages/%d/edit/" class="edit-link button button-small button-secondary" target="_blank">'
+            'Edit this page</a>' % self.christmas_page.id,
             result)
 
     def test_render_as_empty_field(self):

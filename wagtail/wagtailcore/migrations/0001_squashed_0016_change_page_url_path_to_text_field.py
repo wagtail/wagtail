@@ -126,22 +126,73 @@ class Migration(migrations.Migration):
                 ('path', models.CharField(unique=True, max_length=255)),
                 ('depth', models.PositiveIntegerField()),
                 ('numchild', models.PositiveIntegerField(default=0)),
-                ('title', models.CharField(verbose_name='Title', max_length=255, help_text="The page title as you'd like it to be seen by the public")),
-                ('slug', models.SlugField(verbose_name='Slug', max_length=255, help_text='The name of the page as it will appear in URLs e.g http://domain.com/blog/[my-slug]/')),
+                ('title', models.CharField(
+                    verbose_name='Title',
+                    max_length=255,
+                    help_text="The page title as you'd like it to be seen by the public"
+                )),
+                ('slug', models.SlugField(
+                    verbose_name='Slug',
+                    max_length=255,
+                    help_text='The name of the page as it will appear in URLs e.g http://domain.com/blog/[my-slug]/'
+                )),
                 ('live', models.BooleanField(default=True, verbose_name='Live', editable=False)),
-                ('has_unpublished_changes', models.BooleanField(default=False, verbose_name='Has unpublished changes', editable=False)),
+                ('has_unpublished_changes', models.BooleanField(
+                    default=False,
+                    verbose_name='Has unpublished changes',
+                    editable=False
+                )),
                 ('url_path', models.TextField(verbose_name='URL path', blank=True, editable=False)),
-                ('seo_title', models.CharField(verbose_name='Page title', max_length=255, blank=True, help_text="Optional. 'Search Engine Friendly' title. This will appear at the top of the browser window.")),
-                ('show_in_menus', models.BooleanField(default=False, verbose_name='Show in menus', help_text='Whether a link to this page will appear in automatically generated menus')),
+                ('seo_title', models.CharField(
+                    verbose_name='Page title',
+                    max_length=255,
+                    blank=True,
+                    help_text="Optional. 'Search Engine Friendly' title."
+                    " This will appear at the top of the browser window."
+                )),
+                ('show_in_menus', models.BooleanField(
+                    default=False,
+                    verbose_name='Show in menus',
+                    help_text='Whether a link to this page will appear in automatically generated menus'
+                )),
                 ('search_description', models.TextField(verbose_name='Search description', blank=True)),
-                ('go_live_at', models.DateTimeField(null=True, verbose_name='Go live date/time', blank=True, help_text='Please add a date-time in the form YYYY-MM-DD hh:mm.')),
-                ('expire_at', models.DateTimeField(null=True, verbose_name='Expiry date/time', blank=True, help_text='Please add a date-time in the form YYYY-MM-DD hh:mm.')),
+                ('go_live_at', models.DateTimeField(
+                    null=True,
+                    verbose_name='Go live date/time',
+                    blank=True, help_text='Please add a date-time in the form YYYY-MM-DD hh:mm.'
+                )),
+                ('expire_at', models.DateTimeField(
+                    null=True,
+                    verbose_name='Expiry date/time',
+                    blank=True,
+                    help_text='Please add a date-time in the form YYYY-MM-DD hh:mm.'
+                )),
                 ('expired', models.BooleanField(default=False, verbose_name='Expired', editable=False)),
-                ('content_type', models.ForeignKey(verbose_name='Content type', related_name='pages', to='contenttypes.ContentType')),
-                ('owner', models.ForeignKey(null=True, verbose_name='Owner', blank=True, editable=False, related_name='owned_pages', to=settings.AUTH_USER_MODEL, on_delete=django.db.models.deletion.SET_NULL)),
+                ('content_type', models.ForeignKey(
+                    verbose_name='Content type',
+                    related_name='pages',
+                    to='contenttypes.ContentType'
+                )),
+                ('owner', models.ForeignKey(
+                    null=True,
+                    verbose_name='Owner',
+                    blank=True,
+                    editable=False,
+                    related_name='owned_pages',
+                    to=settings.AUTH_USER_MODEL,
+                    on_delete=django.db.models.deletion.SET_NULL
+                )),
                 ('locked', models.BooleanField(default=False, verbose_name='Locked', editable=False)),
-                ('latest_revision_created_at', models.DateTimeField(null=True, verbose_name='Latest revision created at', editable=False)),
-                ('first_published_at', models.DateTimeField(null=True, verbose_name='First published at', editable=False)),
+                ('latest_revision_created_at', models.DateTimeField(
+                    null=True,
+                    verbose_name='Latest revision created at',
+                    editable=False
+                )),
+                ('first_published_at', models.DateTimeField(
+                    null=True,
+                    verbose_name='First published at',
+                    editable=False
+                )),
             ],
             options={
                 'abstract': False,
@@ -152,9 +203,22 @@ class Migration(migrations.Migration):
             name='GroupPagePermission',
             fields=[
                 ('id', models.AutoField(auto_created=True, verbose_name='ID', serialize=False, primary_key=True)),
-                ('permission_type', models.CharField(verbose_name='Permission type', choices=[('add', 'Add/edit pages you own'), ('edit', 'Add/edit any page'), ('publish', 'Publish any page'), ('lock', 'Lock/unlock any page')], max_length=20)),
+                ('permission_type', models.CharField(
+                    verbose_name='Permission type',
+                    choices=[
+                        ('add', 'Add/edit pages you own'),
+                        ('edit', 'Add/edit any page'),
+                        ('publish', 'Publish any page'),
+                        ('lock', 'Lock/unlock any page')
+                    ],
+                    max_length=20
+                )),
                 ('group', models.ForeignKey(verbose_name='Group', related_name='page_permissions', to='auth.Group')),
-                ('page', models.ForeignKey(verbose_name='Page', related_name='group_permissions', to='wagtailcore.Page')),
+                ('page', models.ForeignKey(
+                    verbose_name='Page',
+                    related_name='group_permissions',
+                    to='wagtailcore.Page'
+                )),
             ],
         ),
         migrations.AlterUniqueTogether(
@@ -169,10 +233,14 @@ class Migration(migrations.Migration):
             name='PageRevision',
             fields=[
                 ('id', models.AutoField(auto_created=True, verbose_name='ID', serialize=False, primary_key=True)),
-                ('submitted_for_moderation', models.BooleanField(default=False, verbose_name='Submitted for moderation')),
+                ('submitted_for_moderation', models.BooleanField(
+                    default=False, verbose_name='Submitted for moderation'
+                )),
                 ('created_at', models.DateTimeField(verbose_name='Created at')),
                 ('content_json', models.TextField(verbose_name='Content JSON')),
-                ('approved_go_live_at', models.DateTimeField(null=True, verbose_name='Approved go live at', blank=True)),
+                ('approved_go_live_at', models.DateTimeField(
+                    null=True, verbose_name='Approved go live at', blank=True
+                )),
                 ('page', models.ForeignKey(verbose_name='Page', related_name='revisions', to='wagtailcore.Page')),
                 ('user', models.ForeignKey(null=True, verbose_name='User', blank=True, to=settings.AUTH_USER_MODEL)),
             ],
@@ -186,7 +254,11 @@ class Migration(migrations.Migration):
             fields=[
                 ('id', models.AutoField(auto_created=True, verbose_name='ID', serialize=False, primary_key=True)),
                 ('password', models.CharField(verbose_name='Password', max_length=255)),
-                ('page', models.ForeignKey(verbose_name='Page', related_name='view_restrictions', to='wagtailcore.Page')),
+                ('page', models.ForeignKey(
+                    verbose_name='Page',
+                    related_name='view_restrictions',
+                    to='wagtailcore.Page'
+                )),
             ],
         ),
         migrations.AlterModelOptions(
@@ -198,9 +270,25 @@ class Migration(migrations.Migration):
             fields=[
                 ('id', models.AutoField(auto_created=True, verbose_name='ID', serialize=False, primary_key=True)),
                 ('hostname', models.CharField(verbose_name='Hostname', db_index=True, max_length=255)),
-                ('port', models.IntegerField(default=80, verbose_name='Port', help_text='Set this to something other than 80 if you need a specific port number to appear in URLs (e.g. development on port 8000). Does not affect request handling (so port forwarding still works).')),
-                ('is_default_site', models.BooleanField(default=False, verbose_name='Is default site', help_text='If true, this site will handle requests for all other hostnames that do not have a site entry of their own')),
-                ('root_page', models.ForeignKey(verbose_name='Root page', related_name='sites_rooted_here', to='wagtailcore.Page')),
+                ('port', models.IntegerField(
+                    default=80,
+                    verbose_name='Port',
+                    help_text='Set this to something other than 80 if you need a specific port number'
+                    ' to appear in URLs (e.g. development on port 8000).'
+                    ' Does not affect request handling (so port forwarding still works).'
+                )),
+                ('is_default_site', models.BooleanField(
+                    default=False,
+                    verbose_name='Is default site',
+                    help_text='If true, this site will handle requests for all other hostnames'
+                    ' that do not have a site entry of their own'
+                )),
+                ('root_page', models.ForeignKey(
+                    verbose_name='Root page',
+                    related_name='sites_rooted_here',
+                    to='wagtailcore.Page'
+                )
+                ),
             ],
         ),
         migrations.AlterUniqueTogether(

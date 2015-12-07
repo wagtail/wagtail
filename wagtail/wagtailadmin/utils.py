@@ -155,7 +155,10 @@ def send_notification(page_revision_id, notification, excluded_user_id):
     # Get list of email addresses
     email_addresses = [
         recipient.email for recipient in recipients
-        if recipient.email and recipient.id != excluded_user_id and getattr(UserProfile.get_for_user(recipient), notification + '_notifications')
+        if recipient.email and recipient.id != excluded_user_id and getattr(
+            UserProfile.get_for_user(recipient),
+            notification + '_notifications'
+        )
     ]
 
     # Return if there are no email addresses
