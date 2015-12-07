@@ -16,26 +16,26 @@ class Command(BaseCommand):
             for model in get_indexed_models()
         ]
 
-    def update_backend(self, backend_name, object_list):
+    def update_index(self, index_name, object_list):
         # Print info
-        self.stdout.write("Updating backend: " + backend_name)
+        self.stdout.write("Updating index: " + index_name)
 
-        # Get backend
-        backend = get_search_backend(backend_name)
+        # Get index
+        index = get_search_backend(index_name)
 
         # Get rebuilder
-        rebuilder = backend.get_rebuilder()
+        rebuilder = index.get_rebuilder()
 
         if not rebuilder:
-            self.stdout.write(backend_name + ": Backend doesn't support rebuild. Skipping")
+            self.stdout.write(index_name + ": Backend doesn't support rebuild. Skipping")
             return
 
         # Start rebuild
-        self.stdout.write(backend_name + ": Starting rebuild")
+        self.stdout.write(index_name + ": Starting rebuild")
         rebuilder.start()
 
         for model, queryset in object_list:
-            self.stdout.write(backend_name + ": Indexing model '%s.%s'" % (
+            self.stdout.write(index_name + ": Indexing model '%s.%s'" % (
                 model._meta.app_label,
                 model.__name__,
             ))
@@ -54,16 +54,16 @@ class Command(BaseCommand):
             self.print_newline()
 
         # Finish rebuild
-        self.stdout.write(backend_name + ": Finishing rebuild")
+        self.stdout.write(index_name + ": Finishing rebuild")
         rebuilder.finish()
 
     option_list = BaseCommand.option_list + (
         make_option(
             '--backend',
             action='store',
-            dest='backend_name',
+            dest='index_name',
             default=None,
-            help="Specify a backend to update",
+            help="Specify an index to update",
         ),
     )
 
@@ -71,20 +71,20 @@ class Command(BaseCommand):
         # Get object list
         object_list = self.get_object_list()
 
-        # Get list of backends to index
-        if options['backend_name']:
-            # index only the passed backend
-            backend_names = [options['backend_name']]
+        # Get list of indices to update
+        if options['index_name']:
+            # update only the passed index
+            index_names = [options['index_name']]
         elif hasattr(settings, 'WAGTAILSEARCH_BACKENDS'):
-            # index all backends listed in settings
-            backend_names = settings.WAGTAILSEARCH_BACKENDS.keys()
+            # update all indices listed in settings
+            index_names = settings.WAGTAILSEARCH_BACKENDS.keys()
         else:
-            # index the 'default' backend only
-            backend_names = ['default']
+            # update the 'default' index only
+            index_names = ['default']
 
-        # Update backends
-        for backend_name in backend_names:
-            self.update_backend(backend_name, object_list)
+        # Update indices
+        for index_name in index_names:
+            self.update_index(index_name, object_list)
 
     def print_newline(self):
         self.stdout.write('')
