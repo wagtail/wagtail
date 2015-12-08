@@ -46,20 +46,26 @@ function(modal) {
 
     ajaxifyLinks(modal.body);
 
+
     $('form.image-upload', modal.body).submit(function() {
         var formdata = new FormData(this);
-
-        $.ajax({
-            url: this.action,
-            data: formdata,
-            processData: false,
-            contentType: false,
-            type: 'POST',
-            dataType: 'text',
-            success: function(response){
-                modal.loadResponseText(response);
-            }
-        });
+        if ($('#id_title', modal.body).val() == '') {
+            $('#id_title', modal.body).closest('li').addClass('error')
+            $('#id_title', modal.body).closest('.field-content').append('<p class="error-message"><span>This field is required.</span></p>')
+        } else {
+            $.ajax({
+                url: this.action,
+                data: formdata,
+                processData: false,
+                contentType: false,
+                type: 'POST',
+                dataType: 'text',
+                success: function(response){
+                    modal.loadResponseText(response);
+                }
+                
+            });
+        }
 
         return false;
     });
