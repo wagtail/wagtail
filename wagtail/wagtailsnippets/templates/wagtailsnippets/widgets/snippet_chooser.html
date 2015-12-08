@@ -6,4 +6,4 @@
     <span class="title">{{ item }}</span>
 {% endblock %}
 
-{% block edit_chosen_item_url %}{% if item %}{% url 'wagtailsnippets:edit' widget.target_content_type.app_label widget.target_content_type.model item.id %}{% endif %}{% endblock %}
+{% block edit_chosen_item_url %}{% if item %}{% url 'wagtailsnippets:edit' model_opts.app_label model_opts.model_name item.id %}{% endif %}{% endblock %}
