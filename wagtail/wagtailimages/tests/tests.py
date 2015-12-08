@@ -45,7 +45,10 @@ class TestImageTag(TestCase):
         self.assertEqual(result, '')
 
     def render_image_tag_as(self, image, filter_spec):
-        temp = template.Template('{% load wagtailimages_tags %}{% image image_obj ' + filter_spec + ' as test_img %}<img {{ test_img.attrs }} />')
+        temp = template.Template(
+            '{% load wagtailimages_tags %}{% image image_obj ' + filter_spec +
+            ' as test_img %}<img {{ test_img.attrs }} />'
+        )
         context = template.Context({'image_obj': image})
         return temp.render(context)
 
@@ -58,7 +61,10 @@ class TestImageTag(TestCase):
         self.assertTrue('alt="Test image"' in result)
 
     def render_image_tag_with_extra_attributes(self, image, title):
-        temp = template.Template('{% load wagtailimages_tags %}{% image image_obj width-400 class="photo" title=title|lower alt="Alternate" %}')
+        temp = template.Template(
+            '{% load wagtailimages_tags %}{% image image_obj width-400 \
+            class="photo" title=title|lower alt="Alternate" %}'
+        )
         context = template.Context({'image_obj': image, 'title': title})
         return temp.render(context)
 
@@ -73,7 +79,9 @@ class TestImageTag(TestCase):
         self.assertTrue('title="my wonderful title"' in result)
 
     def render_image_tag_with_filters(self, image):
-        temp = template.Template('{% load wagtailimages_tags %}{% image image_primary|default:image_alternate width-400 %}')
+        temp = template.Template(
+            '{% load wagtailimages_tags %}{% image image_primary|default:image_alternate width-400 %}'
+        )
         context = template.Context({'image_primary': None, 'image_alternate': image})
         return temp.render(context)
 
@@ -94,12 +102,21 @@ class TestMissingImage(TestCase):
     def test_image_tag_with_missing_image(self):
         # the page /events/christmas/ has a missing image as the feed image
         response = self.client.get('/events/christmas/')
-        self.assertContains(response, '<img src="/media/not-found" width="0" height="0" alt="A missing image" class="feed-image">', html=True)
+        self.assertContains(
+            response,
+            '<img src="/media/not-found" width="0" height="0" alt="A missing image" class="feed-image">',
+            html=True
+        )
 
     def test_rich_text_with_missing_image(self):
         # the page /events/final-event/ has a missing image in the rich text body
         response = self.client.get('/events/final-event/')
-        self.assertContains(response, '<img class="richtext-image full-width" src="/media/not-found" width="0" height="0" alt="where did my image go?">', html=True)
+        self.assertContains(
+            response,
+            '<img class="richtext-image full-width" src="/media/not-found" \
+            width="0" height="0" alt="where did my image go?">',
+            html=True
+        )
 
 
 class TestFormat(TestCase):
@@ -130,7 +147,8 @@ class TestFormat(TestCase):
         )
         six.assertRegex(
             self, result,
-            '<img data-embedtype="image" data-id="0" data-format="test name" data-alt="test alt text" class="test classnames" src="[^"]+" width="1" height="1" alt="test alt text">',
+            '<img data-embedtype="image" data-id="0" data-format="test name" \
+            data-alt="test alt text" class="test classnames" src="[^"]+" width="1" height="1" alt="test alt text">',
         )
 
     def test_image_to_html_no_classnames(self):

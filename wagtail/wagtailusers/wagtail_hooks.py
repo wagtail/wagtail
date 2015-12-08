@@ -38,7 +38,8 @@ class UsersMenuItem(MenuItem):
 
 @hooks.register('register_settings_menu_item')
 def register_users_menu_item():
-    return UsersMenuItem(_('Users'), urlresolvers.reverse('wagtailusers_users:index'), classnames='icon icon-user', order=600)
+    return UsersMenuItem(_('Users'), urlresolvers.reverse(
+        'wagtailusers_users:index'), classnames='icon icon-user', order=600)
 
 
 class GroupsMenuItem(MenuItem):
@@ -52,7 +53,8 @@ class GroupsMenuItem(MenuItem):
 
 @hooks.register('register_settings_menu_item')
 def register_groups_menu_item():
-    return GroupsMenuItem(_('Groups'), urlresolvers.reverse('wagtailusers_groups:index'), classnames='icon icon-group', order=601)
+    return GroupsMenuItem(_('Groups'), urlresolvers.reverse(
+        'wagtailusers_groups:index'), classnames='icon icon-group', order=601)
 
 
 @hooks.register('register_permissions')

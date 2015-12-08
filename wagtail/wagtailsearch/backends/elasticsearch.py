@@ -371,7 +371,11 @@ class ElasticSearchQuery(BaseSearchQuery):
 class ElasticSearchResults(BaseSearchResults):
     def _get_es_body(self, for_count=False):
         # If to_es has been overridden, call it and raise a deprecation warning
-        if isinstance(self.query, ElasticSearchQuery) and six.get_method_function(self.query.to_es) != ElasticSearchQuery.to_es:
+        if (
+            isinstance(self.query, ElasticSearchQuery)
+            and six.get_method_function(self.query.to_es)
+            != ElasticSearchQuery.to_es
+        ):
             warnings.warn(
                 "The .to_es() method on Elasticsearch query classes is deprecated. "
                 "Please rename {class_name}.to_es() to {class_name}.get_query()".format(
@@ -465,7 +469,9 @@ class ElasticSearchIndexRebuilder(object):
         mapping = ElasticSearchMapping(model)
 
         # Put mapping
-        self.es.indices.put_mapping(index=self.index_name, doc_type=mapping.get_document_type(), body=mapping.get_mapping())
+        self.es.indices.put_mapping(
+            index=self.index_name, doc_type=mapping.get_document_type(), body=mapping.get_mapping()
+        )
 
     def add_items(self, model, obj_list):
         if not class_is_indexed(model):
@@ -612,7 +618,9 @@ class ElasticSearch(BaseSearch):
         mapping = ElasticSearchMapping(model)
 
         # Put mapping
-        self.es.indices.put_mapping(index=self.es_index, doc_type=mapping.get_document_type(), body=mapping.get_mapping())
+        self.es.indices.put_mapping(
+            index=self.es_index, doc_type=mapping.get_document_type(), body=mapping.get_mapping()
+        )
 
     def refresh_index(self):
         self.es.indices.refresh(self.es_index)
@@ -626,7 +634,9 @@ class ElasticSearch(BaseSearch):
         mapping = ElasticSearchMapping(obj.__class__)
 
         # Add document to index
-        self.es.index(self.es_index, mapping.get_document_type(), mapping.get_document(obj), id=mapping.get_document_id(obj))
+        self.es.index(
+            self.es_index, mapping.get_document_type(), mapping.get_document(obj), id=mapping.get_document_id(obj)
+        )
 
     def add_bulk(self, model, obj_list):
         if not class_is_indexed(model):

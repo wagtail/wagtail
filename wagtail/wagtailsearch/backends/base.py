@@ -54,13 +54,19 @@ class BaseSearchQuery(object):
         field = self._get_filterable_field(field_attname)
 
         if field is None:
-            raise FieldError('Cannot filter search results with field "' + field_attname + '". Please add index.FilterField(\'' + field_attname + '\') to ' + self.queryset.model.__name__ + '.search_fields.')
+            raise FieldError(
+                'Cannot filter search results with field "' + field_attname + '". Please add index.FilterField(\''
+                + field_attname + '\') to ' + self.queryset.model.__name__ + '.search_fields.'
+            )
 
         # Process the lookup
         result = self._process_lookup(field, lookup, value)
 
         if result is None:
-            raise FilterError('Could not apply filter on search results: "' + field_attname + '__' + lookup + ' = ' + text_type(value) + '". Lookup "' + lookup + '"" not recognosed.')
+            raise FilterError(
+                'Could not apply filter on search results: "' + field_attname + '__'
+                + lookup + ' = ' + text_type(value) + '". Lookup "' + lookup + '"" not recognosed.'
+            )
 
         return result
 
@@ -208,7 +214,8 @@ class BaseSearch(object):
     def delete(self, obj):
         raise NotImplementedError
 
-    def search(self, query_string, model_or_queryset, fields=None, filters=None, prefetch_related=None, operator=None, order_by_relevance=True):
+    def search(self, query_string, model_or_queryset, fields=None, filters=None,
+               prefetch_related=None, operator=None, order_by_relevance=True):
         # Find model/queryset
         if isinstance(model_or_queryset, QuerySet):
             model = model_or_queryset.model
@@ -241,5 +248,7 @@ class BaseSearch(object):
                 raise ValueError("operator must be either 'or' or 'and'")
 
         # Search
-        search_query = self.search_query_class(queryset, query_string, fields=fields, operator=operator, order_by_relevance=order_by_relevance)
+        search_query = self.search_query_class(
+            queryset, query_string, fields=fields, operator=operator, order_by_relevance=order_by_relevance
+        )
         return self.search_results_class(self, search_query)
