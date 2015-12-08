@@ -520,7 +520,7 @@ msgstr ""
 
 #: templates/wagtailadmin/notifications/submitted.html:2
 #, python-format
-msgid "The page \"%(page)s\" has been submitted for moderation."
+msgid "The page \"%(page)s\" has been submitted for moderation by %(editor)s."
 msgstr ""
 
 #: templates/wagtailadmin/notifications/submitted.html:4
