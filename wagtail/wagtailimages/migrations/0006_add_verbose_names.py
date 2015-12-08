@@ -25,7 +25,10 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='image',
             name='uploaded_by_user',
-            field=models.ForeignKey(blank=True, editable=False, to=settings.AUTH_USER_MODEL, null=True, verbose_name='Uploaded by user'),
+            field=models.ForeignKey(
+                blank=True, editable=False, to=settings.AUTH_USER_MODEL, null=True,
+                verbose_name='Uploaded by user'
+            ),
         ),
         migrations.AlterField(
             model_name='image',

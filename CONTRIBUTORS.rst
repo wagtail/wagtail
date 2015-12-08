@@ -85,6 +85,7 @@ Contributors
 * LKozlowski
 * Matthew Downey
 * Maris Serzans
+* Shu Ishida
 
 
 Translators

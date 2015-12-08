@@ -212,7 +212,10 @@ class AbstractEmailForm(AbstractForm):
     A Form Page that sends email. Pages implementing a form to be send to an email should inherit from it
     """
 
-    to_address = models.CharField(verbose_name=_('to address'), max_length=255, blank=True, help_text=_("Optional - form submissions will be emailed to this address"))
+    to_address = models.CharField(
+        verbose_name=_('to address'), max_length=255, blank=True,
+        help_text=_("Optional - form submissions will be emailed to this address")
+    )
     from_address = models.CharField(verbose_name=_('from address'), max_length=255, blank=True)
     subject = models.CharField(verbose_name=_('subject'), max_length=255, blank=True)
 

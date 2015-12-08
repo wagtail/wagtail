@@ -140,7 +140,9 @@ class TestImagePermissions(TestCase):
         self.owner = User.objects.create_user(username='owner', email='owner@email.com', password='password')
         self.editor = User.objects.create_user(username='editor', email='editor@email.com', password='password')
         self.editor.groups.add(Group.objects.get(name='Editors'))
-        self.administrator = User.objects.create_superuser(username='administrator', email='administrator@email.com', password='password')
+        self.administrator = User.objects.create_superuser(
+            username='administrator', email='administrator@email.com', password='password'
+        )
 
         # Owner user must have the add_image permission
         self.owner.user_permissions.add(Permission.objects.get(codename='add_image'))
@@ -328,7 +330,9 @@ class TestIssue573(TestCase):
         # Create an image with a big filename and focal point
         image = Image.objects.create(
             title="Test image",
-            file=get_test_image_file('thisisaverylongfilename-abcdefghijklmnopqrstuvwxyz-supercalifragilisticexpialidocious.png'),
+            file=get_test_image_file(
+                'thisisaverylongfilename-abcdefghijklmnopqrstuvwxyz-supercalifragilisticexpialidocious.png'
+            ),
             focal_point_x=1000,
             focal_point_y=1000,
             focal_point_width=1000,

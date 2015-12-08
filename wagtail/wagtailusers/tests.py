@@ -314,7 +314,8 @@ class TestGroupEditView(TestCase, WagtailTestUtils):
         }
         for k, v in six.iteritems(post_defaults):
             post_data[k] = post_data.get(k, v)
-        return self.client.post(reverse('wagtailusers_groups:edit', args=(group_id or self.test_group.id, )), post_data)
+        return self.client.post(reverse(
+            'wagtailusers_groups:edit', args=(group_id or self.test_group.id, )), post_data)
 
     def add_non_registered_perm(self):
         # Some groups may have django permissions assigned that are not
