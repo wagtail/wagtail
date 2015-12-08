@@ -1,12 +1,9 @@
 from __future__ import absolute_import, unicode_literals
-
 import json
-
 from django.db import models
 from django import forms
 from django.core.serializers.json import DjangoJSONEncoder
-from django.utils.six import with_metaclass, string_types
-
+from django.utils.six import string_types
 from wagtail.wagtailcore.rich_text import DbWhitelister, expand_db_html
 from wagtail.utils.widgets import WidgetWithScript
 from wagtail.wagtailcore.blocks import Block, StreamBlock, StreamValue, BlockField
@@ -41,7 +38,7 @@ class RichTextField(models.TextField):
         return super(RichTextField, self).formfield(**defaults)
 
 
-class StreamField(with_metaclass(models.SubfieldBase, models.Field)):
+class StreamField(models.Field):
     def __init__(self, block_types, **kwargs):
         if isinstance(block_types, Block):
             self.stream_block = block_types
@@ -63,6 +60,12 @@ class StreamField(with_metaclass(models.SubfieldBase, models.Field)):
         block_types = self.stream_block.child_blocks.items()
         args = [block_types]
         return name, path, args, kwargs
+
+    def from_db_value(self, value, expression, connection, context):
+        if value is None:
+            return None
+
+        return self.to_python(value)
 
     def to_python(self, value):
         if value is None or value == '':
@@ -100,7 +103,7 @@ class StreamField(with_metaclass(models.SubfieldBase, models.Field)):
             return StreamValue(self.stream_block, value)
 
     def get_prep_value(self, value):
-        if isinstance(value, StreamValue) and not(value) and value.raw_text is not None:
+        if isinstance(value, StreamValue) and not (value) and value.raw_text is not None:
             # An empty StreamValue with a nonempty raw_text attribute should have that
             # raw_text attribute written back to the db. (This is probably only useful
             # for reverse migrations that convert StreamField data back into plain text

@@ -1,7 +1,10 @@
 from __future__ import absolute_import
 
-import jinja2
-from jinja2.ext import Extension
+try:
+    import jinja2
+    from jinja2.ext import Extension
+except:
+    Extension = object
 
 from .wagtailcore_tags import pageurl, richtext, slugurl, wagtail_version
 
