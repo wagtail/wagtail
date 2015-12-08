@@ -150,7 +150,7 @@ class HomePage(Page):
     )
 
     class Meta:
-        verbose_name = "Homepage"
+        verbose_name = "homepage"
 
 
 class HomePageCarouselItem(Orderable, AbstractCarouselItem):

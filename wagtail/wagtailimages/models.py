@@ -65,14 +65,14 @@ def get_upload_to(instance, filename):
 
 @python_2_unicode_compatible
 class AbstractImage(models.Model, TagSearchable):
-    title = models.CharField(max_length=255, verbose_name=_('Title'))
-    file = models.ImageField(verbose_name=_('File'), upload_to=get_upload_to, width_field='width', height_field='height')
-    width = models.IntegerField(verbose_name=_('Width'), editable=False)
-    height = models.IntegerField(verbose_name=_('Height'), editable=False)
-    created_at = models.DateTimeField(verbose_name=_('Created at'), auto_now_add=True, db_index=True)
-    uploaded_by_user = models.ForeignKey(settings.AUTH_USER_MODEL, verbose_name=_('Uploaded by user'), null=True, blank=True, editable=False)
+    title = models.CharField(max_length=255, verbose_name=_('title'))
+    file = models.ImageField(verbose_name=_('file'), upload_to=get_upload_to, width_field='width', height_field='height')
+    width = models.IntegerField(verbose_name=_('width'), editable=False)
+    height = models.IntegerField(verbose_name=_('height'), editable=False)
+    created_at = models.DateTimeField(verbose_name=_('created at'), auto_now_add=True, db_index=True)
+    uploaded_by_user = models.ForeignKey(settings.AUTH_USER_MODEL, verbose_name=_('uploaded by user'), null=True, blank=True, editable=False)
 
-    tags = TaggableManager(help_text=None, blank=True, verbose_name=_('Tags'))
+    tags = TaggableManager(help_text=None, blank=True, verbose_name=_('tags'))
 
     focal_point_x = models.PositiveIntegerField(null=True, blank=True)
     focal_point_y = models.PositiveIntegerField(null=True, blank=True)
