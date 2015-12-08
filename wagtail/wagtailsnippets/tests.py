@@ -9,7 +9,9 @@ from taggit.models import Tag
 
 from wagtail.tests.utils import WagtailTestUtils
 from wagtail.tests.testapp.models import Advert, SnippetChooserModel
-from wagtail.tests.snippets.models import AlphaSnippet, ZuluSnippet, RegisterDecorator, RegisterFunction, SearchableSnippet
+from wagtail.tests.snippets.models import (
+    AlphaSnippet, ZuluSnippet, RegisterDecorator, RegisterFunction, SearchableSnippet
+)
 from wagtail.wagtailsnippets.models import register_snippet, SNIPPET_MODELS
 from wagtail.wagtailsnippets.edit_handlers import SnippetChooserPanel
 
@@ -237,7 +239,9 @@ class TestSnippetDelete(TestCase, WagtailTestUtils):
 
     def test_delete_post(self):
         post_data = {'foo': 'bar'}  # For some reason, this test doesn't work without a bit of POST data
-        response = self.client.post(reverse('wagtailsnippets:delete', args=('tests', 'advert', self.test_snippet.id, )), post_data)
+        response = self.client.post(
+            reverse('wagtailsnippets:delete', args=('tests', 'advert', self.test_snippet.id, )), post_data
+        )
 
         # Should be redirected to explorer page
         self.assertRedirects(response, reverse('wagtailsnippets:list', args=('tests', 'advert')))
@@ -471,7 +475,11 @@ class TestAddOnlyPermissions(TestCase, WagtailTestUtils):
         self.test_snippet = Advert.objects.get(id=1)
 
         # Create a user with add_advert permission but not change_advert
-        user = get_user_model().objects.create_user(username='addonly', email='addonly@example.com', password='password')
+        user = get_user_model().objects.create_user(
+            username='addonly',
+            email='addonly@example.com',
+            password='password'
+        )
         add_permission = Permission.objects.get(content_type__app_label='tests', codename='add_advert')
         admin_permission = Permission.objects.get(content_type__app_label='wagtailadmin', codename='access_admin')
         user.user_permissions.add(add_permission, admin_permission)
@@ -511,7 +519,11 @@ class TestEditOnlyPermissions(TestCase, WagtailTestUtils):
         self.test_snippet = Advert.objects.get(id=1)
 
         # Create a user with change_advert permission but not add_advert
-        user = get_user_model().objects.create_user(username='changeonly', email='changeonly@example.com', password='password')
+        user = get_user_model().objects.create_user(
+            username='changeonly',
+            email='changeonly@example.com',
+            password='password'
+        )
         change_permission = Permission.objects.get(content_type__app_label='tests', codename='change_advert')
         admin_permission = Permission.objects.get(content_type__app_label='wagtailadmin', codename='access_admin')
         user.user_permissions.add(change_permission, admin_permission)
@@ -551,7 +563,11 @@ class TestDeleteOnlyPermissions(TestCase, WagtailTestUtils):
         self.test_snippet = Advert.objects.get(id=1)
 
         # Create a user with delete_advert permission
-        user = get_user_model().objects.create_user(username='deleteonly', email='deleteeonly@example.com', password='password')
+        user = get_user_model().objects.create_user(
+            username='deleteonly',
+            email='deleteeonly@example.com',
+            password='password'
+        )
         change_permission = Permission.objects.get(content_type__app_label='tests', codename='delete_advert')
         admin_permission = Permission.objects.get(content_type__app_label='wagtailadmin', codename='access_admin')
         user.user_permissions.add(change_permission, admin_permission)
