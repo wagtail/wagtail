@@ -81,7 +81,7 @@ and the ``validators`` attribute of the 'file' field - that is, the line::
     ('file', models.ImageField(upload_to=wagtail.wagtailimages.models.get_upload_to,
         width_field='width', height_field='height',
         validators=[wagtail.wagtailimages.utils.validators.validate_image_format],
-        verbose_name='File')),
+        verbose_name='file')),
 
 should become::
 

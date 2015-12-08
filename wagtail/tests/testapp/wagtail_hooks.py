@@ -38,4 +38,10 @@ class KittensMenuItem(MenuItem):
 
 @hooks.register('register_admin_menu_item')
 def register_kittens_menu_item():
-    return KittensMenuItem('Kittens!', 'http://www.tomroyal.com/teaandkittens/', classnames='icon icon-kitten', attrs={'data-fluffy': 'yes'}, order=10000)
+    return KittensMenuItem(
+        'Kittens!',
+        'http://www.tomroyal.com/teaandkittens/',
+        classnames='icon icon-kitten',
+        attrs={'data-fluffy': 'yes'},
+        order=10000
+    )

@@ -32,7 +32,11 @@ class TestSiteRouting(TestCase):
         events_page = Page.objects.get(url_path='/home/events/')
         about_page = Page.objects.get(url_path='/home/about-us/')
         self.events_site = Site.objects.create(hostname='events.example.com', root_page=events_page)
-        self.alternate_port_events_site = Site.objects.create(hostname='events.example.com', root_page=events_page, port='8765')
+        self.alternate_port_events_site = Site.objects.create(
+            hostname='events.example.com',
+            root_page=events_page,
+            port='8765'
+        )
         self.about_site = Site.objects.create(hostname='about.example.com', root_page=about_page)
         self.unrecognised_port = '8000'
         self.unrecognised_hostname = 'unknown.site.com'
@@ -419,7 +423,9 @@ class TestCopyPage(TestCase):
         christmas_event = EventPage.objects.get(url_path='/home/events/christmas/')
 
         # Copy it
-        new_christmas_event = christmas_event.copy(update_attrs={'title': "New christmas event", 'slug': 'new-christmas-event'})
+        new_christmas_event = christmas_event.copy(
+            update_attrs={'title': "New christmas event", 'slug': 'new-christmas-event'}
+        )
 
         # Check that the speakers were copied
         self.assertEqual(new_christmas_event.speakers.count(), 1, "Child objects weren't copied")
@@ -429,15 +435,23 @@ class TestCopyPage(TestCase):
 
         # Check that advert placements were also copied (there's a gotcha here, since the advert_placements
         # relation is defined on Page, not EventPage)
-        self.assertEqual(new_christmas_event.advert_placements.count(), 1, "Child objects defined on the superclass weren't copied")
-        self.assertEqual(christmas_event.advert_placements.count(), 1, "Child objects defined on the superclass were removed from the original page")
+        self.assertEqual(
+            new_christmas_event.advert_placements.count(), 1, "Child objects defined on the superclass weren't copied"
+        )
+        self.assertEqual(
+            christmas_event.advert_placements.count(),
+            1,
+            "Child objects defined on the superclass were removed from the original page"
+        )
 
     def test_copy_page_copies_revisions(self):
         christmas_event = EventPage.objects.get(url_path='/home/events/christmas/')
         christmas_event.save_revision()
 
         # Copy it
-        new_christmas_event = christmas_event.copy(update_attrs={'title': "New christmas event", 'slug': 'new-christmas-event'})
+        new_christmas_event = christmas_event.copy(
+            update_attrs={'title': "New christmas event", 'slug': 'new-christmas-event'}
+        )
 
         # Check that the revisions were copied
         # Copying creates a new revision so we're expecting the new page to have two revisions
@@ -467,14 +481,19 @@ class TestCopyPage(TestCase):
         # Also, check that the child objects in the new revision are given new IDs
         old_speakers_ids = set(christmas_event.speakers.values_list('id', flat=True))
         new_speakers_ids = set(speaker['pk'] for speaker in new_revision_content['speakers'])
-        self.assertFalse(old_speakers_ids.intersection(new_speakers_ids), "Child objects in revisions were not given a new primary key")
+        self.assertFalse(
+            old_speakers_ids.intersection(new_speakers_ids),
+            "Child objects in revisions were not given a new primary key"
+        )
 
     def test_copy_page_copies_revisions_and_doesnt_submit_for_moderation(self):
         christmas_event = EventPage.objects.get(url_path='/home/events/christmas/')
         christmas_event.save_revision(submitted_for_moderation=True)
 
         # Copy it
-        new_christmas_event = christmas_event.copy(update_attrs={'title': "New christmas event", 'slug': 'new-christmas-event'})
+        new_christmas_event = christmas_event.copy(
+            update_attrs={'title': "New christmas event", 'slug': 'new-christmas-event'}
+        )
 
         # Check that the old revision is still submitted for moderation
         self.assertTrue(christmas_event.revisions.order_by('created_at').first().submitted_for_moderation)
@@ -492,7 +511,9 @@ class TestCopyPage(TestCase):
         revision.save()
 
         # Copy it
-        new_christmas_event = christmas_event.copy(update_attrs={'title': "New christmas event", 'slug': 'new-christmas-event'})
+        new_christmas_event = christmas_event.copy(
+            update_attrs={'title': "New christmas event", 'slug': 'new-christmas-event'}
+        )
 
         # Check that the created_at time is the same
         christmas_event_created_at = christmas_event.revisions.order_by('created_at').first().created_at
@@ -504,10 +525,15 @@ class TestCopyPage(TestCase):
         christmas_event.save_revision(approved_go_live_at=datetime.datetime(2014, 9, 16, 9, 12, 00, tzinfo=pytz.utc))
 
         # Copy it
-        new_christmas_event = christmas_event.copy(update_attrs={'title': "New christmas event", 'slug': 'new-christmas-event'})
+        new_christmas_event = christmas_event.copy(
+            update_attrs={'title': "New christmas event", 'slug': 'new-christmas-event'}
+        )
 
         # Check that the old revision is still scheduled
-        self.assertEqual(christmas_event.revisions.order_by('created_at').first().approved_go_live_at, datetime.datetime(2014, 9, 16, 9, 12, 00, tzinfo=pytz.utc))
+        self.assertEqual(
+            christmas_event.revisions.order_by('created_at').first().approved_go_live_at,
+            datetime.datetime(2014, 9, 16, 9, 12, 00, tzinfo=pytz.utc)
+        )
 
         # Check that the new revision is not scheduled
         self.assertEqual(new_christmas_event.revisions.order_by('created_at').first().approved_go_live_at, None)
@@ -517,7 +543,9 @@ class TestCopyPage(TestCase):
         christmas_event.save_revision()
 
         # Copy it
-        new_christmas_event = christmas_event.copy(update_attrs={'title': "New christmas event", 'slug': 'new-christmas-event'}, copy_revisions=False)
+        new_christmas_event = christmas_event.copy(
+            update_attrs={'title': "New christmas event", 'slug': 'new-christmas-event'}, copy_revisions=False
+        )
 
         # Check that the revisions weren't copied
         # Copying creates a new revision so we're expecting the new page to have one revision
@@ -531,7 +559,9 @@ class TestCopyPage(TestCase):
         christmas_event = Page.objects.get(url_path='/home/events/christmas/')
 
         # Copy it
-        new_christmas_event = christmas_event.copy(update_attrs={'title': "New christmas event", 'slug': 'new-christmas-event'})
+        new_christmas_event = christmas_event.copy(
+            update_attrs={'title': "New christmas event", 'slug': 'new-christmas-event'}
+        )
 
         # Check that the type of the new page is correct
         self.assertIsInstance(new_christmas_event, EventPage)
@@ -543,7 +573,9 @@ class TestCopyPage(TestCase):
         events_index = EventIndex.objects.get(url_path='/home/events/')
 
         # Copy it
-        new_events_index = events_index.copy(recursive=True, update_attrs={'title': "New events index", 'slug': 'new-events-index'})
+        new_events_index = events_index.copy(
+            recursive=True, update_attrs={'title': "New events index", 'slug': 'new-events-index'}
+        )
 
         # Get christmas event
         old_christmas_event = events_index.get_children().filter(slug='christmas').first()
@@ -560,7 +592,9 @@ class TestCopyPage(TestCase):
         events_index = EventIndex.objects.get(url_path='/home/events/')
 
         # Copy it
-        new_events_index = events_index.copy(recursive=True, update_attrs={'title': "New events index", 'slug': 'new-events-index'})
+        new_events_index = events_index.copy(
+            recursive=True, update_attrs={'title': "New events index", 'slug': 'new-events-index'}
+        )
 
         # Get christmas event
         old_christmas_event = events_index.get_children().filter(slug='christmas').first()
@@ -570,7 +604,9 @@ class TestCopyPage(TestCase):
         self.assertEqual(new_christmas_event.specific.speakers.count(), 1, "Child objects weren't copied")
 
         # Check that the speakers weren't removed from old page
-        self.assertEqual(old_christmas_event.specific.speakers.count(), 1, "Child objects were removed from the original page")
+        self.assertEqual(
+            old_christmas_event.specific.speakers.count(), 1, "Child objects were removed from the original page"
+        )
 
     def test_copy_page_copies_recursively_with_revisions(self):
         events_index = EventIndex.objects.get(url_path='/home/events/')
@@ -578,7 +614,9 @@ class TestCopyPage(TestCase):
         old_christmas_event.save_revision()
 
         # Copy it
-        new_events_index = events_index.copy(recursive=True, update_attrs={'title': "New events index", 'slug': 'new-events-index'})
+        new_events_index = events_index.copy(
+            recursive=True, update_attrs={'title': "New events index", 'slug': 'new-events-index'}
+        )
 
         # Get christmas event
         new_christmas_event = new_events_index.get_children().filter(slug='christmas').first()
@@ -588,7 +626,9 @@ class TestCopyPage(TestCase):
         self.assertEqual(new_christmas_event.specific.revisions.count(), 2)
 
         # Check that the revisions weren't removed from old page
-        self.assertEqual(old_christmas_event.specific.revisions.count(), 1, "Revisions were removed from the original page")
+        self.assertEqual(
+            old_christmas_event.specific.revisions.count(), 1, "Revisions were removed from the original page"
+        )
 
     def test_copy_page_copies_recursively_but_doesnt_copy_revisions_if_told_not_to_do_so(self):
         events_index = EventIndex.objects.get(url_path='/home/events/')
@@ -596,7 +636,11 @@ class TestCopyPage(TestCase):
         old_christmas_event.save_revision()
 
         # Copy it
-        new_events_index = events_index.copy(recursive=True, update_attrs={'title': "New events index", 'slug': 'new-events-index'}, copy_revisions=False)
+        new_events_index = events_index.copy(
+            recursive=True,
+            update_attrs={'title': "New events index", 'slug': 'new-events-index'},
+            copy_revisions=False
+        )
 
         # Get christmas event
         new_christmas_event = new_events_index.get_children().filter(slug='christmas').first()
@@ -606,7 +650,9 @@ class TestCopyPage(TestCase):
         self.assertEqual(new_christmas_event.specific.revisions.count(), 1)
 
         # Check that the revisions weren't removed from old page
-        self.assertEqual(old_christmas_event.specific.revisions.count(), 1, "Revisions were removed from the original page")
+        self.assertEqual(
+            old_christmas_event.specific.revisions.count(), 1, "Revisions were removed from the original page"
+        )
 
     def test_copy_page_updates_user(self):
         event_moderator = get_user_model().objects.get(username='eventmoderator')
@@ -638,7 +684,10 @@ class TestCopyPage(TestCase):
         # Check that new_saint_patrick_event is a different page, including parents from both EventPage and Page
         self.assertNotEqual(saint_patrick_event.id, new_saint_patrick_event.id)
         self.assertNotEqual(saint_patrick_event.eventpage_ptr.id, new_saint_patrick_event.eventpage_ptr.id)
-        self.assertNotEqual(saint_patrick_event.eventpage_ptr.page_ptr.id, new_saint_patrick_event.eventpage_ptr.page_ptr.id)
+        self.assertNotEqual(
+            saint_patrick_event.eventpage_ptr.page_ptr.id,
+            new_saint_patrick_event.eventpage_ptr.page_ptr.id
+        )
 
         # Check that the url path was updated
         self.assertEqual(new_saint_patrick_event.url_path, '/home/events/new-saint-patrick/')

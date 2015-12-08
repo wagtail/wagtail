@@ -106,7 +106,9 @@ def test_page_is_public(context, page):
     DB queries on repeated calls.
     """
     if 'all_page_view_restriction_paths' not in context:
-        context['all_page_view_restriction_paths'] = PageViewRestriction.objects.select_related('page').values_list('page__path', flat=True)
+        context['all_page_view_restriction_paths'] = PageViewRestriction.objects.select_related('page').values_list(
+            'page__path', flat=True
+        )
 
     is_private = any([
         page.path.startswith(restricted_path)
@@ -169,7 +171,12 @@ def render_with_errors(bound_field):
     """
     widget = bound_field.field.widget
     if bound_field.errors and hasattr(widget, 'render_with_errors'):
-        return widget.render_with_errors(bound_field.html_name, bound_field.value(), attrs={'id': bound_field.auto_id}, errors=bound_field.errors)
+        return widget.render_with_errors(
+            bound_field.html_name,
+            bound_field.value(),
+            attrs={'id': bound_field.auto_id},
+            errors=bound_field.errors
+        )
     else:
         return bound_field.as_widget()
 

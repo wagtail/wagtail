@@ -67,7 +67,15 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='page',
             name='owner',
-            field=models.ForeignKey(related_name='owned_pages', on_delete=django.db.models.deletion.SET_NULL, blank=True, editable=False, to=settings.AUTH_USER_MODEL, null=True, verbose_name='Owner'),
+            field=models.ForeignKey(
+                related_name='owned_pages',
+                on_delete=django.db.models.deletion.SET_NULL,
+                blank=True,
+                editable=False,
+                to=settings.AUTH_USER_MODEL,
+                null=True,
+                verbose_name='Owner'
+            ),
         ),
         migrations.AlterField(
             model_name='page',

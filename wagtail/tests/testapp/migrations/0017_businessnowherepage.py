@@ -15,7 +15,16 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='BusinessNowherePage',
             fields=[
-                ('page_ptr', models.OneToOneField(serialize=False, auto_created=True, to='wagtailcore.Page', primary_key=True, parent_link=True)),
+                (
+                    'page_ptr',
+                    models.OneToOneField(
+                        serialize=False,
+                        auto_created=True,
+                        to='wagtailcore.Page',
+                        primary_key=True,
+                        parent_link=True
+                    )
+                ),
             ],
             options={
                 'abstract': False,
