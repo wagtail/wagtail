@@ -29,11 +29,15 @@ class BaseSnippetChooserPanel(BaseChooserPanel):
                 try:
                     cls._target_model = resolve_model_string(cls.snippet_type)
                 except LookupError:
-                    raise ImproperlyConfigured("{0}.snippet_type must be of the form 'app_label.model_name', given {1!r}".format(
-                        cls.__name__, cls.snippet_type))
+                    raise ImproperlyConfigured(
+                        "{0}.snippet_type must be of the form 'app_label.model_name', given {1!r}"
+                        .format(cls.__name__, cls.snippet_type)
+                    )
                 except ValueError:
-                    raise ImproperlyConfigured("{0}.snippet_type refers to model {1!r} that has not been installed".format(
-                        cls.__name__, cls.snippet_type))
+                    raise ImproperlyConfigured(
+                        "{0}.snippet_type refers to model {1!r} that has not been installed"
+                        .format(cls.__name__, cls.snippet_type)
+                    )
             else:
                 cls._target_model = cls.model._meta.get_field(cls.field_name).rel.to
 

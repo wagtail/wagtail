@@ -36,9 +36,18 @@ def index(request):
             is_searching = True
 
             if User.USERNAME_FIELD == 'username':
-                users = User.objects.filter(Q(username__icontains=q) | Q(first_name__icontains=q) | Q(last_name__icontains=q) | Q(email__icontains=q))
+                users = User.objects.filter(
+                    Q(username__icontains=q) |
+                    Q(first_name__icontains=q) |
+                    Q(last_name__icontains=q) |
+                    Q(email__icontains=q)
+                )
             else:
-                users = User.objects.filter(Q(first_name__icontains=q) | Q(last_name__icontains=q) | Q(email__icontains=q))
+                users = User.objects.filter(
+                    Q(first_name__icontains=q) |
+                    Q(last_name__icontains=q) |
+                    Q(email__icontains=q)
+                )
     else:
         form = SearchForm(placeholder=_("Search users"))
 
