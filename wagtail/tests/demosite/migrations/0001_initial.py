@@ -27,7 +27,7 @@ class Migration(migrations.Migration):
                     models.OneToOneField(
                         to='wagtailcore.Page',
                         serialize=False,
-                        arent_link=True,
+                        parent_link=True,
                         related_name='+',
                         primary_key=True
                     )

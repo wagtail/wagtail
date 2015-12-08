@@ -151,8 +151,10 @@ class TestPageExplorerSignposting(TestCase, WagtailTestUtils):
         # about configuring sites
         self.assertContains(
             response,
-            "The root level is where you can add new sites to your Wagtail installation. "
-            "Pages created here will not be accessible at any URL until they are associated with a site."
+            (
+                "The root level is where you can add new sites to your Wagtail installation. "
+                "Pages created here will not be accessible at any URL until they are associated with a site."
+            )
         )
         self.assertContains(response, """<a href="/admin/sites/">Configure a site now.</a>""")
 
@@ -164,8 +166,10 @@ class TestPageExplorerSignposting(TestCase, WagtailTestUtils):
         # unroutable pages, and be directed to the site config area
         self.assertContains(
             response,
-            "There is no site set up for this location. "
-            "Pages created here will not be accessible at any URL until a site is associated with this location."
+            (
+                "There is no site set up for this location. "
+                "Pages created here will not be accessible at any URL until a site is associated with this location."
+            )
         )
         self.assertContains(response, """<a href="/admin/sites/">Configure a site now.</a>""")
 
@@ -194,8 +198,10 @@ class TestPageExplorerSignposting(TestCase, WagtailTestUtils):
         # Non-admin should get a warning about unroutable pages
         self.assertContains(
             response,
-            "There is no site record for this location. "
-            "Pages created here will not be accessible at any URL."
+            (
+                "There is no site record for this location. "
+                "Pages created here will not be accessible at any URL."
+            )
         )
 
     def test_nonadmin_at_site_page(self):

@@ -49,8 +49,10 @@ class Migration(migrations.Migration):
                 ('seo_title', models.CharField(
                     blank=True,
                     max_length=255,
-                    help_text="Optional. 'Search Engine Friendly' title."
-                    " This will appear at the top of the browser window.",
+                    help_text=(
+                        "Optional. 'Search Engine Friendly' title."
+                        " This will appear at the top of the browser window."
+                    ),
                     verbose_name='Page title'
                 )),
                 ('show_in_menus', models.BooleanField(
@@ -113,14 +115,18 @@ class Migration(migrations.Migration):
                 ('hostname', models.CharField(max_length=255, db_index=True)),
                 ('port', models.IntegerField(
                     default=80,
-                    help_text='Set this to something other than 80 if you need a specific port number'
-                    ' to appear in URLs (e.g. development on port 8000).'
-                    ' Does not affect request handling (so port forwarding still works).'
+                    help_text=(
+                        'Set this to something other than 80 if you need a specific port number'
+                        ' to appear in URLs (e.g. development on port 8000).'
+                        ' Does not affect request handling (so port forwarding still works).'
+                    )
                 )),
                 ('is_default_site', models.BooleanField(
                     default=False,
-                    help_text='If true, this site will handle requests for all other hostnames'
-                    ' that do not have a site entry of their own'
+                    help_text=(
+                        'If true, this site will handle requests for all other hostnames'
+                        ' that do not have a site entry of their own'
+                    )
                 )),
                 ('root_page', models.ForeignKey(to='wagtailcore.Page', related_name='sites_rooted_here')),
             ],

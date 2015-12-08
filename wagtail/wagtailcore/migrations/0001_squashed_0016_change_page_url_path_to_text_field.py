@@ -147,8 +147,10 @@ class Migration(migrations.Migration):
                     verbose_name='Page title',
                     max_length=255,
                     blank=True,
-                    help_text="Optional. 'Search Engine Friendly' title."
-                    " This will appear at the top of the browser window."
+                    help_text=(
+                        "Optional. 'Search Engine Friendly' title."
+                        " This will appear at the top of the browser window."
+                    )
                 )),
                 ('show_in_menus', models.BooleanField(
                     default=False,
@@ -273,15 +275,19 @@ class Migration(migrations.Migration):
                 ('port', models.IntegerField(
                     default=80,
                     verbose_name='Port',
-                    help_text='Set this to something other than 80 if you need a specific port number'
-                    ' to appear in URLs (e.g. development on port 8000).'
-                    ' Does not affect request handling (so port forwarding still works).'
+                    help_text=(
+                        'Set this to something other than 80 if you need a specific port number'
+                        ' to appear in URLs (e.g. development on port 8000).'
+                        ' Does not affect request handling (so port forwarding still works).'
+                    )
                 )),
                 ('is_default_site', models.BooleanField(
                     default=False,
                     verbose_name='Is default site',
-                    help_text='If true, this site will handle requests for all other hostnames'
-                    ' that do not have a site entry of their own'
+                    help_text=(
+                        'If true, this site will handle requests for all other hostnames'
+                        ' that do not have a site entry of their own'
+                    )
                 )),
                 ('root_page', models.ForeignKey(
                     verbose_name='Root page',

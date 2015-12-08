@@ -156,8 +156,10 @@ class TestRichTextBlock(TestCase):
         value = RichText('<p>Merry <a linktype="page" id="4">Christmas</a>!</p>')
         result = block.render_form(value, prefix='richtext')
         self.assertIn(
-            '&lt;p&gt;Merry &lt;a data-linktype=&quot;page&quot; data-id=&quot;4&quot;'
-            ' href=&quot;/events/christmas/&quot;&gt;Christmas&lt;/a&gt;!&lt;/p&gt;',
+            (
+                '&lt;p&gt;Merry &lt;a data-linktype=&quot;page&quot; data-id=&quot;4&quot;'
+                ' href=&quot;/events/christmas/&quot;&gt;Christmas&lt;/a&gt;!&lt;/p&gt;'
+            ),
             result
         )
 
@@ -583,8 +585,10 @@ class TestStructBlock(SimpleTestCase):
         )
         self.assertIn('<div class="field url_field widget-url_input fieldname-link">', html)
         self.assertIn(
-            '<input id="mylink-link" name="mylink-link" placeholder="Link"'
-            ' type="url" value="http://www.wagtail.io" />',
+            (
+                '<input id="mylink-link" name="mylink-link" placeholder="Link"'
+                ' type="url" value="http://www.wagtail.io" />'
+            ),
             html
         )
 
@@ -601,13 +605,17 @@ class TestStructBlock(SimpleTestCase):
         }), prefix='mylink')
 
         self.assertIn(
-            '<input id="mylink-title" name="mylink-title" placeholder="Title"'
-            ' type="text" value="Wagtail site" />',
+            (
+                '<input id="mylink-title" name="mylink-title" placeholder="Title"'
+                ' type="text" value="Wagtail site" />'
+            ),
             html
         )
         self.assertIn(
-            '<input id="mylink-link" name="mylink-link" placeholder="Link" type="url"'
-            ' value="http://www.wagtail.io" />',
+            (
+                '<input id="mylink-link" name="mylink-link" placeholder="Link" type="url"'
+                ' value="http://www.wagtail.io" />'
+            ),
             html
         )
 
@@ -626,8 +634,10 @@ class TestStructBlock(SimpleTestCase):
             '<input id="mylink-title" name="mylink-title" placeholder="Title" type="text" value="Torchbox" />', html
         )
         self.assertIn(
-            '<input id="mylink-link" name="mylink-link" placeholder="Link"'
-            ' type="url" value="http://www.torchbox.com" />',
+            (
+                '<input id="mylink-link" name="mylink-link" placeholder="Link"'
+                ' type="url" value="http://www.torchbox.com" />'
+            ),
             html
         )
 
@@ -846,23 +856,31 @@ class TestListBlock(unittest.TestCase):
         html = self.render_form()
 
         self.assertIn(
-            '<input id="links-0-value-title" name="links-0-value-title" placeholder="Title"'
-            ' type="text" value="Wagtail" />',
+            (
+                '<input id="links-0-value-title" name="links-0-value-title" placeholder="Title"'
+                ' type="text" value="Wagtail" />'
+            ),
             html
         )
         self.assertIn(
-            '<input id="links-0-value-link" name="links-0-value-link" placeholder="Link" type="url"'
-            ' value="http://www.wagtail.io" />',
+            (
+                '<input id="links-0-value-link" name="links-0-value-link" placeholder="Link" type="url"'
+                ' value="http://www.wagtail.io" />'
+            ),
             html
         )
         self.assertIn(
-            '<input id="links-1-value-title" name="links-1-value-title" placeholder="Title" type="text"'
-            ' value="Django" />',
+            (
+                '<input id="links-1-value-title" name="links-1-value-title" placeholder="Title" type="text"'
+                ' value="Django" />'
+            ),
             html
         )
         self.assertIn(
-            '<input id="links-1-value-link" name="links-1-value-link" placeholder="Link"'
-            ' type="url" value="http://www.djangoproject.com" />',
+            (
+                '<input id="links-1-value-link" name="links-1-value-link" placeholder="Link"'
+                ' type="url" value="http://www.djangoproject.com" />'
+            ),
             html
         )
 
@@ -892,13 +910,17 @@ class TestListBlock(unittest.TestCase):
         html = block.html_declarations()
 
         self.assertIn(
-            '<input id="__PREFIX__-value-title" name="__PREFIX__-value-title" placeholder="Title"'
-            ' type="text" value="Github" />',
+            (
+                '<input id="__PREFIX__-value-title" name="__PREFIX__-value-title" placeholder="Title"'
+                ' type="text" value="Github" />'
+            ),
             html
         )
         self.assertIn(
-            '<input id="__PREFIX__-value-link" name="__PREFIX__-value-link" placeholder="Link"'
-            ' type="url" value="http://www.github.com" />',
+            (
+                '<input id="__PREFIX__-value-link" name="__PREFIX__-value-link" placeholder="Link"'
+                ' type="url" value="http://www.github.com" />'
+            ),
             html
         )
 
@@ -1180,18 +1202,24 @@ class TestStreamBlock(unittest.TestCase):
         html = self.render_form()
 
         self.assertIn(
-            '<input id="myarticle-0-value" name="myarticle-0-value" placeholder="Heading"'
-            ' type="text" value="My title" />',
+            (
+                '<input id="myarticle-0-value" name="myarticle-0-value" placeholder="Heading"'
+                ' type="text" value="My title" />'
+            ),
             html
         )
         self.assertIn(
-            '<input id="myarticle-1-value" name="myarticle-1-value" placeholder="Paragraph"'
-            ' type="text" value="My first paragraph" />',
+            (
+                '<input id="myarticle-1-value" name="myarticle-1-value" placeholder="Paragraph"'
+                ' type="text" value="My first paragraph" />'
+            ),
             html
         )
         self.assertIn(
-            '<input id="myarticle-2-value" name="myarticle-2-value" placeholder="Paragraph"'
-            ' type="text" value="My second paragraph" />',
+            (
+                '<input id="myarticle-2-value" name="myarticle-2-value" placeholder="Paragraph"'
+                ' type="text" value="My second paragraph" />'
+            ),
             html
         )
 
@@ -1218,13 +1246,17 @@ class TestStreamBlock(unittest.TestCase):
         html = block.html_declarations()
 
         self.assertIn(
-            '<input id="__PREFIX__-value" name="__PREFIX__-value" placeholder="Heading"'
-            ' type="text" value="Fish found on moon" />',
+            (
+                '<input id="__PREFIX__-value" name="__PREFIX__-value" placeholder="Heading"'
+                ' type="text" value="Fish found on moon" />'
+            ),
             html
         )
         self.assertIn(
-            '<input id="__PREFIX__-value" name="__PREFIX__-value" placeholder="Paragraph" type="text"'
-            ' value="Lorem ipsum dolor sit amet" />',
+            (
+                '<input id="__PREFIX__-value" name="__PREFIX__-value" placeholder="Paragraph" type="text"'
+                ' value="Lorem ipsum dolor sit amet" />'
+            ),
             html
         )
 
