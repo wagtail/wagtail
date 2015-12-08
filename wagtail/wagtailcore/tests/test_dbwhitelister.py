@@ -15,8 +15,10 @@ class TestDbWhitelister(TestCase):
         self.assertEqual(BeautifulSoup(str1, 'html5lib'), BeautifulSoup(str2, 'html5lib'))
 
     def test_page_link_is_rewritten(self):
-        input_html = '<p>Look at the <a data-linktype="page" data-id="2" href="/">lovely homepage</a>'
-        ' of my <a href="http://wagtail.io/">Wagtail</a> site</p>'
+        input_html = (
+            '<p>Look at the <a data-linktype="page" data-id="2" href="/">lovely homepage</a>'
+            ' of my <a href="http://wagtail.io/">Wagtail</a> site</p>'
+        )
         output_html = DbWhitelister.clean(input_html)
         expected = (
             '<p>Look at the <a linktype="page" id="2">lovely homepage</a>'
