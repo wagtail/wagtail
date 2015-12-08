@@ -25,18 +25,18 @@ class DocumentQuerySet(SearchableQuerySetMixin, models.QuerySet):
 
 @python_2_unicode_compatible
 class Document(models.Model, TagSearchable):
-    title = models.CharField(max_length=255, verbose_name=_('Title'))
-    file = models.FileField(upload_to='documents', verbose_name=_('File'))
-    created_at = models.DateTimeField(verbose_name=_('Created at'), auto_now_add=True)
+    title = models.CharField(max_length=255, verbose_name=_('title'))
+    file = models.FileField(upload_to='documents', verbose_name=_('file'))
+    created_at = models.DateTimeField(verbose_name=_('created at'), auto_now_add=True)
     uploaded_by_user = models.ForeignKey(
         settings.AUTH_USER_MODEL,
-        verbose_name=_('Uploaded by user'),
+        verbose_name=_('uploaded by user'),
         null=True,
         blank=True,
         editable=False
     )
 
-    tags = TaggableManager(help_text=None, blank=True, verbose_name=_('Tags'))
+    tags = TaggableManager(help_text=None, blank=True, verbose_name=_('tags'))
 
     objects = DocumentQuerySet.as_manager()
 
@@ -78,7 +78,7 @@ class Document(models.Model, TagSearchable):
             return False
 
     class Meta:
-        verbose_name = _('Document')
+        verbose_name = _('document')
 
 
 # Receive the pre_delete signal and delete the file associated with the model instance.

@@ -69,7 +69,7 @@ You can add an icon to the menu by passing an 'icon' argument to the ``register_
     @register_setting(icon='icon-placeholder')
     class SocialMediaSettings(BaseSetting):
         class Meta:
-            verbose_name = 'Social media accounts'
+            verbose_name = 'social media accounts'
         ...
 
 For a list of all available icons, please see the :ref:`styleguide`.

@@ -35,6 +35,7 @@ Bug fixes
  * Settings menu now opens correctly from the page editor and styleguide views
  * ``subpage_types`` / ``parent_page_types`` business rules are now enforced when moving pages
  * Multi-word tags on images and documents are now correctly preserved as a single tag (LKozlowski)
+ * Changed verbose names to start with lower case where necessary (Maris Serzans)
 
 
 Upgrade considerations
