@@ -31,7 +31,7 @@
                             {% endif %}
                         </td>
                         <td>
-                            {{ page.content_type.model_class.get_verbose_name }}
+                            {{ page.specific_class.get_verbose_name }}
                         </td>
                         <td>
                             {% include "wagtailadmin/shared/page_status_tag.html" with page=page %}

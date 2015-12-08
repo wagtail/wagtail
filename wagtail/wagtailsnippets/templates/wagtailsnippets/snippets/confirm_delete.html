@@ -1,13 +1,13 @@
 {% extends "wagtailadmin/base.html" %}
 {% load i18n %}
-{% block titletag %}{% blocktrans %}Delete {{ snippet_type_name}} - {{ instance }}{% endblocktrans %}{% endblock %}
+{% block titletag %}{% blocktrans with snippet_type_name=model_opts.verbose_name %}Delete {{ snippet_type_name }} - {{ instance }}{% endblocktrans %}{% endblock %}
 {% block content %}
     {% trans "Delete" as delete_str %}
     {% include "wagtailadmin/shared/header.html" with title=delete_str subtitle=instance icon="snippet" %}
 
     <div class="nice-padding">
-        <p>{% blocktrans %}Are you sure you want to delete this {{ snippet_type_name }}?{% endblocktrans %}</p>
-        <form action="{% url 'wagtailsnippets:delete' content_type.app_label content_type.model instance.id %}" method="POST">
+        <p>{% blocktrans with snippet_type_name=model_opts.verbose_name %}Are you sure you want to delete this {{ snippet_type_name }}?{% endblocktrans %}</p>
+        <form action="{% url 'wagtailsnippets:delete' model_opts.app_label model_opts.model_name instance.id %}" method="POST">
             {% csrf_token %}
             <input type="submit" value="{% trans 'Yes, delete' %}" class="serious" />
         </form>
