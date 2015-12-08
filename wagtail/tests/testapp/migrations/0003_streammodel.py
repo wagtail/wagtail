@@ -18,7 +18,13 @@ class Migration(migrations.Migration):
             name='StreamModel',
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
-                ('body', wagtail.wagtailcore.fields.StreamField([('text', wagtail.wagtailcore.blocks.CharBlock()), ('image', wagtail.wagtailimages.blocks.ImageChooserBlock())])),
+                (
+                    'body',
+                    wagtail.wagtailcore.fields.StreamField(
+                        [('text', wagtail.wagtailcore.blocks.CharBlock()),
+                            ('image', wagtail.wagtailimages.blocks.ImageChooserBlock())]
+                    )
+                ),
             ],
         ),
     ]

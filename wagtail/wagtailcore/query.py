@@ -181,7 +181,8 @@ class PageQuerySet(SearchableQuerySetMixin, TreeQuerySet):
 
     def type(self, model):
         """
-        This filters the QuerySet to only contain pages that are an instance of the specified model (including subclasses).
+        This filters the QuerySet to only contain pages that are an instance
+        of the specified model (including subclasses).
         """
         return self.filter(self.type_q(model))
 

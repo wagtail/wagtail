@@ -19,7 +19,11 @@ class TestCoreJinja(TestCase):
         from django.template import engines
         self.engine = engines['jinja2']
 
-        self.user = get_user_model().objects.create_superuser(username='test', email='test@email.com', password='password')
+        self.user = get_user_model().objects.create_superuser(
+            username='test',
+            email='test@email.com',
+            password='password'
+        )
         self.homepage = Page.objects.get(id=2)
 
     def render(self, string, context=None, request_context=True):

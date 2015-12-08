@@ -27,7 +27,16 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='SearchTestChild',
             fields=[
-                ('searchtest_ptr', models.OneToOneField(primary_key=True, serialize=False, parent_link=True, to='searchtests.SearchTest', auto_created=True)),
+                (
+                    'searchtest_ptr',
+                    models.OneToOneField(
+                        primary_key=True,
+                        serialize=False,
+                        parent_link=True,
+                        to='searchtests.SearchTest',
+                        auto_created=True
+                    )
+                ),
                 ('subtitle', models.CharField(null=True, max_length=255, blank=True)),
                 ('extra_content', models.TextField()),
             ],

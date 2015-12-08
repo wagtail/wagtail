@@ -79,8 +79,14 @@ class FieldBlock(Block):
 
 class CharBlock(FieldBlock):
     def __init__(self, required=True, help_text=None, max_length=None, min_length=None, **kwargs):
-        # CharField's 'label' and 'initial' parameters are not exposed, as Block handles that functionality natively (via 'label' and 'default')
-        self.field = forms.CharField(required=required, help_text=help_text, max_length=max_length, min_length=min_length)
+        # CharField's 'label' and 'initial' parameters are not exposed, as Block handles that functionality natively
+        # (via 'label' and 'default')
+        self.field = forms.CharField(
+            required=required,
+            help_text=help_text,
+            max_length=max_length,
+            min_length=min_length
+        )
         super(CharBlock, self).__init__(**kwargs)
 
     def get_searchable_content(self, value):
@@ -89,7 +95,12 @@ class CharBlock(FieldBlock):
 
 class TextBlock(FieldBlock):
     def __init__(self, required=True, help_text=None, rows=1, max_length=None, min_length=None, **kwargs):
-        self.field_options = {'required': required, 'help_text': help_text, 'max_length': max_length, 'min_length': min_length}
+        self.field_options = {
+            'required': required,
+            'help_text': help_text,
+            'max_length': max_length,
+            'min_length': min_length
+        }
         self.rows = rows
         super(TextBlock, self).__init__(**kwargs)
 
@@ -106,7 +117,12 @@ class TextBlock(FieldBlock):
 
 class URLBlock(FieldBlock):
     def __init__(self, required=True, help_text=None, max_length=None, min_length=None, **kwargs):
-        self.field = forms.URLField(required=required, help_text=help_text, max_length=max_length, min_length=min_length)
+        self.field = forms.URLField(
+            required=required,
+            help_text=help_text,
+            max_length=max_length,
+            min_length=min_length
+        )
         super(URLBlock, self).__init__(**kwargs)
 
 
@@ -199,7 +215,8 @@ class ChoiceBlock(FieldBlock):
             self._constructor_kwargs['help_text'] = help_text
 
         # If choices does not already contain a blank option, insert one
-        # (to match Django's own behaviour for modelfields: https://github.com/django/django/blob/1.7.5/django/db/models/fields/__init__.py#L732-744)
+        # (to match Django's own behaviour for modelfields:
+        # https://github.com/django/django/blob/1.7.5/django/db/models/fields/__init__.py#L732-744)
         has_blank_choice = False
         for v1, v2 in choices:
             if isinstance(v2, (list, tuple)):
