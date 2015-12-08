@@ -464,6 +464,7 @@ class StreamModel(models.Model):
         ('image', ImageChooserBlock()),
     ])
 
+
 class StreamPage(Page):
     body = StreamField([
         ('text', CharBlock()),
