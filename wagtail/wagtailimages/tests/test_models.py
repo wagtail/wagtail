@@ -166,6 +166,7 @@ class TestImagePermissions(TestCase):
 
 
 class TestRenditions(TestCase):
+
     def setUp(self):
         # Create an image for running tests on
         self.image = Image.objects.create(

@@ -1,7 +1,8 @@
 from django import template
 from django.utils.functional import cached_property
 
-from wagtail.wagtailimages.models import Filter, SourceImageIOError
+from wagtail.wagtailimages.models import Filter
+from wagtail.wagtailimages.shortcuts import get_rendition_or_not_found
 
 register = template.Library()
 
@@ -51,18 +52,7 @@ class ImageNode(template.Node):
         if not image:
             return ''
 
-        try:
-            rendition = image.get_rendition(self.filter)
-        except SourceImageIOError:
-            # It's fairly routine for people to pull down remote databases to their
-            # local dev versions without retrieving the corresponding image files.
-            # In such a case, we would get a SourceImageIOError at the point where we try to
-            # create the resized version of a non-existent image. Since this is a
-            # bit catastrophic for a missing image, we'll substitute a dummy
-            # Rendition object so that we just output a broken link instead.
-            Rendition = image.renditions.model  # pick up any custom Image / Rendition classes that may be in use
-            rendition = Rendition(image=image, width=0, height=0)
-            rendition.file.name = 'not-found'
+        rendition = get_rendition_or_not_found(image, self.filter)
 
         if self.output_var_name:
             # return the rendition object in the given variable
