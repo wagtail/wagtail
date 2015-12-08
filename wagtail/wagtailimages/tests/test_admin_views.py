@@ -130,10 +130,13 @@ class TestImageAddView(TestCase, WagtailTestUtils):
         self.assertTemplateUsed(response, 'wagtailimages/images/add.html')
 
         # The form should have an error
-        self.assertFormError(response, 'form', 'file', "This file is too big ({file_size}). Maximum filesize {max_file_size}.".format(
-            file_size=filesizeformat(len(file_content)),
-            max_file_size=filesizeformat(1),
-        ))
+        self.assertFormError(
+            response, 'form', 'file',
+            "This file is too big ({file_size}). Maximum filesize {max_file_size}.".format(
+                file_size=filesizeformat(len(file_content)),
+                max_file_size=filesizeformat(1),
+            )
+        )
 
 
 class TestImageEditView(TestCase, WagtailTestUtils):
@@ -404,7 +407,9 @@ class TestMultipleImageUploader(TestCase, WagtailTestUtils):
         response = self.client.get(reverse('wagtailimages:add_multiple'))
 
         self.assertEqual(response.context['max_filesize'], 1000)
-        self.assertEqual(response.context['error_max_file_size'], "This file is too big. Maximum filesize 1000\xa0bytes.")
+        self.assertEqual(
+            response.context['error_max_file_size'], "This file is too big. Maximum filesize 1000\xa0bytes."
+        )
 
     def test_add_post(self):
         """
@@ -473,7 +478,9 @@ class TestMultipleImageUploader(TestCase, WagtailTestUtils):
         self.assertIn('success', response_json)
         self.assertIn('error_message', response_json)
         self.assertFalse(response_json['success'])
-        self.assertEqual(response_json['error_message'], "Not a supported image format. Supported formats: GIF, JPEG, PNG.")
+        self.assertEqual(
+            response_json['error_message'], "Not a supported image format. Supported formats: GIF, JPEG, PNG."
+        )
 
     def test_edit_get(self):
         """
@@ -562,7 +569,9 @@ class TestMultipleImageUploader(TestCase, WagtailTestUtils):
         This tests that a POST request to the delete view deletes the image
         """
         # Send request
-        response = self.client.post(reverse('wagtailimages:delete_multiple', args=(self.image.id, )), HTTP_X_REQUESTED_WITH='XMLHttpRequest')
+        response = self.client.post(reverse(
+            'wagtailimages:delete_multiple', args=(self.image.id, )
+        ), HTTP_X_REQUESTED_WITH='XMLHttpRequest')
 
         # Check response
         self.assertEqual(response.status_code, 200)
@@ -768,7 +777,9 @@ class TestEditOnlyPermissions(TestCase, WagtailTestUtils):
         )
 
         # Create a user with change_image permission but not add_image
-        user = get_user_model().objects.create_user(username='changeonly', email='changeonly@example.com', password='password')
+        user = get_user_model().objects.create_user(
+            username='changeonly', email='changeonly@example.com', password='password'
+        )
         change_permission = Permission.objects.get(content_type__app_label='wagtailimages', codename='change_image')
         admin_permission = Permission.objects.get(content_type__app_label='wagtailadmin', codename='access_admin')
         user.user_permissions.add(change_permission, admin_permission)

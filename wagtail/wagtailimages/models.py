@@ -56,11 +56,15 @@ def get_upload_to(instance, filename):
 @python_2_unicode_compatible
 class AbstractImage(models.Model, TagSearchable):
     title = models.CharField(max_length=255, verbose_name=_('Title'))
-    file = models.ImageField(verbose_name=_('File'), upload_to=get_upload_to, width_field='width', height_field='height')
+    file = models.ImageField(
+        verbose_name=_('File'), upload_to=get_upload_to, width_field='width', height_field='height'
+    )
     width = models.IntegerField(verbose_name=_('Width'), editable=False)
     height = models.IntegerField(verbose_name=_('Height'), editable=False)
     created_at = models.DateTimeField(verbose_name=_('Created at'), auto_now_add=True, db_index=True)
-    uploaded_by_user = models.ForeignKey(settings.AUTH_USER_MODEL, verbose_name=_('Uploaded by user'), null=True, blank=True, editable=False)
+    uploaded_by_user = models.ForeignKey(
+        settings.AUTH_USER_MODEL, verbose_name=_('Uploaded by user'), null=True, blank=True, editable=False
+    )
 
     tags = TaggableManager(help_text=None, blank=True, verbose_name=_('Tags'))
 
@@ -259,7 +263,9 @@ class AbstractImage(models.Model, TagSearchable):
             if cache_key:
                 output_extension = cache_key + '.' + output_extension
 
-            output_filename_without_extension = input_filename_without_extension[:(59 - len(output_extension))]  # Truncate filename to prevent it going over 60 chars
+            output_filename_without_extension = input_filename_without_extension[
+                :(59 - len(output_extension))
+            ]  # Truncate filename to prevent it going over 60 chars
             output_filename = output_filename_without_extension + '.' + output_extension
 
             rendition, created = self.renditions.get_or_create(
@@ -343,7 +349,10 @@ def get_image_model():
 
     image_model = apps.get_model(app_label, model_name)
     if image_model is None:
-        raise ImproperlyConfigured("WAGTAILIMAGES_IMAGE_MODEL refers to model '%s' that has not been installed" % settings.WAGTAILIMAGES_IMAGE_MODEL)
+        raise ImproperlyConfigured(
+            "WAGTAILIMAGES_IMAGE_MODEL refers to model '%s' that has not been installed"
+            % settings.WAGTAILIMAGES_IMAGE_MODEL
+        )
     return image_model
 
 
