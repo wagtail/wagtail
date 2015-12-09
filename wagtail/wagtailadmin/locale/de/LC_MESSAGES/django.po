@@ -3,8 +3,10 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# Daniel Manser <me@danielmanser.com>, 2015
 # Ettore Atalan <atalanttore@googlemail.com>, 2015
 # Henrik Kröger <hedwig@riseup.net>, 2015
+# hpoul <herbert.transifex@m.poul.at>, 2015
 # Johannes Spielmann <j@spielmannsolutions.com>, 2014-2015
 # karlsander <karlsander@gmail.com>, 2014
 # karlsander <karlsander@gmail.com>, 2014
@@ -18,8 +20,8 @@ msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2015-08-26 14:28+0100\n"
-"PO-Revision-Date: 2015-09-23 18:20+0000\n"
-"Last-Translator: Ettore Atalan <atalanttore@googlemail.com>\n"
+"PO-Revision-Date: 2015-11-04 14:56+0000\n"
+"Last-Translator: hpoul <herbert.transifex@m.poul.at>\n"
 "Language-Team: German (http://www.transifex.com/torchbox/wagtail/language/"
 "de/)\n"
 "MIME-Version: 1.0\n"
@@ -32,7 +34,7 @@ msgid "Scheduled publishing"
 msgstr "Geplante Veröffentlichung"
 
 msgid "Common page configuration"
-msgstr "Allgemeine Seiten Konfiguration"
+msgstr "Allgemeine Seitenkonfiguration"
 
 msgid "Search"
 msgstr "Suche"
@@ -48,7 +50,7 @@ msgid "Enter your %s"
 msgstr "Bitte %s eingeben"
 
 msgid "Enter your email address to reset your password"
-msgstr "Geben Sie ihre Email-Adresse ein um ihr Passwort zurückzusetzen."
+msgstr "Geben Sie ihre Email-Adresse ein, um ihr Passwort zurückzusetzen."
 
 msgid "Please fill your email address."
 msgstr "Bitte geben Sie ihre Email-Adresse ein."
@@ -250,6 +252,23 @@ msgstr "Auswählen"
 
 msgid "Choose a page"
 msgstr "Seite auswählen"
+
+#, python-format
+msgid ""
+"\n"
+"                Only pages of type \"%(type)s\" may be chosen for this "
+"field. Search results will exclude pages of other types.\n"
+"                "
+msgid_plural ""
+"\n"
+"                Only the following page types may be chosen for this field: "
+"%(type)s. Search results will exclude pages of other types.\n"
+"            "
+msgstr[0] ""
+"\n"
+"Es können nur Seiten des Typs \"%(type)s\" für dieses Feld ausgewählt "
+"werden. Seiten anderer Typen werden nicht in den Suchergebnissen aufgeführt."
+msgstr[1] ""
 
 msgid "Add an email link"
 msgstr "Email-Link hinzufügen"
@@ -873,7 +892,7 @@ msgid "Content"
 msgstr "Inhalt"
 
 msgid "Promote"
-msgstr "Förderung"
+msgstr "Veröffentlichung"
 
 msgid "Settings"
 msgstr "Einstellungen"

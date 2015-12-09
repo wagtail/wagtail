@@ -4,14 +4,15 @@
 #
 # Translators:
 # hanfeng <appweb.cn@gmail.com>, 2014-2015
+# Daniel Hwang <danielblinkhw@gmail.com>, 2015
 # hanfeng <appweb.cn@gmail.com>, 2014
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2015-08-26 14:28+0100\n"
-"PO-Revision-Date: 2015-08-26 13:37+0000\n"
-"Last-Translator: Karl Hobley <karl@torchbox.com>\n"
+"PO-Revision-Date: 2015-12-07 07:14+0000\n"
+"Last-Translator: Daniel Hwang <danielblinkhw@gmail.com>\n"
 "Language-Team: Chinese (China) (http://www.transifex.com/torchbox/wagtail/"
 "language/zh_CN/)\n"
 "MIME-Version: 1.0\n"
@@ -226,6 +227,21 @@ msgstr "选择"
 msgid "Choose a page"
 msgstr "选择一个页面"
 
+#, python-format
+msgid ""
+"\n"
+"                Only pages of type \"%(type)s\" may be chosen for this "
+"field. Search results will exclude pages of other types.\n"
+"                "
+msgid_plural ""
+"\n"
+"                Only the following page types may be chosen for this field: "
+"%(type)s. Search results will exclude pages of other types.\n"
+"            "
+msgstr[0] ""
+"\n"
+"这里只能选择 \"%(type)s\"类型的页面。搜索结果会过滤掉其它类型。"
+
 msgid "Add an email link"
 msgstr "添加一个电邮链接"
 
@@ -234,6 +250,12 @@ msgstr "插入链接"
 
 msgid "Add an external link"
 msgstr "添加一个外部链接"
+
+msgid "Yes, delete"
+msgstr "是的， 删除"
+
+msgid "Save"
+msgstr "保存"
 
 #, python-format
 msgid "Welcome to the %(site_name)s Wagtail CMS"
@@ -524,6 +546,13 @@ msgstr "拖曳"
 msgid "Updated"
 msgstr "已更新"
 
+msgid "No pages have been created at this location."
+msgstr "该位置还没有创建页面。"
+
+#, python-format
+msgid "Why not <a href=\"%(add_page_url)s\">create one</a>?"
+msgstr "为啥不<a href=\"%(add_page_url)s\">创建一个</a>?"
+
 msgid "This page is locked to further editing"
 msgstr "此页面已锁定，无法编辑"
 
@@ -553,6 +582,15 @@ msgstr "此页面已发布，但并没有配置站点，所以无法查看。"
 msgid "Add child page"
 msgstr "添加子页面"
 
+#, python-format
+msgid ""
+"\n"
+"        Page %(page_number)s of %(num_pages)s.\n"
+"    "
+msgstr ""
+"\n"
+"页面 %(page_number)s / %(num_pages)s。"
+
 msgid "Previous"
 msgstr "上一个"
 
@@ -578,6 +616,19 @@ msgstr "为 %(title)s选择新父节点"
 #, python-format
 msgid "Select a new parent page for <span>%(title)s</span>"
 msgstr "为<span>%(title)s</span>选择新的父节点"
+
+#, python-format
+msgid ""
+"\n"
+"                There is one matching page\n"
+"            "
+msgid_plural ""
+"\n"
+"                There are %(counter)s matching pages\n"
+"            "
+msgstr[0] ""
+"\n"
+"有%(counter)s个符合要求的页面"
 
 msgid "Other searches"
 msgstr "其它搜索"
@@ -698,6 +749,9 @@ msgstr "添加子页面"
 
 msgid "Add"
 msgstr "新增"
+
+msgid "Sorry, you do not have permission to access this area."
+msgstr "对不起， 你没有权限访问。"
 
 msgid "Your password has been changed successfully!"
 msgstr "密码成功修改！"
