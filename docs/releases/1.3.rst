@@ -10,6 +10,11 @@ Wagtail 1.3 release notes - IN DEVELOPMENT
 What's new
 ==========
 
+Django 1.9 support
+~~~~~~~~~~~~~~~~~~
+
+Wagtail is now compatible with Django 1.9.
+
 
 Minor features
 ~~~~~~~~~~~~~~
