@@ -9,8 +9,9 @@ def remove_duplicate_renditions(apps, schema_editor):
         schema_editor.execute("""
             DELETE FROM `wagtailimages_rendition` WHERE CONCAT(image_id, '-', filter_id) IN (
                 SELECT CONCAT(image_id, '-', filter_id)
-                FROM (SELECT * FROM `wagtailimages_rendition`) as x WHERE `focal_point_key` IS NULL GROUP BY image_id,
-                filter_id HAVING COUNT(*) > 1
+                FROM (SELECT * FROM `wagtailimages_rendition`) as x
+                WHERE `focal_point_key` IS NULL
+                GROUP BY image_id, filter_id HAVING COUNT(*) > 1
             ) AND `focal_point_key` IS NULL
         """)
     elif schema_editor.connection.vendor == 'microsoft':

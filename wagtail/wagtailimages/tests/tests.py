@@ -147,8 +147,8 @@ class TestFormat(TestCase):
         )
         six.assertRegex(
             self, result,
-            '<img data-embedtype="image" data-id="0" data-format="test name" \
-            data-alt="test alt text" class="test classnames" src="[^"]+" width="1" height="1" alt="test alt text">',
+            '<img data-embedtype="image" data-id="0" data-format="test name" '
+            'data-alt="test alt text" class="test classnames" src="[^"]+" width="1" height="1" alt="test alt text">',
         )
 
     def test_image_to_html_no_classnames(self):

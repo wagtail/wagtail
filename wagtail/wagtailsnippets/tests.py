@@ -9,8 +9,9 @@ from taggit.models import Tag
 
 from wagtail.tests.utils import WagtailTestUtils
 from wagtail.tests.testapp.models import Advert, SnippetChooserModel
-from wagtail.tests.snippets.models \
-    import AlphaSnippet, ZuluSnippet, RegisterDecorator, RegisterFunction, SearchableSnippet
+from wagtail.tests.snippets.models import (
+    AlphaSnippet, ZuluSnippet, RegisterDecorator, RegisterFunction, SearchableSnippet
+)
 from wagtail.wagtailsnippets.models import register_snippet, SNIPPET_MODELS
 from wagtail.wagtailsnippets.edit_handlers import SnippetChooserPanel
 

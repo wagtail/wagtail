@@ -258,9 +258,8 @@ class AbstractImage(models.Model, TagSearchable):
             if cache_key:
                 output_extension = cache_key + '.' + output_extension
 
-            output_filename_without_extension = input_filename_without_extension[
-                :(59 - len(output_extension))
-            ]  # Truncate filename to prevent it going over 60 chars
+            # Truncate filename to prevent it going over 60 chars
+            output_filename_without_extension = input_filename_without_extension[:(59 - len(output_extension))]
             output_filename = output_filename_without_extension + '.' + output_extension
 
             rendition, created = self.renditions.get_or_create(
@@ -345,8 +344,8 @@ def get_image_model():
     image_model = apps.get_model(app_label, model_name)
     if image_model is None:
         raise ImproperlyConfigured(
-            "WAGTAILIMAGES_IMAGE_MODEL refers to model '%s' that has not been installed"
-            % settings.WAGTAILIMAGES_IMAGE_MODEL
+            "WAGTAILIMAGES_IMAGE_MODEL refers to model '%s' that has not been installed" %
+            settings.WAGTAILIMAGES_IMAGE_MODEL
         )
     return image_model
 
