@@ -14,8 +14,8 @@ from wagtail.wagtailusers.urls import users, groups
 @hooks.register('register_admin_urls')
 def register_admin_urls():
     return [
-        url(r'^users/', include(users, namespace='wagtailusers_users')),
-        url(r'^groups/', include(groups, namespace='wagtailusers_groups')),
+        url(r'^users/', include(users, app_name='wagtailusers_users', namespace='wagtailusers_users')),
+        url(r'^groups/', include(groups, app_name='wagtailusers_groups', namespace='wagtailusers_groups')),
     ]
 
 

@@ -12,7 +12,7 @@ from wagtail.wagtailsites import urls
 @hooks.register('register_admin_urls')
 def register_admin_urls():
     return [
-        url(r'^sites/', include(urls, namespace='wagtailsites')),
+        url(r'^sites/', include(urls, app_name='wagtailsites', namespace='wagtailsites')),
     ]
 
 

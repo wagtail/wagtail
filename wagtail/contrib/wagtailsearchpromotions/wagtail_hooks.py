@@ -12,7 +12,7 @@ from wagtail.wagtailadmin.menu import MenuItem
 @hooks.register('register_admin_urls')
 def register_admin_urls():
     return [
-        url(r'^searchpicks/', include(admin_urls, namespace='wagtailsearchpromotions')),
+        url(r'^searchpicks/', include(admin_urls, app_name='wagtailsearchpromotions', namespace='wagtailsearchpromotions')),
     ]
 
 
