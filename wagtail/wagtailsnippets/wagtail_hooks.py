@@ -16,7 +16,7 @@ from wagtail.wagtailsnippets.models import get_snippet_content_types
 @hooks.register('register_admin_urls')
 def register_admin_urls():
     return [
-        url(r'^snippets/', include(urls, namespace='wagtailsnippets')),
+        url(r'^snippets/', include(urls, app_name='wagtailsnippets', namespace='wagtailsnippets')),
     ]
 
 
