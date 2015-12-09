@@ -5,10 +5,10 @@ import hashlib
 from contextlib import contextmanager
 from collections import OrderedDict
 
-
 from taggit.managers import TaggableManager
 from willow.image import Image as WillowImage
 
+import django
 from django.core.files import File
 from django.core.exceptions import ImproperlyConfigured
 from django.db import models
@@ -226,7 +226,10 @@ class AbstractImage(models.Model, TagSearchable):
     @classmethod
     def get_rendition_model(cls):
         """ Get the Rendition model for this Image model """
-        return get_related_model(cls.renditions.related)
+        if django.VERSION >= (1, 9):
+            return get_related_model(cls.renditions.rel)
+        else:
+            return get_related_model(cls.renditions.related)
 
     def get_rendition(self, filter):
         if isinstance(filter, string_types):
@@ -435,7 +438,7 @@ class Filter(models.Model):
 
 
 class AbstractRendition(models.Model):
-    filter = models.ForeignKey('Filter', related_name='+')
+    filter = models.ForeignKey(Filter, related_name='+')
     file = models.ImageField(upload_to='images', width_field='width', height_field='height')
     width = models.IntegerField(editable=False)
     height = models.IntegerField(editable=False)
@@ -482,7 +485,7 @@ class AbstractRendition(models.Model):
 
 
 class Rendition(AbstractRendition):
-    image = models.ForeignKey('Image', related_name='renditions')
+    image = models.ForeignKey(Image, related_name='renditions')
 
     class Meta:
         unique_together = (

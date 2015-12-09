@@ -1,6 +1,7 @@
 from datetime import timedelta
 import mock
 
+import django
 from django.test import TestCase
 from django.core.urlresolvers import reverse
 from django.contrib.auth import get_user_model
@@ -626,15 +627,66 @@ class TestPageCreation(TestCase, WagtailTestUtils):
             'content': "Some content",
             'slug': 'hello-world',
             'action-submit': "Submit",
-            'seo_title': '\t',
         }
         response = self.client.post(
             reverse('wagtailadmin_pages:add', args=('tests', 'simplepage', self.root_page.id)), post_data
         )
 
         # Check that a form error was raised
-        self.assertFormError(response, 'form', 'title', "Value cannot be entirely whitespace characters")
-        self.assertFormError(response, 'form', 'seo_title', "Value cannot be entirely whitespace characters")
+        if django.VERSION >= (1, 9):
+            self.assertFormError(response, 'form', 'title', "This field is required.")
+        else:
+            self.assertFormError(response, 'form', 'title', "This field cannot be blank.")
+
+    def test_whitespace_titles_with_tab(self):
+        post_data = {
+            'title': "\t",  # Single space on purpose
+            'content': "Some content",
+            'slug': 'hello-world',
+            'action-submit': "Submit",
+        }
+        response = self.client.post(reverse('wagtailadmin_pages:add', args=('tests', 'simplepage', self.root_page.id)), post_data)
+
+        # Check that a form error was raised
+        if django.VERSION >= (1, 9):
+            self.assertFormError(response, 'form', 'title', "This field is required.")
+        else:
+            self.assertFormError(response, 'form', 'title', "This field cannot be blank.")
+
+    def test_whitespace_titles_with_tab_in_seo_title(self):
+        post_data = {
+            'title': "Hello",
+            'content': "Some content",
+            'slug': 'hello-world',
+            'action-submit': "Submit",
+            'seo_title': '\t'
+        }
+        response = self.client.post(reverse('wagtailadmin_pages:add', args=('tests', 'simplepage', self.root_page.id)), post_data)
+
+        # Should be successful, as seo_title is not required
+        self.assertEqual(response.status_code, 302)
+
+        # The tab should be automatically stripped from the seo_title
+        page = Page.objects.order_by('-id').first()
+        self.assertEqual(page.seo_title, '')
+
+    def test_whitespace_is_stripped_from_titles(self):
+        post_data = {
+            'title': "   Hello   ",
+            'content': "Some content",
+            'slug': 'hello-world',
+            'action-submit': "Submit",
+            'seo_title': '   hello SEO   '
+        }
+        response = self.client.post(reverse('wagtailadmin_pages:add', args=('tests', 'simplepage', self.root_page.id)), post_data)
+
+        # Should be successful, as both title and seo_title are non-empty after stripping
+        self.assertEqual(response.status_code, 302)
+
+        # Whitespace should be automatically stripped from title and seo_title
+        page = Page.objects.order_by('-id').first()
+        self.assertEqual(page.title, 'Hello')
+        self.assertEqual(page.seo_title, 'hello SEO')
 
     def test_long_slug(self):
         post_data = {

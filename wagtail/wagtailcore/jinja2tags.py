@@ -3,7 +3,7 @@ from __future__ import absolute_import
 import jinja2
 from jinja2.ext import Extension
 
-from .wagtailcore_tags import pageurl, richtext, slugurl, wagtail_version
+from .templatetags.wagtailcore_tags import pageurl, richtext, slugurl, wagtail_version
 
 
 class WagtailCoreExtension(Extension):

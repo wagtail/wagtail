@@ -42,6 +42,32 @@ Bug fixes
 Upgrade considerations
 ======================
 
+Jinja2 template tag modules have changed location
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Due to a change in the way template tags are imported in Django 1.9, it has been necessary to move the Jinja2 template tag modules from "templatetags" to a new location, "jinja2tags". The correct configuration settings to enable Jinja2 templates are now as follows:
+
+.. code-block:: python
+
+    TEMPLATES = [
+        # ...
+        {
+            'BACKEND': 'django.template.backends.jinja2.Jinja2',
+            'APP_DIRS': True,
+            'OPTIONS': {
+                'extensions': [
+                    'wagtail.wagtailcore.jinja2tags.core',
+                    'wagtail.wagtailadmin.jinja2tags.userbar',
+                    'wagtail.wagtailimages.jinja2tags.images',
+                ],
+            },
+        }
+    ]
+
+
+See: :doc:`/advanced_topics/jinja2`
+
+
 ContentType-returning methods in wagtailcore are deprecated
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
