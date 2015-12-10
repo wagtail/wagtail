@@ -49,10 +49,6 @@ def chooser(request):
         # this request is triggered from search, pagination or 'popular tags';
         # we will just render the results.html fragment
 
-        tag_name = request.GET.get('tag')
-        if tag_name:
-            images = images.filter(tags__name=tag_name)
-
         searchform = SearchForm(request.GET)
         if searchform.is_valid():
             q = searchform.cleaned_data['q']
@@ -61,6 +57,10 @@ def chooser(request):
             is_searching = True
         else:
             is_searching = False
+
+            tag_name = request.GET.get('tag')
+            if tag_name:
+                images = images.filter(tags__name=tag_name)
 
         # Pagination
         paginator, images = paginate(request, images, per_page=12)
