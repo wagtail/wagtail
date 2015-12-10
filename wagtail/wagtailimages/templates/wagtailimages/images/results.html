@@ -19,7 +19,7 @@
         {% for image in images %}
             <li>
                 <a class="image-choice" href="{% url 'wagtailimages:edit' image.id %}">
-                    <div class="image">{% image image max-165x165 class="show-transparency" %}</div>
+                    {% include "wagtailimages/images/results_image.html" %}
                     <h3>{{ image.title|ellipsistrim:60 }}</h3>
                 </a>
             </li>
