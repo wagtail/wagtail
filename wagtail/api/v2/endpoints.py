@@ -45,6 +45,7 @@ class BaseAPIEndpoint(GenericViewSet):
         'fields',
         'order',
         'search',
+        'search_operator',
 
         # Used by jQuery for cache-busting. See #1671
         '_',
