@@ -134,7 +134,7 @@ class Command(LabelCommand):
         # Create blog page
         try:
             self.blogpage = StandardPage.objects.get(slug=slug)
-        except:
+        except StandardPage.DoesNotExist:
             # Get root page
             rootpage = Page.objects.first()
 
@@ -149,7 +149,7 @@ class Command(LabelCommand):
                 slug=slug,
             )
             rootpage.add_child(instance=self.blogpage)
-            revision = rootpage.save_revision()
+            revision = self.blogpage.save_revision()
             revision.publish()
 
     # def import_categories(self, category_nodes):
@@ -204,12 +204,12 @@ class Command(LabelCommand):
             page = StandardPage(
                 title=title,
                 body=content,
-                excerpt=strip_tags(excerpt),
+                # excerpt=strip_tags(excerpt),
                 slug=slug,
                 go_live_at=datetime.strptime(item_node.find(u'{{{0:s}}}post_date_gmt'.format(WP_NS)).text,
                                              '%Y-%m-%d %H:%M:%S'),
                 first_published_at=creation_date,
-                date=creation_date,
+                # date=creation_date,
                 owner=self.authors.get(creator),
                 seo_title=title,
                 search_description=excerpt,
