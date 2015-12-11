@@ -338,6 +338,10 @@ class Page(six.with_metaclass(PageBase, MP_Node, ClusterableModel, index.Indexed
         index.FilterField('first_published_at'),
         index.FilterField('latest_revision_created_at'),
     )
+    
+    class Meta:
+        verbose_name = _('Page')
+        verbose_name_plural = _('Pages')
 
     # Do not allow plain Page instances to be created through the Wagtail admin
     is_creatable = False
