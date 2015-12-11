@@ -24,12 +24,52 @@ from django.core.management.base import LabelCommand
 from django.core.files.temp import NamedTemporaryFile
 
 from wagtail.wagtailcore.models import Page, Site
+from wagtail.wagtailcore.whitelist import Whitelister
 from wagtail.wagtailimages.models import Image as WagtailImage
 from demo.models import StandardPage
 # from puput.models import BlogPage, EntryPage, TagEntryPage as PuputTagEntryPage, Tag as PuputTag, \
 #     Category as PuputCategory, CategoryEntryPage as PuputCategoryEntryPage
 
 WP_NS = 'http://wordpress.org/export/%s/'
+
+
+class ImgToEmbedTags(Whitelister):
+
+    @classmethod
+    def _import_image(self, image_url):
+        img = NamedTemporaryFile(delete=True)
+        img.write(requests.get(image_url).content)
+        img.flush()
+        return img
+
+    @classmethod
+    def clean_tag_node(cls, doc, tag):
+
+        if tag.name == 'img':
+            tag.name = 'embed'
+            img = cls._import_image(tag.attrs['src'])
+
+            # try:
+            #     title = tag.attrs['title'] or tag.attrs['alt']
+            # except:
+            #     title = 'none'
+
+            new_image = WagtailImage(file=File(file=img))
+            new_image.save()
+
+            tag.attrs['src'] = new_image.get_rendition('original').file.url
+            tag.attrs['test'] = 'test'
+
+            print (tag.attrs)
+            # new_image = WagtailImage(file=File(file=img, name=title), title=title)
+            # new_image.save()
+            # parent_node = next(tag.iterancestors())
+            # if 'wp-content' in el.attrib['src'] or 'files' in el.attrib['src']:
+            # el.attrib['src'] = new_image.get_rendition('original').file.url
+            # parent_node.attrib['href'] = new_image.get_rendition('original').file.url
+            # self.stdout.write(u'\t\t{}'.format(el.attrib['src']))
+        else:
+            super(ImgToEmbedTags, cls).clean_tag_node(doc, tag)
 
 
 class Command(LabelCommand):
@@ -220,16 +260,16 @@ class Command(LabelCommand):
         # self.import_entry_tags(item_node.findall('category'), page)
         # self.import_entry_categories(item_node.findall('category'), page)
         # Import header image
-        # image_id = self.find_image_id(item_node.findall(u'{{{0:s}}}postmeta'.format(WP_NS)))
-        # if image_id:
-            # self.import_header_image(page, items, image_id)
+        image_id = self.find_image_id(item_node.findall(u'{{{0:s}}}postmeta'.format(WP_NS)))
+        if image_id:
+            self.import_header_image(page, items, image_id)
         page.save()
         page.save_revision(changed=False)
 
-    # def find_image_id(self, metadatas):
-        # for meta in metadatas:
-        #     if meta.find(u'{{{0:s}}}meta_key'.format(WP_NS)).text == '_thumbnail_id':
-        #         return meta.find(u'{{{0:s}}}meta_value'.format(WP_NS)).text
+    def find_image_id(self, metadatas):
+        for meta in metadatas:
+            if meta.find(u'{{{0:s}}}meta_key'.format(WP_NS)).text == '_thumbnail_id':
+                return meta.find(u'{{{0:s}}}meta_value'.format(WP_NS)).text
 
     def import_entries(self, items):
         self.stdout.write("Importing entries...")
@@ -237,50 +277,45 @@ class Command(LabelCommand):
         for item_node in items:
             title = (item_node.find('title').text or '')[:255]
             post_type = item_node.find(u'{{{0:s}}}post_type'.format(WP_NS)).text
-            print (post_type)
+            # print (post_type)
             content = item_node.find('{http://purl.org/rss/1.0/modules/content/}encoded').text
-            print (content)
+            # print (content)
 
             if post_type == 'post' and content and title:
                 self.stdout.write(u'\t{0:s}'.format(title))
-                # content = self.process_content_image(content)
+                content = self.process_content_image(content)
+                # print (content)
                 self.import_entry(title, content, items, item_node)
 
-    # def _import_image(self, image_url):
-        # img = NamedTemporaryFile(delete=True)
-        # img.write(requests.get(image_url).content)
-        # img.flush()
-        # return img
 
-    # def import_header_image(self, entry, items, image_id):
-        # self.stdout.write('\tImport header images....')
-        # for item in items:
-        #     post_type = item.find(u'{{{0:s}}}post_type'.format(WP_NS)).text
-        #     if post_type == 'attachment' and item.find(u'{{{0:s}}}post_id'.format(WP_NS)).text == image_id:
-        #         title = item.find('title').text
-        #         image_url = item.find(u'{{{0:s}}}attachment_url'.format(WP_NS)).text
-        #         img = self._import_image(image_url)
-        #         new_image = WagtailImage(file=File(file=img, name=title), title=title)
-        #         new_image.save()
-        #         entry.header_image = new_image
-        #         entry.save()
 
-    # def process_content_image(self, content):
-        # self.stdout.write('\tGenerate and replace entry content images....')
-        # if content:
-        #     print (content)
-        #     root = ET.fromstring(content)
-        #     print (root)
-        #     for el in root.iter('img'):
-        #         parent_node = next(el.iterancestors())
-        #         if 'wp-content' in el.attrib['src'] or 'files' in el.attrib['src']:
-        #             img = self._import_image(el.attrib['src'])
-        #             title = el.attrib.get('title') or el.attrib.get('alt')
-        #             new_image = WagtailImage(file=File(file=img, name=title), title=title)
-        #             new_image.save()
-        #             el.attrib['src'] = new_image.get_rendition('original').file.url
-        #             parent_node.attrib['href'] = new_image.get_rendition('original').file.url
-        #             self.stdout.write(u'\t\t{}'.format(el.attrib['src']))
-        #     # New content with images replaced
-        #     content = ET.tostring(root, pretty_print=True).decode('utf-8')
-        # # return content
+    def import_header_image(self, entry, items, image_id):
+        self.stdout.write('\tImport header images....')
+        for item in items:
+            post_type = item.find(u'{{{0:s}}}post_type'.format(WP_NS)).text
+            if post_type == 'attachment' and item.find(u'{{{0:s}}}post_id'.format(WP_NS)).text == image_id:
+                title = item.find('title').text
+                image_url = item.find(u'{{{0:s}}}attachment_url'.format(WP_NS)).text
+                img = self._import_image(image_url)
+                new_image = WagtailImage(file=File(file=img, name=title), title=title)
+                new_image.save()
+                entry.header_image = new_image
+                entry.save()
+
+    def process_content_image(self, content):
+        self.stdout.write('\tGenerate and replace entry content images....')
+        if content:
+            content = ImgToEmbedTags.clean(content)
+
+            # print (content)
+            # print (content)
+            # root = self.tree.getroot()
+            # # root = ET.fromstring(content)
+            # print (root.findall('img'))
+            # for el in root.findall('img'):
+            #     print (el)
+            #     parent_node = next(el.iterancestors())
+            #     if 'wp-content' in el.attrib['src'] or 'files' in el.attrib['src']:
+            # New content with images replaced
+            # content = ET.tostring(root).decode('utf-8')
+        return content
