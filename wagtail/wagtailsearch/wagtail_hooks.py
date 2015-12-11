@@ -7,5 +7,5 @@ from wagtail.wagtailsearch.urls import admin as admin_urls
 @hooks.register('register_admin_urls')
 def register_admin_urls():
     return [
-        url(r'^search/', include(admin_urls)),
+        url(r'^search/', include(admin_urls, namespace='wagtailsearch_admin')),
     ]
