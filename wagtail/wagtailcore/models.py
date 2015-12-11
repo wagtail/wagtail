@@ -684,12 +684,29 @@ class Page(six.with_metaclass(PageBase, MP_Node, ClusterableModel, index.Indexed
         """
         return (not self.is_leaf()) or self.depth == 2
 
+    def get_url_parts(self):
+        """
+        Determine the URL for this page and return it as a tuple of
+        (site_id, site_root_url, page_url_relative_to_site_root).
+        Return None if the page is not routable.
+
+        Pages with custom URL routing should override this.
+        """
+        for (site_id, root_path, root_url) in Site.get_site_root_paths():
+            if self.url_path.startswith(root_path):
+                page_path = reverse('wagtail_serve', args=(self.url_path[len(root_path):],))
+                return (site_id, root_url, page_path)
+
     @property
     def full_url(self):
         """Return the full URL (including protocol / domain) to this page, or None if it is not routable"""
-        for (id, root_path, root_url) in Site.get_site_root_paths():
-            if self.url_path.startswith(root_path):
-                return root_url + reverse('wagtail_serve', args=(self.url_path[len(root_path):],))
+        try:
+            site_id, root_url, page_path = self.get_url_parts()
+        except TypeError:
+            # get_url_parts returned None; page is not routable
+            return None
+
+        return root_url + page_path
 
     @property
     def url(self):
@@ -701,12 +718,17 @@ class Page(six.with_metaclass(PageBase, MP_Node, ClusterableModel, index.Indexed
         same domain), and the full URL (with domain) if not.
         Return None if the page is not routable.
         """
-        root_paths = Site.get_site_root_paths()
-        for (id, root_path, root_url) in root_paths:
-            if self.url_path.startswith(root_path):
-                return ('' if len(root_paths) == 1 else root_url) + reverse(
-                    'wagtail_serve', args=(self.url_path[len(root_path):],)
-                )
+        try:
+            site_id, root_url, page_path = self.get_url_parts()
+        except TypeError:
+            # get_url_parts returned None; page is not routable
+            return None
+
+        if len(Site.get_site_root_paths()) == 1:
+            # we're only running a single site, so a local URL is sufficient
+            return page_path
+        else:
+            return root_url + page_path
 
     def relative_url(self, current_site):
         """
@@ -714,11 +736,25 @@ class Page(six.with_metaclass(PageBase, MP_Node, ClusterableModel, index.Indexed
         a local URL if the site matches, or a fully qualified one otherwise.
         Return None if the page is not routable.
         """
-        for (id, root_path, root_url) in Site.get_site_root_paths():
-            if self.url_path.startswith(root_path):
-                return ('' if current_site.id == id else root_url) + reverse(
-                    'wagtail_serve', args=(self.url_path[len(root_path):],)
-                )
+        try:
+            site_id, root_url, page_path = self.get_url_parts()
+        except TypeError:
+            # get_url_parts returned None; page is not routable
+            return None
+
+        if site_id == current_site.id:
+            return page_path
+        else:
+            return root_url + page_path
+
+    def get_site(self):
+        try:
+            site_id, root_url, page_path = self.get_url_parts()
+        except TypeError:
+            # get_url_parts returned None; page is not routable
+            return None
+
+        return Site.objects.get(id=site_id)
 
     @classmethod
     def get_indexed_objects(cls):
