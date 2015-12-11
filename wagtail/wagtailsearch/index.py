@@ -1,4 +1,7 @@
+import django
 from django.db import models
+from django.db.models.fields import FieldDoesNotExist
+from django.db.models.fields.related import RelatedField, ForeignObjectRel, OneToOneRel
 from django.apps import apps
 
 
@@ -57,7 +60,14 @@ class Indexed(object):
 
     @classmethod
     def get_indexed_objects(cls):
-        return cls.objects.all()
+        queryset = cls.objects.all()
+
+        # Add prefetch/select related for RelatedFields
+        for field in cls.get_search_fields():
+            if isinstance(field, RelatedFields):
+                queryset = field.select_on_queryset(queryset)
+
+        return queryset
 
     def get_indexed_instance(self):
         """
@@ -136,3 +146,66 @@ class SearchField(BaseField):
 
 class FilterField(BaseField):
     suffix = '_filter'
+
+
+class RelatedFields(object):
+    def __init__(self, field_name, fields):
+        self.field_name = field_name
+        self.fields = fields
+
+    def get_index_name(self, cls):
+        return self.field_name
+
+    def get_field(self, cls):
+        return cls._meta.get_field(self.field_name)
+
+    def get_value(self, obj):
+        field = self.get_field(obj.__class__)
+
+        if isinstance(field, RelatedField):
+            return getattr(obj, self.field_name)
+
+    def select_on_queryset(self, queryset):
+        """
+        This method runs either prefetch_related or select_related on the queryset
+        to improve indexing speed of the relation.
+
+        It decides which method to call based on the number of related objects:
+         - single (eg ForeignKey, OneToOne), it runs select_related
+         - multiple (eg ManyToMany, reverse ForeignKey) it runs prefetch_related
+
+        This optimisation currently doesn't support reverse relations on Django 1.7.
+        """
+        try:
+            field = self.get_field(queryset.model)
+        except FieldDoesNotExist:
+            return queryset
+
+        if isinstance(field, RelatedField):
+            if django.VERSION >= (1, 8):
+                if field.many_to_one or field.one_to_one:
+                    queryset = queryset.select_related(self.field_name)
+                elif field.one_to_many or field.many_to_many:
+                    queryset = queryset.prefetch_related(self.field_name)
+            else:
+                from django.db.models.fields.related import ForeignKey
+
+                if isinstance(field, ForeignKey):
+                    # select_related for ForeignKey and OneToOneField
+                    queryset = queryset.select_related(self.field_name)
+                else:
+                    # prefetch_related for anything else (ManyToManyField, tags)
+                    queryset = queryset.prefetch_related(self.field_name)
+
+        elif isinstance(field, ForeignObjectRel):
+            # Reverse relation
+            # Note: we will never get here on Django 1.7 and below as get_field
+            # does not return reverse relations
+            if isinstance(field, OneToOneRel):
+                # select_related for reverse OneToOneField
+                queryset = queryset.select_related(self.field_name)
+            else:
+                # prefetch_related for anything else (reverse ForeignKey/ManyToManyField)
+                queryset = queryset.prefetch_related(self.field_name)
+
+        return queryset

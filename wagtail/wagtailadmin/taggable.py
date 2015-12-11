@@ -18,12 +18,10 @@ class TagSearchable(index.Indexed):
 
     search_fields = (
         index.SearchField('title', partial_match=True, boost=10),
-        index.SearchField('get_tags', partial_match=True, boost=10)
+        index.RelatedFields('tags', [
+            index.SearchField('name', partial_match=True, boost=10),
+        ]),
     )
-
-    @property
-    def get_tags(self):
-        return ' '.join([tag.name for tag in self.tags.all()])
 
     @classmethod
     def get_indexed_objects(cls):
