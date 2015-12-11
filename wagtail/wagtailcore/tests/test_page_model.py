@@ -198,10 +198,12 @@ class TestRouting(TestCase):
         self.assertEqual(homepage.full_url, 'http://localhost/')
         self.assertEqual(homepage.url, '/')
         self.assertEqual(homepage.relative_url(default_site), '/')
+        self.assertEqual(homepage.get_site(), default_site)
 
         self.assertEqual(christmas_page.full_url, 'http://localhost/events/christmas/')
         self.assertEqual(christmas_page.url, '/events/christmas/')
         self.assertEqual(christmas_page.relative_url(default_site), '/events/christmas/')
+        self.assertEqual(christmas_page.get_site(), default_site)
 
     def test_page_with_no_url(self):
         root = Page.objects.get(url_path='/')
@@ -210,6 +212,7 @@ class TestRouting(TestCase):
         self.assertEqual(root.full_url, None)
         self.assertEqual(root.url, None)
         self.assertEqual(root.relative_url(default_site), None)
+        self.assertEqual(root.get_site(), None)
 
     def test_urls_with_multiple_sites(self):
         events_page = Page.objects.get(url_path='/home/events/')
@@ -225,11 +228,13 @@ class TestRouting(TestCase):
         self.assertEqual(homepage.url, 'http://localhost/')
         self.assertEqual(homepage.relative_url(default_site), '/')
         self.assertEqual(homepage.relative_url(events_site), 'http://localhost/')
+        self.assertEqual(homepage.get_site(), default_site)
 
         self.assertEqual(christmas_page.full_url, 'http://events.example.com/christmas/')
         self.assertEqual(christmas_page.url, 'http://events.example.com/christmas/')
         self.assertEqual(christmas_page.relative_url(default_site), 'http://events.example.com/christmas/')
         self.assertEqual(christmas_page.relative_url(events_site), '/christmas/')
+        self.assertEqual(christmas_page.get_site(), events_site)
 
     @override_settings(ROOT_URLCONF='wagtail.tests.non_root_urls')
     def test_urls_with_non_root_urlconf(self):
@@ -241,10 +246,12 @@ class TestRouting(TestCase):
         self.assertEqual(homepage.full_url, 'http://localhost/site/')
         self.assertEqual(homepage.url, '/site/')
         self.assertEqual(homepage.relative_url(default_site), '/site/')
+        self.assertEqual(homepage.get_site(), default_site)
 
         self.assertEqual(christmas_page.full_url, 'http://localhost/site/events/christmas/')
         self.assertEqual(christmas_page.url, '/site/events/christmas/')
         self.assertEqual(christmas_page.relative_url(default_site), '/site/events/christmas/')
+        self.assertEqual(christmas_page.get_site(), default_site)
 
     def test_request_routing(self):
         homepage = Page.objects.get(url_path='/home/')
