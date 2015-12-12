@@ -1,0 +1,1118 @@
+// These are the generic stylings for forms of any type. 
+// If you're styling something specific to the page editing interface,
+// it probably ought to go in layouts/page-editor.scss
+
+form {
+    ul, 
+
+    li {
+        list-style-type: none;
+    }
+
+    ul {
+        margin: 0;
+        padding: 0;
+    }
+}
+
+fieldset {
+    border: 0;
+    padding: 0 0 2em;
+    margin: 0;
+}
+
+legend {
+    @include visuallyhidden();
+}
+
+label, 
+.label {
+    text-transform: none;
+    font-weight: bold;
+    color: $color-grey-1;
+    font-size: 1.1em;
+    display: block;
+    padding: 0 0 0.8em;
+    margin: 0;
+    line-height: 1.3em;
+
+    .checkbox &,
+    .radio & {
+        display: inline;
+    }
+}
+
+input, 
+textarea, 
+select, 
+.richtext, 
+.tagit {
+    box-sizing: border-box;
+    border-radius: 6px;
+    width: 100%;
+    font-family: Open Sans,Arial,sans-serif;
+    border: 1px solid $color-input-border;
+    padding: 0.9em 1.2em;
+    background-color: $color-fieldset-hover;
+    -webkit-appearance: none;
+    color: $color-text-input;
+    font-size: 1.2em;
+    font-weight: 300;
+    outline: none;
+
+    &:hover {
+        background-color: $color-white;
+    }
+
+    &:focus {
+        border-color: darken($color-input-focus, 40%);
+        outline: none;
+        background-color: $color-input-focus;
+    }
+
+    &:disabled, 
+    &[disabled], 
+    &:disabled:hover, 
+    &[disabled]:hover {
+        background-color: inherit;
+        cursor: default;
+        color: $color-grey-4;
+    }  
+}
+
+// select boxes
+.choice_field .input,
+.model_choice_field .input,
+.typed_choice_field .input {
+    position: relative;
+
+    select {
+        outline: none;
+    }
+
+    // Add select arrow back on browsers where native ui has been removed
+    select ~ span:after {
+        border-radius: 0 6px 6px 0;
+        z-index: 0;
+        position: absolute;
+        right: 0;
+        top: 1px;
+        bottom: 0;
+        width: 1.5em;
+        font-family: wagtail;
+        content: 'q';
+        border: 1px solid $color-input-border;
+        border-width: 0 0 0 1px;
+        text-align: center;
+        line-height: 1.4em;
+        font-size: 3em;
+        pointer-events: none;
+        color: $color-grey-3;
+        background-color: $color-fieldset-hover;
+        margin: 0 1px 1px 0;
+
+        .ie & {
+            display: none;
+        }
+    }
+
+    
+}
+
+// radio and check boxes
+input[type=radio], 
+input[type=checkbox] {
+    border-radius: 0;
+    cursor: pointer;
+    border: 0;
+}
+
+input[type=radio] {
+    -webkit-appearance: radio;
+    width: auto;
+    position: relative;
+    margin-right: 15px;
+}
+
+input[type=radio]:before {
+    border-radius: 100%;
+    font-family: wagtail;
+    font-style: normal;
+    text-align: center;
+    position: absolute;
+    top: -5px;
+    left: -2px;
+    cursor: pointer;
+    display: block;
+    content: 'K';
+    width: 1em;
+    height: 1em;
+    line-height: 1.1em;
+    padding: 4px;
+    background-color: $color-white;
+    color: $color-grey-4;
+    border: 1px solid $color-grey-4;
+}
+
+input[type=radio]:checked:before {
+    content: 'K';
+    color: $color-teal;
+}
+
+input[type=checkbox] {
+    -webkit-appearance: checkbox;
+    width: auto;
+    position: relative;
+    margin-right: 15px;
+}
+
+input[type=checkbox]:before {
+    font-family: wagtail;
+    font-style: normal;
+    text-align: center;
+    position: absolute;
+    top: -5px;
+    cursor: pointer;
+    display: block;
+    content: 'x';
+    line-height: 20px;
+    width: 20px;
+    height: 20px;
+    background-color: $color-white;
+    border: 1px solid $color-grey-4;
+    color: $color-white;
+}
+
+input[type=checkbox]:checked:before {
+    color: $color-teal;
+}
+
+// Core button style 
+// Note that these styles include methods to render buttons the same x-browser, described here: 
+// http: //cbjdigital.com/blog/2010/08/bulletproof_css_input_button_heights
+input[type=submit], 
+input[type=reset], 
+input[type=button], 
+.button, 
+button {
+    border-radius: 3px;
+    font-family: Open Sans,Arial,sans-serif;
+    width: auto;
+    height: 2.4em;
+    padding: 0 1em;
+    font-size: 0.9em;
+    font-weight: normal;
+    vertical-align: middle;
+    display: inline-block;
+    background-color: $color-button;
+    border: 1px solid $color-button;
+    color: $color-white;
+    text-decoration: none;
+    text-transform: uppercase;
+    white-space: nowrap;
+    position: relative;
+    overflow: hidden;
+    outline: none;
+    box-sizing: border-box;
+    -webkit-font-smoothing: auto;
+    -moz-appearance: none;
+
+    &.button-small {
+        padding: 0 0.8em;
+        height: 2em;
+        font-size: 0.85em;
+    }
+
+    &.button-secondary {
+        color: $color-button;
+        background-color: transparent;
+    }
+
+    // Buttons which are only an icon
+    &.icon.text-replace {
+        font-size: 0; // unavoidable duplication of setting in icons.scss
+        width: 1.8rem;
+        height: 1.8rem;
+
+        &:before {
+            line-height: 1.7em;
+        }
+    }
+
+    &.button-neutral {
+        color: $color-grey-2;
+
+        &:hover {
+            color: $color-teal;
+        }
+    }
+
+    &.yes {
+        background-color: $color-button-yes;
+        border: 1px solid $color-button-yes;
+
+        &.button-secondary {
+            border: 1px solid $color-button-yes;
+            color: $color-button-yes;
+            background-color: transparent;
+        }
+
+        &:hover {
+            color: $color-white;
+            border-color: transparent;
+            background-color: $color-button-yes-hover;
+        }
+
+        &.button-nobg:hover {
+            color: $color-button-yes;
+            background-color: transparent;
+        }
+    }
+
+    &.no, 
+    &.serious {
+        background-color: $color-button-no;
+        border: 1px solid $color-button-no;
+
+        &.button-secondary {
+            border: 1px solid $color-button-no;
+            color: $color-button-no;
+            background-color: transparent;
+        }
+
+        &:hover {
+            color: $color-white;
+            border-color: transparent;
+            background-color: $color-button-no-hover;
+        }
+
+        &.button-nobg:hover {
+            color: $color-button-no;
+            background-color: transparent;
+        }
+    }
+
+    &.button-nobg {
+        border: 0;
+        background-color: transparent;
+    }
+
+    &.bicolor {
+        border: 0;
+        padding-left: 3.5em;
+
+        &:before {
+            font-size: 1rem;
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 2em;
+            line-height: 1.85em;
+            height: 100%;
+            text-align: center;    
+            background-color: rgba(0, 0, 0, 0.2);
+            display: block;
+        }
+    }
+
+    &.button-small.bicolor {
+        padding-left: 3.5em;
+
+        &:before {
+            width: 2em;
+            font-size: 0.9rem;
+            line-height: 1.65em;
+        }
+    }
+
+    + input[type=submit],
+    + input[type=reset],
+    + input[type=button],
+    + .button,
+    + button {
+        margin-left: 1em;
+    }
+
+    // A completely unstyled button
+    &.unbutton {
+        border-radius: 0;
+        width: auto;
+        height: auto;
+        padding: 0;
+        font-size: inherit;
+        font-weight: normal;
+        vertical-align: middle;
+        display: inline;
+        background-color: transparent;
+        border: 0;
+        color: inherit;
+        text-decoration: none;
+        text-transform: uppercase;
+        white-space: nowrap;
+        position: relative;
+        overflow: hidden;
+        outline: none;
+        box-sizing: border-box;
+        -webkit-font-smoothing: auto;
+        -moz-appearance: none;
+    }
+
+    &:hover {
+        background-color: $color-button-hover;
+        color: $color-white;
+        border-color: transparent;
+
+        &.hover-no {
+            background-color: $color-button-no;
+        }
+    }
+
+    &.button-longrunning {
+        span {
+            @include transition(all 0.3s ease);
+            transform: scale(0.9);
+            display: inline-block;
+            height: 0.9em;
+            position: relative;
+            opacity: 0;
+            width: 0;
+            visibility: hidden;
+            text-align: center;
+            padding-right: 0;
+        }
+
+        em {
+            font-style: normal;
+        }
+
+        &.button-longrunning-active span {
+            transform: scale(1);
+            visibility: visible;
+            width: 1em;
+            opacity: 0.8;
+            padding-right: 0.5em;
+        }
+
+        .icon-spinner:after {
+            text-align: center;
+            position: absolute;
+            left: 0;
+            margin: 0;
+            line-height: 1em;
+            display: inline-block;
+            font-size: 1em;
+        }
+    }
+
+    &:disabled, 
+    &[disabled], 
+    &.disabled {
+        background-color: $color-grey-3;
+        border-color: $color-grey-3;
+        color: lighten($color-grey-2, 15%);
+        cursor: default;
+    }
+
+    &.button-secondary:disabled, 
+    &.button-secondary[disabled], 
+    &.button-secondary.disabled {
+        background-color: $color-white;
+        border-color: $color-grey-3;
+        color: $color-grey-3;
+    }
+
+    &.button-nostroke {
+        border: 0;
+    }
+
+    @media screen and (min-width: $breakpoint-mobile){
+        font-size: 0.95em;
+        padding: 0 1.4em;
+        height: 3em; 
+
+        &.icon.text-replace {
+            width: 2.2rem;
+            height: 2.2rem;
+
+            &:before {
+                line-height: 2.1em;
+            }
+        }   
+
+        &.button-small {
+            &.icon.text-replace {
+                height: 1.8rem;
+                width: 1.8rem;
+
+                &:before {
+                    line-height: 1.7em;
+                }
+            }
+        }
+
+        &.bicolor {
+            padding-left: 3.7em;
+
+            &:before {
+                width: 2em;
+                line-height: 2.2em;
+                font-size: 1.1rem;
+            }
+        }
+
+        &.button-small.bicolor {
+            line-height: 2.2em;
+            padding-left: 3.2em;
+
+            &:before {
+                width: 1.8em;
+                line-height: 1.65em;
+            }
+        }
+    }
+}
+
+a.button {
+    line-height: 2.4em;
+    height: auto;
+
+    &.button-small {
+        line-height: 1.85em;
+    }
+
+    @media screen and (min-width: $breakpoint-mobile) {
+        line-height: 2.9em;
+    }
+}
+
+// Special styles to counteract Firefox's completely unwarranted assumptions about button styles
+input[type=submit], 
+input[type=reset], 
+input[type=button], 
+button {
+    padding: 0 1em;
+
+    @media screen and (min-width: $breakpoint-mobile) {
+        &.button-small {
+            height: 2em;
+        }
+    }
+}
+
+.button-group {
+    @include clearfix;
+
+    input[type=submit], 
+    input[type=reset], 
+    input[type=button], 
+    .button, 
+    button {
+        border-radius: 0;
+        float: left;
+        margin-right: 1px;
+        margin-left: 0;
+
+        &:only-child {
+            border-radius: 3px;
+        }
+
+        &:first-child {
+            border-radius: 3px 0 0 3px;
+        }
+
+        &:last-child {
+            border-radius: 0 3px 3px 0;
+            margin-right: 0;
+        }
+    }
+
+    &.button-group-square {
+        &,
+        input[type=submit], 
+        input[type=reset], 
+        input[type=button], 
+        .button, 
+        button {
+            border-radius: 0;
+        }
+    }
+}
+
+
+.multiple {
+    padding: 0;
+    max-width: 1024px - 50px;
+    overflow: hidden;
+
+    > li {
+        @include row();
+        border-radius: 2px;
+        position: relative;
+        overflow: hidden;
+        background-color: $color-white;
+        padding: 1em 10em 1em 1.5em; // 10em padding leaves room for controls
+        margin-bottom: 1em;
+        border: 1px solid lighten($color-grey-4, 3%); // really trying to avoid creating more greys, but this one is better than grey 4 or 5
+    }
+
+    &.moving {
+        position: relative;
+    }
+
+    li.moving {
+        position: absolute;
+        width: 100%;
+    }
+
+    fieldset {
+        padding-top: 0;
+        padding-bottom: 0;
+    }
+
+    // Object controls
+    .controls {
+        position: absolute;
+        z-index: 1;
+        right: 1em;
+        top: 1em;
+        color: $color-white;
+
+        li {
+            float: left;
+            margin-right: 1px;
+
+            &:last-child {
+                margin-right: 0;
+            }
+        }
+
+        .disabled {
+            display: none;
+            visibility: hidden;
+        }
+    }
+
+}
+
+// wrapper around add button for mutliple objects
+.add {
+    font-weight: 700;
+    cursor: pointer;
+    margin-top: 0;
+    margin-bottom: 0;
+    padding-top: 1em;
+    padding-bottom: 2em;
+    clear: both;
+}
+
+// Other text
+.help, 
+.error-message {
+    font-size: 0.85em;
+    font-weight: normal;
+    margin: 0.5em 0 0;
+}
+
+.error-message {
+    color: $color-red;
+}
+
+.help {
+    color: $color-grey-2;
+}
+
+fieldset:hover > .help,
+.field.focused + .help,
+.field:focus + .help,
+.field:hover + .help,
+li.focused > .help {
+    opacity: 1;
+}
+
+.required .field > label:after {
+    content: '*';
+    color: $color-red;
+    font-weight: bold;
+    display: inline-block;
+    margin-left: 0.5em;
+    line-height: 1em;
+    font-size: 13px;
+}
+
+.error input, 
+.error textarea, 
+.error select, 
+.error .tagit {
+    border-color: $color-red;
+    background-color: $color-input-error-bg;
+}
+
+// Layouts for particular kinds of of fields
+
+// permanently show checkbox/radio help as they have no focus state
+.boolean_field .help, 
+.radio .help {
+    opacity: 1;
+}
+
+// This is expected to go on the parent of the input/select/textarea
+// so in most cases .input
+
+.iconfield, // generic
+.date_field,
+.time_field,
+.date_time_field,
+.url_field {
+    .input {
+        position: relative;
+
+        &:before, 
+        &:after {
+            font-family: wagtail;
+            position: absolute;
+            top: 0.5em;
+            line-height: 100%;
+            font-size: 2em;
+            color: $color-grey-3;
+        }
+
+        &:before {
+            left: 0.3em;
+        }
+
+        &:after {
+            right: 0.5em;
+        }
+    }
+
+    input:not([type=radio]), 
+    input:not([type=checkbox]), 
+    input:not([type=submit]), 
+    input:not([type=button]) {
+        padding-left: 2.5em;
+    }
+
+    // smaller fields required slight repositioning of icons 
+    &.field-small {
+        .input {
+            &:before, 
+            &:after {
+                font-size: 1.3rem; // REMs are necessary here because IE doesn't treat generated content correctly
+                top: 0.3em;
+            }
+
+            &:before {
+                left: 0.5em;
+            }
+
+            &:after {
+                right: 0.5em;
+            }
+        }
+    }
+
+    // special case for search spinners
+    &.icon-spinner:after {
+        color: $color-teal;
+        opacity: 0.8;
+        text-align: center;
+        top: 0.3em;
+    }
+}
+
+.date_field,
+.date_time_field {
+    .input:before {
+        @extend .icon-date:before;
+    }
+}
+
+.time_field {
+    .input:before {
+        @extend .icon-time:before;
+    }
+}
+
+.url_field {
+    .input:before {
+        @extend .icon-link:before;
+    }
+}
+
+
+// This is specifically for model that are a generated set of checkboxes/radios
+.model_multiple_choice_field .input li,
+.choice_field .input li {
+    label {
+        display: block;
+        width: auto;
+        float: none;
+    }
+}
+
+.fields > li,
+.field-col {
+    @include clearfix();
+    padding-top: 0.5em;
+    padding-bottom: 1.2em;
+}
+
+.field-row {
+    @include clearfix();
+
+    // negative margin the bottom so it doesn't add too much space
+    margin-bottom: -1.2em;
+}
+
+.input {
+    clear: both;
+}
+
+// field sizing and alignment
+
+.field-small {
+    input, 
+    textarea, 
+    select, 
+    .richtext, 
+    .tagit {
+        border-radius: 3px;
+        padding: 0.4em 1em;
+    }
+}
+
+.field {
+    &.col1,
+    &.col2,
+    &.col3,
+    &.col4,
+    &.col5,
+    &.col6,
+    &.col7,
+    &.col8,
+    &.col9,
+    &.col10,
+    &.col11,
+    &.col12 { clear: both;}
+}
+
+li.inline .field {
+    &.col1,
+    &.col2,
+    &.col3,
+    &.col4,
+    &.col5,
+    &.col6,
+    &.col7,
+    &.col8,
+    &.col9,
+    &.col10,
+    &.col11,
+    &.col12 { clear: none;}
+}
+
+// solve gutter issues of inline fields
+ul.inline li:first-child, 
+li.inline:first-child {
+    margin-left: -$grid-gutter-width / 2;
+}
+
+
+// TODO this chooser style has been made more generic based on two identical methods 
+// for choosing pages and images that were previously included in their own less files 
+// in each app directory (and since deleted). It would be best if an admin 'theme' provided 
+// all the design for a UI in a single place, but should that be a series of overrides to 
+// the css provided from an app? If so, perhaps those two previous less files should be 
+// re-instated and then overriden here? hmm.
+
+.chooser {
+    // We show the 'chosen' state...
+    @include clearfix();
+
+    input[type=text] {
+        float: left;
+        width: 50%;
+        margin-right: 1em;
+    }
+
+    .chosen {
+        display: block;
+    }
+
+    .unchosen, 
+    .chosen {
+        position: relative;
+
+        &:before {
+            vertical-align: middle;
+            font-family: wagtail;
+            content: '';
+            position: relative;
+            display: block;
+            float: left;
+            color: $color-grey-3;
+            line-height: 1em;
+            font-size: 2.5em;
+            margin-right: 0.3em;
+        }
+    }
+
+    .unchosen {
+        display: none;
+    }
+
+    .actions {
+        @include clearfix;
+        overflow: hidden;
+        
+        li {
+            float: left;
+            margin: 0.3em;
+        }
+    }
+
+    // ...unless the .page-chooser has the 'blank' class set
+    &.blank {
+        .chosen { display: none; }
+        .unchosen { display: block; }
+    }
+}
+
+// standard way of doing a chooser where the chosen object's title is overlayed
+.page-chooser,
+.snippet-chooser,
+.document-chooser {
+    .chosen {
+        .title {
+            color: $color-grey-1;
+            display: block;
+            padding-left: 3em;
+        }
+
+        .actions {
+            clear: both;
+            padding-top: 0.6em;
+        }
+    }
+}
+
+.page-chooser {
+    .unchosen, 
+    .chosen {
+        &:before {
+            content: 'b';
+        }
+    }
+}
+
+.snippet-chooser {
+    .unchosen, 
+    .chosen {
+        &:before {
+            content: 'D';
+        }
+    }
+}
+
+.document-chooser {
+    .unchosen, 
+    .chosen {
+        &:before {
+            content: 'r';
+        }
+    }
+}
+
+.image-chooser {
+    .unchosen, 
+    .chosen {
+        &:before {
+            content: 'o';
+        }
+    }
+
+    .chosen {
+        padding-left: $thumbnail-width;   
+
+        &:before {
+            content: '';
+        }
+
+        .preview-image {
+            float: left;
+            margin-left: -($thumbnail-width);
+            margin-right: 1em;
+            max-width: $thumbnail-width;
+
+            // Resize standard Wagtail thumbnail size (165x165) to 130 for space-saving purposes.
+            // We could request a 130x130 rendition, but that's just unnecessary and burdens installations
+            // where images are store off-site with higher rendering times.
+            img {
+                max-width: $thumbnail-width;
+                max-height: $thumbnail-width;
+                height: auto;
+                width: auto;
+            }
+        }
+    }
+}
+
+// taggit tagging
+.tagit {
+    padding: 0.6em 1.2em;
+
+    .tagit-choice {
+        border: 0;
+    }
+}
+
+// Additional specificity (.admin_tag_widget ) required to override tagit stylesheets,
+// which get added after the core CSS, and otherweise trump our styles.
+.admin_tag_widget ul.tagit input[type='text'] {
+    padding: 0.2em 0.5em;
+}
+
+// Additional specificity (.admin_tag_widget ) required to override tagit stylesheets,
+// which get added after the core CSS, and otherweise trump our styles.
+.admin_tag_widget ul.tagit li.tagit-choice-editable {
+    padding: 0 23px 0 0;
+}
+
+.ui-front { // provided by jqueryui but not high enough an index
+    z-index: 1000;
+}
+
+.tagit-close {
+    .ui-icon-close {
+        margin-left: 1em;
+        text-indent: 0;
+        background: none;
+    }
+
+    .ui-icon-close:before {
+        font-family: wagtail;
+        display: block;
+        color: $color-grey-3;
+        content: 'g';
+    }
+
+    .ui-icon-close:hover:before {
+        color: $color-red;
+    }
+}
+
+// search-bars
+.search-bar {
+    .required .field > label:after {
+        display: none;
+    }
+}
+
+// file drop zones
+.drop-zone {
+    border-radius: 5px;
+    border: 2px dashed $color-grey-4;
+    padding: $mobile-nice-padding;
+    background-color: $color-grey-5;
+    margin-bottom: 1em;
+    text-align: center;
+
+    .drop-zone-help {
+        border: 0;
+    }
+
+    &.hovered {
+        border-color: $color-teal;
+        background-color: $color-input-focus;
+    }
+}
+
+// Transitions
+fieldset, 
+input, 
+textarea, 
+select {
+    @include transition(background-color 0.2s ease);
+}
+
+input[type=submit], 
+input[type=reset], 
+input[type=button], 
+.button, 
+button {
+    @include transition(background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease);
+}
+
+.help {
+    @include transition(opacity 0.2s ease);
+}
+
+@media screen and (min-width: $breakpoint-mobile) {
+    label {
+        @include column(2);
+        padding-top: 1.2em;
+        padding-left: 0;
+
+        .choice_field &,
+        .model_multiple_choice_field &,
+        .boolean_field &,
+        .choice_field &,
+        .model_choice_field &,
+        .image_field & {
+            padding-top: 0;
+        }
+    }
+
+    .label-above {
+        .field > label {
+            display: block;
+            padding: 0 0 0.8em;
+            float: none;
+            width: auto;
+        }
+    }
+
+    .help {
+        opacity: 1;
+    }
+
+    .fields {
+        max-width: 800px;
+    }
+
+    .field {
+        @include row();
+    }
+
+    .field-content {
+        @include column(10, 0);
+    } 
+
+    .field-col {
+        float: left;
+        padding-left: 0;
+
+        // anything less than 4 columns or greater than 6 is impractical
+        &.col4 {
+            label {
+                @include column(2, 0, 4);
+            }
+
+            .field-content {
+                @include column(2, $padding, 4);
+                padding-left: 0;
+            }
+        }
+
+        &.col6 {
+            label {
+                @include column(2, 0, 6);
+            }
+
+            .field-content {
+                @include column(4, $padding, 6);
+                padding-left: 0;
+            }
+        }
+    }
+}

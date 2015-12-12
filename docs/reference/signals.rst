@@ -73,7 +73,7 @@ wish to do something when a new blog post is published:
     # Register listeners for each page model class
     page_published.connect(receiver, sender=BlogPostPage)
 
-Wagtail provides access to a list of registered page types at ``wagtail.wagtailcore.models.PAGE_MODEL_CLASSES``.
+Wagtail provides access to a list of registered page types through the ``get_page_models()`` function in ``wagtail.wagtailcore.models``.
 
 Read the `Django documentation <https://docs.djangoproject.com/en/1.8/topics/signals/#connecting-to-specific-signals>`__ for more information about specifying senders.
 

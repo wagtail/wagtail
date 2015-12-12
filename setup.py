@@ -21,15 +21,15 @@ except ImportError:
 
 
 install_requires = [
-    "Django>=1.7.1,<1.9",
+    "Django>=1.7.1,<1.10",
     "django-compressor>=1.4",
     "django-modelcluster>=1.0",
-    "django-taggit>=0.13.0",
+    "django-taggit>=0.17.5",
     "django-treebeard==3.0",
     "djangorestframework>=3.1.3",
     "Pillow>=2.6.1",
     "beautifulsoup4>=4.3.2",
-    "html5lib==0.999",
+    "html5lib>=0.999,<1",
     "Unidecode>=0.04.14",
     "Willow>=0.2.2,<0.3",
 ]
@@ -62,6 +62,7 @@ setup(
         'Framework :: Django',
         'Framework :: Django :: 1.7',
         'Framework :: Django :: 1.8',
+        'Framework :: Django :: 1.9',
         'Topic :: Internet :: WWW/HTTP :: Site Management',
     ],
     install_requires=install_requires,

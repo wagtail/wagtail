@@ -18,6 +18,9 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='redirect',
             name='site',
-            field=models.ForeignKey(related_name='redirects', blank=True, editable=False, to='wagtailcore.Site', null=True, verbose_name='Site'),
+            field=models.ForeignKey(
+                related_name='redirects', blank=True, editable=False,
+                to='wagtailcore.Site', null=True, verbose_name='Site'
+            ),
         ),
     ]

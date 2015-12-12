@@ -17,7 +17,13 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='streammodel',
             name='body',
-            field=wagtail.wagtailcore.fields.StreamField((('text', wagtail.wagtailcore.blocks.CharBlock()), ('rich_text', wagtail.wagtailcore.blocks.RichTextBlock()), ('image', wagtail.wagtailimages.blocks.ImageChooserBlock()))),
+            field=wagtail.wagtailcore.fields.StreamField(
+                (
+                    ('text', wagtail.wagtailcore.blocks.CharBlock()),
+                    ('rich_text', wagtail.wagtailcore.blocks.RichTextBlock()),
+                    ('image', wagtail.wagtailimages.blocks.ImageChooserBlock())
+                )
+            ),
             preserve_default=True,
         ),
     ]

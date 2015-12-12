@@ -17,7 +17,8 @@ class Migration(migrations.Migration):
                 migrations.CreateModel(
                     name='EditorsPick',
                     fields=[
-                        ('id', models.AutoField(primary_key=True, serialize=False, verbose_name='ID', auto_created=True)),
+                        ('id', models.AutoField(primary_key=True, serialize=False, verbose_name='ID',
+                         auto_created=True)),
                         ('sort_order', models.IntegerField(editable=False, null=True, blank=True)),
                         ('description', models.TextField(verbose_name='Description', blank=True)),
                         ('page', models.ForeignKey(verbose_name='Page', to='wagtailcore.Page')),

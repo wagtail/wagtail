@@ -4,13 +4,14 @@
 #
 # Translators:
 # hanfeng <appweb.cn@gmail.com>, 2014-2015
+# Daniel Hwang <danielblinkhw@gmail.com>, 2015
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2015-09-02 20:07+0100\n"
-"PO-Revision-Date: 2015-09-02 19:12+0000\n"
-"Last-Translator: Karl Hobley <karl@torchbox.com>\n"
+"PO-Revision-Date: 2015-11-21 06:32+0000\n"
+"Last-Translator: Daniel Hwang <danielblinkhw@gmail.com>\n"
 "Language-Team: Chinese (China) (http://www.transifex.com/torchbox/wagtail/"
 "language/zh_CN/)\n"
 "MIME-Version: 1.0\n"
@@ -43,6 +44,12 @@ msgid ""
 "If true, this site will handle requests for all other hostnames that do not "
 "have a site entry of their own"
 msgstr "如果勾选，此站点将处理通过其它主机名访问的，尚没有站点内容的请求。"
+
+msgid "site"
+msgstr "站点"
+
+msgid "sites"
+msgstr "站点"
 
 #, python-format
 msgid ""
@@ -138,6 +145,12 @@ msgstr "发布"
 msgid "Default"
 msgstr "默认"
 
+msgid "page"
+msgstr "页面"
+
+msgid "pages"
+msgstr "页面"
+
 msgid "Page"
 msgstr "页面"
 
@@ -156,8 +169,17 @@ msgstr "内容JSON"
 msgid "Approved go live at"
 msgstr "批准上线于"
 
+msgid "page revision"
+msgstr "页版本"
+
+msgid "page revisions"
+msgstr "页版本"
+
 msgid "Add/edit pages you own"
 msgstr "增加/编辑所属的页面"
+
+msgid "Edit any page"
+msgstr "编辑任意页面"
 
 msgid "Publish any page"
 msgstr "发布任意页面"
@@ -171,8 +193,20 @@ msgstr "组"
 msgid "Permission type"
 msgstr "权限类型"
 
+msgid "group page permission"
+msgstr "群组页面权限"
+
+msgid "group page permissions"
+msgstr "群组页面权限"
+
 msgid "Password"
 msgstr "密码"
+
+msgid "page view restriction"
+msgstr "查看页面权限"
+
+msgid "page view restrictions"
+msgstr "查看页面权限"
 
 msgid "Value cannot be entirely whitespace characters"
 msgstr "值不能为空白字符"

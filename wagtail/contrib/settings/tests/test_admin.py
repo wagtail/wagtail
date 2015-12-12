@@ -130,7 +130,7 @@ class TestMultiSite(BaseTestSettingView):
         dest_url = 'http://testserver' + reverse('wagtailsettings:edit', args=[
             self.default_site.pk, 'tests', 'testsetting'])
         response = self.client.get(start_url, follow=True)
-        self.assertEqual([(dest_url, 302)], response.redirect_chain)
+        self.assertRedirects(response, dest_url, status_code=302, fetch_redirect_response=False)
 
     def test_redirect_to_current(self):
         """
@@ -142,7 +142,7 @@ class TestMultiSite(BaseTestSettingView):
         dest_url = 'http://example.com' + reverse('wagtailsettings:edit', args=[
             self.other_site.pk, 'tests', 'testsetting'])
         response = self.client.get(start_url, follow=True, HTTP_HOST=self.other_site.hostname)
-        self.assertEqual([(dest_url, 302)], response.redirect_chain)
+        self.assertRedirects(response, dest_url, status_code=302, fetch_redirect_response=False)
 
     def test_with_no_current_site(self):
         """

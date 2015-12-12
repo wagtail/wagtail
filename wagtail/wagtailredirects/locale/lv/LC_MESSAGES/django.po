@@ -1,0 +1,102 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# Maris Serzans <maris.serzans@gmail.com>, 2015
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2015-08-26 14:28+0100\n"
+"PO-Revision-Date: 2015-12-08 15:19+0000\n"
+"Last-Translator: Maris Serzans <maris.serzans@gmail.com>\n"
+"Language-Team: Latvian (http://www.transifex.com/torchbox/wagtail/language/"
+"lv/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: lv\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n != 0 ? 1 : "
+"2);\n"
+
+msgid "Redirect from"
+msgstr "Novirzīt no"
+
+msgid "Site"
+msgstr "Lapa"
+
+msgid "Permanent"
+msgstr "Pastāvīgs"
+
+msgid "Redirect to a page"
+msgstr "Novirzīt uz lapu"
+
+msgid "Redirect to any URL"
+msgstr "Novirzīt uz jebkuru adresi"
+
+msgid "Redirect"
+msgstr "Novirzīt"
+
+msgid "Add redirect"
+msgstr "Pievienot novirzījumu"
+
+msgid "Save"
+msgstr "Saglabāt"
+
+#, python-format
+msgid "Delete redirect %(title)s"
+msgstr "Dzēst novirzījumu %(title)s"
+
+msgid "Delete"
+msgstr "Dzēst"
+
+msgid "Yes, delete"
+msgstr "Dzēst"
+
+#, python-format
+msgid "Editing %(title)s"
+msgstr "Labo %(title)s"
+
+msgid "Editing"
+msgstr "Labošana"
+
+msgid "Delete redirect"
+msgstr "Dzēst novirzījumu"
+
+msgid "Redirects"
+msgstr "Novirzījumi"
+
+msgid "From"
+msgstr "No"
+
+msgid "To"
+msgstr "Līdz"
+
+msgid "Type"
+msgstr "Veids"
+
+msgid "Edit this redirect"
+msgstr "Labot šo novirzījumu"
+
+#, python-format
+msgid "Sorry, no redirects match \"<em>%(query_string)s</em>\""
+msgstr "Nav novirzījumu, kas atbilst \"<em>%(query_string)s</em>\""
+
+msgid "Search redirects"
+msgstr "Meklēt novirzījumus"
+
+#, python-brace-format
+msgid "Redirect '{0}' updated."
+msgstr "Novirzījums '{0}' atjaunots."
+
+msgid "Edit"
+msgstr "Labot"
+
+#, python-brace-format
+msgid "Redirect '{0}' deleted."
+msgstr "Novirzījums '{0}' dzēsts."
+
+#, python-brace-format
+msgid "Redirect '{0}' added."
+msgstr "Novirzījums '{0}' pievienots."

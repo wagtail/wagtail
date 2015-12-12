@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2015-08-26 14:28+0100\n"
-"PO-Revision-Date: 2015-09-03 19:59+0000\n"
+"PO-Revision-Date: 2015-11-02 15:46+0000\n"
 "Last-Translator: Dan Braghis\n"
 "Language-Team: Romanian (http://www.transifex.com/torchbox/wagtail/language/"
 "ro/)\n"
@@ -206,6 +206,12 @@ msgstr "Inserează link"
 
 msgid "Add an external link"
 msgstr "Adaugă un link extern"
+
+msgid "Yes, delete"
+msgstr "Da, șterge"
+
+msgid "Save"
+msgstr "Salvează"
 
 #, python-format
 msgid "Welcome to the %(site_name)s Wagtail CMS"
@@ -613,6 +619,9 @@ msgstr "Bară utilizator"
 msgid "Go to Wagtail admin interface"
 msgstr "Spre interfața de administrare Wagtail"
 
+msgid "Add a child page"
+msgstr "Adaugă o pagină dependentă"
+
 msgid "Add"
 msgstr "Adaugă"
 
@@ -621,6 +630,20 @@ msgstr "Parola a fost schimbată cu succes!"
 
 msgid "Your preferences have been updated successfully!"
 msgstr "Preferințele au fost schimbare cu success!"
+
+#, python-brace-format
+msgid "Page '{0}' created and published."
+msgstr "Pagina '{0}' a fost creată și publicată."
+
+msgid "View live"
+msgstr "Vezi în direct"
+
+#, python-brace-format
+msgid "Page '{0}' created and submitted for moderation."
+msgstr "Pagina '{0}' a fost creată și trimisă pentru moderare."
+
+msgid "View draft"
+msgstr "Vezi ciornă"
 
 #, python-brace-format
 msgid "Page '{0}' created."
@@ -680,6 +703,12 @@ msgstr "Pagina '{0}' și {1} subpagini au fost copiate."
 msgid "Page '{0}' copied."
 msgstr "Pagina '{0}' a fost copiată."
 
+msgid "Content"
+msgstr "Conținut"
+
+msgid "Promote"
+msgstr "Promovează"
+
 msgid "Settings"
 msgstr "Setări"
 
@@ -707,6 +736,9 @@ msgstr "Alege un alt element"
 
 msgid "Clear choice"
 msgstr "Curăță selecție"
+
+msgid "Edit this item"
+msgstr "Editează acest element"
 
 msgid "Choose another page"
 msgstr "Alege altă pagină"

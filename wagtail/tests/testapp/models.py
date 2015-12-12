@@ -1,5 +1,8 @@
 from __future__ import unicode_literals
 
+import hashlib
+import os
+
 from django.db import models
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.utils.encoding import python_2_unicode_compatible
@@ -17,7 +20,9 @@ from wagtail.contrib.settings.models import BaseSetting, register_setting
 from wagtail.wagtailcore.models import Page, Orderable
 from wagtail.wagtailcore.fields import RichTextField, StreamField
 from wagtail.wagtailcore.blocks import CharBlock, RichTextBlock
-from wagtail.wagtailadmin.edit_handlers import FieldPanel, MultiFieldPanel, InlinePanel, PageChooserPanel, TabbedInterface, ObjectList
+from wagtail.wagtailadmin.edit_handlers import (
+    FieldPanel, MultiFieldPanel, InlinePanel, PageChooserPanel, TabbedInterface, ObjectList
+)
 from wagtail.wagtailimages.edit_handlers import ImageChooserPanel
 from wagtail.wagtaildocs.edit_handlers import DocumentChooserPanel
 from wagtail.wagtailsnippets.models import register_snippet
@@ -239,7 +244,12 @@ EventPage.promote_panels = [
 
 # Just to be able to test multi table inheritance
 class SingleEventPage(EventPage):
-    excerpt = models.TextField(max_length=255, blank=True, null=True, help_text="Short text to describe what is this action about")
+    excerpt = models.TextField(
+        max_length=255,
+        blank=True,
+        null=True,
+        help_text="Short text to describe what is this action about"
+    )
 
 SingleEventPage.content_panels = [FieldPanel('excerpt')] + EventPage.content_panels
 
@@ -359,8 +369,8 @@ register_snippet(Advert)
 
 
 class StandardIndex(Page):
-    """ Index for the site, not allowed to be placed anywhere """
-    parent_page_types = []
+    """ Index for the site """
+    parent_page_types = [Page]
 
 
 # A custom panel setup where all Promote fields are placed in the Content tab instead;
@@ -403,6 +413,11 @@ class BusinessChild(Page):
     parent_page_types = ['tests.BusinessIndex', BusinessSubIndex]
 
 
+class BusinessNowherePage(Page):
+    """ Not allowed to be placed anywhere """
+    parent_page_types = []
+
+
 class TaggedPageTag(TaggedItemBase):
     content_object = ParentalKey('tests.TaggedPage', related_name='tagged_items')
 
@@ -414,6 +429,14 @@ TaggedPage.content_panels = [
     FieldPanel('title', classname="full title"),
     FieldPanel('tags'),
 ]
+
+
+class SingletonPage(Page):
+    @classmethod
+    def can_create_at(cls, parent):
+        # You can only create one of these!
+        return super(SingletonPage, cls).can_create_at(parent) \
+            and not cls.objects.exists()
 
 
 class PageChooserModel(models.Model):
@@ -461,6 +484,9 @@ class StreamPage(Page):
 
 class MTIBasePage(Page):
     is_creatable = False
+
+    class Meta:
+        verbose_name = "MTI Base page"
 
 
 class MTIChildPage(MTIBasePage):
@@ -520,3 +546,34 @@ class GenericSnippetPage(Page):
     snippet_content_type = models.ForeignKey(ContentType, on_delete=models.SET_NULL, null=True)
     snippet_object_id = models.PositiveIntegerField(null=True)
     snippet_content_object = GenericForeignKey('snippet_content_type', 'snippet_object_id')
+
+
+class CustomImageFilePath(AbstractImage):
+    def get_upload_to(self, filename):
+        """Create a path that's file-system friendly.
+
+        By hashing the file's contents we guarantee an equal distribution
+        of files within our root directories. This also gives us a
+        better chance of uploading images with the same filename, but
+        different contents - this isn't guaranteed as we're only using
+        the first three characters of the checksum.
+        """
+        original_filepath = super(CustomImageFilePath, self).get_upload_to(filename)
+        folder_name, filename = original_filepath.split(os.path.sep)
+
+        # Ensure that we consume the entire file, we can't guarantee that
+        # the stream has not be partially (or entirely) consumed by
+        # another process
+        original_position = self.file.tell()
+        self.file.seek(0)
+        hash256 = hashlib.sha256()
+
+        while True:
+            data = self.file.read(256)
+            if not data:
+                break
+            hash256.update(data)
+        checksum = hash256.hexdigest()
+
+        self.file.seek(original_position)
+        return os.path.join(folder_name, checksum[:3], filename)

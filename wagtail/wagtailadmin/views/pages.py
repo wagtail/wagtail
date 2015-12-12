@@ -1,3 +1,4 @@
+import django
 from django.http import Http404, HttpResponse
 from django.shortcuts import render, redirect, get_object_or_404
 from django.core.exceptions import ValidationError, PermissionDenied
@@ -18,7 +19,6 @@ from wagtail.wagtailadmin import signals
 
 from wagtail.wagtailcore import hooks
 from wagtail.wagtailcore.models import Page, PageRevision, get_navigation_menu_items
-from wagtail.wagtailcore.validators import validate_not_whitespace
 
 from wagtail.wagtailadmin import messages
 
@@ -39,7 +39,16 @@ def index(request, parent_page_id=None):
 
     # Get page ordering
     ordering = request.GET.get('ordering', '-latest_revision_created_at')
-    if ordering not in ['title', '-title', 'content_type', '-content_type', 'live', '-live', 'latest_revision_created_at', '-latest_revision_created_at', 'ord']:
+    if ordering not in [
+        'title',
+        '-title',
+        'content_type',
+        '-content_type',
+        'live', '-live',
+        'latest_revision_created_at',
+        '-latest_revision_created_at',
+        'ord'
+    ]:
         ordering = '-latest_revision_created_at'
 
     # Pagination
@@ -48,7 +57,8 @@ def index(request, parent_page_id=None):
     do_paginate = ordering != 'ord'
     if do_paginate:
         ordering_no_minus = ordering.lstrip('-')
-        pages = pages.order_by(ordering).annotate(null_position=Count(ordering_no_minus)).order_by('-null_position', ordering)
+        pages = pages.order_by(ordering).annotate(
+            null_position=Count(ordering_no_minus)).order_by('-null_position', ordering)
         paginator, pages = paginate(request, pages, per_page=50)
 
     return render(request, 'wagtailadmin/pages/index.html', {
@@ -65,15 +75,19 @@ def add_subpage(request, parent_page_id):
     if not parent_page.permissions_for_user(request.user).can_add_subpage():
         raise PermissionDenied
 
-    page_types = sorted(parent_page.allowed_subpage_types(),
-        key=lambda pagetype: pagetype.model_class().get_verbose_name().lower()
-    )
+    page_types = [
+        (model.get_verbose_name(), model._meta.app_label, model._meta.model_name)
+        for model in type(parent_page).creatable_subpage_models()
+        if model.can_create_at(parent_page)
+    ]
+    # sort by lower-cased version of verbose name
+    page_types.sort(key=lambda page_type: page_type[0].lower())
 
     if len(page_types) == 1:
         # Only one page type is available - redirect straight to the create form rather than
         # making the user choose
-        content_type = page_types[0]
-        return redirect('wagtailadmin_pages:add', content_type.app_label, content_type.model, parent_page.id)
+        verbose_name, app_label, model_name = page_types[0]
+        return redirect('wagtailadmin_pages:add', app_label, model_name, parent_page.id)
 
     return render(request, 'wagtailadmin/pages/add_subpage.html', {
         'parent_page': parent_page,
@@ -124,7 +138,7 @@ def create(request, content_type_app_name, content_type_model_name, parent_page_
         raise Http404
 
     # page must be in the list of allowed subpage types for this parent ID
-    if content_type not in parent_page.allowed_subpage_types():
+    if page_class not in parent_page.creatable_subpage_models():
         raise PermissionDenied
 
     page = page_class(owner=request.user)
@@ -164,10 +178,14 @@ def create(request, content_type_app_name, content_type_model_name, parent_page_
                     messages.button(reverse('wagtailadmin_pages:edit', args=(page.id,)), _('Edit'))
                 ])
             elif is_submitting:
-                messages.success(request, _("Page '{0}' created and submitted for moderation.").format(page.title), buttons=[
-                    messages.button(reverse('wagtailadmin_pages:view_draft', args=(page.id,)), _('View draft')),
-                    messages.button(reverse('wagtailadmin_pages:edit', args=(page.id,)), _('Edit'))
-                ])
+                messages.success(
+                    request,
+                    _("Page '{0}' created and submitted for moderation.").format(page.title),
+                    buttons=[
+                        messages.button(reverse('wagtailadmin_pages:view_draft', args=(page.id,)), _('View draft')),
+                        messages.button(reverse('wagtailadmin_pages:edit', args=(page.id,)), _('Edit'))
+                    ]
+                )
                 send_notification(page.get_latest_revision().id, 'submitted', request.user.id)
             else:
                 messages.success(request, _("Page '{0}' created.").format(page.title))
@@ -197,7 +215,7 @@ def create(request, content_type_app_name, content_type_model_name, parent_page_
         'parent_page': parent_page,
         'edit_handler': edit_handler,
         'preview_modes': page.preview_modes,
-        'form': form, # Used in unit tests
+        'form': form,  # Used in unit tests
     })
 
 
@@ -275,7 +293,9 @@ def edit(request, page_id):
             edit_handler = edit_handler_class(instance=page, form=form)
             errors_debug = (
                 repr(edit_handler.form.errors)
-                + repr([(name, formset.errors) for (name, formset) in edit_handler.form.formsets.items() if formset.errors])
+                + repr(
+                    [(name, formset.errors) for (name, formset) in edit_handler.form.formsets.items() if formset.errors]
+                )
             )
     else:
         form = form_class(instance=page)
@@ -291,12 +311,24 @@ def edit(request, page_id):
         'edit_handler': edit_handler,
         'errors_debug': errors_debug,
         'preview_modes': page.preview_modes,
-        'form': form, # Used in unit tests
+        'form': form,  # Used in unit tests
     })
 
 
 def validate_page_form(form, parent_page, instance=None):
-    # Perform default validation first
+    # Strip whitespace in title and seo_title fields
+    # This is done for us in Django 1.9 and above
+    if django.VERSION < (1, 9):
+        def clean_title():
+            return form.cleaned_data['title'].strip()
+
+        def clean_seo_title():
+            return form.cleaned_data['seo_title'].strip()
+
+        form.clean_title = clean_title
+        form.clean_seo_title = clean_seo_title
+
+    # Perform default validation
     form.full_clean()
 
     if 'slug' in form.cleaned_data:
@@ -308,20 +340,6 @@ def validate_page_form(form, parent_page, instance=None):
         # Make sure the slug isn't being used by a sibling
         if siblings.filter(slug=form.cleaned_data['slug']).exists():
             form.add_error('slug', ValidationError(_("This slug is already in use")))
-
-    # Check that the title and seo_title are not entirely whitespace
-    if 'title' in form.cleaned_data:
-        try:
-            validate_not_whitespace(form.cleaned_data['title'])
-        except ValidationError as error:
-            form.add_error('title', error)
-
-    if 'seo_title' in form.cleaned_data:
-        if form.cleaned_data['seo_title']:
-            try:
-                validate_not_whitespace(form.cleaned_data['seo_title'])
-            except ValidationError as error:
-                form.add_error('seo_title', error)
 
     # Check scheduled publishing fields
     go_live_at = form.cleaned_data.get('go_live_at')
@@ -466,6 +484,7 @@ def preview(request):
     """
     return render(request, 'wagtailadmin/pages/preview.html')
 
+
 def preview_loading(request):
     """
     This page is blank, but must be real HTML so its DOM can be written to once the preview of the page has rendered
@@ -510,7 +529,11 @@ def move_choose_destination(request, page_to_move_id, viewed_page_id=None):
         # can't move the page into itself or its descendants
         target.can_choose = page_perms.can_move_to(target)
 
-        target.can_descend = not(target == page_to_move or target.is_child_of(page_to_move)) and target.get_children_count()
+        target.can_descend = (
+            not(target == page_to_move or
+                target.is_child_of(page_to_move)) and
+            target.get_children_count()
+        )
 
         child_pages.append(target)
 
@@ -628,7 +651,10 @@ def copy(request, page_id):
 
             # Give a success message back to the user
             if form.cleaned_data.get('copy_subpages'):
-                messages.success(request, _("Page '{0}' and {1} subpages copied.").format(page.title, new_page.get_descendants().count()))
+                messages.success(
+                    request,
+                    _("Page '{0}' and {1} subpages copied.").format(page.title, new_page.get_descendants().count())
+                )
             else:
                 messages.success(request, _("Page '{0}' copied.").format(page.title))
 

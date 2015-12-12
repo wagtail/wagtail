@@ -1,0 +1,71 @@
+@mixin clearfix() {
+    &:before,
+    &:after {
+        content: ' ';
+        display: table;
+    }
+
+    &:after {
+        clear: both;
+    }
+}
+
+@mixin unlist() {
+    &, 
+    ul, 
+    li {
+        list-style-type: none;
+        font-style: normal;
+    }
+
+    &, 
+    ul {
+        margin-top: 0;
+        margin-bottom: 0;
+        padding-left: 0;
+    }
+}
+
+@mixin transition($transition...) {
+    body.ready & {
+        transition: $transition;
+    }
+}
+
+@mixin visuallyhidden {
+    border: 0;
+    clip: rect(0 0 0 0);
+    height: 1px;
+    margin: -1px;
+    overflow: hidden;
+    padding: 0;
+    position: absolute;
+    width: 1px;
+
+    &:active, 
+    &:focus {
+        clip: auto;
+        height: auto;
+        margin: 0;
+        overflow: visible;
+        position: static;
+        width: auto;
+    }
+}
+
+.visuallyhidden {
+    @include visuallyhidden;
+}
+
+@mixin visuallyvisible {
+    clip: none;
+    height: auto;
+    width: auto;
+    margin: auto;
+    overflow: visible;
+    position: initial;
+}
+
+.visuallyvisible {
+    @include visuallyvisible;
+}

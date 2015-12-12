@@ -58,7 +58,8 @@ class Command(BaseCommand):
         rebuilder.finish()
 
     option_list = BaseCommand.option_list + (
-        make_option('--backend',
+        make_option(
+            '--backend',
             action='store',
             dest='backend_name',
             default=None,

@@ -28,7 +28,10 @@ class ImagesMenuItem(MenuItem):
 
 @hooks.register('register_admin_menu_item')
 def register_images_menu_item():
-    return ImagesMenuItem(_('Images'), urlresolvers.reverse('wagtailimages:index'), name='images', classnames='icon icon-image', order=300)
+    return ImagesMenuItem(
+        _('Images'), urlresolvers.reverse('wagtailimages:index'),
+        name='images', classnames='icon icon-image', order=300
+    )
 
 
 @hooks.register('insert_editor_js')
@@ -37,7 +40,8 @@ def editor_js():
         'wagtailimages/js/hallo-plugins/hallo-wagtailimage.js',
         'wagtailimages/js/image-chooser.js',
     ]
-    js_includes = format_html_join('\n', '<script src="{0}{1}"></script>',
+    js_includes = format_html_join(
+        '\n', '<script src="{0}{1}"></script>',
         ((settings.STATIC_URL, filename) for filename in js_files)
     )
     return js_includes + format_html(
@@ -54,7 +58,7 @@ def editor_js():
 @hooks.register('register_permissions')
 def register_permissions():
     return Permission.objects.filter(content_type__app_label='wagtailimages',
-        codename__in=['add_image', 'change_image'])
+                                     codename__in=['add_image', 'change_image'])
 
 
 @hooks.register('register_image_operations')

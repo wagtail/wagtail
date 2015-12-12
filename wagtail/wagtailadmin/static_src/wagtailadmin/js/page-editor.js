@@ -130,21 +130,6 @@ function initDateTimeChooser(id) {
     }
 }
 
-function initTagField(id, autocompleteUrl) {
-    $('#' + id).tagit({
-        autocomplete: {source: autocompleteUrl},
-        preprocessTag: function(val) {
-            // Double quote a tag if it contains a space
-            // and if it isn't already quoted.
-            if (val && val[0] != '"' && val.indexOf(' ') > -1) {
-                return '"' + val + '"';
-            }
-
-            return val;
-        }
-    });
-}
-
 function InlinePanel(opts) {
     var self = {};
 
@@ -379,6 +364,18 @@ function initCollapsibleBlocks() {
     });
 }
 
+function initKeyboardShortcuts() {
+    Mousetrap.bind(['mod+p'], function(e) {
+        $('.action-preview').trigger('click');
+        return false;
+    });
+
+    Mousetrap.bind(['mod+s'], function(e) {
+        $('.action-save').trigger('click');
+        return false;
+    });
+}
+
 $(function() {
     /* Only non-live pages should auto-populate the slug from the title */
     if (!$('body').hasClass('page-is-live')) {
@@ -388,6 +385,7 @@ $(function() {
     initSlugCleaning();
     initErrorDetection();
     initCollapsibleBlocks();
+    initKeyboardShortcuts();
 
     $('.richtext [contenteditable="false"]').each(function() {
         insertRichTextDeleteControl(this);

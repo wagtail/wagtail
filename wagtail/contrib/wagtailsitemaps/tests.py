@@ -44,8 +44,8 @@ class TestSitemapGenerator(TestCase):
         sitemap = Sitemap(self.site)
         urls = [url['location'] for url in sitemap.get_urls()]
 
-        self.assertIn('http://localhost/', urls) # Homepage
-        self.assertIn('http://localhost/hello-world/', urls) # Child page
+        self.assertIn('http://localhost/', urls)  # Homepage
+        self.assertIn('http://localhost/hello-world/', urls)  # Child page
 
     def test_get_urls_uses_specific(self):
         # Add an event page which has an extra url in the sitemap
@@ -58,8 +58,8 @@ class TestSitemapGenerator(TestCase):
         sitemap = Sitemap(self.site)
         urls = [url['location'] for url in sitemap.get_urls()]
 
-        self.assertIn('http://localhost/events/', urls) # Main view
-        self.assertIn('http://localhost/events/past/', urls) # Sub view
+        self.assertIn('http://localhost/events/', urls)  # Main view
+        self.assertIn('http://localhost/events/past/', urls)  # Sub view
 
     def test_render(self):
         sitemap = Sitemap(self.site)
@@ -102,7 +102,7 @@ class TestSitemapView(TestCase):
         second_response = self.client.get('/sitemap.xml')
 
         self.assertEqual(second_response.status_code, 200)
-        self.assertTemplateNotUsed(second_response, 'wagtailsitemaps/sitemap.xml') # Sitemap should not be re rendered
+        self.assertTemplateNotUsed(second_response, 'wagtailsitemaps/sitemap.xml')  # Sitemap should not be re rendered
 
         # Check that the content is the same
         self.assertEqual(first_response.content, second_response.content)

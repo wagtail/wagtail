@@ -11,13 +11,14 @@ from wagtail.wagtailembeds.rich_text import MediaEmbedHandler
 @hooks.register('register_admin_urls')
 def register_admin_urls():
     return [
-        url(r'^embeds/', include(urls, namespace='wagtailembeds')),
+        url(r'^embeds/', include(urls, app_name='wagtailembeds', namespace='wagtailembeds')),
     ]
 
 
 @hooks.register('insert_editor_js')
 def editor_js():
-    return format_html("""
+    return format_html(
+        """
             <script src="{0}{1}"></script>
             <script>
                 window.chooserUrls.embedsChooser = '{2}';

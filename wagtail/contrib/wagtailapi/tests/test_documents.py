@@ -345,7 +345,9 @@ class TestDocumentDetail(TestCase):
         content = json.loads(response.content.decode('UTF-8'))
 
         self.assertIn('download_url', content['meta'])
-        self.assertEqual(content['meta']['download_url'], 'http://api.example.com/documents/1/wagtail_by_markyharky.jpg')
+        self.assertEqual(
+            content['meta']['download_url'], 'http://api.example.com/documents/1/wagtail_by_markyharky.jpg'
+        )
 
 
 @override_settings(

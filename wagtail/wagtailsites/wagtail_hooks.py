@@ -12,7 +12,7 @@ from wagtail.wagtailsites import urls
 @hooks.register('register_admin_urls')
 def register_admin_urls():
     return [
-        url(r'^sites/', include(urls, namespace='wagtailsites')),
+        url(r'^sites/', include(urls, app_name='wagtailsites', namespace='wagtailsites')),
     ]
 
 
@@ -27,10 +27,11 @@ class SitesMenuItem(MenuItem):
 
 @hooks.register('register_settings_menu_item')
 def register_sites_menu_item():
-    return SitesMenuItem(_('Sites'), urlresolvers.reverse('wagtailsites:index'), classnames='icon icon-site', order=602)
+    return SitesMenuItem(_('Sites'), urlresolvers.reverse('wagtailsites:index'),
+                         classnames='icon icon-site', order=602)
 
 
 @hooks.register('register_permissions')
 def register_permissions():
     return Permission.objects.filter(content_type__app_label='wagtailcore',
-        codename__in=['add_site', 'change_site', 'delete_site'])
+                                     codename__in=['add_site', 'change_site', 'delete_site'])

@@ -20,7 +20,7 @@ urlpatterns = [
     url(r'^pages/$', pages.index, name='wagtailadmin_explore_root'),
     url(r'^pages/(\d+)/$', pages.index, name='wagtailadmin_explore'),
 
-    url(r'^pages/', include(wagtailadmin_pages_urls, namespace='wagtailadmin_pages')),
+    url(r'^pages/', include(wagtailadmin_pages_urls, app_name='wagtailadmin_pages', namespace='wagtailadmin_pages')),
 
     # TODO: Move into wagtailadmin_pages namespace
     url(r'^choose-page/$', chooser.browse, name='wagtailadmin_choose_page'),
@@ -33,7 +33,11 @@ urlpatterns = [
 
     url(r'^account/$', account.account, name='wagtailadmin_account'),
     url(r'^account/change_password/$', account.change_password, name='wagtailadmin_account_change_password'),
-    url(r'^account/notification_preferences/$', account.notification_preferences, name='wagtailadmin_account_notification_preferences'),
+    url(
+        r'^account/notification_preferences/$',
+        account.notification_preferences,
+        name='wagtailadmin_account_notification_preferences'
+    ),
     url(r'^logout/$', account.logout, name='wagtailadmin_logout'),
 ]
 
@@ -46,7 +50,8 @@ for fn in hooks.get_hooks('register_admin_urls'):
 
 
 # Add "wagtailadmin.access_admin" permission check
-urlpatterns = decorate_urlpatterns(urlpatterns,
+urlpatterns = decorate_urlpatterns(
+    urlpatterns,
     permission_required(
         'wagtailadmin.access_admin',
         login_url='wagtailadmin_login'
@@ -68,6 +73,7 @@ urlpatterns += [
 ]
 
 # Decorate all views with cache settings to prevent caching
-urlpatterns = decorate_urlpatterns(urlpatterns,
+urlpatterns = decorate_urlpatterns(
+    urlpatterns,
     cache_control(private=True, no_cache=True, no_store=True, max_age=0)
 )

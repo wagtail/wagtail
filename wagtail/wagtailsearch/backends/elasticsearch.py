@@ -9,10 +9,11 @@ from django.utils.six.moves.urllib.parse import urlparse
 from elasticsearch import Elasticsearch, NotFoundError
 from elasticsearch.helpers import bulk
 
+from django.db import models
 from django.utils.crypto import get_random_string
 
 from wagtail.wagtailsearch.backends.base import BaseSearch, BaseSearchQuery, BaseSearchResults
-from wagtail.wagtailsearch.index import SearchField, FilterField, class_is_indexed
+from wagtail.wagtailsearch.index import SearchField, FilterField, RelatedFields, class_is_indexed
 from wagtail.utils.deprecation import RemovedInWagtail14Warning
 
 
@@ -95,25 +96,35 @@ class ElasticSearchMapping(object):
         return self.model.indexed_get_content_type()
 
     def get_field_mapping(self, field):
-        mapping = {'type': self.TYPE_MAP.get(field.get_type(self.model), 'string')}
+        if isinstance(field, RelatedFields):
+            mapping = {'type': 'nested', 'properties': {}}
 
-        if isinstance(field, SearchField):
-            if field.boost:
-                mapping['boost'] = field.boost
+            for sub_field in field.fields:
+                sub_field_name, sub_field_mapping = self.get_field_mapping(sub_field)
+                mapping['properties'][sub_field_name] = sub_field_mapping
 
-            if field.partial_match:
-                mapping['index_analyzer'] = 'edgengram_analyzer'
+            return field.get_index_name(self.model), mapping
+        else:
+            mapping = {'type': self.TYPE_MAP.get(field.get_type(self.model), 'string')}
 
-            mapping['include_in_all'] = True
-        elif isinstance(field, FilterField):
-            mapping['index'] = 'not_analyzed'
-            mapping['include_in_all'] = False
+            if isinstance(field, SearchField):
+                if field.boost:
+                    mapping['boost'] = field.boost
 
-        if 'es_extra' in field.kwargs:
-            for key, value in field.kwargs['es_extra'].items():
-                mapping[key] = value
+                if field.partial_match:
+                    mapping['index_analyzer'] = 'edgengram_analyzer'
 
-        return field.get_index_name(self.model), mapping
+                mapping['include_in_all'] = True
+
+            elif isinstance(field, FilterField):
+                mapping['index'] = 'not_analyzed'
+                mapping['include_in_all'] = False
+
+            if 'es_extra' in field.kwargs:
+                for key, value in field.kwargs['es_extra'].items():
+                    mapping[key] = value
+
+            return field.get_index_name(self.model), mapping
 
     def get_mapping(self):
         # Make field list
@@ -136,12 +147,41 @@ class ElasticSearchMapping(object):
     def get_document_id(self, obj):
         return obj.indexed_get_toplevel_content_type() + ':' + str(obj.pk)
 
+    def _get_nested_document(self, fields, obj):
+        doc = {}
+        partials = []
+        model = type(obj)
+
+        for field in fields:
+            value = field.get_value(obj)
+            doc[field.get_index_name(model)] = value
+
+            # Check if this field should be added into _partials
+            if isinstance(field, SearchField) and field.partial_match:
+                partials.append(value)
+
+        return doc, partials
+
     def get_document(self, obj):
         # Build document
         doc = dict(pk=str(obj.pk), content_type=self.model.indexed_get_content_type())
         partials = []
         for field in self.model.get_search_fields():
             value = field.get_value(obj)
+
+            if isinstance(field, RelatedFields):
+                if isinstance(value, models.Manager):
+                    nested_docs = []
+
+                    for nested_obj in value.all():
+                        nested_doc, extra_partials = self._get_nested_document(field.fields, nested_obj)
+                        nested_docs.append(nested_doc)
+                        partials.extend(extra_partials)
+
+                    value = nested_docs
+                elif isinstance(value, models.Model):
+                    value, extra_partials = self._get_nested_document(field.fields, value)
+                    partials.extend(extra_partials)
 
             doc[field.get_index_name(self.model)] = value
 
@@ -371,7 +411,11 @@ class ElasticSearchQuery(BaseSearchQuery):
 class ElasticSearchResults(BaseSearchResults):
     def _get_es_body(self, for_count=False):
         # If to_es has been overridden, call it and raise a deprecation warning
-        if isinstance(self.query, ElasticSearchQuery) and six.get_method_function(self.query.to_es) != ElasticSearchQuery.to_es:
+        if (
+            isinstance(self.query, ElasticSearchQuery)
+            and six.get_method_function(self.query.to_es)
+            != ElasticSearchQuery.to_es
+        ):
             warnings.warn(
                 "The .to_es() method on Elasticsearch query classes is deprecated. "
                 "Please rename {class_name}.to_es() to {class_name}.get_query()".format(
@@ -465,7 +509,9 @@ class ElasticSearchIndexRebuilder(object):
         mapping = ElasticSearchMapping(model)
 
         # Put mapping
-        self.es.indices.put_mapping(index=self.index_name, doc_type=mapping.get_document_type(), body=mapping.get_mapping())
+        self.es.indices.put_mapping(
+            index=self.index_name, doc_type=mapping.get_document_type(), body=mapping.get_mapping()
+        )
 
     def add_items(self, model, obj_list):
         if not class_is_indexed(model):
@@ -612,7 +658,9 @@ class ElasticSearch(BaseSearch):
         mapping = ElasticSearchMapping(model)
 
         # Put mapping
-        self.es.indices.put_mapping(index=self.es_index, doc_type=mapping.get_document_type(), body=mapping.get_mapping())
+        self.es.indices.put_mapping(
+            index=self.es_index, doc_type=mapping.get_document_type(), body=mapping.get_mapping()
+        )
 
     def refresh_index(self):
         self.es.indices.refresh(self.es_index)
@@ -626,7 +674,9 @@ class ElasticSearch(BaseSearch):
         mapping = ElasticSearchMapping(obj.__class__)
 
         # Add document to index
-        self.es.index(self.es_index, mapping.get_document_type(), mapping.get_document(obj), id=mapping.get_document_id(obj))
+        self.es.index(
+            self.es_index, mapping.get_document_type(), mapping.get_document(obj), id=mapping.get_document_id(obj)
+        )
 
     def add_bulk(self, model, obj_list):
         if not class_is_indexed(model):

@@ -63,7 +63,11 @@ class TestDocumentPermissions(TestCase):
         self.owner = User.objects.create_user(username='owner', email='owner@email.com', password='password')
         self.editor = User.objects.create_user(username='editor', email='editor@email.com', password='password')
         self.editor.groups.add(Group.objects.get(name='Editors'))
-        self.administrator = User.objects.create_superuser(username='administrator', email='administrator@email.com', password='password')
+        self.administrator = User.objects.create_superuser(
+            username='administrator',
+            email='administrator@email.com',
+            password='password'
+        )
 
         # Owner user must have the add_document permission
         self.owner.user_permissions.add(Permission.objects.get(codename='add_document'))
@@ -656,8 +660,14 @@ class TestServeViewWithSendfile(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response['X-Sendfile'], os.path.join(settings.MEDIA_ROOT, self.document.file.name))
 
-    @unittest.skipIf(django.VERSION >= (1, 8), "Fails on Django 1.8")  # Under Django 1.8. It adds "http://" to beginning of Location when it shouldn't
-    @override_settings(SENDFILE_BACKEND='sendfile.backends.mod_wsgi', SENDFILE_ROOT=settings.MEDIA_ROOT, SENDFILE_URL=settings.MEDIA_URL[:-1])
+    @unittest.skipIf(
+        django.VERSION >= (1, 8), "Fails on Django 1.8"
+    )  # Under Django 1.8. It adds "http://" to beginning of Location when it shouldn't
+    @override_settings(
+        SENDFILE_BACKEND='sendfile.backends.mod_wsgi',
+        SENDFILE_ROOT=settings.MEDIA_ROOT,
+        SENDFILE_URL=settings.MEDIA_URL[:-1]
+    )
     def test_sendfile_mod_wsgi_backend(self):
         self.clear_sendfile_cache()
         response = self.get()
@@ -665,7 +675,11 @@ class TestServeViewWithSendfile(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response['Location'], os.path.join(settings.MEDIA_URL, self.document.file.name))
 
-    @override_settings(SENDFILE_BACKEND='sendfile.backends.nginx', SENDFILE_ROOT=settings.MEDIA_ROOT, SENDFILE_URL=settings.MEDIA_URL[:-1])
+    @override_settings(
+        SENDFILE_BACKEND='sendfile.backends.nginx',
+        SENDFILE_ROOT=settings.MEDIA_ROOT,
+        SENDFILE_URL=settings.MEDIA_URL[:-1]
+    )
     def test_sendfile_nginx_backend(self):
         self.clear_sendfile_cache()
         response = self.get()
@@ -680,7 +694,8 @@ class TestServeWithUnicodeFilename(TestCase):
 
         # Setting this filename in the content-disposition header fails on Django <1.8, Python 2
         # due to https://code.djangoproject.com/ticket/20889
-        self.filename = 'docs\u0627\u0644\u0643\u0627\u062a\u062f\u0631\u0627\u064a\u064a\u0629_\u0648\u0627\u0644\u0633\u0648\u0642'
+        self.filename = 'docs\u0627\u0644\u0643\u0627\u062a\u062f\u0631\u0627'
+        '\u064a\u064a\u0629_\u0648\u0627\u0644\u0633\u0648\u0642'
         try:
             self.document.file.save(self.filename, ContentFile("A boring example document"))
         except UnicodeEncodeError:
@@ -735,7 +750,11 @@ class TestEditOnlyPermissions(TestCase, WagtailTestUtils):
         self.document = models.Document.objects.create(title="Test document", file=fake_file)
 
         # Create a user with change_document permission but not add_document
-        user = get_user_model().objects.create_user(username='changeonly', email='changeonly@example.com', password='password')
+        user = get_user_model().objects.create_user(
+            username='changeonly',
+            email='changeonly@example.com',
+            password='password'
+        )
         change_permission = Permission.objects.get(content_type__app_label='wagtaildocs', codename='change_document')
         admin_permission = Permission.objects.get(content_type__app_label='wagtailadmin', codename='access_admin')
         user.user_permissions.add(change_permission, admin_permission)

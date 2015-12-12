@@ -15,7 +15,12 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='RoutablePageTest',
             fields=[
-                ('page_ptr', models.OneToOneField(parent_link=True, auto_created=True, serialize=False, to='wagtailcore.Page', primary_key=True)),
+                (
+                    'page_ptr',
+                    models.OneToOneField(
+                        parent_link=True, auto_created=True, serialize=False, to='wagtailcore.Page', primary_key=True
+                    )
+                ),
             ],
             options={
                 'abstract': False,

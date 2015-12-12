@@ -31,7 +31,13 @@ def serve(request, document_id, document_filename):
             return sendfile(request, local_path, attachment=True, attachment_filename=doc.filename)
         else:
             # Fallback to streaming backend if user hasn't specified SENDFILE_BACKEND
-            return sendfile(request, local_path, attachment=True, attachment_filename=doc.filename, backend=sendfile_streaming_backend.sendfile)
+            return sendfile(
+                request,
+                local_path,
+                attachment=True,
+                attachment_filename=doc.filename,
+                backend=sendfile_streaming_backend.sendfile
+            )
 
     else:
 

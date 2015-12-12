@@ -1,0 +1,97 @@
+// Messages are specific to Django's 'Messaging' system which adds messages into the session, 
+// for display on the next page visited. These appear as an animated banner at the top of the page.
+//
+// For inline help text, see typography.scss
+
+.messages {
+    position: relative;
+    z-index: 5;
+    background-color: $color-grey-1;
+
+    .buttons {
+        margin-left: 1em;
+    }
+
+    ul {
+        @include unlist();
+        padding-left: 10px;
+        position: relative;
+        top: -100px;
+        opacity: 0;
+    }
+
+    li {
+        @include nice-padding;
+        padding-top: 1.3em;
+        padding-bottom: 1.3em;
+        color: $color-white;
+    }
+
+    li:before {
+        margin-right: 0.5em;
+        font-size: 1.5em;
+        vertical-align: middle;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+    }
+
+    .error {
+        background-color: $color-red;
+
+        &:before {
+            font-family: wagtail;
+            content: '!';
+        }
+    }
+
+    .warning {
+        background-color: $color-orange;
+
+        &:before {
+            font-family: wagtail;
+            content: '!';
+        }
+    }
+
+    .success {
+        background-color: $color-green;
+
+        &:before {
+            font-family: wagtail;
+            content: '9';
+        }
+    }
+
+    .success .button:hover {
+        background-color: $color-teal-dark;
+    }
+
+    .button-secondary {
+        border-color: rgba(255, 255, 255, 0.5);
+        color: rgba(255, 255, 255, 0.8);
+
+        &:hover {
+            border-color: transparent;
+            color: $color-white;
+        }
+    }
+}
+
+.messages.new ul {
+    transition: none;
+    top: -100px;
+}
+
+.ready .messages ul,
+.messages.appear ul {
+    transition: top 0.5s ease, opacity 0.5s ease, max-height 1.2s ease;
+    opacity: 1;
+    top: 0;
+}
+
+@media screen and (min-width: $breakpoint-mobile) {
+    .messages ul li {
+        padding-left: $desktop-nice-padding;
+        padding-right: $desktop-nice-padding;
+    }
+}

@@ -15,7 +15,16 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='FilePage',
             fields=[
-                ('page_ptr', models.OneToOneField(to='wagtailcore.Page', serialize=False, auto_created=True, primary_key=True, parent_link=True)),
+                (
+                    'page_ptr',
+                    models.OneToOneField(
+                        to='wagtailcore.Page',
+                        serialize=False,
+                        auto_created=True,
+                        primary_key=True,
+                        parent_link=True
+                    )
+                ),
                 ('file_field', models.FileField(upload_to='')),
             ],
             options={

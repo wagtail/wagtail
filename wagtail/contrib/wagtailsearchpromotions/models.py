@@ -6,13 +6,13 @@ from wagtail.wagtailsearch.models import Query
 
 class SearchPromotion(models.Model):
     query = models.ForeignKey(Query, db_index=True, related_name='editors_picks')
-    page = models.ForeignKey('wagtailcore.Page', verbose_name=_('Page'))
+    page = models.ForeignKey('wagtailcore.Page', verbose_name=_('page'))
     sort_order = models.IntegerField(null=True, blank=True, editable=False)
-    description = models.TextField(verbose_name=_('Description'), blank=True)
+    description = models.TextField(verbose_name=_('description'), blank=True)
 
     def __repr__(self):
         return 'SearchPromotion(query="' + self.query.query_string + '", page="' + self.page.title + '")'
 
     class Meta:
         ordering = ('sort_order', )
-        verbose_name = _("Search promotion")
+        verbose_name = _("search promotion")

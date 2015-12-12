@@ -14,8 +14,8 @@ from wagtail.wagtailusers.urls import users, groups
 @hooks.register('register_admin_urls')
 def register_admin_urls():
     return [
-        url(r'^users/', include(users, namespace='wagtailusers_users')),
-        url(r'^groups/', include(groups, namespace='wagtailusers_groups')),
+        url(r'^users/', include(users, app_name='wagtailusers_users', namespace='wagtailusers_users')),
+        url(r'^groups/', include(groups, app_name='wagtailusers_groups', namespace='wagtailusers_groups')),
     ]
 
 
@@ -38,7 +38,12 @@ class UsersMenuItem(MenuItem):
 
 @hooks.register('register_settings_menu_item')
 def register_users_menu_item():
-    return UsersMenuItem(_('Users'), urlresolvers.reverse('wagtailusers_users:index'), classnames='icon icon-user', order=600)
+    return UsersMenuItem(
+        _('Users'),
+        urlresolvers.reverse('wagtailusers_users:index'),
+        classnames='icon icon-user',
+        order=600
+    )
 
 
 class GroupsMenuItem(MenuItem):
@@ -52,7 +57,12 @@ class GroupsMenuItem(MenuItem):
 
 @hooks.register('register_settings_menu_item')
 def register_groups_menu_item():
-    return GroupsMenuItem(_('Groups'), urlresolvers.reverse('wagtailusers_groups:index'), classnames='icon icon-group', order=601)
+    return GroupsMenuItem(
+        ('Groups'),
+        urlresolvers.reverse('wagtailusers_groups:index'),
+        classnames='icon icon-group',
+        order=601
+    )
 
 
 @hooks.register('register_permissions')

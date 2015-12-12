@@ -6,14 +6,15 @@
 # Douglas Miranda <douglasmirandasilva@gmail.com>, 2014
 # Gladson <gladsonbrito@gmail.com>, 2014
 # Jose Lourenco <jose@lourenco.ws>, 2014-2015
+# Manuela Silva <h_manuela_rodsilva@gmail.com>, 2015
 # Tiago Henriques <trinosauro@gmail.com>, 2015
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2015-08-26 14:28+0100\n"
-"PO-Revision-Date: 2015-08-26 13:37+0000\n"
-"Last-Translator: Karl Hobley <karl@torchbox.com>\n"
+"PO-Revision-Date: 2015-11-02 16:56+0000\n"
+"Last-Translator: Manuela Silva <h_manuela_rodsilva@gmail.com>\n"
 "Language-Team: Portuguese (Portugal) (http://www.transifex.com/torchbox/"
 "wagtail/language/pt_PT/)\n"
 "MIME-Version: 1.0\n"
@@ -26,13 +27,13 @@ msgid "Scheduled publishing"
 msgstr "Publicação agendada"
 
 msgid "Common page configuration"
-msgstr "Configuração comum de página"
+msgstr "Configuração de página comum"
 
 msgid "Search"
-msgstr "Pesquisar"
+msgstr "Procurar"
 
 msgid "Search term"
-msgstr "Termo de pesquisa"
+msgstr "Termo de procura"
 
 msgid "Enter password"
 msgstr "Introduza a sua senha"
@@ -55,7 +56,7 @@ msgstr ""
 "utilizador é gerida por outro servidor."
 
 msgid "This email address is not recognised."
-msgstr "Este e-mail não é reconhecido."
+msgstr "Este endereço de e-mail não é reconhecido."
 
 msgid "New title"
 msgstr "Novo título"
@@ -64,7 +65,7 @@ msgid "New slug"
 msgstr "Novo “slug”"
 
 msgid "New parent page"
-msgstr "Nova página mãe"
+msgstr "Nova página fonte"
 
 msgid "This copy will be a child of this given parent page."
 msgstr "Esta página passará a filha desta página mãe"
@@ -246,6 +247,12 @@ msgstr "Inserir link"
 
 msgid "Add an external link"
 msgstr "Adicionar link externo"
+
+msgid "Yes, delete"
+msgstr "Sim, eliminar"
+
+msgid "Save"
+msgstr "Guardar"
 
 #, python-format
 msgid "Welcome to the %(site_name)s Wagtail CMS"

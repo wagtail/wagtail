@@ -27,6 +27,7 @@ class AdminAutoHeightTextInput(WidgetWithScript, widgets.Textarea):
     def render_js_init(self, id_, name, value):
         return 'autosize($("#{0}"));'.format(id_)
 
+
 class AdminDateInput(WidgetWithScript, widgets.DateInput):
     # Set a default date format to match the one that our JS date picker expects -
     # it can still be overridden explicitly, but this way it won't be affected by

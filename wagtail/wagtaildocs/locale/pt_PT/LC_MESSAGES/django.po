@@ -4,6 +4,7 @@
 #
 # Translators:
 # Jose Lourenco <jose@lourenco.ws>, 2015
+# Manuela Silva <h_manuela_rodsilva@gmail.com>, 2015
 # Thiago Cangussu <cangussu.thg@gmail.com>, 2014
 # Tiago Henriques <trinosauro@gmail.com>, 2015
 msgid ""
@@ -11,8 +12,8 @@ msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2015-08-26 14:28+0100\n"
-"PO-Revision-Date: 2015-04-29 17:34+0000\n"
-"Last-Translator: Tiago Henriques <trinosauro@gmail.com>\n"
+"PO-Revision-Date: 2015-11-02 16:55+0000\n"
+"Last-Translator: Manuela Silva <h_manuela_rodsilva@gmail.com>\n"
 "Language-Team: Portuguese (Portugal) (http://www.transifex.com/torchbox/"
 "wagtail/language/pt_PT/)\n"
 "MIME-Version: 1.0\n"
@@ -34,7 +35,7 @@ msgid "Uploaded by user"
 msgstr "Carregado pelo utilizador"
 
 msgid "Tags"
-msgstr "Palavras-chave"
+msgstr "Etiquetas"
 
 msgid "Document"
 msgstr "Documento"

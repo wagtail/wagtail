@@ -12,8 +12,9 @@ from django.utils.text import slugify
 from django.utils.encoding import python_2_unicode_compatible
 from django.utils.six import text_type
 from django.core.serializers.json import DjangoJSONEncoder
+from django.contrib.contenttypes.models import ContentType
 
-from wagtail.wagtailcore.models import Page, Orderable, UserPagePermissionsProxy, get_page_types
+from wagtail.wagtailcore.models import Page, Orderable, UserPagePermissionsProxy, get_page_models
 from wagtail.wagtailadmin.edit_handlers import FieldPanel
 from wagtail.wagtailadmin.utils import send_mail
 
@@ -45,7 +46,7 @@ class FormSubmission(models.Model):
     form_data = models.TextField()
     page = models.ForeignKey(Page)
 
-    submit_time = models.DateTimeField(verbose_name=_('Submit time'), auto_now_add=True)
+    submit_time = models.DateTimeField(verbose_name=_('submit time'), auto_now_add=True)
 
     def get_data(self):
         return json.loads(self.form_data)
@@ -54,7 +55,7 @@ class FormSubmission(models.Model):
         return self.form_data
 
     class Meta:
-        verbose_name = _('Form Submission')
+        verbose_name = _('form submission')
 
 
 class AbstractFormField(Orderable):
@@ -63,25 +64,25 @@ class AbstractFormField(Orderable):
     """
 
     label = models.CharField(
-        verbose_name=_('Label'),
+        verbose_name=_('label'),
         max_length=255,
         help_text=_('The label of the form field')
     )
-    field_type = models.CharField(verbose_name=_('Field type'), max_length=16, choices=FORM_FIELD_CHOICES)
-    required = models.BooleanField(verbose_name=_('Required'), default=True)
+    field_type = models.CharField(verbose_name=_('field type'), max_length=16, choices=FORM_FIELD_CHOICES)
+    required = models.BooleanField(verbose_name=_('required'), default=True)
     choices = models.CharField(
-        verbose_name=_('Choices'),
+        verbose_name=_('choices'),
         max_length=512,
         blank=True,
         help_text=_('Comma separated list of choices. Only applicable in checkboxes, radio and dropdown.')
     )
     default_value = models.CharField(
-        verbose_name=_('Default value'),
+        verbose_name=_('default value'),
         max_length=255,
         blank=True,
         help_text=_('Default value. Comma separated values supported for checkboxes.')
     )
-    help_text = models.CharField(verbose_name=_('Help text'), max_length=255, blank=True)
+    help_text = models.CharField(verbose_name=_('help text'), max_length=255, blank=True)
 
     @property
     def clean_name(self):
@@ -110,10 +111,14 @@ _FORM_CONTENT_TYPES = None
 def get_form_types():
     global _FORM_CONTENT_TYPES
     if _FORM_CONTENT_TYPES is None:
-        _FORM_CONTENT_TYPES = [
-            ct for ct in get_page_types()
-            if issubclass(ct.model_class(), AbstractForm)
+        form_models = [
+            model for model in get_page_models()
+            if issubclass(model, AbstractForm)
         ]
+
+        _FORM_CONTENT_TYPES = list(
+            ContentType.objects.get_for_models(*form_models).values()
+        )
     return _FORM_CONTENT_TYPES
 
 
@@ -207,9 +212,12 @@ class AbstractEmailForm(AbstractForm):
     A Form Page that sends email. Pages implementing a form to be send to an email should inherit from it
     """
 
-    to_address = models.CharField(verbose_name=_('To address'), max_length=255, blank=True, help_text=_("Optional - form submissions will be emailed to this address"))
-    from_address = models.CharField(verbose_name=_('From address'), max_length=255, blank=True)
-    subject = models.CharField(verbose_name=_('Subject'), max_length=255, blank=True)
+    to_address = models.CharField(
+        verbose_name=_('to address'), max_length=255, blank=True,
+        help_text=_("Optional - form submissions will be emailed to this address")
+    )
+    from_address = models.CharField(verbose_name=_('from address'), max_length=255, blank=True)
+    subject = models.CharField(verbose_name=_('subject'), max_length=255, blank=True)
 
     def process_form_submission(self, form):
         super(AbstractEmailForm, self).process_form_submission(form)

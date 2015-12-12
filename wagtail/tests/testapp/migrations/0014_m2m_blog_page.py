@@ -31,10 +31,26 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='ManyToManyBlogPage',
             fields=[
-                ('page_ptr', models.OneToOneField(primary_key=True, serialize=False, parent_link=True, auto_created=True, to='wagtailcore.Page')),
+                (
+                    'page_ptr',
+                    models.OneToOneField(
+                        primary_key=True,
+                        serialize=False,
+                        parent_link=True,
+                        auto_created=True,
+                        to='wagtailcore.Page'
+                    )
+                ),
                 ('body', wagtail.wagtailcore.fields.RichTextField(blank=True)),
                 ('adverts', models.ManyToManyField(to='tests.Advert', blank=True)),
-                ('blog_categories', models.ManyToManyField(to='tests.BlogCategory', through='tests.BlogCategoryBlogPage', blank=True)),
+                (
+                    'blog_categories',
+                    models.ManyToManyField(
+                        to='tests.BlogCategory',
+                        through='tests.BlogCategoryBlogPage',
+                        blank=True
+                    )
+                ),
             ],
             options={
                 'abstract': False,

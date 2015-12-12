@@ -4,6 +4,7 @@ from django.conf import settings
 from django import template
 from django.contrib.humanize.templatetags.humanize import intcomma
 from django.template.defaultfilters import stringfilter
+from django.utils.safestring import mark_safe
 
 from wagtail.wagtailcore import hooks
 from wagtail.wagtailcore.models import get_navigation_menu_items, UserPagePermissionsProxy, PageViewRestriction
@@ -17,6 +18,7 @@ from wagtail.utils.pagination import DEFAULT_PAGE_KEY
 register = template.Library()
 
 register.filter('intcomma', intcomma)
+
 
 @register.inclusion_tag('wagtailadmin/shared/explorer_nav.html')
 def explorer_nav():
@@ -40,6 +42,7 @@ def main_nav(context):
         'menu_html': admin_menu.render_html(request),
         'request': request,
     }
+
 
 @register.simple_tag
 def main_nav_js():
@@ -104,7 +107,9 @@ def test_page_is_public(context, page):
     DB queries on repeated calls.
     """
     if 'all_page_view_restriction_paths' not in context:
-        context['all_page_view_restriction_paths'] = PageViewRestriction.objects.select_related('page').values_list('page__path', flat=True)
+        context['all_page_view_restriction_paths'] = PageViewRestriction.objects.select_related('page').values_list(
+            'page__path', flat=True
+        )
 
     is_private = any([
         page.path.startswith(restricted_path)
@@ -123,7 +128,7 @@ def hook_output(hook_name):
     Note that the output is not escaped - it is the hook function's responsibility to escape unsafe content.
     """
     snippets = [fn() for fn in hooks.get_hooks(hook_name)]
-    return ''.join(snippets)
+    return mark_safe(''.join(snippets))
 
 
 @register.assignment_tag
@@ -167,9 +172,15 @@ def render_with_errors(bound_field):
     """
     widget = bound_field.field.widget
     if bound_field.errors and hasattr(widget, 'render_with_errors'):
-        return widget.render_with_errors(bound_field.html_name, bound_field.value(), attrs={'id': bound_field.auto_id}, errors=bound_field.errors)
+        return widget.render_with_errors(
+            bound_field.html_name,
+            bound_field.value(),
+            attrs={'id': bound_field.auto_id},
+            errors=bound_field.errors
+        )
     else:
         return bound_field.as_widget()
+
 
 @register.filter
 def has_unrendered_errors(bound_field):

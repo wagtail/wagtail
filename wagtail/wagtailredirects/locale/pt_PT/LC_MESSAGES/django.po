@@ -4,6 +4,7 @@
 #
 # Translators:
 # Jose Lourenco <jose@lourenco.ws>, 2015
+# Manuela Silva <h_manuela_rodsilva@gmail.com>, 2015
 # Thiago Cangussu <cangussu.thg@gmail.com>, 2014
 # Tiago Henriques <trinosauro@gmail.com>, 2015
 msgid ""
@@ -11,8 +12,8 @@ msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2015-08-26 14:28+0100\n"
-"PO-Revision-Date: 2015-04-29 17:26+0000\n"
-"Last-Translator: Tiago Henriques <trinosauro@gmail.com>\n"
+"PO-Revision-Date: 2015-11-02 16:55+0000\n"
+"Last-Translator: Manuela Silva <h_manuela_rodsilva@gmail.com>\n"
 "Language-Team: Portuguese (Portugal) (http://www.transifex.com/torchbox/"
 "wagtail/language/pt_PT/)\n"
 "MIME-Version: 1.0\n"
@@ -34,8 +35,8 @@ msgid ""
 "Recommended. Permanent redirects ensure search engines forget the old page "
 "(the 'Redirect from') and index the new page instead."
 msgstr ""
-"Recomendado. Os redirecionamentos permanentes obrigam os motores de busca a "
-"esquecer-se da página antiga (o 'Redirecionar de') e a indexar a nova página."
+"Recomendado. Os redirecionamentos asseguram que os mecanismos de procura "
+"esqueçam a página antiga (o 'Redirecionar de') e indexam a nova página."
 
 msgid "Redirect to a page"
 msgstr "Redirecionar para uma página"
@@ -54,7 +55,7 @@ msgstr "Guardar"
 
 #, python-format
 msgid "Delete redirect %(title)s"
-msgstr "Apagar redirecionamento %(title)s"
+msgstr "Eliminar redirecionamento %(title)s"
 
 msgid "Delete"
 msgstr "Apagar"

@@ -58,7 +58,8 @@ class DummyExternalStorage(Storage):
 
 class DummyExternalStorageFile(File):
     def open(self, mode=None):
-        # Based on: https://github.com/django/django/blob/2c39f282b8389f47fee4b24e785a58567c6c3629/django/core/files/base.py#L135-L141
+        # Based on:
+        # https://github.com/django/django/blob/2c39f282b8389f47fee4b24e785a58567c6c3629/django/core/files/base.py#L135-L141
 
         # I've commented out two lines of this function which stops it checking
         # the filesystem for the file. Making it behave as if it is using an

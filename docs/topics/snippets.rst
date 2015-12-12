@@ -83,6 +83,10 @@ Then in your own page templates, you can include your snippet template tag with:
 
 .. code-block:: html+django
 
+  {% load wagtailcore_tags demo_tags %}
+
+  ...
+
   {% block content %}
   
     ...
@@ -137,8 +141,8 @@ To attach multiple adverts to a page, the ``SnippetChooserPanel`` can be placed 
       advert = models.ForeignKey('demo.Advert', related_name='+')
   
       class Meta:
-          verbose_name = "Advert Placement"
-          verbose_name_plural = "Advert Placements"
+          verbose_name = "advert placement"
+          verbose_name_plural = "advert placements"
   
       panels = [
           SnippetChooserPanel('advert'),

@@ -2,6 +2,7 @@ from django.utils.functional import cached_property
 
 from wagtail.wagtailcore.blocks import ChooserBlock
 
+
 class ImageChooserBlock(ChooserBlock):
     @cached_property
     def target_model(self):
