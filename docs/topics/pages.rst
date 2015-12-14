@@ -443,7 +443,7 @@ This is because ``Page`` enforces ordering QuerySets by path. Instead you must a
 Custom Page managers
 --------------------
 
-``Page`` enforces its own 'objects' manager in its ``__init__`` method, so you cannot add a custom manager at the 'objects' attribute.
+You can add a custom Manager to your ``Page`` class. Any custom ``Manager``\s should inherit from :class:`wagtail.wagtailcore.models.PageManager`:
 
 .. code-block:: python
 
@@ -458,21 +458,18 @@ Custom Page managers
 
         objects = EventPageManager()
 
-If you want to use a custom QuerySet, you can use :func:`~django.db.models.managers.Manager.from_queryset` to build a custom Manager:
+Alternately, if you only need to add extra ``QuerySet`` methods, you can inherit from :class:`wagtail.wagtailcore.models.PageQuerySet`, and call :func:`~django.db.models.managers.Manager.from_queryset` to build a custom ``Manager``:
 
 .. code-block:: python
 
     from django.db import models
     from django.utils import timezone
-    from wagtail.wagtailcore.models import Page, PageManager
-
+    from wagtail.wagtailcore.models import Page, PageManager, PageQuerySet
 
     class EventPageQuerySet(PageQuerySet):
-
         def future(self):
-            return self.filter(
-                start_date__gte=timezone.localtime(timezone.now()).date())
-
+            today = timezone.localtime(timezone.now()).date()
+            return self.filter(start_date__gte=today)
 
     class EventPage(Page):
         start_date = models.DateField()
