@@ -384,6 +384,9 @@ class Filter(models.Model):
         with image.get_willow_image() as willow:
             original_format = willow.format_name
 
+            # Fix orientation of image
+            willow = willow.auto_orient()
+
             for operation in self.operations:
                 willow = operation.run(willow, image) or willow
 
