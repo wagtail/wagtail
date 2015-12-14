@@ -91,6 +91,7 @@ Contributors
 * Adon Metcalfe
 * rayrayndwiga
 * Rich Atkinson
+* jnns
 
 
 Translators

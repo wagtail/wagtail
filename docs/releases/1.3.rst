@@ -85,6 +85,7 @@ Bug fixes
  * Changed verbose names to start with lower case where necessary (Maris Serzans)
  * Invalid images no longer crash the image listing (Maris Serzans)
  * ``MenuItem`` ``url`` parameter can now take a lazy URL (Adon Metcalfe, rayrayndwiga)
+ * Added missing translation tag to InlinePanel 'Add' button (jnns)
 
 
 Upgrade considerations
