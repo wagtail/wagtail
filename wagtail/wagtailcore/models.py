@@ -453,6 +453,28 @@ class Page(six.with_metaclass(PageBase, MP_Node, ClusterableModel, index.Indexed
                         )
                     )
 
+        try:
+            cls.clean_subpage_models()
+        except (ValueError, LookupError) as e:
+            errors.append(
+                checks.Error(
+                    "Invalid subpage_types setting for %s" % cls,
+                    hint=str(e),
+                    id='wagtailcore.E002'
+                )
+            )
+
+        try:
+            cls.clean_parent_page_models()
+        except (ValueError, LookupError) as e:
+            errors.append(
+                checks.Error(
+                    "Invalid subpage_types setting for %s" % cls,
+                    hint=str(e),
+                    id='wagtailcore.E002'
+                )
+            )
+
         return errors
 
     def _update_descendant_url_paths(self, old_url_path, new_url_path):
@@ -713,7 +735,9 @@ class Page(six.with_metaclass(PageBase, MP_Node, ClusterableModel, index.Indexed
     @classmethod
     def clean_subpage_models(cls):
         """
-        Returns the list of subpage types, normalised as model classes
+        Returns the list of subpage types, normalised as model classes.
+        Throws ValueError if any entry in subpage_types cannot be recognised as a model name,
+        or LookupError if a model does not exist (or is not a Page subclass).
         """
         if cls._clean_subpage_models is None:
             subpage_types = getattr(cls, 'subpage_types', None)
@@ -721,16 +745,14 @@ class Page(six.with_metaclass(PageBase, MP_Node, ClusterableModel, index.Indexed
                 # if subpage_types is not specified on the Page class, allow all page types as subpages
                 cls._clean_subpage_models = get_page_models()
             else:
-                try:
-                    cls._clean_subpage_models = [
-                        resolve_model_string(model_string, cls._meta.app_label)
-                        for model_string in subpage_types
-                    ]
-                except LookupError as err:
-                    raise ImproperlyConfigured(
-                        "{0}.subpage_types must be a list of 'app_label.model_name' strings, given {1!r}"
-                        .format(cls.__name__, err.args[1])
-                    )
+                cls._clean_subpage_models = [
+                    resolve_model_string(model_string, cls._meta.app_label)
+                    for model_string in subpage_types
+                ]
+
+                for model in cls._clean_subpage_models:
+                    if not issubclass(model, Page):
+                        raise LookupError("%s is not a Page subclass" % model)
 
         return cls._clean_subpage_models
 
@@ -749,7 +771,9 @@ class Page(six.with_metaclass(PageBase, MP_Node, ClusterableModel, index.Indexed
     @classmethod
     def clean_parent_page_models(cls):
         """
-        Returns the list of parent page types, normalised as model classes
+        Returns the list of parent page types, normalised as model classes.
+        Throws ValueError if any entry in parent_page_types cannot be recognised as a model name,
+        or LookupError if a model does not exist (or is not a Page subclass).
         """
 
         if cls._clean_parent_page_models is None:
@@ -758,16 +782,14 @@ class Page(six.with_metaclass(PageBase, MP_Node, ClusterableModel, index.Indexed
                 # if parent_page_types is not specified on the Page class, allow all page types as subpages
                 cls._clean_parent_page_models = get_page_models()
             else:
-                try:
-                    cls._clean_parent_page_models = [
-                        resolve_model_string(model_string, cls._meta.app_label)
-                        for model_string in parent_page_types
-                    ]
-                except LookupError as err:
-                    raise ImproperlyConfigured(
-                        "{0}.parent_page_types must be a list of 'app_label.model_name' strings, given {1!r}"
-                        .format(cls.__name__, err.args[1])
-                    )
+                cls._clean_parent_page_models = [
+                    resolve_model_string(model_string, cls._meta.app_label)
+                    for model_string in parent_page_types
+                ]
+
+                for model in cls._clean_parent_page_models:
+                    if not issubclass(model, Page):
+                        raise LookupError("%s is not a Page subclass" % model)
 
         return cls._clean_parent_page_models
 
