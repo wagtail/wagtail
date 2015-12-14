@@ -86,6 +86,7 @@ Contributors
 * Matthew Downey
 * Maris Serzans
 * Shu Ishida
+* Ben Kerle
 
 
 Translators

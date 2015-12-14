@@ -43,6 +43,12 @@ Fields on related objects can now be indexed in Elasticsearch using the new ``in
 See: :ref:`wagtailsearch_index_relatedfields`
 
 
+Cross-linked admin search UI
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+The search interface in the Wagtail admin now includes a toolbar to quickly switch between different search types - pages, images, documents and users. A new :ref:`register_admin_search_area <register_admin_search_area>` hook is provided for adding new search types to this toolbar.
+
+
 Minor features
 ~~~~~~~~~~~~~~
 
