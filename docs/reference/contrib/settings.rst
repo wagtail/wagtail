@@ -93,15 +93,24 @@ If access to a setting is required in the code, the :func:`~wagtail.contrib.sett
 Using in templates
 ------------------
 
-Add the ``request`` and ``settings`` context processors to your settings:
+Add the ``settings`` context processor to your settings:
 
 .. code-block:: python
 
-    from django.conf import global_settings
-    TEMPLATE_CONTEXT_PROCESSORS = global_settings.TEMPLATE_CONTEXT_PROCESSORS + [
-        'django.core.context_processors.request',
-        'wagtail.contrib.settings.context_processors.settings',
+    TEMPLATES = [
+        {
+            ...
+
+            'OPTIONS': {
+                'context_processors': [
+                    ...
+
+                    'wagtail.contrib.settings.context_processors.settings',
+                ]
+            }
+        }
     ]
+
 
 Then access the settings through ``{{ settings }}``:
 
