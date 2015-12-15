@@ -20,18 +20,6 @@ function makeRichTextEditable(id) {
     richText.insertBefore(input);
     input.hide();
 
-    var removeStylingPending = false;
-    function removeStyling() {
-        /* Strip the 'style' attribute from spans that have no other attributes.
-        (we don't remove the span entirely as that messes with the cursor position,
-        and spans will be removed anyway by our whitelisting)
-        */
-        $('span[style]', richText).filter(function() {
-            return this.attributes.length === 1;
-        }).removeAttr('style');
-        removeStylingPending = false;
-    }
-
     var closestObj = input.closest('.object');
 
     richText.hallo({
@@ -40,12 +28,14 @@ function makeRichTextEditable(id) {
         plugins: halloPlugins
     }).bind('hallomodified', function(event, data) {
         input.val(data.content);
-        if (!removeStylingPending) {
-            setTimeout(removeStyling, 100);
-            removeStylingPending = true;
-        }
+    /* Intercept the paste command in RichText areas and convert the data
+       to plaintext, this prevents people being surprised when they
+       copy/paste from word and the special styling vanishes on submission
+    */
     }).bind('paste', function(event, data) {
-        setTimeout(removeStyling, 1);
+        event.preventDefault();
+        var text = event.originalEvent.clipboardData.getData('text/plain');
+        document.execCommand('insertHTML', false, text);
     /* Animate the fields open when you click into them. */
     }).bind('halloactivated', function(event, data) {
         $(event.target).addClass('expanded', 200, function(e) {
