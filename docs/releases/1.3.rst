@@ -53,7 +53,7 @@ Minor features
 ~~~~~~~~~~~~~~
 
  * Added ``WagtailPageTests``, a helper module to simplify writing tests for Wagtail sites. See :doc:`/advanced_topics/testing`
- * Added system checks to check the `subpage_types` and `parent_page_types` attributes of page models
+ * Added system checks to check the ``subpage_types`` and ``parent_page_types`` attributes of page models
  * Added ``WAGTAIL_PASSWORD_RESET_ENABLED`` setting to allow password resets to be disabled independently of the password management interface (John Draper)
  * Updated fonts for more comprehensive Unicode support
  * Added ``.alt`` attribute to image renditions
@@ -62,7 +62,7 @@ Minor features
  * Added ``Page`` methods ``can_exist_under``, ``can_create_at``, ``can_move_to`` for customising page type business rules
  * ``wagtailadmin.utils.send_mail`` now passes extra keyword arguments to Django's ``send_mail`` function (Matthew Downey)
  * ``page_unpublish`` signal is now fired for each page that was unpublished by a call to ``PageQuerySet.unpublish()``
- * Add `get_upload_to` method to `AbstractImage`, to allow overriding the default image upload path (Ben Emery)
+ * Add ``get_upload_to`` method to ``AbstractImage``, to allow overriding the default image upload path (Ben Emery)
  * Notification emails are now sent per user (Matthew Downey)
  * Added the ability to override the default manager on Page models
  * Added an optional human-friendly ``site_name`` field to sites (Timo Rieber)
@@ -76,7 +76,7 @@ Bug fixes
  * HTTP cache purge now works again on Python 2 (Mitchel Cabuloy)
  * Locked pages can no longer be unpublished (Alex Bridge)
  * Site records now implement ``get_by_natural_key``
- * Creating pages at the root level (and any other instances of the base ``Page`` model) now properly respects the `parent_page_types` setting
+ * Creating pages at the root level (and any other instances of the base ``Page`` model) now properly respects the ``parent_page_types`` setting
  * Settings menu now opens correctly from the page editor and styleguide views
  * ``subpage_types`` / ``parent_page_types`` business rules are now enforced when moving pages
  * Multi-word tags on images and documents are now correctly preserved as a single tag (LKozlowski)
