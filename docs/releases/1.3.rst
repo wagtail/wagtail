@@ -86,6 +86,7 @@ Bug fixes
  * Invalid images no longer crash the image listing (Maris Serzans)
  * ``MenuItem`` ``url`` parameter can now take a lazy URL (Adon Metcalfe, rayrayndwiga)
  * Added missing translation tag to InlinePanel 'Add' button (jnns)
+ * Restored correct highlighting behaviour of rich text toolbar buttons
 
 
 Upgrade considerations
