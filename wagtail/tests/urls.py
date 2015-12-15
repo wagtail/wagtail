@@ -8,6 +8,8 @@ from wagtail.wagtailsearch import urls as wagtailsearch_urls
 from wagtail.contrib.wagtailsitemaps.views import sitemap
 from wagtail.contrib.wagtailapi import urls as wagtailapi_urls
 
+from wagtail.tests.testapp import urls as testapp_urls
+
 
 urlpatterns = [
     url(r'^admin/', include(wagtailadmin_urls)),
@@ -17,6 +19,8 @@ urlpatterns = [
 
     url(r'^api/', include(wagtailapi_urls)),
     url(r'^sitemap\.xml$', sitemap),
+
+    url(r'^testapp/', include(testapp_urls)),
 
     # For anything not caught by a more specific rule above, hand over to
     # Wagtail's serving mechanism

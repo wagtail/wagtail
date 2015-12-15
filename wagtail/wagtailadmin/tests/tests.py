@@ -195,3 +195,25 @@ class TestTagsAutocomplete(TestCase, WagtailTestUtils):
         data = json.loads(response.content.decode('utf-8'))
 
         self.assertEqual(data, [])
+
+
+class TestUserPassesTestPermissionDecorator(TestCase):
+    """
+    Test for custom user_passes_test permission decorators.
+    testapp_bob_only_zone is a view configured to only grant access to users with a first_name of Bob
+    """
+    def test_user_passes_test(self):
+        # create and log in as a user called Bob
+        get_user_model().objects.create_superuser(first_name='Bob', last_name='Mortimer', username='test', email='test@email.com', password='password')
+        self.client.login(username='test', password='password')
+
+        response = self.client.get(reverse('testapp_bob_only_zone'))
+        self.assertEqual(response.status_code, 200)
+
+    def test_user_fails_test(self):
+        # create and log in as a user not called Bob
+        get_user_model().objects.create_superuser(first_name='Vic', last_name='Reeves', username='test', email='test@email.com', password='password')
+        self.client.login(username='test', password='password')
+
+        response = self.client.get(reverse('testapp_bob_only_zone'))
+        self.assertRedirects(response, reverse('wagtailadmin_home'))
