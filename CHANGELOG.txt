@@ -30,6 +30,7 @@ Changelog
  * Fix: `subpage_types` / `parent_page_types` business rules are now enforced when moving pages
  * Fix: Multi-word tags on images and documents are now correctly preserved as a single tag (LKozlowski)
  * Fix: Changed verbose names to start with lower case where necessary (Maris Serzans)
+ * Fix: Invalid images no longer crash the image listing (Maris Serzans)
 
 1.2 (12.11.2015)
 ~~~~~~~~~~~~~~~~

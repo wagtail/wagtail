@@ -80,6 +80,7 @@ Bug fixes
  * ``subpage_types`` / ``parent_page_types`` business rules are now enforced when moving pages
  * Multi-word tags on images and documents are now correctly preserved as a single tag (LKozlowski)
  * Changed verbose names to start with lower case where necessary (Maris Serzans)
+ * Invalid images no longer crash the image listing (Maris Serzans)
 
 
 Upgrade considerations
