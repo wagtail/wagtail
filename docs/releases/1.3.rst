@@ -83,6 +83,7 @@ Bug fixes
  * Multi-word tags on images and documents are now correctly preserved as a single tag (LKozlowski)
  * Changed verbose names to start with lower case where necessary (Maris Serzans)
  * Invalid images no longer crash the image listing (Maris Serzans)
+ * ``MenuItem`` ``url`` parameter can now take a lazy URL (Adon Metcalfe, rayrayndwiga)
 
 
 Upgrade considerations

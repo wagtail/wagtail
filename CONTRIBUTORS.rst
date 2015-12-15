@@ -88,6 +88,8 @@ Contributors
 * Shu Ishida
 * Ben Kerle
 * Christian Peters
+* Adon Metcalfe
+* rayrayndwiga
 
 
 Translators
