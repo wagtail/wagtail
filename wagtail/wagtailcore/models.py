@@ -24,7 +24,7 @@ from django.utils import timezone
 from django.utils.six import StringIO
 from django.utils.six.moves.urllib.parse import urlparse
 from django.utils.translation import ugettext_lazy as _
-from django.core.exceptions import ValidationError, ImproperlyConfigured
+from django.core.exceptions import ValidationError
 from django.utils.functional import cached_property
 from django.utils.encoding import python_2_unicode_compatible
 from django.core import checks
@@ -469,7 +469,7 @@ class Page(six.with_metaclass(PageBase, MP_Node, ClusterableModel, index.Indexed
         except (ValueError, LookupError) as e:
             errors.append(
                 checks.Error(
-                    "Invalid subpage_types setting for %s" % cls,
+                    "Invalid parent_page_types setting for %s" % cls,
                     hint=str(e),
                     id='wagtailcore.E002'
                 )
