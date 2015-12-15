@@ -7,6 +7,7 @@ Changelog
  * Django 1.9 support
  * Support for indexing fields across relations in Elasticsearch
  * Added toolbar to cross-link between different search areas, and `register_admin_search_area` hook to register new areas (Ben Kerle)
+ * Added `WagtailPageTests`, a helper module to simplify writing tests for Wagtail sites
  * Added system checks to check the `subpage_types` and `parent_page_types` attriutes of page models
  * Added `WAGTAIL_PASSWORD_RESET_ENABLED` setting to allow password resets to be disabled independently of the password management interface (John Draper)
  * Updated fonts for more comprehensive Unicode support
