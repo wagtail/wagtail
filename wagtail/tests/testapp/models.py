@@ -403,8 +403,11 @@ class BusinessIndex(Page):
 
 class BusinessSubIndex(Page):
     """ Can be placed under BusinessIndex, and have BusinessChild children """
-    subpage_types = ['tests.BusinessChild']
-    parent_page_types = ['tests.BusinessIndex']
+
+    # BusinessNowherePage is 'incorrectly' added here as a possible child.
+    # The rules on BusinessNowherePage prevent it from being a child here though.
+    subpage_types = ['tests.BusinessChild', 'tests.BusinessNowherePage']
+    parent_page_types = ['tests.BusinessIndex', 'tests.BusinessChild']
 
 
 class BusinessChild(Page):

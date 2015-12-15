@@ -6,13 +6,10 @@ from contextlib import contextmanager
 
 import django
 from django.contrib.auth import get_user_model
-from django.contrib.contenttypes.models import ContentType
 from django.core.urlresolvers import reverse
 from django.test import TestCase
 from django.utils import six
 from django.utils.text import slugify
-
-from wagtail.wagtailcore.models import Page
 
 
 class WagtailTestUtils(object):
@@ -71,13 +68,7 @@ class WagtailPageTests(WagtailTestUtils, TestCase):
         self.login()
 
     def _testCanCreateAt(self, parent_model, child_model):
-        child_ct = ContentType.objects.get_for_model(child_model)
-        parent_ct = ContentType.objects.get_for_model(parent_model)
-
-        return all([
-            child_ct in parent_model.allowed_subpage_types(),
-            # Anything can be created under a Page
-            parent_model is Page or parent_ct in child_model.allowed_parent_page_types()])
+        return child_model in parent_model.allowed_subpage_models()
 
     def assertCanCreateAt(self, parent_model, child_model, msg=None):
         """
@@ -162,7 +153,7 @@ class WagtailPageTests(WagtailTestUtils, TestCase):
         ``Page.parent_page_types``.
         """
         self.assertEqual(
-            set(ct.model_class() for ct in parent_model.clean_subpage_types()),
+            set(parent_model.allowed_subpage_models()),
             set(child_models),
             msg=msg)
 
@@ -176,6 +167,6 @@ class WagtailPageTests(WagtailTestUtils, TestCase):
         ``Page.subpage_types``.
         """
         self.assertEqual(
-            set(ct.model_class() for ct in child_model.clean_parent_page_types()),
+            set(child_model.allowed_parent_page_models()),
             set(parent_models),
-            msg=None)
+            msg=msg)

@@ -3,9 +3,10 @@ from __future__ import absolute_import, unicode_literals
 import json
 
 from django.utils import six
+
 from wagtail.tests.testapp.models import (
-    BusinessChild, BusinessIndex, BusinessSubIndex, EventIndex, EventPage,
-    SimplePage, StreamPage)
+    BusinessChild, BusinessIndex, BusinessNowherePage, BusinessSubIndex,
+    EventIndex, EventPage, SimplePage, StreamPage)
 from wagtail.tests.utils import WagtailPageTests
 from wagtail.wagtailcore.models import PAGE_MODEL_CLASSES, Page, Site
 
@@ -67,13 +68,21 @@ class TestWagtailPageTests(WagtailPageTests):
     def test_assert_allowed_subpage_types(self):
         self.assertAllowedSubpageTypes(BusinessIndex, {BusinessChild, BusinessSubIndex})
         self.assertAllowedSubpageTypes(BusinessChild, {})
-        self.assertAllowedSubpageTypes(Page, PAGE_MODEL_CLASSES)
+        # The only page types that have rules are the Business pages. As such,
+        # everything can be created under the Page model except some of the
+        # Business pages
+        all_but_business = set(PAGE_MODEL_CLASSES) - {BusinessSubIndex, BusinessChild, BusinessNowherePage}
+        self.assertAllowedSubpageTypes(Page, all_but_business)
         with self.assertRaises(AssertionError):
             self.assertAllowedSubpageTypes(BusinessSubIndex, {BusinessSubIndex, BusinessChild})
 
     def test_assert_allowed_parent_page_types(self):
         self.assertAllowedParentPageTypes(BusinessChild, {BusinessIndex, BusinessSubIndex})
         self.assertAllowedParentPageTypes(BusinessSubIndex, {BusinessIndex})
-        self.assertAllowedParentPageTypes(BusinessIndex, PAGE_MODEL_CLASSES)
+        # The only page types that have rules are the Business pages. As such,
+        # a BusinessIndex can be created everywhere except under the other
+        # Business pages.
+        all_but_business = set(PAGE_MODEL_CLASSES) - {BusinessSubIndex, BusinessChild, BusinessIndex}
+        self.assertAllowedParentPageTypes(BusinessIndex, all_but_business)
         with self.assertRaises(AssertionError):
             self.assertAllowedParentPageTypes(BusinessSubIndex, {BusinessSubIndex, BusinessIndex})
