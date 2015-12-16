@@ -91,6 +91,7 @@ Bug fixes
  * Added missing translation tag to InlinePanel 'Add' button (jnns)
  * Restored correct highlighting behaviour of rich text toolbar buttons
  * Rendering a missing image through ImageChooserBlock no longer breaks the whole page (Christian Peters)
+ * Filtering by popular tag in the image chooser now works when using the database search backend
 
 
 Upgrade considerations
