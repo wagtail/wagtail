@@ -1,6 +1,6 @@
 import os
 
-from django.core.checks import Error, register
+from django.core.checks import Warning, register
 
 
 @register()
@@ -21,10 +21,10 @@ def css_install_check(app_configs, **kwargs):
         """ % css_path
 
         errors.append(
-            Error(
+            Warning(
                 "CSS for the Wagtail admin is missing",
                 hint=error_hint,
-                id='wagtailadmin.E001',
+                id='wagtailadmin.W001',
             )
         )
     return errors
