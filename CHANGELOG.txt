@@ -35,6 +35,7 @@ Changelog
  * Fix: Changed verbose names to start with lower case where necessary (Maris Serzans)
  * Fix: Invalid images no longer crash the image listing (Maris Serzans)
  * Fix: `MenuItem` `url` parameter can now take a lazy URL (Adon Metcalfe, rayrayndwiga)
+ * Fix: Added missing translation tag to InlinePanel 'Add' button (jnns)
  * Fix: Restored correct highlighting behaviour of rich text toolbar buttons
 
 1.2 (12.11.2015)
