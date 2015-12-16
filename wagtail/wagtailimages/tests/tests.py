@@ -414,6 +414,18 @@ class TestRenditionFilenames(TestCase):
 
         self.assertEqual(rendition.file.name, 'images/test_rf3.15ee4958.fill-100x100.png')
 
+    def test_filter_with_pipe_gets_dotted(self):
+        image = Image.objects.create(
+            title="Test image",
+            file=get_test_image_file(filename='test_rf4.png'),
+        )
+        image.set_focal_point(Rect(100, 100, 200, 200))
+        image.save()
+
+        rendition = image.get_rendition('fill-200x200|height-150')
+
+        self.assertEqual(rendition.file.name, 'images/test_rf4.15ee4958.fill-200x200.height-150.png')
+
 
 class TestDifferentUpload(TestCase):
     def test_upload_path(self):

@@ -262,7 +262,7 @@ class AbstractImage(models.Model, TagSearchable):
                 'gif': '.gif',
             }
 
-            output_extension = filter.spec + FORMAT_EXTENSIONS[output_format]
+            output_extension = filter.spec.replace('|', '.') + FORMAT_EXTENSIONS[output_format]
             if cache_key:
                 output_extension = cache_key + '.' + output_extension
 
