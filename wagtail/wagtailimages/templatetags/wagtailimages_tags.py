@@ -1,3 +1,5 @@
+import re
+
 from django import template
 from django.utils.functional import cached_property
 
@@ -5,6 +7,7 @@ from wagtail.wagtailimages.models import Filter
 from wagtail.wagtailimages.shortcuts import get_rendition_or_not_found
 
 register = template.Library()
+allowed_filter_pattern = re.compile("^A-Za-z0-9_-\.*$")
 
 
 @register.tag(name="image")
@@ -35,7 +38,12 @@ def image(parser, token):
                 name, value = bit.split('=')
                 attrs[name] = parser.compile_filter(value)  # setup to resolve context variables as value
             except ValueError:
-                filter_specs.append(bit)
+                if allowed_filter_pattern.match(bit):
+                    filter_specs.append(bit)
+                else:
+                    raise template.TemplateSyntaxError(
+                            "filter specs in 'image' tag may only contain A-Z, a-z, 0-9, dots, hypens and underscores."
+                    )
 
     if as_context:
         # context was introduced but no variable given ...
@@ -44,6 +52,7 @@ def image(parser, token):
     if output_var_name and attrs:
         # attributes are not valid when using the 'as img' form of the tag
         is_valid = False
+
 
     if is_valid:
         return ImageNode(image_expr, '|'.join(filter_specs), attrs=attrs, output_var_name=output_var_name)
