@@ -7,7 +7,7 @@ from wagtail.wagtailimages.models import Filter
 from wagtail.wagtailimages.shortcuts import get_rendition_or_not_found
 
 register = template.Library()
-allowed_filter_pattern = re.compile("^A-Za-z0-9_-\.*$")
+allowed_filter_pattern = re.compile("^[A-Za-z0-9_\-\.]*$")
 
 
 @register.tag(name="image")
@@ -42,17 +42,17 @@ def image(parser, token):
                     filter_specs.append(bit)
                 else:
                     raise template.TemplateSyntaxError(
-                            "filter specs in 'image' tag may only contain A-Z, a-z, 0-9, dots, hypens and underscores."
+                        "filter specs in 'image' tag may only contain A-Z, a-z, 0-9, dots, hypens and underscores. "
+                        "(given filter: {})".format(bit)
                     )
 
-    if as_context:
+    if as_context and output_var_name is None:
         # context was introduced but no variable given ...
         is_valid = False
 
     if output_var_name and attrs:
         # attributes are not valid when using the 'as img' form of the tag
         is_valid = False
-
 
     if is_valid:
         return ImageNode(image_expr, '|'.join(filter_specs), attrs=attrs, output_var_name=output_var_name)

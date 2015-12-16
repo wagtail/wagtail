@@ -99,6 +99,18 @@ class TestImageTag(TestCase):
         with self.assertRaises(template.TemplateSyntaxError):
             self.render_image_tag(self.image, 'fill-200x200|height-150')
 
+        with self.assertRaises(template.TemplateSyntaxError):
+            self.render_image_tag(self.image, 'fill-800x600 alt"test"')
+
+    def test_context_may_only_contain_one_argument(self):
+        with self.assertRaises(template.TemplateSyntaxError):
+            temp = template.Template(
+                '{% load wagtailimages_tags %}{% image image_obj fill-200x200'
+                ' as test_img this_one_should_not_be_there %}<img {{ test_img.attrs }} />'
+            )
+            context = template.Context({'image_obj': self.image})
+            temp.render(context)
+
 
 class TestMissingImage(TestCase):
     """
