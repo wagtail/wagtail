@@ -92,6 +92,7 @@ Contributors
 * rayrayndwiga
 * Rich Atkinson
 * jnns
+* Eugene MechanisM
 
 
 Translators

@@ -89,6 +89,7 @@ Bug fixes
  * Invalid images no longer crash the image listing (Maris Serzans)
  * ``MenuItem`` ``url`` parameter can now take a lazy URL (Adon Metcalfe, rayrayndwiga)
  * Added missing translation tag to InlinePanel 'Add' button (jnns)
+ * Added missing translation tag to 'Signing in...' button text (Eugene MechanisM)
  * Restored correct highlighting behaviour of rich text toolbar buttons
  * Rendering a missing image through ImageChooserBlock no longer breaks the whole page (Christian Peters)
  * Filtering by popular tag in the image chooser now works when using the database search backend
