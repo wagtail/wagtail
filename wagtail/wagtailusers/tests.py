@@ -17,7 +17,11 @@ from wagtail.wagtailcore.models import Page, GroupPagePermission
 class TestUserIndexView(TestCase, WagtailTestUtils):
     def setUp(self):
         # create a user that should be visible in the listing
-        self.test_user = get_user_model().objects.create_user(username='testuser', email='testuser@email.com', password='password')
+        self.test_user = get_user_model().objects.create_user(
+            username='testuser',
+            email='testuser@email.com',
+            password='password'
+        )
         self.login()
 
     def get(self, params={}):
@@ -106,7 +110,11 @@ class TestUserCreateView(TestCase, WagtailTestUtils):
 class TestUserEditView(TestCase, WagtailTestUtils):
     def setUp(self):
         # Create a user to edit
-        self.test_user = get_user_model().objects.create_user(username='testuser', email='testuser@email.com', password='password')
+        self.test_user = get_user_model().objects.create_user(
+            username='testuser',
+            email='testuser@email.com',
+            password='password'
+        )
 
         # Login
         self.login()
@@ -160,7 +168,11 @@ class TestUserEditView(TestCase, WagtailTestUtils):
 class TestUserProfileCreation(TestCase, WagtailTestUtils):
     def setUp(self):
         # Create a user
-        self.test_user = get_user_model().objects.create_user(username='testuser', email='testuser@email.com', password='password')
+        self.test_user = get_user_model().objects.create_user(
+            username='testuser',
+            email='testuser@email.com',
+            password='password'
+        )
 
     def test_user_created_without_profile(self):
         self.assertEqual(UserProfile.objects.filter(user=self.test_user).count(), 0)
@@ -302,7 +314,8 @@ class TestGroupEditView(TestCase, WagtailTestUtils):
         }
         for k, v in six.iteritems(post_defaults):
             post_data[k] = post_data.get(k, v)
-        return self.client.post(reverse('wagtailusers_groups:edit', args=(group_id or self.test_group.id, )), post_data)
+        return self.client.post(reverse(
+            'wagtailusers_groups:edit', args=(group_id or self.test_group.id, )), post_data)
 
     def add_non_registered_perm(self):
         # Some groups may have django permissions assigned that are not
@@ -420,7 +433,10 @@ class TestGroupEditView(TestCase, WagtailTestUtils):
 
         response = self.get()
         # See that the form is set up with the correct initial data
-        self.assertEqual(response.context['form'].initial.get('permissions'), list(original_permissions.values_list('id', flat=True)))
+        self.assertEqual(
+            response.context['form'].initial.get('permissions'),
+            list(original_permissions.values_list('id', flat=True))
+        )
 
     def test_group_retains_non_registered_permissions_when_editing(self):
         self.add_non_registered_perm()

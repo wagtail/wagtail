@@ -11,5 +11,5 @@
 /venv
 /node_modules/
 npm-debug.log
-/.idea
+*/.idea/
 /*.egg/

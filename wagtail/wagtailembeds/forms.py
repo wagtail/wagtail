@@ -3,6 +3,7 @@ from django.core.validators import URLValidator
 from django.core.exceptions import ValidationError
 from django.utils.translation import ugettext_lazy as _
 
+
 def validate_url(url):
     validator = URLValidator()
     try:

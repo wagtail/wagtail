@@ -85,7 +85,8 @@ def search(
             return JsonResponse(search_results_json, safe=False)
         else:
             return JsonResponse([], safe=False)
-    else: # Render a template
+    else:
+        # Render a template
         if request.is_ajax() and template_ajax:
             template = template_ajax
 

@@ -69,6 +69,8 @@ Reference
                 # Add 'my_page' to the menu
                 my_page.show_in_menus = True
 
+    .. automethod:: not_in_menu
+
     .. automethod:: page
 
         Example:
@@ -120,6 +122,8 @@ Reference
             # Alternative way
             sections = homepage.get_children()
 
+    .. automethod:: not_child_of
+
     .. automethod:: ancestor_of
 
         Example:
@@ -141,6 +145,10 @@ Reference
             # Get the other sections
             other_sections = Page.objects.not_ancestor_of(current_page).child_of(homepage)
 
+    .. automethod:: parent_of
+
+    .. automethod:: not_parent_of
+
     .. automethod:: sibling_of
 
         Example:
@@ -152,6 +160,8 @@ Reference
 
             # Alternative way
             siblings = current_page.get_siblings()
+
+    .. automethod:: not_sibling_of
 
     .. automethod:: public
 
@@ -167,6 +177,8 @@ Reference
 
             # Find all the pages that are viewable by the public
             all_pages = Page.objects.live().public()
+
+    .. automethod:: not_public
 
     .. automethod:: search
 
@@ -187,6 +199,26 @@ Reference
 
             # Find all pages that are of type AbstractEmailForm, or a descendant of it
             form_pages = Page.objects.type(AbstractEmailForm)
+
+    .. automethod:: not_type
+
+    .. automethod:: exact_type
+
+        Example:
+
+        .. code-block:: python
+
+            # Find all pages that are of the exact type EventPage
+            event_pages = Page.objects.exact_type(EventPage)
+
+    .. automethod:: not_exact_type
+
+        Example:
+
+        .. code-block:: python
+
+            # Find all pages that are not of the exact type EventPage (but may be a subclass)
+            non_event_pages = Page.objects.not_exact_type(EventPage)
 
     .. automethod:: unpublish
 

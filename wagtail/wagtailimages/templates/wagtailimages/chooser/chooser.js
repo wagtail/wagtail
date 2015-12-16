@@ -1,6 +1,10 @@
 function(modal) {
     var searchUrl = $('form.image-search', modal.body).attr('action');
 
+    /* currentTag stores the tag currently being filtered on, so that we can
+    preserve this when paginating */
+    var currentTag;
+
     function ajaxifyLinks (context) {
         $('.listing a', context).click(function() {
             modal.loadUrl(this.href);
@@ -14,33 +18,34 @@ function(modal) {
         });
     }
 
-    function search() {
+    function fetchResults(requestData) {
         $.ajax({
             url: searchUrl,
-            data: {q: $('#id_q').val()},
+            data: requestData,
             success: function(data, status) {
                 $('#image-results').html(data);
                 ajaxifyLinks($('#image-results'));
             }
         });
+    }
+
+    function search() {
+        /* Searching causes currentTag to be cleared - otherwise there's
+        no way to de-select a tag */
+        currentTag = null;
+        fetchResults({q: $('#id_q').val()});
         return false;
     }
 
     function setPage(page) {
-        if($('#id_q').val().length){
-            dataObj = {q: $('#id_q').val(), p: page};
-        }else{
-            dataObj = {p: page};
+        params = {p: page};
+        if ($('#id_q').val().length){
+            params['q'] = $('#id_q').val();
         }
-
-        $.ajax({
-            url: searchUrl,
-            data: dataObj,
-            success: function(data, status) {
-                $('#image-results').html(data);
-                ajaxifyLinks($('#image-results'));
-            }
-        });
+        if (currentTag) {
+            params['tag'] = currentTag;
+        }
+        fetchResults(params);
         return false;
     }
 
@@ -72,8 +77,9 @@ function(modal) {
         $(this).data('timer', wait);
     });
     $('a.suggested-tag').click(function() {
-        $('#id_q').val($(this).text());
-        search();
+        currentTag = $(this).text();
+        $('#id_q').val('');
+        fetchResults({'tag': currentTag});
         return false;
     });
 

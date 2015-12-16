@@ -2,7 +2,7 @@ from django.test import TestCase
 from django.contrib.auth import get_user_model
 
 from wagtail.wagtailcore.models import Page, UserPagePermissionsProxy
-from wagtail.tests.testapp.models import EventPage
+from wagtail.tests.testapp.models import EventPage, BusinessSubIndex
 
 
 class TestPagePermission(TestCase):
@@ -14,11 +14,13 @@ class TestPagePermission(TestCase):
         christmas_page = EventPage.objects.get(url_path='/home/events/christmas/')
         unpublished_event_page = EventPage.objects.get(url_path='/home/events/tentative-unpublished-event/')
         someone_elses_event_page = EventPage.objects.get(url_path='/home/events/someone-elses-event/')
+        board_meetings_page = BusinessSubIndex.objects.get(url_path='/home/events/businessy-events/board-meetings/')
 
         homepage_perms = homepage.permissions_for_user(event_editor)
         christmas_page_perms = christmas_page.permissions_for_user(event_editor)
         unpub_perms = unpublished_event_page.permissions_for_user(event_editor)
         someone_elses_event_perms = someone_elses_event_page.permissions_for_user(event_editor)
+        board_meetings_perms = board_meetings_page.permissions_for_user(event_editor)
 
         self.assertFalse(homepage_perms.can_add_subpage())
         self.assertTrue(christmas_page_perms.can_add_subpage())
@@ -28,7 +30,8 @@ class TestPagePermission(TestCase):
         self.assertFalse(homepage_perms.can_edit())
         self.assertTrue(christmas_page_perms.can_edit())
         self.assertTrue(unpub_perms.can_edit())
-        self.assertFalse(someone_elses_event_perms.can_edit())  # basic 'add' permission doesn't allow editing pages owned by someone else
+        # basic 'add' permission doesn't allow editing pages owned by someone else
+        self.assertFalse(someone_elses_event_perms.can_edit())
 
         self.assertFalse(homepage_perms.can_delete())
         self.assertFalse(christmas_page_perms.can_delete())  # cannot delete because it is published
@@ -52,25 +55,34 @@ class TestPagePermission(TestCase):
         self.assertFalse(unpub_perms.can_reorder_children())
 
         self.assertFalse(homepage_perms.can_move())
-        self.assertFalse(christmas_page_perms.can_move())  # cannot move because this would involve unpublishing from its current location
+        # cannot move because this would involve unpublishing from its current location
+        self.assertFalse(christmas_page_perms.can_move())
         self.assertTrue(unpub_perms.can_move())
         self.assertFalse(someone_elses_event_perms.can_move())
 
-        self.assertFalse(christmas_page_perms.can_move_to(unpublished_event_page))  # cannot move because this would involve unpublishing from its current location
+        # cannot move because this would involve unpublishing from its current location
+        self.assertFalse(christmas_page_perms.can_move_to(unpublished_event_page))
         self.assertTrue(unpub_perms.can_move_to(christmas_page))
         self.assertFalse(unpub_perms.can_move_to(homepage))  # no permission to create pages at destination
         self.assertFalse(unpub_perms.can_move_to(unpublished_event_page))  # cannot make page a child of itself
+        # cannot move because the subpage_types rule of BusinessSubIndex forbids EventPage as a subpage
+        self.assertFalse(unpub_perms.can_move_to(board_meetings_page))
 
+        self.assertTrue(board_meetings_perms.can_move())
+        # cannot move because the parent_page_types rule of BusinessSubIndex forbids EventPage as a parent
+        self.assertFalse(board_meetings_perms.can_move_to(christmas_page))
 
     def test_publisher_page_permissions(self):
         event_moderator = get_user_model().objects.get(username='eventmoderator')
         homepage = Page.objects.get(url_path='/home/')
         christmas_page = EventPage.objects.get(url_path='/home/events/christmas/')
         unpublished_event_page = EventPage.objects.get(url_path='/home/events/tentative-unpublished-event/')
+        board_meetings_page = BusinessSubIndex.objects.get(url_path='/home/events/businessy-events/board-meetings/')
 
         homepage_perms = homepage.permissions_for_user(event_moderator)
         christmas_page_perms = christmas_page.permissions_for_user(event_moderator)
         unpub_perms = unpublished_event_page.permissions_for_user(event_moderator)
+        board_meetings_perms = board_meetings_page.permissions_for_user(event_moderator)
 
         self.assertFalse(homepage_perms.can_add_subpage())
         self.assertTrue(christmas_page_perms.can_add_subpage())
@@ -108,6 +120,12 @@ class TestPagePermission(TestCase):
         self.assertTrue(unpub_perms.can_move_to(christmas_page))
         self.assertFalse(unpub_perms.can_move_to(homepage))  # no permission to create pages at destination
         self.assertFalse(unpub_perms.can_move_to(unpublished_event_page))  # cannot make page a child of itself
+        # cannot move because the subpage_types rule of BusinessSubIndex forbids EventPage as a subpage
+        self.assertFalse(unpub_perms.can_move_to(board_meetings_page))
+
+        self.assertTrue(board_meetings_perms.can_move())
+        # cannot move because the parent_page_types rule of BusinessSubIndex forbids EventPage as a parent
+        self.assertFalse(board_meetings_perms.can_move_to(christmas_page))
 
     def test_inactive_user_has_no_permissions(self):
         user = get_user_model().objects.get(username='inactiveuser')
@@ -129,13 +147,15 @@ class TestPagePermission(TestCase):
 
     def test_superuser_has_full_permissions(self):
         user = get_user_model().objects.get(username='superuser')
-        homepage = Page.objects.get(url_path='/home/')
-        root = Page.objects.get(url_path='/')
+        homepage = Page.objects.get(url_path='/home/').specific
+        root = Page.objects.get(url_path='/').specific
         unpublished_event_page = EventPage.objects.get(url_path='/home/events/tentative-unpublished-event/')
+        board_meetings_page = BusinessSubIndex.objects.get(url_path='/home/events/businessy-events/board-meetings/')
 
         homepage_perms = homepage.permissions_for_user(user)
         root_perms = root.permissions_for_user(user)
         unpub_perms = unpublished_event_page.permissions_for_user(user)
+        board_meetings_perms = board_meetings_page.permissions_for_user(user)
 
         self.assertTrue(homepage_perms.can_add_subpage())
         self.assertTrue(root_perms.can_add_subpage())
@@ -164,6 +184,12 @@ class TestPagePermission(TestCase):
 
         self.assertTrue(homepage_perms.can_move_to(root))
         self.assertFalse(homepage_perms.can_move_to(unpublished_event_page))
+
+        # cannot move because the subpage_types rule of BusinessSubIndex forbids EventPage as a subpage
+        self.assertFalse(unpub_perms.can_move_to(board_meetings_page))
+        self.assertTrue(board_meetings_perms.can_move())
+        # cannot move because the parent_page_types rule of BusinessSubIndex forbids EventPage as a parent
+        self.assertFalse(board_meetings_perms.can_move_to(unpublished_event_page))
 
     def test_editable_pages_for_user_with_add_permission(self):
         event_editor = get_user_model().objects.get(username='eventeditor')
@@ -303,10 +329,13 @@ class TestPagePermission(TestCase):
     def test_lock_page_for_superuser(self):
         user = get_user_model().objects.get(username='superuser')
         christmas_page = EventPage.objects.get(url_path='/home/events/christmas/')
+        locked_page = Page.objects.get(url_path='/home/my-locked-page/')
 
         perms = UserPagePermissionsProxy(user).for_page(christmas_page)
+        locked_perms = UserPagePermissionsProxy(user).for_page(locked_page)
 
         self.assertTrue(perms.can_lock())
+        self.assertFalse(locked_perms.can_unpublish())  # locked pages can't be unpublished
 
     def test_lock_page_for_moderator(self):
         user = get_user_model().objects.get(username='eventmoderator')

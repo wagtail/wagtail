@@ -111,6 +111,55 @@ Options
 These are added to the search index but are not used for full-text searches. Instead, they allow you to run filters on your search results.
 
 
+.. _wagtailsearch_index_relatedfields:
+
+``index.RelatedFields``
+-----------------------
+
+This allows you to index fields from related objects. It works on all types of related fields, including their reverse accessors.
+
+For example, if we have a book that has a ``ForeignKey`` to its author, we can nest the authors ``name`` and ``date_of_birth`` fields inside the book:
+
+.. code-block:: python
+
+    class Book(models.Model, indexed.Indexed):
+        ...
+
+        search_fields = [
+            index.SearchField('title'),
+            index.FilterField('published_date'),
+
+            index.RelatedFields('author', [
+                index.SearchField('name'),
+                index.FilterField('date_of_birth'),
+            ]),
+        ]
+
+This will allow you to search for books with their author's name.
+
+It works the other way around as well, you can index an author's books allowing an author to be searched for with the titles of books they've published:
+
+.. code-block:: python
+
+    class Author(models.Model, indexed.Indexed):
+        ...
+
+        search_fields = [
+            index.SearchField('name'),
+            index.FilterField('date_of_birth'),
+
+            index.RelatedFields('books', [
+                index.SearchField('title'),
+                index.FilterField('published_date'),
+            ]),
+        ]
+
+.. topic:: Filtering on ``index.RelatedFields``
+
+    It's not possible to filter on any ``index.FilterFields`` within ``index.RelatedFields`` using the ``QuerySet`` API. Although, the fields are indexed so it should be possible to use them by querying Elasticsearch manually.
+
+    Filtering on ``index.RelatedFields`` with the ``QuerySet`` API is planned for a future release of Wagtail.
+
 .. _wagtailsearch_indexing_callable_fields:
 
 Indexing callables and other attributes

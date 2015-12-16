@@ -5,13 +5,14 @@
 # Translators:
 # ajk, 2014
 # Eugene MechanisM <contact@mechanism.name>, 2014-2015
+# Sergiy Khalymon <sergiykhalimon@gmail.com>, 2015
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2015-09-02 20:07+0100\n"
-"PO-Revision-Date: 2015-09-02 19:12+0000\n"
-"Last-Translator: Karl Hobley <karl@torchbox.com>\n"
+"PO-Revision-Date: 2015-11-09 14:55+0000\n"
+"Last-Translator: Sergiy Khalymon <sergiykhalimon@gmail.com>\n"
 "Language-Team: Russian (http://www.transifex.com/torchbox/wagtail/language/"
 "ru/)\n"
 "MIME-Version: 1.0\n"
@@ -49,6 +50,12 @@ msgid ""
 msgstr ""
 "Если выбрано, этот сайт будет обрабатывать запросы для всех имеющихся имен "
 "хостов, не закрепленных за другими сайтами"
+
+msgid "site"
+msgstr "сайт"
+
+msgid "sites"
+msgstr "сайты"
 
 #, python-format
 msgid ""
@@ -150,6 +157,12 @@ msgstr "опубликовано"
 msgid "Default"
 msgstr "По умолчанию"
 
+msgid "page"
+msgstr "страница"
+
+msgid "pages"
+msgstr "страницы"
+
 msgid "Page"
 msgstr "Страница"
 
@@ -167,6 +180,12 @@ msgstr "Сожержимое JSON"
 
 msgid "Approved go live at"
 msgstr "Подтверждено к публикации"
+
+msgid "page revision"
+msgstr "версия страницы"
+
+msgid "page revisions"
+msgstr "версии страницы"
 
 msgid "Add/edit pages you own"
 msgstr "Добавить/редактировать свои страницы"
@@ -186,8 +205,20 @@ msgstr "Группа"
 msgid "Permission type"
 msgstr "Тип прав"
 
+msgid "group page permission"
+msgstr "права на страницу у группы"
+
+msgid "group page permissions"
+msgstr "права на страницу у группы"
+
 msgid "Password"
 msgstr "Пароль"
+
+msgid "page view restriction"
+msgstr "ограничение на просмотр страницы"
+
+msgid "page view restrictions"
+msgstr "ограничения на просмотр страниц"
 
 msgid "Value cannot be entirely whitespace characters"
 msgstr "Значение не может состоять полностью из пробельных символов"

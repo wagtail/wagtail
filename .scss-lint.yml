@@ -1,6 +1,8 @@
+# Useful regexes to fix lint errors
+# SpaceBeforeBrace: search "([^\ ])\{" replace "$1 {"
+# SpaceAfterPropertyColon: search "([^\&]):([^\ \n]*);" replace "$1: $2;"
 
-scss_files: 'wagtail/*/static/**/*.scss'
-exclude: 'wagtail/**/static/**/vendor/*.scss'
+scss_files: 'wagtail/**/static_src/**/scss/**/*.scss'
 
 linters:
     BorderZero:
@@ -16,11 +18,14 @@ linters:
         enabled: true
 
     ColorVariable:
-        enabled: true
+        enabled: false
 
     BangFormat:
         space_before_bang: true
         space_after_bang: false
+
+    PropertySortOrder:
+        enabled: false
 
     Comment:
         enabled: true
@@ -29,7 +34,7 @@ linters:
         enabled: true
 
     DuplicateProperty:
-        enabled: false
+        enabled: true
 
     ElsePlacement:
         enabled: true
@@ -57,12 +62,14 @@ linters:
 
     ImportantRule:
         enabled: true
+        exclude:
+            - '**/_datetimepicker.scss'
 
     ImportPath:
         enabled: true
 
     LeadingZero:
-        style: exclude_zero
+        enabled: false
 
     MergeableSelector:
         enabled: false
@@ -71,10 +78,10 @@ linters:
         allow_leading_underscore: true
 
     NestingDepth:
-        max_depth: 4
+        max_depth: 5
 
     SelectorDepth:
-        max_depth: 3
+        enabled: false
 
     SelectorFormat:
         convention: hyphenated_lowercase
@@ -82,16 +89,25 @@ linters:
             - js_class
         ignored_types:
             - element
+        # There are regretably quite a few exlusions here, made necessary by
+        # a) the conversion of django field/widget names to underscored class names
+        # b) the use of third party code such as Hallo.js which uses classes with snakeCaseClasses.
+        exclude: 
+            - '**/rich-text.scss'
+            - '**/_forms.scss'
+            - '**/_streamfield.scss'
+            - '**/page-editor.scss'
+            - '**/_datetimepicker.scss'
 
     PlaceholderInExtend:
-        enabled: true
+        enabled: false
 
     PropertyCount:
         enabled: false
 
     QualifyingElement:
-        allow_element_with_attribute: false
-        allow_element_with_class: false
+        allow_element_with_attribute: true
+        allow_element_with_class: true
         allow_element_with_id: false
 
     Shorthand:
@@ -137,7 +153,7 @@ linters:
         enbabled: true
 
     UrlFormat:
-        enabled: true
+        enabled: false
 
     UrlQuotes:
         enabled: true

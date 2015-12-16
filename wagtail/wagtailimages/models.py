@@ -3,11 +3,12 @@ from __future__ import unicode_literals
 import os.path
 import hashlib
 from contextlib import contextmanager
-
+from collections import OrderedDict
 
 from taggit.managers import TaggableManager
 from willow.image import Image as WillowImage
 
+import django
 from django.core.files import File
 from django.core.exceptions import ImproperlyConfigured
 from django.db import models
@@ -15,7 +16,7 @@ from django.db.models.signals import pre_delete, pre_save
 from django.dispatch.dispatcher import receiver
 from django.utils.safestring import mark_safe
 from django.utils.six import BytesIO, text_type
-from django.utils.html import escape, format_html_join
+from django.forms.widgets import flatatt
 from django.conf import settings
 from django.utils.translation import ugettext_lazy as _
 from django.utils.encoding import python_2_unicode_compatible
@@ -47,31 +48,25 @@ class ImageQuerySet(SearchableQuerySetMixin, models.QuerySet):
 
 
 def get_upload_to(instance, filename):
-    folder_name = 'original_images'
-    filename = instance.file.field.storage.get_valid_name(filename)
-
-    # do a unidecode in the filename and then
-    # replace non-ascii characters in filename with _ , to sidestep issues with filesystem encoding
-    filename = "".join((i if ord(i) < 128 else '_') for i in unidecode(filename))
-
-    # Truncate filename so it fits in the 100 character limit
-    # https://code.djangoproject.com/ticket/9893
-    while len(os.path.join(folder_name, filename)) >= 95:
-        prefix, dot, extension = filename.rpartition('.')
-        filename = prefix[:-1] + dot + extension
-    return os.path.join(folder_name, filename)
+    # Dumb proxy to instance method.
+    return instance.get_upload_to(filename)
 
 
 @python_2_unicode_compatible
 class AbstractImage(models.Model, TagSearchable):
-    title = models.CharField(max_length=255, verbose_name=_('Title'))
-    file = models.ImageField(verbose_name=_('File'), upload_to=get_upload_to, width_field='width', height_field='height')
-    width = models.IntegerField(verbose_name=_('Width'), editable=False)
-    height = models.IntegerField(verbose_name=_('Height'), editable=False)
-    created_at = models.DateTimeField(verbose_name=_('Created at'), auto_now_add=True, db_index=True)
-    uploaded_by_user = models.ForeignKey(settings.AUTH_USER_MODEL, verbose_name=_('Uploaded by user'), null=True, blank=True, editable=False)
+    title = models.CharField(max_length=255, verbose_name=_('title'))
+    file = models.ImageField(
+        verbose_name=_('file'), upload_to=get_upload_to, width_field='width', height_field='height'
+    )
+    width = models.IntegerField(verbose_name=_('width'), editable=False)
+    height = models.IntegerField(verbose_name=_('height'), editable=False)
+    created_at = models.DateTimeField(verbose_name=_('created at'), auto_now_add=True, db_index=True)
+    uploaded_by_user = models.ForeignKey(
+        settings.AUTH_USER_MODEL, verbose_name=_('uploaded by user'),
+        null=True, blank=True, editable=False, on_delete=models.SET_NULL
+    )
 
-    tags = TaggableManager(help_text=None, blank=True, verbose_name=_('Tags'))
+    tags = TaggableManager(help_text=None, blank=True, verbose_name=_('tags'))
 
     focal_point_x = models.PositiveIntegerField(null=True, blank=True)
     focal_point_y = models.PositiveIntegerField(null=True, blank=True)
@@ -104,6 +99,21 @@ class AbstractImage(models.Model, TagSearchable):
             self.save(update_fields=['file_size'])
 
         return self.file_size
+
+    def get_upload_to(self, filename):
+        folder_name = 'original_images'
+        filename = self.file.field.storage.get_valid_name(filename)
+
+        # do a unidecode in the filename and then
+        # replace non-ascii characters in filename with _ , to sidestep issues with filesystem encoding
+        filename = "".join((i if ord(i) < 128 else '_') for i in unidecode(filename))
+
+        # Truncate filename so it fits in the 100 character limit
+        # https://code.djangoproject.com/ticket/9893
+        while len(os.path.join(folder_name, filename)) >= 95:
+            prefix, dot, extension = filename.rpartition('.')
+            filename = prefix[:-1] + dot + extension
+        return os.path.join(folder_name, filename)
 
     def get_usage(self):
         return get_object_usage(self)
@@ -220,7 +230,10 @@ class AbstractImage(models.Model, TagSearchable):
     @classmethod
     def get_rendition_model(cls):
         """ Get the Rendition model for this Image model """
-        return get_related_model(cls.renditions.related)
+        if django.VERSION >= (1, 9):
+            return get_related_model(cls.renditions.rel)
+        else:
+            return get_related_model(cls.renditions.related)
 
     def get_rendition(self, filter):
         if isinstance(filter, string_types):
@@ -253,7 +266,8 @@ class AbstractImage(models.Model, TagSearchable):
             if cache_key:
                 output_extension = cache_key + '.' + output_extension
 
-            output_filename_without_extension = input_filename_without_extension[:(59 - len(output_extension))]  # Truncate filename to prevent it going over 60 chars
+            # Truncate filename to prevent it going over 60 chars
+            output_filename_without_extension = input_filename_without_extension[:(59 - len(output_extension))]
             output_filename = output_filename_without_extension + '.' + output_extension
 
             rendition, created = self.renditions.get_or_create(
@@ -337,7 +351,10 @@ def get_image_model():
 
     image_model = apps.get_model(app_label, model_name)
     if image_model is None:
-        raise ImproperlyConfigured("WAGTAILIMAGES_IMAGE_MODEL refers to model '%s' that has not been installed" % settings.WAGTAILIMAGES_IMAGE_MODEL)
+        raise ImproperlyConfigured(
+            "WAGTAILIMAGES_IMAGE_MODEL refers to model '%s' that has not been installed" %
+            settings.WAGTAILIMAGES_IMAGE_MODEL
+        )
     return image_model
 
 
@@ -430,7 +447,7 @@ class Filter(models.Model):
 
 
 class AbstractRendition(models.Model):
-    filter = models.ForeignKey('Filter', related_name='+')
+    filter = models.ForeignKey(Filter, related_name='+')
     file = models.ImageField(upload_to='images', width_field='width', height_field='height')
     width = models.IntegerField(editable=False)
     height = models.IntegerField(editable=False)
@@ -441,17 +458,33 @@ class AbstractRendition(models.Model):
         return self.file.url
 
     @property
-    def attrs(self):
-        return mark_safe(
-            'src="%s" width="%d" height="%d" alt="%s"' % (escape(self.url), self.width, self.height, escape(self.image.title))
-        )
+    def alt(self):
+        return self.image.title
 
-    def img_tag(self, extra_attributes=None):
-        if extra_attributes:
-            extra_attributes_string = format_html_join(' ', '{0}="{1}"', extra_attributes.items())
-            return mark_safe('<img %s %s>' % (self.attrs, extra_attributes_string))
-        else:
-            return mark_safe('<img %s>' % self.attrs)
+    @property
+    def attrs(self):
+        """
+        The src, width, height, and alt attributes for an <img> tag, as a HTML
+        string
+        """
+        return flatatt(self.attrs_dict)
+
+    @property
+    def attrs_dict(self):
+        """
+        A dict of the src, width, height, and alt attributes for an <img> tag.
+        """
+        return OrderedDict([
+            ('src', self.url),
+            ('width', self.width),
+            ('height', self.height),
+            ('alt', self.alt),
+        ])
+
+    def img_tag(self, extra_attributes={}):
+        attrs = self.attrs_dict.copy()
+        attrs.update(extra_attributes)
+        return mark_safe('<img{}>'.format(flatatt(attrs)))
 
     def __html__(self):
         return self.img_tag()
@@ -461,7 +494,7 @@ class AbstractRendition(models.Model):
 
 
 class Rendition(AbstractRendition):
-    image = models.ForeignKey('Image', related_name='renditions')
+    image = models.ForeignKey(Image, related_name='renditions')
 
     class Meta:
         unique_together = (

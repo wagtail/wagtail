@@ -15,7 +15,16 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='MTIBasePage',
             fields=[
-                ('page_ptr', models.OneToOneField(parent_link=True, auto_created=True, primary_key=True, serialize=False, to='wagtailcore.Page')),
+                (
+                    'page_ptr',
+                    models.OneToOneField(
+                        parent_link=True,
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        to='wagtailcore.Page'
+                    )
+                ),
             ],
             options={
                 'abstract': False,
@@ -25,7 +34,16 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='MTIChildPage',
             fields=[
-                ('mtibasepage_ptr', models.OneToOneField(parent_link=True, auto_created=True, primary_key=True, serialize=False, to='tests.MTIBasePage')),
+                (
+                    'mtibasepage_ptr',
+                    models.OneToOneField(
+                        parent_link=True,
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        to='tests.MTIBasePage'
+                    )
+                ),
             ],
             options={
                 'abstract': False,

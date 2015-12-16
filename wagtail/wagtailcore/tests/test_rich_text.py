@@ -132,4 +132,7 @@ class TestRichTextValue(TestCase):
     def test_render(self):
         value = RichText('<p>Merry <a linktype="page" id="4">Christmas</a>!</p>')
         result = str(value)
-        self.assertEqual(result, '<div class="rich-text"><p>Merry <a href="/events/christmas/">Christmas</a>!</p></div>')
+        self.assertEqual(
+            result,
+            '<div class="rich-text"><p>Merry <a href="/events/christmas/">Christmas</a>!</p></div>'
+        )

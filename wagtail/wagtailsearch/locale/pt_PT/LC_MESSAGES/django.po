@@ -5,14 +5,16 @@
 # Translators:
 # Gladson <gladsonbrito@gmail.com>, 2014
 # Jose Lourenco <jose@lourenco.ws>, 2014-2015
+# Manuela Silva <h_manuela_rodsilva@gmail.com>, 2015
+# Manuela Silva <h_manuela_rodsilva@gmail.com>, 2015
 # Tiago Henriques <trinosauro@gmail.com>, 2015
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2015-08-26 14:28+0100\n"
-"PO-Revision-Date: 2015-08-26 13:37+0000\n"
-"Last-Translator: Karl Hobley <karl@torchbox.com>\n"
+"PO-Revision-Date: 2015-11-16 01:10+0000\n"
+"Last-Translator: Manuela Silva <h_manuela_rodsilva@gmail.com>\n"
 "Language-Team: Portuguese (Portugal) (http://www.transifex.com/torchbox/"
 "wagtail/language/pt_PT/)\n"
 "MIME-Version: 1.0\n"
@@ -22,10 +24,18 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 msgid "Search term(s)/phrase"
-msgstr "Pesquisar termo(s)/frase"
+msgstr "Procurar termo(s)/frase"
+
+msgid ""
+"Enter the full search string to match. An exact match is required for your "
+"Promoted Results to be displayed, wildcards are NOT allowed."
+msgstr ""
+"Insira o texto de procura completo para corresponder. É necessária uma "
+"correspondência exata para que os seus Resultados de Promovidos seja "
+"exibido, não são permitidos carateres de substituição."
 
 msgid "Query Daily Hits"
-msgstr "Acessos Diários da Pesquisa"
+msgstr "Acessos Diários de Consulta"
 
 msgid "Popular search terms"
 msgstr "Termos de pesquisa populares"

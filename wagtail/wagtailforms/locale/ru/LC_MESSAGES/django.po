@@ -4,13 +4,14 @@
 #
 # Translators:
 # Eugene MechanisM <contact@mechanism.name>, 2014-2015
+# Sergiy Khalymon <sergiykhalimon@gmail.com>, 2015
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2015-08-26 14:28+0100\n"
-"PO-Revision-Date: 2015-08-26 21:49+0000\n"
-"Last-Translator: Eugene MechanisM <contact@mechanism.name>\n"
+"PO-Revision-Date: 2015-12-06 04:07+0000\n"
+"Last-Translator: Sergiy Khalymon <sergiykhalimon@gmail.com>\n"
 "Language-Team: Russian (http://www.transifex.com/torchbox/wagtail/language/"
 "ru/)\n"
 "MIME-Version: 1.0\n"
@@ -111,6 +112,9 @@ msgstr "Удалить %(title)s"
 msgid "Delete"
 msgstr "Удалить"
 
+msgid "Are you sure you want to delete this form submission?"
+msgstr "Вы уверены, что хотите удалить эту форму?"
+
 msgid "Delete it"
 msgstr "Удалить"
 
@@ -152,3 +156,6 @@ msgstr "Действия"
 
 msgid "No form pages have been created."
 msgstr "Страниц с формами не было создано."
+
+msgid "Submission deleted."
+msgstr "Форма удалена."

@@ -10,49 +10,10 @@ from treebeard.mp_tree import MP_NodeQuerySet
 from wagtail.wagtailsearch.queryset import SearchableQuerySetMixin
 
 
-class PageQuerySet(SearchableQuerySetMixin, MP_NodeQuerySet):
-    def live_q(self):
-        return Q(live=True)
-
-    def live(self):
-        """
-        This filters the QuerySet to only contain published pages.
-        """
-        return self.filter(self.live_q())
-
-    def not_live(self):
-        """
-        This filters the QuerySet to only contain unpublished pages.
-        """
-        return self.exclude(self.live_q())
-
-    def in_menu_q(self):
-        return Q(show_in_menus=True)
-
-    def in_menu(self):
-        """
-        This filters the QuerySet to only contain pages that are in the menus.
-        """
-        return self.filter(self.in_menu_q())
-
-    def not_in_menu(self):
-        return self.exclude(self.in_menu_q())
-
-    def page_q(self, other):
-        return Q(id=other.id)
-
-    def page(self, other):
-        """
-        This filters the QuerySet so it only contains the specified page.
-        """
-        return self.filter(self.page_q(other))
-
-    def not_page(self, other):
-        """
-        This filters the QuerySet so it doesn't contain the specified page.
-        """
-        return self.exclude(self.page_q(other))
-
+class TreeQuerySet(MP_NodeQuerySet):
+    """
+    Extends Treebeard's MP_NodeQuerySet with additional useful tree-related operations.
+    """
     def descendant_of_q(self, other, inclusive=False):
         q = Q(path__startswith=other.path) & Q(depth__gte=other.depth)
 
@@ -124,9 +85,15 @@ class PageQuerySet(SearchableQuerySetMixin, MP_NodeQuerySet):
         return Q(path=self.model._get_parent_path_from_path(other.path))
 
     def parent_of(self, other):
+        """
+        This filters the QuerySet to only contain the parent of the specified page.
+        """
         return self.filter(self.parent_of_q(other))
 
     def not_parent_of(self, other):
+        """
+        This filters the QuerySet to exclude the parent of the specified page.
+        """
         return self.exclude(self.parent_of_q(other))
 
     def sibling_of_q(self, other, inclusive=True):
@@ -153,9 +120,56 @@ class PageQuerySet(SearchableQuerySetMixin, MP_NodeQuerySet):
 
         By default, inclusive is set to True so it will exclude the specified page from the results.
 
-        If inclusive is set to False, the page will be included the results.
+        If inclusive is set to False, the page will be included in the results.
         """
         return self.exclude(self.sibling_of_q(other, inclusive))
+
+
+class PageQuerySet(SearchableQuerySetMixin, TreeQuerySet):
+    def live_q(self):
+        return Q(live=True)
+
+    def live(self):
+        """
+        This filters the QuerySet to only contain published pages.
+        """
+        return self.filter(self.live_q())
+
+    def not_live(self):
+        """
+        This filters the QuerySet to only contain unpublished pages.
+        """
+        return self.exclude(self.live_q())
+
+    def in_menu_q(self):
+        return Q(show_in_menus=True)
+
+    def in_menu(self):
+        """
+        This filters the QuerySet to only contain pages that are in the menus.
+        """
+        return self.filter(self.in_menu_q())
+
+    def not_in_menu(self):
+        """
+        This filters the QuerySet to only contain pages that are not in the menus.
+        """
+        return self.exclude(self.in_menu_q())
+
+    def page_q(self, other):
+        return Q(id=other.id)
+
+    def page(self, other):
+        """
+        This filters the QuerySet so it only contains the specified page.
+        """
+        return self.filter(self.page_q(other))
+
+    def not_page(self, other):
+        """
+        This filters the QuerySet so it doesn't contain the specified page.
+        """
+        return self.exclude(self.page_q(other))
 
     def type_q(self, klass):
         content_types = ContentType.objects.get_for_models(*[
@@ -167,7 +181,8 @@ class PageQuerySet(SearchableQuerySetMixin, MP_NodeQuerySet):
 
     def type(self, model):
         """
-        This filters the QuerySet to only contain pages that are an instance of the specified model (including subclasses).
+        This filters the QuerySet to only contain pages that are an instance
+        of the specified model (including subclasses).
         """
         return self.filter(self.type_q(model))
 
@@ -176,6 +191,23 @@ class PageQuerySet(SearchableQuerySetMixin, MP_NodeQuerySet):
         This filters the QuerySet to not contain any pages which are an instance of the specified model.
         """
         return self.exclude(self.type_q(model))
+
+    def exact_type_q(self, klass):
+        return Q(content_type=ContentType.objects.get_for_model(klass))
+
+    def exact_type(self, model):
+        """
+        This filters the QuerySet to only contain pages that are an instance of the specified model
+        (matching the model exactly, not subclasses).
+        """
+        return self.filter(self.exact_type_q(model))
+
+    def not_exact_type(self, model):
+        """
+        This filters the QuerySet to not contain any pages which are an instance of the specified model
+        (matching the model exactly, not subclasses).
+        """
+        return self.exclude(self.exact_type_q(model))
 
     def public_q(self):
         from wagtail.wagtailcore.models import PageViewRestriction
@@ -199,9 +231,10 @@ class PageQuerySet(SearchableQuerySetMixin, MP_NodeQuerySet):
 
     def unpublish(self):
         """
-        This unpublishes all pages in the QuerySet
+        This unpublishes all live pages in the QuerySet.
         """
-        self.update(live=False, has_unpublished_changes=True)
+        for page in self.live():
+            page.unpublish()
 
     def specific(self):
         """
@@ -210,7 +243,7 @@ class PageQuerySet(SearchableQuerySetMixin, MP_NodeQuerySet):
         """
         if DJANGO_VERSION >= (1, 9):
             clone = self._clone()
-            clone._iterator_class = SpecificIterator
+            clone._iterable_class = SpecificIterable
             return clone
         else:
             return self._clone(klass=SpecificQuerySet)
@@ -247,11 +280,11 @@ def specific_iterator(qs):
 # Django 1.9 changed how extending QuerySets with different iterators behaved
 # considerably, in a way that is not easily compatible between the two versions
 if DJANGO_VERSION >= (1, 9):
-    # TODO Test this once Wagtail runs under Django 1.9.
-    from django.db.models.query import BaseIterator
+    from django.db.models.query import BaseIterable
 
-    class SpecificIterator(BaseIterator):
-        __iter__ = specific_iterator
+    class SpecificIterable(BaseIterable):
+        def __iter__(self):
+            return specific_iterator(self.queryset)
 
 else:
     from django.db.models.query import QuerySet

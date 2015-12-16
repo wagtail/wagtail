@@ -12,7 +12,7 @@ from wagtail.wagtailadmin.menu import MenuItem
 @hooks.register('register_admin_urls')
 def register_admin_urls():
     return [
-        url(r'^searchpicks/', include(admin_urls, namespace='wagtailsearchpromotions')),
+        url(r'^searchpicks/', include(admin_urls, app_name='wagtailsearchpromotions', namespace='wagtailsearchpromotions')),
     ]
 
 
@@ -27,10 +27,16 @@ class SearchPicksMenuItem(MenuItem):
 
 @hooks.register('register_settings_menu_item')
 def register_search_picks_menu_item():
-    return SearchPicksMenuItem(_('Promoted search results'), urlresolvers.reverse('wagtailsearchpromotions:index'), classnames='icon icon-pick', order=900)
+    return SearchPicksMenuItem(
+        _('Promoted search results'),
+        urlresolvers.reverse('wagtailsearchpromotions:index'),
+        classnames='icon icon-pick', order=900
+    )
 
 
 @hooks.register('register_permissions')
 def register_permissions():
-    return Permission.objects.filter(content_type__app_label='wagtailsearchpromotions',
-        codename__in=['add_searchpromotion', 'change_searchpromotion', 'delete_searchpromotion'])
+    return Permission.objects.filter(
+        content_type__app_label='wagtailsearchpromotions',
+        codename__in=['add_searchpromotion', 'change_searchpromotion', 'delete_searchpromotion']
+    )

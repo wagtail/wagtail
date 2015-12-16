@@ -3,7 +3,7 @@
 {% include "wagtailadmin/shared/header.html" with title=pop_str %}
 
 <div class="nice-padding">
-    <form class="query-search search-bar full-width" action="{% url 'wagtailsearch_queries_chooserresults' %}" method="GET" autocomplete="off">
+    <form class="query-search search-bar full-width" action="{% url 'wagtailsearch_admin:queries_chooserresults' %}" method="GET" autocomplete="off">
         <ul class="fields">
             {% for field in searchform %}
                 {% include "wagtailadmin/shared/field_as_li.html" with field=field %}

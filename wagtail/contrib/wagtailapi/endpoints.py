@@ -100,10 +100,15 @@ class BaseAPIEndpoint(GenericViewSet):
         query_parameters = set(self.request.GET.keys())
 
         # All query paramters must be either a field or an operation
-        allowed_query_parameters = set(self.get_api_fields(queryset.model)).union(self.known_query_parameters).union({'id'})
-        unknown_parameters = query_parameters - allowed_query_parameters
+        allowed_parameters = set(self.get_api_fields(queryset.model))
+        allowed_parameters = allowed_parameters.union(self.known_query_parameters)
+        allowed_parameters.add('id')
+        unknown_parameters = query_parameters - allowed_parameters
         if unknown_parameters:
-            raise BadRequestError("query parameter is not an operation or a recognised field: %s" % ', '.join(sorted(unknown_parameters)))
+            raise BadRequestError(
+                "query parameter is not an operation or a recognised field: %s"
+                % ', '.join(sorted(unknown_parameters))
+            )
 
     def get_serializer_class(self):
         request = self.request
@@ -116,7 +121,8 @@ class BaseAPIEndpoint(GenericViewSet):
 
         # Get all available fields
         all_fields = self.get_api_fields(model)
-        all_fields = list(OrderedDict.fromkeys(all_fields))  # Removes any duplicates in case the developer put "title" in api_fields
+        # Removes any duplicates in case the developer put "title" in api_fields
+        all_fields = list(OrderedDict.fromkeys(all_fields))
 
         if self.action == 'listing_view':
             # Listing views just show the title field and any other allowed field the user specified

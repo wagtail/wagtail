@@ -16,7 +16,13 @@ class Migration(migrations.Migration):
                 ('id', models.AutoField(verbose_name='ID', primary_key=True, auto_created=True, serialize=False)),
                 ('url', models.URLField()),
                 ('max_width', models.SmallIntegerField(null=True, blank=True)),
-                ('type', models.CharField(max_length=10, choices=[('video', 'Video'), ('photo', 'Photo'), ('link', 'Link'), ('rich', 'Rich')])),
+                (
+                    'type',
+                    models.CharField(
+                        max_length=10,
+                        choices=[('video', 'Video'), ('photo', 'Photo'), ('link', 'Link'), ('rich', 'Rich')]
+                    )
+                ),
                 ('html', models.TextField(blank=True)),
                 ('title', models.TextField(blank=True)),
                 ('author_name', models.TextField(blank=True)),

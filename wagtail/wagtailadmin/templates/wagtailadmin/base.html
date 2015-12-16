@@ -6,7 +6,7 @@
         <div class="inner">
             <a href="{% url 'wagtailadmin_home' %}" class="logo" title="Wagtail v.{% wagtail_version %}">
                 {% block branding_logo %}
-                    <img src="{% static 'wagtailadmin/images/wagtail-logo.svg' %}" alt="Wagtail" width="80" />
+                    <img class="wagtail-logo" src="{% static 'wagtailadmin/images/wagtail-logo.svg' %}" alt="Wagtail" width="80" />
                 {% endblock %}
                 <span>{% trans "Dashboard" %}</span>
             </a>
@@ -40,7 +40,7 @@
                 {% endif %}
             </div>
 
-            <div id="nav-toggle" class="icon text-replace">{% trans "Menu" %}</div>
+            <div id="nav-toggle" class="nav-toggle icon text-replace">{% trans "Menu" %}</div>
 
             {% block content %}{% endblock %}
         </div>

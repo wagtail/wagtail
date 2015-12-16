@@ -4,14 +4,15 @@
 #
 # Translators:
 # hanfeng <appweb.cn@gmail.com>, 2014-2015
+# Feng Wang <wangfeng.w@gmail.com>, 2015
 # hanfeng <appweb.cn@gmail.com>, 2014
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2015-08-26 14:28+0100\n"
-"PO-Revision-Date: 2015-08-26 13:37+0000\n"
-"Last-Translator: Karl Hobley <karl@torchbox.com>\n"
+"PO-Revision-Date: 2015-12-07 07:14+0000\n"
+"Last-Translator: Feng Wang <wangfeng.w@gmail.com>\n"
 "Language-Team: Chinese (China) (http://www.transifex.com/torchbox/wagtail/"
 "language/zh_CN/)\n"
 "MIME-Version: 1.0\n"
@@ -56,6 +57,12 @@ msgstr "日期/时间"
 msgid "Submit time"
 msgstr "提交时间"
 
+msgid "Form Submission"
+msgstr "提交表格"
+
+msgid "Label"
+msgstr "标签"
+
 msgid "Field type"
 msgstr "字段类型"
 
@@ -71,11 +78,33 @@ msgstr "默认值"
 msgid "Help text"
 msgstr "帮助文本"
 
+msgid "To address"
+msgstr "收件人"
+
+msgid "Optional - form submissions will be emailed to this address"
+msgstr "可选 - 提交的表格将通过email发送给此地址"
+
+msgid "From address"
+msgstr "发件人"
+
+msgid "Subject"
+msgstr "主题"
+
+msgid "Delete"
+msgstr "删除"
+
+msgid "Delete it"
+msgstr "删除"
+
 msgid "Forms"
 msgstr "表单"
 
 msgid "Pages"
 msgstr "页面"
+
+#, python-format
+msgid "Form data <span>%(form_title)s</span>"
+msgstr "表格数据 <span>%(form_title)s</span>"
 
 msgid "Filter"
 msgstr "过滤器"
@@ -92,5 +121,11 @@ msgstr "原始"
 msgid "Submission Date"
 msgstr "提交日期"
 
+msgid "Actions"
+msgstr "动作"
+
 msgid "No form pages have been created."
 msgstr "还没有创建表单页面。"
+
+msgid "Submission deleted."
+msgstr "删除的提交"

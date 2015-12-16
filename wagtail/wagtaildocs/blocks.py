@@ -5,6 +5,7 @@ from django.utils.html import format_html
 
 from wagtail.wagtailcore.blocks import ChooserBlock
 
+
 class DocumentChooserBlock(ChooserBlock):
     @cached_property
     def target_model(self):

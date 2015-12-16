@@ -95,8 +95,11 @@ Elasticsearch Backend
 
 Prerequisites are the `Elasticsearch`_ service itself and, via pip, the `elasticsearch-py`_ package:
 
-.. _Elasticsearch: https://www.elastic.co/products/elasticsearch
+.. _Elasticsearch: https://www.elastic.co/downloads/past-releases/elasticsearch-1-7-3
 
+.. note::
+
+   Wagtail doesn't support Elasticsearch 2.0 yet; please use 1.x in the meantime. Elasticsearch 2.0 support is scheduled for Wagtail 1.3.
 
 .. code-block:: sh
 

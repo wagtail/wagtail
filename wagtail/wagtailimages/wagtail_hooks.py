@@ -8,6 +8,7 @@ from django.contrib.auth.models import Permission
 from wagtail.wagtailcore import hooks
 from wagtail.wagtailadmin.menu import MenuItem
 from wagtail.wagtailadmin.site_summary import SummaryItem
+from wagtail.wagtailadmin.search import SearchArea
 
 from wagtail.wagtailimages import admin_urls, image_operations
 from wagtail.wagtailimages.models import get_image_model
@@ -28,7 +29,10 @@ class ImagesMenuItem(MenuItem):
 
 @hooks.register('register_admin_menu_item')
 def register_images_menu_item():
-    return ImagesMenuItem(_('Images'), urlresolvers.reverse('wagtailimages:index'), name='images', classnames='icon icon-image', order=300)
+    return ImagesMenuItem(
+        _('Images'), urlresolvers.reverse('wagtailimages:index'),
+        name='images', classnames='icon icon-image', order=300
+    )
 
 
 @hooks.register('insert_editor_js')
@@ -37,7 +41,8 @@ def editor_js():
         'wagtailimages/js/hallo-plugins/hallo-wagtailimage.js',
         'wagtailimages/js/image-chooser.js',
     ]
-    js_includes = format_html_join('\n', '<script src="{0}{1}"></script>',
+    js_includes = format_html_join(
+        '\n', '<script src="{0}{1}"></script>',
         ((settings.STATIC_URL, filename) for filename in js_files)
     )
     return js_includes + format_html(
@@ -54,7 +59,7 @@ def editor_js():
 @hooks.register('register_permissions')
 def register_permissions():
     return Permission.objects.filter(content_type__app_label='wagtailimages',
-        codename__in=['add_image', 'change_image'])
+                                     codename__in=['add_image', 'change_image'])
 
 
 @hooks.register('register_image_operations')
@@ -87,3 +92,17 @@ class ImagesSummaryItem(SummaryItem):
 @hooks.register('construct_homepage_summary_items')
 def add_images_summary_item(request, items):
     items.append(ImagesSummaryItem(request))
+
+
+class ImagesSearchArea(SearchArea):
+    def is_shown(self, request):
+        return request.user.has_perm('wagtailimages.add_image') or request.user.has_perm('wagtailimages.change_image')
+
+
+@hooks.register('register_admin_search_area')
+def register_images_search_area():
+    return ImagesSearchArea(
+        _('Images'), urlresolvers.reverse('wagtailimages:index'),
+        name='images',
+        classnames='icon icon-image',
+        order=200)

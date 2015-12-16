@@ -13,7 +13,8 @@ from wagtail.wagtailcore.models import Page
 class Command(BaseCommand):
     help = "Checks for data integrity errors on the page tree, and fixes them where possible."
     base_options = (
-        make_option('--noinput', action='store_false', dest='interactive', default=True,
+        make_option(
+            '--noinput', action='store_false', dest='interactive', default=True,
             help='If provided, any fixes requiring user interaction will be skipped.'
         ),
     )
@@ -93,7 +94,9 @@ class Command(BaseCommand):
         if any((bad_alpha, bad_path, orphans, bad_depth, bad_numchild)):
             self.stdout.write("Remaining problems (cannot fix automatically):")
             if bad_alpha:
-                self.stdout.write("Invalid characters found in path for pages: %s" % self.numberlist_to_string(bad_alpha))
+                self.stdout.write(
+                    "Invalid characters found in path for pages: %s" % self.numberlist_to_string(bad_alpha)
+                )
             if bad_path:
                 self.stdout.write("Invalid path length found for pages: %s" % self.numberlist_to_string(bad_path))
             if orphans:
@@ -101,7 +104,9 @@ class Command(BaseCommand):
             if bad_depth:
                 self.stdout.write("Incorrect depth value found for pages: %s" % self.numberlist_to_string(bad_depth))
             if bad_numchild:
-                self.stdout.write("Incorrect numchild value found for pages: %s" % self.numberlist_to_string(bad_numchild))
+                self.stdout.write(
+                    "Incorrect numchild value found for pages: %s" % self.numberlist_to_string(bad_numchild)
+                )
 
         elif any_problems_fixed:
             self.stdout.write("All problems fixed.")

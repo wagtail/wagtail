@@ -22,7 +22,7 @@
                     <li class="taglist">
                         <h3>{% trans 'Popular tags' %}</h3>
                         {% for tag in popular_tags %}
-                            <a class="suggested-tag tag" href="{% url 'wagtailimages:index' %}?q={{ tag.name|urlencode }}">{{ tag.name }}</a>
+                            <a class="suggested-tag tag" href="{% url 'wagtailimages:index' %}?tag={{ tag.name|urlencode }}">{{ tag.name }}</a>
                         {% endfor %}
                     </li>
                 {% endif %}

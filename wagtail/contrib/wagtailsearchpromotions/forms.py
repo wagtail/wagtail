@@ -23,7 +23,9 @@ class SearchPromotionForm(forms.ModelForm):
         }
 
 
-SearchPromotionsFormSetBase = inlineformset_factory(Query, SearchPromotion, form=SearchPromotionForm, can_order=True, can_delete=True, extra=0)
+SearchPromotionsFormSetBase = inlineformset_factory(
+    Query, SearchPromotion, form=SearchPromotionForm, can_order=True, can_delete=True, extra=0
+)
 
 
 class SearchPromotionsFormSet(SearchPromotionsFormSetBase):

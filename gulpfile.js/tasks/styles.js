@@ -32,7 +32,7 @@ gulp.task('styles:sass', function () {
             outputStyle: 'expanded'
         }))
         .pipe(autoprefixer({
-            browsers: ['last 2 versions'],
+            browsers: ['last 3 versions', 'not ie <= 8'],
             cascade: false
         }))
         .pipe(gulp.dest(function(file) {

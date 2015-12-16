@@ -1,5 +1,12 @@
-{% extends 'wagtailadmin/notifications/base_notification.html' %}{% block notification %}{% load i18n %}{% blocktrans with page=revision.page|safe %}The page "{{ page }}" has been submitted for moderation{% endblocktrans %}
-{% blocktrans with page=revision.page|safe %}The page "{{ page }}" has been submitted for moderation.{% endblocktrans %}
+{% extends 'wagtailadmin/notifications/base_notification.html' %}
+
+{% load i18n %}
+
+{% block subject %}{% blocktrans with page=revision.page|safe %}The page "{{ page }}" has been submitted for moderation{% endblocktrans %}{% endblock %}
+
+{% block notification %}
+{% blocktrans with page=revision.page|safe editor=revision.user.get_full_name|default:revision.user.get_username %}The page "{{ page }}" has been submitted for moderation by {{ editor }}.{% endblocktrans %}
 
 {% trans "You can preview the page here:" %} {{ settings.BASE_URL }}{% url 'wagtailadmin_pages:preview_for_moderation' revision.id %}
-{% trans "You can edit the page here:" %} {{ settings.BASE_URL }}{% url 'wagtailadmin_pages:edit' revision.page.id %}{% endblock %}
+{% trans "You can edit the page here:" %} {{ settings.BASE_URL }}{% url 'wagtailadmin_pages:edit' revision.page.id %}
+{% endblock %}

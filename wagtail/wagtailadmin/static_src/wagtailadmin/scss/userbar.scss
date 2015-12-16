@@ -1,139 +1,144 @@
-@import "wagtailadmin/scss/variables.scss";
-@import "wagtailadmin/scss/mixins.scss";
+@import 'wagtailadmin/scss/variables';
+@import 'wagtailadmin/scss/mixins';
+@import 'wagtailadmin/scss/components/icons';
+@import 'wagtailadmin/scss/fonts';
 
-@import "wagtailadmin/scss/components/icons.scss";
-
-@import "wagtailadmin/scss/fonts.scss";
-
-html, body{
-    background-color:transparent;
-}
-body{
-    -webkit-font-smoothing: antialiased; /* Do not remove! */
-    font-family:Open Sans,Arial,sans-serif;
-    font-size:80%;
+html, 
+body {
+    background-color: transparent;
 }
 
-nav{
-    padding:0 0 3em 3em;
-    float:right;
+body {
+    -webkit-font-smoothing: antialiased; // Do not remove!
+    font-family: Open Sans,Arial,sans-serif;
+    font-size: 80%;
+}
 
-    /* moving menu only for browser that can support hover and transitions */
+nav {
+    padding: 0 0 3em 3em;
+    float: right;
+
+    // moving menu only for browser that can support hover and transitions
     .no-touch .ready & {
-        ul{
-            height:0;
-        }
-        li{
-            left:50px;
+        ul {
+            height: 0;
         }
 
-        &:hover{
-            ul{
-                height:300px;
+        li {
+            left: 50px;
+        }
+
+        &:hover {
+            ul {
+                height: 300px;
             }
-            li{
-                left:0;
+
+            li {
+                left: 0;
             }
         }
     }
 }
 
-.home{
-    width:3.5em;
-    height:3.5em;
-    margin-bottom:1px;
-    background-color:white;
-    color:$color-text-base;
-    padding:0;
+.home {
+    width: 3.5em;
+    height: 3.5em;
+    margin-bottom: 1px;
+    background-color: $color-white;
+    color: $color-text-base;
+    padding: 0;
 
-    &.icon:before{
+    &.icon:before {
         @include transition(color 0.2s ease);
-        font-size:35px;
+        font-size: 35px;
         margin: 0.2em 0.15em;
-        display:block;
+        display: block;
     }
 
-    &:hover:before{
-        color:black;
+    &:hover:before {
+        color: $color-black;
     }
 }
 
-ul{
+ul {
     @include transition(height 0.2s ease);
     @include unlist();
-    overflow:hidden;
-    clear:both;
+    overflow: hidden;
+    clear: both;
 }
 
-li{
+li {
     @include transition(left 0.2s ease, width 0.1s ease);
-    float:right;
-    clear:both;
-    width:3.5em;
-    overflow:hidden;
-    position:relative;
-    padding-bottom:1px;
+    float: right;
+    clear: both;
+    width: 3.5em;
+    overflow: hidden;
+    position: relative;
+    padding-bottom: 1px;
 
-    &:hover{
-        width:10em;
+    &:hover {
+        width: 10em;
     }
 }
 
-/* all items or pseudo-items must float right */
-li, .home{
-    float:right;
+// all items or pseudo-items must float right
+li,
+.home {
+    float: right;
 }
 
-.action{
+.action {
     @include transition(background-color 0.2s ease, color 0.2s ease);
-    background-color:$color-teal;
-    color:$color-teal;
+    background-color: $color-teal;
+    color: $color-teal;
 
-    &:before{
-        margin-right:0.4em;
-        vertical-align:middle;
-        font-size:1.7em;
-        color:white;
+    &:before {
+        margin-right: 0.4em;
+        vertical-align: middle;
+        font-size: 1.7em;
+        color: $color-white;
     }
 
-    &:hover{
-        background-color:$color-teal-dark;
-        color:white;
+    &:hover {
+        background-color: $color-teal-dark;
+        color: $color-white;
     }
 }
 
-/* actions which can be accomplished just with a link tag */
-a.action, a{
-    display:block;
-    width:10em;
-    text-align:left;
-    overflow:hidden;
-    text-decoration:none;
-    text-transform:uppercase;
-    padding:0.85em 1em;
+// actions which can be accomplished just with a link tag
+a.action, 
+a {
+    display: block;
+    width: 10em;
+    text-align: left;
+    overflow: hidden;
+    text-decoration: none;
+    text-transform: uppercase;
+    padding: 0.85em 1em;
 }
 
-/* actions which require wrapping a form input */
-div.action{
-    input{
-        color:white;
-        -webkit-font-smoothing: antialiased; /* Do not remove! */
-        font-family:Open Sans,Arial,sans-serif;
-        border:0;
-        background:none;
-        display:block;
-        text-transform:uppercase;
-        padding:1em;
-        width:10em;
-        position:relative;
-        z-index:1;
-        text-align:left;
-        padding-left:3.5em;
+// actions which require wrapping a form input
+div.action {
+    input {
+        color: $color-white;
+        -webkit-font-smoothing: antialiased; // Do not remove!
+        font-family: Open Sans,Arial,sans-serif;
+        border: 0;
+        background: none;
+        display: block;
+        text-transform: uppercase;
+        padding: 1em;
+        width: 10em;
+        position: relative;
+        z-index: 1;
+        text-align: left;
+        padding-left: 3.5em;
     }
-    &:before{
-        position:absolute;
-        top:0.4em;
-        left:0.5em;
-        z-index:0;
+
+    &:before {
+        position: absolute;
+        top: 0.4em;
+        left: 0.5em;
+        z-index: 0;
     }
 }

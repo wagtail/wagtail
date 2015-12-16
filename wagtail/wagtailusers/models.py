@@ -11,19 +11,19 @@ class UserProfile(models.Model):
     user = models.OneToOneField(settings.AUTH_USER_MODEL)
 
     submitted_notifications = models.BooleanField(
-        verbose_name=_('Submitted notifications'),
+        verbose_name=_('submitted notifications'),
         default=True,
         help_text=_("Receive notification when a page is submitted for moderation")
     )
 
     approved_notifications = models.BooleanField(
-        verbose_name=_('Approved notifications'),
+        verbose_name=_('approved notifications'),
         default=True,
         help_text=_("Receive notification when your page edit is approved")
     )
 
     rejected_notifications = models.BooleanField(
-        verbose_name=_('Rejected notifications'),
+        verbose_name=_('rejected notifications'),
         default=True,
         help_text=_("Receive notification when your page edit is rejected")
     )
@@ -36,4 +36,4 @@ class UserProfile(models.Model):
         return self.user.get_username()
 
     class Meta:
-        verbose_name = _('User Profile')
+        verbose_name = _('user profile')

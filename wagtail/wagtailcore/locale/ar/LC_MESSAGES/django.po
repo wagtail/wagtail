@@ -1,0 +1,135 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# ROGER MICHAEL ASHLEY ALLEN <rogermaallen@gmail.com>, 2015
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2015-09-02 20:07+0100\n"
+"PO-Revision-Date: 2015-11-30 18:31+0000\n"
+"Last-Translator: ROGER MICHAEL ASHLEY ALLEN <rogermaallen@gmail.com>\n"
+"Language-Team: Arabic (http://www.transifex.com/torchbox/wagtail/language/"
+"ar/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: ar\n"
+"Plural-Forms: nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 "
+"&& n%100<=10 ? 3 : n%100>=11 && n%100<=99 ? 4 : 5;\n"
+
+msgid "Hostname"
+msgstr "اسم المضيف"
+
+msgid "Port"
+msgstr "منفذ"
+
+msgid "Root page"
+msgstr "الصفحة الأصلية"
+
+msgid "Is default site"
+msgstr "أهذا هو الموقع العادي"
+
+msgid "site"
+msgstr "موقع"
+
+msgid "sites"
+msgstr "مواقع"
+
+msgid "Title"
+msgstr "عنوان"
+
+msgid "Content type"
+msgstr "نوع المحتويات"
+
+msgid "Live"
+msgstr "حار"
+
+msgid "Has unpublished changes"
+msgstr "أله تغيرات غير منشورة؟"
+
+msgid "Owner"
+msgstr "صاحب"
+
+msgid "Page title"
+msgstr "عنوان الصفحة"
+
+msgid "Search description"
+msgstr "وصف البحث"
+
+msgid "Please add a date-time in the form YYYY-MM-DD hh:mm."
+msgstr "أضيف من فضلكم تاريخا ووقتا"
+
+msgid "Expiry date/time"
+msgstr "انقضاء التاريخ والتوقيت"
+
+msgid "Expired"
+msgstr "منقضٍ"
+
+msgid "Locked"
+msgstr "مغلق"
+
+msgid "First published at"
+msgstr "منشور للمرة الأولى"
+
+msgid "Latest revision created at"
+msgstr "أنشئت المراجعة الأهيرة  في"
+
+msgid "expired"
+msgstr "منقضٍ"
+
+msgid "scheduled"
+msgstr "موقت"
+
+msgid "draft"
+msgstr "مسود"
+
+msgid "Default"
+msgstr "عادي"
+
+msgid "page"
+msgstr "صفحة"
+
+msgid "pages"
+msgstr "صفحات"
+
+msgid "Page"
+msgstr "صفحة"
+
+msgid "Submitted for moderation"
+msgstr "مقدم للمراجعة"
+
+msgid "Created at"
+msgstr "أنشئأ في الساعة"
+
+msgid "User"
+msgstr "مستعمل"
+
+msgid "page revision"
+msgstr "مراجعة صفحة"
+
+msgid "page revisions"
+msgstr "مراجعة صفحات"
+
+msgid "Add/edit pages you own"
+msgstr "أضف أو نقح سفحات أنت الصاحب لها "
+
+msgid "Edit any page"
+msgstr "نقح أي صفحة"
+
+msgid "Publish any page"
+msgstr "انشر أي صفحة"
+
+msgid "Lock/unlock any page"
+msgstr "اغلق أو افتح أي صفحة"
+
+msgid "Group"
+msgstr "جماعة"
+
+msgid "Permission type"
+msgstr "نوع  التصريح"
+
+msgid "Password"
+msgstr "كلمة سر"

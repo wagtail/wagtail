@@ -16,26 +16,62 @@ class TestRedirects(TestCase):
         path = normalise_path('/Hello/world.html;fizz=three;buzz=five?foo=Bar&Baz=quux2')
 
         # Test against equivalant paths
-        self.assertEqual(path, normalise_path('/Hello/world.html;fizz=three;buzz=five?foo=Bar&Baz=quux2'))  # The exact same URL
-        self.assertEqual(path, normalise_path('http://mywebsite.com:8000/Hello/world.html;fizz=three;buzz=five?foo=Bar&Baz=quux2'))  # Scheme, hostname and port ignored
-        self.assertEqual(path, normalise_path('Hello/world.html;fizz=three;buzz=five?foo=Bar&Baz=quux2'))  # Leading slash can be omitted
-        self.assertEqual(path, normalise_path('Hello/world.html/;fizz=three;buzz=five?foo=Bar&Baz=quux2'))  # Trailing slashes are ignored
-        self.assertEqual(path, normalise_path('/Hello/world.html;fizz=three;buzz=five?foo=Bar&Baz=quux2#cool'))  # Fragments are ignored
-        self.assertEqual(path, normalise_path('/Hello/world.html;fizz=three;buzz=five?Baz=quux2&foo=Bar'))  # Order of query string parameters is ignored
-        self.assertEqual(path, normalise_path('/Hello/world.html;buzz=five;fizz=three?foo=Bar&Baz=quux2'))  # Order of parameters is ignored
-        self.assertEqual(path, normalise_path('  /Hello/world.html;fizz=three;buzz=five?foo=Bar&Baz=quux2'))  # Leading whitespace
-        self.assertEqual(path, normalise_path('/Hello/world.html;fizz=three;buzz=five?foo=Bar&Baz=quux2  '))  # Trailing whitespace
+        self.assertEqual(path, normalise_path(  # The exact same URL
+            '/Hello/world.html;fizz=three;buzz=five?foo=Bar&Baz=quux2'
+        ))
+        self.assertEqual(path, normalise_path(  # Scheme, hostname and port ignored
+            'http://mywebsite.com:8000/Hello/world.html;fizz=three;buzz=five?foo=Bar&Baz=quux2'
+        ))
+        self.assertEqual(path, normalise_path(  # Leading slash can be omitted
+            'Hello/world.html;fizz=three;buzz=five?foo=Bar&Baz=quux2'
+        ))
+        self.assertEqual(path, normalise_path(  # Trailing slashes are ignored
+            'Hello/world.html/;fizz=three;buzz=five?foo=Bar&Baz=quux2'
+        ))
+        self.assertEqual(path, normalise_path(  # Fragments are ignored
+            '/Hello/world.html;fizz=three;buzz=five?foo=Bar&Baz=quux2#cool'
+        ))
+        self.assertEqual(path, normalise_path(  # Order of query string parameters is ignored
+            '/Hello/world.html;fizz=three;buzz=five?Baz=quux2&foo=Bar'
+        ))
+        self.assertEqual(path, normalise_path(  # Order of parameters is ignored
+            '/Hello/world.html;buzz=five;fizz=three?foo=Bar&Baz=quux2'
+        ))
+        self.assertEqual(path, normalise_path(  # Leading whitespace
+            '  /Hello/world.html;fizz=three;buzz=five?foo=Bar&Baz=quux2'
+        ))
+        self.assertEqual(path, normalise_path(  # Trailing whitespace
+            '/Hello/world.html;fizz=three;buzz=five?foo=Bar&Baz=quux2  '
+        ))
 
         # Test against different paths
-        self.assertNotEqual(path, normalise_path('/hello/world.html;fizz=three;buzz=five?foo=Bar&Baz=quux2'))  # 'hello' is lowercase
-        self.assertNotEqual(path, normalise_path('/Hello/world;fizz=three;buzz=five?foo=Bar&Baz=quux2'))  # No '.html'
-        self.assertNotEqual(path, normalise_path('/Hello/world.html;fizz=three;buzz=five?foo=bar&Baz=Quux2'))  # Query string parameter value has wrong case
-        self.assertNotEqual(path, normalise_path('/Hello/world.html;fizz=three;buzz=five?foo=Bar&baz=quux2'))  # Query string parameter name has wrong case
-        self.assertNotEqual(path, normalise_path('/Hello/world.html;fizz=three;buzz=Five?foo=Bar&Baz=quux2'))  # Parameter value has wrong case
-        self.assertNotEqual(path, normalise_path('/Hello/world.html;Fizz=three;buzz=five?foo=Bar&Baz=quux2'))  # Parameter name has wrong case
-        self.assertNotEqual(path, normalise_path('/Hello/world.html?foo=Bar&Baz=quux2'))  # Missing params
-        self.assertNotEqual(path, normalise_path('/Hello/WORLD.html;fizz=three;buzz=five?foo=Bar&Baz=quux2'))  # 'WORLD' is uppercase
-        self.assertNotEqual(path, normalise_path('/Hello/world.htm;fizz=three;buzz=five?foo=Bar&Baz=quux2'))  # '.htm' is not the same as '.html'
+        self.assertNotEqual(path, normalise_path(  # 'hello' is lowercase
+            '/hello/world.html;fizz=three;buzz=five?foo=Bar&Baz=quux2'
+        ))
+        self.assertNotEqual(path, normalise_path(  # No '.html'
+            '/Hello/world;fizz=three;buzz=five?foo=Bar&Baz=quux2'
+        ))
+        self.assertNotEqual(path, normalise_path(  # Query string parameter value has wrong case
+            '/Hello/world.html;fizz=three;buzz=five?foo=bar&Baz=Quux2'
+        ))
+        self.assertNotEqual(path, normalise_path(  # Query string parameter name has wrong case
+            '/Hello/world.html;fizz=three;buzz=five?foo=Bar&baz=quux2'
+        ))
+        self.assertNotEqual(path, normalise_path(  # Parameter value has wrong case
+            '/Hello/world.html;fizz=three;buzz=Five?foo=Bar&Baz=quux2'
+        ))
+        self.assertNotEqual(path, normalise_path(  # Parameter name has wrong case
+            '/Hello/world.html;Fizz=three;buzz=five?foo=Bar&Baz=quux2'
+        ))
+        self.assertNotEqual(path, normalise_path(  # Missing params
+            '/Hello/world.html?foo=Bar&Baz=quux2'
+        ))
+        self.assertNotEqual(path, normalise_path(  # 'WORLD' is uppercase
+            '/Hello/WORLD.html;fizz=three;buzz=five?foo=Bar&Baz=quux2'
+        ))
+        self.assertNotEqual(path, normalise_path(  # '.htm' is not the same as '.html'
+            '/Hello/world.htm;fizz=three;buzz=five?foo=Bar&Baz=quux2'
+        ))
 
         # Normalise some rubbish to make sure it doesn't crash
         normalise_path('This is not a URL')
@@ -49,11 +85,10 @@ class TestRedirects(TestCase):
         redirect.save()
 
         # Navigate to it
-        r = self.client.get('/redirectme/')
+        response = self.client.get('/redirectme/')
 
         # Check that we were redirected
-        self.assertEqual(r.status_code, 301)
-        self.assertTrue(r.has_header('Location'))
+        self.assertRedirects(response, '/redirectto', status_code=301, fetch_redirect_response=False)
 
     def test_temporary_redirect(self):
         # Create a redirect
@@ -61,15 +96,16 @@ class TestRedirects(TestCase):
         redirect.save()
 
         # Navigate to it
-        r = self.client.get('/redirectme/')
+        response = self.client.get('/redirectme/')
 
         # Check that we were redirected temporarily
-        self.assertEqual(r.status_code, 302)
-        self.assertTrue(r.has_header('Location'))
+        self.assertRedirects(response, '/redirectto', status_code=302, fetch_redirect_response=False)
 
     def test_redirect_stripping_query_string(self):
         # Create a redirect which includes a query string
-        redirect_with_query_string = models.Redirect(old_path='/redirectme?foo=Bar', redirect_link='/with-query-string-only')
+        redirect_with_query_string = models.Redirect(
+            old_path='/redirectme?foo=Bar', redirect_link='/with-query-string-only'
+        )
         redirect_with_query_string.save()
 
         # ... and another redirect without the query string
@@ -78,25 +114,19 @@ class TestRedirects(TestCase):
 
         # Navigate to the redirect with the query string
         r_matching_qs = self.client.get('/redirectme/?foo=Bar')
-        self.assertEqual(r_matching_qs.status_code, 301)
-        self.assertTrue(r_matching_qs.has_header('Location'))
-        self.assertEqual(r_matching_qs['Location'][-23:], '/with-query-string-only')
+        self.assertRedirects(r_matching_qs, '/with-query-string-only', status_code=301, fetch_redirect_response=False)
 
         # Navigate to the redirect with a different query string
         # This should strip out the query string and match redirect_without_query_string
         r_no_qs = self.client.get('/redirectme/?utm_source=irrelevant')
-        self.assertEqual(r_no_qs.status_code, 301)
-        self.assertTrue(r_no_qs.has_header('Location'))
-        self.assertEqual(r_no_qs['Location'][-21:], '/without-query-string')
+        self.assertRedirects(r_no_qs, '/without-query-string', status_code=301, fetch_redirect_response=False)
 
     def test_redirect_to_page(self):
         christmas_page = Page.objects.get(url_path='/home/events/christmas/')
         models.Redirect.objects.create(old_path='/xmas', redirect_page=christmas_page)
 
         response = self.client.get('/xmas/', HTTP_HOST='test.example.com')
-        self.assertEqual(response.status_code, 301)
-        # if only one site exists, our redirect response preserves the request hostname
-        self.assertEqual(response['Location'], 'http://test.example.com/events/christmas/')
+        self.assertRedirects(response, 'http://test.example.com/events/christmas/', status_code=301, fetch_redirect_response=False)
 
     def test_redirect_from_any_site(self):
         contact_page = Page.objects.get(url_path='/home/contact-us/')
@@ -107,12 +137,10 @@ class TestRedirects(TestCase):
 
         # no site was specified on the redirect, so it should redirect regardless of hostname
         response = self.client.get('/xmas/', HTTP_HOST='localhost')
-        self.assertEqual(response.status_code, 301)
-        self.assertEqual(response['Location'], 'http://localhost/events/christmas/')
+        self.assertRedirects(response, 'http://localhost/events/christmas/', status_code=301, fetch_redirect_response=False)
 
         response = self.client.get('/xmas/', HTTP_HOST='other.example.com')
-        self.assertEqual(response.status_code, 301)
-        self.assertEqual(response['Location'], 'http://localhost/events/christmas/')
+        self.assertRedirects(response, 'http://localhost/events/christmas/', status_code=301, fetch_redirect_response=False)
 
     def test_redirect_from_specific_site(self):
         contact_page = Page.objects.get(url_path='/home/contact-us/')
@@ -123,8 +151,7 @@ class TestRedirects(TestCase):
 
         # redirect should only respond when site is other_site
         response = self.client.get('/xmas/', HTTP_HOST='other.example.com')
-        self.assertEqual(response.status_code, 301)
-        self.assertEqual(response['Location'], 'http://localhost/events/christmas/')
+        self.assertRedirects(response, 'http://localhost/events/christmas/', status_code=301, fetch_redirect_response=False)
 
         response = self.client.get('/xmas/', HTTP_HOST='localhost')
         self.assertEqual(response.status_code, 404)
@@ -359,7 +386,9 @@ class TestRedirectsDeleteView(TestCase, WagtailTestUtils):
         return self.client.get(reverse('wagtailredirects:delete', args=(redirect_id or self.redirect.id, )), params)
 
     def post(self, post_data={}, redirect_id=None):
-        return self.client.post(reverse('wagtailredirects:delete', args=(redirect_id or self.redirect.id, )), post_data)
+        return self.client.post(reverse(
+            'wagtailredirects:delete', args=(redirect_id or self.redirect.id, )
+        ), post_data)
 
     def test_simple(self):
         response = self.get()

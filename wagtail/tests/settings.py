@@ -62,9 +62,9 @@ if django.VERSION >= (1, 8):
             'APP_DIRS': True,
             'OPTIONS': {
                 'extensions': [
-                    'wagtail.wagtailcore.templatetags.jinja2.core',
-                    'wagtail.wagtailadmin.templatetags.jinja2.userbar',
-                    'wagtail.wagtailimages.templatetags.jinja2.images',
+                    'wagtail.wagtailcore.jinja2tags.core',
+                    'wagtail.wagtailadmin.jinja2tags.userbar',
+                    'wagtail.wagtailimages.jinja2tags.images',
                 ],
             },
         },
@@ -157,23 +157,14 @@ WAGTAILSEARCH_BACKENDS = {
 
 AUTH_USER_MODEL = 'customuser.CustomUser'
 
-try:
-    # Only add Elasticsearch backend if the elasticsearch-py library is installed
-    import elasticsearch  # noqa
-
-    # Import succeeded, add an Elasticsearch backend
+if 'ELASTICSEARCH_URL' in os.environ:
     WAGTAILSEARCH_BACKENDS['elasticsearch'] = {
         'BACKEND': 'wagtail.wagtailsearch.backends.elasticsearch',
+        'URLS': [os.environ['ELASTICSEARCH_URL']],
         'TIMEOUT': 10,
         'max_retries': 1,
         'AUTO_UPDATE': False,
     }
-
-    if 'ELASTICSEARCH_URL' in os.environ:
-        WAGTAILSEARCH_BACKENDS['elasticsearch']['URLS'] = [os.environ['ELASTICSEARCH_URL']]
-
-except ImportError:
-    pass
 
 
 WAGTAIL_SITE_NAME = "Test Site"

@@ -1,0 +1,123 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# José Alaguna <alagunajs@gmail.com>, 2015
+# Ragıp Ünal <ragip@ragipunal.com>, 2015
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2015-09-02 20:07+0100\n"
+"PO-Revision-Date: 2015-11-16 08:00+0000\n"
+"Last-Translator: Ragıp Ünal <ragip@ragipunal.com>\n"
+"Language-Team: Turkish (Turkey) (http://www.transifex.com/torchbox/wagtail/"
+"language/tr_TR/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: tr_TR\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+msgid "Hostname"
+msgstr "Hostname"
+
+msgid "Port"
+msgstr "Port"
+
+msgid "Root page"
+msgstr "Kaynak sayfa"
+
+msgid "Is default site"
+msgstr "Varsayılan site"
+
+msgid "site"
+msgstr "site"
+
+msgid "sites"
+msgstr "siteler"
+
+msgid "Title"
+msgstr "Başlık"
+
+msgid "Content type"
+msgstr "İçerik Tipi"
+
+msgid "Live"
+msgstr "Canlı"
+
+msgid "Has unpublished changes"
+msgstr "Yayınlanmamış değişiklikler var"
+
+msgid "URL path"
+msgstr "URL yol"
+
+msgid "Owner"
+msgstr "Sahip"
+
+msgid "Page title"
+msgstr "Sayfanın başlığı"
+
+msgid "Show in menus"
+msgstr "Menüde göster"
+
+msgid "Search description"
+msgstr "Arama açıklaması"
+
+msgid "Go live date/time"
+msgstr "Canlı tarih/zaman'a git"
+
+msgid "Locked"
+msgstr "Kilitli"
+
+msgid "First published at"
+msgstr "İlk yayınlandı"
+
+msgid "draft"
+msgstr "taslak"
+
+msgid "live + draft"
+msgstr "canlı + taslak"
+
+msgid "live"
+msgstr "canlı"
+
+msgid "Default"
+msgstr "Varsayılan"
+
+msgid "page"
+msgstr "sayfa"
+
+msgid "pages"
+msgstr "sayfalar"
+
+msgid "Page"
+msgstr "Sayfa"
+
+msgid "Created at"
+msgstr "Oluşturuldu"
+
+msgid "User"
+msgstr "Kullanıcı"
+
+msgid "Content JSON"
+msgstr "JSON İçerik"
+
+msgid "page revision"
+msgstr "sayfa revizyon"
+
+msgid "page revisions"
+msgstr "sayfa revizyonları"
+
+msgid "Add/edit pages you own"
+msgstr "Sayfalarına ekle/düzenle"
+
+msgid "Group"
+msgstr "Grup"
+
+msgid "Permission type"
+msgstr "İzin tipi"
+
+msgid "Password"
+msgstr "Şifre"

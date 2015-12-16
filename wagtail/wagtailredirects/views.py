@@ -12,7 +12,11 @@ from wagtail.wagtailredirects import models
 from wagtail.wagtailredirects.forms import RedirectForm
 
 
-@any_permission_required('wagtailredirects.add_redirect', 'wagtailredirects.change_redirect', 'wagtailredirects.delete_redirect')
+@any_permission_required(
+    'wagtailredirects.add_redirect',
+    'wagtailredirects.change_redirect',
+    'wagtailredirects.delete_redirect'
+)
 @vary_on_headers('X-Requested-With')
 def index(request):
     query_string = request.GET.get('q', "")
@@ -46,7 +50,9 @@ def index(request):
             'ordering': ordering,
             'redirects': redirects,
             'query_string': query_string,
-            'search_form': SearchForm(data=dict(q=query_string) if query_string else None, placeholder=_("Search redirects")),
+            'search_form': SearchForm(
+                data=dict(q=query_string) if query_string else None, placeholder=_("Search redirects")
+            ),
         })
 
 

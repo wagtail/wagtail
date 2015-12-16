@@ -35,6 +35,8 @@ from wagtail.wagtailcore import __version__
 # Autodoc may need to import some models modules which require django settings
 # be configured
 os.environ['DJANGO_SETTINGS_MODULE'] = 'wagtail.tests.settings'
+import django
+django.setup()
 
 # Use SQLite3 database engine so it doesn't attempt to use psycopg2 on RTD
 os.environ['DATABASE_ENGINE'] = 'django.db.backends.sqlite3'

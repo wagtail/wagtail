@@ -12,9 +12,9 @@ logger = logging.getLogger('wagtail.frontendcache')
 
 
 class PurgeRequest(Request):
-
     def get_method(self):
         return 'PURGE'
+
 
 class BaseBackend(object):
     def purge(self, url):

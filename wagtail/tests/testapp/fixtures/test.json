@@ -23,7 +23,7 @@
     "model": "wagtailcore.page",
     "fields": {
         "title": "Welcome to the Wagtail test site!",
-        "numchild": 5,
+        "numchild": 6,
         "show_in_menus": false,
         "live": true,
         "depth": 2,
@@ -33,13 +33,12 @@
         "slug": "home"
     }
 },
-
 {
     "pk": 3,
     "model": "wagtailcore.page",
     "fields": {
         "title": "Events",
-        "numchild": 5,
+        "numchild": 6,
         "show_in_menus": true,
         "live": true,
         "depth": 3,
@@ -377,6 +376,67 @@
         "location": "Marks and Spencer",
         "body": "<p>meet in the menswear department at noon</p>",
         "cost": "free"
+    }
+},
+{
+    "pk": 14,
+    "model": "wagtailcore.page",
+    "fields": {
+        "title": "My locked page",
+        "numchild": 0,
+        "show_in_menus": true,
+        "live": true,
+        "depth": 3,
+        "content_type": ["wagtailcore", "page"],
+        "path": "000100010006",
+        "url_path": "/home/my-locked-page/",
+        "slug": "my-locked-page",
+        "locked": true
+    }
+},
+{
+    "pk": 15,
+    "model": "wagtailcore.page",
+    "fields": {
+        "title": "Businessy events",
+        "numchild": 1,
+        "show_in_menus": true,
+        "live": false,
+        "depth": 4,
+        "content_type": ["tests", "businessindex"],
+        "path": "0001000100010006",
+        "url_path": "/home/events/businessy-events/",
+        "slug": "businessy-events",
+        "owner": 2
+    }
+},
+{
+    "pk": 15,
+    "model": "tests.businessindex",
+    "fields": {
+    }
+},
+
+{
+    "pk": 16,
+    "model": "wagtailcore.page",
+    "fields": {
+        "title": "Board meetings",
+        "numchild": 0,
+        "show_in_menus": true,
+        "live": false,
+        "depth": 5,
+        "content_type": ["tests", "businesssubindex"],
+        "path": "00010001000100060001",
+        "url_path": "/home/events/businessy-events/board-meetings/",
+        "slug": "board-meetings",
+        "owner": 2
+    }
+},
+{
+    "pk": 16,
+    "model": "tests.businesssubindex",
+    "fields": {
     }
 },
 

@@ -116,7 +116,6 @@ class TestSearchView(TestCase):
         self.assertEqual(search_results.number, 10)
 
 
-
 class TestSuggestionsView(TestCase):
     def get(self, params={}):
         return self.client.get('/search/suggest/', params)

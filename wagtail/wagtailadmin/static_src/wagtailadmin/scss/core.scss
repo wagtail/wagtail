@@ -1,142 +1,144 @@
-@import "wagtailadmin/scss/variables.scss";
-@import "wagtailadmin/scss/mixins.scss";
-@import "wagtailadmin/scss/grid.scss";
+@import 'wagtailadmin/scss/variables';
+@import 'wagtailadmin/scss/mixins';
+@import 'wagtailadmin/scss/grid';
 
-@import "wagtailadmin/scss/components/explorer.scss";
-@import "wagtailadmin/scss/components/icons.scss";
-@import "wagtailadmin/scss/components/typography.scss";
-@import "wagtailadmin/scss/components/tabs.scss";
-@import "wagtailadmin/scss/components/dropdowns.scss";
-@import "wagtailadmin/scss/components/modals.scss";
-@import "wagtailadmin/scss/components/forms.scss";
-@import "wagtailadmin/scss/components/listing.scss";
-@import "wagtailadmin/scss/components/messages.scss";
-@import "wagtailadmin/scss/components/formatters.scss";
-@import "wagtailadmin/scss/components/header.scss";
-@import "wagtailadmin/scss/components/progressbar.scss";
-@import "wagtailadmin/scss/components/datetimepicker.scss";
-@import "wagtailadmin/scss/components/main-nav.scss";
+@import 'wagtailadmin/scss/components/explorer';
+@import 'wagtailadmin/scss/components/icons';
+@import 'wagtailadmin/scss/components/typography';
+@import 'wagtailadmin/scss/components/tabs';
+@import 'wagtailadmin/scss/components/dropdowns';
+@import 'wagtailadmin/scss/components/modals';
+@import 'wagtailadmin/scss/components/forms';
+@import 'wagtailadmin/scss/components/listing';
+@import 'wagtailadmin/scss/components/messages';
+@import 'wagtailadmin/scss/components/formatters';
+@import 'wagtailadmin/scss/components/header';
+@import 'wagtailadmin/scss/components/progressbar';
+@import 'wagtailadmin/scss/components/datetimepicker';
+@import 'wagtailadmin/scss/components/main-nav';
 
-@import "wagtailadmin/scss/fonts.scss";
+@import 'wagtailadmin/scss/fonts';
 
-html{
-    background:$color-grey-4;
-    height:100%;
+html {
+    background: $color-grey-4;
+    height: 100%;
 }
 
-body{
-    -webkit-font-smoothing: antialiased; /* Do not remove! */
-    font-family:Open Sans,Arial,sans-serif;
-    font-size:80%;
-    line-height:1.5em;
-    color:$color-text-base;
+body {
+    -webkit-font-smoothing: antialiased; // Do not remove!
+    font-family: Open Sans, Arial, sans-serif;
+    font-size: 80%;
+    line-height: 1.5em;
+    color: $color-text-base;
     overflow-x: hidden;
     position: relative;
 
-    &.reordering{
-        overflow:visible;
+    &.reordering {
+        overflow: visible;
     }
 }
 
-.capabilitymessage{
-    display:block;
-    background-color:$color-red;
-    color:white;
-    padding:1em 2em;
-    margin:0;
-    position:relative;
-    width:100%;
-    text-align:center;
+.capabilitymessage {
+    display: block;
+    background-color: $color-red;
+    color: $color-white;
+    padding: 1em 2em;
+    margin: 0;
+    position: relative;
+    width: 100%;
+    text-align: center;
 
-    a{
-        color:white;
-        text-decoration:underline;
+    a {
+        color: $color-white;
+        text-decoration: underline;
     }
 }
 
-.wrapper{
-    @include transition-transform(0.2s ease);
+.wrapper {
     @include clearfix();
+    transition: transform 0.2s ease;
 }
 
-.nav-wrapper{
-    /* See components/main-nav.scss */
+.nav-wrapper {
+    // See components/main-nav.scss
 }
 
 
-.logo{
-    display:block;
-    margin:2em auto;
-    text-align:left;
-    text-decoration:none;
-    color: #AAA;
+.logo {
+    display: block;
+    text-align: left;
+    text-decoration: none;
+    color: #aaa;
     padding: 0.9em 1.2em;
-    margin:0;
+    margin: 0;
     -webkit-font-smoothing: auto;
 
-    img{
-        width:20px;
-        float:left;
-        border:0;
-        margin-right:1em;
+    img {
+        width: 20px;
+        float: left;
+        border: 0;
+        margin-right: 1em;
     }
+
     &:hover {
-        color: white;
+        color: $color-white;
     }
 }
 
-.content-wrapper{
-    width:100%;
-    height:100%; /* this has no effect on desktop, but on mobile it helps aesthetics of menu popout action */
+.content-wrapper {
+    width: 100%;
+    height: 100%; // this has no effect on desktop, but on mobile it helps aesthetics of menu popout action
     float: left;
     position: relative;
-    background-color:$color-grey-4;
-    border-bottom:1px solid $color-grey-3;
+    background-color: $color-grey-4;
+    border-bottom: 1px solid $color-grey-3;
 }
-    .content{
-        @include row();
-        background:white;
-        border-top:0px solid $color-grey-5; /* this top border provides space for the floating logo to toggle the menu */
-        padding-bottom:4em;
-        position:relative; /* yuk. necessary for positions for jquery ui widgets */
-    }
 
-footer{
-    @include transition(all 0.2s ease);
+.content {
     @include row();
-    @include border-radius(3px 3px 0 0);
-    @include box-shadow(0px 0px 2px rgba(255,255,255,0.5));
-    @include transition(bottom 0.5s ease 1s);
-    background: $color-grey-1;
-    position:fixed;
-    bottom:0;
-    padding:0.5em;
-    width:90%;
-    margin:0 5%;
-    color:white;
+    background: $color-white;
+    border-top: 0 solid $color-grey-5; // this top border provides space for the floating logo to toggle the menu
+    padding-bottom: 4em;
+    position: relative; // yuk. necessary for positions for jquery ui widgets
+}
 
-    ul{
+footer {
+    @include transition(all 0.2s ease);
+    @include transition(bottom 0.5s ease 1s);
+    @include row();
+    border-radius: 3px 3px 0 0;
+    box-shadow: 0 0 2px rgba(255, 255, 255, 0.5);    
+    background: $color-grey-1;
+    position: fixed;
+    bottom: 0;
+    padding: 0.5em;
+    width: 90%;
+    margin: 0 5%;
+    color: $color-white;
+
+    ul {
         @include unlist();
     }
-    li{
-        float:left;
+
+    li {
+        float: left;
     }
 
-    .actions{
-        width:250px;
-        margin-right:$grid-gutter-width/2;
+    .actions {
+        width: 250px;
+        margin-right: $grid-gutter-width/2;
     }
 
-    .meta{
-        float:right;
-        text-align:right;
-        padding-right:$grid-gutter-width/2;
-        line-height:3.5em;
-        font-size:0.85em;
+    .meta {
+        float: right;
+        text-align: right;
+        padding-right: $grid-gutter-width/2;
+        line-height: 3.5em;
+        font-size: 0.85em;
 
-        p{
-            margin:0;
-            margin-right:$grid-gutter-width;
+        p {
+            margin: 0;
+            margin-right: $grid-gutter-width;
             white-space: nowrap;
         }
     }
@@ -147,126 +149,131 @@ footer{
     width: 10px;
     background: $color-grey-1;
 }
+
 ::-webkit-scrollbar-thumb {
     background: $color-grey-2;
     -webkit-border-radius: 1ex;
 }
+
 ::-webkit-scrollbar-corner {
     background: $color-grey-1;
 }
 
-.breadcrumb{
+.breadcrumb {
     @include unlist();
 }
 
-.breadcrumb{
+.breadcrumb {
     @include clearfix();
-    overflow:hidden;
-    padding-top:1.4em;
-    font-size:0.85em;
+    overflow: hidden;
+    padding-top: 1.4em;
+    font-size: 0.85em;
 
     li {
         display: block;
         float: left;
         padding: 0.5em 1.3em;
         position: relative;
-
         text-decoration: none;
-        color: #fff;
-        line-height:1em;
+        color: $color-white;
         white-space: nowrap;
+        line-height: 1.5em;
 
-        line-height:1.5em;
-
-        a, span{
-            color:lighten($color-teal,40%);
-            display:block;
-            max-width:12em;
+        a,
+        span {
+            color: lighten($color-teal, 40%);
+            display: block;
+            max-width: 12em;
             white-space: nowrap;
-            text-overflow:ellipsis;
-            overflow:hidden;
-            line-height:1.6em;
-            padding-right:1em;
+            text-overflow: ellipsis;
+            overflow: hidden;
+            line-height: 1.6em;
+            padding-right: 1em;
 
-            &:after{
-                right:0;
-                // z-index:5;
-                position:absolute;
-                font-family:wagtail;
-                content:"n";
-                padding-left:20px;
-                font-size:2em;
-                color:$color-teal-darker;
-                line-height:0.9em;
+            &:after {
+                right: 0;
+                // z-index: 5;
+                position: absolute;
+                font-family: wagtail;
+                content: 'n';
+                padding-left: 20px;
+                font-size: 2em;
+                color: $color-teal-darker;
+                line-height: 0.9em;
             }
         }
 
         &:hover {
             background: $color-teal-dark;
-            a{
-                color:white;
+
+            a {
+                color: $color-white;
             }
         }
+
         &:hover:after {
             border-left-color: $color-teal-dark;
         }
 
         &.home {
             a {
-                padding-right:0;
-                text-align:center;
-                width:3em;
-                font-size:1em;
+                padding-right: 0;
+                text-align: center;
+                width: 3em;
+                font-size: 1em;
 
-                &:before{
-                    line-height:1em;
-                    font-size:1.15rem;
+                &:before {
+                    font-size: 1.15rem;
                     line-height: 0.85em;
-                    padding-top: 0.10em;
+                    padding-top: 0.1em;
                 }
-                &:after{
-                    right:-0.3em;
+
+                &:after {
+                    right: -0.3em;
                 }
             }
         }
     }
 
-    header &  li{
+    header &  li {
         &:before {
-            border-left: 1em solid white;
-            position: absolute; left: 0; top: 0;
+            border-left: 1em solid $color-white;
+            position: absolute;
+            left: 0;
+            top: 0;
         }
     }
 
-    &.single{
-        li a{
+    &.single {
+        li a {
             white-space: nowrap;
-            text-overflow:inherit;
-            max-width:100%;
+            text-overflow: inherit;
+            max-width: 100%;
         }
     }
 }
 
-.clearfix{
+.clearfix {
     @include clearfix();
 }
 
-.row{
+.row {
     @include clearfix();
 }
 
-.nice-padding{
-    padding-left:$mobile-nice-padding;
-    padding-right:$mobile-nice-padding;
+.nice-padding {
+    padding-left: $mobile-nice-padding;
+    padding-right: $mobile-nice-padding;
 }
 
 
-/* Z-indexes */
-#nav-toggle{
-    z-index:5;
+// Z-indexes
+.nav-toggle {
+    z-index: 5;
 }
-.nav-wrapper{
-    z-index:2;
+
+.nav-wrapper {
+    z-index: 2;
 }
 
 // Avoiding a stacking context for the content-wrapper saves us a world
@@ -274,141 +281,167 @@ footer{
 // <body>, eg Hallo & calendars. As long as content-wrapper remains floated,
 // the z-index shouldn't be required.
 
-// .content-wrapper{
-    // z-index:3;
+// .content-wrapper {
+    // z-index: 3;
 // }
 
-.nav-submenu{
-    z-index:6;
-}
-footer, .logo{
-    z-index:100;
+.nav-submenu {
+    z-index: 6;
 }
 
+footer,
+.logo {
+    z-index: 100;
+}
 
-@media screen and (min-width: $breakpoint-mobile){
-    .col1{
+@media screen and (min-width: $breakpoint-mobile) {
+    .col1 {
         @include column(1);
     }
-    .col2{
+
+    .col2 {
         @include column(2);
     }
-    .col3{
-         @include column(3);
+
+    .col3 {
+        @include column(3);
     }
-    .col4{
+
+    .col4 {
         @include column(4);
     }
-    .col5{
+
+    .col5 {
         @include column(5);
     }
-    .col6{
+
+    .col6 {
         @include column(6);
     }
-    .col7{
+
+    .col7 {
         @include column(7);
     }
-    .col8{
+
+    .col8 {
         @include column(8);
     }
-    .col9{
+
+    .col9 {
         @include column(9);
     }
-    .col10{
+
+    .col10 {
         @include column(10);
     }
-    .col11{
+
+    .col11 {
         @include column(11);
     }
-    .col12{
+
+    .col12 {
         @include column(12);
     }
 
-    .divider-before{
-        border-left:1px solid $color-grey-4;
-    }
-    .divider-after{
-        border-right:1px solid $color-grey-4;
+    .divider-before {
+        border-left: 1px solid $color-grey-4;
     }
 
-    .row{
+    .divider-after {
+        border-right: 1px solid $color-grey-4;
+    }
+
+    .row {
         @include row();
     }
-    .row-flush{
+
+    .row-flush {
         @include row-flush();
     }
 
-    .nice-padding{
-        padding-left:$desktop-nice-padding;
-        padding-right:$desktop-nice-padding;
+    .nice-padding {
+        padding-left: $desktop-nice-padding;
+        padding-right: $desktop-nice-padding;
     }
 
-    .browsermessage{
-        margin:0 0 0 -150px;
+    .browsermessage {
+        margin: 0 0 0 -150px;
     }
-    .content-wrapper{
+
+    .content-wrapper {
         border-bottom-right-radius: 5px;
     }
 
-    .logo{
-        margin:1em auto;
-        text-align:center;
+    .logo {
+        margin: 1em auto;
+        text-align: center;
 
-        span{
-            display:none;
+        span {
+            display: none;
         }
-        img{
-            width:60px;
-            float:none;
-            margin:auto;
-            display:block;
+
+        img {
+            width: 60px;
+            float: none;
+            margin: auto;
+            display: block;
+        }
+
+        img.wagtail-logo {
+            transition: all 0.25s cubic-bezier(0.28, 0.15, 0, 2.1);
+        }
+
+        img.wagtail-logo:hover {
+            transform: rotate(4deg);
         }
     }
 
-    footer{
-        width:80%;
-        margin-left:50px;
+    footer {
+        width: 80%;
+        margin-left: 50px;
     }
 
-    .content{
-        border-top:0;
-        background-color:none;
-        padding-top:0;
+    .content {
+        border-top: 0;
+        background-color: none;
+        padding-top: 0;
     }
-    /* END NOT SURE ABOUT THIS */
 
-
-    .breadcrumb{
-        padding-top:0;
-        background:$color-teal-darker;
+    .breadcrumb {
+        padding-top: 0;
+        background: $color-teal-darker;
 
         li {
-            a, span{
-                &:after{
-                    color:$color-teal;
+            a,
+            span {
+                &:after {
+                    color: $color-teal;
                 }
             }
         }
     }
 
-    footer{
-        width:80%;
-        margin-left:50px;
+    footer {
+        width: 80%;
+        margin-left: 50px;
     }
 
 
-    /* Z-indexes */
-    .nav-main{
-        li{
-            z-index:1;
+    // Z-indexes
+    .nav-main {
+        li {
+            z-index: 1;
         }
-        .footer{
-            z-index:2;
+
+        .footer {
+            z-index: 2;
         }
     }
+
     .explorer {
         z-index: $explorer-z-index;
     }
+
     .nav-submenu {
         z-index: $explorer-z-index;
     }
@@ -425,24 +458,26 @@ footer, .logo{
     }
 }
 
-@media screen and (min-width: 90em){
-    .wrapper{
-        max-width:$breakpoint-desktop-larger;
+@media screen and (min-width: 90em) {
+    .wrapper {
+        max-width: $breakpoint-desktop-larger;
     }
 
-    footer{
-        width:90em;
+    footer {
+        width: 90em;
     }
 }
 
-/* Transitions (resolution agnostic) */
+// Transitions (resolution agnostic)
 .content-wrapper,
 .nav-main,
-#nav-toggle,
+.nav-toggle,
 footer,
-.logo{
+.logo {
     @include transition(all 0.2s ease);
 }
-.nav-main a, a{
+
+.nav-main a,
+a {
     @include transition(color 0.2s ease, background-color 0.2s ease);
 }

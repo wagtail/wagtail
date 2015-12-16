@@ -2,7 +2,7 @@ from django.core.urlresolvers import reverse
 from django.db.models.signals import post_save, post_delete
 
 from wagtail.wagtailcore.signals import page_published, page_unpublished
-from wagtail.wagtailcore.models import PAGE_MODEL_CLASSES
+from wagtail.wagtailcore.models import get_page_models
 from wagtail.wagtailimages.models import get_image_model
 from wagtail.wagtaildocs.models import Document
 
@@ -31,7 +31,7 @@ def purge_document_from_cache(instance, **kwargs):
 def register_signal_handlers():
     Image = get_image_model()
 
-    for model in PAGE_MODEL_CLASSES:
+    for model in get_page_models():
         page_published.connect(purge_page_from_cache, sender=model)
         page_unpublished.connect(purge_page_from_cache, sender=model)
 
@@ -44,7 +44,7 @@ def register_signal_handlers():
 def unregister_signal_handlers():
     Image = get_image_model()
 
-    for model in PAGE_MODEL_CLASSES:
+    for model in get_page_models():
         page_published.disconnect(purge_page_from_cache, sender=model)
         page_unpublished.disconnect(purge_page_from_cache, sender=model)
 

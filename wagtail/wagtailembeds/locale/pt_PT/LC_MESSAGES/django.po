@@ -3,6 +3,7 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# Manuela Silva <h_manuela_rodsilva@gmail.com>, 2015
 # Thiago Cangussu <cangussu.thg@gmail.com>, 2014
 # Tiago Henriques <trinosauro@gmail.com>, 2015
 msgid ""
@@ -10,8 +11,8 @@ msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2015-08-26 14:28+0100\n"
-"PO-Revision-Date: 2015-04-29 16:59+0000\n"
-"Last-Translator: Tiago Henriques <trinosauro@gmail.com>\n"
+"PO-Revision-Date: 2015-11-02 16:52+0000\n"
+"Last-Translator: Manuela Silva <h_manuela_rodsilva@gmail.com>\n"
 "Language-Team: Portuguese (Portugal) (http://www.transifex.com/torchbox/"
 "wagtail/language/pt_PT/)\n"
 "MIME-Version: 1.0\n"
@@ -30,7 +31,7 @@ msgid "Embed"
 msgstr "Incorporar"
 
 msgid "Insert embed"
-msgstr "Inserir “embed”"
+msgstr "Inserir 'incorporar'"
 
 msgid "Insert"
 msgstr "Inserir"
@@ -39,15 +40,15 @@ msgid ""
 "There seems to be a problem with your embedly API key. Please check your "
 "settings."
 msgstr ""
-"Parece que há um problema com a sua chave de API do “embedly”. Por favor "
-"verifique as suas configurações."
+"Parece que existe um problema com a sua chave de API de “embedly”. Por "
+"favor, verifique as suas configurações."
 
 msgid "Cannot find an embed for this URL."
-msgstr "Não consigo encontrar um “embed” para este URL."
+msgstr "Não consigo encontrar um “incorporar” para este URL."
 
 msgid ""
 "There seems to be an error with Embedly while trying to embed this URL. "
 "Please try again later."
 msgstr ""
-"Parece que houve um erro com o “Embedly” ao tentar incorporar este URL. Por "
-"favor tente novamente."
+"Parece que existe um erro com o “Embedly” enquanto tentava incorporar este "
+"URL. Por favor, tente novamente."
