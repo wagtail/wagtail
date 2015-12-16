@@ -24,7 +24,7 @@ def css_install_check(app_configs, **kwargs):
             Error(
                 "CSS for the Wagtail admin is missing",
                 hint=error_hint,
-                id='wagtailadmin.E001',
+                id='wagtailadmin.W001',
             )
         )
     return errors
