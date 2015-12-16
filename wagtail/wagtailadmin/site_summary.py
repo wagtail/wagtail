@@ -1,5 +1,5 @@
 from wagtail.wagtailcore import hooks
-from wagtail.wagtailcore.models import Page
+from wagtail.wagtailcore.models import Page, Site
 from wagtail.utils.compat import render_to_string
 
 
@@ -21,7 +21,13 @@ class PagesSummaryItem(SummaryItem):
     template = 'wagtailadmin/home/site_summary_pages.html'
 
     def get_context(self):
+        # If there is a single site, link to the homepage of that site
+        # Otherwise, if there are multiple sites, link to the root page
+        single_site = Site.objects.count() == 1
+        root = self.request.site.root_page if single_site else None
         return {
+            'single_site': single_site,
+            'root_page': root,
             'total_pages': Page.objects.count() - 1,  # subtract 1 because the root node is not a real page
         }
 
