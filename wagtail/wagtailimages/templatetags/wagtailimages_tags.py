@@ -1,7 +1,8 @@
 from django import template
 from django.utils.functional import cached_property
 
-from wagtail.wagtailimages.models import Filter, SourceImageIOError
+from wagtail.wagtailimages.models import Filter
+from wagtail.wagtailimages.shortcuts import get_rendition_or_not_found
 
 register = template.Library()
 
@@ -14,14 +15,21 @@ def image(parser, token):
 
     filter_specs = []
     attrs = {}
+    output_var_name = None
 
-    as_context = False
+    as_context = False  # if True, the next bit to be read is the output variable name
+    is_valid = True
+
     for bit in bits:
         if bit == 'as':
             # token is of the form {% image self.photo max-320x200 as img %}
             as_context = True
         elif as_context:
-            return ImageNode(image_expr, '|'.join(filter_specs), output_var_name=bit)
+            if output_var_name is None:
+                output_var_name = bit
+            else:
+                # more than one item exists after 'as' - reject as invalid
+                is_valid = False
         else:
             try:
                 name, value = bit.split('=')
@@ -31,9 +39,19 @@ def image(parser, token):
 
     if as_context:
         # context was introduced but no variable given ...
-        raise template.TemplateSyntaxError("'image' tag should be of the form {% image self.photo max-320x200 [ custom-attr=\"value\" ... ] %} or {% image self.photo max-320x200 as img %}")
+        is_valid = False
 
-    return ImageNode(image_expr, '|'.join(filter_specs), attrs=attrs)
+    if output_var_name and attrs:
+        # attributes are not valid when using the 'as img' form of the tag
+        is_valid = False
+
+    if is_valid:
+        return ImageNode(image_expr, '|'.join(filter_specs), attrs=attrs, output_var_name=output_var_name)
+    else:
+        raise template.TemplateSyntaxError(
+            "'image' tag should be of the form {% image self.photo max-320x200 [ custom-attr=\"value\" ... ] %} "
+            "or {% image self.photo max-320x200 as img %}"
+        )
 
 
 class ImageNode(template.Node):
@@ -57,18 +75,7 @@ class ImageNode(template.Node):
         if not image:
             return ''
 
-        try:
-            rendition = image.get_rendition(self.filter)
-        except SourceImageIOError:
-            # It's fairly routine for people to pull down remote databases to their
-            # local dev versions without retrieving the corresponding image files.
-            # In such a case, we would get a SourceImageIOError at the point where we try to
-            # create the resized version of a non-existent image. Since this is a
-            # bit catastrophic for a missing image, we'll substitute a dummy
-            # Rendition object so that we just output a broken link instead.
-            Rendition = image.renditions.model  # pick up any custom Image / Rendition classes that may be in use
-            rendition = Rendition(image=image, width=0, height=0)
-            rendition.file.name = 'not-found'
+        rendition = get_rendition_or_not_found(image, self.filter)
 
         if self.output_var_name:
             # return the rendition object in the given variable
