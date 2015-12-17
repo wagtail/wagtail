@@ -997,30 +997,6 @@ class TestRebuilder(TestCase):
             self.es.indices.exists_alias(name='this_index_should_be_deleted', index=self.backend.index_name)
         )
 
-    def test_add_model(self):
-        self.rebuilder.start()
-
-        # Add model
-        self.rebuilder.add_model(models.SearchTest)
-
-        # Check the mapping went into Elasticsearch correctly
-        mapping = ElasticSearch.mapping_class(models.SearchTest)
-        response = self.es.indices.get_mapping(self.backend.index_name, mapping.get_document_type())
-
-        # Make some minor tweaks to the mapping so it matches what is in ES
-        # These are generally minor issues with the way Wagtail is
-        # generating the mapping that are being cleaned up by Elasticsearch
-        # TODO: Would be nice to fix these
-        expected_mapping = mapping.get_mapping()
-        expected_mapping['searchtests_searchtest']['properties']['pk']['store'] = True
-        expected_mapping['searchtests_searchtest']['properties']['live_filter'].pop('index')
-        expected_mapping['searchtests_searchtest']['properties']['live_filter'].pop('include_in_all')
-        expected_mapping['searchtests_searchtest']['properties']['published_date_filter']['format'] = \
-            'dateOptionalTime'
-        expected_mapping['searchtests_searchtest']['properties']['published_date_filter'].pop('index')
-
-        self.assertDictEqual(expected_mapping, response[self.backend.index_name]['mappings'])
-
 
 @unittest.skipUnless(os.environ.get('ELASTICSEARCH_URL', False), "ELASTICSEARCH_URL not set")
 class TestAtomicRebuilder(TestCase):
