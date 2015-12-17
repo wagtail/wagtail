@@ -970,23 +970,23 @@ class TestRebuilder(TestCase):
     def test_start_creates_index(self):
         # First, make sure the index is deleted
         try:
-            self.es.indices.delete(self.backend.name)
+            self.es.indices.delete(self.backend.index_name)
         except self.NotFoundError:
             pass
 
-        self.assertFalse(self.es.indices.exists(self.backend.name))
+        self.assertFalse(self.es.indices.exists(self.backend.index_name))
 
         # Run start
         self.rebuilder.start()
 
         # Check the index exists
-        self.assertTrue(self.es.indices.exists(self.backend.name))
+        self.assertTrue(self.es.indices.exists(self.backend.index_name))
 
     def test_start_deletes_existing_index(self):
         # Put an alias into the index so we can check it was deleted
-        self.es.indices.put_alias(name='this_index_should_be_deleted', index=self.backend.name)
+        self.es.indices.put_alias(name='this_index_should_be_deleted', index=self.backend.index_name)
         self.assertTrue(
-            self.es.indices.exists_alias(name='this_index_should_be_deleted', index=self.backend.name)
+            self.es.indices.exists_alias(name='this_index_should_be_deleted', index=self.backend.index_name)
         )
 
         # Run start
@@ -994,7 +994,7 @@ class TestRebuilder(TestCase):
 
         # The alias should be gone (proving the index was deleted and recreated)
         self.assertFalse(
-            self.es.indices.exists_alias(name='this_index_should_be_deleted', index=self.backend.name)
+            self.es.indices.exists_alias(name='this_index_should_be_deleted', index=self.backend.index_name)
         )
 
     def test_add_model(self):
@@ -1005,7 +1005,7 @@ class TestRebuilder(TestCase):
 
         # Check the mapping went into Elasticsearch correctly
         mapping = ElasticSearch.mapping_class(models.SearchTest)
-        response = self.es.indices.get_mapping(self.backend.name, mapping.get_document_type())
+        response = self.es.indices.get_mapping(self.backend.index_name, mapping.get_document_type())
 
         # Make some minor tweaks to the mapping so it matches what is in ES
         # These are generally minor issues with the way Wagtail is
@@ -1019,7 +1019,7 @@ class TestRebuilder(TestCase):
             'dateOptionalTime'
         expected_mapping['searchtests_searchtest']['properties']['published_date_filter'].pop('index')
 
-        self.assertDictEqual(expected_mapping, response[self.backend.name]['mappings'])
+        self.assertDictEqual(expected_mapping, response[self.backend.index_name]['mappings'])
 
 
 @unittest.skipUnless(os.environ.get('ELASTICSEARCH_URL', False), "ELASTICSEARCH_URL not set")
@@ -1034,17 +1034,17 @@ class TestAtomicRebuilder(TestCase):
 
     def test_start_creates_new_index(self):
         # Rebuilder should make up a new index name that doesn't currently exist
-        self.assertFalse(self.es.indices.exists(self.rebuilder.index_name))
+        self.assertFalse(self.es.indices.exists(self.rebuilder.index.name))
 
         # Run start
         self.rebuilder.start()
 
         # Check the index exists
-        self.assertTrue(self.es.indices.exists(self.rebuilder.index_name))
+        self.assertTrue(self.es.indices.exists(self.rebuilder.index.name))
 
     def test_start_doesnt_delete_current_index(self):
         # Get current index name
-        current_index_name = list(self.es.indices.get_alias(name=self.rebuilder.alias_name).keys())[0]
+        current_index_name = list(self.es.indices.get_alias(name=self.rebuilder.alias.name).keys())[0]
 
         # Run start
         self.rebuilder.start()
@@ -1053,7 +1053,7 @@ class TestAtomicRebuilder(TestCase):
         self.assertTrue(self.es.indices.exists(current_index_name))
 
         # And the alias should still point to it
-        self.assertTrue(self.es.indices.exists_alias(name=self.rebuilder.alias_name, index=current_index_name))
+        self.assertTrue(self.es.indices.exists_alias(name=self.rebuilder.alias.name, index=current_index_name))
 
     def test_finish_updates_alias(self):
         # Run start
@@ -1061,18 +1061,18 @@ class TestAtomicRebuilder(TestCase):
 
         # Check that the alias doesn't point to new index
         self.assertFalse(
-            self.es.indices.exists_alias(name=self.rebuilder.alias_name, index=self.rebuilder.index_name)
+            self.es.indices.exists_alias(name=self.rebuilder.alias.name, index=self.rebuilder.index.name)
         )
 
         # Run finish
         self.rebuilder.finish()
 
         # Check that the alias now points to the new index
-        self.assertTrue(self.es.indices.exists_alias(name=self.rebuilder.alias_name, index=self.rebuilder.index_name))
+        self.assertTrue(self.es.indices.exists_alias(name=self.rebuilder.alias.name, index=self.rebuilder.index.name))
 
     def test_finish_deletes_old_index(self):
         # Get current index name
-        current_index_name = list(self.es.indices.get_alias(name=self.rebuilder.alias_name).keys())[0]
+        current_index_name = list(self.es.indices.get_alias(name=self.rebuilder.alias.name).keys())[0]
 
         # Run start
         self.rebuilder.start()
