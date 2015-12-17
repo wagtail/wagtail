@@ -4,13 +4,14 @@
 #
 # Translators:
 # Maarten Kling <kling.maarten@gmail.com>, 2015
+# Thijs Kramer <thijskramer@gmail.com>, 2015
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2015-08-26 14:28+0100\n"
-"PO-Revision-Date: 2015-10-09 11:14+0000\n"
-"Last-Translator: Maarten Kling <kling.maarten@gmail.com>\n"
+"PO-Revision-Date: 2015-12-16 13:40+0000\n"
+"Last-Translator: Thijs Kramer <thijskramer@gmail.com>\n"
 "Language-Team: Dutch (Netherlands) (http://www.transifex.com/torchbox/"
 "wagtail/language/nl_NL/)\n"
 "MIME-Version: 1.0\n"
@@ -26,7 +27,7 @@ msgid "Site"
 msgstr "Site"
 
 msgid "Permanent"
-msgstr "Blijvend"
+msgstr "Permanent"
 
 msgid ""
 "Recommended. Permanent redirects ensure search engines forget the old page "
@@ -111,15 +112,17 @@ msgstr[1] ""
 
 #, python-format
 msgid "Sorry, no redirects match \"<em>%(query_string)s</em>\""
-msgstr "Sorry, geen redirects gevonden \"<em>%(query_string)s</em>\""
+msgstr ""
+"Sorry, geen redirects komen overeen met de zoekterm \"<em>%(query_string)s</"
+"em>\""
 
 #, python-format
 msgid ""
 "No redirects have been created. Why not <a href="
 "\"%(wagtailredirects_add_redirect_url)s\">add one</a>?"
 msgstr ""
-"Er zijn nog geen redirects gemaakt. Waarom niet één <a href="
-"\"%(wagtailredirects_add_redirect_url)s\">toevoegen</a>?"
+"Er zijn nog geen redirects aangemaakt. Waarom <a href="
+"\"%(wagtailredirects_add_redirect_url)s\">voegt u er niet een toe</a>?"
 
 msgid "Search redirects"
 msgstr "Zoek redirects"

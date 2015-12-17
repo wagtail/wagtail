@@ -4,13 +4,14 @@
 #
 # Translators:
 # Maarten Kling <kling.maarten@gmail.com>, 2015
+# Thijs Kramer <thijskramer@gmail.com>, 2015
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2015-08-26 14:28+0100\n"
-"PO-Revision-Date: 2015-10-09 11:14+0000\n"
-"Last-Translator: Maarten Kling <kling.maarten@gmail.com>\n"
+"PO-Revision-Date: 2015-12-16 11:01+0000\n"
+"Last-Translator: Thijs Kramer <thijskramer@gmail.com>\n"
 "Language-Team: Dutch (Netherlands) (http://www.transifex.com/torchbox/"
 "wagtail/language/nl_NL/)\n"
 "MIME-Version: 1.0\n"
@@ -26,8 +27,8 @@ msgid ""
 "Enter the full search string to match. An exact match is required for your "
 "Promoted Results to be displayed, wildcards are NOT allowed."
 msgstr ""
-"Voeg de volledige zoekterm in. Een exacte match is nodig voor gepromote "
-"resultaten om te tonen, wildcards zijn NIET toegestaan."
+"Voer de volledige zoekterm in. Een exacte match is nodig om gepromote "
+"resultaten te kunnen tonen, wildcards zijn NIET toegestaan."
 
 msgid "Query Daily Hits"
 msgstr "Query Dagelijkse Hits"

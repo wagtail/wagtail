@@ -5,13 +5,14 @@
 # Translators:
 # Franklin Kingma <franklin@statix.net>, 2015
 # Maarten Kling <kling.maarten@gmail.com>, 2015
+# Thijs Kramer <thijskramer@gmail.com>, 2015
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2015-08-26 14:28+0100\n"
-"PO-Revision-Date: 2015-10-09 11:14+0000\n"
-"Last-Translator: Maarten Kling <kling.maarten@gmail.com>\n"
+"PO-Revision-Date: 2015-12-16 13:48+0000\n"
+"Last-Translator: Thijs Kramer <thijskramer@gmail.com>\n"
 "Language-Team: Dutch (Netherlands) (http://www.transifex.com/torchbox/"
 "wagtail/language/nl_NL/)\n"
 "MIME-Version: 1.0\n"
@@ -79,13 +80,13 @@ msgid "Height"
 msgstr "Hoogte"
 
 msgid "Closeness"
-msgstr "Benauwdheid"
+msgstr "Nabijheid"
 
 msgid "Title"
 msgstr "Titel"
 
 msgid "File"
-msgstr "File"
+msgstr "Bestand"
 
 msgid "Created at"
 msgstr "Aangemaakt op"
@@ -154,7 +155,7 @@ msgstr[1] ""
 "    "
 
 msgid "Change image file:"
-msgstr "Wijzig afbeelding bestand:"
+msgstr "Wijzig bestand:"
 
 msgid "Add an image"
 msgstr "Voeg een afbeelding toe"
@@ -169,10 +170,10 @@ msgid "Delete image"
 msgstr "Verwijder afbeelding"
 
 msgid "Are you sure you want to delete this image?"
-msgstr "Weet je zeker dat je deze afbeelding wilt verwijderen?"
+msgstr "Weet u zeker dat u deze afbeelding wilt verwijderen?"
 
 msgid "Yes, delete"
-msgstr "Ja, verwijder"
+msgstr "Ja, verwijderen"
 
 #, python-format
 msgid "Editing image %(title)s"
@@ -218,11 +219,11 @@ msgid ""
 "You've not uploaded any images. Why not <a href="
 "\"%(wagtailimages_add_image_url)s\">add one now</a>?"
 msgstr ""
-"Je hebt nog geen afbeeldingen toegevoegd. Waarom niet nu één <a href="
-"\"%(wagtailimages_add_image_url)s\"> toevoegen</a>?"
+"Er zijn nog geen afbeeldingen toegevoegd. Waarom <a href="
+"\"%(wagtailimages_add_image_url)s\">voegt u er niet een toe</a>?"
 
 msgid "Generating URL"
-msgstr "Genereer URL"
+msgstr "Bezig met URL genereren"
 
 msgid "URL"
 msgstr "URL"
@@ -245,7 +246,7 @@ msgid "Usage of"
 msgstr "Gebruik van"
 
 msgid "Parent"
-msgstr "Parent"
+msgstr "Bovenliggende pagina"
 
 msgid "Type"
 msgstr "Type"
@@ -263,18 +264,19 @@ msgid "Add images"
 msgstr "Voeg afbeeldingen toe"
 
 msgid "Drag and drop images into this area to upload immediately."
-msgstr "Sleep en drop afbeeldingen in dit gebied om ze direct te uploaden."
+msgstr "Sleep afbeeldingen naar dit gebied om ze direct te uploaden."
 
 msgid "Or choose from your computer"
-msgstr "Of kies van de computer"
+msgstr "Of kies vanaf uw computer"
 
 msgid ""
 "Upload successful. Please update this image with a more appropriate title, "
 "if necessary. You may also delete the image completely if the upload wasn't "
 "required."
 msgstr ""
-"Upload geslaagd. Update de afbeelding met een betere titel als dit nodig is. "
-"Je kunt ook de afbeelding verwijderen als deze niet nodig was."
+"Upload geslaagd. Voorzie deze afbeelding van een betere titel, indien nodig. "
+"U kunt ook de afbeelding helemaal verwijderen indien de upload onnodig "
+"bleek. "
 
 msgid "Sorry, upload failed."
 msgstr "Sorry, upload ging fout."
@@ -283,27 +285,27 @@ msgid "Update"
 msgstr "Update"
 
 msgid "Delete"
-msgstr "Verwijder"
+msgstr "Verwijderen"
 
 msgid "Search images"
 msgstr "Zoek afbeeldingen"
 
 #, python-brace-format
 msgid "Image '{0}' updated."
-msgstr "Afbeelding '{0}' geupdate."
+msgstr "Afbeelding '{0}' is bijgewerkt."
 
 msgid "Edit again"
 msgstr "Bewerk opnieuw"
 
 msgid "The image could not be saved due to errors."
-msgstr "De afbeelding kon niet worden opgeslagen door fouten."
+msgstr "De afbeelding kon vanwege fouten niet worden opgeslagen."
 
 msgid ""
 "The source image file could not be found. Please change the source or delete "
 "the image."
 msgstr ""
-"Het bronbestand van de afbeelding kon niet worden gevonden. Wijzig de "
-"afbeelding of verwijder deze."
+"Het bronbestand van de afbeelding kon niet worden gevonden. Kies een ander "
+"bronbestand of verwijder de afbeelding."
 
 #, python-brace-format
 msgid "Image '{0}' deleted."
@@ -317,7 +319,7 @@ msgid "Edit"
 msgstr "Wijzig"
 
 msgid "The image could not be created due to errors."
-msgstr "Afbeelding kan niet worden aangemaakt door fouten."
+msgstr "De afbeelding kon vanwege fouten niet worden aangemaakt."
 
 msgid "Choose another image"
 msgstr "Kies een andere afbeelding"

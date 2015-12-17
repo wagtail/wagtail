@@ -3,14 +3,15 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# mattwestcott <matthew@torchbox.com>, 2015
 # ROGER MICHAEL ASHLEY ALLEN <rogermaallen@gmail.com>, 2015
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2015-08-26 14:28+0100\n"
-"PO-Revision-Date: 2015-12-01 21:14+0000\n"
-"Last-Translator: ROGER MICHAEL ASHLEY ALLEN <rogermaallen@gmail.com>\n"
+"PO-Revision-Date: 2015-12-17 13:19+0000\n"
+"Last-Translator: mattwestcott <matthew@torchbox.com>\n"
 "Language-Team: Arabic (http://www.transifex.com/torchbox/wagtail/language/"
 "ar/)\n"
 "MIME-Version: 1.0\n"
@@ -79,7 +80,7 @@ msgstr "ابحث تغييرات الاتجاه"
 
 #, python-brace-format
 msgid "Redirect '{0}' updated."
-msgstr "جددت عملية تغيير الاتجاه (0)"
+msgstr "جددت عملية تغيير الاتجاه {0}"
 
 msgid "Edit"
 msgstr "تنقيح"
@@ -89,11 +90,11 @@ msgstr "لم تحفظ عملية تغيير الاتجاه بسبب أحطاء"
 
 #, python-brace-format
 msgid "Redirect '{0}' deleted."
-msgstr "تغيير الاتجاه (صفر) محذوف"
+msgstr "تغيير الاتجاه {0} محذوف"
 
 #, python-brace-format
 msgid "Redirect '{0}' added."
-msgstr "تغيير الاتجاه (صفر) مضاف"
+msgstr "تغيير الاتجاه {0} مضاف"
 
 msgid "The redirect could not be created due to errors."
 msgstr "من غير ممكن إنساء تغيير الاتجاه بسبب أخطاء"

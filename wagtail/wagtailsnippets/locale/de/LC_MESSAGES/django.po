@@ -3,6 +3,7 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# Jannis Vajen, 2015
 # Johannes Spielmann <j@spielmannsolutions.com>, 2014
 # karlsander <karlsander@gmail.com>, 2014
 # karlsander <karlsander@gmail.com>, 2014
@@ -12,8 +13,8 @@ msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2015-08-26 14:28+0100\n"
-"PO-Revision-Date: 2015-04-12 13:28+0000\n"
-"Last-Translator: Wasilis Mandratzis-Walz\n"
+"PO-Revision-Date: 2015-12-17 13:11+0000\n"
+"Last-Translator: Jannis Vajen\n"
 "Language-Team: German (http://www.transifex.com/torchbox/wagtail/language/"
 "de/)\n"
 "MIME-Version: 1.0\n"
@@ -137,8 +138,8 @@ msgstr "Auswählen %s"
 
 #, python-format
 msgid "Choose another %s"
-msgstr "Ein anderes auswählen %s"
+msgstr "Eine(n) andere(n) %s auswählen"
 
 #, python-format
 msgid "Edit this %s"
-msgstr "Dieses bearbeiten %s"
+msgstr "%s bearbeiten"

@@ -5,13 +5,14 @@
 # Translators:
 # Franklin Kingma <franklin@statix.net>, 2015
 # Maarten Kling <kling.maarten@gmail.com>, 2015
+# Thijs Kramer <thijskramer@gmail.com>, 2015
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2015-09-02 20:07+0100\n"
-"PO-Revision-Date: 2015-10-09 11:14+0000\n"
-"Last-Translator: Maarten Kling <kling.maarten@gmail.com>\n"
+"PO-Revision-Date: 2015-12-16 13:50+0000\n"
+"Last-Translator: Thijs Kramer <thijskramer@gmail.com>\n"
 "Language-Team: Dutch (Netherlands) (http://www.transifex.com/torchbox/"
 "wagtail/language/nl_NL/)\n"
 "MIME-Version: 1.0\n"
@@ -31,9 +32,9 @@ msgid ""
 "appear in URLs (e.g. development on port 8000). Does not affect request "
 "handling (so port forwarding still works)."
 msgstr ""
-"Zet dit naar iets anders dan 80 als er een specifieke poortnummer in de URL "
-"moet komen (bv development op poort 8000). Heeft geen effect op request "
-"afhandeling (dus port forwarding blijft werken)."
+"Stel dit op iets anders dan 80 in als er een specifiek poortnummer in de URL "
+"moet komen (bijv. development op poort 8000). Dit heeft geen effect op "
+"request afhandeling (dus port forwarding blijft werken)."
 
 msgid "Root page"
 msgstr "Root pagina"
@@ -45,8 +46,8 @@ msgid ""
 "If true, this site will handle requests for all other hostnames that do not "
 "have a site entry of their own"
 msgstr ""
-"Indien waar, zal deze site alle requests voor alle andere hostnames afvangen "
-"welke niet een site van zichzelf hebben."
+"Indien aangevinkt zal deze site alle requests voor alle andere hostnames "
+"afvangen die geen eigen site hebben."
 
 msgid "site"
 msgstr "site"
@@ -66,7 +67,7 @@ msgid "Title"
 msgstr "Titel"
 
 msgid "The page title as you'd like it to be seen by the public"
-msgstr "De pagina titel zoals je wilt dat het publiek deze ziet"
+msgstr "De paginatitel zoals u wilt dat uw bezoekers dit zien"
 
 msgid "Slug"
 msgstr "Slug"
@@ -75,8 +76,8 @@ msgid ""
 "The name of the page as it will appear in URLs e.g http://domain.com/blog/"
 "[my-slug]/"
 msgstr ""
-"De naam van de pagina zoals deze in de URL komt http://domain.com/blog/[my-"
-"slug]/"
+"De naam van de pagina zoals deze in de URL komt, bijv. http://website.nl/"
+"blog/[mijn-slug]/"
 
 msgid "Content type"
 msgstr "Content type"
@@ -88,13 +89,13 @@ msgid "Has unpublished changes"
 msgstr "Heeft ongepubliceerde wijzigingen"
 
 msgid "URL path"
-msgstr "URL path"
+msgstr "URL pad"
 
 msgid "Owner"
 msgstr "Eigenaar"
 
 msgid "Page title"
-msgstr "Pagina titel"
+msgstr "Paginatitel"
 
 msgid ""
 "Optional. 'Search Engine Friendly' title. This will appear at the top of the "
@@ -108,19 +109,21 @@ msgstr "Toon in menu"
 
 msgid ""
 "Whether a link to this page will appear in automatically generated menus"
-msgstr "Of de link naar deze pagina in automatisch gegenereerde menu's komt"
+msgstr ""
+"Indien aangevinkt komt er een link naar deze pagina in automatisch "
+"gegenereerde menu's te staan."
 
 msgid "Search description"
 msgstr "Zoek beschrijving"
 
 msgid "Go live date/time"
-msgstr "Ga live datum/tijd"
+msgstr "Publiceer op"
 
 msgid "Please add a date-time in the form YYYY-MM-DD hh:mm."
-msgstr "Voeg een datum/tijd in als YYYY-MM-DD hh:mm."
+msgstr "Vul een datum/tijd in het formaat YYYY-MM-DD hh:mm."
 
 msgid "Expiry date/time"
-msgstr "Verloop datum/tijd"
+msgstr "Verloopdatum/tijd"
 
 msgid "Expired"
 msgstr "Verlopen"
@@ -174,7 +177,7 @@ msgid "Content JSON"
 msgstr "Content JSON"
 
 msgid "Approved go live at"
-msgstr "Goedgekeurd om live te gaan op"
+msgstr "Goedgekeurde publicatiedatum"
 
 msgid "page revision"
 msgstr "pagina revisie"
@@ -183,28 +186,28 @@ msgid "page revisions"
 msgstr "pagina revisie"
 
 msgid "Add/edit pages you own"
-msgstr "Voeg toe/wijzig een pagina in uw eigendom"
+msgstr "Eigen pagina's toevoegen/wijzigen"
 
 msgid "Edit any page"
-msgstr "Wijzig een pagina"
+msgstr "Alle pagina's wijzigen"
 
 msgid "Publish any page"
-msgstr "Publiceer een pagina"
+msgstr "Elke pagina publiceren"
 
 msgid "Lock/unlock any page"
-msgstr "Blokkeer/deblokkeer een pagina"
+msgstr "Alle pagina's blokkeren/deblokkeren"
 
 msgid "Group"
 msgstr "Groep"
 
 msgid "Permission type"
-msgstr "Recht type"
+msgstr "Machtiging"
 
 msgid "group page permission"
-msgstr "groep pagina recht"
+msgstr "groep pagina machtiging"
 
 msgid "group page permissions"
-msgstr "groep pagina rechten"
+msgstr "groep pagina machtigingen"
 
 msgid "Password"
 msgstr "Wachtwoord"
@@ -216,4 +219,4 @@ msgid "page view restrictions"
 msgstr "pagina weergave rechten"
 
 msgid "Value cannot be entirely whitespace characters"
-msgstr "Waarde kan niet volledig bestaan uit spaties"
+msgstr "De waarde kan niet volledig uit spaties bestaan"

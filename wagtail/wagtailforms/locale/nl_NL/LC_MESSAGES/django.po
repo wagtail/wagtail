@@ -6,13 +6,14 @@
 # Bram <bram2w@live.nl>, 2015
 # Franklin Kingma <franklin@statix.net>, 2015
 # Maarten Kling <kling.maarten@gmail.com>, 2015
+# Thijs Kramer <thijskramer@gmail.com>, 2015
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2015-08-26 14:28+0100\n"
-"PO-Revision-Date: 2015-10-09 11:14+0000\n"
-"Last-Translator: Maarten Kling <kling.maarten@gmail.com>\n"
+"PO-Revision-Date: 2015-12-16 13:49+0000\n"
+"Last-Translator: Thijs Kramer <thijskramer@gmail.com>\n"
 "Language-Team: Dutch (Netherlands) (http://www.transifex.com/torchbox/"
 "wagtail/language/nl_NL/)\n"
 "MIME-Version: 1.0\n"
@@ -58,13 +59,13 @@ msgid "Submit time"
 msgstr "Verstuur tijd"
 
 msgid "Form Submission"
-msgstr "Formulierverzendingen"
+msgstr "Formulierinzending"
 
 msgid "Label"
 msgstr "Label"
 
 msgid "The label of the form field"
-msgstr "Het label van het formulier veld"
+msgstr "Het label van het formulierveld"
 
 msgid "Field type"
 msgstr "Veldtype"
@@ -79,29 +80,28 @@ msgid ""
 "Comma separated list of choices. Only applicable in checkboxes, radio and "
 "dropdown."
 msgstr ""
-"Komma's gescheiden lijst met keuzes. Alleen van toepassing op checkboxes, "
-"radiobuttons en dropdowns."
+"Door komma's gescheiden lijst met opties. Alleen van toepassing op "
+"checkboxes, radiobuttons en dropdowns."
 
 msgid "Default value"
-msgstr "Standaard waarde"
+msgstr "Standaardwaarde"
 
 msgid "Default value. Comma separated values supported for checkboxes."
 msgstr ""
-"Standaard waarde. Komma's gescheiden waarden worden ondersteund voor "
-"checkboxes."
+"Standaardwaarde. Voor checkboxes kunt u door komma's gescheiden "
+"standaardwaarden invullen."
 
 msgid "Help text"
-msgstr "Help tekst"
+msgstr "Hulptekst"
 
 msgid "To address"
-msgstr "Naar adres"
+msgstr "E-mailadres ontvanger"
 
 msgid "Optional - form submissions will be emailed to this address"
-msgstr ""
-"Optioneel - formulierverzendingen worden per e-mail verstuurd naar dit adres"
+msgstr "Optioneel - inzendingen worden per e-mail verstuurd naar dit adres"
 
 msgid "From address"
-msgstr "Van adres"
+msgstr "E-mail afzender"
 
 msgid "Subject"
 msgstr "Onderwerp"
@@ -111,13 +111,13 @@ msgid "Delete %(title)s"
 msgstr "Verwijder %(title)s"
 
 msgid "Delete"
-msgstr "Verwijder"
+msgstr "Verwijderen"
 
 msgid "Are you sure you want to delete this form submission?"
 msgstr "Weet u zeker dat u deze inzending wilt verwijderen?"
 
 msgid "Delete it"
-msgstr "Verwijder het"
+msgstr "Verwijderen"
 
 msgid "Forms"
 msgstr "Formulieren"
@@ -147,16 +147,16 @@ msgid "Title"
 msgstr "Titel"
 
 msgid "Origin"
-msgstr "Oorsprong"
+msgstr "Herkomst"
 
 msgid "Submission Date"
-msgstr "Inzending datum"
+msgstr "Inzenddatum"
 
 msgid "Actions"
 msgstr "Acties"
 
 msgid "No form pages have been created."
-msgstr "Er zijn nog geen formulier pagina's aangemaakt."
+msgstr "Er zijn nog geen pagina's met een formulier aangemaakt."
 
 msgid "Submission deleted."
 msgstr "Inzending verwijderd."

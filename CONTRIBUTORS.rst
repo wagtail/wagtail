@@ -108,12 +108,12 @@ Translators
 * Croatian: Luka Matijević
 * Czech: Ivan Pomykacz, Jiri Stepanek
 * Dutch: benny_AT_it_digin.com, Bram, Brecht Dervaux, Huib Keemink, Thijs Kramer, Samuel Leeuwenburg, mahulst, Michael van Tellingen, Arne Turpyn
-* Dutch (Netherlands): Bram, Franklin Kingma, Maarten Kling
+* Dutch (Netherlands): Bram, Franklin Kingma, Maarten Kling, Thijs Kramer
 * Finnish: Glen Somerville
 * French: Adrien, Timothy Allen, Bertrand Bordage, André Bouatchidzé, Tom Dyson, nahuel
 * Galician: fooflare
 * Georgian: André Bouatchidzé
-* German: Ettore Atalan, Patrick Craston, Florian, Henrik Kröger, Tammo van Lessen, Wasilis Mandratzis-Walz, Daniel Manser, m0rph3u5, Max Pfeiffer, Herbert Poul, Karl Sander, Johannes Spielmann
+* German: Ettore Atalan, Patrick Craston, Florian, Henrik Kröger, Tammo van Lessen, Wasilis Mandratzis-Walz, Daniel Manser, m0rph3u5, Max Pfeiffer, Herbert Poul, Karl Sander, Johannes Spielmann, Jannis Vajen, Matthew Westcott
 * Greek: Jim Dal, dotoree, Wasilis Mandratzis-Walz, NeotheOne, Serafeim Papastefanos
 * Hebrew (Israel): bjesus, Lior Abazon
 * Icelandic: Arnar Tumi Þorsteinsson, Sævar Öfjörð Magnússon
@@ -129,6 +129,7 @@ Translators
 * Romanian: Dan Braghis
 * Russian: ajk, Daniil, HNKNTA, Sergiy Khalymon, Sergey Komarov, Eugene MechanisM
 * Spanish: José Alaguna, Mauricio Baeza, Daniel Chimeno, fonso, fooflare, Joaquín Tita, Unai Zalakain
+* Slovak (Slovakia): dellax
 * Swedish: Ludwig Kjellström, Thomas Kunambi, Hannes Lohmander
 * Turkish (Turkey): José Alaguna, Ragıp Ünal
 * Ukrainian: Andrey Tykhonov, Mykola Zamkovoi

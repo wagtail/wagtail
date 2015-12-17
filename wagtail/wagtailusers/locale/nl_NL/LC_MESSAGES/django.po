@@ -4,13 +4,14 @@
 #
 # Translators:
 # Maarten Kling <kling.maarten@gmail.com>, 2015
+# Thijs Kramer <thijskramer@gmail.com>, 2015
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2015-08-26 14:28+0100\n"
-"PO-Revision-Date: 2015-10-09 11:14+0000\n"
-"Last-Translator: Maarten Kling <kling.maarten@gmail.com>\n"
+"PO-Revision-Date: 2015-12-16 13:46+0000\n"
+"Last-Translator: Thijs Kramer <thijskramer@gmail.com>\n"
 "Language-Team: Dutch (Netherlands) (http://www.transifex.com/torchbox/"
 "wagtail/language/nl_NL/)\n"
 "MIME-Version: 1.0\n"
@@ -21,30 +22,32 @@ msgstr ""
 
 msgid "Required. 30 characters or fewer. Letters, digits and @/./+/-/_ only."
 msgstr ""
-"Verplicht. 30 karakters of minder. Alleen letters, cijfers en @/./+/-/_."
+"Verplicht veld, maximaal 30 tekens lang. Alleen letters, cijfers en de "
+"tekens @.+-_ zijn toegestaan."
 
 msgid "This value may contain only letters, numbers and @/./+/-/_ characters."
-msgstr "Deze waarde mag alleen letters, nummers en @/./+/-/_ bevatten."
+msgstr ""
+"In dit veld zijn alleen letters, cijfers en de tekens @.+-_ toegestaan."
 
 msgid "Administrator"
 msgstr "Administrator"
 
 msgid "If ticked, this user has the ability to manage user accounts."
 msgstr ""
-"Als aangevinkt, heeft deze gebruiker de mogelijkheid gebruikersaccounts te "
-"beheren."
+"Deze gebruiker heeft de mogelijkheid gebruikersaccounts te beheren indien "
+"dit is aangevinkt."
 
 msgid "Password"
 msgstr "Wachtwoord"
 
 msgid "Leave blank if not changing."
-msgstr "Laat leeg als niet aangepast."
+msgstr "Laat dit veld leeg wanneer u dit niet wijzigt."
 
 msgid "Password confirmation"
-msgstr "Wachtwoord confirmatie"
+msgstr "Herhaal wachtwoord"
 
 msgid "Enter the same password as above, for verification."
-msgstr "Voer hetzelfde wachtwoord nogmaals in ter verificatie."
+msgstr "Voer ter bevestiging hetzelfde wachtwoord nogmaals in."
 
 msgid "Email"
 msgstr "E-mail"
@@ -56,34 +59,34 @@ msgid "Last Name"
 msgstr "Achternaam"
 
 msgid "A user with that username already exists."
-msgstr "Een gebruiker met deze gebruikersnaam bestaat reeds."
+msgstr "Er bestaat al een gebruiker met deze gebruikersnaam."
 
 msgid "The two password fields didn't match."
-msgstr "De twee wachtwoorden kwamen niet overeen."
+msgstr "De twee wachtwoorden komen niet overeen."
 
 msgid "Administrators have the ability to manage user accounts."
 msgstr "Administrators hebben de mogelijkheid gebruikersaccounts te beheren."
 
 msgid "A group with that name already exists."
-msgstr "Een groep met dezelfde naam bestaat reeds."
+msgstr "Er bestaat al een groep met deze naam."
 
 msgid "Submitted notifications"
-msgstr "Aangeboden notificaties"
+msgstr "Moderatie-notificaties"
 
 msgid "Receive notification when a page is submitted for moderation"
-msgstr "Ontvang notificaties wanneer een pagina is aangeboden ter moderatie"
+msgstr "Ontvang notificaties wanneer een pagina voor moderatie is aangeboden."
 
 msgid "Approved notifications"
-msgstr "Goedgekeurde notificaties"
+msgstr "Goedgekeurd-notificaties"
 
 msgid "Receive notification when your page edit is approved"
-msgstr "Ontvang notificaties wanneer je pagina wijziging is goedgekeurd"
+msgstr "Ontvang notificaties wanneer je paginawijziging is goedgekeurd."
 
 msgid "Rejected notifications"
-msgstr "Afgewezen notificaties"
+msgstr "Afgekeurd-notificaties"
 
 msgid "Receive notification when your page edit is rejected"
-msgstr "Ontvang notificaties wanneer de pagina wijziging is afgekeurd"
+msgstr "Ontvang notificaties wanneer uw paginawijziging is afgekeurd."
 
 msgid "User Profile"
 msgstr "Gebruikersprofiel"
@@ -103,17 +106,17 @@ msgid ""
 "Deleting this group will revoke this group's permissions from all member "
 "users."
 msgstr ""
-"Verwijderen van deze groep zal alle groepsrechten van alle gebruikers uit "
-"deze groep laten vervallen."
+"Het verwijderen van deze groep zal alle groepsrechten van alle gebruikers "
+"uit deze groep laten vervallen."
 
 msgid "Are you sure you want to delete this group?"
-msgstr "Weet je zeker dat je deze groep wilt verwijderen?"
+msgstr "Weet u zeker dat u deze groep wilt verwijderen?"
 
 msgid "Yes, delete"
-msgstr "Ja, verwijder"
+msgstr "Ja, verwijderen"
 
 msgid "Add group"
-msgstr "Voeg groep toe"
+msgstr "Groep toevoegen"
 
 msgid "Editing"
 msgstr "Wijzigen"
@@ -122,34 +125,34 @@ msgid "Save"
 msgstr "Opslaan"
 
 msgid "Object permissions"
-msgstr "Object rechten"
+msgstr "Machtigingen per type object"
 
 msgid "Name"
 msgstr "Naam"
 
 msgid "Add"
-msgstr "Toevoegen"
+msgstr "Mag toevoegen"
 
 msgid "Change"
-msgstr "Wijzig"
+msgstr "Mag wijzigen"
 
 msgid "Delete"
-msgstr "Verwijder"
+msgstr "Mag verwijderen"
 
 msgid "Other permissions"
-msgstr "Andere rechten"
+msgstr "Overige machtigingen"
 
 msgid "Page permissions"
-msgstr "Pagina rechten"
+msgstr "Pagina-machtigingen"
 
 msgid "Page"
 msgstr "Pagina"
 
 msgid "Permission type"
-msgstr "Recht type"
+msgstr "Machtiging"
 
 msgid "Add a page permission"
-msgstr "Voeg een pagina recht toe"
+msgstr "Voeg een paginamachtiging toe"
 
 msgid "groups"
 msgstr "groepen"
@@ -162,8 +165,8 @@ msgid ""
 "There are no groups configured. Why not <a href="
 "\"%(wagtailusers_create_group_url)s\">add some</a>?"
 msgstr ""
-"Er zijn geen groepen geconfigureerd. Waarom niet één <a href="
-"\"%(wagtailusers_create_group_url)s\">toevoagen</a>?"
+"Er zijn nog geen groepen geconfigureerd. Waarom <a href="
+"\"%(wagtailusers_create_group_url)s\">voegt u er niet een toe</a>?"
 
 msgid "Add user"
 msgstr "Voeg gebruiker toe"
@@ -172,7 +175,7 @@ msgid "Account"
 msgstr "Account"
 
 msgid "Roles"
-msgstr "Rolen"
+msgstr "Rollen"
 
 msgid "Users"
 msgstr "Gebruikers"
@@ -225,8 +228,8 @@ msgid ""
 "There are no users configured. Why not <a href=\"%(wagtailusers_create_url)s"
 "\">add some</a>?"
 msgstr ""
-"Er zijn geen gebruikers geconfigureerd. Waarom niet één <a href="
-"\"%(wagtailusers_create_url)s\">toevoegen</a>?"
+"Er zijn geen gebruikers ingesteld. Waarom <a href="
+"\"%(wagtailusers_create_url)s\">voegt u er niet een toe</a>?"
 
 msgid "Search groups"
 msgstr "Zoek groepen"
@@ -239,14 +242,14 @@ msgid "Edit"
 msgstr "Wijzig"
 
 msgid "The group could not be created due to errors."
-msgstr "De groep kon niet worden aangemaakt door fouten."
+msgstr "De groep kon vanwege fouten niet worden aangemaakt."
 
 #, python-brace-format
 msgid "Group '{0}' updated."
 msgstr "Groep '{0}' gewijzigd."
 
 msgid "The group could not be saved due to errors."
-msgstr "De groep kon niet worden opgeslagen door fouten."
+msgstr "De groep kon vanwege fouten niet worden opgeslagen."
 
 #, python-brace-format
 msgid "Group '{0}' deleted."
@@ -260,14 +263,14 @@ msgid "User '{0}' created."
 msgstr "Gebruiker '{0}' aangemaakt."
 
 msgid "The user could not be created due to errors."
-msgstr "De gebruiker kon niet worden aangemaakt door fouten."
+msgstr "De gebruiker kon vanwege fouten niet worden aangemaakt."
 
 #, python-brace-format
 msgid "User '{0}' updated."
-msgstr "Gebruiker '{0}' geupdate."
+msgstr "Gebruiker '{0}' is bijgewerkt."
 
 msgid "The user could not be saved due to errors."
-msgstr "De gebruiker kon niet worden opgeslagen door fouten."
+msgstr "De gebruiker kon vanwege fouten niet worden opgeslagen."
 
 msgid "Groups"
 msgstr "Groepen"

@@ -72,7 +72,7 @@ Minor features
  * Added a ``request.is_preview`` variable for templates to distinguish between previewing and live (Denis Voskvitsov)
  * 'Pages' link on site stats dashboard now links to the site homepage when only one site exists, rather than the root level
  * Added support for chaining multiple image operations on the ``{% image %}`` tag (Christian Peters)
- * New translations for Arabic and Latvian
+ * New translations for Arabic, Latvian and Slovak
 
 
 Bug fixes
