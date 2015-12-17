@@ -9,9 +9,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-08-26 14:28+0100\n"
-"PO-Revision-Date: 2015-08-31 20:23+0000\n"
-"Last-Translator: Arnar Tumi Þorsteinsson <arnartumi@gmail.com>\n"
+"POT-Creation-Date: 2015-12-17 13:54+0000\n"
+"PO-Revision-Date: 2015-12-17 13:59+0000\n"
+"Last-Translator: mattwestcott <matthew@torchbox.com>\n"
 "Language-Team: Icelandic (Iceland) (http://www.transifex.com/torchbox/"
 "wagtail/language/is_IS/)\n"
 "MIME-Version: 1.0\n"
@@ -42,18 +42,6 @@ msgstr "Breidd"
 
 msgid "Height"
 msgstr "Hæð"
-
-msgid "Title"
-msgstr "Titill"
-
-msgid "File"
-msgstr "Skrá"
-
-msgid "Created at"
-msgstr "Búin til"
-
-msgid "Uploaded by user"
-msgstr "Hlaðið upp af notanda"
 
 msgid "Choose an image"
 msgstr "Veldu mynd"
@@ -122,6 +110,9 @@ msgstr "Slóð"
 
 msgid "Preview"
 msgstr "Forskoðun"
+
+msgid "Title"
+msgstr "Titill"
 
 msgid "Type"
 msgstr "Tegund"

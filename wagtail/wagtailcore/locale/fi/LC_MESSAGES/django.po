@@ -8,9 +8,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-09-02 20:07+0100\n"
-"PO-Revision-Date: 2015-09-02 19:12+0000\n"
-"Last-Translator: Karl Hobley <karl@torchbox.com>\n"
+"POT-Creation-Date: 2015-12-17 13:54+0000\n"
+"PO-Revision-Date: 2015-12-17 13:58+0000\n"
+"Last-Translator: mattwestcott <matthew@torchbox.com>\n"
 "Language-Team: Finnish (http://www.transifex.com/torchbox/wagtail/language/"
 "fi/)\n"
 "MIME-Version: 1.0\n"
@@ -18,12 +18,6 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: fi\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-
-msgid "Hostname"
-msgstr "Palvelin"
-
-msgid "Port"
-msgstr "Portti"
 
 msgid ""
 "Set this to something other than 80 if you need a specific port number to "
@@ -33,12 +27,6 @@ msgstr ""
 "Aseta tämä joksikin muuksi kuin 80 jos tarvitset tietyn portin käyttöön URL:"
 "eissa (esim. portti 8000 kehitystä varten). Tämä ei vaikuta kutsujen "
 "käsittelyyn (porttiohjaus toimii edelleen)."
-
-msgid "Root page"
-msgstr "Juuri sivu"
-
-msgid "Is default site"
-msgstr "Oletussivusto"
 
 msgid ""
 "If true, this site will handle requests for all other hostnames that do not "
@@ -55,14 +43,8 @@ msgstr ""
 "%(hostname)s on jo määritelty oletus sivustoksi. Poista ensin oletusmääritys "
 "ennen kuin määrität tämän sivuston oletussivustoksi."
 
-msgid "Title"
-msgstr "Otsikko"
-
 msgid "The page title as you'd like it to be seen by the public"
 msgstr "Sivun otsikko sellaisena kuin haluat sen näkyvän julkisesti"
-
-msgid "Slug"
-msgstr "Polkutunnus"
 
 msgid ""
 "The name of the page as it will appear in URLs e.g http://domain.com/blog/"
@@ -71,23 +53,11 @@ msgstr ""
 "Sivun nimi kuten se esiintyy URL:eissa esim. http://domain.com/blog/"
 "[polkutunnus]/"
 
-msgid "Content type"
-msgstr "Sisällön tyyppi"
-
-msgid "Live"
-msgstr "Julkaistu"
-
-msgid "Has unpublished changes"
-msgstr "Sisältää julkaisemattomia muutoksia"
+msgid "live"
+msgstr "julkaistu"
 
 msgid "URL path"
 msgstr "URL polku"
-
-msgid "Owner"
-msgstr "Omistaja"
-
-msgid "Page title"
-msgstr "Sivun otsikko"
 
 msgid ""
 "Optional. 'Search Engine Friendly' title. This will appear at the top of the "
@@ -96,36 +66,12 @@ msgstr ""
 "Vapaaehtoinen. Hakukoneystävällinen otsikko. Tämä näkyy selainikkunan "
 "otsikkona."
 
-msgid "Show in menus"
-msgstr "Näytä valikoissa"
-
 msgid ""
 "Whether a link to this page will appear in automatically generated menus"
 msgstr "Näytä linkki tälle sivulle automaattisesti tuotetuissa valikoissa"
 
-msgid "Search description"
-msgstr "Kuvaus"
-
-msgid "Go live date/time"
-msgstr "Julkaisu pvm/aika"
-
 msgid "Please add a date-time in the form YYYY-MM-DD hh:mm."
 msgstr "Täytä päivämäärä ja aika muodossa VVVV-KK-PP tt:mm"
-
-msgid "Expiry date/time"
-msgstr "Päättymis pvm/aika"
-
-msgid "Expired"
-msgstr "Vanhentunut"
-
-msgid "Locked"
-msgstr "Lukittu"
-
-msgid "First published at"
-msgstr "Alunperin julkaistu"
-
-msgid "Latest revision created at"
-msgstr "Viimeisin versio luotu"
 
 msgid "expired"
 msgstr "vanhentunut"
@@ -139,29 +85,8 @@ msgstr "luonnos"
 msgid "live + draft"
 msgstr "julkaistu + luonnos"
 
-msgid "live"
-msgstr "julkaistu"
-
 msgid "Default"
 msgstr "Oletus"
-
-msgid "Page"
-msgstr "Sivu"
-
-msgid "Submitted for moderation"
-msgstr "Lähetetty moderoitavaksi"
-
-msgid "Created at"
-msgstr "Luotu"
-
-msgid "User"
-msgstr "Käyttäjä"
-
-msgid "Content JSON"
-msgstr "Sisältö JSON muodossa"
-
-msgid "Approved go live at"
-msgstr "Julkaisu hyväksytty"
 
 msgid "Add/edit pages you own"
 msgstr "Lisää/muokkaa sivuja jota omistat"
@@ -171,16 +96,3 @@ msgstr "Julkaise kaikkia sivuja"
 
 msgid "Lock/unlock any page"
 msgstr "Lukitse/poista lukitus kaikille sivuille"
-
-msgid "Group"
-msgstr "Ryhmä"
-
-msgid "Permission type"
-msgstr "Oikeudet"
-
-msgid "Password"
-msgstr "Salasana"
-
-msgid "Value cannot be entirely whitespace characters"
-msgstr ""
-"Arvo ei voi sisältää pelkästään välilyöntejä tai muita näkymättömiä merkkejä."

@@ -8,9 +8,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-08-26 14:28+0100\n"
-"PO-Revision-Date: 2015-06-29 08:25+0000\n"
-"Last-Translator: Giacomo Ghizzani <giacomo.ghz@gmail.com>\n"
+"POT-Creation-Date: 2015-12-17 13:54+0000\n"
+"PO-Revision-Date: 2015-12-17 13:58+0000\n"
+"Last-Translator: mattwestcott <matthew@torchbox.com>\n"
 "Language-Team: Italian (http://www.transifex.com/torchbox/wagtail/language/"
 "it/)\n"
 "MIME-Version: 1.0\n"
@@ -18,24 +18,6 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: it\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-
-msgid "Title"
-msgstr "Titolo"
-
-msgid "File"
-msgstr "File"
-
-msgid "Created at"
-msgstr "Creato alle"
-
-msgid "Uploaded by user"
-msgstr "Caricato dall'utente"
-
-msgid "Tags"
-msgstr "Tags"
-
-msgid "Document"
-msgstr "Documento"
 
 msgid "Choose a document"
 msgstr "Scegli un documento"
@@ -45,9 +27,6 @@ msgstr "Cerca"
 
 msgid "Upload"
 msgstr "Carica"
-
-msgid "Save"
-msgstr "Salva"
 
 #, python-format
 msgid ""
@@ -104,6 +83,9 @@ msgstr "Modifica %(title)s"
 msgid "Editing"
 msgstr "Modifica"
 
+msgid "Save"
+msgstr "Salva"
+
 msgid "Filesize"
 msgstr "Dimensione file"
 
@@ -112,6 +94,12 @@ msgstr "File non trovato"
 
 msgid "Documents"
 msgstr "Documenti"
+
+msgid "Title"
+msgstr "Titolo"
+
+msgid "File"
+msgstr "File"
 
 msgid "Uploaded"
 msgstr "Caricato"

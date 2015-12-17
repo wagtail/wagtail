@@ -9,9 +9,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-08-26 14:28+0100\n"
-"PO-Revision-Date: 2015-12-08 13:45+0000\n"
-"Last-Translator: 石田秀 <ishidashu@gmail.com>\n"
+"POT-Creation-Date: 2015-12-17 13:54+0000\n"
+"PO-Revision-Date: 2015-12-17 13:58+0000\n"
+"Last-Translator: mattwestcott <matthew@torchbox.com>\n"
 "Language-Team: Japanese (http://www.transifex.com/torchbox/wagtail/language/"
 "ja/)\n"
 "MIME-Version: 1.0\n"
@@ -19,24 +19,6 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: ja\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-
-msgid "Title"
-msgstr "タイトル"
-
-msgid "File"
-msgstr "ファイル"
-
-msgid "Created at"
-msgstr "作成日"
-
-msgid "Uploaded by user"
-msgstr "アップロードしたユーザ"
-
-msgid "Tags"
-msgstr "タグ"
-
-msgid "Document"
-msgstr "ドキュメント"
 
 msgid "Choose a document"
 msgstr "ドキュメントを選択"
@@ -46,9 +28,6 @@ msgstr "検索"
 
 msgid "Upload"
 msgstr "アップロード"
-
-msgid "Save"
-msgstr "保存"
 
 #, python-format
 msgid ""
@@ -99,6 +78,9 @@ msgstr "%(title)s を編集"
 msgid "Editing"
 msgstr "編集中"
 
+msgid "Save"
+msgstr "保存"
+
 msgid "Filesize"
 msgstr "ファイルサイズ"
 
@@ -107,6 +89,12 @@ msgstr "ファイルは見つかりませんでした"
 
 msgid "Documents"
 msgstr "ドキュメント"
+
+msgid "Title"
+msgstr "タイトル"
+
+msgid "File"
+msgstr "ファイル"
 
 msgid "Uploaded"
 msgstr "アップロード済み"

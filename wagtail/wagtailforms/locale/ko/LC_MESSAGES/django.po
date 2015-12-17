@@ -8,9 +8,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-08-26 14:28+0100\n"
-"PO-Revision-Date: 2015-08-27 01:42+0000\n"
-"Last-Translator: Ji Han Chung <jihanchung20@gmail.com>\n"
+"POT-Creation-Date: 2015-12-17 13:54+0000\n"
+"PO-Revision-Date: 2015-12-17 14:01+0000\n"
+"Last-Translator: mattwestcott <matthew@torchbox.com>\n"
 "Language-Team: Korean (http://www.transifex.com/torchbox/wagtail/language/"
 "ko/)\n"
 "MIME-Version: 1.0\n"
@@ -52,26 +52,8 @@ msgstr "날짜"
 msgid "Date/time"
 msgstr "날짜/시간"
 
-msgid "Submit time"
-msgstr "제출 날짜"
-
-msgid "Form Submission"
-msgstr "양식 제출"
-
-msgid "Label"
-msgstr "라벨"
-
 msgid "The label of the form field"
 msgstr "양식 폼의 라벨"
-
-msgid "Field type"
-msgstr "필드 타입"
-
-msgid "Required"
-msgstr "필수 사항"
-
-msgid "Choices"
-msgstr "선택"
 
 msgid ""
 "Comma separated list of choices. Only applicable in checkboxes, radio and "
@@ -80,26 +62,11 @@ msgstr ""
 "콤마로 나뉘어져 있는 선택사항들이 있습니다. 오직 체크박스, 라디오버튼, 드롭다"
 "운 형태가 적용 가능합니다."
 
-msgid "Default value"
-msgstr "기본값"
-
 msgid "Default value. Comma separated values supported for checkboxes."
 msgstr "기본값. 콤마로 분류되는 값들은 체크박스를 지원합니다."
 
-msgid "Help text"
-msgstr "도움말"
-
-msgid "To address"
-msgstr "주소"
-
 msgid "Optional - form submissions will be emailed to this address"
 msgstr "옵션 - 이 주소로 양식 제출에 대한 이메일이 전송 될 것입니다."
-
-msgid "From address"
-msgstr "양식 주소"
-
-msgid "Subject"
-msgstr "주제"
 
 #, python-format
 msgid "Delete %(title)s"

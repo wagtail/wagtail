@@ -8,9 +8,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-08-26 14:28+0100\n"
-"PO-Revision-Date: 2015-12-12 23:06+0000\n"
-"Last-Translator: dellax <michalnebbia@gmail.com>\n"
+"POT-Creation-Date: 2015-12-17 13:54+0000\n"
+"PO-Revision-Date: 2015-12-17 13:59+0000\n"
+"Last-Translator: mattwestcott <matthew@torchbox.com>\n"
 "Language-Team: Slovak (Slovakia) (http://www.transifex.com/torchbox/wagtail/"
 "language/sk_SK/)\n"
 "MIME-Version: 1.0\n"
@@ -76,21 +76,6 @@ msgstr "Šírka"
 
 msgid "Height"
 msgstr "Výška"
-
-msgid "Title"
-msgstr "Titulok"
-
-msgid "File"
-msgstr "Súbor"
-
-msgid "Created at"
-msgstr "Vytvorené"
-
-msgid "Uploaded by user"
-msgstr "Nahral používateľ"
-
-msgid "Tags"
-msgstr "Tagy"
 
 msgid "Choose an image"
 msgstr "Vybrať obrázok"
@@ -199,6 +184,9 @@ msgstr "URL adresa"
 
 msgid "Preview"
 msgstr "Náhľad"
+
+msgid "Title"
+msgstr "Titulok"
 
 msgid "Parent"
 msgstr "Rodič"

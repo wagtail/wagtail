@@ -9,9 +9,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-09-02 20:07+0100\n"
-"PO-Revision-Date: 2015-12-08 13:36+0000\n"
-"Last-Translator: 石田秀 <ishidashu@gmail.com>\n"
+"POT-Creation-Date: 2015-12-17 13:54+0000\n"
+"PO-Revision-Date: 2015-12-17 13:58+0000\n"
+"Last-Translator: mattwestcott <matthew@torchbox.com>\n"
 "Language-Team: Japanese (http://www.transifex.com/torchbox/wagtail/language/"
 "ja/)\n"
 "MIME-Version: 1.0\n"
@@ -19,12 +19,6 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: ja\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-
-msgid "Hostname"
-msgstr "ホスト名"
-
-msgid "Port"
-msgstr "ポート番号"
 
 msgid ""
 "Set this to something other than 80 if you need a specific port number to "
@@ -34,12 +28,6 @@ msgstr ""
 "URL欄に特定のポート番号を表示したい場合は、80以外の番号を設定してください"
 "（例：ポート8000に開設）。これは要求処理には影響しません（ポートフォワーディ"
 "ングはこれまで通り機能します）。"
-
-msgid "Root page"
-msgstr "ルートページ"
-
-msgid "Is default site"
-msgstr "デフォルトのサイトです"
 
 msgid ""
 "If true, this site will handle requests for all other hostnames that do not "
@@ -62,37 +50,19 @@ msgstr ""
 "現在、%(hostname)sがデフォルトのサイトに設定されています。設定を解除してから"
 "このサイトをデフォルトに設定してください。"
 
-msgid "Title"
-msgstr "タイトル"
-
 msgid "The page title as you'd like it to be seen by the public"
 msgstr "一般公開のもとで表示したいページタイトル"
-
-msgid "Slug"
-msgstr "スラッグ"
 
 msgid ""
 "The name of the page as it will appear in URLs e.g http://domain.com/blog/"
 "[my-slug]/"
 msgstr "URLに表示したいページ名（例：http://domain.com/blog/[my-slug]/）"
 
-msgid "Content type"
-msgstr "コンテンツの種類"
-
-msgid "Live"
+msgid "live"
 msgstr "公開"
-
-msgid "Has unpublished changes"
-msgstr "変更の適用を解除しました。"
 
 msgid "URL path"
 msgstr "URLパス"
-
-msgid "Owner"
-msgstr "所有者"
-
-msgid "Page title"
-msgstr "ページタイトル"
 
 msgid ""
 "Optional. 'Search Engine Friendly' title. This will appear at the top of the "
@@ -100,36 +70,12 @@ msgid ""
 msgstr ""
 "オプション：サーチエンジン用のタイトル（ブラウザ画面の上部に表示されます）"
 
-msgid "Show in menus"
-msgstr "メニューに表示"
-
 msgid ""
 "Whether a link to this page will appear in automatically generated menus"
 msgstr "このページへのリンクを自動生成されたメニューに表示しますか？"
 
-msgid "Search description"
-msgstr "ページの概要（検索結果に表示されます）"
-
-msgid "Go live date/time"
-msgstr "公開予定日時"
-
 msgid "Please add a date-time in the form YYYY-MM-DD hh:mm."
 msgstr "YYYY-MM-DD hh:mmの形式で年月日を設定してください。"
-
-msgid "Expiry date/time"
-msgstr "有効期限"
-
-msgid "Expired"
-msgstr "期限を過ぎました"
-
-msgid "Locked"
-msgstr "鍵付き"
-
-msgid "First published at"
-msgstr "最初の公開日時"
-
-msgid "Latest revision created at"
-msgstr "最終更新日"
 
 msgid "expired"
 msgstr "失効"
@@ -143,9 +89,6 @@ msgstr "下書き"
 msgid "live + draft"
 msgstr "公開 + 下書き"
 
-msgid "live"
-msgstr "公開"
-
 msgid "Default"
 msgstr "デフォルト"
 
@@ -154,24 +97,6 @@ msgstr "ページ"
 
 msgid "pages"
 msgstr "ページ"
-
-msgid "Page"
-msgstr "ページ"
-
-msgid "Submitted for moderation"
-msgstr "承認リクエストを送信しました。"
-
-msgid "Created at"
-msgstr "作成日"
-
-msgid "User"
-msgstr "ユーザ"
-
-msgid "Content JSON"
-msgstr "JSONコンテンツ"
-
-msgid "Approved go live at"
-msgstr "承認済み・公開予定："
 
 msgid "page revision"
 msgstr "ページの修正"
@@ -191,26 +116,14 @@ msgstr "ページを公開"
 msgid "Lock/unlock any page"
 msgstr "ページのロックを編集"
 
-msgid "Group"
-msgstr "グループ"
-
-msgid "Permission type"
-msgstr "権限"
-
 msgid "group page permission"
 msgstr "グループページの権限"
 
 msgid "group page permissions"
 msgstr "グループページの権限"
 
-msgid "Password"
-msgstr "パスワード"
-
 msgid "page view restriction"
 msgstr "ページ閲覧の権限"
 
 msgid "page view restrictions"
 msgstr "ページ閲覧の権限"
-
-msgid "Value cannot be entirely whitespace characters"
-msgstr "空白文字以外の値を設定してください。"

@@ -9,9 +9,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-08-26 14:28+0100\n"
-"PO-Revision-Date: 2015-11-16 08:00+0000\n"
-"Last-Translator: Ragıp Ünal <ragip@ragipunal.com>\n"
+"POT-Creation-Date: 2015-12-17 13:54+0000\n"
+"PO-Revision-Date: 2015-12-17 14:01+0000\n"
+"Last-Translator: mattwestcott <matthew@torchbox.com>\n"
 "Language-Team: Turkish (Turkey) (http://www.transifex.com/torchbox/wagtail/"
 "language/tr_TR/)\n"
 "MIME-Version: 1.0\n"
@@ -53,26 +53,8 @@ msgstr "Tarih"
 msgid "Date/time"
 msgstr "Tarih/zaman"
 
-msgid "Submit time"
-msgstr "Gönderme zamanı"
-
-msgid "Form Submission"
-msgstr "Form Gönderme"
-
-msgid "Label"
-msgstr "Etiket"
-
 msgid "The label of the form field"
 msgstr "Form alanının etiketi"
-
-msgid "Field type"
-msgstr "Alan tipi"
-
-msgid "Required"
-msgstr "Gerekli"
-
-msgid "Choices"
-msgstr "Seçimler"
 
 msgid ""
 "Comma separated list of choices. Only applicable in checkboxes, radio and "
@@ -81,24 +63,9 @@ msgstr ""
 "Virgülle ayrılmış seçimler listesi. Sadece onay kutuları, radyo butonlar ve "
 "açılır kutulara uygulanabilir."
 
-msgid "Default value"
-msgstr "Varsayılan değer"
-
 msgid "Default value. Comma separated values supported for checkboxes."
 msgstr ""
 "Varsayılan değer. Açılır kutular için virgülle ayrılmış değerler içindir."
-
-msgid "Help text"
-msgstr "Yardım metni"
-
-msgid "To address"
-msgstr "Kime adres"
-
-msgid "From address"
-msgstr "Kimden adres"
-
-msgid "Subject"
-msgstr "Konu"
 
 msgid "Delete"
 msgstr "Sil"

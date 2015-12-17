@@ -10,9 +10,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-08-26 14:28+0100\n"
-"PO-Revision-Date: 2015-12-16 13:47+0000\n"
-"Last-Translator: Thijs Kramer <thijskramer@gmail.com>\n"
+"POT-Creation-Date: 2015-12-17 13:54+0000\n"
+"PO-Revision-Date: 2015-12-17 13:57+0000\n"
+"Last-Translator: mattwestcott <matthew@torchbox.com>\n"
 "Language-Team: Dutch (Netherlands) (http://www.transifex.com/torchbox/"
 "wagtail/language/nl_NL/)\n"
 "MIME-Version: 1.0\n"
@@ -397,10 +397,6 @@ msgstr "U kunt de pagina hier wijzigen:"
 msgid "The page \"%(page)s\" has been submitted for moderation"
 msgstr "De pagina \"%(page)s\" is voor moderatie ingediend"
 
-#, python-format
-msgid "The page \"%(page)s\" has been submitted for moderation."
-msgstr "De pagina \"%(page)s\" is voor moderatie ingediend."
-
 msgid "You can preview the page here:"
 msgstr "U kunt hier een voorbeeld van de pagina bekijken:"
 
@@ -540,8 +536,8 @@ msgstr "Pagina van type '%(page_type)s' toevoegen"
 msgid "New"
 msgstr "Nieuw"
 
-msgid "Save as draft"
-msgstr "Bewaar als concept"
+msgid "Save draft"
+msgstr "Bewaar concept"
 
 msgid "Publish"
 msgstr "Publiceer"
@@ -559,9 +555,6 @@ msgstr "Bewerk %(page_type)s <span>%(title)s</span>"
 
 msgid "Page locked"
 msgstr "Pagina is geblokkeerd"
-
-msgid "Save draft"
-msgstr "Bewaar concept"
 
 #, python-format
 msgid "Last modified: %(last_mod)s"
@@ -670,18 +663,6 @@ msgstr[1] ""
 "\n"
 "Er zijn %(counter)s pagina's gevonden"
 
-msgid "Other searches"
-msgstr "Andere zoekacties"
-
-msgid "Images"
-msgstr "Afbeeldingen"
-
-msgid "Documents"
-msgstr "Documenten"
-
-msgid "Users"
-msgstr "Gebruikers"
-
 #, python-format
 msgid "Sorry, no pages match <em>\"%(query_string)s\"</em>"
 msgstr ""
@@ -768,6 +749,9 @@ msgstr "Uitloggen"
 #, python-format
 msgid "Page %(page_num)s of %(total_pages)s."
 msgstr "Pagina %(page_num)s van %(total_pages)s."
+
+msgid "Other searches"
+msgstr "Andere zoekacties"
 
 msgid ""
 "You are using an <strong>outdated</strong> browser not supported by this "

@@ -8,9 +8,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-08-26 14:28+0100\n"
-"PO-Revision-Date: 2015-09-02 14:43+0000\n"
-"Last-Translator: Eirik Krogstad <eirikkr@gmail.com>\n"
+"POT-Creation-Date: 2015-12-17 13:54+0000\n"
+"PO-Revision-Date: 2015-12-17 13:58+0000\n"
+"Last-Translator: mattwestcott <matthew@torchbox.com>\n"
 "Language-Team: Norwegian Bokmål (http://www.transifex.com/torchbox/wagtail/"
 "language/nb/)\n"
 "MIME-Version: 1.0\n"
@@ -18,24 +18,6 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: nb\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-
-msgid "Title"
-msgstr "Tittel"
-
-msgid "File"
-msgstr "Fil"
-
-msgid "Created at"
-msgstr "Opprettet"
-
-msgid "Uploaded by user"
-msgstr "Opplastet av bruker"
-
-msgid "Tags"
-msgstr "Tags"
-
-msgid "Document"
-msgstr "Dokument"
 
 msgid "Choose a document"
 msgstr "Velg et dokument"
@@ -45,9 +27,6 @@ msgstr "Søk"
 
 msgid "Upload"
 msgstr "Last opp"
-
-msgid "Save"
-msgstr "Lagre"
 
 #, python-format
 msgid ""
@@ -103,6 +82,9 @@ msgstr "Endrer %(title)s"
 msgid "Editing"
 msgstr "Endrer"
 
+msgid "Save"
+msgstr "Lagre"
+
 msgid "Filesize"
 msgstr "Filstørrelse"
 
@@ -111,6 +93,12 @@ msgstr "Fil ikke funnet"
 
 msgid "Documents"
 msgstr "Dokumenter"
+
+msgid "Title"
+msgstr "Tittel"
+
+msgid "File"
+msgstr "Fil"
 
 msgid "Uploaded"
 msgstr "Opplastet"

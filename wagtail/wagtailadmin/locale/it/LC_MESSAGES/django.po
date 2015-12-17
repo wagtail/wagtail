@@ -10,9 +10,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-08-26 14:28+0100\n"
-"PO-Revision-Date: 2015-10-01 14:59+0000\n"
-"Last-Translator: Giacomo Ghizzani <giacomo.ghz@gmail.com>\n"
+"POT-Creation-Date: 2015-12-17 13:54+0000\n"
+"PO-Revision-Date: 2015-12-17 13:57+0000\n"
+"Last-Translator: mattwestcott <matthew@torchbox.com>\n"
 "Language-Team: Italian (http://www.transifex.com/torchbox/wagtail/language/"
 "it/)\n"
 "MIME-Version: 1.0\n"
@@ -396,10 +396,6 @@ msgstr "Puoi modificare la pagina qui:"
 msgid "The page \"%(page)s\" has been submitted for moderation"
 msgstr "La pagina \"%(page)s\" è stata inviata per moderazione"
 
-#, python-format
-msgid "The page \"%(page)s\" has been submitted for moderation."
-msgstr "La pagina \"%(page)s\" è stata inviata per moderazione."
-
 msgid "You can preview the page here:"
 msgstr "Puoi vedere l'anteprima della pagina qui:"
 
@@ -541,8 +537,8 @@ msgstr "Nuovo %(page_type)s"
 msgid "New"
 msgstr "Nuovo"
 
-msgid "Save as draft"
-msgstr "Salva come bozza"
+msgid "Save draft"
+msgstr "Salva bozza"
 
 msgid "Publish"
 msgstr "Pubblica"
@@ -560,9 +556,6 @@ msgstr "Modifica %(page_type)s <span>%(title)s</span>"
 
 msgid "Page locked"
 msgstr "Pagina bloccata"
-
-msgid "Save draft"
-msgstr "Salva bozza"
 
 #, python-format
 msgid "Last modified: %(last_mod)s"
@@ -673,18 +666,6 @@ msgstr[1] ""
 "Ci sono %(counter)s pagine corrispondenti\n"
 "            "
 
-msgid "Other searches"
-msgstr "Altre ricerche"
-
-msgid "Images"
-msgstr "Immagini"
-
-msgid "Documents"
-msgstr "Documenti"
-
-msgid "Users"
-msgstr "Utenti"
-
 #, python-format
 msgid "Sorry, no pages match <em>\"%(query_string)s\"</em>"
 msgstr ""
@@ -772,6 +753,9 @@ msgstr "Esci"
 #, python-format
 msgid "Page %(page_num)s of %(total_pages)s."
 msgstr "Pagina %(page_num)s di %(total_pages)s."
+
+msgid "Other searches"
+msgstr "Altre ricerche"
 
 msgid ""
 "You are using an <strong>outdated</strong> browser not supported by this "

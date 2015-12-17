@@ -12,9 +12,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-08-26 14:28+0100\n"
-"PO-Revision-Date: 2015-08-13 07:05+0000\n"
-"Last-Translator: dotoree <vdotoree@yahoo.gr>\n"
+"POT-Creation-Date: 2015-12-17 13:55+0000\n"
+"PO-Revision-Date: 2015-12-17 14:00+0000\n"
+"Last-Translator: mattwestcott <matthew@torchbox.com>\n"
 "Language-Team: Greek (http://www.transifex.com/torchbox/wagtail/language/"
 "el/)\n"
 "MIME-Version: 1.0\n"
@@ -32,6 +32,12 @@ msgid "This value may contain only letters, numbers and @/./+/-/_ characters."
 msgstr ""
 "Η τιμή επιτρέπεται να έχει μόνο γράμματα, αριθμούς και τους χαρακτήρες @/./"
 "+/-/_."
+
+msgid "A user with that username already exists."
+msgstr "Υπάρχει ήδη χρήστης με το συγκεκριμένο όνομα χρήστη."
+
+msgid "The two password fields didn't match."
+msgstr "Τα δύο πεδία κωδικών δεν είναι ίδια."
 
 msgid "Administrator"
 msgstr "Διαχειριστής"
@@ -62,12 +68,6 @@ msgstr "Όνομα"
 msgid "Last Name"
 msgstr "Επίθετο"
 
-msgid "A user with that username already exists."
-msgstr "Υπάρχει ήδη χρήστης με το συγκεκριμένο όνομα χρήστη."
-
-msgid "The two password fields didn't match."
-msgstr "Τα δύο πεδία κωδικών δεν είναι ίδια."
-
 msgid "Administrators have the ability to manage user accounts."
 msgstr ""
 "Οι Διαχειριστές έχουν τη δυνατότητα να διαχειρίζονται λογαριασμούς χρηστών."
@@ -75,27 +75,15 @@ msgstr ""
 msgid "A group with that name already exists."
 msgstr "Υπάρχει ήδη ομάδα με το συγκεκριμένο όνομα ομάδας."
 
-msgid "Submitted notifications"
-msgstr "Υποβλήθηκαν ειδοποιήσεις"
-
 msgid "Receive notification when a page is submitted for moderation"
 msgstr ""
 "Λήψη ειδοποίησης όταν υποβάλλεται μια σελίδα για επίδειξη μετριοπάθειας"
 
-msgid "Approved notifications"
-msgstr "Ειδοποιήσεις που εγκρίθηκαν "
-
 msgid "Receive notification when your page edit is approved"
 msgstr "Λήψη ειδοποίησης όταν σελίδα επεξεργασίας σας έχει εγκριθεί"
 
-msgid "Rejected notifications"
-msgstr "Απορριφθείσες ειδοποιήσεις"
-
 msgid "Receive notification when your page edit is rejected"
 msgstr "Λήψη ειδοποίησης όταν σελίδα επεξεργασίας σας απορρίπτεται"
-
-msgid "User Profile"
-msgstr "Προφίλ Χρήστη"
 
 msgid "Delete group"
 msgstr "Διαγραφή ομάδας"
@@ -275,6 +263,3 @@ msgstr "Τα στοιχεία του χρήστη '{0}' ενημερώθηκαν
 
 msgid "The user could not be saved due to errors."
 msgstr "Δεν ήταν δυνατή η ενημέρωση των στοιχείων του χρήστη."
-
-msgid "Groups"
-msgstr "Ομάδες"

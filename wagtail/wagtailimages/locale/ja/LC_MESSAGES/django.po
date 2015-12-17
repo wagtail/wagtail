@@ -8,9 +8,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-08-26 14:28+0100\n"
-"PO-Revision-Date: 2015-12-08 13:57+0000\n"
-"Last-Translator: 石田秀 <ishidashu@gmail.com>\n"
+"POT-Creation-Date: 2015-12-17 13:54+0000\n"
+"PO-Revision-Date: 2015-12-17 13:59+0000\n"
+"Last-Translator: mattwestcott <matthew@torchbox.com>\n"
 "Language-Team: Japanese (http://www.transifex.com/torchbox/wagtail/language/"
 "ja/)\n"
 "MIME-Version: 1.0\n"
@@ -79,21 +79,6 @@ msgstr "縦幅"
 
 msgid "Closeness"
 msgstr "近さ"
-
-msgid "Title"
-msgstr "タイトル"
-
-msgid "File"
-msgstr "ファイル"
-
-msgid "Created at"
-msgstr "作成日"
-
-msgid "Uploaded by user"
-msgstr "アップロードしたユーザ"
-
-msgid "Tags"
-msgstr "タグ"
 
 msgid "Choose an image"
 msgstr "画像を選択"
@@ -230,6 +215,9 @@ msgstr "%(title)sを使用"
 
 msgid "Usage of"
 msgstr "使用"
+
+msgid "Title"
+msgstr "タイトル"
 
 msgid "Parent"
 msgstr "上位階層"

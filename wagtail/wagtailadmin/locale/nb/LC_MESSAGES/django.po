@@ -8,9 +8,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-08-26 14:28+0100\n"
-"PO-Revision-Date: 2015-09-02 15:01+0000\n"
-"Last-Translator: Eirik Krogstad <eirikkr@gmail.com>\n"
+"POT-Creation-Date: 2015-12-17 13:54+0000\n"
+"PO-Revision-Date: 2015-12-17 13:57+0000\n"
+"Last-Translator: mattwestcott <matthew@torchbox.com>\n"
 "Language-Team: Norwegian Bokmål (http://www.transifex.com/torchbox/wagtail/"
 "language/nb/)\n"
 "MIME-Version: 1.0\n"
@@ -395,10 +395,6 @@ msgstr "Du kan redigere siden her:"
 msgid "The page \"%(page)s\" has been submitted for moderation"
 msgstr "Siden \"%(page)s\" har blitt sendt til godkjenning"
 
-#, python-format
-msgid "The page \"%(page)s\" has been submitted for moderation."
-msgstr "Siden \"%(page)s\" har blitt sendt til godkjenning."
-
 msgid "You can preview the page here:"
 msgstr "Du kan forhåndsvise siden her:"
 
@@ -537,8 +533,8 @@ msgstr "Ny %(page_type)s"
 msgid "New"
 msgstr "Ny"
 
-msgid "Save as draft"
-msgstr "Lagre som kladd"
+msgid "Save draft"
+msgstr "Lagre kladd"
 
 msgid "Publish"
 msgstr "Publiser"
@@ -556,9 +552,6 @@ msgstr "Redigerer %(page_type)s: <span>%(title)s</span>"
 
 msgid "Page locked"
 msgstr "Siden er låst"
-
-msgid "Save draft"
-msgstr "Lagre kladd"
 
 #, python-format
 msgid "Last modified: %(last_mod)s"
@@ -670,18 +663,6 @@ msgstr[1] ""
 "Det er %(counter)s samsvarende sider\n"
 " "
 
-msgid "Other searches"
-msgstr "Andre søk"
-
-msgid "Images"
-msgstr "Bilder"
-
-msgid "Documents"
-msgstr "Dokumenter"
-
-msgid "Users"
-msgstr "Brukere"
-
 #, python-format
 msgid "Sorry, no pages match <em>\"%(query_string)s\"</em>"
 msgstr "Beklager, ingen sider samsvarer med <em>\"%(query_string)s\"</em>"
@@ -767,6 +748,9 @@ msgstr "Logg ut"
 #, python-format
 msgid "Page %(page_num)s of %(total_pages)s."
 msgstr "Side %(page_num)s av %(total_pages)s."
+
+msgid "Other searches"
+msgstr "Andre søk"
 
 msgid ""
 "You are using an <strong>outdated</strong> browser not supported by this "

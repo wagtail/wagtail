@@ -8,9 +8,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-08-26 14:28+0100\n"
-"PO-Revision-Date: 2015-09-02 14:42+0000\n"
-"Last-Translator: Eirik Krogstad <eirikkr@gmail.com>\n"
+"POT-Creation-Date: 2015-12-17 13:55+0000\n"
+"PO-Revision-Date: 2015-12-17 13:59+0000\n"
+"Last-Translator: mattwestcott <matthew@torchbox.com>\n"
 "Language-Team: Norwegian Bokmål (http://www.transifex.com/torchbox/wagtail/"
 "language/nb/)\n"
 "MIME-Version: 1.0\n"
@@ -19,30 +19,12 @@ msgstr ""
 "Language: nb\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-msgid "Redirect from"
-msgstr "Videresend fra"
-
-msgid "Site"
-msgstr "Nettsted"
-
-msgid "Permanent"
-msgstr "Permanent"
-
 msgid ""
 "Recommended. Permanent redirects ensure search engines forget the old page "
 "(the 'Redirect from') and index the new page instead."
 msgstr ""
 "Anbefales. Permanent videresending sørger for at søkemotorer glemmer den "
 "gamle siden (\"Videresend fra\") og indekserer den nye siden i stedet."
-
-msgid "Redirect to a page"
-msgstr "Videresend til en side"
-
-msgid "Redirect to any URL"
-msgstr "Videresend til URL"
-
-msgid "Redirect"
-msgstr "Videresending"
 
 msgid "Add redirect"
 msgstr "Legg til videresending"
@@ -78,6 +60,9 @@ msgstr "Videresendinger"
 
 msgid "From"
 msgstr "Fra"
+
+msgid "Site"
+msgstr "Nettsted"
 
 msgid "To"
 msgstr "Til"

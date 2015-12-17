@@ -10,9 +10,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-09-02 20:07+0100\n"
-"PO-Revision-Date: 2015-12-16 13:50+0000\n"
-"Last-Translator: Thijs Kramer <thijskramer@gmail.com>\n"
+"POT-Creation-Date: 2015-12-17 13:54+0000\n"
+"PO-Revision-Date: 2015-12-17 13:58+0000\n"
+"Last-Translator: mattwestcott <matthew@torchbox.com>\n"
 "Language-Team: Dutch (Netherlands) (http://www.transifex.com/torchbox/"
 "wagtail/language/nl_NL/)\n"
 "MIME-Version: 1.0\n"
@@ -20,12 +20,6 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: nl_NL\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-
-msgid "Hostname"
-msgstr "Hostname"
-
-msgid "Port"
-msgstr "Poort"
 
 msgid ""
 "Set this to something other than 80 if you need a specific port number to "
@@ -35,12 +29,6 @@ msgstr ""
 "Stel dit op iets anders dan 80 in als er een specifiek poortnummer in de URL "
 "moet komen (bijv. development op poort 8000). Dit heeft geen effect op "
 "request afhandeling (dus port forwarding blijft werken)."
-
-msgid "Root page"
-msgstr "Root pagina"
-
-msgid "Is default site"
-msgstr "Is default site"
 
 msgid ""
 "If true, this site will handle requests for all other hostnames that do not "
@@ -63,14 +51,8 @@ msgstr ""
 "%(hostname)s is al geconfigureerd als de default site. Deze moet worden "
 "aangepast voordat deze site als default kan worden aangemerkt."
 
-msgid "Title"
-msgstr "Titel"
-
 msgid "The page title as you'd like it to be seen by the public"
 msgstr "De paginatitel zoals u wilt dat uw bezoekers dit zien"
-
-msgid "Slug"
-msgstr "Slug"
 
 msgid ""
 "The name of the page as it will appear in URLs e.g http://domain.com/blog/"
@@ -79,23 +61,11 @@ msgstr ""
 "De naam van de pagina zoals deze in de URL komt, bijv. http://website.nl/"
 "blog/[mijn-slug]/"
 
-msgid "Content type"
-msgstr "Content type"
-
-msgid "Live"
-msgstr "Live"
-
-msgid "Has unpublished changes"
-msgstr "Heeft ongepubliceerde wijzigingen"
+msgid "live"
+msgstr "live"
 
 msgid "URL path"
 msgstr "URL pad"
-
-msgid "Owner"
-msgstr "Eigenaar"
-
-msgid "Page title"
-msgstr "Paginatitel"
 
 msgid ""
 "Optional. 'Search Engine Friendly' title. This will appear at the top of the "
@@ -104,38 +74,14 @@ msgstr ""
 "Optioneel. 'Zoekmachine vriendelijke' titel. Deze titel wordt getoond in de "
 "top van de browser."
 
-msgid "Show in menus"
-msgstr "Toon in menu"
-
 msgid ""
 "Whether a link to this page will appear in automatically generated menus"
 msgstr ""
 "Indien aangevinkt komt er een link naar deze pagina in automatisch "
 "gegenereerde menu's te staan."
 
-msgid "Search description"
-msgstr "Zoek beschrijving"
-
-msgid "Go live date/time"
-msgstr "Publiceer op"
-
 msgid "Please add a date-time in the form YYYY-MM-DD hh:mm."
 msgstr "Vul een datum/tijd in het formaat YYYY-MM-DD hh:mm."
-
-msgid "Expiry date/time"
-msgstr "Verloopdatum/tijd"
-
-msgid "Expired"
-msgstr "Verlopen"
-
-msgid "Locked"
-msgstr "Op slot"
-
-msgid "First published at"
-msgstr "Voor het eerst gepubliceerd op"
-
-msgid "Latest revision created at"
-msgstr "Laatste revisie aangemaakt op"
 
 msgid "expired"
 msgstr "verlopen"
@@ -149,9 +95,6 @@ msgstr "concept"
 msgid "live + draft"
 msgstr "live + concept"
 
-msgid "live"
-msgstr "live"
-
 msgid "Default"
 msgstr "Default"
 
@@ -160,24 +103,6 @@ msgstr "pagina"
 
 msgid "pages"
 msgstr "pagina's"
-
-msgid "Page"
-msgstr "Pagina"
-
-msgid "Submitted for moderation"
-msgstr "Aangeboden voor moderatie"
-
-msgid "Created at"
-msgstr "Aangemaakt op"
-
-msgid "User"
-msgstr "Gebruiker"
-
-msgid "Content JSON"
-msgstr "Content JSON"
-
-msgid "Approved go live at"
-msgstr "Goedgekeurde publicatiedatum"
 
 msgid "page revision"
 msgstr "pagina revisie"
@@ -197,26 +122,14 @@ msgstr "Elke pagina publiceren"
 msgid "Lock/unlock any page"
 msgstr "Alle pagina's blokkeren/deblokkeren"
 
-msgid "Group"
-msgstr "Groep"
-
-msgid "Permission type"
-msgstr "Machtiging"
-
 msgid "group page permission"
 msgstr "groep pagina machtiging"
 
 msgid "group page permissions"
 msgstr "groep pagina machtigingen"
 
-msgid "Password"
-msgstr "Wachtwoord"
-
 msgid "page view restriction"
 msgstr "pagina weergave recht"
 
 msgid "page view restrictions"
 msgstr "pagina weergave rechten"
-
-msgid "Value cannot be entirely whitespace characters"
-msgstr "De waarde kan niet volledig uit spaties bestaan"

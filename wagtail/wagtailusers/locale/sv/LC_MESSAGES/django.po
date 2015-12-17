@@ -8,9 +8,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-08-26 14:28+0100\n"
-"PO-Revision-Date: 2015-12-06 12:21+0000\n"
-"Last-Translator: Thomas Kunambi <kunambi@gmail.com>\n"
+"POT-Creation-Date: 2015-12-17 13:55+0000\n"
+"PO-Revision-Date: 2015-12-17 14:00+0000\n"
+"Last-Translator: mattwestcott <matthew@torchbox.com>\n"
 "Language-Team: Swedish (http://www.transifex.com/torchbox/wagtail/language/"
 "sv/)\n"
 "MIME-Version: 1.0\n"
@@ -25,6 +25,12 @@ msgstr "Krävs. 30 tecken eller färre. Endast bokstäver, siffror och  @/./+/-/
 msgid "This value may contain only letters, numbers and @/./+/-/_ characters."
 msgstr ""
 "Detta värde får endast innehålla bokstäver, siffror och @/./+/-/_ tecken."
+
+msgid "A user with that username already exists."
+msgstr "En användare med det användarnamnet finns redan."
+
+msgid "The two password fields didn't match."
+msgstr "De två lösenordsfälten matchade inte."
 
 msgid "Administrator"
 msgstr "Administratör"
@@ -53,12 +59,6 @@ msgstr "Förnamn"
 msgid "Last Name"
 msgstr "Efternamn"
 
-msgid "A user with that username already exists."
-msgstr "En användare med det användarnamnet finns redan."
-
-msgid "The two password fields didn't match."
-msgstr "De två lösenordsfälten matchade inte."
-
 msgid "Administrators have the ability to manage user accounts."
 msgstr "Administratörer har rättigheten att förändra användarkonton."
 
@@ -68,20 +68,11 @@ msgstr "En grupp med det namnet existerar redan."
 msgid "Receive notification when a page is submitted for moderation"
 msgstr "Emotta notis när sida är inlämnad för moderering"
 
-msgid "Approved notifications"
-msgstr "Godkända notiser"
-
 msgid "Receive notification when your page edit is approved"
 msgstr "Emotta notis när din sideditering har godkänts"
 
-msgid "Rejected notifications"
-msgstr "Avvisade notiser"
-
 msgid "Receive notification when your page edit is rejected"
 msgstr "Emotta notis när din sideditering är avvisad"
-
-msgid "User Profile"
-msgstr "Användarprofil"
 
 msgid "Delete group"
 msgstr "Radera grupp"
@@ -263,6 +254,3 @@ msgstr "Användaren '{0}' uppdaterad."
 
 msgid "The user could not be saved due to errors."
 msgstr "Användaren kunde inte sparas p.g.a. fel."
-
-msgid "Groups"
-msgstr "Grupper"

@@ -8,9 +8,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-08-26 14:28+0100\n"
-"PO-Revision-Date: 2015-12-07 16:50+0000\n"
-"Last-Translator: 石田秀 <ishidashu@gmail.com>\n"
+"POT-Creation-Date: 2015-12-17 13:55+0000\n"
+"PO-Revision-Date: 2015-12-17 13:59+0000\n"
+"Last-Translator: mattwestcott <matthew@torchbox.com>\n"
 "Language-Team: Japanese (http://www.transifex.com/torchbox/wagtail/language/"
 "ja/)\n"
 "MIME-Version: 1.0\n"
@@ -19,30 +19,12 @@ msgstr ""
 "Language: ja\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
-msgid "Redirect from"
-msgstr "リダイレクト元"
-
-msgid "Site"
-msgstr "サイト"
-
-msgid "Permanent"
-msgstr "恒久"
-
 msgid ""
 "Recommended. Permanent redirects ensure search engines forget the old page "
 "(the 'Redirect from') and index the new page instead."
 msgstr ""
 "推奨：恒久的リダイレクトによりサーチエンジンから古いページが削除され、新しい"
 "ページを読み込むようになります。"
-
-msgid "Redirect to a page"
-msgstr "ページにリダイレクト"
-
-msgid "Redirect to any URL"
-msgstr "任意のURLにリダイレクト"
-
-msgid "Redirect"
-msgstr "リダイレクト"
 
 msgid "Add redirect"
 msgstr "リダイレクトを追加"
@@ -78,6 +60,9 @@ msgstr "リダイレクト"
 
 msgid "From"
 msgstr "リダイレクト元"
+
+msgid "Site"
+msgstr "サイト"
 
 msgid "To"
 msgstr "リダイレクト先"

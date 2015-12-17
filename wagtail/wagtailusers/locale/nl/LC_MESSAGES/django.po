@@ -8,9 +8,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-08-26 14:28+0100\n"
-"PO-Revision-Date: 2015-11-23 19:26+0000\n"
-"Last-Translator: Thijs Kramer <thijskramer@gmail.com>\n"
+"POT-Creation-Date: 2015-12-17 13:55+0000\n"
+"PO-Revision-Date: 2015-12-17 14:00+0000\n"
+"Last-Translator: mattwestcott <matthew@torchbox.com>\n"
 "Language-Team: Dutch (http://www.transifex.com/torchbox/wagtail/language/"
 "nl/)\n"
 "MIME-Version: 1.0\n"
@@ -24,6 +24,12 @@ msgstr "Verplicht. Maximaal 30 tekens. Alleen letters, cijfers en @/./+/-/_."
 
 msgid "This value may contain only letters, numbers and @/./+/-/_ characters."
 msgstr "Deze waarde mag alleen letters, cijfers en @/./+/-/_ bevatten."
+
+msgid "A user with that username already exists."
+msgstr "Deze gebruikersnaam bestaat al. "
+
+msgid "The two password fields didn't match."
+msgstr "De beide wachtwoordvelden komen niet overeen."
 
 msgid "Administrator"
 msgstr "Beheerder"
@@ -54,38 +60,20 @@ msgstr "Voornaam"
 msgid "Last Name"
 msgstr "Achternaam"
 
-msgid "A user with that username already exists."
-msgstr "Deze gebruikersnaam bestaat al. "
-
-msgid "The two password fields didn't match."
-msgstr "De beide wachtwoordvelden komen niet overeen."
-
 msgid "Administrators have the ability to manage user accounts."
 msgstr "Beheerders hebben de mogelijkheid om gebruikersaccounts te beheren. "
 
 msgid "A group with that name already exists."
 msgstr "Er bestaat al een groep met deze naam. "
 
-msgid "Submitted notifications"
-msgstr "Verzonden notificaties"
-
 msgid "Receive notification when a page is submitted for moderation"
 msgstr "Ontvang een bericht wanneer een pagina ter goedkeuring is aangeboden"
-
-msgid "Approved notifications"
-msgstr "Goedgekeurde notificaties"
 
 msgid "Receive notification when your page edit is approved"
 msgstr "Ontvang een bericht wanneer uw wijziging op een pagina is goedgekeurd"
 
-msgid "Rejected notifications"
-msgstr "Afgewezen notificaties"
-
 msgid "Receive notification when your page edit is rejected"
 msgstr "Ontvang een bericht wanneer uw wijziging op een pagina is afgekeurd"
-
-msgid "User Profile"
-msgstr "Gebruikersprofiel"
 
 msgid "Delete group"
 msgstr "Verwijder groep"
@@ -251,6 +239,3 @@ msgstr "Gebruiker '{0}' is gewijzigd."
 
 msgid "The user could not be saved due to errors."
 msgstr "De gebruiker kon vanwege foutmeldingen niet opgeslagen worden."
-
-msgid "Groups"
-msgstr "Groepen"

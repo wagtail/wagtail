@@ -8,9 +8,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-08-26 14:28+0100\n"
-"PO-Revision-Date: 2015-12-12 22:49+0000\n"
-"Last-Translator: dellax <michalnebbia@gmail.com>\n"
+"POT-Creation-Date: 2015-12-17 13:55+0000\n"
+"PO-Revision-Date: 2015-12-17 14:00+0000\n"
+"Last-Translator: mattwestcott <matthew@torchbox.com>\n"
 "Language-Team: Slovak (Slovakia) (http://www.transifex.com/torchbox/wagtail/"
 "language/sk_SK/)\n"
 "MIME-Version: 1.0\n"
@@ -21,9 +21,6 @@ msgstr ""
 
 msgid "Choose"
 msgstr "Zvoliť"
-
-msgid "Title"
-msgstr "Titulok"
 
 #, python-format
 msgid "Delete %(snippet_type_name)s - %(instance)s"
@@ -49,9 +46,8 @@ msgstr "Nový"
 msgid "Save"
 msgstr "Uložiť"
 
-#, python-format
-msgid "Add %(snippet_type_name)s"
-msgstr "Pridať %(snippet_type_name)s"
+msgid "Title"
+msgstr "Titulok"
 
 #, python-format
 msgid ""
@@ -60,6 +56,10 @@ msgid ""
 msgstr ""
 "Zatiaľ neboli vytvorené žiadne %(snippet_type_name_plural)s. Prečo "
 "nevytvoriť <a href=\"%(wagtailsnippets_create_url)s\">jeden teraz</a>?"
+
+#, python-format
+msgid "Add %(snippet_type_name)s"
+msgstr "Pridať %(snippet_type_name)s"
 
 msgid "Parent"
 msgstr "Rodič"

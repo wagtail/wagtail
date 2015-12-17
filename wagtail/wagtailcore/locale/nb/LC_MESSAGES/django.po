@@ -8,9 +8,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-09-02 20:07+0100\n"
-"PO-Revision-Date: 2015-09-02 20:00+0000\n"
-"Last-Translator: Eirik Krogstad <eirikkr@gmail.com>\n"
+"POT-Creation-Date: 2015-12-17 13:54+0000\n"
+"PO-Revision-Date: 2015-12-17 13:58+0000\n"
+"Last-Translator: mattwestcott <matthew@torchbox.com>\n"
 "Language-Team: Norwegian Bokmål (http://www.transifex.com/torchbox/wagtail/"
 "language/nb/)\n"
 "MIME-Version: 1.0\n"
@@ -18,12 +18,6 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: nb\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-
-msgid "Hostname"
-msgstr "Vertsnavn"
-
-msgid "Port"
-msgstr "Port"
 
 msgid ""
 "Set this to something other than 80 if you need a specific port number to "
@@ -33,12 +27,6 @@ msgstr ""
 "Sett denne til noe annet enn 80 dersom du har behov for at en spesifikk port "
 "vises i URLer (feks. utvikling på port 8000). Dette påvirker ikke håndtering "
 "av forespørsler (så port forwarding fungerer fortsatt)."
-
-msgid "Root page"
-msgstr "Rotside"
-
-msgid "Is default site"
-msgstr "Er standard nettsted"
 
 msgid ""
 "If true, this site will handle requests for all other hostnames that do not "
@@ -61,14 +49,8 @@ msgstr ""
 "%(hostname)s er allerede satt opp som standard nettsted. Du må endre det før "
 "du kan konfigurere dette nettstedet som standard."
 
-msgid "Title"
-msgstr "Tittel"
-
 msgid "The page title as you'd like it to be seen by the public"
 msgstr "Tiittel på siden slik den vises offentlig"
-
-msgid "Slug"
-msgstr "Permalenke"
 
 msgid ""
 "The name of the page as it will appear in URLs e.g http://domain.com/blog/"
@@ -77,23 +59,11 @@ msgstr ""
 "Navnet på siden slik det vil vises i URLer, feks. http://domene.no/blogg/min-"
 "slug/"
 
-msgid "Content type"
-msgstr "Innholdstype"
-
-msgid "Live"
-msgstr "Publisert"
-
-msgid "Has unpublished changes"
-msgstr "Har upubliserte endringer"
+msgid "live"
+msgstr "publisert"
 
 msgid "URL path"
 msgstr "URL-sti"
-
-msgid "Owner"
-msgstr "Eier"
-
-msgid "Page title"
-msgstr "Sidetittel"
 
 msgid ""
 "Optional. 'Search Engine Friendly' title. This will appear at the top of the "
@@ -101,37 +71,13 @@ msgid ""
 msgstr ""
 "Valgfritt. \"Søkemotorvennlig\" tittel. Vises øverst på nettleservinduet."
 
-msgid "Show in menus"
-msgstr "Vis i menyer"
-
 msgid ""
 "Whether a link to this page will appear in automatically generated menus"
 msgstr ""
 "Hvorvidt en lenke til denne siden skal vises i automatisk genererte menyer"
 
-msgid "Search description"
-msgstr "Søkemotorbeskrivelse"
-
-msgid "Go live date/time"
-msgstr "Tidspunkt for planlagt publisering"
-
 msgid "Please add a date-time in the form YYYY-MM-DD hh:mm."
 msgstr "Legg inn et tidspunkt på formen ÅÅÅÅ-MM-DD tt:mm."
-
-msgid "Expiry date/time"
-msgstr "Tidspunkt for avpublisering"
-
-msgid "Expired"
-msgstr "Avpublisert"
-
-msgid "Locked"
-msgstr "Låst"
-
-msgid "First published at"
-msgstr "Først publisert"
-
-msgid "Latest revision created at"
-msgstr "Siste utgave opprettet"
 
 msgid "expired"
 msgstr "avpublisert"
@@ -145,9 +91,6 @@ msgstr "kladd"
 msgid "live + draft"
 msgstr "publisert + kladd"
 
-msgid "live"
-msgstr "publisert"
-
 msgid "Default"
 msgstr "Standard"
 
@@ -156,24 +99,6 @@ msgstr "side"
 
 msgid "pages"
 msgstr "sider"
-
-msgid "Page"
-msgstr "Side"
-
-msgid "Submitted for moderation"
-msgstr "Sendt til godkjenning"
-
-msgid "Created at"
-msgstr "Opprettet"
-
-msgid "User"
-msgstr "Bruker"
-
-msgid "Content JSON"
-msgstr "JSON for innhold"
-
-msgid "Approved go live at"
-msgstr "Godkjent for publisering"
 
 msgid "page revision"
 msgstr "sideutgave"
@@ -193,26 +118,14 @@ msgstr "Publiser enhver side"
 msgid "Lock/unlock any page"
 msgstr "Lås/lås opp enhver side"
 
-msgid "Group"
-msgstr "Gruppe"
-
-msgid "Permission type"
-msgstr "Tillatelsestype"
-
 msgid "group page permission"
 msgstr "gruppetillatelse for side"
 
 msgid "group page permissions"
 msgstr "gruppetillatelser for sider"
 
-msgid "Password"
-msgstr "Passord"
-
 msgid "page view restriction"
 msgstr "visningsbegrensning for side"
 
 msgid "page view restrictions"
 msgstr "visningsbegrensninger for sider"
-
-msgid "Value cannot be entirely whitespace characters"
-msgstr "Verdien kan ikke være bare tomme tegn"

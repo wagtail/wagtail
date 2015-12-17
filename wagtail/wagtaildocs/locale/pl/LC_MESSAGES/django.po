@@ -9,9 +9,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-08-26 14:28+0100\n"
-"PO-Revision-Date: 2015-04-21 08:40+0000\n"
-"Last-Translator: Karl Hobley <karl@torchbox.com>\n"
+"POT-Creation-Date: 2015-12-17 13:54+0000\n"
+"PO-Revision-Date: 2015-12-17 13:58+0000\n"
+"Last-Translator: mattwestcott <matthew@torchbox.com>\n"
 "Language-Team: Polish (http://www.transifex.com/torchbox/wagtail/language/"
 "pl/)\n"
 "MIME-Version: 1.0\n"
@@ -21,15 +21,6 @@ msgstr ""
 "Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
 "|| n%100>=20) ? 1 : 2);\n"
 
-msgid "Title"
-msgstr "Tytuł"
-
-msgid "File"
-msgstr "Plik"
-
-msgid "Tags"
-msgstr "Tagi"
-
 msgid "Choose a document"
 msgstr "Wybierz dokument"
 
@@ -38,9 +29,6 @@ msgstr "Szukaj"
 
 msgid "Upload"
 msgstr "Prześlij"
-
-msgid "Save"
-msgstr "Zapisz"
 
 #, python-format
 msgid ""
@@ -101,8 +89,17 @@ msgstr "Edycja %(title)s"
 msgid "Editing"
 msgstr "Edycja"
 
+msgid "Save"
+msgstr "Zapisz"
+
 msgid "Documents"
 msgstr "Dokumenty"
+
+msgid "Title"
+msgstr "Tytuł"
+
+msgid "File"
+msgstr "Plik"
 
 msgid "Uploaded"
 msgstr "Przesłano"

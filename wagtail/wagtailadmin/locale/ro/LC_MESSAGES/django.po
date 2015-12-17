@@ -8,9 +8,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-08-26 14:28+0100\n"
-"PO-Revision-Date: 2015-11-02 15:46+0000\n"
-"Last-Translator: Dan Braghis\n"
+"POT-Creation-Date: 2015-12-17 13:54+0000\n"
+"PO-Revision-Date: 2015-12-17 13:57+0000\n"
+"Last-Translator: mattwestcott <matthew@torchbox.com>\n"
 "Language-Team: Romanian (http://www.transifex.com/torchbox/wagtail/language/"
 "ro/)\n"
 "MIME-Version: 1.0\n"
@@ -310,10 +310,6 @@ msgstr "Puteți edita pagina aici:"
 msgid "The page \"%(page)s\" has been submitted for moderation"
 msgstr "Pagina \"%(page)s\" a fost trimisă pentru moderare"
 
-#, python-format
-msgid "The page \"%(page)s\" has been submitted for moderation."
-msgstr "Pagina \"%(page)s\" a fost trimisă pentru moderare."
-
 msgid "You can preview the page here:"
 msgstr "Puteți examina pagina aici:"
 
@@ -443,7 +439,7 @@ msgstr "%(page_type)s nouă"
 msgid "New"
 msgstr "Nou"
 
-msgid "Save as draft"
+msgid "Save draft"
 msgstr "Salvează ca ciornă"
 
 msgid "Publish"
@@ -454,9 +450,6 @@ msgstr "Trimite pentru moderare"
 
 msgid "Page locked"
 msgstr "Pagină blocată"
-
-msgid "Save draft"
-msgstr "Salvează ca ciornă"
 
 #, python-format
 msgid "Last modified: %(last_mod)s"
@@ -515,18 +508,6 @@ msgstr "Alege o pagină de bază nouă pentru %(title)s"
 #, python-format
 msgid "Select a new parent page for <span>%(title)s</span>"
 msgstr "Alege o pagină de bază nouă pentru <span>%(title)s</span>"
-
-msgid "Other searches"
-msgstr "Alte căutări"
-
-msgid "Images"
-msgstr "Imagini"
-
-msgid "Documents"
-msgstr "Documente"
-
-msgid "Users"
-msgstr "Utilizatori"
 
 #, python-format
 msgid "Sorry, no pages match <em>\"%(query_string)s\"</em>"
@@ -612,6 +593,9 @@ msgstr "Deconectare"
 #, python-format
 msgid "Page %(page_num)s of %(total_pages)s."
 msgstr "Pagina %(page_num)s din %(total_pages)s."
+
+msgid "Other searches"
+msgstr "Alte căutări"
 
 msgid "User bar"
 msgstr "Bară utilizator"

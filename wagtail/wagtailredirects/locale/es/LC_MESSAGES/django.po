@@ -13,9 +13,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-08-26 14:28+0100\n"
-"PO-Revision-Date: 2015-04-22 02:20+0000\n"
-"Last-Translator: José Alaguna <alagunajs@gmail.com>\n"
+"POT-Creation-Date: 2015-12-17 13:55+0000\n"
+"PO-Revision-Date: 2015-12-17 13:59+0000\n"
+"Last-Translator: mattwestcott <matthew@torchbox.com>\n"
 "Language-Team: Spanish (http://www.transifex.com/torchbox/wagtail/language/"
 "es/)\n"
 "MIME-Version: 1.0\n"
@@ -24,15 +24,6 @@ msgstr ""
 "Language: es\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-msgid "Redirect from"
-msgstr "Redirigir desde"
-
-msgid "Site"
-msgstr "Sitio"
-
-msgid "Permanent"
-msgstr "Permanente"
-
 msgid ""
 "Recommended. Permanent redirects ensure search engines forget the old page "
 "(the 'Redirect from') and index the new page instead."
@@ -40,15 +31,6 @@ msgstr ""
 "Recomendado. Las redirecciones permanentes aseguran que los motores de "
 "búsqueda olviden la página vieja (el enlace 'redirigir desde') e indexa la "
 "nueva página en su lugar."
-
-msgid "Redirect to a page"
-msgstr "Redirigir a una página"
-
-msgid "Redirect to any URL"
-msgstr "Redirigir a alguna URL"
-
-msgid "Redirect"
-msgstr "Redirigir"
 
 msgid "Add redirect"
 msgstr "Añadir redirección"
@@ -84,6 +66,9 @@ msgstr "Redireccionamientos"
 
 msgid "From"
 msgstr "Desde"
+
+msgid "Site"
+msgstr "Sitio"
 
 msgid "To"
 msgstr "A"

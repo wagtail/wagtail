@@ -8,9 +8,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-08-26 14:28+0100\n"
-"PO-Revision-Date: 2015-12-12 23:07+0000\n"
-"Last-Translator: dellax <michalnebbia@gmail.com>\n"
+"POT-Creation-Date: 2015-12-17 13:54+0000\n"
+"PO-Revision-Date: 2015-12-17 13:57+0000\n"
+"Last-Translator: mattwestcott <matthew@torchbox.com>\n"
 "Language-Team: Slovak (Slovakia) (http://www.transifex.com/torchbox/wagtail/"
 "language/sk_SK/)\n"
 "MIME-Version: 1.0\n"
@@ -314,10 +314,6 @@ msgstr "Tu môžete upraviť stránku:"
 msgid "The page \"%(page)s\" has been submitted for moderation"
 msgstr "Stránka \"%(page)s\" bola odoslaná na moderáciu"
 
-#, python-format
-msgid "The page \"%(page)s\" has been submitted for moderation."
-msgstr "Stránka \"%(page)s\" bola odoslaná na moderáciu."
-
 msgid "You can preview the page here:"
 msgstr "Tu môžete vidieť stránku:"
 
@@ -402,8 +398,8 @@ msgstr "Nový  %(page_type)s"
 msgid "New"
 msgstr "Nový"
 
-msgid "Save as draft"
-msgstr "Uložiť ako koncept"
+msgid "Save draft"
+msgstr "Uložiť koncept"
 
 msgid "Publish"
 msgstr "Publikovať"
@@ -413,9 +409,6 @@ msgstr "Odoslať na moderáciu"
 
 msgid "Page locked"
 msgstr "Stránka je uzamknutá"
-
-msgid "Save draft"
-msgstr "Uložiť koncept"
 
 #, python-format
 msgid "Last modified: %(last_mod)s"
@@ -466,18 +459,6 @@ msgstr "Zvolte novú rodičovskú stránku pre %(title)s"
 #, python-format
 msgid "Select a new parent page for <span>%(title)s</span>"
 msgstr "Zvoľte novú rodičovskú stránku pre  <span>%(title)s</span>"
-
-msgid "Other searches"
-msgstr "Ostatné výsledky hľadania"
-
-msgid "Images"
-msgstr "Obrázky"
-
-msgid "Documents"
-msgstr "Dokumenty"
-
-msgid "Users"
-msgstr "Používatelia"
 
 msgid "Enter a search term above"
 msgstr "Zadajte hľadaný výraz"
@@ -554,6 +535,9 @@ msgstr "Upraviť váš účet"
 
 msgid "Log out"
 msgstr "Odhlásiť sa"
+
+msgid "Other searches"
+msgstr "Ostatné výsledky hľadania"
 
 msgid ""
 "You are using an <strong>outdated</strong> browser not supported by this "

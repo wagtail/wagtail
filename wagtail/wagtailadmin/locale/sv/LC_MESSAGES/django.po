@@ -9,9 +9,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-08-26 14:28+0100\n"
-"PO-Revision-Date: 2015-12-06 12:16+0000\n"
-"Last-Translator: Thomas Kunambi <kunambi@gmail.com>\n"
+"POT-Creation-Date: 2015-12-17 13:54+0000\n"
+"PO-Revision-Date: 2015-12-17 13:57+0000\n"
+"Last-Translator: mattwestcott <matthew@torchbox.com>\n"
 "Language-Team: Swedish (http://www.transifex.com/torchbox/wagtail/language/"
 "sv/)\n"
 "MIME-Version: 1.0\n"
@@ -388,10 +388,6 @@ msgstr "Du kan editera sidan här:"
 msgid "The page \"%(page)s\" has been submitted for moderation"
 msgstr "Sidan \"%(page)s\" har lämnats in för moderering"
 
-#, python-format
-msgid "The page \"%(page)s\" has been submitted for moderation."
-msgstr "Sidan \"%(page)s\" har lämnats in för moderering."
-
 msgid "You can preview the page here:"
 msgstr "Du kan förhandsgranska sidan här:"
 
@@ -533,8 +529,8 @@ msgstr "Nya %(page_type)s"
 msgid "New"
 msgstr "Ny"
 
-msgid "Save as draft"
-msgstr "Spara som utkast"
+msgid "Save draft"
+msgstr "Spara utkast"
 
 msgid "Publish"
 msgstr "Publicera"
@@ -552,9 +548,6 @@ msgstr "Editerar %(page_type)s <span>%(title)s</span>"
 
 msgid "Page locked"
 msgstr "Sida låst"
-
-msgid "Save draft"
-msgstr "Spara utkast"
 
 #, python-format
 msgid "Last modified: %(last_mod)s"
@@ -666,18 +659,6 @@ msgstr[1] ""
 "                Det finns %(counter)s matchande sidor\n"
 "            "
 
-msgid "Other searches"
-msgstr "Andra sökningar"
-
-msgid "Images"
-msgstr "Bilder"
-
-msgid "Documents"
-msgstr "Dokument"
-
-msgid "Users"
-msgstr "Användare"
-
 #, python-format
 msgid "Sorry, no pages match <em>\"%(query_string)s\"</em>"
 msgstr "Ledsen, inga sidor matchar <em>\"%(query_string)s\"</em>"
@@ -763,6 +744,9 @@ msgstr "Logga ut"
 #, python-format
 msgid "Page %(page_num)s of %(total_pages)s."
 msgstr "Sida %(page_num)s av %(total_pages)s."
+
+msgid "Other searches"
+msgstr "Andra sökningar"
 
 msgid ""
 "You are using an <strong>outdated</strong> browser not supported by this "

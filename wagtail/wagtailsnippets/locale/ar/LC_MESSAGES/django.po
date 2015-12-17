@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-08-26 14:28+0100\n"
-"PO-Revision-Date: 2015-12-17 13:23+0000\n"
+"POT-Creation-Date: 2015-12-17 13:55+0000\n"
+"PO-Revision-Date: 2015-12-17 14:00+0000\n"
 "Last-Translator: mattwestcott <matthew@torchbox.com>\n"
 "Language-Team: Arabic (http://www.transifex.com/torchbox/wagtail/language/"
 "ar/)\n"
@@ -22,9 +22,6 @@ msgstr ""
 
 msgid "Choose"
 msgstr "اختر"
-
-msgid "Title"
-msgstr "عنوان"
 
 msgid "Delete"
 msgstr "احذف"
@@ -43,6 +40,9 @@ msgstr "تنقيح"
 
 msgid "Snippets"
 msgstr "قصاصات"
+
+msgid "Title"
+msgstr "عنوان"
 
 msgid "Usage of"
 msgstr "استعمال"

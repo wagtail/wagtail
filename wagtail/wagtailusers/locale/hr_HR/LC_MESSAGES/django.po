@@ -8,9 +8,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-08-26 14:28+0100\n"
-"PO-Revision-Date: 2015-06-09 19:49+0000\n"
-"Last-Translator: Luka Matijević <lumatijev@gmail.com>\n"
+"POT-Creation-Date: 2015-12-17 13:55+0000\n"
+"PO-Revision-Date: 2015-12-17 14:00+0000\n"
+"Last-Translator: mattwestcott <matthew@torchbox.com>\n"
 "Language-Team: Croatian (Croatia) (http://www.transifex.com/torchbox/wagtail/"
 "language/hr_HR/)\n"
 "MIME-Version: 1.0\n"
@@ -24,6 +24,12 @@ msgid "Required. 30 characters or fewer. Letters, digits and @/./+/-/_ only."
 msgstr ""
 "Obavezno. 30 znakova ili manje. Dozvoljena su slova, brojevi i @/./+/-/_ "
 "znakovi."
+
+msgid "A user with that username already exists."
+msgstr "Korisničko ime već postoji."
+
+msgid "The two password fields didn't match."
+msgstr "Lozinke nisu jednake."
 
 msgid "Administrator"
 msgstr "Administrator"
@@ -43,17 +49,8 @@ msgstr "Ime"
 msgid "Last Name"
 msgstr "Prezime"
 
-msgid "A user with that username already exists."
-msgstr "Korisničko ime već postoji."
-
-msgid "The two password fields didn't match."
-msgstr "Lozinke nisu jednake."
-
 msgid "A group with that name already exists."
 msgstr "Grupa s danim imenom već postoji."
-
-msgid "User Profile"
-msgstr "Korisnički profil"
 
 msgid "Delete group"
 msgstr "Obriši grupu"

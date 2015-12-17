@@ -8,9 +8,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-09-02 20:07+0100\n"
-"PO-Revision-Date: 2015-09-03 19:36+0000\n"
-"Last-Translator: Dan Braghis\n"
+"POT-Creation-Date: 2015-12-17 13:54+0000\n"
+"PO-Revision-Date: 2015-12-17 13:58+0000\n"
+"Last-Translator: mattwestcott <matthew@torchbox.com>\n"
 "Language-Team: Romanian (http://www.transifex.com/torchbox/wagtail/language/"
 "ro/)\n"
 "MIME-Version: 1.0\n"
@@ -19,12 +19,6 @@ msgstr ""
 "Language: ro\n"
 "Plural-Forms: nplurals=3; plural=(n==1?0:(((n%100>19)||((n%100==0)&&(n!=0)))?"
 "2:1));\n"
-
-msgid "Hostname"
-msgstr "Nume gazdă"
-
-msgid "Port"
-msgstr "Port"
 
 msgid ""
 "Set this to something other than 80 if you need a specific port number to "
@@ -35,12 +29,6 @@ msgstr ""
 "internet (de exemplu, dezvoltare pe portul 8000)  setați aceasta la altceva "
 "decât 80. Nu influențează gestionarea solicitărilor și transmiterile de port "
 "vor continua să funcționeze."
-
-msgid "Root page"
-msgstr "Pagină de bază"
-
-msgid "Is default site"
-msgstr "Site implicit"
 
 msgid ""
 "If true, this site will handle requests for all other hostnames that do not "
@@ -63,9 +51,6 @@ msgstr ""
 "%(hostname)s este definit deja ca sit implicit și trebuie schimbat pentru a "
 "putea seta acest sit ca implicit "
 
-msgid "Title"
-msgstr "Titlu"
-
 msgid "The page title as you'd like it to be seen by the public"
 msgstr "Titlul paginii așa cum doriți să fie vizibil public"
 
@@ -76,20 +61,8 @@ msgstr ""
 "Numele paginii așa cum va apărea în adrese. De exemplu, http://domain.com/"
 "blog/[my-slug]/"
 
-msgid "Content type"
-msgstr "Tip de conținut"
-
-msgid "Has unpublished changes"
-msgstr "Conține modificări nepublicate"
-
 msgid "URL path"
 msgstr "Cale"
-
-msgid "Owner"
-msgstr "Proprietar"
-
-msgid "Page title"
-msgstr "Titlu pagină"
 
 msgid ""
 "Optional. 'Search Engine Friendly' title. This will appear at the top of the "
@@ -98,32 +71,14 @@ msgstr ""
 "Opțional. Titlu favorabil motoarelor de căutare. Apare în partea de sus a "
 "browserului."
 
-msgid "Show in menus"
-msgstr "Arată în meniuri"
-
 msgid ""
 "Whether a link to this page will appear in automatically generated menus"
 msgstr ""
 "Dacă un link către această pagină va apărea în meniurile generate în mod "
 "automat"
 
-msgid "Search description"
-msgstr "Descriere pentru căutare"
-
-msgid "Go live date/time"
-msgstr "Data/timpul de publicare"
-
 msgid "Please add a date-time in the form YYYY-MM-DD hh:mm."
 msgstr "Introduceți data și timpul în format YYYY-MM-DD hh:mm."
-
-msgid "Expiry date/time"
-msgstr "Data/timpul de expirare"
-
-msgid "Expired"
-msgstr "Expirat"
-
-msgid "Locked"
-msgstr "Blocat"
 
 msgid "expired"
 msgstr "expirat"
@@ -143,24 +98,6 @@ msgstr "pagină"
 msgid "pages"
 msgstr "pagini"
 
-msgid "Page"
-msgstr "Pagină"
-
-msgid "Submitted for moderation"
-msgstr "Trimisă pentru moderare."
-
-msgid "Created at"
-msgstr "Creat la"
-
-msgid "User"
-msgstr "Utilizator"
-
-msgid "Content JSON"
-msgstr "Conținut JSON"
-
-msgid "Approved go live at"
-msgstr "Aprobat pentru publicare la"
-
 msgid "page revision"
 msgstr "revizie pagină"
 
@@ -179,26 +116,14 @@ msgstr "Publică orice pagină"
 msgid "Lock/unlock any page"
 msgstr "Blochează/deblochează orice pagină"
 
-msgid "Group"
-msgstr "Grup"
-
-msgid "Permission type"
-msgstr "Tip permisiune"
-
 msgid "group page permission"
 msgstr "permisie grup pagină"
 
 msgid "group page permissions"
 msgstr "permisiuni grup pagină"
 
-msgid "Password"
-msgstr "Parolă"
-
 msgid "page view restriction"
 msgstr "restricție de vizualizare pagină"
 
 msgid "page view restrictions"
 msgstr "restricții de vizualizare pagină"
-
-msgid "Value cannot be entirely whitespace characters"
-msgstr "Valoarea nu poate fi în întregime caractere spații albe"

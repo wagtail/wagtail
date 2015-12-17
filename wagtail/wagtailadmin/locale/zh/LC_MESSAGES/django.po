@@ -8,9 +8,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-08-26 14:28+0100\n"
-"PO-Revision-Date: 2015-08-26 13:37+0000\n"
-"Last-Translator: Karl Hobley <karl@torchbox.com>\n"
+"POT-Creation-Date: 2015-12-17 13:54+0000\n"
+"PO-Revision-Date: 2015-12-17 13:57+0000\n"
+"Last-Translator: mattwestcott <matthew@torchbox.com>\n"
 "Language-Team: Chinese (http://www.transifex.com/torchbox/wagtail/language/"
 "zh/)\n"
 "MIME-Version: 1.0\n"
@@ -218,10 +218,6 @@ msgstr "你可以在此编辑这个页面："
 msgid "The page \"%(page)s\" has been submitted for moderation"
 msgstr "这个页面 \"%(page)s\" 已经提交审核"
 
-#, python-format
-msgid "The page \"%(page)s\" has been submitted for moderation."
-msgstr "这个页面 \"%(page)s\" 已经提交审核。"
-
 msgid "You can preview the page here:"
 msgstr "你可以在此预览这页："
 
@@ -300,17 +296,14 @@ msgstr "新%(page_type)s类"
 msgid "New"
 msgstr "新"
 
-msgid "Save as draft"
-msgstr "保存为草稿"
+msgid "Save draft"
+msgstr "保存草稿"
 
 msgid "Publish"
 msgstr "发布"
 
 msgid "Submit for moderation"
 msgstr "提交审核"
-
-msgid "Save draft"
-msgstr "保存草稿"
 
 #, python-format
 msgid "Last modified: %(last_mod)s"
@@ -362,15 +355,6 @@ msgstr "为%(title)s选择一个新的根页面"
 #, python-format
 msgid "Select a new parent page for <span>%(title)s</span>"
 msgstr "为<span>%(title)s</span>选择一个新的根页面"
-
-msgid "Images"
-msgstr "图像"
-
-msgid "Documents"
-msgstr "文档"
-
-msgid "Users"
-msgstr "用户"
 
 msgid "Enter a search term above"
 msgstr "请在上面输入搜索词"

@@ -9,9 +9,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-08-26 14:46+0100\n"
-"PO-Revision-Date: 2015-08-26 14:14+0000\n"
-"Last-Translator: Karl Hobley <karl@torchbox.com>\n"
+"POT-Creation-Date: 2015-12-17 13:54+0000\n"
+"PO-Revision-Date: 2015-12-17 14:02+0000\n"
+"Last-Translator: mattwestcott <matthew@torchbox.com>\n"
 "Language-Team: Portuguese (Brazil) (http://www.transifex.com/torchbox/"
 "wagtail/language/pt_BR/)\n"
 "MIME-Version: 1.0\n"
@@ -22,12 +22,6 @@ msgstr ""
 
 msgid "Please specify at least one recommendation for this search term."
 msgstr "Especifique pelo menos uma recomendação para este termo de busca."
-
-msgid "Page"
-msgstr "Página"
-
-msgid "Description"
-msgstr "Descrição"
 
 msgid ""
 "\n"
@@ -113,9 +107,6 @@ msgstr "Resultados promovidos"
 
 msgid "Views (past week)"
 msgstr "Visualizações (última semana)"
-
-msgid "Edit this pick"
-msgstr "Editar sugestão do editor"
 
 msgid "None"
 msgstr "Nenhum"

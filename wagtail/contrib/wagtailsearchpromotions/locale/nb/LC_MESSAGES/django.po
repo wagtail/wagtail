@@ -8,9 +8,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-08-26 14:46+0100\n"
-"PO-Revision-Date: 2015-09-02 14:43+0000\n"
-"Last-Translator: Eirik Krogstad <eirikkr@gmail.com>\n"
+"POT-Creation-Date: 2015-12-17 13:54+0000\n"
+"PO-Revision-Date: 2015-12-17 14:02+0000\n"
+"Last-Translator: mattwestcott <matthew@torchbox.com>\n"
 "Language-Team: Norwegian Bokmål (http://www.transifex.com/torchbox/wagtail/"
 "language/nb/)\n"
 "MIME-Version: 1.0\n"
@@ -21,15 +21,6 @@ msgstr ""
 
 msgid "Please specify at least one recommendation for this search term."
 msgstr "Vennligst spesifiser minst en anbefaling for dette søkeordet."
-
-msgid "Page"
-msgstr "Side"
-
-msgid "Description"
-msgstr "Beskrivelse"
-
-msgid "Search promotion"
-msgstr "Søkepromotering"
 
 msgid "Add search pick"
 msgstr "Legg til søkevalg"
@@ -119,9 +110,6 @@ msgstr "Forfremmede resultater"
 
 msgid "Views (past week)"
 msgstr "Visninger (siste uke)"
-
-msgid "Edit this pick"
-msgstr "Endre dette resultatet"
 
 msgid "None"
 msgstr "Ingen"

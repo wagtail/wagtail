@@ -8,9 +8,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-08-26 14:28+0100\n"
-"PO-Revision-Date: 2015-09-02 12:38+0000\n"
-"Last-Translator: Eirik Krogstad <eirikkr@gmail.com>\n"
+"POT-Creation-Date: 2015-12-17 13:54+0000\n"
+"PO-Revision-Date: 2015-12-17 14:01+0000\n"
+"Last-Translator: mattwestcott <matthew@torchbox.com>\n"
 "Language-Team: Norwegian Bokmål (http://www.transifex.com/torchbox/wagtail/"
 "language/nb/)\n"
 "MIME-Version: 1.0\n"
@@ -52,26 +52,8 @@ msgstr "Dato"
 msgid "Date/time"
 msgstr "Dato/klokkeslett"
 
-msgid "Submit time"
-msgstr "Tidspunkt innsendt"
-
-msgid "Form Submission"
-msgstr "Innsendt skjema"
-
-msgid "Label"
-msgstr "Feltnavn"
-
 msgid "The label of the form field"
 msgstr "Visningsnavn for skjemafeltet"
-
-msgid "Field type"
-msgstr "Felttype"
-
-msgid "Required"
-msgstr "Påkrevet"
-
-msgid "Choices"
-msgstr "Valg"
 
 msgid ""
 "Comma separated list of choices. Only applicable in checkboxes, radio and "
@@ -80,26 +62,11 @@ msgstr ""
 "Kommaseparert liste av valg. Brukes bare for avkrysningsbokser, radioknapper "
 "og rullegardinmeny."
 
-msgid "Default value"
-msgstr "Standardverdi"
-
 msgid "Default value. Comma separated values supported for checkboxes."
 msgstr "Standardverdi. Kommaseparerte verdier støttes for avkrysningsbokser."
 
-msgid "Help text"
-msgstr "Hjelpetekst"
-
-msgid "To address"
-msgstr "Til-adresse"
-
 msgid "Optional - form submissions will be emailed to this address"
 msgstr "Valgfritt - innsendte skjema blir sendt til denne e-postadressen"
-
-msgid "From address"
-msgstr "Fra-adresse"
-
-msgid "Subject"
-msgstr "Emne"
 
 #, python-format
 msgid "Delete %(title)s"

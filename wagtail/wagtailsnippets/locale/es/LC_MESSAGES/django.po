@@ -5,6 +5,7 @@
 # Translators:
 # fooflare <amos.oviedo@gmail.com>, 2014
 # fooflare <amos.oviedo@gmail.com>, 2014
+# chimeno <daniel@chimeno.me>, 2015
 # fooflare <amos.oviedo@gmail.com>, 2014
 # Joaquín Tita <carpincho@gmail.com>, 2014
 # Mauricio Baeza <web@mauriciobaeza.net>, 2015
@@ -12,9 +13,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-08-26 14:28+0100\n"
-"PO-Revision-Date: 2015-04-12 16:25+0000\n"
-"Last-Translator: Mauricio Baeza <web@mauriciobaeza.net>\n"
+"POT-Creation-Date: 2015-12-17 13:55+0000\n"
+"PO-Revision-Date: 2015-12-17 14:35+0000\n"
+"Last-Translator: chimeno <daniel@chimeno.me>\n"
 "Language-Team: Spanish (http://www.transifex.com/torchbox/wagtail/language/"
 "es/)\n"
 "MIME-Version: 1.0\n"
@@ -26,6 +27,9 @@ msgstr ""
 msgid "Choose"
 msgstr "Seleccionar"
 
+msgid "Search"
+msgstr "Buscar"
+
 #, python-format
 msgid ""
 "You haven't created any %(snippet_type_name)s snippets. Why not <a href="
@@ -33,9 +37,6 @@ msgid ""
 msgstr ""
 "No has creado ningún %(snippet_type_name)s snippets. ¿Por qué no <a href="
 "\"%(wagtailsnippets_create_snippet_url)s\" target=\"_blank\">creas uno ahora?"
-
-msgid "Title"
-msgstr "Título"
 
 #, python-format
 msgid "Delete %(snippet_type_name)s - %(instance)s"
@@ -71,6 +72,17 @@ msgstr "Editando"
 msgid "Snippets"
 msgstr "Fragmentos"
 
+msgid "Title"
+msgstr "Título"
+
+#, python-format
+msgid ""
+"No %(snippet_type_name_plural)s have been created. Why not <a href="
+"\"%(wagtailsnippets_create_url)s\">add one</a>?"
+msgstr ""
+"Ningún %(snippet_type_name_plural)s ha sido creado. ¿Por qué no <a href="
+"\"%(wagtailsnippets_create_url)s\">añadir uno</a>?"
+
 #, python-format
 msgid "Snippets %(snippet_type_name_plural)s"
 msgstr "Fragmentos %(snippet_type_name_plural)s"
@@ -82,14 +94,6 @@ msgstr "Fragmentos <span>%(snippet_type_name_plural)s</span>"
 #, python-format
 msgid "Add %(snippet_type_name)s"
 msgstr "Añadir %(snippet_type_name)s"
-
-#, python-format
-msgid ""
-"No %(snippet_type_name_plural)s have been created. Why not <a href="
-"\"%(wagtailsnippets_create_url)s\">add one</a>?"
-msgstr ""
-"Ningún %(snippet_type_name_plural)s ha sido creado. ¿Por qué no <a href="
-"\"%(wagtailsnippets_create_url)s\">añadir uno</a>?"
 
 #, python-format
 msgid "Usage of %(title)s"

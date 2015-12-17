@@ -14,8 +14,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-08-26 14:28+0100\n"
-"PO-Revision-Date: 2015-12-03 22:14+0000\n"
+"POT-Creation-Date: 2015-12-17 13:55+0000\n"
+"PO-Revision-Date: 2015-12-17 14:00+0000\n"
 "Last-Translator: mattwestcott <matthew@torchbox.com>\n"
 "Language-Team: German (http://www.transifex.com/torchbox/wagtail/language/"
 "de/)\n"
@@ -34,6 +34,12 @@ msgid "This value may contain only letters, numbers and @/./+/-/_ characters."
 msgstr ""
 "Dieser Wert darf nur Buchstaben, Zahlen und die Sonderzeichen \"@\", \".\", "
 "\"+\", und \"_\" enthalten."
+
+msgid "A user with that username already exists."
+msgstr "Es existiert bereits ein Benutzer mit diesem Benutzernamen."
+
+msgid "The two password fields didn't match."
+msgstr "Die beiden Passwortfelder stimmen nicht überein."
 
 msgid "Administrator"
 msgstr "Administrator"
@@ -63,39 +69,21 @@ msgstr "Vorname"
 msgid "Last Name"
 msgstr "Nachname"
 
-msgid "A user with that username already exists."
-msgstr "Es existiert bereits ein Benutzer mit diesem Benutzernamen."
-
-msgid "The two password fields didn't match."
-msgstr "Die beiden Passwortfelder stimmen nicht überein."
-
 msgid "Administrators have the ability to manage user accounts."
 msgstr "Administratoren haben die Möglichkeit Benutzerkonten zu verwalten."
 
 msgid "A group with that name already exists."
 msgstr "Es existiert bereits eine Gruppe mit diesem Namen."
 
-msgid "Submitted notifications"
-msgstr "Verfasste Benachrichtigungen"
-
 msgid "Receive notification when a page is submitted for moderation"
 msgstr ""
 "Benachrichtung erhalten, wenn eine Seite zur Freischaltung eingereicht wurde"
 
-msgid "Approved notifications"
-msgstr "Zugelassene Benachrichtigungen"
-
 msgid "Receive notification when your page edit is approved"
 msgstr "Benachrichtigung erhalten, wenn Ihre Änderungen freigeschaltet wurden"
 
-msgid "Rejected notifications"
-msgstr "Zurückgewiesene Benachrichtigungen"
-
 msgid "Receive notification when your page edit is rejected"
 msgstr "Benachrichtung erhalten, wenn Ihre Änderungen abgelehnt wurden"
-
-msgid "User Profile"
-msgstr "Benutzerprofil"
 
 msgid "Delete group"
 msgstr "Gruppe löschen"
@@ -278,6 +266,3 @@ msgstr "Benutzer '{0}' geändert."
 
 msgid "The user could not be saved due to errors."
 msgstr "Aufgrund von Fehlern konnte der Benutzer nicht gespeichert werden."
-
-msgid "Groups"
-msgstr "Gruppen"

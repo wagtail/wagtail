@@ -8,9 +8,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-09-02 20:07+0100\n"
-"PO-Revision-Date: 2015-12-12 22:58+0000\n"
-"Last-Translator: dellax <michalnebbia@gmail.com>\n"
+"POT-Creation-Date: 2015-12-17 13:54+0000\n"
+"PO-Revision-Date: 2015-12-17 13:58+0000\n"
+"Last-Translator: mattwestcott <matthew@torchbox.com>\n"
 "Language-Team: Slovak (Slovakia) (http://www.transifex.com/torchbox/wagtail/"
 "language/sk_SK/)\n"
 "MIME-Version: 1.0\n"
@@ -19,29 +19,14 @@ msgstr ""
 "Language: sk_SK\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
 
-msgid "Port"
-msgstr "Port"
-
-msgid "Root page"
-msgstr "Koreňová stránka"
-
-msgid "Is default site"
-msgstr "Je predvolená stránka"
-
 msgid "site"
 msgstr "stránka"
 
 msgid "sites"
 msgstr "stránky"
 
-msgid "Title"
-msgstr "Titulok"
-
 msgid "The page title as you'd like it to be seen by the public"
 msgstr "Titulok stránky ktorý budú vidieť ostatní návštevníci"
-
-msgid "Slug"
-msgstr "Slug"
 
 msgid ""
 "The name of the page as it will appear in URLs e.g http://domain.com/blog/"
@@ -50,20 +35,8 @@ msgstr ""
 "Názov ktorý sa bude zobrazovať v adrese URL napríklad.  http://domain.com/"
 "blog/[my-slug]/"
 
-msgid "Content type"
-msgstr "Typ obsahu"
-
-msgid "Live"
-msgstr "Live"
-
-msgid "Has unpublished changes"
-msgstr "Obsahuje nepublikované zmeny"
-
-msgid "Owner"
-msgstr "Vlastník"
-
-msgid "Page title"
-msgstr "Titulok stránky"
+msgid "live"
+msgstr "live"
 
 msgid ""
 "Optional. 'Search Engine Friendly' title. This will appear at the top of the "
@@ -71,29 +44,8 @@ msgid ""
 msgstr ""
 "Voliteľné. Titulok pre vyhľadávače. Toto sa zobrazí navrchu okna prehliadača."
 
-msgid "Show in menus"
-msgstr "Zobraziť v menu"
-
-msgid "Search description"
-msgstr "Popis hľadania"
-
 msgid "Please add a date-time in the form YYYY-MM-DD hh:mm."
 msgstr "Prosím pridajte dátum-čas vo formáte YYYY-MM-DD hh:mm."
-
-msgid "Expiry date/time"
-msgstr "Dátum a čas expirácie"
-
-msgid "Expired"
-msgstr "Expirované"
-
-msgid "Locked"
-msgstr "Zamknuté"
-
-msgid "First published at"
-msgstr "Poprvé publikované"
-
-msgid "Latest revision created at"
-msgstr "Posledná revízia vytvorená"
 
 msgid "scheduled"
 msgstr "naplánované"
@@ -104,9 +56,6 @@ msgstr "koncept"
 msgid "live + draft"
 msgstr "live  + koncept"
 
-msgid "live"
-msgstr "live"
-
 msgid "Default"
 msgstr "Predvolené"
 
@@ -115,21 +64,6 @@ msgstr "stránka"
 
 msgid "pages"
 msgstr "stránky"
-
-msgid "Page"
-msgstr "Stránka"
-
-msgid "Submitted for moderation"
-msgstr "Odoslané na moderáciu"
-
-msgid "Created at"
-msgstr "Vytvorené"
-
-msgid "User"
-msgstr "Používateľ"
-
-msgid "Content JSON"
-msgstr "Obsah JSON"
 
 msgid "page revision"
 msgstr "revízia stránky"
@@ -145,15 +79,3 @@ msgstr "Publikovať akúkoľvek stránku"
 
 msgid "Lock/unlock any page"
 msgstr "Zamknúť/uzamknúť akúkoľvek stránku"
-
-msgid "Group"
-msgstr "Skupina"
-
-msgid "Permission type"
-msgstr "Typ oprávnenia"
-
-msgid "Password"
-msgstr "Heslo"
-
-msgid "Value cannot be entirely whitespace characters"
-msgstr "Hodnota nemôže obsahovať len znaky medzery"

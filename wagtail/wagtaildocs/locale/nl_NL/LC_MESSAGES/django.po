@@ -9,9 +9,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-08-26 14:28+0100\n"
-"PO-Revision-Date: 2015-12-16 13:50+0000\n"
-"Last-Translator: Thijs Kramer <thijskramer@gmail.com>\n"
+"POT-Creation-Date: 2015-12-17 13:54+0000\n"
+"PO-Revision-Date: 2015-12-17 13:58+0000\n"
+"Last-Translator: mattwestcott <matthew@torchbox.com>\n"
 "Language-Team: Dutch (Netherlands) (http://www.transifex.com/torchbox/"
 "wagtail/language/nl_NL/)\n"
 "MIME-Version: 1.0\n"
@@ -19,24 +19,6 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: nl_NL\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-
-msgid "Title"
-msgstr "Titel"
-
-msgid "File"
-msgstr "File"
-
-msgid "Created at"
-msgstr "Aangemaakt op"
-
-msgid "Uploaded by user"
-msgstr "Geupload door gebruiker"
-
-msgid "Tags"
-msgstr "Tags"
-
-msgid "Document"
-msgstr "Document"
 
 msgid "Choose a document"
 msgstr "Kies een document"
@@ -46,9 +28,6 @@ msgstr "Zoek"
 
 msgid "Upload"
 msgstr "Uploaden"
-
-msgid "Save"
-msgstr "Opslaan"
 
 #, python-format
 msgid ""
@@ -106,6 +85,9 @@ msgstr "Wijzigen %(title)s"
 msgid "Editing"
 msgstr "Wijzigen"
 
+msgid "Save"
+msgstr "Opslaan"
+
 msgid "Filesize"
 msgstr "Bestandsgrootte"
 
@@ -114,6 +96,12 @@ msgstr "Bestand niet gevonden"
 
 msgid "Documents"
 msgstr "Documenten"
+
+msgid "Title"
+msgstr "Titel"
+
+msgid "File"
+msgstr "File"
 
 msgid "Uploaded"
 msgstr "Geupload"

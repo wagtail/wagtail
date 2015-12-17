@@ -8,9 +8,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-08-26 14:28+0100\n"
-"PO-Revision-Date: 2015-12-08 15:33+0000\n"
-"Last-Translator: Maris Serzans <maris.serzans@gmail.com>\n"
+"POT-Creation-Date: 2015-12-17 13:55+0000\n"
+"PO-Revision-Date: 2015-12-17 14:00+0000\n"
+"Last-Translator: mattwestcott <matthew@torchbox.com>\n"
 "Language-Team: Latvian (http://www.transifex.com/torchbox/wagtail/language/"
 "lv/)\n"
 "MIME-Version: 1.0\n"
@@ -19,6 +19,9 @@ msgstr ""
 "Language: lv\n"
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n != 0 ? 1 : "
 "2);\n"
+
+msgid "A user with that username already exists."
+msgstr "Lietotājvāds aizņemts"
 
 msgid "Administrator"
 msgstr "Administrators"
@@ -38,14 +41,8 @@ msgstr "Vārds"
 msgid "Last Name"
 msgstr "Uzvārds"
 
-msgid "A user with that username already exists."
-msgstr "Lietotājvāds aizņemts"
-
 msgid "A group with that name already exists."
 msgstr "Grupas nosaukums aizņemts."
-
-msgid "Submitted notifications"
-msgstr "Iesniegtie paziņojumi"
 
 msgid "Receive notification when a page is submitted for moderation"
 msgstr "Saņemt paziņojumu, kad lapa iesniegta administrēšanai"
@@ -53,14 +50,8 @@ msgstr "Saņemt paziņojumu, kad lapa iesniegta administrēšanai"
 msgid "Receive notification when your page edit is approved"
 msgstr "Saņemt paziņojumu, kad lapas labojumi apstiprināti"
 
-msgid "Rejected notifications"
-msgstr "Atraidītie paziņojumi"
-
 msgid "Receive notification when your page edit is rejected"
 msgstr "Saņemt paziņojumu, kad lapas labojumi atraidīti"
-
-msgid "User Profile"
-msgstr "Lietotāja profils"
 
 msgid "Delete group"
 msgstr "Dzēst grupu"
@@ -213,6 +204,3 @@ msgstr "Lietotājs '{0}' atjaunots. "
 
 msgid "The user could not be saved due to errors."
 msgstr "Lietotāju nevarēja saglabāt kļūdu dēļ."
-
-msgid "Groups"
-msgstr "Grupas"

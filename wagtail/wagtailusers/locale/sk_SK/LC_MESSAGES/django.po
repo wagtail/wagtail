@@ -8,9 +8,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-08-26 14:28+0100\n"
-"PO-Revision-Date: 2015-12-12 22:59+0000\n"
-"Last-Translator: dellax <michalnebbia@gmail.com>\n"
+"POT-Creation-Date: 2015-12-17 13:55+0000\n"
+"PO-Revision-Date: 2015-12-17 14:00+0000\n"
+"Last-Translator: mattwestcott <matthew@torchbox.com>\n"
 "Language-Team: Slovak (Slovakia) (http://www.transifex.com/torchbox/wagtail/"
 "language/sk_SK/)\n"
 "MIME-Version: 1.0\n"
@@ -24,6 +24,12 @@ msgstr "Povinné. 30 znakov alebo menej. Písmená, číslice a len znaky @/./+/
 
 msgid "This value may contain only letters, numbers and @/./+/-/_ characters."
 msgstr "Táto hodnota môže obsahovať len písmená, čísla a znaky @/./+/-/_ "
+
+msgid "A user with that username already exists."
+msgstr "Používateľ s takýmto prihlasovacím menom už existuje."
+
+msgid "The two password fields didn't match."
+msgstr "Heslá sa nezhodujú."
 
 msgid "Administrator"
 msgstr "Administrátor"
@@ -54,38 +60,20 @@ msgstr "Krstné meno"
 msgid "Last Name"
 msgstr "Priezvisko"
 
-msgid "A user with that username already exists."
-msgstr "Používateľ s takýmto prihlasovacím menom už existuje."
-
-msgid "The two password fields didn't match."
-msgstr "Heslá sa nezhodujú."
-
 msgid "Administrators have the ability to manage user accounts."
 msgstr "Administrátori majú práva na úpravu ostatných používateľských účtov."
 
 msgid "A group with that name already exists."
 msgstr "Skupina s rovnakým názvom už existuje."
 
-msgid "Submitted notifications"
-msgstr "Odoslané notifikácie"
-
 msgid "Receive notification when a page is submitted for moderation"
 msgstr "Dostávať notifikácie keď je stránka pridaná na moderáciu"
-
-msgid "Approved notifications"
-msgstr "Schválené notifikácie"
 
 msgid "Receive notification when your page edit is approved"
 msgstr "Dostávať notifikácie keď je váš návrh na úpravu stránky potvrdený"
 
-msgid "Rejected notifications"
-msgstr "Zamietnuté notifikácie"
-
 msgid "Receive notification when your page edit is rejected"
 msgstr "Dostávať notifikácie keď je váš návrh na úpravu stránky zamietnutý"
-
-msgid "User Profile"
-msgstr "Používateľský profil"
 
 msgid "Delete group"
 msgstr "Vymazať skupinu"
@@ -233,6 +221,3 @@ msgstr "Používateľ '{0}' bol aktualizovaný."
 
 msgid "The user could not be saved due to errors."
 msgstr "Používateľ nemôže byť uložený kvôli chybám."
-
-msgid "Groups"
-msgstr "Skupiny"

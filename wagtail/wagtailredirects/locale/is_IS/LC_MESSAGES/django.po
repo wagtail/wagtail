@@ -9,9 +9,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-08-26 14:28+0100\n"
-"PO-Revision-Date: 2015-10-25 11:26+0000\n"
-"Last-Translator: saevarom <saevar@saevar.is>\n"
+"POT-Creation-Date: 2015-12-17 13:55+0000\n"
+"PO-Revision-Date: 2015-12-17 13:59+0000\n"
+"Last-Translator: mattwestcott <matthew@torchbox.com>\n"
 "Language-Team: Icelandic (Iceland) (http://www.transifex.com/torchbox/"
 "wagtail/language/is_IS/)\n"
 "MIME-Version: 1.0\n"
@@ -20,30 +20,12 @@ msgstr ""
 "Language: is_IS\n"
 "Plural-Forms: nplurals=2; plural=(n % 10 != 1 || n % 100 == 11);\n"
 
-msgid "Redirect from"
-msgstr "Tilvísun frá"
-
-msgid "Site"
-msgstr "Síðu"
-
-msgid "Permanent"
-msgstr "Endanleg"
-
 msgid ""
 "Recommended. Permanent redirects ensure search engines forget the old page "
 "(the 'Redirect from') and index the new page instead."
 msgstr ""
 "Mælt með. Endanleg tilvísun passar upp á að leitarvélar gleymi eldri síðunni "
 "(þaðan sem vísað er frá) og indexi nýju síðuna í staðinn."
-
-msgid "Redirect to a page"
-msgstr "Tilvísun á síðu"
-
-msgid "Redirect to any URL"
-msgstr "Tilvísun á slóð"
-
-msgid "Redirect"
-msgstr "Tilvísun"
 
 msgid "Add redirect"
 msgstr "Bæta við tilvísun"
@@ -79,6 +61,9 @@ msgstr "Tilvísanir"
 
 msgid "From"
 msgstr "Frá"
+
+msgid "Site"
+msgstr "Síðu"
 
 msgid "To"
 msgstr "Til"

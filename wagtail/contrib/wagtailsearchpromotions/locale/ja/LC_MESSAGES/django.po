@@ -8,9 +8,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-08-26 14:46+0100\n"
-"PO-Revision-Date: 2015-12-08 14:53+0000\n"
-"Last-Translator: 石田秀 <ishidashu@gmail.com>\n"
+"POT-Creation-Date: 2015-12-17 13:54+0000\n"
+"PO-Revision-Date: 2015-12-17 14:02+0000\n"
+"Last-Translator: mattwestcott <matthew@torchbox.com>\n"
 "Language-Team: Japanese (http://www.transifex.com/torchbox/wagtail/language/"
 "ja/)\n"
 "MIME-Version: 1.0\n"
@@ -21,15 +21,6 @@ msgstr ""
 
 msgid "Please specify at least one recommendation for this search term."
 msgstr "この検索語の結果に表示したいページをひとつ以上指定してください。"
-
-msgid "Page"
-msgstr "ページ"
-
-msgid "Description"
-msgstr "説明文"
-
-msgid "Search promotion"
-msgstr "プロモーションを検索"
 
 msgid "Add search pick"
 msgstr "プロモーションを追加"
@@ -113,9 +104,6 @@ msgstr "提案された検索結果"
 
 msgid "Views (past week)"
 msgstr "閲覧数（一週間）"
-
-msgid "Edit this pick"
-msgstr "この提案を編集する"
 
 msgid "None"
 msgstr "なし"

@@ -8,9 +8,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-08-26 14:28+0100\n"
-"PO-Revision-Date: 2015-12-08 15:23+0000\n"
-"Last-Translator: Maris Serzans <maris.serzans@gmail.com>\n"
+"POT-Creation-Date: 2015-12-17 13:54+0000\n"
+"PO-Revision-Date: 2015-12-17 14:01+0000\n"
+"Last-Translator: mattwestcott <matthew@torchbox.com>\n"
 "Language-Team: Latvian (http://www.transifex.com/torchbox/wagtail/language/"
 "lv/)\n"
 "MIME-Version: 1.0\n"
@@ -37,36 +37,6 @@ msgstr "Datums"
 
 msgid "Date/time"
 msgstr "Datums/laiks"
-
-msgid "Submit time"
-msgstr "Pievienošanas laiks"
-
-msgid "Form Submission"
-msgstr "Formas iesniegšana"
-
-msgid "Label"
-msgstr "Etiķete"
-
-msgid "Field type"
-msgstr "Lauka veids"
-
-msgid "Required"
-msgstr "Nepieciešams"
-
-msgid "Choices"
-msgstr "Iespējas"
-
-msgid "Default value"
-msgstr "Noklusējuma vērtība"
-
-msgid "To address"
-msgstr "Uz adresi"
-
-msgid "From address"
-msgstr "No adreses"
-
-msgid "Subject"
-msgstr "Temats"
 
 #, python-format
 msgid "Delete %(title)s"

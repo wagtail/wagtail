@@ -8,9 +8,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-08-26 14:46+0100\n"
-"PO-Revision-Date: 2015-12-02 20:48+0000\n"
-"Last-Translator: ROGER MICHAEL ASHLEY ALLEN <rogermaallen@gmail.com>\n"
+"POT-Creation-Date: 2015-12-17 13:54+0000\n"
+"PO-Revision-Date: 2015-12-17 14:02+0000\n"
+"Last-Translator: mattwestcott <matthew@torchbox.com>\n"
 "Language-Team: Arabic (http://www.transifex.com/torchbox/wagtail/language/"
 "ar/)\n"
 "MIME-Version: 1.0\n"
@@ -22,12 +22,6 @@ msgstr ""
 
 msgid "Please specify at least one recommendation for this search term."
 msgstr "المرجو تخصيص توصية واحدة على الأقل لمصطلح البحث هذا"
-
-msgid "Page"
-msgstr "صفحة"
-
-msgid "Description"
-msgstr "وصف"
 
 msgid "Add search pick"
 msgstr "أضف البحث المحتار"
@@ -77,9 +71,6 @@ msgstr "النتائج المطلوبة"
 
 msgid "Views (past week)"
 msgstr "المواقع المبحوثة في الأسبوع الماضي"
-
-msgid "Edit this pick"
-msgstr "نقح هذا الانتقاء"
 
 msgid "None"
 msgstr "لا أحد"

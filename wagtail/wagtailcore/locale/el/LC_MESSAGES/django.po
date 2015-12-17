@@ -12,9 +12,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-09-02 20:07+0100\n"
-"PO-Revision-Date: 2015-09-02 19:12+0000\n"
-"Last-Translator: Karl Hobley <karl@torchbox.com>\n"
+"POT-Creation-Date: 2015-12-17 13:54+0000\n"
+"PO-Revision-Date: 2015-12-17 13:58+0000\n"
+"Last-Translator: mattwestcott <matthew@torchbox.com>\n"
 "Language-Team: Greek (http://www.transifex.com/torchbox/wagtail/language/"
 "el/)\n"
 "MIME-Version: 1.0\n"
@@ -22,12 +22,6 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: el\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-
-msgid "Hostname"
-msgstr "Όνομα κεντρικού υπολογιστή"
-
-msgid "Port"
-msgstr "Θυρα"
 
 msgid ""
 "Set this to something other than 80 if you need a specific port number to "
@@ -38,12 +32,6 @@ msgstr ""
 "εμφανίζεται στις διευθύνσεις μια συγκεκριμένη θύρα (π.χ. ανάπτυξη στη θύρα "
 "8000). Δεν επηρεάζει τον τρόπο που χειρίζονται τις αιτήσεις (οπότε η "
 "προώθηση θύρας δουλεύει ακόμα)"
-
-msgid "Root page"
-msgstr "Κεντρική σελίδα"
-
-msgid "Is default site"
-msgstr "Είναι προεπιλεγμένη τοποθεσία"
 
 msgid ""
 "If true, this site will handle requests for all other hostnames that do not "
@@ -61,14 +49,8 @@ msgstr ""
 "απενεργοποιήσετε αυτο προτού μπορείτε να αποθηκεύσετε αυτήν την τοποθεσία ως "
 "προεπιλογή."
 
-msgid "Title"
-msgstr "Τίτλος"
-
 msgid "The page title as you'd like it to be seen by the public"
 msgstr "Ο τίτλος της σελίδας έτσι όπως θα εμφανίζεται στο κοινό"
-
-msgid "Slug"
-msgstr "Περιθωριο"
 
 msgid ""
 "The name of the page as it will appear in URLs e.g http://domain.com/blog/"
@@ -77,23 +59,11 @@ msgstr ""
 "Το όνομα της σελίδας έτσι όπως θα εμφανίζεται στις διευθύνσεις, π.χ http://"
 "domain.com/blog/[my-slug]/"
 
-msgid "Content type"
-msgstr "Τύπος περιεχομένου"
-
-msgid "Live"
-msgstr "Στον Αέρα"
-
-msgid "Has unpublished changes"
-msgstr "Έχει αδημοσίευτες αλλαγές"
+msgid "live"
+msgstr "Ζωντανα"
 
 msgid "URL path"
 msgstr "Διεύθυνση URL"
-
-msgid "Owner"
-msgstr "Ιδιοκτήτης"
-
-msgid "Page title"
-msgstr "Τίτλος σελίδας"
 
 msgid ""
 "Optional. 'Search Engine Friendly' title. This will appear at the top of the "
@@ -102,38 +72,14 @@ msgstr ""
 "Προαιρετικό. Τίτλος που είναι 'φιλικός προς τις μηχανές αναζήτησης'. Θα "
 "εμφανιστεί στην κορυφή του παραθύρου."
 
-msgid "Show in menus"
-msgstr "Εμφάνιση σε μενού"
-
 msgid ""
 "Whether a link to this page will appear in automatically generated menus"
 msgstr ""
 "Επιλέξτε αν μια σύνδεση σε αυτή τη σελίδα θα εμφανιστεί στα μενού που "
 "δημιουργούνται αυτόματα"
 
-msgid "Search description"
-msgstr "Περιγραφή αναζήτησης"
-
-msgid "Go live date/time"
-msgstr "Μετάβαση στην ζωντανή ημερομηνία/ώρα"
-
 msgid "Please add a date-time in the form YYYY-MM-DD hh:mm."
 msgstr "Παρακαλούμε προσθέστε μια ημερομηνία στη μορφή YYYY-MM-DD hh:mm:ss."
-
-msgid "Expiry date/time"
-msgstr "Ημερομηνία/ώρα λήξης"
-
-msgid "Expired"
-msgstr "Έχει λήξει"
-
-msgid "Locked"
-msgstr "Κλειδωμένο"
-
-msgid "First published at"
-msgstr "Πρώτη δημοσίευση"
-
-msgid "Latest revision created at"
-msgstr "Τελευταία αναθεώρηση δημιουργήθηκε στις"
 
 msgid "expired"
 msgstr "έχει λήξει"
@@ -147,29 +93,8 @@ msgstr "Σχέδιο"
 msgid "live + draft"
 msgstr "ζωντανα + σχέδιο "
 
-msgid "live"
-msgstr "Ζωντανα"
-
 msgid "Default"
 msgstr "Προεπιλογή"
-
-msgid "Page"
-msgstr "Σελίδα"
-
-msgid "Submitted for moderation"
-msgstr "Υποβλήθηκαν για έλεγχο"
-
-msgid "Created at"
-msgstr "Δημιουργήθηκε την"
-
-msgid "User"
-msgstr "Χρήστης"
-
-msgid "Content JSON"
-msgstr "Περιεχόμενο JSON"
-
-msgid "Approved go live at"
-msgstr "Εγκρίθηκε βγει στον αέρα στις"
 
 msgid "Add/edit pages you own"
 msgstr "Προσθήκη σελίδων/Επεξεργασία αυτων που έχετε στην κατοχή σας"
@@ -179,15 +104,3 @@ msgstr "Δημοσίευση καθε σελίδας"
 
 msgid "Lock/unlock any page"
 msgstr "Κλείδωμα/ξεκλείδωμα κάθε σελίδας"
-
-msgid "Group"
-msgstr "Ομάδα"
-
-msgid "Permission type"
-msgstr "Αδεια τύπου "
-
-msgid "Password"
-msgstr "Κωδικός"
-
-msgid "Value cannot be entirely whitespace characters"
-msgstr "Η τιμή δεν μπορεί να εχει εντελώς λευκου χώρου χαρακτήρες"

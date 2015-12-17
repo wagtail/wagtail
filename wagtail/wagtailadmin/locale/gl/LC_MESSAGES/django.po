@@ -10,9 +10,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-08-26 14:28+0100\n"
-"PO-Revision-Date: 2015-08-26 13:37+0000\n"
-"Last-Translator: Karl Hobley <karl@torchbox.com>\n"
+"POT-Creation-Date: 2015-12-17 13:54+0000\n"
+"PO-Revision-Date: 2015-12-17 13:57+0000\n"
+"Last-Translator: mattwestcott <matthew@torchbox.com>\n"
 "Language-Team: Galician (http://www.transifex.com/torchbox/wagtail/language/"
 "gl/)\n"
 "MIME-Version: 1.0\n"
@@ -239,10 +239,6 @@ msgstr "Podes editar ala páxina aquí:"
 msgid "The page \"%(page)s\" has been submitted for moderation"
 msgstr "A páxina \"%(page)s\" foi enviada para ser moderada"
 
-#, python-format
-msgid "The page \"%(page)s\" has been submitted for moderation."
-msgstr "A páxina \"%(page)s\" foi enviada para ser moderada."
-
 msgid "You can preview the page here:"
 msgstr "Podes previsualizar a páxina aquí:"
 
@@ -345,17 +341,14 @@ msgstr "Nova %(page_type)s"
 msgid "New"
 msgstr "Nova"
 
-msgid "Save as draft"
-msgstr "Gardar como borrador"
+msgid "Save draft"
+msgstr "Gardar borrador"
 
 msgid "Publish"
 msgstr "Publicar"
 
 msgid "Submit for moderation"
 msgstr "Enviar para ser moderado"
-
-msgid "Save draft"
-msgstr "Gardar borrador"
 
 #, python-format
 msgid "Last modified: %(last_mod)s"
@@ -407,15 +400,6 @@ msgstr "Seleccionar unha nova páxina pai para %(title)s"
 #, python-format
 msgid "Select a new parent page for <span>%(title)s</span>"
 msgstr "Seleccionar unha nova páxina pai para <span>%(title)s</span>"
-
-msgid "Images"
-msgstr "Imaxes"
-
-msgid "Documents"
-msgstr "Documentos"
-
-msgid "Users"
-msgstr "Usuarios"
 
 #, python-format
 msgid "Sorry, no pages match <em>\"%(query_string)s\"</em>"

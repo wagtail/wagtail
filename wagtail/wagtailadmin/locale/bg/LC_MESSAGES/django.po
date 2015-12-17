@@ -9,9 +9,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-08-26 14:28+0100\n"
-"PO-Revision-Date: 2015-08-26 13:37+0000\n"
-"Last-Translator: Karl Hobley <karl@torchbox.com>\n"
+"POT-Creation-Date: 2015-12-17 13:54+0000\n"
+"PO-Revision-Date: 2015-12-17 13:57+0000\n"
+"Last-Translator: mattwestcott <matthew@torchbox.com>\n"
 "Language-Team: Bulgarian (http://www.transifex.com/torchbox/wagtail/language/"
 "bg/)\n"
 "MIME-Version: 1.0\n"
@@ -226,10 +226,6 @@ msgstr "Можете да редактирате страницата тук:"
 msgid "The page \"%(page)s\" has been submitted for moderation"
 msgstr "Страницата \"%(page)s\" бе предоставена за модериране"
 
-#, python-format
-msgid "The page \"%(page)s\" has been submitted for moderation."
-msgstr "Страницата \"%(page)s\" бе предоставена за модерация."
-
 msgid "You can preview the page here:"
 msgstr "Можете да прегледате страницата тук:"
 
@@ -332,7 +328,7 @@ msgstr "Нова %(page_type)s"
 msgid "New"
 msgstr "Ново"
 
-msgid "Save as draft"
+msgid "Save draft"
 msgstr "Запази като чернова"
 
 msgid "Publish"
@@ -340,9 +336,6 @@ msgstr "Публикувай"
 
 msgid "Submit for moderation"
 msgstr "Предостави за модерация"
-
-msgid "Save draft"
-msgstr "Запази като чернова"
 
 #, python-format
 msgid "Last modified: %(last_mod)s"
@@ -394,15 +387,6 @@ msgstr "Изберете нова страница родител за %(title)s
 #, python-format
 msgid "Select a new parent page for <span>%(title)s</span>"
 msgstr "Изберете нова страница родител за <span>%(title)s</span>"
-
-msgid "Images"
-msgstr "Изображения"
-
-msgid "Documents"
-msgstr "Документи"
-
-msgid "Users"
-msgstr "Потребители"
 
 msgid "Enter a search term above"
 msgstr "Добавете дума за търсене по-горе"

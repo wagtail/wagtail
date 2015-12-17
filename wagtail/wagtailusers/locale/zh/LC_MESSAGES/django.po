@@ -7,9 +7,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-08-26 14:28+0100\n"
-"PO-Revision-Date: 2015-04-21 08:40+0000\n"
-"Last-Translator: Karl Hobley <karl@torchbox.com>\n"
+"POT-Creation-Date: 2015-12-17 13:55+0000\n"
+"PO-Revision-Date: 2015-12-17 14:00+0000\n"
+"Last-Translator: mattwestcott <matthew@torchbox.com>\n"
 "Language-Team: Chinese (http://www.transifex.com/torchbox/wagtail/language/"
 "zh/)\n"
 "MIME-Version: 1.0\n"
@@ -23,6 +23,12 @@ msgstr "必填，30个字符以内。仅字母，数字，数字和 @/./+/-/_"
 
 msgid "This value may contain only letters, numbers and @/./+/-/_ characters."
 msgstr "这个值只能含有字母，数字，数字和 @/./+/-/_"
+
+msgid "A user with that username already exists."
+msgstr "一个用户已经占用那个用户名"
+
+msgid "The two password fields didn't match."
+msgstr "两个密码不匹配"
 
 msgid "Administrator"
 msgstr "管理员"
@@ -50,12 +56,6 @@ msgstr "名"
 
 msgid "Last Name"
 msgstr "姓"
-
-msgid "A user with that username already exists."
-msgstr "一个用户已经占用那个用户名"
-
-msgid "The two password fields didn't match."
-msgstr "两个密码不匹配"
 
 msgid "Administrators have the ability to manage user accounts."
 msgstr "管理员们有管理用户账号的权限"

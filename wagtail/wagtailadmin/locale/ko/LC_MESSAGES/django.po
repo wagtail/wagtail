@@ -9,9 +9,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-08-26 14:28+0100\n"
-"PO-Revision-Date: 2015-10-20 07:44+0000\n"
-"Last-Translator: Kyungil Choi <hanpama@gmail.com>\n"
+"POT-Creation-Date: 2015-12-17 13:54+0000\n"
+"PO-Revision-Date: 2015-12-17 13:57+0000\n"
+"Last-Translator: mattwestcott <matthew@torchbox.com>\n"
 "Language-Team: Korean (http://www.transifex.com/torchbox/wagtail/language/"
 "ko/)\n"
 "MIME-Version: 1.0\n"
@@ -357,10 +357,6 @@ msgstr "여기서 페이지를 수정할 수 있습니다"
 msgid "The page \"%(page)s\" has been submitted for moderation"
 msgstr "검토를 위해 \"%(page)s\" 페이지가 제출 되었습니다"
 
-#, python-format
-msgid "The page \"%(page)s\" has been submitted for moderation."
-msgstr "검토를 위해 \"%(page)s\" 페이지가 제출 되었습니다"
-
 msgid "You can preview the page here:"
 msgstr "여기서 페이지를 미리 볼 수 있습니다:"
 
@@ -493,8 +489,8 @@ msgstr "새로운 %(page_type)s"
 msgid "New"
 msgstr "새로운"
 
-msgid "Save as draft"
-msgstr "초안으로 저장"
+msgid "Save draft"
+msgstr "초안 저장"
 
 msgid "Publish"
 msgstr "퍼블리싱"
@@ -512,9 +508,6 @@ msgstr "%(page_type)s <span>%(title)s</span> 수정"
 
 msgid "Page locked"
 msgstr "페이지 잠금"
-
-msgid "Save draft"
-msgstr "초안 저장"
 
 #, python-format
 msgid "Last modified: %(last_mod)s"
@@ -620,18 +613,6 @@ msgstr[0] ""
 "\n"
 "%(counter)s 개의 연관된 페이지가 있습니다"
 
-msgid "Other searches"
-msgstr "다른 검색결과들"
-
-msgid "Images"
-msgstr "사진"
-
-msgid "Documents"
-msgstr "문서"
-
-msgid "Users"
-msgstr "사용자"
-
 #, python-format
 msgid "Sorry, no pages match <em>\"%(query_string)s\"</em>"
 msgstr "죄송합니다. <em>\"%(query_string)s\"</em> 와 연관된 결과가 없습니다"
@@ -716,6 +697,9 @@ msgstr "로그아웃"
 #, python-format
 msgid "Page %(page_num)s of %(total_pages)s."
 msgstr "%(total_pages)s 중의 %(page_num)s 페이지"
+
+msgid "Other searches"
+msgstr "다른 검색결과들"
 
 msgid ""
 "You are using an <strong>outdated</strong> browser not supported by this "

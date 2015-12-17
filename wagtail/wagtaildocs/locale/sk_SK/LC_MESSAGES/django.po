@@ -8,9 +8,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-08-26 14:28+0100\n"
-"PO-Revision-Date: 2015-12-12 22:53+0000\n"
-"Last-Translator: dellax <michalnebbia@gmail.com>\n"
+"POT-Creation-Date: 2015-12-17 13:54+0000\n"
+"PO-Revision-Date: 2015-12-17 13:58+0000\n"
+"Last-Translator: mattwestcott <matthew@torchbox.com>\n"
 "Language-Team: Slovak (Slovakia) (http://www.transifex.com/torchbox/wagtail/"
 "language/sk_SK/)\n"
 "MIME-Version: 1.0\n"
@@ -18,24 +18,6 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: sk_SK\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
-
-msgid "Title"
-msgstr "Titulok"
-
-msgid "File"
-msgstr "Súbor"
-
-msgid "Created at"
-msgstr "Vytvorené"
-
-msgid "Uploaded by user"
-msgstr "Nahral používateľ"
-
-msgid "Tags"
-msgstr "Tagy"
-
-msgid "Document"
-msgstr "Dokument"
 
 msgid "Choose a document"
 msgstr "Zvoliť dokument"
@@ -45,9 +27,6 @@ msgstr "Hľadať"
 
 msgid "Upload"
 msgstr "Nahrať"
-
-msgid "Save"
-msgstr "Uložiť"
 
 #, python-format
 msgid ""
@@ -99,6 +78,9 @@ msgstr "Naozaj chcete zmazať tento dokument?"
 msgid "Yes, delete"
 msgstr "Áno, zmazať"
 
+msgid "Save"
+msgstr "Uložiť"
+
 msgid "Filesize"
 msgstr "Veľkosť súboru"
 
@@ -107,6 +89,12 @@ msgstr "Súbor nebol nájdený"
 
 msgid "Documents"
 msgstr "Dokumenty"
+
+msgid "Title"
+msgstr "Titulok"
+
+msgid "File"
+msgstr "Súbor"
 
 #, python-format
 msgid ""

@@ -8,9 +8,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-08-26 14:28+0100\n"
-"PO-Revision-Date: 2015-06-29 09:40+0000\n"
-"Last-Translator: Giacomo Ghizzani <giacomo.ghz@gmail.com>\n"
+"POT-Creation-Date: 2015-12-17 13:55+0000\n"
+"PO-Revision-Date: 2015-12-17 14:00+0000\n"
+"Last-Translator: mattwestcott <matthew@torchbox.com>\n"
 "Language-Team: Italian (http://www.transifex.com/torchbox/wagtail/language/"
 "it/)\n"
 "MIME-Version: 1.0\n"
@@ -26,6 +26,12 @@ msgstr ""
 
 msgid "This value may contain only letters, numbers and @/./+/-/_ characters."
 msgstr "Questo valore può contenere soltanto lettere, numeri e @/./+/-/_"
+
+msgid "A user with that username already exists."
+msgstr "Username esistente."
+
+msgid "The two password fields didn't match."
+msgstr "Le password non corrispondono"
 
 msgid "Administrator"
 msgstr "Amministratore"
@@ -55,38 +61,20 @@ msgstr "Nome"
 msgid "Last Name"
 msgstr "Cognome"
 
-msgid "A user with that username already exists."
-msgstr "Username esistente."
-
-msgid "The two password fields didn't match."
-msgstr "Le password non corrispondono"
-
 msgid "Administrators have the ability to manage user accounts."
 msgstr "Gli amministratori hanno la possibilità di gestire gli account utente."
 
 msgid "A group with that name already exists."
 msgstr "Gruppo già esistente."
 
-msgid "Submitted notifications"
-msgstr "Notifiche inviate"
-
 msgid "Receive notification when a page is submitted for moderation"
 msgstr "Ricevi una notifica quando una pagina viene inviata per la moderazione"
-
-msgid "Approved notifications"
-msgstr "Notifiche approvate"
 
 msgid "Receive notification when your page edit is approved"
 msgstr "Ricevi notifica quando la modifica di una tua pagina viene approvata"
 
-msgid "Rejected notifications"
-msgstr "Notifiche rifiutate"
-
 msgid "Receive notification when your page edit is rejected"
 msgstr "Ricevi notifica quando la modifica di una tua pagina viene rifiutata"
-
-msgid "User Profile"
-msgstr "Profilo Utente"
 
 msgid "Delete group"
 msgstr "Elimina gruppo"
@@ -269,6 +257,3 @@ msgstr "Utente '{0}' aggiornato."
 
 msgid "The user could not be saved due to errors."
 msgstr "L'utente non può essere salvato a causa di errori."
-
-msgid "Groups"
-msgstr "Gruppi"

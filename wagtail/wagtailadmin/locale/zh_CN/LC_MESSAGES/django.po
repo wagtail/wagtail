@@ -10,9 +10,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-08-26 14:28+0100\n"
-"PO-Revision-Date: 2015-12-07 07:14+0000\n"
-"Last-Translator: Daniel Hwang <danielblinkhw@gmail.com>\n"
+"POT-Creation-Date: 2015-12-17 13:54+0000\n"
+"PO-Revision-Date: 2015-12-17 13:57+0000\n"
+"Last-Translator: mattwestcott <matthew@torchbox.com>\n"
 "Language-Team: Chinese (China) (http://www.transifex.com/torchbox/wagtail/"
 "language/zh_CN/)\n"
 "MIME-Version: 1.0\n"
@@ -370,10 +370,6 @@ msgstr "你可以在此编辑页面："
 msgid "The page \"%(page)s\" has been submitted for moderation"
 msgstr "页面\"%(page)s\"已提交审核"
 
-#, python-format
-msgid "The page \"%(page)s\" has been submitted for moderation."
-msgstr "页面\"%(page)s\"已提交审核。"
-
 msgid "You can preview the page here:"
 msgstr "可以在此预览页面："
 
@@ -505,8 +501,8 @@ msgstr "新%(page_type)s页面类型"
 msgid "New"
 msgstr "新"
 
-msgid "Save as draft"
-msgstr "保存为草稿"
+msgid "Save draft"
+msgstr "保存草稿"
 
 msgid "Publish"
 msgstr "发布"
@@ -524,9 +520,6 @@ msgstr "编辑 %(page_type)s <span>%(title)s</span>"
 
 msgid "Page locked"
 msgstr "页面已锁定"
-
-msgid "Save draft"
-msgstr "保存草稿"
 
 #, python-format
 msgid "Last modified: %(last_mod)s"
@@ -630,18 +623,6 @@ msgstr[0] ""
 "\n"
 "有%(counter)s个符合要求的页面"
 
-msgid "Other searches"
-msgstr "其它搜索"
-
-msgid "Images"
-msgstr "图像"
-
-msgid "Documents"
-msgstr "文档"
-
-msgid "Users"
-msgstr "用户"
-
 #, python-format
 msgid "Sorry, no pages match <em>\"%(query_string)s\"</em>"
 msgstr "Sorry,没有符合<em>\"%(query_string)s\"</em>的页面"
@@ -726,6 +707,9 @@ msgstr "注销"
 #, python-format
 msgid "Page %(page_num)s of %(total_pages)s."
 msgstr "页面 %(page_num)s / %(total_pages)s."
+
+msgid "Other searches"
+msgstr "其它搜索"
 
 msgid ""
 "You are using an <strong>outdated</strong> browser not supported by this "

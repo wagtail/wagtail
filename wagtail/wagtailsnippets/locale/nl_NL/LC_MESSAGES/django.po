@@ -9,9 +9,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-08-26 14:28+0100\n"
-"PO-Revision-Date: 2015-12-16 13:38+0000\n"
-"Last-Translator: Thijs Kramer <thijskramer@gmail.com>\n"
+"POT-Creation-Date: 2015-12-17 13:55+0000\n"
+"PO-Revision-Date: 2015-12-17 14:00+0000\n"
+"Last-Translator: mattwestcott <matthew@torchbox.com>\n"
 "Language-Team: Dutch (Netherlands) (http://www.transifex.com/torchbox/"
 "wagtail/language/nl_NL/)\n"
 "MIME-Version: 1.0\n"
@@ -30,9 +30,6 @@ msgid ""
 msgstr ""
 "Er is nog geen %(snippet_type_name)s snippet aangemaakt. Waarom <a href="
 "\"%(wagtailsnippets_create_snippet_url)s\">voegt u er niet een toe</a>?"
-
-msgid "Title"
-msgstr "Titel"
 
 #, python-format
 msgid "Delete %(snippet_type_name)s - %(instance)s"
@@ -68,6 +65,17 @@ msgstr "Wijzigen"
 msgid "Snippets"
 msgstr "Snippets"
 
+msgid "Title"
+msgstr "Titel"
+
+#, python-format
+msgid ""
+"No %(snippet_type_name_plural)s have been created. Why not <a href="
+"\"%(wagtailsnippets_create_url)s\">add one</a>?"
+msgstr ""
+"Er zijn nog geen %(snippet_type_name_plural)s aangemaakt. Waarom <a href="
+"\"%(wagtailsnippets_create_url)s\">voegt u er niet een toe</a>?"
+
 #, python-format
 msgid "Snippets %(snippet_type_name_plural)s"
 msgstr "Snippets %(snippet_type_name_plural)s"
@@ -79,14 +87,6 @@ msgstr "Snippets <span>%(snippet_type_name_plural)s</span>"
 #, python-format
 msgid "Add %(snippet_type_name)s"
 msgstr "Voeg toe %(snippet_type_name)s"
-
-#, python-format
-msgid ""
-"No %(snippet_type_name_plural)s have been created. Why not <a href="
-"\"%(wagtailsnippets_create_url)s\">add one</a>?"
-msgstr ""
-"Er zijn nog geen %(snippet_type_name_plural)s aangemaakt. Waarom <a href="
-"\"%(wagtailsnippets_create_url)s\">voegt u er niet een toe</a>?"
 
 #, python-format
 msgid "Usage of %(title)s"

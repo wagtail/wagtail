@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-08-26 14:28+0100\n"
-"PO-Revision-Date: 2015-12-17 13:19+0000\n"
+"POT-Creation-Date: 2015-12-17 13:55+0000\n"
+"PO-Revision-Date: 2015-12-17 13:59+0000\n"
 "Last-Translator: mattwestcott <matthew@torchbox.com>\n"
 "Language-Team: Arabic (http://www.transifex.com/torchbox/wagtail/language/"
 "ar/)\n"
@@ -20,21 +20,6 @@ msgstr ""
 "Language: ar\n"
 "Plural-Forms: nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 "
 "&& n%100<=10 ? 3 : n%100>=11 && n%100<=99 ? 4 : 5;\n"
-
-msgid "Redirect from"
-msgstr "غيّر الاتجاه من"
-
-msgid "Site"
-msgstr "موقع"
-
-msgid "Permanent"
-msgstr "دتئم"
-
-msgid "Redirect to a page"
-msgstr "غيّر الاتجاه إلى"
-
-msgid "Redirect"
-msgstr "غيّر الاتجاه"
 
 msgid "Add redirect"
 msgstr "أضف غي الاتجاه"
@@ -62,6 +47,9 @@ msgstr "تغييرات الاتجاه"
 
 msgid "From"
 msgstr "من"
+
+msgid "Site"
+msgstr "موقع"
 
 msgid "To"
 msgstr "إلى"
