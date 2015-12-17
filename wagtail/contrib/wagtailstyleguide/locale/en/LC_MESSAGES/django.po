@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-08-26 14:28+0100\n"
+"POT-Creation-Date: 2015-12-17 13:54+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,39 +17,39 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: templates/wagtailstyleguide/base.html:10
-#: templates/wagtailstyleguide/base.html:14 wagtail_hooks.py:20
+#: templates/wagtailstyleguide/base.html:12
+#: templates/wagtailstyleguide/base.html:16 wagtail_hooks.py:21
 msgid "Styleguide"
 msgstr ""
 
-#: templates/wagtailstyleguide/base.html:392
+#: templates/wagtailstyleguide/base.html:432
 msgid "Save"
 msgstr ""
 
-#: templates/wagtailstyleguide/base.html:392
+#: templates/wagtailstyleguide/base.html:432
 msgid "Delete image"
 msgstr ""
 
-#: views.py:42
+#: views.py:43
 msgid "Search something"
 msgstr ""
 
-#: views.py:46
+#: views.py:47
 msgid "Success message"
 msgstr ""
 
-#: views.py:47 views.py:51 views.py:55
+#: views.py:48 views.py:52 views.py:56
 msgid "View live"
 msgstr ""
 
-#: views.py:48 views.py:52 views.py:56
+#: views.py:49 views.py:53 views.py:57
 msgid "Edit"
 msgstr ""
 
-#: views.py:50
+#: views.py:51
 msgid "Warning message"
 msgstr ""
 
-#: views.py:54
+#: views.py:55
 msgid "Error message"
 msgstr ""

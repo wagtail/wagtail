@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-08-26 14:28+0100\n"
+"POT-Creation-Date: 2015-12-17 13:55+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -27,7 +27,7 @@ msgid ""
 "Promoted Results to be displayed, wildcards are NOT allowed."
 msgstr ""
 
-#: models.py:73
+#: models.py:75
 msgid "Query Daily Hits"
 msgstr ""
 

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-08-26 14:28+0100\n"
+"POT-Creation-Date: 2015-12-17 13:55+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -21,17 +21,35 @@ msgstr ""
 msgid "Choose"
 msgstr ""
 
-#: templates/wagtailsnippets/chooser/choose.html:10
+#: templates/wagtailsnippets/chooser/choose.html:14
+msgid "Search"
+msgstr ""
+
+#: templates/wagtailsnippets/chooser/results.html:5
+#: templates/wagtailsnippets/snippets/results.html:5
+#, python-format
+msgid ""
+"\n"
+"            There is one match\n"
+"        "
+msgid_plural ""
+"\n"
+"            There are %(counter)s matches\n"
+"        "
+msgstr[0] ""
+msgstr[1] ""
+
+#: templates/wagtailsnippets/chooser/results.html:18
+#: templates/wagtailsnippets/snippets/results.html:19
+#, python-format
+msgid "Sorry, no snippets match \"<em>%(query_string)s</em>\""
+msgstr ""
+
+#: templates/wagtailsnippets/chooser/results.html:21
 #, python-format
 msgid ""
 "You haven't created any %(snippet_type_name)s snippets. Why not <a href="
 "\"%(wagtailsnippets_create_snippet_url)s\" target=\"_blank\">create one now"
-msgstr ""
-
-#: templates/wagtailsnippets/chooser/list.html:11
-#: templates/wagtailsnippets/snippets/list.html:8
-#: templates/wagtailsnippets/snippets/usage.html:16
-msgid "Title"
 msgstr ""
 
 #: templates/wagtailsnippets/snippets/confirm_delete.html:3
@@ -76,8 +94,20 @@ msgstr ""
 msgid "Editing"
 msgstr ""
 
-#: templates/wagtailsnippets/snippets/index.html:3 wagtail_hooks.py:29
+#: templates/wagtailsnippets/snippets/index.html:3 wagtail_hooks.py:31
 msgid "Snippets"
+msgstr ""
+
+#: templates/wagtailsnippets/snippets/list.html:8
+#: templates/wagtailsnippets/snippets/usage.html:16
+msgid "Title"
+msgstr ""
+
+#: templates/wagtailsnippets/snippets/results.html:22
+#, python-format
+msgid ""
+"No %(snippet_type_name_plural)s have been created. Why not <a href="
+"\"%(wagtailsnippets_create_url)s\">add one</a>?"
 msgstr ""
 
 #: templates/wagtailsnippets/snippets/type_index.html:3
@@ -85,21 +115,14 @@ msgstr ""
 msgid "Snippets %(snippet_type_name_plural)s"
 msgstr ""
 
-#: templates/wagtailsnippets/snippets/type_index.html:9
+#: templates/wagtailsnippets/snippets/type_index.html:21
 #, python-format
 msgid "Snippets <span>%(snippet_type_name_plural)s</span>"
 msgstr ""
 
-#: templates/wagtailsnippets/snippets/type_index.html:13
+#: templates/wagtailsnippets/snippets/type_index.html:36
 #, python-format
 msgid "Add %(snippet_type_name)s"
-msgstr ""
-
-#: templates/wagtailsnippets/snippets/type_index.html:24
-#, python-format
-msgid ""
-"No %(snippet_type_name_plural)s have been created. Why not <a href="
-"\"%(wagtailsnippets_create_url)s\">add one</a>?"
 msgstr ""
 
 #: templates/wagtailsnippets/snippets/usage.html:3
@@ -127,29 +150,35 @@ msgstr ""
 msgid "Edit this page"
 msgstr ""
 
-#: views/snippets.py:144
+#: views/chooser.py:29 views/chooser.py:41 views/snippets.py:100
+#: views/snippets.py:112
+#, python-format
+msgid "Search %(snippet_type_name)s"
+msgstr ""
+
+#: views/snippets.py:159
 #, python-brace-format
 msgid "{snippet_type} '{instance}' created."
 msgstr ""
 
-#: views/snippets.py:149 views/snippets.py:194
+#: views/snippets.py:166 views/snippets.py:214
 msgid "Edit"
 msgstr ""
 
-#: views/snippets.py:154
+#: views/snippets.py:171
 msgid "The snippet could not be created due to errors."
 msgstr ""
 
-#: views/snippets.py:189
+#: views/snippets.py:206
 #, python-brace-format
 msgid "{snippet_type} '{instance}' updated."
 msgstr ""
 
-#: views/snippets.py:199
+#: views/snippets.py:219
 msgid "The snippet could not be saved due to errors."
 msgstr ""
 
-#: views/snippets.py:229
+#: views/snippets.py:249
 #, python-brace-format
 msgid "{snippet_type} '{instance}' deleted."
 msgstr ""
