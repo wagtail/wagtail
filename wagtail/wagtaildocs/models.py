@@ -9,6 +9,7 @@ from django.db.models.signals import pre_delete
 from django.dispatch.dispatcher import receiver
 from django.dispatch import Signal
 from django.core.urlresolvers import reverse
+from django.core.exceptions import ImproperlyConfigured
 from django.conf import settings
 from django.utils.translation import ugettext_lazy as _
 from django.utils.encoding import python_2_unicode_compatible
@@ -24,7 +25,7 @@ class DocumentQuerySet(SearchableQuerySetMixin, models.QuerySet):
 
 
 @python_2_unicode_compatible
-class Document(models.Model, TagSearchable):
+class AbstractDocument(models.Model, TagSearchable):
     title = models.CharField(max_length=255, verbose_name=_('title'))
     file = models.FileField(upload_to='documents', verbose_name=_('file'))
     created_at = models.DateTimeField(verbose_name=_('created at'), auto_now_add=True)
@@ -78,7 +79,36 @@ class Document(models.Model, TagSearchable):
             return False
 
     class Meta:
+        abstract = True
         verbose_name = _('document')
+
+
+class Document(AbstractDocument):
+    admin_form_fields = (
+        'title',
+        'file',
+        'tags'
+    )
+
+
+def get_document_model():
+    from django.conf import settings
+    from django.apps import apps
+
+    try:
+        app_label, model_name = settings.WAGTAILDOCS_DOCUMENT_MODEL.split('.')
+    except AttributeError:
+        return Document
+    except ValueError:
+        raise ImproperlyConfigured("WAGTAILDOCS_DOCUMENT_MODEL must be of the form 'app_label.model_name'")
+
+    document_model = apps.get_model(app_label, model_name)
+    if document_model is None:
+        raise ImproperlyConfigured(
+            "WAGTAILDOCS_DOCUMENT_MODEL refers to model '%s' that has not been installed" %
+            settings.WAGTAILDOCS_DOCUMENT_MODEL
+        )
+    return document_model
 
 
 # Receive the pre_delete signal and delete the file associated with the model instance.

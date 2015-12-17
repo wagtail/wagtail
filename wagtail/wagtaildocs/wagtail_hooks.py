@@ -11,7 +11,7 @@ from wagtail.wagtailadmin.site_summary import SummaryItem
 from wagtail.wagtailadmin.search import SearchArea
 
 from wagtail.wagtaildocs import admin_urls
-from wagtail.wagtaildocs.models import Document
+from wagtail.wagtaildocs.models import get_document_model
 from wagtail.wagtaildocs.rich_text import DocumentLinkHandler
 
 
@@ -76,7 +76,7 @@ class DocumentsSummaryItem(SummaryItem):
 
     def get_context(self):
         return {
-            'total_docs': Document.objects.count(),
+            'total_docs': get_document_model().objects.count(),
         }
 
 
