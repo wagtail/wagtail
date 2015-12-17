@@ -103,8 +103,8 @@ class BaseSearchQuery(object):
 
 
 class BaseSearchResults(object):
-    def __init__(self, backend, query, prefetch_related=None):
-        self.backend = backend
+    def __init__(self, index, query, prefetch_related=None):
+        self.index = index
         self.query = query
         self.prefetch_related = prefetch_related
         self.start = 0
@@ -127,7 +127,7 @@ class BaseSearchResults(object):
 
     def _clone(self):
         klass = self.__class__
-        new = klass(self.backend, self.query, prefetch_related=self.prefetch_related)
+        new = klass(self.index, self.query, prefetch_related=self.prefetch_related)
         new.start = self.start
         new.stop = self.stop
         return new
@@ -186,9 +186,9 @@ class BaseSearchResults(object):
         return repr(data)
 
 
-class BaseSearch(object):
-    search_query_class = None
-    search_results_class = None
+class BaseSearchIndex(object):
+    query_class = None
+    results_class = None
 
     def __init__(self, params):
         pass
@@ -248,7 +248,11 @@ class BaseSearch(object):
                 raise ValueError("operator must be either 'or' or 'and'")
 
         # Search
-        search_query = self.search_query_class(
+        search_query = self.query_class(
             queryset, query_string, fields=fields, operator=operator, order_by_relevance=order_by_relevance
         )
-        return self.search_results_class(self, search_query)
+        return self.results_class(self, search_query)
+
+
+# Backwards compatibility
+BaseSearch = BaseSearchIndex  # noqa

@@ -12,58 +12,13 @@ from elasticsearch.helpers import bulk
 from django.db import models
 from django.utils.crypto import get_random_string
 
-from wagtail.wagtailsearch.backends.base import BaseSearch, BaseSearchQuery, BaseSearchResults
+from wagtail.wagtailsearch.backends.base import BaseSearchIndex, BaseSearchQuery, BaseSearchResults
 from wagtail.wagtailsearch.index import SearchField, FilterField, RelatedFields, class_is_indexed
 from wagtail.utils.deprecation import RemovedInWagtail14Warning
 
 
-INDEX_SETTINGS = {
-    'settings': {
-        'analysis': {
-            'analyzer': {
-                'ngram_analyzer': {
-                    'type': 'custom',
-                    'tokenizer': 'lowercase',
-                    'filter': ['asciifolding', 'ngram']
-                },
-                'edgengram_analyzer': {
-                    'type': 'custom',
-                    'tokenizer': 'lowercase',
-                    'filter': ['asciifolding', 'edgengram']
-                }
-            },
-            'tokenizer': {
-                'ngram_tokenizer': {
-                    'type': 'nGram',
-                    'min_gram': 3,
-                    'max_gram': 15,
-                },
-                'edgengram_tokenizer': {
-                    'type': 'edgeNGram',
-                    'min_gram': 2,
-                    'max_gram': 15,
-                    'side': 'front'
-                }
-            },
-            'filter': {
-                'ngram': {
-                    'type': 'nGram',
-                    'min_gram': 3,
-                    'max_gram': 15
-                },
-                'edgengram': {
-                    'type': 'edgeNGram',
-                    'min_gram': 1,
-                    'max_gram': 15
-                }
-            }
-        }
-    }
-}
-
-
 class ElasticSearchMapping(object):
-    TYPE_MAP = {
+    type_map = {
         'AutoField': 'integer',
         'BinaryField': 'binary',
         'BooleanField': 'boolean',
@@ -105,7 +60,7 @@ class ElasticSearchMapping(object):
 
             return field.get_index_name(self.model), mapping
         else:
-            mapping = {'type': self.TYPE_MAP.get(field.get_type(self.model), 'string')}
+            mapping = {'type': self.type_map.get(field.get_type(self.model), 'string')}
 
             if isinstance(field, SearchField):
                 if field.boost:
@@ -442,7 +397,7 @@ class ElasticSearchResults(BaseSearchResults):
     def _do_search(self):
         # Params for elasticsearch query
         params = dict(
-            index=self.backend.es_index,
+            index=self.index.name,
             body=self._get_es_body(),
             _source=False,
             fields='pk',
@@ -453,8 +408,8 @@ class ElasticSearchResults(BaseSearchResults):
         if self.stop is not None:
             params['size'] = self.stop - self.start
 
-        # Send to ElasticSearch
-        hits = self.backend.es.search(**params)
+        # Send to Elasticsearch
+        hits = self.index.es.search(**params)
 
         # Get pks from results
         pks = [hit['fields']['pk'][0] for hit in hits['hits']['hits']]
@@ -467,13 +422,13 @@ class ElasticSearchResults(BaseSearchResults):
         for obj in queryset:
             results[str(obj.pk)] = obj
 
-        # Return results in order given by ElasticSearch
+        # Return results in order given by Elasticsearch
         return [results[str(pk)] for pk in pks if results[str(pk)]]
 
     def _do_count(self):
         # Get count
-        hit_count = self.backend.es.count(
-            index=self.backend.es_index,
+        hit_count = self.index.es.count(
+            index=self.index.name,
             body=self._get_es_body(for_count=True),
         )['count']
 
@@ -486,9 +441,11 @@ class ElasticSearchResults(BaseSearchResults):
 
 
 class ElasticSearchIndexRebuilder(object):
-    def __init__(self, es, index_name):
-        self.es = es
-        self.index_name = index_name
+    def __init__(self, index):
+        self.es = index.es
+        self.index_name = index.name
+        self.mapping_class = index.mapping_class
+        self.index_settings = index.settings
 
     def reset_index(self):
         # Delete old index
@@ -498,7 +455,7 @@ class ElasticSearchIndexRebuilder(object):
             pass
 
         # Create new index
-        self.es.indices.create(self.index_name, INDEX_SETTINGS)
+        self.es.indices.create(self.index_name, self.index_settings)
 
     def start(self):
         # Reset the index
@@ -506,7 +463,7 @@ class ElasticSearchIndexRebuilder(object):
 
     def add_model(self, model):
         # Get mapping
-        mapping = ElasticSearchMapping(model)
+        mapping = self.mapping_class(model)
 
         # Put mapping
         self.es.indices.put_mapping(
@@ -518,7 +475,7 @@ class ElasticSearchIndexRebuilder(object):
             return
 
         # Get mapping
-        mapping = ElasticSearchMapping(model)
+        mapping = self.mapping_class(model)
         doc_type = mapping.get_document_type()
 
         # Create list of actions
@@ -542,10 +499,12 @@ class ElasticSearchIndexRebuilder(object):
 
 
 class ElasticSearchAtomicIndexRebuilder(ElasticSearchIndexRebuilder):
-    def __init__(self, es, alias_name):
-        self.es = es
-        self.alias_name = alias_name
-        self.index_name = alias_name + '_' + get_random_string(7).lower()
+    def __init__(self, index):
+        self.es = index.es
+        self.alias_name = index.name
+        self.index_name = self.alias_name + '_' + get_random_string(7).lower()
+        self.mapping_class = index.mapping_class
+        self.index_settings = index.settings
 
     def reset_index(self):
         # Delete old index using the alias
@@ -556,14 +515,14 @@ class ElasticSearchAtomicIndexRebuilder(ElasticSearchIndexRebuilder):
             pass
 
         # Create new index
-        self.es.indices.create(self.index_name, INDEX_SETTINGS)
+        self.es.indices.create(self.index_name, self.index_settings)
 
         # Create a new alias
         self.es.indices.put_alias(name=self.alias_name, index=self.index_name)
 
     def start(self):
         # Create the new index
-        self.es.indices.create(self.index_name, INDEX_SETTINGS)
+        self.es.indices.create(self.index_name, self.index_settings)
 
     def finish(self):
         # Refresh the new index
@@ -599,27 +558,74 @@ class ElasticSearchAtomicIndexRebuilder(ElasticSearchIndexRebuilder):
                     pass
 
 
-class ElasticSearch(BaseSearch):
-    search_query_class = ElasticSearchQuery
-    search_results_class = ElasticSearchResults
+class ElasticSearchIndex(BaseSearchIndex):
+    query_class = ElasticSearchQuery
+    results_class = ElasticSearchResults
+    mapping_class = ElasticSearchMapping
+    basic_rebuilder_class = ElasticSearchIndexRebuilder
+    atomic_rebuilder_class = ElasticSearchAtomicIndexRebuilder
+
+    settings = {
+        'settings': {
+            'analysis': {
+                'analyzer': {
+                    'ngram_analyzer': {
+                        'type': 'custom',
+                        'tokenizer': 'lowercase',
+                        'filter': ['asciifolding', 'ngram']
+                    },
+                    'edgengram_analyzer': {
+                        'type': 'custom',
+                        'tokenizer': 'lowercase',
+                        'filter': ['asciifolding', 'edgengram']
+                    }
+                },
+                'tokenizer': {
+                    'ngram_tokenizer': {
+                        'type': 'nGram',
+                        'min_gram': 3,
+                        'max_gram': 15,
+                    },
+                    'edgengram_tokenizer': {
+                        'type': 'edgeNGram',
+                        'min_gram': 2,
+                        'max_gram': 15,
+                        'side': 'front'
+                    }
+                },
+                'filter': {
+                    'ngram': {
+                        'type': 'nGram',
+                        'min_gram': 3,
+                        'max_gram': 15
+                    },
+                    'edgengram': {
+                        'type': 'edgeNGram',
+                        'min_gram': 1,
+                        'max_gram': 15
+                    }
+                }
+            }
+        }
+    }
 
     def __init__(self, params):
-        super(ElasticSearch, self).__init__(params)
+        super(ElasticSearchIndex, self).__init__(params)
 
         # Get settings
-        self.es_hosts = params.pop('HOSTS', None)
-        self.es_index = params.pop('INDEX', 'wagtail')
-        self.es_timeout = params.pop('TIMEOUT', 10)
+        self.hosts = params.pop('HOSTS', None)
+        self.name = params.pop('INDEX', 'wagtail')
+        self.timeout = params.pop('TIMEOUT', 10)
 
         if params.pop('ATOMIC_REBUILD', False):
-            self.rebuilder_class = ElasticSearchAtomicIndexRebuilder
+            self.rebuilder_class = self.atomic_rebuilder_class
         else:
-            self.rebuilder_class = ElasticSearchIndexRebuilder
+            self.rebuilder_class = self.basic_rebuilder_class
 
         # If HOSTS is not set, convert URLS setting to HOSTS
         es_urls = params.pop('URLS', ['http://localhost:9200'])
-        if self.es_hosts is None:
-            self.es_hosts = []
+        if self.hosts is None:
+            self.hosts = []
 
             for url in es_urls:
                 parsed_url = urlparse(url)
@@ -631,7 +637,7 @@ class ElasticSearch(BaseSearch):
                 if parsed_url.username is not None and parsed_url.password is not None:
                     http_auth = (parsed_url.username, parsed_url.password)
 
-                self.es_hosts.append({
+                self.hosts.append({
                     'host': parsed_url.hostname,
                     'port': port,
                     'url_prefix': parsed_url.path,
@@ -639,15 +645,15 @@ class ElasticSearch(BaseSearch):
                     'http_auth': http_auth,
                 })
 
-        # Get ElasticSearch interface
-        # Any remaining params are passed into the ElasticSearch constructor
+        # Get Elasticsearch interface
+        # Any remaining params are passed into the Elasticsearch constructor
         self.es = Elasticsearch(
-            hosts=self.es_hosts,
-            timeout=self.es_timeout,
+            hosts=self.hosts,
+            timeout=self.timeout,
             **params)
 
     def get_rebuilder(self):
-        return self.rebuilder_class(self.es, self.es_index)
+        return self.rebuilder_class(self)
 
     def reset_index(self):
         # Use the rebuilder to reset the index
@@ -655,15 +661,15 @@ class ElasticSearch(BaseSearch):
 
     def add_type(self, model):
         # Get mapping
-        mapping = ElasticSearchMapping(model)
+        mapping = self.mapping_class(model)
 
         # Put mapping
         self.es.indices.put_mapping(
-            index=self.es_index, doc_type=mapping.get_document_type(), body=mapping.get_mapping()
+            index=self.name, doc_type=mapping.get_document_type(), body=mapping.get_mapping()
         )
 
     def refresh_index(self):
-        self.es.indices.refresh(self.es_index)
+        self.es.indices.refresh(self.name)
 
     def add(self, obj):
         # Make sure the object can be indexed
@@ -671,11 +677,11 @@ class ElasticSearch(BaseSearch):
             return
 
         # Get mapping
-        mapping = ElasticSearchMapping(obj.__class__)
+        mapping = self.mapping_class(obj.__class__)
 
         # Add document to index
         self.es.index(
-            self.es_index, mapping.get_document_type(), mapping.get_document(obj), id=mapping.get_document_id(obj)
+            self.name, mapping.get_document_type(), mapping.get_document(obj), id=mapping.get_document_id(obj)
         )
 
     def add_bulk(self, model, obj_list):
@@ -683,7 +689,7 @@ class ElasticSearch(BaseSearch):
             return
 
         # Get mapping
-        mapping = ElasticSearchMapping(model)
+        mapping = self.mapping_class(model)
         doc_type = mapping.get_document_type()
 
         # Create list of actions
@@ -691,7 +697,7 @@ class ElasticSearch(BaseSearch):
         for obj in obj_list:
             # Create the action
             action = {
-                '_index': self.es_index,
+                '_index': self.name,
                 '_type': doc_type,
                 '_id': mapping.get_document_id(obj),
             }
@@ -707,12 +713,12 @@ class ElasticSearch(BaseSearch):
             return
 
         # Get mapping
-        mapping = ElasticSearchMapping(obj.__class__)
+        mapping = self.mapping_class(obj.__class__)
 
         # Delete document
         try:
             self.es.delete(
-                self.es_index,
+                self.name,
                 mapping.get_document_type(),
                 mapping.get_document_id(obj),
             )
@@ -720,4 +726,7 @@ class ElasticSearch(BaseSearch):
             pass  # Document doesn't exist, ignore this exception
 
 
-SearchBackend = ElasticSearch
+SearchBackend = ElasticSearchIndex
+
+# Backwards compatibility
+ElasticSearch = ElasticSearchIndex  # noqa

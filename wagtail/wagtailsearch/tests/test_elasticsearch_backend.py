@@ -13,13 +13,7 @@ from django.test import TestCase
 from django.db.models import Q
 
 from wagtail.wagtailsearch.backends import get_search_backend
-from wagtail.wagtailsearch.backends.elasticsearch import (
-    ElasticSearch,
-    ElasticSearchMapping,
-    ElasticSearchResults,
-    ElasticSearchQuery,
-    ElasticSearchAtomicIndexRebuilder,
-)
+from wagtail.wagtailsearch.backends.elasticsearch import ElasticSearchIndex
 
 from wagtail.tests.search import models
 from .test_backends import BackendTests
@@ -30,7 +24,7 @@ class TestElasticSearchBackend(BackendTests, TestCase):
 
     def test_search_with_spaces_only(self):
         # Search for some space characters and hope it doesn't crash
-        results = self.backend.search("   ", models.SearchTest)
+        results = self.index.search("   ", models.SearchTest)
 
         # Queries are lazily evaluated, force it to run
         list(results)
@@ -42,76 +36,76 @@ class TestElasticSearchBackend(BackendTests, TestCase):
         from wagtail.wagtailsearch.backends.base import FieldError
 
         with self.assertRaises(FieldError):
-            list(self.backend.search("Hello", models.SearchTest, filters=dict(id=42)))
+            list(self.index.search("Hello", models.SearchTest, filters=dict(id=42)))
 
     def test_filter_with_unsupported_lookup_type(self):
         from wagtail.wagtailsearch.backends.base import FilterError
 
         with self.assertRaises(FilterError):
-            list(self.backend.search("Hello", models.SearchTest, filters=dict(title__iregex='h(ea)llo')))
+            list(self.index.search("Hello", models.SearchTest, filters=dict(title__iregex='h(ea)llo')))
 
     def test_partial_search(self):
         # Reset the index
-        self.backend.reset_index()
-        self.backend.add_type(models.SearchTest)
-        self.backend.add_type(models.SearchTestChild)
+        self.index.reset_index()
+        self.index.add_type(models.SearchTest)
+        self.index.add_type(models.SearchTestChild)
 
         # Add some test data
         obj = models.SearchTest()
         obj.title = "HelloWorld"
         obj.live = True
         obj.save()
-        self.backend.add(obj)
+        self.index.add(obj)
 
         # Refresh the index
-        self.backend.refresh_index()
+        self.index.refresh_index()
 
         # Search and check
-        results = self.backend.search("HelloW", models.SearchTest.objects.all())
+        results = self.index.search("HelloW", models.SearchTest.objects.all())
 
         self.assertEqual(len(results), 1)
         self.assertEqual(results[0].id, obj.id)
 
     def test_child_partial_search(self):
         # Reset the index
-        self.backend.reset_index()
-        self.backend.add_type(models.SearchTest)
-        self.backend.add_type(models.SearchTestChild)
+        self.index.reset_index()
+        self.index.add_type(models.SearchTest)
+        self.index.add_type(models.SearchTestChild)
 
         obj = models.SearchTestChild()
         obj.title = "WorldHello"
         obj.subtitle = "HelloWorld"
         obj.live = True
         obj.save()
-        self.backend.add(obj)
+        self.index.add(obj)
 
         # Refresh the index
-        self.backend.refresh_index()
+        self.index.refresh_index()
 
         # Search and check
-        results = self.backend.search("HelloW", models.SearchTest.objects.all())
+        results = self.index.search("HelloW", models.SearchTest.objects.all())
 
         self.assertEqual(len(results), 1)
         self.assertEqual(results[0].id, obj.id)
 
     def test_ascii_folding(self):
         # Reset the index
-        self.backend.reset_index()
-        self.backend.add_type(models.SearchTest)
-        self.backend.add_type(models.SearchTestChild)
+        self.index.reset_index()
+        self.index.add_type(models.SearchTest)
+        self.index.add_type(models.SearchTestChild)
 
         # Add some test data
         obj = models.SearchTest()
         obj.title = "Ĥéllø"
         obj.live = True
         obj.save()
-        self.backend.add(obj)
+        self.index.add(obj)
 
         # Refresh the index
-        self.backend.refresh_index()
+        self.index.refresh_index()
 
         # Search and check
-        results = self.backend.search("Hello", models.SearchTest.objects.all())
+        results = self.index.search("Hello", models.SearchTest.objects.all())
 
         self.assertEqual(len(results), 1)
         self.assertEqual(results[0].id, obj.id)
@@ -122,28 +116,28 @@ class TestElasticSearchBackend(BackendTests, TestCase):
         have it also as their query analyser
         """
         # Reset the index
-        self.backend.reset_index()
-        self.backend.add_type(models.SearchTest)
-        self.backend.add_type(models.SearchTestChild)
+        self.index.reset_index()
+        self.index.add_type(models.SearchTest)
+        self.index.add_type(models.SearchTestChild)
 
         # Add some test data
         obj = models.SearchTest()
         obj.title = "Hello"
         obj.live = True
         obj.save()
-        self.backend.add(obj)
+        self.index.add(obj)
 
         # Refresh the index
-        self.backend.refresh_index()
+        self.index.refresh_index()
 
         # Test search for "Hello"
-        results = self.backend.search("Hello", models.SearchTest.objects.all())
+        results = self.index.search("Hello", models.SearchTest.objects.all())
 
         # Should find the result
         self.assertEqual(len(results), 1)
 
         # Test search for "Horse"
-        results = self.backend.search("Horse", models.SearchTest.objects.all())
+        results = self.index.search("Horse", models.SearchTest.objects.all())
 
         # Even though they both start with the letter "H". This should not be considered a match
         self.assertEqual(len(results), 0)
@@ -156,30 +150,30 @@ class TestElasticSearchBackend(BackendTests, TestCase):
         See: https://github.com/torchbox/wagtail/issues/937
         """
         # Reset the index
-        self.backend.reset_index()
-        self.backend.add_type(models.SearchTest)
-        self.backend.add_type(models.SearchTestChild)
+        self.index.reset_index()
+        self.index.add_type(models.SearchTest)
+        self.index.add_type(models.SearchTestChild)
 
         # Add some test data
         obj = models.SearchTest()
         obj.title = "Hello-World"
         obj.live = True
         obj.save()
-        self.backend.add(obj)
+        self.index.add(obj)
 
         # Refresh the index
-        self.backend.refresh_index()
+        self.index.refresh_index()
 
         # Test search for "Hello-World"
-        results = self.backend.search("Hello-World", models.SearchTest.objects.all())
+        results = self.index.search("Hello-World", models.SearchTest.objects.all())
 
         # Should find the result
         self.assertEqual(len(results), 1)
 
     def test_custom_ordering(self):
         # Reset the index
-        self.backend.reset_index()
-        self.backend.add_type(models.SearchTest)
+        self.index.reset_index()
+        self.index.add_type(models.SearchTest)
 
         # Add some test data
         # a is more relevant, but b is more recent
@@ -188,24 +182,24 @@ class TestElasticSearchBackend(BackendTests, TestCase):
         a.live = True
         a.published_date = datetime.date(2015, 10, 11)
         a.save()
-        self.backend.add(a)
+        self.index.add(a)
 
         b = models.SearchTest()
         b.title = "Hello World"
         b.live = True
         b.published_date = datetime.date(2015, 10, 12)
         b.save()
-        self.backend.add(b)
+        self.index.add(b)
 
         # Refresh the index
-        self.backend.refresh_index()
+        self.index.refresh_index()
 
         # Do a search ordered by relevence
-        results = self.backend.search("Hello", models.SearchTest.objects.all())
+        results = self.index.search("Hello", models.SearchTest.objects.all())
         self.assertEqual(list(results), [a, b])
 
         # Do a search ordered by published date
-        results = self.backend.search(
+        results = self.index.search(
             "Hello", models.SearchTest.objects.order_by('-published_date'), order_by_relevance=False
         )
         self.assertEqual(list(results), [b, a])
@@ -214,21 +208,21 @@ class TestElasticSearchBackend(BackendTests, TestCase):
         # Testing for bug #1859
 
         # Reset the index
-        self.backend.reset_index()
-        self.backend.add_type(models.SearchTest)
+        self.index.reset_index()
+        self.index.add_type(models.SearchTest)
 
         a = models.SearchTest()
         a.title = "Hello World"
         a.live = True
         a.published_date = datetime.date(2015, 10, 12)
         a.save()
-        self.backend.add(a)
+        self.index.add(a)
 
         # Refresh the index
-        self.backend.refresh_index()
+        self.index.refresh_index()
 
         # Run query with "and" operator and single field
-        results = self.backend.search("Hello World", models.SearchTest, operator='and', fields=['title'])
+        results = self.index.search("Hello World", models.SearchTest, operator='and', fields=['title'])
         self.assertEqual(list(results), [a])
 
 
@@ -239,9 +233,11 @@ class TestElasticSearchQuery(TestCase):
             json.dumps(a, sort_keys=True, default=default), json.dumps(b, sort_keys=True, default=default)
         )
 
+    query_class = ElasticSearchIndex.query_class
+
     def test_simple(self):
         # Create a query
-        query = ElasticSearchQuery(models.SearchTest.objects.all(), "Hello")
+        query = self.query_class(models.SearchTest.objects.all(), "Hello")
 
         # Check it
         expected_result = {'filtered': {
@@ -252,7 +248,7 @@ class TestElasticSearchQuery(TestCase):
 
     def test_none_query_string(self):
         # Create a query
-        query = ElasticSearchQuery(models.SearchTest.objects.all(), None)
+        query = self.query_class(models.SearchTest.objects.all(), None)
 
         # Check it
         expected_result = {'filtered': {
@@ -263,7 +259,7 @@ class TestElasticSearchQuery(TestCase):
 
     def test_and_operator(self):
         # Create a query
-        query = ElasticSearchQuery(models.SearchTest.objects.all(), "Hello", operator='and')
+        query = self.query_class(models.SearchTest.objects.all(), "Hello", operator='and')
 
         # Check it
         expected_result = {'filtered': {
@@ -274,7 +270,7 @@ class TestElasticSearchQuery(TestCase):
 
     def test_filter(self):
         # Create a query
-        query = ElasticSearchQuery(models.SearchTest.objects.filter(title="Test"), "Hello")
+        query = self.query_class(models.SearchTest.objects.filter(title="Test"), "Hello")
 
         # Check it
         expected_result = {'filtered': {'filter': {'and': [
@@ -285,7 +281,7 @@ class TestElasticSearchQuery(TestCase):
 
     def test_and_filter(self):
         # Create a query
-        query = ElasticSearchQuery(models.SearchTest.objects.filter(title="Test", live=True), "Hello")
+        query = self.query_class(models.SearchTest.objects.filter(title="Test", live=True), "Hello")
 
         # Check it
         expected_result = {'filtered': {'filter': {'and': [
@@ -302,7 +298,7 @@ class TestElasticSearchQuery(TestCase):
 
     def test_or_filter(self):
         # Create a query
-        query = ElasticSearchQuery(models.SearchTest.objects.filter(Q(title="Test") | Q(live=True)), "Hello")
+        query = self.query_class(models.SearchTest.objects.filter(Q(title="Test") | Q(live=True)), "Hello")
 
         # Make sure field filters are sorted (as they can be in any order which may cause false positives)
         query = query.get_query()
@@ -318,7 +314,7 @@ class TestElasticSearchQuery(TestCase):
 
     def test_negated_filter(self):
         # Create a query
-        query = ElasticSearchQuery(models.SearchTest.objects.exclude(live=True), "Hello")
+        query = self.query_class(models.SearchTest.objects.exclude(live=True), "Hello")
 
         # Check it
         expected_result = {'filtered': {'filter': {'and': [
@@ -329,7 +325,7 @@ class TestElasticSearchQuery(TestCase):
 
     def test_fields(self):
         # Create a query
-        query = ElasticSearchQuery(models.SearchTest.objects.all(), "Hello", fields=['title'])
+        query = self.query_class(models.SearchTest.objects.all(), "Hello", fields=['title'])
 
         # Check it
         expected_result = {'filtered': {
@@ -340,7 +336,7 @@ class TestElasticSearchQuery(TestCase):
 
     def test_fields_with_and_operator(self):
         # Create a query
-        query = ElasticSearchQuery(models.SearchTest.objects.all(), "Hello", fields=['title'], operator='and')
+        query = self.query_class(models.SearchTest.objects.all(), "Hello", fields=['title'], operator='and')
 
         # Check it
         expected_result = {'filtered': {
@@ -351,7 +347,7 @@ class TestElasticSearchQuery(TestCase):
 
     def test_multiple_fields(self):
         # Create a query
-        query = ElasticSearchQuery(models.SearchTest.objects.all(), "Hello", fields=['title', 'content'])
+        query = self.query_class(models.SearchTest.objects.all(), "Hello", fields=['title', 'content'])
 
         # Check it
         expected_result = {'filtered': {
@@ -362,7 +358,7 @@ class TestElasticSearchQuery(TestCase):
 
     def test_multiple_fields_with_and_operator(self):
         # Create a query
-        query = ElasticSearchQuery(
+        query = self.query_class(
             models.SearchTest.objects.all(), "Hello", fields=['title', 'content'], operator='and'
         )
 
@@ -375,7 +371,7 @@ class TestElasticSearchQuery(TestCase):
 
     def test_exact_lookup(self):
         # Create a query
-        query = ElasticSearchQuery(models.SearchTest.objects.filter(title__exact="Test"), "Hello")
+        query = self.query_class(models.SearchTest.objects.filter(title__exact="Test"), "Hello")
 
         # Check it
         expected_result = {'filtered': {'filter': {'and': [
@@ -386,7 +382,7 @@ class TestElasticSearchQuery(TestCase):
 
     def test_none_lookup(self):
         # Create a query
-        query = ElasticSearchQuery(models.SearchTest.objects.filter(title=None), "Hello")
+        query = self.query_class(models.SearchTest.objects.filter(title=None), "Hello")
 
         # Check it
         expected_result = {'filtered': {'filter': {'and': [
@@ -397,7 +393,7 @@ class TestElasticSearchQuery(TestCase):
 
     def test_isnull_true_lookup(self):
         # Create a query
-        query = ElasticSearchQuery(models.SearchTest.objects.filter(title__isnull=True), "Hello")
+        query = self.query_class(models.SearchTest.objects.filter(title__isnull=True), "Hello")
 
         # Check it
         expected_result = {'filtered': {'filter': {'and': [
@@ -408,7 +404,7 @@ class TestElasticSearchQuery(TestCase):
 
     def test_isnull_false_lookup(self):
         # Create a query
-        query = ElasticSearchQuery(models.SearchTest.objects.filter(title__isnull=False), "Hello")
+        query = self.query_class(models.SearchTest.objects.filter(title__isnull=False), "Hello")
 
         # Check it
         expected_result = {'filtered': {'filter': {'and': [
@@ -419,7 +415,7 @@ class TestElasticSearchQuery(TestCase):
 
     def test_startswith_lookup(self):
         # Create a query
-        query = ElasticSearchQuery(models.SearchTest.objects.filter(title__startswith="Test"), "Hello")
+        query = self.query_class(models.SearchTest.objects.filter(title__startswith="Test"), "Hello")
 
         # Check it
         expected_result = {'filtered': {'filter': {'and': [
@@ -432,7 +428,7 @@ class TestElasticSearchQuery(TestCase):
         # This also tests conversion of python dates to strings
 
         # Create a query
-        query = ElasticSearchQuery(
+        query = self.query_class(
             models.SearchTest.objects.filter(published_date__gt=datetime.datetime(2014, 4, 29)), "Hello"
         )
 
@@ -445,7 +441,7 @@ class TestElasticSearchQuery(TestCase):
 
     def test_lt_lookup(self):
         # Create a query
-        query = ElasticSearchQuery(
+        query = self.query_class(
             models.SearchTest.objects.filter(published_date__lt=datetime.datetime(2014, 4, 29)), "Hello"
         )
 
@@ -458,7 +454,7 @@ class TestElasticSearchQuery(TestCase):
 
     def test_gte_lookup(self):
         # Create a query
-        query = ElasticSearchQuery(
+        query = self.query_class(
             models.SearchTest.objects.filter(published_date__gte=datetime.datetime(2014, 4, 29)), "Hello"
         )
 
@@ -471,7 +467,7 @@ class TestElasticSearchQuery(TestCase):
 
     def test_lte_lookup(self):
         # Create a query
-        query = ElasticSearchQuery(
+        query = self.query_class(
             models.SearchTest.objects.filter(published_date__lte=datetime.datetime(2014, 4, 29)), "Hello"
         )
 
@@ -487,7 +483,7 @@ class TestElasticSearchQuery(TestCase):
         end_date = datetime.datetime(2014, 8, 19)
 
         # Create a query
-        query = ElasticSearchQuery(
+        query = self.query_class(
             models.SearchTest.objects.filter(published_date__range=(start_date, end_date)), "Hello"
         )
 
@@ -500,7 +496,7 @@ class TestElasticSearchQuery(TestCase):
 
     def test_custom_ordering(self):
         # Create a query
-        query = ElasticSearchQuery(
+        query = self.query_class(
             models.SearchTest.objects.order_by('published_date'), "Hello", order_by_relevance=False
         )
 
@@ -510,7 +506,7 @@ class TestElasticSearchQuery(TestCase):
 
     def test_custom_ordering_reversed(self):
         # Create a query
-        query = ElasticSearchQuery(
+        query = self.query_class(
             models.SearchTest.objects.order_by('-published_date'), "Hello", order_by_relevance=False
         )
 
@@ -520,7 +516,7 @@ class TestElasticSearchQuery(TestCase):
 
     def test_custom_ordering_multiple(self):
         # Create a query
-        query = ElasticSearchQuery(
+        query = self.query_class(
             models.SearchTest.objects.order_by('published_date', 'live'), "Hello", order_by_relevance=False
         )
 
@@ -543,12 +539,12 @@ class TestElasticSearchResults(TestCase):
             self.objects.append(models.SearchTest.objects.create(title=str(i)))
 
     def get_results(self):
-        backend = ElasticSearch({})
+        index = ElasticSearchIndex({})
         query = mock.MagicMock()
         query.queryset = models.SearchTest.objects.all()
         query.get_query.return_value = 'QUERY'
         query.get_sort.return_value = None
-        return ElasticSearchResults(backend, query)
+        return index.results_class(index, query)
 
     def construct_search_response(self, results):
         return {
@@ -716,7 +712,7 @@ class TestElasticSearchMapping(TestCase):
 
     def setUp(self):
         # Create ES mapping
-        self.es_mapping = ElasticSearchMapping(models.SearchTest)
+        self.es_mapping = ElasticSearchIndex.mapping_class(models.SearchTest)
 
         # Create ES document
         self.obj = models.SearchTest(title="Hello")
@@ -798,7 +794,7 @@ class TestElasticSearchMappingInheritance(TestCase):
 
     def setUp(self):
         # Create ES mapping
-        self.es_mapping = ElasticSearchMapping(models.SearchTestChild)
+        self.es_mapping = ElasticSearchIndex.mapping_class(models.SearchTestChild)
 
         # Create ES document
         self.obj = models.SearchTestChild(title="Hello", subtitle="World", page_id=1)
@@ -901,16 +897,16 @@ class TestElasticSearchMappingInheritance(TestCase):
 
 class TestBackendConfiguration(TestCase):
     def test_default_settings(self):
-        backend = ElasticSearch(params={})
+        index = ElasticSearchIndex(params={})
 
-        self.assertEqual(len(backend.es_hosts), 1)
-        self.assertEqual(backend.es_hosts[0]['host'], 'localhost')
-        self.assertEqual(backend.es_hosts[0]['port'], 9200)
-        self.assertEqual(backend.es_hosts[0]['use_ssl'], False)
+        self.assertEqual(len(index.hosts), 1)
+        self.assertEqual(index.hosts[0]['host'], 'localhost')
+        self.assertEqual(index.hosts[0]['port'], 9200)
+        self.assertEqual(index.hosts[0]['use_ssl'], False)
 
     def test_hosts(self):
         # This tests that HOSTS goes to es_hosts
-        backend = ElasticSearch(params={
+        index = ElasticSearchIndex(params={
             'HOSTS': [
                 {
                     'host': '127.0.0.1',
@@ -920,14 +916,14 @@ class TestBackendConfiguration(TestCase):
             ]
         })
 
-        self.assertEqual(len(backend.es_hosts), 1)
-        self.assertEqual(backend.es_hosts[0]['host'], '127.0.0.1')
-        self.assertEqual(backend.es_hosts[0]['port'], 9300)
-        self.assertEqual(backend.es_hosts[0]['use_ssl'], True)
+        self.assertEqual(len(index.hosts), 1)
+        self.assertEqual(index.hosts[0]['host'], '127.0.0.1')
+        self.assertEqual(index.hosts[0]['port'], 9300)
+        self.assertEqual(index.hosts[0]['use_ssl'], True)
 
     def test_urls(self):
         # This test backwards compatibility with old URLS setting
-        backend = ElasticSearch(params={
+        index = ElasticSearchIndex(params={
             'URLS': [
                 'http://localhost:12345',
                 'https://127.0.0.1:54321',
@@ -936,24 +932,24 @@ class TestBackendConfiguration(TestCase):
             ],
         })
 
-        self.assertEqual(len(backend.es_hosts), 4)
-        self.assertEqual(backend.es_hosts[0]['host'], 'localhost')
-        self.assertEqual(backend.es_hosts[0]['port'], 12345)
-        self.assertEqual(backend.es_hosts[0]['use_ssl'], False)
+        self.assertEqual(len(index.hosts), 4)
+        self.assertEqual(index.hosts[0]['host'], 'localhost')
+        self.assertEqual(index.hosts[0]['port'], 12345)
+        self.assertEqual(index.hosts[0]['use_ssl'], False)
 
-        self.assertEqual(backend.es_hosts[1]['host'], '127.0.0.1')
-        self.assertEqual(backend.es_hosts[1]['port'], 54321)
-        self.assertEqual(backend.es_hosts[1]['use_ssl'], True)
+        self.assertEqual(index.hosts[1]['host'], '127.0.0.1')
+        self.assertEqual(index.hosts[1]['port'], 54321)
+        self.assertEqual(index.hosts[1]['use_ssl'], True)
 
-        self.assertEqual(backend.es_hosts[2]['host'], 'elasticsearch.mysite.com')
-        self.assertEqual(backend.es_hosts[2]['port'], 80)
-        self.assertEqual(backend.es_hosts[2]['use_ssl'], False)
-        self.assertEqual(backend.es_hosts[2]['http_auth'], ('username', 'password'))
+        self.assertEqual(index.hosts[2]['host'], 'elasticsearch.mysite.com')
+        self.assertEqual(index.hosts[2]['port'], 80)
+        self.assertEqual(index.hosts[2]['use_ssl'], False)
+        self.assertEqual(index.hosts[2]['http_auth'], ('username', 'password'))
 
-        self.assertEqual(backend.es_hosts[3]['host'], 'elasticsearch.mysite.com')
-        self.assertEqual(backend.es_hosts[3]['port'], 443)
-        self.assertEqual(backend.es_hosts[3]['use_ssl'], True)
-        self.assertEqual(backend.es_hosts[3]['url_prefix'], '/hello')
+        self.assertEqual(index.hosts[3]['host'], 'elasticsearch.mysite.com')
+        self.assertEqual(index.hosts[3]['port'], 443)
+        self.assertEqual(index.hosts[3]['use_ssl'], True)
+        self.assertEqual(index.hosts[3]['url_prefix'], '/hello')
 
 
 @unittest.skipUnless(os.environ.get('ELASTICSEARCH_URL', False), "ELASTICSEARCH_URL not set")
@@ -965,32 +961,32 @@ class TestRebuilder(TestCase):
         )
 
     def setUp(self):
-        self.backend = get_search_backend('elasticsearch')
-        self.es = self.backend.es
-        self.rebuilder = self.backend.get_rebuilder()
+        self.index = get_search_backend('elasticsearch')
+        self.es = self.index.es
+        self.rebuilder = self.index.get_rebuilder()
 
-        self.backend.reset_index()
+        self.index.reset_index()
 
     def test_start_creates_index(self):
         # First, make sure the index is deleted
         try:
-            self.es.indices.delete(self.backend.es_index)
+            self.es.indices.delete(self.index.name)
         except self.NotFoundError:
             pass
 
-        self.assertFalse(self.es.indices.exists(self.backend.es_index))
+        self.assertFalse(self.es.indices.exists(self.index.name))
 
         # Run start
         self.rebuilder.start()
 
         # Check the index exists
-        self.assertTrue(self.es.indices.exists(self.backend.es_index))
+        self.assertTrue(self.es.indices.exists(self.index.name))
 
     def test_start_deletes_existing_index(self):
         # Put an alias into the index so we can check it was deleted
-        self.es.indices.put_alias(name='this_index_should_be_deleted', index=self.backend.es_index)
+        self.es.indices.put_alias(name='this_index_should_be_deleted', index=self.index.name)
         self.assertTrue(
-            self.es.indices.exists_alias(name='this_index_should_be_deleted', index=self.backend.es_index)
+            self.es.indices.exists_alias(name='this_index_should_be_deleted', index=self.index.name)
         )
 
         # Run start
@@ -998,7 +994,7 @@ class TestRebuilder(TestCase):
 
         # The alias should be gone (proving the index was deleted and recreated)
         self.assertFalse(
-            self.es.indices.exists_alias(name='this_index_should_be_deleted', index=self.backend.es_index)
+            self.es.indices.exists_alias(name='this_index_should_be_deleted', index=self.index.name)
         )
 
     def test_add_model(self):
@@ -1008,8 +1004,8 @@ class TestRebuilder(TestCase):
         self.rebuilder.add_model(models.SearchTest)
 
         # Check the mapping went into Elasticsearch correctly
-        mapping = ElasticSearchMapping(models.SearchTest)
-        response = self.es.indices.get_mapping(self.backend.es_index, mapping.get_document_type())
+        mapping = ElasticSearchIndex.mapping_class(models.SearchTest)
+        response = self.es.indices.get_mapping(self.index.name, mapping.get_document_type())
 
         # Make some minor tweaks to the mapping so it matches what is in ES
         # These are generally minor issues with the way Wagtail is
@@ -1023,18 +1019,18 @@ class TestRebuilder(TestCase):
             'dateOptionalTime'
         expected_mapping['searchtests_searchtest']['properties']['published_date_filter'].pop('index')
 
-        self.assertDictEqual(expected_mapping, response[self.backend.es_index]['mappings'])
+        self.assertDictEqual(expected_mapping, response[self.index.name]['mappings'])
 
 
 @unittest.skipUnless(os.environ.get('ELASTICSEARCH_URL', False), "ELASTICSEARCH_URL not set")
 class TestAtomicRebuilder(TestCase):
     def setUp(self):
-        self.backend = get_search_backend('elasticsearch')
-        self.backend.rebuilder_class = ElasticSearchAtomicIndexRebuilder
-        self.es = self.backend.es
-        self.rebuilder = self.backend.get_rebuilder()
+        self.index = get_search_backend('elasticsearch')
+        self.index.rebuilder_class = self.index.atomic_rebuilder_class
+        self.es = self.index.es
+        self.rebuilder = self.index.get_rebuilder()
 
-        self.backend.reset_index()
+        self.index.reset_index()
 
     def test_start_creates_new_index(self):
         # Rebuilder should make up a new index name that doesn't currently exist
