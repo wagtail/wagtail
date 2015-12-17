@@ -9,8 +9,8 @@ from wagtail.wagtailcore.blocks import ChooserBlock
 class DocumentChooserBlock(ChooserBlock):
     @cached_property
     def target_model(self):
-        from wagtail.wagtaildocs.models import Document
-        return Document
+        from wagtail.wagtaildocs.models import get_document_model
+        return get_document_model()
 
     @cached_property
     def widget(self):

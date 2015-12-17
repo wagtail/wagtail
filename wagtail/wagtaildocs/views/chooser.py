@@ -9,8 +9,8 @@ from wagtail.wagtailadmin.forms import SearchForm
 from wagtail.wagtailadmin.utils import permission_required
 from wagtail.wagtailsearch.backends import get_search_backends
 
-from wagtail.wagtaildocs.models import Document
-from wagtail.wagtaildocs.forms import DocumentForm
+from wagtail.wagtaildocs.models import get_document_model
+from wagtail.wagtaildocs.forms import get_document_form
 
 
 def get_document_json(document):
@@ -27,7 +27,10 @@ def get_document_json(document):
 
 
 def chooser(request):
+    Document = get_document_model()
+
     if request.user.has_perm('wagtaildocs.add_document'):
+        DocumentForm = get_document_form(Document)
         uploadform = DocumentForm()
     else:
         uploadform = None
@@ -70,7 +73,7 @@ def chooser(request):
 
 
 def document_chosen(request, document_id):
-    document = get_object_or_404(Document, id=document_id)
+    document = get_object_or_404(get_document_model(), id=document_id)
 
     return render_modal_workflow(
         request, None, 'wagtaildocs/chooser/document_chosen.js',
@@ -80,6 +83,9 @@ def document_chosen(request, document_id):
 
 @permission_required('wagtaildocs.add_document')
 def chooser_upload(request):
+    Document = get_document_model()
+    DocumentForm = get_document_form(Document)
+
     if request.POST:
         document = Document(uploaded_by_user=request.user)
         form = DocumentForm(request.POST, request.FILES, instance=document)
