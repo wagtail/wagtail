@@ -540,11 +540,7 @@ class ElasticSearchIndexRebuilder(object):
         # Reset the index
         self.reset_index()
 
-    def add_model(self, model):
-        self.index.add_model(model)
-
-    def add_items(self, model, obj_list):
-        self.index.add_items(model, obj_list)
+        return self.index
 
     def finish(self):
         self.index.refresh()
@@ -572,6 +568,8 @@ class ElasticSearchAtomicIndexRebuilder(ElasticSearchIndexRebuilder):
     def start(self):
         # Create the new index
         self.index.put()
+
+        return self.index
 
     def finish(self):
         self.index.refresh()
