@@ -8,14 +8,15 @@ from django.contrib.auth import get_user_model
 from django.contrib.auth.models import Group, Permission
 from django.core import mail
 from django.core.urlresolvers import reverse, reverse_lazy
-from django.test import TestCase, override_settings
+from django.template import Context, Template
+from django.test import SimpleTestCase, TestCase, override_settings
 from django.utils.translation import ugettext_lazy as _
 from taggit.models import Tag
 
 from wagtail.tests.utils import WagtailTestUtils
 from wagtail.wagtailadmin.menu import MenuItem
 from wagtail.wagtailadmin.site_summary import PagesSummaryItem
-from wagtail.wagtailadmin.utils import send_mail, user_has_any_page_permission
+from wagtail.wagtailadmin.utils import get_wagtail_version, send_mail, user_has_any_page_permission
 from wagtail.wagtailcore.models import Page, Site
 
 
@@ -314,3 +315,21 @@ class Test404(TestCase, WagtailTestUtils):
 
         # Check that the user was redirected to the login page and that next was set correctly
         self.assertRedirects(response, reverse('wagtailadmin_login') + '?next=/admin/sdfgdsfgdsfgsdf')
+
+class TestEditorDocsUrlTag(SimpleTestCase):
+    def setUp(self):
+        self.template = Template('{% load wagtailadmin_tags %}{% wagtail_editor_docs_url as docs_url %}{{ docs_url }}')
+
+    def test_docs_baseurl_is_in_url(self):
+        rendered = self.template.render(Context({}))
+        self.assertIn('http://docs.wagtail.io/', rendered)
+
+    def test_current_version_is_in_url(self):
+        rendered = self.template.render(Context({}))
+        version, patch_version = get_wagtail_version()
+        self.assertIn('/v' + patch_version + '/', rendered)
+
+    def test_editor_manual_is_in_url(self):
+        rendered = self.template.render(Context({}))
+        self.assertIn('/editor_manual/', rendered)
+
