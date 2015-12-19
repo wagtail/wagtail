@@ -16,6 +16,7 @@ from wagtail.utils.pagination import DEFAULT_PAGE_KEY, replace_page_in_query
 from wagtail.wagtailadmin.menu import admin_menu
 from wagtail.wagtailadmin.navigation import get_explorable_root_page
 from wagtail.wagtailadmin.search import admin_search_areas
+from wagtail.wagtailadmin.utils import get_wagtail_version
 from wagtail.wagtailcore import hooks
 from wagtail.wagtailcore.models import (
     CollectionViewRestriction,
@@ -380,3 +381,12 @@ def replace_page_param(query, page_number, page_key='p'):
 @register.filter('abs')
 def _abs(val):
     return abs(val)
+
+@register.assignment_tag
+def wagtail_editor_docs_url():
+    """
+    Usage: {% wagtail_editor_docs_url as docs_url %}
+    Sets the variable 'docs_url' to the editors documentation index page depending on the current wagtail version.
+    """
+    version, patch_version = get_wagtail_version()
+    return 'http://docs.wagtail.io/en/v' + patch_version + '/editor_manual/index.html'

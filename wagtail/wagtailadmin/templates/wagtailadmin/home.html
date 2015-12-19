@@ -1,5 +1,6 @@
 {% extends "wagtailadmin/base.html" %}
-{% load gravatar staticfiles i18n %}
+{% load gravatar staticfiles i18n wagtailadmin_tags %}
+
 {% block titletag %}{% trans "Dashboard" %}{% endblock %}
 {% block bodyclass %}homepage{% endblock %}
 
@@ -25,13 +26,15 @@
     {% if user.userprofile.show_welcome_screen %}
         {% url 'wagtailadmin_account_change_password' as user_change_password_url %}
         {% url 'wagtailadmin_account_user_preferences' as user_preferences_url %}
+        {% wagtail_editor_docs_url as docs_url %}
+
         <div class="nice-padding">
             <h1>{% blocktrans with name=user.first_name|default:"there" %}Hi {{ name }}, looks as if you are new here!{% endblocktrans %}</h1>
             <p>{% trans "Check out the following first steps or directly get started with the page explorer on the left hand side:" %}</p>
             <ul>
                 <li>{% blocktrans with account_url="https://gravatar.com/emails/" %}<b>First visit?</b> You may want to <a href="{{ account_url }}">add a profile image using gravatar</a> or <a href="{{ user_change_password_url }}">set your own password</a>.{% endblocktrans %}</li>
                 <li>{% trans "<b>Just looking around?</b> Use the dashboard below to start browsing existing content like pages, images and documents." %}</li>
-                <li>{% blocktrans with docs_url="http://docs.wagtail.io/en/stable/editor_manual/index.html" %}<b>Hands on?</b> We recommend the <a href="{{ docs_url }}" target="_blank">editors manual</a> full of helpful instructions to quickly get started.{% endblocktrans %}</li>
+                <li>{% blocktrans %}<b>Hands on?</b> We recommend the <a href="{{ docs_url }}" target="_blank">editors manual</a> full of helpful instructions to quickly get started.{% endblocktrans %}</li>
                 <li>{% blocktrans %}<b>Already familiar with wagtail?</b> <a href="{{ user_preferences_url }}">Change your preferences</a> to disable this section.{% endblocktrans %}</li>
             </ul>
         </div>

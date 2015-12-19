@@ -4,6 +4,8 @@ from __future__ import absolute_import, unicode_literals
 import logging
 from functools import wraps
 
+import re
+
 from django.conf import settings
 from django.contrib.auth import get_user_model
 from django.contrib.contenttypes.models import ContentType
@@ -17,6 +19,7 @@ from django.utils.translation import override, ugettext_lazy
 from modelcluster.fields import ParentalKey
 from taggit.models import Tag
 
+from wagtail.wagtailcore import __version__
 from wagtail.wagtailcore.models import GroupPagePermission, Page, PageRevision
 from wagtail.wagtailusers.models import UserProfile
 
@@ -297,3 +300,14 @@ def user_has_any_page_permission(user):
 
     # No luck! This user can not do anything with pages.
     return False
+
+
+def get_wagtail_version():
+    """
+    Returns the current wagtail version in two variants:
+    1. Full version
+    2. Patch version, without pre-release suffixes
+    """
+    regex = re.compile(r'^(\d+\.\d+\.?\d?)')
+
+    return __version__, regex.search(__version__).group(1)
