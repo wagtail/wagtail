@@ -1,9 +1,7 @@
 from __future__ import absolute_import
 
 import json
-import warnings
 
-from django.utils import six
 from django.utils.six.moves.urllib.parse import urlparse
 
 from elasticsearch import Elasticsearch, NotFoundError
@@ -14,7 +12,6 @@ from django.utils.crypto import get_random_string
 
 from wagtail.wagtailsearch.backends.base import BaseSearch, BaseSearchQuery, BaseSearchResults
 from wagtail.wagtailsearch.index import SearchField, FilterField, RelatedFields, class_is_indexed
-from wagtail.utils.deprecation import RemovedInWagtail14Warning
 
 
 INDEX_SETTINGS = {
@@ -399,37 +396,12 @@ class ElasticSearchQuery(BaseSearchQuery):
     def __repr__(self):
         return json.dumps(self.get_query())
 
-    def to_es(self):
-        warnings.warn(
-            "The ElasticSearchQuery.to_es() method is deprecated. "
-            "Please use the ElasticSearchQuery.get_query() method instead.",
-            RemovedInWagtail14Warning, stacklevel=2)
-
-        return self.get_query()
-
 
 class ElasticSearchResults(BaseSearchResults):
     def _get_es_body(self, for_count=False):
-        # If to_es has been overridden, call it and raise a deprecation warning
-        if (
-            isinstance(self.query, ElasticSearchQuery)
-            and six.get_method_function(self.query.to_es)
-            != ElasticSearchQuery.to_es
-        ):
-            warnings.warn(
-                "The .to_es() method on Elasticsearch query classes is deprecated. "
-                "Please rename {class_name}.to_es() to {class_name}.get_query()".format(
-                    class_name=self.query.__class__.__name__
-                ),
-                RemovedInWagtail14Warning, stacklevel=2)
-
-            body = {
-                'query': self.query.to_es(),
-            }
-        else:
-            body = {
-                'query': self.query.get_query()
-            }
+        body = {
+            'query': self.query.get_query()
+        }
 
         if not for_count:
             sort = self.query.get_sort()
