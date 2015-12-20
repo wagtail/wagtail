@@ -41,9 +41,8 @@ from wagtail.wagtailcore.url_routing import RouteResult
 from wagtail.wagtailcore.signals import page_published, page_unpublished
 
 from wagtail.wagtailsearch import index
-from wagtail.wagtailsearch.backends import get_search_backend
 
-from wagtail.utils.deprecation import RemovedInWagtail14Warning, RemovedInWagtail15Warning
+from wagtail.utils.deprecation import RemovedInWagtail15Warning
 
 
 logger = logging.getLogger('wagtail.core')
@@ -725,40 +724,6 @@ class Page(six.with_metaclass(PageBase, MP_Node, ClusterableModel, index.Indexed
             return self.specific
         except self.specific_class.DoesNotExist:
             return None
-
-    @classmethod
-    def search(
-        cls,
-        query_string,
-        show_unpublished=False,
-        search_title_only=False,
-        extra_filters={},
-        prefetch_related=[],
-        path=None
-    ):
-        # This is deprecated use Page.objects.search() instead
-        warnings.warn(
-            "The Page.search() method is deprecated. "
-            "Please use the Page.objects.search() method instead.",
-            RemovedInWagtail14Warning, stacklevel=2)
-
-        # Filters
-        filters = extra_filters.copy()
-        if not show_unpublished:
-            filters['live'] = True
-
-        # Path
-        if path:
-            filters['path__startswith'] = path
-
-        # Fields
-        fields = None
-        if search_title_only:
-            fields = ['title']
-
-        # Search
-        s = get_search_backend()
-        return s.search(query_string, cls, fields=fields, filters=filters, prefetch_related=prefetch_related)
 
     @classmethod
     def clean_subpage_models(cls):
