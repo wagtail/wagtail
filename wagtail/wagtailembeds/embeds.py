@@ -1,6 +1,5 @@
 from datetime import datetime
 import json
-import warnings
 
 # Needs to be imported like this to allow @patch to work in tests
 from django.utils.six.moves.urllib import request as urllib_request
@@ -12,7 +11,6 @@ from django.conf import settings
 
 from wagtail.wagtailembeds.oembed_providers import get_oembed_provider
 from wagtail.wagtailembeds.models import Embed
-from wagtail.utils.deprecation import RemovedInWagtail14Warning
 
 
 class EmbedException(Exception):
@@ -36,13 +34,7 @@ def embedly(url, max_width=None, key=None):
 
     # Get embedly key
     if key is None:
-        try:
-            key = settings.WAGTAILEMBEDS_EMBEDLY_KEY
-        except AttributeError:
-            key = settings.EMBEDLY_KEY
-            warnings.warn(
-                "EMBEDLY_KEY is now deprecated. Use WAGTAILEMBEDS_EMBEDLY_KEY instead",
-                RemovedInWagtail14Warning)
+        key = settings.WAGTAILEMBEDS_EMBEDLY_KEY
 
     # Get embedly client
     client = Embedly(key=key)
