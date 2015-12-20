@@ -1,10 +1,6 @@
-import warnings
-
 from django.apps import AppConfig, apps
 from django.conf import settings
 from django.core.exceptions import ImproperlyConfigured
-
-from wagtail.utils.deprecation import RemovedInWagtail14Warning
 
 
 class WagtailAPIAppConfig(AppConfig):
@@ -25,7 +21,7 @@ class WagtailAPIAppConfig(AppConfig):
                 )
 
         if not apps.is_installed('rest_framework'):
-            warnings.warn(
-                "The 'wagtailapi' module now requires 'rest_framework' to be installed. "
-                "Please add 'rest_framework' to INSTALLED_APPS.",
-                RemovedInWagtail14Warning)
+            raise ImproperlyConfigured(
+                "The 'wagtailapi' module requires Django REST framework. "
+                "Please add 'rest_framework' to INSTALLED_APPS."
+            )

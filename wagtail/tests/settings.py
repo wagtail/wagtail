@@ -122,6 +122,7 @@ INSTALLED_APPS = (
 
     'taggit',
     'compressor',
+    'rest_framework',
 
     'django.contrib.admin',
     'django.contrib.auth',

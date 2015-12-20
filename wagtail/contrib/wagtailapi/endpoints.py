@@ -5,7 +5,6 @@ from collections import OrderedDict
 from django.conf.urls import url
 from django.http import Http404
 from django.core.urlresolvers import reverse
-from django.apps import apps
 
 from rest_framework import status
 from rest_framework.response import Response
@@ -27,14 +26,7 @@ from .utils import BadRequestError
 
 
 class BaseAPIEndpoint(GenericViewSet):
-    renderer_classes = [JSONRenderer]
-
-    # The BrowsableAPIRenderer requires rest_framework to be installed
-    # Remove this check in Wagtail 1.4 as rest_framework will be required
-    # RemovedInWagtail14Warning
-    if apps.is_installed('rest_framework'):
-        renderer_classes.append(BrowsableAPIRenderer)
-
+    renderer_classes = [JSONRenderer, BrowsableAPIRenderer]
     pagination_class = WagtailPagination
     base_serializer_class = BaseSerializer
     filter_backends = []
