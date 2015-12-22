@@ -24,6 +24,7 @@ Bug fixes
 
  * Custom page managers no longer raise an error when used on an abstract model
  * Wagtail's migrations are now all reversible (benjaoming)
+ * Deleting a page content type now preserves existing pages as basic Page instances, to prevent tree corruption
 
 
 Upgrade considerations
