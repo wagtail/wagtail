@@ -44,7 +44,7 @@ class FormSubmission(models.Model):
     """Data for a Form submission."""
 
     form_data = models.TextField()
-    page = models.ForeignKey(Page)
+    page = models.ForeignKey(Page, on_delete=models.CASCADE)
 
     submit_time = models.DateTimeField(verbose_name=_('submit time'), auto_now_add=True)
 

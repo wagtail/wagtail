@@ -55,7 +55,7 @@ class Query(models.Model):
 
 
 class QueryDailyHits(models.Model):
-    query = models.ForeignKey(Query, db_index=True, related_name='daily_hits')
+    query = models.ForeignKey(Query, db_index=True, related_name='daily_hits', on_delete=models.CASCADE)
     date = models.DateField()
     hits = models.IntegerField(default=0)
 
