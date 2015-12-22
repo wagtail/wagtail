@@ -207,6 +207,14 @@ def get_page_models():
     return PAGE_MODEL_CLASSES
 
 
+def get_default_page_content_type():
+    """
+    Returns the content type to use as a default for pages which their
+    content type has been deleted.
+    """
+    return ContentType.objects.get_for_model(Page)
+
+
 def get_page_types():
     """
     DEPRECATED.
@@ -279,7 +287,12 @@ class Page(six.with_metaclass(PageBase, MP_Node, ClusterableModel, index.Indexed
     )
     # TODO: enforce uniqueness on slug field per parent (will have to be done at the Django
     # level rather than db, since there is no explicit parent relation in the db)
-    content_type = models.ForeignKey('contenttypes.ContentType', verbose_name=_('content type'), related_name='pages')
+    content_type = models.ForeignKey(
+        'contenttypes.ContentType',
+        verbose_name=_('content type'),
+        related_name='pages',
+        on_delete=models.SET(get_default_page_content_type)
+    )
     live = models.BooleanField(verbose_name=_('live'), default=True, editable=False)
     has_unpublished_changes = models.BooleanField(
         verbose_name=_('has unpublished changes'),
@@ -453,8 +466,6 @@ class Page(six.with_metaclass(PageBase, MP_Node, ClusterableModel, index.Indexed
         field_exceptions = [field.name
                             for model in [cls] + list(cls._meta.get_parent_list())
                             for field in model._meta.parents.values() if field]
-
-        field_exceptions += ['content_type']
 
         for field in cls._meta.fields:
             if isinstance(field, models.ForeignKey) and field.name not in field_exceptions:
