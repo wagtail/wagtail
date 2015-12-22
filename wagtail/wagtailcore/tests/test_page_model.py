@@ -1036,3 +1036,23 @@ class TestPageManager(TestCase):
         their custom Manager inherits from PageManager.
         """
         self.assertIs(type(MyCustomPage.objects), CustomManager)
+
+
+class TestIssue2024(TestCase):
+    """
+    This tests that deleting a content type can't delete any Page objects.
+    """
+    fixtures = ['test.json']
+
+    def test_delete_content_type(self):
+        event_index = Page.objects.get(url_path='/home/events/')
+
+        # Delete the content type
+        event_index_content_type = event_index.content_type
+        event_index_content_type.delete()
+
+        # Fetch the page again, it should still exist
+        event_index = Page.objects.get(url_path='/home/events/')
+
+        # Check that the content_type changed to Page
+        self.assertEqual(event_index.content_type, ContentType.objects.get_for_model(Page))
