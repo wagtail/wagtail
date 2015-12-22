@@ -36,6 +36,7 @@ Bug fixes
  * Fixed typo in Wistia oEmbed pattern (Josh Hurd)
  * Added more accurate help text for the Administrator flag on user accounts (Matt Fozard)
  * Tags added on the multiple image uploader are now saved correctly
+ * Documents created by a user are no longer deleted when the user is deleted
 
 
 Upgrade considerations
