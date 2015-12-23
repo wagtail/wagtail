@@ -42,8 +42,14 @@ class PermissionCheckedMixin(object):
 
 
 class IndexView(PermissionCheckedMixin, View):
+    model = None
+    header_icon = ''
+    index_url_name = None
+    add_url_name = None
+    edit_url_name = None
     context_object_name = None
     any_permission_required = ['add', 'change', 'delete']
+    template_name = None
 
     def get_queryset(self):
         return self.model.objects.all()
@@ -66,6 +72,12 @@ class IndexView(PermissionCheckedMixin, View):
 
 
 class CreateView(PermissionCheckedMixin, View):
+    model = None
+    form_class = None
+    header_icon = ''
+    index_url_name = None
+    add_url_name = None
+    edit_url_name = None
     template_name = 'wagtailadmin/generic/create.html'
     permission_required = 'add'
 
@@ -96,6 +108,12 @@ class CreateView(PermissionCheckedMixin, View):
 
 
 class EditView(PermissionCheckedMixin, View):
+    model = None
+    form_class = None
+    header_icon = ''
+    index_url_name = None
+    edit_url_name = None
+    delete_url_name = None
     page_title = __("Editing")
     context_object_name = None
     template_name = 'wagtailadmin/generic/edit.html'
@@ -146,6 +164,10 @@ class EditView(PermissionCheckedMixin, View):
 
 
 class DeleteView(PermissionCheckedMixin, View):
+    model = None
+    header_icon = ''
+    index_url_name = None
+    delete_url_name = None
     template_name = 'wagtailadmin/generic/confirm_delete.html'
     context_object_name = None
     permission_required = 'delete'
