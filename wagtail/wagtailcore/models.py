@@ -242,7 +242,7 @@ class PageBase(models.base.ModelBase):
         # will get a plain `Manager` instead of a `PageManager`.
         # If the developer has set their own custom `Manager` subclass, do not
         # clobber it.
-        if type(cls.objects) is models.Manager:
+        if not cls._meta.abstract and type(cls.objects) is models.Manager:
             PageManager().contribute_to_class(cls, 'objects')
 
         if 'template' not in dct:
