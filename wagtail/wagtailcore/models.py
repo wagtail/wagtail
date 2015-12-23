@@ -74,7 +74,7 @@ class Site(models.Model):
         blank=True,
         help_text=_("Human-readable name for the site.")
     )
-    root_page = models.ForeignKey('Page', verbose_name=_('root page'), related_name='sites_rooted_here')
+    root_page = models.ForeignKey('Page', verbose_name=_('root page'), related_name='sites_rooted_here', on_delete=models.CASCADE)
     is_default_site = models.BooleanField(
         verbose_name=_('is default site'),
         default=False,
@@ -207,6 +207,14 @@ def get_page_models():
     return PAGE_MODEL_CLASSES
 
 
+def get_default_page_content_type():
+    """
+    Returns the content type to use as a default for pages which their
+    content type has been deleted.
+    """
+    return ContentType.objects.get_for_model(Page)
+
+
 def get_page_types():
     """
     DEPRECATED.
@@ -279,7 +287,12 @@ class Page(six.with_metaclass(PageBase, MP_Node, ClusterableModel, index.Indexed
     )
     # TODO: enforce uniqueness on slug field per parent (will have to be done at the Django
     # level rather than db, since there is no explicit parent relation in the db)
-    content_type = models.ForeignKey('contenttypes.ContentType', verbose_name=_('content type'), related_name='pages')
+    content_type = models.ForeignKey(
+        'contenttypes.ContentType',
+        verbose_name=_('content type'),
+        related_name='pages',
+        on_delete=models.SET(get_default_page_content_type)
+    )
     live = models.BooleanField(verbose_name=_('live'), default=True, editable=False)
     has_unpublished_changes = models.BooleanField(
         verbose_name=_('has unpublished changes'),
@@ -453,8 +466,6 @@ class Page(six.with_metaclass(PageBase, MP_Node, ClusterableModel, index.Indexed
         field_exceptions = [field.name
                             for model in [cls] + list(cls._meta.get_parent_list())
                             for field in model._meta.parents.values() if field]
-
-        field_exceptions += ['content_type']
 
         for field in cls._meta.fields:
             if isinstance(field, models.ForeignKey) and field.name not in field_exceptions:
@@ -1335,7 +1346,7 @@ class SubmittedRevisionsManager(models.Manager):
 
 @python_2_unicode_compatible
 class PageRevision(models.Model):
-    page = models.ForeignKey('Page', verbose_name=_('page'), related_name='revisions')
+    page = models.ForeignKey('Page', verbose_name=_('page'), related_name='revisions', on_delete=models.CASCADE)
     submitted_for_moderation = models.BooleanField(
         verbose_name=_('submitted for moderation'),
         default=False,
@@ -1465,8 +1476,8 @@ PAGE_PERMISSION_TYPE_CHOICES = [
 
 
 class GroupPagePermission(models.Model):
-    group = models.ForeignKey(Group, verbose_name=_('group'), related_name='page_permissions')
-    page = models.ForeignKey('Page', verbose_name=_('page'), related_name='group_permissions')
+    group = models.ForeignKey(Group, verbose_name=_('group'), related_name='page_permissions', on_delete=models.CASCADE)
+    page = models.ForeignKey('Page', verbose_name=_('page'), related_name='group_permissions', on_delete=models.CASCADE)
     permission_type = models.CharField(
         verbose_name=_('permission type'),
         max_length=20,
@@ -1710,7 +1721,7 @@ class PagePermissionTester(object):
 
 
 class PageViewRestriction(models.Model):
-    page = models.ForeignKey('Page', verbose_name=_('page'), related_name='view_restrictions')
+    page = models.ForeignKey('Page', verbose_name=_('page'), related_name='view_restrictions', on_delete=models.CASCADE)
     password = models.CharField(verbose_name=_('password'), max_length=255)
 
     class Meta:

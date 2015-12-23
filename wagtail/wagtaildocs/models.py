@@ -34,7 +34,8 @@ class AbstractDocument(models.Model, TagSearchable):
         verbose_name=_('uploaded by user'),
         null=True,
         blank=True,
-        editable=False
+        editable=False,
+        on_delete=models.SET_NULL
     )
 
     tags = TaggableManager(help_text=None, blank=True, verbose_name=_('tags'))
