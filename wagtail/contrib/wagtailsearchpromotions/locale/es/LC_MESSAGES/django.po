@@ -12,8 +12,8 @@ msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2015-12-17 13:54+0000\n"
-"PO-Revision-Date: 2015-12-17 14:02+0000\n"
-"Last-Translator: mattwestcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2015-12-19 04:39+0000\n"
+"Last-Translator: José Alaguna <alagunajs@gmail.com>\n"
 "Language-Team: Spanish (http://www.transifex.com/torchbox/wagtail/language/"
 "es/)\n"
 "MIME-Version: 1.0\n"
@@ -26,6 +26,18 @@ msgid "Please specify at least one recommendation for this search term."
 msgstr ""
 "Por favor, especifique al menos una recomendación para este término de "
 "búsqueda."
+
+msgid "page"
+msgstr "página"
+
+msgid "description"
+msgstr "descripción"
+
+msgid "search promotion"
+msgstr "promover búsqueda"
+
+msgid "Add search promotion"
+msgstr "Añadir promoción de búsqueda"
 
 msgid "Add search pick"
 msgstr "Añadir selección de búsqueda"
@@ -114,6 +126,9 @@ msgstr "Resultados promocionados"
 
 msgid "Views (past week)"
 msgstr "Vistas (semana pasada)"
+
+msgid "Edit this promotion"
+msgstr "Editar esta promoción"
 
 msgid "None"
 msgstr "Ninguna"

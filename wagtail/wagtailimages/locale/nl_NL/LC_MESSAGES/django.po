@@ -11,8 +11,8 @@ msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2015-12-17 13:54+0000\n"
-"PO-Revision-Date: 2015-12-17 13:59+0000\n"
-"Last-Translator: mattwestcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2015-12-22 16:15+0000\n"
+"Last-Translator: Thijs Kramer <thijskramer@gmail.com>\n"
 "Language-Team: Dutch (Netherlands) (http://www.transifex.com/torchbox/"
 "wagtail/language/nl_NL/)\n"
 "MIME-Version: 1.0\n"
@@ -82,6 +82,27 @@ msgstr "Hoogte"
 msgid "Closeness"
 msgstr "Nabijheid"
 
+msgid "title"
+msgstr "titel"
+
+msgid "file"
+msgstr "bestand"
+
+msgid "width"
+msgstr "breedte"
+
+msgid "height"
+msgstr "hoogte"
+
+msgid "created at"
+msgstr "gemaakt op"
+
+msgid "uploaded by user"
+msgstr "geupload door gebruiker"
+
+msgid "tags"
+msgstr "tags"
+
 msgid "Choose an image"
 msgstr "Kies een afbeelding"
 
@@ -93,6 +114,9 @@ msgstr "Uploaden"
 
 msgid "Popular tags"
 msgstr "Populaire tags"
+
+msgid "Uploading..."
+msgstr "Bezig met uploaden..."
 
 #, python-format
 msgid ""
@@ -268,6 +292,9 @@ msgstr ""
 
 msgid "Sorry, upload failed."
 msgstr "Sorry, upload ging fout."
+
+msgid "Image updated."
+msgstr "Afbeelding is bijgewerkt."
 
 msgid "Update"
 msgstr "Update"

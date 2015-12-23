@@ -12,8 +12,8 @@ msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2015-12-17 13:54+0000\n"
-"PO-Revision-Date: 2015-12-17 14:01+0000\n"
-"Last-Translator: mattwestcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2015-12-22 16:15+0000\n"
+"Last-Translator: Thijs Kramer <thijskramer@gmail.com>\n"
 "Language-Team: Dutch (Netherlands) (http://www.transifex.com/torchbox/"
 "wagtail/language/nl_NL/)\n"
 "MIME-Version: 1.0\n"
@@ -55,8 +55,26 @@ msgstr "Datum"
 msgid "Date/time"
 msgstr "Datum/tijd"
 
+msgid "submit time"
+msgstr "inzendtijd"
+
+msgid "form submission"
+msgstr "formulierinzending"
+
+msgid "label"
+msgstr "label"
+
 msgid "The label of the form field"
 msgstr "Het label van het formulierveld"
+
+msgid "field type"
+msgstr "veldtype"
+
+msgid "required"
+msgstr "verplicht"
+
+msgid "choices"
+msgstr "keuzes"
 
 msgid ""
 "Comma separated list of choices. Only applicable in checkboxes, radio and "
@@ -65,13 +83,28 @@ msgstr ""
 "Door komma's gescheiden lijst met opties. Alleen van toepassing op "
 "checkboxes, radiobuttons en dropdowns."
 
+msgid "default value"
+msgstr "standaardwaarde"
+
 msgid "Default value. Comma separated values supported for checkboxes."
 msgstr ""
 "Standaardwaarde. Voor checkboxes kunt u door komma's gescheiden "
 "standaardwaarden invullen."
 
+msgid "help text"
+msgstr "hulptekst"
+
+msgid "to address"
+msgstr "e-mailadres ontvanger"
+
 msgid "Optional - form submissions will be emailed to this address"
 msgstr "Optioneel - inzendingen worden per e-mail verstuurd naar dit adres"
+
+msgid "from address"
+msgstr "e-mail afzender"
+
+msgid "subject"
+msgstr "onderwerp"
 
 #, python-format
 msgid "Delete %(title)s"
