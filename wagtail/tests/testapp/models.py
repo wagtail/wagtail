@@ -588,3 +588,17 @@ class CustomManager(PageManager):
 
 class CustomManagerPage(Page):
     objects = CustomManager()
+
+
+class MyBasePage(Page):
+    """
+    A base Page model, used to set site-wide defaults and overrides.
+    """
+    objects = CustomManager()
+
+    class Meta:
+        abstract = True
+
+
+class MyCustomPage(MyBasePage):
+    pass

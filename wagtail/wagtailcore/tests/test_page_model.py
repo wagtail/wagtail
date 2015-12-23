@@ -17,7 +17,7 @@ from wagtail.tests.testapp.models import (
     MTIBasePage, MTIChildPage, AbstractPage, TaggedPage,
     BlogCategory, BlogCategoryBlogPage, Advert, ManyToManyBlogPage,
     GenericSnippetPage, BusinessNowherePage, SingletonPage,
-    CustomManager, CustomManagerPage)
+    CustomManager, CustomManagerPage, MyCustomPage)
 from wagtail.tests.utils import WagtailTestUtils
 
 
@@ -1028,3 +1028,11 @@ class TestPageManager(TestCase):
         custom Manager inherits from PageManager.
         """
         self.assertIs(type(CustomManagerPage.objects), CustomManager)
+
+    def test_abstract_base_page_manager(self):
+        """
+        Abstract base classes should be able to override their default Manager,
+        and Wagtail should respect this. It is up to the developer to ensure
+        their custom Manager inherits from PageManager.
+        """
+        self.assertIs(type(MyCustomPage.objects), CustomManager)
