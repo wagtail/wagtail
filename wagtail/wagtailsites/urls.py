@@ -1,9 +1,4 @@
-from django.conf.urls import url
-from wagtail.wagtailsites import views
+from .views import SiteModule
 
-urlpatterns = [
-    url(r'^$', views.Index.as_view(), name='index'),
-    url(r'^add/$', views.Create.as_view(), name='add'),
-    url(r'^(\d+)/$', views.Edit.as_view(), name='edit'),
-    url(r'^(\d+)/delete/$', views.Delete.as_view(), name='delete'),
-]
+
+urlpatterns = SiteModule('wagtailsites').get_urlpatterns()
