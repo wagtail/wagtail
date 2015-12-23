@@ -6,14 +6,12 @@ from django.contrib.auth.models import Permission
 from wagtail.wagtailcore import hooks
 from wagtail.wagtailadmin.menu import MenuItem
 
-from wagtail.wagtailsites import urls
+from .views import SiteModule
 
 
-@hooks.register('register_admin_urls')
-def register_admin_urls():
-    return [
-        url(r'^sites/', include(urls, app_name='wagtailsites', namespace='wagtailsites')),
-    ]
+@hooks.register('register_admin_module')
+def register_admin_module():
+    return SiteModule('wagtailsites')
 
 
 class SitesMenuItem(MenuItem):
