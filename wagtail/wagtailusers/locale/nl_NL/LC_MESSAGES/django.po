@@ -10,8 +10,8 @@ msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2015-12-17 13:55+0000\n"
-"PO-Revision-Date: 2015-12-17 14:00+0000\n"
-"Last-Translator: mattwestcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2015-12-22 16:15+0000\n"
+"Last-Translator: Thijs Kramer <thijskramer@gmail.com>\n"
 "Language-Team: Dutch (Netherlands) (http://www.transifex.com/torchbox/"
 "wagtail/language/nl_NL/)\n"
 "MIME-Version: 1.0\n"
@@ -70,14 +70,26 @@ msgstr "Administrators hebben de mogelijkheid gebruikersaccounts te beheren."
 msgid "A group with that name already exists."
 msgstr "Er bestaat al een groep met deze naam."
 
+msgid "submitted notifications"
+msgstr "ingezonden notificaties"
+
 msgid "Receive notification when a page is submitted for moderation"
 msgstr "Ontvang notificaties wanneer een pagina voor moderatie is aangeboden."
+
+msgid "approved notifications"
+msgstr "goedgekeurde notificaties"
 
 msgid "Receive notification when your page edit is approved"
 msgstr "Ontvang notificaties wanneer je paginawijziging is goedgekeurd."
 
+msgid "rejected notifications"
+msgstr "afgekeurde notificaties"
+
 msgid "Receive notification when your page edit is rejected"
 msgstr "Ontvang notificaties wanneer uw paginawijziging is afgekeurd."
+
+msgid "user profile"
+msgstr "gebruikersprofiel"
 
 msgid "Delete group"
 msgstr "Verwijder groep"

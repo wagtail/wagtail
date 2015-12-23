@@ -11,8 +11,8 @@ msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2015-12-17 13:54+0000\n"
-"PO-Revision-Date: 2015-12-17 13:57+0000\n"
-"Last-Translator: mattwestcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2015-12-22 17:31+0000\n"
+"Last-Translator: Thijs Kramer <thijskramer@gmail.com>\n"
 "Language-Team: Dutch (Netherlands) (http://www.transifex.com/torchbox/"
 "wagtail/language/nl_NL/)\n"
 "MIME-Version: 1.0\n"
@@ -32,6 +32,9 @@ msgstr "Zoeken"
 
 msgid "Search term"
 msgstr "Zoekterm"
+
+msgid "URL"
+msgstr "URL"
 
 msgid "Enter password"
 msgstr "Voer wachtwoord in"
@@ -130,7 +133,7 @@ msgid ""
 msgstr ""
 "Uw profielfoto wordt door Gravatar aangeleverd en is verbonden met uw e-"
 "mailadres. Met uw Gravatar-account kunt u een avatar instellen voor elk e-"
-"mailadres dat u in gebruikt hebt."
+"mailadres dat u in gebruik hebt."
 
 msgid "Change password"
 msgstr "Wijzig wachtwoord"
@@ -273,6 +276,10 @@ msgstr "Voeg een link toe"
 msgid "Add an external link"
 msgstr "Voeg een externe link toe"
 
+#, python-format
+msgid "Add %(heading)s"
+msgstr "Voeg %(heading)s toe"
+
 msgid "Yes, delete"
 msgstr "Ja, verwijderen"
 
@@ -368,6 +375,9 @@ msgstr "Inloggen in Wagtail"
 msgid "Forgotten it?"
 msgstr "Vergeten?"
 
+msgid "Signing in..."
+msgstr "Bezig met inloggen..."
+
 #, python-format
 msgid "The page \"%(title)s\" has been approved"
 msgstr "De pagina \"%(title)s\" is goedgekeurd"
@@ -378,6 +388,9 @@ msgstr "De pagina \"%(title)s\" is goedgekeurd."
 
 msgid "You can view the page here:"
 msgstr "U kunt de pagina hier bekijken:"
+
+msgid "Hello"
+msgstr "Hallo"
 
 msgid "Edit your notification preferences here:"
 msgstr "Pas uw notificatievoorkeuren hier aan:"
@@ -396,6 +409,10 @@ msgstr "U kunt de pagina hier wijzigen:"
 #, python-format
 msgid "The page \"%(page)s\" has been submitted for moderation"
 msgstr "De pagina \"%(page)s\" is voor moderatie ingediend"
+
+#, python-format
+msgid "The page \"%(page)s\" has been submitted for moderation by %(editor)s."
+msgstr "De pagina \"%(page)s\" is door %(editor)s voor moderatie ingediend."
 
 msgid "You can preview the page here:"
 msgstr "U kunt hier een voorbeeld van de pagina bekijken:"
@@ -536,8 +553,14 @@ msgstr "Pagina van type '%(page_type)s' toevoegen"
 msgid "New"
 msgstr "Nieuw"
 
+msgid "Saving..."
+msgstr "Bezig met opslaan..."
+
 msgid "Save draft"
 msgstr "Bewaar concept"
+
+msgid "Publishing..."
+msgstr "Bezig met publiceren..."
 
 msgid "Publish"
 msgstr "Publiceer"
@@ -573,6 +596,70 @@ msgstr "Sleep"
 
 msgid "Updated"
 msgstr "Gewijzigd"
+
+msgid ""
+"\n"
+"                            The root level is where you can add new sites to "
+"your Wagtail installation. Pages created here will not be accessible at any "
+"URL until they are associated with a site.\n"
+"                        "
+msgstr ""
+"\n"
+"Het hoofdniveau is waar u nieuwe sites aan uw Wagtail-installatie kunt "
+"toevoegen. Pagina's die hier aangemaakt zijn zullen niet bereikbaar zijn "
+"totdat ze aan een site zijn toegevoegd.\n"
+"                   "
+
+msgid "Configure a site now."
+msgstr "Stel nu een site in."
+
+msgid ""
+"\n"
+"                            If you just want to add pages to an existing "
+"site, create them as children of the homepage instead.\n"
+"                        "
+msgstr ""
+"\n"
+"Als u aan een bestaande site pagina's wilt toevoegen kunt u deze het beste "
+"als onderliggende pagina van de homepage aanmaken.\n"
+"        "
+
+msgid ""
+"\n"
+"                        Pages created here will not be accessible at any "
+"URL. To add pages to an existing site, create them as children of the "
+"homepage.\n"
+"                    "
+msgstr ""
+"\n"
+"Pagina's die hier aangemaakt worden zullen niet bereikbaar zijn. Om een "
+"pagina aan een bestaande site toe te voegen kunt u deze het beste als "
+"onderliggende pagina van de homepage aanmaken."
+
+msgid ""
+"\n"
+"                        There is no site set up for this location. Pages "
+"created here will not be accessible at any URL until a site is associated "
+"with this location.\n"
+"                    "
+msgstr ""
+"\n"
+"Er is geen site ingesteld voor deze locatie. Pagina's die hier aangemaakt "
+"worden zijn niet toegankelijk voordat er een site voor deze locatie is "
+"ingesteld.\n"
+"          "
+
+msgid ""
+"\n"
+"                        There is no site record for this location. Pages "
+"created here will not be accessible at any URL.\n"
+"                    "
+msgstr ""
+"\n"
+"Er is geen site ingesteld voor deze locatie. Pagina's die hier aangemaakt "
+"worden zijn niet toegankelijk.\n"
+"           \n"
+"          "
 
 msgid "No pages have been created at this location."
 msgstr "Er zijn nog geen pagina's aangemaakt op deze locatie."
@@ -759,7 +846,7 @@ msgid ""
 "a>."
 msgstr ""
 "U gebruikt een <strong>verouderde</strong> browser die niet ondersteund "
-"wordt door deze sofware. <a href=\"http://browsehappy.com/\">upgrade uw "
+"wordt door deze software. <a href=\"http://browsehappy.com/\">Upgrade uw "
 "browser</a> a.u.b."
 
 msgid "Javascript is required to use Wagtail, but it is currently disabled"
@@ -778,6 +865,9 @@ msgstr "Voeg een onderliggende pagina toe"
 
 msgid "Add"
 msgstr "Toevoegen"
+
+msgid "Test"
+msgstr "Test"
 
 msgid "Sorry, you do not have permission to access this area."
 msgstr "Sorry, u heeft geen toegang tot dit gedeelte."
@@ -883,6 +973,9 @@ msgstr "Pagina '{0}' is nu op slot."
 #, python-brace-format
 msgid "Page '{0}' is now unlocked."
 msgstr "Pagina '{0}' is nu geopend."
+
+msgid "Pages"
+msgstr "Pagina's"
 
 msgid "Choose an item"
 msgstr "Kies een item"

@@ -14,8 +14,8 @@ msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2015-12-17 13:54+0000\n"
-"PO-Revision-Date: 2015-12-17 14:35+0000\n"
-"Last-Translator: mattwestcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2015-12-19 06:28+0000\n"
+"Last-Translator: José Alaguna <alagunajs@gmail.com>\n"
 "Language-Team: Spanish (http://www.transifex.com/torchbox/wagtail/language/"
 "es/)\n"
 "MIME-Version: 1.0\n"
@@ -35,6 +35,9 @@ msgstr "Búsqueda"
 
 msgid "Search term"
 msgstr "Término de búsqueda"
+
+msgid "URL"
+msgstr "URL"
 
 msgid "Enter password"
 msgstr "Introduce contraseña"
@@ -273,6 +276,10 @@ msgstr "Inserta un enlace"
 msgid "Add an external link"
 msgstr "Añade un enlace externo"
 
+#, python-format
+msgid "Add %(heading)s"
+msgstr "Añadir %(heading)s"
+
 msgid "Yes, delete"
 msgstr "Sí, eliminar"
 
@@ -371,6 +378,9 @@ msgstr "Iniciar sesión en Wagtail"
 msgid "Forgotten it?"
 msgstr "¿La has olvidado?"
 
+msgid "Signing in..."
+msgstr "Iniciado sesión..."
+
 #, python-format
 msgid "The page \"%(title)s\" has been approved"
 msgstr "La página \"%(title)s\" ha sido aprobada"
@@ -381,6 +391,9 @@ msgstr "La página \"%(title)s\" ha sido aprobada."
 
 msgid "You can view the page here:"
 msgstr "Puede visualizar la página aquí:"
+
+msgid "Hello"
+msgstr "Hola"
 
 msgid "Edit your notification preferences here:"
 msgstr "Modifique sus preferencias de notificación aquí:"
@@ -399,6 +412,11 @@ msgstr "Puedes editar la página aquí:"
 #, python-format
 msgid "The page \"%(page)s\" has been submitted for moderation"
 msgstr "La página \"%(page)s\" ha sido enviada para ser moderada"
+
+#, python-format
+msgid "The page \"%(page)s\" has been submitted for moderation by %(editor)s."
+msgstr ""
+"La página \"%(page)s\" ha sido enviada para ser moderada por %(editor)s."
 
 msgid "You can preview the page here:"
 msgstr "Puedes previsualizar la página aquí:"
@@ -539,8 +557,14 @@ msgstr "Nueva %(page_type)s"
 msgid "New"
 msgstr "Nuevo"
 
+msgid "Saving..."
+msgstr "Guardando..."
+
 msgid "Save draft"
 msgstr "Guardar borrador"
+
+msgid "Publishing..."
+msgstr "Publicando...."
 
 msgid "Publish"
 msgstr "Publicar"
@@ -576,6 +600,64 @@ msgstr "Llevar"
 
 msgid "Updated"
 msgstr "Actualizada"
+
+msgid ""
+"\n"
+"                            The root level is where you can add new sites to "
+"your Wagtail installation. Pages created here will not be accessible at any "
+"URL until they are associated with a site.\n"
+"                        "
+msgstr ""
+"\n"
+"Puedes añadir nuevos sitios a tu instalación de Wagtail en el nivel raíz. La "
+"páginas creadas no serán accesibles desde cualquier URL hasta que estén "
+"asosciadas con un sitio."
+
+msgid "Configure a site now."
+msgstr "Configurar sitio ahora."
+
+msgid ""
+"\n"
+"                            If you just want to add pages to an existing "
+"site, create them as children of the homepage instead.\n"
+"                        "
+msgstr ""
+"\n"
+"Si sólo deseas añadir páginas a un sitio existente, crealas como hijas de "
+"una página de inicia en su lugar."
+
+msgid ""
+"\n"
+"                        Pages created here will not be accessible at any "
+"URL. To add pages to an existing site, create them as children of the "
+"homepage.\n"
+"                    "
+msgstr ""
+"\n"
+"Las páginas creadas acá no será accesibles desde cualquier URL. Para añadir "
+"páginas a un sitio existente, crealas como hijas de una página de inicio."
+
+msgid ""
+"\n"
+"                        There is no site set up for this location. Pages "
+"created here will not be accessible at any URL until a site is associated "
+"with this location.\n"
+"                    "
+msgstr ""
+"\n"
+"No hay sitio configurado para esta locación. Las páginas creadas no serán "
+"accesibles desde cualquier URL hasta que un sitio sea asociado a esta "
+"locación."
+
+msgid ""
+"\n"
+"                        There is no site record for this location. Pages "
+"created here will not be accessible at any URL.\n"
+"                    "
+msgstr ""
+"\n"
+"No hay sitio registrado para esta locación. Las páginas creadas no serán "
+"accesibles desde cualquier URL."
 
 msgid "No pages have been created at this location."
 msgstr "No se han creado páginas en esta ubicación."
@@ -780,6 +862,9 @@ msgstr "Añadir página hija"
 msgid "Add"
 msgstr "Agregar"
 
+msgid "Test"
+msgstr "Prueba"
+
 msgid "Sorry, you do not have permission to access this area."
 msgstr "Lo sentimos, no tienes permisos para acceder a esta área."
 
@@ -885,6 +970,9 @@ msgstr "Página '{0}' se encuentra bloqueada."
 #, python-brace-format
 msgid "Page '{0}' is now unlocked."
 msgstr "Página '{0}' se encuentra desbloqueada."
+
+msgid "Pages"
+msgstr "Páginas"
 
 msgid "Choose an item"
 msgstr "Elige un elemento"

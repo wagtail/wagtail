@@ -14,8 +14,8 @@ msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2015-12-17 13:54+0000\n"
-"PO-Revision-Date: 2015-12-17 14:35+0000\n"
-"Last-Translator: mattwestcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2015-12-19 04:33+0000\n"
+"Last-Translator: José Alaguna <alagunajs@gmail.com>\n"
 "Language-Team: Spanish (http://www.transifex.com/torchbox/wagtail/language/"
 "es/)\n"
 "MIME-Version: 1.0\n"
@@ -35,6 +35,12 @@ msgstr "creado el"
 
 msgid "uploaded by user"
 msgstr "subido por el usuario"
+
+msgid "tags"
+msgstr "etiquetas"
+
+msgid "document"
+msgstr "documento"
 
 msgid "Choose a document"
 msgstr "Seleccionar un documento"

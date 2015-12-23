@@ -16,8 +16,8 @@ msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2015-12-17 13:54+0000\n"
-"PO-Revision-Date: 2015-12-17 14:34+0000\n"
-"Last-Translator: mattwestcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2015-12-19 04:49+0000\n"
+"Last-Translator: José Alaguna <alagunajs@gmail.com>\n"
 "Language-Team: Spanish (http://www.transifex.com/torchbox/wagtail/language/"
 "es/)\n"
 "MIME-Version: 1.0\n"
@@ -25,6 +25,12 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: es\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "hostname"
+msgstr "nombre del host"
+
+msgid "port"
+msgstr "puerto"
 
 msgid ""
 "Set this to something other than 80 if you need a specific port number to "
@@ -35,6 +41,18 @@ msgstr ""
 "específico aparezca en las URLs (p.e. desarrollo en el puerto 8000). Esto no "
 "afecta al manejo de solicitudes (así que la redirección de puertos sigue "
 "funcionando)."
+
+msgid "site name"
+msgstr "nombre del sitio"
+
+msgid "Human-readable name for the site."
+msgstr "Nombre del sitio legíble para usuarios"
+
+msgid "root page"
+msgstr "página raíz"
+
+msgid "is default site"
+msgstr "es sitio por defecto"
 
 msgid ""
 "If true, this site will handle requests for all other hostnames that do not "
@@ -63,6 +81,9 @@ msgstr "Título"
 msgid "The page title as you'd like it to be seen by the public"
 msgstr "El título de la página como quieres que sea visto por el público"
 
+msgid "slug"
+msgstr "marquilla"
+
 msgid ""
 "The name of the page as it will appear in URLs e.g http://domain.com/blog/"
 "[my-slug]/"
@@ -70,11 +91,23 @@ msgstr ""
 "El nombre de la página tal como aparecerá en URLs p.ej. http://domain.com/"
 "blog/[my-slug]/"
 
+msgid "content type"
+msgstr "tipo de contenido"
+
 msgid "live"
 msgstr "Ver en vivo"
 
+msgid "has unpublished changes"
+msgstr "tiene cambios no publicados"
+
 msgid "URL path"
 msgstr "Dirección URL"
+
+msgid "owner"
+msgstr "propietario"
+
+msgid "page title"
+msgstr "título de la página"
 
 msgid ""
 "Optional. 'Search Engine Friendly' title. This will appear at the top of the "
@@ -83,15 +116,36 @@ msgstr ""
 "Opcional. Título 'Amigable para el Motor de Búsqueda'. Aparecerá en la parte "
 "superior de la ventana del navegador."
 
+msgid "show in menus"
+msgstr "monstrar en menús"
+
 msgid ""
 "Whether a link to this page will appear in automatically generated menus"
 msgstr "Un enlace a esta página aparecerá en menús generados automáticamente"
 
+msgid "search description"
+msgstr "descripción para búsqueda"
+
+msgid "go live date/time"
+msgstr "fecha/hora ir en vivo"
+
 msgid "Please add a date-time in the form YYYY-MM-DD hh:mm."
 msgstr "Por favor añada una fecha-hora con el formato YYYY-MM-DD hh:mm:ss."
 
+msgid "expiry date/time"
+msgstr "fecha/hora de experiación"
+
 msgid "expired"
 msgstr "Expiró"
+
+msgid "locked"
+msgstr "bloqueado"
+
+msgid "first published at"
+msgstr "Publicado por primera vez a las"
+
+msgid "latest revision created at"
+msgstr "última revisión creada a las"
 
 msgid "scheduled"
 msgstr "Agendado"
@@ -111,8 +165,20 @@ msgstr "página"
 msgid "pages"
 msgstr "páginas"
 
+msgid "submitted for moderation"
+msgstr "enviado para moderación"
+
 msgid "created at"
 msgstr "creado el"
+
+msgid "user"
+msgstr "usuario"
+
+msgid "content JSON"
+msgstr "contenido JSON"
+
+msgid "approved go live at"
+msgstr "aprovado para publicación a las"
 
 msgid "page revision"
 msgstr "revisión de página"
@@ -132,11 +198,20 @@ msgstr "Publicar cualquier página"
 msgid "Lock/unlock any page"
 msgstr "Bloquear/desbloquear cualquier página"
 
+msgid "group"
+msgstr "grupo"
+
+msgid "permission type"
+msgstr "tipo de permiso"
+
 msgid "group page permission"
 msgstr "grupo de permisos de página"
 
 msgid "group page permissions"
 msgstr "grupos de permisos de páginas"
+
+msgid "password"
+msgstr "contraseña"
 
 msgid "page view restriction"
 msgstr "restricción de vista de página"
