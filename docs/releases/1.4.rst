@@ -22,5 +22,8 @@ Minor features
 Bug fixes
 ~~~~~~~~~
 
+ * Custom page managers no longer raise an error when used on an abstract model
+
+
 Upgrade considerations
 ======================
