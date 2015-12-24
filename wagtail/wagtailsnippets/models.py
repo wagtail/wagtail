@@ -1,24 +1,10 @@
 from __future__ import unicode_literals
 
-from django.contrib.contenttypes.models import ContentType
 from django.core.urlresolvers import reverse
 
 from wagtail.wagtailadmin.utils import get_object_usage
 
 SNIPPET_MODELS = []
-
-SNIPPET_CONTENT_TYPES = None
-
-
-def get_snippet_content_types():
-    global SNIPPET_CONTENT_TYPES
-    if SNIPPET_CONTENT_TYPES is None:
-        SNIPPET_CONTENT_TYPES = [
-            ContentType.objects.get_for_model(model)
-            for model in SNIPPET_MODELS
-        ]
-
-    return SNIPPET_CONTENT_TYPES
 
 
 def get_snippet_models():
@@ -35,8 +21,5 @@ def register_snippet(model):
 
 
 def get_snippet_usage_url(self):
-    content_type = ContentType.objects.get_for_model(self)
-    return reverse('wagtailsnippets:usage',
-                   args=(content_type.app_label,
-                         content_type.model,
-                         self.id,))
+    return reverse('wagtailsnippets:usage', args=(
+        self._meta.app_label, self._meta.model_name, self.id))

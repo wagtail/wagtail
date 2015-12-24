@@ -1,14 +1,14 @@
 {% extends "wagtailadmin/base.html" %}
 {% load i18n %}
-{% block titletag %}{% blocktrans %}New  {{ snippet_type_name}}{% endblocktrans %}{% endblock %}
+{% block titletag %}{% blocktrans with snippet_type_name=model_opts.verbose_name %}New  {{ snippet_type_name }}{% endblocktrans %}{% endblock %}
 {% block content %}
     {% trans "New" as new_str %}
-    {% include "wagtailadmin/shared/header.html" with title=new_str subtitle=snippet_type_name icon="snippet" %}
+    {% include "wagtailadmin/shared/header.html" with title=new_str subtitle=model_opts.verbose_name icon="snippet" %}
 
-    <form action="{% url 'wagtailsnippets:add' content_type.app_label content_type.model %}" method="POST">
+    <form action="{% url 'wagtailsnippets:add' model_opts.app_label model_opts.model_name %}" method="POST">
         {% csrf_token %}
         {{ edit_handler.render_form_content }}
-        
+
         <footer>
             <ul>
                 <li class="actions">
@@ -19,7 +19,7 @@
             </ul>
         </footer>
     </form>
-   
+
 {% endblock %}
 
 {% block extra_css %}
