@@ -6,7 +6,7 @@ from django.template.loader import render_to_string
 from django.utils.safestring import mark_safe
 from django.core.exceptions import ImproperlyConfigured
 
-from wagtail.utils.deprecation import RemovedInWagtail15Warning
+from wagtail.utils.deprecation import RemovedInWagtail16Warning
 from wagtail.wagtailadmin.edit_handlers import BaseChooserPanel
 from wagtail.wagtailcore.utils import resolve_model_string
 from .widgets import AdminSnippetChooser
@@ -25,7 +25,7 @@ class BaseSnippetChooserPanel(BaseChooserPanel):
     def target_model(cls):
         if cls._target_model is None:
             if cls.snippet_type:
-                # RemovedInWagtail15Warning: The target_model is automatically
+                # RemovedInWagtail16Warning: The target_model is automatically
                 # detected from the relation, so snippet_type is deprecated.
                 try:
                     cls._target_model = resolve_model_string(cls.snippet_type)
@@ -59,7 +59,7 @@ class SnippetChooserPanel(object):
             warnings.warn(
                 'The snippet_type argument to SnippetChooserPanel is deprecated. '
                 'The related model is now automatically detected.',
-                RemovedInWagtail15Warning)
+                RemovedInWagtail16Warning)
         self.snippet_type = snippet_type
 
     def bind_to_model(self, model):

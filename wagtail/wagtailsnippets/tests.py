@@ -297,7 +297,7 @@ class TestSnippetChooserPanel(TestCase, WagtailTestUtils):
                       self.snippet_chooser_panel.render_as_field())
 
     def test_target_model_from_string(self):
-        # RemovedInWagtail15Warning: snippet_type argument
+        # RemovedInWagtail16Warning: snippet_type argument
         with self.ignore_deprecation_warnings():
             result = SnippetChooserPanel(
                 'advert',
@@ -306,7 +306,7 @@ class TestSnippetChooserPanel(TestCase, WagtailTestUtils):
             self.assertIs(result, Advert)
 
     def test_target_model_from_model(self):
-        # RemovedInWagtail15Warning: snippet_type argument
+        # RemovedInWagtail16Warning: snippet_type argument
         with self.ignore_deprecation_warnings():
             result = SnippetChooserPanel(
                 'advert',
@@ -321,7 +321,7 @@ class TestSnippetChooserPanel(TestCase, WagtailTestUtils):
         self.assertEqual(result, Advert)
 
     def test_target_model_malformed_type(self):
-        # RemovedInWagtail15Warning: snippet_type argument
+        # RemovedInWagtail16Warning: snippet_type argument
         with self.ignore_deprecation_warnings():
             result = SnippetChooserPanel(
                 'advert',
@@ -331,7 +331,7 @@ class TestSnippetChooserPanel(TestCase, WagtailTestUtils):
                               result.target_model)
 
     def test_target_model_nonexistent_type(self):
-        # RemovedInWagtail15Warning: snippet_type argument
+        # RemovedInWagtail16Warning: snippet_type argument
         with self.ignore_deprecation_warnings():
             result = SnippetChooserPanel(
                 'advert',
