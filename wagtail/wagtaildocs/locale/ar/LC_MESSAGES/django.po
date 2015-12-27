@@ -8,9 +8,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-08-26 14:28+0100\n"
-"PO-Revision-Date: 2015-12-03 02:04+0000\n"
-"Last-Translator: ROGER MICHAEL ASHLEY ALLEN <rogermaallen@gmail.com>\n"
+"POT-Creation-Date: 2015-12-17 13:54+0000\n"
+"PO-Revision-Date: 2015-12-17 13:58+0000\n"
+"Last-Translator: mattwestcott <matthew@torchbox.com>\n"
 "Language-Team: Arabic (http://www.transifex.com/torchbox/wagtail/language/"
 "ar/)\n"
 "MIME-Version: 1.0\n"
@@ -20,21 +20,6 @@ msgstr ""
 "Plural-Forms: nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 "
 "&& n%100<=10 ? 3 : n%100>=11 && n%100<=99 ? 4 : 5;\n"
 
-msgid "Title"
-msgstr "عنوان"
-
-msgid "File"
-msgstr "ملف"
-
-msgid "Created at"
-msgstr "أنشئأ في الساعة"
-
-msgid "Uploaded by user"
-msgstr "نقله المستعمل إلى الحاسوب"
-
-msgid "Document"
-msgstr "وثيقة"
-
 msgid "Choose a document"
 msgstr "احتر وثيقة"
 
@@ -43,9 +28,6 @@ msgstr "بحث"
 
 msgid "Upload"
 msgstr "انقل إلى الحاسوب"
-
-msgid "Save"
-msgstr "احفظ"
 
 msgid "Latest documents"
 msgstr "وثائق أخيرة"
@@ -71,6 +53,9 @@ msgstr "نعم احذف"
 msgid "Editing"
 msgstr "تنقيح"
 
+msgid "Save"
+msgstr "احفظ"
+
 msgid "Filesize"
 msgstr "حجم الملف"
 
@@ -79,6 +64,12 @@ msgstr "الملف غير موجود"
 
 msgid "Documents"
 msgstr "وثائق"
+
+msgid "Title"
+msgstr "عنوان"
+
+msgid "File"
+msgstr "ملف"
 
 msgid "Uploaded"
 msgstr "متقول إلى الحاسوب"
@@ -100,10 +91,6 @@ msgstr "نقح هذه الصفحة"
 
 msgid "Search documents"
 msgstr "ابحث وثائق"
-
-#, python-brace-format
-msgid "Document '{0}' added."
-msgstr "أضيفت وثيقة"
 
 msgid "Edit"
 msgstr "تنقيح"

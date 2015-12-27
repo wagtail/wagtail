@@ -7,9 +7,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-08-26 14:28+0100\n"
-"PO-Revision-Date: 2015-04-21 08:40+0000\n"
-"Last-Translator: Karl Hobley <karl@torchbox.com>\n"
+"POT-Creation-Date: 2015-12-17 13:54+0000\n"
+"PO-Revision-Date: 2015-12-17 13:58+0000\n"
+"Last-Translator: mattwestcott <matthew@torchbox.com>\n"
 "Language-Team: Chinese (http://www.transifex.com/torchbox/wagtail/language/"
 "zh/)\n"
 "MIME-Version: 1.0\n"
@@ -17,15 +17,6 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: zh\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-
-msgid "Title"
-msgstr "标题"
-
-msgid "File"
-msgstr "文件"
-
-msgid "Tags"
-msgstr "标签"
 
 msgid "Choose a document"
 msgstr "选择一个文档"
@@ -35,9 +26,6 @@ msgstr "搜索"
 
 msgid "Upload"
 msgstr "上传"
-
-msgid "Save"
-msgstr "保存"
 
 msgid "Latest documents"
 msgstr "最新文档"
@@ -75,8 +63,17 @@ msgstr "编辑%(title)s"
 msgid "Editing"
 msgstr "编辑"
 
+msgid "Save"
+msgstr "保存"
+
 msgid "Documents"
 msgstr "文档"
+
+msgid "Title"
+msgstr "标题"
+
+msgid "File"
+msgstr "文件"
 
 msgid "Uploaded"
 msgstr "已上传"

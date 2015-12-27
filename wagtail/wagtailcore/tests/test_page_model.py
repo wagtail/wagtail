@@ -10,13 +10,14 @@ from django.contrib.contenttypes.models import ContentType
 from django.contrib.auth import get_user_model
 from django.contrib.auth.models import AnonymousUser
 
-from wagtail.wagtailcore.models import Page, Site, get_page_models
+from wagtail.wagtailcore.models import Page, Site, get_page_models, PageManager
 from wagtail.tests.testapp.models import (
     SingleEventPage, EventPage, EventIndex, SimplePage,
     BusinessIndex, BusinessSubIndex, BusinessChild, StandardIndex,
     MTIBasePage, MTIChildPage, AbstractPage, TaggedPage,
     BlogCategory, BlogCategoryBlogPage, Advert, ManyToManyBlogPage,
-    GenericSnippetPage, BusinessNowherePage, SingletonPage)
+    GenericSnippetPage, BusinessNowherePage, SingletonPage,
+    CustomManager, CustomManagerPage, MyCustomPage)
 from wagtail.tests.utils import WagtailTestUtils
 
 
@@ -1013,3 +1014,35 @@ class TestIsCreatable(TestCase):
         """
         self.assertFalse(AbstractPage.is_creatable)
         self.assertNotIn(AbstractPage, get_page_models())
+
+
+class TestPageManager(TestCase):
+    def test_page_manager(self):
+        """
+        Assert that the Page class uses PageManager
+        """
+        self.assertIs(type(Page.objects), PageManager)
+
+    def test_page_subclass_manager(self):
+        """
+        Assert that Page subclasses get a PageManager without having to do
+        anything special. MTI subclasses do *not* inherit their parents Manager
+        by default.
+        """
+        self.assertIs(type(SimplePage.objects), PageManager)
+
+    def test_custom_page_manager(self):
+        """
+        Subclasses should be able to override their default Manager, and
+        Wagtail should respect this. It is up to the developer to ensure their
+        custom Manager inherits from PageManager.
+        """
+        self.assertIs(type(CustomManagerPage.objects), CustomManager)
+
+    def test_abstract_base_page_manager(self):
+        """
+        Abstract base classes should be able to override their default Manager,
+        and Wagtail should respect this. It is up to the developer to ensure
+        their custom Manager inherits from PageManager.
+        """
+        self.assertIs(type(MyCustomPage.objects), CustomManager)

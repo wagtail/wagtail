@@ -9,9 +9,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-08-26 14:28+0100\n"
-"PO-Revision-Date: 2015-12-06 04:07+0000\n"
-"Last-Translator: Sergiy Khalymon <sergiykhalimon@gmail.com>\n"
+"POT-Creation-Date: 2015-12-17 13:54+0000\n"
+"PO-Revision-Date: 2015-12-17 18:44+0000\n"
+"Last-Translator: Eugene MechanisM <contact@mechanism.name>\n"
 "Language-Team: Russian (http://www.transifex.com/torchbox/wagtail/language/"
 "ru/)\n"
 "MIME-Version: 1.0\n"
@@ -35,7 +35,7 @@ msgid "Number"
 msgstr "Число"
 
 msgid "URL"
-msgstr "URL"
+msgstr "Веб-адрес"
 
 msgid "Checkbox"
 msgstr "Флажок"
@@ -55,26 +55,26 @@ msgstr "Дата"
 msgid "Date/time"
 msgstr "Дата/время"
 
-msgid "Submit time"
-msgstr "Время добавления"
+msgid "submit time"
+msgstr "время добавления"
 
-msgid "Form Submission"
-msgstr "Добавление формы"
+msgid "form submission"
+msgstr "добавление формы"
 
-msgid "Label"
-msgstr "Имя"
+msgid "label"
+msgstr "имя"
 
 msgid "The label of the form field"
 msgstr "Метка поля формы"
 
-msgid "Field type"
-msgstr "Тип поля"
+msgid "field type"
+msgstr "тип поля"
 
-msgid "Required"
-msgstr "Обязательно"
+msgid "required"
+msgstr "обязательно"
 
-msgid "Choices"
-msgstr "Выбор"
+msgid "choices"
+msgstr "выбор"
 
 msgid ""
 "Comma separated list of choices. Only applicable in checkboxes, radio and "
@@ -83,27 +83,27 @@ msgstr ""
 "Разделенный запятыми список вариантов. Применяется только для флажков, "
 "радиокнопок и в выпадающем списке."
 
-msgid "Default value"
-msgstr "Значение по умолчанию"
+msgid "default value"
+msgstr "значение по умолчанию"
 
 msgid "Default value. Comma separated values supported for checkboxes."
 msgstr "Значение по умолчанию. Разделенные запятыми значения для флажков."
 
-msgid "Help text"
-msgstr "Текст подсказки"
+msgid "help text"
+msgstr "текст подсказки"
 
-msgid "To address"
-msgstr "Адрес назначения"
+msgid "to address"
+msgstr "адрес назначения"
 
 msgid "Optional - form submissions will be emailed to this address"
 msgstr ""
 "Не обязательно - заполненные формы будут отправляться на этот почтовый адрес"
 
-msgid "From address"
-msgstr "Адрес отправителя"
+msgid "from address"
+msgstr "адрес отправителя"
 
-msgid "Subject"
-msgstr "Тема"
+msgid "subject"
+msgstr "тема"
 
 #, python-format
 msgid "Delete %(title)s"

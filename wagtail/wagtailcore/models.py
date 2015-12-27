@@ -1,5 +1,6 @@
 from __future__ import unicode_literals
 
+
 import logging
 import json
 import warnings
@@ -24,7 +25,7 @@ from django.utils import timezone
 from django.utils.six import StringIO
 from django.utils.six.moves.urllib.parse import urlparse
 from django.utils.translation import ugettext_lazy as _
-from django.core.exceptions import ValidationError, ImproperlyConfigured
+from django.core.exceptions import ValidationError
 from django.utils.functional import cached_property
 from django.utils.encoding import python_2_unicode_compatible
 from django.core import checks
@@ -65,6 +66,13 @@ class Site(models.Model):
             "Set this to something other than 80 if you need a specific port number to appear in URLs"
             " (e.g. development on port 8000). Does not affect request handling (so port forwarding still works)."
         )
+    )
+    site_name = models.CharField(
+        verbose_name=_('site name'),
+        max_length=255,
+        null=True,
+        blank=True,
+        help_text=_("Human-readable name for the site.")
     )
     root_page = models.ForeignKey('Page', verbose_name=_('root page'), related_name='sites_rooted_here')
     is_default_site = models.BooleanField(
@@ -267,8 +275,13 @@ class PageBase(models.base.ModelBase):
             # don't proceed with all this page type registration stuff
             return
 
-        # Add page manager
-        PageManager().contribute_to_class(cls, 'objects')
+        # Override the default `objects` attribute with a `PageManager`.
+        # Managers are not inherited by MTI child models, so `Page` subclasses
+        # will get a plain `Manager` instead of a `PageManager`.
+        # If the developer has set their own custom `Manager` subclass, do not
+        # clobber it.
+        if not cls._meta.abstract and type(cls.objects) is models.Manager:
+            PageManager().contribute_to_class(cls, 'objects')
 
         if 'template' not in dct:
             # Define a default template path derived from the app name and model name
@@ -380,6 +393,8 @@ class Page(six.with_metaclass(PageBase, MP_Node, ClusterableModel, index.Indexed
     # Do not allow plain Page instances to be created through the Wagtail admin
     is_creatable = False
 
+    objects = PageManager()
+
     def __init__(self, *args, **kwargs):
         super(Page, self).__init__(*args, **kwargs)
         if not self.id and not self.content_type_id:
@@ -490,6 +505,39 @@ class Page(six.with_metaclass(PageBase, MP_Node, ClusterableModel, index.Indexed
                             id='wagtailcore.W001',
                         )
                     )
+
+        if not isinstance(cls.objects, PageManager):
+            errors.append(
+                checks.Error(
+                    "Manager does not inherit from PageManager",
+                    hint="Ensure that custom Page managers inherit from {}.{}".format(
+                        PageManager.__module__, PageManager.__name__),
+                    obj=cls,
+                    id='wagtailcore.E002',
+                )
+            )
+
+        try:
+            cls.clean_subpage_models()
+        except (ValueError, LookupError) as e:
+            errors.append(
+                checks.Error(
+                    "Invalid subpage_types setting for %s" % cls,
+                    hint=str(e),
+                    id='wagtailcore.E002'
+                )
+            )
+
+        try:
+            cls.clean_parent_page_models()
+        except (ValueError, LookupError) as e:
+            errors.append(
+                checks.Error(
+                    "Invalid parent_page_types setting for %s" % cls,
+                    hint=str(e),
+                    id='wagtailcore.E002'
+                )
+            )
 
         return errors
 
@@ -649,6 +697,8 @@ class Page(six.with_metaclass(PageBase, MP_Node, ClusterableModel, index.Indexed
             return self.template
 
     def serve(self, request, *args, **kwargs):
+        request.is_preview = getattr(request, 'is_preview', False)
+
         return TemplateResponse(
             request,
             self.get_template(request, *args, **kwargs),
@@ -751,7 +801,9 @@ class Page(six.with_metaclass(PageBase, MP_Node, ClusterableModel, index.Indexed
     @classmethod
     def clean_subpage_models(cls):
         """
-        Returns the list of subpage types, normalised as model classes
+        Returns the list of subpage types, normalised as model classes.
+        Throws ValueError if any entry in subpage_types cannot be recognised as a model name,
+        or LookupError if a model does not exist (or is not a Page subclass).
         """
         if cls._clean_subpage_models is None:
             subpage_types = getattr(cls, 'subpage_types', None)
@@ -759,16 +811,14 @@ class Page(six.with_metaclass(PageBase, MP_Node, ClusterableModel, index.Indexed
                 # if subpage_types is not specified on the Page class, allow all page types as subpages
                 cls._clean_subpage_models = get_page_models()
             else:
-                try:
-                    cls._clean_subpage_models = [
-                        resolve_model_string(model_string, cls._meta.app_label)
-                        for model_string in subpage_types
-                    ]
-                except LookupError as err:
-                    raise ImproperlyConfigured(
-                        "{0}.subpage_types must be a list of 'app_label.model_name' strings, given {1!r}"
-                        .format(cls.__name__, err.args[1])
-                    )
+                cls._clean_subpage_models = [
+                    resolve_model_string(model_string, cls._meta.app_label)
+                    for model_string in subpage_types
+                ]
+
+                for model in cls._clean_subpage_models:
+                    if not issubclass(model, Page):
+                        raise LookupError("%s is not a Page subclass" % model)
 
         return cls._clean_subpage_models
 
@@ -787,7 +837,9 @@ class Page(six.with_metaclass(PageBase, MP_Node, ClusterableModel, index.Indexed
     @classmethod
     def clean_parent_page_models(cls):
         """
-        Returns the list of parent page types, normalised as model classes
+        Returns the list of parent page types, normalised as model classes.
+        Throws ValueError if any entry in parent_page_types cannot be recognised as a model name,
+        or LookupError if a model does not exist (or is not a Page subclass).
         """
 
         if cls._clean_parent_page_models is None:
@@ -796,16 +848,14 @@ class Page(six.with_metaclass(PageBase, MP_Node, ClusterableModel, index.Indexed
                 # if parent_page_types is not specified on the Page class, allow all page types as subpages
                 cls._clean_parent_page_models = get_page_models()
             else:
-                try:
-                    cls._clean_parent_page_models = [
-                        resolve_model_string(model_string, cls._meta.app_label)
-                        for model_string in parent_page_types
-                    ]
-                except LookupError as err:
-                    raise ImproperlyConfigured(
-                        "{0}.parent_page_types must be a list of 'app_label.model_name' strings, given {1!r}"
-                        .format(cls.__name__, err.args[1])
-                    )
+                cls._clean_parent_page_models = [
+                    resolve_model_string(model_string, cls._meta.app_label)
+                    for model_string in parent_page_types
+                ]
+
+                for model in cls._clean_parent_page_models:
+                    if not issubclass(model, Page):
+                        raise LookupError("%s is not a Page subclass" % model)
 
         return cls._clean_parent_page_models
 
@@ -1183,6 +1233,8 @@ class Page(six.with_metaclass(PageBase, MP_Node, ClusterableModel, index.Indexed
         here - this ensures that request.user and other properties are set appropriately for
         the wagtail user bar to be displayed. This request will always be a GET.
         """
+        request.is_preview = True
+
         return self.serve(request)
 
     def get_cached_paths(self):
@@ -1328,7 +1380,10 @@ class PageRevision(models.Model):
         db_index=True
     )
     created_at = models.DateTimeField(verbose_name=_('created at'))
-    user = models.ForeignKey(settings.AUTH_USER_MODEL, verbose_name=_('user'), null=True, blank=True)
+    user = models.ForeignKey(
+        settings.AUTH_USER_MODEL, verbose_name=_('user'), null=True, blank=True,
+        on_delete=models.SET_NULL
+    )
     content_json = models.TextField(verbose_name=_('content JSON'))
     approved_go_live_at = models.DateTimeField(verbose_name=_('approved go live at'), null=True, blank=True)
 

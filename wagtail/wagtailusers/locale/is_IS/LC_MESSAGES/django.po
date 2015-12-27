@@ -8,9 +8,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-08-26 14:28+0100\n"
-"PO-Revision-Date: 2015-09-01 08:34+0000\n"
-"Last-Translator: Arnar Tumi Þorsteinsson <arnartumi@gmail.com>\n"
+"POT-Creation-Date: 2015-12-17 13:55+0000\n"
+"PO-Revision-Date: 2015-12-17 14:00+0000\n"
+"Last-Translator: mattwestcott <matthew@torchbox.com>\n"
 "Language-Team: Icelandic (Iceland) (http://www.transifex.com/torchbox/"
 "wagtail/language/is_IS/)\n"
 "MIME-Version: 1.0\n"
@@ -24,6 +24,12 @@ msgstr ""
 "Þarf að fylla út. 30 slög eða færri. Bókstafir, tölustafir og  @/./+/-/_ er "
 "leyft."
 
+msgid "A user with that username already exists."
+msgstr "Þetta notandanafn er þegar í notkun."
+
+msgid "The two password fields didn't match."
+msgstr "Lykilorðareitirnir tveir stóðust ekki á"
+
 msgid "Email"
 msgstr "Email"
 
@@ -32,12 +38,6 @@ msgstr "Fornafn"
 
 msgid "Last Name"
 msgstr "Eftirnafn"
-
-msgid "A user with that username already exists."
-msgstr "Þetta notandanafn er þegar í notkun."
-
-msgid "The two password fields didn't match."
-msgstr "Lykilorðareitirnir tveir stóðust ekki á"
 
 msgid "A group with that name already exists."
 msgstr "Hópur með þessu nafni er þegar til."
@@ -115,6 +115,3 @@ msgstr ""
 msgid "The user could not be saved due to errors."
 msgstr ""
 "Ekki var hægt að búa til notandann þar sem hann stóðst ekki villuprófanir"
-
-msgid "Groups"
-msgstr "Hópar"

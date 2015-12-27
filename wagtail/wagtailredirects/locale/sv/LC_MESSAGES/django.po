@@ -8,9 +8,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-08-26 14:28+0100\n"
-"PO-Revision-Date: 2015-12-06 12:11+0000\n"
-"Last-Translator: Thomas Kunambi <kunambi@gmail.com>\n"
+"POT-Creation-Date: 2015-12-17 13:55+0000\n"
+"PO-Revision-Date: 2015-12-17 13:59+0000\n"
+"Last-Translator: mattwestcott <matthew@torchbox.com>\n"
 "Language-Team: Swedish (http://www.transifex.com/torchbox/wagtail/language/"
 "sv/)\n"
 "MIME-Version: 1.0\n"
@@ -19,30 +19,12 @@ msgstr ""
 "Language: sv\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-msgid "Redirect from"
-msgstr "Omdirigera från"
-
-msgid "Site"
-msgstr "Sajt"
-
-msgid "Permanent"
-msgstr "Permanent"
-
 msgid ""
 "Recommended. Permanent redirects ensure search engines forget the old page "
 "(the 'Redirect from') and index the new page instead."
 msgstr ""
 "Rekommenderat. Permanenta omdirigeringar säkerställer att sökmotorer glömmen "
 "den gamla sidan ('Omdirigera från') och indexerar den nya sidan istället."
-
-msgid "Redirect to a page"
-msgstr "Omdirigera till en sida"
-
-msgid "Redirect to any URL"
-msgstr "Omdirigera till annan URL"
-
-msgid "Redirect"
-msgstr "Omdirigera"
 
 msgid "Add redirect"
 msgstr "Lägg omdirigering"
@@ -78,6 +60,9 @@ msgstr "Omdirigeringar"
 
 msgid "From"
 msgstr "Från"
+
+msgid "Site"
+msgstr "Sajt"
 
 msgid "To"
 msgstr "Till"

@@ -9,9 +9,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-08-26 14:28+0100\n"
-"PO-Revision-Date: 2015-04-21 08:40+0000\n"
-"Last-Translator: Karl Hobley <karl@torchbox.com>\n"
+"POT-Creation-Date: 2015-12-17 13:55+0000\n"
+"PO-Revision-Date: 2015-12-17 14:00+0000\n"
+"Last-Translator: mattwestcott <matthew@torchbox.com>\n"
 "Language-Team: Catalan (http://www.transifex.com/torchbox/wagtail/language/"
 "ca/)\n"
 "MIME-Version: 1.0\n"
@@ -26,6 +26,12 @@ msgstr "Requerit. 30 caràcters o menys. Lletres, números i només @/./+/-/_."
 msgid "This value may contain only letters, numbers and @/./+/-/_ characters."
 msgstr ""
 "Aquest valor només ha de contenir lletres, números i caràcters com @/./+/-/_."
+
+msgid "A user with that username already exists."
+msgstr "Ja existeix un usuari amb aquest nom"
+
+msgid "The two password fields didn't match."
+msgstr "Les contrasenyes no coincideixen"
 
 msgid "Administrator"
 msgstr "Administrador"
@@ -53,12 +59,6 @@ msgstr "Nom"
 
 msgid "Last Name"
 msgstr "Cognoms"
-
-msgid "A user with that username already exists."
-msgstr "Ja existeix un usuari amb aquest nom"
-
-msgid "The two password fields didn't match."
-msgstr "Les contrasenyes no coincideixen"
 
 msgid "Administrators have the ability to manage user accounts."
 msgstr "Els administrador poden manegar comptes d'usuari."

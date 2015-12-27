@@ -9,9 +9,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-08-26 14:28+0100\n"
-"PO-Revision-Date: 2015-08-26 13:37+0000\n"
-"Last-Translator: Karl Hobley <karl@torchbox.com>\n"
+"POT-Creation-Date: 2015-12-17 13:54+0000\n"
+"PO-Revision-Date: 2015-12-17 13:57+0000\n"
+"Last-Translator: mattwestcott <matthew@torchbox.com>\n"
 "Language-Team: Hebrew (Israel) (http://www.transifex.com/torchbox/wagtail/"
 "language/he_IL/)\n"
 "MIME-Version: 1.0\n"
@@ -355,10 +355,6 @@ msgstr "ניתן לערוך את העמוד כאן"
 msgid "The page \"%(page)s\" has been submitted for moderation"
 msgstr "העמוד \"%(page)s\" הועבר לאישור"
 
-#, python-format
-msgid "The page \"%(page)s\" has been submitted for moderation."
-msgstr "העמוד \"%(page)s\" הועבר לאישור."
-
 msgid "You can preview the page here:"
 msgstr "ניתן לראות תצוגה מקדימה של העמוד כאן"
 
@@ -493,8 +489,8 @@ msgstr "%(page_type)s חדש"
 msgid "New"
 msgstr "חדש "
 
-msgid "Save as draft"
-msgstr "שמור כטיוטה"
+msgid "Save draft"
+msgstr "שמור טיוטה"
 
 msgid "Publish"
 msgstr "פרסם"
@@ -512,9 +508,6 @@ msgstr "עריכת %(page_type)s <span>%(title)s</span>"
 
 msgid "Page locked"
 msgstr "עמוד נעול"
-
-msgid "Save draft"
-msgstr "שמור טיוטה"
 
 #, python-format
 msgid "Last modified: %(last_mod)s"
@@ -588,18 +581,6 @@ msgstr "בחירת עמוד הורה חדש עבור %(title)s"
 #, python-format
 msgid "Select a new parent page for <span>%(title)s</span>"
 msgstr "בחירת עמוד הורה חדש עבור <span>%(title)s</span>"
-
-msgid "Other searches"
-msgstr "חיפושים אחרים"
-
-msgid "Images"
-msgstr "תמונות"
-
-msgid "Documents"
-msgstr "מסמכים"
-
-msgid "Users"
-msgstr "משתמשים"
 
 #, python-format
 msgid "Sorry, no pages match <em>\"%(query_string)s\"</em>"
@@ -686,6 +667,9 @@ msgstr "התנתקות"
 #, python-format
 msgid "Page %(page_num)s of %(total_pages)s."
 msgstr "עמוד %(page_num)s מתוך %(total_pages)s."
+
+msgid "Other searches"
+msgstr "חיפושים אחרים"
 
 msgid ""
 "You are using an <strong>outdated</strong> browser not supported by this "

@@ -1,0 +1,79 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# dellax <michalnebbia@gmail.com>, 2015
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2015-12-17 13:54+0000\n"
+"PO-Revision-Date: 2015-12-17 14:02+0000\n"
+"Last-Translator: mattwestcott <matthew@torchbox.com>\n"
+"Language-Team: Slovak (Slovakia) (http://www.transifex.com/torchbox/wagtail/"
+"language/sk_SK/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: sk_SK\n"
+"Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
+
+msgid "Save"
+msgstr "Uložiť"
+
+#, python-format
+msgid "Delete %(query)s"
+msgstr "Zmazať %(query)s"
+
+msgid "Delete"
+msgstr "Vymazať"
+
+msgid "Yes, delete"
+msgstr "Áno, zmazať"
+
+msgid "Move up"
+msgstr "Posunúť vyššie"
+
+msgid "Move down"
+msgstr "Posunúť nižšie"
+
+msgid "Add recommended page"
+msgstr "Pridať odporúčanú stránku"
+
+msgid "Search term(s)"
+msgstr "Hľadané výrazy"
+
+msgid "Views (past week)"
+msgstr "Zobrazení (posledný týždeň)"
+
+msgid "None"
+msgstr "Žiadne"
+
+#, python-format
+msgid ""
+"\n"
+"            There is one match\n"
+"        "
+msgid_plural ""
+"\n"
+"            There are %(counter)s matches\n"
+"        "
+msgstr[0] ""
+"\n"
+"Jeden výsledok hľadania"
+msgstr[1] ""
+"\n"
+"%(counter)s výsledky hľadania"
+msgstr[2] ""
+"\n"
+"%(counter)s výsledkov hľadania"
+
+msgid "Edit"
+msgstr "Upraviť"
+
+msgid "Recommendations have not been created due to errors"
+msgstr "Odporúčania nemôžu byť vytvorené kvôli chybám."
+
+msgid "Recommendations have not been saved due to errors"
+msgstr "Odporúčania nemôžu byť uložené kvôli chybám."

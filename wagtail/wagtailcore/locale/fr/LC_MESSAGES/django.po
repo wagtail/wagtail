@@ -11,9 +11,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-09-02 20:07+0100\n"
-"PO-Revision-Date: 2015-10-09 12:50+0000\n"
-"Last-Translator: Tom Dyson <tom@torchbox.com>\n"
+"POT-Creation-Date: 2015-12-17 13:54+0000\n"
+"PO-Revision-Date: 2015-12-17 13:58+0000\n"
+"Last-Translator: mattwestcott <matthew@torchbox.com>\n"
 "Language-Team: French (http://www.transifex.com/torchbox/wagtail/language/"
 "fr/)\n"
 "MIME-Version: 1.0\n"
@@ -21,12 +21,6 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: fr\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-
-msgid "Hostname"
-msgstr "Nom d'hôte"
-
-msgid "Port"
-msgstr "Port"
 
 msgid ""
 "Set this to something other than 80 if you need a specific port number to "
@@ -37,12 +31,6 @@ msgstr ""
 "spécifique apparaisse dans les URLs (e.g. développement sur le port 8000). "
 "Ceci n'affecte pas la prise en charge des requêtes (les redirections de port "
 "continuent de fonctionner)."
-
-msgid "Root page"
-msgstr "Page racine"
-
-msgid "Is default site"
-msgstr "Site par défaut"
 
 msgid ""
 "If true, this site will handle requests for all other hostnames that do not "
@@ -65,14 +53,8 @@ msgstr ""
 "%(hostname)s est déjà configuré comme site par défaut. Vous devez modifier "
 "ce dernier avant de pouvoir sauvegarder ce site comme site par défaut."
 
-msgid "Title"
-msgstr "Titre"
-
 msgid "The page title as you'd like it to be seen by the public"
 msgstr "Le titre de la page comme vous souhaiteriez que les lecteurs la voient"
-
-msgid "Slug"
-msgstr "Slug"
 
 msgid ""
 "The name of the page as it will appear in URLs e.g http://domain.com/blog/"
@@ -81,23 +63,11 @@ msgstr ""
 "Le nom de la page comme elle apparaîtra dans l'URL e.g http://domain.com/"
 "blog/[my-slug]/"
 
-msgid "Content type"
-msgstr "Type de contenu"
-
-msgid "Live"
-msgstr "Publiée"
-
-msgid "Has unpublished changes"
-msgstr "Contient des changements non publiés"
+msgid "live"
+msgstr "publiée"
 
 msgid "URL path"
 msgstr "URL"
-
-msgid "Owner"
-msgstr "Auteur"
-
-msgid "Page title"
-msgstr "Titre de la page"
 
 msgid ""
 "Optional. 'Search Engine Friendly' title. This will appear at the top of the "
@@ -106,38 +76,14 @@ msgstr ""
 "Facultatif. Titre SEO. Ce titre apparaîtra en haut de la fenêtre de votre "
 "navigateur."
 
-msgid "Show in menus"
-msgstr "Faire apparaître dans les menus"
-
 msgid ""
 "Whether a link to this page will appear in automatically generated menus"
 msgstr ""
 "Si un lien vers cette page devra apparaître dans les menus générés "
 "automatiquement"
 
-msgid "Search description"
-msgstr "Description pour moteurs de recherche"
-
-msgid "Go live date/time"
-msgstr "Date/heure de publication"
-
 msgid "Please add a date-time in the form YYYY-MM-DD hh:mm."
 msgstr "Veuillez ajouter une date/heure au format YYYY-MM-DD hh:mm."
-
-msgid "Expiry date/time"
-msgstr "Date/heure d'expiration"
-
-msgid "Expired"
-msgstr "Expirée"
-
-msgid "Locked"
-msgstr "Verrouillé"
-
-msgid "First published at"
-msgstr "Première publication le"
-
-msgid "Latest revision created at"
-msgstr "Dernière version créée le"
 
 msgid "expired"
 msgstr "expirée"
@@ -151,9 +97,6 @@ msgstr "brouillon"
 msgid "live + draft"
 msgstr "publiée + brouillon"
 
-msgid "live"
-msgstr "publiée"
-
 msgid "Default"
 msgstr "Par défaut"
 
@@ -162,24 +105,6 @@ msgstr "page"
 
 msgid "pages"
 msgstr "pages"
-
-msgid "Page"
-msgstr "Page"
-
-msgid "Submitted for moderation"
-msgstr "Soumettre pour modération"
-
-msgid "Created at"
-msgstr "Créé le"
-
-msgid "User"
-msgstr "Utilisateur"
-
-msgid "Content JSON"
-msgstr "Contenu JSON"
-
-msgid "Approved go live at"
-msgstr "Approuvée le"
 
 msgid "page revision"
 msgstr "version de page"
@@ -199,26 +124,14 @@ msgstr "Publier n'importe quelle page"
 msgid "Lock/unlock any page"
 msgstr "Verrouiller/déverrouiller n'importe quelle page"
 
-msgid "Group"
-msgstr "Group"
-
-msgid "Permission type"
-msgstr "Type de permission"
-
 msgid "group page permission"
 msgstr "permission de page par groupe"
 
 msgid "group page permissions"
 msgstr "permissions de page par groupe"
 
-msgid "Password"
-msgstr "Mot de passe"
-
 msgid "page view restriction"
 msgstr "confidentialité de page"
 
 msgid "page view restrictions"
 msgstr "confidentialités de page"
-
-msgid "Value cannot be entirely whitespace characters"
-msgstr "La valeur ne peut pas uniquement être des espaces blancs"

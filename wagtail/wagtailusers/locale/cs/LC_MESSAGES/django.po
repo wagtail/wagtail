@@ -8,9 +8,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-08-26 14:28+0100\n"
-"PO-Revision-Date: 2015-10-30 06:42+0000\n"
-"Last-Translator: Karl Hobley <karl@torchbox.com>\n"
+"POT-Creation-Date: 2015-12-17 13:55+0000\n"
+"PO-Revision-Date: 2015-12-17 14:00+0000\n"
+"Last-Translator: mattwestcott <matthew@torchbox.com>\n"
 "Language-Team: Czech (http://www.transifex.com/torchbox/wagtail/language/"
 "cs/)\n"
 "MIME-Version: 1.0\n"
@@ -28,6 +28,12 @@ msgid "This value may contain only letters, numbers and @/./+/-/_ characters."
 msgstr ""
 "Toto pole může obsahovat pouze písmena bez diakritiky, číslice, @, ., +, -, "
 "_."
+
+msgid "A user with that username already exists."
+msgstr "Toto uživatelské jméno již existuje."
+
+msgid "The two password fields didn't match."
+msgstr "Zadaná hesla se neshodují."
 
 msgid "Administrator"
 msgstr "Administrátor"
@@ -55,12 +61,6 @@ msgstr "Jméno"
 
 msgid "Last Name"
 msgstr "Příjmení"
-
-msgid "A user with that username already exists."
-msgstr "Toto uživatelské jméno již existuje."
-
-msgid "The two password fields didn't match."
-msgstr "Zadaná hesla se neshodují."
 
 msgid "Administrators have the ability to manage user accounts."
 msgstr "Administrátoři mohou spravovat uživatelské účty."
@@ -240,6 +240,3 @@ msgstr "Uživatel '{0}' byl upraven."
 
 msgid "The user could not be saved due to errors."
 msgstr "Uživatele nelze uložit, zkontrolujte správné vyplnění polí."
-
-msgid "Groups"
-msgstr "Skupiny"

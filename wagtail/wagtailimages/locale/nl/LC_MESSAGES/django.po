@@ -5,14 +5,15 @@
 # Translators:
 # Brecht Dervaux <info@dervauxbrecht.be>, 2015
 # mahulst, 2014
+# mattwestcott <matthew@torchbox.com>, 2015
 # Thijs Kramer <thijskramer@gmail.com>, 2015
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-08-26 14:28+0100\n"
-"PO-Revision-Date: 2015-11-23 19:26+0000\n"
-"Last-Translator: Thijs Kramer <thijskramer@gmail.com>\n"
+"POT-Creation-Date: 2015-12-17 13:54+0000\n"
+"PO-Revision-Date: 2015-12-17 13:59+0000\n"
+"Last-Translator: mattwestcott <matthew@torchbox.com>\n"
 "Language-Team: Dutch (http://www.transifex.com/torchbox/wagtail/language/"
 "nl/)\n"
 "MIME-Version: 1.0\n"
@@ -82,21 +83,6 @@ msgstr "Hoogte"
 msgid "Closeness"
 msgstr "Nabijheid"
 
-msgid "Title"
-msgstr "Titel"
-
-msgid "File"
-msgstr "Bestand"
-
-msgid "Created at"
-msgstr "Aangemaakt op"
-
-msgid "Uploaded by user"
-msgstr "Geupload door gebruiker"
-
-msgid "Tags"
-msgstr "Bestand"
-
 msgid "Choose an image"
 msgstr "Kies een afbeelding"
 
@@ -148,6 +134,9 @@ msgstr[0] ""
 "        <span>%(total)s</span> Afbeelding\n"
 "    "
 msgstr[1] ""
+"\n"
+"        <span>%(total)s</span> Afbeeldingen\n"
+"    "
 
 msgid "Change image file:"
 msgstr "Wijzig bestand:"
@@ -239,6 +228,9 @@ msgstr "Gebruik van %(title)s"
 
 msgid "Usage of"
 msgstr "Gebruik van"
+
+msgid "Title"
+msgstr "Titel"
 
 msgid "Parent"
 msgstr "Parent"

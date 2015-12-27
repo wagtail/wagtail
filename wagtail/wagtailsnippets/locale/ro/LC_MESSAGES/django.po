@@ -10,9 +10,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-08-26 14:28+0100\n"
-"PO-Revision-Date: 2015-11-02 15:47+0000\n"
-"Last-Translator: Dan Braghis\n"
+"POT-Creation-Date: 2015-12-17 13:55+0000\n"
+"PO-Revision-Date: 2015-12-17 14:00+0000\n"
+"Last-Translator: mattwestcott <matthew@torchbox.com>\n"
 "Language-Team: Romanian (http://www.transifex.com/torchbox/wagtail/language/"
 "ro/)\n"
 "MIME-Version: 1.0\n"
@@ -33,9 +33,6 @@ msgstr ""
 "Nu au fost create %(snippet_type_name)s. De să nu <a href="
 "\"%(wagtailsnippets_create_snippet_url)s\" target=\"_blank\">adăugați unul</"
 "a>?"
-
-msgid "Title"
-msgstr "Titlu"
 
 #, python-format
 msgid "Delete %(snippet_type_name)s - %(instance)s"
@@ -71,6 +68,17 @@ msgstr "Editare"
 msgid "Snippets"
 msgstr "Fragmente"
 
+msgid "Title"
+msgstr "Titlu"
+
+#, python-format
+msgid ""
+"No %(snippet_type_name_plural)s have been created. Why not <a href="
+"\"%(wagtailsnippets_create_url)s\">add one</a>?"
+msgstr ""
+"Nu au fost create %(snippet_type_name_plural)s. De să nu <a href="
+"\"%(wagtailsnippets_create_url)s\">adăugați unul</a>?"
+
 #, python-format
 msgid "Snippets %(snippet_type_name_plural)s"
 msgstr "Fragmente %(snippet_type_name_plural)s"
@@ -82,14 +90,6 @@ msgstr "Fragmente <span>%(snippet_type_name_plural)s</span>"
 #, python-format
 msgid "Add %(snippet_type_name)s"
 msgstr "Adaugă %(snippet_type_name)s"
-
-#, python-format
-msgid ""
-"No %(snippet_type_name_plural)s have been created. Why not <a href="
-"\"%(wagtailsnippets_create_url)s\">add one</a>?"
-msgstr ""
-"Nu au fost create %(snippet_type_name_plural)s. De să nu <a href="
-"\"%(wagtailsnippets_create_url)s\">adăugați unul</a>?"
 
 #, python-format
 msgid "Usage of %(title)s"

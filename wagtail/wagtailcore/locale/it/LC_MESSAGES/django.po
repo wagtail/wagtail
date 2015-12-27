@@ -9,9 +9,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-09-02 20:07+0100\n"
-"PO-Revision-Date: 2015-09-24 09:41+0000\n"
-"Last-Translator: Giacomo Ghizzani <giacomo.ghz@gmail.com>\n"
+"POT-Creation-Date: 2015-12-17 13:54+0000\n"
+"PO-Revision-Date: 2015-12-17 13:58+0000\n"
+"Last-Translator: mattwestcott <matthew@torchbox.com>\n"
 "Language-Team: Italian (http://www.transifex.com/torchbox/wagtail/language/"
 "it/)\n"
 "MIME-Version: 1.0\n"
@@ -19,12 +19,6 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: it\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-
-msgid "Hostname"
-msgstr "Hostname"
-
-msgid "Port"
-msgstr "Porta"
 
 msgid ""
 "Set this to something other than 80 if you need a specific port number to "
@@ -35,12 +29,6 @@ msgstr ""
 "porta da far apparire nelle URL (es. sviluppo sulla porta 8000). Non "
 "influisce sulla gestione delle richieste (il port forwarding continua a "
 "funzionare)."
-
-msgid "Root page"
-msgstr "Pagina di root"
-
-msgid "Is default site"
-msgstr "è sito di default"
 
 msgid ""
 "If true, this site will handle requests for all other hostnames that do not "
@@ -61,14 +49,8 @@ msgstr ""
 "%(hostname)s è già configurato come sito di default. Devi togliere questa "
 "impostazione prima di poterlo salvare come sito di default."
 
-msgid "Title"
-msgstr "Titolo"
-
 msgid "The page title as you'd like it to be seen by the public"
 msgstr "Il titolo della pagina che sarà visibile al pubblico"
-
-msgid "Slug"
-msgstr "Slug"
 
 msgid ""
 "The name of the page as it will appear in URLs e.g http://domain.com/blog/"
@@ -77,23 +59,11 @@ msgstr ""
 "Il nome della pagina che comparirà nella URLs e.g http://domain.com/blog/[my-"
 "slug]/"
 
-msgid "Content type"
-msgstr "Tipo di contenuto"
-
-msgid "Live"
-msgstr "Live"
-
-msgid "Has unpublished changes"
-msgstr "Ha modifiche non pubblicate"
+msgid "live"
+msgstr "live"
 
 msgid "URL path"
 msgstr "URL path"
-
-msgid "Owner"
-msgstr "Proprietario"
-
-msgid "Page title"
-msgstr "Titolo pagina"
 
 msgid ""
 "Optional. 'Search Engine Friendly' title. This will appear at the top of the "
@@ -102,32 +72,8 @@ msgstr ""
 "Optional. Titolo 'Search Engine Friendly'. Questo apparirà nella barra del "
 "titolo del browser."
 
-msgid "Show in menus"
-msgstr "Mostra nel menu"
-
-msgid "Search description"
-msgstr "Descrizione della ricerca"
-
-msgid "Go live date/time"
-msgstr "Go live date/time"
-
 msgid "Please add a date-time in the form YYYY-MM-DD hh:mm."
 msgstr "Aggiungi una data nel formato YYYY-MM-DD hh:mm."
-
-msgid "Expiry date/time"
-msgstr "Scadenza data/ora"
-
-msgid "Expired"
-msgstr "Scaduto"
-
-msgid "Locked"
-msgstr "Bloccato"
-
-msgid "First published at"
-msgstr "Primo pubblicato a"
-
-msgid "Latest revision created at"
-msgstr "Ultima revisione fatta alle"
 
 msgid "expired"
 msgstr "scaduto"
@@ -141,9 +87,6 @@ msgstr "bozza"
 msgid "live + draft"
 msgstr "live + bozza"
 
-msgid "live"
-msgstr "live"
-
 msgid "Default"
 msgstr "Default"
 
@@ -152,24 +95,6 @@ msgstr "pagina"
 
 msgid "pages"
 msgstr "pagine"
-
-msgid "Page"
-msgstr "Pagina"
-
-msgid "Submitted for moderation"
-msgstr "Inviato per la moderazione"
-
-msgid "Created at"
-msgstr "Creato alle"
-
-msgid "User"
-msgstr "Utente"
-
-msgid "Content JSON"
-msgstr "Contenuto JSON"
-
-msgid "Approved go live at"
-msgstr "Approvata alle"
 
 msgid "page revision"
 msgstr "revisione pagina"
@@ -188,15 +113,3 @@ msgstr "Pubblica ogni pagina"
 
 msgid "Lock/unlock any page"
 msgstr "Blocca/sblocca ogni pagina"
-
-msgid "Group"
-msgstr "Gruppo"
-
-msgid "Permission type"
-msgstr "Tipo di permesso"
-
-msgid "Password"
-msgstr "Password"
-
-msgid "Value cannot be entirely whitespace characters"
-msgstr "Il valore non può contenere spazi bianchi"

@@ -11,9 +11,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-08-26 14:28+0100\n"
-"PO-Revision-Date: 2015-08-26 13:37+0000\n"
-"Last-Translator: Karl Hobley <karl@torchbox.com>\n"
+"POT-Creation-Date: 2015-12-17 13:54+0000\n"
+"PO-Revision-Date: 2015-12-17 13:59+0000\n"
+"Last-Translator: mattwestcott <matthew@torchbox.com>\n"
 "Language-Team: Portuguese (Brazil) (http://www.transifex.com/torchbox/"
 "wagtail/language/pt_BR/)\n"
 "MIME-Version: 1.0\n"
@@ -74,21 +74,6 @@ msgstr "Altura"
 
 msgid "Closeness"
 msgstr "Próximo"
-
-msgid "Title"
-msgstr "Título"
-
-msgid "File"
-msgstr "Arquivo"
-
-msgid "Created at"
-msgstr "Criado em"
-
-msgid "Uploaded by user"
-msgstr "Enviado pelo usuário"
-
-msgid "Tags"
-msgstr "Etiquetas"
 
 msgid "Choose an image"
 msgstr "Escolha uma imagem"
@@ -236,6 +221,9 @@ msgstr "Uso de %(title)s"
 
 msgid "Usage of"
 msgstr "Uso de"
+
+msgid "Title"
+msgstr "Título"
 
 msgid "Parent"
 msgstr "Pai"

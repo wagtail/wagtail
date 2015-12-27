@@ -1,0 +1,29 @@
+==========================================
+Wagtail 1.4 release notes - IN DEVELOPMENT
+==========================================
+
+.. contents::
+    :local:
+    :depth: 1
+
+
+What's new
+==========
+
+
+Custom document models
+~~~~~~~~~~~~~~~~~~~~~~
+
+The `Document` model can now be overridden using the new `WAGTAILDOCS_DOCUMENT_MODEL` setting. This works in the same way that `WAGTAILIMAGES_IMAGE_MODEL` works for `Image`.
+
+Minor features
+~~~~~~~~~~~~~~
+
+Bug fixes
+~~~~~~~~~
+
+ * Custom page managers no longer raise an error when used on an abstract model
+
+
+Upgrade considerations
+======================

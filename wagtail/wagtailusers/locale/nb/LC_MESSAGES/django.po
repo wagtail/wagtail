@@ -8,9 +8,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-08-26 14:28+0100\n"
-"PO-Revision-Date: 2015-09-02 14:43+0000\n"
-"Last-Translator: Eirik Krogstad <eirikkr@gmail.com>\n"
+"POT-Creation-Date: 2015-12-17 13:55+0000\n"
+"PO-Revision-Date: 2015-12-17 14:00+0000\n"
+"Last-Translator: mattwestcott <matthew@torchbox.com>\n"
 "Language-Team: Norwegian Bokmål (http://www.transifex.com/torchbox/wagtail/"
 "language/nb/)\n"
 "MIME-Version: 1.0\n"
@@ -25,6 +25,12 @@ msgstr ""
 
 msgid "This value may contain only letters, numbers and @/./+/-/_ characters."
 msgstr "Denne verdien kan kun inneholde bokstaver, tall og tegnene @/./+/-/_."
+
+msgid "A user with that username already exists."
+msgstr "En bruker med dette navnet eksisterer allerede."
+
+msgid "The two password fields didn't match."
+msgstr "Passordfeltene stemmer ikke overens."
 
 msgid "Administrator"
 msgstr "Administrator"
@@ -54,38 +60,20 @@ msgstr "Fornavn"
 msgid "Last Name"
 msgstr "Etternavn"
 
-msgid "A user with that username already exists."
-msgstr "En bruker med dette navnet eksisterer allerede."
-
-msgid "The two password fields didn't match."
-msgstr "Passordfeltene stemmer ikke overens."
-
 msgid "Administrators have the ability to manage user accounts."
 msgstr "Administratorer har mulighet til å administrere brukerkontoer."
 
 msgid "A group with that name already exists."
 msgstr "En gruppe med det navnet eksisterer allerede."
 
-msgid "Submitted notifications"
-msgstr "Varsel om sendt til godkjenning"
-
 msgid "Receive notification when a page is submitted for moderation"
 msgstr "Motta varsel når en side blir sendt til godkjenning"
-
-msgid "Approved notifications"
-msgstr "Varsel om godkjenning"
 
 msgid "Receive notification when your page edit is approved"
 msgstr "Motta varsel når din sideredigering blir godkjent"
 
-msgid "Rejected notifications"
-msgstr "Varsel om avvisning"
-
 msgid "Receive notification when your page edit is rejected"
 msgstr "Motta varsel når din sideredigering blir avvist"
-
-msgid "User Profile"
-msgstr "Brukerprofil"
 
 msgid "Delete group"
 msgstr "Slett gruppe"
@@ -264,6 +252,3 @@ msgstr "Brukeren \"{0}\" er oppdatert."
 
 msgid "The user could not be saved due to errors."
 msgstr "Brukeren kunne ikke lagres grunnet feil."
-
-msgid "Groups"
-msgstr "Grupper"

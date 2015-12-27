@@ -12,9 +12,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-08-26 14:28+0100\n"
-"PO-Revision-Date: 2015-08-13 07:04+0000\n"
-"Last-Translator: dotoree <vdotoree@yahoo.gr>\n"
+"POT-Creation-Date: 2015-12-17 13:55+0000\n"
+"PO-Revision-Date: 2015-12-17 13:59+0000\n"
+"Last-Translator: mattwestcott <matthew@torchbox.com>\n"
 "Language-Team: Greek (http://www.transifex.com/torchbox/wagtail/language/"
 "el/)\n"
 "MIME-Version: 1.0\n"
@@ -23,15 +23,6 @@ msgstr ""
 "Language: el\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-msgid "Redirect from"
-msgstr "Ανακατεύθυνση από"
-
-msgid "Site"
-msgstr "Ιστότοπος"
-
-msgid "Permanent"
-msgstr "Μόνιμη"
-
 msgid ""
 "Recommended. Permanent redirects ensure search engines forget the old page "
 "(the 'Redirect from') and index the new page instead."
@@ -39,15 +30,6 @@ msgstr ""
 "Συνιστώμενο. Με τις μόνιμες ανακατευθύνσεις οι μηχανές αναζήτησης \"ξεχνούν"
 "\" την παλαιά σελίδα (\"Ανακατεύθυνση από\") και πλέον χρησιμοποιούν τη νέα "
 "σελίδα."
-
-msgid "Redirect to a page"
-msgstr "Ανακατεύθυνση σε σελίδα"
-
-msgid "Redirect to any URL"
-msgstr "Ανακατεύθυση σε κάποια διεύθυση"
-
-msgid "Redirect"
-msgstr "Ανακατεύθυνση"
 
 msgid "Add redirect"
 msgstr "Προσθήκη ανακατεύθυνσης"
@@ -83,6 +65,9 @@ msgstr "Ανακατευθύνει"
 
 msgid "From"
 msgstr "Από"
+
+msgid "Site"
+msgstr "Ιστότοπος"
 
 msgid "To"
 msgstr "Σε"

@@ -8,9 +8,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-08-26 14:28+0100\n"
-"PO-Revision-Date: 2015-10-06 13:54+0000\n"
-"Last-Translator: Giacomo Ghizzani <giacomo.ghz@gmail.com>\n"
+"POT-Creation-Date: 2015-12-17 13:54+0000\n"
+"PO-Revision-Date: 2015-12-17 14:01+0000\n"
+"Last-Translator: mattwestcott <matthew@torchbox.com>\n"
 "Language-Team: Italian (http://www.transifex.com/torchbox/wagtail/language/"
 "it/)\n"
 "MIME-Version: 1.0\n"
@@ -52,26 +52,8 @@ msgstr "Data"
 msgid "Date/time"
 msgstr "Data/ora"
 
-msgid "Submit time"
-msgstr "Ora di invio"
-
-msgid "Form Submission"
-msgstr "Invio Form"
-
-msgid "Label"
-msgstr "Etichetta"
-
 msgid "The label of the form field"
 msgstr "Etichetta per il campo del form"
-
-msgid "Field type"
-msgstr "Tipo di campo"
-
-msgid "Required"
-msgstr "Richiesto"
-
-msgid "Choices"
-msgstr "Voci"
 
 msgid ""
 "Comma separated list of choices. Only applicable in checkboxes, radio and "
@@ -80,27 +62,12 @@ msgstr ""
 "Lista di voci separate da virgola. Applicabile soltanto a checkboxes, radio "
 "e dropdown"
 
-msgid "Default value"
-msgstr "Valore di default"
-
 msgid "Default value. Comma separated values supported for checkboxes."
 msgstr "Valore di default. Valori separati da virgola per checkboxes."
-
-msgid "Help text"
-msgstr "Testo di aiuto"
-
-msgid "To address"
-msgstr "Indirizzo destinazione"
 
 msgid "Optional - form submissions will be emailed to this address"
 msgstr ""
 "Optional - All'invio il form verrà spedito per email a questo indirizzo"
-
-msgid "From address"
-msgstr "Indirizzo mittente"
-
-msgid "Subject"
-msgstr "Oggetto"
 
 #, python-format
 msgid "Delete %(title)s"

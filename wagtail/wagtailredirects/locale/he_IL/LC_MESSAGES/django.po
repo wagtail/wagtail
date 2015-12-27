@@ -9,9 +9,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-08-26 14:28+0100\n"
-"PO-Revision-Date: 2015-08-10 16:08+0000\n"
-"Last-Translator: bjesus <bjesus@gmail.com>\n"
+"POT-Creation-Date: 2015-12-17 13:55+0000\n"
+"PO-Revision-Date: 2015-12-17 13:59+0000\n"
+"Last-Translator: mattwestcott <matthew@torchbox.com>\n"
 "Language-Team: Hebrew (Israel) (http://www.transifex.com/torchbox/wagtail/"
 "language/he_IL/)\n"
 "MIME-Version: 1.0\n"
@@ -19,24 +19,6 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: he_IL\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-
-msgid "Redirect from"
-msgstr "הפנייה מ:"
-
-msgid "Site"
-msgstr "אתר"
-
-msgid "Permanent"
-msgstr "קבוע "
-
-msgid "Redirect to a page"
-msgstr "הפנייה לעמוד"
-
-msgid "Redirect to any URL"
-msgstr "הפנייה לכל כתובת"
-
-msgid "Redirect"
-msgstr "הפנייה מחדש"
 
 msgid "Add redirect"
 msgstr "הוסף הפנייה"
@@ -68,6 +50,9 @@ msgstr "הפניות"
 
 msgid "From"
 msgstr "מ:"
+
+msgid "Site"
+msgstr "אתר"
 
 msgid "To"
 msgstr "אל"

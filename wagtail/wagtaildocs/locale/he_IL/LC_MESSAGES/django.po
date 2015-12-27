@@ -9,9 +9,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-08-26 14:28+0100\n"
-"PO-Revision-Date: 2015-08-10 16:08+0000\n"
-"Last-Translator: bjesus <bjesus@gmail.com>\n"
+"POT-Creation-Date: 2015-12-17 13:54+0000\n"
+"PO-Revision-Date: 2015-12-17 13:58+0000\n"
+"Last-Translator: mattwestcott <matthew@torchbox.com>\n"
 "Language-Team: Hebrew (Israel) (http://www.transifex.com/torchbox/wagtail/"
 "language/he_IL/)\n"
 "MIME-Version: 1.0\n"
@@ -19,24 +19,6 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: he_IL\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-
-msgid "Title"
-msgstr "כותרת"
-
-msgid "File"
-msgstr "קובץ"
-
-msgid "Created at"
-msgstr "נוצר ב:"
-
-msgid "Uploaded by user"
-msgstr "הועלה על ידי משתמש"
-
-msgid "Tags"
-msgstr "תגיות "
-
-msgid "Document"
-msgstr "מסמך"
 
 msgid "Choose a document"
 msgstr "בחרו מסמך"
@@ -46,9 +28,6 @@ msgstr "חיפוש"
 
 msgid "Upload"
 msgstr "העלה"
-
-msgid "Save"
-msgstr "שמור"
 
 msgid "Latest documents"
 msgstr "מסמכים אחרונים "
@@ -82,6 +61,9 @@ msgstr "עריכת %(title)s"
 msgid "Editing"
 msgstr "עריכה"
 
+msgid "Save"
+msgstr "שמור"
+
 msgid "Filesize"
 msgstr "גודל קובץ"
 
@@ -90,6 +72,12 @@ msgstr "קובץ לא נמצא"
 
 msgid "Documents"
 msgstr "מסמכים"
+
+msgid "Title"
+msgstr "כותרת"
+
+msgid "File"
+msgstr "קובץ"
 
 msgid "Uploaded"
 msgstr "הועלה"

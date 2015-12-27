@@ -7,12 +7,12 @@
 
     <div class="nice-padding">
         <ul class="listing">
-            {% for name, content_type in snippet_types %}
+            {% for model_opts in snippet_model_opts %}
                 <li>
                     <div class="row row-flush title">
                         <h2>
-                            <a href="{% url 'wagtailsnippets:list' content_type.app_label content_type.model %}" class="col6">
-                                {{ name|capfirst }}
+                            <a href="{% url 'wagtailsnippets:list' model_opts.app_label model_opts.model_name %}" class="col6">
+                                {{ model_opts.verbose_name_plural|capfirst }}
                             </a>
                         </h2>
                     </div>

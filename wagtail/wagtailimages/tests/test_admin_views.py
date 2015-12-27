@@ -299,6 +299,24 @@ class TestImageChooserView(TestCase, WagtailTestUtils):
             response = self.get({'p': page})
             self.assertEqual(response.status_code, 200)
 
+    def test_filter_by_tag(self):
+        for i in range(0, 10):
+            image = Image.objects.create(
+                title="Test image %d is even better than the last one" % i,
+                file=get_test_image_file(),
+            )
+            if i % 2 == 0:
+                image.tags.add('even')
+
+        response = self.get({'tag': "even"})
+        self.assertEqual(response.status_code, 200)
+
+        # Results should include images tagged 'even'
+        self.assertContains(response, "Test image 2 is even better")
+
+        # Results should not include images that just have 'even' in the title
+        self.assertNotContains(response, "Test image 3 is even better")
+
 
 class TestImageChooserChosenView(TestCase, WagtailTestUtils):
     def setUp(self):

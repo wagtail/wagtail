@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-08-26 14:28+0100\n"
+"POT-Creation-Date: 2015-12-17 13:54+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -53,64 +53,72 @@ msgstr ""
 msgid "This file is too big. Maximum filesize %s."
 msgstr ""
 
-#: forms.py:64
+#: forms.py:52
 msgid "Filter"
 msgstr ""
 
-#: forms.py:66
+#: forms.py:54
 msgid "Original size"
 msgstr ""
 
-#: forms.py:67
+#: forms.py:55
 msgid "Resize to width"
 msgstr ""
 
-#: forms.py:68
+#: forms.py:56
 msgid "Resize to height"
 msgstr ""
 
-#: forms.py:69
+#: forms.py:57
 msgid "Resize to min"
 msgstr ""
 
-#: forms.py:70
+#: forms.py:58
 msgid "Resize to max"
 msgstr ""
 
-#: forms.py:71
+#: forms.py:59
 msgid "Resize to fill"
 msgstr ""
 
-#: forms.py:74 models.py:64
+#: forms.py:62
 msgid "Width"
 msgstr ""
 
-#: forms.py:75 models.py:65
+#: forms.py:63
 msgid "Height"
 msgstr ""
 
-#: forms.py:76
+#: forms.py:64
 msgid "Closeness"
 msgstr ""
 
-#: models.py:62 templates/wagtailimages/images/usage.html:16
-msgid "Title"
+#: models.py:57
+msgid "title"
+msgstr ""
+
+#: models.py:59
+msgid "file"
+msgstr ""
+
+#: models.py:61
+msgid "width"
+msgstr ""
+
+#: models.py:62
+msgid "height"
 msgstr ""
 
 #: models.py:63
-msgid "File"
+msgid "created at"
 msgstr ""
 
-#: models.py:66
-msgid "Created at"
-msgstr ""
-
-#: models.py:67
-msgid "Uploaded by user"
+#: models.py:65
+msgid "uploaded by user"
 msgstr ""
 
 #: models.py:69
-msgid "Tags"
+msgid "tags"
 msgstr ""
 
 #: templates/wagtailimages/chooser/chooser.html:3 widgets.py:13
@@ -123,12 +131,16 @@ msgid "Search"
 msgstr ""
 
 #: templates/wagtailimages/chooser/chooser.html:9
-#: templates/wagtailimages/chooser/chooser.html:47
+#: templates/wagtailimages/chooser/chooser.html:48
 msgid "Upload"
 msgstr ""
 
 #: templates/wagtailimages/chooser/chooser.html:23
 msgid "Popular tags"
+msgstr ""
+
+#: templates/wagtailimages/chooser/chooser.html:48
+msgid "Uploading..."
 msgstr ""
 
 #: templates/wagtailimages/chooser/results.html:6
@@ -146,7 +158,7 @@ msgstr[0] ""
 msgstr[1] ""
 
 #: templates/wagtailimages/chooser/results.html:13
-#: templates/wagtailimages/images/results.html:13
+#: templates/wagtailimages/images/results.html:15
 msgid "Latest images"
 msgstr ""
 
@@ -176,22 +188,22 @@ msgid "Change image file:"
 msgstr ""
 
 #: templates/wagtailimages/images/add.html:4
-#: templates/wagtailimages/images/index.html:20
+#: templates/wagtailimages/images/index.html:21
 msgid "Add an image"
 msgstr ""
 
-#: templates/wagtailimages/images/add.html:14
+#: templates/wagtailimages/images/add.html:16
 msgid "Add image"
 msgstr ""
 
-#: templates/wagtailimages/images/add.html:28
-#: templates/wagtailimages/images/edit.html:44
+#: templates/wagtailimages/images/add.html:30
+#: templates/wagtailimages/images/edit.html:48
 msgid "Save"
 msgstr ""
 
 #: templates/wagtailimages/images/confirm_delete.html:4
 #: templates/wagtailimages/images/confirm_delete.html:7
-#: templates/wagtailimages/images/edit.html:44
+#: templates/wagtailimages/images/edit.html:48
 msgid "Delete image"
 msgstr ""
 
@@ -209,51 +221,52 @@ msgstr ""
 msgid "Editing image %(title)s"
 msgstr ""
 
-#: templates/wagtailimages/images/edit.html:24
+#: templates/wagtailimages/images/edit.html:28
 msgid "Editing"
 msgstr ""
 
-#: templates/wagtailimages/images/edit.html:49
+#: templates/wagtailimages/images/edit.html:53
 msgid "Focal point (optional)"
 msgstr ""
 
-#: templates/wagtailimages/images/edit.html:50
+#: templates/wagtailimages/images/edit.html:54
 msgid ""
 "To define this image's most important region, drag a box over the image "
 "below."
 msgstr ""
 
-#: templates/wagtailimages/images/edit.html:50
+#: templates/wagtailimages/images/edit.html:54
 msgid "Current focal point shown"
 msgstr ""
 
-#: templates/wagtailimages/images/edit.html:69
+#: templates/wagtailimages/images/edit.html:73
 msgid "URL Generator"
 msgstr ""
 
-#: templates/wagtailimages/images/edit.html:76
+#: templates/wagtailimages/images/edit.html:80
 msgid "Max dimensions"
 msgstr ""
 
-#: templates/wagtailimages/images/edit.html:78
+#: templates/wagtailimages/images/edit.html:82
 msgid "Filesize"
 msgstr ""
 
-#: templates/wagtailimages/images/edit.html:79
+#: templates/wagtailimages/images/edit.html:83
 msgid "File not found"
 msgstr ""
 
 #: templates/wagtailimages/images/index.html:5
-#: templates/wagtailimages/images/index.html:17 wagtail_hooks.py:31
+#: templates/wagtailimages/images/index.html:18 wagtail_hooks.py:33
+#: wagtail_hooks.py:105
 msgid "Images"
 msgstr ""
 
-#: templates/wagtailimages/images/results.html:31
+#: templates/wagtailimages/images/results.html:33
 #, python-format
 msgid "Sorry, no images match \"<em>%(query_string)s</em>\""
 msgstr ""
 
-#: templates/wagtailimages/images/results.html:34
+#: templates/wagtailimages/images/results.html:38
 #, python-format
 msgid ""
 "You've not uploaded any images. Why not <a href="
@@ -287,6 +300,10 @@ msgstr ""
 msgid "Usage of"
 msgstr ""
 
+#: templates/wagtailimages/images/usage.html:16
+msgid "Title"
+msgstr ""
+
 #: templates/wagtailimages/images/usage.html:17
 msgid "Parent"
 msgstr ""
@@ -307,75 +324,79 @@ msgstr ""
 msgid "Add multiple images"
 msgstr ""
 
-#: templates/wagtailimages/multiple/add.html:12
+#: templates/wagtailimages/multiple/add.html:14
 msgid "Add images"
 msgstr ""
 
-#: templates/wagtailimages/multiple/add.html:17
+#: templates/wagtailimages/multiple/add.html:19
 msgid "Drag and drop images into this area to upload immediately."
 msgstr ""
 
-#: templates/wagtailimages/multiple/add.html:22
+#: templates/wagtailimages/multiple/add.html:24
 msgid "Or choose from your computer"
 msgstr ""
 
-#: templates/wagtailimages/multiple/add.html:47
+#: templates/wagtailimages/multiple/add.html:49
 msgid ""
 "Upload successful. Please update this image with a more appropriate title, "
 "if necessary. You may also delete the image completely if the upload wasn't "
 "required."
 msgstr ""
 
-#: templates/wagtailimages/multiple/add.html:48
+#: templates/wagtailimages/multiple/add.html:50
 msgid "Sorry, upload failed."
+msgstr ""
+
+#: templates/wagtailimages/multiple/add.html:51
+msgid "Image updated."
 msgstr ""
 
 #: templates/wagtailimages/multiple/edit_form.html:14
 msgid "Update"
 msgstr ""
 
-#: templates/wagtailimages/multiple/edit_form.html:15 views/images.py:130
+#: templates/wagtailimages/multiple/edit_form.html:15 views/images.py:118
 msgid "Delete"
 msgstr ""
 
-#: views/images.py:40 views/images.py:50
+#: views/images.py:39 views/images.py:45
 msgid "Search images"
 msgstr ""
 
-#: views/images.py:110
+#: views/images.py:96
 #, python-brace-format
 msgid "Image '{0}' updated."
 msgstr ""
 
-#: views/images.py:111
+#: views/images.py:97
 msgid "Edit again"
 msgstr ""
 
-#: views/images.py:115
+#: views/images.py:101
 msgid "The image could not be saved due to errors."
 msgstr ""
 
-#: views/images.py:129
+#: views/images.py:116
 msgid ""
 "The source image file could not be found. Please change the source or delete "
 "the image."
 msgstr ""
 
-#: views/images.py:222
+#: views/images.py:206
 #, python-brace-format
 msgid "Image '{0}' deleted."
 msgstr ""
 
-#: views/images.py:248
+#: views/images.py:232
 #, python-brace-format
 msgid "Image '{0}' added."
 msgstr ""
 
-#: views/images.py:249
+#: views/images.py:233
 msgid "Edit"
 msgstr ""
 
-#: views/images.py:253
+#: views/images.py:237
 msgid "The image could not be created due to errors."
 msgstr ""
 

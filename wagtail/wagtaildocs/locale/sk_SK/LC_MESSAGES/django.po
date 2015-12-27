@@ -1,0 +1,170 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# dellax <michalnebbia@gmail.com>, 2015
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2015-12-17 13:54+0000\n"
+"PO-Revision-Date: 2015-12-17 13:58+0000\n"
+"Last-Translator: mattwestcott <matthew@torchbox.com>\n"
+"Language-Team: Slovak (Slovakia) (http://www.transifex.com/torchbox/wagtail/"
+"language/sk_SK/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: sk_SK\n"
+"Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
+
+msgid "Choose a document"
+msgstr "Zvoliť dokument"
+
+msgid "Search"
+msgstr "Hľadať"
+
+msgid "Upload"
+msgstr "Nahrať"
+
+#, python-format
+msgid ""
+"\n"
+"            There is one match\n"
+"        "
+msgid_plural ""
+"\n"
+"            There are %(counter)s matches\n"
+"        "
+msgstr[0] ""
+"\n"
+"Jeden výsledok hľadania"
+msgstr[1] ""
+"\n"
+"%(counter)s výsledky hľadania"
+msgstr[2] ""
+"\n"
+"%(counter)s výsledkov hľadania"
+
+msgid "Latest documents"
+msgstr "Posledné dokumenty"
+
+#, python-format
+msgid "Sorry, no documents match \"<em>%(query_string)s</em>\""
+msgstr ""
+"Prepáčte, žiadne dokumenty nezodpovedajú hľadanému výrazu \"<em>"
+"%(query_string)s</em>\""
+
+msgid "Change document:"
+msgstr "Zmeniť dokument"
+
+msgid "Add a document"
+msgstr "Pridať dokument"
+
+msgid "Add document"
+msgstr "Pridať dokument"
+
+#, python-format
+msgid "Delete %(title)s"
+msgstr "Zmazať %(title)s"
+
+msgid "Delete document"
+msgstr "Zmazať dokument"
+
+msgid "Are you sure you want to delete this document?"
+msgstr "Naozaj chcete zmazať tento dokument?"
+
+msgid "Yes, delete"
+msgstr "Áno, zmazať"
+
+msgid "Save"
+msgstr "Uložiť"
+
+msgid "Filesize"
+msgstr "Veľkosť súboru"
+
+msgid "File not found"
+msgstr "Súbor nebol nájdený"
+
+msgid "Documents"
+msgstr "Dokumenty"
+
+msgid "Title"
+msgstr "Titulok"
+
+msgid "File"
+msgstr "Súbor"
+
+#, python-format
+msgid ""
+"You haven't uploaded any documents. Why not <a href="
+"\"%(wagtaildocs_add_document_url)s\">upload one now</a>?"
+msgstr ""
+"Zatial ste nenahrali žiadne dokumenty. Prečo nenahrať <a href="
+"\"%(wagtaildocs_add_document_url)s\">jeden práve teraz</a>?"
+
+msgid "Parent"
+msgstr "Rodič"
+
+msgid "Type"
+msgstr "Typ"
+
+msgid "Status"
+msgstr "Stav"
+
+msgid "Edit this page"
+msgstr "Upraviť túto stránku"
+
+#, python-format
+msgid ""
+"\n"
+"        <span>%(total)s</span> Document\n"
+"    "
+msgid_plural ""
+"\n"
+"        <span>%(total)s</span> Documents\n"
+"    "
+msgstr[0] ""
+"\n"
+"<span>%(total)s</span> Dokument"
+msgstr[1] ""
+"\n"
+"<span>%(total)s</span> Dokumenty"
+msgstr[2] ""
+"\n"
+"<span>%(total)s</span> Dokumentov"
+
+msgid "Search documents"
+msgstr "Hľadať dokumenty"
+
+#, python-brace-format
+msgid "Document '{0}' added."
+msgstr "Dokument '{0}' pridaný."
+
+msgid "Edit"
+msgstr "Upraviť"
+
+msgid "The document could not be saved due to errors."
+msgstr "Dokument nemohol byť uložený kvôli chybám."
+
+#, python-brace-format
+msgid "Document '{0}' updated"
+msgstr "Dokument '{0}' bol aktualizovaný"
+
+msgid ""
+"The file could not be found. Please change the source or delete the document"
+msgstr "Súbor nebol nájdený. Prosím aktualizujte zdroj alebo zmažte dokument"
+
+msgid "Delete"
+msgstr "Vymazať"
+
+#, python-brace-format
+msgid "Document '{0}' deleted."
+msgstr "Dokument '{0}' bol zmazaný."
+
+msgid "Choose another document"
+msgstr "Zvoliť ďalší dokument"
+
+msgid "Edit this document"
+msgstr "Upraviť tento dokument"

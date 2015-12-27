@@ -4,13 +4,14 @@
 #
 # Translators:
 # Maarten Kling <kling.maarten@gmail.com>, 2015
+# Thijs Kramer <thijskramer@gmail.com>, 2015
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-08-26 14:28+0100\n"
-"PO-Revision-Date: 2015-10-09 11:14+0000\n"
-"Last-Translator: Maarten Kling <kling.maarten@gmail.com>\n"
+"POT-Creation-Date: 2015-12-17 13:54+0000\n"
+"PO-Revision-Date: 2015-12-22 16:15+0000\n"
+"Last-Translator: Thijs Kramer <thijskramer@gmail.com>\n"
 "Language-Team: Dutch (Netherlands) (http://www.transifex.com/torchbox/"
 "wagtail/language/nl_NL/)\n"
 "MIME-Version: 1.0\n"
@@ -19,23 +20,23 @@ msgstr ""
 "Language: nl_NL\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-msgid "Title"
-msgstr "Titel"
+msgid "title"
+msgstr "titel"
 
-msgid "File"
-msgstr "File"
+msgid "file"
+msgstr "bestand"
 
-msgid "Created at"
-msgstr "Aangemaakt op"
+msgid "created at"
+msgstr "gemaakt op"
 
-msgid "Uploaded by user"
-msgstr "Geupload door gebruiker"
+msgid "uploaded by user"
+msgstr "geupload door gebruiker"
 
-msgid "Tags"
-msgstr "Tags"
+msgid "tags"
+msgstr "tags"
 
-msgid "Document"
-msgstr "Document"
+msgid "document"
+msgstr "document"
 
 msgid "Choose a document"
 msgstr "Kies een document"
@@ -46,8 +47,8 @@ msgstr "Zoek"
 msgid "Upload"
 msgstr "Uploaden"
 
-msgid "Save"
-msgstr "Opslaan"
+msgid "Uploading..."
+msgstr "Bezig met uploaden..."
 
 #, python-format
 msgid ""
@@ -68,11 +69,13 @@ msgstr[1] ""
 "        "
 
 msgid "Latest documents"
-msgstr "Laatste documenten"
+msgstr "Nieuwste documenten"
 
 #, python-format
 msgid "Sorry, no documents match \"<em>%(query_string)s</em>\""
-msgstr "Sorry, geen documenten matchen \"<em>%(query_string)s</em>\""
+msgstr ""
+"Sorry, geen documenten komen overeen met de zoekterm \"<em>%(query_string)s</"
+"em>\""
 
 msgid "Change document:"
 msgstr "Wijzig document:"
@@ -103,6 +106,9 @@ msgstr "Wijzigen %(title)s"
 msgid "Editing"
 msgstr "Wijzigen"
 
+msgid "Save"
+msgstr "Opslaan"
+
 msgid "Filesize"
 msgstr "Bestandsgrootte"
 
@@ -112,6 +118,12 @@ msgstr "Bestand niet gevonden"
 msgid "Documents"
 msgstr "Documenten"
 
+msgid "Title"
+msgstr "Titel"
+
+msgid "File"
+msgstr "File"
+
 msgid "Uploaded"
 msgstr "Geupload"
 
@@ -120,8 +132,8 @@ msgid ""
 "You haven't uploaded any documents. Why not <a href="
 "\"%(wagtaildocs_add_document_url)s\">upload one now</a>?"
 msgstr ""
-"Er zijn nog geen documenten geupload. Waarom niet nu één <a href="
-"\"%(wagtaildocs_add_document_url)s\">uploaden</a>?"
+"Er zijn nog geen documenten toegevoegd. Waarom <a href="
+"\"%(wagtaildocs_add_document_url)s\">voegt u er niet een toe</a>?"
 
 #, python-format
 msgid "Usage of %(title)s"
@@ -171,20 +183,20 @@ msgid "Edit"
 msgstr "Wijzig"
 
 msgid "The document could not be saved due to errors."
-msgstr "Het document kon niet worden opgeslagen door fouten."
+msgstr "Het document kon vanwege fouten niet worden opgeslagen."
 
 #, python-brace-format
 msgid "Document '{0}' updated"
-msgstr "Document '{0}' geupdate"
+msgstr "Document '{0}' is bijgewerkt"
 
 msgid ""
 "The file could not be found. Please change the source or delete the document"
 msgstr ""
-"Het bestand kon niet worden gevonden. Verander de source of verwijder het "
-"document"
+"Het bestand kon niet worden gevonden. Kies een ander bronbestand of "
+"verwijder het document."
 
 msgid "Delete"
-msgstr "Verwijder"
+msgstr "Verwijderen"
 
 #, python-brace-format
 msgid "Document '{0}' deleted."

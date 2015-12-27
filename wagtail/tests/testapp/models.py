@@ -17,7 +17,7 @@ from modelcluster.models import ClusterableModel
 from modelcluster.contrib.taggit import ClusterTaggableManager
 
 from wagtail.contrib.settings.models import BaseSetting, register_setting
-from wagtail.wagtailcore.models import Page, Orderable
+from wagtail.wagtailcore.models import Page, Orderable, PageManager
 from wagtail.wagtailcore.fields import RichTextField, StreamField
 from wagtail.wagtailcore.blocks import CharBlock, RichTextBlock
 from wagtail.wagtailadmin.edit_handlers import (
@@ -403,8 +403,11 @@ class BusinessIndex(Page):
 
 class BusinessSubIndex(Page):
     """ Can be placed under BusinessIndex, and have BusinessChild children """
-    subpage_types = ['tests.BusinessChild']
-    parent_page_types = ['tests.BusinessIndex']
+
+    # BusinessNowherePage is 'incorrectly' added here as a possible child.
+    # The rules on BusinessNowherePage prevent it from being a child here though.
+    subpage_types = ['tests.BusinessChild', 'tests.BusinessNowherePage']
+    parent_page_types = ['tests.BusinessIndex', 'tests.BusinessChild']
 
 
 class BusinessChild(Page):
@@ -577,3 +580,25 @@ class CustomImageFilePath(AbstractImage):
 
         self.file.seek(original_position)
         return os.path.join(folder_name, checksum[:3], filename)
+
+
+class CustomManager(PageManager):
+    pass
+
+
+class CustomManagerPage(Page):
+    objects = CustomManager()
+
+
+class MyBasePage(Page):
+    """
+    A base Page model, used to set site-wide defaults and overrides.
+    """
+    objects = CustomManager()
+
+    class Meta:
+        abstract = True
+
+
+class MyCustomPage(MyBasePage):
+    pass

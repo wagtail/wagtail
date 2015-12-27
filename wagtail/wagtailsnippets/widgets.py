@@ -9,27 +9,24 @@ from wagtail.wagtailadmin.widgets import AdminChooser
 
 
 class AdminSnippetChooser(AdminChooser):
-    target_content_type = None
 
-    def __init__(self, content_type=None, **kwargs):
-        if 'snippet_type_name' in kwargs:
-            snippet_type_name = kwargs.pop('snippet_type_name')
-            self.choose_one_text = _('Choose %s') % snippet_type_name
-            self.choose_another_text = _('Choose another %s') % snippet_type_name
-            self.link_to_chosen_text = _('Edit this %s') % snippet_type_name
+    def __init__(self, model, **kwargs):
+        self.target_model = model
+        name = self.target_model._meta.verbose_name
+        self.choose_one_text = _('Choose %s') % name
+        self.choose_another_text = _('Choose another %s') % name
+        self.link_to_chosen_text = _('Edit this %s') % name
 
         super(AdminSnippetChooser, self).__init__(**kwargs)
-        if content_type is not None:
-            self.target_content_type = content_type
 
     def render_html(self, name, value, attrs):
-        model_class = self.target_content_type.model_class()
-        instance, value = self.get_instance_and_id(model_class, value)
+        instance, value = self.get_instance_and_id(self.target_model, value)
 
         original_field_html = super(AdminSnippetChooser, self).render_html(name, value, attrs)
 
         return render_to_string("wagtailsnippets/widgets/snippet_chooser.html", {
             'widget': self,
+            'model_opts': self.target_model._meta,
             'original_field_html': original_field_html,
             'attrs': attrs,
             'value': value,
@@ -37,10 +34,10 @@ class AdminSnippetChooser(AdminChooser):
         })
 
     def render_js_init(self, id_, name, value):
-        content_type = self.target_content_type
+        model = self.target_model
 
-        return "createSnippetChooser({id}, {content_type});".format(
+        return "createSnippetChooser({id}, {model});".format(
             id=json.dumps(id_),
-            content_type=json.dumps('{app}/{model}'.format(
-                app=content_type.app_label,
-                model=content_type.model)))
+            model=json.dumps('{app}/{model}'.format(
+                app=model._meta.app_label,
+                model=model._meta.model_name)))

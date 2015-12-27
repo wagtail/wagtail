@@ -9,9 +9,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-08-26 14:28+0100\n"
-"PO-Revision-Date: 2015-10-25 11:33+0000\n"
-"Last-Translator: saevarom <saevar@saevar.is>\n"
+"POT-Creation-Date: 2015-12-17 13:54+0000\n"
+"PO-Revision-Date: 2015-12-17 13:57+0000\n"
+"Last-Translator: mattwestcott <matthew@torchbox.com>\n"
 "Language-Team: Icelandic (Iceland) (http://www.transifex.com/torchbox/"
 "wagtail/language/is_IS/)\n"
 "MIME-Version: 1.0\n"
@@ -249,17 +249,14 @@ msgstr "Afrita þessa síðu"
 msgid "New"
 msgstr "Ný"
 
-msgid "Save as draft"
-msgstr "Vista sem uppkast"
+msgid "Save draft"
+msgstr "Vista uppkast"
 
 msgid "Publish"
 msgstr "Setja í birtingu"
 
 msgid "Page locked"
 msgstr "Síða læst"
-
-msgid "Save draft"
-msgstr "Vista uppkast"
 
 msgid "Drag"
 msgstr "Draga"
@@ -292,18 +289,6 @@ msgstr "Veldu nýja yfirsíðu fyrir %(title)s"
 #, python-format
 msgid "Select a new parent page for <span>%(title)s</span>"
 msgstr "Veldu nýja yfirsíðu fyrir <span>%(title)s</span>"
-
-msgid "Other searches"
-msgstr "Aðrar leitir"
-
-msgid "Images"
-msgstr "Myndir"
-
-msgid "Documents"
-msgstr "Skjöl"
-
-msgid "Users"
-msgstr "Notendur"
 
 msgid "Enter a search term above"
 msgstr "Sláðu inn leitarorð hér að ofan"
@@ -367,6 +352,9 @@ msgstr "Fös"
 
 msgid "Sat"
 msgstr "Lau"
+
+msgid "Other searches"
+msgstr "Aðrar leitir"
 
 msgid "Go to Wagtail admin interface"
 msgstr "Fara á Wagtail stjórnborð"

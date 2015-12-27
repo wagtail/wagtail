@@ -9,9 +9,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-08-26 14:28+0100\n"
-"PO-Revision-Date: 2015-12-08 15:00+0000\n"
-"Last-Translator: 石田秀 <ishidashu@gmail.com>\n"
+"POT-Creation-Date: 2015-12-17 13:55+0000\n"
+"PO-Revision-Date: 2015-12-17 14:00+0000\n"
+"Last-Translator: mattwestcott <matthew@torchbox.com>\n"
 "Language-Team: Japanese (http://www.transifex.com/torchbox/wagtail/language/"
 "ja/)\n"
 "MIME-Version: 1.0\n"
@@ -26,6 +26,12 @@ msgstr ""
 
 msgid "This value may contain only letters, numbers and @/./+/-/_ characters."
 msgstr "この値はアルファベット、数字、@/./+/-/_のみを含むことができます。"
+
+msgid "A user with that username already exists."
+msgstr "このユーザ名は既に使用されています。"
+
+msgid "The two password fields didn't match."
+msgstr "パスワードが一致しませんでした。"
 
 msgid "Administrator"
 msgstr "管理者"
@@ -55,38 +61,20 @@ msgstr "名"
 msgid "Last Name"
 msgstr "姓"
 
-msgid "A user with that username already exists."
-msgstr "このユーザ名は既に使用されています。"
-
-msgid "The two password fields didn't match."
-msgstr "パスワードが一致しませんでした。"
-
 msgid "Administrators have the ability to manage user accounts."
 msgstr "管理者はユーザアカウントを管理することができます。"
 
 msgid "A group with that name already exists."
 msgstr "このグループ名は既に使用されています。"
 
-msgid "Submitted notifications"
-msgstr "通知を送信しました。"
-
 msgid "Receive notification when a page is submitted for moderation"
 msgstr "承認リクエストの通知を受け取る"
-
-msgid "Approved notifications"
-msgstr "承認された通知"
 
 msgid "Receive notification when your page edit is approved"
 msgstr "ページの編集が承認された際、通知を受け取る"
 
-msgid "Rejected notifications"
-msgstr "拒否通知"
-
 msgid "Receive notification when your page edit is rejected"
 msgstr "ページの編集が却下された際、通知を受け取る"
-
-msgid "User Profile"
-msgstr "プロフィール"
 
 msgid "Delete group"
 msgstr "グループを削除"
@@ -263,6 +251,3 @@ msgstr "ユーザ '{0}' が更新されました。"
 
 msgid "The user could not be saved due to errors."
 msgstr "このユーザはエラーにより保存されませんでした。"
-
-msgid "Groups"
-msgstr "グループ"

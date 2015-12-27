@@ -18,9 +18,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-08-26 14:28+0100\n"
-"PO-Revision-Date: 2015-11-23 19:26+0000\n"
-"Last-Translator: Thijs Kramer <thijskramer@gmail.com>\n"
+"POT-Creation-Date: 2015-12-17 13:54+0000\n"
+"PO-Revision-Date: 2015-12-17 13:57+0000\n"
+"Last-Translator: mattwestcott <matthew@torchbox.com>\n"
 "Language-Team: Dutch (http://www.transifex.com/torchbox/wagtail/language/"
 "nl/)\n"
 "MIME-Version: 1.0\n"
@@ -402,10 +402,6 @@ msgstr "U kunt de pagina hier wijzigen:"
 msgid "The page \"%(page)s\" has been submitted for moderation"
 msgstr "De pagina \"%(page)s\" is ter goedkeuring aangeboden"
 
-#, python-format
-msgid "The page \"%(page)s\" has been submitted for moderation."
-msgstr "De pagina \"%(page)s\" is ter goedkeuring aangeboden."
-
 msgid "You can preview the page here:"
 msgstr "U kunt hier een voorbeeld van de pagina bekijken:"
 
@@ -545,8 +541,8 @@ msgstr "Nieuwe %(page_type)s"
 msgid "New"
 msgstr "Nieuwe"
 
-msgid "Save as draft"
-msgstr "Als concept opslaan"
+msgid "Save draft"
+msgstr "Concept opslaan"
 
 msgid "Publish"
 msgstr "Publiceer"
@@ -564,9 +560,6 @@ msgstr "Bewerk %(page_type)s <span>%(title)s</span>"
 
 msgid "Page locked"
 msgstr "Pagina vergrendeld"
-
-msgid "Save draft"
-msgstr "Concept opslaan"
 
 #, python-format
 msgid "Last modified: %(last_mod)s"
@@ -675,18 +668,6 @@ msgstr[1] ""
 "\n"
 "Er zijn %(counter)s overeenkomende pagina's"
 
-msgid "Other searches"
-msgstr "Andere zoekresultaten"
-
-msgid "Images"
-msgstr "Afbeeldingen"
-
-msgid "Documents"
-msgstr "Documenten"
-
-msgid "Users"
-msgstr "Gebruikers"
-
 #, python-format
 msgid "Sorry, no pages match <em>\"%(query_string)s\"</em>"
 msgstr ""
@@ -774,6 +755,9 @@ msgstr "Uitloggen"
 #, python-format
 msgid "Page %(page_num)s of %(total_pages)s."
 msgstr "Pagina %(page_num)s van %(total_pages)s."
+
+msgid "Other searches"
+msgstr "Andere zoekresultaten"
 
 msgid ""
 "You are using an <strong>outdated</strong> browser not supported by this "

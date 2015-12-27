@@ -8,9 +8,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-08-26 14:28+0100\n"
-"PO-Revision-Date: 2015-11-02 15:46+0000\n"
-"Last-Translator: Dan Braghis\n"
+"POT-Creation-Date: 2015-12-17 13:54+0000\n"
+"PO-Revision-Date: 2015-12-17 13:58+0000\n"
+"Last-Translator: mattwestcott <matthew@torchbox.com>\n"
 "Language-Team: Romanian (http://www.transifex.com/torchbox/wagtail/language/"
 "ro/)\n"
 "MIME-Version: 1.0\n"
@@ -20,24 +20,6 @@ msgstr ""
 "Plural-Forms: nplurals=3; plural=(n==1?0:(((n%100>19)||((n%100==0)&&(n!=0)))?"
 "2:1));\n"
 
-msgid "Title"
-msgstr "Titlu"
-
-msgid "File"
-msgstr "Fișier"
-
-msgid "Created at"
-msgstr "Creat la"
-
-msgid "Uploaded by user"
-msgstr "Încărcat de utlizator"
-
-msgid "Tags"
-msgstr "Etichete"
-
-msgid "Document"
-msgstr "Document"
-
 msgid "Choose a document"
 msgstr "Alege document"
 
@@ -46,9 +28,6 @@ msgstr "Căută"
 
 msgid "Upload"
 msgstr "Încărcare"
-
-msgid "Save"
-msgstr "Salveză"
 
 #, python-format
 msgid ""
@@ -107,6 +86,9 @@ msgstr "Editare %(title)s"
 msgid "Editing"
 msgstr "Editare"
 
+msgid "Save"
+msgstr "Salveză"
+
 msgid "Filesize"
 msgstr "Mărime fișier"
 
@@ -115,6 +97,12 @@ msgstr "Fișierul nu a fost găsit"
 
 msgid "Documents"
 msgstr "Documente"
+
+msgid "Title"
+msgstr "Titlu"
+
+msgid "File"
+msgstr "Fișier"
 
 msgid "Uploaded"
 msgstr "Încărcat"

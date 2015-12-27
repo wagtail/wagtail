@@ -250,7 +250,7 @@ class TestSnippetDelete(TestCase, WagtailTestUtils):
         self.assertEqual(Advert.objects.filter(text='test_advert').count(), 0)
 
 
-class TestSnippetChooserPanel(TestCase):
+class TestSnippetChooserPanel(TestCase, WagtailTestUtils):
     fixtures = ['test.json']
 
     def setUp(self):
@@ -296,41 +296,49 @@ class TestSnippetChooserPanel(TestCase):
         self.assertIn('createSnippetChooser("id_advert", "tests/advert");',
                       self.snippet_chooser_panel.render_as_field())
 
-    def test_target_content_type_from_string(self):
-        result = SnippetChooserPanel(
-            'advert',
-            'tests.advert'
-        ).bind_to_model(SnippetChooserModel).target_content_type()
-        self.assertEqual(result.name, 'advert')
+    def test_target_model_from_string(self):
+        # RemovedInWagtail16Warning: snippet_type argument
+        with self.ignore_deprecation_warnings():
+            result = SnippetChooserPanel(
+                'advert',
+                'tests.advert'
+            ).bind_to_model(SnippetChooserModel).target_model()
+            self.assertIs(result, Advert)
 
-    def test_target_content_type_from_model(self):
-        result = SnippetChooserPanel(
-            'advert',
-            Advert
-        ).bind_to_model(SnippetChooserModel).target_content_type()
-        self.assertEqual(result.name, 'advert')
+    def test_target_model_from_model(self):
+        # RemovedInWagtail16Warning: snippet_type argument
+        with self.ignore_deprecation_warnings():
+            result = SnippetChooserPanel(
+                'advert',
+                Advert
+            ).bind_to_model(SnippetChooserModel).target_model()
+            self.assertIs(result, Advert)
 
-    def test_target_content_type_autodetected(self):
+    def test_target_model_autodetected(self):
         result = SnippetChooserPanel(
             'advert'
-        ).bind_to_model(SnippetChooserModel).target_content_type()
-        self.assertEqual(result.name, 'advert')
+        ).bind_to_model(SnippetChooserModel).target_model()
+        self.assertEqual(result, Advert)
 
-    def test_target_content_type_malformed_type(self):
-        result = SnippetChooserPanel(
-            'advert',
-            'snowman'
-        ).bind_to_model(SnippetChooserModel)
-        self.assertRaises(ImproperlyConfigured,
-                          result.target_content_type)
+    def test_target_model_malformed_type(self):
+        # RemovedInWagtail16Warning: snippet_type argument
+        with self.ignore_deprecation_warnings():
+            result = SnippetChooserPanel(
+                'advert',
+                'snowman'
+            ).bind_to_model(SnippetChooserModel)
+            self.assertRaises(ImproperlyConfigured,
+                              result.target_model)
 
-    def test_target_content_type_nonexistent_type(self):
-        result = SnippetChooserPanel(
-            'advert',
-            'snowman.lorry'
-        ).bind_to_model(SnippetChooserModel)
-        self.assertRaises(ImproperlyConfigured,
-                          result.target_content_type)
+    def test_target_model_nonexistent_type(self):
+        # RemovedInWagtail16Warning: snippet_type argument
+        with self.ignore_deprecation_warnings():
+            result = SnippetChooserPanel(
+                'advert',
+                'snowman.lorry'
+            ).bind_to_model(SnippetChooserModel)
+            self.assertRaises(ImproperlyConfigured,
+                              result.target_model)
 
 
 class TestSnippetRegistering(TestCase):

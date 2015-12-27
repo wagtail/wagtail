@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-08-26 14:28+0100\n"
-"PO-Revision-Date: 2015-03-06 12:15+0000\n"
+"POT-Creation-Date: 2015-12-17 13:55+0000\n"
+"PO-Revision-Date: 2015-12-17 14:00+0000\n"
 "Last-Translator: mattwestcott <matthew@torchbox.com>\n"
 "Language-Team: Chinese (http://www.transifex.com/torchbox/wagtail/language/"
 "zh/)\n"
@@ -20,9 +20,6 @@ msgstr ""
 
 msgid "Choose"
 msgstr "选择"
-
-msgid "Title"
-msgstr "标题"
 
 #, python-format
 msgid "Delete %(snippet_type_name)s - %(instance)s"
@@ -58,6 +55,17 @@ msgstr "编辑"
 msgid "Snippets"
 msgstr "片段"
 
+msgid "Title"
+msgstr "标题"
+
+#, python-format
+msgid ""
+"No %(snippet_type_name_plural)s have been created. Why not <a href="
+"\"%(wagtailsnippets_create_url)s\">add one</a>?"
+msgstr ""
+"没有任何%(snippet_type_name_plural)s片段。为什么不<a href="
+"\"%(wagtailsnippets_create_url)s\">创建一个</a>?"
+
 #, python-format
 msgid "Snippets %(snippet_type_name_plural)s"
 msgstr "%(snippet_type_name_plural)s片段"
@@ -69,14 +77,6 @@ msgstr "<span>%(snippet_type_name_plural)s</span>片段"
 #, python-format
 msgid "Add %(snippet_type_name)s"
 msgstr "添加%(snippet_type_name)s"
-
-#, python-format
-msgid ""
-"No %(snippet_type_name_plural)s have been created. Why not <a href="
-"\"%(wagtailsnippets_create_url)s\">add one</a>?"
-msgstr ""
-"没有任何%(snippet_type_name_plural)s片段。为什么不<a href="
-"\"%(wagtailsnippets_create_url)s\">创建一个</a>?"
 
 #, python-brace-format
 msgid "{snippet_type} '{instance}' created."

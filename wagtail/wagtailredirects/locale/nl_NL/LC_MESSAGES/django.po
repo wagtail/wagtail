@@ -4,13 +4,14 @@
 #
 # Translators:
 # Maarten Kling <kling.maarten@gmail.com>, 2015
+# Thijs Kramer <thijskramer@gmail.com>, 2015
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-08-26 14:28+0100\n"
-"PO-Revision-Date: 2015-10-09 11:14+0000\n"
-"Last-Translator: Maarten Kling <kling.maarten@gmail.com>\n"
+"POT-Creation-Date: 2015-12-17 13:55+0000\n"
+"PO-Revision-Date: 2015-12-22 16:15+0000\n"
+"Last-Translator: Thijs Kramer <thijskramer@gmail.com>\n"
 "Language-Team: Dutch (Netherlands) (http://www.transifex.com/torchbox/"
 "wagtail/language/nl_NL/)\n"
 "MIME-Version: 1.0\n"
@@ -19,14 +20,23 @@ msgstr ""
 "Language: nl_NL\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-msgid "Redirect from"
-msgstr "Redirect van"
+msgid "From site"
+msgstr "Vanaf site"
 
-msgid "Site"
-msgstr "Site"
+msgid "All sites"
+msgstr "Alle sites"
 
-msgid "Permanent"
-msgstr "Blijvend"
+msgid "A redirect with this path already exists."
+msgstr "Er bestaat al een redirect met dit pad."
+
+msgid "redirect from"
+msgstr "stuur door vanaf"
+
+msgid "site"
+msgstr "site"
+
+msgid "permanent"
+msgstr "permanent"
 
 msgid ""
 "Recommended. Permanent redirects ensure search engines forget the old page "
@@ -35,14 +45,14 @@ msgstr ""
 "Aangeraden. Permanente redirects zorgen ervoor dat zoekmachines de oude "
 "pagina ('redirect van') vergeten en de nieuwe pagina indexeren."
 
-msgid "Redirect to a page"
-msgstr "Redirect naar een pagina"
+msgid "redirect to a page"
+msgstr "stuur door naar een pagina"
 
-msgid "Redirect to any URL"
-msgstr "Redirect naar een URL"
+msgid "redirect to any URL"
+msgstr "stuur door naar een willekeurige URL"
 
-msgid "Redirect"
-msgstr "Redirect"
+msgid "redirect"
+msgstr "stuur door"
 
 msgid "Add redirect"
 msgstr "Voeg redirect toe"
@@ -79,6 +89,9 @@ msgstr "Redirects"
 msgid "From"
 msgstr "Van"
 
+msgid "Site"
+msgstr "Site"
+
 msgid "To"
 msgstr "Naar"
 
@@ -111,15 +124,17 @@ msgstr[1] ""
 
 #, python-format
 msgid "Sorry, no redirects match \"<em>%(query_string)s</em>\""
-msgstr "Sorry, geen redirects gevonden \"<em>%(query_string)s</em>\""
+msgstr ""
+"Sorry, geen redirects komen overeen met de zoekterm \"<em>%(query_string)s</"
+"em>\""
 
 #, python-format
 msgid ""
 "No redirects have been created. Why not <a href="
 "\"%(wagtailredirects_add_redirect_url)s\">add one</a>?"
 msgstr ""
-"Er zijn nog geen redirects gemaakt. Waarom niet één <a href="
-"\"%(wagtailredirects_add_redirect_url)s\">toevoegen</a>?"
+"Er zijn nog geen redirects aangemaakt. Waarom <a href="
+"\"%(wagtailredirects_add_redirect_url)s\">voegt u er niet een toe</a>?"
 
 msgid "Search redirects"
 msgstr "Zoek redirects"

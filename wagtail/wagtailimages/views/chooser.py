@@ -42,17 +42,25 @@ def chooser(request):
     else:
         uploadform = None
 
+    images = Image.objects.order_by('-created_at')
+
     q = None
-    if 'q' in request.GET or 'p' in request.GET:
+    if 'q' in request.GET or 'p' in request.GET or 'tag' in request.GET:
+        # this request is triggered from search, pagination or 'popular tags';
+        # we will just render the results.html fragment
+
         searchform = SearchForm(request.GET)
         if searchform.is_valid():
             q = searchform.cleaned_data['q']
 
-            images = Image.objects.search(q)
+            images = images.search(q)
             is_searching = True
         else:
-            images = Image.objects.order_by('-created_at')
             is_searching = False
+
+            tag_name = request.GET.get('tag')
+            if tag_name:
+                images = images.filter(tags__name=tag_name)
 
         # Pagination
         paginator, images = paginate(request, images, per_page=12)
@@ -66,7 +74,6 @@ def chooser(request):
     else:
         searchform = SearchForm()
 
-        images = Image.objects.order_by('-created_at')
         paginator, images = paginate(request, images, per_page=12)
 
     return render_modal_workflow(request, 'wagtailimages/chooser/chooser.html', 'wagtailimages/chooser/chooser.js', {

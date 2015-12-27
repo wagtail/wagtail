@@ -90,6 +90,27 @@ class TestImageTag(TestCase):
         self.assertTrue('width="400"' in result)
         self.assertTrue('height="300"' in result)
 
+    def test_image_tag_with_chained_filters(self):
+        result = self.render_image_tag(self.image, 'fill-200x200 height-150')
+        self.assertTrue('width="150"' in result)
+        self.assertTrue('height="150"' in result)
+
+    def test_filter_specs_must_match_allowed_pattern(self):
+        with self.assertRaises(template.TemplateSyntaxError):
+            self.render_image_tag(self.image, 'fill-200x200|height-150')
+
+        with self.assertRaises(template.TemplateSyntaxError):
+            self.render_image_tag(self.image, 'fill-800x600 alt"test"')
+
+    def test_context_may_only_contain_one_argument(self):
+        with self.assertRaises(template.TemplateSyntaxError):
+            temp = template.Template(
+                '{% load wagtailimages_tags %}{% image image_obj fill-200x200'
+                ' as test_img this_one_should_not_be_there %}<img {{ test_img.attrs }} />'
+            )
+            context = template.Context({'image_obj': self.image})
+            temp.render(context)
+
 
 class TestMissingImage(TestCase):
     """
@@ -392,6 +413,18 @@ class TestRenditionFilenames(TestCase):
         rendition = image.get_rendition('fill-100x100')
 
         self.assertEqual(rendition.file.name, 'images/test_rf3.15ee4958.fill-100x100.png')
+
+    def test_filter_with_pipe_gets_dotted(self):
+        image = Image.objects.create(
+            title="Test image",
+            file=get_test_image_file(filename='test_rf4.png'),
+        )
+        image.set_focal_point(Rect(100, 100, 200, 200))
+        image.save()
+
+        rendition = image.get_rendition('fill-200x200|height-150')
+
+        self.assertEqual(rendition.file.name, 'images/test_rf4.15ee4958.fill-200x200.height-150.png')
 
 
 class TestDifferentUpload(TestCase):

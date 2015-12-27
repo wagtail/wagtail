@@ -10,9 +10,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-08-26 14:28+0100\n"
-"PO-Revision-Date: 2015-12-07 07:14+0000\n"
-"Last-Translator: Feng Wang <wangfeng.w@gmail.com>\n"
+"POT-Creation-Date: 2015-12-17 13:54+0000\n"
+"PO-Revision-Date: 2015-12-17 14:01+0000\n"
+"Last-Translator: mattwestcott <matthew@torchbox.com>\n"
 "Language-Team: Chinese (China) (http://www.transifex.com/torchbox/wagtail/"
 "language/zh_CN/)\n"
 "MIME-Version: 1.0\n"
@@ -54,41 +54,8 @@ msgstr "日期"
 msgid "Date/time"
 msgstr "日期/时间"
 
-msgid "Submit time"
-msgstr "提交时间"
-
-msgid "Form Submission"
-msgstr "提交表格"
-
-msgid "Label"
-msgstr "标签"
-
-msgid "Field type"
-msgstr "字段类型"
-
-msgid "Required"
-msgstr "必需"
-
-msgid "Choices"
-msgstr "选择"
-
-msgid "Default value"
-msgstr "默认值"
-
-msgid "Help text"
-msgstr "帮助文本"
-
-msgid "To address"
-msgstr "收件人"
-
 msgid "Optional - form submissions will be emailed to this address"
 msgstr "可选 - 提交的表格将通过email发送给此地址"
-
-msgid "From address"
-msgstr "发件人"
-
-msgid "Subject"
-msgstr "主题"
 
 msgid "Delete"
 msgstr "删除"

@@ -9,9 +9,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-08-26 14:28+0100\n"
-"PO-Revision-Date: 2015-12-03 12:57+0000\n"
-"Last-Translator: ROGER MICHAEL ASHLEY ALLEN <rogermaallen@gmail.com>\n"
+"POT-Creation-Date: 2015-12-17 13:54+0000\n"
+"PO-Revision-Date: 2015-12-17 13:57+0000\n"
+"Last-Translator: mattwestcott <matthew@torchbox.com>\n"
 "Language-Team: Arabic (http://www.transifex.com/torchbox/wagtail/language/"
 "ar/)\n"
 "MIME-Version: 1.0\n"
@@ -296,8 +296,8 @@ msgstr "انسخ هذه الصفحة"
 msgid "New"
 msgstr "جديد"
 
-msgid "Save as draft"
-msgstr "احفظ كمسوّد"
+msgid "Save draft"
+msgstr "احفظ المسوّد"
 
 msgid "Publish"
 msgstr "انشر"
@@ -307,9 +307,6 @@ msgstr "قدّم للمراجعة"
 
 msgid "Page locked"
 msgstr "الصفحة مغلقة"
-
-msgid "Save draft"
-msgstr "احفظ المسوّد"
 
 msgid "Drag"
 msgstr "اسحب"
@@ -342,15 +339,6 @@ msgstr "قادم"
 
 msgid "This page is protected from public view"
 msgstr "هذه الصفحة محمية من النظر العمومي"
-
-msgid "Images"
-msgstr "صور"
-
-msgid "Documents"
-msgstr "وثائق"
-
-msgid "Users"
-msgstr "مستعملون"
 
 msgid "Add"
 msgstr "أضف"

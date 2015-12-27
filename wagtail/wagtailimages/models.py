@@ -62,7 +62,8 @@ class AbstractImage(models.Model, TagSearchable):
     height = models.IntegerField(verbose_name=_('height'), editable=False)
     created_at = models.DateTimeField(verbose_name=_('created at'), auto_now_add=True, db_index=True)
     uploaded_by_user = models.ForeignKey(
-        settings.AUTH_USER_MODEL, verbose_name=_('uploaded by user'), null=True, blank=True, editable=False
+        settings.AUTH_USER_MODEL, verbose_name=_('uploaded by user'),
+        null=True, blank=True, editable=False, on_delete=models.SET_NULL
     )
 
     tags = TaggableManager(help_text=None, blank=True, verbose_name=_('tags'))
@@ -261,7 +262,7 @@ class AbstractImage(models.Model, TagSearchable):
                 'gif': '.gif',
             }
 
-            output_extension = filter.spec + FORMAT_EXTENSIONS[output_format]
+            output_extension = filter.spec.replace('|', '.') + FORMAT_EXTENSIONS[output_format]
             if cache_key:
                 output_extension = cache_key + '.' + output_extension
 
@@ -359,10 +360,12 @@ def get_image_model():
 
 class Filter(models.Model):
     """
-    Represents an operation that can be applied to an Image to produce a rendition
+    Represents one or more operations that can be applied to an Image to produce a rendition
     appropriate for final display on the website. Usually this would be a resize operation,
     but could potentially involve colour processing, etc.
     """
+
+    # The spec pattern is operation1-var1-var2|operation2-var1
     spec = models.CharField(max_length=255, db_index=True, unique=True)
 
     @cached_property
@@ -372,7 +375,7 @@ class Filter(models.Model):
 
         # Build list of operation objects
         operations = []
-        for op_spec in self.spec.split():
+        for op_spec in self.spec.split('|'):
             op_spec_parts = op_spec.split('-')
 
             if op_spec_parts[0] not in self._registered_operations:
@@ -380,7 +383,6 @@ class Filter(models.Model):
 
             op_class = self._registered_operations[op_spec_parts[0]]
             operations.append(op_class(*op_spec_parts))
-
         return operations
 
     def run(self, image, output):

@@ -8,9 +8,10 @@ from django.contrib.auth.models import Permission
 from wagtail.wagtailcore import hooks
 from wagtail.wagtailadmin.menu import MenuItem
 from wagtail.wagtailadmin.site_summary import SummaryItem
+from wagtail.wagtailadmin.search import SearchArea
 
 from wagtail.wagtaildocs import admin_urls
-from wagtail.wagtaildocs.models import Document
+from wagtail.wagtaildocs.models import get_document_model
 from wagtail.wagtaildocs.rich_text import DocumentLinkHandler
 
 
@@ -75,10 +76,24 @@ class DocumentsSummaryItem(SummaryItem):
 
     def get_context(self):
         return {
-            'total_docs': Document.objects.count(),
+            'total_docs': get_document_model().objects.count(),
         }
 
 
 @hooks.register('construct_homepage_summary_items')
 def add_documents_summary_item(request, items):
     items.append(DocumentsSummaryItem(request))
+
+
+class DocsSearchArea(SearchArea):
+    def is_shown(self, request):
+        return request.user.has_perm('wagtaildocs.add_document') or request.user.has_perm('wagtaildocs.change_document')
+
+
+@hooks.register('register_admin_search_area')
+def register_documents_search_area():
+    return DocsSearchArea(
+        _('Documents'), urlresolvers.reverse('wagtaildocs:index'),
+        name='documents',
+        classnames='icon icon-doc-full-inverse',
+        order=400)

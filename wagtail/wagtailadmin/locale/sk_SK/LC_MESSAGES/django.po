@@ -1,0 +1,669 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# dellax <michalnebbia@gmail.com>, 2015
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2015-12-17 13:54+0000\n"
+"PO-Revision-Date: 2015-12-17 13:57+0000\n"
+"Last-Translator: mattwestcott <matthew@torchbox.com>\n"
+"Language-Team: Slovak (Slovakia) (http://www.transifex.com/torchbox/wagtail/"
+"language/sk_SK/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: sk_SK\n"
+"Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
+
+msgid "Scheduled publishing"
+msgstr "Naplánovať publikovanie"
+
+msgid "Common page configuration"
+msgstr "Základné nastavenia stránky"
+
+msgid "Search"
+msgstr "Hľadať"
+
+msgid "Search term"
+msgstr "Hľadaný výraz"
+
+msgid "Enter password"
+msgstr "Zadajte heslo"
+
+#, python-format
+msgid "Enter your %s"
+msgstr "Zadajte vaše %s"
+
+msgid "Enter your email address to reset your password"
+msgstr "Zadajte vašu emailovú adresu pre obnovu hesla"
+
+msgid "Please fill your email address."
+msgstr "Prosím vyplňte vašu emailovú adresu."
+
+msgid ""
+"Sorry, you cannot reset your password here as your user account is managed "
+"by another server."
+msgstr ""
+"Je nám ľúto, ale nemožno obnoviť vaše heslo, pretože váš užívateľský účet je "
+"spravovaný na inom serveri."
+
+msgid "This email address is not recognised."
+msgstr "Táto emailová adresa nebola rozpoznaná."
+
+msgid "New title"
+msgstr "Nový titulok"
+
+msgid "New slug"
+msgstr "Nový slug"
+
+msgid "New parent page"
+msgstr "Nová rodičovská strana"
+
+msgid "This copy will be a child of this given parent page."
+msgstr "Táto kópia bude podstránkou tejto rodičovskej stránky."
+
+msgid "Copy subpages"
+msgstr "Kopírovať podstránky"
+
+#, python-format
+msgid "This will copy %(count)s subpage."
+msgid_plural "This will copy %(count)s subpages."
+msgstr[0] "Toto skopíruje %(count)s podstránku."
+msgstr[1] "Toto skopíruje %(count)s podstránky."
+msgstr[2] "Toto skopíruje %(count)s podstránok."
+
+msgid "Publish copied page"
+msgstr "Publikovať skopírovanú stránku"
+
+msgid "This page is live. Would you like to publish its copy as well?"
+msgstr "Táto stránka je live. Chcete publikovať aj jej kópiu?"
+
+msgid "Publish copies"
+msgstr "Publikovať kópie"
+
+msgid "This field is required."
+msgstr "Toto pole je povinné."
+
+msgid "Account"
+msgstr "Účet"
+
+msgid "Set gravatar"
+msgstr "Nastaviť gravatara"
+
+msgid ""
+"Your avatar image is provided by Gravatar and is connected to your email "
+"address. With a Gravatar account you can set an avatar for any number of "
+"other email addresses you use."
+msgstr ""
+"Obrázok vášho profilu poskytuje služba Gravatar a je pripojený k vašej "
+"emailovej adrese. S účtom Gravatar si môžete zvoliť obrázok pre ostatné "
+"emailové adresy ktoré používate."
+
+msgid "Change password"
+msgstr "Zmeniť heslo"
+
+msgid "Change the password you use to log in."
+msgstr "Zmeniť heslo ktoré používate na prihlásenie."
+
+msgid "Notification preferences"
+msgstr "Notifikačné nastavenia"
+
+msgid "Choose which email notifications to receive."
+msgstr "Zvoľte ktoré emailové notifikácie chcete dostávať"
+
+msgid "Change Password"
+msgstr "Zmeniť heslo"
+
+msgid ""
+"Your password can't be changed here. Please contact a site administrator."
+msgstr ""
+"Vaše heslo nemôže byť zmenené. Prosím kontaktujte administrátora stránky."
+
+msgid "Notification Preferences"
+msgstr "Notifikačné nastavenia"
+
+msgid "Update"
+msgstr "Aktualizovať"
+
+msgid "Reset password"
+msgstr "Resetovať heslo"
+
+msgid "Password change successful"
+msgstr "Heslo bolo úspešne zmenené"
+
+msgid "Login"
+msgstr "Prihlasovacie meno"
+
+msgid "Set your new password"
+msgstr "Zadajte vaše nové heslo"
+
+msgid "The passwords do not match. Please try again."
+msgstr "Zadané hesla sa nezhodujú. Prosím pokúste sa zadať heslá znovu."
+
+msgid "Check your email"
+msgstr "Skontrolujte váš email"
+
+msgid "A link to reset your password has been emailed to you."
+msgstr "Odkaz na resetovanie hesla bol zaslaný na vašu emailovú adresu."
+
+msgid "Please follow the link below to reset your password"
+msgstr "Prosím kliknite na odkaz nižšie pre resetovanie vášho hesla"
+
+msgid "Password reset"
+msgstr "Obnova hesla"
+
+msgid "Reset your password"
+msgstr "Resetovanie vášho hesla"
+
+msgid "Dashboard"
+msgstr "Nástenka"
+
+msgid "Menu"
+msgstr "Menu"
+
+msgid "Add another"
+msgstr "Pridať ďalšie"
+
+msgid "Move up"
+msgstr "Posunúť vyššie"
+
+msgid "Move down"
+msgstr "Posunúť nižšie"
+
+msgid "Delete"
+msgstr "Vymazať"
+
+msgid "Explorer"
+msgstr "Prehliadač"
+
+msgid "Internal link"
+msgstr "Interný odkaz"
+
+msgid "External link"
+msgstr "Externý odkaz"
+
+msgid "Email link"
+msgstr "Emailový odkaz"
+
+msgid "Choose"
+msgstr "Zvoliť"
+
+msgid "Choose a page"
+msgstr "Zvoliť stránku"
+
+msgid "Add an email link"
+msgstr "Pridať emailový odkaz"
+
+msgid "Insert link"
+msgstr "Vložiť odkaz"
+
+msgid "Add an external link"
+msgstr "Pridať externý odkaz"
+
+msgid "Yes, delete"
+msgstr "Áno, zmazať"
+
+msgid "Save"
+msgstr "Uložiť"
+
+#, python-format
+msgid "Welcome to the %(site_name)s Wagtail CMS"
+msgstr "Vitajte v  %(site_name)s Wagtail CMS"
+
+msgid ""
+"This is your dashboard on which helpful information about content you've "
+"created will be displayed."
+msgstr ""
+"Toto je vaša nástenka, na ktorej sa budú zobrazovať informácie o obsahu, "
+"ktorý ste vytvorili."
+
+msgid "Pages awaiting moderation"
+msgstr "Stránky čakajúce na moderáciu"
+
+msgid "Title"
+msgstr "Titulok"
+
+msgid "Parent"
+msgstr "Rodič"
+
+msgid "Type"
+msgstr "Typ"
+
+msgid "Edited"
+msgstr "Upravené"
+
+msgid "Edit this page"
+msgstr "Upraviť túto stránku"
+
+msgid "Approve"
+msgstr "Schváliť"
+
+msgid "Reject"
+msgstr "Odmietnuť"
+
+msgid "Edit"
+msgstr "Upraviť"
+
+msgid "Preview"
+msgstr "Náhľad"
+
+msgid "Your most recent edits"
+msgstr "Vaše posledné úpravy"
+
+msgid "Date"
+msgstr "Dátum"
+
+msgid "Status"
+msgstr "Stav"
+
+msgid "Draft"
+msgstr "Koncept"
+
+msgid "Live"
+msgstr "Live"
+
+msgid "Site summary"
+msgstr "Prehľad stránky"
+
+#, python-format
+msgid ""
+"\n"
+"        <span>%(total)s</span> Page\n"
+"    "
+msgid_plural ""
+"\n"
+"        <span>%(total)s</span> Pages\n"
+"    "
+msgstr[0] ""
+"\n"
+"<span>%(total)s</span> Stránka"
+msgstr[1] ""
+"\n"
+"<span>%(total)s</span> Stránky"
+msgstr[2] ""
+"\n"
+"<span>%(total)s</span> Stránok"
+
+msgid "Sign in"
+msgstr "Prihlásiť sa"
+
+#, python-format
+msgid "Your %(username_field)s and password didn't match. Please try again."
+msgstr "Vaše %(username_field)s a heslo sú nesprávne. Prosím skúste znovu."
+
+msgid "Sign in to Wagtail"
+msgstr "Prihlásiť sa do Wagtail"
+
+msgid "Forgotten it?"
+msgstr "Zabudli ste heslo?"
+
+msgid "You can view the page here:"
+msgstr "Tu môžete vidieť stránku"
+
+msgid "Edit your notification preferences here:"
+msgstr "Tu upravte vaše notifikáčné nastavenia:"
+
+msgid "You can edit the page here:"
+msgstr "Tu môžete upraviť stránku:"
+
+#, python-format
+msgid "The page \"%(page)s\" has been submitted for moderation"
+msgstr "Stránka \"%(page)s\" bola odoslaná na moderáciu"
+
+msgid "You can preview the page here:"
+msgstr "Tu môžete vidieť stránku:"
+
+msgid "Page privacy"
+msgstr "Nastavenie súkromia stránky"
+
+msgid "Edit lock"
+msgstr "Upraviť zámok"
+
+msgid "Locked"
+msgstr "Zamknuté"
+
+msgid "Unlocked"
+msgstr "Odomknuté"
+
+msgid "Privacy"
+msgstr "Súkromie"
+
+msgid "Private"
+msgstr "Privátne"
+
+#, python-format
+msgid "Create a page in %(title)s"
+msgstr "Vytvoriť stránku v %(title)s"
+
+msgid "Create a page in"
+msgstr "Vytvoriť stránku v"
+
+msgid "Choose which type of page you'd like to create."
+msgstr "Zvoľte typ stránky ktorý chcete vytvoriť"
+
+#, python-format
+msgid "Delete %(title)s"
+msgstr "Zmazať %(title)s"
+
+msgid "Are you sure you want to delete this page?"
+msgstr "Naozaj chcete zmazať túto stránku?"
+
+msgid "Delete it"
+msgstr "Zmazať"
+
+msgid "Unpublish it"
+msgstr "Nezverejniť"
+
+#, python-format
+msgid "Move %(title)s"
+msgstr "Presunúť %(title)s"
+
+msgid "Move"
+msgstr "Presunúť"
+
+msgid "Yes, move this page"
+msgstr "Áno, presunúť túto stránku"
+
+#, python-format
+msgid "Unpublish %(title)s"
+msgstr "Odpublikovať %(title)s"
+
+msgid "Unpublish"
+msgstr "Nezverejniť"
+
+msgid "Are you sure you want to unpublish this page?"
+msgstr "Naozaj chcete odpublikovať túto stránku?"
+
+msgid "Yes, unpublish it"
+msgstr "Áno, odpublikovať"
+
+#, python-format
+msgid "Copy %(title)s"
+msgstr "Kopírovať %(title)s"
+
+msgid "Copy"
+msgstr "Kopírovať"
+
+msgid "Copy this page"
+msgstr "Kopírovať túto stránku"
+
+#, python-format
+msgid "New %(page_type)s"
+msgstr "Nový  %(page_type)s"
+
+msgid "New"
+msgstr "Nový"
+
+msgid "Save draft"
+msgstr "Uložiť koncept"
+
+msgid "Publish"
+msgstr "Publikovať"
+
+msgid "Submit for moderation"
+msgstr "Odoslať na moderáciu"
+
+msgid "Page locked"
+msgstr "Stránka je uzamknutá"
+
+#, python-format
+msgid "Last modified: %(last_mod)s"
+msgstr "Naposledy upravené: %(last_mod)s"
+
+#, python-format
+msgid "by %(modified_by)s"
+msgstr "od %(modified_by)s"
+
+msgid "Updated"
+msgstr "Aktualizované"
+
+msgid "No pages have been created at this location."
+msgstr "V tejto lokácii neboli vytvorené žiadne stránky."
+
+#, python-format
+msgid "Why not <a href=\"%(add_page_url)s\">create one</a>?"
+msgstr "Prečo nevytvoriť <a href=\"%(add_page_url)s\">jednu ihneď</a>?"
+
+msgid "This page is locked to further editing"
+msgstr "Táto stránka bola uzamknutá pre budúcu úpravu"
+
+msgid "Explore"
+msgstr "Prehliadať"
+
+msgid "Add subpage"
+msgstr "Pridať podstránku"
+
+msgid "Add child page"
+msgstr "Pridať rodičovskú stránku"
+
+msgid "Previous"
+msgstr "Predchádzajúca"
+
+msgid "Next"
+msgstr "Následujúca"
+
+msgid "Order"
+msgstr "Poradie"
+
+msgid "Enable ordering of child pages"
+msgstr "Povoliť usporiadanie child stránok"
+
+#, python-format
+msgid "Select a new parent page for %(title)s"
+msgstr "Zvolte novú rodičovskú stránku pre %(title)s"
+
+#, python-format
+msgid "Select a new parent page for <span>%(title)s</span>"
+msgstr "Zvoľte novú rodičovskú stránku pre  <span>%(title)s</span>"
+
+msgid "Enter a search term above"
+msgstr "Zadajte hľadaný výraz"
+
+msgid "Home"
+msgstr "Domov"
+
+msgid "January"
+msgstr "Január"
+
+msgid "February"
+msgstr "Február"
+
+msgid "March"
+msgstr "Marec"
+
+msgid "April"
+msgstr "Apríl"
+
+msgid "May"
+msgstr "Máj"
+
+msgid "June"
+msgstr "Jún"
+
+msgid "July"
+msgstr "Júl"
+
+msgid "August"
+msgstr "August"
+
+msgid "September"
+msgstr "September"
+
+msgid "October"
+msgstr "Október"
+
+msgid "November"
+msgstr "November"
+
+msgid "December"
+msgstr "December"
+
+msgid "Sun"
+msgstr "Ne"
+
+msgid "Mon"
+msgstr "Pon"
+
+msgid "Tue"
+msgstr "Ut"
+
+msgid "Wed"
+msgstr "Str"
+
+msgid "Thu"
+msgstr "Štv"
+
+msgid "Fri"
+msgstr "Pia"
+
+msgid "Sat"
+msgstr "So"
+
+#, python-format
+msgid "Used %(useage_count)s time"
+msgid_plural "Used %(useage_count)s times"
+msgstr[0] "Použité %(useage_count)s krát"
+msgstr[1] "Použité %(useage_count)s krát"
+msgstr[2] "Použité %(useage_count)s krát"
+
+msgid "Edit your account"
+msgstr "Upraviť váš účet"
+
+msgid "Log out"
+msgstr "Odhlásiť sa"
+
+msgid "Other searches"
+msgstr "Ostatné výsledky hľadania"
+
+msgid ""
+"You are using an <strong>outdated</strong> browser not supported by this "
+"software. Please <a href=\"http://browsehappy.com/\">upgrade your browser</"
+"a>."
+msgstr ""
+"Používate <strong>zastaralý</strong> prehliadač, ktorý nie je podporovaný "
+"týmto systémom. Prosím <a href=\"http://browsehappy.com/\">aktualizujte váš "
+"prehliadač</a>."
+
+msgid "Javascript is required to use Wagtail, but it is currently disabled"
+msgstr ""
+"Pre používanie systému Wagtail je vyžadovaný JavaScript, no momentálne je "
+"deaktivovaný."
+
+msgid "Go to Wagtail admin interface"
+msgstr "Pokračovať do administrátorskej časti"
+
+msgid "Add"
+msgstr "Pridať"
+
+msgid "Sorry, you do not have permission to access this area."
+msgstr "Prepáčte, ale na prístup k tejto časti nemáte oprávnenia"
+
+msgid "Your password has been changed successfully!"
+msgstr "Vaše heslo bolo úspešne zmenené"
+
+msgid "Your preferences have been updated successfully!"
+msgstr "Vaše preferencie boli úspešne aktualizované!"
+
+#, python-brace-format
+msgid "Page '{0}' created and published."
+msgstr "Stránka '{0}' bola úspešne vytvorená a publikovaná."
+
+msgid "View live"
+msgstr "Zobraziť live"
+
+#, python-brace-format
+msgid "Page '{0}' created and submitted for moderation."
+msgstr "Stránka '{0}' bola úspešne vytvorená a odoslaná na moderáciu."
+
+msgid "View draft"
+msgstr "Zobraziť koncept"
+
+#, python-brace-format
+msgid "Page '{0}' created."
+msgstr "Stránka '{0}' bola vytvorená."
+
+msgid "The page could not be created due to validation errors"
+msgstr "Táto stránka nemôže byť vytvorená, kvôli validačným chybám."
+
+#, python-brace-format
+msgid "Page '{0}' published."
+msgstr "Stránka '{0}' bola publikovaná."
+
+#, python-brace-format
+msgid "Page '{0}' submitted for moderation."
+msgstr "Stránka '{0}' bola odoslaná na moderáciu."
+
+#, python-brace-format
+msgid "Page '{0}' updated."
+msgstr "Stránka '{0}' bola aktualizovaná."
+
+msgid "The page could not be saved as it is locked"
+msgstr "Stránka nemohla byť uložená, pretože je momentálne uzamknutá."
+
+msgid "The page could not be saved due to validation errors"
+msgstr "Táto stránka nemohla byť uložená, kvôli validačným chybám."
+
+msgid "This page is currently awaiting moderation"
+msgstr "Táto stránka momentálne čaká na moderáciu"
+
+msgid "This slug is already in use"
+msgstr "Tento slug sa už používa"
+
+msgid "Go live date/time must be before expiry date/time"
+msgstr "Dátum publikácie musí byť pred dátumom expirácie"
+
+msgid "Expiry date/time must be in the future"
+msgstr "Dátum expirácie musí byť v budúcnosti"
+
+#, python-brace-format
+msgid "Page '{0}' deleted."
+msgstr "Stránka '{0}' bola zmazaná."
+
+#, python-brace-format
+msgid "Page '{0}' unpublished."
+msgstr "Stránka '{0}' bola odpublikovaná."
+
+#, python-brace-format
+msgid "Page '{0}' moved."
+msgstr "Stránka '{0}' bola presunutá."
+
+#, python-brace-format
+msgid "Page '{0}' copied."
+msgstr "Stránka '{0}' bola skopírovaná."
+
+msgid "Content"
+msgstr "Obsah"
+
+msgid "Settings"
+msgstr "Nastavenia"
+
+#, python-brace-format
+msgid "The page '{0}' is not currently awaiting moderation."
+msgstr "Stránka '{0}'  momentálne čaká na moderáciu"
+
+#, python-brace-format
+msgid "Page '{0}' is now locked."
+msgstr "Stránka '{0}' bola uzamknutá."
+
+#, python-brace-format
+msgid "Page '{0}' is now unlocked."
+msgstr "Stránka '{0}' bola odomknutá."
+
+msgid "Choose an item"
+msgstr "Zvoľte položku"
+
+msgid "Choose another item"
+msgstr "Zvoliť daľšiu položku"
+
+msgid "Clear choice"
+msgstr "Zmazať voľbu"
+
+msgid "Edit this item"
+msgstr "Upraviť položku"
+
+msgid "Choose another page"
+msgstr "Zvoliť ďalšiu stránku"

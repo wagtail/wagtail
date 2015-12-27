@@ -8,9 +8,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-08-26 14:28+0100\n"
-"PO-Revision-Date: 2015-10-30 06:55+0000\n"
-"Last-Translator: Ivan Pomykacz <mist@alastify.cz>\n"
+"POT-Creation-Date: 2015-12-17 13:54+0000\n"
+"PO-Revision-Date: 2015-12-17 14:01+0000\n"
+"Last-Translator: mattwestcott <matthew@torchbox.com>\n"
 "Language-Team: Czech (http://www.transifex.com/torchbox/wagtail/language/"
 "cs/)\n"
 "MIME-Version: 1.0\n"
@@ -52,26 +52,8 @@ msgstr "Datum"
 msgid "Date/time"
 msgstr "Datum a čas"
 
-msgid "Submit time"
-msgstr "Čas odeslání"
-
-msgid "Form Submission"
-msgstr "Odeslání formuláře"
-
-msgid "Label"
-msgstr "Popisek"
-
 msgid "The label of the form field"
 msgstr "Popisek pole formuláře"
-
-msgid "Field type"
-msgstr "Typ pole"
-
-msgid "Required"
-msgstr "Vyžadováno"
-
-msgid "Choices"
-msgstr "Volby"
 
 msgid ""
 "Comma separated list of choices. Only applicable in checkboxes, radio and "
@@ -80,26 +62,11 @@ msgstr ""
 "Čárkou oddělené volby. Použitelné na zaškrtávací pole, přepínací tlačítka a "
 "rozbalovací seznam."
 
-msgid "Default value"
-msgstr "Výchozí hodnota"
-
 msgid "Default value. Comma separated values supported for checkboxes."
 msgstr "Výchozí hodnota. Čárkou oddělené hodnoty pro zaškrtávací pole."
 
-msgid "Help text"
-msgstr "Nápovědný text"
-
-msgid "To address"
-msgstr "Příjemce"
-
 msgid "Optional - form submissions will be emailed to this address"
 msgstr "Volitelné - odeslané formuláře se doručí na tento e-mail."
-
-msgid "From address"
-msgstr "Odesílatel"
-
-msgid "Subject"
-msgstr "Předmět"
 
 #, python-format
 msgid "Delete %(title)s"

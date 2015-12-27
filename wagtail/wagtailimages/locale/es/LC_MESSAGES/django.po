@@ -14,9 +14,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-08-26 14:28+0100\n"
-"PO-Revision-Date: 2015-08-27 01:25+0000\n"
-"Last-Translator: José Alaguna <alagunajs@gmail.com>\n"
+"POT-Creation-Date: 2015-12-17 13:54+0000\n"
+"PO-Revision-Date: 2015-12-19 04:33+0000\n"
+"Last-Translator: chimeno <daniel@chimeno.me>\n"
 "Language-Team: Spanish (http://www.transifex.com/torchbox/wagtail/language/"
 "es/)\n"
 "MIME-Version: 1.0\n"
@@ -87,20 +87,26 @@ msgstr "Alto"
 msgid "Closeness"
 msgstr "Proximidad"
 
-msgid "Title"
-msgstr "Título"
+msgid "title"
+msgstr "título"
 
-msgid "File"
-msgstr "Archivo"
+msgid "file"
+msgstr "archivo"
 
-msgid "Created at"
-msgstr "Creado a las"
+msgid "width"
+msgstr "ancho"
 
-msgid "Uploaded by user"
-msgstr "Subido por usuario"
+msgid "height"
+msgstr "alto"
 
-msgid "Tags"
-msgstr "Etiquetas"
+msgid "created at"
+msgstr "creado el"
+
+msgid "uploaded by user"
+msgstr "subido por el usuario"
+
+msgid "tags"
+msgstr "etiquetas"
 
 msgid "Choose an image"
 msgstr "Seleccionar una imagen"
@@ -113,6 +119,9 @@ msgstr "Subir"
 
 msgid "Popular tags"
 msgstr "Etiquetas populares"
+
+msgid "Uploading..."
+msgstr "Subiendo..."
 
 #, python-format
 msgid ""
@@ -253,6 +262,9 @@ msgstr "Uso de %(title)s"
 msgid "Usage of"
 msgstr "Uso de"
 
+msgid "Title"
+msgstr "Título"
+
 msgid "Parent"
 msgstr "Padre"
 
@@ -290,6 +302,9 @@ msgstr ""
 
 msgid "Sorry, upload failed."
 msgstr "Lo sentimos, su subida ha fallado."
+
+msgid "Image updated."
+msgstr "Imagen actualizada"
 
 msgid "Update"
 msgstr "Editar"

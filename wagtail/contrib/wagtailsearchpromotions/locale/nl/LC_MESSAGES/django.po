@@ -9,9 +9,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-08-26 14:46+0100\n"
-"PO-Revision-Date: 2015-11-23 19:26+0000\n"
-"Last-Translator: Thijs Kramer <thijskramer@gmail.com>\n"
+"POT-Creation-Date: 2015-12-17 13:54+0000\n"
+"PO-Revision-Date: 2015-12-17 14:02+0000\n"
+"Last-Translator: mattwestcott <matthew@torchbox.com>\n"
 "Language-Team: Dutch (http://www.transifex.com/torchbox/wagtail/language/"
 "nl/)\n"
 "MIME-Version: 1.0\n"
@@ -22,15 +22,6 @@ msgstr ""
 
 msgid "Please specify at least one recommendation for this search term."
 msgstr "Geef minstens één aanbeveling op voor deze zoekterm."
-
-msgid "Page"
-msgstr "Pagina"
-
-msgid "Description"
-msgstr "Beschrijving"
-
-msgid "Search promotion"
-msgstr "Zoekpromotie"
 
 msgid "Add search pick"
 msgstr "Voeg een zoek-keuze toe"
@@ -120,9 +111,6 @@ msgstr "Aanbevolen zoekresultaten"
 
 msgid "Views (past week)"
 msgstr "Views (afgelopen week)"
-
-msgid "Edit this pick"
-msgstr "Wijzig deze keuze"
 
 msgid "None"
 msgstr "Geen"

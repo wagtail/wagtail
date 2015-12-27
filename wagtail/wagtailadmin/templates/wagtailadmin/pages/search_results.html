@@ -9,14 +9,7 @@
             {% endblocktrans %}
         </h2>
 
-        <nav class="listing-filter">
-            <h3 class="filter-title">{% trans "Other searches" %}</h3>
-            <ul class="filter-options">
-                <li><a href="{% url 'wagtailimages:index' %}?q={{ query_string|urlencode }}" class="icon icon-image">{% trans "Images" %}</a></li>
-                <li><a href="{% url 'wagtaildocs:index' %}?q={{ query_string|urlencode }}" class="icon icon-doc-full-inverse">{% trans "Documents" %}</a></li>
-                <li><a href="{% url 'wagtailusers_users:index' %}?q={{ query_string|urlencode }}" class="icon icon-user">{% trans "Users" %}</a></li>
-            </ul>
-        </nav>
+        {% search_other %}
 
         {% include "wagtailadmin/pages/listing/_list_explore.html" with show_parent=1 allow_navigation=0 %}
 
@@ -24,7 +17,9 @@
         {% paginate pages base_url=pagination_base_url %}
     {% else %}
         {% if query_string %}
-            <p>{% blocktrans %}Sorry, no pages match <em>"{{ query_string }}"</em>{% endblocktrans %}</p>
+            <h2>{% blocktrans %}Sorry, no pages match <em>"{{ query_string }}"</em>{% endblocktrans %}</h2>
+            
+            {% search_other %}
         {% else %}
             <p>{% trans 'Enter a search term above' %}</p>
         {% endif %}

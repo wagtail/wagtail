@@ -9,9 +9,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-08-26 14:46+0100\n"
-"PO-Revision-Date: 2015-08-26 14:14+0000\n"
-"Last-Translator: Karl Hobley <karl@torchbox.com>\n"
+"POT-Creation-Date: 2015-12-17 13:54+0000\n"
+"PO-Revision-Date: 2015-12-17 14:02+0000\n"
+"Last-Translator: mattwestcott <matthew@torchbox.com>\n"
 "Language-Team: Hebrew (Israel) (http://www.transifex.com/torchbox/wagtail/"
 "language/he_IL/)\n"
 "MIME-Version: 1.0\n"
@@ -22,12 +22,6 @@ msgstr ""
 
 msgid "Please specify at least one recommendation for this search term."
 msgstr "אנא ציין לפחות המלצה אחת למונח חיפוש זה"
-
-msgid "Page"
-msgstr "עמוד"
-
-msgid "Description"
-msgstr "תיאור"
 
 msgid "Save"
 msgstr "שמור"
@@ -73,9 +67,6 @@ msgstr "הוסף תוצאה מקודמת חדשה"
 
 msgid "Promoted results"
 msgstr "תוצאות מקודמות "
-
-msgid "Edit this pick"
-msgstr "ערוך בחירה זו"
 
 msgid "None"
 msgstr "אף אחת"

@@ -14,9 +14,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-08-26 14:28+0100\n"
-"PO-Revision-Date: 2015-09-22 12:52+0000\n"
-"Last-Translator: Max Pfeiffer <max.pfeiffer@alp-phone.ch>\n"
+"POT-Creation-Date: 2015-12-17 13:54+0000\n"
+"PO-Revision-Date: 2015-12-17 13:59+0000\n"
+"Last-Translator: mattwestcott <matthew@torchbox.com>\n"
 "Language-Team: German (http://www.transifex.com/torchbox/wagtail/language/"
 "de/)\n"
 "MIME-Version: 1.0\n"
@@ -85,21 +85,6 @@ msgstr "Höhe"
 
 msgid "Closeness"
 msgstr "Nähe"
-
-msgid "Title"
-msgstr "Titel"
-
-msgid "File"
-msgstr "Datei"
-
-msgid "Created at"
-msgstr "Erstellt am"
-
-msgid "Uploaded by user"
-msgstr "Hochgeladen von Benutzer"
-
-msgid "Tags"
-msgstr "Schlagwörter"
 
 msgid "Choose an image"
 msgstr "Bild auswählen"
@@ -247,6 +232,9 @@ msgstr "Benutzung von %(title)s"
 
 msgid "Usage of"
 msgstr "Benutzung von"
+
+msgid "Title"
+msgstr "Titel"
 
 msgid "Parent"
 msgstr "Übergeordnet"

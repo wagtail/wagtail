@@ -8,9 +8,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-08-26 14:28+0100\n"
-"PO-Revision-Date: 2015-09-03 20:15+0000\n"
-"Last-Translator: Dan Braghis\n"
+"POT-Creation-Date: 2015-12-17 13:54+0000\n"
+"PO-Revision-Date: 2015-12-17 14:01+0000\n"
+"Last-Translator: mattwestcott <matthew@torchbox.com>\n"
 "Language-Team: Romanian (http://www.transifex.com/torchbox/wagtail/language/"
 "ro/)\n"
 "MIME-Version: 1.0\n"
@@ -53,26 +53,8 @@ msgstr "Dată"
 msgid "Date/time"
 msgstr "Dată/Timp"
 
-msgid "Submit time"
-msgstr "Timpul trimiterii"
-
-msgid "Form Submission"
-msgstr "Depunere formular"
-
-msgid "Label"
-msgstr "Etichetă"
-
 msgid "The label of the form field"
 msgstr "Etichetă pentru câmp de formular"
-
-msgid "Field type"
-msgstr "Tip câmp"
-
-msgid "Required"
-msgstr "Necesar"
-
-msgid "Choices"
-msgstr "Opțiuni"
 
 msgid ""
 "Comma separated list of choices. Only applicable in checkboxes, radio and "
@@ -81,27 +63,12 @@ msgstr ""
 "Listă de opțiuni separate prin virgulă. Aplicabil în căsuțe, butoane radio "
 "și liste derulante."
 
-msgid "Default value"
-msgstr "Valoare implicită"
-
 msgid "Default value. Comma separated values supported for checkboxes."
 msgstr "Valoare implicită. Suportă valori separate prin virgule pentru căsuțe."
-
-msgid "Help text"
-msgstr "Text de ajutor"
-
-msgid "To address"
-msgstr "Adresă la"
 
 msgid "Optional - form submissions will be emailed to this address"
 msgstr ""
 "Opțional. Depunerile de formular vor fi trimise la această adresă de email."
-
-msgid "From address"
-msgstr "De la adresa"
-
-msgid "Subject"
-msgstr "Subiect"
 
 #, python-format
 msgid "Delete %(title)s"

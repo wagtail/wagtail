@@ -12,13 +12,13 @@
 
     {% include "wagtailsnippets/snippets/list.html" %}
 
-    {% url 'wagtailsnippets:list' content_type.app_label content_type.model as wagtailsnippets_list_url %}
+    {% url 'wagtailsnippets:list' model_opts.app_label model_opts.model_name as wagtailsnippets_list_url %}
     {% include "wagtailadmin/shared/pagination_nav.html" with items=items is_searching=is_searching linkurl=wagtailsnippets_list_url %}
 {% else %}
     {% if is_searching %}
          <p>{% blocktrans %}Sorry, no snippets match "<em>{{ query_string }}</em>"{% endblocktrans %}</p>
     {% else %}
-        {% url 'wagtailsnippets:add' content_type.app_label content_type.model as wagtailsnippets_create_url %}
-        <p class="no-results-message">{% blocktrans %}No {{ snippet_type_name_plural }} have been created. Why not <a href="{{ wagtailsnippets_create_url }}">add one</a>?{% endblocktrans %}</p>
+        {% url 'wagtailsnippets:add' model_opts.app_label model_opts.model_name as wagtailsnippets_create_url %}
+        <p class="no-results-message">{% blocktrans with snippet_type_name_plural=model_opts.verbose_name_plural %}No {{ snippet_type_name_plural }} have been created. Why not <a href="{{ wagtailsnippets_create_url }}">add one</a>?{% endblocktrans %}</p>
     {% endif %}
 {% endif %}

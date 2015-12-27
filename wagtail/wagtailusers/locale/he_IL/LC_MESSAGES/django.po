@@ -8,9 +8,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-08-26 14:28+0100\n"
-"PO-Revision-Date: 2015-06-20 14:13+0000\n"
-"Last-Translator: lior abazon <abazon@v15.org.il>\n"
+"POT-Creation-Date: 2015-12-17 13:55+0000\n"
+"PO-Revision-Date: 2015-12-17 14:00+0000\n"
+"Last-Translator: mattwestcott <matthew@torchbox.com>\n"
 "Language-Team: Hebrew (Israel) (http://www.transifex.com/torchbox/wagtail/"
 "language/he_IL/)\n"
 "MIME-Version: 1.0\n"
@@ -24,6 +24,12 @@ msgstr "נחוץ. 30 תווים או פחות. אותיות, ספרות ו @/./+
 
 msgid "This value may contain only letters, numbers and @/./+/-/_ characters."
 msgstr "ערך זה יכול להכיל אותיות, ספרות והתווים @/./+/-/_  בלבד"
+
+msgid "A user with that username already exists."
+msgstr "שם משתמש קיים במערכת"
+
+msgid "The two password fields didn't match."
+msgstr "שתי הסיסמאות לא מתאימות"
 
 msgid "Administrator"
 msgstr "מנהל"
@@ -52,38 +58,20 @@ msgstr "שם פרטי"
 msgid "Last Name"
 msgstr "שם משפחה"
 
-msgid "A user with that username already exists."
-msgstr "שם משתמש קיים במערכת"
-
-msgid "The two password fields didn't match."
-msgstr "שתי הסיסמאות לא מתאימות"
-
 msgid "Administrators have the ability to manage user accounts."
 msgstr "מנהלים יכולים לנהל חשבונות משתמשים"
 
 msgid "A group with that name already exists."
 msgstr "קבוצה בשם זה כבר קיימת"
 
-msgid "Submitted notifications"
-msgstr "התראות הוזנו"
-
 msgid "Receive notification when a page is submitted for moderation"
 msgstr "קבלו התראה כשהעמוד הוזן לעריכה"
-
-msgid "Approved notifications"
-msgstr "התראות אושרו"
 
 msgid "Receive notification when your page edit is approved"
 msgstr "קבלו התראה כשעריכת העמוד אושרה"
 
-msgid "Rejected notifications"
-msgstr "התראות שנדחו"
-
 msgid "Receive notification when your page edit is rejected"
 msgstr "קבלו התראה כשעריכת העמוד נדחית"
-
-msgid "User Profile"
-msgstr "פרופיל משתמש"
 
 msgid "Delete group"
 msgstr "מחק קבוצה"
@@ -217,6 +205,3 @@ msgstr "משתמש '{0}' עודכן "
 
 msgid "The user could not be saved due to errors."
 msgstr "לא ניתן לשמור את המשתמש עקב שגיאות"
-
-msgid "Groups"
-msgstr "קבוצות "

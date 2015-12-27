@@ -8,9 +8,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-08-26 14:28+0100\n"
-"PO-Revision-Date: 2015-12-03 14:04+0000\n"
-"Last-Translator: ROGER MICHAEL ASHLEY ALLEN <rogermaallen@gmail.com>\n"
+"POT-Creation-Date: 2015-12-17 13:55+0000\n"
+"PO-Revision-Date: 2015-12-17 14:00+0000\n"
+"Last-Translator: mattwestcott <matthew@torchbox.com>\n"
 "Language-Team: Arabic (http://www.transifex.com/torchbox/wagtail/language/"
 "ar/)\n"
 "MIME-Version: 1.0\n"
@@ -19,6 +19,12 @@ msgstr ""
 "Language: ar\n"
 "Plural-Forms: nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 "
 "&& n%100<=10 ? 3 : n%100>=11 && n%100<=99 ? 4 : 5;\n"
+
+msgid "A user with that username already exists."
+msgstr "يوجد مستعمل لنفس الاسم"
+
+msgid "The two password fields didn't match."
+msgstr "لا تتوافق حقلا كلمة السر"
 
 msgid "Administrator"
 msgstr "مدير"
@@ -44,38 +50,20 @@ msgstr "الاسم الأول"
 msgid "Last Name"
 msgstr "اسم العائلة"
 
-msgid "A user with that username already exists."
-msgstr "يوجد مستعمل لنفس الاسم"
-
-msgid "The two password fields didn't match."
-msgstr "لا تتوافق حقلا كلمة السر"
-
 msgid "Administrators have the ability to manage user accounts."
 msgstr "المدراء يتمكنوا من الإشراف على حسابات المستعملين"
 
 msgid "A group with that name already exists."
 msgstr "توجد سابقا جماعة بهذا الاسم"
 
-msgid "Submitted notifications"
-msgstr "إبلاغات مقدمة"
-
 msgid "Receive notification when a page is submitted for moderation"
 msgstr "استلم إبلاغا إذا قدمت صفحة للمراجعة"
-
-msgid "Approved notifications"
-msgstr "استحسان الإبلاغ"
 
 msgid "Receive notification when your page edit is approved"
 msgstr "استلم إبلاغا في حالة استحسان تنقيح صفحتك"
 
-msgid "Rejected notifications"
-msgstr "إبلاغات مرفوضة"
-
 msgid "Receive notification when your page edit is rejected"
 msgstr "استلم إبلاغا في حالة رفض تنقيح صفحتك"
-
-msgid "User Profile"
-msgstr "ترجمة شحصية للمستعمل"
 
 msgid "Delete group"
 msgstr "احذف جماعة"
@@ -187,6 +175,3 @@ msgstr "من فير الممكن إنشاء مستعمل بسبب أخطاء"
 
 msgid "The user could not be saved due to errors."
 msgstr "من فير الممكن حفظ مستعمل بسبب أخطاء"
-
-msgid "Groups"
-msgstr "جماعات"

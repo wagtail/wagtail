@@ -1,0 +1,270 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# dellax <michalnebbia@gmail.com>, 2015
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2015-12-17 13:54+0000\n"
+"PO-Revision-Date: 2015-12-17 13:59+0000\n"
+"Last-Translator: mattwestcott <matthew@torchbox.com>\n"
+"Language-Team: Slovak (Slovakia) (http://www.transifex.com/torchbox/wagtail/"
+"language/sk_SK/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: sk_SK\n"
+"Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
+
+msgid "GIF, JPEG, PNG"
+msgstr "GIF, JPEG, PNG"
+
+#, python-format
+msgid ""
+"Supported formats: %(supported_formats)s. Maximum filesize: "
+"%(max_upload_size)s."
+msgstr ""
+"Podporované formáty sú: %(supported_formats)s. Maximálna veľkosť súboru je: "
+"%(max_upload_size)s."
+
+#, python-format
+msgid "Supported formats: %(supported_formats)s."
+msgstr "Podporované formáty sú: %(supported_formats)s."
+
+#, python-format
+msgid "Not a supported image format. Supported formats: %s."
+msgstr "Nie je podporovaný formát obrázkov. Podporované formáty sú: %s."
+
+#, python-format
+msgid "Not a valid %s image."
+msgstr "Nie je validný %s obrázok."
+
+#, python-format
+msgid "This file is too big (%%s). Maximum filesize %s."
+msgstr "Tento súbor je príliž veľký (%%s). Maximálna povolená veľkosť je %s."
+
+#, python-format
+msgid "This file is too big. Maximum filesize %s."
+msgstr "Tento súbor je príliž veľký. Maximálna veľkosť súboru je %s."
+
+msgid "Filter"
+msgstr "Filter"
+
+msgid "Original size"
+msgstr "Originálna veľkosť"
+
+msgid "Resize to width"
+msgstr "Upraviť rozmery na šírku"
+
+msgid "Resize to height"
+msgstr "Upraviť rozmery na výšku"
+
+msgid "Resize to min"
+msgstr "Upraviť rozmery na minimum"
+
+msgid "Resize to max"
+msgstr "Upraviť rozmery na maximum"
+
+msgid "Resize to fill"
+msgstr "Upraviť rozmery na výplň"
+
+msgid "Width"
+msgstr "Šírka"
+
+msgid "Height"
+msgstr "Výška"
+
+msgid "Choose an image"
+msgstr "Vybrať obrázok"
+
+msgid "Search"
+msgstr "Hľadať"
+
+msgid "Upload"
+msgstr "Nahrať"
+
+msgid "Popular tags"
+msgstr "Populárne tagy"
+
+msgid "Latest images"
+msgstr "Posledné obrázky"
+
+msgid "Choose a format"
+msgstr "Zvoľte formát"
+
+msgid "Insert image"
+msgstr "Vložiť obrázok"
+
+#, python-format
+msgid ""
+"\n"
+"        <span>%(total)s</span> Image\n"
+"    "
+msgid_plural ""
+"\n"
+"        <span>%(total)s</span> Images\n"
+"    "
+msgstr[0] ""
+"\n"
+"<span>%(total)s</span> Obrázok"
+msgstr[1] ""
+"\n"
+"<span>%(total)s</span> Obrázky"
+msgstr[2] ""
+"\n"
+"<span>%(total)s</span> Obrázkov"
+
+msgid "Change image file:"
+msgstr "Zmeniť obrázok:"
+
+msgid "Add an image"
+msgstr "Pridať obrázok"
+
+msgid "Add image"
+msgstr "Pridať obrázok"
+
+msgid "Save"
+msgstr "Uložiť"
+
+msgid "Delete image"
+msgstr "Zmazať obrázok"
+
+msgid "Are you sure you want to delete this image?"
+msgstr "Naozaj chcete zmazať tento obrázok?"
+
+msgid "Yes, delete"
+msgstr "Áno, zmazať"
+
+msgid "Focal point (optional)"
+msgstr "Ohniskový bod (nepovinné)"
+
+msgid ""
+"To define this image's most important region, drag a box over the image "
+"below."
+msgstr ""
+"Na definovanie najdôležitejšej časti obrázky presúvajte rám po obrázku nižšie"
+
+msgid "Current focal point shown"
+msgstr "Aktuálny ohniskový bod"
+
+msgid "URL Generator"
+msgstr "URL Generátor"
+
+msgid "Max dimensions"
+msgstr "Maximálne rozmery"
+
+msgid "Filesize"
+msgstr "Veľkosť súboru"
+
+msgid "File not found"
+msgstr "Súbor nebol nájdený"
+
+msgid "Images"
+msgstr "Obrázky"
+
+#, python-format
+msgid "Sorry, no images match \"<em>%(query_string)s</em>\""
+msgstr ""
+"Prepáčte, žiadne obrázky nevyhovujú hľadanému výrazu \"<em>%(query_string)s</"
+"em>\""
+
+#, python-format
+msgid ""
+"You've not uploaded any images. Why not <a href="
+"\"%(wagtailimages_add_image_url)s\">add one now</a>?"
+msgstr ""
+"Zatiaľ ste nenahrali žiadne obrázky. Prečo nenahrať <a href="
+"\"%(wagtailimages_add_image_url)s\">jeden práve teraz</a>?"
+
+msgid "URL"
+msgstr "URL adresa"
+
+msgid "Preview"
+msgstr "Náhľad"
+
+msgid "Title"
+msgstr "Titulok"
+
+msgid "Parent"
+msgstr "Rodič"
+
+msgid "Type"
+msgstr "Typ"
+
+msgid "Status"
+msgstr "Stav"
+
+msgid "Edit this page"
+msgstr "Upraviť túto stránku"
+
+msgid "Add multiple images"
+msgstr "Pridať viacero obrázkov"
+
+msgid "Add images"
+msgstr "Pridať obrázky"
+
+msgid "Drag and drop images into this area to upload immediately."
+msgstr "Potiahni a pusti obrázky do tejto plochy pre okamžité nahrávanie."
+
+msgid "Or choose from your computer"
+msgstr "Alebo vyber z tvojho počítača"
+
+msgid ""
+"Upload successful. Please update this image with a more appropriate title, "
+"if necessary. You may also delete the image completely if the upload wasn't "
+"required."
+msgstr ""
+"Nahrávanie bolo úspešné. Prosím aktualizujte tento obrázok s vhodnejším "
+"titulkom, ak je potrebný. Môžete taktiež zmazať tento obrázok ak nahrávanie "
+"nebolo potrebné."
+
+msgid "Sorry, upload failed."
+msgstr "Prepáčte, ale nahrávanie zlihalo."
+
+msgid "Update"
+msgstr "Aktualizovať"
+
+msgid "Delete"
+msgstr "Vymazať"
+
+msgid "Search images"
+msgstr "Hľadat obrázky"
+
+#, python-brace-format
+msgid "Image '{0}' updated."
+msgstr "Obrázok '{0}' bol aktualizovaný."
+
+msgid "Edit again"
+msgstr "Upraviť znovu"
+
+msgid "The image could not be saved due to errors."
+msgstr "Obrázok nemôže byť uložený kvôli chybám."
+
+msgid ""
+"The source image file could not be found. Please change the source or delete "
+"the image."
+msgstr ""
+"Zdroj obrázku nebol nájdený. Prosím aktualizujte zdroj alebo zmažte obrázok."
+
+#, python-brace-format
+msgid "Image '{0}' deleted."
+msgstr "Obrázok '{0}' bol zmazaný."
+
+#, python-brace-format
+msgid "Image '{0}' added."
+msgstr "Obrázok '{0}' bol pridaný."
+
+msgid "Edit"
+msgstr "Upraviť"
+
+msgid "The image could not be created due to errors."
+msgstr "Obrázok nemôže byť vytvorený kvôli chybám."
+
+msgid "Choose another image"
+msgstr "Zvoliť iný obrázok"
+
+msgid "Edit this image"
+msgstr "Upraviť tento obrázok"

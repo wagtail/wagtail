@@ -5,6 +5,7 @@ import unittest
 
 import django
 from django.conf import settings
+from django.core import serializers
 from django.test import TestCase
 
 from wagtail.wagtailcore.models import Site
@@ -24,6 +25,19 @@ class TestImagesJinja(TestCase):
             title="Test image",
             file=get_test_image_file(),
         )
+
+        # Create an image with a missing file, by deserializing fom a python object
+        # (which bypasses FileField's attempt to read the file)
+        self.bad_image = list(serializers.deserialize('python', [{
+            'fields': {
+                'title': 'missing image',
+                'height': 100,
+                'file': 'original_images/missing-image.jpg',
+                'width': 100,
+            },
+            'model': 'wagtailimages.image'
+        }]))[0].object
+        self.bad_image.save()
 
     def render(self, string, context=None, request_context=True):
         if context is None:
@@ -64,3 +78,9 @@ class TestImagesJinja(TestCase):
                     'width: {{ background.width }}, url: {{ background.url }}')
         output = ('width: 200, url: ' + self.get_image_filename(self.image, "width-200"))
         self.assertHTMLEqual(self.render(template, {'myimage': self.image}), output)
+
+    def test_missing_image(self):
+        self.assertHTMLEqual(
+            self.render('{{ image(myimage, "width-200") }}', {'myimage': self.bad_image}),
+            '<img alt="missing image" src="/media/not-found" width="0" height="0">'
+        )

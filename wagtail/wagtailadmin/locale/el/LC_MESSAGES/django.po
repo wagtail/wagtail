@@ -11,9 +11,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-08-26 14:28+0100\n"
-"PO-Revision-Date: 2015-08-26 13:37+0000\n"
-"Last-Translator: Karl Hobley <karl@torchbox.com>\n"
+"POT-Creation-Date: 2015-12-17 13:54+0000\n"
+"PO-Revision-Date: 2015-12-17 13:57+0000\n"
+"Last-Translator: mattwestcott <matthew@torchbox.com>\n"
 "Language-Team: Greek (http://www.transifex.com/torchbox/wagtail/language/"
 "el/)\n"
 "MIME-Version: 1.0\n"
@@ -371,10 +371,6 @@ msgstr "Μπορείτε να διορθώστε τη σελίδα εδώ:"
 msgid "The page \"%(page)s\" has been submitted for moderation"
 msgstr "Η σελίδα \"%(page)s\" στάλθηκε για έλεγχο"
 
-#, python-format
-msgid "The page \"%(page)s\" has been submitted for moderation."
-msgstr "Η σελίδα \"%(page)s\" στάλθηκε για έλεγχο."
-
 msgid "You can preview the page here:"
 msgstr "Μπορείτε να τη δείτε εδώ:"
 
@@ -516,8 +512,8 @@ msgstr "Νέα %(page_type)s"
 msgid "New"
 msgstr "Νέο"
 
-msgid "Save as draft"
-msgstr "Αποθήκευση σαν προσχέδιο"
+msgid "Save draft"
+msgstr "Αποθήκευση πρόχειρου"
 
 msgid "Publish"
 msgstr "Έκδοση"
@@ -535,9 +531,6 @@ msgstr "Επεξεργασία %(page_type)s <span>%(title)s</span>"
 
 msgid "Page locked"
 msgstr "Σελίδα κλειδωμένη"
-
-msgid "Save draft"
-msgstr "Αποθήκευση πρόχειρου"
 
 #, python-format
 msgid "Last modified: %(last_mod)s"
@@ -613,18 +606,6 @@ msgstr "Επιλογή πατρικής σελίδας για την %(title)s"
 #, python-format
 msgid "Select a new parent page for <span>%(title)s</span>"
 msgstr "Επιλογή νέας πατρικής σελίδας για την <span>%(title)s</span>"
-
-msgid "Other searches"
-msgstr "Άλλες αναζητήσεις"
-
-msgid "Images"
-msgstr "Εικόνες"
-
-msgid "Documents"
-msgstr "Έγγραφα"
-
-msgid "Users"
-msgstr "Χρήστες"
 
 #, python-format
 msgid "Sorry, no pages match <em>\"%(query_string)s\"</em>"
@@ -712,6 +693,9 @@ msgstr "Αποσύνδεση"
 #, python-format
 msgid "Page %(page_num)s of %(total_pages)s."
 msgstr "Σελίδα %(page_num)s από %(total_pages)s."
+
+msgid "Other searches"
+msgstr "Άλλες αναζητήσεις"
 
 msgid ""
 "You are using an <strong>outdated</strong> browser not supported by this "

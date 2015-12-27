@@ -8,9 +8,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-08-26 14:28+0100\n"
-"PO-Revision-Date: 2015-04-21 08:40+0000\n"
-"Last-Translator: Karl Hobley <karl@torchbox.com>\n"
+"POT-Creation-Date: 2015-12-17 13:55+0000\n"
+"PO-Revision-Date: 2015-12-17 14:00+0000\n"
+"Last-Translator: mattwestcott <matthew@torchbox.com>\n"
 "Language-Team: Vietnamese (http://www.transifex.com/torchbox/wagtail/"
 "language/vi/)\n"
 "MIME-Version: 1.0\n"
@@ -24,6 +24,12 @@ msgstr "Cần nhập. 30 ký tự hoặc ít hơn. Chỉ chấp nhận kí tự,
 
 msgid "This value may contain only letters, numbers and @/./+/-/_ characters."
 msgstr "Giá trị này chỉ chấp nhận ký tự, số và @/./+/-/_."
+
+msgid "A user with that username already exists."
+msgstr "Người dùng với username này đã tồn tại."
+
+msgid "The two password fields didn't match."
+msgstr "Hai mật khẩu không giống nhau."
 
 msgid "If ticked, this user has the ability to manage user accounts."
 msgstr "Nếu chọn, người dùng này có thể quản lý các tài khoản."
@@ -48,12 +54,6 @@ msgstr "Tên"
 
 msgid "Last Name"
 msgstr "Họ"
-
-msgid "A user with that username already exists."
-msgstr "Người dùng với username này đã tồn tại."
-
-msgid "The two password fields didn't match."
-msgstr "Hai mật khẩu không giống nhau."
 
 msgid "Administrators have the ability to manage user accounts."
 msgstr "Người điều hành có khả năng quản lý các tài khoản."
@@ -159,6 +159,3 @@ msgstr "Người dùng '{0}' đã được cập nhật."
 
 msgid "The user could not be saved due to errors."
 msgstr "Không thể lưu người dùng vì lỗi."
-
-msgid "Groups"
-msgstr "Nhóm"

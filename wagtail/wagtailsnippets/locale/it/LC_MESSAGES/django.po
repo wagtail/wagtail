@@ -8,9 +8,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-08-26 14:28+0100\n"
-"PO-Revision-Date: 2015-06-30 06:32+0000\n"
-"Last-Translator: Giacomo Ghizzani <giacomo.ghz@gmail.com>\n"
+"POT-Creation-Date: 2015-12-17 13:55+0000\n"
+"PO-Revision-Date: 2015-12-17 14:00+0000\n"
+"Last-Translator: mattwestcott <matthew@torchbox.com>\n"
 "Language-Team: Italian (http://www.transifex.com/torchbox/wagtail/language/"
 "it/)\n"
 "MIME-Version: 1.0\n"
@@ -30,9 +30,6 @@ msgstr ""
 "Non hai creato nessun %(snippet_type_name)s snippets. Perché non <a href="
 "\"%(wagtailsnippets_create_snippet_url)s\" target=\"_blank\">ne crei uno "
 "adesso"
-
-msgid "Title"
-msgstr "Titolo"
 
 #, python-format
 msgid "Delete %(snippet_type_name)s - %(instance)s"
@@ -68,6 +65,17 @@ msgstr "Modifica"
 msgid "Snippets"
 msgstr "Snippets"
 
+msgid "Title"
+msgstr "Titolo"
+
+#, python-format
+msgid ""
+"No %(snippet_type_name_plural)s have been created. Why not <a href="
+"\"%(wagtailsnippets_create_url)s\">add one</a>?"
+msgstr ""
+"Non hai creato nessun %(snippet_type_name_plural)s. Perché non ne <a href="
+"\"%(wagtailsnippets_create_url)s\">aggiungi uno</a>?"
+
 #, python-format
 msgid "Snippets %(snippet_type_name_plural)s"
 msgstr "Snippets %(snippet_type_name_plural)s"
@@ -79,14 +87,6 @@ msgstr "Snippets <span>%(snippet_type_name_plural)s</span>"
 #, python-format
 msgid "Add %(snippet_type_name)s"
 msgstr "Aggiungi %(snippet_type_name)s"
-
-#, python-format
-msgid ""
-"No %(snippet_type_name_plural)s have been created. Why not <a href="
-"\"%(wagtailsnippets_create_url)s\">add one</a>?"
-msgstr ""
-"Non hai creato nessun %(snippet_type_name_plural)s. Perché non ne <a href="
-"\"%(wagtailsnippets_create_url)s\">aggiungi uno</a>?"
 
 #, python-format
 msgid "Usage of %(title)s"

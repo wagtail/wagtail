@@ -8,9 +8,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-08-26 14:28+0100\n"
-"PO-Revision-Date: 2015-11-02 15:46+0000\n"
-"Last-Translator: Dan Braghis\n"
+"POT-Creation-Date: 2015-12-17 13:54+0000\n"
+"PO-Revision-Date: 2015-12-17 13:59+0000\n"
+"Last-Translator: mattwestcott <matthew@torchbox.com>\n"
 "Language-Team: Romanian (http://www.transifex.com/torchbox/wagtail/language/"
 "ro/)\n"
 "MIME-Version: 1.0\n"
@@ -79,21 +79,6 @@ msgstr "Înălțime"
 
 msgid "Closeness"
 msgstr "Vecinătate"
-
-msgid "Title"
-msgstr "Titlu"
-
-msgid "File"
-msgstr "Fișier"
-
-msgid "Created at"
-msgstr "Creat la"
-
-msgid "Uploaded by user"
-msgstr "Încărcat de utlizator"
-
-msgid "Tags"
-msgstr "Etichete"
 
 msgid "Choose an image"
 msgstr "Alege imagine"
@@ -231,6 +216,9 @@ msgstr "Utilizare %(title)s"
 
 msgid "Usage of"
 msgstr "Utilizare"
+
+msgid "Title"
+msgstr "Titlu"
 
 msgid "Parent"
 msgstr "Bază"

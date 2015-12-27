@@ -1,12 +1,22 @@
 Changelog
 =========
 
-1.3 (xx.xx.xxxx)
+1.4 (xx.xx.xxxx)
+~~~~~~~~~~~~~~~~
+
+ * The `Document` model can now be overridden using the new `WAGTAILDOCS_DOCUMENT_MODEL` setting (Alex Gleason)
+ * Fix: Custom page managers no longer raise an error when used on an abstract model
+
+1.3 (23.12.2015)
 ~~~~~~~~~~~~~~~~
 
  * Django 1.9 support
  * Support for indexing fields across relations in Elasticsearch
+ * Added toolbar to cross-link between different search areas, and `register_admin_search_area` hook to register new areas (Ben Kerle)
+ * Added `WagtailPageTests`, a helper module to simplify writing tests for Wagtail sites
+ * Added system checks to check the `subpage_types` and `parent_page_types` attributes of page models
  * Added `WAGTAIL_PASSWORD_RESET_ENABLED` setting to allow password resets to be disabled independently of the password management interface (John Draper)
+ * Submit for moderation notification emails now include the editor name (Denis Voskvitsov)
  * Updated fonts for more comprehensive Unicode support
  * Added `.alt` attribute to image renditions
  * The default `src`, `width`, `height` and `alt` attributes can now be overridden by attributes passed to the `{% image %}` tag
@@ -16,7 +26,15 @@ Changelog
  * `page_unpublish` signal is now fired for each page that was unpublished by a call to `PageQuerySet.unpublish()`
  * Add `get_upload_to` method to `AbstractImage`, to allow overriding the default image upload path (Ben Emery)
  * Notification emails are now sent per user (Matthew Downey)
- * New translations for Arabic and Latvian
+ * Added the ability to override the default manager on Page models
+ * Added an optional human-friendly `site_name` field to sites (Timo Rieber)
+ * Added a system check to warn developers who use a custom Wagtail build but forgot to build the admin css
+ * Added success message after updating image from the image upload view (Christian Peters)
+ * Added a `request.is_preview` variable for templates to distinguish between previewing and live (Denis Voskvitsov)
+ * Added support for chaining multiple image operations on the `{% image %}` tag (Christian Peters)
+ * New translations for Arabic, Latvian and Slovak
+ * 'Pages' link on site stats dashboard now links to the site homepage when only one site exists, rather than the root level
+ * Fix: Images and page revisions created by a user are no longer deleted when the user is deleted (Rich Atkinson)
  * Fix: HTTP cache purge now works again on Python 2 (Mitchel Cabuloy)
  * Fix: Locked pages can no longer be unpublished (Alex Bridge)
  * Fix: Site records now implement `get_by_natural_key`
@@ -25,6 +43,13 @@ Changelog
  * Fix: `subpage_types` / `parent_page_types` business rules are now enforced when moving pages
  * Fix: Multi-word tags on images and documents are now correctly preserved as a single tag (LKozlowski)
  * Fix: Changed verbose names to start with lower case where necessary (Maris Serzans)
+ * Fix: Invalid images no longer crash the image listing (Maris Serzans)
+ * Fix: `MenuItem` `url` parameter can now take a lazy URL (Adon Metcalfe, rayrayndwiga)
+ * Fix: Added missing translation tag to InlinePanel 'Add' button (jnns)
+ * Fix: Added missing translation tag to 'Signing in...' button text (Eugene MechanisM)
+ * Fix: Restored correct highlighting behaviour of rich text toolbar buttons
+ * Fix: Rendering a missing image through ImageChooserBlock no longer breaks the whole page (Christian Peters)
+ * Fix: Filtering by popular tag in the image chooser now works when using the database search backend
 
 1.2 (12.11.2015)
 ~~~~~~~~~~~~~~~~

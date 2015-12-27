@@ -8,9 +8,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-08-26 14:28+0100\n"
-"PO-Revision-Date: 2015-11-16 08:00+0000\n"
-"Last-Translator: José Alaguna <alagunajs@gmail.com>\n"
+"POT-Creation-Date: 2015-12-17 13:54+0000\n"
+"PO-Revision-Date: 2015-12-17 13:58+0000\n"
+"Last-Translator: mattwestcott <matthew@torchbox.com>\n"
 "Language-Team: Turkish (Turkey) (http://www.transifex.com/torchbox/wagtail/"
 "language/tr_TR/)\n"
 "MIME-Version: 1.0\n"
@@ -19,23 +19,8 @@ msgstr ""
 "Language: tr_TR\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
-msgid "Title"
-msgstr "Başlık"
-
-msgid "File"
-msgstr "Dosya"
-
-msgid "Created at"
-msgstr "Oluşturuldu"
-
-msgid "Tags"
-msgstr "Etiketler"
-
 msgid "Search"
 msgstr "Ara"
-
-msgid "Save"
-msgstr "Kayde"
 
 msgid "Yes, delete"
 msgstr "Evet, sil"
@@ -47,11 +32,20 @@ msgstr "%(title)s düzeltiliyor"
 msgid "Editing"
 msgstr "Düzeltiliyor"
 
+msgid "Save"
+msgstr "Kayde"
+
 msgid "Filesize"
 msgstr "Dosya boyutu"
 
 msgid "Documents"
 msgstr "Belgeler"
+
+msgid "Title"
+msgstr "Başlık"
+
+msgid "File"
+msgstr "Dosya"
 
 msgid "Status"
 msgstr "Durum"

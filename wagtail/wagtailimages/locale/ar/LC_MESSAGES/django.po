@@ -8,9 +8,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-08-26 14:28+0100\n"
-"PO-Revision-Date: 2015-12-03 13:36+0000\n"
-"Last-Translator: ROGER MICHAEL ASHLEY ALLEN <rogermaallen@gmail.com>\n"
+"POT-Creation-Date: 2015-12-17 13:54+0000\n"
+"PO-Revision-Date: 2015-12-17 13:59+0000\n"
+"Last-Translator: mattwestcott <matthew@torchbox.com>\n"
 "Language-Team: Arabic (http://www.transifex.com/torchbox/wagtail/language/"
 "ar/)\n"
 "MIME-Version: 1.0\n"
@@ -52,18 +52,6 @@ msgstr "ارتفاع"
 
 msgid "Closeness"
 msgstr "مقربة"
-
-msgid "Title"
-msgstr "عنوان"
-
-msgid "File"
-msgstr "ملف"
-
-msgid "Created at"
-msgstr "أنشئأ في الساعة"
-
-msgid "Uploaded by user"
-msgstr "نقله المستعمل إلى الحاسوب"
 
 msgid "Choose an image"
 msgstr "اختر صورة"
@@ -143,6 +131,9 @@ msgstr ""
 
 msgid "Usage of"
 msgstr "استعمال"
+
+msgid "Title"
+msgstr "عنوان"
 
 msgid "Parent"
 msgstr "والد"

@@ -9,9 +9,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-08-26 14:28+0100\n"
-"PO-Revision-Date: 2015-11-16 08:00+0000\n"
-"Last-Translator: Ragıp Ünal <ragip@ragipunal.com>\n"
+"POT-Creation-Date: 2015-12-17 13:54+0000\n"
+"PO-Revision-Date: 2015-12-17 13:57+0000\n"
+"Last-Translator: mattwestcott <matthew@torchbox.com>\n"
 "Language-Team: Turkish (Turkey) (http://www.transifex.com/torchbox/wagtail/"
 "language/tr_TR/)\n"
 "MIME-Version: 1.0\n"
@@ -152,8 +152,8 @@ msgstr "Bu sayfayı kopyala"
 msgid "New"
 msgstr "Yeni"
 
-msgid "Save as draft"
-msgstr "Taslak gibi kayde"
+msgid "Save draft"
+msgstr "Taslak kayde"
 
 msgid "Publish"
 msgstr "Yayınla"
@@ -169,9 +169,6 @@ msgstr "%(page_type)s <span>%(title)s</span> düzeltiliyor"
 msgid "Page locked"
 msgstr "Sayfa Kilitli"
 
-msgid "Save draft"
-msgstr "Taslak kayde"
-
 msgid "Drag"
 msgstr "Sürükle"
 
@@ -183,18 +180,6 @@ msgstr "Önceki"
 
 msgid "Next"
 msgstr "Sonraki"
-
-msgid "Other searches"
-msgstr "Başka aramalar"
-
-msgid "Images"
-msgstr "Resimler"
-
-msgid "Documents"
-msgstr "Belgeler"
-
-msgid "Users"
-msgstr "Kullanıcılar"
 
 msgid "Home"
 msgstr "Ev"
@@ -258,6 +243,9 @@ msgstr "Cmt"
 
 msgid "Edit your account"
 msgstr "Hesabınız düzeltiliyor"
+
+msgid "Other searches"
+msgstr "Başka aramalar"
 
 msgid "User bar"
 msgstr "Kullanıcı çubuğu"

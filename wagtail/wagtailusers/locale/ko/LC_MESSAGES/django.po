@@ -9,9 +9,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-08-26 14:28+0100\n"
-"PO-Revision-Date: 2015-10-20 02:37+0000\n"
-"Last-Translator: Kyungil Choi <hanpama@gmail.com>\n"
+"POT-Creation-Date: 2015-12-17 13:55+0000\n"
+"PO-Revision-Date: 2015-12-17 14:00+0000\n"
+"Last-Translator: mattwestcott <matthew@torchbox.com>\n"
 "Language-Team: Korean (http://www.transifex.com/torchbox/wagtail/language/"
 "ko/)\n"
 "MIME-Version: 1.0\n"
@@ -26,6 +26,12 @@ msgstr ""
 
 msgid "This value may contain only letters, numbers and @/./+/-/_ characters."
 msgstr "이 값은 오직 문자, 숫자 및 @/./+/-/_ 로 포함하였을 것입니다."
+
+msgid "A user with that username already exists."
+msgstr "이 사용자명은 이미 사용되고 있습니다."
+
+msgid "The two password fields didn't match."
+msgstr "두 개의 비밀번호가 일치하지 않습니다."
 
 msgid "Administrator"
 msgstr "관리자"
@@ -55,38 +61,20 @@ msgstr "이름"
 msgid "Last Name"
 msgstr "성"
 
-msgid "A user with that username already exists."
-msgstr "이 사용자명은 이미 사용되고 있습니다."
-
-msgid "The two password fields didn't match."
-msgstr "두 개의 비밀번호가 일치하지 않습니다."
-
 msgid "Administrators have the ability to manage user accounts."
 msgstr "관리자는 사용자 계정을 관리할 수 있는 권한을 가지고 있습니다."
 
 msgid "A group with that name already exists."
 msgstr "해당 이름의 그룹은 이미 사용되고 있습니다."
 
-msgid "Submitted notifications"
-msgstr "제출된 알림"
-
 msgid "Receive notification when a page is submitted for moderation"
 msgstr "페이지가 검토를 위해 제출되었을 때 알림을 받습니다"
-
-msgid "Approved notifications"
-msgstr "승인된 알림"
 
 msgid "Receive notification when your page edit is approved"
 msgstr "당신의 페이지 수정 건이 승인 되었을때 알림을 받습니다"
 
-msgid "Rejected notifications"
-msgstr "부결 알림"
-
 msgid "Receive notification when your page edit is rejected"
 msgstr "당신의 페이지 수정 건이 부결 되었을때 알림을 받습니다"
-
-msgid "User Profile"
-msgstr "사용자 프로필"
 
 msgid "Delete group"
 msgstr "그룹 삭제"
@@ -261,6 +249,3 @@ msgstr "'{0}' 사용자가 업데이트 되었습니다."
 
 msgid "The user could not be saved due to errors."
 msgstr "에러로 인해 사용자를 저장할 수 없습니다."
-
-msgid "Groups"
-msgstr "그룹"

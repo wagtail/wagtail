@@ -14,9 +14,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-08-26 14:28+0100\n"
-"PO-Revision-Date: 2015-08-13 18:48+0000\n"
-"Last-Translator: Florian <flori@vorlif.org>\n"
+"POT-Creation-Date: 2015-12-17 13:55+0000\n"
+"PO-Revision-Date: 2015-12-17 13:59+0000\n"
+"Last-Translator: mattwestcott <matthew@torchbox.com>\n"
 "Language-Team: German (http://www.transifex.com/torchbox/wagtail/language/"
 "de/)\n"
 "MIME-Version: 1.0\n"
@@ -25,15 +25,6 @@ msgstr ""
 "Language: de\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-msgid "Redirect from"
-msgstr "Weiterleiten von"
-
-msgid "Site"
-msgstr "Seite"
-
-msgid "Permanent"
-msgstr "Permanent"
-
 msgid ""
 "Recommended. Permanent redirects ensure search engines forget the old page "
 "(the 'Redirect from') and index the new page instead."
@@ -41,15 +32,6 @@ msgstr ""
 "Empfohlen. Permanente Weiterleitungen sorgen dafür, dass Suchmaschinen die "
 "alten Einträge vergessen und stattdessen die neue Seite (aus 'Weiterleiten "
 "von') durchsuchen."
-
-msgid "Redirect to a page"
-msgstr "Zu einer Seite weiterleiten"
-
-msgid "Redirect to any URL"
-msgstr "Zu einer URL weiterleiten"
-
-msgid "Redirect"
-msgstr "Weiterleitung"
 
 msgid "Add redirect"
 msgstr "Weiterleitung hinzufügen"
@@ -85,6 +67,9 @@ msgstr "Weiterleitungen"
 
 msgid "From"
 msgstr "Von"
+
+msgid "Site"
+msgstr "Seite"
 
 msgid "To"
 msgstr "Nach"

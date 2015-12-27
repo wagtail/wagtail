@@ -8,9 +8,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-08-26 14:28+0100\n"
-"PO-Revision-Date: 2015-08-26 13:37+0000\n"
-"Last-Translator: Karl Hobley <karl@torchbox.com>\n"
+"POT-Creation-Date: 2015-12-17 13:54+0000\n"
+"PO-Revision-Date: 2015-12-17 14:01+0000\n"
+"Last-Translator: mattwestcott <matthew@torchbox.com>\n"
 "Language-Team: Hebrew (Israel) (http://www.transifex.com/torchbox/wagtail/"
 "language/he_IL/)\n"
 "MIME-Version: 1.0\n"
@@ -52,26 +52,8 @@ msgstr "תאריך"
 msgid "Date/time"
 msgstr "תאריך/שעה"
 
-msgid "Submit time"
-msgstr "הזינו שעה"
-
-msgid "Form Submission"
-msgstr "הזנת טופס"
-
-msgid "Label"
-msgstr "תווית"
-
 msgid "The label of the form field"
 msgstr "תווית שדה הטופס"
-
-msgid "Field type"
-msgstr "סוג השדה"
-
-msgid "Required"
-msgstr "נדרש"
-
-msgid "Choices"
-msgstr "בחירות"
 
 msgid ""
 "Comma separated list of choices. Only applicable in checkboxes, radio and "
@@ -79,26 +61,11 @@ msgid ""
 msgstr ""
 "רשימת בחירות מופרדת במקף. ניתן לבחירה רק בתיבות סימון, רדיו ותפריט נפתח מטה"
 
-msgid "Default value"
-msgstr "ערך בחירת מחדל"
-
 msgid "Default value. Comma separated values supported for checkboxes."
 msgstr "ערך בחירות מחדל. ערכים עם רווחי מקף נתמכים על ידי תיבות סימון"
 
-msgid "Help text"
-msgstr "טקסט עזרה"
-
-msgid "To address"
-msgstr "לכתובת"
-
 msgid "Optional - form submissions will be emailed to this address"
 msgstr "אפשרי - מילוי טפסים ישלח לדואר האלקטרוני"
-
-msgid "From address"
-msgstr "מהכתובת"
-
-msgid "Subject"
-msgstr "נושא"
 
 msgid "Forms"
 msgstr "טפסים"

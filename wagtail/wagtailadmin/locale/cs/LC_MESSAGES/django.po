@@ -9,9 +9,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-08-26 14:28+0100\n"
-"PO-Revision-Date: 2015-10-30 08:04+0000\n"
-"Last-Translator: Ivan Pomykacz <mist@alastify.cz>\n"
+"POT-Creation-Date: 2015-12-17 13:54+0000\n"
+"PO-Revision-Date: 2015-12-17 13:57+0000\n"
+"Last-Translator: mattwestcott <matthew@torchbox.com>\n"
 "Language-Team: Czech (http://www.transifex.com/torchbox/wagtail/language/"
 "cs/)\n"
 "MIME-Version: 1.0\n"
@@ -317,10 +317,6 @@ msgstr "Stránku můžete upravit zde:"
 msgid "The page \"%(page)s\" has been submitted for moderation"
 msgstr "Stránka \"%(page)s\" byla odeslána ke schválení"
 
-#, python-format
-msgid "The page \"%(page)s\" has been submitted for moderation."
-msgstr "Stránka \"%(page)s\" byla odeslána ke schválení."
-
 msgid "You can preview the page here:"
 msgstr "Náhled stránky můžete zobrazit zde:"
 
@@ -460,7 +456,7 @@ msgstr "Nový %(page_type)s"
 msgid "New"
 msgstr "Nový"
 
-msgid "Save as draft"
+msgid "Save draft"
 msgstr "Uložit koncept"
 
 msgid "Publish"
@@ -471,9 +467,6 @@ msgstr "Odeslat ke schválení"
 
 msgid "Page locked"
 msgstr "Stránka uzamčena"
-
-msgid "Save draft"
-msgstr "Uložit koncept"
 
 #, python-format
 msgid "Last modified: %(last_mod)s"
@@ -578,18 +571,6 @@ msgstr[2] ""
 "\n"
 "Celkem vyhovujících stran: %(counter)s"
 
-msgid "Other searches"
-msgstr "Další hledání"
-
-msgid "Images"
-msgstr "Obrázky"
-
-msgid "Documents"
-msgstr "Dokumenty"
-
-msgid "Users"
-msgstr "Uživatelé"
-
 #, python-format
 msgid "Sorry, no pages match <em>\"%(query_string)s\"</em>"
 msgstr ""
@@ -674,6 +655,9 @@ msgstr "Odhlásit"
 #, python-format
 msgid "Page %(page_num)s of %(total_pages)s."
 msgstr "Strana %(page_num)s z %(total_pages)s."
+
+msgid "Other searches"
+msgstr "Další hledání"
 
 msgid "User bar"
 msgstr "Uživatelská lišta"

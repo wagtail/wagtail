@@ -8,9 +8,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-08-26 14:28+0100\n"
-"PO-Revision-Date: 2015-11-23 19:26+0000\n"
-"Last-Translator: Thijs Kramer <thijskramer@gmail.com>\n"
+"POT-Creation-Date: 2015-12-17 13:55+0000\n"
+"PO-Revision-Date: 2015-12-17 13:59+0000\n"
+"Last-Translator: mattwestcott <matthew@torchbox.com>\n"
 "Language-Team: Dutch (http://www.transifex.com/torchbox/wagtail/language/"
 "nl/)\n"
 "MIME-Version: 1.0\n"
@@ -19,15 +19,6 @@ msgstr ""
 "Language: nl\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-msgid "Redirect from"
-msgstr "Doorverwijzen vanaf"
-
-msgid "Site"
-msgstr "Site"
-
-msgid "Permanent"
-msgstr "Permanent"
-
 msgid ""
 "Recommended. Permanent redirects ensure search engines forget the old page "
 "(the 'Redirect from') and index the new page instead."
@@ -35,15 +26,6 @@ msgstr ""
 "Aanbevolen. Permanente doorverwijzingen zorgen ervoor dat zoekmachines de "
 "oude pagina (de 'Doorsturen vanaf') zullen vergeten en de nieuwe pagina "
 "zullen indexeren. "
-
-msgid "Redirect to a page"
-msgstr "Stuur naar een pagina door"
-
-msgid "Redirect to any URL"
-msgstr "Stuur naar een willekeurige URL door"
-
-msgid "Redirect"
-msgstr "Doorverwijzing"
 
 msgid "Add redirect"
 msgstr "Voeg een doorverwijzing toe"
@@ -79,6 +61,9 @@ msgstr "Doorverwijzingen"
 
 msgid "From"
 msgstr "Vanaf"
+
+msgid "Site"
+msgstr "Site"
 
 msgid "To"
 msgstr "Naar"

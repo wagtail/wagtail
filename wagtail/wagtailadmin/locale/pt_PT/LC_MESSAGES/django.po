@@ -12,9 +12,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-08-26 14:28+0100\n"
-"PO-Revision-Date: 2015-11-02 16:56+0000\n"
-"Last-Translator: Manuela Silva <h_manuela_rodsilva@gmail.com>\n"
+"POT-Creation-Date: 2015-12-17 13:54+0000\n"
+"PO-Revision-Date: 2015-12-17 13:57+0000\n"
+"Last-Translator: mattwestcott <matthew@torchbox.com>\n"
 "Language-Team: Portuguese (Portugal) (http://www.transifex.com/torchbox/"
 "wagtail/language/pt_PT/)\n"
 "MIME-Version: 1.0\n"
@@ -371,10 +371,6 @@ msgstr "Pode editar a página aqui:"
 msgid "The page \"%(page)s\" has been submitted for moderation"
 msgstr "A página \"%(page)s\" foi enviada para moderação"
 
-#, python-format
-msgid "The page \"%(page)s\" has been submitted for moderation."
-msgstr "A página \"%(page)s\" foi enviada para moderação."
-
 msgid "You can preview the page here:"
 msgstr "Pode pré-visualizar a página aqui:"
 
@@ -517,8 +513,8 @@ msgstr "Adicionar %(page_type)s"
 msgid "New"
 msgstr "Nova"
 
-msgid "Save as draft"
-msgstr "Guardar como rascunho"
+msgid "Save draft"
+msgstr "Guardar rascunho"
 
 msgid "Publish"
 msgstr "Publicar"
@@ -536,9 +532,6 @@ msgstr "A editar %(page_type)s <span>%(title)s</span>"
 
 msgid "Page locked"
 msgstr "Página bloqueada"
-
-msgid "Save draft"
-msgstr "Guardar rascunho"
 
 #, python-format
 msgid "Last modified: %(last_mod)s"
@@ -614,18 +607,6 @@ msgstr "Selecione uma nova página mãe para %(title)s"
 #, python-format
 msgid "Select a new parent page for <span>%(title)s</span>"
 msgstr "Selecione uma nova página mãe para <span>%(title)s</span>"
-
-msgid "Other searches"
-msgstr "Outras pesquisas"
-
-msgid "Images"
-msgstr "Imagens"
-
-msgid "Documents"
-msgstr "Documentos"
-
-msgid "Users"
-msgstr "Utilizadores"
 
 #, python-format
 msgid "Sorry, no pages match <em>\"%(query_string)s\"</em>"
@@ -712,6 +693,9 @@ msgstr "Sair"
 #, python-format
 msgid "Page %(page_num)s of %(total_pages)s."
 msgstr "Página %(page_num)s de %(total_pages)s."
+
+msgid "Other searches"
+msgstr "Outras pesquisas"
 
 msgid ""
 "You are using an <strong>outdated</strong> browser not supported by this "

@@ -8,9 +8,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-08-26 14:28+0100\n"
-"PO-Revision-Date: 2015-12-03 13:38+0000\n"
-"Last-Translator: ROGER MICHAEL ASHLEY ALLEN <rogermaallen@gmail.com>\n"
+"POT-Creation-Date: 2015-12-17 13:54+0000\n"
+"PO-Revision-Date: 2015-12-17 14:01+0000\n"
+"Last-Translator: mattwestcott <matthew@torchbox.com>\n"
 "Language-Team: Arabic (http://www.transifex.com/torchbox/wagtail/language/"
 "ar/)\n"
 "MIME-Version: 1.0\n"
@@ -41,41 +41,8 @@ msgstr "تاريخ"
 msgid "Date/time"
 msgstr "تاريخ وقت"
 
-msgid "Submit time"
-msgstr "قدّم وقتا"
-
-msgid "Form Submission"
-msgstr "تقديم شكل"
-
-msgid "Label"
-msgstr "بظاقة"
-
 msgid "The label of the form field"
 msgstr "بظاقة حقل النوع"
-
-msgid "Field type"
-msgstr "نوع الحقل"
-
-msgid "Required"
-msgstr "مقتضى"
-
-msgid "Choices"
-msgstr "اختيارات"
-
-msgid "Default value"
-msgstr "القيمة الأساسية"
-
-msgid "Help text"
-msgstr "نص للمساعدة"
-
-msgid "To address"
-msgstr "إلى عنوان"
-
-msgid "From address"
-msgstr "من عنوان"
-
-msgid "Subject"
-msgstr "موضوع"
 
 msgid "Delete"
 msgstr "احذف"

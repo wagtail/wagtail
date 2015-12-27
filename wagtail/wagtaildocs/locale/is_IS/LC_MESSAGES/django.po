@@ -8,9 +8,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-08-26 14:28+0100\n"
-"PO-Revision-Date: 2015-08-31 20:16+0000\n"
-"Last-Translator: Arnar Tumi Þorsteinsson <arnartumi@gmail.com>\n"
+"POT-Creation-Date: 2015-12-17 13:54+0000\n"
+"PO-Revision-Date: 2015-12-17 13:58+0000\n"
+"Last-Translator: mattwestcott <matthew@torchbox.com>\n"
 "Language-Team: Icelandic (Iceland) (http://www.transifex.com/torchbox/"
 "wagtail/language/is_IS/)\n"
 "MIME-Version: 1.0\n"
@@ -18,21 +18,6 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: is_IS\n"
 "Plural-Forms: nplurals=2; plural=(n % 10 != 1 || n % 100 == 11);\n"
-
-msgid "Title"
-msgstr "Titill"
-
-msgid "File"
-msgstr "Skrá"
-
-msgid "Created at"
-msgstr "Búin til"
-
-msgid "Uploaded by user"
-msgstr "Sent inn af notanda"
-
-msgid "Document"
-msgstr "Skrá"
 
 msgid "Choose a document"
 msgstr "Veldu skrá"
@@ -42,9 +27,6 @@ msgstr "Leita"
 
 msgid "Upload"
 msgstr "Hlaða upp"
-
-msgid "Save"
-msgstr "Vista"
 
 msgid "Latest documents"
 msgstr "Síðustu skrár"
@@ -82,6 +64,9 @@ msgstr "Breyti %(title)s"
 msgid "Editing"
 msgstr "Er að breyta"
 
+msgid "Save"
+msgstr "Vista"
+
 msgid "Filesize"
 msgstr "Skráarstærð"
 
@@ -90,6 +75,12 @@ msgstr "Skrá fannst ekki"
 
 msgid "Documents"
 msgstr "Skrár"
+
+msgid "Title"
+msgstr "Titill"
+
+msgid "File"
+msgstr "Skrá"
 
 msgid "Uploaded"
 msgstr "Hlaðið upp"

@@ -9,9 +9,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-08-26 14:28+0100\n"
-"PO-Revision-Date: 2015-08-26 13:37+0000\n"
-"Last-Translator: Karl Hobley <karl@torchbox.com>\n"
+"POT-Creation-Date: 2015-12-17 13:54+0000\n"
+"PO-Revision-Date: 2015-12-17 14:01+0000\n"
+"Last-Translator: mattwestcott <matthew@torchbox.com>\n"
 "Language-Team: Greek (http://www.transifex.com/torchbox/wagtail/language/"
 "el/)\n"
 "MIME-Version: 1.0\n"
@@ -53,26 +53,8 @@ msgstr "Ημερομηνία"
 msgid "Date/time"
 msgstr "Ημερομηνία/ώρα "
 
-msgid "Submit time"
-msgstr "Χρόνος υποβολής"
-
-msgid "Form Submission"
-msgstr "Υποβολή Φόρμας "
-
-msgid "Label"
-msgstr "Τίτλος"
-
 msgid "The label of the form field"
 msgstr "Η ετικέτα του πεδίου φόρμας"
-
-msgid "Field type"
-msgstr "Τύπος πεδίου"
-
-msgid "Required"
-msgstr "Απαιτείται"
-
-msgid "Choices"
-msgstr "Επιλογές"
 
 msgid ""
 "Comma separated list of choices. Only applicable in checkboxes, radio and "
@@ -81,28 +63,13 @@ msgstr ""
 "Διαχωρίζονται με κόμμα λίστας επιλογών. Ισχύει μόνο σε πλαίσια ελέγχου, "
 "ραδιόφωνο και αναπτυσσόμενο μενού."
 
-msgid "Default value"
-msgstr "Προκαθορισμένη τιμή "
-
 msgid "Default value. Comma separated values supported for checkboxes."
 msgstr ""
 "Προεπιλεγμένη τιμή. Τιμές διαχωρισμένες με κόμμα υποστηρίζονται για πλαίσια "
 "ελέγχου."
 
-msgid "Help text"
-msgstr "Κείμενο βοηθείας"
-
-msgid "To address"
-msgstr "Προς διεύθυνση"
-
 msgid "Optional - form submissions will be emailed to this address"
 msgstr "Προαιρετικά - υποβολές μορφής θα αποστέλλονται σε αυτή τη διεύθυνση"
-
-msgid "From address"
-msgstr "Από διεύθυνση"
-
-msgid "Subject"
-msgstr "Θέμα"
 
 msgid "Forms"
 msgstr "Φόρμες"

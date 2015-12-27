@@ -8,9 +8,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-08-26 14:28+0100\n"
-"PO-Revision-Date: 2015-10-20 10:05+0000\n"
-"Last-Translator: Ji Han Chung <jihanchung20@gmail.com>\n"
+"POT-Creation-Date: 2015-12-17 13:55+0000\n"
+"PO-Revision-Date: 2015-12-17 14:00+0000\n"
+"Last-Translator: mattwestcott <matthew@torchbox.com>\n"
 "Language-Team: Korean (http://www.transifex.com/torchbox/wagtail/language/"
 "ko/)\n"
 "MIME-Version: 1.0\n"
@@ -30,9 +30,6 @@ msgstr ""
 "업로드된 %(snippet_type_name)s 스니펫이 없습니다. 지금 스니펫을 <a href="
 "\"%(wagtailsnippets_create_snippet_url)s\" target=\"_blank\">생성 해 보시는"
 "건 어떨까요?"
-
-msgid "Title"
-msgstr "제목"
 
 #, python-format
 msgid "Delete %(snippet_type_name)s - %(instance)s"
@@ -68,6 +65,17 @@ msgstr "수정중"
 msgid "Snippets"
 msgstr "스니펫"
 
+msgid "Title"
+msgstr "제목"
+
+#, python-format
+msgid ""
+"No %(snippet_type_name_plural)s have been created. Why not <a href="
+"\"%(wagtailsnippets_create_url)s\">add one</a>?"
+msgstr ""
+"생성된 %(snippet_type_name_plural)s 스니펫이 없습니다. 지금 스니펫을 <a href="
+"\"%(wagtailsnippets_create_url)s\">추가 해 보시는건 어떨까요?"
+
 #, python-format
 msgid "Snippets %(snippet_type_name_plural)s"
 msgstr "%(snippet_type_name_plural)s 스니펫"
@@ -79,14 +87,6 @@ msgstr "<span>%(snippet_type_name_plural)s</span> 스니펫"
 #, python-format
 msgid "Add %(snippet_type_name)s"
 msgstr "%(snippet_type_name)s 추가"
-
-#, python-format
-msgid ""
-"No %(snippet_type_name_plural)s have been created. Why not <a href="
-"\"%(wagtailsnippets_create_url)s\">add one</a>?"
-msgstr ""
-"생성된 %(snippet_type_name_plural)s 스니펫이 없습니다. 지금 스니펫을 <a href="
-"\"%(wagtailsnippets_create_url)s\">추가 해 보시는건 어떨까요?"
 
 #, python-format
 msgid "Usage of %(title)s"

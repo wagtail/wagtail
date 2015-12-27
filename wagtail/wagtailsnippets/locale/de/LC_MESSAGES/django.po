@@ -3,6 +3,7 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# Jannis Vajen, 2015
 # Johannes Spielmann <j@spielmannsolutions.com>, 2014
 # karlsander <karlsander@gmail.com>, 2014
 # karlsander <karlsander@gmail.com>, 2014
@@ -11,9 +12,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-08-26 14:28+0100\n"
-"PO-Revision-Date: 2015-04-12 13:28+0000\n"
-"Last-Translator: Wasilis Mandratzis-Walz\n"
+"POT-Creation-Date: 2015-12-17 13:55+0000\n"
+"PO-Revision-Date: 2015-12-17 14:00+0000\n"
+"Last-Translator: mattwestcott <matthew@torchbox.com>\n"
 "Language-Team: German (http://www.transifex.com/torchbox/wagtail/language/"
 "de/)\n"
 "MIME-Version: 1.0\n"
@@ -33,9 +34,6 @@ msgstr ""
 "Sie haben keine %(snippet_type_name)s Schnipsel erstellt. Warum nicht <a "
 "href=\"%(wagtailsnippets_create_snippet_url)s\" target=\"_blank\"> jetzt "
 "erstellen"
-
-msgid "Title"
-msgstr "Titel"
 
 #, python-format
 msgid "Delete %(snippet_type_name)s - %(instance)s"
@@ -71,6 +69,17 @@ msgstr "Bearbeiten"
 msgid "Snippets"
 msgstr "Snippets"
 
+msgid "Title"
+msgstr "Titel"
+
+#, python-format
+msgid ""
+"No %(snippet_type_name_plural)s have been created. Why not <a href="
+"\"%(wagtailsnippets_create_url)s\">add one</a>?"
+msgstr ""
+"Sie haben noch keine %(snippet_type_name_plural)s erstellt. <a href="
+"\"%(wagtailsnippets_create_url)s\">Erstellen Sie doch jetzt eins!</a>"
+
 #, python-format
 msgid "Snippets %(snippet_type_name_plural)s"
 msgstr "Snippets %(snippet_type_name_plural)s"
@@ -82,14 +91,6 @@ msgstr "Snippets <span>%(snippet_type_name_plural)s</span>"
 #, python-format
 msgid "Add %(snippet_type_name)s"
 msgstr "%(snippet_type_name)s hinzufügen"
-
-#, python-format
-msgid ""
-"No %(snippet_type_name_plural)s have been created. Why not <a href="
-"\"%(wagtailsnippets_create_url)s\">add one</a>?"
-msgstr ""
-"Sie haben noch keine %(snippet_type_name_plural)s erstellt. <a href="
-"\"%(wagtailsnippets_create_url)s\">Erstellen Sie doch jetzt eins!</a>"
 
 #, python-format
 msgid "Usage of %(title)s"
@@ -137,8 +138,8 @@ msgstr "Auswählen %s"
 
 #, python-format
 msgid "Choose another %s"
-msgstr "Ein anderes auswählen %s"
+msgstr "Eine(n) andere(n) %s auswählen"
 
 #, python-format
 msgid "Edit this %s"
-msgstr "Dieses bearbeiten %s"
+msgstr "%s bearbeiten"

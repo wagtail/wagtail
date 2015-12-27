@@ -4,14 +4,15 @@
 #
 # Translators:
 # fonso <fonzzo@gmail.com>, 2015
+# José Alaguna <alagunajs@gmail.com>, 2015
 # Mauricio Baeza <web@mauriciobaeza.org>, 2014
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-08-26 14:28+0100\n"
-"PO-Revision-Date: 2015-08-26 13:37+0000\n"
-"Last-Translator: Karl Hobley <karl@torchbox.com>\n"
+"POT-Creation-Date: 2015-12-17 13:55+0000\n"
+"PO-Revision-Date: 2015-12-19 04:37+0000\n"
+"Last-Translator: José Alaguna <alagunajs@gmail.com>\n"
 "Language-Team: Spanish (http://www.transifex.com/torchbox/wagtail/language/"
 "es/)\n"
 "MIME-Version: 1.0\n"
@@ -31,6 +32,9 @@ msgstr "Sitio"
 
 msgid "Port"
 msgstr "Puerto"
+
+msgid "Site name"
+msgstr "Nombre del sitio"
 
 msgid "Root page"
 msgstr "Página inicial"

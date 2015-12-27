@@ -13,9 +13,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-08-26 14:28+0100\n"
-"PO-Revision-Date: 2015-12-07 14:29+0000\n"
-"Last-Translator: Tom Dyson <tom@torchbox.com>\n"
+"POT-Creation-Date: 2015-12-17 13:54+0000\n"
+"PO-Revision-Date: 2015-12-17 13:57+0000\n"
+"Last-Translator: mattwestcott <matthew@torchbox.com>\n"
 "Language-Team: French (http://www.transifex.com/torchbox/wagtail/language/"
 "fr/)\n"
 "MIME-Version: 1.0\n"
@@ -377,10 +377,6 @@ msgstr "Vous pouvez éditer la page ici:"
 msgid "The page \"%(page)s\" has been submitted for moderation"
 msgstr "La page \"%(page)s\" a été soumise pour modération"
 
-#, python-format
-msgid "The page \"%(page)s\" has been submitted for moderation."
-msgstr "La page \"%(page)s\" a été soumise pour modération."
-
 msgid "You can preview the page here:"
 msgstr "Vous pouvez prévisualiser la page ici:"
 
@@ -522,8 +518,8 @@ msgstr "Nouveau %(page_type)s"
 msgid "New"
 msgstr "Nouveau"
 
-msgid "Save as draft"
-msgstr "Enregistrer comme brouillon"
+msgid "Save draft"
+msgstr "Enregistrer le brouillon"
 
 msgid "Publish"
 msgstr "Publier"
@@ -541,9 +537,6 @@ msgstr "Modification de %(page_type)s <span>%(title)s</span>"
 
 msgid "Page locked"
 msgstr "Page vérouillée"
-
-msgid "Save draft"
-msgstr "Enregistrer le brouillon"
 
 #, python-format
 msgid "Last modified: %(last_mod)s"
@@ -633,18 +626,6 @@ msgstr "Sélectionner une nouvelle page parent à %(title)s"
 msgid "Select a new parent page for <span>%(title)s</span>"
 msgstr "Sélectionnez une nouvelle page parent pour <span>%(title)s</span>"
 
-msgid "Other searches"
-msgstr "Autres recherches"
-
-msgid "Images"
-msgstr "Images"
-
-msgid "Documents"
-msgstr "Documents"
-
-msgid "Users"
-msgstr "Utilisateurs"
-
 #, python-format
 msgid "Sorry, no pages match <em>\"%(query_string)s\"</em>"
 msgstr "Désolé, aucune page ne correspond à <em>\"%(query_string)s\"</em>"
@@ -730,6 +711,9 @@ msgstr "Se déconnecter"
 #, python-format
 msgid "Page %(page_num)s of %(total_pages)s."
 msgstr "Page %(page_num)s de %(total_pages)s."
+
+msgid "Other searches"
+msgstr "Autres recherches"
 
 msgid ""
 "You are using an <strong>outdated</strong> browser not supported by this "

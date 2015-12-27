@@ -10,13 +10,15 @@ from wagtail.wagtailadmin.utils import permission_required, any_permission_requi
 from wagtail.wagtailsearch.backends import get_search_backends
 from wagtail.wagtailadmin import messages
 
-from wagtail.wagtaildocs.models import Document
-from wagtail.wagtaildocs.forms import DocumentForm
+from wagtail.wagtaildocs.models import get_document_model
+from wagtail.wagtaildocs.forms import get_document_form
 
 
 @any_permission_required('wagtaildocs.add_document', 'wagtaildocs.change_document')
 @vary_on_headers('X-Requested-With')
 def index(request):
+    Document = get_document_model()
+
     # Get documents
     documents = Document.objects.all()
 
@@ -67,6 +69,9 @@ def index(request):
 
 @permission_required('wagtaildocs.add_document')
 def add(request):
+    Document = get_document_model()
+    DocumentForm = get_document_form(Document)
+
     if request.POST:
         doc = Document(uploaded_by_user=request.user)
         form = DocumentForm(request.POST, request.FILES, instance=doc)
@@ -92,6 +97,9 @@ def add(request):
 
 
 def edit(request, document_id):
+    Document = get_document_model()
+    DocumentForm = get_document_form(Document)
+
     doc = get_object_or_404(Document, id=document_id)
 
     if not doc.is_editable_by_user(request.user):
@@ -146,6 +154,7 @@ def edit(request, document_id):
 
 
 def delete(request, document_id):
+    Document = get_document_model()
     doc = get_object_or_404(Document, id=document_id)
 
     if not doc.is_editable_by_user(request.user):
@@ -162,6 +171,7 @@ def delete(request, document_id):
 
 
 def usage(request, document_id):
+    Document = get_document_model()
     doc = get_object_or_404(Document, id=document_id)
 
     paginator, used_by = paginate(request, doc.get_usage())

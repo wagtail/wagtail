@@ -8,9 +8,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-08-26 14:28+0100\n"
-"PO-Revision-Date: 2015-10-20 02:27+0000\n"
-"Last-Translator: Ji Han Chung <jihanchung20@gmail.com>\n"
+"POT-Creation-Date: 2015-12-17 13:55+0000\n"
+"PO-Revision-Date: 2015-12-17 13:59+0000\n"
+"Last-Translator: mattwestcott <matthew@torchbox.com>\n"
 "Language-Team: Korean (http://www.transifex.com/torchbox/wagtail/language/"
 "ko/)\n"
 "MIME-Version: 1.0\n"
@@ -19,30 +19,12 @@ msgstr ""
 "Language: ko\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
-msgid "Redirect from"
-msgstr "리다이렉트 출처"
-
-msgid "Site"
-msgstr "사이트"
-
-msgid "Permanent"
-msgstr "영구적"
-
 msgid ""
 "Recommended. Permanent redirects ensure search engines forget the old page "
 "(the 'Redirect from') and index the new page instead."
 msgstr ""
 "권장사항입니다. 영구적인 리다이렉트는 검색 엔진이 오래된 페이지('리다이렉트 "
 "출처')를 찾지 않도록 하며, 대신 새로운 페이지를 검색 하도록 합니다."
-
-msgid "Redirect to a page"
-msgstr "페이지로 리다이렉트"
-
-msgid "Redirect to any URL"
-msgstr "어떠한 URL로도 리다이렉트"
-
-msgid "Redirect"
-msgstr "리다이렉트"
 
 msgid "Add redirect"
 msgstr "리다이렉트 추가"
@@ -78,6 +60,9 @@ msgstr "리다이렉트"
 
 msgid "From"
 msgstr "로부터"
+
+msgid "Site"
+msgstr "사이트"
 
 msgid "To"
 msgstr "에게"

@@ -1,0 +1,81 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# dellax <michalnebbia@gmail.com>, 2015
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2015-12-17 13:54+0000\n"
+"PO-Revision-Date: 2015-12-17 13:58+0000\n"
+"Last-Translator: mattwestcott <matthew@torchbox.com>\n"
+"Language-Team: Slovak (Slovakia) (http://www.transifex.com/torchbox/wagtail/"
+"language/sk_SK/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: sk_SK\n"
+"Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
+
+msgid "site"
+msgstr "stránka"
+
+msgid "sites"
+msgstr "stránky"
+
+msgid "The page title as you'd like it to be seen by the public"
+msgstr "Titulok stránky ktorý budú vidieť ostatní návštevníci"
+
+msgid ""
+"The name of the page as it will appear in URLs e.g http://domain.com/blog/"
+"[my-slug]/"
+msgstr ""
+"Názov ktorý sa bude zobrazovať v adrese URL napríklad.  http://domain.com/"
+"blog/[my-slug]/"
+
+msgid "live"
+msgstr "live"
+
+msgid ""
+"Optional. 'Search Engine Friendly' title. This will appear at the top of the "
+"browser window."
+msgstr ""
+"Voliteľné. Titulok pre vyhľadávače. Toto sa zobrazí navrchu okna prehliadača."
+
+msgid "Please add a date-time in the form YYYY-MM-DD hh:mm."
+msgstr "Prosím pridajte dátum-čas vo formáte YYYY-MM-DD hh:mm."
+
+msgid "scheduled"
+msgstr "naplánované"
+
+msgid "draft"
+msgstr "koncept"
+
+msgid "live + draft"
+msgstr "live  + koncept"
+
+msgid "Default"
+msgstr "Predvolené"
+
+msgid "page"
+msgstr "stránka"
+
+msgid "pages"
+msgstr "stránky"
+
+msgid "page revision"
+msgstr "revízia stránky"
+
+msgid "page revisions"
+msgstr "revízie stránky"
+
+msgid "Add/edit pages you own"
+msgstr "Pridať/upraviť stránky ktoré vlastníte"
+
+msgid "Publish any page"
+msgstr "Publikovať akúkoľvek stránku"
+
+msgid "Lock/unlock any page"
+msgstr "Zamknúť/uzamknúť akúkoľvek stránku"

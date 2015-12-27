@@ -8,9 +8,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-08-26 14:28+0100\n"
-"PO-Revision-Date: 2015-12-08 15:23+0000\n"
-"Last-Translator: Maris Serzans <maris.serzans@gmail.com>\n"
+"POT-Creation-Date: 2015-12-17 13:54+0000\n"
+"PO-Revision-Date: 2015-12-17 13:58+0000\n"
+"Last-Translator: mattwestcott <matthew@torchbox.com>\n"
 "Language-Team: Latvian (http://www.transifex.com/torchbox/wagtail/language/"
 "lv/)\n"
 "MIME-Version: 1.0\n"
@@ -20,21 +20,6 @@ msgstr ""
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n != 0 ? 1 : "
 "2);\n"
 
-msgid "Title"
-msgstr "Virsraksts"
-
-msgid "File"
-msgstr "Fails"
-
-msgid "Created at"
-msgstr "Izveidots"
-
-msgid "Uploaded by user"
-msgstr "Lietotāja augšupielāde"
-
-msgid "Document"
-msgstr "Dokuments"
-
 msgid "Choose a document"
 msgstr "Izvēlēties dokumentu"
 
@@ -43,9 +28,6 @@ msgstr "Meklēt"
 
 msgid "Upload"
 msgstr "Augšupielādēt"
-
-msgid "Save"
-msgstr "Saglabāt"
 
 msgid "Latest documents"
 msgstr "Jaunākie dokumenti"
@@ -79,6 +61,9 @@ msgstr "Labo %(title)s"
 msgid "Editing"
 msgstr "Labošana"
 
+msgid "Save"
+msgstr "Saglabāt"
+
 msgid "Filesize"
 msgstr "Faila izmērs"
 
@@ -87,6 +72,12 @@ msgstr "Fails netika atrasts"
 
 msgid "Documents"
 msgstr "Dokumenti"
+
+msgid "Title"
+msgstr "Virsraksts"
+
+msgid "File"
+msgstr "Fails"
 
 msgid "Uploaded"
 msgstr "Augšupielādēts"

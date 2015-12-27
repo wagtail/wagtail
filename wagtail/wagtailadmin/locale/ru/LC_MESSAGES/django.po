@@ -16,8 +16,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-08-26 14:28+0100\n"
-"PO-Revision-Date: 2015-12-06 04:22+0000\n"
+"POT-Creation-Date: 2015-12-17 13:54+0000\n"
+"PO-Revision-Date: 2015-12-17 18:44+0000\n"
 "Last-Translator: Eugene MechanisM <contact@mechanism.name>\n"
 "Language-Team: Russian (http://www.transifex.com/torchbox/wagtail/language/"
 "ru/)\n"
@@ -40,6 +40,9 @@ msgstr "Поиск"
 
 msgid "Search term"
 msgstr "Критерий поиска"
+
+msgid "URL"
+msgstr "URL"
 
 msgid "Enter password"
 msgstr "Введите пароль"
@@ -299,6 +302,10 @@ msgstr "Вставить ссылку"
 msgid "Add an external link"
 msgstr "Добавить внешнюю ссылку"
 
+#, python-format
+msgid "Add %(heading)s"
+msgstr "Добавить %(heading)s"
+
 msgid "Yes, delete"
 msgstr "Да, удалить"
 
@@ -313,8 +320,8 @@ msgid ""
 "This is your dashboard on which helpful information about content you've "
 "created will be displayed."
 msgstr ""
-"Это ваша панель управления, на которой будет отображаться полезная "
-"информация о контенте, который вы создали."
+"Это ваша панель управления, на ней отображается полезная информация о "
+"созданном вами контенте."
 
 msgid "Pages awaiting moderation"
 msgstr "Страницы ожидающие модерации"
@@ -403,16 +410,22 @@ msgstr "Войти в Wagtail"
 msgid "Forgotten it?"
 msgstr "Забыли его?"
 
+msgid "Signing in..."
+msgstr "Выполняется вход..."
+
 #, python-format
 msgid "The page \"%(title)s\" has been approved"
-msgstr "Страница \"%(title)s\" успешно прошла модерацию"
+msgstr "Страница \"%(title)s\" была утверждена"
 
 #, python-format
 msgid "The page \"%(title)s\" has been approved."
-msgstr "Страница \"%(title)s\" успешно прошла модерацию."
+msgstr "Страница \"%(title)s\" была утверждена."
 
 msgid "You can view the page here:"
 msgstr "Вы можете посмотреть страницу здесь:"
+
+msgid "Hello"
+msgstr "Привет"
 
 msgid "Edit your notification preferences here:"
 msgstr "Редактировать ваши настройки уведомления здесь:"
@@ -433,8 +446,9 @@ msgid "The page \"%(page)s\" has been submitted for moderation"
 msgstr "Страница \"%(page)s\" была отправлена на модерацию"
 
 #, python-format
-msgid "The page \"%(page)s\" has been submitted for moderation."
-msgstr "Страница \"%(page)s\" была отправлена на модерацию."
+msgid "The page \"%(page)s\" has been submitted for moderation by %(editor)s."
+msgstr ""
+"Страница \"%(page)s\" была отправлена на модерацию пользователем %(editor)s."
 
 msgid "You can preview the page here:"
 msgstr "Вы можете предварительно просмотреть страницу здесь:"
@@ -515,14 +529,14 @@ msgid ""
 "view and you can edit or publish it again later."
 msgstr ""
 "Как вариант, вы можете снять с публикации эту страницу. Это скроет страницу "
-"от публичного просмотра и вы сможете отредактировать и опубликовать ее снова "
-"позже."
+"от публичного просмотра и позже вы сможете отредактировать и опубликовать её "
+"снова."
 
 msgid "Delete it"
-msgstr "Удалить это"
+msgstr "Удалить"
 
 msgid "Unpublish it"
-msgstr "Снять это с публикации"
+msgstr "Снять с публикации"
 
 #, python-format
 msgid "Move %(title)s"
@@ -540,7 +554,7 @@ msgid ""
 "Are you sure you want to move this page and all of its children into "
 "'%(title)s'?"
 msgstr ""
-"Вы уверены, что хотите переместить эту страницу и все ее дочерние страницы в "
+"Вы уверены, что хотите переместить эту страницу и все её дочерние страницы в "
 "'%(title)s'?"
 
 msgid "Yes, move this page"
@@ -574,13 +588,19 @@ msgstr "Копировать эту страницу"
 
 #, python-format
 msgid "New %(page_type)s"
-msgstr "Новая %(page_type)s"
+msgstr "Добавление %(page_type)s"
 
 msgid "New"
 msgstr "Новый"
 
-msgid "Save as draft"
-msgstr "Сохранить как черновик"
+msgid "Saving..."
+msgstr "Сохранение..."
+
+msgid "Save draft"
+msgstr "Сохранить черновик"
+
+msgid "Publishing..."
+msgstr "Публикация..."
 
 msgid "Publish"
 msgstr "Опубликовать"
@@ -599,9 +619,6 @@ msgstr "Редактирование %(page_type)s <span>%(title)s</span>"
 msgid "Page locked"
 msgstr "Страница заблокирована"
 
-msgid "Save draft"
-msgstr "Сохранить черновик"
-
 #, python-format
 msgid "Last modified: %(last_mod)s"
 msgstr "Последние изменения: %(last_mod)s"
@@ -619,6 +636,69 @@ msgstr "Перетянуть"
 
 msgid "Updated"
 msgstr "Обновлено"
+
+msgid ""
+"\n"
+"                            The root level is where you can add new sites to "
+"your Wagtail installation. Pages created here will not be accessible at any "
+"URL until they are associated with a site.\n"
+"                        "
+msgstr ""
+"\n"
+"Корневой уровень на котором вы можете добавлять новые сайты Wagtail. "
+"Страницы созданные здесь не будут иметь адрес для просмотра, пока они не "
+"будут связаны с сайтом.\n"
+"                        "
+
+msgid "Configure a site now."
+msgstr "Настроить сайт."
+
+msgid ""
+"\n"
+"                            If you just want to add pages to an existing "
+"site, create them as children of the homepage instead.\n"
+"                        "
+msgstr ""
+"\n"
+"Если вы хотите добавить страницы к существующему сайту, создайте их как "
+"дочерние страницы для главной страницы.\n"
+"                        "
+
+msgid ""
+"\n"
+"                        Pages created here will not be accessible at any "
+"URL. To add pages to an existing site, create them as children of the "
+"homepage.\n"
+"                    "
+msgstr ""
+"\n"
+"Страницы созданные здесь не будут иметь адрес для просмотра. Чтобы добавить "
+"страницы к существующему сайту, создайте их как дочерние для главной "
+"страницы.\n"
+"                    "
+
+msgid ""
+"\n"
+"                        There is no site set up for this location. Pages "
+"created here will not be accessible at any URL until a site is associated "
+"with this location.\n"
+"                    "
+msgstr ""
+"\n"
+"Для этого адреса не настроен сайт. Страницы созданные здесь не будут иметь "
+"адрес для просмотра, пока они не будут связаны с этим расположением.\n"
+"                    "
+
+msgid ""
+"\n"
+"                        There is no site record for this location. Pages "
+"created here will not be accessible at any URL.\n"
+"                    "
+msgstr ""
+"\n"
+"Нет сайтов для этого адреса. Страницы созданные здесь не будут иметь адрес "
+"для просмотра.\n"
+"                    "
 
 msgid "No pages have been created at this location."
 msgstr "В этом расположении не было создано страниц."
@@ -652,8 +732,8 @@ msgid ""
 "This page is published but does not exist within a configured Site, so "
 "cannot be viewed."
 msgstr ""
-"Эта страница опубликована, но не закреплена за сконфигурированным Сайтом, "
-"поэтому не может быть просмотрена."
+"Эта страница опубликована, но не закреплена за Сайтом, поэтому не может быть "
+"просмотрена."
 
 msgid "Add child page"
 msgstr "Добавить дочернюю страницу"
@@ -665,7 +745,7 @@ msgid ""
 "    "
 msgstr ""
 "\n"
-"        Страница %(page_number)s из %(num_pages)s.\n"
+"Страница %(page_number)s из %(num_pages)s.\n"
 "    "
 
 msgid "Previous"
@@ -716,18 +796,6 @@ msgstr[3] ""
 "\n"
 "Есть %(counter)s совпадающих страниц\n"
 "            "
-
-msgid "Other searches"
-msgstr "Другие поиски"
-
-msgid "Images"
-msgstr "Изображения"
-
-msgid "Documents"
-msgstr "Документы"
-
-msgid "Users"
-msgstr "Пользователи"
 
 #, python-format
 msgid "Sorry, no pages match <em>\"%(query_string)s\"</em>"
@@ -818,6 +886,9 @@ msgstr "Выйти"
 msgid "Page %(page_num)s of %(total_pages)s."
 msgstr "Страница %(page_num)s из %(total_pages)s."
 
+msgid "Other searches"
+msgstr "Другие поиски"
+
 msgid ""
 "You are using an <strong>outdated</strong> browser not supported by this "
 "software. Please <a href=\"http://browsehappy.com/\">upgrade your browser</"
@@ -841,6 +912,9 @@ msgstr "Добавить дочернюю страницу"
 
 msgid "Add"
 msgstr "Добавить"
+
+msgid "Test"
+msgstr "Тест"
 
 msgid "Sorry, you do not have permission to access this area."
 msgstr "Извините, но у вас нет прав для доступа в это место."
@@ -947,6 +1021,9 @@ msgstr "Страница '{0}' заблокирована."
 #, python-brace-format
 msgid "Page '{0}' is now unlocked."
 msgstr "Страница '{0}' разблокирована."
+
+msgid "Pages"
+msgstr "Страницы"
 
 msgid "Choose an item"
 msgstr "Выбрать элемент"

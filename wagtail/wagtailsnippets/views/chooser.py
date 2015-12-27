@@ -1,23 +1,21 @@
 import json
 
 from django.core.urlresolvers import reverse
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import get_object_or_404, render
 from django.utils.six import text_type
 from django.utils.translation import ugettext as _
 
 from wagtail.utils.pagination import paginate
-from wagtail.wagtailadmin.modal_workflow import render_modal_workflow
 from wagtail.wagtailadmin.forms import SearchForm
-from wagtail.wagtailsearch.index import class_is_indexed
+from wagtail.wagtailadmin.modal_workflow import render_modal_workflow
 from wagtail.wagtailsearch.backends import get_search_backend
+from wagtail.wagtailsearch.index import class_is_indexed
+from wagtail.wagtailsnippets.views.snippets import \
+    get_snippet_model_from_url_params
 
-from wagtail.wagtailsnippets.views.snippets import get_content_type_from_url_params, get_snippet_type_name
 
-
-def choose(request, content_type_app_name, content_type_model_name):
-    content_type = get_content_type_from_url_params(content_type_app_name, content_type_model_name)
-    model = content_type.model_class()
-    snippet_type_name, snippet_type_name_plural = get_snippet_type_name(content_type)
+def choose(request, app_label, model_name):
+    model = get_snippet_model_from_url_params(app_label, model_name)
 
     items = model.objects.all()
 
@@ -27,7 +25,7 @@ def choose(request, content_type_app_name, content_type_model_name):
     search_query = None
     if is_searchable and 'q' in request.GET:
         search_form = SearchForm(request.GET, placeholder=_("Search %(snippet_type_name)s") % {
-            'snippet_type_name': snippet_type_name_plural
+            'snippet_type_name': model._meta.verbose_name
         })
 
         if search_form.is_valid():
@@ -39,7 +37,7 @@ def choose(request, content_type_app_name, content_type_model_name):
 
     else:
         search_form = SearchForm(placeholder=_("Search %(snippet_type_name)s") % {
-            'snippet_type_name': snippet_type_name_plural
+            'snippet_type_name': model._meta.verbose_name
         })
 
     # Pagination
@@ -48,8 +46,7 @@ def choose(request, content_type_app_name, content_type_model_name):
     # If paginating or searching, render "results.html"
     if request.GET.get('results', None) == 'true':
         return render(request, "wagtailsnippets/chooser/results.html", {
-            'content_type': content_type,
-            'snippet_type_name': snippet_type_name,
+            'model_opts': model._meta,
             'items': paginated_items,
             'query_string': search_query,
             'is_searching': is_searching,
@@ -59,8 +56,7 @@ def choose(request, content_type_app_name, content_type_model_name):
         request,
         'wagtailsnippets/chooser/choose.html', 'wagtailsnippets/chooser/choose.js',
         {
-            'content_type': content_type,
-            'snippet_type_name': snippet_type_name,
+            'model_opts': model._meta,
             'items': paginated_items,
             'is_searchable': is_searchable,
             'search_form': search_form,
@@ -70,15 +66,15 @@ def choose(request, content_type_app_name, content_type_model_name):
     )
 
 
-def chosen(request, content_type_app_name, content_type_model_name, id):
-    content_type = get_content_type_from_url_params(content_type_app_name, content_type_model_name)
-    model = content_type.model_class()
+def chosen(request, app_label, model_name, id):
+    model = get_snippet_model_from_url_params(app_label, model_name)
     item = get_object_or_404(model, id=id)
 
     snippet_json = json.dumps({
         'id': item.id,
         'string': text_type(item),
-        'edit_link': reverse('wagtailsnippets:edit', args=(content_type_app_name, content_type_model_name, item.id,))
+        'edit_link': reverse('wagtailsnippets:edit', args=(
+            app_label, model_name, item.id))
     })
 
     return render_modal_workflow(

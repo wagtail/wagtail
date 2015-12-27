@@ -12,9 +12,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-08-26 14:28+0100\n"
-"PO-Revision-Date: 2015-08-26 13:37+0000\n"
-"Last-Translator: Karl Hobley <karl@torchbox.com>\n"
+"POT-Creation-Date: 2015-12-17 13:54+0000\n"
+"PO-Revision-Date: 2015-12-17 13:59+0000\n"
+"Last-Translator: mattwestcott <matthew@torchbox.com>\n"
 "Language-Team: Greek (http://www.transifex.com/torchbox/wagtail/language/"
 "el/)\n"
 "MIME-Version: 1.0\n"
@@ -76,21 +76,6 @@ msgstr "Υψος"
 
 msgid "Closeness"
 msgstr "Εγγύτητα"
-
-msgid "Title"
-msgstr "Τίτλος"
-
-msgid "File"
-msgstr "Αρχείο"
-
-msgid "Created at"
-msgstr "Δημιουργήθηκε την"
-
-msgid "Uploaded by user"
-msgstr "Ανεβασμένο από χρήστη"
-
-msgid "Tags"
-msgstr "Ετικέτες"
 
 msgid "Choose an image"
 msgstr "Επιλέξατε εικόνα"
@@ -240,6 +225,9 @@ msgstr "Χρήση του  %(title)s"
 
 msgid "Usage of"
 msgstr "Χρήση του "
+
+msgid "Title"
+msgstr "Τίτλος"
 
 msgid "Parent"
 msgstr "Πατρική"

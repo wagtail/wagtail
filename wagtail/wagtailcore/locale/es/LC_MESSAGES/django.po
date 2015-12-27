@@ -15,8 +15,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-09-02 20:07+0100\n"
-"PO-Revision-Date: 2015-09-03 02:46+0000\n"
+"POT-Creation-Date: 2015-12-17 13:54+0000\n"
+"PO-Revision-Date: 2015-12-19 04:49+0000\n"
 "Last-Translator: José Alaguna <alagunajs@gmail.com>\n"
 "Language-Team: Spanish (http://www.transifex.com/torchbox/wagtail/language/"
 "es/)\n"
@@ -26,11 +26,11 @@ msgstr ""
 "Language: es\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-msgid "Hostname"
-msgstr "Nombre del host"
+msgid "hostname"
+msgstr "nombre del host"
 
-msgid "Port"
-msgstr "Puerto"
+msgid "port"
+msgstr "puerto"
 
 msgid ""
 "Set this to something other than 80 if you need a specific port number to "
@@ -42,11 +42,17 @@ msgstr ""
 "afecta al manejo de solicitudes (así que la redirección de puertos sigue "
 "funcionando)."
 
-msgid "Root page"
-msgstr "Página raíz"
+msgid "site name"
+msgstr "nombre del sitio"
 
-msgid "Is default site"
-msgstr "Es sitio por defecto"
+msgid "Human-readable name for the site."
+msgstr "Nombre del sitio legíble para usuarios"
+
+msgid "root page"
+msgstr "página raíz"
+
+msgid "is default site"
+msgstr "es sitio por defecto"
 
 msgid ""
 "If true, this site will handle requests for all other hostnames that do not "
@@ -69,14 +75,14 @@ msgstr ""
 "%(hostname)s está seleccionado como sitio por defecto. Debe desactivarlo "
 "antes de poder seleccionar este sitio por defecto."
 
-msgid "Title"
+msgid "title"
 msgstr "Título"
 
 msgid "The page title as you'd like it to be seen by the public"
 msgstr "El título de la página como quieres que sea visto por el público"
 
-msgid "Slug"
-msgstr "Marca"
+msgid "slug"
+msgstr "marquilla"
 
 msgid ""
 "The name of the page as it will appear in URLs e.g http://domain.com/blog/"
@@ -85,23 +91,23 @@ msgstr ""
 "El nombre de la página tal como aparecerá en URLs p.ej. http://domain.com/"
 "blog/[my-slug]/"
 
-msgid "Content type"
-msgstr "Tipo de contenido"
+msgid "content type"
+msgstr "tipo de contenido"
 
-msgid "Live"
-msgstr "En vivo"
+msgid "live"
+msgstr "Ver en vivo"
 
-msgid "Has unpublished changes"
-msgstr "Tiene cambios no publicados"
+msgid "has unpublished changes"
+msgstr "tiene cambios no publicados"
 
 msgid "URL path"
 msgstr "Dirección URL"
 
-msgid "Owner"
-msgstr "Propietario"
+msgid "owner"
+msgstr "propietario"
 
-msgid "Page title"
-msgstr "Título de la página"
+msgid "page title"
+msgstr "título de la página"
 
 msgid ""
 "Optional. 'Search Engine Friendly' title. This will appear at the top of the "
@@ -110,39 +116,36 @@ msgstr ""
 "Opcional. Título 'Amigable para el Motor de Búsqueda'. Aparecerá en la parte "
 "superior de la ventana del navegador."
 
-msgid "Show in menus"
-msgstr "Mostrar en los menús"
+msgid "show in menus"
+msgstr "monstrar en menús"
 
 msgid ""
 "Whether a link to this page will appear in automatically generated menus"
 msgstr "Un enlace a esta página aparecerá en menús generados automáticamente"
 
-msgid "Search description"
-msgstr "Descripción para búsquedas"
+msgid "search description"
+msgstr "descripción para búsqueda"
 
-msgid "Go live date/time"
-msgstr "Ir en vivo fecha/hora"
+msgid "go live date/time"
+msgstr "fecha/hora ir en vivo"
 
 msgid "Please add a date-time in the form YYYY-MM-DD hh:mm."
 msgstr "Por favor añada una fecha-hora con el formato YYYY-MM-DD hh:mm:ss."
 
-msgid "Expiry date/time"
-msgstr "Fecha/hora de expiración"
-
-msgid "Expired"
-msgstr "Expirado"
-
-msgid "Locked"
-msgstr "Bloqueado"
-
-msgid "First published at"
-msgstr "Publicado por primera vez a las "
-
-msgid "Latest revision created at"
-msgstr "Última revisión creada a las "
+msgid "expiry date/time"
+msgstr "fecha/hora de experiación"
 
 msgid "expired"
 msgstr "Expiró"
+
+msgid "locked"
+msgstr "bloqueado"
+
+msgid "first published at"
+msgstr "Publicado por primera vez a las"
+
+msgid "latest revision created at"
+msgstr "última revisión creada a las"
 
 msgid "scheduled"
 msgstr "Agendado"
@@ -153,9 +156,6 @@ msgstr "Borrador"
 msgid "live + draft"
 msgstr "Ver borrador"
 
-msgid "live"
-msgstr "Ver en vivo"
-
 msgid "Default"
 msgstr "Predeterminado"
 
@@ -165,23 +165,20 @@ msgstr "página"
 msgid "pages"
 msgstr "páginas"
 
-msgid "Page"
-msgstr "Página"
+msgid "submitted for moderation"
+msgstr "enviado para moderación"
 
-msgid "Submitted for moderation"
-msgstr "Enviado para moderación"
+msgid "created at"
+msgstr "creado el"
 
-msgid "Created at"
-msgstr "Creado a las"
+msgid "user"
+msgstr "usuario"
 
-msgid "User"
-msgstr "Usuario"
+msgid "content JSON"
+msgstr "contenido JSON"
 
-msgid "Content JSON"
-msgstr "Contenido JSON"
-
-msgid "Approved go live at"
-msgstr "Aprobado para publicación"
+msgid "approved go live at"
+msgstr "aprovado para publicación a las"
 
 msgid "page revision"
 msgstr "revisión de página"
@@ -201,11 +198,11 @@ msgstr "Publicar cualquier página"
 msgid "Lock/unlock any page"
 msgstr "Bloquear/desbloquear cualquier página"
 
-msgid "Group"
-msgstr "Grupo"
+msgid "group"
+msgstr "grupo"
 
-msgid "Permission type"
-msgstr "Tipo de permiso"
+msgid "permission type"
+msgstr "tipo de permiso"
 
 msgid "group page permission"
 msgstr "grupo de permisos de página"
@@ -213,14 +210,11 @@ msgstr "grupo de permisos de página"
 msgid "group page permissions"
 msgstr "grupos de permisos de páginas"
 
-msgid "Password"
-msgstr "Contraseña"
+msgid "password"
+msgstr "contraseña"
 
 msgid "page view restriction"
 msgstr "restricción de vista de página"
 
 msgid "page view restrictions"
 msgstr "restricciones de vista de página"
-
-msgid "Value cannot be entirely whitespace characters"
-msgstr "El valor no puede consistir enteramente en espacios en blanco"

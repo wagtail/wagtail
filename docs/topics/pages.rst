@@ -440,45 +440,38 @@ This is because ``Page`` enforces ordering QuerySets by path. Instead you must a
 
     news_items = NewsItemPage.objects.live().order_by('-publication_date')
 
-Page custom managers
+Custom Page managers
 --------------------
 
-``Page`` enforces its own 'objects' manager in its ``__init__`` method, so you cannot add a custom manager at the 'objects' attribute.
+You can add a custom Manager to your ``Page`` class. Any custom ``Manager``\s should inherit from :class:`wagtail.wagtailcore.models.PageManager`:
 
 .. code-block:: python
 
-    class EventPageQuerySet(PageQuerySet):
+    from django.db import models
+    from wagtail.wagtailcore.models import Page, PageManager
 
-        def future(self):
-            return self.filter(
-                start_date__gte=timezone.localtime(timezone.now()).date()
-            )
+    class EventPageManager(PageManager):
+        """ Custom manager for Event pages """
 
     class EventPage(Page):
         start_date = models.DateField()
 
-        objects = EventPageQuerySet.as_manager()  # will not work
+        objects = EventPageManager()
 
-To use a custom manager you must choose a different attribute name. Make sure to subclass ``wagtail.wagtailcore.models.PageManager``.
+Alternately, if you only need to add extra ``QuerySet`` methods, you can inherit from :class:`wagtail.wagtailcore.models.PageQuerySet`, and call :func:`~django.db.models.managers.Manager.from_queryset` to build a custom ``Manager``:
 
 .. code-block:: python
 
     from django.db import models
     from django.utils import timezone
-    from wagtail.wagtailcore.models import Page, PageManager
+    from wagtail.wagtailcore.models import Page, PageManager, PageQuerySet
 
-
-    class FutureEventPageManager(PageManager):
-
-        def get_queryset(self):
-            return super().get_queryset().filter(
-                start_date__gte=timezone.localtime(timezone.now()).date()
-            )
-
+    class EventPageQuerySet(PageQuerySet):
+        def future(self):
+            today = timezone.localtime(timezone.now()).date()
+            return self.filter(start_date__gte=today)
 
     class EventPage(Page):
         start_date = models.DateField()
 
-        future_events = FutureEventPageManager()
-
-Then you can use ``EventPage.future_events`` in the manner you might expect.
+        objects = PageManager.from_queryset(EventQuerySet)

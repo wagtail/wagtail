@@ -10,9 +10,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-08-26 14:28+0100\n"
-"PO-Revision-Date: 2015-09-11 16:31+0000\n"
-"Last-Translator: Mateusz <undefined5102@gmail.com>\n"
+"POT-Creation-Date: 2015-12-17 13:54+0000\n"
+"PO-Revision-Date: 2015-12-17 13:57+0000\n"
+"Last-Translator: mattwestcott <matthew@torchbox.com>\n"
 "Language-Team: Polish (http://www.transifex.com/torchbox/wagtail/language/"
 "pl/)\n"
 "MIME-Version: 1.0\n"
@@ -361,10 +361,6 @@ msgstr "Możesz edytować stronę tutaj:"
 msgid "The page \"%(page)s\" has been submitted for moderation"
 msgstr "Strona \"%(page)s\" została przekazana do przeglądu"
 
-#, python-format
-msgid "The page \"%(page)s\" has been submitted for moderation."
-msgstr "Strona \"%(page)s\" została przekazana do przeglądu."
-
 msgid "You can preview the page here:"
 msgstr "Możesz podejrzeć stronę tutaj:"
 
@@ -512,8 +508,8 @@ msgstr "Nowa %(page_type)s"
 msgid "New"
 msgstr "Nowy"
 
-msgid "Save as draft"
-msgstr "Zapisz jako szkic"
+msgid "Save draft"
+msgstr "Zapisz szkic"
 
 msgid "Publish"
 msgstr "Opublikuj"
@@ -523,9 +519,6 @@ msgstr "Przekaż do przeglądu"
 
 msgid "Page locked"
 msgstr "Strona zablokowana"
-
-msgid "Save draft"
-msgstr "Zapisz szkic"
 
 #, python-format
 msgid "Last modified: %(last_mod)s"
@@ -631,18 +624,6 @@ msgstr[2] ""
 "\n"
 "Znaleziono %(counter)s pasujących stron"
 
-msgid "Other searches"
-msgstr "Inne wyszukiwania"
-
-msgid "Images"
-msgstr "Obrazy"
-
-msgid "Documents"
-msgstr "Dokumenty"
-
-msgid "Users"
-msgstr "Użytkownicy"
-
 #, python-format
 msgid "Sorry, no pages match <em>\"%(query_string)s\"</em>"
 msgstr "Przepraszamy, żadna strona nie pasuje do <em>\"%(query_string)s\"</em>"
@@ -729,6 +710,9 @@ msgstr "Wyloguj się"
 #, python-format
 msgid "Page %(page_num)s of %(total_pages)s."
 msgstr "Strona %(page_num)s z %(total_pages)s."
+
+msgid "Other searches"
+msgstr "Inne wyszukiwania"
 
 msgid "Javascript is required to use Wagtail, but it is currently disabled"
 msgstr ""
