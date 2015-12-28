@@ -37,6 +37,21 @@ def create_admin_access_permissions(apps, schema_editor):
         group.permissions.add(admin_permission)
 
 
+def remove_admin_access_permissions(apps, schema_editor):
+    """Reverse the above additions of permissions."""
+    ContentType = apps.get_model('contenttypes.ContentType')
+    Permission = apps.get_model('auth.Permission')
+    wagtailadmin_content_type = ContentType.objects.get(
+        app_label='wagtailadmin',
+        model='admin',
+    )
+    # This cascades to Group
+    Permission.objects.filter(
+        content_type=wagtailadmin_content_type,
+        codename='access_admin',
+    ).delete()
+
+
 class Migration(migrations.Migration):
 
     dependencies = [
@@ -45,5 +60,5 @@ class Migration(migrations.Migration):
     ]
 
     operations = [
-        migrations.RunPython(create_admin_access_permissions),
+        migrations.RunPython(create_admin_access_permissions, remove_admin_access_permissions),
     ]
