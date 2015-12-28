@@ -28,17 +28,7 @@ With your preferred virtualenv activated, install the Wagtail package in develop
 
     python setup.py develop
 
-Install the tool chain for building static assets:
-
-.. code-block:: sh
-
-    npm install
-
-Compile the assets:
-
-.. code-block:: sh
-
-    npm run build
+Remember to build static assets before you can run a live test (see: :ref:`compiling-static`).
 
 Any Wagtail sites you start up in this virtualenv will now run against this development instance of Wagtail. We recommend using the `Wagtail demo site <https://github.com/torchbox/wagtaildemo/>`_ as a basis for developing Wagtail.
 
@@ -103,6 +93,8 @@ If your Elasticsearch instance is located somewhere else, you can set the
 ``ELASTICSEARCH_URL`` environment variable to point to its location::
 
     ELASTICSEARCH_URL=http://my-elasticsearch-instance:9200 python runtests.py --elasticsearch
+
+.. _compiling-static:
 
 Compiling static assets
 ~~~~~~~~~~~~~~~~~~~~~~~
