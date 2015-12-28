@@ -42,6 +42,11 @@ def remove_duplicate_renditions(apps, schema_editor):
         """)
 
 
+def reverse_remove_duplicate_renditions(*args, **kwargs):
+    """This is a no-op. The migration removes duplicates, we cannot recreate those duplicates."""
+    pass
+
+
 class Migration(migrations.Migration):
 
     dependencies = [
@@ -49,7 +54,7 @@ class Migration(migrations.Migration):
     ]
 
     operations = [
-        migrations.RunPython(remove_duplicate_renditions),
+        migrations.RunPython(remove_duplicate_renditions, reverse_remove_duplicate_renditions),
 
         migrations.AlterField(
             model_name='rendition',
