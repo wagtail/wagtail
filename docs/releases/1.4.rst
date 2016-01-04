@@ -23,7 +23,6 @@ Bug fixes
 ~~~~~~~~~
 
  * Custom page managers no longer raise an error when used on an abstract model
- * Wagtail's migrations are now all reversible (benjaoming)
 
 
 Upgrade considerations

@@ -93,7 +93,6 @@ Contributors
 * Rich Atkinson
 * jnns
 * Eugene MechanisM
-* benjaoming
 
 
 Translators
