@@ -1,3 +1,5 @@
+# The scripts for building the base images can be found in scripts/drone-images
+
 build:
   flake8:
     image: wagtail-flake8
