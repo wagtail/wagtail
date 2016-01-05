@@ -1,6 +1,6 @@
 from collections import OrderedDict
 
-from wagtail.api.shared.utils import get_full_url
+from wagtail.api.v2.utils import get_full_url
 from wagtail.api.v2.serializers import (
     PageMetaField, PageSerializer,
     MetaField, ImageSerializer,
