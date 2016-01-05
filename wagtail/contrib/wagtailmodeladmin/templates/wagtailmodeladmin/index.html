@@ -46,9 +46,6 @@
     {% endblock %}
 
     <div id="result_list" class="{% if view.has_filters and all_count %}col9{% else %}col12{% endif %}">
-
-        
-
         {% block result_list %}
             {% if not all_count %}
                 <div class="nice-padding" style="margin-top:30px;">
@@ -74,7 +71,7 @@
    
     {% block pagination %}
         <div class="pagination {% if view.has_filters and all_count %}col9{% else %}col12{% endif %}">
-            <p>Page {{ page_obj.number }} of {{ paginator.num_pages }}.</p>
+            <p>{% blocktrans with page_obj.number as current_page and paginator.num_pages as num_pages %}Page {{ current_page }} of {{ num_pages }}.{% endblocktrans %}</p>
             {% if paginator.num_pages > 1 %}
                 <ul>
                     {% pagination_link_previous page_obj view %}
