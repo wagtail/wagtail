@@ -366,7 +366,7 @@ class Filter(models.Model):
     """
 
     # The spec pattern is operation1-var1-var2|operation2-var1
-    spec = models.CharField(max_length=255, db_index=True, unique=True)
+    spec = models.CharField(max_length=255, unique=True)
 
     @cached_property
     def operations(self):
