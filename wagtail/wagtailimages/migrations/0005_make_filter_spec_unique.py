@@ -14,7 +14,7 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='filter',
             name='spec',
-            field=models.CharField(unique=True, max_length=255, db_index=True),
+            field=models.CharField(unique=True, max_length=255),
             preserve_default=True,
         ),
     ]
