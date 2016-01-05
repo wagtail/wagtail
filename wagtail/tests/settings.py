@@ -1,8 +1,5 @@
 import os
 
-import django
-from django.conf import global_settings
-
 
 WAGTAIL_ROOT = os.path.dirname(__file__)
 STATIC_ROOT = os.path.join(WAGTAIL_ROOT, 'test-static')
@@ -39,42 +36,35 @@ STATICFILES_FINDERS = (
 
 USE_TZ = True
 
-if django.VERSION >= (1, 8):
-    TEMPLATES = [
-        {
-            'BACKEND': 'django.template.backends.django.DjangoTemplates',
-            'DIRS': [],
-            'APP_DIRS': True,
-            'OPTIONS': {
-                'context_processors': [
-                    'django.template.context_processors.debug',
-                    'django.template.context_processors.request',
-                    'django.contrib.auth.context_processors.auth',
-                    'django.contrib.messages.context_processors.messages',
-                    'django.template.context_processors.request',
-                    'wagtail.tests.context_processors.do_not_use_static_url',
-                    'wagtail.contrib.settings.context_processors.settings',
-                ],
-            },
+TEMPLATES = [
+    {
+        'BACKEND': 'django.template.backends.django.DjangoTemplates',
+        'DIRS': [],
+        'APP_DIRS': True,
+        'OPTIONS': {
+            'context_processors': [
+                'django.template.context_processors.debug',
+                'django.template.context_processors.request',
+                'django.contrib.auth.context_processors.auth',
+                'django.contrib.messages.context_processors.messages',
+                'django.template.context_processors.request',
+                'wagtail.tests.context_processors.do_not_use_static_url',
+                'wagtail.contrib.settings.context_processors.settings',
+            ],
         },
-        {
-            'BACKEND': 'django.template.backends.jinja2.Jinja2',
-            'APP_DIRS': True,
-            'OPTIONS': {
-                'extensions': [
-                    'wagtail.wagtailcore.jinja2tags.core',
-                    'wagtail.wagtailadmin.jinja2tags.userbar',
-                    'wagtail.wagtailimages.jinja2tags.images',
-                ],
-            },
+    },
+    {
+        'BACKEND': 'django.template.backends.jinja2.Jinja2',
+        'APP_DIRS': True,
+        'OPTIONS': {
+            'extensions': [
+                'wagtail.wagtailcore.jinja2tags.core',
+                'wagtail.wagtailadmin.jinja2tags.userbar',
+                'wagtail.wagtailimages.jinja2tags.images',
+            ],
         },
-    ]
-else:
-    TEMPLATE_CONTEXT_PROCESSORS = global_settings.TEMPLATE_CONTEXT_PROCESSORS + (
-        'django.core.context_processors.request',
-        'wagtail.tests.context_processors.do_not_use_static_url',
-        'wagtail.contrib.settings.context_processors.settings',
-    )
+    },
+]
 
 MIDDLEWARE_CLASSES = (
     'django.middleware.common.CommonMiddleware',

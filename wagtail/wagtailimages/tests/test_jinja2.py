@@ -1,9 +1,7 @@
 from __future__ import absolute_import, unicode_literals
 
 import os
-import unittest
 
-import django
 from django.conf import settings
 from django.core import serializers
 from django.test import TestCase
@@ -13,11 +11,9 @@ from wagtail.wagtailcore.models import Site
 from .utils import get_test_image_file, Image
 
 
-@unittest.skipIf(django.VERSION < (1, 8), 'Multiple engines only supported in Django>=1.8')
 class TestImagesJinja(TestCase):
 
     def setUp(self):
-        # This does not exist on Django<1.8
         from django.template import engines
         self.engine = engines['jinja2']
 

@@ -1,6 +1,3 @@
-import unittest
-
-import django
 from django.test import TestCase
 
 from wagtail.wagtailsearch import index
@@ -42,7 +39,6 @@ class TestSelectOnQuerySet(TestCase):
         self.assertIn('adverts', queryset._prefetch_related_lookups)
         self.assertFalse(queryset.query.select_related)
 
-    @unittest.skipIf(django.VERSION < (1, 8), "Reverse relations not supported on Django 1.7")
     def test_select_on_queryset_with_reverse_foreign_key(self):
         fields = index.RelatedFields('categories', [
             index.RelatedFields('category', [
@@ -56,7 +52,6 @@ class TestSelectOnQuerySet(TestCase):
         self.assertIn('categories', queryset._prefetch_related_lookups)
         self.assertFalse(queryset.query.select_related)
 
-    @unittest.skipIf(django.VERSION < (1, 8), "Reverse relations not supported on Django 1.7")
     def test_select_on_queryset_with_reverse_one_to_one(self):
         fields = index.RelatedFields('searchtestchild', [
             index.SearchField('subtitle'),
@@ -68,7 +63,6 @@ class TestSelectOnQuerySet(TestCase):
         self.assertFalse(queryset._prefetch_related_lookups)
         self.assertIn('searchtestchild', queryset.query.select_related)
 
-    @unittest.skipIf(django.VERSION < (1, 8), "Reverse relations not supported on Django 1.7")
     def test_select_on_queryset_with_reverse_many_to_many(self):
         fields = index.RelatedFields('manytomanyblogpage', [
             index.SearchField('title'),

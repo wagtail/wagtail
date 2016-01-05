@@ -3,7 +3,6 @@ from __future__ import unicode_literals
 
 from django.db import models, migrations
 import django.db.models.deletion
-import django
 import modelcluster.contrib.taggit
 import wagtail.wagtailcore.fields
 import modelcluster.fields
@@ -172,7 +171,7 @@ class Migration(migrations.Migration):
             name='ContactPage',
             fields=[
                 ('telephone', models.CharField(blank=True, max_length=20)),
-                ('email', models.EmailField(blank=True, max_length=(254 if django.VERSION >= (1, 8) else 75))),
+                ('email', models.EmailField(blank=True, max_length=254)),
                 ('address_1', models.CharField(blank=True, max_length=255)),
                 ('address_2', models.CharField(blank=True, max_length=255)),
                 ('city', models.CharField(blank=True, max_length=255)),
@@ -435,7 +434,7 @@ class Migration(migrations.Migration):
             name='PersonPage',
             fields=[
                 ('telephone', models.CharField(blank=True, max_length=20)),
-                ('email', models.EmailField(blank=True, max_length=(254 if django.VERSION >= (1, 8) else 75))),
+                ('email', models.EmailField(blank=True, max_length=254)),
                 ('address_1', models.CharField(blank=True, max_length=255)),
                 ('address_2', models.CharField(blank=True, max_length=255)),
                 ('city', models.CharField(blank=True, max_length=255)),
