@@ -1,40 +1,37 @@
-import django
+import warnings
+
 from django.template import loader
+
+from wagtail.utils.deprecation import RemovedInWagtail16Warning
 
 
 def get_related_model(rel):
-    # In Django 1.7 and under, the related model is accessed by doing: rel.model
-    # This was renamed in Django 1.8 to rel.related_model. rel.model now returns
-    # the base model.
-    if django.VERSION >= (1, 8):
-        return rel.related_model
-    else:
-        return rel.model
+    warnings.warn(
+        'wagtail.utils.compat.get_related_model(rel) is deprecated. '
+        'Use rel.related_model instead',
+        RemovedInWagtail16Warning, stacklevel=2
+    )
+    return rel.related_model
 
 
 def get_related_parent_model(rel):
-    # In Django 1.7 and under, the parent model is accessed by doing: rel.parent_model
-    # This was renamed in Django 1.8 to rel.model.
-    if django.VERSION >= (1, 8):
-        return rel.model
-    else:
-        return rel.parent_model
+    warnings.warn(
+        'wagtail.utils.compat.get_related_parent_model(rel) is deprecated. '
+        'Use rel.model instead',
+        RemovedInWagtail16Warning, stacklevel=2
+    )
+    return rel.model
 
 
 def render_to_string(template_name, context=None, request=None, **kwargs):
-    if django.VERSION >= (1, 8):
-        return loader.render_to_string(
-            template_name,
-            context=context,
-            request=request,
-            **kwargs
-        )
-    else:
-        # Backwards compatibility for Django 1.7 and below
-        from django.template.context import RequestContext
-        return loader.render_to_string(
-            template_name,
-            dictionary=context,
-            context_instance=RequestContext(request),
-            **kwargs
-        )
+    warnings.warn(
+        'wagtail.utils.compat.render_to_string is deprecated. '
+        'Use django.template.loader.render_to_string instead',
+        RemovedInWagtail16Warning, stacklevel=2
+    )
+    return loader.render_to_string(
+        template_name,
+        context=context,
+        request=request,
+        **kwargs
+    )

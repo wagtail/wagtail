@@ -1,4 +1,3 @@
-import django
 from django.db import models
 from django.db.models.fields import FieldDoesNotExist
 from django.db.models.fields.related import RelatedField, ForeignObjectRel, OneToOneRel
@@ -173,8 +172,6 @@ class RelatedFields(object):
         It decides which method to call based on the number of related objects:
          - single (eg ForeignKey, OneToOne), it runs select_related
          - multiple (eg ManyToMany, reverse ForeignKey) it runs prefetch_related
-
-        This optimisation currently doesn't support reverse relations on Django 1.7.
         """
         try:
             field = self.get_field(queryset.model)
@@ -182,20 +179,10 @@ class RelatedFields(object):
             return queryset
 
         if isinstance(field, RelatedField):
-            if django.VERSION >= (1, 8):
-                if field.many_to_one or field.one_to_one:
-                    queryset = queryset.select_related(self.field_name)
-                elif field.one_to_many or field.many_to_many:
-                    queryset = queryset.prefetch_related(self.field_name)
-            else:
-                from django.db.models.fields.related import ForeignKey
-
-                if isinstance(field, ForeignKey):
-                    # select_related for ForeignKey and OneToOneField
-                    queryset = queryset.select_related(self.field_name)
-                else:
-                    # prefetch_related for anything else (ManyToManyField, tags)
-                    queryset = queryset.prefetch_related(self.field_name)
+            if field.many_to_one or field.one_to_one:
+                queryset = queryset.select_related(self.field_name)
+            elif field.one_to_many or field.many_to_many:
+                queryset = queryset.prefetch_related(self.field_name)
 
         elif isinstance(field, ForeignObjectRel):
             # Reverse relation

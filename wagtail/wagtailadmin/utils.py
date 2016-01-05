@@ -12,7 +12,6 @@ from modelcluster.fields import ParentalKey
 
 from wagtail.wagtailcore.models import Page, PageRevision, GroupPagePermission
 from wagtail.wagtailusers.models import UserProfile
-from wagtail.utils.compat import get_related_model
 
 
 def get_object_usage(obj):
@@ -26,7 +25,7 @@ def get_object_usage(obj):
         include_proxy_eq=True
     )
     for relation in relations:
-        related_model = get_related_model(relation)
+        related_model = relation.related_model
 
         # if the relation is between obj and a page, get the page
         if issubclass(related_model, Page):
