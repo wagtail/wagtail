@@ -28,17 +28,9 @@ Firstly, add ``"wagtail.contrib.wagtailfrontendcache"`` to your INSTALLED_APPS:
 
 .. versionchanged:: 0.8
 
-    Signal handlers are now automatically registered in Django 1.7 and upwards
+    Signal handlers are now automatically registered
 
-The ``wagtailfrontendcache`` module provides a set of signal handlers which will automatically purge the cache whenever a page is published or deleted.
-
-If you are using Django version 1.7 or newer, these signal handlers are automatically registered when the ``wagtail.contrib.wagtailfrontendcache`` app is loaded. Otherwise, they must be registered as your application starts up. This can be done by placing the following code in your ``urls.py``:
-
-.. code-block:: python
-
-    # urls.py
-    from wagtail.contrib.wagtailfrontendcache.signal_handlers import register_signal_handlers
-    register_signal_handlers()
+The ``wagtailfrontendcache`` module provides a set of signal handlers which will automatically purge the cache whenever a page is published or deleted. These signal handlers are automatically registered when the ``wagtail.contrib.wagtailfrontendcache`` app is loaded.
 
 
 Varnish/Squid
