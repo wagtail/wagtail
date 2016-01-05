@@ -8,12 +8,11 @@ from wagtail.wagtailcore.models import Page
 from wagtail.wagtailcore import hooks
 
 from .menus import ModelAdminMenuItem, GroupMenuItem, SubMenu
-from .permission_helpers import PermissionHelper, PagePermissionHelper
+from .helpers import (PermissionHelper, PagePermissionHelper, get_url_pattern,
+                      get_object_specific_url_pattern, get_url_name)
 from .views import (
     IndexView, CreateView, ChooseParentView, EditView, ConfirmDeleteView,
     CopyRedirectView, UnpublishRedirectView)
-from .utils import (
-    get_url_pattern, get_object_specific_url_pattern, get_url_name)
 
 
 class WagtailRegisterable(object):
@@ -69,6 +68,7 @@ class ModelAdmin(WagtailRegisterable):
     edit_template_name = ''
     confirm_delete_template_name = ''
     choose_parent_template_name = ''
+    permission_helper_class = None
 
     def __init__(self, parent=None):
         """
@@ -81,16 +81,20 @@ class ModelAdmin(WagtailRegisterable):
         self.opts = self.model._meta
         self.is_pagemodel = issubclass(self.model, Page)
         self.parent = parent
-        self.permission_helper = self.get_permission_helper()
+        permission_helper_class = self.get_permission_helper_class()
+        self.permission_helper = permission_helper_class(self.model)
 
-    def get_permission_helper(self):
+
+    def get_permission_helper_class(self):
         """
-        Returns a permission_helper object to help with permission-based logic
+        Returns a permission_helper class to help with permission-based logic
         for the given model.
         """
+        if self.permission_helper_class:
+            return self.permission_helper_class
         if self.is_pagemodel:
-            return PagePermissionHelper(self.model)
-        return PermissionHelper(self.model)
+            return PagePermissionHelper
+        return PermissionHelper
 
     def get_menu_label(self):
         """
@@ -424,13 +428,16 @@ class ModelAdminGroup(WagtailRegisterable):
         associated ModelAdmin instances
         """
         if self.modeladmin_instances:
-            menu_items = []
-            item_order = 0
-            for modeladmin in self.modeladmin_instances:
-                item_order += 1
-                menu_items.append(modeladmin.get_menu_item(order=item_order))
-            submenu = SubMenu(menu_items)
+            submenu = SubMenu(self.get_submenu_items())
             return GroupMenuItem(self, self.get_menu_order(), submenu)
+
+    def get_submenu_items(self):
+        menu_items = []
+        item_order = 1
+        for modeladmin in self.modeladmin_instances:
+            menu_items.append(modeladmin.get_menu_item(order=item_order))
+            item_order += 1
+        return menu_items
 
     def get_permissions_for_registration(self):
         """
