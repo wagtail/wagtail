@@ -33,7 +33,6 @@ from wagtail.wagtailsearch.queryset import SearchableQuerySetMixin
 from wagtail.wagtailimages.rect import Rect
 from wagtail.wagtailimages.exceptions import InvalidFilterSpecError
 from wagtail.wagtailadmin.utils import get_object_usage
-from wagtail.utils.compat import get_related_model
 
 
 class SourceImageIOError(IOError):
@@ -231,9 +230,9 @@ class AbstractImage(models.Model, TagSearchable):
     def get_rendition_model(cls):
         """ Get the Rendition model for this Image model """
         if django.VERSION >= (1, 9):
-            return get_related_model(cls.renditions.rel)
+            return cls.renditions.rel.related_model
         else:
-            return get_related_model(cls.renditions.related)
+            return cls.renditions.related.related_model
 
     def get_rendition(self, filter):
         if isinstance(filter, string_types):
