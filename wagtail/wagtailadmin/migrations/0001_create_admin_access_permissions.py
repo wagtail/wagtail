@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 
-import django
 from django.db import migrations
 
 
@@ -12,18 +11,10 @@ def create_admin_access_permissions(apps, schema_editor):
 
     # Add a fake content type to hang the 'can access Wagtail admin' permission off.
     # The fact that this doesn't correspond to an actual defined model shouldn't matter, I hope...
-    if django.VERSION >= (1, 8):
-        wagtailadmin_content_type, created = ContentType.objects.get_or_create(
-            app_label='wagtailadmin',
-            model='admin'
-        )
-    else:
-        # Django 1.7 and below require a content type name
-        wagtailadmin_content_type, created = ContentType.objects.get_or_create(
-            app_label='wagtailadmin',
-            model='admin',
-            name='Wagtail admin'
-        )
+    wagtailadmin_content_type, created = ContentType.objects.get_or_create(
+        app_label='wagtailadmin',
+        model='admin'
+    )
 
     # Create admin permission
     admin_permission, created = Permission.objects.get_or_create(
