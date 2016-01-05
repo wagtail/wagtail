@@ -2,7 +2,7 @@ from __future__ import absolute_import
 
 from django.conf.urls import url
 
-from wagtail.api.shared.router import WagtailAPIRouter
+from wagtail.api.v2.router import WagtailAPIRouter
 
 from .endpoints import PagesAdminAPIEndpoint, ImagesAdminAPIEndpoint, DocumentsAdminAPIEndpoint
 

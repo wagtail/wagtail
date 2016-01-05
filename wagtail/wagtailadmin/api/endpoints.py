@@ -1,4 +1,4 @@
-from wagtail.api.shared.utils import BadRequestError, page_models_from_string, filter_page_type
+from wagtail.api.v2.utils import BadRequestError, page_models_from_string, filter_page_type
 from wagtail.api.v2.endpoints import PagesAPIEndpoint, ImagesAPIEndpoint, DocumentsAPIEndpoint
 
 from wagtail.wagtailcore.models import Page
