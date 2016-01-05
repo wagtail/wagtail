@@ -463,8 +463,7 @@ class ModelAdminGroup(WagtailRegisterable):
 
 def wagtailmodeladmin_register(wagtailmodeladmin_class):
     """
-    Alternative one-line method for registering ModelAdmin or ModelAdminGroup
-    classes with Wagtail.
+    Method for registering ModelAdmin or ModelAdminGroup classes with Wagtail.
     """
     instance = wagtailmodeladmin_class()
     instance.register_with_wagtail()
