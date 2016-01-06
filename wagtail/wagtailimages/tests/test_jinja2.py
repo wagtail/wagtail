@@ -4,6 +4,7 @@ import os
 
 from django.conf import settings
 from django.core import serializers
+from django.template import engines
 from django.test import TestCase
 
 from wagtail.wagtailcore.models import Site
@@ -14,7 +15,6 @@ from .utils import get_test_image_file, Image
 class TestImagesJinja(TestCase):
 
     def setUp(self):
-        from django.template import engines
         self.engine = engines['jinja2']
 
         self.image = Image.objects.create(

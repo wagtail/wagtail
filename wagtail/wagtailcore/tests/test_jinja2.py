@@ -1,5 +1,6 @@
 from __future__ import absolute_import, unicode_literals
 
+from django.template import engines
 from django.test import TestCase
 
 from wagtail.wagtailcore import __version__
@@ -9,7 +10,6 @@ from wagtail.wagtailcore.models import Page, Site
 class TestCoreJinja(TestCase):
 
     def setUp(self):
-        from django.template import engines
         self.engine = engines['jinja2']
 
     def render(self, string, context=None, request_context=True):

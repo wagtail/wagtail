@@ -3,7 +3,7 @@ import json
 from django.apps import apps
 from django.test import TestCase
 from django.db import models
-from django.template import Template, Context
+from django.template import Template, Context, engines
 from django.utils.safestring import SafeText
 from django.utils.six import text_type
 
@@ -172,7 +172,6 @@ class TestStreamFieldDjangoRendering(TestStreamFieldRenderingBase):
 class TestStreamFieldJinjaRendering(TestStreamFieldRenderingBase):
     def setUp(self):
         super(TestStreamFieldJinjaRendering, self).setUp()
-        from django.template import engines
         self.engine = engines['jinja2']
 
     def render(self, string, context):

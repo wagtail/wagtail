@@ -2,6 +2,7 @@ from __future__ import absolute_import, unicode_literals
 
 from django.contrib.auth import get_user_model
 from django.contrib.auth.models import AnonymousUser
+from django.template import engines
 from django.test import TestCase
 
 from wagtail.wagtailcore.models import Page, PAGE_TEMPLATE_VAR, Site
@@ -10,7 +11,6 @@ from wagtail.wagtailcore.models import Page, PAGE_TEMPLATE_VAR, Site
 class TestCoreJinja(TestCase):
 
     def setUp(self):
-        from django.template import engines
         self.engine = engines['jinja2']
 
         self.user = get_user_model().objects.create_superuser(
