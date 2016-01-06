@@ -1,6 +1,7 @@
 from __future__ import unicode_literals
 import datetime
 
+import django
 from django.db import models
 from django.template import Library
 from django.utils.safestring import mark_safe
@@ -27,7 +28,7 @@ def items_for_result(view, result):
     """
     model_admin = view.model_admin
     for field_name in view.list_display:
-        empty_value_display = ''
+        empty_value_display = model_admin.get_empty_value_display()
         row_classes = ['field-%s' % field_name]
         try:
             f, attr, value = lookup_field(field_name, result, model_admin)
@@ -40,7 +41,11 @@ def items_for_result(view, result):
                 boolean = getattr(attr, 'boolean', False)
                 if boolean or not value:
                     allow_tags = True
-                result_repr = display_for_value(value, boolean)
+                if django.VERSION >= (1, 9):
+                    result_repr = display_for_value(value, empty_value_display, boolean)
+                else:
+                    result_repr = display_for_value(value, boolean)
+
                 # Strip HTML tags in the resulting text, except if the
                 # function has an "allow_tags" attribute set to True.
                 if allow_tags:
@@ -55,7 +60,11 @@ def items_for_result(view, result):
                     else:
                         result_repr = field_val
                 else:
-                    result_repr = display_for_field(value, f)
+                    if django.VERSION >= (1, 9):
+                        result_repr = display_for_field(value, f, empty_value_display)
+                    else:
+                        result_repr = display_for_field(value, f)
+
                 if isinstance(f, (models.DateField, models.TimeField, models.ForeignKey)):
                     row_classes.append('nowrap')
         if force_text(result_repr) == '':
