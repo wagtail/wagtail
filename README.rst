@@ -38,14 +38,15 @@ Find out more at `wagtail.io <http://wagtail.io/>`_.
 
 Getting started
 ~~~~~~~~~~~~~~~
-    .. code-block::
 
-     pip install wagtail
-     wagtail start mysite
-     cd mysite
-     python manage.py migrate
-     python manage.py createsuperuser
-     python manage.py runserver
+.. code-block:: sh
+
+    pip install wagtail
+    wagtail start mysite
+    cd mysite
+    python manage.py migrate
+    python manage.py createsuperuser
+    python manage.py runserver
 
 then sign in at http://127.0.0.1:8000/admin/
 
