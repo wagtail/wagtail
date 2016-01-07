@@ -2,10 +2,10 @@
     @include clearfix();
     position: relative;
 
-    input[type=submit], 
-    input[type=reset], 
-    input[type=button], 
-    button, 
+    input[type=submit],
+    input[type=reset],
+    input[type=button],
+    button,
     .button {
         padding: 0;
         display: block;
@@ -17,8 +17,8 @@
         float: left;
     }
 
-    input[type=submit], 
-    input[type=reset], 
+    input[type=submit],
+    input[type=reset],
     input[type=button],
     button {
         line-height: inherit;
@@ -31,7 +31,7 @@
         overflow: hidden;
         top: 100%;
         left: -2000px;
-        z-index: 500;
+        z-index: map-get($z-indexes, input-widgets);
         opacity: 0;
 
         li {
@@ -71,11 +71,11 @@
             }
         }
 
-        a, 
-        input[type=submit], 
-        input[type=reset], 
-        input[type=button], 
-        .button, 
+        a,
+        input[type=submit],
+        input[type=reset],
+        input[type=button],
+        .button,
         button {
             border-radius: 0;
             font-size: 0.95em;
@@ -117,10 +117,10 @@
         top: auto;
         bottom: 100%;
 
-        li { 
+        li {
             border-width: 0 0 1px;
         }
-    }   
+    }
 
     .dropdown-toggle {
         color: $color-white;
@@ -162,9 +162,9 @@
         }
 
         &.open {
-            > input[type=button], 
-            > input[type=submit], 
-            > button, 
+            > input[type=button],
+            > input[type=submit],
+            > button,
             > .button {
                 border-radius: 3px 3px 0 0;
             }
@@ -178,8 +178,8 @@
     &.dropup.dropdown-button {
         &.open {
             > input[type=button],
-            > input[type=submit], 
-            > button, 
+            > input[type=submit],
+            > button,
             > .button {
                 border-radius: 0 0 3px 3px;
             }
