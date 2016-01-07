@@ -71,8 +71,9 @@ $thumbnail-width: 130px;
 $menu-width: 180px;
 
 // Z-indexes by type
-$z-indexes:(
-
-    modals,
-    widgetpopups
-)
+$z-indexes: (
+    user-fe-css-trump:  999999, // Ridiculously high one to try and avoid clashes with implementation FE CSS
+    ui-widgets:         300,     // Popups that come from parts of the main UI, such as explorer
+    input-widgets:      200,    // Popups from all input widget. These might occur within modal windows
+    modals:             100    // Modal windows
+);
