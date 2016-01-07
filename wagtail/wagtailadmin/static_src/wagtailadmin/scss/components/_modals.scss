@@ -1,9 +1,7 @@
-$zindex-modal-background: 500;
-
 .fade {
     @include transition(opacity .15s linear);
     opacity: 0;
-    
+
     &.in {
         opacity: 1;
     }
@@ -30,7 +28,7 @@ $zindex-modal-background: 500;
     right: 0;
     bottom: 0;
     left: 0;
-    z-index: $zindex-modal-background;
+    z-index: map-get($z-indexes, modals);
 }
 
 // Shell div to position the modal with bottom padding
@@ -39,7 +37,6 @@ $zindex-modal-background: 500;
     margin-left: auto;
     margin-right: auto;
     padding: 0;
-    z-index: ($zindex-modal-background + 10);
     height: 90%;
     width: 85%;
 
@@ -74,9 +71,9 @@ $zindex-modal-background: 500;
     right: 0;
     bottom: 0;
     left: 0;
-    z-index: ($zindex-modal-background - 10);
+    z-index: map-get($z-indexes, modals) - 1;
     background-color: $color-black;
-    
+
     // Fade for backdrop
     &.fade { opacity: 0; }
     &.in { opacity: 0.5; }
@@ -89,7 +86,6 @@ $zindex-modal-background: 500;
     height: 50px;
     top: 10px;
     right: 10px;
-    z-index: 1;
 }
 
 // Where all modal content resides
