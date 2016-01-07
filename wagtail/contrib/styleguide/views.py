@@ -2,8 +2,8 @@ from django import forms
 from django.shortcuts import render
 from django.utils.translation import ugettext as _
 from django.core.paginator import Paginator
-from wagtail.wagtailadmin import messages
 
+from wagtail.wagtailadmin import messages
 from wagtail.wagtailadmin.forms import SearchForm
 from wagtail.wagtailadmin.widgets import AdminPageChooser, AdminDateInput, AdminTimeInput, AdminDateTimeInput
 from wagtail.wagtailimages.widgets import AdminImageChooser
