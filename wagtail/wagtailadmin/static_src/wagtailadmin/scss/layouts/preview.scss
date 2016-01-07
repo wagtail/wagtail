@@ -24,9 +24,9 @@ body {
     height: 100%;
     width: 100%;
     font-size: 0;
-    z-index: 999999;
+    z-index: map-get($z-indexes, user-fe-css-trump);
     background: $color-white;
-    
+
     &.remove {
         @include transition(all 0.3s ease);
         bottom: -100%;
@@ -61,7 +61,7 @@ body {
         width: 1em;
         animation: spin 0.8s infinite linear;
         -webkit-animation: spin 0.8s infinite linear;
-        -moz-animation: spin 0.8s infinite linear;   
+        -moz-animation: spin 0.8s infinite linear;
     }
 }
 
@@ -69,7 +69,6 @@ body {
     height: 100%;
     width: 100%;
     position: absolute;
-    z-index: 1;
     border: 0;
 }
 
