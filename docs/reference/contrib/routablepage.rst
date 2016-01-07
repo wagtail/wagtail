@@ -4,7 +4,7 @@
 ``RoutablePageMixin``
 =====================
 
-.. module:: wagtail.contrib.wagtailroutablepage
+.. module:: wagtail.contrib.routablepage
 
 The ``RoutablePageMixin`` mixin provides a convenient way for a page to respond on multiple sub-URLs with different views. For example, a blog section on a site might provide several different types of index page at URLs like ``/blog/2013/06/``, ``/blog/authors/bob/``, ``/blog/tagged/python/``, all served by the same page instance.
 
@@ -14,14 +14,14 @@ A ``Page`` using ``RoutablePageMixin`` exists within the page tree like any othe
 The basics
 ==========
 
-To use ``RoutablePageMixin``, you need to make your class inherit from both :class:`wagtail.contrib.wagtailroutablepage.models.RoutablePageMixin` and :class:`wagtail.wagtailcore.models.Page`, then define some view methods and decorate them with ``wagtail.contrib.wagtailroutablepage.models.route``.
+To use ``RoutablePageMixin``, you need to make your class inherit from both :class:`wagtail.contrib.routablepage.models.RoutablePageMixin` and :class:`wagtail.wagtailcore.models.Page`, then define some view methods and decorate them with ``wagtail.contrib.routablepage.models.route``.
 
 Here's an example of an ``EventPage`` with three views:
 
 .. code-block:: python
 
     from wagtail.wagtailcore.models import Page
-    from wagtail.contrib.wagtailroutablepage.models import RoutablePageMixin, route
+    from wagtail.contrib.routablepage.models import RoutablePageMixin, route
 
 
     class EventPage(RoutablePageMixin, Page):
@@ -79,7 +79,7 @@ The route name defaults to the name of the view. You can override this name with
 .. code-block:: python
 
     from wagtail.wagtailcore.models import Page
-    from wagtail.contrib.wagtailroutablepage.models import RoutablePageMixin, route
+    from wagtail.contrib.routablepage.models import RoutablePageMixin, route
 
 
     class EventPage(RoutablePageMixin, Page):
@@ -100,7 +100,7 @@ The route name defaults to the name of the view. You can override this name with
 The ``RoutablePageMixin`` class
 ===============================
 
-.. automodule:: wagtail.contrib.wagtailroutablepage.models
+.. automodule:: wagtail.contrib.routablepage.models
 .. autoclass:: RoutablePageMixin
 
     .. automethod:: get_subpage_urls
@@ -128,7 +128,7 @@ The ``RoutablePageMixin`` class
 The ``routablepageurl`` template tag
 ====================================
 
-.. currentmodule:: wagtail.contrib.wagtailroutablepage.templatetags.wagtailroutablepage_tags
+.. currentmodule:: wagtail.contrib.routablepage.templatetags.wagtailroutablepage_tags
 .. autofunction:: routablepageurl
 
     Example:
