@@ -1,4 +1,4 @@
-// paths 
+// paths
 
 // We can't use absolute paths here, because those are dependent on Django's
 // STATIC_URL setting. However, django-compressor consistently places the compiled
@@ -69,3 +69,10 @@ $font-serif: Roboto Slab, Georgia, serif;
 // misc sizing
 $thumbnail-width: 130px;
 $menu-width: 180px;
+
+// Z-indexes by type
+$z-indexes:(
+
+    modals,
+    widgetpopups
+)
