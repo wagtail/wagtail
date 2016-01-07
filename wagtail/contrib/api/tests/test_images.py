@@ -5,19 +5,19 @@ from django.test import TestCase
 from django.test.utils import override_settings
 from django.core.urlresolvers import reverse
 
-from wagtail.wagtaildocs.models import Document
+from wagtail.wagtailimages.models import get_image_model
 
-from wagtail.contrib.wagtailapi import signal_handlers
+from .. import signal_handlers
 
 
-class TestDocumentListing(TestCase):
+class TestImageListing(TestCase):
     fixtures = ['demosite.json']
 
     def get_response(self, **params):
-        return self.client.get(reverse('wagtailapi_v1:documents:listing'), params)
+        return self.client.get(reverse('wagtailapi_v1:images:listing'), params)
 
-    def get_document_id_list(self, content):
-        return [page['id'] for page in content['documents']]
+    def get_image_id_list(self, content):
+        return [page['id'] for page in content['images']]
 
 
     # BASIC TESTS
@@ -38,23 +38,23 @@ class TestDocumentListing(TestCase):
         # Check that the total count is there and correct
         self.assertIn('total_count', content['meta'])
         self.assertIsInstance(content['meta']['total_count'], int)
-        self.assertEqual(content['meta']['total_count'], Document.objects.count())
+        self.assertEqual(content['meta']['total_count'], get_image_model().objects.count())
 
-        # Check that the documents section is there
-        self.assertIn('documents', content)
-        self.assertIsInstance(content['documents'], list)
+        # Check that the images section is there
+        self.assertIn('images', content)
+        self.assertIsInstance(content['images'], list)
 
-        # Check that each document has a meta section with type and detail_url attributes
-        for document in content['documents']:
-            self.assertIn('meta', document)
-            self.assertIsInstance(document['meta'], dict)
-            self.assertEqual(set(document['meta'].keys()), {'type', 'detail_url'})
+        # Check that each image has a meta section with type and detail_url attributes
+        for image in content['images']:
+            self.assertIn('meta', image)
+            self.assertIsInstance(image['meta'], dict)
+            self.assertEqual(set(image['meta'].keys()), {'type', 'detail_url'})
 
-            # Type should always be wagtaildocs.Document
-            self.assertEqual(document['meta']['type'], 'wagtaildocs.Document')
+            # Type should always be wagtailimages.Image
+            self.assertEqual(image['meta']['type'], 'wagtailimages.Image')
 
-            # Check detail_url
-            self.assertEqual(document['meta']['detail_url'], 'http://localhost/api/v1/documents/%d/' % document['id'])
+            # Check detail url
+            self.assertEqual(image['meta']['detail_url'], 'http://localhost/api/v1/images/%d/' % image['id'])
 
 
     # EXTRA FIELDS
@@ -63,22 +63,23 @@ class TestDocumentListing(TestCase):
         response = self.get_response()
         content = json.loads(response.content.decode('UTF-8'))
 
-        for document in content['documents']:
-            self.assertEqual(set(document.keys()), {'id', 'meta', 'title'})
+        for image in content['images']:
+            self.assertEqual(set(image.keys()), {'id', 'meta', 'title'})
 
     def test_extra_fields(self):
-        response = self.get_response(fields='title,tags')
+        response = self.get_response(fields='title,width,height')
         content = json.loads(response.content.decode('UTF-8'))
 
-        for document in content['documents']:
-            self.assertEqual(set(document.keys()), {'id', 'meta', 'title', 'tags'})
+        for image in content['images']:
+            self.assertEqual(set(image.keys()), {'id', 'meta', 'title', 'width', 'height'})
 
     def test_extra_fields_tags(self):
         response = self.get_response(fields='tags')
         content = json.loads(response.content.decode('UTF-8'))
 
-        for document in content['documents']:
-            self.assertIsInstance(document['tags'], list)
+        for image in content['images']:
+            self.assertEqual(set(image.keys()), {'id', 'meta', 'tags'})
+            self.assertIsInstance(image['tags'], list)
 
     def test_extra_fields_which_are_not_in_api_fields_gives_error(self):
         response = self.get_response(fields='uploaded_by_user')
@@ -101,24 +102,24 @@ class TestDocumentListing(TestCase):
         response = self.get_response(title='James Joyce')
         content = json.loads(response.content.decode('UTF-8'))
 
-        document_id_list = self.get_document_id_list(content)
-        self.assertEqual(document_id_list, [2])
+        image_id_list = self.get_image_id_list(content)
+        self.assertEqual(image_id_list, [5])
 
     def test_filtering_on_id(self):
         response = self.get_response(id=10)
         content = json.loads(response.content.decode('UTF-8'))
 
-        document_id_list = self.get_document_id_list(content)
-        self.assertEqual(document_id_list, [10])
+        image_id_list = self.get_image_id_list(content)
+        self.assertEqual(image_id_list, [10])
 
     def test_filtering_tags(self):
-        Document.objects.get(id=3).tags.add('test')
+        get_image_model().objects.get(id=6).tags.add('test')
 
         response = self.get_response(tags='test')
         content = json.loads(response.content.decode('UTF-8'))
 
-        document_id_list = self.get_document_id_list(content)
-        self.assertEqual(document_id_list, [3])
+        image_id_list = self.get_image_id_list(content)
+        self.assertEqual(image_id_list, [6])
 
     def test_filtering_unknown_field_gives_error(self):
         response = self.get_response(not_a_field='abc')
@@ -134,26 +135,26 @@ class TestDocumentListing(TestCase):
         response = self.get_response(order='title')
         content = json.loads(response.content.decode('UTF-8'))
 
-        document_id_list = self.get_document_id_list(content)
-        self.assertEqual(document_id_list, [3, 12, 10, 2, 7, 8, 5, 4, 1, 11, 9, 6])
+        image_id_list = self.get_image_id_list(content)
+        self.assertEqual(image_id_list, [6, 15, 13, 5, 10, 11, 8, 7, 4, 14, 12, 9])
 
     def test_ordering_by_title_backwards(self):
         response = self.get_response(order='-title')
         content = json.loads(response.content.decode('UTF-8'))
 
-        document_id_list = self.get_document_id_list(content)
-        self.assertEqual(document_id_list, [6, 9, 11, 1, 4, 5, 8, 7, 2, 10, 12, 3])
+        image_id_list = self.get_image_id_list(content)
+        self.assertEqual(image_id_list, [9, 12, 14, 4, 7, 8, 11, 10, 5, 13, 15, 6])
 
     def test_ordering_by_random(self):
         response_1 = self.get_response(order='random')
         content_1 = json.loads(response_1.content.decode('UTF-8'))
-        document_id_list_1 = self.get_document_id_list(content_1)
+        image_id_list_1 = self.get_image_id_list(content_1)
 
         response_2 = self.get_response(order='random')
         content_2 = json.loads(response_2.content.decode('UTF-8'))
-        document_id_list_2 = self.get_document_id_list(content_2)
+        image_id_list_2 = self.get_image_id_list(content_2)
 
-        self.assertNotEqual(document_id_list_1, document_id_list_2)
+        self.assertNotEqual(image_id_list_1, image_id_list_2)
 
     def test_ordering_by_random_backwards_gives_error(self):
         response = self.get_response(order='-random')
@@ -183,14 +184,14 @@ class TestDocumentListing(TestCase):
         response = self.get_response(limit=2)
         content = json.loads(response.content.decode('UTF-8'))
 
-        self.assertEqual(len(content['documents']), 2)
+        self.assertEqual(len(content['images']), 2)
 
     def test_limit_total_count(self):
         response = self.get_response(limit=2)
         content = json.loads(response.content.decode('UTF-8'))
 
         # The total count must not be affected by "limit"
-        self.assertEqual(content['meta']['total_count'], Document.objects.count())
+        self.assertEqual(content['meta']['total_count'], get_image_model().objects.count())
 
     def test_limit_not_integer_gives_error(self):
         response = self.get_response(limit='abc')
@@ -221,29 +222,29 @@ class TestDocumentListing(TestCase):
         response = self.get_response()
         content = json.loads(response.content.decode('UTF-8'))
 
-        self.assertEqual(len(content['documents']), 2)
+        self.assertEqual(len(content['images']), 2)
 
 
     # OFFSET
 
-    def test_offset_5_usually_appears_5th_in_list(self):
+    def test_offset_10_usually_appears_7th_in_list(self):
         response = self.get_response()
         content = json.loads(response.content.decode('UTF-8'))
-        document_id_list = self.get_document_id_list(content)
-        self.assertEqual(document_id_list.index(5), 4)
+        image_id_list = self.get_image_id_list(content)
+        self.assertEqual(image_id_list.index(10), 6)
 
-    def test_offset_5_moves_after_offset(self):
+    def test_offset_10_moves_after_offset(self):
         response = self.get_response(offset=4)
         content = json.loads(response.content.decode('UTF-8'))
-        document_id_list = self.get_document_id_list(content)
-        self.assertEqual(document_id_list.index(5), 0)
+        image_id_list = self.get_image_id_list(content)
+        self.assertEqual(image_id_list.index(10), 2)
 
     def test_offset_total_count(self):
         response = self.get_response(offset=10)
         content = json.loads(response.content.decode('UTF-8'))
 
         # The total count must not be affected by "offset"
-        self.assertEqual(content['meta']['total_count'], Document.objects.count())
+        self.assertEqual(content['meta']['total_count'], get_image_model().objects.count())
 
     def test_offset_not_integer_gives_error(self):
         response = self.get_response(offset='abc')
@@ -259,9 +260,9 @@ class TestDocumentListing(TestCase):
         response = self.get_response(search='james')
         content = json.loads(response.content.decode('UTF-8'))
 
-        document_id_list = self.get_document_id_list(content)
+        image_id_list = self.get_image_id_list(content)
 
-        self.assertEqual(set(document_id_list), set([2]))
+        self.assertEqual(set(image_id_list), set([5]))
 
     def test_search_when_ordering_gives_error(self):
         response = self.get_response(search='james', order='title')
@@ -286,14 +287,15 @@ class TestDocumentListing(TestCase):
         self.assertEqual(content, {'message': "filtering by tag with a search query is not supported"})
 
 
-class TestDocumentDetail(TestCase):
+class TestImageDetail(TestCase):
     fixtures = ['demosite.json']
 
     def get_response(self, image_id, **params):
-        return self.client.get(reverse('wagtailapi_v1:documents:detail', args=(image_id, )), params)
+        return self.client.get(reverse('wagtailapi_v1:images:detail', args=(image_id, )), params)
+
 
     def test_basic(self):
-        response = self.get_response(1)
+        response = self.get_response(5)
 
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response['Content-type'], 'application/json')
@@ -303,7 +305,7 @@ class TestDocumentDetail(TestCase):
 
         # Check the id field
         self.assertIn('id', content)
-        self.assertEqual(content['id'], 1)
+        self.assertEqual(content['id'], 5)
 
         # Check that the meta section is there
         self.assertIn('meta', content)
@@ -311,43 +313,36 @@ class TestDocumentDetail(TestCase):
 
         # Check the meta type
         self.assertIn('type', content['meta'])
-        self.assertEqual(content['meta']['type'], 'wagtaildocs.Document')
+        self.assertEqual(content['meta']['type'], 'wagtailimages.Image')
 
         # Check the meta detail_url
         self.assertIn('detail_url', content['meta'])
-        self.assertEqual(content['meta']['detail_url'], 'http://localhost/api/v1/documents/1/')
-
-        # Check the meta download_url
-        self.assertIn('download_url', content['meta'])
-        self.assertEqual(content['meta']['download_url'], 'http://localhost/documents/1/wagtail_by_markyharky.jpg')
+        self.assertEqual(content['meta']['detail_url'], 'http://localhost/api/v1/images/5/')
 
         # Check the title field
         self.assertIn('title', content)
-        self.assertEqual(content['title'], "Wagtail by mark Harkin")
+        self.assertEqual(content['title'], "James Joyce")
+
+        # Check the width and height fields
+        self.assertIn('width', content)
+        self.assertIn('height', content)
+        self.assertEqual(content['width'], 500)
+        self.assertEqual(content['height'], 392)
 
         # Check the tags field
         self.assertIn('tags', content)
         self.assertEqual(content['tags'], [])
 
     def test_tags(self):
-        Document.objects.get(id=1).tags.add('hello')
-        Document.objects.get(id=1).tags.add('world')
+        image = get_image_model().objects.get(id=5)
+        image.tags.add('hello')
+        image.tags.add('world')
 
-        response = self.get_response(1)
+        response = self.get_response(5)
         content = json.loads(response.content.decode('UTF-8'))
 
         self.assertIn('tags', content)
         self.assertEqual(content['tags'], ['hello', 'world'])
-
-    @override_settings(WAGTAILAPI_BASE_URL='http://api.example.com/')
-    def test_download_url_with_custom_base_url(self):
-        response = self.get_response(1)
-        content = json.loads(response.content.decode('UTF-8'))
-
-        self.assertIn('download_url', content['meta'])
-        self.assertEqual(
-            content['meta']['download_url'], 'http://api.example.com/documents/1/wagtail_by_markyharky.jpg'
-        )
 
 
 @override_settings(
@@ -360,25 +355,25 @@ class TestDocumentDetail(TestCase):
     WAGTAILAPI_BASE_URL='http://api.example.com',
 )
 @mock.patch('wagtail.contrib.wagtailfrontendcache.backends.HTTPBackend.purge')
-class TestDocumentCacheInvalidation(TestCase):
+class TestImageCacheInvalidation(TestCase):
     fixtures = ['demosite.json']
 
     @classmethod
     def setUpClass(cls):
-        super(TestDocumentCacheInvalidation, cls).setUpClass()
+        super(TestImageCacheInvalidation, cls).setUpClass()
         signal_handlers.register_signal_handlers()
 
     @classmethod
     def tearDownClass(cls):
-        super(TestDocumentCacheInvalidation, cls).tearDownClass()
+        super(TestImageCacheInvalidation, cls).tearDownClass()
         signal_handlers.unregister_signal_handlers()
 
-    def test_resave_document_purges(self, purge):
-        Document.objects.get(id=5).save()
+    def test_resave_image_purges(self, purge):
+        get_image_model().objects.get(id=5).save()
 
-        purge.assert_any_call('http://api.example.com/api/v1/documents/5/')
+        purge.assert_any_call('http://api.example.com/api/v1/images/5/')
 
-    def test_delete_document_purges(self, purge):
-        Document.objects.get(id=5).delete()
+    def test_delete_image_purges(self, purge):
+        get_image_model().objects.get(id=5).delete()
 
-        purge.assert_any_call('http://api.example.com/api/v1/documents/5/')
+        purge.assert_any_call('http://api.example.com/api/v1/images/5/')
