@@ -255,7 +255,6 @@
         .add {
             @include transition(background-color 0.2s ease);
             position: relative;
-            z-index: 2;
             top: 0;
             left: 0;
             width: 3.3em;
@@ -393,7 +392,6 @@ footer .preview {
             @include column(2);
             display: block;
             position: absolute;
-            z-index: 1;
             right: 0;
             top: 1em;
             padding-right: $grid-gutter-width/2;
