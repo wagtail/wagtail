@@ -40,7 +40,6 @@
             position: absolute;
             right: -0.5em;
             top: -0.5em;
-            z-index: 5;
             min-width: 0.9em;
             color: $color-white;
             background: $color-red;
@@ -93,7 +92,7 @@
 
 @media screen and (min-width: $breakpoint-mobile) {
     .tab-nav {
-        // For cases where tab-nav should merge with header 
+        // For cases where tab-nav should merge with header
         &.merged {
             background-color: $color-header-bg;
         }
