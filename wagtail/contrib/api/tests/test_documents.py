@@ -353,13 +353,13 @@ class TestDocumentDetail(TestCase):
 @override_settings(
     WAGTAILFRONTENDCACHE={
         'varnish': {
-            'BACKEND': 'wagtail.contrib.wagtailfrontendcache.backends.HTTPBackend',
+            'BACKEND': 'wagtail.contrib.frontendcache.backends.HTTPBackend',
             'LOCATION': 'http://localhost:8000',
         },
     },
     WAGTAILAPI_BASE_URL='http://api.example.com',
 )
-@mock.patch('wagtail.contrib.wagtailfrontendcache.backends.HTTPBackend.purge')
+@mock.patch('wagtail.contrib.frontendcache.backends.HTTPBackend.purge')
 class TestDocumentCacheInvalidation(TestCase):
     fixtures = ['demosite.json']
 

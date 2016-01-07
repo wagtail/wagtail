@@ -2,7 +2,7 @@ from django.apps import apps
 
 from wagtail.wagtailcore.signals import page_published, page_unpublished
 
-from wagtail.contrib.wagtailfrontendcache.utils import purge_page_from_cache
+from .utils import purge_page_from_cache
 
 
 def page_published_signal_handler(instance, **kwargs):

@@ -4,8 +4,8 @@ from django.test.utils import override_settings
 from wagtail.wagtailcore.models import Page
 from wagtail.tests.testapp.models import EventIndex
 
-from wagtail.contrib.wagtailfrontendcache.utils import get_backends
-from wagtail.contrib.wagtailfrontendcache.backends import HTTPBackend, CloudflareBackend, BaseBackend
+from .utils import get_backends
+from .backends import HTTPBackend, CloudflareBackend, BaseBackend
 
 
 class TestBackendConfiguration(TestCase):
@@ -17,7 +17,7 @@ class TestBackendConfiguration(TestCase):
     def test_varnish(self):
         backends = get_backends(backend_settings={
             'varnish': {
-                'BACKEND': 'wagtail.contrib.wagtailfrontendcache.backends.HTTPBackend',
+                'BACKEND': 'wagtail.contrib.frontendcache.backends.HTTPBackend',
                 'LOCATION': 'http://localhost:8000',
             },
         })
@@ -31,7 +31,7 @@ class TestBackendConfiguration(TestCase):
     def test_cloudflare(self):
         backends = get_backends(backend_settings={
             'cloudflare': {
-                'BACKEND': 'wagtail.contrib.wagtailfrontendcache.backends.CloudflareBackend',
+                'BACKEND': 'wagtail.contrib.frontendcache.backends.CloudflareBackend',
                 'EMAIL': 'test@test.com',
                 'TOKEN': 'this is the token',
             },
@@ -46,11 +46,11 @@ class TestBackendConfiguration(TestCase):
     def test_multiple(self):
         backends = get_backends(backend_settings={
             'varnish': {
-                'BACKEND': 'wagtail.contrib.wagtailfrontendcache.backends.HTTPBackend',
+                'BACKEND': 'wagtail.contrib.frontendcache.backends.HTTPBackend',
                 'LOCATION': 'http://localhost:8000/',
             },
             'cloudflare': {
-                'BACKEND': 'wagtail.contrib.wagtailfrontendcache.backends.CloudflareBackend',
+                'BACKEND': 'wagtail.contrib.frontendcache.backends.CloudflareBackend',
                 'EMAIL': 'test@test.com',
                 'TOKEN': 'this is the token',
             }
@@ -61,11 +61,11 @@ class TestBackendConfiguration(TestCase):
     def test_filter(self):
         backends = get_backends(backend_settings={
             'varnish': {
-                'BACKEND': 'wagtail.contrib.wagtailfrontendcache.backends.HTTPBackend',
+                'BACKEND': 'wagtail.contrib.frontendcache.backends.HTTPBackend',
                 'LOCATION': 'http://localhost:8000/',
             },
             'cloudflare': {
-                'BACKEND': 'wagtail.contrib.wagtailfrontendcache.backends.CloudflareBackend',
+                'BACKEND': 'wagtail.contrib.frontendcache.backends.CloudflareBackend',
                 'EMAIL': 'test@test.com',
                 'TOKEN': 'this is the token',
             }
@@ -96,7 +96,7 @@ class MockBackend(BaseBackend):
 
 @override_settings(WAGTAILFRONTENDCACHE={
     'varnish': {
-        'BACKEND': 'wagtail.contrib.wagtailfrontendcache.tests.MockBackend',
+        'BACKEND': 'wagtail.contrib.frontendcache.tests.MockBackend',
     },
 })
 class TestCachePurging(TestCase):
