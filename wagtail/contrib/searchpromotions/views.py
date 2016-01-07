@@ -11,7 +11,7 @@ from wagtail.wagtailadmin.forms import SearchForm
 from wagtail.wagtailadmin import messages
 from wagtail.wagtailadmin.utils import permission_required, any_permission_required
 
-from wagtail.contrib.wagtailsearchpromotions import forms
+from . import forms
 
 
 @any_permission_required(

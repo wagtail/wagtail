@@ -4,7 +4,8 @@ from django.utils.translation import ugettext_lazy as _
 
 from wagtail.wagtailadmin.widgets import AdminPageChooser
 from wagtail.wagtailsearch.models import Query
-from wagtail.contrib.wagtailsearchpromotions.models import SearchPromotion
+
+from .models import SearchPromotion
 
 
 class SearchPromotionForm(forms.ModelForm):
