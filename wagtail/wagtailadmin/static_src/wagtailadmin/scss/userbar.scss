@@ -3,7 +3,7 @@
 @import 'wagtailadmin/scss/components/icons';
 @import 'wagtailadmin/scss/fonts';
 
-html, 
+html,
 body {
     background-color: transparent;
 }
@@ -106,7 +106,7 @@ li,
 }
 
 // actions which can be accomplished just with a link tag
-a.action, 
+a.action,
 a {
     display: block;
     width: 10em;
@@ -117,8 +117,14 @@ a {
     padding: 0.85em 1em;
 }
 
-// actions which require wrapping a form input
+// actions which require wrapping a form input: currently just moderator submit/reject buttons
 div.action {
+    &:before {
+        position: absolute;
+        top: 0.4em;
+        left: 0.5em;
+    }
+
     input {
         color: $color-white;
         -webkit-font-smoothing: antialiased; // Do not remove!
@@ -130,15 +136,7 @@ div.action {
         padding: 1em;
         width: 10em;
         position: relative;
-        z-index: 1;
         text-align: left;
         padding-left: 3.5em;
-    }
-
-    &:before {
-        position: absolute;
-        top: 0.4em;
-        left: 0.5em;
-        z-index: 0;
     }
 }
