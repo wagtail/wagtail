@@ -215,7 +215,6 @@ a.tag:hover {
             left: -5px;
             bottom: -5px;
             right: -5px;
-            z-index: 1;
             background-color: rgba(255, 255, 255, 0.5);
         }
 
@@ -231,7 +230,6 @@ a.tag:hover {
             -webkit-animation: spin 0.5s infinite linear;
             -moz-animation: spin 0.5s infinite linear;
             content: '1';
-            z-index: 2;
             color: $color-teal;
         }
     }
