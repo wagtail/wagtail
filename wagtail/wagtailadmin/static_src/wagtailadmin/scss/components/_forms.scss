@@ -1021,6 +1021,10 @@ li.inline:first-child {
     }
 }
 
+.ui-front {
+    z-index: map-get($z-indexes, input-widgets);
+}
+
 // Transitions
 fieldset,
 input,

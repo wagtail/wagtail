@@ -144,7 +144,6 @@ li.sequence-member {
     position: absolute;
     top: -30px;
     right: 0;
-    z-index: map-get($z-indexes, input-widgets);
     overflow: visible;
     background-color: $color-input-focus;
     padding: 0 0 0 1em;
@@ -215,12 +214,12 @@ li.sequence-member {
     position: relative;
     background-color: $color-grey-1;
     opacity: 1;
-    z-index: map-get($z-indexes, input-widgets);
 
     .toggle {
         @include transition(color 0.2s ease);
         border-radius: 50px;
         position: absolute;
+        z-index: map-get($z-indexes, nominal);
         top: -0.5em;
         left: 0;
         right: 0;

@@ -73,7 +73,9 @@ $menu-width: 180px;
 // Z-indexes by height
 $z-indexes: (
     user-fe-css-trump: 999999,  // Ridiculously high one to try and avoid clashes with implementation FE CSS
-    ui-widgets: 300,            // Popups that come from parts of the main UI, such as explorer
+    ui-widgets-high: 400,       // Popups that come from parts of the main UI, such as explorer
+    ui-widgets-low: 300,        // Other widgets that should be higher than all others, just not as high as those above
     input-widgets: 200,         // Popups from all input widget. These might occur within modal windows
-    modals: 100                 // Modal windows
+    modals: 100,                // Modal windows
+    nominal: 1                  // Necessary in rare occasions where DOM order is insufficient, or too high
 );

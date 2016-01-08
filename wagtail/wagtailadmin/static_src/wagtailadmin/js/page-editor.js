@@ -59,6 +59,10 @@ function makeRichTextEditable(id) {
             $(window).trigger('scroll');
         });
     });
+
+    $(document).on('show.bs.modal', '.modal', function() {
+        richText.trigger('hallodeactivated');
+    });
 }
 
 function insertRichTextDeleteControl(elem) {

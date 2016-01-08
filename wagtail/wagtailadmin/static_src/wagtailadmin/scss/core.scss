@@ -110,6 +110,7 @@ footer {
     box-shadow: 0 0 2px rgba(255, 255, 255, 0.5);
     background: $color-grey-1;
     position: fixed;
+    z-index: map-get($z-indexes, ui-widgets-low);
     bottom: 0;
     padding: 0.5em;
     width: 90%;
@@ -142,6 +143,10 @@ footer {
             white-space: nowrap;
         }
     }
+}
+
+.modal-open footer {
+    z-index: map-get($z-indexes, nominal);
 }
 
 ::-webkit-scrollbar {
@@ -399,7 +404,7 @@ footer {
 
     .explorer,
     .nav-wrapper.submenu-active {
-        z-index: map-get($z-indexes, ui-widgets);
+        z-index: map-get($z-indexes, ui-widgets-high);
     }
 }
 
