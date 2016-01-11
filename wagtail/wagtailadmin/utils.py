@@ -124,6 +124,27 @@ def any_permission_required(*perms):
     return user_passes_test(test)
 
 
+class PermissionPolicyChecker(object):
+    """
+    Provides a view decorator that enforces the given permission policy,
+    returning the wagtailadmin 'permission denied' response if permission not granted
+    """
+    def __init__(self, policy):
+        self.policy = policy
+
+    def require(self, action):
+        def test(user):
+            return self.policy.user_has_permission(user, action)
+
+        return user_passes_test(test)
+
+    def require_any(self, *actions):
+        def test(user):
+            return self.policy.user_has_any_permission(user, actions)
+
+        return user_passes_test(test)
+
+
 def send_mail(subject, message, recipient_list, from_email=None, **kwargs):
     if not from_email:
         if hasattr(settings, 'WAGTAILADMIN_NOTIFICATION_FROM_EMAIL'):
