@@ -6,12 +6,16 @@ from django.shortcuts import get_object_or_404, render
 from wagtail.utils.pagination import paginate
 from wagtail.wagtailadmin.modal_workflow import render_modal_workflow
 from wagtail.wagtailadmin.forms import SearchForm
-from wagtail.wagtailadmin.utils import permission_required
+from wagtail.wagtailadmin.utils import PermissionPolicyChecker
 from wagtail.wagtailsearch.backends import get_search_backends
 
 from wagtail.wagtailimages.models import get_image_model
 from wagtail.wagtailimages.forms import get_image_form, ImageInsertionForm
 from wagtail.wagtailimages.formats import get_image_format
+from wagtail.wagtailimages.permissions import permission_policy
+
+
+permission_checker = PermissionPolicyChecker(permission_policy)
 
 
 def get_image_json(image):
@@ -36,7 +40,7 @@ def get_image_json(image):
 def chooser(request):
     Image = get_image_model()
 
-    if request.user.has_perm('wagtailimages.add_image'):
+    if permission_policy.user_has_permission(request.user, 'add'):
         ImageForm = get_image_form(Image)
         uploadform = ImageForm()
     else:
@@ -96,7 +100,7 @@ def image_chosen(request, image_id):
     )
 
 
-@permission_required('wagtailimages.add_image')
+@permission_checker.require('add')
 def chooser_upload(request):
     Image = get_image_model()
     ImageForm = get_image_form(Image)

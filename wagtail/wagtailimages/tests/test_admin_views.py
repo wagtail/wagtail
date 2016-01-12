@@ -640,7 +640,8 @@ class TestURLGeneratorView(TestCase, WagtailTestUtils):
 
     def test_get_bad_permissions(self):
         """
-        This tests that the view gives a 403 if a user without correct permissions attemts to access it
+        This tests that the view returns a "permission denied" redirect if a user without correct
+        permissions attemts to access it
         """
         # Remove privileges from user
         self.user.is_superuser = False
@@ -653,7 +654,7 @@ class TestURLGeneratorView(TestCase, WagtailTestUtils):
         response = self.client.get(reverse('wagtailimages:url_generator', args=(self.image.id, )))
 
         # Check response
-        self.assertEqual(response.status_code, 403)
+        self.assertRedirects(response, reverse('wagtailadmin_home'))
 
 
 class TestGenerateURLView(TestCase, WagtailTestUtils):

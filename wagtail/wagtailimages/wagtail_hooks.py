@@ -12,6 +12,7 @@ from wagtail.wagtailadmin.search import SearchArea
 
 from wagtail.wagtailimages import admin_urls, image_operations
 from wagtail.wagtailimages.models import get_image_model
+from wagtail.wagtailimages.permissions import permission_policy
 from wagtail.wagtailimages.rich_text import ImageEmbedHandler
 
 
@@ -24,7 +25,9 @@ def register_admin_urls():
 
 class ImagesMenuItem(MenuItem):
     def is_shown(self, request):
-        return request.user.has_perm('wagtailimages.add_image') or request.user.has_perm('wagtailimages.change_image')
+        return permission_policy.user_has_any_permission(
+            request.user, ['add', 'change', 'delete']
+        )
 
 
 @hooks.register('register_admin_menu_item')
@@ -96,7 +99,9 @@ def add_images_summary_item(request, items):
 
 class ImagesSearchArea(SearchArea):
     def is_shown(self, request):
-        return request.user.has_perm('wagtailimages.add_image') or request.user.has_perm('wagtailimages.change_image')
+        return permission_policy.user_has_any_permission(
+            request.user, ['add', 'change', 'delete']
+        )
 
 
 @hooks.register('register_admin_search_area')
