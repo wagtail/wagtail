@@ -164,14 +164,21 @@ class BaseDjangoAuthPermissionPolicy(BasePermissionPolicy):
     Extends BasePermissionPolicy with helper methods useful for policies that need to
     perform lookups against the django.contrib.auth permission model
     """
-    def __init__(self, model):
+    def __init__(self, model, auth_model=None):
+        # `auth_model` specifies the model to be used for permission record lookups;
+        # usually this will match `model` (which specifies the type of instances that
+        # `instances_user_has_permission_for` will return), but this may differ when
+        # swappable models are in use - for example, an interface for editing user
+        # records might use a custom User model but will typically still refer to the
+        # permission records for auth.user.
         super(BaseDjangoAuthPermissionPolicy, self).__init__(model)
-        self.app_label = self.model._meta.app_label
-        self.model_name = self.model._meta.model_name
+        self.auth_model = auth_model or self.model
+        self.app_label = self.auth_model._meta.app_label
+        self.model_name = self.auth_model._meta.model_name
 
     @cached_property
     def _content_type(self):
-        return ContentType.objects.get_for_model(self.model)
+        return ContentType.objects.get_for_model(self.auth_model)
 
     def _get_permission_name(self, action):
         """
@@ -239,8 +246,8 @@ class OwnershipPermissionPolicy(BaseDjangoAuthPermissionPolicy):
     Besides 'add', 'change' and 'delete', no other actions are recognised or permitted
     (unless the user is an active superuser, in which case they can do everything).
     """
-    def __init__(self, model, owner_field_name='owner'):
-        super(OwnershipPermissionPolicy, self).__init__(model)
+    def __init__(self, model, auth_model=None, owner_field_name='owner'):
+        super(OwnershipPermissionPolicy, self).__init__(model, auth_model=auth_model)
         self.owner_field_name = owner_field_name
 
         # make sure owner_field_name is a field that exists on the model
