@@ -94,6 +94,7 @@ Contributors
 * jnns
 * Eugene MechanisM
 * benjaoming
+* Alexander Bogushov
 
 
 Translators
