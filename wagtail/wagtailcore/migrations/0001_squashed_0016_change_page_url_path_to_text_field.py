@@ -116,6 +116,20 @@ def remove_initial_data(apps, schema_editor):
     # have been assigned such permissions and its harmless to leave them.
 
 
+def set_page_path_collation(apps, schema_editor):
+    """
+    Treebeard's path comparison logic can fail on certain locales such as sk_SK, which
+    sort numbers after letters. To avoid this, we explicitly set the collation for the
+    'path' column to the (non-locale-specific) 'C' collation.
+
+    See: https://groups.google.com/d/msg/wagtail/q0leyuCnYWI/I9uDvVlyBAAJ
+    """
+    if schema_editor.connection.vendor == 'postgresql':
+        schema_editor.execute("""
+            ALTER TABLE wagtailcore_page ALTER COLUMN path TYPE VARCHAR(255) COLLATE "C"
+        """)
+
+
 class Migration(migrations.Migration):
 
     replaces = [
@@ -225,6 +239,9 @@ class Migration(migrations.Migration):
                 'abstract': False,
             },
             bases=(models.Model, wagtail.wagtailsearch.index.Indexed),
+        ),
+        migrations.RunPython(
+            set_page_path_collation, migrations.RunPython.noop
         ),
         migrations.CreateModel(
             name='GroupPagePermission',
