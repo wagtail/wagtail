@@ -26,12 +26,12 @@ def items_for_result(view, result):
     """
     Generates the actual list of data.
     """
-    model_admin = view.model_admin
+    modeladmin = view.modeladmin
     for field_name in view.list_display:
-        empty_value_display = model_admin.get_empty_value_display()
+        empty_value_display = modeladmin.get_empty_value_display()
         row_classes = ['field-%s' % field_name]
         try:
-            f, attr, value = lookup_field(field_name, result, model_admin)
+            f, attr, value = lookup_field(field_name, result, modeladmin)
         except ObjectDoesNotExist:
             result_repr = empty_value_display
         else:
@@ -78,7 +78,7 @@ def results(view, object_list):
         yield ResultList(None, items_for_result(view, item))
 
 
-@register.inclusion_tag("wagtailmodeladmin/includes/result_list.html",
+@register.inclusion_tag("modeladmin/includes/result_list.html",
                         takes_context=True)
 def result_list(context, view, object_list):
     """
@@ -118,7 +118,7 @@ def pagination_link_next(current_page, view):
     return ''
 
 
-@register.inclusion_tag("wagtailmodeladmin/includes/search_form.html")
+@register.inclusion_tag("modeladmin/includes/search_form.html")
 def search_form(view):
     return {
         'view': view,
@@ -131,7 +131,7 @@ def admin_list_filter(view, spec):
     return djangoadmin_list_filter(view, spec)
 
 
-@register.inclusion_tag("wagtailmodeladmin/includes/result_row.html",
+@register.inclusion_tag("modeladmin/includes/result_row.html",
                         takes_context=True)
 def result_row_display(context, view, object_list, result, index):
     obj = list(object_list)[index]
@@ -140,7 +140,7 @@ def result_row_display(context, view, object_list, result, index):
     return context
 
 
-@register.inclusion_tag("wagtailmodeladmin/includes/result_row_value.html")
+@register.inclusion_tag("modeladmin/includes/result_row_value.html")
 def result_row_value_display(item, obj, action_buttons, index=0):
     add_action_buttons = False
     closing_tag = mark_safe(item[-5:])

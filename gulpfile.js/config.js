@@ -55,10 +55,10 @@ var apps = [
             'wagtailstyleguide/scss/styleguide.scss'
         ],
     }),
-    new App('wagtail/contrib/wagtailmodeladmin', {
+    new App('wagtail/contrib/modeladmin', {
         'scss': [
-            'wagtailmodeladmin/scss/index.scss',
-            'wagtailmodeladmin/scss/choose_parent_page.scss',
+            'modeladmin/scss/index.scss',
+            'modeladmin/scss/choose_parent_page.scss',
         ],
     }),
 ];

@@ -39,7 +39,7 @@ class WagtailRegisterable(object):
 
 class ModelAdmin(WagtailRegisterable):
     """
-    The core wagtailmodeladmin class. It provides an alternative means to
+    The core modeladmin class. It provides an alternative means to
     list and manage instances of a given 'model' within Wagtail's admin area.
     It is essentially comprised of attributes and methods that allow a degree
     of control over how the data is represented, and other methods to make the
@@ -194,7 +194,7 @@ class ModelAdmin(WagtailRegisterable):
         the assigned model. The view class used can be overridden by changing
         the 'index_view_class' attribute.
         """
-        kwargs = {'model_admin': self}
+        kwargs = {'modeladmin': self}
         view_class = self.index_view_class
         return view_class.as_view(**kwargs)(request)
 
@@ -205,7 +205,7 @@ class ModelAdmin(WagtailRegisterable):
         assigned model extends 'Page'. The view class used can be overridden by
         changing the 'create_view_class' attribute.
         """
-        kwargs = {'model_admin': self}
+        kwargs = {'modeladmin': self}
         view_class = self.create_view_class
         return view_class.as_view(**kwargs)(request)
 
@@ -217,7 +217,7 @@ class ModelAdmin(WagtailRegisterable):
         new instances. The view class used can be overridden by changing the
         'choose_parent_view_class' attribute.
         """
-        kwargs = {'model_admin': self}
+        kwargs = {'modeladmin': self}
         view_class = self.choose_parent_view_class
         return view_class.as_view(**kwargs)(request)
 
@@ -228,7 +228,7 @@ class ModelAdmin(WagtailRegisterable):
         model extends 'Page'. The view class used can be overridden by changing
         the  'edit_view_class' attribute.
         """
-        kwargs = {'model_admin': self, 'object_id': object_id}
+        kwargs = {'modeladmin': self, 'object_id': object_id}
         view_class = self.edit_view_class
         return view_class.as_view(**kwargs)(request)
 
@@ -240,7 +240,7 @@ class ModelAdmin(WagtailRegisterable):
         used can be overridden by changing the 'confirm_delete_view_class'
         attribute.
         """
-        kwargs = {'model_admin': self, 'object_id': object_id}
+        kwargs = {'modeladmin': self, 'object_id': object_id}
         view_class = self.confirm_delete_view_class
         return view_class.as_view(**kwargs)(request)
 
@@ -253,7 +253,7 @@ class ModelAdmin(WagtailRegisterable):
         is completed. The view class used can be overridden by changing the
         'unpublish_view_class' attribute.
         """
-        kwargs = {'model_admin': self, 'object_id': object_id}
+        kwargs = {'modeladmin': self, 'object_id': object_id}
         view_class = self.unpublish_view_class
         return view_class.as_view(**kwargs)(request)
 
@@ -266,7 +266,7 @@ class ModelAdmin(WagtailRegisterable):
         is completed. The view class used can be overridden by changing the
         'copy_view_class' attribute.
         """
-        kwargs = {'model_admin': self, 'object_id': object_id}
+        kwargs = {'modeladmin': self, 'object_id': object_id}
         view_class = self.copy_view_class
         return view_class.as_view(**kwargs)(request)
 
@@ -279,9 +279,9 @@ class ModelAdmin(WagtailRegisterable):
         app = self.opts.app_label
         model_name = self.opts.model_name
         return [
-            'wagtailmodeladmin/%s/%s/%s.html' % (app, model_name, action),
-            'wagtailmodeladmin/%s/%s.html' % (app, action),
-            'wagtailmodeladmin/%s.html' % (action,),
+            'modeladmin/%s/%s/%s.html' % (app, model_name, action),
+            'modeladmin/%s/%s.html' % (app, action),
+            'modeladmin/%s.html' % (action,),
         ]
 
     def get_index_template(self):
@@ -469,9 +469,9 @@ class ModelAdminGroup(WagtailRegisterable):
         return urls
 
 
-def wagtailmodeladmin_register(wagtailmodeladmin_class):
+def modeladmin_register(modeladmin_class):
     """
     Method for registering ModelAdmin or ModelAdminGroup classes with Wagtail.
     """
-    instance = wagtailmodeladmin_class()
+    instance = modeladmin_class()
     instance.register_with_wagtail()

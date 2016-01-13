@@ -5,7 +5,7 @@
 ``ModelAdmin``
 =====================
 
-The ``wagtailmodeladmin`` module allows you to create customisable listing
+The ``modeladmin`` module allows you to create customisable listing
 pages for any model in your Wagtail project, and add navigation elements to the
 Wagtail admin area so that you can reach them. Simply extend the `ModelAdmin`
 class, override a few attributes to suit your needs, register it with Wagtail
@@ -40,7 +40,7 @@ A full list of features
 - All you need to easily hook your `ModelAdmin` classes into Wagtail, taking
   care of URL registration, menu changes, and registering any missing model
   permissions, so that you can assign them to Groups.
-- **Built to be customisable** - While ``wagtailmodeladmin`` provides a solid
+- **Built to be customisable** - While ``modeladmin`` provides a solid
   experience out of the box, you can easily use your own templates, and the
   `ModelAdmin` class has a large number of methods that you can override or
   extend, allowing you to customise the behaviour to a greater degree.
@@ -51,22 +51,22 @@ A full list of features
 How to use
 ----------
 
-1. Add ``wagtail.contrib.wagtailmodeladmin`` to your ``INSTALLED_APPS``:
+1. Add ``wagtail.contrib.modeladmin`` to your ``INSTALLED_APPS``:
 
 .. code-block:: python
 
     INSTALLED_APPS = [
        ...
-       'wagtail.contrib.wagtailmodeladmin',
+       'wagtail.contrib.modeladmin',
     ]
 
-2. Add ``wagtail.contrib.wagtailmodeladmin.middleware.ModelAdminMiddleware`` to your ``MIDDLEWARE_CLASSES`` (at the end should be fine)
+2. Add ``wagtail.contrib.modeladmin.middleware.ModelAdminMiddleware`` to your ``MIDDLEWARE_CLASSES`` (at the end should be fine)
 
 .. code-block:: python
 
 	MIDDLEWARE_CLASSES = [
        ...
-       'wagtail.contrib.wagtailmodeladmin.middleware.ModelAdminMiddleware',
+       'wagtail.contrib.modeladmin.middleware.ModelAdminMiddleware',
     ]
 
 3. Add a ``wagtail_hooks.py`` file to your app's folder and extend the `ModelAdmin`, and `ModelAdminGroup` classes to produce the desired effect.
@@ -84,8 +84,8 @@ can get to it.
 ``wagtail_hooks.py`` in your app directory would look something like this:
 
 .. code-block:: python
-	from wagtail.contrib.wagtailmodeladmin.options import (
-		ModelAdmin, wagtailmodeladmin_register)
+	from wagtail.contrib.modeladmin.options import (
+		ModelAdmin, modeladmin_register)
 	from .models import MyPageModel
 
 
@@ -99,7 +99,7 @@ can get to it.
 	    search_fields = ('title',)
     
 	# Now you just need to register your customised ModelAdmin class with Wagtail
-	wagtailmodeladmin_register(MyPageModelAdmin)
+	modeladmin_register(MyPageModelAdmin)
 
 
 .. _modeladmin_example_complex:
@@ -116,8 +116,8 @@ ModelAdminGroup allows you to group them all together nicely.
 
 .. code-block:: python
 
-	from wagtail.contrib.wagtailmodeladmin.options import (
-    	ModelAdmin, ModelAdminGroup, wagtailmodeladmin_register)
+	from wagtail.contrib.modeladmin.options import (
+    	ModelAdmin, ModelAdminGroup, modeladmin_register)
 	from .models import (
 	    MyPageModel, MyOtherPageModel, MySnippetModel, SomeOtherModel)
 
@@ -166,7 +166,7 @@ ModelAdminGroup allows you to group them all together nicely.
 
 	# When using a ModelAdminGroup class to group several ModelAdmin classes together,
 	# you only need to register the ModelAdminGroup class with Wagtail:
-	wagtailmodeladmin_register(MyModelAdminGroup)
+	modeladmin_register(MyModelAdminGroup)
 
 
 .. _modeladmin_multi_registeration:
@@ -177,7 +177,7 @@ Registering multiple classes in one ``wagtail_hooks.py`` file
 If you have an app with more than one model that you wish to manage, or even 
 multiple models you wish to group together with ``ModelAdminGroup`` classes,
 that's possible. Just register each of your ModelAdmin classes using
-``wagtailmodeladmin_register``, and they'll work as expected.
+``modeladmin_register``, and they'll work as expected.
 
 .. code-block:: python
 
@@ -199,10 +199,10 @@ that's possible. Just register each of your ModelAdmin classes using
 		items = (ModelAdmin3, ModelAdmin4)
 		...
 	
-	wagtailmodeladmin_register(MyPageModelAdmin)
-	wagtailmodeladmin_register(MyOtherPageModelAdmin)
-	wagtailmodeladmin_register(MyModelAdminGroup)
-	wagtailmodeladmin_register(MyOtherModelAdminGroup)
+	modeladmin_register(MyPageModelAdmin)
+	modeladmin_register(MyOtherPageModelAdmin)
+	modeladmin_register(MyModelAdminGroup)
+	modeladmin_register(MyOtherModelAdminGroup)
 	
 
 Supported list options
