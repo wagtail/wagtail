@@ -15,7 +15,7 @@ class ModelAdminMenuItem(MenuItem):
             label=modeladmin.get_menu_label(), url=modeladmin.get_index_url(),
             classnames=classnames, order=order)
 
-    def is_show(self, request):
+    def is_shown(self, request):
         return self.modeladmin.show_menu_item(request.user)
 
 
