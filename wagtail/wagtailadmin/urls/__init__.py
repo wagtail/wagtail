@@ -5,8 +5,12 @@ from django.views.decorators.cache import cache_control
 from wagtail.wagtailadmin.urls import pages as wagtailadmin_pages_urls
 from wagtail.wagtailadmin.urls import password_reset as wagtailadmin_password_reset_urls
 from wagtail.wagtailadmin.views import account, chooser, home, pages, tags, userbar
+from wagtail.wagtailadmin.modules import register_modules
 from wagtail.wagtailcore import hooks
 from wagtail.utils.urlpatterns import decorate_urlpatterns
+
+
+register_modules()
 
 
 urlpatterns = [
