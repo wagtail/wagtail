@@ -77,10 +77,12 @@ class TableBlock(FieldBlock):
         if template:
             table_header = value['data'][0] if value.get('data', None) and len(value['data']) > 0 and \
                                                value.get('first_row_is_table_header', False) else None
+            first_col_is_header = value.get('first_col_is_header', False)
             context = {
                 'self': value,
                 self.TEMPLATE_VAR: value,
                 'table_header': table_header,
+                'first_col_is_header': first_col_is_header,
                 'data': value['data'][1:] if table_header else value.get('data', [])
             }
             return render_to_string(template, context)

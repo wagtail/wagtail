@@ -1,10 +1,10 @@
-<div class="table">
-    <table>
+<div class="table-responsive">
+    <table class="table table-small-font table-bordered table-striped">
         {% if table_header %}
             <thead>
             <tr>
                 {% for column in table_header %}
-                    <th>
+                    <th style='font-weight: bold;'>
                         {% if column.strip %}
                             {{ column.strip|safe|linebreaksbr }}
                         {% endif %}
@@ -17,11 +17,19 @@
         {% for row in data %}
             <tr>
                 {% for column in row %}
-                    <td>
-                        {% if column.strip %}
-                            {{ column.strip|safe|linebreaksbr }}
-                        {% endif %}
-                    </td>
+                    {% if first_col_is_header and forloop.first %}
+	                    <th style='font-weight: bold;'>
+	                        {% if column.strip %}
+	                            {{ column.strip|safe|linebreaksbr }}
+	                        {% endif %}
+	                    </th>
+	                 {% else %}
+                        <td>
+                            {% if column.strip %}
+                                {{ column.strip|safe|linebreaksbr }}
+                            {% endif %}
+                        </td>
+	                 {% endif %}
                 {% endfor %}
             </tr>
         {% endfor %}

@@ -3,8 +3,10 @@
 function initTable(id, tableOptions) {
     var containerId = id + '-handsontable-container';
     var tableHeaderCheckboxId = id + '-handsontable-header';
+    var colHeaderCheckboxId = id + '-handsontable-col-header';
     var hiddenStreamInput = $('#' + id);
     var tableHeaderCheckbox = $('#' + tableHeaderCheckboxId);
+    var colHeaderCheckbox = $('#' + colHeaderCheckboxId);
     var hot;
     var finalOptions = {};
     var persist;
@@ -36,6 +38,9 @@ function initTable(id, tableOptions) {
         if (dataForForm.hasOwnProperty('first_row_is_table_header')) {
             tableHeaderCheckbox.prop('checked', dataForForm.first_row_is_table_header);
         }
+        if (dataForForm.hasOwnProperty('first_col_is_header')) {
+            colHeaderCheckbox.prop('checked', dataForForm.first_col_is_header);
+        }
     }
 
     if (!tableOptions.hasOwnProperty('width')) {
@@ -50,7 +55,8 @@ function initTable(id, tableOptions) {
     persist = function() {
         hiddenStreamInput.val(JSON.stringify({
             data: hot.getData(),
-            first_row_is_table_header: tableHeaderCheckbox.prop('checked')
+            first_row_is_table_header: tableHeaderCheckbox.prop('checked'),
+            first_col_is_header: colHeaderCheckbox.prop('checked')
         }));
     };
 
@@ -70,6 +76,10 @@ function initTable(id, tableOptions) {
         persist();
     });
 
+    colHeaderCheckbox.change(function() {
+        persist();
+    });
+    
     finalOptions.afterChange = cellEvent;
     finalOptions.afterCreateCol = structureEvent;
     finalOptions.afterCreateRow = structureEvent;
