@@ -1,4 +1,5 @@
 from django import VERSION as DJANGO_VERSION
+from django.conf import settings
 
 
 def create_initial_data(apps, schema_editor):
@@ -22,59 +23,66 @@ def create_initial_data(apps, schema_editor):
         content_type=page_content_type,
         path='0001',
         depth=1,
-        numchild=1,
+        numchild=0,
         url_path='/',
     )
 
-    # Create homepage
-    homepage = Page.objects.create(
-        title="Welcome to your new Wagtail site!",
-        slug='home',
-        content_type=page_content_type,
-        path='00010001',
-        depth=2,
-        numchild=0,
-        url_path='/home/',
-    )
+    if getattr(settings, "WAGTAIL_MIGRATE_INITIAL_PAGE_AND_SITE", True):
+        # Create homepage
+        # Note that the MP_Node API is not available here.
+        homepage = Page.objects.create(
+            title="Welcome to your new Wagtail site!",
+            slug='home',
+            content_type=page_content_type,
+            path='00010001',
+            depth=2,
+            numchild=0,
+            url_path='/home/',
+        )
 
-    # Create default site
-    Site.objects.create(
-        hostname='localhost',
-        root_page_id=homepage.id,
-        is_default_site=True
-    )
+        # We added a child to `root`, so update the database...
+        root.numchild = 1
+        root.save(update_fields=("numchild",))
 
-    # Create auth groups
-    moderators_group = Group.objects.create(name='Moderators')
-    editors_group = Group.objects.create(name='Editors')
+        # Create default site
+        Site.objects.create(
+            hostname='localhost',
+            root_page_id=homepage.id,
+            is_default_site=True
+        )
 
-    # Create group permissions
-    GroupPagePermission.objects.create(
-        group=moderators_group,
-        page=root,
-        permission_type='add',
-    )
-    GroupPagePermission.objects.create(
-        group=moderators_group,
-        page=root,
-        permission_type='edit',
-    )
-    GroupPagePermission.objects.create(
-        group=moderators_group,
-        page=root,
-        permission_type='publish',
-    )
+    if getattr(settings, "WAGTAIL_MIGRATE_INITIAL_GROUPS", True):
+        # Create auth groups
+        moderators_group = Group.objects.create(name='Moderators')
+        editors_group = Group.objects.create(name='Editors')
 
-    GroupPagePermission.objects.create(
-        group=editors_group,
-        page=root,
-        permission_type='add',
-    )
-    GroupPagePermission.objects.create(
-        group=editors_group,
-        page=root,
-        permission_type='edit',
-    )
+        # Create group permissions
+        GroupPagePermission.objects.create(
+            group=moderators_group,
+            page=root,
+            permission_type='add',
+        )
+        GroupPagePermission.objects.create(
+            group=moderators_group,
+            page=root,
+            permission_type='edit',
+        )
+        GroupPagePermission.objects.create(
+            group=moderators_group,
+            page=root,
+            permission_type='publish',
+        )
+
+        GroupPagePermission.objects.create(
+            group=editors_group,
+            page=root,
+            permission_type='add',
+        )
+        GroupPagePermission.objects.create(
+            group=editors_group,
+            page=root,
+            permission_type='edit',
+        )
 
 
 def remove_initial_data(apps, schema_editor):
