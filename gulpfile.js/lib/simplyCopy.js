@@ -3,6 +3,7 @@ var rename = require('gulp-rename');
 var gutil = require('gulp-util');
 var path = require('path');
 var config = require('../config');
+var normalizePath = require('../lib/normalize-path');
 
 /*
  * Simple copy task - just copoes files from the source to the destination,
@@ -12,7 +13,7 @@ var config = require('../config');
  
 var renameSrcToDest = function() {
     return rename(function(filePath) {
-        filePath.dirname = filePath.dirname.replace(
+        filePath.dirname = normalizePath(filePath.dirname).replace(
             '/' + config.srcDir + '/',
             '/' + config.destDir + '/');
     });
