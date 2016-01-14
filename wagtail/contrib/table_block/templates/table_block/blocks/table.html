@@ -1,10 +1,10 @@
-<div class="table-responsive">
-    <table class="table table-small-font table-bordered table-striped">
+<div class="table">
+    <table>
         {% if table_header %}
             <thead>
             <tr>
                 {% for column in table_header %}
-                    <th style='font-weight: bold;'>
+                    <th>
                         {% if column.strip %}
                             {{ column.strip|safe|linebreaksbr }}
                         {% endif %}
@@ -18,7 +18,7 @@
             <tr>
                 {% for column in row %}
                     {% if first_col_is_header and forloop.first %}
-	                    <th style='font-weight: bold;'>
+	                    <th>
 	                        {% if column.strip %}
 	                            {{ column.strip|safe|linebreaksbr }}
 	                        {% endif %}
