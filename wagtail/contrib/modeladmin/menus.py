@@ -16,7 +16,7 @@ class ModelAdminMenuItem(MenuItem):
             classnames=classnames, order=order)
 
     def is_shown(self, request):
-        return self.modeladmin.show_menu_item(request.user)
+        return self.modeladmin.show_menu_item(request)
 
 
 class GroupMenuItem(SubmenuMenuItem):
