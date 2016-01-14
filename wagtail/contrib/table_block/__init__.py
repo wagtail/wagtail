@@ -75,8 +75,7 @@ class TableBlock(FieldBlock):
     def render(self, value):
         template = getattr(self.meta, 'template', None)
         if template:
-            table_header = value['data'][0] if value.get('data', None) and len(value['data']) > 0 and \
-                                               value.get('first_row_is_table_header', False) else None
+            table_header = value['data'][0] if value.get('data', None) and len(value['data']) > 0 and value.get('first_row_is_table_header', False) else None
             first_col_is_header = value.get('first_col_is_header', False)
             context = {
                 'self': value,
