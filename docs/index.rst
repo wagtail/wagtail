@@ -16,7 +16,7 @@ Below are some useful links to help you get started with Wagtail.
 
   * :doc:`topics/pages`
   * :doc:`topics/writing_templates`
-  * :doc:`topics/images/index`
+  * :doc:`topics/images`
   * :doc:`topics/search/index`
   * :doc:`advanced_topics/third_party_tutorials`
 
