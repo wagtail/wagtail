@@ -5,7 +5,7 @@ import json
 from django.db import models
 from django import forms
 from django.core.serializers.json import DjangoJSONEncoder
-from django.utils.six import with_metaclass, string_types
+from django.utils.six import string_types
 
 from wagtail.wagtailcore.rich_text import DbWhitelister, expand_db_html
 from wagtail.utils.widgets import WidgetWithScript
