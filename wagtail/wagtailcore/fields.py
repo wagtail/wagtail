@@ -21,6 +21,23 @@ class RichTextField(models.TextField):
         return super(RichTextField, self).formfield(**defaults)
 
 
+# https://github.com/django/django/blob/64200c14e0072ba0ffef86da46b2ea82fd1e019a/django/db/models/fields/subclassing.py#L31-L44
+class Creator(object):
+    """
+    A placeholder class that provides a way to set the attribute on the model.
+    """
+    def __init__(self, field):
+        self.field = field
+
+    def __get__(self, obj, type=None):
+        if obj is None:
+            return self
+        return obj.__dict__[self.field.name]
+
+    def __set__(self, obj, value):
+        obj.__dict__[self.field.name] = self.field.to_python(value)
+
+
 class StreamField(models.Field):
     def __init__(self, block_types, **kwargs):
         if isinstance(block_types, Block):
@@ -112,3 +129,10 @@ class StreamField(models.Field):
         errors = super(StreamField, self).check(**kwargs)
         errors.extend(self.stream_block.check(field=self, **kwargs))
         return errors
+
+    def contribute_to_class(self, cls, name, **kwargs):
+        super(StreamField, self).contribute_to_class(cls, name, **kwargs)
+
+        # Add Creator descriptor to allow the field to be set from a list or a
+        # JSON string.
+        setattr(cls, self.name, Creator(self))
