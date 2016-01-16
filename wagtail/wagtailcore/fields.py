@@ -21,7 +21,7 @@ class RichTextField(models.TextField):
         return super(RichTextField, self).formfield(**defaults)
 
 
-class StreamField(with_metaclass(models.SubfieldBase, models.Field)):
+class StreamField(models.Field):
     def __init__(self, block_types, **kwargs):
         if isinstance(block_types, Block):
             self.stream_block = block_types
@@ -88,6 +88,9 @@ class StreamField(with_metaclass(models.SubfieldBase, models.Field)):
             return value.raw_text
         else:
             return json.dumps(self.stream_block.get_prep_value(value), cls=DjangoJSONEncoder)
+
+    def from_db_value(self, value, expression, connection, context):
+        return self.to_python(value)
 
     def formfield(self, **kwargs):
         """
