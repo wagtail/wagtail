@@ -7,7 +7,7 @@ Usage guide
 
     pages
     writing_templates
-    images/index
+    images
     search/index
     snippets
     streamfield
