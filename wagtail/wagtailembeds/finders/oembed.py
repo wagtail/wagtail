@@ -1,6 +1,7 @@
 from __future__ import absolute_import, unicode_literals
 
 import json
+import re
 
 from django.utils.six.moves.urllib import request as urllib_request
 from django.utils.six.moves.urllib.error import URLError
@@ -8,26 +9,44 @@ from django.utils.six.moves.urllib.parse import urlencode
 from django.utils.six.moves.urllib.request import Request
 
 from wagtail.wagtailembeds.exceptions import EmbedNotFoundException
-from wagtail.wagtailembeds.oembed_providers import get_oembed_provider
+from wagtail.wagtailembeds.oembed_providers import all_providers
 
 from .base import EmbedFinder
 
 
 class OEmbedFinder(EmbedFinder):
     options = {}
+    _endpoints = None
 
-    def __init__(self, options=None):
+    def __init__(self, providers=None, options=None):
+        self._endpoints = {}
+
+        for provider in providers or all_providers:
+            patterns = []
+
+            for url in provider['urls']:
+                url = url.replace('{format}', 'json')
+                patterns.append(re.compile(url))
+
+            self._endpoints[provider['endpoint']] = patterns
+
         if options:
             self.options = self.options.copy()
             self.options.update(options)
 
+    def _get_endpoint(self, url):
+        for endpoint, patterns in self._endpoints.items():
+            for pattern in patterns:
+                if re.match(pattern, url):
+                    return endpoint
+
     def accept(self, url):
-        return get_oembed_provider(url) is not None
+        return self._get_endpoint(url) is not None
 
     def find_embed(self, url, max_width=None):
         # Find provider
-        provider = get_oembed_provider(url)
-        if provider is None:
+        endpoint = self._get_endpoint(url)
+        if endpoint is None:
             raise EmbedNotFoundException
 
         # Work out params
@@ -38,7 +57,7 @@ class OEmbedFinder(EmbedFinder):
             params['maxwidth'] = max_width
 
         # Perform request
-        request = Request(provider + '?' + urlencode(params))
+        request = Request(endpoint + '?' + urlencode(params))
         request.add_header('User-agent', 'Mozilla/5.0')
         try:
             r = urllib_request.urlopen(request)

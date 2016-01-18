@@ -13,6 +13,7 @@ from mock import patch
 
 from wagtail.tests.utils import WagtailTestUtils
 from wagtail.wagtailcore import blocks
+from wagtail.wagtailembeds import oembed_providers
 from wagtail.wagtailembeds.blocks import EmbedBlock, EmbedValue
 from wagtail.wagtailembeds.embeds import get_embed
 from wagtail.wagtailembeds.exceptions import EmbedNotFoundException
@@ -431,6 +432,14 @@ class TestOembed(TestCase):
             'height': 'test_height',
             'html': 'test_html'
         })
+
+    def test_oembed_accepts_known_provider(self):
+        finder = OEmbedFinder(providers=[oembed_providers.youtube])
+        self.assertTrue(finder.accept("http://www.youtube.com/watch/"))
+
+    def test_oembed_doesnt_accept_unknown_provider(self):
+        finder = OEmbedFinder(providers=[oembed_providers.twitter])
+        self.assertFalse(finder.accept("http://www.youtube.com/watch/"))
 
 
 class TestEmbedTag(TestCase):
