@@ -16,10 +16,10 @@ from wagtail.wagtailcore import blocks
 from wagtail.wagtailembeds.blocks import EmbedBlock, EmbedValue
 from wagtail.wagtailembeds.embeds import get_embed
 from wagtail.wagtailembeds.exceptions import EmbedNotFoundException
-from wagtail.wagtailembeds.finders import get_default_finder
-from wagtail.wagtailembeds.finders.embedly import embedly as wagtail_embedly
+from wagtail.wagtailembeds.finders import get_finders
+from wagtail.wagtailembeds.finders.embedly import EmbedlyFinder as EmbedlyFinder
 from wagtail.wagtailembeds.finders.embedly import AccessDeniedEmbedlyException, EmbedlyException
-from wagtail.wagtailembeds.finders.oembed import oembed as wagtail_oembed
+from wagtail.wagtailembeds.finders.oembed import OEmbedFinder as OEmbedFinder
 from wagtail.wagtailembeds.models import Embed
 from wagtail.wagtailembeds.rich_text import MediaEmbedHandler
 from wagtail.wagtailembeds.templatetags.wagtailembeds_tags import embed_tag
@@ -31,42 +31,84 @@ except ImportError:
     no_embedly = True
 
 
-class TestGetDefaultFinder(TestCase):
+class TestGetFinders(TestCase):
     def test_defaults_to_oembed(self):
-        self.assertEqual(get_default_finder(), wagtail_oembed)
+        finders = get_finders()
+
+        self.assertEqual(len(finders), 1)
+        self.assertIsInstance(finders[0], OEmbedFinder)
+
+    # New WAGTAILEMBEDS_EMBED_FINDERS setting
+
+    @override_settings(WAGTAILEMBEDS_EMBED_FINDERS=[
+        {
+            'class': 'wagtail.wagtailembeds.finders.oembed'
+        }
+    ])
+    def test_new_find_oembed(self):
+        finders = get_finders()
+
+        self.assertEqual(len(finders), 1)
+        self.assertIsInstance(finders[0], OEmbedFinder)
+
+    # Old settings
 
     @override_settings(WAGTAILEMBEDS_EMBEDLY_KEY='test')
     def test_defaults_to_embedly_when_embedly_key_set(self):
-        self.assertEqual(get_default_finder(), wagtail_embedly)
+        finders = get_finders()
+
+        self.assertEqual(len(finders), 1)
+        self.assertIsInstance(finders[0], EmbedlyFinder)
 
     @override_settings(WAGTAILEMBEDS_EMBED_FINDER='wagtail.wagtailembeds.finders.embedly.embedly')
-    def test_find_embedly(self):
-        self.assertEqual(get_default_finder(), wagtail_embedly)
+    def test_old_find_embedly(self):
+        finders = get_finders()
+
+        self.assertEqual(len(finders), 1)
+        self.assertIsInstance(finders[0], EmbedlyFinder)
 
     @override_settings(WAGTAILEMBEDS_EMBED_FINDER='wagtail.wagtailembeds.finders.oembed.oembed')
-    def test_find_oembed(self):
-        self.assertEqual(get_default_finder(), wagtail_oembed)
+    def test_old_find_oembed(self):
+        finders = get_finders()
+
+        self.assertEqual(len(finders), 1)
+        self.assertIsInstance(finders[0], OEmbedFinder)
 
     @override_settings(WAGTAILEMBEDS_EMBED_FINDER='wagtail.wagtailembeds.finders.embedly')
-    def test_find_embedly_from_module(self):
-        self.assertEqual(get_default_finder(), wagtail_embedly)
+    def test_old_find_embedly_from_module(self):
+        finders = get_finders()
+
+        self.assertEqual(len(finders), 1)
+        self.assertIsInstance(finders[0], EmbedlyFinder)
 
     @override_settings(WAGTAILEMBEDS_EMBED_FINDER='wagtail.wagtailembeds.finders.oembed')
-    def test_find_oembed_from_module(self):
-        self.assertEqual(get_default_finder(), wagtail_oembed)
+    def test_old_find_oembed_from_module(self):
+        finders = get_finders()
+
+        self.assertEqual(len(finders), 1)
+        self.assertIsInstance(finders[0], OEmbedFinder)
 
     @override_settings(WAGTAILEMBEDS_EMBED_FINDER='wagtail.wagtailembeds.embeds.embedly')
-    def test_find_old_embedly(self):
-        self.assertEqual(get_default_finder(), wagtail_embedly)
+    def test_old_find_old_embedly(self):
+        finders = get_finders()
+
+        self.assertEqual(len(finders), 1)
+        self.assertIsInstance(finders[0], EmbedlyFinder)
 
     @override_settings(WAGTAILEMBEDS_EMBED_FINDER='wagtail.wagtailembeds.embeds.oembed')
-    def test_find_old_oembed(self):
-        self.assertEqual(get_default_finder(), wagtail_oembed)
+    def test_old_find_old_oembed(self):
+        finders = get_finders()
+
+        self.assertEqual(len(finders), 1)
+        self.assertIsInstance(finders[0], OEmbedFinder)
 
     @override_settings(WAGTAILEMBEDS_EMBEDLY_KEY='test', WAGTAILEMBEDS_EMBED_FINDER='wagtail.wagtailembeds.finders.oembed.oembed')
-    def test_find_oembed_when_embedly_key_set(self):
+    def test_old_find_oembed_when_embedly_key_set(self):
         # WAGTAILEMBEDS_EMBED_FINDER always takes precedence
-        self.assertEqual(get_default_finder(), wagtail_oembed)
+        finders = get_finders()
+
+        self.assertEqual(len(finders), 1)
+        self.assertIsInstance(finders[0], OEmbedFinder)
 
 
 class TestEmbeds(TestCase):
@@ -190,10 +232,10 @@ class TestEmbedly(TestCase):
             oembed.return_value = {'type': 'photo',
                                    'url': 'http://www.example.com'}
 
-            wagtail_embedly('http://www.example.com', key='foo')
+            EmbedlyFinder().find_embed('http://www.example.com', key='foo')
             oembed.assert_called_with('http://www.example.com', better=False)
 
-            wagtail_embedly('http://www.example.com', max_width=100, key='foo')
+            EmbedlyFinder().find_embed('http://www.example.com', max_width=100, key='foo')
             oembed.assert_called_with('http://www.example.com', maxwidth=100, better=False)
 
     @unittest.skipIf(no_embedly, "Embedly is not installed")
@@ -204,7 +246,7 @@ class TestEmbedly(TestCase):
                                    'error': True,
                                    'error_code': 401}
             self.assertRaises(AccessDeniedEmbedlyException,
-                              wagtail_embedly, 'http://www.example.com', key='foo')
+                              EmbedlyFinder().find_embed, 'http://www.example.com', key='foo')
 
     @unittest.skipIf(no_embedly, "Embedly is not installed")
     def test_embedly_403(self):
@@ -214,7 +256,7 @@ class TestEmbedly(TestCase):
                                    'error': True,
                                    'error_code': 403}
             self.assertRaises(AccessDeniedEmbedlyException,
-                              wagtail_embedly, 'http://www.example.com', key='foo')
+                              EmbedlyFinder().find_embed, 'http://www.example.com', key='foo')
 
     @unittest.skipIf(no_embedly, "Embedly is not installed")
     def test_embedly_404(self):
@@ -224,7 +266,7 @@ class TestEmbedly(TestCase):
                                    'error': True,
                                    'error_code': 404}
             self.assertRaises(EmbedNotFoundException,
-                              wagtail_embedly, 'http://www.example.com', key='foo')
+                              EmbedlyFinder().find_embed, 'http://www.example.com', key='foo')
 
     @unittest.skipIf(no_embedly, "Embedly is not installed")
     def test_embedly_other_error(self):
@@ -233,7 +275,7 @@ class TestEmbedly(TestCase):
                                    'url': 'http://www.example.com',
                                    'error': True,
                                    'error_code': 999}
-            self.assertRaises(EmbedlyException, wagtail_embedly,
+            self.assertRaises(EmbedlyException, EmbedlyFinder().find_embed,
                               'http://www.example.com', key='foo')
 
     @unittest.skipIf(no_embedly, "Embedly is not installed")
@@ -241,12 +283,12 @@ class TestEmbedly(TestCase):
         with patch('embedly.Embedly.oembed') as oembed:
             oembed.return_value = {'type': 'photo',
                                    'url': 'http://www.example.com'}
-            result = wagtail_embedly('http://www.example.com', key='foo')
+            result = EmbedlyFinder().find_embed('http://www.example.com', key='foo')
             self.assertEqual(result['html'], '<img src="http://www.example.com" />')
 
             oembed.return_value = {'type': 'something else',
                                    'html': '<foo>bar</foo>'}
-            result = wagtail_embedly('http://www.example.com', key='foo')
+            result = EmbedlyFinder().find_embed('http://www.example.com', key='foo')
             self.assertEqual(result['html'], '<foo>bar</foo>')
 
     @unittest.skipIf(no_embedly, "Embedly is not installed")
@@ -254,7 +296,7 @@ class TestEmbedly(TestCase):
         with patch('embedly.Embedly.oembed') as oembed:
             oembed.return_value = {'type': 'something else',
                                    'html': '<foo>bar</foo>'}
-            result = wagtail_embedly('http://www.example.com', key='foo')
+            result = EmbedlyFinder().find_embed('http://www.example.com', key='foo')
             self.assertEqual(result, {
                 'title': '',
                 'author_name': '',
@@ -273,7 +315,7 @@ class TestEmbedly(TestCase):
                                    'width': 100,
                                    'height': 100,
                                    'html': '<foo>bar</foo>'}
-            result = wagtail_embedly('http://www.example.com', key='foo')
+            result = EmbedlyFinder().find_embed('http://www.example.com', key='foo')
             self.assertEqual(result, {'type': 'something else',
                                       'author_name': 'Alice',
                                       'provider_name': 'Bob',
@@ -292,12 +334,12 @@ class TestOembed(TestCase):
         self.dummy_response = DummyResponse()
 
     def test_oembed_invalid_provider(self):
-        self.assertRaises(EmbedNotFoundException, wagtail_oembed, "foo")
+        self.assertRaises(EmbedNotFoundException, OEmbedFinder().find_embed, "foo")
 
     def test_oembed_invalid_request(self):
         config = {'side_effect': URLError('foo')}
         with patch.object(django.utils.six.moves.urllib.request, 'urlopen', **config):
-            self.assertRaises(EmbedNotFoundException, wagtail_oembed,
+            self.assertRaises(EmbedNotFoundException, OEmbedFinder().find_embed,
                               "http://www.youtube.com/watch/")
 
     @patch('django.utils.six.moves.urllib.request.urlopen')
@@ -306,7 +348,7 @@ class TestOembed(TestCase):
         urlopen.return_value = self.dummy_response
         loads.return_value = {'type': 'photo',
                               'url': 'http://www.example.com'}
-        result = wagtail_oembed("http://www.youtube.com/watch/")
+        result = OEmbedFinder().find_embed("http://www.youtube.com/watch/")
         self.assertEqual(result['type'], 'photo')
         self.assertEqual(result['html'], '<img src="http://www.example.com" />')
         loads.assert_called_with("foo")
@@ -326,7 +368,7 @@ class TestOembed(TestCase):
             'height': 'test_height',
             'html': 'test_html'
         }
-        result = wagtail_oembed("http://www.youtube.com/watch/")
+        result = OEmbedFinder().find_embed("http://www.youtube.com/watch/")
         self.assertEqual(result, {
             'type': 'something',
             'title': 'test_title',

@@ -2,7 +2,7 @@ from __future__ import absolute_import, unicode_literals
 
 from datetime import datetime
 
-from wagtail.wagtailembeds.finders import get_default_finder
+from wagtail.wagtailembeds.finders import get_finders
 from wagtail.wagtailembeds.models import Embed
 
 
@@ -15,7 +15,11 @@ def get_embed(url, max_width=None, finder=None):
 
     # Get/Call finder
     if not finder:
-        finder = get_default_finder()
+        def finder(url, max_width=None):
+            for finder in get_finders():
+                if finder.accept(url):
+                    return finder.find_embed(url, max_width=max_width)
+
     embed_dict = finder(url, max_width)
 
     # Make sure width and height are valid integers before inserting into database
