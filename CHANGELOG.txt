@@ -8,6 +8,7 @@ Changelog
  * Fix: Custom page managers no longer raise an error when used on an abstract model
  * Fix: Wagtail's migrations are now all reversible (benjaoming)
  * Fix: Deleting a page content type now preserves existing pages as basic Page instances, to prevent tree corruption
+ * Fix: The `Page.path` field is now explicitly given the "C" collation on PostgreSQL to prevent tree ordering issues when using a database created with the Slovak locale
 
 1.3.1 (05.01.2016)
 ~~~~~~~~~~~~~~~~~~
