@@ -1,7 +1,5 @@
 from __future__ import unicode_literals
 
-import unittest
-
 from django.test import TestCase
 from django.core.urlresolvers import reverse
 from django.contrib.auth import get_user_model
@@ -244,13 +242,9 @@ class TestGroupCreateView(TestCase, WagtailTestUtils):
     def test_group_create_adding_permissions(self):
         response = self.post({
             'name': "test group",
-            'page_permissions-0-id': [''],
             'page_permissions-0-page': ['1'],
-            'page_permissions-0-permission_type': ['publish'],
-            'page_permissions-1-id': [''],
-            'page_permissions-1-page': ['1'],
-            'page_permissions-1-permission_type': ['edit'],
-            'page_permissions-TOTAL_FORMS': ['2'],
+            'page_permissions-0-permission_types': ['edit', 'publish'],
+            'page_permissions-TOTAL_FORMS': ['1'],
         })
 
         self.assertRedirects(response, reverse('wagtailusers_groups:index'))
@@ -258,24 +252,20 @@ class TestGroupCreateView(TestCase, WagtailTestUtils):
         new_group = Group.objects.get(name='test group')
         self.assertEqual(new_group.page_permissions.all().count(), 2)
 
-    @unittest.expectedFailure
     def test_duplicate_page_permissions_error(self):
-        # Try to submit duplicate page permission entries
+        # Try to submit multiple page permission entries for the same page
         response = self.post({
             'name': "test group",
-            'page_permissions-0-id': [''],
             'page_permissions-0-page': ['1'],
-            'page_permissions-0-permission_type': ['publish'],
-            'page_permissions-1-id': [''],
+            'page_permissions-0-permission_types': ['publish'],
             'page_permissions-1-page': ['1'],
-            'page_permissions-1-permission_type': ['publish'],
+            'page_permissions-1-permission_types': ['edit'],
             'page_permissions-TOTAL_FORMS': ['2'],
         })
 
         self.assertEqual(response.status_code, 200)
-        # the second form should have errors
-        self.assertEqual(bool(response.context['formset'].errors[0]), False)
-        self.assertEqual(bool(response.context['formset'].errors[1]), True)
+        # formset should have a non-form error about the duplication
+        self.assertTrue(response.context['formset'].non_form_errors)
 
 
 class TestGroupEditView(TestCase, WagtailTestUtils):
@@ -286,6 +276,8 @@ class TestGroupEditView(TestCase, WagtailTestUtils):
         self.root_add_permission = GroupPagePermission.objects.create(page=self.root_page,
                                                                       permission_type='add',
                                                                       group=self.test_group)
+        self.home_page = Page.objects.get(id=2)
+
         # Get the hook-registered permissions, and add one to this group
         self.registered_permissions = Permission.objects.none()
         for fn in hooks.get_hooks('register_permissions'):
@@ -307,10 +299,9 @@ class TestGroupEditView(TestCase, WagtailTestUtils):
             'permissions': [self.existing_permission.id],
             'page_permissions-TOTAL_FORMS': ['1'],
             'page_permissions-MAX_NUM_FORMS': ['1000'],
-            'page_permissions-INITIAL_FORMS': ['1'],  # as we have one page permission already
-            'page_permissions-0-id': [self.root_add_permission.id],
-            'page_permissions-0-page': [self.root_add_permission.page.id],
-            'page_permissions-0-permission_type': [self.root_add_permission.permission_type]
+            'page_permissions-INITIAL_FORMS': ['1'],
+            'page_permissions-0-page': [self.root_page.id],
+            'page_permissions-0-permission_types': ['add']
         }
         for k, v in six.iteritems(post_defaults):
             post_data[k] = post_data.get(k, v)
@@ -352,17 +343,26 @@ class TestGroupEditView(TestCase, WagtailTestUtils):
         # Should not redirect to index
         self.assertEqual(response.status_code, 200)
 
-    def test_group_edit_adding_page_permissions(self):
-        # The test group has one page permission to begin with
+    def test_group_edit_adding_page_permissions_same_page(self):
+        # The test group has one page permission to begin with - 'add' permission on root.
+        # Add two additional permission types on the root page
         self.assertEqual(self.test_group.page_permissions.count(), 1)
         response = self.post({
-            'page_permissions-1-id': [''],
-            'page_permissions-1-page': ['1'],
-            'page_permissions-1-permission_type': ['publish'],
-            'page_permissions-2-id': [''],
-            'page_permissions-2-page': ['1'],
-            'page_permissions-2-permission_type': ['edit'],
-            'page_permissions-TOTAL_FORMS': ['3'],
+            'page_permissions-0-permission_types': ['add', 'publish', 'edit'],
+        })
+
+        self.assertRedirects(response, reverse('wagtailusers_groups:index'))
+        # The test group now has three page permissions
+        self.assertEqual(self.test_group.page_permissions.count(), 3)
+
+    def test_group_edit_adding_page_permissions_different_page(self):
+        # The test group has one page permission to begin with - 'add' permission on root.
+        # Add two additional permission types, on the home page
+        self.assertEqual(self.test_group.page_permissions.count(), 1)
+        response = self.post({
+            'page_permissions-TOTAL_FORMS': ['2'],
+            'page_permissions-1-page': [self.home_page.id],
+            'page_permissions-1-permission_types': ['add', 'publish']
         })
 
         self.assertRedirects(response, reverse('wagtailusers_groups:index'))
@@ -388,34 +388,75 @@ class TestGroupEditView(TestCase, WagtailTestUtils):
         response = self.get()
 
         self.assertEqual(response.context['formset'].management_form['INITIAL_FORMS'].value(), 1)
-        self.assertEqual(response.context['formset'].forms[0].instance, self.root_add_permission)
+        self.assertEqual(
+            response.context['formset'].forms[0]['page'].value(),
+            self.root_page.id
+        )
+        self.assertEqual(
+            response.context['formset'].forms[0]['permission_types'].value(),
+            ['add']
+        )
 
-        root_edit_perm = GroupPagePermission.objects.create(page=self.root_page,
-                                                            permission_type='edit',
-                                                            group=self.test_group)
+        # add edit permission on root
+        GroupPagePermission.objects.create(
+            page=self.root_page, permission_type='edit', group=self.test_group
+        )
 
-        # The test group now has two page permissions
+        # The test group now has two page permissions on root (but only one form covering both)
         self.assertEqual(self.test_group.page_permissions.count(), 2)
 
         # Reload the page and check the form instances
         response = self.get()
+        self.assertEqual(response.context['formset'].management_form['INITIAL_FORMS'].value(), 1)
+        self.assertEqual(len(response.context['formset'].forms), 1)
+        self.assertEqual(
+            response.context['formset'].forms[0]['page'].value(),
+            self.root_page.id
+        )
+        self.assertEqual(
+            response.context['formset'].forms[0]['permission_types'].value(),
+            ['add', 'edit']
+        )
+
+        # add edit permission on home
+        GroupPagePermission.objects.create(
+            page=self.home_page, permission_type='edit', group=self.test_group
+        )
+
+        # The test group now has three page permissions, over two forms
+        self.assertEqual(self.test_group.page_permissions.count(), 3)
+
+        # Reload the page and check the form instances
+        response = self.get()
         self.assertEqual(response.context['formset'].management_form['INITIAL_FORMS'].value(), 2)
-        self.assertEqual(response.context['formset'].forms[0].instance, self.root_add_permission)
-        self.assertEqual(response.context['formset'].forms[1].instance, root_edit_perm)
+        self.assertEqual(
+            response.context['formset'].forms[0]['page'].value(),
+            self.root_page.id
+        )
+        self.assertEqual(
+            response.context['formset'].forms[0]['permission_types'].value(),
+            ['add', 'edit']
+        )
+        self.assertEqual(
+            response.context['formset'].forms[1]['page'].value(),
+            self.home_page.id
+        )
+        self.assertEqual(
+            response.context['formset'].forms[1]['permission_types'].value(),
+            ['edit']
+        )
 
     def test_duplicate_page_permissions_error(self):
-        # Try to submit duplicate page permission entries
+        # Try to submit multiple page permission entries for the same page
         response = self.post({
-            'page_permissions-1-id': [''],
-            'page_permissions-1-page': [self.root_add_permission.page.id],
-            'page_permissions-1-permission_type': [self.root_add_permission.permission_type],
+            'page_permissions-1-page': [self.root_page.id],
+            'page_permissions-1-permission_types': ['edit'],
             'page_permissions-TOTAL_FORMS': ['2'],
         })
 
         self.assertEqual(response.status_code, 200)
-        # the second form should have errors
-        self.assertEqual(bool(response.context['formset'].errors[0]), False)
-        self.assertEqual(bool(response.context['formset'].errors[1]), True)
+        # the formset should have a non-form error
+        self.assertTrue(response.context['formset'].non_form_errors)
 
     def test_group_add_registered_django_permissions(self):
         # The test group has one django permission to begin with

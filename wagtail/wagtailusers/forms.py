@@ -1,13 +1,18 @@
+from itertools import groupby
+
 from django import forms
+from django.db import transaction
 from django.contrib.auth import get_user_model
 from django.utils.translation import ugettext_lazy as _
 from django.contrib.auth.models import Group, Permission
-from django.forms.models import inlineformset_factory
 
 from wagtail.wagtailcore import hooks
 from wagtail.wagtailadmin.widgets import AdminPageChooser
 from wagtail.wagtailusers.models import UserProfile
-from wagtail.wagtailcore.models import Page, UserPagePermissionsProxy, GroupPagePermission
+from wagtail.wagtailcore.models import (
+    Page, UserPagePermissionsProxy, GroupPagePermission,
+    PAGE_PERMISSION_TYPES, PAGE_PERMISSION_TYPE_CHOICES
+)
 
 
 User = get_user_model()
@@ -233,19 +238,44 @@ class GroupForm(forms.ModelForm):
         return group
 
 
-class GroupPagePermissionForm(forms.ModelForm):
-    page = forms.ModelChoiceField(queryset=Page.objects.all(),
-                                  widget=AdminPageChooser(show_edit_link=False, can_choose_root=True))
+class PagePermissionsForm(forms.Form):
+    """
+    Note 'Permissions' (plural). A single instance of this form defines the permissions
+    that are assigned to an entity (i.e. group or user) for a specific page.
+    """
+    page = forms.ModelChoiceField(
+        queryset=Page.objects.all(),
+        widget=AdminPageChooser(show_edit_link=False, can_choose_root=True)
+    )
+    permission_types = forms.MultipleChoiceField(
+        choices=PAGE_PERMISSION_TYPE_CHOICES,
+        required=False,
+        widget=forms.CheckboxSelectMultiple
+    )
 
-    class Meta:
-        model = GroupPagePermission
-        fields = ('page', 'permission_type')
 
+class BaseGroupPagePermissionFormSet(forms.BaseFormSet):
+    permission_types = PAGE_PERMISSION_TYPES  # defined here for easy access from templates
 
-class BaseGroupPagePermissionFormSet(forms.models.BaseInlineFormSet):
-    def __init__(self, *args, **kwargs):
-        super(BaseGroupPagePermissionFormSet, self).__init__(*args, **kwargs)
-        self.form = GroupPagePermissionForm
+    def __init__(self, data=None, files=None, instance=None, prefix='page_permissions'):
+        if instance is None:
+            instance = Group()
+
+        self.instance = instance
+
+        initial_data = []
+
+        for page, page_permissions in groupby(
+            instance.page_permissions.order_by('page'), lambda pp: pp.page
+        ):
+            initial_data.append({
+                'page': page,
+                'permission_types': [pp.permission_type for pp in page_permissions]
+            })
+
+        super(BaseGroupPagePermissionFormSet, self).__init__(
+            data, files, initial=initial_data, prefix=prefix
+        )
         for form in self.forms:
             form.fields['DELETE'].widget = forms.HiddenInput()
 
@@ -255,13 +285,60 @@ class BaseGroupPagePermissionFormSet(forms.models.BaseInlineFormSet):
         empty_form.fields['DELETE'].widget = forms.HiddenInput()
         return empty_form
 
+    def clean(self):
+        """Checks that no two forms refer to the same page object"""
+        if any(self.errors):
+            # Don't bother validating the formset unless each form is valid on its own
+            return
 
-GroupPagePermissionFormSet = inlineformset_factory(
-    Group,
-    GroupPagePermission,
-    formset=BaseGroupPagePermissionFormSet,
-    extra=0,
-    fields=('page', 'permission_type'),
+        pages = [
+            form.cleaned_data['page']
+            for form in self.forms
+            if form not in self.deleted_forms
+        ]
+        if len(set(pages)) != len(pages):
+            # pages list contains duplicates
+            raise forms.ValidationError(_("You cannot have multiple permission records for the same page."))
+
+    @transaction.atomic
+    def save(self):
+        if self.instance.pk is None:
+            raise Exception(
+                "Cannot save a GroupPagePermissionFormSet for an unsaved group instance"
+            )
+
+        # get a set of (page, permission_type) tuples for all ticked permissions
+        forms_to_save = [form for form in self.forms if form not in self.deleted_forms]
+
+        final_permission_records = set()
+        for form in forms_to_save:
+            for permission_type in form.cleaned_data['permission_types']:
+                final_permission_records.add((form.cleaned_data['page'], permission_type))
+
+        # fetch the group's existing page permission records, and from that, build a list
+        # of records to be created / deleted
+        permission_ids_to_delete = []
+        permission_records_to_keep = set()
+
+        for pp in self.instance.page_permissions.all():
+            if (pp.page, pp.permission_type) in final_permission_records:
+                permission_records_to_keep.add((pp.page, pp.permission_type))
+            else:
+                permission_ids_to_delete.append(pp.id)
+
+        self.instance.page_permissions.filter(id__in=permission_ids_to_delete).delete()
+
+        permissions_to_add = final_permission_records - permission_records_to_keep
+        GroupPagePermission.objects.bulk_create([
+            GroupPagePermission(
+                group=self.instance, page=page, permission_type=permission_type
+            )
+            for (page, permission_type) in permissions_to_add
+        ])
+
+
+GroupPagePermissionFormSet = forms.formset_factory(
+    PagePermissionsForm, formset=BaseGroupPagePermissionFormSet, extra=0, can_delete=True
 )
 
 

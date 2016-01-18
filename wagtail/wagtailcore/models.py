@@ -1438,11 +1438,16 @@ class PageRevision(models.Model):
         verbose_name_plural = _('page revisions')
 
 
+PAGE_PERMISSION_TYPES = [
+    ('add', _("Add"), _("Add/edit pages you own")),
+    ('edit', _("Edit"), _("Edit any page")),
+    ('publish', _("Publish"), _("Publish any page")),
+    ('lock', _("Lock"), _("Lock/unlock any page")),
+]
+
 PAGE_PERMISSION_TYPE_CHOICES = [
-    ('add', _('Add/edit pages you own')),
-    ('edit', _('Edit any page')),
-    ('publish', _('Publish any page')),
-    ('lock', _('Lock/unlock any page')),
+    (identifier, long_label)
+    for identifier, short_label, long_label in PAGE_PERMISSION_TYPES
 ]
 
 
