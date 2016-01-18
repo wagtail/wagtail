@@ -16,6 +16,18 @@ class AccessDeniedEmbedlyException(EmbedlyException):
 
 
 class EmbedlyFinder(EmbedFinder):
+    key = None
+
+    def __init__(self, key=None):
+        if key:
+            self.key = key
+
+    def get_key(self):
+        if self.key:
+            return self.key
+
+        return getattr(settings, 'WAGTAILEMBEDS_EMBEDLY_KEY', None)
+
     def accept(self, url):
         # We don't really know what embedly supports so accept everything
         return True
@@ -25,7 +37,7 @@ class EmbedlyFinder(EmbedFinder):
 
         # Get embedly key
         if key is None:
-            key = settings.WAGTAILEMBEDS_EMBEDLY_KEY
+            key = self.get_key()
 
         # Get embedly client
         client = Embedly(key=key)
