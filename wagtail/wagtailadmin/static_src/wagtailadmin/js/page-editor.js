@@ -71,9 +71,9 @@ function insertRichTextDeleteControl(elem) {
     });
 }
 
-function initDateChooser(id) {
+function initDateChooser(id, opts) {
     if (window.dateTimePickerTranslations) {
-        $('#' + id).datetimepicker({
+        $('#' + id).datetimepicker($.extend({
             closeOnDateSelect: true,
             timepicker: false,
             scrollInput:false,
@@ -82,13 +82,13 @@ function initDateChooser(id) {
                 lang: window.dateTimePickerTranslations
             },
             lang: 'lang'
-        });
+        }, opts || {}));
     } else {
-        $('#' + id).datetimepicker({
+        $('#' + id).datetimepicker($.extend({
             timepicker: false,
             scrollInput:false,
             format: 'Y-m-d'
-        });
+        }, opts || {}));
     }
 }
 
@@ -112,9 +112,9 @@ function initTimeChooser(id) {
     }
 }
 
-function initDateTimeChooser(id) {
+function initDateTimeChooser(id, opts) {
     if (window.dateTimePickerTranslations) {
-        $('#' + id).datetimepicker({
+        $('#' + id).datetimepicker($.extend({
             closeOnDateSelect: true,
             format: 'Y-m-d H:i',
             scrollInput:false,
@@ -122,11 +122,11 @@ function initDateTimeChooser(id) {
                 lang: window.dateTimePickerTranslations
             },
             language: 'lang'
-        });
+        }, opts || {}));
     } else {
-        $('#' + id).datetimepicker({
+        $('#' + id).datetimepicker($.extend({
             format: 'Y-m-d H:i'
-        });
+        }, opts || {}));
     }
 }
 

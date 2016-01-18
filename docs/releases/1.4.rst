@@ -19,6 +19,9 @@ The `Document` model can now be overridden using the new `WAGTAILDOCS_DOCUMENT_M
 Minor features
 ~~~~~~~~~~~~~~
 
+ * Date/time pickers now respect the locale's 'first day of week' setting (Peter Quade)
+
+
 Bug fixes
 ~~~~~~~~~
 

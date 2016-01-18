@@ -97,6 +97,7 @@ Contributors
 * Alexander Bogushov
 * Aarni Koskela
 * alexpilot11
+* Peter Quade
 
 
 Translators
