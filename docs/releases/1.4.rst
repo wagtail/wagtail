@@ -80,6 +80,7 @@ Bug fixes
  * Ordering pages in the explorer by reverse 'last updated' time now puts pages with no revisions at the top
  * WagtailTestUtils now works correctly on custom user models without a ``username`` field (Adam Bolfik)
  * Logging in to the admin as a user with valid credentials but no admin access permission now displays an error message, rather than rejecting the user silently
+* StreamBlock HTML rendering now handles non-ASCII characters correctly on Python 2 (Mikalai Radchuk)
 
 
 Upgrade considerations
