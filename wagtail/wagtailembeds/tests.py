@@ -66,6 +66,19 @@ class TestGetFinders(TestCase):
 
     @override_settings(WAGTAILEMBEDS_EMBED_FINDERS=[
         {
+            'class': 'wagtail.wagtailembeds.finders.oembed',
+            'options': {'foo': 'bar'}
+        }
+    ])
+    def test_new_find_oembed_with_options(self):
+        finders = get_finders()
+
+        self.assertEqual(len(finders), 1)
+        self.assertIsInstance(finders[0], OEmbedFinder)
+        self.assertEqual(finders[0].options, {'foo': 'bar'})
+
+    @override_settings(WAGTAILEMBEDS_EMBED_FINDERS=[
+        {
             'class': 'wagtail.wagtailembeds.finders.embedly',
         }
     ], WAGTAILEMBEDS_EMBEDLY_KEY='bar')
