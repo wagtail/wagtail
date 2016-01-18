@@ -10,6 +10,11 @@ Wagtail 1.12 release notes - IN DEVELOPMENT
 What's new
 ==========
 
+Improved embed configuration
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+New configuration options for embedded media have been added, to give greater control over how media URLs are converted to embeds, and to make it possible to specify additional media providers beyond the ones built in to Wagtail. For further information, see :ref:`embedded_content`. This feature was developed by Karl Hobley.
+
 Other features
 ~~~~~~~~~~~~~~
 
@@ -26,3 +31,8 @@ Bug fixes
 
 Upgrade considerations
 ======================
+
+Old configuration settings for embeds are deprecated
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+The configuration settings ``WAGTAILEMBEDS_EMBED_FINDER`` and ``WAGTAILEMBEDS_EMBEDLY_KEY`` have been deprecated in favour of the new ``WAGTAILEMBEDS_FINDERS`` setting. Please see :ref:`configuring_embed_finders` for the new configuration to use.

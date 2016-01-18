@@ -4,6 +4,7 @@ Changelog
 1.12 (xx.xx.xxxx) - IN DEVELOPMENT
 ~~~~~~~~~~~~~~~~~
 
+ * New class-based configuration for media embeds (Karl Hobley)
  * The admin interface now displays a title of the latest draft (Mikalai Radchuk)
  * Added multi-select form field to the form builder (dwasyl)
  * Fix: FieldBlocks in StreamField now call the field's `prepare_value` method (Tim Heap)

@@ -206,28 +206,13 @@ Set the number of days (default 7) that search query logs are kept for; these ar
 Embeds
 ------
 
-Wagtail uses the oEmbed standard with a large but not comprehensive number of "providers" (Youtube, Vimeo, etc.). You can also use a different embed backend by providing an Embedly key or replacing the embed backend by writing your own embed finder function.
+Wagtail supports generating embed code from URLs to content on an external
+providers such as Youtube or Twitter. By default, Wagtail will fetch the embed
+code directly from the relevant provider's site using the oEmbed protocol.
+Wagtail has a builtin list of the most common providers.
 
-.. code-block:: python
-
-  WAGTAILEMBEDS_EMBED_FINDER = 'myapp.embeds.my_embed_finder_function'
-
-Use a custom embed finder function, which takes a URL and returns a dict with metadata and embeddable HTML. Refer to the ``wagtail.wagtailemebds.embeds`` module source for more information and examples.
-
-.. code-block:: python
-
-  # not a working key, get your own!
-  WAGTAILEMBEDS_EMBEDLY_KEY = '253e433d59dc4d2xa266e9e0de0cb830'
-
-Providing an API key for the Embedly service will use that as a embed backend, with a more extensive list of providers, as well as analytics and other features. For more information, see `Embedly`_.
-
-.. _Embedly: http://embed.ly/
-
-To use Embedly, you must also install their Python module:
-
-.. code-block:: console
-
-  $ pip install embedly
+The embeds fetching can be fully configured using the ``WAGTAILEMBEDS_FINDERS``
+setting. This is fully documented in :ref:`configuring_embed_finders`.
 
 
 Dashboard
