@@ -43,6 +43,8 @@ Changelog
  * Fix: StreamBlock HTML rendering now handles non-ASCII characters correctly on Python 2 (Mikalai Radchuk)
  * Fix: Fixed a bug preventing pages with a OneToOneField from being copied (Liam Brenner)
  * Fix: SASS compilation errors during Wagtail development no longer cause exit of Gulp process, instead throws error to console and continues (Thomas Winter)
+ * The default initial data migration has been taught about a setting (`WAGTAIL_MIGRATE_INITIAL_PAGE_AND_SITE`) that makes it not create a Site and a Page (Aarni Koskela)
+ * The default initial data migration has been taught about another setting (`WAGTAIL_MIGRATE_INITIAL_GROUPS`) that makes it not create any groups (Aarni Koskela)
 
 1.3.1 (05.01.2016)
 ~~~~~~~~~~~~~~~~~~
