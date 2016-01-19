@@ -96,6 +96,7 @@ Contributors
 * benjaoming
 * Alexander Bogushov
 * Aarni Koskela
+* alexpilot11
 
 
 Translators
