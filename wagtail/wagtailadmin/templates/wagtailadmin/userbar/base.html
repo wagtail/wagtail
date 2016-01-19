@@ -1,11 +1,9 @@
 {% extends "wagtailadmin/skeleton.html" %}
-{% load compress static i18n %}
+{% load static i18n %}
 
 {% block titletag %}{% trans 'User bar' %}{% endblock %}
 {% block css %}
-    {% compress css %}
-        <link rel="stylesheet" href="{% static 'wagtailadmin/css/userbar.css' %}" type="text/css" />
-    {% endcompress %}
+    <link rel="stylesheet" href="{% static 'wagtailadmin/css/userbar.css' %}" type="text/css" />
 {% endblock %}
 
 {% block furniture %}
@@ -22,7 +20,5 @@
 {% endblock %}
 
 {% block js %}
-    {% compress js %}
-        <script src="{% static 'wagtailadmin/js/userbar.js' %}"></script>
-    {% endcompress %}
+    <script src="{% static 'wagtailadmin/js/userbar.js' %}"></script>
 {% endblock %}

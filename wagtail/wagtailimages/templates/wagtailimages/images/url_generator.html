@@ -1,5 +1,5 @@
 {% extends "wagtailadmin/base.html" %}
-{% load wagtailimages_tags static compress i18n %}
+{% load wagtailimages_tags static i18n %}
 
 {% block titletag %}{% blocktrans with title=image.title %}Editing image {{ title }}{% endblocktrans %}{% endblock %}
 
@@ -36,8 +36,7 @@
 
 {% block extra_js %}
     {{ block.super }}
-    {% compress js %}
-        <script src="{% static 'wagtailadmin/js/vendor/jquery.ba-throttle-debounce.min.js' %}"></script>
-        <script src="{% static 'wagtailimages/js/image-url-generator.js' %}"></script>
-    {% endcompress %}
+
+    <script src="{% static 'wagtailadmin/js/vendor/jquery.ba-throttle-debounce.min.js' %}"></script>
+    <script src="{% static 'wagtailimages/js/image-url-generator.js' %}"></script>
 {% endblock %}

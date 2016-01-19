@@ -1,14 +1,12 @@
 {% extends "wagtailadmin/base.html" %}
-{% load wagtailimages_tags compress static i18n %}
+{% load wagtailimages_tags static i18n %}
 {% block titletag %}{% blocktrans with title=image.title %}Editing image {{ title }}{% endblocktrans %}{% endblock %}
 {% block extra_css %}
     {{ block.super }}
 
     <!-- Focal point chooser -->
     <link rel="stylesheet" href="{% static 'wagtailimages/css/vendor/jquery.Jcrop.min.css' %}" type="text/css">
-    {% compress css %}
-        <link rel="stylesheet" href="{% static 'wagtailimages/css/focal-point-chooser.css' %}" type="text/css">
-    {% endcompress %}
+    <link rel="stylesheet" href="{% static 'wagtailimages/css/focal-point-chooser.css' %}" type="text/css">
 {% endblock %}
 
 {% block extra_js %}
