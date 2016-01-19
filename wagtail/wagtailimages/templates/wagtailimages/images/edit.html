@@ -4,8 +4,6 @@
 {% block extra_css %}
     {{ block.super }}
 
-    {% include "wagtailadmin/shared/tag_field_css.html" %}
-
     <!-- Focal point chooser -->
     <link rel="stylesheet" href="{% static 'wagtailimages/css/vendor/jquery.Jcrop.min.css' %}" type="text/css">
     {% compress css %}
@@ -16,7 +14,14 @@
 {% block extra_js %}
     {{ block.super }}
 
-    {% include "wagtailadmin/shared/tag_field_js.html" %}
+    {% url 'wagtailadmin_tag_autocomplete' as autocomplete_url %}
+    <script>
+        $(function() {
+            $('#id_tags').tagit({
+                autocomplete: {source: "{{ autocomplete_url|addslashes }}"}
+            });
+        });
+    </script>
 
     <!-- Focal point chooser -->
     <script src="{% static 'wagtailadmin/js/vendor/jquery.ba-throttle-debounce.min.js' %}"></script>
@@ -71,7 +76,7 @@
 
                 <div class="current-focal-point-indicator{% if not image.focal_point %} hidden{% endif %}"></div>
             </div>
-            
+
         </div>
         <div class="col2 ">
             {% if url_generator_enabled %}

@@ -7,7 +7,6 @@
     {% compress css %}
         <link rel="stylesheet" href="{% static 'wagtailimages/css/add-multiple.css' %}" type="text/css" />
     {% endcompress %}
-    {% include "wagtailadmin/shared/tag_field_css.html" %}
 {% endblock %}
 
 {% block content %}
@@ -18,7 +17,7 @@
         <div class="drop-zone">
             <p>{% trans "Drag and drop images into this area to upload immediately." %}</p>
             <p>{{ help_text }}
-            
+
             <form action="{% url 'wagtailimages:add_multiple' %}" method="POST" enctype="multipart/form-data">
                 <div class="replace-file-input">
                     <button class="bicolor icon icon-plus">{% trans "Or choose from your computer" %}</button>
@@ -50,7 +49,7 @@
                 <p class="status-msg failure">{% trans "Sorry, upload failed." %}</p>
                 <p class="status-msg update-success">{% trans "Image updated." %}</p>
                 <p class="status-msg failure error_messages"></p>
-            </div>            
+            </div>
         </li>
     </script>
 {% endblock %}

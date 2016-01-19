@@ -4,6 +4,7 @@
 {% block css %}
     {% compress css %}
         <link rel="stylesheet" href="{% static 'wagtailadmin/css/vendor/jquery-ui/jquery-ui-1.10.3.verdant.css' %}" />
+        <link rel="stylesheet" href="{% static 'wagtailadmin/css/vendor/jquery.tagit.css' %}">
         <link rel="stylesheet" href="{% static 'wagtailadmin/css/core.css' %}" type="text/css" />
     {% endcompress %}
 
@@ -15,7 +16,7 @@
 {% endblock %}
 
 {% block js %}
-    
+
     {% compress js %}
         <script src="{% static 'wagtailadmin/js/vendor/jquery-1.10.3.js' %}"></script>
         <script src="{% static 'wagtailadmin/js/vendor/jquery-ui-1.10.3.js' %}"></script>
@@ -25,9 +26,10 @@
         <script src="{% static 'wagtailadmin/js/vendor/bootstrap-modal.js' %}"></script>
         <script src="{% static 'wagtailadmin/js/vendor/bootstrap-tab.js' %}"></script>
         <script src="{% static 'wagtailadmin/js/vendor/jquery.dlmenu.js' %}"></script>
+        <script src="{% static 'wagtailadmin/js/vendor/tag-it.js' %}"></script>
         <script src="{% static 'wagtailadmin/js/core.js' %}"></script>
         {% main_nav_js %}
     {% endcompress %}
-    
+
     {% block extra_js %}{% endblock %}
 {% endblock %}
