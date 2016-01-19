@@ -95,6 +95,7 @@ Contributors
 * Eugene MechanisM
 * benjaoming
 * Alexander Bogushov
+* Aarni Koskela
 
 
 Translators

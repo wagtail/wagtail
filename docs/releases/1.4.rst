@@ -26,6 +26,7 @@ Bug fixes
  * Wagtail's migrations are now all reversible (benjaoming)
  * Deleting a page content type now preserves existing pages as basic Page instances, to prevent tree corruption
  * The ``Page.path`` field is now explicitly given the "C" collation on PostgreSQL to prevent tree ordering issues when using a database created with the Slovak locale
+ * Wagtail's compiled static assets are now put into the correct directory on Windows (Aarni Koskela)
 
 
 Upgrade considerations
