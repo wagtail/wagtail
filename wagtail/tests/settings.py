@@ -31,7 +31,6 @@ STATIC_ROOT = STATIC_ROOT
 
 STATICFILES_FINDERS = (
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
-    'compressor.finders.CompressorFinder',
 )
 
 USE_TZ = True
@@ -111,7 +110,6 @@ INSTALLED_APPS = (
     'wagtail.wagtailcore',
 
     'taggit',
-    'compressor',
     'rest_framework',
 
     'django.contrib.admin',

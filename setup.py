@@ -22,7 +22,6 @@ except ImportError:
 
 install_requires = [
     "Django>=1.8.1,<1.10",
-    "django-compressor>=1.4",
     "django-modelcluster>=1.1,<1.2",
     "django-taggit>=0.17.5",
     "django-treebeard==3.0",

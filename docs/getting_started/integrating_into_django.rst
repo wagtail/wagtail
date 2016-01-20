@@ -29,7 +29,6 @@ In your settings file, add the following apps to ``INSTALLED_APPS``::
     'wagtail.wagtailcore',
 
     'modelcluster',
-    'compressor',
     'taggit',
 
 Add the following entries to ``MIDDLEWARE_CLASSES``::

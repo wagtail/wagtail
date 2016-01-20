@@ -73,7 +73,6 @@ Apps (``settings.py``)
     'wagtail.wagtailadmin',
     'wagtail.wagtailcore',
 
-    'compressor',
     'taggit',
     'modelcluster',
 
@@ -422,7 +421,6 @@ These two files should reside in your project directory (``myproject/myproject/`
   STATICFILES_FINDERS = [
       'django.contrib.staticfiles.finders.FileSystemFinder',
       'django.contrib.staticfiles.finders.AppDirectoriesFinder',
-      'compressor.finders.CompressorFinder',
   ]
 
   STATICFILES_DIRS = [
