@@ -53,7 +53,7 @@ class UserCreationForm(UsernameForm):
     is_superuser = forms.BooleanField(
         label=_("Administrator"),
         required=False,
-        help_text=_("If ticked, this user has the ability to manage user accounts.")
+        help_text=_("Administrators have full access to manage any object or setting.")
     )
 
     password1 = forms.CharField(
@@ -139,7 +139,7 @@ class UserEditForm(UsernameForm):
     is_superuser = forms.BooleanField(
         label=_("Administrator"),
         required=False,
-        help_text=_("Administrators have the ability to manage user accounts.")
+        help_text=_("Administrators have full access to manage any object or setting.")
     )
 
     class Meta:
@@ -200,7 +200,7 @@ class GroupForm(forms.ModelForm):
     is_superuser = forms.BooleanField(
         label=_("Administrator"),
         required=False,
-        help_text=_("Administrators have the ability to manage user accounts.")
+        help_text=_("Administrators have full access to manage any object or setting.")
     )
 
     class Meta:
