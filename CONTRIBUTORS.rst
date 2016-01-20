@@ -99,6 +99,7 @@ Contributors
 * alexpilot11
 * Peter Quade
 * Josh Hurd
+* Matt Fozard
 
 
 Translators
