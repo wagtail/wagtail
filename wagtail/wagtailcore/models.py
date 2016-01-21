@@ -687,10 +687,13 @@ class Page(six.with_metaclass(PageBase, MP_Node, ClusterableModel, index.Indexed
     def get_url_parts(self):
         """
         Determine the URL for this page and return it as a tuple of
-        (site_id, site_root_url, page_url_relative_to_site_root).
+        ``(site_id, site_root_url, page_url_relative_to_site_root)``.
         Return None if the page is not routable.
 
-        Pages with custom URL routing should override this.
+        This is used internally by the ``full_url``, ``url``, ``relative_url``
+        and ``get_site`` properties and methods; pages with custom URL routing
+        should override this method in order to have those operations return
+        the custom URLs.
         """
         for (site_id, root_path, root_url) in Site.get_site_root_paths():
             if self.url_path.startswith(root_path):
@@ -754,6 +757,10 @@ class Page(six.with_metaclass(PageBase, MP_Node, ClusterableModel, index.Indexed
             return root_url + page_path
 
     def get_site(self):
+        """
+        Return the Site object that this page belongs to.
+        """
+
         url_parts = self.get_url_parts()
 
         if url_parts is None:
