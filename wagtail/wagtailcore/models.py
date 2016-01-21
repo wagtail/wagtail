@@ -700,11 +700,13 @@ class Page(six.with_metaclass(PageBase, MP_Node, ClusterableModel, index.Indexed
     @property
     def full_url(self):
         """Return the full URL (including protocol / domain) to this page, or None if it is not routable"""
-        try:
-            site_id, root_url, page_path = self.get_url_parts()
-        except TypeError:
-            # get_url_parts returned None; page is not routable
-            return None
+        url_parts = self.get_url_parts()
+
+        if url_parts is None:
+            # page is not routable
+            return
+
+        site_id, root_url, page_path = url_parts
 
         return root_url + page_path
 
@@ -718,11 +720,13 @@ class Page(six.with_metaclass(PageBase, MP_Node, ClusterableModel, index.Indexed
         same domain), and the full URL (with domain) if not.
         Return None if the page is not routable.
         """
-        try:
-            site_id, root_url, page_path = self.get_url_parts()
-        except TypeError:
-            # get_url_parts returned None; page is not routable
-            return None
+        url_parts = self.get_url_parts()
+
+        if url_parts is None:
+            # page is not routable
+            return
+
+        site_id, root_url, page_path = url_parts
 
         if len(Site.get_site_root_paths()) == 1:
             # we're only running a single site, so a local URL is sufficient
@@ -736,11 +740,13 @@ class Page(six.with_metaclass(PageBase, MP_Node, ClusterableModel, index.Indexed
         a local URL if the site matches, or a fully qualified one otherwise.
         Return None if the page is not routable.
         """
-        try:
-            site_id, root_url, page_path = self.get_url_parts()
-        except TypeError:
-            # get_url_parts returned None; page is not routable
-            return None
+        url_parts = self.get_url_parts()
+
+        if url_parts is None:
+            # page is not routable
+            return
+
+        site_id, root_url, page_path = url_parts
 
         if site_id == current_site.id:
             return page_path
@@ -748,11 +754,13 @@ class Page(six.with_metaclass(PageBase, MP_Node, ClusterableModel, index.Indexed
             return root_url + page_path
 
     def get_site(self):
-        try:
-            site_id, root_url, page_path = self.get_url_parts()
-        except TypeError:
-            # get_url_parts returned None; page is not routable
-            return None
+        url_parts = self.get_url_parts()
+
+        if url_parts is None:
+            # page is not routable
+            return
+
+        site_id, root_url, page_path = url_parts
 
         return Site.objects.get(id=site_id)
 
