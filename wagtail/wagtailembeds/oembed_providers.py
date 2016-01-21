@@ -152,7 +152,7 @@ OEMBED_ENDPOINTS = {
         "^http://www\\.funnyordie\\.com/videos/.+$"
     ],
     "http://fast.wistia.com/oembed.{format}": [
-        "^https?:\/\/(.+)?(wistia.com|wi.st)\/(medias|embed)\/.+$"
+        "^https?://([^/]+\.)?(wistia.com|wi.st)/(medias|embed)/.+$"
     ],
     "http://www.ustream.tv/oembed": [
         "^http(?:s)?://(?:www\\.)?ustream\\.tv/.+$",
