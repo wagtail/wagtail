@@ -98,6 +98,7 @@ Contributors
 * Aarni Koskela
 * alexpilot11
 * Peter Quade
+* Josh Hurd
 
 
 Translators

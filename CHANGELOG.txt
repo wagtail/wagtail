@@ -12,6 +12,7 @@ Changelog
  * Fix: The `Page.path` field is now explicitly given the "C" collation on PostgreSQL to prevent tree ordering issues when using a database created with the Slovak locale
  * Fix: Wagtail's compiled static assets are now put into the correct directory on Windows (Aarni Koskela)
  * Fix: `ChooserBlock` now correctly handles models with primary keys other than `id` (alexpilot11)
+ * Fix: Fixed typo in Wistia oEmbed pattern (Josh Hurd)
 
 1.3.1 (05.01.2016)
 ~~~~~~~~~~~~~~~~~~
