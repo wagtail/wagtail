@@ -57,52 +57,34 @@ Apps (``settings.py``)
 
 .. code-block:: python
 
-  INSTALLED_APPS = (
-    'django.contrib.auth',
-    'django.contrib.contenttypes',
-    'django.contrib.sessions',
-    'django.contrib.messages',
-    'django.contrib.staticfiles',
+  INSTALLED_APPS = [
+
+    'myapp',  # your own app
+
+    'wagtail.wagtailforms',
+    'wagtail.wagtailredirects',
+    'wagtail.wagtailembeds',
+    'wagtail.wagtailsites',
+    'wagtail.wagtailusers',
+    'wagtail.wagtailsnippets',
+    'wagtail.wagtaildocs',
+    'wagtail.wagtailimages',
+    'wagtail.wagtailsearch',
+    'wagtail.wagtailadmin',
+    'wagtail.wagtailcore',
 
     'compressor',
     'taggit',
     'modelcluster',
 
-    'wagtail.wagtailcore',
-    'wagtail.wagtailadmin',
-    'wagtail.wagtaildocs',
-    'wagtail.wagtailsnippets',
-    'wagtail.wagtailusers',
-    'wagtail.wagtailimages',
-    'wagtail.wagtailembeds',
-    'wagtail.wagtailsearch',
-    'wagtail.wagtailsites',
-    'wagtail.wagtailredirects',
-    'wagtail.wagtailforms',
-
-    'myapp',  # your own app
-  )
+    'django.contrib.auth',
+    'django.contrib.contenttypes',
+    'django.contrib.sessions',
+    'django.contrib.messages',
+    'django.contrib.staticfiles',
+  ]
 
 Wagtail requires several Django app modules, third-party apps, and defines several apps of its own. Wagtail was built to be modular, so many Wagtail apps can be omitted to suit your needs. Your own app (here ``myapp``) is where you define your models, templates, static assets, template tags, and other custom functionality for your site.
-
-
-Third-Party Apps
-----------------
-
-``compressor``
-  Static asset combiner and minifier for Django. Compressor also enables for the use of preprocessors. See `Compressor Documentation`_.
-
-.. _Compressor Documentation: http://django-compressor.readthedocs.org/en/latest/
-
-``taggit``
-  Tagging framework for Django. This is used internally within Wagtail for image and document tagging and is available for your own models as well. See :ref:`tagging` for a Wagtail model recipe or the `Taggit Documentation`_.
-
-.. _Taggit Documentation: http://django-taggit.readthedocs.org/en/latest/index.html
-
-``modelcluster``
-  Extension of Django ForeignKey relation functionality, which is used in Wagtail pages for on-the-fly related object creation. For more information, see :ref:`inline_panels` or `the django-modelcluster github project page`_.
-
-.. _the django-modelcluster github project page: https://github.com/torchbox/django-modelcluster
 
 
 Wagtail Apps
@@ -137,6 +119,25 @@ Wagtail Apps
 
 ``wagtailforms``
   Models for creating forms on your pages and viewing submissions. See :ref:`form_builder`.
+
+
+Third-Party Apps
+----------------
+
+``compressor``
+  Static asset combiner and minifier for Django. Compressor also enables for the use of preprocessors. See `Compressor Documentation`_.
+
+.. _Compressor Documentation: http://django-compressor.readthedocs.org/en/latest/
+
+``taggit``
+  Tagging framework for Django. This is used internally within Wagtail for image and document tagging and is available for your own models as well. See :ref:`tagging` for a Wagtail model recipe or the `Taggit Documentation`_.
+
+.. _Taggit Documentation: http://django-taggit.readthedocs.org/en/latest/index.html
+
+``modelcluster``
+  Extension of Django ForeignKey relation functionality, which is used in Wagtail pages for on-the-fly related object creation. For more information, see :ref:`inline_panels` or `the django-modelcluster github project page`_.
+
+.. _the django-modelcluster github project page: https://github.com/torchbox/django-modelcluster
 
 
 Settings Variables (``settings.py``)
@@ -329,29 +330,32 @@ These two files should reside in your project directory (``myproject/myproject/`
   # Application definition
 
   INSTALLED_APPS = [
-      'django.contrib.auth',
-      'django.contrib.contenttypes',
-      'django.contrib.sessions',
-      'django.contrib.messages',
-      'django.contrib.staticfiles',
 
-      'compressor',
-      'taggit',
-      'modelcluster',
+    'myapp',
 
-      'wagtail.wagtailcore',
-      'wagtail.wagtailadmin',
-      'wagtail.wagtaildocs',
-      'wagtail.wagtailsnippets',
-      'wagtail.wagtailusers',
-      'wagtail.wagtailimages',
-      'wagtail.wagtailembeds',
-      'wagtail.wagtailsearch',
-      'wagtail.wagtailredirects',
-      'wagtail.wagtailforms',
+    'wagtail.wagtailforms',
+    'wagtail.wagtailredirects',
+    'wagtail.wagtailembeds',
+    'wagtail.wagtailsites',
+    'wagtail.wagtailusers',
+    'wagtail.wagtailsnippets',
+    'wagtail.wagtaildocs',
+    'wagtail.wagtailimages',
+    'wagtail.wagtailsearch',
+    'wagtail.wagtailadmin',
+    'wagtail.wagtailcore',
 
-      'myapp',
+    'compressor',
+    'taggit',
+    'modelcluster',
+
+    'django.contrib.auth',
+    'django.contrib.contenttypes',
+    'django.contrib.sessions',
+    'django.contrib.messages',
+    'django.contrib.staticfiles',
   ]
+
 
   MIDDLEWARE_CLASSES = [
       'django.contrib.sessions.middleware.SessionMiddleware',
