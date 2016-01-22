@@ -3,7 +3,7 @@ from __future__ import absolute_import, unicode_literals
 import collections
 
 from django import forms
-from django.core.exceptions import ValidationError
+from django.core.exceptions import NON_FIELD_ERRORS, ValidationError
 from django.forms.utils import ErrorList
 from django.template.loader import render_to_string
 from django.utils.encoding import python_2_unicode_compatible, force_text
@@ -130,6 +130,7 @@ class BaseStreamBlock(Block):
             'list_members_html': list_members_html,
             'child_blocks': self.child_blocks.values(),
             'header_menu_prefix': '%s-before' % prefix,
+            'block_errors': error_dict.get(NON_FIELD_ERRORS),
         })
 
     def value_from_datadict(self, data, files, prefix):

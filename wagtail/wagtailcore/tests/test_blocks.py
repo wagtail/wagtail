@@ -5,7 +5,7 @@ import unittest
 
 from django import forms
 from django.forms.utils import ErrorList
-from django.core.exceptions import ValidationError
+from django.core.exceptions import NON_FIELD_ERRORS, ValidationError
 from django.test import TestCase, SimpleTestCase
 from django.utils.safestring import mark_safe, SafeData
 
@@ -16,6 +16,36 @@ from wagtail.wagtailcore.models import Page
 from wagtail.tests.testapp.blocks import SectionBlock
 
 import base64
+
+
+class IntegerBlock(blocks.CharBlock):
+    def clean(self, value):
+        out = super(IntegerBlock, self).clean(value)
+        try:
+            return int(out)
+        except ValueError:
+            raise ValidationError('Value must be an integer')
+
+
+class ColumnBlock(blocks.StructBlock):
+    width = IntegerBlock()
+    content = blocks.TextBlock()
+
+
+class ValidatedBlock(blocks.StreamBlock):
+    column = ColumnBlock()
+    required_width = 6
+
+    def clean(self, value):
+        blocks = super(ValidatedBlock, self).clean(value)
+        width = sum(block.value['width'] for block in blocks)
+        if width != self.required_width:
+            error = 'You must have exactly %d columns, not %d' % (
+                self.required_width, width)
+            raise ValidationError('Validation error in StreamBlock', params={
+                NON_FIELD_ERRORS: [error],
+            })
+        return blocks
 
 
 class TestFieldBlock(unittest.TestCase):
@@ -1039,7 +1069,7 @@ class TestListBlock(unittest.TestCase):
         self.assertIn('value="chocolate"', form_html)
 
 
-class TestStreamBlock(unittest.TestCase):
+class TestStreamBlock(SimpleTestCase):
     def test_initialisation(self):
         block = blocks.StreamBlock([
             ('heading', blocks.CharBlock()),
@@ -1270,6 +1300,71 @@ class TestStreamBlock(unittest.TestCase):
             0: ['This field is required.'],
             3: ['Enter a valid URL.'],
         })
+
+    def test_block_level_validation_no_errors(self):
+        block = ValidatedBlock()
+
+        post_data = {'columns-count': '3'}
+        for i in range(3):
+            post_data.update({
+                'columns-%d-deleted' % i: '',
+                'columns-%d-order' % i: str(i),
+                'columns-%d-type' % i: 'column',
+                'columns-%d-value-width' % i: str(i + 1),
+                'columns-%d-value-content' % i: 'hello %d' % (i,),
+            })
+
+        block_value = block.value_from_datadict(post_data, {}, 'columns')
+        try:
+            block.clean(block_value)
+        except ValidationError:
+            self.fail('Should have passed validation')
+
+    def test_block_level_validation_throws_errors(self):
+        block = ValidatedBlock()
+
+        post_data = {'columns-count': '4'}
+        for i in range(4):
+            post_data.update({
+                'columns-%d-deleted' % i: '',
+                'columns-%d-order' % i: str(i),
+                'columns-%d-type' % i: 'column',
+                'columns-%d-value-width' % i: '2',
+                'columns-%d-value-content' % i: 'hello %d' % (i,),
+            })
+
+        block_value = block.value_from_datadict(post_data, {}, 'columns')
+        with self.assertRaises(ValidationError) as catcher:
+            block.clean(block_value)
+
+        self.assertEqual(catcher.exception.params, {
+            NON_FIELD_ERRORS: ['You must have exactly 6 columns, not 8'],
+        })
+
+    def test_block_level_validation_renders_errors(self):
+        block = ValidatedBlock()
+
+        post_data = {'columns-count': '2'}
+        for i in range(2):
+            post_data.update({
+                'columns-%d-deleted' % i: '',
+                'columns-%d-order' % i: str(i),
+                'columns-%d-type' % i: 'column',
+                'columns-%d-value-width' % i: str(i + 2),
+                'columns-%d-value-content' % i: 'hello %d' % (i,),
+            })
+
+        block_value = block.value_from_datadict(post_data, {}, 'columns')
+        error_message = 'You must have exactly 6 columns, not 5'
+        errors = ErrorList([
+            ValidationError('Validation error in StructBlock', params={
+                NON_FIELD_ERRORS: [error_message]
+            })
+        ])
+
+        self.assertInHTML(
+            '<div class="help-block help-critical">%s</div>' % (error_message,),
+            block.render_form(block_value, prefix='columns', errors=errors))
 
     def test_html_declarations(self):
         class ArticleBlock(blocks.StreamBlock):
