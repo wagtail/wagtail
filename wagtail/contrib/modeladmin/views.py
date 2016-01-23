@@ -155,6 +155,7 @@ class WMAFormView(WMABaseView, FormView):
         form = self.get_form()
         return {
             'view': self,
+            'is_multipart': form.is_multipart(),
             'edit_handler': edit_handler_class(instance=instance, form=form)
         }
 
