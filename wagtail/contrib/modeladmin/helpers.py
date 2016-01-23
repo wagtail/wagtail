@@ -9,7 +9,7 @@ from wagtail.wagtailcore.models import Page
 class PermissionHelper(object):
     """
     Provides permission-related helper functions to effectively control what
-    what a user can and can't do to instances of a 'typical' model, where
+    a user can and can't do to instances of a 'typical' model, where
     permissions are granted model-wide.
     """
 
@@ -91,8 +91,8 @@ class PermissionHelper(object):
 class PagePermissionHelper(PermissionHelper):
     """
     Provides permission-related helper functions to effectively control what
-    what a user can and can't do to instances of a model extending Wagtail's
-    Page model. It differs wildly from ModelPermissionHelper, because
+    a user can and can't do to instances of a model extending Wagtail's Page
+    model. It differs wildly from ModelPermissionHelper, because
     model-wide permissions aren't really relevant. We generally need to
     determine things on an object-specific basis.
     """
