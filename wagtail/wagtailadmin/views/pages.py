@@ -173,15 +173,10 @@ def create(request, content_type_app_name, content_type_model_name, parent_page_
 
             # Notifications
             if is_publishing:
-                if page.go_live_at and page.go_live_at > timezone.now():
-                    messages.success(request, _("Page '{0}' created and scheduled for publishing.").format(page.title), buttons=[
-                        messages.button(reverse('wagtailadmin_pages:edit', args=(page.id,)), _('Edit'))
-                    ])
-                else:
-                    messages.success(request, _("Page '{0}' created and published.").format(page.title), buttons=[
-                        messages.button(page.url, _('View live')),
-                        messages.button(reverse('wagtailadmin_pages:edit', args=(page.id,)), _('Edit'))
-                    ])
+                messages.success(request, _("Page '{0}' created and published.").format(page.title), buttons=[
+                    messages.button(page.url, _('View live')),
+                    messages.button(reverse('wagtailadmin_pages:edit', args=(page.id,)), _('Edit'))
+                ])
             elif is_submitting:
                 messages.success(
                     request,
@@ -265,15 +260,10 @@ def edit(request, page_id):
 
             # Notifications
             if is_publishing:
-                if page.go_live_at and page.go_live_at > timezone.now():
-                    messages.success(request, _("Page '{0}' scheduled for publishing.").format(page.title), buttons=[
-                        messages.button(reverse('wagtailadmin_pages:edit', args=(page.id,)), _('Edit'))
-                    ])
-                else:
-                    messages.success(request, _("Page '{0}' published.").format(page.title), buttons=[
-                        messages.button(page.url, _('View live')),
-                        messages.button(reverse('wagtailadmin_pages:edit', args=(page_id,)), _('Edit'))
-                    ])
+                messages.success(request, _("Page '{0}' published.").format(page.title), buttons=[
+                    messages.button(page.url, _('View live')),
+                    messages.button(reverse('wagtailadmin_pages:edit', args=(page_id,)), _('Edit'))
+                ])
             elif is_submitting:
                 messages.success(request, _("Page '{0}' submitted for moderation.").format(page.title), buttons=[
                     messages.button(reverse('wagtailadmin_pages:view_draft', args=(page_id,)), _('View draft')),
