@@ -92,11 +92,17 @@ class Site(models.Model):
         return (self.hostname, self.port)
 
     def __str__(self):
-        return (
-            self.hostname +
-            ("" if self.port == 80 else (":%d" % self.port)) +
-            (" [default]" if self.is_default_site else "")
-        )
+            if self.site_name:
+                return(
+                    self.site_name +
+                    (" [default]" if self.is_default_site else "")
+                )
+            else:
+                return(
+                    self.hostname +
+                    ("" if self.port == 80 else (":%d" % self.port)) +
+                    (" [default]" if self.is_default_site else "")
+                )
 
     @staticmethod
     def find_for_request(request):
@@ -1582,9 +1588,9 @@ class PagePermissionTester(object):
         elif 'add' in self.permissions:
             # user can only delete if all pages in this subtree are unpublished and owned by this user
             return (
-                (not self.page.live)
-                and (self.page.owner_id == self.user.id)
-                and (not self.page.get_descendants().exclude(live=False, owner=self.user).exists())
+                (not self.page.live) and
+                (self.page.owner_id == self.user.id) and
+                (not self.page.get_descendants().exclude(live=False, owner=self.user).exists())
             )
 
         else:
