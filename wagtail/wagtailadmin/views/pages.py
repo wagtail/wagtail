@@ -3,6 +3,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.core.exceptions import PermissionDenied
 from django.contrib.contenttypes.models import ContentType
 from django.core.urlresolvers import reverse
+from django.utils import timezone
 from django.utils.translation import ugettext as _
 from django.utils.http import is_safe_url
 from django.views.decorators.http import require_GET, require_POST
@@ -169,10 +170,15 @@ def create(request, content_type_app_name, content_type_model_name, parent_page_
 
             # Notifications
             if is_publishing:
-                messages.success(request, _("Page '{0}' created and published.").format(page.title), buttons=[
-                    messages.button(page.url, _('View live')),
-                    messages.button(reverse('wagtailadmin_pages:edit', args=(page.id,)), _('Edit'))
-                ])
+                if page.go_live_at and page.go_live_at > timezone.now():
+                    messages.success(request, _("Page '{0}' created and scheduled for publishing.").format(page.title), buttons=[
+                        messages.button(reverse('wagtailadmin_pages:edit', args=(page.id,)), _('Edit'))
+                    ])
+                else:
+                    messages.success(request, _("Page '{0}' created and published.").format(page.title), buttons=[
+                        messages.button(page.url, _('View live')),
+                        messages.button(reverse('wagtailadmin_pages:edit', args=(page.id,)), _('Edit'))
+                    ])
             elif is_submitting:
                 messages.success(
                     request,
@@ -257,10 +263,15 @@ def edit(request, page_id):
 
             # Notifications
             if is_publishing:
-                messages.success(request, _("Page '{0}' published.").format(page.title), buttons=[
-                    messages.button(page.url, _('View live')),
-                    messages.button(reverse('wagtailadmin_pages:edit', args=(page_id,)), _('Edit'))
-                ])
+                if page.go_live_at and page.go_live_at > timezone.now():
+                    messages.success(request, _("Page '{0}' scheduled for publishing.").format(page.title), buttons=[
+                        messages.button(reverse('wagtailadmin_pages:edit', args=(page.id,)), _('Edit'))
+                    ])
+                else:
+                    messages.success(request, _("Page '{0}' published.").format(page.title), buttons=[
+                        messages.button(page.url, _('View live')),
+                        messages.button(reverse('wagtailadmin_pages:edit', args=(page_id,)), _('Edit'))
+                    ])
             elif is_submitting:
                 messages.success(request, _("Page '{0}' submitted for moderation.").format(page.title), buttons=[
                     messages.button(reverse('wagtailadmin_pages:view_draft', args=(page_id,)), _('View draft')),
