@@ -15,6 +15,7 @@ Changelog
  * Eliminated the deprecated `register.assignment_tag` on Django 1.9 (Josh Schneier)
  * Increased size of Save button on site settings (Liam Brenner)
  * Optimised Site.find_for_request to only perform one database query (Matthew Downey)
+ * Notification messages on creating / editing sites now include the site name if specified (Chris Rogers)
  * Fix: The currently selected day is now highlighted only in the correct month in date pickers (Jonas Lergell)
  * Fix: Fixed crash when an image without a source file was resized with the "dynamic serve view"
  * Fix: Registered settings admin menu items now show active correctly (Matthew Downey)

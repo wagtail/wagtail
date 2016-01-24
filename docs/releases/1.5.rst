@@ -35,6 +35,7 @@ Minor features
  * Eliminated the deprecated ``register.assignment_tag`` on Django 1.9 (Josh Schneier)
  * Increased size of Save button on site settings (Liam Brenner)
  * Optimised Site.find_for_request to only perform one database query (Matthew Downey)
+ * Notification messages on creating / editing sites now include the site name if specified (Chris Rogers)
 
 Bug fixes
 ~~~~~~~~~
