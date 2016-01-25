@@ -6,6 +6,7 @@ Changelog
 
  * The `Document` model can now be overridden using the new `WAGTAILDOCS_DOCUMENT_MODEL` setting (Alex Gleason)
  * Date/time pickers now respect the locale's 'first day of week' setting (Peter Quade)
+ * Refactored the way forms are constructed for the page editor, to allow custom forms to be used
  * Fix: Custom page managers no longer raise an error when used on an abstract model
  * Fix: Wagtail's migrations are now all reversible (benjaoming)
  * Fix: Deleting a page content type now preserves existing pages as basic Page instances, to prevent tree corruption
