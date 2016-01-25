@@ -272,7 +272,6 @@ class AbstractImage(models.Model, TagSearchable):
                 output_filename_without_extension = base_name + digest
             else:
                 output_filename_without_extension = input_filename_without_extension
-            
             output_filename = output_filename_without_extension + '.' + output_extension
 
             rendition, created = self.renditions.get_or_create(
