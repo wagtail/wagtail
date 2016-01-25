@@ -89,9 +89,6 @@ $(function() {
                 itemElement.addClass('upload-success')
 
                 $('.right', itemElement).append(response.form);
-
-                // run tagit enhancement
-                $('.tag_field input', itemElement).tagit(window.tagit_opts);
             } else {
                 itemElement.addClass('upload-failure');
                 $('.right .error_messages', itemElement).append(response.error_message);
