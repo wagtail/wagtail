@@ -266,7 +266,7 @@ class AbstractImage(models.Model, TagSearchable):
                 output_extension = cache_key + '.' + output_extension
 
             # Shorten longer filenames with md5 to prevent it going over 60 chars
-            if len(input_filename_without_extension) - len(output_extension) > 59:
+            if len(input_filename_without_extension) + len(output_extension) > 59:
                 base_name = input_filename_without_extension[:(27 - len(output_extension))]
                 digest = hashlib.md5(input_filename_without_extension.encode('utf-8')).hexdigest()
                 output_filename_without_extension = base_name + digest
