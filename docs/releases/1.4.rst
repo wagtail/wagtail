@@ -34,6 +34,7 @@ Bug fixes
  * ``ChooserBlock`` now correctly handles models with primary keys other than ``id`` (alexpilot11)
  * Fixed typo in Wistia oEmbed pattern (Josh Hurd)
  * Added more accurate help text for the Administrator flag on user accounts (Matt Fozard)
+ * Tags added on the multiple image uploader are now saved correctly
 
 
 Upgrade considerations
