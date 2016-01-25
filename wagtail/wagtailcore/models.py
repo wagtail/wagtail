@@ -471,7 +471,7 @@ class Page(six.with_metaclass(PageBase, MP_Node, ClusterableModel, index.Indexed
                     errors.append(
                         checks.Warning(
                             "Field hasn't specified on_delete action",
-                            hint="Set on_delete=models.SET_NULL and make sure the field is nullable.",
+                            hint="Set on_delete=models.SET_NULL and make sure the field is nullable or set on_delete=models.PROTECT. Wagtail does not allow simple database CASCADE because it will corrupt its tree storage.",
                             obj=field,
                             id='wagtailcore.W001',
                         )
