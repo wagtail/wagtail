@@ -267,13 +267,12 @@ class AbstractImage(models.Model, TagSearchable):
 
             # Shorten longer filenames with md5 to prevent it going over 60 chars
             if len(input_filename_without_extension) - len(output_extension) > 59:
-                output_filename_without_extension = input_filename_without_extension[:(27 - len(output_extension))] + \
-                                                    hashlib.md5(
-                                                            input_filename_without_extension.encode('utf-8')
-                                                    ).hexdigest()
+                base_name = input_filename_without_extension[:(27 - len(output_extension))]
+                digest = hashlib.md5(input_filename_without_extension.encode('utf-8')).hexdigest()
+                output_filename_without_extension = base_name + digest
             else:
                 output_filename_without_extension = input_filename_without_extension
-                
+            
             output_filename = output_filename_without_extension + '.' + output_extension
 
             rendition, created = self.renditions.get_or_create(
