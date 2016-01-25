@@ -102,6 +102,7 @@ Contributors
 * Matt Fozard
 * Chris Rogers
 * Josh Schneier
+* Mikalai Radchuk
 
 
 Translators

@@ -708,6 +708,15 @@
 },
 {
     "pk": 1,
+    "model": "tests.advertwithtabbedinterface",
+    "fields": {
+        "text": "test_advert",
+        "url": "http://www.example.com",
+        "something_else": "Model with tabbed interface"
+    }
+},
+{
+    "pk": 1,
     "model": "wagtaildocs.Document",
     "fields": {
         "title": "test document",

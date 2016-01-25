@@ -40,10 +40,14 @@ SNIPPET_EDIT_HANDLERS = {}
 
 def get_snippet_edit_handler(model):
     if model not in SNIPPET_EDIT_HANDLERS:
-        panels = extract_panel_definitions_from_model_class(model)
-        edit_handler = ObjectList(panels).bind_to_model(model)
+        if hasattr(model, 'edit_handler'):
+            # use the edit handler specified on the page class
+            edit_handler = model.edit_handler
+        else:
+            panels = extract_panel_definitions_from_model_class(model)
+            edit_handler = ObjectList(panels)
 
-        SNIPPET_EDIT_HANDLERS[model] = edit_handler
+        SNIPPET_EDIT_HANDLERS[model] = edit_handler.bind_to_model(model)
 
     return SNIPPET_EDIT_HANDLERS[model]
 
