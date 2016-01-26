@@ -187,8 +187,8 @@ class BaseSearchResults(object):
 
 
 class BaseSearch(object):
-    search_query_class = None
-    search_results_class = None
+    query_class = None
+    results_class = None
 
     def __init__(self, params):
         pass
@@ -248,7 +248,7 @@ class BaseSearch(object):
                 raise ValueError("operator must be either 'or' or 'and'")
 
         # Search
-        search_query = self.search_query_class(
+        search_query = self.query_class(
             queryset, query_string, fields=fields, operator=operator, order_by_relevance=order_by_relevance
         )
-        return self.search_results_class(self, search_query)
+        return self.results_class(self, search_query)
