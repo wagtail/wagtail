@@ -10,6 +10,7 @@ from django.conf import settings
 from django.core.exceptions import ImproperlyConfigured, PermissionDenied
 from django.http import HttpResponse, HttpResponsePermanentRedirect, StreamingHttpResponse
 from django.shortcuts import get_object_or_404
+from django.utils.decorators import classonlymethod
 from django.utils.six import text_type
 from django.views.generic import View
 
@@ -40,6 +41,14 @@ class ServeView(View):
     action = 'serve'
     key = None
 
+    @classonlymethod
+    def as_view(cls, **initkwargs):
+        if 'action' in initkwargs:
+            if initkwargs['action'] not in ['serve', 'redirect']:
+                raise ImproperlyConfigured("ServeView action must be either 'serve' or 'redirect'")
+
+        return super(ServeView, cls).as_view(**initkwargs)
+
     def get(self, request, signature, image_id, filter_spec):
         if not verify_signature(signature.encode(), image_id, filter_spec, key=self.key):
             raise PermissionDenied
@@ -63,8 +72,6 @@ class ServeView(View):
         elif self.action == 'redirect':
             # Redirect to the file's public location
             return HttpResponsePermanentRedirect(rendition.url)
-        else:
-            raise ImproperlyConfigured("ServeView action must be either 'serve' or 'redirect'")
 
 
 serve = ServeView.as_view()
