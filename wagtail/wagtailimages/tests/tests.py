@@ -17,7 +17,7 @@ from wagtail.wagtailimages.formats import Format, get_image_format, register_ima
 from wagtail.wagtailimages.forms import get_image_form
 from wagtail.wagtailimages.models import Image as WagtailImage
 from wagtail.wagtailimages.rect import Rect, Vector
-from wagtail.wagtailimages.views.serve import generate_signature, verify_signature
+from wagtail.wagtailimages.views.serve import ServeView, generate_signature, verify_signature
 
 from .utils import Image, get_test_image_file
 
@@ -273,11 +273,9 @@ class TestFrontendServeView(TestCase):
 
         self.assertRedirects(response, expected_redirect_url, status_code=301, fetch_redirect_response=False)
 
-    def test_get_with_unknown_action(self):
-        signature = generate_signature(self.image.id, 'fill-800x600')
-
+    def test_init_with_unknown_action_raises_error(self):
         with self.assertRaises(ImproperlyConfigured):
-            self.client.get(reverse('wagtailimages_serve_action_unknown', args=(signature, self.image.id, 'fill-800x600')))
+            ServeView.as_view(action='unknown')
 
     def test_get_with_custom_key(self):
         """
