@@ -217,7 +217,7 @@ def create(request, content_type_app_name, content_type_model_name, parent_page_
         'parent_page': parent_page,
         'edit_handler': edit_handler,
         'preview_modes': page.preview_modes,
-        'form': form,  # Used in unit tests
+        'form': form,
     })
 
 
@@ -319,7 +319,7 @@ def edit(request, page_id):
         'edit_handler': edit_handler,
         'errors_debug': errors_debug,
         'preview_modes': page.preview_modes,
-        'form': form,  # Used in unit tests
+        'form': form,
     })
 
 
@@ -379,6 +379,7 @@ def preview_on_edit(request, page_id):
             'page': page,
             'edit_handler': edit_handler,
             'preview_modes': page.preview_modes,
+            'form': form,
         })
         response['X-Wagtail-Preview'] = 'error'
         return response
@@ -424,6 +425,7 @@ def preview_on_create(request, content_type_app_name, content_type_model_name, p
             'parent_page': parent_page,
             'edit_handler': edit_handler,
             'preview_modes': page.preview_modes,
+            'form': form,
         })
         response['X-Wagtail-Preview'] = 'error'
         return response

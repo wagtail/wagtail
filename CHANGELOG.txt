@@ -4,6 +4,7 @@ Changelog
 1.4 (xx.xx.xxxx)
 ~~~~~~~~~~~~~~~~
 
+ * The page editor now produces a warning if the user navigates away without saving changes
  * The `Document` model can now be overridden using the new `WAGTAILDOCS_DOCUMENT_MODEL` setting (Alex Gleason)
  * Wagtail no longer depends on django-compressor
  * Snippets now support a custom `edit_handler` property (Mikalai Radchuk)

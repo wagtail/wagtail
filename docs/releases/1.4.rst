@@ -10,6 +10,11 @@ Wagtail 1.4 release notes - IN DEVELOPMENT
 What's new
 ==========
 
+Protection against unsaved changes
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+The page editor interface now produces a warning if the user attempts to navigate away while there are unsaved changes.
+
 
 Custom document models
 ~~~~~~~~~~~~~~~~~~~~~~
