@@ -37,6 +37,7 @@ Bug fixes
  * Added more accurate help text for the Administrator flag on user accounts (Matt Fozard)
  * Tags added on the multiple image uploader are now saved correctly
  * Documents created by a user are no longer deleted when the user is deleted
+ * Fixed a crash in ``RedirectMiddleware`` when a middleware class before ``SiteMiddleware`` returns a response (Josh Schneier)
 
 
 Upgrade considerations

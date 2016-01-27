@@ -101,6 +101,7 @@ Contributors
 * Josh Hurd
 * Matt Fozard
 * Chris Rogers
+* Josh Schneier
 
 
 Translators
