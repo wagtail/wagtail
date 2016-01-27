@@ -65,7 +65,7 @@ class BaseSearchQuery(object):
         if result is None:
             raise FilterError(
                 'Could not apply filter on search results: "' + field_attname + '__' +
-                lookup + ' = ' + text_type(value) + '". Lookup "' + lookup + '"" not recognosed.'
+                lookup + ' = ' + text_type(value) + '". Lookup "' + lookup + '"" not recognised.'
             )
 
         return result
