@@ -13,3 +13,10 @@ build:
     image: wagtail-scss-lint
     commands:
       - scss-lint
+  unittest:
+    image: python:3.4
+    commands:
+      - pip install wheel
+      - pip install -r requirements-dev.txt
+      - python setup.py develop
+      - python runtests.py
