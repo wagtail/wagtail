@@ -16,7 +16,11 @@ build:
   unittest:
     image: python:3.4
     commands:
-      - pip install wheel
-      - pip install -r requirements-dev.txt
-      - python setup.py develop
+      - XDG_CACHE_HOME=/drone/pip-cache pip install wheel
+      - XDG_CACHE_HOME=/drone/pip-cache pip install -r requirements-dev.txt
+      - XDG_CACHE_HOME=/drone/pip-cache python setup.py develop
       - python runtests.py
+
+cache:
+  mount:
+    - /drone/pip-cache
