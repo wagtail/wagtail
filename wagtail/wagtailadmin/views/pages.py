@@ -300,8 +300,8 @@ def edit(request, page_id):
 
             edit_handler = edit_handler_class(instance=page, form=form)
             errors_debug = (
-                repr(edit_handler.form.errors)
-                + repr(
+                repr(edit_handler.form.errors) +
+                repr(
                     [(name, formset.errors) for (name, formset) in edit_handler.form.formsets.items() if formset.errors]
                 )
             )
