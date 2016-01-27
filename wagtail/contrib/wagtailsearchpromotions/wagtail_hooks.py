@@ -19,9 +19,9 @@ def register_admin_urls():
 class SearchPicksMenuItem(MenuItem):
     def is_shown(self, request):
         return (
-            request.user.has_perm('wagtailsearchpromotions.add_searchpromotion')
-            or request.user.has_perm('wagtailsearchpromotions.change_searchpromotion')
-            or request.user.has_perm('wagtailsearchpromotions.delete_searchpromotion')
+            request.user.has_perm('wagtailsearchpromotions.add_searchpromotion') or
+            request.user.has_perm('wagtailsearchpromotions.change_searchpromotion') or
+            request.user.has_perm('wagtailsearchpromotions.delete_searchpromotion')
         )
 
 

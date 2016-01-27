@@ -61,8 +61,8 @@ class IndexView(PermissionCheckedMixin, View):
             'view': self,
             'object_list': object_list,
             'can_add': (
-                self.permission_policy is None
-                or self.permission_policy.user_has_permission(self.request.user, 'add')
+                self.permission_policy is None or
+                self.permission_policy.user_has_permission(self.request.user, 'add')
             ),
         }
         if self.context_object_name:
@@ -153,8 +153,8 @@ class EditView(PermissionCheckedMixin, View):
             'object': self.instance,
             'form': self.form,
             'can_delete': (
-                self.permission_policy is None
-                or self.permission_policy.user_has_permission(self.request.user, 'delete')
+                self.permission_policy is None or
+                self.permission_policy.user_has_permission(self.request.user, 'delete')
             ),
         }
         if self.context_object_name:

@@ -1595,9 +1595,9 @@ class PagePermissionTester(object):
         elif 'add' in self.permissions:
             # user can only delete if all pages in this subtree are unpublished and owned by this user
             return (
-                (not self.page.live)
-                and (self.page.owner_id == self.user.id)
-                and (not self.page.get_descendants().exclude(live=False, owner=self.user).exists())
+                (not self.page.live) and
+                (self.page.owner_id == self.user.id) and
+                (not self.page.get_descendants().exclude(live=False, owner=self.user).exists())
             )
 
         else:

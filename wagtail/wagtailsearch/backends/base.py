@@ -55,8 +55,8 @@ class BaseSearchQuery(object):
 
         if field is None:
             raise FieldError(
-                'Cannot filter search results with field "' + field_attname + '". Please add index.FilterField(\''
-                + field_attname + '\') to ' + self.queryset.model.__name__ + '.search_fields.'
+                'Cannot filter search results with field "' + field_attname + '". Please add index.FilterField(\'' +
+                field_attname + '\') to ' + self.queryset.model.__name__ + '.search_fields.'
             )
 
         # Process the lookup
@@ -64,8 +64,8 @@ class BaseSearchQuery(object):
 
         if result is None:
             raise FilterError(
-                'Could not apply filter on search results: "' + field_attname + '__'
-                + lookup + ' = ' + text_type(value) + '". Lookup "' + lookup + '"" not recognosed.'
+                'Could not apply filter on search results: "' + field_attname + '__' +
+                lookup + ' = ' + text_type(value) + '". Lookup "' + lookup + '"" not recognosed.'
             )
 
         return result
