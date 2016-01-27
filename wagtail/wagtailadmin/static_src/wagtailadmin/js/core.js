@@ -36,6 +36,47 @@ function initTagField(id, autocompleteUrl) {
     });
 }
 
+/*
+ * Enables a "dirty form check", prompting the user if they are navigating away
+ * from a page with unsaved changes.
+ *
+ * It takes the following parameters:
+ *
+ *  - formSelector - A CSS selector to select the form to apply this check to.
+ *
+ *  - options - An object for passing in options. Possible options are:
+ *    - ignoredButtonsSelector - A CSS selector to find buttons to ignore within
+ *      the form. If the navigation was triggered by one of these buttons, The
+ *      check will be ignored. defaults to: input[type="submit"].
+ *    - confirmationMessage - The message to display in the prompt.
+ *    - alwaysDirty - When set to true the form will always be considered dirty,
+ *      prompting the user even when nothing has been changed.
+*/
+function enableDirtyFormCheck(formSelector, options) {
+    var $form = $(formSelector);
+    var $ignoredButtons = $form.find(options.ignoredButtonsSelector || 'input[type="submit"]');
+    var confirmationMessage = options.confirmationMessage || ' ';
+    var alwaysDirty = options.alwaysDirty || false;
+    var initialData = $form.serialize();
+
+    window.addEventListener('beforeunload', function(event) {
+        // Ignore if the user clicked on an ignored element
+        var triggeredByIgnoredButton = false;
+        var $trigger = $(event.target.activeElement);
+
+        $ignoredButtons.each(function() {
+            if ($(this).is($trigger)) {
+                triggeredByIgnoredButton = true;
+            }
+        });
+
+        if (!triggeredByIgnoredButton && (alwaysDirty || $form.serialize() != initialData)) {
+            event.returnValue = confirmationMessage;
+            return confirmationMessage;
+        }
+    });
+}
+
 $(function() {
     // Add class to the body from which transitions may be hung so they don't appear to transition as the page loads
     $('body').addClass('ready');
@@ -207,4 +248,3 @@ $(function() {
         }, 10);
     });
 });
-
