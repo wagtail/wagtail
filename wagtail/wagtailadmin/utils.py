@@ -51,16 +51,30 @@ def get_object_usage(obj):
 
 def users_with_page_permission(page, permission_type, include_superusers=True):
     # Get user model
+    if not include_superusers:
+        raise NotImplementedError("This functionality is no longer supported")
+
     User = get_user_model()
 
-    # Find GroupPagePermission records of the given type that apply to this page or an ancestor
-    ancestors_and_self = list(page.get_ancestors()) + [page]
-    perm = GroupPagePermission.objects.filter(permission_type=permission_type, page__in=ancestors_and_self)
-    q = Q(groups__page_permissions=perm)
+    # Get all page permissions for all users (this is going to be slow if you
+    # have lots of users). Note that the `permissions` attribute isn't set on
+    # `PagePermissionTester` if the user is a superuser or not active, so we
+    # pre-filter out such users to avoid attribtue errors. We OR superusers
+    # back in later, and we don't care about inactive users.
+    user_page_permissions = [
+        page.permissions_for_user(user)
+        for user in User.objects.filter(is_superuser=False, is_active=True)
+    ]
+    # Now we have all the users, filter by those that have `permission_type` in
+    # their list of permissions for this page.
+    q = Q(pk__in=[
+        upp.user.pk
+        for upp in user_page_permissions
+        if permission_type in upp.permissions
+    ])
 
     # Include superusers
-    if include_superusers:
-        q |= Q(is_superuser=True)
+    q |= Q(is_superuser=True)
 
     return User.objects.filter(is_active=True).filter(q).distinct()
 
