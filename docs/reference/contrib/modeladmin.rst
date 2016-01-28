@@ -94,6 +94,7 @@ can get to it.
 	    menu_label = 'Page Model' # ditch this to use verbose_name_plural from model
 	    menu_icon = 'date' # change as required
 	    menu_order = 200 # will put in 3rd place (000 being 1st, 100 2nd)
+	    add_to_settings_menu = False # or True to add your model to the Settings sub-menu
 	    list_display = ('title', 'example_field2', 'example_field3', 'live')
 	    list_filter = ('live', 'example_field2', 'example_field3')
 	    search_fields = ('title',)

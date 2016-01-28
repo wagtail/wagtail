@@ -21,6 +21,7 @@ class WagtailRegisterable(object):
     Base class, providing a more convenient way for ModelAdmin or
     ModelAdminGroup instances to be registered with Wagtail's admin area.
     """
+    add_to_settings_menu = False
 
     def register_with_wagtail(self):
 
@@ -32,7 +33,12 @@ class WagtailRegisterable(object):
         def register_admin_urls():
             return self.get_admin_urls_for_registration()
 
-        @hooks.register('register_admin_menu_item')
+        menu_hook = (
+            'register_settings_menu_item' if self.add_to_settings_menu else
+            'register_admin_menu_item'
+        )
+
+        @hooks.register(menu_hook)
         def register_admin_menu_item():
             return self.get_menu_item()
 
