@@ -371,6 +371,33 @@ class Advert(ClusterableModel):
 register_snippet(Advert)
 
 
+@python_2_unicode_compatible
+class AdvertWithTabbedInterface(models.Model):
+    url = models.URLField(null=True, blank=True)
+    text = models.CharField(max_length=255)
+    something_else = models.CharField(max_length=255)
+
+    advert_panels = [
+        FieldPanel('url'),
+        FieldPanel('text'),
+    ]
+
+    other_panels = [
+        FieldPanel('something_else'),
+    ]
+
+    edit_handler = TabbedInterface([
+        ObjectList(advert_panels, heading='Advert'),
+        ObjectList(other_panels, heading='Other'),
+    ])
+
+    def __str__(self):
+        return self.text
+
+
+register_snippet(AdvertWithTabbedInterface)
+
+
 class StandardIndex(Page):
     """ Index for the site """
     parent_page_types = [Page]

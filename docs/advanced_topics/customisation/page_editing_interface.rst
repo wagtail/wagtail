@@ -1,5 +1,5 @@
-Customising the page editing interface
-======================================
+Customising the editing interface
+=================================
 
 .. _customising_the_tabbed_interface:
 
@@ -8,7 +8,7 @@ Customising the tabbed interface
 
 .. versionadded:: 1.0
 
-As standard, Wagtail organises panels into three tabs: 'Content', 'Promote' and 'Settings'. Depending on the requirements of your site, you may wish to customise this for specific page types - for example, adding an additional tab for sidebar content. This can be done by specifying an ``edit_handler`` property on the page model. For example:
+As standard, Wagtail organises panels for pages into three tabs: 'Content', 'Promote' and 'Settings'. For snippets Wagtail puts all panels into one page. Depending on the requirements of your site, you may wish to customise this for specific page types or snippets - for example, adding an additional tab for sidebar content. This can be done by specifying an ``edit_handler`` attribute on the page or snippet model. For example:
 
 .. code-block:: python
 

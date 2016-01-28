@@ -1,3 +1,6 @@
+import re
+
+
 OEMBED_ENDPOINTS = {
     "https://speakerdeck.com/oembed.{format}": [
         "^http(?:s)?://speakerdeck\\.com/.+$"
@@ -301,8 +304,6 @@ OEMBED_ENDPOINTS = {
 
 
 # Compile endpoints into regular expression objects
-import re
-
 
 def compile_endpoints():
     endpoints = {}

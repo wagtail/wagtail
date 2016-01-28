@@ -271,7 +271,7 @@ Adjust your blog page template to include the image:
    :alt: A blog post sample
 
 You can read more about using images in templates in the
-:doc:`docs <../topics/images/index>`.
+:doc:`docs <../topics/images>`.
 
 Blog Index
 ~~~~~~~~~~

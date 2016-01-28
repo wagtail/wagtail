@@ -11,11 +11,16 @@ class RedirectMiddleware(object):
         if response.status_code != 404:
             return response
 
+        # If a middleware before `SiteMiddleware` returned a response the
+        # `site` attribute was never set, ref #2120
+        if not hasattr(request, 'site'):
+            return response
+
         # Get the path
         path = models.Redirect.normalise_path(request.get_full_path())
 
         # Get the path without the query string or params
-        path_without_query = urlparse(path)[2]
+        path_without_query = urlparse(path).path
 
         # Find redirect
         try:
