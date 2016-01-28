@@ -10,6 +10,7 @@ Changelog
  * Date/time pickers now respect the locale's 'first day of week' setting (Peter Quade)
  * Refactored the way forms are constructed for the page editor, to allow custom forms to be used
  * Notification message on publish now indicates whether the page is being published now or scheduled for publication in future (Chris Rogers)
+ * Server errors when uploading images / documents through the chooser modal are now reported back to the user (Nigel Fletton)
  * Fix: Custom page managers no longer raise an error when used on an abstract model
  * Fix: Wagtail's migrations are now all reversible (benjaoming)
  * Fix: Deleting a page content type now preserves existing pages as basic Page instances, to prevent tree corruption

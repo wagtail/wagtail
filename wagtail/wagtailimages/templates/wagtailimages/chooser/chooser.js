@@ -1,3 +1,4 @@
+{% load i18n %}
 function(modal) {
     var searchUrl = $('form.image-search', modal.body).attr('action');
 
@@ -63,6 +64,14 @@ function(modal) {
             dataType: 'text',
             success: function(response){
                 modal.loadResponseText(response);
+            },
+            error: function(response, textStatus, errorThrown) {
+                {% trans "Server Error" as error_label %}
+                {% trans "Report this error to your webmaster with the following information:" as error_message %}
+                message = '{{ error_message|escapejs }}<br />' + errorThrown + ' - ' + response.status;
+                $('#upload').append(
+                    '<div class="help-block help-critical">' +
+                    '<strong>{{ error_label|escapejs }}: </strong>' + message + '</div>');
             }
         });
 

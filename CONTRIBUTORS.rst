@@ -104,6 +104,7 @@ Contributors
 * Josh Schneier
 * Mikalai Radchuk
 * Charlie Choiniere
+* Nigel Fletton
 
 
 Translators
