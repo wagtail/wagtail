@@ -14,7 +14,7 @@ What's new
 Custom document models
 ~~~~~~~~~~~~~~~~~~~~~~
 
-The `Document` model can now be overridden using the new `WAGTAILDOCS_DOCUMENT_MODEL` setting. This works in the same way that `WAGTAILIMAGES_IMAGE_MODEL` works for `Image`.
+The ``Document`` model can now be overridden using the new ``WAGTAILDOCS_DOCUMENT_MODEL`` setting. This works in the same way that ``WAGTAILIMAGES_IMAGE_MODEL`` works for ``Image``.
 
 Minor features
 ~~~~~~~~~~~~~~
