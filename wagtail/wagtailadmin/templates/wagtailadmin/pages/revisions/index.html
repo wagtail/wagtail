@@ -1,0 +1,39 @@
+{% extends "wagtailadmin/base.html" %}
+{% load i18n wagtailadmin_tags %}
+
+{% block titletag %}{% blocktrans with title=page.title %}Revisions for {{ title }}{% endblocktrans %}{% endblock %}
+
+{% block content %}
+    {% trans "Revisions for" as revisions_str %}
+    {% include "wagtailadmin/shared/header.html" with title=revisions_str subtitle=page.title icon="doc-empty-inverse" %}
+
+    <table class="listing">
+        <col width="70%" />
+        <col width="30%" />
+        <thead>
+            <tr>
+                <td>Date</td>
+                <td>Created by</td>
+            </tr>
+        </thead>
+        <tbody>
+            {% if revisions %}
+                {% for revision in revisions %}
+                    <tr>
+                        <td>
+                            <h2>{{ revision.created_at }}</h2>
+
+                            <ul class="actions">
+                                <li><a href="{% url 'wagtailadmin_pages:revisions_view' page.id revision.id %}" class="button button-small button-secondary" title="{% trans 'View' %}">{% trans 'View' %}</a></li>
+                                <li><a href="{% url 'wagtailadmin_pages:revisions_revert' page.id revision.id %}" class="button button-small button-secondary" title="{% trans 'Revert' %}">{% trans 'Revert' %}</a></li>
+                            </ul>
+                        </td>
+                        <td>{{ revision.user }}</td>
+                    </tr>
+                {% endfor %}
+            {% else %}
+                {% block no_results %}No revisions{% endblock %}
+            {% endif %}
+        </tbody>
+    </table>
+{% endblock %}
