@@ -810,3 +810,49 @@ def unlock(request, page_id):
         return redirect(redirect_to)
     else:
         return redirect('wagtailadmin_explore', page.get_parent().id)
+
+
+def revisions_index(request, page_id):
+    page = get_object_or_404(Page, id=page_id).specific
+    revisions = page.revisions.order_by('-created_at')
+
+    return render(request, 'wagtailadmin/pages/revisions/index.html', {
+        'page': page,
+        'revisions': revisions,
+    })
+
+
+def revisions_revert(request, page_id, revision_id):
+    page = get_object_or_404(Page, id=page_id).specific
+    page_perms = page.permissions_for_user(request.user)
+    if not page_perms.can_edit():
+        raise PermissionDenied
+
+    revision = get_object_or_404(page.revisions, id=revision_id)
+    revision_page = revision.as_page_object()
+
+    content_type = ContentType.objects.get_for_model(page)
+    page_class = content_type.model_class()
+
+    edit_handler_class = page_class.get_edit_handler()
+    form_class = edit_handler_class.get_form_class(page_class)
+
+    form = form_class(instance=revision_page)
+    edit_handler = edit_handler_class(instance=revision_page, form=form)
+
+    return render(request, 'wagtailadmin/pages/edit.html', {
+        'page': page,
+        'content_type': content_type,
+        'edit_handler': edit_handler,
+        'errors_debug': None,
+        'preview_modes': page.preview_modes,
+        'form': form,  # Used in unit tests
+    })
+
+
+def revisions_view(request, page_id, revision_id):
+    page = get_object_or_404(Page, id=page_id).specific
+    revision = get_object_or_404(page.revisions, id=revision_id)
+    revision_page = revision.as_page_object()
+
+    return revision_page.serve_preview(page.dummy_request(), page.default_preview_mode)
