@@ -56,7 +56,7 @@ def users_with_page_permission(page, permission_type, include_superusers=True):
     # Find GroupPagePermission records of the given type that apply to this page or an ancestor
     ancestors_and_self = list(page.get_ancestors()) + [page]
     perm = GroupPagePermission.objects.filter(permission_type=permission_type, page__in=ancestors_and_self)
-    q = Q(groups__page_permissions=perm)
+    q = Q(groups__page_permissions__in=perm)
 
     # Include superusers
     if include_superusers:
