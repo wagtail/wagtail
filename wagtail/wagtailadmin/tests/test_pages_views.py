@@ -17,7 +17,7 @@ from wagtail.tests.testapp.models import (
     BusinessIndex, BusinessChild, BusinessSubIndex,
     TaggedPage, Advert, AdvertPlacement)
 from wagtail.tests.utils import WagtailTestUtils
-from wagtail.wagtailcore.models import Page, PageRevision, Site
+from wagtail.wagtailcore.models import GroupPagePermission, Page, PageRevision, Site
 from wagtail.wagtailcore.signals import page_published, page_unpublished
 from wagtail.wagtailusers.models import UserProfile
 
@@ -2309,6 +2309,41 @@ class TestNotificationPreferences(TestCase, WagtailTestUtils):
 
         # No email to send
         self.assertEqual(len(mail.outbox), 0)
+
+    def test_moderator_group_notifications(self):
+        # Create a (non-superuser) moderator
+        User = get_user_model()
+        user1 = User.objects.create_user('moduser1', 'moduser1@email.com')
+        user1.groups.add(Group.objects.get(name='Moderators'))
+        user1.save()
+
+        # Create another group and user with permission to moderate
+        modgroup2 = Group.objects.create(name='More moderators')
+        GroupPagePermission.objects.create(
+            group=modgroup2, page=self.root_page, permission_type='publish'
+        )
+        user2 = User.objects.create_user('moduser2', 'moduser2@email.com')
+        user2.groups.add(Group.objects.get(name='More moderators'))
+        user2.save()
+
+        # Submit
+        # This used to break in Wagtail 1.3 (Postgres exception, SQLite 3/4 notifications)
+        response = self.submit()
+
+        # Should be redirected to explorer page
+        self.assertEqual(response.status_code, 302)
+
+        # Check that the superusers and the moderation group members all got an email
+        expected_emails = 4
+        self.assertEqual(len(mail.outbox), expected_emails)
+        email_to = []
+        for i in range(expected_emails):
+            self.assertEqual(len(mail.outbox[i].to), 1)
+            email_to += mail.outbox[i].to
+        self.assertIn(self.moderator.email, email_to)
+        self.assertIn(self.moderator2.email, email_to)
+        self.assertIn(user1.email, email_to)
+        self.assertIn(user2.email, email_to)
 
 
 class TestLocking(TestCase, WagtailTestUtils):
