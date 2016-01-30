@@ -3,6 +3,7 @@ from optparse import make_option
 from django.core.management.base import BaseCommand
 from django.conf import settings
 from django.db import transaction
+from django.utils import translation
 
 from wagtail.wagtailsearch.index import get_indexed_models
 from wagtail.wagtailsearch.backends import get_search_backend
@@ -22,6 +23,12 @@ class Command(BaseCommand):
 
         # Get backend
         backend = get_search_backend(backend_name)
+        
+        # Activate backend language
+        cur_language = translation.get_language()
+        backend_language = getattr(backend, 'language_code', None)
+        if backend_language is not None:
+            translation.activate(backend_language)
 
         # Get rebuilder
         rebuilder = backend.get_rebuilder()
@@ -56,7 +63,11 @@ class Command(BaseCommand):
         # Finish rebuild
         self.stdout.write(backend_name + ": Finishing rebuild")
         rebuilder.finish()
-
+        
+        # Return to Original Thread Language
+        if backend_language is not None:
+            translation.activate(cur_language)
+            
     option_list = BaseCommand.option_list + (
         make_option(
             '--backend',
