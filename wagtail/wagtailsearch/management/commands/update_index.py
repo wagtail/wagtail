@@ -23,7 +23,7 @@ class Command(BaseCommand):
 
         # Get backend
         backend = get_search_backend(backend_name)
-        
+
         # Activate backend language
         cur_language = translation.get_language()
         backend_language = getattr(backend, 'language_code', None)
@@ -63,11 +63,11 @@ class Command(BaseCommand):
         # Finish rebuild
         self.stdout.write(backend_name + ": Finishing rebuild")
         rebuilder.finish()
-        
+
         # Return to Original Thread Language
         if backend_language is not None:
             translation.activate(cur_language)
-            
+
     option_list = BaseCommand.option_list + (
         make_option(
             '--backend',
