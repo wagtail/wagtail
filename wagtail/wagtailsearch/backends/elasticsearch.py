@@ -7,6 +7,7 @@ from django.utils.six.moves.urllib.parse import urlparse
 from elasticsearch import Elasticsearch, NotFoundError
 from elasticsearch.helpers import bulk
 
+from django.conf import settings
 from django.db import models
 from django.utils.crypto import get_random_string
 
@@ -662,7 +663,9 @@ class ElasticSearch(BaseSearch):
         self.hosts = params.pop('HOSTS', None)
         self.index_name = params.pop('INDEX', 'wagtail')
         self.timeout = params.pop('TIMEOUT', 10)
-
+        self.language_code = params.pop(
+            'LANGUAGE_CODE', getattr(settings, 'LANGUAGE_CODE', 'en')
+        
         if params.pop('ATOMIC_REBUILD', False):
             self.rebuilder_class = self.atomic_rebuilder_class
         else:
