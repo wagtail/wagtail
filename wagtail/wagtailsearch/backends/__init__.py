@@ -5,7 +5,7 @@
 import sys
 from importlib import import_module
 
-from django.utils import six
+from django.utils import six, translation
 from django.utils.module_loading import import_string
 from django.core.exceptions import ImproperlyConfigured
 from django.conf import settings
@@ -86,3 +86,14 @@ def get_search_backends(with_auto_update=False):
             yield get_search_backend(backend)
     else:
         yield get_search_backend('default')
+
+
+def get_language_aware_search_backend():
+    cur_language = translation.get_language()
+    if hasattr(settings, 'WAGTAILSEARCH_BACKENDS'):
+        for backend, params in settings.WAGTAILSEARCH_BACKENDS.items():
+            if getattr(params, 'LANGUAGE_CODE', None) == cur_language:
+                return get_search_backend(backend)
+    return get_search_backend('default')
+
+    
