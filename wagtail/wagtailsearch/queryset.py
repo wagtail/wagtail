@@ -1,4 +1,3 @@
-from django.conf import settings
 from wagtail.wagtailsearch.backends import get_language_aware_search_backend
 
 
