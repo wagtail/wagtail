@@ -92,7 +92,7 @@ def get_language_aware_search_backend(default_backend='default'):
     cur_language = translation.get_language()
     if hasattr(settings, 'WAGTAILSEARCH_BACKENDS'):
         for backend, params in settings.WAGTAILSEARCH_BACKENDS.items():
-            if getattr(params, 'LANGUAGE_CODE', None) == cur_language:
+            if params.get('LANGUAGE_CODE', None) == cur_language:
                 return get_search_backend(backend)
     return get_search_backend(default_backend)
 
