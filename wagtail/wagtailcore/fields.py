@@ -53,16 +53,16 @@ class RichTextArea(BaseTextAreaWidget):
 class RichTextField(models.TextField):
 
     def __init__(self, widget=None, **kwargs):
-        self.widget = widget
+        self.field_options = {'widget': widget}
         super(RichTextField, self).__init__(**kwargs)
 
     def formfield(self, **kwargs):
-        # check if a custom widget has been passed or use default
-        if not self.widget:
-            self.widget = RichTextArea
-        defaults = {'widget': self.widget}
-        defaults.update(kwargs)
-        return super(RichTextField, self).formfield(**defaults)
+        field_kwargs = self.field_options.copy()
+        # check if a custom widget has been set or use default
+        if not field_kwargs.get('widget'):
+            field_kwargs.update({'widget': RichTextArea})
+        field_kwargs.update(kwargs)
+        return super(RichTextField, self).formfield(**field_kwargs)
 
 
 class StreamField(with_metaclass(models.SubfieldBase, models.Field)):
