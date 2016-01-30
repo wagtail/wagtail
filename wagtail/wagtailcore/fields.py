@@ -21,7 +21,7 @@ class BaseTextAreaWidget(WidgetWithScript, forms.Textarea):
 
     def get_panel(self):
         raise NotImplementedError(
-            "Class %s doesn't implement a required Method()" % (self.__class__.__name__))
+            "Class %s doesn't implement the required get_panel() method" % (self.__class__.__name__))
 
     def render(self, name, value, attrs=None):
         if value is None:
