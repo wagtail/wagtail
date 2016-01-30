@@ -1,4 +1,5 @@
-from wagtail.wagtailsearch.backends import get_search_backend
+from django.conf import settings
+from wagtail.wagtailsearch.backends import get_language_aware_search_backend
 
 
 class SearchableQuerySetMixin(object):
@@ -7,6 +8,6 @@ class SearchableQuerySetMixin(object):
         """
         This runs a search query on all the items in the QuerySet
         """
-        search_backend = get_search_backend(backend)
+        search_backend = get_language_aware_search_backend(backend)
         return search_backend.search(query_string, self, fields=fields,
                                      operator=operator, order_by_relevance=order_by_relevance)
