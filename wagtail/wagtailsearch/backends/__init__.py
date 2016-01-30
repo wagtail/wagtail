@@ -95,5 +95,3 @@ def get_language_aware_search_backend(default_backend='default'):
             if params.get('LANGUAGE_CODE', None) == cur_language:
                 return get_search_backend(backend)
     return get_search_backend(default_backend)
-
-    
