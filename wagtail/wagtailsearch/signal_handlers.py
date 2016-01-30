@@ -1,3 +1,4 @@
+from django.utils import translation
 from django.db.models.signals import post_save, post_delete
 
 from wagtail.wagtailsearch.index import get_indexed_models
@@ -20,8 +21,13 @@ def post_save_signal_handler(instance, **kwargs):
     indexed_instance = get_indexed_instance(instance)
 
     if indexed_instance:
+        cur_language = translation.get_language()
         for backend in get_search_backends(with_auto_update=True):
+            backend_language = getattr(backend, 'language_code', None)
+            if backend_language is not None:
+                translation.activate(backend_language)
             backend.add(indexed_instance)
+        translation.activate(cur_language)
 
 
 def post_delete_signal_handler(instance, **kwargs):
