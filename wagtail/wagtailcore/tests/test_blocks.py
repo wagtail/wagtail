@@ -175,6 +175,12 @@ class TestRichTextBlock(TestCase):
         self.assertIsInstance(result, RichText)
         self.assertEqual(result.source, '')
 
+    def test_widget_richtext_block(self):
+        from wagtail.wagtailcore.fields import RichTextArea
+        custom_widget = RichTextArea(editor_config={'halloheadings': {'formatBlocks': ['p', 'h2']}})
+        block = blocks.RichTextBlock(widget=custom_widget)
+        self.assertEqual(block.widget, custom_widget)
+
 
 class TestChoiceBlock(unittest.TestCase):
     def setUp(self):
