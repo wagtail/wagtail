@@ -10,6 +10,7 @@ from django.test import TestCase, SimpleTestCase
 from django.utils.safestring import mark_safe, SafeData
 
 from wagtail.wagtailcore import blocks
+from wagtail.wagtailcore.fields import RichTextArea
 from wagtail.wagtailcore.rich_text import RichText
 from wagtail.wagtailcore.models import Page
 
@@ -175,37 +176,15 @@ class TestRichTextBlock(TestCase):
         self.assertIsInstance(result, RichText)
         self.assertEqual(result.source, '')
 
-    def test_widget_field_richtext_block(self):
-        from wagtail.wagtailcore.fields import RichTextArea
-        custom_widget = RichTextArea(editor_config={'plugins': {'halloheadings': {'formatBlocks': ['p', 'h2']}}})
-        block = blocks.RichTextBlock(widget=custom_widget)
-        self.assertEqual(block.field_options.get('widget'), custom_widget)
-
     def test_widget_custom_widget_richtext_block(self):
-        from wagtail.wagtailcore.fields import BaseTextAreaWidget
-
-        class CustomTextArea(BaseTextAreaWidget):
-            def get_panel(self):
-                pass
-        custom_widget = CustomTextArea(editor_config={'custom': {'testix': {'formatBlocks': ['p', 'h2']}}})
+        custom_widget = RichTextArea(editor_config={'custom': {'testix': {'formatBlocks': ['p', 'h2']}}})
         block = blocks.RichTextBlock(widget=custom_widget)
 
-        self.assertIsInstance(block.field_options.get('widget'), CustomTextArea)
-        self.assertIsInstance(block.field.widget, CustomTextArea)
+        self.assertEqual(block.field.widget, custom_widget)
 
     def test_widget_default_widget_richtext_block(self):
-        from wagtail.wagtailcore.fields import RichTextArea
-        deafult_widget = RichTextArea()
-        block = blocks.RichTextBlock(widget=deafult_widget)
+        block = blocks.RichTextBlock()
 
-        self.assertIsInstance(block.field_options.get('widget'), RichTextArea)
-        self.assertIsInstance(block.field.widget, RichTextArea)
-
-    def test_widget_fallback_widget_richtext_block(self):
-        from wagtail.wagtailcore.fields import RichTextArea
-        block = blocks.RichTextBlock(widget=None)
-
-        self.assertIsNone(block.field_options.get('widget'))
         self.assertIsInstance(block.field.widget, RichTextArea)
 
 
