@@ -144,24 +144,26 @@ A custom ``hallo.js`` JSON configuration can be passed through the default RichT
     from wagtail.wagtailcore.fields import RichTextArea
 
     simple_config={
-        'halloheadings': {
-            'formatBlocks': ['p', 'h2']
-        },
-        'halloformat': {
-            'formattings': {
-                "bold": True,
-                "italic": False,
+        'plugins': {
+            'halloheadings': {
+                'formatBlocks': ['p', 'h2']
             },
-        },
-        'hallowagtaildoclink': {},
-        'hallolists': {
-            "lists": {
-                "ordered": True,
-                "unordered": False
-            }
-        },
-        'hallowagtaillink': {},
-        'hallorequireparagraphs': {}
+            'halloformat': {
+                'formattings': {
+                    "bold": True,
+                    "italic": False,
+                },
+            },
+            'hallowagtaildoclink': {},
+            'hallolists': {
+                "lists": {
+                    "ordered": True,
+                    "unordered": False
+                }
+            },
+            'hallowagtaillink': {},
+            'hallorequireparagraphs': {}
+        }
 
     }
 
