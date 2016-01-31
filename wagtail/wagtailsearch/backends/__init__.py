@@ -38,7 +38,7 @@ def import_backend(dotted_path):
             six.reraise(ImportError, e, sys.exc_info()[2])
 
 
-def get_search_backend(backend='default', **kwargs):
+def get_search_backend(backend=None, **kwargs):
     # Get configuration
     default_conf = {
         'default': {
@@ -47,6 +47,18 @@ def get_search_backend(backend='default', **kwargs):
     }
     WAGTAILSEARCH_BACKENDS = getattr(
         settings, 'WAGTAILSEARCH_BACKENDS', default_conf)
+
+    if backend is None:
+        # Get backend with LANGUAGE_CODE = cur_language
+        cur_language = translation.get_language()
+        for key, params in WAGTAILSEARCH_BACKENDS.items():
+            if params.get('LANGUAGE_CODE', None) == cur_language:
+                backend = key
+                break
+
+    # if none found above, then fall back to 'default' 
+    if backend is None:
+        backend = 'default'
 
     # Try to find the backend
     try:
@@ -86,12 +98,3 @@ def get_search_backends(with_auto_update=False):
             yield get_search_backend(backend)
     else:
         yield get_search_backend('default')
-
-
-def get_language_aware_search_backend(default_backend='default'):
-    cur_language = translation.get_language()
-    if hasattr(settings, 'WAGTAILSEARCH_BACKENDS'):
-        for backend, params in settings.WAGTAILSEARCH_BACKENDS.items():
-            if params.get('LANGUAGE_CODE', None) == cur_language:
-                return get_search_backend(backend)
-    return get_search_backend(default_backend)
