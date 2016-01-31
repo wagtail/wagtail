@@ -1,6 +1,6 @@
 from django.test import TestCase
-from django.contrib.contenttypes.models import ContentType
 from wagtail.wagtailcore.fields import BaseTextAreaWidget
+
 
 class TestBaseTextAreaWidget(TestCase):
 
