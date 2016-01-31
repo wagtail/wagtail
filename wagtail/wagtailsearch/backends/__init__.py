@@ -56,7 +56,7 @@ def get_search_backend(backend=None, **kwargs):
                 backend = key
                 break
 
-    # if none found above, then fall back to 'default' 
+    # if none found above, then fall back to 'default'
     if backend is None:
         backend = 'default'
 
