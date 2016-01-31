@@ -38,6 +38,3 @@ class TestRichTextAreaWidget(TestCase):
         self.assertEqual(js_init, "makeRichTextEditable(\"test-id\", {"
                                   "\"plugins\": {\"halloheadings\": {\"formatBlocks\": [\"p\", \"h2\"]}}});"
                          )
-
-
-
