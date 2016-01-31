@@ -96,7 +96,7 @@ By default, Wagtail will only purge one URL per page. If your page has more than
             yield '/'
 
             # Yield one URL per page in the paginator to make sure all pages are purged
-            for page_number in range(1, self.get_blog_items().num_pages):
+            for page_number in range(1, self.get_blog_items().num_pages + 1):
                 yield '/?page=' + str(page_number)
 
 
