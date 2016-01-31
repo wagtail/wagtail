@@ -19,7 +19,6 @@ function registerHalloPlugin(name, opts) {
 }
 
 function makeRichTextEditable(id, editorConfig) {
-    $.extend(halloConfig, editorConfig);
     var input = $('#' + id);
     var richText = $('<div class="richtext"></div>').html(input.val());
     richText.insertBefore(input);
@@ -38,8 +37,9 @@ function makeRichTextEditable(id, editorConfig) {
     }
 
     var closestObj = input.closest('.object');
-
     halloConfig.toolbarCssClass = (closestObj.hasClass('full')) ? 'full' : (closestObj.hasClass('stream-field')) ? 'stream-field' : '';
+
+    $.extend(halloConfig, editorConfig);
 
     richText.hallo(halloConfig).bind('hallomodified', function(event, data) {
         input.val(data.content);
