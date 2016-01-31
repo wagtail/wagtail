@@ -1,21 +1,25 @@
 'use strict';
 
-var halloPlugins = {
-    halloformat: {},
-    halloheadings: {formatBlocks: ['p', 'h2', 'h3', 'h4', 'h5']},
-    hallolists: {},
-    hallohr: {},
-    halloreundo: {},
-    hallowagtaillink: {},
-    hallorequireparagraphs: {}
-};
-
-function registerHalloPlugin(name, opts) {
-    halloPlugins[name] = (opts || {});
+var halloConfig = {
+    plugins: {
+        halloformat: {},
+        halloheadings: {formatBlocks: ['p', 'h2', 'h3', 'h4', 'h5']},
+        hallolists: {},
+        hallohr: {},
+        halloreundo: {},
+        hallowagtaillink: {},
+        hallorequireparagraphs: {}
+    },
+    toolbarCssClass: 'full',
+    toolbar: 'halloToolbarFixed'
 }
 
-function makeRichTextEditable(id, plugins) {
-    var richTextPlugins = plugins || halloPlugins;
+function registerHalloPlugin(name, opts) {
+    halloConfig['plugins'][name] = (opts || {});
+}
+
+function makeRichTextEditable(id, editor_config) {
+    $.extend(halloConfig, editor_config);
     var input = $('#' + id);
     var richText = $('<div class="richtext"></div>').html(input.val());
     richText.insertBefore(input);
@@ -35,11 +39,9 @@ function makeRichTextEditable(id, plugins) {
 
     var closestObj = input.closest('.object');
 
-    richText.hallo({
-        toolbar: 'halloToolbarFixed',
-        toolbarCssClass: (closestObj.hasClass('full')) ? 'full' : (closestObj.hasClass('stream-field')) ? 'stream-field' : '',
-        plugins: richTextPlugins
-    }).bind('hallomodified', function(event, data) {
+    halloConfig['toolbarCssClass'] = (closestObj.hasClass('full')) ? 'full' : (closestObj.hasClass('stream-field')) ? 'stream-field' : '';
+
+    richText.hallo(halloConfig).bind('hallomodified', function(event, data) {
         input.val(data.content);
         if (!removeStylingPending) {
             setTimeout(removeStyling, 100);
