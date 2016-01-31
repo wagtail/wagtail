@@ -8,6 +8,6 @@ class TestBaseTextAreaWidget(TestCase):
         import ipdb; ipdb.set_trace()
         with self.assertRaises(NotImplementedError):
             fail = BaseTextAreaWidget()
-            fail.get_panel()git s
+            fail.get_panel()
 
 
