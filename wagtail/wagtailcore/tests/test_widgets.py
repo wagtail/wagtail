@@ -25,13 +25,13 @@ class TestRichTextAreaWidget(TestCase):
         panel = panel_proxy(None)
         self.assertIsInstance(panel, RichTextFieldPanel)
 
-    def test_default_render_js_init(self):
+    def test_widget_default_render_js_init(self):
         widget = RichTextArea()
         js_init = widget.render_js_init('test-id', 'test', None)
         self.assertIsInstance(js_init, unicode)
         self.assertEqual(js_init, "makeRichTextEditable(\"test-id\", null);")
 
-    def test_custom_widget_render_js_init(self):
+    def test_widget_eit_config_render_js_init(self):
         custom_widget = RichTextArea(editor_config={'plugins': {'halloheadings': {'formatBlocks': ['p', 'h2']}}})
         js_init = custom_widget.render_js_init('test-id', 'test', None)
         self.assertIsInstance(js_init, unicode)
