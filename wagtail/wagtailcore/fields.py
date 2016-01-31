@@ -36,9 +36,6 @@ class BaseTextAreaWidget(WidgetWithScript, forms.Textarea):
             return None
         return DbWhitelister.clean(original_value)
 
-    class Meta:
-        abstract = True
-
 
 class RichTextArea(BaseTextAreaWidget):
 
