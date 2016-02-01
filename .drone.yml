@@ -7,8 +7,9 @@ build:
       - XDG_CACHE_HOME=/drone/pip-cache pip install flake8
       - flake8 wagtail
   jscs:
-    image: wagtail-jscs
+    image: node:4.2.4
     commands:
+      - npm install -g jscs@"^1.12.0"
       - jscs ./wagtail
   scss-lint:
     image: wagtail-scss-lint
@@ -24,4 +25,5 @@ build:
 
 cache:
   mount:
+    - node_modules
     - /drone/pip-cache
