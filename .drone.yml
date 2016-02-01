@@ -2,8 +2,9 @@
 
 build:
   flake8:
-    image: wagtail-flake8
+    image: python:3.5
     commands:
+      - XDG_CACHE_HOME=/drone/pip-cache pip install flake8
       - flake8 wagtail
   jscs:
     image: wagtail-jscs
