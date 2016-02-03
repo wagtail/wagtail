@@ -1,5 +1,6 @@
 from django.contrib.auth import get_user_model
 from django.contrib.auth.models import Group, Permission
+from django.core.exceptions import FieldDoesNotExist, ImproperlyConfigured
 from django.db.models import Q
 
 from wagtail.wagtailcore.models import Collection, GroupCollectionPermission
@@ -7,13 +8,7 @@ from wagtail.wagtailcore.models import Collection, GroupCollectionPermission
 from .base import BaseDjangoAuthPermissionPolicy
 
 
-class CollectionPermissionPolicy(BaseDjangoAuthPermissionPolicy):
-    """
-    A permission policy for objects that are assigned locations in the Collection tree.
-    Permissions may be defined at any node of the hierarchy, through the
-    GroupCollectionPermission model, and propagate downwards. These permissions are
-    applied to objects according to the standard django.contrib.auth permission model.
-    """
+class CollectionPermissionLookupMixin(object):
     def _get_permission_objects_for_actions(self, actions):
         """
         Get a queryset of the Permission objects for the given actions
@@ -49,6 +44,79 @@ class CollectionPermissionPolicy(BaseDjangoAuthPermissionPolicy):
 
         return collection_permissions.exists()
 
+    def _collection_permission_filter(self, user, actions):
+        """
+        Return a filter object that can be applied to a queryset of this model
+        so that it only includes instances in collections for which the user has
+        any of the given permissions
+        """
+        # Get the permission objects corresponding to these actions
+        permissions = self._get_permission_objects_for_actions(actions)
+
+        # Get the collections that have a GroupCollectionPermission record
+        # for any of these permissions and any of the user's groups;
+        # create a list of their paths
+        collection_root_paths = Collection.objects.filter(
+            group_permissions__group__in=user.groups.all(),
+            group_permissions__permission__in=permissions
+        ).values_list('path', flat=True)
+
+        if collection_root_paths:
+            # build a filter expression that will filter our model to just those
+            # instances in collections with a path that starts with one of the above
+            collection_path_filter = Q(collection__path__startswith=collection_root_paths[0])
+            for path in collection_root_paths[1:]:
+                collection_path_filter = collection_path_filter | Q(
+                    collection__path__startswith=path
+                )
+            return collection_path_filter
+        else:
+            # no matching collections
+            return Q(pk=-999)
+
+    def _users_with_perm_filter(self, actions, collection=None):
+        """
+        Return a filter expression that will filter a user queryset to those with any
+        permissions corresponding to 'actions', via either GroupCollectionPermission
+        or superuser privileges.
+        If collection is specified, only consider GroupCollectionPermission records
+        that apply to that collection.
+        """
+        permissions = self._get_permission_objects_for_actions(actions)
+        # Find all groups with GroupCollectionPermission records for
+        # any of these permissions
+        groups = Group.objects.filter(
+            collection_permissions__permission__in=permissions,
+        )
+
+        if collection is not None:
+            collections = collection.get_ancestors(inclusive=True)
+            groups = groups.filter(
+                collection_permissions__collection__in=collections
+            )
+
+        # Find all users who are superusers or in any of these groups, and are active
+        return (Q(is_superuser=True) | Q(groups__in=groups)) & Q(is_active=True)
+
+    def _users_with_perm(self, actions, collection=None):
+        """
+        Return a queryset of users with any permissions corresponding to 'actions',
+        via either GroupCollectionPermission or superuser privileges.
+        If collection is specified, only consider GroupCollectionPermission records
+        that apply to that collection.
+        """
+        return get_user_model().objects.filter(
+            self._users_with_perm_filter(actions, collection=collection)
+        ).distinct()
+
+
+class CollectionPermissionPolicy(CollectionPermissionLookupMixin, BaseDjangoAuthPermissionPolicy):
+    """
+    A permission policy for objects that are assigned locations in the Collection tree.
+    Permissions may be defined at any node of the hierarchy, through the
+    GroupCollectionPermission model, and propagate downwards. These permissions are
+    applied to objects according to the standard django.contrib.auth permission model.
+    """
     def user_has_permission(self, user, action):
         """
         Return whether the given user has permission to perform the given action
@@ -68,21 +136,7 @@ class CollectionPermissionPolicy(BaseDjangoAuthPermissionPolicy):
         Return a queryset of users who have permission to perform any of the given actions
         on some or all instances of this model
         """
-
-        # Get the permission objects corresponding to these actions
-        permissions = self._get_permission_objects_for_actions(actions)
-
-        # Form a filter expression to apply to users, that finds the ones which:
-        # - belong to a group
-        # - which has a GroupCollectionPermission
-        # - referencing one of the permissions we're interested in
-        permission_filter_expr = Q(groups__collection_permissions__permission__in=permissions)
-
-        # Return users that match this permission criterion or are superusers, AND are active
-        filter_expr = (
-            Q(is_superuser=True) | permission_filter_expr
-        ) & Q(is_active=True)
-        return get_user_model().objects.filter(filter_expr).distinct()
+        return self._users_with_perm(actions)
 
     def user_has_permission_for_instance(self, user, action, instance):
         """
@@ -108,44 +162,136 @@ class CollectionPermissionPolicy(BaseDjangoAuthPermissionPolicy):
         elif user.is_superuser:
             return self.model.objects.all()
         else:
-            # Get the permission objects corresponding to these actions
-            permissions = self._get_permission_objects_for_actions(actions)
-
-            # Get the collections that have a GroupCollectionPermission record
-            # for any of these permissions and any of the user's groups;
-            # create a list of their paths
-            collection_root_paths = Collection.objects.filter(
-                group_permissions__group__in=user.groups.all(),
-                group_permissions__permission__in=permissions
-            ).values_list('path', flat=True)
-
-            if collection_root_paths:
-                # build a filter expression that will filter our model to just those
-                # instances in collections with a path that starts with one of the above
-                collection_path_filter = Q(collection__path__startswith=collection_root_paths[0])
-                for path in collection_root_paths[1:]:
-                    collection_path_filter = collection_path_filter | Q(
-                        collection__path__startswith=path
-                    )
-                return self.model.objects.filter(collection_path_filter)
-            else:
-                # no matching collections
-                return self.model.objects.none()
+            # filter to just the collections with this permission
+            return self.model.objects.filter(
+                self._collection_permission_filter(user, actions)
+            )
 
     def users_with_any_permission_for_instance(self, actions, instance):
         """
         Return a queryset of all users who have permission to perform any of the given
         actions on the given model instance
         """
-        permissions = self._get_permission_objects_for_actions(actions)
-        collections = instance.collection.get_ancestors(inclusive=True)
-        # Find all groups with GroupCollectionPermission records for
-        # any of these permissions and collections
-        groups = Group.objects.filter(
-            collection_permissions__permission__in=permissions,
-            collection_permissions__collection__in=collections
-        )
-        # Find all users who are superusers or in any of these groups, and are active
-        return get_user_model().objects.filter(
-            (Q(is_superuser=True) | Q(groups__in=groups)) & Q(is_active=True)
-        ).distinct()
+        return self._users_with_perm(actions, collection=instance.collection)
+
+
+class CollectionOwnershipPermissionPolicy(
+    CollectionPermissionLookupMixin, BaseDjangoAuthPermissionPolicy
+):
+    """
+    A permission policy for objects that are assigned locations in the Collection tree.
+    Permissions may be defined at any node of the hierarchy, through the
+    GroupCollectionPermission model, and propagate downwards. These permissions are
+    applied to objects according to the 'ownership' permission model
+    (see permission_policies.base.OwnershipPermissionPolicy)
+    """
+    def __init__(self, model, auth_model=None, owner_field_name='owner'):
+        super(CollectionOwnershipPermissionPolicy, self).__init__(model, auth_model=auth_model)
+        self.owner_field_name = owner_field_name
+
+        # make sure owner_field_name is a field that exists on the model
+        try:
+            self.model._meta.get_field(self.owner_field_name)
+        except FieldDoesNotExist:
+            raise ImproperlyConfigured(
+                "%s has no field named '%s'. To use this model with "
+                "CollectionOwnershipPermissionPolicy, you must specify a valid field name as "
+                "owner_field_name."
+                % (self.model, self.owner_field_name)
+            )
+
+    def user_has_permission(self, user, action):
+        if action == 'add':
+            return self._check_perm(user, ['add'])
+        elif action == 'change' or action == 'delete':
+            # having 'add' permission means that there are *potentially*
+            # some instances they can edit (namely: ones they own),
+            # which is sufficient for returning True here
+            return self._check_perm(user, ['add', 'change'])
+        else:
+            # unrecognised actions are only allowed for active superusers
+            return user.is_active and user.is_superuser
+
+    def users_with_any_permission(self, actions):
+        if 'change' in actions or 'delete' in actions:
+            # either 'add' or 'change' permission means that there are *potentially*
+            # some instances they can edit
+            real_actions = ['add', 'change']
+        elif 'add' in actions:
+            real_actions = ['add']
+        else:
+            # none of the actions passed in here are ones that we recognise, so only
+            # allow them for active superusers
+            return get_user_model().objects.filter(is_active=True, is_superuser=True)
+
+        return self._users_with_perm(real_actions)
+
+    def user_has_permission_for_instance(self, user, action, instance):
+        return self.user_has_any_permission_for_instance(user, [action], instance)
+
+    def user_has_any_permission_for_instance(self, user, actions, instance):
+        if 'change' in actions or 'delete' in actions:
+            if self._check_perm(user, ['change'], collection=instance.collection):
+                return True
+            elif (
+                self._check_perm(user, ['add'], collection=instance.collection) and
+                getattr(instance, self.owner_field_name) == user
+            ):
+                return True
+            else:
+                return False
+        else:
+            # 'change' and 'delete' are the only actions that are well-defined
+            # for specific instances. Other actions are only available to
+            # active superusers.
+            return user.is_active and user.is_superuser
+
+    def instances_user_has_any_permission_for(self, user, actions):
+        if user.is_active and user.is_superuser:
+            # active superusers can perform any action (including unrecognised ones)
+            # on any instance
+            return self.model.objects.all()
+        elif not user.is_authenticated():
+            return self.model.objects.none()
+        elif 'change' in actions or 'delete' in actions:
+            # return instances which are:
+            # - in (a descendant of) a collection for which they have 'change' permission
+            # - OR in (a descendant of) a collection for which they have 'add' permission,
+            #   and are owned by them
+
+            change_perm_filter = self._collection_permission_filter(user, ['change'])
+            add_perm_filter = (
+                self._collection_permission_filter(user, ['add']) &
+                Q(**{self.owner_field_name: user})
+            )
+            return self.model.objects.filter(change_perm_filter | add_perm_filter)
+        else:
+            # action is either not recognised, or is the 'add' action which is
+            # not meaningful for existing instances. As such, non-superusers
+            # cannot perform it on any existing instances.
+            return self.model.objects.none()
+
+    def users_with_any_permission_for_instance(self, actions, instance):
+        if 'change' in actions or 'delete' in actions:
+            # form a filter expression of the users with 'change' permission
+            # over this instance's collection
+            filter_expr = self._users_with_perm_filter(
+                ['change'], collection=instance.collection
+            )
+
+            # add on the item's owner, if they still have 'add' permission
+            # (and the owner field isn't blank)
+            owner = getattr(instance, self.owner_field_name)
+            if owner is not None and self._check_perm(
+                owner, ['add'], collection=instance.collection
+            ):
+                filter_expr = filter_expr | Q(pk=owner.pk)
+
+            # return the filtered queryset
+            return get_user_model().objects.filter(filter_expr).distinct()
+
+        else:
+            # action is either not recognised, or is the 'add' action which is
+            # not meaningful for existing instances. As such, the action is only
+            # available to superusers
+            return get_user_model().objects.filter(is_active=True, is_superuser=True)
