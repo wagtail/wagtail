@@ -18,7 +18,7 @@ from django.conf import settings
 from django.utils.six import b
 
 from wagtail.tests.utils import WagtailTestUtils
-from wagtail.wagtailcore.models import Page
+from wagtail.wagtailcore.models import Page, Collection, GroupCollectionPermission
 
 from wagtail.tests.testapp.models import EventPage, EventPageRelatedLink
 from wagtail.wagtaildocs.models import Document
@@ -72,7 +72,12 @@ class TestDocumentPermissions(TestCase):
         )
 
         # Owner user must have the add_document permission
-        self.owner.user_permissions.add(Permission.objects.get(codename='add_document'))
+        self.adders_group = Group.objects.create(name='Document adders')
+        GroupCollectionPermission.objects.create(
+            group=self.adders_group, collection=Collection.get_first_root_node(),
+            permission=Permission.objects.get(codename='add_document')
+        )
+        self.owner.groups.add(self.adders_group)
 
         # Create a document for running tests on
         self.document = models.Document.objects.create(title="Test document", uploaded_by_user=self.owner)
@@ -945,7 +950,14 @@ class TestEditOnlyPermissions(TestCase, WagtailTestUtils):
         )
         change_permission = Permission.objects.get(content_type__app_label='wagtaildocs', codename='change_document')
         admin_permission = Permission.objects.get(content_type__app_label='wagtailadmin', codename='access_admin')
-        user.user_permissions.add(change_permission, admin_permission)
+        self.changers_group = Group.objects.create(name='Document changers')
+        GroupCollectionPermission.objects.create(
+            group=self.changers_group, collection=Collection.get_first_root_node(),
+            permission=change_permission
+        )
+        user.groups.add(self.changers_group)
+
+        user.user_permissions.add(admin_permission)
         self.client.login(username='changeonly', password='password')
 
     def test_get_index(self):
