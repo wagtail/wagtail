@@ -1,24 +1,19 @@
-{% extends "wagtailadmin/skeleton.html" %}
-{% load staticfiles i18n %}
-
-{% block titletag %}{% trans 'User bar' %}{% endblock %}
-{% block css %}
+{% load compress static i18n %}
+<!-- Wagtail user bar embed code -->
+<div class="wagtail-userbar" data-wagtail-userbar>
+    {% compress css %}
     <link rel="stylesheet" href="{% static 'wagtailadmin/css/userbar.css' %}" type="text/css" />
-{% endblock %}
-
-{% block furniture %}
-    <div class="wagtail-userbar">
-        <nav>
-            <a href="{% url 'wagtailadmin_home' %}" target="_parent" class="home icon icon-wagtail" title="{% trans 'Go to Wagtail admin interface' %}">{% trans 'Go to Wagtail admin interface' %}</a>
-            <ul>
-                {% for item in items %}
-                    {{ item|safe }}
-                {% endfor %}
-            </ul>
-        </nav>
+    {% endcompress %}
+    <div class="wagtail-userbar__nav">
+        <a href="{% url 'wagtailadmin_home' %}" target="_parent" class="icon icon-wagtail wagtail-userbar__home">{% trans 'Go to Wagtail admin interface' %}</a>
+        <ul>
+            {% for item in items %}
+                {{ item|safe }}
+            {% endfor %}
+        </ul>
     </div>
-{% endblock %}
-
-{% block js %}
+    {% compress js %}
     <script src="{% static 'wagtailadmin/js/userbar.js' %}"></script>
-{% endblock %}
+    {% endcompress %}
+</div>
+<!-- end Wagtail user bar embed code -->

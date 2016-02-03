@@ -1,18 +1,18 @@
 'use strict';
 
 document.addEventListener('DOMContentLoaded', function() {
-    var body = document.querySelectorAll('body')[0];
-    var nav = document.querySelectorAll('nav')[0];
-    var className = 'ready';
-    var hasPostMessage = window.postMessage;
+    var userbar = document.querySelectorAll('[data-wagtail-userbar]')[0];
+    var className = 'is-active';
 
-    if (hasPostMessage) {
-        parent.postMessage('fh=' + nav.offsetHeight, '*');
+    userbar.addEventListener("mouseenter", showUserbar, false);
+    userbar.addEventListener("mouseleave", hideUserbar, false);
+
+    function showUserbar() {
+        userbar.classList.add(className);
     }
 
-    if (body.classList) {
-        body.classList.add(className);
-    } else {
-        body.className += ' ' + className;
+    function hideUserbar() {
+        userbar.classList.remove(className);
     }
 });
+
