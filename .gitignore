@@ -11,7 +11,6 @@
 /venv
 /node_modules/
 npm-debug.log
-/.gitignore
 /*.egg/
 
 ### JetBrains
