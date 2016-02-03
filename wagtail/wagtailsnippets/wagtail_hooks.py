@@ -1,4 +1,3 @@
-from django.conf import settings
 from django.conf.urls import include, url
 from django.contrib.auth.models import Permission
 from django.contrib.contenttypes.models import ContentType

@@ -1,4 +1,3 @@
-from django.conf import settings
 from django.conf.urls import include, url
 from django.core import urlresolvers
 from django.utils.html import format_html
