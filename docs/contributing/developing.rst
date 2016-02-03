@@ -22,11 +22,11 @@ Clone a copy of `the Wagtail codebase <https://github.com/torchbox/wagtail>`_:
     git clone https://github.com/torchbox/wagtail.git
     cd wagtail
 
-With your preferred virtualenv activated, install the Wagtail package in development mode:
+With your preferred virtualenv activated, install the Wagtail package in development mode with the included testing and documentation dependencies:
 
 .. code-block:: sh
 
-    python setup.py develop
+    pip install -e .[testing,docs]
 
 Install the tool chain for building static assets:
 
@@ -41,16 +41,6 @@ Compile the assets:
     npm run build
 
 Any Wagtail sites you start up in this virtualenv will now run against this development instance of Wagtail. We recommend using the `Wagtail demo site <https://github.com/torchbox/wagtaildemo/>`_ as a basis for developing Wagtail.
-
-Development dependencies
-~~~~~~~~~~~~~~~~~~~~~~~~
-
-Developing Wagtail requires additional Python modules for testing and documentation.
-
-The list of dependencies is in the Wagtail root directory in ``requirements-dev.txt`` and can be installed thus, from the Wagtail codebase root directory::
-
-    pip install -r requirements-dev.txt
-
 
 .. _testing:
 

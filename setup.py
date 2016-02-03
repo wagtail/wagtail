@@ -34,6 +34,28 @@ install_requires = [
     "Willow>=0.2.2,<0.3",
 ]
 
+# Testing dependencies
+testing_extras = [
+    # Required for running the tests
+    'mock>=1.0.0',
+    'python-dateutil>=2.2',
+    'pytz>=2014.7',
+    'Pillow>=2.7.0',
+    'elasticsearch>=1.0.0',
+
+    # For coverage and PEP8 linting
+    'coverage>=3.7.0',
+    'flake8>=2.2.0',
+]
+
+# Documentation dependencies
+documentation_extras = [
+    'Sphinx>=1.3.1',
+    'sphinx-autobuild>=0.5.2',
+    'sphinx_rtd_theme>=0.1.8',
+    'sphinxcontrib-spelling==2.1.1',
+    'pyenchant==1.6.6',
+]
 
 setup(
     name='wagtail',
@@ -65,6 +87,10 @@ setup(
         'Topic :: Internet :: WWW/HTTP :: Site Management',
     ],
     install_requires=install_requires,
+    extras_require={
+        'testing': testing_extras,
+        'docs': documentation_extras
+    },
     entry_points="""
             [console_scripts]
             wagtail=wagtail.bin.wagtail:main
