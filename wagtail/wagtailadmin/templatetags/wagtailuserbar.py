@@ -51,15 +51,15 @@ def wagtailuserbar(context):
     if revision_id is None:
         items = [
             AdminItem(),
-            EditPageItem(Page.objects.get(id=page.id)),
             ExplorePageItem(Page.objects.get(id=page.id)),
+            EditPageItem(Page.objects.get(id=page.id)),
             AddPageItem(Page.objects.get(id=page.id)),
         ]
     else:
         items = [
             AdminItem(),
-            EditPageItem(PageRevision.objects.get(id=revision_id).page),
             ExplorePageItem(PageRevision.objects.get(id=revision_id).page),
+            EditPageItem(PageRevision.objects.get(id=revision_id).page),
             AddPageItem(PageRevision.objects.get(id=revision_id).page),
             ApproveModerationEditPageItem(PageRevision.objects.get(id=revision_id)),
             RejectModerationEditPageItem(PageRevision.objects.get(id=revision_id)),

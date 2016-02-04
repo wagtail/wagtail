@@ -60,9 +60,9 @@ class ExplorePageItem(BaseItem):
         if not request.user.has_perm('wagtailadmin.access_admin'):
             return ""
 
-        # Don't render if the user doesn't have permission to edit this page
-        permission_checker = self.page.permissions_for_user(request.user)
-        if not permission_checker.can_edit():
+        # Don't render if user doesn't have ability to edit or publish sub-pages on the parent page
+        permission_checker = self.parent_page.permissions_for_user(request.user)
+        if not permission_checker.can_edit() and not permission_checker.can_publish_subpage():
             return ""
 
         return super(ExplorePageItem, self).render(request)
