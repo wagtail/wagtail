@@ -123,11 +123,6 @@ Wagtail Apps
 Third-Party Apps
 ----------------
 
-``compressor``
-  Static asset combiner and minifier for Django. Compressor also enables for the use of preprocessors. See `Compressor Documentation`_.
-
-.. _Compressor Documentation: http://django-compressor.readthedocs.org/en/latest/
-
 ``taggit``
   Tagging framework for Django. This is used internally within Wagtail for image and document tagging and is available for your own models as well. See :ref:`tagging` for a Wagtail model recipe or the `Taggit Documentation`_.
 
@@ -344,7 +339,6 @@ These two files should reside in your project directory (``myproject/myproject/`
     'wagtail.wagtailadmin',
     'wagtail.wagtailcore',
 
-    'compressor',
     'taggit',
     'modelcluster',
 
