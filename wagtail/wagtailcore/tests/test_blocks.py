@@ -8,6 +8,7 @@ from django.forms.utils import ErrorList
 from django.core.exceptions import NON_FIELD_ERRORS, ValidationError
 from django.test import TestCase, SimpleTestCase
 from django.utils.safestring import mark_safe, SafeData
+from django.utils.html import format_html
 
 from wagtail.wagtailcore import blocks
 from wagtail.wagtailcore.rich_text import RichText
@@ -18,34 +19,15 @@ from wagtail.tests.testapp.blocks import SectionBlock
 import base64
 
 
-class IntegerBlock(blocks.CharBlock):
-    def clean(self, value):
-        out = super(IntegerBlock, self).clean(value)
-        try:
-            return int(out)
-        except ValueError:
-            raise ValidationError('Value must be an integer')
-
-
-class ColumnBlock(blocks.StructBlock):
-    width = IntegerBlock()
-    content = blocks.TextBlock()
-
-
-class ValidatedBlock(blocks.StreamBlock):
-    column = ColumnBlock()
-    required_width = 6
+class FooStreamBlock(blocks.StreamBlock):
+    text = blocks.CharBlock()
+    error = 'At least one block must say "foo"'
 
     def clean(self, value):
-        blocks = super(ValidatedBlock, self).clean(value)
-        width = sum(block.value['width'] for block in blocks)
-        if width != self.required_width:
-            error = 'You must have exactly %d columns, not %d' % (
-                self.required_width, width)
-            raise ValidationError('Validation error in StreamBlock', params={
-                NON_FIELD_ERRORS: [error],
-            })
-        return blocks
+        value = super(FooStreamBlock, self).clean(value)
+        if not any(block.value == 'foo' for block in value):
+            raise blocks.StreamBlockValidationError(non_block_errors=ErrorList([self.error]))
+        return value
 
 
 class TestFieldBlock(unittest.TestCase):
@@ -1302,69 +1284,63 @@ class TestStreamBlock(SimpleTestCase):
         })
 
     def test_block_level_validation_no_errors(self):
-        block = ValidatedBlock()
+        block = FooStreamBlock()
 
-        post_data = {'columns-count': '3'}
-        for i in range(3):
+        post_data = {'stream-count': '3'}
+        for i, value in enumerate(['foo', 'bar', 'baz']):
             post_data.update({
-                'columns-%d-deleted' % i: '',
-                'columns-%d-order' % i: str(i),
-                'columns-%d-type' % i: 'column',
-                'columns-%d-value-width' % i: str(i + 1),
-                'columns-%d-value-content' % i: 'hello %d' % (i,),
+                'stream-%d-deleted' % i: '',
+                'stream-%d-order' % i: str(i),
+                'stream-%d-type' % i: 'text',
+                'stream-%d-value' % i: value
             })
 
-        block_value = block.value_from_datadict(post_data, {}, 'columns')
+        block_value = block.value_from_datadict(post_data, {}, 'stream')
         try:
             block.clean(block_value)
         except ValidationError:
             self.fail('Should have passed validation')
 
     def test_block_level_validation_throws_errors(self):
-        block = ValidatedBlock()
+        block = FooStreamBlock()
 
-        post_data = {'columns-count': '4'}
-        for i in range(4):
+        post_data = {'stream-count': '2'}
+        for i, value in enumerate(['bar', 'baz']):
             post_data.update({
-                'columns-%d-deleted' % i: '',
-                'columns-%d-order' % i: str(i),
-                'columns-%d-type' % i: 'column',
-                'columns-%d-value-width' % i: '2',
-                'columns-%d-value-content' % i: 'hello %d' % (i,),
+                'stream-%d-deleted' % i: '',
+                'stream-%d-order' % i: str(i),
+                'stream-%d-type' % i: 'text',
+                'stream-%d-value' % i: value,
             })
 
-        block_value = block.value_from_datadict(post_data, {}, 'columns')
+        block_value = block.value_from_datadict(post_data, {}, 'stream')
         with self.assertRaises(ValidationError) as catcher:
             block.clean(block_value)
 
         self.assertEqual(catcher.exception.params, {
-            NON_FIELD_ERRORS: ['You must have exactly 6 columns, not 8'],
+            NON_FIELD_ERRORS: [FooStreamBlock.error],
         })
 
     def test_block_level_validation_renders_errors(self):
-        block = ValidatedBlock()
+        block = FooStreamBlock()
 
-        post_data = {'columns-count': '2'}
-        for i in range(2):
+        post_data = {'stream-count': '2'}
+        for i, value in enumerate(['bar', 'baz']):
             post_data.update({
-                'columns-%d-deleted' % i: '',
-                'columns-%d-order' % i: str(i),
-                'columns-%d-type' % i: 'column',
-                'columns-%d-value-width' % i: str(i + 2),
-                'columns-%d-value-content' % i: 'hello %d' % (i,),
+                'stream-%d-deleted' % i: '',
+                'stream-%d-order' % i: str(i),
+                'stream-%d-type' % i: 'text',
+                'stream-%d-value' % i: value
             })
 
-        block_value = block.value_from_datadict(post_data, {}, 'columns')
-        error_message = 'You must have exactly 6 columns, not 5'
+        block_value = block.value_from_datadict(post_data, {}, 'stream')
         errors = ErrorList([
-            ValidationError('Validation error in StructBlock', params={
-                NON_FIELD_ERRORS: [error_message]
-            })
+            blocks.StreamBlockValidationError(non_block_errors=[FooStreamBlock.error])
         ])
 
         self.assertInHTML(
-            '<div class="help-block help-critical">%s</div>' % (error_message,),
-            block.render_form(block_value, prefix='columns', errors=errors))
+            format_html('<div class="help-block help-critical">{}</div>', FooStreamBlock.error),
+            block.render_form(block_value, prefix='stream', errors=errors))
 
     def test_html_declarations(self):
         class ArticleBlock(blocks.StreamBlock):
