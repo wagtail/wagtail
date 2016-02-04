@@ -16,6 +16,13 @@ Custom document models
 
 The ``Document`` model can now be overridden using the new ``WAGTAILDOCS_DOCUMENT_MODEL`` setting. This works in the same way that ``WAGTAILIMAGES_IMAGE_MODEL`` works for ``Image``.
 
+
+Removed django-compressor dependency
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Wagtail no longer depends on the `django-compressor <http://django-compressor.readthedocs.org/>`_ library. While we highly recommend compressing and bundling the CSS and Javascript on your sites, using django-compressor places additional installation and configuration demands on the developer, so this has now been made optional.
+
+
 Minor features
 ~~~~~~~~~~~~~~
 
@@ -44,3 +51,8 @@ Bug fixes
 
 Upgrade considerations
 ======================
+
+Removal of django-compressor
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+As Wagtail no longer installs django-compressor automatically as a dependency, you may need to make changes to your site's configuration when upgrading. If your project is actively using django-compressor (that is, your site templates contain ``{% compress %}`` tags), you should ensure that your project's requirements explicitly include django-compressor, rather than indirectly relying on Wagtail to install it. If you are not actively using django-compressor on your site, you should update your settings file to remove the line ``'compressor'`` from ``INSTALLED_APPS``, and remove ``'compressor.finders.CompressorFinder'`` from ``STATICFILES_FINDERS``.

@@ -5,6 +5,7 @@ Changelog
 ~~~~~~~~~~~~~~~~
 
  * The `Document` model can now be overridden using the new `WAGTAILDOCS_DOCUMENT_MODEL` setting (Alex Gleason)
+ * Wagtail no longer depends on django-compressor
  * Snippets now support a custom `edit_handler` property (Mikalai Radchuk)
  * Date/time pickers now respect the locale's 'first day of week' setting (Peter Quade)
  * Refactored the way forms are constructed for the page editor, to allow custom forms to be used
