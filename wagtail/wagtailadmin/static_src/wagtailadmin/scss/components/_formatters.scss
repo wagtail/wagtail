@@ -118,7 +118,7 @@
     -webkit-font-smoothing: auto;
     font-size: 0.8em;
     margin: 0 0.5em 0.5em;
-    background: #fff url('#{$static-root}bg-dark-diag.svg');
+    background: #fff url('#{$images-root}bg-dark-diag.svg');
 
     &.primary {
         color: $color-grey-2;
@@ -253,7 +253,7 @@ img {
 
 // Show a transparency grid in background
 .show-transparency {
-    background: url('#{$static-root}transparency.svg');
+    background: url('#{$images-root}transparency.svg');
 }
 
 // make a block-level element inline

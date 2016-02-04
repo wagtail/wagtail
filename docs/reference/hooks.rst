@@ -228,7 +228,7 @@ The available hooks are:
 .. _insert_editor_js:
 
 ``insert_editor_js``
-  Add additional Javascript files or code snippets to the page editor. Output must be compatible with ``compress``, as local static includes or string.
+  Add additional Javascript files or code snippets to the page editor.
 
   .. code-block:: python
 
@@ -257,7 +257,7 @@ The available hooks are:
 .. _insert_editor_css:
 
 ``insert_editor_css``
-  Add additional CSS or SCSS files or snippets to the page editor. Output must be compatible with ``compress``, as local static includes or string.
+  Add additional CSS or SCSS files or snippets to the page editor.
 
   .. code-block:: python
 
