@@ -5,7 +5,7 @@
     <link rel="stylesheet" href="{% static 'wagtailadmin/css/userbar.css' %}" type="text/css" />
     {% endcompress %}
     <div class="wagtail-userbar__nav">
-        <a href="{% url 'wagtailadmin_home' %}" target="_parent" class="icon icon-wagtail wagtail-userbar__home">{% trans 'Go to Wagtail admin interface' %}</a>
+        <div class="icon icon-wagtail wagtail-userbar__trigger" data-wagtail-userbar-trigger>{% trans 'Go to Wagtail admin interface' %}</div>
         <ul>
             {% for item in items %}
                 {{ item|safe }}

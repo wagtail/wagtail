@@ -6,8 +6,8 @@ from wagtail.wagtailcore.models import Page, PageRevision, PAGE_TEMPLATE_VAR
 from django.shortcuts import render
 # from django.contrib.auth.decorators import permission_required
 
-from wagtail.wagtailadmin.userbar import EditPageItem, AddPageItem, ApproveModerationEditPageItem, \
-    RejectModerationEditPageItem
+from wagtail.wagtailadmin.userbar import AdminItem, ExplorePageItem, EditPageItem, AddPageItem, \
+    ApproveModerationEditPageItem, RejectModerationEditPageItem
 from wagtail.wagtailcore import hooks
 
 register = template.Library()
@@ -50,12 +50,16 @@ def wagtailuserbar(context):
 
     if revision_id is None:
         items = [
+            AdminItem(),
             EditPageItem(Page.objects.get(id=page.id)),
+            ExplorePageItem(Page.objects.get(id=page.id)),
             AddPageItem(Page.objects.get(id=page.id)),
         ]
     else:
         items = [
+            AdminItem(),
             EditPageItem(PageRevision.objects.get(id=revision_id).page),
+            ExplorePageItem(PageRevision.objects.get(id=revision_id).page),
             AddPageItem(PageRevision.objects.get(id=revision_id).page),
             ApproveModerationEditPageItem(PageRevision.objects.get(id=revision_id)),
             RejectModerationEditPageItem(PageRevision.objects.get(id=revision_id)),
