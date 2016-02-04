@@ -20,7 +20,18 @@ from .base import Block, DeclarativeSubBlocksMetaclass, BoundBlock
 from .utils import indent, js_dict
 
 
-__all__ = ['BaseStreamBlock', 'StreamBlock', 'StreamValue']
+__all__ = ['BaseStreamBlock', 'StreamBlock', 'StreamValue', 'StreamBlockValidationError']
+
+
+class StreamBlockValidationError(ValidationError):
+    def __init__(self, block_errors=None, non_block_errors=None):
+        params = {}
+        if block_errors:
+            params.update(block_errors)
+        if non_block_errors:
+            params[NON_FIELD_ERRORS] = non_block_errors
+        super(StreamBlockValidationError, self).__init__(
+            'Validation error in StreamBlock', params=params)
 
 
 class BaseStreamBlock(Block):
@@ -111,9 +122,11 @@ class BaseStreamBlock(Block):
         error_dict = {}
         if errors:
             if len(errors) > 1:
-                # We rely on ListBlock.clean throwing a single ValidationError with a specially crafted
-                # 'params' attribute that we can pull apart and distribute to the child blocks
-                raise TypeError('ListBlock.render_form unexpectedly received multiple errors')
+                # We rely on StreamBlock.clean throwing a single
+                # StreamBlockValidationError with a specially crafted 'params'
+                # attribute that we can pull apart and distribute to the child
+                # blocks
+                raise TypeError('StreamBlock.render_form unexpectedly received multiple errors')
             error_dict = errors.as_data()[0].params
 
         # drop any child values that are an unrecognised block type
@@ -173,7 +186,7 @@ class BaseStreamBlock(Block):
         if errors:
             # The message here is arbitrary - outputting error messages is delegated to the child blocks,
             # which only involves the 'params' list
-            raise ValidationError('Validation error in StreamBlock', params=errors)
+            raise StreamBlockValidationError(block_errors=errors)
 
         return StreamValue(self, cleaned_data)
 
