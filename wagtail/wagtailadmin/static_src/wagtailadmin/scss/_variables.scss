@@ -1,11 +1,12 @@
 // paths 
 
 // We can't use absolute paths here, because those are dependent on Django's
-// STATIC_URL setting. However, django-compressor consistently places the compiled
-// CSS into $ {STATIC_URL}/CACHE/css/ regardless of compilation mode, so we can
-// reliably use relative paths to get back to STATIC_URL. */
+// STATIC_URL setting. Instead, relative paths from the final location of the
+// compiled CSS files are used.
+// */
 
-$static-root: '../../wagtailadmin/images/';
+$static-root: '../../';
+$images-root: $static-root + 'wagtailadmin/images/';
 $font-root: '../../wagtailadmin/fonts/';
 
 // grid settings
