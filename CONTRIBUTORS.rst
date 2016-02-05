@@ -103,6 +103,7 @@ Contributors
 * Chris Rogers
 * Josh Schneier
 * Mikalai Radchuk
+* Charlie Choiniere
 
 
 Translators
