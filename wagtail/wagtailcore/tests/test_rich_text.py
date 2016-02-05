@@ -55,6 +55,14 @@ class TestDbWhiteLister(TestCase):
         DbWhitelister.clean_tag_node(soup, tag)
         self.assertEqual(str(tag), '<a id="1" linktype="document">foo</a>')
 
+    def test_clean_tag_node_with_old_data_linktype(self):
+        soup = BeautifulSoup(
+            '<a data-linktype="foo" data-foo="bar" irrelevant="baz">foo</a>',
+            'html5lib')
+        tag = soup.a
+        DbWhitelister.clean_tag_node(soup, tag)
+        self.assertHTMLEqual(str(tag), '<a foo="bar" linktype="foo">foo</a>')
+
     def test_clean_tag_node(self):
         soup = BeautifulSoup('<a irrelevant="baz">foo</a>', 'html5lib')
         tag = soup.a
@@ -100,6 +108,16 @@ class TestExpandDbHtml(TestCase):
         html = '<embed embedtype="media" url="http://www.youtube.com/watch" />'
         result = expand_db_html(html)
         self.assertIn('test html', result)
+
+    def test_expand_old_link_handler(self):
+        self.assertHTMLEqual(
+            expand_db_html('<a linktype="foo" foo="bar">baz</a>'),
+            '<a href="http://example.com/bar/">baz</a>')
+
+    def test_expand_old_link_handler_for_editor(self):
+        self.assertHTMLEqual(
+            expand_db_html('<a linktype="foo" foo="bar">baz</a>', for_editor=True),
+            '<a href="http://example.com/bar/" data-linktype="foo" data-foo="bar">baz</a>')
 
 
 class TestRichTextValue(TestCase):

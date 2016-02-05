@@ -1,3 +1,6 @@
+from __future__ import absolute_import, unicode_literals
+
+from django.forms.utils import flatatt
 from django.http import HttpResponse
 
 from wagtail.wagtailadmin.menu import MenuItem
@@ -75,3 +78,25 @@ def polite_pages_only(parent_page, pages, request):
         pages = pages.filter(slug__startswith='hello')
 
     return pages
+
+
+class FooLinkHandler(object):
+    @staticmethod
+    def get_db_attributes(tag):
+        return {'foo': tag.attrs['data-foo']}
+
+    @staticmethod
+    def expand_db_attributes(attrs, for_editor):
+        new_attrs = {'href': 'http://example.com/{}/'.format(attrs['foo'])}
+        if for_editor:
+            new_attrs.update({
+                'data-foo': attrs['foo'],
+                'data-linktype': 'foo',
+            })
+        return '<a{}>'.format(flatatt(new_attrs))
+
+
+# RemovedInWagtail16Warning
+@hooks.register('register_rich_text_link_handler')
+def register_foo_link_handler():
+    return ('foo', FooLinkHandler())
