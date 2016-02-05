@@ -19,8 +19,7 @@ build:
     image: python:3.5
     commands:
       - XDG_CACHE_HOME=/drone/pip-cache pip install wheel
-      - XDG_CACHE_HOME=/drone/pip-cache pip install -r requirements-dev.txt
-      - XDG_CACHE_HOME=/drone/pip-cache pip install -e .
+      - XDG_CACHE_HOME=/drone/pip-cache pip install -e .[testing,docs]
       - python runtests.py
 
 cache:
