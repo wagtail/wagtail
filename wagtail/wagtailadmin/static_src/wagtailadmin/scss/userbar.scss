@@ -41,7 +41,7 @@ $size-home-button: 3.5em;
     }
 
     .wagtail-userbar__nav {
-        $width-arrow: .5em;
+        $width-arrow: .6em;
 
         ul {
             list-style: none;
@@ -63,7 +63,7 @@ $size-home-button: 3.5em;
         ul:after {
             content: "";
             position: absolute;
-            bottom: $width-arrow;
+            bottom: $width-arrow + .1em;
             right: $size-home-button/2 - $width-arrow/2;
             width: 0;
             height: 0;
