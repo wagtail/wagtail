@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-12-17 13:55+0000\n"
+"POT-Creation-Date: 2016-02-05 17:02+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -37,8 +37,8 @@ msgstr ""
 msgid "Administrator"
 msgstr ""
 
-#: forms.py:56
-msgid "If ticked, this user has the ability to manage user accounts."
+#: forms.py:56 forms.py:142 forms.py:203
+msgid "Administrators have full access to manage any object or setting."
 msgstr ""
 
 #: forms.py:60 forms.py:130
@@ -67,10 +67,6 @@ msgstr ""
 
 #: forms.py:71 forms.py:127
 msgid "Last Name"
-msgstr ""
-
-#: forms.py:142 forms.py:203
-msgid "Administrators have the ability to manage user accounts."
 msgstr ""
 
 #: forms.py:197
@@ -107,7 +103,7 @@ msgstr ""
 
 #: templates/wagtailusers/groups/confirm_delete.html:3
 #: templates/wagtailusers/groups/confirm_delete.html:6
-#: templates/wagtailusers/groups/edit.html:35
+#: templates/wagtailusers/groups/edit.html:34
 msgid "Delete group"
 msgstr ""
 
@@ -133,19 +129,19 @@ msgid "Yes, delete"
 msgstr ""
 
 #: templates/wagtailusers/groups/create.html:4
-#: templates/wagtailusers/groups/create.html:16
-#: templates/wagtailusers/groups/create.html:31
+#: templates/wagtailusers/groups/create.html:14
+#: templates/wagtailusers/groups/create.html:29
 msgid "Add group"
 msgstr ""
 
 #: templates/wagtailusers/groups/edit.html:4
-#: templates/wagtailusers/groups/edit.html:15
+#: templates/wagtailusers/groups/edit.html:14
 #: templates/wagtailusers/users/edit.html:4
 #: templates/wagtailusers/users/edit.html:7
 msgid "Editing"
 msgstr ""
 
-#: templates/wagtailusers/groups/edit.html:32
+#: templates/wagtailusers/groups/edit.html:31
 #: templates/wagtailusers/users/edit.html:31
 #: templates/wagtailusers/users/edit.html:38
 msgid "Save"
@@ -338,4 +334,8 @@ msgstr ""
 
 #: views/users.py:118
 msgid "The user could not be saved due to errors."
+msgstr ""
+
+#: wagtail_hooks.py:62
+msgid "Groups"
 msgstr ""
