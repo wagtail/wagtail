@@ -84,6 +84,7 @@ Bug fixes
  * Logging in to the admin as a user with valid credentials but no admin access permission now displays an error message, rather than rejecting the user silently
  * StreamBlock HTML rendering now handles non-ASCII characters correctly on Python 2 (Mikalai Radchuk)
  * Fixed a bug preventing pages with a ``OneToOneField`` from being copied (Liam Brenner)
+ * SASS compilation errors during Wagtail development no longer cause exit of Gulp process, instead throws error to console and continues (Thomas Winter)
 
 
 Upgrade considerations
