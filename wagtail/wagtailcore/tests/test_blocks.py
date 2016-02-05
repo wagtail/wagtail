@@ -5,7 +5,7 @@ import unittest
 
 from django import forms
 from django.forms.utils import ErrorList
-from django.core.exceptions import NON_FIELD_ERRORS, ValidationError
+from django.core.exceptions import ValidationError
 from django.test import TestCase, SimpleTestCase
 from django.utils.safestring import mark_safe, SafeData
 from django.utils.html import format_html
@@ -1283,25 +1283,7 @@ class TestStreamBlock(SimpleTestCase):
             3: ['Enter a valid URL.'],
         })
 
-    def test_block_level_validation_no_errors(self):
-        block = FooStreamBlock()
-
-        post_data = {'stream-count': '3'}
-        for i, value in enumerate(['foo', 'bar', 'baz']):
-            post_data.update({
-                'stream-%d-deleted' % i: '',
-                'stream-%d-order' % i: str(i),
-                'stream-%d-type' % i: 'text',
-                'stream-%d-value' % i: value
-            })
-
-        block_value = block.value_from_datadict(post_data, {}, 'stream')
-        try:
-            block.clean(block_value)
-        except ValidationError:
-            self.fail('Should have passed validation')
-
-    def test_block_level_validation_throws_errors(self):
+    def test_block_level_validation_renders_errors(self):
         block = FooStreamBlock()
 
         post_data = {'stream-count': '2'}
@@ -1317,30 +1299,37 @@ class TestStreamBlock(SimpleTestCase):
         with self.assertRaises(ValidationError) as catcher:
             block.clean(block_value)
 
-        self.assertEqual(catcher.exception.params, {
-            NON_FIELD_ERRORS: [FooStreamBlock.error],
-        })
-
-    def test_block_level_validation_renders_errors(self):
-        block = FooStreamBlock()
-
-        post_data = {'stream-count': '2'}
-        for i, value in enumerate(['bar', 'baz']):
-            post_data.update({
-                'stream-%d-deleted' % i: '',
-                'stream-%d-order' % i: str(i),
-                'stream-%d-type' % i: 'text',
-                'stream-%d-value' % i: value
-            })
-
-        block_value = block.value_from_datadict(post_data, {}, 'stream')
         errors = ErrorList([
-            blocks.StreamBlockValidationError(non_block_errors=[FooStreamBlock.error])
+            catcher.exception
         ])
 
         self.assertInHTML(
             format_html('<div class="help-block help-critical">{}</div>', FooStreamBlock.error),
             block.render_form(block_value, prefix='stream', errors=errors))
+
+    def test_block_level_validation_render_no_errors(self):
+        block = FooStreamBlock()
+
+        post_data = {'stream-count': '3'}
+        for i, value in enumerate(['foo', 'bar', 'baz']):
+            post_data.update({
+                'stream-%d-deleted' % i: '',
+                'stream-%d-order' % i: str(i),
+                'stream-%d-type' % i: 'text',
+                'stream-%d-value' % i: value,
+            })
+
+        block_value = block.value_from_datadict(post_data, {}, 'stream')
+
+        try:
+            block.clean(block_value)
+        except ValidationError:
+            self.fail('Should have passed validation')
+
+        self.assertInHTML(
+            format_html('<div class="help-block help-critical">{}</div>', FooStreamBlock.error),
+            block.render_form(block_value, prefix='stream'),
+            count=0)
 
     def test_html_declarations(self):
         class ArticleBlock(blocks.StreamBlock):
