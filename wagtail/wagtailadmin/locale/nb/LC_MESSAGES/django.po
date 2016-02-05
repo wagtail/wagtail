@@ -4,13 +4,14 @@
 #
 # Translators:
 # Eirik Krogstad <eirikkr@gmail.com>, 2015
+# Robin Skahjem-Eriksen <robinds@student.matnat.uio.no>, 2015
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2015-12-17 13:54+0000\n"
-"PO-Revision-Date: 2015-12-17 13:57+0000\n"
-"Last-Translator: mattwestcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2015-12-26 18:58+0000\n"
+"Last-Translator: Robin Skahjem-Eriksen <robinds@student.matnat.uio.no>\n"
 "Language-Team: Norwegian Bokmål (http://www.transifex.com/torchbox/wagtail/"
 "language/nb/)\n"
 "MIME-Version: 1.0\n"
@@ -67,7 +68,7 @@ msgid "This copy will be a child of this given parent page."
 msgstr "Denne kopien vil bli en underside av gitt foreldreside."
 
 msgid "Copy subpages"
-msgstr "Kopier undersider"
+msgstr "Kopiér undersider"
 
 #, python-format
 msgid "This will copy %(count)s subpage."
@@ -76,13 +77,13 @@ msgstr[0] "Dette vil kopiere %(count)s underside."
 msgstr[1] "Dette vil kopiere %(count)s undersider."
 
 msgid "Publish copied page"
-msgstr "Publiser kopiert side"
+msgstr "Publisér kopiert side"
 
 msgid "This page is live. Would you like to publish its copy as well?"
 msgstr "Denne siden er publisert. Vil du publisere kopien også?"
 
 msgid "Publish copies"
-msgstr "Publiser kopier"
+msgstr "Publisér kopier"
 
 #, python-format
 msgid ""
@@ -152,7 +153,7 @@ msgid "Notification Preferences"
 msgstr "Varslingsinnstillinger"
 
 msgid "Update"
-msgstr "Oppdater"
+msgstr "Oppdatér"
 
 msgid "Reset password"
 msgstr "Nullstill passord"
@@ -187,7 +188,7 @@ msgid "Reset your password"
 msgstr "Nullstill ditt passord"
 
 msgid "Dashboard"
-msgstr "Dashbord"
+msgstr "Kontrollpanel"
 
 msgid "Menu"
 msgstr "Meny"
@@ -283,8 +284,8 @@ msgid ""
 "This is your dashboard on which helpful information about content you've "
 "created will be displayed."
 msgstr ""
-"Dette er dashbordet ditt, hvor du kan se en oversikt over innholdet som er "
-"lagt inn."
+"Dette er kontrollpanelet ditt, hvor du kan se en oversikt over innholdet som "
+"er lagt inn."
 
 msgid "Pages awaiting moderation"
 msgstr "Sider som venter på godkjenning"
@@ -302,7 +303,7 @@ msgid "Edited"
 msgstr "Redigert"
 
 msgid "Edit this page"
-msgstr "Rediger denne siden"
+msgstr "Redigér denne siden"
 
 msgid "Approve"
 msgstr "Godkjenn"
@@ -311,7 +312,7 @@ msgid "Reject"
 msgstr "Avslå"
 
 msgid "Edit"
-msgstr "Rediger"
+msgstr "Redigér"
 
 msgid "Preview"
 msgstr "Forhåndsvis"
@@ -476,7 +477,7 @@ msgid "Delete it"
 msgstr "Slett den"
 
 msgid "Unpublish it"
-msgstr "Avpubliser den"
+msgstr "Avpublisér den"
 
 #, python-format
 msgid "Move %(title)s"
@@ -502,10 +503,10 @@ msgstr "Ja, flytt denne siden"
 
 #, python-format
 msgid "Unpublish %(title)s"
-msgstr "Avpubliser %(title)s"
+msgstr "Avpublisér %(title)s"
 
 msgid "Unpublish"
-msgstr "Avpubliser"
+msgstr "Avpublisér"
 
 msgid "Are you sure you want to unpublish this page?"
 msgstr "Er du sikker på at du vil avpublisere denne siden?"
@@ -860,7 +861,7 @@ msgid "Content"
 msgstr "Innhold"
 
 msgid "Promote"
-msgstr "Forfrem"
+msgstr "Promovér"
 
 msgid "Settings"
 msgstr "Innstillinger"

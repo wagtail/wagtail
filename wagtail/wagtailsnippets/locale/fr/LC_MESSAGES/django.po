@@ -6,13 +6,14 @@
 # Bertrand Bordage <bordage.bertrand@gmail.com>, 2015
 # nahuel, 2014
 # nahuel, 2014
+# Sebastien Andrivet <sebastien@andrivet.com>, 2016
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2015-12-17 13:55+0000\n"
-"PO-Revision-Date: 2015-12-17 14:00+0000\n"
-"Last-Translator: mattwestcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2016-02-05 13:31+0000\n"
+"Last-Translator: Sebastien Andrivet <sebastien@andrivet.com>\n"
 "Language-Team: French (http://www.transifex.com/torchbox/wagtail/language/"
 "fr/)\n"
 "MIME-Version: 1.0\n"
@@ -23,6 +24,29 @@ msgstr ""
 
 msgid "Choose"
 msgstr "Choisir"
+
+msgid "Search"
+msgstr "Rechercher"
+
+#, python-format
+msgid ""
+"\n"
+"            There is one match\n"
+"        "
+msgid_plural ""
+"\n"
+"            There are %(counter)s matches\n"
+"        "
+msgstr[0] ""
+"\n"
+"Il y a une correspondance"
+msgstr[1] ""
+"\n"
+"Il y a %(counter)s correspondances"
+
+#, python-format
+msgid "Sorry, no snippets match \"<em>%(query_string)s</em>\""
+msgstr "Désolé, aucun bloc ne correspond à <em>\"%(query_string)s\"</em>"
 
 #, python-format
 msgid ""
@@ -108,6 +132,10 @@ msgstr "Statut"
 
 msgid "Edit this page"
 msgstr "Modifier cette page"
+
+#, python-format
+msgid "Search %(snippet_type_name)s"
+msgstr "Rechercher %(snippet_type_name)s"
 
 #, python-brace-format
 msgid "{snippet_type} '{instance}' created."

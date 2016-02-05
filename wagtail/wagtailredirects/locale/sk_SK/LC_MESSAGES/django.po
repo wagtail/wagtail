@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2015-12-17 13:55+0000\n"
-"PO-Revision-Date: 2015-12-17 13:59+0000\n"
+"PO-Revision-Date: 2015-12-26 13:44+0000\n"
 "Last-Translator: mattwestcott <matthew@torchbox.com>\n"
 "Language-Team: Slovak (Slovakia) (http://www.transifex.com/torchbox/wagtail/"
 "language/sk_SK/)\n"
@@ -37,6 +37,9 @@ msgstr "Naozaj chcete zmazať toto presmerovanie?"
 
 msgid "Yes, delete"
 msgstr "Áno, zmazať"
+
+msgid "Editing"
+msgstr "Upraviť obrázok"
 
 msgid "Delete redirect"
 msgstr "Zmazať presmerovanie"

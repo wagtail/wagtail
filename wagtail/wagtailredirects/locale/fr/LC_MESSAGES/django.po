@@ -6,13 +6,14 @@
 # Bertrand Bordage <bordage.bertrand@gmail.com>, 2015
 # nahuel, 2014
 # nahuel, 2014
+# Sebastien Andrivet <sebastien@andrivet.com>, 2016
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2015-12-17 13:55+0000\n"
-"PO-Revision-Date: 2015-12-17 13:59+0000\n"
-"Last-Translator: mattwestcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2016-02-05 13:48+0000\n"
+"Last-Translator: Sebastien Andrivet <sebastien@andrivet.com>\n"
 "Language-Team: French (http://www.transifex.com/torchbox/wagtail/language/"
 "fr/)\n"
 "MIME-Version: 1.0\n"
@@ -21,6 +22,24 @@ msgstr ""
 "Language: fr\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
+msgid "From site"
+msgstr "Du site"
+
+msgid "All sites"
+msgstr "Tous les sites"
+
+msgid "A redirect with this path already exists."
+msgstr "Une redirection avec ce chemin existe déjà."
+
+msgid "redirect from"
+msgstr "redirige depuis"
+
+msgid "site"
+msgstr "site"
+
+msgid "permanent"
+msgstr "permanent"
+
 msgid ""
 "Recommended. Permanent redirects ensure search engines forget the old page "
 "(the 'Redirect from') and index the new page instead."
@@ -28,6 +47,15 @@ msgstr ""
 "Recommandé. Les redirections permanentes vous assurent que les moteurs de "
 "recherche oublies la vieille page (la \"Redirection depuis\") et indexe la "
 "nouvelle à la place."
+
+msgid "redirect to a page"
+msgstr "redirige vers une page"
+
+msgid "redirect to any URL"
+msgstr "redirige vers n'importe quelle URL"
+
+msgid "redirect"
+msgstr "redirige"
 
 msgid "Add redirect"
 msgstr "Ajouter une redirection"

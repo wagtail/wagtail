@@ -9,8 +9,8 @@ msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2015-12-17 13:55+0000\n"
-"PO-Revision-Date: 2015-12-17 14:00+0000\n"
-"Last-Translator: mattwestcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2015-12-29 08:38+0000\n"
+"Last-Translator: Giacomo Ghizzani <giacomo.ghz@gmail.com>\n"
 "Language-Team: Italian (http://www.transifex.com/torchbox/wagtail/language/"
 "it/)\n"
 "MIME-Version: 1.0\n"
@@ -21,6 +21,32 @@ msgstr ""
 
 msgid "Choose"
 msgstr "Scegli"
+
+msgid "Search"
+msgstr "Cerca"
+
+#, python-format
+msgid ""
+"\n"
+"            There is one match\n"
+"        "
+msgid_plural ""
+"\n"
+"            There are %(counter)s matches\n"
+"        "
+msgstr[0] ""
+"\n"
+"            C'è una corrispondenza\n"
+"        "
+msgstr[1] ""
+"\n"
+"            Ci sono %(counter)s corrispondenze\n"
+"        "
+
+#, python-format
+msgid "Sorry, no snippets match \"<em>%(query_string)s</em>\""
+msgstr ""
+"Spiacente, nessun snippets corrispondente a \"<em>%(query_string)s</em>\""
 
 #, python-format
 msgid ""
@@ -106,6 +132,10 @@ msgstr "Stato"
 
 msgid "Edit this page"
 msgstr "Modifica questa pagina"
+
+#, python-format
+msgid "Search %(snippet_type_name)s"
+msgstr "Cerca %(snippet_type_name)s"
 
 #, python-brace-format
 msgid "{snippet_type} '{instance}' created."

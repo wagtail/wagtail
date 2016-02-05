@@ -6,13 +6,14 @@
 # Bertrand Bordage <bordage.bertrand@gmail.com>, 2015
 # nahuel, 2014
 # nahuel, 2014
+# pierre marfoure <pierre@onoffdesign.com>, 2016
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2015-12-17 13:55+0000\n"
-"PO-Revision-Date: 2015-12-17 14:00+0000\n"
-"Last-Translator: mattwestcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2016-01-19 21:58+0000\n"
+"Last-Translator: pierre marfoure <pierre@onoffdesign.com>\n"
 "Language-Team: French (http://www.transifex.com/torchbox/wagtail/language/"
 "fr/)\n"
 "MIME-Version: 1.0\n"
@@ -69,16 +70,28 @@ msgstr "Les administrateurs ont la capacité de gérer les comptes utilisateur."
 msgid "A group with that name already exists."
 msgstr "Un groupe avec ce nom existe déjà."
 
+msgid "submitted notifications"
+msgstr "Notifications proposées"
+
 msgid "Receive notification when a page is submitted for moderation"
 msgstr "Recevoir une notification quand une page est soumise pour modération"
+
+msgid "approved notifications"
+msgstr "Notifications approuvées"
 
 msgid "Receive notification when your page edit is approved"
 msgstr ""
 "Recevoir une notification quand vos modifications de page sont approuvées"
 
+msgid "rejected notifications"
+msgstr "Notifications rejetées"
+
 msgid "Receive notification when your page edit is rejected"
 msgstr ""
 "Recevoir une notification quand vos modifications de page sont rejetées"
+
+msgid "user profile"
+msgstr "Compte utilisateur"
 
 msgid "Delete group"
 msgstr "Supprimer le groupe"

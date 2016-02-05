@@ -9,8 +9,8 @@ msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2015-12-17 13:55+0000\n"
-"PO-Revision-Date: 2015-12-17 14:00+0000\n"
-"Last-Translator: mattwestcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2015-12-26 13:44+0000\n"
+"Last-Translator: dellax <michalnebbia@gmail.com>\n"
 "Language-Team: Slovak (Slovakia) (http://www.transifex.com/torchbox/wagtail/"
 "language/sk_SK/)\n"
 "MIME-Version: 1.0\n"
@@ -66,6 +66,9 @@ msgstr "Administrátori majú práva na úpravu ostatných používateľských �
 msgid "A group with that name already exists."
 msgstr "Skupina s rovnakým názvom už existuje."
 
+msgid "submitted notifications"
+msgstr "odoslané notifikácie"
+
 msgid "Receive notification when a page is submitted for moderation"
 msgstr "Dostávať notifikácie keď je stránka pridaná na moderáciu"
 
@@ -74,6 +77,9 @@ msgstr "Dostávať notifikácie keď je váš návrh na úpravu stránky potvrde
 
 msgid "Receive notification when your page edit is rejected"
 msgstr "Dostávať notifikácie keď je váš návrh na úpravu stránky zamietnutý"
+
+msgid "user profile"
+msgstr "používatelský profil"
 
 msgid "Delete group"
 msgstr "Vymazať skupinu"
@@ -94,6 +100,9 @@ msgstr "Áno, zmazať"
 
 msgid "Add group"
 msgstr "Pridať skupinu"
+
+msgid "Editing"
+msgstr "Upraviť obrázok"
 
 msgid "Save"
 msgstr "Uložiť"

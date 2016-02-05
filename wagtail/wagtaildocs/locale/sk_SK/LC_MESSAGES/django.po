@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2015-12-17 13:54+0000\n"
-"PO-Revision-Date: 2015-12-17 13:58+0000\n"
+"PO-Revision-Date: 2015-12-26 13:44+0000\n"
 "Last-Translator: mattwestcott <matthew@torchbox.com>\n"
 "Language-Team: Slovak (Slovakia) (http://www.transifex.com/torchbox/wagtail/"
 "language/sk_SK/)\n"
@@ -19,6 +19,18 @@ msgstr ""
 "Language: sk_SK\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
 
+msgid "title"
+msgstr "titulok"
+
+msgid "file"
+msgstr "súbor"
+
+msgid "created at"
+msgstr "vytvorené"
+
+msgid "uploaded by user"
+msgstr "nahral používateľ"
+
 msgid "Choose a document"
 msgstr "Zvoliť dokument"
 
@@ -27,6 +39,9 @@ msgstr "Hľadať"
 
 msgid "Upload"
 msgstr "Nahrať"
+
+msgid "Uploading..."
+msgstr "Odosielam..."
 
 #, python-format
 msgid ""
@@ -77,6 +92,9 @@ msgstr "Naozaj chcete zmazať tento dokument?"
 
 msgid "Yes, delete"
 msgstr "Áno, zmazať"
+
+msgid "Editing"
+msgstr "Upraviť obrázok"
 
 msgid "Save"
 msgstr "Uložiť"

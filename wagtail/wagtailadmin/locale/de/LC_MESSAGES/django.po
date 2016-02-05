@@ -11,6 +11,7 @@
 # karlsander <karlsander@gmail.com>, 2014
 # karlsander <karlsander@gmail.com>, 2014
 # M0rph 3u5 <transifex@m0rph3u5.net>, 2014
+# Martin Löhle <martin.loehle@web-forest.de>, 2016
 # mattwestcott <matthew@torchbox.com>, 2015
 # Max Pfeiffer <max.pfeiffer@alp-phone.ch>, 2015
 # pcraston <patrick@craston.com>, 2014
@@ -21,8 +22,8 @@ msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2015-12-17 13:54+0000\n"
-"PO-Revision-Date: 2015-12-17 13:57+0000\n"
-"Last-Translator: mattwestcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2016-02-04 12:58+0000\n"
+"Last-Translator: Martin Löhle <martin.loehle@web-forest.de>\n"
 "Language-Team: German (http://www.transifex.com/torchbox/wagtail/language/"
 "de/)\n"
 "MIME-Version: 1.0\n"
@@ -284,6 +285,10 @@ msgstr "Link einfügen"
 msgid "Add an external link"
 msgstr "Externen Link hinzufügen"
 
+#, python-format
+msgid "Add %(heading)s"
+msgstr "%(heading)s hinzufügen"
+
 msgid "Yes, delete"
 msgstr "Ja, Löschen"
 
@@ -382,6 +387,9 @@ msgstr "Bei Wagtail anmelden"
 msgid "Forgotten it?"
 msgstr "Vergessen?"
 
+msgid "Signing in..."
+msgstr "Anmelden..."
+
 #, python-format
 msgid "The page \"%(title)s\" has been approved"
 msgstr "Die Seite »%(title)s« wurde freigeschaltet"
@@ -392,6 +400,9 @@ msgstr "Die Seite »%(title)s« wurde freigeschaltet."
 
 msgid "You can view the page here:"
 msgstr "Sie können die Seite hier anzeigen:"
+
+msgid "Hello"
+msgstr "Hallo"
 
 msgid "Edit your notification preferences here:"
 msgstr "Sie können Ihre Benachrichtigungseinstellungen hier bearbeiten:"
@@ -410,6 +421,11 @@ msgstr "Sie können die Seite hier bearbeiten:"
 #, python-format
 msgid "The page \"%(page)s\" has been submitted for moderation"
 msgstr "Die Seite »%(page)s« wurde zur Freischaltung eingereicht"
+
+#, python-format
+msgid "The page \"%(page)s\" has been submitted for moderation by %(editor)s."
+msgstr ""
+"Die Seite \"%(page)s\" wurde von %(editor)s zur Freischaltung eingereicht."
 
 msgid "You can preview the page here:"
 msgstr "Sie können hier die Vorschau der Seite anzeigen:"
@@ -549,8 +565,14 @@ msgstr "%(page_type)s erstellen"
 msgid "New"
 msgstr "Neu"
 
+msgid "Saving..."
+msgstr "Speichern..."
+
 msgid "Save draft"
 msgstr "Entwurf speichern"
+
+msgid "Publishing..."
+msgstr "Veröffentlichen..."
 
 msgid "Publish"
 msgstr "Veröffentlichen"
@@ -586,6 +608,19 @@ msgstr "Ziehen"
 
 msgid "Updated"
 msgstr "Aktualisiert"
+
+msgid "Configure a site now."
+msgstr "Konfigurieren Sie jetzt eine Seite."
+
+msgid ""
+"\n"
+"                            If you just want to add pages to an existing "
+"site, create them as children of the homepage instead.\n"
+"                        "
+msgstr ""
+"\n"
+"Falls Sie zu einer existierenden Seite Seiten hinzufügen möchten, müssen Sie "
+"diese als Unterseiten der Homeseite erstellen."
 
 msgid "No pages have been created at this location."
 msgstr "Es wurden keine Seiten an dieser Stelle angelegt."

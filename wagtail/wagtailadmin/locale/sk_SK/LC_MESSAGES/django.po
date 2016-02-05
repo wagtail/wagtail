@@ -9,8 +9,8 @@ msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2015-12-17 13:54+0000\n"
-"PO-Revision-Date: 2015-12-17 13:57+0000\n"
-"Last-Translator: mattwestcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2015-12-26 13:35+0000\n"
+"Last-Translator: dellax <michalnebbia@gmail.com>\n"
 "Language-Team: Slovak (Slovakia) (http://www.transifex.com/torchbox/wagtail/"
 "language/sk_SK/)\n"
 "MIME-Version: 1.0\n"
@@ -304,6 +304,9 @@ msgstr "Zabudli ste heslo?"
 msgid "You can view the page here:"
 msgstr "Tu môžete vidieť stránku"
 
+msgid "Hello"
+msgstr "Ahoj"
+
 msgid "Edit your notification preferences here:"
 msgstr "Tu upravte vaše notifikáčné nastavenia:"
 
@@ -398,8 +401,14 @@ msgstr "Nový  %(page_type)s"
 msgid "New"
 msgstr "Nový"
 
+msgid "Saving..."
+msgstr "Ukladám..."
+
 msgid "Save draft"
 msgstr "Uložiť koncept"
+
+msgid "Publishing..."
+msgstr "Publikujem..."
 
 msgid "Publish"
 msgstr "Publikovať"
@@ -652,6 +661,9 @@ msgstr "Stránka '{0}' bola uzamknutá."
 #, python-brace-format
 msgid "Page '{0}' is now unlocked."
 msgstr "Stránka '{0}' bola odomknutá."
+
+msgid "Pages"
+msgstr "Stránky"
 
 msgid "Choose an item"
 msgstr "Zvoľte položku"
