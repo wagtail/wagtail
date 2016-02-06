@@ -110,6 +110,7 @@ Contributors
 * Thomas Winter
 * Gareth Price
 * Liam Brenner
+* Nicolas Kuttler
 
 Translators
 ===========

@@ -61,6 +61,7 @@ Minor features
  * The ``Page`` model now has two new methods ``get_site()`` and ``get_url_parts()`` to aid with customising the page URL generation logic
  * New translations for Hungarian, Swedish (Sweden) and Turkish
  * Upgraded jQuery to 2.2.1 (Charlie Choiniere)
+ * Multiple homepage summary items (`construct_homepage_summary_items` hook) now better vertically spaced (Nicolas Kuttler)
 
 
 Bug fixes

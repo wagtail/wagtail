@@ -23,6 +23,7 @@ Changelog
  * The `edit bird` on the frontend has been redesigned, and no longer depends on an iframe (Thomas Winter, Gareth Price).
  * New translations for Hungarian, Swedish (Sweden) and Turkish
  * Upgraded jQuery to 2.2.1 (Charlie Choiniere)
+ * Multiple homepage summary items (`construct_homepage_summary_items` hook) now better vertically spaced (Nicolas Kuttler)
  * Fix: Custom page managers no longer raise an error when used on an abstract model
  * Fix: Wagtail's migrations are now all reversible (benjaoming)
  * Fix: Deleting a page content type now preserves existing pages as basic Page instances, to prevent tree corruption
