@@ -1,3 +1,5 @@
+from __future__ import unicode_literals
+
 from optparse import make_option
 
 from django.core.management.base import BaseCommand
@@ -42,7 +44,7 @@ class Command(BaseCommand):
         index = rebuilder.start()
 
         for model, queryset in object_list:
-            self.stdout.write(backend_name + u": Indexing model '%s.%s'" % (
+            self.stdout.write(backend_name + ": Indexing model '%s.%s'" % (
                 model._meta.app_label,
                 model.__name__,
             ))
@@ -56,7 +58,7 @@ class Command(BaseCommand):
                 index.add_items(model, chunk)
                 count += len(chunk)
 
-            self.stdout.write(u"Indexed %d %s" % (
+            self.stdout.write("Indexed %d %s" % (
                 count, model._meta.verbose_name_plural))
             self.print_newline()
 
