@@ -15,7 +15,7 @@ from wagtail.wagtailcore.models import Page, PageRevision, GroupPagePermission
 from wagtail.wagtailusers.models import UserProfile
 
 
-logger = logging.getLogger('wagtail.wagtailadmin')
+logger = logging.getLogger('wagtail.admin')
 
 
 def get_object_usage(obj):
