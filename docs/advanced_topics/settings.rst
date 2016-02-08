@@ -327,6 +327,15 @@ Case-Insensitive Tags
 
 Tags are case-sensitive by default ('music' and 'Music' are treated as distinct tags). In many cases the reverse behaviour is preferable.
 
+Multi-word tags
+---------------
+
+.. code-block:: python
+
+  TAG_SPACES_ALLOWED = False
+
+Tags can only consist of a single word, no spaces allowed. The default setting is ``True`` (spaces in tags are allowed).
+
 Unicode Page Slugs
 ------------------
 
