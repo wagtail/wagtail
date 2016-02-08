@@ -49,6 +49,7 @@ Minor features
  * Added title text to action buttons in the page explorer (Liam Brenner)
  * Changed project template to explicitly import development settings via ``settings.dev`` (Tomas Olander)
  * Improved L10N and I18N for revisions list (Roel Bruggink)
+ * The multiple image uploader now displays details of server errors (Nigel Fletton)
 
 Bug fixes
 ~~~~~~~~~
