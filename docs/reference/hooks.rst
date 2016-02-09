@@ -150,8 +150,6 @@ Hooks for building new areas of the admin interface (alongside pages, images, do
 ``register_settings_menu_item``
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-  .. versionadded:: 0.7
-
   As ``register_admin_menu_item``, but registers menu items into the 'Settings' sub-menu rather than the top-level menu.
 
 
@@ -191,8 +189,6 @@ Hooks for building new areas of the admin interface (alongside pages, images, do
 
 ``register_permissions``
 ~~~~~~~~~~~~~~~~~~~~~~~~
-
-  .. versionadded:: 0.7
 
   Return a queryset of Permission objects to be shown in the Groups administration area.
 
