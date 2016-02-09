@@ -1,8 +1,8 @@
 'use strict';
 
 document.addEventListener('DOMContentLoaded', function() {
-    var trigger = document.querySelectorAll('[data-wagtail-userbar-trigger]')[0];
-    var userbar = document.querySelectorAll('[data-wagtail-userbar]')[0];
+    var trigger = document.querySelector('[data-wagtail-userbar-trigger]');
+    var userbar = document.querySelector('[data-wagtail-userbar]');
     var className = 'is-active';
 
     if ('ontouchstart' in window) {
