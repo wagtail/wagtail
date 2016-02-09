@@ -232,7 +232,7 @@ Hooks for customising the editing interface for pages and snippets.
 ``insert_editor_css``
 ~~~~~~~~~~~~~~~~~~~~~
 
-  Add additional CSS or SCSS files or snippets to the page editor.
+  Add additional CSS files or snippets to the page editor.
 
   .. code-block:: python
 
