@@ -68,10 +68,15 @@ def index(request, parent_page_id=None):
     else:
         pages = pages.order_by(ordering)
 
-    # Pagination
     # Don't paginate if sorting by page order - all pages must be shown to
     # allow drag-and-drop reordering
     do_paginate = ordering != 'ord'
+
+    # allow hooks to modify the queryset
+    for hook in hooks.get_hooks('construct_explorer_page_queryset'):
+        pages = hook(parent_page, pages, request)
+
+    # Pagination
     if do_paginate:
         paginator, pages = paginate(request, pages, per_page=50)
 
