@@ -146,6 +146,19 @@ class TestPageExplorer(TestCase, WagtailTestUtils):
         # Pages must not be paginated
         self.assertNotIsInstance(response.context['pages'], paginator.Page)
 
+    def test_construct_explorer_page_queryset_hook(self):
+        # testapp implements a construct_explorer_page_queryset hook
+        # that only returns pages with a slug starting with 'hello'
+        # when the 'polite_pages_only' URL parameter is set
+        response = self.client.get(
+            reverse('wagtailadmin_explore', args=(self.root_page.id, )),
+            {'polite_pages_only': 'yes_please'}
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'wagtailadmin/pages/index.html')
+        page_ids = [page.id for page in response.context['pages']]
+        self.assertEqual(page_ids, [self.child_page.id])
+
     def make_pages(self):
         for i in range(150):
             self.root_page.add_child(instance=SimplePage(
