@@ -1,4 +1,4 @@
-.tab-nav {
+%tab-nav {
     @include row();
     padding: 0;
     background: $color-grey-4;
@@ -52,14 +52,14 @@
         }
     }
 
-    li.active a {
+    .active a {
         box-shadow: none;
         color: $color-grey-1;
         background-color: $color-white;
         border-top: 0.3em solid $color-grey-1;
     }
 
-    li.settings a {
+    .settings a {
         &:before {
             font-family: wagtail;
             vertical-align: middle;
@@ -78,22 +78,9 @@
         margin-top: 0;
         background-color: $color-header-bg;
     }
-}
 
-.tab-content {
-    section {
-        display: none;
-        padding-top: 1em;
-
-        &.active {
-            display: block;
-        }
-    }
-}
-
-@media screen and (min-width: $breakpoint-mobile) {
-    .tab-nav {
-        // For cases where tab-nav should merge with header 
+    @media screen and (min-width: $breakpoint-mobile) {
+        // For cases where tab-nav should merge with header
         &.merged {
             background-color: $color-header-bg;
         }
@@ -109,12 +96,30 @@
             padding-right: $desktop-nice-padding - 10;
         }
 
-        li.settings a {
+        .settings a {
             padding-left: 2em;
             padding-right: 2em;
         }
     }
+}
 
+
+.tab-nav {
+    @extend %tab-nav;
+}
+
+.tab-content {
+    section {
+        display: none;
+        padding-top: 1em;
+
+        &.active {
+            display: block;
+        }
+    }
+}
+
+@media screen and (min-width: $breakpoint-mobile) {
     .modal-content .tab-nav li {
         padding: 0;
         min-width: 0;

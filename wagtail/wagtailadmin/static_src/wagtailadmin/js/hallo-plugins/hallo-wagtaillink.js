@@ -50,7 +50,7 @@
                             url: url,
                             bind: {
                                 click: function(e) {
-                                    if (!$(e.target).is('p.link-types a')) return;
+                                    if (!$(e.target).is('.link-types a')) return;
                                     var link = e.target;
                                     modal.loadUrl(link.href);
                                     return false;

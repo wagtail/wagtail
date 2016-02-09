@@ -1,9 +1,9 @@
 {% load i18n wagtailadmin_tags %}
 {% trans "Add an external link" as add_str %}
-{% include "wagtailadmin/shared/header.html" with title=add_str %}
+{% include "wagtailadmin/shared/header.html" with title=add_str merged=1 %}
 
-<div class="nice-padding">
-    {% chooser_link_types current='external' %}
+{% chooser_link_types current='external' %}
+<div class="modal-tabs__content nice-padding">
 
     <form action="{% url 'wagtailadmin_choose_page_external_link' %}{% querystring %}" method="post">
         {% csrf_token %}

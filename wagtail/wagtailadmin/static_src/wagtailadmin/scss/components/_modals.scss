@@ -3,7 +3,7 @@ $zindex-modal-background: 500;
 .fade {
     @include transition(opacity .15s linear);
     opacity: 0;
-    
+
     &.in {
         opacity: 1;
     }
@@ -76,7 +76,7 @@ $zindex-modal-background: 500;
     left: 0;
     z-index: ($zindex-modal-background - 10);
     background-color: $color-black;
-    
+
     // Fade for backdrop
     &.fade { opacity: 0; }
     &.in { opacity: 0.5; }
@@ -113,4 +113,61 @@ $zindex-modal-background: 500;
         max-width: $breakpoint-desktop-larger;
         padding: 0 0 2em;
     }
+}
+
+
+
+.modal-tabs {
+    @extend %tab-nav;
+    margin-bottom: 0;
+}
+
+.modal-tabs--secondary {
+    margin-top: 0;
+    padding-top: 1.5rem;
+}
+
+
+    // TODO: Specificity arms race
+    .modal-tabs--secondary > .modal-tabs__item > a {
+        background: #d6d6d6;
+        color: #444;
+        border-top-color: #d6d6d6;
+
+        &:hover {
+            border-top-color: rgba(0, 0, 0, 0.4);
+        }
+    }
+
+    .modal-tabs--secondary > .modal-tabs__item.active > a {
+        background: #fff;
+        color: #222;
+        border-top-color: #333;
+    }
+
+
+// Much specificity required to add modifier.
+// TODO: refactor tabs to use lower specificity
+.modal-tabs--secondary,
+.modal-tabs__item--secondary.active > a {
+    background: #eee;
+}
+
+
+    .modal-tabs__item {
+        &:first-child {
+            margin-left: 0;
+        }
+
+        > a {
+            padding-left: 1.5rem;
+            padding-right: 1.5rem;
+            padding-bottom: .8125rem;
+            font-size: 13px;
+        }
+    }
+
+
+.modal-tabs__content {
+    padding-top: 1.5rem;
 }

@@ -275,7 +275,8 @@ footer {
     }
 }
 
-.clearfix {
+.clearfix,
+%clearfix {
     @include clearfix();
 }
 

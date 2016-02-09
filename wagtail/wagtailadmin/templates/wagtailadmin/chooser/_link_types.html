@@ -1,15 +1,15 @@
 {% load wagtailadmin_tags %}
 
 {% if link_types|length > 1 %}
-<p class="link-types">
+<ul class='merged nice-padding modal-tabs link-types'>
     {% for link_type in link_types %}
+        <li class='modal-tabs__item {% if current == link_type.id %} active{% endif %}'>
         {% if current == link_type.id %}
-            <b>{{ link_type.title }}</b>
+            <a data-link-type="{{ link_type.id }}">{{ link_type.title }}</a>
         {% else %}
             <a data-link-type="{{ link_type.id }}" href="{% url link_type.url_name %}{% querystring p=None %}">{{ link_type.title }}</a>
         {% endif %}
-
-        {% if not forloop.last %}|{% endif %}
+        </li>
     {% endfor %}
-</p>
+</ul>
 {% endif %}

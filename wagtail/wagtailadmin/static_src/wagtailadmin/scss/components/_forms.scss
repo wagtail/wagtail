@@ -1230,3 +1230,35 @@ button {
         }
     }
 }
+
+
+// =============================================================================
+// Inline form elements.
+// =============================================================================
+
+.inline-form {
+    @extend %clearfix;
+    border-bottom: solid 2px #eee;
+    margin-bottom: 1.5rem;
+
+
+    > .left {
+        float: left;
+    }
+
+    > :first-child {
+        width: 75%;
+        margin-right: 1rem;
+    }
+
+    .field-content {
+        width: 100%;
+    }
+
+    input[type=submit] {
+        padding-top: .75rem;
+        padding-bottom: .75rem;
+        height: auto;
+        margin-top: .5rem;
+    }
+}

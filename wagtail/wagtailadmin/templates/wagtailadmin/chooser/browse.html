@@ -6,11 +6,11 @@
     {% trans "Choose a page" as choose_str %}
 {% endif %}
 
-{% include "wagtailadmin/shared/header.html" with title=choose_str subtitle=page_type_names|join:", " search_url="wagtailadmin_choose_page_search" query_parameters="page_type="|add:page_type_string icon="doc-empty-inverse" %}
+{% include "wagtailadmin/shared/header.html" with title=choose_str subtitle=page_type_names|join:", " search_url="wagtailadmin_choose_page_search" query_parameters="page_type="|add:page_type_string icon="doc-empty-inverse" merged=1 %}
 
-<div class="nice-padding">
-    {% chooser_link_types current='page' %}
+{% chooser_link_types current='page' %}
 
+<div class="modal-tabs__content nice-padding">
     {% if page_types_restricted %}
         <p class="help-block help-warning">
             {% blocktrans with type=page_type_names|join:", " count counter=page_type_names|length %}

@@ -1,9 +1,9 @@
 {% load i18n wagtailadmin_tags %}
 {% trans "Add an email link" as email_str %}
-{% include "wagtailadmin/shared/header.html" with title=email_str %}
+{% include "wagtailadmin/shared/header.html" with title=email_str merged=1 %}
 
-<div class="nice-padding">
-    {% chooser_link_types current='email' %}
+{% chooser_link_types current='email' %}
+<div class="modal-tabs__content nice-padding">
 
     <form action="{% url 'wagtailadmin_choose_page_email_link' %}{% querystring %}" method="post">
         {% csrf_token %}
