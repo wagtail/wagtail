@@ -48,14 +48,31 @@ def index(request, parent_page_id=None):
     ]:
         ordering = '-latest_revision_created_at'
 
+    if ordering == 'ord':
+        # preserve the native ordering from get_children()
+        pass
+    elif ordering == 'latest_revision_created_at':
+        # order by oldest revision first.
+        # Special case NULL entries - these should go at the top of the list.
+        # Do this by annotating with Count('latest_revision_created_at'),
+        # which returns 0 for these
+        pages = pages.annotate(
+            null_position=Count('latest_revision_created_at')
+        ).order_by('null_position', 'latest_revision_created_at')
+    elif ordering == '-latest_revision_created_at':
+        # order by oldest revision first.
+        # Special case NULL entries - these should go at the end of the list.
+        pages = pages.annotate(
+            null_position=Count('latest_revision_created_at')
+        ).order_by('-null_position', '-latest_revision_created_at')
+    else:
+        pages = pages.order_by(ordering)
+
     # Pagination
     # Don't paginate if sorting by page order - all pages must be shown to
     # allow drag-and-drop reordering
     do_paginate = ordering != 'ord'
     if do_paginate:
-        ordering_no_minus = ordering.lstrip('-')
-        pages = pages.order_by(ordering).annotate(
-            null_position=Count(ordering_no_minus)).order_by('-null_position', ordering)
         paginator, pages = paginate(request, pages, per_page=50)
 
     return render(request, 'wagtailadmin/pages/index.html', {
