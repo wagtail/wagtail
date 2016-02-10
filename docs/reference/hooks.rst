@@ -340,6 +340,29 @@ Hooks for customising the way users are directed through the process of creating
       return items.append( UserbarPuppyLinkItem() )
 
 
+Page explorer
+------------
+
+.. _construct_explorer_page_queryset:
+
+``construct_explorer_page_queryset``
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+  Called when rendering the page explorer view, to allow the page listing queryset to be customised. The callable passed into the hook will receive the parent page object, the current page queryset, and the request object, and must return a Page queryset (either the original one, or a new one).
+
+  .. code-block:: python
+
+    from wagtail.wagtailcore import hooks
+
+    @hooks.register('construct_explorer_page_queryset')
+    def show_my_profile_only(parent_page, pages, request):
+      # If we're in the 'user-profiles' section, only show the user's own profile
+      if parent_page.slug == 'user-profiles':
+        pages = pages.filter(owner=request.user)
+
+      return pages
+
+
 Page serving
 ------------
 
