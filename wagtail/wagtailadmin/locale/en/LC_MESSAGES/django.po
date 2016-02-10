@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-02-05 17:01+0000\n"
+"POT-Creation-Date: 2016-02-10 15:32+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -439,7 +439,7 @@ msgstr ""
 #: templates/wagtailadmin/userbar/item_page_edit.html:5 views/generic.py:97
 #: views/generic.py:142 views/pages.py:175 views/pages.py:180
 #: views/pages.py:188 views/pages.py:268 views/pages.py:273 views/pages.py:278
-#: views/pages.py:472 views/pages.py:528 views/pages.py:681 views/pages.py:700
+#: views/pages.py:474 views/pages.py:530 views/pages.py:683 views/pages.py:702
 msgid "Edit"
 msgstr ""
 
@@ -758,6 +758,11 @@ msgstr ""
 #: templates/wagtailadmin/pages/create.html:37
 #: templates/wagtailadmin/pages/edit.html:51
 msgid "Submit for moderation"
+msgstr ""
+
+#: templates/wagtailadmin/pages/create.html:79
+#: templates/wagtailadmin/pages/edit.html:106
+msgid "This page has unsaved changes."
 msgstr ""
 
 #: templates/wagtailadmin/pages/edit.html:5
@@ -1131,7 +1136,7 @@ msgstr ""
 msgid "Page '{0}' created and published."
 msgstr ""
 
-#: views/pages.py:179 views/pages.py:272 views/pages.py:680
+#: views/pages.py:179 views/pages.py:272 views/pages.py:682
 msgid "View live"
 msgstr ""
 
@@ -1158,7 +1163,7 @@ msgstr ""
 msgid "Page '{0}' scheduled for publishing."
 msgstr ""
 
-#: views/pages.py:271 views/pages.py:679
+#: views/pages.py:271 views/pages.py:681
 #, python-brace-format
 msgid "Page '{0}' published."
 msgstr ""
@@ -1190,42 +1195,42 @@ msgstr ""
 msgid "Page '{0}' deleted."
 msgstr ""
 
-#: views/pages.py:471
+#: views/pages.py:473
 #, python-brace-format
 msgid "Page '{0}' unpublished."
 msgstr ""
 
-#: views/pages.py:527
+#: views/pages.py:529
 #, python-brace-format
 msgid "Page '{0}' moved."
 msgstr ""
 
-#: views/pages.py:624
+#: views/pages.py:626
 #, python-brace-format
 msgid "Page '{0}' and {1} subpages copied."
 msgstr ""
 
-#: views/pages.py:627
+#: views/pages.py:629
 #, python-brace-format
 msgid "Page '{0}' copied."
 msgstr ""
 
-#: views/pages.py:674 views/pages.py:694 views/pages.py:714
+#: views/pages.py:676 views/pages.py:696 views/pages.py:716
 #, python-brace-format
 msgid "The page '{0}' is not currently awaiting moderation."
 msgstr ""
 
-#: views/pages.py:699
+#: views/pages.py:701
 #, python-brace-format
 msgid "Page '{0}' rejected for publication."
 msgstr ""
 
-#: views/pages.py:740
+#: views/pages.py:742
 #, python-brace-format
 msgid "Page '{0}' is now locked."
 msgstr ""
 
-#: views/pages.py:764
+#: views/pages.py:766
 #, python-brace-format
 msgid "Page '{0}' is now unlocked."
 msgstr ""
