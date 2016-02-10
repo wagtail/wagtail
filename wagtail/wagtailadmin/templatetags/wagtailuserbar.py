@@ -3,7 +3,6 @@ from django.template.loader import render_to_string
 
 from wagtail.wagtailcore.models import Page, PageRevision, PAGE_TEMPLATE_VAR
 
-from django.shortcuts import render
 # from django.contrib.auth.decorators import permission_required
 
 from wagtail.wagtailadmin.userbar import AdminItem, ExplorePageItem, EditPageItem, AddPageItem, \
@@ -24,6 +23,7 @@ def get_page_instance(context):
             page = context[name]
             if isinstance(page, Page):
                 return page
+
 
 @register.simple_tag(takes_context=True)
 def wagtailuserbar(context):
