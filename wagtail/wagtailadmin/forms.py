@@ -52,11 +52,23 @@ class SearchForm(forms.Form):
 
 class ExternalLinkChooserForm(forms.Form):
     url = URLOrAbsolutePathField(required=True, label=ugettext_lazy("URL"))
+    target = forms.ChoiceField(choices=( \
+            ('_blank', 'new window/tab'), ('_self', 'same window') \
+        ), required=True)
+    rel = forms.ChoiceField(choices=(   \
+            ('follow', 'follow'), ('nofollow', 'nofollow'), ('follow noindex', 'follow noindex') \
+        ), required=True)
 
 
 class ExternalLinkChooserWithLinkTextForm(forms.Form):
     url = URLOrAbsolutePathField(required=True, label=ugettext_lazy("URL"))
     link_text = forms.CharField(required=True)
+    target = forms.ChoiceField(choices=( \
+            ('_blank', 'new window/tab'), ('_self', 'same window') \
+        ), required=True)
+    rel = forms.ChoiceField(choices=(   \
+            ('follow', 'follow'), ('nofollow', 'nofollow'), ('follow noindex', 'follow noindex') \
+        ), required=True)
 
 
 class EmailLinkChooserForm(forms.Form):

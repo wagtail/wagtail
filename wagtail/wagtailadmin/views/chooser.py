@@ -158,7 +158,9 @@ def external_link(request):
                 None, 'wagtailadmin/chooser/external_link_chosen.js',
                 {
                     'url': form.cleaned_data['url'],
-                    'link_text': form.cleaned_data['link_text'] if prompt_for_link_text else form.cleaned_data['url']
+                    'link_text': form.cleaned_data['link_text'] if prompt_for_link_text else form.cleaned_data['url'], 
+                    'rel': form.cleaned_data['rel'],
+                    'target': form.cleaned_data['target']
                 }
             )
     else:

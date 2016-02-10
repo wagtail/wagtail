@@ -54,6 +54,16 @@
 
                                     a = document.createElement('a');
                                     a.setAttribute('href', pageData.url);
+
+                                    if (pageData.rel) {
+                                        a.setAttribute('rel', pageData.rel);
+                                    }
+
+                                    if (pageData.target) {
+                                        a.setAttribute('target', pageData.target);
+                                    }
+                                
+                                    
                                     if (pageData.id) {
                                         a.setAttribute('data-id', pageData.id);
                                         a.setAttribute('data-linktype', 'page');
