@@ -6,15 +6,15 @@ document.addEventListener('DOMContentLoaded', function() {
     var className = 'is-active';
 
     if ('ontouchstart' in window) {
-        userbar.classList.add("touch");
+        userbar.classList.add('touch');
     } else {
-        userbar.classList.add("no-touch");
+        userbar.classList.add('no-touch');
     }
 
-    trigger.addEventListener("mouseenter", showUserbar, false);
-    userbar.addEventListener("mouseleave", hideUserbar, false);
+    trigger.addEventListener('mouseenter', showUserbar, false);
+    userbar.addEventListener('mouseleave', hideUserbar, false);
 
-    trigger.addEventListener("touchstart", toggleUserbar, false);
+    trigger.addEventListener('touchstart', toggleUserbar, false);
 
     // make sure userbar is hidden when navigating back
     window.addEventListener('pageshow', hideUserbar, false);
