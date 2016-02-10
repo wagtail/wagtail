@@ -1,62 +1,84 @@
 language: python
 cache: pip
+
+# Use container-based infrastructure
 sudo: false
+
 matrix:
   include:
-  - env: TOXENV=py27-dj18-postgres
-    python: 2.7
-  - env: TOXENV=py27-dj18-mysql
-    python: 2.7
-  - env: TOXENV=py27-dj18-sqlite
-    python: 2.7
-  - env: TOXENV=py33-dj18-postgres
-    python: 3.3
-  - env: TOXENV=py34-dj18-postgres
-    python: 3.4
-  - env: TOXENV=py34-dj18-sqlite
-    python: 3.4
-  - env: TOXENV=py34-dj18-mysql
-    python: 3.4
-  - env: TOXENV=py35-dj18-postgres
-    python: 3.5
-  - env: TOXENV=py35-dj18-sqlite
-    python: 3.5
-  - env: TOXENV=py35-dj18-mysql
-    python: 3.5
-  - env: TOXENV=py27-dj19-postgres
-    python: 2.7
-  - env: TOXENV=py34-dj19-postgres
-    python: 3.4
-  - env: TOXENV=py34-dj19-sqlite
-    python: 3.4
-  - env: TOXENV=py34-dj19-mysql
-    python: 3.4
-  - env: TOXENV=py35-dj19-postgres
-    python: 3.5
-  - env: TOXENV=py35-dj19-sqlite
-    python: 3.5
-  - env: TOXENV=py35-dj19-mysql
-    python: 3.5
+   - env: TOXENV=py27-dj18-postgres
+     python: 2.7
+   - env: TOXENV=py27-dj18-mysql
+     python: 2.7
+   - env: TOXENV=py27-dj18-sqlite
+     python: 2.7
+   - env: TOXENV=py33-dj18-postgres
+     python: 3.3
+   - env: TOXENV=py34-dj18-postgres
+     python: 3.4
+   - env: TOXENV=py34-dj18-sqlite
+     python: 3.4
+   - env: TOXENV=py34-dj18-mysql
+     python: 3.4
+   - env: TOXENV=py35-dj18-postgres
+     python: 3.5
+   - env: TOXENV=py35-dj18-sqlite
+     python: 3.5
+   - env: TOXENV=py35-dj18-mysql
+     python: 3.5
+   - env: TOXENV=py27-dj19-postgres
+     python: 2.7
+#   - env: TOXENV=py27-dj19-mysql
+#   - env: TOXENV=py27-dj19-sqlite
+#  - env: TOXENV=py33-dj19-postgres
+   - env: TOXENV=py34-dj19-postgres
+     python: 3.4
+   - env: TOXENV=py34-dj19-sqlite
+     python: 3.4
+   - env: TOXENV=py34-dj19-mysql
+     python: 3.4
+   - env: TOXENV=py35-dj19-postgres
+     python: 3.5
+   - env: TOXENV=py35-dj19-sqlite
+     python: 3.5
+   - env: TOXENV=py35-dj19-mysql
+     python: 3.5
+
+
+# Services
 services:
-- elasticsearch
+  - elasticsearch
+
+# Package installation
 install:
-- pip install tox coveralls
+  - pip install tox coveralls
+
+# Pre-test configuration
 before_script:
-- psql -c 'create database wagtaildemo;' -U postgres
-- mysql -e "SET GLOBAL wait_timeout = 36000;"
-- mysql -e "SET GLOBAL max_allowed_packet = 134209536;"
-script: tox
-after_success: coveralls
+  - psql -c 'create database wagtaildemo;' -U postgres
+  - mysql -e "SET GLOBAL wait_timeout = 36000;"
+  - mysql -e "SET GLOBAL max_allowed_packet = 134209536;"
+
+# Run the tests
+script:
+  tox
+
+after_success:
+  coveralls
+
+# Who to notify about build results
 notifications:
   email:
     recipients:
-    - wagtail-ci@torchbox.com
+      - wagtail-ci@torchbox.com
     on_success: change
     on_failure: always
   webhooks:
     urls:
-    - secure: dQZBPlCC2OQE2L7EqOMkKsQxCJm05BhFrfmKmJ0AnKqxiEyZDKd2JiQaMg8X7XtIdJ87dlnBZH5h3erPSMgI3mIfNCWKKs/f6idgWIXPpklzU95KmPOrCoOyT3lkDTEOXCYXhgvOExp8qLHc4qjEWbSoIfPwqYyPlGry3Z76UBM=
+      - secure: "dQZBPlCC2OQE2L7EqOMkKsQxCJm05BhFrfmKmJ0AnKqxiEyZDKd2JiQaMg8X7XtIdJ87dlnBZH5h3erPSMgI3mIfNCWKKs/f6idgWIXPpklzU95KmPOrCoOyT3lkDTEOXCYXhgvOExp8qLHc4qjEWbSoIfPwqYyPlGry3Z76UBM="
     on_success: change
     on_failure: always
   slack:
     secure: Y/UERaVnR+RL2dOqLR0Nc60JdGkejQ1Ae5zvPRYdDiMIGSv/1KC3T5Dp8NxamqIlozbQNmRaZD+i4AdX60g1M3xlB9DMINzY584YK0X2T2S28+xIgE0MQJijbpfbk2veV8PMeA6EHNpG4zoT+4sbcSyljt9TPcYTTTiTB8rAtc0=
+
+# bump Travis: 1
