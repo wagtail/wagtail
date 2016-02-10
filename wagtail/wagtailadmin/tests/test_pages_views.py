@@ -13,7 +13,7 @@ from django.utils import timezone
 
 from wagtail.tests.testapp.models import (
     SimplePage, FilePage, EventPage, EventPageCarouselItem,
-    StandardIndex, StandardChild,
+    SingleEventPage, StandardIndex, StandardChild,
     BusinessIndex, BusinessChild, BusinessSubIndex,
     TaggedPage, Advert, AdvertPlacement)
 from wagtail.tests.utils import WagtailTestUtils
@@ -205,6 +205,23 @@ class TestPageExplorer(TestCase, WagtailTestUtils):
 
         # Check that we got the last page
         self.assertEqual(response.context['pages'].number, response.context['pages'].paginator.num_pages)
+
+    def test_listing_uses_specific_models(self):
+        # SingleEventPage has custom URL routing; the 'live' link in the listing
+        # should show the custom URL, which requires us to use the specific version
+        # of the class
+        self.new_event = SingleEventPage(
+            title="New event",
+            location='the moon', audience='public',
+            cost='free', date_from='2001-01-01',
+            latest_revision_created_at=datetime(2016, 1, 1)
+        )
+        self.root_page.add_child(instance=self.new_event)
+
+        response = self.client.get(reverse('wagtailadmin_explore', args=(self.root_page.id, )))
+        self.assertEqual(response.status_code, 200)
+
+        self.assertContains(response, '/new-event/pointless-suffix/')
 
 
 class TestPageExplorerSignposting(TestCase, WagtailTestUtils):

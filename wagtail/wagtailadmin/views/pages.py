@@ -72,6 +72,12 @@ def index(request, parent_page_id=None):
     # allow drag-and-drop reordering
     do_paginate = ordering != 'ord'
 
+    if do_paginate:
+        # Retrieve pages in their most specific form.
+        # Only do this for paginated listings, as this could potentially be a
+        # very expensive operation when performed on a large queryset.
+        pages = pages.specific()
+
     # allow hooks to modify the queryset
     for hook in hooks.get_hooks('construct_explorer_page_queryset'):
         pages = hook(parent_page, pages, request)
