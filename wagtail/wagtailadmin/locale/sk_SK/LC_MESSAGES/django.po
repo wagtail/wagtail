@@ -8,9 +8,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-12-17 13:54+0000\n"
-"PO-Revision-Date: 2015-12-26 13:35+0000\n"
-"Last-Translator: dellax <michalnebbia@gmail.com>\n"
+"POT-Creation-Date: 2016-02-05 17:01+0000\n"
+"PO-Revision-Date: 2016-02-05 17:08+0000\n"
+"Last-Translator: mattwestcott <matthew@torchbox.com>\n"
 "Language-Team: Slovak (Slovakia) (http://www.transifex.com/torchbox/wagtail/"
 "language/sk_SK/)\n"
 "MIME-Version: 1.0\n"
@@ -24,6 +24,12 @@ msgstr "Naplánovať publikovanie"
 
 msgid "Common page configuration"
 msgstr "Základné nastavenia stránky"
+
+msgid "Content"
+msgstr "Obsah"
+
+msgid "Settings"
+msgstr "Nastavenia"
 
 msgid "Search"
 msgstr "Hľadať"
@@ -87,6 +93,15 @@ msgstr "Publikovať kópie"
 
 msgid "This field is required."
 msgstr "Toto pole je povinné."
+
+msgid "This slug is already in use"
+msgstr "Tento slug sa už používa"
+
+msgid "Go live date/time must be before expiry date/time"
+msgstr "Dátum publikácie musí byť pred dátumom expirácie"
+
+msgid "Expiry date/time must be in the future"
+msgstr "Dátum expirácie musí byť v budúcnosti"
 
 msgid "Account"
 msgstr "Účet"
@@ -619,15 +634,6 @@ msgstr "Táto stránka nemohla byť uložená, kvôli validačným chybám."
 msgid "This page is currently awaiting moderation"
 msgstr "Táto stránka momentálne čaká na moderáciu"
 
-msgid "This slug is already in use"
-msgstr "Tento slug sa už používa"
-
-msgid "Go live date/time must be before expiry date/time"
-msgstr "Dátum publikácie musí byť pred dátumom expirácie"
-
-msgid "Expiry date/time must be in the future"
-msgstr "Dátum expirácie musí byť v budúcnosti"
-
 #, python-brace-format
 msgid "Page '{0}' deleted."
 msgstr "Stránka '{0}' bola zmazaná."
@@ -643,12 +649,6 @@ msgstr "Stránka '{0}' bola presunutá."
 #, python-brace-format
 msgid "Page '{0}' copied."
 msgstr "Stránka '{0}' bola skopírovaná."
-
-msgid "Content"
-msgstr "Obsah"
-
-msgid "Settings"
-msgstr "Nastavenia"
 
 #, python-brace-format
 msgid "The page '{0}' is not currently awaiting moderation."

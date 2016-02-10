@@ -9,9 +9,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-12-17 13:55+0000\n"
-"PO-Revision-Date: 2016-01-29 09:02+0000\n"
-"Last-Translator: Eetu Häivälä <eetu.haivala@anders.fi>\n"
+"POT-Creation-Date: 2016-02-05 17:02+0000\n"
+"PO-Revision-Date: 2016-02-05 17:11+0000\n"
+"Last-Translator: mattwestcott <matthew@torchbox.com>\n"
 "Language-Team: Finnish (http://www.transifex.com/torchbox/wagtail/language/"
 "fi/)\n"
 "MIME-Version: 1.0\n"
@@ -39,9 +39,6 @@ msgstr "Salasanakentät eivät täsmää."
 msgid "Administrator"
 msgstr "Ylläpitäjä"
 
-msgid "If ticked, this user has the ability to manage user accounts."
-msgstr "Jos valittu, tällä käyttäjällä on mahdollisuus hallita käyttäjätilejä."
-
 msgid "Password"
 msgstr "Salasana"
 
@@ -62,9 +59,6 @@ msgstr "Etunimi"
 
 msgid "Last Name"
 msgstr "Sukunimi"
-
-msgid "Administrators have the ability to manage user accounts."
-msgstr "Ylläpitäjät voivat hallita käyttäjätilejä."
 
 msgid "A group with that name already exists."
 msgstr "Samanniminen ryhmä on jo olemassa."

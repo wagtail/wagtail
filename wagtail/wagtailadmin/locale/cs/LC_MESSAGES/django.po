@@ -10,9 +10,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-12-17 13:54+0000\n"
-"PO-Revision-Date: 2016-01-11 16:08+0000\n"
-"Last-Translator: Marek Turnovec <aesculap@gmail.com>\n"
+"POT-Creation-Date: 2016-02-05 17:01+0000\n"
+"PO-Revision-Date: 2016-02-05 17:08+0000\n"
+"Last-Translator: mattwestcott <matthew@torchbox.com>\n"
 "Language-Team: Czech (http://www.transifex.com/torchbox/wagtail/language/"
 "cs/)\n"
 "MIME-Version: 1.0\n"
@@ -26,6 +26,9 @@ msgstr "Naplánovat publikaci"
 
 msgid "Common page configuration"
 msgstr "Nastavení stránky"
+
+msgid "Settings"
+msgstr "Nastavení"
 
 msgid "Search"
 msgstr "Hledat"
@@ -119,6 +122,15 @@ msgstr "Soukromé, přístupné pod následujícím heslem"
 
 msgid "This field is required."
 msgstr "Toto pole je povinné."
+
+msgid "This slug is already in use"
+msgstr "Název pro URL musí být unikátní"
+
+msgid "Go live date/time must be before expiry date/time"
+msgstr "Datum/čas zveřejnění musí být dřívější než datum/čas expirace"
+
+msgid "Expiry date/time must be in the future"
+msgstr "Datum/čas expirace musí být v budoucnosti"
 
 msgid "Account"
 msgstr "Účet"
@@ -745,15 +757,6 @@ msgstr "Stránku nelze uložit, zkontrolujte správné vyplnění polí"
 msgid "This page is currently awaiting moderation"
 msgstr "Stránka nyní čeká na schválení"
 
-msgid "This slug is already in use"
-msgstr "Název pro URL musí být unikátní"
-
-msgid "Go live date/time must be before expiry date/time"
-msgstr "Datum/čas zveřejnění musí být dřívější než datum/čas expirace"
-
-msgid "Expiry date/time must be in the future"
-msgstr "Datum/čas expirace musí být v budoucnosti"
-
 #, python-brace-format
 msgid "Page '{0}' deleted."
 msgstr "Stránka '{0}' byla smazána."
@@ -773,9 +776,6 @@ msgstr "Stránka '{0}' a {1} podstránek bylo zkopírováno."
 #, python-brace-format
 msgid "Page '{0}' copied."
 msgstr "Stránka '{0}' byla zkopírována."
-
-msgid "Settings"
-msgstr "Nastavení"
 
 #, python-brace-format
 msgid "The page '{0}' is not currently awaiting moderation."

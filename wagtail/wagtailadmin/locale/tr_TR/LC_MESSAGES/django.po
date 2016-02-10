@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-12-17 13:54+0000\n"
-"PO-Revision-Date: 2015-12-17 13:57+0000\n"
+"POT-Creation-Date: 2016-02-05 17:01+0000\n"
+"PO-Revision-Date: 2016-02-05 17:08+0000\n"
 "Last-Translator: mattwestcott <matthew@torchbox.com>\n"
 "Language-Team: Turkish (Turkey) (http://www.transifex.com/torchbox/wagtail/"
 "language/tr_TR/)\n"
@@ -19,6 +19,12 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: tr_TR\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
+
+msgid "Content"
+msgstr "İçerik"
+
+msgid "Settings"
+msgstr "Ayarlar"
 
 msgid "Search"
 msgstr "Ara"
@@ -271,12 +277,6 @@ msgstr "Sayfa '{0}' taşındı."
 #, python-brace-format
 msgid "Page '{0}' copied."
 msgstr "Sayfa '{0}' kopyalandı."
-
-msgid "Content"
-msgstr "İçerik"
-
-msgid "Settings"
-msgstr "Ayarlar"
 
 msgid "Choose an item"
 msgstr "Bir öğeyi seçin"

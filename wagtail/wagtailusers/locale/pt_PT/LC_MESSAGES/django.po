@@ -11,8 +11,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-12-17 13:55+0000\n"
-"PO-Revision-Date: 2015-12-17 14:00+0000\n"
+"POT-Creation-Date: 2016-02-05 17:02+0000\n"
+"PO-Revision-Date: 2016-02-05 17:11+0000\n"
 "Last-Translator: mattwestcott <matthew@torchbox.com>\n"
 "Language-Team: Portuguese (Portugal) (http://www.transifex.com/torchbox/"
 "wagtail/language/pt_PT/)\n"
@@ -39,11 +39,6 @@ msgstr "As senhas nos dois campos não coincidem."
 msgid "Administrator"
 msgstr "Administrador"
 
-msgid "If ticked, this user has the ability to manage user accounts."
-msgstr ""
-"Se selecionado, este utilizador terá permissão para gerir as contas dos "
-"utilizadores."
-
 msgid "Password"
 msgstr "Senha"
 
@@ -64,9 +59,6 @@ msgstr "Nome"
 
 msgid "Last Name"
 msgstr "Sobrenome"
-
-msgid "Administrators have the ability to manage user accounts."
-msgstr "Os administradores têm permissão para gerir contas de utilizadores."
 
 msgid "A group with that name already exists."
 msgstr "Já existe um grupo com esse nome."

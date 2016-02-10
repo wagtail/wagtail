@@ -9,9 +9,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-12-17 13:54+0000\n"
-"PO-Revision-Date: 2016-01-04 19:50+0000\n"
-"Last-Translator: Antoni Aloy <aaloy@apsl.net>\n"
+"POT-Creation-Date: 2016-02-05 17:01+0000\n"
+"PO-Revision-Date: 2016-02-05 17:08+0000\n"
+"Last-Translator: mattwestcott <matthew@torchbox.com>\n"
 "Language-Team: Catalan (http://www.transifex.com/torchbox/wagtail/language/"
 "ca/)\n"
 "MIME-Version: 1.0\n"
@@ -101,6 +101,9 @@ msgstr "Privada, accessible amb la següent clau"
 
 msgid "This field is required."
 msgstr "Aquest camp és obligatori"
+
+msgid "This slug is already in use"
+msgstr "Aquest llimac ja està en ús"
 
 msgid "Account"
 msgstr "Compte"
@@ -507,9 +510,6 @@ msgstr "La pàgina no s'ha pogut guardar degut a errors de validació"
 
 msgid "This page is currently awaiting moderation"
 msgstr "Aquesta pàgina està esperant moderació"
-
-msgid "This slug is already in use"
-msgstr "Aquest llimac ja està en ús"
 
 #, python-brace-format
 msgid "Page '{0}' deleted."

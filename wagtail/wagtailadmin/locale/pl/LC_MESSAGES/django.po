@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-12-17 13:54+0000\n"
-"PO-Revision-Date: 2015-12-17 13:57+0000\n"
+"POT-Creation-Date: 2016-02-05 17:01+0000\n"
+"PO-Revision-Date: 2016-02-05 17:08+0000\n"
 "Last-Translator: mattwestcott <matthew@torchbox.com>\n"
 "Language-Team: Polish (http://www.transifex.com/torchbox/wagtail/language/"
 "pl/)\n"
@@ -27,6 +27,12 @@ msgstr "Zaplanowane opublikowanie"
 
 msgid "Common page configuration"
 msgstr "Wspólna konfiguracja stron"
+
+msgid "Content"
+msgstr "Treść"
+
+msgid "Settings"
+msgstr "Ustawienia"
 
 msgid "Search"
 msgstr "Szukaj"
@@ -96,6 +102,15 @@ msgstr "Prywatna, dostępna za użyciem nastepującego hasła"
 
 msgid "This field is required."
 msgstr "To pole jest wymagane."
+
+msgid "This slug is already in use"
+msgstr "Ten slug jest już w użyciu"
+
+msgid "Go live date/time must be before expiry date/time"
+msgstr "Data/czas publikacji musi być wcześniejszy niż data wykończenia"
+
+msgid "Expiry date/time must be in the future"
+msgstr "Data/czas wykończenia musi znajdować się w przyszłości."
 
 msgid "Account"
 msgstr "Konto"
@@ -781,15 +796,6 @@ msgstr "Strona nie mogła zostać zapisana z powodu błędów poprawności."
 msgid "This page is currently awaiting moderation"
 msgstr "Ta strona oczekuje na przejrzenie."
 
-msgid "This slug is already in use"
-msgstr "Ten slug jest już w użyciu"
-
-msgid "Go live date/time must be before expiry date/time"
-msgstr "Data/czas publikacji musi być wcześniejszy niż data wykończenia"
-
-msgid "Expiry date/time must be in the future"
-msgstr "Data/czas wykończenia musi znajdować się w przyszłości."
-
 #, python-brace-format
 msgid "Page '{0}' deleted."
 msgstr "Usunięto stronę '{0}'."
@@ -809,12 +815,6 @@ msgstr "Strona '{0}' i podstrony {1} zostały skopiowane."
 #, python-brace-format
 msgid "Page '{0}' copied."
 msgstr "Strona '{0}' została skopiowana."
-
-msgid "Content"
-msgstr "Treść"
-
-msgid "Settings"
-msgstr "Ustawienia"
 
 #, python-brace-format
 msgid "The page '{0}' is not currently awaiting moderation."

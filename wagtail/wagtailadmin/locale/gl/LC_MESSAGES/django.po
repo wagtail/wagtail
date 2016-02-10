@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-12-17 13:54+0000\n"
-"PO-Revision-Date: 2015-12-17 13:57+0000\n"
+"POT-Creation-Date: 2016-02-05 17:01+0000\n"
+"PO-Revision-Date: 2016-02-05 17:08+0000\n"
 "Last-Translator: mattwestcott <matthew@torchbox.com>\n"
 "Language-Team: Galician (http://www.transifex.com/torchbox/wagtail/language/"
 "gl/)\n"
@@ -48,6 +48,9 @@ msgstr ""
 
 msgid "This email address is not recognised."
 msgstr "Non se recoñece a dirección de correo."
+
+msgid "This slug is already in use"
+msgstr "Este slug ya está en uso"
 
 msgid "Account"
 msgstr "Conta"
@@ -442,9 +445,6 @@ msgstr "A páxina non puido ser gardada debido a erros de validación"
 
 msgid "This page is currently awaiting moderation"
 msgstr "A páxina está á espera de ser moderada"
-
-msgid "This slug is already in use"
-msgstr "Este slug ya está en uso"
 
 #, python-brace-format
 msgid "Page '{0}' deleted."

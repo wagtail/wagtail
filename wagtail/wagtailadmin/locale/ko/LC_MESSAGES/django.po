@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-12-17 13:54+0000\n"
-"PO-Revision-Date: 2015-12-17 13:57+0000\n"
+"POT-Creation-Date: 2016-02-05 17:01+0000\n"
+"PO-Revision-Date: 2016-02-05 17:08+0000\n"
 "Last-Translator: mattwestcott <matthew@torchbox.com>\n"
 "Language-Team: Korean (http://www.transifex.com/torchbox/wagtail/language/"
 "ko/)\n"
@@ -25,6 +25,15 @@ msgstr "예정된 퍼블리싱"
 
 msgid "Common page configuration"
 msgstr "기본 페이지 설정"
+
+msgid "Content"
+msgstr "콘텐츠"
+
+msgid "Promote"
+msgstr "홍보"
+
+msgid "Settings"
+msgstr "설정"
 
 msgid "Search"
 msgstr "검색"
@@ -109,6 +118,15 @@ msgstr "비공개, 다음의 비밀번호로 접근 가능"
 
 msgid "This field is required."
 msgstr "필수 작성 항목입니다"
+
+msgid "This slug is already in use"
+msgstr "이 슬러그는 이미 사용되었습니다"
+
+msgid "Go live date/time must be before expiry date/time"
+msgstr "라이브를 위한 날짜 및 시간은 만료 날짜 및 시간보다 앞서야 합니다"
+
+msgid "Expiry date/time must be in the future"
+msgstr "만료 날짜는 현재 이후의 날짜 및 시간이어야 합니다"
 
 msgid "Account"
 msgstr "계정"
@@ -777,15 +795,6 @@ msgstr "이 페이지는 오류에 의해 저장할 수 없습니다"
 msgid "This page is currently awaiting moderation"
 msgstr "이 페이지는 현재 검토를 기다리고 있습니다"
 
-msgid "This slug is already in use"
-msgstr "이 슬러그는 이미 사용되었습니다"
-
-msgid "Go live date/time must be before expiry date/time"
-msgstr "라이브를 위한 날짜 및 시간은 만료 날짜 및 시간보다 앞서야 합니다"
-
-msgid "Expiry date/time must be in the future"
-msgstr "만료 날짜는 현재 이후의 날짜 및 시간이어야 합니다"
-
 #, python-brace-format
 msgid "Page '{0}' deleted."
 msgstr "'{0}' 페이지가 삭제되었습니다"
@@ -805,15 +814,6 @@ msgstr "'{0}' 페이지 그리고 {1} 개의 하위페이지가 복사되었습�
 #, python-brace-format
 msgid "Page '{0}' copied."
 msgstr "'{0}' 페이지가 복사 되었습니다"
-
-msgid "Content"
-msgstr "콘텐츠"
-
-msgid "Promote"
-msgstr "홍보"
-
-msgid "Settings"
-msgstr "설정"
 
 #, python-brace-format
 msgid "The page '{0}' is not currently awaiting moderation."

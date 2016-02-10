@@ -11,9 +11,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-12-17 13:55+0000\n"
-"PO-Revision-Date: 2016-01-19 21:58+0000\n"
-"Last-Translator: pierre marfoure <pierre@onoffdesign.com>\n"
+"POT-Creation-Date: 2016-02-05 17:02+0000\n"
+"PO-Revision-Date: 2016-02-05 17:11+0000\n"
+"Last-Translator: mattwestcott <matthew@torchbox.com>\n"
 "Language-Team: French (http://www.transifex.com/torchbox/wagtail/language/"
 "fr/)\n"
 "MIME-Version: 1.0\n"
@@ -39,10 +39,6 @@ msgstr "Les deux champs mot de passe ne correspondent pas."
 msgid "Administrator"
 msgstr "Administrateur"
 
-msgid "If ticked, this user has the ability to manage user accounts."
-msgstr ""
-"Si coché, cet utilisateur aura la capacité de gérer les comptes utilisateurs."
-
 msgid "Password"
 msgstr "Mot de passe"
 
@@ -63,9 +59,6 @@ msgstr "Prénom"
 
 msgid "Last Name"
 msgstr "Nom"
-
-msgid "Administrators have the ability to manage user accounts."
-msgstr "Les administrateurs ont la capacité de gérer les comptes utilisateur."
 
 msgid "A group with that name already exists."
 msgstr "Un groupe avec ce nom existe déjà."

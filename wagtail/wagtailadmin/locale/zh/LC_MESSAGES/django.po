@@ -9,9 +9,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-12-17 13:54+0000\n"
-"PO-Revision-Date: 2016-01-15 09:35+0000\n"
-"Last-Translator: Leway Colin <colin4124@gmail.com>\n"
+"POT-Creation-Date: 2016-02-05 17:01+0000\n"
+"PO-Revision-Date: 2016-02-05 17:08+0000\n"
+"Last-Translator: mattwestcott <matthew@torchbox.com>\n"
 "Language-Team: Chinese (http://www.transifex.com/torchbox/wagtail/language/"
 "zh/)\n"
 "MIME-Version: 1.0\n"
@@ -42,6 +42,9 @@ msgstr "对不起，你不能在此够重置你的密码，因为您的账号是
 
 msgid "This email address is not recognised."
 msgstr "没有找到这个电子邮件地址。"
+
+msgid "This slug is already in use"
+msgstr "这个唯一的地址已被占用"
 
 msgid "Account"
 msgstr "账号"
@@ -463,9 +466,6 @@ msgstr "这页无法保存，因为页面发生验证错误"
 
 msgid "This page is currently awaiting moderation"
 msgstr "这页正在等待审核"
-
-msgid "This slug is already in use"
-msgstr "这个唯一的地址已被占用"
 
 #, python-brace-format
 msgid "Page '{0}' deleted."

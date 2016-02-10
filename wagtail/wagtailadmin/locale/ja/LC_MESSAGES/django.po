@@ -9,9 +9,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-12-17 13:54+0000\n"
-"PO-Revision-Date: 2016-01-08 02:54+0000\n"
-"Last-Translator: Daigo Shitara <stain.witness@gmail.com>\n"
+"POT-Creation-Date: 2016-02-05 17:01+0000\n"
+"PO-Revision-Date: 2016-02-05 17:08+0000\n"
+"Last-Translator: mattwestcott <matthew@torchbox.com>\n"
 "Language-Team: Japanese (http://www.transifex.com/torchbox/wagtail/language/"
 "ja/)\n"
 "MIME-Version: 1.0\n"
@@ -25,6 +25,15 @@ msgstr "予定公開日"
 
 msgid "Common page configuration"
 msgstr "ページの一般設定"
+
+msgid "Content"
+msgstr "コンテンツ"
+
+msgid "Promote"
+msgstr "プロモート"
+
+msgid "Settings"
+msgstr "設定"
 
 msgid "Search"
 msgstr "検索"
@@ -111,6 +120,15 @@ msgstr "限定公開（次のパスワードによりアクセス可能）"
 
 msgid "This field is required."
 msgstr "この項目は必須です"
+
+msgid "This slug is already in use"
+msgstr "このスラッグはすでに使われています"
+
+msgid "Go live date/time must be before expiry date/time"
+msgstr "公開予定日は削除予定日よりも前に設定されていなければなりません。"
+
+msgid "Expiry date/time must be in the future"
+msgstr "削除予定日を過ぎています。"
 
 msgid "Account"
 msgstr "アカウント"
@@ -877,15 +895,6 @@ msgstr "このページはエラーにより保存できませんでした。"
 msgid "This page is currently awaiting moderation"
 msgstr "このページは現在承認待ちです。"
 
-msgid "This slug is already in use"
-msgstr "このスラッグはすでに使われています"
-
-msgid "Go live date/time must be before expiry date/time"
-msgstr "公開予定日は削除予定日よりも前に設定されていなければなりません。"
-
-msgid "Expiry date/time must be in the future"
-msgstr "削除予定日を過ぎています。"
-
 #, python-brace-format
 msgid "Page '{0}' deleted."
 msgstr "ページ：'{0}' が削除されました。"
@@ -905,15 +914,6 @@ msgstr "ページ：'{0}' とサブページ：'{1}'が複製されました。 
 #, python-brace-format
 msgid "Page '{0}' copied."
 msgstr "ページ：'{0}' がコピーされました。"
-
-msgid "Content"
-msgstr "コンテンツ"
-
-msgid "Promote"
-msgstr "プロモート"
-
-msgid "Settings"
-msgstr "設定"
 
 #, python-brace-format
 msgid "The page '{0}' is not currently awaiting moderation."

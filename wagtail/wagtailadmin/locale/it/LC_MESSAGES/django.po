@@ -5,14 +5,15 @@
 # Translators:
 # Alessio Di Stasio <aledista@gmail.com>, 2015
 # andrea tagliazucchi <andreatagliazucchi@gmail.com>, 2015
+# Edd <edd.baldry@googlemail.com>, 2016
 # Giacomo Ghizzani <giacomo.ghz@gmail.com>, 2015
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-12-17 13:54+0000\n"
-"PO-Revision-Date: 2015-12-29 09:11+0000\n"
-"Last-Translator: Giacomo Ghizzani <giacomo.ghz@gmail.com>\n"
+"POT-Creation-Date: 2016-02-05 17:01+0000\n"
+"PO-Revision-Date: 2016-02-10 10:48+0000\n"
+"Last-Translator: Edd <edd.baldry@googlemail.com>\n"
 "Language-Team: Italian (http://www.transifex.com/torchbox/wagtail/language/"
 "it/)\n"
 "MIME-Version: 1.0\n"
@@ -26,6 +27,15 @@ msgstr "Data pubblicazione"
 
 msgid "Common page configuration"
 msgstr "Configurazione pagina"
+
+msgid "Content"
+msgstr "Contenuto"
+
+msgid "Promote"
+msgstr "Promuovi"
+
+msgid "Settings"
+msgstr "Settings"
 
 msgid "Search"
 msgstr "Cerca"
@@ -114,6 +124,15 @@ msgstr "Privato, accessibile con la seguente password"
 
 msgid "This field is required."
 msgstr "Questo campo è obbligatorio"
+
+msgid "This slug is already in use"
+msgstr "Questo slug è gia in uso"
+
+msgid "Go live date/time must be before expiry date/time"
+msgstr "Go live data/ora deve precedere data/ora di scadenza"
+
+msgid "Expiry date/time must be in the future"
+msgstr "Data/ora di scadenza deve esser nel futuro"
 
 msgid "Account"
 msgstr "Account"
@@ -904,6 +923,10 @@ msgid "The page could not be created due to validation errors"
 msgstr "La pagina non può esser creata a causa di errori di validazione"
 
 #, python-brace-format
+msgid "Page '{0}' scheduled for publishing."
+msgstr "Pagina '{0}' prevista per la pubblicazione."
+
+#, python-brace-format
 msgid "Page '{0}' published."
 msgstr "Pagina '{0}' pubblicata."
 
@@ -924,15 +947,6 @@ msgstr "La pagina non può esser salvata a causa di errori di validazione"
 msgid "This page is currently awaiting moderation"
 msgstr "Questa pagina è attualmente in attesa di moderazione"
 
-msgid "This slug is already in use"
-msgstr "Questo slug è gia in uso"
-
-msgid "Go live date/time must be before expiry date/time"
-msgstr "Go live data/ora deve precedere data/ora di scadenza"
-
-msgid "Expiry date/time must be in the future"
-msgstr "Data/ora di scadenza deve esser nel futuro"
-
 #, python-brace-format
 msgid "Page '{0}' deleted."
 msgstr "Pagina '{0}' eliminata."
@@ -952,15 +966,6 @@ msgstr "Pagina '{0}' e {1} sottopagine copiate."
 #, python-brace-format
 msgid "Page '{0}' copied."
 msgstr "Pagina '{0}' copiata."
-
-msgid "Content"
-msgstr "Contenuto"
-
-msgid "Promote"
-msgstr "Promuovi"
-
-msgid "Settings"
-msgstr "Settings"
 
 #, python-brace-format
 msgid "The page '{0}' is not currently awaiting moderation."

@@ -110,7 +110,7 @@ Contributors
 Translators
 ===========
 
-* Arabic: Roger Allen, Mohamed Mayla
+* Arabic: Roger Allen, Ahmad Kiswani, Mohamed Mayla
 * Basque: Unai Zalakain
 * Bulgarian: Lyuboslav Petrov
 * Catalan: Antoni Aloy, David Llop
@@ -130,7 +130,7 @@ Translators
 * Hebrew (Israel): bjesus, Lior Abazon
 * Hungarian: Laszlo Molnar
 * Icelandic: Arnar Tumi Þorsteinsson, Sævar Öfjörð Magnússon
-* Italian: Claudio Bantaloukas, Giacomo Ghizzani, Alessio Di Stasio, Andrea Tagliazucchi
+* Italian: Edd Baldry, Claudio Bantaloukas, Giacomo Ghizzani, Alessio Di Stasio, Andrea Tagliazucchi
 * Japanese: Sangmin Ahn, Shu Ishida, Daigo Shitara, takuan_osho
 * Korean: Kyungil Choi, Ji Han Chung
 * Latvian: Maris Serzans
@@ -147,5 +147,4 @@ Translators
 * Swedish (Sweden): Thomas Kunambi
 * Turkish: Cihad Gündoǧdu
 * Turkish (Turkey): José Alaguna, Ragıp Ünal
-* Ukrainian: Andrey Tykhonov, Mykola Zamkovoi
 * Vietnamese: Luan Nguyen

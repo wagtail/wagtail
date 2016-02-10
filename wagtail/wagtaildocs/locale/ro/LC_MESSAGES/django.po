@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-12-17 13:54+0000\n"
-"PO-Revision-Date: 2015-12-17 13:58+0000\n"
+"POT-Creation-Date: 2016-02-05 17:01+0000\n"
+"PO-Revision-Date: 2016-02-05 18:21+0000\n"
 "Last-Translator: mattwestcott <matthew@torchbox.com>\n"
 "Language-Team: Romanian (http://www.transifex.com/torchbox/wagtail/language/"
 "ro/)\n"
@@ -20,6 +20,21 @@ msgstr ""
 "Plural-Forms: nplurals=3; plural=(n==1?0:(((n%100>19)||((n%100==0)&&(n!=0)))?"
 "2:1));\n"
 
+msgid "title"
+msgstr "titlu"
+
+msgid "file"
+msgstr "fișier"
+
+msgid "created at"
+msgstr "creat la"
+
+msgid "uploaded by user"
+msgstr "încărcată de utlizator"
+
+msgid "tags"
+msgstr "etichete"
+
 msgid "Choose a document"
 msgstr "Alege document"
 
@@ -28,6 +43,15 @@ msgstr "Căută"
 
 msgid "Upload"
 msgstr "Încărcare"
+
+msgid "Uploading..."
+msgstr "În curs de încărcare..."
+
+msgid "Server Error"
+msgstr "Eroare de server"
+
+msgid "Report this error to your webmaster with the following information:"
+msgstr "Raportează această eroare webmasterului cu următoarele informații:"
 
 #, python-format
 msgid ""
