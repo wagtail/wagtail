@@ -114,6 +114,7 @@ Contributors
 * Mike Dingjan
 * Loic Teixeira
 * Juha Kujala
+* Eirik Krogstad
 
 Translators
 ===========

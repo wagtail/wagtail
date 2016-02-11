@@ -91,6 +91,7 @@ Bug fixes
  * SASS compilation errors during Wagtail development no longer cause exit of Gulp process, instead throws error to console and continues (Thomas Winter)
  * Explorer page listing now uses specific page models, so that custom URL schemes defined on Page subclasses are respected
  * Made settings menu clickable again in Firefox 46.0a2 (Juha Kujala)
+ * User management index view no longer assumes the presence of ``username``, ``first_name``, ``last_name`` and ``email`` fields on the user model (Eirik Krogstad)
 
 
 Upgrade considerations
