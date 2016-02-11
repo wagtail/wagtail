@@ -27,7 +27,8 @@ delete_user_perm = "{0}.delete_{1}".format(AUTH_USER_APP_LABEL, AUTH_USER_MODEL_
 def index(request):
     q = None
     is_searching = False
-    model_fields = User._meta.get_all_field_names()
+
+    model_fields = [f.name for f in User._meta.get_fields()]
 
     if 'q' in request.GET:
         form = SearchForm(request.GET, placeholder=_("Search users"))
