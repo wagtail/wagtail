@@ -55,8 +55,7 @@ class ExternalLinkChooserForm(forms.Form):
     target = forms.ChoiceField(choices=(
         ('_blank', 'new window/tab'), ('_self', 'same window')), required=True)
     rel = forms.ChoiceField(choices=(
-        ('follow', 'follow'), ('nofollow', 'nofollow'), ('follow noindex', 'follow noindex')
-    ), required=True)
+        ('follow', 'follow'), ('nofollow', 'nofollow')), required=True)
 
 
 class ExternalLinkChooserWithLinkTextForm(forms.Form):
@@ -65,8 +64,7 @@ class ExternalLinkChooserWithLinkTextForm(forms.Form):
     target = forms.ChoiceField(choices=(
         ('_blank', 'new window/tab'), ('_self', 'same window')), required=True)
     rel = forms.ChoiceField(choices=(
-        ('follow', 'follow'), ('nofollow', 'nofollow'), ('follow noindex', 'follow noindex')
-    ), required=True)
+        ('follow', 'follow'), ('nofollow', 'nofollow')), required=True)
 
 
 class EmailLinkChooserForm(forms.Form):
