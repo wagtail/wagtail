@@ -12,7 +12,7 @@ $size-home-button: 3.5em;
     right: 2em;
 }
 
-    .wagtail-userbar__trigger {
+    .wagtail-userbar-trigger {
         width: $size-home-button;
         height: $size-home-button;
         overflow: hidden;
@@ -24,13 +24,6 @@ $size-home-button: 3.5em;
 
         cursor: pointer;
 
-        &.icon:before {
-            @include transition(color .2s ease);
-            font-size: 35px;
-            margin: .25em .15em .2em .175em;
-            display: block;
-        }
-
         box-shadow: 0 0 1px 0 rgba(107, 214, 230, 1), 0 1px 10px 0 rgba(107, 214, 230, .7);
         transition: all 0.2s ease-in-out;
 
@@ -38,9 +31,16 @@ $size-home-button: 3.5em;
         .no-touch &:hover {
             box-shadow: 0 0 1px 0 rgba(107, 214, 230, 1), 0 3px 15px 0 rgba(107, 214, 230, .95);
         }
+
+        &.icon:before {
+            @include transition(color .2s ease);
+            font-size: 35px;
+            margin: .25em .15em .2em .175em;
+            display: block;
+        }
     }
 
-    .wagtail-userbar__nav {
+    .wagtail-userbar-nav {
         $width-arrow: .6em;
 
         ul {
@@ -61,10 +61,10 @@ $size-home-button: 3.5em;
 
         // bottom array
         ul:after {
-            content: "";
+            content: '';
             position: absolute;
             bottom: $width-arrow + .1em;
-            right: $size-home-button/2 - $width-arrow/2;
+            right: $size-home-button / 2 - $width-arrow / 2;
             width: 0;
             height: 0;
             border-left: $width-arrow solid transparent;
@@ -74,7 +74,7 @@ $size-home-button: 3.5em;
             opacity: 0;
             transform: translateY(-$width-arrow);
             transition-duration: .15s;
-            transition-timing-function: cubic-bezier(.55,0,.1,1);
+            transition-timing-function: cubic-bezier(.55, 0, .1, 1);
 
             .wagtail-userbar.is-active & {
                 opacity: 1;
@@ -86,6 +86,11 @@ $size-home-button: 3.5em;
         li {
             background-color: $color-grey-1;
 
+            transform: translateY(1em);
+            opacity: 0;
+            transition-duration: .125s;
+            transition-timing-function: cubic-bezier(.55, 0, .1, 1);
+
             &:first-child {
                 border-top-left-radius: .5em;
                 border-top-right-radius: .5em;
@@ -96,14 +101,9 @@ $size-home-button: 3.5em;
                 border-bottom-left-radius: .5em;
             }
 
-            & + li {
+            + li {
                 border-top: 1px solid darken($color-grey-1, 3%);
             }
-
-            transform: translateY(1em);
-            opacity: 0;
-            transition-duration: .125s;
-            transition-timing-function: cubic-bezier(.55,0,.1,1);
 
             .wagtail-userbar.is-active & {
                 transform: translateY(0);

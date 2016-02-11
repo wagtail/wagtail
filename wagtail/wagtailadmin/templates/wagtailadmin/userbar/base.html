@@ -4,8 +4,8 @@
     {% compress css %}
     <link rel="stylesheet" href="{% static 'wagtailadmin/css/userbar.css' %}" type="text/css" />
     {% endcompress %}
-    <div class="wagtail-userbar__nav">
-        <div class="icon icon-wagtail wagtail-userbar__trigger" data-wagtail-userbar-trigger>{% trans 'Go to Wagtail admin interface' %}</div>
+    <div class="wagtail-userbar-nav">
+        <div class="icon icon-wagtail wagtail-userbar-trigger" data-wagtail-userbar-trigger>{% trans 'Go to Wagtail admin interface' %}</div>
         <ul>
             {% for item in items %}
                 {{ item|safe }}
