@@ -218,7 +218,7 @@ Adding tags to snippets is very similar to adding tags to pages. The only differ
     @register_snippet
     class Advert(models.Model):
         ...
-        tags = TaggableManager(through=BlogPageTag, blank=True)
+        tags = TaggableManager(through=AdvertTag, blank=True)
 
         panels = [
             ...
