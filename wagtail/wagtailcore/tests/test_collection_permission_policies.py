@@ -23,28 +23,28 @@ class PermissionPolicyTestCase(PermissionPolicyTestUtils, TestCase):
         )
 
         # Collections
-        root_collection = Collection.get_first_root_node()
-        reports_collection = root_collection.add_child(name="Reports")
+        self.root_collection = Collection.get_first_root_node()
+        self.reports_collection = self.root_collection.add_child(name="Reports")
 
         # Groups
         doc_changers_group = Group.objects.create(name="Document changers")
         GroupCollectionPermission.objects.create(
             group=doc_changers_group,
-            collection=root_collection,
+            collection=self.root_collection,
             permission=change_doc_permission
         )
 
         report_changers_group = Group.objects.create(name="Report changers")
         GroupCollectionPermission.objects.create(
             group=report_changers_group,
-            collection=reports_collection,
+            collection=self.reports_collection,
             permission=change_doc_permission
         )
 
         report_adders_group = Group.objects.create(name="Report adders")
         GroupCollectionPermission.objects.create(
             group=report_adders_group,
-            collection=reports_collection,
+            collection=self.reports_collection,
             permission=add_doc_permission
         )
 
@@ -93,31 +93,31 @@ class PermissionPolicyTestCase(PermissionPolicyTestUtils, TestCase):
 
         # a document in the root owned by 'reportchanger'
         self.changer_doc = Document.objects.create(
-            title="reportchanger's document", collection=root_collection,
+            title="reportchanger's document", collection=self.root_collection,
             uploaded_by_user=self.report_changer
         )
 
         # a document in reports owned by 'reportchanger'
         self.changer_report = Document.objects.create(
-            title="reportchanger's report", collection=reports_collection,
+            title="reportchanger's report", collection=self.reports_collection,
             uploaded_by_user=self.report_changer
         )
 
         # a document in reports owned by 'reportadder'
         self.adder_report = Document.objects.create(
-            title="reportadder's report", collection=reports_collection,
+            title="reportadder's report", collection=self.reports_collection,
             uploaded_by_user=self.report_adder
         )
 
         # a document in reports owned by 'uselessuser'
         self.useless_report = Document.objects.create(
-            title="uselessuser's report", collection=reports_collection,
+            title="uselessuser's report", collection=self.reports_collection,
             uploaded_by_user=self.useless_user
         )
 
         # a document with no owner
         self.anonymous_report = Document.objects.create(
-            title="anonymous report", collection=reports_collection
+            title="anonymous report", collection=self.reports_collection
         )
 
 
@@ -388,6 +388,120 @@ class TestCollectionPermissionPolicy(PermissionPolicyTestCase):
                 ['delete', 'frobnicate'], self.useless_report
             ),
             [self.superuser]
+        )
+
+    def test_collections_user_has_permission_for(self):
+        self.assertResultSetEqual(
+            self.policy.collections_user_has_permission_for(
+                self.superuser, 'change',
+            ),
+            [self.root_collection, self.reports_collection]
+        )
+
+        self.assertResultSetEqual(
+            self.policy.collections_user_has_permission_for(
+                self.inactive_superuser, 'change',
+            ),
+            []
+        )
+
+        self.assertResultSetEqual(
+            self.policy.collections_user_has_permission_for(
+                self.doc_changer, 'change',
+            ),
+            [self.root_collection, self.reports_collection]
+        )
+
+        self.assertResultSetEqual(
+            self.policy.collections_user_has_permission_for(
+                self.report_changer, 'change',
+            ),
+            [self.reports_collection]
+        )
+
+        self.assertResultSetEqual(
+            self.policy.collections_user_has_permission_for(
+                self.report_adder, 'change',
+            ),
+            []
+        )
+
+        self.assertResultSetEqual(
+            self.policy.collections_user_has_permission_for(
+                self.report_adder, 'add',
+            ),
+            [self.reports_collection]
+        )
+
+        self.assertResultSetEqual(
+            self.policy.collections_user_has_permission_for(
+                self.useless_user, 'change',
+            ),
+            []
+        )
+
+        self.assertResultSetEqual(
+            self.policy.collections_user_has_permission_for(
+                self.anonymous_user, 'change',
+            ),
+            []
+        )
+
+    def test_collections_user_has_any_permission_for(self):
+        self.assertResultSetEqual(
+            self.policy.collections_user_has_any_permission_for(
+                self.superuser, ['change', 'delete']
+            ),
+            [self.root_collection, self.reports_collection]
+        )
+
+        self.assertResultSetEqual(
+            self.policy.collections_user_has_any_permission_for(
+                self.inactive_superuser, ['change', 'delete']
+            ),
+            []
+        )
+
+        self.assertResultSetEqual(
+            self.policy.collections_user_has_any_permission_for(
+                self.doc_changer, ['change', 'delete']
+            ),
+            [self.root_collection, self.reports_collection]
+        )
+
+        self.assertResultSetEqual(
+            self.policy.collections_user_has_any_permission_for(
+                self.report_changer, ['change', 'delete']
+            ),
+            [self.reports_collection]
+        )
+
+        self.assertResultSetEqual(
+            self.policy.collections_user_has_any_permission_for(
+                self.report_adder, ['change', 'delete']
+            ),
+            []
+        )
+
+        self.assertResultSetEqual(
+            self.policy.collections_user_has_any_permission_for(
+                self.report_adder, ['add', 'delete']
+            ),
+            [self.reports_collection]
+        )
+
+        self.assertResultSetEqual(
+            self.policy.collections_user_has_any_permission_for(
+                self.useless_user, ['change', 'delete']
+            ),
+            []
+        )
+
+        self.assertResultSetEqual(
+            self.policy.collections_user_has_any_permission_for(
+                self.anonymous_user, ['change', 'delete']
+            ),
+            []
         )
 
 
@@ -706,4 +820,118 @@ class TestCollectionOwnershipPermissionPolicy(PermissionPolicyTestCase):
                 ['delete', 'frobnicate'], self.useless_report
             ),
             [self.superuser, self.doc_changer, self.report_changer]
+        )
+
+    def test_collections_user_has_permission_for(self):
+        self.assertResultSetEqual(
+            self.policy.collections_user_has_permission_for(
+                self.superuser, 'change',
+            ),
+            [self.root_collection, self.reports_collection]
+        )
+
+        self.assertResultSetEqual(
+            self.policy.collections_user_has_permission_for(
+                self.inactive_superuser, 'change',
+            ),
+            []
+        )
+
+        self.assertResultSetEqual(
+            self.policy.collections_user_has_permission_for(
+                self.doc_changer, 'change',
+            ),
+            [self.root_collection, self.reports_collection]
+        )
+
+        self.assertResultSetEqual(
+            self.policy.collections_user_has_permission_for(
+                self.report_changer, 'change',
+            ),
+            [self.reports_collection]
+        )
+
+        self.assertResultSetEqual(
+            self.policy.collections_user_has_permission_for(
+                self.report_adder, 'change',
+            ),
+            [self.reports_collection]
+        )
+
+        self.assertResultSetEqual(
+            self.policy.collections_user_has_permission_for(
+                self.report_adder, 'add',
+            ),
+            [self.reports_collection]
+        )
+
+        self.assertResultSetEqual(
+            self.policy.collections_user_has_permission_for(
+                self.useless_user, 'change',
+            ),
+            []
+        )
+
+        self.assertResultSetEqual(
+            self.policy.collections_user_has_permission_for(
+                self.anonymous_user, 'change',
+            ),
+            []
+        )
+
+    def test_collections_user_has_any_permission_for(self):
+        self.assertResultSetEqual(
+            self.policy.collections_user_has_any_permission_for(
+                self.superuser, ['change', 'delete']
+            ),
+            [self.root_collection, self.reports_collection]
+        )
+
+        self.assertResultSetEqual(
+            self.policy.collections_user_has_any_permission_for(
+                self.inactive_superuser, ['change', 'delete']
+            ),
+            []
+        )
+
+        self.assertResultSetEqual(
+            self.policy.collections_user_has_any_permission_for(
+                self.doc_changer, ['change', 'delete']
+            ),
+            [self.root_collection, self.reports_collection]
+        )
+
+        self.assertResultSetEqual(
+            self.policy.collections_user_has_any_permission_for(
+                self.report_changer, ['change', 'delete']
+            ),
+            [self.reports_collection]
+        )
+
+        self.assertResultSetEqual(
+            self.policy.collections_user_has_any_permission_for(
+                self.report_adder, ['change', 'delete']
+            ),
+            [self.reports_collection]
+        )
+
+        self.assertResultSetEqual(
+            self.policy.collections_user_has_any_permission_for(
+                self.report_adder, ['add', 'delete']
+            ),
+            [self.reports_collection]
+        )
+
+        self.assertResultSetEqual(
+            self.policy.collections_user_has_any_permission_for(
+                self.useless_user, ['change', 'delete']
+            ),
+            []
+        )
+
+        self.assertResultSetEqual(
+            self.policy.collections_user_has_any_permission_for(
+                self.anonymous_user, ['change', 'delete']
+            ),
+            []
         )

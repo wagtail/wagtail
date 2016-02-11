@@ -44,7 +44,9 @@ class CollectionPermissionLookupMixin(object):
 
         return collection_permissions.exists()
 
-    def _collection_permission_filter(self, user, actions):
+    def _collection_permission_filter(
+        self, user, actions, path_filter_param='collection__path__startswith'
+    ):
         """
         Return a filter object that can be applied to a queryset of this model
         so that it only includes instances in collections for which the user has
@@ -64,11 +66,13 @@ class CollectionPermissionLookupMixin(object):
         if collection_root_paths:
             # build a filter expression that will filter our model to just those
             # instances in collections with a path that starts with one of the above
-            collection_path_filter = Q(collection__path__startswith=collection_root_paths[0])
+            collection_path_filter = Q(**{
+                path_filter_param: collection_root_paths[0]
+            })
             for path in collection_root_paths[1:]:
-                collection_path_filter = collection_path_filter | Q(
-                    collection__path__startswith=path
-                )
+                collection_path_filter = collection_path_filter | Q(**{
+                    path_filter_param: path
+                })
             return collection_path_filter
         else:
             # no matching collections
@@ -108,6 +112,13 @@ class CollectionPermissionLookupMixin(object):
         return get_user_model().objects.filter(
             self._users_with_perm_filter(actions, collection=collection)
         ).distinct()
+
+    def collections_user_has_permission_for(self, user, action):
+        """
+        Return a queryset of all collections in which the given user has
+        permission to perform the given action
+        """
+        return self.collections_user_has_any_permission_for(user, [action])
 
 
 class CollectionPermissionPolicy(CollectionPermissionLookupMixin, BaseDjangoAuthPermissionPolicy):
@@ -173,6 +184,26 @@ class CollectionPermissionPolicy(CollectionPermissionLookupMixin, BaseDjangoAuth
         actions on the given model instance
         """
         return self._users_with_perm(actions, collection=instance.collection)
+
+    def collections_user_has_any_permission_for(self, user, actions):
+        """
+        Return a queryset of all collections in which the given user has
+        permission to perform any of the given actions
+        """
+        if user.is_active and user.is_superuser:
+            # active superusers can perform any action (including unrecognised ones)
+            # in any collection
+            return Collection.objects.all()
+
+        elif not user.is_authenticated():
+            return Collection.objects.none()
+
+        else:
+            return Collection.objects.filter(
+                self._collection_permission_filter(
+                    user, actions, path_filter_param='path__startswith'
+                )
+            )
 
 
 class CollectionOwnershipPermissionPolicy(
@@ -295,3 +326,39 @@ class CollectionOwnershipPermissionPolicy(
             # not meaningful for existing instances. As such, the action is only
             # available to superusers
             return get_user_model().objects.filter(is_active=True, is_superuser=True)
+
+    def collections_user_has_any_permission_for(self, user, actions):
+        """
+        Return a queryset of all collections in which the given user has
+        permission to perform any of the given actions
+        """
+        if user.is_active and user.is_superuser:
+            # active superusers can perform any action (including unrecognised ones)
+            # in any collection
+            return Collection.objects.all()
+
+        elif not user.is_authenticated():
+            return Collection.objects.none()
+
+        elif 'change' in actions or 'delete' in actions:
+            # return collections which are covered by either 'add' or 'change' permissions
+            # (since collections with 'add' permissions can *potentially* contain instances
+            # they own and can therefore edit)
+
+            return Collection.objects.filter(
+                self._collection_permission_filter(
+                    user, ['add', 'change'], path_filter_param='path__startswith'
+                )
+            )
+
+        elif 'add' in actions:
+            return Collection.objects.filter(
+                self._collection_permission_filter(
+                    user, ['add'], path_filter_param='path__startswith'
+                )
+            )
+
+        else:
+            # action is not recognised, and so non-superusers
+            # cannot perform it on any existing collections
+            return Collection.objects.none()
