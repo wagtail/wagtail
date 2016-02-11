@@ -323,7 +323,6 @@ class TestChooserExternalLink(TestCase, WagtailTestUtils):
         self.assertContains(response, "'rel': 'nofollow'")
         self.assertContains(response, "'target': '_blank'")
 
-
     def test_invalid_url(self):
         response = self.post({'url': 'ntp://www.example.com', 'target': '_blank', 'rel': 'nofollow'})
         self.assertEqual(response.status_code, 200)
