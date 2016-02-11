@@ -83,6 +83,7 @@ class Document(AbstractDocument):
     admin_form_fields = (
         'title',
         'file',
+        'collection',
         'tags'
     )
 

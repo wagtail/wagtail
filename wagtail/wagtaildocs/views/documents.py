@@ -75,7 +75,7 @@ def add(request):
 
     if request.POST:
         doc = Document(uploaded_by_user=request.user)
-        form = DocumentForm(request.POST, request.FILES, instance=doc)
+        form = DocumentForm(request.POST, request.FILES, instance=doc, user=request.user)
         if form.is_valid():
             form.save()
 
@@ -90,7 +90,7 @@ def add(request):
         else:
             messages.error(request, _("The document could not be saved due to errors."))
     else:
-        form = DocumentForm()
+        form = DocumentForm(user=request.user)
 
     return render(request, "wagtaildocs/documents/add.html", {
         'form': form,
@@ -109,7 +109,7 @@ def edit(request, document_id):
 
     if request.POST:
         original_file = doc.file
-        form = DocumentForm(request.POST, request.FILES, instance=doc)
+        form = DocumentForm(request.POST, request.FILES, instance=doc, user=request.user)
         if form.is_valid():
             if 'file' in form.changed_data:
                 # if providing a new document file, delete the old one.
@@ -129,7 +129,7 @@ def edit(request, document_id):
         else:
             messages.error(request, _("The document could not be saved due to errors."))
     else:
-        form = DocumentForm(instance=doc)
+        form = DocumentForm(instance=doc, user=request.user)
 
     filesize = None
 
