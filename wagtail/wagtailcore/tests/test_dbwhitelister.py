@@ -102,7 +102,7 @@ class TestDbWhitelister(TestCase):
         output_html = Whitelister.clean(input_html)
         expected = (
             'I would put a tax on all people who'
-            ' <a href="https://twitter.com/DMReporter/status/432914941201223680/photo/1">'
+            ' <a href="https://twitter.com/DMReporter/status/432914941201223680/photo/1" target="_blank">'
             'stand in water</a>.<p>- Gumby</p>'
         )
         self.assertHtmlEqual(expected, output_html)
