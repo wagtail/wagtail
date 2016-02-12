@@ -11,6 +11,7 @@ from wagtail.wagtailadmin.site_summary import SummaryItem
 from wagtail.wagtailadmin.search import SearchArea
 
 from wagtail.wagtaildocs import admin_urls
+from wagtail.wagtaildocs.forms import GroupDocumentPermissionFormSet
 from wagtail.wagtaildocs.models import get_document_model
 from wagtail.wagtaildocs.permissions import permission_policy
 from wagtail.wagtaildocs.rich_text import DocumentLinkHandler
@@ -62,12 +63,6 @@ def editor_js():
     )
 
 
-@hooks.register('register_permissions')
-def register_permissions():
-    return Permission.objects.filter(content_type__app_label='wagtaildocs',
-                                     codename__in=['add_document', 'change_document'])
-
-
 @hooks.register('register_rich_text_link_handler')
 def register_document_link_handler():
     return ('document', DocumentLinkHandler)
@@ -102,3 +97,8 @@ def register_documents_search_area():
         name='documents',
         classnames='icon icon-doc-full-inverse',
         order=400)
+
+
+@hooks.register('register_group_permission_panel')
+def register_document_permissions_panel():
+    return GroupDocumentPermissionFormSet

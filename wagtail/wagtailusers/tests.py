@@ -9,7 +9,9 @@ from django.utils import six
 from wagtail.tests.utils import WagtailTestUtils
 from wagtail.wagtailcore import hooks
 from wagtail.wagtailusers.models import UserProfile
-from wagtail.wagtailcore.models import Page, GroupPagePermission
+from wagtail.wagtailcore.models import (
+    Page, GroupPagePermission, Collection, GroupCollectionPermission
+)
 
 
 class TestUserIndexView(TestCase, WagtailTestUtils):
@@ -210,6 +212,12 @@ class TestGroupIndexView(TestCase, WagtailTestUtils):
 class TestGroupCreateView(TestCase, WagtailTestUtils):
     def setUp(self):
         self.login()
+        self.add_doc_permission = Permission.objects.get(
+            content_type__app_label='wagtaildocs', codename='add_document'
+        )
+        self.change_doc_permission = Permission.objects.get(
+            content_type__app_label='wagtaildocs', codename='change_document'
+        )
 
     def get(self, params={}):
         return self.client.get(reverse('wagtailusers_groups:add'), params)
@@ -219,6 +227,9 @@ class TestGroupCreateView(TestCase, WagtailTestUtils):
             'page_permissions-TOTAL_FORMS': ['0'],
             'page_permissions-MAX_NUM_FORMS': ['1000'],
             'page_permissions-INITIAL_FORMS': ['0'],
+            'document_permissions-TOTAL_FORMS': ['0'],
+            'document_permissions-MAX_NUM_FORMS': ['1000'],
+            'document_permissions-INITIAL_FORMS': ['0'],
         }
         for k, v in six.iteritems(post_defaults):
             post_data[k] = post_data.get(k, v)
@@ -245,12 +256,20 @@ class TestGroupCreateView(TestCase, WagtailTestUtils):
             'page_permissions-0-page': ['1'],
             'page_permissions-0-permission_types': ['edit', 'publish'],
             'page_permissions-TOTAL_FORMS': ['1'],
+            'document_permissions-0-collection': [Collection.get_first_root_node().id],
+            'document_permissions-0-permissions': [self.add_doc_permission.id],
+            'document_permissions-TOTAL_FORMS': ['1'],
         })
 
         self.assertRedirects(response, reverse('wagtailusers_groups:index'))
         # The test group now exists, with two page permissions
+        # and one 'add document' collection permission
         new_group = Group.objects.get(name='test group')
         self.assertEqual(new_group.page_permissions.all().count(), 2)
+        self.assertEqual(
+            new_group.collection_permissions.filter(permission=self.add_doc_permission).count(),
+            1
+        )
 
     def test_duplicate_page_permissions_error(self):
         # Try to submit multiple page permission entries for the same page
@@ -265,7 +284,30 @@ class TestGroupCreateView(TestCase, WagtailTestUtils):
 
         self.assertEqual(response.status_code, 200)
         # formset should have a non-form error about the duplication
-        self.assertTrue(response.context['formset'].non_form_errors)
+        self.assertTrue(response.context['permission_panels'][0].non_form_errors)
+
+    def test_duplicate_document_permissions_error(self):
+        # Try to submit multiple document permission entries for the same collection
+        root_collection = Collection.get_first_root_node()
+        response = self.post({
+            'name': "test group",
+            'document_permissions-0-collection': [root_collection.id],
+            'document_permissions-0-permissions': [self.add_doc_permission.id],
+            'document_permissions-1-collection': [root_collection.id],
+            'document_permissions-1-permissions': [self.change_doc_permission.id],
+            'document_permissions-TOTAL_FORMS': ['2'],
+        })
+
+        self.assertEqual(response.status_code, 200)
+        # formset should have a non-form error about the duplication
+        # (we don't know what index in permission_panels the formset will be,
+        # so just assert that it happens on at least one permission_panel)
+        self.assertTrue(
+            any(
+                hasattr(panel, 'non_form_errors') and panel.non_form_errors
+                for panel in response.context['permission_panels']
+            )
+        )
 
 
 class TestGroupEditView(TestCase, WagtailTestUtils):
@@ -287,6 +329,21 @@ class TestGroupEditView(TestCase, WagtailTestUtils):
 
         self.test_group.permissions.add(self.existing_permission)
 
+        # set up collections to test document permissions
+        self.root_collection = Collection.get_first_root_node()
+        self.evil_plans_collection = self.root_collection.add_child(name="Evil plans")
+        self.add_doc_permission = Permission.objects.get(
+            content_type__app_label='wagtaildocs', codename='add_document'
+        )
+        self.change_doc_permission = Permission.objects.get(
+            content_type__app_label='wagtaildocs', codename='change_document'
+        )
+        GroupCollectionPermission.objects.create(
+            group=self.test_group,
+            collection=self.evil_plans_collection,
+            permission=self.add_doc_permission,
+        )
+
         # Login
         self.login()
 
@@ -301,7 +358,12 @@ class TestGroupEditView(TestCase, WagtailTestUtils):
             'page_permissions-MAX_NUM_FORMS': ['1000'],
             'page_permissions-INITIAL_FORMS': ['1'],
             'page_permissions-0-page': [self.root_page.id],
-            'page_permissions-0-permission_types': ['add']
+            'page_permissions-0-permission_types': ['add'],
+            'document_permissions-TOTAL_FORMS': ['1'],
+            'document_permissions-MAX_NUM_FORMS': ['1000'],
+            'document_permissions-INITIAL_FORMS': ['1'],
+            'document_permissions-0-collection': [self.evil_plans_collection.id],
+            'document_permissions-0-permissions': [self.add_doc_permission.id],
         }
         for k, v in six.iteritems(post_defaults):
             post_data[k] = post_data.get(k, v)
@@ -355,22 +417,60 @@ class TestGroupEditView(TestCase, WagtailTestUtils):
         # The test group now has three page permissions
         self.assertEqual(self.test_group.page_permissions.count(), 3)
 
-    def test_group_edit_adding_page_permissions_different_page(self):
-        # The test group has one page permission to begin with - 'add' permission on root.
-        # Add two additional permission types, on the home page
-        self.assertEqual(self.test_group.page_permissions.count(), 1)
+    def test_group_edit_adding_document_permissions_same_collection(self):
+        # The test group has one document permission to begin with -
+        # 'add' permission on evil_plans.
+        # Add 'change' permission on evil_plans
+        self.assertEqual(
+            self.test_group.collection_permissions.filter(
+                permission__content_type__app_label='wagtaildocs'
+            ).count(),
+            1
+        )
         response = self.post({
-            'page_permissions-TOTAL_FORMS': ['2'],
-            'page_permissions-1-page': [self.home_page.id],
-            'page_permissions-1-permission_types': ['add', 'publish']
+            'document_permissions-0-permissions': [
+                self.add_doc_permission.id, self.change_doc_permission.id
+            ],
         })
 
         self.assertRedirects(response, reverse('wagtailusers_groups:index'))
-        # The test group now has three page permissions
-        self.assertEqual(self.test_group.page_permissions.count(), 3)
+        # The test group now has two document permissions
+        self.assertEqual(
+            self.test_group.collection_permissions.filter(
+                permission__content_type__app_label='wagtaildocs'
+            ).count(),
+            2
+        )
+
+    def test_group_edit_adding_document_permissions_different_collection(self):
+        # The test group has one document permission to begin with -
+        # 'add' permission on evil_plans.
+        # Add 'add' and 'change' permission on the root collection
+        self.assertEqual(
+            self.test_group.collection_permissions.filter(
+                permission__content_type__app_label='wagtaildocs'
+            ).count(),
+            1
+        )
+        response = self.post({
+            'document_permissions-TOTAL_FORMS': ['2'],
+            'document_permissions-1-collection': [self.root_collection.id],
+            'document_permissions-1-permissions': [
+                self.add_doc_permission.id, self.change_doc_permission.id
+            ],
+        })
+
+        self.assertRedirects(response, reverse('wagtailusers_groups:index'))
+        # The test group now has three document permissions
+        self.assertEqual(
+            self.test_group.collection_permissions.filter(
+                permission__content_type__app_label='wagtaildocs'
+            ).count(),
+            3
+        )
 
     def test_group_edit_deleting_page_permissions(self):
-        # The test group has one page permissions to begin with
+        # The test group has one page permission to begin with
         self.assertEqual(self.test_group.page_permissions.count(), 1)
 
         response = self.post({
@@ -381,19 +481,45 @@ class TestGroupEditView(TestCase, WagtailTestUtils):
         # The test group now has zero page permissions
         self.assertEqual(self.test_group.page_permissions.count(), 0)
 
+    def test_group_edit_deleting_document_permissions(self):
+        # The test group has one document permission to begin with
+        self.assertEqual(
+            self.test_group.collection_permissions.filter(
+                permission__content_type__app_label='wagtaildocs'
+            ).count(),
+            1
+        )
+
+        response = self.post({
+            'document_permissions-0-DELETE': ['1'],
+        })
+
+        self.assertRedirects(response, reverse('wagtailusers_groups:index'))
+        # The test group now has zero document permissions
+        self.assertEqual(
+            self.test_group.collection_permissions.filter(
+                permission__content_type__app_label='wagtaildocs'
+            ).count(),
+            0
+        )
+
     def test_group_edit_loads_with_page_permissions_shown(self):
         # The test group has one page permission to begin with
         self.assertEqual(self.test_group.page_permissions.count(), 1)
 
         response = self.get()
 
-        self.assertEqual(response.context['formset'].management_form['INITIAL_FORMS'].value(), 1)
+        page_permissions_formset = response.context['permission_panels'][0]
         self.assertEqual(
-            response.context['formset'].forms[0]['page'].value(),
+            page_permissions_formset.management_form['INITIAL_FORMS'].value(),
+            1
+        )
+        self.assertEqual(
+            page_permissions_formset.forms[0]['page'].value(),
             self.root_page.id
         )
         self.assertEqual(
-            response.context['formset'].forms[0]['permission_types'].value(),
+            page_permissions_formset.forms[0]['permission_types'].value(),
             ['add']
         )
 
@@ -407,14 +533,15 @@ class TestGroupEditView(TestCase, WagtailTestUtils):
 
         # Reload the page and check the form instances
         response = self.get()
-        self.assertEqual(response.context['formset'].management_form['INITIAL_FORMS'].value(), 1)
-        self.assertEqual(len(response.context['formset'].forms), 1)
+        page_permissions_formset = response.context['permission_panels'][0]
+        self.assertEqual(page_permissions_formset.management_form['INITIAL_FORMS'].value(), 1)
+        self.assertEqual(len(page_permissions_formset.forms), 1)
         self.assertEqual(
-            response.context['formset'].forms[0]['page'].value(),
+            page_permissions_formset.forms[0]['page'].value(),
             self.root_page.id
         )
         self.assertEqual(
-            response.context['formset'].forms[0]['permission_types'].value(),
+            page_permissions_formset.forms[0]['permission_types'].value(),
             ['add', 'edit']
         )
 
@@ -428,21 +555,22 @@ class TestGroupEditView(TestCase, WagtailTestUtils):
 
         # Reload the page and check the form instances
         response = self.get()
-        self.assertEqual(response.context['formset'].management_form['INITIAL_FORMS'].value(), 2)
+        page_permissions_formset = response.context['permission_panels'][0]
+        self.assertEqual(page_permissions_formset.management_form['INITIAL_FORMS'].value(), 2)
         self.assertEqual(
-            response.context['formset'].forms[0]['page'].value(),
+            page_permissions_formset.forms[0]['page'].value(),
             self.root_page.id
         )
         self.assertEqual(
-            response.context['formset'].forms[0]['permission_types'].value(),
+            page_permissions_formset.forms[0]['permission_types'].value(),
             ['add', 'edit']
         )
         self.assertEqual(
-            response.context['formset'].forms[1]['page'].value(),
+            page_permissions_formset.forms[1]['page'].value(),
             self.home_page.id
         )
         self.assertEqual(
-            response.context['formset'].forms[1]['permission_types'].value(),
+            page_permissions_formset.forms[1]['permission_types'].value(),
             ['edit']
         )
 
@@ -456,7 +584,24 @@ class TestGroupEditView(TestCase, WagtailTestUtils):
 
         self.assertEqual(response.status_code, 200)
         # the formset should have a non-form error
-        self.assertTrue(response.context['formset'].non_form_errors)
+        self.assertTrue(response.context['permission_panels'][0].non_form_errors)
+
+    def test_duplicate_document_permissions_error(self):
+        # Try to submit multiple document permission entries for the same collection
+        response = self.post({
+            'document_permissions-1-page': [self.evil_plans_collection.id],
+            'document_permissions-1-permissions': [self.change_doc_permission],
+            'document_permissions-TOTAL_FORMS': ['2'],
+        })
+
+        self.assertEqual(response.status_code, 200)
+        # the formset should have a non-form error
+        self.assertTrue(
+            any(
+                hasattr(panel, 'non_form_errors') and panel.non_form_errors
+                for panel in response.context['permission_panels']
+            )
+        )
 
     def test_group_add_registered_django_permissions(self):
         # The test group has one django permission to begin with
