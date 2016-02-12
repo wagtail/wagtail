@@ -183,7 +183,7 @@ class BaseSearchResults(object):
         data = list(self[:21])
         if len(data) > 20:
             data[-1] = "...(remaining elements truncated)..."
-        return repr(data)
+        return '<SearchResults %r>' % data
 
 
 class BaseSearch(object):
