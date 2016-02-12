@@ -16,6 +16,12 @@ Protection against unsaved changes
 The page editor interface now produces a warning if the user attempts to navigate away while there are unsaved changes.
 
 
+Customisation of the page listing QuerySet
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+The pages shown in the explorer can now be customised using a new hook called :ref:`construct_explorer_page_queryset <construct_explorer_page_queryset>`.
+
+
 Custom document models
 ~~~~~~~~~~~~~~~~~~~~~~
 
