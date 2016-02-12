@@ -6,9 +6,11 @@ from django.core.urlresolvers import reverse
 from django.utils import timezone
 from django.utils.translation import ugettext as _
 from django.utils.http import is_safe_url
+from django.utils.safestring import mark_safe
 from django.views.decorators.http import require_GET, require_POST
 from django.views.decorators.vary import vary_on_headers
 from django.db.models import Count
+from django.template.loader import render_to_string
 
 from wagtail.utils.pagination import paginate
 from wagtail.wagtailadmin.forms import SearchForm, CopyForm
@@ -814,7 +816,12 @@ def unlock(request, page_id):
 
 def revisions_index(request, page_id):
     page = get_object_or_404(Page, id=page_id).specific
-    revisions = page.revisions.order_by('-created_at')
+
+    # Get all revisions other than most recent (the current draft)
+    # since we don't want to be able to revert the current draft to itself!
+    revisions = page.revisions.order_by('-created_at')[1:]
+
+    paginator, revisions = paginate(request, revisions)
 
     return render(request, 'wagtailadmin/pages/revisions/index.html', {
         'page': page,
@@ -840,8 +847,13 @@ def revisions_revert(request, page_id, revision_id):
     form = form_class(instance=revision_page)
     edit_handler = edit_handler_class(instance=revision_page, form=form)
 
+    user_avatar = render_to_string('wagtailadmin/shared/user_avatar.html', {'user': revision.user})
+
+    messages.warning(request, mark_safe(_("You are viewing a previous revision of this page from <b>%s</b> by %s") % (revision.created_at.strftime("%d %b %Y %H:%M"), user_avatar)))
+
     return render(request, 'wagtailadmin/pages/edit.html', {
         'page': page,
+        'is_revision': True,
         'content_type': content_type,
         'edit_handler': edit_handler,
         'errors_debug': None,

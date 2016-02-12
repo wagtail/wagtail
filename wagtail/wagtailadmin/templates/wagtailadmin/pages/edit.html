@@ -32,23 +32,25 @@
             <ul>
                 <li class="actions">
                     <div class="dropdown dropup dropdown-button match-width">
-                        <button type="submit" class="action-save button-longrunning" tabindex="3" data-clicked-text="{% trans 'Saving...' %}" {% if page.locked %}disabled {% endif %}><span class="icon icon-spinner"></span><em>{% if page.locked %}{% trans 'Page locked' %}{% else %}{% trans 'Save draft' %}{% endif %}</em></button>
+                        <button type="submit" class="action-save button-longrunning {% if is_revision %}warning{% endif %}" tabindex="3" data-clicked-text="{% trans 'Saving...' %}" {% if page.locked %}disabled {% endif %}><span class="icon icon-spinner"></span><em>{% if page.locked %}{% trans 'Page locked' %}{% else %}{% if is_revision %}{% trans 'Replace current draft' %}{% else %}{% trans 'Save draft' %}{% endif %}{% endif %}</em></button>
 
                         {% if not page.locked %}
-                            <div class="dropdown-toggle icon icon-arrow-up"></div>
+                            <div class="dropdown-toggle {% if is_revision %}warning{% endif %} icon icon-arrow-up"></div>
                             <ul role="menu">
-                                {% if page_perms.can_unpublish %}
+                                {% if not is_revision and page_perms.can_unpublish %}
                                     <li><a href="{% url 'wagtailadmin_pages:unpublish' page.id %}">{% trans 'Unpublish' %}</a></li>
                                 {% endif %}
-                                {% if page_perms.can_delete %}
+                                {% if not is_revision and page_perms.can_delete %}
                                     <li><a href="{% url 'wagtailadmin_pages:delete' page.id %}" class="shortcut">{% trans 'Delete' %}</a></li>
                                 {% endif %}
                                 {% if page_perms.can_publish %}
                                     <li>
-                                        <button type="submit" name="action-publish" value="action-publish" class="button-longrunning" tabindex="3" data-clicked-text="{% trans 'Publishing...' %}" {% if page.locked %}disabled {% endif %}><span class="icon icon-spinner"></span><em>{% trans 'Publish' %}</em></button>
+                                        <button type="submit" name="action-publish" value="action-publish" class="button-longrunning {% if is_revision %}warning{% endif %}" tabindex="3" data-clicked-text="{% trans 'Publishing...' %}" {% if page.locked %}disabled {% endif %}><span class="icon icon-spinner"></span><em>{% if is_revision %}{% trans 'Publish revision' %}{% else %}{% trans 'Publish' %}{% endif %}</em></button>
                                     </li>
                                 {% endif %}
-                                <li><input type="submit" name="action-submit" value="{% trans 'Submit for moderation' %}" class="button" /></li>
+                                {% if not is_revision %}
+                                    <li><input type="submit" name="action-submit" value="{% trans 'Submit for moderation' %}" class="button" /></li>
+                                {% endif %}
                             </ul>
                         {% endif %}
                     </div>
@@ -83,7 +85,7 @@
                                     <span class="avatar small icon icon-user"><img src="{% gravatar_url page.get_latest_revision.user.email 25 %}" /></span>
                                 {% endif %}
                             {% endif %}
-                            <a href="{% url 'wagtailadmin_pages:revisions_index' page.id %}">Revisions</a>
+                            <a href="{% url 'wagtailadmin_pages:revisions_index' page.id %}" class="underlined">Revisions</a>
                         {% endif %}
                     </p>
                 </li>
