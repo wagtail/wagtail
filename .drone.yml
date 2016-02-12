@@ -9,7 +9,7 @@ build:
   jscs:
     image: node:4.2.4
     commands:
-      - npm install -g jscs@"^1.12.0"
+      - npm install -g jscs@"^1.12.0" --quiet
       - jscs ./wagtail
   scss-lint:
     image: wagtail-scss-lint
