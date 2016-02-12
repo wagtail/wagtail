@@ -1,4 +1,4 @@
-// paths 
+// paths
 
 // We can't use absolute paths here, because those are dependent on Django's
 // STATIC_URL setting. Instead, relative paths from the final location of the
@@ -57,6 +57,8 @@ $color-button-yes: $color-green;
 $color-button-yes-hover: darken($color-button-yes, 8%);
 $color-button-no: $color-red;
 $color-button-no-hover: darken($color-button-no, 20%);
+$color-button-warning: $color-orange;
+$color-button-warning-hover: darken($color-orange, 20%);
 $color-link: $color-teal;
 $color-link-hover: $color-teal-dark;
 
