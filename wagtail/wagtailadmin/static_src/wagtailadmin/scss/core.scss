@@ -146,14 +146,21 @@ footer {
     .meta {
         float: right;
         text-align: right;
-        padding-right: $grid-gutter-width/2;
-        line-height: 3.5em;
+        padding: 7px $grid-gutter-width/2;
         font-size: 0.85em;
 
         p {
             margin: 0;
             margin-right: $grid-gutter-width;
             white-space: nowrap;
+        }
+
+        a {
+            color: inherit;
+
+            &:hover {
+                color: $color-link;
+            }
         }
     }
 }
