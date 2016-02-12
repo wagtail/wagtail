@@ -1,0 +1,29 @@
+{% load i18n wagtailadmin_tags gravatar %}
+
+<table class="listing">
+    <col width="100%" />
+
+    <thead>
+        <tr>
+            <th>Revision</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% if revisions %}
+            {% for revision in revisions %}
+                <tr>
+                    <td class="title">
+                        <h2><a href="{% url 'wagtailadmin_pages:revisions_revert' page.id revision.id %}">{{ revision.created_at|date:"d M Y H:i" }}</a> <span class="unbold"><span class="avatar small icon icon-user"><img src="{% gravatar_url revision.user.email 25 %}" /></span>{{ revision.user }}</span></h2>
+
+                        <ul class="actions">
+                            <li><a href="{% url 'wagtailadmin_pages:revisions_view' page.id revision.id %}" class="button button-small button-secondary" target="_blank">{% trans 'Preview' %}</a></li>
+                            <li><a href="{% url 'wagtailadmin_pages:revisions_revert' page.id revision.id %}" class="button button-small button-secondary">{% trans 'Review this revision' %}</a></li>
+                        </ul>
+                    </td>
+                </tr>
+            {% endfor %}
+        {% else %}
+            {% block no_results %}No revisions{% endblock %}
+        {% endif %}
+    </tbody>
+</table>
