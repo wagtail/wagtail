@@ -28,7 +28,7 @@ class Migration(migrations.Migration):
                     default=True,
                     help_text='Receive notification when your page edit is rejected'
                 )),
-                ('user', models.OneToOneField(to=settings.AUTH_USER_MODEL)),
+                ('user', models.OneToOneField(on_delete=models.CASCADE, to=settings.AUTH_USER_MODEL)),
             ],
             options={
             },
