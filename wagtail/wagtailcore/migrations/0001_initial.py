@@ -37,7 +37,7 @@ class Migration(migrations.Migration):
                     'permission_type',
                     models.CharField(choices=[('add', 'Add'), ('edit', 'Edit'), ('publish', 'Publish')], max_length=20)
                 ),
-                ('group', models.ForeignKey(to='auth.Group', related_name='page_permissions')),
+                ('group', models.ForeignKey(on_delete=models.CASCADE, to='auth.Group', related_name='page_permissions')),
             ],
             options={
             },
@@ -86,8 +86,9 @@ class Migration(migrations.Migration):
                     help_text='Please add a date-time in the form YYYY-MM-DD hh:mm:ss.'
                 )),
                 ('expired', models.BooleanField(default=False, editable=False)),
-                ('content_type', models.ForeignKey(to='contenttypes.ContentType', related_name='pages')),
+                ('content_type', models.ForeignKey(on_delete=models.CASCADE, to='contenttypes.ContentType', related_name='pages')),
                 ('owner', models.ForeignKey(
+                    on_delete=models.CASCADE,
                     blank=True, null=True, to=settings.AUTH_USER_MODEL, editable=False, related_name='owned_pages'
                 )),
             ],
@@ -107,8 +108,8 @@ class Migration(migrations.Migration):
                 ('created_at', models.DateTimeField(auto_now_add=True)),
                 ('content_json', models.TextField()),
                 ('approved_go_live_at', models.DateTimeField(blank=True, null=True)),
-                ('page', models.ForeignKey(to='wagtailcore.Page', related_name='revisions')),
-                ('user', models.ForeignKey(blank=True, null=True, to=settings.AUTH_USER_MODEL)),
+                ('page', models.ForeignKey(on_delete=models.CASCADE, to='wagtailcore.Page', related_name='revisions')),
+                ('user', models.ForeignKey(on_delete=models.CASCADE, blank=True, null=True, to=settings.AUTH_USER_MODEL)),
             ],
             options={
             },
@@ -119,7 +120,7 @@ class Migration(migrations.Migration):
             fields=[
                 ('id', models.AutoField(serialize=False, verbose_name='ID', primary_key=True, auto_created=True)),
                 ('password', models.CharField(max_length=255)),
-                ('page', models.ForeignKey(to='wagtailcore.Page', related_name='view_restrictions')),
+                ('page', models.ForeignKey(on_delete=models.CASCADE, to='wagtailcore.Page', related_name='view_restrictions')),
             ],
             options={
             },
@@ -145,7 +146,7 @@ class Migration(migrations.Migration):
                         ' that do not have a site entry of their own'
                     )
                 )),
-                ('root_page', models.ForeignKey(to='wagtailcore.Page', related_name='sites_rooted_here')),
+                ('root_page', models.ForeignKey(on_delete=models.CASCADE, to='wagtailcore.Page', related_name='sites_rooted_here')),
             ],
             options={
             },
@@ -158,7 +159,7 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='grouppagepermission',
             name='page',
-            field=models.ForeignKey(to='wagtailcore.Page', related_name='group_permissions'),
+            field=models.ForeignKey(on_delete=models.CASCADE, to='wagtailcore.Page', related_name='group_permissions'),
             preserve_default=True,
         ),
     ]
