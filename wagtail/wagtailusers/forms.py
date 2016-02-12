@@ -5,6 +5,7 @@ from django.db import transaction
 from django.contrib.auth import get_user_model
 from django.utils.translation import ugettext_lazy as _
 from django.contrib.auth.models import Group, Permission
+from django.template.loader import render_to_string
 
 from wagtail.wagtailcore import hooks
 from wagtail.wagtailadmin.widgets import AdminPageChooser
@@ -335,6 +336,11 @@ class BaseGroupPagePermissionFormSet(forms.BaseFormSet):
             )
             for (page, permission_type) in permissions_to_add
         ])
+
+    def as_admin_panel(self):
+        return render_to_string('wagtailusers/groups/includes/page_permissions_formset.html', {
+            'formset': self
+        })
 
 
 GroupPagePermissionFormSet = forms.formset_factory(

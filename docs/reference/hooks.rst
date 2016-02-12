@@ -145,6 +145,14 @@ Hooks for building new areas of the admin interface (alongside pages, images, do
       ]
 
 
+.. _register_group_permission_panel:
+
+``register_group_permission_panel``
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+  Add a new panel to the Groups form in the 'settings' area. The callable passed to this hook must return a ModelForm / ModelFormSet-like class, with a constructor that accepts a group object as its ``instance`` keyword argument, and which implements the methods ``save``, ``is_valid``, and ``as_admin_panel`` (which returns the HTML to be included on the group edit page).
+
+
 .. _register_settings_menu_item:
 
 ``register_settings_menu_item``
