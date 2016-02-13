@@ -4,7 +4,7 @@ from __future__ import unicode_literals
 from django.db import models, migrations
 from django.conf import settings
 import wagtail.wagtailsearch.index
-
+from wagtail.wagtailcore.utils import validate_unicode_slug
 
 def set_page_path_collation(apps, schema_editor):
     """
@@ -55,6 +55,7 @@ class Migration(migrations.Migration):
                     help_text="The page title as you'd like it to be seen by the public"
                 )),
                 ('slug', models.SlugField(
+                    validators=[validate_unicode_slug],
                     help_text='The name of the page as it will appear in URLs e.g http://domain.com/blog/[my-slug]/'
                 )),
                 ('live', models.BooleanField(default=True, editable=False)),

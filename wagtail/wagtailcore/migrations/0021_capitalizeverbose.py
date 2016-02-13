@@ -5,6 +5,7 @@ from django.db import models, migrations
 import django.db.models.deletion
 from django.conf import settings
 
+from wagtail.wagtailcore.utils import validate_unicode_slug
 
 class Migration(migrations.Migration):
 
@@ -96,7 +97,11 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='page',
             name='slug',
-            field=models.SlugField(max_length=255, verbose_name='slug', help_text='The name of the page as it will appear in URLs e.g http://domain.com/blog/[my-slug]/'),
+            field=models.SlugField(
+                validators=[validate_unicode_slug],
+                max_length=255,
+                verbose_name='slug',
+                help_text='The name of the page as it will appear in URLs e.g http://domain.com/blog/[my-slug]/'),
         ),
         migrations.AlterField(
             model_name='page',

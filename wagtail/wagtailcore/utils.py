@@ -1,11 +1,13 @@
 import re
 import unicodedata
 
+from django.core.validators import RegexValidator
 from django.db.models import Model
 from django.apps import apps
 from django.utils.encoding import force_text
 from django.utils.text import slugify
 from django.utils.six import string_types
+from django.utils.translation import ugettext_lazy as _
 
 
 def camelcase_to_underscore(str):
@@ -88,3 +90,12 @@ def cautious_slugify(value):
     # mark_safe); this will also strip out the backslashes from the 'backslashreplace'
     # conversion
     return slugify(value)
+
+
+# Unicode Slug Validator
+slug_unicode_re = re.compile(r'^[-\w]+\Z', re.U)
+validate_unicode_slug = RegexValidator(
+    slug_unicode_re,
+    _("Enter a valid 'slug' consisting of Unicode letters, numbers, underscores, or hyphens."),
+    'invalid'
+)

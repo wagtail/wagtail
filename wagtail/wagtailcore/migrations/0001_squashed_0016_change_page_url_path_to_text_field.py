@@ -6,7 +6,7 @@ from django.conf import settings
 import django.db.models.deletion
 from django import VERSION as DJANGO_VERSION
 import wagtail.wagtailsearch.index
-
+from wagtail.wagtailcore.utils import validate_unicode_slug
 
 def initial_data(apps, schema_editor):
     ContentType = apps.get_model('contenttypes.ContentType')
@@ -171,6 +171,7 @@ class Migration(migrations.Migration):
                     help_text="The page title as you'd like it to be seen by the public"
                 )),
                 ('slug', models.SlugField(
+                    validators=[validate_unicode_slug],
                     verbose_name='Slug',
                     max_length=255,
                     help_text='The name of the page as it will appear in URLs e.g http://domain.com/blog/[my-slug]/'
