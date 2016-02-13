@@ -4,6 +4,7 @@ from __future__ import unicode_literals
 from django.db import models, migrations
 from wagtail.wagtailcore.utils import validate_unicode_slug
 
+
 class Migration(migrations.Migration):
 
     dependencies = [

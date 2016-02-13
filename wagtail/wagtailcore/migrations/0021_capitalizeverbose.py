@@ -7,6 +7,7 @@ from django.conf import settings
 
 from wagtail.wagtailcore.utils import validate_unicode_slug
 
+
 class Migration(migrations.Migration):
 
     dependencies = [

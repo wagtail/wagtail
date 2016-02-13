@@ -6,6 +6,7 @@ from django.conf import settings
 import wagtail.wagtailsearch.index
 from wagtail.wagtailcore.utils import validate_unicode_slug
 
+
 def set_page_path_collation(apps, schema_editor):
     """
     Treebeard's path comparison logic can fail on certain locales such as sk_SK, which

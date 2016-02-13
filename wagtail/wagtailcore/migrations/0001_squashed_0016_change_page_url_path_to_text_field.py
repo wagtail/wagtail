@@ -8,6 +8,7 @@ from django import VERSION as DJANGO_VERSION
 import wagtail.wagtailsearch.index
 from wagtail.wagtailcore.utils import validate_unicode_slug
 
+
 def initial_data(apps, schema_editor):
     ContentType = apps.get_model('contenttypes.ContentType')
     Group = apps.get_model('auth.Group')
