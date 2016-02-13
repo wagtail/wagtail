@@ -303,12 +303,8 @@ var wordsInText = function(text) {
     return words;
 };
 
-function cleanForSlug(val, useURLify) {
-    if (URLify != undefined && useURLify !== false) { // Check to be sure that URLify function exists, and that we want to use it.
-        return URLify(val);
-    } else { // If not just do the "replace"
-        return wordsInText(val).join('-').toLowerCase();
-    }
+function cleanForSlug(val) {
+    return wordsInText(val).join('-').toLowerCase();
 }
 
 function initSlugAutoPopulate() {
@@ -332,7 +328,7 @@ function initSlugAutoPopulate() {
 function initSlugCleaning() {
     $('#id_slug').blur(function() {
         // if a user has just set the slug themselves, don't remove stop words etc, just illegal characters
-        $(this).val(cleanForSlug($(this).val(), false));
+        $(this).val(cleanForSlug($(this).val()));
     });
 }
 
