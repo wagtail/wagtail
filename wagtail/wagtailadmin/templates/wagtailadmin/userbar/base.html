@@ -1,9 +1,7 @@
-{% load compress static i18n %}
+{% load staticfiles i18n %}
 <!-- Wagtail user bar embed code -->
 <div class="wagtail-userbar" data-wagtail-userbar>
-    {% compress css %}
     <link rel="stylesheet" href="{% static 'wagtailadmin/css/userbar.css' %}" type="text/css" />
-    {% endcompress %}
     <div class="wagtail-userbar-nav">
         <div class="icon icon-wagtail wagtail-userbar-trigger" data-wagtail-userbar-trigger>{% trans 'Go to Wagtail admin interface' %}</div>
         <ul>
@@ -12,8 +10,6 @@
             {% endfor %}
         </ul>
     </div>
-    {% compress js %}
     <script src="{% static 'wagtailadmin/js/userbar.js' %}"></script>
-    {% endcompress %}
 </div>
 <!-- end Wagtail user bar embed code -->
