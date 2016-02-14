@@ -317,3 +317,50 @@ class CollectionForm(forms.ModelForm):
     class Meta:
         model = Collection
         fields = ('name',)
+
+
+class BaseCollectionMemberForm(forms.ModelForm):
+    """
+    Abstract form handler for editing models that belong to a collection,
+    such as documents and images. These forms are (optionally) instantiated
+    with a 'user' kwarg, and take care of populating the 'collection' field's
+    choices with the collections the user has permission for, as well as
+    hiding the field when only one collection is available.
+
+    Subclasses must define a 'permission_policy' attribute.
+    """
+    def __init__(self, *args, **kwargs):
+        user = kwargs.pop('user', None)
+
+        super(BaseCollectionMemberForm, self).__init__(*args, **kwargs)
+
+        if user is None:
+            self.collections = Collection.objects.all()
+        else:
+            self.collections = (
+                self.permission_policy.collections_user_has_permission_for(user, 'add')
+            )
+
+        if self.instance.pk:
+            # editing an existing document; ensure that the list of available collections
+            # includes its current collection
+            self.collections = (
+                self.collections | Collection.objects.filter(id=self.instance.collection_id)
+            )
+
+        if len(self.collections) == 0:
+            raise Exception(
+                "Cannot construct %s for a user with no collection permissions" % type(self)
+            )
+        elif len(self.collections) == 1:
+            # don't show collection field if only one collection is available
+            del self.fields['collection']
+        else:
+            self.fields['collection'].queryset = self.collections
+
+    def save(self, commit=True):
+        if len(self.collections) == 1:
+            # populate the instance's collection field with the one available collection
+            self.instance.collection = self.collections[0]
+
+        return super(BaseCollectionMemberForm, self).save(commit=commit)
