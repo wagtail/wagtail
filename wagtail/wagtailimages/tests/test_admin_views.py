@@ -6,7 +6,7 @@ from django.test import TestCase, override_settings
 from django.utils.http import urlquote
 from django.core.urlresolvers import reverse
 from django.contrib.auth import get_user_model
-from django.contrib.auth.models import Permission
+from django.contrib.auth.models import Permission, Group
 from django.core.files.uploadedfile import SimpleUploadedFile
 from django.template.defaultfilters import filesizeformat
 
@@ -19,6 +19,7 @@ except ImportError:  # < Django 1,8
     urlquote_safechars = '/'
 
 from wagtail.tests.utils import WagtailTestUtils
+from wagtail.wagtailcore.models import Collection, GroupCollectionPermission
 from wagtail.wagtailimages.utils import generate_signature
 
 from .utils import Image, get_test_image_file
@@ -801,7 +802,16 @@ class TestEditOnlyPermissions(TestCase, WagtailTestUtils):
         )
         change_permission = Permission.objects.get(content_type__app_label='wagtailimages', codename='change_image')
         admin_permission = Permission.objects.get(content_type__app_label='wagtailadmin', codename='access_admin')
-        user.user_permissions.add(change_permission, admin_permission)
+
+        image_changers_group = Group.objects.create(name='Image changers')
+        image_changers_group.permissions.add(admin_permission)
+        GroupCollectionPermission.objects.create(
+            group=image_changers_group,
+            collection=Collection.get_first_root_node(),
+            permission=change_permission
+        )
+
+        user.groups.add(image_changers_group)
         self.client.login(username='changeonly', password='password')
 
     def test_get_index(self):
