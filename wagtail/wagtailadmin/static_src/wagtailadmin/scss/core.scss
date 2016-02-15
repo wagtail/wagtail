@@ -44,6 +44,14 @@ body {
     }
 }
 
+.visuallyvisible {
+    @include visuallyvisible;
+}
+
+.visuallyhidden {
+    @include visuallyhidden;
+}
+
 .capabilitymessage {
     display: block;
     background-color: $color-red;

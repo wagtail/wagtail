@@ -107,7 +107,8 @@ Contributors
 * Nigel Fletton
 * Kait Crawford
 * Adam Bolfik
-
+* Thomas Winter
+* Gareth Price
 
 Translators
 ===========

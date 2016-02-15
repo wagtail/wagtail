@@ -26,9 +26,10 @@ def get_page_instance(context):
 
 
 @register.simple_tag(takes_context=True)
-def wagtailuserbar(context):
+def wagtailuserbar(context, position='bottom-right'):
     # Find request object
     request = context['request']
+
 
     # Don't render if user doesn't have permission to access the admin area
     if not request.user.has_perm('wagtailadmin.access_admin'):
@@ -78,6 +79,7 @@ def wagtailuserbar(context):
     return render_to_string('wagtailadmin/userbar/base.html', {
         'request': request,
         'items': rendered_items,
+        'position': position,
         'page': page,
         'revision_id': revision_id
     })

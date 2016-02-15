@@ -2,7 +2,7 @@
 {% load i18n  %}
 
 {% block item_content %}
-  <div class="action icon icon-wagtail">
-    <a href="{% url 'wagtailadmin_home' %}" target="_parent" class="">{% trans 'Go to Wagtail admin' %}</a>
-  </div>
+    <div class="wagtail-action wagtail-icon wagtail-icon-wagtail">
+        <a href="{% url 'wagtailadmin_home' %}" target="_parent" class="">{% trans 'Go to Wagtail admin' %}</a>
+    </div>
 {% endblock %}

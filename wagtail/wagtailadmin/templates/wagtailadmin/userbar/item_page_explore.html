@@ -2,7 +2,7 @@
 {% load i18n %}
 
 {% block item_content %}
-    <div class="action icon icon-folder-open-inverse">
+    <div class="wagtail-action wagtail-icon wagtail-icon-folder-open-inverse">
         <a href="{% url 'wagtailadmin_explore' self.parent_page.id %}" target="_parent">{% trans 'Show in Explorer' %}</a>
     </div>
 {% endblock %}

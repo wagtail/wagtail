@@ -1,15 +1,17 @@
 {% load staticfiles i18n %}
 <!-- Wagtail user bar embed code -->
-<div class="wagtail-userbar" data-wagtail-userbar>
-    <link rel="stylesheet" href="{% static 'wagtailadmin/css/userbar.css' %}" type="text/css" />
-    <div class="wagtail-userbar-nav">
-        <div class="icon icon-wagtail wagtail-userbar-trigger" data-wagtail-userbar-trigger>{% trans 'Go to Wagtail admin interface' %}</div>
-        <ul>
-            {% for item in items %}
-                {{ item|safe }}
-            {% endfor %}
-        </ul>
+<div class="wagtail-userbar-reset">
+    <div class="wagtail-userbar wagtail-userbar--{{ position|default:'bottom-right' }}" data-wagtail-userbar>
+        <link rel="stylesheet" href="{% static 'wagtailadmin/css/userbar.css' %}" type="text/css" />
+        <div class="wagtail-userbar-nav">
+            <div class="wagtail-icon wagtail-icon-wagtail wagtail-userbar-trigger" data-wagtail-userbar-trigger>{% trans 'Go to Wagtail admin interface' %}</div>
+            <ul class='wagtail-userbar-items'>
+                {% for item in items %}
+                    {{ item|safe }}
+                {% endfor %}
+            </ul>
+        </div>
+        <script src="{% static 'wagtailadmin/js/userbar.js' %}"></script>
     </div>
-    <script src="{% static 'wagtailadmin/js/userbar.js' %}"></script>
 </div>
 <!-- end Wagtail user bar embed code -->
