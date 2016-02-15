@@ -230,6 +230,9 @@ class TestGroupCreateView(TestCase, WagtailTestUtils):
             'document_permissions-TOTAL_FORMS': ['0'],
             'document_permissions-MAX_NUM_FORMS': ['1000'],
             'document_permissions-INITIAL_FORMS': ['0'],
+            'image_permissions-TOTAL_FORMS': ['0'],
+            'image_permissions-MAX_NUM_FORMS': ['1000'],
+            'image_permissions-INITIAL_FORMS': ['0'],
         }
         for k, v in six.iteritems(post_defaults):
             post_data[k] = post_data.get(k, v)
@@ -364,6 +367,9 @@ class TestGroupEditView(TestCase, WagtailTestUtils):
             'document_permissions-INITIAL_FORMS': ['1'],
             'document_permissions-0-collection': [self.evil_plans_collection.id],
             'document_permissions-0-permissions': [self.add_doc_permission.id],
+            'image_permissions-TOTAL_FORMS': ['0'],
+            'image_permissions-MAX_NUM_FORMS': ['1000'],
+            'image_permissions-INITIAL_FORMS': ['0'],
         }
         for k, v in six.iteritems(post_defaults):
             post_data[k] = post_data.get(k, v)

@@ -11,6 +11,7 @@ from wagtail.wagtailadmin.site_summary import SummaryItem
 from wagtail.wagtailadmin.search import SearchArea
 
 from wagtail.wagtailimages import admin_urls, image_operations
+from wagtail.wagtailimages.forms import GroupImagePermissionFormSet
 from wagtail.wagtailimages.models import get_image_model
 from wagtail.wagtailimages.permissions import permission_policy
 from wagtail.wagtailimages.rich_text import ImageEmbedHandler
@@ -59,12 +60,6 @@ def editor_js():
     )
 
 
-@hooks.register('register_permissions')
-def register_permissions():
-    return Permission.objects.filter(content_type__app_label='wagtailimages',
-                                     codename__in=['add_image', 'change_image'])
-
-
 @hooks.register('register_image_operations')
 def register_image_operations():
     return [
@@ -111,3 +106,8 @@ def register_images_search_area():
         name='images',
         classnames='icon icon-image',
         order=200)
+
+
+@hooks.register('register_group_permission_panel')
+def register_image_permissions_panel():
+    return GroupImagePermissionFormSet

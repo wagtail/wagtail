@@ -3,9 +3,12 @@ from django.forms.models import modelform_factory
 from django.utils.translation import ugettext as _
 
 from wagtail.wagtailadmin import widgets
-from wagtail.wagtailadmin.forms import BaseCollectionMemberForm
+from wagtail.wagtailadmin.forms import (
+    BaseCollectionMemberForm, collection_member_permission_formset_factory
+)
 from wagtail.wagtailimages.formats import get_image_formats
 from wagtail.wagtailimages.fields import WagtailImageField
+from wagtail.wagtailimages.models import Image
 from wagtail.wagtailimages.permissions import permission_policy as images_permission_policy
 
 
@@ -77,3 +80,13 @@ class URLGeneratorForm(forms.Form):
     width = forms.IntegerField(_("Width"), min_value=0)
     height = forms.IntegerField(_("Height"), min_value=0)
     closeness = forms.IntegerField(_("Closeness"), min_value=0, initial=0)
+
+
+GroupImagePermissionFormSet = collection_member_permission_formset_factory(
+    Image,
+    [
+        ('add_image', _("Add"), _("Add/edit images you own")),
+        ('change_image', _("Edit"), _("Edit any image")),
+    ],
+    'wagtailimages/permissions/includes/image_permissions_formset.html'
+)
