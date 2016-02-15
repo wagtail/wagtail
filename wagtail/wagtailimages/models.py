@@ -307,6 +307,7 @@ class Image(AbstractImage):
     admin_form_fields = (
         'title',
         'file',
+        'collection',
         'tags',
         'focal_point_x',
         'focal_point_y',
