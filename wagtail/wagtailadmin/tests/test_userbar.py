@@ -6,7 +6,7 @@ from django.contrib.auth import get_user_model
 from django.contrib.auth.models import AnonymousUser
 
 from wagtail.tests.utils import WagtailTestUtils
-from wagtail.wagtailcore.models import Page, PAGE_TEMPLATE_VAR
+from wagtail.wagtailcore.models import Page, Site, PAGE_TEMPLATE_VAR
 from wagtail.tests.testapp.models import BusinessIndex, BusinessChild
 
 
@@ -22,6 +22,7 @@ class TestUserbarTag(TestCase):
     def dummy_request(self, user=None):
         request = RequestFactory().get('/')
         request.user = user or AnonymousUser()
+        request.site = Site.objects.first()
         return request
 
     def test_userbar_tag(self):
