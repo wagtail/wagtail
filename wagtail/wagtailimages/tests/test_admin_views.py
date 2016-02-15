@@ -66,10 +66,25 @@ class TestImageAddView(TestCase, WagtailTestUtils):
     def post(self, post_data={}):
         return self.client.post(reverse('wagtailimages:add'), post_data)
 
-    def test_simple(self):
+    def test_get(self):
         response = self.get()
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'wagtailimages/images/add.html')
+
+        # as standard, only the root collection exists and so no 'Collection' option
+        # is displayed on the form
+        self.assertNotContains(response, '<label for="id_collection">')
+
+    def test_get_with_collections(self):
+        root_collection = Collection.get_first_root_node()
+        root_collection.add_child(name="Evil plans")
+
+        response = self.get()
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'wagtailimages/images/add.html')
+
+        self.assertContains(response, '<label for="id_collection">')
+        self.assertContains(response, "Evil plans")
 
     def test_add(self):
         response = self.post({
@@ -91,6 +106,10 @@ class TestImageAddView(TestCase, WagtailTestUtils):
 
         # Test that the file_size field was set
         self.assertTrue(image.file_size)
+
+        # Test that it was placed in the root collection
+        root_collection = Collection.get_first_root_node()
+        self.assertEqual(image.collection, root_collection)
 
     @override_settings(DEFAULT_FILE_STORAGE='wagtail.tests.dummy_external_storage.DummyExternalStorage')
     def test_add_with_external_file_storage(self):
@@ -137,6 +156,90 @@ class TestImageAddView(TestCase, WagtailTestUtils):
                 file_size=filesizeformat(len(file_content)),
                 max_file_size=filesizeformat(1),
             )
+        )
+
+    def test_add_with_collections(self):
+        root_collection = Collection.get_first_root_node()
+        evil_plans_collection = root_collection.add_child(name="Evil plans")
+
+        response = self.post({
+            'title': "Test image",
+            'file': SimpleUploadedFile('test.png', get_test_image_file().file.getvalue()),
+            'collection': evil_plans_collection.id,
+        })
+
+        # Should redirect back to index
+        self.assertRedirects(response, reverse('wagtailimages:index'))
+
+        # Check that the image was created
+        images = Image.objects.filter(title="Test image")
+        self.assertEqual(images.count(), 1)
+
+        # Test that it was placed in the Evil Plans collection
+        image = images.first()
+        self.assertEqual(image.collection, evil_plans_collection)
+
+
+class TestImageAddViewWithLimitedCollectionPermissions(TestCase, WagtailTestUtils):
+    def setUp(self):
+        add_image_permission = Permission.objects.get(
+            content_type__app_label='wagtailimages', codename='add_image'
+        )
+        admin_permission = Permission.objects.get(
+            content_type__app_label='wagtailadmin', codename='access_admin'
+        )
+
+        root_collection = Collection.get_first_root_node()
+        self.evil_plans_collection = root_collection.add_child(name="Evil plans")
+
+        conspirators_group = Group.objects.create(name="Evil conspirators")
+        conspirators_group.permissions.add(admin_permission)
+        GroupCollectionPermission.objects.create(
+            group=conspirators_group,
+            collection=self.evil_plans_collection,
+            permission=add_image_permission
+        )
+
+        user = get_user_model().objects.create_user(
+            username='moriarty',
+            email='moriarty@example.com',
+            password='password'
+        )
+        user.groups.add(conspirators_group)
+
+        self.client.login(username='moriarty', password='password')
+
+    def get(self, params={}):
+        return self.client.get(reverse('wagtailimages:add'), params)
+
+    def post(self, post_data={}):
+        return self.client.post(reverse('wagtailimages:add'), post_data)
+
+    def test_get(self):
+        response = self.get()
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'wagtailimages/images/add.html')
+
+        # user only has access to one collection, so no 'Collection' option
+        # is displayed on the form
+        self.assertNotContains(response, '<label for="id_collection">')
+
+    def test_add(self):
+        response = self.post({
+            'title': "Test image",
+            'file': SimpleUploadedFile('test.png', get_test_image_file().file.getvalue()),
+        })
+
+        # User should be redirected back to the index
+        self.assertRedirects(response, reverse('wagtailimages:index'))
+
+        # Image should be created in the 'evil plans' collection,
+        # despite there being no collection field in the form, because that's the
+        # only one the user has access to
+        self.assertTrue(Image.objects.filter(title="Test image").exists())
+        self.assertEqual(
+            Image.objects.get(title="Test image").collection,
+            self.evil_plans_collection
         )
 
 
