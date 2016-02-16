@@ -2,7 +2,6 @@ from django.conf.urls import include, url
 from django.core import urlresolvers
 from django.utils.html import format_html, format_html_join
 from django.utils.translation import ugettext_lazy as _
-from django.contrib.auth.models import Permission
 from django.contrib.staticfiles.templatetags.staticfiles import static
 
 from wagtail.wagtailcore import hooks
