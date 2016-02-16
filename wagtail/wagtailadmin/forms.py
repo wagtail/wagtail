@@ -504,7 +504,7 @@ def collection_member_permission_formset_factory(
         )
 
     GroupCollectionMemberPermissionFormSet = type(
-        'GroupCollectionMemberPermissionFormSet',
+        str('GroupCollectionMemberPermissionFormSet'),
         (BaseGroupCollectionMemberPermissionFormSet, ),
         {
             'permission_types': permission_types,
