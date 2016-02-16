@@ -96,17 +96,19 @@ class CloudfrontBackend(BaseBackend):
 
     def purge(self, url):
         try:
+            url_parsed = urlparse(url)
+            path = url_parsed.path
             self.client.create_invalidation(
                 DistributionId=self.cloudfront_distribution_id,
                 InvalidationBatch={
                     'Paths': {
                         'Quantity': 1,
                         'Items': [
-                            url,
+                            path,
                         ]
                     },
                     'CallerReference': str(uuid.uuid4())
                 }
             )
         except botocore.exceptions.ClientError as e:
-            logger.error("Couldn't purge '%s' from Cloudfront. ClientError: %s %s", url, e.response['Error']['Code'], e.response['Error']['Message'])
+            logger.error("Couldn't purge '%s' from Cloudfront. ClientError: %s %s", path, e.response['Error']['Code'], e.response['Error']['Message'])
