@@ -67,17 +67,20 @@ ul {
     clear: both;
 }
 
+// min-width as the exact value
+// width for transition
 li {
     @include transition(left 0.2s ease, width 0.1s ease);
     float: right;
     clear: both;
-    width: 3.5em;
+    min-width: 3.5em;
+    width: 0%;
     overflow: hidden;
     position: relative;
     padding-bottom: 1px;
 
     &:hover {
-        width: 10em;
+        width: 100%;
     }
 }
 
@@ -109,7 +112,6 @@ li,
 a.action, 
 a {
     display: block;
-    width: 10em;
     text-align: left;
     overflow: hidden;
     text-decoration: none;
