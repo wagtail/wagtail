@@ -819,14 +819,19 @@ def unlock(request, page_id):
 def revisions_index(request, page_id):
     page = get_object_or_404(Page, id=page_id).specific
 
-    # Get all revisions other than most recent (the current draft)
-    # since we don't want to be able to revert the current draft to itself!
-    revisions = page.revisions.order_by('-created_at')[1:]
+    # Get page ordering
+    ordering = request.GET.get('ordering', '-created_at')
+    if ordering not in ['created_at', '-created_at',]:
+        ordering = '-created_at'
+
+    revisions = page.revisions.order_by(ordering)
 
     paginator, revisions = paginate(request, revisions)
 
     return render(request, 'wagtailadmin/pages/revisions/index.html', {
         'page': page,
+        'ordering': ordering,
+        'pagination_query_params': "ordering=%s" % ordering,
         'revisions': revisions,
     })
 
