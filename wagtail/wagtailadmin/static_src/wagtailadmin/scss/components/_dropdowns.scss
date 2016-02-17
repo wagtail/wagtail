@@ -148,14 +148,6 @@
         &:hover {
             background-color: $color-teal-darker;
         }
-
-        &.warning {
-            background-color: $color-button-warning;
-
-            &:hover {
-                background-color: $color-button-warning-hover;
-            }
-        }
     }
 
     &.open .dropdown-toggle {
@@ -213,6 +205,20 @@
             &:hover {
                 background-color: $color-grey-3;
             }
+        }
+    }
+}
+
+.dropdown.warning {
+    ul {
+        background-color: $color-button-warning;
+    }
+
+    .dropdown-toggle {
+        background-color: $color-button-warning;
+
+        &:hover {
+            background-color: $color-button-warning-hover;
         }
     }
 }
