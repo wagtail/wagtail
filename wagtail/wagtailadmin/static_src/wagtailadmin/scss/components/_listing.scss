@@ -428,7 +428,21 @@ table.listing {
                     color: $color-white;
                 }
             }
+        }
 
+        .button {
+            background-color: transparent;
+            color: $color-white;
+            border-color: $color-teal-darker;
+
+            &:hover {
+                color: $color-white;
+                background: $color-teal-darker;
+            }
+
+            &.bicolor {
+                background: $color-teal-darker;
+            }
         }
     }
 
