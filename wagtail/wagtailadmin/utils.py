@@ -6,6 +6,7 @@ from django.conf import settings
 from django.contrib.auth import get_user_model
 from django.db.models import Q
 from django.shortcuts import redirect
+from django.utils.html import strip_tags
 from django.utils.translation import ugettext as _
 
 from modelcluster.fields import ParentalKey
@@ -201,5 +202,10 @@ def send_notification(page_revision_id, notification, excluded_user_id):
         # Get email subject and content
         email_subject, email_content = render_to_string(template, context).split('\n', 1)
 
+        kwargs = {}
+        if getattr(settings, 'WAGTAILADMIN_NOTIFICATION_USE_HTML', False):
+            kwargs['html_message'] = email_content
+            email_content = strip_tags(email_content)
+
         # Send email
-        send_mail(email_subject, email_content, [recipient.email])
+        send_mail(email_subject, email_content, [recipient.email], **kwargs)
