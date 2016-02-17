@@ -273,6 +273,12 @@ def edit(request, page_id):
 
             is_publishing = bool(request.POST.get('action-publish')) and page_perms.can_publish()
             is_submitting = bool(request.POST.get('action-submit'))
+            is_reverting = bool(request.POST.get('revision'))
+
+            # If a revision ID was passed in the form, get that revision so its
+            # date can be referenced in notification messages
+            if is_reverting:
+                previous_revision = get_object_or_404(page.revisions, id=request.POST.get('revision'))
 
             # Save revision
             revision = page.save_revision(
@@ -289,23 +295,33 @@ def edit(request, page_id):
 
             # Notifications
             if is_publishing:
+                if is_reverting:
+                    prefix = _("Revision from {0} of page").format(previous_revision.created_at.strftime("%d %b %Y %H:%M"))
+                else :
+                    prefix = _("Page")
+
                 if page.go_live_at and page.go_live_at > timezone.now():
-                    messages.success(request, _("Page '{0}' scheduled for publishing.").format(page.title), buttons=[
+                    messages.success(request, _("{0} '{1}' has been scheduled for publishing.").format(prefix, page.title), buttons=[
                         messages.button(reverse('wagtailadmin_pages:edit', args=(page.id,)), _('Edit'))
                     ])
                 else:
-                    messages.success(request, _("Page '{0}' published.").format(page.title), buttons=[
+                    messages.success(request, _("{0} '{1}' has been published.").format(prefix, page.title), buttons=[
                         messages.button(page.url, _('View live')),
                         messages.button(reverse('wagtailadmin_pages:edit', args=(page_id,)), _('Edit'))
                     ])
             elif is_submitting:
-                messages.success(request, _("Page '{0}' submitted for moderation.").format(page.title), buttons=[
+                messages.success(request, _("Page '{0}' has been submitted for moderation.").format(page.title), buttons=[
                     messages.button(reverse('wagtailadmin_pages:view_draft', args=(page_id,)), _('View draft')),
                     messages.button(reverse('wagtailadmin_pages:edit', args=(page_id,)), _('Edit'))
                 ])
                 send_notification(page.get_latest_revision().id, 'submitted', request.user.id)
             else:
-                messages.success(request, _("Page '{0}' updated.").format(page.title))
+                if is_reverting:
+                    suffix = _("replaced with revision from {0}").format(previous_revision.created_at.strftime("%d %b %Y %H:%M"))
+                else :
+                    suffix = _("updated")
+
+                messages.success(request, _("Page '{0}' has been {1}.").format(page.title, suffix))
 
             for fn in hooks.get_hooks('after_edit_page'):
                 result = fn(request, page)
@@ -843,6 +859,7 @@ def revisions_revert(request, page_id, revision_id):
 
     return render(request, 'wagtailadmin/pages/edit.html', {
         'page': page,
+        'revision': revision,
         'is_revision': True,
         'content_type': content_type,
         'edit_handler': edit_handler,
