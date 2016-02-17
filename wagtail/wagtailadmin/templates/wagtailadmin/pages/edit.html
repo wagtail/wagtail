@@ -28,6 +28,10 @@
         {% csrf_token %}
         {{ edit_handler.render_form_content }}
 
+        {% if is_revision %}
+            <input type="hidden" name="revision" value="{{ revision.id }}" />
+        {% endif %}
+
         <footer>
             <ul>
                 <li class="actions">
