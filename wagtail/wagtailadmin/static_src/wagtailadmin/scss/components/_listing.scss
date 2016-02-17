@@ -356,13 +356,14 @@ ul.listing {
         }
 
         .button {
-            background-color: transparent;
-            color: $color-white;
-            border-color: $color-teal-darker;
+            background-color: $color-white;
+            color: $color-teal;
+            border-color: $color-teal;
 
             &:hover {
                 color: $color-white;
                 background: $color-teal-darker;
+                border-color: $color-teal-darker;
             }
 
             &.bicolor {
