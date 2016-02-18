@@ -16,6 +16,12 @@ Protection against unsaved changes
 The page editor interface now produces a warning if the user attempts to navigate away while there are unsaved changes.
 
 
+Multiple document uploader
+~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+The "Add a document" interface now supports uploading multiple documents at once, in the same way as uploading images.
+
+
 Customisation of the page listing QuerySet
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 

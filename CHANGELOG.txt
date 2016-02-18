@@ -5,6 +5,7 @@ Changelog
 ~~~~~~~~~~~~~~~~
 
  * The page editor now produces a warning if the user navigates away without saving changes
+ * 'Add document' interface now supports uploading multiple documents at once
  * The set of pages displayed in the page explorer can now be customised with a new hook called `construct_explorer_page_queryset`
  * The `Document` model can now be overridden using the new `WAGTAILDOCS_DOCUMENT_MODEL` setting (Alex Gleason)
  * Wagtail no longer depends on django-compressor
