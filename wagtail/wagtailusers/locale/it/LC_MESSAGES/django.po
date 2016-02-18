@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-12-17 13:55+0000\n"
-"PO-Revision-Date: 2015-12-17 14:00+0000\n"
+"POT-Creation-Date: 2016-02-05 17:02+0000\n"
+"PO-Revision-Date: 2016-02-05 17:11+0000\n"
 "Last-Translator: mattwestcott <matthew@torchbox.com>\n"
 "Language-Team: Italian (http://www.transifex.com/torchbox/wagtail/language/"
 "it/)\n"
@@ -36,10 +36,6 @@ msgstr "Le password non corrispondono"
 msgid "Administrator"
 msgstr "Amministratore"
 
-msgid "If ticked, this user has the ability to manage user accounts."
-msgstr ""
-"Se selezionata, l'utente ha la possibilità di gestire gli account utente."
-
 msgid "Password"
 msgstr "Password"
 
@@ -61,20 +57,29 @@ msgstr "Nome"
 msgid "Last Name"
 msgstr "Cognome"
 
-msgid "Administrators have the ability to manage user accounts."
-msgstr "Gli amministratori hanno la possibilità di gestire gli account utente."
-
 msgid "A group with that name already exists."
 msgstr "Gruppo già esistente."
+
+msgid "submitted notifications"
+msgstr "notifiche inviate"
 
 msgid "Receive notification when a page is submitted for moderation"
 msgstr "Ricevi una notifica quando una pagina viene inviata per la moderazione"
 
+msgid "approved notifications"
+msgstr "notifiche approvate"
+
 msgid "Receive notification when your page edit is approved"
 msgstr "Ricevi notifica quando la modifica di una tua pagina viene approvata"
 
+msgid "rejected notifications"
+msgstr "notifiche rifiutate"
+
 msgid "Receive notification when your page edit is rejected"
 msgstr "Ricevi notifica quando la modifica di una tua pagina viene rifiutata"
+
+msgid "user profile"
+msgstr "profilo utente"
 
 msgid "Delete group"
 msgstr "Elimina gruppo"

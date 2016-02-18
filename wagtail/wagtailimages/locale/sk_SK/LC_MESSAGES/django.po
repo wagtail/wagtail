@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-12-17 13:54+0000\n"
-"PO-Revision-Date: 2015-12-17 13:59+0000\n"
+"POT-Creation-Date: 2016-02-05 17:02+0000\n"
+"PO-Revision-Date: 2016-02-05 17:09+0000\n"
 "Last-Translator: mattwestcott <matthew@torchbox.com>\n"
 "Language-Team: Slovak (Slovakia) (http://www.transifex.com/torchbox/wagtail/"
 "language/sk_SK/)\n"
@@ -77,6 +77,24 @@ msgstr "Šírka"
 msgid "Height"
 msgstr "Výška"
 
+msgid "title"
+msgstr "titulok"
+
+msgid "file"
+msgstr "súbor"
+
+msgid "width"
+msgstr "šírka"
+
+msgid "height"
+msgstr "výška"
+
+msgid "created at"
+msgstr "vytvorené"
+
+msgid "uploaded by user"
+msgstr "nahral používateľ"
+
 msgid "Choose an image"
 msgstr "Vybrať obrázok"
 
@@ -88,6 +106,9 @@ msgstr "Nahrať"
 
 msgid "Popular tags"
 msgstr "Populárne tagy"
+
+msgid "Uploading..."
+msgstr "Odosielam..."
 
 msgid "Latest images"
 msgstr "Posledné obrázky"
@@ -137,6 +158,13 @@ msgstr "Naozaj chcete zmazať tento obrázok?"
 
 msgid "Yes, delete"
 msgstr "Áno, zmazať"
+
+#, python-format
+msgid "Editing image %(title)s"
+msgstr "Úprava obrázka %(title)s"
+
+msgid "Editing"
+msgstr "Upraviť obrázok"
 
 msgid "Focal point (optional)"
 msgstr "Ohniskový bod (nepovinné)"
@@ -223,6 +251,9 @@ msgstr ""
 
 msgid "Sorry, upload failed."
 msgstr "Prepáčte, ale nahrávanie zlihalo."
+
+msgid "Image updated."
+msgstr "Obrázok bol aktualizovaný."
 
 msgid "Update"
 msgstr "Aktualizovať"

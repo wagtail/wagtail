@@ -66,7 +66,7 @@ wish to do something when a new blog post is published:
     from mysite.models import BlogPostPage
 
     # Do something clever for each model type
-    def receiver(model, **kwargs):
+    def receiver(sender, **kwargs):
         # Do something with blog posts
         pass
 

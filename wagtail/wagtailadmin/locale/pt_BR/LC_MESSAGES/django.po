@@ -11,8 +11,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-12-17 13:54+0000\n"
-"PO-Revision-Date: 2015-12-17 13:57+0000\n"
+"POT-Creation-Date: 2016-02-05 17:01+0000\n"
+"PO-Revision-Date: 2016-02-05 17:08+0000\n"
 "Last-Translator: mattwestcott <matthew@torchbox.com>\n"
 "Language-Team: Portuguese (Brazil) (http://www.transifex.com/torchbox/"
 "wagtail/language/pt_BR/)\n"
@@ -27,6 +27,15 @@ msgstr "Publicação agendada"
 
 msgid "Common page configuration"
 msgstr "Configuração comum de página"
+
+msgid "Content"
+msgstr "Conteúdo"
+
+msgid "Promote"
+msgstr "Promover"
+
+msgid "Settings"
+msgstr "Configurações"
 
 msgid "Search"
 msgstr "Pesquisar"
@@ -114,6 +123,15 @@ msgstr "Privado, acessível com a seguinte senha"
 
 msgid "This field is required."
 msgstr "Este campo é obrigatório."
+
+msgid "This slug is already in use"
+msgstr "Esse endereço já existe"
+
+msgid "Go live date/time must be before expiry date/time"
+msgstr "Data/hora para ficar online deve ser antes da data/hora de expiração"
+
+msgid "Expiry date/time must be in the future"
+msgstr "Data/hora de expiração deve ser no futuro."
 
 msgid "Account"
 msgstr "Minha conta"
@@ -763,15 +781,6 @@ msgstr "A página não pode ser salva devido a erros de validação"
 msgid "This page is currently awaiting moderation"
 msgstr "Essa página está atualmente esperando moderação"
 
-msgid "This slug is already in use"
-msgstr "Esse endereço já existe"
-
-msgid "Go live date/time must be before expiry date/time"
-msgstr "Data/hora para ficar online deve ser antes da data/hora de expiração"
-
-msgid "Expiry date/time must be in the future"
-msgstr "Data/hora de expiração deve ser no futuro."
-
 #, python-brace-format
 msgid "Page '{0}' deleted."
 msgstr "Página '{0}' excluida."
@@ -791,15 +800,6 @@ msgstr "Página '{0}' e {1} subpáginas copiadas."
 #, python-brace-format
 msgid "Page '{0}' copied."
 msgstr "Página '{0}' copiada."
-
-msgid "Content"
-msgstr "Conteúdo"
-
-msgid "Promote"
-msgstr "Promover"
-
-msgid "Settings"
-msgstr "Configurações"
 
 #, python-brace-format
 msgid "The page '{0}' is not currently awaiting moderation."

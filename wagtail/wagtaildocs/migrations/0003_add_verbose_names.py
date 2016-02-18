@@ -25,6 +25,7 @@ class Migration(migrations.Migration):
             model_name='document',
             name='uploaded_by_user',
             field=models.ForeignKey(
+                on_delete=models.CASCADE,
                 blank=True,
                 editable=False,
                 to=settings.AUTH_USER_MODEL,

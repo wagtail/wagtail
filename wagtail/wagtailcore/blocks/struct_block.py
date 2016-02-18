@@ -8,6 +8,7 @@ from django.forms.utils import ErrorList
 from django.template.loader import render_to_string
 from django.utils.encoding import python_2_unicode_compatible
 from django.utils.functional import cached_property
+from django.contrib.staticfiles.templatetags.staticfiles import static
 
 # Must be imported from Django so we get the new implementation of with_metaclass
 from django.utils import six
@@ -63,7 +64,7 @@ class BaseStructBlock(Block):
 
     @property
     def media(self):
-        return forms.Media(js=['wagtailadmin/js/blocks/struct.js'])
+        return forms.Media(js=[static('wagtailadmin/js/blocks/struct.js')])
 
     def render_form(self, value, prefix='', errors=None):
         if errors:

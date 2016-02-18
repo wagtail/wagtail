@@ -31,7 +31,6 @@ STATIC_ROOT = STATIC_ROOT
 
 STATICFILES_FINDERS = (
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
-    'compressor.finders.CompressorFinder',
 )
 
 USE_TZ = True
@@ -111,7 +110,6 @@ INSTALLED_APPS = (
     'wagtail.wagtailcore',
 
     'taggit',
-    'compressor',
     'rest_framework',
 
     'django.contrib.admin',
@@ -136,8 +134,6 @@ CACHES = {
 PASSWORD_HASHERS = (
     'django.contrib.auth.hashers.MD5PasswordHasher',  # don't use the intentionally slow default password hasher
 )
-
-COMPRESS_ENABLED = False  # disable compression so that we can run tests on the content of the compress tag
 
 
 WAGTAILSEARCH_BACKENDS = {

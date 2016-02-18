@@ -23,6 +23,6 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='searchpromotion',
             name='page',
-            field=models.ForeignKey(to='wagtailcore.Page', verbose_name='page'),
+            field=models.ForeignKey(on_delete=models.CASCADE, to='wagtailcore.Page', verbose_name='page'),
         ),
     ]

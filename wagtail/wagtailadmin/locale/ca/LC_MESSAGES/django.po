@@ -3,13 +3,14 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# Antoni Aloy <aaloy@apsl.net>, 2016
 # David Llop <d.lloople@gmail.com>, 2014
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-12-17 13:54+0000\n"
-"PO-Revision-Date: 2015-12-17 13:57+0000\n"
+"POT-Creation-Date: 2016-02-05 17:01+0000\n"
+"PO-Revision-Date: 2016-02-05 17:08+0000\n"
 "Last-Translator: mattwestcott <matthew@torchbox.com>\n"
 "Language-Team: Catalan (http://www.transifex.com/torchbox/wagtail/language/"
 "ca/)\n"
@@ -18,6 +19,9 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: ca\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Scheduled publishing"
+msgstr "Planificar la publicació"
 
 msgid "Common page configuration"
 msgstr "Configuració de la pàgina comú"
@@ -28,8 +32,15 @@ msgstr "Cercar"
 msgid "Search term"
 msgstr "Termini de cerca"
 
+msgid "URL"
+msgstr "URL"
+
 msgid "Enter password"
 msgstr "Introdueix la contrassenya"
+
+#, python-format
+msgid "Enter your %s"
+msgstr "Introdueix el teu %s"
 
 msgid "Enter your email address to reset your password"
 msgstr "Escriu el teu correu per reiniciar la teva contrasenya"
@@ -46,6 +57,53 @@ msgstr ""
 
 msgid "This email address is not recognised."
 msgstr "No es reconeix aquesta adreça de correu"
+
+msgid "New title"
+msgstr "Nou títol"
+
+msgid "New slug"
+msgstr "Nou slug"
+
+msgid "New parent page"
+msgstr "Nova plana pare"
+
+msgid "This copy will be a child of this given parent page."
+msgstr "Aquesta còpia serà filla de la plana pare donada."
+
+msgid "Copy subpages"
+msgstr "Copiar subplanes"
+
+#, python-format
+msgid "This will copy %(count)s subpage."
+msgid_plural "This will copy %(count)s subpages."
+msgstr[0] "Això copiarà %(count)s subplana."
+msgstr[1] "Això copiarà %(count)s subplanes,."
+
+msgid "Publish copied page"
+msgstr "Publicar la plana copiada"
+
+msgid "This page is live. Would you like to publish its copy as well?"
+msgstr "Aquesta plana està visible. Voleu publicar també la seva còpia?"
+
+msgid "Publish copies"
+msgstr "Publicar còpies"
+
+#, python-format
+msgid ""
+"This slug is already in use within the context of its parent page \"%s\""
+msgstr "Aquest slug ja està en ús dins el context de la seva plana pare \"%s\""
+
+msgid "Public"
+msgstr "Publica"
+
+msgid "Private, accessible with the following password"
+msgstr "Privada, accessible amb la següent clau"
+
+msgid "This field is required."
+msgstr "Aquest camp és obligatori"
+
+msgid "This slug is already in use"
+msgstr "Aquest llimac ja està en ús"
 
 msgid "Account"
 msgstr "Compte"
@@ -68,6 +126,12 @@ msgstr "Canviar contrasenya"
 msgid "Change the password you use to log in."
 msgstr "Canvia la password que fas servir per connectar-te"
 
+msgid "Notification preferences"
+msgstr "Preferències de notificació"
+
+msgid "Choose which email notifications to receive."
+msgstr "Seleccioni quines notificacions de correu vol rebre."
+
 msgid "Change Password"
 msgstr "Canvia la contrasenya"
 
@@ -76,6 +140,12 @@ msgid ""
 msgstr ""
 "La teva contrasenya no es pot canviar des d'aquí. Si us plau contacta amb "
 "l'administrador de la web"
+
+msgid "Notification Preferences"
+msgstr "Preferències de notificació"
+
+msgid "Update"
+msgstr "Actualitzar"
 
 msgid "Reset password"
 msgstr "Reiniciar contrasenya"
@@ -113,6 +183,9 @@ msgstr "Tauler de control"
 msgid "Menu"
 msgstr "Menú"
 
+msgid "Add another"
+msgstr "Afegir un altra"
+
 msgid "Move up"
 msgstr "Puja"
 
@@ -133,6 +206,9 @@ msgstr "Enllaç extern"
 
 msgid "Email link"
 msgstr "Enllaç de correu electrònic"
+
+msgid "Choose"
+msgstr "Seleccionar"
 
 msgid "Choose a page"
 msgstr "Escull una pàgina"
@@ -434,9 +510,6 @@ msgstr "La pàgina no s'ha pogut guardar degut a errors de validació"
 
 msgid "This page is currently awaiting moderation"
 msgstr "Aquesta pàgina està esperant moderació"
-
-msgid "This slug is already in use"
-msgstr "Aquest llimac ja està en ús"
 
 #, python-brace-format
 msgid "Page '{0}' deleted."

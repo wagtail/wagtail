@@ -3,14 +3,14 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# Daigo Shitara <stain.witness@gmail.com>, 2014
+# Daigo Shitara <stain.witness@gmail.com>, 2014,2016
 # 石田秀 <ishidashu@gmail.com>, 2015
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-12-17 13:54+0000\n"
-"PO-Revision-Date: 2015-12-17 13:58+0000\n"
+"POT-Creation-Date: 2016-02-05 17:01+0000\n"
+"PO-Revision-Date: 2016-02-05 17:09+0000\n"
 "Last-Translator: mattwestcott <matthew@torchbox.com>\n"
 "Language-Team: Japanese (http://www.transifex.com/torchbox/wagtail/language/"
 "ja/)\n"
@@ -20,6 +20,24 @@ msgstr ""
 "Language: ja\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
+msgid "title"
+msgstr "タイトル"
+
+msgid "file"
+msgstr "ファイル"
+
+msgid "created at"
+msgstr "作成日"
+
+msgid "uploaded by user"
+msgstr "アップロードしたユーザ"
+
+msgid "tags"
+msgstr "タグ"
+
+msgid "document"
+msgstr "ドキュメント"
+
 msgid "Choose a document"
 msgstr "ドキュメントを選択"
 
@@ -28,6 +46,9 @@ msgstr "検索"
 
 msgid "Upload"
 msgstr "アップロード"
+
+msgid "Uploading..."
+msgstr "アップロード中..."
 
 #, python-format
 msgid ""

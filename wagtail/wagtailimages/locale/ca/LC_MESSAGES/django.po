@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-12-17 13:54+0000\n"
-"PO-Revision-Date: 2015-12-17 13:59+0000\n"
+"POT-Creation-Date: 2016-02-05 17:02+0000\n"
+"PO-Revision-Date: 2016-02-05 17:09+0000\n"
 "Last-Translator: mattwestcott <matthew@torchbox.com>\n"
 "Language-Team: Catalan (http://www.transifex.com/torchbox/wagtail/language/"
 "ca/)\n"
@@ -96,8 +96,33 @@ msgstr ""
 "No has pujat cap imatge. Per què no <a href=\"%(wagtailimages_add_image_url)s"
 "\">afegeixes una ara</a>?"
 
+msgid "URL"
+msgstr "URL"
+
+#, python-format
+msgid "Usage of %(title)s"
+msgstr "Utilització de %(title)s"
+
+msgid "Usage of"
+msgstr "Utilització de"
+
 msgid "Title"
 msgstr "Títol"
+
+msgid "Parent"
+msgstr "Pare"
+
+msgid "Type"
+msgstr "Tipus"
+
+msgid "Status"
+msgstr "Estat"
+
+msgid "Edit this page"
+msgstr "Editar aquesta plana"
+
+msgid "Update"
+msgstr "Actualitzar"
 
 msgid "Search images"
 msgstr "Cercar imatges"
@@ -116,6 +141,9 @@ msgstr "Imatge '{0}' eliminada."
 #, python-brace-format
 msgid "Image '{0}' added."
 msgstr "Imatge '{0}' afegida."
+
+msgid "Edit"
+msgstr "Editar"
 
 msgid "The image could not be created due to errors."
 msgstr "No s'ha pogut crear la imatge."

@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-12-17 13:54+0000\n"
-"PO-Revision-Date: 2015-12-17 13:57+0000\n"
+"POT-Creation-Date: 2016-02-05 17:01+0000\n"
+"PO-Revision-Date: 2016-02-05 17:08+0000\n"
 "Last-Translator: mattwestcott <matthew@torchbox.com>\n"
 "Language-Team: Latvian (http://www.transifex.com/torchbox/wagtail/language/"
 "lv/)\n"
@@ -22,6 +22,12 @@ msgstr ""
 
 msgid "Scheduled publishing"
 msgstr "Plānota publicēšana"
+
+msgid "Content"
+msgstr "Saturs"
+
+msgid "Settings"
+msgstr "Iestatījumi"
 
 msgid "Search"
 msgstr "Meklēt"
@@ -531,12 +537,6 @@ msgstr "Lapa '{0}' un apakšlapas {1} kopētas."
 #, python-brace-format
 msgid "Page '{0}' copied."
 msgstr "Lapa '{0}' kopēta."
-
-msgid "Content"
-msgstr "Saturs"
-
-msgid "Settings"
-msgstr "Iestatījumi"
 
 #, python-brace-format
 msgid "Page '{0}' rejected for publication."

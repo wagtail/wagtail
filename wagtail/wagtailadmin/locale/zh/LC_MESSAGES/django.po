@@ -4,12 +4,13 @@
 #
 # Translators:
 # hanfeng <appweb.cn@gmail.com>, 2014
+# Leway Colin <colin4124@gmail.com>, 2016
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-12-17 13:54+0000\n"
-"PO-Revision-Date: 2015-12-17 13:57+0000\n"
+"POT-Creation-Date: 2016-02-05 17:01+0000\n"
+"PO-Revision-Date: 2016-02-05 17:08+0000\n"
 "Last-Translator: mattwestcott <matthew@torchbox.com>\n"
 "Language-Team: Chinese (http://www.transifex.com/torchbox/wagtail/language/"
 "zh/)\n"
@@ -25,6 +26,9 @@ msgstr "搜索"
 msgid "Search term"
 msgstr "搜索词"
 
+msgid "Enter password"
+msgstr "请输入密码"
+
 msgid "Enter your email address to reset your password"
 msgstr "输入您的电子邮箱来重置您的密码"
 
@@ -38,6 +42,9 @@ msgstr "对不起，你不能在此够重置你的密码，因为您的账号是
 
 msgid "This email address is not recognised."
 msgstr "没有找到这个电子邮件地址。"
+
+msgid "This slug is already in use"
+msgstr "这个唯一的地址已被占用"
 
 msgid "Account"
 msgstr "账号"
@@ -58,6 +65,9 @@ msgstr "修改密码"
 
 msgid "Change the password you use to log in."
 msgstr "修改您用于登录的密码。"
+
+msgid "Choose which email notifications to receive."
+msgstr "请选择接收邮件提醒的方式"
 
 msgid "Change Password"
 msgstr "修改密码"
@@ -134,6 +144,9 @@ msgstr "插入一个链接"
 
 msgid "Add an external link"
 msgstr "添加一个外部链接"
+
+msgid "Save"
+msgstr "保存"
 
 #, python-format
 msgid "Welcome to the %(site_name)s Wagtail CMS"
@@ -289,6 +302,9 @@ msgstr "是的，停止发布"
 msgid "Pages using"
 msgstr "页面在用"
 
+msgid "Copy"
+msgstr "复制"
+
 #, python-format
 msgid "New %(page_type)s"
 msgstr "新%(page_type)s类"
@@ -362,6 +378,63 @@ msgstr "请在上面输入搜索词"
 msgid "Home"
 msgstr "主页"
 
+msgid "January"
+msgstr "一月"
+
+msgid "February"
+msgstr "二月"
+
+msgid "March"
+msgstr "三月"
+
+msgid "April"
+msgstr "四月"
+
+msgid "May"
+msgstr "五月"
+
+msgid "June"
+msgstr "六月"
+
+msgid "July"
+msgstr "七月"
+
+msgid "August"
+msgstr "八月"
+
+msgid "September"
+msgstr "九月"
+
+msgid "October"
+msgstr "十月"
+
+msgid "November"
+msgstr "十一月"
+
+msgid "December"
+msgstr "十二月"
+
+msgid "Sun"
+msgstr "星期日"
+
+msgid "Mon"
+msgstr "星期一"
+
+msgid "Tue"
+msgstr "星期二"
+
+msgid "Wed"
+msgstr "星期三"
+
+msgid "Thu"
+msgstr "星期四"
+
+msgid "Fri"
+msgstr "星期五"
+
+msgid "Sat"
+msgstr "星期六"
+
 msgid "Log out"
 msgstr "登出"
 
@@ -393,9 +466,6 @@ msgstr "这页无法保存，因为页面发生验证错误"
 
 msgid "This page is currently awaiting moderation"
 msgstr "这页正在等待审核"
-
-msgid "This slug is already in use"
-msgstr "这个唯一的地址已被占用"
 
 #, python-brace-format
 msgid "Page '{0}' deleted."

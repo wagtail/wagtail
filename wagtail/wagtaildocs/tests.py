@@ -1,5 +1,6 @@
 from __future__ import unicode_literals
 
+import json
 import unittest
 import mock
 from bs4 import BeautifulSoup
@@ -11,6 +12,7 @@ from django.contrib.auth import get_user_model
 from django.contrib.auth.models import Group, Permission
 from django.core.urlresolvers import reverse
 from django.core.files.base import ContentFile
+from django.core.files.uploadedfile import SimpleUploadedFile
 from django.test.utils import override_settings
 from django.conf import settings
 from django.utils.six import b
@@ -256,6 +258,192 @@ class TestDocumentDeleteView(TestCase, WagtailTestUtils):
 
         # Document should be deleted
         self.assertFalse(models.Document.objects.filter(id=self.document.id).exists())
+
+
+class TestMultipleDocumentUploader(TestCase, WagtailTestUtils):
+    """
+    This tests the multiple document upload views located in wagtaildocs/views/multiple.py
+    """
+    def setUp(self):
+        self.login()
+
+        # Create a document for running tests on
+        self.doc = Document.objects.create(
+            title="Test document",
+            file=ContentFile(b("Simple text document")),
+        )
+
+    def test_add(self):
+        """
+        This tests that the add view responds correctly on a GET request
+        """
+        # Send request
+        response = self.client.get(reverse('wagtaildocs:add_multiple'))
+
+        # Check response
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'wagtaildocs/multiple/add.html')
+
+    def test_add_post(self):
+        """
+        This tests that a POST request to the add view saves the document and returns an edit form
+        """
+        response = self.client.post(reverse('wagtaildocs:add_multiple'), {
+            'files[]': SimpleUploadedFile('test.png', b"Simple text document"),
+        }, HTTP_X_REQUESTED_WITH='XMLHttpRequest')
+
+        # Check response
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response['Content-Type'], 'application/json')
+        self.assertTemplateUsed(response, 'wagtaildocs/multiple/edit_form.html')
+
+        # Check document
+        self.assertIn('doc', response.context)
+        self.assertEqual(response.context['doc'].title, 'test.png')
+        self.assertTrue(response.context['doc'].file_size)
+
+        # Check form
+        self.assertIn('form', response.context)
+        self.assertEqual(response.context['form'].initial['title'], 'test.png')
+
+        # Check JSON
+        response_json = json.loads(response.content.decode())
+        self.assertIn('doc_id', response_json)
+        self.assertIn('form', response_json)
+        self.assertIn('success', response_json)
+        self.assertEqual(response_json['doc_id'], response.context['doc'].id)
+        self.assertTrue(response_json['success'])
+
+    def test_add_post_noajax(self):
+        """
+        This tests that only AJAX requests are allowed to POST to the add view
+        """
+        response = self.client.post(reverse('wagtaildocs:add_multiple'), {})
+
+        # Check response
+        self.assertEqual(response.status_code, 400)
+
+    def test_add_post_nofile(self):
+        """
+        This tests that the add view checks for a file when a user POSTs to it
+        """
+        response = self.client.post(reverse('wagtaildocs:add_multiple'), {}, HTTP_X_REQUESTED_WITH='XMLHttpRequest')
+
+        # Check response
+        self.assertEqual(response.status_code, 400)
+
+    def test_edit_get(self):
+        """
+        This tests that a GET request to the edit view returns a 405 "METHOD NOT ALLOWED" response
+        """
+        # Send request
+        response = self.client.get(reverse('wagtaildocs:edit_multiple', args=(self.doc.id, )))
+
+        # Check response
+        self.assertEqual(response.status_code, 405)
+
+    def test_edit_post(self):
+        """
+        This tests that a POST request to the edit view edits the document
+        """
+        # Send request
+        response = self.client.post(reverse('wagtaildocs:edit_multiple', args=(self.doc.id, )), {
+            ('doc-%d-title' % self.doc.id): "New title!",
+            ('doc-%d-tags' % self.doc.id): "",
+        }, HTTP_X_REQUESTED_WITH='XMLHttpRequest')
+
+        # Check response
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response['Content-Type'], 'application/json')
+
+        # Check JSON
+        response_json = json.loads(response.content.decode())
+        self.assertIn('doc_id', response_json)
+        self.assertNotIn('form', response_json)
+        self.assertIn('success', response_json)
+        self.assertEqual(response_json['doc_id'], self.doc.id)
+        self.assertTrue(response_json['success'])
+
+    def test_edit_post_noajax(self):
+        """
+        This tests that a POST request to the edit view without AJAX returns a 400 response
+        """
+        # Send request
+        response = self.client.post(reverse('wagtaildocs:edit_multiple', args=(self.doc.id, )), {
+            ('doc-%d-title' % self.doc.id): "New title!",
+            ('doc-%d-tags' % self.doc.id): "",
+        })
+
+        # Check response
+        self.assertEqual(response.status_code, 400)
+
+    def test_edit_post_validation_error(self):
+        """
+        This tests that a POST request to the edit page returns a json document with "success=False"
+        and a form with the validation error indicated
+        """
+        # Send request
+        response = self.client.post(reverse('wagtaildocs:edit_multiple', args=(self.doc.id, )), {
+            ('doc-%d-title' % self.doc.id): "",  # Required
+            ('doc-%d-tags' % self.doc.id): "",
+        }, HTTP_X_REQUESTED_WITH='XMLHttpRequest')
+
+        # Check response
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response['Content-Type'], 'application/json')
+        self.assertTemplateUsed(response, 'wagtaildocs/multiple/edit_form.html')
+
+        # Check that a form error was raised
+        self.assertFormError(response, 'form', 'title', "This field is required.")
+
+        # Check JSON
+        response_json = json.loads(response.content.decode())
+        self.assertIn('doc_id', response_json)
+        self.assertIn('form', response_json)
+        self.assertIn('success', response_json)
+        self.assertEqual(response_json['doc_id'], self.doc.id)
+        self.assertFalse(response_json['success'])
+
+    def test_delete_get(self):
+        """
+        This tests that a GET request to the delete view returns a 405 "METHOD NOT ALLOWED" response
+        """
+        # Send request
+        response = self.client.get(reverse('wagtaildocs:delete_multiple', args=(self.doc.id, )))
+
+        # Check response
+        self.assertEqual(response.status_code, 405)
+
+    def test_delete_post(self):
+        """
+        This tests that a POST request to the delete view deletes the document
+        """
+        # Send request
+        response = self.client.post(reverse('wagtaildocs:delete_multiple', args=(self.doc.id, )), HTTP_X_REQUESTED_WITH='XMLHttpRequest')
+
+        # Check response
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response['Content-Type'], 'application/json')
+
+        # Make sure the document is deleted
+        self.assertFalse(Document.objects.filter(id=self.doc.id).exists())
+
+        # Check JSON
+        response_json = json.loads(response.content.decode())
+        self.assertIn('doc_id', response_json)
+        self.assertIn('success', response_json)
+        self.assertEqual(response_json['doc_id'], self.doc.id)
+        self.assertTrue(response_json['success'])
+
+    def test_delete_post_noajax(self):
+        """
+        This tests that a POST request to the delete view without AJAX returns a 400 response
+        """
+        # Send request
+        response = self.client.post(reverse('wagtaildocs:delete_multiple', args=(self.doc.id, )))
+
+        # Check response
+        self.assertEqual(response.status_code, 400)
 
 
 class TestDocumentChooserView(TestCase, WagtailTestUtils):
@@ -785,3 +973,8 @@ class TestEditOnlyPermissions(TestCase, WagtailTestUtils):
         response = self.client.get(reverse('wagtaildocs:delete', args=(self.document.id,)))
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'wagtaildocs/documents/confirm_delete.html')
+
+    def test_get_add_multiple(self):
+        response = self.client.get(reverse('wagtaildocs:add_multiple'))
+        # permission should be denied
+        self.assertRedirects(response, reverse('wagtailadmin_home'))

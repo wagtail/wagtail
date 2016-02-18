@@ -1,7 +1,7 @@
-from django.conf import settings
 from django.conf.urls import include, url
 from django.core import urlresolvers
 from django.utils.html import format_html
+from django.contrib.staticfiles.templatetags.staticfiles import static
 
 from wagtail.wagtailcore import hooks
 from wagtail.wagtailembeds import urls
@@ -19,14 +19,13 @@ def register_admin_urls():
 def editor_js():
     return format_html(
         """
-            <script src="{0}{1}"></script>
+            <script src="{0}"></script>
             <script>
-                window.chooserUrls.embedsChooser = '{2}';
+                window.chooserUrls.embedsChooser = '{1}';
                 registerHalloPlugin('hallowagtailembeds');
             </script>
         """,
-        settings.STATIC_URL,
-        'wagtailembeds/js/hallo-plugins/hallo-wagtailembeds.js',
+        static('wagtailembeds/js/hallo-plugins/hallo-wagtailembeds.js'),
         urlresolvers.reverse('wagtailembeds:chooser')
     )
 

@@ -6,12 +6,13 @@
 # Bertrand Bordage <bordage.bertrand@gmail.com>, 2015
 # nahuel, 2014
 # nahuel, 2014
+# pierre marfoure <pierre@onoffdesign.com>, 2016
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-12-17 13:54+0000\n"
-"PO-Revision-Date: 2015-12-17 13:58+0000\n"
+"POT-Creation-Date: 2016-02-05 17:01+0000\n"
+"PO-Revision-Date: 2016-02-05 17:09+0000\n"
 "Last-Translator: mattwestcott <matthew@torchbox.com>\n"
 "Language-Team: French (http://www.transifex.com/torchbox/wagtail/language/"
 "fr/)\n"
@@ -21,6 +22,24 @@ msgstr ""
 "Language: fr\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
+msgid "title"
+msgstr "Titre"
+
+msgid "file"
+msgstr "Fichier"
+
+msgid "created at"
+msgstr "Créé à"
+
+msgid "uploaded by user"
+msgstr "Téléchargé par l'utilisateur"
+
+msgid "tags"
+msgstr "Mots-clés"
+
+msgid "document"
+msgstr "Document"
+
 msgid "Choose a document"
 msgstr "Choisir un document"
 
@@ -29,6 +48,9 @@ msgstr "Recherche"
 
 msgid "Upload"
 msgstr "Envoyer"
+
+msgid "Uploading..."
+msgstr "Téléchargement..."
 
 #, python-format
 msgid ""

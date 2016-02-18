@@ -19,6 +19,7 @@ class Migration(migrations.Migration):
             model_name='redirect',
             name='site',
             field=models.ForeignKey(
+                on_delete=models.CASCADE,
                 related_name='redirects', blank=True, editable=False,
                 to='wagtailcore.Site', null=True, verbose_name='Site'
             ),

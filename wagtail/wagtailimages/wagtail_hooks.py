@@ -1,9 +1,9 @@
-from django.conf import settings
 from django.conf.urls import include, url
 from django.core import urlresolvers
 from django.utils.html import format_html, format_html_join
 from django.utils.translation import ugettext_lazy as _
 from django.contrib.auth.models import Permission
+from django.contrib.staticfiles.templatetags.staticfiles import static
 
 from wagtail.wagtailcore import hooks
 from wagtail.wagtailadmin.menu import MenuItem
@@ -41,12 +41,12 @@ def register_images_menu_item():
 @hooks.register('insert_editor_js')
 def editor_js():
     js_files = [
-        'wagtailimages/js/hallo-plugins/hallo-wagtailimage.js',
-        'wagtailimages/js/image-chooser.js',
+        static('wagtailimages/js/hallo-plugins/hallo-wagtailimage.js'),
+        static('wagtailimages/js/image-chooser.js'),
     ]
     js_includes = format_html_join(
-        '\n', '<script src="{0}{1}"></script>',
-        ((settings.STATIC_URL, filename) for filename in js_files)
+        '\n', '<script src="{0}"></script>',
+        ((filename, ) for filename in js_files)
     )
     return js_includes + format_html(
         """

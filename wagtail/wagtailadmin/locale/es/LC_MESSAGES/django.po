@@ -13,9 +13,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-12-17 13:54+0000\n"
-"PO-Revision-Date: 2015-12-19 06:28+0000\n"
-"Last-Translator: José Alaguna <alagunajs@gmail.com>\n"
+"POT-Creation-Date: 2016-02-05 17:01+0000\n"
+"PO-Revision-Date: 2016-02-05 17:08+0000\n"
+"Last-Translator: mattwestcott <matthew@torchbox.com>\n"
 "Language-Team: Spanish (http://www.transifex.com/torchbox/wagtail/language/"
 "es/)\n"
 "MIME-Version: 1.0\n"
@@ -29,6 +29,15 @@ msgstr "Agendar publicación"
 
 msgid "Common page configuration"
 msgstr "Configuración común de página"
+
+msgid "Content"
+msgstr "Contenido"
+
+msgid "Promote"
+msgstr "Promocionar"
+
+msgid "Settings"
+msgstr "Propiedades"
 
 msgid "Search"
 msgstr "Búsqueda"
@@ -118,6 +127,16 @@ msgstr "Privado, accessible con la siguiente contraseña"
 
 msgid "This field is required."
 msgstr "Este campo es necesario."
+
+msgid "This slug is already in use"
+msgstr "Este slug ya está en uso"
+
+msgid "Go live date/time must be before expiry date/time"
+msgstr ""
+"Ir en vivo fecha/tiempo debe ser anterior a la fecha/tiempo de expiración"
+
+msgid "Expiry date/time must be in the future"
+msgstr "La fecha/tiempo de expiración debe ser en el futuro"
 
 msgid "Account"
 msgstr "Cuenta"
@@ -916,16 +935,6 @@ msgstr "La página no ha podido ser guardada debido a errores de validación"
 msgid "This page is currently awaiting moderation"
 msgstr "La página está a la espera de ser moderada"
 
-msgid "This slug is already in use"
-msgstr "Este slug ya está en uso"
-
-msgid "Go live date/time must be before expiry date/time"
-msgstr ""
-"Ir en vivo fecha/tiempo debe ser anterior a la fecha/tiempo de expiración"
-
-msgid "Expiry date/time must be in the future"
-msgstr "La fecha/tiempo de expiración debe ser en el futuro"
-
 #, python-brace-format
 msgid "Page '{0}' deleted."
 msgstr "Página '{0}' eliminada."
@@ -945,15 +954,6 @@ msgstr "Página '{0}' y '{1}' subpáginas copiadas."
 #, python-brace-format
 msgid "Page '{0}' copied."
 msgstr "Página '{0}' copiada."
-
-msgid "Content"
-msgstr "Contenido"
-
-msgid "Promote"
-msgstr "Promocionar"
-
-msgid "Settings"
-msgstr "Propiedades"
 
 #, python-brace-format
 msgid "The page '{0}' is not currently awaiting moderation."
