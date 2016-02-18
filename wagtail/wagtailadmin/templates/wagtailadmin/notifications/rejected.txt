@@ -1,0 +1,8 @@
+{% load i18n %}
+{% load wagtailadmin_tags %}
+
+{% trans "Hello" %} {{ user.get_short_name|default:user.get_username }},
+
+{% blocktrans with title=revision.page.title|safe %}The page "{{ title }}" has been rejected.{% endblocktrans %}
+
+{% trans "You can edit the page here:"%} {% site_url 'wagtailadmin_pages:edit' revision.page.id %}
