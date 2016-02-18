@@ -3,6 +3,7 @@ from __future__ import unicode_literals
 from django.conf import settings
 from django import template
 from django.contrib.humanize.templatetags.humanize import intcomma
+from django.core.urlresolvers import reverse, NoReverseMatch
 from django.template.defaultfilters import stringfilter
 from django.utils.safestring import mark_safe
 
@@ -281,3 +282,16 @@ def paginate(context, page, base_url='', page_key=DEFAULT_PAGE_KEY,
         'page_key': page_key,
         'paginator': page.paginator,
     }
+
+
+@register.simple_tag
+def site_url(url_pattern, *args):
+    """Create a absolute site_url, this is used in e-mail templates
+    to link to the right site.
+
+    """
+    try:
+        relative_url = reverse(url_pattern, args=args)
+    except NoReverseMatch:
+        return ''
+    return ''.join([getattr(settings, 'BASE_URL', ''), relative_url])
