@@ -2,8 +2,9 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-<title>Untitled Document</title>
+<title></title>
 <style>
+{% block styles_content %}
 body {
 	min-width:100%;
 	-webkit-text-size-adjust: none;
@@ -76,15 +77,16 @@ body[yahoo] .text {
 	width: 150px !important;
 	float:right;
 }
-}
+{% endblock %}
 </style>
 </head>
 {% load i18n %}
 <body style="background-color:#E6E6E6;padding:0px;margin:0px;" yahoo="fix" topmargin="0" bottommargin="0" leftmargin="0" rightmargin="0">
+
 <table width="600" border="0" align="center" class="mobile" cellspacing="0" cellpadding="0">
   <tr>
     <td>
-    	<a href="#"><img width="600" border="0" style="display: block;" alt="" src="{{ settings.BASE_URL }}{% static 'wagtailadmin/images/email-header.jpg' %}" /></a>
+    	{% block branding_logo %}<img width="100%" border="0" style="display: block;" alt="" src="{{ settings.BASE_URL }}{% static 'wagtailadmin/images/email-header.jpg' %}" />{% endblock %}
     </td>
   </tr>
 </table>
