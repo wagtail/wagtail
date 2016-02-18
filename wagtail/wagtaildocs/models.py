@@ -69,14 +69,8 @@ class AbstractDocument(models.Model, TagSearchable):
                        args=(self.id,))
 
     def is_editable_by_user(self, user):
-        if user.has_perm('wagtaildocs.change_document'):
-            # user has global permission to change documents
-            return True
-        elif user.has_perm('wagtaildocs.add_document') and self.uploaded_by_user == user:
-            # user has document add permission, which also implicitly provides permission to edit their own documents
-            return True
-        else:
-            return False
+        from wagtail.wagtaildocs.permissions import permission_policy
+        return permission_policy.user_has_permission_for_instance(user, 'change', self)
 
     class Meta:
         abstract = True

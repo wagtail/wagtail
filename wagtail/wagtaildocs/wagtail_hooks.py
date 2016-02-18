@@ -12,6 +12,7 @@ from wagtail.wagtailadmin.search import SearchArea
 
 from wagtail.wagtaildocs import admin_urls
 from wagtail.wagtaildocs.models import get_document_model
+from wagtail.wagtaildocs.permissions import permission_policy
 from wagtail.wagtaildocs.rich_text import DocumentLinkHandler
 
 
@@ -24,7 +25,9 @@ def register_admin_urls():
 
 class DocumentsMenuItem(MenuItem):
     def is_shown(self, request):
-        return request.user.has_perm('wagtaildocs.add_document') or request.user.has_perm('wagtaildocs.change_document')
+        return permission_policy.user_has_any_permission(
+            request.user, ['add', 'change', 'delete']
+        )
 
 
 @hooks.register('register_admin_menu_item')
@@ -87,7 +90,9 @@ def add_documents_summary_item(request, items):
 
 class DocsSearchArea(SearchArea):
     def is_shown(self, request):
-        return request.user.has_perm('wagtaildocs.add_document') or request.user.has_perm('wagtaildocs.change_document')
+        return permission_policy.user_has_any_permission(
+            request.user, ['add', 'change', 'delete']
+        )
 
 
 @hooks.register('register_admin_search_area')

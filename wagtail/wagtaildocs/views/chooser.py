@@ -6,11 +6,15 @@ from django.shortcuts import get_object_or_404, render
 from wagtail.utils.pagination import paginate
 from wagtail.wagtailadmin.modal_workflow import render_modal_workflow
 from wagtail.wagtailadmin.forms import SearchForm
-from wagtail.wagtailadmin.utils import permission_required
+from wagtail.wagtailadmin.utils import PermissionPolicyChecker
 from wagtail.wagtailsearch.backends import get_search_backends
 
 from wagtail.wagtaildocs.models import get_document_model
 from wagtail.wagtaildocs.forms import get_document_form
+from wagtail.wagtaildocs.permissions import permission_policy
+
+
+permission_checker = PermissionPolicyChecker(permission_policy)
 
 
 def get_document_json(document):
@@ -29,7 +33,7 @@ def get_document_json(document):
 def chooser(request):
     Document = get_document_model()
 
-    if request.user.has_perm('wagtaildocs.add_document'):
+    if permission_policy.user_has_permission(request.user, 'add'):
         DocumentForm = get_document_form(Document)
         uploadform = DocumentForm()
     else:
@@ -81,7 +85,7 @@ def document_chosen(request, document_id):
     )
 
 
-@permission_required('wagtaildocs.add_document')
+@permission_checker.require('add')
 def chooser_upload(request):
     Document = get_document_model()
     DocumentForm = get_document_form(Document)

@@ -100,6 +100,7 @@ Contributors
 * Peter Quade
 * Josh Hurd
 * Matt Fozard
+* Chris Rogers
 
 
 Translators
