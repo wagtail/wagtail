@@ -973,3 +973,8 @@ class TestEditOnlyPermissions(TestCase, WagtailTestUtils):
         response = self.client.get(reverse('wagtaildocs:delete', args=(self.document.id,)))
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'wagtaildocs/documents/confirm_delete.html')
+
+    def test_get_add_multiple(self):
+        response = self.client.get(reverse('wagtaildocs:add_multiple'))
+        # permission should be denied
+        self.assertRedirects(response, reverse('wagtailadmin_home'))

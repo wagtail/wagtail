@@ -6,14 +6,18 @@ from django.views.decorators.http import require_POST
 from django.views.decorators.vary import vary_on_headers
 
 from wagtail.utils.compat import render_to_string
-from wagtail.wagtailadmin.utils import permission_required
+from wagtail.wagtailadmin.utils import PermissionPolicyChecker
 from wagtail.wagtailsearch.backends import get_search_backends
 
 from ..models import get_document_model
 from ..forms import get_document_form, get_document_multi_form
+from ..permissions import permission_policy
 
 
-@permission_required('wagtaildocs.add_document')
+permission_checker = PermissionPolicyChecker(permission_policy)
+
+
+@permission_checker.require('add')
 @vary_on_headers('X-Requested-With')
 def add(request):
     Document = get_document_model()
@@ -74,7 +78,7 @@ def edit(request, doc_id, callback=None):
     if not request.is_ajax():
         return HttpResponseBadRequest("Cannot POST to this view without AJAX")
 
-    if not doc.is_editable_by_user(request.user):
+    if not permission_policy.user_has_permission_for_instance(request.user, 'change', doc):
         raise PermissionDenied
 
     form = DocumentMultiForm(request.POST, request.FILES, instance=doc, prefix='doc-' + doc_id)
@@ -110,7 +114,7 @@ def delete(request, doc_id):
     if not request.is_ajax():
         return HttpResponseBadRequest("Cannot POST to this view without AJAX")
 
-    if not doc.is_editable_by_user(request.user):
+    if not permission_policy.user_has_permission_for_instance(request.user, 'delete', doc):
         raise PermissionDenied
 
     doc.delete()
