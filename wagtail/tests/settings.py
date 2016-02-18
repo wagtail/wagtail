@@ -50,6 +50,7 @@ TEMPLATES = [
                 'wagtail.tests.context_processors.do_not_use_static_url',
                 'wagtail.contrib.settings.context_processors.settings',
             ],
+            'debug': True,
         },
     },
     {
