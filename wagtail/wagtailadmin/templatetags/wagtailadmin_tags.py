@@ -3,7 +3,6 @@ from __future__ import unicode_literals
 from django.conf import settings
 from django import template
 from django.contrib.humanize.templatetags.humanize import intcomma
-from django.core.urlresolvers import reverse, NoReverseMatch
 from django.template.defaultfilters import stringfilter
 from django.utils.safestring import mark_safe
 
