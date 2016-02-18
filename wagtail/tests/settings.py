@@ -6,8 +6,6 @@ STATIC_ROOT = os.path.join(WAGTAIL_ROOT, 'test-static')
 MEDIA_ROOT = os.path.join(WAGTAIL_ROOT, 'test-media')
 MEDIA_URL = '/media/'
 
-BASE_URL = 'http://localhost:8000'
-
 DATABASES = {
     'default': {
         'ENGINE': os.environ.get('DATABASE_ENGINE', 'django.db.backends.sqlite3'),
