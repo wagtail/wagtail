@@ -3,3 +3,5 @@
 {% blocktrans with title=revision.page.title|safe %}The page "{{ title }}" has been approved.{% endblocktrans %}
 
 {% trans "You can view the page here:" %} {{ revision.page.full_url }}
+
+{% trans "Edit your notification preferences here:" %} {{ settings.BASE_URL }}{% url 'wagtailadmin_account_notification_preferences' %}
