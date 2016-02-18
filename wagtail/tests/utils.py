@@ -14,11 +14,16 @@ from django.utils.text import slugify
 
 class WagtailTestUtils(object):
     def login(self):
+        user_model = get_user_model()
+
+        user_data = {}
+        user_data[user_model.USERNAME_FIELD] = 'test@email.com'
+        user_data['password'] = 'password'
         # Create a user
-        user = get_user_model().objects.create_superuser(username='test', email='test@email.com', password='password')
+        user = user_model.objects.create_superuser(**user_data)
 
         # Login
-        self.client.login(username='test', password='password')
+        self.client.login(password='password', **{user_model.USERNAME_FIELD: 'test@email.com'})
 
         return user
 
