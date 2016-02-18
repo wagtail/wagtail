@@ -192,6 +192,7 @@ def send_notification(page_revision_id, notification, excluded_user_id):
     # Common context to template
     context = {
         "revision": revision,
+        "settings": settings,
     }
 
     # Send emails
