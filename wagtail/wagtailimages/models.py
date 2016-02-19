@@ -123,7 +123,7 @@ class AbstractImage(CollectionMember, TagSearchable):
         return reverse('wagtailimages:image_usage',
                        args=(self.id,))
 
-    search_fields = TagSearchable.search_fields + (
+    search_fields = TagSearchable.search_fields + CollectionMember.search_fields + (
         index.FilterField('uploaded_by_user'),
     )
 

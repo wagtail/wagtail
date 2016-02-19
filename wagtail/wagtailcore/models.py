@@ -1760,6 +1760,10 @@ class CollectionMember(models.Model):
         on_delete=models.CASCADE
     )
 
+    search_fields = (
+        index.FilterField('collection'),
+    )
+
     class Meta:
         abstract = True
 
