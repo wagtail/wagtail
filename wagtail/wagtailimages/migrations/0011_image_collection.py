@@ -16,6 +16,6 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='image',
             name='collection',
-            field=models.ForeignKey(to='wagtailcore.Collection', verbose_name='collection', default=wagtail.wagtailcore.models.get_root_collection_id, related_name='+'),
+            field=models.ForeignKey(to='wagtailcore.Collection', verbose_name='collection', default=wagtail.wagtailcore.models.get_root_collection_id, related_name='+', on_delete=models.CASCADE),
         ),
     ]
