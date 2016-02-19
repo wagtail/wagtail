@@ -36,7 +36,8 @@ def get_document_form(model):
 def get_document_multi_form(model):
     return modelform_factory(
         model,
-        fields=['title', 'tags'],
+        form=BaseDocumentForm,
+        fields=['title', 'collection', 'tags'],
         widgets={
             'tags': widgets.AdminTagWidget,
             'file': forms.FileInput()

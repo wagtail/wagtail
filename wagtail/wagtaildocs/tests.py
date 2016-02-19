@@ -399,6 +399,24 @@ class TestMultipleDocumentUploader(TestCase, WagtailTestUtils):
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'wagtaildocs/multiple/add.html')
 
+        # no collection chooser when only one collection exists
+        self.assertNotContains(response, '<label for="id_adddocument_collection">')
+
+    def test_add_with_collections(self):
+        root_collection = Collection.get_first_root_node()
+        root_collection.add_child(name="Evil plans")
+
+        # Send request
+        response = self.client.get(reverse('wagtaildocs:add_multiple'))
+
+        # Check response
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'wagtaildocs/multiple/add.html')
+
+        # collection chooser should exisst
+        self.assertContains(response, '<label for="id_adddocument_collection">')
+        self.assertContains(response, 'Evil plans')
+
     def test_add_post(self):
         """
         This tests that a POST request to the add view saves the document and returns an edit form
@@ -417,6 +435,11 @@ class TestMultipleDocumentUploader(TestCase, WagtailTestUtils):
         self.assertEqual(response.context['doc'].title, 'test.png')
         self.assertTrue(response.context['doc'].file_size)
 
+        # check that it is in the root collection
+        doc = Document.objects.get(title='test.png')
+        root_collection = Collection.get_first_root_node()
+        self.assertEqual(doc.collection, root_collection)
+
         # Check form
         self.assertIn('form', response.context)
         self.assertEqual(response.context['form'].initial['title'], 'test.png')
@@ -428,6 +451,53 @@ class TestMultipleDocumentUploader(TestCase, WagtailTestUtils):
         self.assertIn('success', response_json)
         self.assertEqual(response_json['doc_id'], response.context['doc'].id)
         self.assertTrue(response_json['success'])
+
+        # form should not contain a collection chooser
+        self.assertNotIn('Collection', response_json['form'])
+
+    def test_add_post_with_collections(self):
+        """
+        This tests that a POST request to the add view saves the document
+        and returns an edit form, when collections are active
+        """
+
+        root_collection = Collection.get_first_root_node()
+        evil_plans_collection = root_collection.add_child(name="Evil plans")
+
+        response = self.client.post(reverse('wagtaildocs:add_multiple'), {
+            'files[]': SimpleUploadedFile('test.png', b"Simple text document"),
+            'collection': evil_plans_collection.id
+        }, HTTP_X_REQUESTED_WITH='XMLHttpRequest')
+
+        # Check response
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response['Content-Type'], 'application/json')
+        self.assertTemplateUsed(response, 'wagtaildocs/multiple/edit_form.html')
+
+        # Check document
+        self.assertIn('doc', response.context)
+        self.assertEqual(response.context['doc'].title, 'test.png')
+        self.assertTrue(response.context['doc'].file_size)
+
+        # check that it is in the 'evil plans' collection
+        doc = Document.objects.get(title='test.png')
+        root_collection = Collection.get_first_root_node()
+        self.assertEqual(doc.collection, evil_plans_collection)
+
+        # Check form
+        self.assertIn('form', response.context)
+        self.assertEqual(response.context['form'].initial['title'], 'test.png')
+
+        # Check JSON
+        response_json = json.loads(response.content.decode())
+        self.assertIn('doc_id', response_json)
+        self.assertIn('form', response_json)
+        self.assertIn('success', response_json)
+        self.assertEqual(response_json['doc_id'], response.context['doc'].id)
+        self.assertTrue(response_json['success'])
+
+        # form should contain a collection chooser
+        self.assertIn('Collection', response_json['form'])
 
     def test_add_post_noajax(self):
         """

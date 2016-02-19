@@ -22,6 +22,18 @@
                     <input id="fileupload" type="file" name="files[]" data-url="{% url 'wagtaildocs:add_multiple' %}" multiple>
                 </div>
                 {% csrf_token %}
+                {% if collections %}
+                    <div class="field">
+                        <label for="id_adddocument_collection">Add to collection:</label>
+                        <div class="field-content">
+                            <select id="id_adddocument_collection" name="collection">
+                                {% for collection in collections %}
+                                    <option value="{{ collection.id }}">{{ collection.name }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                    </div>
+                {% endif %}
             </form>
         </div>
 
