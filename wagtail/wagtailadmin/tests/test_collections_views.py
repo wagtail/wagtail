@@ -146,6 +146,6 @@ class TestDeleteCollection(TestCase, WagtailTestUtils):
         # Should redirect back to index
         self.assertRedirects(response, reverse('wagtailadmin_collections:index'))
 
-        # Check that the collection was edited
+        # Check that the collection was deleted
         with self.assertRaises(Collection.DoesNotExist):
             Collection.objects.get(id=self.collection.id)
