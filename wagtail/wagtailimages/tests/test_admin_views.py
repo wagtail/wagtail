@@ -928,6 +928,11 @@ class TestEditOnlyPermissions(TestCase, WagtailTestUtils):
         # user should be able to see images not owned by them
         self.assertContains(response, "Test image")
 
+    def test_search(self):
+        response = self.client.get(reverse('wagtailimages:index'), {'q': "Hello"})
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.context['query_string'], "Hello")
+
     def test_get_add(self):
         response = self.client.get(reverse('wagtailimages:add'))
         # permission should be denied
