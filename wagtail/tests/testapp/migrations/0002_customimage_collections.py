@@ -11,7 +11,7 @@ class Migration(migrations.Migration):
 
     dependencies = [
         ('wagtailcore', '0028_merge'),
-        ('tests', '0025_merge'),
+        ('tests', '0001_initial'),
     ]
 
     operations = [
