@@ -16,6 +16,9 @@ class WagtailTestUtils(object):
 
     @staticmethod
     def create_test_user():
+        """
+        Override this method to return an instance of your custom user model
+        """
         user_model = get_user_model()
         # Create a user
         user_data = dict()
