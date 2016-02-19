@@ -135,7 +135,7 @@ class TestAccountSection(TestCase, WagtailTestUtils):
     This tests that the accounts section is working
     """
     def setUp(self):
-        self.login()
+        self.user = self.login()
 
     def test_account_view(self):
         """
@@ -199,8 +199,7 @@ class TestAccountSection(TestCase, WagtailTestUtils):
         self.assertRedirects(response, reverse('wagtailadmin_account'))
 
         # Check that the password was changed
-        self.assertTrue(get_user_model().objects.get(
-            **{get_user_model().USERNAME_FIELD: 'test@email.com'}).check_password('newpassword'))
+        self.assertTrue(get_user_model().objects.get(pk=self.user.pk).check_password('newpassword'))
 
     def test_change_password_view_post_password_mismatch(self):
         """
@@ -222,8 +221,7 @@ class TestAccountSection(TestCase, WagtailTestUtils):
         self.assertTrue("The two password fields didn't match." in response.context['form'].errors['new_password2'])
 
         # Check that the password was not changed
-        self.assertTrue(get_user_model().objects.get(
-            **{get_user_model().USERNAME_FIELD: 'test@email.com'}).check_password('password'))
+        self.assertTrue(get_user_model().objects.get(pk=self.user.pk).check_password('password'))
 
     def test_notification_preferences_view(self):
         """
@@ -253,8 +251,7 @@ class TestAccountSection(TestCase, WagtailTestUtils):
         # Check that the user was redirected to the account page
         self.assertRedirects(response, reverse('wagtailadmin_account'))
 
-        profile = UserProfile.get_for_user(get_user_model().objects.get(
-            **{get_user_model().USERNAME_FIELD: 'test@email.com'}))
+        profile = UserProfile.get_for_user(get_user_model().objects.get(pk=self.user.pk))
 
         # Check that the notification preferences are as submitted
         self.assertFalse(profile.submitted_notifications)
