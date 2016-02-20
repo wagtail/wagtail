@@ -6,12 +6,15 @@ import json
 from django.test import TestCase
 from django.core import mail
 from django import forms
+from django import template
 from django.core.urlresolvers import reverse
 
 from wagtail.wagtailcore.models import Page
-from wagtail.wagtailforms.models import FormSubmission
-from wagtail.wagtailforms.forms import FormBuilder
-from wagtail.tests.testapp.models import FormPage, FormField
+from wagtail.wagtailcore.blocks import CharBlock, ListBlock, StreamBlock, StructBlock, StructValue
+from wagtail.wagtailforms.blocks import AbstractField, FormFieldBlock
+from wagtail.wagtailforms.models import FormSubmission, FakeManager
+from wagtail.wagtailforms.forms import FormBuilder, FormFieldFinder
+from wagtail.tests.testapp.models import FormPage, FormField, StreamFormPage
 from wagtail.tests.utils import WagtailTestUtils
 
 
@@ -467,3 +470,310 @@ class TestIssue798(TestCase):
 
         # Check that form submission was saved correctly
         self.assertTrue(FormSubmission.objects.filter(page=self.form_page, form_data__contains='7.3').exists())
+
+
+class TestAbstractField(TestCase):
+    
+    def test_init(self):
+        # create without parameters
+        a = AbstractField()
+        
+        # create with parameters
+        b = AbstractField(
+            label='My Field', 
+            field_type='singlelinetext',
+            required=True,
+            choices = 'one,two,three',
+            default_value='singlelinetext',
+            help_text='This is a helpful tip.')
+        
+        self.assertEqual(b.label, 'My Field')
+        self.assertEqual(b.field_type, 'singlelinetext')
+        self.assertEqual(b.required, True)
+        self.assertEqual(b.choices, 'one,two,three')
+        self.assertEqual(b.default_value, 'singlelinetext')
+        self.assertEqual(b.help_text, 'This is a helpful tip.')
+        
+        # create with unexpected parameter
+        b = AbstractField(
+            label='My Field', 
+            field_type='singlelinetext',
+            required=True,
+            choices = 'one,two,three',
+            default_value='singlelinetext',
+            help_text='This is a helpful tip.', 
+            unexpected='Not added to the object.')
+        
+        self.assertFalse(hasattr(b, 'unexpected'))
+        
+    
+    def test_clean_name(self):
+        field = AbstractField(label='Your Email:')
+        self.assertEqual(field.clean_name, 'your-email')
+
+
+class TestFormFieldBlock(TestCase):
+    def test_init(self):
+        block = FormFieldBlock()
+        self.assertEqual(list(block.child_blocks.keys()), ['label', 'field_type', 'required', 'choices', 'default_value', 'help_text'])
+    
+    def test_render(self):
+        block = FormFieldBlock()
+        html = block.render(block.to_python({'label': 'My Field', 'field_type': 'singleline', 'required': True, 'choices': '', 'default_value': '', 'help_text': 'A tip.'}))
+        
+        self.assertIn('<dt>label</dt>', html)
+        self.assertIn('<dt>field_type</dt>', html)
+        self.assertIn('<dt>required</dt>', html)
+        self.assertIn('<dt>choices</dt>', html)
+        self.assertIn('<dt>default_value</dt>', html)
+        self.assertIn('<dt>help_text</dt>', html)
+        self.assertIn('<dd>My Field</dd>', html)
+        self.assertIn('<dd>singleline</dd>', html)
+        self.assertIn('<dd>A tip.</dd>', html)
+    
+    def test_clean_name(self):
+        block = FormFieldBlock()
+        value = StructValue(block)
+        value.update({'label': 'My Field', 'field_type': 'singleline', 'required': True, 'choices': '', 'default_value': '', 'help_text': 'A tip.'})
+        name = block.clean_name(value)
+        self.assertEqual(name, 'my-field')
+
+
+class TestFakeManager(TestCase):
+    def test_init_with_wrong_type(self):
+        with self.assertRaises(ValueError):
+            FakeManager(None)
+        
+        class TestClass(object):
+            pass
+        
+        with self.assertRaises(ValueError):
+            FakeManager(TestClass())
+    
+    def test_init_with_page(self):
+        root_page = Page.objects.get(id=1)
+        
+        # try a page that does not have a specific class that inherits from AbstractForm
+        with self.assertRaises(ValueError):
+            FakeManager(root_page)
+        
+        page = StreamFormPage()
+        FakeManager(page)
+        
+        #TODO: find a way to test when we have a Page object that has a Page.specific of AbstractForm
+    
+    def test_all(self):
+        page = StreamFormPage(body='''[
+            {
+                "type": "field", 
+                "value": {
+                    "required": true,
+                    "default_value": "",
+                    "field_type": "singleline",
+                    "label": "Name",
+                    "choices": "",
+                    "help_text": ""
+                }
+            }
+        ]''')
+        manager = FakeManager(page)
+        records = manager.all()
+        self.assertEqual(len(records), 1)
+
+
+class TestFormFieldFinder(TestCase):
+    def test_simple_case(self):
+        #create a StreamBlock and pass a value in to to_python
+        class TestBlock(StreamBlock):
+            field = FormFieldBlock(icon='placeholder')
+            p = CharBlock()
+        
+        value = TestBlock().to_python([{
+            'type': 'field', 
+            'value': {
+                "required": True,
+                "default_value": "",
+                "field_type": "singleline",
+                "label": "Name",
+                "choices": "",
+                "help_text": ""
+            }
+        }, {
+            'type': 'p',
+            'value': 'A test',
+        },
+        {
+            'type': 'field', 
+            'value': {
+                "required": False,
+                "default_value": "",
+                "field_type": "multiline",
+                "label": "Description",
+                "choices": "",
+                "help_text": ""
+            }
+        }])
+        
+        finder = FormFieldFinder()
+        
+        fields = finder.find_form_fields(TestBlock(), value)
+        
+        
+        self.assertEqual(len(fields), 2)
+        self.assertEqual(fields[0].label, 'Name')
+        self.assertEqual(fields[1].label, 'Description')
+    
+    def test_nested_form_fields(self):
+        class TestStructBlock(StructBlock):
+            title = CharBlock()
+            description = CharBlock()
+            field = FormFieldBlock()
+        
+        
+        class TestBlock(StreamBlock):
+            field = FormFieldBlock(icon='placeholder')
+            p = CharBlock()
+            special = TestStructBlock()
+            list = ListBlock(FormFieldBlock(label='Field'))
+            stream = StreamBlock([('field', FormFieldBlock()), ('p', CharBlock())])
+        
+        value = TestBlock().to_python([{
+            'type': 'field', 
+            'value': {
+                "required": True,
+                "default_value": "",
+                "field_type": "singleline",
+                "label": "Name",
+                "choices": "",
+                "help_text": ""
+            }
+        }, {
+            'type': 'p',
+            'value': 'A test',
+        },
+        {
+            'type': 'field', 
+            'value': {
+                "required": False,
+                "default_value": "",
+                "field_type": "multiline",
+                "label": "Description",
+                "choices": "",
+                "help_text": ""
+            }
+        }, 
+        {
+            'type': 'special',
+            'value': {
+                'title': 'A Test Special',
+                'description': 'A longer description of the test special.',
+                'field': {
+                    "required": True,
+                    "default_value": "",
+                    "field_type": "singleline",
+                    "label": "Book Name",
+                    "choices": "",
+                    "help_text": ""
+                }
+            }
+        },
+        {
+            'type': 'list',
+            'value': [
+                {
+                    "required": True,
+                    "default_value": "",
+                    "field_type": "singleline",
+                    "label": "Field Four",
+                    "choices": "",
+                    "help_text": ""
+                },
+                {
+                    "required": True,
+                    "default_value": "",
+                    "field_type": "singleline",
+                    "label": "Field Five",
+                    "choices": "",
+                    "help_text": ""
+                }
+            ]
+        },
+        {
+            'type': 'stream',
+            'value': [
+                {
+                    'type': 'p',
+                    'value': 'A test paragraph'
+                },
+                {
+                    'type': 'field',
+                    'value': {
+                        "required": True,
+                        "default_value": "",
+                        "field_type": "singleline",
+                        "label": "Field Six",
+                        "choices": "",
+                        "help_text": ""
+                    }
+                }
+            ]
+        }])
+        
+        finder = FormFieldFinder()
+        
+        fields = finder.find_form_fields(TestBlock(), value)
+        
+        self.assertEqual(len(fields), 6)
+        self.assertEqual(fields[0].label, 'Name')
+        self.assertEqual(fields[1].label, 'Description')
+        self.assertEqual(fields[2].label, 'Book Name')
+        self.assertEqual(fields[3].label, 'Field Four')
+        self.assertEqual(fields[4].label, 'Field Five')
+        self.assertEqual(fields[5].label, 'Field Six')
+
+
+class TestStreamFieldAbstractFormMixin(TestCase):
+    
+    def test_get_form_field_finder(self):
+        page = StreamFormPage()
+        self.assertIsInstance(page.get_form_field_finder(), page.form_field_finder)
+    
+    def test_find_streamfield_form_fields(self):
+        page = StreamFormPage(body='''[
+            {
+                "type": "field", 
+                "value": {
+                    "required": true,
+                    "default_value": "",
+                    "field_type": "singleline",
+                    "label": "Name",
+                    "choices": "",
+                    "help_text": ""
+                }
+            }
+        ]''')
+        fields = page.find_streamfield_form_fields()
+        self.assertEqual(len(fields), 1)
+    
+    def test_form_fields(self):
+        page = StreamFormPage()
+        self.assertIsInstance(page.form_fields, FakeManager)
+
+
+class TestGetFormFieldTemplateTag(TestCase):
+    def test_simple(self):
+        class TestForm(forms.Form):
+            name = forms.CharField(max_length=100)
+        
+        class Field(object):
+            def __init__(self, block, value):
+                self.block = block
+                self.value = value
+        
+        tmpl_str = '''{% load wagtailforms_tags %} {% get_form_field field form as form_field %}{{ form_field }}'''
+        tmpl = template.Template(tmpl_str)
+        html = tmpl.render(template.Context({'form': TestForm(), 'field': Field(value={'label': 'Name'}, block=FormFieldBlock())}))
+        
+        self.assertIn('name="name"', html)
+        self.assertIn('<input', html)
+        self.assertIn('type="text"', html)
