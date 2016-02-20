@@ -71,23 +71,43 @@ function insertRichTextDeleteControl(elem) {
     });
 }
 
+// Compare two date objects. Ignore minutes and seconds.
+function dateEqual(x, y) {
+    return x.getDate() === y.getDate() &&
+           x.getMonth() === y.getMonth() &&
+           x.getYear() === y.getYear()
+}
+
+/*
+Remove the xdsoft_current css class from markup unless the selected date is currently in view.
+Keep the normal behaviour if the home button is clicked.
+ */
+function hideCurrent(current, input) {
+    var selected = new Date(input[0].value);
+    if (!dateEqual(selected, current)) {
+        $(this).find('.xdsoft_datepicker .xdsoft_current:not(.xdsoft_today)').removeClass('xdsoft_current');
+    }
+}
+
 function initDateChooser(id, opts) {
     if (window.dateTimePickerTranslations) {
         $('#' + id).datetimepicker($.extend({
             closeOnDateSelect: true,
             timepicker: false,
-            scrollInput:false,
+            scrollInput: false,
             format: 'Y-m-d',
             i18n: {
                 lang: window.dateTimePickerTranslations
             },
-            lang: 'lang'
+            lang: 'lang',
+            onGenerate: hideCurrent
         }, opts || {}));
     } else {
         $('#' + id).datetimepicker($.extend({
             timepicker: false,
-            scrollInput:false,
-            format: 'Y-m-d'
+            scrollInput: false,
+            format: 'Y-m-d',
+            onGenerate: hideCurrent
         }, opts || {}));
     }
 }
@@ -97,7 +117,7 @@ function initTimeChooser(id) {
         $('#' + id).datetimepicker({
             closeOnDateSelect: true,
             datepicker: false,
-            scrollInput:false,
+            scrollInput: false,
             format: 'H:i',
             i18n: {
                 lang: window.dateTimePickerTranslations
@@ -117,15 +137,17 @@ function initDateTimeChooser(id, opts) {
         $('#' + id).datetimepicker($.extend({
             closeOnDateSelect: true,
             format: 'Y-m-d H:i',
-            scrollInput:false,
+            scrollInput: false,
             i18n: {
                 lang: window.dateTimePickerTranslations
             },
-            language: 'lang'
+            language: 'lang',
+            onGenerate: hideCurrent
         }, opts || {}));
     } else {
         $('#' + id).datetimepicker($.extend({
-            format: 'Y-m-d H:i'
+            format: 'Y-m-d H:i',
+            onGenerate: hideCurrent
         }, opts || {}));
     }
 }
