@@ -37,7 +37,7 @@ from wagtail.wagtailadmin import messages
 from wagtail.wagtailadmin.edit_handlers import (
     ObjectList, extract_panel_definitions_from_model_class)
 
-from .helpers import get_url_name, ButtonHelper, PageButtonHelper
+from .helpers import get_url_name
 from .forms import ParentChooserForm
 
 # IndexView settings
@@ -73,6 +73,13 @@ class WMABaseView(TemplateView):
         self.pk_attname = self.opts.pk.attname
         self.is_pagemodel = modeladmin.is_pagemodel
         self.permission_helper = modeladmin.permission_helper
+
+    @method_decorator(login_required)
+    def dispatch(self, request, *args, **kwargs):
+        button_helper_class = self.model_admin.get_button_helper_class()
+        self.button_helper = button_helper_class(
+            self.model, self.permission_helper, request.user)
+        return super(WMABaseView, self).dispatch(request, *args, **kwargs)
 
     @cached_property
     def app_label(self):
@@ -155,6 +162,7 @@ class WMAFormView(WMABaseView, FormView):
         form = self.get_form()
         return {
             'view': self,
+            'modeladmin': self.modeladmin,
             'is_multipart': form.is_multipart(),
             'edit_handler': edit_handler_class(instance=instance, form=form)
         }
@@ -203,6 +211,10 @@ class ObjectSpecificView(WMABaseView):
     def check_action_permitted(self):
         return True
 
+    def allow_object_delete(self):
+        user = self.request.user
+        return self.permission_helper.can_delete_object(user, self.instance)
+
     def get_edit_url(self, obj=None):
         return reverse(get_url_name(self.opts, 'edit'), args=(self.pk_safe,))
 
@@ -212,8 +224,6 @@ class ObjectSpecificView(WMABaseView):
 
 
 class IndexView(WMABaseView):
-
-    button_helper_class = None
 
     @method_decorator(login_required)
     def dispatch(self, request, *args, **kwargs):
@@ -242,13 +252,6 @@ class IndexView(WMABaseView):
         if not self.permission_helper.allow_list_view(request.user):
             return self.permission_denied_response()
         return super(IndexView, self).dispatch(request, *args, **kwargs)
-
-    def get_button_helper_class(self, user, obj):
-        if self.button_helper_class:
-            return self.button_helper_class
-        if self.is_pagemodel:
-            return PageButtonHelper
-        return ButtonHelper
 
 
     def get_action_buttons_for_obj(self, user, obj):

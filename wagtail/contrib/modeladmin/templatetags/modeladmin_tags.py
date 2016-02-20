@@ -135,7 +135,7 @@ def admin_list_filter(view, spec):
                         takes_context=True)
 def result_row_display(context, view, object_list, result, index):
     obj = list(object_list)[index]
-    buttons = view.get_action_buttons_for_obj(context['request'].user, obj)
+    buttons = view.button_helper.get_buttons_for_obj(obj)
     context.update({'obj': obj, 'action_buttons': buttons})
     return context
 

@@ -9,8 +9,9 @@ from wagtail.wagtailcore.models import Page
 from wagtail.wagtailcore import hooks
 
 from .menus import ModelAdminMenuItem, GroupMenuItem, SubMenu
-from .helpers import (PermissionHelper, PagePermissionHelper, get_url_pattern,
-                      get_object_specific_url_pattern, get_url_name)
+from .helpers import (
+    PermissionHelper, PagePermissionHelper, ButtonHelper, PageButtonHelper,
+    get_url_pattern, get_object_specific_url_pattern, get_url_name)
 from .views import (
     IndexView, CreateView, ChooseParentView, EditView, ConfirmDeleteView,
     CopyRedirectView, UnpublishRedirectView)
@@ -77,6 +78,7 @@ class ModelAdmin(WagtailRegisterable):
     confirm_delete_template_name = ''
     choose_parent_template_name = ''
     permission_helper_class = None
+    button_helper_class = None
 
     def __init__(self, parent=None):
         """
@@ -103,6 +105,17 @@ class ModelAdmin(WagtailRegisterable):
         if self.is_pagemodel:
             return PagePermissionHelper
         return PermissionHelper
+
+    def get_button_helper_class(self):
+        """
+        Returns a ButtonHelper class to help generate buttons for the given
+        model.
+        """
+        if self.button_helper_class:
+            return self.button_helper_class
+        if self.is_pagemodel:
+            return PageButtonHelper
+        return ButtonHelper
 
     def get_menu_label(self):
         """

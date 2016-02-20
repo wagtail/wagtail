@@ -3,7 +3,7 @@
     {% if action_buttons %}
     <ul class="actions">
         {% for button in action_buttons %}
-            <li><a{% if button.url %} href="{{ button.url }}"{% endif %} class="button button-small button-secondary{% if button.disabled %} disabled{% endif %}" title="{{ button.title }}"{% if button.target %} target="{{ button.target }}"{% endif %}>{{ button.label }}</a></li>
+        	<li>{% include 'wagtailmodeladmin/includes/button.html' %}</li>
         {% endfor %}
     </ul>
     {% endif %}

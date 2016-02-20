@@ -23,13 +23,13 @@
             </div>
             {% block search %}{% search_form view %}{% endblock %}
         </div>
-        {% if has_add_permission %}
-        <div class="right">
-            <div class="addbutton">
-                <a href="{{ view.get_create_url }}" class="button bicolor icon icon-plus">{% blocktrans with view.model_name as name %}Add {{ name }}{% endblocktrans %}</a>
-            </div>
-        </div>
-        {% endif %}
+        {% if has_add_permission and view.button_helper.add_button %}
+            <div class="right">
+                <div class="addbutton">
+                    {% include 'modeladmin/includes/button.html' with button=view.button_helper.add_button %}
+                 </div>
+             </div>
+         {% endif %}
     </div>
 </header>
 

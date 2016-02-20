@@ -175,69 +175,84 @@ def get_url_name(model_meta, action='index'):
 
 class ButtonHelper(object):
 
-    def __init__(self, model, permission_helper, user, obj):
+    default_button_classname = 'button button-small bicolor icon'
+
+    def __init__(self, model, permission_helper, user):
         self.user = user
         self.model = model
         self.opts = model._meta
         self.permission_helper = permission_helper
         self.model_name = force_text(self.opts.verbose_name).lower()
-        self.obj = obj
-        self.pk = quote(getattr(obj, self.opts.pk.attname))
 
-    def get_action_url(self, action):
-        return reverse(get_url_name(self.opts, action), args=(self.pk,))
+    def get_action_url(self, action='create', pk=None):
+        kwargs = {}
+        if pk and action not in ('create', 'index'):
+            kwargs.update({'object_id': pk})
+        return reverse(get_url_name(self.opts, action), kwargs=kwargs)
 
-    def edit_button(self):
+    def add_button(self):
         return {
-            'title': _('Edit this %s') % self.model_name,
+            'url': self.get_action_url('create'),
+            'label': _('Add %s') % self.model_name,
+            'classname': 'button bicolor icon icon-plus',
+            'title': _('Add a new %s') % self.model_name,
+        }
+
+    def edit_button(self, pk):
+        return {
+            'url': self.get_action_url('edit', pk),
             'label': _('Edit'),
-            'url': self.get_action_url('edit'),
+            'classname': self.default_button_classname + ' icon-edit',
+            'title': _('Edit this %s') % self.model_name,
         }
 
-    def delete_button(self):
+    def delete_button(self, pk):
         return {
-            'title': _('Delete this %s') % self.model_name,
+            'url': self.get_action_url('confirm_delete', pk),
             'label': _('Delete'),
-            'url': self.get_action_url('confirm_delete'),
+            'classname': self.default_button_classname + ' no icon-bin',
+            'title': _('Delete this %s') % self.model_name,
         }
 
-    def get_permitted_buttons(self):
+    def get_buttons_for_obj(self, obj):
         user = self.user
-        obj = self.obj
+        pk = quote(getattr(obj, self.opts.pk.attname))
         buttons = []
         if self.permission_helper.can_edit_object(user, obj):
-            buttons.append(self.edit_button())
+            buttons.append(self.edit_button(pk))
         if self.permission_helper.can_delete_object(user, obj):
-            buttons.append(self.delete_button())
+            buttons.append(self.delete_button(pk))
         return buttons
 
 
 class PageButtonHelper(ButtonHelper):
 
-    def unpublish_button(self):
+    def unpublish_button(self, pk):
         return {
-            'title': _('Unpublish this %s') % self.model_name,
+            'url': self.get_action_url('unpublish', pk),
             'label': _('Unpublish'),
-            'url': self.get_action_url('unpublish'),
+            'classname': self.default_button_classname + ' icon-cog',
+            'title': _('Unpublish this %s') % self.model_name,
         }
 
-    def copy_button(self):
+    def copy_button(self, pk):
         return {
-            'title': _('Copy this %s') % self.model_name,
+            'url': self.get_action_url('copy', pk),
             'label': _('Copy'),
-            'url': self.get_action_url('copy'),
+            'classname': self.default_button_classname + ' icon-plus-inverse',
+            'title': _('Copy this %s') % self.model_name,
         }
 
-    def get_permitted_buttons(self):
+    def get_buttons_for_obj(self, obj):
         user = self.user
-        obj = self.obj
+        pk = quote(getattr(obj, self.opts.pk.attname))
         buttons = []
         if self.permission_helper.can_edit_object(user, obj):
-            buttons.append(self.edit_button())
+            buttons.append(self.edit_button(pk))
         if self.permission_helper.can_copy_object(user, obj):
-            buttons.append(self.copy_button())
-        if self.permission_helper.can_delete_object(user, obj):
-            buttons.append(self.delete_button())
+            buttons.append(self.copy_button(pk))
         if self.permission_helper.can_unpublish_object(user, obj):
-            buttons.append(self.unpublish_button())
+            buttons.append(self.unpublish_button(pk))
+        if self.permission_helper.can_delete_object(user, obj):
+            buttons.append(self.delete_button(pk))
         return buttons
