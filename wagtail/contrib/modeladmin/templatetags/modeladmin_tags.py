@@ -69,8 +69,12 @@ def items_for_result(view, result):
                     row_classes.append('nowrap')
         if force_text(result_repr) == '':
             result_repr = mark_safe('&nbsp;')
-        row_class = mark_safe(' class="%s"' % ' '.join(row_classes))
-        yield format_html('<td{}>{}</td>', row_class, result_repr)
+        row_classes.extend(modeladmin.get_extra_class_names_for_field_col(field_name, result))
+        row_attributes_dict = modeladmin.get_extra_attrs_for_field_col(field_name, result)
+        row_attributes_dict['class'] = ' ' . join(row_classes)
+        row_attributes = ''.join(' %s="%s"' % (key, val) for key, val in row_attributes_dict.items())
+        row_attributes_safe = mark_safe(row_attributes)
+        yield format_html('<td{}>{}</td>', row_attributes_safe, result_repr)
 
 
 def results(view, object_list):

@@ -198,6 +198,26 @@ class ModelAdmin(WagtailRegisterable):
         """
         return self.search_fields or ()
 
+    def get_extra_class_names_for_field_col(self, obj, field_name):
+        """
+        Return a list of additional CSS class names to be added to the table
+        cell's `class` attribute when rendering the output of `field_name` for
+        `obj` in `index_view`.
+
+        Must always return a list.
+        """
+        return []
+
+    def get_extra_attrs_for_field_col(self, obj, field_name):
+        """
+        Return a dictionary of additional HTML attributes to be added to a
+        table cell when rendering the output of `field_name` for `obj` in
+        `index_view`.
+
+        Must always return a dictionary.
+        """
+        return {}
+
     def get_index_url(self):
         return reverse(get_url_name(self.opts))
 
