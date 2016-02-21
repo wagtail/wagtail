@@ -222,6 +222,12 @@ class TestCollectionPermissionPolicy(PermissionPolicyTestCase):
             )
         )
 
+        self.assertFalse(
+            self.policy.user_has_any_permission_for_instance(
+                self.anonymous_user, ['change', 'delete'], self.changer_doc
+            )
+        )
+
     def test_instances_user_has_permission_for(self):
         self.assertResultSetEqual(
             self.policy.instances_user_has_permission_for(
@@ -633,6 +639,12 @@ class TestCollectionOwnershipPermissionPolicy(PermissionPolicyTestCase):
         self.assertTrue(
             self.policy.user_has_any_permission_for_instance(
                 self.report_adder, ['change', 'delete'], self.adder_report
+            )
+        )
+
+        self.assertFalse(
+            self.policy.user_has_any_permission_for_instance(
+                self.anonymous_user, ['change', 'delete'], self.changer_doc
             )
         )
 

@@ -26,7 +26,7 @@ class CollectionPermissionLookupMixin(object):
         If collection is specified, only consider GroupCollectionPermission records
         that apply to that collection.
         """
-        if not user.is_active:
+        if not (user.is_active and user.is_authenticated()):
             return False
 
         if user.is_superuser:
@@ -162,7 +162,7 @@ class CollectionPermissionPolicy(CollectionPermissionLookupMixin, BaseDjangoAuth
         Return a queryset of all instances of this model for which the given user has
         permission to perform any of the given actions
         """
-        if not user.is_active:
+        if not (user.is_active and user.is_authenticated()):
             return self.model.objects.none()
         elif user.is_superuser:
             return self.model.objects.all()
