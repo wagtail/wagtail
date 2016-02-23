@@ -1,6 +1,7 @@
 from django.core import urlresolvers
 from django.contrib.auth.models import Permission
 from django.utils.translation import ugettext_lazy as _
+from django.contrib.staticfiles.templatetags.staticfiles import static
 
 from wagtail.wagtailcore import hooks
 from wagtail.wagtailadmin.menu import MenuItem, SubmenuMenuItem, settings_menu
@@ -9,7 +10,7 @@ from wagtail.wagtailadmin.search import SearchArea
 
 class ExplorerMenuItem(MenuItem):
     class Media:
-        js = ['wagtailadmin/js/explorer-menu.js']
+        js = [static('wagtailadmin/js/explorer-menu.js')]
 
 
 @hooks.register('register_admin_menu_item')

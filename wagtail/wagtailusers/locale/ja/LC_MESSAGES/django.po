@@ -3,14 +3,15 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# Daigo Shitara <stain.witness@gmail.com>, 2016
 # takuan_osho <shimizu.taku@gmail.com>, 2015
 # 石田秀 <ishidashu@gmail.com>, 2015
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-12-17 13:55+0000\n"
-"PO-Revision-Date: 2015-12-17 14:00+0000\n"
+"POT-Creation-Date: 2016-02-05 17:02+0000\n"
+"PO-Revision-Date: 2016-02-05 17:11+0000\n"
 "Last-Translator: mattwestcott <matthew@torchbox.com>\n"
 "Language-Team: Japanese (http://www.transifex.com/torchbox/wagtail/language/"
 "ja/)\n"
@@ -36,10 +37,6 @@ msgstr "パスワードが一致しませんでした。"
 msgid "Administrator"
 msgstr "管理者"
 
-msgid "If ticked, this user has the ability to manage user accounts."
-msgstr ""
-"チェックされている場合、このユーザはアカウントを編集する権限があります。"
-
 msgid "Password"
 msgstr "パスワード"
 
@@ -61,20 +58,29 @@ msgstr "名"
 msgid "Last Name"
 msgstr "姓"
 
-msgid "Administrators have the ability to manage user accounts."
-msgstr "管理者はユーザアカウントを管理することができます。"
-
 msgid "A group with that name already exists."
 msgstr "このグループ名は既に使用されています。"
+
+msgid "submitted notifications"
+msgstr "承認リクエスト通知"
 
 msgid "Receive notification when a page is submitted for moderation"
 msgstr "承認リクエストの通知を受け取る"
 
+msgid "approved notifications"
+msgstr "承認通知"
+
 msgid "Receive notification when your page edit is approved"
 msgstr "ページの編集が承認された際、通知を受け取る"
 
+msgid "rejected notifications"
+msgstr "拒否通知"
+
 msgid "Receive notification when your page edit is rejected"
 msgstr "ページの編集が却下された際、通知を受け取る"
+
+msgid "user profile"
+msgstr "プロフィール"
 
 msgid "Delete group"
 msgstr "グループを削除"

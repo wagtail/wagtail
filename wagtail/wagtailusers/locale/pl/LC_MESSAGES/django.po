@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-12-17 13:55+0000\n"
-"PO-Revision-Date: 2015-12-17 14:00+0000\n"
+"POT-Creation-Date: 2016-02-05 17:02+0000\n"
+"PO-Revision-Date: 2016-02-05 17:11+0000\n"
 "Last-Translator: mattwestcott <matthew@torchbox.com>\n"
 "Language-Team: Polish (http://www.transifex.com/torchbox/wagtail/language/"
 "pl/)\n"
@@ -37,11 +37,6 @@ msgstr "Hasła się nie zgadzają."
 msgid "Administrator"
 msgstr "Administrator"
 
-msgid "If ticked, this user has the ability to manage user accounts."
-msgstr ""
-"Zaznaczone oznacza, że użytkownik ma możliwość zarządzania kontami "
-"użytkowników"
-
 msgid "Password"
 msgstr "Hasło"
 
@@ -62,9 +57,6 @@ msgstr "Pierwsze imię"
 
 msgid "Last Name"
 msgstr "Nazwisko"
-
-msgid "Administrators have the ability to manage user accounts."
-msgstr "Administratorzy mają możliwość zarządzania kontami użytkowników."
 
 msgid "Receive notification when a page is submitted for moderation"
 msgstr "Otrzymuj powiadomienie gdy strona jest przesłana do moderacji"

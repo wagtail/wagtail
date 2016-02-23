@@ -6,13 +6,17 @@ from django.http import JsonResponse, HttpResponseBadRequest
 from django.template.loader import render_to_string
 from django.utils.encoding import force_text
 
-from wagtail.wagtailadmin.utils import permission_required
+from wagtail.wagtailadmin.utils import PermissionPolicyChecker
 
 from wagtail.wagtailsearch.backends import get_search_backends
 
 from wagtail.wagtailimages.models import get_image_model
 from wagtail.wagtailimages.forms import get_image_form
 from wagtail.wagtailimages.fields import ALLOWED_EXTENSIONS
+from wagtail.wagtailimages.permissions import permission_policy
+
+
+permission_checker = PermissionPolicyChecker(permission_policy)
 
 
 def get_image_edit_form(ImageModel):
@@ -33,7 +37,7 @@ def get_image_edit_form(ImageModel):
     return ImageEditForm
 
 
-@permission_required('wagtailimages.add_image')
+@permission_checker.require('add')
 @vary_on_headers('X-Requested-With')
 def add(request):
     Image = get_image_model()
@@ -99,7 +103,7 @@ def edit(request, image_id, callback=None):
     if not request.is_ajax():
         return HttpResponseBadRequest("Cannot POST to this view without AJAX")
 
-    if not image.is_editable_by_user(request.user):
+    if not permission_policy.user_has_permission_for_instance(request.user, 'change', image):
         raise PermissionDenied
 
     form = ImageForm(request.POST, request.FILES, instance=image, prefix='image-' + image_id)
@@ -133,7 +137,7 @@ def delete(request, image_id):
     if not request.is_ajax():
         return HttpResponseBadRequest("Cannot POST to this view without AJAX")
 
-    if not image.is_editable_by_user(request.user):
+    if not permission_policy.user_has_permission_for_instance(request.user, 'delete', image):
         raise PermissionDenied
 
     image.delete()

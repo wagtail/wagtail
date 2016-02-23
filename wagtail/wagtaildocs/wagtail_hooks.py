@@ -1,9 +1,9 @@
-from django.conf import settings
 from django.conf.urls import include, url
 from django.core import urlresolvers
 from django.utils.html import format_html, format_html_join
 from django.utils.translation import ugettext_lazy as _
 from django.contrib.auth.models import Permission
+from django.contrib.staticfiles.templatetags.staticfiles import static
 
 from wagtail.wagtailcore import hooks
 from wagtail.wagtailadmin.menu import MenuItem
@@ -12,6 +12,7 @@ from wagtail.wagtailadmin.search import SearchArea
 
 from wagtail.wagtaildocs import admin_urls
 from wagtail.wagtaildocs.models import get_document_model
+from wagtail.wagtaildocs.permissions import permission_policy
 from wagtail.wagtaildocs.rich_text import DocumentLinkHandler
 
 
@@ -24,7 +25,9 @@ def register_admin_urls():
 
 class DocumentsMenuItem(MenuItem):
     def is_shown(self, request):
-        return request.user.has_perm('wagtaildocs.add_document') or request.user.has_perm('wagtaildocs.change_document')
+        return permission_policy.user_has_any_permission(
+            request.user, ['add', 'change', 'delete']
+        )
 
 
 @hooks.register('register_admin_menu_item')
@@ -41,12 +44,12 @@ def register_documents_menu_item():
 @hooks.register('insert_editor_js')
 def editor_js():
     js_files = [
-        'wagtaildocs/js/hallo-plugins/hallo-wagtaildoclink.js',
-        'wagtaildocs/js/document-chooser.js',
+        static('wagtaildocs/js/hallo-plugins/hallo-wagtaildoclink.js'),
+        static('wagtaildocs/js/document-chooser.js'),
     ]
     js_includes = format_html_join(
-        '\n', '<script src="{0}{1}"></script>',
-        ((settings.STATIC_URL, filename) for filename in js_files)
+        '\n', '<script src="{0}"></script>',
+        ((filename, ) for filename in js_files)
     )
     return js_includes + format_html(
         """
@@ -87,7 +90,9 @@ def add_documents_summary_item(request, items):
 
 class DocsSearchArea(SearchArea):
     def is_shown(self, request):
-        return request.user.has_perm('wagtaildocs.add_document') or request.user.has_perm('wagtaildocs.change_document')
+        return permission_policy.user_has_any_permission(
+            request.user, ['add', 'change', 'delete']
+        )
 
 
 @hooks.register('register_admin_search_area')

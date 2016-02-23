@@ -3,14 +3,15 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# Daigo Shitara <stain.witness@gmail.com>, 2016
 # 石田秀 <ishidashu@gmail.com>, 2015
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-12-17 13:55+0000\n"
-"PO-Revision-Date: 2015-12-17 14:00+0000\n"
-"Last-Translator: mattwestcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2016-02-05 17:02+0000\n"
+"PO-Revision-Date: 2016-01-08 02:31+0000\n"
+"Last-Translator: Daigo Shitara <stain.witness@gmail.com>\n"
 "Language-Team: Japanese (http://www.transifex.com/torchbox/wagtail/language/"
 "ja/)\n"
 "MIME-Version: 1.0\n"
@@ -21,6 +22,26 @@ msgstr ""
 
 msgid "Choose"
 msgstr "選択"
+
+msgid "Search"
+msgstr "検索"
+
+#, python-format
+msgid ""
+"\n"
+"            There is one match\n"
+"        "
+msgid_plural ""
+"\n"
+"            There are %(counter)s matches\n"
+"        "
+msgstr[0] ""
+"\n"
+"%(counter)s 件の一致があります"
+
+#, python-format
+msgid "Sorry, no snippets match \"<em>%(query_string)s</em>\""
+msgstr "\"<em>%(query_string)s</em>\"に一致する結果はありません。"
 
 #, python-format
 msgid ""
@@ -105,6 +126,10 @@ msgstr "ステータス"
 
 msgid "Edit this page"
 msgstr "ページを編集"
+
+#, python-format
+msgid "Search %(snippet_type_name)s"
+msgstr "%(snippet_type_name)sを検索"
 
 #, python-brace-format
 msgid "{snippet_type} '{instance}' created."

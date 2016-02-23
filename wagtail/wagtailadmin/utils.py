@@ -56,7 +56,7 @@ def users_with_page_permission(page, permission_type, include_superusers=True):
     # Find GroupPagePermission records of the given type that apply to this page or an ancestor
     ancestors_and_self = list(page.get_ancestors()) + [page]
     perm = GroupPagePermission.objects.filter(permission_type=permission_type, page__in=ancestors_and_self)
-    q = Q(groups__page_permissions=perm)
+    q = Q(groups__page_permissions__in=perm)
 
     # Include superusers
     if include_superusers:
@@ -122,6 +122,27 @@ def any_permission_required(*perms):
         return False
 
     return user_passes_test(test)
+
+
+class PermissionPolicyChecker(object):
+    """
+    Provides a view decorator that enforces the given permission policy,
+    returning the wagtailadmin 'permission denied' response if permission not granted
+    """
+    def __init__(self, policy):
+        self.policy = policy
+
+    def require(self, action):
+        def test(user):
+            return self.policy.user_has_permission(user, action)
+
+        return user_passes_test(test)
+
+    def require_any(self, *actions):
+        def test(user):
+            return self.policy.user_has_any_permission(user, actions)
+
+        return user_passes_test(test)
 
 
 def send_mail(subject, message, recipient_list, from_email=None, **kwargs):

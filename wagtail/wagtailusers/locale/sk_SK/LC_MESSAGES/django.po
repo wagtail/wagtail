@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-12-17 13:55+0000\n"
-"PO-Revision-Date: 2015-12-17 14:00+0000\n"
+"POT-Creation-Date: 2016-02-05 17:02+0000\n"
+"PO-Revision-Date: 2016-02-05 17:11+0000\n"
 "Last-Translator: mattwestcott <matthew@torchbox.com>\n"
 "Language-Team: Slovak (Slovakia) (http://www.transifex.com/torchbox/wagtail/"
 "language/sk_SK/)\n"
@@ -34,11 +34,6 @@ msgstr "Heslá sa nezhodujú."
 msgid "Administrator"
 msgstr "Administrátor"
 
-msgid "If ticked, this user has the ability to manage user accounts."
-msgstr ""
-"Ak je zaškrtnuté, tento používateľ má práva na upravovanie ostatných "
-"používateľských účtov."
-
 msgid "Password"
 msgstr "Heslo"
 
@@ -60,11 +55,11 @@ msgstr "Krstné meno"
 msgid "Last Name"
 msgstr "Priezvisko"
 
-msgid "Administrators have the ability to manage user accounts."
-msgstr "Administrátori majú práva na úpravu ostatných používateľských účtov."
-
 msgid "A group with that name already exists."
 msgstr "Skupina s rovnakým názvom už existuje."
+
+msgid "submitted notifications"
+msgstr "odoslané notifikácie"
 
 msgid "Receive notification when a page is submitted for moderation"
 msgstr "Dostávať notifikácie keď je stránka pridaná na moderáciu"
@@ -74,6 +69,9 @@ msgstr "Dostávať notifikácie keď je váš návrh na úpravu stránky potvrde
 
 msgid "Receive notification when your page edit is rejected"
 msgstr "Dostávať notifikácie keď je váš návrh na úpravu stránky zamietnutý"
+
+msgid "user profile"
+msgstr "používatelský profil"
 
 msgid "Delete group"
 msgstr "Vymazať skupinu"
@@ -94,6 +92,9 @@ msgstr "Áno, zmazať"
 
 msgid "Add group"
 msgstr "Pridať skupinu"
+
+msgid "Editing"
+msgstr "Upraviť obrázok"
 
 msgid "Save"
 msgstr "Uložiť"

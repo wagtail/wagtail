@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-12-17 13:54+0000\n"
-"PO-Revision-Date: 2015-12-17 13:57+0000\n"
+"POT-Creation-Date: 2016-02-05 17:01+0000\n"
+"PO-Revision-Date: 2016-02-05 17:08+0000\n"
 "Last-Translator: mattwestcott <matthew@torchbox.com>\n"
 "Language-Team: Slovak (Slovakia) (http://www.transifex.com/torchbox/wagtail/"
 "language/sk_SK/)\n"
@@ -24,6 +24,12 @@ msgstr "Naplánovať publikovanie"
 
 msgid "Common page configuration"
 msgstr "Základné nastavenia stránky"
+
+msgid "Content"
+msgstr "Obsah"
+
+msgid "Settings"
+msgstr "Nastavenia"
 
 msgid "Search"
 msgstr "Hľadať"
@@ -87,6 +93,15 @@ msgstr "Publikovať kópie"
 
 msgid "This field is required."
 msgstr "Toto pole je povinné."
+
+msgid "This slug is already in use"
+msgstr "Tento slug sa už používa"
+
+msgid "Go live date/time must be before expiry date/time"
+msgstr "Dátum publikácie musí byť pred dátumom expirácie"
+
+msgid "Expiry date/time must be in the future"
+msgstr "Dátum expirácie musí byť v budúcnosti"
 
 msgid "Account"
 msgstr "Účet"
@@ -304,6 +319,9 @@ msgstr "Zabudli ste heslo?"
 msgid "You can view the page here:"
 msgstr "Tu môžete vidieť stránku"
 
+msgid "Hello"
+msgstr "Ahoj"
+
 msgid "Edit your notification preferences here:"
 msgstr "Tu upravte vaše notifikáčné nastavenia:"
 
@@ -398,8 +416,14 @@ msgstr "Nový  %(page_type)s"
 msgid "New"
 msgstr "Nový"
 
+msgid "Saving..."
+msgstr "Ukladám..."
+
 msgid "Save draft"
 msgstr "Uložiť koncept"
+
+msgid "Publishing..."
+msgstr "Publikujem..."
 
 msgid "Publish"
 msgstr "Publikovať"
@@ -610,15 +634,6 @@ msgstr "Táto stránka nemohla byť uložená, kvôli validačným chybám."
 msgid "This page is currently awaiting moderation"
 msgstr "Táto stránka momentálne čaká na moderáciu"
 
-msgid "This slug is already in use"
-msgstr "Tento slug sa už používa"
-
-msgid "Go live date/time must be before expiry date/time"
-msgstr "Dátum publikácie musí byť pred dátumom expirácie"
-
-msgid "Expiry date/time must be in the future"
-msgstr "Dátum expirácie musí byť v budúcnosti"
-
 #, python-brace-format
 msgid "Page '{0}' deleted."
 msgstr "Stránka '{0}' bola zmazaná."
@@ -635,12 +650,6 @@ msgstr "Stránka '{0}' bola presunutá."
 msgid "Page '{0}' copied."
 msgstr "Stránka '{0}' bola skopírovaná."
 
-msgid "Content"
-msgstr "Obsah"
-
-msgid "Settings"
-msgstr "Nastavenia"
-
 #, python-brace-format
 msgid "The page '{0}' is not currently awaiting moderation."
 msgstr "Stránka '{0}'  momentálne čaká na moderáciu"
@@ -652,6 +661,9 @@ msgstr "Stránka '{0}' bola uzamknutá."
 #, python-brace-format
 msgid "Page '{0}' is now unlocked."
 msgstr "Stránka '{0}' bola odomknutá."
+
+msgid "Pages"
+msgstr "Stránky"
 
 msgid "Choose an item"
 msgstr "Zvoľte položku"

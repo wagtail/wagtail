@@ -12,8 +12,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-12-17 13:55+0000\n"
-"PO-Revision-Date: 2015-12-17 14:00+0000\n"
+"POT-Creation-Date: 2016-02-05 17:02+0000\n"
+"PO-Revision-Date: 2016-02-05 17:11+0000\n"
 "Last-Translator: mattwestcott <matthew@torchbox.com>\n"
 "Language-Team: Greek (http://www.transifex.com/torchbox/wagtail/language/"
 "el/)\n"
@@ -42,11 +42,6 @@ msgstr "Τα δύο πεδία κωδικών δεν είναι ίδια."
 msgid "Administrator"
 msgstr "Διαχειριστής"
 
-msgid "If ticked, this user has the ability to manage user accounts."
-msgstr ""
-"Αν επιλεγεί, ο συγκεκριμένος χρήστης έχει τη δυνατότητα διαχείρισης "
-"λογαριασμών χρηστών."
-
 msgid "Password"
 msgstr "Κωδικός"
 
@@ -67,10 +62,6 @@ msgstr "Όνομα"
 
 msgid "Last Name"
 msgstr "Επίθετο"
-
-msgid "Administrators have the ability to manage user accounts."
-msgstr ""
-"Οι Διαχειριστές έχουν τη δυνατότητα να διαχειρίζονται λογαριασμούς χρηστών."
 
 msgid "A group with that name already exists."
 msgstr "Υπάρχει ήδη ομάδα με το συγκεκριμένο όνομα ομάδας."

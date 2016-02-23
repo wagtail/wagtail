@@ -1,3 +1,7 @@
+# [RemovedInWagtail16Warning]
+# DEPRECATED. Developer requirements should now be specified in setup.py
+# in 'testing_extras' / 'documentation_extras'.
+
 # Required for running the tests
 mock>=1.0.0
 python-dateutil>=2.2

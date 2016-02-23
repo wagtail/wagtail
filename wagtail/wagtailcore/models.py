@@ -72,7 +72,7 @@ class Site(models.Model):
         blank=True,
         help_text=_("Human-readable name for the site.")
     )
-    root_page = models.ForeignKey('Page', verbose_name=_('root page'), related_name='sites_rooted_here')
+    root_page = models.ForeignKey('Page', verbose_name=_('root page'), related_name='sites_rooted_here', on_delete=models.CASCADE)
     is_default_site = models.BooleanField(
         verbose_name=_('is default site'),
         default=False,
@@ -515,6 +515,19 @@ class Page(six.with_metaclass(PageBase, MP_Node, ClusterableModel, index.Indexed
                     id='wagtailcore.E002'
                 )
             )
+
+        from wagtail.wagtailadmin.forms import WagtailAdminPageForm
+        if not issubclass(cls.base_form_class, WagtailAdminPageForm):
+            errors.append(checks.Error(
+                "base_form_class does not extend WagtailAdminPageForm",
+                hint="Ensure that {}.{} extends WagtailAdminPageForm".format(
+                    cls.base_form_class.__module__,
+                    cls.base_form_class.__name__),
+                obj=cls,
+                id='wagtailcore.E002'))
+        # Sadly, there is no way of checking the form class returned from
+        # cls.get_edit_handler().get_form_class(cls), as these calls can hit
+        # the DB in order to fetch content types.
 
         return errors
 
@@ -1310,7 +1323,7 @@ class SubmittedRevisionsManager(models.Manager):
 
 @python_2_unicode_compatible
 class PageRevision(models.Model):
-    page = models.ForeignKey('Page', verbose_name=_('page'), related_name='revisions')
+    page = models.ForeignKey('Page', verbose_name=_('page'), related_name='revisions', on_delete=models.CASCADE)
     submitted_for_moderation = models.BooleanField(
         verbose_name=_('submitted for moderation'),
         default=False,
@@ -1440,8 +1453,8 @@ PAGE_PERMISSION_TYPE_CHOICES = [
 
 
 class GroupPagePermission(models.Model):
-    group = models.ForeignKey(Group, verbose_name=_('group'), related_name='page_permissions')
-    page = models.ForeignKey('Page', verbose_name=_('page'), related_name='group_permissions')
+    group = models.ForeignKey(Group, verbose_name=_('group'), related_name='page_permissions', on_delete=models.CASCADE)
+    page = models.ForeignKey('Page', verbose_name=_('page'), related_name='group_permissions', on_delete=models.CASCADE)
     permission_type = models.CharField(
         verbose_name=_('permission type'),
         max_length=20,
@@ -1685,7 +1698,7 @@ class PagePermissionTester(object):
 
 
 class PageViewRestriction(models.Model):
-    page = models.ForeignKey('Page', verbose_name=_('page'), related_name='view_restrictions')
+    page = models.ForeignKey('Page', verbose_name=_('page'), related_name='view_restrictions', on_delete=models.CASCADE)
     password = models.CharField(verbose_name=_('password'), max_length=255)
 
     class Meta:

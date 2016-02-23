@@ -23,6 +23,7 @@ from wagtail.wagtailcore.blocks import CharBlock, RichTextBlock
 from wagtail.wagtailadmin.edit_handlers import (
     FieldPanel, MultiFieldPanel, InlinePanel, PageChooserPanel, TabbedInterface, ObjectList
 )
+from wagtail.wagtailadmin.forms import WagtailAdminPageForm
 from wagtail.wagtailimages.edit_handlers import ImageChooserPanel
 from wagtail.wagtaildocs.edit_handlers import DocumentChooserPanel
 from wagtail.wagtailsnippets.models import register_snippet
@@ -31,6 +32,8 @@ from wagtail.wagtailsnippets.edit_handlers import SnippetChooserPanel
 from wagtail.wagtailsearch import index
 from wagtail.wagtailimages.models import AbstractImage, Image
 from wagtail.wagtailimages.blocks import ImageChooserBlock
+
+from .forms import ValidatedPageForm
 
 
 EVENT_AUDIENCE_CHOICES = (
@@ -368,6 +371,33 @@ class Advert(ClusterableModel):
 register_snippet(Advert)
 
 
+@python_2_unicode_compatible
+class AdvertWithTabbedInterface(models.Model):
+    url = models.URLField(null=True, blank=True)
+    text = models.CharField(max_length=255)
+    something_else = models.CharField(max_length=255)
+
+    advert_panels = [
+        FieldPanel('url'),
+        FieldPanel('text'),
+    ]
+
+    other_panels = [
+        FieldPanel('something_else'),
+    ]
+
+    edit_handler = TabbedInterface([
+        ObjectList(advert_panels, heading='Advert'),
+        ObjectList(other_panels, heading='Other'),
+    ])
+
+    def __str__(self):
+        return self.text
+
+
+register_snippet(AdvertWithTabbedInterface)
+
+
 class StandardIndex(Page):
     """ Index for the site """
     parent_page_types = [Page]
@@ -393,7 +423,7 @@ StandardChild.edit_handler = TabbedInterface([
     ObjectList(StandardChild.promote_panels, heading='Promote'),
     ObjectList(StandardChild.settings_panels, heading='Settings', classname='settings'),
     ObjectList([], heading='Dinosaurs'),
-])
+], base_form_class=WagtailAdminPageForm)
 
 
 class BusinessIndex(Page):
@@ -602,3 +632,12 @@ class MyBasePage(Page):
 
 class MyCustomPage(MyBasePage):
     pass
+
+
+class ValidatedPage(Page):
+    foo = models.CharField(max_length=255)
+
+    base_form_class = ValidatedPageForm
+    content_panels = Page.content_panels + [
+        FieldPanel('foo'),
+    ]

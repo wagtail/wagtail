@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-12-17 13:55+0000\n"
-"PO-Revision-Date: 2015-12-17 14:00+0000\n"
+"POT-Creation-Date: 2016-02-05 17:02+0000\n"
+"PO-Revision-Date: 2016-02-05 17:11+0000\n"
 "Last-Translator: mattwestcott <matthew@torchbox.com>\n"
 "Language-Team: Dutch (http://www.transifex.com/torchbox/wagtail/language/"
 "nl/)\n"
@@ -34,11 +34,6 @@ msgstr "De beide wachtwoordvelden komen niet overeen."
 msgid "Administrator"
 msgstr "Beheerder"
 
-msgid "If ticked, this user has the ability to manage user accounts."
-msgstr ""
-"Wanneer aangevinkt heeft deze gebruiker de mogelijkheid om "
-"gebruikersaccounts te beheren. "
-
 msgid "Password"
 msgstr "Wachtwoord"
 
@@ -59,9 +54,6 @@ msgstr "Voornaam"
 
 msgid "Last Name"
 msgstr "Achternaam"
-
-msgid "Administrators have the ability to manage user accounts."
-msgstr "Beheerders hebben de mogelijkheid om gebruikersaccounts te beheren. "
 
 msgid "A group with that name already exists."
 msgstr "Er bestaat al een groep met deze naam. "

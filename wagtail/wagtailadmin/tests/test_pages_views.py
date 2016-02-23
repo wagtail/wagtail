@@ -1,4 +1,4 @@
-from datetime import timedelta
+from datetime import datetime, timedelta
 import mock
 
 import django
@@ -17,7 +17,7 @@ from wagtail.tests.testapp.models import (
     BusinessIndex, BusinessChild, BusinessSubIndex,
     TaggedPage, Advert, AdvertPlacement)
 from wagtail.tests.utils import WagtailTestUtils
-from wagtail.wagtailcore.models import Page, PageRevision, Site
+from wagtail.wagtailcore.models import GroupPagePermission, Page, PageRevision, Site
 from wagtail.wagtailcore.signals import page_published, page_unpublished
 from wagtail.wagtailusers.models import UserProfile
 
@@ -45,6 +45,21 @@ class TestPageExplorer(TestCase, WagtailTestUtils):
         )
         self.root_page.add_child(instance=self.child_page)
 
+        # more child pages to test ordering
+        self.old_page = StandardIndex(
+            title="Old page",
+            slug="old-page",
+            latest_revision_created_at=datetime(2010, 1, 1)
+        )
+        self.root_page.add_child(instance=self.old_page)
+
+        self.new_page = SimplePage(
+            title="New page",
+            slug="new-page",
+            latest_revision_created_at=datetime(2016, 1, 1)
+        )
+        self.root_page.add_child(instance=self.new_page)
+
         # Login
         self.login()
 
@@ -53,7 +68,11 @@ class TestPageExplorer(TestCase, WagtailTestUtils):
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'wagtailadmin/pages/index.html')
         self.assertEqual(self.root_page, response.context['parent_page'])
-        self.assertTrue(response.context['pages'].paginator.object_list.filter(id=self.child_page.id).exists())
+
+        # child pages should be most recent first
+        # (with null latest_revision_created_at at the end)
+        page_ids = [page.id for page in response.context['pages']]
+        self.assertEqual(page_ids, [self.new_page.id, self.old_page.id, self.child_page.id])
 
     def test_explore_root(self):
         response = self.client.get(reverse('wagtailadmin_explore_root'))
@@ -63,25 +82,82 @@ class TestPageExplorer(TestCase, WagtailTestUtils):
         self.assertTrue(response.context['pages'].paginator.object_list.filter(id=self.root_page.id).exists())
 
     def test_ordering(self):
-        response = self.client.get(reverse('wagtailadmin_explore_root'), {'ordering': 'content_type'})
+        response = self.client.get(
+            reverse('wagtailadmin_explore', args=(self.root_page.id, )),
+            {'ordering': 'title'}
+        )
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'wagtailadmin/pages/index.html')
-        self.assertEqual(response.context['ordering'], 'content_type')
+        self.assertEqual(response.context['ordering'], 'title')
+
+        # child pages should be ordered by title
+        page_ids = [page.id for page in response.context['pages']]
+        self.assertEqual(page_ids, [self.child_page.id, self.new_page.id, self.old_page.id])
+
+    def test_reverse_ordering(self):
+        response = self.client.get(
+            reverse('wagtailadmin_explore', args=(self.root_page.id, )),
+            {'ordering': '-title'}
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'wagtailadmin/pages/index.html')
+        self.assertEqual(response.context['ordering'], '-title')
+
+        # child pages should be ordered by title
+        page_ids = [page.id for page in response.context['pages']]
+        self.assertEqual(page_ids, [self.old_page.id, self.new_page.id, self.child_page.id])
+
+    def test_ordering_by_last_revision_forward(self):
+        response = self.client.get(
+            reverse('wagtailadmin_explore', args=(self.root_page.id, )),
+            {'ordering': 'latest_revision_created_at'}
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'wagtailadmin/pages/index.html')
+        self.assertEqual(response.context['ordering'], 'latest_revision_created_at')
+
+        # child pages should be oldest revision first
+        # (with null latest_revision_created_at at the start)
+        page_ids = [page.id for page in response.context['pages']]
+        self.assertEqual(page_ids, [self.child_page.id, self.old_page.id, self.new_page.id])
 
     def test_invalid_ordering(self):
-        response = self.client.get(reverse('wagtailadmin_explore_root'), {'ordering': 'invalid_order'})
+        response = self.client.get(
+            reverse('wagtailadmin_explore', args=(self.root_page.id, )),
+            {'ordering': 'invalid_order'}
+        )
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'wagtailadmin/pages/index.html')
         self.assertEqual(response.context['ordering'], '-latest_revision_created_at')
 
     def test_reordering(self):
-        response = self.client.get(reverse('wagtailadmin_explore_root'), {'ordering': 'ord'})
+        response = self.client.get(
+            reverse('wagtailadmin_explore', args=(self.root_page.id, )),
+            {'ordering': 'ord'}
+        )
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'wagtailadmin/pages/index.html')
         self.assertEqual(response.context['ordering'], 'ord')
 
+        # child pages should be ordered by native tree order (i.e. by creation time)
+        page_ids = [page.id for page in response.context['pages']]
+        self.assertEqual(page_ids, [self.child_page.id, self.old_page.id, self.new_page.id])
+
         # Pages must not be paginated
         self.assertNotIsInstance(response.context['pages'], paginator.Page)
+
+    def test_construct_explorer_page_queryset_hook(self):
+        # testapp implements a construct_explorer_page_queryset hook
+        # that only returns pages with a slug starting with 'hello'
+        # when the 'polite_pages_only' URL parameter is set
+        response = self.client.get(
+            reverse('wagtailadmin_explore', args=(self.root_page.id, )),
+            {'polite_pages_only': 'yes_please'}
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'wagtailadmin/pages/index.html')
+        page_ids = [page.id for page in response.context['pages']]
+        self.assertEqual(page_ids, [self.child_page.id])
 
     def make_pages(self):
         for i in range(150):
@@ -2309,6 +2385,41 @@ class TestNotificationPreferences(TestCase, WagtailTestUtils):
 
         # No email to send
         self.assertEqual(len(mail.outbox), 0)
+
+    def test_moderator_group_notifications(self):
+        # Create a (non-superuser) moderator
+        User = get_user_model()
+        user1 = User.objects.create_user('moduser1', 'moduser1@email.com')
+        user1.groups.add(Group.objects.get(name='Moderators'))
+        user1.save()
+
+        # Create another group and user with permission to moderate
+        modgroup2 = Group.objects.create(name='More moderators')
+        GroupPagePermission.objects.create(
+            group=modgroup2, page=self.root_page, permission_type='publish'
+        )
+        user2 = User.objects.create_user('moduser2', 'moduser2@email.com')
+        user2.groups.add(Group.objects.get(name='More moderators'))
+        user2.save()
+
+        # Submit
+        # This used to break in Wagtail 1.3 (Postgres exception, SQLite 3/4 notifications)
+        response = self.submit()
+
+        # Should be redirected to explorer page
+        self.assertEqual(response.status_code, 302)
+
+        # Check that the superusers and the moderation group members all got an email
+        expected_emails = 4
+        self.assertEqual(len(mail.outbox), expected_emails)
+        email_to = []
+        for i in range(expected_emails):
+            self.assertEqual(len(mail.outbox[i].to), 1)
+            email_to += mail.outbox[i].to
+        self.assertIn(self.moderator.email, email_to)
+        self.assertIn(self.moderator2.email, email_to)
+        self.assertIn(user1.email, email_to)
+        self.assertIn(user2.email, email_to)
 
 
 class TestLocking(TestCase, WagtailTestUtils):

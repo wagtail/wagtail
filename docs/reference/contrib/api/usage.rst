@@ -419,7 +419,7 @@ Like filtering, it is also possible to order on database fields. The endpoint ac
 Pagination
 ^^^^^^^^^^
 
-Pagination is done using two query parameters called ``limit`` and ``offset``. ``limit`` sets the number of results to return and ``offset`` is the index of the first result to return. The default value for ``limit`` is ``20`` and its maximum value is ``100`` (which can be changed using the ``WAGTAILAPI_MAX_RESULTS`` setting).
+Pagination is done using two query parameters called ``limit`` and ``offset``. ``limit`` sets the number of results to return and ``offset`` is the index of the first result to return. The default and maximum value for ``limit`` is ``20``. The maximum value can be changed using the ``WAGTAILAPI_LIMIT_MAX`` setting.
 
 .. code-block:: json
 
@@ -747,7 +747,7 @@ The images endpoint also accepts the ``order`` parameter which should be set to 
 Pagination
 ^^^^^^^^^^
 
-Pagination is done using two query parameters called ``limit`` and ``offset``. ``limit`` sets the number of results to return and ``offset`` is the index of the first result to return. The default value for ``limit`` is ``20`` and its maximum value is ``100`` (which can be changed using the ``WAGTAILAPI_MAX_RESULTS`` setting).
+Pagination is done using two query parameters called ``limit`` and ``offset``. ``limit`` sets the number of results to return and ``offset`` is the index of the first result to return. The default and maximum value for ``limit`` is ``20``. The maximum value can be changed using the ``WAGTAILAPI_LIMIT_MAX`` setting.
 
 .. code-block:: json
 

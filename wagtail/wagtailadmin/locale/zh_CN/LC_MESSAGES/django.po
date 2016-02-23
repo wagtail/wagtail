@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-12-17 13:54+0000\n"
-"PO-Revision-Date: 2015-12-17 13:57+0000\n"
+"POT-Creation-Date: 2016-02-05 17:01+0000\n"
+"PO-Revision-Date: 2016-02-05 17:08+0000\n"
 "Last-Translator: mattwestcott <matthew@torchbox.com>\n"
 "Language-Team: Chinese (China) (http://www.transifex.com/torchbox/wagtail/"
 "language/zh_CN/)\n"
@@ -26,6 +26,15 @@ msgstr "定时发布"
 
 msgid "Common page configuration"
 msgstr "常用页面配置"
+
+msgid "Content"
+msgstr "内容"
+
+msgid "Promote"
+msgstr "推荐"
+
+msgid "Settings"
+msgstr "设置"
 
 msgid "Search"
 msgstr "搜索"
@@ -107,6 +116,15 @@ msgstr "私有，使用下列的密码访问："
 
 msgid "This field is required."
 msgstr "必需字段"
+
+msgid "This slug is already in use"
+msgstr "此缩略名已被使用"
+
+msgid "Go live date/time must be before expiry date/time"
+msgstr "发布日期/时间必须早于过期日期/时间"
+
+msgid "Expiry date/time must be in the future"
+msgstr "过期日期/时间必须是未来时间。"
 
 msgid "Account"
 msgstr "帐号"
@@ -785,15 +803,6 @@ msgstr "页面无法保存。出现验证错误。"
 msgid "This page is currently awaiting moderation"
 msgstr "页面等待审核中"
 
-msgid "This slug is already in use"
-msgstr "此缩略名已被使用"
-
-msgid "Go live date/time must be before expiry date/time"
-msgstr "发布日期/时间必须早于过期日期/时间"
-
-msgid "Expiry date/time must be in the future"
-msgstr "过期日期/时间必须是未来时间。"
-
 #, python-brace-format
 msgid "Page '{0}' deleted."
 msgstr "页面'{0}'已删除"
@@ -813,15 +822,6 @@ msgstr "页面 '{0}' 和 {1} 个子页面已复制。"
 #, python-brace-format
 msgid "Page '{0}' copied."
 msgstr "页面'{0}'已复制。"
-
-msgid "Content"
-msgstr "内容"
-
-msgid "Promote"
-msgstr "推荐"
-
-msgid "Settings"
-msgstr "设置"
 
 #, python-brace-format
 msgid "The page '{0}' is not currently awaiting moderation."

@@ -18,8 +18,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-12-17 13:54+0000\n"
-"PO-Revision-Date: 2015-12-17 13:57+0000\n"
+"POT-Creation-Date: 2016-02-05 17:01+0000\n"
+"PO-Revision-Date: 2016-02-05 17:08+0000\n"
 "Last-Translator: mattwestcott <matthew@torchbox.com>\n"
 "Language-Team: Dutch (http://www.transifex.com/torchbox/wagtail/language/"
 "nl/)\n"
@@ -34,6 +34,15 @@ msgstr "Geplande publicatie"
 
 msgid "Common page configuration"
 msgstr "Algemene pagina-instellingen"
+
+msgid "Content"
+msgstr "Inhoud"
+
+msgid "Promote"
+msgstr "Promoot"
+
+msgid "Settings"
+msgstr "Instellingen"
 
 msgid "Search"
 msgstr "Zoek"
@@ -121,6 +130,17 @@ msgstr "Afgeschermd, toegankelijk met het volgende wachtwoord"
 
 msgid "This field is required."
 msgstr "Dit veld is verplicht"
+
+msgid "This slug is already in use"
+msgstr "Deze slug is al in gebruik"
+
+msgid "Go live date/time must be before expiry date/time"
+msgstr ""
+"De datum en tijd waarop de pagina live moet komen te staan moet voor de "
+"datum en tijd liggen waarop de pagina vervalt"
+
+msgid "Expiry date/time must be in the future"
+msgstr "Vervaldatum moet in de toekomst zijn."
 
 msgid "Account"
 msgstr "Account"
@@ -836,17 +856,6 @@ msgstr "Deze pagina kon niet opgeslagen worden vanwege validatiefouten"
 msgid "This page is currently awaiting moderation"
 msgstr "Deze pagina wacht momenteel op goedkeuring"
 
-msgid "This slug is already in use"
-msgstr "Deze slug is al in gebruik"
-
-msgid "Go live date/time must be before expiry date/time"
-msgstr ""
-"De datum en tijd waarop de pagina live moet komen te staan moet voor de "
-"datum en tijd liggen waarop de pagina vervalt"
-
-msgid "Expiry date/time must be in the future"
-msgstr "Vervaldatum moet in de toekomst zijn."
-
 #, python-brace-format
 msgid "Page '{0}' deleted."
 msgstr "Pagina '{0}' verwijderd"
@@ -866,15 +875,6 @@ msgstr "Pagina '{0}' en {1} onderliggende pagina's gekopieerd."
 #, python-brace-format
 msgid "Page '{0}' copied."
 msgstr "Pagina '{0}' gekopieerd."
-
-msgid "Content"
-msgstr "Inhoud"
-
-msgid "Promote"
-msgstr "Promoot"
-
-msgid "Settings"
-msgstr "Instellingen"
 
 #, python-brace-format
 msgid "The page '{0}' is not currently awaiting moderation."

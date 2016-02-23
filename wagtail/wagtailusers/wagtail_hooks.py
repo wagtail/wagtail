@@ -31,9 +31,9 @@ delete_user_perm = "{0}.delete_{1}".format(AUTH_USER_APP_LABEL, AUTH_USER_MODEL_
 class UsersMenuItem(MenuItem):
     def is_shown(self, request):
         return (
-            request.user.has_perm(add_user_perm)
-            or request.user.has_perm(change_user_perm)
-            or request.user.has_perm(delete_user_perm)
+            request.user.has_perm(add_user_perm) or
+            request.user.has_perm(change_user_perm) or
+            request.user.has_perm(delete_user_perm)
         )
 
 
@@ -50,9 +50,9 @@ def register_users_menu_item():
 class GroupsMenuItem(MenuItem):
     def is_shown(self, request):
         return (
-            request.user.has_perm('auth.add_group')
-            or request.user.has_perm('auth.change_group')
-            or request.user.has_perm('auth.delete_group')
+            request.user.has_perm('auth.add_group') or
+            request.user.has_perm('auth.change_group') or
+            request.user.has_perm('auth.delete_group')
         )
 
 
@@ -81,9 +81,9 @@ def register_permissions():
 class UsersSearchArea(SearchArea):
     def is_shown(self, request):
         return (
-            request.user.has_perm(add_user_perm)
-            or request.user.has_perm(change_user_perm)
-            or request.user.has_perm(delete_user_perm)
+            request.user.has_perm(add_user_perm) or
+            request.user.has_perm(change_user_perm) or
+            request.user.has_perm(delete_user_perm)
         )
 
 

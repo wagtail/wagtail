@@ -15,9 +15,9 @@
 {% block content %}
     {% trans "Documents" as doc_str %}
 
-    {% if perms.wagtaildocs.add_document %}
+    {% if user_can_add %}
         {% trans "Add a document" as add_doc_str %}
-        {% include "wagtailadmin/shared/header.html" with title=doc_str add_link="wagtaildocs:add" icon="doc-full-inverse" add_text=add_doc_str search_url="wagtaildocs:index" %}
+        {% include "wagtailadmin/shared/header.html" with title=doc_str add_link="wagtaildocs:add_multiple" icon="doc-full-inverse" add_text=add_doc_str search_url="wagtaildocs:index" %}
     {% else %}
         {% include "wagtailadmin/shared/header.html" with title=doc_str icon="doc-full-inverse" search_url="wagtaildocs:index" %}
     {% endif %}

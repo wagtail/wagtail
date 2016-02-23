@@ -5,15 +5,15 @@
 # Translators:
 # Hannes Lohmander <c.hannes.l@gmail.com>, 2015
 # Ludwig Kjellström <ludwig.kjellstrom@amnesty.se>, 2015
-# Thomas Kunambi <kunambi@gmail.com>, 2015
+# Thomas Kunambi <kunambi@gmail.com>, 2015-2016
 # Thomas Kunambi <kunambi@gmail.com>, 2015
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-12-17 13:54+0000\n"
-"PO-Revision-Date: 2015-12-17 14:01+0000\n"
-"Last-Translator: mattwestcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2016-02-05 17:01+0000\n"
+"PO-Revision-Date: 2016-01-19 03:18+0000\n"
+"Last-Translator: Thomas Kunambi <kunambi@gmail.com>\n"
 "Language-Team: Swedish (http://www.transifex.com/torchbox/wagtail/language/"
 "sv/)\n"
 "MIME-Version: 1.0\n"
@@ -55,8 +55,26 @@ msgstr "Datum"
 msgid "Date/time"
 msgstr "Datum/tid"
 
+msgid "submit time"
+msgstr "inlämningstid"
+
+msgid "form submission"
+msgstr "formulärinlämning"
+
+msgid "label"
+msgstr "etikett"
+
 msgid "The label of the form field"
 msgstr "Namn på fältet"
+
+msgid "field type"
+msgstr "fälttyp"
+
+msgid "required"
+msgstr "obligatorisk"
+
+msgid "choices"
+msgstr "val"
 
 msgid ""
 "Comma separated list of choices. Only applicable in checkboxes, radio and "
@@ -65,11 +83,26 @@ msgstr ""
 "Kommaseparerad lista med val. Används bara för kryssrutor, radioknappar och "
 "rullistor."
 
+msgid "default value"
+msgstr "standardvärde"
+
 msgid "Default value. Comma separated values supported for checkboxes."
 msgstr "Startvärde. Kommaseparerade värden för kryssrutor."
 
+msgid "help text"
+msgstr "hjälptext"
+
+msgid "to address"
+msgstr "mottagaradress"
+
 msgid "Optional - form submissions will be emailed to this address"
 msgstr "Valfritt - ifyllda formulär e-postas till denna adress"
+
+msgid "from address"
+msgstr "avsändaradress"
+
+msgid "subject"
+msgstr "ämne"
 
 #, python-format
 msgid "Delete %(title)s"
