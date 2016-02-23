@@ -4,6 +4,7 @@ from django.core.urlresolvers import reverse
 
 from wagtail.tests.utils import WagtailTestUtils
 from wagtail.wagtailcore.models import Collection
+from wagtail.wagtaildocs.models import Document
 
 
 class TestCollectionsIndexView(TestCase, WagtailTestUtils):
@@ -131,6 +132,7 @@ class TestDeleteCollection(TestCase, WagtailTestUtils):
     def test_get(self):
         response = self.get()
         self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'wagtailadmin/generic/confirm_delete.html')
 
     def test_cannot_delete_root_collection(self):
         response = self.get(collection_id=self.root_collection.id)
@@ -139,6 +141,15 @@ class TestDeleteCollection(TestCase, WagtailTestUtils):
     def test_get_nonexistent_collection(self):
         response = self.get(collection_id=100000)
         self.assertEqual(response.status_code, 404)
+
+    def test_get_nonempty_collection(self):
+        Document.objects.create(
+            title="Test document", collection=self.collection
+        )
+
+        response = self.get()
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'wagtailadmin/collections/delete_not_empty.html')
 
     def test_post(self):
         response = self.post()
@@ -149,3 +160,14 @@ class TestDeleteCollection(TestCase, WagtailTestUtils):
         # Check that the collection was deleted
         with self.assertRaises(Collection.DoesNotExist):
             Collection.objects.get(id=self.collection.id)
+
+    def test_post_nonempty_collection(self):
+        Document.objects.create(
+            title="Test document", collection=self.collection
+        )
+
+        response = self.post()
+        self.assertEqual(response.status_code, 403)
+
+        # Check that the collection was not deleted
+        self.assertTrue(Collection.objects.get(id=self.collection.id))

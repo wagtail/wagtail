@@ -198,15 +198,20 @@ class DeleteView(PermissionCheckedMixin, View):
     def get_delete_url(self):
         return reverse(self.delete_url_name, args=(self.instance.id,))
 
-    def get(self, request, instance_id):
-        self.instance = get_object_or_404(self.get_queryset(), id=instance_id)
-
+    def get_context(self):
         context = {
             'view': self,
             'object': self.instance,
         }
         if self.context_object_name:
             context[self.context_object_name] = self.instance
+
+        return context
+
+    def get(self, request, instance_id):
+        self.instance = get_object_or_404(self.get_queryset(), id=instance_id)
+
+        context = self.get_context()
 
         return render(request, self.template_name, context)
 

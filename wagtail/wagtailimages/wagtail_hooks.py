@@ -1,7 +1,7 @@
 from django.conf.urls import include, url
 from django.core import urlresolvers
 from django.utils.html import format_html, format_html_join
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import ugettext_lazy as _, ungettext
 from django.contrib.staticfiles.templatetags.staticfiles import static
 
 from wagtail.wagtailcore import hooks
@@ -110,3 +110,19 @@ def register_images_search_area():
 @hooks.register('register_group_permission_panel')
 def register_image_permissions_panel():
     return GroupImagePermissionFormSet
+
+
+@hooks.register('describe_collection_contents')
+def describe_collection_docs(collection):
+    images_count = get_image_model().objects.filter(collection=collection).count()
+    if images_count:
+        url = urlresolvers.reverse('wagtailimages:index') + ('?collection_id=%d' % collection.id)
+        return {
+            'count': images_count,
+            'count_text': ungettext(
+                "%(count)s image",
+                "%(count)s images",
+                images_count
+            ) % {'count': images_count},
+            'url': url,
+        }
