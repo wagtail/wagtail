@@ -226,7 +226,7 @@ class TestPageExplorerSignposting(TestCase, WagtailTestUtils):
         self.root_page.add_child(instance=self.no_site_page)
 
     def test_admin_at_root(self):
-        self.client.login(username='superuser', password='password')
+        self.assertTrue(self.client.login(username='superuser', password='password'))
         response = self.client.get(reverse('wagtailadmin_explore_root'))
         self.assertEqual(response.status_code, 200)
         # Administrator (or user with add_site permission) should get the full message
@@ -241,7 +241,7 @@ class TestPageExplorerSignposting(TestCase, WagtailTestUtils):
         self.assertContains(response, """<a href="/admin/sites/">Configure a site now.</a>""")
 
     def test_admin_at_non_site_page(self):
-        self.client.login(username='superuser', password='password')
+        self.assertTrue(self.client.login(username='superuser', password='password'))
         response = self.client.get(reverse('wagtailadmin_explore', args=(self.no_site_page.id, )))
         self.assertEqual(response.status_code, 200)
         # Administrator (or user with add_site permission) should get a warning about
@@ -256,14 +256,14 @@ class TestPageExplorerSignposting(TestCase, WagtailTestUtils):
         self.assertContains(response, """<a href="/admin/sites/">Configure a site now.</a>""")
 
     def test_admin_at_site_page(self):
-        self.client.login(username='superuser', password='password')
+        self.assertTrue(self.client.login(username='superuser', password='password'))
         response = self.client.get(reverse('wagtailadmin_explore', args=(self.site_page.id, )))
         self.assertEqual(response.status_code, 200)
         # There should be no warning message here
         self.assertNotContains(response, "Pages created here will not be accessible")
 
     def test_nonadmin_at_root(self):
-        self.client.login(username='siteeditor', password='password')
+        self.assertTrue(self.client.login(username='siteeditor', password='password'))
         response = self.client.get(reverse('wagtailadmin_explore_root'))
         self.assertEqual(response.status_code, 200)
         # Non-admin should get a simple "create pages as children of the homepage" prompt
@@ -274,7 +274,7 @@ class TestPageExplorerSignposting(TestCase, WagtailTestUtils):
         )
 
     def test_nonadmin_at_non_site_page(self):
-        self.client.login(username='siteeditor', password='password')
+        self.assertTrue(self.client.login(username='siteeditor', password='password'))
         response = self.client.get(reverse('wagtailadmin_explore', args=(self.no_site_page.id, )))
         self.assertEqual(response.status_code, 200)
         # Non-admin should get a warning about unroutable pages
@@ -287,7 +287,7 @@ class TestPageExplorerSignposting(TestCase, WagtailTestUtils):
         )
 
     def test_nonadmin_at_site_page(self):
-        self.client.login(username='siteeditor', password='password')
+        self.assertTrue(self.client.login(username='siteeditor', password='password'))
         response = self.client.get(reverse('wagtailadmin_explore', args=(self.site_page.id, )))
         self.assertEqual(response.status_code, 200)
         # There should be no warning message here

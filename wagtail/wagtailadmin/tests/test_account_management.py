@@ -76,8 +76,8 @@ class TestAuthentication(TestCase, WagtailTestUtils):
         This tests issue #431
         """
         # Login as unprivileged user
-        get_user_model().objects.create(username='unprivileged', password='123')
-        self.client.login(username='unprivileged', password='123')
+        get_user_model().objects.create_user(username='unprivileged', password='123')
+        self.assertTrue(self.client.login(username='unprivileged', password='123'))
 
         # Get login page
         response = self.client.get(reverse('wagtailadmin_login'))
@@ -268,7 +268,7 @@ class TestAccountManagementForNonModerator(TestCase, WagtailTestUtils):
         self.submitter = get_user_model().objects.create_user('submitter', 'submitter@example.com', 'password')
         self.submitter.groups.add(Group.objects.get(name='Editors'))
 
-        self.client.login(username=self.submitter.username, password='password')
+        self.assertTrue(self.client.login(username=self.submitter.username, password='password'))
 
     def test_notification_preferences_form_is_reduced_for_non_moderators(self):
         """
@@ -297,7 +297,7 @@ class TestAccountManagementForAdminOnlyUser(TestCase, WagtailTestUtils):
         )
         self.admin_only_user.groups.add(admin_only_group)
 
-        self.client.login(username=self.admin_only_user.username, password='password')
+        self.assertTrue(self.client.login(username=self.admin_only_user.username, password='password'))
 
     def test_notification_preferences_view_redirects_for_admin_only_users(self):
         """

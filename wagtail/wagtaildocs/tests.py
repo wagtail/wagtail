@@ -1148,7 +1148,7 @@ class TestEditOnlyPermissions(TestCase, WagtailTestUtils):
         user.groups.add(self.changers_group)
 
         user.user_permissions.add(admin_permission)
-        self.client.login(username='changeonly', password='password')
+        self.assertTrue(self.client.login(username='changeonly', password='password'))
 
     def test_get_index(self):
         response = self.client.get(reverse('wagtaildocs:index'))

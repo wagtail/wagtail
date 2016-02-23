@@ -915,7 +915,7 @@ class TestEditOnlyPermissions(TestCase, WagtailTestUtils):
         )
 
         user.groups.add(image_changers_group)
-        self.client.login(username='changeonly', password='password')
+        self.assertTrue(self.client.login(username='changeonly', password='password'))
 
     def test_get_index(self):
         response = self.client.get(reverse('wagtailimages:index'))

@@ -21,7 +21,7 @@ class TestSettingMenu(TestCase, WagtailTestUtils):
             username='test', email='test@email.com', password='password')
         user.user_permissions.add(Permission.objects.get_by_natural_key(
             codename='access_admin', app_label='wagtailadmin', model='admin'))
-        self.client.login(username='test', password='password')
+        self.assertTrue(self.client.login(username='test', password='password'))
         return user
 
     def test_menu_item_in_admin(self):

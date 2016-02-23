@@ -184,7 +184,7 @@ class TestFormsIndex(TestCase):
     fixtures = ['test.json']
 
     def setUp(self):
-        self.client.login(username='siteeditor', password='password')
+        self.assertTrue(self.client.login(username='siteeditor', password='password'))
         self.form_page = Page.objects.get(url_path='/home/contact-us/')
 
     def make_form_pages(self):
@@ -250,7 +250,7 @@ class TestFormsIndex(TestCase):
 
     def test_cannot_see_forms_without_permission(self):
         # Login with as a user without permission to see forms
-        self.client.login(username='eventeditor', password='password')
+        self.assertTrue(self.client.login(username='eventeditor', password='password'))
 
         response = self.client.get(reverse('wagtailforms:index'))
 
@@ -399,7 +399,7 @@ class TestDeleteFormSubmission(TestCase):
     fixtures = ['test.json']
 
     def setUp(self):
-        self.client.login(username='siteeditor', password='password')
+        self.assertTrue(self.client.login(username='siteeditor', password='password'))
         self.form_page = Page.objects.get(url_path='/home/contact-us/')
 
     def test_delete_submission_show_cofirmation(self):
@@ -425,7 +425,7 @@ class TestDeleteFormSubmission(TestCase):
         self.assertRedirects(response, reverse("wagtailforms:list_submissions", args=(self.form_page.id, )))
 
     def test_delete_submission_bad_permissions(self):
-        self.client.login(username="eventeditor", password="password")
+        self.assertTrue(self.client.login(username="eventeditor", password="password"))
 
         response = self.client.post(reverse(
             'wagtailforms:delete_submission',
@@ -443,7 +443,7 @@ class TestIssue798(TestCase):
     fixtures = ['test.json']
 
     def setUp(self):
-        self.client.login(username='siteeditor', password='password')
+        self.assertTrue(self.client.login(username='siteeditor', password='password'))
         self.form_page = Page.objects.get(url_path='/home/contact-us/').specific
 
         # Add a number field to the page

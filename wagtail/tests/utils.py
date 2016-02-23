@@ -35,7 +35,9 @@ class WagtailTestUtils(object):
 
         user_model = get_user_model()
         # Login
-        self.client.login(password='password', **{user_model.USERNAME_FIELD: 'test@email.com'})
+        self.assertTrue(
+            self.client.login(password='password', **{user_model.USERNAME_FIELD: 'test@email.com'})
+        )
 
         return user
 
