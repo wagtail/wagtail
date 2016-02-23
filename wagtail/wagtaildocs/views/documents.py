@@ -40,7 +40,7 @@ def index(request):
     collection_id = request.GET.get('collection_id')
     if collection_id:
         try:
-            current_collection = Collection.objects.get(id=request.GET['collection_id'])
+            current_collection = Collection.objects.get(id=collection_id)
             documents = documents.filter(collection=current_collection)
         except (ValueError, Collection.DoesNotExist):
             pass
