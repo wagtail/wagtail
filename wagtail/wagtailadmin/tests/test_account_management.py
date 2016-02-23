@@ -1,11 +1,11 @@
 from __future__ import unicode_literals
 
-from django.test import TestCase, override_settings
-from django.core.urlresolvers import reverse
 from django.contrib.auth import get_user_model
 from django.contrib.auth.models import Group, Permission
 from django.contrib.auth.tokens import PasswordResetTokenGenerator
 from django.core import mail
+from django.core.urlresolvers import reverse
+from django.test import TestCase, override_settings
 
 from wagtail.tests.utils import WagtailTestUtils
 from wagtail.wagtailusers.models import UserProfile
@@ -128,6 +128,22 @@ class TestAuthentication(TestCase, WagtailTestUtils):
         # this must be the same URL as 'wagtailadmin_login'
         self.assertEqual(response.status_code, 302)
         self.assertRedirects(response, reverse('wagtailadmin_login') + '?next=' + reverse('wagtailadmin_home'))
+
+    def test_logged_in_no_permission_redirect(self):
+        """
+        This tests that a logged in user without admin access permissions is
+        redirected to the login page, with an error message
+        """
+        # Login as unprivileged user
+        get_user_model().objects.create_user(username='unprivileged', password='123')
+        self.assertTrue(self.client.login(username='unprivileged', password='123'))
+
+        # Get dashboard
+        response = self.client.get(reverse('wagtailadmin_home'), follow=True)
+
+        # Check that the user was redirected to the login page and that next was set correctly
+        self.assertRedirects(response, reverse('wagtailadmin_login') + '?next=' + reverse('wagtailadmin_home'))
+        self.assertContains(response, 'You do not have permission to access the admin')
 
 
 class TestAccountSection(TestCase, WagtailTestUtils):
