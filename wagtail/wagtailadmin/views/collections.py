@@ -1,7 +1,11 @@
+from django.http import HttpResponseForbidden
+from django.shortcuts import redirect, get_object_or_404
 from django.utils.translation import ugettext_lazy as __
 
+from wagtail.wagtailcore import hooks
 from wagtail.wagtailcore.models import Collection
 from wagtail.wagtailcore.permissions import collection_permission_policy
+from wagtail.wagtailadmin import messages
 from wagtail.wagtailadmin.forms import CollectionForm
 from wagtail.wagtailadmin.views.generic import IndexView, CreateView, EditView, DeleteView
 
@@ -70,3 +74,36 @@ class Delete(DeleteView):
     def get_queryset(self):
         # Only return children of the root node, so that the root is not editable
         return Collection.get_first_root_node().get_children()
+
+    def get_collection_contents(self):
+        collection_contents = [
+            hook(self.instance)
+            for hook in hooks.get_hooks('describe_collection_contents')
+        ]
+        # filter out any hook responses that report that the collection is empty
+        # (by returning None, or a dict with 'count': 0)
+        is_nonempty = lambda item_type: item_type and item_type['count'] > 0
+        return list(filter(is_nonempty, collection_contents))
+
+    def get_context(self):
+        context = super(Delete, self).get_context()
+        collection_contents = self.get_collection_contents()
+
+        if collection_contents:
+            # collection is non-empty; render the 'not allowed to delete' response
+            self.template_name = 'wagtailadmin/collections/delete_not_empty.html'
+            context['collection_contents'] = collection_contents
+
+        return context
+
+    def post(self, request, instance_id):
+        self.instance = get_object_or_404(self.get_queryset(), id=instance_id)
+        collection_contents = self.get_collection_contents()
+
+        if collection_contents:
+            # collection is non-empty; refuse to delete it
+            return HttpResponseForbidden()
+
+        self.instance.delete()
+        messages.success(request, self.success_message.format(self.instance))
+        return redirect(self.index_url_name)

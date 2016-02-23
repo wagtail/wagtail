@@ -1,7 +1,7 @@
 from django.conf.urls import include, url
 from django.core import urlresolvers
 from django.utils.html import format_html, format_html_join
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import ugettext_lazy as _, ungettext
 from django.contrib.staticfiles.templatetags.staticfiles import static
 
 from wagtail.wagtailcore import hooks
@@ -101,3 +101,19 @@ def register_documents_search_area():
 @hooks.register('register_group_permission_panel')
 def register_document_permissions_panel():
     return GroupDocumentPermissionFormSet
+
+
+@hooks.register('describe_collection_contents')
+def describe_collection_docs(collection):
+    docs_count = get_document_model().objects.filter(collection=collection).count()
+    if docs_count:
+        url = urlresolvers.reverse('wagtaildocs:index') + ('?collection_id=%d' % collection.id)
+        return {
+            'count': docs_count,
+            'count_text': ungettext(
+                "%(count)s document",
+                "%(count)s documents",
+                docs_count
+            ) % {'count': docs_count},
+            'url': url,
+        }

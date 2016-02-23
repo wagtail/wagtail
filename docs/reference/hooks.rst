@@ -91,6 +91,23 @@ Hooks for building new areas of the admin interface (alongside pages, images, do
         menu_items[:] = [item for item in menu_items if item.name != 'explorer']
 
 
+.. _describe_collection_contents:
+
+``describe_collection_contents``
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+  Called when Wagtail needs to find out what objects exist in a collection, if any. Currently this happens on the confirmation before deleting a collection, to ensure that non-empty collections cannot be deleted. The callable passed to this hook will receive a ``collection`` object, and should return either ``None`` (to indicate no objects in this collection), or a dict containing the following keys:
+
+``count``
+  A numeric count of items in this collection
+
+``count_text``
+  A human-readable string describing the number of items in this collection, such as "3 documents". (Sites with multi-language support should return a translatable string here, most likely using the ``django.utils.translation.ungettext`` function.)
+
+``url`` (optional)
+  A URL to an index page that lists the objects being described.
+
+
 .. _register_admin_menu_item:
 
 ``register_admin_menu_item``
