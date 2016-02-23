@@ -24,7 +24,7 @@
                 {% csrf_token %}
                 {% if collections %}
                     <div class="field">
-                        <label for="id_addimage_collection">Add to collection:</label>
+                        <label for="id_addimage_collection">{% trans "Add to collection:" %}</label>
                         <div class="field-content">
                             <select id="id_addimage_collection" name="collection">
                                 {% for collection in collections %}
