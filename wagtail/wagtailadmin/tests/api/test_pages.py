@@ -40,10 +40,14 @@ class TestPageListing(AdminAPITestCase):
         # Will crash if the JSON is invalid
         content = json.loads(response.content.decode('UTF-8'))
 
+        # Check that the meta section is there
+        self.assertIn('meta', content)
+        self.assertIsInstance(content['meta'], dict)
+
         # Check that the total count is there and correct
-        self.assertIn('total_count', content)
-        self.assertIsInstance(content['total_count'], int)
-        self.assertEqual(content['total_count'], get_total_page_count())
+        self.assertIn('total_count', content['meta'])
+        self.assertIsInstance(content['meta']['total_count'], int)
+        self.assertEqual(content['meta']['total_count'], get_total_page_count())
 
         # Check that the items section is there
         self.assertIn('items', content)
@@ -63,7 +67,7 @@ class TestPageListing(AdminAPITestCase):
 
         response = self.get_response()
         content = json.loads(response.content.decode('UTF-8'))
-        self.assertEqual(content['total_count'], total_count)
+        self.assertEqual(content['meta']['total_count'], total_count)
 
     def test_private_pages_appear_in_list(self):  # ADMINAPI CHANGE
         total_count = get_total_page_count()
@@ -76,7 +80,7 @@ class TestPageListing(AdminAPITestCase):
 
         response = self.get_response()
         content = json.loads(response.content.decode('UTF-8'))
-        self.assertEqual(content['total_count'], new_total_count)
+        self.assertEqual(content['meta']['total_count'], new_total_count)
 
 
     # TYPE FILTER
@@ -96,7 +100,7 @@ class TestPageListing(AdminAPITestCase):
         content = json.loads(response.content.decode('UTF-8'))
 
         # Total count must be reduced as this filters the items
-        self.assertEqual(content['total_count'], 3)
+        self.assertEqual(content['meta']['total_count'], 3)
 
     def test_type_filter_multiple(self):
         response = self.get_response(type='demosite.BlogEntryPage,demosite.EventPage')
@@ -448,7 +452,7 @@ class TestPageListing(AdminAPITestCase):
         content = json.loads(response.content.decode('UTF-8'))
 
         # The total count must not be affected by "limit"
-        self.assertEqual(content['total_count'], get_total_page_count())
+        self.assertEqual(content['meta']['total_count'], get_total_page_count())
 
     def test_limit_not_integer_gives_error(self):
         response = self.get_response(limit='abc')
@@ -501,7 +505,7 @@ class TestPageListing(AdminAPITestCase):
         content = json.loads(response.content.decode('UTF-8'))
 
         # The total count must not be affected by "offset"
-        self.assertEqual(content['total_count'], get_total_page_count())
+        self.assertEqual(content['meta']['total_count'], get_total_page_count())
 
     def test_offset_not_integer_gives_error(self):
         response = self.get_response(offset='abc')
