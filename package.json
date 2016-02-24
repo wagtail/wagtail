@@ -15,8 +15,7 @@
     "babel-loader": "^6.2.3",
     "babel-preset-es2015": "^6.5.0",
     "babel-preset-react": "^6.5.0",
-    "browserify": "~3.46.1",
-    "browserify-shim": "~3.4.1",
+    "chai": "^3.5.0",
     "eslint": "^2.2.0",
     "eslint-config-airbnb": "^6.0.2",
     "eslint-plugin-react": "^4.1.0",
@@ -27,15 +26,19 @@
     "gulp-sass": "~2.0.4",
     "gulp-sourcemaps": "~1.5.2",
     "gulp-util": "~2.2.14",
-    "jscs": "^1.12.0",
     "lodash": "^4.5.1",
-    "require-dir": "^0.3.0"
+    "mocha": "^2.4.5",
+    "require-dir": "^0.3.0",
+    "sinon": "^1.17.3"
   },
   "dependencies": {},
   "scripts": {
     "build": "gulp build; webpack --config webpack.prd.config.js",
-    "start": "gulp watch",
+    "watch": "webpack --config webpack.dev.config.js & gulp watch",
+    "start": "npm run watch",
     "lint:js": "eslint --max-warnings 16 webpack.*.config.js ./client",
-    "lint": "npm run lint:js"
+    "lint": "npm run lint:js",
+    "test": "npm run test:unit",
+    "test:unit": "mocha --compilers js:babel-core/register client/tests/**/*.test.js",
   }
 }
