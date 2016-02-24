@@ -57,7 +57,7 @@ class TestPageListing(TestCase):
         for page in content['items']:
             self.assertIn('meta', page)
             self.assertIsInstance(page['meta'], dict)
-            self.assertEqual(set(page['meta'].keys()), {'type', 'detail_url', 'html_url'})
+            self.assertEqual(set(page['meta'].keys()), {'type', 'detail_url', 'html_url', 'seo_title', 'slug', 'first_published_at', 'show_in_menus', 'search_description'})
 
     def test_unpublished_pages_dont_appear_in_list(self):
         total_count = get_total_page_count()
@@ -93,7 +93,7 @@ class TestPageListing(TestCase):
             self.assertEqual(page['meta']['type'], 'demosite.BlogEntryPage')
 
             # All fields in specific type available
-            self.assertEqual(set(page.keys()), {'id', 'meta', 'title', 'slug', 'show_in_menus', 'seo_title', 'search_description', 'first_published_at', 'related_links', 'date', 'body', 'tags', 'feed_image', 'carousel_items'})
+            self.assertEqual(set(page.keys()), {'id', 'meta', 'title', 'related_links', 'date', 'body', 'tags', 'feed_image', 'carousel_items'})
 
     def test_type_filter_total_count(self):
         response = self.get_response(type='demosite.BlogEntryPage')
@@ -118,7 +118,7 @@ class TestPageListing(TestCase):
                 event_page_seen = True
 
             # Only generic fields available
-            self.assertEqual(set(page.keys()), {'id', 'meta', 'title', 'slug', 'show_in_menus', 'seo_title', 'search_description', 'first_published_at'})
+            self.assertEqual(set(page.keys()), {'id', 'meta', 'title'})
 
         self.assertTrue(blog_page_seen, "No blog pages were found in the items")
         self.assertTrue(event_page_seen, "No event pages were found in the items")
@@ -144,7 +144,7 @@ class TestPageListing(TestCase):
         content = json.loads(response.content.decode('UTF-8'))
 
         for page in content['items']:
-            self.assertEqual(set(page.keys()), {'id', 'meta', 'title', 'slug', 'show_in_menus', 'seo_title', 'search_description', 'first_published_at', 'date', 'related_links', 'feed_image', 'body', 'carousel_items', 'tags'})
+            self.assertEqual(set(page.keys()), {'id', 'meta', 'title', 'date', 'related_links', 'feed_image', 'body', 'carousel_items', 'tags'})
 
     def test_fields(self):
         response = self.get_response(type='demosite.BlogEntryPage', fields='title,date,feed_image')
@@ -667,11 +667,6 @@ class TestPageDetail(TestCase):
             'id',
             'meta',
             'title',
-            'slug',
-            'show_in_menus',
-            'seo_title',
-            'search_description',
-            'first_published_at',
             'body',
             'tags',
             'date',
