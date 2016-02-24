@@ -13,6 +13,9 @@
   "devDependencies": {
     "browserify": "~3.46.1",
     "browserify-shim": "~3.4.1",
+    "eslint": "^2.2.0",
+    "eslint-config-airbnb": "^6.0.2",
+    "eslint-plugin-react": "^4.1.0",
     "gulp": "~3.8.11",
     "gulp-autoprefixer": "~3.0.2",
     "gulp-rename": "^1.2.2",
@@ -26,7 +29,7 @@
   "scripts": {
     "build": "gulp build",
     "start": "gulp watch",
-    "lint:js": "./node_modules/.bin/jscs ./wagtail || true",
-    "format:js": "./node_modules/.bin/jscs ./wagtail -x"
+    "lint:js": "eslint --max-warnings 16 ./client",
+    "lint": "npm run lint:js"
   }
 }
