@@ -32,7 +32,7 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='page',
             name='content_type',
-            field=models.ForeignKey(related_name='pages', verbose_name='Content type', to='contenttypes.ContentType'),
+            field=models.ForeignKey(on_delete=models.CASCADE, related_name='pages', verbose_name='Content type', to='contenttypes.ContentType'),
         ),
         migrations.AlterField(
             model_name='page',
@@ -67,7 +67,15 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='page',
             name='owner',
-            field=models.ForeignKey(related_name='owned_pages', on_delete=django.db.models.deletion.SET_NULL, blank=True, editable=False, to=settings.AUTH_USER_MODEL, null=True, verbose_name='Owner'),
+            field=models.ForeignKey(
+                related_name='owned_pages',
+                on_delete=django.db.models.deletion.SET_NULL,
+                blank=True,
+                editable=False,
+                to=settings.AUTH_USER_MODEL,
+                null=True,
+                verbose_name='Owner'
+            ),
         ),
         migrations.AlterField(
             model_name='page',
@@ -92,7 +100,7 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='pagerevision',
             name='page',
-            field=models.ForeignKey(related_name='revisions', verbose_name='Page', to='wagtailcore.Page'),
+            field=models.ForeignKey(on_delete=models.CASCADE, related_name='revisions', verbose_name='Page', to='wagtailcore.Page'),
         ),
         migrations.AlterField(
             model_name='pagerevision',
@@ -102,6 +110,6 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='pagerevision',
             name='user',
-            field=models.ForeignKey(verbose_name='User', blank=True, to=settings.AUTH_USER_MODEL, null=True),
+            field=models.ForeignKey(on_delete=models.CASCADE, verbose_name='User', blank=True, to=settings.AUTH_USER_MODEL, null=True),
         ),
     ]

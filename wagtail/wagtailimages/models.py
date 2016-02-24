@@ -5,10 +5,10 @@ import hashlib
 from contextlib import contextmanager
 from collections import OrderedDict
 
-
 from taggit.managers import TaggableManager
 from willow.image import Image as WillowImage
 
+import django
 from django.core.files import File
 from django.core.exceptions import ImproperlyConfigured
 from django.db import models
@@ -33,7 +33,6 @@ from wagtail.wagtailsearch.queryset import SearchableQuerySetMixin
 from wagtail.wagtailimages.rect import Rect
 from wagtail.wagtailimages.exceptions import InvalidFilterSpecError
 from wagtail.wagtailadmin.utils import get_object_usage
-from wagtail.utils.compat import get_related_model
 
 
 class SourceImageIOError(IOError):
@@ -48,31 +47,25 @@ class ImageQuerySet(SearchableQuerySetMixin, models.QuerySet):
 
 
 def get_upload_to(instance, filename):
-    folder_name = 'original_images'
-    filename = instance.file.field.storage.get_valid_name(filename)
-
-    # do a unidecode in the filename and then
-    # replace non-ascii characters in filename with _ , to sidestep issues with filesystem encoding
-    filename = "".join((i if ord(i) < 128 else '_') for i in unidecode(filename))
-
-    # Truncate filename so it fits in the 100 character limit
-    # https://code.djangoproject.com/ticket/9893
-    while len(os.path.join(folder_name, filename)) >= 95:
-        prefix, dot, extension = filename.rpartition('.')
-        filename = prefix[:-1] + dot + extension
-    return os.path.join(folder_name, filename)
+    # Dumb proxy to instance method.
+    return instance.get_upload_to(filename)
 
 
 @python_2_unicode_compatible
 class AbstractImage(models.Model, TagSearchable):
-    title = models.CharField(max_length=255, verbose_name=_('Title'))
-    file = models.ImageField(verbose_name=_('File'), upload_to=get_upload_to, width_field='width', height_field='height')
-    width = models.IntegerField(verbose_name=_('Width'), editable=False)
-    height = models.IntegerField(verbose_name=_('Height'), editable=False)
-    created_at = models.DateTimeField(verbose_name=_('Created at'), auto_now_add=True, db_index=True)
-    uploaded_by_user = models.ForeignKey(settings.AUTH_USER_MODEL, verbose_name=_('Uploaded by user'), null=True, blank=True, editable=False)
+    title = models.CharField(max_length=255, verbose_name=_('title'))
+    file = models.ImageField(
+        verbose_name=_('file'), upload_to=get_upload_to, width_field='width', height_field='height'
+    )
+    width = models.IntegerField(verbose_name=_('width'), editable=False)
+    height = models.IntegerField(verbose_name=_('height'), editable=False)
+    created_at = models.DateTimeField(verbose_name=_('created at'), auto_now_add=True, db_index=True)
+    uploaded_by_user = models.ForeignKey(
+        settings.AUTH_USER_MODEL, verbose_name=_('uploaded by user'),
+        null=True, blank=True, editable=False, on_delete=models.SET_NULL
+    )
 
-    tags = TaggableManager(help_text=None, blank=True, verbose_name=_('Tags'))
+    tags = TaggableManager(help_text=None, blank=True, verbose_name=_('tags'))
 
     focal_point_x = models.PositiveIntegerField(null=True, blank=True)
     focal_point_y = models.PositiveIntegerField(null=True, blank=True)
@@ -105,6 +98,21 @@ class AbstractImage(models.Model, TagSearchable):
             self.save(update_fields=['file_size'])
 
         return self.file_size
+
+    def get_upload_to(self, filename):
+        folder_name = 'original_images'
+        filename = self.file.field.storage.get_valid_name(filename)
+
+        # do a unidecode in the filename and then
+        # replace non-ascii characters in filename with _ , to sidestep issues with filesystem encoding
+        filename = "".join((i if ord(i) < 128 else '_') for i in unidecode(filename))
+
+        # Truncate filename so it fits in the 100 character limit
+        # https://code.djangoproject.com/ticket/9893
+        while len(os.path.join(folder_name, filename)) >= 95:
+            prefix, dot, extension = filename.rpartition('.')
+            filename = prefix[:-1] + dot + extension
+        return os.path.join(folder_name, filename)
 
     def get_usage(self):
         return get_object_usage(self)
@@ -221,7 +229,10 @@ class AbstractImage(models.Model, TagSearchable):
     @classmethod
     def get_rendition_model(cls):
         """ Get the Rendition model for this Image model """
-        return get_related_model(cls.renditions.related)
+        if django.VERSION >= (1, 9):
+            return cls.renditions.rel.related_model
+        else:
+            return cls.renditions.related.related_model
 
     def get_rendition(self, filter):
         if isinstance(filter, string_types):
@@ -250,11 +261,12 @@ class AbstractImage(models.Model, TagSearchable):
                 'gif': '.gif',
             }
 
-            output_extension = filter.spec + FORMAT_EXTENSIONS[output_format]
+            output_extension = filter.spec.replace('|', '.') + FORMAT_EXTENSIONS[output_format]
             if cache_key:
                 output_extension = cache_key + '.' + output_extension
 
-            output_filename_without_extension = input_filename_without_extension[:(59 - len(output_extension))]  # Truncate filename to prevent it going over 60 chars
+            # Truncate filename to prevent it going over 60 chars
+            output_filename_without_extension = input_filename_without_extension[:(59 - len(output_extension))]
             output_filename = output_filename_without_extension + '.' + output_extension
 
             rendition, created = self.renditions.get_or_create(
@@ -283,14 +295,8 @@ class AbstractImage(models.Model, TagSearchable):
         return self.title
 
     def is_editable_by_user(self, user):
-        if user.has_perm('wagtailimages.change_image'):
-            # user has global permission to change images
-            return True
-        elif user.has_perm('wagtailimages.add_image') and self.uploaded_by_user == user:
-            # user has image add permission, which also implicitly provides permission to edit their own images
-            return True
-        else:
-            return False
+        from wagtail.wagtailimages.permissions import permission_policy
+        return permission_policy.user_has_permission_for_instance(user, 'change', self)
 
     class Meta:
         abstract = True
@@ -338,17 +344,22 @@ def get_image_model():
 
     image_model = apps.get_model(app_label, model_name)
     if image_model is None:
-        raise ImproperlyConfigured("WAGTAILIMAGES_IMAGE_MODEL refers to model '%s' that has not been installed" % settings.WAGTAILIMAGES_IMAGE_MODEL)
+        raise ImproperlyConfigured(
+            "WAGTAILIMAGES_IMAGE_MODEL refers to model '%s' that has not been installed" %
+            settings.WAGTAILIMAGES_IMAGE_MODEL
+        )
     return image_model
 
 
 class Filter(models.Model):
     """
-    Represents an operation that can be applied to an Image to produce a rendition
+    Represents one or more operations that can be applied to an Image to produce a rendition
     appropriate for final display on the website. Usually this would be a resize operation,
     but could potentially involve colour processing, etc.
     """
-    spec = models.CharField(max_length=255, db_index=True, unique=True)
+
+    # The spec pattern is operation1-var1-var2|operation2-var1
+    spec = models.CharField(max_length=255, unique=True)
 
     @cached_property
     def operations(self):
@@ -357,7 +368,7 @@ class Filter(models.Model):
 
         # Build list of operation objects
         operations = []
-        for op_spec in self.spec.split():
+        for op_spec in self.spec.split('|'):
             op_spec_parts = op_spec.split('-')
 
             if op_spec_parts[0] not in self._registered_operations:
@@ -365,7 +376,6 @@ class Filter(models.Model):
 
             op_class = self._registered_operations[op_spec_parts[0]]
             operations.append(op_class(*op_spec_parts))
-
         return operations
 
     def run(self, image, output):
@@ -430,7 +440,7 @@ class Filter(models.Model):
 
 
 class AbstractRendition(models.Model):
-    filter = models.ForeignKey('Filter', related_name='+')
+    filter = models.ForeignKey(Filter, related_name='+')
     file = models.ImageField(upload_to='images', width_field='width', height_field='height')
     width = models.IntegerField(editable=False)
     height = models.IntegerField(editable=False)
@@ -477,7 +487,7 @@ class AbstractRendition(models.Model):
 
 
 class Rendition(AbstractRendition):
-    image = models.ForeignKey('Image', related_name='renditions')
+    image = models.ForeignKey(Image, related_name='renditions')
 
     class Meta:
         unique_together = (

@@ -4,15 +4,16 @@
 #
 # Translators:
 # Florian <flori@vorlif.org>, 2015
+# Henrik Kröger <hedwig@riseup.net>, 2016
 # Johannes Spielmann <j@spielmannsolutions.com>, 2014
 # Johannes Spielmann <j@spielmannsolutions.com>, 2014
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-08-26 14:28+0100\n"
-"PO-Revision-Date: 2015-08-19 19:05+0000\n"
-"Last-Translator: Florian <flori@vorlif.org>\n"
+"POT-Creation-Date: 2016-02-05 17:01+0000\n"
+"PO-Revision-Date: 2016-02-07 17:52+0000\n"
+"Last-Translator: Henrik Kröger <hedwig@riseup.net>\n"
 "Language-Team: German (http://www.transifex.com/torchbox/wagtail/language/"
 "de/)\n"
 "MIME-Version: 1.0\n"
@@ -27,7 +28,7 @@ msgstr "Bitte geben Sie eine gültige URL ein"
 msgid "URL"
 msgstr "URL"
 
-msgid "Embed"
+msgid "embed"
 msgstr "Einbetten"
 
 msgid "Insert embed"
@@ -40,7 +41,7 @@ msgid ""
 "There seems to be a problem with your embedly API key. Please check your "
 "settings."
 msgstr ""
-"Es gibt ein Problem mit ihrem Embedly API-Key. Bitte überprüfen Sie ihre "
+"Es gibt ein Problem mit Ihrem Embedly API-Key. Bitte überprüfen Sie Ihre "
 "Einstellungen!"
 
 msgid "Cannot find an embed for this URL."

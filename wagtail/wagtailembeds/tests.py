@@ -10,7 +10,7 @@ except ImportError:
 
 import django.utils.six.moves.urllib.request
 from django import template
-from django.test import TestCase
+from django.test import TestCase, override_settings
 from django.core.exceptions import ValidationError
 from django.core.urlresolvers import reverse
 from django.utils.six.moves.urllib.error import URLError
@@ -19,17 +19,56 @@ from wagtail.wagtailcore import blocks
 from wagtail.tests.utils import WagtailTestUtils
 
 from wagtail.wagtailembeds.rich_text import MediaEmbedHandler
-from wagtail.wagtailembeds.embeds import (
-    EmbedNotFoundException,
+from wagtail.wagtailembeds.embeds import get_embed
+from wagtail.wagtailembeds.exceptions import EmbedNotFoundException
+from wagtail.wagtailembeds.finders.embedly import (
     EmbedlyException,
     AccessDeniedEmbedlyException,
-    get_embed,
     embedly as wagtail_embedly,
-    oembed as wagtail_oembed,
 )
+from wagtail.wagtailembeds.finders.oembed import oembed as wagtail_oembed
+from wagtail.wagtailembeds.finders import get_default_finder
 from wagtail.wagtailembeds.templatetags.wagtailembeds_tags import embed as embed_filter
 from wagtail.wagtailembeds.blocks import EmbedBlock, EmbedValue
 from wagtail.wagtailembeds.models import Embed
+
+
+class TestGetDefaultFinder(TestCase):
+    def test_defaults_to_oembed(self):
+        self.assertEqual(get_default_finder(), wagtail_oembed)
+
+    @override_settings(WAGTAILEMBEDS_EMBEDLY_KEY='test')
+    def test_defaults_to_embedly_when_embedly_key_set(self):
+        self.assertEqual(get_default_finder(), wagtail_embedly)
+
+    @override_settings(WAGTAILEMBEDS_EMBED_FINDER='wagtail.wagtailembeds.finders.embedly.embedly')
+    def test_find_embedly(self):
+        self.assertEqual(get_default_finder(), wagtail_embedly)
+
+    @override_settings(WAGTAILEMBEDS_EMBED_FINDER='wagtail.wagtailembeds.finders.oembed.oembed')
+    def test_find_oembed(self):
+        self.assertEqual(get_default_finder(), wagtail_oembed)
+
+    @override_settings(WAGTAILEMBEDS_EMBED_FINDER='wagtail.wagtailembeds.finders.embedly')
+    def test_find_embedly_from_module(self):
+        self.assertEqual(get_default_finder(), wagtail_embedly)
+
+    @override_settings(WAGTAILEMBEDS_EMBED_FINDER='wagtail.wagtailembeds.finders.oembed')
+    def test_find_oembed_from_module(self):
+        self.assertEqual(get_default_finder(), wagtail_oembed)
+
+    @override_settings(WAGTAILEMBEDS_EMBED_FINDER='wagtail.wagtailembeds.embeds.embedly')
+    def test_find_old_embedly(self):
+        self.assertEqual(get_default_finder(), wagtail_embedly)
+
+    @override_settings(WAGTAILEMBEDS_EMBED_FINDER='wagtail.wagtailembeds.embeds.oembed')
+    def test_find_old_oembed(self):
+        self.assertEqual(get_default_finder(), wagtail_oembed)
+
+    @override_settings(WAGTAILEMBEDS_EMBEDLY_KEY='test', WAGTAILEMBEDS_EMBED_FINDER='wagtail.wagtailembeds.finders.oembed.oembed')
+    def test_find_oembed_when_embedly_key_set(self):
+        # WAGTAILEMBEDS_EMBED_FINDER always takes precedence
+        self.assertEqual(get_default_finder(), wagtail_oembed)
 
 
 class TestEmbeds(TestCase):
@@ -480,7 +519,13 @@ class TestMediaEmbedHandler(TestCase):
             {'url': 'http://www.youtube.com/watch/'},
             True
         )
-        self.assertIn('<div class="embed-placeholder" contenteditable="false" data-embedtype="media" data-url="http://www.youtube.com/watch/">', result)
+        self.assertIn(
+            (
+                '<div class="embed-placeholder" contenteditable="false" data-embedtype="media"'
+                ' data-url="http://www.youtube.com/watch/">'
+            ),
+            result
+        )
         self.assertIn('<h3>test title</h3>', result)
         self.assertIn('<p>URL: http://www.youtube.com/watch/</p>', result)
         self.assertIn('<p>Provider: test provider name</p>', result)

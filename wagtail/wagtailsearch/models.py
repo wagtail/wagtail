@@ -49,11 +49,13 @@ class Query(models.Model):
     @classmethod
     def get_most_popular(cls, date_since=None):
         # TODO: Implement date_since
-        return cls.objects.filter(daily_hits__isnull=False).annotate(_hits=models.Sum('daily_hits__hits')).distinct().order_by('-_hits')
+        return (cls.objects.filter(daily_hits__isnull=False)
+                .annotate(_hits=models.Sum('daily_hits__hits'))
+                .distinct().order_by('-_hits'))
 
 
 class QueryDailyHits(models.Model):
-    query = models.ForeignKey(Query, db_index=True, related_name='daily_hits')
+    query = models.ForeignKey(Query, db_index=True, related_name='daily_hits', on_delete=models.CASCADE)
     date = models.DateField()
     hits = models.IntegerField(default=0)
 

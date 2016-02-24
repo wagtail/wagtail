@@ -81,6 +81,31 @@ def initial_data(apps, schema_editor):
     )
 
 
+def remove_initial_data(apps, schema_editor):
+    """This function does nothing. The below code is commented out together
+    with an explanation of why we don't need to bother reversing any of the
+    initial data"""
+    pass
+    # This does not need to be deleted, Django takes care of it.
+    # page_content_type = ContentType.objects.get(
+    #     model='page',
+    #     app_label='wagtailcore',
+    # )
+
+    # Page objects: Do nothing, the table will be deleted when reversing 0001
+
+    # Do not reverse Site creation since other models might depend on it
+
+    # Remove auth groups -- is this safe? External objects might depend
+    # on these groups... seems unsafe.
+    # Group.objects.filter(
+    #     name__in=('Moderators', 'Editors')
+    # ).delete()
+    #
+    # Likewise, we're leaving all GroupPagePermission unchanged as users may
+    # have been assigned such permissions and its harmless to leave them.
+
+
 class Migration(migrations.Migration):
 
     dependencies = [
@@ -88,5 +113,5 @@ class Migration(migrations.Migration):
     ]
 
     operations = [
-        migrations.RunPython(initial_data),
+        migrations.RunPython(initial_data, remove_initial_data),
     ]

@@ -5,13 +5,15 @@
 # Translators:
 # Hannes Lohmander <c.hannes.l@gmail.com>, 2015
 # Ludwig Kjellström <ludwig.kjellstrom@amnesty.se>, 2015
+# Thomas Kunambi <kunambi@gmail.com>, 2015-2016
+# Thomas Kunambi <kunambi@gmail.com>, 2015
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-08-26 14:28+0100\n"
-"PO-Revision-Date: 2015-09-15 13:05+0000\n"
-"Last-Translator: Hannes Lohmander <c.hannes.l@gmail.com>\n"
+"POT-Creation-Date: 2016-02-05 17:01+0000\n"
+"PO-Revision-Date: 2016-01-19 03:18+0000\n"
+"Last-Translator: Thomas Kunambi <kunambi@gmail.com>\n"
 "Language-Team: Swedish (http://www.transifex.com/torchbox/wagtail/language/"
 "sv/)\n"
 "MIME-Version: 1.0\n"
@@ -53,57 +55,67 @@ msgstr "Datum"
 msgid "Date/time"
 msgstr "Datum/tid"
 
-msgid "Submit time"
-msgstr "Mottaget"
+msgid "submit time"
+msgstr "inlämningstid"
 
-msgid "Form Submission"
-msgstr "Mottaget formulär"
+msgid "form submission"
+msgstr "formulärinlämning"
 
-msgid "Label"
-msgstr "Fält-namn"
+msgid "label"
+msgstr "etikett"
 
 msgid "The label of the form field"
 msgstr "Namn på fältet"
 
-msgid "Field type"
-msgstr "Fälttyp"
+msgid "field type"
+msgstr "fälttyp"
 
-msgid "Required"
-msgstr "Obligatoriskt"
+msgid "required"
+msgstr "obligatorisk"
 
-msgid "Choices"
-msgstr "Val"
+msgid "choices"
+msgstr "val"
 
 msgid ""
 "Comma separated list of choices. Only applicable in checkboxes, radio and "
 "dropdown."
 msgstr ""
 "Kommaseparerad lista med val. Används bara för kryssrutor, radioknappar och "
-"dropdowns."
+"rullistor."
 
-msgid "Default value"
-msgstr "Startvärde"
+msgid "default value"
+msgstr "standardvärde"
 
 msgid "Default value. Comma separated values supported for checkboxes."
 msgstr "Startvärde. Kommaseparerade värden för kryssrutor."
 
-msgid "Help text"
-msgstr "Stödtext"
+msgid "help text"
+msgstr "hjälptext"
 
-msgid "To address"
-msgstr "Mottagaradress"
+msgid "to address"
+msgstr "mottagaradress"
 
 msgid "Optional - form submissions will be emailed to this address"
 msgstr "Valfritt - ifyllda formulär e-postas till denna adress"
 
-msgid "From address"
-msgstr "Avsändaradress"
+msgid "from address"
+msgstr "avsändaradress"
 
-msgid "Subject"
-msgstr "Ämne"
+msgid "subject"
+msgstr "ämne"
+
+#, python-format
+msgid "Delete %(title)s"
+msgstr "Radera %(title)s"
 
 msgid "Delete"
-msgstr "Ta bort"
+msgstr "Radera"
+
+msgid "Are you sure you want to delete this form submission?"
+msgstr "Är du säker på att du vill radera denna formulärinlaga?"
+
+msgid "Delete it"
+msgstr "Radera den"
 
 msgid "Forms"
 msgstr "Formulär"
@@ -138,5 +150,11 @@ msgstr "Källa"
 msgid "Submission Date"
 msgstr "Mottaget"
 
+msgid "Actions"
+msgstr "Handlingar"
+
 msgid "No form pages have been created."
 msgstr "Inga formulär har skapats."
+
+msgid "Submission deleted."
+msgstr "Inlaga raderad"

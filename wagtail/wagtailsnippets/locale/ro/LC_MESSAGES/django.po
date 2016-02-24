@@ -4,15 +4,15 @@
 #
 # Translators:
 # Dan Braghis, 2014
-# Dan Braghis, 2014
+# Dan Braghis, 2014-2016
 # Dan Braghis, 2014
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-08-26 14:28+0100\n"
-"PO-Revision-Date: 2015-03-06 12:15+0000\n"
-"Last-Translator: mattwestcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2016-02-05 17:02+0000\n"
+"PO-Revision-Date: 2016-02-05 18:11+0000\n"
+"Last-Translator: Dan Braghis\n"
 "Language-Team: Romanian (http://www.transifex.com/torchbox/wagtail/language/"
 "ro/)\n"
 "MIME-Version: 1.0\n"
@@ -25,8 +25,42 @@ msgstr ""
 msgid "Choose"
 msgstr "Alege"
 
-msgid "Title"
-msgstr "Titlu"
+msgid "Search"
+msgstr "Căută"
+
+#, python-format
+msgid ""
+"\n"
+"            There is one match\n"
+"        "
+msgid_plural ""
+"\n"
+"            There are %(counter)s matches\n"
+"        "
+msgstr[0] ""
+"\n"
+"Există o potrivire"
+msgstr[1] ""
+"\n"
+"Sunt %(counter)s potriviri"
+msgstr[2] ""
+"\n"
+"Sunt %(counter)s potriviri"
+
+#, python-format
+msgid "Sorry, no snippets match \"<em>%(query_string)s</em>\""
+msgstr ""
+"Ne pare rău, nici un fragment nu se potrivește cu \"<em>%(query_string)s</em>"
+"\""
+
+#, python-format
+msgid ""
+"You haven't created any %(snippet_type_name)s snippets. Why not <a href="
+"\"%(wagtailsnippets_create_snippet_url)s\" target=\"_blank\">create one now"
+msgstr ""
+"Nu au fost create %(snippet_type_name)s. De să nu <a href="
+"\"%(wagtailsnippets_create_snippet_url)s\" target=\"_blank\">adăugați unul</"
+"a>?"
 
 #, python-format
 msgid "Delete %(snippet_type_name)s - %(instance)s"
@@ -62,6 +96,17 @@ msgstr "Editare"
 msgid "Snippets"
 msgstr "Fragmente"
 
+msgid "Title"
+msgstr "Titlu"
+
+#, python-format
+msgid ""
+"No %(snippet_type_name_plural)s have been created. Why not <a href="
+"\"%(wagtailsnippets_create_url)s\">add one</a>?"
+msgstr ""
+"Nu au fost create %(snippet_type_name_plural)s. De să nu <a href="
+"\"%(wagtailsnippets_create_url)s\">adăugați unul</a>?"
+
 #, python-format
 msgid "Snippets %(snippet_type_name_plural)s"
 msgstr "Fragmente %(snippet_type_name_plural)s"
@@ -73,14 +118,6 @@ msgstr "Fragmente <span>%(snippet_type_name_plural)s</span>"
 #, python-format
 msgid "Add %(snippet_type_name)s"
 msgstr "Adaugă %(snippet_type_name)s"
-
-#, python-format
-msgid ""
-"No %(snippet_type_name_plural)s have been created. Why not <a href="
-"\"%(wagtailsnippets_create_url)s\">add one</a>?"
-msgstr ""
-"Nu au fost create %(snippet_type_name_plural)s. De să nu <a href="
-"\"%(wagtailsnippets_create_url)s\">adăugați unul</a>?"
 
 #, python-format
 msgid "Usage of %(title)s"
@@ -101,9 +138,16 @@ msgstr "Status"
 msgid "Edit this page"
 msgstr "Editează această pagină"
 
+#, python-format
+msgid "Search %(snippet_type_name)s"
+msgstr "Caută %(snippet_type_name)s"
+
 #, python-brace-format
 msgid "{snippet_type} '{instance}' created."
 msgstr "{snippet_type} '{instance}' a fost creat."
+
+msgid "Edit"
+msgstr "Editează"
 
 msgid "The snippet could not be created due to errors."
 msgstr "Fragmentul nu a fost creat din cauza erorilor."
@@ -118,3 +162,15 @@ msgstr "Fragmentul nu a fost salvat din cauza erorilor."
 #, python-brace-format
 msgid "{snippet_type} '{instance}' deleted."
 msgstr "{snippet_type} '{instance}' a fost șters."
+
+#, python-format
+msgid "Choose %s"
+msgstr "Alege %s"
+
+#, python-format
+msgid "Choose another %s"
+msgstr "Alege alt %s"
+
+#, python-format
+msgid "Edit this %s"
+msgstr "Editează %s"

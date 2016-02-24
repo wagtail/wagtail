@@ -7,14 +7,15 @@
 # Bertrand Bordage <bordage.bertrand@gmail.com>, 2015
 # nahuel, 2014
 # nahuel, 2014
+# Sebastien Andrivet <sebastien@andrivet.com>, 2016
 # Timothy Allen <flipper@peregrinesalon.com>, 2015
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-08-26 14:28+0100\n"
-"PO-Revision-Date: 2015-10-09 12:51+0000\n"
-"Last-Translator: Timothy Allen <flipper@peregrinesalon.com>\n"
+"POT-Creation-Date: 2016-02-05 17:02+0000\n"
+"PO-Revision-Date: 2016-02-05 17:09+0000\n"
+"Last-Translator: mattwestcott <matthew@torchbox.com>\n"
 "Language-Team: French (http://www.transifex.com/torchbox/wagtail/language/"
 "fr/)\n"
 "MIME-Version: 1.0\n"
@@ -85,19 +86,25 @@ msgstr "Hauteur"
 msgid "Closeness"
 msgstr "Proximité"
 
-msgid "Title"
+msgid "title"
 msgstr "Titre"
 
-msgid "File"
+msgid "file"
 msgstr "Fichier"
 
-msgid "Created at"
-msgstr "Créé le"
+msgid "width"
+msgstr "largeur"
 
-msgid "Uploaded by user"
-msgstr "Envoyé par"
+msgid "height"
+msgstr "hauteur"
 
-msgid "Tags"
+msgid "created at"
+msgstr "Créé à"
+
+msgid "uploaded by user"
+msgstr "Téléchargé par l'utilisateur"
+
+msgid "tags"
 msgstr "Mots-clés"
 
 msgid "Choose an image"
@@ -111,6 +118,9 @@ msgstr "Envoyer"
 
 msgid "Popular tags"
 msgstr "Mots-clés populaires"
+
+msgid "Uploading..."
+msgstr "Téléchargement..."
 
 #, python-format
 msgid ""
@@ -248,6 +258,9 @@ msgstr "Utilisation de %(title)s"
 msgid "Usage of"
 msgstr "Utilisation de"
 
+msgid "Title"
+msgstr "Titre"
+
 msgid "Parent"
 msgstr "Parent"
 
@@ -284,6 +297,9 @@ msgstr ""
 
 msgid "Sorry, upload failed."
 msgstr "Désolé, L'envoi a échoué."
+
+msgid "Image updated."
+msgstr "Image mise à jour."
 
 msgid "Update"
 msgstr "Mettre à jour"

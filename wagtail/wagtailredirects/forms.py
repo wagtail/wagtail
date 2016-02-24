@@ -8,7 +8,9 @@ from wagtail.wagtailredirects.models import Redirect
 
 
 class RedirectForm(forms.ModelForm):
-    site = forms.ModelChoiceField(label=_("From site"), queryset=Site.objects.all(), required=False, empty_label=_("All sites"))
+    site = forms.ModelChoiceField(
+        label=_("From site"), queryset=Site.objects.all(), required=False, empty_label=_("All sites")
+    )
 
     def __init__(self, *args, **kwargs):
         super(RedirectForm, self).__init__(*args, **kwargs)

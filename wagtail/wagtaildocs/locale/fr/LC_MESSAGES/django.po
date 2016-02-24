@@ -6,13 +6,14 @@
 # Bertrand Bordage <bordage.bertrand@gmail.com>, 2015
 # nahuel, 2014
 # nahuel, 2014
+# pierre marfoure <pierre@onoffdesign.com>, 2016
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-08-26 14:28+0100\n"
-"PO-Revision-Date: 2015-10-09 12:51+0000\n"
-"Last-Translator: Benoît Bar <bar.benoit@gmail.com>\n"
+"POT-Creation-Date: 2016-02-05 17:01+0000\n"
+"PO-Revision-Date: 2016-02-05 17:09+0000\n"
+"Last-Translator: mattwestcott <matthew@torchbox.com>\n"
 "Language-Team: French (http://www.transifex.com/torchbox/wagtail/language/"
 "fr/)\n"
 "MIME-Version: 1.0\n"
@@ -21,22 +22,22 @@ msgstr ""
 "Language: fr\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
-msgid "Title"
+msgid "title"
 msgstr "Titre"
 
-msgid "File"
+msgid "file"
 msgstr "Fichier"
 
-msgid "Created at"
-msgstr "Créé le"
+msgid "created at"
+msgstr "Créé à"
 
-msgid "Uploaded by user"
-msgstr "Envoyé par"
+msgid "uploaded by user"
+msgstr "Téléchargé par l'utilisateur"
 
-msgid "Tags"
+msgid "tags"
 msgstr "Mots-clés"
 
-msgid "Document"
+msgid "document"
 msgstr "Document"
 
 msgid "Choose a document"
@@ -48,8 +49,8 @@ msgstr "Recherche"
 msgid "Upload"
 msgstr "Envoyer"
 
-msgid "Save"
-msgstr "Enregistrer"
+msgid "Uploading..."
+msgstr "Téléchargement..."
 
 #, python-format
 msgid ""
@@ -105,6 +106,9 @@ msgstr "Édition de %(title)s"
 msgid "Editing"
 msgstr "Modification"
 
+msgid "Save"
+msgstr "Enregistrer"
+
 msgid "Filesize"
 msgstr "Taille du fichier"
 
@@ -113,6 +117,12 @@ msgstr "Fichier non trouvé"
 
 msgid "Documents"
 msgstr "Documents"
+
+msgid "Title"
+msgstr "Titre"
+
+msgid "File"
+msgstr "Fichier"
 
 msgid "Uploaded"
 msgstr "Envoyé"

@@ -59,6 +59,7 @@ COMMANDS = {
     'start': create_project,
 }
 
+
 def main():
     # Parse options
     parser = OptionParser(usage="Usage: %prog start project_name [directory]")

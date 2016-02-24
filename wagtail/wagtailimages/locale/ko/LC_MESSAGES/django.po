@@ -9,9 +9,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-08-26 14:28+0100\n"
-"PO-Revision-Date: 2015-10-20 02:27+0000\n"
-"Last-Translator: Kyungil Choi <hanpama@gmail.com>\n"
+"POT-Creation-Date: 2016-02-05 17:02+0000\n"
+"PO-Revision-Date: 2016-02-05 17:09+0000\n"
+"Last-Translator: mattwestcott <matthew@torchbox.com>\n"
 "Language-Team: Korean (http://www.transifex.com/torchbox/wagtail/language/"
 "ko/)\n"
 "MIME-Version: 1.0\n"
@@ -81,21 +81,6 @@ msgstr "높이"
 
 msgid "Closeness"
 msgstr " 접근"
-
-msgid "Title"
-msgstr "제목"
-
-msgid "File"
-msgstr "파일"
-
-msgid "Created at"
-msgstr "생성된 날짜"
-
-msgid "Uploaded by user"
-msgstr "사용자에 의한 업로드"
-
-msgid "Tags"
-msgstr "태그"
 
 msgid "Choose an image"
 msgstr "이미지 선택"
@@ -234,6 +219,9 @@ msgstr "%(title)s 의 사용"
 
 msgid "Usage of"
 msgstr "의 사용"
+
+msgid "Title"
+msgstr "제목"
 
 msgid "Parent"
 msgstr "상위"

@@ -14,7 +14,11 @@ from wagtail.wagtailadmin.utils import permission_required, any_permission_requi
 from wagtail.contrib.wagtailsearchpromotions import forms
 
 
-@any_permission_required('wagtailsearchpromotions.add_searchpromotion', 'wagtailsearchpromotions.change_searchpromotion', 'wagtailsearchpromotions.delete_searchpromotion')
+@any_permission_required(
+    'wagtailsearchpromotions.add_searchpromotion',
+    'wagtailsearchpromotions.change_searchpromotion',
+    'wagtailsearchpromotions.delete_searchpromotion'
+)
 @vary_on_headers('X-Requested-With')
 def index(request):
     is_searching = False
@@ -40,7 +44,9 @@ def index(request):
             'is_searching': is_searching,
             'queries': queries,
             'query_string': query_string,
-            'search_form': SearchForm(data=dict(q=query_string) if query_string else None, placeholder=_("Search promoted results")),
+            'search_form': SearchForm(
+                data=dict(q=query_string) if query_string else None, placeholder=_("Search promoted results")
+            ),
         })
 
 
@@ -82,9 +88,11 @@ def add(request):
                 return redirect('wagtailsearchpromotions:index')
             else:
                 if len(searchpicks_formset.non_form_errors()):
-                    messages.error(request, " ".join(error for error in searchpicks_formset.non_form_errors()))  # formset level error (e.g. no forms submitted)
+                    # formset level error (e.g. no forms submitted)
+                    messages.error(request, " ".join(error for error in searchpicks_formset.non_form_errors()))
                 else:
-                    messages.error(request, _("Recommendations have not been created due to errors"))  # specific errors will be displayed within form fields
+                    # specific errors will be displayed within form fields
+                    messages.error(request, _("Recommendations have not been created due to errors"))
         else:
             searchpicks_formset = forms.SearchPromotionsFormSet()
     else:
@@ -118,9 +126,11 @@ def edit(request, query_id):
                 return redirect('wagtailsearchpromotions:index')
             else:
                 if len(searchpicks_formset.non_form_errors()):
-                    messages.error(request, " ".join(error for error in searchpicks_formset.non_form_errors()))  # formset level error (e.g. no forms submitted)
+                    messages.error(request, " ".join(error for error in searchpicks_formset.non_form_errors()))
+                    # formset level error (e.g. no forms submitted)
                 else:
-                    messages.error(request, _("Recommendations have not been saved due to errors"))  # specific errors will be displayed within form fields
+                    messages.error(request, _("Recommendations have not been saved due to errors"))
+                    # specific errors will be displayed within form fields
 
     else:
         query_form = search_forms.QueryForm(initial=dict(query_string=query.query_string))

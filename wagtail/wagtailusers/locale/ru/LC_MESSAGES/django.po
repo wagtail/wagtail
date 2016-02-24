@@ -11,9 +11,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-08-26 14:28+0100\n"
-"PO-Revision-Date: 2015-04-28 07:04+0000\n"
-"Last-Translator: Eugene MechanisM <contact@mechanism.name>\n"
+"POT-Creation-Date: 2016-02-05 17:02+0000\n"
+"PO-Revision-Date: 2016-02-05 17:11+0000\n"
+"Last-Translator: mattwestcott <matthew@torchbox.com>\n"
 "Language-Team: Russian (http://www.transifex.com/torchbox/wagtail/language/"
 "ru/)\n"
 "MIME-Version: 1.0\n"
@@ -32,13 +32,14 @@ msgstr ""
 msgid "This value may contain only letters, numbers and @/./+/-/_ characters."
 msgstr "Это значение может содержать только буквы, цифры и @/./+/-/_ символы."
 
+msgid "A user with that username already exists."
+msgstr "Пользователь с таким именем пользователя уже существует. "
+
+msgid "The two password fields didn't match."
+msgstr "Два поля с паролями не совпадают."
+
 msgid "Administrator"
 msgstr "Администратор"
-
-msgid "If ticked, this user has the ability to manage user accounts."
-msgstr ""
-"Если выбрано, этот пользователь имеет возможность управлять "
-"пользовательскими аккаунтами."
 
 msgid "Password"
 msgstr "Пароль"
@@ -61,38 +62,29 @@ msgstr "Имя"
 msgid "Last Name"
 msgstr "Фамилия"
 
-msgid "A user with that username already exists."
-msgstr "Пользователь с таким именем пользователя уже существует. "
-
-msgid "The two password fields didn't match."
-msgstr "Два поля с паролями не совпадают."
-
-msgid "Administrators have the ability to manage user accounts."
-msgstr "Администраторы имеют возможность управлять аккаунтами пользователей."
-
 msgid "A group with that name already exists."
 msgstr "Группа с таким названием уже существует."
 
-msgid "Submitted notifications"
-msgstr "Уведомления при добавлении"
+msgid "submitted notifications"
+msgstr "уведомления при добавлении"
 
 msgid "Receive notification when a page is submitted for moderation"
 msgstr "Принимать уведомление, когда страница отправлена на модерацию."
 
-msgid "Approved notifications"
-msgstr "Уведомления при утверждении"
+msgid "approved notifications"
+msgstr "уведомления при утверждении"
 
 msgid "Receive notification when your page edit is approved"
 msgstr "Принимать уведомление, когда ваша редакция страницы одобрена."
 
-msgid "Rejected notifications"
-msgstr "Уведомления при отклонении"
+msgid "rejected notifications"
+msgstr "уведомления при отклонении"
 
 msgid "Receive notification when your page edit is rejected"
 msgstr "Принимать уведомление, когда ваша редакция страницы отклонена."
 
-msgid "User Profile"
-msgstr "Профиль Пользователя"
+msgid "user profile"
+msgstr "профиль пользователя"
 
 msgid "Delete group"
 msgstr "Удалить группу"
@@ -279,6 +271,3 @@ msgstr "Пользователь '{0}' обновлен."
 
 msgid "The user could not be saved due to errors."
 msgstr "Пользователь но может быть сохранен из-за ошибок."
-
-msgid "Groups"
-msgstr "Группы"

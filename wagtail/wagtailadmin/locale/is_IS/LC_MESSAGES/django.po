@@ -9,9 +9,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-08-26 14:28+0100\n"
-"PO-Revision-Date: 2015-10-25 11:33+0000\n"
-"Last-Translator: saevarom <saevar@saevar.is>\n"
+"POT-Creation-Date: 2016-02-05 17:01+0000\n"
+"PO-Revision-Date: 2016-02-05 17:08+0000\n"
+"Last-Translator: mattwestcott <matthew@torchbox.com>\n"
 "Language-Team: Icelandic (Iceland) (http://www.transifex.com/torchbox/"
 "wagtail/language/is_IS/)\n"
 "MIME-Version: 1.0\n"
@@ -25,6 +25,15 @@ msgstr "Tímasetning birtingar"
 
 msgid "Common page configuration"
 msgstr "Algengar síðustillingar"
+
+msgid "Content"
+msgstr "Efni"
+
+msgid "Promote"
+msgstr "Sýnileiki"
+
+msgid "Settings"
+msgstr "Stillingar"
 
 msgid "Search"
 msgstr "Leita"
@@ -93,6 +102,9 @@ msgstr "Læst, aðgengileg með eftirfarandi lykilorði"
 
 msgid "This field is required."
 msgstr "Þennan reit þarf að fylla út."
+
+msgid "Expiry date/time must be in the future"
+msgstr "Dagsetning afbirtingar verður að vera í framtíðinni"
 
 msgid "Account"
 msgstr "Reikningur"
@@ -249,17 +261,14 @@ msgstr "Afrita þessa síðu"
 msgid "New"
 msgstr "Ný"
 
-msgid "Save as draft"
-msgstr "Vista sem uppkast"
+msgid "Save draft"
+msgstr "Vista uppkast"
 
 msgid "Publish"
 msgstr "Setja í birtingu"
 
 msgid "Page locked"
 msgstr "Síða læst"
-
-msgid "Save draft"
-msgstr "Vista uppkast"
 
 msgid "Drag"
 msgstr "Draga"
@@ -292,18 +301,6 @@ msgstr "Veldu nýja yfirsíðu fyrir %(title)s"
 #, python-format
 msgid "Select a new parent page for <span>%(title)s</span>"
 msgstr "Veldu nýja yfirsíðu fyrir <span>%(title)s</span>"
-
-msgid "Other searches"
-msgstr "Aðrar leitir"
-
-msgid "Images"
-msgstr "Myndir"
-
-msgid "Documents"
-msgstr "Skjöl"
-
-msgid "Users"
-msgstr "Notendur"
 
 msgid "Enter a search term above"
 msgstr "Sláðu inn leitarorð hér að ofan"
@@ -368,6 +365,9 @@ msgstr "Fös"
 msgid "Sat"
 msgstr "Lau"
 
+msgid "Other searches"
+msgstr "Aðrar leitir"
+
 msgid "Go to Wagtail admin interface"
 msgstr "Fara á Wagtail stjórnborð"
 
@@ -416,9 +416,6 @@ msgstr "Ekki var hægt að vista síðuna þar sem hún stóðst ekki villupróf
 msgid "This page is currently awaiting moderation"
 msgstr "Þessi síða bíður samþykkis til birtingar."
 
-msgid "Expiry date/time must be in the future"
-msgstr "Dagsetning afbirtingar verður að vera í framtíðinni"
-
 #, python-brace-format
 msgid "Page '{0}' deleted."
 msgstr "Síðu '{0}' eytt."
@@ -438,15 +435,6 @@ msgstr "Síða '{0}' og {1} undirsíður afritaðar."
 #, python-brace-format
 msgid "Page '{0}' copied."
 msgstr "Síða '{0}' afrituð."
-
-msgid "Content"
-msgstr "Efni"
-
-msgid "Promote"
-msgstr "Sýnileiki"
-
-msgid "Settings"
-msgstr "Stillingar"
 
 #, python-brace-format
 msgid "The page '{0}' is not currently awaiting moderation."

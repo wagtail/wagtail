@@ -17,7 +17,7 @@
         {% for image in images %}
             <li>
                 <a class="image-choice" href="{% if will_select_format %}{% url 'wagtailimages:chooser_select_format' image.id %}{% else %}{% url 'wagtailimages:image_chosen' image.id %}{% endif %}">
-                    <div class="image">{% image image max-165x165 %}</div>
+                    <div class="image">{% image image max-165x165 class="show-transparency" %}</div>
                     <h3>{{ image.title|ellipsistrim:60 }}</h3>
                 </a>
             </li>

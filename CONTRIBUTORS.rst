@@ -81,41 +81,70 @@ Contributors
 * John Draper
 * Rich Brennan
 * Alex Bridge
+* Tamriel
+* LKozlowski
+* Matthew Downey
+* Maris Serzans
+* Shu Ishida
+* Ben Kerle
+* Christian Peters
+* Adon Metcalfe
+* rayrayndwiga
+* Rich Atkinson
+* jnns
+* Eugene MechanisM
+* benjaoming
+* Alexander Bogushov
+* Aarni Koskela
+* alexpilot11
+* Peter Quade
+* Josh Hurd
+* Matt Fozard
+* Chris Rogers
+* Josh Schneier
+* Mikalai Radchuk
+* Charlie Choiniere
+* Nigel Fletton
 
 
 Translators
 ===========
 
+* Arabic: Roger Allen, Ahmad Kiswani, Mohamed Mayla
 * Basque: Unai Zalakain
 * Bulgarian: Lyuboslav Petrov
-* Catalan: David Llop
-* Chinese: hanfeng, Lihan Li
-* Chinese (China): hanfeng, Jian Li
+* Catalan: Antoni Aloy, David Llop
+* Chinese: hanfeng, Lihan Li, Leway Colin
+* Chinese (China): hanfeng, Daniel Hwang, Jian Li, Feng Wang
 * Chinese (Taiwan): Lihan Li
-* Croatian: Luka Matijević
-* Czech: Ivan Pomykacz, Jiri Stepanek
-* Dutch: benny_AT_it_digin.com, Bram, Brecht Dervaux, Huib Keemink, Samuel Leeuwenburg, mahulst, Michael van Tellingen, Arne Turpyn
-* Dutch (Netherlands): Bram, Franklin Kingma, Maarten Kling
-* Finnish: Glen Somerville
-* French: Adrien, Timothy Allen, Bertrand Bordage, André Bouatchidzé, Tom Dyson, nahuel
+* Croatian (Croatia): Luka Matijević
+* Czech: Ivan Pomykacz, Jiri Stepanek, Marek Turnovec
+* Dutch: benny_AT_it_digin.com, Bram, Brecht Dervaux, Huib Keemink, Thijs Kramer, Samuel Leeuwenburg, mahulst, Michael van Tellingen, Arne Turpyn
+* Dutch (Netherlands): Bram, Franklin Kingma, Maarten Kling, Thijs Kramer
+* Finnish: Eetu Häivälä, Aarni Koskela, Glen Somerville
+* French: Adrien, Timothy Allen, Sebastien Andrivet, Bertrand Bordage, André Bouatchidzé, Tom Dyson, Pierre Marfoure, nahuel
 * Galician: fooflare
 * Georgian: André Bouatchidzé
-* German: Ettore Atalan, Patrick Craston, Florian, Henrik Kröger, Tammo van Lessen, Wasilis Mandratzis-Walz, m0rph3u5, Max Pfeiffer, Karl Sander, Johannes Spielmann
+* German: Ettore Atalan, Patrick Craston, Florian, Henrik Kröger, Tammo van Lessen, Martin Löhle, Wasilis Mandratzis-Walz, Daniel Manser, m0rph3u5, Max Pfeiffer, Herbert Poul, Karl Sander, Johannes Spielmann, Jannis Vajen, Matthew Westcott
 * Greek: Jim Dal, dotoree, Wasilis Mandratzis-Walz, NeotheOne, Serafeim Papastefanos
 * Hebrew (Israel): bjesus, Lior Abazon
+* Hungarian: Laszlo Molnar
 * Icelandic: Arnar Tumi Þorsteinsson, Sævar Öfjörð Magnússon
-* Italian: Claudio Bantaloukas, Giacomo Ghizzani, Alessio Di Stasio, Andrea Tagliazucchi
-* Japanese: Sangmin Ahn, Daigo Shitara
+* Italian: Edd Baldry, Claudio Bantaloukas, Giacomo Ghizzani, Alessio Di Stasio, Andrea Tagliazucchi
+* Japanese: Sangmin Ahn, Shu Ishida, Daigo Shitara, takuan_osho
 * Korean: Kyungil Choi, Ji Han Chung
+* Latvian: Maris Serzans
 * Mongolian: Delgermurun Purevkhuu
-* Norwegian Bokmål: Eirik Krogstad
+* Norwegian Bokmål: Eirik Krogstad, Robin Skahjem-Eriksen
 * Polish: Mateusz, utek
 * Portuguese (Brazil): Claudemiro Alves Feitosa Neto, Gladson Brito, Thiago Cangussu, Gilson Filho, João Luiz Lorencetti, Douglas Miranda
-* Portuguese (Portugal): Gladson Brito, Thiago Cangussu, Tiago Henriques, Jose Lourenco, Douglas Miranda
+* Portuguese (Portugal): Gladson Brito, Thiago Cangussu, Tiago Henriques, Jose Lourenco, Nuno Matos, Douglas Miranda, Manuela Silva
 * Romanian: Dan Braghis
-* Russian: ajk, Daniil, HNKNTA, Sergey Komarov, Eugene MechanisM
+* Russian: ajk, Daniil, HNKNTA, Sergiy Khalymon, Sergey Komarov, Eugene MechanisM
 * Spanish: José Alaguna, Mauricio Baeza, Daniel Chimeno, fonso, fooflare, Joaquín Tita, Unai Zalakain
-* Swedish: Hannes Lohmander, Ludwig Kjellström
-* Turkish (Turkey): José Alaguna
-* Ukrainian: Andrey Tykhonov, Mykola Zamkovoi
+* Slovak (Slovakia): dellax
+* Swedish: Ludwig Kjellström, Thomas Kunambi, Hannes Lohmander
+* Swedish (Sweden): Thomas Kunambi
+* Turkish: Cihad Gündoǧdu
+* Turkish (Turkey): José Alaguna, Ragıp Ünal
 * Vietnamese: Luan Nguyen

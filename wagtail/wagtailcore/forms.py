@@ -1,5 +1,6 @@
 from django import forms
 
+
 class PasswordPageViewRestrictionForm(forms.Form):
     password = forms.CharField(label="Password", widget=forms.PasswordInput)
     return_url = forms.CharField(widget=forms.HiddenInput)

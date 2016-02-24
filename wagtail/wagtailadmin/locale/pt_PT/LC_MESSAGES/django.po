@@ -6,14 +6,16 @@
 # Douglas Miranda <douglasmirandasilva@gmail.com>, 2014
 # Gladson <gladsonbrito@gmail.com>, 2014
 # Jose Lourenco <jose@lourenco.ws>, 2014-2015
-# Tiago Henriques <trinosauro@gmail.com>, 2015
+# Manuela Silva <h_manuela_rodsilva@gmail.com>, 2015
+# Nuno Matos <tugassoft@gmail.com>, 2016
+# Tiago Henriques <trinosauro@gmail.com>, 2015-2016
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-08-26 14:28+0100\n"
-"PO-Revision-Date: 2015-08-26 13:37+0000\n"
-"Last-Translator: Karl Hobley <karl@torchbox.com>\n"
+"POT-Creation-Date: 2016-02-05 17:01+0000\n"
+"PO-Revision-Date: 2016-02-05 17:08+0000\n"
+"Last-Translator: mattwestcott <matthew@torchbox.com>\n"
 "Language-Team: Portuguese (Portugal) (http://www.transifex.com/torchbox/"
 "wagtail/language/pt_PT/)\n"
 "MIME-Version: 1.0\n"
@@ -26,13 +28,25 @@ msgid "Scheduled publishing"
 msgstr "Publicação agendada"
 
 msgid "Common page configuration"
-msgstr "Configuração comum de página"
+msgstr "Configuração de página comum"
+
+msgid "Content"
+msgstr "Conteúdo"
+
+msgid "Promote"
+msgstr "Promover"
+
+msgid "Settings"
+msgstr "Configurações"
 
 msgid "Search"
-msgstr "Pesquisar"
+msgstr "Procurar"
 
 msgid "Search term"
-msgstr "Termo de pesquisa"
+msgstr "Termo de procura"
+
+msgid "URL"
+msgstr "URL"
 
 msgid "Enter password"
 msgstr "Introduza a sua senha"
@@ -55,7 +69,7 @@ msgstr ""
 "utilizador é gerida por outro servidor."
 
 msgid "This email address is not recognised."
-msgstr "Este e-mail não é reconhecido."
+msgstr "Este endereço de e-mail não é reconhecido."
 
 msgid "New title"
 msgstr "Novo título"
@@ -64,7 +78,7 @@ msgid "New slug"
 msgstr "Novo “slug”"
 
 msgid "New parent page"
-msgstr "Nova página mãe"
+msgstr "Nova página fonte"
 
 msgid "This copy will be a child of this given parent page."
 msgstr "Esta página passará a filha desta página mãe"
@@ -114,6 +128,15 @@ msgstr "Privado, acessível com a seguinte senha"
 
 msgid "This field is required."
 msgstr "Este campo é obrigatório."
+
+msgid "This slug is already in use"
+msgstr "Esse “slug” já existe"
+
+msgid "Go live date/time must be before expiry date/time"
+msgstr "A data/hora de publicação tem de ser anterior à data/hora terminal"
+
+msgid "Expiry date/time must be in the future"
+msgstr "A data/hora terminal deve ficar no futuro"
 
 msgid "Account"
 msgstr "Conta"
@@ -238,6 +261,26 @@ msgstr "Escolher"
 msgid "Choose a page"
 msgstr "Escolher uma página"
 
+#, python-format
+msgid ""
+"\n"
+"                Only pages of type \"%(type)s\" may be chosen for this "
+"field. Search results will exclude pages of other types.\n"
+"                "
+msgid_plural ""
+"\n"
+"                Only the following page types may be chosen for this field: "
+"%(type)s. Search results will exclude pages of other types.\n"
+"            "
+msgstr[0] ""
+"\n"
+"Só páginas do tipo \"%(type)s\" podem ser escolhidas para este campo. Os "
+"resultados de pesquisa irão excluir páginas de outros tipos."
+msgstr[1] ""
+"\n"
+"Só páginas do tipo \"%(type)s\" podem ser escolhidas para este campo. Os "
+"resultados de pesquisa irão excluir páginas de outros tipos."
+
 msgid "Add an email link"
 msgstr "Adicionar link de e-mail"
 
@@ -246,6 +289,16 @@ msgstr "Inserir link"
 
 msgid "Add an external link"
 msgstr "Adicionar link externo"
+
+#, python-format
+msgid "Add %(heading)s"
+msgstr "Adicionar %(heading)s"
+
+msgid "Yes, delete"
+msgstr "Sim, eliminar"
+
+msgid "Save"
+msgstr "Guardar"
 
 #, python-format
 msgid "Welcome to the %(site_name)s Wagtail CMS"
@@ -335,6 +388,9 @@ msgstr "Entrar no Wagtail"
 msgid "Forgotten it?"
 msgstr "Esqueceu-se da senha?"
 
+msgid "Signing in..."
+msgstr "A entrar..."
+
 #, python-format
 msgid "The page \"%(title)s\" has been approved"
 msgstr "A página \"%(title)s\" foi aprovada"
@@ -345,6 +401,9 @@ msgstr "A página \"%(title)s\" foi aprovada."
 
 msgid "You can view the page here:"
 msgstr "Pode visualizar a página aqui:"
+
+msgid "Hello"
+msgstr "Olá"
 
 msgid "Edit your notification preferences here:"
 msgstr "Edite as suas preferências de notificação aqui:"
@@ -365,8 +424,8 @@ msgid "The page \"%(page)s\" has been submitted for moderation"
 msgstr "A página \"%(page)s\" foi enviada para moderação"
 
 #, python-format
-msgid "The page \"%(page)s\" has been submitted for moderation."
-msgstr "A página \"%(page)s\" foi enviada para moderação."
+msgid "The page \"%(page)s\" has been submitted for moderation by %(editor)s."
+msgstr "A página \"%(page)s\" foi enviada para moderação por %(editor)s."
 
 msgid "You can preview the page here:"
 msgstr "Pode pré-visualizar a página aqui:"
@@ -510,8 +569,14 @@ msgstr "Adicionar %(page_type)s"
 msgid "New"
 msgstr "Nova"
 
-msgid "Save as draft"
-msgstr "Guardar como rascunho"
+msgid "Saving..."
+msgstr "A gravar..."
+
+msgid "Save draft"
+msgstr "Guardar rascunho"
+
+msgid "Publishing..."
+msgstr "A publicar..."
 
 msgid "Publish"
 msgstr "Publicar"
@@ -530,9 +595,6 @@ msgstr "A editar %(page_type)s <span>%(title)s</span>"
 msgid "Page locked"
 msgstr "Página bloqueada"
 
-msgid "Save draft"
-msgstr "Guardar rascunho"
-
 #, python-format
 msgid "Last modified: %(last_mod)s"
 msgstr "Última modificação: %(last_mod)s"
@@ -550,6 +612,60 @@ msgstr "Arrastar"
 
 msgid "Updated"
 msgstr "Atualizada"
+
+msgid ""
+"\n"
+"                            The root level is where you can add new sites to "
+"your Wagtail installation. Pages created here will not be accessible at any "
+"URL until they are associated with a site.\n"
+"                        "
+msgstr ""
+"\n"
+"O nível base é onde pode adicionar novos sites ao Wagtail. As Paginas "
+"criadas não serão acessíveis através de nenhum URL até serem associadas a um "
+"site."
+
+msgid "Configure a site now."
+msgstr "Configure um site agora."
+
+msgid ""
+"\n"
+"                        Pages created here will not be accessible at any "
+"URL. To add pages to an existing site, create them as children of the "
+"homepage.\n"
+"                    "
+msgstr ""
+"\n"
+"A página criada não será acessível por nenhum URL. Para adicionar paginas a "
+"um site existente, crie como pagina filho da homepage."
+
+msgid ""
+"\n"
+"                        There is no site set up for this location. Pages "
+"created here will not be accessible at any URL until a site is associated "
+"with this location.\n"
+"                    "
+msgstr ""
+"\n"
+"Não existe nenhum registo de site para a localização. As páginas criadas não "
+"serão acessíveis por nenhum URL."
+
+msgid ""
+"\n"
+"                        There is no site record for this location. Pages "
+"created here will not be accessible at any URL.\n"
+"                    "
+msgstr ""
+"\n"
+"Não existe nenhum registo de site para a localização. A página criada não "
+"será acessível por nenhum URL."
+
+msgid "No pages have been created at this location."
+msgstr "Nenhuma página foi criada para esta localização"
+
+#, python-format
+msgid "Why not <a href=\"%(add_page_url)s\">create one</a>?"
+msgstr "Porque não <a href=\"%(add_page_url)s\">criar nova</a>"
 
 msgid "This page is locked to further editing"
 msgstr "Esta página está bloqueada para edição"
@@ -582,6 +698,15 @@ msgstr ""
 msgid "Add child page"
 msgstr "Adicionar página filha"
 
+#, python-format
+msgid ""
+"\n"
+"        Page %(page_number)s of %(num_pages)s.\n"
+"    "
+msgstr ""
+"\n"
+"Página %(page_number)s de %(num_pages)s."
+
 msgid "Previous"
 msgstr "Anterior"
 
@@ -608,17 +733,21 @@ msgstr "Selecione uma nova página mãe para %(title)s"
 msgid "Select a new parent page for <span>%(title)s</span>"
 msgstr "Selecione uma nova página mãe para <span>%(title)s</span>"
 
-msgid "Other searches"
-msgstr "Outras pesquisas"
-
-msgid "Images"
-msgstr "Imagens"
-
-msgid "Documents"
-msgstr "Documentos"
-
-msgid "Users"
-msgstr "Utilizadores"
+#, python-format
+msgid ""
+"\n"
+"                There is one matching page\n"
+"            "
+msgid_plural ""
+"\n"
+"                There are %(counter)s matching pages\n"
+"            "
+msgstr[0] ""
+"\n"
+"Existem só uma resultados correspondente"
+msgstr[1] ""
+"\n"
+"Existem %(counter)s paginas correspondentes"
 
 #, python-format
 msgid "Sorry, no pages match <em>\"%(query_string)s\"</em>"
@@ -706,6 +835,9 @@ msgstr "Sair"
 msgid "Page %(page_num)s of %(total_pages)s."
 msgstr "Página %(page_num)s de %(total_pages)s."
 
+msgid "Other searches"
+msgstr "Outras pesquisas"
+
 msgid ""
 "You are using an <strong>outdated</strong> browser not supported by this "
 "software. Please <a href=\"http://browsehappy.com/\">upgrade your browser</"
@@ -729,6 +861,12 @@ msgstr "Adicionar página filha"
 
 msgid "Add"
 msgstr "Adicionar"
+
+msgid "Test"
+msgstr "Teste"
+
+msgid "Sorry, you do not have permission to access this area."
+msgstr "Desculpe, não tem permissão para aceder a esta área."
 
 msgid "Your password has been changed successfully!"
 msgstr "A sua senha foi alterada com sucesso!"
@@ -778,15 +916,6 @@ msgstr "A página não pôde ser guardada devido a erros de validação"
 msgid "This page is currently awaiting moderation"
 msgstr "Esta página aguarda moderação"
 
-msgid "This slug is already in use"
-msgstr "Esse “slug” já existe"
-
-msgid "Go live date/time must be before expiry date/time"
-msgstr "A data/hora de publicação tem de ser anterior à data/hora terminal"
-
-msgid "Expiry date/time must be in the future"
-msgstr "A data/hora terminal deve ficar no futuro"
-
 #, python-brace-format
 msgid "Page '{0}' deleted."
 msgstr "Página '{0}' apagada."
@@ -806,15 +935,6 @@ msgstr "Página '{0}' e {1} sub-páginas copiadas."
 #, python-brace-format
 msgid "Page '{0}' copied."
 msgstr "Página '{0}' copiada."
-
-msgid "Content"
-msgstr "Conteúdo"
-
-msgid "Promote"
-msgstr "Promover"
-
-msgid "Settings"
-msgstr "Configurações"
 
 #, python-brace-format
 msgid "The page '{0}' is not currently awaiting moderation."

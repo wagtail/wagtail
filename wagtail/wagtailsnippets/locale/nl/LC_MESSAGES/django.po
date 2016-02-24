@@ -4,13 +4,14 @@
 #
 # Translators:
 # benny_AT_it_digin.com <benny@it-digin.com>, 2015
+# Thijs Kramer <thijskramer@gmail.com>, 2015
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-08-26 14:28+0100\n"
-"PO-Revision-Date: 2015-10-03 01:00+0000\n"
-"Last-Translator: benny_AT_it_digin.com <benny@it-digin.com>\n"
+"POT-Creation-Date: 2016-02-05 17:02+0000\n"
+"PO-Revision-Date: 2015-12-17 14:00+0000\n"
+"Last-Translator: mattwestcott <matthew@torchbox.com>\n"
 "Language-Team: Dutch (http://www.transifex.com/torchbox/wagtail/language/"
 "nl/)\n"
 "MIME-Version: 1.0\n"
@@ -22,20 +23,78 @@ msgstr ""
 msgid "Choose"
 msgstr "Kies"
 
-msgid "Title"
-msgstr "Titel"
+#, python-format
+msgid ""
+"You haven't created any %(snippet_type_name)s snippets. Why not <a href="
+"\"%(wagtailsnippets_create_snippet_url)s\" target=\"_blank\">create one now"
+msgstr ""
+"U heeft nog geen %(snippet_type_name)s snippets aangemaakt. Waarom <a href="
+"\"%(wagtailsnippets_create_snippet_url)s\" target=\"_blank\">maakt u er nu "
+"niet een aan</a>?"
+
+#, python-format
+msgid "Delete %(snippet_type_name)s - %(instance)s"
+msgstr "Verwijder %(snippet_type_name)s - %(instance)s"
 
 msgid "Delete"
 msgstr "Verwijder"
 
+#, python-format
+msgid "Are you sure you want to delete this %(snippet_type_name)s?"
+msgstr "Weet u zeker dat u deze %(snippet_type_name)s wilt verwijderen?"
+
 msgid "Yes, delete"
 msgstr "Ja, verwijder"
+
+#, python-format
+msgid "New  %(snippet_type_name)s"
+msgstr "Nieuw %(snippet_type_name)s"
 
 msgid "New"
 msgstr "Nieuw"
 
 msgid "Save"
 msgstr "Bewaar"
+
+#, python-format
+msgid "Editing %(snippet_type_name)s - %(instance)s"
+msgstr "Bewerk %(snippet_type_name)s - %(instance)s"
+
+msgid "Editing"
+msgstr "Bewerken"
+
+msgid "Snippets"
+msgstr "Snippets"
+
+msgid "Title"
+msgstr "Titel"
+
+#, python-format
+msgid ""
+"No %(snippet_type_name_plural)s have been created. Why not <a href="
+"\"%(wagtailsnippets_create_url)s\">add one</a>?"
+msgstr ""
+"U heeft nog geen %(snippet_type_name_plural)s aangemaakt. Waarom <a href="
+"\"%(wagtailsnippets_create_url)s\" target=\"_blank\">maakt u er nu niet een "
+"aan</a>?"
+
+#, python-format
+msgid "Snippets %(snippet_type_name_plural)s"
+msgstr "Snippets %(snippet_type_name_plural)s"
+
+#, python-format
+msgid "Add %(snippet_type_name)s"
+msgstr "Voeg %(snippet_type_name)s toe"
+
+#, python-format
+msgid "Usage of %(title)s"
+msgstr "Gebruik van %(title)s"
+
+msgid "Usage of"
+msgstr "Gebruik van"
+
+msgid "Parent"
+msgstr "Bovenliggend item"
 
 msgid "Type"
 msgstr "Type"
@@ -46,5 +105,35 @@ msgstr "Status"
 msgid "Edit this page"
 msgstr "Bewerk deze pagina"
 
+#, python-brace-format
+msgid "{snippet_type} '{instance}' created."
+msgstr "{snippet_type} '{instance}' aangemaakt."
+
 msgid "Edit"
 msgstr "Bewerk"
+
+msgid "The snippet could not be created due to errors."
+msgstr "De snippet kon vanwege foutmeldingen niet toegevoegd worden."
+
+#, python-brace-format
+msgid "{snippet_type} '{instance}' updated."
+msgstr "{snippet_type} '{instance}' gewijzigd."
+
+msgid "The snippet could not be saved due to errors."
+msgstr "De snippet kon vanwege foutmeldingen niet opgeslagen worden."
+
+#, python-brace-format
+msgid "{snippet_type} '{instance}' deleted."
+msgstr "{snippet_type} '{instance}' is verwijderd."
+
+#, python-format
+msgid "Choose %s"
+msgstr "Kies %s"
+
+#, python-format
+msgid "Choose another %s"
+msgstr "Kies nog een %s"
+
+#, python-format
+msgid "Edit this %s"
+msgstr "Bewerk deze %s"

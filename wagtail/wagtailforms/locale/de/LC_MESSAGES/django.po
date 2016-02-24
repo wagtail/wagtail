@@ -3,6 +3,7 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# Henrik Kröger <hedwig@riseup.net>, 2016
 # Johannes Spielmann <j@spielmannsolutions.com>, 2014-2015
 # Max Pfeiffer <max.pfeiffer@alp-phone.ch>, 2015
 # Tammo van Lessen <tvanlessen@gmail.com>, 2015
@@ -10,9 +11,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-08-26 14:28+0100\n"
-"PO-Revision-Date: 2015-09-22 13:20+0000\n"
-"Last-Translator: Max Pfeiffer <max.pfeiffer@alp-phone.ch>\n"
+"POT-Creation-Date: 2016-02-05 17:01+0000\n"
+"PO-Revision-Date: 2016-02-07 17:38+0000\n"
+"Last-Translator: Henrik Kröger <hedwig@riseup.net>\n"
 "Language-Team: German (http://www.transifex.com/torchbox/wagtail/language/"
 "de/)\n"
 "MIME-Version: 1.0\n"
@@ -54,25 +55,25 @@ msgstr "Datum"
 msgid "Date/time"
 msgstr "Zeitpunkt"
 
-msgid "Submit time"
+msgid "submit time"
 msgstr "Absendezeitpunkt"
 
-msgid "Form Submission"
+msgid "form submission"
 msgstr "Formularabsendung"
 
-msgid "Label"
+msgid "label"
 msgstr "Beschriftung"
 
 msgid "The label of the form field"
 msgstr "Die Bezeichnung dieses Formularfeldes"
 
-msgid "Field type"
+msgid "field type"
 msgstr "Feldtyp"
 
-msgid "Required"
+msgid "required"
 msgstr "Erforderlich"
 
-msgid "Choices"
+msgid "choices"
 msgstr "Auswahl"
 
 msgid ""
@@ -82,26 +83,26 @@ msgstr ""
 "Liste der Wahlmöglichkeiten, durch Kommas getrennt. Gilt nur für Checkboxen, "
 "Dropdowns und Radiobuttons."
 
-msgid "Default value"
+msgid "default value"
 msgstr "Vorgabewert"
 
 msgid "Default value. Comma separated values supported for checkboxes."
 msgstr ""
 "Standardwert. Werte für Checkboxen können durch Kommas getrennt werden."
 
-msgid "Help text"
+msgid "help text"
 msgstr "Hilfetext"
 
-msgid "To address"
+msgid "to address"
 msgstr "An-Adresse"
 
 msgid "Optional - form submissions will be emailed to this address"
-msgstr "Optional - eingereichte Formulare werden an diese Adresse geschickt"
+msgstr "Optional – eingereichte Formulare werden an diese Adresse geschickt"
 
-msgid "From address"
+msgid "from address"
 msgstr "Von-Adresse"
 
-msgid "Subject"
+msgid "subject"
 msgstr "Betreff"
 
 #, python-format
@@ -112,7 +113,7 @@ msgid "Delete"
 msgstr "Löschen"
 
 msgid "Are you sure you want to delete this form submission?"
-msgstr "Sind Sie sicher, dass Sie diese Formular Vorlage löschen wollen?"
+msgstr "Sind Sie sicher, dass Sie diese Formular-Eingabe löschen wollen?"
 
 msgid "Delete it"
 msgstr "Löschen"
@@ -139,7 +140,7 @@ msgstr "CSV herunterladen"
 
 #, python-format
 msgid "There have been no submissions of the '%(title)s' form."
-msgstr "Für '%(title)s' wurde bisher nichts eingereicht."
+msgstr "Für ‚%(title)s‘ wurde bisher nichts eingereicht."
 
 msgid "Title"
 msgstr "Titel"

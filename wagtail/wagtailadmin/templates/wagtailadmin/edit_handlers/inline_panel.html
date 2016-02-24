@@ -1,3 +1,4 @@
+{% load i18n %}
 {% load wagtailadmin_tags  %}
 
 {{ self.formset.management_form }}
@@ -23,5 +24,6 @@
 </script>
 
 <p class="add">
-    <a class="button bicolor icon icon-plus" id="id_{{ self.formset.prefix }}-ADD" value="Add">Add {{ self.heading|lower }}</a>
+    <a class="button bicolor icon icon-plus" id="id_{{ self.formset.prefix }}-ADD" value="Add">
+        {% blocktrans with heading=self.heading|lower %}Add {{ heading }}{% endblocktrans %}</a>
 </p>

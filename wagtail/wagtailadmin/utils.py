@@ -12,7 +12,6 @@ from modelcluster.fields import ParentalKey
 
 from wagtail.wagtailcore.models import Page, PageRevision, GroupPagePermission
 from wagtail.wagtailusers.models import UserProfile
-from wagtail.utils.compat import get_related_model
 
 
 def get_object_usage(obj):
@@ -26,7 +25,7 @@ def get_object_usage(obj):
         include_proxy_eq=True
     )
     for relation in relations:
-        related_model = get_related_model(relation)
+        related_model = relation.related_model
 
         # if the relation is between obj and a page, get the page
         if issubclass(related_model, Page):
@@ -57,7 +56,7 @@ def users_with_page_permission(page, permission_type, include_superusers=True):
     # Find GroupPagePermission records of the given type that apply to this page or an ancestor
     ancestors_and_self = list(page.get_ancestors()) + [page]
     perm = GroupPagePermission.objects.filter(permission_type=permission_type, page__in=ancestors_and_self)
-    q = Q(groups__page_permissions=perm)
+    q = Q(groups__page_permissions__in=perm)
 
     # Include superusers
     if include_superusers:
@@ -74,21 +73,18 @@ def permission_denied(request):
     return redirect('wagtailadmin_home')
 
 
-def permission_required(permission_name):
+def user_passes_test(test):
     """
-    Replacement for django.contrib.auth.decorators.permission_required which returns a
-    more meaningful 'permission denied' response than just redirecting to the login page.
-    (The latter doesn't work anyway because Wagtail doesn't define LOGIN_URL...)
+    Given a test function that takes a user object and returns a boolean,
+    return a view decorator that denies access to the user if the test returns false.
     """
-    # Construct and return a decorator function specific to the permission name
-    # that has been passed in
     def decorator(view_func):
         # decorator takes the view function, and returns the view wrapped in
         # a permission check
 
         @wraps(view_func)
         def wrapped_view_func(request, *args, **kwargs):
-            if request.user.has_perm(permission_name):
+            if test(request.user):
                 # permission check succeeds; run the view function as normal
                 return view_func(request, *args, **kwargs)
             else:
@@ -100,33 +96,56 @@ def permission_required(permission_name):
     return decorator
 
 
+def permission_required(permission_name):
+    """
+    Replacement for django.contrib.auth.decorators.permission_required which returns a
+    more meaningful 'permission denied' response than just redirecting to the login page.
+    (The latter doesn't work anyway because Wagtail doesn't define LOGIN_URL...)
+    """
+    def test(user):
+        return user.has_perm(permission_name)
+
+    # user_passes_test constructs a decorator function specific to the above test function
+    return user_passes_test(test)
+
+
 def any_permission_required(*perms):
     """
     Decorator that accepts a list of permission names, and allows the user
     to pass if they have *any* of the permissions in the list
     """
-    # Construct and return a decorator function specific to the permission list
-    # that has been passed in
-    def decorator(view_func):
-        # decorator takes the view function, and returns the view wrapped in
-        # a permission check
+    def test(user):
+        for perm in perms:
+            if user.has_perm(perm):
+                return True
 
-        @wraps(view_func)
-        def wrapped_view_func(request, *args, **kwargs):
-            for perm in perms:
-                if request.user.has_perm(perm):
-                    # permission check succeeds; run the view function as normal
-                    return view_func(request, *args, **kwargs)
+        return False
 
-            # if we get here, none of the permission checks have passed
-            return permission_denied(request)
-
-        return wrapped_view_func
-
-    return decorator
+    return user_passes_test(test)
 
 
-def send_mail(email_subject, email_content, email_addresses, from_email=None):
+class PermissionPolicyChecker(object):
+    """
+    Provides a view decorator that enforces the given permission policy,
+    returning the wagtailadmin 'permission denied' response if permission not granted
+    """
+    def __init__(self, policy):
+        self.policy = policy
+
+    def require(self, action):
+        def test(user):
+            return self.policy.user_has_permission(user, action)
+
+        return user_passes_test(test)
+
+    def require_any(self, *actions):
+        def test(user):
+            return self.policy.user_has_any_permission(user, actions)
+
+        return user_passes_test(test)
+
+
+def send_mail(subject, message, recipient_list, from_email=None, **kwargs):
     if not from_email:
         if hasattr(settings, 'WAGTAILADMIN_NOTIFICATION_FROM_EMAIL'):
             from_email = settings.WAGTAILADMIN_NOTIFICATION_FROM_EMAIL
@@ -135,7 +154,7 @@ def send_mail(email_subject, email_content, email_addresses, from_email=None):
         else:
             from_email = 'webmaster@localhost'
 
-    django_send_mail(email_subject, email_content, from_email, email_addresses)
+    return django_send_mail(subject, message, from_email, recipient_list, **kwargs)
 
 
 def send_notification(page_revision_id, notification, excluded_user_id):
@@ -153,20 +172,34 @@ def send_notification(page_revision_id, notification, excluded_user_id):
         return
 
     # Get list of email addresses
-    email_addresses = [
-        recipient.email for recipient in recipients
-        if recipient.email and recipient.id != excluded_user_id and getattr(UserProfile.get_for_user(recipient), notification + '_notifications')
+    email_recipients = [
+        recipient for recipient in recipients
+        if recipient.email and recipient.id != excluded_user_id and getattr(
+            UserProfile.get_for_user(recipient),
+            notification + '_notifications'
+        )
     ]
 
     # Return if there are no email addresses
-    if not email_addresses:
+    if not email_recipients:
         return
 
-    # Get email subject and content
+    # Get template
     template = 'wagtailadmin/notifications/' + notification + '.html'
-    rendered_template = render_to_string(template, dict(revision=revision, settings=settings)).split('\n')
-    email_subject = rendered_template[0]
-    email_content = '\n'.join(rendered_template[1:])
 
-    # Send email
-    send_mail(email_subject, email_content, email_addresses)
+    # Common context to template
+    context = {
+        "revision": revision,
+        "settings": settings,
+    }
+
+    # Send emails
+    for recipient in email_recipients:
+        # update context with this recipient
+        context["user"] = recipient
+
+        # Get email subject and content
+        email_subject, email_content = render_to_string(template, context).split('\n', 1)
+
+        # Send email
+        send_mail(email_subject, email_content, [recipient.email])

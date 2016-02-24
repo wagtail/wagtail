@@ -1,17 +1,82 @@
 Changelog
 =========
 
-1.3 (xx.xx.xxxx)
+1.4 (xx.xx.xxxx)
 ~~~~~~~~~~~~~~~~
 
+ * The page editor now produces a warning if the user navigates away without saving changes
+ * 'Add document' interface now supports uploading multiple documents at once
+ * The set of pages displayed in the page explorer can now be customised with a new hook called `construct_explorer_page_queryset`
+ * The `Document` model can now be overridden using the new `WAGTAILDOCS_DOCUMENT_MODEL` setting (Alex Gleason)
+ * Wagtail no longer depends on django-compressor
+ * Snippets now support a custom `edit_handler` property (Mikalai Radchuk)
+ * Date/time pickers now respect the locale's 'first day of week' setting (Peter Quade)
+ * Refactored the way forms are constructed for the page editor, to allow custom forms to be used
+ * Notification message on publish now indicates whether the page is being published now or scheduled for publication in future (Chris Rogers)
+ * Server errors when uploading images / documents through the chooser modal are now reported back to the user (Nigel Fletton)
+ * New translations for Hungarian, Swedish (Sweden) and Turkish
+ * Fix: Custom page managers no longer raise an error when used on an abstract model
+ * Fix: Wagtail's migrations are now all reversible (benjaoming)
+ * Fix: Deleting a page content type now preserves existing pages as basic Page instances, to prevent tree corruption
+ * Fix: The `Page.path` field is now explicitly given the "C" collation on PostgreSQL to prevent tree ordering issues when using a database created with the Slovak locale
+ * Fix: Wagtail's compiled static assets are now put into the correct directory on Windows (Aarni Koskela)
+ * Fix: `ChooserBlock` now correctly handles models with primary keys other than `id` (alexpilot11)
+ * Fix: Fixed typo in Wistia oEmbed pattern (Josh Hurd)
+ * Fix: Added more accurate help text for the Administrator flag on user accounts (Matt Fozard)
+ * Fix: Tags added on the multiple image uploader are now saved correctly
+ * Fix: Documents created by a user are no longer deleted when the user is deleted
+ * Fix: Fixed a crash in `RedirectMiddleware` when a middleware class before `SiteMiddleware` returns a response (Josh Schneier)
+ * Fix: Fixed error retrieving the moderator list on pages that are covered by multiple moderator permission records (Matt Fozard)
+ * Fix: Ordering pages in the explorer by reverse 'last updated' time now puts pages with no revisions at the top
+
+1.3.1 (05.01.2016)
+~~~~~~~~~~~~~~~~~~
+
+ * Fix: Applied workaround for failing wagtailimages migration on Django 1.8.8 / 1.9.1 with Postgres (see <https://code.djangoproject.com/ticket/26034>)
+
+1.3 (23.12.2015)
+~~~~~~~~~~~~~~~~
+
+ * Django 1.9 support
+ * Support for indexing fields across relations in Elasticsearch
+ * Added toolbar to cross-link between different search areas, and `register_admin_search_area` hook to register new areas (Ben Kerle)
+ * Added `WagtailPageTests`, a helper module to simplify writing tests for Wagtail sites
+ * Added system checks to check the `subpage_types` and `parent_page_types` attributes of page models
  * Added `WAGTAIL_PASSWORD_RESET_ENABLED` setting to allow password resets to be disabled independently of the password management interface (John Draper)
+ * Submit for moderation notification emails now include the editor name (Denis Voskvitsov)
  * Updated fonts for more comprehensive Unicode support
  * Added `.alt` attribute to image renditions
  * The default `src`, `width`, `height` and `alt` attributes can now be overridden by attributes passed to the `{% image %}` tag
  * Added keyboard shortcuts for preview and save in the page editor
+ * Added `Page` methods `can_exist_under`, `can_create_at`, `can_move_to` for customising page type business rules
+ * `wagtailadmin.utils.send_mail` now passes extra keyword arguments to Django's `send_mail` function (Matthew Downey)
+ * `page_unpublish` signal is now fired for each page that was unpublished by a call to `PageQuerySet.unpublish()`
+ * Add `get_upload_to` method to `AbstractImage`, to allow overriding the default image upload path (Ben Emery)
+ * Notification emails are now sent per user (Matthew Downey)
+ * Added the ability to override the default manager on Page models
+ * Added an optional human-friendly `site_name` field to sites (Timo Rieber)
+ * Added a system check to warn developers who use a custom Wagtail build but forgot to build the admin css
+ * Added success message after updating image from the image upload view (Christian Peters)
+ * Added a `request.is_preview` variable for templates to distinguish between previewing and live (Denis Voskvitsov)
+ * Added support for chaining multiple image operations on the `{% image %}` tag (Christian Peters)
+ * New translations for Arabic, Latvian and Slovak
+ * 'Pages' link on site stats dashboard now links to the site homepage when only one site exists, rather than the root level
+ * Fix: Images and page revisions created by a user are no longer deleted when the user is deleted (Rich Atkinson)
  * Fix: HTTP cache purge now works again on Python 2 (Mitchel Cabuloy)
  * Fix: Locked pages can no longer be unpublished (Alex Bridge)
  * Fix: Site records now implement `get_by_natural_key`
+ * Fix: Creating pages at the root level (and any other instances of the base `Page` model) now properly respects the `parent_page_types` setting
+ * Fix: Settings menu now opens correctly from the page editor and styleguide views
+ * Fix: `subpage_types` / `parent_page_types` business rules are now enforced when moving pages
+ * Fix: Multi-word tags on images and documents are now correctly preserved as a single tag (LKozlowski)
+ * Fix: Changed verbose names to start with lower case where necessary (Maris Serzans)
+ * Fix: Invalid images no longer crash the image listing (Maris Serzans)
+ * Fix: `MenuItem` `url` parameter can now take a lazy URL (Adon Metcalfe, rayrayndwiga)
+ * Fix: Added missing translation tag to InlinePanel 'Add' button (jnns)
+ * Fix: Added missing translation tag to 'Signing in...' button text (Eugene MechanisM)
+ * Fix: Restored correct highlighting behaviour of rich text toolbar buttons
+ * Fix: Rendering a missing image through ImageChooserBlock no longer breaks the whole page (Christian Peters)
+ * Fix: Filtering by popular tag in the image chooser now works when using the database search backend
 
 1.2 (12.11.2015)
 ~~~~~~~~~~~~~~~~

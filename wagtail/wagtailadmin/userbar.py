@@ -1,4 +1,4 @@
-from wagtail.utils.compat import render_to_string
+from django.template.loader import render_to_string
 
 
 class BaseItem(object):

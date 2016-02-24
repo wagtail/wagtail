@@ -1,4 +1,5 @@
-from wagtail.wagtailembeds import format, embeds
+from wagtail.wagtailembeds import format
+from wagtail.wagtailembeds.exceptions import EmbedException
 
 
 class MediaEmbedHandler(object):
@@ -28,7 +29,7 @@ class MediaEmbedHandler(object):
         if for_editor:
             try:
                 return format.embed_to_editor_html(attrs['url'])
-            except embeds.EmbedException:
+            except EmbedException:
                 # Could be replaced with a nice error message
                 return ''
         else:

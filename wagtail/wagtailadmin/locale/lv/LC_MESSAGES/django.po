@@ -1,0 +1,546 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# Maris Serzans <maris.serzans@gmail.com>, 2015
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2016-02-05 17:01+0000\n"
+"PO-Revision-Date: 2016-02-05 17:08+0000\n"
+"Last-Translator: mattwestcott <matthew@torchbox.com>\n"
+"Language-Team: Latvian (http://www.transifex.com/torchbox/wagtail/language/"
+"lv/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: lv\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n != 0 ? 1 : "
+"2);\n"
+
+msgid "Scheduled publishing"
+msgstr "Plānota publicēšana"
+
+msgid "Content"
+msgstr "Saturs"
+
+msgid "Settings"
+msgstr "Iestatījumi"
+
+msgid "Search"
+msgstr "Meklēt"
+
+msgid "Search term"
+msgstr "Meklēšanas termins"
+
+msgid "Enter password"
+msgstr "Ievadīt paroli"
+
+msgid "Enter your email address to reset your password"
+msgstr "Ievadiet savu e-pasta adresi, lai atjaunotu paroli"
+
+msgid "Please fill your email address."
+msgstr "Lūdzu ievadiet savu e-pasta adresi"
+
+msgid "This email address is not recognised."
+msgstr "E-pasta adrese netika atpazīta."
+
+msgid "New title"
+msgstr "Jauns virsraksts"
+
+msgid "Copy subpages"
+msgstr "Kopēt apakšlapas"
+
+msgid "Publish copied page"
+msgstr "Publicēt kopēto lapu"
+
+msgid "Publish copies"
+msgstr "Publicēt kopijas"
+
+msgid "Public"
+msgstr "Publisks"
+
+msgid "This field is required."
+msgstr "Šis lauks ir nepieciešams"
+
+msgid "Account"
+msgstr "Konts"
+
+msgid "Change password"
+msgstr "Mainīt paroli"
+
+msgid "Notification preferences"
+msgstr "Paziņojumu iestatījumi"
+
+msgid "Choose which email notifications to receive."
+msgstr "Izvēlēties e-pasta paziņojumus"
+
+msgid "Change Password"
+msgstr "Mainīt paroli"
+
+msgid ""
+"Your password can't be changed here. Please contact a site administrator."
+msgstr "Parole nav iespējams mainīt šeit. Sazinieties are administratoru."
+
+msgid "Update"
+msgstr "Atjaunot"
+
+msgid "Reset password"
+msgstr "Mainīt paroli"
+
+msgid "Password change successful"
+msgstr "Paroles maiņa izdevusies"
+
+msgid "Login"
+msgstr "Lietotājvārds"
+
+msgid "Set your new password"
+msgstr "Izvēlieties jaunu paroli"
+
+msgid "The passwords do not match. Please try again."
+msgstr "Paroles nesakrīt. Lūdzu mēģiniet vēlreiz."
+
+msgid "Check your email"
+msgstr "Pārbaudiet savu e-pastu"
+
+msgid "A link to reset your password has been emailed to you."
+msgstr "Lūdzu pārbaudiet jūsu e-pastu."
+
+msgid "Password reset"
+msgstr "Atjaunot paroli"
+
+msgid "Reset your password"
+msgstr "Atjaunot paroli"
+
+msgid "Menu"
+msgstr "Izvēlne"
+
+msgid "Add another"
+msgstr "Pievienot jaunu"
+
+msgid "Move up"
+msgstr "Uz augšu"
+
+msgid "Move down"
+msgstr "Uz leju"
+
+msgid "Delete"
+msgstr "Dzēst"
+
+msgid "Internal link"
+msgstr "Iekšēja saite"
+
+msgid "External link"
+msgstr "Ārēja saite"
+
+msgid "Email link"
+msgstr "E-pasta saite"
+
+msgid "Choose"
+msgstr "Izvēlēties"
+
+msgid "Choose a page"
+msgstr "Izvēlēties lapu"
+
+msgid "Add an email link"
+msgstr "Pievienot e-pasta saiti"
+
+msgid "Insert link"
+msgstr "Pievienot saiti"
+
+msgid "Add an external link"
+msgstr "Pievienot ārēju saiti"
+
+msgid "Yes, delete"
+msgstr "Dzēst"
+
+msgid "Save"
+msgstr "Saglabāt"
+
+msgid "Pages awaiting moderation"
+msgstr "Lapām nepieciešama administrēšana"
+
+msgid "Title"
+msgstr "Virsraksts"
+
+msgid "Type"
+msgstr "Veids"
+
+msgid "Edited"
+msgstr "Labots"
+
+msgid "Edit this page"
+msgstr "Labot šo lapu"
+
+msgid "Approve"
+msgstr "Apstiprināt"
+
+msgid "Reject"
+msgstr "Noraidīt"
+
+msgid "Edit"
+msgstr "Labot"
+
+msgid "Preview"
+msgstr "Priekšskatīt"
+
+msgid "Your most recent edits"
+msgstr "Neseni labojumi"
+
+msgid "Date"
+msgstr "Datums"
+
+msgid "Status"
+msgstr "Statuss"
+
+msgid "Draft"
+msgstr "Melnraksts"
+
+msgid "Site summary"
+msgstr "Kopsavilkums"
+
+msgid "Sign in"
+msgstr "Ieiet"
+
+#, python-format
+msgid "Your %(username_field)s and password didn't match. Please try again."
+msgstr ""
+"Lietotājvārds %(username_field)s neatbilda parole. Lūdzu mēģiniet vēlreiz."
+
+msgid "Sign in to Wagtail"
+msgstr "Ieet Wagtail"
+
+msgid "Forgotten it?"
+msgstr "Aizmirsāt paroli?"
+
+#, python-format
+msgid "The page \"%(title)s\" has been approved"
+msgstr "Lapa \"%(title)s\" tika apstiprināta"
+
+#, python-format
+msgid "The page \"%(title)s\" has been approved."
+msgstr "Lapa \"%(title)s\" tika apstiprināta"
+
+msgid "You can view the page here:"
+msgstr "Apskatiet lapu šeit:"
+
+msgid "Edit your notification preferences here:"
+msgstr "Labot paziņojumu iestatījumus:"
+
+#, python-format
+msgid "The page \"%(title)s\" has been rejected"
+msgstr "Lapa \"%(title)s\" tika noraidīta"
+
+#, python-format
+msgid "The page \"%(title)s\" has been rejected."
+msgstr "Lapa \"%(title)s\" tika noraidīta"
+
+msgid "You can edit the page here:"
+msgstr "Labot lapu:"
+
+#, python-format
+msgid "The page \"%(page)s\" has been submitted for moderation"
+msgstr "Lapa \"%(page)s\" tika iesniegta administrēšanai"
+
+msgid "You can preview the page here:"
+msgstr "Priekšskatīt lapu:"
+
+msgid "Page privacy"
+msgstr "Lapas privātuma iestatījumi"
+
+msgid "You can edit the privacy settings on:"
+msgstr "Mainīt privātuma iestatījumus:"
+
+msgid "Locked"
+msgstr "Slēgts"
+
+msgid "Unlocked"
+msgstr "Atslēgts"
+
+msgid "Privacy"
+msgstr "Privātums"
+
+msgid "Private"
+msgstr "Privāts"
+
+#, python-format
+msgid "Create a page in %(title)s"
+msgstr "Izveidot lapu %(title)s"
+
+msgid "Create a page in"
+msgstr "Izveidot lapu"
+
+msgid "Choose which type of page you'd like to create."
+msgstr "Izvēlieties lapas veidu."
+
+#, python-format
+msgid "Pages using %(page_type)s"
+msgstr "Lapas, kas lieto %(page_type)s"
+
+#, python-format
+msgid "Delete %(title)s"
+msgstr "Dzēst %(title)s"
+
+msgid "Are you sure you want to delete this page?"
+msgstr "Dzēst lapu?"
+
+msgid "Delete it"
+msgstr "Dzēst"
+
+msgid "Unpublish it"
+msgstr "Atsaukt publikāciju"
+
+#, python-format
+msgid "Move %(title)s"
+msgstr "Pārvietot %(title)s"
+
+msgid "Move"
+msgstr "Pārvietot"
+
+#, python-format
+msgid "Are you sure you want to move this page into '%(title)s'?"
+msgstr "Pārvietot lapu uz '%(title)s'?"
+
+msgid "Yes, move this page"
+msgstr "Pārvietot šo lapu"
+
+#, python-format
+msgid "Unpublish %(title)s"
+msgstr "Atsaukt %(title)s publicēšanu"
+
+msgid "Unpublish"
+msgstr "Atsaukt publicēšanu"
+
+msgid "Are you sure you want to unpublish this page?"
+msgstr "Atsaukt lapas publicēšanu?"
+
+msgid "Yes, unpublish it"
+msgstr "Atsaukt publicēšanu"
+
+msgid "Pages using"
+msgstr "Lapas, kas lieto"
+
+#, python-format
+msgid "Copy %(title)s"
+msgstr "Kopēt %(title)s"
+
+msgid "Copy"
+msgstr "Kopēt"
+
+msgid "Copy this page"
+msgstr "Kopēt šo lapu"
+
+#, python-format
+msgid "New %(page_type)s"
+msgstr "Jauns %(page_type)s"
+
+msgid "New"
+msgstr "Jauns"
+
+msgid "Save draft"
+msgstr "Saglabāt melnrakstu"
+
+msgid "Publish"
+msgstr "Publicēt"
+
+msgid "Submit for moderation"
+msgstr "Iesniegt administrēšanai"
+
+#, python-format
+msgid "Editing %(page_type)s: %(title)s"
+msgstr "Labo %(page_type)s: %(title)s"
+
+#, python-format
+msgid "Editing %(page_type)s <span>%(title)s</span>"
+msgstr "Labo %(page_type)s <span>%(title)s</span>"
+
+msgid "Page locked"
+msgstr "Lapa slēgta"
+
+#, python-format
+msgid "Last modified: %(last_mod)s"
+msgstr "Labots: %(last_mod)s"
+
+msgid "Updated"
+msgstr "Atjaunots"
+
+#, python-format
+msgid "Why not <a href=\"%(add_page_url)s\">create one</a>?"
+msgstr "<a href=\"%(add_page_url)s\">Izveidot jaunu?</a>"
+
+msgid "This page is locked to further editing"
+msgstr "Lapa ir slēgta labojumiem"
+
+msgid "Add subpage"
+msgstr "Pievienot apakšlapu"
+
+msgid "Previous"
+msgstr "Iepriekšējais"
+
+msgid "Next"
+msgstr "Nākamais"
+
+msgid "This page is protected from public view"
+msgstr "Lapa nav publiski pieejama"
+
+msgid "Order"
+msgstr "Kārtība"
+
+#, python-format
+msgid "Sorry, no pages match <em>\"%(query_string)s\"</em>"
+msgstr "Nav atbilstošu lapu <em>\"%(query_string)s\"</em>"
+
+msgid "Enter a search term above"
+msgstr "Lūdzu ievadiet meklēšanas terminu"
+
+msgid "No pages use"
+msgstr "Neviena lapa nelieto"
+
+msgid "Home"
+msgstr "Sākumlapa"
+
+msgid "January"
+msgstr "Janvāris"
+
+msgid "February"
+msgstr "Februāris"
+
+msgid "March"
+msgstr "Marts"
+
+msgid "April"
+msgstr "Aprīlis"
+
+msgid "May"
+msgstr "Maijs"
+
+msgid "June"
+msgstr "Jūnijs"
+
+msgid "July"
+msgstr "Jūlijs"
+
+msgid "August"
+msgstr "Augusts"
+
+msgid "September"
+msgstr "Septembris"
+
+msgid "October"
+msgstr "Oktobris"
+
+msgid "November"
+msgstr "Novembris"
+
+msgid "December"
+msgstr "Decembris"
+
+msgid "Sun"
+msgstr "Sv"
+
+msgid "Mon"
+msgstr "P"
+
+msgid "Tue"
+msgstr "O"
+
+msgid "Wed"
+msgstr "T"
+
+msgid "Thu"
+msgstr "C"
+
+msgid "Fri"
+msgstr "P"
+
+msgid "Sat"
+msgstr "S"
+
+msgid "Edit your account"
+msgstr "Mainīt konta iestatījumus"
+
+msgid "Log out"
+msgstr "Iziet"
+
+#, python-format
+msgid "Page %(page_num)s of %(total_pages)s."
+msgstr "%(page_num)s. lapa  no %(total_pages)s. lapām."
+
+msgid "Other searches"
+msgstr "Citi meklējumi"
+
+msgid ""
+"You are using an <strong>outdated</strong> browser not supported by this "
+"software. Please <a href=\"http://browsehappy.com/\">upgrade your browser</"
+"a>."
+msgstr ""
+"Jūsu interneta pārluks neatbalsta šo programmatūru. Lūdzu <a href=\"http://"
+"browsehappy.com/\">atjaunojiet savu pārlūku</a>."
+
+msgid "Javascript is required to use Wagtail, but it is currently disabled"
+msgstr "Lai lietotu 'Wagtail', nepieciešams 'Javascript'."
+
+msgid "Add"
+msgstr "Pievienot"
+
+msgid "Your password has been changed successfully!"
+msgstr "Parole mainīta veiksmīgi."
+
+msgid "Your preferences have been updated successfully!"
+msgstr "Jūsu iestatījumi ir atjaunoti."
+
+#, python-brace-format
+msgid "Page '{0}' created and published."
+msgstr "Lapa '{0}' izveidota un publicēta."
+
+#, python-brace-format
+msgid "Page '{0}' created and submitted for moderation."
+msgstr "Lapa '{0}' izveidota un iesniegta administrēšanai."
+
+msgid "View draft"
+msgstr "Skatīt melnrakstu"
+
+#, python-brace-format
+msgid "Page '{0}' created."
+msgstr "Lapa '{0}' izveidota."
+
+#, python-brace-format
+msgid "Page '{0}' published."
+msgstr "Lapa '{0} publicēta'."
+
+#, python-brace-format
+msgid "Page '{0}' submitted for moderation."
+msgstr "Lapa '{0}' iesniegta administrēšanai."
+
+#, python-brace-format
+msgid "Page '{0}' updated."
+msgstr "Lapa '{0}' atjaunota."
+
+#, python-brace-format
+msgid "Page '{0}' deleted."
+msgstr "Lapa '{0}' dzēsta."
+
+#, python-brace-format
+msgid "Page '{0}' unpublished."
+msgstr "Page '{0}' unpublished."
+
+#, python-brace-format
+msgid "Page '{0}' moved."
+msgstr "Lapa '{0}' pārvietota."
+
+#, python-brace-format
+msgid "Page '{0}' and {1} subpages copied."
+msgstr "Lapa '{0}' un apakšlapas {1} kopētas."
+
+#, python-brace-format
+msgid "Page '{0}' copied."
+msgstr "Lapa '{0}' kopēta."
+
+#, python-brace-format
+msgid "Page '{0}' rejected for publication."
+msgstr "Lapas '{0}' publicēšana noraidīta."
+
+msgid "Choose another page"
+msgstr "Izvēlēties citu lapu"

@@ -2,9 +2,11 @@ import re
 
 # helpers for Javascript expression formatting
 
+
 def indent(string, depth=1):
     """indent all non-empty lines of string by 'depth' 4-character tabs"""
     return re.sub(r'(^|\n)([^\n]+)', '\g<1>' + ('    ' * depth) + '\g<2>', string)
+
 
 def js_dict(d):
     """

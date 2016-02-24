@@ -3,14 +3,15 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# Aarni Koskela, 2016
 # Glen Somerville <glen.somerville@gmail.com>, 2015
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-09-02 20:07+0100\n"
-"PO-Revision-Date: 2015-09-02 19:12+0000\n"
-"Last-Translator: Karl Hobley <karl@torchbox.com>\n"
+"POT-Creation-Date: 2016-02-05 17:01+0000\n"
+"PO-Revision-Date: 2016-01-14 16:02+0000\n"
+"Last-Translator: Aarni Koskela\n"
 "Language-Team: Finnish (http://www.transifex.com/torchbox/wagtail/language/"
 "fi/)\n"
 "MIME-Version: 1.0\n"
@@ -19,11 +20,11 @@ msgstr ""
 "Language: fi\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-msgid "Hostname"
-msgstr "Palvelin"
+msgid "hostname"
+msgstr "isäntäosoite"
 
-msgid "Port"
-msgstr "Portti"
+msgid "port"
+msgstr "portti"
 
 msgid ""
 "Set this to something other than 80 if you need a specific port number to "
@@ -34,11 +35,17 @@ msgstr ""
 "eissa (esim. portti 8000 kehitystä varten). Tämä ei vaikuta kutsujen "
 "käsittelyyn (porttiohjaus toimii edelleen)."
 
-msgid "Root page"
-msgstr "Juuri sivu"
+msgid "site name"
+msgstr "sivuston nimi"
 
-msgid "Is default site"
-msgstr "Oletussivusto"
+msgid "Human-readable name for the site."
+msgstr "Ihmisen luettava nimi sivustolle."
+
+msgid "root page"
+msgstr "juurisivu"
+
+msgid "is default site"
+msgstr "on oletussivusto"
 
 msgid ""
 "If true, this site will handle requests for all other hostnames that do not "
@@ -46,6 +53,12 @@ msgid ""
 msgstr ""
 "Mikäli valittu, tämä sivusto käsittelee kaikkien palvelinnimien kutsut "
 "joilla ei ole omaa sivusto määritystä"
+
+msgid "site"
+msgstr "sivusto"
+
+msgid "sites"
+msgstr "sivustot"
 
 #, python-format
 msgid ""
@@ -55,14 +68,14 @@ msgstr ""
 "%(hostname)s on jo määritelty oletus sivustoksi. Poista ensin oletusmääritys "
 "ennen kuin määrität tämän sivuston oletussivustoksi."
 
-msgid "Title"
-msgstr "Otsikko"
+msgid "title"
+msgstr "otsikko"
 
 msgid "The page title as you'd like it to be seen by the public"
 msgstr "Sivun otsikko sellaisena kuin haluat sen näkyvän julkisesti"
 
-msgid "Slug"
-msgstr "Polkutunnus"
+msgid "slug"
+msgstr "lyhytnimi"
 
 msgid ""
 "The name of the page as it will appear in URLs e.g http://domain.com/blog/"
@@ -71,23 +84,23 @@ msgstr ""
 "Sivun nimi kuten se esiintyy URL:eissa esim. http://domain.com/blog/"
 "[polkutunnus]/"
 
-msgid "Content type"
-msgstr "Sisällön tyyppi"
+msgid "content type"
+msgstr "sisältötyyppi"
 
-msgid "Live"
-msgstr "Julkaistu"
+msgid "live"
+msgstr "julkaistu"
 
-msgid "Has unpublished changes"
-msgstr "Sisältää julkaisemattomia muutoksia"
+msgid "has unpublished changes"
+msgstr "sis. julkaisemattomia muutoksia"
 
 msgid "URL path"
 msgstr "URL polku"
 
-msgid "Owner"
-msgstr "Omistaja"
+msgid "owner"
+msgstr "omistaja"
 
-msgid "Page title"
-msgstr "Sivun otsikko"
+msgid "page title"
+msgstr "sivun otsikko"
 
 msgid ""
 "Optional. 'Search Engine Friendly' title. This will appear at the top of the "
@@ -96,39 +109,36 @@ msgstr ""
 "Vapaaehtoinen. Hakukoneystävällinen otsikko. Tämä näkyy selainikkunan "
 "otsikkona."
 
-msgid "Show in menus"
-msgstr "Näytä valikoissa"
+msgid "show in menus"
+msgstr "näytä valikoissa"
 
 msgid ""
 "Whether a link to this page will appear in automatically generated menus"
 msgstr "Näytä linkki tälle sivulle automaattisesti tuotetuissa valikoissa"
 
-msgid "Search description"
-msgstr "Kuvaus"
+msgid "search description"
+msgstr "hakukuvaus"
 
-msgid "Go live date/time"
-msgstr "Julkaisu pvm/aika"
+msgid "go live date/time"
+msgstr "julkaisupäivämäärä ja -aika"
 
 msgid "Please add a date-time in the form YYYY-MM-DD hh:mm."
 msgstr "Täytä päivämäärä ja aika muodossa VVVV-KK-PP tt:mm"
 
-msgid "Expiry date/time"
-msgstr "Päättymis pvm/aika"
-
-msgid "Expired"
-msgstr "Vanhentunut"
-
-msgid "Locked"
-msgstr "Lukittu"
-
-msgid "First published at"
-msgstr "Alunperin julkaistu"
-
-msgid "Latest revision created at"
-msgstr "Viimeisin versio luotu"
+msgid "expiry date/time"
+msgstr "poistumispäivämäärä ja -aika"
 
 msgid "expired"
 msgstr "vanhentunut"
+
+msgid "locked"
+msgstr "lukittu"
+
+msgid "first published at"
+msgstr "ensin julkaistu"
+
+msgid "latest revision created at"
+msgstr "uusin versio luotu"
 
 msgid "scheduled"
 msgstr "ajoitettu"
@@ -139,32 +149,41 @@ msgstr "luonnos"
 msgid "live + draft"
 msgstr "julkaistu + luonnos"
 
-msgid "live"
-msgstr "julkaistu"
-
 msgid "Default"
 msgstr "Oletus"
 
-msgid "Page"
-msgstr "Sivu"
+msgid "page"
+msgstr "sivu"
 
-msgid "Submitted for moderation"
-msgstr "Lähetetty moderoitavaksi"
+msgid "pages"
+msgstr "sivut"
 
-msgid "Created at"
-msgstr "Luotu"
+msgid "submitted for moderation"
+msgstr "lähetetty tarkastettavaksi"
 
-msgid "User"
-msgstr "Käyttäjä"
+msgid "created at"
+msgstr "luotu"
 
-msgid "Content JSON"
-msgstr "Sisältö JSON muodossa"
+msgid "user"
+msgstr "käyttäjä"
 
-msgid "Approved go live at"
-msgstr "Julkaisu hyväksytty"
+msgid "content JSON"
+msgstr "sisältö-JSON"
+
+msgid "approved go live at"
+msgstr "hyväksytty julkistus"
+
+msgid "page revision"
+msgstr "sivuversio"
+
+msgid "page revisions"
+msgstr "sivuversiot"
 
 msgid "Add/edit pages you own"
 msgstr "Lisää/muokkaa sivuja jota omistat"
+
+msgid "Edit any page"
+msgstr "Muokkaa mitä vain sivua"
 
 msgid "Publish any page"
 msgstr "Julkaise kaikkia sivuja"
@@ -172,15 +191,23 @@ msgstr "Julkaise kaikkia sivuja"
 msgid "Lock/unlock any page"
 msgstr "Lukitse/poista lukitus kaikille sivuille"
 
-msgid "Group"
-msgstr "Ryhmä"
+msgid "group"
+msgstr "ryhmä"
 
-msgid "Permission type"
-msgstr "Oikeudet"
+msgid "permission type"
+msgstr "oikeustyyppi"
 
-msgid "Password"
-msgstr "Salasana"
+msgid "group page permission"
+msgstr "ryhmä/sivu-oikeus"
 
-msgid "Value cannot be entirely whitespace characters"
-msgstr ""
-"Arvo ei voi sisältää pelkästään välilyöntejä tai muita näkymättömiä merkkejä."
+msgid "group page permissions"
+msgstr "ryhmä/sivu-oikeudet"
+
+msgid "password"
+msgstr "salasana"
+
+msgid "page view restriction"
+msgstr "sivunkatselurajoitus"
+
+msgid "page view restrictions"
+msgstr "sivunkatselurajoitukset"

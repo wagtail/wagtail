@@ -4,13 +4,14 @@
 #
 # Translators:
 # benny_AT_it_digin.com <benny@it-digin.com>, 2015
+# Thijs Kramer <thijskramer@gmail.com>, 2015
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-08-26 14:46+0100\n"
-"PO-Revision-Date: 2015-10-03 01:00+0000\n"
-"Last-Translator: benny_AT_it_digin.com <benny@it-digin.com>\n"
+"POT-Creation-Date: 2016-02-05 17:01+0000\n"
+"PO-Revision-Date: 2015-12-17 14:02+0000\n"
+"Last-Translator: mattwestcott <matthew@torchbox.com>\n"
 "Language-Team: Dutch (http://www.transifex.com/torchbox/wagtail/language/"
 "nl/)\n"
 "MIME-Version: 1.0\n"
@@ -19,11 +20,41 @@ msgstr ""
 "Language: nl\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-msgid "Page"
-msgstr "Pagina"
+msgid "Please specify at least one recommendation for this search term."
+msgstr "Geef minstens één aanbeveling op voor deze zoekterm."
 
-msgid "Description"
-msgstr "Beschrijving"
+msgid "Add search pick"
+msgstr "Voeg een zoek-keuze toe"
+
+msgid ""
+"\n"
+"                <p>Promoted search results are a means of recommending "
+"specific pages that might not organically come high up in search results. E."
+"g recommending your primary donation page to a user searching with the less "
+"common term \"<em>giving</em>\".</p>\n"
+"            "
+msgstr ""
+"\n"
+"<p>Aanbevolen zoekresultaten zijn een manier om bepaalde pagina's die "
+"normaliter niet hoog in de zoekresultaten zouden komen aan te bevelen. "
+"Bijvoorbeeld het aanbevelen van uw doneerpagina aan een gebruiker die zoekt "
+"op de minder gebruikelijke term \" <em>geven</em>\".</p>\n"
+"            "
+
+msgid ""
+"\n"
+"                <p>The \"Search term(s)/phrase\" field below must contain "
+"the full and exact search for which you wish to provide recommended results, "
+"<em>including</em> any misspellings/user error. To help, you can choose from "
+"search terms that have been popular with users of your site.</p>\n"
+"            "
+msgstr ""
+"\n"
+"                <p>Het \"Zoekterm(en)/zin\"-veld hieronder moet de volledige "
+"en exacte zoekterm bevatten waarvoor u aanbevolen zoekresultaten wilt tonen, "
+"<em>including</em> mogelijke spelfouten. Als hulp kunt u uit zoektermen "
+"kiezen die populair zijn bij gebruikers van uw website.</p>\n"
+"            "
 
 msgid "Save"
 msgstr "Bewaar"
@@ -35,20 +66,60 @@ msgstr "Verwijder %(query)s"
 msgid "Delete"
 msgstr "Verwijder"
 
+msgid ""
+"Are you sure you want to delete all promoted results for this search term?"
+msgstr ""
+"Weet u zeker dat u alle aanbevolen zoekresultaten voor deze zoekterm wilt "
+"verwijderen?"
+
 msgid "Yes, delete"
 msgstr "Ja, verwijder"
+
+#, python-format
+msgid "Editing %(query)s"
+msgstr "Bewerken van %(query)s"
+
+msgid "Editing"
+msgstr "Bewerken"
+
+msgid "Move up"
+msgstr "Verplaats omhoog"
+
+msgid "Move down"
+msgstr "Verplaats naar beneden"
+
+msgid "Promoted search result"
+msgstr "Aanbevolen zoekresultaat"
+
+msgid "Add recommended page"
+msgstr "Voeg aanbevolen pagina toe"
 
 msgid "Search Terms"
 msgstr "Zoektermen"
 
+msgid "Promoted search results"
+msgstr "Aanbevolen zoekresultaten"
+
+msgid "Add new promoted result"
+msgstr "Voeg nieuw aanbevolen zoekresultaat toe"
+
 msgid "Search term(s)"
 msgstr "Zoekterm(en)"
+
+msgid "Promoted results"
+msgstr "Aanbevolen zoekresultaten"
+
+msgid "Views (past week)"
+msgstr "Views (afgelopen week)"
 
 msgid "None"
 msgstr "Geen"
 
+msgid "Search promoted results"
+msgstr "Zoek aanbevolen zoekresultaten"
+
 msgid "Edit"
-msgstr "Bewerl"
+msgstr "Bewerk"
 
 msgid "Recommendations have not been created due to errors"
 msgstr "Aanbevelingen zijn niet aangemaakt door fouten"

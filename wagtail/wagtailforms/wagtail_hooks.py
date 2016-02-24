@@ -12,7 +12,7 @@ from wagtail.wagtailforms.models import get_forms_for_user
 @hooks.register('register_admin_urls')
 def register_admin_urls():
     return [
-        url(r'^forms/', include(urls, namespace='wagtailforms')),
+        url(r'^forms/', include(urls, app_name='wagtailforms', namespace='wagtailforms')),
     ]
 
 
@@ -24,4 +24,7 @@ class FormsMenuItem(MenuItem):
 
 @hooks.register('register_admin_menu_item')
 def register_forms_menu_item():
-    return FormsMenuItem(_('Forms'), urlresolvers.reverse('wagtailforms:index'), name='forms', classnames='icon icon-form', order=700)
+    return FormsMenuItem(
+        _('Forms'), urlresolvers.reverse('wagtailforms:index'),
+        name='forms', classnames='icon icon-form', order=700
+    )

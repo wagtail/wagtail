@@ -9,6 +9,8 @@
             There are {{ counter }} matches
         {% endblocktrans %}
         </h2>
+        
+        {% search_other %}
     {% else %}
         <h2>{% trans "Latest images" %}</h2>
     {% endif %}
@@ -17,7 +19,7 @@
         {% for image in images %}
             <li>
                 <a class="image-choice" href="{% url 'wagtailimages:edit' image.id %}">
-                    <div class="image">{% image image max-165x165 class="show-transparency" %}</div>
+                    {% include "wagtailimages/images/results_image.html" %}
                     <h3>{{ image.title|ellipsistrim:60 }}</h3>
                 </a>
             </li>
@@ -28,7 +30,9 @@
 
 {% else %}
     {% if is_searching %}
-        <p>{% blocktrans %}Sorry, no images match "<em>{{ query_string }}</em>"{% endblocktrans %}</p>
+        <h2>{% blocktrans %}Sorry, no images match "<em>{{ query_string }}</em>"{% endblocktrans %}</h2>
+        
+        {% search_other %}
     {% else %}
         {% url 'wagtailimages:add_multiple' as wagtailimages_add_image_url %}
         <p>{% blocktrans %}You've not uploaded any images. Why not <a href="{{ wagtailimages_add_image_url }}">add one now</a>?{% endblocktrans %}</p>

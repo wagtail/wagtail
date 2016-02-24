@@ -4,13 +4,14 @@
 #
 # Translators:
 # Maarten Kling <kling.maarten@gmail.com>, 2015
+# Thijs Kramer <thijskramer@gmail.com>, 2015
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-08-26 14:28+0100\n"
-"PO-Revision-Date: 2015-10-09 11:14+0000\n"
-"Last-Translator: Maarten Kling <kling.maarten@gmail.com>\n"
+"POT-Creation-Date: 2016-02-05 17:02+0000\n"
+"PO-Revision-Date: 2015-12-22 16:15+0000\n"
+"Last-Translator: Thijs Kramer <thijskramer@gmail.com>\n"
 "Language-Team: Dutch (Netherlands) (http://www.transifex.com/torchbox/"
 "wagtail/language/nl_NL/)\n"
 "MIME-Version: 1.0\n"
@@ -22,16 +23,40 @@ msgstr ""
 msgid "Choose"
 msgstr "Kies"
 
+msgid "Search"
+msgstr "Zoeken"
+
+#, python-format
+msgid ""
+"\n"
+"            There is one match\n"
+"        "
+msgid_plural ""
+"\n"
+"            There are %(counter)s matches\n"
+"        "
+msgstr[0] ""
+"\n"
+"            Er is één overeenkomst\n"
+"        "
+msgstr[1] ""
+"\n"
+"            Er zijn %(counter)s overeenkomsten\n"
+"        "
+
+#, python-format
+msgid "Sorry, no snippets match \"<em>%(query_string)s</em>\""
+msgstr ""
+"Helaas, er komen geen snippets overeen met de zoekterm \"<em>"
+"%(query_string)s</em>\""
+
 #, python-format
 msgid ""
 "You haven't created any %(snippet_type_name)s snippets. Why not <a href="
 "\"%(wagtailsnippets_create_snippet_url)s\" target=\"_blank\">create one now"
 msgstr ""
-"Er zijn nog geen %(snippet_type_name)s snippets. Waarom niet nu één <a href="
-"\"%(wagtailsnippets_create_snippet_url)s\" target=\"_blank\">toevoegen"
-
-msgid "Title"
-msgstr "Titel"
+"Er is nog geen %(snippet_type_name)s snippet aangemaakt. Waarom <a href="
+"\"%(wagtailsnippets_create_snippet_url)s\">voegt u er niet een toe</a>?"
 
 #, python-format
 msgid "Delete %(snippet_type_name)s - %(instance)s"
@@ -67,6 +92,17 @@ msgstr "Wijzigen"
 msgid "Snippets"
 msgstr "Snippets"
 
+msgid "Title"
+msgstr "Titel"
+
+#, python-format
+msgid ""
+"No %(snippet_type_name_plural)s have been created. Why not <a href="
+"\"%(wagtailsnippets_create_url)s\">add one</a>?"
+msgstr ""
+"Er zijn nog geen %(snippet_type_name_plural)s aangemaakt. Waarom <a href="
+"\"%(wagtailsnippets_create_url)s\">voegt u er niet een toe</a>?"
+
 #, python-format
 msgid "Snippets %(snippet_type_name_plural)s"
 msgstr "Snippets %(snippet_type_name_plural)s"
@@ -78,14 +114,6 @@ msgstr "Snippets <span>%(snippet_type_name_plural)s</span>"
 #, python-format
 msgid "Add %(snippet_type_name)s"
 msgstr "Voeg toe %(snippet_type_name)s"
-
-#, python-format
-msgid ""
-"No %(snippet_type_name_plural)s have been created. Why not <a href="
-"\"%(wagtailsnippets_create_url)s\">add one</a>?"
-msgstr ""
-"Er is nog geen %(snippet_type_name_plural)s gemaakt. Waarom niet één <a href="
-"\"%(wagtailsnippets_create_url)s\">toevoegen</a>?"
 
 #, python-format
 msgid "Usage of %(title)s"
@@ -105,6 +133,10 @@ msgstr "Status"
 
 msgid "Edit this page"
 msgstr "Wijzig deze pagina"
+
+#, python-format
+msgid "Search %(snippet_type_name)s"
+msgstr "Zoek %(snippet_type_name)s"
 
 #, python-brace-format
 msgid "{snippet_type} '{instance}' created."

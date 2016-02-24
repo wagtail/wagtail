@@ -69,7 +69,7 @@ You can add an icon to the menu by passing an 'icon' argument to the ``register_
     @register_setting(icon='icon-placeholder')
     class SocialMediaSettings(BaseSetting):
         class Meta:
-            verbose_name = 'Social media accounts'
+            verbose_name = 'social media accounts'
         ...
 
 For a list of all available icons, please see the :ref:`styleguide`.
@@ -93,21 +93,32 @@ If access to a setting is required in the code, the :func:`~wagtail.contrib.sett
 Using in templates
 ------------------
 
-Add the ``request`` and ``settings`` context processors to your settings:
+Add the ``settings`` context processor to your settings:
 
 .. code-block:: python
 
-    from django.conf import global_settings
-    TEMPLATE_CONTEXT_PROCESSORS = global_settings.TEMPLATE_CONTEXT_PROCESSORS + [
-        'django.core.context_processors.request',
-        'wagtail.contrib.settings.context_processors.settings',
+    TEMPLATES = [
+        {
+            ...
+
+            'OPTIONS': {
+                'context_processors': [
+                    ...
+
+                    'wagtail.contrib.settings.context_processors.settings',
+                ]
+            }
+        }
     ]
+
 
 Then access the settings through ``{{ settings }}``:
 
 .. code-block:: html+django
 
     {{ settings.app_label.SocialMediaSettings.instagram }}
+
+(Replace ``app_label`` with the label of the app containing your settings model.)
 
 If you are not in a ``RequestContext``, then context processors will not have run, and the ``settings`` variable will not be availble. To get the ``settings``, use the provided ``{% get_settings %}`` template tag. If a ``request`` is in the template context, but for some reason it is not a ``RequestContext``, just use ``{% get_settings %}``:
 

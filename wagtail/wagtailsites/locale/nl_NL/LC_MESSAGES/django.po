@@ -4,13 +4,14 @@
 #
 # Translators:
 # Maarten Kling <kling.maarten@gmail.com>, 2015
+# Thijs Kramer <thijskramer@gmail.com>, 2015
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-08-26 14:28+0100\n"
-"PO-Revision-Date: 2015-10-09 11:14+0000\n"
-"Last-Translator: Maarten Kling <kling.maarten@gmail.com>\n"
+"POT-Creation-Date: 2016-02-05 17:02+0000\n"
+"PO-Revision-Date: 2015-12-22 17:34+0000\n"
+"Last-Translator: Thijs Kramer <thijskramer@gmail.com>\n"
 "Language-Team: Dutch (Netherlands) (http://www.transifex.com/torchbox/"
 "wagtail/language/nl_NL/)\n"
 "MIME-Version: 1.0\n"
@@ -20,10 +21,10 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 msgid "Choose a root page"
-msgstr "Kies een root pagina"
+msgstr "Kies een beginpagina"
 
 msgid "Choose a different root page"
-msgstr "Kies een andere root pagina"
+msgstr "Kies een andere beginpagina"
 
 msgid "Site"
 msgstr "Site"
@@ -31,8 +32,11 @@ msgstr "Site"
 msgid "Port"
 msgstr "Poort"
 
+msgid "Site name"
+msgstr "Sitenaam"
+
 msgid "Root page"
-msgstr "Root pagina"
+msgstr "Beginpagina"
 
 msgid "Default?"
 msgstr "Default?"

@@ -7,7 +7,7 @@ from django.core.urlresolvers import reverse
 
 from taggit.forms import TagField, TagWidget
 
-from wagtail.tests.testapp.models import CustomImage
+from wagtail.tests.testapp.models import CustomImage, CustomImageFilePath
 from wagtail.tests.utils import WagtailTestUtils
 from wagtail.wagtailimages.utils import generate_signature, verify_signature
 from wagtail.wagtailimages.rect import Rect, Vector
@@ -45,7 +45,10 @@ class TestImageTag(TestCase):
         self.assertEqual(result, '')
 
     def render_image_tag_as(self, image, filter_spec):
-        temp = template.Template('{% load wagtailimages_tags %}{% image image_obj ' + filter_spec + ' as test_img %}<img {{ test_img.attrs }} />')
+        temp = template.Template(
+            '{% load wagtailimages_tags %}{% image image_obj ' + filter_spec +
+            ' as test_img %}<img {{ test_img.attrs }} />'
+        )
         context = template.Context({'image_obj': image})
         return temp.render(context)
 
@@ -58,7 +61,10 @@ class TestImageTag(TestCase):
         self.assertTrue('alt="Test image"' in result)
 
     def render_image_tag_with_extra_attributes(self, image, title):
-        temp = template.Template('{% load wagtailimages_tags %}{% image image_obj width-400 class="photo" title=title|lower alt="Alternate" %}')
+        temp = template.Template(
+            '{% load wagtailimages_tags %}{% image image_obj width-400 \
+            class="photo" title=title|lower alt="Alternate" %}'
+        )
         context = template.Context({'image_obj': image, 'title': title})
         return temp.render(context)
 
@@ -73,7 +79,9 @@ class TestImageTag(TestCase):
         self.assertTrue('title="my wonderful title"' in result)
 
     def render_image_tag_with_filters(self, image):
-        temp = template.Template('{% load wagtailimages_tags %}{% image image_primary|default:image_alternate width-400 %}')
+        temp = template.Template(
+            '{% load wagtailimages_tags %}{% image image_primary|default:image_alternate width-400 %}'
+        )
         context = template.Context({'image_primary': None, 'image_alternate': image})
         return temp.render(context)
 
@@ -81,6 +89,27 @@ class TestImageTag(TestCase):
         result = self.render_image_tag_with_filters(self.image)
         self.assertTrue('width="400"' in result)
         self.assertTrue('height="300"' in result)
+
+    def test_image_tag_with_chained_filters(self):
+        result = self.render_image_tag(self.image, 'fill-200x200 height-150')
+        self.assertTrue('width="150"' in result)
+        self.assertTrue('height="150"' in result)
+
+    def test_filter_specs_must_match_allowed_pattern(self):
+        with self.assertRaises(template.TemplateSyntaxError):
+            self.render_image_tag(self.image, 'fill-200x200|height-150')
+
+        with self.assertRaises(template.TemplateSyntaxError):
+            self.render_image_tag(self.image, 'fill-800x600 alt"test"')
+
+    def test_context_may_only_contain_one_argument(self):
+        with self.assertRaises(template.TemplateSyntaxError):
+            temp = template.Template(
+                '{% load wagtailimages_tags %}{% image image_obj fill-200x200'
+                ' as test_img this_one_should_not_be_there %}<img {{ test_img.attrs }} />'
+            )
+            context = template.Context({'image_obj': self.image})
+            temp.render(context)
 
 
 class TestMissingImage(TestCase):
@@ -94,12 +123,21 @@ class TestMissingImage(TestCase):
     def test_image_tag_with_missing_image(self):
         # the page /events/christmas/ has a missing image as the feed image
         response = self.client.get('/events/christmas/')
-        self.assertContains(response, '<img src="/media/not-found" width="0" height="0" alt="A missing image" class="feed-image">', html=True)
+        self.assertContains(
+            response,
+            '<img src="/media/not-found" width="0" height="0" alt="A missing image" class="feed-image">',
+            html=True
+        )
 
     def test_rich_text_with_missing_image(self):
         # the page /events/final-event/ has a missing image in the rich text body
         response = self.client.get('/events/final-event/')
-        self.assertContains(response, '<img class="richtext-image full-width" src="/media/not-found" width="0" height="0" alt="where did my image go?">', html=True)
+        self.assertContains(
+            response,
+            '<img class="richtext-image full-width" src="/media/not-found" \
+            width="0" height="0" alt="where did my image go?">',
+            html=True
+        )
 
 
 class TestFormat(TestCase):
@@ -128,14 +166,17 @@ class TestFormat(TestCase):
             self.image,
             'test alt text'
         )
-        six.assertRegex(self, result,
-            '<img data-embedtype="image" data-id="0" data-format="test name" data-alt="test alt text" class="test classnames" src="[^"]+" width="1" height="1" alt="test alt text">',
+        six.assertRegex(
+            self, result,
+            '<img data-embedtype="image" data-id="0" data-format="test name" '
+            'data-alt="test alt text" class="test classnames" src="[^"]+" width="1" height="1" alt="test alt text">',
         )
 
     def test_image_to_html_no_classnames(self):
         self.format.classnames = None
         result = self.format.image_to_html(self.image, 'test alt text')
-        six.assertRegex(self, result,
+        six.assertRegex(
+            self, result,
             '<img src="[^"]+" width="1" height="1" alt="test alt text">'
         )
         self.format.classnames = 'test classnames'
@@ -372,3 +413,33 @@ class TestRenditionFilenames(TestCase):
         rendition = image.get_rendition('fill-100x100')
 
         self.assertEqual(rendition.file.name, 'images/test_rf3.15ee4958.fill-100x100.png')
+
+    def test_filter_with_pipe_gets_dotted(self):
+        image = Image.objects.create(
+            title="Test image",
+            file=get_test_image_file(filename='test_rf4.png'),
+        )
+        image.set_focal_point(Rect(100, 100, 200, 200))
+        image.save()
+
+        rendition = image.get_rendition('fill-200x200|height-150')
+
+        self.assertEqual(rendition.file.name, 'images/test_rf4.15ee4958.fill-200x200.height-150.png')
+
+
+class TestDifferentUpload(TestCase):
+    def test_upload_path(self):
+        image = CustomImageFilePath.objects.create(
+            title="Test image",
+            file=get_test_image_file(),
+        )
+
+        second_image = CustomImageFilePath.objects.create(
+            title="Test Image",
+            file=get_test_image_file(colour='black'),
+
+        )
+
+        # The files should be uploaded based on it's content, not just
+        # it's filename
+        self.assertFalse(image.file.url == second_image.file.url)

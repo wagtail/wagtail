@@ -9,9 +9,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-08-26 14:28+0100\n"
-"PO-Revision-Date: 2015-10-20 07:44+0000\n"
-"Last-Translator: Kyungil Choi <hanpama@gmail.com>\n"
+"POT-Creation-Date: 2016-02-05 17:01+0000\n"
+"PO-Revision-Date: 2016-02-05 17:08+0000\n"
+"Last-Translator: mattwestcott <matthew@torchbox.com>\n"
 "Language-Team: Korean (http://www.transifex.com/torchbox/wagtail/language/"
 "ko/)\n"
 "MIME-Version: 1.0\n"
@@ -25,6 +25,15 @@ msgstr "예정된 퍼블리싱"
 
 msgid "Common page configuration"
 msgstr "기본 페이지 설정"
+
+msgid "Content"
+msgstr "콘텐츠"
+
+msgid "Promote"
+msgstr "홍보"
+
+msgid "Settings"
+msgstr "설정"
 
 msgid "Search"
 msgstr "검색"
@@ -109,6 +118,15 @@ msgstr "비공개, 다음의 비밀번호로 접근 가능"
 
 msgid "This field is required."
 msgstr "필수 작성 항목입니다"
+
+msgid "This slug is already in use"
+msgstr "이 슬러그는 이미 사용되었습니다"
+
+msgid "Go live date/time must be before expiry date/time"
+msgstr "라이브를 위한 날짜 및 시간은 만료 날짜 및 시간보다 앞서야 합니다"
+
+msgid "Expiry date/time must be in the future"
+msgstr "만료 날짜는 현재 이후의 날짜 및 시간이어야 합니다"
 
 msgid "Account"
 msgstr "계정"
@@ -357,10 +375,6 @@ msgstr "여기서 페이지를 수정할 수 있습니다"
 msgid "The page \"%(page)s\" has been submitted for moderation"
 msgstr "검토를 위해 \"%(page)s\" 페이지가 제출 되었습니다"
 
-#, python-format
-msgid "The page \"%(page)s\" has been submitted for moderation."
-msgstr "검토를 위해 \"%(page)s\" 페이지가 제출 되었습니다"
-
 msgid "You can preview the page here:"
 msgstr "여기서 페이지를 미리 볼 수 있습니다:"
 
@@ -493,8 +507,8 @@ msgstr "새로운 %(page_type)s"
 msgid "New"
 msgstr "새로운"
 
-msgid "Save as draft"
-msgstr "초안으로 저장"
+msgid "Save draft"
+msgstr "초안 저장"
 
 msgid "Publish"
 msgstr "퍼블리싱"
@@ -512,9 +526,6 @@ msgstr "%(page_type)s <span>%(title)s</span> 수정"
 
 msgid "Page locked"
 msgstr "페이지 잠금"
-
-msgid "Save draft"
-msgstr "초안 저장"
 
 #, python-format
 msgid "Last modified: %(last_mod)s"
@@ -620,18 +631,6 @@ msgstr[0] ""
 "\n"
 "%(counter)s 개의 연관된 페이지가 있습니다"
 
-msgid "Other searches"
-msgstr "다른 검색결과들"
-
-msgid "Images"
-msgstr "사진"
-
-msgid "Documents"
-msgstr "문서"
-
-msgid "Users"
-msgstr "사용자"
-
 #, python-format
 msgid "Sorry, no pages match <em>\"%(query_string)s\"</em>"
 msgstr "죄송합니다. <em>\"%(query_string)s\"</em> 와 연관된 결과가 없습니다"
@@ -717,6 +716,9 @@ msgstr "로그아웃"
 msgid "Page %(page_num)s of %(total_pages)s."
 msgstr "%(total_pages)s 중의 %(page_num)s 페이지"
 
+msgid "Other searches"
+msgstr "다른 검색결과들"
+
 msgid ""
 "You are using an <strong>outdated</strong> browser not supported by this "
 "software. Please <a href=\"http://browsehappy.com/\">upgrade your browser</"
@@ -793,15 +795,6 @@ msgstr "이 페이지는 오류에 의해 저장할 수 없습니다"
 msgid "This page is currently awaiting moderation"
 msgstr "이 페이지는 현재 검토를 기다리고 있습니다"
 
-msgid "This slug is already in use"
-msgstr "이 슬러그는 이미 사용되었습니다"
-
-msgid "Go live date/time must be before expiry date/time"
-msgstr "라이브를 위한 날짜 및 시간은 만료 날짜 및 시간보다 앞서야 합니다"
-
-msgid "Expiry date/time must be in the future"
-msgstr "만료 날짜는 현재 이후의 날짜 및 시간이어야 합니다"
-
 #, python-brace-format
 msgid "Page '{0}' deleted."
 msgstr "'{0}' 페이지가 삭제되었습니다"
@@ -821,15 +814,6 @@ msgstr "'{0}' 페이지 그리고 {1} 개의 하위페이지가 복사되었습�
 #, python-brace-format
 msgid "Page '{0}' copied."
 msgstr "'{0}' 페이지가 복사 되었습니다"
-
-msgid "Content"
-msgstr "콘텐츠"
-
-msgid "Promote"
-msgstr "홍보"
-
-msgid "Settings"
-msgstr "설정"
 
 #, python-brace-format
 msgid "The page '{0}' is not currently awaiting moderation."

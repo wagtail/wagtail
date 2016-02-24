@@ -1,14 +1,12 @@
 {% extends "wagtailadmin/admin_base.html" %}
-{% load compress static i18n %}
+{% load staticfiles i18n %}
 {% block titletag %}{% trans "Sign in" %}{% endblock %}
 {% block bodyclass %}login{% endblock %}
 
 {% block extra_css %}
     {{ block.super }}
 
-    {% compress css %}
-        <link rel="stylesheet" href="{% static 'wagtailadmin/css/layouts/login.css' %}" type="text/css" />
-    {% endcompress %}
+    <link rel="stylesheet" href="{% static 'wagtailadmin/css/layouts/login.css' %}" type="text/css" />
 {% endblock %}
 
 {% block furniture %}
@@ -58,7 +56,7 @@
                     </li>
                 {% endcomment %}
                 <li class="submit">
-                    <button type="submit" class="button-longrunning" tabindex="3" data-clicked-text="Signing in..."><span class="icon icon-spinner"></span><em>{% trans 'Sign in' %}</em></button>
+                    <button type="submit" class="button-longrunning" tabindex="3" data-clicked-text="{% trans 'Signing in...' %}"><span class="icon icon-spinner"></span><em>{% trans 'Sign in' %}</em></button>
                 </li>
             </ul>
         </form>

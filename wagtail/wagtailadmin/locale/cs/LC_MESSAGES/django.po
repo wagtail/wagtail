@@ -5,13 +5,14 @@
 # Translators:
 # Ivan Pomykacz <mist@alastify.cz>, 2015
 # Jiri Stepanek <stepiiicz@gmail.com>, 2015
+# Marek Turnovec <aesculap@gmail.com>, 2016
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-08-26 14:28+0100\n"
-"PO-Revision-Date: 2015-10-30 08:04+0000\n"
-"Last-Translator: Ivan Pomykacz <mist@alastify.cz>\n"
+"POT-Creation-Date: 2016-02-05 17:01+0000\n"
+"PO-Revision-Date: 2016-02-05 17:08+0000\n"
+"Last-Translator: mattwestcott <matthew@torchbox.com>\n"
 "Language-Team: Czech (http://www.transifex.com/torchbox/wagtail/language/"
 "cs/)\n"
 "MIME-Version: 1.0\n"
@@ -26,11 +27,17 @@ msgstr "Naplánovat publikaci"
 msgid "Common page configuration"
 msgstr "Nastavení stránky"
 
+msgid "Settings"
+msgstr "Nastavení"
+
 msgid "Search"
 msgstr "Hledat"
 
 msgid "Search term"
 msgstr "Hledaný výraz"
+
+msgid "URL"
+msgstr "URL"
 
 msgid "Enter password"
 msgstr "Zadejte heslo"
@@ -58,6 +65,12 @@ msgstr "Nový název"
 
 msgid "New slug"
 msgstr "Nový název pro URL"
+
+msgid "New parent page"
+msgstr "Nová rodičovská stránka"
+
+msgid "This copy will be a child of this given parent page."
+msgstr "Tato kopie bude potomkem dané rodičovské stránky"
 
 msgid "Copy subpages"
 msgstr "Zkopírovat podstránky"
@@ -95,6 +108,12 @@ msgstr[2] ""
 "%(count)s z kopírovaných stránek je publikovaných. Chcete publikovat i "
 "jejich kopie?"
 
+#, python-format
+msgid ""
+"This slug is already in use within the context of its parent page \"%s\""
+msgstr ""
+"Tento název pro URL je již použit v kontextu s rodičovskou stránkou \"%s\""
+
 msgid "Public"
 msgstr "Veřejné"
 
@@ -103,6 +122,15 @@ msgstr "Soukromé, přístupné pod následujícím heslem"
 
 msgid "This field is required."
 msgstr "Toto pole je povinné."
+
+msgid "This slug is already in use"
+msgstr "Název pro URL musí být unikátní"
+
+msgid "Go live date/time must be before expiry date/time"
+msgstr "Datum/čas zveřejnění musí být dřívější než datum/čas expirace"
+
+msgid "Expiry date/time must be in the future"
+msgstr "Datum/čas expirace musí být v budoucnosti"
 
 msgid "Account"
 msgstr "Účet"
@@ -182,6 +210,9 @@ msgstr "Dashboard"
 msgid "Menu"
 msgstr "Menu"
 
+msgid "Add another"
+msgstr "Přidat další"
+
 msgid "Move up"
 msgstr "Posunout nahoru"
 
@@ -217,6 +248,12 @@ msgstr "Vložit odkaz"
 
 msgid "Add an external link"
 msgstr "Vložit externí odkaz"
+
+msgid "Yes, delete"
+msgstr "Ano, smazat"
+
+msgid "Save"
+msgstr "Uložit"
 
 #, python-format
 msgid "Welcome to the %(site_name)s Wagtail CMS"
@@ -288,6 +325,9 @@ msgstr "Přihlášení do redakčního systému"
 msgid "Forgotten it?"
 msgstr "Zapoměli jste heslo?"
 
+msgid "Signing in..."
+msgstr "Přihlašování..."
+
 #, python-format
 msgid "The page \"%(title)s\" has been approved"
 msgstr "Stránka \"%(title)s\" byla schválena"
@@ -316,10 +356,6 @@ msgstr "Stránku můžete upravit zde:"
 #, python-format
 msgid "The page \"%(page)s\" has been submitted for moderation"
 msgstr "Stránka \"%(page)s\" byla odeslána ke schválení"
-
-#, python-format
-msgid "The page \"%(page)s\" has been submitted for moderation."
-msgstr "Stránka \"%(page)s\" byla odeslána ke schválení."
 
 msgid "You can preview the page here:"
 msgstr "Náhled stránky můžete zobrazit zde:"
@@ -460,8 +496,14 @@ msgstr "Nový %(page_type)s"
 msgid "New"
 msgstr "Nový"
 
-msgid "Save as draft"
+msgid "Saving..."
+msgstr "Ukládání..."
+
+msgid "Save draft"
 msgstr "Uložit koncept"
+
+msgid "Publishing..."
+msgstr "Publikování..."
 
 msgid "Publish"
 msgstr "Publikovat"
@@ -471,9 +513,6 @@ msgstr "Odeslat ke schválení"
 
 msgid "Page locked"
 msgstr "Stránka uzamčena"
-
-msgid "Save draft"
-msgstr "Uložit koncept"
 
 #, python-format
 msgid "Last modified: %(last_mod)s"
@@ -578,18 +617,6 @@ msgstr[2] ""
 "\n"
 "Celkem vyhovujících stran: %(counter)s"
 
-msgid "Other searches"
-msgstr "Další hledání"
-
-msgid "Images"
-msgstr "Obrázky"
-
-msgid "Documents"
-msgstr "Dokumenty"
-
-msgid "Users"
-msgstr "Uživatelé"
-
 #, python-format
 msgid "Sorry, no pages match <em>\"%(query_string)s\"</em>"
 msgstr ""
@@ -659,7 +686,7 @@ msgid "Fri"
 msgstr "pá"
 
 msgid "Sat"
-msgstr "o"
+msgstr "so"
 
 #, python-format
 msgid "Used %(useage_count)s time"
@@ -675,11 +702,17 @@ msgstr "Odhlásit"
 msgid "Page %(page_num)s of %(total_pages)s."
 msgstr "Strana %(page_num)s z %(total_pages)s."
 
+msgid "Other searches"
+msgstr "Další hledání"
+
 msgid "User bar"
 msgstr "Uživatelská lišta"
 
 msgid "Go to Wagtail admin interface"
 msgstr "Přejít do redakčního systému"
+
+msgid "Add a child page"
+msgstr "Přidat podstránku"
 
 msgid "Add"
 msgstr "Přidat"
@@ -689,6 +722,12 @@ msgstr "Vaše heslo bylo úspěšně změněno."
 
 msgid "Your preferences have been updated successfully!"
 msgstr "Vaše nastavení bylo uloženo."
+
+msgid "View live"
+msgstr "Zobrazit publikovanou verzi"
+
+msgid "View draft"
+msgstr "Zobrazit koncept"
 
 #, python-brace-format
 msgid "Page '{0}' created."
@@ -718,15 +757,6 @@ msgstr "Stránku nelze uložit, zkontrolujte správné vyplnění polí"
 msgid "This page is currently awaiting moderation"
 msgstr "Stránka nyní čeká na schválení"
 
-msgid "This slug is already in use"
-msgstr "Název pro URL musí být unikátní"
-
-msgid "Go live date/time must be before expiry date/time"
-msgstr "Datum/čas zveřejnění musí být dřívější než datum/čas expirace"
-
-msgid "Expiry date/time must be in the future"
-msgstr "Datum/čas expirace musí být v budoucnosti"
-
 #, python-brace-format
 msgid "Page '{0}' deleted."
 msgstr "Stránka '{0}' byla smazána."
@@ -746,9 +776,6 @@ msgstr "Stránka '{0}' a {1} podstránek bylo zkopírováno."
 #, python-brace-format
 msgid "Page '{0}' copied."
 msgstr "Stránka '{0}' byla zkopírována."
-
-msgid "Settings"
-msgstr "Nastavení"
 
 #, python-brace-format
 msgid "The page '{0}' is not currently awaiting moderation."

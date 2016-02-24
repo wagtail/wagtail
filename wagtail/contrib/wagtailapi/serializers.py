@@ -10,7 +10,6 @@ from rest_framework import serializers
 from rest_framework.fields import Field
 from rest_framework import relations
 
-from wagtail.utils.compat import get_related_model
 from wagtail.wagtailcore import fields as wagtailcore_fields
 
 from .utils import get_full_url, pages_for_site
@@ -265,7 +264,7 @@ class PageSerializer(BaseSerializer):
         if relation_info.to_many:
             model = getattr(self.Meta, 'model')
             child_relations = {
-                child_relation.field.rel.related_name: get_related_model(child_relation)
+                child_relation.field.rel.related_name: child_relation.related_model
                 for child_relation in get_all_child_relations(model)
             }
 

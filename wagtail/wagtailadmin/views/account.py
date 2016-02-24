@@ -109,7 +109,8 @@ def login(request):
         return redirect('wagtailadmin_home')
     else:
         from django.contrib.auth import get_user_model
-        return auth_views.login(request,
+        return auth_views.login(
+            request,
             template_name='wagtailadmin/login.html',
             authentication_form=forms.LoginForm,
             extra_context={
@@ -126,8 +127,8 @@ def logout(request):
     # absence of sessionid as an indication that front-end pages are being viewed by a
     # non-logged-in user and are therefore cacheable, so we forcibly delete the cookie here.
     response.delete_cookie(settings.SESSION_COOKIE_NAME,
-        domain=settings.SESSION_COOKIE_DOMAIN,
-        path=settings.SESSION_COOKIE_PATH)
+                           domain=settings.SESSION_COOKIE_DOMAIN,
+                           path=settings.SESSION_COOKIE_PATH)
 
     # HACK: pretend that the session hasn't been modified, so that SessionMiddleware
     # won't override the above and write a new cookie.

@@ -3,6 +3,7 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# Henrik Kröger <hedwig@riseup.net>, 2016
 # Johannes Spielmann <j@spielmannsolutions.com>, 2014-2015
 # M0rph 3u5 <transifex@m0rph3u5.net>, 2014
 # Max Pfeiffer <max.pfeiffer@alp-phone.ch>, 2015
@@ -14,9 +15,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-08-26 14:28+0100\n"
-"PO-Revision-Date: 2015-09-22 12:52+0000\n"
-"Last-Translator: Max Pfeiffer <max.pfeiffer@alp-phone.ch>\n"
+"POT-Creation-Date: 2016-02-05 17:02+0000\n"
+"PO-Revision-Date: 2016-02-07 17:50+0000\n"
+"Last-Translator: Henrik Kröger <hedwig@riseup.net>\n"
 "Language-Team: German (http://www.transifex.com/torchbox/wagtail/language/"
 "de/)\n"
 "MIME-Version: 1.0\n"
@@ -75,7 +76,7 @@ msgid "Resize to max"
 msgstr "Auf Maximalgröße anpassen"
 
 msgid "Resize to fill"
-msgstr "Anpassen, so dass die Größe ausfüllt"
+msgstr "Anpassen, so dass es die Größe ausfüllt"
 
 msgid "Width"
 msgstr "Breite"
@@ -86,19 +87,25 @@ msgstr "Höhe"
 msgid "Closeness"
 msgstr "Nähe"
 
-msgid "Title"
+msgid "title"
 msgstr "Titel"
 
-msgid "File"
+msgid "file"
 msgstr "Datei"
 
-msgid "Created at"
+msgid "width"
+msgstr "Breite"
+
+msgid "height"
+msgstr "Höhe"
+
+msgid "created at"
 msgstr "Erstellt am"
 
-msgid "Uploaded by user"
+msgid "uploaded by user"
 msgstr "Hochgeladen von Benutzer"
 
-msgid "Tags"
+msgid "tags"
 msgstr "Schlagwörter"
 
 msgid "Choose an image"
@@ -112,6 +119,17 @@ msgstr "Hochladen"
 
 msgid "Popular tags"
 msgstr "Häufig verwendete Schlagwörter"
+
+msgid "Uploading..."
+msgstr "Lade hoch…"
+
+msgid "Server Error"
+msgstr "Server-Fehler"
+
+msgid "Report this error to your webmaster with the following information:"
+msgstr ""
+"Melden Sie diesen Fehler Ihrem Webseitenverwalter mit der folgenden "
+"Information:"
 
 #, python-format
 msgid ""
@@ -201,10 +219,10 @@ msgid "URL Generator"
 msgstr "URL Generator"
 
 msgid "Max dimensions"
-msgstr "Max dimensionen"
+msgstr "Max Dimensionen"
 
 msgid "Filesize"
-msgstr "Dateigrösse"
+msgstr "Dateigröße"
 
 msgid "File not found"
 msgstr "Datei nicht gefunden"
@@ -215,7 +233,7 @@ msgstr "Bilder"
 #, python-format
 msgid "Sorry, no images match \"<em>%(query_string)s</em>\""
 msgstr ""
-"Es gibt leider keine Bilder zum Suchbegriff \"<em>%(query_string)s</em>\""
+"Es gibt leider keine Bilder zum Suchbegriff „<em>%(query_string)s</em>“"
 
 #, python-format
 msgid ""
@@ -238,8 +256,9 @@ msgid ""
 "Note that images generated larger than the screen will appear smaller when "
 "previewed here, so they fit the screen."
 msgstr ""
-"Bitte beachten Sie, dass Bilder die größer als der Bildschirm sind, in der "
-"Vorschau auf Bildschirmgröße verkleinert dargestellt werden."
+"Bitte beachten Sie, dass Bilder, die größer als der Bildschirm generiert "
+"werden, in der Vorschau kleiner erscheinen, sodass sie auf den Bildschirm "
+"passen."
 
 #, python-format
 msgid "Usage of %(title)s"
@@ -247,6 +266,9 @@ msgstr "Benutzung von %(title)s"
 
 msgid "Usage of"
 msgstr "Benutzung von"
+
+msgid "Title"
+msgstr "Titel"
 
 msgid "Parent"
 msgstr "Übergeordnet"
@@ -283,6 +305,9 @@ msgstr ""
 msgid "Sorry, upload failed."
 msgstr "Entschuldigung, der Upload ist fehlgeschlagen."
 
+msgid "Image updated."
+msgstr "Bild geändert."
+
 msgid "Update"
 msgstr "Updaten"
 
@@ -294,7 +319,7 @@ msgstr "Nach Bildern suchen"
 
 #, python-brace-format
 msgid "Image '{0}' updated."
-msgstr "Bild '{0}' geändert."
+msgstr "Bild ‚{0}‘ geändert."
 
 msgid "Edit again"
 msgstr "Nochmal bearbeiten"
@@ -311,11 +336,11 @@ msgstr ""
 
 #, python-brace-format
 msgid "Image '{0}' deleted."
-msgstr "Bild '{0}' gelöscht."
+msgstr "Bild ‚{0}‘ gelöscht."
 
 #, python-brace-format
 msgid "Image '{0}' added."
-msgstr "Bild '{0}' hinzugefügt."
+msgstr "Bild ‚{0}‘ hinzugefügt."
 
 msgid "Edit"
 msgstr "Bearbeiten"

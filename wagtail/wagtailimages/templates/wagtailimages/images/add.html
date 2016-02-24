@@ -2,14 +2,18 @@
 {% load wagtailimages_tags %}
 {% load i18n %}
 {% block titletag %}{% trans "Add an image" %}{% endblock %}
-{% block extra_css %}
-    {{ block.super }}
-    {% include "wagtailadmin/shared/tag_field_css.html" %}
-{% endblock %}
 
 {% block extra_js %}
     {{ block.super }}
-    {% include "wagtailadmin/shared/tag_field_js.html" %}
+
+    {% url 'wagtailadmin_tag_autocomplete' as autocomplete_url %}
+    <script>
+        $(function() {
+            $('#id_tags').tagit({
+                autocomplete: {source: "{{ autocomplete_url|addslashes }}"}
+            });
+        });
+    </script>
 {% endblock %}
 
 {% block content %}

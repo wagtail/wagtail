@@ -2,6 +2,7 @@ from __future__ import absolute_import, unicode_literals
 
 import json
 
+from django.utils.formats import get_format
 from django.core.urlresolvers import reverse
 from django.forms import widgets
 from django.contrib.contenttypes.models import ContentType
@@ -27,6 +28,7 @@ class AdminAutoHeightTextInput(WidgetWithScript, widgets.Textarea):
     def render_js_init(self, id_, name, value):
         return 'autosize($("#{0}"));'.format(id_)
 
+
 class AdminDateInput(WidgetWithScript, widgets.DateInput):
     # Set a default date format to match the one that our JS date picker expects -
     # it can still be overridden explicitly, but this way it won't be affected by
@@ -35,7 +37,10 @@ class AdminDateInput(WidgetWithScript, widgets.DateInput):
         super(AdminDateInput, self).__init__(attrs=attrs, format=format)
 
     def render_js_init(self, id_, name, value):
-        return 'initDateChooser({0});'.format(json.dumps(id_))
+        return 'initDateChooser({0}, {1});'.format(
+            json.dumps(id_),
+            json.dumps({'dayOfWeekStart': get_format('FIRST_DAY_OF_WEEK')})
+        )
 
 
 class AdminTimeInput(WidgetWithScript, widgets.TimeInput):
@@ -51,7 +56,10 @@ class AdminDateTimeInput(WidgetWithScript, widgets.DateTimeInput):
         super(AdminDateTimeInput, self).__init__(attrs=attrs, format=format)
 
     def render_js_init(self, id_, name, value):
-        return 'initDateTimeChooser({0});'.format(json.dumps(id_))
+        return 'initDateTimeChooser({0}, {1});'.format(
+            json.dumps(id_),
+            json.dumps({'dayOfWeekStart': get_format('FIRST_DAY_OF_WEEK')})
+        )
 
 
 class AdminTagWidget(WidgetWithScript, TagWidget):

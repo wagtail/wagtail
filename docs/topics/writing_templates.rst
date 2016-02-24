@@ -212,3 +212,17 @@ By default the User Bar appears in the top right of the browser window, flush wi
        top:200px
     }
 
+
+Varying output between preview and live
+=======================================
+
+Sometimes you may wish to vary the template output depending on whether the page is being previewed or viewed live. For example, if you have visitor tracking code such as Google Analytics in place on your site, it's a good idea to leave this out when previewing, so that editor activity doesn't appear in your analytics reports. Wagtail provides a ``request.is_preview`` variable to distinguish between preview and live:
+
+.. code-block:: html+django
+
+    {% if not request.is_preview %}
+        <script>
+          (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+          ...
+        </script>
+    {% endif %}

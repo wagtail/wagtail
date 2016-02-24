@@ -4,6 +4,7 @@
 #
 # Translators:
 # Florian <flori@vorlif.org>, 2015
+# Henrik Kröger <hedwig@riseup.net>, 2016
 # Johannes Spielmann <j@spielmannsolutions.com>, 2014
 # mattwestcott <matthew@torchbox.com>, 2015
 # Max Pfeiffer <max.pfeiffer@alp-phone.ch>, 2015
@@ -13,9 +14,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-09-02 20:07+0100\n"
-"PO-Revision-Date: 2015-09-27 19:03+0000\n"
-"Last-Translator: mattwestcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2016-02-05 17:01+0000\n"
+"PO-Revision-Date: 2016-02-07 13:50+0000\n"
+"Last-Translator: Henrik Kröger <hedwig@riseup.net>\n"
 "Language-Team: German (http://www.transifex.com/torchbox/wagtail/language/"
 "de/)\n"
 "MIME-Version: 1.0\n"
@@ -24,10 +25,10 @@ msgstr ""
 "Language: de\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-msgid "Hostname"
+msgid "hostname"
 msgstr "Hostname"
 
-msgid "Port"
+msgid "port"
 msgstr "Port"
 
 msgid ""
@@ -39,10 +40,16 @@ msgstr ""
 "soll (z.B. Development Port auf 8000). Dies bezieht sich nicht auf Request "
 "Handling, so dass Port Forwarding weiterhin funktioniert."
 
-msgid "Root page"
+msgid "site name"
+msgstr "Website-Name"
+
+msgid "Human-readable name for the site."
+msgstr "Für Menschen lesbarer Name für die Website"
+
+msgid "root page"
 msgstr "Ursprungsseite"
 
-msgid "Is default site"
+msgid "is default site"
 msgstr "Ist die standardmäßige Website"
 
 msgid ""
@@ -66,13 +73,13 @@ msgstr ""
 "%(hostname)s ist bereits als Standardseite eingestellt. Sie müssen diese "
 "Einstellung ändern bevor Sie diese Seite als Standard einstellen können."
 
-msgid "Title"
+msgid "title"
 msgstr "Titel"
 
 msgid "The page title as you'd like it to be seen by the public"
 msgstr "Der Seitentitel, der öffentlich angezeigt werden soll"
 
-msgid "Slug"
+msgid "slug"
 msgstr "Kurztitel"
 
 msgid ""
@@ -82,22 +89,22 @@ msgstr ""
 "Der Name der Seite, wie er in URLs angezeigt werden soll, z.B. http://domain."
 "com/blog/[my-slug]/"
 
-msgid "Content type"
+msgid "content type"
 msgstr "Inhaltstyp"
 
-msgid "Live"
+msgid "live"
 msgstr "Veröffentlicht"
 
-msgid "Has unpublished changes"
+msgid "has unpublished changes"
 msgstr "Hat unveröffentlichte Änderungen"
 
 msgid "URL path"
 msgstr "URL Pfad"
 
-msgid "Owner"
+msgid "owner"
 msgstr "Eigner"
 
-msgid "Page title"
+msgid "page title"
 msgstr "Seitentitel"
 
 msgid ""
@@ -107,7 +114,7 @@ msgstr ""
 "Optional. Suchmaschinenfreundlicher Titel. Wird in der Titelleiste des "
 "Browsers angezeigt."
 
-msgid "Show in menus"
+msgid "show in menus"
 msgstr "In Menüs anzeigen"
 
 msgid ""
@@ -115,32 +122,29 @@ msgid ""
 msgstr ""
 "Ob ein Link zu dieser Seite in automatisch generierten Menüs auftaucht."
 
-msgid "Search description"
+msgid "search description"
 msgstr "Suchbeschreibung"
 
-msgid "Go live date/time"
+msgid "go live date/time"
 msgstr "Veröffentlichungszeitpunkt"
 
 msgid "Please add a date-time in the form YYYY-MM-DD hh:mm."
 msgstr "Bitte geben ein Datum im Format JJJJ-MM-DD hh:mm:ss ein."
 
-msgid "Expiry date/time"
+msgid "expiry date/time"
 msgstr "Verfallszeitpunkt"
-
-msgid "Expired"
-msgstr "Abgelaufen"
-
-msgid "Locked"
-msgstr "Gesperrt"
-
-msgid "First published at"
-msgstr "Zuerst publiziert am"
-
-msgid "Latest revision created at"
-msgstr "Neuste Revision erstellt am"
 
 msgid "expired"
 msgstr "abgelaufen"
+
+msgid "locked"
+msgstr "Gesperrt"
+
+msgid "first published at"
+msgstr "Zuerst publiziert am"
+
+msgid "latest revision created at"
+msgstr "Neuste Revision erstellt am"
 
 msgid "scheduled"
 msgstr "geplant"
@@ -151,9 +155,6 @@ msgstr "Entwurf"
 msgid "live + draft"
 msgstr "Veröffentlicht + Entwurf"
 
-msgid "live"
-msgstr "Veröffentlicht"
-
 msgid "Default"
 msgstr "Standard"
 
@@ -163,22 +164,19 @@ msgstr "Seite"
 msgid "pages"
 msgstr "Seiten"
 
-msgid "Page"
-msgstr "Seite"
-
-msgid "Submitted for moderation"
+msgid "submitted for moderation"
 msgstr "Zur Freischaltung eingereicht"
 
-msgid "Created at"
+msgid "created at"
 msgstr "Erstellt am"
 
-msgid "User"
+msgid "user"
 msgstr "Benutzer"
 
-msgid "Content JSON"
+msgid "content JSON"
 msgstr "JSON Inhalt"
 
-msgid "Approved go live at"
+msgid "approved go live at"
 msgstr "Freigegeben zur Veröffentlichung am"
 
 msgid "page revision"
@@ -199,10 +197,10 @@ msgstr "Jede Seite veröffentlichen"
 msgid "Lock/unlock any page"
 msgstr "Sperren/Entsperren jeder Seite"
 
-msgid "Group"
+msgid "group"
 msgstr "Gruppe"
 
-msgid "Permission type"
+msgid "permission type"
 msgstr "Berechtigungstyp"
 
 msgid "group page permission"
@@ -211,7 +209,7 @@ msgstr "Gruppen Seitenberechtigung"
 msgid "group page permissions"
 msgstr "Gruppen Seitenberechtigungen"
 
-msgid "Password"
+msgid "password"
 msgstr "Passwort"
 
 msgid "page view restriction"
@@ -219,6 +217,3 @@ msgstr "Seiten Ansichtsrestriktion"
 
 msgid "page view restrictions"
 msgstr "Seiten Ansichtsrestriktionen"
-
-msgid "Value cannot be entirely whitespace characters"
-msgstr "Der Wert darf nicht vollständig Leerzeichen enthalten"

@@ -1,24 +1,31 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from django.core.exceptions import PermissionDenied
 from django.utils.translation import ugettext as _
 from django.views.decorators.vary import vary_on_headers
 from django.core.urlresolvers import reverse
 
 from wagtail.utils.pagination import paginate
 from wagtail.wagtailadmin.forms import SearchForm
-from wagtail.wagtailadmin.utils import permission_required, any_permission_required
+from wagtail.wagtailadmin.utils import PermissionPolicyChecker, permission_denied
 from wagtail.wagtailsearch.backends import get_search_backends
 from wagtail.wagtailadmin import messages
 
-from wagtail.wagtaildocs.models import Document
-from wagtail.wagtaildocs.forms import DocumentForm
+from wagtail.wagtaildocs.models import get_document_model
+from wagtail.wagtaildocs.forms import get_document_form
+from wagtail.wagtaildocs.permissions import permission_policy
 
 
-@any_permission_required('wagtaildocs.add_document', 'wagtaildocs.change_document')
+permission_checker = PermissionPolicyChecker(permission_policy)
+
+
+@permission_checker.require_any('add', 'change', 'delete')
 @vary_on_headers('X-Requested-With')
 def index(request):
-    # Get documents
-    documents = Document.objects.all()
+    Document = get_document_model()
+
+    # Get documents (filtered by user permission)
+    documents = permission_policy.instances_user_has_any_permission_for(
+        request.user, ['change', 'delete']
+    )
 
     # Ordering
     if 'ordering' in request.GET and request.GET['ordering'] in ['title', '-created_at']:
@@ -26,11 +33,6 @@ def index(request):
     else:
         ordering = '-created_at'
     documents = documents.order_by(ordering)
-
-    # Permissions
-    if not request.user.has_perm('wagtaildocs.change_document'):
-        # restrict to the user's own documents
-        documents = documents.filter(uploaded_by_user=request.user)
 
     # Search
     query_string = None
@@ -62,11 +64,15 @@ def index(request):
 
             'search_form': form,
             'popular_tags': Document.popular_tags(),
+            'user_can_add': permission_policy.user_has_permission(request.user, 'add'),
         })
 
 
-@permission_required('wagtaildocs.add_document')
+@permission_checker.require('add')
 def add(request):
+    Document = get_document_model()
+    DocumentForm = get_document_form(Document)
+
     if request.POST:
         doc = Document(uploaded_by_user=request.user)
         form = DocumentForm(request.POST, request.FILES, instance=doc)
@@ -91,11 +97,15 @@ def add(request):
     })
 
 
+@permission_checker.require('change')
 def edit(request, document_id):
+    Document = get_document_model()
+    DocumentForm = get_document_form(Document)
+
     doc = get_object_or_404(Document, id=document_id)
 
-    if not doc.is_editable_by_user(request.user):
-        raise PermissionDenied
+    if not permission_policy.user_has_permission_for_instance(request.user, 'change', doc):
+        return permission_denied(request)
 
     if request.POST:
         original_file = doc.file
@@ -132,22 +142,29 @@ def edit(request, document_id):
             pass
 
     if not filesize:
-        messages.error(request, _("The file could not be found. Please change the source or delete the document"), buttons=[
-            messages.button(reverse('wagtaildocs:delete', args=(doc.id,)), _('Delete'))
-        ])
+        messages.error(
+            request,
+            _("The file could not be found. Please change the source or delete the document"),
+            buttons=[messages.button(reverse('wagtaildocs:delete', args=(doc.id,)), _('Delete'))]
+        )
 
     return render(request, "wagtaildocs/documents/edit.html", {
         'document': doc,
         'filesize': filesize,
-        'form': form
+        'form': form,
+        'user_can_delete': permission_policy.user_has_permission_for_instance(
+            request.user, 'delete', doc
+        ),
     })
 
 
+@permission_checker.require('delete')
 def delete(request, document_id):
+    Document = get_document_model()
     doc = get_object_or_404(Document, id=document_id)
 
-    if not doc.is_editable_by_user(request.user):
-        raise PermissionDenied
+    if not permission_policy.user_has_permission_for_instance(request.user, 'delete', doc):
+        return permission_denied(request)
 
     if request.POST:
         doc.delete()
@@ -160,6 +177,7 @@ def delete(request, document_id):
 
 
 def usage(request, document_id):
+    Document = get_document_model()
     doc = get_object_or_404(Document, id=document_id)
 
     paginator, used_by = paginate(request, doc.get_usage())

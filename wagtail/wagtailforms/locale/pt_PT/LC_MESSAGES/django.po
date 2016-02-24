@@ -4,14 +4,15 @@
 #
 # Translators:
 # Jose Lourenco <jose@lourenco.ws>, 2014
+# Manuela Silva <h_manuela_rodsilva@gmail.com>, 2015
 # Tiago Henriques <trinosauro@gmail.com>, 2015
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-08-26 14:28+0100\n"
-"PO-Revision-Date: 2015-08-26 13:37+0000\n"
-"Last-Translator: Karl Hobley <karl@torchbox.com>\n"
+"POT-Creation-Date: 2016-02-05 17:01+0000\n"
+"PO-Revision-Date: 2016-01-04 18:23+0000\n"
+"Last-Translator: mattwestcott <matthew@torchbox.com>\n"
 "Language-Team: Portuguese (Portugal) (http://www.transifex.com/torchbox/"
 "wagtail/language/pt_PT/)\n"
 "MIME-Version: 1.0\n"
@@ -21,7 +22,7 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 msgid "Single line text"
-msgstr "Texto duma só linha"
+msgstr "Texto de uma só linha"
 
 msgid "Multi-line text"
 msgstr "Texto multi-linha"
@@ -53,26 +54,8 @@ msgstr "Data"
 msgid "Date/time"
 msgstr "Data/hora"
 
-msgid "Submit time"
-msgstr "Hora de envio"
-
-msgid "Form Submission"
-msgstr "Envio de Formulário"
-
-msgid "Label"
-msgstr "Etiqueta"
-
 msgid "The label of the form field"
 msgstr "A etiqueta do campo de formulário"
-
-msgid "Field type"
-msgstr "Tipo de campo"
-
-msgid "Required"
-msgstr "Obrigatório"
-
-msgid "Choices"
-msgstr "Escolhas"
 
 msgid ""
 "Comma separated list of choices. Only applicable in checkboxes, radio and "
@@ -81,30 +64,18 @@ msgstr ""
 "Lista de escolhas separadas por vírgula. Só utilizável nas caixas de "
 "seleção, botões e listas pendentes."
 
-msgid "Default value"
-msgstr "Valor pré-definido"
-
 msgid "Default value. Comma separated values supported for checkboxes."
 msgstr ""
 "Valor pré-definido. Valores separados por vírgula admitidos nas caixas de "
 "seleção."
-
-msgid "Help text"
-msgstr "Texto de ajuda"
-
-msgid "To address"
-msgstr "Endereço do destinatário"
 
 msgid "Optional - form submissions will be emailed to this address"
 msgstr ""
 "Opcional - os formulários recebidos serão enviados por e-mail para este "
 "endereço"
 
-msgid "From address"
-msgstr "Endereço do remetente"
-
-msgid "Subject"
-msgstr "Assunto"
+msgid "Delete"
+msgstr "Eliminar"
 
 msgid "Forms"
 msgstr "Formulários"

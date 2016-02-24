@@ -9,9 +9,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-08-26 14:46+0100\n"
-"PO-Revision-Date: 2015-10-20 02:29+0000\n"
-"Last-Translator: Kyungil Choi <hanpama@gmail.com>\n"
+"POT-Creation-Date: 2016-02-05 17:01+0000\n"
+"PO-Revision-Date: 2015-12-17 14:02+0000\n"
+"Last-Translator: mattwestcott <matthew@torchbox.com>\n"
 "Language-Team: Korean (http://www.transifex.com/torchbox/wagtail/language/"
 "ko/)\n"
 "MIME-Version: 1.0\n"
@@ -22,15 +22,6 @@ msgstr ""
 
 msgid "Please specify at least one recommendation for this search term."
 msgstr "이 검색어를 위해 최소 한개의 추천을 지정하여 주시기 바랍니다."
-
-msgid "Page"
-msgstr "페이지"
-
-msgid "Description"
-msgstr "설명"
-
-msgid "Search promotion"
-msgstr "검색 프로모션"
 
 msgid ""
 "\n"
@@ -111,9 +102,6 @@ msgstr "프로모션 결과"
 
 msgid "Views (past week)"
 msgstr "본 횟수(지난 주)"
-
-msgid "Edit this pick"
-msgstr "선택 수정"
 
 msgid "None"
 msgstr "없음"

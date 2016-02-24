@@ -97,7 +97,7 @@ class TestExpandDbHtml(TestCase):
         result = expand_db_html(html)
         self.assertEqual(result, '<a id="1">foo</a>')
 
-    @patch('wagtail.wagtailembeds.embeds.oembed')
+    @patch('wagtail.wagtailembeds.finders.oembed.find_embed')
     def test_expand_db_html_with_embed(self, oembed):
         oembed.return_value = {
             'title': 'test title',
@@ -132,4 +132,7 @@ class TestRichTextValue(TestCase):
     def test_render(self):
         value = RichText('<p>Merry <a linktype="page" id="4">Christmas</a>!</p>')
         result = str(value)
-        self.assertEqual(result, '<div class="rich-text"><p>Merry <a href="/events/christmas/">Christmas</a>!</p></div>')
+        self.assertEqual(
+            result,
+            '<div class="rich-text"><p>Merry <a href="/events/christmas/">Christmas</a>!</p></div>'
+        )

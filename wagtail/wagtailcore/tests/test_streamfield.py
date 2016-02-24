@@ -1,11 +1,9 @@
 import json
-import unittest
 
-import django
 from django.apps import apps
 from django.test import TestCase
 from django.db import models
-from django.template import Template, Context
+from django.template import Template, Context, engines
 from django.utils.safestring import SafeText
 from django.utils.six import text_type
 
@@ -171,12 +169,9 @@ class TestStreamFieldDjangoRendering(TestStreamFieldRenderingBase):
         self.assertHTMLEqual(rendered, self.expected)
 
 
-@unittest.skipIf(django.VERSION < (1, 8), 'Multiple engines only supported in Django>=1.8')
 class TestStreamFieldJinjaRendering(TestStreamFieldRenderingBase):
     def setUp(self):
-        # This does not exist on Django<1.8
         super(TestStreamFieldJinjaRendering, self).setUp()
-        from django.template import engines
         self.engine = engines['jinja2']
 
     def render(self, string, context):

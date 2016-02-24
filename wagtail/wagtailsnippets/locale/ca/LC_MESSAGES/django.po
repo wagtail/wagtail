@@ -3,14 +3,15 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# Antoni Aloy <aaloy@apsl.net>, 2016
 # David Llop <d.lloople@gmail.com>, 2014
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-08-26 14:28+0100\n"
-"PO-Revision-Date: 2015-03-06 12:15+0000\n"
-"Last-Translator: mattwestcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2016-02-05 17:02+0000\n"
+"PO-Revision-Date: 2016-01-04 19:50+0000\n"
+"Last-Translator: Antoni Aloy <aaloy@apsl.net>\n"
 "Language-Team: Catalan (http://www.transifex.com/torchbox/wagtail/language/"
 "ca/)\n"
 "MIME-Version: 1.0\n"
@@ -22,8 +23,28 @@ msgstr ""
 msgid "Choose"
 msgstr "Escull"
 
-msgid "Title"
-msgstr "Títol"
+msgid "Search"
+msgstr "Cerca"
+
+#, python-format
+msgid ""
+"\n"
+"            There is one match\n"
+"        "
+msgid_plural ""
+"\n"
+"            There are %(counter)s matches\n"
+"        "
+msgstr[0] ""
+"\n"
+"Hi ha una coincidència."
+msgstr[1] ""
+"\n"
+"Hi ha %(counter)s coincidències."
+
+#, python-format
+msgid "Sorry, no snippets match \"<em>%(query_string)s</em>\""
+msgstr "Ens sap greu, no hi ha cap fragment amb \"<em>%(query_string)s</em>\""
 
 #, python-format
 msgid "Delete %(snippet_type_name)s - %(instance)s"
@@ -59,6 +80,17 @@ msgstr "Editant"
 msgid "Snippets"
 msgstr "Fragments"
 
+msgid "Title"
+msgstr "Títol"
+
+#, python-format
+msgid ""
+"No %(snippet_type_name_plural)s have been created. Why not <a href="
+"\"%(wagtailsnippets_create_url)s\">add one</a>?"
+msgstr ""
+"No s'ha creat cap %(snippet_type_name_plural)s. Per què no <a href="
+"\"%(wagtailsnippets_create_url)s\">afeixes un</a>?"
+
 #, python-format
 msgid "Snippets %(snippet_type_name_plural)s"
 msgstr "Fragments %(snippet_type_name_plural)s"
@@ -72,16 +104,34 @@ msgid "Add %(snippet_type_name)s"
 msgstr "Afegeix %(snippet_type_name)s"
 
 #, python-format
-msgid ""
-"No %(snippet_type_name_plural)s have been created. Why not <a href="
-"\"%(wagtailsnippets_create_url)s\">add one</a>?"
-msgstr ""
-"No s'ha creat cap %(snippet_type_name_plural)s. Per què no <a href="
-"\"%(wagtailsnippets_create_url)s\">afeixes un</a>?"
+msgid "Usage of %(title)s"
+msgstr "Utilització de %(title)s"
+
+msgid "Usage of"
+msgstr "Utilització de"
+
+msgid "Parent"
+msgstr "Pare"
+
+msgid "Type"
+msgstr "Tipus"
+
+msgid "Status"
+msgstr "Estat"
+
+msgid "Edit this page"
+msgstr "Editar aquesta plana"
+
+#, python-format
+msgid "Search %(snippet_type_name)s"
+msgstr "Cercar %(snippet_type_name)s"
 
 #, python-brace-format
 msgid "{snippet_type} '{instance}' created."
 msgstr "{snippet_type} '{instance}' creat."
+
+msgid "Edit"
+msgstr "Editar"
 
 msgid "The snippet could not be created due to errors."
 msgstr "El fragment no s'ha pogut crear degut a errors."
@@ -96,3 +146,15 @@ msgstr "El fragment no s'ha pogut desar degut a errors."
 #, python-brace-format
 msgid "{snippet_type} '{instance}' deleted."
 msgstr "{snippet_type} '{instance}' esborrat."
+
+#, python-format
+msgid "Choose %s"
+msgstr "Seleccioni %s"
+
+#, python-format
+msgid "Choose another %s"
+msgstr "Seleccioni un altre %s"
+
+#, python-format
+msgid "Edit this %s"
+msgstr "Editar aquest %s"

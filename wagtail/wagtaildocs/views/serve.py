@@ -8,10 +8,11 @@ from wsgiref.util import FileWrapper
 from wagtail.utils.sendfile import sendfile
 from wagtail.utils import sendfile_streaming_backend
 
-from wagtail.wagtaildocs.models import Document, document_served
+from wagtail.wagtaildocs.models import get_document_model, document_served
 
 
 def serve(request, document_id, document_filename):
+    Document = get_document_model()
     doc = get_object_or_404(Document, id=document_id)
 
     # Send document_served signal
@@ -31,7 +32,13 @@ def serve(request, document_id, document_filename):
             return sendfile(request, local_path, attachment=True, attachment_filename=doc.filename)
         else:
             # Fallback to streaming backend if user hasn't specified SENDFILE_BACKEND
-            return sendfile(request, local_path, attachment=True, attachment_filename=doc.filename, backend=sendfile_streaming_backend.sendfile)
+            return sendfile(
+                request,
+                local_path,
+                attachment=True,
+                attachment_filename=doc.filename,
+                backend=sendfile_streaming_backend.sendfile
+            )
 
     else:
 

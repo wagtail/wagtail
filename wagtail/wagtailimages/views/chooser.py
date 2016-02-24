@@ -6,12 +6,16 @@ from django.shortcuts import get_object_or_404, render
 from wagtail.utils.pagination import paginate
 from wagtail.wagtailadmin.modal_workflow import render_modal_workflow
 from wagtail.wagtailadmin.forms import SearchForm
-from wagtail.wagtailadmin.utils import permission_required
+from wagtail.wagtailadmin.utils import PermissionPolicyChecker
 from wagtail.wagtailsearch.backends import get_search_backends
 
 from wagtail.wagtailimages.models import get_image_model
 from wagtail.wagtailimages.forms import get_image_form, ImageInsertionForm
 from wagtail.wagtailimages.formats import get_image_format
+from wagtail.wagtailimages.permissions import permission_policy
+
+
+permission_checker = PermissionPolicyChecker(permission_policy)
 
 
 def get_image_json(image):
@@ -36,23 +40,31 @@ def get_image_json(image):
 def chooser(request):
     Image = get_image_model()
 
-    if request.user.has_perm('wagtailimages.add_image'):
+    if permission_policy.user_has_permission(request.user, 'add'):
         ImageForm = get_image_form(Image)
         uploadform = ImageForm()
     else:
         uploadform = None
 
+    images = Image.objects.order_by('-created_at')
+
     q = None
-    if 'q' in request.GET or 'p' in request.GET:
+    if 'q' in request.GET or 'p' in request.GET or 'tag' in request.GET:
+        # this request is triggered from search, pagination or 'popular tags';
+        # we will just render the results.html fragment
+
         searchform = SearchForm(request.GET)
         if searchform.is_valid():
             q = searchform.cleaned_data['q']
 
-            images = Image.objects.search(q)
+            images = images.search(q)
             is_searching = True
         else:
-            images = Image.objects.order_by('-created_at')
             is_searching = False
+
+            tag_name = request.GET.get('tag')
+            if tag_name:
+                images = images.filter(tags__name=tag_name)
 
         # Pagination
         paginator, images = paginate(request, images, per_page=12)
@@ -66,7 +78,6 @@ def chooser(request):
     else:
         searchform = SearchForm()
 
-        images = Image.objects.order_by('-created_at')
         paginator, images = paginate(request, images, per_page=12)
 
     return render_modal_workflow(request, 'wagtailimages/chooser/chooser.html', 'wagtailimages/chooser/chooser.js', {
@@ -89,7 +100,7 @@ def image_chosen(request, image_id):
     )
 
 
-@permission_required('wagtailimages.add_image')
+@permission_checker.require('add')
 def chooser_upload(request):
     Image = get_image_model()
     ImageForm = get_image_form(Image)

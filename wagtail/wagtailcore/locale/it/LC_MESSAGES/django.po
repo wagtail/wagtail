@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-09-02 20:07+0100\n"
-"PO-Revision-Date: 2015-09-24 09:41+0000\n"
+"POT-Creation-Date: 2016-02-05 17:01+0000\n"
+"PO-Revision-Date: 2015-12-29 08:47+0000\n"
 "Last-Translator: Giacomo Ghizzani <giacomo.ghz@gmail.com>\n"
 "Language-Team: Italian (http://www.transifex.com/torchbox/wagtail/language/"
 "it/)\n"
@@ -20,11 +20,11 @@ msgstr ""
 "Language: it\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-msgid "Hostname"
-msgstr "Hostname"
+msgid "hostname"
+msgstr "hostname"
 
-msgid "Port"
-msgstr "Porta"
+msgid "port"
+msgstr "porta"
 
 msgid ""
 "Set this to something other than 80 if you need a specific port number to "
@@ -36,10 +36,16 @@ msgstr ""
 "influisce sulla gestione delle richieste (il port forwarding continua a "
 "funzionare)."
 
-msgid "Root page"
-msgstr "Pagina di root"
+msgid "site name"
+msgstr "nome sito"
 
-msgid "Is default site"
+msgid "Human-readable name for the site."
+msgstr "Nome leggibile per il sito."
+
+msgid "root page"
+msgstr "pagina radice"
+
+msgid "is default site"
 msgstr "è sito di default"
 
 msgid ""
@@ -61,14 +67,14 @@ msgstr ""
 "%(hostname)s è già configurato come sito di default. Devi togliere questa "
 "impostazione prima di poterlo salvare come sito di default."
 
-msgid "Title"
-msgstr "Titolo"
+msgid "title"
+msgstr "titolo"
 
 msgid "The page title as you'd like it to be seen by the public"
 msgstr "Il titolo della pagina che sarà visibile al pubblico"
 
-msgid "Slug"
-msgstr "Slug"
+msgid "slug"
+msgstr "slug"
 
 msgid ""
 "The name of the page as it will appear in URLs e.g http://domain.com/blog/"
@@ -77,23 +83,23 @@ msgstr ""
 "Il nome della pagina che comparirà nella URLs e.g http://domain.com/blog/[my-"
 "slug]/"
 
-msgid "Content type"
-msgstr "Tipo di contenuto"
+msgid "content type"
+msgstr "tipo contenuto"
 
-msgid "Live"
-msgstr "Live"
+msgid "live"
+msgstr "live"
 
-msgid "Has unpublished changes"
-msgstr "Ha modifiche non pubblicate"
+msgid "has unpublished changes"
+msgstr "ha modifiche non pubblicate"
 
 msgid "URL path"
 msgstr "URL path"
 
-msgid "Owner"
-msgstr "Proprietario"
+msgid "owner"
+msgstr "proprietario"
 
-msgid "Page title"
-msgstr "Titolo pagina"
+msgid "page title"
+msgstr "titolo pagina"
 
 msgid ""
 "Optional. 'Search Engine Friendly' title. This will appear at the top of the "
@@ -102,35 +108,32 @@ msgstr ""
 "Optional. Titolo 'Search Engine Friendly'. Questo apparirà nella barra del "
 "titolo del browser."
 
-msgid "Show in menus"
-msgstr "Mostra nel menu"
+msgid "show in menus"
+msgstr "mostra nel menu"
 
-msgid "Search description"
-msgstr "Descrizione della ricerca"
+msgid "search description"
+msgstr "descrizione della ricerca"
 
-msgid "Go live date/time"
-msgstr "Go live date/time"
+msgid "go live date/time"
+msgstr "vai live data/ora"
 
 msgid "Please add a date-time in the form YYYY-MM-DD hh:mm."
 msgstr "Aggiungi una data nel formato YYYY-MM-DD hh:mm."
 
-msgid "Expiry date/time"
-msgstr "Scadenza data/ora"
-
-msgid "Expired"
-msgstr "Scaduto"
-
-msgid "Locked"
-msgstr "Bloccato"
-
-msgid "First published at"
-msgstr "Primo pubblicato a"
-
-msgid "Latest revision created at"
-msgstr "Ultima revisione fatta alle"
+msgid "expiry date/time"
+msgstr "scadenza data/ora"
 
 msgid "expired"
 msgstr "scaduto"
+
+msgid "locked"
+msgstr "bloccato"
+
+msgid "first published at"
+msgstr "primo pubblicato a"
+
+msgid "latest revision created at"
+msgstr "ultima revisione creata alle"
 
 msgid "scheduled"
 msgstr "schedulato"
@@ -141,9 +144,6 @@ msgstr "bozza"
 msgid "live + draft"
 msgstr "live + bozza"
 
-msgid "live"
-msgstr "live"
-
 msgid "Default"
 msgstr "Default"
 
@@ -153,23 +153,20 @@ msgstr "pagina"
 msgid "pages"
 msgstr "pagine"
 
-msgid "Page"
-msgstr "Pagina"
+msgid "submitted for moderation"
+msgstr "inviato per la moderazione"
 
-msgid "Submitted for moderation"
-msgstr "Inviato per la moderazione"
+msgid "created at"
+msgstr "creato alle"
 
-msgid "Created at"
-msgstr "Creato alle"
+msgid "user"
+msgstr "utente"
 
-msgid "User"
-msgstr "Utente"
+msgid "content JSON"
+msgstr "contenuto JSON"
 
-msgid "Content JSON"
-msgstr "Contenuto JSON"
-
-msgid "Approved go live at"
-msgstr "Approvata alle"
+msgid "approved go live at"
+msgstr "approvato alle"
 
 msgid "page revision"
 msgstr "revisione pagina"
@@ -189,14 +186,23 @@ msgstr "Pubblica ogni pagina"
 msgid "Lock/unlock any page"
 msgstr "Blocca/sblocca ogni pagina"
 
-msgid "Group"
-msgstr "Gruppo"
+msgid "group"
+msgstr "gruppo"
 
-msgid "Permission type"
-msgstr "Tipo di permesso"
+msgid "permission type"
+msgstr "tipo di permesso"
 
-msgid "Password"
-msgstr "Password"
+msgid "group page permission"
+msgstr "permesso della pagina del gruppo"
 
-msgid "Value cannot be entirely whitespace characters"
-msgstr "Il valore non può contenere spazi bianchi"
+msgid "group page permissions"
+msgstr "permessi delle pagine del gruppo"
+
+msgid "password"
+msgstr "password"
+
+msgid "page view restriction"
+msgstr "restrizione per la visualizzazione della pagina"
+
+msgid "page view restrictions"
+msgstr "restrizioni per la visualizzazione della pagina"

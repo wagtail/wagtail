@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-08-26 14:28+0100\n"
-"PO-Revision-Date: 2015-06-30 08:41+0000\n"
+"POT-Creation-Date: 2016-02-05 17:01+0000\n"
+"PO-Revision-Date: 2016-02-05 17:09+0000\n"
 "Last-Translator: mattwestcott <matthew@torchbox.com>\n"
 "Language-Team: Russian (http://www.transifex.com/torchbox/wagtail/language/"
 "ru/)\n"
@@ -23,23 +23,23 @@ msgstr ""
 "%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n"
 "%100>=11 && n%100<=14)? 2 : 3);\n"
 
-msgid "Title"
-msgstr "Заголовок"
+msgid "title"
+msgstr "заголовок"
 
-msgid "File"
-msgstr "Файл"
+msgid "file"
+msgstr "файл"
 
-msgid "Created at"
-msgstr "Создано"
+msgid "created at"
+msgstr "создано"
 
-msgid "Uploaded by user"
-msgstr "Загружено пользователем"
+msgid "uploaded by user"
+msgstr "загружено пользователем"
 
-msgid "Tags"
-msgstr "Тэги"
+msgid "tags"
+msgstr "тэги"
 
-msgid "Document"
-msgstr "Документ"
+msgid "document"
+msgstr "документ"
 
 msgid "Choose a document"
 msgstr "Выберите документ"
@@ -50,8 +50,8 @@ msgstr "Поиск"
 msgid "Upload"
 msgstr "Загрузка"
 
-msgid "Save"
-msgstr "Сохранить"
+msgid "Uploading..."
+msgstr "Загрузка..."
 
 #, python-format
 msgid ""
@@ -112,6 +112,9 @@ msgstr "Редактирование %(title)s"
 msgid "Editing"
 msgstr "Редактирование"
 
+msgid "Save"
+msgstr "Сохранить"
+
 msgid "Filesize"
 msgstr "Размер файла"
 
@@ -120,6 +123,12 @@ msgstr "Файл не найден"
 
 msgid "Documents"
 msgstr "Документы"
+
+msgid "Title"
+msgstr "Заголовок"
+
+msgid "File"
+msgstr "Файл"
 
 msgid "Uploaded"
 msgstr "Загружено"

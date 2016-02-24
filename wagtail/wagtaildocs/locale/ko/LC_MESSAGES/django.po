@@ -8,9 +8,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-08-26 14:28+0100\n"
-"PO-Revision-Date: 2015-10-20 02:27+0000\n"
-"Last-Translator: Ji Han Chung <jihanchung20@gmail.com>\n"
+"POT-Creation-Date: 2016-02-05 17:01+0000\n"
+"PO-Revision-Date: 2016-02-05 17:09+0000\n"
+"Last-Translator: mattwestcott <matthew@torchbox.com>\n"
 "Language-Team: Korean (http://www.transifex.com/torchbox/wagtail/language/"
 "ko/)\n"
 "MIME-Version: 1.0\n"
@@ -18,24 +18,6 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: ko\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-
-msgid "Title"
-msgstr "제목"
-
-msgid "File"
-msgstr "파일"
-
-msgid "Created at"
-msgstr "생성된 날짜"
-
-msgid "Uploaded by user"
-msgstr "사용자에 의한 업로드"
-
-msgid "Tags"
-msgstr "태그"
-
-msgid "Document"
-msgstr "문서"
 
 msgid "Choose a document"
 msgstr "문서 선택"
@@ -45,9 +27,6 @@ msgstr "검색"
 
 msgid "Upload"
 msgstr "업로드"
-
-msgid "Save"
-msgstr "저장"
 
 #, python-format
 msgid ""
@@ -98,6 +77,9 @@ msgstr "%(title)s 수정"
 msgid "Editing"
 msgstr "수정중"
 
+msgid "Save"
+msgstr "저장"
+
 msgid "Filesize"
 msgstr "파일 사이즈"
 
@@ -106,6 +88,12 @@ msgstr "파일을 찾을 수 없습니다"
 
 msgid "Documents"
 msgstr "문서"
+
+msgid "Title"
+msgstr "제목"
+
+msgid "File"
+msgstr "파일"
 
 msgid "Uploaded"
 msgstr "업로드 된"

@@ -44,7 +44,9 @@ class TestAdminPageChooserWidget(TestCase):
         widget = widgets.AdminPageChooser()
 
         js_init = widget.render_js_init('test-id', 'test', self.child_page)
-        self.assertEqual(js_init, "createPageChooser(\"test-id\", [\"wagtailcore.page\"], %d, false);" % self.root_page.id)
+        self.assertEqual(
+            js_init, "createPageChooser(\"test-id\", [\"wagtailcore.page\"], %d, false);" % self.root_page.id
+        )
 
     # def test_render_html_init_with_content_type omitted as HTML does not
     # change when selecting a content type
@@ -65,10 +67,14 @@ class TestAdminPageChooserWidget(TestCase):
         widget = widgets.AdminPageChooser(content_type=content_types)
 
         js_init = widget.render_js_init('test-id', 'test', None)
-        self.assertEqual(js_init, "createPageChooser(\"test-id\", [\"tests.simplepage\", \"tests.eventpage\"], null, false);")
+        self.assertEqual(
+            js_init, "createPageChooser(\"test-id\", [\"tests.simplepage\", \"tests.eventpage\"], null, false);"
+        )
 
     def test_render_js_init_with_can_choose_root(self):
         widget = widgets.AdminPageChooser(can_choose_root=True)
 
         js_init = widget.render_js_init('test-id', 'test', self.child_page)
-        self.assertEqual(js_init, "createPageChooser(\"test-id\", [\"wagtailcore.page\"], %d, true);" % self.root_page.id)
+        self.assertEqual(
+            js_init, "createPageChooser(\"test-id\", [\"wagtailcore.page\"], %d, true);" % self.root_page.id
+        )

@@ -315,7 +315,9 @@ class TestFormsSubmissions(TestCase, WagtailTestUtils):
         self.assertEqual(len(response.context['data_rows']), 2)
 
     def test_list_submissions_filtering(self):
-        response = self.client.get(reverse('wagtailforms:list_submissions', args=(self.form_page.id, )), {'date_from': '01/01/2014'})
+        response = self.client.get(
+            reverse('wagtailforms:list_submissions', args=(self.form_page.id, )), {'date_from': '01/01/2014'}
+        )
 
         # Check response
         self.assertEqual(response.status_code, 200)
@@ -337,7 +339,9 @@ class TestFormsSubmissions(TestCase, WagtailTestUtils):
     def test_list_submissions_pagination_invalid(self):
         self.make_list_submissions()
 
-        response = self.client.get(reverse('wagtailforms:list_submissions', args=(self.form_page.id, )), {'p': 'Hello World!'})
+        response = self.client.get(
+            reverse('wagtailforms:list_submissions', args=(self.form_page.id, )), {'p': 'Hello World!'}
+        )
 
         # Check response
         self.assertEqual(response.status_code, 200)
@@ -359,7 +363,10 @@ class TestFormsSubmissions(TestCase, WagtailTestUtils):
         self.assertEqual(response.context['submissions'].number, response.context['submissions'].paginator.num_pages)
 
     def test_list_submissions_csv_export(self):
-        response = self.client.get(reverse('wagtailforms:list_submissions', args=(self.form_page.id, )), {'date_from': '01/01/2014', 'action': 'CSV'})
+        response = self.client.get(
+            reverse('wagtailforms:list_submissions', args=(self.form_page.id, )),
+            {'date_from': '01/01/2014', 'action': 'CSV'}
+        )
 
         # Check response
         self.assertEqual(response.status_code, 200)
@@ -377,7 +384,10 @@ class TestFormsSubmissions(TestCase, WagtailTestUtils):
         unicode_form_submission.submit_time = '2014-01-02T12:00:00.000Z'
         unicode_form_submission.save()
 
-        response = self.client.get(reverse('wagtailforms:list_submissions', args=(self.form_page.id, )), {'date_from': '01/02/2014', 'action': 'CSV'})
+        response = self.client.get(
+            reverse('wagtailforms:list_submissions', args=(self.form_page.id, )),
+            {'date_from': '01/02/2014', 'action': 'CSV'}
+        )
 
         # Check response
         self.assertEqual(response.status_code, 200)
@@ -428,6 +438,7 @@ class TestDeleteFormSubmission(TestCase):
 
         # Check that the deletion has not happened
         self.assertEqual(FormSubmission.objects.count(), 2)
+
 
 class TestIssue798(TestCase):
     fixtures = ['test.json']

@@ -1,14 +1,24 @@
 from django import forms
+from django.forms.models import modelform_factory
 
-from wagtail.wagtaildocs.models import Document
+from wagtail.wagtailadmin import widgets
 
 
-class DocumentForm(forms.ModelForm):
-    required_css_class = "required"
-
-    class Meta:
-        model = Document
-        fields = ('title', 'file', 'tags')
-        widgets = {
+def get_document_form(model):
+    return modelform_factory(
+        model,
+        fields=model.admin_form_fields,
+        widgets={
+            'tags': widgets.AdminTagWidget,
             'file': forms.FileInput()
-        }
+        })
+
+
+def get_document_multi_form(model):
+    return modelform_factory(
+        model,
+        fields=['title', 'tags'],
+        widgets={
+            'tags': widgets.AdminTagWidget,
+            'file': forms.FileInput()
+        })

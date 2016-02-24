@@ -10,13 +10,19 @@ from django.contrib.contenttypes.models import ContentType
 from django.contrib.auth import get_user_model
 from django.contrib.auth.models import AnonymousUser
 
-from wagtail.wagtailcore.models import Page, Site, PAGE_MODEL_CLASSES
+from wagtail.wagtailcore.models import Page, Site, get_page_models, PageManager
 from wagtail.tests.testapp.models import (
     SingleEventPage, EventPage, EventIndex, SimplePage,
     BusinessIndex, BusinessSubIndex, BusinessChild, StandardIndex,
     MTIBasePage, MTIChildPage, AbstractPage, TaggedPage,
     BlogCategory, BlogCategoryBlogPage, Advert, ManyToManyBlogPage,
-    GenericSnippetPage)
+    GenericSnippetPage, BusinessNowherePage, SingletonPage,
+    CustomManager, CustomManagerPage, MyCustomPage)
+from wagtail.tests.utils import WagtailTestUtils
+
+
+def get_ct(model):
+    return ContentType.objects.get_for_model(model)
 
 
 class TestSiteRouting(TestCase):
@@ -27,7 +33,11 @@ class TestSiteRouting(TestCase):
         events_page = Page.objects.get(url_path='/home/events/')
         about_page = Page.objects.get(url_path='/home/about-us/')
         self.events_site = Site.objects.create(hostname='events.example.com', root_page=events_page)
-        self.alternate_port_events_site = Site.objects.create(hostname='events.example.com', root_page=events_page, port='8765')
+        self.alternate_port_events_site = Site.objects.create(
+            hostname='events.example.com',
+            root_page=events_page,
+            port='8765'
+        )
         self.about_site = Site.objects.create(hostname='about.example.com', root_page=about_page)
         self.unrecognised_port = '8000'
         self.unrecognised_hostname = 'unknown.site.com'
@@ -235,7 +245,6 @@ class TestServeView(TestCase):
         from django.core.urlresolvers import clear_url_caches
         clear_url_caches()
 
-
     def test_serve(self):
         response = self.client.get('/events/christmas/')
 
@@ -415,7 +424,9 @@ class TestCopyPage(TestCase):
         christmas_event = EventPage.objects.get(url_path='/home/events/christmas/')
 
         # Copy it
-        new_christmas_event = christmas_event.copy(update_attrs={'title': "New christmas event", 'slug': 'new-christmas-event'})
+        new_christmas_event = christmas_event.copy(
+            update_attrs={'title': "New christmas event", 'slug': 'new-christmas-event'}
+        )
 
         # Check that the speakers were copied
         self.assertEqual(new_christmas_event.speakers.count(), 1, "Child objects weren't copied")
@@ -425,15 +436,23 @@ class TestCopyPage(TestCase):
 
         # Check that advert placements were also copied (there's a gotcha here, since the advert_placements
         # relation is defined on Page, not EventPage)
-        self.assertEqual(new_christmas_event.advert_placements.count(), 1, "Child objects defined on the superclass weren't copied")
-        self.assertEqual(christmas_event.advert_placements.count(), 1, "Child objects defined on the superclass were removed from the original page")
+        self.assertEqual(
+            new_christmas_event.advert_placements.count(), 1, "Child objects defined on the superclass weren't copied"
+        )
+        self.assertEqual(
+            christmas_event.advert_placements.count(),
+            1,
+            "Child objects defined on the superclass were removed from the original page"
+        )
 
     def test_copy_page_copies_revisions(self):
         christmas_event = EventPage.objects.get(url_path='/home/events/christmas/')
         christmas_event.save_revision()
 
         # Copy it
-        new_christmas_event = christmas_event.copy(update_attrs={'title': "New christmas event", 'slug': 'new-christmas-event'})
+        new_christmas_event = christmas_event.copy(
+            update_attrs={'title': "New christmas event", 'slug': 'new-christmas-event'}
+        )
 
         # Check that the revisions were copied
         # Copying creates a new revision so we're expecting the new page to have two revisions
@@ -463,14 +482,19 @@ class TestCopyPage(TestCase):
         # Also, check that the child objects in the new revision are given new IDs
         old_speakers_ids = set(christmas_event.speakers.values_list('id', flat=True))
         new_speakers_ids = set(speaker['pk'] for speaker in new_revision_content['speakers'])
-        self.assertFalse(old_speakers_ids.intersection(new_speakers_ids), "Child objects in revisions were not given a new primary key")
+        self.assertFalse(
+            old_speakers_ids.intersection(new_speakers_ids),
+            "Child objects in revisions were not given a new primary key"
+        )
 
     def test_copy_page_copies_revisions_and_doesnt_submit_for_moderation(self):
         christmas_event = EventPage.objects.get(url_path='/home/events/christmas/')
         christmas_event.save_revision(submitted_for_moderation=True)
 
         # Copy it
-        new_christmas_event = christmas_event.copy(update_attrs={'title': "New christmas event", 'slug': 'new-christmas-event'})
+        new_christmas_event = christmas_event.copy(
+            update_attrs={'title': "New christmas event", 'slug': 'new-christmas-event'}
+        )
 
         # Check that the old revision is still submitted for moderation
         self.assertTrue(christmas_event.revisions.order_by('created_at').first().submitted_for_moderation)
@@ -488,7 +512,9 @@ class TestCopyPage(TestCase):
         revision.save()
 
         # Copy it
-        new_christmas_event = christmas_event.copy(update_attrs={'title': "New christmas event", 'slug': 'new-christmas-event'})
+        new_christmas_event = christmas_event.copy(
+            update_attrs={'title': "New christmas event", 'slug': 'new-christmas-event'}
+        )
 
         # Check that the created_at time is the same
         christmas_event_created_at = christmas_event.revisions.order_by('created_at').first().created_at
@@ -500,10 +526,15 @@ class TestCopyPage(TestCase):
         christmas_event.save_revision(approved_go_live_at=datetime.datetime(2014, 9, 16, 9, 12, 00, tzinfo=pytz.utc))
 
         # Copy it
-        new_christmas_event = christmas_event.copy(update_attrs={'title': "New christmas event", 'slug': 'new-christmas-event'})
+        new_christmas_event = christmas_event.copy(
+            update_attrs={'title': "New christmas event", 'slug': 'new-christmas-event'}
+        )
 
         # Check that the old revision is still scheduled
-        self.assertEqual(christmas_event.revisions.order_by('created_at').first().approved_go_live_at, datetime.datetime(2014, 9, 16, 9, 12, 00, tzinfo=pytz.utc))
+        self.assertEqual(
+            christmas_event.revisions.order_by('created_at').first().approved_go_live_at,
+            datetime.datetime(2014, 9, 16, 9, 12, 00, tzinfo=pytz.utc)
+        )
 
         # Check that the new revision is not scheduled
         self.assertEqual(new_christmas_event.revisions.order_by('created_at').first().approved_go_live_at, None)
@@ -513,7 +544,9 @@ class TestCopyPage(TestCase):
         christmas_event.save_revision()
 
         # Copy it
-        new_christmas_event = christmas_event.copy(update_attrs={'title': "New christmas event", 'slug': 'new-christmas-event'}, copy_revisions=False)
+        new_christmas_event = christmas_event.copy(
+            update_attrs={'title': "New christmas event", 'slug': 'new-christmas-event'}, copy_revisions=False
+        )
 
         # Check that the revisions weren't copied
         # Copying creates a new revision so we're expecting the new page to have one revision
@@ -527,7 +560,9 @@ class TestCopyPage(TestCase):
         christmas_event = Page.objects.get(url_path='/home/events/christmas/')
 
         # Copy it
-        new_christmas_event = christmas_event.copy(update_attrs={'title': "New christmas event", 'slug': 'new-christmas-event'})
+        new_christmas_event = christmas_event.copy(
+            update_attrs={'title': "New christmas event", 'slug': 'new-christmas-event'}
+        )
 
         # Check that the type of the new page is correct
         self.assertIsInstance(new_christmas_event, EventPage)
@@ -539,7 +574,9 @@ class TestCopyPage(TestCase):
         events_index = EventIndex.objects.get(url_path='/home/events/')
 
         # Copy it
-        new_events_index = events_index.copy(recursive=True, update_attrs={'title': "New events index", 'slug': 'new-events-index'})
+        new_events_index = events_index.copy(
+            recursive=True, update_attrs={'title': "New events index", 'slug': 'new-events-index'}
+        )
 
         # Get christmas event
         old_christmas_event = events_index.get_children().filter(slug='christmas').first()
@@ -556,7 +593,9 @@ class TestCopyPage(TestCase):
         events_index = EventIndex.objects.get(url_path='/home/events/')
 
         # Copy it
-        new_events_index = events_index.copy(recursive=True, update_attrs={'title': "New events index", 'slug': 'new-events-index'})
+        new_events_index = events_index.copy(
+            recursive=True, update_attrs={'title': "New events index", 'slug': 'new-events-index'}
+        )
 
         # Get christmas event
         old_christmas_event = events_index.get_children().filter(slug='christmas').first()
@@ -566,7 +605,9 @@ class TestCopyPage(TestCase):
         self.assertEqual(new_christmas_event.specific.speakers.count(), 1, "Child objects weren't copied")
 
         # Check that the speakers weren't removed from old page
-        self.assertEqual(old_christmas_event.specific.speakers.count(), 1, "Child objects were removed from the original page")
+        self.assertEqual(
+            old_christmas_event.specific.speakers.count(), 1, "Child objects were removed from the original page"
+        )
 
     def test_copy_page_copies_recursively_with_revisions(self):
         events_index = EventIndex.objects.get(url_path='/home/events/')
@@ -574,7 +615,9 @@ class TestCopyPage(TestCase):
         old_christmas_event.save_revision()
 
         # Copy it
-        new_events_index = events_index.copy(recursive=True, update_attrs={'title': "New events index", 'slug': 'new-events-index'})
+        new_events_index = events_index.copy(
+            recursive=True, update_attrs={'title': "New events index", 'slug': 'new-events-index'}
+        )
 
         # Get christmas event
         new_christmas_event = new_events_index.get_children().filter(slug='christmas').first()
@@ -584,7 +627,9 @@ class TestCopyPage(TestCase):
         self.assertEqual(new_christmas_event.specific.revisions.count(), 2)
 
         # Check that the revisions weren't removed from old page
-        self.assertEqual(old_christmas_event.specific.revisions.count(), 1, "Revisions were removed from the original page")
+        self.assertEqual(
+            old_christmas_event.specific.revisions.count(), 1, "Revisions were removed from the original page"
+        )
 
     def test_copy_page_copies_recursively_but_doesnt_copy_revisions_if_told_not_to_do_so(self):
         events_index = EventIndex.objects.get(url_path='/home/events/')
@@ -592,7 +637,11 @@ class TestCopyPage(TestCase):
         old_christmas_event.save_revision()
 
         # Copy it
-        new_events_index = events_index.copy(recursive=True, update_attrs={'title': "New events index", 'slug': 'new-events-index'}, copy_revisions=False)
+        new_events_index = events_index.copy(
+            recursive=True,
+            update_attrs={'title': "New events index", 'slug': 'new-events-index'},
+            copy_revisions=False
+        )
 
         # Get christmas event
         new_christmas_event = new_events_index.get_children().filter(slug='christmas').first()
@@ -602,7 +651,9 @@ class TestCopyPage(TestCase):
         self.assertEqual(new_christmas_event.specific.revisions.count(), 1)
 
         # Check that the revisions weren't removed from old page
-        self.assertEqual(old_christmas_event.specific.revisions.count(), 1, "Revisions were removed from the original page")
+        self.assertEqual(
+            old_christmas_event.specific.revisions.count(), 1, "Revisions were removed from the original page"
+        )
 
     def test_copy_page_updates_user(self):
         event_moderator = get_user_model().objects.get(username='eventmoderator')
@@ -634,7 +685,10 @@ class TestCopyPage(TestCase):
         # Check that new_saint_patrick_event is a different page, including parents from both EventPage and Page
         self.assertNotEqual(saint_patrick_event.id, new_saint_patrick_event.id)
         self.assertNotEqual(saint_patrick_event.eventpage_ptr.id, new_saint_patrick_event.eventpage_ptr.id)
-        self.assertNotEqual(saint_patrick_event.eventpage_ptr.page_ptr.id, new_saint_patrick_event.eventpage_ptr.page_ptr.id)
+        self.assertNotEqual(
+            saint_patrick_event.eventpage_ptr.page_ptr.id,
+            new_saint_patrick_event.eventpage_ptr.page_ptr.id
+        )
 
         # Check that the url path was updated
         self.assertEqual(new_saint_patrick_event.url_path, '/home/events/new-saint-patrick/')
@@ -713,39 +767,149 @@ class TestCopyPage(TestCase):
         self.assertEqual(new_page.snippet_content_object, advert)
 
 
-class TestSubpageTypeBusinessRules(TestCase):
-    def test_allowed_subpage_types(self):
+class TestSubpageTypeBusinessRules(TestCase, WagtailTestUtils):
+    def test_allowed_subpage_models(self):
         # SimplePage does not define any restrictions on subpage types
         # SimplePage is a valid subpage of SimplePage
-        self.assertIn(ContentType.objects.get_for_model(SimplePage), SimplePage.allowed_subpage_types())
+        self.assertIn(SimplePage, SimplePage.allowed_subpage_models())
         # BusinessIndex is a valid subpage of SimplePage
-        self.assertIn(ContentType.objects.get_for_model(BusinessIndex), SimplePage.allowed_subpage_types())
+        self.assertIn(BusinessIndex, SimplePage.allowed_subpage_models())
         # BusinessSubIndex is not valid, because it explicitly omits SimplePage from parent_page_types
-        self.assertNotIn(ContentType.objects.get_for_model(BusinessSubIndex), SimplePage.allowed_subpage_types())
+        self.assertNotIn(BusinessSubIndex, SimplePage.allowed_subpage_models())
 
         # BusinessChild has an empty subpage_types list, so does not allow anything
-        self.assertNotIn(ContentType.objects.get_for_model(SimplePage), BusinessChild.allowed_subpage_types())
-        self.assertNotIn(ContentType.objects.get_for_model(BusinessIndex), BusinessChild.allowed_subpage_types())
-        self.assertNotIn(ContentType.objects.get_for_model(BusinessSubIndex), BusinessChild.allowed_subpage_types())
+        self.assertNotIn(SimplePage, BusinessChild.allowed_subpage_models())
+        self.assertNotIn(BusinessIndex, BusinessChild.allowed_subpage_models())
+        self.assertNotIn(BusinessSubIndex, BusinessChild.allowed_subpage_models())
 
         # BusinessSubIndex only allows BusinessChild as subpage type
-        self.assertNotIn(ContentType.objects.get_for_model(SimplePage), BusinessSubIndex.allowed_subpage_types())
-        self.assertIn(ContentType.objects.get_for_model(BusinessChild), BusinessSubIndex.allowed_subpage_types())
+        self.assertNotIn(SimplePage, BusinessSubIndex.allowed_subpage_models())
+        self.assertIn(BusinessChild, BusinessSubIndex.allowed_subpage_models())
 
-    def test_allowed_parent_page_types(self):
+    def test_allowed_subpage_types(self):
+        """
+        Same assertions as for test_allowed_subpage_models -
+        allowed_subpage_types should mirror allowed_subpage_models with ContentType
+        objects rather than model classes
+        """
+
+        with self.ignore_deprecation_warnings():
+            # SimplePage does not define any restrictions on subpage types
+            # SimplePage is a valid subpage of SimplePage
+            self.assertIn(get_ct(SimplePage), SimplePage.allowed_subpage_types())
+            # BusinessIndex is a valid subpage of SimplePage
+            self.assertIn(get_ct(BusinessIndex), SimplePage.allowed_subpage_types())
+            # BusinessSubIndex is not valid, because it explicitly omits SimplePage from parent_page_types
+            self.assertNotIn(get_ct(BusinessSubIndex), SimplePage.allowed_subpage_types())
+
+            # BusinessChild has an empty subpage_types list, so does not allow anything
+            self.assertNotIn(get_ct(SimplePage), BusinessChild.allowed_subpage_types())
+            self.assertNotIn(get_ct(BusinessIndex), BusinessChild.allowed_subpage_types())
+            self.assertNotIn(get_ct(BusinessSubIndex), BusinessChild.allowed_subpage_types())
+
+            # BusinessSubIndex only allows BusinessChild as subpage type
+            self.assertNotIn(get_ct(SimplePage), BusinessSubIndex.allowed_subpage_types())
+            self.assertIn(get_ct(BusinessChild), BusinessSubIndex.allowed_subpage_types())
+
+    def test_allowed_parent_page_models(self):
         # SimplePage does not define any restrictions on parent page types
         # SimplePage is a valid parent page of SimplePage
-        self.assertIn(ContentType.objects.get_for_model(SimplePage), SimplePage.allowed_parent_page_types())
+        self.assertIn(SimplePage, SimplePage.allowed_parent_page_models())
         # BusinessChild cannot be a parent of anything
-        self.assertNotIn(ContentType.objects.get_for_model(BusinessChild), SimplePage.allowed_parent_page_types())
+        self.assertNotIn(BusinessChild, SimplePage.allowed_parent_page_models())
 
-        # StandardIndex does not allow anything as a parent
-        self.assertNotIn(ContentType.objects.get_for_model(SimplePage), StandardIndex.allowed_parent_page_types())
-        self.assertNotIn(ContentType.objects.get_for_model(StandardIndex), StandardIndex.allowed_parent_page_types())
+        # BusinessNowherePage does not allow anything as a parent
+        self.assertNotIn(SimplePage, BusinessNowherePage.allowed_parent_page_models())
+        self.assertNotIn(StandardIndex, BusinessNowherePage.allowed_parent_page_models())
 
         # BusinessSubIndex only allows BusinessIndex as a parent
-        self.assertNotIn(ContentType.objects.get_for_model(SimplePage), BusinessSubIndex.allowed_parent_page_types())
-        self.assertIn(ContentType.objects.get_for_model(BusinessIndex), BusinessSubIndex.allowed_parent_page_types())
+        self.assertNotIn(SimplePage, BusinessSubIndex.allowed_parent_page_models())
+        self.assertIn(BusinessIndex, BusinessSubIndex.allowed_parent_page_models())
+
+    def test_allowed_parent_page_types(self):
+        """
+        Same assertions as for test_allowed_parent_page_models -
+        allowed_parent_page_types should mirror allowed_parent_page_models
+        with ContentType objects rather than model classes
+        """
+
+        with self.ignore_deprecation_warnings():
+            # SimplePage does not define any restrictions on parent page types
+            # SimplePage is a valid parent page of SimplePage
+            self.assertIn(get_ct(SimplePage), SimplePage.allowed_parent_page_types())
+            # BusinessChild cannot be a parent of anything
+            self.assertNotIn(get_ct(BusinessChild), SimplePage.allowed_parent_page_types())
+
+            # BusinessNowherePage does not allow anything as a parent
+            self.assertNotIn(get_ct(SimplePage), BusinessNowherePage.allowed_parent_page_types())
+            self.assertNotIn(get_ct(StandardIndex), BusinessNowherePage.allowed_parent_page_types())
+
+            # BusinessSubIndex only allows BusinessIndex as a parent
+            self.assertNotIn(get_ct(SimplePage), BusinessSubIndex.allowed_parent_page_types())
+            self.assertIn(get_ct(BusinessIndex), BusinessSubIndex.allowed_parent_page_types())
+
+    def test_can_exist_under(self):
+        self.assertTrue(SimplePage.can_exist_under(SimplePage()))
+
+        # StandardIndex should only be allowed under a Page
+        self.assertTrue(StandardIndex.can_exist_under(Page()))
+        self.assertFalse(StandardIndex.can_exist_under(SimplePage()))
+
+        # The Business pages are quite restrictive in their structure
+        self.assertTrue(BusinessSubIndex.can_exist_under(BusinessIndex()))
+        self.assertTrue(BusinessChild.can_exist_under(BusinessIndex()))
+        self.assertTrue(BusinessChild.can_exist_under(BusinessSubIndex()))
+
+        self.assertFalse(BusinessSubIndex.can_exist_under(SimplePage()))
+        self.assertFalse(BusinessSubIndex.can_exist_under(BusinessSubIndex()))
+        self.assertFalse(BusinessChild.can_exist_under(SimplePage()))
+
+    def test_can_create_at(self):
+        # Pages are not `is_creatable`, and should not be creatable
+        self.assertFalse(Page.can_create_at(Page()))
+
+        # SimplePage can be created under a simple page
+        self.assertTrue(SimplePage.can_create_at(SimplePage()))
+
+        # StandardIndex can be created under a Page, but not a SimplePage
+        self.assertTrue(StandardIndex.can_create_at(Page()))
+        self.assertFalse(StandardIndex.can_create_at(SimplePage()))
+
+        # The Business pages are quite restrictive in their structure
+        self.assertTrue(BusinessSubIndex.can_create_at(BusinessIndex()))
+        self.assertTrue(BusinessChild.can_create_at(BusinessIndex()))
+        self.assertTrue(BusinessChild.can_create_at(BusinessSubIndex()))
+
+        self.assertFalse(BusinessChild.can_create_at(SimplePage()))
+        self.assertFalse(BusinessSubIndex.can_create_at(SimplePage()))
+
+    def test_can_move_to(self):
+        self.assertTrue(SimplePage().can_move_to(SimplePage()))
+
+        # StandardIndex should only be allowed under a Page
+        self.assertTrue(StandardIndex().can_move_to(Page()))
+        self.assertFalse(StandardIndex().can_move_to(SimplePage()))
+
+        # The Business pages are quite restrictive in their structure
+        self.assertTrue(BusinessSubIndex().can_move_to(BusinessIndex()))
+        self.assertTrue(BusinessChild().can_move_to(BusinessIndex()))
+        self.assertTrue(BusinessChild().can_move_to(BusinessSubIndex()))
+
+        self.assertFalse(BusinessChild().can_move_to(SimplePage()))
+        self.assertFalse(BusinessSubIndex().can_move_to(SimplePage()))
+
+    def test_singleton_page_creation(self):
+        root_page = Page.objects.get(url_path='/home/')
+
+        # A single singleton page should be creatable
+        self.assertTrue(SingletonPage.can_create_at(root_page))
+
+        # Create a singleton page
+        root_page.add_child(instance=SingletonPage(
+            title='singleton', slug='singleton'))
+
+        # A second singleton page should not be creatable
+        self.assertFalse(SingletonPage.can_create_at(root_page))
 
 
 class TestIssue735(TestCase):
@@ -818,12 +982,13 @@ class TestIsCreatable(TestCase):
     def test_is_creatable_default(self):
         """By default, pages should be creatable"""
         self.assertTrue(SimplePage.is_creatable)
-        self.assertIn(SimplePage, PAGE_MODEL_CLASSES)
+        self.assertIn(SimplePage, get_page_models())
 
     def test_is_creatable_false(self):
         """Page types should be able to disable their creation"""
         self.assertFalse(MTIBasePage.is_creatable)
-        self.assertNotIn(MTIBasePage, PAGE_MODEL_CLASSES)
+        # non-creatable pages should still appear in the get_page_models list
+        self.assertIn(MTIBasePage, get_page_models())
 
     def test_is_creatable_not_inherited(self):
         """
@@ -831,11 +996,63 @@ class TestIsCreatable(TestCase):
         default to True unless set otherwise
         """
         self.assertTrue(MTIChildPage.is_creatable)
-        self.assertIn(MTIChildPage, PAGE_MODEL_CLASSES)
+        self.assertIn(MTIChildPage, get_page_models())
 
     def test_abstract_pages(self):
         """
         Abstract models should not be creatable
         """
         self.assertFalse(AbstractPage.is_creatable)
-        self.assertNotIn(AbstractPage, PAGE_MODEL_CLASSES)
+        self.assertNotIn(AbstractPage, get_page_models())
+
+
+class TestPageManager(TestCase):
+    def test_page_manager(self):
+        """
+        Assert that the Page class uses PageManager
+        """
+        self.assertIs(type(Page.objects), PageManager)
+
+    def test_page_subclass_manager(self):
+        """
+        Assert that Page subclasses get a PageManager without having to do
+        anything special. MTI subclasses do *not* inherit their parents Manager
+        by default.
+        """
+        self.assertIs(type(SimplePage.objects), PageManager)
+
+    def test_custom_page_manager(self):
+        """
+        Subclasses should be able to override their default Manager, and
+        Wagtail should respect this. It is up to the developer to ensure their
+        custom Manager inherits from PageManager.
+        """
+        self.assertIs(type(CustomManagerPage.objects), CustomManager)
+
+    def test_abstract_base_page_manager(self):
+        """
+        Abstract base classes should be able to override their default Manager,
+        and Wagtail should respect this. It is up to the developer to ensure
+        their custom Manager inherits from PageManager.
+        """
+        self.assertIs(type(MyCustomPage.objects), CustomManager)
+
+
+class TestIssue2024(TestCase):
+    """
+    This tests that deleting a content type can't delete any Page objects.
+    """
+    fixtures = ['test.json']
+
+    def test_delete_content_type(self):
+        event_index = Page.objects.get(url_path='/home/events/')
+
+        # Delete the content type
+        event_index_content_type = event_index.content_type
+        event_index_content_type.delete()
+
+        # Fetch the page again, it should still exist
+        event_index = Page.objects.get(url_path='/home/events/')
+
+        # Check that the content_type changed to Page
+        self.assertEqual(event_index.content_type, ContentType.objects.get_for_model(Page))

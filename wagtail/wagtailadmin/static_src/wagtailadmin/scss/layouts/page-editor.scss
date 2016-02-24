@@ -62,7 +62,7 @@
         padding-left: 3em;
 
         &:before {
-            @include border-radius(100%);
+            border-radius: 100%;
             display: block;
             float: left;
             content: '?';
@@ -267,7 +267,7 @@
             cursor: pointer;
 
             .button {
-                @include border-radius(0);
+                border-radius: 0;
                 overflow: visible;
                 background-color: $color-salmon-light;
                 font-size: 0; // helps fake the effect of t.ext-replace class, which can't be used here.
@@ -322,7 +322,7 @@
 .full textarea, 
 .full .richtext {
     @include nice-padding();
-    @include border-radius(0);
+    border-radius: 0;
     padding-top: 2em;
     padding-bottom: 2em;
     font-size: 1.2em;

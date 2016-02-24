@@ -14,6 +14,7 @@ from wagtail.wagtailforms.models import FormSubmission, get_forms_for_user
 from wagtail.wagtailforms.forms import SelectDateForm
 from wagtail.wagtailadmin import messages
 
+
 def index(request):
     form_pages = get_forms_for_user(request.user)
 
@@ -22,6 +23,7 @@ def index(request):
     return render(request, 'wagtailforms/index.html', {
         'form_pages': form_pages,
     })
+
 
 def delete_submission(request, page_id, submission_id):
     if not get_forms_for_user(request.user).filter(id=page_id).exists():
@@ -40,6 +42,7 @@ def delete_submission(request, page_id, submission_id):
         'page': page,
         'submission': submission
     })
+
 
 def list_submissions(request, page_id):
     form_page = get_object_or_404(Page, id=page_id).specific
@@ -100,9 +103,9 @@ def list_submissions(request, page_id):
         })
 
     return render(request, 'wagtailforms/index_submissions.html', {
-         'form_page': form_page,
-         'select_date_form': select_date_form,
-         'submissions': submissions,
-         'data_headings': data_headings,
-         'data_rows': data_rows
+        'form_page': form_page,
+        'select_date_form': select_date_form,
+        'submissions': submissions,
+        'data_headings': data_headings,
+        'data_rows': data_rows
     })

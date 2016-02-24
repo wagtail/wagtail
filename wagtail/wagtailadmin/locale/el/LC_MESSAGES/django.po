@@ -11,9 +11,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-08-26 14:28+0100\n"
-"PO-Revision-Date: 2015-08-26 13:37+0000\n"
-"Last-Translator: Karl Hobley <karl@torchbox.com>\n"
+"POT-Creation-Date: 2016-02-05 17:01+0000\n"
+"PO-Revision-Date: 2016-02-05 17:08+0000\n"
+"Last-Translator: mattwestcott <matthew@torchbox.com>\n"
 "Language-Team: Greek (http://www.transifex.com/torchbox/wagtail/language/"
 "el/)\n"
 "MIME-Version: 1.0\n"
@@ -27,6 +27,15 @@ msgstr "Προγραμματισμένη δημοσίευση"
 
 msgid "Common page configuration"
 msgstr "Κοινές ρυθμίσεις σελίδων"
+
+msgid "Content"
+msgstr "Περιεχόμενο"
+
+msgid "Promote"
+msgstr "Προώθηση"
+
+msgid "Settings"
+msgstr "Ρυθμίσεις"
 
 msgid "Search"
 msgstr "Αναζήτηση"
@@ -117,6 +126,17 @@ msgstr "Ιδιωτική, προσβάσιμη με τον ακόλουθο κω
 
 msgid "This field is required."
 msgstr "Το πεδίο πρέπει να συμπληρωθεί"
+
+msgid "This slug is already in use"
+msgstr "Το slug χρησιμοποιείται"
+
+msgid "Go live date/time must be before expiry date/time"
+msgstr ""
+"Μετάβαση ζωντανής ημερομηνίας/ώρας πρέπει να είναι πριν από την ημερομηνία "
+"λήξης/ώρας"
+
+msgid "Expiry date/time must be in the future"
+msgstr "Η ημερομηνία/ώρα λήξης πρέπει να είναι μελλοντική"
 
 msgid "Account"
 msgstr "Λογαριασμός"
@@ -371,10 +391,6 @@ msgstr "Μπορείτε να διορθώστε τη σελίδα εδώ:"
 msgid "The page \"%(page)s\" has been submitted for moderation"
 msgstr "Η σελίδα \"%(page)s\" στάλθηκε για έλεγχο"
 
-#, python-format
-msgid "The page \"%(page)s\" has been submitted for moderation."
-msgstr "Η σελίδα \"%(page)s\" στάλθηκε για έλεγχο."
-
 msgid "You can preview the page here:"
 msgstr "Μπορείτε να τη δείτε εδώ:"
 
@@ -516,8 +532,8 @@ msgstr "Νέα %(page_type)s"
 msgid "New"
 msgstr "Νέο"
 
-msgid "Save as draft"
-msgstr "Αποθήκευση σαν προσχέδιο"
+msgid "Save draft"
+msgstr "Αποθήκευση πρόχειρου"
 
 msgid "Publish"
 msgstr "Έκδοση"
@@ -535,9 +551,6 @@ msgstr "Επεξεργασία %(page_type)s <span>%(title)s</span>"
 
 msgid "Page locked"
 msgstr "Σελίδα κλειδωμένη"
-
-msgid "Save draft"
-msgstr "Αποθήκευση πρόχειρου"
 
 #, python-format
 msgid "Last modified: %(last_mod)s"
@@ -613,18 +626,6 @@ msgstr "Επιλογή πατρικής σελίδας για την %(title)s"
 #, python-format
 msgid "Select a new parent page for <span>%(title)s</span>"
 msgstr "Επιλογή νέας πατρικής σελίδας για την <span>%(title)s</span>"
-
-msgid "Other searches"
-msgstr "Άλλες αναζητήσεις"
-
-msgid "Images"
-msgstr "Εικόνες"
-
-msgid "Documents"
-msgstr "Έγγραφα"
-
-msgid "Users"
-msgstr "Χρήστες"
 
 #, python-format
 msgid "Sorry, no pages match <em>\"%(query_string)s\"</em>"
@@ -713,6 +714,9 @@ msgstr "Αποσύνδεση"
 msgid "Page %(page_num)s of %(total_pages)s."
 msgstr "Σελίδα %(page_num)s από %(total_pages)s."
 
+msgid "Other searches"
+msgstr "Άλλες αναζητήσεις"
+
 msgid ""
 "You are using an <strong>outdated</strong> browser not supported by this "
 "software. Please <a href=\"http://browsehappy.com/\">upgrade your browser</"
@@ -788,17 +792,6 @@ msgstr "Δε ήταν δυνατή η αποθήκευση της σελίδας
 msgid "This page is currently awaiting moderation"
 msgstr "Η σελίδα δεν είναι προς έλεγχο"
 
-msgid "This slug is already in use"
-msgstr "Το slug χρησιμοποιείται"
-
-msgid "Go live date/time must be before expiry date/time"
-msgstr ""
-"Μετάβαση ζωντανής ημερομηνίας/ώρας πρέπει να είναι πριν από την ημερομηνία "
-"λήξης/ώρας"
-
-msgid "Expiry date/time must be in the future"
-msgstr "Η ημερομηνία/ώρα λήξης πρέπει να είναι μελλοντική"
-
 #, python-brace-format
 msgid "Page '{0}' deleted."
 msgstr "Έγινε διαγραφή της σελίδας '{0}'."
@@ -818,15 +811,6 @@ msgstr "Η σελίδα '{0}' και {1} υποσελίδες αντιγράφη
 #, python-brace-format
 msgid "Page '{0}' copied."
 msgstr "Η σελίδα '{0}' αντιγράφηκε."
-
-msgid "Content"
-msgstr "Περιεχόμενο"
-
-msgid "Promote"
-msgstr "Προώθηση"
-
-msgid "Settings"
-msgstr "Ρυθμίσεις"
 
 #, python-brace-format
 msgid "The page '{0}' is not currently awaiting moderation."

@@ -5,14 +5,15 @@
 # Translators:
 # Adrien <laadrien@gmail.com>, 2014
 # Bertrand Bordage <bordage.bertrand@gmail.com>, 2015
+# pierre marfoure <pierre@onoffdesign.com>, 2016
 # Tom Dyson <tom@torchbox.com>, 2015
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-08-26 14:28+0100\n"
-"PO-Revision-Date: 2015-10-09 12:55+0000\n"
-"Last-Translator: Tom Dyson <tom@torchbox.com>\n"
+"POT-Creation-Date: 2016-02-05 17:01+0000\n"
+"PO-Revision-Date: 2016-01-19 22:28+0000\n"
+"Last-Translator: pierre marfoure <pierre@onoffdesign.com>\n"
 "Language-Team: French (http://www.transifex.com/torchbox/wagtail/language/"
 "fr/)\n"
 "MIME-Version: 1.0\n"
@@ -54,26 +55,26 @@ msgstr "Date"
 msgid "Date/time"
 msgstr "Date/Heure"
 
-msgid "Submit time"
-msgstr "Date de soumission"
+msgid "submit time"
+msgstr "Horodatage de soumission"
 
-msgid "Form Submission"
-msgstr "Soumissions de formulaire"
+msgid "form submission"
+msgstr "Soumission de formulaire"
 
-msgid "Label"
-msgstr "Label"
+msgid "label"
+msgstr "étiquette"
 
 msgid "The label of the form field"
 msgstr "Le label du champ de formulaire"
 
-msgid "Field type"
+msgid "field type"
 msgstr "Type de champ"
 
-msgid "Required"
-msgstr "Obligatoire"
+msgid "required"
+msgstr "requis"
 
-msgid "Choices"
-msgstr "Choix"
+msgid "choices"
+msgstr "choix"
 
 msgid ""
 "Comma separated list of choices. Only applicable in checkboxes, radio and "
@@ -82,29 +83,29 @@ msgstr ""
 "Liste de choix séparés par une virgule. Seulement applicable pour les cases "
 "à cocher, les boutons radio et les listes déroulantes."
 
-msgid "Default value"
-msgstr "Valeur par défaut"
+msgid "default value"
+msgstr "valeur par défaut"
 
 msgid "Default value. Comma separated values supported for checkboxes."
 msgstr ""
 "Valeur par défaut. Liste de valeurs séparées par une virgule pour les cases "
 "à cocher."
 
-msgid "Help text"
-msgstr "Texte d'aide"
+msgid "help text"
+msgstr "texte d'aide"
 
-msgid "To address"
-msgstr "Adresse de destination"
+msgid "to address"
+msgstr "adresse destinataire"
 
 msgid "Optional - form submissions will be emailed to this address"
 msgstr ""
 "Facultatif - les soumissions de formulaire seront envoyées à cette adresse"
 
-msgid "From address"
-msgstr "Adresse d'expédition"
+msgid "from address"
+msgstr "adresse expéditeur"
 
-msgid "Subject"
-msgstr "Sujet"
+msgid "subject"
+msgstr "sujet"
 
 #, python-format
 msgid "Delete %(title)s"

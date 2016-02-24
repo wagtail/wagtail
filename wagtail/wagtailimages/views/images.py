@@ -1,7 +1,6 @@
 import os
 
 from django.shortcuts import render, redirect, get_object_or_404
-from django.core.exceptions import PermissionDenied
 from django.utils.translation import ugettext as _
 from django.views.decorators.vary import vary_on_headers
 from django.core.urlresolvers import reverse, NoReverseMatch
@@ -11,27 +10,28 @@ from wagtail.utils.pagination import paginate
 from wagtail.wagtailcore.models import Site
 from wagtail.wagtailadmin.forms import SearchForm
 from wagtail.wagtailadmin import messages
-from wagtail.wagtailadmin.utils import permission_required, any_permission_required
+from wagtail.wagtailadmin.utils import PermissionPolicyChecker, permission_denied
 from wagtail.wagtailsearch.backends import get_search_backends
 
 from wagtail.wagtailimages.models import get_image_model, Filter
 from wagtail.wagtailimages.forms import get_image_form, URLGeneratorForm
+from wagtail.wagtailimages.permissions import permission_policy
 from wagtail.wagtailimages.utils import generate_signature
 from wagtail.wagtailimages.exceptions import InvalidFilterSpecError
 
 
-@any_permission_required('wagtailimages.add_image', 'wagtailimages.change_image')
+permission_checker = PermissionPolicyChecker(permission_policy)
+
+
+@permission_checker.require_any('add', 'change', 'delete')
 @vary_on_headers('X-Requested-With')
 def index(request):
     Image = get_image_model()
 
-    # Get images
-    images = Image.objects.order_by('-created_at')
-
-    # Permissions
-    if not request.user.has_perm('wagtailimages.change_image'):
-        # restrict to the user's own images
-        images = images.filter(uploaded_by_user=request.user)
+    # Get images (filtered by user permission)
+    images = permission_policy.instances_user_has_any_permission_for(
+        request.user, ['change', 'delete']
+    ).order_by('-created_at')
 
     # Search
     query_string = None
@@ -61,17 +61,19 @@ def index(request):
 
             'search_form': form,
             'popular_tags': Image.popular_tags(),
+            'user_can_add': permission_policy.user_has_permission(request.user, 'add'),
         })
 
 
+@permission_checker.require('change')
 def edit(request, image_id):
     Image = get_image_model()
     ImageForm = get_image_form(Image)
 
     image = get_object_or_404(Image, id=image_id)
 
-    if not image.is_editable_by_user(request.user):
-        raise PermissionDenied
+    if not permission_policy.user_has_permission_for_instance(request.user, 'change', image):
+        return permission_denied(request)
 
     if request.POST:
         original_file = image.file
@@ -112,7 +114,9 @@ def edit(request, image_id):
     if image.is_stored_locally():
         # Give error if image file doesn't exist
         if not os.path.isfile(image.file.path):
-            messages.error(request, _("The source image file could not be found. Please change the source or delete the image.").format(image.title), buttons=[
+            messages.error(request, _(
+                "The source image file could not be found. Please change the source or delete the image."
+            ).format(image.title), buttons=[
                 messages.button(reverse('wagtailimages:delete', args=(image.id,)), _('Delete'))
             ])
 
@@ -121,14 +125,17 @@ def edit(request, image_id):
         'form': form,
         'url_generator_enabled': url_generator_enabled,
         'filesize': image.get_file_size(),
+        'user_can_delete': permission_policy.user_has_permission_for_instance(
+            request.user, 'delete', image
+        ),
     })
 
 
 def url_generator(request, image_id):
     image = get_object_or_404(get_image_model(), id=image_id)
 
-    if not image.is_editable_by_user(request.user):
-        raise PermissionDenied
+    if not permission_policy.user_has_permission_for_instance(request.user, 'change', image):
+        return permission_denied(request)
 
     form = URLGeneratorForm(initial={
         'filter_method': 'original',
@@ -153,7 +160,7 @@ def generate_url(request, image_id, filter_spec):
         }, status=404)
 
     # Check if this user has edit permission on this image
-    if not image.is_editable_by_user(request.user):
+    if not permission_policy.user_has_permission_for_instance(request.user, 'change', image):
         return JsonResponse({
             'error': "You do not have permission to generate a URL for this image."
         }, status=403)
@@ -193,11 +200,12 @@ def preview(request, image_id, filter_spec):
         return HttpResponse("Invalid filter spec: " + filter_spec, content_type='text/plain', status=400)
 
 
+@permission_checker.require('delete')
 def delete(request, image_id):
     image = get_object_or_404(get_image_model(), id=image_id)
 
-    if not image.is_editable_by_user(request.user):
-        raise PermissionDenied
+    if not permission_policy.user_has_permission_for_instance(request.user, 'delete', image):
+        return permission_denied(request)
 
     if request.POST:
         image.delete()
@@ -209,7 +217,7 @@ def delete(request, image_id):
     })
 
 
-@permission_required('wagtailimages.add_image')
+@permission_checker.require('add')
 def add(request):
     ImageModel = get_image_model()
     ImageForm = get_image_form(ImageModel)
