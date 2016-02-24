@@ -609,15 +609,15 @@ class TestPageDetail(TestCase):
         self.assertEqual(content['meta']['html_url'], 'http://localhost/blog-index/blog-post/')
 
         # Check the parent field
-        self.assertIn('parent', content)
-        self.assertIsInstance(content['parent'], dict)
-        self.assertEqual(set(content['parent'].keys()), {'id', 'meta'})
-        self.assertEqual(content['parent']['id'], 5)
-        self.assertIsInstance(content['parent']['meta'], dict)
-        self.assertEqual(set(content['parent']['meta'].keys()), {'type', 'detail_url', 'html_url'})
-        self.assertEqual(content['parent']['meta']['type'], 'demosite.BlogIndexPage')
-        self.assertEqual(content['parent']['meta']['detail_url'], 'http://localhost/api/v2beta/pages/5/')
-        self.assertEqual(content['parent']['meta']['html_url'], 'http://localhost/blog-index/')
+        self.assertIn('parent', content['meta'])
+        self.assertIsInstance(content['meta']['parent'], dict)
+        self.assertEqual(set(content['meta']['parent'].keys()), {'id', 'meta'})
+        self.assertEqual(content['meta']['parent']['id'], 5)
+        self.assertIsInstance(content['meta']['parent']['meta'], dict)
+        self.assertEqual(set(content['meta']['parent']['meta'].keys()), {'type', 'detail_url', 'html_url'})
+        self.assertEqual(content['meta']['parent']['meta']['type'], 'demosite.BlogIndexPage')
+        self.assertEqual(content['meta']['parent']['meta']['detail_url'], 'http://localhost/api/v2beta/pages/5/')
+        self.assertEqual(content['meta']['parent']['meta']['html_url'], 'http://localhost/blog-index/')
 
         # Check that the custom fields are included
         self.assertIn('date', content)
@@ -645,14 +645,15 @@ class TestPageDetail(TestCase):
         # Check that the child relations were serialised properly
         self.assertEqual(content['related_links'], [])
         for carousel_item in content['carousel_items']:
-            self.assertEqual(set(carousel_item.keys()), {'embed_url', 'link', 'caption', 'image'})
+            self.assertEqual(set(carousel_item.keys()), {'id', 'meta', 'embed_url', 'link', 'caption', 'image'})
+            self.assertEqual(set(carousel_item['meta'].keys()), {'type'})
 
     def test_meta_parent_id_doesnt_show_root_page(self):
         # Root page isn't in the site so don't show it if the user is looking at the home page
         response = self.get_response(2)
         content = json.loads(response.content.decode('UTF-8'))
 
-        self.assertNotIn('parent', content['meta'])
+        self.assertIsNone(content['meta']['parent'])
 
     def test_field_ordering(self):
         response = self.get_response(16)
@@ -665,7 +666,6 @@ class TestPageDetail(TestCase):
         field_order = [
             'id',
             'meta',
-            'parent',
             'title',
             'slug',
             'show_in_menus',

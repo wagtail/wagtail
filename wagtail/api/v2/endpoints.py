@@ -138,9 +138,6 @@ class BaseAPIEndpoint(GenericViewSet):
             # Detail views show all fields all the time
             fields = all_fields
 
-        # Always show id and meta first
-        fields = ['id', 'meta'] + fields
-
         # If showing details, add the parent field
         if isinstance(self, PagesAPIEndpoint) and self.action == 'detail_view':
             fields.insert(2, 'parent')
