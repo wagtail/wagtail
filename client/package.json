@@ -7,5 +7,7 @@
     "test": "npm test"
   },
   "main": "index.js",
-  "description": "Wagtail's client side code"
+  "description": "Wagtail's client side code",
+  "author": "Wagtail",
+  "license": "BSD-3-Clause"
 }
