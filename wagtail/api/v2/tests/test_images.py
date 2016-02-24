@@ -17,7 +17,7 @@ class TestImageListing(TestCase):
         return self.client.get(reverse('wagtailapi_v2:images:listing'), params)
 
     def get_image_id_list(self, content):
-        return [image['id'] for image in content['results']]
+        return [image['id'] for image in content['items']]
 
 
     # BASIC TESTS
@@ -36,12 +36,12 @@ class TestImageListing(TestCase):
         self.assertIsInstance(content['total_count'], int)
         self.assertEqual(content['total_count'], get_image_model().objects.count())
 
-        # Check that the results section is there
-        self.assertIn('results', content)
-        self.assertIsInstance(content['results'], list)
+        # Check that the items section is there
+        self.assertIn('items', content)
+        self.assertIsInstance(content['items'], list)
 
         # Check that each image has a meta section with type and detail_url attributes
-        for image in content['results']:
+        for image in content['items']:
             self.assertIn('meta', image)
             self.assertIsInstance(image['meta'], dict)
             self.assertEqual(set(image['meta'].keys()), {'type', 'detail_url'})
@@ -59,21 +59,21 @@ class TestImageListing(TestCase):
         response = self.get_response()
         content = json.loads(response.content.decode('UTF-8'))
 
-        for image in content['results']:
+        for image in content['items']:
             self.assertEqual(set(image.keys()), {'id', 'meta', 'title', 'width', 'height', 'tags'})
 
     def test_fields(self):
         response = self.get_response(fields='title,width,height')
         content = json.loads(response.content.decode('UTF-8'))
 
-        for image in content['results']:
+        for image in content['items']:
             self.assertEqual(set(image.keys()), {'id', 'meta', 'title', 'width', 'height'})
 
     def test_fields_tags(self):
         response = self.get_response(fields='tags')
         content = json.loads(response.content.decode('UTF-8'))
 
-        for image in content['results']:
+        for image in content['items']:
             self.assertEqual(set(image.keys()), {'id', 'meta', 'tags'})
             self.assertIsInstance(image['tags'], list)
 
@@ -176,11 +176,11 @@ class TestImageListing(TestCase):
 
     # LIMIT
 
-    def test_limit_only_two_results_returned(self):
+    def test_limit_only_two_items_returned(self):
         response = self.get_response(limit=2)
         content = json.loads(response.content.decode('UTF-8'))
 
-        self.assertEqual(len(content['results']), 2)
+        self.assertEqual(len(content['items']), 2)
 
     def test_limit_total_count(self):
         response = self.get_response(limit=2)
@@ -218,7 +218,7 @@ class TestImageListing(TestCase):
         response = self.get_response()
         content = json.loads(response.content.decode('UTF-8'))
 
-        self.assertEqual(len(content['results']), 2)
+        self.assertEqual(len(content['items']), 2)
 
 
     # OFFSET
