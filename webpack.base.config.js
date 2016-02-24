@@ -37,12 +37,14 @@ module.exports = function exports() {
     },
     output: {
       path: './',
-      filename: '[name].js'
+      filename: '[name].js',
+      publicPath: '/static/js/'
     },
     plugins: [
       new webpack.ProvidePlugin({
         'fetch': 'imports?this=>global!exports?global.fetch!whatwg-fetch'
-      })
+      }),
+      new webpack.optimize.CommonsChunkPlugin('common', './wagtail/wagtailadmin/static/wagtailadmin/js/common.js', Infinity)
     ],
     module: {
       loaders: [{
