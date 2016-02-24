@@ -111,7 +111,7 @@ FloatBlock
 A single-line Float input that validates that the value is a valid floating point number. The keyword arguments ``required``, ``max_value`` and ``min_value``  are accepted.
 
 DecimalBlock
-~~~~~~~~~~
+~~~~~~~~~~~~
 
 ``wagtail.wagtailcore.blocks.DecimalBlock``
 
@@ -317,23 +317,7 @@ This defines ``PersonBlock()`` as a block type that can be re-used as many times
         ('person', PersonBlock()),
     ])
 
-
-To customise the styling of the block as it appears in the page editor, your subclass can specify a ``form_classname`` attribute in ``Meta`` to override the default value of ``struct-block``:
-
-.. code-block:: python
-
-    class PersonBlock(blocks.StructBlock):
-        first_name = blocks.CharBlock(required=True)
-        surname = blocks.CharBlock(required=True)
-        photo = ImageChooserBlock()
-        biography = blocks.RichTextBlock()
-
-        class Meta:
-            icon = 'user'
-            form_classname = 'person-block struct-block'
-
-
-You can then provide custom CSS for this block, targeted at the specified classname, by using the ``insert_editor_css`` hook (see :doc:`Hooks </reference/hooks>`). For more extensive customisations that require changes to the HTML markup as well, you can override the ``form_template`` attribute in ``Meta``.
+Further options are available for customising the display of a ``StructBlock`` within the page editor - see :ref:`custom_editing_interfaces_for_structblock`.
 
 
 ListBlock
@@ -634,6 +618,65 @@ This is possible because the HTML rendering behaviour of these blocks does not i
         ], template='blocks/speaker.html')
 
 then writing ``{{ value.guest_speaker }}`` within the EventBlock's template will use the template rendering from ``blocks/speaker.html`` for that field.
+
+
+.. _custom_editing_interfaces_for_structblock:
+
+Custom editing interfaces for ``StructBlock``
+---------------------------------------------
+
+To customise the styling of a ``StructBlock`` as it appears in the page editor, you can specify a ``form_classname`` attribute (either as a keyword argument to the ``StructBlock`` constructor, or in a subclass's ``Meta``) to override the default value of ``struct-block``:
+
+.. code-block:: python
+
+    class PersonBlock(blocks.StructBlock):
+        first_name = blocks.CharBlock(required=True)
+        surname = blocks.CharBlock(required=True)
+        photo = ImageChooserBlock()
+        biography = blocks.RichTextBlock()
+
+        class Meta:
+            icon = 'user'
+            form_classname = 'person-block struct-block'
+
+
+You can then provide custom CSS for this block, targeted at the specified classname, by using the :ref:`insert_editor_css` hook.
+
+For more extensive customisations that require changes to the HTML markup as well, you can override the ``form_template`` attribute in ``Meta`` to specify your own template path. The following variables are available on this template:
+
+``children``
+  An ``OrderedDict`` of ``BoundBlock``\s for all of the child blocks making up this ``StructBlock``; typically your template will call ``render_form`` on each of these.
+
+``help_text``
+  The help text for this block, if specified.
+
+``classname``
+  The class name passed as ``form_classname`` (defaults to ``struct-block``).
+
+``block_definition``
+  The ``StructBlock`` instance that defines this block.
+
+``prefix``
+  The prefix used on form fields for this block instance, guaranteed to be unique across the form.
+
+To add additional variables, you can override the block's ``get_form_context`` method:
+
+.. code-block:: python
+
+    class PersonBlock(blocks.StructBlock):
+        first_name = blocks.CharBlock(required=True)
+        surname = blocks.CharBlock(required=True)
+        photo = ImageChooserBlock()
+        biography = blocks.RichTextBlock()
+
+        def get_form_context(self, value, prefix='', errors=None):
+            context = super(PersonBlock, self).get_form_context(value, prefix=prefix, errors=errors)
+            context['suggested_first_names'] = ['John', 'Paul', 'George', 'Ringo']
+            return context
+
+        class Meta:
+            icon = 'user'
+            form_template = 'myapp/block_forms/person.html'
 
 
 Custom block types

@@ -2,6 +2,7 @@
 from __future__ import absolute_import, unicode_literals
 
 import base64
+import collections
 import unittest
 from decimal import Decimal
 
@@ -12,6 +13,7 @@ from django.test import SimpleTestCase, TestCase
 from django.utils.html import format_html
 from django.utils.safestring import SafeData, mark_safe
 
+from wagtail.tests.testapp.blocks import LinkBlock as CustomLinkBlock
 from wagtail.tests.testapp.blocks import SectionBlock
 from wagtail.wagtailcore import blocks
 from wagtail.wagtailcore.models import Page
@@ -823,6 +825,26 @@ class TestStructBlock(SimpleTestCase):
         body_bound_block = struct_value.bound_blocks['body']
         expected = '<div class="rich-text"><b>world</b></div>'
         self.assertEqual(str(body_bound_block), expected)
+
+    def test_get_form_context(self):
+        class LinkBlock(blocks.StructBlock):
+            title = blocks.CharBlock()
+            link = blocks.URLBlock()
+
+        block = LinkBlock()
+        context = block.get_form_context(block.to_python({
+            'title': "Wagtail site",
+            'link': 'http://www.wagtail.io',
+        }), prefix='mylink')
+
+        self.assertTrue(isinstance(context['children'], collections.OrderedDict))
+        self.assertEqual(len(context['children']), 2)
+        self.assertTrue(isinstance(context['children']['title'], blocks.BoundBlock))
+        self.assertEqual(context['children']['title'].value, "Wagtail site")
+        self.assertTrue(isinstance(context['children']['link'], blocks.BoundBlock))
+        self.assertEqual(context['children']['link'].value, 'http://www.wagtail.io')
+        self.assertEqual(context['block_definition'], block)
+        self.assertEqual(context['prefix'], 'mylink')
 
     def test_render_form(self):
         class LinkBlock(blocks.StructBlock):
@@ -1915,10 +1937,16 @@ class TestSystemCheck(TestCase):
 
 class TestTemplateRendering(TestCase):
     def test_render_with_custom_context(self):
-        from wagtail.tests.testapp.blocks import LinkBlock
-
-        block = LinkBlock()
+        block = CustomLinkBlock()
         value = block.to_python({'title': 'Torchbox', 'url': 'http://torchbox.com/'})
         result = block.render(value)
 
         self.assertEqual(result, '<a href="http://torchbox.com/" class="important">Torchbox</a>')
+
+    def test_render_with_custom_form_context(self):
+        block = CustomLinkBlock()
+        value = block.to_python({'title': 'Torchbox', 'url': 'http://torchbox.com/'})
+        result = block.render_form(value, prefix='my-link-block')
+
+        self.assertIn('data-prefix="my-link-block"', result)
+        self.assertIn('<p>Hello from get_form_context!</p>', result)

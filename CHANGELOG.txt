@@ -18,6 +18,7 @@ Changelog
  * Added a new FloatBlock, DecimalBlock and a RegexBlock (Oktay Altay, Andy Babic)
  * Wagtail version number is now shown on the settings menu (Chris Rogers)
  * Added a system check to validate that fields listed in `search_fields` are defined on the model (Josh Schneier)
+ * Added formal APIs for customising the display of StructBlock forms within the page editor (Matt Westcott)
  * Fix: Email templates and document uploader now support custom `STATICFILES_STORAGE` (Jonny Scholes)
  * Fix: Removed alignment options (deprecated in HTML and not rendered by Wagtail) from `TableBlock` context menu (Moritz Pfeiffer)
  * Fix: Fixed incorrect CSS path on ModelAdmin's "choose a parent page" view
