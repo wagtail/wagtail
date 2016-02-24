@@ -2,7 +2,7 @@
     "extends": "airbnb",
 
     "rules": {
-        "indent": [2, 4],
+        "indent": [2, 2],
         "max-len": [1, 120, 4, {"ignoreUrls": true}],
         "id-length": [1, {"min": 2, "exceptions": ["x", "y", "e", "i", "j", "k", "d", "n", "_", "$"]}],
         "object-shorthand": [2, "methods"],
