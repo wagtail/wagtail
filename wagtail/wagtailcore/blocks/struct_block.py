@@ -59,7 +59,7 @@ class BaseStructBlock(Block):
     def media(self):
         return forms.Media(js=[static('wagtailadmin/js/blocks/struct.js')])
 
-    def render_form(self, value, prefix='', errors=None):
+    def get_form_context(self, value, prefix='', errors=None):
         if errors:
             if len(errors) > 1:
                 # We rely on StructBlock.clean throwing a single ValidationError with a specially crafted
@@ -78,11 +78,18 @@ class BaseStructBlock(Block):
             for name, block in self.child_blocks.items()
         ])
 
-        return render_to_string(self.meta.form_template, {
+        return {
             'children': bound_child_blocks,
             'help_text': getattr(self.meta, 'help_text', None),
             'classname': self.meta.form_classname,
-        })
+            'block_definition': self,
+            'prefix': prefix,
+        }
+
+    def render_form(self, value, prefix='', errors=None):
+        context = self.get_form_context(value, prefix=prefix, errors=errors)
+
+        return render_to_string(self.meta.form_template, context)
 
     def value_from_datadict(self, data, files, prefix):
         return StructValue(self, [
