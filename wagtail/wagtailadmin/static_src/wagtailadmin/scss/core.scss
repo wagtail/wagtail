@@ -19,6 +19,10 @@
 
 @import 'wagtailadmin/scss/fonts';
 
+#wagtail {
+    @import '../../../../../client/scss/style.scss';
+}
+
 html {
     background: $color-grey-4;
     height: 100%;
