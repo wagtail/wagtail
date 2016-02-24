@@ -1,6 +1,7 @@
 var _ = require('lodash');
 var path = require('path');
 var glob = require('glob').sync;
+var webpack = require('webpack');
 
 
 function appName(filename) {
@@ -33,6 +34,11 @@ module.exports = function exports() {
       path: './',
       filename: '[name].js'
     },
+    plugins: [
+      new webpack.ProvidePlugin({
+        'fetch': 'imports?this=>global!exports?global.fetch!whatwg-fetch'
+      })
+    ],
     module: {
       loaders: [{
         test: /\.js$/,

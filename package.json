@@ -31,7 +31,9 @@
     "require-dir": "^0.3.0",
     "sinon": "^1.17.3"
   },
-  "dependencies": {},
+  "dependencies": {
+    "whatwg-fetch": "^0.11.0"
+  },
   "scripts": {
     "build": "gulp build; webpack --config webpack.prd.config.js",
     "watch": "webpack --config webpack.dev.config.js & gulp watch",
@@ -39,6 +41,6 @@
     "lint:js": "eslint --max-warnings 16 webpack.*.config.js ./client",
     "lint": "npm run lint:js",
     "test": "npm run test:unit",
-    "test:unit": "mocha --compilers js:babel-core/register client/tests/**/*.test.js",
+    "test:unit": "mocha --compilers js:babel-core/register client/tests/**/*.test.js"
   }
 }
