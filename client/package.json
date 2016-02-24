@@ -1,6 +1,6 @@
 {
   "name": "wagtail",
-  "version": "1.4.0",
+  "version": "0.0.0",
   "description": "Wagtail's client side code",
   "main": "index.js",
   "scripts": {
