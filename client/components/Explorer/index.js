@@ -3,33 +3,32 @@ import React, { Component, PropTypes } from 'react';
 
 export default class Explorer extends Component {
 
-    constructor(props) {
-        super(props);
+  constructor(props) {
+    super(props);
 
-        this.state = {};
-    }
+    this.state = {};
+  }
 
-    componentDidMount() {
+  componentDidMount() {
 
-    }
+  }
 
-    componentWillUnmount() {
+  componentWillUnmount() {
 
-    }
+  }
 
-    render() {
-        return (
-            <div>
-
-            </div>
-        );
-    }
+  render() {
+    return (
+      <div>
+        Explorer!
+      </div>
+    );
+  }
 }
 
-
 Explorer.propTypes = {
-    onPageSelect: PropTypes.func,
-    initialPath: PropTypes.string,
-    apiPath: PropTypes.string,
-    size: PropTypes.number
+  onPageSelect: PropTypes.func,
+  initialPath: PropTypes.string,
+  apiPath: PropTypes.string,
+  size: PropTypes.number
 };
