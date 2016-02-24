@@ -9,6 +9,11 @@ from .serializers import AdminPageSerializer, AdminImageSerializer
 class PagesAdminAPIEndpoint(PagesAPIEndpoint):
     base_serializer_class = AdminPageSerializer
 
+    extra_api_fields = PagesAPIEndpoint.extra_api_fields + [
+        'status',
+        'children',
+    ]
+
     def get_queryset(self):
         request = self.request
 
@@ -38,6 +43,10 @@ class PagesAdminAPIEndpoint(PagesAPIEndpoint):
 
 class ImagesAdminAPIEndpoint(ImagesAPIEndpoint):
     base_serializer_class = AdminImageSerializer
+
+    extra_api_fields = ImagesAPIEndpoint.extra_api_fields + [
+        'thumbnail',
+    ]
 
 
 class DocumentsAdminAPIEndpoint(DocumentsAPIEndpoint):
