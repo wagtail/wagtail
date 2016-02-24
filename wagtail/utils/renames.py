@@ -14,6 +14,7 @@ class RenamedModuleLoader(object):
         self.base = base
         self.module_map = module_map
         self.warning = warning
+        self.loaded_modules = set()
 
     def find_module(self, fullname, path=None):
         """
@@ -21,11 +22,25 @@ class RenamedModuleLoader(object):
         fullname is an old, renamed module (or a submodule of a module) in the
         module_map.
         """
+        # Only handle submodules of the `base` module
         if not self._is_submodule(fullname):
             return None
+
+        # Only handle submodules of `base` that are named in the module map
         submodule_path = self._split_submodule(fullname)
         if submodule_path[0] not in self.module_map:
             return None
+
+        # Dont import submodules of something that should be handled by
+        # this loader, if this loader did not in fact load the module.
+        # This handles the obscure case where an old directory still exists
+        # for one of the renamed modules.
+        if len(submodule_path) > 1 and submodule_path[0] not in self.loaded_modules:
+            raise RuntimeError(
+                'Module {base}.{old} should have been renamed to {base}.{new}, '
+                'but unexpectedly still exists! Have you got some old code '
+                'hanging around?'.format(base=self.base, old=submodule_path[0],
+                                         new=self.module_map[submodule_path[0]]))
         return self
 
     def load_module(self, fullname):
@@ -49,6 +64,7 @@ class RenamedModuleLoader(object):
             self.warning, stacklevel=2)
 
         module = self._load_module(new_fullname)
+        self.loaded_modules.add(old_submodule)
         sys.modules[fullname] = module
         return module
 
