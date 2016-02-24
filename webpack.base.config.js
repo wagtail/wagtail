@@ -29,6 +29,11 @@ function entryPoints(paths) {
 module.exports = function exports() {
   return {
     entry: entryPoints('./wagtail/**/static_src/**/app/*.entry.js'),
+    resolve: {
+      alias: {
+        wagtail: path.join(__dirname, 'client/src/index.js')
+      }
+    },
     output: {
       path: './',
       filename: '[name].js'
