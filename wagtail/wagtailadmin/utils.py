@@ -210,10 +210,10 @@ def send_notification(page_revision_id, notification, excluded_user_id):
             # Send email
             send_mail(email_subject, email_content, [recipient.email])
             sent_count += 1
-        except Exception as e:
-            logger.error(
-                "Failed to send notification email '%s' to %s. Error: %s",
-                email_subject, recipient.email, str(e)
+        except Exception:
+            logger.exception(
+                "Failed to send notification email '%s' to %s",
+                email_subject, recipient.email
             )
 
     return sent_count == len(email_recipients)
