@@ -397,6 +397,8 @@ class Page(six.with_metaclass(PageBase, MP_Node, ClusterableModel, index.Indexed
     @transaction.atomic
     # ensure that changes are only committed when we have updated all descendant URL paths, to preserve consistency
     def save(self, *args, **kwargs):
+        self.full_clean()
+
         update_descendant_url_paths = False
         is_new = self.id is None
 
