@@ -254,6 +254,7 @@ class ImagesAPIEndpoint(BaseAPIEndpoint):
     base_serializer_class = ImageSerializer
     filter_backends = [FieldsFilter, OrderingFilter, SearchFilter]
     extra_api_fields = ['title', 'tags', 'width', 'height']
+    meta_fields = ['tags']
     name = 'images'
     model = get_image_model()
 
