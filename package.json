@@ -35,7 +35,7 @@
   "scripts": {
     "build": "gulp build; webpack --config webpack.prd.config.js",
     "start": "gulp watch",
-    "lint:js": "eslint --max-warnings 16 ./client",
+    "lint:js": "eslint --max-warnings 16 webpack.*.config.js ./client",
     "lint": "npm run lint:js"
   }
 }
