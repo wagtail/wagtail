@@ -26,7 +26,7 @@ class TestPageListing(TestCase):
         return self.client.get(reverse('wagtailapi_v2:pages:listing'), params)
 
     def get_page_id_list(self, content):
-        return [page['id'] for page in content['results']]
+        return [page['id'] for page in content['items']]
 
 
     # BASIC TESTS
@@ -45,12 +45,12 @@ class TestPageListing(TestCase):
         self.assertIsInstance(content['total_count'], int)
         self.assertEqual(content['total_count'], get_total_page_count())
 
-        # Check that the results section is there
-        self.assertIn('results', content)
-        self.assertIsInstance(content['results'], list)
+        # Check that the items section is there
+        self.assertIn('items', content)
+        self.assertIsInstance(content['items'], list)
 
         # Check that each page has a meta section with type, detail_url and html_url attributes
-        for page in content['results']:
+        for page in content['items']:
             self.assertIn('meta', page)
             self.assertIsInstance(page['meta'], dict)
             self.assertEqual(set(page['meta'].keys()), {'type', 'detail_url', 'html_url'})
@@ -81,11 +81,11 @@ class TestPageListing(TestCase):
 
     # TYPE FILTER
 
-    def test_type_filter_results_are_all_blog_entries(self):
+    def test_type_filter_items_are_all_blog_entries(self):
         response = self.get_response(type='demosite.BlogEntryPage')
         content = json.loads(response.content.decode('UTF-8'))
 
-        for page in content['results']:
+        for page in content['items']:
             self.assertEqual(page['meta']['type'], 'demosite.BlogEntryPage')
 
             # All fields in specific type available
@@ -95,7 +95,7 @@ class TestPageListing(TestCase):
         response = self.get_response(type='demosite.BlogEntryPage')
         content = json.loads(response.content.decode('UTF-8'))
 
-        # Total count must be reduced as this filters the results
+        # Total count must be reduced as this filters the items
         self.assertEqual(content['total_count'], 3)
 
     def test_type_filter_multiple(self):
@@ -105,7 +105,7 @@ class TestPageListing(TestCase):
         blog_page_seen = False
         event_page_seen = False
 
-        for page in content['results']:
+        for page in content['items']:
             self.assertIn(page['meta']['type'], ['demosite.BlogEntryPage', 'demosite.EventPage'])
 
             if page['meta']['type'] == 'demosite.BlogEntryPage':
@@ -116,8 +116,8 @@ class TestPageListing(TestCase):
             # Only generic fields available
             self.assertEqual(set(page.keys()), {'id', 'meta', 'title', 'slug', 'show_in_menus', 'seo_title', 'search_description', 'first_published_at'})
 
-        self.assertTrue(blog_page_seen, "No blog pages were found in the results")
-        self.assertTrue(event_page_seen, "No event pages were found in the results")
+        self.assertTrue(blog_page_seen, "No blog pages were found in the items")
+        self.assertTrue(event_page_seen, "No event pages were found in the items")
 
     def test_non_existant_type_gives_error(self):
         response = self.get_response(type='demosite.IDontExist')
@@ -139,21 +139,21 @@ class TestPageListing(TestCase):
         response = self.get_response(type='demosite.BlogEntryPage')
         content = json.loads(response.content.decode('UTF-8'))
 
-        for page in content['results']:
+        for page in content['items']:
             self.assertEqual(set(page.keys()), {'id', 'meta', 'title', 'slug', 'show_in_menus', 'seo_title', 'search_description', 'first_published_at', 'date', 'related_links', 'feed_image', 'body', 'carousel_items', 'tags'})
 
     def test_fields(self):
         response = self.get_response(type='demosite.BlogEntryPage', fields='title,date,feed_image')
         content = json.loads(response.content.decode('UTF-8'))
 
-        for page in content['results']:
+        for page in content['items']:
             self.assertEqual(set(page.keys()), {'id', 'meta', 'title', 'date', 'feed_image'})
 
     def test_fields_child_relation(self):
         response = self.get_response(type='demosite.BlogEntryPage', fields='title,related_links')
         content = json.loads(response.content.decode('UTF-8'))
 
-        for page in content['results']:
+        for page in content['items']:
             self.assertEqual(set(page.keys()), {'id', 'meta', 'title', 'related_links'})
             self.assertIsInstance(page['related_links'], list)
 
@@ -161,7 +161,7 @@ class TestPageListing(TestCase):
         response = self.get_response(type='demosite.BlogEntryPage', fields='title,date,feed_image')
         content = json.loads(response.content.decode('UTF-8'))
 
-        for page in content['results']:
+        for page in content['items']:
             feed_image = page['feed_image']
 
             if feed_image is not None:
@@ -177,7 +177,7 @@ class TestPageListing(TestCase):
         response = self.get_response(type='demosite.BlogEntryPage', fields='tags')
         content = json.loads(response.content.decode('UTF-8'))
 
-        for page in content['results']:
+        for page in content['items']:
             self.assertEqual(set(page.keys()), {'id', 'meta', 'tags'})
             self.assertIsInstance(page['tags'], list)
 
@@ -197,7 +197,7 @@ class TestPageListing(TestCase):
             'feed_image',
             'related_links',
         ]
-        self.assertEqual(list(content['results'][0].keys()), field_order)
+        self.assertEqual(list(content['items'][0].keys()), field_order)
 
     def test_fields_without_type_gives_error(self):
         response = self.get_response(fields='title,related_links')
@@ -437,11 +437,11 @@ class TestPageListing(TestCase):
 
     # LIMIT
 
-    def test_limit_only_two_results_returned(self):
+    def test_limit_only_two_items_returned(self):
         response = self.get_response(limit=2)
         content = json.loads(response.content.decode('UTF-8'))
 
-        self.assertEqual(len(content['results']), 2)
+        self.assertEqual(len(content['items']), 2)
 
     def test_limit_total_count(self):
         response = self.get_response(limit=2)
@@ -479,7 +479,7 @@ class TestPageListing(TestCase):
         response = self.get_response()
         content = json.loads(response.content.decode('UTF-8'))
 
-        self.assertEqual(len(content['results']), 2)
+        self.assertEqual(len(content['items']), 2)
 
 
     # OFFSET
@@ -519,7 +519,7 @@ class TestPageListing(TestCase):
 
         page_id_list = self.get_page_id_list(content)
 
-        # Check that the results are the blog index and three blog pages
+        # Check that the items are the blog index and three blog pages
         self.assertEqual(set(page_id_list), set([5, 16, 18, 19]))
 
     def test_search_with_type(self):
