@@ -97,7 +97,7 @@ class TestSiteRootPathsCache(TestCase):
         default_site = Site.objects.get(is_default_site=True)
 
         # Create a new homepage under current homepage
-        new_homepage = SimplePage(title="New Homepage", slug="new-homepage")
+        new_homepage = SimplePage(title="New Homepage", slug="new-homepage", content="hello")
         homepage.add_child(instance=new_homepage)
 
         # Set new homepage as the site root page

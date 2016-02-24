@@ -14,18 +14,21 @@ class TestSitemapGenerator(TestCase):
         self.child_page = self.home_page.add_child(instance=SimplePage(
             title="Hello world!",
             slug='hello-world',
+            content="hello",
             live=True,
         ))
 
         self.unpublished_child_page = self.home_page.add_child(instance=SimplePage(
             title="Unpublished",
             slug='unpublished',
+            content="hello",
             live=False,
         ))
 
         self.protected_child_page = self.home_page.add_child(instance=SimplePage(
             title="Protected",
             slug='protected',
+            content="hello",
             live=True,
         ))
         PageViewRestriction.objects.create(page=self.protected_child_page, password='hello')

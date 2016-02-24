@@ -322,14 +322,24 @@ class TestStaticSitePaths(TestCase):
         self.root_page = Page.objects.get(id=1)
 
         # For simple tests
-        self.home_page = self.root_page.add_child(instance=SimplePage(title="Homepage", slug="home"))
-        self.about_page = self.home_page.add_child(instance=SimplePage(title="About us", slug="about"))
-        self.contact_page = self.home_page.add_child(instance=SimplePage(title="Contact", slug="contact"))
+        self.home_page = self.root_page.add_child(
+            instance=SimplePage(title="Homepage", slug="home", content="hello")
+        )
+        self.about_page = self.home_page.add_child(
+            instance=SimplePage(title="About us", slug="about", content="hello")
+        )
+        self.contact_page = self.home_page.add_child(
+            instance=SimplePage(title="Contact", slug="contact", content="hello")
+        )
 
         # For custom tests
         self.event_index = self.root_page.add_child(instance=EventIndex(title="Events", slug="events"))
         for i in range(20):
-            self.event_index.add_child(instance=EventPage(title="Event " + str(i), slug="event" + str(i)))
+            self.event_index.add_child(instance=EventPage(
+                title="Event " + str(i), slug="event" + str(i),
+                location='the moon', audience='public',
+                cost='free', date_from='2001-01-01',
+            ))
 
     def test_local_static_site_paths(self):
         paths = list(self.about_page.get_static_site_paths())
@@ -611,7 +621,7 @@ class TestCopyPage(TestCase):
 
     def test_copy_page_copies_recursively_with_revisions(self):
         events_index = EventIndex.objects.get(url_path='/home/events/')
-        old_christmas_event = events_index.get_children().filter(slug='christmas').first()
+        old_christmas_event = events_index.get_children().filter(slug='christmas').first().specific
         old_christmas_event.save_revision()
 
         # Copy it
