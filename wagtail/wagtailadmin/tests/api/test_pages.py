@@ -57,7 +57,7 @@ class TestPageListing(AdminAPITestCase):
         for page in content['items']:
             self.assertIn('meta', page)
             self.assertIsInstance(page['meta'], dict)
-            self.assertEqual(set(page['meta'].keys()), {'type', 'detail_url', 'html_url', 'status', 'children'})  # ADMINAPI CHANGE
+            self.assertEqual(set(page['meta'].keys()), {'type', 'detail_url', 'html_url', 'status', 'children', 'seo_title', 'slug', 'show_in_menus', 'first_published_at', 'search_description'})  # ADMINAPI CHANGE
 
     def test_unpublished_pages_appear_in_list(self):  # ADMINAPI CHANGE
         total_count = get_total_page_count()
@@ -93,7 +93,7 @@ class TestPageListing(AdminAPITestCase):
             self.assertEqual(page['meta']['type'], 'demosite.BlogEntryPage')
 
             # All fields in specific type available
-            self.assertEqual(set(page.keys()), {'id', 'meta', 'title', 'related_links', 'date', 'body', 'tags', 'feed_image', 'carousel_items', 'first_published_at', 'search_description', 'show_in_menus', 'slug', 'seo_title'})
+            self.assertEqual(set(page.keys()), {'id', 'meta', 'title', 'related_links', 'date', 'body', 'tags', 'feed_image', 'carousel_items'})
 
     def test_type_filter_total_count(self):
         response = self.get_response(type='demosite.BlogEntryPage')
@@ -118,7 +118,7 @@ class TestPageListing(AdminAPITestCase):
                 event_page_seen = True
 
             # Only generic fields available
-            self.assertEqual(set(page.keys()), {'id', 'meta', 'title', 'first_published_at', 'search_description', 'show_in_menus', 'slug', 'seo_title'})
+            self.assertEqual(set(page.keys()), {'id', 'meta', 'title'})
 
         self.assertTrue(blog_page_seen, "No blog pages were found in the items")
         self.assertTrue(event_page_seen, "No event pages were found in the items")
@@ -144,7 +144,7 @@ class TestPageListing(AdminAPITestCase):
         content = json.loads(response.content.decode('UTF-8'))
 
         for page in content['items']:
-            self.assertEqual(set(page.keys()), {'id', 'meta', 'title', 'date', 'related_links', 'feed_image', 'body', 'carousel_items', 'tags', 'first_published_at', 'search_description', 'show_in_menus', 'slug', 'seo_title'})
+            self.assertEqual(set(page.keys()), {'id', 'meta', 'title', 'date', 'related_links', 'feed_image', 'body', 'carousel_items', 'tags'})
 
     def test_fields(self):
         response = self.get_response(type='demosite.BlogEntryPage', fields='title,date,feed_image')
@@ -610,15 +610,15 @@ class TestPageDetail(AdminAPITestCase):
         })
 
         # Check the parent field
-        self.assertIn('parent', content)
-        self.assertIsInstance(content['parent'], dict)
-        self.assertEqual(set(content['parent'].keys()), {'id', 'meta'})
-        self.assertEqual(content['parent']['id'], 5)
-        self.assertIsInstance(content['parent']['meta'], dict)
-        self.assertEqual(set(content['parent']['meta'].keys()), {'type', 'detail_url', 'html_url'})
-        self.assertEqual(content['parent']['meta']['type'], 'demosite.BlogIndexPage')
-        self.assertEqual(content['parent']['meta']['detail_url'], 'http://localhost/admin/api/v2beta/pages/5/')
-        self.assertEqual(content['parent']['meta']['html_url'], 'http://localhost/blog-index/')
+        self.assertIn('parent', content['meta'])
+        self.assertIsInstance(content['meta']['parent'], dict)
+        self.assertEqual(set(content['meta']['parent'].keys()), {'id', 'meta'})
+        self.assertEqual(content['meta']['parent']['id'], 5)
+        self.assertIsInstance(content['meta']['parent']['meta'], dict)
+        self.assertEqual(set(content['meta']['parent']['meta'].keys()), {'type', 'detail_url', 'html_url'})
+        self.assertEqual(content['meta']['parent']['meta']['type'], 'demosite.BlogIndexPage')
+        self.assertEqual(content['meta']['parent']['meta']['detail_url'], 'http://localhost/admin/api/v2beta/pages/5/')
+        self.assertEqual(content['meta']['parent']['meta']['html_url'], 'http://localhost/blog-index/')
 
         # Check that the custom fields are included
         self.assertIn('date', content)
@@ -646,14 +646,15 @@ class TestPageDetail(AdminAPITestCase):
         # Check that the child relations were serialised properly
         self.assertEqual(content['related_links'], [])
         for carousel_item in content['carousel_items']:
-            self.assertEqual(set(carousel_item.keys()), {'embed_url', 'link', 'caption', 'image'})
+            self.assertEqual(set(carousel_item.keys()), {'id', 'meta', 'embed_url', 'link', 'caption', 'image'})
+            self.assertEqual(set(carousel_item['meta'].keys()), {'type'})
 
     def test_meta_parent_id_doesnt_show_root_page(self):
         # Root page isn't in the site so don't show it if the user is looking at the home page
         response = self.get_response(2)
         content = json.loads(response.content.decode('UTF-8'))
 
-        self.assertNotIn('parent', content['meta'])
+        self.assertIsNone(content['meta']['parent'])
 
     def test_field_ordering(self):
         response = self.get_response(16)
@@ -666,13 +667,7 @@ class TestPageDetail(AdminAPITestCase):
         field_order = [
             'id',
             'meta',
-            'parent',
             'title',
-            'slug',
-            'show_in_menus',
-            'seo_title',
-            'search_description',
-            'first_published_at',
             'body',
             'tags',
             'date',

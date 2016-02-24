@@ -43,11 +43,11 @@ class TestImageListing(AdminAPITestCase):
         self.assertIn('items', content)
         self.assertIsInstance(content['items'], list)
 
-        # Check that each image has a meta section with type, detail_url, thumbnail and source_image_error attributes
+        # Check that each image has a meta section with type, detail_url and tags attributes
         for image in content['items']:
             self.assertIn('meta', image)
             self.assertIsInstance(image['meta'], dict)
-            self.assertEqual(set(image['meta'].keys()), {'type', 'detail_url', 'thumbnail', 'source_image_error'})  # ADMINAPI CHANGE
+            self.assertEqual(set(image['meta'].keys()), {'type', 'detail_url', 'tags'})  # ADMINAPI CHANGE
 
             # Type should always be wagtailimages.Image
             self.assertEqual(image['meta']['type'], 'wagtailimages.Image')
@@ -63,7 +63,8 @@ class TestImageListing(AdminAPITestCase):
         content = json.loads(response.content.decode('UTF-8'))
 
         for image in content['items']:
-            self.assertEqual(set(image.keys()), {'id', 'meta', 'title', 'width', 'height', 'tags'})
+            self.assertEqual(set(image.keys()), {'id', 'meta', 'title', 'width', 'height', 'thumbnail'})
+            self.assertEqual(set(image['meta'].keys()), {'type', 'detail_url', 'tags'})
 
     def test_fields(self):
         response = self.get_response(fields='title,width,height')
@@ -71,14 +72,16 @@ class TestImageListing(AdminAPITestCase):
 
         for image in content['items']:
             self.assertEqual(set(image.keys()), {'id', 'meta', 'title', 'width', 'height'})
+            self.assertEqual(set(image['meta'].keys()), {'type', 'detail_url'})
 
     def test_fields_tags(self):
         response = self.get_response(fields='tags')
         content = json.loads(response.content.decode('UTF-8'))
 
         for image in content['items']:
-            self.assertEqual(set(image.keys()), {'id', 'meta', 'tags'})
-            self.assertIsInstance(image['tags'], list)
+            self.assertEqual(set(image.keys()), {'id', 'meta'})
+            self.assertEqual(set(image['meta'].keys()), {'type', 'detail_url', 'tags'})
+            self.assertIsInstance(image['meta']['tags'], list)
 
     def test_fields_which_are_not_in_api_fields_gives_error(self):
         response = self.get_response(fields='uploaded_by_user')
@@ -318,18 +321,12 @@ class TestImageDetail(AdminAPITestCase):
         self.assertIn('detail_url', content['meta'])
         self.assertEqual(content['meta']['detail_url'], 'http://localhost/admin/api/v2beta/images/5/')
 
-        # Check the meta thumbnail
+        # Check the thumbnail
         # ADMINAPI CHANGE
         # Note: This is None because the source image doesn't exist
         #       See test_thumbnail below for working example
-        self.assertIn('thumbnail', content['meta'])
-        self.assertIsNone(content['meta']['thumbnail'])
-
-        # Check the meta source_image_error
-        # ADMINAPI CHANGE
-        # Note: This field wouldn't exist under normal circumstances
-        self.assertIn('source_image_error', content['meta'])
-        self.assertEqual(content['meta']['source_image_error'], True)
+        self.assertIn('thumbnail', content)
+        self.assertEqual(content['thumbnail'], {'error': 'SourceImageIOError'})
 
         # Check the title field
         self.assertIn('title', content)
@@ -342,8 +339,8 @@ class TestImageDetail(AdminAPITestCase):
         self.assertEqual(content['height'], 392)
 
         # Check the tags field
-        self.assertIn('tags', content)
-        self.assertEqual(content['tags'], [])
+        self.assertIn('tags', content['meta'])
+        self.assertEqual(content['meta']['tags'], [])
 
     def test_tags(self):
         image = get_image_model().objects.get(id=5)
@@ -353,8 +350,8 @@ class TestImageDetail(AdminAPITestCase):
         response = self.get_response(5)
         content = json.loads(response.content.decode('UTF-8'))
 
-        self.assertIn('tags', content)
-        self.assertEqual(content['tags'], ['hello', 'world'])
+        self.assertIn('tags', content['meta'])
+        self.assertEqual(content['meta']['tags'], ['hello', 'world'])
 
     def test_thumbnail(self):  # ADMINAPI CHANGE
         # Add a new image with source file
@@ -366,8 +363,8 @@ class TestImageDetail(AdminAPITestCase):
         response = self.get_response(image.id)
         content = json.loads(response.content.decode('UTF-8'))
 
-        self.assertIn('thumbnail', content['meta'])
-        self.assertEqual(content['meta']['thumbnail'], {
+        self.assertIn('thumbnail', content)
+        self.assertEqual(content['thumbnail'], {
             'url': '/media/images/test.max-165x165.png',
             'width': 165,
             'height': 123
