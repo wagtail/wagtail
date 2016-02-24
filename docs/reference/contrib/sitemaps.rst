@@ -3,28 +3,28 @@
 Sitemap generator
 =================
 
-This document describes how to create XML sitemaps for your Wagtail website using the ``wagtail.contrib.wagtailsitemaps`` module.
+This document describes how to create XML sitemaps for your Wagtail website using the ``wagtail.contrib.sitemaps`` module.
 
 
 Basic configuration
 ~~~~~~~~~~~~~~~~~~~
 
-You firstly need to add ``"wagtail.contrib.wagtailsitemaps"`` to INSTALLED_APPS in your Django settings file:
+You firstly need to add ``"wagtail.contrib.sitemaps"`` to INSTALLED_APPS in your Django settings file:
 
  .. code-block:: python
 
     INSTALLED_APPS = [
         ...
 
-        "wagtail.contrib.wagtailsitemaps",
+        "wagtail.contrib.sitemaps",
     ]
 
 
-Then, in ``urls.py``, you need to add a link to the ``wagtail.contrib.wagtailsitemaps.views.sitemap`` view which generates the sitemap:
+Then, in ``urls.py``, you need to add a link to the ``wagtail.contrib.sitemaps.views.sitemap`` view which generates the sitemap:
 
 .. code-block:: python
 
-    from wagtail.contrib.wagtailsitemaps.views import sitemap
+    from wagtail.contrib.sitemaps.views import sitemap
 
     urlpatterns = [
         ...

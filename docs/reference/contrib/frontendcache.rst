@@ -16,27 +16,27 @@ This document describes how to configure Wagtail to purge old versions of pages 
 Setting it up
 -------------
 
-Firstly, add ``"wagtail.contrib.wagtailfrontendcache"`` to your INSTALLED_APPS:
+Firstly, add ``"wagtail.contrib.frontendcache"`` to your INSTALLED_APPS:
 
  .. code-block:: python
 
      INSTALLED_APPS = [
         ...
 
-        "wagtail.contrib.wagtailfrontendcache"
+        "wagtail.contrib.frontendcache"
      ]
 
 .. versionchanged:: 0.8
 
     Signal handlers are now automatically registered
 
-The ``wagtailfrontendcache`` module provides a set of signal handlers which will automatically purge the cache whenever a page is published or deleted. These signal handlers are automatically registered when the ``wagtail.contrib.wagtailfrontendcache`` app is loaded.
+The ``frontendcache`` module provides a set of signal handlers which will automatically purge the cache whenever a page is published or deleted. These signal handlers are automatically registered when the ``wagtail.contrib.frontendcache`` app is loaded.
 
 
 Varnish/Squid
 ^^^^^^^^^^^^^
 
-Add a new item into the ``WAGTAILFRONTENDCACHE`` setting and set the ``BACKEND`` parameter to ``wagtail.contrib.wagtailfrontendcache.backends.HTTPBackend``. This backend requires an extra parameter ``LOCATION`` which points to where the cache is running (this must be a direct connection to the server and cannot go through another proxy).
+Add a new item into the ``WAGTAILFRONTENDCACHE`` setting and set the ``BACKEND`` parameter to ``wagtail.contrib.frontendcache.backends.HTTPBackend``. This backend requires an extra parameter ``LOCATION`` which points to where the cache is running (this must be a direct connection to the server and cannot go through another proxy).
 
 .. code-block:: python
 
@@ -44,7 +44,7 @@ Add a new item into the ``WAGTAILFRONTENDCACHE`` setting and set the ``BACKEND``
 
     WAGTAILFRONTENDCACHE = {
         'varnish': {
-            'BACKEND': 'wagtail.contrib.wagtailfrontendcache.backends.HTTPBackend',
+            'BACKEND': 'wagtail.contrib.frontendcache.backends.HTTPBackend',
             'LOCATION': 'http://localhost:8000',
         },
     }
@@ -61,7 +61,7 @@ Cloudflare
 
 Firstly, you need to register an account with Cloudflare if you haven't already got one. You can do this here: `Cloudflare Sign up <https://www.cloudflare.com/sign-up>`_
 
-Add an item into the ``WAGTAILFRONTENDCACHE`` and set the ``BACKEND`` parameter to ``wagtail.contrib.wagtailfrontendcache.backends.CloudflareBackend``. This backend requires two extra parameters, ``EMAIL`` (your Cloudflare account email) and ``TOKEN`` (your API token from Cloudflare).
+Add an item into the ``WAGTAILFRONTENDCACHE`` and set the ``BACKEND`` parameter to ``wagtail.contrib.frontendcache.backends.CloudflareBackend``. This backend requires two extra parameters, ``EMAIL`` (your Cloudflare account email) and ``TOKEN`` (your API token from Cloudflare).
 
 .. code-block:: python
 
@@ -69,7 +69,7 @@ Add an item into the ``WAGTAILFRONTENDCACHE`` and set the ``BACKEND`` parameter 
 
     WAGTAILFRONTENDCACHE = {
         'cloudflare': {
-            'BACKEND': 'wagtail.contrib.wagtailfrontendcache.backends.CloudflareBackend',
+            'BACKEND': 'wagtail.contrib.frontendcache.backends.CloudflareBackend',
             'EMAIL': 'your-cloudflare-email-address@example.com',
             'TOKEN': 'your cloudflare api token',
         },
@@ -105,7 +105,7 @@ Invalidating index pages
 
 Another problem is pages that list other pages (such as a blog index) will not be purged when a blog entry gets added, changed or deleted. You may want to purge the blog index page so the updates are added into the listing quickly.
 
-This can be solved by using the ``purge_page_from_cache`` utility function which can be found in the ``wagtail.contrib.wagtailfrontendcache.utils`` module.
+This can be solved by using the ``purge_page_from_cache`` utility function which can be found in the ``wagtail.contrib.frontendcache.utils`` module.
 
 Let's take the the above BlogIndexPage as an example. We need to register a signal handler to run when one of the BlogPages get updated/deleted. This signal handler should call the ``purge_page_from_cache`` function on all BlogIndexPages that contain the BlogPage being updated/deleted.
 
@@ -117,7 +117,7 @@ Let's take the the above BlogIndexPage as an example. We need to register a sign
     from django.db.models.signals import pre_delete
 
     from wagtail.wagtailcore.signals import page_published
-    from wagtail.contrib.wagtailfrontendcache.utils import purge_page_from_cache
+    from wagtail.contrib.rontendcache.utils import purge_page_from_cache
 
 
     ...
@@ -144,13 +144,13 @@ Let's take the the above BlogIndexPage as an example. We need to register a sign
 Invalidating individual URLs
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-``wagtail.contrib.wagtailfrontendcache.utils`` provides another function called ``purge_url_from_cache``. As the name suggests, this purges an individual URL from the cache.
+``wagtail.contrib.frontendcache.utils`` provides another function called ``purge_url_from_cache``. As the name suggests, this purges an individual URL from the cache.
 
 For example, this could be useful for purging a single page of blogs:
 
 .. code-block:: python
 
-    from wagtail.contrib.wagtailfrontendcache.utils import purge_url_from_cache
+    from wagtail.contrib.frontendcache.utils import purge_url_from_cache
 
     # Purge the first page of the blog index
     purge_url_from_cache(blog_index.url + '?page=1')

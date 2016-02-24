@@ -5,8 +5,8 @@ from wagtail.wagtailadmin import urls as wagtailadmin_urls
 from wagtail.wagtaildocs import urls as wagtaildocs_urls
 from wagtail.wagtailimages import urls as wagtailimages_urls
 from wagtail.wagtailsearch import urls as wagtailsearch_urls
-from wagtail.contrib.wagtailsitemaps.views import sitemap
-from wagtail.contrib.wagtailapi import urls as wagtailapi_urls
+from wagtail.contrib.sitemaps.views import sitemap
+from wagtail.contrib.api import urls as wagtailapi_urls
 
 from wagtail.tests.testapp import urls as testapp_urls
 
