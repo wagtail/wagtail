@@ -263,5 +263,6 @@ class DocumentsAPIEndpoint(BaseAPIEndpoint):
     base_serializer_class = DocumentSerializer
     filter_backends = [FieldsFilter, OrderingFilter, SearchFilter]
     extra_api_fields = ['title', 'tags']
+    meta_fields = ['tags']
     name = 'documents'
     model = Document
