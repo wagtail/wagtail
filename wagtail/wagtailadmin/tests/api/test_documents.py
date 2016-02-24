@@ -46,7 +46,7 @@ class TestDocumentListing(AdminAPITestCase):
         for document in content['items']:
             self.assertIn('meta', document)
             self.assertIsInstance(document['meta'], dict)
-            self.assertEqual(set(document['meta'].keys()), {'type', 'detail_url', 'download_url'})
+            self.assertEqual(set(document['meta'].keys()), {'type', 'detail_url', 'download_url', 'tags'})
 
             # Type should always be wagtaildocs.Document
             self.assertEqual(document['meta']['type'], 'wagtaildocs.Document')
@@ -65,7 +65,8 @@ class TestDocumentListing(AdminAPITestCase):
         content = json.loads(response.content.decode('UTF-8'))
 
         for document in content['items']:
-            self.assertEqual(set(document.keys()), {'id', 'meta', 'title', 'tags'})
+            self.assertEqual(set(document.keys()), {'id', 'meta', 'title'})
+            self.assertEqual(set(document['meta'].keys()), {'type', 'detail_url', 'download_url', 'tags'})
 
     def test_fields(self):
         response = self.get_response(fields='title')
@@ -73,13 +74,14 @@ class TestDocumentListing(AdminAPITestCase):
 
         for document in content['items']:
             self.assertEqual(set(document.keys()), {'id', 'meta', 'title'})
+            self.assertEqual(set(document['meta'].keys()), {'type', 'detail_url', 'download_url'})
 
     def test_fields_tags(self):
         response = self.get_response(fields='tags')
         content = json.loads(response.content.decode('UTF-8'))
 
         for document in content['items']:
-            self.assertIsInstance(document['tags'], list)
+            self.assertIsInstance(document['meta']['tags'], list)
 
     def test_fields_which_are_not_in_api_fields_gives_error(self):
         response = self.get_response(fields='uploaded_by_user')
@@ -327,8 +329,8 @@ class TestDocumentDetail(AdminAPITestCase):
         self.assertEqual(content['title'], "Wagtail by mark Harkin")
 
         # Check the tags field
-        self.assertIn('tags', content)
-        self.assertEqual(content['tags'], [])
+        self.assertIn('tags', content['meta'])
+        self.assertEqual(content['meta']['tags'], [])
 
     def test_tags(self):
         Document.objects.get(id=1).tags.add('hello')
@@ -337,8 +339,8 @@ class TestDocumentDetail(AdminAPITestCase):
         response = self.get_response(1)
         content = json.loads(response.content.decode('UTF-8'))
 
-        self.assertIn('tags', content)
-        self.assertEqual(content['tags'], ['hello', 'world'])
+        self.assertIn('tags', content['meta'])
+        self.assertEqual(content['meta']['tags'], ['hello', 'world'])
 
     @override_settings(WAGTAILAPI_BASE_URL='http://api.example.com/')
     def test_download_url_with_custom_base_url(self):
