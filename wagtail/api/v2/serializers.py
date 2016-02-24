@@ -393,11 +393,12 @@ class DocumentSerializer(BaseSerializer):
     ]
 
 
-def get_serializer_class(model_, fields_, base=BaseSerializer):
+def get_serializer_class(model_, fields_, meta_fields=None, base=BaseSerializer):
     class Meta:
         model = model_
         fields = base.default_fields + list(fields_)
 
     return type(model_.__name__ + 'Serializer', (base, ), {
-        'Meta': Meta
+        'Meta': Meta,
+        'meta_fields': base.meta_fields + list(meta_fields or []),
     })

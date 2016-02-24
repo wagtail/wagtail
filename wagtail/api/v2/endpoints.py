@@ -54,6 +54,7 @@ class BaseAPIEndpoint(GenericViewSet):
         'format',
     ])
     extra_api_fields = []
+    meta_fields = []
     name = None  # Set on subclass.
 
     def get_queryset(self):
@@ -138,11 +139,16 @@ class BaseAPIEndpoint(GenericViewSet):
             # Detail views show all fields all the time
             fields = all_fields
 
+        # Meta fields
+        meta_fields = self.meta_fields
+        if hasattr(model, 'api_meta_fields'):
+            meta_fields += list(model.api_meta_fields)
+
         # If showing details, add the parent field
         if isinstance(self, PagesAPIEndpoint) and self.action == 'detail_view':
             fields.insert(2, 'parent')
 
-        return get_serializer_class(model, fields, base=self.base_serializer_class)
+        return get_serializer_class(model, fields, meta_fields=meta_fields, base=self.base_serializer_class)
 
     def get_serializer_context(self):
         """
@@ -195,6 +201,13 @@ class PagesAPIEndpoint(BaseAPIEndpoint):
     ])
     extra_api_fields = [
         'title',
+        'slug',
+        'show_in_menus',
+        'seo_title',
+        'search_description',
+        'first_published_at',
+    ]
+    meta_fields = [
         'slug',
         'show_in_menus',
         'seo_title',
