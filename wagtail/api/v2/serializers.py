@@ -9,7 +9,7 @@ from django.core.urlresolvers import NoReverseMatch
 from taggit.managers import _TaggableManager
 
 from rest_framework import serializers
-from rest_framework.fields import Field
+from rest_framework.fields import Field, SkipField
 from rest_framework import relations
 
 from wagtail.utils.compat import get_related_model
@@ -25,77 +25,96 @@ def get_object_detail_url(context, model, pk):
         return get_full_url(context['request'], url_path)
 
 
-class MetaField(Field):
-    """
-    Serializes the "meta" section of each object.
+def get_model_base_serializer_class(context, model):
+    endpoint = context['router'].get_model_endpoint(model)
 
-    This section is used for storing non-field data such as model name, urls, etc.
+    if endpoint:
+        return endpoint[1].base_serializer_class
+    else:
+        return BaseSerializer
+
+
+class TypeField(Field):
+    """
+    Serializes the "type" field of each object.
 
     Example:
-
-    "meta": {
-        "type": "wagtailimages.Image",
-        "detail_url": "http://api.example.com/v1/images/1/"
-    }
+    "type": "wagtailimages.Image"
     """
     def get_attribute(self, instance):
         return instance
 
     def to_representation(self, obj):
-        return OrderedDict([
-            ('type', type(obj)._meta.app_label + '.' + type(obj).__name__),
-            ('detail_url', get_object_detail_url(self.context, type(obj), obj.pk)),
-        ])
+        return type(obj)._meta.app_label + '.' + type(obj).__name__
 
 
-class PageMetaField(MetaField):
+class DetailUrlField(Field):
     """
-    A subclass of MetaField for Page objects.
-
-    Changes the "type" field to use the name of the specific model of the page.
+    Serializes the "detail_url" field of each object.
 
     Example:
-
-    "meta": {
-        "type": "blog.BlogPage",
-        "detail_url": "http://api.example.com/v1/pages/1/"
-        "html_url": "http://www.example.com/blog/blog-post/"
-    }
+    "detail_url": "http://api.example.com/v1/images/1/"
     """
+    def get_attribute(self, instance):
+        url = get_object_detail_url(self.context, type(instance), instance.pk)
+
+        if url:
+            return url
+        else:
+            # Hide the detail_url field if the object doesn't have an endpoint
+            raise SkipField
+
+    def to_representation(self, url):
+        return url
+
+
+class PageHtmlUrlField(Field):
+    """
+    Serializes the "html_url" field for pages.
+
+    Example:
+    "html_url": "http://www.example.com/blog/blog-post/"
+    """
+    def get_attribute(self, instance):
+        return instance
+
     def to_representation(self, page):
-        data = OrderedDict([
-            ('type', page.specific_class._meta.app_label + '.' + page.specific_class.__name__),
-            ('detail_url', get_object_detail_url(self.context, type(page), page.pk)),
-        ])
-
         try:
-            data['html_url'] = page.full_url
+            return page.full_url
         except NoReverseMatch:
-            pass
-
-        return data
+            return None
 
 
-class DocumentMetaField(MetaField):
+class PageTypeField(Field):
     """
-    A subclass of MetaField for Document objects.
+    Serializes the "type" field for pages.
 
-    Adds a "download_url" field.
+    This takes into account the fact that we sometimes may not have the "specific"
+    page object by calling "page.specific_class" instead of looking at the object's
+    type.
 
-    "meta": {
-        "type": "wagtaildocs.Document",
-        "detail_url": "http://api.example.com/v1/documents/1/",
-        "download_url": "http://api.example.com/documents/1/my_document.pdf"
-    }
+    Example:
+    "type": "blog.BlogPage"
     """
+    def get_attribute(self, instance):
+        return instance
+
+    def to_representation(self, page):
+        return page.specific_class._meta.app_label + '.' + page.specific_class.__name__
+
+
+class DocumentDownloadUrlField(Field):
+    """
+    Serializes the "download_url" field for documents.
+
+    Example:
+    "download_url": "http://api.example.com/documents/1/my_document.pdf"
+    """
+    def get_attribute(self, instance):
+        return instance
+
     def to_representation(self, document):
-        data = OrderedDict([
-            ('type', "wagtaildocs.Document"),
-            ('detail_url', get_object_detail_url(self.context, type(document), document.pk)),
-            ('download_url', get_full_url(self.context['request'], document.url)),
-        ])
-
-        return data
+        return get_full_url(self.context['request'], document.url)
 
 
 class RelatedField(relations.RelatedField):
@@ -112,15 +131,19 @@ class RelatedField(relations.RelatedField):
         }
     }
     """
-    meta_field_serializer_class = MetaField
-
     def to_representation(self, value):
-        meta_serializer = self.meta_field_serializer_class()
-        meta_serializer.bind('meta', self)
+        # Construct a serializer for the related object with just the fields we need
+        base_meta_serializer_class = get_model_base_serializer_class(self.context, value.__class__)
+        meta_fields = [
+            field for field in base_meta_serializer_class.meta_fields
+            if field in base_meta_serializer_class.default_fields
+        ]
+        meta_serializer_class = get_serializer_class(value.__class__, meta_fields, base=base_meta_serializer_class)
+        meta_serializer = meta_serializer_class(context=self.context)
 
         return OrderedDict([
             ('id', value.pk),
-            ('meta', meta_serializer.to_representation(value)),
+            ('meta', meta_serializer.to_representation(value)['meta']),
         ])
 
 
@@ -133,8 +156,6 @@ class PageParentField(RelatedField):
 
     The representation is the same as the RelatedField class.
     """
-    meta_field_serializer_class = PageMetaField
-
     def get_attribute(self, instance):
         parent = instance.get_parent()
 
@@ -158,6 +179,10 @@ class ChildRelationField(Field):
 
     "carousel_items": [
         {
+            "id": 1,
+            "meta": {
+                "type": "demo.MyCarouselItem"
+            },
             "title": "First carousel item",
             "image": {
                 "id": 1,
@@ -167,8 +192,11 @@ class ChildRelationField(Field):
                 }
             }
         },
-        "carousel_items": [
         {
+            "id": 2,
+            "meta": {
+                "type": "demo.MyCarouselItem"
+            },
             "title": "Second carousel item (no image)",
             "image": null
         }
@@ -251,7 +279,64 @@ class BaseSerializer(serializers.ModelSerializer):
     })
     serializer_related_field = RelatedField
 
-    meta = MetaField()
+    # Meta fields
+    type = TypeField(read_only=True)
+    detail_url = DetailUrlField(read_only=True)
+
+    default_fields = [
+        'id',
+        'type',
+        'detail_url',
+    ]
+
+    meta_fields = [
+        'type',
+        'detail_url',
+    ]
+
+    def to_representation(self, instance):
+        data = OrderedDict()
+        fields = [field for field in self.fields.values() if not field.write_only]
+
+        # Split meta fields from core fields
+        meta_fields = [field for field in fields if field.field_name in self.meta_fields]
+        fields = [field for field in fields if field.field_name not in self.meta_fields]
+
+        # Make sure id is always first. This will be filled in later
+        data['id'] = None
+
+        # Serialise meta fields
+        meta = OrderedDict()
+        for field in meta_fields:
+            try:
+                attribute = field.get_attribute(instance)
+            except SkipField:
+                continue
+
+            if attribute is None:
+                # We skip `to_representation` for `None` values so that
+                # fields do not have to explicitly deal with that case.
+                meta[field.field_name] = None
+            else:
+                meta[field.field_name] = field.to_representation(attribute)
+
+        data['meta'] = meta
+
+        # Serialise core fields
+        for field in fields:
+            try:
+                attribute = field.get_attribute(instance)
+            except SkipField:
+                continue
+
+            if attribute is None:
+                # We skip `to_representation` for `None` values so that
+                # fields do not have to explicitly deal with that case.
+                data[field.field_name] = None
+            else:
+                data[field.field_name] = field.to_representation(attribute)
+
+        return data
 
     def build_property_field(self, field_name, model_class):
         # TaggableManager is not a Django field so it gets treated as a property
@@ -263,8 +348,18 @@ class BaseSerializer(serializers.ModelSerializer):
 
 
 class PageSerializer(BaseSerializer):
-    meta = PageMetaField()
+    type = PageTypeField(read_only=True)
+    html_url = PageHtmlUrlField(read_only=True)
     parent = PageParentField(read_only=True)
+
+    default_fields = BaseSerializer.default_fields + [
+        'html_url',
+    ]
+
+    meta_fields = BaseSerializer.meta_fields + [
+        'html_url',
+        'parent',
+    ]
 
     def build_relational_field(self, field_name, relation_info):
         # Find all relation fields that point to child class and make them use
@@ -287,13 +382,21 @@ class ImageSerializer(BaseSerializer):
 
 
 class DocumentSerializer(BaseSerializer):
-    meta = DocumentMetaField()
+    download_url = DocumentDownloadUrlField(read_only=True)
+
+    default_fields = BaseSerializer.default_fields + [
+        'download_url',
+    ]
+
+    meta_fields = BaseSerializer.meta_fields + [
+        'download_url',
+    ]
 
 
 def get_serializer_class(model_, fields_, base=BaseSerializer):
     class Meta:
         model = model_
-        fields = fields_
+        fields = base.default_fields + list(fields_)
 
     return type(model_.__name__ + 'Serializer', (base, ), {
         'Meta': Meta
