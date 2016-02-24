@@ -4,6 +4,8 @@ from collections import OrderedDict
 
 from modelcluster.models import get_all_child_relations
 
+from django.core.urlresolvers import NoReverseMatch
+
 from taggit.managers import _TaggableManager
 
 from rest_framework import serializers
@@ -61,11 +63,17 @@ class PageMetaField(MetaField):
     }
     """
     def to_representation(self, page):
-        return OrderedDict([
+        data = OrderedDict([
             ('type', page.specific_class._meta.app_label + '.' + page.specific_class.__name__),
             ('detail_url', get_object_detail_url(self.context, type(page), page.pk)),
-            ('html_url', page.full_url),
         ])
+
+        try:
+            data['html_url'] = page.full_url
+        except NoReverseMatch:
+            pass
+
+        return data
 
 
 class DocumentMetaField(MetaField):
