@@ -18,3 +18,4 @@ npm-debug.log
 *.iml
 *.ipr
 *.iws
+coverage/

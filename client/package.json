@@ -1,0 +1,18 @@
+{
+  "name": "wagtail",
+  "license": "BSD-3-Clause",
+  "author": "Wagtail",
+  "version": "0.0.2",
+  "bin": {
+    "wagtail": "./src/cli/index.js"
+  },
+  "scripts": {
+    "test": "npm test"
+  },
+  "main": "src/index.js",
+  "description": "Wagtail's client side code",
+  "dependencies": {
+    "mustache": "^2.2.1",
+    "yargs": "^4.2.0"
+  }
+}
