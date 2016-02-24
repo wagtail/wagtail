@@ -21,11 +21,11 @@ import { Explorer } from 'wagtail';
 
 TODO
 
-[ ] Explorer
-[ ] Modal
-[ ] DatePicker
-[ ] LinkChooser
-[ ] DropDown
+- [ ] Explorer
+- [ ] Modal
+- [ ] DatePicker
+- [ ] LinkChooser
+- [ ] DropDown
 
 ## Building in development
 

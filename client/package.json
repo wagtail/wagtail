@@ -1,11 +1,11 @@
 {
-  "name": "wagtail", 
-  "license": "BSD-3-Clause", 
-  "author": "Wagtail", 
-  "version": "1.4.0-alpha", 
+  "name": "wagtail",
+  "license": "BSD-3-Clause",
+  "author": "Wagtail",
+  "version": "0.0.1",
   "scripts": {
     "test": "npm test"
-  }, 
-  "main": "index.js", 
+  },
+  "main": "index.js",
   "description": "Wagtail's client side code"
 }
