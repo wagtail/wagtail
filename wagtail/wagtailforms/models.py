@@ -221,7 +221,7 @@ class FakeManager(object):
     '''
     Provides fake Django Manager implementation to hack this to work with wagtail.wagtailforms.models.AbstractForm.
     '''
-    
+
     def __init__(self, form_page):
         if isinstance(form_page, Page) and isinstance(form_page, AbstractForm):
             self.form_page = form_page
@@ -232,10 +232,9 @@ class FakeManager(object):
                 raise ValueError('Page must be an instance of wagtail.wagtailforms.models.AbstractForm. Got: ' + str(type(form_page.specific)))
             else:
                 raise ValueError('Page must be an instance of wagtail.wagtailforms.models.AbstractForm. Got: ' + str(type(form_page)))
-    
+
     def all(self):
         return self.form_page.find_streamfield_form_fields()
-        
 
 
 class StreamFieldAbstractFormMixin(object):
@@ -243,21 +242,21 @@ class StreamFieldAbstractFormMixin(object):
     Mixin to add to an AbstractForm subclass to allow pulling form fields out of StreamFields.
     '''
     form_field_finder = FormFieldFinder
-    
+
     def get_form_field_finder(self):
         return self.form_field_finder()
-    
+
     def find_streamfield_form_fields(self):
-        #NOTE: cache these?
+        # NOTE: cache these?
         form_fields = []
         finder = self.get_form_field_finder()
         # find all stream fields on this class.
         for field in self.__class__._meta.get_fields():
             if isinstance(field, StreamField):
                 form_fields += finder.find_form_fields(field.stream_block, getattr(self, field.name))
-        
+
         return form_fields
-    
+
     @property
     def form_fields(self):
         return FakeManager(self)

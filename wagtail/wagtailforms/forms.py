@@ -6,6 +6,7 @@ from wagtail.wagtailcore.blocks import ListBlock, StreamBlock, StructBlock
 
 from .blocks import AbstractField, FormFieldBlock
 
+
 class BaseForm(django.forms.Form):
     def __init__(self, *args, **kwargs):
         kwargs.setdefault('label_suffix', '')
@@ -116,63 +117,63 @@ class SelectDateForm(django.forms.Form):
 
 class FormFieldFinder(object):
     '''Class that handles finding all nested form fields recursively.
-    
+
     Adding to this class requires adding new handle methods and overriding the find_form_fields function.
     If you have a special form field that needs special handling:
-    
+
         class SpecialFormFieldFinder(FormFieldFinder):
             def handle_special_form_field_block(self, block, value):
                 return [SpecialAbstractField(**value)]
-            
+
             def find_form_fields(self, block, value):
                 if isinstance(block, SpecialFormFieldBlock):
                     return self.handle_special_form_field(block, value)
                 else:
                     return super(SpecialFormFieldFinder, self).find_form_fields(block, value)
-    
+
     If you have a special block that does not inherit from StructBlock, StreamBlock, or ListBlock but has child blocks:
-    
+
         class SpecialFormFieldFinder(FormFieldFinder):
             def handle_special_block(self, block, value):
                 form_fields = []
                 for val in value:
                     form_fields += self.find_form_fields(block.block, val)
                 return form_fields
-            
+
             def find_form_fields(self, block, value):
                 if isinstance(block, SpecialBlock):
                     return self.handle_special_block(block, value)
                 else:
                     return super(SpecialFormFieldFinder, self).find_form_fields(block, value)
     '''
-    
+
     def handle_form_field_block(self, block, value):
         '''This is the base case and allows the recursion to stop.'''
         return [AbstractField(**value)]
-    
+
     def handle_struct_block(self, block, value):
         '''Handles looping through StructBlock fields.'''
         form_fields = []
         for key in block.child_blocks:
             form_fields += self.find_form_fields(block.child_blocks[key], value[key])
         return form_fields
-    
+
     def handle_stream_block(self, block, value):
         '''Handles looping through StreamBlock values.'''
         form_fields = []
         for val in value:
             form_fields += self.find_form_fields(val.block, val.value)
         return form_fields
-    
+
     def handle_list_block(self, block, value):
         '''Handles looping through ListBlock values.'''
         form_fields = []
         for val in value:
             form_fields += self.find_form_fields(block.child_block, val)
         return form_fields
-    
+
     def find_form_fields(self, block, value):
-        '''Finds all form fields by determining block type and recursively 
+        '''Finds all form fields by determining block type and recursively
         calling various handle methods for each block type.
         '''
         if isinstance(block, FormFieldBlock):

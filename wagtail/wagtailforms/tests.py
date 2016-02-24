@@ -473,40 +473,39 @@ class TestIssue798(TestCase):
 
 
 class TestAbstractField(TestCase):
-    
+
     def test_init(self):
         # create without parameters
-        a = AbstractField()
-        
+        AbstractField()
+
         # create with parameters
         b = AbstractField(
-            label='My Field', 
+            label='My Field',
             field_type='singlelinetext',
             required=True,
-            choices = 'one,two,three',
+            choices='one,two,three',
             default_value='singlelinetext',
             help_text='This is a helpful tip.')
-        
+
         self.assertEqual(b.label, 'My Field')
         self.assertEqual(b.field_type, 'singlelinetext')
         self.assertEqual(b.required, True)
         self.assertEqual(b.choices, 'one,two,three')
         self.assertEqual(b.default_value, 'singlelinetext')
         self.assertEqual(b.help_text, 'This is a helpful tip.')
-        
+
         # create with unexpected parameter
         b = AbstractField(
-            label='My Field', 
+            label='My Field',
             field_type='singlelinetext',
             required=True,
-            choices = 'one,two,three',
+            choices='one,two,three',
             default_value='singlelinetext',
-            help_text='This is a helpful tip.', 
+            help_text='This is a helpful tip.',
             unexpected='Not added to the object.')
-        
+
         self.assertFalse(hasattr(b, 'unexpected'))
-        
-    
+
     def test_clean_name(self):
         field = AbstractField(label='Your Email:')
         self.assertEqual(field.clean_name, 'your-email')
@@ -516,11 +515,11 @@ class TestFormFieldBlock(TestCase):
     def test_init(self):
         block = FormFieldBlock()
         self.assertEqual(list(block.child_blocks.keys()), ['label', 'field_type', 'required', 'choices', 'default_value', 'help_text'])
-    
+
     def test_render(self):
         block = FormFieldBlock()
         html = block.render(block.to_python({'label': 'My Field', 'field_type': 'singleline', 'required': True, 'choices': '', 'default_value': '', 'help_text': 'A tip.'}))
-        
+
         self.assertIn('<dt>label</dt>', html)
         self.assertIn('<dt>field_type</dt>', html)
         self.assertIn('<dt>required</dt>', html)
@@ -530,7 +529,7 @@ class TestFormFieldBlock(TestCase):
         self.assertIn('<dd>My Field</dd>', html)
         self.assertIn('<dd>singleline</dd>', html)
         self.assertIn('<dd>A tip.</dd>', html)
-    
+
     def test_clean_name(self):
         block = FormFieldBlock()
         value = StructValue(block)
@@ -543,29 +542,28 @@ class TestFakeManager(TestCase):
     def test_init_with_wrong_type(self):
         with self.assertRaises(ValueError):
             FakeManager(None)
-        
+
         class TestClass(object):
             pass
-        
+
         with self.assertRaises(ValueError):
             FakeManager(TestClass())
-    
+
     def test_init_with_page(self):
         root_page = Page.objects.get(id=1)
-        
+
         # try a page that does not have a specific class that inherits from AbstractForm
         with self.assertRaises(ValueError):
             FakeManager(root_page)
-        
+
         page = StreamFormPage()
         FakeManager(page)
-        
-        #TODO: find a way to test when we have a Page object that has a Page.specific of AbstractForm
-    
+        # TODO: find a way to test when we have a Page object that has a Page.specific of AbstractForm
+
     def test_all(self):
         page = StreamFormPage(body='''[
             {
-                "type": "field", 
+                "type": "field",
                 "value": {
                     "required": true,
                     "default_value": "",
@@ -583,13 +581,13 @@ class TestFakeManager(TestCase):
 
 class TestFormFieldFinder(TestCase):
     def test_simple_case(self):
-        #create a StreamBlock and pass a value in to to_python
+        # create a StreamBlock and pass a value in to to_python
         class TestBlock(StreamBlock):
             field = FormFieldBlock(icon='placeholder')
             p = CharBlock()
-        
+
         value = TestBlock().to_python([{
-            'type': 'field', 
+            'type': 'field',
             'value': {
                 "required": True,
                 "default_value": "",
@@ -601,9 +599,8 @@ class TestFormFieldFinder(TestCase):
         }, {
             'type': 'p',
             'value': 'A test',
-        },
-        {
-            'type': 'field', 
+        }, {
+            'type': 'field',
             'value': {
                 "required": False,
                 "default_value": "",
@@ -613,32 +610,31 @@ class TestFormFieldFinder(TestCase):
                 "help_text": ""
             }
         }])
-        
+
         finder = FormFieldFinder()
-        
+
         fields = finder.find_form_fields(TestBlock(), value)
-        
-        
+
         self.assertEqual(len(fields), 2)
         self.assertEqual(fields[0].label, 'Name')
         self.assertEqual(fields[1].label, 'Description')
-    
+
     def test_nested_form_fields(self):
         class TestStructBlock(StructBlock):
             title = CharBlock()
             description = CharBlock()
             field = FormFieldBlock()
-        
-        
+
+
         class TestBlock(StreamBlock):
             field = FormFieldBlock(icon='placeholder')
             p = CharBlock()
             special = TestStructBlock()
             list = ListBlock(FormFieldBlock(label='Field'))
             stream = StreamBlock([('field', FormFieldBlock()), ('p', CharBlock())])
-        
+
         value = TestBlock().to_python([{
-            'type': 'field', 
+            'type': 'field',
             'value': {
                 "required": True,
                 "default_value": "",
@@ -650,9 +646,8 @@ class TestFormFieldFinder(TestCase):
         }, {
             'type': 'p',
             'value': 'A test',
-        },
-        {
-            'type': 'field', 
+        }, {
+            'type': 'field',
             'value': {
                 "required": False,
                 "default_value": "",
@@ -661,8 +656,7 @@ class TestFormFieldFinder(TestCase):
                 "choices": "",
                 "help_text": ""
             }
-        }, 
-        {
+        }, {
             'type': 'special',
             'value': {
                 'title': 'A Test Special',
@@ -676,8 +670,7 @@ class TestFormFieldFinder(TestCase):
                     "help_text": ""
                 }
             }
-        },
-        {
+        }, {
             'type': 'list',
             'value': [
                 {
@@ -687,8 +680,7 @@ class TestFormFieldFinder(TestCase):
                     "label": "Field Four",
                     "choices": "",
                     "help_text": ""
-                },
-                {
+                }, {
                     "required": True,
                     "default_value": "",
                     "field_type": "singleline",
@@ -697,8 +689,7 @@ class TestFormFieldFinder(TestCase):
                     "help_text": ""
                 }
             ]
-        },
-        {
+        }, {
             'type': 'stream',
             'value': [
                 {
@@ -718,11 +709,11 @@ class TestFormFieldFinder(TestCase):
                 }
             ]
         }])
-        
+
         finder = FormFieldFinder()
-        
+
         fields = finder.find_form_fields(TestBlock(), value)
-        
+
         self.assertEqual(len(fields), 6)
         self.assertEqual(fields[0].label, 'Name')
         self.assertEqual(fields[1].label, 'Description')
@@ -733,15 +724,15 @@ class TestFormFieldFinder(TestCase):
 
 
 class TestStreamFieldAbstractFormMixin(TestCase):
-    
+
     def test_get_form_field_finder(self):
         page = StreamFormPage()
         self.assertIsInstance(page.get_form_field_finder(), page.form_field_finder)
-    
+
     def test_find_streamfield_form_fields(self):
         page = StreamFormPage(body='''[
             {
-                "type": "field", 
+                "type": "field",
                 "value": {
                     "required": true,
                     "default_value": "",
@@ -754,7 +745,7 @@ class TestStreamFieldAbstractFormMixin(TestCase):
         ]''')
         fields = page.find_streamfield_form_fields()
         self.assertEqual(len(fields), 1)
-    
+
     def test_form_fields(self):
         page = StreamFormPage()
         self.assertIsInstance(page.form_fields, FakeManager)
@@ -764,16 +755,71 @@ class TestGetFormFieldTemplateTag(TestCase):
     def test_simple(self):
         class TestForm(forms.Form):
             name = forms.CharField(max_length=100)
-        
+
         class Field(object):
             def __init__(self, block, value):
                 self.block = block
                 self.value = value
-        
+
         tmpl_str = '''{% load wagtailforms_tags %} {% get_form_field field form as form_field %}{{ form_field }}'''
         tmpl = template.Template(tmpl_str)
         html = tmpl.render(template.Context({'form': TestForm(), 'field': Field(value={'label': 'Name'}, block=FormFieldBlock())}))
-        
+
         self.assertIn('name="name"', html)
         self.assertIn('<input', html)
         self.assertIn('type="text"', html)
+
+
+class TestStreamFieldFormFull(TestCase):
+
+    def setUp(self):
+        home_page = Page.objects.get(url_path='/home/')
+        self.page = home_page.add_child(instance=StreamFormPage(body='''[
+            {
+                "type": "p",
+                "value": "Please provide your name."
+            }, {
+                "type": "field",
+                "value": {
+                    "required": true,
+                    "default_value": "",
+                    "field_type": "singleline",
+                    "label": "Name",
+                    "choices": "",
+                    "help_text": ""
+                }
+            }
+        ]''', thanks='''[
+            {
+                "type": "p",
+                "value": "Thanks for providing your name."
+            }
+        ]''', slug='stream-form', title='Stream Form Test'))
+        super(TestStreamFieldFormFull, self).setUp()
+
+    def tearDown(self):
+        self.page.delete()
+        super(TestStreamFieldFormFull, self).tearDown()
+
+    def test_form_rendering(self):
+        response = self.client.get('/stream-form/')
+
+        self.assertContains(response, '<input')
+        self.assertContains(response, 'name="name"')
+        self.assertContains(response, 'Please provide your name.')
+        self.assertTemplateUsed(response, 'tests/stream_form_page.html')
+        self.assertTemplateNotUsed(response, 'tests/stream_form_page_landing.html')
+
+    def test_valid_form_post(self):
+        response = self.client.post('/stream-form/', {'name': 'Joe'})
+
+        self.assertContains(response, 'Thanks for providing your name.')
+        self.assertTemplateNotUsed(response, 'tests/stream_form_page.html')
+        self.assertTemplateUsed(response, 'tests/stream_form_page_landing.html')
+
+    def test_invalid_form_post(self):
+        response = self.client.post('/stream-form/', {'name': ''})
+
+        self.assertContains(response, 'This field is required.')
+        self.assertTemplateUsed(response, 'tests/stream_form_page.html')
+        self.assertTemplateNotUsed(response, 'tests/stream_form_page_landing.html')

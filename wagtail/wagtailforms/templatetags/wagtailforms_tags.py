@@ -2,7 +2,7 @@ from django import template
 
 register = template.Library()
 
-#@register.simple_tag
+
 @register.assignment_tag
 def get_form_field(field, form):
     '''Finds the form field in form.fields that relates to the passed in field.'''
