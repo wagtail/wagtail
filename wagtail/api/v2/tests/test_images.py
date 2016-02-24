@@ -31,10 +31,14 @@ class TestImageListing(TestCase):
         # Will crash if the JSON is invalid
         content = json.loads(response.content.decode('UTF-8'))
 
+        # Check that the meta section is there
+        self.assertIn('meta', content)
+        self.assertIsInstance(content['meta'], dict)
+
         # Check that the total count is there and correct
-        self.assertIn('total_count', content)
-        self.assertIsInstance(content['total_count'], int)
-        self.assertEqual(content['total_count'], get_image_model().objects.count())
+        self.assertIn('total_count', content['meta'])
+        self.assertIsInstance(content['meta']['total_count'], int)
+        self.assertEqual(content['meta']['total_count'], get_image_model().objects.count())
 
         # Check that the items section is there
         self.assertIn('items', content)
@@ -187,7 +191,7 @@ class TestImageListing(TestCase):
         content = json.loads(response.content.decode('UTF-8'))
 
         # The total count must not be affected by "limit"
-        self.assertEqual(content['total_count'], get_image_model().objects.count())
+        self.assertEqual(content['meta']['total_count'], get_image_model().objects.count())
 
     def test_limit_not_integer_gives_error(self):
         response = self.get_response(limit='abc')
@@ -240,7 +244,7 @@ class TestImageListing(TestCase):
         content = json.loads(response.content.decode('UTF-8'))
 
         # The total count must not be affected by "offset"
-        self.assertEqual(content['total_count'], get_image_model().objects.count())
+        self.assertEqual(content['meta']['total_count'], get_image_model().objects.count())
 
     def test_offset_not_integer_gives_error(self):
         response = self.get_response(offset='abc')

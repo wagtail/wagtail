@@ -37,7 +37,9 @@ class WagtailPagination(BasePagination):
 
     def get_paginated_response(self, data):
         data = OrderedDict([
-            ('total_count', self.total_count),
+            ('meta', OrderedDict([
+                ('total_count', self.total_count),
+            ])),
             ('items', data),
         ])
         return Response(data)
