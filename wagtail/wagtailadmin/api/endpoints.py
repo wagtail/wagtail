@@ -9,10 +9,17 @@ from .serializers import AdminPageSerializer, AdminImageSerializer
 class PagesAdminAPIEndpoint(PagesAPIEndpoint):
     base_serializer_class = AdminPageSerializer
 
-    extra_api_fields = PagesAPIEndpoint.extra_api_fields + [
+    api_fields = [
+        'title',
+        'slug',
+        'first_published_at',
         'status',
         'children',
+        'title',
     ]
+
+    def get_available_fields(self, model):
+        return self.api_fields
 
     def get_queryset(self):
         request = self.request
@@ -44,10 +51,23 @@ class PagesAdminAPIEndpoint(PagesAPIEndpoint):
 class ImagesAdminAPIEndpoint(ImagesAPIEndpoint):
     base_serializer_class = AdminImageSerializer
 
-    extra_api_fields = ImagesAPIEndpoint.extra_api_fields + [
+    api_fields = [
+        'title',
+        'tags',
+        'width',
+        'height',
         'thumbnail',
     ]
 
+    def get_available_fields(self, model):
+        return self.api_fields
+
 
 class DocumentsAdminAPIEndpoint(DocumentsAPIEndpoint):
-    pass
+    api_fields = [
+        'title',
+        'tags',
+    ]
+
+    def get_available_fields(self, model):
+        return self.api_fields
