@@ -1,11 +1,9 @@
 from collections import OrderedDict
 
-from wagtail.api.v2.utils import get_full_url
-from wagtail.api.v2.serializers import (
-    PageMetaField, PageSerializer,
-    MetaField, ImageSerializer,
-)
+from rest_framework.fields import Field
 
+from wagtail.api.v2.utils import get_full_url
+from wagtail.api.v2.serializers import PageSerializer, ImageSerializer
 from wagtail.wagtailcore.models import Page
 from wagtail.wagtailimages.models import SourceImageIOError
 
@@ -17,93 +15,98 @@ def get_model_listing_url(context, model):
         return get_full_url(context['request'], url_path)
 
 
-class AdminPageMetaField(PageMetaField):
+class PageStatusField(Field):
     """
-    A subclass of PageMetaField for the admin API.
-
-    This adds the "status" and "children" fields
+    Serializes the "status" field.
 
     Example:
-
-    "meta": {
-        ...
-
-        "status": {
-            "status": "live",
-            "live": true,
-            "has_unpublished_changes": false
-        },
-        "children": {
-            "count": 1,
-            "listing_url": "/api/v1/pages/?child_of=2"
-        }
-    }
+    "status": {
+        "status": "live",
+        "live": true,
+        "has_unpublished_changes": false
+    },
     """
+    def get_attribute(self, instance):
+        return instance
+
     def to_representation(self, page):
-        data = super(AdminPageMetaField, self).to_representation(page)
-        data['status'] = OrderedDict([
+        return OrderedDict([
             ('status', page.status_string),
             ('live', page.live),
             ('has_unpublished_changes', page.has_unpublished_changes),
         ])
 
-        data['children'] = OrderedDict([
+
+class PageChildrenField(Field):
+    """
+    Serializes the "children" field.
+
+    Example:
+    "children": {
+        "count": 1,
+        "listing_url": "/api/v1/pages/?child_of=2"
+    }
+    """
+    def get_attribute(self, instance):
+        return instance
+
+    def to_representation(self, page):
+        return OrderedDict([
             ('count', page.numchild),
             ('listing_url', get_model_listing_url(self.context, Page) + '?child_of=' + str(page.id)),
         ])
-        return data
 
 
 class AdminPageSerializer(PageSerializer):
-    meta = AdminPageMetaField()
+    status = PageStatusField(read_only=True)
+    children = PageChildrenField(read_only=True)
+
+    meta_fields = PageSerializer.meta_fields + [
+        'status',
+        'children',
+    ]
 
 
-class AdminImageMetaField(MetaField):
+class ImageRenditionField(Field):
     """
-    A subclass of ImageMetaField for the admin API.
-
-    This adds the "thumbnail" field contain a URL/width/height of a max-165x165
-    rendition of the image.
+    A field that generates a rendition with the specified filter spec, and serialises
+    details of that rendition.
 
     Example:
-    "meta": {
-        ...
-
-        "thumbnail": {
-            "url": "/media/images/myimage.max-165x165.jpg",
-            "width": 165,
-            "height": 100
-        }
+    "thumbnail": {
+        "url": "/media/images/myimage.max-165x165.jpg",
+        "width": 165,
+        "height": 100
     }
 
-    If there is an error with the source image. The "thumbnail" field will be
-    set to null and a new field "source_image_error" will be added and set to
-    true.
+    If there is an error with the source image. The dict will only contain a single
+    key, "error", indicating this error:
 
-    "meta": {
-        ...
-
-        "thumbnail": null,
-        "source_image_error": true
+    "thumbnail": {
+        "error": "SourceImageIOError"
     }
     """
+    def __init__(self, filter_spec, *args, **kwargs):
+        self.filter_spec = filter_spec
+        super(ImageRenditionField, self).__init__(*args, **kwargs)
+
+    def get_attribute(self, instance):
+        return instance
+
     def to_representation(self, image):
-        data = super(AdminImageMetaField, self).to_representation(image)
-
         try:
-            thumbnail = image.get_rendition('max-165x165')
+            thumbnail = image.get_rendition(self.filter_spec)
 
-            data['thumbnail'] = OrderedDict([
+            return OrderedDict([
                 ('url', thumbnail.url),
                 ('width', thumbnail.width),
                 ('height', thumbnail.height),
             ])
         except SourceImageIOError:
-            data['thumbnail'] = None
-            data['source_image_error'] = True
-
-        return data
+            return OrderedDict([
+                ('error', 'SourceImageIOError'),
+            ])
 
 
 class AdminImageSerializer(ImageSerializer):
-    meta = AdminImageMetaField()
+    thumbnail = ImageRenditionField('max-165x165', read_only=True)
