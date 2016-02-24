@@ -48,7 +48,7 @@ class TestImageListing(TestCase):
         for image in content['items']:
             self.assertIn('meta', image)
             self.assertIsInstance(image['meta'], dict)
-            self.assertEqual(set(image['meta'].keys()), {'type', 'detail_url'})
+            self.assertEqual(set(image['meta'].keys()), {'type', 'detail_url', 'tags'})
 
             # Type should always be wagtailimages.Image
             self.assertEqual(image['meta']['type'], 'wagtailimages.Image')
@@ -64,7 +64,8 @@ class TestImageListing(TestCase):
         content = json.loads(response.content.decode('UTF-8'))
 
         for image in content['items']:
-            self.assertEqual(set(image.keys()), {'id', 'meta', 'title', 'width', 'height', 'tags'})
+            self.assertEqual(set(image.keys()), {'id', 'meta', 'title', 'width', 'height'})
+            self.assertEqual(set(image['meta'].keys()), {'type', 'detail_url', 'tags'})
 
     def test_fields(self):
         response = self.get_response(fields='title,width,height')
@@ -72,14 +73,16 @@ class TestImageListing(TestCase):
 
         for image in content['items']:
             self.assertEqual(set(image.keys()), {'id', 'meta', 'title', 'width', 'height'})
+            self.assertEqual(set(image['meta'].keys()), {'type', 'detail_url'})
 
     def test_fields_tags(self):
         response = self.get_response(fields='tags')
         content = json.loads(response.content.decode('UTF-8'))
 
         for image in content['items']:
-            self.assertEqual(set(image.keys()), {'id', 'meta', 'tags'})
-            self.assertIsInstance(image['tags'], list)
+            self.assertEqual(set(image.keys()), {'id', 'meta'})
+            self.assertEqual(set(image['meta'].keys()), {'type', 'detail_url', 'tags'})
+            self.assertIsInstance(image['meta']['tags'], list)
 
     def test_fields_which_are_not_in_api_fields_gives_error(self):
         response = self.get_response(fields='uploaded_by_user')
@@ -330,8 +333,8 @@ class TestImageDetail(TestCase):
         self.assertEqual(content['height'], 392)
 
         # Check the tags field
-        self.assertIn('tags', content)
-        self.assertEqual(content['tags'], [])
+        self.assertIn('tags', content['meta'])
+        self.assertEqual(content['meta']['tags'], [])
 
     def test_tags(self):
         image = get_image_model().objects.get(id=5)
@@ -341,8 +344,8 @@ class TestImageDetail(TestCase):
         response = self.get_response(5)
         content = json.loads(response.content.decode('UTF-8'))
 
-        self.assertIn('tags', content)
-        self.assertEqual(content['tags'], ['hello', 'world'])
+        self.assertIn('tags', content['meta'])
+        self.assertEqual(content['meta']['tags'], ['hello', 'world'])
 
 
 @override_settings(
