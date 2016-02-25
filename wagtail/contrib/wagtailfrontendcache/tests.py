@@ -118,7 +118,7 @@ class TestCachePurging(TestCase):
     def test_purge_with_unroutable_page(self):
         PURGED_URLS[:] = []  # reset PURGED_URLS to the empty list
         root = Page.objects.get(url_path='/')
-        page = EventIndex(title='new top-level page', slug='new-top-level-page')
+        page = EventIndex(title='new top-level page')
         root.add_child(instance=page)
         page.save_revision().publish()
         self.assertEqual(PURGED_URLS, [])

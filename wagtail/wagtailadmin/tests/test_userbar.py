@@ -85,10 +85,10 @@ class TestUserbarAddLink(TestCase, WagtailTestUtils):
         self.homepage = Page.objects.get(url_path='/home/')
         self.event_index = Page.objects.get(url_path='/home/events/')
 
-        self.business_index = BusinessIndex(title='Business', slug='business', live=True)
+        self.business_index = BusinessIndex(title='Business', live=True)
         self.homepage.add_child(instance=self.business_index)
 
-        self.business_child = BusinessChild(title='Business Child', slug='child', live=True)
+        self.business_child = BusinessChild(title='Business Child', live=True)
         self.business_index.add_child(instance=self.business_child)
 
     def test_page_allowing_subpages(self):
