@@ -37,6 +37,7 @@
     "whatwg-fetch": "^0.11.0"
   },
   "scripts": {
+    "install": "pushd ./client; npm install; popd",
     "build": "gulp build; webpack --progress --colors --config webpack.prd.config.js",
     "watch": "webpack --progress --colors --config webpack.dev.config.js & gulp watch",
     "start": "npm run watch",
@@ -44,6 +45,6 @@
     "lint": "npm run lint:js",
     "test": "npm run test:unit",
     "test:unit": "mocha --compilers js:babel-core/register client/tests/**/*.test.js",
-    "component": "node ./gulpfile.js/scaffold.js"
+    "component": "node ./client/src/cli/index.js component --dir ./client/src/components/"
   }
 }

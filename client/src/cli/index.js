@@ -7,9 +7,9 @@ cli
 
 cli
   .command(
-    'scaffold <name>',
+    'component <name>',
     'scaffold out a wagtail component',
-    require('./scaffold'));
+    require('./component'));
 
 cli
   .argv;

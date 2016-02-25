@@ -49,7 +49,7 @@ function write(name, data) {
 function run(argv) {
   var name = argv.name;
   var slug = slugify(name);
-  var directory = path.join(process.env.PWD, slug);
+  var directory = path.join(argv.dir, slug);
 
   if (!fs.existsSync(directory)) {
     fs.mkdirSync(directory);
@@ -71,5 +71,13 @@ function run(argv) {
 }
 
 
-exports.builder = {};
+function build(cli) {
+  return cli
+    .option('dir', {
+      default: process.env.PWD
+    });
+}
+
+
 exports.handler = run;
+exports.builder = build;
