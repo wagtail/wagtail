@@ -114,6 +114,9 @@ class ChildOfFilter(BaseFilterBackend):
     Implements the ?child_of filter used to filter the results to only contain
     pages that are direct children of the specified page.
     """
+    def get_root_page(self, request):
+        return Page.get_first_root_node()
+
     def get_page_by_id(self, request, page_id):
         return Page.objects.get(id=page_id)
 
@@ -125,7 +128,10 @@ class ChildOfFilter(BaseFilterBackend):
 
                 parent_page = self.get_page_by_id(request, parent_page_id)
             except (ValueError, AssertionError):
-                raise BadRequestError("child_of must be a positive integer")
+                if request.GET['child_of'] == 'root':
+                    parent_page = self.get_root_page(request)
+                else:
+                    raise BadRequestError("child_of must be a positive integer")
             except Page.DoesNotExist:
                 raise BadRequestError("parent page doesn't exist")
 
@@ -140,6 +146,9 @@ class RestrictedChildOfFilter(ChildOfFilter):
     A restricted version of ChildOfFilter that only allows pages in the current
     site to be specified.
     """
+    def get_root_page(self, request):
+        return request.site.root_page
+
     def get_page_by_id(self, request, page_id):
         site_pages = pages_for_site(request.site)
         return site_pages.get(id=page_id)
@@ -150,6 +159,9 @@ class DescendantOfFilter(BaseFilterBackend):
     Implements the ?decendant_of filter which limits the set of pages to a
     particular branch of the page tree.
     """
+    def get_root_page(self, request):
+        return Page.get_first_root_node()
+
     def get_page_by_id(self, request, page_id):
         return Page.objects.get(id=page_id)
 
@@ -163,7 +175,10 @@ class DescendantOfFilter(BaseFilterBackend):
 
                 parent_page = self.get_page_by_id(request, parent_page_id)
             except (ValueError, AssertionError):
-                raise BadRequestError("descendant_of must be a positive integer")
+                if request.GET['descendant_of'] == 'root':
+                    parent_page = self.get_root_page(request)
+                else:
+                    raise BadRequestError("descendant_of must be a positive integer")
             except Page.DoesNotExist:
                 raise BadRequestError("ancestor page doesn't exist")
 
@@ -177,6 +192,9 @@ class RestrictedDescendantOfFilter(DescendantOfFilter):
     A restricted version of DecendantOfFilter that only allows pages in the current
     site to be specified.
     """
+    def get_root_page(self, request):
+        return request.site.root_page
+
     def get_page_by_id(self, request, page_id):
         site_pages = pages_for_site(request.site)
         return site_pages.get(id=page_id)
