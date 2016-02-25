@@ -57,7 +57,7 @@ class TestPageListing(AdminAPITestCase):
         for page in content['items']:
             self.assertIn('meta', page)
             self.assertIsInstance(page['meta'], dict)
-            self.assertEqual(set(page['meta'].keys()), {'type', 'detail_url', 'html_url', 'status', 'children', 'seo_title', 'slug', 'show_in_menus', 'first_published_at', 'search_description'})  # ADMINAPI CHANGE
+            self.assertEqual(set(page['meta'].keys()), {'type', 'detail_url', 'html_url', 'status', 'children', 'slug', 'first_published_at'})  # ADMINAPI CHANGE
 
     def test_unpublished_pages_appear_in_list(self):  # ADMINAPI CHANGE
         total_count = get_total_page_count()
@@ -92,8 +92,7 @@ class TestPageListing(AdminAPITestCase):
         for page in content['items']:
             self.assertEqual(page['meta']['type'], 'demosite.BlogEntryPage')
 
-            # All fields in specific type available
-            self.assertEqual(set(page.keys()), {'id', 'meta', 'title', 'related_links', 'date', 'body', 'tags', 'feed_image', 'carousel_items'})
+            self.assertEqual(set(page.keys()), {'id', 'meta', 'title'})
 
     def test_type_filter_total_count(self):
         response = self.get_response(type='demosite.BlogEntryPage')
@@ -139,12 +138,13 @@ class TestPageListing(AdminAPITestCase):
 
     # FIELDS
 
-    def test_fields_default(self):
+    def test_fields_default(self):  # ADMINAPI CHANGE
         response = self.get_response(type='demosite.BlogEntryPage')
         content = json.loads(response.content.decode('UTF-8'))
 
         for page in content['items']:
-            self.assertEqual(set(page.keys()), {'id', 'meta', 'title', 'date', 'related_links', 'feed_image', 'body', 'carousel_items', 'tags'})
+            self.assertEqual(set(page.keys()), {'id', 'meta', 'title'})
+            self.assertEqual(set(page['meta'].keys()), {'type', 'detail_url', 'html_url', 'children', 'status', 'slug', 'first_published_at'})
 
     def test_fields(self):
         response = self.get_response(type='demosite.BlogEntryPage', fields='title,date,feed_image')

@@ -42,11 +42,11 @@ class TestDocumentListing(AdminAPITestCase):
         self.assertIn('items', content)
         self.assertIsInstance(content['items'], list)
 
-        # Check that each document has a meta section with type and detail_url attributes
+        # Check that each document has a meta section with type, detail_url and tags attributes
         for document in content['items']:
             self.assertIn('meta', document)
             self.assertIsInstance(document['meta'], dict)
-            self.assertEqual(set(document['meta'].keys()), {'type', 'detail_url', 'download_url', 'tags'})
+            self.assertEqual(set(document['meta'].keys()), {'type', 'detail_url', 'download_url', 'tags'})  # ADMINAPI CHANGE
 
             # Type should always be wagtaildocs.Document
             self.assertEqual(document['meta']['type'], 'wagtaildocs.Document')
@@ -60,7 +60,7 @@ class TestDocumentListing(AdminAPITestCase):
 
     # FIELDS
 
-    def test_fields_default(self):
+    def test_fields_default(self):  # ADMINAPI CHANGE
         response = self.get_response()
         content = json.loads(response.content.decode('UTF-8'))
 
