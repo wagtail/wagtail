@@ -38,8 +38,11 @@
   "dependencies": {
     "exports-loader": "^0.6.3",
     "imports-loader": "^0.6.5",
+    "react": "^0.14.7",
+    "react-dom": "^0.14.7",
     "react-redux": "^4.4.0",
     "redux": "^3.3.1",
+    "webpack": "^1.12.14",
     "whatwg-fetch": "^0.11.0"
   },
   "scripts": {
