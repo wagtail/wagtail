@@ -286,6 +286,16 @@ class TestPageListing(AdminAPITestCase):
         page_id_list = self.get_page_id_list(content)
         self.assertEqual(page_id_list, [16, 18, 19])
 
+    def test_child_of_root(self):  # ADMINAPI CHANGE
+        # Only return the homepage as that's the only child of the "root" node
+        # in the tree. This is different to the public API which pretends the
+        # homepage of the current site is the root page.
+        response = self.get_response(child_of='root')
+        content = json.loads(response.content.decode('UTF-8'))
+
+        page_id_list = self.get_page_id_list(content)
+        self.assertEqual(page_id_list, [2])
+
     def test_child_of_with_type(self):
         response = self.get_response(type='demosite.EventPage', child_of=5)
         content = json.loads(response.content.decode('UTF-8'))
@@ -307,13 +317,12 @@ class TestPageListing(AdminAPITestCase):
         self.assertEqual(response.status_code, 400)
         self.assertEqual(content, {'message': "child_of must be a positive integer"})
 
-    def test_child_of_page_thats_not_in_same_site_gives_error(self):
-        # Root page is not in any site, so pretend it doesn't exist
+    def test_child_of_root_doesnt_give_error(self):  # ADMINAPI CHANGE
+        # Public API doesn't allow this
         response = self.get_response(child_of=1)
         content = json.loads(response.content.decode('UTF-8'))
 
-        self.assertEqual(response.status_code, 400)
-        self.assertEqual(content, {'message': "parent page doesn't exist"})
+        self.assertEqual(response.status_code, 200)
 
 
     # DESCENDANT OF FILTER
@@ -324,6 +333,13 @@ class TestPageListing(AdminAPITestCase):
 
         page_id_list = self.get_page_id_list(content)
         self.assertEqual(page_id_list, [10, 15, 17, 21, 22, 23])
+
+    def test_descendant_of_root(self):  # ADMINAPI CHANGE
+        response = self.get_response(descendant_of='root')
+        content = json.loads(response.content.decode('UTF-8'))
+
+        page_id_list = self.get_page_id_list(content)
+        self.assertEqual(page_id_list, [2, 4, 8, 9, 5, 16, 18, 19, 6, 10, 15, 17, 21, 22, 23, 20, 13, 14, 12])
 
     def test_descendant_of_with_type(self):
         response = self.get_response(type='tests.EventPage', descendant_of=6)
@@ -346,13 +362,12 @@ class TestPageListing(AdminAPITestCase):
         self.assertEqual(response.status_code, 400)
         self.assertEqual(content, {'message': "descendant_of must be a positive integer"})
 
-    def test_descendant_of_page_thats_not_in_same_site_gives_error(self):
-        # Root page is not in any site, so pretend it doesn't exist
+    def test_descendant_of_root_doesnt_give_error(self):  # ADMINAPI CHANGE
+        # Public API doesn't allow this
         response = self.get_response(descendant_of=1)
         content = json.loads(response.content.decode('UTF-8'))
 
-        self.assertEqual(response.status_code, 400)
-        self.assertEqual(content, {'message': "ancestor page doesn't exist"})
+        self.assertEqual(response.status_code, 200)
 
     def test_descendant_of_when_filtering_by_child_of_gives_error(self):
         response = self.get_response(descendant_of=6, child_of=5)

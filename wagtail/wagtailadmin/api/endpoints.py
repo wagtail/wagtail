@@ -1,5 +1,9 @@
 from wagtail.api.v2.utils import BadRequestError, page_models_from_string, filter_page_type
 from wagtail.api.v2.endpoints import PagesAPIEndpoint, ImagesAPIEndpoint, DocumentsAPIEndpoint
+from wagtail.api.v2.filters import (
+    FieldsFilter, OrderingFilter, SearchFilter,
+    ChildOfFilter, DescendantOfFilter
+)
 
 from wagtail.wagtailcore.models import Page
 
@@ -8,6 +12,15 @@ from .serializers import AdminPageSerializer, AdminImageSerializer
 
 class PagesAdminAPIEndpoint(PagesAPIEndpoint):
     base_serializer_class = AdminPageSerializer
+
+    # Use unrestricted filters
+    filter_backends = [
+        FieldsFilter,
+        ChildOfFilter,
+        DescendantOfFilter,
+        OrderingFilter,
+        SearchFilter
+    ]
 
     api_fields = [
         'title',
