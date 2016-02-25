@@ -6,6 +6,7 @@ coverage/
 gulp/
 **/vendor/
 gulpfile.js
+client/src/cli
 wagtail/wagtailadmin/static
 wagtail/wagtaildocs/static
 wagtail/wagtailimages/static
