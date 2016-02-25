@@ -58,7 +58,7 @@ class TestImageListing(AdminAPITestCase):
 
     #  FIELDS
 
-    def test_fields_default(self):
+    def test_fields_default(self):  # ADMINAPI CHANGE
         response = self.get_response()
         content = json.loads(response.content.decode('UTF-8'))
 

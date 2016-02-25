@@ -22,7 +22,12 @@ class PagesAdminAPIEndpoint(PagesAPIEndpoint):
         SearchFilter
     ]
 
-    extra_api_fields = PagesAPIEndpoint.extra_api_fields + [
+    extra_meta_fields = PagesAPIEndpoint.extra_meta_fields + [
+        'status',
+        'children',
+    ]
+
+    default_fields = PagesAPIEndpoint.default_fields + [
         'status',
         'children',
     ]
@@ -57,9 +62,16 @@ class PagesAdminAPIEndpoint(PagesAPIEndpoint):
 class ImagesAdminAPIEndpoint(ImagesAPIEndpoint):
     base_serializer_class = AdminImageSerializer
 
-    extra_api_fields = ImagesAPIEndpoint.extra_api_fields + [
+    extra_body_fields = ImagesAPIEndpoint.extra_body_fields + [
         'thumbnail',
     ]
+
+    default_fields = ImagesAPIEndpoint.default_fields + [
+        'width',
+        'height',
+        'thumbnail',
+    ]
+
 
 
 class DocumentsAdminAPIEndpoint(DocumentsAPIEndpoint):
