@@ -2,17 +2,17 @@ import React, { Component, PropTypes } from 'react';
 import LoadingIndicator from 'components/loading-indicator';
 import ExplorerItem from './explorer-item';
 
+import { API } from 'config';
 
 class Explorer extends Component {
 
   constructor(props) {
     super(props);
-
     this.state = { cursor: null };
   }
 
   componentDidMount() {
-    fetch('/api/v1/pages/?child_of=2')
+    fetch(`${API}/pages/?child_of=root`)
     .then(res => { return res.json() })
     .then(body => {
       this.setState({
