@@ -22,17 +22,10 @@ class PagesAdminAPIEndpoint(PagesAPIEndpoint):
         SearchFilter
     ]
 
-    api_fields = [
-        'title',
-        'slug',
-        'first_published_at',
+    extra_api_fields = PagesAPIEndpoint.extra_api_fields + [
         'status',
         'children',
-        'title',
     ]
-
-    def get_available_fields(self, model):
-        return self.api_fields
 
     def get_queryset(self):
         request = self.request
@@ -64,23 +57,10 @@ class PagesAdminAPIEndpoint(PagesAPIEndpoint):
 class ImagesAdminAPIEndpoint(ImagesAPIEndpoint):
     base_serializer_class = AdminImageSerializer
 
-    api_fields = [
-        'title',
-        'tags',
-        'width',
-        'height',
+    extra_api_fields = ImagesAPIEndpoint.extra_api_fields + [
         'thumbnail',
     ]
 
-    def get_available_fields(self, model):
-        return self.api_fields
-
 
 class DocumentsAdminAPIEndpoint(DocumentsAPIEndpoint):
-    api_fields = [
-        'title',
-        'tags',
-    ]
-
-    def get_available_fields(self, model):
-        return self.api_fields
+    pass
