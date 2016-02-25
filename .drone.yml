@@ -9,7 +9,7 @@ build:
   js:
     image: node:4.2.4
     commands:
-      - npm install
+      - npm install --quiet
       - npm lint
       - npm run test:unit:coverage
   scss-lint:
