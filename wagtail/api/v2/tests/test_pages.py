@@ -286,6 +286,14 @@ class TestPageListing(TestCase):
         page_id_list = self.get_page_id_list(content)
         self.assertEqual(page_id_list, [16, 18, 19])
 
+    def test_child_of_root(self):
+        # "root" gets children of the homepage of the current site
+        response = self.get_response(child_of='root')
+        content = json.loads(response.content.decode('UTF-8'))
+
+        page_id_list = self.get_page_id_list(content)
+        self.assertEqual(page_id_list, [4, 5, 6, 20, 12])
+
     def test_child_of_with_type(self):
         response = self.get_response(type='demosite.EventPage', child_of=5)
         content = json.loads(response.content.decode('UTF-8'))
@@ -324,6 +332,15 @@ class TestPageListing(TestCase):
 
         page_id_list = self.get_page_id_list(content)
         self.assertEqual(page_id_list, [10, 15, 17, 21, 22, 23])
+
+    def test_descendant_of_root(self):
+        # "root" gets decendants of the homepage of the current site
+        # Basically returns every page except the homepage
+        response = self.get_response(descendant_of='root')
+        content = json.loads(response.content.decode('UTF-8'))
+
+        page_id_list = self.get_page_id_list(content)
+        self.assertEqual(page_id_list, [4, 8, 9, 5, 16, 18, 19, 6, 10, 15, 17, 21, 22, 23, 20, 13, 14, 12])
 
     def test_descendant_of_with_type(self):
         response = self.get_response(type='tests.EventPage', descendant_of=6)
