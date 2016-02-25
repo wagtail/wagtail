@@ -425,7 +425,6 @@ class TestDeleteFormSubmission(TestCase):
         self.assertRedirects(response, reverse("wagtailforms:list_submissions", args=(self.form_page.id, )))
 
     def test_delete_submission_bad_permissions(self):
-        self.form_page = make_form_page()
         self.client.login(username="eventeditor", password="password")
 
         response = self.client.post(reverse(

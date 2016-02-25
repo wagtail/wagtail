@@ -170,7 +170,7 @@ class TestChooserBrowseChild(TestCase, WagtailTestUtils):
         for i in range(100):
             new_page = SimplePage(
                 title="foobarbaz",
-                slug="foobarbaz",
+                slug="foobarbaz-%d" % i,
                 content="hello",
             )
             self.root_page.add_child(instance=new_page)
