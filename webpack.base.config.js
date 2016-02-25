@@ -36,6 +36,7 @@ module.exports = function exports() {
     entry: entryPoints('./wagtail/**/static_src/**/app/*.entry.js'),
     resolve: {
       alias: {
+        config: path.resolve(CLIENT_DIR, 'config'),
         components: path.resolve(CLIENT_DIR, 'components')
       }
     },
@@ -55,21 +56,11 @@ module.exports = function exports() {
       loaders: [
         {
           test: /\.js$/,
-          loader: 'babel',
-          exclude: /node_modules/,
-          include: [
-            CLIENT_DIR,
-            path.resolve(__dirname, 'wagtail')
-          ]
+          loader: 'babel'
         },
         {
           test: /\.jsx$/,
-          loader: 'babel',
-          exclude: /node_modules/,
-          include: [
-            CLIENT_DIR,
-            path.resolve(__dirname, 'wagtail')
-          ]
+          loader: 'babel'
         }
       ]
     }
