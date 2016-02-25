@@ -38,8 +38,8 @@
     "whatwg-fetch": "^0.11.0"
   },
   "scripts": {
-    "build": "gulp build; webpack --config webpack.prd.config.js",
-    "watch": "webpack --config webpack.dev.config.js & gulp watch",
+    "build": "gulp build; webpack --progress --colors --config webpack.prd.config.js",
+    "watch": "webpack --progress --colors --config webpack.dev.config.js & gulp watch",
     "start": "npm run watch",
     "lint:js": "eslint --max-warnings 16 webpack.*.config.js ./client",
     "lint": "npm run lint:js",
