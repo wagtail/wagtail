@@ -20,6 +20,7 @@ from wagtail.tests.utils import WagtailTestUtils
 from wagtail.wagtailcore.models import GroupPagePermission, Page, PageRevision, Site
 from wagtail.wagtailcore.signals import page_published, page_unpublished
 from wagtail.wagtailusers.models import UserProfile
+from wagtail.wagtailsearch.index import SearchField
 
 
 def submittable_timestamp(timestamp):
@@ -1476,6 +1477,33 @@ class TestPageSearch(TestCase, WagtailTestUtils):
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'wagtailadmin/pages/search.html')
         self.assertEqual(response.context['query_string'], "Hello")
+
+    def test_search_searchable_fields(self):
+        # Find root page
+        root_page = Page.objects.get(id=2)
+
+        # Create a page
+        root_page.add_child(instance=SimplePage(
+            title="Hi there!",
+            slug='hello-world',
+            live=True,
+            has_unpublished_changes=False,
+        ))
+
+        # Confirm the slug is not being searched
+        response = self.get({'q': "hello"})
+        self.assertNotContains(response, "There is one matching page")
+        search_fields = Page.search_fields
+
+        # Add slug to the search_fields
+        Page.search_fields = Page.search_fields + (SearchField('slug', partial_match=True),)
+
+        # Confirm the slug is being searched
+        response = self.get({'q': "hello"})
+        self.assertContains(response, "There is one matching page")
+
+        # Reset the search fields
+        Page.search_fields = search_fields
 
     def test_ajax(self):
         response = self.get({'q': "Hello"}, HTTP_X_REQUESTED_WITH='XMLHttpRequest')
