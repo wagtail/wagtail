@@ -13,7 +13,7 @@ class Explorer extends Component {
 
   componentDidMount() {
     fetch(`${API}/pages/?child_of=root`)
-    .then(res => { return res.json() })
+    .then(res => res.json())
     .then(body => {
       this.setState({
         cursor: body
@@ -40,8 +40,8 @@ class Explorer extends Component {
     return {
       left: position.right + 'px',
       top: position.top + 'px'
-    }
-  },
+    };
+  }
 
   render() {
     const { cursor } = this.state;
@@ -59,7 +59,8 @@ Explorer.propTypes = {
   onPageSelect: PropTypes.func,
   initialPath: PropTypes.string,
   apiPath: PropTypes.string,
-  size: PropTypes.number
+  size: PropTypes.number,
+  position: PropTypes.object
 };
 
 export default Explorer;

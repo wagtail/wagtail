@@ -11,7 +11,7 @@ build:
     commands:
       - npm install -g eslint@"^2.2.0" --quiet
       - npm install -g eslint-plugin-react eslint-config-airbnb
-      - eslint ./wagtail
+      - eslint ./client
   scss-lint:
     image: wagtail-scss-lint
     commands:

@@ -4,6 +4,7 @@ import StateIndicator from 'components/state-indicator';
 export default class ExplorerItem extends Component {
   constructor(props) {
     super(props);
+    this.state = {};
   }
 
   render() {
@@ -24,4 +25,4 @@ export default class ExplorerItem extends Component {
 ExplorerItem.propTypes = {
   title: PropTypes.string,
   data: PropTypes.object
-}
+};
