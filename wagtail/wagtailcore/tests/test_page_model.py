@@ -9,6 +9,7 @@ from django.http import HttpRequest, Http404
 from django.contrib.contenttypes.models import ContentType
 from django.contrib.auth import get_user_model
 from django.contrib.auth.models import AnonymousUser
+from django.core.exceptions import ValidationError
 
 from wagtail.wagtailcore.models import Page, Site, get_page_models, PageManager
 from wagtail.tests.testapp.models import (
@@ -23,6 +24,60 @@ from wagtail.tests.utils import WagtailTestUtils
 
 def get_ct(model):
     return ContentType.objects.get_for_model(model)
+
+
+class TestValidation(TestCase):
+    fixtures = ['test.json']
+
+    def test_can_create(self):
+        """
+        Check that basic page creation works
+        """
+        homepage = Page.objects.get(url_path='/home/')
+        hello_page = SimplePage(title="Hello world", slug='hello-world', content="hello")
+        homepage.add_child(instance=hello_page)
+
+        # check that hello_page exists in the db
+        retrieved_page = Page.objects.get(id=hello_page.id)
+        self.assertEqual(retrieved_page.title, "Hello world")
+
+    def test_title_is_required(self):
+        homepage = Page.objects.get(url_path='/home/')
+
+        hello_page = SimplePage(slug='hello-world', content="hello")
+        with self.assertRaises(ValidationError):
+            homepage.add_child(instance=hello_page)
+
+        hello_page = SimplePage(title="", slug='hello-world', content="hello")
+        with self.assertRaises(ValidationError):
+            homepage.add_child(instance=hello_page)
+
+    def test_slug_is_required(self):
+        homepage = Page.objects.get(url_path='/home/')
+
+        hello_page = SimplePage(title="Hello world", content="hello")
+        with self.assertRaises(ValidationError):
+            homepage.add_child(instance=hello_page)
+
+        hello_page = SimplePage(title="Hello world", slug='', content="hello")
+        with self.assertRaises(ValidationError):
+            homepage.add_child(instance=hello_page)
+
+    def test_slug_must_be_unique_within_parent(self):
+        homepage = Page.objects.get(url_path='/home/')
+
+        events_page = SimplePage(title="Events", slug='events', content="hello")
+        with self.assertRaises(ValidationError):
+            homepage.add_child(instance=events_page)
+
+    def test_slug_can_duplicate_other_sections(self):
+        homepage = Page.objects.get(url_path='/home/')
+
+        # the Events section has a page with slug='christmas', but we still allow
+        # it as a slug elsewhere
+        christmas_page = SimplePage(title="Christmas", slug='christmas', content="hello")
+        homepage.add_child(instance=christmas_page)
+        self.assertTrue(Page.objects.filter(id=christmas_page.id).exists())
 
 
 class TestSiteRouting(TestCase):
@@ -323,7 +378,7 @@ class TestStaticSitePaths(TestCase):
 
         # For simple tests
         self.home_page = self.root_page.add_child(
-            instance=SimplePage(title="Homepage", slug="home", content="hello")
+            instance=SimplePage(title="Homepage", slug="home2", content="hello")
         )
         self.about_page = self.home_page.add_child(
             instance=SimplePage(title="About us", slug="about", content="hello")
