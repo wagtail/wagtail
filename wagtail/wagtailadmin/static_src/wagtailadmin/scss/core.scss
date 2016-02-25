@@ -20,7 +20,7 @@
 @import 'wagtailadmin/scss/fonts';
 
 #wagtail {
-    @import '../../../../../client/scss/style.scss';
+    @import '../../../../../client/scss/style';
 }
 
 html {
@@ -111,7 +111,7 @@ footer {
     @include transition(bottom 0.5s ease 1s);
     @include row();
     border-radius: 3px 3px 0 0;
-    box-shadow: 0 0 2px rgba(255, 255, 255, 0.5);    
+    box-shadow: 0 0 2px rgba(255, 255, 255, 0.5);
     background: $color-grey-1;
     position: fixed;
     bottom: 0;
