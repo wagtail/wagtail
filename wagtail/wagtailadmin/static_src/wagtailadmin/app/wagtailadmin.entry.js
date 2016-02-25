@@ -1,13 +1,12 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { Explorer } from 'wagtail';
+import Explorer from 'components/explorer';
 
 
 document.addEventListener('DOMContentLoaded', e => {
-  const explorerLink = document.querySelector('[data-explorer-menu-url]');
-  let div = document.createElement('div');
+  const top = document.querySelector('.wrapper');
+  const div = document.createElement('div');
 
-  explorerLink.parentNode.appendChild(div);
-
+  top.parentNode.appendChild(div);
   ReactDOM.render(<Explorer />, div);
 });

@@ -3,6 +3,8 @@ var path = require('path');
 var glob = require('glob').sync;
 var webpack = require('webpack');
 
+var COMMON_PATH = './wagtail/wagtailadmin/static/wagtailadmin/js/common.js';
+
 
 function appName(filename) {
   return _(filename)
@@ -28,11 +30,13 @@ function entryPoints(paths) {
 
 
 module.exports = function exports() {
+  var CLIENT_DIR = path.resolve(__dirname, 'client', 'src');
+
   return {
     entry: entryPoints('./wagtail/**/static_src/**/app/*.entry.js'),
     resolve: {
       alias: {
-        wagtail: path.join(__dirname, 'client/src/index.js')
+        components: path.resolve(CLIENT_DIR, 'components')
       }
     },
     output: {
@@ -41,19 +45,27 @@ module.exports = function exports() {
       publicPath: '/static/js/'
     },
     plugins: [
-      new webpack.ProvidePlugin({
-        'fetch': 'imports?this=>global!exports?global.fetch!whatwg-fetch'
-      }),
-      new webpack.optimize.CommonsChunkPlugin('common', './wagtail/wagtailadmin/static/wagtailadmin/js/common.js', Infinity)
+      // new webpack.ProvidePlugin({
+      //   'fetch': 'imports?this=>global!exports?global.fetch!whatwg-fetch'
+      // }),
+      new webpack.optimize.CommonsChunkPlugin('common', COMMON_PATH, Infinity)
     ],
+    devtool: '#inline-source-map',
     module: {
-      loaders: [{
-        test: /\.js$/,
-        loader: 'babel',
-      }, {
-        test: /\.jsx$/,
-        loader: 'babel',
-      }]
-    },
+      loaders: [
+        {
+          test: /\.js$/,
+          loader: 'babel',
+          exclude: /node_modules/,
+          include: [ CLIENT_DIR, path.resolve(__dirname, 'wagtail')]
+        },
+        {
+          test: /\.jsx$/,
+          loader: 'babel',
+          exclude: /node_modules/,
+          include: [ CLIENT_DIR, path.resolve(__dirname, 'wagtail')]
+        }
+      ]
+    }
   };
 };
