@@ -28,7 +28,6 @@
     "gulp-util": "~2.2.14",
     "lodash": "^4.5.1",
     "mocha": "^2.4.5",
-    "mustache": "^2.2.1",
     "require-dir": "^0.3.0",
     "sinon": "^1.17.3"
   },
