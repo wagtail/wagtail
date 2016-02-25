@@ -33,6 +33,8 @@
     "sinon": "^1.17.3"
   },
   "dependencies": {
+    "exports-loader": "^0.6.3",
+    "imports-loader": "^0.6.5",
     "whatwg-fetch": "^0.11.0"
   },
   "scripts": {

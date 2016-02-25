@@ -45,9 +45,9 @@ module.exports = function exports() {
       publicPath: '/static/js/'
     },
     plugins: [
-      // new webpack.ProvidePlugin({
-      //   'fetch': 'imports?this=>global!exports?global.fetch!whatwg-fetch'
-      // }),
+      new webpack.ProvidePlugin({
+        'fetch': 'imports?this=>global!exports?global.fetch!whatwg-fetch'
+      }),
       new webpack.optimize.CommonsChunkPlugin('common', COMMON_PATH, Infinity)
     ],
     devtool: '#inline-source-map',
@@ -57,13 +57,13 @@ module.exports = function exports() {
           test: /\.js$/,
           loader: 'babel',
           exclude: /node_modules/,
-          include: [ CLIENT_DIR, path.resolve(__dirname, 'wagtail')]
+          include: [ CLIENT_DIR, path.resolve(__dirname, 'wagtail') ]
         },
         {
           test: /\.jsx$/,
           loader: 'babel',
           exclude: /node_modules/,
-          include: [ CLIENT_DIR, path.resolve(__dirname, 'wagtail')]
+          include: [ CLIENT_DIR, path.resolve(__dirname, 'wagtail') ]
         }
       ]
     }
