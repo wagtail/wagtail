@@ -10,7 +10,7 @@ if (!NAME) {
     return;
 }
 
-var TEMPLATES = path.join('.', 'client' 'template');
+var TEMPLATES = path.join('.', 'client', 'template');
 var SLUG = slugify(NAME);
 var shortPath = path.join('src', 'components', SLUG);
 var directory = path.join('.', 'client', shortPath);
