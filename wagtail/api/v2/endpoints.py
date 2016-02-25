@@ -53,8 +53,8 @@ class BaseAPIEndpoint(GenericViewSet):
         # Required by BrowsableAPIRenderer
         'format',
     ])
-    extra_api_fields = []
-    meta_fields = []
+    extra_body_fields = []
+    extra_meta_fields = []
     name = None  # Set on subclass.
 
     def get_queryset(self):
@@ -82,17 +82,32 @@ class BaseAPIEndpoint(GenericViewSet):
             return Response(data, status=status.HTTP_400_BAD_REQUEST)
         return super(BaseAPIEndpoint, self).handle_exception(exc)
 
-    def get_available_fields(self, model):
+    def get_body_fields(self, model):
         """
         This returns a list of field names that are allowed to
-        be used in the API (excluding the id field).
+        be used in the API (excluding the id field)
         """
-        api_fields = self.extra_api_fields[:]
+        fields = self.extra_body_fields[:]
 
         if hasattr(model, 'api_fields'):
-            api_fields.extend(model.api_fields)
+            fields.extend(model.api_fields)
 
-        return api_fields
+        return fields
+
+    def get_meta_fields(self, model):
+        """
+        This returns a list of field names that are allowed to
+        be used in the meta section in the API (excluding type and detail_url).
+        """
+        meta_fields = self.extra_meta_fields[:]
+
+        if hasattr(model, 'api_meta_fields'):
+            meta_fields.extend(model.api_meta_fields)
+
+        return meta_fields
+
+    def get_available_fields(self, model):
+        return self.get_body_fields(model) + self.get_meta_fields(model)
 
     def check_query_parameters(self, queryset):
         """
@@ -116,7 +131,9 @@ class BaseAPIEndpoint(GenericViewSet):
             model = type(self.get_object())
 
         # Get all available fields
-        all_fields = self.get_available_fields(model)
+        body_fields = self.get_body_fields(model)
+        meta_fields = self.get_meta_fields(model)
+        all_fields = body_fields + meta_fields
 
         # Remove any duplicates
         all_fields = list(OrderedDict.fromkeys(all_fields))
@@ -138,11 +155,6 @@ class BaseAPIEndpoint(GenericViewSet):
         else:
             # Detail views show all fields all the time
             fields = all_fields
-
-        # Meta fields
-        meta_fields = self.meta_fields
-        if hasattr(model, 'api_meta_fields'):
-            meta_fields += list(model.api_meta_fields)
 
         # If showing details, add the parent field
         if isinstance(self, PagesAPIEndpoint) and self.action == 'detail_view':
@@ -199,15 +211,10 @@ class PagesAPIEndpoint(BaseAPIEndpoint):
         'child_of',
         'descendant_of',
     ])
-    extra_api_fields = [
+    extra_body_fields = [
         'title',
-        'slug',
-        'show_in_menus',
-        'seo_title',
-        'search_description',
-        'first_published_at',
     ]
-    meta_fields = [
+    extra_meta_fields = [
         'slug',
         'show_in_menus',
         'seo_title',
@@ -253,8 +260,8 @@ class PagesAPIEndpoint(BaseAPIEndpoint):
 class ImagesAPIEndpoint(BaseAPIEndpoint):
     base_serializer_class = ImageSerializer
     filter_backends = [FieldsFilter, OrderingFilter, SearchFilter]
-    extra_api_fields = ['title', 'tags', 'width', 'height']
-    meta_fields = ['tags']
+    extra_body_fields = ['title', 'width', 'height']
+    extra_meta_fields = ['tags']
     name = 'images'
     model = get_image_model()
 
@@ -262,7 +269,7 @@ class ImagesAPIEndpoint(BaseAPIEndpoint):
 class DocumentsAPIEndpoint(BaseAPIEndpoint):
     base_serializer_class = DocumentSerializer
     filter_backends = [FieldsFilter, OrderingFilter, SearchFilter]
-    extra_api_fields = ['title', 'tags']
-    meta_fields = ['tags']
+    extra_body_fields = ['title']
+    extra_meta_fields = ['tags']
     name = 'documents'
     model = Document
