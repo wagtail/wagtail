@@ -55,6 +55,7 @@ class BaseAPIEndpoint(GenericViewSet):
     ])
     extra_body_fields = []
     extra_meta_fields = []
+    default_fields = []
     name = None  # Set on subclass.
 
     def get_queryset(self):
@@ -109,6 +110,9 @@ class BaseAPIEndpoint(GenericViewSet):
     def get_available_fields(self, model):
         return self.get_body_fields(model) + self.get_meta_fields(model)
 
+    def get_default_fields(self, model):
+        return self.default_fields
+
     def check_query_parameters(self, queryset):
         """
         Ensure that only valid query paramters are included in the URL.
@@ -143,7 +147,7 @@ class BaseAPIEndpoint(GenericViewSet):
             if 'fields' in request.GET:
                 fields = set(request.GET['fields'].split(','))
             else:
-                fields = set(all_fields)
+                fields = set(self.get_default_fields(model))
 
             unknown_fields = fields - set(all_fields)
 
@@ -221,6 +225,11 @@ class PagesAPIEndpoint(BaseAPIEndpoint):
         'search_description',
         'first_published_at',
     ]
+    default_fields = [
+        'title',
+        'slug',
+        'first_published_at',
+    ]
     name = 'pages'
     model = Page
 
@@ -262,6 +271,7 @@ class ImagesAPIEndpoint(BaseAPIEndpoint):
     filter_backends = [FieldsFilter, OrderingFilter, SearchFilter]
     extra_body_fields = ['title', 'width', 'height']
     extra_meta_fields = ['tags']
+    default_fields = ['title', 'tags']
     name = 'images'
     model = get_image_model()
 
@@ -270,6 +280,7 @@ class DocumentsAPIEndpoint(BaseAPIEndpoint):
     base_serializer_class = DocumentSerializer
     filter_backends = [FieldsFilter, OrderingFilter, SearchFilter]
     extra_body_fields = ['title']
-    extra_meta_fields = ['tags']
+    extra_meta_fields = ['tags', ]
+    default_fields = ['title', 'tags']
     name = 'documents'
     model = Document

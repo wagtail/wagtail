@@ -64,7 +64,7 @@ class TestImageListing(TestCase):
         content = json.loads(response.content.decode('UTF-8'))
 
         for image in content['items']:
-            self.assertEqual(set(image.keys()), {'id', 'meta', 'title', 'width', 'height'})
+            self.assertEqual(set(image.keys()), {'id', 'meta', 'title'})
             self.assertEqual(set(image['meta'].keys()), {'type', 'detail_url', 'tags'})
 
     def test_fields(self):

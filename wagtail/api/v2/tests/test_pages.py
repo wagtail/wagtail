@@ -53,11 +53,11 @@ class TestPageListing(TestCase):
         self.assertIn('items', content)
         self.assertIsInstance(content['items'], list)
 
-        # Check that each page has a meta section with type, detail_url and html_url attributes
+        # Check that each page has a meta section with type, detail_url, html_url, slug and first_published_at attributes
         for page in content['items']:
             self.assertIn('meta', page)
             self.assertIsInstance(page['meta'], dict)
-            self.assertEqual(set(page['meta'].keys()), {'type', 'detail_url', 'html_url', 'seo_title', 'slug', 'first_published_at', 'show_in_menus', 'search_description'})
+            self.assertEqual(set(page['meta'].keys()), {'type', 'detail_url', 'html_url', 'slug', 'first_published_at'})
 
     def test_unpublished_pages_dont_appear_in_list(self):
         total_count = get_total_page_count()
@@ -92,8 +92,8 @@ class TestPageListing(TestCase):
         for page in content['items']:
             self.assertEqual(page['meta']['type'], 'demosite.BlogEntryPage')
 
-            # All fields in specific type available
-            self.assertEqual(set(page.keys()), {'id', 'meta', 'title', 'related_links', 'date', 'body', 'tags', 'feed_image', 'carousel_items'})
+            # No specific fields available by default
+            self.assertEqual(set(page.keys()), {'id', 'meta', 'title'})
 
     def test_type_filter_total_count(self):
         response = self.get_response(type='demosite.BlogEntryPage')
@@ -144,7 +144,8 @@ class TestPageListing(TestCase):
         content = json.loads(response.content.decode('UTF-8'))
 
         for page in content['items']:
-            self.assertEqual(set(page.keys()), {'id', 'meta', 'title', 'date', 'related_links', 'feed_image', 'body', 'carousel_items', 'tags'})
+            self.assertEqual(set(page.keys()), {'id', 'meta', 'title'})
+            self.assertEqual(set(page['meta'].keys()), {'type', 'detail_url', 'html_url', 'slug', 'first_published_at'})
 
     def test_fields(self):
         response = self.get_response(type='demosite.BlogEntryPage', fields='title,date,feed_image')
