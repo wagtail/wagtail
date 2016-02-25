@@ -11,7 +11,7 @@ build:
     commands:
       - npm install --quiet
       - npm run lint
-      - npm run test:unit:coverage
+      - npm run test:unit
   scss-lint:
     image: wagtail-scss-lint
     commands:
