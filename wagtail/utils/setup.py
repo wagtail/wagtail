@@ -5,10 +5,12 @@ import io
 import subprocess
 import json
 
+
 from setuptools import Command
 from setuptools.command.bdist_egg import bdist_egg
 from setuptools.command.sdist import sdist as base_sdist
-from wagtail.wagtailcore import __version__, __semver__
+from django.utils import six
+from wagtail.wagtailcore import __semver__
 
 
 class assets_mixin(object):
@@ -32,7 +34,7 @@ class assets_mixin(object):
         Writes the current Wagtail version number into package.json
         """
         path = os.path.join('.', 'client', 'package.json')
-        input_file = file(path, "r")
+        input_file = io.open(path, "r")
 
         try:
             package = json.loads(input_file.read().decode("utf-8"))
@@ -44,7 +46,7 @@ class assets_mixin(object):
 
         try:
             with io.open(path, 'w', encoding='utf-8') as f:
-                f.write(unicode(json.dumps(package, indent=2, ensure_ascii=False)))
+                f.write(six.text_type(json.dumps(package, indent=2, ensure_ascii=False)))
         except (IOError) as e:
             print('Error setting the version for front-end assets: ' + str(e))
             raise SystemExit(1)
