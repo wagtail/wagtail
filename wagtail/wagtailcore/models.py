@@ -604,6 +604,8 @@ class Page(six.with_metaclass(PageBase, MP_Node, ClusterableModel, index.Indexed
                 raise Http404
 
     def save_revision(self, user=None, submitted_for_moderation=False, approved_go_live_at=None, changed=True):
+        self.full_clean()
+
         # Create revision
         revision = self.revisions.create(
             content_json=self.to_json(),

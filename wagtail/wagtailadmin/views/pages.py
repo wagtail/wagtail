@@ -388,6 +388,7 @@ def preview_on_edit(request, page_id):
 
     if form.is_valid():
         form.save(commit=False)
+        page.full_clean()
 
         preview_mode = request.GET.get('mode', page.default_preview_mode)
         response = page.serve_preview(page.dummy_request(), preview_mode)
@@ -426,8 +427,18 @@ def preview_on_create(request, content_type_app_name, content_type_model_name, p
     if form.is_valid():
         form.save(commit=False)
 
+        # We need to populate treebeard's path / depth fields in order to pass validation.
+        # We can't make these 100% consistent with the rest of the tree without making actual
+        # database changes (such as incrementing the parent's numchild field), but by
+        # calling treebeard's internal _get_path method, we can set a 'realistic' value that
+        # will hopefully enable tree traversal operations to at least partially work.
+        page.depth = parent_page.depth + 1
+        page.path = page._get_path(parent_page.path, page.depth, parent_page.numchild + 1)
+
         # ensure that our unsaved page instance has a suitable url set
         page.set_url_path(parent_page)
+
+        page.full_clean()
 
         # Set treebeard attributes
         page.depth = parent_page.depth + 1
