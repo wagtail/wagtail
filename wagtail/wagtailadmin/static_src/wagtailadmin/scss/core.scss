@@ -19,9 +19,11 @@
 
 @import 'wagtailadmin/scss/fonts';
 
+// scss-lint:disable all
 #wagtail {
     @import '../../../../../client/scss/style';
 }
+// scss-lint:enable all
 
 html {
     background: $color-grey-4;

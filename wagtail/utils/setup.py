@@ -9,7 +9,6 @@ import json
 from setuptools import Command
 from setuptools.command.bdist_egg import bdist_egg
 from setuptools.command.sdist import sdist as base_sdist
-from django.utils import six
 from wagtail.wagtailcore import __semver__
 
 
@@ -46,6 +45,8 @@ class assets_mixin(object):
 
         try:
             with io.open(path, 'w', encoding='utf-8') as f:
+                from django.utils import six
+
                 f.write(six.text_type(json.dumps(package, indent=2, ensure_ascii=False)))
         except (IOError) as e:
             print('Error setting the version for front-end assets: ' + str(e))

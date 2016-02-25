@@ -1,6 +1,6 @@
 /*eslint-disable */
 import { expect } from 'chai';
-import Explorer from '../components/Explorer';
+import Explorer from '../../src/components/Explorer';
 
 
 describe('Explorer', () => {

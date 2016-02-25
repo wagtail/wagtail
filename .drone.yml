@@ -6,12 +6,12 @@ build:
     commands:
       - XDG_CACHE_HOME=/drone/pip-cache pip install flake8
       - flake8 wagtail
-  jscs:
+  js:
     image: node:4.2.4
     commands:
-      - npm install -g eslint@"^2.2.0" --quiet
-      - npm install -g eslint-plugin-react eslint-config-airbnb
-      - eslint ./client
+      - npm install --quiet
+      - npm run lint
+      - npm run test:unit:coverage
   scss-lint:
     image: wagtail-scss-lint
     commands:
