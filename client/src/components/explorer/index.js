@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react';
-import LoadingIndicator from '../loading-indicator';
-
+import LoadingIndicator from 'components/loading-indicator';
 import ExplorerItem from './explorer-item';
+
 
 class Explorer extends Component {
 
@@ -35,12 +35,20 @@ class Explorer extends Component {
     );
   }
 
+  getPosition() {
+    const { position } = this.props;
+    return {
+      left: position.right + 'px',
+      top: position.top + 'px'
+    }
+  },
+
   render() {
     const { cursor } = this.state;
     const pages = this._getPages(cursor);
 
     return (
-      <div className="c-explorer">
+      <div style={this.getPosition()} className="c-explorer">
         {cursor ? pages : <LoadingIndicator />}
       </div>
     );
