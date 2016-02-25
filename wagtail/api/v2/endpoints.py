@@ -18,7 +18,7 @@ from wagtail.wagtaildocs.models import Document
 
 from .filters import (
     FieldsFilter, OrderingFilter, SearchFilter,
-    ChildOfFilter, DescendantOfFilter
+    RestrictedChildOfFilter, RestrictedDescendantOfFilter
 )
 from .pagination import WagtailPagination
 from .serializers import BaseSerializer, PageSerializer, DocumentSerializer, ImageSerializer, get_serializer_class
@@ -189,8 +189,8 @@ class PagesAPIEndpoint(BaseAPIEndpoint):
     base_serializer_class = PageSerializer
     filter_backends = [
         FieldsFilter,
-        ChildOfFilter,
-        DescendantOfFilter,
+        RestrictedChildOfFilter,
+        RestrictedDescendantOfFilter,
         OrderingFilter,
         SearchFilter
     ]
