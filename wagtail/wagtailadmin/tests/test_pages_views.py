@@ -1490,6 +1490,7 @@ class TestPageSearch(TestCase, WagtailTestUtils):
         # Confirm the slug is not being searched
         response = self.get({'q': "hello"})
         self.assertNotContains(response, "There is one matching page")
+        search_fields = Page.search_fields
 
         # Add slug to the search_fields
         Page.search_fields = Page.search_fields + (SearchField('slug', partial_match=True),)
@@ -1497,6 +1498,9 @@ class TestPageSearch(TestCase, WagtailTestUtils):
         # Confirm the slug is being searched
         response = self.get({'q': "hello"})
         self.assertContains(response, "There is one matching page")
+
+        # Reset the search fields
+        Page.search_fields = search_fields
 
     def test_ajax(self):
         response = self.get({'q': "Hello"}, HTTP_X_REQUESTED_WITH='XMLHttpRequest')
