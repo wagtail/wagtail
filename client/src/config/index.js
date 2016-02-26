@@ -1,1 +1,1 @@
-export const API = '/admin/api/v2beta/';
+export const API = '/admin/api/v2beta';
