@@ -1,13 +1,13 @@
-from wsgiref.util import FileWrapper
 import imghdr
+from wsgiref.util import FileWrapper
 
-from django.shortcuts import get_object_or_404
-from django.http import HttpResponse, StreamingHttpResponse
 from django.core.exceptions import PermissionDenied
+from django.http import HttpResponse, StreamingHttpResponse
+from django.shortcuts import get_object_or_404
 
+from wagtail.wagtailimages.exceptions import InvalidFilterSpecError
 from wagtail.wagtailimages.models import get_image_model
 from wagtail.wagtailimages.utils import verify_signature
-from wagtail.wagtailimages.exceptions import InvalidFilterSpecError
 
 
 def serve(request, signature, image_id, filter_spec):

@@ -1,5 +1,5 @@
-from django.core.urlresolvers import reverse
 from django.apps import apps
+from django.core.urlresolvers import reverse
 from django.http import Http404
 from django.shortcuts import get_object_or_404, redirect, render
 from django.utils.text import capfirst
@@ -14,8 +14,7 @@ from wagtail.wagtailadmin.utils import permission_denied
 from wagtail.wagtailsearch.backends import get_search_backend
 from wagtail.wagtailsearch.index import class_is_indexed
 from wagtail.wagtailsnippets.models import get_snippet_models
-from wagtail.wagtailsnippets.permissions import (
-    get_permission_name, user_can_edit_snippet_type)
+from wagtail.wagtailsnippets.permissions import get_permission_name, user_can_edit_snippet_type
 
 
 # == Helper functions ==

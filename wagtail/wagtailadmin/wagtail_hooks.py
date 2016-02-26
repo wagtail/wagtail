@@ -1,12 +1,12 @@
-from django.core import urlresolvers
 from django.contrib.auth.models import Permission
-from django.utils.translation import ugettext_lazy as _
 from django.contrib.staticfiles.templatetags.staticfiles import static
+from django.core import urlresolvers
+from django.utils.translation import ugettext_lazy as _
 
-from wagtail.wagtailcore import hooks
-from wagtail.wagtailcore.permissions import collection_permission_policy
 from wagtail.wagtailadmin.menu import MenuItem, SubmenuMenuItem, settings_menu
 from wagtail.wagtailadmin.search import SearchArea
+from wagtail.wagtailcore import hooks
+from wagtail.wagtailcore.permissions import collection_permission_policy
 
 
 class ExplorerMenuItem(MenuItem):

@@ -6,9 +6,9 @@ from django.utils.encoding import python_2_unicode_compatible
 from django.utils.html import escape
 from django.utils.safestring import mark_safe
 
-from wagtail.wagtailcore.whitelist import Whitelister
-from wagtail.wagtailcore.models import Page
 from wagtail.wagtailcore import hooks
+from wagtail.wagtailcore.models import Page
+from wagtail.wagtailcore.whitelist import Whitelister
 
 
 # Define a set of 'embed handlers' and 'link handlers'. These handle the translation

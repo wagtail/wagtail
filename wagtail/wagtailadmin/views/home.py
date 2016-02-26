@@ -1,12 +1,11 @@
-from django.shortcuts import render
 from django.conf import settings
 from django.db.models import F
+from django.shortcuts import render
 from django.template.loader import render_to_string
 
+from wagtail.wagtailadmin.site_summary import SiteSummaryPanel
 from wagtail.wagtailcore import hooks
 from wagtail.wagtailcore.models import PageRevision, UserPagePermissionsProxy
-
-from wagtail.wagtailadmin.site_summary import SiteSummaryPanel
 
 
 # Panels for the homepage

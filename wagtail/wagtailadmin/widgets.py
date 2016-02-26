@@ -2,18 +2,17 @@ from __future__ import absolute_import, unicode_literals
 
 import json
 
-from django.utils.formats import get_format
+from django.contrib.contenttypes.models import ContentType
 from django.core.urlresolvers import reverse
 from django.forms import widgets
-from django.contrib.contenttypes.models import ContentType
+from django.template.loader import render_to_string
+from django.utils.formats import get_format
 from django.utils.functional import cached_property
 from django.utils.translation import ugettext_lazy as _
-from django.template.loader import render_to_string
+from taggit.forms import TagWidget
 
 from wagtail.utils.widgets import WidgetWithScript
 from wagtail.wagtailcore.models import Page
-
-from taggit.forms import TagWidget
 
 
 class AdminAutoHeightTextInput(WidgetWithScript, widgets.Textarea):

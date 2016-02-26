@@ -1,7 +1,6 @@
 from django.conf.urls import url
 
-from wagtail.wagtailimages.views import images, chooser, multiple
-
+from wagtail.wagtailimages.views import chooser, images, multiple
 
 urlpatterns = [
     url(r'^$', images.index, name='index'),

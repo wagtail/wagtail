@@ -1,12 +1,11 @@
-from django.shortcuts import get_object_or_404, render
 from django.http import Http404
+from django.shortcuts import get_object_or_404, render
 
 from wagtail.utils.pagination import paginate
-from wagtail.wagtailadmin.modal_workflow import render_modal_workflow
 from wagtail.wagtailadmin.forms import (
-    SearchForm, ExternalLinkChooserForm, ExternalLinkChooserWithLinkTextForm,
-    EmailLinkChooserForm, EmailLinkChooserWithLinkTextForm)
-
+    EmailLinkChooserForm, EmailLinkChooserWithLinkTextForm, ExternalLinkChooserForm,
+    ExternalLinkChooserWithLinkTextForm, SearchForm)
+from wagtail.wagtailadmin.modal_workflow import render_modal_workflow
 from wagtail.wagtailcore.models import Page
 from wagtail.wagtailcore.utils import resolve_model_string
 

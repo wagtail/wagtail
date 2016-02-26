@@ -1,4 +1,5 @@
 from django.conf.urls import url
+
 from wagtail.tests.testapp.views import bob_only_zone
 
 urlpatterns = [

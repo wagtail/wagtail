@@ -1,6 +1,7 @@
 from django.core.urlresolvers import reverse
-from django.shortcuts import render, redirect, get_object_or_404
-from django.utils.translation import ugettext as _, ugettext_lazy as __
+from django.shortcuts import get_object_or_404, redirect, render
+from django.utils.translation import ugettext as _
+from django.utils.translation import ugettext_lazy as __
 from django.views.generic.base import View
 
 from wagtail.wagtailadmin import messages

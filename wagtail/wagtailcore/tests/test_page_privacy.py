@@ -1,4 +1,5 @@
 from django.test import TestCase
+
 from wagtail.wagtailcore.models import Page, PageViewRestriction
 
 

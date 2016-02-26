@@ -1,25 +1,23 @@
-from django.http import Http404, HttpResponse
-from django.shortcuts import render, redirect, get_object_or_404
-from django.core.exceptions import PermissionDenied
 from django.contrib.contenttypes.models import ContentType
+from django.core.exceptions import PermissionDenied
 from django.core.urlresolvers import reverse
+from django.db.models import Count
+from django.http import Http404, HttpResponse
+from django.shortcuts import get_object_or_404, redirect, render
+from django.template.loader import render_to_string
 from django.utils import timezone
-from django.utils.translation import ugettext as _
 from django.utils.http import is_safe_url
 from django.utils.safestring import mark_safe
+from django.utils.translation import ugettext as _
 from django.views.decorators.http import require_GET, require_POST
 from django.views.decorators.vary import vary_on_headers
-from django.db.models import Count
-from django.template.loader import render_to_string
 
 from wagtail.utils.pagination import paginate
-from wagtail.wagtailadmin.forms import SearchForm, CopyForm
+from wagtail.wagtailadmin import messages, signals
+from wagtail.wagtailadmin.forms import CopyForm, SearchForm
 from wagtail.wagtailadmin.utils import send_notification
-from wagtail.wagtailadmin import signals
-
 from wagtail.wagtailcore import hooks
 from wagtail.wagtailcore.models import Page, PageRevision, get_navigation_menu_items
-from wagtail.wagtailadmin import messages
 
 
 def explorer_nav(request):

@@ -2,15 +2,11 @@ from __future__ import absolute_import
 
 from collections import OrderedDict
 
-from modelcluster.models import get_all_child_relations
-
 from django.core.urlresolvers import NoReverseMatch
-
-from taggit.managers import _TaggableManager
-
-from rest_framework import serializers
+from modelcluster.models import get_all_child_relations
+from rest_framework import relations, serializers
 from rest_framework.fields import Field, SkipField
-from rest_framework import relations
+from taggit.managers import _TaggableManager
 
 from wagtail.utils.compat import get_related_model
 from wagtail.wagtailcore import fields as wagtailcore_fields

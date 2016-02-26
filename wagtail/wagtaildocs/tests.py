@@ -1,29 +1,27 @@
 from __future__ import unicode_literals
 
 import json
-import unittest
-import mock
-from bs4 import BeautifulSoup
 import os.path
+import unittest
 
 import django
-from django.test import TestCase
+import mock
+from bs4 import BeautifulSoup
+from django.conf import settings
 from django.contrib.auth import get_user_model
 from django.contrib.auth.models import Group, Permission
-from django.core.urlresolvers import reverse
 from django.core.files.base import ContentFile
 from django.core.files.uploadedfile import SimpleUploadedFile
+from django.core.urlresolvers import reverse
+from django.test import TestCase
 from django.test.utils import override_settings
-from django.conf import settings
 from django.utils.six import b
 
-from wagtail.tests.utils import WagtailTestUtils
-from wagtail.wagtailcore.models import Page, Collection, GroupCollectionPermission
-
 from wagtail.tests.testapp.models import EventPage, EventPageRelatedLink
-from wagtail.wagtaildocs.models import Document
-
+from wagtail.tests.utils import WagtailTestUtils
+from wagtail.wagtailcore.models import Collection, GroupCollectionPermission, Page
 from wagtail.wagtaildocs import models
+from wagtail.wagtaildocs.models import Document
 from wagtail.wagtaildocs.rich_text import DocumentLinkHandler
 
 

@@ -1,7 +1,7 @@
 from django.conf import settings
-from django.shortcuts import render
+from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
 from django.http import JsonResponse
-from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from django.shortcuts import render
 
 from wagtail.wagtailcore import models
 from wagtail.wagtailsearch.models import Query

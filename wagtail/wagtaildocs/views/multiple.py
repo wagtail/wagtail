@@ -9,10 +9,9 @@ from wagtail.utils.compat import render_to_string
 from wagtail.wagtailadmin.utils import PermissionPolicyChecker
 from wagtail.wagtailsearch.backends import get_search_backends
 
-from ..models import get_document_model
 from ..forms import get_document_form, get_document_multi_form
+from ..models import get_document_model
 from ..permissions import permission_policy
-
 
 permission_checker = PermissionPolicyChecker(permission_policy)
 

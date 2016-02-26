@@ -1,6 +1,5 @@
-from taggit.models import Tag
-
 from django.http import JsonResponse
+from taggit.models import Tag
 
 
 def autocomplete(request):

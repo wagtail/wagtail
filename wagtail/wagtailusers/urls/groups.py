@@ -1,4 +1,5 @@
 from django.conf.urls import url
+
 from wagtail.wagtailusers.views import groups
 
 urlpatterns = [

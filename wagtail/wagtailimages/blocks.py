@@ -1,6 +1,7 @@
 from django.utils.functional import cached_property
 
 from wagtail.wagtailcore.blocks import ChooserBlock
+
 from .shortcuts import get_rendition_or_not_found
 
 

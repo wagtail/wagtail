@@ -1,15 +1,14 @@
-from django.db.models import Q
 from django.conf.urls import include, url
-from django.core import urlresolvers
 from django.contrib.auth.models import Permission
+from django.core import urlresolvers
+from django.db.models import Q
 from django.utils.translation import ugettext_lazy as _
 
-from wagtail.wagtailcore import hooks
-from wagtail.wagtailcore.compat import AUTH_USER_APP_LABEL, AUTH_USER_MODEL_NAME
 from wagtail.wagtailadmin.menu import MenuItem
 from wagtail.wagtailadmin.search import SearchArea
-
-from wagtail.wagtailusers.urls import users, groups
+from wagtail.wagtailcore import hooks
+from wagtail.wagtailcore.compat import AUTH_USER_APP_LABEL, AUTH_USER_MODEL_NAME
+from wagtail.wagtailusers.urls import groups, users
 
 
 @hooks.register('register_admin_urls')

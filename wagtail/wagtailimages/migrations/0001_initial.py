@@ -1,11 +1,12 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 
-from django.db import models, migrations
-import wagtail.wagtailimages.models
 import taggit.managers
 from django.conf import settings
+from django.db import migrations, models
+
 import wagtail.wagtailadmin.taggable
+import wagtail.wagtailimages.models
 
 
 class Migration(migrations.Migration):

@@ -1,15 +1,9 @@
-from mock import patch
 from bs4 import BeautifulSoup
-
 from django.test import TestCase
+from mock import patch
 
 from wagtail.wagtailcore.rich_text import (
-    PageLinkHandler,
-    DbWhitelister,
-    extract_attrs,
-    expand_db_html,
-    RichText
-)
+    DbWhitelister, PageLinkHandler, RichText, expand_db_html, extract_attrs)
 
 
 class TestPageLinkHandler(TestCase):

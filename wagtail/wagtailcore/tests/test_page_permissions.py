@@ -1,8 +1,8 @@
-from django.test import TestCase
 from django.contrib.auth import get_user_model
+from django.test import TestCase
 
+from wagtail.tests.testapp.models import BusinessSubIndex, EventPage
 from wagtail.wagtailcore.models import Page, UserPagePermissionsProxy
-from wagtail.tests.testapp.models import EventPage, BusinessSubIndex
 
 
 class TestPagePermission(TestCase):

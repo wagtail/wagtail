@@ -2,16 +2,14 @@ from __future__ import absolute_import
 
 import json
 
+from django.db import models
+from django.utils.crypto import get_random_string
 from django.utils.six.moves.urllib.parse import urlparse
-
 from elasticsearch import Elasticsearch, NotFoundError
 from elasticsearch.helpers import bulk
 
-from django.db import models
-from django.utils.crypto import get_random_string
-
 from wagtail.wagtailsearch.backends.base import BaseSearch, BaseSearchQuery, BaseSearchResults
-from wagtail.wagtailsearch.index import SearchField, FilterField, RelatedFields, class_is_indexed
+from wagtail.wagtailsearch.index import FilterField, RelatedFields, SearchField, class_is_indexed
 
 
 class ElasticSearchMapping(object):

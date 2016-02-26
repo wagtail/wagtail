@@ -1,16 +1,15 @@
 from functools import wraps
 
-from django.template.loader import render_to_string
-from django.core.mail import send_mail as django_send_mail
 from django.conf import settings
 from django.contrib.auth import get_user_model
+from django.core.mail import send_mail as django_send_mail
 from django.db.models import Q
 from django.shortcuts import redirect
+from django.template.loader import render_to_string
 from django.utils.translation import ugettext as _
-
 from modelcluster.fields import ParentalKey
 
-from wagtail.wagtailcore.models import Page, PageRevision, GroupPagePermission
+from wagtail.wagtailcore.models import GroupPagePermission, Page, PageRevision
 from wagtail.wagtailusers.models import UserProfile
 
 

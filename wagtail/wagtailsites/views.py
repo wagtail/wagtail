@@ -1,9 +1,9 @@
 from django.utils.translation import ugettext_lazy as __
 
+from wagtail.wagtailadmin.views.generic import CreateView, DeleteView, EditView, IndexView
 from wagtail.wagtailcore.models import Site
 from wagtail.wagtailcore.permissions import site_permission_policy
 from wagtail.wagtailsites.forms import SiteForm
-from wagtail.wagtailadmin.views.generic import IndexView, CreateView, EditView, DeleteView
 
 
 class Index(IndexView):

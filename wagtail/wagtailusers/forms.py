@@ -1,20 +1,18 @@
 from itertools import groupby
 
 from django import forms
-from django.db import transaction
 from django.contrib.auth import get_user_model
-from django.utils.translation import ugettext_lazy as _
 from django.contrib.auth.models import Group, Permission
+from django.db import transaction
 from django.template.loader import render_to_string
+from django.utils.translation import ugettext_lazy as _
 
-from wagtail.wagtailcore import hooks
 from wagtail.wagtailadmin.widgets import AdminPageChooser
-from wagtail.wagtailusers.models import UserProfile
+from wagtail.wagtailcore import hooks
 from wagtail.wagtailcore.models import (
-    Page, UserPagePermissionsProxy, GroupPagePermission,
-    PAGE_PERMISSION_TYPES, PAGE_PERMISSION_TYPE_CHOICES
-)
-
+    PAGE_PERMISSION_TYPE_CHOICES, PAGE_PERMISSION_TYPES, GroupPagePermission, Page,
+    UserPagePermissionsProxy)
+from wagtail.wagtailusers.models import UserProfile
 
 User = get_user_model()
 

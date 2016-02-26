@@ -1,33 +1,23 @@
-import mock
-
 from datetime import date
 
+import mock
 from django import forms
 from django.core import checks
 from django.core.exceptions import ImproperlyConfigured
 from django.test import TestCase
 
-from wagtail.wagtailadmin.edit_handlers import (
-    get_form_for_model,
-    extract_panel_definitions_from_model_class,
-    FieldPanel,
-    RichTextFieldPanel,
-    TabbedInterface,
-    ObjectList,
-    PageChooserPanel,
-    InlinePanel,
-)
-
-from wagtail.wagtailadmin.forms import WagtailAdminModelForm, WagtailAdminPageForm
-from wagtail.wagtailadmin.widgets import AdminPageChooser, AdminDateInput, AdminAutoHeightTextInput
-from wagtail.wagtailimages.edit_handlers import ImageChooserPanel
-from wagtail.wagtailcore.models import Page, Site
-from wagtail.wagtailcore.fields import RichTextArea
 from wagtail.tests.testapp.forms import ValidatedPageForm
 from wagtail.tests.testapp.models import (
-    PageChooserModel, EventPageChooserModel, EventPage, EventPageSpeaker,
-    SimplePage, ValidatedPage)
+    EventPage, EventPageChooserModel, EventPageSpeaker, PageChooserModel, SimplePage, ValidatedPage)
 from wagtail.tests.utils import WagtailTestUtils
+from wagtail.wagtailadmin.edit_handlers import (
+    FieldPanel, InlinePanel, ObjectList, PageChooserPanel, RichTextFieldPanel, TabbedInterface,
+    extract_panel_definitions_from_model_class, get_form_for_model)
+from wagtail.wagtailadmin.forms import WagtailAdminModelForm, WagtailAdminPageForm
+from wagtail.wagtailadmin.widgets import AdminAutoHeightTextInput, AdminDateInput, AdminPageChooser
+from wagtail.wagtailcore.fields import RichTextArea
+from wagtail.wagtailcore.models import Page, Site
+from wagtail.wagtailimages.edit_handlers import ImageChooserPanel
 
 
 class TestGetFormForModel(TestCase):

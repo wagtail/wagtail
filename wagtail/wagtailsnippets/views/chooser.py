@@ -10,8 +10,7 @@ from wagtail.wagtailadmin.forms import SearchForm
 from wagtail.wagtailadmin.modal_workflow import render_modal_workflow
 from wagtail.wagtailsearch.backends import get_search_backend
 from wagtail.wagtailsearch.index import class_is_indexed
-from wagtail.wagtailsnippets.views.snippets import \
-    get_snippet_model_from_url_params
+from wagtail.wagtailsnippets.views.snippets import get_snippet_model_from_url_params
 
 
 def choose(request, app_label, model_name):

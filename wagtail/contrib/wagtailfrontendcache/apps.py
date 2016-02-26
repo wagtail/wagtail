@@ -1,4 +1,5 @@
 from django.apps import AppConfig
+
 from wagtail.contrib.wagtailfrontendcache.signal_handlers import register_signal_handlers
 
 

@@ -1,8 +1,7 @@
 from django import template
 
-from wagtail.wagtailsearch.models import Query
 from wagtail.contrib.wagtailsearchpromotions.models import SearchPromotion
-
+from wagtail.wagtailsearch.models import Query
 
 register = template.Library()
 

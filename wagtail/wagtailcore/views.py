@@ -1,11 +1,11 @@
-from django.http import HttpResponse, Http404
-from django.shortcuts import get_object_or_404, redirect
-from django.core.urlresolvers import reverse
 from django.conf import settings
+from django.core.urlresolvers import reverse
+from django.http import Http404, HttpResponse
+from django.shortcuts import get_object_or_404, redirect
 
 from wagtail.wagtailcore import hooks
-from wagtail.wagtailcore.models import Page, PageViewRestriction
 from wagtail.wagtailcore.forms import PasswordPageViewRestrictionForm
+from wagtail.wagtailcore.models import Page, PageViewRestriction
 
 
 def serve(request, path):

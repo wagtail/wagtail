@@ -1,15 +1,16 @@
-import unittest
 import time
+import unittest
 
-from django.test import TestCase
-from django.test.utils import override_settings
 from django.conf import settings
 from django.core import management
+from django.test import TestCase
+from django.test.utils import override_settings
 from django.utils.six import StringIO
 
-from wagtail.tests.utils import WagtailTestUtils
 from wagtail.tests.search import models
-from wagtail.wagtailsearch.backends import get_search_backend, get_search_backends, InvalidSearchBackendError
+from wagtail.tests.utils import WagtailTestUtils
+from wagtail.wagtailsearch.backends import (
+    InvalidSearchBackendError, get_search_backend, get_search_backends)
 from wagtail.wagtailsearch.backends.db import DBSearch
 
 

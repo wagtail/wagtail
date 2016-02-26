@@ -1,6 +1,5 @@
 import string
 
-
 MAX_QUERY_STRING_LENGTH = 255
 
 

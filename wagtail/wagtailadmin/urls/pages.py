@@ -1,7 +1,6 @@
 from django.conf.urls import url
 
-from wagtail.wagtailadmin.views import pages, page_privacy
-
+from wagtail.wagtailadmin.views import page_privacy, pages
 
 urlpatterns = [
     url(r'^add/(\w+)/(\w+)/(\d+)/$', pages.create, name='add'),

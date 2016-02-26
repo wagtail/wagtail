@@ -4,10 +4,9 @@ from django.utils.translation import ugettext as _
 
 from wagtail.wagtailadmin import widgets
 from wagtail.wagtailadmin.forms import (
-    BaseCollectionMemberForm, collection_member_permission_formset_factory
-)
-from wagtail.wagtailimages.formats import get_image_formats
+    BaseCollectionMemberForm, collection_member_permission_formset_factory)
 from wagtail.wagtailimages.fields import WagtailImageField
+from wagtail.wagtailimages.formats import get_image_formats
 from wagtail.wagtailimages.models import Image
 from wagtail.wagtailimages.permissions import permission_policy as images_permission_policy
 

@@ -1,13 +1,13 @@
 from django.http import HttpResponseForbidden
-from django.shortcuts import redirect, get_object_or_404
+from django.shortcuts import get_object_or_404, redirect
 from django.utils.translation import ugettext_lazy as __
 
+from wagtail.wagtailadmin import messages
+from wagtail.wagtailadmin.forms import CollectionForm
+from wagtail.wagtailadmin.views.generic import CreateView, DeleteView, EditView, IndexView
 from wagtail.wagtailcore import hooks
 from wagtail.wagtailcore.models import Collection
 from wagtail.wagtailcore.permissions import collection_permission_policy
-from wagtail.wagtailadmin import messages
-from wagtail.wagtailadmin.forms import CollectionForm
-from wagtail.wagtailadmin.views.generic import IndexView, CreateView, EditView, DeleteView
 
 
 class Index(IndexView):

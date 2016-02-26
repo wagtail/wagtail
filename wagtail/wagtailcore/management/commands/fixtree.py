@@ -1,5 +1,5 @@
-import operator
 import functools
+import operator
 from optparse import make_option
 
 from django.core.management.base import BaseCommand

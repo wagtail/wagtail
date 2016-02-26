@@ -1,26 +1,25 @@
 from datetime import datetime, timedelta
-import mock
 
 import django
-from django.test import TestCase
-from django.core.urlresolvers import reverse
+import mock
 from django.contrib.auth import get_user_model
 from django.contrib.auth.models import Group, Permission
 from django.core import mail, paginator
 from django.core.files.base import ContentFile
-from django.db.models.signals import pre_delete, post_delete
+from django.core.urlresolvers import reverse
+from django.db.models.signals import post_delete, pre_delete
+from django.test import TestCase
 from django.utils import timezone
 
 from wagtail.tests.testapp.models import (
-    SimplePage, FilePage, EventPage, EventPageCarouselItem,
-    SingleEventPage, StandardIndex, StandardChild,
-    BusinessIndex, BusinessChild, BusinessSubIndex,
-    TaggedPage, Advert, AdvertPlacement)
+    Advert, AdvertPlacement, BusinessChild, BusinessIndex, BusinessSubIndex, EventPage,
+    EventPageCarouselItem, FilePage, SimplePage, SingleEventPage, StandardChild, StandardIndex,
+    TaggedPage)
 from wagtail.tests.utils import WagtailTestUtils
 from wagtail.wagtailcore.models import GroupPagePermission, Page, PageRevision, Site
 from wagtail.wagtailcore.signals import page_published, page_unpublished
-from wagtail.wagtailusers.models import UserProfile
 from wagtail.wagtailsearch.index import SearchField
+from wagtail.wagtailusers.models import UserProfile
 
 
 def submittable_timestamp(timestamp):

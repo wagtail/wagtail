@@ -1,9 +1,9 @@
 from django.http import HttpResponse
 
-from wagtail.wagtailcore import hooks
-from wagtail.wagtailcore.whitelist import attribute_rule, check_url, allow_without_attributes
 from wagtail.wagtailadmin.menu import MenuItem
 from wagtail.wagtailadmin.search import SearchArea
+from wagtail.wagtailcore import hooks
+from wagtail.wagtailcore.whitelist import allow_without_attributes, attribute_rule, check_url
 
 
 # Register one hook using decorators...

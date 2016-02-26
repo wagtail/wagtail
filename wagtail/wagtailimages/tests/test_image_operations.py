@@ -1,11 +1,11 @@
-from mock import Mock
-
 from django.test import TestCase
 from django.utils.six import BytesIO
+from mock import Mock
+
 from wagtail.wagtailcore import hooks
 from wagtail.wagtailimages import image_operations
 from wagtail.wagtailimages.exceptions import InvalidFilterSpecError
-from wagtail.wagtailimages.models import Image, Filter
+from wagtail.wagtailimages.models import Filter, Image
 from wagtail.wagtailimages.tests.utils import get_test_image_file
 
 

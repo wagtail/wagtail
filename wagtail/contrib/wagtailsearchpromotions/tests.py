@@ -1,10 +1,11 @@
-from django.test import TestCase
 from django.core.urlresolvers import reverse
+from django.test import TestCase
 
+from wagtail.contrib.wagtailsearchpromotions.models import SearchPromotion
+from wagtail.contrib.wagtailsearchpromotions.templatetags.wagtailsearchpromotions_tags import \
+    get_search_promotions
 from wagtail.tests.utils import WagtailTestUtils
 from wagtail.wagtailsearch.models import Query
-from wagtail.contrib.wagtailsearchpromotions.models import SearchPromotion
-from wagtail.contrib.wagtailsearchpromotions.templatetags.wagtailsearchpromotions_tags import get_search_promotions
 
 
 class TestSearchPromotions(TestCase):

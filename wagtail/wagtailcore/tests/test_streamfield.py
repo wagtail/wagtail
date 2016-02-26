@@ -4,19 +4,19 @@ from __future__ import unicode_literals
 import json
 
 from django.apps import apps
-from django.test import TestCase
 from django.db import models
-from django.template import Template, Context, engines
+from django.template import Context, Template, engines
+from django.test import TestCase
 from django.utils.safestring import SafeText
 from django.utils.six import text_type
 
 from wagtail.tests.testapp.models import StreamModel
 from wagtail.wagtailcore import blocks
+from wagtail.wagtailcore.blocks import StreamValue
 from wagtail.wagtailcore.fields import StreamField
+from wagtail.wagtailcore.rich_text import RichText
 from wagtail.wagtailimages.models import Image
 from wagtail.wagtailimages.tests.utils import get_test_image_file
-from wagtail.wagtailcore.blocks import StreamValue
-from wagtail.wagtailcore.rich_text import RichText
 
 
 class TestLazyStreamField(TestCase):

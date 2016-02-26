@@ -1,9 +1,9 @@
 from django import template
 from django.utils.safestring import mark_safe
 
-from wagtail.wagtailcore.models import Page
-from wagtail.wagtailcore.rich_text import expand_db_html, RichText
 from wagtail.wagtailcore import __version__
+from wagtail.wagtailcore.models import Page
+from wagtail.wagtailcore.rich_text import RichText, expand_db_html
 
 register = template.Library()
 

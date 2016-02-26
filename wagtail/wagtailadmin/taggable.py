@@ -1,7 +1,6 @@
-from taggit.models import Tag
-
 from django.contrib.contenttypes.models import ContentType
 from django.db.models import Count
+from taggit.models import Tag
 
 from wagtail.wagtailsearch import index
 

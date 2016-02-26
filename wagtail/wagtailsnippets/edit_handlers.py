@@ -2,13 +2,14 @@ from __future__ import absolute_import, unicode_literals
 
 import warnings
 
+from django.core.exceptions import ImproperlyConfigured
 from django.template.loader import render_to_string
 from django.utils.safestring import mark_safe
-from django.core.exceptions import ImproperlyConfigured
 
 from wagtail.utils.deprecation import RemovedInWagtail16Warning
 from wagtail.wagtailadmin.edit_handlers import BaseChooserPanel
 from wagtail.wagtailcore.utils import resolve_model_string
+
 from .widgets import AdminSnippetChooser
 
 

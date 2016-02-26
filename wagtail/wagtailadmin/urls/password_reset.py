@@ -3,7 +3,6 @@ from django.conf.urls import url
 from wagtail.wagtailadmin.forms import PasswordResetForm
 from wagtail.wagtailadmin.views import account
 
-
 urlpatterns = [
     url(
         r'^$', account.password_reset, {

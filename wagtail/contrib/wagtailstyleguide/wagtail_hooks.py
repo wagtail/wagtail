@@ -2,8 +2,8 @@ from django.conf.urls import url
 from django.core import urlresolvers
 from django.utils.translation import ugettext_lazy as _
 
-from wagtail.wagtailcore import hooks
 from wagtail.wagtailadmin.menu import MenuItem
+from wagtail.wagtailcore import hooks
 
 from . import views
 

@@ -10,19 +10,17 @@ from django.utils.safestring import mark_safe
 from django.utils.six import text_type
 from django.utils.translation import ugettext_lazy
 
+from wagtail.utils.decorators import cached_classmethod
 from wagtail.wagtailadmin import widgets
 from wagtail.wagtailcore.models import Page
-from wagtail.wagtailcore.utils import (
-    camelcase_to_underscore, resolve_model_string)
-
-from wagtail.utils.decorators import cached_classmethod
+from wagtail.wagtailcore.utils import camelcase_to_underscore, resolve_model_string
 
 # DIRECT_FORM_FIELD_OVERRIDES, FORM_FIELD_OVERRIDES are imported for backwards
 # compatibility, as people are likely importing them from here and then
 # appending their own overrides
 from .forms import (  # NOQA
-    DIRECT_FORM_FIELD_OVERRIDES, FORM_FIELD_OVERRIDES, WagtailAdminModelForm,
-    WagtailAdminPageForm, formfield_for_dbfield)
+    DIRECT_FORM_FIELD_OVERRIDES, FORM_FIELD_OVERRIDES, WagtailAdminModelForm, WagtailAdminPageForm,
+    formfield_for_dbfield)
 
 
 def widget_with_script(widget, script):

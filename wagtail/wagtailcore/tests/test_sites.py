@@ -1,7 +1,7 @@
 from django.core.exceptions import ValidationError
 from django.test import TestCase
 
-from wagtail.wagtailcore.models import Site, Page
+from wagtail.wagtailcore.models import Page, Site
 
 
 class TestSiteNaturalKey(TestCase):

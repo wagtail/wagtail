@@ -1,6 +1,6 @@
 from django.conf.urls import url
-from wagtail.wagtailembeds.views import chooser
 
+from wagtail.wagtailembeds.views import chooser
 
 urlpatterns = [
     url(r'^chooser/$', chooser.chooser, name='chooser'),
