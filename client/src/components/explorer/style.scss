@@ -1,13 +1,132 @@
+$c-explorer-bg: #4C4E4D;
+$c-explorer-secondary: #aaa;
+
+@keyframes explorer {
+    0% {
+        transform: translateX(-100%);
+    }
+    100% {
+        transform: translateX(0%);
+
+    }
+}
+
 .c-explorer {
     width: 320px;
     height: 500px;
-    background: #333;
+    background: $c-explorer-bg;
     position: absolute;
     z-index: 25;
     top: 0;
     left: 180px;
+    box-shadow: 2px 2px 5px rgba(0,0,0,0.2);
+    animation: explorer .125s ease-out;
+}
+
+.c-explorer__header {
+    border-bottom: solid 1px #555;
+    padding: .75rem 1rem;
+    color: $c-explorer-secondary;
+}
+
+.c-explorer__back {
+    cursor: pointer;
+    margin-right: .25rem;
+
+    &:hover {
+        color: #fff;
+    }
+
+    .icon {
+        line-height: 1;
+        display: inline-block;
+        font-size: 16px;
+    }
+}
+
+.c-explorer__title {
+    margin: 0;
+    color: #fff;
 }
 
 .c-explorer__item {
+    padding: 1rem;
+    cursor: pointer;
+}
+
+.c-explorer__placeholder {
+    padding: 1rem;
+    color: #fff;
+}
+
+.c-explorer__meta {
+    font-size: 12px;
+    color: $c-explorer-secondary;
+    margin-bottom: 0;
+}
+
+.c-explorer__item:hover {
+    background: rgba(0, 0, 0, 0.25);
+    color: #fff;
+}
+
+.c-explorer__see-more {
+    cursor: pointer;
+    border-top: solid 1px #555;
+    padding: .75rem 1rem;
+    background: rgba(0,0,0,0.2);
+    color: #fff;
+
+    &:hover {
+        background: rgba(0,0,0,0.4);
+    }
+}
+
+
+.c-explorer__children {
+    display: inline-block;
+    border-radius: 50rem;
+    border: solid 1px #aaa;
+    color: #fff;
+    line-height: 1;
+    padding: .5em .3em .5em .5em;
+    float: right;
+    cursor: pointer;
+
+    &:hover {
+        background: rgba(0,0,0,0.5);
+    }
+
+    > [aria-role='presentation'] {
+        display: none;
+    }
+}
+
+// TODO: move to their own component..
+
+.o-pill {
+    display: inline-block;
+    padding: 0 .5em;
+    border-radius: .25em;
+    line-height: 1;
+    vertical-align: middle;
+    line-height: 1.5;
+}
+
+
+.c-status {
+    background: #333;
+    color: #ddd;
+    text-transform: uppercase;
+    letter-spacing: .03rem;
+    font-size: 10px;
+}
+
+.c-status--live {
+
+}
+
+
+.c-explorer__drawer {
 
 }
