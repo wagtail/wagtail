@@ -1,6 +1,5 @@
 import re
 
-
 OEMBED_ENDPOINTS = {
     "https://speakerdeck.com/oembed.{format}": [
         "^http(?:s)?://speakerdeck\\.com/.+$"

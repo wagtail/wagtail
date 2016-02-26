@@ -1,19 +1,20 @@
 from functools import wraps
 
 from django.conf import settings
-from django.shortcuts import render, redirect
 from django.contrib import messages
+from django.contrib.auth import views as auth_views
+from django.contrib.auth import update_session_auth_hash
 from django.contrib.auth.forms import SetPasswordForm
-from django.contrib.auth import update_session_auth_hash, views as auth_views
 from django.http import Http404
+from django.shortcuts import redirect, render
 from django.utils.translation import ugettext as _
-from django.views.decorators.debug import sensitive_post_parameters
 from django.views.decorators.cache import never_cache
+from django.views.decorators.debug import sensitive_post_parameters
 
 from wagtail.wagtailadmin import forms
+from wagtail.wagtailcore.models import UserPagePermissionsProxy
 from wagtail.wagtailusers.forms import NotificationPreferencesForm
 from wagtail.wagtailusers.models import UserProfile
-from wagtail.wagtailcore.models import UserPagePermissionsProxy
 
 
 # Helper functions to check password management settings to enable/disable views as appropriate.

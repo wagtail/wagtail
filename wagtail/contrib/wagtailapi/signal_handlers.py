@@ -1,12 +1,11 @@
 from django.core.urlresolvers import reverse
-from django.db.models.signals import post_save, post_delete
-
-from wagtail.wagtailcore.signals import page_published, page_unpublished
-from wagtail.wagtailcore.models import get_page_models
-from wagtail.wagtailimages.models import get_image_model
-from wagtail.wagtaildocs.models import Document
+from django.db.models.signals import post_delete, post_save
 
 from wagtail.contrib.wagtailfrontendcache.utils import purge_url_from_cache
+from wagtail.wagtailcore.models import get_page_models
+from wagtail.wagtailcore.signals import page_published, page_unpublished
+from wagtail.wagtaildocs.models import Document
+from wagtail.wagtailimages.models import get_image_model
 
 from .utils import get_base_url
 

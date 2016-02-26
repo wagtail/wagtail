@@ -1,24 +1,19 @@
-from django.test import TestCase
-from django.core.urlresolvers import reverse
-from django.test.utils import override_settings
 from django.contrib.auth import get_user_model
 from django.contrib.auth.models import Permission
 from django.core.exceptions import ImproperlyConfigured
-
+from django.core.urlresolvers import reverse
+from django.test import TestCase
+from django.test.utils import override_settings
 from taggit.models import Tag
 
-from wagtail.tests.utils import WagtailTestUtils
-from wagtail.tests.testapp.models import Advert, SnippetChooserModel, AdvertWithTabbedInterface
 from wagtail.tests.snippets.models import (
-    AlphaSnippet, ZuluSnippet, RegisterDecorator, RegisterFunction, SearchableSnippet
-)
-from wagtail.wagtailsnippets.models import register_snippet, SNIPPET_MODELS
-from wagtail.wagtailsnippets.edit_handlers import SnippetChooserPanel
-
-from wagtail.wagtailsnippets.views.snippets import (
-    get_snippet_edit_handler
-)
+    AlphaSnippet, RegisterDecorator, RegisterFunction, SearchableSnippet, ZuluSnippet)
+from wagtail.tests.testapp.models import Advert, AdvertWithTabbedInterface, SnippetChooserModel
+from wagtail.tests.utils import WagtailTestUtils
 from wagtail.wagtailcore.models import Page
+from wagtail.wagtailsnippets.edit_handlers import SnippetChooserPanel
+from wagtail.wagtailsnippets.models import SNIPPET_MODELS, register_snippet
+from wagtail.wagtailsnippets.views.snippets import get_snippet_edit_handler
 
 
 class TestSnippetIndexView(TestCase, WagtailTestUtils):

@@ -1,12 +1,11 @@
 from django.conf.urls import include, url
+from django.contrib.auth.models import Permission
 from django.core import urlresolvers
 from django.utils.translation import ugettext_lazy as _
-from django.contrib.auth.models import Permission
 
+from wagtail.wagtailadmin.menu import MenuItem
 from wagtail.wagtailcore import hooks
 from wagtail.wagtailcore.permissions import site_permission_policy
-from wagtail.wagtailadmin.menu import MenuItem
-
 from wagtail.wagtailsites import urls
 
 

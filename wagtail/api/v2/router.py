@@ -1,6 +1,6 @@
 import functools
 
-from django.conf.urls import url, include
+from django.conf.urls import include, url
 
 from wagtail.utils.urlpatterns import decorate_urlpatterns
 

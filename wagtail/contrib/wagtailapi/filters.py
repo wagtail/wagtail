@@ -1,7 +1,5 @@
 from django.conf import settings
-
 from rest_framework.filters import BaseFilterBackend
-
 from taggit.managers import _TaggableManager
 
 from wagtail.wagtailcore.models import Page

@@ -1,11 +1,11 @@
 from optparse import make_option
 
-from django.core.management.base import BaseCommand
 from django.conf import settings
+from django.core.management.base import BaseCommand
 from django.db import transaction
 
-from wagtail.wagtailsearch.index import get_indexed_models
 from wagtail.wagtailsearch.backends import get_search_backend
+from wagtail.wagtailsearch.index import get_indexed_models
 
 
 class Command(BaseCommand):

@@ -9,7 +9,7 @@ from django.test import TestCase
 
 from wagtail.wagtailcore.models import Site
 
-from .utils import get_test_image_file, Image
+from .utils import Image, get_test_image_file
 
 
 class TestImagesJinja(TestCase):

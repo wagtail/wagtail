@@ -1,6 +1,6 @@
-from django.http import HttpResponse
-from django.core.cache import cache
 from django.conf import settings
+from django.core.cache import cache
+from django.http import HttpResponse
 
 from .sitemap_generator import Sitemap
 

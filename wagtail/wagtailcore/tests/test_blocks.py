@@ -1,22 +1,20 @@
 # -*- coding: utf-8 -*
 from __future__ import unicode_literals
 
+import base64
 import unittest
 
 from django import forms
-from django.forms.utils import ErrorList
 from django.core.exceptions import ValidationError
-from django.test import TestCase, SimpleTestCase
-from django.utils.safestring import mark_safe, SafeData
+from django.forms.utils import ErrorList
+from django.test import SimpleTestCase, TestCase
 from django.utils.html import format_html
-
-from wagtail.wagtailcore import blocks
-from wagtail.wagtailcore.rich_text import RichText
-from wagtail.wagtailcore.models import Page
+from django.utils.safestring import SafeData, mark_safe
 
 from wagtail.tests.testapp.blocks import SectionBlock
-
-import base64
+from wagtail.wagtailcore import blocks
+from wagtail.wagtailcore.models import Page
+from wagtail.wagtailcore.rich_text import RichText
 
 
 class FooStreamBlock(blocks.StreamBlock):

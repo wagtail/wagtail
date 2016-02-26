@@ -1,7 +1,7 @@
-from django.db.models.signals import post_save, post_delete
+from django.db.models.signals import post_delete, post_save
 
-from wagtail.wagtailsearch.index import get_indexed_models
 from wagtail.wagtailsearch.backends import get_search_backends
+from wagtail.wagtailsearch.index import get_indexed_models
 
 
 def get_indexed_instance(instance):

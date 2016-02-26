@@ -1,9 +1,8 @@
 import sys
 
-from django.db import models
-
 from django.contrib.auth.models import (
-    Group, Permission, AbstractBaseUser, PermissionsMixin, BaseUserManager)
+    AbstractBaseUser, BaseUserManager, Group, Permission, PermissionsMixin)
+from django.db import models
 
 
 class CustomUserManager(BaseUserManager):

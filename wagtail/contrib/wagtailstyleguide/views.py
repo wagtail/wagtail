@@ -1,13 +1,14 @@
 from django import forms
+from django.core.paginator import Paginator
 from django.shortcuts import render
 from django.utils.translation import ugettext as _
-from django.core.paginator import Paginator
-from wagtail.wagtailadmin import messages
 
+from wagtail.wagtailadmin import messages
 from wagtail.wagtailadmin.forms import SearchForm
-from wagtail.wagtailadmin.widgets import AdminPageChooser, AdminDateInput, AdminTimeInput, AdminDateTimeInput
-from wagtail.wagtailimages.widgets import AdminImageChooser
+from wagtail.wagtailadmin.widgets import (
+    AdminDateInput, AdminDateTimeInput, AdminPageChooser, AdminTimeInput)
 from wagtail.wagtaildocs.widgets import AdminDocumentChooser
+from wagtail.wagtailimages.widgets import AdminImageChooser
 
 
 class ExampleForm(forms.Form):

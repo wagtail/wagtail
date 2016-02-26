@@ -1,8 +1,7 @@
-from django.contrib import admin
 from django.conf import settings
+from django.contrib import admin
 
 from wagtail.wagtaildocs.models import Document
-
 
 if hasattr(settings, 'WAGTAILDOCS_DOCUMENT_MODEL') and settings.WAGTAILDOCS_DOCUMENT_MODEL != 'wagtaildocs.Document':
     # This installation provides its own custom document class;

@@ -2,24 +2,21 @@ import datetime
 import json
 
 import pytz
-
-from django.test import TestCase, Client
-from django.test.utils import override_settings
-from django.http import HttpRequest, Http404
-from django.contrib.contenttypes.models import ContentType
 from django.contrib.auth import get_user_model
 from django.contrib.auth.models import AnonymousUser
+from django.contrib.contenttypes.models import ContentType
 from django.core.exceptions import ValidationError
+from django.http import Http404, HttpRequest
+from django.test import Client, TestCase
+from django.test.utils import override_settings
 
-from wagtail.wagtailcore.models import Page, Site, get_page_models, PageManager
 from wagtail.tests.testapp.models import (
-    SingleEventPage, EventPage, EventIndex, SimplePage,
-    BusinessIndex, BusinessSubIndex, BusinessChild, StandardIndex,
-    MTIBasePage, MTIChildPage, AbstractPage, TaggedPage,
-    BlogCategory, BlogCategoryBlogPage, Advert, ManyToManyBlogPage,
-    GenericSnippetPage, BusinessNowherePage, SingletonPage,
-    CustomManager, CustomManagerPage, MyCustomPage, OneToOnePage)
+    AbstractPage, Advert, BlogCategory, BlogCategoryBlogPage, BusinessChild, BusinessIndex,
+    BusinessNowherePage, BusinessSubIndex, CustomManager, CustomManagerPage, EventIndex, EventPage,
+    GenericSnippetPage, ManyToManyBlogPage, MTIBasePage, MTIChildPage, MyCustomPage, OneToOnePage,
+    SimplePage, SingleEventPage, SingletonPage, StandardIndex, TaggedPage)
 from wagtail.tests.utils import WagtailTestUtils
+from wagtail.wagtailcore.models import Page, PageManager, Site, get_page_models
 
 
 def get_ct(model):

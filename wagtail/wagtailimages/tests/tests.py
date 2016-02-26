@@ -1,20 +1,18 @@
-from mock import MagicMock
-
-from django.test import TestCase
-from django import template, forms
-from django.utils import six
+from django import forms, template
 from django.core.urlresolvers import reverse
-
+from django.test import TestCase
+from django.utils import six
+from mock import MagicMock
 from taggit.forms import TagField, TagWidget
 
 from wagtail.tests.testapp.models import CustomImage, CustomImageFilePath
 from wagtail.tests.utils import WagtailTestUtils
-from wagtail.wagtailimages.utils import generate_signature, verify_signature
-from wagtail.wagtailimages.rect import Rect, Vector
-from wagtail.wagtailimages.formats import Format, get_image_format, register_image_format
-from wagtail.wagtailimages.models import Image as WagtailImage
-from wagtail.wagtailimages.forms import get_image_form
 from wagtail.wagtailimages.fields import WagtailImageField
+from wagtail.wagtailimages.formats import Format, get_image_format, register_image_format
+from wagtail.wagtailimages.forms import get_image_form
+from wagtail.wagtailimages.models import Image as WagtailImage
+from wagtail.wagtailimages.rect import Rect, Vector
+from wagtail.wagtailimages.utils import generate_signature, verify_signature
 
 from .utils import Image, get_test_image_file
 

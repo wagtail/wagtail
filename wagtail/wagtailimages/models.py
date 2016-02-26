@@ -1,39 +1,36 @@
 from __future__ import unicode_literals
 
-import os.path
 import hashlib
-from contextlib import contextmanager
+import os.path
 from collections import OrderedDict
-
-from taggit.managers import TaggableManager
-from willow.image import Image as WillowImage
+from contextlib import contextmanager
 
 import django
-from django.core.files import File
+from django.conf import settings
 from django.core.exceptions import ImproperlyConfigured
+from django.core.files import File
+from django.core.urlresolvers import reverse
 from django.db import models
 from django.db.models.signals import pre_delete, pre_save
 from django.dispatch.dispatcher import receiver
-from django.utils.safestring import mark_safe
-from django.utils.six import BytesIO, text_type
 from django.forms.widgets import flatatt
-from django.conf import settings
-from django.utils.translation import ugettext_lazy as _
 from django.utils.encoding import python_2_unicode_compatible
 from django.utils.functional import cached_property
-from django.utils.six import string_types
-from django.core.urlresolvers import reverse
-
+from django.utils.safestring import mark_safe
+from django.utils.six import BytesIO, string_types, text_type
+from django.utils.translation import ugettext_lazy as _
+from taggit.managers import TaggableManager
 from unidecode import unidecode
+from willow.image import Image as WillowImage
 
+from wagtail.wagtailadmin.taggable import TagSearchable
+from wagtail.wagtailadmin.utils import get_object_usage
 from wagtail.wagtailcore import hooks
 from wagtail.wagtailcore.models import CollectionMember
-from wagtail.wagtailadmin.taggable import TagSearchable
+from wagtail.wagtailimages.exceptions import InvalidFilterSpecError
+from wagtail.wagtailimages.rect import Rect
 from wagtail.wagtailsearch import index
 from wagtail.wagtailsearch.queryset import SearchableQuerySetMixin
-from wagtail.wagtailimages.rect import Rect
-from wagtail.wagtailimages.exceptions import InvalidFilterSpecError
-from wagtail.wagtailadmin.utils import get_object_usage
 
 
 class SourceImageIOError(IOError):

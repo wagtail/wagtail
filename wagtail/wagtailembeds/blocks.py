@@ -1,7 +1,6 @@
 from django.utils.encoding import python_2_unicode_compatible
 
 from wagtail.wagtailcore import blocks
-
 from wagtail.wagtailembeds.format import embed_to_frontend_html
 
 

@@ -1,6 +1,6 @@
 import base64
-import hmac
 import hashlib
+import hmac
 
 from django.conf import settings
 

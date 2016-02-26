@@ -2,14 +2,14 @@ from __future__ import absolute_import, unicode_literals
 
 import json
 
-from django.db import models
 from django import forms
 from django.core.serializers.json import DjangoJSONEncoder
-from django.utils.six import with_metaclass, string_types
+from django.db import models
+from django.utils.six import string_types, with_metaclass
 
-from wagtail.wagtailcore.rich_text import DbWhitelister, expand_db_html
 from wagtail.utils.widgets import WidgetWithScript
-from wagtail.wagtailcore.blocks import Block, StreamBlock, StreamValue, BlockField
+from wagtail.wagtailcore.blocks import Block, BlockField, StreamBlock, StreamValue
+from wagtail.wagtailcore.rich_text import DbWhitelister, expand_db_html
 
 
 class RichTextArea(WidgetWithScript, forms.Textarea):

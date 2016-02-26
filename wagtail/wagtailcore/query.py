@@ -1,10 +1,9 @@
 from collections import defaultdict
 
 from django import VERSION as DJANGO_VERSION
-from django.db.models import Q
-from django.contrib.contenttypes.models import ContentType
 from django.apps import apps
-
+from django.contrib.contenttypes.models import ContentType
+from django.db.models import Q
 from treebeard.mp_tree import MP_NodeQuerySet
 
 from wagtail.wagtailsearch.queryset import SearchableQuerySetMixin

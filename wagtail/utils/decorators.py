@@ -1,7 +1,8 @@
 from __future__ import absolute_import, unicode_literals
 
-from django.utils.functional import cached_property
 import functools
+
+from django.utils.functional import cached_property
 
 
 # Need to inherit from object explicitly, to turn ``cached_classmethod`` in to

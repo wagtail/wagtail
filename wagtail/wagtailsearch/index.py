@@ -1,7 +1,7 @@
+from django.apps import apps
 from django.db import models
 from django.db.models.fields import FieldDoesNotExist
-from django.db.models.fields.related import RelatedField, ForeignObjectRel, OneToOneRel
-from django.apps import apps
+from django.db.models.fields.related import ForeignObjectRel, OneToOneRel, RelatedField
 
 
 class Indexed(object):

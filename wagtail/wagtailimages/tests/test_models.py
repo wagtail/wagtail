@@ -1,18 +1,17 @@
 import unittest
-from willow.image import Image as WillowImage
 
-from django.test import TestCase
-from django.core.urlresolvers import reverse
-from django.test.utils import override_settings
 from django.contrib.auth import get_user_model
 from django.contrib.auth.models import Group, Permission
-
 from django.core.files.uploadedfile import SimpleUploadedFile
+from django.core.urlresolvers import reverse
 from django.db.utils import IntegrityError
+from django.test import TestCase
+from django.test.utils import override_settings
+from willow.image import Image as WillowImage
 
-from wagtail.tests.utils import WagtailTestUtils
-from wagtail.wagtailcore.models import Page, Collection, GroupCollectionPermission
 from wagtail.tests.testapp.models import EventPage, EventPageCarouselItem
+from wagtail.tests.utils import WagtailTestUtils
+from wagtail.wagtailcore.models import Collection, GroupCollectionPermission, Page
 from wagtail.wagtailimages.models import Rendition, SourceImageIOError
 from wagtail.wagtailimages.rect import Rect
 

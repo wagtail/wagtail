@@ -1,8 +1,9 @@
-from django.test import TestCase
-from wagtail.wagtailredirects import models
-from wagtail.wagtailcore.models import Page, Site
-from wagtail.tests.utils import WagtailTestUtils
 from django.core.urlresolvers import reverse
+from django.test import TestCase
+
+from wagtail.tests.utils import WagtailTestUtils
+from wagtail.wagtailcore.models import Page, Site
+from wagtail.wagtailredirects import models
 
 
 class TestRedirects(TestCase):

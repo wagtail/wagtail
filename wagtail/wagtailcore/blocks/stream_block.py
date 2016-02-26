@@ -3,22 +3,20 @@ from __future__ import absolute_import, unicode_literals
 import collections
 
 from django import forms
+from django.contrib.staticfiles.templatetags.staticfiles import static
 from django.core.exceptions import NON_FIELD_ERRORS, ValidationError
 from django.forms.utils import ErrorList
 from django.template.loader import render_to_string
-from django.utils.encoding import python_2_unicode_compatible, force_text
-from django.utils.html import format_html_join
-from django.utils.safestring import mark_safe
-from django.contrib.staticfiles.templatetags.staticfiles import static
-
 # Must be imported from Django so we get the new implementation of with_metaclass
 from django.utils import six
+from django.utils.encoding import force_text, python_2_unicode_compatible
+from django.utils.html import format_html_join
+from django.utils.safestring import mark_safe
 
 from wagtail.wagtailcore.utils import escape_script
 
-from .base import Block, DeclarativeSubBlocksMetaclass, BoundBlock
+from .base import Block, BoundBlock, DeclarativeSubBlocksMetaclass
 from .utils import indent, js_dict
-
 
 __all__ = ['BaseStreamBlock', 'StreamBlock', 'StreamValue', 'StreamBlockValidationError']
 

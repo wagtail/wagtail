@@ -1,9 +1,10 @@
-from django.test import TestCase, RequestFactory
 from django.core.urlresolvers import NoReverseMatch
+from django.test import RequestFactory, TestCase
 
-from wagtail.wagtailcore.models import Page, Site
+from wagtail.contrib.wagtailroutablepage.templatetags.wagtailroutablepage_tags import \
+    routablepageurl
 from wagtail.tests.routablepage.models import RoutablePageTest
-from wagtail.contrib.wagtailroutablepage.templatetags.wagtailroutablepage_tags import routablepageurl
+from wagtail.wagtailcore.models import Page, Site
 
 
 class TestRoutablePage(TestCase):

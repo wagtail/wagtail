@@ -1,6 +1,6 @@
 from django.conf.urls import url
-from wagtail.wagtailsnippets.views import chooser, snippets
 
+from wagtail.wagtailsnippets.views import chooser, snippets
 
 urlpatterns = [
     url(r'^$', snippets.index, name='index'),

@@ -2,8 +2,8 @@
 from __future__ import unicode_literals
 
 from django.test import TestCase
-
 from django.utils.text import slugify
+
 from wagtail.wagtailcore.utils import cautious_slugify
 
 

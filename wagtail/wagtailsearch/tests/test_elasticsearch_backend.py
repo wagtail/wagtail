@@ -1,21 +1,20 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 
-import os
-import unittest
 import datetime
 import json
+import os
+import unittest
 
 import mock
+from django.db.models import Q
+from django.test import TestCase
 from elasticsearch.serializer import JSONSerializer
 
-from django.test import TestCase
-from django.db.models import Q
-
+from wagtail.tests.search import models
 from wagtail.wagtailsearch.backends import get_search_backend
 from wagtail.wagtailsearch.backends.elasticsearch import ElasticSearch
 
-from wagtail.tests.search import models
 from .test_backends import BackendTests
 
 

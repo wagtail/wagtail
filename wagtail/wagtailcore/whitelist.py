@@ -3,8 +3,8 @@ A generic HTML whitelisting engine, designed to accommodate subclassing to overr
 specific rules.
 """
 import re
-from bs4 import BeautifulSoup, NavigableString, Tag, Comment
 
+from bs4 import BeautifulSoup, Comment, NavigableString, Tag
 
 ALLOWED_URL_SCHEMES = ['http', 'https', 'ftp', 'mailto', 'tel']
 

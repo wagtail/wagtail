@@ -1,9 +1,9 @@
-from django.test import TestCase
 from django.core.urlresolvers import reverse
+from django.test import TestCase
 
-from wagtail.wagtailcore.models import Page
-from wagtail.tests.testapp.models import SimplePage, EventPage, EventIndex
+from wagtail.tests.testapp.models import EventIndex, EventPage, SimplePage
 from wagtail.tests.utils import WagtailTestUtils
+from wagtail.wagtailcore.models import Page
 
 
 class TestChooserBrowse(TestCase, WagtailTestUtils):

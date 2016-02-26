@@ -19,7 +19,7 @@ from modelcluster.forms import ClusterForm, ClusterFormMetaclass
 from taggit.managers import TaggableManager
 
 from wagtail.wagtailadmin import widgets
-from wagtail.wagtailcore.models import Page, Collection, GroupCollectionPermission
+from wagtail.wagtailcore.models import Collection, GroupCollectionPermission, Page
 
 
 class URLOrAbsolutePathValidator(validators.URLValidator):

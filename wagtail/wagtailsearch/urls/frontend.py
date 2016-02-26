@@ -1,6 +1,6 @@
 from django.conf.urls import url
-from wagtail.wagtailsearch.views import search
 
+from wagtail.wagtailsearch.views import search
 
 urlpatterns = [
     url(r'^$', search, name='wagtailsearch_search'),

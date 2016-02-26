@@ -1,7 +1,7 @@
 from django.test import TestCase
 
-from wagtail.wagtailsearch import index
 from wagtail.tests.search import models
+from wagtail.wagtailsearch import index
 
 
 class TestContentTypeNames(TestCase):

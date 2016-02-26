@@ -1,4 +1,5 @@
 from django.db import models
+
 from .registry import register_setting
 
 __all__ = ['BaseSetting', 'register_setting']

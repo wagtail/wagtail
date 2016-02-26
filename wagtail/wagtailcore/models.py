@@ -1,49 +1,42 @@
 from __future__ import unicode_literals
 
-
-import logging
 import json
+import logging
 import warnings
-
 from collections import defaultdict
-from modelcluster.models import ClusterableModel, get_all_child_relations
-from django.db import models, connection, transaction
+
+from django.conf import settings
+from django.contrib.auth.models import Group, Permission
+from django.contrib.contenttypes.models import ContentType
+from django.core import checks
+from django.core.cache import cache
+from django.core.exceptions import ValidationError
+from django.core.handlers.base import BaseHandler
+from django.core.handlers.wsgi import WSGIRequest
+from django.core.urlresolvers import reverse
+from django.db import connection, models, transaction
 from django.db.models import Q
-from django.db.models.signals import post_save, pre_delete, post_delete
+from django.db.models.signals import post_delete, post_save, pre_delete
 from django.dispatch.dispatcher import receiver
 from django.http import Http404
-from django.core.cache import cache
-from django.core.handlers.wsgi import WSGIRequest
-from django.core.handlers.base import BaseHandler
-from django.core.urlresolvers import reverse
-from django.contrib.contenttypes.models import ContentType
-from django.contrib.auth.models import Group, Permission
-from django.conf import settings
 from django.template.response import TemplateResponse
-from django.utils import timezone
+# Must be imported from Django so we get the new implementation of with_metaclass
+from django.utils import six, timezone
+from django.utils.encoding import python_2_unicode_compatible
+from django.utils.functional import cached_property
 from django.utils.six import StringIO
 from django.utils.six.moves.urllib.parse import urlparse
 from django.utils.text import slugify
 from django.utils.translation import ugettext_lazy as _
-from django.core.exceptions import ValidationError
-from django.utils.functional import cached_property
-from django.utils.encoding import python_2_unicode_compatible
-from django.core import checks
-
-# Must be imported from Django so we get the new implementation of with_metaclass
-from django.utils import six
-
+from modelcluster.models import ClusterableModel, get_all_child_relations
 from treebeard.mp_tree import MP_Node
 
-from wagtail.wagtailcore.utils import camelcase_to_underscore, resolve_model_string
-from wagtail.wagtailcore.query import PageQuerySet, TreeQuerySet
-from wagtail.wagtailcore.url_routing import RouteResult
-from wagtail.wagtailcore.signals import page_published, page_unpublished
-
-from wagtail.wagtailsearch import index
-
 from wagtail.utils.deprecation import RemovedInWagtail15Warning
-
+from wagtail.wagtailcore.query import PageQuerySet, TreeQuerySet
+from wagtail.wagtailcore.signals import page_published, page_unpublished
+from wagtail.wagtailcore.url_routing import RouteResult
+from wagtail.wagtailcore.utils import camelcase_to_underscore, resolve_model_string
+from wagtail.wagtailsearch import index
 
 logger = logging.getLogger('wagtail.core')
 

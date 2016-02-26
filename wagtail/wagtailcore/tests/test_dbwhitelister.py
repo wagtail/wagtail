@@ -1,5 +1,4 @@
 from bs4 import BeautifulSoup
-
 from django.test import TestCase
 
 from wagtail.wagtailcore.rich_text import DbWhitelister

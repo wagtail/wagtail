@@ -1,10 +1,9 @@
-from django.test import TestCase
 from django.contrib.contenttypes.models import ContentType
+from django.test import TestCase
 
+from wagtail.tests.testapp.models import EventPage, SimplePage
 from wagtail.wagtailadmin import widgets
-
 from wagtail.wagtailcore.models import Page
-from wagtail.tests.testapp.models import SimplePage, EventPage
 
 
 class TestAdminPageChooserWidget(TestCase):

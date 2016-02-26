@@ -1,20 +1,19 @@
 from __future__ import unicode_literals
 
-from django.conf import settings
 from django import template
+from django.conf import settings
 from django.contrib.humanize.templatetags.humanize import intcomma
 from django.template.defaultfilters import stringfilter
 from django.utils.safestring import mark_safe
 
-from wagtail.wagtailcore import hooks
-from wagtail.wagtailcore.models import get_navigation_menu_items, UserPagePermissionsProxy, PageViewRestriction
-from wagtail.wagtailcore.utils import camelcase_to_underscore, escape_script
-from wagtail.wagtailcore.utils import cautious_slugify as _cautious_slugify
+from wagtail.utils.pagination import DEFAULT_PAGE_KEY
 from wagtail.wagtailadmin.menu import admin_menu
 from wagtail.wagtailadmin.search import admin_search_areas
-
-from wagtail.utils.pagination import DEFAULT_PAGE_KEY
-
+from wagtail.wagtailcore import hooks
+from wagtail.wagtailcore.models import (
+    PageViewRestriction, UserPagePermissionsProxy, get_navigation_menu_items)
+from wagtail.wagtailcore.utils import cautious_slugify as _cautious_slugify
+from wagtail.wagtailcore.utils import camelcase_to_underscore, escape_script
 
 register = template.Library()
 

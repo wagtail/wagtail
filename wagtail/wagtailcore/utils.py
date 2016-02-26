@@ -1,11 +1,11 @@
 import re
 import unicodedata
 
-from django.db.models import Model
 from django.apps import apps
+from django.db.models import Model
 from django.utils.encoding import force_text
-from django.utils.text import slugify
 from django.utils.six import string_types
+from django.utils.text import slugify
 
 
 def camelcase_to_underscore(str):

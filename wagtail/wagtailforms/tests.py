@@ -3,16 +3,16 @@ from __future__ import unicode_literals
 
 import json
 
-from django.test import TestCase
-from django.core import mail
 from django import forms
+from django.core import mail
 from django.core.urlresolvers import reverse
+from django.test import TestCase
 
-from wagtail.wagtailcore.models import Page
-from wagtail.wagtailforms.models import FormSubmission
-from wagtail.wagtailforms.forms import FormBuilder
-from wagtail.tests.testapp.models import FormPage, FormField
+from wagtail.tests.testapp.models import FormField, FormPage
 from wagtail.tests.utils import WagtailTestUtils
+from wagtail.wagtailcore.models import Page
+from wagtail.wagtailforms.forms import FormBuilder
+from wagtail.wagtailforms.models import FormSubmission
 
 
 def make_form_page(**kwargs):
