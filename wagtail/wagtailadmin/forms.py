@@ -286,13 +286,9 @@ class WagtailAdminPageForm(WagtailAdminModelForm):
     def clean(self):
         cleaned_data = super(WagtailAdminPageForm, self).clean()
         if 'slug' in self.cleaned_data:
-            # Get siblings for the page
-            siblings = self.parent_page.get_children()
-            if self.instance and self.instance.id:
-                siblings = siblings.exclude(id=self.instance.id)
-
-            # Make sure the slug isn't being used by a sibling
-            if siblings.filter(slug=cleaned_data['slug']).exists():
+            if not Page._slug_is_available(
+                cleaned_data['slug'], self.parent_page, self.instance
+            ):
                 self.add_error('slug', forms.ValidationError(_("This slug is already in use")))
 
         # Check scheduled publishing fields

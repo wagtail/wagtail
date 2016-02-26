@@ -175,6 +175,7 @@ class TestPublishScheduledPagesCommand(TestCase):
         page = SimplePage(
             title="Hello world!",
             slug="hello-world",
+            content="hello",
             live=False,
             has_unpublished_changes=True,
             go_live_at=timezone.now() - timedelta(days=1),
@@ -204,6 +205,7 @@ class TestPublishScheduledPagesCommand(TestCase):
         page = SimplePage(
             title="Hello world!",
             slug="hello-world",
+            content="hello",
             live=False,
             has_unpublished_changes=True,
             go_live_at=timezone.now() - timedelta(days=1),
@@ -226,6 +228,7 @@ class TestPublishScheduledPagesCommand(TestCase):
         page = SimplePage(
             title="Hello world!",
             slug="hello-world",
+            content="hello",
             live=False,
             go_live_at=timezone.now() + timedelta(days=1),
         )
@@ -257,6 +260,7 @@ class TestPublishScheduledPagesCommand(TestCase):
         page = SimplePage(
             title="Hello world!",
             slug="hello-world",
+            content="hello",
             live=True,
             has_unpublished_changes=False,
             expire_at=timezone.now() - timedelta(days=1),
@@ -282,6 +286,7 @@ class TestPublishScheduledPagesCommand(TestCase):
         page = SimplePage(
             title="Hello world!",
             slug="hello-world",
+            content="hello",
             live=True,
             expire_at=timezone.now() + timedelta(days=1),
         )
@@ -300,6 +305,7 @@ class TestPublishScheduledPagesCommand(TestCase):
         page = SimplePage(
             title="Hello world!",
             slug="hello-world",
+            content="hello",
             live=False,
             expire_at=timezone.now() - timedelta(days=1),
         )

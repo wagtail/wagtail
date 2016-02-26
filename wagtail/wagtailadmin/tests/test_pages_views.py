@@ -42,6 +42,7 @@ class TestPageExplorer(TestCase, WagtailTestUtils):
         self.child_page = SimplePage(
             title="Hello world!",
             slug="hello-world",
+            content="hello",
         )
         self.root_page.add_child(instance=self.child_page)
 
@@ -56,6 +57,7 @@ class TestPageExplorer(TestCase, WagtailTestUtils):
         self.new_page = SimplePage(
             title="New page",
             slug="new-page",
+            content="hello",
             latest_revision_created_at=datetime(2016, 1, 1)
         )
         self.root_page.add_child(instance=self.new_page)
@@ -164,6 +166,7 @@ class TestPageExplorer(TestCase, WagtailTestUtils):
             self.root_page.add_child(instance=SimplePage(
                 title="Page " + str(i),
                 slug="page-" + str(i),
+                content="hello",
             ))
 
     def test_pagination(self):
@@ -217,6 +220,7 @@ class TestPageExplorerSignposting(TestCase, WagtailTestUtils):
         self.no_site_page = SimplePage(
             title="Hello world!",
             slug="hello-world",
+            content="hello",
         )
         self.root_page.add_child(instance=self.no_site_page)
 
@@ -644,9 +648,7 @@ class TestPageCreation(TestCase, WagtailTestUtils):
         # This tests the existing slug checking on page save
 
         # Create a page
-        self.child_page = SimplePage()
-        self.child_page.title = "Hello world!"
-        self.child_page.slug = "hello-world"
+        self.child_page = SimplePage(title="Hello world!", slug="hello-world", content="hello")
         self.root_page.add_child(instance=self.child_page)
 
         # Attempt to create a new one with the same slug
@@ -792,6 +794,7 @@ class TestPageEdit(TestCase, WagtailTestUtils):
         child_page = SimplePage(
             title="Hello world!",
             slug="hello-world",
+            content="hello",
         )
         self.root_page.add_child(instance=child_page)
         child_page.save_revision().publish()
@@ -810,9 +813,11 @@ class TestPageEdit(TestCase, WagtailTestUtils):
         self.file_page = FilePage.objects.get(id=file_page.id)
 
         # Add event page (to test edit handlers)
-        self.event_page = EventPage()
-        self.event_page.title = "Event page"
-        self.event_page.slug = "event-page"
+        self.event_page = EventPage(
+            title="Event page", slug="event-page",
+            location='the moon', audience='public',
+            cost='free', date_from='2001-01-01',
+        )
         self.root_page.add_child(instance=self.event_page)
 
         # Login
@@ -1123,9 +1128,7 @@ class TestPageEdit(TestCase, WagtailTestUtils):
         # This tests the existing slug checking on page edit
 
         # Create a page
-        self.child_page = SimplePage()
-        self.child_page.title = "Hello world 2"
-        self.child_page.slug = "hello-world2"
+        self.child_page = SimplePage(title="Hello world 2", slug="hello-world2", content="hello")
         self.root_page.add_child(instance=self.child_page)
 
         # Attempt to change the slug to one thats already in use
@@ -1210,9 +1213,11 @@ class TestPageEditReordering(TestCase, WagtailTestUtils):
         self.root_page = Page.objects.get(id=2)
 
         # Add event page
-        self.event_page = EventPage()
-        self.event_page.title = "Event page"
-        self.event_page.slug = "event-page"
+        self.event_page = EventPage(
+            title="Event page", slug="event-page",
+            location='the moon', audience='public',
+            cost='free', date_from='2001-01-01',
+        )
         self.event_page.carousel_items = [
             EventPageCarouselItem(caption='1234567', sort_order=1),
             EventPageCarouselItem(caption='7654321', sort_order=2),
@@ -1319,9 +1324,7 @@ class TestPageDelete(TestCase, WagtailTestUtils):
         self.root_page = Page.objects.get(id=2)
 
         # Add child page
-        self.child_page = SimplePage()
-        self.child_page.title = "Hello world!"
-        self.child_page.slug = "hello-world"
+        self.child_page = SimplePage(title="Hello world!", slug="hello-world", content="hello")
         self.root_page.add_child(instance=self.child_page)
 
         # Add a page with child pages of its own
@@ -1521,20 +1524,14 @@ class TestPageMove(TestCase, WagtailTestUtils):
         self.root_page = Page.objects.get(id=2)
 
         # Create two sections
-        self.section_a = SimplePage()
-        self.section_a.title = "Section A"
-        self.section_a.slug = "section-a"
+        self.section_a = SimplePage(title="Section A", slug="section-a", content="hello")
         self.root_page.add_child(instance=self.section_a)
 
-        self.section_b = SimplePage()
-        self.section_b.title = "Section B"
-        self.section_b.slug = "section-b"
+        self.section_b = SimplePage(title="Section B", slug="section-b", content="hello")
         self.root_page.add_child(instance=self.section_b)
 
         # Add test page into section A
-        self.test_page = SimplePage()
-        self.test_page.title = "Hello world!"
-        self.test_page.slug = "hello-world"
+        self.test_page = SimplePage(title="Hello world!", slug="hello-world", content="hello")
         self.section_a.add_child(instance=self.test_page)
 
         # Login
@@ -1578,6 +1575,7 @@ class TestPageCopy(TestCase, WagtailTestUtils):
         self.test_page = self.root_page.add_child(instance=SimplePage(
             title="Hello world!",
             slug='hello-world',
+            content="hello",
             live=True,
             has_unpublished_changes=False,
         ))
@@ -1586,6 +1584,7 @@ class TestPageCopy(TestCase, WagtailTestUtils):
         self.test_child_page = self.test_page.add_child(instance=SimplePage(
             title="Child page",
             slug='child-page',
+            content="hello",
             live=True,
             has_unpublished_changes=True,
         ))
@@ -1593,6 +1592,7 @@ class TestPageCopy(TestCase, WagtailTestUtils):
         self.test_unpublished_child_page = self.test_page.add_child(instance=SimplePage(
             title="Unpublished Child page",
             slug='unpublished-child-page',
+            content="hello",
             live=False,
             has_unpublished_changes=True,
         ))
@@ -1908,6 +1908,7 @@ class TestPageUnpublish(TestCase, WagtailTestUtils):
         self.page = SimplePage(
             title="Hello world!",
             slug='hello-world',
+            content="hello",
             live=True,
         )
         self.root_page.add_child(instance=self.page)
@@ -1991,6 +1992,7 @@ class TestApproveRejectModeration(TestCase, WagtailTestUtils):
         self.page = SimplePage(
             title="Hello world!",
             slug='hello-world',
+            content="hello",
             live=False,
             has_unpublished_changes=True,
         )
@@ -2279,6 +2281,7 @@ class TestNotificationPreferences(TestCase, WagtailTestUtils):
         self.child_page = SimplePage(
             title="Hello world!",
             slug='hello-world',
+            content="hello",
             live=False,
         )
         self.root_page.add_child(instance=self.child_page)
@@ -2434,6 +2437,7 @@ class TestLocking(TestCase, WagtailTestUtils):
         self.child_page = SimplePage(
             title="Hello world!",
             slug='hello-world',
+            content="hello",
             live=False,
         )
         self.root_page.add_child(instance=self.child_page)

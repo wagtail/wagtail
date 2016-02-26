@@ -283,8 +283,6 @@ class Page(six.with_metaclass(PageBase, MP_Node, ClusterableModel, index.Indexed
         max_length=255,
         help_text=_("The name of the page as it will appear in URLs e.g http://domain.com/blog/[my-slug]/")
     )
-    # TODO: enforce uniqueness on slug field per parent (will have to be done at the Django
-    # level rather than db, since there is no explicit parent relation in the db)
     content_type = models.ForeignKey(
         'contenttypes.ContentType',
         verbose_name=_('content type'),
@@ -394,9 +392,32 @@ class Page(six.with_metaclass(PageBase, MP_Node, ClusterableModel, index.Indexed
 
         return self.url_path
 
+    @staticmethod
+    def _slug_is_available(slug, parent_page, page=None):
+        """
+        Determine whether the given slug is available for use on a child page of
+        parent_page. If 'page' is passed, the slug is intended for use on that page
+        (and so it will be excluded from the duplicate check).
+        """
+        if parent_page is None:
+            # the root page's slug can be whatever it likes...
+            return True
+
+        siblings = parent_page.get_children()
+        if page:
+            siblings = siblings.not_page(page)
+
+        return not siblings.filter(slug=slug).exists()
+
+    def clean(self):
+        if not Page._slug_is_available(self.slug, self.get_parent(), self):
+            raise ValidationError({'slug': _("This slug is already in use")})
+
     @transaction.atomic
     # ensure that changes are only committed when we have updated all descendant URL paths, to preserve consistency
     def save(self, *args, **kwargs):
+        self.full_clean()
+
         update_descendant_url_paths = False
         is_new = self.id is None
 
@@ -602,6 +623,8 @@ class Page(six.with_metaclass(PageBase, MP_Node, ClusterableModel, index.Indexed
                 raise Http404
 
     def save_revision(self, user=None, submitted_for_moderation=False, approved_go_live_at=None, changed=True):
+        self.full_clean()
+
         # Create revision
         revision = self.revisions.create(
             content_json=self.to_json(),

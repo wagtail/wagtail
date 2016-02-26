@@ -47,6 +47,8 @@ class TestSearchView(TestCase):
                 event = EventPage(
                     title="Event " + str(i),
                     slug='event-' + str(i),
+                    location='the moon', audience='public',
+                    cost='free', date_from='2001-01-01',
                     live=True,
                 )
                 event_index.add_child(instance=event)
