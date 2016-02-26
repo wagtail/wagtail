@@ -292,6 +292,7 @@ body.explorer-open {
             height: 100%;
             position: fixed;
             width: $menu-width;
+            z-index: 26;
         }
     }
 

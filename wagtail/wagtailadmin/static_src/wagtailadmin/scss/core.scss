@@ -27,6 +27,33 @@
 }
 // scss-lint:enable all
 
+@keyframes matteIn {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+.u-explorer-open {
+    overflow: hidden;
+
+    &:after {
+        // content: '';
+        // position: fixed;
+        // background: rgba(255, 255, 255, 0.5);
+        // width: 100%;
+        // height: 100%;
+        // top: 0;
+        // left: 0;
+        // opacity: 1;
+        // animation: matteIn .2s ease-out;
+    }
+}
+
+
+
 html {
     background: $color-grey-4;
     height: 100%;
@@ -191,20 +218,22 @@ footer {
     }
 }
 
-::-webkit-scrollbar {
-    height: 10px;
-    width: 10px;
-    background: $color-grey-1;
-}
+// Let's not, for now...
 
-::-webkit-scrollbar-thumb {
-    background: $color-grey-2;
-    -webkit-border-radius: 1ex;
-}
+// ::-webkit-scrollbar {
+//     height: 10px;
+//     width: 10px;
+//     background: $color-grey-1;
+// }
 
-::-webkit-scrollbar-corner {
-    background: $color-grey-1;
-}
+// ::-webkit-scrollbar-thumb {
+//     background: $color-grey-2;
+//     -webkit-border-radius: 1ex;
+// }
+
+// ::-webkit-scrollbar-corner {
+//     background: $color-grey-1;
+// }
 
 .breadcrumb {
     @include unlist();
@@ -526,3 +555,201 @@ footer,
 // a {
     // @include transition(color 0.2s ease, background-color 0.2s ease);
 // }
+
+
+/**
+// -----------------------------------------------------------------------------
+// Modal lightboxes
+// -----------------------------------------------------------------------------
+//
+// As of 2015, the vertical-align: middle table is still the best cross-browser
+// way to vertically centre stuff. This modal component uses this pattern with
+// the following structure:
+//
+// <div class="modal modal--active">
+//     <div class="modal__table">
+//         <div class="modal__center">
+//             <div class="modal__content">
+//                 Hello!
+//             </div>
+//         </div>
+//     </div>
+// </div>
+//
+// Requires '_animations.scss';
+$z-index-modal: 1;
+$z-index-modal-matte: 2;
+$z-index-modal-content: 3;
+$color-modal-close-bg: #333;
+$color-modal-close-text: #fff;
+$color-modal-content-bg: #fff;
+$color-black-opacity-093: rgba(255, 255, 255, .93);
+$color-dark-grey: #222;
+*/
+
+.u-body-modal-active {
+  overflow: hidden;
+}
+
+.modal {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 1;
+  animation: modal-in .15s ease-out 0s backwards;
+}
+
+.modal--active {
+    display: block;
+}
+
+
+.modal--exit {
+  animation: modal-out .4s ease-out .4s forwards;
+}
+
+.modal--exit .modal__content {
+  animation: affordance-out .4s ease-in 0s forwards;
+}
+
+.modal--exit .modal__close {
+  animation: affordance-out-right .4s ease-in 0s forwards;
+}
+
+
+.modal__overlay {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 2;
+  background: rgba(0, 0, 0, .93);
+}
+
+
+.modal__table {
+  display: table;
+  position: relative;
+  width: 100%;
+  height: 100%;
+  vertical-align: middle;
+}
+
+.modal__center {
+  display: table-cell;
+  text-align: center;
+  vertical-align: middle;
+  animation: modal-in .15s ease-out .25s backwards;
+}
+
+.modal__content {
+  display: inline-block;
+  position: relative;
+  z-index: 3;
+  max-width: 32em;
+  min-width: 10.5em;
+  min-height: 6em;
+  padding: 1em 2em;
+  background: #fff;
+  animation: affordance-in .5s cubic-bezier(.075, .82, .165, 0) .3s backwards;
+}
+
+
+.modal__close {
+  position: absolute;
+  top: 0;
+  right: 0;
+  z-index: 3;
+  padding: .9rem 1.35rem 1.1rem;
+  font-size: 2em;
+  line-height: 1;
+  color: #fff;
+  cursor: pointer;
+  background: #333;
+  animation: affordance-in-right .5s cubic-bezier(.075, .82, .165, 0) .25s backwards;
+}
+
+.modal__close:hover,
+.modal__close:active {
+  color: #fff;
+  background: #222;
+}
+
+
+
+/**
+ * Animation keyframes
+ */
+
+@keyframes modal-in {
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes modal-out {
+  0% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes affordance-in {
+  0% {
+    opacity: 0;
+    transform: translateY(5%);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes affordance-out {
+  0% {
+    opacity: 1;
+    transform: translateY(0%);
+  }
+
+  100% {
+    opacity: 0;
+    transform: translateY(5%);
+  }
+}
+
+
+
+@keyframes affordance-in-right {
+  0% {
+    opacity: 0;
+    transform: translateX(100%);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes affordance-out-right {
+  0% {
+    opacity: 1;
+    transform: translateX(0%);
+  }
+
+  100% {
+    opacity: 0;
+    transform: translateX(100%);
+  }
+}

@@ -15,6 +15,19 @@
 {% endblock %}
 
 {% block js %}
+    <script>
+        (function(document, window) {
+            window.wagtailConfig = window.wagtailConfig || {};
+            wagtailConfig.api = {
+                pages: '{% url "wagtailadmin_api_v1:pages:listing" %}',
+                documents: '{% url "wagtailadmin_api_v1:documents:listing" %}',
+                images: '{% url "wagtailadmin_api_v1:images:listing" %}'
+            };
+            wagtailConfig.urls = {
+                pages: '{% url "wagtailadmin_explore_root" %}'
+            };
+        })(document, window);
+    </script>
     <script src="{% static 'wagtailadmin/js/vendor/jquery-2.2.1.min.js' %}"></script>
     <script src="{% static 'wagtailadmin/js/vendor/jquery-ui-1.10.3.min.js' %}"></script>
     <script src="{% static 'wagtailadmin/js/vendor/jquery.datetimepicker.js' %}"></script>
@@ -26,6 +39,11 @@
     <script src="{% static 'wagtailadmin/js/vendor/tag-it.js' %}"></script>
     <script src="{% static 'wagtailadmin/js/core.js' %}"></script>
     {% hook_output 'insert_global_admin_js' %}
+
+    <script src="{% static 'wagtailadmin/js/common.js' %}"></script>
+    <script src="{% static 'wagtailadmin/js/wagtailadmin.js' %}"></script>
+
+
 
     {% main_nav_js %}
 

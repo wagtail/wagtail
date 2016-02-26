@@ -3,7 +3,7 @@ $(function() {
     var $body = $('body');
 
     // Dynamically load menu on request.
-    $(document).on('click', '.dl-trigger', function() {
+    $(document).on('click', '.dl-trigger--unused', function() {
         var $this = $(this);
 
         // Close all submenus
