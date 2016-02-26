@@ -18,6 +18,7 @@ function react(state = {
     isFetching: false,
     depth: -1,
     nodes: [],
+    title: null,
   }, action) {
 
   switch (action.type) {
@@ -39,7 +40,8 @@ function react(state = {
       return Object.assign({}, state, {
         isFetching: false,
         nodes,
-        depth: state.depth + 1
+        depth: state.depth + 1,
+        title: action.title,
       });
     case 'PUSH_PAGE':
       return Object.assign({}, state, {
@@ -124,18 +126,20 @@ const rootReducer = combineReducers({
 // Actions
 // =============================================================================
 
-function fetchStart(id) {
+function fetchStart(id, title) {
   return {
     type: 'FETCH_START',
-    id
+    id,
+    title
   };
 }
 
-function fetchComplete(id, body) {
+function fetchComplete(id, body, title) {
   return {
     type: 'FETCH_COMPLETE',
     id,
     body,
+    title,
   };
 }
 
@@ -173,13 +177,13 @@ function _json() {
 }
 
 
-function fetchPage(id = 'root') {
+function fetchPage(id='root', title='') {
   return dispatch => {
     dispatch(fetchStart(id))
     return fetch(`${API}/pages/?child_of=${id}`, _json())
       .then(response => response.json())
-      .then(json => dispatch(fetchComplete(id, json)))
-      .catch(json => dispatch(fetchError(id, json)))
+      .then(json => dispatch(fetchComplete(id, json, title)))
+      .catch(json => dispatch(fetchError(id, json, title)))
   }
 }
 
@@ -214,12 +218,12 @@ class ExplorerHeader extends Component {
   }
 
   render() {
-    let { page, depth } = this.props;
+    let { page, depth, title } = this.props;
 
     return (
       <div className="c-explorer__header">
-        { depth > 0 ? this.backBtn() : this.closeBtn() }
-        { depth > 0 ? page.title : 'EXPLORER' }
+        { depth > 0 ? this.backBtn() : null }
+        { depth > 0 ? title : 'EXPLORER' }
       </div>
     );
   }
@@ -269,7 +273,7 @@ class Explorer extends Component {
   }
 
   render() {
-    let { visible, loading, depth, nodes, pages } = this.props;
+    let { visible, loading, depth, nodes, pages, title } = this.props;
     let id = nodes[depth];
     let page = this._getPage();
     let children = this._getChildren(page);
@@ -280,7 +284,7 @@ class Explorer extends Component {
 
     return (
       <div style={this._getStyle()} className="c-explorer">
-        <ExplorerHeader depth={depth} page={page} onPop={this.props.onPop} onClose={this.props.onClose}/>
+        <ExplorerHeader title={title} depth={depth} page={page} onPop={this.props.onPop} onClose={this.props.onClose}/>
         <div className='c-explorer__drawer'>
         { loading ? <LoadingIndicator /> : (children.length ? children : <ExplorerEmpty />) }
         </div>
@@ -306,9 +310,10 @@ Explorer.propTypes = {
 const mapStateToProps = (state, ownProps) => ({
   visible: state.explorer.react.isVisible,
   page: state.explorer.currentPage,
-  loading: state.explorer.react.isLoading,
-  depth: state.explorer.react.depth,
   react: state.explorer.react,
+  depth: state.explorer.react.depth,
+  title: state.explorer.react.title,
+  loading: state.explorer.react.isLoading,
   nodes: state.explorer.react.nodes,
   pages: state.entities.pages,
 });
@@ -316,7 +321,7 @@ const mapStateToProps = (state, ownProps) => ({
 const mapDispatchToProps = (dispatch) => {
   return {
     onShow: (id) => { dispatch(fetchPage(id)) },
-    onItemClick: (id) => { dispatch(fetchPage(id)) },
+    onItemClick: (id, title) => { dispatch(fetchPage(id, title)) },
     onPop: () => { dispatch(popPage()) },
     onClose: () => { dispatch({ type: 'TOGGLE_EXPLORER' }) }
   }
