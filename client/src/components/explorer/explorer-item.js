@@ -40,7 +40,7 @@ export default class ExplorerItem extends Component {
   _onChildren(e) {
     e.stopPropagation();
     let { onItemClick, data } = this.props;
-    onItemClick(data.id);
+    onItemClick(data.id, data.title);
   }
 
   render() {

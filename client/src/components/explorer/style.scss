@@ -1,9 +1,11 @@
 $c-explorer-bg: #4C4E4D;
 $c-explorer-secondary: #aaa;
+$c-explorer-easing: cubic-bezier(0.075, 0.820, 0.165, 1.000);
 
 @keyframes explorer {
     0% {
-        transform: translateX(-100%);
+        transform: translateX(-50%);
+        opacity: 0;
     }
     100% {
         transform: translateX(0%);
@@ -20,7 +22,7 @@ $c-explorer-secondary: #aaa;
     top: 0;
     left: 180px;
     box-shadow: 2px 2px 5px rgba(0,0,0,0.2);
-    animation: explorer .125s ease-out;
+    animation: explorer .2s $c-explorer-easing;
 }
 
 .c-explorer__header {
