@@ -1,6 +1,6 @@
 import Explorer from './explorer';
-import LoadingIndicator from './loading-indicator';
-import StateIndicator from './state-indicator';
+import LoadingIndicator from './LoadingIndicator';
+import StateIndicator from './StateIndicator';
 
 export { Explorer };
 export { LoadingIndicator };

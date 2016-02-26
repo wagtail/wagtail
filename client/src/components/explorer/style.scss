@@ -1,13 +1,377 @@
+$c-explorer-bg: #4C4E4D;
+$c-explorer-secondary: #aaa;
+$c-explorer-easing: cubic-bezier(0.075, 0.820, 0.165, 1.000);
+
+.c-explorer * {
+    box-sizing: border-box;
+}
+
 .c-explorer {
     width: 320px;
     height: 500px;
-    background: #333;
+    background: $c-explorer-bg;
     position: absolute;
-    z-index: 25;
-    top: 0;
-    left: 180px;
+    overflow: hidden;
+}
+
+    .c-explorer--sidebar {
+        height: 100vh;
+        box-shadow: 2px 2px 5px rgba(0,0,0,0.2);
+        left: 180px;
+        top: 0;
+        z-index: 150;
+        position: fixed;
+    }
+
+.c-explorer__header {
+    border-bottom: solid 1px #676767;
+    overflow: hidden;
+    color: $c-explorer-secondary;
+}
+
+.c-explorer__trigger {
+    display: block;
+    padding: .5rem 1rem;
+    white-space: nowrap;
+    overflow: hidden;
+    width: 80%;
+    float: left;
+}
+
+.c-explorer__trigger--enabled {
+    cursor: pointer;
+
+    &:hover {
+        color: #fff;
+        background: rgba(0,0,0,0.2);
+    }
+}
+
+.c-explorer__filter {
+    float: right;
+    width: 50px;
+    margin-top: .5rem;
+}
+
+.c-filter {
+    display: inline-block;
+    vertical-align: middle;
+    padding: 0 .25em;
+    border: solid 1px rgba(255,255,255,0.1);
+    border-radius: 2px;
+    line-height: 1;
+    margin-left: .25rem;
+    cursor: pointer;
+    &:hover {
+        background: rgba(0,0,0,0.5);
+        border-color: rgba(0,0,0,0.5);
+        color: #fff;
+    }
+}
+
+.c-filter--active {
+    color: #fff;
+    border-color: rgba(255, 255, 255, .5);
+}
+
+
+.c-explorer__back {
+    cursor: pointer;
+    margin-right: .25rem;
+    float: left;
+    margin-top: -1px;
+
+    &:hover {
+        color: #fff;
+    }
+
+    .icon {
+        line-height: 1;
+        display: inline-block;
+        font-size: 16px;
+    }
+}
+
+.c-explorer__title {
+    margin: 0;
+    color: #fff;
+}
+
+.c-explorer__loading {
+    color: #fff;
+    padding: 1rem;
 }
 
 .c-explorer__item {
+    padding: 1rem;
+    cursor: pointer;
+    border-bottom: solid 1px #676767;
 
+    &:last-child {
+        border-bottom: 0;
+    }
+}
+
+.c-explorer__placeholder {
+    padding: 1rem;
+    color: #fff;
+}
+
+.c-explorer__meta {
+    font-size: 12px;
+    color: $c-explorer-secondary;
+    margin-bottom: 0;
+}
+
+    // TODO Could be a utility class
+    .c-explorer__meta__type {
+        text-transform: capitalize;
+    }
+
+.c-explorer__item:hover {
+    background: rgba(0, 0, 0, 0.25);
+    color: #fff;
+}
+
+.c-explorer__see-more {
+    cursor: pointer;
+    padding: .5rem 1rem;
+    background: rgba(0,0,0,0.2);
+    color: #fff;
+
+    &:hover {
+        background: rgba(0,0,0,0.4);
+    }
+}
+
+
+.c-explorer__children {
+    display: inline-block;
+    border-radius: 50rem;
+    border: solid 1px #aaa;
+    color: #fff;
+    line-height: 1;
+    padding: .5em .3em .5em .5em;
+    float: right;
+    cursor: pointer;
+
+    &:hover {
+        background: rgba(0,0,0,0.5);
+    }
+
+    > [aria-role='presentation'] {
+        display: none;
+    }
+}
+
+
+
+
+.c-status {
+    background: #333;
+    color: #ddd;
+    text-transform: uppercase;
+    letter-spacing: .03rem;
+    font-size: 10px;
+}
+
+.c-status--live {
+
+}
+
+
+.c-explorer__drawer {
+    position: absolute;
+    bottom: 0;
+    top: 36px;
+    width: 100%;
+    overflow-y: auto;
+}
+
+
+.c-explorer__overflow {
+    max-width: 12rem;
+    display: block;
+    text-transform: uppercase;
+    float: left;
+    width: 100%;
+}
+
+
+// =============================================================================
+// TODO: move to their own component..
+// =============================================================================
+
+.o-pill {
+    display: inline-block;
+    padding: 0 .5em;
+    border-radius: .25em;
+    line-height: 1;
+    vertical-align: middle;
+    line-height: 1.5;
+}
+
+.u-overflow {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+
+.c-explorer__rel {
+    position: relative;
+    display: block;
+    height: 19px;
+    width: 100%;
+}
+
+
+.c-explorer__parent-name {
+    position: absolute;
+    width: 100%;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+.c-explorer__spinner:after {
+    display: inline-block;
+    animation: spin 0.5s infinite linear;
+    line-height: 1
+}
+
+
+
+// =============================================================================
+// Transitions
+// =============================================================================
+
+// $out-circ: cubic-bezier(0.075, 0.820, 0.165, 1.000);
+// $in-circ: cubic-bezier(0.600, 0.040, 0.980, 0.335);
+
+$out-circ: cubic-bezier(0.785, 0.135, 0.150, 0.860);
+$in-circ: cubic-bezier(0.785, 0.135, 0.150, 0.860);
+$c-explorer-duration: 200ms;
+
+.c-explorer__transition-group {
+    position: absolute;
+    width: 100%;
+    top: 0;
+}
+
+.explorer-push-enter {
+    transform: translateX(100%);
+    transition: transform $c-explorer-duration $out-circ, opacity $c-explorer-duration linear;
+    opacity: 0;
+}
+
+.explorer-push-enter-active {
+    transform: translateX(0);
+    opacity: 1;
+}
+
+.explorer-push-leave {
+    transform: translateX(0);
+    transition: transform $c-explorer-duration $in-circ, opacity $c-explorer-duration linear;
+    opacity: 1;
+}
+
+.explorer-push-leave-active {
+    transform: translateX(-100%);
+    opacity: 0;
+}
+
+// =============================================================================
+// Pop transition
+// =============================================================================
+
+.explorer-pop-enter {
+    transform: translateX(-100%);
+    transition: transform $c-explorer-duration $out-circ, opacity $c-explorer-duration linear;
+    opacity: 0;
+}
+
+.explorer-pop-enter-active {
+    transform: translateX(0);
+    opacity: 1;
+}
+
+.explorer-pop-leave {
+    transform: translateX(0);
+    transition: transform $c-explorer-duration $in-circ, opacity $c-explorer-duration linear;
+    opacity: 1;
+}
+
+.explorer-pop-leave-active {
+    transform: translateX(100%);
+    opacity: 0;
+}
+
+
+.explorer-toggle-enter {
+    opacity: 0;
+    transition: all $c-explorer-duration;
+}
+
+.explorer-toggle-enter-active {
+    opacity: 1;
+}
+
+.explorer-toggle-leave {
+    opacity: 1;
+    transition: all $c-explorer-duration;
+}
+
+.explorer-toggle-leave-active {
+    opacity: 0;
+}
+
+
+// =============================================================================
+// Fade transition
+// =============================================================================
+
+.explorer-fade-enter {
+    position: absolute;
+    width: 100%;
+    opacity: 0;
+    transition: opacity .2s ease .1s;
+}
+
+.explorer-fade-enter-active {
+    opacity: 1;
+}
+
+.explorer-fade-leave {
+    position: absolute;
+    width: 100%;
+    opacity: 1;
+    transition: opacity .1s ease;
+}
+
+.explorer-fade-leave-active {
+    opacity: 0;
+}
+
+
+// =============================================================================
+// Header transitions
+// =============================================================================
+
+.header-push-enter {
+    opacity: 0;
+    transition: opacity .1s linear .1s;
+}
+
+.header-push-enter-active {
+    opacity: 1;
+}
+
+.header-push-leave {
+    opacity: 1;
+    transition: opacity .1s;
+}
+
+.header-push-leave-active {
+    opacity: 0;
 }
