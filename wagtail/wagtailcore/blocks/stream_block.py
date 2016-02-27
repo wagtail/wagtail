@@ -25,6 +25,7 @@ __all__ = ['BaseStreamBlock', 'StreamBlock', 'StreamValue']
 
 class BaseStreamBlock(Block):
     class Meta:
+        icon = "placeholder"
         default = []
 
     def __init__(self, local_blocks=None, **kwargs):

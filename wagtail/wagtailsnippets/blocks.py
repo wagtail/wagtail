@@ -14,3 +14,7 @@ class SnippetChooserBlock(ChooserBlock):
     def widget(self):
         from wagtail.wagtailsnippets.widgets import AdminSnippetChooser
         return AdminSnippetChooser(self.target_model)
+
+    class Meta:
+        icon = "snippet"
+

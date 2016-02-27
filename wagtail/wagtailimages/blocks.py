@@ -20,3 +20,7 @@ class ImageChooserBlock(ChooserBlock):
             return get_rendition_or_not_found(value, 'original').img_tag()
         else:
             return ''
+
+    class Meta:
+        icon = "image"
+

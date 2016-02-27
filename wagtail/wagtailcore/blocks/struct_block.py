@@ -21,11 +21,6 @@ __all__ = ['BaseStructBlock', 'StructBlock', 'StructValue']
 
 
 class BaseStructBlock(Block):
-    class Meta:
-        default = {}
-        template = "wagtailadmin/blocks/struct.html"
-        form_classname = 'struct-block'
-        form_template = 'wagtailadmin/block_forms/struct.html'
 
     def __init__(self, local_blocks=None, **kwargs):
         self._constructor_kwargs = kwargs
@@ -162,6 +157,13 @@ class BaseStructBlock(Block):
 
         return errors
 
+    class Meta:
+        default = {}
+        template = "wagtailadmin/blocks/struct.html"
+        form_classname = 'struct-block'
+        form_template = 'wagtailadmin/block_forms/struct.html'
+        icon = "form"
+
 
 class StructBlock(six.with_metaclass(DeclarativeSubBlocksMetaclass, BaseStructBlock)):
     pass
@@ -182,3 +184,4 @@ class StructValue(collections.OrderedDict):
             (name, block.bind(self.get(name)))
             for name, block in self.block.child_blocks.items()
         ])
+

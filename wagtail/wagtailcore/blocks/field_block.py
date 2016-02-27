@@ -19,8 +19,6 @@ from .base import Block
 
 class FieldBlock(Block):
     """A block that wraps a Django form field"""
-    class Meta:
-        default = None
 
     def id_for_label(self, prefix):
         return self.field.widget.id_for_label(prefix)
@@ -76,8 +74,13 @@ class FieldBlock(Block):
         # the one this block works with natively
         return self.value_from_form(self.field.clean(self.value_for_form(value)))
 
+    class Meta:
+        icon = "edit"
+        default = None
+
 
 class CharBlock(FieldBlock):
+
     def __init__(self, required=True, help_text=None, max_length=None, min_length=None, **kwargs):
         # CharField's 'label' and 'initial' parameters are not exposed, as Block handles that functionality natively
         # (via 'label' and 'default')
@@ -94,6 +97,7 @@ class CharBlock(FieldBlock):
 
 
 class TextBlock(FieldBlock):
+
     def __init__(self, required=True, help_text=None, rows=1, max_length=None, min_length=None, **kwargs):
         self.field_options = {
             'required': required,
@@ -114,8 +118,12 @@ class TextBlock(FieldBlock):
     def get_searchable_content(self, value):
         return [force_text(value)]
 
+    class Meta:
+        icon = "pilcrow"
+
 
 class URLBlock(FieldBlock):
+
     def __init__(self, required=True, help_text=None, max_length=None, min_length=None, **kwargs):
         self.field = forms.URLField(
             required=required,
@@ -125,8 +133,12 @@ class URLBlock(FieldBlock):
         )
         super(URLBlock, self).__init__(**kwargs)
 
+    class Meta:
+        icon = "site"
+
 
 class BooleanBlock(FieldBlock):
+
     def __init__(self, required=True, help_text=None, **kwargs):
         # NOTE: As with forms.BooleanField, the default of required=True means that the checkbox
         # must be ticked to pass validation (i.e. it's equivalent to an "I agree to the terms and
@@ -135,8 +147,12 @@ class BooleanBlock(FieldBlock):
         self.field = forms.BooleanField(required=required, help_text=help_text)
         super(BooleanBlock, self).__init__(**kwargs)
 
+    class Meta:
+        icon = "tick-inverse"
+
 
 class DateBlock(FieldBlock):
+
     def __init__(self, required=True, help_text=None, **kwargs):
         self.field_options = {'required': required, 'help_text': help_text}
         super(DateBlock, self).__init__(**kwargs)
@@ -157,8 +173,12 @@ class DateBlock(FieldBlock):
         else:
             return parse_date(value)
 
+    class Meta:
+        icon = "date"
+
 
 class TimeBlock(FieldBlock):
+
     def __init__(self, required=True, help_text=None, **kwargs):
         self.field_options = {'required': required, 'help_text': help_text}
         super(TimeBlock, self).__init__(**kwargs)
@@ -176,8 +196,12 @@ class TimeBlock(FieldBlock):
         else:
             return parse_time(value)
 
+    class Meta:
+        icon = "time"
+
 
 class DateTimeBlock(FieldBlock):
+
     def __init__(self, required=True, help_text=None, **kwargs):
         self.field_options = {'required': required, 'help_text': help_text}
         super(DateTimeBlock, self).__init__(**kwargs)
@@ -195,8 +219,12 @@ class DateTimeBlock(FieldBlock):
         else:
             return parse_datetime(value)
 
+    class Meta:
+        icon = "date"
+
 
 class ChoiceBlock(FieldBlock):
+
     choices = ()
 
     def __init__(self, choices=None, required=True, help_text=None, **kwargs):
@@ -259,6 +287,9 @@ class ChoiceBlock(FieldBlock):
                     return [v]
         return []  # Value was not found in the list of choices
 
+    class Meta:
+        icon = "list-ol"
+
 
 class RichTextBlock(FieldBlock):
 
@@ -299,8 +330,12 @@ class RichTextBlock(FieldBlock):
     def get_searchable_content(self, value):
         return [force_text(value.source)]
 
+    class Meta:
+        icon = "doc-full"
+
 
 class RawHTMLBlock(FieldBlock):
+
     def __init__(self, required=True, help_text=None, max_length=None, min_length=None, **kwargs):
         self.field = forms.CharField(
             required=required, help_text=help_text, max_length=max_length, min_length=min_length,
@@ -330,6 +365,7 @@ class RawHTMLBlock(FieldBlock):
 
 
 class ChooserBlock(FieldBlock):
+
     def __init__(self, required=True, help_text=None, **kwargs):
         self.required = required
         self.help_text = help_text
@@ -381,8 +417,12 @@ class ChooserBlock(FieldBlock):
             value = value.pk
         return super(ChooserBlock, self).clean(value)
 
+    class Meta:
+        icon = "search"
+
 
 class PageChooserBlock(ChooserBlock):
+
     def __init__(self, can_choose_root=False, **kwargs):
         self.can_choose_root = can_choose_root
         super(PageChooserBlock, self).__init__(**kwargs)
@@ -402,6 +442,9 @@ class PageChooserBlock(ChooserBlock):
             return format_html('<a href="{0}">{1}</a>', value.url, value.title)
         else:
             return ''
+
+    class Meta:
+        icon = "redirect"
 
 
 # Ensure that the blocks defined here get deconstructed as wagtailcore.blocks.FooBlock

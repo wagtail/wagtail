@@ -22,3 +22,7 @@ class DocumentChooserBlock(ChooserBlock):
             return format_html('<a href="{0}">{1}</a>', value.url, value.title)
         else:
             return ''
+
+    class Meta:
+        icon = "doc-empty"
+
