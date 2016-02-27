@@ -1,11 +1,11 @@
 from __future__ import unicode_literals
 
-from django.test import TestCase, override_settings
-from django.core.urlresolvers import reverse
 from django.contrib.auth import get_user_model
 from django.contrib.auth.models import Group, Permission
 from django.contrib.auth.tokens import PasswordResetTokenGenerator
 from django.core import mail
+from django.core.urlresolvers import reverse
+from django.test import TestCase, override_settings
 
 from wagtail.tests.utils import WagtailTestUtils
 from wagtail.wagtailusers.models import UserProfile
@@ -76,8 +76,8 @@ class TestAuthentication(TestCase, WagtailTestUtils):
         This tests issue #431
         """
         # Login as unprivileged user
-        get_user_model().objects.create(username='unprivileged', password='123')
-        self.client.login(username='unprivileged', password='123')
+        get_user_model().objects.create_user(username='unprivileged', password='123')
+        self.assertTrue(self.client.login(username='unprivileged', password='123'))
 
         # Get login page
         response = self.client.get(reverse('wagtailadmin_login'))
@@ -128,6 +128,22 @@ class TestAuthentication(TestCase, WagtailTestUtils):
         # this must be the same URL as 'wagtailadmin_login'
         self.assertEqual(response.status_code, 302)
         self.assertRedirects(response, reverse('wagtailadmin_login') + '?next=' + reverse('wagtailadmin_home'))
+
+    def test_logged_in_no_permission_redirect(self):
+        """
+        This tests that a logged in user without admin access permissions is
+        redirected to the login page, with an error message
+        """
+        # Login as unprivileged user
+        get_user_model().objects.create_user(username='unprivileged', password='123')
+        self.assertTrue(self.client.login(username='unprivileged', password='123'))
+
+        # Get dashboard
+        response = self.client.get(reverse('wagtailadmin_home'), follow=True)
+
+        # Check that the user was redirected to the login page and that next was set correctly
+        self.assertRedirects(response, reverse('wagtailadmin_login') + '?next=' + reverse('wagtailadmin_home'))
+        self.assertContains(response, 'You do not have permission to access the admin')
 
 
 class TestAccountSection(TestCase, WagtailTestUtils):
@@ -268,7 +284,7 @@ class TestAccountManagementForNonModerator(TestCase, WagtailTestUtils):
         self.submitter = get_user_model().objects.create_user('submitter', 'submitter@example.com', 'password')
         self.submitter.groups.add(Group.objects.get(name='Editors'))
 
-        self.client.login(username=self.submitter.username, password='password')
+        self.assertTrue(self.client.login(username=self.submitter.username, password='password'))
 
     def test_notification_preferences_form_is_reduced_for_non_moderators(self):
         """
@@ -297,7 +313,7 @@ class TestAccountManagementForAdminOnlyUser(TestCase, WagtailTestUtils):
         )
         self.admin_only_user.groups.add(admin_only_group)
 
-        self.client.login(username=self.admin_only_user.username, password='password')
+        self.assertTrue(self.client.login(username=self.admin_only_user.username, password='password'))
 
     def test_notification_preferences_view_redirects_for_admin_only_users(self):
         """

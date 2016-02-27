@@ -802,7 +802,7 @@ class TestEditOnlyPermissions(TestCase, WagtailTestUtils):
         change_permission = Permission.objects.get(content_type__app_label='wagtailimages', codename='change_image')
         admin_permission = Permission.objects.get(content_type__app_label='wagtailadmin', codename='access_admin')
         user.user_permissions.add(change_permission, admin_permission)
-        self.client.login(username='changeonly', password='password')
+        self.assertTrue(self.client.login(username='changeonly', password='password'))
 
     def test_get_index(self):
         response = self.client.get(reverse('wagtailimages:index'))

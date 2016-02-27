@@ -18,7 +18,7 @@ class WagtailTestUtils(object):
         user = get_user_model().objects.create_superuser(username='test', email='test@email.com', password='password')
 
         # Login
-        self.client.login(username='test', password='password')
+        self.assertTrue(self.client.login(username='test', password='password'))
 
         return user
 
