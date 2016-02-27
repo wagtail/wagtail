@@ -25,4 +25,3 @@ class DocumentChooserBlock(ChooserBlock):
 
     class Meta:
         icon = "doc-empty"
-

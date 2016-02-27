@@ -23,4 +23,3 @@ class ImageChooserBlock(ChooserBlock):
 
     class Meta:
         icon = "image"
-

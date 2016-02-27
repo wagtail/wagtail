@@ -63,4 +63,3 @@ class EmbedBlock(blocks.URLBlock):
 
     class Meta:
         icon = "media"
-

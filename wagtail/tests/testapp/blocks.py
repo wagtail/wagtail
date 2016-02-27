@@ -22,4 +22,3 @@ class SectionBlock(blocks.StructBlock):
     class Meta:
         icon = "form"
         template = 'tests/blocks/section_block.html'
-

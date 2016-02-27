@@ -17,4 +17,3 @@ class SnippetChooserBlock(ChooserBlock):
 
     class Meta:
         icon = "snippet"
-

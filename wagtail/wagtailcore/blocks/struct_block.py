@@ -184,4 +184,3 @@ class StructValue(collections.OrderedDict):
             (name, block.bind(self.get(name)))
             for name, block in self.block.child_blocks.items()
         ])
-
