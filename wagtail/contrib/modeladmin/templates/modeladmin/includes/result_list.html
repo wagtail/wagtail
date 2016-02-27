@@ -15,7 +15,7 @@
     <tbody>
     {% for result in results %}
         <tr class="{% cycle 'odd' 'even' %}">
-            {% result_row_display view object_list result forloop.counter0 %}
+            {% result_row_display forloop.counter0 %}
         </tr>
     {% endfor %}
 </tbody>

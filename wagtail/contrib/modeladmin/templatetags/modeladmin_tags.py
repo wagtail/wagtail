@@ -4,6 +4,7 @@ import datetime
 import django
 from django.db import models
 from django.template import Library
+from django.template.loader import get_template
 from django.utils.safestring import mark_safe
 from django.utils.encoding import force_text
 from django.utils.html import format_html
@@ -11,7 +12,7 @@ from django.utils.translation import ugettext as _
 from django.core.exceptions import ObjectDoesNotExist
 
 from django.contrib.admin.templatetags.admin_list import (
-    ResultList, result_headers, admin_list_filter as djangoadmin_list_filter,
+    ResultList, result_headers,
 )
 from django.contrib.admin.utils import (
     display_for_field, display_for_value, lookup_field,
@@ -84,10 +85,12 @@ def results(view, object_list):
 
 @register.inclusion_tag("modeladmin/includes/result_list.html",
                         takes_context=True)
-def result_list(context, view, object_list):
+def result_list(context):
     """
     Displays the headers and data list together
     """
+    view = context['view']
+    object_list = context['object_list']
     headers = list(result_headers(view))
     num_sorted_fields = 0
     for h in headers:
@@ -122,41 +125,53 @@ def pagination_link_next(current_page, view):
     return ''
 
 
-@register.inclusion_tag("modeladmin/includes/search_form.html")
-def search_form(view):
-    return {
-        'view': view,
-        'search_var': SEARCH_VAR,
-    }
+@register.inclusion_tag(
+    "modeladmin/includes/search_form.html", takes_context=True)
+def search_form(context):
+    context.update({'search_var': SEARCH_VAR})
+    return context
 
 
 @register.simple_tag
 def admin_list_filter(view, spec):
-    return djangoadmin_list_filter(view, spec)
+    template_name = spec.template
+    if template_name == 'admin/filter.html':
+        template_name = 'modeladmin/includes/filter.html'
+    tpl = get_template(template_name)
+    return tpl.render({
+        'title': spec.title,
+        'choices': list(spec.choices(view)),
+        'spec': spec,
+    })
 
 
-@register.inclusion_tag("modeladmin/includes/result_row.html",
-                        takes_context=True)
-def result_row_display(context, view, object_list, result, index):
-    obj = list(object_list)[index]
-    buttons = view.button_helper.get_buttons_for_obj(obj)
-    context.update({'obj': obj, 'action_buttons': buttons})
+@register.inclusion_tag(
+    "modeladmin/includes/result_row.html", takes_context=True)
+def result_row_display(context, index):
+    obj = context['object_list'][index]
+    view = context['view']
+    context.update({
+        'obj': obj,
+        'action_buttons': view.button_helper.get_buttons_for_obj(obj),
+    })
     return context
 
 
-@register.inclusion_tag("modeladmin/includes/result_row_value.html")
-def result_row_value_display(item, obj, action_buttons, index=0):
+@register.inclusion_tag(
+    "modeladmin/includes/result_row_value.html", takes_context=True)
+def result_row_value_display(context, index):
     add_action_buttons = False
+    item = context['item']
     closing_tag = mark_safe(item[-5:])
-
-    if index == 1:
+    request = context['request']
+    modeladmin = context['view'].modeladmin
+    field_name = modeladmin.get_list_display(request)[index]
+    if field_name == modeladmin.get_list_display_add_buttons(request):
         add_action_buttons = True
         item = mark_safe(item[0:-5])
-
-    return {
+    context.update({
         'item': item,
-        'obj': obj,
         'add_action_buttons': add_action_buttons,
-        'action_buttons': action_buttons,
         'closing_tag': closing_tag,
-    }
+    })
+    return context

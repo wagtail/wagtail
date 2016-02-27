@@ -3,6 +3,7 @@ import operator
 from collections import OrderedDict
 from functools import reduce
 
+from django import forms
 from django.db import models
 from django.db.models.fields.related import ForeignObjectRel
 from django.db.models.constants import LOOKUP_SEP
@@ -259,6 +260,12 @@ class IndexView(WMABaseView):
         helper = helper_class(self.model, self.permission_helper, user, obj)
         return helper.get_permitted_buttons()
 
+    @property
+    def media(self):
+        return forms.Media(
+            css={'all': self.modeladmin.get_index_view_extra_css()},
+            js=self.modeladmin.get_index_view_extra_js()
+        )
 
     def get_search_results(self, request, queryset, search_term):
         """
@@ -800,20 +807,17 @@ class ConfirmDeleteView(ObjectSpecificView):
         ) % self.model_name
 
     def get(self, request, *args, **kwargs):
-        instance = self.instance
-        if request.POST:
-            instance.delete()
-            messages.success(
-                request,
-                _("{model_name} '{instance}' deleted.").format(
-                    model_name=self.model_name, instance=instance))
-            return redirect(self.get_index_url)
-
         context = {'view': self, 'instance': self.instance}
         return self.render_to_response(context)
 
     def post(self, request, *args, **kwargs):
-        return self.get(request, *args, **kwargs)
+        instance = self.instance
+        instance.delete()
+        messages.success(
+            request,
+            _("{model_name} '{instance}' deleted.").format(
+                    model_name=self.model_name, instance=instance))
+        return redirect(self.get_index_url)
 
     def get_template_names(self):
         return self.modeladmin.get_confirm_delete_template()

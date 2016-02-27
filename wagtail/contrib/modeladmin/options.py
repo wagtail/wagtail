@@ -58,6 +58,7 @@ class ModelAdmin(WagtailRegisterable):
     menu_icon = None
     menu_order = None
     list_display = ('__str__',)
+    list_display_add_buttons = None
     empty_value_display = '-'
     list_filter = ()
     list_select_related = False
@@ -77,6 +78,8 @@ class ModelAdmin(WagtailRegisterable):
     edit_template_name = ''
     confirm_delete_template_name = ''
     choose_parent_template_name = ''
+    index_view_extra_css = []
+    index_view_extra_js = []
     permission_helper_class = None
     button_helper_class = None
 
@@ -160,6 +163,15 @@ class ModelAdmin(WagtailRegisterable):
         """
         return self.list_display
 
+    def get_list_display_add_buttons(self, request):
+        """
+        Return the name of the field/method from list_display where action
+        buttons should be added. Defaults to the first item from
+        get_list_display()
+        """
+        return self.list_display_add_buttons or self.get_list_display(
+            request)[0]
+
     def get_empty_value_display(self, field_name):
         """
         Return the empty_value_display value defined on ModelAdmin
@@ -217,6 +229,14 @@ class ModelAdmin(WagtailRegisterable):
         Must always return a dictionary.
         """
         return {}
+
+    def get_index_view_extra_css(self):
+        css = ['wagtailmodeladmin/css/index.css']
+        css.extend(self.index_view_extra_css)
+        return css
+
+    def get_index_view_extra_js(self):
+        return self.index_view_extra_js
 
     def get_index_url(self):
         return reverse(get_url_name(self.opts))
