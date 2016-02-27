@@ -93,7 +93,7 @@ Contributors
 * Rich Atkinson
 * jnns
 * Eugene MechanisM
-* benjaoming
+* Benjamin Bach
 * Alexander Bogushov
 * Aarni Koskela
 * alexpilot11
