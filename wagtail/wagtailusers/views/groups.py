@@ -62,12 +62,12 @@ def index(request):
 
 @permission_required('auth.add_group')
 def create(request):
+    group = Group()
     if request.POST:
-        form = GroupForm(request.POST)
-        formset = GroupPagePermissionFormSet(request.POST)
+        form = GroupForm(request.POST, instance=group)
+        formset = GroupPagePermissionFormSet(request.POST, instance=group)
         if form.is_valid() and formset.is_valid():
-            group = form.save()
-            formset.instance = group
+            form.save()
             formset.save()
             messages.success(request, _("Group '{0}' created.").format(group), buttons=[
                 messages.button(reverse('wagtailusers_groups:edit', args=(group.id,)), _('Edit'))
@@ -76,8 +76,8 @@ def create(request):
         else:
             messages.error(request, _("The group could not be created due to errors."))
     else:
-        form = GroupForm()
-        formset = GroupPagePermissionFormSet()
+        form = GroupForm(instance=group)
+        formset = GroupPagePermissionFormSet(instance=group)
 
     return render(request, 'wagtailusers/groups/create.html', {
         'form': form,
@@ -92,7 +92,7 @@ def edit(request, group_id):
         form = GroupForm(request.POST, instance=group)
         formset = GroupPagePermissionFormSet(request.POST, instance=group)
         if form.is_valid() and formset.is_valid():
-            group = form.save()
+            form.save()
             formset.save()
             messages.success(request, _("Group '{0}' updated.").format(group), buttons=[
                 messages.button(reverse('wagtailusers_groups:edit', args=(group.id,)), _('Edit'))
