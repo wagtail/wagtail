@@ -39,6 +39,7 @@ Minor features
  * Optimised Site.find_for_request to only perform one database query (Matthew Downey)
  * Notification messages on creating / editing sites now include the site name if specified (Chris Rogers)
  * Added ``--schema-only`` option to ``update_index`` management command
+ * Added meaningful default icons to ``StreamField`` blocks (Benjamin Bach)
 
 Bug fixes
 ~~~~~~~~~

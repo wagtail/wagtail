@@ -33,8 +33,6 @@ class StreamBlockValidationError(ValidationError):
 
 
 class BaseStreamBlock(Block):
-    class Meta:
-        default = []
 
     def __init__(self, local_blocks=None, **kwargs):
         self._constructor_kwargs = kwargs
@@ -242,6 +240,13 @@ class BaseStreamBlock(Block):
             errors.extend(child_block._check_name(**kwargs))
 
         return errors
+
+    class Meta:
+        # No icon specified here, because that depends on the purpose that the
+        # block is being used for. Feel encouraged to specify an icon in your
+        # descendant block type
+        icon = "placeholder"
+        default = []
 
 
 class StreamBlock(six.with_metaclass(DeclarativeSubBlocksMetaclass, BaseStreamBlock)):
