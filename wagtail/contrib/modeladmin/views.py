@@ -157,6 +157,13 @@ class WMAFormView(WMABaseView, FormView):
         kwargs.update({'instance': self.get_instance()})
         return kwargs
 
+    @property
+    def media(self):
+        return forms.Media(
+            css={'all': self.modeladmin.get_form_view_extra_css()},
+            js=self.modeladmin.get_form_view_extra_js()
+        )
+
     def get_context_data(self, **kwargs):
         instance = self.get_instance()
         edit_handler_class = self.get_edit_handler_class()

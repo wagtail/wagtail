@@ -1,11 +1,14 @@
-from django.db.models import Model
 from django.contrib.auth.models import Permission
 from django.conf.urls import url
 from django.core.urlresolvers import reverse
 from django.core.exceptions import ImproperlyConfigured
+from django.db.models import Model
+from django.forms.widgets import flatatt
+from django.utils.translation import ugettext_lazy as _
 from django.utils.safestring import mark_safe
 
 from wagtail.wagtailcore.models import Page
+from wagtail.wagtailimages.models import Filter
 from wagtail.wagtailcore import hooks
 
 from .menus import ModelAdminMenuItem, GroupMenuItem, SubMenu
@@ -44,6 +47,44 @@ class WagtailRegisterable(object):
             return self.get_menu_item()
 
 
+class ModelAdminThumbMixin(object):
+    """
+    Mixin class to help display thumbnail images in ModelAdmin listing results.
+    `thumb_image_field_name` must be overridden to name a ForeignKey field on
+    your model, linking to `wagtailimages.Image`.
+    """
+    thumb_image_field_name = 'image'
+    thumb_image_filter_spec = 'fill-100x100'
+    thumb_image_width = 50
+    thumb_classname = 'admin-thumb'
+    thumb_col_header_text = _('image')
+    thumb_default = None
+
+    def admin_thumb(self, obj):
+        try:
+            image = getattr(obj, self.thumb_image_field_name, None)
+        except AttributeError:
+            raise ImproperlyConfigured(
+                u"The `thumb_image_field_name` attribute on your `%s` class "
+                "must name a field on your model." % self.__class__.__name__
+            )
+
+        img_attrs = {
+            'src': self.thumb_default,
+            'width': self.thumb_image_width,
+            'class': self.thumb_classname,
+        }
+        if image:
+            fltr, _ = Filter.objects.get_or_create(
+                spec=self.thumb_image_filter_spec)
+            img_attrs.update({'src': image.get_rendition(fltr).url})
+            return mark_safe('<img{}>'.format(flatatt(img_attrs)))
+        elif self.thumb_default:
+            return mark_safe('<img{}>'.format(flatatt(img_attrs)))
+        return ''
+    admin_thumb.short_description = thumb_col_header_text
+
+
 class ModelAdmin(WagtailRegisterable):
     """
     The core modeladmin class. It provides an alternative means to
@@ -78,10 +119,12 @@ class ModelAdmin(WagtailRegisterable):
     edit_template_name = ''
     confirm_delete_template_name = ''
     choose_parent_template_name = ''
-    index_view_extra_css = []
-    index_view_extra_js = []
     permission_helper_class = None
     button_helper_class = None
+    index_view_extra_css = []
+    index_view_extra_js = []
+    form_view_extra_css = []
+    form_view_extra_js = []
 
     def __init__(self, parent=None):
         """
@@ -237,6 +280,12 @@ class ModelAdmin(WagtailRegisterable):
 
     def get_index_view_extra_js(self):
         return self.index_view_extra_js
+
+    def get_form_view_extra_css(self):
+        return self.form_view_extra_js
+
+    def get_form_view_extra_js(self):
+        return self.form_view_extra_js
 
     def get_index_url(self):
         return reverse(get_url_name(self.opts))
