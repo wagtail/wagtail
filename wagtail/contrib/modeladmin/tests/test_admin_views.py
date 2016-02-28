@@ -1,4 +1,5 @@
 from django.test import TestCase
+from django.contrib.auth import get_user_model
 
 from wagtail.tests.utils import WagtailTestUtils
 from wagtail.tests.modeladmintest.models import Book
@@ -104,3 +105,40 @@ class TestConfirmDeleteView(TestCase, WagtailTestUtils):
 
         # Book deleted
         self.assertFalse(Book.objects.filter(id=1).exists())
+
+
+class TestAccessDenied(TestCase):
+    fixtures = ['modeladmintest_test.json']
+    expected_status_code = 302
+
+    def login(self):
+        # Create a user
+        user = get_user_model().objects._create_user(username='test2', email='test2@email.com', password='password', is_staff=True, is_superuser=False)
+
+        # Login
+        self.client.login(username='test2', password='password')
+
+        return user
+
+    def setUp(self):
+        self.login()
+
+    def test_index_non_access(self):
+        response = self.client.get('/admin/modeladmin/modeladmintest/book/')
+        self.assertEqual(response.status_code, self.expected_status_code)
+
+    def test_create_non_access(self):
+        response = self.client.get('/admin/modeladmin/modeladmintest/book/create/')
+        self.assertEqual(response.status_code, self.expected_status_code)
+
+    def test_edit_non_access(self):
+        response = self.client.get('/admin/modeladmin/modeladmintest/book/edit/2/')
+        self.assertEqual(response.status_code, self.expected_status_code)
+
+    def test_confirm_delete_get(self):
+        response = self.client.get('/admin/modeladmin/modeladmintest/book/confirm_delete/2/')
+        self.assertEqual(response.status_code, self.expected_status_code)
+
+    def test_confirm_delete_post(self):
+        response = self.client.post('/admin/modeladmin/modeladmintest/book/confirm_delete/2/')
+        self.assertEqual(response.status_code, self.expected_status_code)
