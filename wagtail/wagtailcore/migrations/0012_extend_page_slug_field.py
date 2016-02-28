@@ -2,6 +2,7 @@
 from __future__ import unicode_literals
 
 from django.db import models, migrations
+from wagtail.wagtailcore.utils import validate_unicode_slug
 
 
 class Migration(migrations.Migration):
@@ -15,6 +16,7 @@ class Migration(migrations.Migration):
             model_name='page',
             name='slug',
             field=models.SlugField(
+                validators=[validate_unicode_slug],
                 help_text='The name of the page as it will appear in URLs e.g http://domain.com/blog/[my-slug]/',
                 max_length=255
             ),
