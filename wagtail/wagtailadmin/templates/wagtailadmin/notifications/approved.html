@@ -5,5 +5,5 @@
 {% block content %}
     {% blocktrans with title=revision.page.title|safe %}The page "{{ title }}" has been approved.{% endblocktrans %}
 
-    {% trans "You can view the page here:" %} {{ revision.page.full_url }}
+    {% trans "You can view the page here:" %} <a href="{{ revision.page.full_url }}">{{ revision.page.full_url }}</a>
 {% endblock %}

@@ -7,5 +7,5 @@
 
     {% blocktrans with title=revision.page.title|safe %}The page "{{ title }}" has been rejected.{% endblocktrans %}
 
-    {% trans "You can edit the page here:"%} {{ settings.BASE_URL }}{% url 'wagtailadmin_pages:edit' revision.page.id %}
+    {% trans "You can edit the page here:"%} <a href="{{ settings.BASE_URL }}{% url 'wagtailadmin_pages:edit' revision.page.id %}">{{ settings.BASE_URL }}{% url 'wagtailadmin_pages:edit' revision.page.id %}</a>
 {% endblock %}
