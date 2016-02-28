@@ -111,7 +111,7 @@ body[yahoo] .text {
                 {% block content %}
                 {% endblock %}
 
-                <div style="font-size: 10px; margin-top: 20px;">{% trans "Edit your notification preferences here:" %} {{ settings.BASE_URL }}{% url 'wagtailadmin_account_notification_preferences' %}</div>
+                <div style="font-size: 10px; margin-top: 20px;">{% trans "Edit your notification preferences here:" %} <a href="{{ settings.BASE_URL }}{% url 'wagtailadmin_account_notification_preferences' %}">{{ settings.BASE_URL }}{% url 'wagtailadmin_account_notification_preferences' %}</a></div>
               </td>
             </tr>
           </table></td>
