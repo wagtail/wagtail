@@ -17,7 +17,7 @@ class Migration(migrations.Migration):
                 ('id', models.AutoField(serialize=False, verbose_name='ID', primary_key=True, auto_created=True)),
                 ('form_data', models.TextField()),
                 ('submit_time', models.DateTimeField(auto_now_add=True)),
-                ('page', models.ForeignKey(to='wagtailcore.Page')),
+                ('page', models.ForeignKey(on_delete=models.CASCADE, to='wagtailcore.Page')),
             ],
             options={
             },

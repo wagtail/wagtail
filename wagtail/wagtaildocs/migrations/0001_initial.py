@@ -35,6 +35,7 @@ class Migration(migrations.Migration):
                 (
                     'uploaded_by_user',
                     models.ForeignKey(
+                        on_delete=models.CASCADE,
                         editable=False,
                         null=True,
                         blank=True,

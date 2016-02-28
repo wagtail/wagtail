@@ -25,15 +25,6 @@ class BaseSearchQuery(object):
         self.operator = operator or self.DEFAULT_OPERATOR
         self.order_by_relevance = order_by_relevance
 
-    def _get_searchable_field(self, field_attname):
-        # Get field
-        field = dict(
-            (field.get_attname(self.queryset.model), field)
-            for field in self.queryset.model.get_searchable_search_fields()
-        ).get(field_attname, None)
-
-        return field
-
     def _get_filterable_field(self, field_attname):
         # Get field
         field = dict(
@@ -183,7 +174,7 @@ class BaseSearchResults(object):
         data = list(self[:21])
         if len(data) > 20:
             data[-1] = "...(remaining elements truncated)..."
-        return repr(data)
+        return '<SearchResults %r>' % data
 
 
 class BaseSearch(object):

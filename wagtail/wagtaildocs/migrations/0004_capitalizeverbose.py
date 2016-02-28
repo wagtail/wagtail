@@ -40,6 +40,6 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='document',
             name='uploaded_by_user',
-            field=models.ForeignKey(blank=True, null=True, to=settings.AUTH_USER_MODEL, editable=False, verbose_name='uploaded by user'),
+            field=models.ForeignKey(on_delete=models.CASCADE, blank=True, null=True, to=settings.AUTH_USER_MODEL, editable=False, verbose_name='uploaded by user'),
         ),
     ]
