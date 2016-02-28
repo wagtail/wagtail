@@ -302,7 +302,7 @@ class ModelAdmin(WagtailRegisterable):
         the assigned model. The view class used can be overridden by changing
         the 'index_view_class' attribute.
         """
-        kwargs = {'modeladmin': self}
+        kwargs = {'model_admin': self}
         view_class = self.index_view_class
         return view_class.as_view(**kwargs)(request)
 
@@ -313,7 +313,7 @@ class ModelAdmin(WagtailRegisterable):
         assigned model extends 'Page'. The view class used can be overridden by
         changing the 'create_view_class' attribute.
         """
-        kwargs = {'modeladmin': self}
+        kwargs = {'model_admin': self}
         view_class = self.create_view_class
         return view_class.as_view(**kwargs)(request)
 
@@ -325,7 +325,7 @@ class ModelAdmin(WagtailRegisterable):
         new instances. The view class used can be overridden by changing the
         'choose_parent_view_class' attribute.
         """
-        kwargs = {'modeladmin': self}
+        kwargs = {'model_admin': self}
         view_class = self.choose_parent_view_class
         return view_class.as_view(**kwargs)(request)
 
@@ -336,7 +336,7 @@ class ModelAdmin(WagtailRegisterable):
         model extends 'Page'. The view class used can be overridden by changing
         the  'edit_view_class' attribute.
         """
-        kwargs = {'modeladmin': self, 'object_id': object_id}
+        kwargs = {'model_admin': self, 'object_id': object_id}
         view_class = self.edit_view_class
         return view_class.as_view(**kwargs)(request)
 
@@ -348,7 +348,7 @@ class ModelAdmin(WagtailRegisterable):
         used can be overridden by changing the 'confirm_delete_view_class'
         attribute.
         """
-        kwargs = {'modeladmin': self, 'object_id': object_id}
+        kwargs = {'model_admin': self, 'object_id': object_id}
         view_class = self.confirm_delete_view_class
         return view_class.as_view(**kwargs)(request)
 
@@ -361,7 +361,7 @@ class ModelAdmin(WagtailRegisterable):
         is completed. The view class used can be overridden by changing the
         'unpublish_view_class' attribute.
         """
-        kwargs = {'modeladmin': self, 'object_id': object_id}
+        kwargs = {'model_admin': self, 'object_id': object_id}
         view_class = self.unpublish_view_class
         return view_class.as_view(**kwargs)(request)
 
@@ -374,7 +374,7 @@ class ModelAdmin(WagtailRegisterable):
         is completed. The view class used can be overridden by changing the
         'copy_view_class' attribute.
         """
-        kwargs = {'modeladmin': self, 'object_id': object_id}
+        kwargs = {'model_admin': self, 'object_id': object_id}
         view_class = self.copy_view_class
         return view_class.as_view(**kwargs)(request)
 

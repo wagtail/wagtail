@@ -9,8 +9,8 @@
     {% include "wagtailadmin/shared/header.html" with title=view.get_page_title subtitle=view.get_page_subtitle icon=view.header_icon %}
     
     <div class="nice-padding">
-        <h2>{% blocktrans %}Where should it go?{% endblocktrans %}</h2>
-        <p>{% blocktrans with view.model_name_plural as plural %}{{ plural }} can be added to more than one place within your site. Where would you like this new one to go?{% endblocktrans %}</p>
+        <h2>{% blocktrans %}Choose a parent page{% endblocktrans %}</h2>
+        <p>{% blocktrans with view.model_name_plural as plural %}{{ plural }} can be added to more than one place within your site. Which of the following would you like to be the parent of your new page?{% endblocktrans %}</p>
         
         <form action="" method="post">
             {% csrf_token %}

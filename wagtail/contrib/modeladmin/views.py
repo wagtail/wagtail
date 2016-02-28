@@ -62,18 +62,18 @@ class WMABaseView(TemplateView):
     """
     Groups together common functionality for all app views.
     """
-    modeladmin = None
+    model_admin = None
     meta_title = ''
     page_title = ''
     page_subtitle = ''
 
-    def __init__(self, modeladmin):
-        self.modeladmin = modeladmin
-        self.model = modeladmin.model
-        self.opts = modeladmin.model._meta
+    def __init__(self, model_admin):
+        self.model_admin = model_admin
+        self.model = model_admin.model
+        self.opts = model_admin.model._meta
         self.pk_attname = self.opts.pk.attname
-        self.is_pagemodel = modeladmin.is_pagemodel
-        self.permission_helper = modeladmin.permission_helper
+        self.is_pagemodel = model_admin.is_pagemodel
+        self.permission_helper = model_admin.permission_helper
 
     @method_decorator(login_required)
     def dispatch(self, request, *args, **kwargs):
@@ -96,15 +96,15 @@ class WMABaseView(TemplateView):
 
     @cached_property
     def get_index_url(self):
-        return self.modeladmin.get_index_url()
+        return self.model_admin.get_index_url()
 
     @cached_property
     def get_create_url(self):
-        return self.modeladmin.get_create_url()
+        return self.model_admin.get_create_url()
 
     @cached_property
     def menu_icon(self):
-        return self.modeladmin.get_menu_icon()
+        return self.model_admin.get_menu_icon()
 
     @cached_property
     def header_icon(self):
@@ -134,7 +134,7 @@ class WMABaseView(TemplateView):
         return self.meta_title or self.get_page_title()
 
     def get_base_queryset(self, request):
-        return self.modeladmin.get_queryset(request)
+        return self.model_admin.get_queryset(request)
 
 
 class WMAFormView(WMABaseView, FormView):
@@ -160,8 +160,8 @@ class WMAFormView(WMABaseView, FormView):
     @property
     def media(self):
         return forms.Media(
-            css={'all': self.modeladmin.get_form_view_extra_css()},
-            js=self.modeladmin.get_form_view_extra_js()
+            css={'all': self.model_admin.get_form_view_extra_css()},
+            js=self.model_admin.get_form_view_extra_js()
         )
 
     def get_context_data(self, **kwargs):
@@ -170,7 +170,7 @@ class WMAFormView(WMABaseView, FormView):
         form = self.get_form()
         return {
             'view': self,
-            'modeladmin': self.modeladmin,
+            'model_admin': self.model_admin,
             'is_multipart': form.is_multipart(),
             'edit_handler': edit_handler_class(instance=instance, form=form)
         }
@@ -206,13 +206,13 @@ class ObjectSpecificView(WMABaseView):
     object_id = None
     instance = None
 
-    def __init__(self, modeladmin, object_id):
-        super(ObjectSpecificView, self).__init__(modeladmin)
+    def __init__(self, model_admin, object_id):
+        super(ObjectSpecificView, self).__init__(model_admin)
         self.object_id = object_id
         self.pk_safe = quote(object_id)
         filter_kwargs = {}
         filter_kwargs[self.pk_attname] = self.pk_safe
-        object_qs = modeladmin.model._default_manager.get_queryset().filter(
+        object_qs = model_admin.model._default_manager.get_queryset().filter(
             **filter_kwargs)
         self.instance = get_object_or_404(object_qs)
 
@@ -235,11 +235,11 @@ class IndexView(WMABaseView):
 
     @method_decorator(login_required)
     def dispatch(self, request, *args, **kwargs):
-        self.list_display = self.modeladmin.get_list_display(request)
-        self.list_filter = self.modeladmin.get_list_filter(request)
-        self.search_fields = self.modeladmin.get_search_fields(request)
-        self.items_per_page = self.modeladmin.list_per_page
-        self.select_related = self.modeladmin.list_select_related
+        self.list_display = self.model_admin.get_list_display(request)
+        self.list_filter = self.model_admin.get_list_filter(request)
+        self.search_fields = self.model_admin.get_search_fields(request)
+        self.items_per_page = self.model_admin.list_per_page
+        self.select_related = self.model_admin.list_select_related
         request = self.request
 
         # Get search parameters from the query string.
@@ -270,8 +270,8 @@ class IndexView(WMABaseView):
     @property
     def media(self):
         return forms.Media(
-            css={'all': self.modeladmin.get_index_view_extra_css()},
-            js=self.modeladmin.get_index_view_extra_js()
+            css={'all': self.model_admin.get_index_view_extra_css()},
+            js=self.model_admin.get_index_view_extra_js()
         )
 
     def get_search_results(self, request, queryset, search_term):
@@ -386,7 +386,7 @@ class IndexView(WMABaseView):
                         request,
                         lookup_params,
                         self.model,
-                        self.modeladmin)
+                        self.model_admin)
                 else:
                     field_path = None
                     if isinstance(list_filter, (tuple, list)):
@@ -408,7 +408,7 @@ class IndexView(WMABaseView):
                         request,
                         lookup_params,
                         self.model,
-                        self.modeladmin,
+                        self.model_admin,
                         field_path=field_path)
 
                     # Check if we need to use distinct()
@@ -458,15 +458,15 @@ class IndexView(WMABaseView):
 
     def _get_default_ordering(self):
         ordering = []
-        if self.modeladmin.ordering:
-            ordering = self.modeladmin.ordering
+        if self.model_admin.ordering:
+            ordering = self.model_admin.ordering
         elif self.opts.ordering:
             ordering = self.opts.ordering
         return ordering
 
     def get_default_ordering(self, request):
-        if self.modeladmin.get_ordering(request):
-            return self.modeladmin.get_ordering(request)
+        if self.model_admin.get_ordering(request):
+            return self.model_admin.get_ordering(request)
         if self.opts.ordering:
             return self.opts.ordering
         return ()
@@ -487,8 +487,8 @@ class IndexView(WMABaseView):
             # that allows sorting.
             if callable(field_name):
                 attr = field_name
-            elif hasattr(self.modeladmin, field_name):
-                attr = getattr(self.modeladmin, field_name)
+            elif hasattr(self.model_admin, field_name):
+                attr = getattr(self.model_admin, field_name)
             else:
                 attr = getattr(self.model, field_name)
             return getattr(attr, 'admin_order_field', None)
@@ -547,7 +547,7 @@ class IndexView(WMABaseView):
         ordering = self._get_default_ordering()
         ordering_fields = OrderedDict()
         if ORDER_VAR not in self.params:
-            # for ordering specified on modeladmin or model Meta, we don't
+            # for ordering specified on model_admin or model Meta, we don't
             # know the right column numbers absolutely, because there might be
             # morr than one column associated with that ordering, so we guess.
             for field in ordering:
@@ -680,7 +680,7 @@ class IndexView(WMABaseView):
         return self.render_to_response(context)
 
     def get_template_names(self):
-        return self.modeladmin.get_index_template()
+        return self.model_admin.get_index_template()
 
 
 class CreateView(WMAFormView):
@@ -706,7 +706,7 @@ class CreateView(WMAFormView):
 
             # The page can be added in multiple places, so redirect to the
             # choose_parent view so that the parent can be specified
-            return redirect(self.modeladmin.get_choose_parent_url())
+            return redirect(self.model_admin.get_choose_parent_url())
         return super(CreateView, self).dispatch(request, *args, **kwargs)
 
     def get_meta_title(self):
@@ -716,7 +716,7 @@ class CreateView(WMAFormView):
         return self.model_name
 
     def get_template_names(self):
-        return self.modeladmin.get_create_template()
+        return self.model_admin.get_create_template()
 
 
 class ChooseParentView(WMABaseView):
@@ -747,7 +747,7 @@ class ChooseParentView(WMABaseView):
         return render(request, self.get_template(), context)
 
     def get_template(self):
-        return self.modeladmin.get_choose_parent_template()
+        return self.model_admin.get_choose_parent_template()
 
 
 class EditView(ObjectSpecificView, CreateView):
@@ -781,7 +781,7 @@ class EditView(ObjectSpecificView, CreateView):
         return _("The %s could not be saved due to errors.") % model_name
 
     def get_template_names(self):
-        return self.modeladmin.get_edit_template()
+        return self.model_admin.get_edit_template()
 
 
 class ConfirmDeleteView(ObjectSpecificView):
@@ -827,7 +827,7 @@ class ConfirmDeleteView(ObjectSpecificView):
         return redirect(self.get_index_url)
 
     def get_template_names(self):
-        return self.modeladmin.get_confirm_delete_template()
+        return self.model_admin.get_confirm_delete_template()
 
 
 class UnpublishRedirectView(ObjectSpecificView):

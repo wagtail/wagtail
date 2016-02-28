@@ -27,9 +27,9 @@ def items_for_result(view, result):
     """
     Generates the actual list of data.
     """
-    modeladmin = view.modeladmin
+    modeladmin = view.model_admin
     for field_name in view.list_display:
-        empty_value_display = modeladmin.get_empty_value_display()
+        empty_value_display = modeladmin.get_empty_value_display(field_name)
         row_classes = ['field-%s' % field_name]
         try:
             f, attr, value = lookup_field(field_name, result, modeladmin)
@@ -164,7 +164,7 @@ def result_row_value_display(context, index):
     item = context['item']
     closing_tag = mark_safe(item[-5:])
     request = context['request']
-    modeladmin = context['view'].modeladmin
+    modeladmin = context['view'].model_admin
     field_name = modeladmin.get_list_display(request)[index]
     if field_name == modeladmin.get_list_display_add_buttons(request):
         add_action_buttons = True
