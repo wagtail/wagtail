@@ -329,7 +329,7 @@ class IndexView(WMABaseView):
         rel_name = None
         for part in parts[:-1]:
             try:
-                field, _, _, _ = self.model._meta.get_field_by_name(part)
+                field = self.model._meta.get_field(part)
             except FieldDoesNotExist:
                 # Lookups on non-existent fields are ok, since they're ignored
                 # later.
