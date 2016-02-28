@@ -84,7 +84,6 @@ MIDDLEWARE_CLASSES = (
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 
     'wagtail.wagtailcore.middleware.SiteMiddleware',
-
     'wagtail.wagtailredirects.middleware.RedirectMiddleware',
 )
 
@@ -100,12 +99,14 @@ INSTALLED_APPS = (
     'wagtail.tests.snippets',
     'wagtail.tests.routablepage',
     'wagtail.tests.search',
+    'wagtail.tests.wagtailmodeladmin',
     'wagtail.contrib.wagtailstyleguide',
     'wagtail.contrib.wagtailsitemaps',
     'wagtail.contrib.wagtailroutablepage',
     'wagtail.contrib.wagtailfrontendcache',
     'wagtail.contrib.wagtailapi',
     'wagtail.contrib.wagtailsearchpromotions',
+    'wagtail.contrib.modeladmin',
     'wagtail.wagtailforms',
     'wagtail.wagtailsearch',
     'wagtail.wagtailembeds',
