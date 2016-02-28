@@ -1,4 +1,4 @@
-from wagtail.contrib.modeladmin.options import ModelAdmin, wagtailmodeladmin_register
+from wagtail.contrib.modeladmin.options import ModelAdmin, modeladmin_register
 from .models import Author, Book
 
 
@@ -17,5 +17,5 @@ class BookModelAdmin(ModelAdmin):
     list_filter = ('author', )
 
 
-wagtailmodeladmin_register(AuthorModelAdmin)
-wagtailmodeladmin_register(BookModelAdmin)
+modeladmin_register(AuthorModelAdmin)
+modeladmin_register(BookModelAdmin)

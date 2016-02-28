@@ -1,17 +1,17 @@
 from django.test import TestCase
 
 from wagtail.tests.utils import WagtailTestUtils
-from wagtail.tests.wagtailmodeladmin.models import Book
+from wagtail.tests.modeladmintest.models import Book
 
 
 class TestIndexView(TestCase, WagtailTestUtils):
-    fixtures = ['wagtailmodeladmin_test.json']
+    fixtures = ['modeladmintest_test.json']
 
     def setUp(self):
         self.login()
 
     def get(self, **params):
-        return self.client.get('/admin/modeladmin/wagtailmodeladmin/book/', params)
+        return self.client.get('/admin/modeladmin/modeladmintest/book/', params)
 
     def test_simple(self):
         response = self.get()
@@ -38,13 +38,13 @@ class TestIndexView(TestCase, WagtailTestUtils):
 
 
 class TestCreateView(TestCase, WagtailTestUtils):
-    fixtures = ['wagtailmodeladmin_test.json']
+    fixtures = ['modeladmintest_test.json']
 
     def setUp(self):
         self.login()
 
     def get(self):
-        return self.client.get('/admin/modeladmin/wagtailmodeladmin/book/create/')
+        return self.client.get('/admin/modeladmin/modeladmintest/book/create/')
 
     def test_simple(self):
         response = self.get()
@@ -53,13 +53,13 @@ class TestCreateView(TestCase, WagtailTestUtils):
 
 
 class TestEditView(TestCase, WagtailTestUtils):
-    fixtures = ['wagtailmodeladmin_test.json']
+    fixtures = ['modeladmintest_test.json']
 
     def setUp(self):
         self.login()
 
     def get(self, book_id):
-        return self.client.get('/admin/modeladmin/wagtailmodeladmin/book/edit/%d/' % book_id)
+        return self.client.get('/admin/modeladmin/modeladmintest/book/edit/%d/' % book_id)
 
     def test_simple(self):
         response = self.get(1)
@@ -73,16 +73,16 @@ class TestEditView(TestCase, WagtailTestUtils):
 
 
 class TestConfirmDeleteView(TestCase, WagtailTestUtils):
-    fixtures = ['wagtailmodeladmin_test.json']
+    fixtures = ['modeladmintest_test.json']
 
     def setUp(self):
         self.login()
 
     def get(self, book_id):
-        return self.client.get('/admin/modeladmin/wagtailmodeladmin/book/confirm_delete/%d/' % book_id)
+        return self.client.get('/admin/modeladmin/modeladmintest/book/confirm_delete/%d/' % book_id)
 
     def post(self, book_id):
-        return self.client.post('/admin/modeladmin/wagtailmodeladmin/book/confirm_delete/%d/' % book_id, {
+        return self.client.post('/admin/modeladmin/modeladmintest/book/confirm_delete/%d/' % book_id, {
             'foo': 'bar'
         })
 
@@ -100,7 +100,7 @@ class TestConfirmDeleteView(TestCase, WagtailTestUtils):
         response = self.post(1)
 
         # User redirected to index
-        self.assertRedirects(response, '/admin/modeladmin/wagtailmodeladmin/book/')
+        self.assertRedirects(response, '/admin/modeladmin/modeladmintest/book/')
 
         # Book deleted
         self.assertFalse(Book.objects.filter(id=1).exists())
