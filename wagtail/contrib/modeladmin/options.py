@@ -47,7 +47,7 @@ class WagtailRegisterable(object):
             return self.get_menu_item()
 
 
-class ModelAdminThumbMixin(object):
+class ThumbnailMixin(object):
     """
     Mixin class to help display thumbnail images in ModelAdmin listing results.
     `thumb_image_field_name` must be overridden to name a ForeignKey field on
@@ -282,7 +282,7 @@ class ModelAdmin(WagtailRegisterable):
         return self.index_view_extra_js
 
     def get_form_view_extra_css(self):
-        return self.form_view_extra_js
+        return self.form_view_extra_css
 
     def get_form_view_extra_js(self):
         return self.form_view_extra_js
