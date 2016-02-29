@@ -10,6 +10,12 @@ Wagtail 1.4 release notes - IN DEVELOPMENT
 What's new
 ==========
 
+Collections for image / document organisation
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Images and documents can now be organised into collections, set up by administrators through the Settings -> Collections menu item. User permissions can be set either globally (on the 'Root' collection) or on individual collections, allowing different user groups to keep their media items separated.
+
+
 Protection against unsaved changes
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 

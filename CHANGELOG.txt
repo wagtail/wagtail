@@ -4,6 +4,7 @@ Changelog
 1.4 (xx.xx.xxxx)
 ~~~~~~~~~~~~~~~~
 
+ * Introduced collections, for image / document organisation
  * The page editor now produces a warning if the user navigates away without saving changes
  * 'Add document' interface now supports uploading multiple documents at once
  * The set of pages displayed in the page explorer can now be customised with a new hook called `construct_explorer_page_queryset`
