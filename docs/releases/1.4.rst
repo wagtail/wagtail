@@ -55,6 +55,8 @@ Minor features
  * Notification message on publish now indicates whether the page is being published now or scheduled for publication in future (Chris Rogers)
  * Server errors when uploading images / documents through the chooser modal are now reported back to the user (Nigel Fletton)
  * Added a hook ``insert_global_admin_css`` for inserting custom CSS throughout the admin backend (Tom Dyson)
+ * Page models now perform field validation, including testing slugs for uniqueness within a parent page, at the model level on saving
+ * Page slugs are now auto-generated at the model level on page creation if one has not been specified explicitly
  * New translations for Hungarian, Swedish (Sweden) and Turkish
 
 
@@ -83,3 +85,17 @@ Removal of django-compressor
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 As Wagtail no longer installs django-compressor automatically as a dependency, you may need to make changes to your site's configuration when upgrading. If your project is actively using django-compressor (that is, your site templates contain ``{% compress %}`` tags), you should ensure that your project's requirements explicitly include django-compressor, rather than indirectly relying on Wagtail to install it. If you are not actively using django-compressor on your site, you should update your settings file to remove the line ``'compressor'`` from ``INSTALLED_APPS``, and remove ``'compressor.finders.CompressorFinder'`` from ``STATICFILES_FINDERS``.
+
+
+Page models now enforce field validation
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+In previous releases, field validation on Page models was only applied at the form level, meaning that creating pages directly at the model level would bypass validation. For example, if ``NewsPage`` is a Page model with a required ``body`` field, then code such as:
+
+.. code-block:: python
+
+    news_page = NewsPage(title="Hello", slug='hello')
+    parent_page = NewsIndex.objects.get()
+    parent_page.add_child(instance=news_page)
+
+would create a page that does not comply with the validation rules. This is no longer possible, as validation is now enforced at the model level on ``save()`` and ``save_revision()``; as a result, code that creates pages programmatically (such as unit tests, and import scripts) may need to be updated to ensure that it creates valid pages.

@@ -16,6 +16,8 @@ Changelog
  * Notification message on publish now indicates whether the page is being published now or scheduled for publication in future (Chris Rogers)
  * Server errors when uploading images / documents through the chooser modal are now reported back to the user (Nigel Fletton)
  * Added a hook `insert_global_admin_css` for inserting custom CSS throughout the admin backend (Tom Dyson)
+ * Page models now perform field validation, including testing slugs for uniqueness within a parent page, at the model level on saving
+ * Page slugs are now auto-generated at the model level on page creation if one has not been specified explicitly
  * New translations for Hungarian, Swedish (Sweden) and Turkish
  * Fix: Custom page managers no longer raise an error when used on an abstract model
  * Fix: Wagtail's migrations are now all reversible (benjaoming)
