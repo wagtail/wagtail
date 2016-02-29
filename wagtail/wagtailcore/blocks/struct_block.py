@@ -162,7 +162,10 @@ class BaseStructBlock(Block):
         template = "wagtailadmin/blocks/struct.html"
         form_classname = 'struct-block'
         form_template = 'wagtailadmin/block_forms/struct.html'
-        icon = "form"
+        # No suitable icon as of now, feel encouraged to swap this in your
+        # decendant block type or contribute a better generic icon to
+        # Wagtail's icon set
+        icon = "placeholder"
 
 
 class StructBlock(six.with_metaclass(DeclarativeSubBlocksMetaclass, BaseStructBlock)):

@@ -288,7 +288,10 @@ class ChoiceBlock(FieldBlock):
         return []  # Value was not found in the list of choices
 
     class Meta:
-        icon = "list-ol"
+        # No suitable icon as of now, feel encouraged to swap this in your
+        # decendant block type or contribute a better generic icon to
+        # Wagtail's icon set
+        icon = "placeholder"
 
 
 class RichTextBlock(FieldBlock):

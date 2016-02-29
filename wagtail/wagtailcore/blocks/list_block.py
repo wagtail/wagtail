@@ -162,7 +162,10 @@ class ListBlock(Block):
         return errors
 
     class Meta:
-        icon = "list-ul"
+        # No suitable icon as of now, feel encouraged to swap this in your
+        # decendant block type or contribute a better generic icon to
+        # Wagtail's icon set
+        icon = "placeholder"
 
 
 DECONSTRUCT_ALIASES = {
