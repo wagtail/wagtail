@@ -282,7 +282,7 @@ class ModelAdmin(WagtailRegisterable):
         return self.index_view_extra_js
 
     def get_form_view_extra_css(self):
-        return self.form_view_extra_js
+        return self.form_view_extra_css
 
     def get_form_view_extra_js(self):
         return self.form_view_extra_js
