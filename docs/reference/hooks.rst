@@ -387,7 +387,7 @@ Hooks for customising the way users are directed through the process of creating
 
 
 Page explorer
-------------
+-------------
 
 .. _construct_explorer_page_queryset:
 
