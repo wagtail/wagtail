@@ -49,6 +49,7 @@ Wagtail no longer depends on the `django-compressor <http://django-compressor.re
 Minor features
 ~~~~~~~~~~~~~~
 
+ * The page search interface now searches all fields instead of just the title (Kait Crawford)
  * Snippets now support a custom ``edit_handler`` property; this can be used to implement a tabbed interface, for example. See :ref:`customising_the_tabbed_interface` (Mikalai Radchuk)
  * Date/time pickers now respect the locale's 'first day of week' setting (Peter Quade)
  * Refactored the way forms are constructed for the page editor, to allow custom forms to be used

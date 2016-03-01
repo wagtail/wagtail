@@ -105,6 +105,7 @@ Contributors
 * Mikalai Radchuk
 * Charlie Choiniere
 * Nigel Fletton
+* Kait Crawford
 
 
 Translators
