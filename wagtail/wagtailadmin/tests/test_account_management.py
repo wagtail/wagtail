@@ -190,6 +190,7 @@ class TestAccountSection(TestCase, WagtailTestUtils):
         """
         # Post new password to change password page
         post_data = {
+            'old_password': 'password',
             'new_password1': 'newpassword',
             'new_password2': 'newpassword',
         }
