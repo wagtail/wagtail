@@ -4,7 +4,7 @@ from django.conf import settings
 from django.contrib import messages
 from django.contrib.auth import views as auth_views
 from django.contrib.auth import update_session_auth_hash
-from django.contrib.auth.forms import SetPasswordForm
+from django.contrib.auth.forms import PasswordChangeForm
 from django.http import Http404
 from django.shortcuts import redirect, render
 from django.utils.translation import ugettext as _
@@ -49,7 +49,7 @@ def change_password(request):
 
     if can_change_password:
         if request.POST:
-            form = SetPasswordForm(request.user, request.POST)
+            form = PasswordChangeForm(request.user, request.POST)
 
             if form.is_valid():
                 form.save()
@@ -58,7 +58,7 @@ def change_password(request):
                 messages.success(request, _("Your password has been changed successfully!"))
                 return redirect('wagtailadmin_account')
         else:
-            form = SetPasswordForm(request.user)
+            form = PasswordChangeForm(request.user)
     else:
         form = None
 
