@@ -1,4 +1,5 @@
 from django.test import TestCase
+from django.contrib.auth.models import Group
 from django.contrib.auth import get_user_model
 
 from wagtail.tests.utils import WagtailTestUtils
@@ -31,7 +32,7 @@ class TestIndexView(TestCase, WagtailTestUtils):
         self.assertEqual(response.status_code, 200)
 
         # JRR Tolkien has two books in the test data
-        self.assertEqual(response.context['result_count'], 2)
+        self.assertEqual(response.context['result_count'], 3)
 
         for eventpage in response.context['object_list']:
             self.assertEqual(eventpage.audience, 'public')
@@ -62,7 +63,7 @@ class TestEditView(TestCase, WagtailTestUtils):
         return self.client.get('/admin/modeladmin/tests/eventpage/edit/%d/' % book_id)
 
     def test_simple(self):
-        response = self.get(1)
+        response = self.get(4)
 
         self.assertEqual(response.status_code, 302)
 
@@ -72,30 +73,57 @@ class TestEditView(TestCase, WagtailTestUtils):
         self.assertEqual(response.status_code, 404)
 
 
-class TestAccessDenied(TestCase):
+class TestEditorAccess(TestCase):
     fixtures = ['test_specific.json']
     expected_status_code = 403
 
     def login(self):
         # Create a user
         user = get_user_model().objects._create_user(username='test2', email='test2@email.com', password='password', is_staff=True, is_superuser=False)
-
+        user.groups.add(Group.objects.get(pk=2))
         # Login
         self.client.login(username='test2', password='password')
-
         return user
 
     def setUp(self):
         self.login()
 
-    def test_index_non_access(self):
-        response = self.client.get('/admin/modeladmin/tests/eventpage/')
+    def test_copy_permitted(self):
+        response = self.client.get('/admin/modeladmin/tests/eventpage/copy/4/')
         self.assertEqual(response.status_code, self.expected_status_code)
 
-    def test_create_non_access(self):
-        response = self.client.get('/admin/modeladmin/tests/eventpage/create/')
+    def test_unpublish_permitted(self):
+        response = self.client.get('/admin/modeladmin/tests/eventpage/unpublish/4/')
         self.assertEqual(response.status_code, self.expected_status_code)
 
-    def test_edit_non_access(self):
-        response = self.client.get('/admin/modeladmin/tests/eventpage/edit/2/')
+    def test_delete_permitted(self):
+        response = self.client.get('/admin/modeladmin/tests/eventpage/confirm_delete/4/')
+        self.assertEqual(response.status_code, self.expected_status_code)
+
+
+class TestModeratorAccess(TestCase):
+    fixtures = ['test_specific.json']
+    expected_status_code = 302
+
+    def login(self):
+        # Create a user
+        user = get_user_model().objects._create_user(username='test3', email='test3@email.com', password='password', is_staff=True, is_superuser=False)
+        user.groups.add(Group.objects.get(pk=1))
+        # Login
+        self.client.login(username='test2', password='password')
+        return user
+
+    def setUp(self):
+        self.login()
+
+    def test_copy_permitted(self):
+        response = self.client.get('/admin/modeladmin/tests/eventpage/copy/4/')
+        self.assertEqual(response.status_code, self.expected_status_code)
+
+    def test_unpublish_permitted(self):
+        response = self.client.get('/admin/modeladmin/tests/eventpage/unpublish/4/')
+        self.assertEqual(response.status_code, self.expected_status_code)
+
+    def test_delete_permitted(self):
+        response = self.client.get('/admin/modeladmin/tests/eventpage/confirm_delete/4/')
         self.assertEqual(response.status_code, self.expected_status_code)
