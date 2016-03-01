@@ -1,10 +1,11 @@
 from django.shortcuts import get_object_or_404, redirect
 from django.utils.translation import ugettext as _
 from django.contrib.auth.decorators import login_required
+from django.core.exceptions import PermissionDenied
 from django.utils.decorators import method_decorator
 from wagtail.wagtailadmin import messages
 from wagtailmodeladmin.views import (
-    CreateView, ObjectSpecificView, WMAFormView, permission_denied_response)
+    CreateView, ObjectSpecificView, WMAFormView)
 from treebeard.forms import movenodeform_factory
 
 
@@ -82,7 +83,7 @@ class TreebeardMoveView(ObjectSpecificView, WMAFormView):
     @method_decorator(login_required)
     def dispatch(self, request, *args, **kwargs):
         if not self.check_action_permitted():
-            return permission_denied_response(request)
+            raise PermissionDenied
         return super(TreebeardMoveView, self).dispatch(request, *args,
                                                        **kwargs)
 
