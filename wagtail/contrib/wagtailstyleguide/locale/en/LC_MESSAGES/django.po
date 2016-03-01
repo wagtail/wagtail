@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-02-10 15:32+0000\n"
+"POT-Creation-Date: 2016-03-01 18:51+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -30,26 +30,26 @@ msgstr ""
 msgid "Delete image"
 msgstr ""
 
-#: views.py:43
+#: views.py:44
 msgid "Search something"
 msgstr ""
 
-#: views.py:47
+#: views.py:48
 msgid "Success message"
 msgstr ""
 
-#: views.py:48 views.py:52 views.py:56
+#: views.py:49 views.py:53 views.py:57
 msgid "View live"
 msgstr ""
 
-#: views.py:49 views.py:53 views.py:57
+#: views.py:50 views.py:54 views.py:58
 msgid "Edit"
 msgstr ""
 
-#: views.py:51
+#: views.py:52
 msgid "Warning message"
 msgstr ""
 
-#: views.py:55
+#: views.py:56
 msgid "Error message"
 msgstr ""
