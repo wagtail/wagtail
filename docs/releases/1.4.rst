@@ -78,6 +78,7 @@ Bug fixes
  * Fixed a crash in ``RedirectMiddleware`` when a middleware class before ``SiteMiddleware`` returns a response (Josh Schneier)
  * Fixed error retrieving the moderator list on pages that are covered by multiple moderator permission records (Matt Fozard)
  * Ordering pages in the explorer by reverse 'last updated' time now puts pages with no revisions at the top
+ * WagtailTestUtils now works correctly on custom user models without a ``username`` field (Adam Bolfik)
 
 
 Upgrade considerations

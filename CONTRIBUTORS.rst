@@ -106,6 +106,7 @@ Contributors
 * Charlie Choiniere
 * Nigel Fletton
 * Kait Crawford
+* Adam Bolfik
 
 
 Translators
