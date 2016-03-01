@@ -162,9 +162,9 @@ class BaseStructBlock(Block):
         template = "wagtailadmin/blocks/struct.html"
         form_classname = 'struct-block'
         form_template = 'wagtailadmin/block_forms/struct.html'
-        # No suitable icon as of now, feel encouraged to swap this in your
-        # decendant block type or contribute a better generic icon to
-        # Wagtail's icon set
+        # No icon specified here, because that depends on the purpose that the
+        # block is being used for. Feel encouraged to specify an icon in your
+        # descendant block type
         icon = "placeholder"
 
 

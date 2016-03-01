@@ -288,9 +288,9 @@ class ChoiceBlock(FieldBlock):
         return []  # Value was not found in the list of choices
 
     class Meta:
-        # No suitable icon as of now, feel encouraged to swap this in your
-        # decendant block type or contribute a better generic icon to
-        # Wagtail's icon set
+        # No icon specified here, because that depends on the purpose that the
+        # block is being used for. Feel encouraged to specify an icon in your
+        # descendant block type
         icon = "placeholder"
 
 
