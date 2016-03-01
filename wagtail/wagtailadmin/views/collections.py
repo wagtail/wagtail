@@ -80,9 +80,12 @@ class Delete(DeleteView):
             hook(self.instance)
             for hook in hooks.get_hooks('describe_collection_contents')
         ]
+
         # filter out any hook responses that report that the collection is empty
         # (by returning None, or a dict with 'count': 0)
-        is_nonempty = lambda item_type: item_type and item_type['count'] > 0
+        def is_nonempty(item_type):
+            return item_type and item_type['count'] > 0
+
         return list(filter(is_nonempty, collection_contents))
 
     def get_context(self):
