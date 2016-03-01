@@ -138,7 +138,7 @@ Translators
 * Latvian: Maris Serzans
 * Mongolian: Delgermurun Purevkhuu
 * Norwegian Bokmål: Eirik Krogstad, Robin Skahjem-Eriksen
-* Polish: Mateusz, utek
+* Polish: Mateusz, mmiskiew, utek
 * Portuguese (Brazil): Claudemiro Alves Feitosa Neto, Gladson Brito, Thiago Cangussu, Gilson Filho, João Luiz Lorencetti, Douglas Miranda
 * Portuguese (Portugal): Gladson Brito, Thiago Cangussu, Tiago Henriques, Jose Lourenco, Nuno Matos, Douglas Miranda, Manuela Silva
 * Romanian: Dan Braghis

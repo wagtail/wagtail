@@ -4,16 +4,16 @@
 #
 # Translators:
 # ajk, 2014
-# Eugene MechanisM <contact@mechanism.name>, 2014-2015
+# Eugene MechanisM <contact@mechanism.name>, 2014-2016
 # HNKNTA <hnknta@gmail.com>, 2014
 # Sergey Komarov <sjkomarov@gmail.com>, 2014
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-02-05 17:02+0000\n"
-"PO-Revision-Date: 2016-02-05 17:11+0000\n"
-"Last-Translator: mattwestcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2016-02-10 15:32+0000\n"
+"PO-Revision-Date: 2016-02-13 18:33+0000\n"
+"Last-Translator: Eugene MechanisM <contact@mechanism.name>\n"
 "Language-Team: Russian (http://www.transifex.com/torchbox/wagtail/language/"
 "ru/)\n"
 "MIME-Version: 1.0\n"
@@ -40,6 +40,11 @@ msgstr "Два поля с паролями не совпадают."
 
 msgid "Administrator"
 msgstr "Администратор"
+
+msgid "Administrators have full access to manage any object or setting."
+msgstr ""
+"Администраторы имеют полный доступ для управления любыми объектами или "
+"настройками."
 
 msgid "Password"
 msgstr "Пароль"
@@ -271,3 +276,6 @@ msgstr "Пользователь '{0}' обновлен."
 
 msgid "The user could not be saved due to errors."
 msgstr "Пользователь но может быть сохранен из-за ошибок."
+
+msgid "Groups"
+msgstr "Группы"

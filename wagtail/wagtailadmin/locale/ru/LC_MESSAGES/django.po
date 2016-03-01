@@ -6,7 +6,7 @@
 # ajk, 2014
 # ajk, 2014
 # Daniil <fleepd@gmail.com>, 2015
-# Eugene MechanisM <contact@mechanism.name>, 2014-2015
+# Eugene MechanisM <contact@mechanism.name>, 2014-2016
 # HNKNTA <hnknta@gmail.com>, 2014
 # HNKNTA <hnknta@gmail.com>, 2014
 # mattwestcott <matthew@torchbox.com>, 2015
@@ -16,9 +16,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-02-05 17:01+0000\n"
-"PO-Revision-Date: 2016-02-05 17:08+0000\n"
-"Last-Translator: mattwestcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2016-02-10 15:32+0000\n"
+"PO-Revision-Date: 2016-02-13 18:30+0000\n"
+"Last-Translator: Eugene MechanisM <contact@mechanism.name>\n"
 "Language-Team: Russian (http://www.transifex.com/torchbox/wagtail/language/"
 "ru/)\n"
 "MIME-Version: 1.0\n"
@@ -627,6 +627,9 @@ msgstr "Опубликовать"
 msgid "Submit for moderation"
 msgstr "Отправить на модерацию"
 
+msgid "This page has unsaved changes."
+msgstr "Эта страница имеет несохраненные изменения."
+
 #, python-format
 msgid "Editing %(page_type)s: %(title)s"
 msgstr "Редактирование %(page_type)s: %(title)s"
@@ -945,6 +948,10 @@ msgid "Your preferences have been updated successfully!"
 msgstr "Ваши настройки были успешно изменены!"
 
 #, python-brace-format
+msgid "Page '{0}' created and scheduled for publishing."
+msgstr "Страница '{0}' создана и запланирована к публикации."
+
+#, python-brace-format
 msgid "Page '{0}' created and published."
 msgstr "Страница '{0}' создана и опубликована."
 
@@ -964,6 +971,10 @@ msgstr "Страница '{0}' создана."
 
 msgid "The page could not be created due to validation errors"
 msgstr "Эта страница не может быть создана из-за ошибок при проверке"
+
+#, python-brace-format
+msgid "Page '{0}' scheduled for publishing."
+msgstr "Страница '{0}' запланирована к публикации."
 
 #, python-brace-format
 msgid "Page '{0}' published."

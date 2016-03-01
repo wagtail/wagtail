@@ -21,8 +21,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-02-05 17:01+0000\n"
-"PO-Revision-Date: 2016-02-07 18:02+0000\n"
+"POT-Creation-Date: 2016-02-10 15:32+0000\n"
+"PO-Revision-Date: 2016-02-10 20:12+0000\n"
 "Last-Translator: Henrik Kröger <hedwig@riseup.net>\n"
 "Language-Team: German (http://www.transifex.com/torchbox/wagtail/language/"
 "de/)\n"
@@ -600,6 +600,9 @@ msgstr "Veröffentlichen"
 
 msgid "Submit for moderation"
 msgstr "Zur Freischaltung einreichen"
+
+msgid "This page has unsaved changes."
+msgstr "Diese Seite hat ungesicherte Änderungen."
 
 #, python-format
 msgid "Editing %(page_type)s: %(title)s"

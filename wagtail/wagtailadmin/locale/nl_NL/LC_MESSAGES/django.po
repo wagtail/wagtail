@@ -5,14 +5,14 @@
 # Translators:
 # Franklin Kingma <franklin@statix.net>, 2015
 # Maarten Kling <kling.maarten@gmail.com>, 2015
-# Thijs Kramer <thijskramer@gmail.com>, 2015
+# Thijs Kramer <thijskramer@gmail.com>, 2015-2016
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-02-05 17:01+0000\n"
-"PO-Revision-Date: 2016-02-05 17:08+0000\n"
-"Last-Translator: mattwestcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2016-02-10 15:32+0000\n"
+"PO-Revision-Date: 2016-02-25 11:12+0000\n"
+"Last-Translator: Thijs Kramer <thijskramer@gmail.com>\n"
 "Language-Team: Dutch (Netherlands) (http://www.transifex.com/torchbox/"
 "wagtail/language/nl_NL/)\n"
 "MIME-Version: 1.0\n"
@@ -586,6 +586,9 @@ msgstr "Publiceer"
 msgid "Submit for moderation"
 msgstr "Dien in ter controle"
 
+msgid "This page has unsaved changes."
+msgstr "Deze pagina heeft wijzigingen die nog niet zijn opgeslagen."
+
 #, python-format
 msgid "Editing %(page_type)s: %(title)s"
 msgstr "Bewerk %(page_type)s: %(title)s"
@@ -897,6 +900,10 @@ msgid "Your preferences have been updated successfully!"
 msgstr "Uw voorkeuren zijn succesvol aangepast!"
 
 #, python-brace-format
+msgid "Page '{0}' created and scheduled for publishing."
+msgstr "De pagina '{0}' is aangemaakt en ingepland voor publicatie."
+
+#, python-brace-format
 msgid "Page '{0}' created and published."
 msgstr "Pagina '{0}' aangemaakt en gepubliceerd."
 
@@ -916,6 +923,10 @@ msgstr "Pagina '{0}' is aangemaakt."
 
 msgid "The page could not be created due to validation errors"
 msgstr "De pagina kon niet aangemaakt worden vanwege validatiefouten."
+
+#, python-brace-format
+msgid "Page '{0}' scheduled for publishing."
+msgstr "De pagina '{0}' is ingepland voor publicatie."
 
 #, python-brace-format
 msgid "Page '{0}' published."

@@ -11,8 +11,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-02-05 17:02+0000\n"
-"PO-Revision-Date: 2016-02-05 17:09+0000\n"
+"POT-Creation-Date: 2016-02-10 15:32+0000\n"
+"PO-Revision-Date: 2016-02-13 18:31+0000\n"
 "Last-Translator: mattwestcott <matthew@torchbox.com>\n"
 "Language-Team: Russian (http://www.transifex.com/torchbox/wagtail/language/"
 "ru/)\n"
@@ -120,6 +120,12 @@ msgstr "Популярные теги"
 
 msgid "Uploading..."
 msgstr "Загрузка..."
+
+msgid "Server Error"
+msgstr "Ошибка Сервера"
+
+msgid "Report this error to your webmaster with the following information:"
+msgstr "Сообщите об этой ошибке администратору и укажите следующую информацию:"
 
 #, python-format
 msgid ""

@@ -7,13 +7,14 @@
 # nahuel, 2014
 # nahuel, 2014
 # pierre marfoure <pierre@onoffdesign.com>, 2016
+# Sebastien Andrivet <sebastien@andrivet.com>, 2016
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-02-05 17:01+0000\n"
-"PO-Revision-Date: 2016-02-05 17:09+0000\n"
-"Last-Translator: mattwestcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2016-02-10 15:32+0000\n"
+"PO-Revision-Date: 2016-02-14 19:06+0000\n"
+"Last-Translator: Sebastien Andrivet <sebastien@andrivet.com>\n"
 "Language-Team: French (http://www.transifex.com/torchbox/wagtail/language/"
 "fr/)\n"
 "MIME-Version: 1.0\n"
@@ -51,6 +52,13 @@ msgstr "Envoyer"
 
 msgid "Uploading..."
 msgstr "Téléchargement..."
+
+msgid "Server Error"
+msgstr "Erreur du server"
+
+msgid "Report this error to your webmaster with the following information:"
+msgstr ""
+"Signaler cette erreur à votre webmaster avec les informations suivantes:"
 
 #, python-format
 msgid ""

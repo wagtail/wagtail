@@ -5,13 +5,13 @@
 # Translators:
 # Franklin Kingma <franklin@statix.net>, 2015
 # Maarten Kling <kling.maarten@gmail.com>, 2015
-# Thijs Kramer <thijskramer@gmail.com>, 2015
+# Thijs Kramer <thijskramer@gmail.com>, 2015-2016
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-02-05 17:01+0000\n"
-"PO-Revision-Date: 2015-12-22 17:31+0000\n"
+"POT-Creation-Date: 2016-02-10 15:32+0000\n"
+"PO-Revision-Date: 2016-02-25 21:22+0000\n"
 "Last-Translator: Thijs Kramer <thijskramer@gmail.com>\n"
 "Language-Team: Dutch (Netherlands) (http://www.transifex.com/torchbox/"
 "wagtail/language/nl_NL/)\n"
@@ -52,8 +52,8 @@ msgid ""
 "If true, this site will handle requests for all other hostnames that do not "
 "have a site entry of their own"
 msgstr ""
-"Indien aangevinkt zal deze site alle requests voor alle andere hostnames "
-"afvangen die geen eigen site hebben."
+"Indien aangevinkt zal deze site requests voor alle andere hostnames afvangen "
+"die geen eigen site hebben."
 
 msgid "site"
 msgstr "site"
@@ -82,7 +82,7 @@ msgid ""
 "The name of the page as it will appear in URLs e.g http://domain.com/blog/"
 "[my-slug]/"
 msgstr ""
-"De naam van de pagina zoals deze in de URL komt, bijv. http://website.nl/"
+"De manier waarop de pagina in URL's getoond wordt, bijv. http://domein.nl/"
 "blog/[mijn-slug]/"
 
 msgid "content type"

@@ -6,14 +6,14 @@
 # Alessio Di Stasio <aledista@gmail.com>, 2015
 # andrea tagliazucchi <andreatagliazucchi@gmail.com>, 2015
 # Edd <edd.baldry@googlemail.com>, 2016
-# Giacomo Ghizzani <giacomo.ghz@gmail.com>, 2015
+# Giacomo Ghizzani <giacomo.ghz@gmail.com>, 2015-2016
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-02-05 17:01+0000\n"
-"PO-Revision-Date: 2016-02-10 10:48+0000\n"
-"Last-Translator: Edd <edd.baldry@googlemail.com>\n"
+"POT-Creation-Date: 2016-02-10 15:32+0000\n"
+"PO-Revision-Date: 2016-02-14 17:30+0000\n"
+"Last-Translator: Giacomo Ghizzani <giacomo.ghz@gmail.com>\n"
 "Language-Team: Italian (http://www.transifex.com/torchbox/wagtail/language/"
 "it/)\n"
 "MIME-Version: 1.0\n"
@@ -589,6 +589,9 @@ msgstr "Pubblica"
 msgid "Submit for moderation"
 msgstr "Invia per moderazione"
 
+msgid "This page has unsaved changes."
+msgstr "Questa pagina ha delle modifiche non salvate."
+
 #, python-format
 msgid "Editing %(page_type)s: %(title)s"
 msgstr "Modifica %(page_type)s: %(title)s"
@@ -900,6 +903,10 @@ msgstr "La tua password è stato modificata con successo"
 
 msgid "Your preferences have been updated successfully!"
 msgstr "Le tue preferenze sono state aggiornate con successo!"
+
+#, python-brace-format
+msgid "Page '{0}' created and scheduled for publishing."
+msgstr "Pagina '{0}' creata e schedulata per la pubblicazione."
 
 #, python-brace-format
 msgid "Page '{0}' created and published."
