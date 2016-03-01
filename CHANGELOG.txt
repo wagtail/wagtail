@@ -35,6 +35,7 @@ Changelog
  * Fix: Fixed error retrieving the moderator list on pages that are covered by multiple moderator permission records (Matt Fozard)
  * Fix: Ordering pages in the explorer by reverse 'last updated' time now puts pages with no revisions at the top
  * Fix: WagtailTestUtils now works correctly on custom user models without a ``username`` field (Adam Bolfik)
+ * Fix: Logging in to the admin as a user with valid credentials but no admin access permission now displays an error message, rather than rejecting the user silently
 
 1.3.1 (05.01.2016)
 ~~~~~~~~~~~~~~~~~~
