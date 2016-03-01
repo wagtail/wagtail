@@ -13,7 +13,7 @@ What's new
 Collections for image / document organisation
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Images and documents can now be organised into collections, set up by administrators through the Settings -> Collections menu item. User permissions can be set either globally (on the 'Root' collection) or on individual collections, allowing different user groups to keep their media items separated.
+Images and documents can now be organised into collections, set up by administrators through the Settings -> Collections menu item. User permissions can be set either globally (on the 'Root' collection) or on individual collections, allowing different user groups to keep their media items separated. Thank you to the University of South Wales for sponsoring this feature.
 
 
 Protection against unsaved changes
