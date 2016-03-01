@@ -57,7 +57,7 @@ class TestPageListing(AdminAPITestCase):
         for page in content['items']:
             self.assertIn('meta', page)
             self.assertIsInstance(page['meta'], dict)
-            self.assertEqual(set(page['meta'].keys()), {'type', 'detail_url', 'html_url', 'status', 'children', 'slug', 'first_published_at'})  # ADMINAPI CHANGE
+            self.assertEqual(set(page['meta'].keys()), {'type', 'detail_url', 'html_url', 'status', 'children', 'slug', 'first_published_at', 'latest_revision_created_at'})  # ADMINAPI CHANGE
 
         # Check the type info
         self.assertIsInstance(content['__types'], dict)
@@ -161,7 +161,7 @@ class TestPageListing(AdminAPITestCase):
 
         for page in content['items']:
             self.assertEqual(set(page.keys()), {'id', 'meta', 'title'})
-            self.assertEqual(set(page['meta'].keys()), {'type', 'detail_url', 'html_url', 'children', 'status', 'slug', 'first_published_at'})
+            self.assertEqual(set(page['meta'].keys()), {'type', 'detail_url', 'html_url', 'children', 'status', 'slug', 'first_published_at', 'latest_revision_created_at'})
 
     def test_fields(self):
         response = self.get_response(type='demosite.BlogEntryPage', fields='title,date,feed_image')

@@ -25,11 +25,13 @@ class PagesAdminAPIEndpoint(PagesAPIEndpoint):
     ]
 
     extra_meta_fields = PagesAPIEndpoint.extra_meta_fields + [
+        'latest_revision_created_at',
         'status',
         'children',
     ]
 
     default_fields = PagesAPIEndpoint.default_fields + [
+        'latest_revision_created_at',
         'status',
         'children',
     ]
