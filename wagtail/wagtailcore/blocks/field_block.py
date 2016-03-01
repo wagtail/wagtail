@@ -75,7 +75,10 @@ class FieldBlock(Block):
         return self.value_from_form(self.field.clean(self.value_for_form(value)))
 
     class Meta:
-        icon = "edit"
+        # No icon specified here, because that depends on the purpose that the
+        # block is being used for. Feel encouraged to specify an icon in your
+        # descendant block type
+        icon = "placeholder"
         default = None
 
 
@@ -421,7 +424,10 @@ class ChooserBlock(FieldBlock):
         return super(ChooserBlock, self).clean(value)
 
     class Meta:
-        icon = "search"
+        # No icon specified here, because that depends on the purpose that the
+        # block is being used for. Feel encouraged to specify an icon in your
+        # descendant block type
+        icon = "placeholder"
 
 
 class PageChooserBlock(ChooserBlock):
