@@ -6,10 +6,7 @@ from wagtail.tests.modeladmintest.models import Book
 
 
 class TestIndexView(TestCase, WagtailTestUtils):
-    fixtures = [
-        'test_specific.json',
-        'modeladmintest_test.json',
-    ]
+    fixtures = ['modeladmintest_test.json']
 
     def setUp(self):
         self.login()
@@ -42,10 +39,7 @@ class TestIndexView(TestCase, WagtailTestUtils):
 
 
 class TestCreateView(TestCase, WagtailTestUtils):
-    fixtures = [
-        'test_specific.json',
-        'modeladmintest_test.json'
-    ]
+    fixtures = ['modeladmintest_test.json']
 
     def setUp(self):
         self.login()
@@ -60,10 +54,7 @@ class TestCreateView(TestCase, WagtailTestUtils):
 
 
 class TestEditView(TestCase, WagtailTestUtils):
-    fixtures = [
-        'test_specific.json',
-        'modeladmintest_test.json'
-    ]
+    fixtures = ['modeladmintest_test.json']
 
     def setUp(self):
         self.login()
@@ -83,10 +74,7 @@ class TestEditView(TestCase, WagtailTestUtils):
 
 
 class TestConfirmDeleteView(TestCase, WagtailTestUtils):
-    fixtures = [
-        'test_specific.json',
-        'modeladmintest_test.json'
-    ]
+    fixtures = ['modeladmintest_test.json']
 
     def setUp(self):
         self.login()
@@ -121,7 +109,7 @@ class TestConfirmDeleteView(TestCase, WagtailTestUtils):
 
 class TestAccessDenied(TestCase):
     fixtures = ['modeladmintest_test.json']
-    expected_status_code = 302
+    expected_status_code = 403
 
     def login(self):
         # Create a user

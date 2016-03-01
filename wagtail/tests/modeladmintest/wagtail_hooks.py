@@ -1,7 +1,7 @@
 from wagtail.contrib.modeladmin.options import (
-    ModelAdmin, ModelAdminThumbMixin, ModelAdminGroup, modeladmin_register)
+    ModelAdmin, ModelAdminGroup, modeladmin_register)
 from .models import Author, Book
-from .testapp import EventPage, SingleEventPage
+from wagtail.tests.testapp.models import EventPage, SingleEventPage
 
 class AuthorModelAdmin(ModelAdmin):
     model = Author
@@ -18,11 +18,9 @@ class BookModelAdmin(ModelAdmin):
     list_filter = ('author', )
 
 
-class EventPageAdmin(ModelAdminThumbMixin, ModelAdmin):
+class EventPageAdmin(ModelAdmin):
     model = EventPage
-    thumb_image_field_name = 'feed_image'
-    list_display = ('admin_thumb', 'title', 'date_from', 'audience')
-    list_display_add_buttons = 'title'
+    list_display = ('title', 'date_from', 'audience')
 
 
 class SingleEventPageAdmin(EventPageAdmin):
