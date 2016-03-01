@@ -1,3 +1,5 @@
+from collections import OrderedDict
+
 from wagtail.api.v2.utils import BadRequestError, page_models_from_string, filter_page_type
 from wagtail.api.v2.endpoints import PagesAPIEndpoint, ImagesAPIEndpoint, DocumentsAPIEndpoint
 from wagtail.api.v2.filters import (
@@ -57,6 +59,27 @@ class PagesAdminAPIEndpoint(PagesAPIEndpoint):
         queryset = queryset.exclude(depth=1)
 
         return queryset
+
+    def get_type_info(self):
+        types = OrderedDict()
+
+        for name, model in self.seen_types.items():
+            types[name] = OrderedDict([
+                ('verbose_name', model._meta.verbose_name),
+                ('verbose_name_plural', model._meta.verbose_name_plural),
+            ])
+
+        return types
+
+    def listing_view(self, request):
+        response = super(PagesAdminAPIEndpoint, self).listing_view(request)
+        response.data['__types'] = self.get_type_info()
+        return response
+
+    def detail_view(self, request, pk):
+        response = super(PagesAdminAPIEndpoint, self).detail_view(request, pk)
+        response.data['__types'] = self.get_type_info()
+        return response
 
 
 class ImagesAdminAPIEndpoint(ImagesAPIEndpoint):

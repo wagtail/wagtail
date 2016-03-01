@@ -59,6 +59,23 @@ class TestPageListing(AdminAPITestCase):
             self.assertIsInstance(page['meta'], dict)
             self.assertEqual(set(page['meta'].keys()), {'type', 'detail_url', 'html_url', 'status', 'children', 'slug', 'first_published_at'})  # ADMINAPI CHANGE
 
+        # Check the type info
+        self.assertIsInstance(content['__types'], dict)
+        self.assertEqual(set(content['__types'].keys()), {
+            'demosite.EventPage',
+            'demosite.StandardIndexPage',
+            'demosite.PersonPage',
+            'demosite.HomePage',
+            'demosite.StandardPage',
+            'demosite.EventIndexPage',
+            'demosite.ContactPage',
+            'demosite.BlogEntryPage',
+            'demosite.BlogIndexPage',
+        })
+        self.assertEqual(set(content['__types']['demosite.EventPage'].keys()), {'verbose_name', 'verbose_name_plural'})
+        self.assertEqual(content['__types']['demosite.EventPage']['verbose_name'], 'event page')
+        self.assertEqual(content['__types']['demosite.EventPage']['verbose_name_plural'], 'event pages')
+
     def test_unpublished_pages_appear_in_list(self):  # ADMINAPI CHANGE
         total_count = get_total_page_count()
 
@@ -664,6 +681,18 @@ class TestPageDetail(AdminAPITestCase):
             self.assertEqual(set(carousel_item.keys()), {'id', 'meta', 'embed_url', 'link', 'caption', 'image'})
             self.assertEqual(set(carousel_item['meta'].keys()), {'type'})
 
+        # Check the type info
+        self.assertIsInstance(content['__types'], dict)
+        self.assertEqual(set(content['__types'].keys()), {
+            'demosite.BlogIndexPage',
+            'demosite.BlogEntryPageCarouselItem',
+            'demosite.BlogEntryPage',
+            'wagtailimages.Image'
+        })
+        self.assertEqual(set(content['__types']['demosite.BlogIndexPage'].keys()), {'verbose_name', 'verbose_name_plural'})
+        self.assertEqual(content['__types']['demosite.BlogIndexPage']['verbose_name'], 'blog index page')
+        self.assertEqual(content['__types']['demosite.BlogIndexPage']['verbose_name_plural'], 'blog index pages')
+
     def test_meta_parent_id_doesnt_show_root_page(self):
         # Root page isn't in the site so don't show it if the user is looking at the home page
         response = self.get_response(2)
@@ -689,6 +718,7 @@ class TestPageDetail(AdminAPITestCase):
             'feed_image',
             'carousel_items',
             'related_links',
+            '__types',
         ]
         self.assertEqual(list(content.keys()), field_order)
 
