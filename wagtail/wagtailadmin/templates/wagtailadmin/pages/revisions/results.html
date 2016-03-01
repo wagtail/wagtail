@@ -1,0 +1,9 @@
+{% load i18n wagtailadmin_tags %}
+
+{% if revisions %}
+    {% include "wagtailadmin/pages/revisions/list.html" %}
+
+    {% include "wagtailadmin/shared/pagination_nav.html" with items=revisions linkurl="wagtailadmin_pages:revisions_index" %}
+{% else %}
+    <p>{% blocktrans %}No revision of this page exist{% endblocktrans %}</p>
+{% endif %}
