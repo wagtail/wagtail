@@ -844,6 +844,6 @@ class CopyRedirectView(ObjectSpecificView):
     @method_decorator(login_required)
     def dispatch(self, request, *args, **kwargs):
         if not self.check_action_permitted():
-            return self.permission_denied_response()
+            raise PermissionDenied
         self.prime_session_for_redirection()
         return redirect(PAGES_COPY_URL_NAME, self.object_id)
