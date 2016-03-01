@@ -1061,6 +1061,11 @@ button {
         .image_field & {
             padding-top: 0;
         }
+
+        // Horrid specificity war
+        .model_choice_field.select & {
+            padding-top: 1.2em;
+        }
     }
 
     .label-above {
