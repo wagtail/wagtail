@@ -1484,8 +1484,7 @@ class TestPageSearch(TestCase, WagtailTestUtils):
 
         # Create a page
         root_page.add_child(instance=SimplePage(
-            title="Hi there!",
-            slug='hello-world',
+            title="Hi there!", slug='hello-world', content="good morning",
             live=True,
             has_unpublished_changes=False,
         ))
