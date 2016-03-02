@@ -38,6 +38,7 @@ Changelog
  * Fix: WagtailTestUtils now works correctly on custom user models without a ``username`` field (Adam Bolfik)
  * Fix: Logging in to the admin as a user with valid credentials but no admin access permission now displays an error message, rather than rejecting the user silently
  * Fix: StreamBlock HTML rendering now handles non-ASCII characters correctly on Python 2 (Mikalai Radchuk)
+ * Fix: Fixed a bug preventing pages with a OneToOneField from being copied (Liam Brenner)
 
 1.3.1 (05.01.2016)
 ~~~~~~~~~~~~~~~~~~

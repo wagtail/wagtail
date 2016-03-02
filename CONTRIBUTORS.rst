@@ -109,6 +109,7 @@ Contributors
 * Adam Bolfik
 * Thomas Winter
 * Gareth Price
+* Liam Brenner
 
 Translators
 ===========
