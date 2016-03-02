@@ -5,6 +5,7 @@ Authors
 * David Cranwell (Torchbox) twitter: @davecranwell
 * Karl Hobley (Torchbox) twitter: @kaedroho
 * Tim Heap (Takeflight)
+* Josh Barr (Springload)
 
 Contributors
 ============
