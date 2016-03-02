@@ -36,7 +36,7 @@ from django.utils import six
 from treebeard.mp_tree import MP_Node
 
 from wagtail.wagtailcore.utils import (camelcase_to_underscore, resolve_model_string,
-    WAGTAIL_APPEND_SLASH)
+                                       WAGTAIL_APPEND_SLASH)
 from wagtail.wagtailcore.query import PageQuerySet, TreeQuerySet
 from wagtail.wagtailcore.url_routing import RouteResult
 from wagtail.wagtailcore.signals import page_published, page_unpublished
