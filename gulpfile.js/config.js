@@ -59,6 +59,12 @@ var apps = [
         'scss': [
             'modeladmin/scss/index.scss',
             'modeladmin/scss/choose_parent_page.scss',
+
+        ],
+    }),
+    new App('wagtail/contrib/modeladmin/recipes/treebeard', {
+        'scss': [
+            'modeladmin/recipes/treebeard/scss/index.scss',
         ],
     }),
 ];
