@@ -15,11 +15,15 @@ class ExplorerMenuItem(MenuItem):
 
 @hooks.register('register_admin_menu_item')
 def register_explorer_menu_item():
+    attrs = {
+        'data-explorer-menu-url': urlresolvers.reverse('wagtailadmin_explorer_nav')
+    }
+
     return ExplorerMenuItem(
         _('Explorer'), urlresolvers.reverse('wagtailadmin_explore_root'),
         name='explorer',
         classnames='icon icon-folder-open-inverse dl-trigger',
-        attrs={'data-explorer-menu-url': urlresolvers.reverse('wagtailadmin_explorer_nav')},
+        attrs=attrs,
         order=100)
 
 

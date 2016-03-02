@@ -1,9 +1,10 @@
 from collections import OrderedDict
 
 from rest_framework.fields import Field
+from django.db.models import Q
 
 from wagtail.api.v2.utils import get_full_url
-from wagtail.api.v2.serializers import PageSerializer, ImageSerializer
+from wagtail.api.v2.serializers import PageSerializer, ImageSerializer, RelatedField
 from wagtail.wagtailcore.models import Page
 from wagtail.wagtailimages.models import SourceImageIOError
 
@@ -51,15 +52,36 @@ class PageChildrenField(Field):
         return instance
 
     def to_representation(self, page):
+        # We require this weird param for the explorer.. hmm there might be an easier
+        # way do to it?
+        children_with_children = page.get_children().filter(Q(numchild__gt=0)).count()
+
         return OrderedDict([
             ('count', page.numchild),
             ('listing_url', get_model_listing_url(self.context, Page) + '?child_of=' + str(page.id)),
+            ('children_with_children', children_with_children)
         ])
+
+
+class PageParentField(RelatedField):
+    """
+    Serializes the "parent" field on Page objects.
+
+    Pages don't have a "parent" field so some extra logic is needed to find the
+    parent page. That logic is implemented in this class.
+
+    The representation is the same as the RelatedField class.
+    """
+    def get_attribute(self, instance):
+        return instance.get_parent()
+
 
 
 class AdminPageSerializer(PageSerializer):
     status = PageStatusField(read_only=True)
     children = PageChildrenField(read_only=True)
+    parent = PageParentField(read_only=True)
+
 
     meta_fields = PageSerializer.meta_fields + [
         'status',
