@@ -5,6 +5,7 @@ Authors
 * David Cranwell (Torchbox) twitter: @davecranwell
 * Karl Hobley (Torchbox) twitter: @kaedroho
 * Tim Heap (Takeflight)
+* Josh Barr (Springload)
 
 Contributors
 ============
@@ -72,7 +73,6 @@ Contributors
 * Alex Gleason
 * Ryan Pineo
 * Petr Vacha
-* Josh Barr
 * Sævar Öfjörð Magnússon
 * Ashia Zawaduk
 * Denis Voskvitsov
