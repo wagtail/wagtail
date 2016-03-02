@@ -4,7 +4,7 @@ from django.contrib.auth.decorators import login_required
 from django.core.exceptions import PermissionDenied
 from django.utils.decorators import method_decorator
 from wagtail.wagtailadmin import messages
-from wagtailmodeladmin.views import (
+from wagtail.contrib.modeladmin.views import (
     CreateView, ObjectSpecificView, WMAFormView)
 from treebeard.forms import movenodeform_factory
 

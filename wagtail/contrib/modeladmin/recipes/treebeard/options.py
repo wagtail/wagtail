@@ -1,6 +1,6 @@
 from django.conf.urls import url
-from wagtailmodeladmin.options import ModelAdmin
-from wagtailmodeladmin.helpers import (
+from wagtail.contrib.modeladmin.options import ModelAdmin
+from wagtail.contrib.modeladmin.helpers import (
     get_object_specific_url_pattern, get_url_name)
 from .helpers import TreebeardPermissionHelper, TreebeardButtonHelper
 from .views import TreebeardCreateView, TreebeardMoveView
@@ -42,8 +42,8 @@ class TreebeardModelAdmin(ModelAdmin):
         app = self.opts.app_label
         model_name = self.opts.model_name
         return [
-            'wagtailmodeladmin/%s/%s/%s.html' % (app, model_name, action),
-            'wagtailmodeladmin/%s/%s.html' % (app, action),
-            'wagtailmodeladmin/recipes/treebeard/%s.html' % (action,),
-            'wagtailmodeladmin/%s.html' % (action,),
+            'modeladmin/%s/%s/%s.html' % (app, model_name, action),
+            'modeladmin/%s/%s.html' % (app, action),
+            'modeladmin/recipes/treebeard/%s.html' % (action,),
+            'modeladmin/%s.html' % (action,),
         ]

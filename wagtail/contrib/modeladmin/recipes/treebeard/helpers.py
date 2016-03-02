@@ -1,6 +1,6 @@
 from django.utils.translation import ugettext as _
 from django.contrib.admin.utils import quote
-from wagtailmodeladmin.helpers import ButtonHelper, PermissionHelper
+from wagtail.contrib.modeladmin.helpers import ButtonHelper, PermissionHelper
 
 
 class TreebeardPermissionHelper(PermissionHelper):
