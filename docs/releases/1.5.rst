@@ -50,6 +50,7 @@ Minor features
  * Changed project template to explicitly import development settings via ``settings.dev`` (Tomas Olander)
  * Improved L10N and I18N for revisions list (Roel Bruggink)
  * The multiple image uploader now displays details of server errors (Nigel Fletton)
+ * Added ``WAGTAIL_APPEND_SLASH`` setting to determine whether page URLs end in a trailing slash - see :ref:`append_slash` (Andrew Tork Baker)
 
 Bug fixes
 ~~~~~~~~~

@@ -25,6 +25,7 @@ Changelog
  * Changed project template to explicitly import development settings via `settings.dev` (Tomas Olander)
  * Improved L10N and I18N for revisions list (Roel Bruggink)
  * The multiple image uploader now displays details of server errors (Nigel Fletton)
+ * Added `WAGTAIL_APPEND_SLASH` setting to determine whether page URLs end in a trailing slash (Andrew Tork Baker)
  * Fix: The currently selected day is now highlighted only in the correct month in date pickers (Jonas Lergell)
  * Fix: Fixed crash when an image without a source file was resized with the "dynamic serve view"
  * Fix: Registered settings admin menu items now show active correctly (Matthew Downey)
