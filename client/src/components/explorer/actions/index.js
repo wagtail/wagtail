@@ -1,4 +1,4 @@
-import { API } from 'config';
+import { API, API_PAGES } from 'config';
 
 
 export function fetchStart(id) {
@@ -95,7 +95,7 @@ export function fetchTree(id=1) {
   return dispatch => {
     dispatch(fetchBranchStart(id));
 
-    return _get(`${API}/pages/${id}/`)
+    return _get(`${API_PAGES}${id}/`)
       .then(json => {
         dispatch(fetchBranchComplete(id, json))
 
@@ -152,7 +152,7 @@ export function fetchChildren(id='root') {
   return (dispatch, getState) => {
     const { explorer } = getState();
 
-    let api = `${API}/pages/?child_of=${id}`;
+    let api = `${API_PAGES}?child_of=${id}`;
 
     if (explorer.react.filter) {
       api = `${api}&${explorer.react.filter}`
@@ -171,7 +171,7 @@ export function fetchChildren(id='root') {
 export function fetchPage(id=1) {
   return dispatch => {
     dispatch(fetchStart(id))
-    return _get(`${API}/pages/${id}/`)
+    return _get(`${API_PAGES}${id}/`)
       .then(json => dispatch(fetchComplete(id, json)))
       .then(json => dispatch(fetchChildren(id, json)))
       .catch(json => dispatch(fetchError(id, json)))

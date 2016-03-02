@@ -3,6 +3,7 @@ import StateIndicator from 'components/state-indicator';
 import PublishStatus from 'components/publish-status';
 import PublishedTime from 'components/published-time';
 
+import { ADMIN_PAGES } from 'config';
 
 export default class ExplorerItem extends Component {
 
@@ -17,7 +18,7 @@ export default class ExplorerItem extends Component {
   }
 
   _onNavigate(id) {
-    window.location.href = `/admin/pages/${id}`;
+    window.location.href = `${ADMIN_PAGES}${id}`;
   }
 
   _loadChildren(e) {
