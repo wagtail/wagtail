@@ -107,6 +107,10 @@ body[yahoo] .text {
                 <div style="font-size:18px; line-height:24px; color: #43B1B0; font-weight:bold; display:inline-block; width: 100%; margin-bottom:10px;">{% block title_content %}{% endblock %}</div>
                 {% endblock %}
 
+                {% block greeting %}
+                <p>{% blocktrans with username=user.get_short_name|default:user.get_username %}Hello {{ username }},{% endblocktrans %}</p>
+                {% endblock %}
+
                 {% block content %}
                 {% endblock %}
 
@@ -124,10 +128,5 @@ body[yahoo] .text {
       </table></td>
   </tr>
 </table>
-<br /><br />
 </body>
 </html>
-
-
-
-

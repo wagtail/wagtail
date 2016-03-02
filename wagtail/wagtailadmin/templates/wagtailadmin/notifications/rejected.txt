@@ -1,9 +1,8 @@
+{% extends 'wagtailadmin/notifications/base.txt' %}
 {% load i18n %}
 
-{% trans "Hello" %} {{ user.get_short_name|default:user.get_username }},
-
+{% block content %}
 {% blocktrans with title=revision.page.title|safe %}The page "{{ title }}" has been rejected.{% endblocktrans %}
 
 {% trans "You can edit the page here:"%} {{ settings.BASE_URL }}{% url 'wagtailadmin_pages:edit' revision.page.id %}
-
-{% trans "Edit your notification preferences here:" %} {{ settings.BASE_URL }}{% url 'wagtailadmin_account_notification_preferences' %}
+{% endblock %}
