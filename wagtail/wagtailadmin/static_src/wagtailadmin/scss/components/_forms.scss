@@ -93,7 +93,6 @@ select,
     // Add select arrow back on browsers where native ui has been removed
     select ~ span:after {
         border-radius: 0 6px 6px 0;
-        z-index: 0;
         position: absolute;
         right: 0;
         top: 1px;
@@ -572,7 +571,6 @@ button {
     // Object controls
     .controls {
         position: absolute;
-        z-index: 1;
         right: 1em;
         top: 1em;
         color: $color-white;
@@ -979,10 +977,6 @@ li.inline:first-child {
     padding: 0 23px 0 0;
 }
 
-.ui-front { // provided by jqueryui but not high enough an index
-    z-index: 1000;
-}
-
 .tagit-close {
     .ui-icon-close {
         margin-left: 1em;
@@ -1026,6 +1020,10 @@ li.inline:first-child {
         border-color: $color-teal;
         background-color: $color-input-focus;
     }
+}
+
+.ui-front {
+    z-index: map-get($z-indexes, input-widgets);
 }
 
 // Transitions

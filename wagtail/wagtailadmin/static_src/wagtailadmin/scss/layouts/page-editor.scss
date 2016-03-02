@@ -54,7 +54,6 @@
     .object-help {
         display: block;
         position: relative;
-        z-index: 1;
         top: 1em;
         padding-right: $grid-gutter-width/2;
         margin-top: 4em;
@@ -95,7 +94,6 @@
         top: 0;
         left: 0;
         right: 0;
-        z-index: 1;
         overflow: hidden;
 
         label {
@@ -108,7 +106,7 @@
             font-size: inherit;
         }
 
-        &:before, 
+        &:before,
         label:before {
             text-shadow: none;
             font-family: wagtail;
@@ -117,7 +115,6 @@
             text-align: center;
             display: block;
             position: absolute;
-            z-index: 2;
             font-size: 2em;
             top: 0;
             line-height: 1.8em;
@@ -258,7 +255,6 @@
         .add {
             @include transition(background-color 0.2s ease);
             position: relative;
-            z-index: 2;
             top: 0;
             left: 0;
             width: 3.3em;
@@ -299,7 +295,7 @@
         min-height: 41px;
 
         h2 {
-            &:before, 
+            &:before,
             label:before {
                 content: '6';
                 cursor: pointer;
@@ -308,7 +304,7 @@
 
         &.collapsed {
             h2 {
-                &:before, 
+                &:before,
                 label:before {
                     content: '5';
                 }
@@ -318,8 +314,8 @@
 }
 
 // Custom styles that make some fields look more important
-.full input, 
-.full textarea, 
+.full input,
+.full textarea,
 .full .richtext {
     @include nice-padding();
     border-radius: 0;
@@ -338,7 +334,7 @@
 
 // Footer control bar for perfoming actions on the page
 footer .preview {
-    button, 
+    button,
     .button {
         background-color: lighten($color-grey-2, 10%);
         border-color: lighten($color-grey-2, 10%);
@@ -350,9 +346,9 @@ footer .preview {
     }
 
     .dropdown {
-        input[type=button], 
-        input[type=submit], 
-        button, 
+        input[type=button],
+        input[type=submit],
+        button,
         .button {
             background-color: lighten($color-grey-2, 10%);
             border-color: lighten($color-grey-2, 10%);
@@ -363,7 +359,7 @@ footer .preview {
             }
         }
 
-        ul, 
+        ul,
         .dropdown-toggle {
             background-color: lighten($color-grey-2, 10%);
         }
@@ -396,7 +392,6 @@ footer .preview {
             @include column(2);
             display: block;
             position: absolute;
-            z-index: 1;
             right: 0;
             top: 1em;
             padding-right: $grid-gutter-width/2;
@@ -420,8 +415,8 @@ footer .preview {
                 padding: 3.2em 0 0;
             }
 
-            input, 
-            textarea, 
+            input,
+            textarea,
             .richtext {
                 border-width: 0 1px;
             }

@@ -1,8 +1,3 @@
-// min z-index: 500;
-// max z-index: unknown;
-
-$explorer-z-index: 500;
-
 .explorer {
     pointer-events: none;
     width: 100%;
@@ -65,7 +60,6 @@ $explorer-z-index: 500;
 
     .children {
         position: absolute;
-        z-index: $explorer-z-index + 1;
         right: 0;
         top: 0;
         width: 4em;

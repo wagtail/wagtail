@@ -116,6 +116,7 @@ footer {
     box-shadow: 0 0 2px rgba(255, 255, 255, 0.5);
     background: $color-grey-1;
     position: fixed;
+    z-index: map-get($z-indexes, ui-widgets-low);
     bottom: 0;
     padding: 0.5em;
     width: 90%;
@@ -148,6 +149,10 @@ footer {
             white-space: nowrap;
         }
     }
+}
+
+.modal-open footer {
+    z-index: map-get($z-indexes, nominal);
 }
 
 ::-webkit-scrollbar {
@@ -198,7 +203,6 @@ footer {
 
             &:after {
                 right: 0;
-                // z-index: 5;
                 position: absolute;
                 font-family: wagtail;
                 content: 'n';
@@ -270,34 +274,6 @@ footer {
 .nice-padding {
     padding-left: $mobile-nice-padding;
     padding-right: $mobile-nice-padding;
-}
-
-
-// Z-indexes
-.nav-toggle {
-    z-index: 5;
-}
-
-.nav-wrapper {
-    z-index: 2;
-}
-
-// Avoiding a stacking context for the content-wrapper saves us a world
-// of pain when dealing with overlays that are appended to the end of
-// <body>, eg Hallo & calendars. As long as content-wrapper remains floated,
-// the z-index shouldn't be required.
-
-// .content-wrapper {
-    // z-index: 3;
-// }
-
-.nav-submenu {
-    z-index: 6;
-}
-
-footer,
-.logo {
-    z-index: 100;
 }
 
 @media screen and (min-width: $breakpoint-mobile) {
@@ -432,35 +408,9 @@ footer,
         margin-left: 50px;
     }
 
-
-    // Z-indexes
-    .nav-main {
-        li {
-            z-index: 1;
-        }
-
-        .footer {
-            z-index: 2;
-        }
-    }
-
-    .explorer {
-        z-index: $explorer-z-index;
-    }
-
-    .nav-submenu {
-        z-index: $explorer-z-index;
-    }
-
-    // Allows overspill of messages banner onto left menu, but also explorer
-    // to spill over main content
-    .nav-wrapper {
-        z-index: auto;
-    }
-
-    // footer is z-index: 100, so ensure the navigation sits on top of it.
+    .explorer,
     .nav-wrapper.submenu-active {
-        z-index: 200;
+        z-index: map-get($z-indexes, ui-widgets-high);
     }
 }
 
