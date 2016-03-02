@@ -1,5 +1,16 @@
+from django.conf import settings
 from django.conf.urls import url
 from wagtail.wagtailcore import views
+from wagtail.wagtailcore.utils import WAGTAIL_APPEND_SLASH
+
+
+# If WAGTAIL_APPEND_SLASH is False, allow Wagtail to serve pages on URLs
+# with and without trailing slahes
+if WAGTAIL_APPEND_SLASH:
+    serve_pattern = r'^((?:[\w\-]+/)*)$'
+else:
+    serve_pattern = r'^((?:[\w\-]+/?)*)$'
+
 
 urlpatterns = [
     url(r'^_util/authenticate_with_password/(\d+)/(\d+)/$', views.authenticate_with_password,
@@ -10,5 +21,5 @@ urlpatterns = [
     # a '/'. If a trailing slash is not present, we leave CommonMiddleware to
     # handle it as usual (i.e. redirect it to the trailing slash version if
     # settings.APPEND_SLASH is True)
-    url(r'^((?:[\w\-]+/)*)$', views.serve, name='wagtail_serve')
+    url(serve_pattern, views.serve, name='wagtail_serve')
 ]
