@@ -1,32 +1,15 @@
 import React, { Component, PropTypes } from 'react';
 import StateIndicator from 'components/state-indicator';
-import moment from 'moment';
-
-
-const PublishTime = ({publishedAt}) => {
-  let date = moment(publishedAt);
-  let str = publishedAt ?  date.format('DD.MM.YYYY') : 'No date';
-  return (
-    <span>{str}</span>
-  );
-}
-
-const PublishStatus = ({ status }) => {
-  if (!status) {
-    return null;
-  }
-
-  let classes = ['o-pill', 'c-status', 'c-status--' + status.status];
-
-  return (
-    <span className={classes.join('  ')}>
-      {status.status}
-    </span>
-  );
-}
+import PublishStatus from 'components/publish-status';
+import PublishedTime from 'components/published-time';
 
 
 export default class ExplorerItem extends Component {
+
+  constructor(props) {
+    super(props);
+    this._loadChildren = this._loadChildren.bind(this);
+  }
 
   _humanType(type) {
     let part = type.split('.')[1]
@@ -37,37 +20,43 @@ export default class ExplorerItem extends Component {
     window.location.href = `/admin/pages/${id}`;
   }
 
-  _onChildren(e) {
+  _loadChildren(e) {
     e.stopPropagation();
     let { onItemClick, data } = this.props;
     onItemClick(data.id, data.title);
   }
 
   render() {
-    const { title, data } = this.props;
+    const { title, data, index } = this.props;
+    const { meta } = data;
+    const typeName = this._humanType(meta.type);
 
+    let count = meta.children.count;
+
+    if (this.props.filter && this.props.filter.match(/has_children/)) {
+      count = meta.children.children_with_children;
+    }
 
     return (
       <div onClick={this._onNavigate.bind(this, data.id)} className="c-explorer__item">
-        {data.meta.children.count > 0 ?
-        <span className="c-explorer__children" onClick={this._onChildren.bind(this)}>
-          <span className="icon icon-folder-inverse"></span>
+        {count > 0 ?
+        <span className="c-explorer__children" onClick={this._loadChildren}>
+          <span className="icon icon-folder-inverse" />
           <span aria-role='presentation'>
-            Children
+            See Children
           </span>
-        </span>  : null }
+        </span> : null }
         <h3 className="c-explorer__title">
           <StateIndicator state={data.state} />
           {title}
         </h3>
         <p className='c-explorer__meta'>
-          {this._humanType(data.meta.type)} | <PublishTime publishedAt={data.meta.first_published_at}   /> <PublishStatus status={data.meta.status} />
+          {typeName} | <PublishedTime publishedAt={meta.first_published_at} /> | <PublishStatus status={meta.status} />
         </p>
       </div>
     );
   }
 }
-
 
 ExplorerItem.propTypes = {
   title: PropTypes.string,
