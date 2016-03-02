@@ -1,9 +1,7 @@
 {% extends 'wagtailadmin/notifications/base.html' %}
-
 {% load i18n %}
 
 {% block content %}
-    {% blocktrans with title=revision.page.title|safe %}The page "{{ title }}" has been approved.{% endblocktrans %}
-
-    {% trans "You can view the page here:" %} <a href="{{ revision.page.full_url }}">{{ revision.page.full_url }}</a>
+    <p>{% blocktrans with title=revision.page.title|safe %}The page "{{ title }}" has been approved.{% endblocktrans %}</p>
+    <p>{% trans "You can view the page here:" %} <a href="{{ revision.page.full_url }}">{{ revision.page.full_url }}</a></p>
 {% endblock %}
