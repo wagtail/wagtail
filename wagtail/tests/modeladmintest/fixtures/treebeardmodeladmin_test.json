@@ -1,0 +1,142 @@
+[
+{
+    "pk": 1,
+    "model": "modeladmintest.treebeardcategory",
+    "fields": {
+        "name": "Adventure/Thriller",
+        "numchild": 3,
+        "depth": 1,
+        "path": "0001"
+    }
+},
+{
+    "pk": 2,
+    "model": "modeladmintest.treebeardcategory",
+    "fields": {
+        "name": "Historical",
+        "numchild": 3,
+        "depth": 2,
+        "path": "00010001"
+    }
+},
+{
+    "pk": 3,
+    "model": "modeladmintest.treebeardcategory",
+    "fields": {
+        "name": "18th Century",
+        "numchild": 0,
+        "depth": 3,
+        "path": "000100010001"
+    }
+},
+{
+    "pk": 4,
+    "model": "modeladmintest.treebeardcategory",
+    "fields": {
+        "name": "19th Century",
+        "numchild": 0,
+        "depth": 3,
+        "path": "000100010002"
+    }
+},
+{
+    "pk": 5,
+    "model": "modeladmintest.treebeardcategory",
+    "fields": {
+        "name": "20th Century",
+        "numchild": 0,
+        "depth": 3,
+        "path": "000100010003"
+    }
+},
+{
+    "pk": 6,
+    "model": "modeladmintest.treebeardcategory",
+    "fields": {
+        "name": "Medical",
+        "numchild": 0,
+        "depth": 2,
+        "path": "00010002"
+    }
+},
+{
+    "pk": 7,
+    "model": "modeladmintest.treebeardcategory",
+    "fields": {
+        "name": "Psychological",
+        "numchild": 0,
+        "depth": 2,
+        "path": "00010003"
+    }
+},
+{
+    "pk": 8,
+    "model": "modeladmintest.treebeardcategory",
+    "fields": {
+        "name": "Fantasy",
+        "numchild": 3,
+        "depth": 1,
+        "path": "0002"
+    }
+},
+{
+    "pk": 9,
+    "model": "modeladmintest.treebeardcategory",
+    "fields": {
+        "name": "Dark",
+        "numchild": 0,
+        "depth": 2,
+        "path": "00020001"
+    }
+},
+{
+    "pk": 10,
+    "model": "modeladmintest.treebeardcategory",
+    "fields": {
+        "name": "Epic",
+        "numchild": 2,
+        "depth": 2,
+        "path": "00020002"
+    }
+},
+{
+    "pk": 11,
+    "model": "modeladmintest.treebeardcategory",
+    "fields": {
+        "name": "Dragon-themed",
+        "numchild": 0,
+        "depth": 3,
+        "path": "000200020001"
+    }
+},
+{
+    "pk": 12,
+    "model": "modeladmintest.treebeardcategory",
+    "fields": {
+        "name": "Series",
+        "numchild": 0,
+        "depth": 3,
+        "path": "000200020002"
+    }
+},
+{
+    "pk": 13,
+    "model": "modeladmintest.treebeardcategory",
+    "fields": {
+        "name": "Humour",
+        "numchild": 0,
+        "depth": 2,
+        "path": "00020003"
+    }
+},
+{
+    "pk": 14,
+    "model": "modeladmintest.treebeardcategory",
+    "fields": {
+        "name": "Science Fiction",
+        "numchild": 3,
+        "depth": 1,
+        "path": "0003"
+    }
+}
+]
