@@ -14,6 +14,7 @@ class TreebeardModelAdmin(ModelAdmin):
     create_view_class = TreebeardCreateView
     permission_helper_class = TreebeardPermissionHelper
     button_helper_class = TreebeardButtonHelper
+    move_form_select_indentation = True
 
     def move_view(self, request, object_id):
         kwargs = {'model_admin': self, 'object_id': object_id}

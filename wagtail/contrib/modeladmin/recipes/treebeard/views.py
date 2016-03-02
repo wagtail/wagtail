@@ -7,6 +7,7 @@ from wagtail.wagtailadmin import messages
 from wagtail.contrib.modeladmin.views import (
     CreateView, ObjectSpecificView, WMAFormView)
 from treebeard.forms import movenodeform_factory
+from .forms import MoveForm, NoIndentationMoveForm
 
 
 class TreebeardCreateView(CreateView):
@@ -94,7 +95,11 @@ class TreebeardMoveView(ObjectSpecificView, WMAFormView):
         return self.instance
 
     def get_form_class(self):
-        return movenodeform_factory(self.model, fields=[])
+        if self.model_admin.move_form_select_indentation:
+            formclass = MoveForm
+        else:
+            formclass = NoIndentationMoveForm
+        return movenodeform_factory(self.model, form=formclass, fields=[])
 
     def get_form_kwargs(self):
         """
