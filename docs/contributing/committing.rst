@@ -13,7 +13,7 @@ Most code contributions will be in the form of pull requests from Github.
 Pull requests should not be merged from Github though.
 Instead, the code should be checked out by a committer locally,
 the changes examined and rebased,
-the CHANGELOG and release notes updated,
+the ``CHANGELOG.txt`` and release notes updated,
 and finally the code should be pushed to the master branch.
 This process is covered in more detail below.
 
@@ -55,13 +55,13 @@ such as typos and formatting, as part of the rebase.
     $ git checkout master
     $ git merge --ff-only pr/xxxx
 
-Update CHANGELOG and release notes
-==================================
+Update ``CHANGELOG.txt`` and release notes
+==========================================
 
-Every significant change to Wagtail should get an entry in the CHANGELOG,
+Every significant change to Wagtail should get an entry in the ``CHANGELOG.txt``,
 and the release notes for the current version.
 
-The CHANGELOG contains a short summary of each new feature, refactoring, or bug fix in each release.
+The ``CHANGELOG.txt`` contains a short summary of each new feature, refactoring, or bug fix in each release.
 Each summary should be a single line.
 Bug fixes should be grouped together at the end of the list for each release,
 and be prefixed with "Fix:".
@@ -90,20 +90,20 @@ If in doubt, or if their name is not on their profile, ask them how they want to
 
 If the changes to be merged are small enough to be a single commit,
 amend this single commit with the additions to
-the CHANGELOG, release notes, and contributors:
+the ``CHANGELOG.txt``, release notes, and contributors:
 
 .. code-block:: sh
 
-    $ git add CHANGELOG docs/releases/x.x.x.rst CONTRIBUTING.md
+    $ git add CHANGELOG.txt docs/releases/x.x.x.rst CONTRIBUTORS.rst
     $ git commit --amend --no-edit
 
 If the changes do not fit in a single commit, make a new commit with the updates to
-the CHANGELOG, release notes, and contributors.
+the ``CHANGELOG.txt``, release notes, and contributors.
 The commit message should say ``Release notes for #xxxx``:
 
 .. code-block:: sh
 
-    $ git add CHANGELOG docs/releases/x.x.x.rst CONTRIBUTING.md
+    $ git add CHANGELOG.txt docs/releases/x.x.x.rst CONTRIBUTORS.rst
     $ git commit -m 'Release notes for #xxxx'
 
 Push to master
