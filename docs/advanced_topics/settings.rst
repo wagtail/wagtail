@@ -244,6 +244,16 @@ Email Notifications format
 Notification emails are sent in `text/plain` by default, change this to use HTML formatting.
 
 
+Email Notification format
+-------------------------
+
+.. code-block:: python
+
+  WAGTAILADMIN_NOTIFICATION_USE_HTML = True
+
+Notification emails are sent in `text/plain` by default, change this to use HTML formatting.
+
+
 .. _update_notifications:
 
 Wagtail update notifications
