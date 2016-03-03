@@ -95,6 +95,12 @@ In addition to the model fields provided, ``Page`` has many properties and metho
 
     .. autoattribute:: full_url
 
+    .. automethod:: relative_url
+
+    .. automethod:: get_site
+
+    .. automethod:: get_url_parts
+
     .. automethod:: route
 
     .. automethod:: serve

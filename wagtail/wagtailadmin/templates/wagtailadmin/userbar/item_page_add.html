@@ -2,5 +2,7 @@
 {% load i18n  %}
 
 {% block item_content %}
-  <a href="{% url 'wagtailadmin_pages:add_subpage' self.page.id %}" target="_parent" class="action icon icon-plus" title="{% trans 'Add a child page' %}">{% trans 'Add' %}</a>
+    <div class="wagtail-action wagtail-icon wagtail-icon-plus">
+        <a href="{% url 'wagtailadmin_pages:add_subpage' self.page.id %}" target="_parent">{% trans 'Add a child page' %}</a>
+    </div>
 {% endblock %}

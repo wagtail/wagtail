@@ -9,6 +9,7 @@ from django.template.loader import render_to_string
 from django.utils.encoding import python_2_unicode_compatible, force_text
 from django.utils.html import format_html_join
 from django.utils.safestring import mark_safe
+from django.contrib.staticfiles.templatetags.staticfiles import static
 
 # Must be imported from Django so we get the new implementation of with_metaclass
 from django.utils import six
@@ -81,7 +82,7 @@ class BaseStreamBlock(Block):
 
     @property
     def media(self):
-        return forms.Media(js=['wagtailadmin/js/blocks/sequence.js', 'wagtailadmin/js/blocks/stream.js'])
+        return forms.Media(js=[static('wagtailadmin/js/blocks/sequence.js'), static('wagtailadmin/js/blocks/stream.js')])
 
     def js_initializer(self):
         # compile a list of info dictionaries, one for each available block type
@@ -306,7 +307,7 @@ class StreamValue(collections.Sequence):
         return repr(list(self))
 
     def __html__(self):
-        return self.__str__()
+        return self.stream_block.render(self)
 
     def __str__(self):
-        return self.stream_block.render(self)
+        return self.__html__()

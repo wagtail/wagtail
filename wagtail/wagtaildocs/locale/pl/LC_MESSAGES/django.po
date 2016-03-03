@@ -4,14 +4,15 @@
 #
 # Translators:
 # utek <mail@utek.pl>, 2014
+# mmiskiew <mmiskiew@gmail.com>, 2016
 # utek <mail@utek.pl>, 2014
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-12-17 13:54+0000\n"
-"PO-Revision-Date: 2015-12-17 13:58+0000\n"
-"Last-Translator: mattwestcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2016-02-10 15:32+0000\n"
+"PO-Revision-Date: 2016-02-15 11:27+0000\n"
+"Last-Translator: mmiskiew <mmiskiew@gmail.com>\n"
 "Language-Team: Polish (http://www.transifex.com/torchbox/wagtail/language/"
 "pl/)\n"
 "MIME-Version: 1.0\n"
@@ -21,6 +22,24 @@ msgstr ""
 "Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
 "|| n%100>=20) ? 1 : 2);\n"
 
+msgid "title"
+msgstr "tytuł"
+
+msgid "file"
+msgstr "plik"
+
+msgid "created at"
+msgstr "Utworzono dnia"
+
+msgid "uploaded by user"
+msgstr "wgrane przez użytkownika"
+
+msgid "tags"
+msgstr "tagi"
+
+msgid "document"
+msgstr "dokument"
+
 msgid "Choose a document"
 msgstr "Wybierz dokument"
 
@@ -29,6 +48,15 @@ msgstr "Szukaj"
 
 msgid "Upload"
 msgstr "Prześlij"
+
+msgid "Uploading..."
+msgstr "Wgrywanie..."
+
+msgid "Server Error"
+msgstr "Błąd serwera"
+
+msgid "Report this error to your webmaster with the following information:"
+msgstr "Zgłoś ten błąd administratorowi strony wraz z poniższą informacją:"
 
 #, python-format
 msgid ""
@@ -92,6 +120,12 @@ msgstr "Edycja"
 msgid "Save"
 msgstr "Zapisz"
 
+msgid "Filesize"
+msgstr "Rozmiar pliku"
+
+msgid "File not found"
+msgstr "Plik nie został odnaleziony"
+
 msgid "Documents"
 msgstr "Dokumenty"
 
@@ -131,12 +165,34 @@ msgstr "Status"
 msgid "Edit this page"
 msgstr "Edytuj tę stronę"
 
+#, python-format
+msgid ""
+"\n"
+"        <span>%(total)s</span> Document\n"
+"    "
+msgid_plural ""
+"\n"
+"        <span>%(total)s</span> Documents\n"
+"    "
+msgstr[0] ""
+"\n"
+"<span>%(total)s</span> Dokument"
+msgstr[1] ""
+"\n"
+" <span>%(total)s</span> Dokumentów"
+msgstr[2] ""
+"\n"
+" <span>%(total)s</span> Dokumentów"
+
 msgid "Search documents"
 msgstr "Szukaj dokumentów"
 
 #, python-brace-format
 msgid "Document '{0}' added."
 msgstr "Dodano dokument '{0}'."
+
+msgid "Edit"
+msgstr "Edytuj"
 
 msgid "The document could not be saved due to errors."
 msgstr "Dokument nie mógł zostać zapisany z powodu błędów."
@@ -145,9 +201,20 @@ msgstr "Dokument nie mógł zostać zapisany z powodu błędów."
 msgid "Document '{0}' updated"
 msgstr "Uaktualniono dokument '{0}'"
 
+msgid ""
+"The file could not be found. Please change the source or delete the document"
+msgstr ""
+"Plik nie mógł zostać odnaleziony. Proszę zmień źródło lub usuń dokument"
+
+msgid "Delete"
+msgstr "Usuń"
+
 #, python-brace-format
 msgid "Document '{0}' deleted."
 msgstr "Usunięto dokument '{0}'"
 
 msgid "Choose another document"
 msgstr "Wybierz inny dokument"
+
+msgid "Edit this document"
+msgstr "Edytuj ten dokument"

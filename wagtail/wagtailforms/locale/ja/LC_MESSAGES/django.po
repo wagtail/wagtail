@@ -3,7 +3,7 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# Daigo Shitara <stain.witness@gmail.com>, 2014
+# Daigo Shitara <stain.witness@gmail.com>, 2014,2016
 # Sangmin Ahn <gijigae@gmail.com>, 2015
 # takuan_osho <shimizu.taku@gmail.com>, 2015
 # 石田秀 <ishidashu@gmail.com>, 2015
@@ -11,9 +11,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-12-17 13:54+0000\n"
-"PO-Revision-Date: 2015-12-17 14:01+0000\n"
-"Last-Translator: mattwestcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2016-02-10 15:32+0000\n"
+"PO-Revision-Date: 2016-01-08 02:24+0000\n"
+"Last-Translator: Daigo Shitara <stain.witness@gmail.com>\n"
 "Language-Team: Japanese (http://www.transifex.com/torchbox/wagtail/language/"
 "ja/)\n"
 "MIME-Version: 1.0\n"
@@ -55,8 +55,26 @@ msgstr "日付"
 msgid "Date/time"
 msgstr "日時"
 
+msgid "submit time"
+msgstr "送信時刻"
+
+msgid "form submission"
+msgstr "フォームを送信"
+
+msgid "label"
+msgstr "ラベル"
+
 msgid "The label of the form field"
 msgstr "フォームフィールドのラベル"
+
+msgid "field type"
+msgstr "フィールド種別"
+
+msgid "required"
+msgstr "必須"
+
+msgid "choices"
+msgstr "選択肢"
 
 msgid ""
 "Comma separated list of choices. Only applicable in checkboxes, radio and "
@@ -65,13 +83,28 @@ msgstr ""
 "カンマ区切りの選択肢。複数のチェックボックス、ラジオボタン、セレクトボックス"
 "のみ有効です。"
 
+msgid "default value"
+msgstr "デフォルト値"
+
 msgid "Default value. Comma separated values supported for checkboxes."
 msgstr ""
 "初期値。複数のチェックボックスの場合にはカンマ区切りの値を指定できます。"
 
+msgid "help text"
+msgstr "説明文"
+
+msgid "to address"
+msgstr "送信先"
+
 msgid "Optional - form submissions will be emailed to this address"
 msgstr ""
 "オプション - フォームで送信された内容が指定したメールアドレスに送信されます。"
+
+msgid "from address"
+msgstr "送信元"
+
+msgid "subject"
+msgstr "件名"
 
 #, python-format
 msgid "Delete %(title)s"

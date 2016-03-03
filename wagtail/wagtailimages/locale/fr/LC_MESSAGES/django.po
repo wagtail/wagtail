@@ -7,13 +7,14 @@
 # Bertrand Bordage <bordage.bertrand@gmail.com>, 2015
 # nahuel, 2014
 # nahuel, 2014
+# Sebastien Andrivet <sebastien@andrivet.com>, 2016
 # Timothy Allen <flipper@peregrinesalon.com>, 2015
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-12-17 13:54+0000\n"
-"PO-Revision-Date: 2015-12-17 13:59+0000\n"
+"POT-Creation-Date: 2016-02-10 15:32+0000\n"
+"PO-Revision-Date: 2016-02-14 19:06+0000\n"
 "Last-Translator: mattwestcott <matthew@torchbox.com>\n"
 "Language-Team: French (http://www.transifex.com/torchbox/wagtail/language/"
 "fr/)\n"
@@ -85,6 +86,27 @@ msgstr "Hauteur"
 msgid "Closeness"
 msgstr "Proximité"
 
+msgid "title"
+msgstr "Titre"
+
+msgid "file"
+msgstr "Fichier"
+
+msgid "width"
+msgstr "largeur"
+
+msgid "height"
+msgstr "hauteur"
+
+msgid "created at"
+msgstr "Créé à"
+
+msgid "uploaded by user"
+msgstr "Téléchargé par l'utilisateur"
+
+msgid "tags"
+msgstr "Mots-clés"
+
 msgid "Choose an image"
 msgstr "Choisir une image"
 
@@ -96,6 +118,16 @@ msgstr "Envoyer"
 
 msgid "Popular tags"
 msgstr "Mots-clés populaires"
+
+msgid "Uploading..."
+msgstr "Téléchargement..."
+
+msgid "Server Error"
+msgstr "Erreur du server"
+
+msgid "Report this error to your webmaster with the following information:"
+msgstr ""
+"Signaler cette erreur à votre webmaster avec les informations suivantes:"
 
 #, python-format
 msgid ""
@@ -272,6 +304,9 @@ msgstr ""
 
 msgid "Sorry, upload failed."
 msgstr "Désolé, L'envoi a échoué."
+
+msgid "Image updated."
+msgstr "Image mise à jour."
 
 msgid "Update"
 msgstr "Mettre à jour"

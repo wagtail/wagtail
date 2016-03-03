@@ -31,7 +31,7 @@ Here's an example:
         # Add any extra fields to image here
 
         # eg. To add a caption field:
-        # caption = models.CharField(max_length=255)
+        # caption = models.CharField(max_length=255, blank=True)
 
         admin_form_fields = Image.admin_form_fields + (
             # Then add the field names here to make them appear in the form:
@@ -58,6 +58,13 @@ Here's an example:
     @receiver(pre_delete, sender=CustomRendition)
     def rendition_delete(sender, instance, **kwargs):
         instance.file.delete(False)
+
+.. note::
+
+    Fields defined on a custom image model must either be set as non-required
+    (``blank=True``), or specify a default value - this is because uploading
+    the image and entering custom data happen as two separate actions, and
+    Wagtail needs to be able to create an image record immediately on upload.
 
 .. note::
 

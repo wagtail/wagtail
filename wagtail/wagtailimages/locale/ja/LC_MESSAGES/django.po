@@ -3,13 +3,14 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# Daigo Shitara <stain.witness@gmail.com>, 2016
 # 石田秀 <ishidashu@gmail.com>, 2015
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-12-17 13:54+0000\n"
-"PO-Revision-Date: 2015-12-17 13:59+0000\n"
+"POT-Creation-Date: 2016-02-10 15:32+0000\n"
+"PO-Revision-Date: 2016-02-05 17:09+0000\n"
 "Last-Translator: mattwestcott <matthew@torchbox.com>\n"
 "Language-Team: Japanese (http://www.transifex.com/torchbox/wagtail/language/"
 "ja/)\n"
@@ -80,6 +81,27 @@ msgstr "縦幅"
 msgid "Closeness"
 msgstr "近さ"
 
+msgid "title"
+msgstr "タイトル"
+
+msgid "file"
+msgstr "ファイル"
+
+msgid "width"
+msgstr "幅"
+
+msgid "height"
+msgstr "高さ"
+
+msgid "created at"
+msgstr "作成日"
+
+msgid "uploaded by user"
+msgstr "アップロードしたユーザ"
+
+msgid "tags"
+msgstr "タグ"
+
 msgid "Choose an image"
 msgstr "画像を選択"
 
@@ -91,6 +113,9 @@ msgstr "アップロード"
 
 msgid "Popular tags"
 msgstr "人気のタグ"
+
+msgid "Uploading..."
+msgstr "アップロード中..."
 
 #, python-format
 msgid ""
@@ -254,6 +279,9 @@ msgstr ""
 
 msgid "Sorry, upload failed."
 msgstr "アップロードに失敗しました。"
+
+msgid "Image updated."
+msgstr "画像が更新されました。"
 
 msgid "Update"
 msgstr "アップデート"

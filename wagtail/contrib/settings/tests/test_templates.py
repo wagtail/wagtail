@@ -9,7 +9,7 @@ from wagtail.wagtailcore.models import Page, Site
 class TemplateTestCase(TestCase, WagtailTestUtils):
     def setUp(self):
         root = Page.objects.first()
-        other_home = Page(title='Other Root', slug='other')
+        other_home = Page(title='Other Root')
         root.add_child(instance=other_home)
 
         self.default_site = Site.objects.get(is_default_site=True)

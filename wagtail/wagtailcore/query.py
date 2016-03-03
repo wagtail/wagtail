@@ -18,7 +18,7 @@ class TreeQuerySet(MP_NodeQuerySet):
         q = Q(path__startswith=other.path) & Q(depth__gte=other.depth)
 
         if not inclusive:
-            q &= ~self.page_q(other)
+            q &= ~Q(pk=other.pk)
 
         return q
 
@@ -61,7 +61,7 @@ class TreeQuerySet(MP_NodeQuerySet):
         q = Q(path__in=paths)
 
         if not inclusive:
-            q &= ~self.page_q(other)
+            q &= ~Q(pk=other.pk)
 
         return q
 
@@ -100,7 +100,7 @@ class TreeQuerySet(MP_NodeQuerySet):
         q = Q(path__startswith=self.model._get_parent_path_from_path(other.path)) & Q(depth=other.depth)
 
         if not inclusive:
-            q &= ~self.page_q(other)
+            q &= ~Q(pk=other.pk)
 
         return q
 

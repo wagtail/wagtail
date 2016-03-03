@@ -1,5 +1,5 @@
 <!doctype html>
-{% load compress static i18n %}
+{% load staticfiles i18n %}
 <html class="no-js" lang="{{ LANGUAGE_CODE|default:"en-gb" }}">
 <head>
     <meta charset="utf-8" />
@@ -7,18 +7,16 @@
     <title>Wagtail - {% block titletag %}{% endblock %}</title>
     <meta name="description" content="" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    
+
     <script src="{% static 'wagtailadmin/js/vendor/modernizr-2.6.2.min.js' %}"></script>
 
-    {% compress css %}
-        <link rel="stylesheet" href="{% static 'wagtailadmin/css/normalize.css' %}" />
-    {% endcompress %}
+    <link rel="stylesheet" href="{% static 'wagtailadmin/css/normalize.css' %}" />
 
     {% block css %}{% endblock %}
 
     {% block branding_favicon %}{% endblock %}
 </head>
-<body class="{% block bodyclass %}{% endblock %} {% if messages %}has-messages{% endif %}">
+<body id="wagtail" class="{% block bodyclass %}{% endblock %} {% if messages %}has-messages{% endif %}">
     <!--[if lt IE 9]>
         <p class="capabilitymessage">{% blocktrans %}You are using an <strong>outdated</strong> browser not supported by this software. Please <a href="http://browsehappy.com/">upgrade your browser</a>.{% endblocktrans %}</p>
     <![endif]-->

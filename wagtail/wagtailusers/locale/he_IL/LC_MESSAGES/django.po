@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-12-17 13:55+0000\n"
-"PO-Revision-Date: 2015-12-17 14:00+0000\n"
+"POT-Creation-Date: 2016-02-10 15:32+0000\n"
+"PO-Revision-Date: 2016-02-05 17:11+0000\n"
 "Last-Translator: mattwestcott <matthew@torchbox.com>\n"
 "Language-Team: Hebrew (Israel) (http://www.transifex.com/torchbox/wagtail/"
 "language/he_IL/)\n"
@@ -34,9 +34,6 @@ msgstr "שתי הסיסמאות לא מתאימות"
 msgid "Administrator"
 msgstr "מנהל"
 
-msgid "If ticked, this user has the ability to manage user accounts."
-msgstr "אם מסומן, המשתמש הזה מקבל את היכולת לנהל חשבונות משתמשים"
-
 msgid "Password"
 msgstr "סיסמא"
 
@@ -57,9 +54,6 @@ msgstr "שם פרטי"
 
 msgid "Last Name"
 msgstr "שם משפחה"
-
-msgid "Administrators have the ability to manage user accounts."
-msgstr "מנהלים יכולים לנהל חשבונות משתמשים"
 
 msgid "A group with that name already exists."
 msgstr "קבוצה בשם זה כבר קיימת"

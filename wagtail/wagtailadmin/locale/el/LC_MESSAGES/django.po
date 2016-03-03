@@ -11,8 +11,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-12-17 13:54+0000\n"
-"PO-Revision-Date: 2015-12-17 13:57+0000\n"
+"POT-Creation-Date: 2016-02-10 15:32+0000\n"
+"PO-Revision-Date: 2016-02-10 15:33+0000\n"
 "Last-Translator: mattwestcott <matthew@torchbox.com>\n"
 "Language-Team: Greek (http://www.transifex.com/torchbox/wagtail/language/"
 "el/)\n"
@@ -27,6 +27,15 @@ msgstr "Προγραμματισμένη δημοσίευση"
 
 msgid "Common page configuration"
 msgstr "Κοινές ρυθμίσεις σελίδων"
+
+msgid "Content"
+msgstr "Περιεχόμενο"
+
+msgid "Promote"
+msgstr "Προώθηση"
+
+msgid "Settings"
+msgstr "Ρυθμίσεις"
 
 msgid "Search"
 msgstr "Αναζήτηση"
@@ -117,6 +126,17 @@ msgstr "Ιδιωτική, προσβάσιμη με τον ακόλουθο κω
 
 msgid "This field is required."
 msgstr "Το πεδίο πρέπει να συμπληρωθεί"
+
+msgid "This slug is already in use"
+msgstr "Το slug χρησιμοποιείται"
+
+msgid "Go live date/time must be before expiry date/time"
+msgstr ""
+"Μετάβαση ζωντανής ημερομηνίας/ώρας πρέπει να είναι πριν από την ημερομηνία "
+"λήξης/ώρας"
+
+msgid "Expiry date/time must be in the future"
+msgstr "Η ημερομηνία/ώρα λήξης πρέπει να είναι μελλοντική"
 
 msgid "Account"
 msgstr "Λογαριασμός"
@@ -772,17 +792,6 @@ msgstr "Δε ήταν δυνατή η αποθήκευση της σελίδας
 msgid "This page is currently awaiting moderation"
 msgstr "Η σελίδα δεν είναι προς έλεγχο"
 
-msgid "This slug is already in use"
-msgstr "Το slug χρησιμοποιείται"
-
-msgid "Go live date/time must be before expiry date/time"
-msgstr ""
-"Μετάβαση ζωντανής ημερομηνίας/ώρας πρέπει να είναι πριν από την ημερομηνία "
-"λήξης/ώρας"
-
-msgid "Expiry date/time must be in the future"
-msgstr "Η ημερομηνία/ώρα λήξης πρέπει να είναι μελλοντική"
-
 #, python-brace-format
 msgid "Page '{0}' deleted."
 msgstr "Έγινε διαγραφή της σελίδας '{0}'."
@@ -802,15 +811,6 @@ msgstr "Η σελίδα '{0}' και {1} υποσελίδες αντιγράφη
 #, python-brace-format
 msgid "Page '{0}' copied."
 msgstr "Η σελίδα '{0}' αντιγράφηκε."
-
-msgid "Content"
-msgstr "Περιεχόμενο"
-
-msgid "Promote"
-msgstr "Προώθηση"
-
-msgid "Settings"
-msgstr "Ρυθμίσεις"
 
 #, python-brace-format
 msgid "The page '{0}' is not currently awaiting moderation."

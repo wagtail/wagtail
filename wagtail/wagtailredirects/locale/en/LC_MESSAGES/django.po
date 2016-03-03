@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-12-17 13:55+0000\n"
+"POT-Creation-Date: 2016-03-01 18:52+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -33,29 +33,29 @@ msgstr ""
 msgid "redirect from"
 msgstr ""
 
-#: models.py:11
+#: models.py:12
 msgid "site"
 msgstr ""
 
-#: models.py:13
+#: models.py:18
 msgid "permanent"
 msgstr ""
 
-#: models.py:14
+#: models.py:19
 msgid ""
 "Recommended. Permanent redirects ensure search engines forget the old page "
 "(the 'Redirect from') and index the new page instead."
 msgstr ""
 
-#: models.py:17
+#: models.py:24
 msgid "redirect to a page"
 msgstr ""
 
-#: models.py:18
+#: models.py:28
 msgid "redirect to any URL"
 msgstr ""
 
-#: models.py:84
+#: models.py:94
 msgid "redirect"
 msgstr ""
 
@@ -95,12 +95,12 @@ msgstr ""
 msgid "Editing"
 msgstr ""
 
-#: templates/wagtailredirects/edit.html:28
+#: templates/wagtailredirects/edit.html:29
 msgid "Delete redirect"
 msgstr ""
 
 #: templates/wagtailredirects/index.html:3
-#: templates/wagtailredirects/index.html:17 wagtail_hooks.py:31
+#: templates/wagtailredirects/index.html:17 wagtail_hooks.py:30
 msgid "Redirects"
 msgstr ""
 
@@ -158,29 +158,29 @@ msgstr ""
 msgid "Search redirects"
 msgstr ""
 
-#: views.py:67
+#: views.py:73
 #, python-brace-format
 msgid "Redirect '{0}' updated."
 msgstr ""
 
-#: views.py:68 views.py:104
+#: views.py:74 views.py:116
 msgid "Edit"
 msgstr ""
 
-#: views.py:72
+#: views.py:78
 msgid "The redirect could not be saved due to errors."
 msgstr ""
 
-#: views.py:88
+#: views.py:100
 #, python-brace-format
 msgid "Redirect '{0}' deleted."
 msgstr ""
 
-#: views.py:103
+#: views.py:115
 #, python-brace-format
 msgid "Redirect '{0}' added."
 msgstr ""
 
-#: views.py:108
+#: views.py:120
 msgid "The redirect could not be created due to errors."
 msgstr ""

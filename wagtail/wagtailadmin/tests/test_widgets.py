@@ -14,7 +14,7 @@ class TestAdminPageChooserWidget(TestCase):
         # Add child page
         self.child_page = SimplePage(
             title="foobarbaz",
-            slug="foobarbaz",
+            content="hello",
         )
         self.root_page.add_child(instance=self.child_page)
 

@@ -8,6 +8,7 @@ from wagtail.wagtailadmin.forms import SearchForm
 from wagtail.wagtailadmin.utils import PermissionPolicyChecker, permission_denied
 from wagtail.wagtailsearch.backends import get_search_backends
 from wagtail.wagtailadmin import messages
+from wagtail.wagtailcore.models import Collection
 
 from wagtail.wagtaildocs.models import get_document_model
 from wagtail.wagtaildocs.forms import get_document_form
@@ -34,6 +35,16 @@ def index(request):
         ordering = '-created_at'
     documents = documents.order_by(ordering)
 
+    # Filter by collection
+    current_collection = None
+    collection_id = request.GET.get('collection_id')
+    if collection_id:
+        try:
+            current_collection = Collection.objects.get(id=collection_id)
+            documents = documents.filter(collection=current_collection)
+        except (ValueError, Collection.DoesNotExist):
+            pass
+
     # Search
     query_string = None
     if 'q' in request.GET:
@@ -46,6 +57,12 @@ def index(request):
 
     # Pagination
     paginator, documents = paginate(request, documents)
+
+    collections = permission_policy.collections_user_has_any_permission_for(
+        request.user, ['add', 'change']
+    )
+    if len(collections) < 2:
+        collections = None
 
     # Create response
     if request.is_ajax():
@@ -65,6 +82,8 @@ def index(request):
             'search_form': form,
             'popular_tags': Document.popular_tags(),
             'user_can_add': permission_policy.user_has_permission(request.user, 'add'),
+            'collections': collections,
+            'current_collection': current_collection,
         })
 
 
@@ -75,7 +94,7 @@ def add(request):
 
     if request.POST:
         doc = Document(uploaded_by_user=request.user)
-        form = DocumentForm(request.POST, request.FILES, instance=doc)
+        form = DocumentForm(request.POST, request.FILES, instance=doc, user=request.user)
         if form.is_valid():
             form.save()
 
@@ -90,7 +109,7 @@ def add(request):
         else:
             messages.error(request, _("The document could not be saved due to errors."))
     else:
-        form = DocumentForm()
+        form = DocumentForm(user=request.user)
 
     return render(request, "wagtaildocs/documents/add.html", {
         'form': form,
@@ -109,7 +128,7 @@ def edit(request, document_id):
 
     if request.POST:
         original_file = doc.file
-        form = DocumentForm(request.POST, request.FILES, instance=doc)
+        form = DocumentForm(request.POST, request.FILES, instance=doc, user=request.user)
         if form.is_valid():
             if 'file' in form.changed_data:
                 # if providing a new document file, delete the old one.
@@ -129,7 +148,7 @@ def edit(request, document_id):
         else:
             messages.error(request, _("The document could not be saved due to errors."))
     else:
-        form = DocumentForm(instance=doc)
+        form = DocumentForm(instance=doc, user=request.user)
 
     filesize = None
 

@@ -1,0 +1,21 @@
+# [RemovedInWagtail16Warning]
+# DEPRECATED. Developer requirements should now be specified in setup.py
+# in 'testing_extras' / 'documentation_extras'.
+
+# Required for running the tests
+mock>=1.0.0
+python-dateutil>=2.2
+pytz>=2014.7
+Pillow>=2.7.0
+elasticsearch>=1.0.0
+
+# For coverage and PEP8 linting
+coverage>=3.7.0
+flake8>=2.2.0
+
+# For documentation
+Sphinx>=1.3.1
+sphinx-autobuild>=0.5.2
+sphinx_rtd_theme>=0.1.8
+sphinxcontrib-spelling==2.1.1
+pyenchant==1.6.6

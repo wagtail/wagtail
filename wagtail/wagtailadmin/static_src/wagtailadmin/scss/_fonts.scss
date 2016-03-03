@@ -14,16 +14,6 @@
 //
 //  See https://css-tricks.com/snippets/css/using-font-face/ for more information.
 
-@mixin webfont($fontname, $filestub, $weight, $style:normal) {
-    @font-face {
-        font-family: '#{$fontname}';
-        src: url('#{$font-root}#{$filestub}.woff2') format('woff2'),
-           url('#{$font-root}#{$filestub}.woff') format('woff'),
-           url('#{$font-root}#{$filestub}.ttf') format('truetype');
-        font-weight: $weight;
-        font-style: $style;
-    }
-}
 
 @include webfont(Open Sans, opensans-light, 300, normal);
 @include webfont(Open Sans, opensans-regular, 400, normal);
@@ -32,22 +22,4 @@
 @include webfont(Roboto Slab, robotoslab-regular, 400, normal);
 @include webfont(Roboto Slab, robotoslab-bold, 700, normal);
 
-// The wagtail font isn't available in WOFF2, so a @font-face is set here without a mixin.
-@font-face {
-    font-family: 'wagtail';
-    src: url('#{$font-root}wagtail.eot');
-    src: url('#{$font-root}wagtail.eot?#iefix') format('embedded-opentype'),
-        url('#{$font-root}wagtail.ttf') format('truetype'),
-        url('#{$font-root}wagtail.svg#wagtail') format('svg'),
-        url('#{$font-root}wagtail.woff') format('woff');
-    font-weight: normal;
-    font-style: normal;
-}
-
-// One exception to the limited font formats used above is the Wagtail icon font for Windows, where using the SVG version improves antialiasing
-@media screen and (-webkit-min-device-pixel-ratio: 0) {
-    @font-face {
-        font-family: 'wagtail';
-        src: url('#{$font-root}wagtail.svg#wagtail') format('svg');
-    }
-}
+@import 'wagtailadmin/scss/font-icons';

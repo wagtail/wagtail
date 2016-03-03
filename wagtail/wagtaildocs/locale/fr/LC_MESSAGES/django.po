@@ -6,13 +6,15 @@
 # Bertrand Bordage <bordage.bertrand@gmail.com>, 2015
 # nahuel, 2014
 # nahuel, 2014
+# pierre marfoure <pierre@onoffdesign.com>, 2016
+# Sebastien Andrivet <sebastien@andrivet.com>, 2016
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-12-17 13:54+0000\n"
-"PO-Revision-Date: 2015-12-17 13:58+0000\n"
-"Last-Translator: mattwestcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2016-02-10 15:32+0000\n"
+"PO-Revision-Date: 2016-02-14 19:06+0000\n"
+"Last-Translator: Sebastien Andrivet <sebastien@andrivet.com>\n"
 "Language-Team: French (http://www.transifex.com/torchbox/wagtail/language/"
 "fr/)\n"
 "MIME-Version: 1.0\n"
@@ -20,6 +22,24 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: fr\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+msgid "title"
+msgstr "Titre"
+
+msgid "file"
+msgstr "Fichier"
+
+msgid "created at"
+msgstr "Créé à"
+
+msgid "uploaded by user"
+msgstr "Téléchargé par l'utilisateur"
+
+msgid "tags"
+msgstr "Mots-clés"
+
+msgid "document"
+msgstr "Document"
 
 msgid "Choose a document"
 msgstr "Choisir un document"
@@ -29,6 +49,16 @@ msgstr "Recherche"
 
 msgid "Upload"
 msgstr "Envoyer"
+
+msgid "Uploading..."
+msgstr "Téléchargement..."
+
+msgid "Server Error"
+msgstr "Erreur du server"
+
+msgid "Report this error to your webmaster with the following information:"
+msgstr ""
+"Signaler cette erreur à votre webmaster avec les informations suivantes:"
 
 #, python-format
 msgid ""

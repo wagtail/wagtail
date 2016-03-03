@@ -3,14 +3,15 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# Daigo Shitara <stain.witness@gmail.com>, 2016
 # 石田秀 <ishidashu@gmail.com>, 2015
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-12-17 13:55+0000\n"
-"PO-Revision-Date: 2015-12-17 13:59+0000\n"
-"Last-Translator: mattwestcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2016-02-10 15:32+0000\n"
+"PO-Revision-Date: 2016-01-08 02:36+0000\n"
+"Last-Translator: Daigo Shitara <stain.witness@gmail.com>\n"
 "Language-Team: Japanese (http://www.transifex.com/torchbox/wagtail/language/"
 "ja/)\n"
 "MIME-Version: 1.0\n"
@@ -19,12 +20,39 @@ msgstr ""
 "Language: ja\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
+msgid "From site"
+msgstr "元サイト"
+
+msgid "All sites"
+msgstr "全てのサイト"
+
+msgid "A redirect with this path already exists."
+msgstr "このリダイレクト先は既に登録されています。"
+
+msgid "redirect from"
+msgstr "リダイレクト元"
+
+msgid "site"
+msgstr "サイト"
+
+msgid "permanent"
+msgstr "恒久"
+
 msgid ""
 "Recommended. Permanent redirects ensure search engines forget the old page "
 "(the 'Redirect from') and index the new page instead."
 msgstr ""
 "推奨：恒久的リダイレクトによりサーチエンジンから古いページが削除され、新しい"
 "ページを読み込むようになります。"
+
+msgid "redirect to a page"
+msgstr "ページにリダイレクト"
+
+msgid "redirect to any URL"
+msgstr "任意のURLにリダイレクト"
+
+msgid "redirect"
+msgstr "リダイレクト"
 
 msgid "Add redirect"
 msgstr "リダイレクトを追加"

@@ -1,3 +1,6 @@
+# -*- coding: utf-8 -*
+from __future__ import unicode_literals
+
 import json
 
 from django.apps import apps
@@ -141,12 +144,14 @@ class TestStreamFieldRenderingBase(TestCase):
 
         self.instance = StreamModel.objects.create(body=json.dumps([
             {'type': 'rich_text', 'value': '<p>Rich text</p>'},
+            {'type': 'rich_text', 'value': '<p>Привет, Микола</p>'},
             {'type': 'image', 'value': self.image.pk},
             {'type': 'text', 'value': 'Hello, World!'}]))
 
         img_tag = self.image.get_rendition('original').img_tag()
         self.expected = ''.join([
             '<div class="block-rich_text"><div class="rich-text"><p>Rich text</p></div></div>',
+            '<div class="block-rich_text"><div class="rich-text"><p>Привет, Микола</p></div></div>',
             '<div class="block-image">{}</div>'.format(img_tag),
             '<div class="block-text">Hello, World!</div>',
         ])
@@ -155,6 +160,11 @@ class TestStreamFieldRenderingBase(TestCase):
 class TestStreamFieldRendering(TestStreamFieldRenderingBase):
     def test_to_string(self):
         rendered = text_type(self.instance.body)
+        self.assertHTMLEqual(rendered, self.expected)
+        self.assertIsInstance(rendered, SafeText)
+
+    def test___html___access(self):
+        rendered = self.instance.body.__html__()
         self.assertHTMLEqual(rendered, self.expected)
         self.assertIsInstance(rendered, SafeText)
 

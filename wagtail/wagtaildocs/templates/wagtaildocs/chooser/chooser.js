@@ -1,3 +1,4 @@
+{% load i18n %}
 function(modal) {
     function ajaxifyLinks (context) {
         $('a.document-choice', context).click(function() {
@@ -16,7 +17,10 @@ function(modal) {
     function search() {
         $.ajax({
             url: searchUrl,
-            data: {q: $('#id_q').val()},
+            data: {
+                q: $('#id_q').val(),
+                collection_id: $('#collection_chooser_collection_id').val()
+            },
             success: function(data, status) {
                 $('#search-results').html(data);
                 ajaxifyLinks($('#search-results'));
@@ -57,6 +61,14 @@ function(modal) {
             dataType: 'text',
             success: function(response){
                 modal.loadResponseText(response);
+            },
+            error: function(response, textStatus, errorThrown) {
+                {% trans "Server Error" as error_label %}
+                {% trans "Report this error to your webmaster with the following information:" as error_message %}
+                message = '{{ error_message|escapejs }}<br />' + errorThrown + ' - ' + response.status;
+                $('#upload').append(
+                    '<div class="help-block help-critical">' +
+                    '<strong>{{ error_label|escapejs }}: </strong>' + message + '</div>');
             }
         });
 
@@ -70,6 +82,8 @@ function(modal) {
         var wait = setTimeout(search, 50);
         $(this).data('timer', wait);
     });
+
+    $('#collection_chooser_collection_id').change(search);
 
     {% url 'wagtailadmin_tag_autocomplete' as autocomplete_url %}
     $('#id_tags', modal.body).tagit({
