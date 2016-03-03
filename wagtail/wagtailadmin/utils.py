@@ -1,3 +1,4 @@
+import logging
 from functools import wraps
 
 from django.template.loader import render_to_string
@@ -12,6 +13,9 @@ from modelcluster.fields import ParentalKey
 
 from wagtail.wagtailcore.models import Page, PageRevision, GroupPagePermission
 from wagtail.wagtailusers.models import UserProfile
+
+
+logger = logging.getLogger('wagtail.admin')
 
 
 def get_object_usage(obj):
@@ -169,7 +173,7 @@ def send_notification(page_revision_id, notification, excluded_user_id):
         # Get submitter
         recipients = [revision.user]
     else:
-        return
+        return False
 
     # Get list of email addresses
     email_recipients = [
@@ -182,7 +186,7 @@ def send_notification(page_revision_id, notification, excluded_user_id):
 
     # Return if there are no email addresses
     if not email_recipients:
-        return
+        return True
 
     # Get template
     template = 'wagtailadmin/notifications/' + notification + '.html'
@@ -194,12 +198,22 @@ def send_notification(page_revision_id, notification, excluded_user_id):
     }
 
     # Send emails
+    sent_count = 0
     for recipient in email_recipients:
-        # update context with this recipient
-        context["user"] = recipient
+        try:
+            # update context with this recipient
+            context["user"] = recipient
 
-        # Get email subject and content
-        email_subject, email_content = render_to_string(template, context).split('\n', 1)
+            # Get email subject and content
+            email_subject, email_content = render_to_string(template, context).split('\n', 1)
 
-        # Send email
-        send_mail(email_subject, email_content, [recipient.email])
+            # Send email
+            send_mail(email_subject, email_content, [recipient.email])
+            sent_count += 1
+        except Exception:
+            logger.exception(
+                "Failed to send notification email '%s' to %s",
+                email_subject, recipient.email
+            )
+
+    return sent_count == len(email_recipients)

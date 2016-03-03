@@ -210,7 +210,8 @@ def create(request, content_type_app_name, content_type_model_name, parent_page_
                         messages.button(reverse('wagtailadmin_pages:edit', args=(page.id,)), _('Edit'))
                     ]
                 )
-                send_notification(page.get_latest_revision().id, 'submitted', request.user.id)
+                if not send_notification(page.get_latest_revision().id, 'submitted', request.user.id):
+                    messages.error(request, _("Failed to send notifications to moderators"))
             else:
                 messages.success(request, _("Page '{0}' created.").format(page.title))
 
@@ -299,7 +300,8 @@ def edit(request, page_id):
                     messages.button(reverse('wagtailadmin_pages:view_draft', args=(page_id,)), _('View draft')),
                     messages.button(reverse('wagtailadmin_pages:edit', args=(page_id,)), _('Edit'))
                 ])
-                send_notification(page.get_latest_revision().id, 'submitted', request.user.id)
+                if not send_notification(page.get_latest_revision().id, 'submitted', request.user.id):
+                    messages.error(request, _("Failed to send notifications to moderators"))
             else:
                 messages.success(request, _("Page '{0}' updated.").format(page.title))
 
@@ -715,7 +717,8 @@ def approve_moderation(request, revision_id):
             messages.button(revision.page.url, _('View live')),
             messages.button(reverse('wagtailadmin_pages:edit', args=(revision.page.id,)), _('Edit'))
         ])
-        send_notification(revision.id, 'approved', request.user.id)
+        if not send_notification(revision.id, 'approved', request.user.id):
+            messages.error(request, _("Failed to send approval notifications"))
 
     return redirect('wagtailadmin_home')
 
@@ -734,7 +737,8 @@ def reject_moderation(request, revision_id):
         messages.success(request, _("Page '{0}' rejected for publication.").format(revision.page.title), buttons=[
             messages.button(reverse('wagtailadmin_pages:edit', args=(revision.page.id,)), _('Edit'))
         ])
-        send_notification(revision.id, 'rejected', request.user.id)
+        if not send_notification(revision.id, 'rejected', request.user.id):
+            messages.error(request, _("Failed to send rejection notifications"))
 
     return redirect('wagtailadmin_home')
 
