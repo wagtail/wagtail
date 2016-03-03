@@ -111,6 +111,7 @@ Contributors
 * Gareth Price
 * Liam Brenner
 * Nicolas Kuttler
+* Mike Dingjan
 
 Translators
 ===========
