@@ -20,8 +20,9 @@ Changelog
  * Page models now perform field validation, including testing slugs for uniqueness within a parent page, at the model level on saving
  * Page slugs are now auto-generated at the model level on page creation if one has not been specified explicitly
  * The `Page` model now has two new methods `get_site()` and `get_url_parts()` to aid with customising the page URL generation logic
-  * The `edit bird` on the frontend has been redesigned, and no longer depends on an iframe (Thomas Winter, Gareth Price).
+ * The `edit bird` on the frontend has been redesigned, and no longer depends on an iframe (Thomas Winter, Gareth Price).
  * New translations for Hungarian, Swedish (Sweden) and Turkish
+ * Upgraded jQuery to 2.2.1 (Charlie Choiniere)
  * Fix: Custom page managers no longer raise an error when used on an abstract model
  * Fix: Wagtail's migrations are now all reversible (benjaoming)
  * Fix: Deleting a page content type now preserves existing pages as basic Page instances, to prevent tree corruption
