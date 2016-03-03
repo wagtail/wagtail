@@ -38,10 +38,10 @@ def edit_current_site(request, app_name, model_name):
     # Redirect the user to the edit page for the current site
     # (or the current request does not correspond to a site, the first site in the list)
     site = request.site or Site.objects.first()
-    return redirect('wagtailsettings:edit', site.pk, app_name, model_name)
+    return redirect('wagtailsettings:edit', app_name, model_name, site.pk)
 
 
-def edit(request, site_pk, app_name, model_name):
+def edit(request, app_name, model_name, site_pk):
     model = get_model_from_url_params(app_name, model_name)
     if not user_can_edit_setting_type(request.user, model):
         raise PermissionDenied
@@ -66,7 +66,7 @@ def edit(request, site_pk, app_name, model_name):
                     instance=instance
                 )
             )
-            return redirect('wagtailsettings:edit', site.pk, app_name, model_name)
+            return redirect('wagtailsettings:edit', app_name, model_name, site.pk)
         else:
             messages.error(request, _("The setting could not be saved due to errors."))
             edit_handler = edit_handler_class(instance=instance, form=form)
