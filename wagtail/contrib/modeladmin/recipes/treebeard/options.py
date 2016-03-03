@@ -22,9 +22,9 @@ class TreebeardModelAdmin(ModelAdmin):
 
     def get_admin_urls_for_registration(self):
         urls = super(TreebeardModelAdmin, self).get_admin_urls_for_registration()
-        urls.append(
+        urls += (
             url(get_object_specific_url_pattern(self.opts, 'move'),
-                self.move_view, name=get_url_name(self.opts, 'move'))
+                self.move_view, name=get_url_name(self.opts, 'move')),
         )
         return urls
 

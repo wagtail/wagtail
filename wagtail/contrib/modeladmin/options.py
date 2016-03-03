@@ -471,35 +471,33 @@ class ModelAdmin(WagtailRegisterable):
         Utilised by Wagtail's 'register_admin_urls' hook to register urls for
         our the views that class offers.
         """
-        return [
+        urls = (
             url(get_url_pattern(self.opts),
                 self.index_view,
                 name=get_url_name(self.opts)),
-
             url(get_url_pattern(self.opts, 'create'),
                 self.create_view,
                 name=get_url_name(self.opts, 'create')),
-
-            url(get_url_pattern(self.opts, 'choose_parent'),
-                self.choose_parent_view,
-                name=get_url_name(self.opts, 'choose_parent')),
-
             url(get_object_specific_url_pattern(self.opts, 'edit'),
                 self.edit_view,
                 name=get_url_name(self.opts, 'edit')),
-
             url(get_object_specific_url_pattern(self.opts, 'confirm_delete'),
                 self.confirm_delete_view,
                 name=get_url_name(self.opts, 'confirm_delete')),
-
-            url(get_object_specific_url_pattern(self.opts, 'unpublish'),
-                self.unpublish_view,
-                name=get_url_name(self.opts, 'unpublish')),
-
-            url(get_object_specific_url_pattern(self.opts, 'copy'),
-                self.copy_view,
-                name=get_url_name(self.opts, 'copy')),
-        ]
+        )
+        if self.is_pagemodel:
+            urls = urls + (
+                url(get_url_pattern(self.opts, 'choose_parent'),
+                    self.choose_parent_view,
+                    name=get_url_name(self.opts, 'choose_parent')),
+                url(get_object_specific_url_pattern(self.opts, 'unpublish'),
+                    self.unpublish_view,
+                    name=get_url_name(self.opts, 'unpublish')),
+                url(get_object_specific_url_pattern(self.opts, 'copy'),
+                    self.copy_view,
+                    name=get_url_name(self.opts, 'copy')),
+            )
+        return urls
 
 
 class ModelAdminGroup(WagtailRegisterable):
@@ -571,9 +569,9 @@ class ModelAdminGroup(WagtailRegisterable):
         Utilised by Wagtail's 'register_admin_urls' hook to register urls for
         used by any associated ModelAdmin instances
         """
-        urls = []
+        urls = tuple()
         for instance in self.modeladmin_instances:
-            urls.extend(instance.get_admin_urls_for_registration())
+            urls += instance.get_admin_urls_for_registration()
         return urls
 
 

@@ -74,6 +74,26 @@ class TestEditView(TestCase, WagtailTestUtils):
         self.assertEqual(response.status_code, 404)
 
 
+class TestPageSpecificViews(TestCase, WagtailTestUtils):
+    fixtures = ['modeladmintest_test.json']
+    expected_status_code = 404
+
+    def setUp(self):
+        self.login()
+
+    def test_choose_parent(self):
+        response = self.client.get('/admin/modeladmin/modeladmintest/book/choose_parent/')
+        self.assertEqual(response.status_code, self.expected_status_code)
+
+    def test_copy(self):
+        response = self.client.get('/admin/modeladmin/modeladmintest/book/copy/1/')
+        self.assertEqual(response.status_code, self.expected_status_code)
+
+    def test_unpublish(self):
+        response = self.client.get('/admin/modeladmin/modeladmintest/book/unpublish/1/')
+        self.assertEqual(response.status_code, self.expected_status_code)
+
+
 class TestConfirmDeleteView(TestCase, WagtailTestUtils):
     fixtures = ['modeladmintest_test.json']
 

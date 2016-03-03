@@ -19,19 +19,19 @@ class TestIndexView(TestCase, WagtailTestUtils):
 
         self.assertEqual(response.status_code, 200)
 
-        # There are four books in the test data
+        # There are four event pages in the test data
         self.assertEqual(response.context['result_count'], 4)
 
         # User has add permission
         self.assertEqual(response.context['has_add_permission'], True)
 
     def test_filter(self):
-        # Filter by author 1 (JRR Tolkien)
+        # Filter by audience
         response = self.get(audience__exact='public')
 
         self.assertEqual(response.status_code, 200)
 
-        # JRR Tolkien has two books in the test data
+        # Only three of the event page in the test data are 'public'
         self.assertEqual(response.context['result_count'], 3)
 
         for eventpage in response.context['object_list']:
@@ -59,8 +59,8 @@ class TestEditView(TestCase, WagtailTestUtils):
     def setUp(self):
         self.login()
 
-    def get(self, book_id):
-        return self.client.get('/admin/modeladmin/tests/eventpage/edit/%d/' % book_id)
+    def get(self, obj_id):
+        return self.client.get('/admin/modeladmin/tests/eventpage/edit/%d/' % obj_id)
 
     def test_simple(self):
         response = self.get(4)
@@ -70,6 +70,57 @@ class TestEditView(TestCase, WagtailTestUtils):
     def test_non_existent(self):
         response = self.get(100)
 
+        self.assertEqual(response.status_code, 404)
+
+
+class TestChooseParentView(TestCase, WagtailTestUtils):
+    fixtures = ['test_specific.json']
+
+    def setUp(self):
+        self.login()
+
+    def get(self):
+        return self.client.get('/admin/modeladmin/tests/eventpage/choose_parent/')
+
+    def test_simple(self):
+        response = self.get()
+
+        self.assertEqual(response.status_code, 200)
+
+
+class TestCopyRedirect(TestCase, WagtailTestUtils):
+    fixtures = ['test_specific.json']
+
+    def setUp(self):
+        self.login()
+
+    def get(self, obj_id):
+        return self.client.get('/admin/modeladmin/tests/eventpage/copy/%d/' % obj_id)
+
+    def test_simple(self):
+        response = self.get(4)
+        self.assertRedirects(response, '/admin/pages/4/copy/')
+
+    def test_non_existent(self):
+        response = self.get(100)
+        self.assertEqual(response.status_code, 404)
+
+
+class TestUnpublishRedirect(TestCase, WagtailTestUtils):
+    fixtures = ['test_specific.json']
+
+    def setUp(self):
+        self.login()
+
+    def get(self, obj_id):
+        return self.client.get('/admin/modeladmin/tests/eventpage/unpublish/%d/' % obj_id)
+
+    def test_simple(self):
+        response = self.get(4)
+        self.assertRedirects(response, '/admin/pages/4/unpublish/')
+
+    def test_non_existent(self):
+        response = self.get(100)
         self.assertEqual(response.status_code, 404)
 
 
