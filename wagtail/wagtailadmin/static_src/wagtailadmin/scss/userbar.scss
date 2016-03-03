@@ -167,6 +167,7 @@ $positions: (
         li {
             background-color: $color-grey-1;
             opacity: 0;
+            overflow: hidden;
             transition-duration: .125s;
             transition-timing-function: cubic-bezier(.55, 0, .1, 1);
 
@@ -308,4 +309,3 @@ $positions: (
     transform: translateY(0);
     opacity: 1;
 }
-
