@@ -63,7 +63,7 @@ Minor features
  * The `edit bird` on the frontend has been redesigned, and no longer depends on an iframe (Thomas Winter, Gareth Price).
  * Upgraded jQuery to 2.2.1 (Charlie Choiniere)
  * Multiple homepage summary items (`construct_homepage_summary_items` hook) now better vertically spaced (Nicolas Kuttler)
- * Email notifications can be sent in HTML format now. See :ref:`email_notifications_format` (Mike Dingjan)
+ * Email notifications can now be sent in HTML format. See :ref:`email_notifications_format` (Mike Dingjan)
 
 
 Bug fixes

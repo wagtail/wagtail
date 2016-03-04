@@ -24,7 +24,7 @@ Changelog
  * New translations for Hungarian, Swedish (Sweden) and Turkish
  * Upgraded jQuery to 2.2.1 (Charlie Choiniere)
  * Multiple homepage summary items (`construct_homepage_summary_items` hook) now better vertically spaced (Nicolas Kuttler)
- * Email notifications can be sent in HTML format now (Mike Dingjan)
+ * Email notifications can now be sent in HTML format (Mike Dingjan)
  * Fix: Custom page managers no longer raise an error when used on an abstract model
  * Fix: Wagtail's migrations are now all reversible (benjaoming)
  * Fix: Deleting a page content type now preserves existing pages as basic Page instances, to prevent tree corruption
