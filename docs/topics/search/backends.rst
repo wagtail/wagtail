@@ -5,7 +5,7 @@
 Backends
 ========
 
-Wagtailsearch has support for multiple backends giving you the choice between using the database for search or an external service such as Elasticsearch.
+Wagtailsearch has support for multiple backends, giving you the choice between using the database for search or an external service such as Elasticsearch. The database backend is enabled by default.
 
 You can configure which backend to use with the ``WAGTAILSEARCH_BACKENDS`` setting:
 
@@ -73,7 +73,7 @@ Database Backend (default)
 
     Before 1.1, the full path to the backend class had to be specified: ``wagtail.wagtailsearch.backends.db.DBSearch``
 
-The database backend is very basic and is intended only to be used in development and on small sites. It cannot order results by relevance making it not very useful when searching a large amount of pages.
+The database backend is very basic and is intended only to be used in development and on small sites. It cannot order results by relevance, severely hampering its usefulness when searching a large collection of pages.
 
 It also doesn't support:
 
@@ -99,7 +99,7 @@ Prerequisites are the `Elasticsearch`_ service itself and, via pip, the `elastic
 
 .. note::
 
-   Wagtail doesn't support Elasticsearch 2.0 yet; please use 1.x in the meantime. Elasticsearch 2.0 support is scheduled for Wagtail 1.3.
+   Wagtail doesn't support Elasticsearch 2.0 yet; please use 1.x in the meantime. Elasticsearch 2.0 support is scheduled for a future release.
 
 .. code-block:: sh
 

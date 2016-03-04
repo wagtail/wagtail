@@ -493,7 +493,7 @@ This gives us a block that behaves as an ordinary text field, but wraps its outp
     class BlogPage(Page):
         body = StreamField([
             # ...
-            'heading': HeadingBlock(),
+            ('heading', HeadingBlock()),
             # ...
         ])
 

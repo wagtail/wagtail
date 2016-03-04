@@ -19,7 +19,7 @@ Every type of page or "content type" in Wagtail is defined as a "model" in a fil
 
 For each page model in ``models.py``, Wagtail assumes an HTML template file exists of (almost) the same name. The Front End developer may need to create these templates themselves by refering to ``models.py`` to infer template names from the models defined therein.
 
-To find a suitable template, Wagtail converts CamelCase names to underscore_case. So for a ``BlogPage``, a template ``blog_page.html`` will be expected. The name of the template file can be overridden per model if necessary.
+To find a suitable template, Wagtail converts CamelCase names to snake_case. So for a ``BlogPage``, a template ``blog_page.html`` will be expected. The name of the template file can be overridden per model if necessary.
 
 Template files are assumed to exist here::
 
@@ -64,9 +64,9 @@ Any file within the static folder should be inserted into your HTML using the ``
 User images
 ~~~~~~~~~~~
 
-Images uploaded to Wagtail by its users (as opposed to a developer's static files, above) go into the image library and from there are added to pages via the :doc:`page editor interface </editor_manual/new_pages/inserting_images>`.
+Images uploaded to a Wagtail site by its users (as opposed to a developer's static files, mentioned above) go into the image library and from there are added to pages via the :doc:`page editor interface </editor_manual/new_pages/inserting_images>`.
 
-Unlike other CMS, adding images to a page does not involve choosing a "version" of the image to use. Wagtail has no predefined image "formats" or "sizes". Instead the template developer defines image manipulation to occur *on the fly* when the image is requested, via a special syntax within the template.
+Unlike other CMSs, adding images to a page does not involve choosing a "version" of the image to use. Wagtail has no predefined image "formats" or "sizes". Instead the template developer defines image manipulation to occur *on the fly* when the image is requested, via a special syntax within the template.
 
 Images from the library must be requested using this syntax, but a developer's static images can be added via conventional means e.g ``img`` tags. Only images from the library can be manipulated on the fly.
 
@@ -76,7 +76,7 @@ Read more about the image manipulation syntax here :ref:`image_tag`.
 Template tags & filters
 =======================
 
-In addition to Django's standard tags and filters, Wagtail provides some of its own, which can be ``load``-ed `as you would any other <https://docs.djangoproject.com/en/dev/topics/templates/#custom-tag-and-filter-libraries>`_
+In addition to Django's standard tags and filters, Wagtail provides some of its own, which can be ``load``-ed `just like any other <https://docs.djangoproject.com/en/dev/topics/templates/#custom-tag-and-filter-libraries>`_.
 
 
 Images (tag)
@@ -84,7 +84,7 @@ Images (tag)
 
 The ``image`` tag inserts an XHTML-compatible ``img`` element into the page, setting its ``src``, ``width``, ``height`` and ``alt``. See also :ref:`image_tag_alt`.
 
-The syntax for the tag is thus::
+The syntax for the ``image`` tag is thus::
 
     {% image [image] [resize-rule] %}
 
@@ -109,7 +109,7 @@ See :ref:`image_tag` for full documentation.
 Rich text (filter)
 ~~~~~~~~~~~~~~~~~~
 
-This filter takes a chunk of HTML content and renders it as safe HTML in the page. Importantly it also expands internal shorthand references to embedded images and links made in the Wagtail editor into fully-baked HTML ready for display.
+This filter takes a chunk of HTML content and renders it as safe HTML in the page. Importantly, it also expands internal shorthand references to embedded images, and links made in the Wagtail editor, into fully-baked HTML ready for display.
 
 Only fields using ``RichTextField`` need this applied in the template.
 
@@ -122,7 +122,7 @@ Only fields using ``RichTextField`` need this applied in the template.
 Responsive Embeds
 -----------------
 
-Wagtail embeds and images are included at their full width, which may overflow the bounds of the content container you've defined in your templates. To make images and embeds responsive -- meaning they'll resize to fit their container -- include the following CSS.
+Wagtail includes embeds and images at their full width, which may overflow the bounds of the content container you've defined in your templates. To make images and embeds responsive -- meaning they'll resize to fit their container -- include the following CSS.
 
 .. code-block:: css
 
@@ -134,15 +134,16 @@ Wagtail embeds and images are included at their full width, which may overflow t
     .responsive-object {
         position: relative;
     }
-        .responsive-object iframe,
-        .responsive-object object,
-        .responsive-object embed {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-        }
+
+    .responsive-object iframe,
+    .responsive-object object,
+    .responsive-object embed {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+    }
 
 
 Internal links (tag)
@@ -153,7 +154,7 @@ Internal links (tag)
 ``pageurl``
 -----------
 
-Takes a Page object and returns a relative URL (``/foo/bar/``) if within the same site as the current page, or absolute (``http://example.com/foo/bar/``) if not.
+Takes a Page object and returns a relative URL (``/foo/bar/``) if within the same Site as the current page, or absolute (``http://example.com/foo/bar/``) if not.
 
 .. code-block:: html+django
 
@@ -166,7 +167,7 @@ Takes a Page object and returns a relative URL (``/foo/bar/``) if within the sam
 ``slugurl``
 ------------
 
-Takes any ``slug`` as defined in a page's "Promote" tab and returns the URL for the matching Page. Like ``pageurl``, will try to provide a relative link if possible, but will default to an absolute link if on a different site. This is most useful when creating shared page furniture e.g top level navigation or site-wide links.
+Takes any ``slug`` as defined in a page's "Promote" tab and returns the URL for the matching Page. Like ``pageurl``, this will try to provide a relative link if possible, but will default to an absolute link if the Page on a different Site. This is most useful when creating shared page furniture, e.g. top level navigation or site-wide links.
 
 .. code-block:: html+django
 
@@ -180,7 +181,7 @@ Takes any ``slug`` as defined in a page's "Promote" tab and returns the URL for 
 Static files (tag)
 ~~~~~~~~~~~~~~~~~~
 
-Used to load anything from your static files directory. Use of this tag avoids rewriting all static paths if hosting arrangements change, as they might between  local and a live environments.
+Used to load anything from your static files directory. Use of this tag avoids rewriting all static paths if hosting arrangements change, as they might between development and live environments.
 
 .. code-block:: html+django
 
@@ -196,7 +197,7 @@ Notice that the full path name is not required and the path snippet you enter on
 Wagtail User Bar
 ================
 
-This tag provides a contextual flyout menu on the top-right of a page for logged-in users. The menu gives editors the ability to edit the current page or add another at the same level. Moderators are also given the ability to accept or reject a page previewed as part of content moderation.
+This tag provides a contextual flyout menu on the top-right of a page for logged-in users. The menu gives editors the ability to edit the current page or add another at the same level. Moderators are also given the ability to accept or reject a page being previewed as part of content moderation.
 
 .. code-block:: html+django
 
@@ -204,7 +205,7 @@ This tag provides a contextual flyout menu on the top-right of a page for logged
     ...
     {% wagtailuserbar %}
 
-By default the User Bar appears in the top right of the browser window, flush with the edge. If this conflicts with your design it can be moved with a css rule in your own CSS files e.g to move it down from the top:
+By default the User Bar appears in the top right of the browser window, flush with the edge. If this conflicts with your design, it can be moved with a css rule in your own CSS files. To move it downward from the top:
 
 .. code-block:: css
 
