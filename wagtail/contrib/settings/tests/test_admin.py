@@ -54,7 +54,7 @@ class BaseTestSettingView(TestCase, WagtailTestUtils):
         return self.client.post(url, post_data)
 
     def edit_url(self, app, model, site_pk=1):
-        return reverse('wagtailsettings:edit', args=[site_pk, app, model])
+        return reverse('wagtailsettings:edit', args=[app, model, site_pk])
 
 
 class TestSettingCreateView(BaseTestSettingView):
@@ -128,7 +128,7 @@ class TestMultiSite(BaseTestSettingView):
         start_url = reverse('wagtailsettings:edit', args=[
             'tests', 'testsetting'])
         dest_url = 'http://testserver' + reverse('wagtailsettings:edit', args=[
-            self.default_site.pk, 'tests', 'testsetting'])
+            'tests', 'testsetting', self.default_site.pk])
         response = self.client.get(start_url, follow=True)
         self.assertRedirects(response, dest_url, status_code=302, fetch_redirect_response=False)
 
@@ -140,7 +140,7 @@ class TestMultiSite(BaseTestSettingView):
         start_url = reverse('wagtailsettings:edit', args=[
             'tests', 'testsetting'])
         dest_url = 'http://example.com' + reverse('wagtailsettings:edit', args=[
-            self.other_site.pk, 'tests', 'testsetting'])
+            'tests', 'testsetting', self.other_site.pk])
         response = self.client.get(start_url, follow=True, HTTP_HOST=self.other_site.hostname)
         self.assertRedirects(response, dest_url, status_code=302, fetch_redirect_response=False)
 
