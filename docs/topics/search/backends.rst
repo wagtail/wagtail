@@ -118,19 +118,17 @@ The backend is configured in settings:
       }
   }
 
-Other than ``BACKEND`` the keys are optional and default to the values shown. In addition, any other keys are passed directly to the Elasticsearch constructor as case-sensitive keyword arguments (e.g. ``'max_retries': 1``).
+Other than ``BACKEND``, the keys are optional and default to the values shown. In addition, any other keys are passed directly to the Elasticsearch constructor as case-sensitive keyword arguments (e.g. ``'max_retries': 1``).
 
-If you prefer not to run an Elasticsearch server in development or production, there are many hosted services available, including `Searchly`_, who offer a free account suitable for testing and development. To use Searchly:
+If you prefer not to run an Elasticsearch server in development or production, there are many hosted services available, including `Bonsai`_, who offer a free account suitable for testing and development. To use Bonsai:
 
--  Sign up for an account at `dashboard.searchly.com/users/sign\_up`_
--  Use your Searchly dashboard to create a new index, e.g. 'wagtaildemo'
--  Note the connection URL from your Searchly dashboard
--  Configure ``URLS`` and ``INDEX`` in the Elasticsearch entry in ``WAGTAILSEARCH_BACKENDS``
+-  Sign up for an account at `Bonsai`_
+-  Use your Bonsai dashboard to create a Cluster.
+-  Configure ``URLS`` in the Elasticsearch entry in ``WAGTAILSEARCH_BACKENDS`` using the Cluster URL from your Bonsai dashboard
 -  Run ``./manage.py update_index``
 
 .. _elasticsearch-py: http://elasticsearch-py.readthedocs.org
-.. _Searchly: http://www.searchly.com/
-.. _dashboard.searchly.com/users/sign\_up: https://dashboard.searchly.com/users/sign_up
+.. _Bonsai: https://bonsai.io/signup
 
 
 Rolling Your Own
