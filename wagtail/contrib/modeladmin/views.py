@@ -810,14 +810,38 @@ class ConfirmDeleteView(ObjectSpecificView):
         context = {'view': self, 'instance': self.instance}
         return self.render_to_response(context)
 
+    def delete_instance(self):
+        self.instance.delete()
+
     def post(self, request, *args, **kwargs):
-        instance = self.instance
-        instance.delete()
-        messages.success(
-            request,
-            _("{model_name} '{instance}' deleted.").format(
-                    model_name=self.model_name, instance=instance))
-        return redirect(self.get_index_url)
+        try:
+            self.delete_instance()
+            messages.success(
+                request,
+                _("{model} '{instance}' deleted.").format(
+                    model=self.model_name, instance=self.instance))
+            return redirect(self.get_index_url)
+        except models.ProtectedError:
+            messages.error(
+                request, _(
+                    "{model} '{instance}' could not be deleted."
+                ).format(model=self.model_name, instance=self.instance))
+
+            linked_objects = []
+            for rel in self.model._meta.get_all_related_objects():
+                if rel.on_delete == models.PROTECT:
+                    qs = getattr(self.instance, rel.get_accessor_name())
+                    for obj in qs.all():
+                        linked_objects.append(obj)
+
+            context = {
+                'view': self,
+                'instance': self.instance,
+                'protected_error': True,
+                'linked_objects': linked_objects,
+            }
+            return self.render_to_response(context)
+
 
     def get_template_names(self):
         return self.model_admin.get_confirm_delete_template()
