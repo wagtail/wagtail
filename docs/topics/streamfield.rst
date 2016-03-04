@@ -3,7 +3,7 @@
 Freeform page content using StreamField
 =======================================
 
-StreamField provides a content editing model suitable for pages that do not follow a fixed structure - such as blog posts or news stories, where the text may be interspersed with subheadings, images, pull quotes and video, and perhaps more specialised content types such as maps and charts (or, for a programming blog, code snippets). In this model, these different content types are represented as a sequence of 'blocks', which can be repeated and arranged in any order.
+StreamField provides a content editing model suitable for pages that do not follow a fixed structure -- such as blog posts or news stories -- where the text may be interspersed with subheadings, images, pull quotes and video. It's also suitable for more specialised content types, such as maps and charts (or, for a programming blog, code snippets). In this model, these different content types are represented as a sequence of 'blocks', which can be repeated and arranged in any order.
 
 For further background on StreamField, and why you would use it instead of a rich text field for the article body, see the blog post `Rich text fields and faster horses <https://torchbox.com/blog/rich-text-fields-and-faster-horses/>`__.
 
@@ -41,9 +41,9 @@ Using StreamField
         ]
 
 
-Note: StreamField is not backwards compatible with other field types such as RichTextField; if you migrate an existing field to StreamField, the existing data will be lost.
+Note: StreamField is not backwards compatible with other field types such as RichTextField. If you need to migrate an existing field to StreamField, refer to :ref:`streamfield_migrating_richtext`.
 
-The parameter to ``StreamField`` is a list of (name, block_type) tuples; 'name' is used to identify the block type within templates and the internal JSON representation (and should follow standard Python conventions for variable names: lower-case and underscores, no spaces) and 'block_type' should be a block definition object as described below. (Alternatively, ``StreamField`` can be passed a single ``StreamBlock`` instance - see `Structural block types`_.)
+The parameter to ``StreamField`` is a list of ``(name, block_type)`` tuples. 'name' is used to identify the block type within templates and the internal JSON representation (and should follow standard Python conventions for variable names: lower-case and underscores, no spaces) and 'block_type' should be a block definition object as described below. (Alternatively, ``StreamField`` can be passed a single ``StreamBlock`` instance - see `Structural block types`_.)
 
 This defines the set of available block types that can be used within this field. The author of the page is free to use these blocks as many times as desired, in any order.
 
@@ -101,7 +101,7 @@ BooleanBlock
 
 ``wagtail.wagtailcore.blocks.BooleanBlock``
 
-A checkbox. The keyword arguments ``required`` and ``help_text`` are accepted. As with Django's ``BooleanField``, a value of ``required=True`` (the default) indicates that the checkbox must be ticked in order to proceed; for a checkbox that can be ticked or unticked, you must explicitly pass in ``required=False``.
+A checkbox. The keyword arguments ``required`` and ``help_text`` are accepted. As with Django's ``BooleanField``, a value of ``required=True`` (the default) indicates that the checkbox must be ticked in order to proceed. For a checkbox that can be ticked or unticked, you must explicitly pass in ``required=False``.
 
 DateBlock
 ~~~~~~~~~
@@ -194,7 +194,7 @@ A control for selecting a page object, using Wagtail's page browser. The followi
   If true, the field cannot be left blank.
 
 ``can_choose_root`` (default: False)
-  If true, the editor can choose the tree root as a page. Normally this would be undesirable, since the tree root is never a usable page, but in some specialised cases it may be appropriate; for example, a block providing a feed of related articles could use a PageChooserBlock to select which subsection articles will be taken from, with the root corresponding to 'everywhere'.
+  If true, the editor can choose the tree root as a page. Normally this would be undesirable, since the tree root is never a usable page, but in some specialised cases it may be appropriate. For example, a block providing a feed of related articles could use a PageChooserBlock to select which subsection of the site articles will be taken from, with the root corresponding to 'everywhere'.
 
 DocumentChooserBlock
 ~~~~~~~~~~~~~~~~~~~~
@@ -235,7 +235,7 @@ StructBlock
 
 ``wagtail.wagtailcore.blocks.StructBlock``
 
-A block consisting of a fixed group of sub-blocks to be displayed together. Takes a list of (name, block_definition) tuples as its first argument:
+A block consisting of a fixed group of sub-blocks to be displayed together. Takes a list of ``(name, block_definition)`` tuples as its first argument:
 
 .. code-block:: python
 
@@ -261,7 +261,7 @@ Alternatively, the list of sub-blocks can be provided in a subclass of StructBlo
             icon = 'user'
 
 
-The ``Meta`` class supports the properties ``default``, ``label``, ``icon`` and ``template``; these have the same meanings as when they are passed to the block's constructor.
+The ``Meta`` class supports the properties ``default``, ``label``, ``icon`` and ``template``, which have the same meanings as when they are passed to the block's constructor.
 
 This defines ``PersonBlock()`` as a block type that can be re-used as many times as you like within your model definitions:
 
@@ -320,7 +320,7 @@ StreamBlock
 
 ``wagtail.wagtailcore.blocks.StreamBlock``
 
-A block consisting of a sequence of sub-blocks of different types, which can be mixed and reordered in any order. Used as the overall mechanism of the StreamField itself, but can also be nested or used within other structural block types. Takes a list of (name, block_definition) tuples as its first argument:
+A block consisting of a sequence of sub-blocks of different types, which can be mixed and reordered at will. Used as the overall mechanism of the StreamField itself, but can also be nested or used within other structural block types. Takes a list of ``(name, block_definition)`` tuples as its first argument:
 
 .. code-block:: python
 
@@ -353,7 +353,7 @@ As with StructBlock, the list of sub-blocks can also be provided as a subclass o
             icon='cogs'
 
 
-Since ``StreamField`` accepts an instance of ``StreamBlock`` as a parameter, in place of a list of block types, this makes it possible to re-use a common set block types without repeating definitions:
+Since ``StreamField`` accepts an instance of ``StreamBlock`` as a parameter, in place of a list of block types, this makes it possible to re-use a common set of block types without repeating definitions:
 
 .. code-block:: python
 
@@ -376,9 +376,9 @@ This will render each block of the stream in turn, wrapped in a ``<div class="bl
 .. code-block:: html+django
 
     <article>
-        {% for block in page.body %}
-            <section>{{ block }}</section>
-        {% endfor %}
+      {% for block in page.body %}
+        <section>{{ block }}</section>
+      {% endfor %}
     </article>
 
 
@@ -387,19 +387,19 @@ For more control over the rendering of specific block types, each block object p
 .. code-block:: html+django
 
     <article>
-        {% for block in page.body %}
-            {% if block.block_type == 'heading' %}
-                <h1>{{ block.value }}</h1>
-            {% else %}
-                <section class="block-{{ block.block_type }}">
-                    {{ block }}
-                </section>
-            {% endif %}
-        {% endfor %}
+      {% for block in page.body %}
+        {% if block.block_type == 'heading' %}
+          <h1>{{ block.value }}</h1>
+        {% else %}
+          <section class="block-{{ block.block_type }}">
+            {{ block }}
+          </section>
+        {% endif %}
+      {% endfor %}
     </article>
 
 
-Each block type provides its own front-end HTML rendering mechanism, and this is used for the output of ``{{ block }}``. For most simple block types, such as CharBlock, this will simply output the field's value, but others will provide their own HTML markup; for example, a ListBlock will output the list of child blocks as a ``<ul>`` element (with each child wrapped in an ``<li>`` element and rendered using the child block's own HTML rendering).
+Each block type provides its own front-end HTML rendering mechanism, and this is used for the output of ``{{ block }}``. For most simple block types, such as CharBlock, this will simply output the field's value, but others will provide their own HTML markup. For example, a ListBlock will output the list of child blocks as a ``<ul>`` element (with each child wrapped in an ``<li>`` element and rendered using the child block's own HTML rendering).
 
 To override this with your own custom HTML rendering, you can pass a ``template`` argument to the block, giving the filename of a template file to be rendered. This is particularly useful for custom block types derived from StructBlock, as the default StructBlock rendering is simple and somewhat generic:
 
@@ -439,9 +439,9 @@ Within the template, the block value is accessible as the variable ``value``:
     {% load wagtailimages_tags %}
 
     <div class="person">
-        {% image value.photo width-400 %}
-        <h2>{{ value.first_name }} {{ value.surname }}</h2>
-        {{ value.biography }}
+      {% image value.photo width-400 %}
+      <h2>{{ value.first_name }} {{ value.surname }}</h2>
+      {{ value.biography }}
     </div>
 
 
@@ -472,7 +472,7 @@ In this example, the variable ``is_happening_today`` will be made available with
 BoundBlocks and values
 ----------------------
 
-As you've seen above, it's possible to assign a particular template rendering to a block. This can be done on any block type, not just StructBlocks - however, there are some extra details to be aware of. Consider the following block definition:
+As you've seen above, it's possible to assign a particular template for rendering a block. This can be done on any block type (not just StructBlocks), but there are some extra details to be aware of. Consider the following block definition:
 
 .. code-block:: python
 
@@ -480,7 +480,7 @@ As you've seen above, it's possible to assign a particular template rendering to
         class Meta:
             template = 'blocks/heading.html'
 
-where blocks/heading.html consists of:
+where ``blocks/heading.html`` consists of:
 
 .. code-block:: html+django
 
@@ -493,16 +493,16 @@ This gives us a block that behaves as an ordinary text field, but wraps its outp
     class BlogPage(Page):
         body = StreamField([
             # ...
-            'heading': HeadingBlock(),
+            ('heading', HeadingBlock()),
             # ...
         ])
 
 .. code-block:: html+django
 
     {% for block in page.body %}
-        {% if block.block_type == 'heading' %}
-            {{ block }}  {# this block will output its own <h1>...</h1> tags #}
-        {% endif %}
+      {% if block.block_type == 'heading' %}
+        {{ block }}  {# This block will output its own <h1>...</h1> tags. #}
+      {% endif %}
     {% endfor %}
 
 This is a powerful feature, but it involves some complexity behind the scenes to make it work. Effectively, HeadingBlock has a double identity - logically it represents a plain Python string value, but in circumstances such as this it needs to yield a 'magic' object that knows its own custom HTML representation. This 'magic' object is an instance of ``BoundBlock`` - an object that represents the pairing of a value and its block definition. (Django developers may recognise this as the same principle behind ``BoundField`` in Django's forms framework.)
@@ -519,16 +519,16 @@ Most of the time, you won't need to worry about whether you're dealing with a pl
         class Meta:
             template = 'blocks/event.html'
 
-where blocks/event.html is:
+where ``blocks/event.html`` is:
 
 .. code-block:: html+django
 
     <div class="event {% if value.heading == 'Party!' %}lots-of-balloons{% endif %}">
-        {{ value.heading }}
-        - {{ value.description }}
+      {{ value.heading }}
+      - {{ value.description }}
     </div>
 
-In this case, ``value.heading`` returns the plain string value; if this weren't the case, the comparison in ``{% if value.heading == 'Party!' %}`` would never succeed. This in turn means that ``{{ value.heading }}`` renders as the plain string, without the ``<h1>`` tags.
+In this case, ``value.heading`` returns the plain string value, because if this weren't the case, the comparison in ``{% if value.heading == 'Party!' %}`` would never succeed. This in turn means that ``{{ value.heading }}`` renders as the plain string, without the ``<h1>`` tags.
 
 Interactions between BoundBlocks and plain values work according to the following rules:
 
@@ -590,7 +590,7 @@ This is possible because the HTML rendering behaviour of these blocks does not i
             ('photo', ImageChooserBlock()),
         ], template='blocks/speaker.html')
 
-then writing ``{{ value.guest_speaker }}`` within the EventBlock's template will use the template rendering from blocks/speaker.html for that field.
+then writing ``{{ value.guest_speaker }}`` within the EventBlock's template will use the template rendering from ``blocks/speaker.html`` for that field.
 
 
 Custom block types
@@ -614,16 +614,18 @@ Migrations
 StreamField definitions within migrations
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-As with any model field in Django, any changes to a model definition that affect a StreamField will result in a migration file that contains a 'frozen' copy of that field definition. Since a StreamField definition is more complex than a typical model field, there is an increased likelihood of definitions from your project being imported into the migration - which would cause problems later on if those definitions are moved or deleted.
+As with any model field in Django, any changes to a model definition that affect a StreamField will result in a migration file that contains a 'frozen' copy of that field definition. Since a StreamField definition is more complex than a typical model field, there is an increased likelihood of definitions from your project being imported into the migration -- which would cause problems later on if those definitions are moved or deleted.
 
-To mitigate this, StructBlock, StreamBlock and ChoiceBlock implement additional logic to ensure that any subclasses of these blocks are deconstructed to plain instances of StructBlock, StreamBlock and ChoiceBlock - in this way, the migrations avoid having any references to your custom class definitions. This is possible because these block types provide a standard pattern for inheritance, and know how to reconstruct the block definition for any subclass that follows that pattern.
+To mitigate this, StructBlock, StreamBlock and ChoiceBlock implement additional logic to ensure that any subclasses of these blocks are deconstructed to plain instances of StructBlock, StreamBlock and ChoiceBlock -- in this way, the migrations avoid having any references to your custom class definitions. This is possible because these block types provide a standard pattern for inheritance, and know how to reconstruct the block definition for any subclass that follows that pattern.
 
-If you subclass any other block class, such as ``FieldBlock``, you will need to either keep that class definition in place for the lifetime of your project, or implement a `custom deconstruct method <https://docs.djangoproject.com/en/1.9/topics/migrations/#custom-deconstruct-method>`__ that expresses your block entirely in terms of classes that are guaranteed to remain in place. Similarly, if you customise a StructBlock, StreamBlock or ChoiceBlock subclass to the point where it can no longer be expressed as an instance of the basic block type - for example, if you add extra arguments to the constructor - you will need to provide your own ``deconstruct`` method.
+If you subclass any other block class, such as ``FieldBlock``, you will need to either keep that class definition in place for the lifetime of your project, or implement a `custom deconstruct method <https://docs.djangoproject.com/en/1.9/topics/migrations/#custom-deconstruct-method>`__ that expresses your block entirely in terms of classes that are guaranteed to remain in place. Similarly, if you customise a StructBlock, StreamBlock or ChoiceBlock subclass to the point where it can no longer be expressed as an instance of the basic block type -- for example, if you add extra arguments to the constructor -- you will need to provide your own ``deconstruct`` method.
+
+.. _streamfield_migrating_richtext:
 
 Migrating RichTextFields to StreamField
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-If you change an existing RichTextField to a StreamField, and create and run migrations as normal, the migration will complete with no errors, since both fields use a text column within the database. However, StreamField uses a JSON representation for its data, and so the existing text needs to be converted with a data migration in order to become accessible again. For this to work, the StreamField needs to include a RichTextBlock as one of the available block types. The field can then be converted by creating a new migration (``./manage.py makemigrations --empty myapp``) and editing it as follows (in this example, the 'body' field of the ``demo.BlogPage`` model is being converted to a StreamField with a RichTextBlock named ``rich_text``):
+If you change an existing RichTextField to a StreamField, and create and run migrations as normal, the migration will complete with no errors, since both fields use a text column within the database. However, StreamField uses a JSON representation for its data, so the existing text needs to be converted with a data migration in order to become accessible again. For this to work, the StreamField needs to include a RichTextBlock as one of the available block types. The field can then be converted by creating a new migration (``./manage.py makemigrations --empty myapp``) and editing it as follows (in this example, the 'body' field of the ``demo.BlogPage`` model is being converted to a StreamField with a RichTextBlock named ``rich_text``):
 
 .. code-block:: python
 
