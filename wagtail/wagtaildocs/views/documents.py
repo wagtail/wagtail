@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.utils.translation import ugettext as _
 from django.views.decorators.vary import vary_on_headers
 from django.core.urlresolvers import reverse
+from django.db import transaction
 
 from wagtail.utils.pagination import paginate
 from wagtail.wagtailadmin.forms import SearchForm
@@ -96,16 +97,20 @@ def add(request):
         doc = Document(uploaded_by_user=request.user)
         form = DocumentForm(request.POST, request.FILES, instance=doc, user=request.user)
         if form.is_valid():
-            form.save()
+            try:
+                with transaction.atomic():
+                    form.save()
+            except OSError as err:
+                report_os_error(request, err)
+            else:
+                # Reindex the document to make sure all tags are indexed
+                for backend in get_search_backends():
+                    backend.add(doc)
 
-            # Reindex the document to make sure all tags are indexed
-            for backend in get_search_backends():
-                backend.add(doc)
-
-            messages.success(request, _("Document '{0}' added.").format(doc.title), buttons=[
-                messages.button(reverse('wagtaildocs:edit', args=(doc.id,)), _('Edit'))
-            ])
-            return redirect('wagtaildocs:index')
+                messages.success(request, _("Document '{0}' added.").format(doc.title), buttons=[
+                    messages.button(reverse('wagtaildocs:edit', args=(doc.id,)), _('Edit'))
+                ])
+                return redirect('wagtaildocs:index')
         else:
             messages.error(request, _("The document could not be saved due to errors."))
     else:
@@ -130,21 +135,26 @@ def edit(request, document_id):
         original_file = doc.file
         form = DocumentForm(request.POST, request.FILES, instance=doc, user=request.user)
         if form.is_valid():
-            if 'file' in form.changed_data:
-                # if providing a new document file, delete the old one.
-                # NB Doing this via original_file.delete() clears the file field,
-                # which definitely isn't what we want...
-                original_file.storage.delete(original_file.name)
-            doc = form.save()
+            try:
+                if 'file' in form.changed_data:
+                    # if providing a new document file, delete the old one.
+                    # NB Doing this via original_file.delete() clears the file field,
+                    # which definitely isn't what we want...
+                    original_file.storage.delete(original_file.name)
 
-            # Reindex the document to make sure all tags are indexed
-            for backend in get_search_backends():
-                backend.add(doc)
+                with transaction.atomic():
+                    doc = form.save()
+            except OSError as err:
+                report_os_error(request, err)
+            else:
+                # Reindex the document to make sure all tags are indexed
+                for backend in get_search_backends():
+                    backend.add(doc)
 
-            messages.success(request, _("Document '{0}' updated").format(doc.title), buttons=[
-                messages.button(reverse('wagtaildocs:edit', args=(doc.id,)), _('Edit'))
-            ])
-            return redirect('wagtaildocs:index')
+                messages.success(request, _("Document '{0}' updated").format(doc.title), buttons=[
+                    messages.button(reverse('wagtaildocs:edit', args=(doc.id,)), _('Edit'))
+                ])
+                return redirect('wagtaildocs:index')
         else:
             messages.error(request, _("The document could not be saved due to errors."))
     else:
@@ -186,9 +196,14 @@ def delete(request, document_id):
         return permission_denied(request)
 
     if request.POST:
-        doc.delete()
-        messages.success(request, _("Document '{0}' deleted.").format(doc.title))
-        return redirect('wagtaildocs:index')
+        try:
+            with transaction.atomic():
+                doc.delete()
+        except OSError as err:
+            report_os_error(request, err)
+        else:
+            messages.success(request, _("Document '{0}' deleted.").format(doc.title))
+            return redirect('wagtaildocs:index')
 
     return render(request, "wagtaildocs/documents/confirm_delete.html", {
         'document': doc,
@@ -205,3 +220,14 @@ def usage(request, document_id):
         'document': doc,
         'used_by': used_by
     })
+
+
+def report_os_error(request, error):
+    messages.error(
+        request,
+        "{0}: {1} - {2}".format(
+            _("Server Error"),
+            _("The following error occurred while updating the document"),
+            error.strerror
+        )
+    )
