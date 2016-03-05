@@ -571,6 +571,15 @@ class ManyToManyBlogPage(Page):
         BlogCategory, through=BlogCategoryBlogPage, blank=True)
 
 
+class OneToOnePage(Page):
+    """
+    A Page containing a O2O relation.
+    """
+    body = RichTextBlock(blank=True)
+    page_ptr = models.OneToOneField(Page, parent_link=True,
+                                    related_name='+')
+
+
 class GenericSnippetPage(Page):
     """
     A page containing a reference to an arbitrary snippet (or any model for that matter)

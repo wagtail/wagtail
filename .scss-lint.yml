@@ -11,6 +11,7 @@ linters:
     Indentation:
         severity: warning
         width: 4
+        # because https://github.com/brigade/scss-lint/issues/409
         allow_non_nested_indentation: true
         character: space
 
@@ -61,7 +62,7 @@ linters:
         enabled: true
 
     ImportantRule:
-        enabled: true
+        enabled: false
         exclude:
             - '**/_datetimepicker.scss'
 
@@ -92,7 +93,7 @@ linters:
         # There are regretably quite a few exlusions here, made necessary by
         # a) the conversion of django field/widget names to underscored class names
         # b) the use of third party code such as Hallo.js which uses classes with snakeCaseClasses.
-        exclude: 
+        exclude:
             - '**/rich-text.scss'
             - '**/_forms.scss'
             - '**/_streamfield.scss'

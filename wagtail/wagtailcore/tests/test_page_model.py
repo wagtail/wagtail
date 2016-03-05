@@ -18,7 +18,7 @@ from wagtail.tests.testapp.models import (
     MTIBasePage, MTIChildPage, AbstractPage, TaggedPage,
     BlogCategory, BlogCategoryBlogPage, Advert, ManyToManyBlogPage,
     GenericSnippetPage, BusinessNowherePage, SingletonPage,
-    CustomManager, CustomManagerPage, MyCustomPage)
+    CustomManager, CustomManagerPage, MyCustomPage, OneToOnePage)
 from wagtail.tests.utils import WagtailTestUtils
 
 
@@ -866,6 +866,18 @@ class TestCopyPage(TestCase):
 
         self.assertNotEqual(page.id, new_page.id)
         self.assertEqual(new_page.snippet_content_object, advert)
+
+    def test_copy_page_with_o2o_relation(self):
+        event_index = Page.objects.get(url_path='/home/events/')
+
+        page = OneToOnePage(title='My page', slug='my-page')
+
+        event_index.add_child(instance=page)
+
+        homepage = Page.objects.get(url_path='/home/')
+        new_page = page.copy(to=homepage)
+
+        self.assertNotEqual(page.id, new_page.id)
 
 
 class TestSubpageTypeBusinessRules(TestCase, WagtailTestUtils):
