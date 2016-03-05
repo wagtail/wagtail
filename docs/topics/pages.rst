@@ -123,7 +123,7 @@ This should be a tuple of ``SearchField`` and ``FilterField`` objects. ``SearchF
 
 In the above example, we've indexed ``body`` for full-text search and ``date`` for filtering.
 
-The arguments that these field types accept are documented here: :ref:`wagtailsearch_indexing_fields`
+The arguments that these field types accept are documented here: :ref:`wagtailsearch_indexing_fields`.
 
 
 Editor panels
