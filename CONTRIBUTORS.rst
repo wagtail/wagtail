@@ -112,6 +112,7 @@ Contributors
 * Liam Brenner
 * Nicolas Kuttler
 * Mike Dingjan
+* Loic Teixeira
 
 Translators
 ===========
