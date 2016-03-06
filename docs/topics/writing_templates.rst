@@ -72,6 +72,7 @@ Images from the library must be requested using this syntax, but a developer's s
 
 Read more about the image manipulation syntax here :ref:`image_tag`.
 
+.. _template-tags-and-filters:
 
 Template tags & filters
 =======================
