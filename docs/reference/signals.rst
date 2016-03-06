@@ -3,8 +3,7 @@
 Signals
 =======
 
-Wagtail's `PageRevision <./pages/model_reference#pagerevision>`__  and
-`Page <./pages/model_reference#page>`__  implement
+Wagtail's :ref:`page-revision-model-ref` and :ref:`page-model-ref` implement
 `Signals <https://docs.djangoproject.com/en/1.8/topics/signals/>`__ from ``django.dispatch``.
 Signals are useful for creating side-effects from page publish/unpublish events.
 
