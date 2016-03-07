@@ -85,8 +85,6 @@ Add an item into the ``WAGTAILFRONTENDCACHE`` and set the ``BACKEND`` parameter 
 
 .. code-block:: python
 
-    # settings.py
-
     WAGTAILFRONTENDCACHE = {
         'cloudfront': {
             'BACKEND': 'wagtail.contrib.wagtailfrontendcache.backends.CloudfrontBackend',
@@ -96,6 +94,19 @@ Add an item into the ``WAGTAILFRONTENDCACHE`` and set the ``BACKEND`` parameter 
 
 Configuration of credentials can done in multiple ways. You won't need to store them in your Django settings file. You can read more about this here: `Boto 3 Docs <http://boto3.readthedocs.org/en/latest/guide/configuration.html>`_
 
+In case you run multiple sites with Wagtail and each site has its CloudFront distribution, provide a mapping instead of a single distribution. Make sure these mapping matches with the hostnames provided in your site settings.
+
+.. code-block:: python
+
+    WAGTAILFRONTENDCACHE = {
+        'cloudfront': {
+            'BACKEND': 'wagtail.contrib.wagtailfrontendcache.backends.CloudfrontBackend',
+            'DISTRIBUTION_ID': {
+                'wagtail.io': 'your-distribution-id',
+                'madewithwagtail.org': 'your-distribution-id',
+            },
+        },
+    }
 
 Advanced usage
 --------------
