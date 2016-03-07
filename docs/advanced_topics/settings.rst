@@ -274,6 +274,21 @@ Case-Insensitive Tags
 
 Tags are case-sensitive by default ('music' and 'Music' are treated as distinct tags). In many cases the reverse behaviour is preferable.
 
+Initial Migration Data
+----------------------
+
+.. code-block:: python
+
+  WAGTAIL_MIGRATE_INITIAL_PAGE_AND_SITE = True
+  WAGTAIL_MIGRATE_INITIAL_GROUPS = True
+
+You can set these configuration options to ``False`` to not create the default "Welcome to your new Wagtail site!"
+page or the "Moderators" and "Editors" groups, respectively.
+
+.. note::
+
+  These settings are not directly compatible with the default project template.  If you set either of these settings,
+  be prepared to adapt your project's initial migrations accordingly.
 
 URL Patterns
 ~~~~~~~~~~~~
