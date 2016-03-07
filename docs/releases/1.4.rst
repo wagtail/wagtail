@@ -64,6 +64,7 @@ Minor features
  * Upgraded jQuery to 2.2.1 (Charlie Choiniere)
  * Multiple homepage summary items (`construct_homepage_summary_items` hook) now better vertically spaced (Nicolas Kuttler)
  * Email notifications can now be sent in HTML format. See :ref:`email_notifications_format` (Mike Dingjan)
+ * Dependency update: Support django-treebeard 3.0 and 4.0 releases
 
 
 Bug fixes
