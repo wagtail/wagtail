@@ -30,7 +30,7 @@ install_requires = [
     "beautifulsoup4>=4.3.2",
     "html5lib>=0.999,<1",
     "Unidecode>=0.04.14",
-    "Willow>=0.3,<0.4",
+    "Willow>=0.3b4,<0.4",
 ]
 
 # Testing dependencies
