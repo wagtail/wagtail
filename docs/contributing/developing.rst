@@ -26,7 +26,7 @@ With your preferred virtualenv activated, install the Wagtail package in develop
 
 .. code-block:: sh
 
-    pip install -e .[testing,docs]
+    pip install -e .[testing,docs] -U
 
 Install the tool chain for building static assets:
 
