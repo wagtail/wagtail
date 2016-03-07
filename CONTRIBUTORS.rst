@@ -113,6 +113,7 @@ Contributors
 * Nicolas Kuttler
 * Mike Dingjan
 * Loic Teixeira
+* Juha Kujala
 
 Translators
 ===========

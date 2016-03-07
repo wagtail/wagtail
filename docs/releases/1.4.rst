@@ -89,7 +89,8 @@ Bug fixes
  * StreamBlock HTML rendering now handles non-ASCII characters correctly on Python 2 (Mikalai Radchuk)
  * Fixed a bug preventing pages with a ``OneToOneField`` from being copied (Liam Brenner)
  * SASS compilation errors during Wagtail development no longer cause exit of Gulp process, instead throws error to console and continues (Thomas Winter)
- * Fix: Explorer page listing now uses specific page models, so that custom URL schemes defined on Page subclasses are respected
+ * Explorer page listing now uses specific page models, so that custom URL schemes defined on Page subclasses are respected
+ * Made settings menu clickable again in Firefox 46.0a2 (Juha Kujala)
 
 
 Upgrade considerations
