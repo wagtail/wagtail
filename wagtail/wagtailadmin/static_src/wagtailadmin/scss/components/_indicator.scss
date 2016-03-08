@@ -24,10 +24,6 @@ $c-indicator-margin: .25rem;
 // States
 // =============================================================================
 
-$color-state-live: #59b524;
-$color-state-draft: #808080;
-$color-state-absent: #ff8f11;
-$color-state-live-draft: #43b1b0;
 
 .is-absent .c-indicator {
     background: $color-state-absent;
