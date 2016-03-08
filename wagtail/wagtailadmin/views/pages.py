@@ -301,7 +301,7 @@ def edit(request, page_id):
             if is_publishing:
                 if is_reverting:
                     prefix = _("Revision from {0} of page").format(previous_revision.created_at.strftime("%d %b %Y %H:%M"))
-                else :
+                else:
                     prefix = _("Page")
 
                 if page.go_live_at and page.go_live_at > timezone.now():
@@ -322,7 +322,7 @@ def edit(request, page_id):
             else:
                 if is_reverting:
                     suffix = _("replaced with revision from {0}").format(previous_revision.created_at.strftime("%d %b %Y %H:%M"))
-                else :
+                else:
                     suffix = _("updated")
 
                 messages.success(request, _("Page '{0}' has been {1}.").format(page.title, suffix))
@@ -835,7 +835,7 @@ def revisions_index(request, page_id):
 
     # Get page ordering
     ordering = request.GET.get('ordering', '-created_at')
-    if ordering not in ['created_at', '-created_at',]:
+    if ordering not in ['created_at', '-created_at', ]:
         ordering = '-created_at'
 
     revisions = page.revisions.order_by(ordering)
