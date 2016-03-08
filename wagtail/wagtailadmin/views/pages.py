@@ -299,33 +299,96 @@ def edit(request, page_id):
 
             # Notifications
             if is_publishing:
-                if is_reverting:
-                    prefix = _("Revision from {0} of page").format(previous_revision.created_at.strftime("%d %b %Y %H:%M"))
-                else:
-                    prefix = _("Page")
-
                 if page.go_live_at and page.go_live_at > timezone.now():
-                    messages.success(request, _("{0} '{1}' has been scheduled for publishing.").format(prefix, page.title), buttons=[
-                        messages.button(reverse('wagtailadmin_pages:edit', args=(page.id,)), _('Edit'))
-                    ])
-                else:
-                    messages.success(request, _("{0} '{1}' has been published.").format(prefix, page.title), buttons=[
-                        messages.button(page.url, _('View live')),
-                        messages.button(reverse('wagtailadmin_pages:edit', args=(page_id,)), _('Edit'))
-                    ])
-            elif is_submitting:
-                messages.success(request, _("Page '{0}' has been submitted for moderation.").format(page.title), buttons=[
-                    messages.button(reverse('wagtailadmin_pages:view_draft', args=(page_id,)), _('View draft')),
-                    messages.button(reverse('wagtailadmin_pages:edit', args=(page_id,)), _('Edit'))
-                ])
-                send_notification(page.get_latest_revision().id, 'submitted', request.user.id)
-            else:
-                if is_reverting:
-                    suffix = _("replaced with revision from {0}").format(previous_revision.created_at.strftime("%d %b %Y %H:%M"))
-                else:
-                    suffix = _("updated")
+                    # Page has been scheduled for publishing in the future
 
-                messages.success(request, _("Page '{0}' has been {1}.").format(page.title, suffix))
+                    if is_reverting:
+                        message = _(
+                            "Revision from {0} of page '{1}' has been scheduled for publishing."
+                        ).format(
+                            previous_revision.created_at.strftime("%d %b %Y %H:%M"),
+                            page.title
+                        )
+                    else:
+                        message = _(
+                            "Page '{0}' has been scheduled for publishing."
+                        ).format(
+                            page.title
+                        )
+
+                    messages.success(request, message, buttons=[
+                        messages.button(
+                            reverse('wagtailadmin_pages:edit', args=(page.id,)),
+                            _('Edit')
+                        )
+                    ])
+
+                else:
+                    # Page is being published now
+
+                    if is_reverting:
+                        message = _(
+                            "Revision from {0} of page '{1}' has been published."
+                        ).format(
+                            previous_revision.created_at.strftime("%d %b %Y %H:%M"),
+                            page.title
+                        )
+                    else:
+                        message = _(
+                            "Page '{0}' has been published."
+                        ).format(
+                            page.title
+                        )
+
+                    messages.success(request, message, buttons=[
+                        messages.button(
+                            page.url,
+                            _('View live')
+                        ),
+                        messages.button(
+                            reverse('wagtailadmin_pages:edit', args=(page_id,)),
+                            _('Edit')
+                        )
+                    ])
+
+            elif is_submitting:
+
+                message = _(
+                    "Page '{0}' has been submitted for moderation."
+                ).format(
+                    page.title
+                )
+
+                messages.success(request, message, buttons=[
+                    messages.button(
+                        reverse('wagtailadmin_pages:view_draft', args=(page_id,)),
+                        _('View draft')
+                    ),
+                    messages.button(
+                        reverse('wagtailadmin_pages:edit', args=(page_id,)),
+                        _('Edit')
+                    )
+                ])
+
+                send_notification(page.get_latest_revision().id, 'submitted', request.user.id)
+
+            else:  # Saving
+
+                if is_reverting:
+                    message = _(
+                        "Page '{0}' has been replaced with revision from {1}."
+                    ).format(
+                        page.title,
+                        previous_revision.created_at.strftime("%d %b %Y %H:%M")
+                    )
+                else:
+                    message = _(
+                        "Page '{0}' has been updated."
+                    ).format(
+                        page.title
+                    )
+
+                messages.success(request, message)
 
             for fn in hooks.get_hooks('after_edit_page'):
                 result = fn(request, page)
@@ -347,9 +410,11 @@ def edit(request, page_id):
             edit_handler = edit_handler_class(instance=page, form=form)
             errors_debug = (
                 repr(edit_handler.form.errors) +
-                repr(
-                    [(name, formset.errors) for (name, formset) in edit_handler.form.formsets.items() if formset.errors]
-                )
+                repr([
+                    (name, formset.errors)
+                    for (name, formset) in edit_handler.form.formsets.items()
+                    if formset.errors
+                ])
             )
     else:
         form = form_class(instance=page)
