@@ -93,7 +93,7 @@ The available resizing methods are as follows:
 
         By default, Wagtail will only crop enough to change the aspect ratio of the image to match the ratio in the resize-rule.
 
-        But in some cases (e.g. thumbnails), it may be preferable to crop closer to the focal point, so that the subject of the image is more prominent.
+        In some cases (e.g. thumbnails), it may be preferable to crop closer to the focal point, so that the subject of the image is more prominent.
 
         You can do this by appending ``-c<percentage>`` at the end of the resize-rule. For example, if you would like the image to be cropped as closely as possible to its focal point, add ``-c100``:
 
@@ -175,7 +175,7 @@ You can also use the ``attrs`` property as a shorthand to output the attributes 
 Images embedded in rich text
 ----------------------------
 
-The information above relates to images defined via image-specific fields in your model. But images can also be embedded arbitrarily in Rich Text fields by the page editor (see :ref:`rich-text`).
+The information above relates to images defined via image-specific fields in your model. However, images can also be embedded arbitrarily in Rich Text fields by the page editor (see :ref:`rich-text`).
 
 Images embedded in Rich Text fields can't be controlled by the template developer as easily. There are no image objects to work with, so the ``{% image %}`` template tag can't be used. Instead, editors can choose from one of a number of image "Formats" at the point of inserting images into their text.
 

@@ -167,7 +167,7 @@ Takes a Page object and returns a relative URL (``/foo/bar/``) if within the sam
 ``slugurl``
 ------------
 
-Takes any ``slug`` as defined in a page's "Promote" tab and returns the URL for the matching Page. Like ``pageurl``, this will try to provide a relative link if possible, but will default to an absolute link if the Page on a different Site. This is most useful when creating shared page furniture, e.g. top level navigation or site-wide links.
+Takes any ``slug`` as defined in a page's "Promote" tab and returns the URL for the matching Page. Like ``pageurl``, this will try to provide a relative link if possible, but will default to an absolute link if the Page is on a different Site. This is most useful when creating shared page furniture, e.g. top level navigation or site-wide links.
 
 .. code-block:: html+django
 
