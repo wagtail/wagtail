@@ -1,12 +1,16 @@
 from django import forms
+from django.conf import settings
 from django.core import validators
 from django.forms.widgets import TextInput
 from django.contrib.auth import get_user_model
 from django.contrib.auth.forms import AuthenticationForm, PasswordResetForm
 from django.utils.translation import ugettext as _
 from django.utils.translation import ungettext, ugettext_lazy
+from django.forms import CheckboxSelectMultiple
+from django.contrib.auth.models import User, Group
+
 from wagtail.wagtailadmin.widgets import AdminPageChooser
-from wagtail.wagtailcore.models import Page
+from wagtail.wagtailcore.models import Page, PageViewRestriction
 
 
 class URLOrAbsolutePathValidator(validators.URLValidator):
@@ -173,18 +177,41 @@ class CopyForm(forms.Form):
         return cleaned_data
 
 
-class PageViewRestrictionForm(forms.Form):
-    restriction_type = forms.ChoiceField(label="Visibility", choices=[
-        ('none', ugettext_lazy("Public")),
-        ('password', ugettext_lazy("Private, accessible with the following password")),
-    ], widget=forms.RadioSelect)
-    password = forms.CharField(required=False)
+class PageViewRestrictionForm(forms.ModelForm):
+    restriction_type = forms.ChoiceField(
+        label="Visibility", choices=PageViewRestriction.RESTRICTION_CHOICES,
+        widget=forms.RadioSelect)
+
+    def clean_password(self):
+        password = self.cleaned_data.get('password')
+        if self.cleaned_data.get('restriction_type') == PageViewRestriction.PASSWORD and not password:
+            raise forms.ValidationError(_('This field is required.'), code='invalid')
+        return password
 
     def clean(self):
         cleaned_data = super(PageViewRestrictionForm, self).clean()
+        users = cleaned_data.get('users')
+        groups = cleaned_data.get('groups')
 
-        if cleaned_data.get('restriction_type') == 'password' and not cleaned_data.get('password'):
-            self._errors["password"] = self.error_class([_('This field is required.')])
-            del cleaned_data['password']
+        if self.cleaned_data.get('restriction_type') == PageViewRestriction.USERS_GROUPS:
+            if not users and not groups:
+                self.add_error('groups', _("Please, select at least one group or user."))
+                raise forms.ValidationError(
+                    _('This field is required.'),
+                    code='invalid'
+                )
 
-        return cleaned_data
+    class Meta:
+        model = PageViewRestriction
+        fields = ('restriction_type', 'password', 'users', 'groups')
+
+    def __init__(self, *args, **kwargs):
+
+        super(PageViewRestrictionForm, self).__init__(*args, **kwargs)
+
+        self.fields["users"].widget = CheckboxSelectMultiple()
+        self.fields["users"].queryset = User.objects.all()
+
+        self.fields["groups"].widget = CheckboxSelectMultiple()
+        self.fields["groups"].queryset = Group.objects.all()
+
