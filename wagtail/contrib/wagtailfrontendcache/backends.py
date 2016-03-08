@@ -5,7 +5,6 @@ import botocore
 import json
 import logging
 import uuid
-import six
 
 from django.core.exceptions import ImproperlyConfigured
 from django.utils.six.moves.urllib.error import HTTPError, URLError
@@ -103,11 +102,27 @@ class CloudfrontBackend(BaseBackend):
             )
 
     def purge(self, url):
-        try:
-            url_parsed = urlparse(url)
+        url_parsed = urlparse(url)
+        distribution_id = None
+
+        if type(self.cloudfront_distribution_id) is dict:
+            host = url_parsed.hostname
+            if self.cloudfront_distribution_id.has_key(host):
+                distribution_id = self.cloudfront_distribution_id.get(host)
+            else:
+                raise ImproperlyConfigured("hostname %s" % host)
+                logger.error("Couldn't purge '%s', hostname '%s' not found in mapping", url, host)
+        else:
+            distribution_id = self.cloudfront_distribution_id
+
+        if distribution_id:
             path = url_parsed.path
+            self._create_invalidation(distribution_id, path)
+
+    def _create_invalidation(distribution_id, path):
+        try:
             self.client.create_invalidation(
-                DistributionId=self.cloudfront_distribution_id,
+                DistributionId=distribution_id,
                 InvalidationBatch={
                     'Paths': {
                         'Quantity': 1,
@@ -119,4 +134,4 @@ class CloudfrontBackend(BaseBackend):
                 }
             )
         except botocore.exceptions.ClientError as e:
-            logger.error("Couldn't purge '%s' from Cloudfront. ClientError: %s %s", path, e.response['Error']['Code'], e.response['Error']['Message'])
+            logger.error("Couldn't purge '%s' from CloudFront. ClientError: %s %s", path, e.response['Error']['Code'], e.response['Error']['Message'])

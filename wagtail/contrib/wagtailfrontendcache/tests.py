@@ -1,5 +1,7 @@
 from __future__ import absolute_import, unicode_literals
 
+import mock
+
 from django.core.exceptions import ImproperlyConfigured
 from django.test import TestCase
 from django.test.utils import override_settings
@@ -61,11 +63,25 @@ class TestBackendConfiguration(TestCase):
 
     def test_cloudfront_validate_distribution_id(self):
         with self.assertRaises(ImproperlyConfigured):
-            backends = get_backends(backend_settings={
+            get_backends(backend_settings={
                 'cloudfront': {
                     'BACKEND': 'wagtail.contrib.wagtailfrontendcache.backends.CloudfrontBackend',
                 },
             })
+
+    @mock.patch('wagtail.contrib.wagtailfrontendcache.backends.CloudfrontBackend._create_invalidation')
+    def test_cloudfront_distribution_id_mapping(self, _create_invalidation):
+        backends = get_backends(backend_settings={
+            'cloudfront': {
+                'BACKEND': 'wagtail.contrib.wagtailfrontendcache.backends.CloudfrontBackend',
+                'DISTRIBUTION_ID': {
+                    'www.wagtail.io': 'frontend',
+                }
+            },
+        })
+        backends.get('cloudfront').purge('http://www.wagtail.io/home/events/christmas/')
+
+        _create_invalidation.assert_any_call('frontend', '/home/events/christmas/')
 
     def test_multiple(self):
         backends = get_backends(backend_settings={

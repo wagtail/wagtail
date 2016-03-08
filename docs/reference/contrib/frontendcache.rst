@@ -102,11 +102,14 @@ In case you run multiple sites with Wagtail and each site has its CloudFront dis
         'cloudfront': {
             'BACKEND': 'wagtail.contrib.wagtailfrontendcache.backends.CloudfrontBackend',
             'DISTRIBUTION_ID': {
-                'wagtail.io': 'your-distribution-id',
-                'madewithwagtail.org': 'your-distribution-id',
+                'www.wagtail.io': 'your-distribution-id',
+                'www.madewithwagtail.org': 'your-distribution-id',
             },
         },
     }
+
+  .. note::
+    In most cases absolute urls with www prefixed should be used in your mapping. Dot not use the www prefix if you absolutely sure you're not using it (e.g. a subdomain).
 
 Advanced usage
 --------------
