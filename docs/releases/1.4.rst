@@ -10,6 +10,15 @@ Wagtail 1.4 release notes - IN DEVELOPMENT
 What's new
 ==========
 
+Page revision management
+~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. figure:: ../_static/images/revision-ui.png
+    :width: 696px
+
+From the page editing interface, editors can now access a list of previous revisions of the page, and preview or roll back to any earlier revision.
+
+
 Collections for image / document organisation
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 

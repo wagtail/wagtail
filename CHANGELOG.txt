@@ -4,6 +4,7 @@ Changelog
 1.4 (xx.xx.xxxx)
 ~~~~~~~~~~~~~~~~
 
+ * Added support for viewing previous revisions of pages, and previewing or rolling back to earlier versions
  * Introduced collections, for image / document organisation
  * The page editor now produces a warning if the user navigates away without saving changes
  * 'Add document' interface now supports uploading multiple documents at once
