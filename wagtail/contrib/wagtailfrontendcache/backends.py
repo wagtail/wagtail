@@ -5,9 +5,11 @@ import botocore
 import json
 import logging
 import uuid
+import six
 
+from django.core.exceptions import ImproperlyConfigured
 from django.utils.six.moves.urllib.error import HTTPError, URLError
-from django.utils.six.moves.urllib.parse import urlencode, urlparse, urlunparse
+from django.utils.six.moves.urllib.parse import urlparse, urlunparse, urlencode
 from django.utils.six.moves.urllib.request import Request, urlopen
 
 from wagtail.wagtailcore import __version__
@@ -92,7 +94,13 @@ class CloudflareBackend(BaseBackend):
 class CloudfrontBackend(BaseBackend):
     def __init__(self, params):
         self.client = boto3.client('cloudfront')
-        self.cloudfront_distribution_id = params.pop('DISTRIBUTION_ID')
+        try:
+            self.cloudfront_distribution_id = params.pop('DISTRIBUTION_ID')
+        except KeyError:
+            raise ImproperlyConfigured(
+                "The setting 'WAGTAILFRONTENDCACHE' requires the object "
+                "'DISTRIBUTION_ID'."
+            )
 
     def purge(self, url):
         try:

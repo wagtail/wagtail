@@ -1,5 +1,6 @@
 from __future__ import absolute_import, unicode_literals
 
+from django.core.exceptions import ImproperlyConfigured
 from django.test import TestCase
 from django.test.utils import override_settings
 
@@ -57,6 +58,14 @@ class TestBackendConfiguration(TestCase):
         self.assertIsInstance(backends['cloudfront'], CloudfrontBackend)
 
         self.assertEqual(backends['cloudfront'].cloudfront_distribution_id, 'frontend')
+
+    def test_cloudfront_validate_distribution_id(self):
+        with self.assertRaises(ImproperlyConfigured):
+            backends = get_backends(backend_settings={
+                'cloudfront': {
+                    'BACKEND': 'wagtail.contrib.wagtailfrontendcache.backends.CloudfrontBackend',
+                },
+            })
 
     def test_multiple(self):
         backends = get_backends(backend_settings={
