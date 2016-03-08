@@ -2787,3 +2787,106 @@ class TestChildRelationsOnSuperclass(TestCase, WagtailTestUtils):
         self.assertEqual(page.advert_placements.count(), 2)
         self.assertEqual(page.advert_placements.all()[0].advert.text, 'test_advert')
         self.assertEqual(page.advert_placements.all()[1].advert.text, 'test_advert')
+
+
+class TestRevisions(TestCase, WagtailTestUtils):
+    fixtures = ['test.json']
+
+    def setUp(self):
+        self.christmas_event = EventPage.objects.get(url_path='/home/events/christmas/')
+        self.christmas_event.title = "Last Christmas"
+        self.christmas_event.date_from = '2013-12-25'
+        self.christmas_event.body = (
+            "<p>Last Christmas I gave you my heart, "
+            "but the very next day you gave it away</p>"
+        )
+        self.last_christmas_revision = self.christmas_event.save_revision()
+        self.last_christmas_revision.created_at = '2013-12-25'
+        self.last_christmas_revision.save()
+
+        self.christmas_event.title = "This Christmas"
+        self.christmas_event.date_from = '2014-12-25'
+        self.christmas_event.body = (
+            "<p>This year, to save me from tears, "
+            "I'll give it to someone special</p>"
+        )
+        self.this_christmas_revision = self.christmas_event.save_revision()
+        self.this_christmas_revision.created_at = '2014-12-25'
+        self.this_christmas_revision.save()
+
+        self.login()
+
+    def test_edit_form_has_revisions_link(self):
+        response = self.client.get(
+            reverse('wagtailadmin_pages:edit', args=(self.christmas_event.id, ))
+        )
+        self.assertEqual(response.status_code, 200)
+        revisions_index_url = reverse(
+            'wagtailadmin_pages:revisions_index', args=(self.christmas_event.id, )
+        )
+        self.assertContains(response, revisions_index_url)
+
+    def test_get_revisions_index(self):
+        response = self.client.get(
+            reverse('wagtailadmin_pages:revisions_index', args=(self.christmas_event.id, ))
+        )
+        self.assertEqual(response.status_code, 200)
+
+        self.assertContains(response, "25 Dec 2013")
+        last_christmas_preview_url = reverse(
+            'wagtailadmin_pages:revisions_view',
+            args=(self.christmas_event.id, self.last_christmas_revision.id)
+        )
+        last_christmas_revert_url = reverse(
+            'wagtailadmin_pages:revisions_revert',
+            args=(self.christmas_event.id, self.last_christmas_revision.id)
+        )
+        self.assertContains(response, last_christmas_preview_url)
+        self.assertContains(response, last_christmas_revert_url)
+
+        self.assertContains(response, "25 Dec 2014")
+        this_christmas_preview_url = reverse(
+            'wagtailadmin_pages:revisions_view',
+            args=(self.christmas_event.id, self.this_christmas_revision.id)
+        )
+        this_christmas_revert_url = reverse(
+            'wagtailadmin_pages:revisions_revert',
+            args=(self.christmas_event.id, self.this_christmas_revision.id)
+        )
+        self.assertContains(response, this_christmas_preview_url)
+        self.assertContains(response, this_christmas_revert_url)
+
+    def test_preview_revision(self):
+        last_christmas_preview_url = reverse(
+            'wagtailadmin_pages:revisions_view',
+            args=(self.christmas_event.id, self.last_christmas_revision.id)
+        )
+        response = self.client.get(last_christmas_preview_url)
+        self.assertEqual(response.status_code, 200)
+
+        self.assertContains(response, "Last Christmas I gave you my heart")
+
+    def test_revert_revision(self):
+        last_christmas_preview_url = reverse(
+            'wagtailadmin_pages:revisions_revert',
+            args=(self.christmas_event.id, self.last_christmas_revision.id)
+        )
+        response = self.client.get(last_christmas_preview_url)
+        self.assertEqual(response.status_code, 200)
+
+        self.assertContains(response, "Editing Event Page")
+        self.assertContains(response, "You are viewing a previous revision of this page")
+
+        # Form should show the content of the revision, not the current draft
+        self.assertContains(response, "Last Christmas I gave you my heart")
+
+        # Form should include a hidden 'revision' field
+        revision_field = (
+            """<input type="hidden" name="revision" value="%d" />""" %
+            self.last_christmas_revision.id
+        )
+        self.assertContains(response, revision_field)
+
+        # Buttons should be relabelled
+        self.assertContains(response, "Replace current draft")
+        self.assertContains(response, "Publish this revision")
