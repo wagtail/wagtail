@@ -8,7 +8,7 @@ Frontend cache invalidator
    * Multiple backend support added
    * Cloudflare support added
 
-Many websites use a frontend cache such as Varnish, Squid, Cloudflare or Cloudfront to gain extra performance. The downside of using a frontend cache though is that they don't respond well to updating content and will often keep an old version of a page cached after it has been updated.
+Many websites use a frontend cache such as Varnish, Squid, Cloudflare or CloudFront to gain extra performance. The downside of using a frontend cache though is that they don't respond well to updating content and will often keep an old version of a page cached after it has been updated.
 
 This document describes how to configure Wagtail to purge old versions of pages from a frontend cache whenever a page gets updated.
 
@@ -79,9 +79,9 @@ Add an item into the ``WAGTAILFRONTENDCACHE`` and set the ``BACKEND`` parameter 
 Cloudfront
 ^^^^^^^^^^
 
-Within Amazon Web Services you will need at least one Cloudfront web distribution. If you don't have one, you can do this here: `Cloudfront getting started <https://aws.amazon.com/cloudfront/>`_
+Within Amazon Web Services you will need at least one CloudFront web distribution. If you don't have one, you can do this here: `CloudFront getting started <https://aws.amazon.com/cloudfront/>`_
 
-Add an item into the ``WAGTAILFRONTENDCACHE`` and set the ``BACKEND`` parameter to ``wagtail.contrib.wagtailfrontendcache.backends.CloudfrontBackend``. This backend requires one extra parameter, ``DISTRIBUTION_ID`` (your Cloudfront generated distrubition id).
+Add an item into the ``WAGTAILFRONTENDCACHE`` and set the ``BACKEND`` parameter to ``wagtail.contrib.wagtailfrontendcache.backends.CloudfrontBackend``. This backend requires one extra parameter, ``DISTRIBUTION_ID`` (your CloudFront generated distrubition id).
 
 .. code-block:: python
 
