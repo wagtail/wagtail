@@ -88,3 +88,27 @@ def cautious_slugify(value):
     # mark_safe); this will also strip out the backslashes from the 'backslashreplace'
     # conversion
     return slugify(value)
+
+
+def check_user_can_view_page(page, request):
+    from wagtail.wagtailcore.models import PageViewRestriction
+
+    restrictions = page.get_view_restrictions()
+    if restrictions:
+        for restriction in restrictions:
+            if restriction.restriction_type == PageViewRestriction.USERS_GROUPS:
+                view_conditions = [
+                    request.user in restriction.users.all(),
+                    request.user.groups.filter(
+                        id__in=restriction.groups.all().values_list('id', flat=True)
+                    ).exists()
+                ]
+                if not any(view_conditions):
+                    return False
+                return True
+            elif restriction.restriction_type == PageViewRestriction.LOGIN:
+                if not request.user or request.user.is_anonymous():
+                    return False
+            else:  # restriction.restriction_type == PageViewRestriction.PASSWORD
+                return True
+    return True
