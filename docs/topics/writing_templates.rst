@@ -208,6 +208,7 @@ This tag provides a contextual flyout menu on the top-right of a page for logged
 By default the User Bar appears in the bottom right of the browser window, inset from the edge. If this conflicts with your design it can be moved by passing a parameter to the template tag. These examples show you how to position the userbar in each corner of the screen:
 
 .. code-block:: html+django
+
     ...
     {% wagtailuserbar 'top-left' %}
     {% wagtailuserbar 'top-right' %}
