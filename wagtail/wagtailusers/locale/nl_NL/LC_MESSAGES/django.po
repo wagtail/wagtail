@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-02-10 15:32+0000\n"
-"PO-Revision-Date: 2016-02-25 12:01+0000\n"
+"POT-Creation-Date: 2016-03-01 18:52+0000\n"
+"PO-Revision-Date: 2016-03-08 19:14+0000\n"
 "Last-Translator: Thijs Kramer <thijskramer@gmail.com>\n"
 "Language-Team: Dutch (Netherlands) (http://www.transifex.com/torchbox/"
 "wagtail/language/nl_NL/)\n"
@@ -65,6 +65,11 @@ msgstr "Achternaam"
 
 msgid "A group with that name already exists."
 msgstr "Er bestaat al een groep met deze naam."
+
+msgid "You cannot have multiple permission records for the same page."
+msgstr ""
+"Het is niet mogelijk om meerdere machtigingen voor dezelfde pagina in te "
+"stellen."
 
 msgid "submitted notifications"
 msgstr "ingezonden notificaties"
@@ -143,9 +148,6 @@ msgstr "Pagina-machtigingen"
 
 msgid "Page"
 msgstr "Pagina"
-
-msgid "Permission type"
-msgstr "Machtiging"
 
 msgid "Add a page permission"
 msgstr "Voeg een paginamachtiging toe"

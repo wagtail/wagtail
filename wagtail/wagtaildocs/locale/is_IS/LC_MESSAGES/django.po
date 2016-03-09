@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-02-10 15:32+0000\n"
-"PO-Revision-Date: 2016-02-05 17:09+0000\n"
+"POT-Creation-Date: 2016-03-01 18:52+0000\n"
+"PO-Revision-Date: 2016-03-01 18:59+0000\n"
 "Last-Translator: mattwestcott <matthew@torchbox.com>\n"
 "Language-Team: Icelandic (Iceland) (http://www.transifex.com/torchbox/"
 "wagtail/language/is_IS/)\n"
@@ -18,6 +18,9 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: is_IS\n"
 "Plural-Forms: nplurals=2; plural=(n % 10 != 1 || n % 100 == 11);\n"
+
+msgid "Edit"
+msgstr "Breyta"
 
 msgid "Choose a document"
 msgstr "Veldu skrá"
@@ -94,11 +97,11 @@ msgstr "Staða"
 msgid "Edit this page"
 msgstr "Breyta þessari síðu"
 
+msgid "Delete"
+msgstr "Eyða"
+
 msgid "Search documents"
 msgstr "Leita að skrám"
-
-msgid "Edit"
-msgstr "Breyta"
 
 msgid "The document could not be saved due to errors."
 msgstr "Ekki var hægt að vista skránna vegna villna."
@@ -106,9 +109,6 @@ msgstr "Ekki var hægt að vista skránna vegna villna."
 msgid ""
 "The file could not be found. Please change the source or delete the document"
 msgstr "Skráin fannst ekki. Vinsamlegast breyttu upprunanum eða eyddu skránni"
-
-msgid "Delete"
-msgstr "Eyða"
 
 #, python-brace-format
 msgid "Document '{0}' deleted."

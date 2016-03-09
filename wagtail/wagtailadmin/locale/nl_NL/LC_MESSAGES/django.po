@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-02-10 15:32+0000\n"
-"PO-Revision-Date: 2016-02-25 11:12+0000\n"
+"POT-Creation-Date: 2016-03-01 18:51+0000\n"
+"PO-Revision-Date: 2016-03-08 19:14+0000\n"
 "Last-Translator: Thijs Kramer <thijskramer@gmail.com>\n"
 "Language-Team: Dutch (Netherlands) (http://www.transifex.com/torchbox/"
 "wagtail/language/nl_NL/)\n"
@@ -20,6 +20,9 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: nl_NL\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "You do not have permission to access the admin"
+msgstr "U heeft geen toegang tot de admin."
 
 msgid "Scheduled publishing"
 msgstr "Geplande publicatie"
@@ -137,6 +140,11 @@ msgstr "Publicatiedatum/tijd moet voor de vervaldatum/tijd liggen."
 
 msgid "Expiry date/time must be in the future"
 msgstr "Vervaldatum moet in de toekomst liggen"
+
+msgid "You cannot have multiple permission records for the same collection."
+msgstr ""
+"Het is niet mogelijk om meerdere machtigingen voor dezelfde verzameling in "
+"te stellen."
 
 msgid "Account"
 msgstr "Account"
@@ -293,6 +301,22 @@ msgstr "Voeg een link toe"
 
 msgid "Add an external link"
 msgstr "Voeg een externe link toe"
+
+msgid ""
+"This collection cannot be deleted, because it is not empty. It contains:"
+msgstr ""
+"Deze verzameling kan niet verwijderd worden omdat ze niet leeg is. Ze bevat:"
+
+msgid "Name"
+msgstr "Naam"
+
+#, python-format
+msgid ""
+"No collections have been created. Why not <a href=\"%(add_collection_url)s"
+"\">add one</a>?"
+msgstr ""
+"Er zijn nog geen verzamelingen aangemaakt. Waarom <a href="
+"\"%(add_collection_url)s\">voegt u er niet een toe</a>?"
 
 #, python-format
 msgid "Add %(heading)s"
@@ -782,8 +806,14 @@ msgstr "Voer hierboven een zoekterm in."
 msgid "No pages use"
 msgstr "Geen pagina's maken gebruik van"
 
+msgid "Collection"
+msgstr "Verzameling"
+
 msgid "Home"
 msgstr "Home"
+
+msgid "All collections"
+msgstr "Alle verzamelingen"
 
 msgid "January"
 msgstr "januari"
@@ -987,6 +1017,9 @@ msgstr "Pagina '{0}' is nu geopend."
 
 msgid "Pages"
 msgstr "Pagina's"
+
+msgid "Collections"
+msgstr "Verzamelingen"
 
 msgid "Choose an item"
 msgstr "Kies een item"

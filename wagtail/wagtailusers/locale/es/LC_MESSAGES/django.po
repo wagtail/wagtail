@@ -7,16 +7,16 @@
 # fooflare <amos.oviedo@gmail.com>, 2014
 # chimeno <daniel@chimeno.me>, 2015
 # fooflare <amos.oviedo@gmail.com>, 2014
-# José Alaguna <alagunajs@gmail.com>, 2015
+# José Alaguna <alagunajs@gmail.com>, 2015-2016
 # Mauricio Baeza <web@mauriciobaeza.net>, 2015
 # Mauricio Baeza <web@mauriciobaeza.net>, 2014
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-02-10 15:32+0000\n"
-"PO-Revision-Date: 2016-02-05 17:11+0000\n"
-"Last-Translator: mattwestcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2016-03-01 18:52+0000\n"
+"PO-Revision-Date: 2016-03-01 22:01+0000\n"
+"Last-Translator: José Alaguna <alagunajs@gmail.com>\n"
 "Language-Team: Spanish (http://www.transifex.com/torchbox/wagtail/language/"
 "es/)\n"
 "MIME-Version: 1.0\n"
@@ -42,6 +42,11 @@ msgstr "Los dos campos de contraseña no coinciden."
 msgid "Administrator"
 msgstr "Administrador"
 
+msgid "Administrators have full access to manage any object or setting."
+msgstr ""
+"Los administradores tienen la capacidad de gestionar cualquier objeto o "
+"configuración."
+
 msgid "Password"
 msgstr "Contraseña"
 
@@ -65,6 +70,9 @@ msgstr "Apellidos"
 
 msgid "A group with that name already exists."
 msgstr "Ya existe un grupo con este nombre."
+
+msgid "You cannot have multiple permission records for the same page."
+msgstr "No puedes tener múltiples permisos de registro para una misma página."
 
 msgid "submitted notifications"
 msgstr "Notificaciones enviadas"
@@ -143,9 +151,6 @@ msgstr "Permisos de página"
 
 msgid "Page"
 msgstr "Página"
-
-msgid "Permission type"
-msgstr "Tipo de permiso"
 
 msgid "Add a page permission"
 msgstr "Agregar un permiso de página"
@@ -267,3 +272,6 @@ msgstr "Usuario '{0}' actualizado."
 
 msgid "The user could not be saved due to errors."
 msgstr "El usuario no pudo ser guardado debido a errores."
+
+msgid "Groups"
+msgstr "Grupos"

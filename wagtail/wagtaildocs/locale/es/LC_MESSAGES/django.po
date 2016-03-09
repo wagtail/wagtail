@@ -7,15 +7,15 @@
 # fooflare <amos.oviedo@gmail.com>, 2014
 # fooflare <amos.oviedo@gmail.com>, 2014
 # Joaquín Tita <carpincho@gmail.com>, 2014
-# José Alaguna <alagunajs@gmail.com>, 2015
+# José Alaguna <alagunajs@gmail.com>, 2015-2016
 # Mauricio Baeza <web@mauriciobaeza.net>, 2015
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-02-10 15:32+0000\n"
-"PO-Revision-Date: 2016-02-05 17:09+0000\n"
-"Last-Translator: mattwestcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2016-03-01 18:52+0000\n"
+"PO-Revision-Date: 2016-03-01 22:01+0000\n"
+"Last-Translator: José Alaguna <alagunajs@gmail.com>\n"
 "Language-Team: Spanish (http://www.transifex.com/torchbox/wagtail/language/"
 "es/)\n"
 "MIME-Version: 1.0\n"
@@ -23,6 +23,18 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: es\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Add"
+msgstr "Agregar"
+
+msgid "Add/edit documents you own"
+msgstr "Añadir/editar tus propios documentos"
+
+msgid "Edit"
+msgstr "Editar"
+
+msgid "Edit any document"
+msgstr "Editar algún documento"
 
 msgid "title"
 msgstr "Título"
@@ -53,6 +65,13 @@ msgstr "Subir"
 
 msgid "Uploading..."
 msgstr "Subiendo..."
+
+msgid "Server Error"
+msgstr "Error de servidor"
+
+msgid "Report this error to your webmaster with the following information:"
+msgstr ""
+"Reportar este error a tu administrador web con la siguiente información:"
 
 #, python-format
 msgid ""
@@ -131,6 +150,14 @@ msgstr "Subidos"
 
 #, python-format
 msgid ""
+"You haven't uploaded any documents in this collection. Why not <a href="
+"\"%(wagtaildocs_add_document_url)s\">upload one now</a>?"
+msgstr ""
+"No has subido documentos en esta colección. ¿Por qué no <a href="
+"\"%(wagtaildocs_add_document_url)s\">subir uno ahora</a>?"
+
+#, python-format
+msgid ""
 "You haven't uploaded any documents. Why not <a href="
 "\"%(wagtaildocs_add_document_url)s\">upload one now</a>?"
 msgstr ""
@@ -174,15 +201,53 @@ msgstr[1] ""
 "                <span>%(total)s</span> Documentos\n"
 "            "
 
+msgid "Add multiple documents"
+msgstr "Añadir múltiples documentos"
+
+msgid "Add documents"
+msgstr "Añadir documentos"
+
+msgid "Drag and drop documents into this area to upload immediately."
+msgstr ""
+"Arrastrar y soltar los documentos dentro de esta área para subirlas "
+"inmediatamente."
+
+msgid "Or choose from your computer"
+msgstr "O seleccione desde su ordenador."
+
+msgid "Add to collection:"
+msgstr "Añadir a la colección:"
+
+msgid ""
+"Upload successful. Please update this documents with a more appropriate "
+"title, if necessary. You may also delete the document completely if the "
+"upload wasn't required."
+msgstr ""
+"¡Carga subida exitosamente! Por favor, actualice este documento con un "
+"título más apropiado si lo cree conveniente. También puede eliminar el "
+"documento completamente si la subida no era necesaria."
+
+msgid "Sorry, upload failed."
+msgstr "Lo sentimos, su subida ha fallado."
+
+msgid "Update"
+msgstr "Actualizar"
+
+msgid "Delete"
+msgstr "Eliminar"
+
+msgid "Document permissions"
+msgstr "Permisos de documento"
+
+msgid "Add a document permission"
+msgstr "Agregar un permiso de documento"
+
 msgid "Search documents"
 msgstr "Buscar documentos"
 
 #, python-brace-format
 msgid "Document '{0}' added."
 msgstr "Documento '{0}' añadido."
-
-msgid "Edit"
-msgstr "Editar"
 
 msgid "The document could not be saved due to errors."
 msgstr "El documento no pudo ser guardado debido a errores."
@@ -197,12 +262,15 @@ msgstr ""
 "El archivo no ha sido encontrado. Por favor cambie la fuente o elimine el "
 "documento."
 
-msgid "Delete"
-msgstr "Eliminar"
-
 #, python-brace-format
 msgid "Document '{0}' deleted."
 msgstr "Documento '{0}' eliminado."
+
+#, python-format
+msgid "%(count)s document"
+msgid_plural "%(count)s documents"
+msgstr[0] "%(count)s documento"
+msgstr[1] "%(count)s documentos"
 
 msgid "Choose another document"
 msgstr "Elegir otro documento"

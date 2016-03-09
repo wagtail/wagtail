@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-02-10 15:32+0000\n"
-"PO-Revision-Date: 2016-02-25 11:52+0000\n"
+"POT-Creation-Date: 2016-03-01 18:52+0000\n"
+"PO-Revision-Date: 2016-03-08 19:14+0000\n"
 "Last-Translator: Thijs Kramer <thijskramer@gmail.com>\n"
 "Language-Team: Dutch (Netherlands) (http://www.transifex.com/torchbox/"
 "wagtail/language/nl_NL/)\n"
@@ -81,6 +81,18 @@ msgstr "Hoogte"
 
 msgid "Closeness"
 msgstr "Nabijheid"
+
+msgid "Add"
+msgstr "Toevoegen"
+
+msgid "Add/edit images you own"
+msgstr "Eigen afbeeldingen toevoegen/wijzigen"
+
+msgid "Edit"
+msgstr "Wijzig"
+
+msgid "Edit any image"
+msgstr "Alle afbeeldingen wijzigen"
 
 msgid "title"
 msgstr "titel"
@@ -231,6 +243,14 @@ msgstr "Sorry, geen afbeelding overeenkomst \"<em>%(query_string)s</em>\""
 
 #, python-format
 msgid ""
+"You've not uploaded any images in this collection. Why not <a href="
+"\"%(wagtailimages_add_image_url)s\">add one now</a>?"
+msgstr ""
+"Er zijn nog geen afbeeldingen toegevoegd aan deze verzameling. Waarom <a "
+"href=\"%(wagtailimages_add_image_url)s\">voegt u er niet een toe</a>?"
+
+#, python-format
+msgid ""
 "You've not uploaded any images. Why not <a href="
 "\"%(wagtailimages_add_image_url)s\">add one now</a>?"
 msgstr ""
@@ -287,6 +307,9 @@ msgstr "Sleep afbeeldingen naar dit gebied om ze direct te uploaden."
 msgid "Or choose from your computer"
 msgstr "Of kies vanaf uw computer"
 
+msgid "Add to collection:"
+msgstr "Voeg toe aan verzameling:"
+
 msgid ""
 "Upload successful. Please update this image with a more appropriate title, "
 "if necessary. You may also delete the image completely if the upload wasn't "
@@ -307,6 +330,12 @@ msgstr "Update"
 
 msgid "Delete"
 msgstr "Verwijderen"
+
+msgid "Image permissions"
+msgstr "Afbeeldingsmachtigingen"
+
+msgid "Add an image permission"
+msgstr "Voeg een afbeeldingsmachtiging toe"
 
 msgid "Search images"
 msgstr "Zoek afbeeldingen"
@@ -336,11 +365,14 @@ msgstr "Afbeelding '{0}' verwijderd."
 msgid "Image '{0}' added."
 msgstr "Afbeelding '{0}' toegevoegd."
 
-msgid "Edit"
-msgstr "Wijzig"
-
 msgid "The image could not be created due to errors."
 msgstr "De afbeelding kon vanwege fouten niet worden aangemaakt."
+
+#, python-format
+msgid "%(count)s image"
+msgid_plural "%(count)s images"
+msgstr[0] "%(count)s afbeelding"
+msgstr[1] "%(count)s afbeeldingen"
 
 msgid "Choose another image"
 msgstr "Kies een andere afbeelding"

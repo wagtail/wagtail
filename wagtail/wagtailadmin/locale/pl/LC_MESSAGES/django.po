@@ -11,8 +11,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-02-10 15:32+0000\n"
-"PO-Revision-Date: 2016-02-15 11:31+0000\n"
+"POT-Creation-Date: 2016-03-01 18:51+0000\n"
+"PO-Revision-Date: 2016-03-01 22:50+0000\n"
 "Last-Translator: mmiskiew <mmiskiew@gmail.com>\n"
 "Language-Team: Polish (http://www.transifex.com/torchbox/wagtail/language/"
 "pl/)\n"
@@ -22,6 +22,9 @@ msgstr ""
 "Language: pl\n"
 "Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
 "|| n%100>=20) ? 1 : 2);\n"
+
+msgid "You do not have permission to access the admin"
+msgstr "Nie posiadasz praw dostępu do części administracyjnej"
 
 msgid "Scheduled publishing"
 msgstr "Zaplanowane opublikowanie"
@@ -140,6 +143,9 @@ msgstr "Data/czas publikacji musi być wcześniejszy niż data wykończenia"
 
 msgid "Expiry date/time must be in the future"
 msgstr "Data/czas wykończenia musi znajdować się w przyszłości."
+
+msgid "You cannot have multiple permission records for the same collection."
+msgstr "Nie możesz posiadać wielu wystąpień uprawnień dla tej samej kolekcji."
 
 msgid "Account"
 msgstr "Konto"
@@ -301,6 +307,21 @@ msgstr "Wstaw link"
 
 msgid "Add an external link"
 msgstr "Dodaj link zewnętrzny"
+
+msgid ""
+"This collection cannot be deleted, because it is not empty. It contains:"
+msgstr "Kolekcja nie mogła zostać usunięta ponieważ nie jest pusta. Zawiera:"
+
+msgid "Name"
+msgstr "Nazwa"
+
+#, python-format
+msgid ""
+"No collections have been created. Why not <a href=\"%(add_collection_url)s"
+"\">add one</a>?"
+msgstr ""
+"Żadna kolekcja nie została jeszcze stworzona. Dlaczego nie <a href="
+"\"%(add_collection_url)s\">dodać jednej</a>?"
 
 #, python-format
 msgid "Add %(heading)s"
@@ -799,8 +820,14 @@ msgstr "Wpisz wyszukiwany ciąg powyżej"
 msgid "No pages use"
 msgstr "Żadna strona nie używa"
 
+msgid "Collection"
+msgstr "Kolekcja"
+
 msgid "Home"
 msgstr "Start"
+
+msgid "All collections"
+msgstr "Wszystkie kolekcje"
 
 msgid "January"
 msgstr "Styczeń"
@@ -1004,6 +1031,9 @@ msgstr "Strona '{0}' jest teraz odblokowana."
 
 msgid "Pages"
 msgstr "Strony"
+
+msgid "Collections"
+msgstr "Kolekcje"
 
 msgid "Choose an item"
 msgstr "Wybierz rzecz"

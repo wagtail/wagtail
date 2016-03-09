@@ -8,9 +8,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-02-10 15:32+0000\n"
-"PO-Revision-Date: 2016-02-10 15:33+0000\n"
-"Last-Translator: mattwestcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2016-03-01 18:51+0000\n"
+"PO-Revision-Date: 2016-03-01 22:47+0000\n"
+"Last-Translator: Dan Braghis\n"
 "Language-Team: Romanian (http://www.transifex.com/torchbox/wagtail/language/"
 "ro/)\n"
 "MIME-Version: 1.0\n"
@@ -19,6 +19,9 @@ msgstr ""
 "Language: ro\n"
 "Plural-Forms: nplurals=3; plural=(n==1?0:(((n%100>19)||((n%100==0)&&(n!=0)))?"
 "2:1));\n"
+
+msgid "You do not have permission to access the admin"
+msgstr "Nu aveți permisiunea de a accesa zona de administrare."
 
 msgid "Scheduled publishing"
 msgstr "Publicare programată"
@@ -70,8 +73,14 @@ msgstr "Adresa e-mail nu este recunoscută."
 msgid "New title"
 msgstr "Titlu nou"
 
+msgid "New slug"
+msgstr "Slug nou"
+
 msgid "New parent page"
 msgstr "Pagină părinte nouă"
+
+msgid "This copy will be a child of this given parent page."
+msgstr "Copia dată va fi descendentă acestei pagini."
 
 msgid "Copy subpages"
 msgstr "Copiere subpagini"
@@ -109,6 +118,11 @@ msgstr[2] ""
 "%(count)s pagini în curs de copiere sunt active. Doriți să publicați și "
 "copiile lor?"
 
+#, python-format
+msgid ""
+"This slug is already in use within the context of its parent page \"%s\""
+msgstr "Acest slug este deja folosit în contextul paginii părinte \"%s\""
+
 msgid "Public"
 msgstr "Public"
 
@@ -127,6 +141,10 @@ msgstr ""
 
 msgid "Expiry date/time must be in the future"
 msgstr "Data/timpul de expirare trebuie să fie în viitor"
+
+msgid "You cannot have multiple permission records for the same collection."
+msgstr ""
+"Nu puteți avea înregistrări de permisiune multiple pentru aceeași colecție."
 
 msgid "Account"
 msgstr "Cont"
@@ -256,6 +274,30 @@ msgstr "Alege"
 msgid "Choose a page"
 msgstr "Alege o pagină"
 
+#, python-format
+msgid ""
+"\n"
+"                Only pages of type \"%(type)s\" may be chosen for this "
+"field. Search results will exclude pages of other types.\n"
+"                "
+msgid_plural ""
+"\n"
+"                Only the following page types may be chosen for this field: "
+"%(type)s. Search results will exclude pages of other types.\n"
+"            "
+msgstr[0] ""
+"\n"
+"Numai pagini de tip \"%(type)s\" pot fi selectate pentru acest câmp. "
+"Rezultatele căutării vor exclude pagini de alt tip.            "
+msgstr[1] ""
+"\n"
+"Numai pagini de tipul următor pot fi selectate pentru acest câmp: %(type)s. "
+"Rezultatele căutării vor exclude pagini de alt tip."
+msgstr[2] ""
+"\n"
+"Numai pagini de tipul următor pot fi selectate pentru acest câmp: %(type)s. "
+"Rezultatele căutării vor exclude pagini de alt tip."
+
 msgid "Add an email link"
 msgstr "Adaugă un link e-mail"
 
@@ -264,6 +306,21 @@ msgstr "Inserează link"
 
 msgid "Add an external link"
 msgstr "Adaugă un link extern"
+
+msgid ""
+"This collection cannot be deleted, because it is not empty. It contains:"
+msgstr "Această colecție nu poate fi ștearsă pentru că nu este goală. Conține:"
+
+msgid "Name"
+msgstr "Nume"
+
+#, python-format
+msgid ""
+"No collections have been created. Why not <a href=\"%(add_collection_url)s"
+"\">add one</a>?"
+msgstr ""
+"Nu a fost creată nici o colecție. De ce să nu <a href="
+"\"%(add_collection_url)s\">adăugați una</a>?"
 
 #, python-format
 msgid "Add %(heading)s"
@@ -400,11 +457,27 @@ msgstr "Puteți edita pagina aici:"
 msgid "The page \"%(page)s\" has been submitted for moderation"
 msgstr "Pagina \"%(page)s\" a fost trimisă pentru moderare"
 
+#, python-format
+msgid "The page \"%(page)s\" has been submitted for moderation by %(editor)s."
+msgstr ""
+"Pagina \"%(page)s\" a fost trimisă pentru moderare de către %(editor)s."
+
 msgid "You can preview the page here:"
 msgstr "Puteți examina pagina aici:"
 
 msgid "Page privacy"
 msgstr "Confidențialitate"
+
+msgid "This page has been made private by a parent page."
+msgstr "Această pagină a fost făcută privată de către o pagină părinte."
+
+msgid "You can edit the privacy settings on:"
+msgstr "Puteți edita setările de confidențialitate la:"
+
+msgid "Privacy changes apply to all children of this page too."
+msgstr ""
+"Schimbările setărilor de confidențialitate se aplică și pentru toate "
+"paginile descendente."
 
 msgid "Edit lock"
 msgstr "Editează blocare"
@@ -544,6 +617,17 @@ msgstr "Publică"
 msgid "Submit for moderation"
 msgstr "Trimite pentru moderare"
 
+msgid "This page has unsaved changes."
+msgstr "Această pagină conține modificări nesalvate."
+
+#, python-format
+msgid "Editing %(page_type)s: %(title)s"
+msgstr "Editare %(page_type)s: %(title)s"
+
+#, python-format
+msgid "Editing %(page_type)s <span>%(title)s</span>"
+msgstr "Editare %(page_type)s <span>%(title)s</span>"
+
 msgid "Page locked"
 msgstr "Pagină blocată"
 
@@ -565,8 +649,64 @@ msgstr "Glisează"
 msgid "Updated"
 msgstr "Actualizată"
 
+msgid ""
+"\n"
+"                            The root level is where you can add new sites to "
+"your Wagtail installation. Pages created here will not be accessible at any "
+"URL until they are associated with a site.\n"
+"                        "
+msgstr ""
+"\n"
+"Nivelul de bază este pentru adăugare de situri noi la instanța Wagtail. "
+"Paginile create aici nu sunt accesibile sub nici o adresă de URL până când "
+"nu sunt asociate cu un sit."
+
 msgid "Configure a site now."
 msgstr "Configurează un sit."
+
+msgid ""
+"\n"
+"                            If you just want to add pages to an existing "
+"site, create them as children of the homepage instead.\n"
+"                        "
+msgstr ""
+"\n"
+"Dacă doriți doar să adăugați pagini la un sit existent, creați paginile ca "
+"descendenți ai paginii principale."
+
+msgid ""
+"\n"
+"                        Pages created here will not be accessible at any "
+"URL. To add pages to an existing site, create them as children of the "
+"homepage.\n"
+"                    "
+msgstr ""
+"\n"
+"Paginile create aici nu sunt accesibile sub nici o adresă de URL. Pentru a "
+"adăuga pagini la un sit existent, creați paginile ca descendenți ai paginii "
+"principale."
+
+msgid ""
+"\n"
+"                        There is no site set up for this location. Pages "
+"created here will not be accessible at any URL until a site is associated "
+"with this location.\n"
+"                    "
+msgstr ""
+"\n"
+"Nu există nici un sit pentru această locație. Paginile create aici nu sunt "
+"accesibile sub nici o adresă de URL până când nu asociați un sit cu această "
+"locație."
+
+msgid ""
+"\n"
+"                        There is no site record for this location. Pages "
+"created here will not be accessible at any URL.\n"
+"                    "
+msgstr ""
+"\n"
+"Nu există nici un sit pentru această locație. Paginile create aici nu sunt "
+"accesibile sub nici o adresă de URL."
 
 msgid "No pages have been created at this location."
 msgstr "Nu a fost creată nici o pagină în această locație."
@@ -574,6 +714,9 @@ msgstr "Nu a fost creată nici o pagină în această locație."
 #, python-format
 msgid "Why not <a href=\"%(add_page_url)s\">create one</a>?"
 msgstr "De ce să nu <a href=\"%(add_page_url)s\">creați una</a>?"
+
+msgid "This page is locked to further editing"
+msgstr "Această pagină este blocată pentru editări ulterioare."
 
 #, python-format
 msgid "Explore subpages of '%(title)s'"
@@ -592,6 +735,13 @@ msgstr "Adaugă o pagină dependentă de '%(title)s'"
 
 msgid "Add subpage"
 msgstr "Adaugă subpagină"
+
+msgid ""
+"This page is published but does not exist within a configured Site, so "
+"cannot be viewed."
+msgstr ""
+"Această pagină este publicată, dar nu poate fi vizualizată pentru că nu "
+"există în cadrul unui Sit configurat."
 
 msgid "Add child page"
 msgstr "Adaugă pagină dependentă"
@@ -632,6 +782,25 @@ msgid "Select a new parent page for <span>%(title)s</span>"
 msgstr "Alege o pagină de bază nouă pentru <span>%(title)s</span>"
 
 #, python-format
+msgid ""
+"\n"
+"                There is one matching page\n"
+"            "
+msgid_plural ""
+"\n"
+"                There are %(counter)s matching pages\n"
+"            "
+msgstr[0] ""
+"\n"
+"O singură pagină se potrivește"
+msgstr[1] ""
+"\n"
+"%(counter)s pagini se potrivesc"
+msgstr[2] ""
+"\n"
+"%(counter)s pagini se potrivesc"
+
+#, python-format
 msgid "Sorry, no pages match <em>\"%(query_string)s\"</em>"
 msgstr ""
 "Ne pare rău, \"<em>%(query_string)s</em>\" nu se potrivește cu nici o pagină"
@@ -642,8 +811,14 @@ msgstr "Introduceți termenii de căutare mai sus"
 msgid "No pages use"
 msgstr "Nici o pagină nu utilizează"
 
+msgid "Collection"
+msgstr "Colecție"
+
 msgid "Home"
 msgstr "Acasă"
+
+msgid "All collections"
+msgstr "Toate colecțiile"
 
 msgid "January"
 msgstr "Ianuarie"
@@ -721,6 +896,15 @@ msgstr "Pagina %(page_num)s din %(total_pages)s."
 
 msgid "Other searches"
 msgstr "Alte căutări"
+
+msgid ""
+"You are using an <strong>outdated</strong> browser not supported by this "
+"software. Please <a href=\"http://browsehappy.com/\">upgrade your browser</"
+"a>."
+msgstr ""
+"Folosiți un browser web <strong>învechit</strong> care nu este suportat de "
+"această aplicație. Vă rugăm să <a href=\"http://browsehappy.com/"
+"\">actualizați browser-ul</a> Dvstră."
 
 msgid "Javascript is required to use Wagtail, but it is currently disabled"
 msgstr "Wagtail are nevoie de JavaScript, care la moment este dezactivat."
@@ -837,6 +1021,9 @@ msgstr "Pagina '{0}' is fost deblocată."
 
 msgid "Pages"
 msgstr "Pagini"
+
+msgid "Collections"
+msgstr "Colecții"
 
 msgid "Choose an item"
 msgstr "Alege un element"

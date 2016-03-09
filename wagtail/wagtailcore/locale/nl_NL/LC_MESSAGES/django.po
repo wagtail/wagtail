@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-02-10 15:32+0000\n"
-"PO-Revision-Date: 2016-02-25 21:22+0000\n"
+"POT-Creation-Date: 2016-03-01 18:52+0000\n"
+"PO-Revision-Date: 2016-03-08 19:08+0000\n"
 "Last-Translator: Thijs Kramer <thijskramer@gmail.com>\n"
 "Language-Team: Dutch (Netherlands) (http://www.transifex.com/torchbox/"
 "wagtail/language/nl_NL/)\n"
@@ -143,6 +143,9 @@ msgstr "voor het eerst gepubliceerd op"
 msgid "latest revision created at"
 msgstr "meest recente versie aangemaakt op"
 
+msgid "This slug is already in use"
+msgstr "Deze slug is al in gebruik"
+
 msgid "scheduled"
 msgstr "gepland"
 
@@ -182,14 +185,26 @@ msgstr "pagina revisie"
 msgid "page revisions"
 msgstr "pagina revisie"
 
+msgid "Add"
+msgstr "Toevoegen"
+
 msgid "Add/edit pages you own"
 msgstr "Eigen pagina's toevoegen/wijzigen"
+
+msgid "Edit"
+msgstr "Wijzigen"
 
 msgid "Edit any page"
 msgstr "Alle pagina's wijzigen"
 
+msgid "Publish"
+msgstr "Publiceren"
+
 msgid "Publish any page"
 msgstr "Elke pagina publiceren"
+
+msgid "Lock"
+msgstr "Vergrendelen"
 
 msgid "Lock/unlock any page"
 msgstr "Alle pagina's blokkeren/deblokkeren"
@@ -214,3 +229,18 @@ msgstr "pagina weergave recht"
 
 msgid "page view restrictions"
 msgstr "pagina weergave rechten"
+
+msgid "name"
+msgstr "naam"
+
+msgid "collection"
+msgstr "verzameling"
+
+msgid "collections"
+msgstr "verzamelingen"
+
+msgid "permission"
+msgstr "machtiging"
+
+msgid "group collection permission"
+msgstr "groepsmachtiging binnen verzameling"

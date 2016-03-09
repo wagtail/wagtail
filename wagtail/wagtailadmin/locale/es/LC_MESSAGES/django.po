@@ -6,16 +6,16 @@
 # fooflare <amos.oviedo@gmail.com>, 2014
 # fooflare <amos.oviedo@gmail.com>, 2014
 # Joaquín Tita <carpincho@gmail.com>, 2014
-# José Alaguna <alagunajs@gmail.com>, 2015
+# José Alaguna <alagunajs@gmail.com>, 2015-2016
 # Mauricio Baeza <web@mauriciobaeza.net>, 2015
 # Unai Zalakain <unai@gisa-elkartea.org>, 2014
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-02-10 15:32+0000\n"
-"PO-Revision-Date: 2016-02-10 15:33+0000\n"
-"Last-Translator: mattwestcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2016-03-01 18:51+0000\n"
+"PO-Revision-Date: 2016-03-01 22:01+0000\n"
+"Last-Translator: José Alaguna <alagunajs@gmail.com>\n"
 "Language-Team: Spanish (http://www.transifex.com/torchbox/wagtail/language/"
 "es/)\n"
 "MIME-Version: 1.0\n"
@@ -23,6 +23,9 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: es\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "You do not have permission to access the admin"
+msgstr "No tienes permisos para acceder al administrador."
 
 msgid "Scheduled publishing"
 msgstr "Agendar publicación"
@@ -137,6 +140,10 @@ msgstr ""
 
 msgid "Expiry date/time must be in the future"
 msgstr "La fecha/tiempo de expiración debe ser en el futuro"
+
+msgid "You cannot have multiple permission records for the same collection."
+msgstr ""
+"No puedes tener múltiples permisos de registro para una misma colección."
 
 msgid "Account"
 msgstr "Cuenta"
@@ -294,6 +301,21 @@ msgstr "Inserta un enlace"
 
 msgid "Add an external link"
 msgstr "Añade un enlace externo"
+
+msgid ""
+"This collection cannot be deleted, because it is not empty. It contains:"
+msgstr "Esta colección no puede ser borrada, por que no está vacía. Contiene:"
+
+msgid "Name"
+msgstr "Nombre"
+
+#, python-format
+msgid ""
+"No collections have been created. Why not <a href=\"%(add_collection_url)s"
+"\">add one</a>?"
+msgstr ""
+"Ninguna colección ha sido creada. Por qué no<a href=\"%(add_collection_url)s"
+"\">añades una</a>?"
 
 #, python-format
 msgid "Add %(heading)s"
@@ -591,6 +613,9 @@ msgstr "Publicar"
 msgid "Submit for moderation"
 msgstr "Enviar para ser moderado"
 
+msgid "This page has unsaved changes."
+msgstr "Esta página tiene cambios que no se han guardado."
+
 #, python-format
 msgid "Editing %(page_type)s: %(title)s"
 msgstr "Editando %(page_type)s: %(title)s"
@@ -777,8 +802,14 @@ msgstr "Introduce el término de búsqueda arriba"
 msgid "No pages use"
 msgstr "Páginas sin uso"
 
+msgid "Collection"
+msgstr "Colección"
+
 msgid "Home"
 msgstr "Hogar"
+
+msgid "All collections"
+msgstr "Todas las colecciones"
 
 msgid "January"
 msgstr "Enero"
@@ -894,6 +925,10 @@ msgid "Your preferences have been updated successfully!"
 msgstr "¡Sus preferencias han sido actualizadas exitosamente!"
 
 #, python-brace-format
+msgid "Page '{0}' created and scheduled for publishing."
+msgstr "Página '{0}' creada y programada para publicación."
+
+#, python-brace-format
 msgid "Page '{0}' created and published."
 msgstr "Página '{0}' creada y publicada."
 
@@ -913,6 +948,10 @@ msgstr "Página '{0}' creada."
 
 msgid "The page could not be created due to validation errors"
 msgstr "Esta página no pudo ser creada debido a errores de validación"
+
+#, python-brace-format
+msgid "Page '{0}' scheduled for publishing."
+msgstr "Página '{0}' programada para publicación."
 
 #, python-brace-format
 msgid "Page '{0}' published."
@@ -973,6 +1012,9 @@ msgstr "Página '{0}' se encuentra desbloqueada."
 
 msgid "Pages"
 msgstr "Páginas"
+
+msgid "Collections"
+msgstr "Colecciones"
 
 msgid "Choose an item"
 msgstr "Elige un elemento"

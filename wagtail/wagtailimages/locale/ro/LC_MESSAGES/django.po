@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-02-10 15:32+0000\n"
-"PO-Revision-Date: 2016-02-05 18:25+0000\n"
+"POT-Creation-Date: 2016-03-01 18:52+0000\n"
+"PO-Revision-Date: 2016-03-01 22:44+0000\n"
 "Last-Translator: Dan Braghis\n"
 "Language-Team: Romanian (http://www.transifex.com/torchbox/wagtail/language/"
 "ro/)\n"
@@ -79,6 +79,18 @@ msgstr "Înălțime"
 
 msgid "Closeness"
 msgstr "Vecinătate"
+
+msgid "Add"
+msgstr "Adaugă"
+
+msgid "Add/edit images you own"
+msgstr "Adaugă/editeaza imagini deținute"
+
+msgid "Edit"
+msgstr "Editează"
+
+msgid "Edit any image"
+msgstr "Editează orice imagine"
 
 msgid "title"
 msgstr "titlu"
@@ -179,7 +191,7 @@ msgid "Add image"
 msgstr "Adaugă imagine"
 
 msgid "Save"
-msgstr "Salveză"
+msgstr "Salvează"
 
 msgid "Delete image"
 msgstr "Șterge imagine"
@@ -229,6 +241,14 @@ msgstr "Imagini"
 msgid "Sorry, no images match \"<em>%(query_string)s</em>\""
 msgstr ""
 "Ne pare rău, \"<em>%(query_string)s</em>\" nu se potrivește cu nici o imagine"
+
+#, python-format
+msgid ""
+"You've not uploaded any images in this collection. Why not <a href="
+"\"%(wagtailimages_add_image_url)s\">add one now</a>?"
+msgstr ""
+"Nu ați încărcat nici o imagine în această colecție. De să nu <a href="
+"\"%(wagtailimages_add_image_url)s\">adăugați una</a>?"
 
 #, python-format
 msgid ""
@@ -290,6 +310,9 @@ msgstr ""
 msgid "Or choose from your computer"
 msgstr "Sau alege de pe computer"
 
+msgid "Add to collection:"
+msgstr "Adaugă la colecția:"
+
 msgid ""
 "Upload successful. Please update this image with a more appropriate title, "
 "if necessary. You may also delete the image completely if the upload wasn't "
@@ -310,6 +333,12 @@ msgstr "Actualizează"
 
 msgid "Delete"
 msgstr "Șterge"
+
+msgid "Image permissions"
+msgstr "Permisiuni imagine"
+
+msgid "Add an image permission"
+msgstr "Adaugă o permisiune imagine"
 
 msgid "Search images"
 msgstr "Caută imagini"
@@ -339,11 +368,15 @@ msgstr "Imaginea '{0}' a fost ștearsă."
 msgid "Image '{0}' added."
 msgstr "Imaginea '{0}' a fost adăugată."
 
-msgid "Edit"
-msgstr "Editează"
-
 msgid "The image could not be created due to errors."
 msgstr "Imaginea nu a fost creată din cauza erorilor."
+
+#, python-format
+msgid "%(count)s image"
+msgid_plural "%(count)s images"
+msgstr[0] "%(count)s imagine"
+msgstr[1] "%(count)s imagini"
+msgstr[2] "%(count)s imagini"
 
 msgid "Choose another image"
 msgstr "Alege altă imagine"

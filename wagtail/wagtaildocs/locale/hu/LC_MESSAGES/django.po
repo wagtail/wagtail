@@ -8,9 +8,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-02-10 15:32+0000\n"
-"PO-Revision-Date: 2016-02-10 09:47+0000\n"
-"Last-Translator: Laszlo Molnar <lazlowmiller@gmail.com>\n"
+"POT-Creation-Date: 2016-03-01 18:52+0000\n"
+"PO-Revision-Date: 2016-03-01 18:59+0000\n"
+"Last-Translator: mattwestcott <matthew@torchbox.com>\n"
 "Language-Team: Hungarian (http://www.transifex.com/torchbox/wagtail/language/"
 "hu/)\n"
 "MIME-Version: 1.0\n"
@@ -18,6 +18,9 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: hu\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Edit"
+msgstr "Szerkeszt"
 
 msgid "title"
 msgstr "oldalcím"
@@ -171,6 +174,9 @@ msgstr[1] ""
 "\n"
 "<span>%(total)s</span> Dokumentumok"
 
+msgid "Delete"
+msgstr "Törlés"
+
 msgid "Search documents"
 msgstr "Keresés a dokumentumokban"
 
@@ -178,15 +184,9 @@ msgstr "Keresés a dokumentumokban"
 msgid "Document '{0}' added."
 msgstr "A '{0}' indexű dokumentum hozzáadva."
 
-msgid "Edit"
-msgstr "Szerkeszt"
-
 msgid "The document could not be saved due to errors."
 msgstr "A dokumentumot nem lehetett elmenteni."
 
 #, python-brace-format
 msgid "Document '{0}' updated"
 msgstr "A '{0}' indexű dokumentum frissítésre került."
-
-msgid "Delete"
-msgstr "Törlés"
