@@ -1,6 +1,6 @@
 from django.utils.six.moves.urllib.parse import urlparse
 from django.http import HttpResponseRedirect
-from django.core.urlresolvers import resolve, reverse, Resolver404
+from django.core.urlresolvers import resolve, Resolver404
 
 
 class ModelAdminMiddleware(object):
@@ -20,14 +20,15 @@ class ModelAdminMiddleware(object):
         referer_url = request.META.get('HTTP_REFERER')
         return_to_index_url = request.session.get('return_to_index_url')
 
-        if all([
-            return_to_index_url,
-            referer_url,
-            request.method == 'GET',
-            not request.is_ajax(),
-            request.path.startswith(reverse('wagtailadmin_explore_root')),
-        ]):
-            try:
+        try:
+            if all([
+                return_to_index_url,
+                referer_url,
+                request.method == 'GET',
+                not request.is_ajax(),
+                resolve(request.path).url_name in ('wagtailadmin_explore_root',
+                                                   'wagtailadmin_explore'),
+            ]):
                 referer_match = resolve(urlparse(referer_url).path)
                 if all((
                     referer_match.namespace == 'wagtailadmin_pages',
@@ -37,7 +38,7 @@ class ModelAdminMiddleware(object):
                     del request.session['return_to_index_url']
                     return HttpResponseRedirect(return_to_index_url)
 
-            except Resolver404:
-                pass
+        except Resolver404:
+            pass
 
         return None
