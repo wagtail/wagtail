@@ -138,22 +138,25 @@ Translators
 * Greek: Jim Dal, dotoree, Wasilis Mandratzis-Walz, NeotheOne, Serafeim Papastefanos
 * Hebrew (Israel): bjesus, Lior Abazon
 * Hungarian: Laszlo Molnar
-* Icelandic: Arnar Tumi Þorsteinsson, Sævar Öfjörð Magnússon
+* Icelandic (Iceland): Arnar Tumi Þorsteinsson, Sævar Öfjörð Magnússon
+* Indonesian (Indonesia): Sutrisno Efendi
 * Italian: Edd Baldry, Claudio Bantaloukas, Giacomo Ghizzani, Alessio Di Stasio, Andrea Tagliazucchi
 * Japanese: Sangmin Ahn, Shu Ishida, Daigo Shitara, takuan_osho
 * Korean: Kyungil Choi, Ji Han Chung
 * Latvian: Maris Serzans
 * Mongolian: Delgermurun Purevkhuu
 * Norwegian Bokmål: Eirik Krogstad, Robin Skahjem-Eriksen
+* Persian: Mohammad reza Jelveh
 * Polish: Mateusz, mmiskiew, utek
 * Portuguese (Brazil): Claudemiro Alves Feitosa Neto, Gladson Brito, Thiago Cangussu, Gilson Filho, João Luiz Lorencetti, Douglas Miranda
 * Portuguese (Portugal): Gladson Brito, Thiago Cangussu, Tiago Henriques, Jose Lourenco, Nuno Matos, Douglas Miranda, Manuela Silva
 * Romanian: Dan Braghis
 * Russian: ajk, Daniil, HNKNTA, Sergiy Khalymon, Sergey Komarov, Eugene MechanisM
-* Spanish: José Alaguna, Mauricio Baeza, Daniel Chimeno, fonso, fooflare, Joaquín Tita, Unai Zalakain
 * Slovak (Slovakia): dellax
+* Spanish: José Alaguna, Mauricio Baeza, Daniel Chimeno, fonso, fooflare, Joaquín Tita, Unai Zalakain
 * Swedish: Ludwig Kjellström, Thomas Kunambi, Hannes Lohmander
 * Swedish (Sweden): Thomas Kunambi
 * Turkish: Cihad Gündoǧdu
 * Turkish (Turkey): José Alaguna, Ragıp Ünal
+* Ukrainian: Mykola Zamkovoi
 * Vietnamese: Luan Nguyen
