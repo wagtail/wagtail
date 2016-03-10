@@ -93,17 +93,11 @@ class Site(models.Model):
         return (self.hostname, self.port)
 
     def __str__(self):
-            if self.site_name:
-                return(
-                    self.site_name +
-                    (" [default]" if self.is_default_site else "")
-                )
-            else:
-                return(
-                    self.hostname +
-                    ("" if self.port == 80 else (":%d" % self.port)) +
-                    (" [default]" if self.is_default_site else "")
-                )
+        return (
+            self.hostname +
+            ("" if self.port == 80 else (":%d" % self.port)) +
+            (" [default]" if self.is_default_site else "")
+        )
 
     @staticmethod
     def find_for_request(request):
