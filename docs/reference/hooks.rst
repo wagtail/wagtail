@@ -79,7 +79,7 @@ Hooks for building new areas of the admin interface (alongside pages, images, do
 ``construct_main_menu``
 ~~~~~~~~~~~~~~~~~~~~~~~
 
-  Called just before the Wagtail admin menu is output, to allow the list of menu items to be modified. The callable passed to this hook will receive a ``request`` object and a list of ``menu_items``, and should modify ``menu_items`` in-place as required. Adding menu items should generally be done through the ``register_admin_menu_item`` hook instead - items added through ``construct_main_menu`` will be missing any associated Javascript includes, and their ``is_shown`` check will not be applied.
+  Called just before the Wagtail admin menu is output, to allow the list of menu items to be modified. The callable passed to this hook will receive a ``request`` object and a list of ``menu_items``, and should modify ``menu_items`` in-place as required. Adding menu items should generally be done through the ``register_admin_menu_item`` hook instead - items added through ``construct_main_menu`` will be missing any associated JavaScript includes, and their ``is_shown`` check will not be applied.
 
   .. code-block:: python
 
@@ -120,7 +120,7 @@ Hooks for building new areas of the admin interface (alongside pages, images, do
   :attrs: additional HTML attributes to apply to the link
   :order: an integer which determines the item's position in the menu
 
-  ``MenuItem`` can be subclassed to customise the HTML output, specify Javascript files required by the menu item, or conditionally show or hide the item for specific requests (for example, to apply permission checks); see the source code (``wagtail/wagtailadmin/menu.py``) for details.
+  ``MenuItem`` can be subclassed to customise the HTML output, specify JavaScript files required by the menu item, or conditionally show or hide the item for specific requests (for example, to apply permission checks); see the source code (``wagtail/wagtailadmin/menu.py``) for details.
 
   .. code-block:: python
 
@@ -197,7 +197,7 @@ Hooks for building new areas of the admin interface (alongside pages, images, do
   A template tag, ``search_other`` is provided by the ``wagtailadmin_tags`` template module. This tag takes a single, optional parameter, ``current``, which allows you to specify the ``name`` of the search option currently active. If the parameter is not given, the hook defaults to a reverse lookup of the page's URL for comparison against the ``url`` parameter.
 
 
-  ``SearchArea`` can be subclassed to customise the HTML output, specify Javascript files required by the option, or conditionally show or hide the item for specific requests (for example, to apply permission checks); see the source code (``wagtail/wagtailadmin/search.py``) for details.
+  ``SearchArea`` can be subclassed to customise the HTML output, specify JavaScript files required by the option, or conditionally show or hide the item for specific requests (for example, to apply permission checks); see the source code (``wagtail/wagtailadmin/search.py``) for details.
 
   .. code-block:: python
 
@@ -295,7 +295,7 @@ Add additional CSS files or snippets to all admin pages.
 ``insert_editor_js``
 ~~~~~~~~~~~~~~~~~~~~
 
-  Add additional Javascript files or code snippets to the page editor.
+  Add additional JavaScript files or code snippets to the page editor.
 
   .. code-block:: python
 
