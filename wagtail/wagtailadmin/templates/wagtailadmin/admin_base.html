@@ -25,6 +25,7 @@
     <script src="{% static 'wagtailadmin/js/vendor/jquery.dlmenu.js' %}"></script>
     <script src="{% static 'wagtailadmin/js/vendor/tag-it.js' %}"></script>
     <script src="{% static 'wagtailadmin/js/core.js' %}"></script>
+    {% hook_output 'insert_global_admin_js' %}
 
     {% main_nav_js %}
 
