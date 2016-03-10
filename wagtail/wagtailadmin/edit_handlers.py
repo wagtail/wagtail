@@ -1,6 +1,8 @@
 from __future__ import unicode_literals
 
 import django
+import re
+import math
 from django import forms
 from django.contrib.contenttypes.models import ContentType
 from django.core.exceptions import ImproperlyConfigured
@@ -340,6 +342,14 @@ class FieldRowPanel(object):
         self.classname = classname
 
     def bind_to_model(self, model):
+        col_count = " col" + str(int(math.floor(12 / len(self.children))))
+
+        # If child panel doesn't have a col# class then append default based on
+        # number of columns
+        for child in self.children:
+            if re.match("^.*?(col)[1-9]{1}(?![3-9])[0-2]{0,1}.*?$", child.classname) is None:
+                child.classname += col_count
+
         return type(str('_FieldRowPanel'), (BaseFieldRowPanel,), {
             'model': model,
             'children': [child.bind_to_model(model) for child in self.children],
