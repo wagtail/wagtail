@@ -262,8 +262,8 @@ class ChoiceBlock(FieldBlock):
 
 class RichTextBlock(FieldBlock):
 
-    def __init__(self, required=True, help_text=None, **kwargs):
-        self.field_options = {'required': required, 'help_text': help_text}
+    def __init__(self, required=True, help_text=None, widget=None, **kwargs):
+        self.field_options = {'required': required, 'help_text': help_text, 'widget': widget}
         super(RichTextBlock, self).__init__(**kwargs)
 
     def get_default(self):
@@ -284,8 +284,12 @@ class RichTextBlock(FieldBlock):
 
     @cached_property
     def field(self):
-        from wagtail.wagtailcore.fields import RichTextArea
-        return forms.CharField(widget=RichTextArea, **self.field_options)
+        field_kwargs = self.field_options.copy()
+        # check if a custom widget has been set or use default
+        if not field_kwargs.get('widget'):
+            from wagtail.wagtailcore.fields import RichTextArea
+            field_kwargs.update({'widget': RichTextArea})
+        return forms.CharField(**field_kwargs)
 
     def value_for_form(self, value):
         # RichTextArea takes the source-HTML string as input (and takes care

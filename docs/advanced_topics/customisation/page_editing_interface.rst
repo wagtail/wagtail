@@ -61,6 +61,51 @@ However, template output from :class:`~wagtail.wagtailcore.fields.RichTextField`
 
 If you're interested in extending the capabilities of the Wagtail WYSIWYG editor (``hallo.js``), See :ref:`extending_wysiwyg`.
 
+.. _custom_config:
+
+Passing a custom ``hallo.js`` editor configuration
+--------------------------------------------------
+
+A custom ``hallo.js`` JSON configuration can be passed through the default widgets RichTextArea ``editor_config`` attribute.
+
+.. code-block:: python
+
+    from wagtail.wagtailcore.fields import RichTextField
+    from wagtail.wagtailadmin.edit_handlers import FieldPanel
+
+    from wagtail.wagtailcore.fields import RichTextArea
+
+    simple_config={
+        'plugins': {
+            'halloheadings': {
+                'formatBlocks': ['p', 'h2']
+            },
+            'halloformat': {
+                'formattings': {
+                    "bold": True,
+                    "italic": False,
+                },
+            },
+            'hallowagtaildoclink': {},
+            'hallolists': {
+                "lists": {
+                    "ordered": True,
+                    "unordered": False
+                }
+            },
+            'hallowagtaillink': {},
+            'hallorequireparagraphs': {}
+        }
+
+    }
+
+    class BookPage(Page):
+        book_text = RichTextField(widget=RichTextArea(editor_config=simple_config))
+
+        content_panels = Page.content_panels + [
+            FieldPanel('body', classname="full"),
+        ]
+
 .. _extending_wysiwyg:
 
 Extending the WYSIWYG Editor (``hallo.js``)

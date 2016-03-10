@@ -131,6 +131,52 @@ RichTextBlock
 
 A WYSIWYG editor for creating formatted text including links, bold / italics etc.
 
+The keyword arguments ``required``, ``help_text`` and ``widget`` are accepted.
+
+A custom ``hallo.js`` JSON configuration can be passed through the default RichTextArea widgets ``editor_config`` attribute.
+
+.. code-block:: python
+
+    from wagtail.wagtailadmin.edit_handlers import StreamFieldPanel
+    from wagtail.wagtailcore.blocks import RichTextBlock
+    from wagtail.wagtailcore.fields import StreamField
+
+    from wagtail.wagtailcore.fields import RichTextArea
+
+    simple_config={
+        'plugins': {
+            'halloheadings': {
+                'formatBlocks': ['p', 'h2']
+            },
+            'halloformat': {
+                'formattings': {
+                    "bold": True,
+                    "italic": False,
+                },
+            },
+            'hallowagtaildoclink': {},
+            'hallolists': {
+                "lists": {
+                    "ordered": True,
+                    "unordered": False
+                }
+            },
+            'hallowagtaillink': {},
+            'hallorequireparagraphs': {}
+        }
+
+    }
+
+    class BookPage(Page):
+
+        page_intro = StreamField([
+            ('paragraph', RichTextBlock(required=False, widget=RichTextArea(editor_config=simple_config))
+        ])
+
+        content_panels = Page.content_panels + [
+            StreamFieldPanel('page_intro'),
+        ]
+
 RawHTMLBlock
 ~~~~~~~~~~~~
 

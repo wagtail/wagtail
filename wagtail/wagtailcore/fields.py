@@ -12,33 +12,54 @@ from wagtail.utils.widgets import WidgetWithScript
 from wagtail.wagtailcore.blocks import Block, StreamBlock, StreamValue, BlockField
 
 
-class RichTextArea(WidgetWithScript, forms.Textarea):
+class BaseTextAreaWidget(WidgetWithScript, forms.Textarea):
+
+    def __init__(self, editor_config=None, **kwargs):
+        # set the base editor configuration if existent
+        self.editor_config = editor_config
+        super(BaseTextAreaWidget, self).__init__(**kwargs)
+
     def get_panel(self):
-        from wagtail.wagtailadmin.edit_handlers import RichTextFieldPanel
-        return RichTextFieldPanel
+        raise NotImplementedError(
+            "Class %s doesn't implement the required get_panel() method" % (self.__class__.__name__))
 
     def render(self, name, value, attrs=None):
         if value is None:
             translated_value = None
         else:
             translated_value = expand_db_html(value, for_editor=True)
-        return super(RichTextArea, self).render(name, translated_value, attrs)
-
-    def render_js_init(self, id_, name, value):
-        return "makeRichTextEditable({0});".format(json.dumps(id_))
+        return super(BaseTextAreaWidget, self).render(name, translated_value, attrs)
 
     def value_from_datadict(self, data, files, name):
-        original_value = super(RichTextArea, self).value_from_datadict(data, files, name)
+        original_value = super(BaseTextAreaWidget, self).value_from_datadict(data, files, name)
         if original_value is None:
             return None
         return DbWhitelister.clean(original_value)
 
 
+class RichTextArea(BaseTextAreaWidget):
+
+    def get_panel(self):
+        from wagtail.wagtailadmin.edit_handlers import RichTextFieldPanel
+        return RichTextFieldPanel
+
+    def render_js_init(self, id_, name, value):
+        return "makeRichTextEditable({0}, {1});".format(json.dumps(id_), json.dumps(self.editor_config))
+
+
 class RichTextField(models.TextField):
+
+    def __init__(self, widget=None, **kwargs):
+        self.field_options = {'widget': widget}
+        super(RichTextField, self).__init__(**kwargs)
+
     def formfield(self, **kwargs):
-        defaults = {'widget': RichTextArea}
-        defaults.update(kwargs)
-        return super(RichTextField, self).formfield(**defaults)
+        field_kwargs = self.field_options.copy()
+        # check if a custom widget has been set or use default
+        if not field_kwargs.get('widget'):
+            field_kwargs.update({'widget': RichTextArea})
+        field_kwargs.update(kwargs)
+        return super(RichTextField, self).formfield(**field_kwargs)
 
 
 class StreamField(with_metaclass(models.SubfieldBase, models.Field)):

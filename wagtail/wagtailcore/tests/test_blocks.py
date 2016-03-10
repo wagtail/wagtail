@@ -11,6 +11,7 @@ from django.utils.safestring import mark_safe, SafeData
 from django.utils.html import format_html
 
 from wagtail.wagtailcore import blocks
+from wagtail.wagtailcore.fields import RichTextArea
 from wagtail.wagtailcore.rich_text import RichText
 from wagtail.wagtailcore.models import Page
 
@@ -186,6 +187,17 @@ class TestRichTextBlock(TestCase):
         result = block.clean(RichText(''))
         self.assertIsInstance(result, RichText)
         self.assertEqual(result.source, '')
+
+    def test_widget_custom_widget_richtext_block(self):
+        custom_widget = RichTextArea(editor_config={'custom': {'testix': {'formatBlocks': ['p', 'h2']}}})
+        block = blocks.RichTextBlock(widget=custom_widget)
+
+        self.assertEqual(block.field.widget, custom_widget)
+
+    def test_widget_default_widget_richtext_block(self):
+        block = blocks.RichTextBlock()
+
+        self.assertIsInstance(block.field.widget, RichTextArea)
 
 
 class TestChoiceBlock(unittest.TestCase):
