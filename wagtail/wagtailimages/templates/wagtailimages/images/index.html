@@ -11,6 +11,12 @@
             termInput: "#id_q",
             targetOutput: "#image-results"
         }
+
+        $(function() {
+            $('#collection_chooser_collection_id').change(function() {
+                this.form.submit();
+            })
+        });
     </script>
 {% endblock %}
 
@@ -25,6 +31,14 @@
     {% endif %}
 
     <div class="nice-padding">
+        {% if collections %}
+            <form class="image-search search-bar" action="{% url 'wagtailimages:index' %}" method="GET">
+                <ul class="fields">
+                    {% include "wagtailadmin/shared/collection_chooser.html" %}
+                </ul>
+            </form>
+        {% endif %}
+
         <div id="image-results">
             {% include "wagtailimages/images/results.html" %}
         </div>

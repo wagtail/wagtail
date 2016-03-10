@@ -12,8 +12,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-02-05 17:01+0000\n"
-"PO-Revision-Date: 2016-02-05 17:09+0000\n"
+"POT-Creation-Date: 2016-03-01 18:52+0000\n"
+"PO-Revision-Date: 2016-03-01 18:59+0000\n"
 "Last-Translator: mattwestcott <matthew@torchbox.com>\n"
 "Language-Team: Greek (http://www.transifex.com/torchbox/wagtail/language/"
 "el/)\n"
@@ -22,6 +22,9 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: el\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Edit"
+msgstr "Επεξεργασία"
 
 msgid "Choose a document"
 msgstr "Επιλογή εγγράφου"
@@ -153,15 +156,15 @@ msgstr[1] ""
 "                <span>%(total)s</span> Έγγραφα\n"
 "            "
 
+msgid "Delete"
+msgstr "Διαγραφή"
+
 msgid "Search documents"
 msgstr "Αναζήτηση εγγράφων"
 
 #, python-brace-format
 msgid "Document '{0}' added."
 msgstr "Το έγγραφο '{0}' προστέθηκε."
-
-msgid "Edit"
-msgstr "Επεξεργασία"
 
 msgid "The document could not be saved due to errors."
 msgstr "Δεν ήταν δυνατή η αποθήκευση του εγγράφου."
@@ -175,9 +178,6 @@ msgid ""
 msgstr ""
 "Το αρχείο δεν μπορεσε να βρεθεί. Παρακαλούμε να αλλάξετε την πηγή ή να "
 "διαγράψετε το έγγραφο"
-
-msgid "Delete"
-msgstr "Διαγραφή"
 
 #, python-brace-format
 msgid "Document '{0}' deleted."

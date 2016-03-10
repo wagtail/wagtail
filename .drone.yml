@@ -6,11 +6,12 @@ build:
     commands:
       - XDG_CACHE_HOME=/drone/pip-cache pip install flake8
       - flake8 wagtail
-  jscs:
+  js:
     image: node:4.2.4
     commands:
-      - npm install -g jscs@"^1.12.0" --quiet
-      - jscs ./wagtail
+      - npm install --quiet
+      - npm run lint
+      - npm run test:unit
   scss-lint:
     image: wagtail-scss-lint
     commands:

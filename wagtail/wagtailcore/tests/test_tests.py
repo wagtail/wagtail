@@ -53,7 +53,7 @@ class TestWagtailPageTests(WagtailPageTests):
             ])})
 
     def test_assert_can_create_subpage_rules(self):
-        simple_page = SimplePage(title='Simple Page', slug='simple')
+        simple_page = SimplePage(title='Simple Page', slug='simple', content="hello")
         self.root.add_child(instance=simple_page)
         # This should raise an error, as a BusinessChild can not be created under a SimplePage
         with self.assertRaisesRegex(AssertionError, r'Can not create a tests.businesschild under a tests.simplepage'):

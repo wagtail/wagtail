@@ -16,6 +16,7 @@ from django.utils.encoding import python_2_unicode_compatible
 
 from wagtail.wagtailadmin.taggable import TagSearchable
 from wagtail.wagtailadmin.utils import get_object_usage
+from wagtail.wagtailcore.models import CollectionMember
 from wagtail.wagtailsearch import index
 from wagtail.wagtailsearch.queryset import SearchableQuerySetMixin
 
@@ -25,7 +26,7 @@ class DocumentQuerySet(SearchableQuerySetMixin, models.QuerySet):
 
 
 @python_2_unicode_compatible
-class AbstractDocument(models.Model, TagSearchable):
+class AbstractDocument(CollectionMember, TagSearchable):
     title = models.CharField(max_length=255, verbose_name=_('title'))
     file = models.FileField(upload_to='documents', verbose_name=_('file'))
     created_at = models.DateTimeField(verbose_name=_('created at'), auto_now_add=True)
@@ -42,7 +43,7 @@ class AbstractDocument(models.Model, TagSearchable):
 
     objects = DocumentQuerySet.as_manager()
 
-    search_fields = TagSearchable.search_fields + (
+    search_fields = TagSearchable.search_fields + CollectionMember.search_fields + (
         index.FilterField('uploaded_by_user'),
     )
 
@@ -82,6 +83,7 @@ class Document(AbstractDocument):
     admin_form_fields = (
         'title',
         'file',
+        'collection',
         'tags'
     )
 

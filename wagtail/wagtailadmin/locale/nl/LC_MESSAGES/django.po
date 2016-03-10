@@ -10,16 +10,17 @@
 # Huib Keemink <huib@creativedutchmen.com>, 2015
 # mahulst, 2014
 # mahulst, 2014
-# mvantellingen <michaelvantellingen@gmail.com>, 2015
+# Michael van Tellingen <michaelvantellingen@gmail.com>, 2015
 # Samuel Leeuwenburg, 2014
 # Samuel Leeuwenburg, 2014
 # Thijs Kramer <thijskramer@gmail.com>, 2015
+# Thijs Kramer <thijskramer@gmail.com>, 2016
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-02-05 17:01+0000\n"
-"PO-Revision-Date: 2016-02-05 17:08+0000\n"
+"POT-Creation-Date: 2016-03-01 18:51+0000\n"
+"PO-Revision-Date: 2016-03-01 18:55+0000\n"
 "Last-Translator: mattwestcott <matthew@torchbox.com>\n"
 "Language-Team: Dutch (http://www.transifex.com/torchbox/wagtail/language/"
 "nl/)\n"
@@ -39,16 +40,19 @@ msgid "Content"
 msgstr "Inhoud"
 
 msgid "Promote"
-msgstr "Promoot"
+msgstr "Eigenschappen"
 
 msgid "Settings"
 msgstr "Instellingen"
 
 msgid "Search"
-msgstr "Zoek"
+msgstr "Zoeken"
 
 msgid "Search term"
 msgstr "Zoekterm"
+
+msgid "URL"
+msgstr "URL"
 
 msgid "Enter password"
 msgstr "Voer wachtwoord in"
@@ -71,7 +75,7 @@ msgstr ""
 "wordt door een andere server."
 
 msgid "This email address is not recognised."
-msgstr "Dit e-mailadres is onbekend"
+msgstr "Dit e-mailadres is onbekend."
 
 msgid "New title"
 msgstr "Nieuwe titel"

@@ -31,7 +31,7 @@ gulp.task('styles:sass', function () {
             errLogToConsole: true,
             includePaths: includePaths,
             outputStyle: 'expanded'
-        }))
+        }).on('error', sass.logError))
         .pipe(autoprefixer({
             browsers: ['last 3 versions', 'not ie <= 8'],
             cascade: false

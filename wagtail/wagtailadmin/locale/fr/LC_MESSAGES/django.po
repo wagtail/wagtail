@@ -15,8 +15,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-02-05 17:01+0000\n"
-"PO-Revision-Date: 2016-02-05 17:08+0000\n"
+"POT-Creation-Date: 2016-03-01 18:51+0000\n"
+"PO-Revision-Date: 2016-03-01 18:55+0000\n"
 "Last-Translator: mattwestcott <matthew@torchbox.com>\n"
 "Language-Team: French (http://www.transifex.com/torchbox/wagtail/language/"
 "fr/)\n"
@@ -590,6 +590,9 @@ msgstr "Publier"
 msgid "Submit for moderation"
 msgstr "Soumettre pour modération"
 
+msgid "This page has unsaved changes."
+msgstr "Cette page contient des changements non enregistrés."
+
 #, python-format
 msgid "Editing %(page_type)s: %(title)s"
 msgstr "Modification de %(page_type)s: %(title)s"
@@ -895,6 +898,10 @@ msgid "Your preferences have been updated successfully!"
 msgstr "Vos préférences ont été mises à jour avec succès !"
 
 #, python-brace-format
+msgid "Page '{0}' created and scheduled for publishing."
+msgstr "Page  '{0}' créée et planifiée pour la publication."
+
+#, python-brace-format
 msgid "Page '{0}' created and published."
 msgstr "Page '{0}' créée et publiée."
 
@@ -914,6 +921,10 @@ msgstr "Page '{0}' créée."
 
 msgid "The page could not be created due to validation errors"
 msgstr "La page n'a pas pu être créée en raison d'erreurs de validation"
+
+#, python-brace-format
+msgid "Page '{0}' scheduled for publishing."
+msgstr "Page  '{0}' planifiée pour la publication."
 
 #, python-brace-format
 msgid "Page '{0}' published."

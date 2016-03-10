@@ -108,7 +108,7 @@
             font-size: inherit;
         }
 
-        &:before, 
+        &:before,
         label:before {
             text-shadow: none;
             font-family: wagtail;
@@ -299,7 +299,7 @@
         min-height: 41px;
 
         h2 {
-            &:before, 
+            &:before,
             label:before {
                 content: '6';
                 cursor: pointer;
@@ -308,7 +308,7 @@
 
         &.collapsed {
             h2 {
-                &:before, 
+                &:before,
                 label:before {
                     content: '5';
                 }
@@ -318,8 +318,8 @@
 }
 
 // Custom styles that make some fields look more important
-.full input, 
-.full textarea, 
+.full input,
+.full textarea,
 .full .richtext {
     @include nice-padding();
     border-radius: 0;
@@ -338,7 +338,7 @@
 
 // Footer control bar for perfoming actions on the page
 footer .preview {
-    button, 
+    button,
     .button {
         background-color: lighten($color-grey-2, 10%);
         border-color: lighten($color-grey-2, 10%);
@@ -350,9 +350,9 @@ footer .preview {
     }
 
     .dropdown {
-        input[type=button], 
-        input[type=submit], 
-        button, 
+        input[type=button],
+        input[type=submit],
+        button,
         .button {
             background-color: lighten($color-grey-2, 10%);
             border-color: lighten($color-grey-2, 10%);
@@ -363,7 +363,7 @@ footer .preview {
             }
         }
 
-        ul, 
+        ul,
         .dropdown-toggle {
             background-color: lighten($color-grey-2, 10%);
         }
@@ -420,8 +420,8 @@ footer .preview {
                 padding: 3.2em 0 0;
             }
 
-            input, 
-            textarea, 
+            input,
+            textarea,
             .richtext {
                 border-width: 0 1px;
             }

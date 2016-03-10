@@ -4,14 +4,14 @@
 #
 # Translators:
 # Maarten Kling <kling.maarten@gmail.com>, 2015
-# Thijs Kramer <thijskramer@gmail.com>, 2015
+# Thijs Kramer <thijskramer@gmail.com>, 2015-2016
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-02-05 17:02+0000\n"
-"PO-Revision-Date: 2016-02-05 17:11+0000\n"
-"Last-Translator: mattwestcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2016-03-01 18:52+0000\n"
+"PO-Revision-Date: 2016-03-08 19:14+0000\n"
+"Last-Translator: Thijs Kramer <thijskramer@gmail.com>\n"
 "Language-Team: Dutch (Netherlands) (http://www.transifex.com/torchbox/"
 "wagtail/language/nl_NL/)\n"
 "MIME-Version: 1.0\n"
@@ -33,16 +33,20 @@ msgid "A user with that username already exists."
 msgstr "Er bestaat al een gebruiker met deze gebruikersnaam."
 
 msgid "The two password fields didn't match."
-msgstr "De twee wachtwoorden komen niet overeen."
+msgstr "De beide wachtwoorden komen niet overeen."
 
 msgid "Administrator"
 msgstr "Administrator"
+
+msgid "Administrators have full access to manage any object or setting."
+msgstr ""
+"Administrators hebben volledige rechten op ieder object en alle instellingen."
 
 msgid "Password"
 msgstr "Wachtwoord"
 
 msgid "Leave blank if not changing."
-msgstr "Laat dit veld leeg wanneer u dit niet wijzigt."
+msgstr "Laat leeg indien u dit niet wilt wijzigen."
 
 msgid "Password confirmation"
 msgstr "Herhaal wachtwoord"
@@ -61,6 +65,11 @@ msgstr "Achternaam"
 
 msgid "A group with that name already exists."
 msgstr "Er bestaat al een groep met deze naam."
+
+msgid "You cannot have multiple permission records for the same page."
+msgstr ""
+"Het is niet mogelijk om meerdere machtigingen voor dezelfde pagina in te "
+"stellen."
 
 msgid "submitted notifications"
 msgstr "ingezonden notificaties"
@@ -139,9 +148,6 @@ msgstr "Pagina-machtigingen"
 
 msgid "Page"
 msgstr "Pagina"
-
-msgid "Permission type"
-msgstr "Machtiging"
 
 msgid "Add a page permission"
 msgstr "Voeg een paginamachtiging toe"
@@ -263,3 +269,6 @@ msgstr "Gebruiker '{0}' is bijgewerkt."
 
 msgid "The user could not be saved due to errors."
 msgstr "De gebruiker kon vanwege fouten niet worden opgeslagen."
+
+msgid "Groups"
+msgstr "Groepen"

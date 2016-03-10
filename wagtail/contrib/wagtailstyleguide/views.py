@@ -32,6 +32,7 @@ class ExampleForm(forms.Form):
     time = forms.TimeField()
     datetime = forms.DateTimeField()
     select = forms.ChoiceField(choices=CHOICES)
+    radio_select = forms.ChoiceField(choices=CHOICES, widget=forms.RadioSelect)
     boolean = forms.BooleanField(required=False)
     page_chooser = forms.BooleanField(required=True)
     image_chooser = forms.BooleanField(required=True)

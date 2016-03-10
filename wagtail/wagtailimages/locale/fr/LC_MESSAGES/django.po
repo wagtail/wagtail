@@ -13,8 +13,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-02-05 17:02+0000\n"
-"PO-Revision-Date: 2016-02-05 17:09+0000\n"
+"POT-Creation-Date: 2016-03-01 18:52+0000\n"
+"PO-Revision-Date: 2016-03-01 19:01+0000\n"
 "Last-Translator: mattwestcott <matthew@torchbox.com>\n"
 "Language-Team: French (http://www.transifex.com/torchbox/wagtail/language/"
 "fr/)\n"
@@ -86,6 +86,9 @@ msgstr "Hauteur"
 msgid "Closeness"
 msgstr "Proximité"
 
+msgid "Edit"
+msgstr "Modifier"
+
 msgid "title"
 msgstr "Titre"
 
@@ -121,6 +124,13 @@ msgstr "Mots-clés populaires"
 
 msgid "Uploading..."
 msgstr "Téléchargement..."
+
+msgid "Server Error"
+msgstr "Erreur du server"
+
+msgid "Report this error to your webmaster with the following information:"
+msgstr ""
+"Signaler cette erreur à votre webmaster avec les informations suivantes:"
 
 #, python-format
 msgid ""
@@ -334,9 +344,6 @@ msgstr "Image '{0}' supprimée."
 #, python-brace-format
 msgid "Image '{0}' added."
 msgstr "Image '{0}' ajoutée."
-
-msgid "Edit"
-msgstr "Modifier"
 
 msgid "The image could not be created due to errors."
 msgstr "L'image n'a pas pu être créée en raison d'erreurs."

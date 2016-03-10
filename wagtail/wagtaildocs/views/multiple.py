@@ -24,6 +24,13 @@ def add(request):
     DocumentForm = get_document_form(Document)
     DocumentMultiForm = get_document_multi_form(Document)
 
+    collections = permission_policy.collections_user_has_permission_for(request.user, 'add')
+    if len(collections) > 1:
+        collections_to_choose = collections
+    else:
+        # no need to show a collections chooser
+        collections_to_choose = None
+
     if request.method == 'POST':
         if not request.is_ajax():
             return HttpResponseBadRequest("Cannot POST to this view without AJAX")
@@ -32,9 +39,12 @@ def add(request):
             return HttpResponseBadRequest("Must upload a file")
 
         # Build a form for validation
-        form = DocumentForm(
-            {'title': request.FILES['files[]'].name},
-            {'file': request.FILES['files[]']})
+        form = DocumentForm({
+            'title': request.FILES['files[]'].name,
+            'collection': request.POST.get('collection'),
+        }, {
+            'file': request.FILES['files[]']
+        }, user=request.user)
 
         if form.is_valid():
             # Save it
@@ -49,7 +59,9 @@ def add(request):
                 'doc_id': int(doc.id),
                 'form': render_to_string('wagtaildocs/multiple/edit_form.html', {
                     'doc': doc,
-                    'form': DocumentMultiForm(instance=doc, prefix='doc-%d' % doc.id),
+                    'form': DocumentMultiForm(
+                        instance=doc, prefix='doc-%d' % doc.id, user=request.user
+                    ),
                 }, request=request),
             })
         else:
@@ -61,10 +73,11 @@ def add(request):
                 'error_message': '\n'.join(['\n'.join([force_text(i) for i in v]) for k, v in form.errors.items()]),
             })
     else:
-        form = DocumentForm()
+        form = DocumentForm(user=request.user)
 
     return render(request, 'wagtaildocs/multiple/add.html', {
         'help_text': form.fields['file'].help_text,
+        'collections': collections_to_choose,
     })
 
 
@@ -81,7 +94,9 @@ def edit(request, doc_id, callback=None):
     if not permission_policy.user_has_permission_for_instance(request.user, 'change', doc):
         raise PermissionDenied
 
-    form = DocumentMultiForm(request.POST, request.FILES, instance=doc, prefix='doc-' + doc_id)
+    form = DocumentMultiForm(
+        request.POST, request.FILES, instance=doc, prefix='doc-' + doc_id, user=request.user
+    )
 
     if form.is_valid():
         form.save()

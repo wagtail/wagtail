@@ -7,7 +7,7 @@ from django.core.urlresolvers import reverse, NoReverseMatch
 from django.http import HttpResponse, JsonResponse
 
 from wagtail.utils.pagination import paginate
-from wagtail.wagtailcore.models import Site
+from wagtail.wagtailcore.models import Site, Collection
 from wagtail.wagtailadmin.forms import SearchForm
 from wagtail.wagtailadmin import messages
 from wagtail.wagtailadmin.utils import PermissionPolicyChecker, permission_denied
@@ -44,7 +44,23 @@ def index(request):
     else:
         form = SearchForm(placeholder=_("Search images"))
 
+    # Filter by collection
+    current_collection = None
+    collection_id = request.GET.get('collection_id')
+    if collection_id:
+        try:
+            current_collection = Collection.objects.get(id=collection_id)
+            images = images.filter(collection=current_collection)
+        except (ValueError, Collection.DoesNotExist):
+            pass
+
     paginator, images = paginate(request, images)
+
+    collections = permission_policy.collections_user_has_any_permission_for(
+        request.user, ['add', 'change']
+    )
+    if len(collections) < 2:
+        collections = None
 
     # Create response
     if request.is_ajax():
@@ -61,6 +77,8 @@ def index(request):
 
             'search_form': form,
             'popular_tags': Image.popular_tags(),
+            'collections': collections,
+            'current_collection': current_collection,
             'user_can_add': permission_policy.user_has_permission(request.user, 'add'),
         })
 
@@ -77,7 +95,7 @@ def edit(request, image_id):
 
     if request.POST:
         original_file = image.file
-        form = ImageForm(request.POST, request.FILES, instance=image)
+        form = ImageForm(request.POST, request.FILES, instance=image, user=request.user)
         if form.is_valid():
             if 'file' in form.changed_data:
                 # if providing a new image file, delete the old one and all renditions.
@@ -102,7 +120,7 @@ def edit(request, image_id):
         else:
             messages.error(request, _("The image could not be saved due to errors."))
     else:
-        form = ImageForm(instance=image)
+        form = ImageForm(instance=image, user=request.user)
 
     # Check if we should enable the frontend url generator
     try:
@@ -193,8 +211,9 @@ def preview(request, image_id, filter_spec):
     image = get_object_or_404(get_image_model(), id=image_id)
 
     try:
-        response, image_format = Filter(spec=filter_spec).run(image, HttpResponse())
-        response['Content-Type'] = 'image/' + image_format
+        response = HttpResponse()
+        image = Filter(spec=filter_spec).run(image, response)
+        response['Content-Type'] = 'image/' + image.format_name
         return response
     except InvalidFilterSpecError:
         return HttpResponse("Invalid filter spec: " + filter_spec, content_type='text/plain', status=400)
@@ -224,7 +243,7 @@ def add(request):
 
     if request.POST:
         image = ImageModel(uploaded_by_user=request.user)
-        form = ImageForm(request.POST, request.FILES, instance=image)
+        form = ImageForm(request.POST, request.FILES, instance=image, user=request.user)
         if form.is_valid():
             # Set image file size
             image.file_size = image.file.size
@@ -242,7 +261,7 @@ def add(request):
         else:
             messages.error(request, _("The image could not be created due to errors."))
     else:
-        form = ImageForm()
+        form = ImageForm(user=request.user)
 
     return render(request, "wagtailimages/images/add.html", {
         'form': form,

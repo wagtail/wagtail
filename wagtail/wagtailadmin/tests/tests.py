@@ -64,7 +64,7 @@ class TestHome(TestCase, WagtailTestUtils):
         # cause a failure when generating Gravatar URLs
         get_user_model().objects.create_superuser(username='snowman', email='☃@thenorthpole.com', password='password')
         # Login
-        self.client.login(username='snowman', password='password')
+        self.assertTrue(self.client.login(username='snowman', password='password'))
         response = self.client.get(reverse('wagtailadmin_home'))
         self.assertEqual(response.status_code, 200)
 
@@ -253,7 +253,7 @@ class TestUserPassesTestPermissionDecorator(TestCase):
     def test_user_passes_test(self):
         # create and log in as a user called Bob
         get_user_model().objects.create_superuser(first_name='Bob', last_name='Mortimer', username='test', email='test@email.com', password='password')
-        self.client.login(username='test', password='password')
+        self.assertTrue(self.client.login(username='test', password='password'))
 
         response = self.client.get(reverse('testapp_bob_only_zone'))
         self.assertEqual(response.status_code, 200)
@@ -261,7 +261,7 @@ class TestUserPassesTestPermissionDecorator(TestCase):
     def test_user_fails_test(self):
         # create and log in as a user not called Bob
         get_user_model().objects.create_superuser(first_name='Vic', last_name='Reeves', username='test', email='test@email.com', password='password')
-        self.client.login(username='test', password='password')
+        self.assertTrue(self.client.login(username='test', password='password'))
 
         response = self.client.get(reverse('testapp_bob_only_zone'))
         self.assertRedirects(response, reverse('wagtailadmin_home'))

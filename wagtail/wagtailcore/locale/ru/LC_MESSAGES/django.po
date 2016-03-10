@@ -4,14 +4,14 @@
 #
 # Translators:
 # ajk, 2014
-# Eugene MechanisM <contact@mechanism.name>, 2014-2015
+# Eugene MechanisM <contact@mechanism.name>, 2014-2016
 # Sergiy Khalymon <sergiykhalimon@gmail.com>, 2015
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-02-05 17:01+0000\n"
-"PO-Revision-Date: 2015-12-17 14:29+0000\n"
+"POT-Creation-Date: 2016-03-01 18:52+0000\n"
+"PO-Revision-Date: 2016-03-03 20:57+0000\n"
 "Last-Translator: Eugene MechanisM <contact@mechanism.name>\n"
 "Language-Team: Russian (http://www.transifex.com/torchbox/wagtail/language/"
 "ru/)\n"
@@ -145,6 +145,9 @@ msgstr "впервые опубликовано"
 msgid "latest revision created at"
 msgstr "последняя ревизия создана"
 
+msgid "This slug is already in use"
+msgstr "Этот слаг уже используется"
+
 msgid "scheduled"
 msgstr "запланированное"
 
@@ -184,14 +187,26 @@ msgstr "версия страницы"
 msgid "page revisions"
 msgstr "версии страницы"
 
+msgid "Add"
+msgstr "Добавить"
+
 msgid "Add/edit pages you own"
 msgstr "Добавить/редактировать свои страницы"
+
+msgid "Edit"
+msgstr "Редактировать"
 
 msgid "Edit any page"
 msgstr "Редактировать любую страницу"
 
+msgid "Publish"
+msgstr "Опубликовать"
+
 msgid "Publish any page"
 msgstr "Опубликовать любую страницу"
+
+msgid "Lock"
+msgstr "Заблокировать"
 
 msgid "Lock/unlock any page"
 msgstr "Заблокировать/разблокировать любую страницу"
@@ -216,3 +231,18 @@ msgstr "ограничение на просмотр страницы"
 
 msgid "page view restrictions"
 msgstr "ограничения на просмотр страниц"
+
+msgid "name"
+msgstr "имя"
+
+msgid "collection"
+msgstr "коллекция"
+
+msgid "collections"
+msgstr "коллекции"
+
+msgid "permission"
+msgstr "права доступа"
+
+msgid "group collection permission"
+msgstr "права доступа к коллекции у группы"

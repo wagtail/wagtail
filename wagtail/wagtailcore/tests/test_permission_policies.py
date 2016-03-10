@@ -11,7 +11,64 @@ from wagtail.wagtailimages.models import Image
 from wagtail.wagtailimages.tests.utils import get_test_image_file
 
 
-class PermissionPolicyTestCase(TestCase):
+class PermissionPolicyTestUtils(object):
+    def assertResultSetEqual(self, actual, expected):
+        self.assertEqual(set(actual), set(expected))
+
+    def assertUserPermissionMatrix(self, test_cases):
+        """
+        Given a list of (user, can_add, can_change, can_delete, can_frobnicate) tuples
+        (where 'frobnicate' is an unrecognised action not defined on the model),
+        confirm that all tuples correctly represent permissions for that user as
+        returned by user_has_permission
+        """
+        actions = ['add', 'change', 'delete', 'frobnicate']
+        for test_case in test_cases:
+            user = test_case[0]
+            expected_results = zip(actions, test_case[1:])
+
+            for (action, expected_result) in expected_results:
+                if expected_result:
+                    self.assertTrue(
+                        self.policy.user_has_permission(user, action),
+                        "User %s should be able to %s, but can't" % (user, action)
+                    )
+                else:
+                    self.assertFalse(
+                        self.policy.user_has_permission(user, action),
+                        "User %s should not be able to %s, but can" % (user, action)
+                    )
+
+    def assertUserInstancePermissionMatrix(self, instance, test_cases):
+        """
+        Given a list of (user, can_change, can_delete, can_frobnicate) tuples
+        (where 'frobnicate' is an unrecognised action not defined on the model),
+        confirm that all tuples correctly represent permissions for that user on
+        the given instance, as returned by user_has_permission_for_instance
+        """
+        actions = ['change', 'delete', 'frobnicate']
+        for test_case in test_cases:
+            user = test_case[0]
+            expected_results = zip(actions, test_case[1:])
+
+            for (action, expected_result) in expected_results:
+                if expected_result:
+                    self.assertTrue(
+                        self.policy.user_has_permission_for_instance(user, action, instance),
+                        "User %s should be able to %s instance %s, but can't" % (
+                            user, action, instance
+                        )
+                    )
+                else:
+                    self.assertFalse(
+                        self.policy.user_has_permission_for_instance(user, action, instance),
+                        "User %s should not be able to %s instance %s, but can" % (
+                            user, action, instance
+                        )
+                    )
+
+
+class PermissionPolicyTestCase(PermissionPolicyTestUtils, TestCase):
     def setUp(self):
         # Permissions
         image_content_type = ContentType.objects.get_for_model(Image)
@@ -110,61 +167,6 @@ class PermissionPolicyTestCase(TestCase):
         self.anonymous_image = Image.objects.create(
             title="anonymous image", file=get_test_image_file(),
         )
-
-    def assertResultSetEqual(self, actual, expected):
-        self.assertEqual(set(actual), set(expected))
-
-    def assertUserPermissionMatrix(self, test_cases):
-        """
-        Given a list of (user, can_add, can_change, can_delete, can_frobnicate) tuples
-        (where 'frobnicate' is an unrecognised action not defined on the model),
-        confirm that all tuples correctly represent permissions for that user as
-        returned by user_has_permission
-        """
-        actions = ['add', 'change', 'delete', 'frobnicate']
-        for test_case in test_cases:
-            user = test_case[0]
-            expected_results = zip(actions, test_case[1:])
-
-            for (action, expected_result) in expected_results:
-                if expected_result:
-                    self.assertTrue(
-                        self.policy.user_has_permission(user, action),
-                        "User %s should be able to %s, but can't" % (user, action)
-                    )
-                else:
-                    self.assertFalse(
-                        self.policy.user_has_permission(user, action),
-                        "User %s should not be able to %s, but can" % (user, action)
-                    )
-
-    def assertUserInstancePermissionMatrix(self, instance, test_cases):
-        """
-        Given a list of (user, can_change, can_delete, can_frobnicate) tuples
-        (where 'frobnicate' is an unrecognised action not defined on the model),
-        confirm that all tuples correctly represent permissions for that user on
-        the given instance, as returned by user_has_permission_for_instance
-        """
-        actions = ['change', 'delete', 'frobnicate']
-        for test_case in test_cases:
-            user = test_case[0]
-            expected_results = zip(actions, test_case[1:])
-
-            for (action, expected_result) in expected_results:
-                if expected_result:
-                    self.assertTrue(
-                        self.policy.user_has_permission_for_instance(user, action, instance),
-                        "User %s should be able to %s instance %s, but can't" % (
-                            user, action, instance
-                        )
-                    )
-                else:
-                    self.assertFalse(
-                        self.policy.user_has_permission_for_instance(user, action, instance),
-                        "User %s should not be able to %s instance %s, but can" % (
-                            user, action, instance
-                        )
-                    )
 
 
 class TestBlanketPermissionPolicy(PermissionPolicyTestCase):

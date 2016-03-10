@@ -5,6 +5,7 @@ Authors
 * David Cranwell (Torchbox) twitter: @davecranwell
 * Karl Hobley (Torchbox) twitter: @kaedroho
 * Tim Heap (Takeflight)
+* Josh Barr (Springload)
 
 Contributors
 ============
@@ -72,7 +73,6 @@ Contributors
 * Alex Gleason
 * Ryan Pineo
 * Petr Vacha
-* Josh Barr
 * Sævar Öfjörð Magnússon
 * Ashia Zawaduk
 * Denis Voskvitsov
@@ -93,7 +93,7 @@ Contributors
 * Rich Atkinson
 * jnns
 * Eugene MechanisM
-* benjaoming
+* Benjamin Bach
 * Alexander Bogushov
 * Aarni Koskela
 * alexpilot11
@@ -105,7 +105,16 @@ Contributors
 * Mikalai Radchuk
 * Charlie Choiniere
 * Nigel Fletton
-
+* Kait Crawford
+* Adam Bolfik
+* Thomas Winter
+* Gareth Price
+* Liam Brenner
+* Nicolas Kuttler
+* Mike Dingjan
+* Loic Teixeira
+* Juha Kujala
+* Eirik Krogstad
 
 Translators
 ===========
@@ -129,22 +138,25 @@ Translators
 * Greek: Jim Dal, dotoree, Wasilis Mandratzis-Walz, NeotheOne, Serafeim Papastefanos
 * Hebrew (Israel): bjesus, Lior Abazon
 * Hungarian: Laszlo Molnar
-* Icelandic: Arnar Tumi Þorsteinsson, Sævar Öfjörð Magnússon
+* Icelandic (Iceland): Arnar Tumi Þorsteinsson, Sævar Öfjörð Magnússon
+* Indonesian (Indonesia): Sutrisno Efendi
 * Italian: Edd Baldry, Claudio Bantaloukas, Giacomo Ghizzani, Alessio Di Stasio, Andrea Tagliazucchi
 * Japanese: Sangmin Ahn, Shu Ishida, Daigo Shitara, takuan_osho
 * Korean: Kyungil Choi, Ji Han Chung
 * Latvian: Maris Serzans
 * Mongolian: Delgermurun Purevkhuu
 * Norwegian Bokmål: Eirik Krogstad, Robin Skahjem-Eriksen
-* Polish: Mateusz, utek
+* Persian: Mohammad reza Jelveh
+* Polish: Mateusz, mmiskiew, utek
 * Portuguese (Brazil): Claudemiro Alves Feitosa Neto, Gladson Brito, Thiago Cangussu, Gilson Filho, João Luiz Lorencetti, Douglas Miranda
 * Portuguese (Portugal): Gladson Brito, Thiago Cangussu, Tiago Henriques, Jose Lourenco, Nuno Matos, Douglas Miranda, Manuela Silva
 * Romanian: Dan Braghis
 * Russian: ajk, Daniil, HNKNTA, Sergiy Khalymon, Sergey Komarov, Eugene MechanisM
-* Spanish: José Alaguna, Mauricio Baeza, Daniel Chimeno, fonso, fooflare, Joaquín Tita, Unai Zalakain
 * Slovak (Slovakia): dellax
+* Spanish: José Alaguna, Mauricio Baeza, Daniel Chimeno, fonso, fooflare, Joaquín Tita, Unai Zalakain
 * Swedish: Ludwig Kjellström, Thomas Kunambi, Hannes Lohmander
 * Swedish (Sweden): Thomas Kunambi
 * Turkish: Cihad Gündoǧdu
 * Turkish (Turkey): José Alaguna, Ragıp Ünal
+* Ukrainian: Mykola Zamkovoi
 * Vietnamese: Luan Nguyen

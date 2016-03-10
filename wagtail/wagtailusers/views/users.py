@@ -28,39 +28,42 @@ def index(request):
     q = None
     is_searching = False
 
+    model_fields = [f.name for f in User._meta.get_fields()]
+
     if 'q' in request.GET:
         form = SearchForm(request.GET, placeholder=_("Search users"))
         if form.is_valid():
             q = form.cleaned_data['q']
-
             is_searching = True
+            conditions = Q()
 
-            if User.USERNAME_FIELD == 'username':
-                users = User.objects.filter(
-                    Q(username__icontains=q) |
-                    Q(first_name__icontains=q) |
-                    Q(last_name__icontains=q) |
-                    Q(email__icontains=q)
-                )
-            else:
-                users = User.objects.filter(
-                    Q(first_name__icontains=q) |
-                    Q(last_name__icontains=q) |
-                    Q(email__icontains=q)
-                )
+            if 'username' in model_fields:
+                conditions |= Q(username__icontains=q)
+
+            if 'first_name' in model_fields:
+                conditions |= Q(first_name__icontains=q)
+
+            if 'last_name' in model_fields:
+                conditions |= Q(last_name__icontains=q)
+
+            if 'email' in model_fields:
+                conditions |= Q(email__icontains=q)
+
+            users = User.objects.filter(conditions)
     else:
         form = SearchForm(placeholder=_("Search users"))
 
     if not is_searching:
-        users = User.objects
+        users = User.objects.all()
 
-    users = users.order_by('last_name', 'first_name')
+    if 'last_name' in model_fields and 'first_name' in model_fields:
+        users = users.order_by('last_name', 'first_name')
 
     if 'ordering' in request.GET:
         ordering = request.GET['ordering']
 
         if ordering == 'username':
-            users = users.order_by(ordering)
+            users = users.order_by(User.USERNAME_FIELD)
     else:
         ordering = 'name'
 

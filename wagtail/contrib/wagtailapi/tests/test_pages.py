@@ -652,7 +652,6 @@ class TestPageDetailWithStreamField(TestCase):
     def make_stream_page(self, body):
         stream_page = StreamPage(
             title='stream page',
-            slug='stream-page',
             body=body
         )
         return self.homepage.add_child(instance=stream_page)

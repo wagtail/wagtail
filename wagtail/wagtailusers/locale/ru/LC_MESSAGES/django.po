@@ -4,16 +4,16 @@
 #
 # Translators:
 # ajk, 2014
-# Eugene MechanisM <contact@mechanism.name>, 2014-2015
+# Eugene MechanisM <contact@mechanism.name>, 2014-2016
 # HNKNTA <hnknta@gmail.com>, 2014
 # Sergey Komarov <sjkomarov@gmail.com>, 2014
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-02-05 17:02+0000\n"
-"PO-Revision-Date: 2016-02-05 17:11+0000\n"
-"Last-Translator: mattwestcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2016-03-01 18:52+0000\n"
+"PO-Revision-Date: 2016-03-03 20:58+0000\n"
+"Last-Translator: Eugene MechanisM <contact@mechanism.name>\n"
 "Language-Team: Russian (http://www.transifex.com/torchbox/wagtail/language/"
 "ru/)\n"
 "MIME-Version: 1.0\n"
@@ -41,6 +41,11 @@ msgstr "Два поля с паролями не совпадают."
 msgid "Administrator"
 msgstr "Администратор"
 
+msgid "Administrators have full access to manage any object or setting."
+msgstr ""
+"Администраторы имеют полный доступ для управления любыми объектами или "
+"настройками."
+
 msgid "Password"
 msgstr "Пароль"
 
@@ -64,6 +69,11 @@ msgstr "Фамилия"
 
 msgid "A group with that name already exists."
 msgstr "Группа с таким названием уже существует."
+
+msgid "You cannot have multiple permission records for the same page."
+msgstr ""
+"Вы не можете иметь несколько записей с правами доступа на одной и той же "
+"странице."
 
 msgid "submitted notifications"
 msgstr "уведомления при добавлении"
@@ -142,9 +152,6 @@ msgstr "Права у страницы"
 
 msgid "Page"
 msgstr "Страница"
-
-msgid "Permission type"
-msgstr "Тип прав"
 
 msgid "Add a page permission"
 msgstr "Добавить разрешения страницы"
@@ -271,3 +278,6 @@ msgstr "Пользователь '{0}' обновлен."
 
 msgid "The user could not be saved due to errors."
 msgstr "Пользователь но может быть сохранен из-за ошибок."
+
+msgid "Groups"
+msgstr "Группы"

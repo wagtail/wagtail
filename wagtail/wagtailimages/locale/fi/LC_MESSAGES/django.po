@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-02-05 17:02+0000\n"
-"PO-Revision-Date: 2016-02-05 17:09+0000\n"
+"POT-Creation-Date: 2016-03-01 18:52+0000\n"
+"PO-Revision-Date: 2016-03-01 19:01+0000\n"
 "Last-Translator: mattwestcott <matthew@torchbox.com>\n"
 "Language-Team: Finnish (http://www.transifex.com/torchbox/wagtail/language/"
 "fi/)\n"
@@ -80,6 +80,9 @@ msgstr "Korkeus"
 
 msgid "Closeness"
 msgstr "Läheisyys"
+
+msgid "Edit"
+msgstr "Muokkaa"
 
 msgid "title"
 msgstr "otsikko"
@@ -324,9 +327,6 @@ msgstr "Kuva '{0}' poistettu."
 #, python-brace-format
 msgid "Image '{0}' added."
 msgstr "Kuva '{0}' lisätty."
-
-msgid "Edit"
-msgstr "Muokkaa"
 
 msgid "The image could not be created due to errors."
 msgstr "Kuvaa ei voitu luoda virheiden vuoksi."

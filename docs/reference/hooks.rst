@@ -91,6 +91,23 @@ Hooks for building new areas of the admin interface (alongside pages, images, do
         menu_items[:] = [item for item in menu_items if item.name != 'explorer']
 
 
+.. _describe_collection_contents:
+
+``describe_collection_contents``
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+  Called when Wagtail needs to find out what objects exist in a collection, if any. Currently this happens on the confirmation before deleting a collection, to ensure that non-empty collections cannot be deleted. The callable passed to this hook will receive a ``collection`` object, and should return either ``None`` (to indicate no objects in this collection), or a dict containing the following keys:
+
+``count``
+  A numeric count of items in this collection
+
+``count_text``
+  A human-readable string describing the number of items in this collection, such as "3 documents". (Sites with multi-language support should return a translatable string here, most likely using the ``django.utils.translation.ungettext`` function.)
+
+``url`` (optional)
+  A URL to an index page that lists the objects being described.
+
+
 .. _register_admin_menu_item:
 
 ``register_admin_menu_item``
@@ -143,6 +160,14 @@ Hooks for building new areas of the admin interface (alongside pages, images, do
       return [
         url(r'^how_did_you_almost_know_my_name/$', admin_view, name='frank' ),
       ]
+
+
+.. _register_group_permission_panel:
+
+``register_group_permission_panel``
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+  Add a new panel to the Groups form in the 'settings' area. The callable passed to this hook must return a ModelForm / ModelFormSet-like class, with a constructor that accepts a group object as its ``instance`` keyword argument, and which implements the methods ``save``, ``is_valid``, and ``as_admin_panel`` (which returns the HTML to be included on the group edit page).
 
 
 .. _register_settings_menu_item:
@@ -244,6 +269,27 @@ Hooks for customising the editing interface for pages and snippets.
       + 'demo/css/vendor/font-awesome/css/font-awesome.min.css">')
 
 
+.. _insert_global_admin_css:
+
+``insert_global_admin_css``
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Add additional CSS files or snippets to all admin pages.
+
+.. code-block:: python
+
+  from django.utils.html import format_html
+  from django.conf import settings
+
+  from wagtail.wagtailcore import hooks
+
+  @hooks.register('insert_global_admin_css')
+  def global_admin_css():
+    return format_html('<link rel="stylesheet" href="' \
+    + settings.STATIC_URL \
+    + 'my/wagtail/theme.css">')
+
+
 .. _insert_editor_js:
 
 ``insert_editor_js``
@@ -341,7 +387,7 @@ Hooks for customising the way users are directed through the process of creating
 
 
 Page explorer
-------------
+-------------
 
 .. _construct_explorer_page_queryset:
 

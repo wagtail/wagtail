@@ -3,13 +3,13 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# Giacomo Ghizzani <giacomo.ghz@gmail.com>, 2015
+# Giacomo Ghizzani <giacomo.ghz@gmail.com>, 2015-2016
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-02-05 17:02+0000\n"
-"PO-Revision-Date: 2016-02-05 17:11+0000\n"
+"POT-Creation-Date: 2016-03-01 18:52+0000\n"
+"PO-Revision-Date: 2016-03-01 19:08+0000\n"
 "Last-Translator: mattwestcott <matthew@torchbox.com>\n"
 "Language-Team: Italian (http://www.transifex.com/torchbox/wagtail/language/"
 "it/)\n"
@@ -35,6 +35,11 @@ msgstr "Le password non corrispondono"
 
 msgid "Administrator"
 msgstr "Amministratore"
+
+msgid "Administrators have full access to manage any object or setting."
+msgstr ""
+"Gli amministratori hanno pieno accesso per gestire qualsiasi oggetto o "
+"settaggio."
 
 msgid "Password"
 msgstr "Password"
@@ -137,9 +142,6 @@ msgstr "Permessi della pagina"
 
 msgid "Page"
 msgstr "Pagina"
-
-msgid "Permission type"
-msgstr "Tipo di permesso"
 
 msgid "Add a page permission"
 msgstr "Aggiungi un permesso alla pagina"
@@ -262,3 +264,6 @@ msgstr "Utente '{0}' aggiornato."
 
 msgid "The user could not be saved due to errors."
 msgstr "L'utente non può essere salvato a causa di errori."
+
+msgid "Groups"
+msgstr "Gruppi"
