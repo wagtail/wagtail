@@ -18,16 +18,15 @@
 }
 
 @mixin unlist() {
-    &,
+    margin-top: 0;
+    margin-bottom: 0;
+    padding-left: 0;
+    list-style-type: none;
+    font-style: normal;
+
     li {
         list-style-type: none;
         font-style: normal;
-    }
-
-    & {
-        margin-top: 0;
-        margin-bottom: 0;
-        padding-left: 0;
     }
 }
 
