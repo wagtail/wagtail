@@ -254,6 +254,23 @@ class SingleEventPage(EventPage):
         help_text="Short text to describe what is this action about"
     )
 
+    # Give this page model a custom URL routing scheme
+    def get_url_parts(self):
+        url_parts = super(SingleEventPage, self).get_url_parts()
+        if url_parts is None:
+            return None
+        else:
+            site_id, root_url, page_path = url_parts
+            return (site_id, root_url, page_path + 'pointless-suffix/')
+
+    def route(self, request, path_components):
+        if path_components == ['pointless-suffix']:
+            # treat this as equivalent to a request for this page
+            return super(SingleEventPage, self).route(request, [])
+        else:
+            # fall back to default routing rules
+            return super(SingleEventPage, self).route(request, path_components)
+
 SingleEventPage.content_panels = [FieldPanel('excerpt')] + EventPage.content_panels
 
 
@@ -569,6 +586,15 @@ class ManyToManyBlogPage(Page):
     adverts = models.ManyToManyField(Advert, blank=True)
     blog_categories = models.ManyToManyField(
         BlogCategory, through=BlogCategoryBlogPage, blank=True)
+
+
+class OneToOnePage(Page):
+    """
+    A Page containing a O2O relation.
+    """
+    body = RichTextBlock(blank=True)
+    page_ptr = models.OneToOneField(Page, parent_link=True,
+                                    related_name='+')
 
 
 class GenericSnippetPage(Page):

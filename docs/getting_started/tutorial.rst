@@ -110,8 +110,7 @@ home\_page.html). Edit
 Wagtail template tags
 ~~~~~~~~~~~~~~~~~~~~~
 
-Wagtail provides a number of
-`template tags & filters <../topics/writing_templates#template-tags-filters>`__
+Wagtail provides a number of :ref:`template tags & filters <template-tags-and-filters>`
 which can be loaded by including ``{% load wagtailcore_tags %}`` at the top of
 your template file.
 

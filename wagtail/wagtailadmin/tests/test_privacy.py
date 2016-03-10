@@ -15,20 +15,20 @@ class TestSetPrivacyView(TestCase, WagtailTestUtils):
 
         self.public_page = self.homepage.add_child(instance=SimplePage(
             title="Public page",
-            slug='public-page',
+            content="hello",
             live=True,
         ))
 
         self.private_page = self.homepage.add_child(instance=SimplePage(
             title="Private page",
-            slug='private-page',
+            content="hello",
             live=True,
         ))
         PageViewRestriction.objects.create(page=self.private_page, password='password123')
 
         self.private_child_page = self.private_page.add_child(instance=SimplePage(
             title="Private child page",
-            slug='private-child-page',
+            content="hello",
             live=True,
         ))
 
@@ -137,20 +137,20 @@ class TestPrivacyIndicators(TestCase, WagtailTestUtils):
 
         self.public_page = self.homepage.add_child(instance=SimplePage(
             title="Public page",
-            slug='public-page',
+            content="hello",
             live=True,
         ))
 
         self.private_page = self.homepage.add_child(instance=SimplePage(
             title="Private page",
-            slug='private-page',
+            content="hello",
             live=True,
         ))
         PageViewRestriction.objects.create(page=self.private_page, password='password123')
 
         self.private_child_page = self.private_page.add_child(instance=SimplePage(
             title="Private child page",
-            slug='private-child-page',
+            content="hello",
             live=True,
         ))
 

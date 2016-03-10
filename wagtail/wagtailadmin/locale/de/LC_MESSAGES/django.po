@@ -21,8 +21,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-02-05 17:01+0000\n"
-"PO-Revision-Date: 2016-02-07 18:02+0000\n"
+"POT-Creation-Date: 2016-03-01 18:51+0000\n"
+"PO-Revision-Date: 2016-03-02 13:07+0000\n"
 "Last-Translator: Henrik Kröger <hedwig@riseup.net>\n"
 "Language-Team: German (http://www.transifex.com/torchbox/wagtail/language/"
 "de/)\n"
@@ -31,6 +31,9 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: de\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "You do not have permission to access the admin"
+msgstr "Sie haben keinen Zugang zur Verwaltung."
 
 msgid "Scheduled publishing"
 msgstr "Geplante Veröffentlichung"
@@ -149,6 +152,10 @@ msgstr "Das Veröffentlichungsdatum muss vor dem Verfallsdatum liegen"
 
 msgid "Expiry date/time must be in the future"
 msgstr "Das Verfallsdatum muss in der Zukunft sein"
+
+msgid "You cannot have multiple permission records for the same collection."
+msgstr ""
+"Sie können nicht mehrere Berechtigungseinträge für dieselbe Sammlung haben."
 
 msgid "Account"
 msgstr "Benutzerkonto"
@@ -305,6 +312,23 @@ msgstr "Link einfügen"
 
 msgid "Add an external link"
 msgstr "Externen Link hinzufügen"
+
+msgid ""
+"This collection cannot be deleted, because it is not empty. It contains:"
+msgstr ""
+"Diese Sammlung kann nicht gelöscht werden, da sie nicht leer ist. Sie "
+"beinhaltet:"
+
+msgid "Name"
+msgstr "Name"
+
+#, python-format
+msgid ""
+"No collections have been created. Why not <a href=\"%(add_collection_url)s"
+"\">add one</a>?"
+msgstr ""
+"Es wurden noch keine Sammlungen erstellt. Warum nicht <a href="
+"\"%(add_collection_url)s\">eine anlegen</a>?"
 
 #, python-format
 msgid "Add %(heading)s"
@@ -601,6 +625,9 @@ msgstr "Veröffentlichen"
 msgid "Submit for moderation"
 msgstr "Zur Freischaltung einreichen"
 
+msgid "This page has unsaved changes."
+msgstr "Diese Seite hat ungesicherte Änderungen."
+
 #, python-format
 msgid "Editing %(page_type)s: %(title)s"
 msgstr "Wird bearbeitet %(page_type)s: %(title)s"
@@ -792,8 +819,14 @@ msgstr "Geben Sie oben einen Suchbegriff ein"
 msgid "No pages use"
 msgstr "Keine Seite benutzt "
 
+msgid "Collection"
+msgstr "Sammlung"
+
 msgid "Home"
 msgstr "Home"
+
+msgid "All collections"
+msgstr "Alle Sammlungen"
 
 msgid "January"
 msgstr "Januar"
@@ -1001,6 +1034,9 @@ msgstr "Die Seite ‚{0}‘ ist jetzt entsperrt."
 
 msgid "Pages"
 msgstr "Seiten"
+
+msgid "Collections"
+msgstr "Sammlungen"
 
 msgid "Choose an item"
 msgstr "Eintrag wählen"

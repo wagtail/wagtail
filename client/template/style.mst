@@ -1,0 +1,5 @@
+// {{ name }}
+
+.c-{{ slug }} {
+    display: block;
+}

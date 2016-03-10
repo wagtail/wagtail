@@ -34,7 +34,10 @@ function(modal) {
         /* Searching causes currentTag to be cleared - otherwise there's
         no way to de-select a tag */
         currentTag = null;
-        fetchResults({q: $('#id_q').val()});
+        fetchResults({
+            q: $('#id_q').val(),
+            collection_id: $('#collection_chooser_collection_id').val()
+        });
         return false;
     }
 
@@ -46,6 +49,7 @@ function(modal) {
         if (currentTag) {
             params['tag'] = currentTag;
         }
+        params['collection_id'] = $('#collection_chooser_collection_id').val();
         fetchResults(params);
         return false;
     }
@@ -85,10 +89,14 @@ function(modal) {
         var wait = setTimeout(search, 200);
         $(this).data('timer', wait);
     });
+    $('#collection_chooser_collection_id').change(search);
     $('a.suggested-tag').click(function() {
         currentTag = $(this).text();
         $('#id_q').val('');
-        fetchResults({'tag': currentTag});
+        fetchResults({
+            'tag': currentTag,
+            collection_id: $('#collection_chooser_collection_id').val()
+        });
         return false;
     });
 

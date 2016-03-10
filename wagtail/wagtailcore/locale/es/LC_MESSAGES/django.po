@@ -8,15 +8,15 @@
 # chimeno <daniel@chimeno.me>, 2015
 # fooflare <amos.oviedo@gmail.com>, 2014
 # Joaquín Tita <carpincho@gmail.com>, 2014
-# José Alaguna <alagunajs@gmail.com>, 2015
+# José Alaguna <alagunajs@gmail.com>, 2015-2016
 # Unai Zalakain <unai@gisa-elkartea.org>, 2014
 # Unai Zalakain <unai@gisa-elkartea.org>, 2014
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-02-05 17:01+0000\n"
-"PO-Revision-Date: 2015-12-19 04:49+0000\n"
+"POT-Creation-Date: 2016-03-01 18:52+0000\n"
+"PO-Revision-Date: 2016-03-01 21:46+0000\n"
 "Last-Translator: José Alaguna <alagunajs@gmail.com>\n"
 "Language-Team: Spanish (http://www.transifex.com/torchbox/wagtail/language/"
 "es/)\n"
@@ -147,6 +147,9 @@ msgstr "Publicado por primera vez a las"
 msgid "latest revision created at"
 msgstr "última revisión creada a las"
 
+msgid "This slug is already in use"
+msgstr "Este slug ya está en uso"
+
 msgid "scheduled"
 msgstr "Agendado"
 
@@ -186,14 +189,26 @@ msgstr "revisión de página"
 msgid "page revisions"
 msgstr "revisiones de página"
 
+msgid "Add"
+msgstr "Agregar"
+
 msgid "Add/edit pages you own"
 msgstr "Añadir/editar tus propias páginas"
+
+msgid "Edit"
+msgstr "Editar"
 
 msgid "Edit any page"
 msgstr "Editar cualquier página"
 
+msgid "Publish"
+msgstr "Publicar"
+
 msgid "Publish any page"
 msgstr "Publicar cualquier página"
+
+msgid "Lock"
+msgstr "Bloquear"
 
 msgid "Lock/unlock any page"
 msgstr "Bloquear/desbloquear cualquier página"
@@ -218,3 +233,18 @@ msgstr "restricción de vista de página"
 
 msgid "page view restrictions"
 msgstr "restricciones de vista de página"
+
+msgid "name"
+msgstr "nombre"
+
+msgid "collection"
+msgstr "colección"
+
+msgid "collections"
+msgstr "coleciones"
+
+msgid "permission"
+msgstr "permiso"
+
+msgid "group collection permission"
+msgstr "grupo de permisos de colección"

@@ -27,6 +27,7 @@ from django.core.urlresolvers import reverse
 from unidecode import unidecode
 
 from wagtail.wagtailcore import hooks
+from wagtail.wagtailcore.models import CollectionMember
 from wagtail.wagtailadmin.taggable import TagSearchable
 from wagtail.wagtailsearch import index
 from wagtail.wagtailsearch.queryset import SearchableQuerySetMixin
@@ -52,7 +53,7 @@ def get_upload_to(instance, filename):
 
 
 @python_2_unicode_compatible
-class AbstractImage(models.Model, TagSearchable):
+class AbstractImage(CollectionMember, TagSearchable):
     title = models.CharField(max_length=255, verbose_name=_('title'))
     file = models.ImageField(
         verbose_name=_('file'), upload_to=get_upload_to, width_field='width', height_field='height'
@@ -122,7 +123,7 @@ class AbstractImage(models.Model, TagSearchable):
         return reverse('wagtailimages:image_usage',
                        args=(self.id,))
 
-    search_fields = TagSearchable.search_fields + (
+    search_fields = TagSearchable.search_fields + CollectionMember.search_fields + (
         index.FilterField('uploaded_by_user'),
     )
 
@@ -248,7 +249,7 @@ class AbstractImage(models.Model, TagSearchable):
             )
         except Rendition.DoesNotExist:
             # Generate the rendition image
-            generated_image, output_format = filter.run(self, BytesIO())
+            generated_image = filter.run(self, BytesIO())
 
             # Generate filename
             input_filename = os.path.basename(self.file.name)
@@ -261,7 +262,7 @@ class AbstractImage(models.Model, TagSearchable):
                 'gif': '.gif',
             }
 
-            output_extension = filter.spec.replace('|', '.') + FORMAT_EXTENSIONS[output_format]
+            output_extension = filter.spec.replace('|', '.') + FORMAT_EXTENSIONS[generated_image.format_name]
             if cache_key:
                 output_extension = cache_key + '.' + output_extension
 
@@ -272,7 +273,7 @@ class AbstractImage(models.Model, TagSearchable):
             rendition, created = self.renditions.get_or_create(
                 filter=filter,
                 focal_point_key=cache_key,
-                defaults={'file': File(generated_image, name=output_filename)}
+                defaults={'file': File(generated_image.f, name=output_filename)}
             )
 
         return rendition
@@ -306,6 +307,7 @@ class Image(AbstractImage):
     admin_form_fields = (
         'title',
         'file',
+        'collection',
         'tags',
         'focal_point_x',
         'focal_point_y',
@@ -380,34 +382,33 @@ class Filter(models.Model):
 
     def run(self, image, output):
         with image.get_willow_image() as willow:
+            original_format = willow.format_name
+
+            # Fix orientation of image
+            willow = willow.auto_orient()
+
             for operation in self.operations:
-                operation.run(willow, image)
+                willow = operation.run(willow, image) or willow
 
-            output_format = willow.original_format
-
-            if willow.original_format == 'jpeg':
+            if original_format == 'jpeg':
                 # Allow changing of JPEG compression quality
                 if hasattr(settings, 'WAGTAILIMAGES_JPEG_QUALITY'):
                     quality = settings.WAGTAILIMAGES_JPEG_QUALITY
                 else:
                     quality = 85
 
-                willow.save_as_jpeg(output, quality=quality)
-            if willow.original_format == 'gif':
+                return willow.save_as_jpeg(output, quality=quality)
+            elif original_format == 'gif':
                 # Convert image to PNG if it's not animated
                 if not willow.has_animation():
-                    output_format = 'png'
-                    willow.save_as_png(output)
+                    return willow.save_as_png(output)
                 else:
-                    willow.save_as_gif(output)
-            if willow.original_format == 'bmp':
+                    return willow.save_as_gif(output)
+            elif original_format == 'bmp':
                 # Convert to PNG
-                output_format = 'png'
-                willow.save_as_png(output)
+                return willow.save_as_png(output)
             else:
-                willow.save(willow.original_format, output)
-
-        return output, output_format
+                return willow.save(original_format, output)
 
     def get_cache_key(self, image):
         vary_parts = []

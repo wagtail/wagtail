@@ -6,7 +6,6 @@ STATIC_ROOT = os.path.join(WAGTAIL_ROOT, 'test-static')
 MEDIA_ROOT = os.path.join(WAGTAIL_ROOT, 'test-media')
 MEDIA_URL = '/media/'
 
-
 DATABASES = {
     'default': {
         'ENGINE': os.environ.get('DATABASE_ENGINE', 'django.db.backends.sqlite3'),
@@ -50,6 +49,7 @@ TEMPLATES = [
                 'wagtail.tests.context_processors.do_not_use_static_url',
                 'wagtail.contrib.settings.context_processors.settings',
             ],
+            'debug': True,
         },
     },
     {
@@ -107,6 +107,7 @@ INSTALLED_APPS = (
     'wagtail.wagtailsnippets',
     'wagtail.wagtaildocs',
     'wagtail.wagtailadmin',
+    'wagtail.api',
     'wagtail.wagtailcore',
 
     'taggit',

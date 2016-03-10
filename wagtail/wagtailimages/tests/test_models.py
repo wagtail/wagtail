@@ -11,7 +11,7 @@ from django.core.files.uploadedfile import SimpleUploadedFile
 from django.db.utils import IntegrityError
 
 from wagtail.tests.utils import WagtailTestUtils
-from wagtail.wagtailcore.models import Page
+from wagtail.wagtailcore.models import Page, Collection, GroupCollectionPermission
 from wagtail.tests.testapp.models import EventPage, EventPageCarouselItem
 from wagtail.wagtailimages.models import Rendition, SourceImageIOError
 from wagtail.wagtailimages.rect import Rect
@@ -145,7 +145,13 @@ class TestImagePermissions(TestCase):
         )
 
         # Owner user must have the add_image permission
-        self.owner.user_permissions.add(Permission.objects.get(codename='add_image'))
+        image_adders_group = Group.objects.create(name="Image adders")
+        GroupCollectionPermission.objects.create(
+            group=image_adders_group,
+            collection=Collection.get_first_root_node(),
+            permission=Permission.objects.get(codename='add_image'),
+        )
+        self.owner.groups.add(image_adders_group)
 
         # Create an image for running tests on
         self.image = Image.objects.create(

@@ -4,10 +4,10 @@
 Writing templates
 =================
 
-Wagtail uses Django's templating language. For developers new to Django, start with Django's own template documentation: 
+Wagtail uses Django's templating language. For developers new to Django, start with Django's own template documentation:
 https://docs.djangoproject.com/en/dev/topics/templates/
 
-Python programmers new to Django/Wagtail may prefer more technical documentation: 
+Python programmers new to Django/Wagtail may prefer more technical documentation:
 https://docs.djangoproject.com/en/dev/ref/templates/api/
 
 You should be familiar with Django templating basics before continuing with this documentation.
@@ -47,7 +47,7 @@ Static assets
 =============
 
 Static files e.g CSS, JS and images are typically stored here::
-    
+
     name_of_project/
         name_of_app/
             static/
@@ -57,7 +57,7 @@ Static files e.g CSS, JS and images are typically stored here::
                     images/
             models.py
 
-(The names "css", "js" etc aren't important, only their position within the tree.)    
+(The names "css", "js" etc aren't important, only their position within the tree.)
 
 Any file within the static folder should be inserted into your HTML using the ``{% static %}`` tag. More about it: :ref:`static_tag`.
 
@@ -72,6 +72,7 @@ Images from the library must be requested using this syntax, but a developer's s
 
 Read more about the image manipulation syntax here :ref:`image_tag`.
 
+.. _template-tags-and-filters:
 
 Template tags & filters
 =======================
@@ -204,12 +205,24 @@ This tag provides a contextual flyout menu on the top-right of a page for logged
     ...
     {% wagtailuserbar %}
 
-By default the User Bar appears in the top right of the browser window, flush with the edge. If this conflicts with your design it can be moved with a css rule in your own CSS files e.g to move it down from the top:
+By default the User Bar appears in the bottom right of the browser window, inset from the edge. If this conflicts with your design it can be moved by passing a parameter to the template tag. These examples show you how to position the userbar in each corner of the screen:
+
+.. code-block:: html+django
+
+    ...
+    {% wagtailuserbar 'top-left' %}
+    {% wagtailuserbar 'top-right' %}
+    {% wagtailuserbar 'bottom-left' %}
+    {% wagtailuserbar 'bottom-right' %}
+    ...
+
+The userbar can be positioned where it works best with your design. Alternatively, you can position it with a css rule in your own CSS files, for example:
 
 .. code-block:: css
 
-    #wagtail-userbar{
-       top:200px
+    .wagtail-userbar {
+       top: 200px !important;
+       left: 10px !important;
     }
 
 

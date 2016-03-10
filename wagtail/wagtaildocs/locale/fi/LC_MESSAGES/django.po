@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-02-05 17:01+0000\n"
-"PO-Revision-Date: 2016-02-05 17:09+0000\n"
+"POT-Creation-Date: 2016-03-01 18:52+0000\n"
+"PO-Revision-Date: 2016-03-01 18:59+0000\n"
 "Last-Translator: mattwestcott <matthew@torchbox.com>\n"
 "Language-Team: Finnish (http://www.transifex.com/torchbox/wagtail/language/"
 "fi/)\n"
@@ -18,6 +18,9 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: fi\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Edit"
+msgstr "Muokkaa"
 
 msgid "title"
 msgstr "otsikko"
@@ -171,15 +174,15 @@ msgstr[1] ""
 "        <span>%(total)s</span> dokumenttia\n"
 "    "
 
+msgid "Delete"
+msgstr "Poista"
+
 msgid "Search documents"
 msgstr "Hae dokumentteja"
 
 #, python-brace-format
 msgid "Document '{0}' added."
 msgstr "Dokumentti '{0}' lisätty."
-
-msgid "Edit"
-msgstr "Muokkaa"
 
 msgid "The document could not be saved due to errors."
 msgstr "Dokumenttia ei voitu tallentaa virheiden vuoksi."
@@ -191,9 +194,6 @@ msgstr "Dokumentti '{0}' päivitetty"
 msgid ""
 "The file could not be found. Please change the source or delete the document"
 msgstr "Tiedostoa ei löydy. Vaihda lähde tai poista dokumentti"
-
-msgid "Delete"
-msgstr "Poista"
 
 #, python-brace-format
 msgid "Document '{0}' deleted."

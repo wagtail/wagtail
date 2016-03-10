@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-02-05 17:01+0000\n"
-"PO-Revision-Date: 2016-02-05 17:09+0000\n"
+"POT-Creation-Date: 2016-03-01 18:52+0000\n"
+"PO-Revision-Date: 2016-03-01 18:59+0000\n"
 "Last-Translator: mattwestcott <matthew@torchbox.com>\n"
 "Language-Team: Turkish (Turkey) (http://www.transifex.com/torchbox/wagtail/"
 "language/tr_TR/)\n"
@@ -18,6 +18,9 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: tr_TR\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
+
+msgid "Edit"
+msgstr "Düzenle"
 
 msgid "Search"
 msgstr "Ara"
@@ -53,14 +56,11 @@ msgstr "Durum"
 msgid "Edit this page"
 msgstr "Bu sayfa düzenle"
 
-msgid "Search documents"
-msgstr "Arama belgeler"
-
-msgid "Edit"
-msgstr "Düzenle"
-
 msgid "Delete"
 msgstr "Sil"
+
+msgid "Search documents"
+msgstr "Arama belgeler"
 
 msgid "Edit this document"
 msgstr "Bu belge düzenle"
