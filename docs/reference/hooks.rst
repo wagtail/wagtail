@@ -409,6 +409,65 @@ Page explorer
       return pages
 
 
+``register_page_listing_buttons``
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+  Add buttons to the actions list for a page in the page explorer. This is useful when adding custom actions to the listing, such as translations or a complex workflow.
+
+  This example will add a simple button to the listing:
+
+  .. code-block:: python
+
+    from wagtail.wagtailadmin import widgets as wagtailadmin_widgets
+
+    @hooks.register('register_page_listing_buttons')
+    def page_listing_buttons(page, page_perms, is_parent=False):
+        yield wagtailadmin_widgets.PageListingButton(
+            'A page listing button',
+            '/goes/to/a/url/',
+            priority=10
+        )
+
+  The ``priority`` argument controls the order the buttons are displayed in. Buttons are ordered from low to high priority, so a button with ``priority=10`` will be displayed before a button with ``priority=20``.
+
+
+Buttons with dropdown lists
+^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+  The admin widgets also provide ``ButtonWithDropdownFromHook``, which allows you to define a custom hook for generating a dropdown menu that gets attached to your button.
+
+  Creating a button with a dropdown menu involves two steps. Firstly, you add your button to the ``register_page_listing_buttons`` hook, just like the example above.
+  Secondly, you register a new hook that yields the contents of the dropdown menu.
+
+  This example shows how Wagtail's default admin dropdown is implemented. You can also see how to register buttons conditionally, in this case by evaluating the ``page_perms``:
+
+  .. code-block:: python
+
+    @hooks.register('register_page_listing_buttons')
+    def page_custom_listing_buttons(page, page_perms, is_parent=False):
+        yield wagtailadmin_widgets.ButtonWithDropdownFromHook(
+            'More actions',
+            hook_name='my_button_dropdown_hook',
+            page=page,
+            page_perms=page_perms,
+            is_parent=is_parent,
+            priority=50
+        )
+
+    @hooks.register('my_button_dropdown_hook')
+    def page_custom_listing_more_buttons(page, page_perms, is_parent=False):
+        if page_perms.can_move():
+            yield Button('Move', reverse('wagtailadmin_pages:move', args=[page.id]), priority=10)
+        if page_perms.can_delete():
+            yield Button('Delete', reverse('wagtailadmin_pages:delete', args=[page.id]), priority=30)
+        if page_perms.can_unpublish():
+            yield Button('Unpublish', reverse('wagtailadmin_pages:unpublish', args=[page.id]), priority=40)
+
+
+
+  The template for the dropdown button can be customised by overriding ``wagtailadmin/pages/listing/_button_with_dropdown.html``. The JavaScript that runs the dropdowns makes use of custom data attributes, so you should leave ``data-dropdown`` and ``data-dropdown-toggle`` in the markup if you customise it.
+
+
 Page serving
 ------------
 
