@@ -1,0 +1,38 @@
+{% extends "wagtailadmin/base.html" %}
+
+{% load i18n %}
+
+{% block titletag %}
+    {% if submission.is_spam %}
+        {% trans "Mark form submission as not spam" %}
+    {% else %}
+        {% trans "Mark form submission as spam" %}
+    {% endif %}
+{% endblock %}
+
+{% block bodyclass %}menu-explorer{% endblock %}
+
+{% block content %}
+    {% if submission.is_spam %}
+        {% trans "Mark form submission as not spam" as title_str %}
+
+    {% else %}
+        {% trans "Mark form submission as spam" as title_str %}
+    {% endif %}
+
+    {% include "wagtailadmin/shared/header.html" with title=title_str subtitle=page.title icon=submission.is_spam|yesno:"unlocked,locked" %}
+
+    <div class="nice-padding">
+        <p>
+            {% if submission.is_spam %}
+                {% trans 'Are you sure you want to mark this form submission as not spam?' %}
+            {% else %}
+                {% trans 'Are you sure you want to mark this form submission as spam?' %}
+            {% endif %}
+        </p>
+        <form action="{% url 'wagtailforms:switch_spam' page.id submission.id %}" method="POST">
+            {% csrf_token %}
+            <input type="submit" value="{% if submission.is_spam %}{% trans 'Mark as not spam' %}{% else %}{% trans 'Mark as spam' %}{% endif %}" class="serious">
+        </form>
+    </div>
+{% endblock %}

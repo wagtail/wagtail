@@ -109,3 +109,24 @@ def list_submissions(request, page_id):
         'data_headings': data_headings,
         'data_rows': data_rows
     })
+
+
+def switch_spam(request, page_id, submission_id):
+    if not get_forms_for_user(request.user).filter(id=page_id).exists():
+        raise PermissionDenied
+
+    submission = get_object_or_404(FormSubmission, id=submission_id)
+    page = get_object_or_404(Page, id=page_id)
+
+    if request.method == 'POST':
+        # Switch the current spam state
+        submission.is_spam = not submission.is_spam
+        submission.save()
+
+        messages.success(request, _("Submission marked as {negation} spam.").format(negation="" if submission.is_spam else _("not")))
+        return redirect('wagtailforms:list_submissions', page_id)
+
+    return render(request, 'wagtailforms/confirm_switch_spam.html', {
+        'page': page,
+        'submission': submission
+    })

@@ -1,34 +1,43 @@
 {% load i18n %}
+
 <div class="overflow">
-<table class="listing">
-    <col />
-    <col />
-    <col />
-    <thead>
-        <tr>
-            <th>{% trans "Submission Date" %}</th>
-            <th>{% trans "Spam" %}</th>
-            {% for heading in data_headings %}
-                <th>{{ heading }}</th>
-            {% endfor %}
-            <th>{% trans "Actions" %}</th>
-        </tr>
-    </thead>
-    <tbody>
-        {% for row in data_rows %}
+    <table class="listing">
+        <col />
+        <col />
+        <col />
+        <thead>
             <tr>
-                {% for cell in row.fields %}
-                    <td>
-                        {{ cell }}
-                    </td>
+                <th>{% trans "Submission Date" %}</th>
+                <th>{% trans "Spam" %}</th>
+                {% for heading in data_headings %}
+                    <th>{{ heading }}</th>
                 {% endfor %}
-                <td>
-                <a class="button button-small button-secondary" href="
-                    {% url 'wagtailforms:delete_submission' form_page.id row.model_id %}">
-                    delete</a>
-                </td>
+                <th>{% trans "Actions" %}</th>
             </tr>
-        {% endfor %}
-    </tbody>
-</table>
+        </thead>
+        <tbody>
+            {% for row in data_rows %}
+                <tr>
+                    {% for cell in row.fields %}
+                        <td>
+                            {{ cell }}
+                        </td>
+                    {% endfor %}
+                    <td>
+                        <ul>
+                            <li><a class="button button-secondary button-small" href="{% url 'wagtailforms:delete_submission' form_page.id row.model_id %}" title="{% trans "Delete this submission" %}">{% trans "Delete" %}</a></li>
+
+                            {% if row.fields.1 %}
+                                {% trans "Not spam" as link_str %}
+                            {% else %}
+                                {% trans "Spam" as link_str %}
+                            {% endif %}
+
+                            <li><a class="button button-secondary button-small" href="{% url 'wagtailforms:switch_spam' form_page.id row.model_id %}" title="{{ link_str }}">{{ link_str }}</a></li>
+                        </ul>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
 </div>
