@@ -5,11 +5,11 @@
         <link rel="stylesheet" href="{% static 'wagtailadmin/css/userbar.css' %}" type="text/css" />
         <div class="wagtail-userbar-nav">
             <div class="wagtail-icon wagtail-icon-wagtail wagtail-userbar-trigger" data-wagtail-userbar-trigger>{% trans 'Go to Wagtail admin interface' %}</div>
-            <ul class='wagtail-userbar-items'>
+            <div class='wagtail-userbar-items'>
                 {% for item in items %}
                     {{ item|safe }}
                 {% endfor %}
-            </ul>
+            </div>
         </div>
         <script src="{% static 'wagtailadmin/js/userbar.js' %}"></script>
     </div>

@@ -3,7 +3,7 @@
 document.addEventListener('DOMContentLoaded', function userBar(e) {
     var userbar = document.querySelector('[data-wagtail-userbar]');
     var trigger = userbar.querySelector('[data-wagtail-userbar-trigger]');
-    var list = userbar.querySelector('ul');
+    var list = userbar.querySelector('.wagtail-userbar-items');
     var className = 'is-active';
     var hasTouch = 'ontouchstart' in window;
     var clickEvent = hasTouch ? 'touchstart' : 'click';
