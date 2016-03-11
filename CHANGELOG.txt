@@ -1,6 +1,13 @@
 Changelog
 =========
 
+1.5 (xx.xx.xxxx)
+~~~~~~~~~~~~~~~~
+
+ * Moved lesser-user actions in the page explorer into a 'More' dropdown
+ * Added a hook `register_page_listing_buttons` for adding action buttons to the page explorer
+
+
 1.4 (xx.xx.xxxx)
 ~~~~~~~~~~~~~~~~
 
@@ -56,6 +63,7 @@ Changelog
 
  * Fix: Applied workaround for failing wagtailimages migration on Django 1.8.8 / 1.9.1 with Postgres (see <https://code.djangoproject.com/ticket/26034>)
 
+
 1.3 (23.12.2015)
 ~~~~~~~~~~~~~~~~
 
@@ -99,6 +107,7 @@ Changelog
  * Fix: Restored correct highlighting behaviour of rich text toolbar buttons
  * Fix: Rendering a missing image through ImageChooserBlock no longer breaks the whole page (Christian Peters)
  * Fix: Filtering by popular tag in the image chooser now works when using the database search backend
+
 
 1.2 (12.11.2015)
 ~~~~~~~~~~~~~~~~

@@ -1,0 +1,21 @@
+==========================================
+Wagtail 1.5 release notes - IN DEVELOPMENT
+==========================================
+
+.. contents::
+    :local:
+    :depth: 1
+
+
+What's new
+==========
+
+Minor features
+~~~~~~~~~~~~~~
+
+ * Moved lesser-user actions in the page explorer into a 'More' dropdown
+ * Added a hook :ref:`register_page_listing_buttons` for adding action buttons to the page explorer
+
+
+Upgrade considerations
+======================
