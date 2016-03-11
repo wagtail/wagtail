@@ -18,6 +18,7 @@ from wagtail.wagtailadmin.utils import send_mail
 from wagtail.wagtailcore.models import Orderable, Page, UserPagePermissionsProxy, get_page_models
 
 from .forms import FormBuilder
+from .utils import is_spam
 
 FORM_FIELD_CHOICES = (
     ('singleline', _('Single line text')),
@@ -161,6 +162,7 @@ class AbstractForm(Page):
         FormSubmission.objects.create(
             form_data=json.dumps(form.cleaned_data, cls=DjangoJSONEncoder),
             page=self,
+            is_spam=is_spam(form.cleaned_data),
         )
 
     def serve(self, request):

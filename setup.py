@@ -31,6 +31,7 @@ install_requires = [
     "html5lib>=0.999,<1",
     "Unidecode>=0.04.14",
     "Willow>=0.3b4,<0.4",
+    "antispam>=0.0.10,<0.1.0",
 ]
 
 # Testing dependencies
