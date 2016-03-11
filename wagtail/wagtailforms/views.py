@@ -78,11 +78,12 @@ def list_submissions(request, page_id):
 
         writer = csv.writer(response)
 
-        header_row = ['Submission date'] + [label for name, label in data_fields]
+        header_row = ['Submission date'] + ['Spam'] + [label for name, label in data_fields]
 
         writer.writerow(header_row)
         for s in submissions:
             data_row = [s.submit_time]
+            data_row.append[s.is_spam]
             form_data = s.get_data()
             for name, label in data_fields:
                 data_row.append(smart_str(form_data.get(name)))
@@ -95,7 +96,7 @@ def list_submissions(request, page_id):
     data_rows = []
     for s in submissions:
         form_data = s.get_data()
-        data_row = [s.submit_time] + [form_data.get(name) for name, label in data_fields]
+        data_row = [s.submit_time] + [s.is_spam] + [form_data.get(name) for name, label in data_fields]
         data_rows.append({
             "model_id": s.id,
             "fields": data_row
