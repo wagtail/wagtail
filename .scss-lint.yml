@@ -85,7 +85,7 @@ linters:
         enabled: false
 
     SelectorFormat:
-        convention: hyphenated_lowercase
+        convention: hyphenated_BEM
         ignored_names:
             - js_class
         ignored_types:
