@@ -2,7 +2,6 @@ from __future__ import unicode_literals
 
 import json
 import logging
-import warnings
 from collections import defaultdict
 
 from django.conf import settings
