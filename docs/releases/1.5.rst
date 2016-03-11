@@ -15,6 +15,7 @@ Minor features
 
  * Moved lesser-user actions in the page explorer into a 'More' dropdown
  * Added a hook :ref:`register_page_listing_buttons` for adding action buttons to the page explorer
+ * Added a hook :ref:`insert_global_admin_js` for inserting custom JavaScript throughout the admin backend (Tom Dyson)
 
 
 Upgrade considerations
