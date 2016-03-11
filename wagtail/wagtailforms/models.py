@@ -40,11 +40,10 @@ HTML_EXTENSION_RE = re.compile(r"(.*)\.html")
 @python_2_unicode_compatible
 class FormSubmission(models.Model):
     """Data for a Form submission."""
-
     form_data = models.TextField()
     page = models.ForeignKey(Page, on_delete=models.CASCADE)
-
     submit_time = models.DateTimeField(verbose_name=_('submit time'), auto_now_add=True)
+    is_spam = models.BooleanField(verbose_name=_('is spam'))
 
     def get_data(self):
         return json.loads(self.form_data)
