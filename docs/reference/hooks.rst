@@ -409,6 +409,8 @@ Page explorer
       return pages
 
 
+.. _register_page_listing_buttons:
+
 ``register_page_listing_buttons``
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 

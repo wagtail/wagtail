@@ -4,6 +4,9 @@ Changelog
 1.5 (xx.xx.xxxx)
 ~~~~~~~~~~~~~~~~
 
+ * Moved lesser-user actions in the page explorer into a 'More' dropdown
+ * Added a hook `register_page_listing_buttons` for adding action buttons to the page explorer
+
 
 1.4 (xx.xx.xxxx)
 ~~~~~~~~~~~~~~~~
