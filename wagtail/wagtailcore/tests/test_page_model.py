@@ -95,6 +95,7 @@ class TestSiteRouting(TestCase):
             port='8765'
         )
         self.about_site = Site.objects.create(hostname='about.example.com', root_page=about_page)
+        self.alternate_port_default_site = Site.objects.create(hostname=self.default_site.hostname, port='8765', root_page=self.default_site.root_page)
         self.unrecognised_port = '8000'
         self.unrecognised_hostname = 'unknown.site.com'
 
@@ -102,7 +103,8 @@ class TestSiteRouting(TestCase):
         # requests without a Host: header should be directed to the default site
         request = HttpRequest()
         request.path = '/'
-        self.assertEqual(Site.find_for_request(request), self.default_site)
+        with self.assertNumQueries(1):
+            self.assertEqual(Site.find_for_request(request), self.default_site)
 
     def test_valid_headers_route_to_specific_site(self):
         # requests with a known Host: header should be directed to the specific site
@@ -110,7 +112,8 @@ class TestSiteRouting(TestCase):
         request.path = '/'
         request.META['HTTP_HOST'] = self.events_site.hostname
         request.META['SERVER_PORT'] = self.events_site.port
-        self.assertEqual(Site.find_for_request(request), self.events_site)
+        with self.assertNumQueries(1):
+            self.assertEqual(Site.find_for_request(request), self.events_site)
 
     def test_ports_in_request_headers_are_respected(self):
         # ports in the Host: header should be respected
@@ -118,7 +121,8 @@ class TestSiteRouting(TestCase):
         request.path = '/'
         request.META['HTTP_HOST'] = self.alternate_port_events_site.hostname
         request.META['SERVER_PORT'] = self.alternate_port_events_site.port
-        self.assertEqual(Site.find_for_request(request), self.alternate_port_events_site)
+        with self.assertNumQueries(1):
+            self.assertEqual(Site.find_for_request(request), self.alternate_port_events_site)
 
     def test_unrecognised_host_header_routes_to_default_site(self):
         # requests with an unrecognised Host: header should be directed to the default site
@@ -126,7 +130,8 @@ class TestSiteRouting(TestCase):
         request.path = '/'
         request.META['HTTP_HOST'] = self.unrecognised_hostname
         request.META['SERVER_PORT'] = '80'
-        self.assertEqual(Site.find_for_request(request), self.default_site)
+        with self.assertNumQueries(1):
+            self.assertEqual(Site.find_for_request(request), self.default_site)
 
     def test_unrecognised_port_and_default_host_routes_to_default_site(self):
         # requests to the default host on an unrecognised port should be directed to the default site
@@ -134,7 +139,8 @@ class TestSiteRouting(TestCase):
         request.path = '/'
         request.META['HTTP_HOST'] = self.default_site.hostname
         request.META['SERVER_PORT'] = self.unrecognised_port
-        self.assertEqual(Site.find_for_request(request), self.default_site)
+        with self.assertNumQueries(1):
+            self.assertEqual(Site.find_for_request(request), self.default_site)
 
     def test_unrecognised_port_and_unrecognised_host_routes_to_default_site(self):
         # requests with an unrecognised Host: header _and_ an unrecognised port
@@ -143,7 +149,8 @@ class TestSiteRouting(TestCase):
         request.path = '/'
         request.META['HTTP_HOST'] = self.unrecognised_hostname
         request.META['SERVER_PORT'] = self.unrecognised_port
-        self.assertEqual(Site.find_for_request(request), self.default_site)
+        with self.assertNumQueries(1):
+            self.assertEqual(Site.find_for_request(request), self.default_site)
 
     def test_unrecognised_port_on_known_hostname_routes_there_if_no_ambiguity(self):
         # requests on an unrecognised port should be directed to the site with
@@ -152,7 +159,8 @@ class TestSiteRouting(TestCase):
         request.path = '/'
         request.META['HTTP_HOST'] = self.about_site.hostname
         request.META['SERVER_PORT'] = self.unrecognised_port
-        self.assertEqual(Site.find_for_request(request), self.about_site)
+        with self.assertNumQueries(1):
+            self.assertEqual(Site.find_for_request(request), self.about_site)
 
     def test_unrecognised_port_on_known_hostname_routes_to_default_site_if_ambiguity(self):
         # requests on an unrecognised port should be directed to the default
@@ -162,7 +170,8 @@ class TestSiteRouting(TestCase):
         request.path = '/'
         request.META['HTTP_HOST'] = self.events_site.hostname
         request.META['SERVER_PORT'] = self.unrecognised_port
-        self.assertEqual(Site.find_for_request(request), self.default_site)
+        with self.assertNumQueries(1):
+            self.assertEqual(Site.find_for_request(request), self.default_site)
 
     def test_port_in_http_host_header_is_ignored(self):
         # port in the HTTP_HOST header is ignored
@@ -170,7 +179,8 @@ class TestSiteRouting(TestCase):
         request.path = '/'
         request.META['HTTP_HOST'] = "%s:%s" % (self.events_site.hostname, self.events_site.port)
         request.META['SERVER_PORT'] = self.alternate_port_events_site.port
-        self.assertEqual(Site.find_for_request(request), self.alternate_port_events_site)
+        with self.assertNumQueries(1):
+            self.assertEqual(Site.find_for_request(request), self.alternate_port_events_site)
 
 
 class TestRouting(TestCase):
