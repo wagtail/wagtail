@@ -18,7 +18,7 @@ from wagtail.wagtailadmin.utils import send_mail
 from wagtail.wagtailcore.models import Orderable, Page, UserPagePermissionsProxy, get_page_models
 
 from .forms import FormBuilder
-from .utils import is_spam
+from .utils import is_spam, train_spam_recognition
 
 FORM_FIELD_CHOICES = (
     ('singleline', _('Single line text')),
@@ -159,11 +159,17 @@ class AbstractForm(Page):
         return form_class(*args, **form_params)
 
     def process_form_submission(self, form):
+        # Check if submission data tends to be spam
+        spam = is_spam(form.cleaned_data)
+
         FormSubmission.objects.create(
             form_data=json.dumps(form.cleaned_data, cls=DjangoJSONEncoder),
             page=self,
-            is_spam=is_spam(form.cleaned_data),
+            is_spam=spam,
         )
+
+        # Help train the spam detector model on every submission
+        train_spam_recognition(form.cleaned_data, spam)
 
     def serve(self, request):
         if request.method == 'POST':
