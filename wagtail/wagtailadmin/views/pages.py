@@ -218,7 +218,7 @@ def create(request, content_type_app_name, content_type_model_name, parent_page_
                         messages.button(reverse('wagtailadmin_pages:edit', args=(page.id,)), _('Edit'))
                     ]
                 )
-                send_notification(page.get_latest_revision().id, 'submitted', request.user.id)
+                send_notification(page.get_latest_revision().id, 'submitted', request.user.pk)
             else:
                 messages.success(request, _("Page '{0}' created.").format(page.title))
 
@@ -370,7 +370,7 @@ def edit(request, page_id):
                     )
                 ])
 
-                send_notification(page.get_latest_revision().id, 'submitted', request.user.id)
+                send_notification(page.get_latest_revision().id, 'submitted', request.user.pk)
 
             else:  # Saving
 
@@ -804,7 +804,7 @@ def approve_moderation(request, revision_id):
             messages.button(revision.page.url, _('View live')),
             messages.button(reverse('wagtailadmin_pages:edit', args=(revision.page.id,)), _('Edit'))
         ])
-        send_notification(revision.id, 'approved', request.user.id)
+        send_notification(revision.id, 'approved', request.user.pk)
 
     return redirect('wagtailadmin_home')
 
@@ -823,7 +823,7 @@ def reject_moderation(request, revision_id):
         messages.success(request, _("Page '{0}' rejected for publication.").format(revision.page.title), buttons=[
             messages.button(reverse('wagtailadmin_pages:edit', args=(revision.page.id,)), _('Edit'))
         ])
-        send_notification(revision.id, 'rejected', request.user.id)
+        send_notification(revision.id, 'rejected', request.user.pk)
 
     return redirect('wagtailadmin_home')
 
