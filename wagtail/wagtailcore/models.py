@@ -1673,7 +1673,7 @@ class PagePermissionTester(object):
         return (
             self.user.is_superuser or
             ('edit' in self.permissions) or
-            ('add' in self.permissions and self.page.owner_id == self.user.id)
+            ('add' in self.permissions and self.page.owner_id == self.user.pk)
         )
 
     def can_delete(self):
@@ -1694,7 +1694,7 @@ class PagePermissionTester(object):
             # user can only delete if all pages in this subtree are unpublished and owned by this user
             return (
                 (not self.page.live) and
-                (self.page.owner_id == self.user.id) and
+                (self.page.owner_id == self.user.pk) and
                 (not self.page.get_descendants().exclude(live=False, owner=self.user).exists())
             )
 

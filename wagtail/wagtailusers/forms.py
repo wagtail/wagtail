@@ -159,7 +159,7 @@ class UserEditForm(UsernameForm):
         username = self.cleaned_data["username"]
         username_field = User.USERNAME_FIELD
         try:
-            User._default_manager.exclude(id=self.instance.id).get(**{
+            User._default_manager.exclude(pk=self.instance.pk).get(**{
                 username_field: username})
         except User.DoesNotExist:
             return username
@@ -216,7 +216,7 @@ class GroupForm(forms.ModelForm):
         # but it sets a nicer error message than the ORM. See #13147.
         name = self.cleaned_data["name"]
         try:
-            Group._default_manager.exclude(id=self.instance.id).get(name=name)
+            Group._default_manager.exclude(pk=self.instance.pk).get(name=name)
         except Group.DoesNotExist:
             return name
         raise forms.ValidationError(self.error_messages['duplicate_name'])
@@ -323,9 +323,9 @@ class BaseGroupPagePermissionFormSet(forms.BaseFormSet):
             if (pp.page, pp.permission_type) in final_permission_records:
                 permission_records_to_keep.add((pp.page, pp.permission_type))
             else:
-                permission_ids_to_delete.append(pp.id)
+                permission_ids_to_delete.append(pp.pk)
 
-        self.instance.page_permissions.filter(id__in=permission_ids_to_delete).delete()
+        self.instance.page_permissions.filter(pk__in=permission_ids_to_delete).delete()
 
         permissions_to_add = final_permission_records - permission_records_to_keep
         GroupPagePermission.objects.bulk_create([
