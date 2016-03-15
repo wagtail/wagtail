@@ -38,9 +38,9 @@ To replace the default logo, create a template file ``dashboard/templates/wagtai
 To replace the default userbar logo, create a template file ``dashboard/templates/wagtailadmin/userbar/base.html`` that overrides the block ``branding_logo``::
 
     {% overextends "wagtailadmin/userbar/base.html" %}
-    
+
     {% block branding_logo %}
-        <img src="{{ STATIC_URL }}images/custom-logo.svg" alt="Custom Project" width="80" />
+        <img src="/static/images/my-logo.gif" alt="Wagtail" style="height: 60%; position: relative; margin-top: 20%; vertical-align: middle;"/>
     {% endblock %}
 
 ``branding_favicon``

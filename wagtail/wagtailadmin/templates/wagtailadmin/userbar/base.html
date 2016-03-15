@@ -4,7 +4,11 @@
     <div class="wagtail-userbar wagtail-userbar--{{ position|default:'bottom-right' }}" data-wagtail-userbar>
         <link rel="stylesheet" href="{% static 'wagtailadmin/css/userbar.css' %}" type="text/css" />
         <div class="wagtail-userbar-nav">
-            <div class="wagtail-icon wagtail-icon-wagtail wagtail-userbar-trigger" data-wagtail-userbar-trigger>{% trans 'Go to Wagtail admin interface' %}</div>
+            <div data-wagtail-userbar-trigger style="background-color: #fff; border-radius: 50%; color: #000; padding: 0 !important; cursor: pointer; box-shadow: 0 0 1px 0 #6bd6e6, 0 1px 10px 0 rgba(107, 214, 230, 0.7); width: 100px; height: 100px; text-align: center;">
+                {% block branding_logo %}
+                    <img src="{% static 'wagtailadmin/images/wagtail-logo.svg' %}" alt="Wagtail" style="height: 60%; position: relative; margin-top: 20%; vertical-align: middle;"/>
+                {% endblock %}
+            </div>
             <div class='wagtail-userbar-items'>
                 {% for item in items %}
                     {{ item|safe }}
