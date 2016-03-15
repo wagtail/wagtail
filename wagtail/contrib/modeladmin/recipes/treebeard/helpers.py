@@ -74,7 +74,7 @@ class TreebeardButtonHelper(ButtonHelper):
                 "the tree") % self.model_name,
         }
 
-    def get_buttons_for_obj(self, obj):
+    def get_buttons_for_obj(self, obj, allow_inspect_button=True):
         """
         Provide different sets of buttons, depending on whether the model
         uses 'node_order_by' to automatically order tree nodes, or the
@@ -82,6 +82,8 @@ class TreebeardButtonHelper(ButtonHelper):
         """
         pk = quote(getattr(obj, self.opts.pk.attname))
         buttons = []
+        if self.inspect_view_enabled and allow_inspect_button:
+            buttons.append(self.inspect_button(pk))
         if self.permission_helper.can_edit_object(self.user, obj):
             buttons.append(self.edit_button(pk))
             buttons.append(self.move_button(pk))
