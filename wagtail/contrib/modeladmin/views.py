@@ -10,6 +10,7 @@ from django.db.models.constants import LOOKUP_SEP
 from django.db.models.sql.constants import QUERY_TERMS
 from django.shortcuts import get_object_or_404, redirect, render
 from django.core.urlresolvers import reverse
+from django.template.defaultfilters import filesizeformat
 
 from django.core.exceptions import (
     ImproperlyConfigured, SuspiciousOperation, PermissionDenied)
@@ -718,8 +719,11 @@ class InspectView(ObjectSpecificView):
         document = getattr(self.instance, field_name)
         if document:
             return mark_safe(
-                '<a href="%s">%s <span class="meta">(%s)</span></a>' % (
-                    document.url, document.title, document.file_extension
+                '<a href="%s">%s <span class="meta">(%s, %s)</span></a>' % (
+                    document.url,
+                    document.title,
+                    document.file_extension.upper(),
+                    filesizeformat(document.file.size),
                 )
             )
         return _('Not set')
