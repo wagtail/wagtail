@@ -35,7 +35,7 @@ To replace the default logo, create a template file ``dashboard/templates/wagtai
 ``branding_logo_userbar``
 -----------------
 
-To replace the default logo, create a template file ``dashboard/templates/wagtailadmin/userbar/base.html`` that overrides the block ``branding_logo``::
+To replace the default logo in wagtail userbar, create a template file ``dashboard/templates/wagtailadmin/userbar/base.html`` that overrides the block ``branding_logo``::
 
     {% overextends "wagtailadmin/userbar/base.html" %}
     
