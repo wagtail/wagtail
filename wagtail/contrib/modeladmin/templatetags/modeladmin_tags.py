@@ -152,7 +152,7 @@ def result_row_display(context, index):
     view = context['view']
     context.update({
         'obj': obj,
-        'action_buttons': view.button_helper.get_buttons_for_obj(obj),
+        'action_buttons': view.button_helper.get_buttons_for_index_view(obj),
     })
     return context
 

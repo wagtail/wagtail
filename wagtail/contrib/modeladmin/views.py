@@ -769,7 +769,7 @@ class InspectView(ObjectSpecificView):
             'view': self,
             'fields': fields,
             'instance': self.instance,
-            'buttons': self.button_helper.get_inspect_view_buttons(
+            'buttons': self.button_helper.get_buttons_for_inspect_view(
                 self.instance),
         }
 
