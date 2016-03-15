@@ -6,7 +6,7 @@ import warnings
 from collections import defaultdict
 
 from django.conf import settings
-from django.contrib.auth.models import Group, Permission
+from django.contrib.auth.models import Group, Permission, User
 from django.contrib.contenttypes.models import ContentType
 from django.core import checks
 from django.core.cache import cache
@@ -1321,6 +1321,7 @@ class Page(six.with_metaclass(PageBase, MP_Node, ClusterableModel, index.Indexed
         return PageViewRestriction.objects.filter(page__in=self.get_ancestors(inclusive=True))
 
     password_required_template = getattr(settings, 'PASSWORD_REQUIRED_TEMPLATE', 'wagtailcore/password_required.html')
+    access_denied_template = getattr(settings, 'ACCESS_DENIED_TEMPLATE', 'wagtailcore/access_denied.html')
 
     def serve_password_required_response(self, request, form, action_url):
         """
@@ -1334,6 +1335,10 @@ class Page(six.with_metaclass(PageBase, MP_Node, ClusterableModel, index.Indexed
         context['form'] = form
         context['action_url'] = action_url
         return TemplateResponse(request, self.password_required_template, context)
+
+    def serve_access_denied_response(self, request):
+        context = self.get_context(request)
+        return TemplateResponse(request, self.access_denied_template, context)
 
     class Meta:
         verbose_name = _('page')
@@ -1790,8 +1795,23 @@ class PagePermissionTester(object):
 
 
 class PageViewRestriction(models.Model):
-    page = models.ForeignKey('Page', verbose_name=_('page'), related_name='view_restrictions', on_delete=models.CASCADE)
-    password = models.CharField(verbose_name=_('password'), max_length=255)
+    NONE = 'none'
+    PASSWORD = 'password'
+    USERS_GROUPS = 'users_groups'
+    LOGIN = 'login'
+
+    RESTRICTION_CHOICES = (
+        (NONE, _("Public")),
+        (LOGIN, _("Private, visible if logged in")),
+        (PASSWORD, _("Private, accessible with the following password")),
+        (USERS_GROUPS, _("Private, visible to specific users and groups"))
+    )
+    restriction_type = models.CharField(
+        max_length=20, default=NONE, choices=RESTRICTION_CHOICES)
+    page = models.ForeignKey('Page', verbose_name=_('page'), related_name='view_restrictions')
+    password = models.CharField(verbose_name=_('password'), max_length=255, blank=True)
+    users = models.ManyToManyField(User, blank=True)
+    groups = models.ManyToManyField(Group, blank=True)
 
     class Meta:
         verbose_name = _('page view restriction')
