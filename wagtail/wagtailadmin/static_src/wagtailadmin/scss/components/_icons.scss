@@ -43,7 +43,7 @@
 
 @each $icon, $content in $icons-after {
     .icon-#{$icon}:after {
-        content: #{$content};
+        content: quote(#{$content});
     }
 }
 

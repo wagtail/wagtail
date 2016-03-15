@@ -73,7 +73,7 @@ $positions: (
 
 @each $icon, $content in $icons-after {
     .#{$namespace}-icon-#{$icon}:after {
-        content: #{$content};
+        content: quote(#{$content});
     }
 }
 
