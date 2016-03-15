@@ -14,24 +14,28 @@
 {% endblock %}
 
 {% block content %}
-
-    {% include "wagtailadmin/shared/header.html" with title=view.get_page_title subtitle=view.get_page_subtitle icon=view.header_icon %}
+    
+    {% block header %}
+        {% include "wagtailadmin/shared/header.html" with title=view.get_page_title subtitle=view.get_page_subtitle icon=view.header_icon %}
+    {% endblock %}
 
     <form action="{% block form_action %}{{ view.get_create_url }}{% endblock %}"{% if is_multipart %} enctype="multipart/form-data"{% endif %} method="POST">
         {% csrf_token %}
 
         {% block form %}{{ edit_handler.render_form_content }}{% endblock %}
             
-        <footer>
-            <ul>
-                <li class="actions">
-                    {% block form_actions %}
-                        <div class="dropdown dropup match-width">
-                            <div><input type="submit" value="{% trans 'Save' %}" /></div>
-                        </div>
-                    {% endblock %}
-                </li>
-            </ul>
-        </footer>
+        {% block footer %}
+            <footer>
+                <ul>
+                    <li class="actions">
+                        {% block form_actions %}
+                            <div class="dropdown dropup match-width">
+                                <div><input type="submit" value="{% trans 'Save' %}" /></div>
+                            </div>
+                        {% endblock %}
+                    </li>
+                </ul>
+            </footer>
+        {% endblock %}
     </form>
 {% endblock %}

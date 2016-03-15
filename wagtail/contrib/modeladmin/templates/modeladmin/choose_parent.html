@@ -3,10 +3,25 @@
 
 {% block titletag %}{{ view.get_meta_title }}{% endblock %}
 
+{% block extra_css %}
+    {% include "wagtailadmin/pages/_editor_css.html" %}
+    {% compress css %}
+        <link rel="stylesheet" href="{% static 'modeladmin/css/choose_parent_page.css' %}" type="text/css"/>
+    {% endcompress %}
+{% endblock %}
+
+{% block extra_js %}
+    {% include "wagtailadmin/pages/_editor_js.html" %}
+{% endblock %}
+
+
 {% block content %}
 <div id="content-main">
 
-    {% include "wagtailadmin/shared/header.html" with title=view.get_page_title subtitle=view.get_page_subtitle icon=view.header_icon %}
+    {% block header %}
+        {% include "modeladmin/includes/breadcrumb.html" %}
+        {% include "wagtailadmin/shared/header.html" with title=view.get_page_title subtitle=view.get_page_subtitle icon=view.header_icon %}
+    {% endblock %}
     
     <div class="nice-padding">
         <h2>{% blocktrans %}Choose a parent page{% endblocktrans %}</h2>
@@ -27,12 +42,4 @@
 </div>
 {% endblock %}
 
-{% block extra_css %}
-    {% include "wagtailadmin/pages/_editor_css.html" %}
-    {% compress css %}
-        <link rel="stylesheet" href="{% static 'modeladmin/css/choose_parent_page.css' %}" type="text/css"/>
-    {% endcompress %}
-{% endblock %}
-{% block extra_js %}
-    {% include "wagtailadmin/pages/_editor_js.html" %}
-{% endblock %}
+
