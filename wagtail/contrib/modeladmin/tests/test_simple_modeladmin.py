@@ -54,6 +54,64 @@ class TestCreateView(TestCase, WagtailTestUtils):
         self.assertEqual(response.status_code, 200)
 
 
+class TestInspectView(TestCase, WagtailTestUtils):
+    fixtures = ['modeladmintest_test.json']
+
+    def setUp(self):
+        self.login()
+
+    def get_for_author(self, author_id):
+        return self.client.get('/admin/modeladmin/modeladmintest/author/inspect/%d/' % author_id)
+
+    def get_for_book(self, book_id):
+        return self.client.get('/admin/modeladmin/modeladmintest/book/inspect/%d/' % book_id)
+
+    def author_test_simple(self):
+        response = self.get_for_author(1)
+        self.assertEqual(response.status_code, 200)
+
+    def author_test_name_present(self):
+        """
+        The author name should appear twice. Once in the header, and once
+        more in the field listing
+        """
+        response = self.get_for_author(1)
+        self.assertContains(response, 'J. R. R. Tolkien', 2)
+
+    def author_test_dob_not_present(self):
+        """
+        The date of birth shouldn't appear, because the field wasn't included
+        in the `inspect_view_fields` list
+        """
+        response = self.get_for_author(1)
+        self.assertNotContains(response, '1892', 2)
+
+    def book_test_simple(self):
+        response = self.get_for_book(1)
+        self.assertEqual(response.status_code, 200)
+
+    def book_test_title_present(self):
+        """
+        The book title should appear once only, in the header, as 'title'
+        was added to the `inspect_view_fields_ignore` list
+        """
+        response = self.get_for_book(1)
+        self.assertContains(response, 'The Lord of the Rings', 1)
+
+    def book_test_author_present(self):
+        """
+        The author name should appear, because 'author' is not in
+        `inspect_view_fields_ignore` and should be returned by the
+        `get_inspect_view_fields` method.
+        """
+        response = self.get_for_book(1)
+        self.assertContains(response, 'J. R. R. Tolkien', 1)
+
+    def test_non_existent(self):
+        response = self.get_for_book(100)
+        self.assertEqual(response.status_code, 404)
+
+
 class TestEditView(TestCase, WagtailTestUtils):
     fixtures = ['modeladmintest_test.json']
 
@@ -146,6 +204,10 @@ class TestEditorAccess(TestCase):
 
     def test_index_permitted(self):
         response = self.client.get('/admin/modeladmin/modeladmintest/book/')
+        self.assertEqual(response.status_code, self.expected_status_code)
+
+    def test_inpspect_permitted(self):
+        response = self.client.get('/admin/modeladmin/modeladmintest/book/inspect/2/')
         self.assertEqual(response.status_code, self.expected_status_code)
 
     def test_create_permitted(self):

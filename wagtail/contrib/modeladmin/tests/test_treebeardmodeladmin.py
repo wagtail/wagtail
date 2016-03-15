@@ -38,6 +38,11 @@ class TestIndexView(TestCase, WagtailTestUtils):
         for obj in response.context['object_list']:
             self.assertEqual(obj.depth, 1)
 
+    def test_inspect_buttons_present(self):
+        # There should be 14 'Inspect' buttons, one for each item in the list
+        response = self.get()
+        self.assertContains(response, 'Inspect', 14)
+
 
 class TestCreateView(TestCase, WagtailTestUtils):
     fixtures = ['treebeardmodeladmin_test.json']

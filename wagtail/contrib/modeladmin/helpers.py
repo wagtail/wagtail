@@ -44,6 +44,16 @@ class PermissionHelper(object):
             self.opts.app_label, get_permission_codename('delete', self.opts)
         ))
 
+    def has_list_permission(self, user):
+        """
+        For typical models, we only want to allow viewing of the list page
+        if the user has permission to do something
+        """
+        return (
+            self.has_add_permission(user) or
+            self.has_edit_permission(user) or
+            self.has_delete_permission(user))
+
     def can_edit_object(self, user, obj):
         """
         Used from within templates to decide what functionality to allow
@@ -75,17 +85,7 @@ class PermissionHelper(object):
         return False
 
     def allow_list_view(self, user):
-        """
-        For typical models, we only want to allow viewing of the list page
-        if the user has permission to do something
-        """
-        if (
-            self.has_add_permission(user) or
-            self.has_edit_permission(user) or
-            self.has_delete_permission(user)
-        ):
-            return True
-        return False
+        return self.has_list_permission(user)
 
 
 class PagePermissionHelper(PermissionHelper):
@@ -104,6 +104,16 @@ class PagePermissionHelper(PermissionHelper):
         rather than actual model-wide permissions
         """
         return bool(self.get_valid_parent_pages(user).count())
+
+    def has_list_permssion(self, user):
+        """
+        For models extending Page, permitted actions are determined by
+        permissions on individual objects. Rather than check for change
+        permissions on every object individually (which would be quite
+        resource intensive), we simply always allow the list view to be
+        viewed, and limit further functionality when relevant.
+        """
+        return True
 
     def get_valid_parent_pages(self, user):
         """
@@ -145,14 +155,7 @@ class PagePermissionHelper(PermissionHelper):
         return parent_page.permissions_for_user(user).can_publish_subpage()
 
     def allow_list_view(self, user):
-        """
-        For models extending Page, permitted actions are determined by
-        permissions on individual objects. Rather than check for change
-        permissions on every object individually (which would be quite
-        resource intensive), we simply always allow the list view to be
-        viewed, and limit further functionality when relevant.
-        """
-        return True
+        return self.has_list_permssion(user)
 
 
 def get_url_pattern(model_meta, action=None):
@@ -175,7 +178,7 @@ def get_url_name(model_meta, action='index'):
 
 class ButtonHelper(object):
 
-    default_button_classname = 'button button-small button-secondary'
+    default_button_classnames = ['button']
 
     def __init__(self, model, permission_helper, user,
                  inspect_view_enabled=False):
@@ -186,6 +189,10 @@ class ButtonHelper(object):
         self.inspect_view_enabled = inspect_view_enabled
         self.model_name = force_text(self.opts.verbose_name).lower()
 
+    def combine_classnames(self, extra_classnames):
+        classnames = self.default_button_classnames + extra_classnames
+        return ' '.join(set(classnames))
+
     def get_action_url(self, action='create', pk=None):
         kwargs = {}
         if pk and action not in ('create', 'index'):
@@ -193,86 +200,91 @@ class ButtonHelper(object):
         return reverse(get_url_name(self.opts, action), kwargs=kwargs)
 
     def add_button(self):
+        extra_classnames = ['bicolor', 'icon', 'icon-plus']
         return {
             'url': self.get_action_url('create'),
             'label': _('Add %s') % self.model_name,
-            'classname': self.default_button_classname,
+            'classname': self.combine_classnames(extra_classnames),
             'title': _('Add a new %s') % self.model_name,
         }
 
-    def inspect_button(self, pk):
+    def inspect_button(self, pk, extra_classnames=[]):
         return {
             'url': self.get_action_url('inspect', pk),
             'label': _('Inspect'),
-            'classname': self.default_button_classname,
+            'classname': self.combine_classnames(extra_classnames),
             'title': _('View details for this %s') % self.model_name,
         }
 
-    def edit_button(self, pk):
+    def edit_button(self, pk, extra_classnames=[]):
         return {
             'url': self.get_action_url('edit', pk),
             'label': _('Edit'),
-            'classname': self.default_button_classname,
+            'classname': self.combine_classnames(extra_classnames),
             'title': _('Edit this %s') % self.model_name,
         }
 
-    def delete_button(self, pk):
+    def delete_button(self, pk, extra_classnames=[]):
+        extra_classnames.append('no')
         return {
             'url': self.get_action_url('confirm_delete', pk),
             'label': _('Delete'),
-            'classname': self.default_button_classname + ' no',
+            'classname': self.combine_classnames(extra_classnames),
             'title': _('Delete this %s') % self.model_name,
         }
 
-    def get_buttons_for_obj(self, obj, allow_inspect_button=True):
+    def get_buttons_for_obj(self, obj, allow_inspect_button=True,
+                            extra_classnames=[]):
         user = self.user
         pk = quote(getattr(obj, self.opts.pk.attname))
         buttons = []
         if self.inspect_view_enabled and allow_inspect_button:
-            buttons.append(self.inspect_button(pk))
+            buttons.append(self.inspect_button(pk, extra_classnames))
         if self.permission_helper.can_edit_object(user, obj):
-            buttons.append(self.edit_button(pk))
+            buttons.append(self.edit_button(pk, extra_classnames))
         if self.permission_helper.can_delete_object(user, obj):
-            buttons.append(self.delete_button(pk))
+            buttons.append(self.delete_button(pk, extra_classnames))
         return buttons
 
-    def get_inspect_view_buttons(self, obj):
-        buttons = self.get_buttons_for_obj(obj, False)
-        for button in buttons:
-            button['classname'] = button['classname'].replace('button-secondary', '').replace('button-small', '')
-        return buttons
+    def get_buttons_for_index_view(self, obj):
+        extra_classnames = ['button-small', 'button-secondary']
+        return self.get_buttons_for_obj(obj, True, extra_classnames)
+
+    def get_buttons_for_inspect_view(self, obj):
+        return self.get_buttons_for_obj(obj, False)
 
 
 class PageButtonHelper(ButtonHelper):
 
-    def unpublish_button(self, pk):
+    def unpublish_button(self, pk, extra_classnames=[]):
         return {
             'url': self.get_action_url('unpublish', pk),
             'label': _('Unpublish'),
-            'classname': self.default_button_classname + ' icon-cog',
+            'classname': self.combine_classnames(extra_classnames),
             'title': _('Unpublish this %s') % self.model_name,
         }
 
-    def copy_button(self, pk):
+    def copy_button(self, pk, extra_classnames=[]):
         return {
             'url': self.get_action_url('copy', pk),
             'label': _('Copy'),
-            'classname': self.default_button_classname + ' icon-plus-inverse',
+            'classname': self.combine_classnames(extra_classnames),
             'title': _('Copy this %s') % self.model_name,
         }
 
-    def get_buttons_for_obj(self, obj, allow_inspect_button=True):
+    def get_buttons_for_obj(self, obj, allow_inspect_button=True,
+                            extra_classnames=[]):
         user = self.user
         pk = quote(getattr(obj, self.opts.pk.attname))
         buttons = []
         if self.inspect_view_enabled and allow_inspect_button:
-            buttons.append(self.inspect_button(pk))
+            buttons.append(self.inspect_button(pk, extra_classnames))
         if self.permission_helper.can_edit_object(user, obj):
-            buttons.append(self.edit_button(pk))
+            buttons.append(self.edit_button(pk, extra_classnames))
         if self.permission_helper.can_copy_object(user, obj):
-            buttons.append(self.copy_button(pk))
+            buttons.append(self.copy_button(pk, extra_classnames))
         if self.permission_helper.can_unpublish_object(user, obj):
-            buttons.append(self.unpublish_button(pk))
+            buttons.append(self.unpublish_button(pk, extra_classnames))
         if self.permission_helper.can_delete_object(user, obj):
-            buttons.append(self.delete_button(pk))
+            buttons.append(self.delete_button(pk, extra_classnames))
         return buttons

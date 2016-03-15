@@ -11,6 +11,8 @@ class AuthorModelAdmin(ModelAdmin):
     list_display = ('name', 'date_of_birth')
     list_filter = ('date_of_birth', )
     search_fields = ('name', )
+    inspect_view_enabled = True
+    inspect_view_fields = ('name', )
 
 
 class BookModelAdmin(ModelAdmin):
@@ -18,6 +20,8 @@ class BookModelAdmin(ModelAdmin):
     menu_order = 300
     list_display = ('title', 'author')
     list_filter = ('author', )
+    inspect_view_enabled = True
+    inspect_view_fields_exclude = ('title', )
 
 
 class TreebeardCategoryAdmin(TreebeardModelAdmin):
@@ -25,12 +29,15 @@ class TreebeardCategoryAdmin(TreebeardModelAdmin):
     menu_order = 400
     list_display = ('name', )
     list_filter = ('depth', )
+    inspect_view_enabled = True
 
 
 class EventPageAdmin(ModelAdmin):
     model = EventPage
     list_display = ('title', 'date_from', 'audience')
     list_filter = ('audience', )
+    inspect_view_enabled = True
+    inspect_view_fields_exclude = ('feed_image', )
 
 
 class SingleEventPageAdmin(EventPageAdmin):

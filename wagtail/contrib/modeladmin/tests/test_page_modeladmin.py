@@ -49,8 +49,40 @@ class TestCreateView(TestCase, WagtailTestUtils):
 
     def test_simple(self):
         response = self.get()
-
         self.assertEqual(response.status_code, 302)
+
+
+class TestInspectView(TestCase, WagtailTestUtils):
+    fixtures = ['test_specific.json']
+
+    def setUp(self):
+        self.login()
+
+    def get(self, id):
+        return self.client.get('/admin/modeladmin/tests/eventpage/inspect/%d/' % id)
+
+    def test_simple(self):
+        response = self.get(4)
+        self.assertEqual(response.status_code, 200)
+
+    def test_title_present(self):
+        """
+        The page title should appear twice. Once in the header, and once
+        more in the field listing
+        """
+        response = self.get(4)
+        self.assertContains(response, 'Christmas', 2)
+
+    def test_location_present(self):
+        """
+        The location should appear once, in the field listing
+        """
+        response = self.get(4)
+        self.assertContains(response, 'The North Pole', 1)
+
+    def test_non_existent(self):
+        response = self.get(100)
+        self.assertEqual(response.status_code, 404)
 
 
 class TestEditView(TestCase, WagtailTestUtils):
