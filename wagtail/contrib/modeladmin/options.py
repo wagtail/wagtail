@@ -315,7 +315,7 @@ class ModelAdmin(WagtailRegisterable):
         should be displayed in the 'inspect' view. Returns the value of the
         'inspect_view_fields' attribute if populated, otherwise a sensible
         list of fields is generated automatically, with any field named in
-        'inspect_view_fields_ignore' not being included.
+        'inspect_view_fields_exclude' not being included.
         """
         if not self.inspect_view_fields:
             found_fields = []
