@@ -31,6 +31,17 @@ To replace the default logo, create a template file ``dashboard/templates/wagtai
     {% block branding_logo %}
         <img src="{{ STATIC_URL }}images/custom-logo.svg" alt="Custom Project" width="80" />
     {% endblock %}
+    
+``branding_userbar_logo``
+-----------------
+
+To replace the default userbar logo, create a template file ``dashboard/templates/wagtailadmin/userbar/base.html`` that overrides the block ``branding_logo``::
+
+    {% overextends "wagtailadmin/userbar/base.html" %}
+    
+    {% block branding_logo %}
+        <img src="{{ STATIC_URL }}images/custom-logo.svg" alt="Custom Project" width="80" />
+    {% endblock %}
 
 ``branding_favicon``
 --------------------
