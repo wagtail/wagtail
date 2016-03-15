@@ -100,7 +100,8 @@ class ModelAdmin(WagtailRegisterable):
     menu_order = None
     list_display = ('__str__',)
     list_display_add_buttons = None
-    inspect_view_fields = None
+    inspect_view_fields = []
+    inspect_view_fields_exclude = []
     inspect_view_enabled = False
     empty_value_display = '-'
     list_filter = ()
@@ -309,13 +310,22 @@ class ModelAdmin(WagtailRegisterable):
         return reverse(get_url_name(self.opts, 'create'))
 
     def get_inspect_view_fields(self):
+        """
+        Return a list of field names, indicating the model fields that
+        should be displayed in the 'inspect' view. Returns the value of the
+        'inspect_view_fields' attribute if populated, otherwise a sensible
+        list of fields is generated automatically, with any field named in
+        'inspect_view_fields_ignore' not being included.
+        """
         if not self.inspect_view_fields:
             found_fields = []
             for f in self.model._meta.get_fields():
-                if f.concrete and (
-                    not f.is_relation or f.one_to_one or (f.many_to_one and f.related_model)
-                ):
-                    found_fields.append(f.name)
+                if f.name not in self.inspect_view_fields_exclude:
+                    if f.concrete and (
+                        not f.is_relation or
+                        (not f.auto_created and f.related_model)
+                    ):
+                        found_fields.append(f.name)
             return found_fields
         return self.inspect_view_fields
 
@@ -340,21 +350,26 @@ class ModelAdmin(WagtailRegisterable):
         view_class = self.create_view_class
         return view_class.as_view(**kwargs)(request)
 
-    def inspect_view(self, request, object_id):
-        kwargs = {'model_admin': self, 'object_id': object_id}
-        view_class = self.inspect_view_class
-        return view_class.as_view(**kwargs)(request)
-
     def choose_parent_view(self, request):
         """
-        Instantiates a class-based view to provide a view that allows a parent
-        page to be chosen for a new object, where the assigned model extends
-        Wagtail's Page model, and there is more than one potential parent for
-        new instances. The view class used can be overridden by changing the
+        Instantiates a class-based view to allows a parent page to be chosen
+        for a new object, where the assigned model extends Wagtail's Page
+        model, and there is more than one potential parent for new instances.
+        The view class used can be overridden by changing the
         'choose_parent_view_class' attribute.
         """
         kwargs = {'model_admin': self}
         view_class = self.choose_parent_view_class
+        return view_class.as_view(**kwargs)(request)
+
+    def inspect_view(self, request, object_id):
+        """
+        Instantiates a class-based view to provide 'inspect' functionality for
+        the assigned model. The view class used can be overridden by changing
+        the 'inspect_view_class' attribute.
+        """
+        kwargs = {'model_admin': self, 'object_id': object_id}
+        view_class = self.inspect_view_class
         return view_class.as_view(**kwargs)(request)
 
     def edit_view(self, request, object_id):
@@ -428,15 +443,6 @@ class ModelAdmin(WagtailRegisterable):
         """
         return self.index_template_name or self.get_templates('index')
 
-    def get_inspect_template(self):
-        """
-        Returns a template to be used when rendering 'inspect_view'. If a
-        template is specified by the 'inspect_template_name' attribute, that
-        will be used. Otherwise, a list of preferred template names are
-        returned.
-        """
-        return self.inspect_template_name or self.get_templates('inspect')
-
     def get_choose_parent_template(self):
         """
         Returns a template to be used when rendering 'choose_parent_view'. If a
@@ -446,6 +452,15 @@ class ModelAdmin(WagtailRegisterable):
         """
         return self.choose_parent_template_name or self.get_templates(
             'choose_parent')
+
+    def get_inspect_template(self):
+        """
+        Returns a template to be used when rendering 'inspect_view'. If a
+        template is specified by the 'inspect_template_name' attribute, that
+        will be used. Otherwise, a list of preferred template names are
+        returned.
+        """
+        return self.inspect_template_name or self.get_templates('inspect')
 
     def get_create_template(self):
         """
@@ -506,14 +521,18 @@ class ModelAdmin(WagtailRegisterable):
                 self.index_view, name=get_url_name(self.opts)),
             url(get_url_pattern(self.opts, 'create'),
                 self.create_view, name=get_url_name(self.opts, 'create')),
-            url(get_object_specific_url_pattern(self.opts, 'inspect'),
-                self.inspect_view, name=get_url_name(self.opts, 'inspect')),
             url(get_object_specific_url_pattern(self.opts, 'edit'),
                 self.edit_view, name=get_url_name(self.opts, 'edit')),
             url(get_object_specific_url_pattern(self.opts, 'confirm_delete'),
                 self.confirm_delete_view,
                 name=get_url_name(self.opts, 'confirm_delete')),
         )
+        if self.inspect_view_enabled:
+            urls = urls + (
+                url(get_object_specific_url_pattern(self.opts, 'inspect'),
+                    self.inspect_view,
+                    name=get_url_name(self.opts, 'inspect')),
+            )
         if self.is_pagemodel:
             urls = urls + (
                 url(get_url_pattern(self.opts, 'choose_parent'),
