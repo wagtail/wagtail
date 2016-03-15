@@ -11,7 +11,11 @@
 {% block furniture %}
     <div class="wagtail-userbar">
         <nav>
-            <a href="{% url 'wagtailadmin_home' %}" target="_parent" class="home icon icon-wagtail" title="{% trans 'Go to Wagtail admin interface' %}">{% trans 'Go to Wagtail admin interface' %}</a>
+            <a href="{% url 'wagtailadmin_home' %}" target="_parent" title="{% trans 'Go to Wagtail admin interface' %}" style="text-align:right;">
+                {% block branding_logo %}
+                    <img class="wagtail-logo" src="{% static 'wagtailadmin/images/wagtail-logo.svg' %}" alt="Wagtail" width="40px" />
+                {% endblock %}
+            </a>
             <ul>
                 {% for item in items %}
                     {{ item|safe }}
