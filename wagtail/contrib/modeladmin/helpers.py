@@ -177,11 +177,13 @@ class ButtonHelper(object):
 
     default_button_classname = 'button button-small button-secondary'
 
-    def __init__(self, model, permission_helper, user):
+    def __init__(self, model, permission_helper, user,
+                 inspect_view_enabled=False):
         self.user = user
         self.model = model
         self.opts = model._meta
         self.permission_helper = permission_helper
+        self.inspect_view_enabled = inspect_view_enabled
         self.model_name = force_text(self.opts.verbose_name).lower()
 
     def get_action_url(self, action='create', pk=None):
@@ -196,6 +198,14 @@ class ButtonHelper(object):
             'label': _('Add %s') % self.model_name,
             'classname': self.default_button_classname,
             'title': _('Add a new %s') % self.model_name,
+        }
+
+    def inspect_button(self, pk):
+        return {
+            'url': self.get_action_url('inspect', pk),
+            'label': _('Inspect'),
+            'classname': self.default_button_classname,
+            'title': _('View details for this %s') % self.model_name,
         }
 
     def edit_button(self, pk):
@@ -214,14 +224,22 @@ class ButtonHelper(object):
             'title': _('Delete this %s') % self.model_name,
         }
 
-    def get_buttons_for_obj(self, obj):
+    def get_buttons_for_obj(self, obj, allow_inspect_button=True):
         user = self.user
         pk = quote(getattr(obj, self.opts.pk.attname))
         buttons = []
+        if self.inspect_view_enabled and allow_inspect_button:
+            buttons.append(self.inspect_button(pk))
         if self.permission_helper.can_edit_object(user, obj):
             buttons.append(self.edit_button(pk))
         if self.permission_helper.can_delete_object(user, obj):
             buttons.append(self.delete_button(pk))
+        return buttons
+
+    def get_inspect_view_buttons(self, obj):
+        buttons = self.get_buttons_for_obj(obj, False)
+        for button in buttons:
+            button['classname'] = button['classname'].replace('button-secondary', '').replace('button-small', '')
         return buttons
 
 
@@ -243,10 +261,12 @@ class PageButtonHelper(ButtonHelper):
             'title': _('Copy this %s') % self.model_name,
         }
 
-    def get_buttons_for_obj(self, obj):
+    def get_buttons_for_obj(self, obj, allow_inspect_button=True):
         user = self.user
         pk = quote(getattr(obj, self.opts.pk.attname))
         buttons = []
+        if self.inspect_view_enabled and allow_inspect_button:
+            buttons.append(self.inspect_button(pk))
         if self.permission_helper.can_edit_object(user, obj):
             buttons.append(self.edit_button(pk))
         if self.permission_helper.can_copy_object(user, obj):

@@ -1,0 +1,5 @@
+{% load i18n %}
+<ul class="breadcrumb">
+    <li class="home"><a href="{% url 'wagtailadmin_home' %}" class="icon icon-home text-replace">{% trans 'Home' %}</a></li>
+    <li><a href="{{ view.get_index_url }}">{{ view.model_name_plural }}</a></li>
+</ul>

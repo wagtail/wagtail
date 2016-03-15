@@ -31,9 +31,18 @@ from django.utils.translation import ugettext as _
 from django.utils.encoding import force_text
 from django.utils.text import capfirst
 from django.utils.http import urlencode
+from django.utils.safestring import mark_safe
 from django.utils.functional import cached_property
 from django.views.generic import TemplateView
 from django.views.generic.edit import FormView
+
+from wagtail.wagtailimages.models import get_image_model, Filter
+try:
+    from wagtail.wagtaildocs.models import get_document_model
+except ImportError:
+    def get_document_model():
+        from wagtail.wagtaildocs.models import Document
+        return Document
 
 from wagtail.wagtailadmin import messages
 from wagtail.wagtailadmin.edit_handlers import (
@@ -80,7 +89,8 @@ class WMABaseView(TemplateView):
     def dispatch(self, request, *args, **kwargs):
         button_helper_class = self.model_admin.get_button_helper_class()
         self.button_helper = button_helper_class(
-            self.model, self.permission_helper, request.user)
+            self.model, self.permission_helper, request.user,
+            self.model_admin.inspect_view_enabled)
         return super(WMABaseView, self).dispatch(request, *args, **kwargs)
 
     @cached_property
@@ -253,12 +263,6 @@ class IndexView(WMABaseView):
         if not self.permission_helper.allow_list_view(request.user):
             raise PermissionDenied
         return super(IndexView, self).dispatch(request, *args, **kwargs)
-
-
-    def get_action_buttons_for_obj(self, user, obj):
-        helper_class = self.get_button_helper_class(user, obj)
-        helper = helper_class(self.model, self.permission_helper, user, obj)
-        return helper.get_permitted_buttons()
 
     @property
     def media(self):
@@ -676,6 +680,99 @@ class IndexView(WMABaseView):
         return self.model_admin.get_index_template()
 
 
+class InspectView(ObjectSpecificView):
+
+    page_title = _('Inspecting')
+
+    def check_action_permitted(self):
+        return self.permission_helper.has_list_permission(self.request.user)
+
+    @method_decorator(login_required)
+    def dispatch(self, request, *args, **kwargs):
+        if not self.check_action_permitted():
+            raise PermissionDenied
+        return super(InspectView, self).dispatch(request, *args, **kwargs)
+
+    @property
+    def media(self):
+        return forms.Media(
+            css={'all': self.model_admin.get_inspect_view_extra_css()},
+            js=self.model_admin.get_inspect_view_extra_js()
+        )
+
+    def get_meta_title(self):
+        return _('Inspecting %s') % self.model_name.lower()
+
+    def get_page_subtitle(self):
+        return self.instance
+
+    def get_value_for_image_field(self, field_name):
+        image = getattr(self.instance, field_name)
+        if image:
+            fltr, _ = Filter.objects.get_or_create(spec='max-400x400')
+            rendition = image.get_rendition(fltr)
+            return rendition.img_tag
+        return _('Not set')
+
+    def get_value_for_document_field(self, field_name):
+        document = getattr(self.instance, field_name)
+        if document:
+            return mark_safe(
+                '<a href="%s">%s <span class="meta">(%s)</span></a>' % (
+                    document.url, document.title, document.file_extension
+                )
+            )
+        return _('Not set')
+
+    def get_value_for_relationship_field(self, field_name):
+        return getattr(self.instance, field_name, None)
+
+    def get_dict_for_field(self, field_name):
+        try:
+            field = self.model._meta.get_field(field_name)
+            label = getattr(field, 'verbose_name', None)
+            value = getattr(self.instance, field_name, None)
+            if label is None:
+                label = field.name
+            try:
+                fieldtype = field.get_internal_type()
+                if fieldtype == 'ForeignKey':
+                    if field.related_model == get_image_model():
+                        fieldtype = 'image'
+                        value = self.get_value_for_image_field(field_name)
+                    if field.related_model == get_document_model():
+                        fieldtype = 'document'
+                        value = self.get_value_for_document_field(field_name)
+            except AttributeError:
+                fieldtype = 'related'
+                value = self.get_value_for_relationship_field(field_name)
+        except FieldDoesNotExist:
+            label = field_name
+            fieldtype = ''
+
+        return {
+            'label': label.capitalize(),
+            'type': fieldtype,
+            'value': value,
+        }
+
+    def get_context_data(self, **kwargs):
+        fields = []
+        for field_name in self.model_admin.get_inspect_view_fields():
+            fields.append(self.get_dict_for_field(field_name))
+
+        return {
+            'view': self,
+            'fields': fields,
+            'instance': self.instance,
+            'buttons': self.button_helper.get_inspect_view_buttons(
+                self.instance),
+        }
+
+    def get_template_names(self):
+        return self.model_admin.get_inspect_template()
+
+
 class CreateView(WMAFormView):
     page_title = _('New')
 
@@ -762,7 +859,7 @@ class EditView(ObjectSpecificView, CreateView):
     def get_meta_title(self):
         return _('Editing %s') % self.model_name.lower()
 
-    def page_subtitle(self):
+    def get_page_subtitle(self):
         return self.instance
 
     def get_success_message(self, instance):
