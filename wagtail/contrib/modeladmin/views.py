@@ -707,15 +707,65 @@ class InspectView(ObjectSpecificView):
     def get_page_subtitle(self):
         return self.instance
 
-    def get_value_for_image_field(self, field_name):
+    def get_field_label(self, field_name, field=None):
+        """ Return a label to display for a field """
+        label = None
+        if field is not None:
+            label = getattr(field, 'verbose_name', None)
+            if label is None:
+                label = getattr(field, 'name', None)
+        if label is None:
+            label = field_name
+        return label
+
+    def get_field_display_value(self, field_name, field=None):
+        """ Return a display value for a field """
+
+        # First we check for a 'get_fieldname_display' property/method on
+        # the model, and return the value of that, if present.
+        val_funct = getattr(self.instance, 'get_%s_display' % field_name, None)
+        if val_funct is not None:
+            if callable(val_funct):
+                return val_funct()
+            return val_funct
+
+        # If we have a real field, we can utilise that to try to display
+        # something more useful
+        if field is not None:
+            try:
+                field_type = field.get_internal_type()
+                if (
+                    field_type == 'ForeignKey' and
+                    field.related_model == get_image_model()
+                ):
+                    # The field is an image
+                    return self.get_image_field_display(field_name, field)
+
+                if (
+                    field_type == 'ForeignKey' and
+                    field.related_model == get_document_model()
+                ):
+                    # The field is a document
+                    return self.get_document_field_display(field_name, field)
+
+            except AttributeError:
+                pass
+
+        # Resort to getting the value of 'field_name' from the instance
+        return getattr(self.instance, field_name,
+                       self.model_admin.get_empty_value_display(field_name))
+
+    def get_image_field_display(self, field_name, field):
+        """ Render an image """
         image = getattr(self.instance, field_name)
         if image:
             fltr, _ = Filter.objects.get_or_create(spec='max-400x400')
             rendition = image.get_rendition(fltr)
             return rendition.img_tag
-        return _('Not set')
+        return self.model_admin.get_empty_value_display(field_name)
 
-    def get_value_for_document_field(self, field_name):
+    def get_document_field_display(self, field_name, field):
+        """ Render a link to a document """
         document = getattr(self.instance, field_name)
         if document:
             return mark_safe(
@@ -726,51 +776,44 @@ class InspectView(ObjectSpecificView):
                     filesizeformat(document.file.size),
                 )
             )
-        return _('Not set')
-
-    def get_value_for_relationship_field(self, field_name):
-        return getattr(self.instance, field_name, None)
+        return self.model_admin.get_empty_value_display(field_name)
 
     def get_dict_for_field(self, field_name):
+        """
+        Return a dictionary containing `label` and `value` values to display
+        for a field.
+        """
         try:
             field = self.model._meta.get_field(field_name)
-            label = getattr(field, 'verbose_name', None)
-            value = getattr(self.instance, field_name, None)
-            if label is None:
-                label = field.name
-            try:
-                fieldtype = field.get_internal_type()
-                if fieldtype == 'ForeignKey':
-                    if field.related_model == get_image_model():
-                        fieldtype = 'image'
-                        value = self.get_value_for_image_field(field_name)
-                    if field.related_model == get_document_model():
-                        fieldtype = 'document'
-                        value = self.get_value_for_document_field(field_name)
-            except AttributeError:
-                fieldtype = 'related'
-                value = self.get_value_for_relationship_field(field_name)
         except FieldDoesNotExist:
-            label = field_name
-            fieldtype = ''
-
+            field = None
         return {
-            'label': label.capitalize(),
-            'type': fieldtype,
-            'value': value,
+            'label': self.get_field_label(field_name, field),
+            'value': self.get_field_display_value(field_name, field),
         }
 
-    def get_context_data(self, **kwargs):
+    def get_fields_dict(self):
+        """
+        Return a list of `label`/`value` dictionaries to represent the
+        fiels named by the model_admin class's `get_inspect_view_fields` method
+        """
         fields = []
         for field_name in self.model_admin.get_inspect_view_fields():
             fields.append(self.get_dict_for_field(field_name))
+        return fields
 
+    def get_buttons(self):
+        """
+        Return a list of buttons to display in the footer
+        """
+        return self.button_helper.get_buttons_for_inspect_view(self.instance)
+
+    def get_context_data(self, **kwargs):
         return {
             'view': self,
-            'fields': fields,
+            'fields': self.get_fields_dict(),
+            'buttons': self.get_buttons(),
             'instance': self.instance,
-            'buttons': self.button_helper.get_buttons_for_inspect_view(
-                self.instance),
         }
 
     def get_template_names(self):

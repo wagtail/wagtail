@@ -222,7 +222,7 @@ class ModelAdmin(WagtailRegisterable):
         return self.list_display_add_buttons or self.get_list_display(
             request)[0]
 
-    def get_empty_value_display(self, field_name):
+    def get_empty_value_display(self, field_name=None):
         """
         Return the empty_value_display value defined on ModelAdmin
         """
