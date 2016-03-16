@@ -225,11 +225,12 @@ class ButtonHelper(object):
         }
 
     def delete_button(self, pk, extra_classnames=[]):
-        extra_classnames.append('no')
+        unique_classnames = ['no']
+        classnames = unique_classnames + extra_classnames
         return {
             'url': self.get_action_url('confirm_delete', pk),
             'label': _('Delete'),
-            'classname': self.combine_classnames(extra_classnames),
+            'classname': self.combine_classnames(classnames),
             'title': _('Delete this %s') % self.model_name,
         }
 
