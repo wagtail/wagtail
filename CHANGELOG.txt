@@ -9,6 +9,12 @@ Changelog
  * Added a hook `insert_global_admin_js` for inserting custom JavaScript throughout the admin backend (Tom Dyson)
 
 
+1.4.1 (17.03.2016)
+~~~~~~~~~~~~~~~~~~
+
+ * Fix: Fixed erroneous rendering of up arrow icons (Rob Moorman)
+
+
 1.4 (16.03.2016)
 ~~~~~~~~~~~~~~~~
 
