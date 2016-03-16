@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-03-01 18:51+0000\n"
-"PO-Revision-Date: 2016-03-01 18:55+0000\n"
+"POT-Creation-Date: 2016-03-09 13:55+0000\n"
+"PO-Revision-Date: 2016-03-09 13:58+0000\n"
 "Last-Translator: mattwestcott <matthew@torchbox.com>\n"
 "Language-Team: Latvian (http://www.transifex.com/torchbox/wagtail/language/"
 "lv/)\n"
@@ -216,22 +216,18 @@ msgid "Forgotten it?"
 msgstr "Aizmirsāt paroli?"
 
 #, python-format
-msgid "The page \"%(title)s\" has been approved"
-msgstr "Lapa \"%(title)s\" tika apstiprināta"
-
-#, python-format
 msgid "The page \"%(title)s\" has been approved."
 msgstr "Lapa \"%(title)s\" tika apstiprināta"
 
 msgid "You can view the page here:"
 msgstr "Apskatiet lapu šeit:"
 
+#, python-format
+msgid "The page \"%(title)s\" has been approved"
+msgstr "Lapa \"%(title)s\" tika apstiprināta"
+
 msgid "Edit your notification preferences here:"
 msgstr "Labot paziņojumu iestatījumus:"
-
-#, python-format
-msgid "The page \"%(title)s\" has been rejected"
-msgstr "Lapa \"%(title)s\" tika noraidīta"
 
 #, python-format
 msgid "The page \"%(title)s\" has been rejected."
@@ -241,11 +237,15 @@ msgid "You can edit the page here:"
 msgstr "Labot lapu:"
 
 #, python-format
-msgid "The page \"%(page)s\" has been submitted for moderation"
-msgstr "Lapa \"%(page)s\" tika iesniegta administrēšanai"
+msgid "The page \"%(title)s\" has been rejected"
+msgstr "Lapa \"%(title)s\" tika noraidīta"
 
 msgid "You can preview the page here:"
 msgstr "Priekšskatīt lapu:"
+
+#, python-format
+msgid "The page \"%(page)s\" has been submitted for moderation"
+msgstr "Lapa \"%(page)s\" tika iesniegta administrēšanai"
 
 msgid "Page privacy"
 msgstr "Lapas privātuma iestatījumi"
@@ -482,9 +482,6 @@ msgstr ""
 msgid "Javascript is required to use Wagtail, but it is currently disabled"
 msgstr "Lai lietotu 'Wagtail', nepieciešams 'Javascript'."
 
-msgid "Add"
-msgstr "Pievienot"
-
 msgid "Your password has been changed successfully!"
 msgstr "Parole mainīta veiksmīgi."
 
@@ -507,18 +504,6 @@ msgid "Page '{0}' created."
 msgstr "Lapa '{0}' izveidota."
 
 #, python-brace-format
-msgid "Page '{0}' published."
-msgstr "Lapa '{0} publicēta'."
-
-#, python-brace-format
-msgid "Page '{0}' submitted for moderation."
-msgstr "Lapa '{0}' iesniegta administrēšanai."
-
-#, python-brace-format
-msgid "Page '{0}' updated."
-msgstr "Lapa '{0}' atjaunota."
-
-#, python-brace-format
 msgid "Page '{0}' deleted."
 msgstr "Lapa '{0}' dzēsta."
 
@@ -537,6 +522,10 @@ msgstr "Lapa '{0}' un apakšlapas {1} kopētas."
 #, python-brace-format
 msgid "Page '{0}' copied."
 msgstr "Lapa '{0}' kopēta."
+
+#, python-brace-format
+msgid "Page '{0}' published."
+msgstr "Lapa '{0} publicēta'."
 
 #, python-brace-format
 msgid "Page '{0}' rejected for publication."

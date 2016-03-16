@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-03-01 18:51+0000\n"
-"PO-Revision-Date: 2016-03-01 18:55+0000\n"
+"POT-Creation-Date: 2016-03-09 13:55+0000\n"
+"PO-Revision-Date: 2016-03-09 13:58+0000\n"
 "Last-Translator: mattwestcott <matthew@torchbox.com>\n"
 "Language-Team: Hungarian (http://www.transifex.com/torchbox/wagtail/language/"
 "hu/)\n"
@@ -373,25 +373,18 @@ msgid "Signing in..."
 msgstr "Bejelentkezés..."
 
 #, python-format
-msgid "The page \"%(title)s\" has been approved"
-msgstr "A \"%(title)s\" című oldal jóváhagyásra került"
-
-#, python-format
 msgid "The page \"%(title)s\" has been approved."
 msgstr "A \"%(title)s\" című oldal jóváhagyásra került."
 
 msgid "You can view the page here:"
 msgstr "Az oldalt itt tekintheti meg:"
 
-msgid "Hello"
-msgstr "Szia"
+#, python-format
+msgid "The page \"%(title)s\" has been approved"
+msgstr "A \"%(title)s\" című oldal jóváhagyásra került"
 
 msgid "Edit your notification preferences here:"
 msgstr "Az értesítési beállításait itt módosíthatja:"
-
-#, python-format
-msgid "The page \"%(title)s\" has been rejected"
-msgstr "A \"%(title)s\" című oldal elutasításra került"
 
 #, python-format
 msgid "The page \"%(title)s\" has been rejected."
@@ -401,8 +394,8 @@ msgid "You can edit the page here:"
 msgstr "Az oldalt itt szerkesztheti:"
 
 #, python-format
-msgid "The page \"%(page)s\" has been submitted for moderation"
-msgstr "A \"%(page)s\" oldalt benyújtotta moderálásra"
+msgid "The page \"%(title)s\" has been rejected"
+msgstr "A \"%(title)s\" című oldal elutasításra került"
 
 #, python-format
 msgid "The page \"%(page)s\" has been submitted for moderation by %(editor)s."
@@ -410,6 +403,10 @@ msgstr "A \"%(page)s\" oldalt %(editor)s benyújtotta moderálásra."
 
 msgid "You can preview the page here:"
 msgstr "Az oldal előnézetét itt tekintheti meg:"
+
+#, python-format
+msgid "The page \"%(page)s\" has been submitted for moderation"
+msgstr "A \"%(page)s\" oldalt benyújtotta moderálásra"
 
 msgid "Page privacy"
 msgstr "Az oldal hozzáferése"

@@ -16,8 +16,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-03-01 18:51+0000\n"
-"PO-Revision-Date: 2016-03-03 20:59+0000\n"
+"POT-Creation-Date: 2016-03-09 13:55+0000\n"
+"PO-Revision-Date: 2016-03-09 15:32+0000\n"
 "Last-Translator: Eugene MechanisM <contact@mechanism.name>\n"
 "Language-Team: Russian (http://www.transifex.com/torchbox/wagtail/language/"
 "ru/)\n"
@@ -156,6 +156,11 @@ msgstr ""
 
 msgid "Expiry date/time must be in the future"
 msgstr "Дата/время снятия с публикации должно быть в будущем."
+
+msgid "You cannot have multiple permission records for the same collection."
+msgstr ""
+"Вы не можете иметь несколько записей с правами доступа к одной и той же "
+"коллекции."
 
 msgid "Account"
 msgstr "Аккаунт"
@@ -324,6 +329,22 @@ msgstr "Вставить ссылку"
 msgid "Add an external link"
 msgstr "Добавить внешнюю ссылку"
 
+msgid ""
+"This collection cannot be deleted, because it is not empty. It contains:"
+msgstr ""
+"Эта коллекция не может быть удалена, потому что она не пустая. Она содержит:"
+
+msgid "Name"
+msgstr "Имя"
+
+#, python-format
+msgid ""
+"No collections have been created. Why not <a href=\"%(add_collection_url)s"
+"\">add one</a>?"
+msgstr ""
+"Коллнекции еще не были созданы. Почему бы не <a href=\"%(add_collection_url)s"
+"\">добавить одну</a>?"
+
 #, python-format
 msgid "Add %(heading)s"
 msgstr "Добавить %(heading)s"
@@ -436,25 +457,22 @@ msgid "Signing in..."
 msgstr "Выполняется вход..."
 
 #, python-format
-msgid "The page \"%(title)s\" has been approved"
-msgstr "Страница \"%(title)s\" была утверждена"
-
-#, python-format
 msgid "The page \"%(title)s\" has been approved."
 msgstr "Страница \"%(title)s\" была утверждена."
 
 msgid "You can view the page here:"
 msgstr "Вы можете посмотреть страницу здесь:"
 
-msgid "Hello"
-msgstr "Привет"
+#, python-format
+msgid "The page \"%(title)s\" has been approved"
+msgstr "Страница \"%(title)s\" была утверждена"
+
+#, python-format
+msgid "Hello %(username)s,"
+msgstr "Привет %(username)s,"
 
 msgid "Edit your notification preferences here:"
 msgstr "Редактировать ваши настройки уведомления здесь:"
-
-#, python-format
-msgid "The page \"%(title)s\" has been rejected"
-msgstr "Страница \"%(title)s\" была отклонена модераторами"
 
 #, python-format
 msgid "The page \"%(title)s\" has been rejected."
@@ -464,8 +482,8 @@ msgid "You can edit the page here:"
 msgstr "Вы можете редактировать страницу здесь:"
 
 #, python-format
-msgid "The page \"%(page)s\" has been submitted for moderation"
-msgstr "Страница \"%(page)s\" была отправлена на модерацию"
+msgid "The page \"%(title)s\" has been rejected"
+msgstr "Страница \"%(title)s\" была отклонена модераторами"
 
 #, python-format
 msgid "The page \"%(page)s\" has been submitted for moderation by %(editor)s."
@@ -474,6 +492,10 @@ msgstr ""
 
 msgid "You can preview the page here:"
 msgstr "Вы можете предварительно просмотреть страницу здесь:"
+
+#, python-format
+msgid "The page \"%(page)s\" has been submitted for moderation"
+msgstr "Страница \"%(page)s\" была отправлена на модерацию"
 
 msgid "Page privacy"
 msgstr "Приватность страницы"
@@ -644,6 +666,12 @@ msgstr "Редактирование %(page_type)s <span>%(title)s</span>"
 msgid "Page locked"
 msgstr "Страница заблокирована"
 
+msgid "Replace current draft"
+msgstr "Изменить черновик"
+
+msgid "Publish this revision"
+msgstr "Опубликовать эту версию"
+
 #, python-format
 msgid "Last modified: %(last_mod)s"
 msgstr "Последние изменения: %(last_mod)s"
@@ -800,6 +828,22 @@ msgid "Select a new parent page for <span>%(title)s</span>"
 msgstr "Выбрать новую родительскую страницу для <span>%(title)s</span>"
 
 #, python-format
+msgid "Revisions of %(title)s"
+msgstr "Версии %(title)s"
+
+msgid "Revisions of"
+msgstr "Версия"
+
+msgid "Current draft"
+msgstr "Черновик"
+
+msgid "Review this revision"
+msgstr "Ревью этой версии"
+
+msgid "No revision of this page exist"
+msgstr "Нет других версий этой страницы"
+
+#, python-format
 msgid ""
 "\n"
 "                There is one matching page\n"
@@ -833,8 +877,14 @@ msgstr "Введите критерий для поиска выше"
 msgid "No pages use"
 msgstr "Нет страниц использующих"
 
+msgid "Collection"
+msgstr "Коллекция"
+
 msgid "Home"
 msgstr "Главная"
+
+msgid "All collections"
+msgstr "Все коллекции"
 
 msgid "January"
 msgstr "Январь"
@@ -926,17 +976,17 @@ msgstr ""
 msgid "Javascript is required to use Wagtail, but it is currently disabled"
 msgstr "Для использования Wagtail требуется Javascript, но он сейчас отключен"
 
-msgid "User bar"
-msgstr "Панель пользователя"
-
 msgid "Go to Wagtail admin interface"
 msgstr "Идти в интерфейс администрирования Wagtail"
+
+msgid "Go to Wagtail admin"
+msgstr "Идти в админ-панель Wagtail"
 
 msgid "Add a child page"
 msgstr "Добавить дочернюю страницу"
 
-msgid "Add"
-msgstr "Добавить"
+msgid "Show in Explorer"
+msgstr "Показать Проводник"
 
 msgid "Test"
 msgstr "Тест"
@@ -976,19 +1026,31 @@ msgid "The page could not be created due to validation errors"
 msgstr "Эта страница не может быть создана из-за ошибок при проверке"
 
 #, python-brace-format
-msgid "Page '{0}' scheduled for publishing."
+msgid "Revision from {0} of page '{1}' has been scheduled for publishing."
+msgstr "Версия {0} страницы '{1}' запланирована к публикации."
+
+#, python-brace-format
+msgid "Page '{0}' has been scheduled for publishing."
 msgstr "Страница '{0}' запланирована к публикации."
 
 #, python-brace-format
-msgid "Page '{0}' published."
+msgid "Revision from {0} of page '{1}' has been published."
+msgstr "Версия {0} страницы '{1}' опубликована."
+
+#, python-brace-format
+msgid "Page '{0}' has been published."
 msgstr "Страница '{0}' опубликована."
 
 #, python-brace-format
-msgid "Page '{0}' submitted for moderation."
-msgstr "Страница '{0}' отправлена на модерацию."
+msgid "Page '{0}' has been submitted for moderation."
+msgstr "Страница '{0}' была отправлена на модерацию."
 
 #, python-brace-format
-msgid "Page '{0}' updated."
+msgid "Page '{0}' has been replaced with revision from {1}."
+msgstr "Страница '{0}' заменена версией из {1}."
+
+#, python-brace-format
+msgid "Page '{0}' has been updated."
 msgstr "Страница '{0}' обновлена."
 
 msgid "The page could not be saved as it is locked"
@@ -1025,6 +1087,10 @@ msgid "The page '{0}' is not currently awaiting moderation."
 msgstr "Страница '{0}' в настоящее время не ожидает модерации."
 
 #, python-brace-format
+msgid "Page '{0}' published."
+msgstr "Страница '{0}' опубликована."
+
+#, python-brace-format
 msgid "Page '{0}' rejected for publication."
 msgstr "Страница '{0}' отклонена к публикации."
 
@@ -1036,8 +1102,15 @@ msgstr "Страница '{0}' заблокирована."
 msgid "Page '{0}' is now unlocked."
 msgstr "Страница '{0}' разблокирована."
 
+#, python-format
+msgid "You are viewing a previous revision of this page from <b>%s</b> by %s"
+msgstr "Вы смотрите предыдущую версию этой страницы <b>%s</b> от %s"
+
 msgid "Pages"
 msgstr "Страницы"
+
+msgid "Collections"
+msgstr "Коллекции"
 
 msgid "Choose an item"
 msgstr "Выбрать элемент"

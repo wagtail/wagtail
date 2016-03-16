@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-03-01 18:51+0000\n"
-"PO-Revision-Date: 2016-03-01 18:55+0000\n"
+"POT-Creation-Date: 2016-03-09 13:55+0000\n"
+"PO-Revision-Date: 2016-03-09 13:58+0000\n"
 "Last-Translator: mattwestcott <matthew@torchbox.com>\n"
 "Language-Team: Indonesian (Indonesia) (http://www.transifex.com/torchbox/"
 "wagtail/language/id_ID/)\n"
@@ -176,15 +176,15 @@ msgid "Forgotten it?"
 msgstr "Lupa?"
 
 #, python-format
-msgid "The page \"%(title)s\" has been approved"
-msgstr "Halaman %(title)s telah disetujui"
-
-#, python-format
 msgid "The page \"%(title)s\" has been approved."
 msgstr "Halaman %(title)s telah disetujui."
 
 msgid "You can view the page here:"
 msgstr "Anda dapat melihat halamannya disini:"
+
+#, python-format
+msgid "The page \"%(title)s\" has been approved"
+msgstr "Halaman %(title)s telah disetujui"
 
 #, python-format
 msgid "Create a page in %(title)s"

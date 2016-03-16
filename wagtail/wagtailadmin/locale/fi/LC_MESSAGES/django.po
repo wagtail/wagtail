@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-03-01 18:51+0000\n"
-"PO-Revision-Date: 2016-03-01 18:55+0000\n"
+"POT-Creation-Date: 2016-03-09 13:55+0000\n"
+"PO-Revision-Date: 2016-03-09 13:58+0000\n"
 "Last-Translator: mattwestcott <matthew@torchbox.com>\n"
 "Language-Team: Finnish (http://www.transifex.com/torchbox/wagtail/language/"
 "fi/)\n"
@@ -389,25 +389,18 @@ msgid "Signing in..."
 msgstr "Kirjaudutaan..."
 
 #, python-format
-msgid "The page \"%(title)s\" has been approved"
-msgstr "Sivu \"%(title)s\" on hyväksytty"
-
-#, python-format
 msgid "The page \"%(title)s\" has been approved."
 msgstr "Sivu \"%(title)s\" on hyväksytty."
 
 msgid "You can view the page here:"
 msgstr "Voit katsella sivua täältä:"
 
-msgid "Hello"
-msgstr "Hei"
+#, python-format
+msgid "The page \"%(title)s\" has been approved"
+msgstr "Sivu \"%(title)s\" on hyväksytty"
 
 msgid "Edit your notification preferences here:"
 msgstr "Muokkaa ilmoitusasetuksiasi täällä: "
-
-#, python-format
-msgid "The page \"%(title)s\" has been rejected"
-msgstr "Sivu \"%(title)s\" on hylätty"
 
 #, python-format
 msgid "The page \"%(title)s\" has been rejected."
@@ -417,8 +410,8 @@ msgid "You can edit the page here:"
 msgstr "Voit muokata sivua täältä:"
 
 #, python-format
-msgid "The page \"%(page)s\" has been submitted for moderation"
-msgstr "Sivu \"%(page)s\" on lähetetty hyväksyttäväksi"
+msgid "The page \"%(title)s\" has been rejected"
+msgstr "Sivu \"%(title)s\" on hylätty"
 
 #, python-format
 msgid "The page \"%(page)s\" has been submitted for moderation by %(editor)s."
@@ -426,6 +419,10 @@ msgstr "%(editor)s lähetti sivun \"%(page)s\" hyväksyttäväksi."
 
 msgid "You can preview the page here:"
 msgstr "Voit esikatsella sivua täältä:"
+
+#, python-format
+msgid "The page \"%(page)s\" has been submitted for moderation"
+msgstr "Sivu \"%(page)s\" on lähetetty hyväksyttäväksi"
 
 msgid "Page privacy"
 msgstr "Sivun yksityisyys"
@@ -854,17 +851,11 @@ msgstr ""
 "Javascriptin täytyy olla käytössä jotta Wagtailia voi käyttää, mutta se on "
 "tällä hetkellä kytketty pois käytöstä."
 
-msgid "User bar"
-msgstr "Käyttäjäpalkki"
-
 msgid "Go to Wagtail admin interface"
 msgstr "Siirry Wagtailin hallintaan"
 
 msgid "Add a child page"
 msgstr "Lisää alasivu"
-
-msgid "Add"
-msgstr "Lisää"
 
 msgid "Test"
 msgstr "Testi"
@@ -899,18 +890,6 @@ msgstr "Sivu '{0}' luotu."
 msgid "The page could not be created due to validation errors"
 msgstr "Sivua ei voitu luoda validointivirheiden vuoksi."
 
-#, python-brace-format
-msgid "Page '{0}' published."
-msgstr "Sivu '{0}' julkaistu"
-
-#, python-brace-format
-msgid "Page '{0}' submitted for moderation."
-msgstr "Sivu '{0}' lähetetty tarkastettavaksi."
-
-#, python-brace-format
-msgid "Page '{0}' updated."
-msgstr "Sivu '{0}' päivitetty."
-
 msgid "The page could not be saved as it is locked"
 msgstr "Sivua ei voitu tallentaa, sillä se on lukittu"
 
@@ -943,6 +922,10 @@ msgstr "Sivu '{0}' kopioitu."
 #, python-brace-format
 msgid "The page '{0}' is not currently awaiting moderation."
 msgstr "Sivu '{0}' ei odota parhaillaan tarkastusta."
+
+#, python-brace-format
+msgid "Page '{0}' published."
+msgstr "Sivu '{0}' julkaistu"
 
 #, python-brace-format
 msgid "Page '{0}' rejected for publication."
