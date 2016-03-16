@@ -1,0 +1,16 @@
+===========================
+Wagtail 1.4.1 release notes
+===========================
+
+.. contents::
+    :local:
+    :depth: 1
+
+
+What's changed
+==============
+
+Bug fixes
+~~~~~~~~~
+
+ * Fixed erroneous rendering of up arrow icons (Rob Moorman)
