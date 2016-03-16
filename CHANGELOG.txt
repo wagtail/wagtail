@@ -1,7 +1,7 @@
 Changelog
 =========
 
-1.4 (xx.xx.xxxx)
+1.4 (16.03.2016)
 ~~~~~~~~~~~~~~~~
 
  * Added support for viewing previous revisions of pages, and previewing or rolling back to earlier versions
