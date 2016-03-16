@@ -131,7 +131,7 @@ Translators
 * Dutch: benny_AT_it_digin.com, Bram, Brecht Dervaux, Huib Keemink, Thijs Kramer, Samuel Leeuwenburg, mahulst, Michael van Tellingen, Arne Turpyn
 * Dutch (Netherlands): Bram, Franklin Kingma, Maarten Kling, Thijs Kramer
 * Finnish: Eetu Häivälä, Aarni Koskela, Glen Somerville
-* French: Adrien, Timothy Allen, Sebastien Andrivet, Bertrand Bordage, André Bouatchidzé, Tom Dyson, Pierre Marfoure, nahuel
+* French: Adrien, Timothy Allen, Sebastien Andrivet, Edd Baldry, Bertrand Bordage, André Bouatchidzé, Tom Dyson, Antonin Enfrun, Pierre Marfoure, nahuel
 * Galician: fooflare
 * Georgian: André Bouatchidzé
 * German: Ettore Atalan, Patrick Craston, Florian, Henrik Kröger, Tammo van Lessen, Martin Löhle, Wasilis Mandratzis-Walz, Daniel Manser, m0rph3u5, Max Pfeiffer, Herbert Poul, Karl Sander, Johannes Spielmann, Jannis Vajen, Matthew Westcott
