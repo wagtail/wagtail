@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-03-01 18:51+0000\n"
-"PO-Revision-Date: 2016-03-01 18:55+0000\n"
+"POT-Creation-Date: 2016-03-09 13:55+0000\n"
+"PO-Revision-Date: 2016-03-09 13:58+0000\n"
 "Last-Translator: mattwestcott <matthew@torchbox.com>\n"
 "Language-Team: Icelandic (Iceland) (http://www.transifex.com/torchbox/"
 "wagtail/language/is_IS/)\n"
@@ -395,18 +395,6 @@ msgstr "Síða '{0}' vistuð."
 msgid "The page could not be created due to validation errors"
 msgstr "Ekki var hægt að búa síðuna til þar sem hún stóðst ekki villuprófanir"
 
-#, python-brace-format
-msgid "Page '{0}' published."
-msgstr "Síða '{0}' hefur verið birt."
-
-#, python-brace-format
-msgid "Page '{0}' submitted for moderation."
-msgstr "Síða '{0}' send til samþykkis."
-
-#, python-brace-format
-msgid "Page '{0}' updated."
-msgstr "Síða '{0}' uppfærð."
-
 msgid "The page could not be saved as it is locked"
 msgstr "Ekki var hægt að vista síðuna, hún er læst"
 
@@ -439,6 +427,10 @@ msgstr "Síða '{0}' afrituð."
 #, python-brace-format
 msgid "The page '{0}' is not currently awaiting moderation."
 msgstr "'{0}' bíður nú samþykkis til birtingar."
+
+#, python-brace-format
+msgid "Page '{0}' published."
+msgstr "Síða '{0}' hefur verið birt."
 
 #, python-brace-format
 msgid "Page '{0}' rejected for publication."

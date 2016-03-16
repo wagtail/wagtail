@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-03-01 18:51+0000\n"
-"PO-Revision-Date: 2016-03-01 18:55+0000\n"
+"POT-Creation-Date: 2016-03-09 13:55+0000\n"
+"PO-Revision-Date: 2016-03-09 13:58+0000\n"
 "Last-Translator: mattwestcott <matthew@torchbox.com>\n"
 "Language-Team: Slovak (Slovakia) (http://www.transifex.com/torchbox/wagtail/"
 "language/sk_SK/)\n"
@@ -319,21 +319,18 @@ msgstr "Zabudli ste heslo?"
 msgid "You can view the page here:"
 msgstr "Tu môžete vidieť stránku"
 
-msgid "Hello"
-msgstr "Ahoj"
-
 msgid "Edit your notification preferences here:"
 msgstr "Tu upravte vaše notifikáčné nastavenia:"
 
 msgid "You can edit the page here:"
 msgstr "Tu môžete upraviť stránku:"
 
+msgid "You can preview the page here:"
+msgstr "Tu môžete vidieť stránku:"
+
 #, python-format
 msgid "The page \"%(page)s\" has been submitted for moderation"
 msgstr "Stránka \"%(page)s\" bola odoslaná na moderáciu"
-
-msgid "You can preview the page here:"
-msgstr "Tu môžete vidieť stránku:"
 
 msgid "Page privacy"
 msgstr "Nastavenie súkromia stránky"
@@ -580,9 +577,6 @@ msgstr ""
 msgid "Go to Wagtail admin interface"
 msgstr "Pokračovať do administrátorskej časti"
 
-msgid "Add"
-msgstr "Pridať"
-
 msgid "Sorry, you do not have permission to access this area."
 msgstr "Prepáčte, ale na prístup k tejto časti nemáte oprávnenia"
 
@@ -613,18 +607,6 @@ msgstr "Stránka '{0}' bola vytvorená."
 msgid "The page could not be created due to validation errors"
 msgstr "Táto stránka nemôže byť vytvorená, kvôli validačným chybám."
 
-#, python-brace-format
-msgid "Page '{0}' published."
-msgstr "Stránka '{0}' bola publikovaná."
-
-#, python-brace-format
-msgid "Page '{0}' submitted for moderation."
-msgstr "Stránka '{0}' bola odoslaná na moderáciu."
-
-#, python-brace-format
-msgid "Page '{0}' updated."
-msgstr "Stránka '{0}' bola aktualizovaná."
-
 msgid "The page could not be saved as it is locked"
 msgstr "Stránka nemohla byť uložená, pretože je momentálne uzamknutá."
 
@@ -653,6 +635,10 @@ msgstr "Stránka '{0}' bola skopírovaná."
 #, python-brace-format
 msgid "The page '{0}' is not currently awaiting moderation."
 msgstr "Stránka '{0}'  momentálne čaká na moderáciu"
+
+#, python-brace-format
+msgid "Page '{0}' published."
+msgstr "Stránka '{0}' bola publikovaná."
 
 #, python-brace-format
 msgid "Page '{0}' is now locked."

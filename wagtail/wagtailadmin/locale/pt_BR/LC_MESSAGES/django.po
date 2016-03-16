@@ -11,8 +11,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-03-01 18:51+0000\n"
-"PO-Revision-Date: 2016-03-01 18:55+0000\n"
+"POT-Creation-Date: 2016-03-09 13:55+0000\n"
+"PO-Revision-Date: 2016-03-09 13:58+0000\n"
 "Last-Translator: mattwestcott <matthew@torchbox.com>\n"
 "Language-Team: Portuguese (Brazil) (http://www.transifex.com/torchbox/"
 "wagtail/language/pt_BR/)\n"
@@ -354,22 +354,18 @@ msgid "Forgotten it?"
 msgstr "Esqueceu a senha?"
 
 #, python-format
-msgid "The page \"%(title)s\" has been approved"
-msgstr "A página \"%(title)s\" foi aprovada"
-
-#, python-format
 msgid "The page \"%(title)s\" has been approved."
 msgstr "A página \"%(title)s\" foi aprovada."
 
 msgid "You can view the page here:"
 msgstr "Você pode visualizar a página aqui:"
 
+#, python-format
+msgid "The page \"%(title)s\" has been approved"
+msgstr "A página \"%(title)s\" foi aprovada"
+
 msgid "Edit your notification preferences here:"
 msgstr "Edite suas preferências de notificação aqui:"
-
-#, python-format
-msgid "The page \"%(title)s\" has been rejected"
-msgstr "A página \"%(title)s\" não foi aprovada"
 
 #, python-format
 msgid "The page \"%(title)s\" has been rejected."
@@ -379,11 +375,15 @@ msgid "You can edit the page here:"
 msgstr "Você pode editar a página aqui:"
 
 #, python-format
-msgid "The page \"%(page)s\" has been submitted for moderation"
-msgstr "A página \"%(page)s\" foi enviado para moderação"
+msgid "The page \"%(title)s\" has been rejected"
+msgstr "A página \"%(title)s\" não foi aprovada"
 
 msgid "You can preview the page here:"
 msgstr "Você pode pré-visualizar a página aqui:"
+
+#, python-format
+msgid "The page \"%(page)s\" has been submitted for moderation"
+msgstr "A página \"%(page)s\" foi enviado para moderação"
 
 msgid "Page privacy"
 msgstr "Página privada"
@@ -721,17 +721,11 @@ msgstr ""
 "É necessário ter Javascript habilitado para usar Wagtail, mas atualmente "
 "está desabilitado."
 
-msgid "User bar"
-msgstr "Usuários"
-
 msgid "Go to Wagtail admin interface"
 msgstr "Ir para administração Wagtail"
 
 msgid "Add a child page"
 msgstr "Adicionar subpágina"
-
-msgid "Add"
-msgstr "Adicionar"
 
 msgid "Your password has been changed successfully!"
 msgstr "Sua senha foi alterada com sucesso!"
@@ -759,18 +753,6 @@ msgstr "Página '{0}' criada."
 
 msgid "The page could not be created due to validation errors"
 msgstr "A página não pôde ser criada devido a erros de validação"
-
-#, python-brace-format
-msgid "Page '{0}' published."
-msgstr "Página '{0}' publicada."
-
-#, python-brace-format
-msgid "Page '{0}' submitted for moderation."
-msgstr "Página '{0}' enviada para moderação."
-
-#, python-brace-format
-msgid "Page '{0}' updated."
-msgstr "Página '{0}' atualizada."
 
 msgid "The page could not be saved as it is locked"
 msgstr "Esta página não pode ser salva já que está bloqueada"
@@ -804,6 +786,10 @@ msgstr "Página '{0}' copiada."
 #, python-brace-format
 msgid "The page '{0}' is not currently awaiting moderation."
 msgstr "A página '{0}' não está mais esperando moderação."
+
+#, python-brace-format
+msgid "Page '{0}' published."
+msgstr "Página '{0}' publicada."
 
 #, python-brace-format
 msgid "Page '{0}' rejected for publication."

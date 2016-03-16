@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-03-01 18:51+0000\n"
-"PO-Revision-Date: 2016-03-01 18:55+0000\n"
+"POT-Creation-Date: 2016-03-09 13:55+0000\n"
+"PO-Revision-Date: 2016-03-09 13:58+0000\n"
 "Last-Translator: mattwestcott <matthew@torchbox.com>\n"
 "Language-Team: Bulgarian (http://www.transifex.com/torchbox/wagtail/language/"
 "bg/)\n"
@@ -204,10 +204,6 @@ msgid "Forgotten it?"
 msgstr "Забравихте ли?"
 
 #, python-format
-msgid "The page \"%(title)s\" has been approved"
-msgstr "Страницата \"%(title)s\" беше одобрена"
-
-#, python-format
 msgid "The page \"%(title)s\" has been approved."
 msgstr "Страницата \"%(title)s\" беше одобрена."
 
@@ -215,8 +211,8 @@ msgid "You can view the page here:"
 msgstr "Можете да прегледате страницата тук:"
 
 #, python-format
-msgid "The page \"%(title)s\" has been rejected"
-msgstr "Елемента \"%(title)s\" на страницата бе отхвърлен"
+msgid "The page \"%(title)s\" has been approved"
+msgstr "Страницата \"%(title)s\" беше одобрена"
 
 #, python-format
 msgid "The page \"%(title)s\" has been rejected."
@@ -226,11 +222,15 @@ msgid "You can edit the page here:"
 msgstr "Можете да редактирате страницата тук:"
 
 #, python-format
-msgid "The page \"%(page)s\" has been submitted for moderation"
-msgstr "Страницата \"%(page)s\" бе предоставена за модериране"
+msgid "The page \"%(title)s\" has been rejected"
+msgstr "Елемента \"%(title)s\" на страницата бе отхвърлен"
 
 msgid "You can preview the page here:"
 msgstr "Можете да прегледате страницата тук:"
+
+#, python-format
+msgid "The page \"%(page)s\" has been submitted for moderation"
+msgstr "Страницата \"%(page)s\" бе предоставена за модериране"
 
 #, python-format
 msgid "Create a page in %(title)s"
@@ -411,18 +411,6 @@ msgstr "Паролата ви бе променена успешно!"
 msgid "Page '{0}' created."
 msgstr "Страница '{0}' е създадена."
 
-#, python-brace-format
-msgid "Page '{0}' published."
-msgstr "Страница '{0}' е публикувана."
-
-#, python-brace-format
-msgid "Page '{0}' submitted for moderation."
-msgstr "Страница '{0}' е предоставена за модерация."
-
-#, python-brace-format
-msgid "Page '{0}' updated."
-msgstr "Страница '{0}' обновена."
-
 msgid "The page could not be saved due to validation errors"
 msgstr "Тази страница не можеше да бъде запазена поради валидационни грешки"
 
@@ -444,6 +432,10 @@ msgstr "Страница '{0}' преместена."
 #, python-brace-format
 msgid "The page '{0}' is not currently awaiting moderation."
 msgstr "Страница '{0}' не очаква да бъде модерирана."
+
+#, python-brace-format
+msgid "Page '{0}' published."
+msgstr "Страница '{0}' е публикувана."
 
 #, python-brace-format
 msgid "Page '{0}' rejected for publication."

@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-03-01 18:51+0000\n"
-"PO-Revision-Date: 2016-03-01 18:55+0000\n"
+"POT-Creation-Date: 2016-03-09 13:55+0000\n"
+"PO-Revision-Date: 2016-03-09 13:58+0000\n"
 "Last-Translator: mattwestcott <matthew@torchbox.com>\n"
 "Language-Team: Chinese (http://www.transifex.com/torchbox/wagtail/language/"
 "zh/)\n"
@@ -206,10 +206,6 @@ msgid "Forgotten it?"
 msgstr "忘记了？"
 
 #, python-format
-msgid "The page \"%(title)s\" has been approved"
-msgstr "这个页面 \"%(title)s\" 已经被通过"
-
-#, python-format
 msgid "The page \"%(title)s\" has been approved."
 msgstr "这个页面 \"%(title)s\" 已经被通过"
 
@@ -217,8 +213,8 @@ msgid "You can view the page here:"
 msgstr "你可以在此查看这个页面"
 
 #, python-format
-msgid "The page \"%(title)s\" has been rejected"
-msgstr "这个页面 \"%(title)s\" 已经被拒绝"
+msgid "The page \"%(title)s\" has been approved"
+msgstr "这个页面 \"%(title)s\" 已经被通过"
 
 #, python-format
 msgid "The page \"%(title)s\" has been rejected."
@@ -228,11 +224,15 @@ msgid "You can edit the page here:"
 msgstr "你可以在此编辑这个页面："
 
 #, python-format
-msgid "The page \"%(page)s\" has been submitted for moderation"
-msgstr "这个页面 \"%(page)s\" 已经提交审核"
+msgid "The page \"%(title)s\" has been rejected"
+msgstr "这个页面 \"%(title)s\" 已经被拒绝"
 
 msgid "You can preview the page here:"
 msgstr "你可以在此预览这页："
+
+#, python-format
+msgid "The page \"%(page)s\" has been submitted for moderation"
+msgstr "这个页面 \"%(page)s\" 已经提交审核"
 
 #, python-format
 msgid "Create a page in %(title)s"
@@ -449,18 +449,6 @@ msgstr "您的密码已经更改成功。"
 msgid "Page '{0}' created."
 msgstr "第 '{0}' 页已创建。"
 
-#, python-brace-format
-msgid "Page '{0}' published."
-msgstr "第 '{0}' 页已发布。"
-
-#, python-brace-format
-msgid "Page '{0}' submitted for moderation."
-msgstr "第 '{0}' 页已提交审核。"
-
-#, python-brace-format
-msgid "Page '{0}' updated."
-msgstr "第 '{0}' 页已更新"
-
 msgid "The page could not be saved due to validation errors"
 msgstr "这页无法保存，因为页面发生验证错误"
 
@@ -482,6 +470,10 @@ msgstr "第 '{0}' 页已移动。"
 #, python-brace-format
 msgid "The page '{0}' is not currently awaiting moderation."
 msgstr "第 '{0}' 页当前不需要等待审核。"
+
+#, python-brace-format
+msgid "Page '{0}' published."
+msgstr "第 '{0}' 页已发布。"
 
 #, python-brace-format
 msgid "Page '{0}' rejected for publication."

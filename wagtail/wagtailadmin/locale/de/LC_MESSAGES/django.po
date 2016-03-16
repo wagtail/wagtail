@@ -7,6 +7,7 @@
 # Ettore Atalan <atalanttore@googlemail.com>, 2015
 # Henrik Kröger <hedwig@riseup.net>, 2015-2016
 # hpoul <herbert.transifex@m.poul.at>, 2015
+# Jannis Vajen, 2016
 # Johannes Spielmann <j@spielmannsolutions.com>, 2014-2015
 # karlsander <karlsander@gmail.com>, 2014
 # karlsander <karlsander@gmail.com>, 2014
@@ -21,9 +22,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-03-01 18:51+0000\n"
-"PO-Revision-Date: 2016-03-02 13:07+0000\n"
-"Last-Translator: Henrik Kröger <hedwig@riseup.net>\n"
+"POT-Creation-Date: 2016-03-09 13:55+0000\n"
+"PO-Revision-Date: 2016-03-09 18:07+0000\n"
+"Last-Translator: Jannis Vajen\n"
 "Language-Team: German (http://www.transifex.com/torchbox/wagtail/language/"
 "de/)\n"
 "MIME-Version: 1.0\n"
@@ -436,25 +437,22 @@ msgid "Signing in..."
 msgstr "Anmelden..."
 
 #, python-format
-msgid "The page \"%(title)s\" has been approved"
-msgstr "Die Seite „%(title)s“ wurde freigeschaltet"
-
-#, python-format
 msgid "The page \"%(title)s\" has been approved."
 msgstr "Die Seite „%(title)s“ wurde freigeschaltet."
 
 msgid "You can view the page here:"
 msgstr "Sie können die Seite hier anzeigen:"
 
-msgid "Hello"
-msgstr "Hallo"
+#, python-format
+msgid "The page \"%(title)s\" has been approved"
+msgstr "Die Seite „%(title)s“ wurde freigeschaltet"
+
+#, python-format
+msgid "Hello %(username)s,"
+msgstr "Hallo %(username)s,"
 
 msgid "Edit your notification preferences here:"
 msgstr "Sie können Ihre Benachrichtigungseinstellungen hier bearbeiten:"
-
-#, python-format
-msgid "The page \"%(title)s\" has been rejected"
-msgstr "Die Seite „%(title)s“ wurde abgelehnt"
 
 #, python-format
 msgid "The page \"%(title)s\" has been rejected."
@@ -464,8 +462,8 @@ msgid "You can edit the page here:"
 msgstr "Sie können die Seite hier bearbeiten:"
 
 #, python-format
-msgid "The page \"%(page)s\" has been submitted for moderation"
-msgstr "Die Seite „%(page)s“ wurde zur Freischaltung eingereicht"
+msgid "The page \"%(title)s\" has been rejected"
+msgstr "Die Seite „%(title)s“ wurde abgelehnt"
 
 #, python-format
 msgid "The page \"%(page)s\" has been submitted for moderation by %(editor)s."
@@ -474,6 +472,10 @@ msgstr ""
 
 msgid "You can preview the page here:"
 msgstr "Sie können hier die Vorschau der Seite anzeigen:"
+
+#, python-format
+msgid "The page \"%(page)s\" has been submitted for moderation"
+msgstr "Die Seite „%(page)s“ wurde zur Freischaltung eingereicht"
 
 msgid "Page privacy"
 msgstr "Seitenschutz"
@@ -639,6 +641,12 @@ msgstr "Wird bearbeitet %(page_type)s <span>%(title)s</span>"
 msgid "Page locked"
 msgstr "Seite gesperrt"
 
+msgid "Replace current draft"
+msgstr "Aktuellen Entwurf ersetzen"
+
+msgid "Publish this revision"
+msgstr "Diese Revision veröffentlichen"
+
 #, python-format
 msgid "Last modified: %(last_mod)s"
 msgstr "Zuletzt geändert: %(last_mod)s"
@@ -791,6 +799,22 @@ msgid "Select a new parent page for <span>%(title)s</span>"
 msgstr "Wählen Sie eine neue übergeordnete Seite für <span>%(title)s</span>"
 
 #, python-format
+msgid "Revisions of %(title)s"
+msgstr "Revisionen von %(title)s"
+
+msgid "Revisions of"
+msgstr "Revisionen von"
+
+msgid "Current draft"
+msgstr "Aktueller Entwurf"
+
+msgid "Review this revision"
+msgstr "Diese Revision begutachten"
+
+msgid "No revision of this page exist"
+msgstr "Es existiert keine Revision dieser Seite"
+
+#, python-format
 msgid ""
 "\n"
 "                There is one matching page\n"
@@ -918,17 +942,17 @@ msgstr ""
 "Javascript wird benötigt, um Wagtail zu verwenden, aber es ist derzeit "
 "deaktiviert"
 
-msgid "User bar"
-msgstr "Benutzer"
-
 msgid "Go to Wagtail admin interface"
+msgstr "Zum Wagtail Admin-Interface"
+
+msgid "Go to Wagtail admin"
 msgstr "Zum Wagtail Admin-Interface"
 
 msgid "Add a child page"
 msgstr "Unterseite hinzufügen"
 
-msgid "Add"
-msgstr "Hinzufügen"
+msgid "Show in Explorer"
+msgstr "Im Explorer anzeigen"
 
 msgid "Test"
 msgstr "Test"
@@ -970,20 +994,35 @@ msgid "The page could not be created due to validation errors"
 msgstr "Die Seite konnte wegen Prüfungsfehlern nicht erstellt werden."
 
 #, python-brace-format
-msgid "Page '{0}' scheduled for publishing."
-msgstr "Die Seite „{0}“ ist zur Veröffentlichung (zu einem Termin) eingeplant."
+msgid "Revision from {0} of page '{1}' has been scheduled for publishing."
+msgstr ""
+"Revision von {0} von Seite '{1}' wurde zur Veröffentlichung (zu einem "
+"Termin) eingeplant."
 
 #, python-brace-format
-msgid "Page '{0}' published."
-msgstr "Seite ‚{0}‘ veröffentlicht."
+msgid "Page '{0}' has been scheduled for publishing."
+msgstr ""
+"Die Seite „{0}“ wurde zur Veröffentlichung (zu einem Termin) eingeplant."
 
 #, python-brace-format
-msgid "Page '{0}' submitted for moderation."
-msgstr "Seite ‚{0}‘ zur Freischaltung eingereicht."
+msgid "Revision from {0} of page '{1}' has been published."
+msgstr "Revision von {0} von Seite '{1}' wurde veröffentlicht."
 
 #, python-brace-format
-msgid "Page '{0}' updated."
-msgstr "Seite ‚{0}‘ geändert."
+msgid "Page '{0}' has been published."
+msgstr "Seite ‚{0}‘ wurde veröffentlicht."
+
+#, python-brace-format
+msgid "Page '{0}' has been submitted for moderation."
+msgstr "Seite '{0}' wurde zur Moderation eingereicht."
+
+#, python-brace-format
+msgid "Page '{0}' has been replaced with revision from {1}."
+msgstr "Seite '{0}' wurde auf Version von {1} zurückgesetzt."
+
+#, python-brace-format
+msgid "Page '{0}' has been updated."
+msgstr "Seite '{0}' wurde aktualisiert."
 
 msgid "The page could not be saved as it is locked"
 msgstr "Diese Seite konnte nicht gespeichert werden, da sie gesperrt ist."
@@ -1021,6 +1060,10 @@ msgid "The page '{0}' is not currently awaiting moderation."
 msgstr "Die Seite ‚{0}‘ wartet derzeit nicht auf Freischaltung."
 
 #, python-brace-format
+msgid "Page '{0}' published."
+msgstr "Seite ‚{0}‘ veröffentlicht."
+
+#, python-brace-format
 msgid "Page '{0}' rejected for publication."
 msgstr "Die Veröffentlichung der Seite ‚{0}‘ wurde abgelehnt."
 
@@ -1031,6 +1074,10 @@ msgstr "Die Seite ‚{0}‘ ist jetzt gesperrt."
 #, python-brace-format
 msgid "Page '{0}' is now unlocked."
 msgstr "Die Seite ‚{0}‘ ist jetzt entsperrt."
+
+#, python-format
+msgid "You are viewing a previous revision of this page from <b>%s</b> by %s"
+msgstr "Du betrachtest eine frühere Version dieser Seite vom <b>%s</b> von %s"
 
 msgid "Pages"
 msgstr "Seiten"

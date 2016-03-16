@@ -5,7 +5,7 @@
 # Translators:
 # fooflare <amos.oviedo@gmail.com>, 2014
 # fooflare <amos.oviedo@gmail.com>, 2014
-# chimeno <daniel@chimeno.me>, 2015
+# chimeno <daniel@chimeno.me>, 2015-2016
 # fooflare <amos.oviedo@gmail.com>, 2014
 # Joaquín Tita <carpincho@gmail.com>, 2014
 # José Alaguna <alagunajs@gmail.com>, 2015-2016
@@ -15,9 +15,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-03-01 18:52+0000\n"
-"PO-Revision-Date: 2016-03-01 21:46+0000\n"
-"Last-Translator: José Alaguna <alagunajs@gmail.com>\n"
+"POT-Creation-Date: 2016-03-09 13:55+0000\n"
+"PO-Revision-Date: 2016-03-15 02:02+0000\n"
+"Last-Translator: chimeno <daniel@chimeno.me>\n"
 "Language-Team: Spanish (http://www.transifex.com/torchbox/wagtail/language/"
 "es/)\n"
 "MIME-Version: 1.0\n"
@@ -46,7 +46,7 @@ msgid "site name"
 msgstr "nombre del sitio"
 
 msgid "Human-readable name for the site."
-msgstr "Nombre del sitio legíble para usuarios"
+msgstr "Nombre del sitio legible para usuarios"
 
 msgid "root page"
 msgstr "página raíz"
@@ -117,7 +117,7 @@ msgstr ""
 "superior de la ventana del navegador."
 
 msgid "show in menus"
-msgstr "monstrar en menús"
+msgstr "mostrar en menús"
 
 msgid ""
 "Whether a link to this page will appear in automatically generated menus"
@@ -133,10 +133,10 @@ msgid "Please add a date-time in the form YYYY-MM-DD hh:mm."
 msgstr "Por favor añada una fecha-hora con el formato YYYY-MM-DD hh:mm:ss."
 
 msgid "expiry date/time"
-msgstr "fecha/hora de experiación"
+msgstr "fecha/hora de expiración"
 
 msgid "expired"
-msgstr "Expiró"
+msgstr "expiró"
 
 msgid "locked"
 msgstr "bloqueado"
