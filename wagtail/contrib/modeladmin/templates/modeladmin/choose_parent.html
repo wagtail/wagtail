@@ -1,13 +1,11 @@
 {% extends "wagtailadmin/base.html" %}
-{% load i18n compress admin_static %}
+{% load i18n admin_static %}
 
 {% block titletag %}{{ view.get_meta_title }}{% endblock %}
 
 {% block extra_css %}
     {% include "wagtailadmin/pages/_editor_css.html" %}
-    {% compress css %}
-        <link rel="stylesheet" href="{% static 'modeladmin/css/choose_parent_page.css' %}" type="text/css"/>
-    {% endcompress %}
+    <link rel="stylesheet" href="{% static 'modeladmin/css/choose_parent_page.css' %}" type="text/css"/>
 {% endblock %}
 
 {% block extra_js %}
