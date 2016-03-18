@@ -101,7 +101,9 @@ $positions: (
 }
 
     .#{$namespace}-userbar-trigger {
-        display: block;
+        display: flex;
+        align-items: center;
+        justify-content: center;
         width: $size-home-button;
         height: $size-home-button;
         margin: 0 !important;
@@ -115,17 +117,24 @@ $positions: (
         transition: all 0.2s ease-in-out;
         font-size: 16px;
         text-decoration: none !important;
+        position: relative;
 
         .#{$namespace}-userbar.touch.is-active &,
         .#{$namespace}-userbar.no-touch &:hover {
             box-shadow: $box-shadow-props, 0 3px 15px 0 rgba(107, 214, 230, .95);
         }
 
+        .#{$namespace}-userbar-help-text {
+            position: absolute;
+            top: 100%;
+            left: 0;
+        }
+
         &.#{$namespace}-icon:before {
             transition: color .2s ease;
             font-size: 32px;
-            margin: .4em .15em .4em .375em;
-            display: block;
+            width: auto;
+            margin: 0;
         }
     }
 
