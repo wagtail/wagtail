@@ -13,7 +13,7 @@ from wagtail.wagtailcore.models import Page
 from wagtail.wagtailforms.forms import SelectDateForm
 from wagtail.wagtailforms.models import FormSubmission, get_forms_for_user
 
-from .utils import train_spam_recognition
+from .utils import AntiSpamDetector, get_message_from_dict
 
 
 def index(request):
@@ -126,7 +126,7 @@ def switch_spam(request, page_id, submission_id):
         submission.save()
 
         # Train the spam detector model with the users decision
-        train_spam_recognition(submission.get_data(), submission.is_spam, priviledged=True)
+        AntiSpamDetector.train(get_message_from_dict(submission.get_data()), submission.is_spam, priviledged=True)
 
         messages.success(request, _("Submission marked as {negation} spam.").format(negation="" if submission.is_spam else _("not")))
         return redirect('wagtailforms:list_submissions', page_id)

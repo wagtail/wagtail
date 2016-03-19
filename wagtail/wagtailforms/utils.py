@@ -4,24 +4,62 @@ import shutil
 from django.utils.six import string_types
 import antispam
 
-# To be set if a custom model should be used (and trained)
-ANTISPAM_MODEL_FILE = "my_model.dat"
+
+class BaseSpamDetector(object):
+    @staticmethod
+    def is_spam(message):
+        # Check if data is presumably spam, always returns False
+        return False
+
+    @staticmethod
+    def score(message):
+        # Score the possibility that data is spam, always returns 0
+        return 0
+
+    @staticmethod
+    def train(message, is_spam, priviledged=False):
+        # Train the detector, nothing to do here
+        pass
 
 
-def get_detector():
-    # Return the default antispam detector with its builtin model or, if applicable, a detector with a custom model
-    detector = antispam
+class AntiSpamDetector(BaseSpamDetector):
+    def __init__(self, *args, **kwargs):
+        # Return the default antispam detector with its builtin model or, if applicable, a detector with a custom model
+        self.detector = antispam
+        # TODO: should be configured in settings instead of being hardcoded
+        self.model = "my_model.dat"
 
-    if ANTISPAM_MODEL_FILE:
-        if not os.path.isfile(ANTISPAM_MODEL_FILE):
-            copy_default_model()
+        if self.model:
+            if not os.path.isfile(self.model):
+                self.copy_default_model()
 
-        detector = antispam.Detector(ANTISPAM_MODEL_FILE)
+            self.detector = antispam.Detector(self.model)
 
-    return detector
+    def copy_default_model(self):
+        # Workaround to get the default model path
+        self.detector.score("foo")
+        shutil.copy(antispam.module.obj.model.DEFAULT_DATA_PATH, self.model)
+
+    def is_spam(self, message):
+        # Check if data is presumably spam
+        return self.detector.is_spam(message) if message else False
+
+    def score(self, message):
+        # Score the possibility that data is spam
+        return self.detector.score(message)
+
+    def train(self, message, is_spam, priviledged=False):
+        # Train the detector, only when using custom models
+        if self.model:
+            score = self.score(message)
+
+            # Only train detector when receiving priviledged requests or high/low quality messages
+            if priviledged or score < 0.15 or score > 0.85:
+                self.detector.train(message, is_spam)
+                self.detector.save()
 
 
-def get_msg_from_data(data):
+def get_message_from_dict(data):
     # Return all strings in given data dictionary as a concatenated message
     text_content = ""
 
@@ -30,29 +68,3 @@ def get_msg_from_data(data):
             text_content += " " + value
 
     return text_content
-
-
-def is_spam(data):
-    # Check if data is presumably spam
-    msg = get_msg_from_data(data)
-
-    return get_detector().is_spam(msg) if msg else False
-
-
-def train_spam_recognition(data, spam, priviledged=False):
-    # Only train custom models
-    if ANTISPAM_MODEL_FILE:
-        msg = get_msg_from_data(data)
-        detector = get_detector()
-        score = detector.score(msg)
-
-        # Only train detector when receiving priviledged requests or high/low quality messages
-        if priviledged or score < 0.15 or score > 0.85:
-            detector.train(msg, spam)
-            detector.save()
-
-
-def copy_default_model():
-    # Workaround to get the default model path
-    antispam.score("foo")
-    shutil.copy(antispam.module.obj.model.DEFAULT_DATA_PATH, ANTISPAM_MODEL_FILE)
