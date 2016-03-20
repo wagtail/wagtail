@@ -19,6 +19,7 @@ from django.db.models import Q
 from django.db.models.signals import post_delete, post_save, pre_delete
 from django.dispatch.dispatcher import receiver
 from django.http import Http404
+from django.http.request import split_domain_port
 from django.template.response import TemplateResponse
 # Must be imported from Django so we get the new implementation of with_metaclass
 from django.utils import six, timezone
@@ -108,7 +109,7 @@ class Site(models.Model):
         still be routed to a different hostname which is set as the default
         """
         try:
-            hostname = request.get_host().split(':')[0]
+            hostname, port = split_domain_port(request.get_host())
             try:
                 # find a Site matching this specific hostname
                 return Site.objects.get(hostname=hostname)  # Site.DoesNotExist here goes to the final except clause
