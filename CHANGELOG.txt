@@ -13,6 +13,7 @@ Changelog
  * Use `PasswordChangeForm` when user changes their password, requiring the user to enter their current password (Matthijs Melissen)
  * Highlight current day in date picker (Jonas Lergell)
  * Eliminated the deprecated `register.assignment_tag` on Django 1.9 (Josh Schneier)
+ * Increased size of Save button on site settings (Liam Brenner)
  * Fix: The currently selected day is now highlighted only in the correct month in date pickers (Jonas Lergell)
  * Fix: Fixed crash when an image without a source file was resized with the "dynamic serve view"
  * Fix: Registered settings admin menu items now show active correctly (Matthew Downey)
