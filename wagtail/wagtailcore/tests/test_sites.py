@@ -1,5 +1,6 @@
 from django.core.exceptions import ValidationError
 from django.test import TestCase
+from django.http.request import HttpRequest
 
 from wagtail.wagtailcore.models import Page, Site
 
@@ -27,6 +28,27 @@ class TestSiteUrl(TestCase):
     def test_root_url_custom_port(self):
         site = Site(hostname='example.com', port=8000)
         self.assertEqual(site.root_url, 'http://example.com:8000')
+
+
+class TestFindSiteForRequest(TestCase):
+    def test_find_site_for_request(self):
+        site = Site.objects.create(hostname='example.com', port=80, root_page=Page.objects.get(pk=2))
+
+        request = HttpRequest()
+        request.META = {'HTTP_HOST': 'example.com'}
+        self.assertEqual(Site.find_for_request(request), site)
+
+        request2 = HttpRequest()
+        request2.META = {
+            'SERVER_NAME': 'example.com',
+            'SERVER_PORT': 80
+        }
+        self.assertEqual(Site.find_for_request(request2), site)
+
+        with self.settings(USE_X_FORWARDED_HOST=True):
+            request3 = HttpRequest()
+            request3.META = {'HTTP_X_FORWARDED_HOST': 'example.com'}
+            self.assertEqual(Site.find_for_request(request3), site)
 
 
 class TestDefaultSite(TestCase):
