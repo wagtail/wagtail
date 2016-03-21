@@ -20,7 +20,7 @@ class Command(BaseCommand):
         rebuilder = backend.get_rebuilder()
 
         if not rebuilder:
-            self.stdout.write(backend_name + ": Backend doesn't support rebuild. Skipping")
+            self.stdout.write(backend_name + ": Backend doesn't require rebuild. Skipping")
             return
 
         # Start rebuild
@@ -42,8 +42,7 @@ class Command(BaseCommand):
                 index.add_items(model, chunk)
                 count += len(chunk)
 
-            self.stdout.write("Indexed %d %s" % (
-                count, model._meta.verbose_name_plural))
+            self.stdout.write("(indexed %d objects)" % count)
             self.print_newline()
 
         # Finish rebuild
