@@ -9,14 +9,7 @@ from wagtail.wagtailsearch.index import get_indexed_models
 
 
 class Command(BaseCommand):
-    def get_object_list(self):
-        # Return list of (model_name, queryset) tuples
-        return [
-            (model, model.get_indexed_objects())
-            for model in get_indexed_models()
-        ]
-
-    def update_backend(self, backend_name, object_list):
+    def update_backend(self, backend_name):
         # Print info
         self.stdout.write("Updating backend: " + backend_name)
 
@@ -34,7 +27,7 @@ class Command(BaseCommand):
         self.stdout.write(backend_name + ": Starting rebuild")
         index = rebuilder.start()
 
-        for model, queryset in object_list:
+        for model in get_indexed_models():
             self.stdout.write(backend_name + ": Indexing model '%s.%s'" % (
                 model._meta.app_label,
                 model.__name__,
@@ -45,7 +38,7 @@ class Command(BaseCommand):
 
             # Add items (1000 at a time)
             count = 0
-            for chunk in self.print_iter_progress(self.queryset_chunks(queryset)):
+            for chunk in self.print_iter_progress(self.queryset_chunks(model.get_indexed_objects())):
                 index.add_items(model, chunk)
                 count += len(chunk)
 
@@ -63,9 +56,6 @@ class Command(BaseCommand):
             help="Specify a backend to update")
 
     def handle(self, **options):
-        # Get object list
-        object_list = self.get_object_list()
-
         # Get list of backends to index
         if options['backend_name']:
             # index only the passed backend
@@ -79,7 +69,7 @@ class Command(BaseCommand):
 
         # Update backends
         for backend_name in backend_names:
-            self.update_backend(backend_name, object_list)
+            self.update_backend(backend_name)
 
     def print_newline(self):
         self.stdout.write('')
