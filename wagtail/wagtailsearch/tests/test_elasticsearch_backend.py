@@ -4,11 +4,15 @@ from __future__ import absolute_import, unicode_literals
 import datetime
 import json
 import os
+import time
 import unittest
 
 import mock
+
+from django.core import management
 from django.db.models import Q
 from django.test import TestCase
+from django.utils.six import StringIO
 from elasticsearch.serializer import JSONSerializer
 
 from wagtail.tests.search import models
@@ -223,6 +227,27 @@ class TestElasticSearchBackend(BackendTests, TestCase):
         # Run query with "and" operator and single field
         results = self.backend.search("Hello World", models.SearchTest, operator='and', fields=['title'])
         self.assertEqual(list(results), [a])
+
+    def test_update_index_command_schema_only(self):
+        # Reset the index, this should clear out the index
+        self.backend.reset_index()
+
+        # Give Elasticsearch some time to catch up...
+        time.sleep(1)
+
+        results = self.backend.search(None, models.SearchTest)
+        self.assertEqual(set(results), set())
+
+        # Run update_index command
+        with self.ignore_deprecation_warnings():
+            # ignore any DeprecationWarnings thrown by models with old-style indexed_fields definitions
+            management.call_command(
+                'update_index', backend_name=self.backend_name, schema_only=True, interactive=False, stdout=StringIO()
+            )
+
+        # Unlike the test_update_index_command test. This should not give any results
+        results = self.backend.search(None, models.SearchTest)
+        self.assertEqual(set(results), set())
 
 
 class TestElasticSearchQuery(TestCase):
