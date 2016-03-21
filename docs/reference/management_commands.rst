@@ -76,6 +76,17 @@ For example, to update just the default backend:
     python manage.py update_index --backend default
 
 
+Indexing the schema only
+````````````````````````
+
+.. versionadded:: 1.5
+
+You can prevent the ``update_index`` command from indexing any data by using the ``--schema-only`` option:
+
+.. code-block:: sh
+
+    python manage.py update_index --schema-only
+
 
 .. _search_garbage_collect:
 

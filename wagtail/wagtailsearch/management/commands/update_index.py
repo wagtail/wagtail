@@ -9,7 +9,7 @@ from wagtail.wagtailsearch.index import get_indexed_models
 
 
 class Command(BaseCommand):
-    def update_backend(self, backend_name):
+    def update_backend(self, backend_name, schema_only=False):
         # Print info
         self.stdout.write("Updating backend: " + backend_name)
 
@@ -36,13 +36,15 @@ class Command(BaseCommand):
             # Add model
             index.add_model(model)
 
-            # Add items (1000 at a time)
-            count = 0
-            for chunk in self.print_iter_progress(self.queryset_chunks(model.get_indexed_objects())):
-                index.add_items(model, chunk)
-                count += len(chunk)
+            # Index objects
+            object_count = 0
+            if not schema_only:
+                # Add items (1000 at a time)
+                for chunk in self.print_iter_progress(self.queryset_chunks(model.get_indexed_objects())):
+                    index.add_items(model, chunk)
+                    object_count += len(chunk)
 
-            self.stdout.write("(indexed %d objects)" % count)
+            self.stdout.write("(indexed %d objects)" % object_count)
             self.print_newline()
 
         # Finish rebuild
@@ -56,6 +58,13 @@ class Command(BaseCommand):
             dest='backend_name',
             default=None,
             help="Specify a backend to update",
+        ),
+        make_option(
+            '--schema-only',
+            action='store',
+            dest='schema_only',
+            default=None,
+            help="Prevents loading any data into the index",
         ),
     )
 
@@ -73,7 +82,7 @@ class Command(BaseCommand):
 
         # Update backends
         for backend_name in backend_names:
-            self.update_backend(backend_name)
+            self.update_backend(backend_name, schema_only=options['schema_only'])
 
     def print_newline(self):
         self.stdout.write('')
