@@ -108,7 +108,6 @@ INSTALLED_APPS = (
     'wagtail.contrib.wagtailapi',
     'wagtail.contrib.wagtailsearchpromotions',
     'wagtail.contrib.modeladmin',
-    'wagtail.contrib.modeladmin.recipes.treebeard',
     'wagtail.wagtailforms',
     'wagtail.wagtailsearch',
     'wagtail.wagtailembeds',

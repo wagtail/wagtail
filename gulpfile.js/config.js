@@ -62,11 +62,6 @@ var apps = [
 
         ],
     }),
-    new App('wagtail/contrib/modeladmin/recipes/treebeard', {
-        'scss': [
-            'modeladmin/recipes/treebeard/scss/index.scss',
-        ],
-    }),
 ];
 
 module.exports = {

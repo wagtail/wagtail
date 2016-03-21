@@ -1,8 +1,6 @@
 from wagtail.contrib.modeladmin.options import (
     ModelAdmin, ModelAdminGroup, modeladmin_register)
-from wagtail.contrib.modeladmin.recipes.treebeard.options import (
-    TreebeardModelAdmin)
-from .models import Author, Book, TreebeardCategory
+from .models import Author, Book
 from wagtail.tests.testapp.models import EventPage, SingleEventPage
 
 class AuthorModelAdmin(ModelAdmin):
@@ -22,14 +20,6 @@ class BookModelAdmin(ModelAdmin):
     list_filter = ('author', )
     inspect_view_enabled = True
     inspect_view_fields_exclude = ('title', )
-
-
-class TreebeardCategoryAdmin(TreebeardModelAdmin):
-    model = TreebeardCategory
-    menu_order = 400
-    list_display = ('name', )
-    list_filter = ('depth', )
-    inspect_view_enabled = True
 
 
 class EventPageAdmin(ModelAdmin):
@@ -52,5 +42,4 @@ class EventsAdminGroup(ModelAdminGroup):
 
 modeladmin_register(AuthorModelAdmin)
 modeladmin_register(BookModelAdmin)
-modeladmin_register(TreebeardCategoryAdmin)
 modeladmin_register(EventsAdminGroup)
