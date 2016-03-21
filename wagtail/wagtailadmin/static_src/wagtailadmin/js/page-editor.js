@@ -362,7 +362,7 @@ function initErrorDetection() {
 
     // now identify them on each tab
     for (var index in errorSections) {
-        $('.tab-nav a[href=#' + index + ']').addClass('errors').attr('data-count', errorSections[index]);
+        $('.tab-nav a[href="#' + index + '"]').addClass('errors').attr('data-count', errorSections[index]);
     }
 }
 
