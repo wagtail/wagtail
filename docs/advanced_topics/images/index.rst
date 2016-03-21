@@ -8,4 +8,4 @@ Images
     animated_gifs
     custom_image_model
     feature_detection
-    using_images_outside_wagtail
+    image_serve_view
