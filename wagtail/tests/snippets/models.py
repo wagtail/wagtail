@@ -46,9 +46,9 @@ class RegisterDecorator(models.Model):
 class SearchableSnippet(models.Model, index.Indexed):
     text = models.CharField(max_length=255)
 
-    search_fields = (
+    search_fields = [
         index.SearchField('text'),
-    )
+    ]
 
     def __str__(self):
         return self.text

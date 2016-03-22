@@ -1511,7 +1511,7 @@ class TestPageSearch(TestCase, WagtailTestUtils):
         search_fields = Page.search_fields
 
         # Add slug to the search_fields
-        Page.search_fields = Page.search_fields + (SearchField('slug', partial_match=True),)
+        Page.search_fields = Page.search_fields + [SearchField('slug', partial_match=True)]
 
         # Confirm the slug is being searched
         response = self.get({'q': "hello"})

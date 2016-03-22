@@ -13,6 +13,7 @@ from django.utils.encoding import python_2_unicode_compatible
 from django.utils.translation import ugettext_lazy as _
 from taggit.managers import TaggableManager
 
+from wagtail.utils.deprecation import SearchFieldsShouldBeAList
 from wagtail.wagtailadmin.taggable import TagSearchable
 from wagtail.wagtailadmin.utils import get_object_usage
 from wagtail.wagtailcore.models import CollectionMember
@@ -42,9 +43,9 @@ class AbstractDocument(CollectionMember, TagSearchable):
 
     objects = DocumentQuerySet.as_manager()
 
-    search_fields = TagSearchable.search_fields + CollectionMember.search_fields + (
+    search_fields = SearchFieldsShouldBeAList(TagSearchable.search_fields + CollectionMember.search_fields + [
         index.FilterField('uploaded_by_user'),
-    )
+    ], name='search_fields on Document subclasses')
 
     def __str__(self):
         return self.title

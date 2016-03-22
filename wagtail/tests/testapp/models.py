@@ -211,11 +211,11 @@ class EventPage(Page):
         related_name='+'
     )
 
-    search_fields = (
+    search_fields = [
         index.SearchField('get_audience_display'),
         index.SearchField('location'),
         index.SearchField('body'),
-    )
+    ]
 
     password_required_template = 'tests/event_page_password_required.html'
 

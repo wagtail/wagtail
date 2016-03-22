@@ -2,6 +2,7 @@ from django.contrib.contenttypes.models import ContentType
 from django.db.models import Count
 from taggit.models import Tag
 
+from wagtail.utils.deprecation import SearchFieldsShouldBeAList
 from wagtail.wagtailsearch import index
 
 
@@ -11,12 +12,12 @@ class TagSearchable(index.Indexed):
     for models that provide those things.
     """
 
-    search_fields = (
+    search_fields = SearchFieldsShouldBeAList([
         index.SearchField('title', partial_match=True, boost=10),
         index.RelatedFields('tags', [
             index.SearchField('name', partial_match=True, boost=10),
         ]),
-    )
+    ], name='search_fields on TagSearchable subclasses')
 
     @classmethod
     def get_indexed_objects(cls):
