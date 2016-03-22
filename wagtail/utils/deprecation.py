@@ -55,5 +55,5 @@ class SearchFieldsShouldBeAList(ThisShouldBeAList):
     """
     Indexed.search_fields was a tuple, but it should have been a list
     """
-    def __init__(self, items, name='search_fields', category=RemovedInWagtail16Warning):
+    def __init__(self, items, name='search_fields', category=RemovedInWagtail17Warning):
         super(SearchFieldsShouldBeAList, self).__init__(items, name, category)
