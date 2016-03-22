@@ -3,7 +3,7 @@ from django.db import models
 from django.db.models.fields import FieldDoesNotExist
 from django.db.models.fields.related import ForeignObjectRel, OneToOneRel, RelatedField
 
-from wagtail.utils.deprecation import RemovedInWagtail16Warning, SearchFieldsShouldBeAList
+from wagtail.utils.deprecation import SearchFieldsShouldBeAList
 
 
 class Indexed(object):
