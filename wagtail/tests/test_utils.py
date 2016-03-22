@@ -5,7 +5,7 @@ import warnings
 
 from django.test import SimpleTestCase
 
-from wagtail.utils.deprecation import RemovedInWagtail16Warning, SearchFieldsShouldBeAList
+from wagtail.utils.deprecation import RemovedInWagtail17Warning, SearchFieldsShouldBeAList
 
 
 class TestThisShouldBeAList(SimpleTestCase):
@@ -33,4 +33,4 @@ class TestThisShouldBeAList(SimpleTestCase):
             # Check that a deprecation warning was raised
             self.assertEqual(len(w), 1)
             warning = w[0]
-            self.assertIs(warning.category, RemovedInWagtail16Warning)
+            self.assertIs(warning.category, RemovedInWagtail17Warning)
