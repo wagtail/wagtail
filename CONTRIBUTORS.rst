@@ -117,6 +117,7 @@ Contributors
 * Eirik Krogstad
 * Rob Moorman
 * Matthijs Melissen
+* Jonas Lergell
 
 Translators
 ===========
