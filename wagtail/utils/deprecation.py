@@ -29,7 +29,7 @@ class ThisShouldBeAList(list):
     This class will allow tuples to be added to it, as in the above behaviour,
     but will raise a deprecation warning if someone does this.
     """
-    message = '{name} should be a list, not a {type}'
+    message = 'Using a {type} for {name} is deprecated, use a list instead'
 
     def __init__(self, items, name, category):
         super(ThisShouldBeAList, self).__init__(items)
