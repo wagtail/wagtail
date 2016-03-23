@@ -20,10 +20,8 @@ def get_object_usage(obj):
     pages = Page.objects.none()
 
     # get all the relation objects for obj
-    relations = type(obj)._meta.get_all_related_objects(
-        include_hidden=True,
-        include_proxy_eq=True
-    )
+    relations = [f for f in type(obj)._meta.get_fields(include_hidden=True)
+                 if (f.one_to_many or f.one_to_one) and f.auto_created]
     for relation in relations:
         related_model = relation.related_model
 
