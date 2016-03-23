@@ -1,4 +1,4 @@
-from datetime import datetime, timedelta
+import datetime
 
 import django
 import mock
@@ -33,6 +33,11 @@ def submittable_timestamp(timestamp):
     return str(timezone.localtime(timestamp)).split('.')[0]
 
 
+def local_datetime(*args):
+    dt = datetime.datetime(*args)
+    return timezone.make_aware(dt)
+
+
 class TestPageExplorer(TestCase, WagtailTestUtils):
     def setUp(self):
         # Find root page
@@ -50,7 +55,7 @@ class TestPageExplorer(TestCase, WagtailTestUtils):
         self.old_page = StandardIndex(
             title="Old page",
             slug="old-page",
-            latest_revision_created_at=datetime(2010, 1, 1)
+            latest_revision_created_at=local_datetime(2010, 1, 1)
         )
         self.root_page.add_child(instance=self.old_page)
 
@@ -58,7 +63,7 @@ class TestPageExplorer(TestCase, WagtailTestUtils):
             title="New page",
             slug="new-page",
             content="hello",
-            latest_revision_created_at=datetime(2016, 1, 1)
+            latest_revision_created_at=local_datetime(2016, 1, 1)
         )
         self.root_page.add_child(instance=self.new_page)
 
@@ -213,7 +218,7 @@ class TestPageExplorer(TestCase, WagtailTestUtils):
             title="New event",
             location='the moon', audience='public',
             cost='free', date_from='2001-01-01',
-            latest_revision_created_at=datetime(2016, 1, 1)
+            latest_revision_created_at=local_datetime(2016, 1, 1)
         )
         self.root_page.add_child(instance=self.new_event)
 
@@ -498,8 +503,8 @@ class TestPageCreation(TestCase, WagtailTestUtils):
         self.assertFalse(any(Page.find_problems()), 'treebeard found consistency problems')
 
     def test_create_simplepage_scheduled(self):
-        go_live_at = timezone.now() + timedelta(days=1)
-        expire_at = timezone.now() + timedelta(days=2)
+        go_live_at = timezone.now() + datetime.timedelta(days=1)
+        expire_at = timezone.now() + datetime.timedelta(days=2)
         post_data = {
             'title': "New page!",
             'content': "Some content",
@@ -529,8 +534,8 @@ class TestPageCreation(TestCase, WagtailTestUtils):
             'title': "New page!",
             'content': "Some content",
             'slug': 'hello-world',
-            'go_live_at': submittable_timestamp(timezone.now() + timedelta(days=2)),
-            'expire_at': submittable_timestamp(timezone.now() + timedelta(days=1)),
+            'go_live_at': submittable_timestamp(timezone.now() + datetime.timedelta(days=2)),
+            'expire_at': submittable_timestamp(timezone.now() + datetime.timedelta(days=1)),
         }
         response = self.client.post(
             reverse('wagtailadmin_pages:add', args=('tests', 'simplepage', self.root_page.id)), post_data
@@ -547,7 +552,7 @@ class TestPageCreation(TestCase, WagtailTestUtils):
             'title': "New page!",
             'content': "Some content",
             'slug': 'hello-world',
-            'expire_at': submittable_timestamp(timezone.now() + timedelta(days=-1)),
+            'expire_at': submittable_timestamp(timezone.now() + datetime.timedelta(days=-1)),
         }
         response = self.client.post(
             reverse('wagtailadmin_pages:add', args=('tests', 'simplepage', self.root_page.id)), post_data
@@ -597,8 +602,8 @@ class TestPageCreation(TestCase, WagtailTestUtils):
         self.assertFalse(any(Page.find_problems()), 'treebeard found consistency problems')
 
     def test_create_simplepage_post_publish_scheduled(self):
-        go_live_at = timezone.now() + timedelta(days=1)
-        expire_at = timezone.now() + timedelta(days=2)
+        go_live_at = timezone.now() + datetime.timedelta(days=1)
+        expire_at = timezone.now() + datetime.timedelta(days=2)
         post_data = {
             'title': "New page!",
             'content': "Some content",
@@ -915,8 +920,8 @@ class TestPageEdit(TestCase, WagtailTestUtils):
     def test_edit_post_scheduled(self):
         # put go_live_at and expire_at several days away from the current date, to avoid
         # false matches in content_json__contains tests
-        go_live_at = timezone.now() + timedelta(days=10)
-        expire_at = timezone.now() + timedelta(days=20)
+        go_live_at = timezone.now() + datetime.timedelta(days=10)
+        expire_at = timezone.now() + datetime.timedelta(days=20)
         post_data = {
             'title': "I've been edited!",
             'content': "Some content",
@@ -952,8 +957,8 @@ class TestPageEdit(TestCase, WagtailTestUtils):
             'title': "I've been edited!",
             'content': "Some content",
             'slug': 'hello-world',
-            'go_live_at': submittable_timestamp(timezone.now() + timedelta(days=2)),
-            'expire_at': submittable_timestamp(timezone.now() + timedelta(days=1)),
+            'go_live_at': submittable_timestamp(timezone.now() + datetime.timedelta(days=2)),
+            'expire_at': submittable_timestamp(timezone.now() + datetime.timedelta(days=1)),
         }
         response = self.client.post(reverse('wagtailadmin_pages:edit', args=(self.child_page.id, )), post_data)
 
@@ -968,7 +973,7 @@ class TestPageEdit(TestCase, WagtailTestUtils):
             'title': "I've been edited!",
             'content': "Some content",
             'slug': 'hello-world',
-            'expire_at': submittable_timestamp(timezone.now() + timedelta(days=-1)),
+            'expire_at': submittable_timestamp(timezone.now() + datetime.timedelta(days=-1)),
         }
         response = self.client.post(reverse('wagtailadmin_pages:edit', args=(self.child_page.id, )), post_data)
 
@@ -1028,8 +1033,8 @@ class TestPageEdit(TestCase, WagtailTestUtils):
             break
 
     def test_edit_post_publish_scheduled(self):
-        go_live_at = timezone.now() + timedelta(days=1)
-        expire_at = timezone.now() + timedelta(days=2)
+        go_live_at = timezone.now() + datetime.timedelta(days=1)
+        expire_at = timezone.now() + datetime.timedelta(days=2)
         post_data = {
             'title': "I've been edited!",
             'content': "Some content",
@@ -1062,8 +1067,8 @@ class TestPageEdit(TestCase, WagtailTestUtils):
 
     def test_edit_post_publish_now_an_already_scheduled(self):
         # First let's publish a page with a go_live_at in the future
-        go_live_at = timezone.now() + timedelta(days=1)
-        expire_at = timezone.now() + timedelta(days=2)
+        go_live_at = timezone.now() + datetime.timedelta(days=1)
+        expire_at = timezone.now() + datetime.timedelta(days=2)
         post_data = {
             'title': "I've been edited!",
             'content': "Some content",
@@ -2800,7 +2805,7 @@ class TestRevisions(TestCase, WagtailTestUtils):
             "but the very next day you gave it away</p>"
         )
         self.last_christmas_revision = self.christmas_event.save_revision()
-        self.last_christmas_revision.created_at = '2013-12-25'
+        self.last_christmas_revision.created_at = local_datetime(2013, 12, 25)
         self.last_christmas_revision.save()
 
         self.christmas_event.title = "This Christmas"
@@ -2810,7 +2815,7 @@ class TestRevisions(TestCase, WagtailTestUtils):
             "I'll give it to someone special</p>"
         )
         self.this_christmas_revision = self.christmas_event.save_revision()
-        self.this_christmas_revision.created_at = '2014-12-25'
+        self.this_christmas_revision.created_at = local_datetime(2014, 12, 25)
         self.this_christmas_revision.save()
 
         self.login()
