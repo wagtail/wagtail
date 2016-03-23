@@ -1,6 +1,5 @@
 import functools
 import operator
-from optparse import make_option
 
 from django.core.management.base import BaseCommand
 from django.db import models
@@ -12,13 +11,11 @@ from wagtail.wagtailcore.models import Page
 
 class Command(BaseCommand):
     help = "Checks for data integrity errors on the page tree, and fixes them where possible."
-    base_options = (
-        make_option(
+
+    def add_arguments(self, parser):
+        parser.add_argument(
             '--noinput', action='store_false', dest='interactive', default=True,
-            help='If provided, any fixes requiring user interaction will be skipped.'
-        ),
-    )
-    option_list = BaseCommand.option_list + base_options
+            help='If provided, any fixes requiring user interaction will be skipped.')
 
     def numberlist_to_string(self, numberlist):
         # Converts a list of numbers into a string
