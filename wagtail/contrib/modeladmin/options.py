@@ -204,7 +204,7 @@ class ModelAdmin(WagtailRegisterable):
         Returns a boolean indicating whether the menu item should be visible
         for the user in the supplied request, based on their permissions.
         """
-        return self.permission_helper.allow_list_view(request.user)
+        return self.permission_helper.has_list_permission(request.user)
 
     def get_list_display(self, request):
         """
@@ -505,10 +505,7 @@ class ModelAdmin(WagtailRegisterable):
         """
         from wagtail.wagtailsnippets.models import SNIPPET_MODELS
         if not self.is_pagemodel and self.model not in SNIPPET_MODELS:
-            return Permission.objects.filter(
-                content_type__app_label=self.opts.app_label,
-                content_type__model=self.opts.model_name,
-            )
+            return self.permission_helper.get_all_model_permissions()
         return Permission.objects.none()
 
     def get_admin_urls_for_registration(self):
