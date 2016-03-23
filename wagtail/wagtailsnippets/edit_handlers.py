@@ -41,7 +41,7 @@ class BaseSnippetChooserPanel(BaseChooserPanel):
                         .format(cls.__name__, cls.snippet_type)
                     )
             else:
-                cls._target_model = cls.model._meta.get_field(cls.field_name).rel.to
+                cls._target_model = cls.model._meta.get_field(cls.field_name).rel.model
 
         return cls._target_model
 
