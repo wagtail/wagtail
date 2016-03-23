@@ -31,6 +31,7 @@ class PagesAdminAPIEndpoint(PagesAPIEndpoint):
         'latest_revision_created_at',
         'status',
         'children',
+        'parent',
     ]
 
     default_fields = PagesAPIEndpoint.default_fields + [

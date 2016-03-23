@@ -194,6 +194,23 @@ class TestPageListing(AdminAPITestCase):
                 self.assertEqual(feed_image['meta']['type'], 'wagtailimages.Image')
                 self.assertEqual(feed_image['meta']['detail_url'], 'http://localhost/admin/api/v2beta/images/%d/' % feed_image['id'])
 
+    def test_fields_parent(self):  # ADMINAPI CHANGE
+        response = self.get_response(type='demosite.BlogEntryPage', fields='parent')
+        content = json.loads(response.content.decode('UTF-8'))
+
+        for page in content['items']:
+            parent = page['meta']['parent']
+
+            # All blog entry pages have the same parent
+            self.assertEqual(parent, {
+                'id': 5,
+                'meta': {
+                    'type': 'demosite.BlogIndexPage',
+                    'detail_url': 'http://localhost/admin/api/v2beta/pages/5/',
+                    'html_url': 'http://localhost/blog-index/',
+                }
+            })
+
     def test_fields_tags(self):
         response = self.get_response(type='demosite.BlogEntryPage', fields='tags')
         content = json.loads(response.content.decode('UTF-8'))
