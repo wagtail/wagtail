@@ -11,7 +11,7 @@ from django.core.exceptions import ImproperlyConfigured
 from django.utils import six
 from django.utils.safestring import mark_safe
 from django.utils.text import capfirst
-from django.utils.encoding import force_text
+from django.utils.encoding import python_2_unicode_compatible, force_text
 from django.template.loader import render_to_string
 from django import forms
 
@@ -200,6 +200,12 @@ class Block(six.with_metaclass(BaseBlock, object)):
         """
         return value
 
+    def get_context(self, value):
+        return {
+            'self': value,
+            self.TEMPLATE_VAR: value,
+        }
+
     def render(self, value):
         """
         Return a text rendering of 'value', suitable for display on templates. By default, this will
@@ -208,10 +214,7 @@ class Block(six.with_metaclass(BaseBlock, object)):
         """
         template = getattr(self.meta, 'template', None)
         if template:
-            return render_to_string(template, {
-                'self': value,
-                self.TEMPLATE_VAR: value,
-            })
+            return render_to_string(template, self.get_context(value))
         else:
             return self.render_basic(value)
 
@@ -370,6 +373,7 @@ class Block(six.with_metaclass(BaseBlock, object)):
     __hash__ = None
 
 
+@python_2_unicode_compatible
 class BoundBlock(object):
     def __init__(self, block, value, prefix=None, errors=None):
         self.block = block
@@ -385,6 +389,10 @@ class BoundBlock(object):
 
     def id_for_label(self):
         return self.block.id_for_label(self.prefix)
+
+    def __str__(self):
+        """Render the value according to the block's native rendering"""
+        return self.block.render(self.value)
 
 
 class DeclarativeSubBlocksMetaclass(BaseBlock):

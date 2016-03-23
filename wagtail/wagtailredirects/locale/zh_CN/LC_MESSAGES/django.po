@@ -9,9 +9,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-08-26 14:28+0100\n"
-"PO-Revision-Date: 2015-06-29 17:09+0000\n"
-"Last-Translator: hanfeng <appweb.cn@gmail.com>\n"
+"POT-Creation-Date: 2016-03-09 13:55+0000\n"
+"PO-Revision-Date: 2015-12-17 13:59+0000\n"
+"Last-Translator: mattwestcott <matthew@torchbox.com>\n"
 "Language-Team: Chinese (China) (http://www.transifex.com/torchbox/wagtail/"
 "language/zh_CN/)\n"
 "MIME-Version: 1.0\n"
@@ -20,28 +20,10 @@ msgstr ""
 "Language: zh_CN\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
-msgid "Redirect from"
-msgstr "转向源"
-
-msgid "Site"
-msgstr "站点"
-
-msgid "Permanent"
-msgstr "永久"
-
 msgid ""
 "Recommended. Permanent redirects ensure search engines forget the old page "
 "(the 'Redirect from') and index the new page instead."
 msgstr "推荐。永久转向保证搜索引擎忘掉旧页面转而抓取索引新页面。"
-
-msgid "Redirect to a page"
-msgstr "转向到页面"
-
-msgid "Redirect to any URL"
-msgstr "转向到任意URL"
-
-msgid "Redirect"
-msgstr "转向"
 
 msgid "Add redirect"
 msgstr "增加转向"
@@ -77,6 +59,9 @@ msgstr "转向"
 
 msgid "From"
 msgstr "从"
+
+msgid "Site"
+msgstr "站点"
 
 msgid "To"
 msgstr " 到"

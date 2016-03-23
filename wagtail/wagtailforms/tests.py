@@ -184,7 +184,7 @@ class TestFormsIndex(TestCase):
     fixtures = ['test.json']
 
     def setUp(self):
-        self.client.login(username='siteeditor', password='password')
+        self.assertTrue(self.client.login(username='siteeditor', password='password'))
         self.form_page = Page.objects.get(url_path='/home/contact-us/')
 
     def make_form_pages(self):
@@ -250,7 +250,7 @@ class TestFormsIndex(TestCase):
 
     def test_cannot_see_forms_without_permission(self):
         # Login with as a user without permission to see forms
-        self.client.login(username='eventeditor', password='password')
+        self.assertTrue(self.client.login(username='eventeditor', password='password'))
 
         response = self.client.get(reverse('wagtailforms:index'))
 
@@ -315,7 +315,9 @@ class TestFormsSubmissions(TestCase, WagtailTestUtils):
         self.assertEqual(len(response.context['data_rows']), 2)
 
     def test_list_submissions_filtering(self):
-        response = self.client.get(reverse('wagtailforms:list_submissions', args=(self.form_page.id, )), {'date_from': '01/01/2014'})
+        response = self.client.get(
+            reverse('wagtailforms:list_submissions', args=(self.form_page.id, )), {'date_from': '01/01/2014'}
+        )
 
         # Check response
         self.assertEqual(response.status_code, 200)
@@ -337,7 +339,9 @@ class TestFormsSubmissions(TestCase, WagtailTestUtils):
     def test_list_submissions_pagination_invalid(self):
         self.make_list_submissions()
 
-        response = self.client.get(reverse('wagtailforms:list_submissions', args=(self.form_page.id, )), {'p': 'Hello World!'})
+        response = self.client.get(
+            reverse('wagtailforms:list_submissions', args=(self.form_page.id, )), {'p': 'Hello World!'}
+        )
 
         # Check response
         self.assertEqual(response.status_code, 200)
@@ -359,7 +363,10 @@ class TestFormsSubmissions(TestCase, WagtailTestUtils):
         self.assertEqual(response.context['submissions'].number, response.context['submissions'].paginator.num_pages)
 
     def test_list_submissions_csv_export(self):
-        response = self.client.get(reverse('wagtailforms:list_submissions', args=(self.form_page.id, )), {'date_from': '01/01/2014', 'action': 'CSV'})
+        response = self.client.get(
+            reverse('wagtailforms:list_submissions', args=(self.form_page.id, )),
+            {'date_from': '01/01/2014', 'action': 'CSV'}
+        )
 
         # Check response
         self.assertEqual(response.status_code, 200)
@@ -377,7 +384,10 @@ class TestFormsSubmissions(TestCase, WagtailTestUtils):
         unicode_form_submission.submit_time = '2014-01-02T12:00:00.000Z'
         unicode_form_submission.save()
 
-        response = self.client.get(reverse('wagtailforms:list_submissions', args=(self.form_page.id, )), {'date_from': '01/02/2014', 'action': 'CSV'})
+        response = self.client.get(
+            reverse('wagtailforms:list_submissions', args=(self.form_page.id, )),
+            {'date_from': '01/02/2014', 'action': 'CSV'}
+        )
 
         # Check response
         self.assertEqual(response.status_code, 200)
@@ -389,7 +399,7 @@ class TestDeleteFormSubmission(TestCase):
     fixtures = ['test.json']
 
     def setUp(self):
-        self.client.login(username='siteeditor', password='password')
+        self.assertTrue(self.client.login(username='siteeditor', password='password'))
         self.form_page = Page.objects.get(url_path='/home/contact-us/')
 
     def test_delete_submission_show_cofirmation(self):
@@ -415,8 +425,7 @@ class TestDeleteFormSubmission(TestCase):
         self.assertRedirects(response, reverse("wagtailforms:list_submissions", args=(self.form_page.id, )))
 
     def test_delete_submission_bad_permissions(self):
-        self.form_page = make_form_page()
-        self.client.login(username="eventeditor", password="password")
+        self.assertTrue(self.client.login(username="eventeditor", password="password"))
 
         response = self.client.post(reverse(
             'wagtailforms:delete_submission',
@@ -429,11 +438,12 @@ class TestDeleteFormSubmission(TestCase):
         # Check that the deletion has not happened
         self.assertEqual(FormSubmission.objects.count(), 2)
 
+
 class TestIssue798(TestCase):
     fixtures = ['test.json']
 
     def setUp(self):
-        self.client.login(username='siteeditor', password='password')
+        self.assertTrue(self.client.login(username='siteeditor', password='password'))
         self.form_page = Page.objects.get(url_path='/home/contact-us/').specific
 
         # Add a number field to the page

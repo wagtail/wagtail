@@ -21,6 +21,64 @@ function escapeHtml(text) {
     });
 }
 
+function initTagField(id, autocompleteUrl) {
+    $('#' + id).tagit({
+        autocomplete: {source: autocompleteUrl},
+        preprocessTag: function(val) {
+            // Double quote a tag if it contains a space
+            // and if it isn't already quoted.
+            if (val && val[0] != '"' && val.indexOf(' ') > -1) {
+                return '"' + val + '"';
+            }
+
+            return val;
+        }
+    });
+}
+
+/*
+ * Enables a "dirty form check", prompting the user if they are navigating away
+ * from a page with unsaved changes.
+ *
+ * It takes the following parameters:
+ *
+ *  - formSelector - A CSS selector to select the form to apply this check to.
+ *
+ *  - options - An object for passing in options. Possible options are:
+ *    - ignoredButtonsSelector - A CSS selector to find buttons to ignore within
+ *      the form. If the navigation was triggered by one of these buttons, The
+ *      check will be ignored. defaults to: input[type="submit"].
+ *    - confirmationMessage - The message to display in the prompt.
+ *    - alwaysDirty - When set to true the form will always be considered dirty,
+ *      prompting the user even when nothing has been changed.
+*/
+function enableDirtyFormCheck(formSelector, options) {
+    var $form = $(formSelector);
+    var $ignoredButtons = $form.find(
+        options.ignoredButtonsSelector || 'input[type="submit"],button[type="submit"]'
+    );
+    var confirmationMessage = options.confirmationMessage || ' ';
+    var alwaysDirty = options.alwaysDirty || false;
+    var initialData = $form.serialize();
+
+    window.addEventListener('beforeunload', function(event) {
+        // Ignore if the user clicked on an ignored element
+        var triggeredByIgnoredButton = false;
+        var $trigger = $(event.target.activeElement);
+
+        $ignoredButtons.each(function() {
+            if ($(this).is($trigger)) {
+                triggeredByIgnoredButton = true;
+            }
+        });
+
+        if (!triggeredByIgnoredButton && (alwaysDirty || $form.serialize() != initialData)) {
+            event.returnValue = confirmationMessage;
+            return confirmationMessage;
+        }
+    });
+}
+
 $(function() {
     // Add class to the body from which transitions may be hung so they don't appear to transition as the page loads
     $('body').addClass('ready');
@@ -74,19 +132,28 @@ $(function() {
         $('.tab-nav a[href="' + $(this).attr('href') + '"]').click();
     });
 
-    $('.dropdown-toggle').bind('click', function() {
-        $(this).closest('.dropdown').toggleClass('open');
+    $('.dropdown').each(function() {
+        var $dropdown = $(this);
 
-        // Stop event propagating so the "close all dropdowns on body clicks" code (below) doesn't immediately close the dropdown
-        return false;
-    });
+        $('.dropdown-toggle', $dropdown).on('click', function(e) {
+            e.stopPropagation();
+            $dropdown.toggleClass('open');
 
-    /* close all dropdowns on body clicks */
-    $(document).on('click', function(e) {
-        var relTarg = e.relatedTarget || e.toElement;
-        if (!$(relTarg).hasClass('dropdown-toggle')) {
-            $('.dropdown').removeClass('open');
-        }
+            if ($dropdown.hasClass('open')) {
+                // If a dropdown is opened, add an event listener for document clicks to close it
+                $(document).on('click.dropdown.cancel', function(e) {
+                    var relTarg = e.relatedTarget || e.toElement;
+
+                    // Only close dropdown if the click target wasn't a child of this dropdown
+                    if (!$(relTarg).parents().is($dropdown)) {
+                        $dropdown.removeClass('open');
+                        $(document).off('click.dropdown.cancel');
+                    }
+                });
+            } else {
+                $(document).off('click.dropdown.cancel');
+            }
+        });
     });
 
     /* Dropzones */

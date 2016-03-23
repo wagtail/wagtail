@@ -3,6 +3,7 @@ from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 
 DEFAULT_PAGE_KEY = 'p'
 
+
 def paginate(request, items, page_key=DEFAULT_PAGE_KEY, per_page=20):
     page = request.GET.get(page_key, 1)
 

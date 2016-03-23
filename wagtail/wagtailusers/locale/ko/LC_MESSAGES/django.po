@@ -4,13 +4,14 @@
 #
 # Translators:
 # Ji Han Chung <jihanchung20@gmail.com>, 2015
+# Kyungil Choi <hanpama@gmail.com>, 2015
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-08-26 14:28+0100\n"
-"PO-Revision-Date: 2015-07-23 15:04+0000\n"
-"Last-Translator: Ji Han Chung <jihanchung20@gmail.com>\n"
+"POT-Creation-Date: 2016-03-09 13:55+0000\n"
+"PO-Revision-Date: 2016-03-01 19:08+0000\n"
+"Last-Translator: mattwestcott <matthew@torchbox.com>\n"
 "Language-Team: Korean (http://www.transifex.com/torchbox/wagtail/language/"
 "ko/)\n"
 "MIME-Version: 1.0\n"
@@ -26,12 +27,14 @@ msgstr ""
 msgid "This value may contain only letters, numbers and @/./+/-/_ characters."
 msgstr "이 값은 오직 문자, 숫자 및 @/./+/-/_ 로 포함하였을 것입니다."
 
+msgid "A user with that username already exists."
+msgstr "이 사용자명은 이미 사용되고 있습니다."
+
+msgid "The two password fields didn't match."
+msgstr "두 개의 비밀번호가 일치하지 않습니다."
+
 msgid "Administrator"
 msgstr "관리자"
-
-msgid "If ticked, this user has the ability to manage user accounts."
-msgstr ""
-"선택한 경우, 이 사용자는 사용자 계정을 관리할 수 있는 권한을 가지게 됩니다."
 
 msgid "Password"
 msgstr "비밀번호"
@@ -54,38 +57,17 @@ msgstr "이름"
 msgid "Last Name"
 msgstr "성"
 
-msgid "A user with that username already exists."
-msgstr "이 사용자명은 이미 사용되고 있습니다."
-
-msgid "The two password fields didn't match."
-msgstr "두 개의 비밀번호가 일치하지 않습니다."
-
-msgid "Administrators have the ability to manage user accounts."
-msgstr "관리자는 사용자 계정을 관리할 수 있는 권한을 가지고 있습니다."
-
 msgid "A group with that name already exists."
-msgstr "이 이름을 가진 그룹은 이미 사용하고 있습니다."
-
-msgid "Submitted notifications"
-msgstr "제출된 알림"
+msgstr "해당 이름의 그룹은 이미 사용되고 있습니다."
 
 msgid "Receive notification when a page is submitted for moderation"
 msgstr "페이지가 검토를 위해 제출되었을 때 알림을 받습니다"
 
-msgid "Approved notifications"
-msgstr "승인된 알림"
-
 msgid "Receive notification when your page edit is approved"
 msgstr "당신의 페이지 수정 건이 승인 되었을때 알림을 받습니다"
 
-msgid "Rejected notifications"
-msgstr "부결 알림"
-
 msgid "Receive notification when your page edit is rejected"
 msgstr "당신의 페이지 수정 건이 부결 되었을때 알림을 받습니다"
-
-msgid "User Profile"
-msgstr "사용자 프로필"
 
 msgid "Delete group"
 msgstr "그룹 삭제"
@@ -101,8 +83,7 @@ msgstr ""
 msgid ""
 "Deleting this group will revoke this group's permissions from all member "
 "users."
-msgstr ""
-"이 그룹을 지우면 모든 멤버 유저들로부터 그룹의 퍼미션들이 폐지될 것입니다."
+msgstr "이 그룹을 지우면 모든 구성원들의 그룹 권한이 폐지됩니다."
 
 msgid "Are you sure you want to delete this group?"
 msgstr "이 그룹을 정말 삭제할까요?"
@@ -120,7 +101,7 @@ msgid "Save"
 msgstr "저장"
 
 msgid "Object permissions"
-msgstr "오브젝트 허가"
+msgstr "오브젝트 권한"
 
 msgid "Name"
 msgstr "이름"
@@ -135,19 +116,16 @@ msgid "Delete"
 msgstr "삭제"
 
 msgid "Other permissions"
-msgstr "다른 퍼미션"
+msgstr "다른 권한"
 
 msgid "Page permissions"
-msgstr "페이지 퍼미션"
+msgstr "페이지 권한"
 
 msgid "Page"
 msgstr "페이지"
 
-msgid "Permission type"
-msgstr "퍼미션 형태"
-
 msgid "Add a page permission"
-msgstr "페이지 퍼미션 추가"
+msgstr "페이지 권한 추가"
 
 msgid "groups"
 msgstr "그룹"
@@ -261,6 +239,3 @@ msgstr "'{0}' 사용자가 업데이트 되었습니다."
 
 msgid "The user could not be saved due to errors."
 msgstr "에러로 인해 사용자를 저장할 수 없습니다."
-
-msgid "Groups"
-msgstr "그룹"

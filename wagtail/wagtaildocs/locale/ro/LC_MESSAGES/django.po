@@ -3,13 +3,13 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# Dan Braghis, 2014-2015
+# Dan Braghis, 2014-2016
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-08-26 14:28+0100\n"
-"PO-Revision-Date: 2015-09-03 20:36+0000\n"
+"POT-Creation-Date: 2016-03-09 13:55+0000\n"
+"PO-Revision-Date: 2016-03-01 22:32+0000\n"
 "Last-Translator: Dan Braghis\n"
 "Language-Team: Romanian (http://www.transifex.com/torchbox/wagtail/language/"
 "ro/)\n"
@@ -20,23 +20,35 @@ msgstr ""
 "Plural-Forms: nplurals=3; plural=(n==1?0:(((n%100>19)||((n%100==0)&&(n!=0)))?"
 "2:1));\n"
 
-msgid "Title"
-msgstr "Titlu"
+msgid "Add"
+msgstr "Adaugă"
 
-msgid "File"
-msgstr "Fișier"
+msgid "Add/edit documents you own"
+msgstr "Adaugă/editeaza documente deținute"
 
-msgid "Created at"
-msgstr "Creat la"
+msgid "Edit"
+msgstr "Editează"
 
-msgid "Uploaded by user"
-msgstr "Încărcat de utlizator"
+msgid "Edit any document"
+msgstr "Editează orice document"
 
-msgid "Tags"
-msgstr "Etichete"
+msgid "title"
+msgstr "titlu"
 
-msgid "Document"
-msgstr "Document"
+msgid "file"
+msgstr "fișier"
+
+msgid "created at"
+msgstr "creat la"
+
+msgid "uploaded by user"
+msgstr "încărcată de utlizator"
+
+msgid "tags"
+msgstr "etichete"
+
+msgid "document"
+msgstr "document"
 
 msgid "Choose a document"
 msgstr "Alege document"
@@ -47,8 +59,14 @@ msgstr "Căută"
 msgid "Upload"
 msgstr "Încărcare"
 
-msgid "Save"
-msgstr "Salveză"
+msgid "Uploading..."
+msgstr "În curs de încărcare..."
+
+msgid "Server Error"
+msgstr "Eroare de server"
+
+msgid "Report this error to your webmaster with the following information:"
+msgstr "Raportează această eroare webmasterului cu următoarele informații:"
 
 #, python-format
 msgid ""
@@ -107,6 +125,9 @@ msgstr "Editare %(title)s"
 msgid "Editing"
 msgstr "Editare"
 
+msgid "Save"
+msgstr "Salvează"
+
 msgid "Filesize"
 msgstr "Mărime fișier"
 
@@ -116,8 +137,22 @@ msgstr "Fișierul nu a fost găsit"
 msgid "Documents"
 msgstr "Documente"
 
+msgid "Title"
+msgstr "Titlu"
+
+msgid "File"
+msgstr "Fișier"
+
 msgid "Uploaded"
 msgstr "Încărcat"
+
+#, python-format
+msgid ""
+"You haven't uploaded any documents in this collection. Why not <a href="
+"\"%(wagtaildocs_add_document_url)s\">upload one now</a>?"
+msgstr ""
+"Nu ați încărcat nici un document în această colecție. De ce să nu <a href="
+"\"%(wagtaildocs_add_document_url)s\">adăugați unul</a>?"
 
 #, python-format
 msgid ""
@@ -166,15 +201,52 @@ msgstr[2] ""
 "\n"
 "<span>%(total)s</span> documente"
 
+msgid "Add multiple documents"
+msgstr "Adaugă mai multe documente"
+
+msgid "Add documents"
+msgstr "Adaugă documente"
+
+msgid "Drag and drop documents into this area to upload immediately."
+msgstr ""
+"Trageți și plasați documente în această zonă pentru încărcare imediată."
+
+msgid "Or choose from your computer"
+msgstr "Sau alegeți de pe computer"
+
+msgid "Add to collection:"
+msgstr "Adaugă la colecția:"
+
+msgid ""
+"Upload successful. Please update this documents with a more appropriate "
+"title, if necessary. You may also delete the document completely if the "
+"upload wasn't required."
+msgstr ""
+"Încărcare de success. Dacă este necesar, actualizați aceast document cu un "
+"titlu potrivit. Puteți deasemenea să ștergeți documentul în întregime dacă "
+"încărcarea nu a fost necesară."
+
+msgid "Sorry, upload failed."
+msgstr "Încărcarea a eșuat."
+
+msgid "Update"
+msgstr "Actualizează"
+
+msgid "Delete"
+msgstr "Șterge"
+
+msgid "Document permissions"
+msgstr "Permisiunile documentului"
+
+msgid "Add a document permission"
+msgstr "Adaugă permisiune document"
+
 msgid "Search documents"
 msgstr "Caută documente"
 
 #, python-brace-format
 msgid "Document '{0}' added."
 msgstr "Documentul '{0}' a fost adăugat."
-
-msgid "Edit"
-msgstr "Editează"
 
 msgid "The document could not be saved due to errors."
 msgstr "Documentul nu a fost salvat din cauza erorilor."
@@ -187,12 +259,16 @@ msgid ""
 "The file could not be found. Please change the source or delete the document"
 msgstr "Fișierul nu a fost găsit. Schimbă sursa sau sterge documentul"
 
-msgid "Delete"
-msgstr "Șterge"
-
 #, python-brace-format
 msgid "Document '{0}' deleted."
 msgstr "Documentul '{0}' a fost șters."
+
+#, python-format
+msgid "%(count)s document"
+msgid_plural "%(count)s documents"
+msgstr[0] "%(count)s document"
+msgstr[1] "%(count)s documente"
+msgstr[2] "%(count)s documente"
 
 msgid "Choose another document"
 msgstr "Alege alt document"

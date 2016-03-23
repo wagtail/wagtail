@@ -5,13 +5,16 @@
 # Translators:
 # Brecht Dervaux <info@dervauxbrecht.be>, 2015
 # mahulst, 2014
+# mattwestcott <matthew@torchbox.com>, 2015
+# Thijs Kramer <thijskramer@gmail.com>, 2015
+# Thijs Kramer <thijskramer@gmail.com>, 2016
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-08-26 14:28+0100\n"
-"PO-Revision-Date: 2015-08-26 13:37+0000\n"
-"Last-Translator: Karl Hobley <karl@torchbox.com>\n"
+"POT-Creation-Date: 2016-03-09 13:55+0000\n"
+"PO-Revision-Date: 2016-03-01 19:01+0000\n"
+"Last-Translator: mattwestcott <matthew@torchbox.com>\n"
 "Language-Team: Dutch (http://www.transifex.com/torchbox/wagtail/language/"
 "nl/)\n"
 "MIME-Version: 1.0\n"
@@ -20,13 +23,36 @@ msgstr ""
 "Language: nl\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
+msgid "GIF, JPEG, PNG"
+msgstr "GIF, JPEG, PNG"
+
+#, python-format
+msgid ""
+"Supported formats: %(supported_formats)s. Maximum filesize: "
+"%(max_upload_size)s."
+msgstr ""
+"Ondersteunde bestandsformaten: %(supported_formats)s. Maximale "
+"bestandsgrootte: %(max_upload_size)s."
+
+#, python-format
+msgid "Supported formats: %(supported_formats)s."
+msgstr "Ondersteunde bestandsformaten: %(supported_formats)s."
+
 #, python-format
 msgid "Not a supported image format. Supported formats: %s."
 msgstr "Geen ondersteund afbeeldingsformaat. Ondersteunde formaten: %s."
 
 #, python-format
 msgid "Not a valid %s image."
-msgstr "Geen geldige %s afbeelding."
+msgstr "Geen juiste %s afbeelding."
+
+#, python-format
+msgid "This file is too big (%%s). Maximum filesize %s."
+msgstr "Dit bestand is te groot (%%s). De maximale bestandsgrootte is %s."
+
+#, python-format
+msgid "This file is too big. Maximum filesize %s."
+msgstr "Dit bestand is te groot. Maximale bestandsgrootte is %s."
 
 msgid "Filter"
 msgstr "Filter"
@@ -47,7 +73,7 @@ msgid "Resize to max"
 msgstr "Vergroot naar maximale grootte"
 
 msgid "Resize to fill"
-msgstr "Vergroot of verklein om uit te vullen"
+msgstr "Vergroot of verklein om te vullen"
 
 msgid "Width"
 msgstr "Breedte"
@@ -55,14 +81,32 @@ msgstr "Breedte"
 msgid "Height"
 msgstr "Hoogte"
 
-msgid "Title"
-msgstr "Titel"
+msgid "Closeness"
+msgstr "Nabijheid"
 
-msgid "File"
-msgstr "Bestand"
+msgid "Edit"
+msgstr "Bewerk"
 
-msgid "Tags"
-msgstr "Bestand"
+msgid "title"
+msgstr "titel"
+
+msgid "file"
+msgstr "bestand"
+
+msgid "width"
+msgstr "breedte"
+
+msgid "height"
+msgstr "hoogte"
+
+msgid "created at"
+msgstr "gemaakt op"
+
+msgid "uploaded by user"
+msgstr "geupload door gebruiker"
+
+msgid "tags"
+msgstr "tags"
 
 msgid "Choose an image"
 msgstr "Kies een afbeelding"
@@ -71,10 +115,19 @@ msgid "Search"
 msgstr "Zoek"
 
 msgid "Upload"
-msgstr "Upload"
+msgstr "Uploaden"
 
 msgid "Popular tags"
 msgstr "Populaire labels"
+
+msgid "Uploading..."
+msgstr "Bezig met uploaden..."
+
+msgid "Server Error"
+msgstr "Server error"
+
+msgid "Report this error to your webmaster with the following information:"
+msgstr "Rapporteer dit aan uw webmaster met de volgende informatie:"
 
 #, python-format
 msgid ""
@@ -101,6 +154,27 @@ msgstr "Kies een formaat"
 msgid "Insert image"
 msgstr "Afbeelding invoegen"
 
+#, python-format
+msgid ""
+"\n"
+"        <span>%(total)s</span> Image\n"
+"    "
+msgid_plural ""
+"\n"
+"        <span>%(total)s</span> Images\n"
+"    "
+msgstr[0] ""
+"\n"
+"        <span>%(total)s</span> Afbeelding\n"
+"    "
+msgstr[1] ""
+"\n"
+"        <span>%(total)s</span> Afbeeldingen\n"
+"    "
+
+msgid "Change image file:"
+msgstr "Wijzig bestand:"
+
 msgid "Add an image"
 msgstr "Voeg een afbeelding toe"
 
@@ -125,6 +199,31 @@ msgstr "Wijzigen van afbeelding %(title)s"
 
 msgid "Editing"
 msgstr "Wijzigen"
+
+msgid "Focal point (optional)"
+msgstr "Middelpunt (optioneel)"
+
+msgid ""
+"To define this image's most important region, drag a box over the image "
+"below."
+msgstr ""
+"Sleep een vierkant over onderstaande afbeelding om het belangrijkste "
+"gedeelte te bepalen."
+
+msgid "Current focal point shown"
+msgstr "Huidige middelpunt getoond"
+
+msgid "URL Generator"
+msgstr "URL generator"
+
+msgid "Max dimensions"
+msgstr "Maximale afmetingen"
+
+msgid "Filesize"
+msgstr "Bestandsgrootte"
+
+msgid "File not found"
+msgstr "Bestand niet gevonden"
 
 msgid "Images"
 msgstr "Afbeeldingen"
@@ -164,6 +263,9 @@ msgstr "Gebruik van %(title)s"
 msgid "Usage of"
 msgstr "Gebruik van"
 
+msgid "Title"
+msgstr "Titel"
+
 msgid "Parent"
 msgstr "Parent"
 
@@ -193,12 +295,12 @@ msgid ""
 "if necessary. You may also delete the image completely if the upload wasn't "
 "required."
 msgstr ""
-"Upload geslaagd. Vergeet de afbeelding niet een meer passende titel te "
+"Upload geslaagd. Vergeet niet om de afbeelding een meer passende titel te "
 "geven, mocht dat nodig zijn. U kunt de afbeelding ook verwijderen als de "
 "upload niet nodig was."
 
 msgid "Sorry, upload failed."
-msgstr "Sorry, upload niet geslaagd."
+msgstr "Sorry, uploaden is mislukt."
 
 msgid "Update"
 msgstr "Updaten"
@@ -211,14 +313,24 @@ msgstr "Zoek afbeeldingen"
 
 #, python-brace-format
 msgid "Image '{0}' updated."
-msgstr "Afbeelding '{0}' geüpdatet"
+msgstr "Afbeelding '{0}' geupdate."
+
+msgid "Edit again"
+msgstr "Bewerk opnieuw"
 
 msgid "The image could not be saved due to errors."
 msgstr "De afbeelding kon niet opgeslagen worden door foutmeldingen."
 
+msgid ""
+"The source image file could not be found. Please change the source or delete "
+"the image."
+msgstr ""
+"Het bronbestand kon niet gevonden worden. Wijzig de bron of verwijder de "
+"afbeelding."
+
 #, python-brace-format
 msgid "Image '{0}' deleted."
-msgstr "Afbeelding '{0}' deleted."
+msgstr "Afbeelding '{0}' verwijderd."
 
 #, python-brace-format
 msgid "Image '{0}' added."
@@ -229,3 +341,6 @@ msgstr "De afbeelding kon niet gemaakt worden door foutmeldingen."
 
 msgid "Choose another image"
 msgstr "Kies een andere afbeelding"
+
+msgid "Edit this image"
+msgstr "Bewerk deze afbeelding"

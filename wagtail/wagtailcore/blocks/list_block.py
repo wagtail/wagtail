@@ -6,6 +6,7 @@ from django.forms.utils import ErrorList
 from django.template.loader import render_to_string
 from django.utils.html import format_html, format_html_join
 from django.utils.safestring import mark_safe
+from django.contrib.staticfiles.templatetags.staticfiles import static
 
 from wagtail.wagtailcore.utils import escape_script
 
@@ -35,7 +36,7 @@ class ListBlock(Block):
 
     @property
     def media(self):
-        return forms.Media(js=['wagtailadmin/js/blocks/sequence.js', 'wagtailadmin/js/blocks/list.js'])
+        return forms.Media(js=[static('wagtailadmin/js/blocks/sequence.js'), static('wagtailadmin/js/blocks/list.js')])
 
     def render_list_member(self, value, prefix, index, errors=None):
         """
@@ -81,7 +82,7 @@ class ListBlock(Block):
 
         list_members_html = [
             self.render_list_member(child_val, "%s-%d" % (prefix, i), i,
-                errors=error_list[i] if error_list else None)
+                                    errors=error_list[i] if error_list else None)
             for (i, child_val) in enumerate(value)
         ]
 
@@ -140,7 +141,8 @@ class ListBlock(Block):
         ]
 
     def render_basic(self, value):
-        children = format_html_join('\n', '<li>{0}</li>',
+        children = format_html_join(
+            '\n', '<li>{0}</li>',
             [(self.child_block.render(child_value),) for child_value in value]
         )
         return format_html("<ul>{0}</ul>", children)

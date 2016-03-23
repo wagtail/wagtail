@@ -17,12 +17,14 @@
                 {% for field in searchform %}
                     {% include "wagtailadmin/shared/field_as_li.html" with field=field %}
                 {% endfor %}
-                <li class="submit"><input type="submit" value="{% trans 'Search' %}" /></li>
+                {% if collections %}
+                    {% include "wagtailadmin/shared/collection_chooser.html" %}
+                {% endif %}
                 {% if popular_tags %}
                     <li class="taglist">
                         <h3>{% trans 'Popular tags' %}</h3>
                         {% for tag in popular_tags %}
-                            <a class="suggested-tag tag" href="{% url 'wagtailimages:index' %}?q={{ tag.name|urlencode }}">{{ tag.name }}</a>
+                            <a class="suggested-tag tag" href="{% url 'wagtailimages:index' %}?tag={{ tag.name|urlencode }}">{{ tag.name }}</a>
                         {% endfor %}
                     </li>
                 {% endif %}

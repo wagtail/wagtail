@@ -7,6 +7,7 @@ Wagtail ships with a variety of extra optional modules.
 .. toctree::
     :maxdepth: 2
 
+    settings
     forms
     staticsitegen
     sitemaps
@@ -15,6 +16,12 @@ Wagtail ships with a variety of extra optional modules.
     api/index
     modeladmin
     searchpromotions
+
+
+:doc:`settings`
+---------------
+
+Site-wide settings that are editable by administrators in the Wagtail admin.
 
 
 :doc:`forms`

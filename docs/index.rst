@@ -12,16 +12,16 @@ Below are some useful links to help you get started with Wagtail.
   * :doc:`getting_started/tutorial`
   * :doc:`getting_started/demo_site`
 
-* **Creating your Wagtail site**
+* **Using Wagtail**
 
   * :doc:`topics/pages`
   * :doc:`topics/writing_templates`
-  * :doc:`topics/images/index`
+  * :doc:`topics/images`
   * :doc:`topics/search/index`
   * :doc:`advanced_topics/third_party_tutorials`
 
 
-* **Using Wagtail**
+* **For editors**
 
   * :doc:`Editors guide <editor_manual/index>`
 

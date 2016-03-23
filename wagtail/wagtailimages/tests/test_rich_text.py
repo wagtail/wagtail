@@ -46,4 +46,7 @@ class TestImageEmbedHandler(TestCase):
              'format': 'left'},
             True
         )
-        self.assertIn('<img data-embedtype="image" data-id="1" data-format="left" data-alt="test-alt" class="richtext-image left"', result)
+        self.assertIn(
+            '<img data-embedtype="image" data-id="1" data-format="left" '
+            'data-alt="test-alt" class="richtext-image left"', result
+        )

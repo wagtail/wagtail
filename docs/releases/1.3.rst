@@ -1,0 +1,139 @@
+=========================
+Wagtail 1.3 release notes
+=========================
+
+.. contents::
+    :local:
+    :depth: 1
+
+
+What's new
+==========
+
+Django 1.9 support
+~~~~~~~~~~~~~~~~~~
+
+Wagtail is now compatible with Django 1.9.
+
+
+Indexing fields across relations in Elasticsearch
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Fields on related objects can now be indexed in Elasticsearch using the new ``indexed.RelatedFields`` declaration type:
+
+.. code-block:: python
+
+    class Book(models.Model, indexed.Indexed):
+        ...
+
+        search_fields = [
+            indexed.SearchField('title'),
+            indexed.FilterField('published_date'),
+
+            indexed.RelatedFields('author', [
+                indexed.SearchField('name'),
+                indexed.FilterField('date_of_birth'),
+            ]),
+        ]
+
+    # Search books where their author was born after 1950
+    # Both the book title and the authors name will be searched
+    >>> Book.objects.filter(author__date_of_birth__gt=date(1950, 1, 1)).search("Hello")
+
+See: :ref:`wagtailsearch_index_relatedfields`
+
+
+Cross-linked admin search UI
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+The search interface in the Wagtail admin now includes a toolbar to quickly switch between different search types - pages, images, documents and users. A new :ref:`register_admin_search_area <register_admin_search_area>` hook is provided for adding new search types to this toolbar.
+
+
+Minor features
+~~~~~~~~~~~~~~
+
+ * Added ``WagtailPageTests``, a helper module to simplify writing tests for Wagtail sites. See :doc:`/advanced_topics/testing`
+ * Added system checks to check the ``subpage_types`` and ``parent_page_types`` attributes of page models
+ * Added ``WAGTAIL_PASSWORD_RESET_ENABLED`` setting to allow password resets to be disabled independently of the password management interface (John Draper)
+ * Submit for moderation notification emails now include the editor name (Denis Voskvitsov)
+ * Updated fonts for more comprehensive Unicode support
+ * Added ``.alt`` attribute to image renditions
+ * The default ``src``, ``width``, ``height`` and ``alt`` attributes can now be overridden by attributes passed to the ``{% image %}`` tag
+ * Added keyboard shortcuts for preview and save in the page editor
+ * Added ``Page`` methods ``can_exist_under``, ``can_create_at``, ``can_move_to`` for customising page type business rules
+ * ``wagtailadmin.utils.send_mail`` now passes extra keyword arguments to Django's ``send_mail`` function (Matthew Downey)
+ * ``page_unpublish`` signal is now fired for each page that was unpublished by a call to ``PageQuerySet.unpublish()``
+ * Add ``get_upload_to`` method to ``AbstractImage``, to allow overriding the default image upload path (Ben Emery)
+ * Notification emails are now sent per user (Matthew Downey)
+ * Added the ability to override the default manager on Page models
+ * Added an optional human-friendly ``site_name`` field to sites (Timo Rieber)
+ * Added a system check to warn developers who use a custom Wagtail build but forgot to build the admin css
+ * Added success message after updating image from the image upload view (Christian Peters)
+ * Added a ``request.is_preview`` variable for templates to distinguish between previewing and live (Denis Voskvitsov)
+ * 'Pages' link on site stats dashboard now links to the site homepage when only one site exists, rather than the root level
+ * Added support for chaining multiple image operations on the ``{% image %}`` tag (Christian Peters)
+ * New translations for Arabic, Latvian and Slovak
+
+
+Bug fixes
+~~~~~~~~~
+
+ * Images and page revisions created by a user are no longer deleted when the user is deleted (Rich Atkinson)
+ * HTTP cache purge now works again on Python 2 (Mitchel Cabuloy)
+ * Locked pages can no longer be unpublished (Alex Bridge)
+ * Site records now implement ``get_by_natural_key``
+ * Creating pages at the root level (and any other instances of the base ``Page`` model) now properly respects the ``parent_page_types`` setting
+ * Settings menu now opens correctly from the page editor and styleguide views
+ * ``subpage_types`` / ``parent_page_types`` business rules are now enforced when moving pages
+ * Multi-word tags on images and documents are now correctly preserved as a single tag (LKozlowski)
+ * Changed verbose names to start with lower case where necessary (Maris Serzans)
+ * Invalid images no longer crash the image listing (Maris Serzans)
+ * ``MenuItem`` ``url`` parameter can now take a lazy URL (Adon Metcalfe, rayrayndwiga)
+ * Added missing translation tag to InlinePanel 'Add' button (jnns)
+ * Added missing translation tag to 'Signing in...' button text (Eugene MechanisM)
+ * Restored correct highlighting behaviour of rich text toolbar buttons
+ * Rendering a missing image through ImageChooserBlock no longer breaks the whole page (Christian Peters)
+ * Filtering by popular tag in the image chooser now works when using the database search backend
+
+
+Upgrade considerations
+======================
+
+Jinja2 template tag modules have changed location
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Due to a change in the way template tags are imported in Django 1.9, it has been necessary to move the Jinja2 template tag modules from "templatetags" to a new location, "jinja2tags". The correct configuration settings to enable Jinja2 templates are now as follows:
+
+.. code-block:: python
+
+    TEMPLATES = [
+        # ...
+        {
+            'BACKEND': 'django.template.backends.jinja2.Jinja2',
+            'APP_DIRS': True,
+            'OPTIONS': {
+                'extensions': [
+                    'wagtail.wagtailcore.jinja2tags.core',
+                    'wagtail.wagtailadmin.jinja2tags.userbar',
+                    'wagtail.wagtailimages.jinja2tags.images',
+                ],
+            },
+        }
+    ]
+
+
+See: :doc:`/advanced_topics/jinja2`
+
+
+ContentType-returning methods in wagtailcore are deprecated
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+The following internal functions and methods in ``wagtail.wagtailcore.models``, which return a list of ``ContentType`` objects, have been deprecated. Any uses of these in your code should be replaced by the corresponding new function which returns a list of model classes instead:
+
+ * ``get_page_types()`` - replaced by ``get_page_models()``
+ * ``Page.clean_subpage_types()`` - replaced by ``Page.clean_subpage_models()``
+ * ``Page.clean_parent_page_types()`` - replaced by ``Page.clean_parent_page_models()``
+ * ``Page.allowed_parent_page_types()`` - replaced by ``Page.allowed_parent_page_models()``
+ * ``Page.allowed_subpage_types()`` - replaced by ``Page.allowed_subpage_models()``
+
+In addition, note that these methods now return page types that are marked as ``is_creatable = False``, including the base ``Page`` class. (Abstract models are not included, as before.)

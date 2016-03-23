@@ -2,7 +2,7 @@ Wagtail API Installation
 ========================
 
 
-To install, add ``wagtail.contrib.wagtailapi`` to ``INSTALLED_APPS`` in your Django settings and configure a URL for it in ``urls.py``
+To install, add ``wagtail.contrib.wagtailapi`` and ``rest_framework`` to ``INSTALLED_APPS`` in your Django settings and configure a URL for it in ``urls.py``:
 
 .. code-block:: python
 
@@ -11,6 +11,7 @@ To install, add ``wagtail.contrib.wagtailapi`` to ``INSTALLED_APPS`` in your Dja
     INSTALLED_APPS = [
         ...
         'wagtail.contrib.wagtailapi',
+        'rest_framework',
     ]
 
     # urls.py

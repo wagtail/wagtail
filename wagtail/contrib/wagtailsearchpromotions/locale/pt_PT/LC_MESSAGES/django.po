@@ -4,14 +4,15 @@
 #
 # Translators:
 # Gladson <gladsonbrito@gmail.com>, 2014
-# Tiago Henriques <trinosauro@gmail.com>, 2015
+# Manuela Silva <h_manuela_rodsilva@gmail.com>, 2015
+# Tiago Henriques <trinosauro@gmail.com>, 2015-2016
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-08-26 14:46+0100\n"
-"PO-Revision-Date: 2015-08-26 14:14+0000\n"
-"Last-Translator: Karl Hobley <karl@torchbox.com>\n"
+"POT-Creation-Date: 2016-03-09 13:55+0000\n"
+"PO-Revision-Date: 2016-03-09 21:16+0000\n"
+"Last-Translator: Tiago Henriques <trinosauro@gmail.com>\n"
 "Language-Team: Portuguese (Portugal) (http://www.transifex.com/torchbox/"
 "wagtail/language/pt_PT/)\n"
 "MIME-Version: 1.0\n"
@@ -25,11 +26,20 @@ msgstr ""
 "Por favor especifique pelo menos uma recomendação para este termo de "
 "pesquisa."
 
-msgid "Page"
-msgstr "Página"
+msgid "page"
+msgstr "página"
 
-msgid "Description"
-msgstr "Descrição"
+msgid "description"
+msgstr "descrição"
+
+msgid "search promotion"
+msgstr "promoção de pesquisa"
+
+msgid "Add search promotion"
+msgstr "Adicionar promoção de pesquisa"
+
+msgid "Add search pick"
+msgstr "Adicionar escolha de pesquisa"
 
 msgid ""
 "\n"
@@ -55,11 +65,11 @@ msgid ""
 "            "
 msgstr ""
 "\n"
-"<p>O campo \"Pesquisar termo(s)/frase\" abaixo tem de conter a pesquisa "
-"completa e exata para a qual pretende obter resultados recomendados, "
-"<em>incluindo</em> quaisquer erros de ortografia/utilizador. Para facilitar, "
-"pode escolher de entre os termos de pesquisa que são frequentemente usados "
-"pelos utilizadores do seu site.</p>\n"
+"<p>O campo \"Pesquisar termo(s)/frase\" abaixo deverá conter a pesquisa "
+"completa e exata para a qual deseja receber resultados recomendados, "
+"<em>incluindo</em> quaisquer erros de ortografia ou do utilizador. Para "
+"ajudar, pode escolher entre os termos de procura mais populares com os "
+"utilizadores do seu site.</p>\n"
 "        "
 
 msgid "Save"
@@ -83,16 +93,16 @@ msgstr "Sim, apagar"
 
 #, python-format
 msgid "Editing %(query)s"
-msgstr "A editar %(query)s"
+msgstr "A alterar %(query)s"
 
 msgid "Editing"
-msgstr "A editar"
+msgstr "A alterar"
 
 msgid "Move up"
-msgstr "Mover para cima"
+msgstr "Subir"
 
 msgid "Move down"
-msgstr "Mover para baixo"
+msgstr "Baixar"
 
 msgid "Promoted search result"
 msgstr "Resultado de pesquisa promovido"
@@ -118,8 +128,8 @@ msgstr "Resultados promovidos"
 msgid "Views (past week)"
 msgstr "Visualizações (última semana)"
 
-msgid "Edit this pick"
-msgstr "Editar esta escolha"
+msgid "Edit this promotion"
+msgstr "Alterar esta promoção"
 
 msgid "None"
 msgstr "Nenhuma"
@@ -145,14 +155,26 @@ msgstr[1] ""
 #, python-format
 msgid "Sorry, no promoted results match \"<em>%(query_string)s</em>\""
 msgstr ""
-"Desculpe, nenhuma resultado promovido contém \"<em>%(query_string)s</em>\""
+"Desculpe, nenhum resultado promovido corresponde a \"<em>%(query_string)s</"
+"em>\""
+
+#, python-format
+msgid ""
+"No promoted results have been created. Why not <a href="
+"\"%(wagtailsearchpromotions_add_url)s\">add one</a>?"
+msgstr ""
+"Não existem resultados promovidos. Porque não <a href="
+"\"%(wagtailsearchpromotions_add_url)s\">criar um</a>?"
+
+msgid "Search promoted results"
+msgstr "Pesquisar resultados promovidos"
 
 #, python-brace-format
 msgid "Editor's picks for '{0}' created."
 msgstr "Escolhas do editor para '{0}' criadas."
 
 msgid "Edit"
-msgstr "Editar"
+msgstr "Alterar"
 
 msgid "Recommendations have not been created due to errors"
 msgstr "As recomendações não foram criadas devido a erros."

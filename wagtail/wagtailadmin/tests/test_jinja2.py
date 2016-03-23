@@ -1,25 +1,23 @@
 from __future__ import absolute_import, unicode_literals
 
-
-import unittest
-
-import django
 from django.contrib.auth import get_user_model
 from django.contrib.auth.models import AnonymousUser
+from django.template import engines
 from django.test import TestCase
 
 from wagtail.wagtailcore.models import Page, PAGE_TEMPLATE_VAR, Site
 
 
-@unittest.skipIf(django.VERSION < (1, 8), 'Multiple engines only supported in Django>=1.8')
 class TestCoreJinja(TestCase):
 
     def setUp(self):
-        # This does not exist on Django<1.8
-        from django.template import engines
         self.engine = engines['jinja2']
 
-        self.user = get_user_model().objects.create_superuser(username='test', email='test@email.com', password='password')
+        self.user = get_user_model().objects.create_superuser(
+            username='test',
+            email='test@email.com',
+            password='password'
+        )
         self.homepage = Page.objects.get(id=2)
 
     def render(self, string, context=None, request_context=True):

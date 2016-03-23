@@ -14,7 +14,7 @@ class TestSearchPromotions(TestCase):
             query=Query.get("root page"),
             page_id=1,
             sort_order=0,
-            description="First search pick",
+            description="First search promotion",
         )
 
         # Check
@@ -177,7 +177,10 @@ class TestSearchPromotionsAddView(TestCase, WagtailTestUtils):
 
         # User should be given an error
         self.assertEqual(response.status_code, 200)
-        self.assertFormsetError(response, 'searchpicks_formset', None, None, "Please specify at least one recommendation for this search term.")
+        self.assertFormsetError(
+            response, 'searchpicks_formset', None, None,
+            "Please specify at least one recommendation for this search term."
+        )
 
 
 class TestSearchPromotionsEditView(TestCase, WagtailTestUtils):
@@ -205,7 +208,7 @@ class TestSearchPromotionsEditView(TestCase, WagtailTestUtils):
             'editors_picks-0-DELETE': '',
             'editors_picks-0-ORDER': 0,
             'editors_picks-0-page': 1,
-            'editors_picks-0-description': "Description has changed", # Change
+            'editors_picks-0-description': "Description has changed",  # Change
             'editors_picks-1-id': self.search_pick_2.id,
             'editors_picks-1-DELETE': '',
             'editors_picks-1-ORDER': 1,
@@ -233,12 +236,12 @@ class TestSearchPromotionsEditView(TestCase, WagtailTestUtils):
             'editors_picks-MAX_NUM_FORMS': 1000,
             'editors_picks-0-id': self.search_pick.id,
             'editors_picks-0-DELETE': '',
-            'editors_picks-0-ORDER': 1, # Change
+            'editors_picks-0-ORDER': 1,  # Change
             'editors_picks-0-page': 1,
             'editors_picks-0-description': "Root page",
             'editors_picks-1-id': self.search_pick_2.id,
             'editors_picks-1-DELETE': '',
-            'editors_picks-1-ORDER': 0, # Change
+            'editors_picks-1-ORDER': 0,  # Change
             'editors_picks-1-page': 2,
             'editors_picks-1-description': "Homepage",
         }
@@ -295,7 +298,7 @@ class TestSearchPromotionsEditView(TestCase, WagtailTestUtils):
             'editors_picks-0-DELETE': 1,
             'editors_picks-0-ORDER': 0,
             'editors_picks-0-page': 1,
-            'editors_picks-0-description': "Description has changed", # Change
+            'editors_picks-0-description': "Description has changed",  # Change
             'editors_picks-1-id': self.search_pick_2.id,
             'editors_picks-1-DELETE': 1,
             'editors_picks-1-ORDER': 1,
@@ -306,7 +309,10 @@ class TestSearchPromotionsEditView(TestCase, WagtailTestUtils):
 
         # User should be given an error
         self.assertEqual(response.status_code, 200)
-        self.assertFormsetError(response, 'searchpicks_formset', None, None, "Please specify at least one recommendation for this search term.")
+        self.assertFormsetError(
+            response, 'searchpicks_formset', None, None,
+            "Please specify at least one recommendation for this search term."
+        )
 
 
 class TestSearchPromotionsDeleteView(TestCase, WagtailTestUtils):

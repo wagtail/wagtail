@@ -3,6 +3,8 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# Henrik Kröger <hedwig@riseup.net>, 2016
+# Jannis Vajen, 2015
 # Johannes Spielmann <j@spielmannsolutions.com>, 2014
 # karlsander <karlsander@gmail.com>, 2014
 # karlsander <karlsander@gmail.com>, 2014
@@ -11,9 +13,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-08-26 14:28+0100\n"
-"PO-Revision-Date: 2015-04-12 13:28+0000\n"
-"Last-Translator: Wasilis Mandratzis-Walz\n"
+"POT-Creation-Date: 2016-03-09 13:55+0000\n"
+"PO-Revision-Date: 2016-03-02 13:07+0000\n"
+"Last-Translator: Henrik Kröger <hedwig@riseup.net>\n"
 "Language-Team: German (http://www.transifex.com/torchbox/wagtail/language/"
 "de/)\n"
 "MIME-Version: 1.0\n"
@@ -25,6 +27,30 @@ msgstr ""
 msgid "Choose"
 msgstr "Auswählen"
 
+msgid "Search"
+msgstr "Suche"
+
+#, python-format
+msgid ""
+"\n"
+"            There is one match\n"
+"        "
+msgid_plural ""
+"\n"
+"            There are %(counter)s matches\n"
+"        "
+msgstr[0] ""
+"\n"
+"Es gibt ein Ergebnis"
+msgstr[1] ""
+"\n"
+"Es gibt %(counter)s Ergebnisse"
+
+#, python-format
+msgid "Sorry, no snippets match \"<em>%(query_string)s</em>\""
+msgstr ""
+"Leider keine übereinstimmenden Schnipsel zu „<em>%(query_string)s</em>“"
+
 #, python-format
 msgid ""
 "You haven't created any %(snippet_type_name)s snippets. Why not <a href="
@@ -33,9 +59,6 @@ msgstr ""
 "Sie haben keine %(snippet_type_name)s Schnipsel erstellt. Warum nicht <a "
 "href=\"%(wagtailsnippets_create_snippet_url)s\" target=\"_blank\"> jetzt "
 "erstellen"
-
-msgid "Title"
-msgstr "Titel"
 
 #, python-format
 msgid "Delete %(snippet_type_name)s - %(instance)s"
@@ -71,6 +94,17 @@ msgstr "Bearbeiten"
 msgid "Snippets"
 msgstr "Snippets"
 
+msgid "Title"
+msgstr "Titel"
+
+#, python-format
+msgid ""
+"No %(snippet_type_name_plural)s have been created. Why not <a href="
+"\"%(wagtailsnippets_create_url)s\">add one</a>?"
+msgstr ""
+"Sie haben noch keine %(snippet_type_name_plural)s erstellt. <a href="
+"\"%(wagtailsnippets_create_url)s\">Erstellen Sie doch jetzt eins!</a>"
+
 #, python-format
 msgid "Snippets %(snippet_type_name_plural)s"
 msgstr "Snippets %(snippet_type_name_plural)s"
@@ -82,14 +116,6 @@ msgstr "Snippets <span>%(snippet_type_name_plural)s</span>"
 #, python-format
 msgid "Add %(snippet_type_name)s"
 msgstr "%(snippet_type_name)s hinzufügen"
-
-#, python-format
-msgid ""
-"No %(snippet_type_name_plural)s have been created. Why not <a href="
-"\"%(wagtailsnippets_create_url)s\">add one</a>?"
-msgstr ""
-"Sie haben noch keine %(snippet_type_name_plural)s erstellt. <a href="
-"\"%(wagtailsnippets_create_url)s\">Erstellen Sie doch jetzt eins!</a>"
 
 #, python-format
 msgid "Usage of %(title)s"
@@ -110,9 +136,13 @@ msgstr "Status"
 msgid "Edit this page"
 msgstr "Diese Seite bearbeiten"
 
+#, python-format
+msgid "Search %(snippet_type_name)s"
+msgstr "Suche %(snippet_type_name)s"
+
 #, python-brace-format
 msgid "{snippet_type} '{instance}' created."
-msgstr "{snippet_type} '{instance}' erstellt"
+msgstr "{snippet_type} ‚{instance}‘ erstellt"
 
 msgid "Edit"
 msgstr "Bearbeiten"
@@ -122,14 +152,14 @@ msgstr "Aufgrund von Fehlern konnte das Snippet nicht erstellt werden."
 
 #, python-brace-format
 msgid "{snippet_type} '{instance}' updated."
-msgstr "{snippet_type} '{instance}' geändert."
+msgstr "{snippet_type} ‚{instance}‘ geändert."
 
 msgid "The snippet could not be saved due to errors."
 msgstr "Aufgrund von Fehlern konnte das Snippet nicht gespeichert werden."
 
 #, python-brace-format
 msgid "{snippet_type} '{instance}' deleted."
-msgstr "{snippet_type} '{instance}' gelöscht."
+msgstr "{snippet_type} ‚{instance}‘ gelöscht."
 
 #, python-format
 msgid "Choose %s"
@@ -137,8 +167,8 @@ msgstr "Auswählen %s"
 
 #, python-format
 msgid "Choose another %s"
-msgstr "Ein anderes auswählen %s"
+msgstr "Eine(n) andere(n) %s auswählen"
 
 #, python-format
 msgid "Edit this %s"
-msgstr "Dieses bearbeiten %s"
+msgstr "%s bearbeiten"

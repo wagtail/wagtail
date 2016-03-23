@@ -1,10 +1,10 @@
 from __future__ import absolute_import, unicode_literals
 
 import os
-import unittest
 
-import django
 from django.conf import settings
+from django.core import serializers
+from django.template import engines
 from django.test import TestCase
 
 from wagtail.wagtailcore.models import Site
@@ -12,18 +12,28 @@ from wagtail.wagtailcore.models import Site
 from .utils import get_test_image_file, Image
 
 
-@unittest.skipIf(django.VERSION < (1, 8), 'Multiple engines only supported in Django>=1.8')
 class TestImagesJinja(TestCase):
 
     def setUp(self):
-        # This does not exist on Django<1.8
-        from django.template import engines
         self.engine = engines['jinja2']
 
         self.image = Image.objects.create(
             title="Test image",
             file=get_test_image_file(),
         )
+
+        # Create an image with a missing file, by deserializing fom a python object
+        # (which bypasses FileField's attempt to read the file)
+        self.bad_image = list(serializers.deserialize('python', [{
+            'fields': {
+                'title': 'missing image',
+                'height': 100,
+                'file': 'original_images/missing-image.jpg',
+                'width': 100,
+            },
+            'model': 'wagtailimages.image'
+        }]))[0].object
+        self.bad_image.save()
 
     def render(self, string, context=None, request_context=True):
         if context is None:
@@ -55,8 +65,8 @@ class TestImagesJinja(TestCase):
 
     def test_image_attributes(self):
         self.assertHTMLEqual(
-            self.render('{{ image(myimage, "width-200", class="test") }}', {'myimage': self.image}),
-            '<img alt="Test image" src="{}" width="200" height="150" class="test">'.format(
+            self.render('{{ image(myimage, "width-200", alt="alternate", class="test") }}', {'myimage': self.image}),
+            '<img alt="alternate" src="{}" width="200" height="150" class="test">'.format(
                 self.get_image_filename(self.image, "width-200")))
 
     def test_image_assignment(self):
@@ -64,3 +74,9 @@ class TestImagesJinja(TestCase):
                     'width: {{ background.width }}, url: {{ background.url }}')
         output = ('width: 200, url: ' + self.get_image_filename(self.image, "width-200"))
         self.assertHTMLEqual(self.render(template, {'myimage': self.image}), output)
+
+    def test_missing_image(self):
+        self.assertHTMLEqual(
+            self.render('{{ image(myimage, "width-200") }}', {'myimage': self.bad_image}),
+            '<img alt="missing image" src="/media/not-found" width="0" height="0">'
+        )

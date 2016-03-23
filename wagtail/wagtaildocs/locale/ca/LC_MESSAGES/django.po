@@ -8,9 +8,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-08-26 14:28+0100\n"
-"PO-Revision-Date: 2015-04-21 08:40+0000\n"
-"Last-Translator: Karl Hobley <karl@torchbox.com>\n"
+"POT-Creation-Date: 2016-03-09 13:55+0000\n"
+"PO-Revision-Date: 2016-03-01 18:59+0000\n"
+"Last-Translator: mattwestcott <matthew@torchbox.com>\n"
 "Language-Team: Catalan (http://www.transifex.com/torchbox/wagtail/language/"
 "ca/)\n"
 "MIME-Version: 1.0\n"
@@ -19,14 +19,8 @@ msgstr ""
 "Language: ca\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-msgid "Title"
-msgstr "Títol"
-
-msgid "File"
-msgstr "Arxiu"
-
-msgid "Tags"
-msgstr "Tags"
+msgid "Edit"
+msgstr "Editar"
 
 msgid "Choose a document"
 msgstr "Escull un document"
@@ -36,9 +30,6 @@ msgstr "Cercar"
 
 msgid "Upload"
 msgstr "Pujar"
-
-msgid "Save"
-msgstr "Desar"
 
 #, python-format
 msgid ""
@@ -92,8 +83,17 @@ msgstr "Editant %(title)s"
 msgid "Editing"
 msgstr "Editant"
 
+msgid "Save"
+msgstr "Desar"
+
 msgid "Documents"
 msgstr "Documents"
+
+msgid "Title"
+msgstr "Títol"
+
+msgid "File"
+msgstr "Arxiu"
 
 msgid "Uploaded"
 msgstr "Pujat"
@@ -105,6 +105,25 @@ msgid ""
 msgstr ""
 "No has pujat cap document. Per què no <a href="
 "%(wagtaildocs_add_document_url)s\">pujes un ara</a>?"
+
+#, python-format
+msgid "Usage of %(title)s"
+msgstr "Utilització de %(title)s"
+
+msgid "Usage of"
+msgstr "Utilització de"
+
+msgid "Parent"
+msgstr "Pare"
+
+msgid "Type"
+msgstr "Tipus"
+
+msgid "Status"
+msgstr "Estat"
+
+msgid "Edit this page"
+msgstr "Editar aquesta plana"
 
 msgid "Search documents"
 msgstr "Cercar documents"

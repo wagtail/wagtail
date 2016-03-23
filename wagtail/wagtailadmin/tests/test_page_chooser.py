@@ -11,9 +11,7 @@ class TestChooserBrowse(TestCase, WagtailTestUtils):
         self.root_page = Page.objects.get(id=2)
 
         # Add child page
-        self.child_page = SimplePage()
-        self.child_page.title = "foobarbaz"
-        self.child_page.slug = "foobarbaz"
+        self.child_page = SimplePage(title="foobarbaz", content="hello")
         self.root_page.add_child(instance=self.child_page)
 
         self.login()
@@ -27,14 +25,28 @@ class TestChooserBrowse(TestCase, WagtailTestUtils):
         self.assertTemplateUsed(response, 'wagtailadmin/chooser/browse.html')
 
 
+class TestCanChooseRootFlag(TestCase, WagtailTestUtils):
+    def setUp(self):
+        self.login()
+
+    def get(self, params={}):
+        return self.client.get(reverse('wagtailadmin_choose_page'), params)
+
+    def test_cannot_choose_root_by_default(self):
+        response = self.get()
+        self.assertNotContains(response, '/admin/pages/1/edit/')
+
+    def test_can_choose_root(self):
+        response = self.get({'can_choose_root': 'true'})
+        self.assertContains(response, '/admin/pages/1/edit/')
+
+
 class TestChooserBrowseChild(TestCase, WagtailTestUtils):
     def setUp(self):
         self.root_page = Page.objects.get(id=2)
 
         # Add child page
-        self.child_page = SimplePage()
-        self.child_page.title = "foobarbaz"
-        self.child_page.slug = "foobarbaz"
+        self.child_page = SimplePage(title="foobarbaz", content="hello")
         self.root_page.add_child(instance=self.child_page)
 
         self.login()
@@ -59,19 +71,20 @@ class TestChooserBrowseChild(TestCase, WagtailTestUtils):
         # Add a page that is not a SimplePage
         event_page = EventPage(
             title="event",
-            slug="event",
+            location='the moon', audience='public',
+            cost='free', date_from='2001-01-01',
         )
         self.root_page.add_child(instance=event_page)
 
         # Add a page with a child page
         event_index_page = EventIndex(
             title="events",
-            slug="events",
         )
         self.root_page.add_child(instance=event_index_page)
         event_index_page.add_child(instance=EventPage(
             title="other event",
-            slug="other-event",
+            location='the moon', audience='public',
+            cost='free', date_from='2001-01-01',
         ))
 
         # Send request
@@ -112,7 +125,8 @@ class TestChooserBrowseChild(TestCase, WagtailTestUtils):
         # Add a page that is not a SimplePage
         event_page = EventPage(
             title="event",
-            slug="event",
+            location='the moon', audience='public',
+            cost='free', date_from='2001-01-01',
         )
         self.root_page.add_child(instance=event_page)
 
@@ -152,7 +166,8 @@ class TestChooserBrowseChild(TestCase, WagtailTestUtils):
         for i in range(100):
             new_page = SimplePage(
                 title="foobarbaz",
-                slug="foobarbaz",
+                slug="foobarbaz-%d" % i,
+                content="hello",
             )
             self.root_page.add_child(instance=new_page)
 
@@ -187,9 +202,7 @@ class TestChooserSearch(TestCase, WagtailTestUtils):
         self.root_page = Page.objects.get(id=2)
 
         # Add child page
-        self.child_page = SimplePage()
-        self.child_page.title = "foobarbaz"
-        self.child_page.slug = "foobarbaz"
+        self.child_page = SimplePage(title="foobarbaz", content="hello")
         self.root_page.add_child(instance=self.child_page)
 
         self.login()
@@ -213,7 +226,8 @@ class TestChooserSearch(TestCase, WagtailTestUtils):
         # Add a page that is not a SimplePage
         event_page = EventPage(
             title="foo",
-            slug="foo",
+            location='the moon', audience='public',
+            cost='free', date_from='2001-01-01',
         )
         self.root_page.add_child(instance=event_page)
 
@@ -246,7 +260,8 @@ class TestChooserSearch(TestCase, WagtailTestUtils):
         # Add a page that is not a SimplePage
         event_page = EventPage(
             title="foo",
-            slug="foo",
+            location='the moon', audience='public',
+            cost='free', date_from='2001-01-01',
         )
         self.root_page.add_child(instance=event_page)
 

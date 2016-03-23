@@ -4,13 +4,14 @@
 #
 # Translators:
 # hanfeng <appweb.cn@gmail.com>, 2014-2015
+# Feng Wang <wangfeng.w@gmail.com>, 2015
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-08-26 14:28+0100\n"
-"PO-Revision-Date: 2015-08-26 13:37+0000\n"
-"Last-Translator: Karl Hobley <karl@torchbox.com>\n"
+"POT-Creation-Date: 2016-03-09 13:55+0000\n"
+"PO-Revision-Date: 2016-03-01 19:01+0000\n"
+"Last-Translator: mattwestcott <matthew@torchbox.com>\n"
 "Language-Team: Chinese (China) (http://www.transifex.com/torchbox/wagtail/"
 "language/zh_CN/)\n"
 "MIME-Version: 1.0\n"
@@ -40,6 +41,14 @@ msgstr "不支持的图片格式。支持类型如下： %s"
 msgid "Not a valid %s image."
 msgstr "无效的 %s图像"
 
+#, python-format
+msgid "This file is too big (%%s). Maximum filesize %s."
+msgstr "文件过大 (%%s). 文件大小上限为 %s."
+
+#, python-format
+msgid "This file is too big. Maximum filesize %s."
+msgstr "文件过大. 文件大小上限为 %s."
+
 msgid "Filter"
 msgstr "过滤器"
 
@@ -67,20 +76,8 @@ msgstr "宽度"
 msgid "Height"
 msgstr "高度"
 
-msgid "Title"
-msgstr "标题"
-
-msgid "File"
-msgstr "文件"
-
-msgid "Created at"
-msgstr "创建于"
-
-msgid "Uploaded by user"
-msgstr "用户上传"
-
-msgid "Tags"
-msgstr "标签"
+msgid "Edit"
+msgstr "编辑"
 
 msgid "Choose an image"
 msgstr "选择一个图像"
@@ -215,6 +212,9 @@ msgstr "%(title)s的使用情况"
 msgid "Usage of"
 msgstr "使用情况"
 
+msgid "Title"
+msgstr "标题"
+
 msgid "Parent"
 msgstr "父节点"
 
@@ -280,9 +280,6 @@ msgstr "图片'{0}' 已删除。"
 #, python-brace-format
 msgid "Image '{0}' added."
 msgstr "图片'{0}'已添加"
-
-msgid "Edit"
-msgstr "编辑"
 
 msgid "The image could not be created due to errors."
 msgstr "无法创建图像，出现错误。"

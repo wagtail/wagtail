@@ -4,23 +4,25 @@ from django.views.decorators.vary import vary_on_headers
 from django.core.urlresolvers import reverse
 
 from wagtail.utils.pagination import paginate
-from wagtail.wagtailadmin.edit_handlers import ObjectList
 from wagtail.wagtailadmin.forms import SearchForm
-from wagtail.wagtailadmin.utils import permission_required, any_permission_required
+from wagtail.wagtailadmin.utils import PermissionPolicyChecker, permission_denied
 from wagtail.wagtailadmin import messages
+
 from wagtail.wagtailredirects import models
+from wagtail.wagtailredirects.forms import RedirectForm
+from wagtail.wagtailredirects.permissions import permission_policy
 
 
-REDIRECT_EDIT_HANDLER = ObjectList(models.Redirect.content_panels).bind_to_model(models.Redirect)
+permission_checker = PermissionPolicyChecker(permission_policy)
 
 
-@any_permission_required('wagtailredirects.add_redirect', 'wagtailredirects.change_redirect', 'wagtailredirects.delete_redirect')
+@permission_checker.require_any('add', 'change', 'delete')
 @vary_on_headers('X-Requested-With')
 def index(request):
     query_string = request.GET.get('q', "")
     ordering = request.GET.get('ordering', 'old_path')
 
-    redirects = models.Redirect.get_for_site(site=request.site).prefetch_related('redirect_page')
+    redirects = models.Redirect.objects.prefetch_related('redirect_page', 'site')
 
     # Search
     if query_string:
@@ -48,17 +50,24 @@ def index(request):
             'ordering': ordering,
             'redirects': redirects,
             'query_string': query_string,
-            'search_form': SearchForm(data=dict(q=query_string) if query_string else None, placeholder=_("Search redirects")),
+            'search_form': SearchForm(
+                data=dict(q=query_string) if query_string else None, placeholder=_("Search redirects")
+            ),
+            'user_can_add': permission_policy.user_has_permission(request.user, 'add'),
         })
 
 
-@permission_required('wagtailredirects.change_redirect')
+@permission_checker.require('change')
 def edit(request, redirect_id):
     theredirect = get_object_or_404(models.Redirect, id=redirect_id)
 
-    form_class = REDIRECT_EDIT_HANDLER.get_form_class(models.Redirect)
+    if not permission_policy.user_has_permission_for_instance(
+        request.user, 'change', theredirect
+    ):
+        return permission_denied(request)
+
     if request.POST:
-        form = form_class(request.POST, request.FILES, instance=theredirect)
+        form = RedirectForm(request.POST, request.FILES, instance=theredirect)
         if form.is_valid():
             form.save()
             messages.success(request, _("Redirect '{0}' updated.").format(theredirect.title), buttons=[
@@ -67,20 +76,24 @@ def edit(request, redirect_id):
             return redirect('wagtailredirects:index')
         else:
             messages.error(request, _("The redirect could not be saved due to errors."))
-            edit_handler = REDIRECT_EDIT_HANDLER(instance=theredirect, form=form)
     else:
-        form = form_class(instance=theredirect)
-        edit_handler = REDIRECT_EDIT_HANDLER(instance=theredirect, form=form)
+        form = RedirectForm(instance=theredirect)
 
     return render(request, "wagtailredirects/edit.html", {
         'redirect': theredirect,
-        'edit_handler': edit_handler,
+        'form': form,
+        'user_can_delete': permission_policy.user_has_permission(request.user, 'delete'),
     })
 
 
-@permission_required('wagtailredirects.delete_redirect')
+@permission_checker.require('delete')
 def delete(request, redirect_id):
     theredirect = get_object_or_404(models.Redirect, id=redirect_id)
+
+    if not permission_policy.user_has_permission_for_instance(
+        request.user, 'delete', theredirect
+    ):
+        return permission_denied(request)
 
     if request.POST:
         theredirect.delete()
@@ -92,13 +105,10 @@ def delete(request, redirect_id):
     })
 
 
-@permission_required('wagtailredirects.add_redirect')
+@permission_checker.require('add')
 def add(request):
-    theredirect = models.Redirect()
-
-    form_class = REDIRECT_EDIT_HANDLER.get_form_class(models.Redirect)
     if request.POST:
-        form = form_class(request.POST, request.FILES)
+        form = RedirectForm(request.POST, request.FILES)
         if form.is_valid():
             theredirect = form.save()
 
@@ -108,11 +118,9 @@ def add(request):
             return redirect('wagtailredirects:index')
         else:
             messages.error(request, _("The redirect could not be created due to errors."))
-            edit_handler = REDIRECT_EDIT_HANDLER(instance=theredirect, form=form)
     else:
-        form = form_class()
-        edit_handler = REDIRECT_EDIT_HANDLER(instance=theredirect, form=form)
+        form = RedirectForm()
 
     return render(request, "wagtailredirects/add.html", {
-        'edit_handler': edit_handler,
+        'form': form,
     })

@@ -8,9 +8,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-08-26 14:28+0100\n"
-"PO-Revision-Date: 2015-08-31 20:16+0000\n"
-"Last-Translator: Arnar Tumi Þorsteinsson <arnartumi@gmail.com>\n"
+"POT-Creation-Date: 2016-03-09 13:55+0000\n"
+"PO-Revision-Date: 2016-03-01 18:59+0000\n"
+"Last-Translator: mattwestcott <matthew@torchbox.com>\n"
 "Language-Team: Icelandic (Iceland) (http://www.transifex.com/torchbox/"
 "wagtail/language/is_IS/)\n"
 "MIME-Version: 1.0\n"
@@ -19,20 +19,8 @@ msgstr ""
 "Language: is_IS\n"
 "Plural-Forms: nplurals=2; plural=(n % 10 != 1 || n % 100 == 11);\n"
 
-msgid "Title"
-msgstr "Titill"
-
-msgid "File"
-msgstr "Skrá"
-
-msgid "Created at"
-msgstr "Búin til"
-
-msgid "Uploaded by user"
-msgstr "Sent inn af notanda"
-
-msgid "Document"
-msgstr "Skrá"
+msgid "Edit"
+msgstr "Breyta"
 
 msgid "Choose a document"
 msgstr "Veldu skrá"
@@ -42,9 +30,6 @@ msgstr "Leita"
 
 msgid "Upload"
 msgstr "Hlaða upp"
-
-msgid "Save"
-msgstr "Vista"
 
 msgid "Latest documents"
 msgstr "Síðustu skrár"
@@ -82,6 +67,9 @@ msgstr "Breyti %(title)s"
 msgid "Editing"
 msgstr "Er að breyta"
 
+msgid "Save"
+msgstr "Vista"
+
 msgid "Filesize"
 msgstr "Skráarstærð"
 
@@ -90,6 +78,12 @@ msgstr "Skrá fannst ekki"
 
 msgid "Documents"
 msgstr "Skrár"
+
+msgid "Title"
+msgstr "Titill"
+
+msgid "File"
+msgstr "Skrá"
 
 msgid "Uploaded"
 msgstr "Hlaðið upp"
@@ -103,11 +97,11 @@ msgstr "Staða"
 msgid "Edit this page"
 msgstr "Breyta þessari síðu"
 
+msgid "Delete"
+msgstr "Eyða"
+
 msgid "Search documents"
 msgstr "Leita að skrám"
-
-msgid "Edit"
-msgstr "Breyta"
 
 msgid "The document could not be saved due to errors."
 msgstr "Ekki var hægt að vista skránna vegna villna."
@@ -115,9 +109,6 @@ msgstr "Ekki var hægt að vista skránna vegna villna."
 msgid ""
 "The file could not be found. Please change the source or delete the document"
 msgstr "Skráin fannst ekki. Vinsamlegast breyttu upprunanum eða eyddu skránni"
-
-msgid "Delete"
-msgstr "Eyða"
 
 #, python-brace-format
 msgid "Document '{0}' deleted."

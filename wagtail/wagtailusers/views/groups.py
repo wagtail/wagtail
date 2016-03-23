@@ -5,10 +5,24 @@ from django.utils.translation import ugettext as _
 from django.views.decorators.vary import vary_on_headers
 
 from wagtail.utils.pagination import paginate
+from wagtail.wagtailcore import hooks
 from wagtail.wagtailadmin import messages
 from wagtail.wagtailadmin.forms import SearchForm
 from wagtail.wagtailadmin.utils import permission_required, any_permission_required
 from wagtail.wagtailusers.forms import GroupForm, GroupPagePermissionFormSet
+
+
+_permission_panel_classes = None
+
+
+def get_permission_panel_classes():
+    global _permission_panel_classes
+    if _permission_panel_classes is None:
+        _permission_panel_classes = [GroupPagePermissionFormSet]
+        for fn in hooks.get_hooks('register_group_permission_panel'):
+            _permission_panel_classes.append(fn())
+
+    return _permission_panel_classes
 
 
 @any_permission_required('auth.add_group', 'auth.change_group', 'auth.delete_group')
@@ -62,13 +76,19 @@ def index(request):
 
 @permission_required('auth.add_group')
 def create(request):
+    group = Group()
     if request.POST:
-        form = GroupForm(request.POST)
-        formset = GroupPagePermissionFormSet(request.POST)
-        if form.is_valid() and formset.is_valid():
-            group = form.save()
-            formset.instance = group
-            formset.save()
+        form = GroupForm(request.POST, instance=group)
+        permission_panels = [
+            cls(request.POST, instance=group)
+            for cls in get_permission_panel_classes()
+        ]
+        if form.is_valid() and all(panel.is_valid() for panel in permission_panels):
+            form.save()
+
+            for panel in permission_panels:
+                panel.save()
+
             messages.success(request, _("Group '{0}' created.").format(group), buttons=[
                 messages.button(reverse('wagtailusers_groups:edit', args=(group.id,)), _('Edit'))
             ])
@@ -76,12 +96,15 @@ def create(request):
         else:
             messages.error(request, _("The group could not be created due to errors."))
     else:
-        form = GroupForm()
-        formset = GroupPagePermissionFormSet()
+        form = GroupForm(instance=group)
+        permission_panels = [
+            cls(instance=group)
+            for cls in get_permission_panel_classes()
+        ]
 
     return render(request, 'wagtailusers/groups/create.html', {
         'form': form,
-        'formset': formset,
+        'permission_panels': permission_panels,
     })
 
 
@@ -90,10 +113,16 @@ def edit(request, group_id):
     group = get_object_or_404(Group, id=group_id)
     if request.POST:
         form = GroupForm(request.POST, instance=group)
-        formset = GroupPagePermissionFormSet(request.POST, instance=group)
-        if form.is_valid() and formset.is_valid():
-            group = form.save()
-            formset.save()
+        permission_panels = [
+            cls(request.POST, instance=group)
+            for cls in get_permission_panel_classes()
+        ]
+        if form.is_valid() and all(panel.is_valid() for panel in permission_panels):
+            form.save()
+
+            for panel in permission_panels:
+                panel.save()
+
             messages.success(request, _("Group '{0}' updated.").format(group), buttons=[
                 messages.button(reverse('wagtailusers_groups:edit', args=(group.id,)), _('Edit'))
             ])
@@ -102,12 +131,15 @@ def edit(request, group_id):
             messages.error(request, _("The group could not be saved due to errors."))
     else:
         form = GroupForm(instance=group)
-        formset = GroupPagePermissionFormSet(instance=group)
+        permission_panels = [
+            cls(instance=group)
+            for cls in get_permission_panel_classes()
+        ]
 
     return render(request, 'wagtailusers/groups/edit.html', {
         'group': group,
         'form': form,
-        'formset': formset,
+        'permission_panels': permission_panels,
     })
 
 

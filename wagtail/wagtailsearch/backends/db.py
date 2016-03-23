@@ -77,29 +77,29 @@ class DBSearchResults(BaseSearchResults):
 
 
 class DBSearch(BaseSearch):
-    search_query_class = DBSearchQuery
-    search_results_class = DBSearchResults
+    query_class = DBSearchQuery
+    results_class = DBSearchResults
 
     def __init__(self, params):
         super(DBSearch, self).__init__(params)
 
     def reset_index(self):
-        pass # Not needed
+        pass  # Not needed
 
     def add_type(self, model):
-        pass # Not needed
+        pass  # Not needed
 
     def refresh_index(self):
-        pass # Not needed
+        pass  # Not needed
 
     def add(self, obj):
-        pass # Not needed
+        pass  # Not needed
 
     def add_bulk(self, model, obj_list):
-        return # Not needed
+        return  # Not needed
 
     def delete(self, obj):
-        pass # Not needed
+        pass  # Not needed
 
 
 SearchBackend = DBSearch

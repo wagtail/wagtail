@@ -11,6 +11,11 @@ from wagtail.wagtailcore import __version__
 logger = logging.getLogger('wagtail.frontendcache')
 
 
+class PurgeRequest(Request):
+    def get_method(self):
+        return 'PURGE'
+
+
 class BaseBackend(object):
     def purge(self, url):
         raise NotImplementedError
@@ -30,7 +35,7 @@ class HTTPBackend(BaseBackend):
         if url_parsed.port:
             host += (':' + str(url_parsed.port))
 
-        request = Request(
+        request = PurgeRequest(
             url=urlunparse([
                 self.cache_scheme,
                 self.cache_netloc,
@@ -42,8 +47,7 @@ class HTTPBackend(BaseBackend):
             headers={
                 'Host': host,
                 'User-Agent': 'Wagtail-frontendcache/' + __version__
-            },
-            method='PURGE'
+            }
         )
 
         try:

@@ -25,15 +25,6 @@ class BaseSearchQuery(object):
         self.operator = operator or self.DEFAULT_OPERATOR
         self.order_by_relevance = order_by_relevance
 
-    def _get_searchable_field(self, field_attname):
-        # Get field
-        field = dict(
-            (field.get_attname(self.queryset.model), field)
-            for field in self.queryset.model.get_searchable_search_fields()
-        ).get(field_attname, None)
-
-        return field
-
     def _get_filterable_field(self, field_attname):
         # Get field
         field = dict(
@@ -54,13 +45,19 @@ class BaseSearchQuery(object):
         field = self._get_filterable_field(field_attname)
 
         if field is None:
-            raise FieldError('Cannot filter search results with field "' + field_attname + '". Please add index.FilterField(\'' + field_attname + '\') to ' + self.queryset.model.__name__ + '.search_fields.')
+            raise FieldError(
+                'Cannot filter search results with field "' + field_attname + '". Please add index.FilterField(\'' +
+                field_attname + '\') to ' + self.queryset.model.__name__ + '.search_fields.'
+            )
 
         # Process the lookup
         result = self._process_lookup(field, lookup, value)
 
         if result is None:
-            raise FilterError('Could not apply filter on search results: "' + field_attname + '__' + lookup + ' = ' + text_type(value) + '". Lookup "' + lookup + '"" not recognosed.')
+            raise FilterError(
+                'Could not apply filter on search results: "' + field_attname + '__' +
+                lookup + ' = ' + text_type(value) + '". Lookup "' + lookup + '"" not recognised.'
+            )
 
         return result
 
@@ -70,6 +67,10 @@ class BaseSearchQuery(object):
             field_attname = where_node.lhs.target.attname
             lookup = where_node.lookup_name
             value = where_node.rhs
+
+            # Ignore pointer fields that show up in specific page type queries
+            if field_attname.endswith('_ptr_id'):
+                return
 
             # Process the filter
             return self._process_filter(field_attname, lookup, value)
@@ -173,12 +174,12 @@ class BaseSearchResults(object):
         data = list(self[:21])
         if len(data) > 20:
             data[-1] = "...(remaining elements truncated)..."
-        return repr(data)
+        return '<SearchResults %r>' % data
 
 
 class BaseSearch(object):
-    search_query_class = None
-    search_results_class = None
+    query_class = None
+    results_class = None
 
     def __init__(self, params):
         pass
@@ -204,7 +205,8 @@ class BaseSearch(object):
     def delete(self, obj):
         raise NotImplementedError
 
-    def search(self, query_string, model_or_queryset, fields=None, filters=None, prefetch_related=None, operator=None, order_by_relevance=True):
+    def search(self, query_string, model_or_queryset, fields=None, filters=None,
+               prefetch_related=None, operator=None, order_by_relevance=True):
         # Find model/queryset
         if isinstance(model_or_queryset, QuerySet):
             model = model_or_queryset.model
@@ -237,5 +239,7 @@ class BaseSearch(object):
                 raise ValueError("operator must be either 'or' or 'and'")
 
         # Search
-        search_query = self.search_query_class(queryset, query_string, fields=fields, operator=operator, order_by_relevance=order_by_relevance)
-        return self.search_results_class(self, search_query)
+        search_query = self.query_class(
+            queryset, query_string, fields=fields, operator=operator, order_by_relevance=order_by_relevance
+        )
+        return self.results_class(self, search_query)

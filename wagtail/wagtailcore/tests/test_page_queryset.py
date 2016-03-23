@@ -1,7 +1,8 @@
 from django.test import TestCase
 
 from wagtail.wagtailcore.models import Page, PageViewRestriction
-from wagtail.tests.testapp.models import EventPage
+from wagtail.wagtailcore.signals import page_unpublished
+from wagtail.tests.testapp.models import EventPage, SingleEventPage
 
 
 class TestPageQuerySet(TestCase):
@@ -294,6 +295,11 @@ class TestPageQuerySet(TestCase):
         event = Page.objects.get(url_path='/home/events/someone-elses-event/')
         self.assertTrue(pages.filter(id=event.id).exists())
 
+        # Check that "Saint Patrick" (an instance of SingleEventPage, a subclass of EventPage)
+        # is in the results
+        event = Page.objects.get(url_path='/home/events/saint-patrick/')
+        self.assertTrue(pages.filter(id=event.id).exists())
+
     def test_type_includes_subclasses(self):
         from wagtail.wagtailforms.models import AbstractEmailForm
         pages = Page.objects.type(AbstractEmailForm)
@@ -316,6 +322,38 @@ class TestPageQuerySet(TestCase):
         # Check that the homepage is in the results
         homepage = Page.objects.get(url_path='/home/')
         self.assertTrue(pages.filter(id=homepage.id).exists())
+
+    def test_exact_type(self):
+        pages = Page.objects.exact_type(EventPage)
+
+        # Check that all objects are EventPages (and not a subclass)
+        for page in pages:
+            self.assertEqual(type(page.specific), EventPage)
+
+        # Check that "someone elses event" is in the results
+        event = Page.objects.get(url_path='/home/events/someone-elses-event/')
+        self.assertTrue(pages.filter(id=event.id).exists())
+
+        # Check that "Saint Patrick" (an instance of SingleEventPage, a subclass of EventPage)
+        # is NOT in the results
+        event = Page.objects.get(url_path='/home/events/saint-patrick/')
+        self.assertFalse(pages.filter(id=event.id).exists())
+
+    def test_not_exact_type(self):
+        pages = Page.objects.not_exact_type(EventPage)
+
+        # Check that no objects are EventPages
+        for page in pages:
+            self.assertNotEqual(type(page.specific), EventPage)
+
+        # Check that the homepage is in the results
+        homepage = Page.objects.get(url_path='/home/')
+        self.assertTrue(pages.filter(id=homepage.id).exists())
+
+        # Check that "Saint Patrick" (an instance of SingleEventPage, a subclass of EventPage)
+        # is in the results
+        event = Page.objects.get(url_path='/home/events/saint-patrick/')
+        self.assertTrue(pages.filter(id=event.id).exists())
 
     def test_public(self):
         events_index = Page.objects.get(url_path='/home/events/')
@@ -396,6 +434,34 @@ class TestPageQuerySetSearch(TestCase):
             Page.objects.get(url_path='/home/events/tentative-unpublished-event/').specific,
             Page.objects.get(url_path='/home/events/someone-elses-event/').specific,
         ])
+
+    def test_unpublish(self):
+        # set up a listener for the unpublish signal
+        unpublish_signals_fired = []
+
+        def page_unpublished_handler(sender, instance, **kwargs):
+            unpublish_signals_fired.append((sender, instance))
+
+        page_unpublished.connect(page_unpublished_handler)
+
+        events_index = Page.objects.get(url_path='/home/events/')
+        events_index.get_children().unpublish()
+
+        # Previously-live children of event index should now be non-live
+        christmas = EventPage.objects.get(url_path='/home/events/christmas/')
+        saint_patrick = SingleEventPage.objects.get(url_path='/home/events/saint-patrick/')
+        unpublished_event = EventPage.objects.get(url_path='/home/events/tentative-unpublished-event/')
+
+        self.assertFalse(christmas.live)
+        self.assertFalse(saint_patrick.live)
+
+        # Check that a signal was fired for each unpublished page
+        self.assertIn((EventPage, christmas), unpublish_signals_fired)
+        self.assertIn((SingleEventPage, saint_patrick), unpublish_signals_fired)
+
+        # a signal should not be fired for pages that were in the queryset
+        # but already unpublished
+        self.assertNotIn((EventPage, unpublished_event), unpublish_signals_fired)
 
 
 class TestSpecificQuery(TestCase):

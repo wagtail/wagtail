@@ -1,12 +1,13 @@
 from django.conf.urls import url, include
-from django.contrib.auth.decorators import permission_required
 from django.views.decorators.cache import cache_control
 
 from wagtail.wagtailadmin.urls import pages as wagtailadmin_pages_urls
+from wagtail.wagtailadmin.urls import collections as wagtailadmin_collections_urls
 from wagtail.wagtailadmin.urls import password_reset as wagtailadmin_password_reset_urls
 from wagtail.wagtailadmin.views import account, chooser, home, pages, tags, userbar
 from wagtail.wagtailcore import hooks
 from wagtail.utils.urlpatterns import decorate_urlpatterns
+from wagtail.wagtailadmin.decorators import require_admin_access
 
 
 urlpatterns = [
@@ -20,7 +21,7 @@ urlpatterns = [
     url(r'^pages/$', pages.index, name='wagtailadmin_explore_root'),
     url(r'^pages/(\d+)/$', pages.index, name='wagtailadmin_explore'),
 
-    url(r'^pages/', include(wagtailadmin_pages_urls, namespace='wagtailadmin_pages')),
+    url(r'^pages/', include(wagtailadmin_pages_urls, app_name='wagtailadmin_pages', namespace='wagtailadmin_pages')),
 
     # TODO: Move into wagtailadmin_pages namespace
     url(r'^choose-page/$', chooser.browse, name='wagtailadmin_choose_page'),
@@ -31,9 +32,15 @@ urlpatterns = [
 
     url(r'^tag-autocomplete/$', tags.autocomplete, name='wagtailadmin_tag_autocomplete'),
 
+    url(r'^collections/', include(wagtailadmin_collections_urls, namespace='wagtailadmin_collections')),
+
     url(r'^account/$', account.account, name='wagtailadmin_account'),
     url(r'^account/change_password/$', account.change_password, name='wagtailadmin_account_change_password'),
-    url(r'^account/notification_preferences/$', account.notification_preferences, name='wagtailadmin_account_notification_preferences'),
+    url(
+        r'^account/notification_preferences/$',
+        account.notification_preferences,
+        name='wagtailadmin_account_notification_preferences'
+    ),
     url(r'^logout/$', account.logout, name='wagtailadmin_logout'),
 ]
 
@@ -46,12 +53,7 @@ for fn in hooks.get_hooks('register_admin_urls'):
 
 
 # Add "wagtailadmin.access_admin" permission check
-urlpatterns = decorate_urlpatterns(urlpatterns,
-    permission_required(
-        'wagtailadmin.access_admin',
-        login_url='wagtailadmin_login'
-    )
-)
+urlpatterns = decorate_urlpatterns(urlpatterns, require_admin_access)
 
 
 # These url patterns do not require an authenticated admin user
@@ -68,6 +70,7 @@ urlpatterns += [
 ]
 
 # Decorate all views with cache settings to prevent caching
-urlpatterns = decorate_urlpatterns(urlpatterns,
+urlpatterns = decorate_urlpatterns(
+    urlpatterns,
     cache_control(private=True, no_cache=True, no_store=True, max_age=0)
 )

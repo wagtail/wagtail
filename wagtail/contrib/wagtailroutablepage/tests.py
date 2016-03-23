@@ -13,7 +13,6 @@ class TestRoutablePage(TestCase):
         self.home_page = Page.objects.get(id=2)
         self.routable_page = self.home_page.add_child(instance=self.model(
             title="Routable Page",
-            slug='routable-page',
             live=True,
         ))
 
@@ -117,7 +116,6 @@ class TestRoutablePageTemplateTag(TestCase):
         self.home_page = Page.objects.get(id=2)
         self.routable_page = self.home_page.add_child(instance=RoutablePageTest(
             title="Routable Page",
-            slug='routable-page',
             live=True,
         ))
 

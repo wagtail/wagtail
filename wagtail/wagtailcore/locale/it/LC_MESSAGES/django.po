@@ -4,14 +4,15 @@
 #
 # Translators:
 # Alessio Di Stasio <aledista@gmail.com>, 2015
+# Edd Baldry <edd.baldry@gmail.com>, 2016
 # Giacomo Ghizzani <giacomo.ghz@gmail.com>, 2015
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-09-02 20:07+0100\n"
-"PO-Revision-Date: 2015-09-02 19:12+0000\n"
-"Last-Translator: Karl Hobley <karl@torchbox.com>\n"
+"POT-Creation-Date: 2016-03-09 13:55+0000\n"
+"PO-Revision-Date: 2016-03-14 21:29+0000\n"
+"Last-Translator: Edd Baldry <edd.baldry@gmail.com>\n"
 "Language-Team: Italian (http://www.transifex.com/torchbox/wagtail/language/"
 "it/)\n"
 "MIME-Version: 1.0\n"
@@ -20,11 +21,11 @@ msgstr ""
 "Language: it\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-msgid "Hostname"
-msgstr "Hostname"
+msgid "hostname"
+msgstr "hostname"
 
-msgid "Port"
-msgstr "Porta"
+msgid "port"
+msgstr "porta"
 
 msgid ""
 "Set this to something other than 80 if you need a specific port number to "
@@ -36,16 +37,28 @@ msgstr ""
 "influisce sulla gestione delle richieste (il port forwarding continua a "
 "funzionare)."
 
-msgid "Root page"
-msgstr "Pagina di root"
+msgid "site name"
+msgstr "nome sito"
 
-msgid "Is default site"
+msgid "Human-readable name for the site."
+msgstr "Nome leggibile per il sito."
+
+msgid "root page"
+msgstr "pagina radice"
+
+msgid "is default site"
 msgstr "è sito di default"
 
 msgid ""
 "If true, this site will handle requests for all other hostnames that do not "
 "have a site entry of their own"
 msgstr "Se true, questo sito gestirà le richieste di tutti gli altri hostname"
+
+msgid "site"
+msgstr "sito"
+
+msgid "sites"
+msgstr "siti"
 
 #, python-format
 msgid ""
@@ -55,14 +68,14 @@ msgstr ""
 "%(hostname)s è già configurato come sito di default. Devi togliere questa "
 "impostazione prima di poterlo salvare come sito di default."
 
-msgid "Title"
-msgstr "Titolo"
+msgid "title"
+msgstr "titolo"
 
 msgid "The page title as you'd like it to be seen by the public"
 msgstr "Il titolo della pagina che sarà visibile al pubblico"
 
-msgid "Slug"
-msgstr "Slug"
+msgid "slug"
+msgstr "slug"
 
 msgid ""
 "The name of the page as it will appear in URLs e.g http://domain.com/blog/"
@@ -71,23 +84,23 @@ msgstr ""
 "Il nome della pagina che comparirà nella URLs e.g http://domain.com/blog/[my-"
 "slug]/"
 
-msgid "Content type"
-msgstr "Tipo di contenuto"
+msgid "content type"
+msgstr "tipo contenuto"
 
-msgid "Live"
-msgstr "Live"
+msgid "live"
+msgstr "live"
 
-msgid "Has unpublished changes"
-msgstr "Ha modifiche non pubblicate"
+msgid "has unpublished changes"
+msgstr "ha modifiche non pubblicate"
 
 msgid "URL path"
 msgstr "URL path"
 
-msgid "Owner"
-msgstr "Proprietario"
+msgid "owner"
+msgstr "proprietario"
 
-msgid "Page title"
-msgstr "Titolo pagina"
+msgid "page title"
+msgstr "titolo pagina"
 
 msgid ""
 "Optional. 'Search Engine Friendly' title. This will appear at the top of the "
@@ -96,35 +109,39 @@ msgstr ""
 "Optional. Titolo 'Search Engine Friendly'. Questo apparirà nella barra del "
 "titolo del browser."
 
-msgid "Show in menus"
-msgstr "Mostra nel menu"
+msgid "show in menus"
+msgstr "mostra nel menu"
 
-msgid "Search description"
-msgstr "Descrizione della ricerca"
+msgid ""
+"Whether a link to this page will appear in automatically generated menus"
+msgstr "Se un link a questa pagina apparirà nei menu generati automaticamente"
 
-msgid "Go live date/time"
-msgstr "Go live date/time"
+msgid "search description"
+msgstr "descrizione della ricerca"
+
+msgid "go live date/time"
+msgstr "vai live data/ora"
 
 msgid "Please add a date-time in the form YYYY-MM-DD hh:mm."
 msgstr "Aggiungi una data nel formato YYYY-MM-DD hh:mm."
 
-msgid "Expiry date/time"
-msgstr "Scadenza data/ora"
-
-msgid "Expired"
-msgstr "Scaduto"
-
-msgid "Locked"
-msgstr "Bloccato"
-
-msgid "First published at"
-msgstr "Primo pubblicato a"
-
-msgid "Latest revision created at"
-msgstr "Ultima revisione fatta alle"
+msgid "expiry date/time"
+msgstr "scadenza data/ora"
 
 msgid "expired"
 msgstr "scaduto"
+
+msgid "locked"
+msgstr "bloccato"
+
+msgid "first published at"
+msgstr "primo pubblicato a"
+
+msgid "latest revision created at"
+msgstr "ultima revisione creata alle"
+
+msgid "This slug is already in use"
+msgstr "Questo slug è gia in uso"
 
 msgid "scheduled"
 msgstr "schedulato"
@@ -135,47 +152,92 @@ msgstr "bozza"
 msgid "live + draft"
 msgstr "live + bozza"
 
-msgid "live"
-msgstr "live"
-
 msgid "Default"
 msgstr "Default"
 
-msgid "Page"
-msgstr "Pagina"
+msgid "page"
+msgstr "pagina"
 
-msgid "Submitted for moderation"
-msgstr "Inviato per la moderazione"
+msgid "pages"
+msgstr "pagine"
 
-msgid "Created at"
-msgstr "Creato alle"
+msgid "submitted for moderation"
+msgstr "inviato per la moderazione"
 
-msgid "User"
-msgstr "Utente"
+msgid "created at"
+msgstr "creato alle"
 
-msgid "Content JSON"
-msgstr "Contenuto JSON"
+msgid "user"
+msgstr "utente"
 
-msgid "Approved go live at"
-msgstr "Approvata alle"
+msgid "content JSON"
+msgstr "contenuto JSON"
+
+msgid "approved go live at"
+msgstr "approvato alle"
+
+msgid "page revision"
+msgstr "revisione pagina"
+
+msgid "page revisions"
+msgstr "revisioni pagina"
+
+msgid "Add"
+msgstr "Aggiungi"
 
 msgid "Add/edit pages you own"
 msgstr "Aggiungi/modifica pagine di tua proprietà"
 
+msgid "Edit"
+msgstr "Modifica"
+
+msgid "Edit any page"
+msgstr "Modificare qualche pagina"
+
+msgid "Publish"
+msgstr "Pubblica"
+
 msgid "Publish any page"
 msgstr "Pubblica ogni pagina"
+
+msgid "Lock"
+msgstr "Blocca"
 
 msgid "Lock/unlock any page"
 msgstr "Blocca/sblocca ogni pagina"
 
-msgid "Group"
-msgstr "Gruppo"
+msgid "group"
+msgstr "gruppo"
 
-msgid "Permission type"
-msgstr "Tipo di permesso"
+msgid "permission type"
+msgstr "tipo di permesso"
 
-msgid "Password"
-msgstr "Parola chiave"
+msgid "group page permission"
+msgstr "permesso della pagina del gruppo"
 
-msgid "Value cannot be entirely whitespace characters"
-msgstr "Il valore non può contenere spazi bianchi"
+msgid "group page permissions"
+msgstr "permessi delle pagine del gruppo"
+
+msgid "password"
+msgstr "password"
+
+msgid "page view restriction"
+msgstr "restrizione per la visualizzazione della pagina"
+
+msgid "page view restrictions"
+msgstr "restrizioni per la visualizzazione della pagina"
+
+msgid "name"
+msgstr "nome"
+
+msgid "collection"
+msgstr "collezione"
+
+msgid "collections"
+msgstr "collezioni"
+
+msgid "permission"
+msgstr "permesso"
+
+msgid "group collection permission"
+msgstr "permesso della collezione del gruppo"

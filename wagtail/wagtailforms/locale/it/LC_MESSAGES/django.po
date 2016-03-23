@@ -8,9 +8,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-08-26 14:28+0100\n"
-"PO-Revision-Date: 2015-08-26 13:37+0000\n"
-"Last-Translator: Karl Hobley <karl@torchbox.com>\n"
+"POT-Creation-Date: 2016-03-09 13:55+0000\n"
+"PO-Revision-Date: 2015-12-29 08:32+0000\n"
+"Last-Translator: Giacomo Ghizzani <giacomo.ghz@gmail.com>\n"
 "Language-Team: Italian (http://www.transifex.com/torchbox/wagtail/language/"
 "it/)\n"
 "MIME-Version: 1.0\n"
@@ -52,26 +52,26 @@ msgstr "Data"
 msgid "Date/time"
 msgstr "Data/ora"
 
-msgid "Submit time"
-msgstr "Ora di invio"
+msgid "submit time"
+msgstr "ora di invio"
 
-msgid "Form Submission"
-msgstr "Invio Form"
+msgid "form submission"
+msgstr "invio form"
 
-msgid "Label"
-msgstr "Etichetta"
+msgid "label"
+msgstr "etichetta"
 
 msgid "The label of the form field"
 msgstr "Etichetta per il campo del form"
 
-msgid "Field type"
-msgstr "Tipo di campo"
+msgid "field type"
+msgstr "tipo di campo"
 
-msgid "Required"
-msgstr "Richiesto"
+msgid "required"
+msgstr "richiesto"
 
-msgid "Choices"
-msgstr "Voci"
+msgid "choices"
+msgstr "voci"
 
 msgid ""
 "Comma separated list of choices. Only applicable in checkboxes, radio and "
@@ -80,27 +80,40 @@ msgstr ""
 "Lista di voci separate da virgola. Applicabile soltanto a checkboxes, radio "
 "e dropdown"
 
-msgid "Default value"
-msgstr "Valore di default"
+msgid "default value"
+msgstr "valore di default"
 
 msgid "Default value. Comma separated values supported for checkboxes."
 msgstr "Valore di default. Valori separati da virgola per checkboxes."
 
-msgid "Help text"
-msgstr "Testo di aiuto"
+msgid "help text"
+msgstr "testo di aiuto"
 
-msgid "To address"
-msgstr "Indirizzo destinazione"
+msgid "to address"
+msgstr "indirizzo destinazione"
 
 msgid "Optional - form submissions will be emailed to this address"
 msgstr ""
 "Optional - All'invio il form verrà spedito per email a questo indirizzo"
 
-msgid "From address"
-msgstr "Indirizzo mittente"
+msgid "from address"
+msgstr "indirizzo mittente"
 
-msgid "Subject"
-msgstr "Oggetto"
+msgid "subject"
+msgstr "oggetto"
+
+#, python-format
+msgid "Delete %(title)s"
+msgstr "Elimina %(title)s"
+
+msgid "Delete"
+msgstr "Elimina"
+
+msgid "Are you sure you want to delete this form submission?"
+msgstr "Sei sicuro di voler cancellare questo invio del form?"
+
+msgid "Delete it"
+msgstr "Eliminalo"
 
 msgid "Forms"
 msgstr "Forms"
@@ -135,5 +148,11 @@ msgstr "Origine"
 msgid "Submission Date"
 msgstr "Data di invio"
 
+msgid "Actions"
+msgstr "Azioni"
+
 msgid "No form pages have been created."
 msgstr "Nessuna pagina form è stata creata."
+
+msgid "Submission deleted."
+msgstr "Invio eliminato"

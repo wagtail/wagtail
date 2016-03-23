@@ -5,18 +5,18 @@
 # Translators:
 # fooflare <amos.oviedo@gmail.com>, 2014
 # fooflare <amos.oviedo@gmail.com>, 2014
-# chimeno <daniel@chimeno.me>, 2015
+# chimeno <daniel@chimeno.me>, 2015-2016
 # fooflare <amos.oviedo@gmail.com>, 2014
-# José Alaguna <alagunajs@gmail.com>, 2015
+# José Alaguna <alagunajs@gmail.com>, 2015-2016
 # Mauricio Baeza <web@mauriciobaeza.net>, 2015
 # Mauricio Baeza <web@mauriciobaeza.net>, 2014
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-08-26 14:28+0100\n"
-"PO-Revision-Date: 2015-04-22 02:21+0000\n"
-"Last-Translator: José Alaguna <alagunajs@gmail.com>\n"
+"POT-Creation-Date: 2016-03-09 13:55+0000\n"
+"PO-Revision-Date: 2016-03-15 01:59+0000\n"
+"Last-Translator: chimeno <daniel@chimeno.me>\n"
 "Language-Team: Spanish (http://www.transifex.com/torchbox/wagtail/language/"
 "es/)\n"
 "MIME-Version: 1.0\n"
@@ -33,13 +33,19 @@ msgid "This value may contain only letters, numbers and @/./+/-/_ characters."
 msgstr ""
 "Este valor debe contener sólo letras, números y los caracteres @/./+/-/_."
 
+msgid "A user with that username already exists."
+msgstr "Un usuario con ese nombre ya existe."
+
+msgid "The two password fields didn't match."
+msgstr "Los dos campos de contraseña no coinciden."
+
 msgid "Administrator"
 msgstr "Administrador"
 
-msgid "If ticked, this user has the ability to manage user accounts."
+msgid "Administrators have full access to manage any object or setting."
 msgstr ""
-"Si está marcado, este usuario tiene la capacidad de gestionar cuentas de "
-"usuario."
+"Los administradores tienen la capacidad de gestionar cualquier objeto o "
+"configuración."
 
 msgid "Password"
 msgstr "Contraseña"
@@ -62,38 +68,31 @@ msgstr "Nombres"
 msgid "Last Name"
 msgstr "Apellidos"
 
-msgid "A user with that username already exists."
-msgstr "Un usuario con ese nombre ya existe."
-
-msgid "The two password fields didn't match."
-msgstr "Los dos campos de contraseña no coinciden."
-
-msgid "Administrators have the ability to manage user accounts."
-msgstr ""
-"Los administradores tienen la capacidad de gestionar cuentas de usuario."
-
 msgid "A group with that name already exists."
 msgstr "Ya existe un grupo con este nombre."
 
-msgid "Submitted notifications"
-msgstr "Notificaciones de envío"
+msgid "You cannot have multiple permission records for the same page."
+msgstr "No puedes tener múltiples permisos de registro para una misma página."
+
+msgid "submitted notifications"
+msgstr "Notificaciones enviadas"
 
 msgid "Receive notification when a page is submitted for moderation"
 msgstr "Recibir una notificación cuando una página es enviada para moderación"
 
-msgid "Approved notifications"
-msgstr "Notificaciones de aprobación"
+msgid "approved notifications"
+msgstr "Notificaciones aprobadas"
 
 msgid "Receive notification when your page edit is approved"
 msgstr "Recibir una notificación cuando su página editada es aprobada"
 
-msgid "Rejected notifications"
-msgstr "Notificaciones de rechazo"
+msgid "rejected notifications"
+msgstr "Notificaciones rechazadas"
 
 msgid "Receive notification when your page edit is rejected"
 msgstr "Recibir una notificación cuando su página editada es rechazada"
 
-msgid "User Profile"
+msgid "user profile"
 msgstr "Perfil de usuario"
 
 msgid "Delete group"
@@ -152,9 +151,6 @@ msgstr "Permisos de página"
 
 msgid "Page"
 msgstr "Página"
-
-msgid "Permission type"
-msgstr "Tipo de permiso"
 
 msgid "Add a page permission"
 msgstr "Agregar un permiso de página"

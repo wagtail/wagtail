@@ -1,5 +1,6 @@
 from django.test import TestCase, override_settings
 from django.core import mail
+from django.core.urlresolvers import reverse
 
 from wagtail.tests.utils import WagtailTestUtils
 
@@ -17,16 +18,41 @@ class TestUserPasswordReset(TestCase, WagtailTestUtils):
         from django.core.urlresolvers import clear_url_caches
         clear_url_caches()
 
+    def test_login_has_password_reset_option(self):
+        response = self.client.get(reverse('wagtailadmin_login'))
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, "Forgotten it?")
+
+    @override_settings(WAGTAIL_PASSWORD_RESET_ENABLED=False)
+    def test_login_has_no_password_reset_option_when_disabled(self):
+        response = self.client.get(reverse('wagtailadmin_login'))
+        self.assertEqual(response.status_code, 200)
+        self.assertNotContains(response, "Forgotten it?")
+
+    @override_settings(WAGTAIL_PASSWORD_RESET_ENABLED=False)
+    def test_password_reset_view_disabled(self):
+        """
+        This tests that the password reset view responds with a 404
+        when setting WAGTAIL_PASSWORD_RESET_ENABLED is False
+        """
+        # Get password reset page
+        response = self.client.get(reverse('wagtailadmin_password_reset'))
+
+        # Check that the user recieved a 404
+        self.assertEqual(response.status_code, 404)
+
     @override_settings(ROOT_URLCONF="wagtail.wagtailadmin.urls")
     def test_email_found_default_url(self):
-        response = self.client.post('/password_reset/', {'email': 'siteeditor@example.com'})
+        response = self.client.post(reverse('wagtailadmin_password_reset'),
+                                    {'email': 'siteeditor@example.com'})
         self.assertEqual(response.status_code, 302)
         self.assertEqual(len(mail.outbox), 1)
         self.assertIn("testserver", mail.outbox[0].body)
 
     @override_settings(ROOT_URLCONF="wagtail.wagtailadmin.urls", BASE_URL='http://mysite.com')
     def test_email_found_base_url(self):
-        response = self.client.post('/password_reset/', {'email': 'siteeditor@example.com'})
+        response = self.client.post(reverse('wagtailadmin_password_reset'),
+                                    {'email': 'siteeditor@example.com'})
         self.assertEqual(response.status_code, 302)
         self.assertEqual(len(mail.outbox), 1)
         self.assertIn("mysite.com", mail.outbox[0].body)

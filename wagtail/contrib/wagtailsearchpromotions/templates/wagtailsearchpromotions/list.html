@@ -14,7 +14,7 @@
         {% for query in queries %}
             <tr>
                 <td class="title">
-                    <h2><a href="{% url 'wagtailsearchpromotions:edit' query.id %}" title="{% trans 'Edit this pick' %}">{{ query.query_string }}</a></h2>
+                    <h2><a href="{% url 'wagtailsearchpromotions:edit' query.id %}" title="{% trans 'Edit this promotion' %}">{{ query.query_string }}</a></h2>
                 </td>
                 <td>
                     {% for searchpick in query.editors_picks.all %}

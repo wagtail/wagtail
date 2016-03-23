@@ -2,10 +2,8 @@
 
 import sys
 
-from setuptools.command.sdist import sdist
-
 from wagtail.wagtailcore import __version__
-from wagtail.utils.setup import assets, add_subcommand, check_bdist_egg
+from wagtail.utils.setup import assets, sdist, check_bdist_egg
 
 try:
     from setuptools import setup, find_packages
@@ -23,19 +21,40 @@ except ImportError:
 
 
 install_requires = [
-    "Django>=1.7.1,<1.9",
-    "django-compressor>=1.4",
-    "django-modelcluster>=1.0",
-    "django-taggit>=0.13.0",
-    "django-treebeard==3.0",
+    "Django>=1.8.1,<1.10",
+    "django-modelcluster>=1.1,<1.2",
+    "django-taggit>=0.17.5",
+    "django-treebeard>=3.0,<5.0",
     "djangorestframework>=3.1.3",
     "Pillow>=2.6.1",
     "beautifulsoup4>=4.3.2",
-    "html5lib==0.999",
+    "html5lib>=0.999,<1",
     "Unidecode>=0.04.14",
-    "Willow==0.2.1",
+    "Willow>=0.3b4,<0.4",
 ]
 
+# Testing dependencies
+testing_extras = [
+    # Required for running the tests
+    'mock>=1.0.0',
+    'python-dateutil>=2.2',
+    'pytz>=2014.7',
+    'Pillow>=2.7.0',
+    'elasticsearch>=1.0.0',
+
+    # For coverage and PEP8 linting
+    'coverage>=3.7.0',
+    'flake8>=2.2.0',
+]
+
+# Documentation dependencies
+documentation_extras = [
+    'Sphinx>=1.3.1',
+    'sphinx-autobuild>=0.5.2',
+    'sphinx_rtd_theme>=0.1.8',
+    'sphinxcontrib-spelling==2.1.1',
+    'pyenchant==1.6.6',
+]
 
 setup(
     name='wagtail',
@@ -60,17 +79,24 @@ setup(
         'Programming Language :: Python :: 3',
         'Programming Language :: Python :: 3.3',
         'Programming Language :: Python :: 3.4',
+        'Programming Language :: Python :: 3.5',
         'Framework :: Django',
+        'Framework :: Django :: 1.8',
+        'Framework :: Django :: 1.9',
         'Topic :: Internet :: WWW/HTTP :: Site Management',
     ],
     install_requires=install_requires,
+    extras_require={
+        'testing': testing_extras,
+        'docs': documentation_extras
+    },
     entry_points="""
             [console_scripts]
             wagtail=wagtail.bin.wagtail:main
     """,
     zip_safe=False,
     cmdclass={
-        'sdist': add_subcommand(sdist, [('assets', None)]),
+        'sdist': sdist,
         'bdist_egg': check_bdist_egg,
         'assets': assets,
     },

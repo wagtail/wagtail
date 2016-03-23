@@ -7,6 +7,9 @@ from wagtail.wagtailimages import urls as wagtailimages_urls
 from wagtail.wagtailsearch import urls as wagtailsearch_urls
 from wagtail.contrib.wagtailsitemaps.views import sitemap
 from wagtail.contrib.wagtailapi import urls as wagtailapi_urls
+from wagtail.api.v2 import urls as wagtailapi2_urls
+
+from wagtail.tests.testapp import urls as testapp_urls
 
 
 urlpatterns = [
@@ -16,7 +19,10 @@ urlpatterns = [
     url(r'^images/', include(wagtailimages_urls)),
 
     url(r'^api/', include(wagtailapi_urls)),
+    url(r'^api/', include(wagtailapi2_urls)),
     url(r'^sitemap\.xml$', sitemap),
+
+    url(r'^testapp/', include(testapp_urls)),
 
     # For anything not caught by a more specific rule above, hand over to
     # Wagtail's serving mechanism

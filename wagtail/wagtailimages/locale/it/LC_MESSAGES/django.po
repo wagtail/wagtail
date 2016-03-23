@@ -3,14 +3,14 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# Giacomo Ghizzani <giacomo.ghz@gmail.com>, 2015
+# Giacomo Ghizzani <giacomo.ghz@gmail.com>, 2015-2016
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-08-26 14:28+0100\n"
-"PO-Revision-Date: 2015-08-26 13:37+0000\n"
-"Last-Translator: Karl Hobley <karl@torchbox.com>\n"
+"POT-Creation-Date: 2016-03-09 13:55+0000\n"
+"PO-Revision-Date: 2016-03-15 10:02+0000\n"
+"Last-Translator: Giacomo Ghizzani <giacomo.ghz@gmail.com>\n"
 "Language-Team: Italian (http://www.transifex.com/torchbox/wagtail/language/"
 "it/)\n"
 "MIME-Version: 1.0\n"
@@ -42,6 +42,14 @@ msgstr "Formato immagine non supportato. Formati supportati: %s."
 msgid "Not a valid %s image."
 msgstr "Immagine %s non valida"
 
+#, python-format
+msgid "This file is too big (%%s). Maximum filesize %s."
+msgstr "Questo file è troppo grande (%%s). Dimensione massima del file %s."
+
+#, python-format
+msgid "This file is too big. Maximum filesize %s."
+msgstr "Questo file è troppo grande. Dimensione massima del file %s."
+
 msgid "Filter"
 msgstr "Filtro"
 
@@ -72,20 +80,38 @@ msgstr "Altezza"
 msgid "Closeness"
 msgstr "Vicinanza"
 
-msgid "Title"
-msgstr "Titolo"
+msgid "Add"
+msgstr "Aggiungi"
 
-msgid "File"
-msgstr "File"
+msgid "Add/edit images you own"
+msgstr "Aggiungi/modifica immagini di tua proprietà"
 
-msgid "Created at"
-msgstr "Creato alle"
+msgid "Edit"
+msgstr "Modifica"
 
-msgid "Uploaded by user"
-msgstr "Caricato dall'utente"
+msgid "Edit any image"
+msgstr "Modifica qualche immagine"
 
-msgid "Tags"
-msgstr "Tags"
+msgid "title"
+msgstr "titolo"
+
+msgid "file"
+msgstr "file"
+
+msgid "width"
+msgstr "larghezza"
+
+msgid "height"
+msgstr "altezza"
+
+msgid "created at"
+msgstr "creato alle"
+
+msgid "uploaded by user"
+msgstr "caricato dall'utente"
+
+msgid "tags"
+msgstr "tags"
 
 msgid "Choose an image"
 msgstr "Scegli una immagine"
@@ -98,6 +124,15 @@ msgstr "Carica"
 
 msgid "Popular tags"
 msgstr "Tags popolari"
+
+msgid "Uploading..."
+msgstr "Caricamento..."
+
+msgid "Server Error"
+msgstr "Errore del Server"
+
+msgid "Report this error to your webmaster with the following information:"
+msgstr "Presenta questo errore al tuo webmaster con le seguenti informazioni:"
 
 #, python-format
 msgid ""
@@ -236,6 +271,9 @@ msgstr "Uso di %(title)s"
 msgid "Usage of"
 msgstr "Uso di"
 
+msgid "Title"
+msgstr "Titolo"
+
 msgid "Parent"
 msgstr "Genitore"
 
@@ -262,6 +300,9 @@ msgstr ""
 msgid "Or choose from your computer"
 msgstr "Oppure sceglila dal tuo computer"
 
+msgid "Add to collection:"
+msgstr "Aggiungi alla collezione:"
+
 msgid ""
 "Upload successful. Please update this image with a more appropriate title, "
 "if necessary. You may also delete the image completely if the upload wasn't "
@@ -273,11 +314,20 @@ msgstr ""
 msgid "Sorry, upload failed."
 msgstr "Spiacente, caricamento fallito."
 
+msgid "Image updated."
+msgstr "Immagine aggiornata."
+
 msgid "Update"
 msgstr "Aggiorna"
 
 msgid "Delete"
 msgstr "Elimina"
+
+msgid "Image permissions"
+msgstr "Permessi per l'immagine"
+
+msgid "Add an image permission"
+msgstr "Aggiungi un permesso per l'immagine"
 
 msgid "Search images"
 msgstr "Cerca immagini"
@@ -307,11 +357,14 @@ msgstr "Immagine '{0}' eliminata."
 msgid "Image '{0}' added."
 msgstr "Immagine '{0}' aggiunta."
 
-msgid "Edit"
-msgstr "Modifica"
-
 msgid "The image could not be created due to errors."
 msgstr "L'immagine non può essere creata a causa di errori."
+
+#, python-format
+msgid "%(count)s image"
+msgid_plural "%(count)s images"
+msgstr[0] "%(count)s immagine"
+msgstr[1] "%(count)s immagini"
 
 msgid "Choose another image"
 msgstr "Scegli un'altra immagine"

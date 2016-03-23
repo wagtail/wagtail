@@ -39,7 +39,7 @@ class Embed(models.Model):
 
     class Meta:
         unique_together = ('url', 'max_width')
-        verbose_name = _('Embed')
+        verbose_name = _('embed')
 
     def __str__(self):
         return self.url

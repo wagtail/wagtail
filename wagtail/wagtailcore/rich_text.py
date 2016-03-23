@@ -17,6 +17,7 @@ from wagtail.wagtailcore import hooks
 # elsewhere in the database and is liable to change - from real HTML representation
 # to DB representation and back again.
 
+
 class PageLinkHandler(object):
     """
     PageLinkHandler will be invoked whenever we encounter an <a> element in HTML content
@@ -56,6 +57,7 @@ LINK_HANDLERS = {
 has_loaded_embed_handlers = False
 has_loaded_link_handlers = False
 
+
 def get_embed_handler(embed_type):
     global EMBED_HANDLERS, has_loaded_embed_handlers
 
@@ -67,6 +69,7 @@ def get_embed_handler(embed_type):
         has_loaded_embed_handlers = True
 
     return EMBED_HANDLERS[embed_type]
+
 
 def get_link_handler(link_type):
     global LINK_HANDLERS, has_loaded_link_handlers

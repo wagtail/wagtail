@@ -46,6 +46,18 @@ function makeRichTextEditable(id) {
         }
     }).bind('paste', function(event, data) {
         setTimeout(removeStyling, 1);
+    /* Animate the fields open when you click into them. */
+    }).bind('halloactivated', function(event, data) {
+        $(event.target).addClass('expanded', 200, function(e) {
+            /* Hallo's toolbar will reposition itself on the scroll event.
+            This is useful since animating the fields can cause it to be
+            positioned badly initially. */
+            $(window).trigger('scroll');
+        });
+    }).bind('hallodeactivated', function(event, data) {
+        $(event.target).removeClass('expanded', 200, function(e) {
+            $(window).trigger('scroll');
+        });
     });
 }
 
@@ -59,9 +71,9 @@ function insertRichTextDeleteControl(elem) {
     });
 }
 
-function initDateChooser(id) {
+function initDateChooser(id, opts) {
     if (window.dateTimePickerTranslations) {
-        $('#' + id).datetimepicker({
+        $('#' + id).datetimepicker($.extend({
             closeOnDateSelect: true,
             timepicker: false,
             scrollInput:false,
@@ -70,13 +82,13 @@ function initDateChooser(id) {
                 lang: window.dateTimePickerTranslations
             },
             lang: 'lang'
-        });
+        }, opts || {}));
     } else {
-        $('#' + id).datetimepicker({
+        $('#' + id).datetimepicker($.extend({
             timepicker: false,
             scrollInput:false,
             format: 'Y-m-d'
-        });
+        }, opts || {}));
     }
 }
 
@@ -100,9 +112,9 @@ function initTimeChooser(id) {
     }
 }
 
-function initDateTimeChooser(id) {
+function initDateTimeChooser(id, opts) {
     if (window.dateTimePickerTranslations) {
-        $('#' + id).datetimepicker({
+        $('#' + id).datetimepicker($.extend({
             closeOnDateSelect: true,
             format: 'Y-m-d H:i',
             scrollInput:false,
@@ -110,27 +122,12 @@ function initDateTimeChooser(id) {
                 lang: window.dateTimePickerTranslations
             },
             language: 'lang'
-        });
+        }, opts || {}));
     } else {
-        $('#' + id).datetimepicker({
+        $('#' + id).datetimepicker($.extend({
             format: 'Y-m-d H:i'
-        });
+        }, opts || {}));
     }
-}
-
-function initTagField(id, autocompleteUrl) {
-    $('#' + id).tagit({
-        autocomplete: {source: autocompleteUrl},
-        preprocessTag: function(val) {
-            // Double quote a tag if it contains a space
-            // and if it isn't already quoted.
-            if (val && val[0] != '"' && val.indexOf(' ') > -1) {
-                return '"' + val + '"';
-            }
-
-            return val;
-        }
-    });
 }
 
 function InlinePanel(opts) {
@@ -296,22 +293,26 @@ function InlinePanel(opts) {
 
 function cleanForSlug(val, useURLify) {
     if (URLify != undefined && useURLify !== false) { // Check to be sure that URLify function exists, and that we want to use it.
-        return URLify(val, val.length);
+        return URLify(val);
     } else { // If not just do the "replace"
         return val.replace(/\s/g, '-').replace(/[^A-Za-z0-9\-\_]/g, '').toLowerCase();
     }
 }
 
 function initSlugAutoPopulate() {
+    var slugFollowsTitle = false;
+
     $('#id_title').on('focus', function() {
-        $('#id_slug').data('previous-val', $('#id_slug').val());
-        $(this).data('previous-val', $(this).val());
+        /* slug should only follow the title field if its value matched the title's value at the time of focus */
+        var currentSlug = $('#id_slug').val();
+        var slugifiedTitle = cleanForSlug(this.value);
+        slugFollowsTitle = (currentSlug == slugifiedTitle);
     });
 
     $('#id_title').on('keyup keydown keypress blur', function() {
-        if ($('body').hasClass('create') || (!$('#id_slug').data('previous-val').length || cleanForSlug($('#id_title').data('previous-val')) === $('#id_slug').data('previous-val'))) {
-            // only update slug if the page is being created from scratch, if slug is completely blank, or if title and slug prior to typing were identical
-            $('#id_slug').val(cleanForSlug($('#id_title').val()));
+        if (slugFollowsTitle) {
+            var slugifiedTitle = cleanForSlug(this.value);
+            $('#id_slug').val(slugifiedTitle);
         }
     });
 }
@@ -363,11 +364,28 @@ function initCollapsibleBlocks() {
     });
 }
 
+function initKeyboardShortcuts() {
+    Mousetrap.bind(['mod+p'], function(e) {
+        $('.action-preview').trigger('click');
+        return false;
+    });
+
+    Mousetrap.bind(['mod+s'], function(e) {
+        $('.action-save').trigger('click');
+        return false;
+    });
+}
+
 $(function() {
-    initSlugAutoPopulate();
+    /* Only non-live pages should auto-populate the slug from the title */
+    if (!$('body').hasClass('page-is-live')) {
+        initSlugAutoPopulate();
+    }
+
     initSlugCleaning();
     initErrorDetection();
     initCollapsibleBlocks();
+    initKeyboardShortcuts();
 
     $('.richtext [contenteditable="false"]').each(function() {
         insertRichTextDeleteControl(this);

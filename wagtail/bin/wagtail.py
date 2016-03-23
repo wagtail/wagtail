@@ -43,7 +43,6 @@ def create_project(parser, options, args):
     utility_args = ['django-admin.py',
                     'startproject',
                     '--template=' + template_path,
-                    '--name=Vagrantfile',
                     '--ext=html,rst',
                     project_name]
 
@@ -59,6 +58,7 @@ def create_project(parser, options, args):
 COMMANDS = {
     'start': create_project,
 }
+
 
 def main():
     # Parse options

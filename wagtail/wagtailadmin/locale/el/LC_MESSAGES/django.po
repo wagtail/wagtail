@@ -11,9 +11,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-08-26 14:28+0100\n"
-"PO-Revision-Date: 2015-08-26 13:37+0000\n"
-"Last-Translator: Karl Hobley <karl@torchbox.com>\n"
+"POT-Creation-Date: 2016-03-09 13:55+0000\n"
+"PO-Revision-Date: 2016-03-09 13:58+0000\n"
+"Last-Translator: mattwestcott <matthew@torchbox.com>\n"
 "Language-Team: Greek (http://www.transifex.com/torchbox/wagtail/language/"
 "el/)\n"
 "MIME-Version: 1.0\n"
@@ -27,6 +27,15 @@ msgstr "Προγραμματισμένη δημοσίευση"
 
 msgid "Common page configuration"
 msgstr "Κοινές ρυθμίσεις σελίδων"
+
+msgid "Content"
+msgstr "Περιεχόμενο"
+
+msgid "Promote"
+msgstr "Προώθηση"
+
+msgid "Settings"
+msgstr "Ρυθμίσεις"
 
 msgid "Search"
 msgstr "Αναζήτηση"
@@ -117,6 +126,17 @@ msgstr "Ιδιωτική, προσβάσιμη με τον ακόλουθο κω
 
 msgid "This field is required."
 msgstr "Το πεδίο πρέπει να συμπληρωθεί"
+
+msgid "This slug is already in use"
+msgstr "Το slug χρησιμοποιείται"
+
+msgid "Go live date/time must be before expiry date/time"
+msgstr ""
+"Μετάβαση ζωντανής ημερομηνίας/ώρας πρέπει να είναι πριν από την ημερομηνία "
+"λήξης/ώρας"
+
+msgid "Expiry date/time must be in the future"
+msgstr "Η ημερομηνία/ώρα λήξης πρέπει να είναι μελλοντική"
 
 msgid "Account"
 msgstr "Λογαριασμός"
@@ -343,22 +363,18 @@ msgid "Forgotten it?"
 msgstr "Ξέχασα τον κωδικό μου"
 
 #, python-format
-msgid "The page \"%(title)s\" has been approved"
-msgstr "Η σελίδα \"%(title)s\" εγκρίθηκε"
-
-#, python-format
 msgid "The page \"%(title)s\" has been approved."
 msgstr "Η σελίδα \"%(title)s\" εγκρίθηκε."
 
 msgid "You can view the page here:"
 msgstr "Μπορείτε να δείτε τη σελίδα εδώ:"
 
+#, python-format
+msgid "The page \"%(title)s\" has been approved"
+msgstr "Η σελίδα \"%(title)s\" εγκρίθηκε"
+
 msgid "Edit your notification preferences here:"
 msgstr "Επεξεργαστείτε τις προτιμήσεις ειδοποίησης εδώ:"
-
-#, python-format
-msgid "The page \"%(title)s\" has been rejected"
-msgstr "Η σελίδα \"%(title)s\" απορρίφθηκε"
 
 #, python-format
 msgid "The page \"%(title)s\" has been rejected."
@@ -368,15 +384,15 @@ msgid "You can edit the page here:"
 msgstr "Μπορείτε να διορθώστε τη σελίδα εδώ:"
 
 #, python-format
-msgid "The page \"%(page)s\" has been submitted for moderation"
-msgstr "Η σελίδα \"%(page)s\" στάλθηκε για έλεγχο"
-
-#, python-format
-msgid "The page \"%(page)s\" has been submitted for moderation."
-msgstr "Η σελίδα \"%(page)s\" στάλθηκε για έλεγχο."
+msgid "The page \"%(title)s\" has been rejected"
+msgstr "Η σελίδα \"%(title)s\" απορρίφθηκε"
 
 msgid "You can preview the page here:"
 msgstr "Μπορείτε να τη δείτε εδώ:"
+
+#, python-format
+msgid "The page \"%(page)s\" has been submitted for moderation"
+msgstr "Η σελίδα \"%(page)s\" στάλθηκε για έλεγχο"
 
 msgid "Page privacy"
 msgstr "Ιδιωτικότητα της σελίδας"
@@ -516,8 +532,8 @@ msgstr "Νέα %(page_type)s"
 msgid "New"
 msgstr "Νέο"
 
-msgid "Save as draft"
-msgstr "Αποθήκευση σαν προσχέδιο"
+msgid "Save draft"
+msgstr "Αποθήκευση πρόχειρου"
 
 msgid "Publish"
 msgstr "Έκδοση"
@@ -535,9 +551,6 @@ msgstr "Επεξεργασία %(page_type)s <span>%(title)s</span>"
 
 msgid "Page locked"
 msgstr "Σελίδα κλειδωμένη"
-
-msgid "Save draft"
-msgstr "Αποθήκευση πρόχειρου"
 
 #, python-format
 msgid "Last modified: %(last_mod)s"
@@ -613,18 +626,6 @@ msgstr "Επιλογή πατρικής σελίδας για την %(title)s"
 #, python-format
 msgid "Select a new parent page for <span>%(title)s</span>"
 msgstr "Επιλογή νέας πατρικής σελίδας για την <span>%(title)s</span>"
-
-msgid "Other searches"
-msgstr "Άλλες αναζητήσεις"
-
-msgid "Images"
-msgstr "Εικόνες"
-
-msgid "Documents"
-msgstr "Έγγραφα"
-
-msgid "Users"
-msgstr "Χρήστες"
 
 #, python-format
 msgid "Sorry, no pages match <em>\"%(query_string)s\"</em>"
@@ -713,6 +714,9 @@ msgstr "Αποσύνδεση"
 msgid "Page %(page_num)s of %(total_pages)s."
 msgstr "Σελίδα %(page_num)s από %(total_pages)s."
 
+msgid "Other searches"
+msgstr "Άλλες αναζητήσεις"
+
 msgid ""
 "You are using an <strong>outdated</strong> browser not supported by this "
 "software. Please <a href=\"http://browsehappy.com/\">upgrade your browser</"
@@ -728,17 +732,11 @@ msgstr ""
 "Javascript χρειάζεται για να χρησιμοποιήσετε το Wagtail, αλλά είναι προς το "
 "παρόν απενεργοποιημένο"
 
-msgid "User bar"
-msgstr "Μπάρα χρήστη"
-
 msgid "Go to Wagtail admin interface"
 msgstr "Πηγαίνετε στο Wagtail περιβάλλον του διαχειριστή"
 
 msgid "Add a child page"
 msgstr "Προσθήκη υφιστάμενης σελίδας"
-
-msgid "Add"
-msgstr "Πρόσθηκη"
 
 msgid "Your password has been changed successfully!"
 msgstr "Ο κωδικός σας αλλάχτηκε με επιτυχία!"
@@ -767,18 +765,6 @@ msgstr "Η σελίδα '{0}' δημιουργήθηκε."
 msgid "The page could not be created due to validation errors"
 msgstr "Η σελίδα δεν δημιοιυργήθηκε λόγω σφαλμάτων"
 
-#, python-brace-format
-msgid "Page '{0}' published."
-msgstr "Η σελίδα '{0}' δημοσιεύθηκε."
-
-#, python-brace-format
-msgid "Page '{0}' submitted for moderation."
-msgstr "Η σελίδα '{0}' στάλθηκε προς έλεγχο."
-
-#, python-brace-format
-msgid "Page '{0}' updated."
-msgstr "Έγινε η αποθήκευση της σελίδας '{0}'."
-
 msgid "The page could not be saved as it is locked"
 msgstr "Η σελίδα δεν μπορεί να αποθηκευτεί καθώς είναι κλειδωμένη"
 
@@ -787,17 +773,6 @@ msgstr "Δε ήταν δυνατή η αποθήκευση της σελίδας
 
 msgid "This page is currently awaiting moderation"
 msgstr "Η σελίδα δεν είναι προς έλεγχο"
-
-msgid "This slug is already in use"
-msgstr "Το slug χρησιμοποιείται"
-
-msgid "Go live date/time must be before expiry date/time"
-msgstr ""
-"Μετάβαση ζωντανής ημερομηνίας/ώρας πρέπει να είναι πριν από την ημερομηνία "
-"λήξης/ώρας"
-
-msgid "Expiry date/time must be in the future"
-msgstr "Η ημερομηνία/ώρα λήξης πρέπει να είναι μελλοντική"
 
 #, python-brace-format
 msgid "Page '{0}' deleted."
@@ -819,18 +794,13 @@ msgstr "Η σελίδα '{0}' και {1} υποσελίδες αντιγράφη
 msgid "Page '{0}' copied."
 msgstr "Η σελίδα '{0}' αντιγράφηκε."
 
-msgid "Content"
-msgstr "Περιεχόμενο"
-
-msgid "Promote"
-msgstr "Προώθηση"
-
-msgid "Settings"
-msgstr "Ρυθμίσεις"
-
 #, python-brace-format
 msgid "The page '{0}' is not currently awaiting moderation."
 msgstr "Η σελίδα '{0}' δεν είναι για έλεγχο."
+
+#, python-brace-format
+msgid "Page '{0}' published."
+msgstr "Η σελίδα '{0}' δημοσιεύθηκε."
 
 #, python-brace-format
 msgid "Page '{0}' rejected for publication."

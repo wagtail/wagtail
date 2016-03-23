@@ -3,16 +3,20 @@ from django.views.decorators.http import require_POST
 from django.core.exceptions import PermissionDenied
 from django.views.decorators.vary import vary_on_headers
 from django.http import JsonResponse, HttpResponseBadRequest
+from django.template.loader import render_to_string
 from django.utils.encoding import force_text
 
-from wagtail.wagtailadmin.utils import permission_required
+from wagtail.wagtailadmin.utils import PermissionPolicyChecker
 
 from wagtail.wagtailsearch.backends import get_search_backends
 
 from wagtail.wagtailimages.models import get_image_model
 from wagtail.wagtailimages.forms import get_image_form
 from wagtail.wagtailimages.fields import ALLOWED_EXTENSIONS
-from wagtail.utils.compat import render_to_string
+from wagtail.wagtailimages.permissions import permission_policy
+
+
+permission_checker = PermissionPolicyChecker(permission_policy)
 
 
 def get_image_edit_form(ImageModel):
@@ -33,11 +37,18 @@ def get_image_edit_form(ImageModel):
     return ImageEditForm
 
 
-@permission_required('wagtailimages.add_image')
+@permission_checker.require('add')
 @vary_on_headers('X-Requested-With')
 def add(request):
     Image = get_image_model()
     ImageForm = get_image_form(Image)
+
+    collections = permission_policy.collections_user_has_permission_for(request.user, 'add')
+    if len(collections) > 1:
+        collections_to_choose = collections
+    else:
+        # no need to show a collections chooser
+        collections_to_choose = None
 
     if request.method == 'POST':
         if not request.is_ajax():
@@ -49,9 +60,10 @@ def add(request):
         # Build a form for validation
         form = ImageForm({
             'title': request.FILES['files[]'].name,
+            'collection': request.POST.get('collection'),
         }, {
             'file': request.FILES['files[]'],
-        })
+        }, user=request.user)
 
         if form.is_valid():
             # Save it
@@ -66,7 +78,9 @@ def add(request):
                 'image_id': int(image.id),
                 'form': render_to_string('wagtailimages/multiple/edit_form.html', {
                     'image': image,
-                    'form': get_image_edit_form(Image)(instance=image, prefix='image-%d' % image.id),
+                    'form': get_image_edit_form(Image)(
+                        instance=image, prefix='image-%d' % image.id, user=request.user
+                    ),
                 }, request=request),
             })
         else:
@@ -78,7 +92,7 @@ def add(request):
                 'error_message': '\n'.join(['\n'.join([force_text(i) for i in v]) for k, v in form.errors.items()]),
             })
     else:
-        form = ImageForm()
+        form = ImageForm(user=request.user)
 
     return render(request, 'wagtailimages/multiple/add.html', {
         'max_filesize': form.fields['file'].max_upload_size,
@@ -86,6 +100,7 @@ def add(request):
         'allowed_extensions': ALLOWED_EXTENSIONS,
         'error_max_file_size': form.fields['file'].error_messages['file_too_large_unknown_size'],
         'error_accepted_file_types': form.fields['file'].error_messages['invalid_image'],
+        'collections': collections_to_choose,
     })
 
 
@@ -99,10 +114,12 @@ def edit(request, image_id, callback=None):
     if not request.is_ajax():
         return HttpResponseBadRequest("Cannot POST to this view without AJAX")
 
-    if not image.is_editable_by_user(request.user):
+    if not permission_policy.user_has_permission_for_instance(request.user, 'change', image):
         raise PermissionDenied
 
-    form = ImageForm(request.POST, request.FILES, instance=image, prefix='image-' + image_id)
+    form = ImageForm(
+        request.POST, request.FILES, instance=image, prefix='image-' + image_id, user=request.user
+    )
 
     if form.is_valid():
         form.save()
@@ -133,7 +150,7 @@ def delete(request, image_id):
     if not request.is_ajax():
         return HttpResponseBadRequest("Cannot POST to this view without AJAX")
 
-    if not image.is_editable_by_user(request.user):
+    if not permission_policy.user_has_permission_for_instance(request.user, 'delete', image):
         raise PermissionDenied
 
     image.delete()

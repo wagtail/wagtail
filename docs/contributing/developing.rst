@@ -13,7 +13,7 @@ If you'd prefer to set up all the components manually, read on. These instructio
 Setting up the Wagtail codebase
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Install Node.js, any version between v0.10.x and v0.12.x. Instructions for installing Node.js can be found on the `Node.js download page <https://nodejs.org/download/>`_. You will also need to install the **libjpeg** and **zlib** libraries, if you haven't done so already - see Pillow's `platform-specific installation instructions <http://pillow.readthedocs.org/en/latest/installation.html#external-libraries>`_.
+Install Node.js, v5.3.0 or higher. Instructions for installing Node.js can be found on the `Node.js download page <https://nodejs.org/download/>`_. You will also need to install the **libjpeg** and **zlib** libraries, if you haven't done so already - see Pillow's `platform-specific installation instructions <http://pillow.readthedocs.org/en/latest/installation.html#external-libraries>`_.
 
 Clone a copy of `the Wagtail codebase <https://github.com/torchbox/wagtail>`_:
 
@@ -22,11 +22,11 @@ Clone a copy of `the Wagtail codebase <https://github.com/torchbox/wagtail>`_:
     git clone https://github.com/torchbox/wagtail.git
     cd wagtail
 
-With your preferred virtualenv activated, install the Wagtail package in development mode:
+With your preferred virtualenv activated, install the Wagtail package in development mode with the included testing and documentation dependencies:
 
 .. code-block:: sh
 
-    python setup.py develop
+    pip install -e .[testing,docs] -U
 
 Install the tool chain for building static assets:
 
@@ -41,16 +41,6 @@ Compile the assets:
     npm run build
 
 Any Wagtail sites you start up in this virtualenv will now run against this development instance of Wagtail. We recommend using the `Wagtail demo site <https://github.com/torchbox/wagtaildemo/>`_ as a basis for developing Wagtail.
-
-Development dependencies
-~~~~~~~~~~~~~~~~~~~~~~~~
-
-Developing Wagtail requires additional Python modules for testing and documentation.
-
-The list of dependencies is in the Wagtail root directory in ``requirements-dev.txt`` and can be installed thus, from the Wagtail codebase root directory::
-
-    pip install -r requirements-dev.txt
-
 
 .. _testing:
 
@@ -71,31 +61,38 @@ an argument to ``runtests.py``::
 
 **Testing against PostgreSQL**
 
-By default, Wagtail tests against SQLite. If you need to test against a
-different database, set the ``DATABASE_ENGINE`` environment variable to the
-name of the Django database backend to test against::
+By default, Wagtail tests against SQLite. You can switch to using PostgreSQL by
+using the ``--postgres`` argument::
 
-    DATABASE_ENGINE=django.db.backends.postgresql_psycopg2 python runtests.py
-
-This will create a new database called ``test_wagtail`` in PostgreSQL and run
-the tests against it.
+    python runtests.py --postgres
 
 If you need to use a different user, password or host. Use the ``PGUSER``, ``PGPASSWORD`` and ``PGHOST`` environment variables.
 
+**Testing against a different database**
+
+If you need to test against a different database, set the ``DATABASE_ENGINE``
+environment variable to the name of the Django database backend to test against::
+
+    DATABASE_ENGINE=django.db.backends.mysql python runtests.py
+
+This will create a new database called ``test_wagtail`` in MySQL and run
+the tests against it.
+
 **Testing Elasticsearch**
 
-To test Elasticsearch, you need to have the ``elasticsearch`` package installed.
+You can test Wagtail against Elasticsearch by passing the ``--elasticsearch``
+argument to ``runtests.py``::
 
-Once installed, Wagtail will attempt to connect to a local instance of
-Elasticsearch (``http://localhost:9200``) and use the index ``test_wagtail``.
+    python runtests.py --elasticsearch
+
+
+Wagtail will attempt to connect to a local instance of Elasticsearch
+(``http://localhost:9200``) and use the index ``test_wagtail``.
 
 If your Elasticsearch instance is located somewhere else, you can set the
 ``ELASTICSEARCH_URL`` environment variable to point to its location::
 
-    ELASTICSEARCH_URL=http://my-elasticsearch-instance:9200 python runtests.py
-
-If you no longer want Wagtail to test against Elasticsearch, uninstall the
-``elasticsearch`` package.
+    ELASTICSEARCH_URL=http://my-elasticsearch-instance:9200 python runtests.py --elasticsearch
 
 Compiling static assets
 ~~~~~~~~~~~~~~~~~~~~~~~

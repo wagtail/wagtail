@@ -9,9 +9,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-08-26 14:28+0100\n"
-"PO-Revision-Date: 2015-08-10 16:08+0000\n"
-"Last-Translator: bjesus <bjesus@gmail.com>\n"
+"POT-Creation-Date: 2016-03-09 13:55+0000\n"
+"PO-Revision-Date: 2016-03-01 18:59+0000\n"
+"Last-Translator: mattwestcott <matthew@torchbox.com>\n"
 "Language-Team: Hebrew (Israel) (http://www.transifex.com/torchbox/wagtail/"
 "language/he_IL/)\n"
 "MIME-Version: 1.0\n"
@@ -20,23 +20,8 @@ msgstr ""
 "Language: he_IL\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-msgid "Title"
-msgstr "כותרת"
-
-msgid "File"
-msgstr "קובץ"
-
-msgid "Created at"
-msgstr "נוצר ב:"
-
-msgid "Uploaded by user"
-msgstr "הועלה על ידי משתמש"
-
-msgid "Tags"
-msgstr "תגיות "
-
-msgid "Document"
-msgstr "מסמך"
+msgid "Edit"
+msgstr "עריכה"
 
 msgid "Choose a document"
 msgstr "בחרו מסמך"
@@ -46,9 +31,6 @@ msgstr "חיפוש"
 
 msgid "Upload"
 msgstr "העלה"
-
-msgid "Save"
-msgstr "שמור"
 
 msgid "Latest documents"
 msgstr "מסמכים אחרונים "
@@ -82,6 +64,9 @@ msgstr "עריכת %(title)s"
 msgid "Editing"
 msgstr "עריכה"
 
+msgid "Save"
+msgstr "שמור"
+
 msgid "Filesize"
 msgstr "גודל קובץ"
 
@@ -90,6 +75,12 @@ msgstr "קובץ לא נמצא"
 
 msgid "Documents"
 msgstr "מסמכים"
+
+msgid "Title"
+msgstr "כותרת"
+
+msgid "File"
+msgstr "קובץ"
 
 msgid "Uploaded"
 msgstr "הועלה"
@@ -109,15 +100,15 @@ msgstr "מצב"
 msgid "Edit this page"
 msgstr "עריכת עמוד זה"
 
+msgid "Delete"
+msgstr "מחק"
+
 msgid "Search documents"
 msgstr "חיפוש במסמכים"
 
 #, python-brace-format
 msgid "Document '{0}' added."
 msgstr "מסמך '{0}' הוסף"
-
-msgid "Edit"
-msgstr "עריכה"
 
 msgid "The document could not be saved due to errors."
 msgstr "המסמך לא ניתן לשמירה עקב שגיאות"
@@ -129,9 +120,6 @@ msgstr "מסמך '{0}' עודכן"
 msgid ""
 "The file could not be found. Please change the source or delete the document"
 msgstr "הקובץ לא נמצע. אנא שנו את המקור או מחקו את המסמך"
-
-msgid "Delete"
-msgstr "מחק"
 
 #, python-brace-format
 msgid "Document '{0}' deleted."

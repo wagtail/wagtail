@@ -3,7 +3,9 @@ from django.http import Http404
 
 from wagtail.utils.pagination import paginate
 from wagtail.wagtailadmin.modal_workflow import render_modal_workflow
-from wagtail.wagtailadmin.forms import SearchForm, ExternalLinkChooserForm, ExternalLinkChooserWithLinkTextForm, EmailLinkChooserForm, EmailLinkChooserWithLinkTextForm
+from wagtail.wagtailadmin.forms import (
+    SearchForm, ExternalLinkChooserForm, ExternalLinkChooserWithLinkTextForm,
+    EmailLinkChooserForm, EmailLinkChooserWithLinkTextForm)
 
 from wagtail.wagtailcore.models import Page
 from wagtail.wagtailcore.utils import resolve_model_string
@@ -69,8 +71,13 @@ def browse(request, parent_page_id=None):
     else:
         desired_classes = (Page, )
 
+    can_choose_root = request.GET.get('can_choose_root', False)
+
     # Parent page can be chosen if it is a instance of desired_classes
-    parent_page.can_choose = issubclass(parent_page.specific_class or Page, desired_classes)
+    parent_page.can_choose = (
+        issubclass(parent_page.specific_class or Page, desired_classes) and
+        (can_choose_root or not parent_page.is_root())
+    )
 
     # Pagination
     # We apply pagination first so we don't need to walk the entire list
@@ -116,20 +123,20 @@ def search(request, parent_page_id=None):
             depth=1  # never include root
         )
         pages = filter_page_type(pages, desired_classes)
-        pages = pages.search(search_form.cleaned_data['q'], fields=['title'])[:10]
+        pages = pages.search(search_form.cleaned_data['q'], fields=['title'])
     else:
         pages = Page.objects.none()
 
-    shown_pages = []
+    paginator, pages = paginate(request, pages, per_page=25)
+
     for page in pages:
         page.can_choose = True
-        shown_pages.append(page)
 
     return render(
         request, 'wagtailadmin/chooser/_search_results.html',
         shared_context(request, {
             'searchform': search_form,
-            'pages': shown_pages,
+            'pages': pages,
             'page_type_string': page_type_string,
         })
     )
@@ -182,7 +189,9 @@ def email_link(request):
                 None, 'wagtailadmin/chooser/external_link_chosen.js',
                 {
                     'url': 'mailto:' + form.cleaned_data['email_address'],
-                    'link_text': form.cleaned_data['link_text'] if (prompt_for_link_text and form.cleaned_data['link_text']) else form.cleaned_data['email_address']
+                    'link_text': form.cleaned_data['link_text'] if (
+                        prompt_for_link_text and form.cleaned_data['link_text']
+                    ) else form.cleaned_data['email_address']
                 }
             )
     else:

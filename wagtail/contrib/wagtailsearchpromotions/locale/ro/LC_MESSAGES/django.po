@@ -4,13 +4,14 @@
 #
 # Translators:
 # Dan Braghis, 2014
+# Dan Braghis, 2016
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-08-26 14:46+0100\n"
-"PO-Revision-Date: 2015-08-26 14:14+0000\n"
-"Last-Translator: Karl Hobley <karl@torchbox.com>\n"
+"POT-Creation-Date: 2016-03-09 13:55+0000\n"
+"PO-Revision-Date: 2016-03-01 22:23+0000\n"
+"Last-Translator: Dan Braghis\n"
 "Language-Team: Romanian (http://www.transifex.com/torchbox/wagtail/language/"
 "ro/)\n"
 "MIME-Version: 1.0\n"
@@ -22,6 +23,21 @@ msgstr ""
 
 msgid "Please specify at least one recommendation for this search term."
 msgstr "Introduceți cel puțin o recomandare pentru acest termen de căutare."
+
+msgid "page"
+msgstr "pagină"
+
+msgid "description"
+msgstr "descriere"
+
+msgid "search promotion"
+msgstr "căutare promovată"
+
+msgid "Add search promotion"
+msgstr "Adaugă căutare promovată"
+
+msgid "Add search pick"
+msgstr "Adaugă selecție de căutare"
 
 msgid ""
 "\n"
@@ -108,8 +124,8 @@ msgstr "Rezultate promovate"
 msgid "Views (past week)"
 msgstr "Vizualizări (ultima săptămână)"
 
-msgid "Edit this pick"
-msgstr "Editează selecția"
+msgid "Edit this promotion"
+msgstr "Editează această promovare"
 
 msgid "None"
 msgstr "Nici una"
@@ -139,9 +155,23 @@ msgstr ""
 "Ne pare rău, \"<em>%(query_string)s</em>\" nu se potrivește cu nici un "
 "rezultat promovat"
 
+#, python-format
+msgid ""
+"No promoted results have been created. Why not <a href="
+"\"%(wagtailsearchpromotions_add_url)s\">add one</a>?"
+msgstr ""
+"Nu a fost creat nici un rezultat de căutare promovat. De ce să nu <a href="
+"\"%(wagtailsearchpromotions_add_url)s\">adăugați unul</a>?"
+
+msgid "Search promoted results"
+msgstr "Caută rezultate promovate"
+
 #, python-brace-format
 msgid "Editor's picks for '{0}' created."
 msgstr "Selecțiile editoriale pentru '{0}' au fost create."
+
+msgid "Edit"
+msgstr "Editează"
 
 msgid "Recommendations have not been created due to errors"
 msgstr "Recomandările nu au fost create din cauza erorilor."

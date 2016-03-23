@@ -8,9 +8,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-08-26 14:28+0100\n"
-"PO-Revision-Date: 2015-04-21 08:40+0000\n"
-"Last-Translator: Karl Hobley <karl@torchbox.com>\n"
+"POT-Creation-Date: 2016-03-09 13:55+0000\n"
+"PO-Revision-Date: 2016-03-01 18:59+0000\n"
+"Last-Translator: mattwestcott <matthew@torchbox.com>\n"
 "Language-Team: Czech (http://www.transifex.com/torchbox/wagtail/language/"
 "cs/)\n"
 "MIME-Version: 1.0\n"
@@ -19,14 +19,8 @@ msgstr ""
 "Language: cs\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
 
-msgid "Title"
-msgstr "Název"
-
-msgid "File"
-msgstr "Soubor"
-
-msgid "Tags"
-msgstr "Tagy"
+msgid "Edit"
+msgstr "Upravit"
 
 msgid "Choose a document"
 msgstr "Zvolte dokument"
@@ -36,9 +30,6 @@ msgstr "Hledat"
 
 msgid "Upload"
 msgstr "Nahrát"
-
-msgid "Save"
-msgstr "Uložit"
 
 #, python-format
 msgid ""
@@ -96,8 +87,17 @@ msgstr "Úprava %(title)s"
 msgid "Editing"
 msgstr "Úprava"
 
+msgid "Save"
+msgstr "Uložit"
+
 msgid "Documents"
 msgstr "Dokumenty"
+
+msgid "Title"
+msgstr "Název"
+
+msgid "File"
+msgstr "Soubor"
 
 msgid "Uploaded"
 msgstr "Nahráno"
@@ -128,6 +128,9 @@ msgstr "Stav"
 
 msgid "Edit this page"
 msgstr "Upravit stránku"
+
+msgid "Delete"
+msgstr "Smazat"
 
 msgid "Search documents"
 msgstr "Hledat v dokumentech"

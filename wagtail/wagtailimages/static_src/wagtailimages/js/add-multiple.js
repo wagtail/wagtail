@@ -25,6 +25,7 @@ $(function() {
             maxFileSize: window.fileupload_opts.errormessages.max_file_size
         },
         add: function(e, data) {
+            $('.messages').empty();
             var $this = $(this);
             var that = $this.data('blueimp-fileupload') || $this.data('fileupload')
             var li = $($('#upload-list-item').html()).addClass('upload-uploading')
@@ -104,9 +105,6 @@ $(function() {
                 itemElement.addClass('upload-success')
 
                 $('.right', itemElement).append(response.form);
-
-                // run tagit enhancement
-                $('.tag_field input', itemElement).tagit(window.tagit_opts);
             } else {
                 itemElement.addClass('upload-failure');
                 $('.right .error_messages', itemElement).append(response.error_message);
@@ -134,6 +132,8 @@ $(function() {
 
         $.post(this.action, form.serialize(), function(data) {
             if (data.success) {
+                var statusText = $('.status-msg.update-success').text();
+                addMessage('success', statusText);
                 itemElement.slideUp(function() {$(this).remove()});
             } else {
                 form.replaceWith(data.form);

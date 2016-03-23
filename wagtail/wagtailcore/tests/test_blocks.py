@@ -8,12 +8,26 @@ from django.forms.utils import ErrorList
 from django.core.exceptions import ValidationError
 from django.test import TestCase, SimpleTestCase
 from django.utils.safestring import mark_safe, SafeData
+from django.utils.html import format_html
 
 from wagtail.wagtailcore import blocks
 from wagtail.wagtailcore.rich_text import RichText
 from wagtail.wagtailcore.models import Page
 
+from wagtail.tests.testapp.blocks import SectionBlock
+
 import base64
+
+
+class FooStreamBlock(blocks.StreamBlock):
+    text = blocks.CharBlock()
+    error = 'At least one block must say "foo"'
+
+    def clean(self, value):
+        value = super(FooStreamBlock, self).clean(value)
+        if not any(block.value == 'foo' for block in value):
+            raise blocks.StreamBlockValidationError(non_block_errors=ErrorList([self.error]))
+        return value
 
 
 class TestFieldBlock(unittest.TestCase):
@@ -141,7 +155,9 @@ class TestRichTextBlock(TestCase):
         block = blocks.RichTextBlock()
         value = RichText('<p>Merry <a linktype="page" id="4">Christmas</a>!</p>')
         result = block.render(value)
-        self.assertEqual(result, '<div class="rich-text"><p>Merry <a href="/events/christmas/">Christmas</a>!</p></div>')
+        self.assertEqual(
+            result, '<div class="rich-text"><p>Merry <a href="/events/christmas/">Christmas</a>!</p></div>'
+        )
 
     def test_render_form(self):
         """
@@ -151,7 +167,13 @@ class TestRichTextBlock(TestCase):
         block = blocks.RichTextBlock()
         value = RichText('<p>Merry <a linktype="page" id="4">Christmas</a>!</p>')
         result = block.render_form(value, prefix='richtext')
-        self.assertIn('&lt;p&gt;Merry &lt;a data-linktype=&quot;page&quot; data-id=&quot;4&quot; href=&quot;/events/christmas/&quot;&gt;Christmas&lt;/a&gt;!&lt;/p&gt;', result)
+        self.assertIn(
+            (
+                '&lt;p&gt;Merry &lt;a data-linktype=&quot;page&quot; data-id=&quot;4&quot;'
+                ' href=&quot;/events/christmas/&quot;&gt;Christmas&lt;/a&gt;!&lt;/p&gt;'
+            ),
+            result
+        )
 
     def test_validate_required_richtext_block(self):
         block = blocks.RichTextBlock()
@@ -522,10 +544,10 @@ class TestStructBlock(SimpleTestCase):
             link = blocks.URLBlock()
 
         block = LinkBlock()
-        html = block.render({
+        html = block.render(block.to_python({
             'title': "Wagtail site",
             'link': 'http://www.wagtail.io',
-        })
+        }))
         expected_html = '\n'.join([
             '<dl>',
             '<dt>title</dt>',
@@ -543,11 +565,11 @@ class TestStructBlock(SimpleTestCase):
             link = blocks.URLBlock()
 
         block = LinkBlock()
-        html = block.render({
+        html = block.render(block.to_python({
             'title': "Wagtail site",
             'link': 'http://www.wagtail.io',
             'image': 10,
-        })
+        }))
 
         self.assertIn('<dt>title</dt>', html)
         self.assertIn('<dd>Wagtail site</dd>', html)
@@ -557,22 +579,46 @@ class TestStructBlock(SimpleTestCase):
         # Don't render the extra item
         self.assertNotIn('<dt>image</dt>', html)
 
+    def test_render_bound_block(self):
+        # the string representation of a bound block should be the value as rendered by
+        # the associated block
+        class SectionBlock(blocks.StructBlock):
+            title = blocks.CharBlock()
+            body = blocks.RichTextBlock()
+
+        block = SectionBlock()
+        struct_value = block.to_python({
+            'title': 'hello',
+            'body': '<b>world</b>',
+        })
+        body_bound_block = struct_value.bound_blocks['body']
+        expected = '<div class="rich-text"><b>world</b></div>'
+        self.assertEqual(str(body_bound_block), expected)
+
     def test_render_form(self):
         class LinkBlock(blocks.StructBlock):
             title = blocks.CharBlock()
             link = blocks.URLBlock()
 
         block = LinkBlock()
-        html = block.render_form({
+        html = block.render_form(block.to_python({
             'title': "Wagtail site",
             'link': 'http://www.wagtail.io',
-        }, prefix='mylink')
+        }), prefix='mylink')
 
         self.assertIn('<div class="struct-block">', html)
         self.assertIn('<div class="field char_field widget-text_input fieldname-title">', html)
-        self.assertIn('<input id="mylink-title" name="mylink-title" placeholder="Title" type="text" value="Wagtail site" />', html)
+        self.assertIn(
+            '<input id="mylink-title" name="mylink-title" placeholder="Title" type="text" value="Wagtail site" />', html
+        )
         self.assertIn('<div class="field url_field widget-url_input fieldname-link">', html)
-        self.assertIn('<input id="mylink-link" name="mylink-link" placeholder="Link" type="url" value="http://www.wagtail.io" />', html)
+        self.assertIn(
+            (
+                '<input id="mylink-link" name="mylink-link" placeholder="Link"'
+                ' type="url" value="http://www.wagtail.io" />'
+            ),
+            html
+        )
 
     def test_render_form_unknown_field(self):
         class LinkBlock(blocks.StructBlock):
@@ -580,14 +626,26 @@ class TestStructBlock(SimpleTestCase):
             link = blocks.URLBlock()
 
         block = LinkBlock()
-        html = block.render_form({
+        html = block.render_form(block.to_python({
             'title': "Wagtail site",
             'link': 'http://www.wagtail.io',
             'image': 10,
-        }, prefix='mylink')
+        }), prefix='mylink')
 
-        self.assertIn('<input id="mylink-title" name="mylink-title" placeholder="Title" type="text" value="Wagtail site" />', html)
-        self.assertIn('<input id="mylink-link" name="mylink-link" placeholder="Link" type="url" value="http://www.wagtail.io" />', html)
+        self.assertIn(
+            (
+                '<input id="mylink-title" name="mylink-title" placeholder="Title"'
+                ' type="text" value="Wagtail site" />'
+            ),
+            html
+        )
+        self.assertIn(
+            (
+                '<input id="mylink-link" name="mylink-link" placeholder="Link" type="url"'
+                ' value="http://www.wagtail.io" />'
+            ),
+            html
+        )
 
         # Don't render the extra field
         self.assertNotIn('mylink-image', html)
@@ -598,10 +656,18 @@ class TestStructBlock(SimpleTestCase):
             link = blocks.URLBlock(default="http://www.torchbox.com")
 
         block = LinkBlock()
-        html = block.render_form({}, prefix='mylink')
+        html = block.render_form(block.to_python({}), prefix='mylink')
 
-        self.assertIn('<input id="mylink-title" name="mylink-title" placeholder="Title" type="text" value="Torchbox" />', html)
-        self.assertIn('<input id="mylink-link" name="mylink-link" placeholder="Link" type="url" value="http://www.torchbox.com" />', html)
+        self.assertIn(
+            '<input id="mylink-title" name="mylink-title" placeholder="Title" type="text" value="Torchbox" />', html
+        )
+        self.assertIn(
+            (
+                '<input id="mylink-link" name="mylink-link" placeholder="Link"'
+                ' type="url" value="http://www.torchbox.com" />'
+            ),
+            html
+        )
 
     def test_render_form_with_help_text(self):
         class LinkBlock(blocks.StructBlock):
@@ -612,19 +678,19 @@ class TestStructBlock(SimpleTestCase):
                 help_text = "Self-promotion is encouraged"
 
         block = LinkBlock()
-        html = block.render_form({
+        html = block.render_form(block.to_python({
             'title': "Wagtail site",
             'link': 'http://www.wagtail.io',
-        }, prefix='mylink')
+        }), prefix='mylink')
 
         self.assertIn('<div class="object-help help">Self-promotion is encouraged</div>', html)
 
         # check it can be overridden in the block constructor
         block = LinkBlock(help_text="Self-promotion is discouraged")
-        html = block.render_form({
+        html = block.render_form(block.to_python({
             'title': "Wagtail site",
             'link': 'http://www.wagtail.io',
-        }, prefix='mylink')
+        }), prefix='mylink')
 
         self.assertIn('<div class="object-help help">Self-promotion is discouraged</div>', html)
 
@@ -657,10 +723,10 @@ class TestStructBlock(SimpleTestCase):
             link = blocks.URLBlock()
 
         block = LinkBlock()
-        content = block.get_searchable_content({
+        content = block.get_searchable_content(block.to_python({
             'title': "Wagtail site",
             'link': 'http://www.wagtail.io',
-        })
+        }))
 
         self.assertEqual(content, ["Wagtail site"])
 
@@ -713,6 +779,16 @@ class TestStructBlock(SimpleTestCase):
         value = block.to_python({'title': 'Torchbox', 'link': 'not a url'})
         with self.assertRaises(ValidationError):
             block.clean(value)
+
+    def test_bound_blocks_are_available_on_template(self):
+        """
+        Test that we are able to use value.bound_blocks within templates
+        to access a child block's own HTML rendering
+        """
+        block = SectionBlock()
+        value = block.to_python({'title': 'Hello', 'body': '<i>italic</i> world'})
+        result = block.render(value)
+        self.assertEqual(result, """<h1>Hello</h1><div class="rich-text"><i>italic</i> world</div>""")
 
 
 class TestListBlock(unittest.TestCase):
@@ -807,10 +883,34 @@ class TestListBlock(unittest.TestCase):
     def test_render_form_values(self):
         html = self.render_form()
 
-        self.assertIn('<input id="links-0-value-title" name="links-0-value-title" placeholder="Title" type="text" value="Wagtail" />', html)
-        self.assertIn('<input id="links-0-value-link" name="links-0-value-link" placeholder="Link" type="url" value="http://www.wagtail.io" />', html)
-        self.assertIn('<input id="links-1-value-title" name="links-1-value-title" placeholder="Title" type="text" value="Django" />', html)
-        self.assertIn('<input id="links-1-value-link" name="links-1-value-link" placeholder="Link" type="url" value="http://www.djangoproject.com" />', html)
+        self.assertIn(
+            (
+                '<input id="links-0-value-title" name="links-0-value-title" placeholder="Title"'
+                ' type="text" value="Wagtail" />'
+            ),
+            html
+        )
+        self.assertIn(
+            (
+                '<input id="links-0-value-link" name="links-0-value-link" placeholder="Link" type="url"'
+                ' value="http://www.wagtail.io" />'
+            ),
+            html
+        )
+        self.assertIn(
+            (
+                '<input id="links-1-value-title" name="links-1-value-title" placeholder="Title" type="text"'
+                ' value="Django" />'
+            ),
+            html
+        )
+        self.assertIn(
+            (
+                '<input id="links-1-value-link" name="links-1-value-link" placeholder="Link"'
+                ' type="url" value="http://www.djangoproject.com" />'
+            ),
+            html
+        )
 
     def test_html_declarations(self):
         class LinkBlock(blocks.StructBlock):
@@ -820,8 +920,14 @@ class TestListBlock(unittest.TestCase):
         block = blocks.ListBlock(LinkBlock)
         html = block.html_declarations()
 
-        self.assertIn('<input id="__PREFIX__-value-title" name="__PREFIX__-value-title" placeholder="Title" type="text" />', html)
-        self.assertIn('<input id="__PREFIX__-value-link" name="__PREFIX__-value-link" placeholder="Link" type="url" />', html)
+        self.assertIn(
+            '<input id="__PREFIX__-value-title" name="__PREFIX__-value-title" placeholder="Title" type="text" />',
+            html
+        )
+        self.assertIn(
+            '<input id="__PREFIX__-value-link" name="__PREFIX__-value-link" placeholder="Link" type="url" />',
+            html
+        )
 
     def test_html_declarations_uses_default(self):
         class LinkBlock(blocks.StructBlock):
@@ -831,8 +937,20 @@ class TestListBlock(unittest.TestCase):
         block = blocks.ListBlock(LinkBlock)
         html = block.html_declarations()
 
-        self.assertIn('<input id="__PREFIX__-value-title" name="__PREFIX__-value-title" placeholder="Title" type="text" value="Github" />', html)
-        self.assertIn('<input id="__PREFIX__-value-link" name="__PREFIX__-value-link" placeholder="Link" type="url" value="http://www.github.com" />', html)
+        self.assertIn(
+            (
+                '<input id="__PREFIX__-value-title" name="__PREFIX__-value-title" placeholder="Title"'
+                ' type="text" value="Github" />'
+            ),
+            html
+        )
+        self.assertIn(
+            (
+                '<input id="__PREFIX__-value-link" name="__PREFIX__-value-link" placeholder="Link"'
+                ' type="url" value="http://www.github.com" />'
+            ),
+            html
+        )
 
     def test_media_inheritance(self):
         class ScriptedCharBlock(blocks.CharBlock):
@@ -907,7 +1025,10 @@ class TestListBlock(unittest.TestCase):
         # the value here does not specify an 'items' field, so this should revert to the ListBlock's default
         form_html = block.render_form(block.to_python({'shop': 'Tesco'}), prefix='shoppinglist')
 
-        self.assertIn('<input type="hidden" name="shoppinglist-items-count" id="shoppinglist-items-count" value="3">', form_html)
+        self.assertIn(
+            '<input type="hidden" name="shoppinglist-items-count" id="shoppinglist-items-count" value="3">',
+            form_html
+        )
         self.assertIn('value="peas"', form_html)
 
     def test_default_default(self):
@@ -923,11 +1044,14 @@ class TestListBlock(unittest.TestCase):
         # the value here does not specify an 'items' field, so this should revert to the ListBlock's default
         form_html = block.render_form(block.to_python({'shop': 'Tesco'}), prefix='shoppinglist')
 
-        self.assertIn('<input type="hidden" name="shoppinglist-items-count" id="shoppinglist-items-count" value="1">', form_html)
+        self.assertIn(
+            '<input type="hidden" name="shoppinglist-items-count" id="shoppinglist-items-count" value="1">',
+            form_html
+        )
         self.assertIn('value="chocolate"', form_html)
 
 
-class TestStreamBlock(unittest.TestCase):
+class TestStreamBlock(SimpleTestCase):
     def test_initialisation(self):
         block = blocks.StreamBlock([
             ('heading', blocks.CharBlock()),
@@ -1105,9 +1229,107 @@ class TestStreamBlock(unittest.TestCase):
     def test_render_form_value_fields(self):
         html = self.render_form()
 
-        self.assertIn('<input id="myarticle-0-value" name="myarticle-0-value" placeholder="Heading" type="text" value="My title" />', html)
-        self.assertIn('<input id="myarticle-1-value" name="myarticle-1-value" placeholder="Paragraph" type="text" value="My first paragraph" />', html)
-        self.assertIn('<input id="myarticle-2-value" name="myarticle-2-value" placeholder="Paragraph" type="text" value="My second paragraph" />', html)
+        self.assertIn(
+            (
+                '<input id="myarticle-0-value" name="myarticle-0-value" placeholder="Heading"'
+                ' type="text" value="My title" />'
+            ),
+            html
+        )
+        self.assertIn(
+            (
+                '<input id="myarticle-1-value" name="myarticle-1-value" placeholder="Paragraph"'
+                ' type="text" value="My first paragraph" />'
+            ),
+            html
+        )
+        self.assertIn(
+            (
+                '<input id="myarticle-2-value" name="myarticle-2-value" placeholder="Paragraph"'
+                ' type="text" value="My second paragraph" />'
+            ),
+            html
+        )
+
+    def test_validation_errors(self):
+        class ValidatedBlock(blocks.StreamBlock):
+            char = blocks.CharBlock()
+            url = blocks.URLBlock()
+        block = ValidatedBlock()
+
+        value = [
+            blocks.BoundBlock(
+                block=block.child_blocks['char'],
+                value='',
+            ),
+            blocks.BoundBlock(
+                block=block.child_blocks['char'],
+                value='foo',
+            ),
+            blocks.BoundBlock(
+                block=block.child_blocks['url'],
+                value='http://example.com/',
+            ),
+            blocks.BoundBlock(
+                block=block.child_blocks['url'],
+                value='not a url',
+            ),
+        ]
+
+        with self.assertRaises(ValidationError) as catcher:
+            block.clean(value)
+        self.assertEqual(catcher.exception.params, {
+            0: ['This field is required.'],
+            3: ['Enter a valid URL.'],
+        })
+
+    def test_block_level_validation_renders_errors(self):
+        block = FooStreamBlock()
+
+        post_data = {'stream-count': '2'}
+        for i, value in enumerate(['bar', 'baz']):
+            post_data.update({
+                'stream-%d-deleted' % i: '',
+                'stream-%d-order' % i: str(i),
+                'stream-%d-type' % i: 'text',
+                'stream-%d-value' % i: value,
+            })
+
+        block_value = block.value_from_datadict(post_data, {}, 'stream')
+        with self.assertRaises(ValidationError) as catcher:
+            block.clean(block_value)
+
+        errors = ErrorList([
+            catcher.exception
+        ])
+
+        self.assertInHTML(
+            format_html('<div class="help-block help-critical">{}</div>', FooStreamBlock.error),
+            block.render_form(block_value, prefix='stream', errors=errors))
+
+    def test_block_level_validation_render_no_errors(self):
+        block = FooStreamBlock()
+
+        post_data = {'stream-count': '3'}
+        for i, value in enumerate(['foo', 'bar', 'baz']):
+            post_data.update({
+                'stream-%d-deleted' % i: '',
+                'stream-%d-order' % i: str(i),
+                'stream-%d-type' % i: 'text',
+                'stream-%d-value' % i: value,
+            })
+
+        block_value = block.value_from_datadict(post_data, {}, 'stream')
+
+        try:
+            block.clean(block_value)
+        except ValidationError:
+            self.fail('Should have passed validation')
+
+        self.assertInHTML(
+            format_html('<div class="help-block help-critical">{}</div>', FooStreamBlock.error),
+            block.render_form(block_value, prefix='stream'),
+            count=0)
 
     def test_html_declarations(self):
         class ArticleBlock(blocks.StreamBlock):
@@ -1118,7 +1340,10 @@ class TestStreamBlock(unittest.TestCase):
         html = block.html_declarations()
 
         self.assertIn('<input id="__PREFIX__-value" name="__PREFIX__-value" placeholder="Heading" type="text" />', html)
-        self.assertIn('<input id="__PREFIX__-value" name="__PREFIX__-value" placeholder="Paragraph" type="text" />', html)
+        self.assertIn(
+            '<input id="__PREFIX__-value" name="__PREFIX__-value" placeholder="Paragraph" type="text" />',
+            html
+        )
 
     def test_html_declarations_uses_default(self):
         class ArticleBlock(blocks.StreamBlock):
@@ -1128,8 +1353,20 @@ class TestStreamBlock(unittest.TestCase):
         block = ArticleBlock()
         html = block.html_declarations()
 
-        self.assertIn('<input id="__PREFIX__-value" name="__PREFIX__-value" placeholder="Heading" type="text" value="Fish found on moon" />', html)
-        self.assertIn('<input id="__PREFIX__-value" name="__PREFIX__-value" placeholder="Paragraph" type="text" value="Lorem ipsum dolor sit amet" />', html)
+        self.assertIn(
+            (
+                '<input id="__PREFIX__-value" name="__PREFIX__-value" placeholder="Heading"'
+                ' type="text" value="Fish found on moon" />'
+            ),
+            html
+        )
+        self.assertIn(
+            (
+                '<input id="__PREFIX__-value" name="__PREFIX__-value" placeholder="Paragraph" type="text"'
+                ' value="Lorem ipsum dolor sit amet" />'
+            ),
+            html
+        )
 
     def test_media_inheritance(self):
         class ScriptedCharBlock(blocks.CharBlock):
@@ -1302,12 +1539,18 @@ class TestPageChooserBlock(TestCase):
 
         empty_form_html = block.render_form(None, 'page')
         self.assertIn('<input id="page" name="page" placeholder="" type="hidden" />', empty_form_html)
+        self.assertIn('createPageChooser("page", ["wagtailcore.page"], null, false);', empty_form_html)
 
         christmas_page = Page.objects.get(slug='christmas')
         christmas_form_html = block.render_form(christmas_page, 'page')
         expected_html = '<input id="page" name="page" placeholder="" type="hidden" value="%d" />' % christmas_page.id
         self.assertIn(expected_html, christmas_form_html)
         self.assertIn("pick a page, any page", christmas_form_html)
+
+    def test_form_render_with_can_choose_root(self):
+        block = blocks.PageChooserBlock(help_text="pick a page, any page", can_choose_root=True)
+        empty_form_html = block.render_form(None, 'page')
+        self.assertIn('createPageChooser("page", ["wagtailcore.page"], null, true);', empty_form_html)
 
     def test_form_response(self):
         block = blocks.PageChooserBlock()
@@ -1439,3 +1682,14 @@ class TestSystemCheck(TestCase):
         self.assertEqual(errors[1].id, 'wagtailcore.E001')
         self.assertEqual(errors[1].hint, "Block names cannot contain spaces")
         self.assertEqual(errors[0].obj, failing_block_2)
+
+
+class TestTemplateRendering(TestCase):
+    def test_render_with_custom_context(self):
+        from wagtail.tests.testapp.blocks import LinkBlock
+
+        block = LinkBlock()
+        value = block.to_python({'title': 'Torchbox', 'url': 'http://torchbox.com/'})
+        result = block.render(value)
+
+        self.assertEqual(result, '<a href="http://torchbox.com/" class="important">Torchbox</a>')

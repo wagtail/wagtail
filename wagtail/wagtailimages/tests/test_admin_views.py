@@ -6,7 +6,7 @@ from django.test import TestCase, override_settings
 from django.utils.http import urlquote
 from django.core.urlresolvers import reverse
 from django.contrib.auth import get_user_model
-from django.contrib.auth.models import Permission
+from django.contrib.auth.models import Permission, Group
 from django.core.files.uploadedfile import SimpleUploadedFile
 from django.template.defaultfilters import filesizeformat
 
@@ -19,6 +19,7 @@ except ImportError:  # < Django 1,8
     urlquote_safechars = '/'
 
 from wagtail.tests.utils import WagtailTestUtils
+from wagtail.wagtailcore.models import Collection, GroupCollectionPermission
 from wagtail.wagtailimages.utils import generate_signature
 
 from .utils import Image, get_test_image_file
@@ -65,10 +66,25 @@ class TestImageAddView(TestCase, WagtailTestUtils):
     def post(self, post_data={}):
         return self.client.post(reverse('wagtailimages:add'), post_data)
 
-    def test_simple(self):
+    def test_get(self):
         response = self.get()
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'wagtailimages/images/add.html')
+
+        # as standard, only the root collection exists and so no 'Collection' option
+        # is displayed on the form
+        self.assertNotContains(response, '<label for="id_collection">')
+
+    def test_get_with_collections(self):
+        root_collection = Collection.get_first_root_node()
+        root_collection.add_child(name="Evil plans")
+
+        response = self.get()
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'wagtailimages/images/add.html')
+
+        self.assertContains(response, '<label for="id_collection">')
+        self.assertContains(response, "Evil plans")
 
     def test_add(self):
         response = self.post({
@@ -90,6 +106,10 @@ class TestImageAddView(TestCase, WagtailTestUtils):
 
         # Test that the file_size field was set
         self.assertTrue(image.file_size)
+
+        # Test that it was placed in the root collection
+        root_collection = Collection.get_first_root_node()
+        self.assertEqual(image.collection, root_collection)
 
     @override_settings(DEFAULT_FILE_STORAGE='wagtail.tests.dummy_external_storage.DummyExternalStorage')
     def test_add_with_external_file_storage(self):
@@ -130,10 +150,97 @@ class TestImageAddView(TestCase, WagtailTestUtils):
         self.assertTemplateUsed(response, 'wagtailimages/images/add.html')
 
         # The form should have an error
-        self.assertFormError(response, 'form', 'file', "This file is too big ({file_size}). Maximum filesize {max_file_size}.".format(
-            file_size=filesizeformat(len(file_content)),
-            max_file_size=filesizeformat(1),
-        ))
+        self.assertFormError(
+            response, 'form', 'file',
+            "This file is too big ({file_size}). Maximum filesize {max_file_size}.".format(
+                file_size=filesizeformat(len(file_content)),
+                max_file_size=filesizeformat(1),
+            )
+        )
+
+    def test_add_with_collections(self):
+        root_collection = Collection.get_first_root_node()
+        evil_plans_collection = root_collection.add_child(name="Evil plans")
+
+        response = self.post({
+            'title': "Test image",
+            'file': SimpleUploadedFile('test.png', get_test_image_file().file.getvalue()),
+            'collection': evil_plans_collection.id,
+        })
+
+        # Should redirect back to index
+        self.assertRedirects(response, reverse('wagtailimages:index'))
+
+        # Check that the image was created
+        images = Image.objects.filter(title="Test image")
+        self.assertEqual(images.count(), 1)
+
+        # Test that it was placed in the Evil Plans collection
+        image = images.first()
+        self.assertEqual(image.collection, evil_plans_collection)
+
+
+class TestImageAddViewWithLimitedCollectionPermissions(TestCase, WagtailTestUtils):
+    def setUp(self):
+        add_image_permission = Permission.objects.get(
+            content_type__app_label='wagtailimages', codename='add_image'
+        )
+        admin_permission = Permission.objects.get(
+            content_type__app_label='wagtailadmin', codename='access_admin'
+        )
+
+        root_collection = Collection.get_first_root_node()
+        self.evil_plans_collection = root_collection.add_child(name="Evil plans")
+
+        conspirators_group = Group.objects.create(name="Evil conspirators")
+        conspirators_group.permissions.add(admin_permission)
+        GroupCollectionPermission.objects.create(
+            group=conspirators_group,
+            collection=self.evil_plans_collection,
+            permission=add_image_permission
+        )
+
+        user = get_user_model().objects.create_user(
+            username='moriarty',
+            email='moriarty@example.com',
+            password='password'
+        )
+        user.groups.add(conspirators_group)
+
+        self.client.login(username='moriarty', password='password')
+
+    def get(self, params={}):
+        return self.client.get(reverse('wagtailimages:add'), params)
+
+    def post(self, post_data={}):
+        return self.client.post(reverse('wagtailimages:add'), post_data)
+
+    def test_get(self):
+        response = self.get()
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'wagtailimages/images/add.html')
+
+        # user only has access to one collection, so no 'Collection' option
+        # is displayed on the form
+        self.assertNotContains(response, '<label for="id_collection">')
+
+    def test_add(self):
+        response = self.post({
+            'title': "Test image",
+            'file': SimpleUploadedFile('test.png', get_test_image_file().file.getvalue()),
+        })
+
+        # User should be redirected back to the index
+        self.assertRedirects(response, reverse('wagtailimages:index'))
+
+        # Image should be created in the 'evil plans' collection,
+        # despite there being no collection field in the form, because that's the
+        # only one the user has access to
+        self.assertTrue(Image.objects.filter(title="Test image").exists())
+        self.assertEqual(
+            Image.objects.get(title="Test image").collection,
+            self.evil_plans_collection
+        )
 
 
 class TestImageEditView(TestCase, WagtailTestUtils):
@@ -296,6 +403,24 @@ class TestImageChooserView(TestCase, WagtailTestUtils):
             response = self.get({'p': page})
             self.assertEqual(response.status_code, 200)
 
+    def test_filter_by_tag(self):
+        for i in range(0, 10):
+            image = Image.objects.create(
+                title="Test image %d is even better than the last one" % i,
+                file=get_test_image_file(),
+            )
+            if i % 2 == 0:
+                image.tags.add('even')
+
+        response = self.get({'tag': "even"})
+        self.assertEqual(response.status_code, 200)
+
+        # Results should include images tagged 'even'
+        self.assertContains(response, "Test image 2 is even better")
+
+        # Results should not include images that just have 'even' in the title
+        self.assertNotContains(response, "Test image 3 is even better")
+
 
 class TestImageChooserChosenView(TestCase, WagtailTestUtils):
     def setUp(self):
@@ -404,7 +529,9 @@ class TestMultipleImageUploader(TestCase, WagtailTestUtils):
         response = self.client.get(reverse('wagtailimages:add_multiple'))
 
         self.assertEqual(response.context['max_filesize'], 1000)
-        self.assertEqual(response.context['error_max_file_size'], "This file is too big. Maximum filesize 1000\xa0bytes.")
+        self.assertEqual(
+            response.context['error_max_file_size'], "This file is too big. Maximum filesize 1000\xa0bytes."
+        )
 
     def test_add_post(self):
         """
@@ -473,7 +600,9 @@ class TestMultipleImageUploader(TestCase, WagtailTestUtils):
         self.assertIn('success', response_json)
         self.assertIn('error_message', response_json)
         self.assertFalse(response_json['success'])
-        self.assertEqual(response_json['error_message'], "Not a supported image format. Supported formats: GIF, JPEG, PNG.")
+        self.assertEqual(
+            response_json['error_message'], "Not a supported image format. Supported formats: GIF, JPEG, PNG."
+        )
 
     def test_edit_get(self):
         """
@@ -527,7 +656,7 @@ class TestMultipleImageUploader(TestCase, WagtailTestUtils):
         """
         # Send request
         response = self.client.post(reverse('wagtailimages:edit_multiple', args=(self.image.id, )), {
-            ('image-%d-title' % self.image.id): "", # Required
+            ('image-%d-title' % self.image.id): "",  # Required
             ('image-%d-tags' % self.image.id): "",
         }, HTTP_X_REQUESTED_WITH='XMLHttpRequest')
 
@@ -562,7 +691,9 @@ class TestMultipleImageUploader(TestCase, WagtailTestUtils):
         This tests that a POST request to the delete view deletes the image
         """
         # Send request
-        response = self.client.post(reverse('wagtailimages:delete_multiple', args=(self.image.id, )), HTTP_X_REQUESTED_WITH='XMLHttpRequest')
+        response = self.client.post(reverse(
+            'wagtailimages:delete_multiple', args=(self.image.id, )
+        ), HTTP_X_REQUESTED_WITH='XMLHttpRequest')
 
         # Check response
         self.assertEqual(response.status_code, 200)
@@ -613,7 +744,8 @@ class TestURLGeneratorView(TestCase, WagtailTestUtils):
 
     def test_get_bad_permissions(self):
         """
-        This tests that the view gives a 403 if a user without correct permissions attemts to access it
+        This tests that the view returns a "permission denied" redirect if a user without correct
+        permissions attemts to access it
         """
         # Remove privileges from user
         self.user.is_superuser = False
@@ -626,7 +758,7 @@ class TestURLGeneratorView(TestCase, WagtailTestUtils):
         response = self.client.get(reverse('wagtailimages:url_generator', args=(self.image.id, )))
 
         # Check response
-        self.assertEqual(response.status_code, 403)
+        self.assertRedirects(response, reverse('wagtailadmin_home'))
 
 
 class TestGenerateURLView(TestCase, WagtailTestUtils):
@@ -768,11 +900,22 @@ class TestEditOnlyPermissions(TestCase, WagtailTestUtils):
         )
 
         # Create a user with change_image permission but not add_image
-        user = get_user_model().objects.create_user(username='changeonly', email='changeonly@example.com', password='password')
+        user = get_user_model().objects.create_user(
+            username='changeonly', email='changeonly@example.com', password='password'
+        )
         change_permission = Permission.objects.get(content_type__app_label='wagtailimages', codename='change_image')
         admin_permission = Permission.objects.get(content_type__app_label='wagtailadmin', codename='access_admin')
-        user.user_permissions.add(change_permission, admin_permission)
-        self.client.login(username='changeonly', password='password')
+
+        image_changers_group = Group.objects.create(name='Image changers')
+        image_changers_group.permissions.add(admin_permission)
+        GroupCollectionPermission.objects.create(
+            group=image_changers_group,
+            collection=Collection.get_first_root_node(),
+            permission=change_permission
+        )
+
+        user.groups.add(image_changers_group)
+        self.assertTrue(self.client.login(username='changeonly', password='password'))
 
     def test_get_index(self):
         response = self.client.get(reverse('wagtailimages:index'))
@@ -784,6 +927,11 @@ class TestEditOnlyPermissions(TestCase, WagtailTestUtils):
 
         # user should be able to see images not owned by them
         self.assertContains(response, "Test image")
+
+    def test_search(self):
+        response = self.client.get(reverse('wagtailimages:index'), {'q': "Hello"})
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.context['query_string'], "Hello")
 
     def test_get_add(self):
         response = self.client.get(reverse('wagtailimages:add'))
@@ -804,3 +952,27 @@ class TestEditOnlyPermissions(TestCase, WagtailTestUtils):
         response = self.client.get(reverse('wagtailimages:add_multiple'))
         # permission should be denied
         self.assertRedirects(response, reverse('wagtailadmin_home'))
+
+
+class TestImageAddMultipleView(TestCase, WagtailTestUtils):
+    def test_as_superuser(self):
+        self.login()
+        response = self.client.get(reverse('wagtailimages:add_multiple'))
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'wagtailimages/multiple/add.html')
+
+    def test_as_ordinary_editor(self):
+        user = get_user_model().objects.create_user(username='editor', email='editor@email.com', password='password')
+
+        add_permission = Permission.objects.get(content_type__app_label='wagtailimages', codename='add_image')
+        admin_permission = Permission.objects.get(content_type__app_label='wagtailadmin', codename='access_admin')
+        image_adders_group = Group.objects.create(name='Image adders')
+        image_adders_group.permissions.add(admin_permission)
+        GroupCollectionPermission.objects.create(group=image_adders_group, collection=Collection.get_first_root_node(), permission=add_permission)
+        user.groups.add(image_adders_group)
+
+        self.client.login(username='editor', password='password')
+
+        response = self.client.get(reverse('wagtailimages:add_multiple'))
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'wagtailimages/multiple/add.html')

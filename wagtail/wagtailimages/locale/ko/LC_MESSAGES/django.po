@@ -4,13 +4,14 @@
 #
 # Translators:
 # Ji Han Chung <jihanchung20@gmail.com>, 2015
+# Kyungil Choi <hanpama@gmail.com>, 2015
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-08-26 14:28+0100\n"
-"PO-Revision-Date: 2015-08-26 13:37+0000\n"
-"Last-Translator: Karl Hobley <karl@torchbox.com>\n"
+"POT-Creation-Date: 2016-03-09 13:55+0000\n"
+"PO-Revision-Date: 2016-03-01 19:01+0000\n"
+"Last-Translator: mattwestcott <matthew@torchbox.com>\n"
 "Language-Team: Korean (http://www.transifex.com/torchbox/wagtail/language/"
 "ko/)\n"
 "MIME-Version: 1.0\n"
@@ -40,6 +41,16 @@ msgstr "지원하지 않는 이미지 포맷입니다. 지원 포맷은 %s 입�
 #, python-format
 msgid "Not a valid %s image."
 msgstr "%s 는 사용 가능한 이미지가 아닙니다."
+
+#, python-format
+msgid "This file is too big (%%s). Maximum filesize %s."
+msgstr ""
+"이 파일 사이즈는 너무 큽니다(%%s). 최대 허용 가능한 파일 사이즈는 %s 입니다."
+
+#, python-format
+msgid "This file is too big. Maximum filesize %s."
+msgstr ""
+"이 파일 사이즈는 너무 큽니다. 최대 허용 가능한 파일 사이즈는 %s 입니다."
 
 msgid "Filter"
 msgstr "필터"
@@ -71,20 +82,8 @@ msgstr "높이"
 msgid "Closeness"
 msgstr " 접근"
 
-msgid "Title"
-msgstr "제목"
-
-msgid "File"
-msgstr "파일"
-
-msgid "Created at"
-msgstr "생성된 날짜"
-
-msgid "Uploaded by user"
-msgstr "사용자에 의한 업로드"
-
-msgid "Tags"
-msgstr "태그"
+msgid "Edit"
+msgstr "수정"
 
 msgid "Choose an image"
 msgstr "이미지 선택"
@@ -224,6 +223,9 @@ msgstr "%(title)s 의 사용"
 msgid "Usage of"
 msgstr "의 사용"
 
+msgid "Title"
+msgstr "제목"
+
 msgid "Parent"
 msgstr "상위"
 
@@ -292,9 +294,6 @@ msgstr "'{0}' 이미지가 삭제되었습니다."
 #, python-brace-format
 msgid "Image '{0}' added."
 msgstr "'{0}' 이미지가 추가 되었습니다."
-
-msgid "Edit"
-msgstr "수정"
 
 msgid "The image could not be created due to errors."
 msgstr "에러로 인해 이미지가 생성될 수 없습니다."

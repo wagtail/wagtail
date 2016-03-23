@@ -1,5 +1,10 @@
+{% load i18n %}
 function(modal) {
     var searchUrl = $('form.image-search', modal.body).attr('action');
+
+    /* currentTag stores the tag currently being filtered on, so that we can
+    preserve this when paginating */
+    var currentTag;
 
     function ajaxifyLinks (context) {
         $('.listing a', context).click(function() {
@@ -14,33 +19,38 @@ function(modal) {
         });
     }
 
-    function search() {
+    function fetchResults(requestData) {
         $.ajax({
             url: searchUrl,
-            data: {q: $('#id_q').val()},
+            data: requestData,
             success: function(data, status) {
                 $('#image-results').html(data);
                 ajaxifyLinks($('#image-results'));
             }
+        });
+    }
+
+    function search() {
+        /* Searching causes currentTag to be cleared - otherwise there's
+        no way to de-select a tag */
+        currentTag = null;
+        fetchResults({
+            q: $('#id_q').val(),
+            collection_id: $('#collection_chooser_collection_id').val()
         });
         return false;
     }
 
     function setPage(page) {
-        if($('#id_q').val().length){
-            dataObj = {q: $('#id_q').val(), p: page};
-        }else{
-            dataObj = {p: page};
+        params = {p: page};
+        if ($('#id_q').val().length){
+            params['q'] = $('#id_q').val();
         }
-
-        $.ajax({
-            url: searchUrl,
-            data: dataObj,
-            success: function(data, status) {
-                $('#image-results').html(data);
-                ajaxifyLinks($('#image-results'));
-            }
-        });
+        if (currentTag) {
+            params['tag'] = currentTag;
+        }
+        params['collection_id'] = $('#collection_chooser_collection_id').val();
+        fetchResults(params);
         return false;
     }
 
@@ -58,6 +68,14 @@ function(modal) {
             dataType: 'text',
             success: function(response){
                 modal.loadResponseText(response);
+            },
+            error: function(response, textStatus, errorThrown) {
+                {% trans "Server Error" as error_label %}
+                {% trans "Report this error to your webmaster with the following information:" as error_message %}
+                message = '{{ error_message|escapejs }}<br />' + errorThrown + ' - ' + response.status;
+                $('#upload').append(
+                    '<div class="help-block help-critical">' +
+                    '<strong>{{ error_label|escapejs }}: </strong>' + message + '</div>');
             }
         });
 
@@ -71,9 +89,14 @@ function(modal) {
         var wait = setTimeout(search, 200);
         $(this).data('timer', wait);
     });
+    $('#collection_chooser_collection_id').change(search);
     $('a.suggested-tag').click(function() {
-        $('#id_q').val($(this).text());
-        search();
+        currentTag = $(this).text();
+        $('#id_q').val('');
+        fetchResults({
+            'tag': currentTag,
+            collection_id: $('#collection_chooser_collection_id').val()
+        });
         return false;
     });
 

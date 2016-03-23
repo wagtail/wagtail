@@ -4,13 +4,14 @@
 #
 # Translators:
 # Eirik Krogstad <eirikkr@gmail.com>, 2015
+# Robin Skahjem-Eriksen <robinds@student.matnat.uio.no>, 2015
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-08-26 14:28+0100\n"
-"PO-Revision-Date: 2015-09-02 15:01+0000\n"
-"Last-Translator: Eirik Krogstad <eirikkr@gmail.com>\n"
+"POT-Creation-Date: 2016-03-09 13:55+0000\n"
+"PO-Revision-Date: 2016-03-09 13:58+0000\n"
+"Last-Translator: mattwestcott <matthew@torchbox.com>\n"
 "Language-Team: Norwegian Bokmål (http://www.transifex.com/torchbox/wagtail/"
 "language/nb/)\n"
 "MIME-Version: 1.0\n"
@@ -24,6 +25,15 @@ msgstr "Planlagt publisering"
 
 msgid "Common page configuration"
 msgstr "Felles sidekonfigurasjon"
+
+msgid "Content"
+msgstr "Innhold"
+
+msgid "Promote"
+msgstr "Promovér"
+
+msgid "Settings"
+msgstr "Innstillinger"
 
 msgid "Search"
 msgstr "Søk"
@@ -67,7 +77,7 @@ msgid "This copy will be a child of this given parent page."
 msgstr "Denne kopien vil bli en underside av gitt foreldreside."
 
 msgid "Copy subpages"
-msgstr "Kopier undersider"
+msgstr "Kopiér undersider"
 
 #, python-format
 msgid "This will copy %(count)s subpage."
@@ -76,13 +86,13 @@ msgstr[0] "Dette vil kopiere %(count)s underside."
 msgstr[1] "Dette vil kopiere %(count)s undersider."
 
 msgid "Publish copied page"
-msgstr "Publiser kopiert side"
+msgstr "Publisér kopiert side"
 
 msgid "This page is live. Would you like to publish its copy as well?"
 msgstr "Denne siden er publisert. Vil du publisere kopien også?"
 
 msgid "Publish copies"
-msgstr "Publiser kopier"
+msgstr "Publisér kopier"
 
 #, python-format
 msgid ""
@@ -112,6 +122,15 @@ msgstr "Privat, tilgjengelig med følgende passord"
 
 msgid "This field is required."
 msgstr "Dette feltet er påkrevet."
+
+msgid "This slug is already in use"
+msgstr "Denne permalenken er allerede i bruk"
+
+msgid "Go live date/time must be before expiry date/time"
+msgstr "Tidspunkt for publisering må være før tidspunkt for avpublisering"
+
+msgid "Expiry date/time must be in the future"
+msgstr "Tidspunkt for avpublisering må være en gang i fremtiden"
 
 msgid "Account"
 msgstr "Konto"
@@ -152,7 +171,7 @@ msgid "Notification Preferences"
 msgstr "Varslingsinnstillinger"
 
 msgid "Update"
-msgstr "Oppdater"
+msgstr "Oppdatér"
 
 msgid "Reset password"
 msgstr "Nullstill passord"
@@ -187,7 +206,7 @@ msgid "Reset your password"
 msgstr "Nullstill ditt passord"
 
 msgid "Dashboard"
-msgstr "Dashbord"
+msgstr "Kontrollpanel"
 
 msgid "Menu"
 msgstr "Meny"
@@ -283,8 +302,8 @@ msgid ""
 "This is your dashboard on which helpful information about content you've "
 "created will be displayed."
 msgstr ""
-"Dette er dashbordet ditt, hvor du kan se en oversikt over innholdet som er "
-"lagt inn."
+"Dette er kontrollpanelet ditt, hvor du kan se en oversikt over innholdet som "
+"er lagt inn."
 
 msgid "Pages awaiting moderation"
 msgstr "Sider som venter på godkjenning"
@@ -302,7 +321,7 @@ msgid "Edited"
 msgstr "Redigert"
 
 msgid "Edit this page"
-msgstr "Rediger denne siden"
+msgstr "Redigér denne siden"
 
 msgid "Approve"
 msgstr "Godkjenn"
@@ -311,7 +330,7 @@ msgid "Reject"
 msgstr "Avslå"
 
 msgid "Edit"
-msgstr "Rediger"
+msgstr "Redigér"
 
 msgid "Preview"
 msgstr "Forhåndsvis"
@@ -367,22 +386,18 @@ msgid "Forgotten it?"
 msgstr "Glemt?"
 
 #, python-format
-msgid "The page \"%(title)s\" has been approved"
-msgstr "Siden \"%(title)s\" har blitt godkjent"
-
-#, python-format
 msgid "The page \"%(title)s\" has been approved."
 msgstr "Siden \"%(title)s\" har blitt godkjent."
 
 msgid "You can view the page here:"
 msgstr "Du kan besøke siden her:"
 
+#, python-format
+msgid "The page \"%(title)s\" has been approved"
+msgstr "Siden \"%(title)s\" har blitt godkjent"
+
 msgid "Edit your notification preferences here:"
 msgstr "Endre dine varslingsinnstillinger her:"
-
-#, python-format
-msgid "The page \"%(title)s\" has been rejected"
-msgstr "Siden \"%(title)s\" har blitt avvist"
 
 #, python-format
 msgid "The page \"%(title)s\" has been rejected."
@@ -392,15 +407,15 @@ msgid "You can edit the page here:"
 msgstr "Du kan redigere siden her:"
 
 #, python-format
-msgid "The page \"%(page)s\" has been submitted for moderation"
-msgstr "Siden \"%(page)s\" har blitt sendt til godkjenning"
-
-#, python-format
-msgid "The page \"%(page)s\" has been submitted for moderation."
-msgstr "Siden \"%(page)s\" har blitt sendt til godkjenning."
+msgid "The page \"%(title)s\" has been rejected"
+msgstr "Siden \"%(title)s\" har blitt avvist"
 
 msgid "You can preview the page here:"
 msgstr "Du kan forhåndsvise siden her:"
+
+#, python-format
+msgid "The page \"%(page)s\" has been submitted for moderation"
+msgstr "Siden \"%(page)s\" har blitt sendt til godkjenning"
 
 msgid "Page privacy"
 msgstr "Sidevern"
@@ -480,7 +495,7 @@ msgid "Delete it"
 msgstr "Slett den"
 
 msgid "Unpublish it"
-msgstr "Avpubliser den"
+msgstr "Avpublisér den"
 
 #, python-format
 msgid "Move %(title)s"
@@ -506,10 +521,10 @@ msgstr "Ja, flytt denne siden"
 
 #, python-format
 msgid "Unpublish %(title)s"
-msgstr "Avpubliser %(title)s"
+msgstr "Avpublisér %(title)s"
 
 msgid "Unpublish"
-msgstr "Avpubliser"
+msgstr "Avpublisér"
 
 msgid "Are you sure you want to unpublish this page?"
 msgstr "Er du sikker på at du vil avpublisere denne siden?"
@@ -537,8 +552,8 @@ msgstr "Ny %(page_type)s"
 msgid "New"
 msgstr "Ny"
 
-msgid "Save as draft"
-msgstr "Lagre som kladd"
+msgid "Save draft"
+msgstr "Lagre kladd"
 
 msgid "Publish"
 msgstr "Publiser"
@@ -556,9 +571,6 @@ msgstr "Redigerer %(page_type)s: <span>%(title)s</span>"
 
 msgid "Page locked"
 msgstr "Siden er låst"
-
-msgid "Save draft"
-msgstr "Lagre kladd"
 
 #, python-format
 msgid "Last modified: %(last_mod)s"
@@ -670,18 +682,6 @@ msgstr[1] ""
 "Det er %(counter)s samsvarende sider\n"
 " "
 
-msgid "Other searches"
-msgstr "Andre søk"
-
-msgid "Images"
-msgstr "Bilder"
-
-msgid "Documents"
-msgstr "Dokumenter"
-
-msgid "Users"
-msgstr "Brukere"
-
 #, python-format
 msgid "Sorry, no pages match <em>\"%(query_string)s\"</em>"
 msgstr "Beklager, ingen sider samsvarer med <em>\"%(query_string)s\"</em>"
@@ -768,6 +768,9 @@ msgstr "Logg ut"
 msgid "Page %(page_num)s of %(total_pages)s."
 msgstr "Side %(page_num)s av %(total_pages)s."
 
+msgid "Other searches"
+msgstr "Andre søk"
+
 msgid ""
 "You are using an <strong>outdated</strong> browser not supported by this "
 "software. Please <a href=\"http://browsehappy.com/\">upgrade your browser</"
@@ -780,17 +783,11 @@ msgstr ""
 msgid "Javascript is required to use Wagtail, but it is currently disabled"
 msgstr "JavaScript er påkrevet for å bruke Wagtail, men er deaktivert"
 
-msgid "User bar"
-msgstr "Brukerlinje"
-
 msgid "Go to Wagtail admin interface"
 msgstr "Gå til Wagtail administrasjonsgrensesnitt"
 
 msgid "Add a child page"
 msgstr "Legg til en underside"
-
-msgid "Add"
-msgstr "Legg til"
 
 msgid "Sorry, you do not have permission to access this area."
 msgstr "Beklager, du har ikke tilgang på dette området."
@@ -822,18 +819,6 @@ msgstr "Siden \"{0}\" er opprettet."
 msgid "The page could not be created due to validation errors"
 msgstr "Siden kunne ikke opprettes grunnet valideringsfeil."
 
-#, python-brace-format
-msgid "Page '{0}' published."
-msgstr "Siden \"{0}\" er publisert."
-
-#, python-brace-format
-msgid "Page '{0}' submitted for moderation."
-msgstr "Siden \"{0}\" er sendt til godkjenning."
-
-#, python-brace-format
-msgid "Page '{0}' updated."
-msgstr "Siden \"{0}\" er oppdatert."
-
 msgid "The page could not be saved as it is locked"
 msgstr "Siden kunne ikke lagres fordi den er låst"
 
@@ -842,15 +827,6 @@ msgstr "Siden kunne ikke lagres grunnet valideringsfeil"
 
 msgid "This page is currently awaiting moderation"
 msgstr "Denne siden påventer godkjenning"
-
-msgid "This slug is already in use"
-msgstr "Denne permalenken er allerede i bruk"
-
-msgid "Go live date/time must be before expiry date/time"
-msgstr "Tidspunkt for publisering må være før tidspunkt for avpublisering"
-
-msgid "Expiry date/time must be in the future"
-msgstr "Tidspunkt for avpublisering må være en gang i fremtiden"
 
 #, python-brace-format
 msgid "Page '{0}' deleted."
@@ -872,18 +848,13 @@ msgstr "Siden \"{0}\" og {1} undersider kopiert."
 msgid "Page '{0}' copied."
 msgstr "Siden \"{0}\" kopiert."
 
-msgid "Content"
-msgstr "Innhold"
-
-msgid "Promote"
-msgstr "Forfrem"
-
-msgid "Settings"
-msgstr "Innstillinger"
-
 #, python-brace-format
 msgid "The page '{0}' is not currently awaiting moderation."
 msgstr "Siden \"{0}\" påventer ikke godkjenning."
+
+#, python-brace-format
+msgid "Page '{0}' published."
+msgstr "Siden \"{0}\" er publisert."
 
 #, python-brace-format
 msgid "Page '{0}' rejected for publication."

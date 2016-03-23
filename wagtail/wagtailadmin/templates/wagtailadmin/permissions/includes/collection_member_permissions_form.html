@@ -1,0 +1,14 @@
+{% load i18n %}
+
+<td>
+    {% include "wagtailadmin/shared/field.html" with field=form.collection only %}
+    {{ form.DELETE }}
+</td>
+
+{% for option in form.permissions %}
+    <td>{{ option.tag }}</td>
+{% endfor %}
+
+<td>
+    <button class="button-secondary button-small no" type="button" id="{{ form.DELETE.id_for_label }}-button">{% trans "Delete" %}</button>
+</td>

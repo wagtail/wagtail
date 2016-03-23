@@ -1,5 +1,7 @@
 from django.apps import AppConfig
 
+from . import checks  # NOQA
+
 
 class WagtailAdminAppConfig(AppConfig):
     name = 'wagtail.wagtailadmin'

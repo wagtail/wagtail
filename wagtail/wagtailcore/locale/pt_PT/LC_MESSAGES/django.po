@@ -4,14 +4,15 @@
 #
 # Translators:
 # Jose Lourenco <jose@lourenco.ws>, 2014-2015
-# Tiago Henriques <trinosauro@gmail.com>, 2015
+# Manuela Silva <h_manuela_rodsilva@gmail.com>, 2015
+# Tiago Henriques <trinosauro@gmail.com>, 2015-2016
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-09-02 20:07+0100\n"
-"PO-Revision-Date: 2015-09-02 19:12+0000\n"
-"Last-Translator: Karl Hobley <karl@torchbox.com>\n"
+"POT-Creation-Date: 2016-03-09 13:55+0000\n"
+"PO-Revision-Date: 2016-03-09 21:27+0000\n"
+"Last-Translator: Tiago Henriques <trinosauro@gmail.com>\n"
 "Language-Team: Portuguese (Portugal) (http://www.transifex.com/torchbox/"
 "wagtail/language/pt_PT/)\n"
 "MIME-Version: 1.0\n"
@@ -20,86 +21,98 @@ msgstr ""
 "Language: pt_PT\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-msgid "Hostname"
-msgstr "Nome do servidor"
+msgid "hostname"
+msgstr "nome do servidor"
 
-msgid "Port"
-msgstr "Porta"
+msgid "port"
+msgstr "porta"
 
 msgid ""
 "Set this to something other than 80 if you need a specific port number to "
 "appear in URLs (e.g. development on port 8000). Does not affect request "
 "handling (so port forwarding still works)."
 msgstr ""
-"Atribua um valor diferente de 80 se precisar que apareça um número de porta "
-"específico nos URLs (ex. desenvolvimento na porta 8000). Não afeta o "
-"tratamento de pedidos (pelo que o redirecionamento de portas continua a "
+"Defina um valor diferente de 80 se precisar que apareça um número de porta "
+"específico nos URLs (por exemplo, desenvolvimento na porta 8000). Não afeta "
+"o tratamento do pedido (assim o reencaminhamento da porta continua a "
 "funcionar)."
 
-msgid "Root page"
-msgstr "Página raiz"
+msgid "site name"
+msgstr "nome do site"
 
-msgid "Is default site"
-msgstr "Site pré-definido"
+msgid "Human-readable name for the site."
+msgstr "Nome legível para o site."
+
+msgid "root page"
+msgstr "página raiz"
+
+msgid "is default site"
+msgstr "é o site pré-definido"
 
 msgid ""
 "If true, this site will handle requests for all other hostnames that do not "
 "have a site entry of their own"
 msgstr ""
-"Se verdadeiro, este site irá processar pedidos de todos os outros nomes de "
-"servidor que não tenham um site próprio"
+"Se verdadeiro, este site irá processar os pedidos de todos os outros nomes "
+"de servidor que não tenham uma entrada de site própria"
+
+msgid "site"
+msgstr "site"
+
+msgid "sites"
+msgstr "sites"
 
 #, python-format
 msgid ""
 "%(hostname)s is already configured as the default site. You must unset that "
 "before you can save this site as default."
 msgstr ""
-"O %(hostname)s já está configurado como site pré-definido. Tem de alterar "
+"O %(hostname)s já está configurado como site pré-definido. Tem de remover "
 "essa configuração antes de poder guardar este site como pré-definido."
 
-msgid "Title"
-msgstr "Título"
+msgid "title"
+msgstr "título"
 
 msgid "The page title as you'd like it to be seen by the public"
 msgstr "O título da página como você gostaria que fosse visto pelo público"
 
-msgid "Slug"
-msgstr "“Slug”"
+msgid "slug"
+msgstr "\"slug\""
 
 msgid ""
 "The name of the page as it will appear in URLs e.g http://domain.com/blog/"
 "[my-slug]/"
 msgstr ""
-"O nome da página tal como irá aparecer nos URLs, p. ex. http://domain.com/"
-"blog/[my-slug]/"
+"O nome da página tal como irá aparecer nos URLs, por exemplo http://domain."
+"com/blog/[my-slug]/"
 
-msgid "Content type"
-msgstr "Tipo de conteúdo"
+msgid "content type"
+msgstr "tipo de conteúdo"
 
-msgid "Live"
-msgstr "Publicada"
+msgid "live"
+msgstr "publicada"
 
-msgid "Has unpublished changes"
-msgstr "Tem alterações por publicar"
+msgid "has unpublished changes"
+msgstr "tem alterações por publicar"
 
 msgid "URL path"
 msgstr "Caminho do URL"
 
-msgid "Owner"
-msgstr "Dono"
+msgid "owner"
+msgstr "dono"
 
-msgid "Page title"
-msgstr "Título da página"
+msgid "page title"
+msgstr "título da página"
 
 msgid ""
 "Optional. 'Search Engine Friendly' title. This will appear at the top of the "
 "browser window."
 msgstr ""
-"Opcional. Título otimizado para motores de busca. Irá aparecer no topo da "
-"janela do navegador."
+"Opcional. Título \"Otimizado para Motores de Busca\". Irá aparecer no topo "
+"da janela do navegador."
 
-msgid "Show in menus"
-msgstr "Mostrar nos menus"
+msgid "show in menus"
+msgstr "mostrar nos menus"
 
 msgid ""
 "Whether a link to this page will appear in automatically generated menus"
@@ -107,32 +120,32 @@ msgstr ""
 "Determina se um link para esta página irá aparecer nos menus gerados "
 "automaticamente"
 
-msgid "Search description"
-msgstr "Descrição da pesquisa"
+msgid "search description"
+msgstr "descrição de pesquisa"
 
-msgid "Go live date/time"
-msgstr "Data/hora de publicação agendada"
+msgid "go live date/time"
+msgstr "publicar em data/hora"
 
 msgid "Please add a date-time in the form YYYY-MM-DD hh:mm."
 msgstr "Por favor adicione uma data-hora no formato YYYY-MM-DD hh:mm."
 
-msgid "Expiry date/time"
-msgstr "Data/hora terminal"
-
-msgid "Expired"
-msgstr "Expirado"
-
-msgid "Locked"
-msgstr "Bloqueado"
-
-msgid "First published at"
-msgstr "Publicado pela primeira vez a"
-
-msgid "Latest revision created at"
-msgstr "Última versão criada a"
+msgid "expiry date/time"
+msgstr "data/hora final"
 
 msgid "expired"
 msgstr "expirado"
+
+msgid "locked"
+msgstr "trancado"
+
+msgid "first published at"
+msgstr "primeira publicação em"
+
+msgid "latest revision created at"
+msgstr "última versão criada em"
+
+msgid "This slug is already in use"
+msgstr "Este “slug” já está a ser utilizado"
 
 msgid "scheduled"
 msgstr "agendado"
@@ -141,49 +154,94 @@ msgid "draft"
 msgstr "rascunho"
 
 msgid "live + draft"
-msgstr "publicado + rascunho"
-
-msgid "live"
-msgstr "publicado"
+msgstr "publicada + rascunho"
 
 msgid "Default"
 msgstr "Pré-definido"
 
-msgid "Page"
-msgstr "Página"
+msgid "page"
+msgstr "página"
 
-msgid "Submitted for moderation"
-msgstr "Enviada para moderação"
+msgid "pages"
+msgstr "páginas"
 
-msgid "Created at"
-msgstr "Criado a"
+msgid "submitted for moderation"
+msgstr "enviada para moderação"
 
-msgid "User"
-msgstr "Utilizador"
+msgid "created at"
+msgstr "criado em"
 
-msgid "Content JSON"
-msgstr "Conteúdo JSON"
+msgid "user"
+msgstr "utilizador"
 
-msgid "Approved go live at"
-msgstr "Aprovado para publicação a"
+msgid "content JSON"
+msgstr "conteúdo JSON"
+
+msgid "approved go live at"
+msgstr "aprovado para publicação em"
+
+msgid "page revision"
+msgstr "versão da página"
+
+msgid "page revisions"
+msgstr "versões de página"
+
+msgid "Add"
+msgstr "Adicionar"
 
 msgid "Add/edit pages you own"
 msgstr "Crie/altere as suas páginas"
 
+msgid "Edit"
+msgstr "Alterar"
+
+msgid "Edit any page"
+msgstr "Alterar qualquer página"
+
+msgid "Publish"
+msgstr "Publicar"
+
 msgid "Publish any page"
 msgstr "Publicar qualquer página"
 
+msgid "Lock"
+msgstr "Trancar"
+
 msgid "Lock/unlock any page"
-msgstr "Bloquear/desbloquear qualquer página"
+msgstr "Trancar/destrancar qualquer página"
 
-msgid "Group"
-msgstr "Grupo"
+msgid "group"
+msgstr "grupo"
 
-msgid "Permission type"
-msgstr "Tipo de permissão"
+msgid "permission type"
+msgstr "tipo de permissão"
 
-msgid "Password"
-msgstr "Senha"
+msgid "group page permission"
+msgstr "permissão de página de grupo"
 
-msgid "Value cannot be entirely whitespace characters"
-msgstr "O valor não pode conter apenas espaços em branco"
+msgid "group page permissions"
+msgstr "permissões de página de grupo"
+
+msgid "password"
+msgstr "senha"
+
+msgid "page view restriction"
+msgstr "restrição de visualização de página"
+
+msgid "page view restrictions"
+msgstr "restrições de visualização de página"
+
+msgid "name"
+msgstr "nome"
+
+msgid "collection"
+msgstr "coleção"
+
+msgid "collections"
+msgstr "coleções"
+
+msgid "permission"
+msgstr "permissão"
+
+msgid "group collection permission"
+msgstr "permissão de coleção de grupo"

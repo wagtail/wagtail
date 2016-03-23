@@ -117,6 +117,10 @@ class BackendTests(WagtailTestUtils):
         results = self.backend.search(None, models.SearchTestChild)
         self.assertEqual(set(results), {self.testc, self.testd})
 
+    def test_child_model_with_id_filter(self):
+        results = self.backend.search("World", models.SearchTestChild.objects.filter(id=self.testd.id))
+        self.assertEqual(set(results), {self.testd})
+
     def test_delete(self):
         # Delete one of the objects
         self.backend.delete(self.testa)
@@ -137,8 +141,11 @@ class BackendTests(WagtailTestUtils):
         self.assertEqual(set(results), set())
 
         # Run update_index command
-        with self.ignore_deprecation_warnings():  # ignore any DeprecationWarnings thrown by models with old-style indexed_fields definitions
-            management.call_command('update_index', backend_name=self.backend_name, interactive=False, stdout=StringIO())
+        with self.ignore_deprecation_warnings():
+            # ignore any DeprecationWarnings thrown by models with old-style indexed_fields definitions
+            management.call_command(
+                'update_index', backend_name=self.backend_name, interactive=False, stdout=StringIO()
+            )
 
         results = self.backend.search(None, models.SearchTest)
         self.assertEqual(set(results), {self.testa, self.testb, self.testc.searchtest_ptr, self.testd.searchtest_ptr})
@@ -163,7 +170,9 @@ class TestBackendLoader(TestCase):
         self.assertIsInstance(db, DBSearch)
 
     def test_nonexistent_backend_import(self):
-        self.assertRaises(InvalidSearchBackendError, get_search_backend, backend='wagtail.wagtailsearch.backends.doesntexist')
+        self.assertRaises(
+            InvalidSearchBackendError, get_search_backend, backend='wagtail.wagtailsearch.backends.doesntexist'
+        )
 
     def test_invalid_backend_import(self):
         self.assertRaises(InvalidSearchBackendError, get_search_backend, backend="I'm not a backend!")

@@ -12,9 +12,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-08-26 14:28+0100\n"
-"PO-Revision-Date: 2015-08-26 13:37+0000\n"
-"Last-Translator: Karl Hobley <karl@torchbox.com>\n"
+"POT-Creation-Date: 2016-03-09 13:55+0000\n"
+"PO-Revision-Date: 2016-03-01 19:01+0000\n"
+"Last-Translator: mattwestcott <matthew@torchbox.com>\n"
 "Language-Team: Greek (http://www.transifex.com/torchbox/wagtail/language/"
 "el/)\n"
 "MIME-Version: 1.0\n"
@@ -77,20 +77,8 @@ msgstr "Υψος"
 msgid "Closeness"
 msgstr "Εγγύτητα"
 
-msgid "Title"
-msgstr "Τίτλος"
-
-msgid "File"
-msgstr "Αρχείο"
-
-msgid "Created at"
-msgstr "Δημιουργήθηκε την"
-
-msgid "Uploaded by user"
-msgstr "Ανεβασμένο από χρήστη"
-
-msgid "Tags"
-msgstr "Ετικέτες"
+msgid "Edit"
+msgstr "Επεξεργασία"
 
 msgid "Choose an image"
 msgstr "Επιλέξατε εικόνα"
@@ -241,6 +229,9 @@ msgstr "Χρήση του  %(title)s"
 msgid "Usage of"
 msgstr "Χρήση του "
 
+msgid "Title"
+msgstr "Τίτλος"
+
 msgid "Parent"
 msgstr "Πατρική"
 
@@ -312,9 +303,6 @@ msgstr "Η εικόνα '{0}' διαγράφηκε."
 #, python-brace-format
 msgid "Image '{0}' added."
 msgstr "Η εικόνα '{0}' δημιουργήθηκε."
-
-msgid "Edit"
-msgstr "Επεξεργασία"
 
 msgid "The image could not be created due to errors."
 msgstr "Δεν ήταν δυνατή η δημιουργία της εικόνας."

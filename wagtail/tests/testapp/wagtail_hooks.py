@@ -3,6 +3,7 @@ from django.http import HttpResponse
 from wagtail.wagtailcore import hooks
 from wagtail.wagtailcore.whitelist import attribute_rule, check_url, allow_without_attributes
 from wagtail.wagtailadmin.menu import MenuItem
+from wagtail.wagtailadmin.search import SearchArea
 
 
 # Register one hook using decorators...
@@ -35,6 +36,42 @@ class KittensMenuItem(MenuItem):
     def is_shown(self, request):
         return not request.GET.get('hide-kittens', False)
 
+
 @hooks.register('register_admin_menu_item')
 def register_kittens_menu_item():
-    return KittensMenuItem('Kittens!', 'http://www.tomroyal.com/teaandkittens/', classnames='icon icon-kitten', attrs={'data-fluffy': 'yes'}, order=10000)
+    return KittensMenuItem(
+        'Kittens!',
+        'http://www.tomroyal.com/teaandkittens/',
+        classnames='icon icon-kitten',
+        attrs={'data-fluffy': 'yes'},
+        order=10000
+    )
+
+
+# Admin Other Searches hook
+class MyCustomSearchArea(SearchArea):
+    def is_shown(self, request):
+        return not request.GET.get('hide-option', False)
+
+    def is_active(self, request, current=None):
+        return request.GET.get('active-option', False)
+
+
+@hooks.register('register_admin_search_area')
+def register_custom_search_area():
+    return MyCustomSearchArea(
+        'My Search',
+        '/customsearch/',
+        classnames='icon icon-custom',
+        attrs={'is-custom': 'true'},
+        order=10000)
+
+
+@hooks.register('construct_explorer_page_queryset')
+def polite_pages_only(parent_page, pages, request):
+    # if the URL parameter polite_pages_only is set,
+    # only return pages with a slug that starts with 'hello'
+    if request.GET.get('polite_pages_only'):
+        pages = pages.filter(slug__startswith='hello')
+
+    return pages

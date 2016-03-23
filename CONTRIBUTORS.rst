@@ -5,6 +5,7 @@ Authors
 * David Cranwell (Torchbox) twitter: @davecranwell
 * Karl Hobley (Torchbox) twitter: @kaedroho
 * Tim Heap (Takeflight)
+* Josh Barr (Springload)
 
 Contributors
 ============
@@ -71,37 +72,92 @@ Contributors
 * Salvador Faria
 * Alex Gleason
 * Ryan Pineo
-
+* Petr Vacha
+* Sævar Öfjörð Magnússon
+* Ashia Zawaduk
+* Denis Voskvitsov
+* Kyle Stratis
+* Sergey Nikitin
+* John Draper
+* Rich Brennan
+* Alex Bridge
+* Tamriel
+* LKozlowski
+* Matthew Downey
+* Maris Serzans
+* Shu Ishida
+* Ben Kerle
+* Christian Peters
+* Adon Metcalfe
+* rayrayndwiga
+* Rich Atkinson
+* jnns
+* Eugene MechanisM
+* Benjamin Bach
+* Alexander Bogushov
+* Aarni Koskela
+* alexpilot11
+* Peter Quade
+* Josh Hurd
+* Matt Fozard
+* Chris Rogers
+* Josh Schneier
+* Mikalai Radchuk
+* Charlie Choiniere
+* Nigel Fletton
+* Kait Crawford
+* Adam Bolfik
+* Thomas Winter
+* Gareth Price
+* Liam Brenner
+* Nicolas Kuttler
+* Mike Dingjan
+* Loic Teixeira
+* Juha Kujala
+* Eirik Krogstad
+* Rob Moorman
 
 Translators
 ===========
 
+* Arabic: Roger Allen, Ahmad Kiswani, Mohamed Mayla
 * Basque: Unai Zalakain
 * Bulgarian: Lyuboslav Petrov
-* Catalan: David Llop
-* Chinese: Victoria Chan, Leway Colin, hanfeng, qiulin, Tulpar Turamat, wwj718
-* Chinese (China): hanfeng, Lihan Li, ufoym
-* Chinese (Taiwan): wdv4758h, jshc
-* Croatian: Luka Matijević
-* Czech: Jiri Stepanek
-* Dutch: t.vandemeer, mahulst, Samuel Leeuwenburg
-* Finnish: Glen Somerville
-* French: Sylvain Fankhauser, sephii, Adrihein, Bertrand Bordage, Romain Hardouin, linibou, nahuel, Benoît Bar
-* Galician: fooflare, fonso
-* German: Karl Sander, Johannes Spielmann, m0rph3u5, pcraston, Tammo van Lessen
-* Greek: Serafeim Papastefanos, Jim Dal
+* Catalan: Antoni Aloy, David Llop
+* Chinese: hanfeng, Lihan Li, Leway Colin
+* Chinese (China): hanfeng, Daniel Hwang, Jian Li, Feng Wang
+* Chinese (Taiwan): Lihan Li
+* Croatian (Croatia): Luka Matijević
+* Czech: Ivan Pomykacz, Jiri Stepanek, Marek Turnovec
+* Dutch: benny_AT_it_digin.com, Bram, Brecht Dervaux, Huib Keemink, Thijs Kramer, Samuel Leeuwenburg, mahulst, Michael van Tellingen, Arne Turpyn
+* Dutch (Netherlands): Bram, Franklin Kingma, Maarten Kling, Thijs Kramer
+* Finnish: Eetu Häivälä, Aarni Koskela, Glen Somerville
+* French: Adrien, Timothy Allen, Sebastien Andrivet, Edd Baldry, Bertrand Bordage, André Bouatchidzé, Tom Dyson, Antonin Enfrun, Pierre Marfoure, nahuel
+* Galician: fooflare
+* Georgian: André Bouatchidzé
+* German: Ettore Atalan, Patrick Craston, Florian, Henrik Kröger, Tammo van Lessen, Martin Löhle, Wasilis Mandratzis-Walz, Daniel Manser, m0rph3u5, Max Pfeiffer, Herbert Poul, Karl Sander, Johannes Spielmann, Jannis Vajen, Matthew Westcott
+* Greek: Jim Dal, dotoree, Wasilis Mandratzis-Walz, NeotheOne, Serafeim Papastefanos
 * Hebrew (Israel): bjesus, Lior Abazon
-* Icelandic: Arnar Tumi Þorsteinsson, saevarom
-* Italian: Andrea Tagliazucchi, Claudio Bantaloukas, Alessio Di Stasio, Giacomo Ghizzani
-* Japanese: Daigo Shitara, Toshikazu Michisu
-* Mongolian: Delgermurun Purevkhuu, miiiga
-* Norwegian Bokmål: Eirik Krogstad
-* Polish: Łukasz Bołdys
-* Portuguese (Brazil): Gilson Filho, Douglas Miranda, Thiago Cangussu, João Luiz Lorencetti, Gladson Brito, Marcelo J. Both
-* Portuguese (Portugal): Jose Lourenco, Tiago Henriques
+* Hungarian: Laszlo Molnar
+* Icelandic (Iceland): Arnar Tumi Þorsteinsson, Sævar Öfjörð Magnússon
+* Indonesian (Indonesia): Sutrisno Efendi
+* Italian: Edd Baldry, Claudio Bantaloukas, Giacomo Ghizzani, Alessio Di Stasio, Andrea Tagliazucchi
+* Japanese: Sangmin Ahn, Shu Ishida, Daigo Shitara, takuan_osho
+* Korean: Kyungil Choi, Ji Han Chung
+* Latvian: Maris Serzans
+* Mongolian: Delgermurun Purevkhuu
+* Norwegian Bokmål: Eirik Krogstad, Robin Skahjem-Eriksen
+* Persian: Mohammad reza Jelveh
+* Polish: Mateusz, mmiskiew, utek
+* Portuguese (Brazil): Claudemiro Alves Feitosa Neto, Gladson Brito, Thiago Cangussu, Gilson Filho, João Luiz Lorencetti, Douglas Miranda
+* Portuguese (Portugal): Gladson Brito, Thiago Cangussu, Tiago Henriques, Jose Lourenco, Nuno Matos, Douglas Miranda, Manuela Silva
 * Romanian: Dan Braghis
-* Russian: ice9, HNKNTA, MechanisM, Andrey Tykhonov, Kirill Drozdov, Liliana Kastilio, Sergey Komarov
-* Spanish: Unai Zalakain, fooflare, Yusuf (Josè) Luis
-* Ukrainian: Andrey Tykhonov, Mykola Zamkovoi
-* Vietnamese: binhle, Luan Nguyen
-* Korean: Ji Han Chung
+* Russian: ajk, Daniil, HNKNTA, Sergiy Khalymon, Sergey Komarov, Eugene MechanisM
+* Slovak (Slovakia): dellax
+* Spanish: José Alaguna, Mauricio Baeza, Daniel Chimeno, fonso, fooflare, Joaquín Tita, Unai Zalakain
+* Swedish: Ludwig Kjellström, Thomas Kunambi, Hannes Lohmander
+* Swedish (Sweden): Thomas Kunambi
+* Turkish: Cihad Gündoǧdu
+* Turkish (Turkey): José Alaguna, Ragıp Ünal
+* Ukrainian: Mykola Zamkovoi
+* Vietnamese: Luan Nguyen

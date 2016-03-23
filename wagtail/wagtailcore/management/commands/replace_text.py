@@ -3,11 +3,15 @@ from django.db import models
 
 from modelcluster.models import get_all_child_relations
 
-from wagtail.wagtailcore.models import PageRevision, get_page_types
+from wagtail.wagtailcore.models import PageRevision, get_page_models
 
 
 def replace_in_model(model, from_text, to_text):
-    text_field_names = [field.name for field in model._meta.fields if isinstance(field, models.TextField) or isinstance(field, models.CharField)]
+    text_field_names = [field.name for field in model._meta.fields if (
+        isinstance(field, models.TextField) or
+        isinstance(field, models.CharField)
+    )
+    ]
     updated_fields = []
     for field in text_field_names:
         field_value = getattr(model, field)
@@ -27,13 +31,15 @@ class Command(BaseCommand):
             revision.content_json = revision.content_json.replace(from_text, to_text)
             revision.save(update_fields=['content_json'])
 
-        for content_type in get_page_types():
-            self.stdout.write("scanning %s" % content_type.name)
-            page_class = content_type.model_class()
+        for page_class in get_page_models():
+            self.stdout.write("scanning %s" % page_class._meta.verbose_name)
 
             child_relation_names = [rel.get_accessor_name() for rel in get_all_child_relations(page_class)]
 
-            for page in page_class.objects.all():
+            # Find all pages of this exact type; exclude subclasses, as they will
+            # appear in the get_page_models() list in their own right, and this
+            # ensures that replacement happens only once
+            for page in page_class.objects.exact_type(page_class):
                 replace_in_model(page, from_text, to_text)
                 for child_rel in child_relation_names:
                     for child in getattr(page, child_rel).all():

@@ -1,6 +1,9 @@
 Your first Wagtail site
 =======================
 
+.. note::
+   This tutorial covers setting up a brand new Wagtail project. If you'd like to add Wagtail to an existing Django project instead, see :doc:`integrating_into_django`.
+
 1. Install Wagtail and its dependencies::
 
     pip install wagtail
@@ -107,8 +110,7 @@ home\_page.html). Edit
 Wagtail template tags
 ~~~~~~~~~~~~~~~~~~~~~
 
-Wagtail provides a number of
-`template tags & filters <../topics/writing_templates#template-tags-filters>`__
+Wagtail provides a number of :ref:`template tags & filters <template-tags-and-filters>`
 which can be loaded by including ``{% load wagtailcore_tags %}`` at the top of
 your template file.
 
@@ -268,7 +270,7 @@ Adjust your blog page template to include the image:
    :alt: A blog post sample
 
 You can read more about using images in templates in the
-:doc:`docs <../topics/images/index>`.
+:doc:`docs <../topics/images>`.
 
 Blog Index
 ~~~~~~~~~~
@@ -364,10 +366,6 @@ can be BlogPages or external links. Change ``blog/models.py`` to
             abstract = True
 
 
-    class BlogIndexRelatedLink(Orderable, RelatedLink):
-        page = ParentalKey('BlogIndexPage', related_name='related_links')
-
-
     class BlogIndexPage(Page):
         intro = RichTextField(blank=True)
 
@@ -375,6 +373,10 @@ can be BlogPages or external links. Change ``blog/models.py`` to
             FieldPanel('intro', classname="full"),
             InlinePanel('related_links', label="Related links"),
         ]
+
+
+    class BlogIndexRelatedLink(Orderable, RelatedLink):
+        page = ParentalKey('BlogIndexPage', related_name='related_links')
 
 .. figure:: ../_static/images/tutorial/tutorial_7.png
    :alt: Blog index edit screen

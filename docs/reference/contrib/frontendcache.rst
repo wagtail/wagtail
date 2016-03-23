@@ -28,17 +28,9 @@ Firstly, add ``"wagtail.contrib.wagtailfrontendcache"`` to your INSTALLED_APPS:
 
 .. versionchanged:: 0.8
 
-    Signal handlers are now automatically registered in Django 1.7 and upwards
+    Signal handlers are now automatically registered
 
-The ``wagtailfrontendcache`` module provides a set of signal handlers which will automatically purge the cache whenever a page is published or deleted.
-
-If you are using Django version 1.7 or newer, these signal handlers are automatically registered when the ``wagtail.contrib.wagtailfrontendcache`` app is loaded. Otherwise, they must be registered as your application starts up. This can be done by placing the following code in your ``urls.py``:
-
-.. code-block:: python
-
-    # urls.py
-    from wagtail.contrib.wagtailfrontendcache.signal_handlers import register_signal_handlers
-    register_signal_handlers()
+The ``wagtailfrontendcache`` module provides a set of signal handlers which will automatically purge the cache whenever a page is published or deleted. These signal handlers are automatically registered when the ``wagtail.contrib.wagtailfrontendcache`` app is loaded.
 
 
 Varnish/Squid
@@ -104,7 +96,7 @@ By default, Wagtail will only purge one URL per page. If your page has more than
             yield '/'
 
             # Yield one URL per page in the paginator to make sure all pages are purged
-            for page_number in range(1, self.get_blog_items().num_pages):
+            for page_number in range(1, self.get_blog_items().num_pages + 1):
                 yield '/?page=' + str(page_number)
 
 

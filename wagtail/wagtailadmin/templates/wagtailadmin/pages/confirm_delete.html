@@ -1,5 +1,5 @@
 {% extends "wagtailadmin/base.html" %}
-{% load i18n %}
+{% load i18n wagtailadmin_tags %}
 {% block titletag %}{% blocktrans with title=page.title %}Delete {{ title }}{% endblocktrans %}{% endblock %}
 
 {% block content %}
@@ -17,12 +17,13 @@
                 {% endblocktrans %}
             {% endif %}
         </p>
-        {% if page.live %}
+        {% page_permissions page as page_perms %}
+        {% if page_perms.can_unpublish %}
             <p>{% trans "Alternatively you can unpublish the page. This removes the page from public view and you can edit or publish it again later." %}</p>
         {% endif %}
         <form action="{% url 'wagtailadmin_pages:delete' page.id %}" method="POST">
             {% csrf_token %}
-            <input type="submit" value="{% trans 'Delete it' %}" class="serious {% if page.live %}button-secondary{% endif %}"> {% if page.live %}<a href="{% url 'wagtailadmin_pages:unpublish' page.id %}" class="button">{% trans 'Unpublish it' %}</a>{% endif %}
+            <input type="submit" value="{% trans 'Delete it' %}" class="serious {% if page.live %}button-secondary{% endif %}"> {% if page_perms.can_unpublish %}<a href="{% url 'wagtailadmin_pages:unpublish' page.id %}" class="button">{% trans 'Unpublish it' %}</a>{% endif %}
         </form>
     </div>
 {% endblock %}

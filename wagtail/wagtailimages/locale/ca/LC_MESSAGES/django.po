@@ -8,9 +8,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-08-26 14:28+0100\n"
-"PO-Revision-Date: 2015-08-26 13:37+0000\n"
-"Last-Translator: Karl Hobley <karl@torchbox.com>\n"
+"POT-Creation-Date: 2016-03-09 13:55+0000\n"
+"PO-Revision-Date: 2016-03-01 19:01+0000\n"
+"Last-Translator: mattwestcott <matthew@torchbox.com>\n"
 "Language-Team: Catalan (http://www.transifex.com/torchbox/wagtail/language/"
 "ca/)\n"
 "MIME-Version: 1.0\n"
@@ -19,14 +19,8 @@ msgstr ""
 "Language: ca\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-msgid "Title"
-msgstr "Títol"
-
-msgid "File"
-msgstr "Arxiu"
-
-msgid "Tags"
-msgstr "Tags"
+msgid "Edit"
+msgstr "Editar"
 
 msgid "Choose an image"
 msgstr "Escull una imatge"
@@ -104,6 +98,34 @@ msgid ""
 msgstr ""
 "No has pujat cap imatge. Per què no <a href=\"%(wagtailimages_add_image_url)s"
 "\">afegeixes una ara</a>?"
+
+msgid "URL"
+msgstr "URL"
+
+#, python-format
+msgid "Usage of %(title)s"
+msgstr "Utilització de %(title)s"
+
+msgid "Usage of"
+msgstr "Utilització de"
+
+msgid "Title"
+msgstr "Títol"
+
+msgid "Parent"
+msgstr "Pare"
+
+msgid "Type"
+msgstr "Tipus"
+
+msgid "Status"
+msgstr "Estat"
+
+msgid "Edit this page"
+msgstr "Editar aquesta plana"
+
+msgid "Update"
+msgstr "Actualitzar"
 
 msgid "Search images"
 msgstr "Cercar imatges"

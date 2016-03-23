@@ -1,11 +1,12 @@
-import json
-import unittest
+# -*- coding: utf-8 -*
+from __future__ import unicode_literals
 
-import django
+import json
+
 from django.apps import apps
 from django.test import TestCase
 from django.db import models
-from django.template import Template, Context
+from django.template import Template, Context, engines
 from django.utils.safestring import SafeText
 from django.utils.six import text_type
 
@@ -143,12 +144,14 @@ class TestStreamFieldRenderingBase(TestCase):
 
         self.instance = StreamModel.objects.create(body=json.dumps([
             {'type': 'rich_text', 'value': '<p>Rich text</p>'},
+            {'type': 'rich_text', 'value': '<p>Привет, Микола</p>'},
             {'type': 'image', 'value': self.image.pk},
             {'type': 'text', 'value': 'Hello, World!'}]))
 
         img_tag = self.image.get_rendition('original').img_tag()
         self.expected = ''.join([
             '<div class="block-rich_text"><div class="rich-text"><p>Rich text</p></div></div>',
+            '<div class="block-rich_text"><div class="rich-text"><p>Привет, Микола</p></div></div>',
             '<div class="block-image">{}</div>'.format(img_tag),
             '<div class="block-text">Hello, World!</div>',
         ])
@@ -157,6 +160,11 @@ class TestStreamFieldRenderingBase(TestCase):
 class TestStreamFieldRendering(TestStreamFieldRenderingBase):
     def test_to_string(self):
         rendered = text_type(self.instance.body)
+        self.assertHTMLEqual(rendered, self.expected)
+        self.assertIsInstance(rendered, SafeText)
+
+    def test___html___access(self):
+        rendered = self.instance.body.__html__()
         self.assertHTMLEqual(rendered, self.expected)
         self.assertIsInstance(rendered, SafeText)
 
@@ -171,12 +179,9 @@ class TestStreamFieldDjangoRendering(TestStreamFieldRenderingBase):
         self.assertHTMLEqual(rendered, self.expected)
 
 
-@unittest.skipIf(django.VERSION < (1, 8), 'Multiple engines only supported in Django>=1.8')
 class TestStreamFieldJinjaRendering(TestStreamFieldRenderingBase):
     def setUp(self):
-        # This does not exist on Django<1.8
         super(TestStreamFieldJinjaRendering, self).setUp()
-        from django.template import engines
         self.engine = engines['jinja2']
 
     def render(self, string, context):

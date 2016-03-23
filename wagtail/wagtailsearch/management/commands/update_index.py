@@ -32,7 +32,7 @@ class Command(BaseCommand):
 
         # Start rebuild
         self.stdout.write(backend_name + ": Starting rebuild")
-        rebuilder.start()
+        index = rebuilder.start()
 
         for model, queryset in object_list:
             self.stdout.write(backend_name + ": Indexing model '%s.%s'" % (
@@ -41,12 +41,12 @@ class Command(BaseCommand):
             ))
 
             # Add model
-            rebuilder.add_model(model)
+            index.add_model(model)
 
             # Add items (1000 at a time)
             count = 0
             for chunk in self.print_iter_progress(self.queryset_chunks(queryset)):
-                rebuilder.add_items(model, chunk)
+                index.add_items(model, chunk)
                 count += len(chunk)
 
             self.stdout.write("Indexed %d %s" % (
@@ -58,7 +58,8 @@ class Command(BaseCommand):
         rebuilder.finish()
 
     option_list = BaseCommand.option_list + (
-        make_option('--backend',
+        make_option(
+            '--backend',
             action='store',
             dest='backend_name',
             default=None,

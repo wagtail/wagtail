@@ -1,5 +1,6 @@
 from __future__ import unicode_literals
 
+import json
 import unittest
 import mock
 from bs4 import BeautifulSoup
@@ -11,12 +12,13 @@ from django.contrib.auth import get_user_model
 from django.contrib.auth.models import Group, Permission
 from django.core.urlresolvers import reverse
 from django.core.files.base import ContentFile
+from django.core.files.uploadedfile import SimpleUploadedFile
 from django.test.utils import override_settings
 from django.conf import settings
 from django.utils.six import b
 
 from wagtail.tests.utils import WagtailTestUtils
-from wagtail.wagtailcore.models import Page
+from wagtail.wagtailcore.models import Page, Collection, GroupCollectionPermission
 
 from wagtail.tests.testapp.models import EventPage, EventPageRelatedLink
 from wagtail.wagtaildocs.models import Document
@@ -63,10 +65,19 @@ class TestDocumentPermissions(TestCase):
         self.owner = User.objects.create_user(username='owner', email='owner@email.com', password='password')
         self.editor = User.objects.create_user(username='editor', email='editor@email.com', password='password')
         self.editor.groups.add(Group.objects.get(name='Editors'))
-        self.administrator = User.objects.create_superuser(username='administrator', email='administrator@email.com', password='password')
+        self.administrator = User.objects.create_superuser(
+            username='administrator',
+            email='administrator@email.com',
+            password='password'
+        )
 
         # Owner user must have the add_document permission
-        self.owner.user_permissions.add(Permission.objects.get(codename='add_document'))
+        self.adders_group = Group.objects.create(name='Document adders')
+        GroupCollectionPermission.objects.create(
+            group=self.adders_group, collection=Collection.get_first_root_node(),
+            permission=Permission.objects.get(codename='add_document')
+        )
+        self.owner.groups.add(self.adders_group)
 
         # Create a document for running tests on
         self.document = models.Document.objects.create(title="Test document", uploaded_by_user=self.owner)
@@ -154,10 +165,25 @@ class TestDocumentAddView(TestCase, WagtailTestUtils):
     def setUp(self):
         self.login()
 
-    def test_simple(self):
+    def test_get(self):
         response = self.client.get(reverse('wagtaildocs:add'))
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'wagtaildocs/documents/add.html')
+
+        # as standard, only the root collection exists and so no 'Collection' option
+        # is displayed on the form
+        self.assertNotContains(response, '<label for="id_collection">')
+
+    def test_get_with_collections(self):
+        root_collection = Collection.get_first_root_node()
+        root_collection.add_child(name="Evil plans")
+
+        response = self.client.get(reverse('wagtaildocs:add'))
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'wagtaildocs/documents/add.html')
+
+        self.assertContains(response, '<label for="id_collection">')
+        self.assertContains(response, "Evil plans")
 
     def test_post(self):
         # Build a fake file
@@ -174,8 +200,103 @@ class TestDocumentAddView(TestCase, WagtailTestUtils):
         # User should be redirected back to the index
         self.assertRedirects(response, reverse('wagtaildocs:index'))
 
-        # Document should be created
+        # Document should be created, and be placed in the root collection
         self.assertTrue(models.Document.objects.filter(title="Test document").exists())
+        root_collection = Collection.get_first_root_node()
+        self.assertEqual(
+            models.Document.objects.get(title="Test document").collection,
+            root_collection
+        )
+
+    def test_post_with_collections(self):
+        root_collection = Collection.get_first_root_node()
+        evil_plans_collection = root_collection.add_child(name="Evil plans")
+
+        # Build a fake file
+        fake_file = ContentFile(b("A boring example document"))
+        fake_file.name = 'test.txt'
+
+        # Submit
+        post_data = {
+            'title': "Test document",
+            'file': fake_file,
+            'collection': evil_plans_collection.id,
+        }
+        response = self.client.post(reverse('wagtaildocs:add'), post_data)
+
+        # User should be redirected back to the index
+        self.assertRedirects(response, reverse('wagtaildocs:index'))
+
+        # Document should be created, and be placed in the Evil Plans collection
+        self.assertTrue(models.Document.objects.filter(title="Test document").exists())
+        root_collection = Collection.get_first_root_node()
+        self.assertEqual(
+            models.Document.objects.get(title="Test document").collection,
+            evil_plans_collection
+        )
+
+
+class TestDocumentAddViewWithLimitedCollectionPermissions(TestCase, WagtailTestUtils):
+    def setUp(self):
+        add_doc_permission = Permission.objects.get(
+            content_type__app_label='wagtaildocs', codename='add_document'
+        )
+        admin_permission = Permission.objects.get(
+            content_type__app_label='wagtailadmin', codename='access_admin'
+        )
+
+        root_collection = Collection.get_first_root_node()
+        self.evil_plans_collection = root_collection.add_child(name="Evil plans")
+
+        conspirators_group = Group.objects.create(name="Evil conspirators")
+        conspirators_group.permissions.add(admin_permission)
+        GroupCollectionPermission.objects.create(
+            group=conspirators_group,
+            collection=self.evil_plans_collection,
+            permission=add_doc_permission
+        )
+
+        user = get_user_model().objects.create_user(
+            username='moriarty',
+            email='moriarty@example.com',
+            password='password'
+        )
+        user.groups.add(conspirators_group)
+
+        self.client.login(username='moriarty', password='password')
+
+    def test_get(self):
+        response = self.client.get(reverse('wagtaildocs:add'))
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'wagtaildocs/documents/add.html')
+
+        # user only has access to one collection, so no 'Collection' option
+        # is displayed on the form
+        self.assertNotContains(response, '<label for="id_collection">')
+
+    def test_post(self):
+        # Build a fake file
+        fake_file = ContentFile(b("A boring example document"))
+        fake_file.name = 'test.txt'
+
+        # Submit
+        post_data = {
+            'title': "Test document",
+            'file': fake_file,
+        }
+        response = self.client.post(reverse('wagtaildocs:add'), post_data)
+
+        # User should be redirected back to the index
+        self.assertRedirects(response, reverse('wagtaildocs:index'))
+
+        # Document should be created in the 'evil plans' collection,
+        # despite there being no collection field in the form, because that's the
+        # only one the user has access to
+        self.assertTrue(models.Document.objects.filter(title="Test document").exists())
+        self.assertEqual(
+            models.Document.objects.get(title="Test document").collection,
+            self.evil_plans_collection
+        )
 
 
 class TestDocumentEditView(TestCase, WagtailTestUtils):
@@ -252,6 +373,262 @@ class TestDocumentDeleteView(TestCase, WagtailTestUtils):
 
         # Document should be deleted
         self.assertFalse(models.Document.objects.filter(id=self.document.id).exists())
+
+
+class TestMultipleDocumentUploader(TestCase, WagtailTestUtils):
+    """
+    This tests the multiple document upload views located in wagtaildocs/views/multiple.py
+    """
+    def setUp(self):
+        self.login()
+
+        # Create a document for running tests on
+        self.doc = Document.objects.create(
+            title="Test document",
+            file=ContentFile(b("Simple text document")),
+        )
+
+    def test_add(self):
+        """
+        This tests that the add view responds correctly on a GET request
+        """
+        # Send request
+        response = self.client.get(reverse('wagtaildocs:add_multiple'))
+
+        # Check response
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'wagtaildocs/multiple/add.html')
+
+        # no collection chooser when only one collection exists
+        self.assertNotContains(response, '<label for="id_adddocument_collection">')
+
+    def test_add_with_collections(self):
+        root_collection = Collection.get_first_root_node()
+        root_collection.add_child(name="Evil plans")
+
+        # Send request
+        response = self.client.get(reverse('wagtaildocs:add_multiple'))
+
+        # Check response
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'wagtaildocs/multiple/add.html')
+
+        # collection chooser should exisst
+        self.assertContains(response, '<label for="id_adddocument_collection">')
+        self.assertContains(response, 'Evil plans')
+
+    def test_add_post(self):
+        """
+        This tests that a POST request to the add view saves the document and returns an edit form
+        """
+        response = self.client.post(reverse('wagtaildocs:add_multiple'), {
+            'files[]': SimpleUploadedFile('test.png', b"Simple text document"),
+        }, HTTP_X_REQUESTED_WITH='XMLHttpRequest')
+
+        # Check response
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response['Content-Type'], 'application/json')
+        self.assertTemplateUsed(response, 'wagtaildocs/multiple/edit_form.html')
+
+        # Check document
+        self.assertIn('doc', response.context)
+        self.assertEqual(response.context['doc'].title, 'test.png')
+        self.assertTrue(response.context['doc'].file_size)
+
+        # check that it is in the root collection
+        doc = Document.objects.get(title='test.png')
+        root_collection = Collection.get_first_root_node()
+        self.assertEqual(doc.collection, root_collection)
+
+        # Check form
+        self.assertIn('form', response.context)
+        self.assertEqual(response.context['form'].initial['title'], 'test.png')
+
+        # Check JSON
+        response_json = json.loads(response.content.decode())
+        self.assertIn('doc_id', response_json)
+        self.assertIn('form', response_json)
+        self.assertIn('success', response_json)
+        self.assertEqual(response_json['doc_id'], response.context['doc'].id)
+        self.assertTrue(response_json['success'])
+
+        # form should not contain a collection chooser
+        self.assertNotIn('Collection', response_json['form'])
+
+    def test_add_post_with_collections(self):
+        """
+        This tests that a POST request to the add view saves the document
+        and returns an edit form, when collections are active
+        """
+
+        root_collection = Collection.get_first_root_node()
+        evil_plans_collection = root_collection.add_child(name="Evil plans")
+
+        response = self.client.post(reverse('wagtaildocs:add_multiple'), {
+            'files[]': SimpleUploadedFile('test.png', b"Simple text document"),
+            'collection': evil_plans_collection.id
+        }, HTTP_X_REQUESTED_WITH='XMLHttpRequest')
+
+        # Check response
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response['Content-Type'], 'application/json')
+        self.assertTemplateUsed(response, 'wagtaildocs/multiple/edit_form.html')
+
+        # Check document
+        self.assertIn('doc', response.context)
+        self.assertEqual(response.context['doc'].title, 'test.png')
+        self.assertTrue(response.context['doc'].file_size)
+
+        # check that it is in the 'evil plans' collection
+        doc = Document.objects.get(title='test.png')
+        root_collection = Collection.get_first_root_node()
+        self.assertEqual(doc.collection, evil_plans_collection)
+
+        # Check form
+        self.assertIn('form', response.context)
+        self.assertEqual(response.context['form'].initial['title'], 'test.png')
+
+        # Check JSON
+        response_json = json.loads(response.content.decode())
+        self.assertIn('doc_id', response_json)
+        self.assertIn('form', response_json)
+        self.assertIn('success', response_json)
+        self.assertEqual(response_json['doc_id'], response.context['doc'].id)
+        self.assertTrue(response_json['success'])
+
+        # form should contain a collection chooser
+        self.assertIn('Collection', response_json['form'])
+
+    def test_add_post_noajax(self):
+        """
+        This tests that only AJAX requests are allowed to POST to the add view
+        """
+        response = self.client.post(reverse('wagtaildocs:add_multiple'), {})
+
+        # Check response
+        self.assertEqual(response.status_code, 400)
+
+    def test_add_post_nofile(self):
+        """
+        This tests that the add view checks for a file when a user POSTs to it
+        """
+        response = self.client.post(reverse('wagtaildocs:add_multiple'), {}, HTTP_X_REQUESTED_WITH='XMLHttpRequest')
+
+        # Check response
+        self.assertEqual(response.status_code, 400)
+
+    def test_edit_get(self):
+        """
+        This tests that a GET request to the edit view returns a 405 "METHOD NOT ALLOWED" response
+        """
+        # Send request
+        response = self.client.get(reverse('wagtaildocs:edit_multiple', args=(self.doc.id, )))
+
+        # Check response
+        self.assertEqual(response.status_code, 405)
+
+    def test_edit_post(self):
+        """
+        This tests that a POST request to the edit view edits the document
+        """
+        # Send request
+        response = self.client.post(reverse('wagtaildocs:edit_multiple', args=(self.doc.id, )), {
+            ('doc-%d-title' % self.doc.id): "New title!",
+            ('doc-%d-tags' % self.doc.id): "",
+        }, HTTP_X_REQUESTED_WITH='XMLHttpRequest')
+
+        # Check response
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response['Content-Type'], 'application/json')
+
+        # Check JSON
+        response_json = json.loads(response.content.decode())
+        self.assertIn('doc_id', response_json)
+        self.assertNotIn('form', response_json)
+        self.assertIn('success', response_json)
+        self.assertEqual(response_json['doc_id'], self.doc.id)
+        self.assertTrue(response_json['success'])
+
+    def test_edit_post_noajax(self):
+        """
+        This tests that a POST request to the edit view without AJAX returns a 400 response
+        """
+        # Send request
+        response = self.client.post(reverse('wagtaildocs:edit_multiple', args=(self.doc.id, )), {
+            ('doc-%d-title' % self.doc.id): "New title!",
+            ('doc-%d-tags' % self.doc.id): "",
+        })
+
+        # Check response
+        self.assertEqual(response.status_code, 400)
+
+    def test_edit_post_validation_error(self):
+        """
+        This tests that a POST request to the edit page returns a json document with "success=False"
+        and a form with the validation error indicated
+        """
+        # Send request
+        response = self.client.post(reverse('wagtaildocs:edit_multiple', args=(self.doc.id, )), {
+            ('doc-%d-title' % self.doc.id): "",  # Required
+            ('doc-%d-tags' % self.doc.id): "",
+        }, HTTP_X_REQUESTED_WITH='XMLHttpRequest')
+
+        # Check response
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response['Content-Type'], 'application/json')
+        self.assertTemplateUsed(response, 'wagtaildocs/multiple/edit_form.html')
+
+        # Check that a form error was raised
+        self.assertFormError(response, 'form', 'title', "This field is required.")
+
+        # Check JSON
+        response_json = json.loads(response.content.decode())
+        self.assertIn('doc_id', response_json)
+        self.assertIn('form', response_json)
+        self.assertIn('success', response_json)
+        self.assertEqual(response_json['doc_id'], self.doc.id)
+        self.assertFalse(response_json['success'])
+
+    def test_delete_get(self):
+        """
+        This tests that a GET request to the delete view returns a 405 "METHOD NOT ALLOWED" response
+        """
+        # Send request
+        response = self.client.get(reverse('wagtaildocs:delete_multiple', args=(self.doc.id, )))
+
+        # Check response
+        self.assertEqual(response.status_code, 405)
+
+    def test_delete_post(self):
+        """
+        This tests that a POST request to the delete view deletes the document
+        """
+        # Send request
+        response = self.client.post(reverse('wagtaildocs:delete_multiple', args=(self.doc.id, )), HTTP_X_REQUESTED_WITH='XMLHttpRequest')
+
+        # Check response
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response['Content-Type'], 'application/json')
+
+        # Make sure the document is deleted
+        self.assertFalse(Document.objects.filter(id=self.doc.id).exists())
+
+        # Check JSON
+        response_json = json.loads(response.content.decode())
+        self.assertIn('doc_id', response_json)
+        self.assertIn('success', response_json)
+        self.assertEqual(response_json['doc_id'], self.doc.id)
+        self.assertTrue(response_json['success'])
+
+    def test_delete_post_noajax(self):
+        """
+        This tests that a POST request to the delete view without AJAX returns a 400 response
+        """
+        # Send request
+        response = self.client.post(reverse('wagtaildocs:delete_multiple', args=(self.doc.id, )))
+
+        # Check response
+        self.assertEqual(response.status_code, 400)
 
 
 class TestDocumentChooserView(TestCase, WagtailTestUtils):
@@ -656,8 +1033,14 @@ class TestServeViewWithSendfile(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response['X-Sendfile'], os.path.join(settings.MEDIA_ROOT, self.document.file.name))
 
-    @unittest.skipIf(django.VERSION >= (1, 8), "Fails on Django 1.8")  # Under Django 1.8. It adds "http://" to beginning of Location when it shouldn't
-    @override_settings(SENDFILE_BACKEND='sendfile.backends.mod_wsgi', SENDFILE_ROOT=settings.MEDIA_ROOT, SENDFILE_URL=settings.MEDIA_URL[:-1])
+    @unittest.skipIf(
+        django.VERSION < (1, 9), "Fails on Django 1.8"
+    )  # Under Django 1.8. It adds "http://" to beginning of Location when it shouldn't
+    @override_settings(
+        SENDFILE_BACKEND='sendfile.backends.mod_wsgi',
+        SENDFILE_ROOT=settings.MEDIA_ROOT,
+        SENDFILE_URL=settings.MEDIA_URL[:-1]
+    )
     def test_sendfile_mod_wsgi_backend(self):
         self.clear_sendfile_cache()
         response = self.get()
@@ -665,7 +1048,11 @@ class TestServeViewWithSendfile(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response['Location'], os.path.join(settings.MEDIA_URL, self.document.file.name))
 
-    @override_settings(SENDFILE_BACKEND='sendfile.backends.nginx', SENDFILE_ROOT=settings.MEDIA_ROOT, SENDFILE_URL=settings.MEDIA_URL[:-1])
+    @override_settings(
+        SENDFILE_BACKEND='sendfile.backends.nginx',
+        SENDFILE_ROOT=settings.MEDIA_ROOT,
+        SENDFILE_URL=settings.MEDIA_URL[:-1]
+    )
     def test_sendfile_nginx_backend(self):
         self.clear_sendfile_cache()
         response = self.get()
@@ -680,7 +1067,8 @@ class TestServeWithUnicodeFilename(TestCase):
 
         # Setting this filename in the content-disposition header fails on Django <1.8, Python 2
         # due to https://code.djangoproject.com/ticket/20889
-        self.filename = 'docs\u0627\u0644\u0643\u0627\u062a\u062f\u0631\u0627\u064a\u064a\u0629_\u0648\u0627\u0644\u0633\u0648\u0642'
+        self.filename = 'docs\u0627\u0644\u0643\u0627\u062a\u062f\u0631\u0627'
+        '\u064a\u064a\u0629_\u0648\u0627\u0644\u0633\u0648\u0642'
         try:
             self.document.file.save(self.filename, ContentFile("A boring example document"))
         except UnicodeEncodeError:
@@ -731,15 +1119,36 @@ class TestEditOnlyPermissions(TestCase, WagtailTestUtils):
         fake_file = ContentFile(b("A boring example document"))
         fake_file.name = 'test.txt'
 
+        self.root_collection = Collection.get_first_root_node()
+        self.evil_plans_collection = self.root_collection.add_child(name="Evil plans")
+        self.nice_plans_collection = self.root_collection.add_child(name="Nice plans")
+
         # Create a document to edit
-        self.document = models.Document.objects.create(title="Test document", file=fake_file)
+        self.document = models.Document.objects.create(
+            title="Test document", file=fake_file, collection=self.nice_plans_collection
+        )
 
         # Create a user with change_document permission but not add_document
-        user = get_user_model().objects.create_user(username='changeonly', email='changeonly@example.com', password='password')
-        change_permission = Permission.objects.get(content_type__app_label='wagtaildocs', codename='change_document')
-        admin_permission = Permission.objects.get(content_type__app_label='wagtailadmin', codename='access_admin')
-        user.user_permissions.add(change_permission, admin_permission)
-        self.client.login(username='changeonly', password='password')
+        user = get_user_model().objects.create_user(
+            username='changeonly',
+            email='changeonly@example.com',
+            password='password'
+        )
+        change_permission = Permission.objects.get(
+            content_type__app_label='wagtaildocs', codename='change_document'
+        )
+        admin_permission = Permission.objects.get(
+            content_type__app_label='wagtailadmin', codename='access_admin'
+        )
+        self.changers_group = Group.objects.create(name='Document changers')
+        GroupCollectionPermission.objects.create(
+            group=self.changers_group, collection=self.root_collection,
+            permission=change_permission
+        )
+        user.groups.add(self.changers_group)
+
+        user.user_permissions.add(admin_permission)
+        self.assertTrue(self.client.login(username='changeonly', password='password'))
 
     def test_get_index(self):
         response = self.client.get(reverse('wagtaildocs:index'))
@@ -752,6 +1161,11 @@ class TestEditOnlyPermissions(TestCase, WagtailTestUtils):
         # user should be able to see documents not owned by them
         self.assertContains(response, "Test document")
 
+    def test_search(self):
+        response = self.client.get(reverse('wagtaildocs:index'), {'q': "Hello"})
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.context['query_string'], "Hello")
+
     def test_get_add(self):
         response = self.client.get(reverse('wagtaildocs:add'))
         # permission should be denied
@@ -762,7 +1176,76 @@ class TestEditOnlyPermissions(TestCase, WagtailTestUtils):
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'wagtaildocs/documents/edit.html')
 
+        # documents can only be moved to collections you have add permission for,
+        # so the 'collection' field is not available here
+        self.assertNotContains(response, '<label for="id_collection">')
+
+        # if the user has add permission on a different collection,
+        # they should have option to move the document
+        add_permission = Permission.objects.get(
+            content_type__app_label='wagtaildocs', codename='add_document'
+        )
+        GroupCollectionPermission.objects.create(
+            group=self.changers_group, collection=self.evil_plans_collection,
+            permission=add_permission
+        )
+        response = self.client.get(reverse('wagtaildocs:edit', args=(self.document.id,)))
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, '<label for="id_collection">')
+        self.assertContains(response, 'Nice plans')
+        self.assertContains(response, 'Evil plans')
+
+    def test_post_edit(self):
+        # Submit title change
+        response = self.client.post(
+            reverse('wagtaildocs:edit', args=(self.document.id,)), {
+                'title': "Test document changed!",
+                'file': '',
+            }
+        )
+
+        # User should be redirected back to the index
+        self.assertRedirects(response, reverse('wagtaildocs:index'))
+
+        # Document title should be changed
+        self.assertEqual(
+            models.Document.objects.get(id=self.document.id).title,
+            "Test document changed!"
+        )
+
+        # collection should be unchanged
+        self.assertEqual(
+            models.Document.objects.get(id=self.document.id).collection,
+            self.nice_plans_collection
+        )
+
+        # if the user has add permission on a different collection,
+        # they should have option to move the document
+        add_permission = Permission.objects.get(
+            content_type__app_label='wagtaildocs', codename='add_document'
+        )
+        GroupCollectionPermission.objects.create(
+            group=self.changers_group, collection=self.evil_plans_collection,
+            permission=add_permission
+        )
+        response = self.client.post(
+            reverse('wagtaildocs:edit', args=(self.document.id,)), {
+                'title': "Test document changed!",
+                'collection': self.evil_plans_collection.id,
+                'file': '',
+            }
+        )
+        self.assertEqual(
+            models.Document.objects.get(id=self.document.id).collection,
+            self.evil_plans_collection
+        )
+
     def test_get_delete(self):
         response = self.client.get(reverse('wagtaildocs:delete', args=(self.document.id,)))
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'wagtaildocs/documents/confirm_delete.html')
+
+    def test_get_add_multiple(self):
+        response = self.client.get(reverse('wagtaildocs:add_multiple'))
+        # permission should be denied
+        self.assertRedirects(response, reverse('wagtailadmin_home'))

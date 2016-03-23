@@ -6,18 +6,23 @@ from django.contrib.auth import get_user_model
 from django.contrib.auth.models import AnonymousUser
 
 from wagtail.tests.utils import WagtailTestUtils
-from wagtail.wagtailcore.models import Page, PAGE_TEMPLATE_VAR
+from wagtail.wagtailcore.models import Page, Site, PAGE_TEMPLATE_VAR
 from wagtail.tests.testapp.models import BusinessIndex, BusinessChild
 
 
 class TestUserbarTag(TestCase):
     def setUp(self):
-        self.user = get_user_model().objects.create_superuser(username='test', email='test@email.com', password='password')
+        self.user = get_user_model().objects.create_superuser(
+            username='test',
+            email='test@email.com',
+            password='password'
+        )
         self.homepage = Page.objects.get(id=2)
 
     def dummy_request(self, user=None):
         request = RequestFactory().get('/')
         request.user = user or AnonymousUser()
+        request.site = Site.objects.first()
         return request
 
     def test_userbar_tag(self):
@@ -81,10 +86,10 @@ class TestUserbarAddLink(TestCase, WagtailTestUtils):
         self.homepage = Page.objects.get(url_path='/home/')
         self.event_index = Page.objects.get(url_path='/home/events/')
 
-        self.business_index = BusinessIndex(title='Business', slug='business', live=True)
+        self.business_index = BusinessIndex(title='Business', live=True)
         self.homepage.add_child(instance=self.business_index)
 
-        self.business_child = BusinessChild(title='Business Child', slug='child', live=True)
+        self.business_child = BusinessChild(title='Business Child', live=True)
         self.business_index.add_child(instance=self.business_child)
 
     def test_page_allowing_subpages(self):
@@ -92,7 +97,8 @@ class TestUserbarAddLink(TestCase, WagtailTestUtils):
 
         # page allows subpages, so the 'add page' button should show
         expected_url = reverse('wagtailadmin_pages:add_subpage', args=(self.event_index.id, ))
-        expected_link = '<a href="%s" target="_parent" class="action icon icon-plus" title="Add a child page">Add</a>' % expected_url
+        expected_link = '<a href="%s" target="_parent">Add a child page</a>' \
+            % expected_url
         self.assertContains(response, expected_link)
 
     def test_page_disallowing_subpages(self):
@@ -100,7 +106,8 @@ class TestUserbarAddLink(TestCase, WagtailTestUtils):
 
         # page disallows subpages, so the 'add page' button shouldn't show
         expected_url = reverse('wagtailadmin_pages:add_subpage', args=(self.business_index.id, ))
-        expected_link = '<a href="%s" target="_parent" class="action icon icon-plus" title="Add a child page">Add</a>' % expected_url
+        expected_link = '<a href="%s" target="_parent">Add a child page</a>' \
+            % expected_url
         self.assertNotContains(response, expected_link)
 
 

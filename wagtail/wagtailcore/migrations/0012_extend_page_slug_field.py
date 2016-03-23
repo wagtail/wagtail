@@ -14,7 +14,10 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='page',
             name='slug',
-            field=models.SlugField(help_text='The name of the page as it will appear in URLs e.g http://domain.com/blog/[my-slug]/', max_length=255),
+            field=models.SlugField(
+                help_text='The name of the page as it will appear in URLs e.g http://domain.com/blog/[my-slug]/',
+                max_length=255
+            ),
             preserve_default=True,
         ),
     ]

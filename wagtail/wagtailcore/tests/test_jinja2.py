@@ -1,20 +1,15 @@
 from __future__ import absolute_import, unicode_literals
 
-import unittest
-
-import django
+from django.template import engines
 from django.test import TestCase
 
 from wagtail.wagtailcore import __version__
 from wagtail.wagtailcore.models import Page, Site
 
 
-@unittest.skipIf(django.VERSION < (1, 8), 'Multiple engines only supported in Django>=1.8')
 class TestCoreJinja(TestCase):
 
     def setUp(self):
-        # This does not exist on Django<1.8
-        from django.template import engines
         self.engine = engines['jinja2']
 
     def render(self, string, context=None, request_context=True):

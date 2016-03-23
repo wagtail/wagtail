@@ -94,7 +94,7 @@ FieldRowPanel
 PageChooserPanel
 ----------------
 
-.. class:: PageChooserPanel(field_name, page_type=None)
+.. class:: PageChooserPanel(field_name, page_type=None, can_choose_root=False)
 
     You can explicitly link :class:`~wagtail.wagtailcore.models.Page`-derived models together using the :class:`~wagtail.wagtailcore.models.Page` model and ``PageChooserPanel``.
 
@@ -117,9 +117,12 @@ PageChooserPanel
                 PageChooserPanel('related_page', 'demo.PublisherPage'),
             ]
 
-    ``PageChooserPanel`` takes two arguments: a field name and an optional page type. Specifying a page type (in the form of an ``"appname.modelname"`` string) will filter the chooser to display only pages of that type. A list or tuple of page types can also be passed in, to allow choosing a page that matches any of those page types::
+    ``PageChooserPanel`` takes one required argument, the field name. Optionally, specifying a page type (in the form of an ``"appname.modelname"`` string) will filter the chooser to display only pages of that type. A list or tuple of page types can also be passed in, to allow choosing a page that matches any of those page types::
 
         PageChooserPanel('related_page', ['demo.PublisherPage', 'demo.AuthorPage'])
+
+    Passing ``can_choose_root=True`` will allow the editor to choose the tree root as a page. Normally this would be undesirable, since the tree root is never a usable page, but in some specialised cases it may be appropriate; for example, a page with an automatic "related articles" feed could use a PageChooserPanel to select which subsection articles will be taken from, with the root corresponding to 'everywhere'.
+
 
 ImageChooserPanel
 -----------------

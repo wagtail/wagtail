@@ -38,6 +38,21 @@ def add_image_permissions_to_admin_groups(apps, schema_editor):
         group.permissions.add(add_image_permission, change_image_permission, delete_image_permission)
 
 
+def remove_image_permissions(apps, schema_editor):
+    """Reverse the above additions of permissions."""
+    ContentType = apps.get_model('contenttypes.ContentType')
+    Permission = apps.get_model('auth.Permission')
+    image_content_type = ContentType.objects.get(
+        model='image',
+        app_label='wagtailimages',
+    )
+    # This cascades to Group
+    Permission.objects.filter(
+        content_type=image_content_type,
+        codename__in=('add_image', 'change_image', 'delete_image')
+    ).delete()
+
+
 class Migration(migrations.Migration):
 
     dependencies = [
@@ -48,5 +63,5 @@ class Migration(migrations.Migration):
     ]
 
     operations = [
-        migrations.RunPython(add_image_permissions_to_admin_groups),
+        migrations.RunPython(add_image_permissions_to_admin_groups, remove_image_permissions),
     ]

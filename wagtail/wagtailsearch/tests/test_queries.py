@@ -8,7 +8,6 @@ from wagtail.tests.utils import WagtailTestUtils
 from wagtail.wagtailsearch.utils import normalise_query_string
 
 
-
 class TestHitCounter(TestCase):
     def test_no_hits(self):
         self.assertEqual(models.Query.get("Hello").hits, 0)

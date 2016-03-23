@@ -9,9 +9,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-08-26 14:28+0100\n"
-"PO-Revision-Date: 2015-09-01 08:27+0000\n"
-"Last-Translator: Arnar Tumi Þorsteinsson <arnartumi@gmail.com>\n"
+"POT-Creation-Date: 2016-03-09 13:55+0000\n"
+"PO-Revision-Date: 2016-03-09 13:58+0000\n"
+"Last-Translator: mattwestcott <matthew@torchbox.com>\n"
 "Language-Team: Icelandic (Iceland) (http://www.transifex.com/torchbox/"
 "wagtail/language/is_IS/)\n"
 "MIME-Version: 1.0\n"
@@ -25,6 +25,15 @@ msgstr "Tímasetning birtingar"
 
 msgid "Common page configuration"
 msgstr "Algengar síðustillingar"
+
+msgid "Content"
+msgstr "Efni"
+
+msgid "Promote"
+msgstr "Sýnileiki"
+
+msgid "Settings"
+msgstr "Stillingar"
 
 msgid "Search"
 msgstr "Leita"
@@ -70,6 +79,12 @@ msgstr "Þetta afrit verður undirsíða þessarar yfirsíðu"
 msgid "Copy subpages"
 msgstr "Afrita undirsíður"
 
+#, python-format
+msgid "This will copy %(count)s subpage."
+msgid_plural "This will copy %(count)s subpages."
+msgstr[0] "Þessi aðgerð mun afrita %(count)s undirsíðu."
+msgstr[1] "Þessi aðgerð mun afrita %(count)s undirsíður."
+
 msgid "Publish copied page"
 msgstr "Setja afritaðar síður í birtingu."
 
@@ -87,6 +102,9 @@ msgstr "Læst, aðgengileg með eftirfarandi lykilorði"
 
 msgid "This field is required."
 msgstr "Þennan reit þarf að fylla út."
+
+msgid "Expiry date/time must be in the future"
+msgstr "Dagsetning afbirtingar verður að vera í framtíðinni"
 
 msgid "Account"
 msgstr "Reikningur"
@@ -243,17 +261,14 @@ msgstr "Afrita þessa síðu"
 msgid "New"
 msgstr "Ný"
 
-msgid "Save as draft"
-msgstr "Vista sem uppkast"
+msgid "Save draft"
+msgstr "Vista uppkast"
 
 msgid "Publish"
 msgstr "Setja í birtingu"
 
 msgid "Page locked"
 msgstr "Síða læst"
-
-msgid "Save draft"
-msgstr "Vista uppkast"
 
 msgid "Drag"
 msgstr "Draga"
@@ -286,18 +301,6 @@ msgstr "Veldu nýja yfirsíðu fyrir %(title)s"
 #, python-format
 msgid "Select a new parent page for <span>%(title)s</span>"
 msgstr "Veldu nýja yfirsíðu fyrir <span>%(title)s</span>"
-
-msgid "Other searches"
-msgstr "Aðrar leitir"
-
-msgid "Images"
-msgstr "Myndir"
-
-msgid "Documents"
-msgstr "Skjöl"
-
-msgid "Users"
-msgstr "Notendur"
 
 msgid "Enter a search term above"
 msgstr "Sláðu inn leitarorð hér að ofan"
@@ -362,6 +365,9 @@ msgstr "Fös"
 msgid "Sat"
 msgstr "Lau"
 
+msgid "Other searches"
+msgstr "Aðrar leitir"
+
 msgid "Go to Wagtail admin interface"
 msgstr "Fara á Wagtail stjórnborð"
 
@@ -389,18 +395,6 @@ msgstr "Síða '{0}' vistuð."
 msgid "The page could not be created due to validation errors"
 msgstr "Ekki var hægt að búa síðuna til þar sem hún stóðst ekki villuprófanir"
 
-#, python-brace-format
-msgid "Page '{0}' published."
-msgstr "Síða '{0}' hefur verið birt."
-
-#, python-brace-format
-msgid "Page '{0}' submitted for moderation."
-msgstr "Síða '{0}' send til samþykkis."
-
-#, python-brace-format
-msgid "Page '{0}' updated."
-msgstr "Síða '{0}' uppfærð."
-
 msgid "The page could not be saved as it is locked"
 msgstr "Ekki var hægt að vista síðuna, hún er læst"
 
@@ -409,9 +403,6 @@ msgstr "Ekki var hægt að vista síðuna þar sem hún stóðst ekki villupróf
 
 msgid "This page is currently awaiting moderation"
 msgstr "Þessi síða bíður samþykkis til birtingar."
-
-msgid "Expiry date/time must be in the future"
-msgstr "Dagsetning afbirtingar verður að vera í framtíðinni"
 
 #, python-brace-format
 msgid "Page '{0}' deleted."
@@ -433,18 +424,13 @@ msgstr "Síða '{0}' og {1} undirsíður afritaðar."
 msgid "Page '{0}' copied."
 msgstr "Síða '{0}' afrituð."
 
-msgid "Content"
-msgstr "Efni"
-
-msgid "Promote"
-msgstr "Sýnileiki"
-
-msgid "Settings"
-msgstr "Stillingar"
-
 #, python-brace-format
 msgid "The page '{0}' is not currently awaiting moderation."
 msgstr "'{0}' bíður nú samþykkis til birtingar."
+
+#, python-brace-format
+msgid "Page '{0}' published."
+msgstr "Síða '{0}' hefur verið birt."
 
 #, python-brace-format
 msgid "Page '{0}' rejected for publication."

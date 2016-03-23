@@ -1,0 +1,464 @@
+$selected-highlight: darken($color-grey-1, 10%);
+$submenu-color: darken($color-grey-1, 5%);
+
+.nav-wrapper {
+    position: relative;
+    margin-left: -$menu-width;
+    width: $menu-width;
+    float: left;
+    height: 100%;
+    min-height: 800px;
+    background: $color-grey-1;
+    
+    .inner {
+        background: $color-grey-1;
+    }
+}
+
+.nav-toggle.icon {
+    left: $mobile-nice-padding;
+    cursor: pointer;
+    position: absolute;
+
+    &:before {
+        font-size: 40px;
+        color: $color-white;
+        line-height: 40px;
+        content: '\2261';
+    }
+}
+
+.nav-main {
+    top: 43px;
+    bottom: 0;
+    overflow: auto;
+    width: 100%;
+
+    ul, 
+    li {
+        margin: 0;
+        padding: 0;
+        list-style-type: none;
+    }
+
+    li {
+        @include transition(border-color 0.2s ease);
+        position: relative;
+    }
+
+    a {
+        @include transition(border-color 0.2s ease);
+        -webkit-font-smoothing: auto;
+        text-decoration: none;
+        display: block;
+        color: #aaa;
+        padding: 0.8em 1.7em;
+        font-size: 0.95em;
+        font-weight: 300;
+
+        &:hover,
+        &:focus {
+            outline: none;
+            background-color: rgba(100, 100, 100, 0.15);
+            color: $color-white;
+            text-shadow: -1px -1px 0 rgba(0, 0, 0, 0.3);
+        }
+    }
+
+    .menu-item a {
+        position: relative;
+        white-space: nowrap;
+        border-left: 3px solid transparent;
+
+        &:before {
+            font-size: 1rem;
+            vertical-align: -20%;
+            margin-right: 0.5em;
+        }
+
+        // only really used for spinners and settings menu
+        &:after {
+            font-size: 1.5em;
+            margin: 0;
+            position: absolute;
+            right: 0.5em;
+            top: 0.5em;
+            margin-top: 0.15em;
+        }
+
+    }
+
+    .menu-active {
+        background: $selected-highlight;
+        text-shadow: -1px -1px 0 rgba(0, 0, 0, 0.3);
+
+        > a {
+            border-left-color: $color-salmon;
+            color: $color-white;
+        }
+    }
+
+    .account {
+        @include clearfix();
+
+        .avatar {
+            display: none;
+        }
+
+        em {
+            font-style: normal;
+            float: left;
+            width: 100%;
+        }
+    }
+}
+
+.nav-submenu {
+    background: $submenu-color;
+
+    h2 {
+        display: none;
+    }
+
+    .menu-item a {
+        white-space: normal;
+        padding: 0.9em 1.7em 0.9em 4.5em;
+
+        &:before {
+            margin-left: -1.5em;
+        }
+
+        &:hover {
+            background-color: rgba(100, 100, 100, 0.2);
+        }
+    }
+
+    li {
+        border: 0;
+    }
+}
+
+.explorer {
+    // position: absolute;
+    // margin-top: 70px;
+    font-size: 0.95em;
+}
+
+.nav-search {
+    position: relative;
+    padding: 0;
+    margin: 0 1em;
+
+    label {
+        @include visuallyhidden();
+    }
+
+    input, 
+    button {
+        border-radius: 0;
+        font-size: 1em;
+        border: 0;
+    }
+
+    input {
+        cursor: pointer;
+        border: 1px solid darken($color-grey-2, 10%);
+        background-color: darken($color-grey-2, 15%);
+        color: #aaa;
+        padding: 0.8em 2.5em 0.8em 1em;
+
+        &:hover {
+            background-color: darken($color-grey-2, 10%);
+        }
+
+        &:active, 
+        &:focus {
+            background-color: darken($color-grey-2, 5%);
+            color: $color-white;
+        }
+    }
+
+    button {
+        background-color: transparent;
+        position: absolute;
+        top: 0; right: 0; bottom: 0;
+        margin: auto;
+        padding: 0;
+        width: 3em; height: 100%;
+        overflow: hidden;
+
+        &:before {
+            font-family: wagtail;
+            font-weight: 200;
+            text-transform: none;
+            content: 'f';
+            display: block;
+            height: 100%;
+            line-height: 3.3em;
+            padding: 0 1em;
+        }
+    }
+}
+
+// Navigation open condition
+body.nav-open {
+    .wrapper {
+        transform: translate3d($menu-width, 0, 0);
+        -webkit-transform: translate3d($menu-width, 0, 0);
+    }
+
+    .content-wrapper {
+        position: fixed;
+    }
+
+    footer {
+        bottom: 1px;
+    }
+}
+
+.explorer-close {
+    display: none;
+    padding: .9em;
+    border-bottom: 1px solid rgba(200, 200, 200, 0.1);
+    cursor: pointer;
+
+    &:hover {
+        color: $color-white;
+    }
+}
+
+// Explorer open condition, widens navigation area
+body.explorer-open {
+    .wrapper {
+        transform: translate3d($menu-width*2, 0, 0);
+        -webkit-transform: translate3d($menu-width*2, 0, 0);
+    }
+
+    .nav-wrapper {
+        margin-left: -$menu-width*2;
+        width: $menu-width*2;
+    }
+
+    .nav-main {
+        display: none;
+    }
+
+    .explorer {
+        display: block;
+    }
+
+    .explorer-close {
+        display: block;
+    }
+
+    @media screen and (min-width: $breakpoint-mobile) {
+        .explorer-close {
+            display: none;
+        }
+    }
+}
+
+@media screen and (min-width: $breakpoint-mobile) {
+    .wrapper,
+    body.nav-open .wrapper {
+        -webkit-transform: none;
+        transform: none;
+        padding-left: $menu-width;
+    }
+
+    .nav-wrapper {
+        // height and position necessary to force it to 100% height of screen (with some JS help)
+        position: absolute;
+        left: 0;
+        height: 100%;
+        margin-left: 0;
+
+        .inner {
+            height: 100%;
+            position: fixed;
+            width: $menu-width;
+        }
+    }
+
+    .nav-toggle {
+        display: none;
+    }
+
+    .nav-main {
+        position: absolute;
+        top: 175px; // WARNING - magic number - the height of the logo plus search box
+        margin-bottom: 116px; // WARNING - magic number - the height of the .footer
+
+        .footer {
+            padding-top: 1em;
+            position: fixed;
+            width: $menu-width - 7;
+            bottom: 0;
+        }
+
+        .account {
+            @include clearfix();
+            padding-right: 0;
+            padding-left: 15px;
+
+            .avatar {
+                display: inline-block;
+                padding: 0;
+                margin: 0 0.7em 0 0;
+                border: 0;
+                float: left;
+
+                &:before {
+                    text-shadow: none;
+                }
+            }
+
+            em {
+                width: 120px;
+            }
+        }
+
+        a.submenu-trigger:after {
+            content: 'n';
+        }
+    }
+
+    .nav-submenu {
+        transform: translate3d(0, 0, 0);
+        position: fixed;
+        height: 100%;
+        width: 0;
+        padding: 0;
+        top: 0;
+        left: $menu-width;
+        overflow: auto;
+        max-height: 100%;
+
+        h2,
+        ul {
+            float: right;
+            width: $menu-width;
+        }
+
+        h2 {
+            display: block;
+            padding: 0.2em 0;
+            font-size: 1.2em;
+            font-weight: 500;
+            text-transform: none;
+            text-align: center;
+            color: #aaa;
+
+            &:before {
+                font-size: 4em;
+                display: block;
+                text-align: center;
+                margin: 0 0 0.2em;
+                width: 100%;
+                opacity: 0.15;
+            }
+        }
+    }
+
+    li.submenu-active {
+        background: $submenu-color;
+
+        > a {
+            text-shadow: -1px -1px 0 rgba(0, 0, 0, 0.3);
+
+            &:hover {
+                background-color: transparent;
+            }
+        }
+
+        .nav-submenu {
+            @include transition(width 0.2s ease);
+            box-shadow: 2px 0 2px rgba(0, 0, 0, 0.35);
+            width: $menu-width;
+            padding: 0 0 1.5em;
+
+            a {
+                padding-left: 3.5em;
+            }
+        }
+    }
+
+    .explorer {
+        width: 400px;
+        position: absolute;
+        top: 0;
+        left: 99%;
+        margin-top: 175px; // same as .nav-main minus 1 pixel for border
+    }
+
+    .dl-menu {
+        position: absolute;
+    }
+
+    body.nav-open {
+        .content-wrapper {
+            position: relative;
+        }
+    }
+
+    body.explorer-open {
+        .wrapper {
+            -webkit-transform: none;
+            transform: none;
+        }
+
+        .nav-wrapper {
+            margin-left: 0;
+            width: $menu-width;
+        }
+
+        .explorer:before {
+            display: none;
+        }
+
+        .nav-main {
+            display: block;
+        }
+    }
+}
+
+// Media query hacks to detect IE10+ which doesn't support 3d transform of static elements and needs a fallback
+@media all and (-ms-high-contrast: none), 
+       all and (-ms-high-contrast: active) {
+    .wrapper {
+        @include transition(left 0.2s ease);
+        left: 0;
+    }
+
+    body.nav-open {
+        .wrapper {
+            transform: none;
+            left: $menu-width;
+            position: relative;
+        }
+    }
+
+    body.explorer-open {
+        .wrapper {
+            transform: none;
+            left: $menu-width*2;
+        }
+
+        .nav-wrapper {
+            width: $menu-width*2;
+        }
+    }
+}
+
+@media all and (min-width: $breakpoint-mobile) and (-ms-high-contrast: none),
+       all and (min-width: $breakpoint-mobile) and (-ms-high-contrast: active) {
+    body.explorer-open {
+        .wrapper {
+            left: 0;
+        }
+
+        .nav-wrapper {
+            width: $menu-width;
+        }
+    }
+}

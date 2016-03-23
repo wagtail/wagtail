@@ -4,14 +4,14 @@
 #
 # Translators:
 # Dan Braghis, 2014
-# Dan Braghis, 2014-2015
+# Dan Braghis, 2014-2016
 # Dan Braghis, 2014
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-08-26 14:28+0100\n"
-"PO-Revision-Date: 2015-09-03 20:06+0000\n"
+"POT-Creation-Date: 2016-03-09 13:55+0000\n"
+"PO-Revision-Date: 2016-03-01 22:45+0000\n"
 "Last-Translator: Dan Braghis\n"
 "Language-Team: Romanian (http://www.transifex.com/torchbox/wagtail/language/"
 "ro/)\n"
@@ -28,11 +28,17 @@ msgstr "Obligatoriu. Până la 30 caractere. Numai litere, numere și @/./+/-/_"
 msgid "This value may contain only letters, numbers and @/./+/-/_ characters."
 msgstr "Această valoare poate conține numai litere, numere și @/./+/-/_"
 
+msgid "A user with that username already exists."
+msgstr "Un utilizator cu acest nume există deja."
+
+msgid "The two password fields didn't match."
+msgstr "Câmpurile de parolă nu se potrivesc."
+
 msgid "Administrator"
 msgstr "Administrator"
 
-msgid "If ticked, this user has the ability to manage user accounts."
-msgstr "Acest utilizator poate gestiona conturi de utilizator dacă este bifat."
+msgid "Administrators have full access to manage any object or setting."
+msgstr "Administratorii pot gestiona orice obiect sau setare."
 
 msgid "Password"
 msgstr "Parolă"
@@ -55,38 +61,33 @@ msgstr "Prenume"
 msgid "Last Name"
 msgstr "Nume"
 
-msgid "A user with that username already exists."
-msgstr "Un utilizator cu acest nume există deja."
-
-msgid "The two password fields didn't match."
-msgstr "Câmpurile de parolă nu se potrivesc."
-
-msgid "Administrators have the ability to manage user accounts."
-msgstr "Administratorii pot gestiona conturi de utilizator."
-
 msgid "A group with that name already exists."
 msgstr "Un grup cu acest nume există deja."
 
-msgid "Submitted notifications"
-msgstr "Notificări depuse"
+msgid "You cannot have multiple permission records for the same page."
+msgstr ""
+"Nu puteți avea înregistrări de permisiune multiple pentru aceeași pagină."
+
+msgid "submitted notifications"
+msgstr "notificări depuse"
 
 msgid "Receive notification when a page is submitted for moderation"
 msgstr "Primește o notificăre când o pagină este trimisă pentru moderare"
 
-msgid "Approved notifications"
-msgstr "Notificări aprobate"
+msgid "approved notifications"
+msgstr "notificări aprobate"
 
 msgid "Receive notification when your page edit is approved"
 msgstr "Primește o notificare când modificarea paginii este aprobată"
 
-msgid "Rejected notifications"
-msgstr "Notificări respinse"
+msgid "rejected notifications"
+msgstr "notificări respinse"
 
 msgid "Receive notification when your page edit is rejected"
 msgstr "Primește o notificare când modificărea paginii este respinsă"
 
-msgid "User Profile"
-msgstr "Profil utilizator"
+msgid "user profile"
+msgstr "profil utilizator"
 
 msgid "Delete group"
 msgstr "Șterge grup"
@@ -143,9 +144,6 @@ msgstr "Permisiuni pagină"
 
 msgid "Page"
 msgstr "Pagină"
-
-msgid "Permission type"
-msgstr "Tip permisiune"
 
 msgid "Add a page permission"
 msgstr "Adaugă permisiune de pagină"

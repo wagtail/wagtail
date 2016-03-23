@@ -23,7 +23,9 @@ class SearchPromotionForm(forms.ModelForm):
         }
 
 
-SearchPromotionsFormSetBase = inlineformset_factory(Query, SearchPromotion, form=SearchPromotionForm, can_order=True, can_delete=True, extra=0)
+SearchPromotionsFormSetBase = inlineformset_factory(
+    Query, SearchPromotion, form=SearchPromotionForm, can_order=True, can_delete=True, extra=0
+)
 
 
 class SearchPromotionsFormSet(SearchPromotionsFormSetBase):
@@ -52,7 +54,7 @@ class SearchPromotionsFormSet(SearchPromotionsFormSetBase):
             if not (form.instance.id is None and not form.has_changed()):
                 non_empty_forms += 1
         if (
-            non_deleted_forms < self.minimum_forms
-            or non_empty_forms < self.minimum_forms
+            non_deleted_forms < self.minimum_forms or
+            non_empty_forms < self.minimum_forms
         ):
             raise forms.ValidationError(self.minimum_forms_message)

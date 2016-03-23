@@ -1,7 +1,8 @@
 {% load i18n %}
 <table class="listing">
-    <col width="50%"/>
-    <col width="40%"/>
+    <col width="35%"/>
+    <col width="30%"/>
+    <col width="25%"/>
     <col />
     <thead>
         <tr>
@@ -14,6 +15,7 @@
                     {% trans "From" %}
                 {% endif %}
             </th>
+            <th>{% trans "Site" %}</th>
             <th>{% trans "To" %}</th>
             <th class="type">{% trans "Type" %}</th>
         </tr>
@@ -23,6 +25,9 @@
             <tr>
                 <td class="title">
                     <h2><a href="{% url 'wagtailredirects:edit' redirect.id %}" title="{% trans 'Edit this redirect' %}">{{ redirect.title }}</a></h2>
+                </td>
+                <td>
+                    {% if redirect.site %}{{ redirect.site }}{% endif %}
                 </td>
                 <td>
                     {% if redirect.redirect_page %}

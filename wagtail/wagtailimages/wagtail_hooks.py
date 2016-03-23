@@ -1,16 +1,18 @@
-from django.conf import settings
 from django.conf.urls import include, url
 from django.core import urlresolvers
 from django.utils.html import format_html, format_html_join
-from django.utils.translation import ugettext_lazy as _
-from django.contrib.auth.models import Permission
+from django.utils.translation import ugettext_lazy as _, ungettext
+from django.contrib.staticfiles.templatetags.staticfiles import static
 
 from wagtail.wagtailcore import hooks
 from wagtail.wagtailadmin.menu import MenuItem
 from wagtail.wagtailadmin.site_summary import SummaryItem
+from wagtail.wagtailadmin.search import SearchArea
 
 from wagtail.wagtailimages import admin_urls, image_operations
+from wagtail.wagtailimages.forms import GroupImagePermissionFormSet
 from wagtail.wagtailimages.models import get_image_model
+from wagtail.wagtailimages.permissions import permission_policy
 from wagtail.wagtailimages.rich_text import ImageEmbedHandler
 
 
@@ -23,22 +25,28 @@ def register_admin_urls():
 
 class ImagesMenuItem(MenuItem):
     def is_shown(self, request):
-        return request.user.has_perm('wagtailimages.add_image') or request.user.has_perm('wagtailimages.change_image')
+        return permission_policy.user_has_any_permission(
+            request.user, ['add', 'change', 'delete']
+        )
 
 
 @hooks.register('register_admin_menu_item')
 def register_images_menu_item():
-    return ImagesMenuItem(_('Images'), urlresolvers.reverse('wagtailimages:index'), name='images', classnames='icon icon-image', order=300)
+    return ImagesMenuItem(
+        _('Images'), urlresolvers.reverse('wagtailimages:index'),
+        name='images', classnames='icon icon-image', order=300
+    )
 
 
 @hooks.register('insert_editor_js')
 def editor_js():
     js_files = [
-        'wagtailimages/js/hallo-plugins/hallo-wagtailimage.js',
-        'wagtailimages/js/image-chooser.js',
+        static('wagtailimages/js/hallo-plugins/hallo-wagtailimage.js'),
+        static('wagtailimages/js/image-chooser.js'),
     ]
-    js_includes = format_html_join('\n', '<script src="{0}{1}"></script>',
-        ((settings.STATIC_URL, filename) for filename in js_files)
+    js_includes = format_html_join(
+        '\n', '<script src="{0}"></script>',
+        ((filename, ) for filename in js_files)
     )
     return js_includes + format_html(
         """
@@ -49,12 +57,6 @@ def editor_js():
         """,
         urlresolvers.reverse('wagtailimages:chooser')
     )
-
-
-@hooks.register('register_permissions')
-def register_permissions():
-    return Permission.objects.filter(content_type__app_label='wagtailimages',
-        codename__in=['add_image', 'change_image'])
 
 
 @hooks.register('register_image_operations')
@@ -87,3 +89,40 @@ class ImagesSummaryItem(SummaryItem):
 @hooks.register('construct_homepage_summary_items')
 def add_images_summary_item(request, items):
     items.append(ImagesSummaryItem(request))
+
+
+class ImagesSearchArea(SearchArea):
+    def is_shown(self, request):
+        return permission_policy.user_has_any_permission(
+            request.user, ['add', 'change', 'delete']
+        )
+
+
+@hooks.register('register_admin_search_area')
+def register_images_search_area():
+    return ImagesSearchArea(
+        _('Images'), urlresolvers.reverse('wagtailimages:index'),
+        name='images',
+        classnames='icon icon-image',
+        order=200)
+
+
+@hooks.register('register_group_permission_panel')
+def register_image_permissions_panel():
+    return GroupImagePermissionFormSet
+
+
+@hooks.register('describe_collection_contents')
+def describe_collection_docs(collection):
+    images_count = get_image_model().objects.filter(collection=collection).count()
+    if images_count:
+        url = urlresolvers.reverse('wagtailimages:index') + ('?collection_id=%d' % collection.id)
+        return {
+            'count': images_count,
+            'count_text': ungettext(
+                "%(count)s image",
+                "%(count)s images",
+                images_count
+            ) % {'count': images_count},
+            'url': url,
+        }

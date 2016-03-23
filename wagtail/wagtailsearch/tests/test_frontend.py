@@ -47,6 +47,8 @@ class TestSearchView(TestCase):
                 event = EventPage(
                     title="Event " + str(i),
                     slug='event-' + str(i),
+                    location='the moon', audience='public',
+                    cost='free', date_from='2001-01-01',
                     live=True,
                 )
                 event_index.add_child(instance=event)
@@ -114,7 +116,6 @@ class TestSearchView(TestCase):
         # Test that we got the tenth page
         search_results = response.context['search_results']
         self.assertEqual(search_results.number, 10)
-
 
 
 class TestSuggestionsView(TestCase):

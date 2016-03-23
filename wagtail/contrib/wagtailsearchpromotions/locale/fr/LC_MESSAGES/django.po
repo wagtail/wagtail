@@ -6,13 +6,15 @@
 # Adrien <laadrien@gmail.com>, 2014
 # Bertrand Bordage <bordage.bertrand@gmail.com>, 2015
 # nahuel, 2014
+# Sebastien Andrivet <sebastien@andrivet.com>, 2016
+# Tom Dyson <tom@torchbox.com>, 2015
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-08-26 14:46+0100\n"
-"PO-Revision-Date: 2015-08-26 14:14+0000\n"
-"Last-Translator: Karl Hobley <karl@torchbox.com>\n"
+"POT-Creation-Date: 2016-03-09 13:55+0000\n"
+"PO-Revision-Date: 2016-02-05 13:46+0000\n"
+"Last-Translator: Sebastien Andrivet <sebastien@andrivet.com>\n"
 "Language-Team: French (http://www.transifex.com/torchbox/wagtail/language/"
 "fr/)\n"
 "MIME-Version: 1.0\n"
@@ -25,11 +27,20 @@ msgid "Please specify at least one recommendation for this search term."
 msgstr ""
 "Veuillez spécifier au moins une recommandation pour ce terme de recherche."
 
-msgid "Page"
-msgstr "Page"
+msgid "page"
+msgstr "page"
 
-msgid "Description"
-msgstr "Description"
+msgid "description"
+msgstr "description"
+
+msgid "search promotion"
+msgstr "rechercher une promotion"
+
+msgid "Add search promotion"
+msgstr "Ajouter une recherche de promotion"
+
+msgid "Add search pick"
+msgstr "Ajouter un résultat amélioré"
 
 msgid ""
 "\n"
@@ -120,8 +131,8 @@ msgstr "Résultats améliorés"
 msgid "Views (past week)"
 msgstr "Vues (semaine dernière)"
 
-msgid "Edit this pick"
-msgstr "Éditer ce choix"
+msgid "Edit this promotion"
+msgstr "Éditer cette promotion"
 
 msgid "None"
 msgstr "Aucun"
@@ -147,6 +158,17 @@ msgid "Sorry, no promoted results match \"<em>%(query_string)s</em>\""
 msgstr ""
 "Désolé, aucun résultat amélioré correspondant pour \"<em>%(query_string)s</"
 "em>\""
+
+#, python-format
+msgid ""
+"No promoted results have been created. Why not <a href="
+"\"%(wagtailsearchpromotions_add_url)s\">add one</a>?"
+msgstr ""
+"Aucune résultat de promotion n'a été créé. Pourquoi ne pas en <a href="
+"\"%(wagtailsearchpromotions_add_url)s\">ajouter un</a> ?"
+
+msgid "Search promoted results"
+msgstr "Rechercher des résultats améliorés"
 
 #, python-brace-format
 msgid "Editor's picks for '{0}' created."

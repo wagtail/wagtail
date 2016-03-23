@@ -150,14 +150,16 @@ class HomePage(Page):
     )
 
     class Meta:
-        verbose_name = "Homepage"
+        verbose_name = "homepage"
 
 
 class HomePageCarouselItem(Orderable, AbstractCarouselItem):
     page = ParentalKey('HomePage', related_name='carousel_items')
 
+
 class HomePageRelatedLink(Orderable, AbstractRelatedLink):
     page = ParentalKey('HomePage', related_name='related_links')
+
 
 HomePage.content_panels = Page.content_panels + [
     FieldPanel('body', classname="full"),
@@ -194,11 +196,14 @@ class StandardPage(Page):
         index.SearchField('body'),
     )
 
+
 class StandardPageCarouselItem(Orderable, AbstractCarouselItem):
     page = ParentalKey('StandardPage', related_name='carousel_items')
 
+
 class StandardPageRelatedLink(Orderable, AbstractRelatedLink):
     page = ParentalKey('StandardPage', related_name='related_links')
+
 
 StandardPage.content_panels = Page.content_panels + [
     FieldPanel('intro', classname="full"),
@@ -206,6 +211,7 @@ StandardPage.content_panels = Page.content_panels + [
     FieldPanel('body', classname="full"),
     InlinePanel('related_links', label="Related links"),
 ]
+
 
 StandardPage.promote_panels = [
     MultiFieldPanel(Page.promote_panels, "Common page configuration"),
@@ -234,13 +240,16 @@ class StandardIndexPage(Page):
         index.SearchField('intro'),
     )
 
+
 class StandardIndexPageRelatedLink(Orderable, AbstractRelatedLink):
     page = ParentalKey('StandardIndexPage', related_name='related_links')
+
 
 StandardIndexPage.content_panels = Page.content_panels + [
     FieldPanel('intro', classname="full"),
     InlinePanel('related_links', label="Related links"),
 ]
+
 
 StandardIndexPage.promote_panels = [
     MultiFieldPanel(Page.promote_panels, "Common page configuration"),
@@ -280,14 +289,18 @@ class BlogEntryPage(Page):
         # Find closest ancestor which is a blog index
         return BlogIndexPage.ancestor_of(self).last()
 
+
 class BlogEntryPageCarouselItem(Orderable, AbstractCarouselItem):
     page = ParentalKey('BlogEntryPage', related_name='carousel_items')
+
 
 class BlogEntryPageRelatedLink(Orderable, AbstractRelatedLink):
     page = ParentalKey('BlogEntryPage', related_name='related_links')
 
+
 class BlogEntryPageTag(TaggedItemBase):
     content_object = ParentalKey('BlogEntryPage', related_name='tagged_items')
+
 
 BlogEntryPage.content_panels = Page.content_panels + [
     FieldPanel('date'),
@@ -295,6 +308,7 @@ BlogEntryPage.content_panels = Page.content_panels + [
     InlinePanel('carousel_items', label="Carousel items"),
     InlinePanel('related_links', label="Related links"),
 ]
+
 
 BlogEntryPage.promote_panels = [
     MultiFieldPanel(Page.promote_panels, "Common page configuration"),
@@ -341,8 +355,10 @@ class BlogIndexPage(Page):
         context['entries'] = entries
         return context
 
+
 class BlogIndexPageRelatedLink(Orderable, AbstractRelatedLink):
     page = ParentalKey('BlogIndexPage', related_name='related_links')
+
 
 BlogIndexPage.content_panels = Page.content_panels + [
     FieldPanel('intro', classname="full"),
@@ -407,11 +423,14 @@ class EventPage(Page):
         # Find closest ancestor which is an event index
         return EventIndexPage.objects.ancester_of(self).last()
 
+
 class EventPageCarouselItem(Orderable, AbstractCarouselItem):
     page = ParentalKey('EventPage', related_name='carousel_items')
 
+
 class EventPageRelatedLink(Orderable, AbstractRelatedLink):
     page = ParentalKey('EventPage', related_name='related_links')
+
 
 class EventPageSpeaker(Orderable, AbstractLinkFields):
     page = ParentalKey('EventPage', related_name='speakers')
@@ -453,6 +472,7 @@ EventPage.content_panels = Page.content_panels + [
     InlinePanel('related_links', label="Related links"),
 ]
 
+
 EventPage.promote_panels = [
     MultiFieldPanel(Page.promote_panels, "Common page configuration"),
     ImageChooserPanel('feed_image'),
@@ -485,8 +505,10 @@ class EventIndexPage(Page):
 
         return events
 
+
 class EventIndexPageRelatedLink(Orderable, AbstractRelatedLink):
     page = ParentalKey('EventIndexPage', related_name='related_links')
+
 
 EventIndexPage.content_panels = Page.content_panels + [
     FieldPanel('intro', classname="full"),
@@ -534,8 +556,10 @@ class PersonPage(Page, ContactFieldsMixin):
         index.SearchField('biography'),
     )
 
+
 class PersonPageRelatedLink(Orderable, AbstractRelatedLink):
     page = ParentalKey('PersonPage', related_name='related_links')
+
 
 PersonPage.content_panels = Page.content_panels + [
     FieldPanel('first_name'),
@@ -546,6 +570,7 @@ PersonPage.content_panels = Page.content_panels + [
     MultiFieldPanel(ContactFieldsMixin.panels, "Contact"),
     InlinePanel('related_links', label="Related links"),
 ]
+
 
 PersonPage.promote_panels = [
     MultiFieldPanel(Page.promote_panels, "Common page configuration"),
@@ -575,10 +600,12 @@ class ContactPage(Page, ContactFieldsMixin):
         index.SearchField('body'),
     )
 
+
 ContactPage.content_panels = Page.content_panels + [
     FieldPanel('body', classname="full"),
     MultiFieldPanel(ContactFieldsMixin.panels, "Contact"),
 ]
+
 
 ContactPage.promote_panels = [
     MultiFieldPanel(Page.promote_panels, "Common page configuration"),

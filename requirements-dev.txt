@@ -1,8 +1,13 @@
+# [RemovedInWagtail16Warning]
+# DEPRECATED. Developer requirements should now be specified in setup.py
+# in 'testing_extras' / 'documentation_extras'.
+
 # Required for running the tests
 mock>=1.0.0
 python-dateutil>=2.2
 pytz>=2014.7
 Pillow>=2.7.0
+elasticsearch>=1.0.0
 
 # For coverage and PEP8 linting
 coverage>=3.7.0

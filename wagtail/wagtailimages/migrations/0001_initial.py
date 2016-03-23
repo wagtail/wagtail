@@ -31,7 +31,10 @@ class Migration(migrations.Migration):
             fields=[
                 ('id', models.AutoField(primary_key=True, serialize=False, auto_created=True, verbose_name='ID')),
                 ('title', models.CharField(verbose_name='Title', max_length=255)),
-                ('file', models.ImageField(width_field='width', upload_to=wagtail.wagtailimages.models.get_upload_to, verbose_name='File', height_field='height')),
+                ('file', models.ImageField(
+                    width_field='width', upload_to=wagtail.wagtailimages.models.get_upload_to,
+                    verbose_name='File', height_field='height'
+                )),
                 ('width', models.IntegerField(editable=False)),
                 ('height', models.IntegerField(editable=False)),
                 ('created_at', models.DateTimeField(auto_now_add=True)),
@@ -39,8 +42,13 @@ class Migration(migrations.Migration):
                 ('focal_point_y', models.PositiveIntegerField(editable=False, null=True)),
                 ('focal_point_width', models.PositiveIntegerField(editable=False, null=True)),
                 ('focal_point_height', models.PositiveIntegerField(editable=False, null=True)),
-                ('tags', taggit.managers.TaggableManager(verbose_name='Tags', blank=True, help_text=None, to='taggit.Tag', through='taggit.TaggedItem')),
-                ('uploaded_by_user', models.ForeignKey(editable=False, blank=True, null=True, to=settings.AUTH_USER_MODEL)),
+                ('tags', taggit.managers.TaggableManager(
+                    verbose_name='Tags', blank=True, help_text=None, to='taggit.Tag', through='taggit.TaggedItem'
+                )),
+                ('uploaded_by_user', models.ForeignKey(
+                    on_delete=models.CASCADE,
+                    editable=False, blank=True, null=True, to=settings.AUTH_USER_MODEL
+                )),
             ],
             options={
                 'abstract': False,
@@ -55,8 +63,8 @@ class Migration(migrations.Migration):
                 ('width', models.IntegerField(editable=False)),
                 ('height', models.IntegerField(editable=False)),
                 ('focal_point_key', models.CharField(editable=False, max_length=255, null=True)),
-                ('filter', models.ForeignKey(related_name='+', to='wagtailimages.Filter')),
-                ('image', models.ForeignKey(related_name='renditions', to='wagtailimages.Image')),
+                ('filter', models.ForeignKey(on_delete=models.CASCADE, related_name='+', to='wagtailimages.Filter')),
+                ('image', models.ForeignKey(on_delete=models.CASCADE, related_name='renditions', to='wagtailimages.Image')),
             ],
             options={
             },

@@ -3,14 +3,14 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# Daigo Shitara <stain.witness@gmail.com>, 2014
+# Daigo Shitara <stain.witness@gmail.com>, 2014,2016
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-08-26 14:28+0100\n"
-"PO-Revision-Date: 2015-08-26 13:37+0000\n"
-"Last-Translator: Karl Hobley <karl@torchbox.com>\n"
+"POT-Creation-Date: 2016-03-09 13:55+0000\n"
+"PO-Revision-Date: 2016-01-08 02:20+0000\n"
+"Last-Translator: Daigo Shitara <stain.witness@gmail.com>\n"
 "Language-Team: Japanese (http://www.transifex.com/torchbox/wagtail/language/"
 "ja/)\n"
 "MIME-Version: 1.0\n"
@@ -30,6 +30,9 @@ msgstr "サイト"
 
 msgid "Port"
 msgstr "ポート番号"
+
+msgid "Site name"
+msgstr "サイト名"
 
 msgid "Root page"
 msgstr "ルートページ"
