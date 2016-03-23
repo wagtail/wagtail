@@ -1,5 +1,3 @@
-from optparse import make_option
-
 from django.core.management.base import BaseCommand
 from django.conf import settings
 from django.db import transaction
@@ -57,15 +55,10 @@ class Command(BaseCommand):
         self.stdout.write(backend_name + ": Finishing rebuild")
         rebuilder.finish()
 
-    option_list = BaseCommand.option_list + (
-        make_option(
-            '--backend',
-            action='store',
-            dest='backend_name',
-            default=None,
-            help="Specify a backend to update",
-        ),
-    )
+    def add_arguments(self, parser):
+        parser.add_argument(
+            '--backend', action='store', dest='backend_name', default=None,
+            help="Specify a backend to update")
 
     def handle(self, **options):
         # Get object list
