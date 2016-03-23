@@ -10,18 +10,21 @@ from wagtail.api.v2.filters import (
 from wagtail.wagtailcore.models import Page
 
 from .serializers import AdminPageSerializer, AdminImageSerializer
+from .filters import HasChildrenFilter
 
 
 class PagesAdminAPIEndpoint(PagesAPIEndpoint):
     base_serializer_class = AdminPageSerializer
 
-    # Use unrestricted filters
+    # Use unrestricted child_of/descendant_of filters
+    # Add has_children filter
     filter_backends = [
         FieldsFilter,
         ChildOfFilter,
         DescendantOfFilter,
+        HasChildrenFilter,
         OrderingFilter,
-        SearchFilter
+        SearchFilter,
     ]
 
     extra_meta_fields = PagesAPIEndpoint.extra_meta_fields + [
@@ -35,6 +38,10 @@ class PagesAdminAPIEndpoint(PagesAPIEndpoint):
         'status',
         'children',
     ]
+
+    known_query_parameters = PagesAPIEndpoint.known_query_parameters.union([
+        'has_children'
+    ])
 
     def get_queryset(self):
         request = self.request
