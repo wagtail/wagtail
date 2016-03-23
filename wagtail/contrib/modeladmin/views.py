@@ -670,7 +670,8 @@ class IndexView(WMABaseView):
         }
 
         if self.is_pagemodel:
-            allowed_parent_types = [model._meta.verbose_name for model in self.model.allowed_parent_page_models()]
+            models = self.model.allowed_parent_page_models()
+            allowed_parent_types = [m._meta.verbose_name for m in models]
             user = request.user
             valid_parents = self.permission_helper.get_valid_parent_pages(user)
             valid_parent_count = valid_parents.count()
