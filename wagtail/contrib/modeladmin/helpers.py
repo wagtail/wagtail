@@ -94,6 +94,7 @@ class PermissionHelper(object):
         """
         return False
 
+
 class PagePermissionHelper(PermissionHelper):
     """
     Provides permission-related helper functions to effectively control what
@@ -124,7 +125,7 @@ class PagePermissionHelper(PermissionHelper):
     def get_valid_parent_pages(self, user):
         """
         Identifies possible parent pages for the current user by first looking
-        at allowed_parent_page_types() on self.model to limit options to the
+        at allowed_parent_page_models() on self.model to limit options to the
         correct type of page, then checking permissions on those individual
         pages to make sure we have permission to add a subpage to it.
         """
@@ -132,9 +133,8 @@ class PagePermissionHelper(PermissionHelper):
         parents_qs = Page.objects.none()
 
         # Add pages of the correct type
-        valid_parent_types = self.model.allowed_parent_page_types()
-        for pt in valid_parent_types:
-            pt_items = Page.objects.type(pt.model_class())
+        for pt in self.model.allowed_parent_page_models():
+            pt_items = Page.objects.type(pt)
             parents_qs = parents_qs | pt_items
 
         # Exclude pages that we can't add subpages to
