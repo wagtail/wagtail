@@ -29,7 +29,7 @@ Install ``django-overextends`` with ``pip install django-overextends`` (or add `
                 'builtins': ['overextends.templatetags.overextends_tags'],
             }
         },
-]
+    ]
 
 
 
