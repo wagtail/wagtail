@@ -162,10 +162,10 @@ The following example defines a basic blog post model in ``blog/models.py``:
         intro = models.CharField(max_length=250)
         body = RichTextField(blank=True)
 
-        search_fields = Page.search_fields + (
+        search_fields = Page.search_fields + [
             index.SearchField('intro'),
             index.SearchField('body'),
-        )
+        ]
 
         content_panels = Page.content_panels + [
             FieldPanel('date'),
@@ -229,10 +229,10 @@ model:
         intro = models.CharField(max_length=250)
         body = RichTextField(blank=True)
 
-        search_fields = Page.search_fields + (
+        search_fields = Page.search_fields + [
             index.SearchField('intro'),
             index.SearchField('body'),
-        )
+        ]
 
         content_panels = Page.content_panels + [
             FieldPanel('date'),

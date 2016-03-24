@@ -34,7 +34,7 @@ class TestSearchFields(TestCase):
         # standard convention of:
         #
         #     class SpecificPageType(Page):
-        #         search_fields = Page.search_fields + (some_other_definitions)
+        #         search_fields = Page.search_fields + [some_other_definitions]
         #
         # ...causes the definitions in some_other_definitions to override Page.search_fields
         # as intended.
