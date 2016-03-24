@@ -1,6 +1,13 @@
 Changelog
 =========
 
+1.4.2 (xx.xx.2016)
+~~~~~~~~~~~~~~~~~~
+
+ * Fix: Streamfields no longer break on validation error
+ * Fix: Number of validation errors in each tab in the editor is now correctly reported again
+
+
 1.4.1 (17.03.2016)
 ~~~~~~~~~~~~~~~~~~
 

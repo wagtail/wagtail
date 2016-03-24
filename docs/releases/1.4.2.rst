@@ -1,0 +1,18 @@
+===========================
+Wagtail 1.4.2 release notes
+===========================
+
+.. contents::
+    :local:
+    :depth: 1
+
+
+What's changed
+==============
+
+Bug fixes
+~~~~~~~~~
+
+ * Streamfields no longer break on validation error
+ * Number of validation errors in each tab in the editor is now correctly reported again
+
