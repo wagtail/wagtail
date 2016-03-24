@@ -57,3 +57,37 @@ Should be changed to:
         ]
 
 To ease the burden on third-party modules, adding tuples to ``Page.search_fields`` will still work. But this backwards-compatibility fix will be removed in Wagtail 1.7.
+
+Elasticsearch backend now defaults to verifying SSL certs
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Previously, if you used the Elasticsearch backend, configured with the URLS property like:
+
+
+.. code-block:: python
+
+    WAGTAILSEARCH_BACKENDS = {
+        'default': {
+            'BACKEND': 'wagtail.wagtailsearch.backends.elasticsearch',
+            'URLS': ['https://example.com/'],
+        }
+    }
+
+Elasticsearch would not be configured to verify SSL certificates for HTTPS URLs. This has been changed so that SSL certificates are verified for HTTPS connections by default.
+
+If you need the old behaviour back, where SSL certificates are not verified for your HTTPS connection, you can configure the Elasticsearch backend with the ``HOSTS`` option, like so:
+
+.. code-block:: python
+
+    WAGTAILSEARCH_BACKENDS = {
+        'default': {
+            'BACKEND': 'wagtail.wagtailsearch.backends.elasticsearch',
+            'HOSTS': [{
+                'host': 'example.com'
+                'use_ssl': True,
+                'verify_certs': False,
+            }],
+        }
+    }
+
+See the `Elasticsearch-py documentation <http://elasticsearch-py.readthedocs.org/en/stable/#ssl-and-authentication>`_ for more configuration options.

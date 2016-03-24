@@ -686,6 +686,7 @@ class ElasticSearch(BaseSearch):
                     'port': port,
                     'url_prefix': parsed_url.path,
                     'use_ssl': use_ssl,
+                    'verify_certs': use_ssl,
                     'http_auth': http_auth,
                 })
 
