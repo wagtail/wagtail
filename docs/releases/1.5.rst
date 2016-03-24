@@ -16,6 +16,7 @@ Minor features
  * Moved lesser-user actions in the page explorer into a 'More' dropdown
  * Added a hook :ref:`register_page_listing_buttons` for adding action buttons to the page explorer
  * Added a hook :ref:`insert_global_admin_js` for inserting custom JavaScript throughout the admin backend (Tom Dyson)
+ * The type of the ``search_fields`` attribute on ``Page`` models (and other searchable models) has changed from a tuple to a list (see upgrade consideration below) (Tim Heap)
  * Use `PasswordChangeForm` when user changes their password, requiring the user to enter their current password (Matthijs Melissen)
  * Highlight current day in date picker (Jonas Lergell)
 
@@ -27,3 +28,32 @@ Bug fixes
 
 Upgrade considerations
 ======================
+
+The ``search_fields`` attribute on models should now be set to a list
+=====================================================================
+
+On searchable models (eg, ``Page`` or custom ``Image`` models) the ``search_fields`` attribute should now be a list instead of a tuple.
+
+For example, the following ``Page`` model:
+
+.. code-block:: python
+
+    class MyPage(Page):
+        ...
+
+        search_fields = Page.search_fields + (
+            indexed.SearchField('body'),
+        )
+
+Should be changed to:
+
+.. code-block:: python
+
+    class MyPage(Page):
+        ...
+
+        search_fields = Page.search_fields + [
+            indexed.SearchField('body'),
+        ]
+
+To ease the burden on third-party modules, adding tuples to ``Page.search_fields`` will still work. But this backwards-compatibility fix will be removed in Wagtail 1.7.
