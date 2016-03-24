@@ -38,12 +38,7 @@ from django.views.generic import TemplateView
 from django.views.generic.edit import FormView
 
 from wagtail.wagtailimages.models import get_image_model, Filter
-try:
-    from wagtail.wagtaildocs.models import get_document_model
-except ImportError:
-    def get_document_model():
-        from wagtail.wagtaildocs.models import Document
-        return Document
+from wagtail.wagtaildocs.models import get_document_model
 
 from wagtail.wagtailadmin import messages
 from wagtail.wagtailadmin.edit_handlers import (
