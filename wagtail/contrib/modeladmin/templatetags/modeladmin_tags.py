@@ -82,7 +82,7 @@ def items_for_result(view, result):
         row_attrs_dict['class'] = ' ' . join(row_classes)
         row_attrs = ''.join(
             ' %s="%s"' % (key, val) for key, val in row_attrs_dict.items())
-        row_attrs_safe = mark_safe(row_attributes)
+        row_attrs_safe = mark_safe(row_attrs)
         yield format_html('<td{}>{}</td>', row_attrs_safe, result_repr)
 
 
