@@ -36,14 +36,16 @@ def items_for_result(view, result):
         except ObjectDoesNotExist:
             result_repr = empty_value_display
         else:
-            empty_value_display = getattr(attr, 'empty_value_display', empty_value_display)
+            empty_value_display = getattr(
+                attr, 'empty_value_display', empty_value_display)
             if f is None or f.auto_created:
                 allow_tags = getattr(attr, 'allow_tags', False)
                 boolean = getattr(attr, 'boolean', False)
                 if boolean or not value:
                     allow_tags = True
                 if django.VERSION >= (1, 9):
-                    result_repr = display_for_value(value, empty_value_display, boolean)
+                    result_repr = display_for_value(
+                        value, empty_value_display, boolean)
                 else:
                     result_repr = display_for_value(value, boolean)
 
@@ -62,20 +64,26 @@ def items_for_result(view, result):
                         result_repr = field_val
                 else:
                     if django.VERSION >= (1, 9):
-                        result_repr = display_for_field(value, f, empty_value_display)
+                        result_repr = display_for_field(
+                            value, f, empty_value_display)
                     else:
                         result_repr = display_for_field(value, f)
 
-                if isinstance(f, (models.DateField, models.TimeField, models.ForeignKey)):
+                if isinstance(f, (
+                    models.DateField, models.TimeField, models.ForeignKey)
+                ):
                     row_classes.append('nowrap')
         if force_text(result_repr) == '':
             result_repr = mark_safe('&nbsp;')
-        row_classes.extend(modeladmin.get_extra_class_names_for_field_col(field_name, result))
-        row_attributes_dict = modeladmin.get_extra_attrs_for_field_col(field_name, result)
-        row_attributes_dict['class'] = ' ' . join(row_classes)
-        row_attributes = ''.join(' %s="%s"' % (key, val) for key, val in row_attributes_dict.items())
-        row_attributes_safe = mark_safe(row_attributes)
-        yield format_html('<td{}>{}</td>', row_attributes_safe, result_repr)
+        row_classes.extend(
+            modeladmin.get_extra_class_names_for_field_col(field_name, result))
+        row_attrs_dict = modeladmin.get_extra_attrs_for_field_col(
+            field_name, result)
+        row_attrs_dict['class'] = ' ' . join(row_classes)
+        row_attrs = ''.join(
+            ' %s="%s"' % (key, val) for key, val in row_attrs_dict.items())
+        row_attrs_safe = mark_safe(row_attributes)
+        yield format_html('<td{}>{}</td>', row_attrs_safe, result_repr)
 
 
 def results(view, object_list):
@@ -108,8 +116,10 @@ def pagination_link_previous(current_page, view):
     if current_page.has_previous():
         previous_page_number0 = current_page.previous_page_number() - 1
         return format_html(
-            '<li class="prev"><a href="%s" class="icon icon-arrow-left">%s</a></li>' %
-            (view.get_query_string({PAGE_VAR: previous_page_number0}), _('Previous'))
+            '<li class="prev"><a href="%s" class="icon icon-arrow-left">%s'
+            '</a></li>' %
+            (view.get_query_string({PAGE_VAR: previous_page_number0}),
+                _('Previous'))
         )
     return ''
 
@@ -119,8 +129,10 @@ def pagination_link_next(current_page, view):
     if current_page.has_next():
         next_page_number0 = current_page.next_page_number() - 1
         return format_html(
-            '<li class="next"><a href="%s" class="icon icon-arrow-right-after">%s</a></li>' %
-            (view.get_query_string({PAGE_VAR: next_page_number0}), _('Next'))
+            '<li class="next"><a href="%s" class="icon icon-arrow-right-after"'
+            '>%s</a></li>' %
+            (view.get_query_string({PAGE_VAR: next_page_number0}),
+                _('Next'))
         )
     return ''
 
