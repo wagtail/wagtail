@@ -911,6 +911,7 @@ class TestBackendConfiguration(TestCase):
                     'host': '127.0.0.1',
                     'port': 9300,
                     'use_ssl': True,
+                    'verify_certs': True,
                 }
             ]
         })
