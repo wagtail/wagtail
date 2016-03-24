@@ -19,7 +19,7 @@ Install ``django-overextends`` with ``pip install django-overextends`` (or add `
       # ...
     )
     
-    #For Django 1.9+ you must also add overextends to the builtins key of your TEMPLATES setting:
+    # For Django 1.9+ you must also add overextends to the builtins key of your TEMPLATES setting:
     TEMPLATES = [
         {
             'BACKEND': 'django.template.backends.django.DjangoTemplates',
