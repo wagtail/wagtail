@@ -18,7 +18,7 @@ class Command(BaseCommand):
 
     def update_backend(self, backend_name, object_list):
         # Print info
-        self.stdout.write("Updating backend: " + backend_name)
+        self.stdout.write(u"Updating backend: " + backend_name)
 
         # Get backend
         backend = get_search_backend(backend_name)
@@ -27,15 +27,15 @@ class Command(BaseCommand):
         rebuilder = backend.get_rebuilder()
 
         if not rebuilder:
-            self.stdout.write(backend_name + ": Backend doesn't support rebuild. Skipping")
+            self.stdout.write(backend_name + u": Backend doesn't support rebuild. Skipping")
             return
 
         # Start rebuild
-        self.stdout.write(backend_name + ": Starting rebuild")
+        self.stdout.write(backend_name + u": Starting rebuild")
         index = rebuilder.start()
 
         for model, queryset in object_list:
-            self.stdout.write(backend_name + ": Indexing model '%s.%s'" % (
+            self.stdout.write(backend_name + u": Indexing model '%s.%s'" % (
                 model._meta.app_label,
                 model.__name__,
             ))
@@ -49,12 +49,12 @@ class Command(BaseCommand):
                 index.add_items(model, chunk)
                 count += len(chunk)
 
-            self.stdout.write("Indexed %d %s" % (
+            self.stdout.write(u"Indexed %d %s" % (
                 count, model._meta.verbose_name_plural))
             self.print_newline()
 
         # Finish rebuild
-        self.stdout.write(backend_name + ": Finishing rebuild")
+        self.stdout.write(backend_name + u": Finishing rebuild")
         rebuilder.finish()
 
     option_list = BaseCommand.option_list + (
