@@ -164,6 +164,40 @@ class TestUserEditView(TestCase, WagtailTestUtils):
         self.assertEqual(response.status_code, 200)
 
 
+class TestUserDeleteView(TestCase, WagtailTestUtils):
+    def setUp(self):
+        # Create a user to delete
+        self.test_user = get_user_model().objects.create_user(
+            username='testuser',
+            email='testuser@email.com',
+            password='password'
+        )
+
+        # Login
+        self.login()
+
+    def get(self, params={}, user_id=None):
+        return self.client.get(reverse('wagtailusers_users:delete', args=(user_id or self.test_user.id, )), params)
+
+    def post(self, post_data={}, user_id=None):
+        return self.client.post(reverse('wagtailusers_users:delete', args=(user_id or self.test_user.id, )), post_data)
+
+    def test_simple(self):
+        response = self.get()
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'wagtailusers/users/confirm_delete.html')
+
+    def test_delete(self):
+        response = self.post({'posted': True})
+
+        # Should redirect back to index
+        self.assertRedirects(response, reverse('wagtailusers_users:index'))
+
+        # Verify that the user doesn't exist anymore
+        User = get_user_model()
+        self.assertFalse(User.objects.filter(id=self.test_user.id).exists())
+
+
 class TestUserProfileCreation(TestCase, WagtailTestUtils):
     def setUp(self):
         # Create a user
