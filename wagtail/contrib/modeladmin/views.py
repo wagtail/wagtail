@@ -123,9 +123,6 @@ class WMABaseView(TemplateView):
     def get_delete_url(self, obj):
         return reverse(get_url_name(self.opts, 'delete'), args=(obj.pk,))
 
-    def prime_session_for_redirection(self):
-        self.request.session['return_to_index_url'] = self.get_index_url
-
     def get_page_title(self):
         return self.page_title or self.model_name_plural
 
@@ -828,7 +825,6 @@ class CreateView(WMAFormView):
             raise PermissionDenied
 
         if self.is_pagemodel:
-            self.prime_session_for_redirection()
             user = request.user
             parents = self.permission_helper.get_valid_parent_pages(user)
             parent_count = parents.count()
@@ -899,8 +895,8 @@ class EditView(ObjectSpecificView, CreateView):
         if not self.check_action_permitted():
             raise PermissionDenied
         if self.is_pagemodel:
-            self.prime_session_for_redirection()
-            return redirect(PAGES_EDIT_URL_NAME, self.object_id)
+            return redirect(
+                self.button_helper.get_action_url('edit', self.instance.id))
         return super(CreateView, self).dispatch(request, *args, **kwargs)
 
     def get_meta_title(self):
@@ -933,8 +929,8 @@ class ConfirmDeleteView(ObjectSpecificView):
         if not self.check_action_permitted():
             raise PermissionDenied
         if self.is_pagemodel:
-            self.prime_session_for_redirection()
-            return redirect(PAGES_DELETE_URL_NAME, self.object_id)
+            return redirect(
+                self.button_helper.get_action_url('delete', self.instance.id))
         return super(ConfirmDeleteView, self).dispatch(request, *args,
                                                        **kwargs)
 
