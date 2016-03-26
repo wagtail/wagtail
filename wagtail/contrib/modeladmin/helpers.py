@@ -280,7 +280,7 @@ class PageButtonHelper(ButtonHelper):
         if action not in ('create', 'index', 'inspect'):
             target_url = reverse('wagtailadmin_pages:%s' % action, args=[pk])
             next_url = urllib.quote(self.get_action_url('index'))
-            return '%s?return_to=%s' % (target_url, next_url)
+            return '%s?next=%s' % (target_url, next_url)
         return super(PageButtonHelper, self).get_action_url(action, pk)
 
     def unpublish_button(self, pk, classnames_add=[], classnames_exclude=[]):
