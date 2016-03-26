@@ -116,8 +116,6 @@ class ModelAdmin(WagtailRegisterable):
     inspect_view_class = InspectView
     confirm_delete_view_class = ConfirmDeleteView
     choose_parent_view_class = ChooseParentView
-    copy_view_class = CopyRedirectView
-    unpublish_view_class = UnpublishRedirectView
     index_template_name = ''
     create_template_name = ''
     edit_template_name = ''
@@ -395,32 +393,6 @@ class ModelAdmin(WagtailRegisterable):
         view_class = self.confirm_delete_view_class
         return view_class.as_view(**kwargs)(request)
 
-    def unpublish_view(self, request, object_id):
-        """
-        Instantiates a class-based view that redirects to Wagtail's 'unpublish'
-        view for models that extend 'Page' (if the user has sufficient
-        permissions). We do this via our own view so that we can reliably
-        control redirection of the user back to the index_view once the action
-        is completed. The view class used can be overridden by changing the
-        'unpublish_view_class' attribute.
-        """
-        kwargs = {'model_admin': self, 'object_id': object_id}
-        view_class = self.unpublish_view_class
-        return view_class.as_view(**kwargs)(request)
-
-    def copy_view(self, request, object_id):
-        """
-        Instantiates a class-based view that redirects to Wagtail's 'copy'
-        view for models that extend 'Page' (if the user has sufficient
-        permissions). We do this via our own view so that we can reliably
-        control redirection of the user back to the index_view once the action
-        is completed. The view class used can be overridden by changing the
-        'copy_view_class' attribute.
-        """
-        kwargs = {'model_admin': self, 'object_id': object_id}
-        view_class = self.copy_view_class
-        return view_class.as_view(**kwargs)(request)
-
     def get_templates(self, action='index'):
         """
         Utility funtion that provides a list of templates to try for a given
@@ -535,12 +507,6 @@ class ModelAdmin(WagtailRegisterable):
                 url(get_url_pattern(self.opts, 'choose_parent'),
                     self.choose_parent_view,
                     name=get_url_name(self.opts, 'choose_parent')),
-                url(get_object_specific_url_pattern(self.opts, 'unpublish'),
-                    self.unpublish_view,
-                    name=get_url_name(self.opts, 'unpublish')),
-                url(get_object_specific_url_pattern(self.opts, 'copy'),
-                    self.copy_view,
-                    name=get_url_name(self.opts, 'copy')),
             )
         return urls
 
