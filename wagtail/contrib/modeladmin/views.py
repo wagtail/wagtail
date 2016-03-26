@@ -990,29 +990,3 @@ class ConfirmDeleteView(ObjectSpecificView):
 
     def get_template_names(self):
         return self.model_admin.get_confirm_delete_template()
-
-
-class UnpublishRedirectView(ObjectSpecificView):
-    def check_action_permitted(self):
-        user = self.request.user
-        return self.permission_helper.can_unpublish_object(user, self.instance)
-
-    @method_decorator(login_required)
-    def dispatch(self, request, *args, **kwargs):
-        if not self.check_action_permitted():
-            raise PermissionDenied
-        self.prime_session_for_redirection()
-        return redirect(PAGES_UNPUBLISH_URL_NAME, self.object_id)
-
-
-class CopyRedirectView(ObjectSpecificView):
-    def check_action_permitted(self):
-        user = self.request.user
-        return self.permission_helper.can_copy_object(user, self.instance)
-
-    @method_decorator(login_required)
-    def dispatch(self, request, *args, **kwargs):
-        if not self.check_action_permitted():
-            raise PermissionDenied
-        self.prime_session_for_redirection()
-        return redirect(PAGES_COPY_URL_NAME, self.object_id)
