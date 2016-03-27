@@ -108,7 +108,21 @@ class TestGetFormForModel(TestCase):
         self.assertEqual(type(form.fields['date_from'].widget), forms.PasswordInput)
 
 
+def clear_edit_handler(page_cls):
+    def decorator(fn):
+        def decorated(self):
+            # Clear any old EditHandlers generated
+            page_cls.get_edit_handler.cache_clear()
+            fn(self)
+            # Clear the bad EditHandler generated just now
+            page_cls.get_edit_handler.cache_clear()
+        return decorated
+    return decorator
+
+
 class TestPageEditHandlers(TestCase):
+
+    @clear_edit_handler(EventPage)
     def test_get_edit_handler(self):
         """
         Forms for pages should have a base class of WagtailAdminPageForm.
@@ -119,6 +133,7 @@ class TestPageEditHandlers(TestCase):
         # The generated form should inherit from WagtailAdminPageForm
         self.assertTrue(issubclass(EventPageForm, WagtailAdminPageForm))
 
+    @clear_edit_handler(ValidatedPage)
     def test_get_form_for_page_with_custom_base(self):
         """
         ValidatedPage sets a custom base_form_class. This should be used as the
@@ -131,26 +146,40 @@ class TestPageEditHandlers(TestCase):
         # ValidatedPage.base_form_class == ValidatedPageForm
         self.assertTrue(issubclass(GeneratedValidatedPageForm, ValidatedPageForm))
 
+    @clear_edit_handler(ValidatedPage)
     def test_check_invalid_base_form_class(self):
         class BadFormClass(object):
             pass
 
-        # Clear any old EditHandlers generated
-        ValidatedPage.get_edit_handler.cache_clear()
+        invalid_base_form = checks.Error(
+            "ValidatedPage.base_form_class does not extend WagtailAdminPageForm",
+            hint="Ensure that wagtail.wagtailadmin.tests.test_edit_handlers.BadFormClass extends WagtailAdminPageForm",
+            obj=ValidatedPage,
+            id='wagtailcore.E002')
+
+        invalid_edit_handler = checks.Error(
+            "ValidatedPage.get_edit_handler().get_form_class(ValidatedPage) does not extend WagtailAdminPageForm",
+            hint="Ensure that the EditHandler for ValidatedPage creates a subclass of WagtailAdminPageForm",
+            obj=ValidatedPage,
+            id='wagtailcore.E003')
 
         with mock.patch.object(ValidatedPage, 'base_form_class', new=BadFormClass):
             errors = ValidatedPage.check()
-            self.assertEqual(len(errors), 1)
+            self.assertEqual(errors, [invalid_base_form, invalid_edit_handler])
 
-            error = errors[0]
-            self.assertEqual(error, checks.Error(
-                "base_form_class does not extend WagtailAdminPageForm",
-                hint="Ensure that wagtail.wagtailadmin.tests.test_edit_handlers.BadFormClass extends WagtailAdminPageForm",
-                obj=ValidatedPage,
-                id='wagtailcore.E002'))
-
-        # Clear the bad EditHandler generated just now
-        ValidatedPage.get_edit_handler.cache_clear()
+    @clear_edit_handler(ValidatedPage)
+    def test_custom_edit_handler_form_class(self):
+        """
+        Set a custom edit handler on a Page class, but dont customise
+        ValidatedPage.base_form_class, or provide a custom form class for the
+        edit handler. Check the generated form class is of the correct type.
+        """
+        ValidatedPage.edit_handler = TabbedInterface([])
+        with mock.patch.object(ValidatedPage, 'edit_handler', new=TabbedInterface([]), create=True):
+            form_class = ValidatedPage.get_edit_handler().get_form_class(ValidatedPage)
+            self.assertTrue(issubclass(form_class, WagtailAdminPageForm))
+            errors = ValidatedPage.check()
+            self.assertEqual(errors, [])
 
 
 class TestExtractPanelDefinitionsFromModelClass(TestCase):
