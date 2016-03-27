@@ -537,15 +537,23 @@ class Page(six.with_metaclass(PageBase, MP_Node, ClusterableModel, index.Indexed
         from wagtail.wagtailadmin.forms import WagtailAdminPageForm
         if not issubclass(cls.base_form_class, WagtailAdminPageForm):
             errors.append(checks.Error(
-                "base_form_class does not extend WagtailAdminPageForm",
+                "{}.base_form_class does not extend WagtailAdminPageForm".format(
+                    cls.__name__),
                 hint="Ensure that {}.{} extends WagtailAdminPageForm".format(
                     cls.base_form_class.__module__,
                     cls.base_form_class.__name__),
                 obj=cls,
                 id='wagtailcore.E002'))
-        # Sadly, there is no way of checking the form class returned from
-        # cls.get_edit_handler().get_form_class(cls), as these calls can hit
-        # the DB in order to fetch content types.
+
+        edit_handler = cls.get_edit_handler()
+        if not issubclass(edit_handler.get_form_class(cls), WagtailAdminPageForm):
+            errors.append(checks.Error(
+                "{cls}.get_edit_handler().get_form_class({cls}) does not extend WagtailAdminPageForm".format(
+                    cls=cls.__name__),
+                hint="Ensure that the EditHandler for {cls} creates a subclass of WagtailAdminPageForm".format(
+                    cls=cls.__name__),
+                obj=cls,
+                id='wagtailcore.E003'))
 
         return errors
 
