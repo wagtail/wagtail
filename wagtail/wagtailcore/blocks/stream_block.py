@@ -36,7 +36,7 @@ class BaseStreamBlock(Block):
     class Meta:
         default = []
 
-    def __init__(self, local_blocks=None, **kwargs):
+    def __init__(self, local_blocks=None, child_wrappers=True, **kwargs):
         self._constructor_kwargs = kwargs
 
         super(BaseStreamBlock, self).__init__(**kwargs)
@@ -209,7 +209,7 @@ class BaseStreamBlock(Block):
 
     def render_basic(self, value):
         return format_html_join(
-            '\n', '<div class="block-{1}">{0}</div>',
+            '\n', '<div class="block-{1}">{0}</div>' if child_wrappers else '{0}',
             [(force_text(child), child.block_type) for child in value]
         )
 
