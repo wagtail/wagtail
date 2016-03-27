@@ -1,8 +1,8 @@
+from django import forms
 from django.contrib.auth.models import Permission
 from django.contrib.staticfiles.templatetags.staticfiles import static
 from django.core.urlresolvers import reverse
 from django.utils.translation import ugettext_lazy as _
-from django import forms
 
 from wagtail.wagtailadmin.menu import MenuItem, SubmenuMenuItem, settings_menu
 from wagtail.wagtailadmin.search import SearchArea
