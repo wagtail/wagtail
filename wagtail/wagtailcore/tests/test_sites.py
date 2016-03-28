@@ -1,6 +1,6 @@
 from django.core.exceptions import ValidationError
-from django.test import TestCase
 from django.http.request import HttpRequest
+from django.test import TestCase
 
 from wagtail.wagtailcore.models import Page, Site
 
