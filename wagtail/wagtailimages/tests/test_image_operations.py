@@ -1,3 +1,5 @@
+from __future__ import absolute_import, unicode_literals
+
 from django.test import TestCase
 from django.utils.six import BytesIO
 from mock import Mock

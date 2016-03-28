@@ -1,3 +1,5 @@
+from __future__ import absolute_import, unicode_literals
+
 from django import forms
 from django.contrib.auth.models import Permission
 from django.contrib.staticfiles.templatetags.staticfiles import static

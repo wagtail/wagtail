@@ -1,3 +1,5 @@
+from __future__ import absolute_import, unicode_literals
+
 from django.contrib.auth import get_permission_codename
 
 from wagtail.wagtailsnippets.models import get_snippet_models

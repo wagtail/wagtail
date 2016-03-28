@@ -1,3 +1,5 @@
+from __future__ import absolute_import, unicode_literals
+
 from django.core.urlresolvers import NoReverseMatch
 from django.test import RequestFactory, TestCase
 
