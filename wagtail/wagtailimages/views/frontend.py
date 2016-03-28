@@ -1,3 +1,5 @@
+from __future__ import absolute_import, unicode_literals
+
 import imghdr
 from wsgiref.util import FileWrapper
 

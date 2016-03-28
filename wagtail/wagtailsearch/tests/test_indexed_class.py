@@ -1,3 +1,5 @@
+from __future__ import absolute_import, unicode_literals
+
 from django.test import TestCase
 
 from wagtail.tests.search import models
@@ -16,7 +18,7 @@ class TestContentTypeNames(TestCase):
 
 class TestSearchFields(TestCase):
     def make_dummy_type(self, search_fields):
-        return type('DummyType', (index.Indexed, ), dict(search_fields=search_fields))
+        return type(str('DummyType'), (index.Indexed, ), dict(search_fields=search_fields))
 
     def test_basic(self):
         cls = self.make_dummy_type([

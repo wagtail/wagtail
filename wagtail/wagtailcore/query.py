@@ -1,3 +1,5 @@
+from __future__ import absolute_import, unicode_literals
+
 from collections import defaultdict
 
 from django import VERSION as DJANGO_VERSION

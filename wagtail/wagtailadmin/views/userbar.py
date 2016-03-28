@@ -1,3 +1,5 @@
+from __future__ import absolute_import, unicode_literals
+
 from django.contrib.auth.decorators import permission_required
 from django.shortcuts import render
 

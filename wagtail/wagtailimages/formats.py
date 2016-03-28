@@ -1,3 +1,5 @@
+from __future__ import absolute_import, unicode_literals
+
 from django.utils.html import escape
 
 from wagtail.utils.apps import get_app_submodules

@@ -1,4 +1,4 @@
-from __future__ import unicode_literals  # ensure that RichText.__str__ returns unicode
+from __future__ import absolute_import, unicode_literals
 
 import re  # parsing HTML with regexes LIKE A BOSS.
 
