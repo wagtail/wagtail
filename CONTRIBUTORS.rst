@@ -118,6 +118,7 @@ Contributors
 * Rob Moorman
 * Matthijs Melissen
 * Jonas Lergell
+* Danielle Madeley
 
 Translators
 ===========
