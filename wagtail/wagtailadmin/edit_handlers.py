@@ -270,7 +270,7 @@ class BaseFormEditHandler(BaseCompositeEditHandler):
     # edit handler.  Subclasses can override this attribute to provide a form
     # with custom validation, for example.  Custom forms must subclass
     # WagtailAdminModelForm
-    base_form_class = WagtailAdminModelForm
+    base_form_class = None
 
     _form_class = None
 
@@ -281,9 +281,15 @@ class BaseFormEditHandler(BaseCompositeEditHandler):
         the children of this edit handler.
         """
         if cls._form_class is None:
+            # If a custom form class was passed to the EditHandler, use it.
+            # Otherwise, use the base_form_class from the model.
+            # If that is not defined, use WagtailAdminModelForm.
+            model_form_class = getattr(model, 'base_form_class', WagtailAdminModelForm)
+            base_form_class = cls.base_form_class or model_form_class
+
             cls._form_class = get_form_for_model(
                 model,
-                form_class=cls.base_form_class,
+                form_class=base_form_class,
                 fields=cls.required_fields(),
                 formsets=cls.required_formsets(),
                 widgets=cls.widget_overrides())
@@ -295,7 +301,7 @@ class BaseTabbedInterface(BaseFormEditHandler):
 
 
 class TabbedInterface(object):
-    def __init__(self, children, base_form_class=BaseFormEditHandler.base_form_class):
+    def __init__(self, children, base_form_class=None):
         self.children = children
         self.base_form_class = base_form_class
 
@@ -314,7 +320,7 @@ class BaseObjectList(BaseFormEditHandler):
 class ObjectList(object):
 
     def __init__(self, children, heading="", classname="",
-                 base_form_class=BaseFormEditHandler.base_form_class):
+                 base_form_class=None):
         self.children = children
         self.heading = heading
         self.classname = classname
