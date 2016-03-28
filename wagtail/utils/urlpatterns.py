@@ -1,3 +1,6 @@
+from __future__ import absolute_import, unicode_literals
+
+
 def decorate_urlpatterns(urlpatterns, decorator):
     for pattern in urlpatterns:
         if hasattr(pattern, 'url_patterns'):

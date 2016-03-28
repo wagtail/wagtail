@@ -1,4 +1,4 @@
-from __future__ import absolute_import
+from __future__ import absolute_import, unicode_literals
 
 from collections import OrderedDict
 
@@ -393,7 +393,7 @@ def get_serializer_class(model_, fields_, meta_fields=None, base=BaseSerializer)
         model = model_
         fields = base.default_fields + list(fields_)
 
-    return type(model_.__name__ + 'Serializer', (base, ), {
+    return type(str(model_.__name__ + 'Serializer'), (base, ), {
         'Meta': Meta,
         'meta_fields': base.meta_fields + list(meta_fields or []),
     })

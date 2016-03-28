@@ -1,6 +1,8 @@
 # Copied from django-sendfile 0.3.6 and tweaked to allow a backend to be passed
 # to sendfile()
 # See: https://github.com/johnsensible/django-sendfile/pull/33
+from __future__ import absolute_import, unicode_literals
+
 import os.path
 from mimetypes import guess_type
 
