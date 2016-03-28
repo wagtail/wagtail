@@ -31,24 +31,37 @@ class TestSiteUrl(TestCase):
 
 
 class TestFindSiteForRequest(TestCase):
-    def test_find_site_for_request(self):
-        site = Site.objects.create(hostname='example.com', port=80, root_page=Page.objects.get(pk=2))
+    def setUp(self):
+        self.default_site = Site.objects.get()
+        self.site = Site.objects.create(hostname='example.com', port=80, root_page=Page.objects.get(pk=2))
 
+    def test_default(self):
+        request = HttpRequest()
+        self.assertEqual(Site.find_for_request(request), self.default_site)
+
+    def test_with_host(self):
         request = HttpRequest()
         request.META = {'HTTP_HOST': 'example.com'}
-        self.assertEqual(Site.find_for_request(request), site)
+        self.assertEqual(Site.find_for_request(request), self.site)
 
-        request2 = HttpRequest()
-        request2.META = {
+    def test_with_unknown_host(self):
+        request = HttpRequest()
+        request.META = {'HTTP_HOST': 'unknown.com'}
+        self.assertEqual(Site.find_for_request(request), self.default_site)
+
+    def test_with_server_name(self):
+        request = HttpRequest()
+        request.META = {
             'SERVER_NAME': 'example.com',
             'SERVER_PORT': 80
         }
-        self.assertEqual(Site.find_for_request(request2), site)
+        self.assertEqual(Site.find_for_request(request), self.site)
 
+    def test_with_x_forwarded_host(self):
         with self.settings(USE_X_FORWARDED_HOST=True):
-            request3 = HttpRequest()
-            request3.META = {'HTTP_X_FORWARDED_HOST': 'example.com'}
-            self.assertEqual(Site.find_for_request(request3), site)
+            request = HttpRequest()
+            request.META = {'HTTP_X_FORWARDED_HOST': 'example.com'}
+            self.assertEqual(Site.find_for_request(request), self.site)
 
 
 class TestDefaultSite(TestCase):
