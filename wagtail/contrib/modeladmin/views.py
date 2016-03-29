@@ -45,7 +45,6 @@ from wagtail.wagtailadmin import messages
 from wagtail.wagtailadmin.edit_handlers import (
     ObjectList, extract_panel_definitions_from_model_class)
 
-from .helpers import get_url_name
 from .forms import ParentChooserForm
 
 # IndexView settings

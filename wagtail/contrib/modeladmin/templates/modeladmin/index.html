@@ -23,7 +23,7 @@
                     {% block search %}{% search_form %}{% endblock %}
                 </div>
                 {% block header_extra %}
-                    {% if view.button_helper.show_add_button and view.button_helper.add_button %}
+                    {% if view.button_helper.show_add_button %}
                         <div class="right">
                             <div class="addbutton">
                                 {% include 'modeladmin/includes/button.html' with button=view.button_helper.add_button %}

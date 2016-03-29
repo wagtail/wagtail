@@ -205,24 +205,6 @@ class PagePermissionHelper(PermissionHelper):
         return parent_page.permissions_for_user(user).can_publish_subpage()
 
 
-def get_url_pattern(model_meta, action=None):
-    if not action:
-        return r'^modeladmin/%s/%s/$' % (
-            model_meta.app_label, model_meta.model_name)
-    return r'^modeladmin/%s/%s/%s/$' % (
-        model_meta.app_label, model_meta.model_name, action)
-
-
-def get_object_specific_url_pattern(model_meta, action):
-    return r'^modeladmin/%s/%s/%s/(?P<object_pk>[-\w]+)/$' % (
-        model_meta.app_label, model_meta.model_name, action)
-
-
-def get_url_name(model_meta, action='index'):
-    return '%s_%s_modeladmin_%s' % (
-        model_meta.app_label, model_meta.model_name, action)
-
-
 class ButtonHelper(object):
 
     default_button_classnames = ['button']
