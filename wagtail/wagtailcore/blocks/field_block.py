@@ -325,16 +325,16 @@ class RichTextBlock(FieldBlock):
 
     @cached_property
     def field(self):
-        from wagtail.wagtailcore.fields import RichTextArea
-        return forms.CharField(widget=RichTextArea, **self.field_options)
+        from wagtail.wagtailadmin.rich_text import HalloRichTextArea
+        return forms.CharField(widget=HalloRichTextArea, **self.field_options)
 
     def value_for_form(self, value):
-        # RichTextArea takes the source-HTML string as input (and takes care
+        # HalloRichTextArea takes the source-HTML string as input (and takes care
         # of expanding it for the purposes of the editor)
         return value.source
 
     def value_from_form(self, value):
-        # RichTextArea returns a source-HTML string; concert to a RichText object
+        # HalloRichTextArea returns a source-HTML string; concert to a RichText object
         return RichText(value)
 
     def get_searchable_content(self, value):
