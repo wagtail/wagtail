@@ -1,4 +1,5 @@
 import sys
+import urllib
 import operator
 from collections import OrderedDict
 from functools import reduce
@@ -80,12 +81,13 @@ class WMABaseView(TemplateView):
         self.pk_attname = self.opts.pk.attname
         self.is_pagemodel = model_admin.is_pagemodel
         self.permission_helper = model_admin.permission_helper
+        self.url_helper = model_admin.url_helper
 
     @method_decorator(login_required)
     def dispatch(self, request, *args, **kwargs):
         button_helper_class = self.model_admin.get_button_helper_class()
         self.button_helper = button_helper_class(
-            self.model, self.permission_helper, request.user,
+            self.model, request.user, self.permission_helper, self.url_helper,
             self.model_admin.inspect_view_enabled)
         return super(WMABaseView, self).dispatch(request, *args, **kwargs)
 
@@ -103,11 +105,11 @@ class WMABaseView(TemplateView):
 
     @cached_property
     def get_index_url(self):
-        return self.model_admin.get_index_url()
+        return self.url_helper.get_action_url('index')
 
     @cached_property
     def get_create_url(self):
-        return self.model_admin.get_create_url()
+        return self.url_helper.get_action_url('create')
 
     @cached_property
     def menu_icon(self):
@@ -118,10 +120,10 @@ class WMABaseView(TemplateView):
         return self.menu_icon
 
     def get_edit_url(self, obj):
-        return reverse(get_url_name(self.opts, 'edit'), args=(obj.pk,))
+        return self.url_helper.get_action_url('edit', quote(obj.pk))
 
     def get_delete_url(self, obj):
-        return reverse(get_url_name(self.opts, 'delete'), args=(obj.pk,))
+        return self.url_helper.get_action_url('delete', quote(obj.pk))
 
     def get_page_title(self):
         return self.page_title or self.model_name_plural
@@ -203,15 +205,14 @@ class WMAFormView(WMABaseView, FormView):
 
 class ObjectSpecificView(WMABaseView):
 
-    object_id = None
+    object_pk = None
     instance = None
 
-    def __init__(self, model_admin, object_id):
+    def __init__(self, model_admin, object_pk):
         super(ObjectSpecificView, self).__init__(model_admin)
-        self.object_id = object_id
-        self.pk_safe = quote(object_id)
+        self.object_pk = unquote(object_pk)
         filter_kwargs = {}
-        filter_kwargs[self.pk_attname] = self.pk_safe
+        filter_kwargs[self.pk_attname] = self.object_pk
         object_qs = model_admin.model._default_manager.get_queryset().filter(
             **filter_kwargs)
         self.instance = get_object_or_404(object_qs)
@@ -223,12 +224,11 @@ class ObjectSpecificView(WMABaseView):
         user = self.request.user
         return self.permission_helper.can_delete_object(user, self.instance)
 
-    def get_edit_url(self, obj=None):
-        return reverse(get_url_name(self.opts, 'edit'), args=(self.pk_safe,))
+    def get_edit_url(self):
+        return super(ObjectSpecificView, self).get_edit_url(self.instance)
 
-    def get_delete_url(self, obj=None):
-        return reverse(get_url_name(self.opts, 'confirm_delete'),
-                       args=(self.pk_safe,))
+    def get_delete_url(self):
+        return super(ObjectSpecificView, self).get_delete_url(self.instance)
 
 
 class IndexView(WMABaseView):
@@ -833,13 +833,14 @@ class CreateView(WMAFormView):
             # user, so we send them along with that as the chosen parent page
             if parent_count == 1:
                 parent = parents.get()
-                return redirect(
-                    PAGES_CREATE_URL_NAME, self.opts.app_label,
-                    self.opts.model_name, parent.pk)
+                args = [self.opts.app_label, self.opts.model_name, parent.pk]
+                target_url = reverse(PAGES_CREATE_URL_NAME, args)
+                next_url = urllib.quote(self.get_index_url)
+                return redirect('%s?next=%s' % (target_url, next_url))
 
             # The page can be added in multiple places, so redirect to the
             # choose_parent view so that the parent can be specified
-            return redirect(self.model_admin.get_choose_parent_url())
+            return redirect(self.url_helper.get_action_url('choose_parent'))
         return super(CreateView, self).dispatch(request, *args, **kwargs)
 
     def get_meta_title(self):
@@ -873,9 +874,11 @@ class ChooseParentView(WMABaseView):
     def post(self, request, *args, **kargs):
         form = self.get_form(request)
         if form.is_valid():
-            parent = form.cleaned_data['parent_page']
-            return redirect(PAGES_CREATE_URL_NAME, self.opts.app_label,
-                            self.opts.model_name, quote(parent.pk))
+            parent_pk = quote(form.cleaned_data['parent_page'].pk)
+            url_args = [self.opts.app_label, self.opts.model_name, parent_pk]
+            target_url = reverse(PAGES_CREATE_URL_NAME, args=url_args)
+            next_url = urllib.quote(self.get_index_url)
+            return redirect('%s?next=%s' % (target_url, next_url))
         context = {'view': self, 'form': form}
         return render(request, self.get_template(), context)
 
@@ -896,7 +899,8 @@ class EditView(ObjectSpecificView, CreateView):
             raise PermissionDenied
         if self.is_pagemodel:
             return redirect(
-                self.button_helper.get_action_url('edit', self.instance.id))
+                self.url_helper.get_action_url('edit', quote(self.object_pk))
+            )
         return super(CreateView, self).dispatch(request, *args, **kwargs)
 
     def get_meta_title(self):
@@ -917,7 +921,7 @@ class EditView(ObjectSpecificView, CreateView):
         return self.model_admin.get_edit_template()
 
 
-class ConfirmDeleteView(ObjectSpecificView):
+class DeleteView(ObjectSpecificView):
     page_title = _('Delete')
 
     def check_action_permitted(self):
@@ -930,9 +934,9 @@ class ConfirmDeleteView(ObjectSpecificView):
             raise PermissionDenied
         if self.is_pagemodel:
             return redirect(
-                self.button_helper.get_action_url('delete', self.instance.id))
-        return super(ConfirmDeleteView, self).dispatch(request, *args,
-                                                       **kwargs)
+                self.url_helper.get_action_url('delete', quote(self.object_pk))
+            )
+        return super(DeleteView, self).dispatch(request, *args, **kwargs)
 
     def get_meta_title(self):
         return _('Confirm deletion of %s') % self.model_name.lower()
