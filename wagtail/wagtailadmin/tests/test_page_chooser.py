@@ -313,27 +313,34 @@ class TestChooserExternalLink(TestCase, WagtailTestUtils):
         self.assertTemplateUsed(response, 'wagtailadmin/chooser/external_link.html')
 
     def test_get_with_param(self):
-        self.assertEqual(self.get({'prompt_for_link_text': 'foo'}).status_code, 200)
+        self.assertEqual(self.get({'link_text': 'foo'}).status_code, 200)
 
     def test_create_link(self):
+        response = self.post({'url': 'http://www.example.com/', 'link_text': 'example'})
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, "'onload'")  # indicates success / post back to calling page
+        self.assertContains(response, "'url': 'http://www.example.com/'")
+        self.assertContains(response, "'title': 'example'")  # When link text is given, it is used
+
+    def test_create_link_without_text(self):
         response = self.post({'url': 'http://www.example.com/'})
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, "'onload'")  # indicates success / post back to calling page
-        self.assertContains(response, "'url': 'http://www.example.com/',")
-        self.assertContains(response, "'title': 'http://www.example.com/'")
+        self.assertContains(response, "'url': 'http://www.example.com/'")
+        self.assertContains(response, "'title': 'http://www.example.com/'")  # When no text is given, it uses the url
 
     def test_invalid_url(self):
-        response = self.post({'url': 'ntp://www.example.com'})
+        response = self.post({'url': 'ntp://www.example.com', 'link_text': 'example'})
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, "'html'")  # indicates failure / show error message
         self.assertContains(response, "Enter a valid URL.")
 
     def test_allow_local_url(self):
-        response = self.post({'url': '/admin/'})
+        response = self.post({'url': '/admin/', 'link_text': 'admin'})
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, "'onload'")  # indicates success / post back to calling page
         self.assertContains(response, "'url': '/admin/',")
-        self.assertContains(response, "'title': '/admin/'")
+        self.assertContains(response, "'title': 'admin'")
 
 
 class TestChooserEmailLink(TestCase, WagtailTestUtils):
@@ -352,9 +359,14 @@ class TestChooserEmailLink(TestCase, WagtailTestUtils):
         self.assertTemplateUsed(response, 'wagtailadmin/chooser/email_link.html')
 
     def test_get_with_param(self):
-        self.assertEqual(self.get({'prompt_for_link_text': 'foo'}).status_code, 200)
+        self.assertEqual(self.get({'link_text': 'foo'}).status_code, 200)
 
     def test_create_link(self):
+        request = self.post({'email_address': 'example@example.com', 'link_text': 'contact'})
+        self.assertContains(request, "'url': 'mailto:example@example.com',")
+        self.assertContains(request, "'title': 'contact'")  # When link text is given, it is used
+
+    def test_create_link_without_text(self):
         request = self.post({'email_address': 'example@example.com'})
         self.assertContains(request, "'url': 'mailto:example@example.com',")
-        self.assertContains(request, "'title': 'example@example.com'")
+        self.assertContains(request, "'title': 'example@example.com'")  # When no link text is given, it uses the email

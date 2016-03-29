@@ -55,18 +55,10 @@ class SearchForm(forms.Form):
 
 class ExternalLinkChooserForm(forms.Form):
     url = URLOrAbsolutePathField(required=True, label=ugettext_lazy("URL"))
-
-
-class ExternalLinkChooserWithLinkTextForm(forms.Form):
-    url = URLOrAbsolutePathField(required=True, label=ugettext_lazy("URL"))
-    link_text = forms.CharField(required=True)
+    link_text = forms.CharField(required=False)
 
 
 class EmailLinkChooserForm(forms.Form):
-    email_address = forms.EmailField(required=True)
-
-
-class EmailLinkChooserWithLinkTextForm(forms.Form):
     email_address = forms.EmailField(required=True)
     link_text = forms.CharField(required=False)
 
