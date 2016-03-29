@@ -2,11 +2,10 @@ from __future__ import absolute_import, unicode_literals
 
 from django.http import Http404
 from django.shortcuts import get_object_or_404, render
+from django.utils.six.moves.urllib.parse import unquote
 
 from wagtail.utils.pagination import paginate
-from wagtail.wagtailadmin.forms import (
-    EmailLinkChooserForm, EmailLinkChooserWithLinkTextForm, ExternalLinkChooserForm,
-    ExternalLinkChooserWithLinkTextForm, SearchForm)
+from wagtail.wagtailadmin.forms import EmailLinkChooserForm, ExternalLinkChooserForm, SearchForm
 from wagtail.wagtailadmin.modal_workflow import render_modal_workflow
 from wagtail.wagtailcore.models import Page
 from wagtail.wagtailcore.utils import resolve_model_string
@@ -144,26 +143,23 @@ def search(request, parent_page_id=None):
 
 
 def external_link(request):
-    prompt_for_link_text = bool(request.GET.get('prompt_for_link_text'))
-
-    if prompt_for_link_text:
-        form_class = ExternalLinkChooserWithLinkTextForm
-    else:
-        form_class = ExternalLinkChooserForm
+    link_text = unquote(request.GET.get('link_text', ''))
+    link_url = unquote(request.GET.get('link_url', ''))
 
     if request.method == 'POST':
-        form = form_class(request.POST)
+        form = ExternalLinkChooserForm(request.POST)
+
         if form.is_valid():
             return render_modal_workflow(
                 request,
                 None, 'wagtailadmin/chooser/external_link_chosen.js',
                 {
                     'url': form.cleaned_data['url'],
-                    'link_text': form.cleaned_data['link_text'] if prompt_for_link_text else form.cleaned_data['url']
+                    'link_text': form.cleaned_data['link_text'].strip() or form.cleaned_data['url']
                 }
             )
     else:
-        form = form_class()
+        form = ExternalLinkChooserForm(initial={'url': link_url, 'link_text': link_text})
 
     return render_modal_workflow(
         request,
@@ -175,28 +171,23 @@ def external_link(request):
 
 
 def email_link(request):
-    prompt_for_link_text = bool(request.GET.get('prompt_for_link_text'))
-
-    if prompt_for_link_text:
-        form_class = EmailLinkChooserWithLinkTextForm
-    else:
-        form_class = EmailLinkChooserForm
+    link_text = unquote(request.GET.get('link_text', ''))
+    link_url = unquote(request.GET.get('link_url', ''))
 
     if request.method == 'POST':
-        form = form_class(request.POST)
+        form = EmailLinkChooserForm(request.POST)
+
         if form.is_valid():
             return render_modal_workflow(
                 request,
                 None, 'wagtailadmin/chooser/external_link_chosen.js',
                 {
                     'url': 'mailto:' + form.cleaned_data['email_address'],
-                    'link_text': form.cleaned_data['link_text'] if (
-                        prompt_for_link_text and form.cleaned_data['link_text']
-                    ) else form.cleaned_data['email_address']
+                    'link_text': form.cleaned_data['link_text'].strip() or form.cleaned_data['email_address']
                 }
             )
     else:
-        form = form_class()
+        form = EmailLinkChooserForm(initial={'email_address': link_url, 'link_text': link_text})
 
     return render_modal_workflow(
         request,
