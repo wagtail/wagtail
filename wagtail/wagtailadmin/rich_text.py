@@ -2,7 +2,9 @@ from __future__ import absolute_import, unicode_literals
 
 import json
 
+from django.conf import settings
 from django.forms import widgets
+from django.utils.module_loading import import_string
 
 from wagtail.utils.widgets import WidgetWithScript
 from wagtail.wagtailadmin.edit_handlers import RichTextFieldPanel
@@ -28,3 +30,17 @@ class HalloRichTextArea(WidgetWithScript, widgets.Textarea):
         if original_value is None:
             return None
         return DbWhitelister.clean(original_value)
+
+
+DEFAULT_RICH_TEXT_EDITORS = {
+    'default': {
+        'WIDGET': 'wagtail.wagtailadmin.rich_text.HalloRichTextArea'
+    }
+}
+
+
+def get_rich_text_editor(name='default'):
+    editor_settings = getattr(settings, 'WAGTAILADMIN_RICH_TEXT_EDITORS', DEFAULT_RICH_TEXT_EDITORS)
+
+    editor = editor_settings[name]
+    return import_string(editor['WIDGET'])()
