@@ -2,7 +2,7 @@ from __future__ import absolute_import, unicode_literals
 
 from django.core.cache import cache
 from django.test import TestCase
-from django.utils.safestring import SafeString
+from django.utils.safestring import SafeText
 
 from wagtail.tests.testapp.models import SimplePage
 from wagtail.wagtailcore.models import Page, Site
@@ -196,7 +196,7 @@ class TestRichtextTag(TestCase):
     def test_call_with_text(self):
         result = richtext("Hello world!")
         self.assertEqual(result, '<div class="rich-text">Hello world!</div>')
-        self.assertIsInstance(result, SafeString)
+        self.assertIsInstance(result, SafeText)
 
     def test_call_with_none(self):
         result = richtext(None)
