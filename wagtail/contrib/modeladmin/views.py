@@ -1,5 +1,4 @@
 import sys
-import urllib
 import operator
 from collections import OrderedDict
 from functools import reduce
@@ -26,13 +25,14 @@ from django.utils.decorators import method_decorator
 from django.contrib.admin.options import IncorrectLookupParameters
 from django.contrib.admin.exceptions import DisallowedModelAdminLookup
 from django.contrib.admin.utils import (
-    get_fields_from_path, lookup_needs_distinct, prepare_lookup_value, quote)
+    get_fields_from_path, lookup_needs_distinct, prepare_lookup_value, quote,
+    unquote)
 
 from django.utils import six
 from django.utils.translation import ugettext as _
 from django.utils.encoding import force_text
 from django.utils.text import capfirst
-from django.utils.http import urlencode
+from django.utils.http import urlencode, urlquote
 from django.utils.safestring import mark_safe
 from django.utils.functional import cached_property
 from django.views.generic import TemplateView
@@ -103,20 +103,20 @@ class WMABaseView(TemplateView):
         return capfirst(force_text(self.opts.verbose_name_plural))
 
     @cached_property
-    def get_index_url(self):
-        return self.url_helper.get_action_url('index')
-
-    @cached_property
-    def get_create_url(self):
-        return self.url_helper.get_action_url('create')
-
-    @cached_property
     def menu_icon(self):
         return self.model_admin.get_menu_icon()
 
     @cached_property
     def header_icon(self):
         return self.menu_icon
+
+    @cached_property
+    def get_index_url(self):
+        return self.url_helper.get_action_url('index')
+
+    @cached_property
+    def get_create_url(self):
+        return self.url_helper.get_action_url('create')
 
     def get_edit_url(self, obj):
         return self.url_helper.get_action_url('edit', quote(obj.pk))
@@ -834,7 +834,7 @@ class CreateView(WMAFormView):
                 parent = parents.get()
                 args = [self.opts.app_label, self.opts.model_name, parent.pk]
                 target_url = reverse(PAGES_CREATE_URL_NAME, args)
-                next_url = urllib.quote(self.get_index_url)
+                next_url = urlquote(self.get_index_url)
                 return redirect('%s?next=%s' % (target_url, next_url))
 
             # The page can be added in multiple places, so redirect to the
@@ -876,7 +876,7 @@ class ChooseParentView(WMABaseView):
             parent_pk = quote(form.cleaned_data['parent_page'].pk)
             url_args = [self.opts.app_label, self.opts.model_name, parent_pk]
             target_url = reverse(PAGES_CREATE_URL_NAME, args=url_args)
-            next_url = urllib.quote(self.get_index_url)
+            next_url = urlquote(self.get_index_url)
             return redirect('%s?next=%s' % (target_url, next_url))
         context = {'view': self, 'form': form}
         return render(request, self.get_template(), context)
@@ -987,4 +987,4 @@ class DeleteView(ObjectSpecificView):
 
 
     def get_template_names(self):
-        return self.model_admin.get_confirm_delete_template()
+        return self.model_admin.get_delete_template()

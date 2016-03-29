@@ -6,17 +6,18 @@ class ModelAdminMenuItem(MenuItem):
     A sub-class of wagtail's MenuItem, used by PageModelAdmin to add a link
     to its listing page
     """
-    def __init__(self, modeladmin, order):
-        self.modeladmin = modeladmin
-        self.model = modeladmin.model
-        self.opts = modeladmin.model._meta
-        classnames = 'icon icon-%s' % modeladmin.get_menu_icon()
+    def __init__(self, model_admin, order):
+        self.model_admin = model_admin
+        url = model_admin.url_helper.get_action_url('index')
+        classnames = 'icon icon-%s' % model_admin.get_menu_icon()
         super(ModelAdminMenuItem, self).__init__(
-            label=modeladmin.get_menu_label(), url=modeladmin.get_index_url(),
+            label=model_admin.get_menu_label(), url=url,
             classnames=classnames, order=order)
 
     def is_shown(self, request):
-        return self.modeladmin.show_menu_item(request)
+        return self.model_admin.permission_helper.has_list_permission(
+            request.user
+        )
 
 
 class GroupMenuItem(SubmenuMenuItem):

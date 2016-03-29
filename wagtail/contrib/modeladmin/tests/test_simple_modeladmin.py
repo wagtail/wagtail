@@ -24,7 +24,7 @@ class TestIndexView(TestCase, WagtailTestUtils):
         self.assertEqual(response.context['result_count'], 4)
 
         # User has add permission
-        self.assertEqual(response.context['has_add_permission'], True)
+        self.assertEqual(response.context['view'].button_helper.show_add_button(), True)
 
     def test_filter(self):
         # Filter by author 1 (JRR Tolkien)
@@ -143,14 +143,6 @@ class TestPageSpecificViews(TestCase, WagtailTestUtils):
         response = self.client.get('/admin/modeladmintest/book/choose_parent/')
         self.assertEqual(response.status_code, self.expected_status_code)
 
-    def test_copy(self):
-        response = self.client.get('/admin/modeladmintest/book/copy/1/')
-        self.assertEqual(response.status_code, self.expected_status_code)
-
-    def test_unpublish(self):
-        response = self.client.get('/admin/modeladmintest/book/unpublish/1/')
-        self.assertEqual(response.status_code, self.expected_status_code)
-
 
 class TestConfirmDeleteView(TestCase, WagtailTestUtils):
     fixtures = ['modeladmintest_test.json']
@@ -159,10 +151,10 @@ class TestConfirmDeleteView(TestCase, WagtailTestUtils):
         self.login()
 
     def get(self, book_id):
-        return self.client.get('/admin/modeladmintest/book/confirm_delete/%d/' % book_id)
+        return self.client.get('/admin/modeladmintest/book/delete/%d/' % book_id)
 
     def post(self, book_id):
-        return self.client.post('/admin/modeladmintest/book/confirm_delete/%d/' % book_id, {
+        return self.client.post('/admin/modeladmintest/book/delete/%d/' % book_id, {
             'foo': 'bar'
         })
 
@@ -219,9 +211,9 @@ class TestEditorAccess(TestCase):
         self.assertEqual(response.status_code, self.expected_status_code)
 
     def test_delete_get_permitted(self):
-        response = self.client.get('/admin/modeladmintest/book/confirm_delete/2/')
+        response = self.client.get('/admin/modeladmintest/book/delete/2/')
         self.assertEqual(response.status_code, self.expected_status_code)
 
     def test_delete_post_permitted(self):
-        response = self.client.post('/admin/modeladmintest/book/confirm_delete/2/')
+        response = self.client.post('/admin/modeladmintest/book/delete/2/')
         self.assertEqual(response.status_code, self.expected_status_code)

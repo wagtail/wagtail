@@ -23,7 +23,7 @@ class TestIndexView(TestCase, WagtailTestUtils):
         self.assertEqual(response.context['result_count'], 4)
 
         # User has add permission
-        self.assertEqual(response.context['has_add_permission'], True)
+        self.assertEqual(response.context['view'].button_helper.show_add_button(), True)
 
     def test_filter(self):
         # Filter by audience
@@ -120,42 +120,6 @@ class TestChooseParentView(TestCase, WagtailTestUtils):
         self.assertEqual(response.status_code, 200)
 
 
-class TestCopyRedirect(TestCase, WagtailTestUtils):
-    fixtures = ['test_specific.json']
-
-    def setUp(self):
-        self.login()
-
-    def get(self, obj_id):
-        return self.client.get('/admin/tests/eventpage/copy/%d/' % obj_id)
-
-    def test_simple(self):
-        response = self.get(4)
-        self.assertRedirects(response, '/admin/pages/4/copy/')
-
-    def test_non_existent(self):
-        response = self.get(100)
-        self.assertEqual(response.status_code, 404)
-
-
-class TestUnpublishRedirect(TestCase, WagtailTestUtils):
-    fixtures = ['test_specific.json']
-
-    def setUp(self):
-        self.login()
-
-    def get(self, obj_id):
-        return self.client.get('/admin/tests/eventpage/unpublish/%d/' % obj_id)
-
-    def test_simple(self):
-        response = self.get(4)
-        self.assertRedirects(response, '/admin/pages/4/unpublish/')
-
-    def test_non_existent(self):
-        response = self.get(100)
-        self.assertEqual(response.status_code, 404)
-
-
 class TestEditorAccess(TestCase):
     fixtures = ['test_specific.json']
     expected_status_code = 403
@@ -171,16 +135,8 @@ class TestEditorAccess(TestCase):
     def setUp(self):
         self.login()
 
-    def test_copy_permitted(self):
-        response = self.client.get('/admin/tests/eventpage/copy/4/')
-        self.assertEqual(response.status_code, self.expected_status_code)
-
-    def test_unpublish_permitted(self):
-        response = self.client.get('/admin/tests/eventpage/unpublish/4/')
-        self.assertEqual(response.status_code, self.expected_status_code)
-
     def test_delete_permitted(self):
-        response = self.client.get('/admin/tests/eventpage/confirm_delete/4/')
+        response = self.client.get('/admin/tests/eventpage/delete/4/')
         self.assertEqual(response.status_code, self.expected_status_code)
 
 
@@ -199,14 +155,6 @@ class TestModeratorAccess(TestCase):
     def setUp(self):
         self.login()
 
-    def test_copy_permitted(self):
-        response = self.client.get('/admin/tests/eventpage/copy/4/')
-        self.assertEqual(response.status_code, self.expected_status_code)
-
-    def test_unpublish_permitted(self):
-        response = self.client.get('/admin/tests/eventpage/unpublish/4/')
-        self.assertEqual(response.status_code, self.expected_status_code)
-
     def test_delete_permitted(self):
-        response = self.client.get('/admin/tests/eventpage/confirm_delete/4/')
+        response = self.client.get('/admin/tests/eventpage/delete/4/')
         self.assertEqual(response.status_code, self.expected_status_code)

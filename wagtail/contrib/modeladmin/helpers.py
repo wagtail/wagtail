@@ -1,10 +1,11 @@
-import urllib
 from django.contrib.auth import get_permission_codename
 from django.conf.urls import url
 from django.contrib.auth.models import Permission
 from django.utils.translation import ugettext as _
+from django.utils.http import urlquote
 from django.utils.encoding import force_text
 from django.contrib.admin.utils import quote
+
 from django.core.urlresolvers import reverse
 from wagtail.wagtailcore.models import Page
 
@@ -47,8 +48,8 @@ class PageAdminURLHelper(AdminURLHelper):
         if action in ('index', 'create', 'choose_parent', 'inspect'):
             return super(PageAdminURLHelper, self).get_action_url(action, pk)
         target_url = reverse('wagtailadmin_pages:%s' % action, args=[pk])
-        next_url = self.get_action_url('index')
-        return '%s?next=%s' % (target_url, urllib.quote(next_url))
+        next_url = urlquote(self.get_action_url('index'))
+        return '%s?next=%s' % (target_url, next_url)
 
 
 class PermissionHelper(object):
