@@ -4,6 +4,8 @@ from django.utils.encoding import python_2_unicode_compatible
 from wagtail.wagtailsearch import index
 from wagtail.wagtailsnippets.models import register_snippet
 
+from .forms import FancySnippetForm
+
 
 # AlphaSnippet and ZuluSnippet are for testing ordering of
 # snippets when registering.  They are named as such to ensure
@@ -52,3 +54,13 @@ class SearchableSnippet(models.Model, index.Indexed):
 
     def __str__(self):
         return self.text
+
+
+@register_snippet
+class StandardSnippet(models.Model):
+    text = models.CharField(max_length=255)
+
+
+@register_snippet
+class FancySnippet(models.Model):
+    base_form_class = FancySnippetForm
