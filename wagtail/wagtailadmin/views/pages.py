@@ -249,7 +249,7 @@ def create(request, content_type_app_name, content_type_model_name, parent_page_
             edit_handler = edit_handler_class(instance=page, form=form)
     else:
         signals.init_new_page.send(sender=create, page=page, parent=parent_page)
-        form = form_class(instance=page, next=next_url)
+        form = form_class(instance=page)
         edit_handler = edit_handler_class(instance=page, form=form)
 
     return render(request, 'wagtailadmin/pages/create.html', {
@@ -439,7 +439,7 @@ def edit(request, page_id):
                 ])
             )
     else:
-        form = form_class(instance=page, next=next_url)
+        form = form_class(instance=page)
         edit_handler = edit_handler_class(instance=page, form=form)
 
     # Check for revisions still undergoing moderation and warn
