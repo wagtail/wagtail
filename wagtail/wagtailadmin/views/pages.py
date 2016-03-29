@@ -1,3 +1,4 @@
+import urllib
 from django.http import Http404, HttpResponse
 from django.shortcuts import render, redirect, get_object_or_404
 from django.core.exceptions import PermissionDenied
@@ -171,10 +172,12 @@ def create(request, content_type_app_name, content_type_model_name, parent_page_
     page = page_class(owner=request.user)
     edit_handler_class = page_class.get_edit_handler()
     form_class = edit_handler_class.get_form_class(page_class)
+    next_url = request.GET.get('next', '')
 
     if request.POST:
         form = form_class(request.POST, request.FILES, instance=page,
                           parent_page=parent_page)
+        next_url = request.POST.get('next', '')
 
         if form.is_valid():
             page = form.save(commit=False)
@@ -228,17 +231,25 @@ def create(request, content_type_app_name, content_type_model_name, parent_page_
                     return result
 
             if is_publishing or is_submitting:
-                # we're done here - redirect back to the explorer
+                # we're done here
+                if next_url:
+                    # redirect back to 'next' url if present
+                    return redirect(next_url)
+                # redirect back to the explorer
                 return redirect('wagtailadmin_explore', page.get_parent().id)
             else:
                 # Just saving - remain on edit page for further edits
-                return redirect('wagtailadmin_pages:edit', page.id)
+                target_url = reverse('wagtailadmin_pages:edit', args=[page.id])
+                if next_url:
+                    # Ensure the 'next' url is passed through again if present
+                    target_url += '?next=%s' % (urllib.urlencode(next_url))
+                return redirect(target_url)
         else:
             messages.error(request, _("The page could not be created due to validation errors"))
             edit_handler = edit_handler_class(instance=page, form=form)
     else:
         signals.init_new_page.send(sender=create, page=page, parent=parent_page)
-        form = form_class(instance=page)
+        form = form_class(instance=page, next=next_url)
         edit_handler = edit_handler_class(instance=page, form=form)
 
     return render(request, 'wagtailadmin/pages/create.html', {
@@ -248,6 +259,7 @@ def create(request, content_type_app_name, content_type_model_name, parent_page_
         'edit_handler': edit_handler,
         'preview_modes': page.preview_modes,
         'form': form,
+        'next': next_url,
     })
 
 
@@ -265,12 +277,14 @@ def edit(request, page_id):
 
     edit_handler_class = page_class.get_edit_handler()
     form_class = edit_handler_class.get_form_class(page_class)
+    next_url = request.GET.get('next', '')
 
     errors_debug = None
 
     if request.POST:
         form = form_class(request.POST, request.FILES, instance=page,
                           parent_page=parent)
+        next_url = request.POST.get('next', '')
 
         if form.is_valid() and not page.locked:
             page = form.save(commit=False)
@@ -397,10 +411,18 @@ def edit(request, page_id):
 
             if is_publishing or is_submitting:
                 # we're done here - redirect back to the explorer
+                if next_url:
+                    # redirect back to 'next' url if present
+                    return redirect(next_url)
+                # redirect back to the explorer
                 return redirect('wagtailadmin_explore', page.get_parent().id)
             else:
                 # Just saving - remain on edit page for further edits
-                return redirect('wagtailadmin_pages:edit', page.id)
+                target_url = reverse('wagtailadmin_pages:edit', args=[page.id])
+                if next_url:
+                    # Ensure the 'next' url is passed through again if present
+                    next_url += '?next=%s' % (urllib.urlencode(next_url))
+                return redirect(target_url)
         else:
             if page.locked:
                 messages.error(request, _("The page could not be saved as it is locked"))
@@ -417,7 +439,7 @@ def edit(request, page_id):
                 ])
             )
     else:
-        form = form_class(instance=page)
+        form = form_class(instance=page, next=next_url)
         edit_handler = edit_handler_class(instance=page, form=form)
 
     # Check for revisions still undergoing moderation and warn
@@ -431,6 +453,7 @@ def edit(request, page_id):
         'errors_debug': errors_debug,
         'preview_modes': page.preview_modes,
         'form': form,
+        'next': next_url,
     })
 
 
@@ -438,8 +461,10 @@ def delete(request, page_id):
     page = get_object_or_404(Page, id=page_id)
     if not page.permissions_for_user(request.user).can_delete():
         raise PermissionDenied
+    next_url = request.GET.get('next', '')
 
     if request.method == 'POST':
+        next_url = request.POST.get('next', '')
         parent_id = page.get_parent().id
         page.delete()
 
@@ -450,11 +475,14 @@ def delete(request, page_id):
             if hasattr(result, 'status_code'):
                 return result
 
+        if next_url:
+            return redirect(next_url)
         return redirect('wagtailadmin_explore', parent_id)
 
     return render(request, 'wagtailadmin/pages/confirm_delete.html', {
         'page': page,
-        'descendant_count': page.get_descendant_count()
+        'descendant_count': page.get_descendant_count(),
+        'next': next_url
     })
 
 
@@ -586,20 +614,26 @@ def preview_loading(request):
 
 def unpublish(request, page_id):
     page = get_object_or_404(Page, id=page_id).specific
+    next_url = request.GET.get('next', '')
+
     if not page.permissions_for_user(request.user).can_unpublish():
         raise PermissionDenied
 
     if request.method == 'POST':
+        next_url = request.POST.get('next', '')
         page.unpublish()
 
         messages.success(request, _("Page '{0}' unpublished.").format(page.title), buttons=[
             messages.button(reverse('wagtailadmin_pages:edit', args=(page.id,)), _('Edit'))
         ])
 
+        if next_url:
+            redirect(next_url)
         return redirect('wagtailadmin_explore', page.get_parent().id)
 
     return render(request, 'wagtailadmin/pages/confirm_unpublish.html', {
         'page': page,
+        'next': next_url,
     })
 
 
@@ -709,6 +743,7 @@ def copy(request, page_id):
     can_publish = parent_page.permissions_for_user(request.user).can_publish_subpage()
 
     # Create the form
+    next_url = request.GET.get('next', '')
     form = CopyForm(request.POST or None, page=page, can_publish=can_publish)
 
     # Check if user is submitting
@@ -716,12 +751,13 @@ def copy(request, page_id):
         # Prefill parent_page in case the form is invalid (as prepopulated value for the form field,
         # because ModelChoiceField seems to not fall back to the user given value)
         parent_page = Page.objects.get(id=request.POST['new_parent_page'])
+        next_url = request.POST.get('next')
 
         if form.is_valid():
             # Receive the parent page (this should never be empty)
             if form.cleaned_data['new_parent_page']:
                 parent_page = form.cleaned_data['new_parent_page']
-
+            
             # Make sure this user has permission to add subpages on the parent
             if not parent_page.permissions_for_user(request.user).can_add_subpage():
                 raise PermissionDenied
@@ -751,11 +787,14 @@ def copy(request, page_id):
                 messages.success(request, _("Page '{0}' copied.").format(page.title))
 
             # Redirect to explore of parent page
+            if next_url:
+                redirect(next_url)
             return redirect('wagtailadmin_explore', parent_page.id)
 
     return render(request, 'wagtailadmin/pages/copy.html', {
         'page': page,
         'form': form,
+        'next': next_url,
     })
 
 
