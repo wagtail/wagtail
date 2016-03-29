@@ -76,7 +76,6 @@ MIDDLEWARE_CLASSES = (
 
     'wagtail.wagtailcore.middleware.SiteMiddleware',
     'wagtail.wagtailredirects.middleware.RedirectMiddleware',
-    'wagtail.contrib.modeladmin.middleware.ModelAdminMiddleware',
 )
 
 INSTALLED_APPS = (
