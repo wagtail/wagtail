@@ -1,11 +1,54 @@
 import urllib
 from django.contrib.auth import get_permission_codename
+from django.conf.urls import url
 from django.contrib.auth.models import Permission
 from django.utils.translation import ugettext as _
 from django.utils.encoding import force_text
 from django.contrib.admin.utils import quote
 from django.core.urlresolvers import reverse
 from wagtail.wagtailcore.models import Page
+
+
+class AdminURLHelper(object):
+
+    def __init__(self, model):
+        self.model = model
+        self.opts = model._meta
+
+    def _get_action_url_pattern(self, action):
+        if action == 'index':
+            return r'^%s/%s/$' % (self.opts.app_label, self.opts.model_name)
+        return r'^%s/%s/%s/$' % (self.opts.app_label, self.opts.model_name,
+                                 action)
+
+    def _get_object_specific_action_url_pattern(self, action):
+        return r'^%s/%s/%s/(?P<object_pk>[-\w]+)/$' % (
+            self.opts.app_label, self.opts.model_name, action)
+
+    def get_action_url_pattern(self, action):
+        if action in ('create', 'choose_parent', 'index'):
+            return self._get_action_url_pattern(action)
+        return self._get_object_specific_action_url_pattern(action)
+    
+    def get_action_url_name(self, action):
+        return '%s_%s_modeladmin_%s' % (
+            self.opts.app_label, self.opts.model_name, action)
+
+    def get_action_url(self, action, pk=None):
+        kwargs = {}
+        if action in ('create', 'choose_parent', 'index'):
+            return reverse(self.get_action_url_name(action))
+        return reverse(self.get_action_url_name(action), args=[pk])
+
+
+class PageAdminURLHelper(AdminURLHelper):
+
+    def get_action_url(self, action='index', pk=None):
+        if action in ('index', 'create', 'choose_parent', 'inspect'):
+            return super(PageAdminURLHelper, self).get_action_url(action, pk)
+        target_url = reverse('wagtailadmin_pages:%s' % action, args=[pk])
+        next_url = self.get_action_url('index')
+        return '%s?next=%s' % (target_url, urllib.quote(next_url))
 
 
 class PermissionHelper(object):
@@ -171,13 +214,13 @@ def get_url_pattern(model_meta, action=None):
 
 
 def get_object_specific_url_pattern(model_meta, action):
-    return r'^modeladmin/%s/%s/%s/(?P<object_id>[-\w]+)/$' % (
+    return r'^modeladmin/%s/%s/%s/(?P<object_pk>[-\w]+)/$' % (
         model_meta.app_label, model_meta.model_name, action)
 
 
 def get_url_name(model_meta, action='index'):
-    return '%s_%s_modeladmin_%s/' % (
-        model_meta.app_label, model_meta.model_name, action)    
+    return '%s_%s_modeladmin_%s' % (
+        model_meta.app_label, model_meta.model_name, action)
 
 
 class ButtonHelper(object):
@@ -188,28 +231,26 @@ class ButtonHelper(object):
     edit_button_classnames = []
     delete_button_classnames = ['no']
 
-    def __init__(self, model, permission_helper, user,
+    def __init__(self, model, user, permission_helper, url_helper,
                  inspect_view_enabled=False):
         self.user = user
         self.model = model
         self.opts = model._meta
         self.permission_helper = permission_helper
-        self.inspect_view_enabled = inspect_view_enabled
+        self.url_helper = url_helper
         self.model_name = force_text(self.opts.verbose_name).lower()
+        self.inspect_view_enabled = inspect_view_enabled    
 
     def finalise_classname(self, classnames_add=[], classnames_exclude=[]):
         combined = self.default_button_classnames + classnames_add
         finalised = [cn for cn in combined if cn not in classnames_exclude]
         return ' '.join(finalised)
 
-    def get_action_url(self, action='index', pk=None):
-        kwargs = {}
-        if pk and action not in ('create', 'index'):
-            kwargs.update({'object_id': pk})
-        return reverse(get_url_name(self.opts, action), kwargs=kwargs)
+    def get_action_url(self, action, pk=None):
+        return self.url_helper.get_action_url(action, pk)
 
     def show_add_button(self):
-        return self.permission_helper.had_add_permission(self.user)
+        return self.permission_helper.has_add_permission(self.user)
 
     def add_button(self, classnames_add=[], classnames_exclude=[]):
         classnames = self.add_button_classnames + classnames_add
@@ -245,7 +286,7 @@ class ButtonHelper(object):
         classnames = self.delete_button_classnames + classnames_add
         cn = self.finalise_classname(classnames, classnames_exclude)
         return {
-            'url': self.get_action_url('confirm_delete', pk),
+            'url': self.get_action_url('delete', pk),
             'label': _('Delete'),
             'classname': cn,
             'title': _('Delete this %s') % self.model_name,
@@ -274,14 +315,7 @@ class ButtonHelper(object):
 class PageButtonHelper(ButtonHelper):
 
     unpublish_button_classnames = []
-    copy_button_classnmes = []
-
-    def get_action_url(self, action='index', pk=None):
-        if action not in ('create', 'index', 'inspect'):
-            target_url = reverse('wagtailadmin_pages:%s' % action, args=[pk])
-            next_url = urllib.quote(self.get_action_url('index'))
-            return '%s?next=%s' % (target_url, next_url)
-        return super(PageButtonHelper, self).get_action_url(action, pk)
+    copy_button_classnames = []
 
     def unpublish_button(self, pk, classnames_add=[], classnames_exclude=[]):
         classnames = self.unpublish_button_classnames + classnames_add
