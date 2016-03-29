@@ -9,10 +9,12 @@ from taggit.models import Tag
 
 from wagtail.tests.utils import WagtailTestUtils
 from wagtail.tests.testapp.models import Advert, SnippetChooserModel, AdvertWithTabbedInterface
+from wagtail.tests.snippets.forms import FancySnippetForm
 from wagtail.tests.snippets.models import (
-    AlphaSnippet, ZuluSnippet, RegisterDecorator, RegisterFunction, SearchableSnippet
+    AlphaSnippet, ZuluSnippet, RegisterDecorator, RegisterFunction, SearchableSnippet, StandardSnippet, FancySnippet
 )
 from wagtail.wagtailsnippets.models import register_snippet, SNIPPET_MODELS
+from wagtail.wagtailadmin.forms import WagtailAdminModelForm
 from wagtail.wagtailsnippets.edit_handlers import SnippetChooserPanel
 
 from wagtail.wagtailsnippets.views.snippets import (
@@ -633,3 +635,17 @@ class TestDeleteOnlyPermissions(TestCase, WagtailTestUtils):
         response = self.client.get(reverse('wagtailsnippets:delete', args=('tests', 'advert', self.test_snippet.id, )))
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'wagtailsnippets/snippets/confirm_delete.html')
+
+
+class TestSnippetEditHandlers(TestCase, WagtailTestUtils):
+    def test_standard_edit_handler(self):
+        edit_handler_class = get_snippet_edit_handler(StandardSnippet)
+        form_class = edit_handler_class.get_form_class(StandardSnippet)
+        self.assertTrue(issubclass(form_class, WagtailAdminModelForm))
+        self.assertFalse(issubclass(form_class, FancySnippetForm))
+
+    def test_fancy_edit_handler(self):
+        edit_handler_class = get_snippet_edit_handler(FancySnippet)
+        form_class = edit_handler_class.get_form_class(FancySnippet)
+        self.assertTrue(issubclass(form_class, WagtailAdminModelForm))
+        self.assertTrue(issubclass(form_class, FancySnippetForm))
