@@ -1,16 +1,65 @@
 from __future__ import unicode_literals
 
+from django import forms
 from django.contrib.auth import get_user_model
 from django.contrib.auth.models import Group, Permission
+from django.core.exceptions import ImproperlyConfigured
 from django.core.urlresolvers import reverse
-from django.test import TestCase
+from django.test import override_settings, TestCase
 from django.utils import six
 
 from wagtail.tests.utils import WagtailTestUtils
 from wagtail.wagtailcore import hooks
 from wagtail.wagtailcore.models import (
     Collection, GroupCollectionPermission, GroupPagePermission, Page)
+from wagtail.wagtailusers.forms import UserEditForm, UserCreationForm
 from wagtail.wagtailusers.models import UserProfile
+from wagtail.wagtailusers.views.users import get_user_creation_form, get_user_edit_form
+
+
+class CustomUserCreationForm(UserCreationForm):
+    country = forms.CharField(required=True, label="Country")
+
+
+class CustomUserEditForm(UserEditForm):
+    country = forms.CharField(required=True, label="Country")
+
+
+class TestUserFormHelpers(TestCase):
+
+    def test_get_user_edit_form_with_default_form(self):
+        user_form = get_user_edit_form()
+        self.assertIs(user_form, UserEditForm)
+
+    def test_get_user_creation_form_with_default_form(self):
+        user_form = get_user_creation_form()
+        self.assertIs(user_form, UserCreationForm)
+
+    @override_settings(
+        WAGTAIL_USER_CREATION_FORM='wagtail.wagtailusers.tests.CustomUserCreationForm'
+    )
+    def test_get_user_creation_form_with_custom_form(self):
+        user_form = get_user_creation_form()
+        self.assertIs(user_form, CustomUserCreationForm)
+
+    @override_settings(
+        WAGTAIL_USER_EDIT_FORM='wagtail.wagtailusers.tests.CustomUserEditForm'
+    )
+    def test_get_user_edit_form_with_custom_form(self):
+        user_form = get_user_edit_form()
+        self.assertIs(user_form, CustomUserEditForm)
+
+    @override_settings(
+        WAGTAIL_USER_CREATION_FORM='wagtail.wagtailusers.tests.CustomUserCreationFormDoesNotExist'
+    )
+    def test_get_user_creation_form_with_invalid_form(self):
+        self.assertRaises(ImproperlyConfigured, get_user_creation_form)
+
+    @override_settings(
+        WAGTAIL_USER_EDIT_FORM='wagtail.wagtailusers.tests.CustomUserEditFormDoesNotExist'
+    )
+    def test_get_user_edit_form_with_invalid_form(self):
+        self.assertRaises(ImproperlyConfigured, get_user_edit_form)
 
 
 class TestUserIndexView(TestCase, WagtailTestUtils):
@@ -85,6 +134,30 @@ class TestUserCreateView(TestCase, WagtailTestUtils):
         self.assertEqual(users.count(), 1)
         self.assertEqual(users.first().email, 'test@user.com')
 
+    @override_settings(
+        WAGTAIL_USER_CREATION_FORM='wagtail.wagtailusers.tests.CustomUserCreationForm',
+        WAGTAIL_USER_CUSTOM_FIELDS=['country'],
+    )
+    def test_create_with_custom_form(self):
+        response = self.post({
+            'username': "testuser",
+            'email': "test@user.com",
+            'first_name': "Test",
+            'last_name': "User",
+            'password1': "password",
+            'password2': "password",
+            'country': "testcountry",
+        })
+
+        # Should redirect back to index
+        self.assertRedirects(response, reverse('wagtailusers_users:index'))
+
+        # Check that the user was created
+        users = get_user_model().objects.filter(username='testuser')
+        self.assertEqual(users.count(), 1)
+        self.assertEqual(users.first().email, 'test@user.com')
+        self.assertEqual(users.first().country, 'testcountry')
+
     def test_create_with_password_mismatch(self):
         response = self.post({
             'username': "testuser",
@@ -148,6 +221,28 @@ class TestUserEditView(TestCase, WagtailTestUtils):
         # Check that the user was edited
         user = get_user_model().objects.get(id=self.test_user.id)
         self.assertEqual(user.first_name, 'Edited')
+
+    @override_settings(
+        WAGTAIL_USER_EDIT_FORM='wagtail.wagtailusers.tests.CustomUserEditForm',
+    )
+    def test_edit_with_custom_form(self):
+        response = self.post({
+            'username': "testuser",
+            'email': "test@user.com",
+            'first_name': "Edited",
+            'last_name': "User",
+            'password1': "password",
+            'password2': "password",
+            'country': "testcountry",
+        })
+
+        # Should redirect back to index
+        self.assertRedirects(response, reverse('wagtailusers_users:index'))
+
+        # Check that the user was edited
+        user = get_user_model().objects.get(id=self.test_user.id)
+        self.assertEqual(user.first_name, 'Edited')
+        self.assertEqual(user.country, 'testcountry')
 
     def test_edit_validation_error(self):
         # Leave "username" field blank. This should give a validation error
