@@ -160,3 +160,9 @@ if 'ELASTICSEARCH_URL' in os.environ:
 
 
 WAGTAIL_SITE_NAME = "Test Site"
+
+# Extra user field for custom user edit and create form tests. This setting
+# needs to here because it is used at the module level of wagtailusers.forms
+# when the module gets loaded. The decorator 'override_settings' does not work
+# in this scenario.
+WAGTAIL_USER_CUSTOM_FIELDS = ['country']
