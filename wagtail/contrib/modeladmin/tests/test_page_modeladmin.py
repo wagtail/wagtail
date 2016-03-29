@@ -12,7 +12,7 @@ class TestIndexView(TestCase, WagtailTestUtils):
         self.login()
 
     def get(self, **params):
-        return self.client.get('/admin/modeladmin/tests/eventpage/', params)
+        return self.client.get('/admin/tests/eventpage/', params)
 
     def test_simple(self):
         response = self.get()
@@ -45,7 +45,7 @@ class TestCreateView(TestCase, WagtailTestUtils):
         self.login()
 
     def get(self):
-        return self.client.get('/admin/modeladmin/tests/eventpage/create/')
+        return self.client.get('/admin/tests/eventpage/create/')
 
     def test_simple(self):
         response = self.get()
@@ -59,7 +59,7 @@ class TestInspectView(TestCase, WagtailTestUtils):
         self.login()
 
     def get(self, id):
-        return self.client.get('/admin/modeladmin/tests/eventpage/inspect/%d/' % id)
+        return self.client.get('/admin/tests/eventpage/inspect/%d/' % id)
 
     def test_simple(self):
         response = self.get(4)
@@ -92,7 +92,7 @@ class TestEditView(TestCase, WagtailTestUtils):
         self.login()
 
     def get(self, obj_id):
-        return self.client.get('/admin/modeladmin/tests/eventpage/edit/%d/' % obj_id)
+        return self.client.get('/admin/tests/eventpage/edit/%d/' % obj_id)
 
     def test_simple(self):
         response = self.get(4)
@@ -112,7 +112,7 @@ class TestChooseParentView(TestCase, WagtailTestUtils):
         self.login()
 
     def get(self):
-        return self.client.get('/admin/modeladmin/tests/eventpage/choose_parent/')
+        return self.client.get('/admin/tests/eventpage/choose_parent/')
 
     def test_simple(self):
         response = self.get()
@@ -127,7 +127,7 @@ class TestCopyRedirect(TestCase, WagtailTestUtils):
         self.login()
 
     def get(self, obj_id):
-        return self.client.get('/admin/modeladmin/tests/eventpage/copy/%d/' % obj_id)
+        return self.client.get('/admin/tests/eventpage/copy/%d/' % obj_id)
 
     def test_simple(self):
         response = self.get(4)
@@ -145,7 +145,7 @@ class TestUnpublishRedirect(TestCase, WagtailTestUtils):
         self.login()
 
     def get(self, obj_id):
-        return self.client.get('/admin/modeladmin/tests/eventpage/unpublish/%d/' % obj_id)
+        return self.client.get('/admin/tests/eventpage/unpublish/%d/' % obj_id)
 
     def test_simple(self):
         response = self.get(4)
@@ -172,15 +172,15 @@ class TestEditorAccess(TestCase):
         self.login()
 
     def test_copy_permitted(self):
-        response = self.client.get('/admin/modeladmin/tests/eventpage/copy/4/')
+        response = self.client.get('/admin/tests/eventpage/copy/4/')
         self.assertEqual(response.status_code, self.expected_status_code)
 
     def test_unpublish_permitted(self):
-        response = self.client.get('/admin/modeladmin/tests/eventpage/unpublish/4/')
+        response = self.client.get('/admin/tests/eventpage/unpublish/4/')
         self.assertEqual(response.status_code, self.expected_status_code)
 
     def test_delete_permitted(self):
-        response = self.client.get('/admin/modeladmin/tests/eventpage/confirm_delete/4/')
+        response = self.client.get('/admin/tests/eventpage/confirm_delete/4/')
         self.assertEqual(response.status_code, self.expected_status_code)
 
 
@@ -200,13 +200,13 @@ class TestModeratorAccess(TestCase):
         self.login()
 
     def test_copy_permitted(self):
-        response = self.client.get('/admin/modeladmin/tests/eventpage/copy/4/')
+        response = self.client.get('/admin/tests/eventpage/copy/4/')
         self.assertEqual(response.status_code, self.expected_status_code)
 
     def test_unpublish_permitted(self):
-        response = self.client.get('/admin/modeladmin/tests/eventpage/unpublish/4/')
+        response = self.client.get('/admin/tests/eventpage/unpublish/4/')
         self.assertEqual(response.status_code, self.expected_status_code)
 
     def test_delete_permitted(self):
-        response = self.client.get('/admin/modeladmin/tests/eventpage/confirm_delete/4/')
+        response = self.client.get('/admin/tests/eventpage/confirm_delete/4/')
         self.assertEqual(response.status_code, self.expected_status_code)

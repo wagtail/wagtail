@@ -13,7 +13,7 @@ class TestIndexView(TestCase, WagtailTestUtils):
         self.login()
 
     def get(self, **params):
-        return self.client.get('/admin/modeladmin/modeladmintest/book/', params)
+        return self.client.get('/admin/modeladmintest/book/', params)
 
     def test_simple(self):
         response = self.get()
@@ -46,7 +46,7 @@ class TestCreateView(TestCase, WagtailTestUtils):
         self.login()
 
     def get(self):
-        return self.client.get('/admin/modeladmin/modeladmintest/book/create/')
+        return self.client.get('/admin/modeladmintest/book/create/')
 
     def test_simple(self):
         response = self.get()
@@ -61,10 +61,10 @@ class TestInspectView(TestCase, WagtailTestUtils):
         self.login()
 
     def get_for_author(self, author_id):
-        return self.client.get('/admin/modeladmin/modeladmintest/author/inspect/%d/' % author_id)
+        return self.client.get('/admin/modeladmintest/author/inspect/%d/' % author_id)
 
     def get_for_book(self, book_id):
-        return self.client.get('/admin/modeladmin/modeladmintest/book/inspect/%d/' % book_id)
+        return self.client.get('/admin/modeladmintest/book/inspect/%d/' % book_id)
 
     def author_test_simple(self):
         response = self.get_for_author(1)
@@ -119,7 +119,7 @@ class TestEditView(TestCase, WagtailTestUtils):
         self.login()
 
     def get(self, book_id):
-        return self.client.get('/admin/modeladmin/modeladmintest/book/edit/%d/' % book_id)
+        return self.client.get('/admin/modeladmintest/book/edit/%d/' % book_id)
 
     def test_simple(self):
         response = self.get(1)
@@ -140,15 +140,15 @@ class TestPageSpecificViews(TestCase, WagtailTestUtils):
         self.login()
 
     def test_choose_parent(self):
-        response = self.client.get('/admin/modeladmin/modeladmintest/book/choose_parent/')
+        response = self.client.get('/admin/modeladmintest/book/choose_parent/')
         self.assertEqual(response.status_code, self.expected_status_code)
 
     def test_copy(self):
-        response = self.client.get('/admin/modeladmin/modeladmintest/book/copy/1/')
+        response = self.client.get('/admin/modeladmintest/book/copy/1/')
         self.assertEqual(response.status_code, self.expected_status_code)
 
     def test_unpublish(self):
-        response = self.client.get('/admin/modeladmin/modeladmintest/book/unpublish/1/')
+        response = self.client.get('/admin/modeladmintest/book/unpublish/1/')
         self.assertEqual(response.status_code, self.expected_status_code)
 
 
@@ -159,10 +159,10 @@ class TestConfirmDeleteView(TestCase, WagtailTestUtils):
         self.login()
 
     def get(self, book_id):
-        return self.client.get('/admin/modeladmin/modeladmintest/book/confirm_delete/%d/' % book_id)
+        return self.client.get('/admin/modeladmintest/book/confirm_delete/%d/' % book_id)
 
     def post(self, book_id):
-        return self.client.post('/admin/modeladmin/modeladmintest/book/confirm_delete/%d/' % book_id, {
+        return self.client.post('/admin/modeladmintest/book/confirm_delete/%d/' % book_id, {
             'foo': 'bar'
         })
 
@@ -180,7 +180,7 @@ class TestConfirmDeleteView(TestCase, WagtailTestUtils):
         response = self.post(1)
 
         # User redirected to index
-        self.assertRedirects(response, '/admin/modeladmin/modeladmintest/book/')
+        self.assertRedirects(response, '/admin/modeladmintest/book/')
 
         # Book deleted
         self.assertFalse(Book.objects.filter(id=1).exists())
@@ -203,25 +203,25 @@ class TestEditorAccess(TestCase):
         self.login()
 
     def test_index_permitted(self):
-        response = self.client.get('/admin/modeladmin/modeladmintest/book/')
+        response = self.client.get('/admin/modeladmintest/book/')
         self.assertEqual(response.status_code, self.expected_status_code)
 
     def test_inpspect_permitted(self):
-        response = self.client.get('/admin/modeladmin/modeladmintest/book/inspect/2/')
+        response = self.client.get('/admin/modeladmintest/book/inspect/2/')
         self.assertEqual(response.status_code, self.expected_status_code)
 
     def test_create_permitted(self):
-        response = self.client.get('/admin/modeladmin/modeladmintest/book/create/')
+        response = self.client.get('/admin/modeladmintest/book/create/')
         self.assertEqual(response.status_code, self.expected_status_code)
 
     def test_edit_permitted(self):
-        response = self.client.get('/admin/modeladmin/modeladmintest/book/edit/2/')
+        response = self.client.get('/admin/modeladmintest/book/edit/2/')
         self.assertEqual(response.status_code, self.expected_status_code)
 
     def test_delete_get_permitted(self):
-        response = self.client.get('/admin/modeladmin/modeladmintest/book/confirm_delete/2/')
+        response = self.client.get('/admin/modeladmintest/book/confirm_delete/2/')
         self.assertEqual(response.status_code, self.expected_status_code)
 
     def test_delete_post_permitted(self):
-        response = self.client.post('/admin/modeladmin/modeladmintest/book/confirm_delete/2/')
+        response = self.client.post('/admin/modeladmintest/book/confirm_delete/2/')
         self.assertEqual(response.status_code, self.expected_status_code)
