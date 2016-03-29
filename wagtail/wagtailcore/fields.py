@@ -10,9 +10,13 @@ from wagtail.wagtailcore.blocks import Block, BlockField, StreamBlock, StreamVal
 
 
 class RichTextField(models.TextField):
+    def __init__(self, *args, **kwargs):
+        self.editor = kwargs.pop('editor', 'default')
+        super(RichTextField, self).__init__(*args, **kwargs)
+
     def formfield(self, **kwargs):
-        from wagtail.wagtailadmin.rich_text import HalloRichTextArea
-        defaults = {'widget': HalloRichTextArea}
+        from wagtail.wagtailadmin.rich_text import get_rich_text_editor
+        defaults = {'widget': get_rich_text_editor(self.editor)}
         defaults.update(kwargs)
         return super(RichTextField, self).formfield(**defaults)
 
