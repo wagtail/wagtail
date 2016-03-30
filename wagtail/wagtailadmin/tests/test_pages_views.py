@@ -2,9 +2,11 @@ from __future__ import absolute_import, unicode_literals
 
 import datetime
 import logging
+import os
 
 import django
 import mock
+from django.conf import settings
 from django.contrib.auth import get_user_model
 from django.contrib.auth.models import Group, Permission
 from django.contrib.messages import constants as message_constants
@@ -869,6 +871,60 @@ class TestPageEdit(TestCase, WagtailTestUtils):
         response = self.client.get(reverse('wagtailadmin_pages:edit', args=(self.file_page.id, )))
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, 'enctype="multipart/form-data"')
+
+    def test_upload_file_publish(self):
+        """
+        Check that file uploads work when directly publishing
+        """
+        file_upload = ContentFile(b"A new file", name='published-file.txt')
+        post_data = {
+            'title': 'New file',
+            'slug': 'new-file',
+            'file_field': file_upload,
+            'action-publish': "Publish",
+        }
+        response = self.client.post(reverse('wagtailadmin_pages:edit', args=[self.file_page.id]), post_data)
+
+        # Should be redirected to explorer
+        self.assertRedirects(response, reverse('wagtailadmin_explore', args=[self.root_page.id]))
+
+        # Check the new file exists
+        file_page = FilePage.objects.get()
+        self.assertEqual(file_page.file_field.name,
+                         os.path.join('.', file_upload.name))
+        self.assertTrue(os.path.exists(file_page.file_field.path))
+        self.assertEqual(file_page.file_field.read(), b"A new file")
+
+    def test_upload_file_draft(self):
+        """
+        Check that file uploads work when saving a draft
+        """
+        file_upload = ContentFile(b"A new file", name='draft-file.txt')
+        post_data = {
+            'title': 'New file',
+            'slug': 'new-file',
+            'file_field': file_upload,
+        }
+        response = self.client.post(reverse('wagtailadmin_pages:edit', args=[self.file_page.id]), post_data)
+
+        # Should be redirected to edit page
+        self.assertRedirects(response, reverse('wagtailadmin_pages:edit', args=[self.file_page.id]))
+
+        # Check the file was uploaded
+        file_path = os.path.join(settings.MEDIA_ROOT, file_upload.name)
+        self.assertTrue(os.path.exists(file_path))
+        with open(file_path, 'rb') as saved_file:
+            self.assertEqual(saved_file.read(), b"A new file")
+
+        # Publish the draft just created
+        FilePage.objects.get().get_latest_revision().publish()
+
+        # Get the file page, check the file is set
+        file_page = FilePage.objects.get()
+        self.assertEqual(file_page.file_field.name,
+                         os.path.join('.', file_upload.name))
+        self.assertTrue(os.path.exists(file_page.file_field.path))
+        self.assertEqual(file_page.file_field.read(), b"A new file")
 
     def test_page_edit_bad_permissions(self):
         # Remove privileges from user
