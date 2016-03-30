@@ -206,13 +206,6 @@ class ModelAdmin(WagtailRegisterable):
         """
         return self.menu_order or 999
 
-    def show_menu_item(self, request):
-        """
-        Returns a boolean indicating whether the menu item should be visible
-        for the user in the supplied request, based on their permissions.
-        """
-        return self.permission_helper.has_list_permission(request.user)
-
     def get_list_display(self, request):
         """
         Return a sequence containing the fields/method output to be displayed
