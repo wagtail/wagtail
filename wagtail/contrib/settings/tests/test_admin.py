@@ -7,7 +7,7 @@ from django.test import TestCase
 from django.utils.text import capfirst
 
 from wagtail.contrib.settings.registry import SettingMenuItem
-from wagtail.tests.testapp.models import IconSetting, TestSetting
+from wagtail.tests.testapp.models import FileUploadSetting, IconSetting, TestSetting
 from wagtail.tests.utils import WagtailTestUtils
 from wagtail.wagtailcore import hooks
 from wagtail.wagtailcore.models import Page, Site
@@ -45,16 +45,17 @@ class TestSettingMenu(TestCase, WagtailTestUtils):
 
 
 class BaseTestSettingView(TestCase, WagtailTestUtils):
-    def get(self, site_pk=1, params={}):
-        url = self.edit_url('tests', 'testsetting', site_pk=site_pk)
+    def get(self, site_pk=1, params={}, setting=TestSetting):
+        url = self.edit_url(setting=setting, site_pk=site_pk)
         return self.client.get(url, params)
 
-    def post(self, site_pk=1, post_data={}):
-        url = self.edit_url('tests', 'testsetting', site_pk=site_pk)
+    def post(self, site_pk=1, post_data={}, setting=TestSetting):
+        url = self.edit_url(setting=setting, site_pk=site_pk)
         return self.client.post(url, post_data)
 
-    def edit_url(self, app, model, site_pk=1):
-        return reverse('wagtailsettings:edit', args=[app, model, site_pk])
+    def edit_url(self, setting, site_pk=1):
+        args = [setting._meta.app_label, setting._meta.model_name, site_pk]
+        return reverse('wagtailsettings:edit', args=args)
 
 
 class TestSettingCreateView(BaseTestSettingView):
@@ -82,6 +83,11 @@ class TestSettingCreateView(BaseTestSettingView):
         self.assertEqual(setting.title, 'Edited site title')
         self.assertEqual(setting.email, 'test@example.com')
 
+    def test_file_upload_multipart(self):
+        response = self.get(setting=FileUploadSetting)
+        # Ensure the form supports file uploads
+        self.assertContains(response, 'enctype="multipart/form-data"')
+
 
 class TestSettingEditView(BaseTestSettingView):
     def setUp(self):
@@ -102,7 +108,7 @@ class TestSettingEditView(BaseTestSettingView):
         self.assertContains(response, "menu-active")
 
     def test_non_existant_model(self):
-        response = self.client.get(self.edit_url('test', 'foo'))
+        response = self.client.get(reverse('wagtailsettings:edit', args=['test', 'foo', 1]))
         self.assertEqual(response.status_code, 404)
 
     def test_edit_invalid(self):
