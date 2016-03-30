@@ -26,7 +26,7 @@
         </div>
     </header>
 
-    <form action="{% url 'wagtailsettings:edit' site.pk opts.app_label opts.model_name %}" method="POST">
+    <form action="{% url 'wagtailsettings:edit' site.pk opts.app_label opts.model_name %}" method="POST"{% if form.is_multipart %} enctype="multipart/form-data"{% endif %}>
         {% csrf_token %}
         {{ edit_handler.render_form_content }}
 
