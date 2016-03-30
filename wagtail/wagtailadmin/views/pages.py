@@ -23,8 +23,8 @@ from wagtail.wagtailadmin import messages
 
 
 def get_valid_next_url_from_request(request):
-    next_url = request.POST.get('next') or request.GET.get('next') or ''
-    if not is_safe_url(url=next_url, host=request.get_host()):
+    next_url = request.POST.get('next') or request.GET.get('next')
+    if not url or not is_safe_url(url=next_url, host=request.get_host()):
         return ''
     return next_url
 
