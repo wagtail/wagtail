@@ -834,7 +834,7 @@ class CreateView(WMAFormView):
                 parent = parents.get()
                 args = [self.opts.app_label, self.opts.model_name, parent.pk]
                 target_url = reverse(PAGES_CREATE_URL_NAME, args)
-                next_url = urlquote(self.get_index_url)
+                next_url = urlquote(self.get_index_url, safe='')
                 return redirect('%s?next=%s' % (target_url, next_url))
 
             # The page can be added in multiple places, so redirect to the
@@ -876,7 +876,7 @@ class ChooseParentView(WMABaseView):
             parent_pk = quote(form.cleaned_data['parent_page'].pk)
             url_args = [self.opts.app_label, self.opts.model_name, parent_pk]
             target_url = reverse(PAGES_CREATE_URL_NAME, args=url_args)
-            next_url = urlquote(self.get_index_url)
+            next_url = urlquote(self.get_index_url, safe='')
             return redirect('%s?next=%s' % (target_url, next_url))
         context = {'view': self, 'form': form}
         return render(request, self.get_template(), context)

@@ -48,7 +48,7 @@ class PageAdminURLHelper(AdminURLHelper):
         if action in ('index', 'create', 'choose_parent', 'inspect'):
             return super(PageAdminURLHelper, self).get_action_url(action, pk)
         target_url = reverse('wagtailadmin_pages:%s' % action, args=[pk])
-        next_url = urlquote(self.get_action_url('index'))
+        next_url = urlquote(self.get_action_url('index'), safe='')
         return '%s?next=%s' % (target_url, next_url)
 
 
