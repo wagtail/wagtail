@@ -208,6 +208,21 @@ class PageQuerySet(SearchableQuerySetMixin, TreeQuerySet):
         """
         return self.exclude(self.exact_type_q(model))
 
+    def user_can_view_q(self, request):
+        from wagtail.wagtailcore.utils import check_user_can_view_page
+
+        ids_to_exclude = []
+        for page in self:
+            if not check_user_can_view_page(page, request):
+                ids_to_exclude.append(page.id)
+        return Q(id__in=ids_to_exclude)
+
+    def user_can_view(self, request):
+        """
+        This filters the QuerySet to only contain pages visible by the user in request
+        """
+        return self.exclude(self.user_can_view_q(request))
+
     def public_q(self):
         from wagtail.wagtailcore.models import PageViewRestriction
 

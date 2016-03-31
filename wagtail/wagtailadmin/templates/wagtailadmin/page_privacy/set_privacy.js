@@ -4,13 +4,21 @@ function(modal) {
         return false;
     });
 
-    var restrictionTypePasswordField = $("input[name='restriction_type'][value='password']", modal.body);
-    var passwordField = $("#id_password", modal.body);
+    var restrictionTypePasswordField = $("input[name='restriction_type'][value='password']", modal.body),
+        restrictionTypeUsersGroups = $("input[name='restriction_type'][value='users_groups']", modal.body),
+        passwordField = $(".password-field", modal.body),
+        usersGroupsFields = $('#users-groups-fields', modal.body);
+
     function refreshFormFields() {
         if (restrictionTypePasswordField.is(':checked')) {
-            passwordField.removeAttr('disabled');
+            passwordField.show();
+            usersGroupsFields.hide();
+        } else if (restrictionTypeUsersGroups.is(':checked')){
+            passwordField.hide();
+            usersGroupsFields.show();
         } else {
-            passwordField.attr('disabled', true);
+            passwordField.hide();
+            usersGroupsFields.hide();
         }
     }
     refreshFormFields();
