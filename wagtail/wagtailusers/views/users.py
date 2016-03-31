@@ -88,7 +88,7 @@ def index(request):
 
 @permission_required(add_user_perm)
 def create(request):
-    if request.POST:
+    if request.method == 'POST':
         form = UserCreationForm(request.POST)
         if form.is_valid():
             user = form.save()
@@ -109,7 +109,7 @@ def create(request):
 @permission_required(change_user_perm)
 def edit(request, user_id):
     user = get_object_or_404(User, id=user_id)
-    if request.POST:
+    if request.method == 'POST':
         form = UserEditForm(request.POST, instance=user)
         if form.is_valid():
             user = form.save()
