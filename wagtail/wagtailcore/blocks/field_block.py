@@ -3,6 +3,7 @@ from __future__ import absolute_import, unicode_literals
 import datetime
 
 from django import forms
+from django.contrib.staticfiles.templatetags.staticfiles import static
 from django.db.models.fields import BLANK_CHOICE_DASH
 from django.template.loader import render_to_string
 from django.utils import six
@@ -335,6 +336,13 @@ class RichTextBlock(FieldBlock):
 
     def get_searchable_content(self, value):
         return [force_text(value.source)]
+
+    def js_initializer(self):
+        return "RichTextBlock"
+
+    @property
+    def media(self):
+        return forms.Media(js=[static('wagtailadmin/js/blocks/rich-text.js')])
 
     class Meta:
         icon = "doc-full"
