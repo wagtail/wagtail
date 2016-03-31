@@ -91,7 +91,7 @@ def edit(request, image_id):
     if not permission_policy.user_has_permission_for_instance(request.user, 'change', image):
         return permission_denied(request)
 
-    if request.POST:
+    if request.method == 'POST':
         original_file = image.file
         form = ImageForm(request.POST, request.FILES, instance=image, user=request.user)
         if form.is_valid():
@@ -224,7 +224,7 @@ def delete(request, image_id):
     if not permission_policy.user_has_permission_for_instance(request.user, 'delete', image):
         return permission_denied(request)
 
-    if request.POST:
+    if request.method == 'POST':
         image.delete()
         messages.success(request, _("Image '{0}' deleted.").format(image.title))
         return redirect('wagtailimages:index')
@@ -239,7 +239,7 @@ def add(request):
     ImageModel = get_image_model()
     ImageForm = get_image_form(ImageModel)
 
-    if request.POST:
+    if request.method == 'POST':
         image = ImageModel(uploaded_by_user=request.user)
         form = ImageForm(request.POST, request.FILES, instance=image, user=request.user)
         if form.is_valid():

@@ -117,7 +117,7 @@ def chooser_upload(request):
 
     searchform = SearchForm()
 
-    if request.POST:
+    if request.method == 'POST':
         image = Image(uploaded_by_user=request.user)
         form = ImageForm(request.POST, request.FILES, instance=image)
 
@@ -154,7 +154,7 @@ def chooser_upload(request):
 def chooser_select_format(request, image_id):
     image = get_object_or_404(get_image_model(), id=image_id)
 
-    if request.POST:
+    if request.method == 'POST':
         form = ImageInsertionForm(request.POST, initial={'alt_text': image.default_alt_text})
         if form.is_valid():
 

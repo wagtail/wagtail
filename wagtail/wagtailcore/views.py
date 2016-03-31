@@ -33,7 +33,7 @@ def authenticate_with_password(request, page_view_restriction_id, page_id):
     restriction = get_object_or_404(PageViewRestriction, id=page_view_restriction_id)
     page = get_object_or_404(Page, id=page_id).specific
 
-    if request.POST:
+    if request.method == 'POST':
         form = PasswordPageViewRestrictionForm(request.POST, instance=restriction)
         if form.is_valid():
             has_existing_session = (settings.SESSION_COOKIE_NAME in request.COOKIES)

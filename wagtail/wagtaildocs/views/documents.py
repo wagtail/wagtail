@@ -90,7 +90,7 @@ def add(request):
     Document = get_document_model()
     DocumentForm = get_document_form(Document)
 
-    if request.POST:
+    if request.method == 'POST':
         doc = Document(uploaded_by_user=request.user)
         form = DocumentForm(request.POST, request.FILES, instance=doc, user=request.user)
         if form.is_valid():
@@ -124,7 +124,7 @@ def edit(request, document_id):
     if not permission_policy.user_has_permission_for_instance(request.user, 'change', doc):
         return permission_denied(request)
 
-    if request.POST:
+    if request.method == 'POST':
         original_file = doc.file
         form = DocumentForm(request.POST, request.FILES, instance=doc, user=request.user)
         if form.is_valid():
@@ -183,7 +183,7 @@ def delete(request, document_id):
     if not permission_policy.user_has_permission_for_instance(request.user, 'delete', doc):
         return permission_denied(request)
 
-    if request.POST:
+    if request.method == 'POST':
         doc.delete()
         messages.success(request, _("Document '{0}' deleted.").format(doc.title))
         return redirect('wagtaildocs:index')

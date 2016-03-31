@@ -48,7 +48,7 @@ def change_password(request):
     can_change_password = request.user.has_usable_password()
 
     if can_change_password:
-        if request.POST:
+        if request.method == 'POST':
             form = PasswordChangeForm(request.user, request.POST)
 
             if form.is_valid():
@@ -83,7 +83,7 @@ password_reset_complete = _wrap_password_reset_view(auth_views.password_reset_co
 
 
 def notification_preferences(request):
-    if request.POST:
+    if request.method == 'POST':
         form = NotificationPreferencesForm(request.POST, instance=UserProfile.get_for_user(request.user))
 
         if form.is_valid():

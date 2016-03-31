@@ -149,7 +149,7 @@ def external_link(request):
     else:
         form_class = ExternalLinkChooserForm
 
-    if request.POST:
+    if request.method == 'POST':
         form = form_class(request.POST)
         if form.is_valid():
             return render_modal_workflow(
@@ -180,7 +180,7 @@ def email_link(request):
     else:
         form_class = EmailLinkChooserForm
 
-    if request.POST:
+    if request.method == 'POST':
         form = form_class(request.POST)
         if form.is_valid():
             return render_modal_workflow(

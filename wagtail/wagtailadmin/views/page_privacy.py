@@ -21,7 +21,7 @@ def set_privacy(request, page_id):
         restriction = None
         restriction_exists_on_ancestor = False
 
-    if request.POST:
+    if request.method == 'POST':
         form = PageViewRestrictionForm(request.POST)
         if form.is_valid() and not restriction_exists_on_ancestor:
             if form.cleaned_data['restriction_type'] == 'none':

@@ -17,7 +17,7 @@ def chooser(request):
 
 
 def chooser_upload(request):
-    if request.POST:
+    if request.method == 'POST':
         form = EmbedForm(request.POST, request.FILES)
 
         if form.is_valid():
