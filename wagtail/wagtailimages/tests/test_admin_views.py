@@ -369,9 +369,7 @@ class TestImageDeleteView(TestCase, WagtailTestUtils):
         self.assertTemplateUsed(response, 'wagtailimages/images/confirm_delete.html')
 
     def test_delete(self):
-        response = self.post({
-            'hello': 'world'
-        })
+        response = self.post()
 
         # Should redirect back to index
         self.assertRedirects(response, reverse('wagtailimages:index'))
