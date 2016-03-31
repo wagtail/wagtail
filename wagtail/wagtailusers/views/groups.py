@@ -76,7 +76,7 @@ def index(request):
 @permission_required('auth.add_group')
 def create(request):
     group = Group()
-    if request.POST:
+    if request.method == 'POST':
         form = GroupForm(request.POST, instance=group)
         permission_panels = [
             cls(request.POST, instance=group)
@@ -110,7 +110,7 @@ def create(request):
 @permission_required('auth.change_group')
 def edit(request, group_id):
     group = get_object_or_404(Group, id=group_id)
-    if request.POST:
+    if request.method == 'POST':
         form = GroupForm(request.POST, instance=group)
         permission_panels = [
             cls(request.POST, instance=group)
@@ -146,7 +146,7 @@ def edit(request, group_id):
 def delete(request, group_id):
     group = get_object_or_404(Group, id=group_id)
 
-    if request.POST:
+    if request.method == 'POST':
         group.delete()
         messages.success(request, _("Group '{0}' deleted.").format(group.name))
         return redirect('wagtailusers_groups:index')

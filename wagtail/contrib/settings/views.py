@@ -51,7 +51,7 @@ def edit(request, site_pk, app_name, model_name):
     edit_handler_class = get_setting_edit_handler(model)
     form_class = edit_handler_class.get_form_class(model)
 
-    if request.POST:
+    if request.method == 'POST':
         form = form_class(request.POST, request.FILES, instance=instance)
 
         if form.is_valid():

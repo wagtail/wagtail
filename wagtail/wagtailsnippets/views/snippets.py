@@ -126,7 +126,7 @@ def create(request, app_label, model_name):
     edit_handler_class = get_snippet_edit_handler(model)
     form_class = edit_handler_class.get_form_class(model)
 
-    if request.POST:
+    if request.method == 'POST':
         form = form_class(request.POST, request.FILES, instance=instance)
 
         if form.is_valid():
@@ -169,7 +169,7 @@ def edit(request, app_label, model_name, id):
     edit_handler_class = get_snippet_edit_handler(model)
     form_class = edit_handler_class.get_form_class(model)
 
-    if request.POST:
+    if request.method == 'POST':
         form = form_class(request.POST, request.FILES, instance=instance)
 
         if form.is_valid():
@@ -211,7 +211,7 @@ def delete(request, app_label, model_name, id):
 
     instance = get_object_or_404(model, id=id)
 
-    if request.POST:
+    if request.method == 'POST':
         instance.delete()
         messages.success(
             request,

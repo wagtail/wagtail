@@ -100,7 +100,7 @@ def chooser_upload(request):
     Document = get_document_model()
     DocumentForm = get_document_form(Document)
 
-    if request.POST:
+    if request.method == 'POST':
         document = Document(uploaded_by_user=request.user)
         form = DocumentForm(request.POST, request.FILES, instance=document)
 
