@@ -386,10 +386,10 @@ class TestRedirectsDeleteView(TestCase, WagtailTestUtils):
     def get(self, params={}, redirect_id=None):
         return self.client.get(reverse('wagtailredirects:delete', args=(redirect_id or self.redirect.id, )), params)
 
-    def post(self, post_data={}, redirect_id=None):
+    def post(self, redirect_id=None):
         return self.client.post(reverse(
             'wagtailredirects:delete', args=(redirect_id or self.redirect.id, )
-        ), post_data)
+        ))
 
     def test_simple(self):
         response = self.get()
@@ -400,9 +400,7 @@ class TestRedirectsDeleteView(TestCase, WagtailTestUtils):
         self.assertEqual(self.get(redirect_id=100000).status_code, 404)
 
     def test_delete(self):
-        response = self.post({
-            'hello': 'world'
-        })
+        response = self.post()
 
         # Should redirect back to index
         self.assertRedirects(response, reverse('wagtailredirects:index'))
