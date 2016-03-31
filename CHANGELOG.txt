@@ -13,7 +13,7 @@ Changelog
  * Fix: The currently selected day is now highlighted only in the correct month in date pickers (Jonas Lergell)
 
 
-1.4.2 (xx.xx.2016)
+1.4.2 (31.03.2016)
 ~~~~~~~~~~~~~~~~~~
 
  * Fix: Streamfields no longer break on validation error
