@@ -1,7 +1,7 @@
 Changelog
 =========
 
-1.4.2 (xx.xx.2016)
+1.4.2 (31.03.2016)
 ~~~~~~~~~~~~~~~~~~
 
  * Fix: Streamfields no longer break on validation error
