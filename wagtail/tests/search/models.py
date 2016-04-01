@@ -6,7 +6,7 @@ from taggit.managers import TaggableManager
 from wagtail.wagtailsearch import index
 
 
-class SearchTest(models.Model, index.Indexed):
+class SearchTest(index.Indexed, models.Model):
     title = models.CharField(max_length=255)
     content = models.TextField()
     live = models.BooleanField(default=False)

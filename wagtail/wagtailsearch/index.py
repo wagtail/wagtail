@@ -1,6 +1,7 @@
 from __future__ import absolute_import, unicode_literals
 
 from django.apps import apps
+from django.core import checks
 from django.db import models
 from django.db.models.fields import FieldDoesNotExist
 from django.db.models.fields.related import ForeignObjectRel, OneToOneRel, RelatedField
@@ -78,6 +79,34 @@ class Indexed(object):
         to return the instance in its most specific class so it reindexes properly.
         """
         return self
+
+    @classmethod
+    def check(cls, **kwargs):
+        errors = super(Indexed, cls).check(**kwargs)
+        errors.extend(cls._check_fields_exist(**kwargs))
+        return errors
+
+    @classmethod
+    def _has_field(cls, name):
+        try:
+            cls._meta.get_field(name)
+            return True
+        except models.fields.FieldDoesNotExist:
+            return callable(getattr(cls, name, None))
+
+    @classmethod
+    def _check_fields_exist(cls, **kwargs):
+        errors = []
+        for field in cls.get_search_fields():
+            message = '{name} in search_fields but not on {model}'
+            if not cls._has_field(field.field_name):
+                errors.append(
+                    checks.Warning(
+                        message.format(name=field.field_name, model=cls.__name__),
+                        obj=cls,
+                    )
+                )
+        return errors
 
     search_fields = SearchFieldsShouldBeAList([], name='search_fields on Indexed subclasses')
 
