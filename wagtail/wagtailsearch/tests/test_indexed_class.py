@@ -1,5 +1,6 @@
 from __future__ import absolute_import, unicode_literals
 
+from django.core import checks
 from django.test import TestCase
 
 from wagtail.tests.search import models
@@ -68,3 +69,14 @@ class TestSearchFields(TestCase):
         self.assertEqual(len(cls.get_search_fields()), 2)
         self.assertEqual(len(cls.get_searchable_search_fields()), 1)
         self.assertEqual(len(cls.get_filterable_search_fields()), 1)
+
+    def test_checking_search_fields(self):
+        models.SearchTest.search_fields += [index.SearchField('foo')]
+        expected_errors = [
+            checks.Warning(
+                "SearchTest.search_fields contains field 'foo' but it doesn't exist",
+                obj=models.SearchTest
+            )
+        ]
+        errors = models.SearchTest.check()
+        self.assertEqual(errors, expected_errors)
