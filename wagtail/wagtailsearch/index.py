@@ -81,18 +81,18 @@ class Indexed(object):
         return self
 
     @classmethod
-    def check(cls, **kwargs):
-        errors = super(Indexed, cls).check(**kwargs)
-        errors.extend(cls._check_fields_exist(**kwargs))
-        return errors
-
-    @classmethod
     def _has_field(cls, name):
         try:
             cls._meta.get_field(name)
             return True
         except models.fields.FieldDoesNotExist:
-            return callable(getattr(cls, name, None))
+            return hasattr(cls, name)
+
+    @classmethod
+    def check(cls, **kwargs):
+        errors = super(Indexed, cls).check(**kwargs)
+        errors.extend(cls._check_fields_exist(**kwargs))
+        return errors
 
     @classmethod
     def _check_fields_exist(cls, **kwargs):
