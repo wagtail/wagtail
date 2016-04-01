@@ -1521,6 +1521,7 @@ PAGE_PERMISSION_TYPES = [
     ('edit', _("Edit"), _("Edit any page")),
     ('publish', _("Publish"), _("Publish any page")),
     ('lock', _("Lock"), _("Lock/unlock any page")),
+    ('view_in_admin', _("View in Admin"), _("View any page in the Wagtail Admin")),
 ]
 
 PAGE_PERMISSION_TYPE_CHOICES = [
@@ -1628,6 +1629,26 @@ class UserPagePermissionsProxy(object):
     def can_publish_pages(self):
         """Return True if the user has permission to publish any pages"""
         return self.publishable_pages().exists()
+
+    def viewable_pages(self):
+        """Return a queryset of the pages that this user has permission to view in the Wagtail Admin"""
+        # Deal with the trivial cases first...
+        if not self.user.is_active:
+            return Page.objects.none()
+        if self.user.is_superuser:
+            return Page.objects.all()
+
+        viewable_pages = Page.objects.none()
+
+        for perm in self.permissions.filter(permission_type='view_in_admin'):
+            # user has view permission on any subpage of perm.page (including perm.page itself)
+            viewable_pages |= Page.objects.descendant_of(perm.page, inclusive=True)
+
+        return viewable_pages
+
+    def can_view_pages(self):
+        """Return True if the user has permission to View any pages in Wagtail Admin"""
+        return self.viewable_pages().exists()
 
 
 class PagePermissionTester(object):
@@ -1772,6 +1793,14 @@ class PagePermissionTester(object):
         else:
             # no publishing required, so the already-tested 'add' permission is sufficient
             return True
+
+    def can_view_in_admin(self):
+        if not self.user.is_active:
+            return False
+        if self.page_is_root:
+            return False
+
+        return self.user.is_superuser or ('view_in_admin' in self.permissions)
 
 
 class PageViewRestriction(models.Model):
