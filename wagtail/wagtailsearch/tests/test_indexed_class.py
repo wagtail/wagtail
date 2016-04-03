@@ -74,7 +74,7 @@ class TestSearchFields(TestCase):
         models.SearchTest.search_fields += [index.SearchField('foo')]
         expected_errors = [
             checks.Warning(
-                'foo in search_fields but not on SearchTest',
+                "SearchTest.search_fields contains field 'foo' but it doesn't exist",
                 obj=models.SearchTest
             )
         ]
