@@ -1,10 +1,12 @@
 from __future__ import absolute_import, unicode_literals
 
+import warnings
+
 from django.contrib.contenttypes.models import ContentType
 from django.db.models import Count
 from taggit.models import Tag
 
-from wagtail.utils.deprecation import SearchFieldsShouldBeAList
+from wagtail.utils.deprecation import RemovedInWagtail17Warning, SearchFieldsShouldBeAList
 from wagtail.wagtailsearch import index
 
 
@@ -33,3 +35,6 @@ class TagSearchable(index.Indexed):
         ).annotate(
             item_count=Count('taggit_taggeditem_items')
         ).order_by('-item_count')[:10]
+
+
+warnings.warn("The wagtail.wagtailadmin.taggable module is deprecated.", category=RemovedInWagtail17Warning)
