@@ -511,7 +511,7 @@ class BasePageChooserPanel(BaseChooserPanel):
     @classmethod
     def widget_overrides(cls):
         return {cls.field_name: widgets.AdminPageChooser(
-            content_type=cls.target_content_type(), can_choose_root=cls.can_choose_root)}
+            models=cls.target_models(), can_choose_root=cls.can_choose_root)}
 
     @classmethod
     def target_models(cls):
