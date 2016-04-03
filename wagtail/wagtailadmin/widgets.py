@@ -135,22 +135,30 @@ class AdminPageChooser(AdminChooser):
     choose_another_text = _('Choose another page')
     link_to_chosen_text = _('Edit this page')
 
-    def __init__(self, content_type=None, can_choose_root=False, **kwargs):
+    def __init__(self, models=None, content_type=None, can_choose_root=False, **kwargs):
         super(AdminPageChooser, self).__init__(**kwargs)
-        self._content_type = content_type
         self.can_choose_root = can_choose_root
+        self.models = models
+
+        if self.models is None:
+            if isinstance(content_type, (list, tuple)):
+                self.models = [ct.model_class() for ct in content_type]
+            elif isinstance(content_type, ContentType):
+                self.models = [content_type.model_class()]
+            else:
+                self.models = [Page]
+
+        # Convert singular model into single-item list
+        if isinstance(self.models, models.Model):
+            self.models = [self.models]
 
     @cached_property
     def target_content_types(self):
-        target_content_types = self._content_type or ContentType.objects.get_for_model(Page)
-        # Make sure target_content_types is a list or tuple
-        if not isinstance(target_content_types, (list, tuple)):
-            target_content_types = [target_content_types]
-        return target_content_types
+        return list(ContentType.objects.get_for_models(**self.models).values())
 
     def render_html(self, name, value, attrs):
-        if len(self.target_content_types) == 1:
-            model_class = self.target_content_types[0].model_class()
+        if len(self.models) == 1:
+            model_class = self.models[0]
         else:
             model_class = Page
 
@@ -171,8 +179,8 @@ class AdminPageChooser(AdminChooser):
             page = value
         else:
             # Value is an ID look up object
-            if len(self.target_content_types) == 1:
-                model_class = self.target_content_types[0].model_class()
+            if len(self.models) == 1:
+                model_class = self.models[0]
             else:
                 model_class = Page
 
@@ -184,9 +192,9 @@ class AdminPageChooser(AdminChooser):
             id=json.dumps(id_),
             content_type=json.dumps([
                 '{app}.{model}'.format(
-                    app=content_type.app_label,
-                    model=content_type.model)
-                for content_type in self.target_content_types
+                    app=model._meta.app_label,
+                    model=model.__name__.lower())
+                for model in self.models
             ]),
             parent=json.dumps(parent.id if parent else None),
             can_choose_root=('true' if self.can_choose_root else 'false')
