@@ -47,7 +47,7 @@ class RegisterDecorator(models.Model):
 # A snippet model that inherits from index.Indexed can be searched on
 
 @register_snippet
-class SearchableSnippet(models.Model, index.Indexed):
+class SearchableSnippet(index.Indexed, models.Model):
     text = models.CharField(max_length=255)
 
     search_fields = [

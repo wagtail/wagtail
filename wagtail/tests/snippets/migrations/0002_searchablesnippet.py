@@ -19,6 +19,6 @@ class Migration(migrations.Migration):
                 ('id', models.AutoField(serialize=False, primary_key=True, auto_created=True, verbose_name='ID')),
                 ('text', models.CharField(max_length=255)),
             ],
-            bases=(models.Model, wagtail.wagtailsearch.index.Indexed),
+            bases=(wagtail.wagtailsearch.index.Indexed, models.Model),
         ),
     ]

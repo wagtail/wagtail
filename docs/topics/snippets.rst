@@ -191,7 +191,7 @@ If a snippet model inherits from ``wagtail.wagtailsearch.index.Indexed``, as des
   ...
 
   @register_snippet
-  class Advert(models.Model, index.Indexed):
+  class Advert(index.Indexed, models.Model):
       url = models.URLField(null=True, blank=True)
       text = models.CharField(max_length=255)
 
