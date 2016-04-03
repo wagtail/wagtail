@@ -7,6 +7,7 @@ from contextlib import contextmanager
 
 import django
 from django.conf import settings
+from django.contrib.contenttypes.models import ContentType
 from django.core.exceptions import ImproperlyConfigured
 from django.core.files import File
 from django.core.urlresolvers import reverse
@@ -20,10 +21,11 @@ from django.utils.safestring import mark_safe
 from django.utils.six import BytesIO, string_types, text_type
 from django.utils.translation import ugettext_lazy as _
 from taggit.managers import TaggableManager
+from taggit.models import Tag
 from unidecode import unidecode
 from willow.image import Image as WillowImage
 
-from wagtail.wagtailadmin.taggable import TagSearchable
+from wagtail.utils.deprecation import SearchFieldsShouldBeAList
 from wagtail.wagtailadmin.utils import get_object_usage
 from wagtail.wagtailcore import hooks
 from wagtail.wagtailcore.models import CollectionMember
@@ -50,7 +52,7 @@ def get_upload_to(instance, filename):
 
 
 @python_2_unicode_compatible
-class AbstractImage(CollectionMember, TagSearchable):
+class AbstractImage(CollectionMember, index.Indexed, models.Model):
     title = models.CharField(max_length=255, verbose_name=_('title'))
     file = models.ImageField(
         verbose_name=_('file'), upload_to=get_upload_to, width_field='width', height_field='height'
@@ -120,9 +122,26 @@ class AbstractImage(CollectionMember, TagSearchable):
         return reverse('wagtailimages:image_usage',
                        args=(self.id,))
 
-    search_fields = TagSearchable.search_fields + CollectionMember.search_fields + [
+    search_fields = SearchFieldsShouldBeAList(CollectionMember.search_fields + [
+        index.SearchField('title', partial_match=True, boost=10),
+        index.RelatedFields('tags', [
+            index.SearchField('name', partial_match=True, boost=10),
+        ]),
         index.FilterField('uploaded_by_user'),
-    ]
+    ], name='search_fields on AbstractImage subclasses')
+
+    @classmethod
+    def get_indexed_objects(cls):
+        return super(AbstractImage, cls).get_indexed_objects().prefetch_related('tagged_items__tag')
+
+    @classmethod
+    def popular_tags(cls):
+        content_type = ContentType.objects.get_for_model(cls)
+        return Tag.objects.filter(
+            taggit_taggeditem_items__content_type=content_type
+        ).annotate(
+            item_count=models.Count('taggit_taggeditem_items')
+        ).order_by('-item_count')[:10]
 
     def __str__(self):
         return self.title
