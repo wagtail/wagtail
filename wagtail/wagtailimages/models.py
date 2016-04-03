@@ -23,7 +23,7 @@ from taggit.managers import TaggableManager
 from unidecode import unidecode
 from willow.image import Image as WillowImage
 
-from wagtail.wagtailadmin.taggable import TagSearchable
+from wagtail.utils.deprecation import SearchFieldsShouldBeAList
 from wagtail.wagtailadmin.utils import get_object_usage
 from wagtail.wagtailcore import hooks
 from wagtail.wagtailcore.models import CollectionMember
@@ -67,7 +67,7 @@ def get_rendition_upload_to(instance, filename):
 
 
 @python_2_unicode_compatible
-class AbstractImage(CollectionMember, TagSearchable):
+class AbstractImage(CollectionMember, index.Indexed, models.Model):
     title = models.CharField(max_length=255, verbose_name=_('title'))
     file = models.ImageField(
         verbose_name=_('file'), upload_to=get_upload_to, width_field='width', height_field='height'
@@ -137,9 +137,13 @@ class AbstractImage(CollectionMember, TagSearchable):
         return reverse('wagtailimages:image_usage',
                        args=(self.id,))
 
-    search_fields = TagSearchable.search_fields + CollectionMember.search_fields + [
+    search_fields = SearchFieldsShouldBeAList(CollectionMember.search_fields + [
+        index.SearchField('title', partial_match=True, boost=10),
+        index.RelatedFields('tags', [
+            index.SearchField('name', partial_match=True, boost=10),
+        ]),
         index.FilterField('uploaded_by_user'),
-    ]
+    ], name='search_fields on AbstractImage subclasses')
 
     def __str__(self):
         return self.title
