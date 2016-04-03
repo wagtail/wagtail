@@ -91,11 +91,11 @@ class Indexed(object):
     @classmethod
     def check(cls, **kwargs):
         errors = super(Indexed, cls).check(**kwargs)
-        errors.extend(cls._check_fields_exist(**kwargs))
+        errors.extend(cls._check_search_fields(**kwargs))
         return errors
 
     @classmethod
-    def _check_fields_exist(cls, **kwargs):
+    def _check_search_fields(cls, **kwargs):
         errors = []
         for field in cls.get_search_fields():
             message = '{name} in search_fields but not on {model}'
