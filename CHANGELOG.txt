@@ -11,6 +11,7 @@ Changelog
  * The type of the ``search_fields`` attribute on ``Page`` models (and other searchable models) has changed from a tuple to a list (Tim Heap)
  * Use `PasswordChangeForm` when user changes their password, requiring the user to enter their current password (Matthijs Melissen)
  * Highlight current day in date picker (Jonas Lergell)
+ * Eliminated the deprecated `register.assignment_tag` on Django 1.9 (Josh Schneier)
  * Fix: The currently selected day is now highlighted only in the correct month in date pickers (Jonas Lergell)
  * Fix: Fixed crash when an image without a source file was resized with the "dynamic serve view"
 
