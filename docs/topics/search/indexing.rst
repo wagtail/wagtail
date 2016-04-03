@@ -216,7 +216,7 @@ To do this, inherit from ``index.Indexed`` and add some ``search_fields`` to the
 
     from wagtail.wagtailsearch import index
 
-    class Book(models.Model, index.Indexed):
+    class Book(index.Indexed, models.Model):
         title = models.CharField(max_length=255)
         genre = models.CharField(max_length=255, choices=GENRE_CHOICES)
         author = models.ForeignKey(Author)

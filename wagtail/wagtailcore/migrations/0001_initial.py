@@ -96,7 +96,7 @@ class Migration(migrations.Migration):
             options={
                 'abstract': False,
             },
-            bases=(models.Model, wagtail.wagtailsearch.index.Indexed),
+            bases=(wagtail.wagtailsearch.index.Indexed, models.Model),
         ),
         migrations.RunPython(
             set_page_path_collation, migrations.RunPython.noop

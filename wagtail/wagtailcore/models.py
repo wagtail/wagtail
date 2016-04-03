@@ -290,7 +290,7 @@ class PageBase(models.base.ModelBase):
 
 
 @python_2_unicode_compatible
-class Page(six.with_metaclass(PageBase, MP_Node, ClusterableModel, index.Indexed)):
+class Page(six.with_metaclass(PageBase, MP_Node, index.Indexed, ClusterableModel)):
     title = models.CharField(
         verbose_name=_('title'),
         max_length=255,

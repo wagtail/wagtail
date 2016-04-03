@@ -28,7 +28,7 @@ class Migration(migrations.Migration):
                 ('live', models.BooleanField(default=False)),
                 ('published_date', models.DateField(null=True)),
             ],
-            bases=(models.Model, wagtail.wagtailsearch.index.Indexed),
+            bases=(wagtail.wagtailsearch.index.Indexed, models.Model),
         ),
         migrations.CreateModel(
             name='SearchTestChild',
