@@ -213,6 +213,7 @@ Adding tags to snippets is very similar to adding tags to pages. The only differ
 .. code-block:: python
 
     from modelcluster.fields import ParentalKey
+    from modelcluster.models import ClusterableModel
     from taggit.models import TaggedItemBase
     from taggit.managers import TaggableManager
 
@@ -220,7 +221,7 @@ Adding tags to snippets is very similar to adding tags to pages. The only differ
         content_object = ParentalKey('demo.Advert', related_name='tagged_items')
 
     @register_snippet
-    class Advert(models.Model):
+    class Advert(ClusterableModel):
         ...
         tags = TaggableManager(through=AdvertTag, blank=True)
 
