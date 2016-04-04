@@ -11,6 +11,8 @@ from wagtail.utils.deprecation import RemovedInWagtail17Warning, SearchFieldsSho
 class TestThisShouldBeAList(SimpleTestCase):
     def test_add_a_list(self):
         with warnings.catch_warnings(record=True) as w:
+            warnings.simplefilter('always')
+
             base = SearchFieldsShouldBeAList(['hello'])
             result = base + ['world']
 
@@ -23,6 +25,8 @@ class TestThisShouldBeAList(SimpleTestCase):
 
     def test_add_a_tuple(self):
         with warnings.catch_warnings(record=True) as w:
+            warnings.simplefilter('always')
+
             base = SearchFieldsShouldBeAList(['hello'])
             result = base + ('world',)
 
