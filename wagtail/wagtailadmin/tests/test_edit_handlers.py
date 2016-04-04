@@ -1,5 +1,6 @@
 from __future__ import absolute_import, unicode_literals
 
+import warnings
 from datetime import date
 
 import mock
@@ -12,6 +13,7 @@ from wagtail.tests.testapp.forms import ValidatedPageForm
 from wagtail.tests.testapp.models import (
     EventPage, EventPageChooserModel, EventPageSpeaker, PageChooserModel, SimplePage, ValidatedPage)
 from wagtail.tests.utils import WagtailTestUtils
+from wagtail.utils.deprecation import RemovedInWagtail17Warning
 from wagtail.wagtailadmin.edit_handlers import (
     FieldPanel, InlinePanel, ObjectList, PageChooserPanel, RichTextFieldPanel, TabbedInterface,
     extract_panel_definitions_from_model_class, get_form_for_model)
@@ -528,28 +530,68 @@ class TestPageChooserPanel(TestCase):
 
         self.assertIn(expected_js, result)
 
-    def test_target_content_type(self):
+    def test_target_models(self):
         result = PageChooserPanel(
             'barbecue',
             'wagtailcore.site'
-        ).bind_to_model(PageChooserModel).target_content_type()[0]
-        self.assertEqual(result.name, 'site')
+        ).bind_to_model(PageChooserModel).target_models()
+        self.assertEqual(result, [Site])
 
-    def test_target_content_type_malformed_type(self):
+    def test_target_models_malformed_type(self):
         result = PageChooserPanel(
             'barbecue',
             'snowman'
         ).bind_to_model(PageChooserModel)
         self.assertRaises(ImproperlyConfigured,
-                          result.target_content_type)
+                          result.target_models)
 
-    def test_target_content_type_nonexistent_type(self):
+    def test_target_models_nonexistent_type(self):
         result = PageChooserPanel(
             'barbecue',
             'snowman.lorry'
         ).bind_to_model(PageChooserModel)
         self.assertRaises(ImproperlyConfigured,
-                          result.target_content_type)
+                          result.target_models)
+
+    def test_target_content_type(self):
+        with warnings.catch_warnings(record=True) as ws:
+            warnings.simplefilter('always')
+
+            result = PageChooserPanel(
+                'barbecue',
+                'wagtailcore.site'
+            ).bind_to_model(PageChooserModel).target_content_type()[0]
+            self.assertEqual(result.name, 'site')
+
+            self.assertEqual(len(ws), 1)
+            self.assertIs(ws[0].category, RemovedInWagtail17Warning)
+
+    def test_target_content_type_malformed_type(self):
+        with warnings.catch_warnings(record=True) as ws:
+            warnings.simplefilter('always')
+
+            result = PageChooserPanel(
+                'barbecue',
+                'snowman'
+            ).bind_to_model(PageChooserModel)
+            self.assertRaises(ImproperlyConfigured,
+                              result.target_content_type)
+
+            self.assertEqual(len(ws), 1)
+            self.assertIs(ws[0].category, RemovedInWagtail17Warning)
+
+    def test_target_content_type_nonexistent_type(self):
+        with warnings.catch_warnings(record=True) as ws:
+            warnings.simplefilter('always')
+
+            result = PageChooserPanel(
+                'barbecue',
+                'snowman.lorry'
+            ).bind_to_model(PageChooserModel)
+            self.assertRaises(ImproperlyConfigured,
+                              result.target_content_type)
+            self.assertEqual(len(ws), 1)
+            self.assertIs(ws[0].category, RemovedInWagtail17Warning)
 
 
 class TestInlinePanel(TestCase, WagtailTestUtils):
