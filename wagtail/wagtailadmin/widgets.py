@@ -261,9 +261,14 @@ class BaseDropdownMenuButton(Button):
         raise NotImplementedError
 
     def render(self):
+        if 'title' in self.attrs:
+            title = self.attrs['title']
+        else:
+            title = None
         return render_to_string(self.template_name, {
             'buttons': self.get_buttons_in_dropdown(),
             'label': self.label,
+            'title': title,
             'is_parent': self.is_parent})
 
 
