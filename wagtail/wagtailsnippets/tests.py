@@ -3,6 +3,8 @@ from __future__ import absolute_import, unicode_literals
 from django.contrib.auth import get_user_model
 from django.contrib.auth.models import Permission
 from django.core.exceptions import ImproperlyConfigured
+from django.core.files.base import ContentFile
+from django.core.files.uploadedfile import SimpleUploadedFile
 from django.core.urlresolvers import reverse
 from django.test import TestCase
 from django.test.utils import override_settings
@@ -10,8 +12,8 @@ from taggit.models import Tag
 
 from wagtail.tests.snippets.forms import FancySnippetForm
 from wagtail.tests.snippets.models import (
-    AlphaSnippet, FancySnippet, RegisterDecorator, RegisterFunction, SearchableSnippet,
-    StandardSnippet, ZuluSnippet)
+    AlphaSnippet, FancySnippet, FileUploadSnippet, RegisterDecorator, RegisterFunction,
+    SearchableSnippet, StandardSnippet, ZuluSnippet)
 from wagtail.tests.testapp.models import Advert, AdvertWithTabbedInterface, SnippetChooserModel
 from wagtail.tests.utils import WagtailTestUtils
 from wagtail.wagtailadmin.forms import WagtailAdminModelForm
@@ -117,15 +119,13 @@ class TestSnippetCreateView(TestCase, WagtailTestUtils):
     def setUp(self):
         self.login()
 
-    def get(self, params={}):
-        return self.client.get(reverse('wagtailsnippets:add',
-                                       args=('tests', 'advert')),
-                               params)
+    def get(self, params={}, model=Advert):
+        args = (model._meta.app_label, model._meta.model_name)
+        return self.client.get(reverse('wagtailsnippets:add', args=args), params)
 
-    def post(self, post_data={}):
-        return self.client.post(reverse('wagtailsnippets:add',
-                                args=('tests', 'advert')),
-                                post_data)
+    def post(self, post_data={}, model=Advert):
+        args = (model._meta.app_label, model._meta.model_name)
+        return self.client.post(reverse('wagtailsnippets:add', args=args), post_data)
 
     def test_simple(self):
         response = self.get()
@@ -176,24 +176,40 @@ class TestSnippetCreateView(TestCase, WagtailTestUtils):
             list(snippet.tags.order_by('name')),
             expected_tags)
 
+    def test_create_file_upload_multipart(self):
+        response = self.get(model=FileUploadSnippet)
+        self.assertContains(response, 'enctype="multipart/form-data"')
 
-class TestSnippetEditView(TestCase, WagtailTestUtils):
+        response = self.post(model=FileUploadSnippet, post_data={
+            'file': SimpleUploadedFile('test.txt', b"Uploaded file")})
+        self.assertRedirects(response, reverse('wagtailsnippets:list',
+                                               args=('snippetstests', 'fileuploadsnippet')))
+        snippet = FileUploadSnippet.objects.get()
+        self.assertEqual(snippet.file.read(), b"Uploaded file")
+
+
+class BaseTestSnippetEditView(TestCase, WagtailTestUtils):
+
+    def get(self, params={}):
+        snippet = self.test_snippet
+        args = (snippet._meta.app_label, snippet._meta.model_name, snippet.id)
+        return self.client.get(reverse('wagtailsnippets:edit', args=args), params)
+
+    def post(self, post_data={}):
+        snippet = self.test_snippet
+        args = (snippet._meta.app_label, snippet._meta.model_name, snippet.id)
+        return self.client.post(reverse('wagtailsnippets:edit', args=args), post_data)
+
+    def setUp(self):
+        self.login()
+
+
+class TestSnippetEditView(BaseTestSnippetEditView):
     fixtures = ['test.json']
 
     def setUp(self):
+        super(TestSnippetEditView, self).setUp()
         self.test_snippet = Advert.objects.get(id=1)
-        self.test_snippet_with_tabbed_interface = AdvertWithTabbedInterface.objects.get(id=1)
-        self.login()
-
-    def get(self, params={}):
-        return self.client.get(reverse('wagtailsnippets:edit',
-                                       args=('tests', 'advert', self.test_snippet.id)),
-                               params)
-
-    def post(self, post_data={}):
-        return self.client.post(reverse('wagtailsnippets:edit',
-                                        args=('tests', 'advert', self.test_snippet.id)),
-                                post_data)
 
     def test_simple(self):
         response = self.get()
@@ -202,16 +218,6 @@ class TestSnippetEditView(TestCase, WagtailTestUtils):
         self.assertNotContains(response, '<ul class="tab-nav merged">')
         self.assertNotContains(response, '<a href="#advert" class="active">Advert</a>', html=True)
         self.assertNotContains(response, '<a href="#other" class="">Other</a>', html=True)
-
-    def test_snippet_with_tabbed_interface(self):
-        reverse_args = ('tests', 'advertwithtabbedinterface', self.test_snippet_with_tabbed_interface.id)
-        response = self.client.get(reverse('wagtailsnippets:edit', args=reverse_args))
-
-        self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, 'wagtailsnippets/snippets/edit.html')
-        self.assertContains(response, '<ul class="tab-nav merged">')
-        self.assertContains(response, '<a href="#advert" class="active">Advert</a>', html=True)
-        self.assertContains(response, '<a href="#other" class="">Other</a>', html=True)
 
     def test_non_existant_model(self):
         response = self.client.get(reverse('wagtailsnippets:edit', args=('tests', 'foo', self.test_snippet.id)))
@@ -251,6 +257,44 @@ class TestSnippetEditView(TestCase, WagtailTestUtils):
         self.assertEqual(
             list(snippet.tags.order_by('name')),
             expected_tags)
+
+
+class TestEditTabbedSnippet(BaseTestSnippetEditView):
+
+    def setUp(self):
+        super(TestEditTabbedSnippet, self).setUp()
+        self.test_snippet = AdvertWithTabbedInterface.objects.create(
+            text="test_advert",
+            url="http://www.example.com",
+            something_else="Model with tabbed interface")
+
+    def test_snippet_with_tabbed_interface(self):
+        response = self.get()
+
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'wagtailsnippets/snippets/edit.html')
+        self.assertContains(response, '<ul class="tab-nav merged">')
+        self.assertContains(response, '<a href="#advert" class="active">Advert</a>', html=True)
+        self.assertContains(response, '<a href="#other" class="">Other</a>', html=True)
+
+
+class TestEditFileUploadSnippet(BaseTestSnippetEditView):
+
+    def setUp(self):
+        super(TestEditFileUploadSnippet, self).setUp()
+        self.test_snippet = FileUploadSnippet.objects.create(
+            file=ContentFile(b"Simple text document", 'test.txt'))
+
+    def test_edit_file_upload_multipart(self):
+        response = self.get()
+        self.assertContains(response, 'enctype="multipart/form-data"')
+
+        response = self.post(post_data={
+            'file': SimpleUploadedFile('replacement.txt', b"Replacement document")})
+        self.assertRedirects(response, reverse('wagtailsnippets:list',
+                                               args=('snippetstests', 'fileuploadsnippet')))
+        snippet = FileUploadSnippet.objects.get()
+        self.assertEqual(snippet.file.read(), b"Replacement document")
 
 
 class TestSnippetDelete(TestCase, WagtailTestUtils):
