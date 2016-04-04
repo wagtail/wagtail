@@ -15,7 +15,7 @@ Changelog
  * Fix: Fixed crash when an image without a source file was resized with the "dynamic serve view"
 
 
-1.4.3 (xx.03.2016)
+1.4.3 (04.04.2016)
 ~~~~~~~~~~~~~~~~~~
 
  * Fixed regression introduced in 1.4.2 which caused Wagtail to query the database during a system check (Tim Heap)
