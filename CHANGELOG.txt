@@ -11,6 +11,7 @@ Changelog
  * Use `PasswordChangeForm` when user changes their password, requiring the user to enter their current password (Matthijs Melissen)
  * Highlight current day in date picker (Jonas Lergell)
  * Fix: The currently selected day is now highlighted only in the correct month in date pickers (Jonas Lergell)
+ * Improved L10N and I18N for revisions list. (Roel Bruggink)
 
 
 1.4.2 (xx.xx.2016)
