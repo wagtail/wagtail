@@ -1,5 +1,7 @@
 from __future__ import absolute_import, unicode_literals
 
+import warnings
+
 import django
 from django import forms
 from django.contrib.contenttypes.models import ContentType
@@ -11,6 +13,7 @@ from django.utils.six import text_type
 from django.utils.translation import ugettext_lazy
 
 from wagtail.utils.decorators import cached_classmethod
+from wagtail.utils.deprecation import RemovedInWagtail17Warning
 from wagtail.wagtailadmin import widgets
 from wagtail.wagtailcore.models import Page
 from wagtail.wagtailcore.utils import camelcase_to_underscore, resolve_model_string
@@ -506,41 +509,43 @@ class BaseChooserPanel(BaseFieldPanel):
 class BasePageChooserPanel(BaseChooserPanel):
     object_type_name = "page"
 
-    _target_content_type = None
-
     @classmethod
     def widget_overrides(cls):
         return {cls.field_name: widgets.AdminPageChooser(
-            content_type=cls.target_content_type(), can_choose_root=cls.can_choose_root)}
+            target_models=cls.target_models(),
+            can_choose_root=cls.can_choose_root)}
 
-    @classmethod
+    @cached_classmethod
+    def target_models(cls):
+        if cls.page_type:
+            target_models = []
+
+            for page_type in cls.page_type:
+                try:
+                    target_models.append(resolve_model_string(page_type))
+                except LookupError:
+                    raise ImproperlyConfigured(
+                        "{0}.page_type must be of the form 'app_label.model_name', given {1!r}".format(
+                            cls.__name__, page_type
+                        )
+                    )
+                except ValueError:
+                    raise ImproperlyConfigured(
+                        "{0}.page_type refers to model {1!r} that has not been installed".format(
+                            cls.__name__, page_type
+                        )
+                    )
+
+            return target_models
+        else:
+            return [cls.model._meta.get_field(cls.field_name).rel.to]
+
+    @cached_classmethod
     def target_content_type(cls):
-        if cls._target_content_type is None:
-            if cls.page_type:
-                target_models = []
-
-                for page_type in cls.page_type:
-                    try:
-                        target_models.append(resolve_model_string(page_type))
-                    except LookupError:
-                        raise ImproperlyConfigured(
-                            "{0}.page_type must be of the form 'app_label.model_name', given {1!r}".format(
-                                cls.__name__, page_type
-                            )
-                        )
-                    except ValueError:
-                        raise ImproperlyConfigured(
-                            "{0}.page_type refers to model {1!r} that has not been installed".format(
-                                cls.__name__, page_type
-                            )
-                        )
-
-                cls._target_content_type = list(ContentType.objects.get_for_models(*target_models).values())
-            else:
-                target_model = cls.model._meta.get_field(cls.field_name).rel.to
-                cls._target_content_type = [ContentType.objects.get_for_model(target_model)]
-
-        return cls._target_content_type
+        warnings.warn(
+            '{cls}.target_content_type() is deprecated. Use {cls}.target_models() instead'.format(cls=cls.__name__),
+            category=RemovedInWagtail17Warning)
+        return list(ContentType.objects.get_for_models(*cls.target_models()).values())
 
 
 class PageChooserPanel(object):

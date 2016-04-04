@@ -2,6 +2,7 @@ from __future__ import absolute_import, unicode_literals
 
 import itertools
 import json
+import warnings
 from functools import total_ordering
 
 from django.contrib.contenttypes.models import ContentType
@@ -16,6 +17,7 @@ from django.utils.html import format_html
 from django.utils.translation import ugettext_lazy as _
 from taggit.forms import TagWidget
 
+from wagtail.utils.deprecation import RemovedInWagtail17Warning
 from wagtail.utils.widgets import WidgetWithScript
 from wagtail.wagtailcore import hooks
 from wagtail.wagtailcore.models import Page
@@ -135,24 +137,48 @@ class AdminPageChooser(AdminChooser):
     choose_another_text = _('Choose another page')
     link_to_chosen_text = _('Edit this page')
 
-    def __init__(self, content_type=None, can_choose_root=False, **kwargs):
+    def __init__(self, target_models=None, content_type=None, can_choose_root=False, **kwargs):
         super(AdminPageChooser, self).__init__(**kwargs)
-        self._content_type = content_type
+
+        self.target_models = list(target_models or [Page])
+
+        if content_type is not None:
+            if target_models is not None:
+                raise ValueError("Can not set both target_models and content_type")
+            warnings.warn(
+                'The content_type argument for AdminPageChooser() is deprecated. Use the target_models argument instead',
+                category=RemovedInWagtail17Warning)
+            if isinstance(content_type, ContentType):
+                self.target_models = [content_type.model_class()]
+            else:
+                self.target_models = [ct.model_class() for ct in content_type]
+
         self.can_choose_root = can_choose_root
 
     @cached_property
     def target_content_types(self):
-        target_content_types = self._content_type or ContentType.objects.get_for_model(Page)
-        # Make sure target_content_types is a list or tuple
-        if not isinstance(target_content_types, (list, tuple)):
-            target_content_types = [target_content_types]
-        return target_content_types
+        warnings.warn(
+            'AdminPageChooser.target_content_types is deprecated. Use AdminPageChooser.target_models instead',
+            category=RemovedInWagtail17Warning)
+        return list(ContentType.objects.get_for_models(*self.target_models).values())
+
+    def _get_lowest_common_page_class(self):
+        """
+        Return a Page class that is an ancestor for all Page classes in
+        ``target_models``, and is also a concrete Page class itself.
+        """
+        if len(self.target_models) == 1:
+            # Shortcut for a single page type
+            return self.target_models[0]
+        else:
+            base = self.target_models[0]
+            others = self.target_models[1:]
+            for cls in base.__mro__:
+                if all(cls in other.__mro__ for other in others):
+                    return cls
 
     def render_html(self, name, value, attrs):
-        if len(self.target_content_types) == 1:
-            model_class = self.target_content_types[0].model_class()
-        else:
-            model_class = Page
+        model_class = self._get_lowest_common_page_class()
 
         instance, value = self.get_instance_and_id(model_class, value)
 
@@ -171,22 +197,18 @@ class AdminPageChooser(AdminChooser):
             page = value
         else:
             # Value is an ID look up object
-            if len(self.target_content_types) == 1:
-                model_class = self.target_content_types[0].model_class()
-            else:
-                model_class = Page
-
+            model_class = self._get_lowest_common_page_class()
             page = self.get_instance(model_class, value)
 
         parent = page.get_parent() if page else None
 
-        return "createPageChooser({id}, {content_type}, {parent}, {can_choose_root});".format(
+        return "createPageChooser({id}, {model_names}, {parent}, {can_choose_root});".format(
             id=json.dumps(id_),
-            content_type=json.dumps([
+            model_names=json.dumps([
                 '{app}.{model}'.format(
-                    app=content_type.app_label,
-                    model=content_type.model)
-                for content_type in self.target_content_types
+                    app=model._meta.app_label,
+                    model=model._meta.model_name)
+                for model in self.target_models
             ]),
             parent=json.dumps(parent.id if parent else None),
             can_choose_root=('true' if self.can_choose_root else 'false')
