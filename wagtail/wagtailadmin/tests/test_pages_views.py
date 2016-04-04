@@ -531,6 +531,21 @@ class TestPageCreation(TestCase, WagtailTestUtils):
         # No revisions with approved_go_live_at
         self.assertFalse(PageRevision.objects.filter(page=page).exclude(approved_go_live_at__isnull=True).exists())
 
+    def test_adding_duplicate_form_labels(self):
+        post_data = {
+            'title': "Form page!",
+            'content': "Some content",
+            'slug': 'hello-world',
+        }
+        response = self.client.post(
+            reverse('wagtailadmin_pages:add', args=('tests', 'formpage', self.root_page.id)), post_data
+        )
+
+        self.assertEqual(response.status_code, 200)
+
+        # Check that a form error was raised
+        self.assertFormError(response, 'form', 'go_live_at', "Go live date/time must be before expiry date/time")
+
     def test_create_simplepage_scheduled_go_live_before_expiry(self):
         post_data = {
             'title': "New page!",

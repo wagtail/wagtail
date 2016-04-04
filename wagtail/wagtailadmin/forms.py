@@ -287,6 +287,25 @@ class WagtailAdminPageForm(WagtailAdminModelForm):
             return self.cleaned_data['seo_title'].strip()
 
     def clean(self):
+
+        # Check for dupe form field labels - fixes #585
+        if 'form_fields' in self.formsets:
+            _forms = self.formsets['form_fields'].forms
+            for f in _forms:
+                f.is_valid()
+
+            for i, form in enumerate(_forms):
+                if 'label' in form.changed_data:
+                    label = form.cleaned_data.get('label')
+                    for idx, ff in enumerate(_forms):
+                        # Exclude self
+                        if idx != i and label == ff.cleaned_data.get('label'):
+                            form.add_error(
+                                'label',
+                                forms.ValidationError(_('This is another field with the label \
+                                \'%s\', please change one of them.' % label))
+                            )
+
         cleaned_data = super(WagtailAdminPageForm, self).clean()
         if 'slug' in self.cleaned_data:
             if not Page._slug_is_available(
