@@ -1,6 +1,12 @@
 Changelog
 =========
 
+1.4.3 (xx.03.2016)
+~~~~~~~~~~~~~~~~~~
+
+ * Fixed regression introduced in 1.4.2 which caused Wagtail to query the database during a system check (Tim Heap)
+
+
 1.4.2 (31.03.2016)
 ~~~~~~~~~~~~~~~~~~
 
