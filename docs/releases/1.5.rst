@@ -48,6 +48,7 @@ Minor features
  * Added meaningful default icons to ``StreamField`` blocks (Benjamin Bach)
  * Added title text to action buttons in the page explorer (Liam Brenner)
  * Changed project template to explicitly import development settings via ``settings.dev`` (Tomas Olander)
+ * Improved L10N and I18N for revisions list (Roel Bruggink)
 
 Bug fixes
 ~~~~~~~~~

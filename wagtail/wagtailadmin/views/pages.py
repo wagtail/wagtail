@@ -983,7 +983,12 @@ def revisions_revert(request, page_id, revision_id):
 
     user_avatar = render_to_string('wagtailadmin/shared/user_avatar.html', {'user': revision.user})
 
-    messages.warning(request, mark_safe(_("You are viewing a previous revision of this page from <b>%s</b> by %s") % (revision.created_at.strftime("%d %b %Y %H:%M"), user_avatar)))
+    messages.warning(request, mark_safe(
+        _("You are viewing a previous revision of this page from <b>%(created_at)s</b> by %(user)s") % {
+            'created_at': revision.created_at.strftime("%d %b %Y %H:%M"),
+            'user': user_avatar,
+        }
+    ))
 
     return render(request, 'wagtailadmin/pages/edit.html', {
         'page': page,
