@@ -3,7 +3,8 @@ from __future__ import absolute_import, unicode_literals
 import json
 
 from django.conf import settings
-from django.forms import widgets
+from django.contrib.staticfiles.templatetags.staticfiles import static
+from django.forms import Media, widgets
 from django.utils.module_loading import import_string
 
 from wagtail.utils.widgets import WidgetWithScript
@@ -30,6 +31,15 @@ class HalloRichTextArea(WidgetWithScript, widgets.Textarea):
         if original_value is None:
             return None
         return DbWhitelister.clean(original_value)
+
+    @property
+    def media(self):
+        return Media(js=[
+            static('wagtailadmin/js/vendor/hallo.js'),
+            static('wagtailadmin/js/hallo-plugins/hallo-wagtaillink.js'),
+            static('wagtailadmin/js/hallo-plugins/hallo-hr.js'),
+            static('wagtailadmin/js/hallo-plugins/hallo-requireparagraphs.js'),
+        ])
 
 
 DEFAULT_RICH_TEXT_EDITORS = {
