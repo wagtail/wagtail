@@ -83,7 +83,7 @@ def page_listing_buttons(page, page_perms, is_parent=False):
         page=page,
         page_perms=page_perms,
         is_parent=is_parent,
-        attrs={'target': '_blank'}, priority=50)
+        attrs={'target': '_blank', 'title': 'View more options'}, priority=50)
 
 
 @hooks.register('register_page_listing_more_buttons')
