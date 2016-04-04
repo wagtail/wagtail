@@ -120,6 +120,7 @@ Contributors
 * Jonas Lergell
 * Danielle Madeley
 * Janneke Janssen
+* Roel Bruggink
 
 Translators
 ===========
