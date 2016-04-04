@@ -69,7 +69,7 @@ def page_listing_buttons(page, page_perms, is_parent=False):
         yield PageListingButton(_('Draft'), reverse('wagtailadmin_pages:view_draft', args=[page.id]),
                                 attrs={'title': _('Preview draft'), 'target': '_blank'}, priority=20)
     if page.live and page.url:
-        yield PageListingButton(_('Live'), page.url, attrs={'target': "_blank"}, priority=30)
+        yield PageListingButton(_('Live'), page.url, attrs={'target': "_blank", 'title': 'View live'}, priority=30)
     if page_perms.can_add_subpage():
         if is_parent:
             yield Button(_('Add child page'), reverse('wagtailadmin_pages:add_subpage', args=[page.id]),
@@ -89,11 +89,16 @@ def page_listing_buttons(page, page_perms, is_parent=False):
 @hooks.register('register_page_listing_more_buttons')
 def page_listing_more_buttons(page, page_perms, is_parent=False):
     if page_perms.can_move():
-        yield Button(_('Move'), reverse('wagtailadmin_pages:move', args=[page.id]), priority=10)
+        yield Button(_('Move'), reverse('wagtailadmin_pages:move', args=[page.id]),
+                     attrs={"title": 'Move this page'}, priority=10)
     if not page.is_root():
-        yield Button(_('Copy'), reverse('wagtailadmin_pages:copy', args=[page.id]), priority=20)
+        yield Button(_('Copy'), reverse('wagtailadmin_pages:copy', args=[page.id]),
+                     attrs={'title': 'Copy this page'}, priority=20)
     if page_perms.can_delete():
-        yield Button(_('Delete'), reverse('wagtailadmin_pages:delete', args=[page.id]), priority=30)
+        yield Button(_('Delete'), reverse('wagtailadmin_pages:delete', args=[page.id]),
+                     attrs={'title': 'Delete this page'}, priority=30)
     if page_perms.can_unpublish():
-        yield Button(_('Unpublish'), reverse('wagtailadmin_pages:unpublish', args=[page.id]), priority=40)
-    yield Button(_('Revisions'), reverse('wagtailadmin_pages:revisions_index', args=[page.id]), priority=50)
+        yield Button(_('Unpublish'), reverse('wagtailadmin_pages:unpublish', args=[page.id]),
+                     attrs={'title': 'Unpublish this page'}, priority=40)
+    yield Button(_('Revisions'), reverse('wagtailadmin_pages:revisions_index', args=[page.id]),
+                 attrs={'title': _("View this page's revision history")}, priority=50)
