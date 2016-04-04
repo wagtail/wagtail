@@ -51,12 +51,26 @@ class TestAdminPageChooserWidget(TestCase):
     # def test_render_html_init_with_content_type omitted as HTML does not
     # change when selecting a content type
 
+    def test_render_js_init_with_target_model(self):
+        widget = widgets.AdminPageChooser(target_models=[SimplePage])
+
+        js_init = widget.render_js_init('test-id', 'test', None)
+        self.assertEqual(js_init, "createPageChooser(\"test-id\", [\"tests.simplepage\"], null, false);")
+
+    def test_render_js_init_with_multiple_target_models(self):
+        target_models = [SimplePage, EventPage]
+        widget = widgets.AdminPageChooser(target_models=target_models)
+
+        js_init = widget.render_js_init('test-id', 'test', None)
+        self.assertEqual(
+            js_init, "createPageChooser(\"test-id\", [\"tests.simplepage\", \"tests.eventpage\"], null, false);"
+        )
+
     def test_render_js_init_with_content_type(self):
         content_type = ContentType.objects.get_for_model(SimplePage)
         widget = widgets.AdminPageChooser(content_type=content_type)
 
-        js_init = widget.render_js_init('test-id', 'test', None)
-        self.assertEqual(js_init, "createPageChooser(\"test-id\", [\"tests.simplepage\"], null, false);")
+        self.assertEqual(widget.target_models, [SimplePage])
 
     def test_render_js_init_with_multiple_content_types(self):
         content_types = [
@@ -66,10 +80,7 @@ class TestAdminPageChooserWidget(TestCase):
         ]
         widget = widgets.AdminPageChooser(content_type=content_types)
 
-        js_init = widget.render_js_init('test-id', 'test', None)
-        self.assertEqual(
-            js_init, "createPageChooser(\"test-id\", [\"tests.simplepage\", \"tests.eventpage\"], null, false);"
-        )
+        self.assertEqual(widget.target_models, [SimplePage, EventPage])
 
     def test_render_js_init_with_can_choose_root(self):
         widget = widgets.AdminPageChooser(can_choose_root=True)

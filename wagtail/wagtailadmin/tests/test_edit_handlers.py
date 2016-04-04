@@ -536,6 +536,29 @@ class TestPageChooserPanel(TestCase):
 
         self.assertIn(expected_js, result)
 
+    def test_target_models(self):
+        result = PageChooserPanel(
+            'barbecue',
+            'wagtailcore.site'
+        ).bind_to_model(PageChooserModel).target_models()
+        self.assertEqual(result, [Site])
+
+    def test_target_models_malformed_type(self):
+        result = PageChooserPanel(
+            'barbecue',
+            'snowman'
+        ).bind_to_model(PageChooserModel)
+        self.assertRaises(ImproperlyConfigured,
+                          result.target_models)
+
+    def test_target_models_nonexistent_type(self):
+        result = PageChooserPanel(
+            'barbecue',
+            'snowman.lorry'
+        ).bind_to_model(PageChooserModel)
+        self.assertRaises(ImproperlyConfigured,
+                          result.target_models)
+
     def test_target_content_type(self):
         result = PageChooserPanel(
             'barbecue',
