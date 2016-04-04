@@ -171,11 +171,7 @@ class AdminPageChooser(AdminChooser):
             # Shortcut for a single page type
             return self.target_models[0]
         else:
-            base = self.target_models[0]
-            others = self.target_models[1:]
-            for cls in base.__mro__:
-                if all(cls in other.__mro__ for other in others):
-                    return cls
+            return Page
 
     def render_html(self, name, value, attrs):
         model_class = self._get_lowest_common_page_class()
