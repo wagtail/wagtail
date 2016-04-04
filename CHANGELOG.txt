@@ -28,6 +28,7 @@ Changelog
  * The multiple image uploader now displays details of server errors (Nigel Fletton)
  * Added `WAGTAIL_APPEND_SLASH` setting to determine whether page URLs end in a trailing slash (Andrew Tork Baker)
  * Added auto resizing text field, richtext field, and snippet chooser to styleguide (Liam Brenner)
+ * Support field widget media inside `StreamBlock` blocks (Karl Hobley)
  * Fix: The currently selected day is now highlighted only in the correct month in date pickers (Jonas Lergell)
  * Fix: Fixed crash when an image without a source file was resized with the "dynamic serve view"
  * Fix: Registered settings admin menu items now show active correctly (Matthew Downey)

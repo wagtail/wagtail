@@ -120,6 +120,31 @@ class TestFieldBlock(unittest.TestCase):
         value_from_form = block.value_from_datadict({'title': 'hello world'}, {}, 'title')
         self.assertEqual('hello world', value_from_form)
 
+    def test_widget_media(self):
+        class CalendarWidget(forms.TextInput):
+            @property
+            def media(self):
+                return forms.Media(
+                    css={'all': ('pretty.css',)},
+                    js=('animations.js', 'actions.js')
+                )
+
+        class CalenderBlock(blocks.FieldBlock):
+            def __init__(self, required=True, help_text=None, max_length=None, min_length=None, **kwargs):
+                # Set widget to CalenderWidget
+                self.field = forms.CharField(
+                    required=required,
+                    help_text=help_text,
+                    max_length=max_length,
+                    min_length=min_length,
+                    widget=CalendarWidget(),
+                )
+                super(blocks.FieldBlock, self).__init__(**kwargs)
+
+        block = CalenderBlock()
+        self.assertIn('pretty.css', ''.join(block.all_media().render_css()))
+        self.assertIn('animations.js', ''.join(block.all_media().render_js()))
+
 
 class TestRichTextBlock(TestCase):
     fixtures = ['test.json']

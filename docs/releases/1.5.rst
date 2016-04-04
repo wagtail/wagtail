@@ -53,6 +53,7 @@ Minor features
  * The multiple image uploader now displays details of server errors (Nigel Fletton)
  * Added ``WAGTAIL_APPEND_SLASH`` setting to determine whether page URLs end in a trailing slash - see :ref:`append_slash` (Andrew Tork Baker)
  * Added auto resizing text field, richtext field, and snippet chooser to styleguide (Liam Brenner)
+ * Support field widget media inside ``StreamBlock`` blocks (Karl Hobley)
 
 Bug fixes
 ~~~~~~~~~
