@@ -6,6 +6,7 @@ Changelog
 
  * Moved lesser-user actions in the page explorer into a 'More' dropdown
  * Added a hook `register_page_listing_buttons` for adding action buttons to the page explorer
+ * Added 'revisions' action to pages list (Roel Bruggink)
  * The "dynamic serve view" for images has been greatly improved See release notes for details
  * Added a hook `insert_global_admin_js` for inserting custom JavaScript throughout the admin backend (Tom Dyson)
  * The type of the ``search_fields`` attribute on ``Page`` models (and other searchable models) has changed from a tuple to a list (Tim Heap)
