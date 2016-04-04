@@ -5,7 +5,6 @@ from django.contrib.auth.models import Permission
 from django.contrib.staticfiles.templatetags.staticfiles import static
 from django.core.urlresolvers import reverse
 from django.utils.translation import ugettext_lazy as _
-
 from wagtail.wagtailadmin.menu import MenuItem, SubmenuMenuItem, settings_menu
 from wagtail.wagtailadmin.search import SearchArea
 from wagtail.wagtailadmin.widgets import Button, ButtonWithDropdownFromHook, PageListingButton
@@ -68,7 +67,7 @@ def page_listing_buttons(page, page_perms, is_parent=False):
                                 attrs={'title': _('Edit this page')}, priority=10)
     if page.has_unpublished_changes:
         yield PageListingButton(_('Draft'), reverse('wagtailadmin_pages:view_draft', args=[page.id]),
-                                attrs={'target': '_blank'}, priority=20)
+                                attrs={'title': _('Preview draft'), 'target': '_blank'}, priority=20)
     if page.live and page.url:
         yield PageListingButton(_('Live'), page.url, attrs={'target': "_blank"}, priority=30)
     if page_perms.can_add_subpage():
