@@ -50,7 +50,7 @@ class TestAuthentication(TestCase, WagtailTestUtils):
         self.assertTrue('_auth_user_id' in self.client.session)
         self.assertEqual(
             str(self.client.session['_auth_user_id']),
-            str(get_user_model().objects.get(username='test').id)
+            str(get_user_model().objects.get(username='test').pk)
         )
 
     def test_already_logged_in_redirect(self):
