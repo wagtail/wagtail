@@ -4,6 +4,7 @@ Changelog
 1.5 (xx.xx.xxxx)
 ~~~~~~~~~~~~~~~~
 
+ * Added 'revisions' action to pages list. (Roel Bruggink)
  * Moved lesser-user actions in the page explorer into a 'More' dropdown
  * Added a hook `register_page_listing_buttons` for adding action buttons to the page explorer
  * Added 'revisions' action to pages list (Roel Bruggink)
