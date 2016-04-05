@@ -173,7 +173,7 @@ def send_notification(page_revision_id, notification, excluded_user_id):
     # Get list of email addresses
     email_recipients = [
         recipient for recipient in recipients
-        if recipient.email and recipient.id != excluded_user_id and getattr(
+        if recipient.email and recipient.pk != excluded_user_id and getattr(
             UserProfile.get_for_user(recipient),
             notification + '_notifications'
         )
