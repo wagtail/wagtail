@@ -302,8 +302,7 @@ class WagtailAdminPageForm(WagtailAdminModelForm):
                         if idx != i and label == ff.cleaned_data.get('label'):
                             form.add_error(
                                 'label',
-                                forms.ValidationError(_('This is another field with the label \
-                                \'%s\', please change one of them.' % label))
+                                forms.ValidationError(_('There is another field with the label %s, please change one of them.' % label))
                             )
 
         cleaned_data = super(WagtailAdminPageForm, self).clean()

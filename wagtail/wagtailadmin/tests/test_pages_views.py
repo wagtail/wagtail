@@ -535,7 +535,20 @@ class TestPageCreation(TestCase, WagtailTestUtils):
         post_data = {
             'title': "Form page!",
             'content': "Some content",
-            'slug': 'hello-world',
+            'slug': 'formpage',
+            'form_fields-TOTAL_FORMS': '3',
+            'form_fields-INITIAL_FORMS': '3',
+            'form_fields-MIN_NUM_FORMS': '0',
+            'form_fields-MAX_NUM_FORMS': '1000',
+            'form_fields-0-id': '',
+            'form_fields-0-label': 'foo',
+            'form_fields-0-field_type': 'singleline',
+            'form_fields-1-id': '',
+            'form_fields-1-label': 'foo',
+            'form_fields-1-field_type': 'singleline',
+            'form_fields-2-id': '',
+            'form_fields-2-label': 'bar',
+            'form_fields-2-field_type': 'singleline',
         }
         response = self.client.post(
             reverse('wagtailadmin_pages:add', args=('tests', 'formpage', self.root_page.id)), post_data
@@ -543,8 +556,10 @@ class TestPageCreation(TestCase, WagtailTestUtils):
 
         self.assertEqual(response.status_code, 200)
 
-        # Check that a form error was raised
-        self.assertFormError(response, 'form', 'go_live_at', "Go live date/time must be before expiry date/time")
+        self.assertContains(
+                response,
+                text="There is another field with the label foo, please change one of them.",
+        )
 
     def test_create_simplepage_scheduled_go_live_before_expiry(self):
         post_data = {
