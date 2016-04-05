@@ -49,11 +49,6 @@ def wagtailuserbar(context, position='bottom-right'):
     if page.pk is None:
         return ''
 
-    # Don't render if user doesn't have the ability to view this page in the admin
-    permission_checker = page.permissions_for_user(request.user)
-    if not permission_checker.can_view_in_admin():
-        return ''
-
     try:
         revision_id = request.revision_id
     except AttributeError:
