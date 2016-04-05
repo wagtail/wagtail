@@ -61,6 +61,7 @@ TEMPLATES = [
                 'wagtail.wagtailcore.jinja2tags.core',
                 'wagtail.wagtailadmin.jinja2tags.userbar',
                 'wagtail.wagtailimages.jinja2tags.images',
+                'wagtail.contrib.settings.jinja2tags.settings',
             ],
         },
     },
