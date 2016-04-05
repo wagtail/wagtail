@@ -531,36 +531,6 @@ class TestPageCreation(TestCase, WagtailTestUtils):
         # No revisions with approved_go_live_at
         self.assertFalse(PageRevision.objects.filter(page=page).exclude(approved_go_live_at__isnull=True).exists())
 
-    def test_adding_duplicate_form_labels(self):
-        post_data = {
-            'title': "Form page!",
-            'content': "Some content",
-            'slug': 'formpage',
-            'form_fields-TOTAL_FORMS': '3',
-            'form_fields-INITIAL_FORMS': '3',
-            'form_fields-MIN_NUM_FORMS': '0',
-            'form_fields-MAX_NUM_FORMS': '1000',
-            'form_fields-0-id': '',
-            'form_fields-0-label': 'foo',
-            'form_fields-0-field_type': 'singleline',
-            'form_fields-1-id': '',
-            'form_fields-1-label': 'foo',
-            'form_fields-1-field_type': 'singleline',
-            'form_fields-2-id': '',
-            'form_fields-2-label': 'bar',
-            'form_fields-2-field_type': 'singleline',
-        }
-        response = self.client.post(
-            reverse('wagtailadmin_pages:add', args=('tests', 'formpage', self.root_page.id)), post_data
-        )
-
-        self.assertEqual(response.status_code, 200)
-
-        self.assertContains(
-                response,
-                text="There is another field with the label foo, please change one of them.",
-        )
-
     def test_create_simplepage_scheduled_go_live_before_expiry(self):
         post_data = {
             'title': "New page!",

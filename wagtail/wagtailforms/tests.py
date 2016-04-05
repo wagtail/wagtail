@@ -501,8 +501,8 @@ class TestIssue585(TestCase):
         )
 
         self.assertEqual(response.status_code, 200)
-
+        
         self.assertContains(
-                response,
-                text="There is another field with the label foo, please change one of them.",
+            response,
+            text="There is another field with the label foo, please change one of them.",
         )
