@@ -119,6 +119,7 @@ Contributors
 * Matthijs Melissen
 * Jonas Lergell
 * Danielle Madeley
+* Janneke Janssen
 
 Translators
 ===========
