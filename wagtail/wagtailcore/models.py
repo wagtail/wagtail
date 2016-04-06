@@ -54,7 +54,6 @@ MATCH_HOSTNAME_PORT = 0
 MATCH_HOSTNAME_DEFAULT = 1
 MATCH_DEFAULT = 2
 MATCH_HOSTNAME = 3
-MATCH_NONE = 4
 
 
 class SiteManager(models.Manager):
@@ -129,10 +128,9 @@ class Site(models.Model):
             When(hostname=hostname, port=port, then=MATCH_HOSTNAME_PORT),
             When(hostname=hostname, is_default_site=True, then=MATCH_HOSTNAME_DEFAULT),
             When(is_default_site=True, then=MATCH_DEFAULT),
-            When(hostname=hostname, then=MATCH_HOSTNAME),
-            default=MATCH_NONE,
+            default=MATCH_HOSTNAME,
             output_field=IntegerField(),
-        )).order_by('match').exclude(match=MATCH_NONE))
+        )).filter(Q(hostname=hostname)|Q(is_default_site=True)).order_by('match'))
 
         if sites:
             if len(sites) == 1:
