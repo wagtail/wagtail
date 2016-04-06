@@ -95,6 +95,12 @@ In addition to the model fields provided, ``Page`` has many properties and metho
 
     .. autoattribute:: full_url
 
+    .. automethod:: relative_url
+
+    .. automethod:: get_site
+
+    .. automethod:: get_url_parts
+
     .. automethod:: route
 
     .. automethod:: serve
@@ -192,6 +198,14 @@ Database fields
         (number)
 
         This is the port number that the site responds on.
+
+    .. attribute:: site_name
+
+        (text - optional)
+
+        A human-readable name for the site. This is not used by Wagtail itself, but is suitable for use on the site front-end, such as in ``<title>`` elements.
+
+        For example: ``Rod's World of Birds``
 
     .. attribute:: root_page
 

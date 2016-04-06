@@ -65,3 +65,13 @@ def register_custom_search_area():
         classnames='icon icon-custom',
         attrs={'is-custom': 'true'},
         order=10000)
+
+
+@hooks.register('construct_explorer_page_queryset')
+def polite_pages_only(parent_page, pages, request):
+    # if the URL parameter polite_pages_only is set,
+    # only return pages with a slug that starts with 'hello'
+    if request.GET.get('polite_pages_only'):
+        pages = pages.filter(slug__startswith='hello')
+
+    return pages

@@ -5,6 +5,7 @@ Advanced topics
 .. toctree::
     :maxdepth: 2
 
+    images/index
     settings
     deploying
     performance

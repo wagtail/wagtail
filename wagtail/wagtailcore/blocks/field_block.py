@@ -353,11 +353,11 @@ class ChooserBlock(FieldBlock):
                 return None
 
     def get_prep_value(self, value):
-        # the native value (a model instance or None) should serialise to an ID or None
+        # the native value (a model instance or None) should serialise to a PK or None
         if value is None:
             return None
         else:
-            return value.id
+            return value.pk
 
     def value_from_form(self, value):
         # ModelChoiceField sometimes returns an ID, and sometimes an instance; we want the instance

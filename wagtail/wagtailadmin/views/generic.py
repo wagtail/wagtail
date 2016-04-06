@@ -9,36 +9,47 @@ from wagtail.wagtailadmin.utils import permission_denied
 
 class PermissionCheckedMixin(object):
     """
-    Mixin for class-based views to enforce permission checks.
-    Subclasses should set either of the following class properties:
-    * permission_required (a single permission string)
-    * any_permission_required (a list of permission strings - the user must have
+    Mixin for class-based views to enforce permission checks according to
+    a permission policy (see wagtail.wagtailcore.permission_policies).
+
+    To take advantage of this, subclasses should set the class property:
+    * permission_policy (a policy object)
+    and either of:
+    * permission_required (an action name such as 'add', 'change' or 'delete')
+    * any_permission_required (a list of action names - the user must have
       one or more of those permissions)
     """
+    permission_policy = None
     permission_required = None
     any_permission_required = None
 
     def dispatch(self, request, *args, **kwargs):
-        if self.permission_required is not None:
-            if not request.user.has_perm(self.permission_required):
-                return permission_denied(request)
+        if self.permission_policy is not None:
 
-        if self.any_permission_required is not None:
-            has_permission = False
+            if self.permission_required is not None:
+                if not self.permission_policy.user_has_permission(
+                    request.user, self.permission_required
+                ):
+                    return permission_denied(request)
 
-            for perm in self.any_permission_required:
-                if request.user.has_perm(perm):
-                    has_permission = True
-                    break
-
-            if not has_permission:
-                return permission_denied(request)
+            if self.any_permission_required is not None:
+                if not self.permission_policy.user_has_any_permission(
+                    request.user, self.any_permission_required
+                ):
+                    return permission_denied(request)
 
         return super(PermissionCheckedMixin, self).dispatch(request, *args, **kwargs)
 
 
 class IndexView(PermissionCheckedMixin, View):
+    model = None
+    header_icon = ''
+    index_url_name = None
+    add_url_name = None
+    edit_url_name = None
     context_object_name = None
+    any_permission_required = ['add', 'change', 'delete']
+    template_name = None
 
     def get_queryset(self):
         return self.model.objects.all()
@@ -49,7 +60,10 @@ class IndexView(PermissionCheckedMixin, View):
         context = {
             'view': self,
             'object_list': object_list,
-            'can_add': self.request.user.has_perm(self.add_permission_name),
+            'can_add': (
+                self.permission_policy is None or
+                self.permission_policy.user_has_permission(self.request.user, 'add')
+            ),
         }
         if self.context_object_name:
             context[self.context_object_name] = object_list
@@ -58,7 +72,14 @@ class IndexView(PermissionCheckedMixin, View):
 
 
 class CreateView(PermissionCheckedMixin, View):
+    model = None
+    form_class = None
+    header_icon = ''
+    index_url_name = None
+    add_url_name = None
+    edit_url_name = None
     template_name = 'wagtailadmin/generic/create.html'
+    permission_required = 'add'
 
     def get_add_url(self):
         return reverse(self.add_url_name)
@@ -67,10 +88,17 @@ class CreateView(PermissionCheckedMixin, View):
         self.form = self.form_class()
         return self.render_to_response()
 
+    def save_instance(self):
+        """
+        Called after the form is successfully validated - saves the object to the db
+        and returns the new object. Override this to implement custom save logic.
+        """
+        return self.form.save()
+
     def post(self, request):
         self.form = self.form_class(request.POST)
         if self.form.is_valid():
-            instance = self.form.save()
+            instance = self.save_instance()
 
             messages.success(request, self.success_message.format(instance), buttons=[
                 messages.button(reverse(self.edit_url_name, args=(instance.id,)), _('Edit'))
@@ -87,9 +115,19 @@ class CreateView(PermissionCheckedMixin, View):
 
 
 class EditView(PermissionCheckedMixin, View):
+    model = None
+    form_class = None
+    header_icon = ''
+    index_url_name = None
+    edit_url_name = None
+    delete_url_name = None
     page_title = __("Editing")
     context_object_name = None
     template_name = 'wagtailadmin/generic/edit.html'
+    permission_required = 'change'
+
+    def get_queryset(self):
+        return self.model.objects.all()
 
     def get_page_subtitle(self):
         return str(self.instance)
@@ -100,16 +138,23 @@ class EditView(PermissionCheckedMixin, View):
     def get_delete_url(self):
         return reverse(self.delete_url_name, args=(self.instance.id,))
 
+    def save_instance(self):
+        """
+        Called after the form is successfully validated - saves the object to the db.
+        Override this to implement custom save logic.
+        """
+        return self.form.save()
+
     def get(self, request, instance_id):
-        self.instance = get_object_or_404(self.model, id=instance_id)
+        self.instance = get_object_or_404(self.get_queryset(), id=instance_id)
         self.form = self.form_class(instance=self.instance)
         return self.render_to_response()
 
     def post(self, request, instance_id):
-        self.instance = get_object_or_404(self.model, id=instance_id)
+        self.instance = get_object_or_404(self.get_queryset(), id=instance_id)
         self.form = self.form_class(request.POST, instance=self.instance)
         if self.form.is_valid():
-            self.form.save()
+            self.save_instance()
             messages.success(request, self.success_message.format(self.instance), buttons=[
                 messages.button(reverse(self.edit_url_name, args=(self.instance.id,)), _('Edit'))
             ])
@@ -124,7 +169,10 @@ class EditView(PermissionCheckedMixin, View):
             'view': self,
             'object': self.instance,
             'form': self.form,
-            'can_delete': self.request.user.has_perm(self.delete_permission_name),
+            'can_delete': (
+                self.permission_policy is None or
+                self.permission_policy.user_has_permission(self.request.user, 'delete')
+            ),
         }
         if self.context_object_name:
             context[self.context_object_name] = self.instance
@@ -133,8 +181,16 @@ class EditView(PermissionCheckedMixin, View):
 
 
 class DeleteView(PermissionCheckedMixin, View):
+    model = None
+    header_icon = ''
+    index_url_name = None
+    delete_url_name = None
     template_name = 'wagtailadmin/generic/confirm_delete.html'
     context_object_name = None
+    permission_required = 'delete'
+
+    def get_queryset(self):
+        return self.model.objects.all()
 
     def get_page_subtitle(self):
         return str(self.instance)
@@ -142,9 +198,7 @@ class DeleteView(PermissionCheckedMixin, View):
     def get_delete_url(self):
         return reverse(self.delete_url_name, args=(self.instance.id,))
 
-    def get(self, request, instance_id):
-        self.instance = get_object_or_404(self.model, id=instance_id)
-
+    def get_context(self):
         context = {
             'view': self,
             'object': self.instance,
@@ -152,10 +206,17 @@ class DeleteView(PermissionCheckedMixin, View):
         if self.context_object_name:
             context[self.context_object_name] = self.instance
 
+        return context
+
+    def get(self, request, instance_id):
+        self.instance = get_object_or_404(self.get_queryset(), id=instance_id)
+
+        context = self.get_context()
+
         return render(request, self.template_name, context)
 
     def post(self, request, instance_id):
-        self.instance = get_object_or_404(self.model, id=instance_id)
+        self.instance = get_object_or_404(self.get_queryset(), id=instance_id)
         self.instance.delete()
         messages.success(request, self.success_message.format(self.instance))
         return redirect(self.index_url_name)

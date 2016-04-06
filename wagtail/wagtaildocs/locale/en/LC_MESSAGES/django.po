@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-12-17 13:54+0000\n"
+"POT-Creation-Date: 2016-03-01 18:52+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,27 +17,43 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: models.py:28
-msgid "title"
+#: forms.py:50
+msgid "Add"
 msgstr ""
 
-#: models.py:29
-msgid "file"
+#: forms.py:50
+msgid "Add/edit documents you own"
+msgstr ""
+
+#: forms.py:51 views/documents.py:106 views/documents.py:145
+msgid "Edit"
+msgstr ""
+
+#: forms.py:51
+msgid "Edit any document"
 msgstr ""
 
 #: models.py:30
+msgid "title"
+msgstr ""
+
+#: models.py:31
+msgid "file"
+msgstr ""
+
+#: models.py:32
 msgid "created at"
 msgstr ""
 
-#: models.py:33
+#: models.py:35
 msgid "uploaded by user"
 msgstr ""
 
-#: models.py:39
+#: models.py:42
 msgid "tags"
 msgstr ""
 
-#: models.py:81
+#: models.py:79
 msgid "document"
 msgstr ""
 
@@ -46,19 +62,26 @@ msgid "Choose a document"
 msgstr ""
 
 #: templates/wagtaildocs/chooser/chooser.html:8
-#: templates/wagtaildocs/chooser/chooser.html:20
 msgid "Search"
 msgstr ""
 
 #: templates/wagtaildocs/chooser/chooser.html:9
-#: templates/wagtaildocs/chooser/chooser.html:36
-#: templates/wagtaildocs/documents/add.html:27
+#: templates/wagtaildocs/chooser/chooser.html:38
+#: templates/wagtaildocs/documents/add.html:31
 msgid "Upload"
 msgstr ""
 
-#: templates/wagtaildocs/chooser/chooser.html:36
-#: templates/wagtaildocs/documents/add.html:27
+#: templates/wagtaildocs/chooser/chooser.html:38
+#: templates/wagtaildocs/documents/add.html:31
 msgid "Uploading..."
+msgstr ""
+
+#: templates/wagtaildocs/chooser/chooser.js:66
+msgid "Server Error"
+msgstr ""
+
+#: templates/wagtaildocs/chooser/chooser.js:67
+msgid "Report this error to your webmaster with the following information:"
 msgstr ""
 
 #: templates/wagtaildocs/chooser/results.html:5
@@ -90,11 +113,11 @@ msgid "Change document:"
 msgstr ""
 
 #: templates/wagtaildocs/documents/add.html:4
-#: templates/wagtaildocs/documents/index.html:19
+#: templates/wagtaildocs/documents/index.html:25
 msgid "Add a document"
 msgstr ""
 
-#: templates/wagtaildocs/documents/add.html:16
+#: templates/wagtaildocs/documents/add.html:20
 msgid "Add document"
 msgstr ""
 
@@ -104,7 +127,7 @@ msgid "Delete %(title)s"
 msgstr ""
 
 #: templates/wagtaildocs/documents/confirm_delete.html:5
-#: templates/wagtaildocs/documents/edit.html:32
+#: templates/wagtaildocs/documents/edit.html:39
 msgid "Delete document"
 msgstr ""
 
@@ -121,24 +144,24 @@ msgstr ""
 msgid "Editing %(title)s"
 msgstr ""
 
-#: templates/wagtaildocs/documents/edit.html:16
+#: templates/wagtaildocs/documents/edit.html:20
 msgid "Editing"
 msgstr ""
 
-#: templates/wagtaildocs/documents/edit.html:32
+#: templates/wagtaildocs/documents/edit.html:37
 msgid "Save"
 msgstr ""
 
-#: templates/wagtaildocs/documents/edit.html:39
+#: templates/wagtaildocs/documents/edit.html:48
 msgid "Filesize"
 msgstr ""
 
-#: templates/wagtaildocs/documents/edit.html:40
+#: templates/wagtaildocs/documents/edit.html:49
 msgid "File not found"
 msgstr ""
 
-#: templates/wagtaildocs/documents/index.html:16 wagtail_hooks.py:33
-#: wagtail_hooks.py:96
+#: templates/wagtaildocs/documents/index.html:22 wagtail_hooks.py:36
+#: wagtail_hooks.py:95
 msgid "Documents"
 msgstr ""
 
@@ -157,7 +180,14 @@ msgstr ""
 msgid "Uploaded"
 msgstr ""
 
-#: templates/wagtaildocs/documents/results.html:25
+#: templates/wagtaildocs/documents/results.html:26
+#, python-format
+msgid ""
+"You haven't uploaded any documents in this collection. Why not <a href="
+"\"%(wagtaildocs_add_document_url)s\">upload one now</a>?"
+msgstr ""
+
+#: templates/wagtaildocs/documents/results.html:28
 #, python-format
 msgid ""
 "You haven't uploaded any documents. Why not <a href="
@@ -202,41 +232,87 @@ msgid_plural ""
 msgstr[0] ""
 msgstr[1] ""
 
-#: views/documents.py:38 views/documents.py:43
+#: templates/wagtaildocs/multiple/add.html:3
+msgid "Add multiple documents"
+msgstr ""
+
+#: templates/wagtaildocs/multiple/add.html:11
+msgid "Add documents"
+msgstr ""
+
+#: templates/wagtaildocs/multiple/add.html:16
+msgid "Drag and drop documents into this area to upload immediately."
+msgstr ""
+
+#: templates/wagtaildocs/multiple/add.html:21
+msgid "Or choose from your computer"
+msgstr ""
+
+#: templates/wagtaildocs/multiple/add.html:27
+msgid "Add to collection:"
+msgstr ""
+
+#: templates/wagtaildocs/multiple/add.html:57
+msgid ""
+"Upload successful. Please update this documents with a more appropriate "
+"title, if necessary. You may also delete the document completely if the "
+"upload wasn't required."
+msgstr ""
+
+#: templates/wagtaildocs/multiple/add.html:58
+msgid "Sorry, upload failed."
+msgstr ""
+
+#: templates/wagtaildocs/multiple/edit_form.html:14
+msgid "Update"
+msgstr ""
+
+#: templates/wagtaildocs/multiple/edit_form.html:15 views/documents.py:167
+msgid "Delete"
+msgstr ""
+
+#: templates/wagtaildocs/permissions/includes/document_permissions_formset.html:4
+msgid "Document permissions"
+msgstr ""
+
+#: templates/wagtaildocs/permissions/includes/document_permissions_formset.html:5
+msgid "Add a document permission"
+msgstr ""
+
+#: views/documents.py:51 views/documents.py:56
 msgid "Search documents"
 msgstr ""
 
-#: views/documents.py:80
+#: views/documents.py:105
 #, python-brace-format
 msgid "Document '{0}' added."
 msgstr ""
 
-#: views/documents.py:81 views/documents.py:116
-msgid "Edit"
-msgstr ""
-
-#: views/documents.py:85 views/documents.py:120
+#: views/documents.py:110 views/documents.py:149
 msgid "The document could not be saved due to errors."
 msgstr ""
 
-#: views/documents.py:115
+#: views/documents.py:144
 #, python-brace-format
 msgid "Document '{0}' updated"
 msgstr ""
 
-#: views/documents.py:137
+#: views/documents.py:166
 msgid ""
 "The file could not be found. Please change the source or delete the document"
 msgstr ""
 
-#: views/documents.py:138
-msgid "Delete"
-msgstr ""
-
-#: views/documents.py:156
+#: views/documents.py:190
 #, python-brace-format
 msgid "Document '{0}' deleted."
 msgstr ""
+
+#: wagtail_hooks.py:114
+#, python-format
+msgid "%(count)s document"
+msgid_plural "%(count)s documents"
+msgstr[0] ""
+msgstr[1] ""
 
 #: widgets.py:14
 msgid "Choose another document"

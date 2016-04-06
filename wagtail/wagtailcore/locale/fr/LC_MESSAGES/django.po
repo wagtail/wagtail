@@ -6,14 +6,15 @@
 # Bertrand Bordage <bordage.bertrand@gmail.com>, 2015
 # nahuel, 2014
 # nahuel, 2014
+# Sebastien Andrivet <sebastien@andrivet.com>, 2016
 # Tom Dyson <tom@torchbox.com>, 2015
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-12-17 13:54+0000\n"
-"PO-Revision-Date: 2015-12-17 13:58+0000\n"
-"Last-Translator: mattwestcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2016-02-10 15:32+0000\n"
+"PO-Revision-Date: 2016-02-05 13:56+0000\n"
+"Last-Translator: Sebastien Andrivet <sebastien@andrivet.com>\n"
 "Language-Team: French (http://www.transifex.com/torchbox/wagtail/language/"
 "fr/)\n"
 "MIME-Version: 1.0\n"
@@ -21,6 +22,12 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: fr\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+msgid "hostname"
+msgstr "nom d'hôte"
+
+msgid "port"
+msgstr "port"
 
 msgid ""
 "Set this to something other than 80 if you need a specific port number to "
@@ -31,6 +38,18 @@ msgstr ""
 "spécifique apparaisse dans les URLs (e.g. développement sur le port 8000). "
 "Ceci n'affecte pas la prise en charge des requêtes (les redirections de port "
 "continuent de fonctionner)."
+
+msgid "site name"
+msgstr "nom du site"
+
+msgid "Human-readable name for the site."
+msgstr "Nom compréhensible par un humain pour le site."
+
+msgid "root page"
+msgstr "page racine"
+
+msgid "is default site"
+msgstr "site par défaut"
 
 msgid ""
 "If true, this site will handle requests for all other hostnames that do not "
@@ -53,8 +72,14 @@ msgstr ""
 "%(hostname)s est déjà configuré comme site par défaut. Vous devez modifier "
 "ce dernier avant de pouvoir sauvegarder ce site comme site par défaut."
 
+msgid "title"
+msgstr "Titre"
+
 msgid "The page title as you'd like it to be seen by the public"
 msgstr "Le titre de la page comme vous souhaiteriez que les lecteurs la voient"
+
+msgid "slug"
+msgstr "slug"
 
 msgid ""
 "The name of the page as it will appear in URLs e.g http://domain.com/blog/"
@@ -63,11 +88,23 @@ msgstr ""
 "Le nom de la page comme elle apparaîtra dans l'URL e.g http://domain.com/"
 "blog/[my-slug]/"
 
+msgid "content type"
+msgstr "type de contenu"
+
 msgid "live"
 msgstr "publiée"
 
+msgid "has unpublished changes"
+msgstr "contient des changements non publiés"
+
 msgid "URL path"
 msgstr "URL"
+
+msgid "owner"
+msgstr "propriétaire"
+
+msgid "page title"
+msgstr "titre de la page"
 
 msgid ""
 "Optional. 'Search Engine Friendly' title. This will appear at the top of the "
@@ -76,17 +113,38 @@ msgstr ""
 "Facultatif. Titre SEO. Ce titre apparaîtra en haut de la fenêtre de votre "
 "navigateur."
 
+msgid "show in menus"
+msgstr "faire apparaître dans les menus"
+
 msgid ""
 "Whether a link to this page will appear in automatically generated menus"
 msgstr ""
 "Si un lien vers cette page devra apparaître dans les menus générés "
 "automatiquement"
 
+msgid "search description"
+msgstr "description de la recherche"
+
+msgid "go live date/time"
+msgstr "date/heure de publication"
+
 msgid "Please add a date-time in the form YYYY-MM-DD hh:mm."
 msgstr "Veuillez ajouter une date/heure au format YYYY-MM-DD hh:mm."
 
+msgid "expiry date/time"
+msgstr "date/heure d'expiration"
+
 msgid "expired"
 msgstr "expirée"
+
+msgid "locked"
+msgstr "verrouillé"
+
+msgid "first published at"
+msgstr "première publication le"
+
+msgid "latest revision created at"
+msgstr "dernière version créée le"
 
 msgid "scheduled"
 msgstr "programmée"
@@ -106,6 +164,21 @@ msgstr "page"
 msgid "pages"
 msgstr "pages"
 
+msgid "submitted for moderation"
+msgstr "Soumis pour modération"
+
+msgid "created at"
+msgstr "Créé à"
+
+msgid "user"
+msgstr "utilisateur"
+
+msgid "content JSON"
+msgstr "contenu JSON"
+
+msgid "approved go live at"
+msgstr "publication approuvée le"
+
 msgid "page revision"
 msgstr "version de page"
 
@@ -124,11 +197,20 @@ msgstr "Publier n'importe quelle page"
 msgid "Lock/unlock any page"
 msgstr "Verrouiller/déverrouiller n'importe quelle page"
 
+msgid "group"
+msgstr "groupe"
+
+msgid "permission type"
+msgstr "type de permission"
+
 msgid "group page permission"
 msgstr "permission de page par groupe"
 
 msgid "group page permissions"
 msgstr "permissions de page par groupe"
+
+msgid "password"
+msgstr "mot de passe"
 
 msgid "page view restriction"
 msgstr "confidentialité de page"

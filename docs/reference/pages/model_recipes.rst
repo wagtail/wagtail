@@ -112,7 +112,7 @@ First, ``models.py``:
 
         def serve(self, path_components=[]):
             return render(request, self.template, {
-                'page': page,
+                'page': self,
                 'echo': ' '.join(path_components),
             })
 
@@ -179,7 +179,7 @@ Now that we have the many-to-many tag relationship in place, we can fit in a way
                 blogs = blogs.filter(tags__name=tag)
 
             return render(request, self.template, {
-                'page': page,
+                'page': self,
                 'blogs': blogs,
             })
 

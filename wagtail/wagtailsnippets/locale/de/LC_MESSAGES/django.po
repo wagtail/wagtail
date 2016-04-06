@@ -3,6 +3,7 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# Henrik Kröger <hedwig@riseup.net>, 2016
 # Jannis Vajen, 2015
 # Johannes Spielmann <j@spielmannsolutions.com>, 2014
 # karlsander <karlsander@gmail.com>, 2014
@@ -12,9 +13,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-12-17 13:55+0000\n"
-"PO-Revision-Date: 2015-12-17 14:00+0000\n"
-"Last-Translator: mattwestcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2016-02-10 15:32+0000\n"
+"PO-Revision-Date: 2016-02-07 14:31+0000\n"
+"Last-Translator: Henrik Kröger <hedwig@riseup.net>\n"
 "Language-Team: German (http://www.transifex.com/torchbox/wagtail/language/"
 "de/)\n"
 "MIME-Version: 1.0\n"
@@ -25,6 +26,30 @@ msgstr ""
 
 msgid "Choose"
 msgstr "Auswählen"
+
+msgid "Search"
+msgstr "Suche"
+
+#, python-format
+msgid ""
+"\n"
+"            There is one match\n"
+"        "
+msgid_plural ""
+"\n"
+"            There are %(counter)s matches\n"
+"        "
+msgstr[0] ""
+"\n"
+"Es gibt ein Ergebnis"
+msgstr[1] ""
+"\n"
+"Es gibt %(counter)s Ergebnisse"
+
+#, python-format
+msgid "Sorry, no snippets match \"<em>%(query_string)s</em>\""
+msgstr ""
+"Leider keine übereinstimmenden Schnipsel zu „<em>%(query_string)s</em>“"
 
 #, python-format
 msgid ""
@@ -111,9 +136,13 @@ msgstr "Status"
 msgid "Edit this page"
 msgstr "Diese Seite bearbeiten"
 
+#, python-format
+msgid "Search %(snippet_type_name)s"
+msgstr "Suche %(snippet_type_name)s"
+
 #, python-brace-format
 msgid "{snippet_type} '{instance}' created."
-msgstr "{snippet_type} '{instance}' erstellt"
+msgstr "{snippet_type} ‚{instance}‘ erstellt"
 
 msgid "Edit"
 msgstr "Bearbeiten"
@@ -123,14 +152,14 @@ msgstr "Aufgrund von Fehlern konnte das Snippet nicht erstellt werden."
 
 #, python-brace-format
 msgid "{snippet_type} '{instance}' updated."
-msgstr "{snippet_type} '{instance}' geändert."
+msgstr "{snippet_type} ‚{instance}‘ geändert."
 
 msgid "The snippet could not be saved due to errors."
 msgstr "Aufgrund von Fehlern konnte das Snippet nicht gespeichert werden."
 
 #, python-brace-format
 msgid "{snippet_type} '{instance}' deleted."
-msgstr "{snippet_type} '{instance}' gelöscht."
+msgstr "{snippet_type} ‚{instance}‘ gelöscht."
 
 #, python-format
 msgid "Choose %s"

@@ -13,7 +13,7 @@ If you'd prefer to set up all the components manually, read on. These instructio
 Setting up the Wagtail codebase
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Install Node.js, any version between v0.10.x and v0.12.x. Instructions for installing Node.js can be found on the `Node.js download page <https://nodejs.org/download/>`_. You will also need to install the **libjpeg** and **zlib** libraries, if you haven't done so already - see Pillow's `platform-specific installation instructions <http://pillow.readthedocs.org/en/latest/installation.html#external-libraries>`_.
+Install Node.js, v5.3.0 or higher. Instructions for installing Node.js can be found on the `Node.js download page <https://nodejs.org/download/>`_. You will also need to install the **libjpeg** and **zlib** libraries, if you haven't done so already - see Pillow's `platform-specific installation instructions <http://pillow.readthedocs.org/en/latest/installation.html#external-libraries>`_.
 
 Clone a copy of `the Wagtail codebase <https://github.com/torchbox/wagtail>`_:
 
@@ -22,11 +22,11 @@ Clone a copy of `the Wagtail codebase <https://github.com/torchbox/wagtail>`_:
     git clone https://github.com/torchbox/wagtail.git
     cd wagtail
 
-With your preferred virtualenv activated, install the Wagtail package in development mode:
+With your preferred virtualenv activated, install the Wagtail package in development mode with the included testing and documentation dependencies:
 
 .. code-block:: sh
 
-    python setup.py develop
+    pip install -e .[testing,docs]
 
 Install the tool chain for building static assets:
 
@@ -41,16 +41,6 @@ Compile the assets:
     npm run build
 
 Any Wagtail sites you start up in this virtualenv will now run against this development instance of Wagtail. We recommend using the `Wagtail demo site <https://github.com/torchbox/wagtaildemo/>`_ as a basis for developing Wagtail.
-
-Development dependencies
-~~~~~~~~~~~~~~~~~~~~~~~~
-
-Developing Wagtail requires additional Python modules for testing and documentation.
-
-The list of dependencies is in the Wagtail root directory in ``requirements-dev.txt`` and can be installed thus, from the Wagtail codebase root directory::
-
-    pip install -r requirements-dev.txt
-
 
 .. _testing:
 

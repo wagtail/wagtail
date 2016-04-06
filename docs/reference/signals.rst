@@ -29,13 +29,13 @@ example showing how you might notify your team when something is published:
 
 .. code-block:: python
 
-    from wagtailcore.signals import page_published
+    from wagtail.wagtailcore.signals import page_published
     import urllib
     import urllib2
 
 
     # Let everyone know when a new page is published
-    def send_to_slack(sender, **kwargs)
+    def send_to_slack(sender, **kwargs):
         instance = kwargs['instance']
         url = 'https://hooks.slack.com/services/T00000000/B00000000/XXXXXXXXXXXXXXXXXXXXXXXX'
         values = {
@@ -62,11 +62,11 @@ wish to do something when a new blog post is published:
 
 .. code-block:: python
 
-    from wagtailcore.signals import page_published
+    from wagtail.wagtailcore.signals import page_published
     from mysite.models import BlogPostPage
 
     # Do something clever for each model type
-    def receiver(model, **kwargs):
+    def receiver(sender, **kwargs):
         # Do something with blog posts
         pass
 

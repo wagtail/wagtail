@@ -5,7 +5,7 @@ Integrating Wagtail into a Django project
 
 Wagtail provides the ``wagtail start`` command and project template to get you started with a new Wagtail project as quickly as possible, but it's easy to integrate Wagtail into an existing Django project too.
 
-Wagtail is currently compatible with Django 1.7 and 1.8. First, install the ``wagtail`` package from PyPI::
+Wagtail is currently compatible with Django 1.8 and 1.9. First, install the ``wagtail`` package from PyPI::
 
     pip install wagtail
 
@@ -29,7 +29,6 @@ In your settings file, add the following apps to ``INSTALLED_APPS``::
     'wagtail.wagtailcore',
 
     'modelcluster',
-    'compressor',
     'taggit',
 
 Add the following entries to ``MIDDLEWARE_CLASSES``::
@@ -81,6 +80,19 @@ The URL paths here can be altered as necessary to fit your project's URL scheme.
     url(r'', include(wagtail_urls)),
 
 In this case, this should be placed at the end of the ``urlpatterns`` list, so that it does not override more specific URL patterns.
+
+Finally, your project needs to be set up to serve user-uploaded files from ``MEDIA_ROOT``. Your Django project may already have this in place, but if not, add the following snippet to ``urls.py``:
+
+.. code-block:: python
+
+    from django.conf import settings
+    from django.conf.urls.static import static
+
+    urlpatterns = [
+        # ... the rest of your URLconf goes here ...
+    ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+Note that this only works in development mode (``DEBUG = True``); in production, you will need to configure your web server to serve files from ``MEDIA_ROOT``. For further details, see the Django documentation: `Serving files uploaded by a user during development <https://docs.djangoproject.com/en/1.9/howto/static-files/#serving-files-uploaded-by-a-user-during-development>`_ and `Deploying static files <https://docs.djangoproject.com/en/1.9/howto/static-files/deployment/>`_.
 
 With this configuration in place, you are ready to run ``./manage.py migrate`` to create the database tables used by Wagtail.
 

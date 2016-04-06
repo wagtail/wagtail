@@ -3,6 +3,7 @@ var sass = require('gulp-sass');
 var config = require('../config');
 var autoprefixer = require('gulp-autoprefixer');
 var simpleCopyTask = require('../lib/simplyCopy');
+var normalizePath = require('../lib/normalize-path');
 var gutil = require('gulp-util');
 
 var flatten = function(arrOfArr) {
@@ -30,7 +31,7 @@ gulp.task('styles:sass', function () {
             errLogToConsole: true,
             includePaths: includePaths,
             outputStyle: 'expanded'
-        }))
+        }).on('error', sass.logError))
         .pipe(autoprefixer({
             browsers: ['last 3 versions', 'not ie <= 8'],
             cascade: false
@@ -38,9 +39,9 @@ gulp.task('styles:sass', function () {
         .pipe(gulp.dest(function(file) {
             // e.g. wagtailadmin/scss/core.scss -> wagtailadmin/css/core.css
             // Changing the suffix is done by Sass automatically
-            return file.base
+            return normalizePath(file.base)
                 .replace(
-                    '/' + config.srcDir + '/', 
+                    '/' + config.srcDir + '/',
                     '/' + config.destDir + '/'
                 )
                 .replace('/scss/', '/css/');

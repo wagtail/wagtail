@@ -13,12 +13,31 @@ from django.utils.text import slugify
 
 
 class WagtailTestUtils(object):
-    def login(self):
-        # Create a user
-        user = get_user_model().objects.create_superuser(username='test', email='test@email.com', password='password')
 
+    @staticmethod
+    def create_test_user():
+        """
+        Override this method to return an instance of your custom user model
+        """
+        user_model = get_user_model()
+        # Create a user
+        user_data = dict()
+        user_data[user_model.USERNAME_FIELD] = 'test@email.com'
+        user_data['password'] = 'password'
+
+        for field in user_model.REQUIRED_FIELDS:
+            user_data[field] = field
+
+        return user_model.objects.create_superuser(**user_data)
+
+    def login(self):
+        user = self.create_test_user()
+
+        user_model = get_user_model()
         # Login
-        self.client.login(username='test', password='password')
+        self.assertTrue(
+            self.client.login(password='password', **{user_model.USERNAME_FIELD: 'test@email.com'})
+        )
 
         return user
 

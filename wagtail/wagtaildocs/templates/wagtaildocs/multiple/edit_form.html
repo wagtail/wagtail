@@ -1,0 +1,18 @@
+{% load i18n %}
+
+<form action="{% url 'wagtaildocs:edit_multiple' doc.id %}" method="POST" enctype="multipart/form-data">
+    <ul class="fields">
+        {% csrf_token %}
+        {% for field in form %}
+            {% if field.is_hidden %}
+                {{ field }}
+            {% else %}
+                {% include "wagtailadmin/shared/field_as_li.html" %}
+            {% endif %}
+        {% endfor %}
+        <li>
+            <input type="submit" value="{% trans 'Update' %}" />
+            <a href="{% url 'wagtaildocs:delete_multiple' doc.id %}" class="delete button button-secondary no">{% trans "Delete" %}</a>
+        </li>
+    </ul>
+</form>

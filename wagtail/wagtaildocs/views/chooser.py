@@ -6,11 +6,16 @@ from django.shortcuts import get_object_or_404, render
 from wagtail.utils.pagination import paginate
 from wagtail.wagtailadmin.modal_workflow import render_modal_workflow
 from wagtail.wagtailadmin.forms import SearchForm
-from wagtail.wagtailadmin.utils import permission_required
+from wagtail.wagtailadmin.utils import PermissionPolicyChecker
+from wagtail.wagtailcore.models import Collection
 from wagtail.wagtailsearch.backends import get_search_backends
 
 from wagtail.wagtaildocs.models import get_document_model
 from wagtail.wagtaildocs.forms import get_document_form
+from wagtail.wagtaildocs.permissions import permission_policy
+
+
+permission_checker = PermissionPolicyChecker(permission_policy)
 
 
 def get_document_json(document):
@@ -29,7 +34,7 @@ def get_document_json(document):
 def chooser(request):
     Document = get_document_model()
 
-    if request.user.has_perm('wagtaildocs.add_document'):
+    if permission_policy.user_has_permission(request.user, 'add'):
         DocumentForm = get_document_form(Document)
         uploadform = DocumentForm()
     else:
@@ -39,15 +44,21 @@ def chooser(request):
 
     q = None
     is_searching = False
-    if 'q' in request.GET or 'p' in request.GET:
+    if 'q' in request.GET or 'p' in request.GET or 'collection_id' in request.GET:
+        documents = Document.objects.all()
+
+        collection_id = request.GET.get('collection_id')
+        if collection_id:
+            documents = documents.filter(collection=collection_id)
+
         searchform = SearchForm(request.GET)
         if searchform.is_valid():
             q = searchform.cleaned_data['q']
 
-            documents = Document.objects.search(q)
+            documents = documents.search(q)
             is_searching = True
         else:
-            documents = Document.objects.order_by('-created_at')
+            documents = documents.order_by('-created_at')
             is_searching = False
 
         # Pagination
@@ -61,6 +72,10 @@ def chooser(request):
     else:
         searchform = SearchForm()
 
+        collections = Collection.objects.all()
+        if len(collections) < 2:
+            collections = None
+
         documents = Document.objects.order_by('-created_at')
         paginator, documents = paginate(request, documents, per_page=10)
 
@@ -68,6 +83,7 @@ def chooser(request):
         'documents': documents,
         'uploadform': uploadform,
         'searchform': searchform,
+        'collections': collections,
         'is_searching': False,
     })
 
@@ -81,7 +97,7 @@ def document_chosen(request, document_id):
     )
 
 
-@permission_required('wagtaildocs.add_document')
+@permission_checker.require('add')
 def chooser_upload(request):
     Document = get_document_model()
     DocumentForm = get_document_form(Document)

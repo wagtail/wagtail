@@ -1,6 +1,7 @@
+from django.template.loader import render_to_string
+
 from wagtail.wagtailcore import hooks
 from wagtail.wagtailcore.models import Page, Site
-from wagtail.utils.compat import render_to_string
 
 
 class SummaryItem(object):

@@ -3,7 +3,6 @@ from __future__ import unicode_literals
 
 from django.db import models, migrations
 import django.db.models.deletion
-import django
 import modelcluster.contrib.taggit
 import wagtail.wagtailcore.fields
 import modelcluster.fields
@@ -25,6 +24,7 @@ class Migration(migrations.Migration):
                 (
                     'page_ptr',
                     models.OneToOneField(
+                        on_delete=models.CASCADE,
                         to='wagtailcore.Page',
                         serialize=False,
                         parent_link=True,
@@ -71,6 +71,7 @@ class Migration(migrations.Migration):
                 (
                     'link_document',
                     models.ForeignKey(
+                        on_delete=models.CASCADE,
                         to='wagtaildocs.Document',
                         blank=True,
                         related_name='+',
@@ -94,6 +95,7 @@ class Migration(migrations.Migration):
                 (
                     'link_document',
                     models.ForeignKey(
+                        on_delete=models.CASCADE,
                         to='wagtaildocs.Document',
                         blank=True,
                         related_name='+',
@@ -114,11 +116,12 @@ class Migration(migrations.Migration):
                 (
                     'content_object',
                     modelcluster.fields.ParentalKey(
+                        on_delete=models.CASCADE,
                         to='demosite.BlogEntryPage',
                         related_name='tagged_items'
                     )
                 ),
-                ('tag', models.ForeignKey(to='taggit.Tag', related_name='demosite_blogentrypagetag_items')),
+                ('tag', models.ForeignKey(on_delete=models.CASCADE, to='taggit.Tag', related_name='demosite_blogentrypagetag_items')),
             ],
             options={
                 'abstract': False,
@@ -131,6 +134,7 @@ class Migration(migrations.Migration):
                 (
                     'page_ptr',
                     models.OneToOneField(
+                        on_delete=models.CASCADE,
                         to='wagtailcore.Page',
                         serialize=False,
                         parent_link=True,
@@ -155,6 +159,7 @@ class Migration(migrations.Migration):
                 (
                     'link_document',
                     models.ForeignKey(
+                        on_delete=models.CASCADE,
                         to='wagtaildocs.Document',
                         blank=True,
                         related_name='+',
@@ -172,7 +177,7 @@ class Migration(migrations.Migration):
             name='ContactPage',
             fields=[
                 ('telephone', models.CharField(blank=True, max_length=20)),
-                ('email', models.EmailField(blank=True, max_length=(254 if django.VERSION >= (1, 8) else 75))),
+                ('email', models.EmailField(blank=True, max_length=254)),
                 ('address_1', models.CharField(blank=True, max_length=255)),
                 ('address_2', models.CharField(blank=True, max_length=255)),
                 ('city', models.CharField(blank=True, max_length=255)),
@@ -181,6 +186,7 @@ class Migration(migrations.Migration):
                 (
                     'page_ptr',
                     models.OneToOneField(
+                        on_delete=models.CASCADE,
                         to='wagtailcore.Page',
                         serialize=False,
                         parent_link=True,
@@ -211,6 +217,7 @@ class Migration(migrations.Migration):
                 (
                     'page_ptr',
                     models.OneToOneField(
+                        on_delete=models.CASCADE,
                         to='wagtailcore.Page',
                         serialize=False,
                         parent_link=True,
@@ -235,6 +242,7 @@ class Migration(migrations.Migration):
                 (
                     'link_document',
                     models.ForeignKey(
+                        on_delete=models.CASCADE,
                         to='wagtaildocs.Document',
                         blank=True,
                         related_name='+',
@@ -254,6 +262,7 @@ class Migration(migrations.Migration):
                 (
                     'page_ptr',
                     models.OneToOneField(
+                        on_delete=models.CASCADE,
                         to='wagtailcore.Page',
                         serialize=False,
                         parent_link=True,
@@ -314,7 +323,7 @@ class Migration(migrations.Migration):
                 ),
                 (
                     'link_document',
-                    models.ForeignKey(to='wagtaildocs.Document', blank=True, related_name='+', null=True)
+                    models.ForeignKey(on_delete=models.CASCADE, to='wagtaildocs.Document', blank=True, related_name='+', null=True)
                 ),
             ],
             options={
@@ -332,7 +341,7 @@ class Migration(migrations.Migration):
                 ('title', models.CharField(help_text='Link title', max_length=255)),
                 (
                     'link_document',
-                    models.ForeignKey(to='wagtaildocs.Document', blank=True, related_name='+', null=True)
+                    models.ForeignKey(on_delete=models.CASCADE, to='wagtaildocs.Document', blank=True, related_name='+', null=True)
                 ),
             ],
             options={
@@ -360,7 +369,7 @@ class Migration(migrations.Migration):
                 ),
                 (
                     'link_document',
-                    models.ForeignKey(to='wagtaildocs.Document', blank=True, related_name='+', null=True)),
+                    models.ForeignKey(on_delete=models.CASCADE, to='wagtaildocs.Document', blank=True, related_name='+', null=True)),
             ],
             options={
                 'ordering': ['sort_order'],
@@ -373,6 +382,7 @@ class Migration(migrations.Migration):
             fields=[
                 ('page_ptr',
                     models.OneToOneField(
+                        on_delete=models.CASCADE,
                         to='wagtailcore.Page',
                         serialize=False,
                         parent_link=True,
@@ -406,7 +416,7 @@ class Migration(migrations.Migration):
                 ),
                 (
                     'link_document',
-                    models.ForeignKey(to='wagtaildocs.Document', blank=True, related_name='+', null=True)),
+                    models.ForeignKey(on_delete=models.CASCADE, to='wagtaildocs.Document', blank=True, related_name='+', null=True)),
             ],
             options={
                 'ordering': ['sort_order'],
@@ -423,7 +433,7 @@ class Migration(migrations.Migration):
                 ('title', models.CharField(help_text='Link title', max_length=255)),
                 (
                     'link_document',
-                    models.ForeignKey(to='wagtaildocs.Document', blank=True, related_name='+', null=True)),
+                    models.ForeignKey(on_delete=models.CASCADE, to='wagtaildocs.Document', blank=True, related_name='+', null=True)),
             ],
             options={
                 'ordering': ['sort_order'],
@@ -435,7 +445,7 @@ class Migration(migrations.Migration):
             name='PersonPage',
             fields=[
                 ('telephone', models.CharField(blank=True, max_length=20)),
-                ('email', models.EmailField(blank=True, max_length=(254 if django.VERSION >= (1, 8) else 75))),
+                ('email', models.EmailField(blank=True, max_length=254)),
                 ('address_1', models.CharField(blank=True, max_length=255)),
                 ('address_2', models.CharField(blank=True, max_length=255)),
                 ('city', models.CharField(blank=True, max_length=255)),
@@ -444,6 +454,7 @@ class Migration(migrations.Migration):
                 (
                     'page_ptr',
                     models.OneToOneField(
+                        on_delete=models.CASCADE,
                         to='wagtailcore.Page',
                         serialize=False,
                         parent_link=True,
@@ -489,7 +500,7 @@ class Migration(migrations.Migration):
                 ('title', models.CharField(help_text='Link title', max_length=255)),
                 (
                     'link_document',
-                    models.ForeignKey(to='wagtaildocs.Document', blank=True, related_name='+', null=True)
+                    models.ForeignKey(on_delete=models.CASCADE, to='wagtaildocs.Document', blank=True, related_name='+', null=True)
                 ),
             ],
             options={
@@ -504,6 +515,7 @@ class Migration(migrations.Migration):
                 (
                     'page_ptr',
                     models.OneToOneField(
+                        on_delete=models.CASCADE,
                         to='wagtailcore.Page',
                         serialize=False,
                         parent_link=True,
@@ -535,7 +547,7 @@ class Migration(migrations.Migration):
                 ('title', models.CharField(help_text='Link title', max_length=255)),
                 (
                     'link_document',
-                    models.ForeignKey(to='wagtaildocs.Document', blank=True, related_name='+', null=True)
+                    models.ForeignKey(on_delete=models.CASCADE, to='wagtaildocs.Document', blank=True, related_name='+', null=True)
                 ),
             ],
             options={
@@ -550,6 +562,7 @@ class Migration(migrations.Migration):
                 (
                     'page_ptr',
                     models.OneToOneField(
+                        on_delete=models.CASCADE,
                         to='wagtailcore.Page', serialize=False, parent_link=True, related_name='+', primary_key=True
                     )
                 ),
@@ -591,10 +604,10 @@ class Migration(migrations.Migration):
                 ),
                 (
                     'link_document',
-                    models.ForeignKey(to='wagtaildocs.Document', blank=True, related_name='+', null=True)
+                    models.ForeignKey(on_delete=models.CASCADE, to='wagtaildocs.Document', blank=True, related_name='+', null=True)
                 ),
-                ('link_page', models.ForeignKey(to='wagtailcore.Page', blank=True, related_name='+', null=True)),
-                ('page', modelcluster.fields.ParentalKey(to='demosite.StandardPage', related_name='carousel_items')),
+                ('link_page', models.ForeignKey(on_delete=models.CASCADE, to='wagtailcore.Page', blank=True, related_name='+', null=True)),
+                ('page', modelcluster.fields.ParentalKey(on_delete=models.CASCADE, to='demosite.StandardPage', related_name='carousel_items')),
             ],
             options={
                 'ordering': ['sort_order'],
@@ -611,10 +624,10 @@ class Migration(migrations.Migration):
                 ('title', models.CharField(help_text='Link title', max_length=255)),
                 (
                     'link_document',
-                    models.ForeignKey(to='wagtaildocs.Document', blank=True, related_name='+', null=True)
+                    models.ForeignKey(on_delete=models.CASCADE, to='wagtaildocs.Document', blank=True, related_name='+', null=True)
                 ),
-                ('link_page', models.ForeignKey(to='wagtailcore.Page', blank=True, related_name='+', null=True)),
-                ('page', modelcluster.fields.ParentalKey(to='demosite.StandardPage', related_name='related_links')),
+                ('link_page', models.ForeignKey(on_delete=models.CASCADE, to='wagtailcore.Page', blank=True, related_name='+', null=True)),
+                ('page', modelcluster.fields.ParentalKey(on_delete=models.CASCADE, to='demosite.StandardPage', related_name='related_links')),
             ],
             options={
                 'ordering': ['sort_order'],
@@ -625,133 +638,133 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='standardindexpagerelatedlink',
             name='link_page',
-            field=models.ForeignKey(to='wagtailcore.Page', blank=True, related_name='+', null=True),
+            field=models.ForeignKey(on_delete=models.CASCADE, to='wagtailcore.Page', blank=True, related_name='+', null=True),
             preserve_default=True,
         ),
         migrations.AddField(
             model_name='standardindexpagerelatedlink',
             name='page',
-            field=modelcluster.fields.ParentalKey(to='demosite.StandardIndexPage', related_name='related_links'),
+            field=modelcluster.fields.ParentalKey(on_delete=models.CASCADE, to='demosite.StandardIndexPage', related_name='related_links'),
             preserve_default=True,
         ),
         migrations.AddField(
             model_name='personpagerelatedlink',
             name='link_page',
-            field=models.ForeignKey(to='wagtailcore.Page', blank=True, related_name='+', null=True),
+            field=models.ForeignKey(on_delete=models.CASCADE, to='wagtailcore.Page', blank=True, related_name='+', null=True),
             preserve_default=True,
         ),
         migrations.AddField(
             model_name='personpagerelatedlink',
             name='page',
-            field=modelcluster.fields.ParentalKey(to='demosite.PersonPage', related_name='related_links'),
+            field=modelcluster.fields.ParentalKey(on_delete=models.CASCADE, to='demosite.PersonPage', related_name='related_links'),
             preserve_default=True,
         ),
         migrations.AddField(
             model_name='homepagerelatedlink',
             name='link_page',
-            field=models.ForeignKey(to='wagtailcore.Page', blank=True, related_name='+', null=True),
+            field=models.ForeignKey(on_delete=models.CASCADE, to='wagtailcore.Page', blank=True, related_name='+', null=True),
             preserve_default=True,
         ),
         migrations.AddField(
             model_name='homepagerelatedlink',
             name='page',
-            field=modelcluster.fields.ParentalKey(to='demosite.HomePage', related_name='related_links'),
+            field=modelcluster.fields.ParentalKey(on_delete=models.CASCADE, to='demosite.HomePage', related_name='related_links'),
             preserve_default=True,
         ),
         migrations.AddField(
             model_name='homepagecarouselitem',
             name='link_page',
-            field=models.ForeignKey(to='wagtailcore.Page', blank=True, related_name='+', null=True),
+            field=models.ForeignKey(on_delete=models.CASCADE, to='wagtailcore.Page', blank=True, related_name='+', null=True),
             preserve_default=True,
         ),
         migrations.AddField(
             model_name='homepagecarouselitem',
             name='page',
-            field=modelcluster.fields.ParentalKey(to='demosite.HomePage', related_name='carousel_items'),
+            field=modelcluster.fields.ParentalKey(on_delete=models.CASCADE, to='demosite.HomePage', related_name='carousel_items'),
             preserve_default=True,
         ),
         migrations.AddField(
             model_name='eventpagespeaker',
             name='link_page',
-            field=models.ForeignKey(to='wagtailcore.Page', blank=True, related_name='+', null=True),
+            field=models.ForeignKey(on_delete=models.CASCADE, to='wagtailcore.Page', blank=True, related_name='+', null=True),
             preserve_default=True,
         ),
         migrations.AddField(
             model_name='eventpagespeaker',
             name='page',
-            field=modelcluster.fields.ParentalKey(to='demosite.EventPage', related_name='speakers'),
+            field=modelcluster.fields.ParentalKey(on_delete=models.CASCADE, to='demosite.EventPage', related_name='speakers'),
             preserve_default=True,
         ),
         migrations.AddField(
             model_name='eventpagerelatedlink',
             name='link_page',
-            field=models.ForeignKey(to='wagtailcore.Page', blank=True, related_name='+', null=True),
+            field=models.ForeignKey(on_delete=models.CASCADE, to='wagtailcore.Page', blank=True, related_name='+', null=True),
             preserve_default=True,
         ),
         migrations.AddField(
             model_name='eventpagerelatedlink',
             name='page',
-            field=modelcluster.fields.ParentalKey(to='demosite.EventPage', related_name='related_links'),
+            field=modelcluster.fields.ParentalKey(on_delete=models.CASCADE, to='demosite.EventPage', related_name='related_links'),
             preserve_default=True,
         ),
         migrations.AddField(
             model_name='eventpagecarouselitem',
             name='link_page',
-            field=models.ForeignKey(to='wagtailcore.Page', blank=True, related_name='+', null=True),
+            field=models.ForeignKey(on_delete=models.CASCADE, to='wagtailcore.Page', blank=True, related_name='+', null=True),
             preserve_default=True,
         ),
         migrations.AddField(
             model_name='eventpagecarouselitem',
             name='page',
-            field=modelcluster.fields.ParentalKey(to='demosite.EventPage', related_name='carousel_items'),
+            field=modelcluster.fields.ParentalKey(on_delete=models.CASCADE, to='demosite.EventPage', related_name='carousel_items'),
             preserve_default=True,
         ),
         migrations.AddField(
             model_name='eventindexpagerelatedlink',
             name='link_page',
-            field=models.ForeignKey(to='wagtailcore.Page', blank=True, related_name='+', null=True),
+            field=models.ForeignKey(on_delete=models.CASCADE, to='wagtailcore.Page', blank=True, related_name='+', null=True),
             preserve_default=True,
         ),
         migrations.AddField(
             model_name='eventindexpagerelatedlink',
             name='page',
-            field=modelcluster.fields.ParentalKey(to='demosite.EventIndexPage', related_name='related_links'),
+            field=modelcluster.fields.ParentalKey(on_delete=models.CASCADE, to='demosite.EventIndexPage', related_name='related_links'),
             preserve_default=True,
         ),
         migrations.AddField(
             model_name='blogindexpagerelatedlink',
             name='link_page',
-            field=models.ForeignKey(to='wagtailcore.Page', blank=True, related_name='+', null=True),
+            field=models.ForeignKey(on_delete=models.CASCADE, to='wagtailcore.Page', blank=True, related_name='+', null=True),
             preserve_default=True,
         ),
         migrations.AddField(
             model_name='blogindexpagerelatedlink',
             name='page',
-            field=modelcluster.fields.ParentalKey(to='demosite.BlogIndexPage', related_name='related_links'),
+            field=modelcluster.fields.ParentalKey(on_delete=models.CASCADE, to='demosite.BlogIndexPage', related_name='related_links'),
             preserve_default=True,
         ),
         migrations.AddField(
             model_name='blogentrypagerelatedlink',
             name='link_page',
-            field=models.ForeignKey(to='wagtailcore.Page', blank=True, related_name='+', null=True),
+            field=models.ForeignKey(on_delete=models.CASCADE, to='wagtailcore.Page', blank=True, related_name='+', null=True),
             preserve_default=True,
         ),
         migrations.AddField(
             model_name='blogentrypagerelatedlink',
             name='page',
-            field=modelcluster.fields.ParentalKey(to='demosite.BlogEntryPage', related_name='related_links'),
+            field=modelcluster.fields.ParentalKey(on_delete=models.CASCADE, to='demosite.BlogEntryPage', related_name='related_links'),
             preserve_default=True,
         ),
         migrations.AddField(
             model_name='blogentrypagecarouselitem',
             name='link_page',
-            field=models.ForeignKey(to='wagtailcore.Page', blank=True, related_name='+', null=True),
+            field=models.ForeignKey(on_delete=models.CASCADE, to='wagtailcore.Page', blank=True, related_name='+', null=True),
             preserve_default=True,
         ),
         migrations.AddField(
             model_name='blogentrypagecarouselitem',
             name='page',
-            field=modelcluster.fields.ParentalKey(to='demosite.BlogEntryPage', related_name='carousel_items'),
+            field=modelcluster.fields.ParentalKey(on_delete=models.CASCADE, to='demosite.BlogEntryPage', related_name='carousel_items'),
             preserve_default=True,
         ),
         migrations.AddField(

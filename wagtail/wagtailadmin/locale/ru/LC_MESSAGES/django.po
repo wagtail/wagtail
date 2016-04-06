@@ -6,7 +6,7 @@
 # ajk, 2014
 # ajk, 2014
 # Daniil <fleepd@gmail.com>, 2015
-# Eugene MechanisM <contact@mechanism.name>, 2014-2015
+# Eugene MechanisM <contact@mechanism.name>, 2014-2016
 # HNKNTA <hnknta@gmail.com>, 2014
 # HNKNTA <hnknta@gmail.com>, 2014
 # mattwestcott <matthew@torchbox.com>, 2015
@@ -16,8 +16,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-12-17 13:54+0000\n"
-"PO-Revision-Date: 2015-12-17 18:44+0000\n"
+"POT-Creation-Date: 2016-02-10 15:32+0000\n"
+"PO-Revision-Date: 2016-02-13 18:30+0000\n"
 "Last-Translator: Eugene MechanisM <contact@mechanism.name>\n"
 "Language-Team: Russian (http://www.transifex.com/torchbox/wagtail/language/"
 "ru/)\n"
@@ -34,6 +34,15 @@ msgstr "Отложенная публикация"
 
 msgid "Common page configuration"
 msgstr "Общие настройки страниц"
+
+msgid "Content"
+msgstr "Содержимое"
+
+msgid "Promote"
+msgstr "Продвижение"
+
+msgid "Settings"
+msgstr "Настройки"
 
 msgid "Search"
 msgstr "Поиск"
@@ -134,6 +143,16 @@ msgstr "Приватно, доступно со следующим пароле�
 
 msgid "This field is required."
 msgstr "Требуется заполнить это поле."
+
+msgid "This slug is already in use"
+msgstr "Этот слаг уже используется"
+
+msgid "Go live date/time must be before expiry date/time"
+msgstr ""
+"Дата/время публикации должно быть раньше даты/времени снятия с публикации."
+
+msgid "Expiry date/time must be in the future"
+msgstr "Дата/время снятия с публикации должно быть в будущем."
 
 msgid "Account"
 msgstr "Аккаунт"
@@ -608,6 +627,9 @@ msgstr "Опубликовать"
 msgid "Submit for moderation"
 msgstr "Отправить на модерацию"
 
+msgid "This page has unsaved changes."
+msgstr "Эта страница имеет несохраненные изменения."
+
 #, python-format
 msgid "Editing %(page_type)s: %(title)s"
 msgstr "Редактирование %(page_type)s: %(title)s"
@@ -926,6 +948,10 @@ msgid "Your preferences have been updated successfully!"
 msgstr "Ваши настройки были успешно изменены!"
 
 #, python-brace-format
+msgid "Page '{0}' created and scheduled for publishing."
+msgstr "Страница '{0}' создана и запланирована к публикации."
+
+#, python-brace-format
 msgid "Page '{0}' created and published."
 msgstr "Страница '{0}' создана и опубликована."
 
@@ -945,6 +971,10 @@ msgstr "Страница '{0}' создана."
 
 msgid "The page could not be created due to validation errors"
 msgstr "Эта страница не может быть создана из-за ошибок при проверке"
+
+#, python-brace-format
+msgid "Page '{0}' scheduled for publishing."
+msgstr "Страница '{0}' запланирована к публикации."
 
 #, python-brace-format
 msgid "Page '{0}' published."
@@ -967,16 +997,6 @@ msgstr "Страница не может быть сохранена из-за �
 msgid "This page is currently awaiting moderation"
 msgstr "Эта страница в данный момент ожидает модерации"
 
-msgid "This slug is already in use"
-msgstr "Этот слаг уже используется"
-
-msgid "Go live date/time must be before expiry date/time"
-msgstr ""
-"Дата/время публикации должно быть раньше даты/времени снятия с публикации."
-
-msgid "Expiry date/time must be in the future"
-msgstr "Дата/время снятия с публикации должно быть в будущем."
-
 #, python-brace-format
 msgid "Page '{0}' deleted."
 msgstr "Страница '{0}' удалена."
@@ -996,15 +1016,6 @@ msgstr "Страница '{0}' и {1} подстраниц скопирован�
 #, python-brace-format
 msgid "Page '{0}' copied."
 msgstr "Страница '{0}' скопирована."
-
-msgid "Content"
-msgstr "Содержимое"
-
-msgid "Promote"
-msgstr "Продвижение"
-
-msgid "Settings"
-msgstr "Настройки"
 
 #, python-brace-format
 msgid "The page '{0}' is not currently awaiting moderation."

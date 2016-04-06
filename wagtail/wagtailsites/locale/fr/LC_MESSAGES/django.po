@@ -4,13 +4,14 @@
 #
 # Translators:
 # Bertrand Bordage <bordage.bertrand@gmail.com>, 2015
+# pierre marfoure <pierre@onoffdesign.com>, 2016
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-12-17 13:55+0000\n"
-"PO-Revision-Date: 2015-12-17 14:01+0000\n"
-"Last-Translator: mattwestcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2016-02-10 15:32+0000\n"
+"PO-Revision-Date: 2016-01-19 22:13+0000\n"
+"Last-Translator: pierre marfoure <pierre@onoffdesign.com>\n"
 "Language-Team: French (http://www.transifex.com/torchbox/wagtail/language/"
 "fr/)\n"
 "MIME-Version: 1.0\n"
@@ -30,6 +31,9 @@ msgstr "Site"
 
 msgid "Port"
 msgstr "Port"
+
+msgid "Site name"
+msgstr "Nom du site"
 
 msgid "Root page"
 msgstr "Page racine"

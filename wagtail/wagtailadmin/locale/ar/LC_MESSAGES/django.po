@@ -3,14 +3,15 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# Ahmad Kiswani <kiswani.ahmad@gmail.com>, 2016
 # Mohamed Mayla <mohamed.mayla@gmail.com>, 2015
 # ROGER MICHAEL ASHLEY ALLEN <rogermaallen@gmail.com>, 2015
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-12-17 13:54+0000\n"
-"PO-Revision-Date: 2015-12-17 13:57+0000\n"
+"POT-Creation-Date: 2016-02-10 15:32+0000\n"
+"PO-Revision-Date: 2016-02-10 15:33+0000\n"
 "Last-Translator: mattwestcott <matthew@torchbox.com>\n"
 "Language-Team: Arabic (http://www.transifex.com/torchbox/wagtail/language/"
 "ar/)\n"
@@ -27,11 +28,17 @@ msgstr "نشر مجدول"
 msgid "Common page configuration"
 msgstr "تهيئة الصفحات المشتركة"
 
+msgid "Settings"
+msgstr "إعدادات"
+
 msgid "Search"
 msgstr "بحث"
 
 msgid "Search term"
 msgstr "مصطلح البحث"
+
+msgid "URL"
+msgstr "الرابط"
 
 msgid "Enter password"
 msgstr "ادخل كلمة المرور"
@@ -221,11 +228,20 @@ msgstr "حار"
 msgid "Site summary"
 msgstr "ملحص الموقع"
 
+msgid "Sign in"
+msgstr "تسجيل الدخول"
+
 msgid "Forgotten it?"
 msgstr "أنسيته؟"
 
+msgid "Signing in..."
+msgstr "يتم تسجيل الدخول..."
+
 msgid "You can view the page here:"
 msgstr "انظر الصفحة هنا"
+
+msgid "Hello"
+msgstr "مرحبا"
 
 msgid "Edit your notification preferences here:"
 msgstr "نقح أفضلياتك للإبلاغ هنا"
@@ -296,8 +312,14 @@ msgstr "انسخ هذه الصفحة"
 msgid "New"
 msgstr "جديد"
 
+msgid "Saving..."
+msgstr "يتم الحفظ..."
+
 msgid "Save draft"
 msgstr "احفظ المسوّد"
+
+msgid "Publishing..."
+msgstr "يتم النشر..."
 
 msgid "Publish"
 msgstr "انشر"
@@ -340,8 +362,23 @@ msgstr "قادم"
 msgid "This page is protected from public view"
 msgstr "هذه الصفحة محمية من النظر العمومي"
 
+msgid "Order"
+msgstr "ترتيب"
+
+msgid "January"
+msgstr "يناير"
+
+msgid "Log out"
+msgstr "تسجيل الخروج"
+
 msgid "Add"
 msgstr "أضف"
 
 msgid "View live"
 msgstr "انظر في الواقع"
+
+msgid "Pages"
+msgstr "صفحات"
+
+msgid "Choose another page"
+msgstr "إختر صفحة أخرى"

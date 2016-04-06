@@ -1,131 +1,64 @@
 from __future__ import unicode_literals
 
-import copy
-
-from modelcluster.forms import ClusterForm, ClusterFormMetaclass
-
 import django
-from django.db import models
+from django import forms
+from django.contrib.contenttypes.models import ContentType
+from django.core.exceptions import ImproperlyConfigured
+from django.forms.models import fields_for_model
 from django.template.loader import render_to_string
 from django.utils.safestring import mark_safe
 from django.utils.six import text_type
-from django import forms
-from django.forms.models import fields_for_model
-from django.contrib.contenttypes.models import ContentType
-from django.core.exceptions import ImproperlyConfigured
 from django.utils.translation import ugettext_lazy
-
-from taggit.managers import TaggableManager
 
 from wagtail.wagtailadmin import widgets
 from wagtail.wagtailcore.models import Page
-from wagtail.wagtailcore.utils import camelcase_to_underscore, resolve_model_string
-from wagtail.utils.compat import get_related_model, get_related_parent_model
+from wagtail.wagtailcore.utils import (
+    camelcase_to_underscore, resolve_model_string)
 
+from wagtail.utils.decorators import cached_classmethod
 
-# Form field properties to override whenever we encounter a model field
-# that matches one of these types - including subclasses
-FORM_FIELD_OVERRIDES = {
-    models.DateField: {'widget': widgets.AdminDateInput},
-    models.TimeField: {'widget': widgets.AdminTimeInput},
-    models.DateTimeField: {'widget': widgets.AdminDateTimeInput},
-    TaggableManager: {'widget': widgets.AdminTagWidget},
-}
-
-# Form field properties to override whenever we encounter a model field
-# that matches one of these types exactly, ignoring subclasses.
-# (This allows us to override the widget for models.TextField, but leave
-# the RichTextField widget alone)
-DIRECT_FORM_FIELD_OVERRIDES = {
-    models.TextField: {'widget': widgets.AdminAutoHeightTextInput},
-}
-
-
-# Callback to allow us to override the default form fields provided for each model field.
-def formfield_for_dbfield(db_field, **kwargs):
-    # adapted from django/contrib/admin/options.py
-
-    overrides = None
-
-    # If we've got overrides for the formfield defined, use 'em. **kwargs
-    # passed to formfield_for_dbfield override the defaults.
-    if db_field.__class__ in DIRECT_FORM_FIELD_OVERRIDES:
-        overrides = DIRECT_FORM_FIELD_OVERRIDES[db_field.__class__]
-    else:
-        for klass in db_field.__class__.mro():
-            if klass in FORM_FIELD_OVERRIDES:
-                overrides = FORM_FIELD_OVERRIDES[klass]
-                break
-
-    if overrides:
-        kwargs = dict(copy.deepcopy(overrides), **kwargs)
-
-    return db_field.formfield(**kwargs)
+# DIRECT_FORM_FIELD_OVERRIDES, FORM_FIELD_OVERRIDES are imported for backwards
+# compatibility, as people are likely importing them from here and then
+# appending their own overrides
+from .forms import (  # NOQA
+    DIRECT_FORM_FIELD_OVERRIDES, FORM_FIELD_OVERRIDES, WagtailAdminModelForm,
+    WagtailAdminPageForm, formfield_for_dbfield)
 
 
 def widget_with_script(widget, script):
     return mark_safe('{0}<script>{1}</script>'.format(widget, script))
 
 
-class WagtailAdminModelFormMetaclass(ClusterFormMetaclass):
-    # Override the behaviour of the regular ModelForm metaclass -
-    # which handles the translation of model fields to form fields -
-    # to use our own formfield_for_dbfield function to do that translation.
-    # This is done by sneaking a formfield_callback property into the class
-    # being defined (unless the class already provides a formfield_callback
-    # of its own).
-
-    # while we're at it, we'll also set extra_form_count to 0, as we're creating
-    # extra forms in JS
-    extra_form_count = 0
-
-    def __new__(cls, name, bases, attrs):
-        if 'formfield_callback' not in attrs or attrs['formfield_callback'] is None:
-            attrs['formfield_callback'] = formfield_for_dbfield
-
-        new_class = super(WagtailAdminModelFormMetaclass, cls).__new__(cls, name, bases, attrs)
-        return new_class
-
-WagtailAdminModelForm = WagtailAdminModelFormMetaclass(str('WagtailAdminModelForm'), (ClusterForm,), {})
-
-# Now, any model forms built off WagtailAdminModelForm instead of ModelForm should pick up
-# the nice form fields defined in FORM_FIELD_OVERRIDES.
-
-
 def get_form_for_model(
-    model,
+    model, form_class=WagtailAdminModelForm,
     fields=None, exclude=None, formsets=None, exclude_formsets=None, widgets=None
 ):
 
     # django's modelform_factory with a bit of custom behaviour
-    # (dealing with Treebeard's tree-related fields that really should have
-    # been editable=False)
     attrs = {'model': model}
-
     if fields is not None:
         attrs['fields'] = fields
-
     if exclude is not None:
         attrs['exclude'] = exclude
-    if issubclass(model, Page):
-        attrs['exclude'] = attrs.get('exclude', []) + ['content_type', 'path', 'depth', 'numchild']
-
     if widgets is not None:
         attrs['widgets'] = widgets
-
     if formsets is not None:
         attrs['formsets'] = formsets
-
     if exclude_formsets is not None:
         attrs['exclude_formsets'] = exclude_formsets
 
     # Give this new form class a reasonable name.
     class_name = model.__name__ + str('Form')
+    bases = (object,)
+    if hasattr(form_class, 'Meta'):
+        bases = (form_class.Meta,) + bases
+
     form_class_attrs = {
-        'Meta': type(str('Meta'), (object,), attrs)
+        'Meta': type(str('Meta'), bases, attrs)
     }
 
-    return WagtailAdminModelFormMetaclass(class_name, (WagtailAdminModelForm,), form_class_attrs)
+    metaclass = type(form_class)
+    return metaclass(class_name, (form_class,), form_class_attrs)
 
 
 def extract_panel_definitions_from_model_class(model, exclude=None):
@@ -137,8 +70,6 @@ def extract_panel_definitions_from_model_class(model, exclude=None):
     _exclude = []
     if exclude:
         _exclude.extend(exclude)
-    if issubclass(model, Page):
-        _exclude = ['content_type', 'path', 'depth', 'numchild']
 
     fields = fields_for_model(model, exclude=_exclude, formfield_callback=formfield_for_dbfield)
 
@@ -184,19 +115,6 @@ class EditHandler(object):
     @classmethod
     def html_declarations(cls):
         return ''
-
-    # the top-level edit handler is responsible for providing a form class that can produce forms
-    # acceptable to the edit handler
-    _form_class = None
-
-    @classmethod
-    def get_form_class(cls, model):
-        if cls._form_class is None:
-            cls._form_class = get_form_for_model(
-                model,
-                fields=cls.required_fields(),
-                formsets=cls.required_formsets(), widgets=cls.widget_overrides())
-        return cls._form_class
 
     def __init__(self, instance=None, form=None):
         if not instance:
@@ -342,30 +260,65 @@ class BaseCompositeEditHandler(EditHandler):
         }))
 
 
-class BaseTabbedInterface(BaseCompositeEditHandler):
+class BaseFormEditHandler(BaseCompositeEditHandler):
+    """
+    Base class for edit handlers that can construct a form class for all their
+    child edit handlers.
+    """
+
+    # The form class used as the base for constructing specific forms for this
+    # edit handler.  Subclasses can override this attribute to provide a form
+    # with custom validation, for example.  Custom forms must subclass
+    # WagtailAdminModelForm
+    base_form_class = WagtailAdminModelForm
+
+    _form_class = None
+
+    @classmethod
+    def get_form_class(cls, model):
+        """
+        Construct a form class that has all the fields and formsets named in
+        the children of this edit handler.
+        """
+        if cls._form_class is None:
+            cls._form_class = get_form_for_model(
+                model,
+                form_class=cls.base_form_class,
+                fields=cls.required_fields(),
+                formsets=cls.required_formsets(),
+                widgets=cls.widget_overrides())
+        return cls._form_class
+
+
+class BaseTabbedInterface(BaseFormEditHandler):
     template = "wagtailadmin/edit_handlers/tabbed_interface.html"
 
 
 class TabbedInterface(object):
-    def __init__(self, children):
+    def __init__(self, children, base_form_class=BaseFormEditHandler.base_form_class):
         self.children = children
+        self.base_form_class = base_form_class
 
     def bind_to_model(self, model):
         return type(str('_TabbedInterface'), (BaseTabbedInterface,), {
             'model': model,
             'children': [child.bind_to_model(model) for child in self.children],
+            'base_form_class': self.base_form_class,
         })
 
 
-class BaseObjectList(BaseCompositeEditHandler):
+class BaseObjectList(BaseFormEditHandler):
     template = "wagtailadmin/edit_handlers/object_list.html"
 
 
 class ObjectList(object):
-    def __init__(self, children, heading="", classname=""):
+
+    def __init__(self, children, heading="", classname="",
+                 base_form_class=BaseFormEditHandler.base_form_class):
         self.children = children
         self.heading = heading
         self.classname = classname
+        self.base_form_class = base_form_class
 
     def bind_to_model(self, model):
         return type(str('_ObjectList'), (BaseObjectList,), {
@@ -373,6 +326,7 @@ class ObjectList(object):
             'children': [child.bind_to_model(model) for child in self.children],
             'heading': self.heading,
             'classname': self.classname,
+            'base_form_class': self.base_form_class,
         })
 
 
@@ -526,7 +480,7 @@ class BaseChooserPanel(BaseFieldPanel):
 
     def get_chosen_item(self):
         field = self.instance._meta.get_field(self.field_name)
-        related_model = get_related_parent_model(field.related)
+        related_model = field.related.model
         try:
             return getattr(self.instance, self.field_name)
         except related_model.DoesNotExist:
@@ -617,7 +571,7 @@ class BaseInlinePanel(EditHandler):
         # Failing that, get it from the model
         else:
             return extract_panel_definitions_from_model_class(
-                get_related_model(cls.related),
+                cls.related.related_model,
                 exclude=[cls.related.field.name]
             )
 
@@ -630,7 +584,7 @@ class BaseInlinePanel(EditHandler):
             cls._child_edit_handler_class = MultiFieldPanel(
                 panels,
                 heading=cls.heading
-            ).bind_to_model(get_related_model(cls.related))
+            ).bind_to_model(cls.related.related_model)
 
         return cls._child_edit_handler_class
 
@@ -756,6 +710,34 @@ Page.promote_panels = [
 Page.settings_panels = [
     PublishingPanel()
 ]
+
+Page.base_form_class = WagtailAdminPageForm
+
+
+@cached_classmethod
+def get_edit_handler(cls):
+    """
+    Get the EditHandler to use in the Wagtail admin when editing this page type.
+    """
+    if hasattr(cls, 'edit_handler'):
+        return cls.edit_handler.bind_to_model(cls)
+
+    # construct a TabbedInterface made up of content_panels, promote_panels
+    # and settings_panels, skipping any which are empty
+    tabs = []
+
+    if cls.content_panels:
+        tabs.append(ObjectList(cls.content_panels, heading=ugettext_lazy('Content')))
+    if cls.promote_panels:
+        tabs.append(ObjectList(cls.promote_panels, heading=ugettext_lazy('Promote')))
+    if cls.settings_panels:
+        tabs.append(ObjectList(cls.settings_panels, heading=ugettext_lazy('Settings'), classname="settings"))
+
+    EditHandler = TabbedInterface(tabs, base_form_class=cls.base_form_class)
+    return EditHandler.bind_to_model(cls)
+
+
+Page.get_edit_handler = get_edit_handler
 
 
 class BaseStreamFieldPanel(BaseFieldPanel):

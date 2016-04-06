@@ -5,13 +5,13 @@
 # Translators:
 # Franklin Kingma <franklin@statix.net>, 2015
 # Maarten Kling <kling.maarten@gmail.com>, 2015
-# Thijs Kramer <thijskramer@gmail.com>, 2015
+# Thijs Kramer <thijskramer@gmail.com>, 2015-2016
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-12-17 13:54+0000\n"
-"PO-Revision-Date: 2015-12-22 17:31+0000\n"
+"POT-Creation-Date: 2016-02-10 15:32+0000\n"
+"PO-Revision-Date: 2016-02-25 11:12+0000\n"
 "Last-Translator: Thijs Kramer <thijskramer@gmail.com>\n"
 "Language-Team: Dutch (Netherlands) (http://www.transifex.com/torchbox/"
 "wagtail/language/nl_NL/)\n"
@@ -26,6 +26,15 @@ msgstr "Geplande publicatie"
 
 msgid "Common page configuration"
 msgstr "Algemene pagina-instellingen"
+
+msgid "Content"
+msgstr "Inhoud"
+
+msgid "Promote"
+msgstr "Eigenschappen"
+
+msgid "Settings"
+msgstr "Instellingen"
 
 msgid "Search"
 msgstr "Zoeken"
@@ -119,6 +128,15 @@ msgstr "Privé, toegankelijk met het volgende wachtwoord:"
 
 msgid "This field is required."
 msgstr "Dit is een verplicht veld."
+
+msgid "This slug is already in use"
+msgstr "Deze slug is al in gebruik"
+
+msgid "Go live date/time must be before expiry date/time"
+msgstr "Publicatiedatum/tijd moet voor de vervaldatum/tijd liggen."
+
+msgid "Expiry date/time must be in the future"
+msgstr "Vervaldatum moet in de toekomst liggen"
 
 msgid "Account"
 msgstr "Account"
@@ -568,6 +586,9 @@ msgstr "Publiceer"
 msgid "Submit for moderation"
 msgstr "Dien in ter controle"
 
+msgid "This page has unsaved changes."
+msgstr "Deze pagina heeft wijzigingen die nog niet zijn opgeslagen."
+
 #, python-format
 msgid "Editing %(page_type)s: %(title)s"
 msgstr "Bewerk %(page_type)s: %(title)s"
@@ -879,6 +900,10 @@ msgid "Your preferences have been updated successfully!"
 msgstr "Uw voorkeuren zijn succesvol aangepast!"
 
 #, python-brace-format
+msgid "Page '{0}' created and scheduled for publishing."
+msgstr "De pagina '{0}' is aangemaakt en ingepland voor publicatie."
+
+#, python-brace-format
 msgid "Page '{0}' created and published."
 msgstr "Pagina '{0}' aangemaakt en gepubliceerd."
 
@@ -898,6 +923,10 @@ msgstr "Pagina '{0}' is aangemaakt."
 
 msgid "The page could not be created due to validation errors"
 msgstr "De pagina kon niet aangemaakt worden vanwege validatiefouten."
+
+#, python-brace-format
+msgid "Page '{0}' scheduled for publishing."
+msgstr "De pagina '{0}' is ingepland voor publicatie."
 
 #, python-brace-format
 msgid "Page '{0}' published."
@@ -920,15 +949,6 @@ msgstr "Deze pagina kon niet opgeslagen worden vanwege validatiefouten."
 msgid "This page is currently awaiting moderation"
 msgstr "Deze pagina is in afwachting van content goedkeuring"
 
-msgid "This slug is already in use"
-msgstr "Deze slug is al in gebruik"
-
-msgid "Go live date/time must be before expiry date/time"
-msgstr "Publicatiedatum/tijd moet voor de vervaldatum/tijd liggen."
-
-msgid "Expiry date/time must be in the future"
-msgstr "Vervaldatum moet in de toekomst liggen"
-
 #, python-brace-format
 msgid "Page '{0}' deleted."
 msgstr "Pagina '{0}' verwijderd."
@@ -948,15 +968,6 @@ msgstr "Pagina '{0}' en {1} onderliggende pagina's gekopieerd."
 #, python-brace-format
 msgid "Page '{0}' copied."
 msgstr "Pagina '{0}' gekopieerd."
-
-msgid "Content"
-msgstr "Inhoud"
-
-msgid "Promote"
-msgstr "Eigenschappen"
-
-msgid "Settings"
-msgstr "Instellingen"
 
 #, python-brace-format
 msgid "The page '{0}' is not currently awaiting moderation."

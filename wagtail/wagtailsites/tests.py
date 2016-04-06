@@ -266,7 +266,7 @@ class TestLimitedPermissions(TestCase, WagtailTestUtils):
         )
 
         # Login
-        self.client.login(username='test', password='password')
+        self.assertTrue(self.client.login(username='test', password='password'))
 
         self.home_page = Page.objects.get(id=2)
         self.localhost = Site.objects.all()[0]

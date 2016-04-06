@@ -97,7 +97,7 @@ class TestExpandDbHtml(TestCase):
         result = expand_db_html(html)
         self.assertEqual(result, '<a id="1">foo</a>')
 
-    @patch('wagtail.wagtailembeds.embeds.oembed')
+    @patch('wagtail.wagtailembeds.finders.oembed.find_embed')
     def test_expand_db_html_with_embed(self, oembed):
         oembed.return_value = {
             'title': 'test title',

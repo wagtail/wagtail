@@ -26,17 +26,9 @@ Signal handlers
 
 .. versionchanged:: 0.8
 
-    Signal handlers are now automatically registered in Django 1.7 and upwards
+    Signal handlers are now automatically registered
 
-``wagtailsearch`` provides some signal handlers which bind to the save/delete signals of all indexed models. This would automatically add and delete them from all backends you have registered in ``WAGTAILSEARCH_BACKENDS``.
-
-If you are using Django version 1.7 or newer, these signal handlers are automatically registered when the ``wagtail.wagtailsearch`` app is loaded. Otherwise, they must be registered as your application starts up. This can be done by placing the following code in your ``urls.py``:
-
-.. code-block:: python
-
-    # urls.py
-    from wagtail.wagtailsearch.signal_handlers import register_signal_handlers
-    register_signal_handlers()
+``wagtailsearch`` provides some signal handlers which bind to the save/delete signals of all indexed models. This would automatically add and delete them from all backends you have registered in ``WAGTAILSEARCH_BACKENDS``. These signal handlers are automatically registered when the ``wagtail.wagtailsearch`` app is loaded.
 
 
 The ``update_index`` command

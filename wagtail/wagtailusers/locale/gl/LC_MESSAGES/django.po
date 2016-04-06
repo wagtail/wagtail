@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-12-17 13:55+0000\n"
-"PO-Revision-Date: 2015-12-17 14:00+0000\n"
+"POT-Creation-Date: 2016-02-10 15:32+0000\n"
+"PO-Revision-Date: 2016-02-05 17:11+0000\n"
 "Last-Translator: mattwestcott <matthew@torchbox.com>\n"
 "Language-Team: Galician (http://www.transifex.com/torchbox/wagtail/language/"
 "gl/)\n"
@@ -37,11 +37,6 @@ msgstr "Os dous campos de contrasinal non coinciden."
 msgid "Administrator"
 msgstr "Administrador"
 
-msgid "If ticked, this user has the ability to manage user accounts."
-msgstr ""
-"Se está marcado, este usuario ten a capacidade de xestionar contas de "
-"usuario."
-
 msgid "Password"
 msgstr "Contrasinal"
 
@@ -62,9 +57,6 @@ msgstr "Nome"
 
 msgid "Last Name"
 msgstr "Apelidos"
-
-msgid "Administrators have the ability to manage user accounts."
-msgstr "Os administradores teñen a capacidade de xestionar contas de usuario."
 
 msgid "Editing"
 msgstr "Editando"

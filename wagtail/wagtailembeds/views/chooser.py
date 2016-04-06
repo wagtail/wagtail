@@ -5,7 +5,8 @@ from wagtail.wagtailadmin.modal_workflow import render_modal_workflow
 from wagtail.wagtailembeds.forms import EmbedForm
 from wagtail.wagtailembeds.format import embed_to_editor_html
 
-from wagtail.wagtailembeds.embeds import EmbedNotFoundException, EmbedlyException, AccessDeniedEmbedlyException
+from wagtail.wagtailembeds.exceptions import EmbedNotFoundException
+from wagtail.wagtailembeds.finders.embedly import EmbedlyException, AccessDeniedEmbedlyException
 
 
 def chooser(request):

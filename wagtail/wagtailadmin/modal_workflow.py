@@ -1,8 +1,7 @@
 import json
 
 from django.http import HttpResponse
-
-from wagtail.utils.compat import render_to_string
+from django.template.loader import render_to_string
 
 
 def render_modal_workflow(request, html_template, js_template, template_vars=None):

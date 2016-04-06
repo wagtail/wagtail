@@ -5,6 +5,7 @@ from django.contrib.auth.models import Permission
 
 from wagtail.wagtailcore import hooks
 from wagtail.wagtailredirects import urls
+from wagtail.wagtailredirects.permissions import permission_policy
 
 from wagtail.wagtailadmin.menu import MenuItem
 
@@ -18,10 +19,8 @@ def register_admin_urls():
 
 class RedirectsMenuItem(MenuItem):
     def is_shown(self, request):
-        return (
-            request.user.has_perm('wagtailredirects.add_redirect')
-            or request.user.has_perm('wagtailredirects.change_redirect')
-            or request.user.has_perm('wagtailredirects.delete_redirect')
+        return permission_policy.user_has_any_permission(
+            request.user, ['add', 'change', 'delete']
         )
 
 

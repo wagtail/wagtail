@@ -4,8 +4,50 @@ Changelog
 1.4 (xx.xx.xxxx)
 ~~~~~~~~~~~~~~~~
 
+ * Introduced collections, for image / document organisation
+ * The page editor now produces a warning if the user navigates away without saving changes
+ * 'Add document' interface now supports uploading multiple documents at once
+ * The set of pages displayed in the page explorer can now be customised with a new hook called `construct_explorer_page_queryset`
  * The `Document` model can now be overridden using the new `WAGTAILDOCS_DOCUMENT_MODEL` setting (Alex Gleason)
+ * Wagtail no longer depends on django-compressor
+ * The page search interface now searches all fields instead of just the title (Kait Crawford)
+ * Snippets now support a custom `edit_handler` property (Mikalai Radchuk)
+ * Date/time pickers now respect the locale's 'first day of week' setting (Peter Quade)
+ * Refactored the way forms are constructed for the page editor, to allow custom forms to be used
+ * Notification message on publish now indicates whether the page is being published now or scheduled for publication in future (Chris Rogers)
+ * Server errors when uploading images / documents through the chooser modal are now reported back to the user (Nigel Fletton)
+ * Added a hook `insert_global_admin_css` for inserting custom CSS throughout the admin backend (Tom Dyson)
+ * Page models now perform field validation, including testing slugs for uniqueness within a parent page, at the model level on saving
+ * Page slugs are now auto-generated at the model level on page creation if one has not been specified explicitly
+ * The `Page` model now has two new methods `get_site()` and `get_url_parts()` to aid with customising the page URL generation logic
+ * The `edit bird` on the frontend has been redesigned, and no longer depends on an iframe (Thomas Winter, Gareth Price).
+ * New translations for Hungarian, Swedish (Sweden) and Turkish
+ * Upgraded jQuery to 2.2.1 (Charlie Choiniere)
+ * Multiple homepage summary items (`construct_homepage_summary_items` hook) now better vertically spaced (Nicolas Kuttler)
+ * Email notifications can be sent in HTML format now (Mike Dingjan)
  * Fix: Custom page managers no longer raise an error when used on an abstract model
+ * Fix: Wagtail's migrations are now all reversible (benjaoming)
+ * Fix: Deleting a page content type now preserves existing pages as basic Page instances, to prevent tree corruption
+ * Fix: The `Page.path` field is now explicitly given the "C" collation on PostgreSQL to prevent tree ordering issues when using a database created with the Slovak locale
+ * Fix: Wagtail's compiled static assets are now put into the correct directory on Windows (Aarni Koskela)
+ * Fix: `ChooserBlock` now correctly handles models with primary keys other than `id` (alexpilot11)
+ * Fix: Fixed typo in Wistia oEmbed pattern (Josh Hurd)
+ * Fix: Added more accurate help text for the Administrator flag on user accounts (Matt Fozard)
+ * Fix: Tags added on the multiple image uploader are now saved correctly
+ * Fix: Documents created by a user are no longer deleted when the user is deleted
+ * Fix: Fixed a crash in `RedirectMiddleware` when a middleware class before `SiteMiddleware` returns a response (Josh Schneier)
+ * Fix: Fixed error retrieving the moderator list on pages that are covered by multiple moderator permission records (Matt Fozard)
+ * Fix: Ordering pages in the explorer by reverse 'last updated' time now puts pages with no revisions at the top
+ * Fix: WagtailTestUtils now works correctly on custom user models without a ``username`` field (Adam Bolfik)
+ * Fix: Logging in to the admin as a user with valid credentials but no admin access permission now displays an error message, rather than rejecting the user silently
+ * Fix: StreamBlock HTML rendering now handles non-ASCII characters correctly on Python 2 (Mikalai Radchuk)
+ * Fix: Fixed a bug preventing pages with a OneToOneField from being copied (Liam Brenner)
+ * Fix: SASS compilation errors during Wagtail development no longer cause exit of Gulp process, instead throws error to console and continues (Thomas Winter)
+
+1.3.1 (05.01.2016)
+~~~~~~~~~~~~~~~~~~
+
+ * Fix: Applied workaround for failing wagtailimages migration on Django 1.8.8 / 1.9.1 with Postgres (see <https://code.djangoproject.com/ticket/26034>)
 
 1.3 (23.12.2015)
 ~~~~~~~~~~~~~~~~

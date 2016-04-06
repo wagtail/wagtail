@@ -8,7 +8,7 @@ from django.core.exceptions import ImproperlyConfigured
 from taggit.models import Tag
 
 from wagtail.tests.utils import WagtailTestUtils
-from wagtail.tests.testapp.models import Advert, SnippetChooserModel
+from wagtail.tests.testapp.models import Advert, SnippetChooserModel, AdvertWithTabbedInterface
 from wagtail.tests.snippets.models import (
     AlphaSnippet, ZuluSnippet, RegisterDecorator, RegisterFunction, SearchableSnippet
 )
@@ -131,6 +131,19 @@ class TestSnippetCreateView(TestCase, WagtailTestUtils):
         response = self.get()
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'wagtailsnippets/snippets/create.html')
+        self.assertNotContains(response, '<ul class="tab-nav merged">')
+        self.assertNotContains(response, '<a href="#advert" class="active">Advert</a>', html=True)
+        self.assertNotContains(response, '<a href="#other" class="">Other</a>', html=True)
+
+    def test_snippet_with_tabbed_interface(self):
+        response = self.client.get(reverse('wagtailsnippets:add',
+                                           args=('tests', 'advertwithtabbedinterface')))
+
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'wagtailsnippets/snippets/create.html')
+        self.assertContains(response, '<ul class="tab-nav merged">')
+        self.assertContains(response, '<a href="#advert" class="active">Advert</a>', html=True)
+        self.assertContains(response, '<a href="#other" class="">Other</a>', html=True)
 
     def test_create_invalid(self):
         response = self.post(post_data={'foo': 'bar'})
@@ -169,6 +182,7 @@ class TestSnippetEditView(TestCase, WagtailTestUtils):
 
     def setUp(self):
         self.test_snippet = Advert.objects.get(id=1)
+        self.test_snippet_with_tabbed_interface = AdvertWithTabbedInterface.objects.get(id=1)
         self.login()
 
     def get(self, params={}):
@@ -185,6 +199,19 @@ class TestSnippetEditView(TestCase, WagtailTestUtils):
         response = self.get()
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'wagtailsnippets/snippets/edit.html')
+        self.assertNotContains(response, '<ul class="tab-nav merged">')
+        self.assertNotContains(response, '<a href="#advert" class="active">Advert</a>', html=True)
+        self.assertNotContains(response, '<a href="#other" class="">Other</a>', html=True)
+
+    def test_snippet_with_tabbed_interface(self):
+        reverse_args = ('tests', 'advertwithtabbedinterface', self.test_snippet_with_tabbed_interface.id)
+        response = self.client.get(reverse('wagtailsnippets:edit', args=reverse_args))
+
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'wagtailsnippets/snippets/edit.html')
+        self.assertContains(response, '<ul class="tab-nav merged">')
+        self.assertContains(response, '<a href="#advert" class="active">Advert</a>', html=True)
+        self.assertContains(response, '<a href="#other" class="">Other</a>', html=True)
 
     def test_non_existant_model(self):
         response = self.client.get(reverse('wagtailsnippets:edit', args=('tests', 'foo', self.test_snippet.id)))
@@ -491,7 +518,7 @@ class TestAddOnlyPermissions(TestCase, WagtailTestUtils):
         add_permission = Permission.objects.get(content_type__app_label='tests', codename='add_advert')
         admin_permission = Permission.objects.get(content_type__app_label='wagtailadmin', codename='access_admin')
         user.user_permissions.add(add_permission, admin_permission)
-        self.client.login(username='addonly', password='password')
+        self.assertTrue(self.client.login(username='addonly', password='password'))
 
     def test_get_index(self):
         response = self.client.get(reverse('wagtailsnippets:list',
@@ -535,7 +562,7 @@ class TestEditOnlyPermissions(TestCase, WagtailTestUtils):
         change_permission = Permission.objects.get(content_type__app_label='tests', codename='change_advert')
         admin_permission = Permission.objects.get(content_type__app_label='wagtailadmin', codename='access_admin')
         user.user_permissions.add(change_permission, admin_permission)
-        self.client.login(username='changeonly', password='password')
+        self.assertTrue(self.client.login(username='changeonly', password='password'))
 
     def test_get_index(self):
         response = self.client.get(reverse('wagtailsnippets:list',
@@ -579,7 +606,7 @@ class TestDeleteOnlyPermissions(TestCase, WagtailTestUtils):
         change_permission = Permission.objects.get(content_type__app_label='tests', codename='delete_advert')
         admin_permission = Permission.objects.get(content_type__app_label='wagtailadmin', codename='access_admin')
         user.user_permissions.add(change_permission, admin_permission)
-        self.client.login(username='deleteonly', password='password')
+        self.assertTrue(self.client.login(username='deleteonly', password='password'))
 
     def test_get_index(self):
         response = self.client.get(reverse('wagtailsnippets:list',

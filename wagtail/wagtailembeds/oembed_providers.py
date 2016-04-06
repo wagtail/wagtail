@@ -1,3 +1,6 @@
+import re
+
+
 OEMBED_ENDPOINTS = {
     "https://speakerdeck.com/oembed.{format}": [
         "^http(?:s)?://speakerdeck\\.com/.+$"
@@ -152,7 +155,7 @@ OEMBED_ENDPOINTS = {
         "^http://www\\.funnyordie\\.com/videos/.+$"
     ],
     "http://fast.wistia.com/oembed.{format}": [
-        "^http://[-\\w]+\\.wista\\.com/medias/.+$"
+        "^https?://([^/]+\.)?(wistia.com|wi.st)/(medias|embed)/.+$"
     ],
     "http://www.ustream.tv/oembed": [
         "^http(?:s)?://(?:www\\.)?ustream\\.tv/.+$",
@@ -301,8 +304,6 @@ OEMBED_ENDPOINTS = {
 
 
 # Compile endpoints into regular expression objects
-import re
-
 
 def compile_endpoints():
     endpoints = {}

@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 
-import django
 from django.db import migrations
 
 
@@ -12,21 +11,13 @@ def create_admin_access_permissions(apps, schema_editor):
 
     # Add a fake content type to hang the 'can access Wagtail admin' permission off.
     # The fact that this doesn't correspond to an actual defined model shouldn't matter, I hope...
-    if django.VERSION >= (1, 8):
-        wagtailadmin_content_type = ContentType.objects.create(
-            app_label='wagtailadmin',
-            model='admin'
-        )
-    else:
-        # Django 1.7 and below require a content type name
-        wagtailadmin_content_type = ContentType.objects.create(
-            app_label='wagtailadmin',
-            model='admin',
-            name='Wagtail admin'
-        )
+    wagtailadmin_content_type, created = ContentType.objects.get_or_create(
+        app_label='wagtailadmin',
+        model='admin'
+    )
 
     # Create admin permission
-    admin_permission = Permission.objects.create(
+    admin_permission, created = Permission.objects.get_or_create(
         content_type=wagtailadmin_content_type,
         codename='access_admin',
         name='Can access Wagtail admin'
@@ -37,6 +28,21 @@ def create_admin_access_permissions(apps, schema_editor):
         group.permissions.add(admin_permission)
 
 
+def remove_admin_access_permissions(apps, schema_editor):
+    """Reverse the above additions of permissions."""
+    ContentType = apps.get_model('contenttypes.ContentType')
+    Permission = apps.get_model('auth.Permission')
+    wagtailadmin_content_type = ContentType.objects.get(
+        app_label='wagtailadmin',
+        model='admin',
+    )
+    # This cascades to Group
+    Permission.objects.filter(
+        content_type=wagtailadmin_content_type,
+        codename='access_admin',
+    ).delete()
+
+
 class Migration(migrations.Migration):
 
     dependencies = [
@@ -45,5 +51,5 @@ class Migration(migrations.Migration):
     ]
 
     operations = [
-        migrations.RunPython(create_admin_access_permissions),
+        migrations.RunPython(create_admin_access_permissions, remove_admin_access_permissions),
     ]

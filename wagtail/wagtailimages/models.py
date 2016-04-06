@@ -27,13 +27,13 @@ from django.core.urlresolvers import reverse
 from unidecode import unidecode
 
 from wagtail.wagtailcore import hooks
+from wagtail.wagtailcore.models import CollectionMember
 from wagtail.wagtailadmin.taggable import TagSearchable
 from wagtail.wagtailsearch import index
 from wagtail.wagtailsearch.queryset import SearchableQuerySetMixin
 from wagtail.wagtailimages.rect import Rect
 from wagtail.wagtailimages.exceptions import InvalidFilterSpecError
 from wagtail.wagtailadmin.utils import get_object_usage
-from wagtail.utils.compat import get_related_model
 
 
 class SourceImageIOError(IOError):
@@ -53,7 +53,7 @@ def get_upload_to(instance, filename):
 
 
 @python_2_unicode_compatible
-class AbstractImage(models.Model, TagSearchable):
+class AbstractImage(CollectionMember, TagSearchable):
     title = models.CharField(max_length=255, verbose_name=_('title'))
     file = models.ImageField(
         verbose_name=_('file'), upload_to=get_upload_to, width_field='width', height_field='height'
@@ -123,7 +123,7 @@ class AbstractImage(models.Model, TagSearchable):
         return reverse('wagtailimages:image_usage',
                        args=(self.id,))
 
-    search_fields = TagSearchable.search_fields + (
+    search_fields = TagSearchable.search_fields + CollectionMember.search_fields + (
         index.FilterField('uploaded_by_user'),
     )
 
@@ -231,9 +231,9 @@ class AbstractImage(models.Model, TagSearchable):
     def get_rendition_model(cls):
         """ Get the Rendition model for this Image model """
         if django.VERSION >= (1, 9):
-            return get_related_model(cls.renditions.rel)
+            return cls.renditions.rel.related_model
         else:
-            return get_related_model(cls.renditions.related)
+            return cls.renditions.related.related_model
 
     def get_rendition(self, filter):
         if isinstance(filter, string_types):
@@ -296,14 +296,8 @@ class AbstractImage(models.Model, TagSearchable):
         return self.title
 
     def is_editable_by_user(self, user):
-        if user.has_perm('wagtailimages.change_image'):
-            # user has global permission to change images
-            return True
-        elif user.has_perm('wagtailimages.add_image') and self.uploaded_by_user == user:
-            # user has image add permission, which also implicitly provides permission to edit their own images
-            return True
-        else:
-            return False
+        from wagtail.wagtailimages.permissions import permission_policy
+        return permission_policy.user_has_permission_for_instance(user, 'change', self)
 
     class Meta:
         abstract = True
@@ -313,6 +307,7 @@ class Image(AbstractImage):
     admin_form_fields = (
         'title',
         'file',
+        'collection',
         'tags',
         'focal_point_x',
         'focal_point_y',
@@ -366,7 +361,7 @@ class Filter(models.Model):
     """
 
     # The spec pattern is operation1-var1-var2|operation2-var1
-    spec = models.CharField(max_length=255, db_index=True, unique=True)
+    spec = models.CharField(max_length=255, unique=True)
 
     @cached_property
     def operations(self):

@@ -332,6 +332,7 @@ class TestGetImageForm(TestCase, WagtailTestUtils):
         self.assertEqual(list(form.base_fields.keys()), [
             'title',
             'file',
+            'collection',
             'tags',
             'focal_point_x',
             'focal_point_y',
@@ -345,6 +346,7 @@ class TestGetImageForm(TestCase, WagtailTestUtils):
         self.assertEqual(list(form.base_fields.keys()), [
             'title',
             'file',
+            'collection',
             'tags',
             'focal_point_x',
             'focal_point_y',

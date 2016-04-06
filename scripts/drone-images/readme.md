@@ -12,4 +12,4 @@ Run the following commands to build all the images:
 
     docker build -t wagtail-flake8 flake8
     docker build -t wagtail-jscs jscs
-    docker build -t wagtail-scss scss
+    docker build -t wagtail-scss-lint scss-lint

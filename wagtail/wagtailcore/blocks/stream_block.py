@@ -9,6 +9,7 @@ from django.template.loader import render_to_string
 from django.utils.encoding import python_2_unicode_compatible, force_text
 from django.utils.html import format_html_join
 from django.utils.safestring import mark_safe
+from django.contrib.staticfiles.templatetags.staticfiles import static
 
 # Must be imported from Django so we get the new implementation of with_metaclass
 from django.utils import six
@@ -81,7 +82,7 @@ class BaseStreamBlock(Block):
 
     @property
     def media(self):
-        return forms.Media(js=['wagtailadmin/js/blocks/sequence.js', 'wagtailadmin/js/blocks/stream.js'])
+        return forms.Media(js=[static('wagtailadmin/js/blocks/sequence.js'), static('wagtailadmin/js/blocks/stream.js')])
 
     def js_initializer(self):
         # compile a list of info dictionaries, one for each available block type
@@ -107,21 +108,20 @@ class BaseStreamBlock(Block):
         return "StreamBlock(%s)" % js_dict(opts)
 
     def render_form(self, value, prefix='', errors=None):
+        error_dict = {}
         if errors:
             if len(errors) > 1:
                 # We rely on ListBlock.clean throwing a single ValidationError with a specially crafted
                 # 'params' attribute that we can pull apart and distribute to the child blocks
                 raise TypeError('ListBlock.render_form unexpectedly received multiple errors')
-            error_list = errors.as_data()[0].params
-        else:
-            error_list = None
+            error_dict = errors.as_data()[0].params
 
         # drop any child values that are an unrecognised block type
         valid_children = [child for child in value if child.block_type in self.child_blocks]
 
         list_members_html = [
             self.render_list_member(child.block_type, child.value, "%s-%d" % (prefix, i), i,
-                                    errors=error_list[i] if error_list else None)
+                                    errors=error_dict.get(i))
             for (i, child) in enumerate(valid_children)
         ]
 
@@ -160,18 +160,16 @@ class BaseStreamBlock(Block):
 
     def clean(self, value):
         cleaned_data = []
-        errors = []
-        for child in value:  # child is a BoundBlock instance
+        errors = {}
+        for i, child in enumerate(value):  # child is a BoundBlock instance
             try:
                 cleaned_data.append(
                     (child.block.name, child.block.clean(child.value))
                 )
             except ValidationError as e:
-                errors.append(ErrorList([e]))
-            else:
-                errors.append(None)
+                errors[i] = ErrorList([e])
 
-        if any(errors):
+        if errors:
             # The message here is arbitrary - outputting error messages is delegated to the child blocks,
             # which only involves the 'params' list
             raise ValidationError('Validation error in StreamBlock', params=errors)
@@ -309,7 +307,7 @@ class StreamValue(collections.Sequence):
         return repr(list(self))
 
     def __html__(self):
-        return self.__str__()
+        return self.stream_block.render(self)
 
     def __str__(self):
-        return self.stream_block.render(self)
+        return self.__html__()

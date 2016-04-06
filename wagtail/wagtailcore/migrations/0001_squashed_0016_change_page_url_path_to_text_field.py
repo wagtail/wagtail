@@ -45,15 +45,15 @@ def initial_data(apps, schema_editor):
     )
 
     # Create default site
-    Site.objects.create(
+    Site.objects.get_or_create(
         hostname='localhost',
         root_page_id=homepage.id,
         is_default_site=True
     )
 
     # Create auth groups
-    moderators_group = Group.objects.create(name='Moderators')
-    editors_group = Group.objects.create(name='Editors')
+    moderators_group, created = Group.objects.get_or_create(name='Moderators')
+    editors_group, created = Group.objects.get_or_create(name='Editors')
 
     # Create group permissions
     GroupPagePermission.objects.create(
@@ -89,6 +89,45 @@ def initial_data(apps, schema_editor):
         page=root,
         permission_type='lock',
     )
+
+
+def remove_initial_data(apps, schema_editor):
+    """This function does nothing. The below code is commented out together
+    with an explanation of why we don't need to bother reversing any of the
+    initial data"""
+    pass
+    # This does not need to be deleted, Django takes care of it.
+    # page_content_type = ContentType.objects.get(
+    #     model='page',
+    #     app_label='wagtailcore',
+    # )
+
+    # Page objects: Do nothing, the table will be deleted when reversing 0001
+
+    # Do not reverse Site creation since other models might depend on it
+
+    # Remove auth groups -- is this safe? External objects might depend
+    # on these groups... seems unsafe.
+    # Group.objects.filter(
+    #     name__in=('Moderators', 'Editors')
+    # ).delete()
+    #
+    # Likewise, we're leaving all GroupPagePermission unchanged as users may
+    # have been assigned such permissions and its harmless to leave them.
+
+
+def set_page_path_collation(apps, schema_editor):
+    """
+    Treebeard's path comparison logic can fail on certain locales such as sk_SK, which
+    sort numbers after letters. To avoid this, we explicitly set the collation for the
+    'path' column to the (non-locale-specific) 'C' collation.
+
+    See: https://groups.google.com/d/msg/wagtail/q0leyuCnYWI/I9uDvVlyBAAJ
+    """
+    if schema_editor.connection.vendor == 'postgresql':
+        schema_editor.execute("""
+            ALTER TABLE wagtailcore_page ALTER COLUMN path TYPE VARCHAR(255) COLLATE "C"
+        """)
 
 
 class Migration(migrations.Migration):
@@ -171,6 +210,7 @@ class Migration(migrations.Migration):
                 )),
                 ('expired', models.BooleanField(default=False, verbose_name='Expired', editable=False)),
                 ('content_type', models.ForeignKey(
+                    on_delete=models.CASCADE,
                     verbose_name='Content type',
                     related_name='pages',
                     to='contenttypes.ContentType'
@@ -201,6 +241,9 @@ class Migration(migrations.Migration):
             },
             bases=(models.Model, wagtail.wagtailsearch.index.Indexed),
         ),
+        migrations.RunPython(
+            set_page_path_collation, migrations.RunPython.noop
+        ),
         migrations.CreateModel(
             name='GroupPagePermission',
             fields=[
@@ -215,8 +258,9 @@ class Migration(migrations.Migration):
                     ],
                     max_length=20
                 )),
-                ('group', models.ForeignKey(verbose_name='Group', related_name='page_permissions', to='auth.Group')),
+                ('group', models.ForeignKey(on_delete=models.CASCADE, verbose_name='Group', related_name='page_permissions', to='auth.Group')),
                 ('page', models.ForeignKey(
+                    on_delete=models.CASCADE,
                     verbose_name='Page',
                     related_name='group_permissions',
                     to='wagtailcore.Page'
@@ -243,8 +287,8 @@ class Migration(migrations.Migration):
                 ('approved_go_live_at', models.DateTimeField(
                     null=True, verbose_name='Approved go live at', blank=True
                 )),
-                ('page', models.ForeignKey(verbose_name='Page', related_name='revisions', to='wagtailcore.Page')),
-                ('user', models.ForeignKey(null=True, verbose_name='User', blank=True, to=settings.AUTH_USER_MODEL)),
+                ('page', models.ForeignKey(on_delete=models.CASCADE, verbose_name='Page', related_name='revisions', to='wagtailcore.Page')),
+                ('user', models.ForeignKey(on_delete=models.CASCADE, null=True, verbose_name='User', blank=True, to=settings.AUTH_USER_MODEL)),
             ],
         ),
         migrations.AlterModelOptions(
@@ -257,6 +301,7 @@ class Migration(migrations.Migration):
                 ('id', models.AutoField(auto_created=True, verbose_name='ID', serialize=False, primary_key=True)),
                 ('password', models.CharField(verbose_name='Password', max_length=255)),
                 ('page', models.ForeignKey(
+                    on_delete=models.CASCADE,
                     verbose_name='Page',
                     related_name='view_restrictions',
                     to='wagtailcore.Page'
@@ -290,6 +335,7 @@ class Migration(migrations.Migration):
                     )
                 )),
                 ('root_page', models.ForeignKey(
+                    on_delete=models.CASCADE,
                     verbose_name='Root page',
                     related_name='sites_rooted_here',
                     to='wagtailcore.Page'
@@ -306,6 +352,6 @@ class Migration(migrations.Migration):
             options={'verbose_name': 'Site'},
         ),
         migrations.RunPython(
-            initial_data,
+            initial_data, remove_initial_data
         ),
     ]

@@ -16,9 +16,9 @@ Generating URLs to documents will fall back the the current request's hostname i
 Setting this to false will disable full text search. This applies to all endpoints.
 
 
-``WAGTAILAPI_MAX_RESULTS`` (default: 20)
+``WAGTAILAPI_LIMIT_MAX`` (default: 20)
 
-This allows you to change the maximum number of results a user can get at any time. This applies to all endpoints.
+This allows you to change the maximum number of results a user can request at a time. This applies to all endpoints.
 
 
 Adding more fields to the pages endpoint

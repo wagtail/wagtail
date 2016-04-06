@@ -12,7 +12,6 @@ from modelcluster.fields import ParentalKey
 
 from wagtail.wagtailcore.models import Page, PageRevision, GroupPagePermission
 from wagtail.wagtailusers.models import UserProfile
-from wagtail.utils.compat import get_related_model
 
 
 def get_object_usage(obj):
@@ -26,7 +25,7 @@ def get_object_usage(obj):
         include_proxy_eq=True
     )
     for relation in relations:
-        related_model = get_related_model(relation)
+        related_model = relation.related_model
 
         # if the relation is between obj and a page, get the page
         if issubclass(related_model, Page):
@@ -57,7 +56,7 @@ def users_with_page_permission(page, permission_type, include_superusers=True):
     # Find GroupPagePermission records of the given type that apply to this page or an ancestor
     ancestors_and_self = list(page.get_ancestors()) + [page]
     perm = GroupPagePermission.objects.filter(permission_type=permission_type, page__in=ancestors_and_self)
-    q = Q(groups__page_permissions=perm)
+    q = Q(groups__page_permissions__in=perm)
 
     # Include superusers
     if include_superusers:
@@ -125,6 +124,27 @@ def any_permission_required(*perms):
     return user_passes_test(test)
 
 
+class PermissionPolicyChecker(object):
+    """
+    Provides a view decorator that enforces the given permission policy,
+    returning the wagtailadmin 'permission denied' response if permission not granted
+    """
+    def __init__(self, policy):
+        self.policy = policy
+
+    def require(self, action):
+        def test(user):
+            return self.policy.user_has_permission(user, action)
+
+        return user_passes_test(test)
+
+    def require_any(self, *actions):
+        def test(user):
+            return self.policy.user_has_any_permission(user, actions)
+
+        return user_passes_test(test)
+
+
 def send_mail(subject, message, recipient_list, from_email=None, **kwargs):
     if not from_email:
         if hasattr(settings, 'WAGTAILADMIN_NOTIFICATION_FROM_EMAIL'):
@@ -165,7 +185,9 @@ def send_notification(page_revision_id, notification, excluded_user_id):
         return
 
     # Get template
-    template = 'wagtailadmin/notifications/' + notification + '.html'
+    template_subject = 'wagtailadmin/notifications/' + notification + '_subject.txt'
+    template_text = 'wagtailadmin/notifications/' + notification + '.txt'
+    template_html = 'wagtailadmin/notifications/' + notification + '.html'
 
     # Common context to template
     context = {
@@ -179,7 +201,12 @@ def send_notification(page_revision_id, notification, excluded_user_id):
         context["user"] = recipient
 
         # Get email subject and content
-        email_subject, email_content = render_to_string(template, context).split('\n', 1)
+        email_subject = render_to_string(template_subject, context).strip()
+        email_content = render_to_string(template_text, context).strip()
+
+        kwargs = {}
+        if getattr(settings, 'WAGTAILADMIN_NOTIFICATION_USE_HTML', False):
+            kwargs['html_message'] = render_to_string(template_html, context)
 
         # Send email
-        send_mail(email_subject, email_content, [recipient.email])
+        send_mail(email_subject, email_content, [recipient.email], **kwargs)

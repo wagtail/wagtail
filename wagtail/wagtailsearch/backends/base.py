@@ -25,15 +25,6 @@ class BaseSearchQuery(object):
         self.operator = operator or self.DEFAULT_OPERATOR
         self.order_by_relevance = order_by_relevance
 
-    def _get_searchable_field(self, field_attname):
-        # Get field
-        field = dict(
-            (field.get_attname(self.queryset.model), field)
-            for field in self.queryset.model.get_searchable_search_fields()
-        ).get(field_attname, None)
-
-        return field
-
     def _get_filterable_field(self, field_attname):
         # Get field
         field = dict(
@@ -55,8 +46,8 @@ class BaseSearchQuery(object):
 
         if field is None:
             raise FieldError(
-                'Cannot filter search results with field "' + field_attname + '". Please add index.FilterField(\''
-                + field_attname + '\') to ' + self.queryset.model.__name__ + '.search_fields.'
+                'Cannot filter search results with field "' + field_attname + '". Please add index.FilterField(\'' +
+                field_attname + '\') to ' + self.queryset.model.__name__ + '.search_fields.'
             )
 
         # Process the lookup
@@ -64,8 +55,8 @@ class BaseSearchQuery(object):
 
         if result is None:
             raise FilterError(
-                'Could not apply filter on search results: "' + field_attname + '__'
-                + lookup + ' = ' + text_type(value) + '". Lookup "' + lookup + '"" not recognosed.'
+                'Could not apply filter on search results: "' + field_attname + '__' +
+                lookup + ' = ' + text_type(value) + '". Lookup "' + lookup + '"" not recognised.'
             )
 
         return result
@@ -183,12 +174,12 @@ class BaseSearchResults(object):
         data = list(self[:21])
         if len(data) > 20:
             data[-1] = "...(remaining elements truncated)..."
-        return repr(data)
+        return '<SearchResults %r>' % data
 
 
 class BaseSearch(object):
-    search_query_class = None
-    search_results_class = None
+    query_class = None
+    results_class = None
 
     def __init__(self, params):
         pass
@@ -248,7 +239,7 @@ class BaseSearch(object):
                 raise ValueError("operator must be either 'or' or 'and'")
 
         # Search
-        search_query = self.search_query_class(
+        search_query = self.query_class(
             queryset, query_string, fields=fields, operator=operator, order_by_relevance=order_by_relevance
         )
-        return self.search_results_class(self, search_query)
+        return self.results_class(self, search_query)

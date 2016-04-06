@@ -5,13 +5,13 @@
 # Translators:
 # Franklin Kingma <franklin@statix.net>, 2015
 # Maarten Kling <kling.maarten@gmail.com>, 2015
-# Thijs Kramer <thijskramer@gmail.com>, 2015
+# Thijs Kramer <thijskramer@gmail.com>, 2015-2016
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-12-17 13:54+0000\n"
-"PO-Revision-Date: 2015-12-22 16:15+0000\n"
+"POT-Creation-Date: 2016-02-10 15:32+0000\n"
+"PO-Revision-Date: 2016-02-25 11:52+0000\n"
 "Last-Translator: Thijs Kramer <thijskramer@gmail.com>\n"
 "Language-Team: Dutch (Netherlands) (http://www.transifex.com/torchbox/"
 "wagtail/language/nl_NL/)\n"
@@ -29,16 +29,16 @@ msgid ""
 "Supported formats: %(supported_formats)s. Maximum filesize: "
 "%(max_upload_size)s."
 msgstr ""
-"Ondersteunde formaten: %(supported_formats)s. Maximale bestandsgrootte: "
-"%(max_upload_size)s."
+"Ondersteunde bestandsformaten: %(supported_formats)s. Maximale "
+"bestandsgrootte: %(max_upload_size)s."
 
 #, python-format
 msgid "Supported formats: %(supported_formats)s."
-msgstr "Ondersteunde formaten: %(supported_formats)s."
+msgstr "Ondersteunde bestandsformaten: %(supported_formats)s."
 
 #, python-format
 msgid "Not a supported image format. Supported formats: %s."
-msgstr "Geen ondersteund afbeelding formaat. ondersteunde formaten: %s."
+msgstr "Geen ondersteund afbeeldingsformaat. ondersteunde formaten: %s."
 
 #, python-format
 msgid "Not a valid %s image."
@@ -46,7 +46,7 @@ msgstr "Geen juiste %s afbeelding."
 
 #, python-format
 msgid "This file is too big (%%s). Maximum filesize %s."
-msgstr "Dit bestand is te groot (%%s). Maximale bestandsgrootte %s."
+msgstr "Dit bestand is te groot (%%s). De maximale bestandsgrootte is %s."
 
 #, python-format
 msgid "This file is too big. Maximum filesize %s."
@@ -117,6 +117,12 @@ msgstr "Populaire tags"
 
 msgid "Uploading..."
 msgstr "Bezig met uploaden..."
+
+msgid "Server Error"
+msgstr "Server error"
+
+msgid "Report this error to your webmaster with the following information:"
+msgstr "Rapporteer dit aan uw webmaster met de volgende informatie:"
 
 #, python-format
 msgid ""

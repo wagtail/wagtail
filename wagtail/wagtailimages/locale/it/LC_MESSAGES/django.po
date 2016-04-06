@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-12-17 13:54+0000\n"
-"PO-Revision-Date: 2015-12-17 13:59+0000\n"
+"POT-Creation-Date: 2016-02-10 15:32+0000\n"
+"PO-Revision-Date: 2016-02-14 17:32+0000\n"
 "Last-Translator: mattwestcott <matthew@torchbox.com>\n"
 "Language-Team: Italian (http://www.transifex.com/torchbox/wagtail/language/"
 "it/)\n"
@@ -80,6 +80,27 @@ msgstr "Altezza"
 msgid "Closeness"
 msgstr "Vicinanza"
 
+msgid "title"
+msgstr "titolo"
+
+msgid "file"
+msgstr "file"
+
+msgid "width"
+msgstr "larghezza"
+
+msgid "height"
+msgstr "altezza"
+
+msgid "created at"
+msgstr "creato alle"
+
+msgid "uploaded by user"
+msgstr "caricato dall'utente"
+
+msgid "tags"
+msgstr "tags"
+
 msgid "Choose an image"
 msgstr "Scegli una immagine"
 
@@ -91,6 +112,15 @@ msgstr "Carica"
 
 msgid "Popular tags"
 msgstr "Tags popolari"
+
+msgid "Uploading..."
+msgstr "Caricamento..."
+
+msgid "Server Error"
+msgstr "Errore del Server"
+
+msgid "Report this error to your webmaster with the following information:"
+msgstr "Presenta questo errore al tuo webmaster con le seguenti informazioni:"
 
 #, python-format
 msgid ""
@@ -268,6 +298,9 @@ msgstr ""
 
 msgid "Sorry, upload failed."
 msgstr "Spiacente, caricamento fallito."
+
+msgid "Image updated."
+msgstr "Immagine aggiornata."
 
 msgid "Update"
 msgstr "Aggiorna"

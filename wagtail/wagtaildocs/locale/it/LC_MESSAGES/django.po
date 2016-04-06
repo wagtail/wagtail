@@ -3,14 +3,14 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# Giacomo Ghizzani <giacomo.ghz@gmail.com>, 2015
+# Giacomo Ghizzani <giacomo.ghz@gmail.com>, 2015-2016
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-12-17 13:54+0000\n"
-"PO-Revision-Date: 2015-12-17 13:58+0000\n"
-"Last-Translator: mattwestcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2016-02-10 15:32+0000\n"
+"PO-Revision-Date: 2016-02-14 17:32+0000\n"
+"Last-Translator: Giacomo Ghizzani <giacomo.ghz@gmail.com>\n"
 "Language-Team: Italian (http://www.transifex.com/torchbox/wagtail/language/"
 "it/)\n"
 "MIME-Version: 1.0\n"
@@ -18,6 +18,24 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: it\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "title"
+msgstr "titolo"
+
+msgid "file"
+msgstr "file"
+
+msgid "created at"
+msgstr "creato alle"
+
+msgid "uploaded by user"
+msgstr "caricato dall'utente"
+
+msgid "tags"
+msgstr "tags"
+
+msgid "document"
+msgstr "documento"
 
 msgid "Choose a document"
 msgstr "Scegli un documento"
@@ -27,6 +45,15 @@ msgstr "Cerca"
 
 msgid "Upload"
 msgstr "Carica"
+
+msgid "Uploading..."
+msgstr "Caricamento..."
+
+msgid "Server Error"
+msgstr "Errore del Server"
+
+msgid "Report this error to your webmaster with the following information:"
+msgstr "Presenta questo errore al tuo webmaster con le seguenti informazioni:"
 
 #, python-format
 msgid ""

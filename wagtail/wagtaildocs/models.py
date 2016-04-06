@@ -16,6 +16,7 @@ from django.utils.encoding import python_2_unicode_compatible
 
 from wagtail.wagtailadmin.taggable import TagSearchable
 from wagtail.wagtailadmin.utils import get_object_usage
+from wagtail.wagtailcore.models import CollectionMember
 from wagtail.wagtailsearch import index
 from wagtail.wagtailsearch.queryset import SearchableQuerySetMixin
 
@@ -25,7 +26,7 @@ class DocumentQuerySet(SearchableQuerySetMixin, models.QuerySet):
 
 
 @python_2_unicode_compatible
-class AbstractDocument(models.Model, TagSearchable):
+class AbstractDocument(CollectionMember, TagSearchable):
     title = models.CharField(max_length=255, verbose_name=_('title'))
     file = models.FileField(upload_to='documents', verbose_name=_('file'))
     created_at = models.DateTimeField(verbose_name=_('created at'), auto_now_add=True)
@@ -34,14 +35,15 @@ class AbstractDocument(models.Model, TagSearchable):
         verbose_name=_('uploaded by user'),
         null=True,
         blank=True,
-        editable=False
+        editable=False,
+        on_delete=models.SET_NULL
     )
 
     tags = TaggableManager(help_text=None, blank=True, verbose_name=_('tags'))
 
     objects = DocumentQuerySet.as_manager()
 
-    search_fields = TagSearchable.search_fields + (
+    search_fields = TagSearchable.search_fields + CollectionMember.search_fields + (
         index.FilterField('uploaded_by_user'),
     )
 
@@ -69,14 +71,8 @@ class AbstractDocument(models.Model, TagSearchable):
                        args=(self.id,))
 
     def is_editable_by_user(self, user):
-        if user.has_perm('wagtaildocs.change_document'):
-            # user has global permission to change documents
-            return True
-        elif user.has_perm('wagtaildocs.add_document') and self.uploaded_by_user == user:
-            # user has document add permission, which also implicitly provides permission to edit their own documents
-            return True
-        else:
-            return False
+        from wagtail.wagtaildocs.permissions import permission_policy
+        return permission_policy.user_has_permission_for_instance(user, 'change', self)
 
     class Meta:
         abstract = True
@@ -87,6 +83,7 @@ class Document(AbstractDocument):
     admin_form_fields = (
         'title',
         'file',
+        'collection',
         'tags'
     )
 

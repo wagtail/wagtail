@@ -38,6 +38,21 @@ def add_document_permissions_to_admin_groups(apps, schema_editor):
         group.permissions.add(add_document_permission, change_document_permission, delete_document_permission)
 
 
+def remove_document_permissions(apps, schema_editor):
+    """Reverse the above additions of permissions."""
+    ContentType = apps.get_model('contenttypes.ContentType')
+    Permission = apps.get_model('auth.Permission')
+    document_content_type = ContentType.objects.get(
+        model='document',
+        app_label='wagtaildocs',
+    )
+    # This cascades to Group
+    Permission.objects.filter(
+        content_type=document_content_type,
+        codename__in=('add_document', 'change_document', 'delete_document'),
+    ).delete()
+
+
 class Migration(migrations.Migration):
 
     dependencies = [
@@ -48,5 +63,5 @@ class Migration(migrations.Migration):
     ]
 
     operations = [
-        migrations.RunPython(add_document_permissions_to_admin_groups),
+        migrations.RunPython(add_document_permissions_to_admin_groups, remove_document_permissions),
     ]

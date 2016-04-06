@@ -77,8 +77,8 @@ class DBSearchResults(BaseSearchResults):
 
 
 class DBSearch(BaseSearch):
-    search_query_class = DBSearchQuery
-    search_results_class = DBSearchResults
+    query_class = DBSearchQuery
+    results_class = DBSearchResults
 
     def __init__(self, params):
         super(DBSearch, self).__init__(params)
