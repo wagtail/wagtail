@@ -8,7 +8,7 @@ import warnings
 from collections import defaultdict
 from modelcluster.models import ClusterableModel, get_all_child_relations
 from django.db import models, connection, transaction
-from django.db.models import Q
+from django.db.models import Q, Case, When, IntegerField
 from django.db.models.signals import post_save, pre_delete, post_delete
 from django.dispatch.dispatcher import receiver
 from django.http import Http404
@@ -48,6 +48,13 @@ from wagtail.utils.deprecation import RemovedInWagtail15Warning
 logger = logging.getLogger('wagtail.core')
 
 PAGE_TEMPLATE_VAR = 'page'
+
+
+MATCH_HOSTNAME_PORT = 0
+MATCH_HOSTNAME_DEFAULT = 1
+MATCH_DEFAULT = 2
+MATCH_HOSTNAME = 3
+MATCH_NONE = 4
 
 
 class SiteManager(models.Manager):
@@ -115,58 +122,30 @@ class Site(models.Model):
         still be routed to a different hostname which is set as the default
         """
 
-        # default site q
-        q = Q(is_default_site=True)
+        hostname = request.META.get('HTTP_HOST', '').split(':')[0]
+        port = request.META.get('SERVER_PORT')
 
-        # hostname q
-        try:
-            hostname = request.META['HTTP_HOST'].split(':')[0]
-            q |= Q(hostname=hostname)
-        except KeyError:
-            pass
+        sites = list(Site.objects.annotate(match=Case(
+            When(hostname=hostname, port=port, then=MATCH_HOSTNAME_PORT),
+            When(hostname=hostname, is_default_site=True, then=MATCH_HOSTNAME_DEFAULT),
+            When(is_default_site=True, then=MATCH_DEFAULT),
+            When(hostname=hostname, then=MATCH_HOSTNAME),
+            default=MATCH_NONE,
+            output_field=IntegerField(),
+        )).order_by('match').exclude(match=MATCH_NONE))
 
-        # get all matching sites
-        # order by is_default_site so if there is a default it is either first or last
-        site_list = list(Site.objects.filter(q).order_by('is_default_site'))
+        if sites:
+            if len(sites) == 1:
+                return sites[0]
+            
+            if sites[0].match in (MATCH_HOSTNAME_PORT, MATCH_HOSTNAME_DEFAULT):
+                return sites[0]
 
-        # only one result (fastpath)
-        if len(site_list) == 1:
-            return site_list[0]
+            if sites[0].match == MATCH_DEFAULT:
+                # if only 2 matches (default and hostname) return hostname match, otherwise return default
+                return sites[len(sites) == 2]
 
-        # DoesNotExist
-        if len(site_list) == 0:
-            raise Site.DoesNotExist()
-
-        # find the default_site (if any)
-        # remove from list if hostname does not match
-        # we need to check both ends as different dbs store and order booleans differently (see django #19726)
-        default_site = None
-        if site_list[0].is_default_site:
-            default_site = site_list[0]
-            if default_site.hostname != hostname:
-                site_list = site_list[1:]
-        elif site_list[-1].is_default_site:
-            default_site = site_list[-1]
-            if default_site.hostname != hostname:
-                site_list = site_list[:-1]
-
-        # match non-ambiguous hostname
-        if len(site_list) == 1:
-            return site_list[0]
-
-        # check for matching port
-        try:
-            port = int(request.META['SERVER_PORT'])
-            for site in site_list:
-                if site.port == port:
-                    return site
-        except (KeyError, ValueError):
-            pass
-
-        # return default
-        if not default_site:
-            raise Site.DoesNotExist()
-        return default_site
+        raise Site.DoesNotExist()
 
     @property
     def root_url(self):
