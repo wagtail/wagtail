@@ -78,3 +78,15 @@ class TestImagesJinja(TestCase):
             self.render('{{ image(myimage, "width-200") }}', {'myimage': self.bad_image}),
             '<img alt="missing image" src="/media/not-found" width="0" height="0">'
         )
+
+    def test_image_url(self):
+        self.assertRegex(
+            self.render('{{ image_url(myimage, "width-200") }}', {'myimage': self.image}),
+            '/images/.*/width-200/{}'.format(self.image.file.name.split('/')[-1]),
+        )
+
+    def test_image_url_custom_view(self):
+        self.assertRegex(
+            self.render('{{ image_url(myimage, "width-200", "wagtailimages_serve_custom_view") }}', {'myimage': self.image}),
+            '/testimages/custom_view/.*/width-200/{}'.format(self.image.file.name.split('/')[-1]),
+        )
