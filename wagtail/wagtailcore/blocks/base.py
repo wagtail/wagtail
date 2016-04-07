@@ -30,9 +30,11 @@ class BaseBlock(type):
 
         cls = super(BaseBlock, mcs).__new__(mcs, name, bases, attrs)
 
-        base_meta_class = getattr(cls, '_meta_class', None)
-        bases = tuple(cls for cls in [meta_class, base_meta_class] if cls) or ()
-        cls._meta_class = type(str(name + 'Meta'), bases + (object, ), {})
+        # Get all the Meta classes from all the bases
+        meta_class_bases = [meta_class] + [getattr(base, '_meta_class', None)
+                                           for base in bases]
+        meta_class_bases = tuple(filter(bool, meta_class_bases))
+        cls._meta_class = type(str(name + 'Meta'), meta_class_bases, {})
 
         return cls
 
@@ -43,7 +45,7 @@ class Block(six.with_metaclass(BaseBlock, object)):
 
     TEMPLATE_VAR = 'value'
 
-    class Meta:
+    class Meta(object):
         label = None
         icon = "placeholder"
         classname = None

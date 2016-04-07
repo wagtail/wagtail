@@ -454,7 +454,10 @@ class TestMeta(unittest.TestCase):
         block = HeadingBlock(template='subheading.html')
         self.assertEqual(block.meta.template, 'subheading.html')
 
-    def test_meta_multiple_inheritance(self):
+    def test_meta_nested_inheritance(self):
+        """
+        Check that having a multi-level inheritance chain works
+        """
         class HeadingBlock(blocks.CharBlock):
             class Meta:
                 template = 'heading.html'
@@ -467,6 +470,39 @@ class TestMeta(unittest.TestCase):
         block = SubHeadingBlock()
         self.assertEqual(block.meta.template, 'subheading.html')
         self.assertEqual(block.meta.test, 'Foo')
+
+    def test_meta_multi_inheritance(self):
+        """
+        Check that multi-inheritance and Meta classes work together
+        """
+        class LeftBlock(blocks.CharBlock):
+            class Meta:
+                template = 'template.html'
+                clash = 'the band'
+                label = 'Left block'
+
+        class RightBlock(blocks.CharBlock):
+            class Meta:
+                default = 'hello'
+                clash = 'the album'
+                label = 'Right block'
+
+        class ChildBlock(LeftBlock, RightBlock):
+            class Meta:
+                label = 'Child block'
+
+        block = ChildBlock()
+        # These should be directly inherited from the LeftBlock/RightBlock
+        self.assertEqual(block.meta.template, 'template.html')
+        self.assertEqual(block.meta.default, 'hello')
+
+        # This should be inherited from the LeftBlock, solving the collision,
+        # as LeftBlock comes first
+        self.assertEqual(block.meta.clash, 'the band')
+
+        # This should come from ChildBlock itself, ignoring the label on
+        # LeftBlock/RightBlock
+        self.assertEqual(block.meta.label, 'Child block')
 
 
 class TestStructBlock(SimpleTestCase):
