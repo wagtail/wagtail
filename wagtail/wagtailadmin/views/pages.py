@@ -647,7 +647,17 @@ def unpublish(request, page_id):
     next_url = get_valid_next_url_from_request(request)
 
     if request.method == 'POST':
+        include_descendants = request.POST.get("include_descendants", False)
+
         page.unpublish()
+
+        if include_descendants == 'on':
+            live_descendant_pages = page.get_descendants().live().specific()
+            for live_descendant_page in live_descendant_pages:
+                if not live_descendant_page.permissions_for_user(request.user).can_unpublish():
+                    raise PermissionDenied
+            for live_descendant_page in live_descendant_pages:
+                live_descendant_page.unpublish()
 
         messages.success(request, _("Page '{0}' unpublished.").format(page.title), buttons=[
             messages.button(reverse('wagtailadmin_pages:edit', args=(page.id,)), _('Edit'))
@@ -660,6 +670,7 @@ def unpublish(request, page_id):
     return render(request, 'wagtailadmin/pages/confirm_unpublish.html', {
         'page': page,
         'next': next_url,
+        'live_descendant_count': page.get_descendants().live().count(),
     })
 
 

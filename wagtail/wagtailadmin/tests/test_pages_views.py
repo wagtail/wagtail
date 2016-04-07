@@ -2139,6 +2139,99 @@ class TestPageUnpublish(TestCase, WagtailTestUtils):
         self.assertEqual(mock_call['instance'], self.page)
         self.assertIsInstance(mock_call['instance'], self.page.specific_class)
 
+    def test_unpublish_descendants_view(self):
+        """
+        This tests that the unpublish view responds with an unpublish confirm page that does not contain the form field 'include_descendants'
+        """
+        # Get unpublish page
+        response = self.client.get(reverse('wagtailadmin_pages:unpublish', args=(self.page.id, )))
+
+        # Check that the user recieved an unpublish confirm page
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'wagtailadmin/pages/confirm_unpublish.html')
+        # Check the form does not contain the checkbox field include_descendants
+        self.assertNotContains(response, '<input id="id_include_descendants" name="include_descendants" type="checkbox">')
+
+
+class TestPageUnpublishIncludingDescendants(TestCase, WagtailTestUtils):
+    def setUp(self):
+        self.user = self.login()
+        # Find root page
+        self.root_page = Page.objects.get(id=2)
+
+        # Create a page to unpublish
+        self.test_page = self.root_page.add_child(instance=SimplePage(
+            title="Hello world!",
+            slug='hello-world',
+            content="hello",
+            live=True,
+            has_unpublished_changes=False,
+        ))
+
+        # Create a couple of child pages
+        self.test_child_page = self.test_page.add_child(instance=SimplePage(
+            title="Child page",
+            slug='child-page',
+            content="hello",
+            live=True,
+            has_unpublished_changes=True,
+        ))
+
+        self.test_another_child_page = self.test_page.add_child(instance=SimplePage(
+            title="Another Child page",
+            slug='another-child-page',
+            content="hello",
+            live=True,
+            has_unpublished_changes=True,
+        ))
+
+    def test_unpublish_descendants_view(self):
+        """
+        This tests that the unpublish view responds with an unpublish confirm page that contains the form field 'include_descendants'
+        """
+        # Get unpublish page
+        response = self.client.get(reverse('wagtailadmin_pages:unpublish', args=(self.test_page.id, )))
+
+        # Check that the user recieved an unpublish confirm page
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'wagtailadmin/pages/confirm_unpublish.html')
+        # Check the form contains the checkbox field include_descendants
+        self.assertContains(response, '<input id="id_include_descendants" name="include_descendants" type="checkbox">')
+
+    def test_unpublish_include_children_view_post(self):
+        """
+        This posts to the unpublish view and checks that the page and its descendants were unpublished
+        """
+        # Post to the unpublish page
+        response = self.client.post(reverse('wagtailadmin_pages:unpublish', args=(self.test_page.id, )), {'include_descendants': 'on'})
+
+        # Should be redirected to explorer page
+        self.assertRedirects(response, reverse('wagtailadmin_explore', args=(self.root_page.id, )))
+
+        # Check that the page was unpublished
+        self.assertFalse(SimplePage.objects.get(id=self.test_page.id).live)
+
+        # Check that the descendant pages were unpiblished as well
+        self.assertFalse(SimplePage.objects.get(id=self.test_child_page.id).live)
+        self.assertFalse(SimplePage.objects.get(id=self.test_another_child_page.id).live)
+
+    def test_unpublish_not_include_children_view_post(self):
+        """
+        This posts to the unpublish view and checks that the page was unpublished but its descendants were not
+        """
+        # Post to the unpublish page
+        response = self.client.post(reverse('wagtailadmin_pages:unpublish', args=(self.test_page.id, )), {})
+
+        # Should be redirected to explorer page
+        self.assertRedirects(response, reverse('wagtailadmin_explore', args=(self.root_page.id, )))
+
+        # Check that the page was unpublished
+        self.assertFalse(SimplePage.objects.get(id=self.test_page.id).live)
+
+        # Check that the descendant pages were not unpublished
+        self.assertTrue(SimplePage.objects.get(id=self.test_child_page.id).live)
+        self.assertTrue(SimplePage.objects.get(id=self.test_another_child_page.id).live)
+
 
 class TestApproveRejectModeration(TestCase, WagtailTestUtils):
     def setUp(self):
