@@ -391,6 +391,15 @@ class Page(six.with_metaclass(PageBase, MP_Node, ClusterableModel, index.Indexed
         candidate_slug = base_slug
         suffix = 1
         parent_page = self.get_parent()
+        slug_parts = base_slug.split('-')
+
+        try:
+            slug_parts[-1] = str(int(slug_parts[-1]) + 1)
+            candidate_slug = '-'.join(slug_parts)
+        except ValueError:
+            # If the last part of the slug fails to be converted
+            # to an int then simply move on to auto incrementing
+            pass
 
         while not Page._slug_is_available(candidate_slug, parent_page, self):
             # try with incrementing suffix until we find a slug which is available
