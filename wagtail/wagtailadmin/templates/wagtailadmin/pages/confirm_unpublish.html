@@ -10,7 +10,23 @@
         <form action="{% url 'wagtailadmin_pages:unpublish' page.id %}" method="POST">
             {% csrf_token %}
             <input type="hidden" name="next" value="{{ next }}">
-            <input type="submit" value="{% trans 'Yes, unpublish it' %}" class="button">
+            <ul class="fields">
+                {% if live_descendant_pages %}
+                <li>
+                    <div class="field boolean_field checkbox_input">
+                        <div class="field-content">
+                            <div class="input">
+                                <input id="id_include_descendants" name="include_descendants" type="checkbox">
+                                <span>{% trans 'Unpublish all descendant pages as well.' %}</span>
+                            </div>
+                        </div>
+                    </div>
+                    </li>
+                {% endif %}
+                <li>
+                    <input type="submit" value="{% trans 'Yes, unpublish it' %}">
+                </li>
+            </ul>
         </form>
     </div>
 {% endblock %}
