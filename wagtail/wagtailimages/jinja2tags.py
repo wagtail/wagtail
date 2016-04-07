@@ -3,6 +3,7 @@ from __future__ import absolute_import, unicode_literals
 from jinja2.ext import Extension
 
 from .shortcuts import get_rendition_or_not_found
+from .templatetags.wagtailimages_tags import image_url
 
 
 def image(image, filterspec, **attrs):
@@ -23,6 +24,7 @@ class WagtailImagesExtension(Extension):
 
         self.environment.globals.update({
             'image': image,
+            'image_url': image_url,
         })
 
 

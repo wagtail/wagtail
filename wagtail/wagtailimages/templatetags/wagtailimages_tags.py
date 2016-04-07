@@ -7,6 +7,9 @@ from django.utils.functional import cached_property
 
 from wagtail.wagtailimages.models import Filter
 from wagtail.wagtailimages.shortcuts import get_rendition_or_not_found
+from wagtail.wagtailimages.views.serve import (
+    generate_image_url, generate_signature,
+)
 
 register = template.Library()
 allowed_filter_pattern = re.compile("^[A-Za-z0-9_\-\.]+$")
@@ -98,3 +101,8 @@ class ImageNode(template.Node):
             for key in self.attrs:
                 resolved_attrs[key] = self.attrs[key].resolve(context)
             return rendition.img_tag(resolved_attrs)
+
+
+@register.simple_tag()
+def image_url(image, filter_spec, key=None):
+    return generate_image_url(image, filter_spec, key)

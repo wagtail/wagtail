@@ -8,6 +8,7 @@ from wsgiref.util import FileWrapper
 
 from django.conf import settings
 from django.core.exceptions import ImproperlyConfigured, PermissionDenied
+from django.core.urlresolvers import reverse
 from django.http import HttpResponse, HttpResponsePermanentRedirect, StreamingHttpResponse
 from django.shortcuts import get_object_or_404
 from django.utils.decorators import classonlymethod
@@ -35,6 +36,15 @@ def generate_signature(image_id, filter_spec, key=None):
 
 def verify_signature(signature, image_id, filter_spec, key=None):
     return signature == generate_signature(image_id, filter_spec, key=key)
+
+
+def generate_image_url(image, filter_spec, key=None):
+    signature = generate_signature(image.id, filter_spec, key)
+    url = reverse('wagtailimages_serve',
+                  args=(signature, image.id, filter_spec))
+    # Append image's original filename to the URL
+    url += image.file.name[len('original_images/'):]
+    return url
 
 
 class ServeView(View):
