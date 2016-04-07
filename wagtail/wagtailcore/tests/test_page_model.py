@@ -1,25 +1,24 @@
+from __future__ import absolute_import, unicode_literals
+
 import datetime
 import json
 
 import pytz
-
-from django.test import TestCase, Client
-from django.test.utils import override_settings
-from django.http import HttpRequest, Http404
-from django.contrib.contenttypes.models import ContentType
 from django.contrib.auth import get_user_model
 from django.contrib.auth.models import AnonymousUser
+from django.contrib.contenttypes.models import ContentType
 from django.core.exceptions import ValidationError
+from django.http import Http404, HttpRequest
+from django.test import Client, TestCase
+from django.test.utils import override_settings
 
-from wagtail.wagtailcore.models import Page, Site, get_page_models, PageManager
 from wagtail.tests.testapp.models import (
-    SingleEventPage, EventPage, EventIndex, SimplePage,
-    BusinessIndex, BusinessSubIndex, BusinessChild, StandardIndex,
-    MTIBasePage, MTIChildPage, AbstractPage, TaggedPage,
-    BlogCategory, BlogCategoryBlogPage, Advert, ManyToManyBlogPage,
-    GenericSnippetPage, BusinessNowherePage, SingletonPage,
-    CustomManager, CustomManagerPage, MyCustomPage, OneToOnePage)
+    AbstractPage, Advert, BlogCategory, BlogCategoryBlogPage, BusinessChild, BusinessIndex,
+    BusinessNowherePage, BusinessSubIndex, CustomManager, CustomManagerPage, EventIndex, EventPage,
+    GenericSnippetPage, ManyToManyBlogPage, MTIBasePage, MTIChildPage, MyCustomPage, OneToOnePage,
+    SimplePage, SingleEventPage, SingletonPage, StandardIndex, TaggedPage)
 from wagtail.tests.utils import WagtailTestUtils
+from wagtail.wagtailcore.models import Page, PageManager, Site, get_page_models
 
 
 def get_ct(model):
@@ -899,31 +898,6 @@ class TestSubpageTypeBusinessRules(TestCase, WagtailTestUtils):
         self.assertNotIn(SimplePage, BusinessSubIndex.allowed_subpage_models())
         self.assertIn(BusinessChild, BusinessSubIndex.allowed_subpage_models())
 
-    def test_allowed_subpage_types(self):
-        """
-        Same assertions as for test_allowed_subpage_models -
-        allowed_subpage_types should mirror allowed_subpage_models with ContentType
-        objects rather than model classes
-        """
-
-        with self.ignore_deprecation_warnings():
-            # SimplePage does not define any restrictions on subpage types
-            # SimplePage is a valid subpage of SimplePage
-            self.assertIn(get_ct(SimplePage), SimplePage.allowed_subpage_types())
-            # BusinessIndex is a valid subpage of SimplePage
-            self.assertIn(get_ct(BusinessIndex), SimplePage.allowed_subpage_types())
-            # BusinessSubIndex is not valid, because it explicitly omits SimplePage from parent_page_types
-            self.assertNotIn(get_ct(BusinessSubIndex), SimplePage.allowed_subpage_types())
-
-            # BusinessChild has an empty subpage_types list, so does not allow anything
-            self.assertNotIn(get_ct(SimplePage), BusinessChild.allowed_subpage_types())
-            self.assertNotIn(get_ct(BusinessIndex), BusinessChild.allowed_subpage_types())
-            self.assertNotIn(get_ct(BusinessSubIndex), BusinessChild.allowed_subpage_types())
-
-            # BusinessSubIndex only allows BusinessChild as subpage type
-            self.assertNotIn(get_ct(SimplePage), BusinessSubIndex.allowed_subpage_types())
-            self.assertIn(get_ct(BusinessChild), BusinessSubIndex.allowed_subpage_types())
-
     def test_allowed_parent_page_models(self):
         # SimplePage does not define any restrictions on parent page types
         # SimplePage is a valid parent page of SimplePage
@@ -938,28 +912,6 @@ class TestSubpageTypeBusinessRules(TestCase, WagtailTestUtils):
         # BusinessSubIndex only allows BusinessIndex as a parent
         self.assertNotIn(SimplePage, BusinessSubIndex.allowed_parent_page_models())
         self.assertIn(BusinessIndex, BusinessSubIndex.allowed_parent_page_models())
-
-    def test_allowed_parent_page_types(self):
-        """
-        Same assertions as for test_allowed_parent_page_models -
-        allowed_parent_page_types should mirror allowed_parent_page_models
-        with ContentType objects rather than model classes
-        """
-
-        with self.ignore_deprecation_warnings():
-            # SimplePage does not define any restrictions on parent page types
-            # SimplePage is a valid parent page of SimplePage
-            self.assertIn(get_ct(SimplePage), SimplePage.allowed_parent_page_types())
-            # BusinessChild cannot be a parent of anything
-            self.assertNotIn(get_ct(BusinessChild), SimplePage.allowed_parent_page_types())
-
-            # BusinessNowherePage does not allow anything as a parent
-            self.assertNotIn(get_ct(SimplePage), BusinessNowherePage.allowed_parent_page_types())
-            self.assertNotIn(get_ct(StandardIndex), BusinessNowherePage.allowed_parent_page_types())
-
-            # BusinessSubIndex only allows BusinessIndex as a parent
-            self.assertNotIn(get_ct(SimplePage), BusinessSubIndex.allowed_parent_page_types())
-            self.assertIn(get_ct(BusinessIndex), BusinessSubIndex.allowed_parent_page_types())
 
     def test_can_exist_under(self):
         self.assertTrue(SimplePage.can_exist_under(SimplePage()))

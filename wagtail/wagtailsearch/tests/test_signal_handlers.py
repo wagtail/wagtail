@@ -1,7 +1,9 @@
+from __future__ import absolute_import, unicode_literals
+
 from django.test import TestCase
 
-from wagtail.wagtailsearch import signal_handlers
 from wagtail.tests.search import models
+from wagtail.wagtailsearch import signal_handlers
 
 
 class TestGetIndexedInstance(TestCase):

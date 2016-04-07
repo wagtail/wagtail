@@ -1,14 +1,11 @@
-from __future__ import absolute_import
+from __future__ import absolute_import, unicode_literals
 
 from collections import OrderedDict
 
 from modelcluster.models import get_all_child_relations
-
-from taggit.managers import _TaggableManager
-
-from rest_framework import serializers
+from rest_framework import relations, serializers
 from rest_framework.fields import Field
-from rest_framework import relations
+from taggit.managers import _TaggableManager
 
 from wagtail.wagtailcore import fields as wagtailcore_fields
 
@@ -287,6 +284,6 @@ def get_serializer_class(model_, fields_, base=BaseSerializer):
         model = model_
         fields = fields_
 
-    return type(model_.__name__ + 'Serializer', (base, ), {
+    return type(str(model_.__name__ + 'Serializer'), (base, ), {
         'Meta': Meta
     })

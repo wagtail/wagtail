@@ -1,14 +1,15 @@
-from django.shortcuts import get_object_or_404
-from django.conf import settings
-from django.http import StreamingHttpResponse, BadHeaderError
+from __future__ import absolute_import, unicode_literals
 
-from unidecode import unidecode
 from wsgiref.util import FileWrapper
 
-from wagtail.utils.sendfile import sendfile
-from wagtail.utils import sendfile_streaming_backend
+from django.conf import settings
+from django.http import BadHeaderError, StreamingHttpResponse
+from django.shortcuts import get_object_or_404
+from unidecode import unidecode
 
-from wagtail.wagtaildocs.models import get_document_model, document_served
+from wagtail.utils import sendfile_streaming_backend
+from wagtail.utils.sendfile import sendfile
+from wagtail.wagtaildocs.models import document_served, get_document_model
 
 
 def serve(request, document_id, document_filename):

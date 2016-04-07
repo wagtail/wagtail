@@ -3,10 +3,10 @@
 document.addEventListener('DOMContentLoaded', function userBar(e) {
     var userbar = document.querySelector('[data-wagtail-userbar]');
     var trigger = userbar.querySelector('[data-wagtail-userbar-trigger]');
-    var list = userbar.querySelector('ul');
+    var list = userbar.querySelector('.wagtail-userbar-items');
     var className = 'is-active';
     var hasTouch = 'ontouchstart' in window;
-    var clickEvent = hasTouch ? 'touchstart' : 'click';
+    var clickEvent = 'click';
 
     if (!'classList' in userbar) {
         return;
@@ -14,6 +14,14 @@ document.addEventListener('DOMContentLoaded', function userBar(e) {
 
     if (hasTouch) {
         userbar.classList.add('touch');
+
+        // Bind to touchend event, preventDefault to prevent DELAY and CLICK
+        // in accordance with: https://hacks.mozilla.org/2013/04/detecting-touch-its-the-why-not-the-how/
+        trigger.addEventListener('touchend', function preventSimulatedClick(e) {
+            e.preventDefault();
+            toggleUserbar();
+        });
+
     } else {
         userbar.classList.add('no-touch');
     }

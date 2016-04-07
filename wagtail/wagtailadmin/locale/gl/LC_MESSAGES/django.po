@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-02-10 15:32+0000\n"
-"PO-Revision-Date: 2016-02-10 15:33+0000\n"
+"POT-Creation-Date: 2016-03-09 13:55+0000\n"
+"PO-Revision-Date: 2016-03-09 13:58+0000\n"
 "Last-Translator: mattwestcott <matthew@torchbox.com>\n"
 "Language-Team: Galician (http://www.transifex.com/torchbox/wagtail/language/"
 "gl/)\n"
@@ -217,10 +217,6 @@ msgid "Forgotten it?"
 msgstr "¿Esquecíchela?"
 
 #, python-format
-msgid "The page \"%(title)s\" has been approved"
-msgstr "A páxina \"%(title)s\" ha sido aprobada"
-
-#, python-format
 msgid "The page \"%(title)s\" has been approved."
 msgstr "A páxina \"%(title)s\" ha sido aprobada."
 
@@ -228,8 +224,8 @@ msgid "You can view the page here:"
 msgstr "Pode visualizar a páxina aquí:"
 
 #, python-format
-msgid "The page \"%(title)s\" has been rejected"
-msgstr "A páxina \"%(title)s\" foi rexeitada"
+msgid "The page \"%(title)s\" has been approved"
+msgstr "A páxina \"%(title)s\" ha sido aprobada"
 
 #, python-format
 msgid "The page \"%(title)s\" has been rejected."
@@ -239,11 +235,15 @@ msgid "You can edit the page here:"
 msgstr "Podes editar ala páxina aquí:"
 
 #, python-format
-msgid "The page \"%(page)s\" has been submitted for moderation"
-msgstr "A páxina \"%(page)s\" foi enviada para ser moderada"
+msgid "The page \"%(title)s\" has been rejected"
+msgstr "A páxina \"%(title)s\" foi rexeitada"
 
 msgid "You can preview the page here:"
 msgstr "Podes previsualizar a páxina aquí:"
+
+#, python-format
+msgid "The page \"%(page)s\" has been submitted for moderation"
+msgstr "A páxina \"%(page)s\" foi enviada para ser moderada"
 
 #, python-format
 msgid "Create a page in %(title)s"
@@ -428,18 +428,6 @@ msgstr "¡O teu contrasinal foi cambiado correctamente!"
 msgid "Page '{0}' created."
 msgstr "Páxina '{0}' creada."
 
-#, python-brace-format
-msgid "Page '{0}' published."
-msgstr "Páxina '{0}' publicada."
-
-#, python-brace-format
-msgid "Page '{0}' submitted for moderation."
-msgstr "Páxina '{0}' enviada para ser moderada."
-
-#, python-brace-format
-msgid "Page '{0}' updated."
-msgstr "Páxina '{0}' actualizada."
-
 msgid "The page could not be saved due to validation errors"
 msgstr "A páxina non puido ser gardada debido a erros de validación"
 
@@ -461,6 +449,10 @@ msgstr "Páxina '{0}' movida."
 #, python-brace-format
 msgid "The page '{0}' is not currently awaiting moderation."
 msgstr "A páxina '{0}' non está esperando a ser moderada."
+
+#, python-brace-format
+msgid "Page '{0}' published."
+msgstr "Páxina '{0}' publicada."
 
 #, python-brace-format
 msgid "Page '{0}' rejected for publication."

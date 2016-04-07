@@ -217,35 +217,10 @@ button {
     -webkit-font-smoothing: auto;
     -moz-appearance: none;
 
-    &.button-small {
-        padding: 0 0.8em;
-        height: 2em;
-        font-size: 0.85em;
+    &:hover {
+        color: $color-teal;
     }
 
-    &.button-secondary {
-        color: $color-button;
-        background-color: transparent;
-    }
-
-    // Buttons which are only an icon
-    &.icon.text-replace {
-        font-size: 0; // unavoidable duplication of setting in icons.scss
-        width: 1.8rem;
-        height: 1.8rem;
-
-        &:before {
-            line-height: 1.7em;
-        }
-    }
-
-    &.button-neutral {
-        color: $color-grey-2;
-
-        &:hover {
-            color: $color-teal;
-        }
-    }
 
     &.yes {
         background-color: $color-button-yes;
@@ -268,6 +243,29 @@ button {
             background-color: transparent;
         }
     }
+
+    &.warning {
+        background-color: $color-button-warning;
+        border: 1px solid $color-button-warning;
+
+        &.button-secondary {
+            border: 1px solid $color-button-warning;
+            color: $color-button-warning;
+            background-color: transparent;
+        }
+
+        &:hover {
+            color: $color-white;
+            border-color: transparent;
+            background-color: $color-button-warning-hover;
+        }
+
+        &.button-nobg:hover {
+            color: $color-button-warning;
+            background-color: transparent;
+        }
+    }
+
 
     &.no,
     &.serious {
@@ -324,6 +322,7 @@ button {
             line-height: 1.65em;
         }
     }
+
 
     + input[type=submit],
     + input[type=reset],
@@ -425,7 +424,7 @@ button {
         border: 0;
     }
 
-    @media screen and (min-width: $breakpoint-mobile){
+    @media screen and (min-width: $breakpoint-mobile) {
         font-size: 0.95em;
         padding: 0 1.4em;
         height: 3em;
@@ -461,8 +460,8 @@ button {
         }
 
         &.button-small.bicolor {
-            line-height: 2.2em;
-            padding-left: 3.2em;
+            // line-height: 2.2em;
+            padding-left: 3em;
 
             &:before {
                 width: 1.8em;
@@ -471,6 +470,116 @@ button {
         }
     }
 }
+
+
+.button-small {
+    padding: 0 0.8em;
+    height: 2em;
+    font-size: 0.85em;
+}
+
+    .button-secondary {
+        color: $color-button;
+        background-color: transparent;
+    }
+
+    // Buttons which are only an icon
+    .button.icon.text-replace {
+        font-size: 0; // unavoidable duplication of setting in icons.scss
+        width: 1.8rem;
+        height: 1.8rem;
+
+        &:before {
+            line-height: 1.7em;
+        }
+    }
+
+    .button-neutral {
+        color: $color-grey-2;
+
+        &:hover {
+            color: $color-teal;
+        }
+    }
+
+    .yes {
+        background-color: $color-button-yes;
+        border: 1px solid $color-button-yes;
+
+        &.button-secondary {
+            border: 1px solid $color-button-yes;
+            color: $color-button-yes;
+            background-color: transparent;
+        }
+
+        &:hover {
+            color: $color-white;
+            border-color: transparent;
+            background-color: $color-button-yes-hover;
+        }
+
+        &.button-nobg:hover {
+            color: $color-button-yes;
+            background-color: transparent;
+        }
+    }
+
+    .no,
+    .serious {
+        background-color: $color-button-no;
+        border: 1px solid $color-button-no;
+
+        &.button-secondary {
+            border: 1px solid $color-button-no;
+            color: $color-button-no;
+            background-color: transparent;
+        }
+
+        &:hover {
+            color: $color-white;
+            border-color: transparent;
+            background-color: $color-button-no-hover;
+        }
+
+        &.button-nobg:hover {
+            color: $color-button-no;
+            background-color: transparent;
+        }
+    }
+
+    .button-nobg {
+        border: 0;
+        background-color: transparent;
+    }
+
+    .bicolor {
+        border: 0;
+        padding-left: 3.5em;
+
+        &:before {
+            font-size: 1rem;
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 2em;
+            line-height: 1.85em;
+            height: 100%;
+            text-align: center;
+            background-color: rgba(0, 0, 0, 0.2);
+            display: block;
+        }
+    }
+
+    .button-small.bicolor {
+        padding-left: 3.5em;
+
+        &:before {
+            width: 2em;
+            font-size: 0.8rem;
+            line-height: 1.65em;
+        }
+    }
+
 
 a.button {
     line-height: 2.4em;
@@ -1041,7 +1150,7 @@ input[type=reset],
 input[type=button],
 .button,
 button {
-    @include transition(background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease);
+    // @include transition(background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease);
 }
 
 .help {

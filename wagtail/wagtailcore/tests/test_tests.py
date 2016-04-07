@@ -5,8 +5,8 @@ import json
 from django.utils import six
 
 from wagtail.tests.testapp.models import (
-    BusinessChild, BusinessIndex, BusinessNowherePage, BusinessSubIndex,
-    EventIndex, EventPage, SimplePage, StreamPage)
+    BusinessChild, BusinessIndex, BusinessNowherePage, BusinessSubIndex, EventIndex, EventPage,
+    SimplePage, StreamPage)
 from wagtail.tests.utils import WagtailPageTests
 from wagtail.wagtailcore.models import PAGE_MODEL_CLASSES, Page, Site
 

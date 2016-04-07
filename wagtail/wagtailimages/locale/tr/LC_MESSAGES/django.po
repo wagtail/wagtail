@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-02-10 15:32+0000\n"
-"PO-Revision-Date: 2016-02-05 17:09+0000\n"
+"POT-Creation-Date: 2016-03-09 13:55+0000\n"
+"PO-Revision-Date: 2016-03-01 19:01+0000\n"
 "Last-Translator: mattwestcott <matthew@torchbox.com>\n"
 "Language-Team: Turkish (http://www.transifex.com/torchbox/wagtail/language/"
 "tr/)\n"
@@ -70,6 +70,9 @@ msgstr "Yükseklik"
 
 msgid "Closeness"
 msgstr "Yakınlık"
+
+msgid "Edit"
+msgstr "Düzenle"
 
 msgid "title"
 msgstr "başlık"
@@ -234,9 +237,6 @@ msgstr "Resim '{0}' silindi."
 #, python-brace-format
 msgid "Image '{0}' added."
 msgstr "Resim '{0}' eklendi"
-
-msgid "Edit"
-msgstr "Düzenle"
 
 msgid "Choose another image"
 msgstr "Başka resim seç"

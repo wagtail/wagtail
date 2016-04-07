@@ -6,6 +6,8 @@ Model Reference
 
 This document contains reference information for the model classes inside the ``wagtailcore`` module.
 
+.. _page-model-ref:
+
 ``Page``
 ========
 
@@ -239,6 +241,8 @@ Methods and properties
          - Everything else will use the ``http://`` scheme and the port will be appended to the end of the hostname (eg. ``http://mysite.com:8000/``)
 
     .. automethod:: get_site_root_paths
+
+.. _page-revision-model-ref:
 
 ``PageRevision``
 ================

@@ -1,6 +1,9 @@
+from __future__ import absolute_import, unicode_literals
+
 from django.utils.functional import cached_property
 
 from wagtail.wagtailcore.blocks import ChooserBlock
+
 from .shortcuts import get_rendition_or_not_found
 
 

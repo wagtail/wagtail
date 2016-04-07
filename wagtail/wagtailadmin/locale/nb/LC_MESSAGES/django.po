@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-02-10 15:32+0000\n"
-"PO-Revision-Date: 2016-02-10 15:33+0000\n"
+"POT-Creation-Date: 2016-03-09 13:55+0000\n"
+"PO-Revision-Date: 2016-03-09 13:58+0000\n"
 "Last-Translator: mattwestcott <matthew@torchbox.com>\n"
 "Language-Team: Norwegian Bokmål (http://www.transifex.com/torchbox/wagtail/"
 "language/nb/)\n"
@@ -386,22 +386,18 @@ msgid "Forgotten it?"
 msgstr "Glemt?"
 
 #, python-format
-msgid "The page \"%(title)s\" has been approved"
-msgstr "Siden \"%(title)s\" har blitt godkjent"
-
-#, python-format
 msgid "The page \"%(title)s\" has been approved."
 msgstr "Siden \"%(title)s\" har blitt godkjent."
 
 msgid "You can view the page here:"
 msgstr "Du kan besøke siden her:"
 
+#, python-format
+msgid "The page \"%(title)s\" has been approved"
+msgstr "Siden \"%(title)s\" har blitt godkjent"
+
 msgid "Edit your notification preferences here:"
 msgstr "Endre dine varslingsinnstillinger her:"
-
-#, python-format
-msgid "The page \"%(title)s\" has been rejected"
-msgstr "Siden \"%(title)s\" har blitt avvist"
 
 #, python-format
 msgid "The page \"%(title)s\" has been rejected."
@@ -411,11 +407,15 @@ msgid "You can edit the page here:"
 msgstr "Du kan redigere siden her:"
 
 #, python-format
-msgid "The page \"%(page)s\" has been submitted for moderation"
-msgstr "Siden \"%(page)s\" har blitt sendt til godkjenning"
+msgid "The page \"%(title)s\" has been rejected"
+msgstr "Siden \"%(title)s\" har blitt avvist"
 
 msgid "You can preview the page here:"
 msgstr "Du kan forhåndsvise siden her:"
+
+#, python-format
+msgid "The page \"%(page)s\" has been submitted for moderation"
+msgstr "Siden \"%(page)s\" har blitt sendt til godkjenning"
 
 msgid "Page privacy"
 msgstr "Sidevern"
@@ -783,17 +783,11 @@ msgstr ""
 msgid "Javascript is required to use Wagtail, but it is currently disabled"
 msgstr "JavaScript er påkrevet for å bruke Wagtail, men er deaktivert"
 
-msgid "User bar"
-msgstr "Brukerlinje"
-
 msgid "Go to Wagtail admin interface"
 msgstr "Gå til Wagtail administrasjonsgrensesnitt"
 
 msgid "Add a child page"
 msgstr "Legg til en underside"
-
-msgid "Add"
-msgstr "Legg til"
 
 msgid "Sorry, you do not have permission to access this area."
 msgstr "Beklager, du har ikke tilgang på dette området."
@@ -824,18 +818,6 @@ msgstr "Siden \"{0}\" er opprettet."
 
 msgid "The page could not be created due to validation errors"
 msgstr "Siden kunne ikke opprettes grunnet valideringsfeil."
-
-#, python-brace-format
-msgid "Page '{0}' published."
-msgstr "Siden \"{0}\" er publisert."
-
-#, python-brace-format
-msgid "Page '{0}' submitted for moderation."
-msgstr "Siden \"{0}\" er sendt til godkjenning."
-
-#, python-brace-format
-msgid "Page '{0}' updated."
-msgstr "Siden \"{0}\" er oppdatert."
 
 msgid "The page could not be saved as it is locked"
 msgstr "Siden kunne ikke lagres fordi den er låst"
@@ -869,6 +851,10 @@ msgstr "Siden \"{0}\" kopiert."
 #, python-brace-format
 msgid "The page '{0}' is not currently awaiting moderation."
 msgstr "Siden \"{0}\" påventer ikke godkjenning."
+
+#, python-brace-format
+msgid "Page '{0}' published."
+msgstr "Siden \"{0}\" er publisert."
 
 #, python-brace-format
 msgid "Page '{0}' rejected for publication."

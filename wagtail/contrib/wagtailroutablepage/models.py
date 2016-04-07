@@ -1,12 +1,11 @@
-from __future__ import unicode_literals
+from __future__ import absolute_import, unicode_literals
 
-from django.http import Http404
-from django.core.urlresolvers import RegexURLResolver
 from django.conf.urls import url
+from django.core.urlresolvers import RegexURLResolver
+from django.http import Http404
 
 from wagtail.wagtailcore.models import Page
 from wagtail.wagtailcore.url_routing import RouteResult
-
 
 _creation_counter = 0
 

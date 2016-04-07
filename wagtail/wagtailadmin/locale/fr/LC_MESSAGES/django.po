@@ -5,19 +5,20 @@
 # Translators:
 # Adrien <laadrien@gmail.com>, 2014
 # André Bouatchidzé <a@anbz.net>, 2015
+# Antonin ENFRUN <anton@zorgameuh.org>, 2016
 # Bertrand Bordage <bordage.bertrand@gmail.com>, 2015
 # nahuel, 2014
 # nahuel, 2014
 # pierre marfoure <pierre@onoffdesign.com>, 2016
 # Sebastien Andrivet <sebastien@andrivet.com>, 2016
-# Tom Dyson <tom@torchbox.com>, 2015
+# Tom Dyson <tom@torchbox.com>, 2015-2016
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-02-10 15:32+0000\n"
-"PO-Revision-Date: 2016-02-14 19:05+0000\n"
-"Last-Translator: Sebastien Andrivet <sebastien@andrivet.com>\n"
+"POT-Creation-Date: 2016-03-09 13:55+0000\n"
+"PO-Revision-Date: 2016-03-14 09:58+0000\n"
+"Last-Translator: Tom Dyson <tom@torchbox.com>\n"
 "Language-Team: French (http://www.transifex.com/torchbox/wagtail/language/"
 "fr/)\n"
 "MIME-Version: 1.0\n"
@@ -293,6 +294,9 @@ msgstr "Insérer un lien"
 msgid "Add an external link"
 msgstr "Ajouter un lien externe"
 
+msgid "Name"
+msgstr "Nom"
+
 #, python-format
 msgid "Add %(heading)s"
 msgstr "Ajouter %(heading)s"
@@ -399,25 +403,22 @@ msgid "Signing in..."
 msgstr "S'identifier"
 
 #, python-format
-msgid "The page \"%(title)s\" has been approved"
-msgstr "La page \"%(title)s\" a été approuvée"
-
-#, python-format
 msgid "The page \"%(title)s\" has been approved."
 msgstr "La page \"%(title)s\" a été approuvée."
 
 msgid "You can view the page here:"
 msgstr "Vous pouvez voir la page ici:"
 
-msgid "Hello"
-msgstr "Bonjour"
+#, python-format
+msgid "The page \"%(title)s\" has been approved"
+msgstr "La page \"%(title)s\" a été approuvée"
+
+#, python-format
+msgid "Hello %(username)s,"
+msgstr "Salut %(username)s,"
 
 msgid "Edit your notification preferences here:"
 msgstr "Modifié vos préférences de notifications ici :"
-
-#, python-format
-msgid "The page \"%(title)s\" has been rejected"
-msgstr "La page \"%(title)s\" a été rejetée"
 
 #, python-format
 msgid "The page \"%(title)s\" has been rejected."
@@ -427,8 +428,8 @@ msgid "You can edit the page here:"
 msgstr "Vous pouvez éditer la page ici:"
 
 #, python-format
-msgid "The page \"%(page)s\" has been submitted for moderation"
-msgstr "La page \"%(page)s\" a été soumise pour modération"
+msgid "The page \"%(title)s\" has been rejected"
+msgstr "La page \"%(title)s\" a été rejetée"
 
 #, python-format
 msgid "The page \"%(page)s\" has been submitted for moderation by %(editor)s."
@@ -436,6 +437,10 @@ msgstr "La page \"%(page)s\" a été soumise pour modération par %(editor)s."
 
 msgid "You can preview the page here:"
 msgstr "Vous pouvez prévisualiser la page ici:"
+
+#, python-format
+msgid "The page \"%(page)s\" has been submitted for moderation"
+msgstr "La page \"%(page)s\" a été soumise pour modération"
 
 msgid "Page privacy"
 msgstr "Page privée"
@@ -604,6 +609,12 @@ msgstr "Modification de %(page_type)s <span>%(title)s</span>"
 msgid "Page locked"
 msgstr "Page vérouillée"
 
+msgid "Replace current draft"
+msgstr "Remplacer le brouillon actuel"
+
+msgid "Publish this revision"
+msgstr "Publier cette révision"
+
 #, python-format
 msgid "Last modified: %(last_mod)s"
 msgstr "Dernière modification: %(last_mod)s"
@@ -755,6 +766,16 @@ msgid "Select a new parent page for <span>%(title)s</span>"
 msgstr "Sélectionnez une nouvelle page parent pour <span>%(title)s</span>"
 
 #, python-format
+msgid "Revisions of %(title)s"
+msgstr "Versions de %(title)s"
+
+msgid "Revisions of"
+msgstr "Versions de"
+
+msgid "Current draft"
+msgstr "Brouillon actuel"
+
+#, python-format
 msgid ""
 "\n"
 "                There is one matching page\n"
@@ -873,17 +894,11 @@ msgstr ""
 "Javascript est nécessaire pour utiliser Wagtail, mais il est actuellement "
 "désactivé,"
 
-msgid "User bar"
-msgstr "Barre utilisateur"
-
 msgid "Go to Wagtail admin interface"
 msgstr "Aller sur l'interface d'administration de Wagtail"
 
 msgid "Add a child page"
 msgstr "Ajouter une page sous-page"
-
-msgid "Add"
-msgstr "Ajouter"
 
 msgid "Test"
 msgstr "Test"
@@ -923,19 +938,19 @@ msgid "The page could not be created due to validation errors"
 msgstr "La page n'a pas pu être créée en raison d'erreurs de validation"
 
 #, python-brace-format
-msgid "Page '{0}' scheduled for publishing."
-msgstr "Page  '{0}' planifiée pour la publication."
+msgid "Revision from {0} of page '{1}' has been scheduled for publishing."
+msgstr "Version de {0} de page \"{1}\" a été planifiée pour la publication."
 
 #, python-brace-format
-msgid "Page '{0}' published."
+msgid "Page '{0}' has been published."
 msgstr "Page '{0}' publiée."
 
 #, python-brace-format
-msgid "Page '{0}' submitted for moderation."
-msgstr "Page '{0}' soumise pour modération."
+msgid "Page '{0}' has been submitted for moderation."
+msgstr "La page \"{0}\" a été soumise pour modération."
 
 #, python-brace-format
-msgid "Page '{0}' updated."
+msgid "Page '{0}' has been updated."
 msgstr "Page '{0}' mise à jour."
 
 msgid "The page could not be saved as it is locked"
@@ -970,6 +985,10 @@ msgstr "Page '{0}' copiée."
 #, python-brace-format
 msgid "The page '{0}' is not currently awaiting moderation."
 msgstr "La page '{0}' est actuellement en attente de modération."
+
+#, python-brace-format
+msgid "Page '{0}' published."
+msgstr "Page '{0}' publiée."
 
 #, python-brace-format
 msgid "Page '{0}' rejected for publication."

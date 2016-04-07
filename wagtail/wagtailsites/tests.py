@@ -1,12 +1,13 @@
-from __future__ import unicode_literals
-from django.test import TestCase
-from django.core.urlresolvers import reverse
-from django.utils import six
+from __future__ import absolute_import, unicode_literals
+
 from django.contrib.auth import get_user_model
 from django.contrib.auth.models import Permission
+from django.core.urlresolvers import reverse
+from django.test import TestCase
+from django.utils import six
 
 from wagtail.tests.utils import WagtailTestUtils
-from wagtail.wagtailcore.models import Site, Page
+from wagtail.wagtailcore.models import Page, Site
 
 
 class TestSiteIndexView(TestCase, WagtailTestUtils):

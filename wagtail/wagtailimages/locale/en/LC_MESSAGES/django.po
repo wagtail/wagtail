@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-03-01 18:52+0000\n"
+"POT-Creation-Date: 2016-03-09 13:55+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -101,7 +101,7 @@ msgstr ""
 msgid "Add/edit images you own"
 msgstr ""
 
-#: forms.py:89 views/images.py:257
+#: forms.py:89 views/images.py:258
 msgid "Edit"
 msgstr ""
 
@@ -424,17 +424,17 @@ msgid ""
 "the image."
 msgstr ""
 
-#: views/images.py:230
+#: views/images.py:231
 #, python-brace-format
 msgid "Image '{0}' deleted."
 msgstr ""
 
-#: views/images.py:256
+#: views/images.py:257
 #, python-brace-format
 msgid "Image '{0}' added."
 msgstr ""
 
-#: views/images.py:261
+#: views/images.py:262
 msgid "The image could not be created due to errors."
 msgstr ""
 

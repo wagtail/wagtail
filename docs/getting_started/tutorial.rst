@@ -110,8 +110,7 @@ home\_page.html). Edit
 Wagtail template tags
 ~~~~~~~~~~~~~~~~~~~~~
 
-Wagtail provides a number of
-`template tags & filters <../topics/writing_templates#template-tags-filters>`__
+Wagtail provides a number of :ref:`template tags & filters <template-tags-and-filters>`
 which can be loaded by including ``{% load wagtailcore_tags %}`` at the top of
 your template file.
 
@@ -163,10 +162,10 @@ The following example defines a basic blog post model in ``blog/models.py``:
         intro = models.CharField(max_length=250)
         body = RichTextField(blank=True)
 
-        search_fields = Page.search_fields + (
+        search_fields = Page.search_fields + [
             index.SearchField('intro'),
             index.SearchField('body'),
-        )
+        ]
 
         content_panels = Page.content_panels + [
             FieldPanel('date'),
@@ -230,10 +229,10 @@ model:
         intro = models.CharField(max_length=250)
         body = RichTextField(blank=True)
 
-        search_fields = Page.search_fields + (
+        search_fields = Page.search_fields + [
             index.SearchField('intro'),
             index.SearchField('body'),
-        )
+        ]
 
         content_panels = Page.content_panels + [
             FieldPanel('date'),

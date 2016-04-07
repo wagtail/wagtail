@@ -54,15 +54,18 @@ class BaseTestSettingView(TestCase, WagtailTestUtils):
         return self.client.post(url, post_data)
 
     def edit_url(self, app, model, site_pk=1):
-        return reverse('wagtailsettings:edit', args=[site_pk, app, model])
+        return reverse('wagtailsettings:edit', args=[app, model, site_pk])
 
 
 class TestSettingCreateView(BaseTestSettingView):
     def setUp(self):
         self.login()
 
-    def test_status_code(self):
-        self.assertEqual(self.get().status_code, 200)
+    def test_get_edit(self):
+        response = self.get()
+        self.assertEqual(response.status_code, 200)
+        # there should be a menu item highlighted as active
+        self.assertContains(response, "menu-active")
 
     def test_edit_invalid(self):
         response = self.post(post_data={'foo': 'bar'})
@@ -92,8 +95,11 @@ class TestSettingEditView(BaseTestSettingView):
 
         self.login()
 
-    def test_status_code(self):
-        self.assertEqual(self.get().status_code, 200)
+    def test_get_edit(self):
+        response = self.get()
+        self.assertEqual(response.status_code, 200)
+        # there should be a menu item highlighted as active
+        self.assertContains(response, "menu-active")
 
     def test_non_existant_model(self):
         response = self.client.get(self.edit_url('test', 'foo'))
@@ -128,7 +134,7 @@ class TestMultiSite(BaseTestSettingView):
         start_url = reverse('wagtailsettings:edit', args=[
             'tests', 'testsetting'])
         dest_url = 'http://testserver' + reverse('wagtailsettings:edit', args=[
-            self.default_site.pk, 'tests', 'testsetting'])
+            'tests', 'testsetting', self.default_site.pk])
         response = self.client.get(start_url, follow=True)
         self.assertRedirects(response, dest_url, status_code=302, fetch_redirect_response=False)
 
@@ -140,7 +146,7 @@ class TestMultiSite(BaseTestSettingView):
         start_url = reverse('wagtailsettings:edit', args=[
             'tests', 'testsetting'])
         dest_url = 'http://example.com' + reverse('wagtailsettings:edit', args=[
-            self.other_site.pk, 'tests', 'testsetting'])
+            'tests', 'testsetting', self.other_site.pk])
         response = self.client.get(start_url, follow=True, HTTP_HOST=self.other_site.hostname)
         self.assertRedirects(response, dest_url, status_code=302, fetch_redirect_response=False)
 

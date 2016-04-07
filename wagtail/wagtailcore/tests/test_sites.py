@@ -1,7 +1,10 @@
+from __future__ import absolute_import, unicode_literals
+
 from django.core.exceptions import ValidationError
+from django.http.request import HttpRequest
 from django.test import TestCase
 
-from wagtail.wagtailcore.models import Site, Page
+from wagtail.wagtailcore.models import Page, Site
 
 
 class TestSiteNaturalKey(TestCase):
@@ -27,6 +30,40 @@ class TestSiteUrl(TestCase):
     def test_root_url_custom_port(self):
         site = Site(hostname='example.com', port=8000)
         self.assertEqual(site.root_url, 'http://example.com:8000')
+
+
+class TestFindSiteForRequest(TestCase):
+    def setUp(self):
+        self.default_site = Site.objects.get()
+        self.site = Site.objects.create(hostname='example.com', port=80, root_page=Page.objects.get(pk=2))
+
+    def test_default(self):
+        request = HttpRequest()
+        self.assertEqual(Site.find_for_request(request), self.default_site)
+
+    def test_with_host(self):
+        request = HttpRequest()
+        request.META = {'HTTP_HOST': 'example.com'}
+        self.assertEqual(Site.find_for_request(request), self.site)
+
+    def test_with_unknown_host(self):
+        request = HttpRequest()
+        request.META = {'HTTP_HOST': 'unknown.com'}
+        self.assertEqual(Site.find_for_request(request), self.default_site)
+
+    def test_with_server_name(self):
+        request = HttpRequest()
+        request.META = {
+            'SERVER_NAME': 'example.com',
+            'SERVER_PORT': 80
+        }
+        self.assertEqual(Site.find_for_request(request), self.site)
+
+    def test_with_x_forwarded_host(self):
+        with self.settings(USE_X_FORWARDED_HOST=True):
+            request = HttpRequest()
+            request.META = {'HTTP_X_FORWARDED_HOST': 'example.com'}
+            self.assertEqual(Site.find_for_request(request), self.site)
 
 
 class TestDefaultSite(TestCase):

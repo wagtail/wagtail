@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-02-10 15:32+0000\n"
-"PO-Revision-Date: 2016-02-14 21:37+0000\n"
+"POT-Creation-Date: 2016-03-09 13:55+0000\n"
+"PO-Revision-Date: 2016-03-01 22:49+0000\n"
 "Last-Translator: mmiskiew <mmiskiew@gmail.com>\n"
 "Language-Team: Polish (http://www.transifex.com/torchbox/wagtail/language/"
 "pl/)\n"
@@ -66,6 +66,9 @@ msgstr "Nazwisko"
 
 msgid "A group with that name already exists."
 msgstr "Grupa o tej nazwie już istnieje."
+
+msgid "You cannot have multiple permission records for the same page."
+msgstr "Nie możesz posiadać wielu wystąpień uprawnień dla tej samej strony."
 
 msgid "submitted notifications"
 msgstr "przesłane notyfikacje"
@@ -144,9 +147,6 @@ msgstr "Uprawnienia strony"
 
 msgid "Page"
 msgstr "Strona"
-
-msgid "Permission type"
-msgstr "Typ uprawnień"
 
 msgid "Add a page permission"
 msgstr "Dodaj uprawnienie strony"

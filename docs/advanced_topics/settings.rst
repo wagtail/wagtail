@@ -232,6 +232,17 @@ Email Notifications
 
 Wagtail sends email notifications when content is submitted for moderation, and when the content is accepted or rejected. This setting lets you pick which email address these automatic notifications will come from. If omitted, Django will fall back to using the ``DEFAULT_FROM_EMAIL`` variable if set, and ``webmaster@localhost`` if not.
 
+.. _email_notifications_format:
+
+Email Notifications format
+--------------------------
+
+.. code-block:: python
+
+  WAGTAILADMIN_NOTIFICATION_USE_HTML = True
+
+Notification emails are sent in `text/plain` by default, change this to use HTML formatting.
+
 
 .. _update_notifications:
 
@@ -497,6 +508,9 @@ These two files should reside in your project directory (``myproject/myproject/`
 
   # Wagtail email notifications from address
   # WAGTAILADMIN_NOTIFICATION_FROM_EMAIL = 'wagtail@myhost.io'
+
+  # Wagtail email notification format
+  # WAGTAILADMIN_NOTIFICATION_USE_HTML = True
 
   # If you want to use Embedly for embeds, supply a key
   # (this key doesn't work, get your own!)

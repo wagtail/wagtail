@@ -1,3 +1,5 @@
+from __future__ import absolute_import, unicode_literals
+
 from django_medusa.renderers import StaticSiteRenderer
 from wagtail.wagtailcore.models import Site
 from wagtail.wagtaildocs.models import Document

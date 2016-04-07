@@ -1,18 +1,17 @@
 from __future__ import absolute_import, unicode_literals
 
 from django import forms
+from django.contrib.staticfiles.templatetags.staticfiles import static
 from django.core.exceptions import ValidationError
 from django.forms.utils import ErrorList
 from django.template.loader import render_to_string
 from django.utils.html import format_html, format_html_join
 from django.utils.safestring import mark_safe
-from django.contrib.staticfiles.templatetags.staticfiles import static
 
 from wagtail.wagtailcore.utils import escape_script
 
 from .base import Block
 from .utils import js_dict
-
 
 __all__ = ['ListBlock']
 

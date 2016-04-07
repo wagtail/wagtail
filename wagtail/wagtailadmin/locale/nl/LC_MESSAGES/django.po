@@ -19,9 +19,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-02-10 15:32+0000\n"
-"PO-Revision-Date: 2016-02-25 21:21+0000\n"
-"Last-Translator: Thijs Kramer <thijskramer@gmail.com>\n"
+"POT-Creation-Date: 2016-03-09 13:55+0000\n"
+"PO-Revision-Date: 2016-03-09 13:58+0000\n"
+"Last-Translator: mattwestcott <matthew@torchbox.com>\n"
 "Language-Team: Dutch (http://www.transifex.com/torchbox/wagtail/language/"
 "nl/)\n"
 "MIME-Version: 1.0\n"
@@ -398,22 +398,18 @@ msgid "Forgotten it?"
 msgstr "Wachtwoord vergeten?"
 
 #, python-format
-msgid "The page \"%(title)s\" has been approved"
-msgstr "De pagina \"%(title)s\" is goedgekeurd"
-
-#, python-format
 msgid "The page \"%(title)s\" has been approved."
 msgstr "De pagina \"%(title)s\" is goedgekeurd."
 
 msgid "You can view the page here:"
 msgstr "U kunt de pagina hier bekijken:"
 
+#, python-format
+msgid "The page \"%(title)s\" has been approved"
+msgstr "De pagina \"%(title)s\" is goedgekeurd"
+
 msgid "Edit your notification preferences here:"
 msgstr "Pas uw hier notificatievoorkeuren hier aan:"
-
-#, python-format
-msgid "The page \"%(title)s\" has been rejected"
-msgstr "De pagina \"%(title)s\" is afgewezen"
 
 #, python-format
 msgid "The page \"%(title)s\" has been rejected."
@@ -423,11 +419,15 @@ msgid "You can edit the page here:"
 msgstr "U kunt de pagina hier wijzigen:"
 
 #, python-format
-msgid "The page \"%(page)s\" has been submitted for moderation"
-msgstr "De pagina \"%(page)s\" is ter goedkeuring aangeboden"
+msgid "The page \"%(title)s\" has been rejected"
+msgstr "De pagina \"%(title)s\" is afgewezen"
 
 msgid "You can preview the page here:"
 msgstr "U kunt hier een voorbeeld van de pagina bekijken:"
+
+#, python-format
+msgid "The page \"%(page)s\" has been submitted for moderation"
+msgstr "De pagina \"%(page)s\" is ter goedkeuring aangeboden"
 
 msgid "Page privacy"
 msgstr "Afscherming van de pagina"
@@ -797,17 +797,11 @@ msgstr ""
 "Javascript is vereist om Wagtail te gebruiken, maar is momenteel "
 "uitgeschakeld"
 
-msgid "User bar"
-msgstr "Gebruikersbalk"
-
 msgid "Go to Wagtail admin interface"
 msgstr "Ga naar de Wagtail beheer interface"
 
 msgid "Add a child page"
 msgstr "Voeg een onderliggende pagina toe"
-
-msgid "Add"
-msgstr "Toevoegen"
 
 msgid "Sorry, you do not have permission to access this area."
 msgstr "Sorry, u heeft geen toestemming tot dit gedeelte."
@@ -838,18 +832,6 @@ msgstr "Pagina '{0}' aangemaakt."
 
 msgid "The page could not be created due to validation errors"
 msgstr "Deze pagina kon niet aangemaakt worden vanwege validatiefouten"
-
-#, python-brace-format
-msgid "Page '{0}' published."
-msgstr "Pagina '{0}' gepubliceerd."
-
-#, python-brace-format
-msgid "Page '{0}' submitted for moderation."
-msgstr "Pagina '{0}' ter goedkeuring ingediend."
-
-#, python-brace-format
-msgid "Page '{0}' updated."
-msgstr "Pagina '{0}' gewijzigd."
 
 msgid "The page could not be saved as it is locked"
 msgstr "De pagina kan niet worden opgeslagen omdat deze is vergrendeld"
@@ -883,6 +865,10 @@ msgstr "Pagina '{0}' gekopieerd."
 #, python-brace-format
 msgid "The page '{0}' is not currently awaiting moderation."
 msgstr "The page '{0}' is momenteel niet op goedkeuring aan het wachten."
+
+#, python-brace-format
+msgid "Page '{0}' published."
+msgstr "Pagina '{0}' gepubliceerd."
 
 #, python-brace-format
 msgid "Page '{0}' rejected for publication."

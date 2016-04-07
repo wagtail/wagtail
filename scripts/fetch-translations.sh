@@ -2,7 +2,7 @@
 find ../wagtail -iname *.po ! -iwholename */en/* -delete
 
 # Fetch new translations from transifex
-tx pull -a --minimum-perc=30
+tx pull -a --minimum-perc=1
 
 # Clean the PO files using msgattrib
 # This removes the following:

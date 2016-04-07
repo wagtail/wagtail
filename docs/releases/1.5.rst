@@ -1,0 +1,110 @@
+==========================================
+Wagtail 1.5 release notes - IN DEVELOPMENT
+==========================================
+
+.. contents::
+    :local:
+    :depth: 1
+
+
+What's new
+==========
+
+Improvements to the "Image serve view"
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+:ref:`using_images_outside_wagtail`
+
+This view, which is used for requesting image thumbnails from an external app, has had some improvements made to it in this release.
+
+ - A "redirect" action has been added which will redirect the user to where the resized image is hosted rather than serving it from the app. This may be beneficial for performance if the images are hosted externally (eg, S3)
+ - It now takes an optional extra path component which can be used for appending a filename to the end of the URL
+ - The key is now configurable on the view so you don't have to use your project's ``SECRET_KEY``
+ - It's been refactored into a class based view and you can now create multiple serve views with different image models and/or keys
+
+Minor features
+~~~~~~~~~~~~~~
+
+ * Moved lesser-user actions in the page explorer into a 'More' dropdown
+ * Added a hook :ref:`register_page_listing_buttons` for adding action buttons to the page explorer
+ * Added 'revisions' action to pages list (Roel Bruggink)
+ * Added a hook :ref:`insert_global_admin_js` for inserting custom JavaScript throughout the admin backend (Tom Dyson)
+ * The type of the ``search_fields`` attribute on ``Page`` models (and other searchable models) has changed from a tuple to a list (see upgrade consideration below) (Tim Heap)
+ * Use `PasswordChangeForm` when user changes their password, requiring the user to enter their current password (Matthijs Melissen)
+ * Highlight current day in date picker (Jonas Lergell)
+ * Eliminated the deprecated ``register.assignment_tag`` on Django 1.9 (Josh Schneier)
+ * Increased size of Save button on site settings (Liam Brenner)
+
+Bug fixes
+~~~~~~~~~
+
+ * The currently selected day is now highlighted only in the correct month in date pickers (Jonas Lergell)
+ * Fixed crash when an image without a source file was resized with the "dynamic serve view"
+ * Registered settings admin menu items now show active correctly (Matthew Downey)
+
+
+Upgrade considerations
+======================
+
+The ``search_fields`` attribute on models should now be set to a list
+=====================================================================
+
+On searchable models (eg, ``Page`` or custom ``Image`` models) the ``search_fields`` attribute should now be a list instead of a tuple.
+
+For example, the following ``Page`` model:
+
+.. code-block:: python
+
+    class MyPage(Page):
+        ...
+
+        search_fields = Page.search_fields + (
+            indexed.SearchField('body'),
+        )
+
+Should be changed to:
+
+.. code-block:: python
+
+    class MyPage(Page):
+        ...
+
+        search_fields = Page.search_fields + [
+            indexed.SearchField('body'),
+        ]
+
+To ease the burden on third-party modules, adding tuples to ``Page.search_fields`` will still work. But this backwards-compatibility fix will be removed in Wagtail 1.7.
+
+Elasticsearch backend now defaults to verifying SSL certs
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Previously, if you used the Elasticsearch backend, configured with the URLS property like:
+
+
+.. code-block:: python
+
+    WAGTAILSEARCH_BACKENDS = {
+        'default': {
+            'BACKEND': 'wagtail.wagtailsearch.backends.elasticsearch',
+            'URLS': ['https://example.com/'],
+        }
+    }
+
+Elasticsearch would not be configured to verify SSL certificates for HTTPS URLs. This has been changed so that SSL certificates are verified for HTTPS connections by default.
+
+If you need the old behaviour back, where SSL certificates are not verified for your HTTPS connection, you can configure the Elasticsearch backend with the ``HOSTS`` option, like so:
+
+.. code-block:: python
+
+    WAGTAILSEARCH_BACKENDS = {
+        'default': {
+            'BACKEND': 'wagtail.wagtailsearch.backends.elasticsearch',
+            'HOSTS': [{
+                'host': 'example.com'
+                'use_ssl': True,
+                'verify_certs': False,
+            }],
+        }
+    }
+
+See the `Elasticsearch-py documentation <http://elasticsearch-py.readthedocs.org/en/stable/#ssl-and-authentication>`_ for more configuration options.

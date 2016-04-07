@@ -1,5 +1,6 @@
-from wagtail.utils.apps import get_app_submodules
+from __future__ import absolute_import, unicode_literals
 
+from wagtail.utils.apps import get_app_submodules
 
 _hooks = {}
 

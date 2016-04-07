@@ -1,20 +1,19 @@
-from django.shortcuts import render, get_object_or_404
-from django.views.decorators.http import require_POST
+from __future__ import absolute_import, unicode_literals
+
 from django.core.exceptions import PermissionDenied
-from django.views.decorators.vary import vary_on_headers
-from django.http import JsonResponse, HttpResponseBadRequest
+from django.http import HttpResponseBadRequest, JsonResponse
+from django.shortcuts import get_object_or_404, render
 from django.template.loader import render_to_string
 from django.utils.encoding import force_text
+from django.views.decorators.http import require_POST
+from django.views.decorators.vary import vary_on_headers
 
 from wagtail.wagtailadmin.utils import PermissionPolicyChecker
-
-from wagtail.wagtailsearch.backends import get_search_backends
-
-from wagtail.wagtailimages.models import get_image_model
-from wagtail.wagtailimages.forms import get_image_form
 from wagtail.wagtailimages.fields import ALLOWED_EXTENSIONS
+from wagtail.wagtailimages.forms import get_image_form
+from wagtail.wagtailimages.models import get_image_model
 from wagtail.wagtailimages.permissions import permission_policy
-
+from wagtail.wagtailsearch.backends import get_search_backends
 
 permission_checker = PermissionPolicyChecker(permission_policy)
 

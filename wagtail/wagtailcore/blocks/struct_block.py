@@ -3,19 +3,17 @@ from __future__ import absolute_import, unicode_literals
 import collections
 
 from django import forms
+from django.contrib.staticfiles.templatetags.staticfiles import static
 from django.core.exceptions import ValidationError
 from django.forms.utils import ErrorList
 from django.template.loader import render_to_string
-from django.utils.encoding import python_2_unicode_compatible
-from django.utils.functional import cached_property
-from django.contrib.staticfiles.templatetags.staticfiles import static
-
 # Must be imported from Django so we get the new implementation of with_metaclass
 from django.utils import six
+from django.utils.encoding import python_2_unicode_compatible
+from django.utils.functional import cached_property
 
 from .base import Block, DeclarativeSubBlocksMetaclass
 from .utils import js_dict
-
 
 __all__ = ['BaseStructBlock', 'StructBlock', 'StructValue']
 

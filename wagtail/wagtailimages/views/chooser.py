@@ -1,20 +1,20 @@
+from __future__ import absolute_import, unicode_literals
+
 import json
 
 from django.core.urlresolvers import reverse
 from django.shortcuts import get_object_or_404, render
 
 from wagtail.utils.pagination import paginate
-from wagtail.wagtailadmin.modal_workflow import render_modal_workflow
 from wagtail.wagtailadmin.forms import SearchForm
+from wagtail.wagtailadmin.modal_workflow import render_modal_workflow
 from wagtail.wagtailadmin.utils import PermissionPolicyChecker
 from wagtail.wagtailcore.models import Collection
-from wagtail.wagtailsearch.backends import get_search_backends
-
-from wagtail.wagtailimages.models import get_image_model
-from wagtail.wagtailimages.forms import get_image_form, ImageInsertionForm
 from wagtail.wagtailimages.formats import get_image_format
+from wagtail.wagtailimages.forms import ImageInsertionForm, get_image_form
+from wagtail.wagtailimages.models import get_image_model
 from wagtail.wagtailimages.permissions import permission_policy
-
+from wagtail.wagtailsearch.backends import get_search_backends
 
 permission_checker = PermissionPolicyChecker(permission_policy)
 
@@ -119,7 +119,7 @@ def chooser_upload(request):
 
     searchform = SearchForm()
 
-    if request.POST:
+    if request.method == 'POST':
         image = Image(uploaded_by_user=request.user)
         form = ImageForm(request.POST, request.FILES, instance=image)
 
@@ -156,7 +156,7 @@ def chooser_upload(request):
 def chooser_select_format(request, image_id):
     image = get_object_or_404(get_image_model(), id=image_id)
 
-    if request.POST:
+    if request.method == 'POST':
         form = ImageInsertionForm(request.POST, initial={'alt_text': image.default_alt_text})
         if form.is_valid():
 

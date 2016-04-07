@@ -1,5 +1,6 @@
-import string
+from __future__ import absolute_import, unicode_literals
 
+import string
 
 MAX_QUERY_STRING_LENGTH = 255
 

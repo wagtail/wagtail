@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-02-10 15:32+0000\n"
-"PO-Revision-Date: 2016-02-15 11:27+0000\n"
+"POT-Creation-Date: 2016-03-09 13:55+0000\n"
+"PO-Revision-Date: 2016-03-01 22:59+0000\n"
 "Last-Translator: mmiskiew <mmiskiew@gmail.com>\n"
 "Language-Team: Polish (http://www.transifex.com/torchbox/wagtail/language/"
 "pl/)\n"
@@ -22,6 +22,18 @@ msgstr ""
 "Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
 "|| n%100>=20) ? 1 : 2);\n"
 
+msgid "Add"
+msgstr "Dodaj"
+
+msgid "Add/edit documents you own"
+msgstr "Dodaj/edytuj swoje dokumenty"
+
+msgid "Edit"
+msgstr "Edytuj"
+
+msgid "Edit any document"
+msgstr "Edytuj dowolny dokument"
+
 msgid "title"
 msgstr "tytuł"
 
@@ -29,7 +41,7 @@ msgid "file"
 msgstr "plik"
 
 msgid "created at"
-msgstr "Utworzono dnia"
+msgstr "utworzono dnia"
 
 msgid "uploaded by user"
 msgstr "wgrane przez użytkownika"
@@ -140,6 +152,14 @@ msgstr "Przesłano"
 
 #, python-format
 msgid ""
+"You haven't uploaded any documents in this collection. Why not <a href="
+"\"%(wagtaildocs_add_document_url)s\">upload one now</a>?"
+msgstr ""
+"Nie przesłano żadnych dokumentów do tej kolekcji. Dlaczego nie <a href="
+"\"%(wagtaildocs_add_document_url)s\">dodać jednego teraz</a>?"
+
+#, python-format
+msgid ""
 "You haven't uploaded any documents. Why not <a href="
 "\"%(wagtaildocs_add_document_url)s\">upload one now</a>?"
 msgstr ""
@@ -184,15 +204,52 @@ msgstr[2] ""
 "\n"
 " <span>%(total)s</span> Dokumentów"
 
+msgid "Add multiple documents"
+msgstr "Dodaj wiele dokumentów"
+
+msgid "Add documents"
+msgstr "Dodaj dokumenty"
+
+msgid "Drag and drop documents into this area to upload immediately."
+msgstr ""
+"Przeciągnij i upuść dokumenty w to miejsce, żeby je natychmiast przesłać."
+
+msgid "Or choose from your computer"
+msgstr "Lub wybierz z komputera"
+
+msgid "Add to collection:"
+msgstr "Dodaj do kolekcji:"
+
+msgid ""
+"Upload successful. Please update this documents with a more appropriate "
+"title, if necessary. You may also delete the document completely if the "
+"upload wasn't required."
+msgstr ""
+"Wgranie plików zakończone powodzeniem. Jeśli trzeba zaktualizuj tytuł tego "
+"dokumentu. Możesz także usunąć ten dokument jeśli wgranie pliku nie było "
+"wymagane."
+
+msgid "Sorry, upload failed."
+msgstr "Przepraszamy, przesyłanie się nie powiodło."
+
+msgid "Update"
+msgstr "Aktualizacja"
+
+msgid "Delete"
+msgstr "Usuń"
+
+msgid "Document permissions"
+msgstr "Uprawnienia dokumentów"
+
+msgid "Add a document permission"
+msgstr "Dodaj uprawnienie dokumentu"
+
 msgid "Search documents"
 msgstr "Szukaj dokumentów"
 
 #, python-brace-format
 msgid "Document '{0}' added."
 msgstr "Dodano dokument '{0}'."
-
-msgid "Edit"
-msgstr "Edytuj"
 
 msgid "The document could not be saved due to errors."
 msgstr "Dokument nie mógł zostać zapisany z powodu błędów."
@@ -206,12 +263,16 @@ msgid ""
 msgstr ""
 "Plik nie mógł zostać odnaleziony. Proszę zmień źródło lub usuń dokument"
 
-msgid "Delete"
-msgstr "Usuń"
-
 #, python-brace-format
 msgid "Document '{0}' deleted."
 msgstr "Usunięto dokument '{0}'"
+
+#, python-format
+msgid "%(count)s document"
+msgid_plural "%(count)s documents"
+msgstr[0] "%(count)s dokument"
+msgstr[1] "%(count)s dokumentów"
+msgstr[2] "%(count)s dokumentów"
 
 msgid "Choose another document"
 msgstr "Wybierz inny dokument"

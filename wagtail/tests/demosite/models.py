@@ -1,18 +1,19 @@
+from __future__ import absolute_import, unicode_literals
+
 from datetime import date
 
 from django.db import models
-
-from modelcluster.fields import ParentalKey
 from modelcluster.contrib.taggit import ClusterTaggableManager
+from modelcluster.fields import ParentalKey
 from taggit.models import TaggedItemBase
 
 from wagtail.utils.pagination import paginate
-from wagtail.wagtailcore.models import Page, Orderable
+from wagtail.wagtailadmin.edit_handlers import (
+    FieldPanel, InlinePanel, MultiFieldPanel, PageChooserPanel)
 from wagtail.wagtailcore.fields import RichTextField
-from wagtail.wagtailadmin.edit_handlers import FieldPanel, MultiFieldPanel, \
-    InlinePanel, PageChooserPanel
-from wagtail.wagtailimages.edit_handlers import ImageChooserPanel
+from wagtail.wagtailcore.models import Orderable, Page
 from wagtail.wagtaildocs.edit_handlers import DocumentChooserPanel
+from wagtail.wagtailimages.edit_handlers import ImageChooserPanel
 from wagtail.wagtailsearch import index
 
 
@@ -145,9 +146,9 @@ class HomePage(Page):
         'related_links',
     )
 
-    search_fields = Page.search_fields + (
+    search_fields = Page.search_fields + [
         index.SearchField('body'),
-    )
+    ]
 
     class Meta:
         verbose_name = "homepage"
@@ -191,10 +192,10 @@ class StandardPage(Page):
         'related_links',
     )
 
-    search_fields = Page.search_fields + (
+    search_fields = Page.search_fields + [
         index.SearchField('intro'),
         index.SearchField('body'),
-    )
+    ]
 
 
 class StandardPageCarouselItem(Orderable, AbstractCarouselItem):
@@ -236,9 +237,9 @@ class StandardIndexPage(Page):
         'related_links',
     )
 
-    search_fields = Page.search_fields + (
+    search_fields = Page.search_fields + [
         index.SearchField('intro'),
-    )
+    ]
 
 
 class StandardIndexPageRelatedLink(Orderable, AbstractRelatedLink):
@@ -281,9 +282,9 @@ class BlogEntryPage(Page):
         'related_links',
     )
 
-    search_fields = Page.search_fields + (
+    search_fields = Page.search_fields + [
         index.SearchField('body'),
-    )
+    ]
 
     def get_blog_index(self):
         # Find closest ancestor which is a blog index
@@ -326,9 +327,9 @@ class BlogIndexPage(Page):
         'related_links',
     )
 
-    search_fields = Page.search_fields + (
+    search_fields = Page.search_fields + [
         index.SearchField('intro'),
-    )
+    ]
 
     def get_blog_entries(self):
         # Get list of live blog pages that are descendants of this page
@@ -413,11 +414,11 @@ class EventPage(Page):
         'speakers',
     )
 
-    search_fields = Page.search_fields + (
+    search_fields = Page.search_fields + [
         index.SearchField('get_audience_display'),
         index.SearchField('location'),
         index.SearchField('body'),
-    )
+    ]
 
     def get_event_index(self):
         # Find closest ancestor which is an event index
@@ -488,9 +489,9 @@ class EventIndexPage(Page):
         'related_links',
     )
 
-    search_fields = Page.search_fields + (
+    search_fields = Page.search_fields + [
         index.SearchField('intro'),
-    )
+    ]
 
     def get_events(self):
         # Get list of live event pages that are descendants of this page
@@ -549,12 +550,12 @@ class PersonPage(Page, ContactFieldsMixin):
         'related_links',
     ) + ContactFieldsMixin.api_fields
 
-    search_fields = Page.search_fields + (
+    search_fields = Page.search_fields + [
         index.SearchField('first_name'),
         index.SearchField('last_name'),
         index.SearchField('intro'),
         index.SearchField('biography'),
-    )
+    ]
 
 
 class PersonPageRelatedLink(Orderable, AbstractRelatedLink):
@@ -596,9 +597,9 @@ class ContactPage(Page, ContactFieldsMixin):
         'feed_image',
     ) + ContactFieldsMixin.api_fields
 
-    search_fields = Page.search_fields + (
+    search_fields = Page.search_fields + [
         index.SearchField('body'),
-    )
+    ]
 
 
 ContactPage.content_panels = Page.content_panels + [

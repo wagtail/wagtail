@@ -1,12 +1,13 @@
-from django.test import TestCase
+from __future__ import absolute_import, unicode_literals
+
 from django.contrib.auth import get_user_model
-from django.contrib.auth.models import Group, Permission, AnonymousUser
+from django.contrib.auth.models import AnonymousUser, Group, Permission
 from django.contrib.contenttypes.models import ContentType
+from django.test import TestCase
 
 from wagtail.wagtailcore.models import Collection, GroupCollectionPermission
 from wagtail.wagtailcore.permission_policies.collections import (
-    CollectionPermissionPolicy, CollectionOwnershipPermissionPolicy
-)
+    CollectionOwnershipPermissionPolicy, CollectionPermissionPolicy)
 from wagtail.wagtailcore.tests.test_permission_policies import PermissionPolicyTestUtils
 from wagtail.wagtaildocs.models import Document
 

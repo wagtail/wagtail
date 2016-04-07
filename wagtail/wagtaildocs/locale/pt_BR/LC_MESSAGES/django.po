@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-02-10 15:32+0000\n"
-"PO-Revision-Date: 2016-02-05 17:09+0000\n"
+"POT-Creation-Date: 2016-03-09 13:55+0000\n"
+"PO-Revision-Date: 2016-03-01 18:59+0000\n"
 "Last-Translator: mattwestcott <matthew@torchbox.com>\n"
 "Language-Team: Portuguese (Brazil) (http://www.transifex.com/torchbox/"
 "wagtail/language/pt_BR/)\n"
@@ -20,6 +20,9 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: pt_BR\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+msgid "Edit"
+msgstr "Editar"
 
 msgid "Choose a document"
 msgstr "Escolha um documento"
@@ -149,15 +152,15 @@ msgstr[1] ""
 "\n"
 "<span>%(total)s</span> Documentos"
 
+msgid "Delete"
+msgstr "Excluir"
+
 msgid "Search documents"
 msgstr "Buscar documentos"
 
 #, python-brace-format
 msgid "Document '{0}' added."
 msgstr "Documento '{0}' adicionado."
-
-msgid "Edit"
-msgstr "Editar"
 
 msgid "The document could not be saved due to errors."
 msgstr "O documento não pôde ser salvo devido à erros."
@@ -171,9 +174,6 @@ msgid ""
 msgstr ""
 "Este arquivo não pode ser encontrado. Por favor altere a fonte ou remova o "
 "documento"
-
-msgid "Delete"
-msgstr "Excluir"
 
 #, python-brace-format
 msgid "Document '{0}' deleted."

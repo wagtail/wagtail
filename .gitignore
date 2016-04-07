@@ -20,3 +20,4 @@ npm-debug.log
 *.ipr
 *.iws
 coverage/
+client/node_modules

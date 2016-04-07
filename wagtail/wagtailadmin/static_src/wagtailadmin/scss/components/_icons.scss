@@ -43,7 +43,7 @@
 
 @each $icon, $content in $icons-after {
     .icon-#{$icon}:after {
-        content: #{$content};
+        content: quote(#{$content});
     }
 }
 
@@ -60,6 +60,30 @@
 .icon-no-view:before {
     vertical-align: -3.5px;
     font-size: 1.1rem;
+}
+
+.icon-view:before {
+    content: '4';
+}
+
+.icon-no-view:before {
+    content: '^';
+}
+
+.icon-collapse-down:before {
+    content: '5';
+}
+
+.icon-collapse-up:before {
+    content: '6';
+}
+
+.icon-date:before {
+    content: '7';
+}
+
+.icon-time:before {
+    content: '8';
 }
 
 
@@ -104,4 +128,11 @@
     100% {
         transform: rotate(360deg);
     }
+}
+
+
+
+.icon-spinner:after {
+    display: inline-block;
+    line-height: 1;
 }

@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-02-10 15:32+0000\n"
-"PO-Revision-Date: 2016-02-14 21:13+0000\n"
+"POT-Creation-Date: 2016-03-09 13:55+0000\n"
+"PO-Revision-Date: 2016-03-01 23:00+0000\n"
 "Last-Translator: mmiskiew <mmiskiew@gmail.com>\n"
 "Language-Team: Polish (http://www.transifex.com/torchbox/wagtail/language/"
 "pl/)\n"
@@ -93,7 +93,7 @@ msgid "live"
 msgstr "opublikowana"
 
 msgid "has unpublished changes"
-msgstr "Strona posiada niezapisane zmiany"
+msgstr "posiada niezapisane zmiany"
 
 msgid "URL path"
 msgstr "Ścieżka URL"
@@ -112,7 +112,7 @@ msgstr ""
 "okna przeglądarki."
 
 msgid "show in menus"
-msgstr "Pokazuj w menu"
+msgstr "pokazuj w menu"
 
 msgid ""
 "Whether a link to this page will appear in automatically generated menus"
@@ -120,16 +120,16 @@ msgstr ""
 "Czy link do tej strony zostanie wyświetlony w menu tworzonym automatycznie."
 
 msgid "search description"
-msgstr "Opis wyszukiwania"
+msgstr "opis wyszukiwania"
 
 msgid "go live date/time"
-msgstr "Data/czas publikacji"
+msgstr "data/czas publikacji"
 
 msgid "Please add a date-time in the form YYYY-MM-DD hh:mm."
 msgstr "Proszę dodać datę/czas w formacie RRRR-MM-DD gg:mm"
 
 msgid "expiry date/time"
-msgstr "Data/czas wygaśnięcia"
+msgstr "data/czas wygaśnięcia"
 
 msgid "expired"
 msgstr "wygaśnięte"
@@ -138,19 +138,22 @@ msgid "locked"
 msgstr "zablokowany"
 
 msgid "first published at"
-msgstr "Pierwsza publikacja w dniu"
+msgstr "pierwsza publikacja w dniu"
 
 msgid "latest revision created at"
-msgstr "Ostatnia rewizja utworzona"
+msgstr "ostatnia rewizja utworzona"
+
+msgid "This slug is already in use"
+msgstr "Ten slug jest już w użyciu"
 
 msgid "scheduled"
-msgstr "Zaplanowany"
+msgstr "zaplanowany"
 
 msgid "draft"
-msgstr "Szkic"
+msgstr "szkic"
 
 msgid "live + draft"
-msgstr "Opublikuj + szkic"
+msgstr "opublikuj + szkic"
 
 msgid "Default"
 msgstr "Domyślny"
@@ -162,13 +165,13 @@ msgid "pages"
 msgstr "strony"
 
 msgid "submitted for moderation"
-msgstr "Przesłano do moderacji"
+msgstr "przesłano do moderacji"
 
 msgid "created at"
-msgstr "Utworzono dnia"
+msgstr "utworzono dnia"
 
 msgid "user"
-msgstr "Użytkownik"
+msgstr "użytkownik"
 
 msgid "content JSON"
 msgstr "zawartość JSON"
@@ -177,40 +180,67 @@ msgid "approved go live at"
 msgstr "Zaakceptowano publikację w dniu"
 
 msgid "page revision"
-msgstr "Wersja strony"
+msgstr "wersja strony"
 
 msgid "page revisions"
-msgstr "Wersje strony"
+msgstr "wersje strony"
+
+msgid "Add"
+msgstr "Dodaj"
 
 msgid "Add/edit pages you own"
 msgstr "Dodaj/edytuj swoje strony"
 
+msgid "Edit"
+msgstr "Edytuj"
+
 msgid "Edit any page"
 msgstr "Edytuj dowolną stronę"
 
+msgid "Publish"
+msgstr "Opublikuj"
+
 msgid "Publish any page"
 msgstr "Publikuj dowolną stronę"
+
+msgid "Lock"
+msgstr "Zablokuj"
 
 msgid "Lock/unlock any page"
 msgstr "Zablokuj/odblokuj dowolną stronę"
 
 msgid "group"
-msgstr "Grupa"
+msgstr "grupa"
 
 msgid "permission type"
-msgstr "Typ uprawnień"
+msgstr "typ uprawnień"
 
 msgid "group page permission"
-msgstr "Uprawnienie grupy do strony"
+msgstr "uprawnienie grupy do strony"
 
 msgid "group page permissions"
-msgstr "Uprawnienia grupy do strony"
+msgstr "uprawnienia grupy do strony"
 
 msgid "password"
 msgstr "hasło"
 
 msgid "page view restriction"
-msgstr "Restrykcja wyświetlenia strony"
+msgstr "restrykcja wyświetlenia strony"
 
 msgid "page view restrictions"
-msgstr "Restrykcje wyświetlenia strony"
+msgstr "restrykcje wyświetlenia strony"
+
+msgid "name"
+msgstr "nazwa"
+
+msgid "collection"
+msgstr "kolekcja"
+
+msgid "collections"
+msgstr "kolekcje"
+
+msgid "permission"
+msgstr "uprawnienia"
+
+msgid "group collection permission"
+msgstr "uprawnienia kolekcji grup"

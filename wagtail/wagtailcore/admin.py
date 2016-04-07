@@ -1,8 +1,10 @@
-from django.contrib import admin
-from django.contrib.auth.models import Group
-from django.contrib.auth.admin import GroupAdmin
+from __future__ import absolute_import, unicode_literals
 
-from wagtail.wagtailcore.models import Site, Page, GroupPagePermission
+from django.contrib import admin
+from django.contrib.auth.admin import GroupAdmin
+from django.contrib.auth.models import Group
+
+from wagtail.wagtailcore.models import GroupPagePermission, Page, Site
 
 admin.site.register(Site)
 admin.site.register(Page)
