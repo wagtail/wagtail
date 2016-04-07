@@ -34,7 +34,7 @@ FORM_FIELD_CHOICES = (
 )
 
 
-HTML_EXTENSION_RE = re.compile(r"(.*)\.html")
+HTML_EXTENSION_RE = re.compile(r"(.*)\.[html|jade|haml]")
 
 
 @python_2_unicode_compatible
