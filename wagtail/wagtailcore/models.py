@@ -106,11 +106,12 @@ class Site(models.Model):
         NB this means that high-numbered ports on an extant hostname may
         still be routed to a different hostname which is set as the default
         """
+        qs = Site.objects.select_related('root_page')
         try:
             hostname = request.get_host().split(':')[0]
             try:
                 # find a Site matching this specific hostname
-                return Site.objects.get(hostname=hostname)  # Site.DoesNotExist here goes to the final except clause
+                return qs.get(hostname=hostname)  # Site.DoesNotExist here goes to the final except clause
             except Site.MultipleObjectsReturned:
                 # as there were more than one, try matching by port too
                 try:
@@ -119,13 +120,13 @@ class Site(models.Model):
                     # Request.get_port is Django 1.9+
                     # KeyError here falls out below
                     port = request.META['SERVER_PORT']
-                return Site.objects.get(hostname=hostname, port=int(port))
+                return qs.get(hostname=hostname, port=int(port))
                 # Site.DoesNotExist here goes to the final except clause
         except (Site.DoesNotExist, KeyError):
             # If no matching site exists, or request does not specify an HTTP_HOST (which
             # will often be the case for the Django test client), look for a catch-all Site.
             # If that fails, let the Site.DoesNotExist propagate back to the caller
-            return Site.objects.get(is_default_site=True)
+            return qs.get(is_default_site=True)
 
     @property
     def root_url(self):
