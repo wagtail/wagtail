@@ -63,15 +63,18 @@ class ServeView(View):
         except InvalidFilterSpecError:
             return HttpResponse("Invalid filter spec: " + filter_spec, content_type='text/plain', status=400)
 
-        # Serve it
-        if self.action == 'serve':
-            # Open and serve the file
-            rendition.file.open('rb')
-            image_format = imghdr.what(rendition.file)
-            return StreamingHttpResponse(FileWrapper(rendition.file), content_type='image/' + image_format)
-        elif self.action == 'redirect':
-            # Redirect to the file's public location
-            return HttpResponsePermanentRedirect(rendition.url)
+        return getattr(self, self.action)(rendition)
+
+    def serve(self, rendition):
+        # Open and serve the file
+        rendition.file.open('rb')
+        image_format = imghdr.what(rendition.file)
+        return StreamingHttpResponse(FileWrapper(rendition.file),
+                                     content_type='image/' + image_format)
+
+    def redirect(self, rendition):
+        # Redirect to the file's public location
+        return HttpResponsePermanentRedirect(rendition.url)
 
 
 serve = ServeView.as_view()
