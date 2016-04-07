@@ -14,6 +14,7 @@ from django.utils.decorators import classonlymethod
 from django.utils.six import text_type
 from django.views.generic import View
 
+from wagtail.utils.sendfile import sendfile
 from wagtail.wagtailimages.exceptions import InvalidFilterSpecError
 from wagtail.wagtailimages.models import SourceImageIOError, get_image_model
 
@@ -78,3 +79,10 @@ class ServeView(View):
 
 
 serve = ServeView.as_view()
+
+
+class SendFileView(ServeView):
+    backend = None
+
+    def serve(self, rendition):
+        return sendfile(self.request, rendition.file.path, backend=self.backend)

@@ -1,11 +1,12 @@
 from __future__ import absolute_import, unicode_literals
 
 import os
+import unittest
 
 from django import forms, template
 from django.core.exceptions import ImproperlyConfigured
 from django.core.urlresolvers import reverse
-from django.test import TestCase
+from django.test import TestCase, override_settings
 from django.utils import six
 from mock import MagicMock
 from taggit.forms import TagField, TagWidget
@@ -20,6 +21,12 @@ from wagtail.wagtailimages.rect import Rect, Vector
 from wagtail.wagtailimages.views.serve import ServeView, generate_signature, verify_signature
 
 from .utils import Image, get_test_image_file
+
+try:
+    import sendfile  # noqa
+    sendfile_mod = True
+except:
+    sendfile_mod = False
 
 
 class TestImageTag(TestCase):
@@ -352,6 +359,36 @@ class TestFrontendServeView(TestCase):
 
         # Check response
         self.assertEqual(response.status_code, 410)
+
+
+class TestFrontendSendfileView(TestCase):
+
+    def setUp(self):
+        self.image = Image.objects.create(
+            title="Test image",
+            file=get_test_image_file(),
+        )
+
+    @override_settings(SENDFILE_BACKEND='sendfile.backends.development')
+    @unittest.skipIf(not sendfile_mod, 'Missing django-sendfile app.')
+    def test_sendfile_nobackend(self):
+        signature = generate_signature(self.image.id, 'fill-800x600')
+        response = self.client.get(reverse('wagtailimages_sendfile',
+                                           args=(signature, self.image.id,
+                                                 'fill-800x600')))
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response['Content-Type'], 'image/png')
+
+    @override_settings(SENDFILE_BACKEND='sendfile.backends.development')
+    def test_sendfile_dummy_backend(self):
+        signature = generate_signature(self.image.id, 'fill-800x600')
+        response = self.client.get(reverse('wagtailimages_sendfile_dummy',
+                                           args=(signature, self.image.id,
+                                                 'fill-800x600')))
+
+        self.assertEqual(response.status_code, 200)
+        self.assertTrue(response.content, 'Dummy backend response')
 
 
 class TestRect(TestCase):

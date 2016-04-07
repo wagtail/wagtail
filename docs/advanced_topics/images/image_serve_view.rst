@@ -97,3 +97,52 @@ method in your urls configuration:
 
        url(r'^images/([^/]*)/(\d*)/([^/]*)/[^/]*$', ServeView.as_view(action='redirect'), name='wagtailimages_serve'),
    ]
+
+Integration with django-sendfile
+--------------------------------
+
+`django-sendfile`_ offloads the job of transferring the image data to the web
+server instead of serving it directly from the Django application. This could
+greatly reduce server load in situations where your site has many images being
+downloaded but you're unable to use a :ref:`caching_proxy` or a CDN.
+
+.. _django-sendfile: https://github.com/johnsensible/django-sendfile
+
+You firstly need to install and configure django-sendfile and configure your
+web server to use it. If you haven't done this already, please refer to the
+`installation docs <https://github.com/johnsensible/django-sendfile#django-sendfile>`_.
+
+To serve images with django-sendfile, you can use the ``SendFileView`` class.
+This view can be used out of the box:
+
+.. code-block:: python
+
+   from wagtail.wagtailimages.views.serve import SendFileView
+
+   urlpatterns = [
+       ...
+
+       url(r'^images/([^/]*)/(\d*)/([^/]*)/[^/]*$', SendFileView.as_view(), name='wagtailimages_serve'),
+   ]
+
+You can customise it to override the backend defined in the ``SENDFILE_BACKEND``
+setting:
+
+.. code-block:: python
+
+    from wagtail.wagtailimages.views.serve import SendFileView
+    from project.sendfile_backends import MyCustomBackend
+
+    class MySendFileView(SendFileView):
+        backend = MyCustomBackend
+
+You can also customise it to serve private files. For example, if the only need
+is to be authenticated (e.g. for Django >= 1.9):
+
+.. code-block:: python
+
+    from django.contrib.auth.mixins import LoginRequiredMixin
+    from wagtail.wagtailimages.views.serve import SendFileView
+
+    class PrivateSendFileView(LoginRequiredMixin, SendFileView):
+        raise_exception = True
