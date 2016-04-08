@@ -1,7 +1,9 @@
 from __future__ import absolute_import, unicode_literals
 
+import os
 import json
 import logging
+import operator
 from collections import defaultdict
 from django import VERSION as DJANGO_VERSION
 
@@ -29,7 +31,7 @@ from django.utils.six.moves.urllib.parse import urlparse
 from django.utils.text import slugify
 from django.utils.translation import ugettext_lazy as _
 from modelcluster.models import ClusterableModel, get_all_child_relations
-from treebeard.mp_tree import MP_Node
+from treebeard.mp_tree import MP_Node, get_result_class
 
 from wagtail.utils.deprecation import SearchFieldsShouldBeAList
 from wagtail.wagtailcore.query import PageQuerySet, TreeQuerySet
@@ -1320,15 +1322,119 @@ class Page(six.with_metaclass(PageBase, MP_Node, index.Indexed, ClusterableModel
         context['action_url'] = action_url
         return TemplateResponse(request, self.password_required_template, context)
 
+
+    def get_administrable_children(self, user):
+        """
+        Returns a queryset of all the node's children that the given user is permitted to administer.
+        """
+        query = self.get_children()
+        # Non-superusers are limited to seeing only their administrable Pages.
+        if not user.is_superuser:
+            permitted_paths, required_ancesotrs = get_administrable_page_paths(user)
+            query = query.filter(convert_administrable_page_paths_to_Q(permitted_paths, required_ancesotrs))
+
+        return query
+
     class Meta:
         verbose_name = _('page')
         verbose_name_plural = _('pages')
 
 
-def get_navigation_menu_items():
+def get_administrable_page_paths(user):
+    """
+    Returns a tuple of lists of treebeard "path" values.
+    The first list is the set of paths which the given user is explicitly permitted to administer (meaning they can
+    administer all children of those paths, too).
+    The second list is the paths which must be shown to the user in order for them to navigate to their permitted Pages
+    in the Explorer. Unlike the paths in the first list, the children of these paths are not to be automatically made
+    visible.
+
+    NOTE: The first element of the second list is always the Closest Common Ancestor of the User's permitted Pages.
+    """
+    # We cache the output of this function because it's very expensive to generate it fresh every time the user loads
+    # an Explorer page. Unfortunately, this does lead to a lot of duplciated data in the cache, as every single user
+    # that has the same set of groups will have the same permitted paths. I'd like to cache by groupset, which would
+    # remove all that duplication, but that would require an extra DB call every time, to get the user's group list.
+    cache_key = 'permitted_paths:{0}'.format(user.id)
+    permitted_paths, required_ancestors = cache.get(cache_key, ([], []))
+    if not permitted_paths:
+        ###################
+        # Get paths by User
+        ###################
+        permissions = (GroupPagePermission.objects
+            .filter(group__user=user)
+            # Choose permission is excluded because it's only associated with the Choosers, not the Explorer.
+            .exclude(permission_type='choose')
+            .select_related('page')
+        )
+        # We temporarily use a set here because "permissions" has duplicates of every path that has multiple perms.
+        permitted_paths = list(set(perm.page.path for perm in permissions))
+
+    # Commented out for now because I don't know if it'll be useful later.
+    #     ####################
+    #     # Get paths by Group
+    #     ####################
+    #     # When a Group's Page permissions change, clear the cache.
+    #     # When any Page is moved, clear the cache for Groups which have permissions on that page.
+    #     permitted_paths = set()
+    #     for group in user.groups.all():
+    #         permissions = (GroupPagePermission.objects
+    #             .filter(group=group)
+    #             .exclude(permission_type='choose')
+    #             .select_related('page')
+    #         )
+    #         permitted_paths.update(perm.page.path for perm in permissions)
+    #     permitted_paths = list(permitted_paths)
+
+        # Calculate the "closest common ancestor" of all the permitted Pages by finding their common prefix, then
+        # chopping off the end to make the length a multiple of Page.steplen.
+        common_prefix = os.path.commonprefix(permitted_paths)
+        cca_path = common_prefix[:-(len(common_prefix) % Page.steplen) or None]
+        required_ancestors.append(cca_path)
+
+        # Now include all the ancestors of each permitted Page, up to their closest common ancestor. This lets users see
+        # parent pages that they can't administer, which allows them to traverse the tree down to pages that they can.
+        temp = set()
+        for path in permitted_paths:
+            while len(path) > len(cca_path):
+                path = path[:-Page.steplen]
+                if path not in required_ancestors:
+                    temp.add(path)
+        # We need to make sure that the CCA is first in required_ancestors (so the /admin/pages/ page can be set to
+        # display the page tree starting at the CCA), but the order of the other paths doesn't matter.
+        required_ancestors.extend(temp)
+
+        # Cache the paths for this user indefinitely. We'll clear this user's cached data manually when anything
+        # relevant changes, like changes to Group membership or permissions, or when a page is moved.
+        cache.set(cache_key, (permitted_paths, required_ancestors), None)
+
+    return permitted_paths, required_ancestors
+
+
+def convert_administrable_page_paths_to_Q(permitted_paths, required_ancestors):
+    """
+    Converts the output of get_administrable_page_paths() to a Q object which will filter a QuerySet down to the
+    appropriate set of Pages.
+    """
+    path_Qs = reduce(operator.or_, (Q(path__startswith=path) for path in permitted_paths))
+    path_Qs |= reduce(operator.or_, (Q(path=ancestor) for ancestor in required_ancestors))
+    return path_Qs
+
+
+def get_navigation_menu_items(user):
     # Get all pages that appear in the navigation menu: ones which have children,
     # or are at the top-level (this rule required so that an empty site out-of-the-box has a working menu)
     pages = Page.objects.filter(Q(depth=2) | Q(numchild__gt=0)).order_by('path')
+
+    # For backward compatibility of the explorer_nav template tag, we accept "None" for the user argument, in which
+    # case we can't do permissions-based restriction.
+    # TODO: Is this necessary? I'm not sure what the backward compatibility rules are, or if the explorer_nav tag was
+    # ever used in the first place.
+    if user and not user.is_superuser:
+        # Limit the pages to those for which the given user has any administrative permission.
+        permitted_paths, required_ancesotrs = get_administrable_page_paths(user)
+        # Always include the Root page, since we need it for the depth_list.
+        pages = pages.filter(Q(depth=1) | convert_administrable_page_paths_to_Q(permitted_paths, required_ancesotrs))
 
     # Turn this into a tree structure:
     #     tree_node = (page, children)
@@ -1806,10 +1912,15 @@ class PagePermissionTester(object):
         if not self.user.is_active:
             return False
 
-        return (
-            self.can_add_subpage() or self.can_edit() or self.can_delete()
+        # If this page is permitted, return True immediately.
+        if (self.can_add_subpage() or self.can_edit() or self.can_delete()
             or self.can_unpublish() or self.can_publish() or self.can_lock()
-        )
+        ):
+            return True
+
+        # If this page isn't permitted, return whether or not it's in the required ancestors of the user's
+        # administrable section(s) of the tree.
+        return self.page.path in get_administrable_page_paths(self.user)[1]
 
 
 class PageViewRestriction(models.Model):

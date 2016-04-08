@@ -291,6 +291,8 @@ class TestPageExplorerSignposting(TestCase, WagtailTestUtils):
         self.assertNotContains(response, "Pages created here will not be accessible")
 
     def test_nonadmin_at_root(self):
+        # TODO: The change to showing non-superusers the Closest Common Ancestor of their permitted pages, instead
+        # of the actual root page, breaks this test. But I'm not sure how best to fix it.
         self.assertTrue(self.client.login(username='siteeditor', password='password'))
         response = self.client.get(reverse('wagtailadmin_explore_root'))
         self.assertEqual(response.status_code, 200)
@@ -304,6 +306,8 @@ class TestPageExplorerSignposting(TestCase, WagtailTestUtils):
     def test_nonadmin_at_non_site_page(self):
         self.assertTrue(self.client.login(username='siteeditor', password='password'))
         response = self.client.get(reverse('wagtailadmin_explore', args=(self.no_site_page.id, )))
+        # TODO: The change to limiting non-superusers to administrable pages breaks this test, but
+        # I'm not sure how best to fix it.
         self.assertEqual(response.status_code, 200)
         # Non-admin should get a warning about unroutable pages
         self.assertContains(
@@ -313,6 +317,8 @@ class TestPageExplorerSignposting(TestCase, WagtailTestUtils):
                 "Pages created here will not be accessible at any URL."
             )
         )
+
+    # TODO: Add tests for nonadmins not being allowed to see unpermitted pages.
 
     def test_nonadmin_at_site_page(self):
         self.assertTrue(self.client.login(username='siteeditor', password='password'))

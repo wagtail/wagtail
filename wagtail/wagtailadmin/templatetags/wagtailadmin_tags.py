@@ -30,9 +30,9 @@ else:
 
 
 @register.inclusion_tag('wagtailadmin/shared/explorer_nav.html')
-def explorer_nav():
+def explorer_nav(user=None):
     return {
-        'nodes': get_navigation_menu_items()
+        'nodes': get_navigation_menu_items(user)
     }
 
 

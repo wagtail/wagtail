@@ -19,7 +19,8 @@ from wagtail.wagtailadmin import messages, signals
 from wagtail.wagtailadmin.forms import CopyForm, SearchForm
 from wagtail.wagtailadmin.utils import send_notification
 from wagtail.wagtailcore import hooks
-from wagtail.wagtailcore.models import Page, PageRevision, get_navigation_menu_items
+from wagtail.wagtailcore.models import Page, PageRevision, get_navigation_menu_items, UserPagePermissionsProxy,\
+    get_administrable_page_paths
 
 
 def get_valid_next_url_from_request(request):
@@ -31,17 +32,32 @@ def get_valid_next_url_from_request(request):
 
 def explorer_nav(request):
     return render(request, 'wagtailadmin/shared/explorer_nav.html', {
-        'nodes': get_navigation_menu_items(),
+        'nodes': get_navigation_menu_items(request.user),
     })
 
 
 def index(request, parent_page_id=None):
     if parent_page_id:
         parent_page = get_object_or_404(Page, id=parent_page_id)
-    else:
-        parent_page = Page.get_first_root_node()
 
-    pages = parent_page.get_children().prefetch_related('content_type')
+        if not UserPagePermissionsProxy(request.user).for_page(parent_page).can_view_in_admin():
+            if Page.objects.descendant_of(request.site.root_page).filter(pk=parent_page.id).exists():
+                # If the page is on the current Site, throw a 403: it's just an unpermitted page.
+                raise PermissionDenied
+            else:
+                # If the page isn't on the current site, throw a 404: the page doesn't exist on this Site.
+                raise Http404
+    else:
+        # The user visited /admin/pages/, so we need to figure out the appropriate "root page" to show them.
+        if request.user.is_superuser:
+            # Superusers get the actual root page.
+            parent_page = Page.get_first_root_node()
+        else:
+            # Other users get the Closest Common Ancestor of their permitted pages.
+            required_ancestors = get_administrable_page_paths(request.user)[1]
+            parent_page = Page.objects.get(path=required_ancestors[0])
+
+    pages = parent_page.get_administrable_children(request.user).prefetch_related('content_type')
 
     # Get page ordering
     ordering = request.GET.get('ordering', '-latest_revision_created_at')
