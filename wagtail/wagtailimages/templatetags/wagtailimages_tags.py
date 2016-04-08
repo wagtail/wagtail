@@ -104,5 +104,5 @@ class ImageNode(template.Node):
 
 
 @register.simple_tag()
-def image_url(image, filter_spec, key=None):
-    return generate_image_url(image, filter_spec, key)
+def image_url(viewname, image, filter_spec, key=None):
+    return generate_image_url(image, filter_spec, viewname, key)

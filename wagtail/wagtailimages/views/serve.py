@@ -38,11 +38,9 @@ def verify_signature(signature, image_id, filter_spec, key=None):
     return signature == generate_signature(image_id, filter_spec, key=key)
 
 
-def generate_image_url(image, filter_spec, key=None):
+def generate_image_url(image, filter_spec, viewname='wagtailimages_serve', key=None):
     signature = generate_signature(image.id, filter_spec, key)
-    url = reverse('wagtailimages_serve',
-                  args=(signature, image.id, filter_spec))
-    # Append image's original filename to the URL
+    url = reverse(viewname, args=(signature, image.id, filter_spec))
     url += image.file.name[len('original_images/'):]
     return url
 
