@@ -34,8 +34,8 @@ from wagtail.utils.deprecation import SearchFieldsShouldBeAList
 from wagtail.wagtailcore.query import PageQuerySet, TreeQuerySet
 from wagtail.wagtailcore.signals import page_published, page_unpublished
 from wagtail.wagtailcore.url_routing import RouteResult
-from wagtail.wagtailcore.utils import (camelcase_to_underscore, resolve_model_string,
-                                       WAGTAIL_APPEND_SLASH)
+from wagtail.wagtailcore.utils import (
+    WAGTAIL_APPEND_SLASH, camelcase_to_underscore, resolve_model_string)
 from wagtail.wagtailsearch import index
 
 logger = logging.getLogger('wagtail.core')

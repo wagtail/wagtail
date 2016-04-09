@@ -6,23 +6,23 @@ from wagtail.wagtailcore import views
 from wagtail.wagtailcore.utils import WAGTAIL_APPEND_SLASH
 
 
-# If WAGTAIL_APPEND_SLASH is False, allow Wagtail to serve pages on URLs
-# with and without trailing slahes
 if WAGTAIL_APPEND_SLASH:
+    # If WAGTAIL_APPEND_SLASH is True (the default value), we match a
+    # (possibly empty) list of path segments ending in slashes.
+    # CommonMiddleware will redirect requests without a trailing slash to
+    # a URL with a trailing slash
     serve_pattern = r'^((?:[\w\-]+/)*)$'
 else:
-    serve_pattern = r'^((?:[\w\-]+/?)*)$'
+    # If WAGTAIL_APPEND_SLASH is False, allow Wagtail to serve pages on URLs
+    # with and without trailing slashes
+    serve_pattern = r'^([\w\-/]*)$'
 
 
 urlpatterns = [
     url(r'^_util/authenticate_with_password/(\d+)/(\d+)/$', views.authenticate_with_password,
         name='wagtailcore_authenticate_with_password'),
 
-    # Front-end page views are handled through Wagtail's core.views.serve mechanism.
-    # Here we match a (possibly empty) list of path segments, each followed by
-    # a '/'.
-    # If WAGTAIL_APPEND_SLASH is true, we leave CommonMiddleware to
-    # handle it as usual (i.e. redirect it to the trailing slash version if
-    # settings.APPEND_SLASH is True)
+    # Front-end page views are handled through Wagtail's core.views.serve
+    # mechanism
     url(serve_pattern, views.serve, name='wagtail_serve')
 ]
