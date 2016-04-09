@@ -1,8 +1,9 @@
+from __future__ import absolute_import, unicode_literals
+
 import os
 
-from django.core.checks import register, Warning
+from django.core.checks import Warning, register
 from django.utils.lru_cache import lru_cache
-
 from willow.image import Image
 
 

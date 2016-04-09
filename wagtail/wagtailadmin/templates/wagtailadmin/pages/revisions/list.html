@@ -1,0 +1,33 @@
+{% load i18n wagtailadmin_tags gravatar %}
+
+<table class="listing">
+    <col width="100%" />
+
+    <thead>
+        <tr>
+            <th><a href="{% url 'wagtailadmin_pages:revisions_index' page.id %}?ordering={% if ordering == "created_at" %}-{% endif %}created_at" class="icon icon-arrow-{% if ordering == "created_at" %}up-after{% elif ordering == "-created_at" %}down-after{% else %}down-after{% endif %} {% if ordering == "created_at" or ordering == "-created_at" %}teal{% endif %}">Revision date</a></th>
+        </tr>
+    </thead>
+    <tbody>
+        {% if revisions %}
+            {% for revision in revisions %}
+                <tr {% if revision == page.get_latest_revision %}class="index"{% endif %}>
+                    <td class="title">
+                        <h2><a href="{% url 'wagtailadmin_pages:revisions_revert' page.id revision.id %}">{{ revision.created_at|date:"d M Y H:i" }}</a> <span class="unbold">by<span class="avatar small icon icon-user"><img src="{% gravatar_url revision.user.email 25 %}" /></span>{{ revision.user }}</span> {% if revision == page.get_latest_revision %}({% trans 'Current draft' %}){% endif %}</h2>
+
+                        <ul class="actions">
+                            <li><a href="{% url 'wagtailadmin_pages:revisions_view' page.id revision.id %}" class="button button-small button-secondary" target="_blank">{% trans 'Preview' %}</a></li>
+                            {% if revision == page.get_latest_revision %}
+                                <li><a href="{% url 'wagtailadmin_pages:edit' page.id %}" class="button button-small button-secondary">{% trans 'Edit' %}</a></li>
+                            {% else %}
+                                <li><a href="{% url 'wagtailadmin_pages:revisions_revert' page.id revision.id %}" class="button button-small button-secondary">{% trans 'Review this revision' %}</a></li>
+                            {% endif %}
+                        </ul>
+                    </td>
+                </tr>
+            {% endfor %}
+        {% else %}
+            {% block no_results %}<tr><td class="no-results-message"><p>No revisions of this page exist</p></td></tr>{% endblock %}
+        {% endif %}
+    </tbody>
+</table>

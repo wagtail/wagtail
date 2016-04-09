@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-02-10 15:32+0000\n"
-"PO-Revision-Date: 2016-02-10 15:33+0000\n"
+"POT-Creation-Date: 2016-03-09 13:55+0000\n"
+"PO-Revision-Date: 2016-03-09 13:58+0000\n"
 "Last-Translator: mattwestcott <matthew@torchbox.com>\n"
 "Language-Team: Chinese (China) (http://www.transifex.com/torchbox/wagtail/"
 "language/zh_CN/)\n"
@@ -360,22 +360,18 @@ msgid "Forgotten it?"
 msgstr "不记得了？"
 
 #, python-format
-msgid "The page \"%(title)s\" has been approved"
-msgstr "页面\"%(title)s\"已批准"
-
-#, python-format
 msgid "The page \"%(title)s\" has been approved."
 msgstr "页面\"%(title)s\"已批准。"
 
 msgid "You can view the page here:"
 msgstr "在这里查看页面："
 
+#, python-format
+msgid "The page \"%(title)s\" has been approved"
+msgstr "页面\"%(title)s\"已批准"
+
 msgid "Edit your notification preferences here:"
 msgstr "在此编辑通知选择"
-
-#, python-format
-msgid "The page \"%(title)s\" has been rejected"
-msgstr "页面\"%(title)s\"被驳回"
 
 #, python-format
 msgid "The page \"%(title)s\" has been rejected."
@@ -385,11 +381,15 @@ msgid "You can edit the page here:"
 msgstr "你可以在此编辑页面："
 
 #, python-format
-msgid "The page \"%(page)s\" has been submitted for moderation"
-msgstr "页面\"%(page)s\"已提交审核"
+msgid "The page \"%(title)s\" has been rejected"
+msgstr "页面\"%(title)s\"被驳回"
 
 msgid "You can preview the page here:"
 msgstr "可以在此预览页面："
+
+#, python-format
+msgid "The page \"%(page)s\" has been submitted for moderation"
+msgstr "页面\"%(page)s\"已提交审核"
 
 msgid "Page privacy"
 msgstr "页面保护"
@@ -740,17 +740,11 @@ msgstr ""
 msgid "Javascript is required to use Wagtail, but it is currently disabled"
 msgstr "Wagtail需要启用Javascript，但Javascript当前被禁用"
 
-msgid "User bar"
-msgstr "用户栏"
-
 msgid "Go to Wagtail admin interface"
 msgstr "转到管理界面"
 
 msgid "Add a child page"
 msgstr "添加子页面"
-
-msgid "Add"
-msgstr "新增"
 
 msgid "Sorry, you do not have permission to access this area."
 msgstr "对不起， 你没有权限访问。"
@@ -781,18 +775,6 @@ msgstr "页面'{0}'已创建"
 
 msgid "The page could not be created due to validation errors"
 msgstr "验证错误，页面无法创建。"
-
-#, python-brace-format
-msgid "Page '{0}' published."
-msgstr "页面'{0}'已发布"
-
-#, python-brace-format
-msgid "Page '{0}' submitted for moderation."
-msgstr "页面'{0}'已提交审核"
-
-#, python-brace-format
-msgid "Page '{0}' updated."
-msgstr "页面 '{0}'已更新"
 
 msgid "The page could not be saved as it is locked"
 msgstr "页面无法保存，已被锁定。"
@@ -826,6 +808,10 @@ msgstr "页面'{0}'已复制。"
 #, python-brace-format
 msgid "The page '{0}' is not currently awaiting moderation."
 msgstr "页面 '{0}'目前不在等待审核。"
+
+#, python-brace-format
+msgid "Page '{0}' published."
+msgstr "页面'{0}'已发布"
 
 #, python-brace-format
 msgid "Page '{0}' rejected for publication."

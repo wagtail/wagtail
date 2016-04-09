@@ -79,7 +79,7 @@ Hooks for building new areas of the admin interface (alongside pages, images, do
 ``construct_main_menu``
 ~~~~~~~~~~~~~~~~~~~~~~~
 
-  Called just before the Wagtail admin menu is output, to allow the list of menu items to be modified. The callable passed to this hook will receive a ``request`` object and a list of ``menu_items``, and should modify ``menu_items`` in-place as required. Adding menu items should generally be done through the ``register_admin_menu_item`` hook instead - items added through ``construct_main_menu`` will be missing any associated Javascript includes, and their ``is_shown`` check will not be applied.
+  Called just before the Wagtail admin menu is output, to allow the list of menu items to be modified. The callable passed to this hook will receive a ``request`` object and a list of ``menu_items``, and should modify ``menu_items`` in-place as required. Adding menu items should generally be done through the ``register_admin_menu_item`` hook instead - items added through ``construct_main_menu`` will be missing any associated JavaScript includes, and their ``is_shown`` check will not be applied.
 
   .. code-block:: python
 
@@ -120,7 +120,7 @@ Hooks for building new areas of the admin interface (alongside pages, images, do
   :attrs: additional HTML attributes to apply to the link
   :order: an integer which determines the item's position in the menu
 
-  ``MenuItem`` can be subclassed to customise the HTML output, specify Javascript files required by the menu item, or conditionally show or hide the item for specific requests (for example, to apply permission checks); see the source code (``wagtail/wagtailadmin/menu.py``) for details.
+  ``MenuItem`` can be subclassed to customise the HTML output, specify JavaScript files required by the menu item, or conditionally show or hide the item for specific requests (for example, to apply permission checks); see the source code (``wagtail/wagtailadmin/menu.py``) for details.
 
   .. code-block:: python
 
@@ -197,7 +197,7 @@ Hooks for building new areas of the admin interface (alongside pages, images, do
   A template tag, ``search_other`` is provided by the ``wagtailadmin_tags`` template module. This tag takes a single, optional parameter, ``current``, which allows you to specify the ``name`` of the search option currently active. If the parameter is not given, the hook defaults to a reverse lookup of the page's URL for comparison against the ``url`` parameter.
 
 
-  ``SearchArea`` can be subclassed to customise the HTML output, specify Javascript files required by the option, or conditionally show or hide the item for specific requests (for example, to apply permission checks); see the source code (``wagtail/wagtailadmin/search.py``) for details.
+  ``SearchArea`` can be subclassed to customise the HTML output, specify JavaScript files required by the option, or conditionally show or hide the item for specific requests (for example, to apply permission checks); see the source code (``wagtail/wagtailadmin/search.py``) for details.
 
   .. code-block:: python
 
@@ -295,7 +295,7 @@ Add additional CSS files or snippets to all admin pages.
 ``insert_editor_js``
 ~~~~~~~~~~~~~~~~~~~~
 
-  Add additional Javascript files or code snippets to the page editor.
+  Add additional JavaScript files or code snippets to the page editor.
 
   .. code-block:: python
 
@@ -319,6 +319,26 @@ Add additional CSS files or snippets to all admin pages.
         </script>
         """
       )
+
+
+.. _insert_global_admin_js:
+
+``insert_global_admin_js``
+~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+  Add additional JavaScript files or code snippets to all admin pages.
+
+  .. code-block:: python
+
+    from django.utils.html import format_html
+
+    from wagtail.wagtailcore import hooks
+
+    @hooks.register('insert_global_admin_js')
+    def global_admin_js():
+      return format_html('<script src="' \
+      + 'https://cdnjs.cloudflare.com/ajax/libs/three.js/r74/three.js' \
+      + '"></script>')
 
 
 Editor workflow
@@ -407,6 +427,67 @@ Page explorer
         pages = pages.filter(owner=request.user)
 
       return pages
+
+
+.. _register_page_listing_buttons:
+
+``register_page_listing_buttons``
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+  Add buttons to the actions list for a page in the page explorer. This is useful when adding custom actions to the listing, such as translations or a complex workflow.
+
+  This example will add a simple button to the listing:
+
+  .. code-block:: python
+
+    from wagtail.wagtailadmin import widgets as wagtailadmin_widgets
+
+    @hooks.register('register_page_listing_buttons')
+    def page_listing_buttons(page, page_perms, is_parent=False):
+        yield wagtailadmin_widgets.PageListingButton(
+            'A page listing button',
+            '/goes/to/a/url/',
+            priority=10
+        )
+
+  The ``priority`` argument controls the order the buttons are displayed in. Buttons are ordered from low to high priority, so a button with ``priority=10`` will be displayed before a button with ``priority=20``.
+
+
+Buttons with dropdown lists
+^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+  The admin widgets also provide ``ButtonWithDropdownFromHook``, which allows you to define a custom hook for generating a dropdown menu that gets attached to your button.
+
+  Creating a button with a dropdown menu involves two steps. Firstly, you add your button to the ``register_page_listing_buttons`` hook, just like the example above.
+  Secondly, you register a new hook that yields the contents of the dropdown menu.
+
+  This example shows how Wagtail's default admin dropdown is implemented. You can also see how to register buttons conditionally, in this case by evaluating the ``page_perms``:
+
+  .. code-block:: python
+
+    @hooks.register('register_page_listing_buttons')
+    def page_custom_listing_buttons(page, page_perms, is_parent=False):
+        yield wagtailadmin_widgets.ButtonWithDropdownFromHook(
+            'More actions',
+            hook_name='my_button_dropdown_hook',
+            page=page,
+            page_perms=page_perms,
+            is_parent=is_parent,
+            priority=50
+        )
+
+    @hooks.register('my_button_dropdown_hook')
+    def page_custom_listing_more_buttons(page, page_perms, is_parent=False):
+        if page_perms.can_move():
+            yield Button('Move', reverse('wagtailadmin_pages:move', args=[page.id]), priority=10)
+        if page_perms.can_delete():
+            yield Button('Delete', reverse('wagtailadmin_pages:delete', args=[page.id]), priority=30)
+        if page_perms.can_unpublish():
+            yield Button('Unpublish', reverse('wagtailadmin_pages:unpublish', args=[page.id]), priority=40)
+
+
+
+  The template for the dropdown button can be customised by overriding ``wagtailadmin/pages/listing/_button_with_dropdown.html``. The JavaScript that runs the dropdowns makes use of custom data attributes, so you should leave ``data-dropdown`` and ``data-dropdown-toggle`` in the markup if you customise it.
 
 
 Page serving

@@ -2,6 +2,8 @@ import subprocess
 import re
 from collections import defaultdict
 
+from babel import Locale
+
 authors_by_locale = defaultdict(set)
 
 file_listing = subprocess.Popen('find ../wagtail -iname *.po', shell=True, stdout=subprocess.PIPE)
@@ -31,9 +33,14 @@ for file_listing_line in file_listing.stdout:
                 else:
                     raise Exception("No 'Translators:' heading found in %s" % filename)
 
-locales = sorted(authors_by_locale.keys())
-for locale in locales:
-    print(locale)
+language_names = [
+    (Locale.parse(locale_string).english_name, locale_string)
+    for locale_string in authors_by_locale.keys()
+]
+language_names.sort()
+
+for (language_name, locale) in language_names:
+    print(("%s - %s" % (language_name, locale)).encode('utf-8'))
     print("-----")
     for author in sorted(authors_by_locale[locale]):
         print(author)

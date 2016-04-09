@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-02-10 15:32+0000\n"
-"PO-Revision-Date: 2016-02-10 15:33+0000\n"
+"POT-Creation-Date: 2016-03-09 13:55+0000\n"
+"PO-Revision-Date: 2016-03-09 13:58+0000\n"
 "Last-Translator: mattwestcott <matthew@torchbox.com>\n"
 "Language-Team: Japanese (http://www.transifex.com/torchbox/wagtail/language/"
 "ja/)\n"
@@ -375,25 +375,18 @@ msgid "Signing in..."
 msgstr "サインイン中..."
 
 #, python-format
-msgid "The page \"%(title)s\" has been approved"
-msgstr "ページ：%(title)s が承認されました"
-
-#, python-format
 msgid "The page \"%(title)s\" has been approved."
 msgstr "ページ：%(title)s が承認されました"
 
 msgid "You can view the page here:"
 msgstr "このページを閲覧："
 
-msgid "Hello"
-msgstr "こんにちは"
+#, python-format
+msgid "The page \"%(title)s\" has been approved"
+msgstr "ページ：%(title)s が承認されました"
 
 msgid "Edit your notification preferences here:"
 msgstr "通知方法を編集："
-
-#, python-format
-msgid "The page \"%(title)s\" has been rejected"
-msgstr "ページ：%(title)s は承認されませんでした"
 
 #, python-format
 msgid "The page \"%(title)s\" has been rejected."
@@ -403,8 +396,8 @@ msgid "You can edit the page here:"
 msgstr "このページを編集："
 
 #, python-format
-msgid "The page \"%(page)s\" has been submitted for moderation"
-msgstr "ページ：%(page)s は現在承認待ちです。"
+msgid "The page \"%(title)s\" has been rejected"
+msgstr "ページ：%(title)s は承認されませんでした"
 
 #, python-format
 msgid "The page \"%(page)s\" has been submitted for moderation by %(editor)s."
@@ -412,6 +405,10 @@ msgstr "ページ：%(page)s は現在%(editor)sによる承認待ちです。"
 
 msgid "You can preview the page here:"
 msgstr "ページをプレビュー："
+
+#, python-format
+msgid "The page \"%(page)s\" has been submitted for moderation"
+msgstr "ページ：%(page)s は現在承認待ちです。"
 
 msgid "Page privacy"
 msgstr "ページの公開設定"
@@ -829,17 +826,11 @@ msgstr ""
 msgid "Javascript is required to use Wagtail, but it is currently disabled"
 msgstr "Wagtailの使用にはJavascriptが必要ですが、ただいま無効です。"
 
-msgid "User bar"
-msgstr "ユーザーバー"
-
 msgid "Go to Wagtail admin interface"
 msgstr "Wagtailの管理者インターフェースに移動"
 
 msgid "Add a child page"
 msgstr "子ページを追加"
-
-msgid "Add"
-msgstr "追加"
 
 msgid "Test"
 msgstr "テスト"
@@ -874,18 +865,6 @@ msgstr "ページ：'{0}' が作成されました。"
 msgid "The page could not be created due to validation errors"
 msgstr "このページはエラーにより作成できませんでした。"
 
-#, python-brace-format
-msgid "Page '{0}' published."
-msgstr "ページ：'{0}' が公開されました。"
-
-#, python-brace-format
-msgid "Page '{0}' submitted for moderation."
-msgstr "ページ：'{0}' が承認待ちになりました。"
-
-#, python-brace-format
-msgid "Page '{0}' updated."
-msgstr "ページ：'{0}' が更新されました。"
-
 msgid "The page could not be saved as it is locked"
 msgstr "このページはロックされているため、保存できませんでした。"
 
@@ -918,6 +897,10 @@ msgstr "ページ：'{0}' がコピーされました。"
 #, python-brace-format
 msgid "The page '{0}' is not currently awaiting moderation."
 msgstr "ページ：'{0}' は現在承認待ちではありません。"
+
+#, python-brace-format
+msgid "Page '{0}' published."
+msgstr "ページ：'{0}' が公開されました。"
 
 #, python-brace-format
 msgid "Page '{0}' rejected for publication."

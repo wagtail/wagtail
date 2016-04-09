@@ -1,24 +1,24 @@
-from django.test import TestCase
-from django.core.urlresolvers import reverse
-from django.test.utils import override_settings
+from __future__ import absolute_import, unicode_literals
+
 from django.contrib.auth import get_user_model
 from django.contrib.auth.models import Permission
 from django.core.exceptions import ImproperlyConfigured
-
+from django.core.urlresolvers import reverse
+from django.test import TestCase
+from django.test.utils import override_settings
 from taggit.models import Tag
 
-from wagtail.tests.utils import WagtailTestUtils
-from wagtail.tests.testapp.models import Advert, SnippetChooserModel, AdvertWithTabbedInterface
+from wagtail.tests.snippets.forms import FancySnippetForm
 from wagtail.tests.snippets.models import (
-    AlphaSnippet, ZuluSnippet, RegisterDecorator, RegisterFunction, SearchableSnippet
-)
-from wagtail.wagtailsnippets.models import register_snippet, SNIPPET_MODELS
-from wagtail.wagtailsnippets.edit_handlers import SnippetChooserPanel
-
-from wagtail.wagtailsnippets.views.snippets import (
-    get_snippet_edit_handler
-)
+    AlphaSnippet, FancySnippet, RegisterDecorator, RegisterFunction, SearchableSnippet,
+    StandardSnippet, ZuluSnippet)
+from wagtail.tests.testapp.models import Advert, AdvertWithTabbedInterface, SnippetChooserModel
+from wagtail.tests.utils import WagtailTestUtils
+from wagtail.wagtailadmin.forms import WagtailAdminModelForm
 from wagtail.wagtailcore.models import Page
+from wagtail.wagtailsnippets.edit_handlers import SnippetChooserPanel
+from wagtail.wagtailsnippets.models import SNIPPET_MODELS, register_snippet
+from wagtail.wagtailsnippets.views.snippets import get_snippet_edit_handler
 
 
 class TestSnippetIndexView(TestCase, WagtailTestUtils):
@@ -265,9 +265,8 @@ class TestSnippetDelete(TestCase, WagtailTestUtils):
         self.assertEqual(response.status_code, 200)
 
     def test_delete_post(self):
-        post_data = {'foo': 'bar'}  # For some reason, this test doesn't work without a bit of POST data
         response = self.client.post(
-            reverse('wagtailsnippets:delete', args=('tests', 'advert', self.test_snippet.id, )), post_data
+            reverse('wagtailsnippets:delete', args=('tests', 'advert', self.test_snippet.id, ))
         )
 
         # Should be redirected to explorer page
@@ -633,3 +632,17 @@ class TestDeleteOnlyPermissions(TestCase, WagtailTestUtils):
         response = self.client.get(reverse('wagtailsnippets:delete', args=('tests', 'advert', self.test_snippet.id, )))
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'wagtailsnippets/snippets/confirm_delete.html')
+
+
+class TestSnippetEditHandlers(TestCase, WagtailTestUtils):
+    def test_standard_edit_handler(self):
+        edit_handler_class = get_snippet_edit_handler(StandardSnippet)
+        form_class = edit_handler_class.get_form_class(StandardSnippet)
+        self.assertTrue(issubclass(form_class, WagtailAdminModelForm))
+        self.assertFalse(issubclass(form_class, FancySnippetForm))
+
+    def test_fancy_edit_handler(self):
+        edit_handler_class = get_snippet_edit_handler(FancySnippet)
+        form_class = edit_handler_class.get_form_class(FancySnippet)
+        self.assertTrue(issubclass(form_class, WagtailAdminModelForm))
+        self.assertTrue(issubclass(form_class, FancySnippetForm))

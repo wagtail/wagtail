@@ -18,11 +18,11 @@ Wagtail provides a comprehensive and extensible search interface. In addition, i
 Indexing
 ========
 
-To make objects searchable, they firstly need to be added to the search index. This involves configuring the models/fields that you would like to index (this is done for you for Pages, Images and Documents) and then actually inserting them into the index.
+To make objects searchable, they must first be added to the search index. This involves configuring the models and fields that you would like to index (which is done for you for Pages, Images and Documents), and then actually inserting them into the index.
 
 See :ref:`wagtailsearch_indexing_update` for information on how to keep the objects in your search index in sync with the objects in your database.
 
-If you have created some extra fields in a subclass of ``Page`` or ``Image``, you may want to add these new fields to the search index too so a users search query will match on their content. See :ref:`wagtailsearch_indexing_fields`.
+If you have created some extra fields in a subclass of ``Page`` or ``Image``, you may want to add these new fields to the search index, so a user's search query can match the Page or Image's extra content. See :ref:`wagtailsearch_indexing_fields`.
 
 If you have a custom model which doesn't derive from ``Page`` or ``Image`` that you would like to make searchable, see :ref:`wagtailsearch_indexing_models`.
 

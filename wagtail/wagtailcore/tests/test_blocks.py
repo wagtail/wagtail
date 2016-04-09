@@ -1,21 +1,31 @@
 # -*- coding: utf-8 -*
-from __future__ import unicode_literals
+from __future__ import absolute_import, unicode_literals
 
+import base64
 import unittest
 
 from django import forms
-from django.forms.utils import ErrorList
 from django.core.exceptions import ValidationError
-from django.test import TestCase, SimpleTestCase
-from django.utils.safestring import mark_safe, SafeData
-
-from wagtail.wagtailcore import blocks
-from wagtail.wagtailcore.rich_text import RichText
-from wagtail.wagtailcore.models import Page
+from django.forms.utils import ErrorList
+from django.test import SimpleTestCase, TestCase
+from django.utils.html import format_html
+from django.utils.safestring import SafeData, mark_safe
 
 from wagtail.tests.testapp.blocks import SectionBlock
+from wagtail.wagtailcore import blocks
+from wagtail.wagtailcore.models import Page
+from wagtail.wagtailcore.rich_text import RichText
 
-import base64
+
+class FooStreamBlock(blocks.StreamBlock):
+    text = blocks.CharBlock()
+    error = 'At least one block must say "foo"'
+
+    def clean(self, value):
+        value = super(FooStreamBlock, self).clean(value)
+        if not any(block.value == 'foo' for block in value):
+            raise blocks.StreamBlockValidationError(non_block_errors=ErrorList([self.error]))
+        return value
 
 
 class TestFieldBlock(unittest.TestCase):
@@ -1039,7 +1049,7 @@ class TestListBlock(unittest.TestCase):
         self.assertIn('value="chocolate"', form_html)
 
 
-class TestStreamBlock(unittest.TestCase):
+class TestStreamBlock(SimpleTestCase):
     def test_initialisation(self):
         block = blocks.StreamBlock([
             ('heading', blocks.CharBlock()),
@@ -1270,6 +1280,54 @@ class TestStreamBlock(unittest.TestCase):
             0: ['This field is required.'],
             3: ['Enter a valid URL.'],
         })
+
+    def test_block_level_validation_renders_errors(self):
+        block = FooStreamBlock()
+
+        post_data = {'stream-count': '2'}
+        for i, value in enumerate(['bar', 'baz']):
+            post_data.update({
+                'stream-%d-deleted' % i: '',
+                'stream-%d-order' % i: str(i),
+                'stream-%d-type' % i: 'text',
+                'stream-%d-value' % i: value,
+            })
+
+        block_value = block.value_from_datadict(post_data, {}, 'stream')
+        with self.assertRaises(ValidationError) as catcher:
+            block.clean(block_value)
+
+        errors = ErrorList([
+            catcher.exception
+        ])
+
+        self.assertInHTML(
+            format_html('<div class="help-block help-critical">{}</div>', FooStreamBlock.error),
+            block.render_form(block_value, prefix='stream', errors=errors))
+
+    def test_block_level_validation_render_no_errors(self):
+        block = FooStreamBlock()
+
+        post_data = {'stream-count': '3'}
+        for i, value in enumerate(['foo', 'bar', 'baz']):
+            post_data.update({
+                'stream-%d-deleted' % i: '',
+                'stream-%d-order' % i: str(i),
+                'stream-%d-type' % i: 'text',
+                'stream-%d-value' % i: value,
+            })
+
+        block_value = block.value_from_datadict(post_data, {}, 'stream')
+
+        try:
+            block.clean(block_value)
+        except ValidationError:
+            self.fail('Should have passed validation')
+
+        self.assertInHTML(
+            format_html('<div class="help-block help-critical">{}</div>', FooStreamBlock.error),
+            block.render_form(block_value, prefix='stream'),
+            count=0)
 
     def test_html_declarations(self):
         class ArticleBlock(blocks.StreamBlock):

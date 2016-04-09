@@ -1,12 +1,13 @@
-from django.shortcuts import get_object_or_404, render
+from __future__ import absolute_import, unicode_literals
+
 from django.http import Http404
+from django.shortcuts import get_object_or_404, render
 
 from wagtail.utils.pagination import paginate
-from wagtail.wagtailadmin.modal_workflow import render_modal_workflow
 from wagtail.wagtailadmin.forms import (
-    SearchForm, ExternalLinkChooserForm, ExternalLinkChooserWithLinkTextForm,
-    EmailLinkChooserForm, EmailLinkChooserWithLinkTextForm)
-
+    EmailLinkChooserForm, EmailLinkChooserWithLinkTextForm, ExternalLinkChooserForm,
+    ExternalLinkChooserWithLinkTextForm, SearchForm)
+from wagtail.wagtailadmin.modal_workflow import render_modal_workflow
 from wagtail.wagtailcore.models import Page
 from wagtail.wagtailcore.utils import resolve_model_string
 
@@ -150,7 +151,7 @@ def external_link(request):
     else:
         form_class = ExternalLinkChooserForm
 
-    if request.POST:
+    if request.method == 'POST':
         form = form_class(request.POST)
         if form.is_valid():
             return render_modal_workflow(
@@ -181,7 +182,7 @@ def email_link(request):
     else:
         form_class = EmailLinkChooserForm
 
-    if request.POST:
+    if request.method == 'POST':
         form = form_class(request.POST)
         if form.is_valid():
             return render_modal_workflow(

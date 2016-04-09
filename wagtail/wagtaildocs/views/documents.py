@@ -1,19 +1,19 @@
-from django.shortcuts import render, redirect, get_object_or_404
+from __future__ import absolute_import, unicode_literals
+
+from django.core.urlresolvers import reverse
+from django.shortcuts import get_object_or_404, redirect, render
 from django.utils.translation import ugettext as _
 from django.views.decorators.vary import vary_on_headers
-from django.core.urlresolvers import reverse
 
 from wagtail.utils.pagination import paginate
+from wagtail.wagtailadmin import messages
 from wagtail.wagtailadmin.forms import SearchForm
 from wagtail.wagtailadmin.utils import PermissionPolicyChecker, permission_denied
-from wagtail.wagtailsearch.backends import get_search_backends
-from wagtail.wagtailadmin import messages
 from wagtail.wagtailcore.models import Collection
-
-from wagtail.wagtaildocs.models import get_document_model
 from wagtail.wagtaildocs.forms import get_document_form
+from wagtail.wagtaildocs.models import get_document_model
 from wagtail.wagtaildocs.permissions import permission_policy
-
+from wagtail.wagtailsearch.backends import get_search_backends
 
 permission_checker = PermissionPolicyChecker(permission_policy)
 
@@ -92,7 +92,7 @@ def add(request):
     Document = get_document_model()
     DocumentForm = get_document_form(Document)
 
-    if request.POST:
+    if request.method == 'POST':
         doc = Document(uploaded_by_user=request.user)
         form = DocumentForm(request.POST, request.FILES, instance=doc, user=request.user)
         if form.is_valid():
@@ -126,7 +126,7 @@ def edit(request, document_id):
     if not permission_policy.user_has_permission_for_instance(request.user, 'change', doc):
         return permission_denied(request)
 
-    if request.POST:
+    if request.method == 'POST':
         original_file = doc.file
         form = DocumentForm(request.POST, request.FILES, instance=doc, user=request.user)
         if form.is_valid():
@@ -185,7 +185,7 @@ def delete(request, document_id):
     if not permission_policy.user_has_permission_for_instance(request.user, 'delete', doc):
         return permission_denied(request)
 
-    if request.POST:
+    if request.method == 'POST':
         doc.delete()
         messages.success(request, _("Document '{0}' deleted.").format(doc.title))
         return redirect('wagtaildocs:index')

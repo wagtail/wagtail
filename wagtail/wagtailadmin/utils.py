@@ -1,16 +1,17 @@
+from __future__ import absolute_import, unicode_literals
+
 from functools import wraps
 
-from django.template.loader import render_to_string
-from django.core.mail import send_mail as django_send_mail
 from django.conf import settings
 from django.contrib.auth import get_user_model
+from django.core.mail import send_mail as django_send_mail
 from django.db.models import Q
 from django.shortcuts import redirect
+from django.template.loader import render_to_string
 from django.utils.translation import ugettext as _
-
 from modelcluster.fields import ParentalKey
 
-from wagtail.wagtailcore.models import Page, PageRevision, GroupPagePermission
+from wagtail.wagtailcore.models import GroupPagePermission, Page, PageRevision
 from wagtail.wagtailusers.models import UserProfile
 
 
@@ -20,10 +21,8 @@ def get_object_usage(obj):
     pages = Page.objects.none()
 
     # get all the relation objects for obj
-    relations = type(obj)._meta.get_all_related_objects(
-        include_hidden=True,
-        include_proxy_eq=True
-    )
+    relations = [f for f in type(obj)._meta.get_fields(include_hidden=True)
+                 if (f.one_to_many or f.one_to_one) and f.auto_created]
     for relation in relations:
         related_model = relation.related_model
 
@@ -174,7 +173,7 @@ def send_notification(page_revision_id, notification, excluded_user_id):
     # Get list of email addresses
     email_recipients = [
         recipient for recipient in recipients
-        if recipient.email and recipient.id != excluded_user_id and getattr(
+        if recipient.email and recipient.pk != excluded_user_id and getattr(
             UserProfile.get_for_user(recipient),
             notification + '_notifications'
         )
@@ -185,7 +184,9 @@ def send_notification(page_revision_id, notification, excluded_user_id):
         return
 
     # Get template
-    template = 'wagtailadmin/notifications/' + notification + '.html'
+    template_subject = 'wagtailadmin/notifications/' + notification + '_subject.txt'
+    template_text = 'wagtailadmin/notifications/' + notification + '.txt'
+    template_html = 'wagtailadmin/notifications/' + notification + '.html'
 
     # Common context to template
     context = {
@@ -199,7 +200,12 @@ def send_notification(page_revision_id, notification, excluded_user_id):
         context["user"] = recipient
 
         # Get email subject and content
-        email_subject, email_content = render_to_string(template, context).split('\n', 1)
+        email_subject = render_to_string(template_subject, context).strip()
+        email_content = render_to_string(template_text, context).strip()
+
+        kwargs = {}
+        if getattr(settings, 'WAGTAILADMIN_NOTIFICATION_USE_HTML', False):
+            kwargs['html_message'] = render_to_string(template_html, context)
 
         # Send email
-        send_mail(email_subject, email_content, [recipient.email])
+        send_mail(email_subject, email_content, [recipient.email], **kwargs)

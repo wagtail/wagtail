@@ -1,7 +1,11 @@
+from __future__ import absolute_import, unicode_literals
+
+from django.apps import apps
 from django.db import models
 from django.db.models.fields import FieldDoesNotExist
-from django.db.models.fields.related import RelatedField, ForeignObjectRel, OneToOneRel
-from django.apps import apps
+from django.db.models.fields.related import ForeignObjectRel, OneToOneRel, RelatedField
+
+from wagtail.utils.deprecation import SearchFieldsShouldBeAList
 
 
 class Indexed(object):
@@ -75,7 +79,7 @@ class Indexed(object):
         """
         return self
 
-    search_fields = ()
+    search_fields = SearchFieldsShouldBeAList([], name='search_fields on Indexed subclasses')
 
 
 def get_indexed_models():

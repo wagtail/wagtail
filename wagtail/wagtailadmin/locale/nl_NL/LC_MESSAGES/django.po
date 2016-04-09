@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-02-10 15:32+0000\n"
-"PO-Revision-Date: 2016-02-25 11:12+0000\n"
+"POT-Creation-Date: 2016-03-09 13:55+0000\n"
+"PO-Revision-Date: 2016-03-09 14:14+0000\n"
 "Last-Translator: Thijs Kramer <thijskramer@gmail.com>\n"
 "Language-Team: Dutch (Netherlands) (http://www.transifex.com/torchbox/"
 "wagtail/language/nl_NL/)\n"
@@ -20,6 +20,9 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: nl_NL\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "You do not have permission to access the admin"
+msgstr "U heeft geen toegang tot de admin."
 
 msgid "Scheduled publishing"
 msgstr "Geplande publicatie"
@@ -137,6 +140,11 @@ msgstr "Publicatiedatum/tijd moet voor de vervaldatum/tijd liggen."
 
 msgid "Expiry date/time must be in the future"
 msgstr "Vervaldatum moet in de toekomst liggen"
+
+msgid "You cannot have multiple permission records for the same collection."
+msgstr ""
+"Het is niet mogelijk om meerdere machtigingen voor dezelfde verzameling in "
+"te stellen."
 
 msgid "Account"
 msgstr "Account"
@@ -294,6 +302,22 @@ msgstr "Voeg een link toe"
 msgid "Add an external link"
 msgstr "Voeg een externe link toe"
 
+msgid ""
+"This collection cannot be deleted, because it is not empty. It contains:"
+msgstr ""
+"Deze verzameling kan niet verwijderd worden omdat ze niet leeg is. Ze bevat:"
+
+msgid "Name"
+msgstr "Naam"
+
+#, python-format
+msgid ""
+"No collections have been created. Why not <a href=\"%(add_collection_url)s"
+"\">add one</a>?"
+msgstr ""
+"Er zijn nog geen verzamelingen aangemaakt. Waarom <a href="
+"\"%(add_collection_url)s\">voegt u er niet een toe</a>?"
+
 #, python-format
 msgid "Add %(heading)s"
 msgstr "Voeg %(heading)s toe"
@@ -397,25 +421,22 @@ msgid "Signing in..."
 msgstr "Bezig met inloggen..."
 
 #, python-format
-msgid "The page \"%(title)s\" has been approved"
-msgstr "De pagina \"%(title)s\" is goedgekeurd"
-
-#, python-format
 msgid "The page \"%(title)s\" has been approved."
 msgstr "De pagina \"%(title)s\" is goedgekeurd."
 
 msgid "You can view the page here:"
 msgstr "U kunt de pagina hier bekijken:"
 
-msgid "Hello"
-msgstr "Hallo"
+#, python-format
+msgid "The page \"%(title)s\" has been approved"
+msgstr "De pagina \"%(title)s\" is goedgekeurd"
+
+#, python-format
+msgid "Hello %(username)s,"
+msgstr "Hallo %(username)s,"
 
 msgid "Edit your notification preferences here:"
 msgstr "Pas uw notificatievoorkeuren hier aan:"
-
-#, python-format
-msgid "The page \"%(title)s\" has been rejected"
-msgstr "De pagina \"%(title)s\" is afgekeurd"
 
 #, python-format
 msgid "The page \"%(title)s\" has been rejected."
@@ -425,8 +446,8 @@ msgid "You can edit the page here:"
 msgstr "U kunt de pagina hier wijzigen:"
 
 #, python-format
-msgid "The page \"%(page)s\" has been submitted for moderation"
-msgstr "De pagina \"%(page)s\" is voor moderatie ingediend"
+msgid "The page \"%(title)s\" has been rejected"
+msgstr "De pagina \"%(title)s\" is afgekeurd"
 
 #, python-format
 msgid "The page \"%(page)s\" has been submitted for moderation by %(editor)s."
@@ -434,6 +455,10 @@ msgstr "De pagina \"%(page)s\" is door %(editor)s voor moderatie ingediend."
 
 msgid "You can preview the page here:"
 msgstr "U kunt hier een voorbeeld van de pagina bekijken:"
+
+#, python-format
+msgid "The page \"%(page)s\" has been submitted for moderation"
+msgstr "De pagina \"%(page)s\" is voor moderatie ingediend"
 
 msgid "Page privacy"
 msgstr "Zichtbaarheid van de pagina"
@@ -600,6 +625,12 @@ msgstr "Bewerk %(page_type)s <span>%(title)s</span>"
 msgid "Page locked"
 msgstr "Pagina is geblokkeerd"
 
+msgid "Replace current draft"
+msgstr "Vervang huidig concept"
+
+msgid "Publish this revision"
+msgstr "Publiceer deze versie"
+
 #, python-format
 msgid "Last modified: %(last_mod)s"
 msgstr "Laatst gewijzigd: %(last_mod)s"
@@ -756,6 +787,22 @@ msgid "Select a new parent page for <span>%(title)s</span>"
 msgstr "Kies een nieuwe bovenliggende pagina voor <span>%(title)s</span>"
 
 #, python-format
+msgid "Revisions of %(title)s"
+msgstr "Versies van %(title)s"
+
+msgid "Revisions of"
+msgstr "Versies van"
+
+msgid "Current draft"
+msgstr "Huidig concept"
+
+msgid "Review this revision"
+msgstr "Herzie deze versie"
+
+msgid "No revision of this page exist"
+msgstr "Er bestaat geen versie van deze pagina"
+
+#, python-format
 msgid ""
 "\n"
 "                There is one matching page\n"
@@ -782,8 +829,14 @@ msgstr "Voer hierboven een zoekterm in."
 msgid "No pages use"
 msgstr "Geen pagina's maken gebruik van"
 
+msgid "Collection"
+msgstr "Verzameling"
+
 msgid "Home"
 msgstr "Home"
+
+msgid "All collections"
+msgstr "Alle verzamelingen"
 
 msgid "January"
 msgstr "januari"
@@ -875,17 +928,17 @@ msgstr ""
 "Javascript is vereist om Wagtail te kunnen gebruiken, maar is momenteel "
 "uitgeschakeld."
 
-msgid "User bar"
-msgstr "Gebruikersbalk"
-
 msgid "Go to Wagtail admin interface"
 msgstr "Ga naar de Wagtail admin interface"
+
+msgid "Go to Wagtail admin"
+msgstr "Ga naar de Wagtail admin"
 
 msgid "Add a child page"
 msgstr "Voeg een onderliggende pagina toe"
 
-msgid "Add"
-msgstr "Toevoegen"
+msgid "Show in Explorer"
+msgstr "Toon in verkenner"
 
 msgid "Test"
 msgstr "Test"
@@ -925,20 +978,32 @@ msgid "The page could not be created due to validation errors"
 msgstr "De pagina kon niet aangemaakt worden vanwege validatiefouten."
 
 #, python-brace-format
-msgid "Page '{0}' scheduled for publishing."
+msgid "Revision from {0} of page '{1}' has been scheduled for publishing."
+msgstr "De versie van {0} van de pagina '{1}' is ingepland voor publicatie."
+
+#, python-brace-format
+msgid "Page '{0}' has been scheduled for publishing."
 msgstr "De pagina '{0}' is ingepland voor publicatie."
 
 #, python-brace-format
-msgid "Page '{0}' published."
-msgstr "Pagina '{0}' gepubliceerd."
+msgid "Revision from {0} of page '{1}' has been published."
+msgstr "De versie van {0} van de pagina '{1}' is gepubliceerd."
 
 #, python-brace-format
-msgid "Page '{0}' submitted for moderation."
-msgstr "Pagina '{0}' voor moderatie ingediend."
+msgid "Page '{0}' has been published."
+msgstr "Pagina '{0}' is gepubliceerd."
 
 #, python-brace-format
-msgid "Page '{0}' updated."
-msgstr "Pagina '{0}' gewijzigd."
+msgid "Page '{0}' has been submitted for moderation."
+msgstr "Pagina '{0}' is voor moderatie ingediend."
+
+#, python-brace-format
+msgid "Page '{0}' has been replaced with revision from {1}."
+msgstr "Pagina '{0}' is vervangen met de versie van {1}."
+
+#, python-brace-format
+msgid "Page '{0}' has been updated."
+msgstr "Pagina '{0}' is gewijzigd."
 
 msgid "The page could not be saved as it is locked"
 msgstr "De pagina kan niet worden opgeslagen omdat deze is vergrendeld."
@@ -974,6 +1039,10 @@ msgid "The page '{0}' is not currently awaiting moderation."
 msgstr "De pagina '{0}' is nu niet in afwachting van moderatie."
 
 #, python-brace-format
+msgid "Page '{0}' published."
+msgstr "Pagina '{0}' gepubliceerd."
+
+#, python-brace-format
 msgid "Page '{0}' rejected for publication."
 msgstr "Pagina '{0}' afgewezen voor publicatie."
 
@@ -985,8 +1054,15 @@ msgstr "Pagina '{0}' is nu op slot."
 msgid "Page '{0}' is now unlocked."
 msgstr "Pagina '{0}' is nu geopend."
 
+#, python-format
+msgid "You are viewing a previous revision of this page from <b>%s</b> by %s"
+msgstr "Je bekijkt nu een vorige versie van deze pagina van <b>%s</b> door %s"
+
 msgid "Pages"
 msgstr "Pagina's"
+
+msgid "Collections"
+msgstr "Verzamelingen"
 
 msgid "Choose an item"
 msgstr "Kies een item"

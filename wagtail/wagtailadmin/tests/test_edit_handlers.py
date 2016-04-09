@@ -1,33 +1,27 @@
-import mock
+from __future__ import absolute_import, unicode_literals
 
+import warnings
 from datetime import date
 
+import mock
 from django import forms
 from django.core import checks
 from django.core.exceptions import ImproperlyConfigured
 from django.test import TestCase
 
-from wagtail.wagtailadmin.edit_handlers import (
-    get_form_for_model,
-    extract_panel_definitions_from_model_class,
-    FieldPanel,
-    RichTextFieldPanel,
-    TabbedInterface,
-    ObjectList,
-    PageChooserPanel,
-    InlinePanel,
-)
-
-from wagtail.wagtailadmin.forms import WagtailAdminModelForm, WagtailAdminPageForm
-from wagtail.wagtailadmin.widgets import AdminPageChooser, AdminDateInput, AdminAutoHeightTextInput
-from wagtail.wagtailimages.edit_handlers import ImageChooserPanel
-from wagtail.wagtailcore.models import Page, Site
-from wagtail.wagtailcore.fields import RichTextArea
 from wagtail.tests.testapp.forms import ValidatedPageForm
 from wagtail.tests.testapp.models import (
-    PageChooserModel, EventPageChooserModel, EventPage, EventPageSpeaker,
-    SimplePage, ValidatedPage)
+    EventPage, EventPageChooserModel, EventPageSpeaker, PageChooserModel, SimplePage, ValidatedPage)
 from wagtail.tests.utils import WagtailTestUtils
+from wagtail.utils.deprecation import RemovedInWagtail17Warning
+from wagtail.wagtailadmin.edit_handlers import (
+    FieldPanel, InlinePanel, ObjectList, PageChooserPanel, RichTextFieldPanel, TabbedInterface,
+    extract_panel_definitions_from_model_class, get_form_for_model)
+from wagtail.wagtailadmin.forms import WagtailAdminModelForm, WagtailAdminPageForm
+from wagtail.wagtailadmin.widgets import AdminAutoHeightTextInput, AdminDateInput, AdminPageChooser
+from wagtail.wagtailcore.fields import RichTextArea
+from wagtail.wagtailcore.models import Page, Site
+from wagtail.wagtailimages.edit_handlers import ImageChooserPanel
 
 
 class TestGetFormForModel(TestCase):
@@ -118,7 +112,21 @@ class TestGetFormForModel(TestCase):
         self.assertEqual(type(form.fields['date_from'].widget), forms.PasswordInput)
 
 
+def clear_edit_handler(page_cls):
+    def decorator(fn):
+        def decorated(self):
+            # Clear any old EditHandlers generated
+            page_cls.get_edit_handler.cache_clear()
+            fn(self)
+            # Clear the bad EditHandler generated just now
+            page_cls.get_edit_handler.cache_clear()
+        return decorated
+    return decorator
+
+
 class TestPageEditHandlers(TestCase):
+
+    @clear_edit_handler(EventPage)
     def test_get_edit_handler(self):
         """
         Forms for pages should have a base class of WagtailAdminPageForm.
@@ -129,6 +137,7 @@ class TestPageEditHandlers(TestCase):
         # The generated form should inherit from WagtailAdminPageForm
         self.assertTrue(issubclass(EventPageForm, WagtailAdminPageForm))
 
+    @clear_edit_handler(ValidatedPage)
     def test_get_form_for_page_with_custom_base(self):
         """
         ValidatedPage sets a custom base_form_class. This should be used as the
@@ -141,26 +150,40 @@ class TestPageEditHandlers(TestCase):
         # ValidatedPage.base_form_class == ValidatedPageForm
         self.assertTrue(issubclass(GeneratedValidatedPageForm, ValidatedPageForm))
 
+    @clear_edit_handler(ValidatedPage)
     def test_check_invalid_base_form_class(self):
         class BadFormClass(object):
             pass
 
-        # Clear any old EditHandlers generated
-        ValidatedPage.get_edit_handler.cache_clear()
+        invalid_base_form = checks.Error(
+            "ValidatedPage.base_form_class does not extend WagtailAdminPageForm",
+            hint="Ensure that wagtail.wagtailadmin.tests.test_edit_handlers.BadFormClass extends WagtailAdminPageForm",
+            obj=ValidatedPage,
+            id='wagtailcore.E002')
+
+        invalid_edit_handler = checks.Error(
+            "ValidatedPage.get_edit_handler().get_form_class(ValidatedPage) does not extend WagtailAdminPageForm",
+            hint="Ensure that the EditHandler for ValidatedPage creates a subclass of WagtailAdminPageForm",
+            obj=ValidatedPage,
+            id='wagtailcore.E003')
 
         with mock.patch.object(ValidatedPage, 'base_form_class', new=BadFormClass):
             errors = ValidatedPage.check()
-            self.assertEqual(len(errors), 1)
+            self.assertEqual(errors, [invalid_base_form, invalid_edit_handler])
 
-            error = errors[0]
-            self.assertEqual(error, checks.Error(
-                "base_form_class does not extend WagtailAdminPageForm",
-                hint="Ensure that wagtail.wagtailadmin.tests.test_edit_handlers.BadFormClass extends WagtailAdminPageForm",
-                obj=ValidatedPage,
-                id='wagtailcore.E002'))
-
-        # Clear the bad EditHandler generated just now
-        ValidatedPage.get_edit_handler.cache_clear()
+    @clear_edit_handler(ValidatedPage)
+    def test_custom_edit_handler_form_class(self):
+        """
+        Set a custom edit handler on a Page class, but dont customise
+        ValidatedPage.base_form_class, or provide a custom form class for the
+        edit handler. Check the generated form class is of the correct type.
+        """
+        ValidatedPage.edit_handler = TabbedInterface([])
+        with mock.patch.object(ValidatedPage, 'edit_handler', new=TabbedInterface([]), create=True):
+            form_class = ValidatedPage.get_edit_handler().get_form_class(ValidatedPage)
+            self.assertTrue(issubclass(form_class, WagtailAdminPageForm))
+            errors = ValidatedPage.check()
+            self.assertEqual(errors, [])
 
 
 class TestExtractPanelDefinitionsFromModelClass(TestCase):
@@ -507,28 +530,68 @@ class TestPageChooserPanel(TestCase):
 
         self.assertIn(expected_js, result)
 
-    def test_target_content_type(self):
+    def test_target_models(self):
         result = PageChooserPanel(
             'barbecue',
             'wagtailcore.site'
-        ).bind_to_model(PageChooserModel).target_content_type()[0]
-        self.assertEqual(result.name, 'site')
+        ).bind_to_model(PageChooserModel).target_models()
+        self.assertEqual(result, [Site])
 
-    def test_target_content_type_malformed_type(self):
+    def test_target_models_malformed_type(self):
         result = PageChooserPanel(
             'barbecue',
             'snowman'
         ).bind_to_model(PageChooserModel)
         self.assertRaises(ImproperlyConfigured,
-                          result.target_content_type)
+                          result.target_models)
 
-    def test_target_content_type_nonexistent_type(self):
+    def test_target_models_nonexistent_type(self):
         result = PageChooserPanel(
             'barbecue',
             'snowman.lorry'
         ).bind_to_model(PageChooserModel)
         self.assertRaises(ImproperlyConfigured,
-                          result.target_content_type)
+                          result.target_models)
+
+    def test_target_content_type(self):
+        with warnings.catch_warnings(record=True) as ws:
+            warnings.simplefilter('always')
+
+            result = PageChooserPanel(
+                'barbecue',
+                'wagtailcore.site'
+            ).bind_to_model(PageChooserModel).target_content_type()[0]
+            self.assertEqual(result.name, 'site')
+
+            self.assertEqual(len(ws), 1)
+            self.assertIs(ws[0].category, RemovedInWagtail17Warning)
+
+    def test_target_content_type_malformed_type(self):
+        with warnings.catch_warnings(record=True) as ws:
+            warnings.simplefilter('always')
+
+            result = PageChooserPanel(
+                'barbecue',
+                'snowman'
+            ).bind_to_model(PageChooserModel)
+            self.assertRaises(ImproperlyConfigured,
+                              result.target_content_type)
+
+            self.assertEqual(len(ws), 1)
+            self.assertIs(ws[0].category, RemovedInWagtail17Warning)
+
+    def test_target_content_type_nonexistent_type(self):
+        with warnings.catch_warnings(record=True) as ws:
+            warnings.simplefilter('always')
+
+            result = PageChooserPanel(
+                'barbecue',
+                'snowman.lorry'
+            ).bind_to_model(PageChooserModel)
+            self.assertRaises(ImproperlyConfigured,
+                              result.target_content_type)
+            self.assertEqual(len(ws), 1)
+            self.assertIs(ws[0].category, RemovedInWagtail17Warning)
 
 
 class TestInlinePanel(TestCase, WagtailTestUtils):

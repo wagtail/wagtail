@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-02-10 15:32+0000\n"
-"PO-Revision-Date: 2016-02-10 15:33+0000\n"
+"POT-Creation-Date: 2016-03-09 13:55+0000\n"
+"PO-Revision-Date: 2016-03-09 13:58+0000\n"
 "Last-Translator: mattwestcott <matthew@torchbox.com>\n"
 "Language-Team: Turkish (Turkey) (http://www.transifex.com/torchbox/wagtail/"
 "language/tr_TR/)\n"
@@ -253,14 +253,8 @@ msgstr "Hesabınız düzeltiliyor"
 msgid "Other searches"
 msgstr "Başka aramalar"
 
-msgid "User bar"
-msgstr "Kullanıcı çubuğu"
-
 msgid "Add a child page"
 msgstr "Alt sayfa ekle"
-
-msgid "Add"
-msgstr "Ekle"
 
 #, python-brace-format
 msgid "Page '{0}' deleted."

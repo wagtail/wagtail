@@ -1,17 +1,15 @@
-from __future__ import unicode_literals
+from __future__ import absolute_import, unicode_literals
 
-from django.forms import MediaDefiningClass, Media
+from django.forms import Media, MediaDefiningClass
 from django.forms.utils import flatatt
 from django.template.loader import render_to_string
-from django.utils.text import slugify
-from django.utils.safestring import mark_safe
-from django.utils.six import text_type
 from django.utils.functional import cached_property, total_ordering
+from django.utils.safestring import mark_safe
+from django.utils.six import text_type, with_metaclass
+from django.utils.text import slugify
 
-from django.utils.six import with_metaclass
-
-from wagtail.wagtailcore import hooks
 from wagtail.wagtailadmin.forms import SearchForm
+from wagtail.wagtailcore import hooks
 
 
 @total_ordering

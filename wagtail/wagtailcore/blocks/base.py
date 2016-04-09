@@ -1,19 +1,22 @@
 from __future__ import absolute_import, unicode_literals
-# unicode_literals ensures that any render / __str__ methods returning HTML via calls to mark_safe / format_html
-# return a SafeText, not SafeBytes; necessary so that it doesn't get re-encoded when the template engine
-# calls force_text, which would cause it to lose its 'safe' flag
 
 import collections
 from importlib import import_module
 
+from django import forms
 from django.core import checks
 from django.core.exceptions import ImproperlyConfigured
+from django.template.loader import render_to_string
 from django.utils import six
+from django.utils.encoding import force_text, python_2_unicode_compatible
 from django.utils.safestring import mark_safe
 from django.utils.text import capfirst
-from django.utils.encoding import python_2_unicode_compatible, force_text
-from django.template.loader import render_to_string
-from django import forms
+
+# unicode_literals ensures that any render / __str__ methods returning HTML via calls to mark_safe / format_html
+# return a SafeText, not SafeBytes; necessary so that it doesn't get re-encoded when the template engine
+# calls force_text, which would cause it to lose its 'safe' flag
+
+
 
 
 __all__ = ['BaseBlock', 'Block', 'BoundBlock', 'DeclarativeSubBlocksMetaclass', 'BlockWidget', 'BlockField']

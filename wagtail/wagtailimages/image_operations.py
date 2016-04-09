@@ -1,4 +1,4 @@
-from __future__ import division
+from __future__ import absolute_import, division, unicode_literals
 
 import inspect
 
@@ -128,7 +128,7 @@ class FillOperation(Operation):
         rect = rect.move_to_clamp(Rect(0, 0, image_width, image_height))
 
         # Crop!
-        willow.crop(rect.round())
+        willow = willow.crop(rect.round())
 
         # Get scale for resizing
         # The scale should be the same for both the horizontal and
@@ -139,7 +139,9 @@ class FillOperation(Operation):
         # Only resize if the image is too big
         if scale < 1.0:
             # Resize!
-            willow.resize((self.width, self.height))
+            willow = willow.resize((self.width, self.height))
+
+        return willow
 
 
 class MinMaxOperation(Operation):
@@ -181,7 +183,7 @@ class MinMaxOperation(Operation):
             # Unknown method
             return
 
-        willow.resize((width, height))
+        return willow.resize((width, height))
 
 
 class WidthHeightOperation(Operation):
@@ -213,4 +215,4 @@ class WidthHeightOperation(Operation):
             # Unknown method
             return
 
-        willow.resize((width, height))
+        return willow.resize((width, height))

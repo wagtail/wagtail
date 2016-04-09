@@ -66,7 +66,7 @@ You can add an icon to the menu by passing an 'icon' argument to the ``register_
 
 .. code-block:: python
 
-    @register_setting(icon='icon-placeholder')
+    @register_setting(icon='placeholder')
     class SocialMediaSettings(BaseSetting):
         class Meta:
             verbose_name = 'social media accounts'

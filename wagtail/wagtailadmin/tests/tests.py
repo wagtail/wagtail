@@ -1,23 +1,21 @@
 # -*- coding: utf-8 -*-
 
-from __future__ import unicode_literals
+from __future__ import absolute_import, unicode_literals
 
 import json
 
 from django.contrib.auth import get_user_model
 from django.core import mail
-from django.core.urlresolvers import reverse
+from django.core.urlresolvers import reverse, reverse_lazy
 from django.test import TestCase, override_settings
+from django.utils.translation import ugettext_lazy as _
 from taggit.models import Tag
 
 from wagtail.tests.utils import WagtailTestUtils
+from wagtail.wagtailadmin.menu import MenuItem
 from wagtail.wagtailadmin.site_summary import PagesSummaryItem
 from wagtail.wagtailadmin.utils import send_mail
 from wagtail.wagtailcore.models import Page, Site
-
-from django.core.urlresolvers import reverse_lazy
-from wagtail.wagtailadmin.menu import MenuItem
-from django.utils.translation import ugettext_lazy as _
 
 
 class TestHome(TestCase, WagtailTestUtils):

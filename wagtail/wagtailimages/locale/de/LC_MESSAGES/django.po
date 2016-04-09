@@ -15,8 +15,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-02-10 15:32+0000\n"
-"PO-Revision-Date: 2016-02-07 17:50+0000\n"
+"POT-Creation-Date: 2016-03-09 13:55+0000\n"
+"PO-Revision-Date: 2016-03-02 13:07+0000\n"
 "Last-Translator: Henrik Kröger <hedwig@riseup.net>\n"
 "Language-Team: German (http://www.transifex.com/torchbox/wagtail/language/"
 "de/)\n"
@@ -86,6 +86,18 @@ msgstr "Höhe"
 
 msgid "Closeness"
 msgstr "Nähe"
+
+msgid "Add"
+msgstr "Hinzufügen"
+
+msgid "Add/edit images you own"
+msgstr "Hinzufügen/Bearbeiten von Bildern, die Sie besitzen."
+
+msgid "Edit"
+msgstr "Bearbeiten"
+
+msgid "Edit any image"
+msgstr "Jedes Bild bearbeiten"
 
 msgid "title"
 msgstr "Titel"
@@ -237,6 +249,14 @@ msgstr ""
 
 #, python-format
 msgid ""
+"You've not uploaded any images in this collection. Why not <a href="
+"\"%(wagtailimages_add_image_url)s\">add one now</a>?"
+msgstr ""
+"Sie haben noch keine Bilder in dieser Sammlung hochgeladen. Warum nicht "
+"jetzt <a href=\"%(wagtailimages_add_image_url)s\">eins hinzufügen</a>?"
+
+#, python-format
+msgid ""
 "You've not uploaded any images. Why not <a href="
 "\"%(wagtailimages_add_image_url)s\">add one now</a>?"
 msgstr ""
@@ -289,10 +309,13 @@ msgid "Add images"
 msgstr "Bilder hinzufügen"
 
 msgid "Drag and drop images into this area to upload immediately."
-msgstr "Ziehen Sie ein Bild in diesen Bereich, um es sofort hochzuladen."
+msgstr "Ziehen Sie Bilder in diesen Bereich, um sie sofort hochzuladen."
 
 msgid "Or choose from your computer"
 msgstr "Oder wählen Sie es von Ihrem Computer aus"
+
+msgid "Add to collection:"
+msgstr "Zu Sammlung hinzufügen:"
 
 msgid ""
 "Upload successful. Please update this image with a more appropriate title, "
@@ -313,6 +336,12 @@ msgstr "Updaten"
 
 msgid "Delete"
 msgstr "Löschen"
+
+msgid "Image permissions"
+msgstr "Bild-Berechtigungen"
+
+msgid "Add an image permission"
+msgstr "Eine Bild-Berechtigung hinzufügen"
 
 msgid "Search images"
 msgstr "Nach Bildern suchen"
@@ -342,11 +371,14 @@ msgstr "Bild ‚{0}‘ gelöscht."
 msgid "Image '{0}' added."
 msgstr "Bild ‚{0}‘ hinzugefügt."
 
-msgid "Edit"
-msgstr "Bearbeiten"
-
 msgid "The image could not be created due to errors."
 msgstr "Aufgrund von Fehlern konnte das Bild nicht erstellt werden."
+
+#, python-format
+msgid "%(count)s image"
+msgid_plural "%(count)s images"
+msgstr[0] "%(count)s Bild"
+msgstr[1] "%(count)s Bilder"
 
 msgid "Choose another image"
 msgstr "Anderes Bild wählen"

@@ -11,8 +11,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-02-10 15:32+0000\n"
-"PO-Revision-Date: 2016-02-10 15:33+0000\n"
+"POT-Creation-Date: 2016-03-09 13:55+0000\n"
+"PO-Revision-Date: 2016-03-09 13:58+0000\n"
 "Last-Translator: mattwestcott <matthew@torchbox.com>\n"
 "Language-Team: Greek (http://www.transifex.com/torchbox/wagtail/language/"
 "el/)\n"
@@ -363,22 +363,18 @@ msgid "Forgotten it?"
 msgstr "Ξέχασα τον κωδικό μου"
 
 #, python-format
-msgid "The page \"%(title)s\" has been approved"
-msgstr "Η σελίδα \"%(title)s\" εγκρίθηκε"
-
-#, python-format
 msgid "The page \"%(title)s\" has been approved."
 msgstr "Η σελίδα \"%(title)s\" εγκρίθηκε."
 
 msgid "You can view the page here:"
 msgstr "Μπορείτε να δείτε τη σελίδα εδώ:"
 
+#, python-format
+msgid "The page \"%(title)s\" has been approved"
+msgstr "Η σελίδα \"%(title)s\" εγκρίθηκε"
+
 msgid "Edit your notification preferences here:"
 msgstr "Επεξεργαστείτε τις προτιμήσεις ειδοποίησης εδώ:"
-
-#, python-format
-msgid "The page \"%(title)s\" has been rejected"
-msgstr "Η σελίδα \"%(title)s\" απορρίφθηκε"
 
 #, python-format
 msgid "The page \"%(title)s\" has been rejected."
@@ -388,11 +384,15 @@ msgid "You can edit the page here:"
 msgstr "Μπορείτε να διορθώστε τη σελίδα εδώ:"
 
 #, python-format
-msgid "The page \"%(page)s\" has been submitted for moderation"
-msgstr "Η σελίδα \"%(page)s\" στάλθηκε για έλεγχο"
+msgid "The page \"%(title)s\" has been rejected"
+msgstr "Η σελίδα \"%(title)s\" απορρίφθηκε"
 
 msgid "You can preview the page here:"
 msgstr "Μπορείτε να τη δείτε εδώ:"
+
+#, python-format
+msgid "The page \"%(page)s\" has been submitted for moderation"
+msgstr "Η σελίδα \"%(page)s\" στάλθηκε για έλεγχο"
 
 msgid "Page privacy"
 msgstr "Ιδιωτικότητα της σελίδας"
@@ -732,17 +732,11 @@ msgstr ""
 "Javascript χρειάζεται για να χρησιμοποιήσετε το Wagtail, αλλά είναι προς το "
 "παρόν απενεργοποιημένο"
 
-msgid "User bar"
-msgstr "Μπάρα χρήστη"
-
 msgid "Go to Wagtail admin interface"
 msgstr "Πηγαίνετε στο Wagtail περιβάλλον του διαχειριστή"
 
 msgid "Add a child page"
 msgstr "Προσθήκη υφιστάμενης σελίδας"
-
-msgid "Add"
-msgstr "Πρόσθηκη"
 
 msgid "Your password has been changed successfully!"
 msgstr "Ο κωδικός σας αλλάχτηκε με επιτυχία!"
@@ -770,18 +764,6 @@ msgstr "Η σελίδα '{0}' δημιουργήθηκε."
 
 msgid "The page could not be created due to validation errors"
 msgstr "Η σελίδα δεν δημιοιυργήθηκε λόγω σφαλμάτων"
-
-#, python-brace-format
-msgid "Page '{0}' published."
-msgstr "Η σελίδα '{0}' δημοσιεύθηκε."
-
-#, python-brace-format
-msgid "Page '{0}' submitted for moderation."
-msgstr "Η σελίδα '{0}' στάλθηκε προς έλεγχο."
-
-#, python-brace-format
-msgid "Page '{0}' updated."
-msgstr "Έγινε η αποθήκευση της σελίδας '{0}'."
 
 msgid "The page could not be saved as it is locked"
 msgstr "Η σελίδα δεν μπορεί να αποθηκευτεί καθώς είναι κλειδωμένη"
@@ -815,6 +797,10 @@ msgstr "Η σελίδα '{0}' αντιγράφηκε."
 #, python-brace-format
 msgid "The page '{0}' is not currently awaiting moderation."
 msgstr "Η σελίδα '{0}' δεν είναι για έλεγχο."
+
+#, python-brace-format
+msgid "Page '{0}' published."
+msgstr "Η σελίδα '{0}' δημοσιεύθηκε."
 
 #, python-brace-format
 msgid "Page '{0}' rejected for publication."

@@ -1,4 +1,7 @@
+from __future__ import absolute_import, unicode_literals
+
 from django.conf.urls import url
+
 from wagtail.wagtailcore import views
 from wagtail.wagtailcore.utils import WAGTAIL_APPEND_SLASH
 

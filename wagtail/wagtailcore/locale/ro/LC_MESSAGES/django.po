@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-02-10 15:32+0000\n"
-"PO-Revision-Date: 2016-02-05 18:12+0000\n"
+"POT-Creation-Date: 2016-03-09 13:55+0000\n"
+"PO-Revision-Date: 2016-03-01 22:24+0000\n"
 "Last-Translator: Dan Braghis\n"
 "Language-Team: Romanian (http://www.transifex.com/torchbox/wagtail/language/"
 "ro/)\n"
@@ -74,6 +74,9 @@ msgstr "titlu"
 
 msgid "The page title as you'd like it to be seen by the public"
 msgstr "Titlul paginii așa cum doriți să fie vizibil public"
+
+msgid "slug"
+msgstr "slug"
 
 msgid ""
 "The name of the page as it will appear in URLs e.g http://domain.com/blog/"
@@ -140,6 +143,9 @@ msgstr "publicată pentru prima dată la"
 msgid "latest revision created at"
 msgstr "ultima revizie creată la"
 
+msgid "This slug is already in use"
+msgstr "Slug-ul acesta a fost deja folosit"
+
 msgid "scheduled"
 msgstr "programată"
 
@@ -179,14 +185,26 @@ msgstr "revizie pagină"
 msgid "page revisions"
 msgstr "revizii pagină"
 
+msgid "Add"
+msgstr "Adaugă"
+
 msgid "Add/edit pages you own"
 msgstr "Adaugă/editeaza pagini deținute"
+
+msgid "Edit"
+msgstr "Editează"
 
 msgid "Edit any page"
 msgstr "Editează orice pagină"
 
+msgid "Publish"
+msgstr "Publică"
+
 msgid "Publish any page"
 msgstr "Publică orice pagină"
+
+msgid "Lock"
+msgstr "Încuie"
 
 msgid "Lock/unlock any page"
 msgstr "Blochează/deblochează orice pagină"
@@ -211,3 +229,18 @@ msgstr "restricție de vizualizare pagină"
 
 msgid "page view restrictions"
 msgstr "restricții de vizualizare pagină"
+
+msgid "name"
+msgstr "nume"
+
+msgid "collection"
+msgstr "colecție"
+
+msgid "collections"
+msgstr "colecții"
+
+msgid "permission"
+msgstr "permisiune"
+
+msgid "group collection permission"
+msgstr "permisiune grup colecție"

@@ -1,9 +1,12 @@
+from __future__ import absolute_import, unicode_literals
+
 from django.db import models
 from django.utils.encoding import python_2_unicode_compatible
 
 from wagtail.wagtailsearch import index
-
 from wagtail.wagtailsnippets.models import register_snippet
+
+from .forms import FancySnippetForm
 
 
 # AlphaSnippet and ZuluSnippet are for testing ordering of
@@ -47,9 +50,19 @@ class RegisterDecorator(models.Model):
 class SearchableSnippet(models.Model, index.Indexed):
     text = models.CharField(max_length=255)
 
-    search_fields = (
+    search_fields = [
         index.SearchField('text'),
-    )
+    ]
 
     def __str__(self):
         return self.text
+
+
+@register_snippet
+class StandardSnippet(models.Model):
+    text = models.CharField(max_length=255)
+
+
+@register_snippet
+class FancySnippet(models.Model):
+    base_form_class = FancySnippetForm

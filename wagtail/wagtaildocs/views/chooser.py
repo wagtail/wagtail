@@ -1,19 +1,19 @@
+from __future__ import absolute_import, unicode_literals
+
 import json
 
 from django.core.urlresolvers import reverse
 from django.shortcuts import get_object_or_404, render
 
 from wagtail.utils.pagination import paginate
-from wagtail.wagtailadmin.modal_workflow import render_modal_workflow
 from wagtail.wagtailadmin.forms import SearchForm
+from wagtail.wagtailadmin.modal_workflow import render_modal_workflow
 from wagtail.wagtailadmin.utils import PermissionPolicyChecker
 from wagtail.wagtailcore.models import Collection
-from wagtail.wagtailsearch.backends import get_search_backends
-
-from wagtail.wagtaildocs.models import get_document_model
 from wagtail.wagtaildocs.forms import get_document_form
+from wagtail.wagtaildocs.models import get_document_model
 from wagtail.wagtaildocs.permissions import permission_policy
-
+from wagtail.wagtailsearch.backends import get_search_backends
 
 permission_checker = PermissionPolicyChecker(permission_policy)
 
@@ -102,7 +102,7 @@ def chooser_upload(request):
     Document = get_document_model()
     DocumentForm = get_document_form(Document)
 
-    if request.POST:
+    if request.method == 'POST':
         document = Document(uploaded_by_user=request.user)
         form = DocumentForm(request.POST, request.FILES, instance=document)
 

@@ -1,40 +1,36 @@
-from __future__ import unicode_literals
+from __future__ import absolute_import, unicode_literals
 
 import hashlib
 import os
 
-from django.db import models
-from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
-from django.utils.encoding import python_2_unicode_compatible
 from django.contrib.contenttypes.fields import GenericForeignKey
 from django.contrib.contenttypes.models import ContentType
-
-from taggit.models import TaggedItemBase
-from taggit.managers import TaggableManager
-
+from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
+from django.db import models
+from django.utils.encoding import python_2_unicode_compatible
+from modelcluster.contrib.taggit import ClusterTaggableManager
 from modelcluster.fields import ParentalKey
 from modelcluster.models import ClusterableModel
-from modelcluster.contrib.taggit import ClusterTaggableManager
+from taggit.managers import TaggableManager
+from taggit.models import TaggedItemBase
 
 from wagtail.contrib.settings.models import BaseSetting, register_setting
-from wagtail.wagtailcore.models import Page, Orderable, PageManager
-from wagtail.wagtailcore.fields import RichTextField, StreamField
-from wagtail.wagtailcore.blocks import CharBlock, RichTextBlock
 from wagtail.wagtailadmin.edit_handlers import (
-    FieldPanel, MultiFieldPanel, InlinePanel, PageChooserPanel, TabbedInterface, ObjectList
-)
+    FieldPanel, InlinePanel, MultiFieldPanel, ObjectList, PageChooserPanel, TabbedInterface)
 from wagtail.wagtailadmin.forms import WagtailAdminPageForm
-from wagtail.wagtailimages.edit_handlers import ImageChooserPanel
+from wagtail.wagtailcore.blocks import CharBlock, RichTextBlock
+from wagtail.wagtailcore.fields import RichTextField, StreamField
+from wagtail.wagtailcore.models import Orderable, Page, PageManager
 from wagtail.wagtaildocs.edit_handlers import DocumentChooserPanel
-from wagtail.wagtailsnippets.models import register_snippet
 from wagtail.wagtailforms.models import AbstractEmailForm, AbstractFormField
-from wagtail.wagtailsnippets.edit_handlers import SnippetChooserPanel
-from wagtail.wagtailsearch import index
-from wagtail.wagtailimages.models import AbstractImage, Image
 from wagtail.wagtailimages.blocks import ImageChooserBlock
+from wagtail.wagtailimages.edit_handlers import ImageChooserPanel
+from wagtail.wagtailimages.models import AbstractImage, Image
+from wagtail.wagtailsearch import index
+from wagtail.wagtailsnippets.edit_handlers import SnippetChooserPanel
+from wagtail.wagtailsnippets.models import register_snippet
 
 from .forms import ValidatedPageForm
-
 
 EVENT_AUDIENCE_CHOICES = (
     ('public', "Public"),
@@ -215,11 +211,11 @@ class EventPage(Page):
         related_name='+'
     )
 
-    search_fields = (
+    search_fields = [
         index.SearchField('get_audience_display'),
         index.SearchField('location'),
         index.SearchField('body'),
-    )
+    ]
 
     password_required_template = 'tests/event_page_password_required.html'
 
@@ -253,6 +249,23 @@ class SingleEventPage(EventPage):
         null=True,
         help_text="Short text to describe what is this action about"
     )
+
+    # Give this page model a custom URL routing scheme
+    def get_url_parts(self):
+        url_parts = super(SingleEventPage, self).get_url_parts()
+        if url_parts is None:
+            return None
+        else:
+            site_id, root_url, page_path = url_parts
+            return (site_id, root_url, page_path + 'pointless-suffix/')
+
+    def route(self, request, path_components):
+        if path_components == ['pointless-suffix']:
+            # treat this as equivalent to a request for this page
+            return super(SingleEventPage, self).route(request, [])
+        else:
+            # fall back to default routing rules
+            return super(SingleEventPage, self).route(request, path_components)
 
 SingleEventPage.content_panels = [FieldPanel('excerpt')] + EventPage.content_panels
 
@@ -569,6 +582,15 @@ class ManyToManyBlogPage(Page):
     adverts = models.ManyToManyField(Advert, blank=True)
     blog_categories = models.ManyToManyField(
         BlogCategory, through=BlogCategoryBlogPage, blank=True)
+
+
+class OneToOnePage(Page):
+    """
+    A Page containing a O2O relation.
+    """
+    body = RichTextBlock(blank=True)
+    page_ptr = models.OneToOneField(Page, parent_link=True,
+                                    related_name='+')
 
 
 class GenericSnippetPage(Page):

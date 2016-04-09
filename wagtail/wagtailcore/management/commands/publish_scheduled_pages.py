@@ -1,7 +1,6 @@
-from __future__ import print_function
+from __future__ import absolute_import, print_function, unicode_literals
 
 import json
-from optparse import make_option
 
 from django.core.management.base import BaseCommand
 from django.utils import dateparse, timezone
@@ -21,15 +20,10 @@ def revision_date_expired(r):
 
 
 class Command(BaseCommand):
-    option_list = BaseCommand.option_list + (
-        make_option(
-            '--dryrun',
-            action='store_true',
-            dest='dryrun',
-            default=False,
-            help='Dry run -- don\'t change anything.'
-        ),
-    )
+    def add_arguments(self, parser):
+        parser.add_argument(
+            '--dryrun', action='store_true', dest='dryrun', default=False,
+            help="Dry run -- dont't change anything.")
 
     def handle(self, *args, **options):
         dryrun = False

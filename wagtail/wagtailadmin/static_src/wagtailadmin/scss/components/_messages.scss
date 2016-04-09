@@ -14,7 +14,6 @@
 
     ul {
         @include unlist();
-        padding-left: 10px;
         position: relative;
         top: -100px;
         opacity: 0;

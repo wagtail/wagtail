@@ -405,6 +405,93 @@
                     <button>button for comparison of height</button>
                 </div>
             </div>
+
+            <div class="row">
+                <br />
+
+                <p>
+                    Inline dropdown components, primarily used in the listing.
+                </p>
+
+                <div class="c-dropdown u-para t-default" data-dropdown="">
+                    <a class="c-dropdown__button  u-btn-current">
+                        More
+                        <div data-dropdown-toggle="" class="o-icon  c-dropdown__toggle  [ icon icon-arrow-down ]"></div>
+                    </a>
+                    <div class="t-dark">
+                        <ul role="menu" class="c-dropdown__menu  u-toggle  u-arrow u-arrow--tl u-background">
+                            <li class="c-dropdown__item ">
+                                <a href="/admin/pages/2/move/" class="u-link is-live ">
+                                    Move
+                                </a>
+                            </li>
+                            <li class="c-dropdown__item ">
+                                <a href="/admin/pages/2/copy/" class="u-link is-live ">
+                                    Copy
+                                </a>
+                            </li>
+                            <li class="c-dropdown__item ">
+                                <a href="/admin/pages/2/delete/" class="u-link is-live ">
+                                    Delete
+                                </a>
+                            </li>
+                            <li class="c-dropdown__item ">
+                                <a href="/admin/pages/2/unpublish/" class="u-link is-live ">
+                                    Unpublish
+                                </a>
+                            </li>
+                            <li>
+                                <hr class="c-dropdown__divider">
+                            </li>
+                            <li class="c-dropdown__item">
+                                <a href="#" class="u-link is-live">
+                                    <span title="Live" class="c-indicator c-dropdown__indicator"></span>
+                                    Live
+                                </a>
+                            </li>
+                            <li class="c-dropdown__item">
+                                <a href="#" class="u-link is-draft">
+                                    <span title="Draft" class="c-indicator c-dropdown__indicator"></span>
+                                    Draft
+                                </a>
+                            </li>
+                            <li class="c-dropdown__item">
+                                <a href="#" class="u-link is-live+draft">
+                                    <span title="Live + Draft" class="c-indicator c-dropdown__indicator"></span>
+                                    Live + Draft
+                                </a>
+                            </li>
+                            <li class="c-dropdown__item">
+                                <a href="#" class="u-link is-absent">
+                                    <span title="Absent" class="c-indicator c-dropdown__indicator"></span>
+                                    Absent
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <p>These can also have an inverted  theme:</p>
+            <header class="nice-padding">
+                <div class="c-dropdown  t-inverted" data-dropdown="">
+                    <a class="c-dropdown__button  u-btn-current">
+                        More
+                        <div data-dropdown-toggle="" class="o-icon  c-dropdown__toggle  [ icon icon-arrow-down ]"></div>
+                    </a>
+                    <div class="t-dark">
+                        <ul role="menu" class="c-dropdown__menu  u-toggle  u-arrow u-arrow--tl u-background">
+                            <li class="c-dropdown__item ">
+                                <a href="/admin/pages/2/move/" class="u-link is-live ">
+                                    Move
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </header>
+
+
         </section>
 
         <section id="header">
@@ -510,6 +597,10 @@
             <div class="loading-mask loading" style="width:200px">
                 <img src="{% static 'wagtailadmin/images/wagtail-logo.svg' %}" width="200" />
             </div>
+
+            <h3>Image transparency</h3>
+            <p>It can be useful to show users the transparent areas of images. Add a transparency checkerboard with the <code>.show-transparency</code> on the <code>img</code> tag thus:</p>
+            <img src="{% static 'wagtailadmin/images/wagtail-logo.svg' %}" width="200" class="show-transparency" />
         </section>
 
         <section id="icons" class="icons">

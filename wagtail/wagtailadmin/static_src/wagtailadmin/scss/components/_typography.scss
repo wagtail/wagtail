@@ -41,7 +41,7 @@ p {
 }
 
 a {
-    @include transition(color 0.2s ease, background-color 0.2s ease);
+    // @include transition(color 0.2s ease, background-color 0.2s ease);
     outline: none;
     color: $color-link;
     text-decoration: none;
@@ -49,6 +49,10 @@ a {
     &:hover {
         color: $color-link-hover;
     }
+}
+
+a.underlined {
+    border-bottom: 1px solid currentColor;
 }
 
 code {
@@ -65,8 +69,8 @@ kbd {
     padding: 0.3em 0.5em;
 }
 
-dl, 
-dt, 
+dl,
+dt,
 dd {
     padding: 0;
     margin: 0;
@@ -84,6 +88,10 @@ dt {
 
 dd {
     margin-bottom: 1em;
+}
+
+.unbold {
+    font-weight: normal;
 }
 
 // Help text formatters
@@ -107,8 +115,8 @@ dd {
     }
 }
 
-    .help-info, 
-    .help-warning, 
+    .help-info,
+    .help-warning,
     .help-critical {
         border-radius: 3px;
         padding-left: 3.5em;
@@ -149,3 +157,7 @@ dd {
             content: '!';
         }
     }
+
+.u-para {
+    margin-bottom: 1rem;
+}

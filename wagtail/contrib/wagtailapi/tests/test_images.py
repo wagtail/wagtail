@@ -1,13 +1,14 @@
-import json
-import mock
+from __future__ import absolute_import, unicode_literals
 
+import json
+
+import mock
+from django.core.urlresolvers import reverse
 from django.test import TestCase
 from django.test.utils import override_settings
-from django.core.urlresolvers import reverse
-
-from wagtail.wagtailimages.models import get_image_model
 
 from wagtail.contrib.wagtailapi import signal_handlers
+from wagtail.wagtailimages.models import get_image_model
 
 
 class TestImageListing(TestCase):

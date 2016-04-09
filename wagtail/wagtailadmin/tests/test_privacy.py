@@ -1,9 +1,11 @@
-from django.test import TestCase
-from django.core.urlresolvers import reverse
+from __future__ import absolute_import, unicode_literals
 
-from wagtail.wagtailcore.models import Page, PageViewRestriction
+from django.core.urlresolvers import reverse
+from django.test import TestCase
+
 from wagtail.tests.testapp.models import SimplePage
 from wagtail.tests.utils import WagtailTestUtils
+from wagtail.wagtailcore.models import Page, PageViewRestriction
 
 
 class TestSetPrivacyView(TestCase, WagtailTestUtils):

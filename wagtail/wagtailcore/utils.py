@@ -1,12 +1,14 @@
+from __future__ import absolute_import, unicode_literals
+
 import re
 import unicodedata
 
+from django.apps import apps
 from django.conf import settings
 from django.db.models import Model
-from django.apps import apps
 from django.utils.encoding import force_text
-from django.utils.text import slugify
 from django.utils.six import string_types
+from django.utils.text import slugify
 
 
 WAGTAIL_APPEND_SLASH = getattr(settings, 'WAGTAIL_APPEND_SLASH', True)

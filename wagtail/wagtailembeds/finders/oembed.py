@@ -1,15 +1,14 @@
-from __future__ import absolute_import
+from __future__ import absolute_import, unicode_literals
 
 import json
 
-# Needs to be imported like this to allow @patch to work in tests
 from django.utils.six.moves.urllib import request as urllib_request
-from django.utils.six.moves.urllib.request import Request
 from django.utils.six.moves.urllib.error import URLError
 from django.utils.six.moves.urllib.parse import urlencode
+from django.utils.six.moves.urllib.request import Request
 
-from wagtail.wagtailembeds.oembed_providers import get_oembed_provider
 from wagtail.wagtailembeds.exceptions import EmbedNotFoundException
+from wagtail.wagtailembeds.oembed_providers import get_oembed_provider
 
 
 def oembed(url, max_width=None):

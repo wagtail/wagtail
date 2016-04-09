@@ -1,11 +1,11 @@
-from optparse import make_option
+from __future__ import absolute_import, unicode_literals
 
-from django.core.management.base import BaseCommand
 from django.conf import settings
+from django.core.management.base import BaseCommand
 from django.db import transaction
 
-from wagtail.wagtailsearch.index import get_indexed_models
 from wagtail.wagtailsearch.backends import get_search_backend
+from wagtail.wagtailsearch.index import get_indexed_models
 
 
 class Command(BaseCommand):
@@ -57,15 +57,10 @@ class Command(BaseCommand):
         self.stdout.write(backend_name + ": Finishing rebuild")
         rebuilder.finish()
 
-    option_list = BaseCommand.option_list + (
-        make_option(
-            '--backend',
-            action='store',
-            dest='backend_name',
-            default=None,
-            help="Specify a backend to update",
-        ),
-    )
+    def add_arguments(self, parser):
+        parser.add_argument(
+            '--backend', action='store', dest='backend_name', default=None,
+            help="Specify a backend to update")
 
     def handle(self, **options):
         # Get object list

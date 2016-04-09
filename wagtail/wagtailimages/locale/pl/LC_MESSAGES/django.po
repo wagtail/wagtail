@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-02-10 15:32+0000\n"
-"PO-Revision-Date: 2016-02-15 11:30+0000\n"
+"POT-Creation-Date: 2016-03-09 13:55+0000\n"
+"PO-Revision-Date: 2016-03-01 22:59+0000\n"
 "Last-Translator: mmiskiew <mmiskiew@gmail.com>\n"
 "Language-Team: Polish (http://www.transifex.com/torchbox/wagtail/language/"
 "pl/)\n"
@@ -83,6 +83,18 @@ msgstr "Wysokość"
 msgid "Closeness"
 msgstr "Bliskość"
 
+msgid "Add"
+msgstr "Dodaj"
+
+msgid "Add/edit images you own"
+msgstr "Dodaj/edytuj swoje obrazy"
+
+msgid "Edit"
+msgstr "Edytuj"
+
+msgid "Edit any image"
+msgstr "Edytuj dowolny obraz"
+
 msgid "title"
 msgstr "tytuł"
 
@@ -96,7 +108,7 @@ msgid "height"
 msgstr "wysokość"
 
 msgid "created at"
-msgstr "Utworzono dnia"
+msgstr "utworzono dnia"
 
 msgid "uploaded by user"
 msgstr "wgrane przez użytkownika"
@@ -237,6 +249,14 @@ msgstr "Przepraszamy, żaden obraz nie pasuje do \"<em>%(query_string)s</em>\""
 
 #, python-format
 msgid ""
+"You've not uploaded any images in this collection. Why not <a href="
+"\"%(wagtailimages_add_image_url)s\">add one now</a>?"
+msgstr ""
+"Nie przesłałeś żadnych obrazów do tej kolekcji. Czemu nie <a href="
+"\"%(wagtailimages_add_image_url)s\">dodać jednego teraz</a>?"
+
+#, python-format
+msgid ""
 "You've not uploaded any images. Why not <a href="
 "\"%(wagtailimages_add_image_url)s\">add one now</a>?"
 msgstr ""
@@ -293,6 +313,9 @@ msgstr "Przeciągnij i upusć obrazki w to miejsce żeby je natychmiast przesła
 msgid "Or choose from your computer"
 msgstr "Lub wybierz z komputera"
 
+msgid "Add to collection:"
+msgstr "Dodaj do kolekcji:"
+
 msgid ""
 "Upload successful. Please update this image with a more appropriate title, "
 "if necessary. You may also delete the image completely if the upload wasn't "
@@ -312,6 +335,12 @@ msgstr "Uaktualnij"
 
 msgid "Delete"
 msgstr "Usuń"
+
+msgid "Image permissions"
+msgstr "Uprawnienia obrazu"
+
+msgid "Add an image permission"
+msgstr "Dodaj uprawnienie obrazu"
 
 msgid "Search images"
 msgstr "Szukaj obrazów"
@@ -341,11 +370,15 @@ msgstr "Usunięto obraz '{0}'."
 msgid "Image '{0}' added."
 msgstr "Dodano obraz '{0}'."
 
-msgid "Edit"
-msgstr "Edytuj"
-
 msgid "The image could not be created due to errors."
 msgstr "Obraz nie mógł zostać stworzony z powodu błędów."
+
+#, python-format
+msgid "%(count)s image"
+msgid_plural "%(count)s images"
+msgstr[0] "%(count)s obraz"
+msgstr[1] "%(count)s obrazów"
+msgstr[2] "%(count)s obrazów"
 
 msgid "Choose another image"
 msgstr "Wybierz inny obraz"

@@ -26,13 +26,13 @@
         </div>
     </header>
 
-    <form action="{% url 'wagtailsettings:edit' site.pk opts.app_label opts.model_name %}" method="POST">
+    <form action="{% url 'wagtailsettings:edit' opts.app_label opts.model_name site.pk %}" method="POST">
         {% csrf_token %}
         {{ edit_handler.render_form_content }}
 
         <footer>
             <ul>
-                <li class="actions">
+                <li class="actions dropdown dropup match-width">
                     <input type="submit" value="{% trans 'Save' %}" class="button" />
                 </li>
             </ul>

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-03-01 18:52+0000\n"
+"POT-Creation-Date: 2016-03-09 13:55+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -292,7 +292,7 @@ msgstr ""
 msgid "Group '{0}' created."
 msgstr ""
 
-#: views/groups.py:93 views/groups.py:127 views/users.py:93 views/users.py:114
+#: views/groups.py:93 views/groups.py:127 views/users.py:96 views/users.py:117
 msgid "Edit"
 msgstr ""
 
@@ -314,25 +314,25 @@ msgstr ""
 msgid "Group '{0}' deleted."
 msgstr ""
 
-#: views/users.py:32 views/users.py:52
+#: views/users.py:34 views/users.py:54
 msgid "Search users"
 msgstr ""
 
-#: views/users.py:92
+#: views/users.py:95
 #, python-brace-format
 msgid "User '{0}' created."
 msgstr ""
 
-#: views/users.py:97
+#: views/users.py:100
 msgid "The user could not be created due to errors."
 msgstr ""
 
-#: views/users.py:113
+#: views/users.py:116
 #, python-brace-format
 msgid "User '{0}' updated."
 msgstr ""
 
-#: views/users.py:118
+#: views/users.py:121
 msgid "The user could not be saved due to errors."
 msgstr ""
 

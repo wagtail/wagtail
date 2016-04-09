@@ -5,7 +5,7 @@
 # Translators:
 # fooflare <amos.oviedo@gmail.com>, 2014
 # fooflare <amos.oviedo@gmail.com>, 2014
-# chimeno <daniel@chimeno.me>, 2015
+# chimeno <daniel@chimeno.me>, 2015-2016
 # fooflare <amos.oviedo@gmail.com>, 2014
 # Joaquín Tita <carpincho@gmail.com>, 2014
 # José Alaguna <alagunajs@gmail.com>, 2015
@@ -14,9 +14,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-02-10 15:32+0000\n"
-"PO-Revision-Date: 2015-12-19 04:36+0000\n"
-"Last-Translator: José Alaguna <alagunajs@gmail.com>\n"
+"POT-Creation-Date: 2016-03-09 13:55+0000\n"
+"PO-Revision-Date: 2016-03-15 02:03+0000\n"
+"Last-Translator: chimeno <daniel@chimeno.me>\n"
 "Language-Team: Spanish (http://www.transifex.com/torchbox/wagtail/language/"
 "es/)\n"
 "MIME-Version: 1.0\n"
@@ -148,7 +148,7 @@ msgid "Edit"
 msgstr "Editar"
 
 msgid "The snippet could not be created due to errors."
-msgstr "El fragmento no pudo ser creada debido a errores."
+msgstr "El fragmento no pudo ser creado debido a errores."
 
 #, python-brace-format
 msgid "{snippet_type} '{instance}' updated."

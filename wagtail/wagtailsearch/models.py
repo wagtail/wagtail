@@ -1,4 +1,4 @@
-from __future__ import unicode_literals
+from __future__ import absolute_import, unicode_literals
 
 import datetime
 
@@ -7,7 +7,7 @@ from django.utils import timezone
 from django.utils.encoding import python_2_unicode_compatible
 from django.utils.translation import ugettext_lazy as _
 
-from wagtail.wagtailsearch.utils import normalise_query_string, MAX_QUERY_STRING_LENGTH
+from wagtail.wagtailsearch.utils import MAX_QUERY_STRING_LENGTH, normalise_query_string
 
 
 @python_2_unicode_compatible

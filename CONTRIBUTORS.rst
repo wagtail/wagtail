@@ -5,6 +5,7 @@ Authors
 * David Cranwell (Torchbox) twitter: @davecranwell
 * Karl Hobley (Torchbox) twitter: @kaedroho
 * Tim Heap (Takeflight)
+* Josh Barr (Springload)
 
 Contributors
 ============
@@ -72,7 +73,6 @@ Contributors
 * Alex Gleason
 * Ryan Pineo
 * Petr Vacha
-* Josh Barr
 * Sævar Öfjörð Magnússon
 * Ashia Zawaduk
 * Denis Voskvitsov
@@ -93,7 +93,7 @@ Contributors
 * Rich Atkinson
 * jnns
 * Eugene MechanisM
-* benjaoming
+* Benjamin Bach
 * Alexander Bogushov
 * Aarni Koskela
 * alexpilot11
@@ -107,7 +107,20 @@ Contributors
 * Nigel Fletton
 * Kait Crawford
 * Adam Bolfik
-
+* Thomas Winter
+* Gareth Price
+* Liam Brenner
+* Nicolas Kuttler
+* Mike Dingjan
+* Loic Teixeira
+* Juha Kujala
+* Eirik Krogstad
+* Rob Moorman
+* Matthijs Melissen
+* Jonas Lergell
+* Danielle Madeley
+* Janneke Janssen
+* Roel Bruggink
 
 Translators
 ===========
@@ -124,29 +137,32 @@ Translators
 * Dutch: benny_AT_it_digin.com, Bram, Brecht Dervaux, Huib Keemink, Thijs Kramer, Samuel Leeuwenburg, mahulst, Michael van Tellingen, Arne Turpyn
 * Dutch (Netherlands): Bram, Franklin Kingma, Maarten Kling, Thijs Kramer
 * Finnish: Eetu Häivälä, Aarni Koskela, Glen Somerville
-* French: Adrien, Timothy Allen, Sebastien Andrivet, Bertrand Bordage, André Bouatchidzé, Tom Dyson, Pierre Marfoure, nahuel
+* French: Adrien, Timothy Allen, Sebastien Andrivet, Edd Baldry, Bertrand Bordage, André Bouatchidzé, Tom Dyson, Antonin Enfrun, Pierre Marfoure, nahuel
 * Galician: fooflare
 * Georgian: André Bouatchidzé
 * German: Ettore Atalan, Patrick Craston, Florian, Henrik Kröger, Tammo van Lessen, Martin Löhle, Wasilis Mandratzis-Walz, Daniel Manser, m0rph3u5, Max Pfeiffer, Herbert Poul, Karl Sander, Johannes Spielmann, Jannis Vajen, Matthew Westcott
 * Greek: Jim Dal, dotoree, Wasilis Mandratzis-Walz, NeotheOne, Serafeim Papastefanos
 * Hebrew (Israel): bjesus, Lior Abazon
 * Hungarian: Laszlo Molnar
-* Icelandic: Arnar Tumi Þorsteinsson, Sævar Öfjörð Magnússon
+* Icelandic (Iceland): Arnar Tumi Þorsteinsson, Sævar Öfjörð Magnússon
+* Indonesian (Indonesia): Sutrisno Efendi
 * Italian: Edd Baldry, Claudio Bantaloukas, Giacomo Ghizzani, Alessio Di Stasio, Andrea Tagliazucchi
 * Japanese: Sangmin Ahn, Shu Ishida, Daigo Shitara, takuan_osho
 * Korean: Kyungil Choi, Ji Han Chung
 * Latvian: Maris Serzans
 * Mongolian: Delgermurun Purevkhuu
 * Norwegian Bokmål: Eirik Krogstad, Robin Skahjem-Eriksen
+* Persian: Mohammad reza Jelveh
 * Polish: Mateusz, mmiskiew, utek
 * Portuguese (Brazil): Claudemiro Alves Feitosa Neto, Gladson Brito, Thiago Cangussu, Gilson Filho, João Luiz Lorencetti, Douglas Miranda
 * Portuguese (Portugal): Gladson Brito, Thiago Cangussu, Tiago Henriques, Jose Lourenco, Nuno Matos, Douglas Miranda, Manuela Silva
 * Romanian: Dan Braghis
 * Russian: ajk, Daniil, HNKNTA, Sergiy Khalymon, Sergey Komarov, Eugene MechanisM
-* Spanish: José Alaguna, Mauricio Baeza, Daniel Chimeno, fonso, fooflare, Joaquín Tita, Unai Zalakain
 * Slovak (Slovakia): dellax
+* Spanish: José Alaguna, Mauricio Baeza, Daniel Chimeno, fonso, fooflare, Joaquín Tita, Unai Zalakain
 * Swedish: Ludwig Kjellström, Thomas Kunambi, Hannes Lohmander
 * Swedish (Sweden): Thomas Kunambi
 * Turkish: Cihad Gündoǧdu
 * Turkish (Turkey): José Alaguna, Ragıp Ünal
+* Ukrainian: Mykola Zamkovoi
 * Vietnamese: Luan Nguyen
