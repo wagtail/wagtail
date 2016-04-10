@@ -213,7 +213,7 @@ class ObjectSpecificView(WMABaseView):
     
     def allow_object_delete(self):
         user = self.request.user
-        return self.permission_helper.can_delete_object(user, self.instance)
+        return self.permission_helper.user_can_delete_obj(user, self.instance)
 
     @cached_property
     def edit_url(self):
@@ -876,7 +876,7 @@ class EditView(ObjectSpecificView, CreateView):
 
     def check_action_permitted(self):
         user = self.request.user
-        return self.permission_helper.can_edit_object(user, self.instance)
+        return self.permission_helper.user_can_edit_obj(user, self.instance)
 
     @method_decorator(login_required)
     def dispatch(self, request, *args, **kwargs):
@@ -908,7 +908,7 @@ class DeleteView(ObjectSpecificView):
 
     def check_action_permitted(self):
         user = self.request.user
-        return self.permission_helper.can_delete_object(user, self.instance)
+        return self.permission_helper.user_can_delete_obj(user, self.instance)
 
     @method_decorator(login_required)
     def dispatch(self, request, *args, **kwargs):

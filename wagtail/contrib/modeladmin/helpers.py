@@ -328,7 +328,7 @@ class PageButtonHelper(ButtonHelper):
         usr = self.request.user
         pk = quote(getattr(obj, self.opts.pk.attname))
         btns = []
-        if('inspect' not in exclude and self.inspect_view_enabled):
+        if('inspect' not in exclude and ph.user_can_inspect_obj(usr, obj)):
             btns.append(
                 self.inspect_button(pk, classnames_add, classnames_exclude)
             )
