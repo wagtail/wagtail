@@ -1,7 +1,7 @@
 {% extends "modeladmin/create.html" %}
 {% load i18n %}
 
-{% block form_action %}{{ view.get_edit_url }}{% endblock %}
+{% block form_action %}{{ view.edit_url }}{% endblock %}
 
 {% block form_actions %}
     <div class="dropdown dropup match-width">
@@ -10,7 +10,7 @@
         {% if view.allow_object_delete %}
 	        <div class="dropdown-toggle icon icon-arrow-up"></div>
 	        <ul role="menu">
-	            <li><a href="{{ view.get_delete_url }}" class="shortcut">{% trans "Delete" %}</a></li>
+	            <li><a href="{{ view.delete_url }}" class="shortcut">{% trans "Delete" %}</a></li>
 	        </ul>
 	    {% endif %}
 

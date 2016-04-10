@@ -18,10 +18,10 @@
                 <ul>
                     {% for obj in linked_objects %}<li><b>{{ obj|get_content_type_for_obj|title }}:</b> {{ obj }}</li>{% endfor %}
                 </ul>
-        		<p><a href="{{ view.get_index_url }}" class="button">{% trans 'Go back to listing' %}</a></p>
+        		<p><a href="{{ view.index_url }}" class="button">{% trans 'Go back to listing' %}</a></p>
         	{% else %}
                 <p>{{ view.confirmation_message }}</p>
-                <form action="{{ view.get_delete_url }}" method="POST">
+                <form action="{{ view.delete_url }}" method="POST">
                     {% csrf_token %}
                     <input type="submit" value="{% trans 'Yes, delete' %}" class="serious" />
                 </form>

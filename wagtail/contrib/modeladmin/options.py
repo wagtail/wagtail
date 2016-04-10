@@ -144,7 +144,8 @@ class ModelAdmin(WagtailRegisterable):
         self.opts = self.model._meta
         self.is_pagemodel = issubclass(self.model, Page)
         self.parent = parent
-        self.permission_helper = self.get_permission_helper_class()(self.model)
+        self.permission_helper = self.get_permission_helper_class()(
+            self.model, self.inspect_view_enabled)
         self.url_helper = self.get_url_helper_class()(self.model)
 
 
