@@ -2090,7 +2090,7 @@ class TestPageUnpublishIncludingDescendants(TestCase, WagtailTestUtils):
         This posts to the unpublish view and checks that the page and its descendants were unpublished
         """
         # Post to the unpublish page
-        response = self.client.post(reverse('wagtailadmin_pages:unpublish', args=(self.test_page.id, )), {'include_descendants': True})
+        response = self.client.post(reverse('wagtailadmin_pages:unpublish', args=(self.test_page.id, )), {'include_descendants': 'on'})
 
         # Should be redirected to explorer page
         self.assertRedirects(response, reverse('wagtailadmin_explore', args=(self.root_page.id, )))
@@ -2107,7 +2107,7 @@ class TestPageUnpublishIncludingDescendants(TestCase, WagtailTestUtils):
         This posts to the unpublish view and checks that the page was unpublished but its descendants were not
         """
         # Post to the unpublish page
-        response = self.client.post(reverse('wagtailadmin_pages:unpublish', args=(self.test_page.id, )), {'include_descendants': False})
+        response = self.client.post(reverse('wagtailadmin_pages:unpublish', args=(self.test_page.id, )), {})
 
         # Should be redirected to explorer page
         self.assertRedirects(response, reverse('wagtailadmin_explore', args=(self.root_page.id, )))
