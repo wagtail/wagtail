@@ -6,8 +6,8 @@
 {% block form_actions %}
     <div class="dropdown dropup match-width">
         <div><input type="submit" value="{% trans 'Save' %}" /></div>
-
-        {% if view.allow_deletion %}
+       
+        {% if allow_deletion %}
 	        <div class="dropdown-toggle icon icon-arrow-up"></div>
 	        <ul role="menu">
 	            <li><a href="{{ view.delete_url }}" class="shortcut">{% trans "Delete" %}</a></li>
