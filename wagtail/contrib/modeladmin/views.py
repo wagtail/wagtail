@@ -155,15 +155,17 @@ class WMAFormView(WMABaseView, FormView):
         )
 
     def get_context_data(self, **kwargs):
+        context = super(WMAFormView, self).get_context_data(**kwargs)
         instance = self.get_instance()
         edit_handler_class = self.get_edit_handler_class()
         form = self.get_form()
-        return {
+        context.update({
             'view': self,
             'model_admin': self.model_admin,
             'is_multipart': form.is_multipart(),
             'edit_handler': edit_handler_class(instance=instance, form=form)
-        }
+        })
+        return context
 
     def get_success_message(self, instance):
         return _("{model_name} '{instance}' created.").format(
@@ -210,10 +212,6 @@ class ObjectSpecificView(WMABaseView):
 
     def get_page_subtitle(self):
         return self.instance
-    
-    def allow_object_delete(self):
-        user = self.request.user
-        return self.permission_helper.user_can_delete_obj(user, self.instance)
 
     @cached_property
     def edit_url(self):
@@ -789,14 +787,16 @@ class InspectView(ObjectSpecificView):
         return fields
 
     def get_context_data(self, **kwargs):
+        context = super(InspectView, self).get_context_data(**kwargs)
         buttons = self.button_helper.get_buttons_for_obj(
             self.instance, exclude=['inspect'])
-        return {
+        context.update({
             'view': self,
             'fields': self.get_fields_dict(),
             'buttons': buttons,
             'instance': self.instance,
-        }
+        })
+        return context
 
     def get_template_names(self):
         return self.model_admin.get_inspect_template()
@@ -894,6 +894,11 @@ class EditView(ObjectSpecificView, CreateView):
     def get_success_message(self, instance):
         return _("{model_name} '{instance}' updated.").format(
             model_name=self.model_name, instance=instance)
+
+    def get_context_data(self, **kwargs):
+        kwargs['allow_deletion'] = self.permission_helper.user_can_delete_obj(
+            self.request.user, self.instance)
+        return super(EditView, self).get_context_data(**kwargs)
 
     def get_error_message(self):
         model_name = self.model_name.lower()
