@@ -36,9 +36,9 @@
     {% else %}
         {% url 'wagtailimages:add_multiple' as wagtailimages_add_image_url %}
         {% if current_collection %}
-            <p>{% blocktrans %}You've not uploaded any images in this collection. Why not <a href="{{ wagtailimages_add_image_url }}">add one now</a>?{% endblocktrans %}</p>
+            <p>{% blocktrans %}You haven't uploaded any images in this collection. Why not <a href="{{ wagtailimages_add_image_url }}">upload one now</a>?{% endblocktrans %}</p>
         {% else %}
-            <p>{% blocktrans %}You've not uploaded any images. Why not <a href="{{ wagtailimages_add_image_url }}">add one now</a>?{% endblocktrans %}</p>
+            <p>{% blocktrans %}You haven't uploaded any images. Why not <a href="{{ wagtailimages_add_image_url }}">upload one now</a>?{% endblocktrans %}</p>
         {% endif %}
     {% endif %}
 {% endif %}
