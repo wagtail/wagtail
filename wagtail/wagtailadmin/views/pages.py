@@ -19,8 +19,8 @@ from wagtail.wagtailadmin import messages, signals
 from wagtail.wagtailadmin.forms import CopyForm, SearchForm
 from wagtail.wagtailadmin.utils import send_notification
 from wagtail.wagtailcore import hooks
-from wagtail.wagtailcore.models import Page, PageRevision, get_navigation_menu_items, UserPagePermissionsProxy,\
-    get_administrable_page_paths
+from wagtail.wagtailcore.models import (Page, PageRevision, get_navigation_menu_items,
+    UserPagePermissionsProxy, get_administrable_page_paths)
 
 
 def get_valid_next_url_from_request(request):
@@ -53,9 +53,13 @@ def index(request, parent_page_id=None):
             # Superusers get the actual root page.
             parent_page = Page.get_first_root_node()
         else:
-            # Other users get the Closest Common Ancestor of their permitted pages.
-            required_ancestors = get_administrable_page_paths(request.user)[1]
-            parent_page = Page.objects.get(path=required_ancestors[0])
+            # Other users get the Closest Common Ancestor of their permitted pages, if they have any.
+            permitted_pages, required_ancestors = get_administrable_page_paths(request.user)
+            if permitted_pages:
+                parent_page = Page.objects.get(path=required_ancestors[0])
+            else:
+                # Users with no permitted pages are shown the an empty listing.
+                parent_page = Page.get_first_root_node()
 
     pages = parent_page.get_administrable_children(request.user).prefetch_related('content_type')
 

@@ -1336,7 +1336,10 @@ class Page(six.with_metaclass(PageBase, MP_Node, index.Indexed, ClusterableModel
         # Non-superusers are limited to seeing only their administrable Pages.
         if not user.is_superuser:
             permitted_paths, required_ancesotrs = get_administrable_page_paths(user)
-            query = query.filter(convert_administrable_page_paths_to_Q(permitted_paths, required_ancesotrs))
+            if permitted_paths:
+                query = query.filter(convert_administrable_page_paths_to_Q(permitted_paths, required_ancesotrs))
+            else:
+                query = Page.objects.none()
 
         return query
 
@@ -1375,39 +1378,27 @@ def get_administrable_page_paths(user):
         # We temporarily use a set here because "permissions" has duplicates of every path that has multiple perms.
         permitted_paths = list(set(perm.page.path for perm in permissions))
 
-    # Commented out for now because I don't know if it'll be useful later.
-    #     ####################
-    #     # Get paths by Group
-    #     ####################
-    #     # When a Group's Page permissions change, clear the cache.
-    #     # When any Page is moved, clear the cache for Groups which have permissions on that page.
-    #     permitted_paths = set()
-    #     for group in user.groups.all():
-    #         permissions = (GroupPagePermission.objects
-    #             .filter(group=group)
-    #             .exclude(permission_type='choose')
-    #             .select_related('page')
-    #         )
-    #         permitted_paths.update(perm.page.path for perm in permissions)
-    #     permitted_paths = list(permitted_paths)
-
         # Calculate the "closest common ancestor" of all the permitted Pages by finding their common prefix, then
         # chopping off the end to make the length a multiple of Page.steplen.
-        common_prefix = os.path.commonprefix(permitted_paths)
-        cca_path = common_prefix[:-(len(common_prefix) % Page.steplen) or None]
-        required_ancestors.append(cca_path)
-
-        # Now include all the ancestors of each permitted Page, up to their closest common ancestor. This lets users see
-        # parent pages that they can't administer, which allows them to traverse the tree down to pages that they can.
-        temp = set()
-        for path in permitted_paths:
-            while len(path) > len(cca_path):
-                path = path[:-Page.steplen]
-                if path not in required_ancestors:
-                    temp.add(path)
-        # We need to make sure that the CCA is first in required_ancestors (so the /admin/pages/ page can be set to
-        # display the page tree starting at the CCA), but the order of the other paths doesn't matter.
-        required_ancestors.extend(temp)
+        if permitted_paths:
+            common_prefix = os.path.commonprefix(permitted_paths)
+            cca_path = common_prefix[:-(len(common_prefix) % Page.steplen) or None]
+            required_ancestors.append(cca_path)
+            # Now include all the ancestors of each permitted Page, up to their closest common ancestor. This lets
+            # users see parent pages that they can't administer, which allows them to traverse the tree down to pages
+            # that they can.
+            temp = set()
+            for path in permitted_paths:
+                while len(path) > len(cca_path):
+                    path = path[:-Page.steplen]
+                    if path not in required_ancestors:
+                        temp.add(path)
+            # We need to make sure that the CCA is first in required_ancestors (so the /admin/pages/ page can be set to
+            # display the page tree starting at the CCA), but the order of the other paths doesn't matter.
+            required_ancestors.extend(temp)
+        else:
+            # The user is not permitted to see any pages, and therefore has no required ancestors, either.
+            pass
 
         # Cache the paths for this user indefinitely. We'll clear this user's cached data manually when anything
         # relevant changes, like changes to Group membership or permissions, or when a page is moved.
@@ -1420,8 +1411,11 @@ def convert_administrable_page_paths_to_Q(permitted_paths, required_ancestors):
     Converts the output of get_administrable_page_paths() to a Q object which will filter a QuerySet down to the
     appropriate set of Pages.
     """
-    path_Qs = reduce(operator.or_, (Q(path__startswith=path) for path in permitted_paths))
-    path_Qs |= reduce(operator.or_, (Q(path=ancestor) for ancestor in required_ancestors))
+    if permitted_paths:
+        path_Qs = reduce(operator.or_, (Q(path__startswith=path) for path in permitted_paths))
+        path_Qs |= reduce(operator.or_, (Q(path=ancestor) for ancestor in required_ancestors))
+    else:
+        path_Qs = Q()
     return path_Qs
 
 
