@@ -717,7 +717,7 @@ class EditView(ModelFormView, InstanceSpecificView):
             model_name=capfirst(self.verbose_name), instance=instance)
 
     def get_context_data(self, **kwargs):
-        kwargs['allow_deletion'] = self.permission_helper.user_can_delete_obj(
+        kwargs['user_can_delete'] = self.permission_helper.user_can_delete_obj(
             self.request.user, self.instance)
         return super(EditView, self).get_context_data(**kwargs)
 
