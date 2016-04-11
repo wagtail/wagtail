@@ -8,6 +8,7 @@ from collections import defaultdict
 from django import VERSION as DJANGO_VERSION
 
 from django.conf import settings
+from django.contrib.auth import get_user_model
 from django.contrib.auth.models import Group, Permission
 from django.contrib.contenttypes.models import ContentType
 from django.core import checks
@@ -44,6 +45,7 @@ from wagtail.wagtailsearch import index
 logger = logging.getLogger('wagtail.core')
 
 PAGE_TEMPLATE_VAR = 'page'
+ADMINISTRABLE_PATHS_PREFIX = 'administrable_paths:{0}'
 
 
 MATCH_HOSTNAME_PORT = 0
@@ -1020,8 +1022,11 @@ class Page(six.with_metaclass(PageBase, MP_Node, index.Indexed, ClusterableModel
     @transaction.atomic  # only commit when all descendants are properly updated
     def move(self, target, pos=None):
         """
-        Extension to the treebeard 'move' method to ensure that url_path is updated too.
+        Extension to the treebeard 'move' method to ensure that url_path is updated and the
+        administrable paths cache is cleared.
         """
+        # When a page is moved, its path changes, invalidating any set of cached administrable paths that included it.
+        clear_administrable_paths_cache()
         old_url_path = Page.objects.get(id=self.id).url_path
         super(Page, self).move(target, pos=pos)
         # treebeard's move method doesn't actually update the in-memory instance, so we need to work
@@ -1355,7 +1360,7 @@ def get_administrable_page_paths(user):
     # an Explorer page. Unfortunately, this does lead to a lot of duplciated data in the cache, as every single user
     # that has the same set of groups will have the same permitted paths. I'd like to cache by groupset, which would
     # remove all that duplication, but that would require an extra DB call every time, to get the user's group list.
-    cache_key = 'permitted_paths:{0}'.format(user.id)
+    cache_key = ADMINISTRABLE_PATHS_PREFIX.format(user.id)
     permitted_paths, required_ancestors = cache.get(cache_key, ([], []))
     if not permitted_paths:
         ###################
@@ -1410,7 +1415,6 @@ def get_administrable_page_paths(user):
 
     return permitted_paths, required_ancestors
 
-
 def convert_administrable_page_paths_to_Q(permitted_paths, required_ancestors):
     """
     Converts the output of get_administrable_page_paths() to a Q object which will filter a QuerySet down to the
@@ -1419,6 +1423,19 @@ def convert_administrable_page_paths_to_Q(permitted_paths, required_ancestors):
     path_Qs = reduce(operator.or_, (Q(path__startswith=path) for path in permitted_paths))
     path_Qs |= reduce(operator.or_, (Q(path=ancestor) for ancestor in required_ancestors))
     return path_Qs
+
+
+def clear_administrable_paths_cache():
+    """
+    Whenever a Page's path changes, or a Group's permissions change, or a User changes Groups, some or all of the
+    cached sets of administrable pages may now be invalid. Unfortunately, Django's caching system has very limited
+    ability to selectively clear cached data. Thus, to avoid unnecessarily clearing unrelated cache data, we have to
+    be a bit brute forcey.
+    """
+    # Delete any cached administrable paths list that might exist for every user in the system.
+    cache.delete_many(
+        ADMINISTRABLE_PATHS_PREFIX.format(uid) for uid in get_user_model().objects.values_list('id', flat=True)
+    )
 
 
 def get_navigation_menu_items(user):
