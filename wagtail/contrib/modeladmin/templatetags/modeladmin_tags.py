@@ -18,8 +18,6 @@ from django.contrib.admin.utils import (
     display_for_field, display_for_value, lookup_field,
 )
 
-from ..views import PAGE_VAR, SEARCH_VAR
-
 register = Library()
 
 
@@ -118,7 +116,7 @@ def pagination_link_previous(current_page, view):
         return format_html(
             '<li class="prev"><a href="%s" class="icon icon-arrow-left">%s'
             '</a></li>' %
-            (view.get_query_string({PAGE_VAR: previous_page_number0}),
+            (view.get_query_string({view.PAGE_VAR: previous_page_number0}),
                 _('Previous'))
         )
     return ''
@@ -131,7 +129,7 @@ def pagination_link_next(current_page, view):
         return format_html(
             '<li class="next"><a href="%s" class="icon icon-arrow-right-after"'
             '>%s</a></li>' %
-            (view.get_query_string({PAGE_VAR: next_page_number0}),
+            (view.get_query_string({view.PAGE_VAR: next_page_number0}),
                 _('Next'))
         )
     return ''
@@ -140,7 +138,7 @@ def pagination_link_next(current_page, view):
 @register.inclusion_tag(
     "modeladmin/includes/search_form.html", takes_context=True)
 def search_form(context):
-    context.update({'search_var': SEARCH_VAR})
+    context.update({'search_var': context['view'].SEARCH_VAR})
     return context
 
 
@@ -176,9 +174,9 @@ def result_row_value_display(context, index):
     item = context['item']
     closing_tag = mark_safe(item[-5:])
     request = context['request']
-    modeladmin = context['view'].model_admin
-    field_name = modeladmin.get_list_display(request)[index]
-    if field_name == modeladmin.get_list_display_add_buttons(request):
+    model_admin = context['view'].model_admin
+    field_name = model_admin.get_list_display(request)[index]
+    if field_name == model_admin.get_list_display_add_buttons(request):
         add_action_buttons = True
         item = mark_safe(item[0:-5])
     context.update({

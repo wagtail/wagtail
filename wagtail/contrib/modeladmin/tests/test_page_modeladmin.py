@@ -23,7 +23,7 @@ class TestIndexView(TestCase, WagtailTestUtils):
         self.assertEqual(response.context['result_count'], 4)
 
         # User has add permission
-        self.assertEqual(response.context['view'].button_helper.show_add_button(), True)
+        self.assertEqual(response.context['user_can_create'], True)
 
     def test_filter(self):
         # Filter by audience

@@ -23,7 +23,7 @@
                     {% block search %}{% search_form %}{% endblock %}
                 </div>
                 {% block header_extra %}
-                    {% if view.button_helper.show_add_button %}
+                    {% if user_can_create %}
                         <div class="right">
                             <div class="addbutton">
                                 {% include 'modeladmin/includes/button.html' with button=view.button_helper.add_button %}
@@ -54,14 +54,14 @@
                             {% if not all_count %}
                                 <div class="nice-padding" style="margin-top:30px;">
                                     {% if no_valid_parents %}
-                                        <p>{% blocktrans with view.model_name_plural|lower as name %}No {{ name }} have been created yet. One of the following must be created before you can add any {{ name }}:{% endblocktrans %}</p>
+                                        <p>{% blocktrans with view.verbose_name_plural|lower as name %}No {{ name }} have been created yet. One of the following must be created before you can add any {{ name }}:{% endblocktrans %}</p>
                                         <ul>
                                             {% for type in required_parent_types %}<li><b>{{ type|title }}</b></li>{% endfor %}
                                         </ul>
                                     {% else %}
-                                        <p>{% blocktrans with view.model_name_plural|lower as name %}No {{ name }} have been created yet.{% endblocktrans %}
-                                        {% if has_add_permission %}
-                                            {% blocktrans with view.get_create_url as url %}
+                                        <p>{% blocktrans with view.verbose_name_plural|lower as name %}No {{ name }} have been created yet.{% endblocktrans %}
+                                        {% if user_can_create %}
+                                            {% blocktrans with view.create_url as url %}
                                                 Why not <a href="{{ url }}">add one</a>? 
                                             {% endblocktrans %}
                                         {% endif %}</p>

@@ -8,16 +8,14 @@ class ModelAdminMenuItem(MenuItem):
     """
     def __init__(self, model_admin, order):
         self.model_admin = model_admin
-        url = model_admin.url_helper.get_action_url('index')
+        url = model_admin.url_helper.index_url
         classnames = 'icon icon-%s' % model_admin.get_menu_icon()
         super(ModelAdminMenuItem, self).__init__(
             label=model_admin.get_menu_label(), url=url,
             classnames=classnames, order=order)
 
     def is_shown(self, request):
-        return self.model_admin.permission_helper.has_list_permission(
-            request.user
-        )
+        return self.model_admin.permission_helper.user_can_list(request.user)
 
 
 class GroupMenuItem(SubmenuMenuItem):

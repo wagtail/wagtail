@@ -2,6 +2,7 @@ from django.contrib.auth import get_permission_codename
 from django.conf.urls import url
 from django.contrib.auth.models import Permission
 from django.utils.translation import ugettext as _
+from django.utils.functional import cached_property
 from django.utils.http import urlquote
 from django.utils.encoding import force_text
 from django.contrib.admin.utils import quote
@@ -23,7 +24,7 @@ class AdminURLHelper(object):
                                  action)
 
     def _get_object_specific_action_url_pattern(self, action):
-        return r'^%s/%s/%s/(?P<object_pk>[-\w]+)/$' % (
+        return r'^%s/%s/%s/(?P<instance_pk>[-\w]+)/$' % (
             self.opts.app_label, self.opts.model_name, action)
 
     def get_action_url_pattern(self, action):
@@ -35,20 +36,30 @@ class AdminURLHelper(object):
         return '%s_%s_modeladmin_%s' % (
             self.opts.app_label, self.opts.model_name, action)
 
-    def get_action_url(self, action, pk=None):
+    def get_action_url(self, action, *args, **kwargs):
         if action in ('create', 'choose_parent', 'index'):
             return reverse(self.get_action_url_name(action))
-        return reverse(self.get_action_url_name(action), args=[quote(pk)])
+        url_name = self.get_action_url_name(action)
+        return reverse(url_name, args=args, kwargs=kwargs)
+
+    @cached_property
+    def index_url(self):
+        return self.get_action_url('index')
+
+    @cached_property
+    def create_url(self):
+        return self.get_action_url('create')
 
 
 class PageAdminURLHelper(AdminURLHelper):
 
-    def get_action_url(self, action='index', pk=None):
-        if action in ('index', 'create', 'choose_parent', 'inspect'):
-            return super(PageAdminURLHelper, self).get_action_url(action, pk)
-        target_url = reverse('wagtailadmin_pages:%s' % action, args=[quote(pk)])
-        next_url = urlquote(self.get_action_url('index'))
-        return '%s?next=%s' % (target_url, next_url)
+    def get_action_url(self, action, *args, **kwargs):
+        if action in ('add', 'edit', 'delete', 'unpublish', 'copy'):
+            url_name = 'wagtailadmin_pages:%s' % action
+            target_url = reverse(url_name, args=args, kwargs=kwargs)
+            return '%s?next=%s' % (target_url, urlquote(self.index_url))
+        return super(PageAdminURLHelper, self).get_action_url(action, *args,
+                                                              **kwargs)
 
 
 class PermissionHelper(object):
@@ -77,7 +88,7 @@ class PermissionHelper(object):
     def get_perm_codename(self, action):
         return get_permission_codename(action, self.opts)
 
-    def has_specific_permission(self, user, perm_codename):
+    def user_has_specific_permission(self, user, perm_codename):
         """
         Combine `perm_codename` with `self.opts.app_label` to call the provided 
         Django user's built-in `has_perm` method.
@@ -85,54 +96,54 @@ class PermissionHelper(object):
 
         return user.has_perm("%s.%s" % (self.opts.app_label, perm_codename))
 
-    def has_any_permissions(self, user):
+    def user_has_any_permissions(self, user):
         """
         Return a boolean to indicate whether `user` has any model-wide 
         permissions
         """
         for perm in self.get_all_model_permissions().values('codename'):
-            if self.has_specific_permission(user, perm['codename']):
+            if self.user_has_specific_permission(user, perm['codename']):
                 return True
         return False
 
-    def has_list_permission(self, user):
-        return self.has_any_permissions(user)
+    def user_can_list(self, user):
+        """
+        Return a boolean to indicate whether `user` is permitted to access the
+        list view for self.model
+        """
+        return self.user_has_any_permissions(user)
 
-    def has_add_permission(self, user):
+    def user_can_create(self, user):
         """
-        Return a boolean to indicate whether `user` has the model-wide add
-        permission
+        Return a boolean to indicate whether `user` is permitted to create new
+        instances of `self.model`
         """
-        return self.has_specific_permission(user,
-                                            self.get_perm_codename('add'))
-
-
-    def has_edit_permission(self, user):
-        """
-        Return a boolean to indicate whether `user` has the model-wide
-        edit/change permission
-
-        """
-        return self.has_specific_permission(user,
-                                            self.get_perm_codename('change'))
-
-    def has_delete_permission(self, user):
-        """
-        Return a boolean to indicate whether `user` has the model-wide
-        delete permission
-        """
-        return self.has_specific_permission(user,
-                                            self.get_perm_codename('delete'))
+        perm_codename = self.get_perm_codename('add')
+        return self.user_has_specific_permission(user, perm_codename)
 
     def user_can_inspect_obj(self, user, obj):
-        return self.inspect_view_enabled and self.has_any_permissions(user)
-
+        """
+        Return a boolean to indicate whether `user` is permitted to 'inspect'
+        a specific `self.model` instance.
+        """
+        return self.inspect_view_enabled and self.user_has_any_permissions(
+            user)
 
     def user_can_edit_obj(self, user, obj):
-        return self.has_edit_permission(user)
+        """
+        Return a boolean to indicate whether `user` is permitted to 'change'
+        a specific `self.model` instance.
+        """
+        perm_codename = self.get_perm_codename('change')
+        return self.user_has_specific_permission(user, perm_codename)
 
     def user_can_delete_obj(self, user, obj):
-        return self.has_delete_permission(user)
+        """
+        Return a boolean to indicate whether `user` is permitted to 'delete'
+        a specific `self.model` instance.
+        """
+        perm_codename = self.get_perm_codename('delete')
+        return self.user_has_specific_permission(user, perm_codename)
 
     def user_can_unpublish_obj(self, user, obj):
         return False
@@ -172,7 +183,7 @@ class PagePermissionHelper(PermissionHelper):
 
         return parents_qs
 
-    def has_list_permssion(self, user):
+    def user_can_list(self, user):
         """
         For models extending Page, permitted actions are determined by
         permissions on individual objects. Rather than check for change
@@ -182,13 +193,13 @@ class PagePermissionHelper(PermissionHelper):
         """
         return True
 
-    def has_add_permission(self, user):
+    def user_can_create(self, user):
         """
         For models extending Page, whether or not a page of this type can be
         added somewhere in the tree essentially determines the add permission,
         rather than actual model-wide permissions
         """
-        return self.get_valid_parent_pages(user).count() > 0
+        return self.get_valid_parent_pages(user).exists()
 
     def user_can_edit_obj(self, user, obj):
         perms = obj.permissions_for_user(user)
@@ -220,8 +231,8 @@ class ButtonHelper(object):
         self.request = request
         self.model = view.model
         self.opts = view.model._meta
-        self.model_name = force_text(self.opts.verbose_name)
-        self.model_name_plural = force_text(self.opts.verbose_name_plural)
+        self.verbose_name = force_text(self.opts.verbose_name).lower()
+        self.verbose_name_plural = force_text(self.opts.verbose_name_plural)
         self.permission_helper = view.permission_helper
         self.url_helper = view.url_helper
 
@@ -230,50 +241,44 @@ class ButtonHelper(object):
         finalised = [cn for cn in combined if cn not in classnames_exclude]
         return ' '.join(finalised)
 
-    def get_action_url(self, action, pk=None):
-        return self.url_helper.get_action_url(action, pk)
-
-    def show_add_button(self):
-        return self.permission_helper.has_add_permission(self.request.user)
-
     def add_button(self, classnames_add=[], classnames_exclude=[]):
         classnames = self.add_button_classnames + classnames_add
         cn = self.finalise_classname(classnames, classnames_exclude)
         return {
-            'url': self.get_action_url('create'),
-            'label': _('Add %s') % self.model_name,
+            'url': self.url_helper.create_url,
+            'label': _('Add %s') % self.verbose_name,
             'classname': cn,
-            'title': _('Add a new %s') % self.model_name,
+            'title': _('Add a new %s') % self.verbose_name,
         }
 
     def inspect_button(self, pk, classnames_add=[], classnames_exclude=[]):
         classnames = self.inspect_button_classnames + classnames_add
         cn = self.finalise_classname(classnames, classnames_exclude)
         return {
-            'url': self.get_action_url('inspect', pk),
+            'url': self.url_helper.get_action_url('inspect', quote(pk)),
             'label': _('Inspect'),
             'classname': cn,
-            'title': _('View details for this %s') % self.model_name,
+            'title': _('Inspect this %s') % self.verbose_name,
         }
 
     def edit_button(self, pk, classnames_add=[], classnames_exclude=[]):
         classnames = self.edit_button_classnames + classnames_add
         cn = self.finalise_classname(classnames, classnames_exclude)
         return {
-            'url': self.get_action_url('edit', pk),
+            'url': self.url_helper.get_action_url('edit', quote(pk)),
             'label': _('Edit'),
             'classname': cn,
-            'title': _('Edit this %s') % self.model_name,
+            'title': _('Edit this %s') % self.verbose_name,
         }
 
     def delete_button(self, pk, classnames_add=[], classnames_exclude=[]):
         classnames = self.delete_button_classnames + classnames_add
         cn = self.finalise_classname(classnames, classnames_exclude)
         return {
-            'url': self.get_action_url('delete', pk),
+            'url': self.url_helper.get_action_url('delete', quote(pk)),
             'label': _('Delete'),
             'classname': cn,
-            'title': _('Delete this %s') % self.model_name,
+            'title': _('Delete this %s') % self.verbose_name,
         }
 
     def get_buttons_for_obj(self, obj, exclude=[], classnames_add=[],
@@ -306,20 +311,20 @@ class PageButtonHelper(ButtonHelper):
         classnames = self.unpublish_button_classnames + classnames_add
         cn = self.finalise_classname(classnames, classnames_exclude)
         return {
-            'url': self.get_action_url('unpublish', pk),
+            'url': self.url_helper.get_action_url('unpublish', quote(pk)),
             'label': _('Unpublish'),
             'classname': cn,
-            'title': _('Unpublish this %s') % self.model_name,
+            'title': _('Unpublish this %s') % self.verbose_name,
         }
 
     def copy_button(self, pk, classnames_add=[], classnames_exclude=[]):
         classnames = self.copy_button_classnames + classnames_add
         cn = self.finalise_classname(classnames, classnames_exclude)
         return {
-            'url': self.get_action_url('copy', pk),
+            'url': self.url_helper.get_action_url('copy', quote(pk)),
             'label': _('Copy'),
             'classname': cn,
-            'title': _('Copy this %s') % self.model_name,
+            'title': _('Copy this %s') % self.verbose_name,
         }
 
     def get_buttons_for_obj(self, obj, exclude=[], classnames_add=[],

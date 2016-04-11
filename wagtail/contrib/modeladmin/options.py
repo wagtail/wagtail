@@ -354,28 +354,28 @@ class ModelAdmin(WagtailRegisterable):
         view_class = self.choose_parent_view_class
         return view_class.as_view(**kwargs)(request)
 
-    def inspect_view(self, request, object_pk):
+    def inspect_view(self, request, instance_pk):
         """
         Instantiates a class-based view to provide 'inspect' functionality for
         the assigned model. The view class used can be overridden by changing
         the 'inspect_view_class' attribute.
         """
-        kwargs = {'model_admin': self, 'object_pk': object_pk}
+        kwargs = {'model_admin': self, 'instance_pk': instance_pk}
         view_class = self.inspect_view_class
         return view_class.as_view(**kwargs)(request)
 
-    def edit_view(self, request, object_pk):
+    def edit_view(self, request, instance_pk):
         """
         Instantiates a class-based view to provide 'edit' functionality for the
         assigned model, or redirect to Wagtail's edit view if the assinged
         model extends 'Page'. The view class used can be overridden by changing
         the  'edit_view_class' attribute.
         """
-        kwargs = {'model_admin': self, 'object_pk': object_pk}
+        kwargs = {'model_admin': self, 'instance_pk': instance_pk}
         view_class = self.edit_view_class
         return view_class.as_view(**kwargs)(request)
 
-    def delete_view(self, request, object_pk):
+    def delete_view(self, request, instance_pk):
         """
         Instantiates a class-based view to provide 'delete confirmation'
         functionality for the assigned model, or redirect to Wagtail's delete
@@ -383,7 +383,7 @@ class ModelAdmin(WagtailRegisterable):
         used can be overridden by changing the 'delete_view_class'
         attribute.
         """
-        kwargs = {'model_admin': self, 'object_pk': object_pk}
+        kwargs = {'model_admin': self, 'instance_pk': instance_pk}
         view_class = self.delete_view_class
         return view_class.as_view(**kwargs)(request)
 
@@ -393,11 +393,11 @@ class ModelAdmin(WagtailRegisterable):
         view, when the template isn't overridden by one of the template
         attributes on the class.
         """
-        app = self.opts.app_label
-        model_name = self.opts.model_name
+        app_label = self.opts.app_label.lower()
+        model_name = self.opts.model_name.lower()
         return [
-            'modeladmin/%s/%s/%s.html' % (app, model_name, action),
-            'modeladmin/%s/%s.html' % (app, action),
+            'modeladmin/%s/%s/%s.html' % (app_label, model_name, action),
+            'modeladmin/%s/%s.html' % (app_label, action),
             'modeladmin/%s.html' % (action,),
         ]
 
@@ -452,8 +452,7 @@ class ModelAdmin(WagtailRegisterable):
         attribute, that will be used. Otherwise, a list of preferred template
         names are returned.
         """
-        return self.delete_template_name or self.get_templates(
-            'delete')
+        return self.delete_template_name or self.get_templates('delete')
 
     def get_menu_item(self, order=None):
         """
