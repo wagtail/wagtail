@@ -1,0 +1,81 @@
+.replace-file-input {
+  display: inline-block;
+  position: relative;
+  overflow: hidden;
+  padding-bottom: 2px;
+}
+
+.replace-file-input [type=file] {
+  padding: 0;
+  opacity: 0;
+  position: absolute;
+  top: 0;
+  right: 0;
+  direction: ltr;
+  width: auto;
+  display: block;
+  font-size: 5em;
+}
+
+.replace-file-input [type=file]:hover {
+  cursor: pointer;
+}
+
+.replace-file-input:hover {
+  cursor: pointer;
+}
+
+.replace-file-input:hover button {
+  background-color: #358c8b;
+}
+
+.upload-list > li {
+  padding: 1em;
+}
+
+.upload-list .left {
+  text-align: center;
+}
+
+.upload-list .preview {
+  width: 150px;
+  min-height: 150px;
+  display: block;
+  position: relative;
+  text-align: center;
+  max-width: 100%;
+  margin: auto;
+}
+
+.upload-list .progress {
+  box-shadow: 0 0 5px 2px rgba(255, 255, 255, 0.4);
+  max-width: 100%;
+  z-index: 4;
+  margin-left: 20%;
+  margin-right: 20%;
+  width: 60%;
+}
+
+.upload-list .status-msg {
+  display: none;
+}
+
+.upload-list .upload-complete .progress {
+  opacity: 0;
+}
+
+.upload-list .upload-success .status-msg.success {
+  display: block;
+}
+
+.upload-list .upload-failure {
+  border-color: #cd3238;
+}
+
+.upload-list .upload-failure .preview {
+  display: none;
+}
+
+.upload-list .upload-failure .status-msg.failure {
+  display: block;
+}
