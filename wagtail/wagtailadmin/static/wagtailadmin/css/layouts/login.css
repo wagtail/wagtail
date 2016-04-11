@@ -1,0 +1,190 @@
+html,
+body,
+.content-wrapper {
+  background-color: #333;
+  color: #d9d9d9;
+}
+
+html {
+  height: 100%;
+}
+
+body {
+  margin-left: 0;
+  height: 100%;
+}
+
+.content-wrapper {
+  border: 0;
+}
+
+.wrapper {
+  padding-left: 20px;
+  padding-right: 20px;
+  margin-left: 0;
+  max-width: none;
+}
+
+h1 {
+  font-weight: 300;
+  font-size: 2em;
+  line-height: 1em;
+  color: #fff;
+  text-transform: none;
+  white-space: nowrap;
+}
+
+form {
+  width: 100%;
+}
+
+form ul {
+  margin-top: 0;
+  margin-bottom: 0;
+  padding-left: 0;
+  list-style-type: none;
+  font-style: normal;
+}
+
+form ul li {
+  list-style-type: none;
+  font-style: normal;
+}
+
+label {
+  width: auto;
+  color: #fff;
+}
+
+button {
+  font-size: 1.5em;
+  padding: 1.1em 2.4em;
+  height: 3.5em;
+}
+
+input[type=checkbox]:before {
+  background-color: #333;
+  color: #555;
+  border: 1px solid #555;
+}
+
+.fields {
+  max-width: none;
+}
+
+.fields li {
+  padding: 1em 0;
+}
+
+.fields li.full {
+  position: relative;
+  padding: 0;
+}
+
+.fields li.full label {
+  display: none;
+}
+
+.fields li.full input {
+  border-top: 1px dashed #e6e6e6;
+}
+
+.fields li:first-child input {
+  border: 0;
+}
+
+.fields .checkbox {
+  padding-top: 2em;
+  padding-bottom: 2em;
+}
+
+.field {
+  padding: 0;
+}
+
+.iconfield .input:before {
+  display: none;
+}
+
+.full input {
+  border-radius: 0;
+  padding-left: 20px;
+  padding-right: 20px;
+  font-weight: 300;
+  border: 0;
+  padding-top: 1.5em;
+  padding-bottom: 1.5em;
+  font-size: 1.6em;
+  line-height: 1.6em;
+}
+
+.help {
+  opacity: 1;
+  position: absolute;
+  font-size: 1.3em;
+  top: 50%;
+  margin-top: -0.5em;
+  right: 5%;
+}
+
+.messages {
+  margin: 1em 0;
+  z-index: 5;
+}
+
+.messages ul {
+  margin: 0;
+}
+
+.messages ul:before {
+  display: none;
+}
+
+.messages ul li {
+  border-radius: 3px;
+}
+
+@media screen and (min-width: 50em) {
+  .content-wrapper {
+    float: none;
+    height: auto;
+    width: 100%;
+    display: inline-block;
+    vertical-align: middle;
+  }
+  .wrapper {
+    position: relative;
+    height: 100%;
+    padding: 0 100px;
+  }
+  .wrapper:before {
+    content: '';
+    width: 0;
+    display: inline-block;
+    height: 100%;
+    vertical-align: middle;
+    margin-left: -0.4em;
+  }
+  h1 {
+    font-size: 4em;
+  }
+  .full {
+    margin: 0 -100px;
+  }
+  .full .iconfield .input:before {
+    display: inline-block;
+    position: absolute;
+    color: #e6e6e6;
+    border: 2px solid #e6e6e6;
+    border-radius: 100%;
+    width: 1em;
+    padding: 0.3em;
+    left: 100px;
+    margin-top: -1.1rem;
+    top: 50%;
+    font-size: 1.3rem;
+  }
+  .full .iconfield input {
+    padding-left: 150px;
+  }
+}

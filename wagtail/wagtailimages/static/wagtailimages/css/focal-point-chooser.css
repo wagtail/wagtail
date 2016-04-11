@@ -1,0 +1,22 @@
+.focal-point-chooser {
+  position: relative;
+}
+
+.focal-point-chooser .current-focal-point-indicator {
+  box-shadow: 1px 1px 10px 0 black;
+  position: absolute;
+  border: 1px solid #43b1b0;
+  opacity: 0.5;
+}
+
+body.ready .focal-point-chooser .current-focal-point-indicator {
+  transition: opacity 0.2s ease;
+}
+
+.focal-point-chooser .current-focal-point-indicator .hidden {
+  display: none;
+}
+
+.focal-point-chooser:hover .current-focal-point-indicator {
+  opacity: 0;
+}

@@ -1,23 +1,25 @@
-from __future__ import absolute_import, unicode_literals
+from __future__ import unicode_literals
 
 import json
 import re
 
-from django.contrib.contenttypes.models import ContentType
-from django.core.serializers.json import DjangoJSONEncoder
-from django.db import models
-from django.shortcuts import render
-from django.utils.encoding import python_2_unicode_compatible
-from django.utils.six import text_type
-from django.utils.text import slugify
-from django.utils.translation import ugettext_lazy as _
 from unidecode import unidecode
 
+from django.db import models
+from django.shortcuts import render
+from django.utils.translation import ugettext_lazy as _
+from django.utils.text import slugify
+from django.utils.encoding import python_2_unicode_compatible
+from django.utils.six import text_type
+from django.core.serializers.json import DjangoJSONEncoder
+from django.contrib.contenttypes.models import ContentType
+
+from wagtail.wagtailcore.models import Page, Orderable, UserPagePermissionsProxy, get_page_models
 from wagtail.wagtailadmin.edit_handlers import FieldPanel
 from wagtail.wagtailadmin.utils import send_mail
-from wagtail.wagtailcore.models import Orderable, Page, UserPagePermissionsProxy, get_page_models
 
 from .forms import FormBuilder
+
 
 FORM_FIELD_CHOICES = (
     ('singleline', _('Single line text')),
@@ -34,7 +36,7 @@ FORM_FIELD_CHOICES = (
 )
 
 
-HTML_EXTENSION_RE = re.compile(r"(.*)\.html")
+HTML_EXTENSION_RE = re.compile(r"(.*)\.(html|jade)")
 
 
 @python_2_unicode_compatible
@@ -139,7 +141,7 @@ class AbstractForm(Page):
         super(AbstractForm, self).__init__(*args, **kwargs)
         if not hasattr(self, 'landing_page_template'):
             template_wo_ext = re.match(HTML_EXTENSION_RE, self.template).group(1)
-            self.landing_page_template = template_wo_ext + '_landing.html'
+            self.landing_page_template = template_wo_ext + '_landing.' + re.match(HTML_EXTENSION_RE, self.template).group(2)
 
     class Meta:
         abstract = True

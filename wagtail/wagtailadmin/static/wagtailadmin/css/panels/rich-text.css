@@ -1,0 +1,169 @@
+.hallotoolbar {
+  position: absolute;
+  z-index: 5;
+  margin-top: 4em;
+  margin-left: 1.2em;
+}
+
+.hallotoolbar.affixed {
+  position: fixed;
+  margin-top: 0;
+}
+
+.hallotoolbar.full {
+  margin-left: 20px;
+}
+
+.hallotoolbar.stream-field {
+  margin-top: -1em;
+  margin-left: 0;
+}
+
+.hallotoolbar.stream-field.affixed {
+  margin-top: 0;
+}
+
+.hallotoolbar button {
+  border-radius: 0;
+  height: 2.4em;
+}
+
+.richtext {
+  font-family: Roboto Slab, Georgia, serif;
+  padding-top: 4em;
+  min-height: 50px;
+  overflow: hidden;
+  line-height: 1.5em;
+}
+
+.richtext h1 {
+  text-transform: none;
+}
+
+.richtext h2 {
+  text-transform: none;
+  display: block;
+}
+
+.richtext h1 span {
+  font-weight: normal;
+  color: inherit;
+}
+
+.richtext *:before,
+.richtext *:after {
+  display: none;
+}
+
+.richtext ol,
+.richtext ul {
+  margin: 1em 0;
+  padding: 0 0 0 40px;
+}
+
+.richtext li {
+  display: list-item;
+}
+
+.richtext ul li {
+  list-style-type: disc;
+}
+
+.richtext ol li {
+  list-style-type: decimal;
+}
+
+.richtext .rich-text-deletable {
+  position: relative;
+}
+
+.richtext .rich-text-deletable a.delete-control {
+  position: absolute;
+  right: 0;
+  cursor: pointer;
+  display: none;
+}
+
+.richtext .rich-text-deletable a.delete-control:before {
+  background-color: rgba(255, 255, 255, 0.8);
+}
+
+.richtext .rich-text-deletable a.delete-control:hover:before {
+  background-color: #fff;
+}
+
+.richtext.inEditMode .rich-text-deletable a.delete-control {
+  display: block;
+}
+
+.richtext h1,
+.richtext h2,
+.richtext h3,
+.richtext h4,
+.richtext h5,
+.richtext h6 {
+  font-family: inherit;
+}
+
+.richtext h2 {
+  font-size: 2em;
+  line-height: 1.2em;
+  clear: both;
+}
+
+.richtext h3 {
+  font-size: 1.7em;
+  line-height: 1.194em;
+}
+
+.richtext h4 {
+  font-size: 1.5em;
+  line-height: 1.267em;
+}
+
+.richtext h5 {
+  font-size: 1.2em;
+  line-height: 1.27em;
+}
+
+.richtext hr {
+  border-bottom: 1px solid #ccc;
+  border-top: 0;
+  border-left: 0;
+}
+
+.richtext .richtext-image {
+  margin-top: 3px;
+}
+
+.richtext .richtext-image img {
+  width: 100%;
+}
+
+.richtext .richtext-image figcaption {
+  display: block;
+  width: 100%;
+  text-align: left;
+  margin-top: 16px;
+  margin-bottom: 16px;
+}
+
+.richtext .richtext-image.small {
+  max-width: 45%;
+}
+
+.richtext .richtext-image.left {
+  float: left;
+  margin-right: 16px;
+}
+
+.richtext .richtext-image.right {
+  float: right;
+  margin-left: 16px;
+}
+
+@media screen and (min-width: 50em) {
+  .hallotoolbar.full {
+    margin-left: 50px;
+  }
+}
