@@ -29,6 +29,7 @@ Minor features
  * Added a hook :ref:`register_page_listing_buttons` for adding action buttons to the page explorer
  * Added 'revisions' action to pages list (Roel Bruggink)
  * Added a hook :ref:`insert_global_admin_js` for inserting custom JavaScript throughout the admin backend (Tom Dyson)
+ * Recognise instagram embed URLs with ``www`` prefix (Matt Westcott)
  * The type of the ``search_fields`` attribute on ``Page`` models (and other searchable models) has changed from a tuple to a list (see upgrade consideration below) (Tim Heap)
  * Use `PasswordChangeForm` when user changes their password, requiring the user to enter their current password (Matthijs Melissen)
  * Highlight current day in date picker (Jonas Lergell)
