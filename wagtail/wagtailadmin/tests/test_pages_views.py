@@ -1,6 +1,7 @@
 from __future__ import absolute_import, unicode_literals
 
 import datetime
+import logging
 
 import django
 import mock
@@ -2477,9 +2478,11 @@ class TestNotificationPreferences(TestCase, WagtailTestUtils):
 
     @mock.patch('wagtail.wagtailadmin.utils.django_send_mail', side_effect=IOError('Server down'))
     def test_email_send_error(self, mock_fn):
+        logging.disable(logging.CRITICAL)
         # Approve
         self.silent_submit()
         response = self.approve()
+        logging.disable(logging.NOTSET)
 
         # An email that fails to send should return a message rather than crash the page
         self.assertEqual(response.status_code, 302)
