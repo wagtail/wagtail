@@ -147,7 +147,11 @@ class Site(models.Model):
             default=MATCH_HOSTNAME,
 
             output_field=IntegerField(),
-        )).filter(Q(hostname=hostname) | Q(is_default_site=True)).order_by('match'))
+        )).filter(Q(hostname=hostname) | Q(is_default_site=True)).order_by(
+            'match'
+        ).select_related(
+            'root_page'
+        ))
 
         if sites:
             # if theres a unique match or hostname (with port or default) match
