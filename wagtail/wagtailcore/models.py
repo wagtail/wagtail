@@ -1363,7 +1363,7 @@ def get_administrable_page_paths(user):
     # an Explorer page. Unfortunately, this does lead to a lot of duplciated data in the cache, as every single user
     # that has the same set of groups will have the same permitted paths. I'd like to cache by groupset, which would
     # remove all that duplication, but that would require an extra DB call every time, to get the user's group list.
-    cache_key = ADMINISTRABLE_PATHS_PREFIX.format(user.id)
+    cache_key = ADMINISTRABLE_PATHS_PREFIX.format(user.pk)
     permitted_paths, required_ancestors = cache.get(cache_key, ([], []))
     if not permitted_paths:
         ###################
