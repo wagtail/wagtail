@@ -26,7 +26,7 @@ class Operation(object):
     def construct(self, *args):
         raise NotImplementedError
 
-    def run(self, willow, image):
+    def run(self, willow, image, env):
         raise NotImplementedError
 
 
@@ -34,7 +34,7 @@ class DoNothingOperation(Operation):
     def construct(self):
         pass
 
-    def run(self, willow, image):
+    def run(self, willow, image, env):
         pass
 
 
@@ -63,7 +63,7 @@ class FillOperation(Operation):
         if self.crop_closeness > 1:
             self.crop_closeness = 1
 
-    def run(self, willow, image):
+    def run(self, willow, image, env):
         image_width, image_height = willow.get_size()
         focal_point = image.get_focal_point()
 
@@ -151,7 +151,7 @@ class MinMaxOperation(Operation):
         self.width = int(width_str)
         self.height = int(height_str)
 
-    def run(self, willow, image):
+    def run(self, willow, image, env):
         image_width, image_height = willow.get_size()
 
         horz_scale = self.width / image_width
@@ -190,7 +190,7 @@ class WidthHeightOperation(Operation):
     def construct(self, size):
         self.size = int(size)
 
-    def run(self, willow, image):
+    def run(self, willow, image, env):
         image_width, image_height = willow.get_size()
 
         if self.method == 'width':

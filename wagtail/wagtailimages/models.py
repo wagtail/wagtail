@@ -404,8 +404,9 @@ class Filter(models.Model):
             # Fix orientation of image
             willow = willow.auto_orient()
 
+            env = {}
             for operation in self.operations:
-                willow = operation.run(willow, image) or willow
+                willow = operation.run(willow, image, env) or willow
 
             if original_format == 'jpeg':
                 # Allow changing of JPEG compression quality
