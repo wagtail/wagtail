@@ -3,7 +3,6 @@ from __future__ import absolute_import, unicode_literals
 import os
 import json
 import logging
-import operator
 from collections import defaultdict
 from django import VERSION as DJANGO_VERSION
 
@@ -1339,6 +1338,7 @@ class Page(six.with_metaclass(PageBase, MP_Node, index.Indexed, ClusterableModel
             if permitted_paths:
                 query = query.filter(convert_administrable_page_paths_to_Q(permitted_paths, required_ancesotrs))
             else:
+                # If the User has no administrable pages, display nothing.
                 query = Page.objects.none()
 
         return query
@@ -1413,11 +1413,11 @@ def convert_administrable_page_paths_to_Q(permitted_paths, required_ancestors):
     Converts the output of get_administrable_page_paths() to a Q object which will filter a QuerySet down to the
     appropriate set of Pages.
     """
-    if permitted_paths:
-        path_Qs = reduce(operator.or_, (Q(path__startswith=path) for path in permitted_paths))
-        path_Qs |= reduce(operator.or_, (Q(path=ancestor) for ancestor in required_ancestors))
-    else:
-        path_Qs = Q()
+    path_Qs = Q()
+    for path in permitted_paths:
+        path_Qs = path_Qs | Q(path__startswith=path)
+    for ancestor in required_ancestors:
+        path_Qs = path_Qs | Q(path=ancestor)
     return path_Qs
 
 
