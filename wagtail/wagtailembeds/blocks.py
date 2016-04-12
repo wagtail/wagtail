@@ -61,3 +61,6 @@ class EmbedBlock(blocks.URLBlock):
             return None
         else:
             return EmbedValue(value)
+
+    class Meta:
+        icon = "media"
