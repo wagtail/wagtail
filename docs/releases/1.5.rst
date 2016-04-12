@@ -46,6 +46,7 @@ Bug fixes
  * Fixed crash when an image without a source file was resized with the "dynamic serve view"
  * Registered settings admin menu items now show active correctly (Matthew Downey)
  * Direct usage of ``Document`` model replaced with ``get_document_model`` function in ``wagtail.contrib.wagtailmedusa`` and in ``wagtail.contrib.wagtailapi``
+ * Failures on sending moderation notification emails now produce a warning, rather than crashing the admin page outright (Matt Fozard)
 
 
 Upgrade considerations
