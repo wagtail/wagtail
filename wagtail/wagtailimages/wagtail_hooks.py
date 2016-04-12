@@ -77,6 +77,7 @@ def register_image_operations():
         ('width', image_operations.WidthHeightOperation),
         ('height', image_operations.WidthHeightOperation),
         ('jpegquality', image_operations.JPEGQualityOperation),
+        ('format', image_operations.FormatOperation),
     ]
 
 
