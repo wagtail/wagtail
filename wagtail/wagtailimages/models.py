@@ -437,7 +437,9 @@ class Filter(models.Model):
 
             if original_format == 'jpeg':
                 # Allow changing of JPEG compression quality
-                if hasattr(settings, 'WAGTAILIMAGES_JPEG_QUALITY'):
+                if 'jpeg-quality' in env:
+                    quality = env['jpeg-quality']
+                elif hasattr(settings, 'WAGTAILIMAGES_JPEG_QUALITY'):
                     quality = settings.WAGTAILIMAGES_JPEG_QUALITY
                 else:
                     quality = 85
