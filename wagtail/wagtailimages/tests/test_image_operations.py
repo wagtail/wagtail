@@ -81,7 +81,7 @@ class ImageOperationTestCase(TestCase):
             operation_recorder = WillowOperationRecorder((image.width, image.height))
 
             # Run
-            operation.run(operation_recorder, image)
+            operation.run(operation_recorder, image, {})
 
             # Check
             self.assertEqual(operation_recorder.ran_operations, expected_output)
