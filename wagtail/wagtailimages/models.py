@@ -413,7 +413,9 @@ class Filter(models.Model):
             # Fix orientation of image
             willow = willow.auto_orient()
 
-            env = {}
+            env = {
+                'original-format': original_format,
+            }
             for operation in self.operations:
                 # Check that the operation can take the new "env" argument
                 # (added in Wagtail 1.5)
