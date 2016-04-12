@@ -32,7 +32,7 @@ from django.utils.six.moves.urllib.parse import urlparse
 from django.utils.text import slugify
 from django.utils.translation import ugettext_lazy as _
 from modelcluster.models import ClusterableModel, get_all_child_relations
-from treebeard.mp_tree import MP_Node, get_result_class
+from treebeard.mp_tree import MP_Node
 
 from wagtail.utils.deprecation import SearchFieldsShouldBeAList
 from wagtail.wagtailcore.query import PageQuerySet, TreeQuerySet
@@ -1369,7 +1369,8 @@ def get_administrable_page_paths(user):
         ###################
         # Get paths by User
         ###################
-        permissions = (GroupPagePermission.objects
+        permissions = (
+            GroupPagePermission.objects
             .filter(group__user=user)
             # Choose permission is excluded because it's only associated with the Choosers, not the Explorer.
             .exclude(permission_type='choose')
@@ -1405,6 +1406,7 @@ def get_administrable_page_paths(user):
         cache.set(cache_key, (permitted_paths, required_ancestors), None)
 
     return permitted_paths, required_ancestors
+
 
 def convert_administrable_page_paths_to_Q(permitted_paths, required_ancestors):
     """
@@ -1924,8 +1926,9 @@ class PagePermissionTester(object):
             return False
 
         # If this page is permitted, return True immediately.
-        if (self.can_add_subpage() or self.can_edit() or self.can_delete()
-            or self.can_unpublish() or self.can_publish() or self.can_lock()
+        if (
+            self.can_add_subpage() or self.can_edit() or self.can_delete() or
+            self.can_unpublish() or self.can_publish() or self.can_lock()
         ):
             return True
 
