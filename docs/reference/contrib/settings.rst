@@ -138,6 +138,8 @@ If there is no ``request`` available in the template at all, you can use the set
 
 .. note:: You can not reliably get the correct settings instance for the current site from this template tag if the request object is not available. This is only relevant for multisite instances of Wagtail.
 
+.. _settings_tag_jinja2:
+
 Using in Jinja2 templates
 -------------------------
 
