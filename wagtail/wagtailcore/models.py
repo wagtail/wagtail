@@ -1430,7 +1430,7 @@ def clear_administrable_paths_cache():
     """
     # Delete any cached administrable paths list that might exist for every user in the system.
     cache.delete_many(
-        ADMINISTRABLE_PATHS_PREFIX.format(uid) for uid in get_user_model().objects.values_list('id', flat=True)
+        ADMINISTRABLE_PATHS_PREFIX.format(uid) for uid in get_user_model().objects.values_list('pk', flat=True)
     )
 
 
