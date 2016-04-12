@@ -24,7 +24,7 @@ class HalloRichTextArea(WidgetWithScript, widgets.Textarea):
         return super(HalloRichTextArea, self).render(name, translated_value, attrs)
 
     def render_js_init(self, id_, name, value):
-        return "makeRichTextEditable({0});".format(json.dumps(id_))
+        return "makeHalloRichTextEditable({0});".format(json.dumps(id_))
 
     def value_from_datadict(self, data, files, name):
         original_value = super(HalloRichTextArea, self).value_from_datadict(data, files, name)
@@ -36,6 +36,7 @@ class HalloRichTextArea(WidgetWithScript, widgets.Textarea):
     def media(self):
         return Media(js=[
             static('wagtailadmin/js/vendor/hallo.js'),
+            static('wagtailadmin/js/hallo-bootstrap.js'),
             static('wagtailadmin/js/hallo-plugins/hallo-wagtaillink.js'),
             static('wagtailadmin/js/hallo-plugins/hallo-hr.js'),
             static('wagtailadmin/js/hallo-plugins/hallo-requireparagraphs.js'),

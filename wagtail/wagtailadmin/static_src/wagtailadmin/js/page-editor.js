@@ -1,5 +1,7 @@
 'use strict';
 
+// registerHalloPlugin must be implemented here so it can be used by plugins
+// hooked in with insert_editor_js (and hallo-bootstrap.js runs too late)
 var halloPlugins = {
     halloformat: {},
     halloheadings: {formatBlocks: ['p', 'h2', 'h3', 'h4', 'h5']},
@@ -12,88 +14,6 @@ var halloPlugins = {
 
 function registerHalloPlugin(name, opts) {
     halloPlugins[name] = (opts || {});
-}
-
-function makeRichTextEditable(id) {
-    var input = $('#' + id);
-    var richText = $('<div class="richtext"></div>').html(input.val());
-    richText.insertBefore(input);
-    input.hide();
-
-    var removeStylingPending = false;
-    function removeStyling() {
-        /* Strip the 'style' attribute from spans that have no other attributes.
-        (we don't remove the span entirely as that messes with the cursor position,
-        and spans will be removed anyway by our whitelisting)
-        */
-        $('span[style]', richText).filter(function() {
-            return this.attributes.length === 1;
-        }).removeAttr('style');
-        removeStylingPending = false;
-    }
-
-    /* Workaround for faulty change-detection in hallo */
-    function setModified() {
-        var hallo = richText.data('IKS-hallo');
-        if (hallo) {
-            hallo.setModified();
-        }
-    }
-
-    var closestObj = input.closest('.object');
-
-    richText.hallo({
-        toolbar: 'halloToolbarFixed',
-        toolbarCssClass: (closestObj.hasClass('full')) ? 'full' : (closestObj.hasClass('stream-field')) ? 'stream-field' : '',
-        plugins: halloPlugins
-    }).bind('hallomodified', function(event, data) {
-        input.val(data.content);
-        if (!removeStylingPending) {
-            setTimeout(removeStyling, 100);
-            removeStylingPending = true;
-        }
-    }).bind('paste drop', function(event, data) {
-        setTimeout(function() {
-            removeStyling();
-            setModified();
-        }, 1);
-    /* Animate the fields open when you click into them. */
-    }).bind('halloactivated', function(event, data) {
-        $(event.target).addClass('expanded', 200, function(e) {
-            /* Hallo's toolbar will reposition itself on the scroll event.
-            This is useful since animating the fields can cause it to be
-            positioned badly initially. */
-            $(window).trigger('scroll');
-        });
-    }).bind('hallodeactivated', function(event, data) {
-        $(event.target).removeClass('expanded', 200, function(e) {
-            $(window).trigger('scroll');
-        });
-    });
-
-    setupLinkTooltips(richText);
-}
-
-function setupLinkTooltips(elem) {
-    elem.tooltip({
-        animation: false,
-        title: function() {
-            return $(this).attr('href');
-        },
-        trigger: 'hover',
-        placement: 'bottom',
-        selector: 'a'
-    });
-}
-
-function insertRichTextDeleteControl(elem) {
-    var a = $('<a class="icon icon-cross text-replace delete-control">Delete</a>');
-    $(elem).addClass('rich-text-deletable').prepend(a);
-    a.click(function() {
-        $(elem).fadeOut(function() {
-            $(elem).remove();
-        });
-    });
 }
 
 // Compare two date objects. Ignore minutes and seconds.
@@ -435,10 +355,6 @@ $(function() {
     initErrorDetection();
     initCollapsibleBlocks();
     initKeyboardShortcuts();
-
-    $('.richtext [contenteditable="false"]').each(function() {
-        insertRichTextDeleteControl(this);
-    });
 
     /* Set up behaviour of preview button */
     var previewWindow = null;
