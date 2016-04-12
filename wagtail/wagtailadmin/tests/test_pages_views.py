@@ -291,32 +291,25 @@ class TestPageExplorerSignposting(TestCase, WagtailTestUtils):
         self.assertNotContains(response, "Pages created here will not be accessible")
 
     def test_nonadmin_at_root(self):
-        # TODO: The change to showing non-superusers the Closest Common Ancestor of their permitted pages, instead
-        # of the actual root page, breaks this test. But I'm not sure how best to fix it.
         self.assertTrue(self.client.login(username='siteeditor', password='password'))
         response = self.client.get(reverse('wagtailadmin_explore_root'))
         self.assertEqual(response.status_code, 200)
-        # Non-admin should get a simple "create pages as children of the homepage" prompt
+        # Non-admin should be shown the Site's homepage at the Explorer root, since it's the Closest Common Ancestor.
         self.assertContains(
             response,
-            "Pages created here will not be accessible at any URL. "
-            "To add pages to an existing site, create them as children of the homepage."
+            "Welcome to the Wagtail test site!"
+        )
+        self.assertContains(
+            response,
+            '<a class="button button-secondary button-small" href="/admin/pages/2/edit/" title="Edit this page">Edit</a>'
         )
 
     def test_nonadmin_at_non_site_page(self):
         self.assertTrue(self.client.login(username='siteeditor', password='password'))
         response = self.client.get(reverse('wagtailadmin_explore', args=(self.no_site_page.id, )))
-        # TODO: The change to limiting non-superusers to administrable pages breaks this test, but
-        # I'm not sure how best to fix it.
-        self.assertEqual(response.status_code, 200)
-        # Non-admin should get a warning about unroutable pages
-        self.assertContains(
-            response,
-            (
-                "There is no site record for this location. "
-                "Pages created here will not be accessible at any URL."
-            )
-        )
+        # Non-superusers are told that Pages which are neither in the current Site nor in their administrable tree
+        # do not exist.
+        self.assertEqual(response.status_code, 404)
 
     # TODO: Add tests for nonadmins not being allowed to see unpermitted pages.
 
