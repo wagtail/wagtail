@@ -44,7 +44,7 @@ from wagtail.wagtailsearch import index
 logger = logging.getLogger('wagtail.core')
 
 PAGE_TEMPLATE_VAR = 'page'
-ADMINISTRABLE_PATHS_PREFIX = 'administrable_paths:{0}'
+EXPLORABLE_PATHS_PREFIX = 'explorable_paths:{0}'
 
 
 MATCH_HOSTNAME_PORT = 0
@@ -1022,10 +1022,10 @@ class Page(six.with_metaclass(PageBase, MP_Node, index.Indexed, ClusterableModel
     def move(self, target, pos=None):
         """
         Extension to the treebeard 'move' method to ensure that url_path is updated and the
-        administrable paths cache is cleared.
+        explorable paths cache is cleared.
         """
-        # When a page is moved, its path changes, invalidating any set of cached administrable paths that included it.
-        clear_administrable_paths_cache()
+        # When a page is moved, its path changes, invalidating any set of cached explorable paths that included it.
+        clear_explorable_paths_cache()
         old_url_path = Page.objects.get(id=self.id).url_path
         super(Page, self).move(target, pos=pos)
         # treebeard's move method doesn't actually update the in-memory instance, so we need to work
@@ -1327,28 +1327,28 @@ class Page(six.with_metaclass(PageBase, MP_Node, index.Indexed, ClusterableModel
         return TemplateResponse(request, self.password_required_template, context)
 
 
-    def get_administrable_children(self, user):
+    def get_explorable_children(self, user):
         """
-        Returns a queryset of all the node's children that the given user is permitted to administer.
+        Returns a queryset of all the node's children that the given user is permitted to see in the Explorer.
         """
-        query = self.get_children()
-        # Non-superusers are limited to seeing only their administrable Pages.
-        if not user.is_superuser:
-            permitted_paths, required_ancesotrs = get_administrable_page_paths(user)
-            if permitted_paths:
-                query = query.filter(convert_administrable_page_paths_to_Q(permitted_paths, required_ancesotrs))
-            else:
-                # If the User has no administrable pages, display nothing.
-                query = Page.objects.none()
+        # Superusers see all children.
+        if user.is_superuser:
+            return self.get_children()
 
-        return query
+        permitted_paths, required_ancestors = get_explorable_page_paths(user)
+        if permitted_paths:
+            return self.get_children().filter(convert_explorable_paths_to_Q(permitted_paths, required_ancestors))
+        else:
+            # If the User has no explorable pages, display nothing.
+            return Page.objects.none()
+
 
     class Meta:
         verbose_name = _('page')
         verbose_name_plural = _('pages')
 
 
-def get_administrable_page_paths(user):
+def get_explorable_page_paths(user):
     """
     Returns a tuple of lists of treebeard "path" values.
     The first list is the set of paths which the given user is explicitly permitted to administer (meaning they can
@@ -1363,7 +1363,7 @@ def get_administrable_page_paths(user):
     # an Explorer page. Unfortunately, this does lead to a lot of duplciated data in the cache, as every single user
     # that has the same set of groups will have the same permitted paths. I'd like to cache by groupset, which would
     # remove all that duplication, but that would require an extra DB call every time, to get the user's group list.
-    cache_key = ADMINISTRABLE_PATHS_PREFIX.format(user.pk)
+    cache_key = EXPLORABLE_PATHS_PREFIX.format(user.pk)
     permitted_paths, required_ancestors = cache.get(cache_key, ([], []))
     if not permitted_paths:
         ###################
@@ -1408,9 +1408,9 @@ def get_administrable_page_paths(user):
     return permitted_paths, required_ancestors
 
 
-def convert_administrable_page_paths_to_Q(permitted_paths, required_ancestors):
+def convert_explorable_paths_to_Q(permitted_paths, required_ancestors):
     """
-    Converts the output of get_administrable_page_paths() to a Q object which will filter a QuerySet down to the
+    Converts the output of get_explorable_page_paths() to a Q object which will filter a QuerySet down to the
     appropriate set of Pages.
     """
     path_Qs = Q()
@@ -1421,17 +1421,23 @@ def convert_administrable_page_paths_to_Q(permitted_paths, required_ancestors):
     return path_Qs
 
 
-def clear_administrable_paths_cache():
+def clear_explorable_paths_cache(user=None):
     """
-    Whenever a Page's path changes, or a Group's permissions change, or a User changes Groups, some or all of the
-    cached sets of administrable pages may now be invalid. Unfortunately, Django's caching system has very limited
-    ability to selectively clear cached data. Thus, to avoid unnecessarily clearing unrelated cache data, we have to
+    Whenever a Page's path changes, or a Group's permissions change, or a User's Groups change, some or all of the
+    cached sets of explorable pages may now be invalid. Unfortunately, Django's caching system has very limited
+    ability to selectively clear cached data. So to avoid unnecessarily clearing unrelated cache data, we have to
     be a bit brute forcey.
+
+    Pass in a user object to clear just that user's cached permitted path data. Otherwise, all cached permitted path
+    data will be cleared.
     """
-    # Delete any cached administrable paths list that might exist for every user in the system.
-    cache.delete_many(
-        ADMINISTRABLE_PATHS_PREFIX.format(uid) for uid in get_user_model().objects.values_list('pk', flat=True)
-    )
+    if user:
+        cache.delete(EXPLORABLE_PATHS_PREFIX.format(user.pk))
+    else:
+        # Delete any cached explorable paths that might exist for every user in the system.
+        cache.delete_many(
+            EXPLORABLE_PATHS_PREFIX.format(uid) for uid in get_user_model().objects.values_list('pk', flat=True)
+        )
 
 
 def get_navigation_menu_items(user):
@@ -1445,9 +1451,9 @@ def get_navigation_menu_items(user):
     # ever used in the first place.
     if user and not user.is_superuser:
         # Limit the pages to those for which the given user has any administrative permission.
-        permitted_paths, required_ancesotrs = get_administrable_page_paths(user)
+        permitted_paths, required_ancesotrs = get_explorable_page_paths(user)
         # Always include the Root page, since we need it for the depth_list.
-        pages = pages.filter(Q(depth=1) | convert_administrable_page_paths_to_Q(permitted_paths, required_ancesotrs))
+        pages = pages.filter(Q(depth=1) | convert_explorable_paths_to_Q(permitted_paths, required_ancesotrs))
 
     # Turn this into a tree structure:
     #     tree_node = (page, children)
@@ -1921,7 +1927,7 @@ class PagePermissionTester(object):
 
         return self.user.is_superuser or ('choose' in self.permissions)
 
-    def can_view_in_admin(self):
+    def can_explore(self):
         if not self.user.is_active:
             return False
 
@@ -1933,8 +1939,8 @@ class PagePermissionTester(object):
             return True
 
         # If this page isn't permitted, return whether or not it's in the required ancestors of the user's
-        # administrable section(s) of the tree.
-        return self.page.path in get_administrable_page_paths(self.user)[1]
+        # explorable section(s) of the tree.
+        return self.page.path in get_explorable_page_paths(self.user)[1]
 
 
 class PageViewRestriction(models.Model):
