@@ -312,3 +312,24 @@ def message_tags(message):
         return level_tag
     else:
         return ''
+
+
+@register.assignment_tag
+def explorable_ancestors(page, user):
+    """
+    Example: {% explorable_ancestors page_obj user_obj as ancestors %}
+    Since the Page.get_explorable_ancestors function takes a User object as
+    input, we can't call directly from the template. This template tag does
+    that for us.
+    """
+    return page.get_explorable_ancestors(user)
+
+
+@register.assignment_tag
+def is_explorable_root(page, user):
+    """
+    Example: {% is_explorable_root page_obj user_obj as page_is_explorable_root %}
+    Since the Page.is_explorable_root function takes a User object as input, we
+    can't call directly from the template. This template tag does that for us.
+    """
+    return page.is_explorable_root(user)

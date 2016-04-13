@@ -1342,6 +1342,34 @@ class Page(six.with_metaclass(PageBase, MP_Node, index.Indexed, ClusterableModel
             # If the User has no explorable pages, display nothing.
             return Page.objects.none()
 
+    def get_explorable_ancestors(self, user):
+        """
+        Returns a queryset of all the node's ancestors that the given user is permitted to see in the Explorer.
+        """
+        # Superusers see all the ancestors.
+        if user.is_superuser:
+            return self.get_ancestors()
+
+        # Copied this algorithm from TreeQuerySet.ancestor_of_q, but tweaked it to remove this page's path.
+        ancestor_paths = [
+            self.path[0:pos]
+            for pos in range(0, len(self.path) + 1 - self.steplen, self.steplen)[1:]
+        ]
+        # Remove all paths that are neither permitted nor required.
+        permitted_paths, required_ancestors = get_explorable_page_paths(user)
+        for path in ancestor_paths[:]:
+            if path not in permitted_paths and path not in required_ancestors:
+                ancestor_paths.remove(path)
+
+        return Page.objects.filter(path__in=ancestor_paths)
+
+    def is_explorable_root(self, user):
+        # A superuser's explorable root is the Root page.
+        if user.is_superuser:
+            return self.is_root()
+
+        permitted_paths, required_ancestors = get_explorable_page_paths(user)
+        return self.path == required_ancestors[0]
 
     class Meta:
         verbose_name = _('page')
