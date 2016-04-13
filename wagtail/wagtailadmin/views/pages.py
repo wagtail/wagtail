@@ -20,7 +20,7 @@ from wagtail.wagtailadmin.forms import CopyForm, SearchForm
 from wagtail.wagtailadmin.utils import send_notification
 from wagtail.wagtailcore import hooks
 from wagtail.wagtailcore.models import (
-    Page, PageRevision, get_navigation_menu_items, UserPagePermissionsProxy, get_administrable_page_paths
+    Page, PageRevision, UserPagePermissionsProxy, get_navigation_menu_items, get_administrable_page_paths
 )
 
 

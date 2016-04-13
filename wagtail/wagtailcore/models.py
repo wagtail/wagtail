@@ -1,8 +1,8 @@
 from __future__ import absolute_import, unicode_literals
 
-import os
 import json
 import logging
+import os
 from collections import defaultdict
 from django import VERSION as DJANGO_VERSION
 
