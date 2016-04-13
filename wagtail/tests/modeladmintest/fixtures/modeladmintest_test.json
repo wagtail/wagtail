@@ -1,0 +1,66 @@
+[
+{
+    "pk": 1,
+    "model": "modeladmintest.author",
+    "fields": {
+        "name": "J. R. R. Tolkien",
+        "date_of_birth": "1892-01-03"
+    }
+},
+{
+    "pk": 2,
+    "model": "modeladmintest.author",
+    "fields": {
+        "name": "Roald Dahl",
+        "date_of_birth": "1916-09-13"
+    }
+},
+{
+    "pk": 3,
+    "model": "modeladmintest.author",
+    "fields": {
+        "name": "Roald Dahl",
+        "date_of_birth": "1898-11-29"
+    }
+},
+{
+    "pk": 4,
+    "model": "modeladmintest.author",
+    "fields": {
+        "name": "J. R. Hartley",
+        "date_of_birth": "1898-11-29"
+    }
+},
+{
+    "pk": 1,
+    "model": "modeladmintest.book",
+    "fields": {
+        "title": "The Lord of the Rings",
+        "author_id": 1
+    }
+},
+{
+    "pk": 2,
+    "model": "modeladmintest.book",
+    "fields": {
+        "title": "The Hobbit",
+        "author_id": 1
+    }
+},
+{
+    "pk": 3,
+    "model": "modeladmintest.book",
+    "fields": {
+        "title": "Charlie and the Chocolate Factory",
+        "author_id": 2
+    }
+},
+{
+    "pk": 4,
+    "model": "modeladmintest.book",
+    "fields": {
+        "title": "The Chronicles of Narnia",
+        "author_id": 3
+    }
+}
+]

@@ -33,6 +33,13 @@ var apps = [
     new App('wagtail/contrib/settings', {
         'appName': 'wagtailsettings',
     }),
+    new App('wagtail/contrib/modeladmin', {
+        'scss': [
+            'modeladmin/scss/index.scss',
+            'modeladmin/scss/choose_parent_page.scss',
+
+        ],
+    }),
 ];
 
 module.exports = {

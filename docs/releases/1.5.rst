@@ -10,6 +10,12 @@ Wagtail 1.5 release notes - IN DEVELOPMENT
 What's new
 ==========
 
+ModelAdmin
+~~~~~~~~~~
+
+Wagtail now includes an app ``wagtail.contrib.modeladmin`` (previously available separately as the `wagtailmodeladmin <https://github.com/rkhleics/wagtailmodeladmin>`_ package) which allows you to configure arbitrary Django models to be listed, added and edited through the Wagtail admin. See :doc:`/reference/contrib/modeladmin` for full documentation. This feature was developed by Andy Babic.
+
+
 Improvements to the "Image serve view"
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
