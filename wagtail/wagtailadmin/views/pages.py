@@ -8,8 +8,6 @@ from django.http import Http404, HttpResponse
 from django.shortcuts import get_object_or_404, redirect, render
 from django.template.loader import render_to_string
 from django.utils import timezone
-from django.utils.http import is_safe_url
-from django.utils.translation import ugettext as _
 from django.utils.http import is_safe_url, urlquote
 from django.utils.safestring import mark_safe
 from django.utils.translation import ugettext as _
