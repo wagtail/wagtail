@@ -6,7 +6,7 @@
                 {% for column in table_header %}
                     <th>
                         {% if column.strip %}
-                            {{ column.strip|safe|linebreaksbr }}
+                            {{ column.strip|linebreaksbr }}
                         {% endif %}
                     </th>
                 {% endfor %}
@@ -20,13 +20,13 @@
                     {% if first_col_is_header and forloop.first %}
 	                    <th>
 	                        {% if column.strip %}
-	                            {{ column.strip|safe|linebreaksbr }}
+	                            {{ column.strip|linebreaksbr }}
 	                        {% endif %}
 	                    </th>
 	                 {% else %}
                         <td>
                             {% if column.strip %}
-                                {{ column.strip|safe|linebreaksbr }}
+                                {{ column.strip|linebreaksbr }}
                             {% endif %}
                         </td>
 	                 {% endif %}
