@@ -294,24 +294,8 @@ class TestPageExplorerSignposting(TestCase, WagtailTestUtils):
         self.assertTrue(self.client.login(username='siteeditor', password='password'))
         response = self.client.get(reverse('wagtailadmin_explore_root'))
         self.assertEqual(response.status_code, 200)
-        # Non-admin should be shown the Site's homepage at the Explorer root, since it's the Closest Common Ancestor.
-        self.assertContains(
-            response,
-            "Welcome to the Wagtail test site!"
-        )
-        self.assertContains(
-            response,
-            '<a class="button button-secondary button-small" href="/admin/pages/2/edit/" title="Edit this page">Edit</a>'
-        )
-
-    def test_nonadmin_at_non_site_page(self):
-        self.assertTrue(self.client.login(username='siteeditor', password='password'))
-        response = self.client.get(reverse('wagtailadmin_explore', args=(self.no_site_page.id, )))
-        # Non-superusers are told that Pages which are neither in the current Site nor in their administrable tree
-        # do not exist.
-        self.assertEqual(response.status_code, 404)
-
-    # TODO: Add tests for nonadmins not being allowed to see unpermitted pages.
+        # Non-admins should be shown the Site's homepage at the Explorer root, since it's the Closest Common Ancestor.
+        self.assertContains(response, "Welcome to the Wagtail test site!")
 
     def test_nonadmin_at_site_page(self):
         self.assertTrue(self.client.login(username='siteeditor', password='password'))
@@ -319,6 +303,100 @@ class TestPageExplorerSignposting(TestCase, WagtailTestUtils):
         self.assertEqual(response.status_code, 200)
         # There should be no warning message here
         self.assertNotContains(response, "Pages created here will not be accessible")
+
+
+class TestExplorablePageVisibilityInExplorer(TestCase, WagtailTestUtils):
+    """
+    Test the way that the Explorable Pages functionality manifests within the Explorer.
+    This is isolated in its own test case because it requires a custom page tree and custom set of
+    users and groups.
+
+    The fixture sets up this page tree:
+
+    ================================================================
+    Type       Site        Path
+    ================================================================
+    Page                   /
+
+    Page       localhost   /home/
+    SimplePage localhost   /home/about-us/
+
+    Page       example.com /home/
+    SimplePage example.com /home/content/
+    SimplePage example.com /home/content/page-1
+    SimplePage example.com /home/content/page-2
+    ================================================================
+
+    Group 1 has permissions rooted at localhost's homepage.
+    Group 2 has permissions rooted at exammple.com's page-1.
+
+    User "jane" is in Group 1.
+    User "bob" is in Group 2.
+    User "sam" is in Groups 1 and 2.
+    User "mary" is is no Groups.
+    User "superman" is an admin.
+    """
+
+    fixtures = ['test_explorable_pages.json']
+
+    # TODO: Tests to write:
+    # Assert superusers are not restricted from seeing any page.
+    # Assert superusers are shown the actual root page at /admin/pages/
+    # Assert unpermitted users are given 403 for pages on the current site
+    # Assert unpermitted users are given 404 for pages not on the current site
+    # Assert non-admin users are shown their Closest Common Ancestor at /admin/pages/
+    # Assert non-admin users are shown only their permitted pages and required ancestors in Explorer listings.
+    # Asserts users who have no permissions at all are shown nothing in the Explorer.
+
+    # Possibly test these? Not really sure how, and they'd belong in another test file anyway:
+    # Assert get_explorable_page_paths() output is cached.
+    # Assert that just the user's explorable paths cache is cleared when a User's Groups change.
+    # Assert that all users' explorable paths cache is cleared when a Grou's Permissions change.
+    # Assert that all user's explorable paths cache is cleared when a Page is moved.
+
+    # These belong in yet another test file:
+    # Assert the new Choose permission is applied correctly. It doesn't actually DO anything yet, though.
+
+    def test_admin_sees_root_page_as_explorer_root(self):
+        self.assertTrue(self.client.login(username='superman', password='password'))
+        response = self.client.get(reverse('wagtailadmin_explore_root'))
+        self.assertEqual(response.status_code, 200)
+        # Administrator should see the full list of children of the Root page.
+        self.assertContains(response, "Welcome to localhost!")
+        self.assertContains(response, "Welcome to Example.com!")
+
+    def test_nonadmin_sees_closest_common_ancestor_as_explorer_root(self):
+        self.assertTrue(self.client.login(username='jane', password='password'))
+        response = self.client.get(reverse('wagtailadmin_explore_root'))
+        self.assertEqual(response.status_code, 200)
+        # Being in Group 1, Jane should see the localhost homepage at the Explorer root.
+        self.assertContains(response, """<a href="/admin/pages/2/edit/">Welcome to localhost!</a>""")
+        self.client.logout()
+
+        self.assertTrue(self.client.login(username='bob', password='password'))
+        response = self.client.get(reverse('wagtailadmin_explore_root'))
+        self.assertEqual(response.status_code, 200)
+        # Being in Group 2, Bob should see Page 1 at the Explorer root.
+        self.assertContains(response, """<a href="/admin/pages/6/edit/">Page 1</a>""")
+        # Bob should not be able to see any reference to the ancestors of Page 1, even in the breadcrumbs.
+        self.assertNotContains(response, "Welcome to Example.com!")
+        self.assertNotContains(response, "Content")
+        self.client.logout()
+
+        self.assertTrue(self.client.login(username='sam', password='password'))
+        response = self.client.get(reverse('wagtailadmin_explore_root'))
+        self.assertEqual(response.status_code, 200)
+        # Being in Groups 1 and 2, Sam should see the Root page, since it's the Closest Common Ancestor of both Groups.
+        self.assertContains(response, "Welcome to localhost!")
+        self.assertContains(response, "Welcome to Example.com!")
+        self.client.logout()
+
+    def test_nonadmin_at_non_site_page(self):
+        self.assertTrue(self.client.login(username='jane', password='password'))
+        response = self.client.get(reverse('wagtailadmin_explore', args=[4]))
+        # Jane doesn't have permission to see the example.com homepage, and it's not associted with the current site,
+        # so the Explorer should claim it doesn't exist.
+        self.assertEqual(response.status_code, 404)
 
 
 class TestPageCreation(TestCase, WagtailTestUtils):
