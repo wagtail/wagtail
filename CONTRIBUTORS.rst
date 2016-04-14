@@ -136,6 +136,7 @@ Contributors
 * Brad Busenius
 * Juha Yrjölä
 * Bojan Mihelac
+* Robert Moggach
 
 Translators
 ===========
