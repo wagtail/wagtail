@@ -14,7 +14,7 @@ function initTable(id, tableOptions) {
     var structureEvent;
     var dataForForm = null;
     var getWidth = function() {
-        return $('footer').innerWidth();
+        return $('.widget-table_input').closest('.sequence-member-inner').width();
     };
 
     try {
