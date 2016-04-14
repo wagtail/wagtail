@@ -20,9 +20,9 @@ ordering: the current sort parameter
         <th class="ord">
             {% if orderable %}
                 {% if ordering == "ord" %}
-                    <a href="{% url 'wagtailadmin_explore' parent_page.id %}" class="icon icon-order text-replace" title="{% trans 'Disable ordering of child pages' %}">{% trans 'Order' %}</a></th>
+                    <a href="{% url 'wagtailadmin_explore' parent_page.id %}" class="icon icon-order text-replace" title="{% trans 'Disable ordering of child pages' %}">{% trans 'Order' %}</a>
                 {% else %}
-                    <a href="{% url 'wagtailadmin_explore' parent_page.id %}?ordering=ord" class="icon icon-order text-replace" title="{% trans 'Enable ordering of child pages' %}">{% trans 'Order' %}</a></th>
+                    <a href="{% url 'wagtailadmin_explore' parent_page.id %}?ordering=ord" class="icon icon-order text-replace" title="{% trans 'Enable ordering of child pages' %}">{% trans 'Order' %}</a>
                 {% endif %}
             {% endif %}
         </th>
@@ -46,7 +46,7 @@ ordering: the current sort parameter
             </a>
         {% else %}
             {% trans 'Updated' %}
-        {% endif %}                   
+        {% endif %}
     </th>
     <th class="type">
         {% if sortable %}
@@ -55,7 +55,7 @@ ordering: the current sort parameter
             </a>
         {% else %}
             {% trans 'Type' %}
-        {% endif %}                   
+        {% endif %}
     </th>
     <th class="status">
         {% if sortable %}
