@@ -439,7 +439,7 @@ class Filter(models.Model):
 
 class AbstractRendition(models.Model):
     filter = models.ForeignKey(Filter, related_name='+')
-    file = models.ImageField(upload_to='images', width_field='width', height_field='height')
+    file = models.ImageField(upload_to=get_upload_to, width_field='width', height_field='height')
     width = models.IntegerField(editable=False)
     height = models.IntegerField(editable=False)
     focal_point_key = models.CharField(max_length=255, blank=True, default='', editable=False)
@@ -471,6 +471,21 @@ class AbstractRendition(models.Model):
             ('height', self.height),
             ('alt', self.alt),
         ])
+
+    def get_upload_to(self, filename):
+        folder_name = 'images'
+        filename = self.file.field.storage.get_valid_name(filename)
+
+        # do a unidecode in the filename and then
+        # replace non-ascii characters in filename with _ , to sidestep issues with filesystem encoding
+        filename = "".join((i if ord(i) < 128 else '_') for i in unidecode(filename))
+
+        # Truncate filename so it fits in the 100 character limit
+        # https://code.djangoproject.com/ticket/9893
+        while len(os.path.join(folder_name, filename)) >= 95:
+            prefix, dot, extension = filename.rpartition('.')
+            filename = prefix[:-1] + dot + extension
+        return os.path.join(folder_name, filename)
 
     def img_tag(self, extra_attributes={}):
         attrs = self.attrs_dict.copy()
