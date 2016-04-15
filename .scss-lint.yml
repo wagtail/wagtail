@@ -99,6 +99,8 @@ linters:
             - '**/_streamfield.scss'
             - '**/page-editor.scss'
             - '**/_datetimepicker.scss'
+            - 'wagtail/contrib/modeladmin/static_src/modeladmin/scss/choose_parent_page.scss'
+            - 'wagtail/contrib/modeladmin/static_src/modeladmin/scss/index.scss'
 
     PlaceholderInExtend:
         enabled: false
