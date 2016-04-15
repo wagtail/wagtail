@@ -13,8 +13,19 @@ function initTable(id, tableOptions) {
     var cellEvent;
     var structureEvent;
     var dataForForm = null;
+    var height = null;
     var getWidth = function() {
         return $('.widget-table_input').closest('.sequence-member-inner').width();
+    };
+    var getHeight = function() {
+        var tableParent = $('#' + id).parent();
+        return tableParent.find('.htCore').height() + (tableParent.find('.input').height() * 2);
+    };
+    var resizeTargets = ['.wtHider', '.wtHolder', '.handsontable'];
+    var resizeHeight = function(height) {
+        $.each(resizeTargets, function() {
+            $(this).height(height);
+        });
     };
 
     try {
@@ -69,6 +80,7 @@ function initTable(id, tableOptions) {
     };
 
     structureEvent = function(index, amount) {
+        resizeHeight(getHeight());
         persist();
     };
 
@@ -89,6 +101,7 @@ function initTable(id, tableOptions) {
     hot.render(); // Call to render removes 'null' literals from empty cells
 
     // Apply resize after document is finished loading (footer width is set)
+    resizeHeight(getHeight());
     if ('resize' in $(window)) {
         $(window).load(function() {
             $(window).resize();

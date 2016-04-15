@@ -52,7 +52,7 @@ class TableBlock(FieldBlock):
             'contextMenu': True,
             'editor': 'text',
             'stretchH': 'all',
-            'height': 400,
+            'height': 108,
             'language': language,
             'renderer': 'html',
             'autoColumnSize': False,
