@@ -91,8 +91,8 @@ class TableBlock(FieldBlock):
     @property
     def media(self):
         return forms.Media(
-            css={'all': ['table_block/css/vendor/handsontable-0.18.0.full.min.css']},
-            js=['table_block/js/vendor/handsontable-0.18.0.full.min.js', 'table_block/js/table.js']
+            css={'all': ['table_block/css/vendor/handsontable-0.24.2.full.min.css']},
+            js=['table_block/js/vendor/handsontable-0.24.2.full.min.js', 'table_block/js/table.js']
         )
 
     class Meta:
