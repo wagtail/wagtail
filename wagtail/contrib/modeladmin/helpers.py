@@ -5,6 +5,7 @@ from django.contrib.auth import get_permission_codename
 from django.contrib.auth.models import Permission
 from django.contrib.contenttypes.models import ContentType
 from django.core.urlresolvers import reverse
+from django.db.models import Q
 from django.utils.encoding import force_text
 from django.utils.functional import cached_property
 from django.utils.http import urlquote
@@ -175,19 +176,26 @@ class PagePermissionHelper(PermissionHelper):
         allowed_parent_pages = Page.objects.filter(content_type__in=allowed_parent_page_content_types)
 
         # Get queryset of pages where the user has permission to add subpages
-        if user.is_superuser:
-            pages_where_user_can_add = Page.objects.all()
-        else:
-            pages_where_user_can_add = Page.objects.none()
+        if not user.is_superuser:
+            # Limit the returned results to pages where the user has explicit 'add' permission
+            # on an ancestor
             user_perms = UserPagePermissionsProxy(user)
+            root_paths = [
+                perm.page.path for perm in user_perms.permissions.filter(permission_type='add')
+            ]
 
-            for perm in user_perms.permissions.filter(permission_type='add'):
-                # user has add permission on any subpage of perm.page
-                # (including perm.page itself)
-                pages_where_user_can_add |= Page.objects.descendant_of(perm.page, inclusive=True)
+            if not root_paths:
+                return Page.objects.none()
 
-        # Combine them
-        return allowed_parent_pages & pages_where_user_can_add
+            # build a filter expression that will filter our model to just those
+            # instances in collections with a path that starts with one of the above
+            path_filter = Q(path__startswith=root_paths[0])
+            for path in root_paths[1:]:
+                path_filter = path_filter | Q(path__startswith=path)
+
+            allowed_parent_pages = allowed_parent_pages.filter(path_filter)
+
+        return allowed_parent_pages
 
     def user_can_list(self, user):
         """
