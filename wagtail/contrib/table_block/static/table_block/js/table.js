@@ -55,7 +55,7 @@ function initTable(id, tableOptions) {
     }
 
     if (!tableOptions.hasOwnProperty('width')) {
-        // Size to footer width if width is not given in tableOptions
+        // Size to parent .sequence-member-inner width if width is not given in tableOptions
         $(window).resize(function() {
             hot.updateSettings({
                 width: getWidth()
@@ -100,7 +100,7 @@ function initTable(id, tableOptions) {
     hot = new Handsontable(document.getElementById(containerId), finalOptions);
     hot.render(); // Call to render removes 'null' literals from empty cells
 
-    // Apply resize after document is finished loading (footer width is set)
+    // Apply resize after document is finished loading (parent .sequence-member-inner width is set)
     resizeHeight(getHeight());
     if ('resize' in $(window)) {
         $(window).load(function() {
