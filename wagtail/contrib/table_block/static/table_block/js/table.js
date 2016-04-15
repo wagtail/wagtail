@@ -13,8 +13,19 @@ function initTable(id, tableOptions) {
     var cellEvent;
     var structureEvent;
     var dataForForm = null;
+    var height = null;
     var getWidth = function() {
         return $('.widget-table_input').closest('.sequence-member-inner').width();
+    };
+    var getHeight = function() {
+        var tableParent = $('#' + id).parent();
+        return tableParent.find('.htCore').height() + (tableParent.find('.input').height() * 2);
+    };
+    var resizeTargets = ['.wtHider', '.wtHolder', '.handsontable'];
+    var resizeHeight = function(height) {
+        $.each(resizeTargets, function() {
+            $(this).height(height);
+        });
     };
 
     try {
@@ -44,7 +55,7 @@ function initTable(id, tableOptions) {
     }
 
     if (!tableOptions.hasOwnProperty('width')) {
-        // Size to footer width if width is not given in tableOptions
+        // Size to parent .sequence-member-inner width if width is not given in tableOptions
         $(window).resize(function() {
             hot.updateSettings({
                 width: getWidth()
@@ -69,6 +80,7 @@ function initTable(id, tableOptions) {
     };
 
     structureEvent = function(index, amount) {
+        resizeHeight(getHeight());
         persist();
     };
 
@@ -88,7 +100,8 @@ function initTable(id, tableOptions) {
     hot = new Handsontable(document.getElementById(containerId), finalOptions);
     hot.render(); // Call to render removes 'null' literals from empty cells
 
-    // Apply resize after document is finished loading (footer width is set)
+    // Apply resize after document is finished loading (parent .sequence-member-inner width is set)
+    resizeHeight(getHeight());
     if ('resize' in $(window)) {
         $(window).load(function() {
             $(window).resize();
