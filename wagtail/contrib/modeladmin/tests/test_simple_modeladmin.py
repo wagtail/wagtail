@@ -4,7 +4,7 @@ from django.contrib.auth import get_user_model
 from django.contrib.auth.models import Group
 from django.test import TestCase
 
-from wagtail.tests.modeladmintest.models import Book, Author
+from wagtail.tests.modeladmintest.models import Author, Book
 from wagtail.tests.utils import WagtailTestUtils
 
 
