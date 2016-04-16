@@ -154,6 +154,35 @@ class TestPageListing(TestCase):
         for page in content['items']:
             self.assertEqual(set(page.keys()), {'id', 'meta', 'title', 'date', 'feed_image'})
 
+    def test_remove_fields(self):
+        response = self.get_response(fields='-title')
+        content = json.loads(response.content.decode('UTF-8'))
+
+        for page in content['items']:
+            self.assertEqual(set(page.keys()), {'id', 'meta'})
+
+    def test_remove_meta_fields(self):
+        response = self.get_response(fields='-html_url')
+        content = json.loads(response.content.decode('UTF-8'))
+
+        for page in content['items']:
+            self.assertEqual(set(page.keys()), {'id', 'meta', 'title'})
+            self.assertEqual(set(page['meta'].keys()), {'type', 'detail_url', 'slug', 'first_published_at'})
+
+    def test_remove_all_meta_fields(self):
+        response = self.get_response(fields='-type,-detail_url,-slug,-first_published_at,-html_url')
+        content = json.loads(response.content.decode('UTF-8'))
+
+        for page in content['items']:
+            self.assertEqual(set(page.keys()), {'id', 'title'})
+
+    def test_remove_id_field(self):
+        response = self.get_response(fields='-id')
+        content = json.loads(response.content.decode('UTF-8'))
+
+        for page in content['items']:
+            self.assertEqual(set(page.keys()), {'meta', 'title'})
+
     def test_fields_child_relation(self):
         response = self.get_response(type='demosite.BlogEntryPage', fields='title,related_links')
         content = json.loads(response.content.decode('UTF-8'))
@@ -220,6 +249,13 @@ class TestPageListing(TestCase):
 
     def test_fields_unknown_field_gives_error(self):
         response = self.get_response(fields='123,title,abc')
+        content = json.loads(response.content.decode('UTF-8'))
+
+        self.assertEqual(response.status_code, 400)
+        self.assertEqual(content, {'message': "unknown fields: 123, abc"})
+
+    def test_fields_remove_unknown_field_gives_error(self):
+        response = self.get_response(fields='-123,-title,-abc')
         content = json.loads(response.content.decode('UTF-8'))
 
         self.assertEqual(response.status_code, 400)
