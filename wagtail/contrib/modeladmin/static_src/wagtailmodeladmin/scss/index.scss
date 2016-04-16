@@ -3,7 +3,7 @@
 }
 
 
-#result-list {
+.result-list {
     padding: 0 15px;
 
      table { margin-bottom:0; }
@@ -24,7 +24,7 @@
 }
 
 
-#changelist-filter {
+.changelist-filter {
     padding: 0 15px;
 
     h2 {
@@ -123,17 +123,17 @@ p.no-results {
 
 
 @media screen and (min-width: 50em) {
-    #changelist-filter {
+    .changelist-filter {
         float: right;
         padding: 0 1.5%;
     }
-    #result-list {
+    .result-list {
         padding: 0 1.5% 0 0;
     }
-    #result-list tbody th:first-child {
+    .result-list tbody th:first-child {
         padding-left: 50px;
     }
-    #result-list.col12 tbody td:last-child {
+    .result-list.col12 tbody td:last-child {
         padding-right: 50px;
     }
     div.pagination {
@@ -149,10 +149,10 @@ p.no-results {
 }
 
 @media screen and (min-width: 1200px) {
-    #result-list.col9 {
+    .result-list.col9 {
         width: 79%;
     }
-    #changelist-filter {
+    .changelist-filter {
         width: 21%;
     }
     div.pagination.col9 {
