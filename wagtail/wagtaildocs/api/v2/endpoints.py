@@ -10,8 +10,9 @@ from .serializers import DocumentSerializer
 class DocumentsAPIEndpoint(BaseAPIEndpoint):
     base_serializer_class = DocumentSerializer
     filter_backends = [FieldsFilter, OrderingFilter, SearchFilter]
-    extra_body_fields = ['title']
-    extra_meta_fields = ['tags', ]
-    default_fields = ['title', 'tags']
+    body_fields = BaseAPIEndpoint.body_fields + ['title']
+    meta_fields = BaseAPIEndpoint.meta_fields + ['tags', 'download_url']
+    default_fields = BaseAPIEndpoint.default_fields + ['download_url']
+    soft_default_fields = BaseAPIEndpoint.soft_default_fields + ['title', 'tags']
     name = 'documents'
     model = get_document_model()

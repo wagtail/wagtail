@@ -11,8 +11,8 @@ from .serializers import ImageSerializer
 class ImagesAPIEndpoint(BaseAPIEndpoint):
     base_serializer_class = ImageSerializer
     filter_backends = [FieldsFilter, OrderingFilter, SearchFilter]
-    extra_body_fields = ['title', 'width', 'height']
-    extra_meta_fields = ['tags']
-    default_fields = ['title', 'tags']
+    body_fields = BaseAPIEndpoint.body_fields + ['title', 'width', 'height']
+    meta_fields = BaseAPIEndpoint.meta_fields + ['tags']
+    soft_default_fields = BaseAPIEndpoint.soft_default_fields + ['title', 'tags']
     name = 'images'
     model = get_image_model()

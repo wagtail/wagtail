@@ -16,7 +16,7 @@ class FieldsFilter(BaseFilterBackend):
         This performs field level filtering on the result set
         Eg: ?title=James Joyce
         """
-        fields = set(view.get_available_fields(queryset.model)).union({'id'})
+        fields = set(view.get_available_fields(queryset.model, db_fields_only=True))
 
         for field_name, value in request.GET.items():
             if field_name in fields:
@@ -71,7 +71,7 @@ class OrderingFilter(BaseFilterBackend):
                 reverse_order = False
 
             # Add ordering
-            if order_by == 'id' or order_by in view.get_available_fields(queryset.model):
+            if order_by in view.get_available_fields(queryset.model):
                 queryset = queryset.order_by(order_by)
             else:
                 # Unknown field

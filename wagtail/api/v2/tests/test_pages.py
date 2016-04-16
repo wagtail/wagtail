@@ -204,6 +204,14 @@ class TestPageListing(TestCase):
         ]
         self.assertEqual(list(content['items'][0].keys()), field_order)
 
+    def test_parent_field_gives_error(self):
+        # parent field isn't allowed in listings
+        response = self.get_response(fields='parent')
+        content = json.loads(response.content.decode('UTF-8'))
+
+        self.assertEqual(response.status_code, 400)
+        self.assertEqual(content, {'message': "unknown fields: parent"})
+
     def test_fields_without_type_gives_error(self):
         response = self.get_response(fields='title,related_links')
         content = json.loads(response.content.decode('UTF-8'))
