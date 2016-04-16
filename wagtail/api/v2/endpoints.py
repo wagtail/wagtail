@@ -49,9 +49,10 @@ class BaseAPIEndpoint(GenericViewSet):
         # Required by BrowsableAPIRenderer
         'format',
     ])
-    extra_body_fields = []
-    extra_meta_fields = []
-    default_fields = []
+    body_fields = ['id']
+    meta_fields = ['type', 'detail_url']
+    default_fields = ['id', 'type', 'detail_url']
+    soft_default_fields = []
     name = None  # Set on subclass.
 
     def __init__(self, *args, **kwargs):
@@ -93,7 +94,7 @@ class BaseAPIEndpoint(GenericViewSet):
         This returns a list of field names that are allowed to
         be used in the API (excluding the id field)
         """
-        fields = self.extra_body_fields[:]
+        fields = self.body_fields[:]
 
         if hasattr(model, 'api_fields'):
             fields.extend(model.api_fields)
@@ -105,18 +106,47 @@ class BaseAPIEndpoint(GenericViewSet):
         This returns a list of field names that are allowed to
         be used in the meta section in the API (excluding type and detail_url).
         """
-        meta_fields = self.extra_meta_fields[:]
+        meta_fields = self.meta_fields[:]
 
         if hasattr(model, 'api_meta_fields'):
             meta_fields.extend(model.api_meta_fields)
 
         return meta_fields
 
-    def get_available_fields(self, model):
-        return self.get_body_fields(model) + self.get_meta_fields(model)
+    def get_available_fields(self, model, db_fields_only=False):
+        """
+        Returns a list of all the fields that can be used in the API for the
+        specified model class.
 
-    def get_default_fields(self, model):
-        return self.default_fields
+        Setting db_fields_only to True will remove all fields that do not have
+        an underlying column in the database (eg, type/detail_url and any custom
+        fields that are callables)
+        """
+        fields = self.get_body_fields(model) + self.get_meta_fields(model)
+
+        if db_fields_only:
+            # Get list of available database fields then remove any fields in our
+            # list that isn't a database field
+            database_fields = set()
+            for field in model._meta.get_fields():
+                database_fields.add(field.name)
+
+                if hasattr(field, 'attname'):
+                    database_fields.add(field.attname)
+
+            fields = [field for field in fields if field in database_fields]
+
+        return fields
+
+    def get_default_fields(self, model, include_soft=False):
+        fields = self.default_fields[:]
+
+        # Soft default fields are fields that are only there if the user hasn't
+        # specified any fields
+        if include_soft:
+            fields.extend(self.soft_default_fields)
+
+        return fields
 
     def check_query_parameters(self, queryset):
         """
@@ -124,8 +154,8 @@ class BaseAPIEndpoint(GenericViewSet):
         """
         query_parameters = set(self.request.GET.keys())
 
-        # All query paramters must be either a field or an operation
-        allowed_query_parameters = set(self.get_available_fields(queryset.model)).union(self.known_query_parameters).union({'id'})
+        # All query paramters must be either a database field or an operation
+        allowed_query_parameters = set(self.get_available_fields(queryset.model, db_fields_only=True)).union(self.known_query_parameters)
         unknown_parameters = query_parameters - allowed_query_parameters
         if unknown_parameters:
             raise BadRequestError("query parameter is not an operation or a recognised field: %s" % ', '.join(sorted(unknown_parameters)))
@@ -152,7 +182,7 @@ class BaseAPIEndpoint(GenericViewSet):
             if 'fields' in request.GET:
                 fields = set(request.GET['fields'].split(','))
             else:
-                fields = set(self.get_default_fields(model))
+                fields = set(self.get_default_fields(model, include_soft=True))
 
             unknown_fields = fields - set(all_fields)
 
@@ -169,7 +199,7 @@ class BaseAPIEndpoint(GenericViewSet):
         if isinstance(self, PagesAPIEndpoint) and self.action == 'detail_view':
             fields.insert(2, 'parent')
 
-        return get_serializer_class(model, fields, meta_fields=meta_fields, base=self.base_serializer_class)
+        return get_serializer_class(model, self.get_default_fields(model) + fields, meta_fields=meta_fields, base=self.base_serializer_class)
 
     def get_serializer_context(self):
         """
@@ -229,21 +259,24 @@ class PagesAPIEndpoint(BaseAPIEndpoint):
         'child_of',
         'descendant_of',
     ])
-    extra_body_fields = [
+    body_fields = BaseAPIEndpoint.body_fields + [
         'title',
     ]
-    extra_meta_fields = [
+    meta_fields = BaseAPIEndpoint.meta_fields + [
+        'html_url',
         'slug',
         'show_in_menus',
         'seo_title',
         'search_description',
         'first_published_at',
+        'parent',
     ]
-    default_fields = [
-        'title',
+    default_fields = BaseAPIEndpoint.default_fields + [
+        'html_url',
         'slug',
         'first_published_at',
     ]
+    soft_default_fields = BaseAPIEndpoint.soft_default_fields + ['title']
     name = 'pages'
     model = Page
 

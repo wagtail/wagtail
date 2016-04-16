@@ -26,7 +26,7 @@ class PagesAdminAPIEndpoint(PagesAPIEndpoint):
         SearchFilter,
     ]
 
-    extra_meta_fields = PagesAPIEndpoint.extra_meta_fields + [
+    meta_fields = PagesAPIEndpoint.meta_fields + [
         'latest_revision_created_at',
         'status',
         'children',
