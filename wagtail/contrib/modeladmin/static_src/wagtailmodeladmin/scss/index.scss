@@ -1,112 +1,126 @@
-.content header { margin-bottom: 0; }
-#result-list {
-    padding: 0 15px;
-}
-#result-list table { margin-bottom:0; }
-#result-list tbody th {
-    background-color: transparent;
-    text-align: left;
-    padding: 1.2em 1em;
-}
-#result-list tbody tr:hover ul.actions {
-    visibility: visible;
-}
-#result-list tbody td, #result-list tbody th {
-    vertical-align: top;
-}
-
-#changelist-filter {
-    padding: 0 15px;
-}
-
-#changelist-filter h2 {
-    background-color: #fafafa;
-    font-size: 13px;
-    line-height: 31px;
-    margin-top: 0;
-    padding-left: 8px;
-    border-bottom: 1px solid #E6E6E6;
-}
-
-#changelist-filter h3 {
-    font-size: 12px;
+.content header {
     margin-bottom: 0;
 }
 
-#changelist-filter ul {
-    padding-left: 0;
-    margin-bottom: 25px;
+
+#result-list {
+    padding: 0 15px;
+
+     table { margin-bottom:0; }
+
+     body th {
+         background-color: transparent;
+         text-align: left;
+         padding: 1.2em 1em;
+     }
+
+     tbody tr:hover ul.actions {
+         visibility: visible;
+     }
+
+     tbody td, tbody th {
+         vertical-align: top;
+     }
 }
 
-#changelist-filter li {
-    list-style-type: none;
-    margin: 0 0 4px;
-    padding-left: 0;
+
+#changelist-filter {
+    padding: 0 15px;
+
+    h2 {
+        background-color: #fafafa;
+        font-size: 13px;
+        line-height: 31px;
+        margin-top: 0;
+        padding-left: 8px;
+        border-bottom: 1px solid #E6E6E6;
+    }
+
+    h3 {
+        font-size: 12px;
+        margin-bottom: 0;
+    }
+
+    ul {
+        padding-left: 0;
+        margin-bottom: 25px;
+    }
+
+    li {
+       list-style-type: none;
+       margin: 0 0 4px;
+       padding-left: 0;
+   }
+
+   a {
+        font-family: Open Sans,Arial,sans-serif;
+        border-radius: 3px;
+        width: auto;
+        line-height: 1.2em;
+        padding: 8px 12px;
+        font-size: 0.9em;
+        font-weight: normal;
+        vertical-align: middle;
+        display: block;
+        background-color: white;
+        border: 1px solid #43b1b0;
+        color: #43b1b0;
+        text-decoration: none;
+        text-transform: uppercase;
+        position: relative;
+        overflow: hidden;
+        outline: none;
+        box-sizing: border-box;
+        -webkit-font-smoothing: auto;
+        -moz-appearance: none;
+        -moz-box-sizing: border-box;
+
+        &:hover {
+            background-color: #358c8b;
+            border-color: #358c8b;
+            color: white;
+        }
+    }
+
+    li.selected a {
+        color: white !important;
+        border-color: #43b1b0 !important;
+        background-color: #43b1b0;
+    }
 }
 
-#changelist-filter a {
-    font-family: Open Sans,Arial,sans-serif;
-    border-radius: 3px;
-    width: auto;
-    line-height: 1.2em;
-    padding: 8px 12px;
-    font-size: 0.9em;
-    font-weight: normal;
-    vertical-align: middle;
-    display: block;
-    background-color: white;
-    border: 1px solid #43b1b0;
-    color: #43b1b0;
-    text-decoration: none;
-    text-transform: uppercase;
-    position: relative;
-    overflow: hidden;
-    outline: none;
-    box-sizing: border-box;
-    -webkit-font-smoothing: auto;
-    -moz-appearance: none;
-    -moz-box-sizing: border-box;
-}
-
-#changelist-filter a:hover {
-    background-color: #358c8b;
-    border-color: #358c8b;
-    color: white;
-
-}
-
-#changelist-filter li.selected a {
-    color: white !important;
-    border-color: #43b1b0 !important;
-    background-color: #43b1b0;
-}
 
 .no-search-results {
     margin-top: 30px;
+
+    h2 {
+        padding-top: 0.3em;
+        margin-bottom: 0.3em;
+    }
+
+    img {
+       float: left;
+       margin: 0 15px 15px 0;
+       width: 50px;
+   }
 }
 
-.no-search-results h2 {
-    padding-top: 0.3em;
-    margin-bottom: 0.3em;
-}
-
-.no-search-results img {
-    float: left;
-    margin: 0 15px 15px 0;
-    width: 50px;
-}
 
 div.pagination {
     margin-top: 3em;
     border-top: 1px dashed #d9d9d9;
     padding: 2em 1em 0;
+
+    ul {
+        margin-top: -1.25em
+    }
 }
-div.pagination ul {
-    margin-top: -1.25em
-}
+
+
 p.no-results {
     margin: 30px 1em 0;
 }
+
 
 @media screen and (min-width: 50em) {
     #changelist-filter {
