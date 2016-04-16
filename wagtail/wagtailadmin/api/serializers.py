@@ -84,12 +84,6 @@ class AdminPageSerializer(PageSerializer):
     children = PageChildrenField(read_only=True)
     descendants = PageDescendantsField(read_only=True)
 
-    meta_fields = PageSerializer.meta_fields + [
-        'status',
-        'children',
-        'descendants',
-    ]
-
 
 class ImageRenditionField(Field):
     """
