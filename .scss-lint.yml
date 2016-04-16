@@ -60,6 +60,8 @@ linters:
 
     IdSelector:
         enabled: true
+        exclude:
+            - '**/choose_parent_page.scss'
 
     ImportantRule:
         enabled: false
