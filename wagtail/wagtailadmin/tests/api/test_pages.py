@@ -1,15 +1,16 @@
-import json
+from __future__ import absolute_import, unicode_literals
+
 import collections
 import datetime
+import json
 
 from django.core.urlresolvers import reverse
 from django.utils import timezone
 
 from wagtail.api.v2.tests.test_pages import TestPageDetail, TestPageListing
-from wagtail.wagtailcore.models import Page
-
 from wagtail.tests.demosite import models
 from wagtail.tests.testapp.models import StreamPage
+from wagtail.wagtailcore.models import Page
 
 from .utils import AdminAPITestCase
 

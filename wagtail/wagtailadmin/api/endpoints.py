@@ -1,16 +1,15 @@
+from __future__ import absolute_import, unicode_literals
+
 from collections import OrderedDict
 
-from wagtail.api.v2.utils import BadRequestError, page_models_from_string, filter_page_type
-from wagtail.api.v2.endpoints import PagesAPIEndpoint, ImagesAPIEndpoint, DocumentsAPIEndpoint
+from wagtail.api.v2.endpoints import DocumentsAPIEndpoint, ImagesAPIEndpoint, PagesAPIEndpoint
 from wagtail.api.v2.filters import (
-    FieldsFilter, OrderingFilter, SearchFilter,
-    ChildOfFilter, DescendantOfFilter
-)
-
+    ChildOfFilter, DescendantOfFilter, FieldsFilter, OrderingFilter, SearchFilter)
+from wagtail.api.v2.utils import BadRequestError, filter_page_type, page_models_from_string
 from wagtail.wagtailcore.models import Page
 
-from .serializers import AdminPageSerializer, AdminImageSerializer
 from .filters import HasChildrenFilter
+from .serializers import AdminImageSerializer, AdminPageSerializer
 
 
 class PagesAdminAPIEndpoint(PagesAPIEndpoint):

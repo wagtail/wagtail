@@ -1,3 +1,5 @@
+from __future__ import absolute_import, unicode_literals
+
 from rest_framework.filters import BaseFilterBackend
 
 from wagtail.api.v2.utils import BadRequestError

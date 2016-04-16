@@ -1,11 +1,10 @@
-from __future__ import absolute_import
+from __future__ import absolute_import, unicode_literals
 
 from django.conf.urls import url
 
 from wagtail.api.v2.router import WagtailAPIRouter
 
-from .endpoints import PagesAdminAPIEndpoint, ImagesAdminAPIEndpoint, DocumentsAdminAPIEndpoint
-
+from .endpoints import DocumentsAdminAPIEndpoint, ImagesAdminAPIEndpoint, PagesAdminAPIEndpoint
 
 v1 = WagtailAPIRouter('wagtailadmin_api_v1')
 v1.register_endpoint('pages', PagesAdminAPIEndpoint)
