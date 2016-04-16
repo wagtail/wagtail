@@ -11,7 +11,7 @@ class ImagesAdminAPIEndpoint(ImagesAPIEndpoint):
         'thumbnail',
     ]
 
-    soft_default_fields = ImagesAPIEndpoint.soft_default_fields + [
+    default_fields = ImagesAPIEndpoint.default_fields + [
         'width',
         'height',
         'thumbnail',
