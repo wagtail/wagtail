@@ -99,6 +99,7 @@ linters:
             - '**/_streamfield.scss'
             - '**/page-editor.scss'
             - '**/_datetimepicker.scss'
+            - '**/choose_parent_page.scss'
 
     PlaceholderInExtend:
         enabled: false
@@ -167,5 +168,3 @@ linters:
 
     ZeroUnit:
         enabled: true
-
-
