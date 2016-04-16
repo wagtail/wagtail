@@ -49,7 +49,7 @@
                         {% endif %}
                     {% endblock %}
 
-                    <div id="result_list" class="{% if view.has_filters and all_count %}col9{% else %}col12{% endif %}">
+                    <div id="result-list" class="{% if view.has_filters and all_count %}col9{% else %}col12{% endif %}">
                         {% block result_list %}
                             {% if not all_count %}
                                 <div class="nice-padding" style="margin-top:30px;">
@@ -62,7 +62,7 @@
                                         <p>{% blocktrans with view.verbose_name_plural as name %}No {{ name }} have been created yet.{% endblocktrans %}
                                         {% if user_can_create %}
                                             {% blocktrans with view.create_url as url %}
-                                                Why not <a href="{{ url }}">add one</a>? 
+                                                Why not <a href="{{ url }}">add one</a>?
                                             {% endblocktrans %}
                                         {% endif %}</p>
                                     {% endif %}
