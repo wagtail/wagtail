@@ -313,20 +313,22 @@ class TestExplorablePageVisibility(TestCase, WagtailTestUtils):
 
     The fixture sets up this page tree:
 
-    ================================================================
-    Type       Site        Path
-    ================================================================
-    Page                   /
+    ========================================================
+    ID Site          Path
+    ========================================================
+    1              /
 
-    Page       testserver  /home/
-    SimplePage testserver  /home/about-us/
+    2  testserver  /home/
+    3  testserver  /home/about-us/
 
-    Page       example.com /home/
-    SimplePage example.com /home/content/
-    SimplePage example.com /home/content/page-1/
-    SimplePage example.com /home/content/page-2/
-    SimplePage example.com /home/other-content/
-    ================================================================
+    4  example.com /home/
+    5  example.com /home/content/
+    6  example.com /home/content/page-1/
+    7  example.com /home/content/page-2/
+    9  example.com /home/content/page-2/child-1 (only used by TestExplorerNavView)
+    8  example.com /home/other-content/
+    10 example.com /home-2/ (only used by TestExplorerNavView)
+    ========================================================
 
     Group 1 has permissions rooted at testserver's homepage.
     Group 2 has permissions rooted at exammple.com's page-1.

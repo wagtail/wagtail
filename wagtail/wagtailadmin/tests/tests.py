@@ -172,17 +172,90 @@ class TestSendMail(TestCase):
 
 
 class TestExplorerNavView(TestCase, WagtailTestUtils):
-    def setUp(self):
-        self.homepage = Page.objects.get(id=2).specific
-        self.login()
+    """
+    See wagtail.wagtailadmin.tests.test_pages_views.TestExplorablePageVisibility for an explanation about
+    how the DB is set up, as many of the same rules will apply to these tests.
 
-    def test_explorer_nav_view(self):
+    Note that the Explorer Nav does not display leaf nodes.
+    """
+
+    fixtures = ['test_explorable_pages.json']
+
+    def test_admins_see_all_pages(self):
+        self.assertTrue(self.client.login(username='superman', password='password'))
         response = self.client.get(reverse('wagtailadmin_explorer_nav'))
 
-        # Check response
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed('wagtailadmin/shared/explorer_nav.html')
-        self.assertEqual(response.context['nodes'][0][0], self.homepage)
+        self.assertEqual(len(response.context['nodes']), 3)
+        self.assertEqual(response.context['nodes'][0][0], Page.objects.get(id=2))
+        self.assertEqual(response.context['nodes'][1][0], Page.objects.get(id=4))
+        self.assertEqual(response.context['nodes'][1][1][0][0], Page.objects.get(id=5))
+        self.assertEqual(response.context['nodes'][1][1][0][1][0][0], Page.objects.get(id=7))
+        # Assert that even though example.com's Home 2 has no children, it's still displayed because its depth is 2.
+        self.assertEqual(response.context['nodes'][2][0], Page.objects.get(id=10))
+
+    def test_nav_root_for_nonadmin_is_closest_common_ancestor(self):
+        self.assertTrue(self.client.login(username='jane', password='password'))
+        response = self.client.get(reverse('wagtailadmin_explorer_nav'))
+
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed('wagtailadmin/shared/explorer_nav.html')
+        self.assertEqual(len(response.context['nodes']), 1)
+        self.assertEqual(response.context['nodes'][0][0], Page.objects.get(id=2))
+        self.client.logout()
+
+        self.assertTrue(self.client.login(username='sam', password='password'))
+        response = self.client.get(reverse('wagtailadmin_explorer_nav'))
+
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed('wagtailadmin/shared/explorer_nav.html')
+        self.assertEqual(len(response.context['nodes']), 2)
+        self.assertEqual(response.context['nodes'][0][0], Page.objects.get(id=2))
+        self.assertEqual(response.context['nodes'][1][0], Page.objects.get(id=4))
+
+    def test_nonadmin_in_group_with_no_visible_children_sees_nothing_in_nav(self):
+        self.assertTrue(self.client.login(username='bob', password='password'))
+        response = self.client.get(reverse('wagtailadmin_explorer_nav'))
+
+        # Bob's group's CCA is a leaf node, so he should not be shown any nodes.
+        # This causes a click on the "Explorer" link in the sidebar to bring Bob to the Explorer root,
+        # instead of showing a flyout menu. But that's not functionality that this test is concerned with.
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed('wagtailadmin/shared/explorer_nav.html')
+        self.assertEqual(len(response.context['nodes']), 0)
+
+    def test_nonadmin_sees_only_explorable_pages(self):
+        self.assertTrue(self.client.login(username='sam', password='password'))
+        response = self.client.get(reverse('wagtailadmin_explorer_nav'))
+
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed('wagtailadmin/shared/explorer_nav.html')
+        self.assertEqual(len(response.context['nodes']), 2)
+        # Sam should see the testserver homepage, the example.com homepage, and the Content page,
+        # but should not see Page 2.
+        self.assertEqual(response.context['nodes'][0][0], Page.objects.get(id=2))
+        self.assertEqual(response.context['nodes'][1][0], Page.objects.get(id=4))
+        self.assertEqual(response.context['nodes'][1][1][0][0], Page.objects.get(id=5))
+        self.assertEqual(len(response.context['nodes'][1][1][0][1]), 0)
+        self.client.logout()
+
+        self.assertTrue(self.client.login(username='jane', password='password'))
+        response = self.client.get(reverse('wagtailadmin_explorer_nav'))
+
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed('wagtailadmin/shared/explorer_nav.html')
+        self.assertEqual(len(response.context['nodes']), 1)
+        self.assertEqual(response.context['nodes'][0][0], Page.objects.get(id=2))
+        self.assertEqual(len(response.context['nodes']), 1)
+
+    def test_nonadmin_with_no_page_perms_sees_nothing_in_nav(self):
+        self.assertTrue(self.client.login(username='mary', password='password'))
+        response = self.client.get(reverse('wagtailadmin_explorer_nav'))
+
+        self.assertEqual(response.status_code, 200)
+        # Being in no Groups, Mary should ot be shown any nodes.
+        self.assertEqual(len(response.context['nodes']), 0)
 
 
 class TestTagsAutocomplete(TestCase, WagtailTestUtils):

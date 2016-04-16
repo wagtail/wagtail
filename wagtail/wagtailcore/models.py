@@ -632,7 +632,7 @@ class Page(six.with_metaclass(PageBase, MP_Node, index.Indexed, ClusterableModel
             # unchanged.
             return self
         elif isinstance(self, model_class):
-            # self is already the an instance of the most specific class
+            # self is already an instance of the most specific class
             return self
         else:
             return content_type.get_object_for_this_type(id=self.id)
@@ -1473,17 +1473,37 @@ def get_navigation_menu_items(user):
     # or are at the top-level (this rule required so that an empty site out-of-the-box has a working menu)
     pages = Page.objects.filter(Q(depth=2) | Q(numchild__gt=0)).order_by('path')
 
-    # For backward compatibility of the explorer_nav template tag, we accept "None" for the user argument, in which
-    # case we can't do permissions-based restriction.
-    # TODO: Is this necessary? I'm not sure what the backward compatibility rules are, or if the explorer_nav tag was
-    # ever used in the first place.
-    if user and not user.is_superuser:
-        # Limit the pages to those for which the given user has any administrative permission.
-        permitted_paths, required_ancesotrs = get_explorable_page_paths(user)
-        # Always include the Root page, since we need it for the depth_list.
-        pages = pages.filter(Q(depth=1) | convert_explorable_paths_to_Q(permitted_paths, required_ancesotrs))
+    # We need to treat the top of the user's explorable tree as if it were depth=2, or the depth_list algorithm won't
+    # work. So if a user isn't permitted to see pages at or below depth 2, we must change the apparent depth of each
+    # of their explorable pages.
+    depth_change = 0
+    if not user.is_superuser:
+        # For backward compatibility of the explorer_nav template tag, we accept "None" for the user argument, in which
+        # case we can't do permissions-based restriction.
+        # TODO: Is this check even necessary? I'm not sure what the backward compatibility rules are, or if the
+        # {% explorer_nav %} tag was ever used in the first place.
+        if user:
+            permitted_paths, required_ancestors = get_explorable_page_paths(user)
+            if permitted_paths:
+                # Limit the listing to only the user's explorable pages. Always include the Root page, even if it's
+                # not an explorable path, since it's required for the depth_list algorithm.
+                pages = pages.filter(
+                    convert_explorable_paths_to_Q(permitted_paths, required_ancestors) | Q(depth=1)
+                )
 
-    # Turn this into a tree structure:
+                # Find the length of the shortest explorable path.
+                shortest_path_len = len(min(permitted_paths + required_ancestors, key=len))
+                # Convert from path length to depth.
+                lowest_depth = (shortest_path_len / Page.steplen)
+                # Alter depth_change if needed.
+                if lowest_depth > 2:
+                    depth_change = lowest_depth - 2
+            else:
+                # If the User has no explorable pages, display nothing.
+                pages = Page.objects.none()
+
+
+    # Turn 'pages' into a tree structure:
     #     tree_node = (page, children)
     #     where 'children' is a list of tree_nodes.
     # Algorithm:
@@ -1495,27 +1515,29 @@ def get_navigation_menu_items(user):
     depth_list = [(None, [])]  # a dummy node for depth=0, since one doesn't exist in the DB
 
     for page in pages:
+        # Change the depth of all but the Root page.
+        depth = page.depth if page.depth == 1 else page.depth - depth_change
         # create a node for this page
         node = (page, [])
         # retrieve the parent from depth_list
-        parent_page, parent_childlist = depth_list[page.depth - 1]
+        parent_page, parent_childlist = depth_list[depth - 1]
         # insert this new node in the parent's child list
         parent_childlist.append(node)
 
         # add the new node to depth_list
         try:
-            depth_list[page.depth] = node
+            depth_list[depth] = node
         except IndexError:
             # an exception here means that this node is one level deeper than any we've seen so far
             depth_list.append(node)
 
-    # in Wagtail, the convention is to have one root node in the db (depth=1); the menu proper
+    # In Wagtail, the convention is to have one root node in the db (depth=1); the menu proper
     # begins with the children of that node (depth=2).
     try:
         root, root_children = depth_list[1]
         return root_children
     except IndexError:
-        # what, we don't even have a root node? Fine, just return an empty list...
+        # What, we don't even have a root node? Fine, just return an empty list...
         return []
 
 

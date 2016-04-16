@@ -40,17 +40,10 @@
         "show_in_menus": true,
         "live": true,
         "depth": 3,
-        "content_type": ["tests", "simplepage"],
+        "content_type": ["wagtailcore", "page"],
         "path": "000100010001",
         "url_path": "/home/about-us/",
         "slug": "about-us"
-    }
-},
-{
-    "pk": 3,
-    "model": "tests.simplepage",
-    "fields": {
-        "content": "<p>We are really good.</p>"
     }
 },
 
@@ -79,18 +72,11 @@
         "show_in_menus": true,
         "live": true,
         "depth": 3,
-        "content_type": ["tests", "simplepage"],
+        "content_type": ["wagtailcore", "page"],
         "path": "000100020001",
         "url_path": "/home/content/",
         "slug": "content",
         "owner": 1
-    }
-},
-{
-    "pk": 5,
-    "model": "tests.simplepage",
-    "fields": {
-        "content": "<p>This is the content!</p>"
     }
 },
 
@@ -103,18 +89,11 @@
         "show_in_menus": true,
         "live": true,
         "depth": 4,
-        "content_type": ["tests", "simplepage"],
+        "content_type": ["wagtailcore", "page"],
         "path": "0001000200010001",
         "url_path": "/home/content/page-1/",
         "slug": "page-1",
         "owner": 1
-    }
-},
-{
-    "pk": 6,
-    "model": "tests.simplepage",
-    "fields": {
-        "content": "<p>Page 1</p>"
     }
 },
 
@@ -123,22 +102,15 @@
     "model": "wagtailcore.page",
     "fields": {
         "title": "Page 2",
-        "numchild": 0,
+        "numchild": 1,
         "show_in_menus": true,
         "live": true,
         "depth": 4,
-        "content_type": ["tests", "simplepage"],
+        "content_type": ["wagtailcore", "page"],
         "path": "0001000200010002",
         "url_path": "/home/content/page-2/",
         "slug": "page-2",
         "owner": 1
-    }
-},
-{
-    "pk": 7,
-    "model": "tests.simplepage",
-    "fields": {
-        "content": "<p>Page 2</p>"
     }
 },
 
@@ -151,18 +123,44 @@
         "show_in_menus": true,
         "live": true,
         "depth": 3,
-        "content_type": ["tests", "simplepage"],
+        "content_type": ["wagtailcore", "page"],
         "path": "000100020002",
         "url_path": "/home/other-content/",
         "slug": "other-content",
         "owner": 1
     }
 },
+
 {
-    "pk": 8,
-    "model": "tests.simplepage",
+    "pk": 9,
+    "model": "wagtailcore.page",
     "fields": {
-        "content": "<p>This is the other content!</p>"
+        "title": "Child 1 of Page 2",
+        "numchild": 0,
+        "show_in_menus": true,
+        "live": true,
+        "depth": 5,
+        "content_type": ["wagtailcore", "page"],
+        "path": "00010002000100020001",
+        "url_path": "/home/content/page-2/child-1/",
+        "slug": "child-1",
+        "owner": 1
+    }
+},
+
+{
+    "pk": 10,
+    "model": "wagtailcore.page",
+    "fields": {
+        "title": "Welcome to example.com Again!",
+        "numchild": 0,
+        "show_in_menus": false,
+        "live": true,
+        "depth": 2,
+        "content_type": ["wagtailcore", "page"],
+        "path": "00010003",
+        "url_path": "/home-2/",
+        "slug": "home-2"
     }
 },
 
