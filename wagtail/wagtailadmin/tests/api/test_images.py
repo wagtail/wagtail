@@ -68,6 +68,23 @@ class TestAdminImageListing(AdminAPITestCase, TestImageListing):
             self.assertEqual(set(image.keys()), {'id', 'meta', 'title', 'width', 'height', 'thumbnail'})
             self.assertEqual(set(image['meta'].keys()), {'type', 'detail_url', 'tags'})
 
+    def test_fields(self):
+        response = self.get_response(fields='width,height')
+        content = json.loads(response.content.decode('UTF-8'))
+
+        for image in content['items']:
+            self.assertEqual(set(image.keys()), {'id', 'meta', 'title', 'width', 'height', 'thumbnail'})
+            self.assertEqual(set(image['meta'].keys()), {'type', 'detail_url', 'tags'})
+
+    def test_fields_tags(self):
+        response = self.get_response(fields='tags')
+        content = json.loads(response.content.decode('UTF-8'))
+
+        for image in content['items']:
+            self.assertEqual(set(image.keys()), {'id', 'meta', 'title', 'width', 'height', 'thumbnail'})
+            self.assertEqual(set(image['meta'].keys()), {'type', 'detail_url', 'tags'})
+            self.assertIsInstance(image['meta']['tags'], list)
+
 
 class TestAdminImageDetail(AdminAPITestCase, TestImageDetail):
     fixtures = ['demosite.json']

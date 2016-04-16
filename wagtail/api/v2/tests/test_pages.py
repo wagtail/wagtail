@@ -183,7 +183,7 @@ class TestPageListing(TestCase):
         content = json.loads(response.content.decode('UTF-8'))
 
         for page in content['items']:
-            self.assertEqual(set(page.keys()), {'id', 'meta', 'tags'})
+            self.assertEqual(set(page.keys()), {'id', 'meta', 'tags', 'title'})
             self.assertIsInstance(page['tags'], list)
 
     def test_fields_ordering(self):

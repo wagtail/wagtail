@@ -55,7 +55,6 @@ class BaseAPIEndpoint(GenericViewSet):
     body_fields = ['id']
     meta_fields = ['type', 'detail_url']
     default_fields = ['id', 'type', 'detail_url']
-    soft_default_fields = []
     name = None  # Set on subclass.
 
     def __init__(self, *args, **kwargs):
@@ -141,15 +140,8 @@ class BaseAPIEndpoint(GenericViewSet):
 
         return fields
 
-    def get_default_fields(self, model, include_soft=False):
-        fields = self.default_fields[:]
-
-        # Soft default fields are fields that are only there if the user hasn't
-        # specified any fields
-        if include_soft:
-            fields.extend(self.soft_default_fields)
-
-        return fields
+    def get_default_fields(self, model):
+        return self.default_fields[:]
 
     def check_query_parameters(self, queryset):
         """
@@ -185,7 +177,7 @@ class BaseAPIEndpoint(GenericViewSet):
             if 'fields' in request.GET:
                 fields = set(request.GET['fields'].split(','))
             else:
-                fields = set(self.get_default_fields(model, include_soft=True))
+                fields = set(self.get_default_fields(model))
 
             unknown_fields = fields - set(all_fields)
 
@@ -275,11 +267,11 @@ class PagesAPIEndpoint(BaseAPIEndpoint):
         'parent',
     ]
     default_fields = BaseAPIEndpoint.default_fields + [
+        'title',
         'html_url',
         'slug',
         'first_published_at',
     ]
-    soft_default_fields = BaseAPIEndpoint.soft_default_fields + ['title']
     name = 'pages'
     model = Page
 
@@ -321,7 +313,7 @@ class ImagesAPIEndpoint(BaseAPIEndpoint):
     filter_backends = [FieldsFilter, OrderingFilter, SearchFilter]
     body_fields = BaseAPIEndpoint.body_fields + ['title', 'width', 'height']
     meta_fields = BaseAPIEndpoint.meta_fields + ['tags']
-    soft_default_fields = BaseAPIEndpoint.soft_default_fields + ['title', 'tags']
+    default_fields = BaseAPIEndpoint.default_fields + ['title', 'tags']
     name = 'images'
     model = get_image_model()
 
@@ -331,7 +323,6 @@ class DocumentsAPIEndpoint(BaseAPIEndpoint):
     filter_backends = [FieldsFilter, OrderingFilter, SearchFilter]
     body_fields = BaseAPIEndpoint.body_fields + ['title']
     meta_fields = BaseAPIEndpoint.meta_fields + ['tags', 'download_url']
-    default_fields = BaseAPIEndpoint.default_fields + ['download_url']
-    soft_default_fields = BaseAPIEndpoint.soft_default_fields + ['title', 'tags']
+    default_fields = BaseAPIEndpoint.default_fields + ['title', 'tags', 'download_url']
     name = 'documents'
     model = get_document_model()
