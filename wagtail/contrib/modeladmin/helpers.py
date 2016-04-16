@@ -10,7 +10,7 @@ from django.utils.functional import cached_property
 from django.utils.http import urlquote
 from django.utils.translation import ugettext as _
 
-from wagtail.wagtailcore.models import Page
+from wagtail.wagtailcore.models import Page, UserPagePermissionsProxy
 
 
 class AdminURLHelper(object):
