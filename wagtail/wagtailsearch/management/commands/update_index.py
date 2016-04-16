@@ -9,14 +9,7 @@ from wagtail.wagtailsearch.index import get_indexed_models
 
 
 class Command(BaseCommand):
-    def get_object_list(self):
-        # Return list of (model_name, queryset) tuples
-        return [
-            (model, model.get_indexed_objects())
-            for model in get_indexed_models()
-        ]
-
-    def update_backend(self, backend_name, object_list):
+    def update_backend(self, backend_name, schema_only=False):
         # Print info
         self.stdout.write("Updating backend: " + backend_name)
 
@@ -27,14 +20,14 @@ class Command(BaseCommand):
         rebuilder = backend.get_rebuilder()
 
         if not rebuilder:
-            self.stdout.write(backend_name + ": Backend doesn't support rebuild. Skipping")
+            self.stdout.write(backend_name + ": Backend doesn't require rebuild. Skipping")
             return
 
         # Start rebuild
         self.stdout.write(backend_name + ": Starting rebuild")
         index = rebuilder.start()
 
-        for model, queryset in object_list:
+        for model in get_indexed_models():
             self.stdout.write(backend_name + ": Indexing model '%s.%s'" % (
                 model._meta.app_label,
                 model.__name__,
@@ -43,14 +36,15 @@ class Command(BaseCommand):
             # Add model
             index.add_model(model)
 
-            # Add items (1000 at a time)
-            count = 0
-            for chunk in self.print_iter_progress(self.queryset_chunks(queryset)):
-                index.add_items(model, chunk)
-                count += len(chunk)
+            # Index objects
+            object_count = 0
+            if not schema_only:
+                # Add items (1000 at a time)
+                for chunk in self.print_iter_progress(self.queryset_chunks(model.get_indexed_objects())):
+                    index.add_items(model, chunk)
+                    object_count += len(chunk)
 
-            self.stdout.write("Indexed %d %s" % (
-                count, model._meta.verbose_name_plural))
+            self.stdout.write("(indexed %d objects)" % object_count)
             self.print_newline()
 
         # Finish rebuild
@@ -61,11 +55,11 @@ class Command(BaseCommand):
         parser.add_argument(
             '--backend', action='store', dest='backend_name', default=None,
             help="Specify a backend to update")
+        parser.add_argument(
+            '--schema-only', action='store', dest='schema_only', default=None,
+            help="Prevents loading any data into the index")
 
     def handle(self, **options):
-        # Get object list
-        object_list = self.get_object_list()
-
         # Get list of backends to index
         if options['backend_name']:
             # index only the passed backend
@@ -79,7 +73,7 @@ class Command(BaseCommand):
 
         # Update backends
         for backend_name in backend_names:
-            self.update_backend(backend_name, object_list)
+            self.update_backend(backend_name, schema_only=options['schema_only'])
 
     def print_newline(self):
         self.stdout.write('')

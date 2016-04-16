@@ -1,11 +1,13 @@
 from __future__ import absolute_import, unicode_literals
 
 import datetime
+import logging
 
 import django
 import mock
 from django.contrib.auth import get_user_model
 from django.contrib.auth.models import Group, Permission
+from django.contrib.messages import constants as message_constants
 from django.core import mail, paginator
 from django.core.files.base import ContentFile
 from django.core.urlresolvers import reverse
@@ -2473,6 +2475,24 @@ class TestNotificationPreferences(TestCase, WagtailTestUtils):
         self.assertIn(self.moderator2.email, email_to)
         self.assertIn(user1.email, email_to)
         self.assertIn(user2.email, email_to)
+
+    @mock.patch('wagtail.wagtailadmin.utils.django_send_mail', side_effect=IOError('Server down'))
+    def test_email_send_error(self, mock_fn):
+        logging.disable(logging.CRITICAL)
+        # Approve
+        self.silent_submit()
+        response = self.approve()
+        logging.disable(logging.NOTSET)
+
+        # An email that fails to send should return a message rather than crash the page
+        self.assertEqual(response.status_code, 302)
+        response = self.client.get(reverse('wagtailadmin_home'))
+
+        # There should be one "approved" message and one "failed to send notifications"
+        messages = list(response.context['messages'])
+        self.assertEqual(len(messages), 2)
+        self.assertEqual(messages[0].level, message_constants.SUCCESS)
+        self.assertEqual(messages[1].level, message_constants.ERROR)
 
 
 class TestLocking(TestCase, WagtailTestUtils):

@@ -10,6 +10,12 @@ Wagtail 1.5 release notes - IN DEVELOPMENT
 What's new
 ==========
 
+ModelAdmin
+~~~~~~~~~~
+
+Wagtail now includes an app ``wagtail.contrib.modeladmin`` (previously available separately as the `wagtailmodeladmin <https://github.com/rkhleics/wagtailmodeladmin>`_ package) which allows you to configure arbitrary Django models to be listed, added and edited through the Wagtail admin. See :doc:`/reference/contrib/modeladmin` for full documentation. This feature was developed by Andy Babic.
+
+
 Improvements to the "Image serve view"
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -27,8 +33,10 @@ Minor features
 
  * Moved lesser-user actions in the page explorer into a 'More' dropdown
  * Added a hook :ref:`register_page_listing_buttons` for adding action buttons to the page explorer
+ * Added :ref:`jinja2 support <settings_tag_jinja2>` for the  ``settings`` template tag (Tim Heap)
  * Added 'revisions' action to pages list (Roel Bruggink)
  * Added a hook :ref:`insert_global_admin_js` for inserting custom JavaScript throughout the admin backend (Tom Dyson)
+ * Recognise instagram embed URLs with ``www`` prefix (Matt Westcott)
  * The type of the ``search_fields`` attribute on ``Page`` models (and other searchable models) has changed from a tuple to a list (see upgrade consideration below) (Tim Heap)
  * Use `PasswordChangeForm` when user changes their password, requiring the user to enter their current password (Matthijs Melissen)
  * Highlight current day in date picker (Jonas Lergell)
@@ -36,6 +44,8 @@ Minor features
  * Increased size of Save button on site settings (Liam Brenner)
  * Optimised Site.find_for_request to only perform one database query (Matthew Downey)
  * Notification messages on creating / editing sites now include the site name if specified (Chris Rogers)
+ * Added ``--schema-only`` option to ``update_index`` management command
+ * Added meaningful default icons to ``StreamField`` blocks (Benjamin Bach)
 
 Bug fixes
 ~~~~~~~~~
@@ -43,6 +53,8 @@ Bug fixes
  * The currently selected day is now highlighted only in the correct month in date pickers (Jonas Lergell)
  * Fixed crash when an image without a source file was resized with the "dynamic serve view"
  * Registered settings admin menu items now show active correctly (Matthew Downey)
+ * Direct usage of ``Document`` model replaced with ``get_document_model`` function in ``wagtail.contrib.wagtailmedusa`` and in ``wagtail.contrib.wagtailapi``
+ * Failures on sending moderation notification emails now produce a warning, rather than crashing the admin page outright (Matt Fozard)
 
 
 Upgrade considerations

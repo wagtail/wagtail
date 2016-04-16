@@ -13,6 +13,7 @@ class LinkBlock(blocks.StructBlock):
         return context
 
     class Meta:
+        icon = "site"
         template = 'tests/blocks/link_block.html'
 
 
@@ -21,4 +22,5 @@ class SectionBlock(blocks.StructBlock):
     body = blocks.RichTextBlock()
 
     class Meta:
+        icon = "form"
         template = 'tests/blocks/section_block.html'

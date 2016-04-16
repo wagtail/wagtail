@@ -121,6 +121,8 @@ Contributors
 * Danielle Madeley
 * Janneke Janssen
 * Roel Bruggink
+* Yannick Chabbert
+* Andy Babic
 
 Translators
 ===========

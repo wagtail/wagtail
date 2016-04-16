@@ -23,6 +23,7 @@
         {% endif %}
         <form action="{% url 'wagtailadmin_pages:delete' page.id %}" method="POST">
             {% csrf_token %}
+            <input type="hidden" name="next" value="{{ next }}">
             <input type="submit" value="{% trans 'Delete it' %}" class="serious {% if page.live %}button-secondary{% endif %}"> {% if page_perms.can_unpublish %}<a href="{% url 'wagtailadmin_pages:unpublish' page.id %}" class="button">{% trans 'Unpublish it' %}</a>{% endif %}
         </form>
     </div>
