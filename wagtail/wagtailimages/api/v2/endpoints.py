@@ -13,6 +13,6 @@ class ImagesAPIEndpoint(BaseAPIEndpoint):
     filter_backends = [FieldsFilter, OrderingFilter, SearchFilter]
     body_fields = BaseAPIEndpoint.body_fields + ['title', 'width', 'height']
     meta_fields = BaseAPIEndpoint.meta_fields + ['tags']
-    soft_default_fields = BaseAPIEndpoint.soft_default_fields + ['title', 'tags']
+    default_fields = BaseAPIEndpoint.default_fields + ['title', 'tags']
     name = 'images'
     model = get_image_model()

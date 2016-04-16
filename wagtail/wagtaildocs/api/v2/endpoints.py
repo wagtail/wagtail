@@ -12,7 +12,6 @@ class DocumentsAPIEndpoint(BaseAPIEndpoint):
     filter_backends = [FieldsFilter, OrderingFilter, SearchFilter]
     body_fields = BaseAPIEndpoint.body_fields + ['title']
     meta_fields = BaseAPIEndpoint.meta_fields + ['tags', 'download_url']
-    default_fields = BaseAPIEndpoint.default_fields + ['download_url']
-    soft_default_fields = BaseAPIEndpoint.soft_default_fields + ['title', 'tags']
+    default_fields = BaseAPIEndpoint.default_fields + ['title', 'tags', 'download_url']
     name = 'documents'
     model = get_document_model()
