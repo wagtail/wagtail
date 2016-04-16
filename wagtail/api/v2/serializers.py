@@ -284,7 +284,8 @@ class BaseSerializer(serializers.ModelSerializer):
         fields = [field for field in fields if field.field_name not in self.meta_fields]
 
         # Make sure id is always first. This will be filled in later
-        data['id'] = None
+        if 'id' in [field.field_name for field in fields]:
+            data['id'] = None
 
         # Serialise meta fields
         meta = OrderedDict()
@@ -301,7 +302,8 @@ class BaseSerializer(serializers.ModelSerializer):
             else:
                 meta[field.field_name] = field.to_representation(attribute)
 
-        data['meta'] = meta
+        if meta:
+            data['meta'] = meta
 
         # Serialise core fields
         for field in fields:

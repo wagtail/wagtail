@@ -115,6 +115,21 @@ class TestAdminPageListing(AdminAPITestCase, TestPageListing):
             self.assertEqual(set(page.keys()), {'id', 'meta', 'title'})
             self.assertEqual(set(page['meta'].keys()), {'type', 'detail_url', 'html_url', 'children', 'status', 'slug', 'first_published_at', 'latest_revision_created_at'})
 
+    def test_remove_meta_fields(self):
+        response = self.get_response(fields='-html_url')
+        content = json.loads(response.content.decode('UTF-8'))
+
+        for page in content['items']:
+            self.assertEqual(set(page.keys()), {'id', 'meta', 'title'})
+            self.assertEqual(set(page['meta'].keys()), {'type', 'detail_url', 'slug', 'first_published_at', 'latest_revision_created_at', 'status', 'children'})
+
+    def test_remove_all_meta_fields(self):
+        response = self.get_response(fields='-type,-detail_url,-slug,-first_published_at,-html_url,-latest_revision_created_at,-status,-children')
+        content = json.loads(response.content.decode('UTF-8'))
+
+        for page in content['items']:
+            self.assertEqual(set(page.keys()), {'id', 'title'})
+
     def test_fields_foreign_key(self):
         # Only the base the detail_url is different here from the public API
         response = self.get_response(type='demosite.BlogEntryPage', fields='title,date,feed_image')

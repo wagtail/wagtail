@@ -171,12 +171,23 @@ class BaseAPIEndpoint(GenericViewSet):
 
         if self.action == 'listing_view':
             # Listing views just show the title field and any other allowed field the user specified
-            if 'fields' in request.GET:
-                fields = set(request.GET['fields'].split(','))
-            else:
-                fields = set(self.get_default_fields(model))
+            fields = set(self.get_default_fields(model))
+            mentioned_fields = set()
 
-            unknown_fields = fields - set(all_fields)
+            if 'fields' in request.GET:
+                for field in request.GET['fields'].split(','):
+                    if field.startswith('-'):
+                        try:
+                            fields.remove(field[1:])
+                        except KeyError:
+                            pass  # Error handling done by checking mentioned_fields below
+
+                        mentioned_fields.add(field[1:])
+                    else:
+                        fields.add(field)
+                        mentioned_fields.add(field)
+
+            unknown_fields = mentioned_fields - set(all_fields)
 
             if unknown_fields:
                 raise BadRequestError("unknown fields: %s" % ', '.join(sorted(unknown_fields)))
@@ -191,7 +202,7 @@ class BaseAPIEndpoint(GenericViewSet):
         if isinstance(self, PagesAPIEndpoint) and self.action == 'detail_view':
             fields.insert(2, 'parent')
 
-        return get_serializer_class(model, self.get_default_fields(model) + fields, meta_fields=meta_fields, base=self.base_serializer_class)
+        return get_serializer_class(model, fields, meta_fields=meta_fields, base=self.base_serializer_class)
 
     def get_serializer_context(self):
         """
