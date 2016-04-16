@@ -1,9 +1,9 @@
-from wagtail.contrib.modeladmin.options import (
-    ModelAdmin, ModelAdminGroup, modeladmin_register)
+from __future__ import absolute_import, unicode_literals
+
+from wagtail.contrib.modeladmin.options import ModelAdmin, ModelAdminGroup, modeladmin_register
+from wagtail.tests.testapp.models import BusinessChild, EventPage, SingleEventPage
+
 from .models import Author, Book
-from wagtail.tests.testapp.models import (
-    EventPage, SingleEventPage, BusinessChild
-)
 
 
 class AuthorModelAdmin(ModelAdmin):

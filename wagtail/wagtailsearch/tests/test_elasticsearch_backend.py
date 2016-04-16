@@ -8,7 +8,6 @@ import time
 import unittest
 
 import mock
-
 from django.core import management
 from django.db.models import Q
 from django.test import TestCase
