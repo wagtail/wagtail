@@ -107,6 +107,9 @@ class TestAdminPageListing(AdminAPITestCase, TestPageListing):
 
     # FIELDS
 
+    # Not applicable to the admin API
+    test_parent_field_gives_error = None
+
     def test_fields_default(self):
         response = self.get_response(type='demosite.BlogEntryPage')
         content = json.loads(response.content.decode('UTF-8'))

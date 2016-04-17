@@ -54,6 +54,7 @@ class BaseAPIEndpoint(GenericViewSet):
     body_fields = ['id']
     meta_fields = ['type', 'detail_url']
     default_fields = ['id', 'type', 'detail_url']
+    detail_only_fields = []
     name = None  # Set on subclass.
 
     def __init__(self, *args, **kwargs):
@@ -159,7 +160,7 @@ class BaseAPIEndpoint(GenericViewSet):
             raise BadRequestError("query parameter is not an operation or a recognised field: %s" % ', '.join(sorted(unknown_parameters)))
 
     @classmethod
-    def _get_serializer_class(cls, router, model, fields_config):
+    def _get_serializer_class(cls, router, model, fields_config, show_details=False):
         # Get all available fields
         body_fields = cls.get_body_fields(model)
         meta_fields = cls.get_meta_fields(model)
@@ -167,6 +168,14 @@ class BaseAPIEndpoint(GenericViewSet):
 
         # Remove any duplicates
         all_fields = list(OrderedDict.fromkeys(all_fields))
+
+        if not show_details:
+            # Remove detail only fields
+            for field in cls.detail_only_fields:
+                try:
+                    all_fields.remove(field)
+                except KeyError:
+                    pass
 
         # Get list of configured fields
         fields = set(cls.get_default_fields(model))
@@ -241,17 +250,16 @@ class BaseAPIEndpoint(GenericViewSet):
             else:
                 # Use default fields
                 fields_config = []
+
+            show_details = False
         else:
             # Detail views show all fields all the time
             fields_config = [
                 ('*', False, None)
             ]
+            show_details = True
 
-        # If showing details, add the parent field
-        if isinstance(self, PagesAPIEndpoint) and self.action == 'detail_view':
-            fields_config.insert(2, ('parent', False, None))
-
-        return self._get_serializer_class(self.request.wagtailapi_router, model, fields_config)
+        return self._get_serializer_class(self.request.wagtailapi_router, model, fields_config, show_details=show_details)
 
     def get_serializer_context(self):
         """
@@ -329,6 +337,7 @@ class PagesAPIEndpoint(BaseAPIEndpoint):
         'slug',
         'first_published_at',
     ]
+    detail_only_fields = ['parent']
     name = 'pages'
     model = Page
 
