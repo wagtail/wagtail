@@ -54,6 +54,15 @@ class BaseAPIEndpoint(GenericViewSet):
     default_fields = []
     name = None  # Set on subclass.
 
+    def __init__(self, *args, **kwargs):
+        super(BaseAPIEndpoint, self).__init__(*args, **kwargs)
+
+        # seen_types is a mapping of type name strings (format: "app_label.ModelName")
+        # to model classes. When an object is serialised in the API, its model
+        # is added to this mapping. This is used by the Admin API which appends a
+        # summary of the used types to the response.
+        self.seen_types = OrderedDict()
+
     def get_queryset(self):
         return self.model.objects.all().order_by('id')
 
