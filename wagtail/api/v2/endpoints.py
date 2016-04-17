@@ -4,6 +4,7 @@ from collections import OrderedDict
 
 from django.apps import apps
 from django.conf.urls import url
+from django.core.exceptions import FieldDoesNotExist
 from django.core.urlresolvers import reverse
 from django.http import Http404
 from rest_framework import status
@@ -18,7 +19,8 @@ from .filters import (
     SearchFilter)
 from .pagination import WagtailPagination
 from .serializers import BaseSerializer, PageSerializer, get_serializer_class
-from .utils import BadRequestError, filter_page_type, page_models_from_string
+from .utils import (
+    BadRequestError, filter_page_type, page_models_from_string, parse_fields_parameter)
 
 
 class BaseAPIEndpoint(GenericViewSet):
@@ -88,31 +90,34 @@ class BaseAPIEndpoint(GenericViewSet):
             return Response(data, status=status.HTTP_400_BAD_REQUEST)
         return super(BaseAPIEndpoint, self).handle_exception(exc)
 
-    def get_body_fields(self, model):
+    @classmethod
+    def get_body_fields(cls, model):
         """
         This returns a list of field names that are allowed to
         be used in the API (excluding the id field)
         """
-        fields = self.body_fields[:]
+        fields = cls.body_fields[:]
 
         if hasattr(model, 'api_fields'):
             fields.extend(model.api_fields)
 
         return fields
 
-    def get_meta_fields(self, model):
+    @classmethod
+    def get_meta_fields(cls, model):
         """
         This returns a list of field names that are allowed to
         be used in the meta section in the API (excluding type and detail_url).
         """
-        meta_fields = self.meta_fields[:]
+        meta_fields = cls.meta_fields[:]
 
         if hasattr(model, 'api_meta_fields'):
             meta_fields.extend(model.api_meta_fields)
 
         return meta_fields
 
-    def get_available_fields(self, model, db_fields_only=False):
+    @classmethod
+    def get_available_fields(cls, model, db_fields_only=False):
         """
         Returns a list of all the fields that can be used in the API for the
         specified model class.
@@ -121,7 +126,7 @@ class BaseAPIEndpoint(GenericViewSet):
         an underlying column in the database (eg, type/detail_url and any custom
         fields that are callables)
         """
-        fields = self.get_body_fields(model) + self.get_meta_fields(model)
+        fields = cls.get_body_fields(model) + cls.get_meta_fields(model)
 
         if db_fields_only:
             # Get list of available database fields then remove any fields in our
@@ -137,8 +142,9 @@ class BaseAPIEndpoint(GenericViewSet):
 
         return fields
 
-    def get_default_fields(self, model):
-        return self.default_fields[:]
+    @classmethod
+    def get_default_fields(cls, model):
+        return cls.default_fields[:]
 
     def check_query_parameters(self, queryset):
         """
@@ -152,6 +158,71 @@ class BaseAPIEndpoint(GenericViewSet):
         if unknown_parameters:
             raise BadRequestError("query parameter is not an operation or a recognised field: %s" % ', '.join(sorted(unknown_parameters)))
 
+    @classmethod
+    def _get_serializer_class(cls, router, model, fields_config):
+        # Get all available fields
+        body_fields = cls.get_body_fields(model)
+        meta_fields = cls.get_meta_fields(model)
+        all_fields = body_fields + meta_fields
+
+        # Remove any duplicates
+        all_fields = list(OrderedDict.fromkeys(all_fields))
+
+        # Get list of configured fields
+        fields = set(cls.get_default_fields(model))
+
+        # If first field is '*' start with all fields
+        if fields_config and fields_config[0][0] == '*':
+            fields = set(all_fields)
+            fields_config = fields_config[1:]
+
+        mentioned_fields = set()
+        sub_fields = {}
+
+        for field_name, negated, field_sub_fields in fields_config:
+            if negated:
+                try:
+                    fields.remove(field_name)
+                except KeyError:
+                    pass
+            else:
+                fields.add(field_name)
+                if field_sub_fields:
+                    sub_fields[field_name] = field_sub_fields
+
+            mentioned_fields.add(field_name)
+
+        unknown_fields = mentioned_fields - set(all_fields)
+
+        if unknown_fields:
+            raise BadRequestError("unknown fields: %s" % ', '.join(sorted(unknown_fields)))
+
+        # Build nested serialisers
+        child_serializer_classes = {}
+
+        for field_name in fields:
+            try:
+                django_field = model._meta.get_field(field_name)
+            except FieldDoesNotExist:
+                django_field = None
+
+            if django_field and django_field.is_relation:
+                # Get a serializer class for the related object
+                child_model = django_field.related_model
+                child_endpoint_class = router.get_model_endpoint(child_model)
+                child_endpoint_class = child_endpoint_class[1] if child_endpoint_class else BaseAPIEndpoint
+                child_serializer_classes[field_name] = child_endpoint_class._get_serializer_class(router, child_model, sub_fields.get(field_name, []))
+
+            else:
+                if field_name in sub_fields:
+                    # Sub fields were given for a non-related field
+                    raise BadRequestError("'%s' does not support nested fields" % field_name)
+
+        # Reorder fields so it matches the order of all_fields
+        fields = [field for field in all_fields if field in fields]
+
+        return get_serializer_class(model, fields, meta_fields=meta_fields, child_serializer_classes=child_serializer_classes, base=cls.base_serializer_class)
+
     def get_serializer_class(self):
         request = self.request
 
@@ -161,56 +232,26 @@ class BaseAPIEndpoint(GenericViewSet):
         else:
             model = type(self.get_object())
 
-        # Get all available fields
-        body_fields = self.get_body_fields(model)
-        meta_fields = self.get_meta_fields(model)
-        all_fields = body_fields + meta_fields
-
-        # Remove any duplicates
-        all_fields = list(OrderedDict.fromkeys(all_fields))
-
         if self.action == 'listing_view':
-            # Listing views just show the title field and any other allowed field the user specified
-            fields = set(self.get_default_fields(model))
-            mentioned_fields = set()
-
             if 'fields' in request.GET:
-                first_position = True
-                for field in request.GET['fields'].split(','):
-                    if field == '*':
-                        if first_position:
-                            fields = fields.union(all_fields)
-                        else:
-                            raise BadRequestError("fields error: '*' must be in the first position")
-                    elif field.startswith('-'):
-                        try:
-                            fields.remove(field[1:])
-                        except KeyError:
-                            pass  # Error handling done by checking mentioned_fields below
-
-                        mentioned_fields.add(field[1:])
-                    else:
-                        fields.add(field)
-                        mentioned_fields.add(field)
-
-                    first_position = False
-
-            unknown_fields = mentioned_fields - set(all_fields)
-
-            if unknown_fields:
-                raise BadRequestError("unknown fields: %s" % ', '.join(sorted(unknown_fields)))
-
-            # Reorder fields so it matches the order of all_fields
-            fields = [field for field in all_fields if field in fields]
+                try:
+                    fields_config = parse_fields_parameter(request.GET['fields'])
+                except ValueError as e:
+                    raise BadRequestError("fields error: %s" % str(e))
+            else:
+                # Use default fields
+                fields_config = []
         else:
             # Detail views show all fields all the time
-            fields = all_fields
+            fields_config = [
+                ('*', False, None)
+            ]
 
         # If showing details, add the parent field
         if isinstance(self, PagesAPIEndpoint) and self.action == 'detail_view':
-            fields.insert(2, 'parent')
+            fields_config.insert(2, ('parent', False, None))
 
-        return get_serializer_class(model, fields, meta_fields=meta_fields, base=self.base_serializer_class)
+        return self._get_serializer_class(self.request.wagtailapi_router, model, fields_config)
 
     def get_serializer_context(self):
         """

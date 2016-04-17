@@ -9,8 +9,6 @@ from rest_framework.fields import Field, SkipField
 from taggit.managers import _TaggableManager
 
 from wagtail.wagtailcore import fields as wagtailcore_fields
-from wagtail.wagtailcore.models import Page
-from wagtail.wagtaildocs.models import AbstractDocument
 
 from .utils import get_full_url, pages_for_site
 
@@ -20,15 +18,6 @@ def get_object_detail_url(context, model, pk):
 
     if url_path:
         return get_full_url(context['request'], url_path)
-
-
-def get_model_base_serializer_class(context, model):
-    endpoint = context['router'].get_model_endpoint(model)
-
-    if endpoint:
-        return endpoint[1].base_serializer_class
-    else:
-        return BaseSerializer
 
 
 class TypeField(Field):
@@ -118,28 +107,16 @@ class RelatedField(relations.RelatedField):
         }
     }
     """
+    def __init__(self, *args, **kwargs):
+        self.serializer_class = kwargs.pop('serializer_class')
+        super(RelatedField, self).__init__(*args, **kwargs)
+
     def to_representation(self, value):
-        meta_fields = ['type', 'detail_url']
-
-        # TEMPORARY
-        if isinstance(value, Page):
-            meta_fields += ['html_url']
-
-        if isinstance(value, AbstractDocument):
-            meta_fields += ['download_url']
-
-        # Construct a serializer for the related object with just the fields we need
-        base_meta_serializer_class = get_model_base_serializer_class(self.context, value.__class__)
-        meta_serializer_class = get_serializer_class(value.__class__, meta_fields, meta_fields, base=base_meta_serializer_class)
-        meta_serializer = meta_serializer_class(context=self.context)
-
-        return OrderedDict([
-            ('id', value.pk),
-            ('meta', meta_serializer.to_representation(value)['meta']),
-        ])
+        serializer = self.serializer_class(context=self.context)
+        return serializer.to_representation(value)
 
 
-class PageParentField(RelatedField):
+class PageParentField(relations.RelatedField):
     """
     Serializes the "parent" field on Page objects.
 
@@ -154,6 +131,11 @@ class PageParentField(RelatedField):
         site_pages = pages_for_site(self.context['request'].site)
         if site_pages.filter(id=parent.id).exists():
             return parent
+
+    def to_representation(self, value):
+        serializer_class = get_serializer_class(value.__class__, ['id', 'type', 'detail_url', 'html_url', 'title'], meta_fields=['type', 'detail_url', 'html_url'], base=PageSerializer)
+        serializer = serializer_class(context=self.context)
+        return serializer.to_representation(value)
 
 
 class ChildRelationField(Field):
@@ -195,12 +177,11 @@ class ChildRelationField(Field):
     ]
     """
     def __init__(self, *args, **kwargs):
-        self.child_fields = list(kwargs.pop('child_fields'))
+        self.serializer_class = kwargs.pop('serializer_class')
         super(ChildRelationField, self).__init__(*args, **kwargs)
 
     def to_representation(self, value):
-        serializer_class = get_serializer_class(value.model, ['id', 'type'] + self.child_fields, ['type'])
-        serializer = serializer_class(context=self.context)
+        serializer = self.serializer_class(context=self.context)
 
         return [
             serializer.to_representation(child_object)
@@ -329,6 +310,11 @@ class BaseSerializer(serializers.ModelSerializer):
 
         return super(BaseSerializer, self).build_property_field(field_name, model_class)
 
+    def build_relational_field(self, field_name, relation_info):
+        field_class, field_kwargs = super(BaseSerializer, self).build_relational_field(field_name, relation_info)
+        field_kwargs['serializer_class'] = self.child_serializer_classes[field_name]
+        return field_class, field_kwargs
+
 
 class PageSerializer(BaseSerializer):
     type = PageTypeField(read_only=True)
@@ -345,13 +331,13 @@ class PageSerializer(BaseSerializer):
                 for child_relation in get_all_child_relations(model)
             }
 
-            if field_name in child_relations and hasattr(child_relations[field_name], 'api_fields'):
-                return ChildRelationField, {'child_fields': child_relations[field_name].api_fields}
+            if field_name in child_relations and field_name in self.child_serializer_classes:
+                return ChildRelationField, {'serializer_class': self.child_serializer_classes[field_name]}
 
-        return super(BaseSerializer, self).build_relational_field(field_name, relation_info)
+        return super(PageSerializer, self).build_relational_field(field_name, relation_info)
 
 
-def get_serializer_class(model_, fields_, meta_fields=None, base=BaseSerializer):
+def get_serializer_class(model_, fields_, meta_fields, child_serializer_classes=None, base=BaseSerializer):
     class Meta:
         model = model_
         fields = list(fields_)
@@ -359,4 +345,5 @@ def get_serializer_class(model_, fields_, meta_fields=None, base=BaseSerializer)
     return type(str(model_.__name__ + 'Serializer'), (base, ), {
         'Meta': Meta,
         'meta_fields': list(meta_fields),
+        'child_serializer_classes': child_serializer_classes or {},
     })

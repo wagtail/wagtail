@@ -199,6 +199,36 @@ class TestPageListing(TestCase):
             self.assertEqual(set(page.keys()), {'id', 'meta', 'related_links', 'tags', 'carousel_items', 'body', 'feed_image'})
             self.assertEqual(set(page['meta'].keys()), {'type', 'detail_url', 'show_in_menus', 'first_published_at', 'slug', 'parent', 'html_url', 'search_description'})
 
+    def test_nested_fields(self):
+        response = self.get_response(type='demosite.BlogEntryPage', fields='feed_image(width,height)')
+        content = json.loads(response.content.decode('UTF-8'))
+
+        for page in content['items']:
+            self.assertEqual(set(page['feed_image'].keys()), {'id', 'meta', 'title', 'width', 'height'})
+
+    def test_remove_nested_fields(self):
+        response = self.get_response(type='demosite.BlogEntryPage', fields='feed_image(-title)')
+        content = json.loads(response.content.decode('UTF-8'))
+
+        for page in content['items']:
+            self.assertEqual(set(page['feed_image'].keys()), {'id', 'meta'})
+
+    def test_all_nested_fields(self):
+        response = self.get_response(type='demosite.BlogEntryPage', fields='feed_image(*)')
+        content = json.loads(response.content.decode('UTF-8'))
+
+        for page in content['items']:
+            self.assertEqual(set(page['feed_image'].keys()), {'id', 'meta', 'title', 'width', 'height'})
+
+    def test_nested_nested_fields(self):
+        response = self.get_response(type='demosite.BlogEntryPage', fields='carousel_items(image(width,height),embed_url)')
+        content = json.loads(response.content.decode('UTF-8'))
+
+        for page in content['items']:
+            for carousel_item in page['carousel_items']:
+                self.assertEqual(set(carousel_item.keys()), {'id', 'meta', 'image', 'embed_url'})
+                self.assertEqual(set(carousel_item['image'].keys()), {'id', 'meta', 'title', 'width', 'height'})
+
     def test_fields_child_relation(self):
         response = self.get_response(type='demosite.BlogEntryPage', fields='title,related_links')
         content = json.loads(response.content.decode('UTF-8'))
@@ -216,10 +246,10 @@ class TestPageListing(TestCase):
 
             if feed_image is not None:
                 self.assertIsInstance(feed_image, dict)
-                self.assertEqual(set(feed_image.keys()), {'id', 'meta'})
+                self.assertEqual(set(feed_image.keys()), {'id', 'meta', 'title'})
                 self.assertIsInstance(feed_image['id'], int)
                 self.assertIsInstance(feed_image['meta'], dict)
-                self.assertEqual(set(feed_image['meta'].keys()), {'type', 'detail_url'})
+                self.assertEqual(set(feed_image['meta'].keys()), {'type', 'detail_url', 'tags'})
                 self.assertEqual(feed_image['meta']['type'], 'wagtailimages.Image')
                 self.assertEqual(feed_image['meta']['detail_url'], 'http://localhost/api/v2beta/images/%d/' % feed_image['id'])
 
@@ -256,6 +286,13 @@ class TestPageListing(TestCase):
         self.assertEqual(response.status_code, 400)
         self.assertEqual(content, {'message': "fields error: '*' must be in the first position"})
 
+    def test_unknown_nested_fields_give_error(self):
+        response = self.get_response(type='demosite.BlogEntryPage', fields='feed_image(123,title,abc)')
+        content = json.loads(response.content.decode('UTF-8'))
+
+        self.assertEqual(response.status_code, 400)
+        self.assertEqual(content, {'message': "unknown fields: 123, abc"})
+
     def test_fields_without_type_gives_error(self):
         response = self.get_response(fields='title,related_links')
         content = json.loads(response.content.decode('UTF-8'))
@@ -283,6 +320,13 @@ class TestPageListing(TestCase):
 
         self.assertEqual(response.status_code, 400)
         self.assertEqual(content, {'message': "unknown fields: 123, abc"})
+
+    def test_nested_fields_on_non_relational_field_gives_error(self):
+        response = self.get_response(type='demosite.BlogEntryPage', fields='title(foo,bar)')
+        content = json.loads(response.content.decode('UTF-8'))
+
+        self.assertEqual(response.status_code, 400)
+        self.assertEqual(content, {'message': "'title' does not support nested fields"})
 
 
     # FILTERING
@@ -689,7 +733,7 @@ class TestPageDetail(TestCase):
         # Check the parent field
         self.assertIn('parent', content['meta'])
         self.assertIsInstance(content['meta']['parent'], dict)
-        self.assertEqual(set(content['meta']['parent'].keys()), {'id', 'meta'})
+        self.assertEqual(set(content['meta']['parent'].keys()), {'id', 'meta', 'title'})
         self.assertEqual(content['meta']['parent']['id'], 5)
         self.assertIsInstance(content['meta']['parent']['meta'], dict)
         self.assertEqual(set(content['meta']['parent']['meta'].keys()), {'type', 'detail_url', 'html_url'})
@@ -713,10 +757,10 @@ class TestPageDetail(TestCase):
 
         # Check that the feed image was serialised properly
         self.assertIsInstance(content['feed_image'], dict)
-        self.assertEqual(set(content['feed_image'].keys()), {'id', 'meta'})
+        self.assertEqual(set(content['feed_image'].keys()), {'id', 'meta', 'title'})
         self.assertEqual(content['feed_image']['id'], 7)
         self.assertIsInstance(content['feed_image']['meta'], dict)
-        self.assertEqual(set(content['feed_image']['meta'].keys()), {'type', 'detail_url'})
+        self.assertEqual(set(content['feed_image']['meta'].keys()), {'type', 'detail_url', 'tags'})
         self.assertEqual(content['feed_image']['meta']['type'], 'wagtailimages.Image')
         self.assertEqual(content['feed_image']['meta']['detail_url'], 'http://localhost/api/v2beta/images/7/')
 
