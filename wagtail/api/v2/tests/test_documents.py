@@ -108,12 +108,35 @@ class TestDocumentListing(TestCase):
         for document in content['items']:
             self.assertEqual(set(document.keys()), {'meta', 'title'})
 
+    def test_all_fields(self):
+        response = self.get_response(fields='*')
+        content = json.loads(response.content.decode('UTF-8'))
+
+        for document in content['items']:
+            self.assertEqual(set(document.keys()), {'id', 'meta', 'title'})
+            self.assertEqual(set(document['meta'].keys()), {'type', 'detail_url', 'tags', 'download_url'})
+
+    def test_all_fields_then_remove_something(self):
+        response = self.get_response(fields='*,-title,-download_url')
+        content = json.loads(response.content.decode('UTF-8'))
+
+        for document in content['items']:
+            self.assertEqual(set(document.keys()), {'id', 'meta'})
+            self.assertEqual(set(document['meta'].keys()), {'type', 'detail_url', 'tags'})
+
     def test_fields_tags(self):
         response = self.get_response(fields='tags')
         content = json.loads(response.content.decode('UTF-8'))
 
         for document in content['items']:
             self.assertIsInstance(document['meta']['tags'], list)
+
+    def test_star_in_wrong_position_gives_error(self):
+        response = self.get_response(fields='title,*')
+        content = json.loads(response.content.decode('UTF-8'))
+
+        self.assertEqual(response.status_code, 400)
+        self.assertEqual(content, {'message': "fields error: '*' must be in the first position"})
 
     def test_fields_which_are_not_in_api_fields_gives_error(self):
         response = self.get_response(fields='uploaded_by_user')

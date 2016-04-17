@@ -183,6 +183,22 @@ class TestPageListing(TestCase):
         for page in content['items']:
             self.assertEqual(set(page.keys()), {'meta', 'title'})
 
+    def test_all_fields(self):
+        response = self.get_response(type='demosite.BlogEntryPage', fields='*')
+        content = json.loads(response.content.decode('UTF-8'))
+
+        for page in content['items']:
+            self.assertEqual(set(page.keys()), {'id', 'meta', 'title', 'date', 'related_links', 'tags', 'carousel_items', 'body', 'feed_image'})
+            self.assertEqual(set(page['meta'].keys()), {'type', 'detail_url', 'show_in_menus', 'first_published_at', 'seo_title', 'slug', 'parent', 'html_url', 'search_description'})
+
+    def test_all_fields_then_remove_something(self):
+        response = self.get_response(type='demosite.BlogEntryPage', fields='*,-title,-date,-seo_title')
+        content = json.loads(response.content.decode('UTF-8'))
+
+        for page in content['items']:
+            self.assertEqual(set(page.keys()), {'id', 'meta', 'related_links', 'tags', 'carousel_items', 'body', 'feed_image'})
+            self.assertEqual(set(page['meta'].keys()), {'type', 'detail_url', 'show_in_menus', 'first_published_at', 'slug', 'parent', 'html_url', 'search_description'})
+
     def test_fields_child_relation(self):
         response = self.get_response(type='demosite.BlogEntryPage', fields='title,related_links')
         content = json.loads(response.content.decode('UTF-8'))
@@ -232,6 +248,13 @@ class TestPageListing(TestCase):
             'related_links',
         ]
         self.assertEqual(list(content['items'][0].keys()), field_order)
+
+    def test_star_in_wrong_position_gives_error(self):
+        response = self.get_response(fields='title,*')
+        content = json.loads(response.content.decode('UTF-8'))
+
+        self.assertEqual(response.status_code, 400)
+        self.assertEqual(content, {'message': "fields error: '*' must be in the first position"})
 
     def test_fields_without_type_gives_error(self):
         response = self.get_response(fields='title,related_links')

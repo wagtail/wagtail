@@ -130,6 +130,22 @@ class TestAdminPageListing(AdminAPITestCase, TestPageListing):
         for page in content['items']:
             self.assertEqual(set(page.keys()), {'id', 'title'})
 
+    def test_all_fields(self):
+        response = self.get_response(type='demosite.BlogEntryPage', fields='*')
+        content = json.loads(response.content.decode('UTF-8'))
+
+        for page in content['items']:
+            self.assertEqual(set(page.keys()), {'id', 'meta', 'title', 'date', 'related_links', 'tags', 'carousel_items', 'body', 'feed_image'})
+            self.assertEqual(set(page['meta'].keys()), {'type', 'detail_url', 'show_in_menus', 'first_published_at', 'seo_title', 'slug', 'parent', 'html_url', 'search_description', 'children', 'descendants', 'status', 'latest_revision_created_at'})
+
+    def test_all_fields_then_remove_something(self):
+        response = self.get_response(type='demosite.BlogEntryPage', fields='*,-title,-date,-seo_title,-status')
+        content = json.loads(response.content.decode('UTF-8'))
+
+        for page in content['items']:
+            self.assertEqual(set(page.keys()), {'id', 'meta', 'related_links', 'tags', 'carousel_items', 'body', 'feed_image'})
+            self.assertEqual(set(page['meta'].keys()), {'type', 'detail_url', 'show_in_menus', 'first_published_at', 'slug', 'parent', 'html_url', 'search_description', 'children', 'descendants', 'latest_revision_created_at'})
+
     def test_fields_foreign_key(self):
         # Only the base the detail_url is different here from the public API
         response = self.get_response(type='demosite.BlogEntryPage', fields='title,date,feed_image')

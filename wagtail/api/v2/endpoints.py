@@ -175,8 +175,14 @@ class BaseAPIEndpoint(GenericViewSet):
             mentioned_fields = set()
 
             if 'fields' in request.GET:
+                first_position = True
                 for field in request.GET['fields'].split(','):
-                    if field.startswith('-'):
+                    if field == '*':
+                        if first_position:
+                            fields = fields.union(all_fields)
+                        else:
+                            raise BadRequestError("fields error: '*' must be in the first position")
+                    elif field.startswith('-'):
                         try:
                             fields.remove(field[1:])
                         except KeyError:
@@ -186,6 +192,8 @@ class BaseAPIEndpoint(GenericViewSet):
                     else:
                         fields.add(field)
                         mentioned_fields.add(field)
+
+                    first_position = False
 
             unknown_fields = mentioned_fields - set(all_fields)
 
