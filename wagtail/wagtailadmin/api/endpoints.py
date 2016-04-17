@@ -40,6 +40,9 @@ class PagesAdminAPIEndpoint(PagesAPIEndpoint):
         'children',
     ]
 
+    # Allow the parent field to appear on listings
+    detail_only_fields = []
+
     known_query_parameters = PagesAPIEndpoint.known_query_parameters.union([
         'has_children'
     ])
