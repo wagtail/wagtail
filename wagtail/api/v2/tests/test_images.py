@@ -105,6 +105,22 @@ class TestImageListing(TestCase):
         for image in content['items']:
             self.assertEqual(set(image.keys()), {'meta', 'title'})
 
+    def test_all_fields(self):
+        response = self.get_response(fields='*')
+        content = json.loads(response.content.decode('UTF-8'))
+
+        for image in content['items']:
+            self.assertEqual(set(image.keys()), {'id', 'meta', 'title', 'width', 'height'})
+            self.assertEqual(set(image['meta'].keys()), {'type', 'detail_url', 'tags'})
+
+    def test_all_fields_then_remove_something(self):
+        response = self.get_response(fields='*,-title,-tags')
+        content = json.loads(response.content.decode('UTF-8'))
+
+        for image in content['items']:
+            self.assertEqual(set(image.keys()), {'id', 'meta', 'width', 'height'})
+            self.assertEqual(set(image['meta'].keys()), {'type', 'detail_url'})
+
     def test_fields_tags(self):
         response = self.get_response(fields='tags')
         content = json.loads(response.content.decode('UTF-8'))
@@ -113,6 +129,13 @@ class TestImageListing(TestCase):
             self.assertEqual(set(image.keys()), {'id', 'meta', 'title'})
             self.assertEqual(set(image['meta'].keys()), {'type', 'detail_url', 'tags'})
             self.assertIsInstance(image['meta']['tags'], list)
+
+    def test_star_in_wrong_position_gives_error(self):
+        response = self.get_response(fields='title,*')
+        content = json.loads(response.content.decode('UTF-8'))
+
+        self.assertEqual(response.status_code, 400)
+        self.assertEqual(content, {'message': "fields error: '*' must be in the first position"})
 
     def test_fields_which_are_not_in_api_fields_gives_error(self):
         response = self.get_response(fields='uploaded_by_user')

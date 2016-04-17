@@ -105,6 +105,22 @@ class TestAdminImageListing(AdminAPITestCase, TestImageListing):
         for image in content['items']:
             self.assertEqual(set(image.keys()), {'meta', 'title', 'width', 'height', 'thumbnail'})
 
+    def test_all_fields(self):
+        response = self.get_response(fields='*')
+        content = json.loads(response.content.decode('UTF-8'))
+
+        for image in content['items']:
+            self.assertEqual(set(image.keys()), {'id', 'meta', 'title', 'width', 'height', 'thumbnail'})
+            self.assertEqual(set(image['meta'].keys()), {'type', 'detail_url', 'tags'})
+
+    def test_all_fields_then_remove_something(self):
+        response = self.get_response(fields='*,-title,-tags')
+        content = json.loads(response.content.decode('UTF-8'))
+
+        for image in content['items']:
+            self.assertEqual(set(image.keys()), {'id', 'meta', 'width', 'height', 'thumbnail'})
+            self.assertEqual(set(image['meta'].keys()), {'type', 'detail_url'})
+
     def test_fields_tags(self):
         response = self.get_response(fields='tags')
         content = json.loads(response.content.decode('UTF-8'))
