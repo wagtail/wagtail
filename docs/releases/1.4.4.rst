@@ -1,0 +1,16 @@
+===========================
+Wagtail 1.4.4 release notes
+===========================
+
+.. contents::
+    :local:
+    :depth: 1
+
+
+What's changed
+==============
+
+Bug fixes
+~~~~~~~~~
+
+* The ``wagtailuserbar`` template tag now gracefully handles situations where the ``request`` object is not in the template context (Matt Westcott)

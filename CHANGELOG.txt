@@ -28,6 +28,12 @@ Changelog
  * Fix: Failures on sending moderation notification emails now produce a warning, rather than crashing the admin page outright (Matt Fozard)
 
 
+1.4.4 (xx.xx.2016)
+~~~~~~~~~~~~~~~~~~
+
+* The `wagtailuserbar` template tag now gracefully handles situations where the `request` object is not in the template context (Matt Westcott)
+
+
 1.4.3 (04.04.2016)
 ~~~~~~~~~~~~~~~~~~
 
