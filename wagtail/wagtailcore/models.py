@@ -558,6 +558,10 @@ class Page(six.with_metaclass(PageBase, MP_Node, ClusterableModel, index.Indexed
             )
 
         from wagtail.wagtailadmin.forms import WagtailAdminPageForm
+
+        if not hasattr(cls, 'base_form_class'):
+            cls.base_form_class = WagtailAdminPageForm
+
         if not issubclass(cls.base_form_class, WagtailAdminPageForm):
             errors.append(checks.Error(
                 "{}.base_form_class does not extend WagtailAdminPageForm".format(
@@ -567,6 +571,10 @@ class Page(six.with_metaclass(PageBase, MP_Node, ClusterableModel, index.Indexed
                     cls.base_form_class.__name__),
                 obj=cls,
                 id='wagtailcore.E002'))
+
+        if not hasattr(cls, 'get_edit_handler'):
+            from wagtail.wagtailadmin.edit_handlers import get_edit_handler
+            cls.get_edit_handler = get_edit_handler
 
         edit_handler = cls.get_edit_handler()
         if not issubclass(edit_handler.get_form_class(cls), WagtailAdminPageForm):

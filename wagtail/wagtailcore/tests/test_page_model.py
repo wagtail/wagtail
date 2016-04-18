@@ -1169,3 +1169,19 @@ class TestIssue2024(TestCase):
 
         # Check that the content_type changed to Page
         self.assertEqual(event_index.content_type, ContentType.objects.get_for_model(Page))
+
+
+class TestPageModelCheck(TestCase):
+    def setUp(self):
+        self.base_form_class = Page.base_form_class
+        self.get_edit_handler = Page.get_edit_handler
+
+    def tearDown(self):
+        Page.base_form_class = self.base_form_class
+        Page.get_edit_handler = self.get_edit_handler
+
+    def test_set_default_value_if_not_present(self):
+        del Page.base_form_class
+        del Page.get_edit_handler
+
+        self.assertEqual(Page.check(), [])
