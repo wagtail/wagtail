@@ -36,6 +36,13 @@ class TestUserbarTag(TestCase):
 
         self.assertIn("<!-- Wagtail user bar embed code -->", content)
 
+    def test_userbar_does_not_break_without_request(self):
+        template = Template("{% load wagtailuserbar %}{% wagtailuserbar %}boom")
+        content = template.render(Context({
+        }))
+
+        self.assertEqual("boom", content)
+
     def test_userbar_tag_self(self):
         """
         Ensure the userbar renders with `self` instead of `PAGE_TEMPLATE_VAR`
