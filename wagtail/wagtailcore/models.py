@@ -1355,21 +1355,22 @@ class Page(six.with_metaclass(PageBase, MP_Node, index.Indexed, ClusterableModel
             self.path[0:pos]
             for pos in range(0, len(self.path) + 1 - self.steplen, self.steplen)[1:]
         ]
-        # Remove all paths that are neither permitted nor required.
-        permitted_paths, required_ancestors = get_explorable_page_paths(user)
-        for path in ancestor_paths[:]:
-            if path not in permitted_paths and path not in required_ancestors:
-                ancestor_paths.remove(path)
 
-        return Page.objects.filter(path__in=ancestor_paths)
+        cca_path = get_closest_common_ancestor_path(user)
+        if cca_path:
+            # Return only pages with paths that are at least as long as the Closest Common Ancestor's path.
+            explorable_ancestor_paths = [path for path in ancestor_paths if len(path) >= len(cca_path)]
+            return Page.objects.filter(path__in=explorable_ancestor_paths)
+        else:
+            # If the user has no permitted paths, they have no explorable ancestors.
+            return Page.objects.none()
 
     def is_explorable_root(self, user):
         # A superuser's explorable root is the Root page.
         if user.is_superuser:
             return self.is_root()
 
-        permitted_paths, required_ancestors = get_explorable_page_paths(user)
-        return self.path == required_ancestors[0]
+        return self.path == get_closest_common_ancestor_path(user)
 
     class Meta:
         verbose_name = _('page')
@@ -1394,23 +1395,14 @@ def get_explorable_page_paths(user):
     cache_key = EXPLORABLE_PATHS_PREFIX.format(user.pk)
     permitted_paths, required_ancestors = cache.get(cache_key, ([], []))
     if not permitted_paths:
-        ###################
-        # Get paths by User
-        ###################
-        permissions = (
-            GroupPagePermission.objects
-            .filter(group__user=user)
-            # Choose permission is excluded because it's only associated with the Choosers, not the Explorer.
-            .exclude(permission_type='choose')
-            .select_related('page')
-        )
-        # We temporarily use a set here because "permissions" has duplicates of every path that has multiple perms.
-        permitted_paths = list(set(perm.page.path for perm in permissions))
+        permitted_paths = UserPagePermissionsProxy(user).permitted_paths()
 
         # Calculate the "closest common ancestor" of all the permitted Pages by finding their common prefix, then
         # chopping off the end to make the length a multiple of Page.steplen.
         if permitted_paths:
             common_prefix = os.path.commonprefix(permitted_paths)
+            # When len(common_prefix) % Page.steplen == 0, we want the entire string, but [:-0] returns ''.
+            # So we use [:None], which returns the whole string.
             cca_path = common_prefix[:-(len(common_prefix) % Page.steplen) or None]
             required_ancestors.append(cca_path)
             # Now include all the ancestors of each permitted Page, up to their closest common ancestor. This lets
@@ -1468,6 +1460,17 @@ def clear_explorable_paths_cache(user=None):
         )
 
 
+def get_closest_common_ancestor_path(user):
+    """
+    Returns the Closest Common Ancestor for the specified user, or None if the user has no explorable page paths.
+    """
+    permitted_paths, required_ancestors = get_explorable_page_paths(user)
+    if permitted_paths:
+        return required_ancestors[0]
+    else:
+        return None
+
+
 def get_navigation_menu_items(user):
     # Get all pages that appear in the navigation menu: ones which have children,
     # or are at the top-level (this rule required so that an empty site out-of-the-box has a working menu)
@@ -1491,13 +1494,11 @@ def get_navigation_menu_items(user):
                     convert_explorable_paths_to_Q(permitted_paths, required_ancestors) | Q(depth=1)
                 )
 
-                # Find the length of the shortest explorable path.
-                shortest_path_len = len(min(permitted_paths + required_ancestors, key=len))
-                # Convert from path length to depth.
-                lowest_depth = (shortest_path_len / Page.steplen)
+                # Find the depth of the Closest Common Ancestor.
+                cca_depth = len(required_ancestors[0]) / Page.steplen
                 # Alter depth_change if needed.
-                if lowest_depth > 2:
-                    depth_change = lowest_depth - 2
+                if cca_depth > 2:
+                    depth_change = cca_depth - 2
             else:
                 # If the User has no explorable pages, display nothing.
                 pages = Page.objects.none()
@@ -1824,6 +1825,32 @@ class UserPagePermissionsProxy(object):
     def can_choose_pages(self):
         """Return True if the user has permission to Choose any pages"""
         return self.choosable_pages().exists()
+
+    def permitted_paths(self):
+        """
+        Return a list of paths to Pages that this User is directly permitted to explore.
+
+        This is not the same as the *_pages functions in this class, as it only returns paths to
+        the pages which are directly permissioned in the GroupPagePermissions model. It does not return
+        decendant paths of said pages.
+        """
+
+        if not self.user.is_active:
+            return Page.objects.none()
+        if self.user.is_superuser:
+            return Page.objects.all()
+
+        # Retrieve the path(s) for each Page for which this user has at least one GroupPagePermission
+        # that provides explorability.
+        permitted_paths = Page.objects.distinct().values_list('path', flat=True).filter(
+            group_permissions__group__in=self.user.groups.all(),
+            # All permission types except 'choose' provide explorability.
+            group_permissions__permission_type__in=[perm[0] for perm in PAGE_PERMISSION_TYPES if perm[0] != 'choose']
+        )
+        return permitted_paths
+
+    def has_permitted_paths(self):
+        return bool(self.permitted_paths())
 
 
 class PagePermissionTester(object):

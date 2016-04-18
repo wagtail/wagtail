@@ -20,7 +20,7 @@ from wagtail.wagtailadmin.forms import CopyForm, SearchForm
 from wagtail.wagtailadmin.utils import send_notification
 from wagtail.wagtailcore import hooks
 from wagtail.wagtailcore.models import (
-    Page, PageRevision, UserPagePermissionsProxy, get_explorable_page_paths, get_navigation_menu_items
+    Page, PageRevision, UserPagePermissionsProxy, get_closest_common_ancestor_path, get_navigation_menu_items
 )
 
 
@@ -41,7 +41,7 @@ def index(request, parent_page_id=None):
     if parent_page_id:
         parent_page = get_object_or_404(Page, id=parent_page_id)
 
-        if not UserPagePermissionsProxy(request.user).for_page(parent_page).can_explore():
+        if not parent_page.permissions_for_user(request.user).can_explore():
             if Page.objects.descendant_of(request.site.root_page).filter(pk=parent_page.id).exists():
                 # If the page is on the current Site, throw a 403: it's just an unpermitted page.
                 raise PermissionDenied
@@ -53,9 +53,9 @@ def index(request, parent_page_id=None):
         parent_page = Page.get_first_root_node()
         if not request.user.is_superuser:
             # Non-superusers get the Closest Common Ancestor of their permitted pages, if they have any.
-            permitted_pages, required_ancestors = get_explorable_page_paths(request.user)
-            if permitted_pages:
-                parent_page = Page.objects.get(path=required_ancestors[0])
+            cca_path = get_closest_common_ancestor_path(request.user)
+            if cca_path:
+                parent_page = Page.objects.get(path=cca_path)
 
     pages = parent_page.get_explorable_children(request.user).prefetch_related('content_type')
 
