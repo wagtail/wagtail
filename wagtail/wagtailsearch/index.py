@@ -190,8 +190,6 @@ class RelatedFields(object):
 
         elif isinstance(field, ForeignObjectRel):
             # Reverse relation
-            # Note: we will never get here on Django 1.7 and below as get_field
-            # does not return reverse relations
             if isinstance(field, OneToOneRel):
                 # select_related for reverse OneToOneField
                 queryset = queryset.select_related(self.field_name)
