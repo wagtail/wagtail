@@ -5,9 +5,11 @@ from functools import wraps
 
 from django.conf import settings
 from django.contrib.auth import get_user_model
+from django.core.exceptions import PermissionDenied
 from django.core.mail import send_mail as django_send_mail
+from django.http.response import Http404
 from django.db.models import Q
-from django.shortcuts import redirect
+from django.shortcuts import redirect, get_object_or_404
 from django.template.loader import render_to_string
 from django.utils.translation import ugettext as _
 from modelcluster.fields import ParentalKey
@@ -222,3 +224,26 @@ def send_notification(page_revision_id, notification, excluded_user_id):
             )
 
     return sent_count == len(email_recipients)
+
+
+def get_page_if_explorable(page_id, request):
+    """
+    Returns the Page with the given page_id.
+    If that page is not on the current Site, an Http404 exception is thrown.
+    Otherwise, if the user has permission to explore the page, the page will be returned.
+    Finally, if the user doesn't have permission to explore the page, a PermissionDenied exception will be thrown.
+    """
+    page = get_object_or_404(Page, id=page_id)
+    # Superusers can explore every page.
+    if request.user.is_superuser:
+        return page
+
+    if not page.is_on_site(request.site):
+        # The Page isn't on the current Site, so we act like it doesn't exist, regardless of permission.
+        raise Http404
+    elif page.permissions_for_user(request.user).can_explore():
+        # The Page is on the current Site, and the user is permitted to explore it.
+        return page
+    else:
+        # The Page is on the current Site, but the user's not permitted to explore it.
+        raise PermissionDenied

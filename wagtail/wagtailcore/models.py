@@ -1372,6 +1372,12 @@ class Page(six.with_metaclass(PageBase, MP_Node, index.Indexed, ClusterableModel
 
         return self.path == get_closest_common_ancestor_path(user)
 
+    def is_on_site(self, site):
+        """
+        Returns True if this Page is decendent from the given Site's root page.
+        """
+        return Page.objects.descendant_of(site.root_page, inclusive=True).filter(pk=self.id).exists()
+
     class Meta:
         verbose_name = _('page')
         verbose_name_plural = _('pages')

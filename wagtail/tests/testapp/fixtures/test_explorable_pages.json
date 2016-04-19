@@ -59,7 +59,7 @@
         "content_type": ["wagtailcore", "page"],
         "path": "00010002",
         "url_path": "/home/",
-        "slug": "home"
+        "slug": "example-home"
     }
 },
 
@@ -159,8 +159,8 @@
         "depth": 2,
         "content_type": ["wagtailcore", "page"],
         "path": "00010003",
-        "url_path": "/home-2/",
-        "slug": "home-2"
+        "url_path": "/homez/",
+        "slug": "homez"
     }
 },
 
@@ -180,6 +180,16 @@
     "fields": {
         "root_page": 4,
         "hostname": "example.com",
+        "port": 80,
+        "is_default_site": false
+    }
+},
+{
+    "pk": 3,
+    "model": "wagtailcore.site",
+    "fields": {
+        "root_page": 10,
+        "hostname": "example2.com",
         "port": 80,
         "is_default_site": false
     }

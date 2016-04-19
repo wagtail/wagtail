@@ -408,7 +408,7 @@ class TestExplorablePageVisibility(TestCase, WagtailTestUtils):
 
     def test_nonadmin_at_unpermitted_site_page(self):
         self.assertTrue(self.client.login(username='bob', password='password'))
-        response = self.client.get(reverse('wagtailadmin_explore', args=[7]), SERVER_NAME="example.com")
+        response = self.client.get(reverse('wagtailadmin_explore', args=[7]), HTTP_HOST="example.com")
         # Bob has permission to explore example.com's "Page 1", but not "Page 2", so Explorer should deny access.
         self.assertEqual(response.status_code, 403)
 
@@ -424,18 +424,18 @@ class TestExplorablePageVisibility(TestCase, WagtailTestUtils):
         # Being in Groups 1 and 2, Sam's Closest Common Ancestor is the Root page, meaning she can explore (but not
         # administer) the ancestors of Page 1. Thus, she should see Page 1 but not Page 2 when exploring the "Content"
         # page.
-        response = self.client.get(reverse('wagtailadmin_explore', args=[5]), SERVER_NAME="example.com")
+        response = self.client.get(reverse('wagtailadmin_explore', args=[5]), HTTP_HOST="example.com")
         self.assertEqual(response.status_code, 200)
         self.assertInHTML("""<a href="/admin/pages/6/edit/" title="Edit this page">Page 1</a>""", str(response))
         self.assertNotContains(response, "Page 2")
         # Sam should not see the "Other Content" page when exploring the example.com homepage.
-        response = self.client.get(reverse('wagtailadmin_explore', args=[4]), SERVER_NAME="example.com")
+        response = self.client.get(reverse('wagtailadmin_explore', args=[4]), HTTP_HOST="example.com")
         self.assertEqual(response.status_code, 200)
         self.assertNotContains(response, "Other Content")
 
     def test_nonadmin_sees_breadcrumbs_up_to_cca(self):
         self.assertTrue(self.client.login(username='josh', password='password'))
-        response = self.client.get(reverse('wagtailadmin_explore', args=[6]))
+        response = self.client.get(reverse('wagtailadmin_explore', args=[6]), HTTP_HOST='example.com')
         self.assertEqual(response.status_code, 200)
         # While at "Page 1", Josh should see the breadcrumbs leading only as far back as the example.com homepage,
         # since it's his Closest Common Ancestor.
@@ -454,6 +454,61 @@ class TestExplorablePageVisibility(TestCase, WagtailTestUtils):
         # Being in no Groups, Mary should see the Root page, but not see any child pages.
         self.assertInHTML("<h2>Root</h2>", str(response))
         self.assertContains(response, "No pages have been created at this location.")
+
+    def test_admin_can_index_and_preview_every_revision(self):
+        self.assertTrue(self.client.login(username='superman', password='password'))
+        for page in Page.objects.filter(pk__gt=1):
+            response = self.client.get(reverse('wagtailadmin_pages:revisions_index', args=[page.pk]))
+            self.assertEqual(response.status_code, 200)
+            page.save_revision()
+            for revision in page.revisions.all():
+                response = self.client.get(reverse('wagtailadmin_pages:revisions_view', args=[page.pk, revision.pk]))
+                self.assertEqual(response.status_code, 200)
+
+    def test_nonadmin_can_index_and_preview_revisions_only_for_permitted_pages(self):
+        self.assertTrue(self.client.login(username='bob', password='password'))
+        # Page 2 is 404, Page 6 is 200, and Page 4 is 403
+        page1 = Page.objects.get(pk=6)
+        page1_revision = page1.save_revision()
+        testserver_home = Page.objects.get(pk=2)
+        testserver_home_revision = testserver_home.save_revision()
+        example_home = Page.objects.get(pk=4)
+        example_home_revision = example_home.save_revision()
+
+        # Bob is allowed to see Page 1, and it's on example.com, so it should give 200.
+        response = self.client.get(
+            reverse('wagtailadmin_pages:revisions_index', args=[page1.pk]),
+            HTTP_HOST='example.com'
+        )
+        self.assertEqual(response.status_code, 200)
+        response = self.client.get(
+            reverse('wagtailadmin_pages:revisions_view', args=[page1.pk, page1_revision.pk]),
+            HTTP_HOST='example.com'
+        )
+        self.assertEqual(response.status_code, 200)
+
+        # Bob is allowed to see Page 1, and it's on example.com, so it should give 200.
+        response = self.client.get(
+            reverse('wagtailadmin_pages:revisions_index', args=[testserver_home.pk]),
+            HTTP_HOST='example.com'
+        )
+        self.assertEqual(response.status_code, 404)
+        response = self.client.get(
+            reverse('wagtailadmin_pages:revisions_view', args=[testserver_home.pk, testserver_home_revision.pk]),
+            HTTP_HOST='example.com'
+        )
+        self.assertEqual(response.status_code, 404)
+
+        response = self.client.get(
+            reverse('wagtailadmin_pages:revisions_index', args=[example_home.pk]),
+            HTTP_HOST='example.com'
+        )
+        self.assertEqual(response.status_code, 403)
+        response = self.client.get(
+            reverse('wagtailadmin_pages:revisions_view', args=[example_home.pk, example_home_revision.pk]),
+            HTTP_HOST='example.com'
+        )
+        self.assertEqual(response.status_code, 403)
 
 
 class TestPageCreation(TestCase, WagtailTestUtils):

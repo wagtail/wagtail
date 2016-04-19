@@ -17,10 +17,10 @@ from django.views.decorators.vary import vary_on_headers
 from wagtail.utils.pagination import paginate
 from wagtail.wagtailadmin import messages, signals
 from wagtail.wagtailadmin.forms import CopyForm, SearchForm
-from wagtail.wagtailadmin.utils import send_notification
+from wagtail.wagtailadmin.utils import send_notification, get_page_if_explorable
 from wagtail.wagtailcore import hooks
 from wagtail.wagtailcore.models import (
-    Page, PageRevision, UserPagePermissionsProxy, get_closest_common_ancestor_path, get_navigation_menu_items
+    Page, PageRevision, get_closest_common_ancestor_path, get_navigation_menu_items
 )
 
 
@@ -39,20 +39,11 @@ def explorer_nav(request):
 
 def index(request, parent_page_id=None):
     if parent_page_id:
-        parent_page = get_object_or_404(Page, id=parent_page_id)
-
-        if not parent_page.permissions_for_user(request.user).can_explore():
-            if Page.objects.descendant_of(request.site.root_page).filter(pk=parent_page.id).exists():
-                # If the page is on the current Site, throw a 403: it's just an unpermitted page.
-                raise PermissionDenied
-            else:
-                # If the page isn't on the current site, throw a 404: the page doesn't exist on this Site.
-                raise Http404
+        parent_page = get_page_if_explorable(parent_page_id, request)
     else:
         # The user visited /admin/pages/, so we need to figure out the appropriate "root page" to show them.
         parent_page = Page.get_first_root_node()
         if not request.user.is_superuser:
-            # Non-superusers get the Closest Common Ancestor of their permitted pages, if they have any.
             cca_path = get_closest_common_ancestor_path(request.user)
             if cca_path:
                 parent_page = Page.objects.get(path=cca_path)
@@ -966,7 +957,7 @@ def unlock(request, page_id):
 
 
 def revisions_index(request, page_id):
-    page = get_object_or_404(Page, id=page_id).specific
+    page = get_page_if_explorable(page_id, request).specific
 
     # Get page ordering
     ordering = request.GET.get('ordering', '-created_at')
@@ -1025,7 +1016,7 @@ def revisions_revert(request, page_id, revision_id):
 
 
 def revisions_view(request, page_id, revision_id):
-    page = get_object_or_404(Page, id=page_id).specific
+    page = get_page_if_explorable(page_id, request).specific
     revision = get_object_or_404(page.revisions, id=revision_id)
     revision_page = revision.as_page_object()
 
