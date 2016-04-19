@@ -22,10 +22,6 @@ class TagSearchable(index.Indexed):
     ], name='search_fields on TagSearchable subclasses')
 
     @classmethod
-    def get_indexed_objects(cls):
-        return super(TagSearchable, cls).get_indexed_objects().prefetch_related('tagged_items__tag')
-
-    @classmethod
     def popular_tags(cls):
         content_type = ContentType.objects.get_for_model(cls)
         return Tag.objects.filter(
