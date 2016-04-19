@@ -13,4 +13,5 @@ What's changed
 Bug fixes
 ~~~~~~~~~
 
-* The ``wagtailuserbar`` template tag now gracefully handles situations where the ``request`` object is not in the template context (Matt Westcott)
+ * The ``wagtailuserbar`` template tag now gracefully handles situations where the ``request`` object is not in the template context (Matt Westcott)
+ * Meta classes on StreamField blocks now handle multiple inheritance correctly (Tim Heap)

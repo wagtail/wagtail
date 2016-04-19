@@ -55,7 +55,6 @@ Bug fixes
  * Registered settings admin menu items now show active correctly (Matthew Downey)
  * Direct usage of ``Document`` model replaced with ``get_document_model`` function in ``wagtail.contrib.wagtailmedusa`` and in ``wagtail.contrib.wagtailapi``
  * Failures on sending moderation notification emails now produce a warning, rather than crashing the admin page outright (Matt Fozard)
- * Meta classes on StreamField blocks now handle multiple inheritance correctly (Tim Heap)
 
 
 Upgrade considerations

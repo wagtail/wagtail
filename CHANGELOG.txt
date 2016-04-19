@@ -26,13 +26,13 @@ Changelog
  * Fix: Registered settings admin menu items now show active correctly (Matthew Downey)
  * Fix: Direct usage of `Document` model replaced with `get_document_model` function in `wagtail.contrib.wagtailmedusa` and in `wagtail.contrib.wagtailapi`
  * Fix: Failures on sending moderation notification emails now produce a warning, rather than crashing the admin page outright (Matt Fozard)
- * Fix: Meta classes on StreamField blocks now handle multiple inheritance correctly (Tim Heap)
 
 
 1.4.4 (xx.xx.2016)
 ~~~~~~~~~~~~~~~~~~
 
-* The `wagtailuserbar` template tag now gracefully handles situations where the `request` object is not in the template context (Matt Westcott)
+ * Fix: The `wagtailuserbar` template tag now gracefully handles situations where the `request` object is not in the template context (Matt Westcott)
+ * Fix: Meta classes on StreamField blocks now handle multiple inheritance correctly (Tim Heap)
 
 
 1.4.3 (04.04.2016)
