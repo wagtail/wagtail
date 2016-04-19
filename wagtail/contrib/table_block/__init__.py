@@ -54,7 +54,7 @@ class TableBlock(FieldBlock):
             'stretchH': 'all',
             'height': 108,
             'language': language,
-            'renderer': 'html',
+            'renderer': 'text',
             'autoColumnSize': False,
         }
         if table_options is not None:
@@ -72,6 +72,9 @@ class TableBlock(FieldBlock):
     def value_for_form(self, value):
         return json.dumps(value)
 
+    def is_html_renderer(self):
+        return self.table_options['renderer'] == 'html'
+
     def render(self, value):
         template = getattr(self.meta, 'template', None)
         if template and value:
@@ -82,6 +85,7 @@ class TableBlock(FieldBlock):
                 self.TEMPLATE_VAR: value,
                 'table_header': table_header,
                 'first_col_is_header': first_col_is_header,
+                'html_renderer': self.is_html_renderer(),
                 'data': value['data'][1:] if table_header else value.get('data', [])
             }
             return render_to_string(template, context)

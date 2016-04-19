@@ -6,7 +6,11 @@
                 {% for column in table_header %}
                     <th>
                         {% if column.strip %}
-                            {{ column.strip|linebreaksbr }}
+                            {% if html_renderer %}
+                                {{ column.strip|safe|linebreaksbr }}
+                            {% else %}
+                                {{ column.strip|linebreaksbr }}
+                            {% endif %}
                         {% endif %}
                     </th>
                 {% endfor %}
@@ -20,13 +24,21 @@
                     {% if first_col_is_header and forloop.first %}
 	                    <th>
 	                        {% if column.strip %}
-	                            {{ column.strip|linebreaksbr }}
+                                {% if html_renderer %}
+                                    {{ column.strip|safe|linebreaksbr }}
+                                {% else %}
+                                    {{ column.strip|linebreaksbr }}
+                                {% endif %}
 	                        {% endif %}
 	                    </th>
 	                 {% else %}
                         <td>
                             {% if column.strip %}
-                                {{ column.strip|linebreaksbr }}
+                                {% if html_renderer %}
+                                    {{ column.strip|safe|linebreaksbr }}
+                                {% else %}
+                                    {{ column.strip|linebreaksbr }}
+                                {% endif %}
                             {% endif %}
                         </td>
 	                 {% endif %}
