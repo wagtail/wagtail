@@ -1194,6 +1194,10 @@ class Page(six.with_metaclass(PageBase, MP_Node, ClusterableModel, index.Indexed
             # whatever we find in ALLOWED_HOSTS
             try:
                 hostname = settings.ALLOWED_HOSTS[0]
+                if hostname == '*':
+                    # '*' is a valid value to find in ALLOWED_HOSTS[0], but it's not a valid domain name.
+                    # So we pretend it isn't there.
+                    raise IndexError
             except IndexError:
                 hostname = 'localhost'
             path = '/'
