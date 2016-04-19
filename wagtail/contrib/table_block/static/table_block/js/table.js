@@ -13,7 +13,6 @@ function initTable(id, tableOptions) {
     var cellEvent;
     var structureEvent;
     var dataForForm = null;
-    var height = null;
     var getWidth = function() {
         return $('.widget-table_input').closest('.sequence-member-inner').width();
     };
@@ -21,11 +20,21 @@ function initTable(id, tableOptions) {
         var tableParent = $('#' + id).parent();
         return tableParent.find('.htCore').height() + (tableParent.find('.input').height() * 2);
     };
-    var resizeTargets = ['.wtHider', '.wtHolder', '.handsontable'];
+    var height = getHeight();
+    var resizeTargets = ['.input > .handsontable', '.wtHider', '.wtHolder'];
     var resizeHeight = function(height) {
+        var currTable = $('#' + id);
         $.each(resizeTargets, function() {
-            $(this).height(height);
+            currTable.closest('.field-content').find(this).height(height);
         });
+    };
+    function resizeWidth(width) {
+        $.each(resizeTargets, function() {
+            $(this).width(width);
+        });
+        var parentDiv = $('.widget-table_input').parent();
+        parentDiv.find('.field-content').width(width);
+        parentDiv.find('.fieldname-table .field-content .field-content').width('80%');
     };
 
     try {
@@ -54,12 +63,14 @@ function initTable(id, tableOptions) {
         }
     }
 
-    if (!tableOptions.hasOwnProperty('width')) {
+    if (!tableOptions.hasOwnProperty('width') || !tableOptions.hasOwnProperty('height')) {
         // Size to parent .sequence-member-inner width if width is not given in tableOptions
         $(window).resize(function() {
             hot.updateSettings({
-                width: getWidth()
+                width: getWidth(),
+                height: getHeight()
             });
+            resizeWidth('100%');
         });
     }
 
@@ -101,8 +112,8 @@ function initTable(id, tableOptions) {
     hot.render(); // Call to render removes 'null' literals from empty cells
 
     // Apply resize after document is finished loading (parent .sequence-member-inner width is set)
-    resizeHeight(getHeight());
     if ('resize' in $(window)) {
+        resizeHeight(getHeight());
         $(window).load(function() {
             $(window).resize();
         });
