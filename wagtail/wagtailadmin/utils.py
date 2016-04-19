@@ -234,16 +234,14 @@ def get_page_if_explorable(page_id, request):
     Finally, if the user doesn't have permission to explore the page, a PermissionDenied exception will be thrown.
     """
     page = get_object_or_404(Page, id=page_id)
-    # Superusers can explore every page.
-    if request.user.is_superuser:
+    # Superusers can explore every page. Other users can explore permitted pages that are on any Site.
+    if request.user.is_superuser or page.permissions_for_user(request.user).can_explore():
         return page
 
+    # At this point, we know the user isn't allowed to explore this Page.
     if not page.is_on_site(request.site):
-        # The Page isn't on the current Site, so we act like it doesn't exist, regardless of permission.
+        # The Page isn't on the current Site, so we treat it like it doesn't exist.
         raise Http404
-    elif page.permissions_for_user(request.user).can_explore():
-        # The Page is on the current Site, and the user is permitted to explore it.
-        return page
     else:
         # The Page is on the current Site, but the user's not permitted to explore it.
         raise PermissionDenied
