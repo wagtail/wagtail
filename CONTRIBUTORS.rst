@@ -142,6 +142,7 @@ Contributors
 * Yann Fouillat (Gagaro)
 * Jonny Scholes
 * Richard McMillan
+* Johannes Spielmann
 
 Translators
 ===========

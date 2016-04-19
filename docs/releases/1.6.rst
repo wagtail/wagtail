@@ -20,6 +20,7 @@ Minor features
  * Remember tree location in page chooser when switching between Internal / External / Email link (Matt Westcott)
  * ``FieldRowPanel`` now creates equal-width columns automatically if ``col*`` classnames are not specified (Chris Rogers)
  * Form builder now validates against multiple fields with the same name (Richard McMillan)
+ * The 'choices' field on the form builder no longer has a maximum length (Johannes Spielmann)
 
 
 Bug fixes
@@ -33,3 +34,7 @@ Bug fixes
 Upgrade considerations
 ======================
 
+Form builder ``FormField`` models require a migration
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+The ``choices`` field on the ``wagtailforms.models.AbstractFormField`` model has been changed from a ``CharField`` to a ``TextField``, to allow it to be of unlimited length. If you are using the ``wagtailforms`` module in your project, you will need to run ``python manage.py makemigrations`` and ``python manage.py migrate`` after upgrading, in order to apply this change to your form page models.
