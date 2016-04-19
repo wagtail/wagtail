@@ -68,9 +68,8 @@ class AbstractFormField(Orderable):
     )
     field_type = models.CharField(verbose_name=_('field type'), max_length=16, choices=FORM_FIELD_CHOICES)
     required = models.BooleanField(verbose_name=_('required'), default=True)
-    choices = models.CharField(
+    choices = models.TextField(
         verbose_name=_('choices'),
-        max_length=512,
         blank=True,
         help_text=_('Comma separated list of choices. Only applicable in checkboxes, radio and dropdown.')
     )
