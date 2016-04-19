@@ -25,6 +25,9 @@ class RedirectMiddleware(object):
         # Find redirect
         try:
             redirect = models.Redirect.get_for_site(request.site).get(old_path=path)
+        except models.Redirect.MultipleObjectsReturned:
+            # We have a site-specific and a site-ambivalent redirect; prefer the specific one
+            redirect = models.Redirect.objects.get(site=request.site, old_path=path)
         except models.Redirect.DoesNotExist:
             if path == path_without_query:
                 # don't try again if we know we will get the same response

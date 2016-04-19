@@ -156,6 +156,46 @@ class TestRedirects(TestCase):
         response = self.client.get('/xmas/', HTTP_HOST='localhost')
         self.assertEqual(response.status_code, 404)
 
+    def test_duplicate_redirects_when_match_is_for_generic(self):
+        contact_page = Page.objects.get(url_path='/home/contact-us/')
+        site = Site.objects.create(hostname='other.example.com', port=80, root_page=contact_page)
+        christmas_page = Page.objects.get(url_path='/home/events/christmas/')
+
+        # two redirects, one for any site, one for specific
+        models.Redirect.objects.create(old_path='/xmas', redirect_page=contact_page)
+        models.Redirect.objects.create(site=site, old_path='/xmas', redirect_page=christmas_page)
+
+        response = self.client.get('/xmas/', HTTP_HOST='localhost')
+        # the redirect which matched was the generic one, pointing to contact_page
+        self.assertRedirects(response, 'http://other.example.com/', status_code=301, fetch_redirect_response=False)
+
+    def test_duplicate_redirects_across_sites_when_match_is_for_specific(self):
+        contact_page = Page.objects.get(url_path='/home/contact-us/')
+        site = Site.objects.create(hostname='other.example.com', port=80, root_page=contact_page)
+        christmas_page = Page.objects.get(url_path='/home/events/christmas/')
+
+        # two redirects, one for any site, one for specific
+        models.Redirect.objects.create(old_path='/xmas', redirect_page=contact_page)
+        models.Redirect.objects.create(site=site, old_path='/xmas', redirect_page=christmas_page)
+
+        # request for specific site gets the christmas_page redirect, not accessible from other.example.com
+        response = self.client.get('/xmas/', HTTP_HOST='other.example.com')
+        self.assertRedirects(response, 'http://localhost/events/christmas/', status_code=301, fetch_redirect_response=False)
+
+    def test_duplicate_redirects_within_a_site_when_match_is_for_specific(self):
+        businessy_page = Page.objects.get(url_path='/home/events/businessy-events/')
+        site = Site.objects.create(hostname='other.example.com', port=80, root_page=businessy_page)
+        board_meetings_page = Page.objects.get(url_path='/home/events/businessy-events/board-meetings/')
+        christmas_page = Page.objects.get(url_path='/home/events/christmas/')
+
+        # two redirects, one for any site, one for specific
+        models.Redirect.objects.create(old_path='/xmas', redirect_page=christmas_page)
+        models.Redirect.objects.create(site=site, old_path='/xmas', redirect_page=board_meetings_page)
+
+        # request for specific site gets the meetings_page redirect, which is accessible from that site
+        response = self.client.get('/xmas/', HTTP_HOST='other.example.com')
+        self.assertRedirects(response, 'http://other.example.com/board-meetings/', status_code=301, fetch_redirect_response=False)
+
 
 class TestRedirectsIndexView(TestCase, WagtailTestUtils):
     def setUp(self):
