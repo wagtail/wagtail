@@ -21,5 +21,6 @@ class GroupPagePermissionInline(admin.TabularInline):
 class GroupAdminWithPagePermissions(GroupAdmin):
     inlines = GroupAdmin.inlines + [GroupPagePermissionInline]
 
-admin.site.unregister(Group)
+if admin.site.is_registered(Group):
+    admin.site.unregister(Group)
 admin.site.register(Group, GroupAdminWithPagePermissions)
