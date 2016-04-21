@@ -15,6 +15,7 @@ Other features
 ~~~~~~~~~~~~~~
 
  * :doc:`Custom document model </advanced_topics/documents/custom_document_model>` is now documented (Emily Horsman)
+ * Use minified versions of CSS in the admin by adding minification to the front-end tooling (Thibaud Colas)
 
 
 Bug fixes

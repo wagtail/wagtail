@@ -16,7 +16,7 @@ class assets_mixin(object):
 
     def compile_assets(self):
         try:
-            subprocess.check_call(['npm', 'run', 'build'])
+            subprocess.check_call(['npm', 'run', 'dist'])
         except (OSError, subprocess.CalledProcessError) as e:
             print('Error compiling assets: ' + str(e))  # noqa
             raise SystemExit(1)
