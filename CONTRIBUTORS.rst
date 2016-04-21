@@ -125,6 +125,7 @@ Contributors
 * Andy Babic
 * Tomas Olander
 * Andrew Tork Baker
+* Vincent Audebert
 
 Translators
 ===========
