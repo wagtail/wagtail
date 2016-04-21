@@ -1,5 +1,7 @@
 var gulp = require('gulp');
 var sass = require('gulp-sass');
+var cssnano = require('gulp-cssnano');
+var sourcemaps = require('gulp-sourcemaps');
 var config = require('../config');
 var autoprefixer = require('gulp-autoprefixer');
 var simpleCopyTask = require('../lib/simplyCopy');
@@ -27,16 +29,19 @@ gulp.task('styles:sass', function () {
     var sources = flatten(config.apps.map(function(app) { return app.scssSources(); }));
 
     return gulp.src(sources)
+        .pipe(config.isProduction ? gutil.noop() : sourcemaps.init())
         .pipe(sass({
             errLogToConsole: true,
             includePaths: includePaths,
             outputStyle: 'expanded'
         }).on('error', sass.logError))
+        .pipe(config.isProduction ? cssnano() : gutil.noop())
         .pipe(autoprefixer({
             browsers: ['last 3 versions', 'ie 11'],
             cascade: false
         }))
-        .pipe(gulp.dest(function(file) {
+        .pipe(config.isProduction ? gutil.noop() : sourcemaps.write())
+        .pipe(gulp.dest(function (file) {
             // e.g. wagtailadmin/scss/core.scss -> wagtailadmin/css/core.css
             // Changing the suffix is done by Sass automatically
             return normalizePath(file.base)
