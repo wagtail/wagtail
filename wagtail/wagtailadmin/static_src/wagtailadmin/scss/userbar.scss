@@ -3,13 +3,12 @@
 @import 'wagtailadmin/scss/font-icons';
 @import 'wagtailadmin/scss/variables-icons';
 
-
 // =============================================================================
 // Variables
 // =============================================================================
 
 $size-home-button: 3.5em;
-$position: 2rem;
+$position: 2em;
 $width-arrow: .6em;
 $box-shadow-props: 0 0 1px 0 rgba(107, 214, 230, 1);
 $max-items: 12;
@@ -239,7 +238,7 @@ $positions: (
         input {
             font-size: 14px !important;
             text-align: left;
-            padding: 0.8rem 1.7rem 0.8rem 3.5rem;
+            padding: 0.8em 1.7em 0.8em 2.7em;
         }
 
         input {
@@ -274,11 +273,11 @@ $positions: (
         .#{$namespace}-userbar-nav .#{$namespace}-userbar__item {
             // Yes, we could use an @else, but there's a bug in scss-lint.
             @if $vertical == 'bottom' {
-                transform: translateY(1rem);
+                transform: translateY(1em);
             }
 
             @if $vertical == 'top' {
-                transform: translateY(-1rem);
+                transform: translateY(-1em);
             }
         }
 
