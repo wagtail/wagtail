@@ -52,9 +52,9 @@ class TableBlock(FieldBlock):
             'contextMenu': True,
             'editor': 'text',
             'stretchH': 'all',
-            'height': 400,
+            'height': 108,
             'language': language,
-            'renderer': 'html',
+            'renderer': 'text',
             'autoColumnSize': False,
         }
         if table_options is not None:
@@ -72,9 +72,12 @@ class TableBlock(FieldBlock):
     def value_for_form(self, value):
         return json.dumps(value)
 
+    def is_html_renderer(self):
+        return self.table_options['renderer'] == 'html'
+
     def render(self, value):
         template = getattr(self.meta, 'template', None)
-        if template:
+        if template and value:
             table_header = value['data'][0] if value.get('data', None) and len(value['data']) > 0 and value.get('first_row_is_table_header', False) else None
             first_col_is_header = value.get('first_col_is_header', False)
             context = {
@@ -82,6 +85,7 @@ class TableBlock(FieldBlock):
                 self.TEMPLATE_VAR: value,
                 'table_header': table_header,
                 'first_col_is_header': first_col_is_header,
+                'html_renderer': self.is_html_renderer(),
                 'data': value['data'][1:] if table_header else value.get('data', [])
             }
             return render_to_string(template, context)
@@ -91,8 +95,8 @@ class TableBlock(FieldBlock):
     @property
     def media(self):
         return forms.Media(
-            css={'all': ['table_block/css/vendor/handsontable-0.18.0.full.min.css']},
-            js=['table_block/js/vendor/handsontable-0.18.0.full.min.js', 'table_block/js/table.js']
+            css={'all': ['table_block/css/vendor/handsontable-0.24.2.full.min.css']},
+            js=['table_block/js/vendor/handsontable-0.24.2.full.min.js', 'table_block/js/table.js']
         )
 
     class Meta:
