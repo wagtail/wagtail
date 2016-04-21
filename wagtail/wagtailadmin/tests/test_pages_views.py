@@ -375,10 +375,10 @@ class TestExplorablePageVisibility(TestCase, WagtailTestUtils):
 
         self.assertInHTML(
             """<li class="home"><a href="/admin/pages/" class=" icon icon-home text-replace">Home</a></li>""",
-            str(response)
+            response.content
         )
-        self.assertInHTML("""<li><a href="/admin/pages/4/">Welcome to example.com!</a></li>""", str(response))
-        self.assertInHTML("""<li><a href="/admin/pages/5/">Content</a></li>""", str(response))
+        self.assertInHTML("""<li><a href="/admin/pages/4/">Welcome to example.com!</a></li>""", response.content)
+        self.assertInHTML("""<li><a href="/admin/pages/5/">Content</a></li>""", response.content)
 
     def test_nonadmin_sees_closest_common_ancestor_as_explorer_root(self):
         self.assertTrue(self.client.login(username='jane', password='password'))
@@ -426,7 +426,7 @@ class TestExplorablePageVisibility(TestCase, WagtailTestUtils):
         # page.
         response = self.client.get(reverse('wagtailadmin_explore', args=[5]), HTTP_HOST="example.com")
         self.assertEqual(response.status_code, 200)
-        self.assertInHTML("""<a href="/admin/pages/6/edit/" title="Edit this page">Page 1</a>""", str(response))
+        self.assertInHTML("""<a href="/admin/pages/6/edit/" title="Edit this page">Page 1</a>""", response.content)
         self.assertNotContains(response, "Page 2")
         # Sam should not see the "Other Content" page when exploring the example.com homepage.
         response = self.client.get(reverse('wagtailadmin_explore', args=[4]), HTTP_HOST="example.com")
@@ -441,9 +441,9 @@ class TestExplorablePageVisibility(TestCase, WagtailTestUtils):
         # since it's his Closest Common Ancestor.
         self.assertInHTML(
             """<li class="home"><a href="/admin/pages/" class=" icon icon-home text-replace">Home</a></li>""",
-            str(response)
+            response.content
         )
-        self.assertInHTML("""<li><a href="/admin/pages/5/">Content</a></li>""", str(response))
+        self.assertInHTML("""<li><a href="/admin/pages/5/">Content</a></li>""", response.content)
         # The page title shouldn't appear because it's the "home" breadcrumb.
         self.assertNotContains(response, "Welcome to example.com!")
 
@@ -452,7 +452,7 @@ class TestExplorablePageVisibility(TestCase, WagtailTestUtils):
         response = self.client.get(reverse('wagtailadmin_explore_root'))
         self.assertEqual(response.status_code, 200)
         # Being in no Groups, Mary should see the Root page, but not see any child pages.
-        self.assertInHTML("<h2>Root</h2>", str(response))
+        self.assertInHTML("<h2>Root</h2>", response.content)
         self.assertContains(response, "No pages have been created at this location.")
 
     def test_admin_can_index_and_preview_every_revision(self):
