@@ -46,6 +46,7 @@ Minor features
  * Notification messages on creating / editing sites now include the site name if specified (Chris Rogers)
  * Added ``--schema-only`` option to ``update_index`` management command
  * Added meaningful default icons to ``StreamField`` blocks (Benjamin Bach)
+ * Added title text to action buttons in the page explorer (Liam Brenner)
 
 Bug fixes
 ~~~~~~~~~

@@ -21,6 +21,7 @@ Changelog
  * Notification messages on creating / editing sites now include the site name if specified (Chris Rogers)
  * Added `--schema-only` option to `update_index` management command
  * Added meaningful default icons to `StreamField` blocks (Benjamin Bach)
+ * Added title text to action buttons in the page explorer (Liam Brenner)
  * Fix: The currently selected day is now highlighted only in the correct month in date pickers (Jonas Lergell)
  * Fix: Fixed crash when an image without a source file was resized with the "dynamic serve view"
  * Fix: Registered settings admin menu items now show active correctly (Matthew Downey)
