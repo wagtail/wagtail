@@ -132,7 +132,6 @@ class TestAdminPageListing(AdminAPITestCase, TestPageListing):
                 self.assertEqual(feed_image['meta']['type'], 'wagtailimages.Image')
                 self.assertEqual(feed_image['meta']['detail_url'], 'http://localhost/admin/api/v2beta/images/%d/' % feed_image['id'])
 
-
     def test_fields_parent(self):
         response = self.get_response(type='demosite.BlogEntryPage', fields='parent')
         content = json.loads(response.content.decode('UTF-8'))
@@ -149,6 +148,16 @@ class TestAdminPageListing(AdminAPITestCase, TestPageListing):
                     'html_url': 'http://localhost/blog-index/',
                 }
             })
+
+    def test_fields_descendants(self):
+        response = self.get_response(fields='descendants')
+        content = json.loads(response.content.decode('UTF-8'))
+
+        for page in content['items']:
+            descendants = page['meta']['descendants']
+            self.assertEqual(set(descendants.keys()), {'count', 'listing_url'})
+            self.assertIsInstance(descendants['count'], int)
+            self.assertEqual(descendants['listing_url'], 'http://localhost/admin/api/v2beta/pages/?descendant_of=%d' % page['id'])
 
 
     # CHILD OF FILTER
@@ -421,6 +430,17 @@ class TestAdminPageDetail(AdminAPITestCase, TestPageDetail):
         self.assertEqual(content['meta']['children'], {
             'count': 5,
             'listing_url': 'http://localhost/admin/api/v2beta/pages/?child_of=2'
+        })
+
+    def test_meta_descendants(self):
+        # Homepage should have children
+        response = self.get_response(2)
+        content = json.loads(response.content.decode('UTF-8'))
+
+        self.assertIn('descendants', content['meta'])
+        self.assertEqual(content['meta']['descendants'], {
+            'count': 18,
+            'listing_url': 'http://localhost/admin/api/v2beta/pages/?descendant_of=2'
         })
 
 
