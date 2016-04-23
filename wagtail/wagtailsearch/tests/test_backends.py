@@ -187,6 +187,15 @@ class TestBackendLoader(TestCase):
         self.assertIsInstance(backends[0], DBSearch)
 
     @override_settings(
+        WAGTAILSEARCH_BACKENDS={}
+    )
+    def test_get_search_backends_with_no_default_defined(self):
+        backends = list(get_search_backends())
+
+        self.assertEqual(len(backends), 1)
+        self.assertIsInstance(backends[0], DBSearch)
+
+    @override_settings(
         WAGTAILSEARCH_BACKENDS={
             'default': {
                 'BACKEND': 'wagtail.wagtailsearch.backends.db'
