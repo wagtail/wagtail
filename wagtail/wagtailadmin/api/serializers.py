@@ -59,13 +59,35 @@ class PageChildrenField(Field):
         ])
 
 
+class PageDescendantsField(Field):
+    """
+    Serializes the "descendants" field.
+
+    Example:
+    "descendants": {
+        "count": 10,
+        "listing_url": "/api/v1/pages/?descendant_of=2"
+    }
+    """
+    def get_attribute(self, instance):
+        return instance
+
+    def to_representation(self, page):
+        return OrderedDict([
+            ('count', page.get_descendants().count()),
+            ('listing_url', get_model_listing_url(self.context, Page) + '?descendant_of=' + str(page.id)),
+        ])
+
+
 class AdminPageSerializer(PageSerializer):
     status = PageStatusField(read_only=True)
     children = PageChildrenField(read_only=True)
+    descendants = PageDescendantsField(read_only=True)
 
     meta_fields = PageSerializer.meta_fields + [
         'status',
         'children',
+        'descendants',
     ]
 
 
