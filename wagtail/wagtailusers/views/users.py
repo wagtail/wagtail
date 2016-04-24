@@ -10,9 +10,10 @@ from django.views.decorators.vary import vary_on_headers
 from wagtail.utils.pagination import paginate
 from wagtail.wagtailadmin import messages
 from wagtail.wagtailadmin.forms import SearchForm
-from wagtail.wagtailadmin.utils import any_permission_required, permission_required
+from wagtail.wagtailadmin.utils import any_permission_required, permission_required, permission_denied
 from wagtail.wagtailcore.compat import AUTH_USER_APP_LABEL, AUTH_USER_MODEL_NAME
 from wagtail.wagtailusers.forms import UserCreationForm, UserEditForm
+from wagtail.wagtailusers.permissions import permission_policy
 
 User = get_user_model()
 
@@ -127,4 +128,22 @@ def edit(request, user_id):
     return render(request, 'wagtailusers/users/edit.html', {
         'user': user,
         'form': form,
+        'user_can_delete': not user.is_superuser
+                           and permission_policy.user_has_permission_for_instance(request.user, 'delete', user),
+    })
+
+@permission_required(delete_user_perm)
+def delete(request, user_id):
+    user = get_object_or_404(User, pk=user_id)
+
+    if not permission_policy.user_has_permission_for_instance(request.user, 'delete', user):
+        return permission_denied(request)
+
+    if request.method == 'POST':
+        user.delete()
+        messages.success(request, _("User '{0}' deleted.").format(user.username))
+        return redirect('wagtailusers_users:index')
+
+    return render(request, 'wagtailusers/users/confirm_delete.html', {
+        'user' : user
     })
