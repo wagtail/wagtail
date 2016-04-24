@@ -133,7 +133,7 @@ class TestUserDeleteView(TestCase, WagtailTestUtils):
         # Should redirect back to index
         self.assertRedirects(response, reverse('wagtailusers_users:index'))
 
-        # Check that the image was deleted
+        # Check that the user was deleted
         users = get_user_model().objects.filter(username='testuser')
         self.assertEqual(users.count(), 0)
 
