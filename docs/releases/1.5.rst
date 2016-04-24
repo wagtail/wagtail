@@ -47,6 +47,7 @@ Minor features
  * Added ``--schema-only`` option to ``update_index`` management command
  * Added meaningful default icons to ``StreamField`` blocks (Benjamin Bach)
  * Added title text to action buttons in the page explorer (Liam Brenner)
+ * Improved L10N and I18N for revisions list (Roel Bruggink)
 
 Bug fixes
 ~~~~~~~~~
