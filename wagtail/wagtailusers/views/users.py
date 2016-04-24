@@ -128,9 +128,11 @@ def edit(request, user_id):
     return render(request, 'wagtailusers/users/edit.html', {
         'user': user,
         'form': form,
-        'user_can_delete': not user.is_superuser
-                           and permission_policy.user_has_permission_for_instance(request.user, 'delete', user),
+        'user_can_delete': permission_policy.user_has_permission_for_instance(
+            request.user, 'delete', user
+        ) and not user.is_superuser,
     })
+
 
 @permission_required(delete_user_perm)
 def delete(request, user_id):
@@ -145,5 +147,5 @@ def delete(request, user_id):
         return redirect('wagtailusers_users:index')
 
     return render(request, 'wagtailusers/users/confirm_delete.html', {
-        'user' : user
+        'user': user
     })
