@@ -13,7 +13,8 @@ from django.core.files.base import ContentFile
 from django.core.urlresolvers import reverse
 from django.db.models.signals import post_delete, pre_delete
 from django.test import TestCase
-from django.utils import timezone
+from django.utils import formats, timezone
+from django.utils.dateparse import parse_date
 
 from wagtail.tests.testapp.models import (
     Advert, AdvertPlacement, BusinessChild, BusinessIndex, BusinessSubIndex, EventPage,
@@ -2858,7 +2859,7 @@ class TestRevisions(TestCase, WagtailTestUtils):
         )
         self.assertEqual(response.status_code, 200)
 
-        self.assertContains(response, "25 Dec 2013")
+        self.assertContains(response, formats.localize(parse_date('2013-12-25')))
         last_christmas_preview_url = reverse(
             'wagtailadmin_pages:revisions_view',
             args=(self.christmas_event.id, self.last_christmas_revision.id)
@@ -2870,7 +2871,7 @@ class TestRevisions(TestCase, WagtailTestUtils):
         self.assertContains(response, last_christmas_preview_url)
         self.assertContains(response, last_christmas_revert_url)
 
-        self.assertContains(response, "25 Dec 2014")
+        self.assertContains(response, formats.localize(local_datetime(2014, 12, 25)))
         this_christmas_preview_url = reverse(
             'wagtailadmin_pages:revisions_view',
             args=(self.christmas_event.id, self.this_christmas_revision.id)
