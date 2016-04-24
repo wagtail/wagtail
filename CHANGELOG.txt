@@ -22,6 +22,7 @@ Changelog
  * Added `--schema-only` option to `update_index` management command
  * Added meaningful default icons to `StreamField` blocks (Benjamin Bach)
  * Added title text to action buttons in the page explorer (Liam Brenner)
+ * Improved L10N and I18N for revisions list (Roel Bruggink)
  * Fix: The currently selected day is now highlighted only in the correct month in date pickers (Jonas Lergell)
  * Fix: Fixed crash when an image without a source file was resized with the "dynamic serve view"
  * Fix: Registered settings admin menu items now show active correctly (Matthew Downey)

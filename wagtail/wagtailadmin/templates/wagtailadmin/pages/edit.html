@@ -90,7 +90,7 @@
                                     <span class="avatar small icon icon-user"><img src="{% gravatar_url page.get_latest_revision.user.email 25 %}" /></span>
                                 {% endif %}
                             {% endif %}
-                            <a href="{% url 'wagtailadmin_pages:revisions_index' page.id %}" class="underlined">Revisions</a>
+                            <a href="{% url 'wagtailadmin_pages:revisions_index' page.id %}" class="underlined">{% trans 'Revisions' %}</a>
                         {% endif %}
                     </p>
                 </li>
