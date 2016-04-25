@@ -123,6 +123,7 @@ Contributors
 * Roel Bruggink
 * Yannick Chabbert
 * Andy Babic
+* Tomas Olander
 
 Translators
 ===========

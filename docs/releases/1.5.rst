@@ -47,6 +47,7 @@ Minor features
  * Added ``--schema-only`` option to ``update_index`` management command
  * Added meaningful default icons to ``StreamField`` blocks (Benjamin Bach)
  * Added title text to action buttons in the page explorer (Liam Brenner)
+ * Changed project template to explicitly import development settings via ``settings.dev`` (Tomas Olander)
 
 Bug fixes
 ~~~~~~~~~
@@ -62,7 +63,7 @@ Upgrade considerations
 ======================
 
 The ``search_fields`` attribute on models should now be set to a list
-=====================================================================
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 On searchable models (eg, ``Page`` or custom ``Image`` models) the ``search_fields`` attribute should now be a list instead of a tuple.
 
@@ -123,3 +124,11 @@ If you need the old behaviour back, where SSL certificates are not verified for 
     }
 
 See the `Elasticsearch-py documentation <http://elasticsearch-py.readthedocs.org/en/stable/#ssl-and-authentication>`_ for more configuration options.
+
+
+Project template now imports ``settings.dev`` explicitly
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+In previous releases, the project template's ``settings/__init__.py`` file was set up to import the development settings (``settings/dev.py``), so that these would be picked up as the default (i.e. whenever a settings module was not specified explicitly). However, in some setups this meant that the development settings were being inadvertently imported in production mode.
+
+For this reason, the import in ``settings/__init__.py`` has now been removed, and commands must now specify ``myproject.settings.dev`` or ``myproject.settings.production`` as appropriate; the supporting scripts (such as ``manage.py``) have been updated accordingly. As this is a change to the project template, existing projects are not affected; however, if you have any common scripts or configuration files that rely on importing ``myproject.settings`` as the settings module, these will need to be updated in order to work on projects created under Wagtail 1.5.
