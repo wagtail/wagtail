@@ -34,7 +34,8 @@ from wagtail.utils.deprecation import SearchFieldsShouldBeAList
 from wagtail.wagtailcore.query import PageQuerySet, TreeQuerySet
 from wagtail.wagtailcore.signals import page_published, page_unpublished
 from wagtail.wagtailcore.url_routing import RouteResult
-from wagtail.wagtailcore.utils import camelcase_to_underscore, resolve_model_string
+from wagtail.wagtailcore.utils import (
+    WAGTAIL_APPEND_SLASH, camelcase_to_underscore, resolve_model_string)
 from wagtail.wagtailsearch import index
 
 logger = logging.getLogger('wagtail.core')
@@ -784,6 +785,13 @@ class Page(six.with_metaclass(PageBase, MP_Node, ClusterableModel, index.Indexed
         for (site_id, root_path, root_url) in Site.get_site_root_paths():
             if self.url_path.startswith(root_path):
                 page_path = reverse('wagtail_serve', args=(self.url_path[len(root_path):],))
+
+                # Remove the trailing slash from the URL reverse generates if
+                # WAGTAIL_APPEND_SLASH is False and we're not trying to serve
+                # the root path
+                if not WAGTAIL_APPEND_SLASH and page_path != '/':
+                    page_path = page_path.rstrip('/')
+
                 return (site_id, root_url, page_path)
 
     @property
