@@ -499,7 +499,7 @@
 
             {% include "wagtailadmin/shared/header.html" with title=title_trans %}
 
-            {% include "wagtailadmin/shared/header.html" with title=title_trans add_link="wagtailimages:add" icon="image" add_text="button" search_url="wagtailimages:index" %}
+            {% include "wagtailadmin/shared/header.html" with title=title_trans add_link="wagtailstyleguide" icon="image" add_text="button" search_url="wagtailimages:index" %}
         </section>
 
         <section id="forms">
@@ -517,9 +517,6 @@
                     <li><input type="submit" value="{% trans 'Save' %}" class="button" /><a href="#" class="button button-secondary no">{% trans "Delete image" %}</a></li>
                 </ul>
             </form>
-
-            <h3>TODO: Rich text input</h3>
-            <h3>TODO: Snippet chooser</h3>
         </section>
 
         <section id="editor">

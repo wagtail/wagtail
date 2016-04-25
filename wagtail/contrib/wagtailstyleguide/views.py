@@ -4,13 +4,15 @@ from django import forms
 from django.core.paginator import Paginator
 from django.shortcuts import render
 from django.utils.translation import ugettext as _
-
 from wagtail.wagtailadmin import messages
 from wagtail.wagtailadmin.forms import SearchForm
 from wagtail.wagtailadmin.widgets import (
-    AdminDateInput, AdminDateTimeInput, AdminPageChooser, AdminTimeInput)
+    AdminAutoHeightTextInput, AdminDateInput, AdminDateTimeInput, AdminPageChooser, AdminTimeInput)
+from wagtail.wagtailcore.fields import RichTextArea
+from wagtail.wagtailcore.models import Page
 from wagtail.wagtaildocs.widgets import AdminDocumentChooser
 from wagtail.wagtailimages.widgets import AdminImageChooser
+from wagtail.wagtailsnippets.widgets import AdminSnippetChooser
 
 
 class ExampleForm(forms.Form):
@@ -19,9 +21,12 @@ class ExampleForm(forms.Form):
         self.fields['page_chooser'].widget = AdminPageChooser()
         self.fields['image_chooser'].widget = AdminImageChooser()
         self.fields['document_chooser'].widget = AdminDocumentChooser()
+        self.fields['snippet_chooser'].widget = AdminSnippetChooser(Page)
         self.fields['date'].widget = AdminDateInput()
         self.fields['time'].widget = AdminTimeInput()
         self.fields['datetime'].widget = AdminDateTimeInput()
+        self.fields['auto_height_text'].widget = AdminAutoHeightTextInput()
+        self.fields['rich_text'].widget = RichTextArea()
 
     CHOICES = (
         ('choice1', 'choice 1'),
@@ -29,6 +34,8 @@ class ExampleForm(forms.Form):
     )
 
     text = forms.CharField(required=True, help_text="help text")
+    auto_height_text = forms.CharField(required=True)
+    rich_text = forms.CharField(required=True)
     url = forms.URLField(required=True)
     email = forms.EmailField(max_length=254)
     date = forms.DateField()
@@ -40,6 +47,7 @@ class ExampleForm(forms.Form):
     page_chooser = forms.BooleanField(required=True)
     image_chooser = forms.BooleanField(required=True)
     document_chooser = forms.BooleanField(required=True)
+    snippet_chooser = forms.BooleanField(required=True)
 
 
 def index(request):
