@@ -31,6 +31,7 @@ Changelog
  * Fix: Registered settings admin menu items now show active correctly (Matthew Downey)
  * Fix: Direct usage of `Document` model replaced with `get_document_model` function in `wagtail.contrib.wagtailmedusa` and in `wagtail.contrib.wagtailapi`
  * Fix: Failures on sending moderation notification emails now produce a warning, rather than crashing the admin page outright (Matt Fozard)
+ * Fix: All admin forms that could potentially include file upload fields now specify `multipart/form-data` where appropriate (Tim Heap)
 
 
 1.4.4 (xx.xx.2016)
