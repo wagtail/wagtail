@@ -36,7 +36,7 @@ def chooser(request):
 
     if permission_policy.user_has_permission(request.user, 'add'):
         DocumentForm = get_document_form(Document)
-        uploadform = DocumentForm()
+        uploadform = DocumentForm(user=request.user)
     else:
         uploadform = None
 
@@ -104,7 +104,7 @@ def chooser_upload(request):
 
     if request.method == 'POST':
         document = Document(uploaded_by_user=request.user)
-        form = DocumentForm(request.POST, request.FILES, instance=document)
+        form = DocumentForm(request.POST, request.FILES, instance=document, user=request.user)
 
         if form.is_valid():
             form.save()
@@ -118,7 +118,7 @@ def chooser_upload(request):
                 {'document_json': get_document_json(document)}
             )
     else:
-        form = DocumentForm()
+        form = DocumentForm(user=request.user)
 
     documents = Document.objects.order_by('title')
 
