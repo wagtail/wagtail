@@ -43,7 +43,7 @@ def chooser(request):
 
     if permission_policy.user_has_permission(request.user, 'add'):
         ImageForm = get_image_form(Image)
-        uploadform = ImageForm()
+        uploadform = ImageForm(user=request.user)
     else:
         uploadform = None
 
@@ -121,7 +121,7 @@ def chooser_upload(request):
 
     if request.method == 'POST':
         image = Image(uploaded_by_user=request.user)
-        form = ImageForm(request.POST, request.FILES, instance=image)
+        form = ImageForm(request.POST, request.FILES, instance=image, user=request.user)
 
         if form.is_valid():
             form.save()
@@ -143,7 +143,7 @@ def chooser_upload(request):
                     {'image_json': get_image_json(image)}
                 )
     else:
-        form = ImageForm()
+        form = ImageForm(user=request.user)
 
     images = Image.objects.order_by('title')
 

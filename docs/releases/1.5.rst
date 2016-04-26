@@ -60,8 +60,9 @@ Bug fixes
  * Registered settings admin menu items now show active correctly (Matthew Downey)
  * Direct usage of ``Document`` model replaced with ``get_document_model`` function in ``wagtail.contrib.wagtailmedusa`` and in ``wagtail.contrib.wagtailapi``
  * Failures on sending moderation notification emails now produce a warning, rather than crashing the admin page outright (Matt Fozard)
-* Fix: All admin forms that could potentially include file upload fields now specify ``multipart/form-data`` where appropriate (Tim Heap)
-* Fix: REM units in Wagtailuserbar caused incorrect spacing (Vincent Audebert)
+ * All admin forms that could potentially include file upload fields now specify ``multipart/form-data`` where appropriate (Tim Heap)
+ * REM units in Wagtailuserbar caused incorrect spacing (Vincent Audebert)
+ * Now user can upload images / documents only into permitted collection from choosers
 
 
 Upgrade considerations
