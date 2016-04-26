@@ -128,3 +128,16 @@ def edit(request, user_id):
         'user': user,
         'form': form,
     })
+
+
+@permission_required(delete_user_perm)
+def delete(request, user_id):
+    user = get_object_or_404(User, id=user_id)
+    if request.POST:
+        user.delete()
+        messages.success(request, _("User '{0}' deleted.").format(user.get_full_name()))
+        return redirect('wagtailusers_users:index')
+
+    return render(request, "wagtailusers/users/confirm_delete.html", {
+        'user': user,
+    })
