@@ -116,6 +116,7 @@ Contributors
 * Juha Kujala
 * Eirik Krogstad
 * Rob Moorman
+* Jack Paine
 
 Translators
 ===========
