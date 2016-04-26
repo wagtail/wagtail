@@ -17,7 +17,7 @@ from django.views.decorators.vary import vary_on_headers
 from wagtail.utils.pagination import paginate
 from wagtail.wagtailadmin import messages, signals
 from wagtail.wagtailadmin.forms import CopyForm, SearchForm
-from wagtail.wagtailadmin.utils import send_notification, get_page_if_explorable
+from wagtail.wagtailadmin.utils import get_page_if_explorable, send_notification
 from wagtail.wagtailcore import hooks
 from wagtail.wagtailcore.models import (
     Page, PageRevision, get_closest_common_ancestor_path, get_navigation_menu_items

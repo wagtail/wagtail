@@ -7,9 +7,9 @@ from django.conf import settings
 from django.contrib.auth import get_user_model
 from django.core.exceptions import PermissionDenied
 from django.core.mail import send_mail as django_send_mail
-from django.http.response import Http404
 from django.db.models import Q
-from django.shortcuts import redirect, get_object_or_404
+from django.http.response import Http404
+from django.shortcuts import get_object_or_404, redirect
 from django.template.loader import render_to_string
 from django.utils.translation import ugettext as _
 from modelcluster.fields import ParentalKey
