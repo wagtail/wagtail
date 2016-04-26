@@ -298,11 +298,11 @@ $positions: (
             @for $i from 1 through $max-items {
 
                 @if $vertical == 'bottom' {
-                    $prop: 'nth-last-child';
+                    $prop: 'nth-last-child' !global;
                 }
 
                 @if $vertical == 'top' {
-                    $prop: 'nth-child';
+                    $prop: 'nth-child' !global;
                 }
 
                 &:#{unquote($prop)}(#{$i}) {

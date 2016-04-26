@@ -126,6 +126,7 @@ Contributors
 * Tomas Olander
 * Andrew Tork Baker
 * Vincent Audebert
+* Jack Paine
 
 Translators
 ===========
