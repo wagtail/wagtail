@@ -366,11 +366,13 @@ function initCollapsibleBlocks() {
 
 function initKeyboardShortcuts() {
     Mousetrap.bind(['mod+p'], function(e) {
+        canDirtyFormCheck = false;
         $('.action-preview').trigger('click');
         return false;
     });
 
     Mousetrap.bind(['mod+s'], function(e) {
+        canDirtyFormCheck = false;
         $('.action-save').trigger('click');
         return false;
     });
