@@ -994,8 +994,9 @@ li.inline:first-child {
     .chosen {
         .title {
             color: $color-grey-1;
-            display: block;
-            padding-left: 3em;
+            // display: block;
+            padding-left: 1em;
+            display: inline-block;
         }
 
         .actions {

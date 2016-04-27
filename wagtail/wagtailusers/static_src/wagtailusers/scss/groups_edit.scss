@@ -3,9 +3,14 @@
         display: none;
     }
 
-    input, 
-    select, 
+    input,
+    select,
+
     textarea {
         font-size: 1em;
+    }
+
+    select + span:after {
+        font-size: 2.5em !important;
     }
 }
