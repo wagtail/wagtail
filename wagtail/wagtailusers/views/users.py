@@ -13,9 +13,11 @@ from django.views.decorators.vary import vary_on_headers
 from wagtail.utils.pagination import paginate
 from wagtail.wagtailadmin import messages
 from wagtail.wagtailadmin.forms import SearchForm
-from wagtail.wagtailadmin.utils import any_permission_required, permission_required
+from wagtail.wagtailadmin.utils import (
+    any_permission_required, permission_denied, permission_required)
 from wagtail.wagtailcore.compat import AUTH_USER_APP_LABEL, AUTH_USER_MODEL_NAME
 from wagtail.wagtailusers.forms import UserCreationForm, UserEditForm
+from wagtail.wagtailusers.utils import user_can_delete_user
 
 User = get_user_model()
 
@@ -140,6 +142,8 @@ def create(request):
 @permission_required(change_user_perm)
 def edit(request, user_id):
     user = get_object_or_404(User, pk=user_id)
+    can_delete = user_can_delete_user(request, user, request.user.has_perm(delete_user_perm))
+
     if request.method == 'POST':
         form = get_user_edit_form()(request.POST, instance=user)
         if form.is_valid():
@@ -156,4 +160,22 @@ def edit(request, user_id):
     return render(request, 'wagtailusers/users/edit.html', {
         'user': user,
         'form': form,
+        'can_delete': can_delete,
+    })
+
+
+@permission_required(delete_user_perm)
+def delete(request, user_id):
+    user = get_object_or_404(User, pk=user_id)
+
+    if not user_can_delete_user(request, user, request.user.has_perm(delete_user_perm)):
+        return permission_denied(request)
+
+    if request.method == 'POST':
+        user.delete()
+        messages.success(request, _("User '{0}' deleted.").format(user))
+        return redirect('wagtailusers_users:index')
+
+    return render(request, "wagtailusers/users/confirm_delete.html", {
+        'user': user,
     })

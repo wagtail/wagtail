@@ -179,6 +179,38 @@ class TestUserCreateView(TestCase, WagtailTestUtils):
         self.assertEqual(users.count(), 0)
 
 
+class TestUserDeleteView(TestCase, WagtailTestUtils):
+    def setUp(self):
+        # create a user that should be visible in the listing
+        self.test_user = get_user_model().objects.create_user(
+            username='testuser',
+            email='testuser@email.com',
+            password='password'
+        )
+        self.login()
+
+    def get(self, params={}):
+        return self.client.get(reverse('wagtailusers_users:delete', args=(self.test_user.pk,)), params)
+
+    def post(self, post_data={}):
+        return self.client.post(reverse('wagtailusers_users:delete', args=(self.test_user.pk,)), post_data)
+
+    def test_simple(self):
+        response = self.get()
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'wagtailusers/users/confirm_delete.html')
+
+    def test_delete(self):
+        response = self.post()
+
+        # Should redirect back to index
+        self.assertRedirects(response, reverse('wagtailusers_users:index'))
+
+        # Check that the image was deleted
+        users = get_user_model().objects.filter(username='testuser')
+        self.assertEqual(users.count(), 0)
+
+
 class TestUserEditView(TestCase, WagtailTestUtils):
     def setUp(self):
         # Create a user to edit
