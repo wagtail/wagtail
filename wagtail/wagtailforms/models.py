@@ -130,7 +130,7 @@ def get_forms_for_user(user):
 
 class AbstractForm(Page):
     """
-    A Form Page. Pages implementing a form should inhert from it
+    A Form Page. Pages implementing a form should inherit from it
     """
 
     form_builder = FormBuilder
