@@ -56,10 +56,6 @@ function initTagField(id, autocompleteUrl) {
 var canGiveWarning = 1;
 
 function enableDirtyFormCheck(formSelector, options) {
-    if (!canGiveWarning) {
-        triggeredByIgnoredButton = true;
-    }
-
     var $form = $(formSelector);
     var $ignoredButtons = $form.find(
         options.ignoredButtonsSelector || 'input[type="submit"],button[type="submit"]'
@@ -78,6 +74,10 @@ function enableDirtyFormCheck(formSelector, options) {
                 triggeredByIgnoredButton = true;
             }
         });
+
+        if (!canGiveWarning) {
+            triggeredByIgnoredButton = true;
+        }
 
         if (canGiveWarning && !triggeredByIgnoredButton && (alwaysDirty || $form.serialize() != initialData)) {
             event.returnValue = confirmationMessage;
