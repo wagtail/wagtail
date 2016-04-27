@@ -8,4 +8,5 @@ urlpatterns = [
     url(r'^$', users.index, name='index'),
     url(r'^add/$', users.create, name='add'),
     url(r'^([^\/]+)/$', users.edit, name='edit'),
+    url(r'^([^\/]+)/delete/$', users.delete, name='delete'),
 ]
