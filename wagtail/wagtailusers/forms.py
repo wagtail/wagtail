@@ -188,6 +188,10 @@ class UserEditForm(UsernameForm):
             self.save_m2m()
         return user
 
+    def delete(self, commit=True):
+        user = super(UserEditForm, self).delete(commit=False)
+        return user
+
 
 class GroupForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
