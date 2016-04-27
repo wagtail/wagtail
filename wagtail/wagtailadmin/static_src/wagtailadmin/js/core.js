@@ -53,7 +53,7 @@ function initTagField(id, autocompleteUrl) {
  *      prompting the user even when nothing has been changed.
 */
 
-var enableDirtyFormCheck = 1;
+var enableDirtyFormCheck = true;
 
 function enableDirtyFormCheck(formSelector, options) {
     var $form = $(formSelector);
