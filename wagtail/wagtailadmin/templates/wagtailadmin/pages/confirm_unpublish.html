@@ -10,7 +10,7 @@
         <form action="{% url 'wagtailadmin_pages:unpublish' page.id %}" method="POST">
             {% csrf_token %}
             <input type="hidden" name="next" value="{{ next }}">
-            <input type="submit" value="{% trans 'Yes, unpublish it' %}">
+            <input type="submit" value="{% trans 'Yes, unpublish it' %}" class="button">
         </form>
     </div>
 {% endblock %}

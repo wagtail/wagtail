@@ -11,7 +11,7 @@
             {% endif %}
         {% endfor %}
         <li>
-            <input type="submit" value="{% trans 'Update' %}" />
+            <input type="submit" value="{% trans 'Update' %}" class="button" />
             <a href="{% url 'wagtailimages:delete_multiple' image.id %}" class="delete button button-secondary no">{% trans "Delete" %}</a>
         </li>
     </ul>

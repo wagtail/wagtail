@@ -15,7 +15,7 @@
             <p>{% trans "Are you sure you want to delete this image?" %}</p>
             <form action="{% url 'wagtailimages:delete' image.id %}" method="POST">
                 {% csrf_token %}
-                <input type="submit" value="{% trans 'Yes, delete' %}" class="serious" />
+                <input type="submit" value="{% trans 'Yes, delete' %}" class="button serious" />
             </form>
         </div>
     </div>
