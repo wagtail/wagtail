@@ -34,6 +34,7 @@ Changelog
  * Fix: All admin forms that could potentially include file upload fields now specify `multipart/form-data` where appropriate (Tim Heap)
  * Fix: REM units in Wagtailuserbar caused incorrect spacing (Vincent Audebert)
  * Fix: Now user can upload images / documents only into permitted collection from choosers
+ * Fix: Explorer menu no longer scrolls with page content (Vincent Audebert)
 
 
 1.4.4 (xx.xx.2016)
