@@ -36,6 +36,7 @@ Minor features
  * Added formal APIs for customising the display of StructBlock forms within the page editor - see :ref:`custom_editing_interfaces_for_structblock` (Matt Westcott)
  * ``wagtailforms.models.AbstractEmailForm`` now supports multiple email recipients (Serafeim Papastefanos)
  * Added the ``include_block`` template tag for improved StreamField template inclusion. See :doc:`/topics/streamfield` for documentation (Matt Westcott)
+ * Added ability to delete users through Settings -> Users (Vincent Audebert; thanks also to Ludolf Takens and Tobias Schmidt for alternative implementations)
 
 
 Bug fixes
