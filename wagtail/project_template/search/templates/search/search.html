@@ -10,7 +10,7 @@
 
     <form action="{% templatetag openblock %} url 'search' {% templatetag closeblock %}" method="get">
         <input type="text" name="query"{% templatetag openblock %} if search_query {% templatetag closeblock %} value="{% templatetag openvariable %} search_query {% templatetag closevariable %}"{% templatetag openblock %} endif {% templatetag closeblock %}>
-        <input type="submit" value="Search">
+        <input type="submit" value="Search" class="button">
     </form>
 
     {% templatetag openblock %} if search_results {% templatetag closeblock %}

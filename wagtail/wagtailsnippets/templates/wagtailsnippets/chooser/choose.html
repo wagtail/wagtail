@@ -11,7 +11,7 @@
                 {% for field in search_form %}
                     {% include "wagtailadmin/shared/field_as_li.html" with field=field %}
                 {% endfor %}
-                <li class="submit"><input type="submit" value="{% trans 'Search' %}" /></li>
+                <li class="submit"><input type="submit" value="{% trans 'Search' %}" class="button" /></li>
             </ul>
         {% endif %}
     </form>

@@ -23,7 +23,7 @@
                 {% endblock %}
 
                 <li>
-                    <input type="submit" value="{% trans 'Save' %}" />
+                    <input type="submit" value="{% trans 'Save' %}" class="button" />
                     {% if can_delete %}
                         <a href="{{ view.get_delete_url }}" class="button button-secondary no">{{ view.delete_item_label }}</a>
                     {% endif %}

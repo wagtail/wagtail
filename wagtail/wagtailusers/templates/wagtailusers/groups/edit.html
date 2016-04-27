@@ -30,7 +30,7 @@
                     </li>
                 {% endfor %}
                 <li>
-                    <input type="submit" value="{% trans 'Save' %}" />
+                    <input type="submit" value="{% trans 'Save' %}" class="button" />
 
                     {% if perms.auth.delete_group %}
                         <a href="{% url 'wagtailusers_groups:delete' group.id %}" class="button button-secondary no">{% trans "Delete group" %}</a>

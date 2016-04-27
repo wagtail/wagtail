@@ -14,9 +14,9 @@
 
         <ul class="actions">
             {% if not widget.is_required %}
-                <li><button type="button" class="action-clear button-small button-secondary">{{ widget.clear_choice_text }}</button></li>
+                <li><button type="button" class="button action-clear button-small button-secondary">{{ widget.clear_choice_text }}</button></li>
             {% endif %}
-            <li><button type="button" class="action-choose button-small button-secondary">{{ widget.choose_another_text }}</button></li>
+            <li><button type="button" class="button action-choose button-small button-secondary">{{ widget.choose_another_text }}</button></li>
             {% if widget.show_edit_link %}
                 <li><a href="{% block edit_chosen_item_url %}#{% endblock %}" class="edit-link button button-small button-secondary" target="_blank">{{ widget.link_to_chosen_text }}</a></li>
             {% endif %}
@@ -24,7 +24,7 @@
     </div>
 
     <div class="unchosen">
-        <button type="button" class="action-choose button-small button-secondary">{{ widget.choose_one_text }}</button>
+        <button type="button" class="button action-choose button-small button-secondary">{{ widget.choose_one_text }}</button>
     </div>
 
 </div>
