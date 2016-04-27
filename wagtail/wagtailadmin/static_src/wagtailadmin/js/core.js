@@ -53,7 +53,7 @@ function initTagField(id, autocompleteUrl) {
  *      prompting the user even when nothing has been changed.
 */
 
-var canGiveWarning = 1;
+var enableDirtyFormCheck = 1;
 
 function enableDirtyFormCheck(formSelector, options) {
     var $form = $(formSelector);
@@ -75,11 +75,11 @@ function enableDirtyFormCheck(formSelector, options) {
             }
         });
 
-        if (!canGiveWarning) {
+        if (!enableDirtyFormCheck) {
             triggeredByIgnoredButton = true;
         }
 
-        if (canGiveWarning && !triggeredByIgnoredButton && (alwaysDirty || $form.serialize() != initialData)) {
+        if (enableDirtyFormCheck && !triggeredByIgnoredButton && (alwaysDirty || $form.serialize() != initialData)) {
             event.returnValue = confirmationMessage;
             return confirmationMessage;
         }
