@@ -54,15 +54,15 @@ function initTagField(id, autocompleteUrl) {
 */
 function enableDirtyFormCheck(formSelector, options) {
     var $form = $(formSelector);
-    var $ignoredButtons = $form.find(
-        options.ignoredButtonsSelector || 'input[type="submit"],button[type="submit"]'
-    );
+    var ignoredButtonsSelector = options.ignoredButtonsSelector || 'input[type="submit"],button[type="submit"]';
+    var ignoredButtonsGlobalSelector = options.ignoredButtonsGlobalSelector || 'a.download';
     var confirmationMessage = options.confirmationMessage || ' ';
     var alwaysDirty = options.alwaysDirty || false;
     var initialData = $form.serialize();
 
     window.addEventListener('beforeunload', function(event) {
         // Ignore if the user clicked on an ignored element
+        var $ignoredButtons = $form.find(ignoredButtonsSelector);
         var triggeredByIgnoredButton = false;
         var $trigger = $(event.target.activeElement);
 
@@ -71,6 +71,10 @@ function enableDirtyFormCheck(formSelector, options) {
                 triggeredByIgnoredButton = true;
             }
         });
+
+        if ($trigger.is(ignoredButtonsGlobalSelector)) {
+           triggeredByIgnoredButton = true;
+        }
 
         if (!triggeredByIgnoredButton && (alwaysDirty || $form.serialize() != initialData)) {
             event.returnValue = confirmationMessage;
