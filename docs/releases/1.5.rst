@@ -62,7 +62,6 @@ Bug fixes
  * Failures on sending moderation notification emails now produce a warning, rather than crashing the admin page outright (Matt Fozard)
  * All admin forms that could potentially include file upload fields now specify ``multipart/form-data`` where appropriate (Tim Heap)
  * REM units in Wagtailuserbar caused incorrect spacing (Vincent Audebert)
- * Now user can upload images / documents only into permitted collection from choosers
  * Explorer menu no longer scrolls with page content (Vincent Audebert)
 
 
