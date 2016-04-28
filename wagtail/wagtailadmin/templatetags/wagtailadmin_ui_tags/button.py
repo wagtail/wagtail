@@ -1,14 +1,14 @@
 from __future__ import unicode_literals
-from inspect import getargspec
 
 from django.forms.utils import flatatt
-from django.template import Node, TemplateSyntaxError
-from django.template.base import parse_bits, Library
+from django.template import TemplateSyntaxError
 from django.template.loader import render_to_string
 
 from .config import NAMESPACE
+from .utils import WuiNode
 
-class Button(Node):
+
+class Button(WuiNode):
     """
     Usage::
 
@@ -59,17 +59,7 @@ class Button(Node):
         'button': 'wagtailadmin/ui/button/button.html'
     }
 
-    def __init__(self, inner, template_vars):
-        self.template_vars = template_vars
-        self.inner_nodelist = inner
-
-    def render(self, context):
-        template_vars = {name: var.resolve(context)
-                for name, var in self.template_vars.items()}
-
-        return self.render_template(self.inner_nodelist.render(context), **template_vars)
-
-    def render_template(self, inner, element='a', kind='primary', icon=None, icon_only=False,
+    def render_template(self, context, element='a', kind='primary', icon=None, icon_only=False,
                         icon_bicolor=False, small=False, disabled=False, scheme=None, **attrs):
         classes = []
         if icon:
@@ -104,31 +94,7 @@ class Button(Node):
         template = self.elements[button_element]
 
         return render_to_string(template, {
-            'inner_html': inner,
+            'inner_html': self.inner.render(context),
             'classes': ' '.join(classes),
             'attrs': flatatt(attrs),
         })
-
-    @classmethod
-    def handle(cls, parser, token):
-        name = cls.TAG_NAME
-
-        bits = token.split_contents()[1:]
-        # This is typically taken from getargspec, but we are doing funky things...
-
-        args, varargs, varkw, defaults = getargspec(cls.render_template)
-        args = args[2:]  # ignore self and inner arguments
-
-        args, kwargs = parse_bits(
-            parser, bits, args, varargs, varkw, defaults,
-            takes_context=False, name=name)
-
-        if args:
-            raise TemplateSyntaxError(
-                "%s does not accept any positional arguments" % cls.TAG_NAME)
-
-        # Get the contents till {% endbutton %}
-        inner = parser.parse(['end' + name])
-        parser.delete_first_token()
-
-        return cls(inner, kwargs)
