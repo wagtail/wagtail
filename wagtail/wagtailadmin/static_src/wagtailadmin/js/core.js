@@ -221,14 +221,22 @@ $(function() {
         var $self = $(this);
         var $replacementElem = $('em', $self);
         var reEnableAfter = 30;
-        var dataName = 'disabledtimeout'
+        var dataName = 'disabledtimeout';
 
-        // Check the form this submit button belongs to (if any)
+        // Perform client-side validation on the form this submit button belongs to (if any)
         var form = $self.closest('form').get(0);
-        if (form && form.checkValidity && (form.checkValidity() == false)) {
-                 // ^ Check form.checkValidity returns something as it may not be browser compatible
+        if (form && form.checkValidity && (!form.checkValidity())) {
+            // form exists, browser provides a checkValidity method and checkValidity returns false
             return;
         }
+
+        window.cancelSpinner = function() {
+            $self.prop('disabled', '').removeData(dataName).removeClass('button-longrunning-active');
+
+            if ($self.data('clicked-text')) {
+                $replacementElem.text($self.data('original-text'));
+            }
+        };
 
         // Disabling a button prevents it submitting the form, so disabling
         // must occur on a brief timeout only after this function returns.
@@ -240,11 +248,7 @@ $(function() {
                 $self.data(dataName, setTimeout(function() {
                     clearTimeout($self.data(dataName));
 
-                    $self.prop('disabled', '').removeData(dataName).removeClass('button-longrunning-active')
-
-                    if ($self.data('clicked-text')) {
-                        $replacementElem.text($self.data('original-text'));
-                    }
+                    cancelSpinner();
 
                 }, reEnableAfter * 1000));
 
