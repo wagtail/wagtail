@@ -226,6 +226,7 @@ $(function() {
 
         // Disabling a button prevents it submitting the form, so disabling
         // must occur on a brief timeout only after this function returns.
+        
         var timeout = setTimeout(function() {
             if (!$self.data(dataName)) {
                 // Button re-enables after a timeout to prevent button becoming
