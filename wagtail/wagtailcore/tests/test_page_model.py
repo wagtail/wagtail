@@ -1131,3 +1131,33 @@ class TestIssue2024(TestCase):
 
         # Check that the content_type changed to Page
         self.assertEqual(event_index.content_type, ContentType.objects.get_for_model(Page))
+
+
+class TestDummyRequest(TestCase):
+    fixtures = ['test.json']
+
+    def test_dummy_request_for_accessible_page(self):
+        event_index = Page.objects.get(url_path='/home/events/')
+        request = event_index.dummy_request()
+
+        # request should have the correct path and hostname for this page
+        self.assertEqual(request.path, '/events/')
+        self.assertEqual(request.META['HTTP_HOST'], 'localhost')
+
+    @override_settings(ALLOWED_HOSTS=['production.example.com'])
+    def test_dummy_request_for_inaccessible_page_should_use_valid_host(self):
+        root_page = Page.objects.get(url_path='/')
+        request = root_page.dummy_request()
+
+        # in the absence of an actual Site record where we can access this page,
+        # dummy_request should still provide a hostname that Django's host header
+        # validation won't reject
+        self.assertEqual(request.META['HTTP_HOST'], 'production.example.com')
+
+    @override_settings(ALLOWED_HOSTS=['*'])
+    def test_dummy_request_for_inaccessible_page_with_wildcard_allowed_hosts(self):
+        root_page = Page.objects.get(url_path='/')
+        request = root_page.dummy_request()
+
+        # '*' is not a valid hostname, so ensure that we replace it with something sensible
+        self.assertNotEqual(request.META['HTTP_HOST'], '*')
