@@ -46,6 +46,7 @@ Changelog
  * Fix: Redirects no longer fail when both a site-specific and generic redirect exist for the same URL path (Nick Smith, João Luiz Lorencetti)
  * Fix: Wagtail now checks that Group is registered with the Django admin before unregistering it (Jason Morrison)
  * Fix: Previewing inaccessible pages no longer fails with `ALLOWED_HOSTS = ['*']` (Robert Rollins)
+ * Fix: The submit button 'spinner' no longer activates if the form has client-side validation errors (Jack Paine, Matt Westcott)
 
 
 1.4.3 (04.04.2016)
