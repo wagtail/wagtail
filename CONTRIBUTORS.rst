@@ -127,6 +127,8 @@ Contributors
 * Andrew Tork Baker
 * Vincent Audebert
 * Jack Paine
+* Nick Smith
+* João Luiz Lorencetti
 
 Translators
 ===========

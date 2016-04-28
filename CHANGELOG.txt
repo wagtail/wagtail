@@ -42,7 +42,8 @@ Changelog
  * Fix: The `wagtailuserbar` template tag now gracefully handles situations where the `request` object is not in the template context (Matt Westcott)
  * Fix: Meta classes on StreamField blocks now handle multiple inheritance correctly (Tim Heap)
  * Fix: Now user can upload images / documents only into permitted collection from choosers
- * Fix: Keyboard shortcuts for save / preview on the page editor no longer incorrectly trigger the "unsaved changes" message (Jack Paine / Matt Westcott)
+ * Fix: Keyboard shortcuts for save / preview on the page editor no longer incorrectly trigger the "unsaved changes" message (Jack Paine, Matt Westcott)
+ * Fix: Redirects no longer fail when both a site-specific and generic redirect exist for the same URL path (Nick Smith, João Luiz Lorencetti)
 
 
 1.4.3 (04.04.2016)
