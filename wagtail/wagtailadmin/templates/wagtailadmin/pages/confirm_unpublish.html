@@ -8,17 +8,18 @@
     <head>
         <style>
             #deleteForm {
-                display: inline;
+                display: inline; /* Keeps the 'take me back' button in-line */
             }
         </style>
     </head>
 
     <div class="nice-padding">
-        <p>{% trans "Are you sure you want to unpublish this page?" %}</p>
-        <form action="{% url 'wagtailadmin_pages:unpublish' page.id %}" method="POST">
+        <h3>{% trans "Are you sure you want to unpublish this page?" %}</h3>
+	
+        <form id="deleteForm" action="{% url 'wagtailadmin_pages:unpublish' page.id %}" method="POST">
             {% csrf_token %}
             <input type="hidden" name="next" value="{{ next }}">
-            <input type="submit" value="{% trans 'Yes, unpublish it' %}" class="serious {% if page.live %}button-secondary{% endif %}">
+            <input type="submit" class="serious {% if page.live %}button-secondary{% endif %}" value="{% trans 'Yes, unpublish it' %}">
         </form>
         <input type="submit" onclick="history.go(-1);" value="{% trans '&#x2936 No, take me back' %}" class="button">
     </div>
