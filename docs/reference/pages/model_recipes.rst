@@ -15,6 +15,7 @@ Consider this example from the Wagtail demo site's ``models.py``, which serves a
 
     class EventPage(Page):
         ...
+
         def serve(self, request):
             if "format" in request.GET:
                 if request.GET['format'] == 'ical':
@@ -52,7 +53,6 @@ Wagtail routes requests by iterating over the path components (separated with a 
 .. code-block:: python
 
     class Page(...):
-
         ...
 
         def route(self, request, path_components):

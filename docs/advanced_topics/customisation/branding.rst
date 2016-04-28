@@ -8,15 +8,15 @@ In your projects with Wagtail, you may wish to replace elements such as the Wagt
 Install ``django-overextends`` with ``pip install django-overextends`` (or add ``django-overextends`` to your project's requirements file), and add ``'overextends'`` to your project's ``INSTALLED_APPS``. You now need to create a ``templates/wagtailadmin/`` folder within one of your apps - this may be an existing one, or a new one created for this purpose, for example, ``dashboard``. This app must be registered in ``INSTALLED_APPS`` before ``wagtail.wagtailadmin``::
 
     INSTALLED_APPS = (
-      # ...
+        # ...
 
-      'overextends',
-      'dashboard',
+        'overextends',
+        'dashboard',
       
-      'wagtail.wagtailcore',
-      'wagtail.wagtailadmin',
+        'wagtail.wagtailcore',
+        'wagtail.wagtailadmin',
       
-      # ...
+        # ...
     )
 
     # For Django 1.9+ you must also add overextends to the builtins key of your TEMPLATES setting:

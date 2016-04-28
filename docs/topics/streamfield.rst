@@ -376,9 +376,9 @@ This will render each block of the stream in turn, wrapped in a ``<div class="bl
 .. code-block:: html+django
 
     <article>
-      {% for block in page.body %}
-        <section>{{ block }}</section>
-      {% endfor %}
+        {% for block in page.body %}
+            <section>{{ block }}</section>
+        {% endfor %}
     </article>
 
 
@@ -387,15 +387,15 @@ For more control over the rendering of specific block types, each block object p
 .. code-block:: html+django
 
     <article>
-      {% for block in page.body %}
-        {% if block.block_type == 'heading' %}
-          <h1>{{ block.value }}</h1>
-        {% else %}
-          <section class="block-{{ block.block_type }}">
-            {{ block }}
-          </section>
-        {% endif %}
-      {% endfor %}
+        {% for block in page.body %}
+            {% if block.block_type == 'heading' %}
+                <h1>{{ block.value }}</h1>
+            {% else %}
+                <section class="block-{{ block.block_type }}">
+                    {{ block }}
+                </section>
+            {% endif %}
+        {% endfor %}
     </article>
 
 
@@ -439,9 +439,9 @@ Within the template, the block value is accessible as the variable ``value``:
     {% load wagtailimages_tags %}
 
     <div class="person">
-      {% image value.photo width-400 %}
-      <h2>{{ value.first_name }} {{ value.surname }}</h2>
-      {{ value.biography }}
+        {% image value.photo width-400 %}
+        <h2>{{ value.first_name }} {{ value.surname }}</h2>
+        {{ value.biography }}
     </div>
 
 
@@ -500,9 +500,9 @@ This gives us a block that behaves as an ordinary text field, but wraps its outp
 .. code-block:: html+django
 
     {% for block in page.body %}
-      {% if block.block_type == 'heading' %}
-        {{ block }}  {# This block will output its own <h1>...</h1> tags. #}
-      {% endif %}
+        {% if block.block_type == 'heading' %}
+            {{ block }}  {# This block will output its own <h1>...</h1> tags. #}
+        {% endif %}
     {% endfor %}
 
 This is a powerful feature, but it involves some complexity behind the scenes to make it work. Effectively, HeadingBlock has a double identity - logically it represents a plain Python string value, but in circumstances such as this it needs to yield a 'magic' object that knows its own custom HTML representation. This 'magic' object is an instance of ``BoundBlock`` - an object that represents the pairing of a value and its block definition. (Django developers may recognise this as the same principle behind ``BoundField`` in Django's forms framework.)
@@ -524,8 +524,8 @@ where ``blocks/event.html`` is:
 .. code-block:: html+django
 
     <div class="event {% if value.heading == 'Party!' %}lots-of-balloons{% endif %}">
-      {{ value.heading }}
-      - {{ value.description }}
+        {{ value.heading }}
+        - {{ value.description }}
     </div>
 
 In this case, ``value.heading`` returns the plain string value, because if this weren't the case, the comparison in ``{% if value.heading == 'Party!' %}`` would never succeed. This in turn means that ``{{ value.heading }}`` renders as the plain string, without the ``<h1>`` tags.
