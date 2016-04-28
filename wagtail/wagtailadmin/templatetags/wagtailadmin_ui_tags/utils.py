@@ -1,8 +1,9 @@
 from __future__ import unicode_literals
 from inspect import getargspec
 
-from django.template import Node
-from django.template.base import parse_bits
+from django.template import Node, TemplateSyntaxError
+from django.template.base import parse_bits, TextNode
+from django.template.loader_tags import BlockNode
 
 
 class WuiNode(Node):
@@ -43,3 +44,33 @@ class WuiNode(Node):
     @classmethod
     def parse_inner(cls, inner):
         return inner
+
+
+class WuiOptionalBlockNode(WuiNode):
+
+    def render_blocks(self, context):
+        return {key: nodelist.render(context)
+                for key, nodelist in self.inner.items()}
+
+    @classmethod
+    def parse_inner(cls, nodelist):
+        name = 'block'
+        end_tag = 'end' + name
+
+        blocks = cls.OPTIONAL_BLOCKS
+        parse_till = [end_tag] + list(blocks)
+
+        final_nodelists = {}
+
+        for node in nodelist:
+            if isinstance(node, TextNode):
+                if not node.s.isspace():
+                    raise TemplateSyntaxError('Illegal content inside "%s" template tag' % cls.TAG_NAME)
+            elif not isinstance(node, BlockNode):
+                raise TemplateSyntaxError('Illegal template tag inside "%s" template tag' % cls.TAG_NAME)
+            elif node.name not in blocks:
+                raise TemplateSyntaxError('Non-whitelisted block name inside "%s" template tag' % cls.TAG_NAME)
+            else:
+                final_nodelists[node.name] = node.nodelist
+
+        return final_nodelists
