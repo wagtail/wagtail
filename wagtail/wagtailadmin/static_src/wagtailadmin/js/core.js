@@ -53,7 +53,7 @@ function initTagField(id, autocompleteUrl) {
  *      prompting the user even when nothing has been changed.
 */
 
-var canDirtyFormCheck = true;
+var dirtyFormCheckIsActive = true;
 
 function enableDirtyFormCheck(formSelector, options) {
     var $form = $(formSelector);
@@ -75,15 +75,15 @@ function enableDirtyFormCheck(formSelector, options) {
             }
         });
 
-        if (!canDirtyFormCheck) {
-            triggeredByIgnoredButton = true;
-        }
-
-        if (canDirtyFormCheck && !triggeredByIgnoredButton && (alwaysDirty || $form.serialize() != initialData)) {
+        if (dirtyFormCheckIsActive && !triggeredByIgnoredButton && (alwaysDirty || $form.serialize() != initialData)) {
             event.returnValue = confirmationMessage;
             return confirmationMessage;
         }
     });
+}
+
+function disableDirtyFormCheck() {
+    dirtyFormCheckIsActive = false;
 }
 
 $(function() {
