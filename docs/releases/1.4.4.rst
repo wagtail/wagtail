@@ -17,3 +17,4 @@ Bug fixes
  * Meta classes on StreamField blocks now handle multiple inheritance correctly (Tim Heap)
  * Now user can upload images / documents only into permitted collection from choosers
  * Keyboard shortcuts for save / preview on the page editor no longer incorrectly trigger the "unsaved changes" message (Jack Paine / Matt Westcott)
+ * Redirects no longer fail when both a site-specific and generic redirect exist for the same URL path (Nick Smith, João Luiz Lorencetti)

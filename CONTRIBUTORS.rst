@@ -117,6 +117,8 @@ Contributors
 * Eirik Krogstad
 * Rob Moorman
 * Jack Paine
+* Nick Smith
+* João Luiz Lorencetti
 
 Translators
 ===========
