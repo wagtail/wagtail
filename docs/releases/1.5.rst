@@ -69,6 +69,12 @@ Bug fixes
 Upgrade considerations
 ======================
 
+Buttons in admin now require ``class="button"``
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+The Wagtail admin CSS has been refactored for maintainability, and buttons now require an explicit ``button`` class. (Previously, the styles were applied on all inputs of type ``"submit"``, ``"reset"`` or ``"button"``.) If you have created any apps that extend the Wagtail admin with new views / templates, you will need to add this class to all buttons.
+
+
 The ``search_fields`` attribute on models should now be set to a list
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
