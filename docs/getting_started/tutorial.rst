@@ -258,7 +258,7 @@ Adjust your blog page template to include the image:
         <p class="meta">{{ page.date }}</p>
 
         {% if page.main_image %}
-          {% image page.main_image width-400 %}
+            {% image page.main_image width-400 %}
         {% endif %}
 
         <div class="intro">{{ page.intro }}</div>

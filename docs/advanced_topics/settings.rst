@@ -184,10 +184,10 @@ Search
 
   # Replace the search backend
   WAGTAILSEARCH_BACKENDS = {
-    'default': {
-      'BACKEND': 'wagtail.wagtailsearch.backends.elasticsearch',
-      'INDEX': 'myapp'
-    }
+      'default': {
+          'BACKEND': 'wagtail.wagtailsearch.backends.elasticsearch',
+          'INDEX': 'myapp'
+      }
   }
 
 The search settings customise the search results templates as well as choosing a custom backend for search. For a full explanation, see :ref:`search`.
@@ -311,18 +311,18 @@ URL Patterns
   from wagtail.wagtailsearch import urls as wagtailsearch_urls
 
   urlpatterns = [
-    url(r'^django-admin/', include(admin.site.urls)),
+      url(r'^django-admin/', include(admin.site.urls)),
+  
+      url(r'^admin/', include(wagtailadmin_urls)),
+      url(r'^search/', include(wagtailsearch_urls)),
+      url(r'^documents/', include(wagtaildocs_urls)),
 
-    url(r'^admin/', include(wagtailadmin_urls)),
-    url(r'^search/', include(wagtailsearch_urls)),
-    url(r'^documents/', include(wagtaildocs_urls)),
+      # Optional URL for including your own vanilla Django urls/views
+      url(r'', include('myapp.urls')),
 
-    # Optional URL for including your own vanilla Django urls/views
-    url(r'', include('myapp.urls')),
-
-    # For anything not caught by a more specific rule above, hand over to
-    # Wagtail's serving mechanism
-    url(r'', include(wagtail_urls)),
+      # For anything not caught by a more specific rule above, hand over to
+      # Wagtail's serving mechanism
+      url(r'', include(wagtail_urls)),
   ]
 
 This block of code for your project's ``urls.py`` does a few things:
@@ -358,29 +358,28 @@ These two files should reside in your project directory (``myproject/myproject/`
   # Application definition
 
   INSTALLED_APPS = [
+      'myapp',
 
-    'myapp',
+      'wagtail.wagtailforms',
+      'wagtail.wagtailredirects',
+      'wagtail.wagtailembeds',
+      'wagtail.wagtailsites',
+      'wagtail.wagtailusers',
+      'wagtail.wagtailsnippets',
+      'wagtail.wagtaildocs',
+      'wagtail.wagtailimages',
+      'wagtail.wagtailsearch',
+      'wagtail.wagtailadmin',
+      'wagtail.wagtailcore',
 
-    'wagtail.wagtailforms',
-    'wagtail.wagtailredirects',
-    'wagtail.wagtailembeds',
-    'wagtail.wagtailsites',
-    'wagtail.wagtailusers',
-    'wagtail.wagtailsnippets',
-    'wagtail.wagtaildocs',
-    'wagtail.wagtailimages',
-    'wagtail.wagtailsearch',
-    'wagtail.wagtailadmin',
-    'wagtail.wagtailcore',
+      'taggit',
+      'modelcluster',
 
-    'taggit',
-    'modelcluster',
-
-    'django.contrib.auth',
-    'django.contrib.contenttypes',
-    'django.contrib.sessions',
-    'django.contrib.messages',
-    'django.contrib.staticfiles',
+      'django.contrib.auth',
+      'django.contrib.contenttypes',
+      'django.contrib.sessions',
+      'django.contrib.messages',
+      'django.contrib.staticfiles',
   ]
 
 
@@ -419,7 +418,6 @@ These two files should reside in your project directory (``myproject/myproject/`
   ]
 
   WSGI_APPLICATION = 'wagtaildemo.wsgi.application'
-
 
   # Database
 

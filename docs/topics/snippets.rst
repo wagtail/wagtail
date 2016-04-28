@@ -72,11 +72,11 @@ Here's what's in the template used by this template tag:
 .. code-block:: html+django
 
   {% for advert in adverts %}
-    <p>
-      <a href="{{ advert.url }}">
-        {{ advert.text }}
-      </a>
-    </p>
+      <p>
+          <a href="{{ advert.url }}">
+              {{ advert.text }}
+          </a>
+      </p>
   {% endfor %}
 
 Then, in your own page templates, you can include your snippet template tag with:
@@ -89,9 +89,9 @@ Then, in your own page templates, you can include your snippet template tag with
 
   {% block content %}
   
-    ...
-
-    {% adverts %}
+      ...
+  
+      {% adverts %}
 
   {% endblock %}
 
@@ -167,11 +167,11 @@ These child objects are now accessible through the page's ``advert_placements`` 
 .. code-block:: html+django
 
   {% for advert_placement in page.advert_placements.all %}
-    <p>
-      <a href="{{ advert_placement.advert.url }}">
-        {{ advert_placement.advert.text }}
-      </a>
-    </p>
+      <p>
+          <a href="{{ advert_placement.advert.url }}">
+              {{ advert_placement.advert.text }}
+          </a>
+      </p>
   {% endfor %}
 
 

@@ -222,8 +222,8 @@ The userbar can be positioned where it works best with your design. Alternativel
 .. code-block:: css
 
     .wagtail-userbar {
-       top: 200px !important;
-       left: 10px !important;
+         top: 200px !important;
+         left: 10px !important;
     }
 
 
