@@ -48,35 +48,29 @@ function initTagField(id, autocompleteUrl) {
  *    - ignoredButtonsSelector - A CSS selector to find buttons to ignore within
  *      the form. If the navigation was triggered by one of these buttons, The
  *      check will be ignored. defaults to: input[type="submit"].
- *    - ignoredButtonsGlobalSelector - same as ignoredButtonsSelector, but will
- *      take effect whether or not the buttons are contained within the form.
  *    - confirmationMessage - The message to display in the prompt.
  *    - alwaysDirty - When set to true the form will always be considered dirty,
  *      prompting the user even when nothing has been changed.
 */
 function enableDirtyFormCheck(formSelector, options) {
     var $form = $(formSelector);
-    var ignoredButtonsSelector = options.ignoredButtonsSelector || 'input[type="submit"],button[type="submit"]';
-    var ignoredButtonsGlobalSelector = options.ignoredButtonsGlobalSelector || 'a.download';
+    var $ignoredButtons = $form.find(
+        options.ignoredButtonsSelector || 'input[type="submit"],button[type="submit"]'
+    );
     var confirmationMessage = options.confirmationMessage || ' ';
     var alwaysDirty = options.alwaysDirty || false;
     var initialData = $form.serialize();
 
     window.addEventListener('beforeunload', function(event) {
         // Ignore if the user clicked on an ignored element
-        var $ignoredButtons = $form.find(ignoredButtonsSelector);
         var triggeredByIgnoredButton = false;
-        var $trigger = $(event.target.activeElement)
+        var $trigger = $(event.target.activeElement);
 
         $ignoredButtons.each(function() {
             if ($(this).is($trigger)) {
                 triggeredByIgnoredButton = true;
             }
         });
-
-        if ($trigger.is(ignoredButtonsGlobalSelector)) {
-            triggeredByIgnoredButton = true;
-        }
 
         if (!triggeredByIgnoredButton && (alwaysDirty || $form.serialize() != initialData)) {
             event.returnValue = confirmationMessage;
