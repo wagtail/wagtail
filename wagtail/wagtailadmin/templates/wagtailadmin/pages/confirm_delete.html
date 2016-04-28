@@ -6,8 +6,16 @@
     {% trans "Delete" as del_str %}
     {% include "wagtailadmin/shared/header.html" with title=del_str subtitle=page.title icon="doc-empty-inverse" %}
 
+    <head>
+        <style>
+            #deleteForm {
+                display: inline;
+            }
+        </style>
+    </head>
+
     <div class="nice-padding">
-        <p>
+        <h3>
             {% trans 'Are you sure you want to delete this page?' %}
             {% if descendant_count %}
                 {% blocktrans count counter=descendant_count %}
@@ -16,15 +24,20 @@
                     This will also delete {{ descendant_count }} more subpages.
                 {% endblocktrans %}
             {% endif %}
-        </p>
+        </h3>
         {% page_permissions page as page_perms %}
-        {% if page_perms.can_unpublish %}
-            <p>{% trans "Alternatively you can unpublish the page. This removes the page from public view and you can edit or publish it again later." %}</p>
-        {% endif %}
-        <form action="{% url 'wagtailadmin_pages:delete' page.id %}" method="POST">
+        <form id="deleteForm" action="{% url 'wagtailadmin_pages:delete' page.id %}" method="POST">
             {% csrf_token %}
             <input type="hidden" name="next" value="{{ next }}">
-            <input type="submit" value="{% trans 'Delete it' %}" class="serious {% if page.live %}button-secondary{% endif %}"> {% if page_perms.can_unpublish %}<a href="{% url 'wagtailadmin_pages:unpublish' page.id %}" class="button">{% trans 'Unpublish it' %}</a>{% endif %}
+            <input type="submit" value="{% trans 'Yes, delete it' %}" class="serious {% if page.live %}button-secondary{% endif %}">
         </form>
+        <input type="submit" onclick="history.go(-1);" value="{% trans '&#x2936 No, take me back' %}" class="button">
+         {% if page_perms.can_unpublish %}
+            <h3>
+                {% trans 'Alternatively you can ' %}<a href="{% url 'wagtailadmin_pages:unpublish' page.id %}" class="serious button-small {% if page.live %}button-secondary{% endif %}">unpublish the page</a>{% ". This removes the page from public view and you can edit or publish it again later." %}
+            </h3>
+        {% endif %}
+    </div> 
+{% endif %}
     </div>
 {% endblock %}

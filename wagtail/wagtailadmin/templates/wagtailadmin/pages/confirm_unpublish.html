@@ -5,12 +5,21 @@
     {% trans "Unpublish" as unpublish_str %}
     {% include "wagtailadmin/shared/header.html" with title=unpublish_str subtitle=page.title icon="doc-empty-inverse" %}
 
+    <head>
+        <style>
+            #deleteForm {
+                display: inline;
+            }
+        </style>
+    </head>
+
     <div class="nice-padding">
         <p>{% trans "Are you sure you want to unpublish this page?" %}</p>
         <form action="{% url 'wagtailadmin_pages:unpublish' page.id %}" method="POST">
             {% csrf_token %}
             <input type="hidden" name="next" value="{{ next }}">
-            <input type="submit" value="{% trans 'Yes, unpublish it' %}">
+            <input type="submit" value="{% trans 'Yes, unpublish it' %}" class="serious {% if page.live %}button-secondary{% endif %}">
         </form>
+        <input type="submit" onclick="history.go(-1);" value="{% trans '&#x2936 No, take me back' %}" class="button">
     </div>
 {% endblock %}
