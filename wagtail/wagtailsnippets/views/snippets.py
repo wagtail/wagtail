@@ -1,5 +1,8 @@
 from __future__ import absolute_import, unicode_literals
 
+import sys
+from imp import reload
+
 from django.apps import apps
 from django.core.urlresolvers import reverse
 from django.http import Http404
@@ -17,6 +20,11 @@ from wagtail.wagtailsearch.backends import get_search_backend
 from wagtail.wagtailsearch.index import class_is_indexed
 from wagtail.wagtailsnippets.models import get_snippet_models
 from wagtail.wagtailsnippets.permissions import get_permission_name, user_can_edit_snippet_type
+
+# python 2.7 hack for utf8 encoded characters in snippets
+if sys.version[0] == '2':
+    reload(sys)
+    sys.setdefaultencoding('utf8')
 
 
 # == Helper functions ==

@@ -3,6 +3,7 @@ from __future__ import absolute_import, unicode_literals
 import json
 import logging
 from collections import defaultdict
+from django import VERSION as DJANGO_VERSION
 
 from django.conf import settings
 from django.contrib.auth.models import Group, Permission
@@ -296,11 +297,20 @@ class Page(six.with_metaclass(PageBase, MP_Node, ClusterableModel, index.Indexed
         max_length=255,
         help_text=_("The page title as you'd like it to be seen by the public")
     )
-    slug = models.SlugField(
-        verbose_name=_('slug'),
-        max_length=255,
-        help_text=_("The name of the page as it will appear in URLs e.g http://domain.com/blog/[my-slug]/")
-    )
+    # use django 1.9+ SlugField with unicode support
+    if DJANGO_VERSION >= (1, 9):
+        slug = models.SlugField(
+            verbose_name=_('slug'),
+            allow_unicode=True,
+            max_length=255,
+            help_text=_("The name of the page as it will appear in URLs e.g http://domain.com/blog/[my-slug]/")
+        )
+    else:
+        slug = models.SlugField(
+            verbose_name=_('slug'),
+            max_length=255,
+            help_text=_("The name of the page as it will appear in URLs e.g http://domain.com/blog/[my-slug]/")
+        )
     content_type = models.ForeignKey(
         'contenttypes.ContentType',
         verbose_name=_('content type'),
@@ -444,7 +454,10 @@ class Page(six.with_metaclass(PageBase, MP_Node, ClusterableModel, index.Indexed
 
         if not self.slug:
             # Try to auto-populate slug from title
-            base_slug = slugify(self.title)
+            if DJANGO_VERSION >= (1, 9):
+                base_slug = slugify(self.title, allow_unicode=True)
+            else:
+                base_slug = slugify(self.title)
 
             # only proceed if we get a non-empty base slug back from slugify
             if base_slug:
