@@ -119,6 +119,7 @@ Contributors
 * Jack Paine
 * Nick Smith
 * João Luiz Lorencetti
+* Jason Morrison
 
 Translators
 ===========

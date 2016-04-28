@@ -9,6 +9,7 @@ Changelog
  * Fix: Now user can upload images / documents only into permitted collection from choosers
  * Fix: Keyboard shortcuts for save / preview on the page editor no longer incorrectly trigger the "unsaved changes" message (Jack Paine, Matt Westcott)
  * Fix: Redirects no longer fail when both a site-specific and generic redirect exist for the same URL path (Nick Smith, João Luiz Lorencetti)
+ * Fix: Wagtail now checks that Group is registered with the Django admin before unregistering it (Jason Morrison)
 
 
 1.4.3 (04.04.2016)
