@@ -9,7 +9,7 @@
     <head>
         <style>
             #deleteForm {
-                display: inline;
+                display: inline; /* Keeps the 'take me back' button in-line */
             }
         </style>
     </head>
@@ -32,12 +32,8 @@
             <input type="submit" value="{% trans 'Yes, delete it' %}" class="serious {% if page.live %}button-secondary{% endif %}">
         </form>
         <input type="submit" onclick="history.go(-1);" value="{% trans '&#x2936 No, take me back' %}" class="button">
-         {% if page_perms.can_unpublish %}
-            <h3>
-                {% trans 'Alternatively you can ' %}<a href="{% url 'wagtailadmin_pages:unpublish' page.id %}" class="serious button-small {% if page.live %}button-secondary{% endif %}">unpublish the page</a>{% ". This removes the page from public view and you can edit or publish it again later." %}
-            </h3>
+        {% if page_perms.can_unpublish %}
+            <h3>{% trans "Alternatively you can " %} <a class="serious button-small {% if page.live %}button-secondary{% endif %}" href="{% url 'wagtailadmin_pages:unpublish' page.id %}">unpublish the page</a>{% trans ". This removes the page from public view and you can edit or publish it again later." %}</h3>
         {% endif %}
-    </div> 
-{% endif %}
     </div>
 {% endblock %}
