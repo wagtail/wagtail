@@ -6,7 +6,7 @@ from django.test.utils import override_settings
 from wagtail.contrib.wagtailfrontendcache.backends import (
     BaseBackend, CloudflareBackend, HTTPBackend)
 from wagtail.contrib.wagtailfrontendcache.utils import get_backends
-from wagtail.tests.testapp.models import EventIndex
+from wagtail.tests.testapp.models import EventIndex, SimplePage
 from wagtail.wagtailcore.models import Page
 
 
@@ -116,6 +116,23 @@ class TestCachePurging(TestCase):
         page = EventIndex.objects.get(url_path='/home/events/')
         page.unpublish()
         self.assertEqual(PURGED_URLS, ['http://localhost/events/'])
+
+    def test_purge_on_change_slug(self):
+        page = EventIndex.objects.get(url_path='/home/events/')
+        page.save_revision().publish()
+        PURGED_URLS[:] = []  # reset PURGED_URLS to the empty list
+        page.slug = 'changed'
+        page.save_revision().publish()
+        self.assertEqual(PURGED_URLS, ['http://localhost/events/', 'http://localhost/changed/'])
+
+    def test_purge_on_move_page(self):
+        PURGED_URLS[:] = []  # reset PURGED_URLS to the empty list
+        about_us_page = SimplePage.objects.get(url_path='/home/about-us/')
+        events_index = EventIndex.objects.get(url_path='/home/events/')
+
+        events_index.move(about_us_page, pos='last-child')
+        events_index.save_revision().publish()
+        self.assertEqual(PURGED_URLS, ['http://localhost/events/', 'http://localhost/about-us/events/', 'http://localhost/events/'])
 
     def test_purge_with_unroutable_page(self):
         PURGED_URLS[:] = []  # reset PURGED_URLS to the empty list

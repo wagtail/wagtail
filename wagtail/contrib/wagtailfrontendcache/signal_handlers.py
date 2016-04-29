@@ -1,14 +1,14 @@
 from __future__ import absolute_import, unicode_literals
 
 from django.apps import apps
-
-from wagtail.contrib.wagtailfrontendcache.utils import purge_page_from_cache, purge_url_from_cache
 from django.core.exceptions import ObjectDoesNotExist
-from wagtail.wagtailcore.signals import page_published, page_unpublished
 from django.db.models.signals import post_save, pre_save
 
+from wagtail.contrib.wagtailfrontendcache.utils import purge_page_from_cache, purge_url_from_cache
+from wagtail.wagtailcore.signals import page_published, page_unpublished
 
-def has_path_changed(instance, field):
+
+def has_changed(instance, field):
     if not instance.pk:
         return False
     try:
@@ -16,6 +16,16 @@ def has_path_changed(instance, field):
     except ObjectDoesNotExist:
         return False
     return not getattr(instance, field) == old_value
+
+
+def get_old_instance(instance):
+    if not instance.pk:
+        return False
+    try:
+        old_instance = instance.__class__._default_manager.get(pk=instance.pk)
+    except ObjectDoesNotExist:
+        return False
+    return old_instance
 
 
 def page_published_signal_handler(instance, **kwargs):
@@ -27,8 +37,9 @@ def page_unpublished_signal_handler(instance, **kwargs):
 
 
 def page_pre_saved_signal_handler(instance, **kwargs):
-    if has_path_changed(instance, 'url_path'):
-        instance.old_url = instance.url
+    if has_changed(instance, 'url_path'):
+        old_instance = get_old_instance(instance)
+        instance.old_url = old_instance.full_url
     else:
         instance.old_url = None
 
