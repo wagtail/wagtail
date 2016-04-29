@@ -1,20 +1,20 @@
 from __future__ import absolute_import, unicode_literals
 
-import logging
-
 from django.apps import apps
 
 from wagtail.contrib.wagtailfrontendcache.utils import purge_page_from_cache, purge_url_from_cache
+from django.core.exceptions import ObjectDoesNotExist
 from wagtail.wagtailcore.signals import page_published, page_unpublished
 from django.db.models.signals import post_save, pre_save
-
-logger = logging.getLogger('wagtail.frontendcache')
 
 
 def has_path_changed(instance, field):
     if not instance.pk:
         return False
-    old_value = instance.__class__._default_manager.filter(pk=instance.pk).values(field).get()[field]
+    try:
+        old_value = instance.__class__._default_manager.filter(pk=instance.pk).values(field).get()[field]
+    except ObjectDoesNotExist:
+        return False
     return not getattr(instance, field) == old_value
 
 
