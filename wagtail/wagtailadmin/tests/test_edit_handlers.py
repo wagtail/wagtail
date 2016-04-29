@@ -159,16 +159,16 @@ class TestPageEditHandlers(TestCase):
             "ValidatedPage.base_form_class does not extend WagtailAdminPageForm",
             hint="Ensure that wagtail.wagtailadmin.tests.test_edit_handlers.BadFormClass extends WagtailAdminPageForm",
             obj=ValidatedPage,
-            id='wagtailcore.E002')
+            id='wagtailadmin.E001')
 
         invalid_edit_handler = checks.Error(
             "ValidatedPage.get_edit_handler().get_form_class(ValidatedPage) does not extend WagtailAdminPageForm",
             hint="Ensure that the EditHandler for ValidatedPage creates a subclass of WagtailAdminPageForm",
             obj=ValidatedPage,
-            id='wagtailcore.E003')
+            id='wagtailadmin.E002')
 
         with mock.patch.object(ValidatedPage, 'base_form_class', new=BadFormClass):
-            errors = ValidatedPage.check()
+            errors = checks.run_checks()
             self.assertEqual(errors, [invalid_base_form, invalid_edit_handler])
 
     @clear_edit_handler(ValidatedPage)
