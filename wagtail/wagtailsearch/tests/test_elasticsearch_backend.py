@@ -775,7 +775,7 @@ class TestElasticSearchMapping(TestCase):
                         },
                     },
                     'subobjects': {
-                       'type': 'nested',
+                        'type': 'nested',
                         'properties': {
                             'name': {'type': 'string', 'include_in_all': True, 'index_analyzer': 'edgengram_analyzer'},
                         },
