@@ -55,6 +55,7 @@ class BackendTests(WagtailTestUtils):
         testa = models.SearchTest()
         testa.title = "Hello World"
         testa.save()
+        testa.subobjects.create(name='A subobject')
         self.backend.add(testa)
         self.testa = testa
 
