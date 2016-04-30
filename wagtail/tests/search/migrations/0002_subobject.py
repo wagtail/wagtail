@@ -14,7 +14,7 @@ class Migration(migrations.Migration):
             name='SearchTestSubObject',
             fields=[
                 ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('parent', models.ForeignKey(to='searchtests.SearchTest')),
+                ('parent', models.ForeignKey(to='searchtests.SearchTest', related_name='subobjects', on_delete=models.deletion.CASCADE)),
                 ('name', models.CharField(max_length=255)),
             ],
             bases=(models.Model,),
