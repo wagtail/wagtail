@@ -1,6 +1,6 @@
 from django.test import TestCase
 from django.utils.html import escape
-from wagtail.contrib.table_block import TableBlock
+from wagtail.contrib.table_block.fields import TableBlock
 
 
 def tiny_escape(val):
