@@ -59,6 +59,20 @@ function makeRichTextEditable(id) {
             $(window).trigger('scroll');
         });
     });
+
+    setupLinkTooltips(richText);
+}
+
+function setupLinkTooltips(elem) {
+    elem.tooltip({
+        animation: false,
+        title: function() {
+            return $(this).attr('href');
+        },
+        trigger: 'hover',
+        placement: 'bottom',
+        selector: 'a'
+    });
 }
 
 function insertRichTextDeleteControl(elem) {
