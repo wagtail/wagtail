@@ -16,6 +16,7 @@ Wagtail ships with a variety of extra optional modules.
     api/index
     modeladmin
     searchpromotions
+    table_block
 
 
 :doc:`settings`
@@ -39,7 +40,7 @@ Provides a management command that turns a Wagtail site into a set of static HTM
 :doc:`sitemaps`
 ---------------
 
-Provides a view that generates a Google XML sitemap of your public wagtail content.
+Provides a view that generates a Google XML sitemap of your public Wagtail content.
 
 
 :doc:`frontendcache`
@@ -69,4 +70,10 @@ A module allowing for more customisable representation and management of custom 
 :doc:`searchpromotions`
 -----------------------
 
-A module for managing "Promoted Search Results".
+A module for managing "Promoted Search Results"
+
+
+:doc:`table_block`
+-----------------------
+
+Provides a TableBlock for adding HTML tables to pages.
