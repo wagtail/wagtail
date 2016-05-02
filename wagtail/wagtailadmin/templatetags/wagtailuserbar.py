@@ -40,6 +40,10 @@ def wagtailuserbar(context, position='bottom-right'):
     if not request.user.has_perm('wagtailadmin.access_admin'):
         return ''
 
+    # Don't render if this is a preview
+    if request.is_preview:
+        return ''
+
     # Only render if the context contains a variable referencing a saved page
     page = get_page_instance(context)
     if page is None:
