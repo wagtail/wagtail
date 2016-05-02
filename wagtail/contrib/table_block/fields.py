@@ -2,13 +2,13 @@ from __future__ import absolute_import, unicode_literals
 
 import json
 
+from django import forms
+from django.template.loader import render_to_string
+from django.utils import translation
+from django.utils.functional import cached_property
+
 from wagtail.utils.widgets import WidgetWithScript
 from wagtail.wagtailcore.blocks import FieldBlock
-
-from django.template.loader import render_to_string
-from django.utils.functional import cached_property
-from django.utils import translation
-from django import forms
 
 
 class TableInput(WidgetWithScript, forms.HiddenInput):
