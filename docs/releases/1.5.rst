@@ -10,6 +10,12 @@ Wagtail 1.5 release notes - IN DEVELOPMENT
 What's new
 ==========
 
+ModelAdmin
+~~~~~~~~~~
+
+Wagtail now includes an app ``wagtail.contrib.modeladmin`` (previously available separately as the `wagtailmodeladmin <https://github.com/rkhleics/wagtailmodeladmin>`_ package) which allows you to configure arbitrary Django models to be listed, added and edited through the Wagtail admin. See :doc:`/reference/contrib/modeladmin` for full documentation. This feature was developed by Andy Babic.
+
+
 Improvements to the "Image serve view"
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -40,6 +46,11 @@ Minor features
  * Notification messages on creating / editing sites now include the site name if specified (Chris Rogers)
  * Added ``--schema-only`` option to ``update_index`` management command
  * Added meaningful default icons to ``StreamField`` blocks (Benjamin Bach)
+ * Added title text to action buttons in the page explorer (Liam Brenner)
+ * Changed project template to explicitly import development settings via ``settings.dev`` (Tomas Olander)
+ * Improved L10N and I18N for revisions list (Roel Bruggink)
+ * The multiple image uploader now displays details of server errors (Nigel Fletton)
+ * Added ``WAGTAIL_APPEND_SLASH`` setting to determine whether page URLs end in a trailing slash - see :ref:`append_slash` (Andrew Tork Baker)
 
 Bug fixes
 ~~~~~~~~~
@@ -49,13 +60,22 @@ Bug fixes
  * Registered settings admin menu items now show active correctly (Matthew Downey)
  * Direct usage of ``Document`` model replaced with ``get_document_model`` function in ``wagtail.contrib.wagtailmedusa`` and in ``wagtail.contrib.wagtailapi``
  * Failures on sending moderation notification emails now produce a warning, rather than crashing the admin page outright (Matt Fozard)
+ * All admin forms that could potentially include file upload fields now specify ``multipart/form-data`` where appropriate (Tim Heap)
+ * REM units in Wagtailuserbar caused incorrect spacing (Vincent Audebert)
+ * Explorer menu no longer scrolls with page content (Vincent Audebert)
 
 
 Upgrade considerations
 ======================
 
+Buttons in admin now require ``class="button"``
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+The Wagtail admin CSS has been refactored for maintainability, and buttons now require an explicit ``button`` class. (Previously, the styles were applied on all inputs of type ``"submit"``, ``"reset"`` or ``"button"``.) If you have created any apps that extend the Wagtail admin with new views / templates, you will need to add this class to all buttons.
+
+
 The ``search_fields`` attribute on models should now be set to a list
-=====================================================================
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 On searchable models (eg, ``Page`` or custom ``Image`` models) the ``search_fields`` attribute should now be a list instead of a tuple.
 
@@ -116,3 +136,11 @@ If you need the old behaviour back, where SSL certificates are not verified for 
     }
 
 See the `Elasticsearch-py documentation <http://elasticsearch-py.readthedocs.org/en/stable/#ssl-and-authentication>`_ for more configuration options.
+
+
+Project template now imports ``settings.dev`` explicitly
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+In previous releases, the project template's ``settings/__init__.py`` file was set up to import the development settings (``settings/dev.py``), so that these would be picked up as the default (i.e. whenever a settings module was not specified explicitly). However, in some setups this meant that the development settings were being inadvertently imported in production mode.
+
+For this reason, the import in ``settings/__init__.py`` has now been removed, and commands must now specify ``myproject.settings.dev`` or ``myproject.settings.production`` as appropriate; the supporting scripts (such as ``manage.py``) have been updated accordingly. As this is a change to the project template, existing projects are not affected; however, if you have any common scripts or configuration files that rely on importing ``myproject.settings`` as the settings module, these will need to be updated in order to work on projects created under Wagtail 1.5.

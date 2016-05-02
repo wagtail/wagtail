@@ -8,15 +8,15 @@ In your projects with Wagtail, you may wish to replace elements such as the Wagt
 Install ``django-overextends`` with ``pip install django-overextends`` (or add ``django-overextends`` to your project's requirements file), and add ``'overextends'`` to your project's ``INSTALLED_APPS``. You now need to create a ``templates/wagtailadmin/`` folder within one of your apps - this may be an existing one, or a new one created for this purpose, for example, ``dashboard``. This app must be registered in ``INSTALLED_APPS`` before ``wagtail.wagtailadmin``::
 
     INSTALLED_APPS = (
-      # ...
+        # ...
 
-      'overextends',
-      'dashboard',
+        'overextends',
+        'dashboard',
       
-      'wagtail.wagtailcore',
-      'wagtail.wagtailadmin',
+        'wagtail.wagtailcore',
+        'wagtail.wagtailadmin',
       
-      # ...
+        # ...
     )
 
     # For Django 1.9+ you must also add overextends to the builtins key of your TEMPLATES setting:
@@ -39,9 +39,10 @@ The template blocks that are available to be overridden are as follows:
 To replace the default logo, create a template file ``dashboard/templates/wagtailadmin/base.html`` that overrides the block ``branding_logo``::
 
     {% overextends "wagtailadmin/base.html" %}
+    {% load staticfiles %}
     
     {% block branding_logo %}
-        <img src="{{ STATIC_URL }}images/custom-logo.svg" alt="Custom Project" width="80" />
+        <img src="{% static 'images/custom-logo.svg' %}" alt="Custom Project" width="80" />
     {% endblock %}
 
 ``branding_favicon``
@@ -50,9 +51,10 @@ To replace the default logo, create a template file ``dashboard/templates/wagtai
 To replace the favicon displayed when viewing admin pages, create a template file ``dashboard/templates/wagtailadmin/admin_base.html`` that overrides the block ``branding_favicon``::
 
     {% overextends "wagtailadmin/admin_base.html" %}
+    {% load staticfiles %}
 
     {% block branding_favicon %}
-        <link rel="shortcut icon" href="{{ STATIC_URL }}images/favicon.ico" />
+        <link rel="shortcut icon" href="{% static 'images/favicon.ico' %}" />
     {% endblock %}
 
 ``branding_login``

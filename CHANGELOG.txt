@@ -4,11 +4,12 @@ Changelog
 1.5 (xx.xx.xxxx)
 ~~~~~~~~~~~~~~~~
 
+ * Added wagtail.contrib.modeladmin, an app for configuring arbitrary Django models to be edited through the Wagtail admin (Andy Babic)
+ * The "dynamic serve view" for images has been greatly improved. See release notes for details
  * Moved lesser-user actions in the page explorer into a 'More' dropdown
  * Added a hook `register_page_listing_buttons` for adding action buttons to the page explorer
  * Added 'revisions' action to pages list (Roel Bruggink)
  * Added jinja2 support for the  ``settings`` template tag (Tim Heap)
- * The "dynamic serve view" for images has been greatly improved. See release notes for details
  * Added a hook `insert_global_admin_js` for inserting custom JavaScript throughout the admin backend (Tom Dyson)
  * Recognise instagram embed URLs with `www` prefix (Matt Westcott)
  * The type of the ``search_fields`` attribute on ``Page`` models (and other searchable models) has changed from a tuple to a list (Tim Heap)
@@ -20,11 +21,31 @@ Changelog
  * Notification messages on creating / editing sites now include the site name if specified (Chris Rogers)
  * Added `--schema-only` option to `update_index` management command
  * Added meaningful default icons to `StreamField` blocks (Benjamin Bach)
+ * Added title text to action buttons in the page explorer (Liam Brenner)
+ * Changed project template to explicitly import development settings via `settings.dev` (Tomas Olander)
+ * Improved L10N and I18N for revisions list (Roel Bruggink)
+ * The multiple image uploader now displays details of server errors (Nigel Fletton)
+ * Added `WAGTAIL_APPEND_SLASH` setting to determine whether page URLs end in a trailing slash (Andrew Tork Baker)
  * Fix: The currently selected day is now highlighted only in the correct month in date pickers (Jonas Lergell)
  * Fix: Fixed crash when an image without a source file was resized with the "dynamic serve view"
  * Fix: Registered settings admin menu items now show active correctly (Matthew Downey)
  * Fix: Direct usage of `Document` model replaced with `get_document_model` function in `wagtail.contrib.wagtailmedusa` and in `wagtail.contrib.wagtailapi`
  * Fix: Failures on sending moderation notification emails now produce a warning, rather than crashing the admin page outright (Matt Fozard)
+ * Fix: All admin forms that could potentially include file upload fields now specify `multipart/form-data` where appropriate (Tim Heap)
+ * Fix: REM units in Wagtailuserbar caused incorrect spacing (Vincent Audebert)
+ * Fix: Explorer menu no longer scrolls with page content (Vincent Audebert)
+
+
+1.4.4 (xx.xx.2016)
+~~~~~~~~~~~~~~~~~~
+
+ * Fix: The `wagtailuserbar` template tag now gracefully handles situations where the `request` object is not in the template context (Matt Westcott)
+ * Fix: Meta classes on StreamField blocks now handle multiple inheritance correctly (Tim Heap)
+ * Fix: Now user can upload images / documents only into permitted collection from choosers
+ * Fix: Keyboard shortcuts for save / preview on the page editor no longer incorrectly trigger the "unsaved changes" message (Jack Paine, Matt Westcott)
+ * Fix: Redirects no longer fail when both a site-specific and generic redirect exist for the same URL path (Nick Smith, João Luiz Lorencetti)
+ * Fix: Wagtail now checks that Group is registered with the Django admin before unregistering it (Jason Morrison)
+ * Fix: Previewing inaccessible pages no longer fails with `ALLOWED_HOSTS = ['*']` (Robert Rollins)
 
 
 1.4.3 (04.04.2016)

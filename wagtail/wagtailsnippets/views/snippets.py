@@ -157,6 +157,7 @@ def create(request, app_label, model_name):
     return render(request, 'wagtailsnippets/snippets/create.html', {
         'model_opts': model._meta,
         'edit_handler': edit_handler,
+        'form': form,
     })
 
 
@@ -200,7 +201,8 @@ def edit(request, app_label, model_name, id):
     return render(request, 'wagtailsnippets/snippets/edit.html', {
         'model_opts': model._meta,
         'instance': instance,
-        'edit_handler': edit_handler
+        'edit_handler': edit_handler,
+        'form': form,
     })
 
 

@@ -122,6 +122,14 @@ Contributors
 * Janneke Janssen
 * Roel Bruggink
 * Yannick Chabbert
+* Andy Babic
+* Tomas Olander
+* Andrew Tork Baker
+* Vincent Audebert
+* Jack Paine
+* Nick Smith
+* João Luiz Lorencetti
+* Jason Morrison
 
 Translators
 ===========

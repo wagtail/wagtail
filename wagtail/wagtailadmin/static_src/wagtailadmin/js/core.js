@@ -52,6 +52,9 @@ function initTagField(id, autocompleteUrl) {
  *    - alwaysDirty - When set to true the form will always be considered dirty,
  *      prompting the user even when nothing has been changed.
 */
+
+var dirtyFormCheckIsActive = true;
+
 function enableDirtyFormCheck(formSelector, options) {
     var $form = $(formSelector);
     var $ignoredButtons = $form.find(
@@ -72,11 +75,15 @@ function enableDirtyFormCheck(formSelector, options) {
             }
         });
 
-        if (!triggeredByIgnoredButton && (alwaysDirty || $form.serialize() != initialData)) {
+        if (dirtyFormCheckIsActive && !triggeredByIgnoredButton && (alwaysDirty || $form.serialize() != initialData)) {
             event.returnValue = confirmationMessage;
             return confirmationMessage;
         }
     });
+}
+
+function disableDirtyFormCheck() {
+    dirtyFormCheckIsActive = false;
 }
 
 $(function() {

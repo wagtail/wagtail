@@ -114,7 +114,11 @@ $(function() {
 
         fail: function(e, data) {
             var itemElement = $(data.context);
-            itemElement.addClass('upload-failure');
+            var errorMessage = $('.server-error', itemElement);
+            $('.error-text', errorMessage).text(data.errorThrown);
+            $('.error-code', errorMessage).text(data.jqXHR.status);
+
+            itemElement.addClass('upload-server-error');
         },
 
         always: function(e, data) {

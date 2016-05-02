@@ -66,3 +66,8 @@ class StandardSnippet(models.Model):
 @register_snippet
 class FancySnippet(models.Model):
     base_form_class = FancySnippetForm
+
+
+@register_snippet
+class FileUploadSnippet(models.Model):
+    file = models.FileField()

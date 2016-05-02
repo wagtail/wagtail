@@ -84,6 +84,7 @@ def edit(request, app_name, model_name, site_pk):
         'setting_type_name': setting_type_name,
         'instance': instance,
         'edit_handler': edit_handler,
+        'form': form,
         'site': site,
         'site_switcher': site_switcher,
     })

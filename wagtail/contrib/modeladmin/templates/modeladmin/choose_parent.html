@@ -1,0 +1,41 @@
+{% extends "wagtailadmin/base.html" %}
+{% load i18n admin_static %}
+
+{% block titletag %}{{ view.get_meta_title }}{% endblock %}
+
+{% block extra_css %}
+    {% include "wagtailadmin/pages/_editor_css.html" %}
+    <link rel="stylesheet" href="{% static 'modeladmin/css/choose_parent_page.css' %}" type="text/css"/>
+{% endblock %}
+
+{% block extra_js %}
+    {% include "wagtailadmin/pages/_editor_js.html" %}
+{% endblock %}
+
+
+{% block content %}
+<div>
+
+    {% block header %}
+        {% include "modeladmin/includes/breadcrumb.html" %}
+        {% include "wagtailadmin/shared/header.html" with title=view.get_page_title subtitle=view.get_page_subtitle icon=view.header_icon %}
+    {% endblock %}
+
+    <div class="nice-padding">
+        <h2>{% blocktrans %}Choose a parent page{% endblocktrans %}</h2>
+        <p>{% blocktrans with view.verbose_name_plural|capfirst as plural %}{{ plural }} can be added to more than one place within your site. Which of the following would you like to be the parent of your new page?{% endblocktrans %}</p>
+
+        <form action="" method="post">
+            {% csrf_token %}
+
+            <ul class="fields">
+                {% include "wagtailadmin/shared/field_as_li.html" with field=form.parent_page %}
+                <li>
+                    <input type="submit" class="button" value="{% trans 'Continue' %}">
+                </li>
+            </ul>
+        </form>
+
+    </div>
+</div>
+{% endblock %}

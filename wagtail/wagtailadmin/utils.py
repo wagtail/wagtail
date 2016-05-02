@@ -15,7 +15,6 @@ from modelcluster.fields import ParentalKey
 from wagtail.wagtailcore.models import GroupPagePermission, Page, PageRevision
 from wagtail.wagtailusers.models import UserProfile
 
-
 logger = logging.getLogger('wagtail.admin')
 
 

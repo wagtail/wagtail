@@ -34,7 +34,7 @@
                         {% endif %}
                     {% endfor %}
                     <li>
-                        <input type="submit" value="{% trans 'Save' %}" />
+                        <input type="submit" value="{% trans 'Save' %}" class="button" />
                         {% if user_can_delete %}
                             <a href="{% url 'wagtaildocs:delete' document.id %}" class="button button-secondary no">{% trans "Delete document" %}</a>
                         {% endif %}

@@ -560,6 +560,11 @@ class NotYetRegisteredSetting(BaseSetting):
     pass
 
 
+@register_setting
+class FileUploadSetting(BaseSetting):
+    file = models.FileField()
+
+
 class BlogCategory(models.Model):
     name = models.CharField(unique=True, max_length=80)
 

@@ -264,6 +264,7 @@ class BaseDropdownMenuButton(Button):
         return render_to_string(self.template_name, {
             'buttons': self.get_buttons_in_dropdown(),
             'label': self.label,
+            'title': self.attrs.get('title'),
             'is_parent': self.is_parent})
 
 

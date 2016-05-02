@@ -190,11 +190,10 @@ input[type=checkbox]:checked:before {
 // Core button style
 // Note that these styles include methods to render buttons the same x-browser, described here:
 // http: //cbjdigital.com/blog/2010/08/bulletproof_css_input_button_heights
-input[type=submit],
-input[type=reset],
-input[type=button],
-.button,
-button {
+// input[type=submit],
+// input[type=reset],
+// input[type=button],
+.button {
     border-radius: 3px;
     font-family: Open Sans,Arial,sans-serif;
     width: auto;
@@ -324,11 +323,11 @@ button {
     }
 
 
-    + input[type=submit],
-    + input[type=reset],
-    + input[type=button],
-    + .button,
-    + button {
+    // + input[type=submit],
+    // + input[type=reset],
+    // + input[type=button],
+    + .button {
+    // + button {
         margin-left: 1em;
     }
 
@@ -957,9 +956,9 @@ li.inline:first-child {
             vertical-align: middle;
             font-family: wagtail;
             content: '';
-            position: relative;
-            display: block;
-            float: left;
+            // position: relative
+            display: inline-block;
+            // float: left;
             color: $color-grey-3;
             line-height: 1em;
             font-size: 2.5em;
@@ -995,8 +994,9 @@ li.inline:first-child {
     .chosen {
         .title {
             color: $color-grey-1;
-            display: block;
-            padding-left: 3em;
+            // display: block;
+            padding-left: 1em;
+            display: inline-block;
         }
 
         .actions {
