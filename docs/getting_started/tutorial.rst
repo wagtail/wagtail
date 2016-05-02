@@ -173,6 +173,18 @@ The following example defines a basic blog post model in ``blog/models.py``:
             FieldPanel('body', classname="full")
         ]
 
+
+.. note::
+   On Wagtail versions before 1.5, ``search_fields`` needs to be defined as a tuple:
+
+   .. code-block:: python
+
+        search_fields = Page.search_fields + (
+            index.SearchField('intro'),
+            index.SearchField('body'),
+        )
+
+
 Create a template at ``blog/templates/blog/blog_page.html``:
 
 .. code-block:: html+django
