@@ -37,6 +37,7 @@ Minor features
  * ``wagtailforms.models.AbstractEmailForm`` now supports multiple email recipients (Serafeim Papastefanos)
  * Added the ``include_block`` template tag for improved StreamField template inclusion. See :doc:`/topics/streamfield` for documentation (Matt Westcott)
  * Added ability to delete users through Settings -> Users (Vincent Audebert; thanks also to Ludolf Takens and Tobias Schmidt for alternative implementations)
+ * Page previews now pass additional HTTP headers, to simulate the page being viewed by the logged-in user and avoid clashes with middleware (Robert Rollins)
 
 
 Bug fixes

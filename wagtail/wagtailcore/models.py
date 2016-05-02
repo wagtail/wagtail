@@ -1168,12 +1168,15 @@ class Page(six.with_metaclass(PageBase, MP_Node, index.Indexed, ClusterableModel
         user_perms = UserPagePermissionsProxy(user)
         return user_perms.for_page(self)
 
-    def dummy_request(self):
+    def dummy_request(self, original_request=None, **meta):
         """
         Construct a HttpRequest object that is, as far as possible, representative of ones that would
         receive this page as a response. Used for previewing / moderation and any other place where we
         want to display a view of this page in the admin interface without going through the regular
         page routing logic.
+
+        If you pass in a real request object as original_request, additional information (e.g. client IP, cookies)
+        will be included in the dummy request.
         """
         url = self.full_url
         if url:
@@ -1195,14 +1198,30 @@ class Page(six.with_metaclass(PageBase, MP_Node, index.Indexed, ClusterableModel
             path = '/'
             port = 80
 
-        request = WSGIRequest({
+        dummy_values = {
             'REQUEST_METHOD': 'GET',
             'PATH_INFO': path,
             'SERVER_NAME': hostname,
             'SERVER_PORT': port,
             'HTTP_HOST': hostname,
             'wsgi.input': StringIO(),
-        })
+        }
+
+        # Add important values from the original request object, if it was provided.
+        if original_request:
+            if original_request.META.get('REMOTE_ADDR'):
+                dummy_values['REMOTE_ADDR'] = original_request.META['REMOTE_ADDR']
+            if original_request.META.get('HTTP_X_FORWARDED_FOR'):
+                dummy_values['HTTP_X_FORWARDED_FOR'] = original_request.META['HTTP_X_FORWARDED_FOR']
+            if original_request.META.get('HTTP_COOKIE'):
+                dummy_values['HTTP_COOKIE'] = original_request.META['HTTP_COOKIE']
+            if original_request.META.get('HTTP_USER_AGENT'):
+                dummy_values['HTTP_USER_AGENT'] = original_request.META['HTTP_USER_AGENT']
+
+        # Add additional custom metadata sent by the caller.
+        dummy_values.update(**meta)
+
+        request = WSGIRequest(dummy_values)
 
         # Apply middleware to the request - see http://www.mellowmorning.com/2011/04/18/mock-django-request-for-testing/
         handler = BaseHandler()

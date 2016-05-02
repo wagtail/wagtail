@@ -496,7 +496,7 @@ def delete(request, page_id):
 
 def view_draft(request, page_id):
     page = get_object_or_404(Page, id=page_id).get_latest_revision_as_page()
-    return page.serve_preview(page.dummy_request(), page.default_preview_mode)
+    return page.serve_preview(page.dummy_request(request), page.default_preview_mode)
 
 
 def preview_on_edit(request, page_id):
@@ -516,7 +516,7 @@ def preview_on_edit(request, page_id):
         page.full_clean()
 
         preview_mode = request.GET.get('mode', page.default_preview_mode)
-        response = page.serve_preview(page.dummy_request(), preview_mode)
+        response = page.serve_preview(page.dummy_request(request), preview_mode)
         response['X-Wagtail-Preview'] = 'ok'
         return response
 
@@ -576,7 +576,7 @@ def preview_on_create(request, content_type_app_name, content_type_model_name, p
         page.path = Page._get_children_path_interval(parent_page.path)[1]
 
         preview_mode = request.GET.get('mode', page.default_preview_mode)
-        response = page.serve_preview(page.dummy_request(), preview_mode)
+        response = page.serve_preview(page.dummy_request(request), preview_mode)
         response['X-Wagtail-Preview'] = 'ok'
         return response
 
@@ -1013,4 +1013,4 @@ def revisions_view(request, page_id, revision_id):
     revision = get_object_or_404(page.revisions, id=revision_id)
     revision_page = revision.as_page_object()
 
-    return revision_page.serve_preview(page.dummy_request(), page.default_preview_mode)
+    return revision_page.serve_preview(page.dummy_request(request), page.default_preview_mode)

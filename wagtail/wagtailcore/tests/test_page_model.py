@@ -10,6 +10,7 @@ from django.contrib.contenttypes.models import ContentType
 from django.core.exceptions import ValidationError
 from django.http import Http404, HttpRequest
 from django.test import Client, TestCase
+from django.test.client import RequestFactory
 from django.test.utils import override_settings
 
 from wagtail.tests.testapp.models import (
@@ -1155,6 +1156,24 @@ class TestDummyRequest(TestCase):
         # request should have the correct path and hostname for this page
         self.assertEqual(request.path, '/events/')
         self.assertEqual(request.META['HTTP_HOST'], 'localhost')
+
+    def test_dummy_request_for_accessible_page_with_original_request(self):
+        event_index = Page.objects.get(url_path='/home/events/')
+        original_headers = {
+            'REMOTE_ADDR': '192.168.0.1',
+            'HTTP_X_FORWARDED_FOR': '192.168.0.2,192.168.0.3',
+            'HTTP_COOKIE': "test=1;blah=2",
+            'HTTP_USER_AGENT': "Test Agent",
+        }
+        factory = RequestFactory(**original_headers)
+        original_request = factory.get('/home/events/')
+        request = event_index.dummy_request(original_request)
+
+        # request should have the all the special headers we set in original_request
+        self.assertEqual(request.META['REMOTE_ADDR'], original_request.META['REMOTE_ADDR'])
+        self.assertEqual(request.META['HTTP_X_FORWARDED_FOR'], original_request.META['HTTP_X_FORWARDED_FOR'])
+        self.assertEqual(request.META['HTTP_COOKIE'], original_request.META['HTTP_COOKIE'])
+        self.assertEqual(request.META['HTTP_USER_AGENT'], original_request.META['HTTP_USER_AGENT'])
 
     @override_settings(ALLOWED_HOSTS=['production.example.com'])
     def test_dummy_request_for_inaccessible_page_should_use_valid_host(self):
