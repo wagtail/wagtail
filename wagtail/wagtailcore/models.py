@@ -1479,35 +1479,32 @@ def get_closest_common_ancestor_path(user):
 
 def get_navigation_menu_items(user):
     # Get all pages that appear in the navigation menu: ones which have children,
-    # or are at the top-level (this rule required so that an empty site out-of-the-box has a working menu)
+    # or are at the top-level (this rule is required so that a freshly made site has a working menu out-of-the-box).
     pages = Page.objects.filter(Q(depth=2) | Q(numchild__gt=0)).order_by('path')
 
     # We need to treat the top of the user's explorable tree as if it were depth=2, or the depth_list algorithm won't
     # work. So if a user isn't permitted to see pages at or below depth 2, we must change the apparent depth of each
     # of their explorable pages.
     depth_change = 0
-    if not user.is_superuser:
-        # For backward compatibility of the explorer_nav template tag, we accept "None" for the user argument, in which
-        # case we can't do permissions-based restriction.
-        # TODO: Is this check even necessary? I'm not sure what the backward compatibility rules are, or if the
-        # {% explorer_nav %} tag was ever used in the first place.
-        if user:
-            permitted_paths, required_ancestors = get_explorable_page_paths(user)
-            if permitted_paths:
-                # Limit the listing to only the user's explorable pages. Always include the Root page, even if it's
-                # not an explorable path, since it's required for the depth_list algorithm.
-                pages = pages.filter(
-                    convert_explorable_paths_to_Q(permitted_paths, required_ancestors) | Q(depth=1)
-                )
 
-                # Find the depth of the Closest Common Ancestor.
-                cca_depth = len(required_ancestors[0]) / Page.steplen
-                # Alter depth_change if needed.
-                if cca_depth > 2:
-                    depth_change = cca_depth - 2
-            else:
-                # If the User has no explorable pages, display nothing.
-                pages = Page.objects.none()
+    # Only non-superuers might need the 'pages' query to be restricted.
+    if not user.is_superuser:
+        permitted_paths, required_ancestors = get_explorable_page_paths(user)
+        if permitted_paths:
+            # Limit the listing to only the user's explorable pages. Always include the Root page, even if it's
+            # not an explorable path, since it's required for the depth_list algorithm.
+            pages = pages.filter(
+                convert_explorable_paths_to_Q(permitted_paths, required_ancestors) | Q(depth=1)
+            )
+
+            # Find the depth of the Closest Common Ancestor.
+            cca_depth = len(required_ancestors[0]) / Page.steplen
+            # Alter depth_change if needed.
+            if cca_depth > 2:
+                depth_change = cca_depth - 2
+        else:
+            # If the User has no explorable pages, display nothing.
+            pages = Page.objects.none()
 
 
     # Turn 'pages' into a tree structure:
@@ -1524,18 +1521,17 @@ def get_navigation_menu_items(user):
     for page in pages:
         # Change the depth of all but the Root page.
         depth = page.depth if page.depth == 1 else page.depth - depth_change
-        # create a node for this page
+        # Create a node for this page.
         node = (page, [])
-        # retrieve the parent from depth_list
+        # Retrieve the parent's child listing from depth_list, and insert this new node into it.
         parent_page, parent_childlist = depth_list[depth - 1]
-        # insert this new node in the parent's child list
         parent_childlist.append(node)
 
-        # add the new node to depth_list
+        # Add the new node to depth_list.
         try:
             depth_list[depth] = node
         except IndexError:
-            # an exception here means that this node is one level deeper than any we've seen so far
+            # An exception here means that this node is one level deeper than any we've seen so far.
             depth_list.append(node)
 
     # In Wagtail, the convention is to have one root node in the db (depth=1); the menu proper
