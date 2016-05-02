@@ -166,7 +166,7 @@ class TestAdminPageListing(AdminAPITestCase, TestPageListing):
 
             if feed_image is not None:
                 self.assertIsInstance(feed_image, dict)
-                self.assertEqual(set(feed_image.keys()), {'id', 'meta', 'title', 'width', 'height', 'thumbnail'})
+                self.assertEqual(set(feed_image.keys()), {'id', 'meta', 'title'})
                 self.assertIsInstance(feed_image['id'], int)
                 self.assertIsInstance(feed_image['meta'], dict)
                 self.assertEqual(set(feed_image['meta'].keys()), {'type', 'detail_url'})
@@ -181,13 +181,14 @@ class TestAdminPageListing(AdminAPITestCase, TestPageListing):
             parent = page['meta']['parent']
 
             # All blog entry pages have the same parent
-            self.assertEqual(parent, {
+            self.assertDictEqual(parent, {
                 'id': 5,
                 'meta': {
                     'type': 'demosite.BlogIndexPage',
                     'detail_url': 'http://localhost/admin/api/v2beta/pages/5/',
                     'html_url': 'http://localhost/blog-index/',
-                }
+                },
+                'title': "Blog index"
             })
 
     def test_fields_descendants(self):
@@ -354,7 +355,7 @@ class TestAdminPageDetail(AdminAPITestCase, TestPageDetail):
 
         # Check that the feed image was serialised properly
         self.assertIsInstance(content['feed_image'], dict)
-        self.assertEqual(set(content['feed_image'].keys()), {'id', 'meta', 'title', 'width', 'height', 'thumbnail'})
+        self.assertEqual(set(content['feed_image'].keys()), {'id', 'meta', 'title'})
         self.assertEqual(content['feed_image']['id'], 7)
         self.assertIsInstance(content['feed_image']['meta'], dict)
         self.assertEqual(set(content['feed_image']['meta'].keys()), {'type', 'detail_url'})
