@@ -34,7 +34,7 @@ class PagesAdminAPIEndpoint(PagesAPIEndpoint):
         'parent',
     ]
 
-    default_fields = PagesAPIEndpoint.default_fields + [
+    listing_default_fields = PagesAPIEndpoint.listing_default_fields + [
         'latest_revision_created_at',
         'status',
         'children',
@@ -102,12 +102,11 @@ class ImagesAdminAPIEndpoint(ImagesAPIEndpoint):
         'thumbnail',
     ]
 
-    default_fields = ImagesAPIEndpoint.default_fields + [
+    listing_default_fields = ImagesAPIEndpoint.listing_default_fields + [
         'width',
         'height',
         'thumbnail',
     ]
-
 
 
 class DocumentsAdminAPIEndpoint(DocumentsAPIEndpoint):

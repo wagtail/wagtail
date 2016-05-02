@@ -56,7 +56,8 @@ class BaseAPIEndpoint(GenericViewSet):
     ])
     body_fields = ['id']
     meta_fields = ['type', 'detail_url']
-    default_fields = ['id', 'type', 'detail_url']
+    listing_default_fields = ['id', 'type', 'detail_url']
+    nested_default_fields = ['id', 'type', 'detail_url']
     detail_only_fields = []
     name = None  # Set on subclass.
 
@@ -147,8 +148,12 @@ class BaseAPIEndpoint(GenericViewSet):
         return fields
 
     @classmethod
-    def get_default_fields(cls, model):
-        return cls.default_fields[:]
+    def get_listing_default_fields(cls, model):
+        return cls.listing_default_fields[:]
+
+    @classmethod
+    def get_nested_default_fields(cls, model):
+        return cls.nested_default_fields[:]
 
     def check_query_parameters(self, queryset):
         """
@@ -163,7 +168,7 @@ class BaseAPIEndpoint(GenericViewSet):
             raise BadRequestError("query parameter is not an operation or a recognised field: %s" % ', '.join(sorted(unknown_parameters)))
 
     @classmethod
-    def _get_serializer_class(cls, router, model, fields_config, show_details=False):
+    def _get_serializer_class(cls, router, model, fields_config, show_details=False, nested=False):
         # Get all available fields
         body_fields = cls.get_body_fields(model)
         meta_fields = cls.get_meta_fields(model)
@@ -181,7 +186,10 @@ class BaseAPIEndpoint(GenericViewSet):
                     pass
 
         # Get list of configured fields
-        fields = set(cls.get_default_fields(model))
+        if nested:
+            fields = set(cls.get_nested_default_fields(model))
+        else:
+            fields = set(cls.get_listing_default_fields(model))
 
         # If first field is '*' start with all fields
         if fields_config and fields_config[0][0] == '*':
@@ -223,7 +231,7 @@ class BaseAPIEndpoint(GenericViewSet):
                 child_model = django_field.related_model
                 child_endpoint_class = router.get_model_endpoint(child_model)
                 child_endpoint_class = child_endpoint_class[1] if child_endpoint_class else BaseAPIEndpoint
-                child_serializer_classes[field_name] = child_endpoint_class._get_serializer_class(router, child_model, sub_fields.get(field_name, []))
+                child_serializer_classes[field_name] = child_endpoint_class._get_serializer_class(router, child_model, sub_fields.get(field_name, []), nested=True)
 
             else:
                 if field_name in sub_fields:
@@ -334,11 +342,14 @@ class PagesAPIEndpoint(BaseAPIEndpoint):
         'first_published_at',
         'parent',
     ]
-    default_fields = BaseAPIEndpoint.default_fields + [
+    listing_default_fields = BaseAPIEndpoint.listing_default_fields + [
         'title',
         'html_url',
         'slug',
         'first_published_at',
+    ]
+    nested_default_fields = BaseAPIEndpoint.nested_default_fields + [
+        'title',
     ]
     detail_only_fields = ['parent']
     name = 'pages'
@@ -382,7 +393,8 @@ class ImagesAPIEndpoint(BaseAPIEndpoint):
     filter_backends = [FieldsFilter, OrderingFilter, SearchFilter]
     body_fields = BaseAPIEndpoint.body_fields + ['title', 'width', 'height']
     meta_fields = BaseAPIEndpoint.meta_fields + ['tags']
-    default_fields = BaseAPIEndpoint.default_fields + ['title', 'tags']
+    listing_default_fields = BaseAPIEndpoint.listing_default_fields + ['title', 'tags']
+    nested_default_fields = BaseAPIEndpoint.nested_default_fields + ['title']
     name = 'images'
     model = get_image_model()
 
@@ -392,6 +404,7 @@ class DocumentsAPIEndpoint(BaseAPIEndpoint):
     filter_backends = [FieldsFilter, OrderingFilter, SearchFilter]
     body_fields = BaseAPIEndpoint.body_fields + ['title']
     meta_fields = BaseAPIEndpoint.meta_fields + ['tags', 'download_url']
-    default_fields = BaseAPIEndpoint.default_fields + ['title', 'tags', 'download_url']
+    listing_default_fields = BaseAPIEndpoint.listing_default_fields + ['title', 'tags', 'download_url']
+    nested_default_fields = BaseAPIEndpoint.nested_default_fields + ['title', 'download_url']
     name = 'documents'
     model = get_document_model()
