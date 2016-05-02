@@ -47,7 +47,7 @@
                         href = enclosingLink.getAttribute('href');
                         pageId = enclosingLink.getAttribute('data-id');
 
-                        urlParams['link_text'] = encodeURIComponent(enclosingLink.innerHTML);
+                        urlParams['link_text'] = enclosingLink.innerText;
 
                         if (pageId) {
                             // TODO: Actually show the parent not the page itself.
@@ -55,13 +55,13 @@
                         } else if (href.startsWith('mailto:')) {
                             url = window.chooserUrls.emailLinkChooser;
                             href = href.replace('mailto:', '');
-                            urlParams['link_url'] = encodeURIComponent(href);
+                            urlParams['link_url'] = href;
                         } else {
                             url = window.chooserUrls.externalLinkChooser;
-                            urlParams['link_url'] = encodeURIComponent(href);
+                            urlParams['link_url'] = href;
                         }
                     } else if (!lastSelection.collapsed) {
-                        urlParams['link_text'] = encodeURIComponent(lastSelection.toString());
+                        urlParams['link_text'] = lastSelection.toString();
                     }
 
                     return ModalWorkflow({

@@ -2,7 +2,6 @@ from __future__ import absolute_import, unicode_literals
 
 from django.http import Http404
 from django.shortcuts import get_object_or_404, render
-from django.utils.six.moves.urllib.parse import unquote
 
 from wagtail.utils.pagination import paginate
 from wagtail.wagtailadmin.forms import EmailLinkChooserForm, ExternalLinkChooserForm, SearchForm
@@ -143,8 +142,8 @@ def search(request, parent_page_id=None):
 
 
 def external_link(request):
-    link_text = unquote(request.GET.get('link_text', ''))
-    link_url = unquote(request.GET.get('link_url', ''))
+    link_text = request.GET.get('link_text', '')
+    link_url = request.GET.get('link_url', '')
 
     if request.method == 'POST':
         form = ExternalLinkChooserForm(request.POST)
@@ -171,8 +170,8 @@ def external_link(request):
 
 
 def email_link(request):
-    link_text = unquote(request.GET.get('link_text', ''))
-    link_url = unquote(request.GET.get('link_url', ''))
+    link_text = request.GET.get('link_text', '')
+    link_url = request.GET.get('link_url', '')
 
     if request.method == 'POST':
         form = EmailLinkChooserForm(request.POST)
