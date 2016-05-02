@@ -223,6 +223,14 @@ $(function() {
         var reEnableAfter = 30;
         var dataName = 'disabledtimeout'
 
+        window.cancelSpinner = function() {
+            $self.prop('disabled', '').removeData(dataName).removeClass('button-longrunning-active')
+
+            if ($self.data('clicked-text')) {
+                $replacementElem.text($self.data('original-text'));
+            }
+        }
+
         // Disabling a button prevents it submitting the form, so disabling
         // must occur on a brief timeout only after this function returns.
 
@@ -233,11 +241,7 @@ $(function() {
                 $self.data(dataName, setTimeout(function() {
                     clearTimeout($self.data(dataName));
 
-                    $self.prop('disabled', '').removeData(dataName).removeClass('button-longrunning-active')
-
-                    if ($self.data('clicked-text')) {
-                        $replacementElem.text($self.data('original-text'));
-                    }
+                    cancelSpinner();
 
                 }, reEnableAfter * 1000));
 
