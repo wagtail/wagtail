@@ -40,8 +40,9 @@ def wagtailuserbar(context, position='bottom-right'):
     if not request.user.has_perm('wagtailadmin.access_admin'):
         return ''
 
-    # Don't render if this is a preview
-    if request.is_preview:
+    # Don't render if this is a preview. Since some routes can render the userbar without going through Page.serve(),
+    # request.is_preview might not be defined.
+    if getattr(request, 'is_preview', False):
         return ''
 
     # Only render if the context contains a variable referencing a saved page
