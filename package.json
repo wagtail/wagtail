@@ -21,7 +21,7 @@
     "eslint-config-airbnb": "^6.0.2",
     "eslint-plugin-react": "^4.1.0",
     "glob": "^7.0.0",
-    "gulp": "~3.8.11",
+    "gulp": "~3.9.1",
     "gulp-autoprefixer": "~3.0.2",
     "gulp-rename": "^1.2.2",
     "gulp-sass": "~2.3.1",
