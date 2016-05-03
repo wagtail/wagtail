@@ -153,6 +153,7 @@ def parse_fields_parameter(fields_str):
         return ident, negated, fields_str
 
     def parse_fields(fields_str, expect_close_bracket=False):
+        first_ident = None
         is_first = True
         fields = []
 
@@ -174,6 +175,19 @@ def parse_fields_parameter(fields_str):
                     raise FieldsParameterParseError("unexpected char '(' at position %d" % get_position(fields_str))
 
                 sub_fields, fields_str = parse_fields(fields_str[1:], expect_close_bracket=True)
+
+            if is_first:
+                first_ident = ident
+            else:
+                # Negated fields can't be used with '_'
+                if first_ident == '_' and negated:
+                    # _,foo is allowed but _,-foo is not
+                    raise FieldsParameterParseError("negated fields with '_' doesn't make sense")
+
+                # Additional fields without sub fields can't be used with '*'
+                if first_ident == '*' and not negated and not sub_fields:
+                    # *,foo(bar) and *,-foo are allowed but *,foo is not
+                    raise FieldsParameterParseError("additional fields with '*' doesn't make sense")
 
             fields.append((ident, negated, sub_fields))
 
