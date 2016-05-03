@@ -48,6 +48,42 @@ class TestParseFieldsParameter(TestCase):
             ('test', False, None),
         ])
 
+    def test_valid_underscore_field(self):
+        parsed = parse_fields_parameter('_,test')
+
+        self.assertEqual(parsed, [
+            ('_', False, None),
+            ('test', False, None),
+        ])
+
+    def test_valid_field_with_underscore_in_middle(self):
+        parsed = parse_fields_parameter('a_test')
+
+        self.assertEqual(parsed, [
+            ('a_test', False, None),
+        ])
+
+    def test_valid_negated_field_with_underscore_in_middle(self):
+        parsed = parse_fields_parameter('-a_test')
+
+        self.assertEqual(parsed, [
+            ('a_test', True, None),
+        ])
+
+    def test_valid_field_with_underscore_at_beginning(self):
+        parsed = parse_fields_parameter('_test')
+
+        self.assertEqual(parsed, [
+            ('_test', False, None),
+        ])
+
+    def test_valid_field_with_underscore_at_end(self):
+        parsed = parse_fields_parameter('test_')
+
+        self.assertEqual(parsed, [
+            ('test_', False, None),
+        ])
+
 
     # BAD STUFF
 
@@ -146,3 +182,27 @@ class TestParseFieldsParameter(TestCase):
             parse_fields_parameter('foo*')
 
         self.assertEqual(str(e.exception), "unexpected char '*' at position 3")
+
+    def test_invalid_underscore_in_wrong_position(self):
+        with self.assertRaises(FieldsParameterParseError) as e:
+            parse_fields_parameter('test,_')
+
+        self.assertEqual(str(e.exception), "'_' must be in the first position")
+
+    def test_invalid_negated_underscore(self):
+        with self.assertRaises(FieldsParameterParseError) as e:
+            parse_fields_parameter('-_')
+
+        self.assertEqual(str(e.exception), "'_' cannot be negated")
+
+    def test_invalid_underscore_with_nesting(self):
+        with self.assertRaises(FieldsParameterParseError) as e:
+            parse_fields_parameter('_(foo,bar)')
+
+        self.assertEqual(str(e.exception), "unexpected char '(' at position 1")
+
+    def test_invalid_star_and_underscore(self):
+        with self.assertRaises(FieldsParameterParseError) as e:
+            parse_fields_parameter('*,_')
+
+        self.assertEqual(str(e.exception), "'_' must be in the first position")

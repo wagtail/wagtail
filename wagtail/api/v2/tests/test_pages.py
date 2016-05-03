@@ -199,6 +199,14 @@ class TestPageListing(TestCase):
             self.assertEqual(set(page.keys()), {'id', 'meta', 'related_links', 'tags', 'carousel_items', 'body', 'feed_image'})
             self.assertEqual(set(page['meta'].keys()), {'type', 'detail_url', 'show_in_menus', 'first_published_at', 'slug', 'html_url', 'search_description'})
 
+    def test_remove_all_fields(self):
+        response = self.get_response(type='demosite.BlogEntryPage', fields='_,id,type')
+        content = json.loads(response.content.decode('UTF-8'))
+
+        for page in content['items']:
+            self.assertEqual(set(page.keys()), {'id', 'meta'})
+            self.assertEqual(set(page['meta'].keys()), {'type'})
+
     def test_nested_fields(self):
         response = self.get_response(type='demosite.BlogEntryPage', fields='feed_image(width,height)')
         content = json.loads(response.content.decode('UTF-8'))
@@ -219,6 +227,13 @@ class TestPageListing(TestCase):
 
         for page in content['items']:
             self.assertEqual(set(page['feed_image'].keys()), {'id', 'meta', 'title', 'width', 'height'})
+
+    def test_remove_all_nested_fields(self):
+        response = self.get_response(type='demosite.BlogEntryPage', fields='feed_image(_,id)')
+        content = json.loads(response.content.decode('UTF-8'))
+
+        for page in content['items']:
+            self.assertEqual(set(page['feed_image'].keys()), {'id'})
 
     def test_nested_nested_fields(self):
         response = self.get_response(type='demosite.BlogEntryPage', fields='carousel_items(image(width,height))')

@@ -105,7 +105,7 @@ def parse_fields_parameter(fields_str):
     def get_position(current_str):
         return len(fields_str) - len(current_str)
 
-    def parse_field_identifier(fields_str, is_first=False):
+    def parse_field_identifier(fields_str):
         first_char = True
         negated = False
         ident = ""
@@ -117,8 +117,8 @@ def parse_fields_parameter(fields_str):
                 if not ident:
                     raise FieldsParameterParseError("unexpected char '%s' at position %d" % (char, get_position(fields_str)))
 
-                if ident == '*' and char == '(':
-                    # * cannot have nested fields
+                if ident in ['*', '_'] and char == '(':
+                    # * and _ cannot have nested fields
                     raise FieldsParameterParseError("unexpected char '%s' at position %d" % (char, get_position(fields_str)))
 
                 return ident, negated, fields_str
@@ -129,15 +129,9 @@ def parse_fields_parameter(fields_str):
 
                 negated = True
 
-            elif char == '*':
-                if ident:
+            elif char in ['*', '_']:
+                if ident and char == '*':
                     raise FieldsParameterParseError("unexpected char '%s' at position %d" % (char, get_position(fields_str)))
-
-                if negated:
-                    raise FieldsParameterParseError("'*' cannot be negated")
-
-                if not is_first:
-                    raise FieldsParameterParseError("'*' must be in the first position")
 
                 ident += char
 
@@ -164,7 +158,15 @@ def parse_fields_parameter(fields_str):
 
         while fields_str:
             sub_fields = None
-            ident, negated, fields_str = parse_field_identifier(fields_str, is_first=is_first)
+            ident, negated, fields_str = parse_field_identifier(fields_str)
+
+            # Some checks specific to '*' and '_'
+            if ident in ['*', '_']:
+                if not is_first:
+                    raise FieldsParameterParseError("'%s' must be in the first position" % ident)
+
+                if negated:
+                    raise FieldsParameterParseError("'%s' cannot be negated" % ident)
 
             if fields_str and fields_str[0] == '(':
                 sub_fields, fields_str = parse_fields(fields_str[1:], expect_close_bracket=True)
