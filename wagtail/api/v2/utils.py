@@ -169,6 +169,10 @@ def parse_fields_parameter(fields_str):
                     raise FieldsParameterParseError("'%s' cannot be negated" % ident)
 
             if fields_str and fields_str[0] == '(':
+                if negated:
+                    # Negated fields cannot contain subfields
+                    raise FieldsParameterParseError("unexpected char '(' at position %d" % get_position(fields_str))
+
                 sub_fields, fields_str = parse_fields(fields_str[1:], expect_close_bracket=True)
 
             fields.append((ident, negated, sub_fields))

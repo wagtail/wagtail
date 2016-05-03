@@ -153,6 +153,12 @@ class TestParseFieldsParameter(TestCase):
 
         self.assertEqual(str(e.exception), "unexpected end of input (did you miss out a close bracket?)")
 
+    def test_invalid_subfields_on_negated_field(self):
+        with self.assertRaises(FieldsParameterParseError) as e:
+            parse_fields_parameter('-test(foo)')
+
+        self.assertEqual(str(e.exception), "unexpected char '(' at position 5")
+
     def test_invalid_star_field_in_wrong_position(self):
         with self.assertRaises(FieldsParameterParseError) as e:
             parse_fields_parameter('test,*')
