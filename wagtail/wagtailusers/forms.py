@@ -295,7 +295,9 @@ class BaseGroupPagePermissionFormSet(forms.BaseFormSet):
         pages = [
             form.cleaned_data['page']
             for form in self.forms
-            if form not in self.deleted_forms
+            # need to check for presence of 'page' in cleaned_data,
+            # because a completely blank form passes validation
+            if form not in self.deleted_forms and 'page' in form.cleaned_data
         ]
         if len(set(pages)) != len(pages):
             # pages list contains duplicates
@@ -309,7 +311,10 @@ class BaseGroupPagePermissionFormSet(forms.BaseFormSet):
             )
 
         # get a set of (page, permission_type) tuples for all ticked permissions
-        forms_to_save = [form for form in self.forms if form not in self.deleted_forms]
+        forms_to_save = [
+            form for form in self.forms
+            if form not in self.deleted_forms and 'page' in form.cleaned_data
+        ]
 
         final_permission_records = set()
         for form in forms_to_save:
