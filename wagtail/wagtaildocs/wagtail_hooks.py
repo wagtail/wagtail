@@ -12,6 +12,7 @@ from wagtail.wagtailadmin.search import SearchArea
 from wagtail.wagtailadmin.site_summary import SummaryItem
 from wagtail.wagtailcore import hooks
 from wagtail.wagtaildocs import admin_urls
+from wagtail.wagtaildocs.api.admin.endpoints import DocumentsAdminAPIEndpoint
 from wagtail.wagtaildocs.forms import GroupDocumentPermissionFormSet
 from wagtail.wagtaildocs.models import get_document_model
 from wagtail.wagtaildocs.permissions import permission_policy
@@ -23,6 +24,11 @@ def register_admin_urls():
     return [
         url(r'^documents/', include(admin_urls, app_name='wagtaildocs', namespace='wagtaildocs')),
     ]
+
+
+@hooks.register('construct_admin_api')
+def construct_admin_api(router):
+    router.register_endpoint('documents', DocumentsAdminAPIEndpoint)
 
 
 class DocumentsMenuItem(MenuItem):
