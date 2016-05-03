@@ -312,6 +312,26 @@ class TestGroupCreateView(TestCase, WagtailTestUtils):
             )
         )
 
+    def test_can_submit_blank_permission_form(self):
+        # the formsets for page / collection permissions should gracefully
+        # handle (and ignore) forms that have been left entirely blank
+        response = self.post({
+            'name': "test group",
+            'page_permissions-0-page': [''],
+            'page_permissions-TOTAL_FORMS': ['1'],
+            'document_permissions-0-collection': [''],
+            'document_permissions-TOTAL_FORMS': ['1'],
+        })
+
+        self.assertRedirects(response, reverse('wagtailusers_groups:index'))
+        # The test group now exists, with no page / document permissions
+        new_group = Group.objects.get(name='test group')
+        self.assertEqual(new_group.page_permissions.all().count(), 0)
+        self.assertEqual(
+            new_group.collection_permissions.filter(permission=self.add_doc_permission).count(),
+            0
+        )
+
 
 class TestGroupEditView(TestCase, WagtailTestUtils):
     def setUp(self):

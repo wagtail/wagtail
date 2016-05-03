@@ -418,7 +418,9 @@ class BaseGroupCollectionMemberPermissionFormSet(forms.BaseFormSet):
         collections = [
             form.cleaned_data['collection']
             for form in self.forms
-            if form not in self.deleted_forms
+            # need to check for presence of 'collection' in cleaned_data,
+            # because a completely blank form passes validation
+            if form not in self.deleted_forms and 'collection' in form.cleaned_data
         ]
         if len(set(collections)) != len(collections):
             # collections list contains duplicates
@@ -435,7 +437,10 @@ class BaseGroupCollectionMemberPermissionFormSet(forms.BaseFormSet):
             )
 
         # get a set of (collection, permission) tuples for all ticked permissions
-        forms_to_save = [form for form in self.forms if form not in self.deleted_forms]
+        forms_to_save = [
+            form for form in self.forms
+            if form not in self.deleted_forms and 'collection' in form.cleaned_data
+        ]
 
         final_permission_records = set()
         for form in forms_to_save:
