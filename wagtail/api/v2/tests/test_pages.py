@@ -221,12 +221,13 @@ class TestPageListing(TestCase):
             self.assertEqual(set(page['feed_image'].keys()), {'id', 'meta', 'title', 'width', 'height'})
 
     def test_nested_nested_fields(self):
-        response = self.get_response(type='demosite.BlogEntryPage', fields='carousel_items(image(width,height),embed_url)')
+        response = self.get_response(type='demosite.BlogEntryPage', fields='carousel_items(image(width,height))')
         content = json.loads(response.content.decode('UTF-8'))
 
         for page in content['items']:
             for carousel_item in page['carousel_items']:
-                self.assertEqual(set(carousel_item.keys()), {'id', 'meta', 'image', 'embed_url'})
+                # Note: inline objects default to displaying all fields
+                self.assertEqual(set(carousel_item.keys()), {'id', 'meta', 'image', 'embed_url', 'caption', 'link'})
                 self.assertEqual(set(carousel_item['image'].keys()), {'id', 'meta', 'title', 'width', 'height'})
 
     def test_fields_child_relation(self):
