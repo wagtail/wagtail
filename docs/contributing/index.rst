@@ -36,3 +36,4 @@ We welcome contributions to all aspects of Wagtail. If you would like to improve
     css_guidelines
     javascript_guidelines
     committing
+    release_process
