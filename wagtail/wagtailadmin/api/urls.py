@@ -3,17 +3,16 @@ from __future__ import absolute_import, unicode_literals
 from django.conf.urls import url
 
 from wagtail.api.v2.router import WagtailAPIRouter
-from wagtail.wagtaildocs.api.admin.endpoints import DocumentsAdminAPIEndpoint
-from wagtail.wagtailimages.api.admin.endpoints import ImagesAdminAPIEndpoint
+from wagtail.wagtailcore import hooks
 
 from .endpoints import PagesAdminAPIEndpoint
 
+admin_api = WagtailAPIRouter('wagtailadmin_api_v1')
+admin_api.register_endpoint('pages', PagesAdminAPIEndpoint)
 
-v1 = WagtailAPIRouter('wagtailadmin_api_v1')
-v1.register_endpoint('pages', PagesAdminAPIEndpoint)
-v1.register_endpoint('images', ImagesAdminAPIEndpoint)
-v1.register_endpoint('documents', DocumentsAdminAPIEndpoint)
+for fn in hooks.get_hooks('construct_admin_api'):
+    fn(admin_api)
 
 urlpatterns = [
-    url(r'^v2beta/', v1.urls),
+    url(r'^v2beta/', admin_api.urls),
 ]
