@@ -41,11 +41,22 @@ class TestParseFieldsParameter(TestCase):
         ])
 
     def test_valid_star_field(self):
-        parsed = parse_fields_parameter('*,test')
+        parsed = parse_fields_parameter('*,-test')
 
         self.assertEqual(parsed, [
             ('*', False, None),
-            ('test', False, None),
+            ('test', True, None),
+        ])
+
+    def test_valid_star_with_additional_field(self):
+        # Note: '*,test' is not allowed but '*,test(foo)' is
+        parsed = parse_fields_parameter('*,test(foo)')
+
+        self.assertEqual(parsed, [
+            ('*', False, None),
+            ('test', False, [
+                ('foo', False, None),
+            ]),
         ])
 
     def test_valid_underscore_field(self):
@@ -189,6 +200,12 @@ class TestParseFieldsParameter(TestCase):
 
         self.assertEqual(str(e.exception), "unexpected char '*' at position 3")
 
+    def test_invalid_star_with_additional_field(self):
+        with self.assertRaises(FieldsParameterParseError) as e:
+            parse_fields_parameter('*,foo')
+
+        self.assertEqual(str(e.exception), "additional fields with '*' doesn't make sense")
+
     def test_invalid_underscore_in_wrong_position(self):
         with self.assertRaises(FieldsParameterParseError) as e:
             parse_fields_parameter('test,_')
@@ -206,6 +223,12 @@ class TestParseFieldsParameter(TestCase):
             parse_fields_parameter('_(foo,bar)')
 
         self.assertEqual(str(e.exception), "unexpected char '(' at position 1")
+
+    def test_invalid_underscore_with_negated_field(self):
+        with self.assertRaises(FieldsParameterParseError) as e:
+            parse_fields_parameter('_,-foo')
+
+        self.assertEqual(str(e.exception), "negated fields with '_' doesn't make sense")
 
     def test_invalid_star_and_underscore(self):
         with self.assertRaises(FieldsParameterParseError) as e:
