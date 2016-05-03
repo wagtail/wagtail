@@ -32,18 +32,18 @@ The available resizing methods are as follows:
 
 .. glossary::
 
-    ``max`` 
+    ``max``
         (takes two dimensions)
 
         .. code-block:: html+django
 
             {% image page.photo max-1000x500 %}
 
-        Fit **within** the given dimensions. 
+        Fit **within** the given dimensions.
 
         The longest edge will be reduced to the matching dimension specified. For example, a portrait image of width 1000 and height 2000, treated with the ``max-1000x500`` rule (a landscape layout) would result in the image being shrunk so the *height* was 500 pixels and the width was 250.
 
-    ``min`` 
+    ``min``
         (takes two dimensions)
 
         .. code-block:: html+django
@@ -54,7 +54,7 @@ The available resizing methods are as follows:
 
         This may result in an image slightly **larger** than the dimensions you specify. A square image of width 2000 and height 2000, treated with the ``min-500x200`` rule would have its height and width changed to 500, i.e matching the *width* of the resize-rule, but greater than the height.
 
-    ``width`` 
+    ``width``
         (takes one dimension)
 
         .. code-block:: html+django
@@ -63,16 +63,16 @@ The available resizing methods are as follows:
 
         Reduces the width of the image to the dimension specified.
 
-    ``height`` 
+    ``height``
         (takes one dimension)
 
         .. code-block:: html+django
 
             {% image page.photo height-480 %}
 
-        Resize the height of the image to the dimension specified.. 
+        Resize the height of the image to the dimension specified.
 
-    ``fill`` 
+    ``fill``
         (takes two dimensions and an optional ``-c`` parameter)
 
         .. code-block:: html+django
@@ -84,9 +84,9 @@ The available resizing methods are as follows:
         This can be particularly useful for websites requiring square thumbnails of arbitrary images. For example, a landscape image of width 2000 and height 1000 treated with the ``fill200x200`` rule would have its height reduced to 200, then its width (ordinarily 400) cropped to 200.
 
         This resize-rule will crop to the image's focal point if it has been set. If not, it will crop to the centre of the image.
-        
+
         **On images that won't upscale**
-        
+
         It's possible to request an image with ``fill`` dimensions that the image can't support without upscaling. e.g. an image of width 400 and height 200 requested with ``fill-400x400``. In this situation the *ratio of the requested fill* will be matched, but the dimension will not. So that example 400x200 image (a 2:1 ratio) could become 200x200 (a 1:1 ratio, matching the resize-rule).
 
         **Cropping closer to the focal point**
@@ -105,7 +105,7 @@ The available resizing methods are as follows:
 
         If you find that ``-c100`` is too close, you can try ``-c75`` or ``-c50``. Any whole number from 0 to 100 is accepted.
 
-    ``original`` 
+    ``original``
         (takes no dimensions)
 
         .. code-block:: html+django
@@ -145,9 +145,9 @@ Wagtail can assign the image data to another variable using Django's ``as`` synt
 
     {% image page.photo width-400 as tmp_photo %}
 
-    <img src="{{ tmp_photo.url }}" width="{{ tmp_photo.width }}" 
+    <img src="{{ tmp_photo.url }}" width="{{ tmp_photo.width }}"
         height="{{ tmp_photo.height }}" alt="{{ tmp_photo.alt }}" class="my-custom-class" />
-        
+
 
 This syntax exposes the underlying image Rendition (``tmp_photo``) to the developer. A "Rendition" contains the information specific to the way you've requested to format the image using the resize-rule, i.e. dimensions and source URL.
 
@@ -158,7 +158,7 @@ Therefore, if you'd added the field ``author`` to your AbstractImage in the abov
 (Due to the links in the database between renditions and their parent image, you *could* access it as ``{{ tmp_photo.image.author }}``, but that has reduced readability.)
 
 
-.. Note::      
+.. Note::
     The image property used for the ``src`` attribute is actually ``image.url``, not ``image.src``.
 
 
@@ -197,3 +197,63 @@ Wagtail comes with three pre-defined image formats, but more can be defined in P
     The CSS classes added to images do **not** come with any accompanying stylesheets, or inline styles. e.g. the ``left`` class will do nothing, by default. The developer is expected to add these classes to their front end CSS files, to define exactly what they want ``left``, ``right`` or ``full-width`` to mean.
 
 For more information about image formats, including creating your own, see :ref:`rich_text_image_formats`
+
+Output image format
+-------------------
+
+Wagtail may automatically change the format of some images when they are resized:
+
+ - PNG and JPEG images always won't change format
+ - GIF images without animation are converted to PNGs
+ - BMP images are always converted to PNGs
+
+It is also possible to override the output format on a per-tag basis by using the
+``format`` filter after the resize rule.
+
+For example, to make the tag always convert the image to a JPEG, use ``format-jpeg``:
+
+.. code-block:: html+Django
+
+    {% image page.photo width-400 format-jpeg %}
+
+You may also use ``format-png`` or ``format-gif``.
+
+JPEG image quality
+------------------
+
+Wagtail's JPEG image quality setting defaults to 85 (which is quite high). This
+can be changed either globally or on a per-tag basis.
+
+Changing globally
+^^^^^^^^^^^^^^^^^
+
+Use the ``WAGTAILIMAGES_JPEG_QUALITY`` setting to change the global default JPEG
+quality:
+
+.. code-block:: python
+
+    # settings.py
+
+    # Make low-quality but small images
+    WAGTAILIMAGES_JPEG_QUALITY = 40
+
+Note that this won't affect any previously generated images. You may want to
+delete all renditions so they can regenerate with the new setting.
+
+Changing per-tag
+^^^^^^^^^^^^^^^^
+
+It's also possible to have different JPEG qualities on individual tags by using
+the ``jpegquality`` filter. This will always override the default setting:
+
+.. code-block:: html+Django
+
+    {% image page.photo width-400 jpegquality-40 %}
+
+Note that this will have no effect on PNG or GIF files. If you want all images
+to be low quality, you can use this filter with ``format-jpeg`` (which forces
+all images to output in JPEG format):
+
+.. code-block:: html+Django
+
+    {% image page.photo width-400 format-jpeg jpegquality-40 %}
