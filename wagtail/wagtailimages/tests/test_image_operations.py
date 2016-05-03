@@ -447,3 +447,43 @@ def register_image_operations():
         ('operation1', Mock(return_value=TestFilter.operation_instance)),
         ('operation2', Mock(return_value=TestFilter.operation_instance))
     ]
+
+
+class TestFormatFilter(TestCase):
+    def test_jpeg(self):
+        fil = Filter(spec='width-400|format-jpeg')
+        image = Image.objects.create(
+            title="Test image",
+            file=get_test_image_file(),
+        )
+        out = fil.run(image, BytesIO())
+
+        self.assertEqual(out.format_name, 'jpeg')
+
+    def test_png(self):
+        fil = Filter(spec='width-400|format-png')
+        image = Image.objects.create(
+            title="Test image",
+            file=get_test_image_file(),
+        )
+        out = fil.run(image, BytesIO())
+
+        self.assertEqual(out.format_name, 'png')
+
+    def test_gif(self):
+        fil = Filter(spec='width-400|format-gif')
+        image = Image.objects.create(
+            title="Test image",
+            file=get_test_image_file(),
+        )
+        out = fil.run(image, BytesIO())
+
+        self.assertEqual(out.format_name, 'gif')
+
+    def test_invalid(self):
+        fil = Filter(spec='width-400|format-foo')
+        image = Image.objects.create(
+            title="Test image",
+            file=get_test_image_file(),
+        )
+        self.assertRaises(InvalidFilterSpecError, fil.run, image, BytesIO())
