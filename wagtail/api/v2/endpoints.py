@@ -7,6 +7,7 @@ from django.conf.urls import url
 from django.core.exceptions import FieldDoesNotExist
 from django.core.urlresolvers import reverse
 from django.http import Http404
+from modelcluster.fields import ParentalKey
 from rest_framework import status
 from rest_framework.renderers import BrowsableAPIRenderer, JSONRenderer
 from rest_framework.response import Response
@@ -224,11 +225,19 @@ class BaseAPIEndpoint(GenericViewSet):
                 django_field = None
 
             if django_field and django_field.is_relation:
+                child_sub_fields = sub_fields.get(field_name, [])
+
+                # Inline (aka "child") models should display all fields by default
+                if isinstance(getattr(django_field, 'field', None), ParentalKey):
+                    if not child_sub_fields or child_sub_fields[0][0] != '*':
+                        child_sub_fields = list(child_sub_fields)
+                        child_sub_fields.insert(0, ('*', False, None))
+
                 # Get a serializer class for the related object
                 child_model = django_field.related_model
                 child_endpoint_class = router.get_model_endpoint(child_model)
                 child_endpoint_class = child_endpoint_class[1] if child_endpoint_class else BaseAPIEndpoint
-                child_serializer_classes[field_name] = child_endpoint_class._get_serializer_class(router, child_model, sub_fields.get(field_name, []), nested=True)
+                child_serializer_classes[field_name] = child_endpoint_class._get_serializer_class(router, child_model, child_sub_fields, nested=True)
 
             else:
                 if field_name in sub_fields:
