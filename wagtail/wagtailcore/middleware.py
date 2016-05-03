@@ -2,7 +2,7 @@ from __future__ import absolute_import, unicode_literals
 
 from threading import current_thread
 
-from django.core.cache.backends.locmem import LocMemCache, _caches, _expire_info, _locks
+from wagtail.wagtailcore.request_cache import RequestCache
 
 
 class SiteMiddleware(object):
@@ -27,14 +27,12 @@ class RequestCacheMiddleware(object):
     Creates a cache instance that persists only for the duration of the current request.
     """
 
-    _request_cache = {}
+    _request_caches = {}
 
     def process_request(self, request):
-        thread = current_thread()
-        cache_name = 'RequestCacheMiddleware@{}'.format(hash(thread))
-        self._request_cache[thread] = LocMemCache(name=cache_name, params={})
-        # LocMemCache doesn't save the name that gets passed into it, so we have to do it ourselves.
-        self._request_cache[thread].name = cache_name
+        # The RequestCache object is keyed on the current thread because each request is processed on a single thread,
+        # allowing us to retrieve the correct RequestCache object in the other functions.
+        self._request_caches[current_thread()] = RequestCache()
 
     def process_response(self, request, response):
         self.delete_cache()
@@ -51,7 +49,7 @@ class RequestCacheMiddleware(object):
         Returns None if RequestCacheMiddleware is not currently installed via MIDDLEWARE_CLASSES, or if there is no
         active request.
         """
-        return cls._request_cache.get(current_thread())
+        return cls._request_caches.get(current_thread())
 
     @classmethod
     def clear_cache(cls):
@@ -65,13 +63,7 @@ class RequestCacheMiddleware(object):
     @classmethod
     def delete_cache(cls):
         """
-        Delete the current request's cache object. This is used to avoid memory leaks as threads get cycled.
+        Delete the current request's cache object to avoid leaking memory.
         """
-        cache = cls._request_cache.pop(current_thread(), None)
-        # Creating a LocMemCache object permanently stores references to it in the following global dictionaries.
-        # Since we need to create a new LocMemCache object for each request, this leads to a memory leak unless we
-        # explicitly destroy all references to the LocMemCache object we created in __init__().
-        if cache:
-            del _caches[cache.name]
-            del _expire_info[cache.name]
-            del _locks[cache.name]
+        cache = cls._request_caches.pop(current_thread(), None)
+        del cache
