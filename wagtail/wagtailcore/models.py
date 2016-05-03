@@ -34,6 +34,7 @@ from modelcluster.models import ClusterableModel, get_all_child_relations
 from treebeard.mp_tree import MP_Node
 
 from wagtail.utils.deprecation import SearchFieldsShouldBeAList
+from wagtail.wagtailcore.middleware import RequestCacheMiddleware
 from wagtail.wagtailcore.query import PageQuerySet, TreeQuerySet
 from wagtail.wagtailcore.signals import page_published, page_unpublished
 from wagtail.wagtailcore.url_routing import RouteResult
@@ -44,7 +45,6 @@ from wagtail.wagtailsearch import index
 logger = logging.getLogger('wagtail.core')
 
 PAGE_TEMPLATE_VAR = 'page'
-EXPLORABLE_PATHS_PREFIX = 'explorable_paths:{0}'
 
 
 MATCH_HOSTNAME_PORT = 0
@@ -1024,8 +1024,6 @@ class Page(six.with_metaclass(PageBase, MP_Node, index.Indexed, ClusterableModel
         Extension to the treebeard 'move' method to ensure that url_path is updated and the
         explorable paths cache is cleared.
         """
-        # When a page is moved, its path changes, invalidating any set of cached explorable paths that included it.
-        clear_explorable_paths_cache()
         old_url_path = Page.objects.get(id=self.id).url_path
         super(Page, self).move(target, pos=pos)
         # treebeard's move method doesn't actually update the in-memory instance, so we need to work
@@ -1394,12 +1392,16 @@ def get_explorable_page_paths(user):
 
     NOTE: The first element of the second list is always the Closest Common Ancestor of the User's permitted Pages.
     """
-    # We cache the output of this function because it's very expensive to generate it fresh every time the user loads
-    # an Explorer page. Unfortunately, this does lead to a lot of duplciated data in the cache, as every single user
-    # that has the same set of groups will have the same permitted paths. I'd like to cache by groupset, which would
-    # remove all that duplication, but that would require an extra DB call every time, to get the user's group list.
-    cache_key = EXPLORABLE_PATHS_PREFIX.format(user.pk)
-    permitted_paths, required_ancestors = cache.get(cache_key, ([], []))
+    # We cache the output of this function because it can potentially be called several times per request. The cache
+    # persists only until the request is complete, and each request gets a completely separate cache instance.
+    cache = RequestCacheMiddleware.get_cache()
+    cache_key = 'explorable_pages'
+    if cache is not None:
+        permitted_paths, required_ancestors = cache.get(cache_key, ([], []))
+    else:
+        # RequestCacheMiddleware.get_cache() returns None if it can't provide a per-request cache.
+        permitted_paths, required_ancestors = [], []
+
     if not permitted_paths:
         permitted_paths = UserPagePermissionsProxy(user).permitted_paths()
 
@@ -1407,8 +1409,8 @@ def get_explorable_page_paths(user):
         # chopping off the end to make the length a multiple of Page.steplen.
         if permitted_paths:
             common_prefix = os.path.commonprefix(permitted_paths)
-            # When len(common_prefix) % Page.steplen == 0, we want the entire string, but [:-0] returns ''.
-            # So we use [:None], which returns the whole string.
+            # When len(common_prefix) % Page.steplen == 0, we want the entire string, but common_prefix[:-0] returns ''.
+            # So we use common_prefix[:None], which returns the whole string.
             cca_path = common_prefix[:-(len(common_prefix) % Page.steplen) or None]
             required_ancestors.append(cca_path)
             # Now include all the ancestors of each permitted Page, up to their closest common ancestor. This lets
@@ -1427,9 +1429,10 @@ def get_explorable_page_paths(user):
             # The user is not permitted to see any pages, and therefore has no required ancestors, either.
             pass
 
-        # Cache the paths for this user indefinitely. We'll clear this user's cached data manually when anything
-        # relevant changes, like changes to Group membership or permissions, or when a page is moved.
-        cache.set(cache_key, (permitted_paths, required_ancestors), None)
+        # This function is frequently called multiple times per admin page request, so we cache the paths in
+        # RequestCacheMiddleware's per-request cache.
+        if cache is not None:
+            cache.set(cache_key, (permitted_paths, required_ancestors), None)
 
     return permitted_paths, required_ancestors
 
@@ -1445,25 +1448,6 @@ def convert_explorable_paths_to_Q(permitted_paths, required_ancestors):
     for ancestor in required_ancestors:
         path_Qs = path_Qs | Q(path=ancestor)
     return path_Qs
-
-
-def clear_explorable_paths_cache(user=None):
-    """
-    Whenever a Page's path changes, or a Group's permissions change, or a User's Groups change, some or all of the
-    cached sets of explorable pages may now be invalid. Unfortunately, Django's caching system has very limited
-    ability to selectively clear cached data. So to avoid unnecessarily clearing unrelated cache data, we have to
-    be a bit brute forcey.
-
-    Pass in a user object to clear just that user's cached permitted path data. Otherwise, all cached permitted path
-    data will be cleared.
-    """
-    if user:
-        cache.delete(EXPLORABLE_PATHS_PREFIX.format(user.pk))
-    else:
-        # Delete any cached explorable paths that might exist for every user in the system.
-        cache.delete_many(
-            EXPLORABLE_PATHS_PREFIX.format(uid) for uid in get_user_model().objects.values_list('pk', flat=True)
-        )
 
 
 def get_closest_common_ancestor_path(user):
@@ -1849,7 +1833,7 @@ class UserPagePermissionsProxy(object):
             # All permission types except 'choose' provide explorability.
             group_permissions__permission_type__in=[perm[0] for perm in PAGE_PERMISSION_TYPES if perm[0] != 'choose']
         )
-        return permitted_paths
+        return list(permitted_paths)
 
     def has_permitted_paths(self):
         return bool(self.permitted_paths())

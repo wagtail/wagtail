@@ -13,8 +13,7 @@ from django.utils.translation import ugettext_lazy as _
 from wagtail.wagtailadmin.widgets import AdminPageChooser
 from wagtail.wagtailcore import hooks
 from wagtail.wagtailcore.models import (
-    PAGE_PERMISSION_TYPE_CHOICES, PAGE_PERMISSION_TYPES, GroupPagePermission, Page,
-    UserPagePermissionsProxy, clear_explorable_paths_cache)
+    PAGE_PERMISSION_TYPE_CHOICES, PAGE_PERMISSION_TYPES, GroupPagePermission, Page, UserPagePermissionsProxy)
 from wagtail.wagtailusers.models import UserProfile
 
 User = get_user_model()
@@ -182,10 +181,6 @@ class UserEditForm(UsernameForm):
         return password2
 
     def save(self, commit=True):
-        # If the User's Group set changed, some cached explorable paths may have become invalid.
-        if list(self.instance.groups.order_by('pk')) != list(self.cleaned_data['groups'].order_by('pk')):
-            clear_explorable_paths_cache(self.instance)
-
         user = super(UserEditForm, self).save(commit=False)
 
         # users can access django-admin iff they are a superuser
@@ -351,10 +346,6 @@ class BaseGroupPagePermissionFormSet(forms.BaseFormSet):
             )
             for (page, permission_type) in permissions_to_add
         ])
-
-        # If the Group's Page Permissions changed, some cached explorable paths may have become invalid.
-        if permissions_to_add or permission_ids_to_delete:
-            clear_explorable_paths_cache()
 
     def as_admin_panel(self):
         return render_to_string('wagtailusers/groups/includes/page_permissions_formset.html', {
