@@ -25,6 +25,9 @@ def runtests():
     if '--elasticsearch' in args:
         os.environ.setdefault('ELASTICSEARCH_URL', 'http://localhost:9200')
         args.remove('--elasticsearch')
+    elif 'ELASTICSEARCH_URL' in os.environ:
+        # forcibly delete the ELASTICSEARCH_URL setting to skip those tests
+        del os.environ['ELASTICSEARCH_URL']
 
     argv = sys.argv[:1] + ['test'] + args
     try:
