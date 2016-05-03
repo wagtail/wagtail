@@ -63,6 +63,7 @@ Bug fixes
  * All admin forms that could potentially include file upload fields now specify ``multipart/form-data`` where appropriate (Tim Heap)
  * REM units in Wagtailuserbar caused incorrect spacing (Vincent Audebert)
  * Explorer menu no longer scrolls with page content (Vincent Audebert)
+ * Border added around explorer menu to stop it blending in with StreamField block listing (Alex Gleason)
 
 
 Upgrade considerations

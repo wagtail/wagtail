@@ -416,6 +416,17 @@ body.explorer-open {
             display: none;
         }
 
+        .explorer:after {
+            content: '';
+            width: calc(100% - 2px);
+            height: 100%;
+            position: absolute;
+            top: 0;
+            right: 0;
+            z-index: -1;
+            box-shadow: 0px 0px 2px rgba(255, 255, 255, 0.9);
+        }
+
         .nav-main {
             display: block;
         }
