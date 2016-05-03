@@ -6,6 +6,7 @@ import django
 from django import template
 from django.conf import settings
 from django.contrib.humanize.templatetags.humanize import intcomma
+from django.contrib.messages.constants import DEFAULT_TAGS as MESSAGE_TAGS
 from django.template.defaultfilters import stringfilter
 from django.utils.safestring import mark_safe
 
@@ -298,3 +299,16 @@ def page_listing_buttons(context, page, page_perms, is_parent=False):
         hook(page, page_perms, is_parent)
         for hook in button_hooks))
     return {'page': page, 'buttons': buttons}
+
+
+@register.simple_tag
+def message_tags(message):
+    level_tag = MESSAGE_TAGS.get(message.level)
+    if message.extra_tags and level_tag:
+        return message.extra_tags + ' ' + level_tag
+    elif message.extra_tags:
+        return message.extra_tags
+    elif level_tag:
+        return level_tag
+    else:
+        return ''
