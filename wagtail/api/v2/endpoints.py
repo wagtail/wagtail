@@ -190,8 +190,12 @@ class BaseAPIEndpoint(GenericViewSet):
             fields = set(cls.get_listing_default_fields(model))
 
         # If first field is '*' start with all fields
+        # If first field is '_' start with no fields
         if fields_config and fields_config[0][0] == '*':
             fields = set(all_fields)
+            fields_config = fields_config[1:]
+        elif fields_config and fields_config[0][0] == '_':
+            fields = set()
             fields_config = fields_config[1:]
 
         mentioned_fields = set()
@@ -229,7 +233,7 @@ class BaseAPIEndpoint(GenericViewSet):
 
                 # Inline (aka "child") models should display all fields by default
                 if isinstance(getattr(django_field, 'field', None), ParentalKey):
-                    if not child_sub_fields or child_sub_fields[0][0] != '*':
+                    if not child_sub_fields or child_sub_fields[0][0] not in ['*', '_']:
                         child_sub_fields = list(child_sub_fields)
                         child_sub_fields.insert(0, ('*', False, None))
 
