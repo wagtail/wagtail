@@ -47,6 +47,7 @@ Changelog
  * Fix: Wagtail now checks that Group is registered with the Django admin before unregistering it (Jason Morrison)
  * Fix: Previewing inaccessible pages no longer fails with `ALLOWED_HOSTS = ['*']` (Robert Rollins)
  * Fix: The submit button 'spinner' no longer activates if the form has client-side validation errors (Jack Paine, Matt Westcott)
+ * Fix: Overriding `MESSAGE_TAGS` in project settings no longer causes messages in the Wagtail admin to lose their styling (Tim Heap)
 
 
 1.4.3 (04.04.2016)
