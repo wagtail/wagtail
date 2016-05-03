@@ -171,6 +171,13 @@ In addition to the model fields provided, ``Page`` has many properties and metho
 
         Controls if this page can be created through the Wagtail administration. Defaults to True, and is not inherited by subclasses. This is useful when using `multi-table inheritance <https://docs.djangoproject.com/en/1.8/topics/db/models/#multi-table-inheritance>`_, to stop the base model from being created as an actual page.
 
+    .. attribute:: base_form_class
+
+        The form class used as a base for editing Pages of this type in the Wagtail page editor.
+        This attribute can be set on a model to customise the Page editor form.
+        Forms must be a subclass of :class:`~wagtail.wagtailadmin.forms.WagtailAdminPageForm`.
+        See :ref:`custom_edit_handler_forms` for more information.
+
 ``Site``
 ========
 
