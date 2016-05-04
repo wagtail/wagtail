@@ -312,12 +312,3 @@ def message_tags(message):
         return level_tag
     else:
         return ''
-
-
-@register.simple_tag
-def username(user):
-    """
-    Output the username of the given user (this accounts for user models that
-    give this field a name other than 'username').
-    """
-    return getattr(user, user.USERNAME_FIELD)
