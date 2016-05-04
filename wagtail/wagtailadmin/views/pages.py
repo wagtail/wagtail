@@ -754,7 +754,7 @@ def set_page_position(request, page_to_move_id):
 
 
 def copy(request, page_id):
-    page = Page.objects.get(id=page_id)
+    page = get_page_if_explorable(page_id, request, allow_ancestors=False)
 
     # Parent page defaults to parent of source page
     parent_page = page.get_parent()
