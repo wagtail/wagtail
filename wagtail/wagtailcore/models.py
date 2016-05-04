@@ -1990,6 +1990,10 @@ class PagePermissionTester(object):
         return self.user.is_superuser or ('choose' in self.permissions)
 
     def can_explore(self, allow_ancestors=True):
+        """
+        If allow_ancestors is set to False, required ancestors will be considered unexplorable during this call.
+        This lets Explorer display a required ancestor while also probihiting users from performing any actions upon it.
+        """
         if not self.user.is_active:
             return False
 
@@ -2000,8 +2004,8 @@ class PagePermissionTester(object):
         ):
             return True
 
-        # If this page isn't directly permitted, and the caller asked to allow ancestors, return whether or not
-        # this page is in the required ancestors of the user's explorable section(s) of the tree.
+        # If this page isn't directly permitted, return whether or not this page is in the required ancestors of the
+        # user's explorable section(s) of the tree. Unless the caller told us not to allow ancestors.
         return allow_ancestors and self.page.path in get_explorable_page_paths(self.user)[1]
 
 

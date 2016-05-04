@@ -233,8 +233,10 @@ def get_page_if_explorable(page_id, request, allow_ancestors=True):
     Otherwise, if the user has permission to explore the page, the page will be returned.
     Finally, if the user doesn't have permission to explore the page, a PermissionDenied exception will be thrown.
 
-    If allow_ancestors is False, required ancestors will be considered unexplorable. This can allow a user to explore
-    through a required ancestor to reach its children, while still blocked that ancestor's revisions from being seen.
+    Required ancestors are normally considered explorable, since Explorer needs to let users traverse through them
+    to get to the pages they are actually permitted to perform actions upon.
+    If allow_ancestors is set to False, though, required ancestors will be considered unexplorable during this call.
+    This lets Explorer display a required ancestor while also probihiting users from performing any actions upon it.
     """
     page = get_object_or_404(Page, id=page_id)
     # Superusers can explore every page. Other users can explore permitted pages that are on any Site.

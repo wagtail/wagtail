@@ -292,10 +292,10 @@ def paginate(context, page, base_url='', page_key=DEFAULT_PAGE_KEY,
 
 
 @register.inclusion_tag("wagtailadmin/pages/listing/_buttons.html", takes_context=True)
-def page_listing_buttons(context, page, page_perms, user, is_parent=False):
+def page_listing_buttons(context, page, page_perms, is_parent=False):
     button_hooks = hooks.get_hooks('register_page_listing_buttons')
     buttons = sorted(itertools.chain.from_iterable(
-        hook(page, page_perms, user, is_parent) for hook in button_hooks)
+        hook(page, page_perms, is_parent) for hook in button_hooks)
     )
     return {'page': page, 'buttons': buttons}
 
@@ -332,3 +332,11 @@ def is_explorable_root(page, user):
     can't call directly from the template. This template tag does that for us.
     """
     return page.is_explorable_root(user)
+
+
+@register.assignment_tag
+def can_perform_actions(user, page):
+    """
+    Example: {% can_perform_actions request.user page as user_can_perform_actions %}
+    """
+    return page.permissions_for_user(user).can_explore(allow_ancestors=False)

@@ -13,6 +13,9 @@
     {% include "wagtailadmin/pages/listing/_locked_indicator.html" with page=page %}
 </h2>
 
-<ul class="actions">
-    {% page_listing_buttons page page_perms request.user %}
-</ul>
+{% can_perform_actions request.user page as user_can_perform_actions %}
+{% if user_can_perform_actions %}
+    <ul class="actions">
+        {% page_listing_buttons page page_perms %}
+    </ul>
+{% endif %}

@@ -6,6 +6,7 @@ import os
 
 import django
 import mock
+from bs4 import BeautifulSoup
 from django.conf import settings
 from django.contrib.auth import get_user_model
 from django.contrib.auth.models import Group, Permission
@@ -428,6 +429,14 @@ class TestExplorablePageVisibility(TestCase, WagtailTestUtils):
         self.assertEqual(response.status_code, 200)
         self.assertInHTML("""<a href="/admin/pages/6/edit/" title="Edit this page">Page 1</a>""", str(response.content))
         self.assertNotContains(response, "Page 2")
+
+        soup = BeautifulSoup(response.content, 'html5lib')
+        # The actions list for the Content parent page should *not* exist.
+        self.assertFalse(soup.select('table.listing thead td.title ul.actions'))
+        # But the actions list for Page 1 *should* exist.
+        index_actions_lists = soup.select('table.listing tbody td.title ul.actions')
+        self.assertEqual(len(index_actions_lists), 1)
+
         # Sam should not see the "Other Content" page when exploring the example.com homepage.
         response = self.client.get(reverse('wagtailadmin_explore', args=[4]), HTTP_HOST="example.com")
         self.assertEqual(response.status_code, 200)
