@@ -1990,7 +1990,7 @@ class PagePermissionTester(object):
 
         return self.user.is_superuser or ('choose' in self.permissions)
 
-    def can_explore(self):
+    def can_explore(self, allow_ancestors=True):
         if not self.user.is_active:
             return False
 
@@ -2001,9 +2001,9 @@ class PagePermissionTester(object):
         ):
             return True
 
-        # If this page isn't permitted, return whether or not it's in the required ancestors of the user's
-        # explorable section(s) of the tree.
-        return self.page.path in get_explorable_page_paths(self.user)[1]
+        # If this page isn't directly permitted, and the caller asked to allow ancestors, return whether or not
+        # this page is in the required ancestors of the user's explorable section(s) of the tree.
+        return allow_ancestors and self.page.path in get_explorable_page_paths(self.user)[1]
 
 
 class PageViewRestriction(models.Model):

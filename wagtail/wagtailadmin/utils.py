@@ -226,16 +226,19 @@ def send_notification(page_revision_id, notification, excluded_user_id):
     return sent_count == len(email_recipients)
 
 
-def get_page_if_explorable(page_id, request):
+def get_page_if_explorable(page_id, request, allow_ancestors=True):
     """
     Returns the Page with the given page_id.
     If that page is not on the current Site, an Http404 exception is thrown.
     Otherwise, if the user has permission to explore the page, the page will be returned.
     Finally, if the user doesn't have permission to explore the page, a PermissionDenied exception will be thrown.
+
+    If allow_ancestors is False, required ancestors will be considered unexplorable. This can allow a user to explore
+    through a required ancestor to reach its children, while still blocked that ancestor's revisions from being seen.
     """
     page = get_object_or_404(Page, id=page_id)
     # Superusers can explore every page. Other users can explore permitted pages that are on any Site.
-    if request.user.is_superuser or page.permissions_for_user(request.user).can_explore():
+    if request.user.is_superuser or page.permissions_for_user(request.user).can_explore(allow_ancestors):
         return page
 
     # At this point, we know the user isn't allowed to explore this Page.

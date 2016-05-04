@@ -271,10 +271,11 @@ class BaseDropdownMenuButton(Button):
 class ButtonWithDropdownFromHook(BaseDropdownMenuButton):
     template_name = 'wagtailadmin/pages/listing/_button_with_dropdown.html'
 
-    def __init__(self, label, hook_name, page, page_perms, is_parent, **kwargs):
+    def __init__(self, label, hook_name, page, page_perms, user, is_parent, **kwargs):
         self.hook_name = hook_name
         self.page = page
         self.page_perms = page_perms
+        self.user = user
         self.is_parent = is_parent
 
         super(ButtonWithDropdownFromHook, self).__init__(label, **kwargs)
@@ -282,5 +283,5 @@ class ButtonWithDropdownFromHook(BaseDropdownMenuButton):
     def get_buttons_in_dropdown(self):
         button_hooks = hooks.get_hooks(self.hook_name)
         return sorted(itertools.chain.from_iterable(
-            hook(self.page, self.page_perms, self.is_parent)
+            hook(self.page, self.page_perms, self.user, self.is_parent)
             for hook in button_hooks))

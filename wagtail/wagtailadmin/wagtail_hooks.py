@@ -61,7 +61,7 @@ def register_collections_menu_item():
 
 
 @hooks.register('register_page_listing_buttons')
-def page_listing_buttons(page, page_perms, is_parent=False):
+def page_listing_buttons(page, page_perms, user, is_parent=False):
     if page_perms.can_edit():
         yield PageListingButton(_('Edit'), reverse('wagtailadmin_pages:edit', args=[page.id]),
                                 attrs={'title': _('Edit this page')}, priority=10)
