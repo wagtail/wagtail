@@ -1176,7 +1176,7 @@ class Page(six.with_metaclass(PageBase, MP_Node, ClusterableModel, index.Indexed
         user_perms = UserPagePermissionsProxy(user)
         return user_perms.for_page(self)
 
-    def dummy_request(self, original_request=None):
+    def dummy_request(self, original_request=None, **meta):
         """
         Construct a HttpRequest object that is, as far as possible, representative of ones that would
         receive this page as a response. Used for previewing / moderation and any other place where we
@@ -1225,6 +1225,9 @@ class Page(six.with_metaclass(PageBase, MP_Node, ClusterableModel, index.Indexed
                 dummy_values['HTTP_COOKIE'] = original_request.META['HTTP_COOKIE']
             if original_request.META.get('HTTP_USER_AGENT'):
                 dummy_values['HTTP_USER_AGENT'] = original_request.META['HTTP_USER_AGENT']
+
+        # Add additional custom metadata sent by the caller.
+        dummy_values.update(**meta)
 
         request = WSGIRequest(dummy_values)
 
