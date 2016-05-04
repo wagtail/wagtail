@@ -43,6 +43,7 @@ Changelog
  * Fix: REM units in Wagtailuserbar caused incorrect spacing (Vincent Audebert)
  * Fix: Explorer menu no longer scrolls with page content (Vincent Audebert)
  * Fix: `decorate_urlpatterns` now uses `functools.update_wrapper` to keep view names and docstrings (Mario César)
+ * Fix: StreamField block controls are no longer hidden by the StreamField menu when prepending a new block (Vincent Audebert)
 
 
 1.4.4 (xx.xx.2016)
