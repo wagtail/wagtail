@@ -1991,8 +1991,8 @@ class PagePermissionTester(object):
 
     def can_explore(self, allow_ancestors=True):
         """
-        If allow_ancestors is set to False, required ancestors will be considered unexplorable during this call.
-        This lets Explorer display a required ancestor while also probihiting users from performing any actions upon it.
+        If allow_ancestors is False, required ancestors will be not considered explorable.
+        This lets Explorer display a required ancestor, but still prohibit users from performing any actions upon it.
         """
         if not self.user.is_active:
             return False
