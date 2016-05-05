@@ -1,5 +1,7 @@
 from __future__ import absolute_import, unicode_literals
 
+import collections
+
 from django.conf import settings
 from django.core.management.base import BaseCommand
 from django.db import transaction
@@ -8,48 +10,90 @@ from wagtail.wagtailsearch.backends import get_search_backend
 from wagtail.wagtailsearch.index import get_indexed_models
 
 
+def group_models_by_index(backend, models):
+    """
+    This takes a search backend and a list of models. By calling the
+    get_index_for_model method on the search backend, it groups the models into
+    the indices that they will be indexed into.
+
+    It returns an ordered mapping of indices to lists of models within each
+    index.
+
+    For example, Elasticsearch 2 requires all page models to be together, but
+    separate from other content types (eg, images and documents) to prevent
+    field mapping collisions (eg, images and documents):
+
+    >>> group_models_by_index(elasticsearch2_backend, [
+    ...     wagtailcore.Page,
+    ...     myapp.HomePage,
+    ...     myapp.StandardPage,
+    ...     wagtailimages.Image
+    ... ])
+    {
+        <Index wagtailcore_page>: [wagtailcore.Page, myapp.HomePage, myapp.StandardPage],
+        <Index wagtailimages_image>: [wagtailimages.Image],
+    }
+    """
+    indices = {}
+    models_by_index = collections.OrderedDict()
+
+    for model in models:
+        index = backend.get_index_for_model(model)
+
+        if index:
+            indices.setdefault(index.name, index)
+            models_by_index.setdefault(index.name, [])
+            models_by_index[index.name].append(model)
+
+    return collections.OrderedDict([
+        (indices[index_name], models)
+        for index_name, models in models_by_index.items()
+    ])
+
+
 class Command(BaseCommand):
     def update_backend(self, backend_name, schema_only=False):
-        # Print info
         self.stdout.write("Updating backend: " + backend_name)
 
-        # Get backend
         backend = get_search_backend(backend_name)
 
-        # Get rebuilder
-        rebuilder = backend.get_rebuilder()
-
-        if not rebuilder:
-            self.stdout.write(backend_name + ": Backend doesn't require rebuild. Skipping")
+        if not backend.rebuilder_class:
+            self.stdout.write("Backend '%s' doesn't require rebuilding" % backend_name)
             return
 
-        # Start rebuild
-        self.stdout.write(backend_name + ": Starting rebuild")
-        index = rebuilder.start()
+        models_grouped_by_index = group_models_by_index(backend, get_indexed_models()).items()
+        if not models_grouped_by_index:
+            self.stdout.write(backend_name + ": No indices to rebuild")
 
-        for model in get_indexed_models():
-            self.stdout.write(backend_name + ": Indexing model '%s.%s'" % (
-                model._meta.app_label,
-                model.__name__,
-            ))
+        for index, models in models_grouped_by_index:
+            self.stdout.write(backend_name + ": Rebuilding index %s" % index.name)
 
-            # Add model
-            index.add_model(model)
+            # Start rebuild
+            rebuilder = backend.rebuilder_class(index)
+            index = rebuilder.start()
 
-            # Index objects
+            # Add models
+            for model in models:
+                index.add_model(model)
+
+            # Add objects
             object_count = 0
             if not schema_only:
-                # Add items (1000 at a time)
-                for chunk in self.print_iter_progress(self.queryset_chunks(model.get_indexed_objects())):
-                    index.add_items(model, chunk)
-                    object_count += len(chunk)
+                for model in models:
+                    # Add items (1000 at a time)
+                    for chunk in self.print_iter_progress(self.queryset_chunks(model.get_indexed_objects())):
+                        index.add_items(model, chunk)
+                        object_count += len(chunk)
 
-            self.stdout.write("(indexed %d objects)" % object_count)
             self.print_newline()
 
-        # Finish rebuild
-        self.stdout.write(backend_name + ": Finishing rebuild")
-        rebuilder.finish()
+            # Finish rebuild
+            rebuilder.finish()
+
+            self.print_newline()
+            self.stdout.write(backend_name + ": (indexed %d objects)" % object_count)
+            self.print_newline()
+            self.print_newline()
 
     def add_arguments(self, parser):
         parser.add_argument(
@@ -99,8 +143,6 @@ class Command(BaseCommand):
                 self.stdout.write(' ', ending='')
 
             self.stdout.flush()
-
-        self.print_newline()
 
     # Atomic so the count of models doesnt change as it is iterated
     @transaction.atomic
