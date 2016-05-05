@@ -8,7 +8,8 @@ from django.utils.six.moves.urllib.parse import urlparse
 from elasticsearch import Elasticsearch, NotFoundError
 from elasticsearch.helpers import bulk
 
-from wagtail.wagtailsearch.backends.base import BaseSearch, BaseSearchQuery, BaseSearchResults
+from wagtail.wagtailsearch.backends.base import (
+    BaseSearchBackend, BaseSearchQuery, BaseSearchResults)
 from wagtail.wagtailsearch.index import FilterField, RelatedFields, SearchField, class_is_indexed
 
 
@@ -601,7 +602,7 @@ class ElasticSearchAtomicIndexRebuilder(ElasticSearchIndexRebuilder):
             self.index.put_alias(self.alias.name)
 
 
-class ElasticSearch(BaseSearch):
+class ElasticSearchBackend(BaseSearchBackend):
     index_class = ElasticSearchIndex
     query_class = ElasticSearchQuery
     results_class = ElasticSearchResults
@@ -654,7 +655,7 @@ class ElasticSearch(BaseSearch):
     }
 
     def __init__(self, params):
-        super(ElasticSearch, self).__init__(params)
+        super(ElasticSearchBackend, self).__init__(params)
 
         # Get settings
         self.hosts = params.pop('HOSTS', None)
@@ -722,5 +723,7 @@ class ElasticSearch(BaseSearch):
     def delete(self, obj):
         self.get_index().delete_item(obj)
 
+# Backwards compatibility
+ElasticSearch = ElasticSearchBackend
 
-SearchBackend = ElasticSearch
+SearchBackend = ElasticSearchBackend

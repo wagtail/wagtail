@@ -2,7 +2,8 @@ from __future__ import absolute_import, unicode_literals
 
 from django.db import models
 
-from wagtail.wagtailsearch.backends.base import BaseSearch, BaseSearchQuery, BaseSearchResults
+from wagtail.wagtailsearch.backends.base import (
+    BaseSearchBackend, BaseSearchQuery, BaseSearchResults)
 
 
 class DBSearchQuery(BaseSearchQuery):
@@ -78,12 +79,12 @@ class DBSearchResults(BaseSearchResults):
         return self.get_queryset().count()
 
 
-class DBSearch(BaseSearch):
+class DBSearchBackend(BaseSearchBackend):
     query_class = DBSearchQuery
     results_class = DBSearchResults
 
     def __init__(self, params):
-        super(DBSearch, self).__init__(params)
+        super(DBSearchBackend, self).__init__(params)
 
     def reset_index(self):
         pass  # Not needed
@@ -103,5 +104,7 @@ class DBSearch(BaseSearch):
     def delete(self, obj):
         pass  # Not needed
 
+# Backwards compatibility
+DBSearch = DBSearchBackend
 
-SearchBackend = DBSearch
+SearchBackend = DBSearchBackend
