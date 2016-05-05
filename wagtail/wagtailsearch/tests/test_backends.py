@@ -14,8 +14,7 @@ from wagtail.tests.utils import WagtailTestUtils
 from wagtail.wagtailsearch.backends import (
     InvalidSearchBackendError, get_search_backend, get_search_backends)
 from wagtail.wagtailsearch.backends.base import FieldError
-from wagtail.wagtailsearch.backends.db import DBSearch
-
+from wagtail.wagtailsearch.backends.db import DBSearchBackend
 
 
 class BackendTests(WagtailTestUtils):
@@ -181,15 +180,15 @@ class BackendTests(WagtailTestUtils):
 class TestBackendLoader(TestCase):
     def test_import_by_name(self):
         db = get_search_backend(backend='default')
-        self.assertIsInstance(db, DBSearch)
+        self.assertIsInstance(db, DBSearchBackend)
 
     def test_import_by_path(self):
         db = get_search_backend(backend='wagtail.wagtailsearch.backends.db')
-        self.assertIsInstance(db, DBSearch)
+        self.assertIsInstance(db, DBSearchBackend)
 
     def test_import_by_full_path(self):
-        db = get_search_backend(backend='wagtail.wagtailsearch.backends.db.DBSearch')
-        self.assertIsInstance(db, DBSearch)
+        db = get_search_backend(backend='wagtail.wagtailsearch.backends.db.DBSearchBackend')
+        self.assertIsInstance(db, DBSearchBackend)
 
     def test_nonexistent_backend_import(self):
         self.assertRaises(
@@ -212,7 +211,7 @@ class TestBackendLoader(TestCase):
         backends = list(get_search_backends())
 
         self.assertEqual(len(backends), 1)
-        self.assertIsInstance(backends[0], DBSearch)
+        self.assertIsInstance(backends[0], DBSearchBackend)
 
     @override_settings(
         WAGTAILSEARCH_BACKENDS={

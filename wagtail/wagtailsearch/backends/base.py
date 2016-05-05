@@ -179,7 +179,7 @@ class BaseSearchResults(object):
         return '<SearchResults %r>' % data
 
 
-class BaseSearch(object):
+class BaseSearchBackend(object):
     query_class = None
     results_class = None
 
