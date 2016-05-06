@@ -6,7 +6,6 @@ import json
 import os
 import time
 import unittest
-import warnings
 
 import mock
 from django.core import management
@@ -16,15 +15,15 @@ from django.utils.six import StringIO
 from elasticsearch.serializer import JSONSerializer
 
 from wagtail.tests.search import models
-from wagtail.utils.deprecation import RemovedInWagtail18Warning
 from wagtail.wagtailsearch.backends import get_search_backend
-from wagtail.wagtailsearch.backends.elasticsearch import ElasticsearchSearchBackend
+from wagtail.wagtailsearch.backends.elasticsearch2 import (
+    Elasticsearch2SearchBackend, get_model_root)
 
 from .test_backends import BackendTests
 
 
-class TestElasticsearchSearchBackend(BackendTests, TestCase):
-    backend_path = 'wagtail.wagtailsearch.backends.elasticsearch'
+class TestElasticsearch2SearchBackend(BackendTests, TestCase):
+    backend_path = 'wagtail.wagtailsearch.backends.elasticsearch2'
 
     def test_search_with_spaces_only(self):
         # Search for some space characters and hope it doesn't crash
@@ -251,14 +250,14 @@ class TestElasticsearchSearchBackend(BackendTests, TestCase):
         self.assertEqual(set(results), set())
 
 
-class TestElasticsearchSearchQuery(TestCase):
+class TestElasticsearch2SearchQuery(TestCase):
     def assertDictEqual(self, a, b):
         default = JSONSerializer().default
         self.assertEqual(
             json.dumps(a, sort_keys=True, default=default), json.dumps(b, sort_keys=True, default=default)
         )
 
-    query_class = ElasticsearchSearchBackend.query_class
+    query_class = Elasticsearch2SearchBackend.query_class
 
     def test_simple(self):
         # Create a query
@@ -266,7 +265,7 @@ class TestElasticsearchSearchQuery(TestCase):
 
         # Check it
         expected_result = {'filtered': {
-            'filter': {'prefix': {'content_type': 'searchtests_searchtest'}},
+            'filter': {'match': {'content_type': 'searchtests.SearchTest'}},
             'query': {'multi_match': {'query': 'Hello', 'fields': ['_all', '_partials']}}
         }}
         self.assertDictEqual(query.get_query(), expected_result)
@@ -277,7 +276,7 @@ class TestElasticsearchSearchQuery(TestCase):
 
         # Check it
         expected_result = {'filtered': {
-            'filter': {'prefix': {'content_type': 'searchtests_searchtest'}},
+            'filter': {'match': {'content_type': 'searchtests.SearchTest'}},
             'query': {'match_all': {}}
         }}
         self.assertDictEqual(query.get_query(), expected_result)
@@ -288,7 +287,7 @@ class TestElasticsearchSearchQuery(TestCase):
 
         # Check it
         expected_result = {'filtered': {
-            'filter': {'prefix': {'content_type': 'searchtests_searchtest'}},
+            'filter': {'match': {'content_type': 'searchtests.SearchTest'}},
             'query': {'multi_match': {'query': 'Hello', 'fields': ['_all', '_partials'], 'operator': 'and'}}
         }}
         self.assertDictEqual(query.get_query(), expected_result)
@@ -299,7 +298,7 @@ class TestElasticsearchSearchQuery(TestCase):
 
         # Check it
         expected_result = {'filtered': {'filter': {'and': [
-            {'prefix': {'content_type': 'searchtests_searchtest'}},
+            {'match': {'content_type': 'searchtests.SearchTest'}},
             {'term': {'title_filter': 'Test'}}
         ]}, 'query': {'multi_match': {'query': 'Hello', 'fields': ['_all', '_partials']}}}}
         self.assertDictEqual(query.get_query(), expected_result)
@@ -310,7 +309,7 @@ class TestElasticsearchSearchQuery(TestCase):
 
         # Check it
         expected_result = {'filtered': {'filter': {'and': [
-            {'prefix': {'content_type': 'searchtests_searchtest'}},
+            {'match': {'content_type': 'searchtests.SearchTest'}},
             {'and': [{'term': {'live_filter': True}}, {'term': {'title_filter': 'Test'}}]}
         ]}, 'query': {'multi_match': {'query': 'Hello', 'fields': ['_all', '_partials']}}}}
 
@@ -332,7 +331,7 @@ class TestElasticsearchSearchQuery(TestCase):
 
         # Check it
         expected_result = {'filtered': {'filter': {'and': [
-            {'prefix': {'content_type': 'searchtests_searchtest'}},
+            {'match': {'content_type': 'searchtests.SearchTest'}},
             {'or': [{'term': {'live_filter': True}}, {'term': {'title_filter': 'Test'}}]}
         ]}, 'query': {'multi_match': {'query': 'Hello', 'fields': ['_all', '_partials']}}}}
         self.assertDictEqual(query, expected_result)
@@ -343,7 +342,7 @@ class TestElasticsearchSearchQuery(TestCase):
 
         # Check it
         expected_result = {'filtered': {'filter': {'and': [
-            {'prefix': {'content_type': 'searchtests_searchtest'}},
+            {'match': {'content_type': 'searchtests.SearchTest'}},
             {'not': {'term': {'live_filter': True}}}
         ]}, 'query': {'multi_match': {'query': 'Hello', 'fields': ['_all', '_partials']}}}}
         self.assertDictEqual(query.get_query(), expected_result)
@@ -354,7 +353,7 @@ class TestElasticsearchSearchQuery(TestCase):
 
         # Check it
         expected_result = {'filtered': {
-            'filter': {'prefix': {'content_type': 'searchtests_searchtest'}},
+            'filter': {'match': {'content_type': 'searchtests.SearchTest'}},
             'query': {'match': {'title': 'Hello'}}
         }}
         self.assertDictEqual(query.get_query(), expected_result)
@@ -365,7 +364,7 @@ class TestElasticsearchSearchQuery(TestCase):
 
         # Check it
         expected_result = {'filtered': {
-            'filter': {'prefix': {'content_type': 'searchtests_searchtest'}},
+            'filter': {'match': {'content_type': 'searchtests.SearchTest'}},
             'query': {'match': {'title': {'query': 'Hello', 'operator': 'and'}}}
         }}
         self.assertDictEqual(query.get_query(), expected_result)
@@ -376,7 +375,7 @@ class TestElasticsearchSearchQuery(TestCase):
 
         # Check it
         expected_result = {'filtered': {
-            'filter': {'prefix': {'content_type': 'searchtests_searchtest'}},
+            'filter': {'match': {'content_type': 'searchtests.SearchTest'}},
             'query': {'multi_match': {'fields': ['title', 'content'], 'query': 'Hello'}}
         }}
         self.assertDictEqual(query.get_query(), expected_result)
@@ -389,7 +388,7 @@ class TestElasticsearchSearchQuery(TestCase):
 
         # Check it
         expected_result = {'filtered': {
-            'filter': {'prefix': {'content_type': 'searchtests_searchtest'}},
+            'filter': {'match': {'content_type': 'searchtests.SearchTest'}},
             'query': {'multi_match': {'fields': ['title', 'content'], 'query': 'Hello', 'operator': 'and'}}
         }}
         self.assertDictEqual(query.get_query(), expected_result)
@@ -400,7 +399,7 @@ class TestElasticsearchSearchQuery(TestCase):
 
         # Check it
         expected_result = {'filtered': {'filter': {'and': [
-            {'prefix': {'content_type': 'searchtests_searchtest'}},
+            {'match': {'content_type': 'searchtests.SearchTest'}},
             {'term': {'title_filter': 'Test'}}
         ]}, 'query': {'multi_match': {'query': 'Hello', 'fields': ['_all', '_partials']}}}}
         self.assertDictEqual(query.get_query(), expected_result)
@@ -411,7 +410,7 @@ class TestElasticsearchSearchQuery(TestCase):
 
         # Check it
         expected_result = {'filtered': {'filter': {'and': [
-            {'prefix': {'content_type': 'searchtests_searchtest'}},
+            {'match': {'content_type': 'searchtests.SearchTest'}},
             {'missing': {'field': 'title_filter'}}
         ]}, 'query': {'multi_match': {'query': 'Hello', 'fields': ['_all', '_partials']}}}}
         self.assertDictEqual(query.get_query(), expected_result)
@@ -422,7 +421,7 @@ class TestElasticsearchSearchQuery(TestCase):
 
         # Check it
         expected_result = {'filtered': {'filter': {'and': [
-            {'prefix': {'content_type': 'searchtests_searchtest'}},
+            {'match': {'content_type': 'searchtests.SearchTest'}},
             {'missing': {'field': 'title_filter'}}
         ]}, 'query': {'multi_match': {'query': 'Hello', 'fields': ['_all', '_partials']}}}}
         self.assertDictEqual(query.get_query(), expected_result)
@@ -433,7 +432,7 @@ class TestElasticsearchSearchQuery(TestCase):
 
         # Check it
         expected_result = {'filtered': {'filter': {'and': [
-            {'prefix': {'content_type': 'searchtests_searchtest'}},
+            {'match': {'content_type': 'searchtests.SearchTest'}},
             {'not': {'missing': {'field': 'title_filter'}}}
         ]}, 'query': {'multi_match': {'query': 'Hello', 'fields': ['_all', '_partials']}}}}
         self.assertDictEqual(query.get_query(), expected_result)
@@ -444,7 +443,7 @@ class TestElasticsearchSearchQuery(TestCase):
 
         # Check it
         expected_result = {'filtered': {'filter': {'and': [
-            {'prefix': {'content_type': 'searchtests_searchtest'}},
+            {'match': {'content_type': 'searchtests.SearchTest'}},
             {'prefix': {'title_filter': 'Test'}}
         ]}, 'query': {'multi_match': {'query': 'Hello', 'fields': ['_all', '_partials']}}}}
         self.assertDictEqual(query.get_query(), expected_result)
@@ -459,7 +458,7 @@ class TestElasticsearchSearchQuery(TestCase):
 
         # Check it
         expected_result = {'filtered': {'filter': {'and': [
-            {'prefix': {'content_type': 'searchtests_searchtest'}},
+            {'match': {'content_type': 'searchtests.SearchTest'}},
             {'range': {'published_date_filter': {'gt': '2014-04-29'}}}
         ]}, 'query': {'multi_match': {'query': 'Hello', 'fields': ['_all', '_partials']}}}}
         self.assertDictEqual(query.get_query(), expected_result)
@@ -472,7 +471,7 @@ class TestElasticsearchSearchQuery(TestCase):
 
         # Check it
         expected_result = {'filtered': {'filter': {'and': [
-            {'prefix': {'content_type': 'searchtests_searchtest'}},
+            {'match': {'content_type': 'searchtests.SearchTest'}},
             {'range': {'published_date_filter': {'lt': '2014-04-29'}}}
         ]}, 'query': {'multi_match': {'query': 'Hello', 'fields': ['_all', '_partials']}}}}
         self.assertDictEqual(query.get_query(), expected_result)
@@ -485,7 +484,7 @@ class TestElasticsearchSearchQuery(TestCase):
 
         # Check it
         expected_result = {'filtered': {'filter': {'and': [
-            {'prefix': {'content_type': 'searchtests_searchtest'}},
+            {'match': {'content_type': 'searchtests.SearchTest'}},
             {'range': {'published_date_filter': {'gte': '2014-04-29'}}}
         ]}, 'query': {'multi_match': {'query': 'Hello', 'fields': ['_all', '_partials']}}}}
         self.assertDictEqual(query.get_query(), expected_result)
@@ -498,7 +497,7 @@ class TestElasticsearchSearchQuery(TestCase):
 
         # Check it
         expected_result = {'filtered': {'filter': {'and': [
-            {'prefix': {'content_type': 'searchtests_searchtest'}},
+            {'match': {'content_type': 'searchtests.SearchTest'}},
             {'range': {'published_date_filter': {'lte': '2014-04-29'}}}
         ]}, 'query': {'multi_match': {'query': 'Hello', 'fields': ['_all', '_partials']}}}}
         self.assertDictEqual(query.get_query(), expected_result)
@@ -514,7 +513,7 @@ class TestElasticsearchSearchQuery(TestCase):
 
         # Check it
         expected_result = {'filtered': {'filter': {'and': [
-            {'prefix': {'content_type': 'searchtests_searchtest'}},
+            {'match': {'content_type': 'searchtests.SearchTest'}},
             {'range': {'published_date_filter': {'gte': '2014-04-29', 'lte': '2014-08-19'}}}
         ]}, 'query': {'multi_match': {'query': 'Hello', 'fields': ['_all', '_partials']}}}}
         self.assertDictEqual(query.get_query(), expected_result)
@@ -550,7 +549,7 @@ class TestElasticsearchSearchQuery(TestCase):
         self.assertDictEqual(query.get_sort(), expected_result)
 
 
-class TestElasticsearchSearchResults(TestCase):
+class TestElasticsearch2SearchResults(TestCase):
     def assertDictEqual(self, a, b):
         default = JSONSerializer().default
         self.assertEqual(
@@ -564,7 +563,7 @@ class TestElasticsearchSearchResults(TestCase):
             self.objects.append(models.SearchTest.objects.create(title=str(i)))
 
     def get_results(self):
-        backend = ElasticsearchSearchBackend({})
+        backend = Elasticsearch2SearchBackend({})
         query = mock.MagicMock()
         query.queryset = models.SearchTest.objects.all()
         query.get_query.return_value = 'QUERY'
@@ -606,7 +605,7 @@ class TestElasticsearchSearchResults(TestCase):
             body={'query': 'QUERY'},
             _source=False,
             fields='pk',
-            index='wagtail'
+            index='wagtail__searchtests_searchtest'
         )
 
     @mock.patch('elasticsearch.Elasticsearch.search')
@@ -622,7 +621,7 @@ class TestElasticsearchSearchResults(TestCase):
             body={'query': 'QUERY'},
             _source=False,
             fields='pk',
-            index='wagtail',
+            index='wagtail__searchtests_searchtest',
             size=1
         )
 
@@ -638,7 +637,7 @@ class TestElasticsearchSearchResults(TestCase):
             body={'query': 'QUERY'},
             _source=False,
             fields='pk',
-            index='wagtail',
+            index='wagtail__searchtests_searchtest',
             size=3
         )
 
@@ -654,7 +653,7 @@ class TestElasticsearchSearchResults(TestCase):
             body={'query': 'QUERY'},
             _source=False,
             fields='pk',
-            index='wagtail',
+            index='wagtail__searchtests_searchtest',
             size=10
         )
 
@@ -671,7 +670,7 @@ class TestElasticsearchSearchResults(TestCase):
             body={'query': 'QUERY'},
             _source=False,
             fields='pk',
-            index='wagtail',
+            index='wagtail__searchtests_searchtest',
             size=1
         )
 
@@ -728,7 +727,7 @@ class TestElasticsearchSearchResults(TestCase):
         self.assertEqual(results[2], self.objects[0])
 
 
-class TestElasticsearchMapping(TestCase):
+class TestElasticsearch2Mapping(TestCase):
     def assertDictEqual(self, a, b):
         default = JSONSerializer().default
         self.assertEqual(
@@ -737,7 +736,7 @@ class TestElasticsearchMapping(TestCase):
 
     def setUp(self):
         # Create ES mapping
-        self.es_mapping = ElasticsearchSearchBackend.mapping_class(models.SearchTest)
+        self.es_mapping = Elasticsearch2SearchBackend.mapping_class(models.SearchTest)
 
         # Create ES document
         self.obj = models.SearchTest(title="Hello")
@@ -757,17 +756,17 @@ class TestElasticsearchMapping(TestCase):
                 'properties': {
                     'pk': {'index': 'not_analyzed', 'type': 'string', 'store': 'yes', 'include_in_all': False},
                     'content_type': {'index': 'not_analyzed', 'type': 'string', 'include_in_all': False},
-                    '_partials': {'index_analyzer': 'edgengram_analyzer', 'include_in_all': False, 'type': 'string'},
+                    '_partials': {'analyzer': 'edgengram_analyzer', 'search_analyzer': 'standard', 'include_in_all': False, 'type': 'string'},
                     'live_filter': {'index': 'not_analyzed', 'type': 'boolean', 'include_in_all': False},
                     'published_date_filter': {'index': 'not_analyzed', 'type': 'date', 'include_in_all': False},
-                    'title': {'type': 'string', 'include_in_all': True, 'index_analyzer': 'edgengram_analyzer'},
+                    'title': {'type': 'string', 'include_in_all': True, 'analyzer': 'edgengram_analyzer', 'search_analyzer': 'standard'},
                     'title_filter': {'index': 'not_analyzed', 'type': 'string', 'include_in_all': False},
                     'content': {'type': 'string', 'include_in_all': True},
                     'callable_indexed_field': {'type': 'string', 'include_in_all': True},
                     'tags': {
                         'type': 'nested',
                         'properties': {
-                            'name': {'type': 'string', 'include_in_all': True, 'index_analyzer': 'edgengram_analyzer'},
+                            'name': {'type': 'string', 'include_in_all': True, 'analyzer': 'edgengram_analyzer', 'search_analyzer': 'standard'},
                             'slug_filter': {'index': 'not_analyzed', 'type': 'string', 'include_in_all': False},
                         }
                     },
@@ -791,7 +790,7 @@ class TestElasticsearchMapping(TestCase):
         # Check
         expected_result = {
             'pk': str(self.obj.pk),
-            'content_type': 'searchtests_searchtest',
+            'content_type': ['searchtests.SearchTest'],
             '_partials': ['Hello', 'a tag'],
             'live_filter': False,
             'published_date_filter': None,
@@ -810,7 +809,7 @@ class TestElasticsearchMapping(TestCase):
         self.assertDictEqual(document, expected_result)
 
 
-class TestElasticsearchMappingInheritance(TestCase):
+class TestElasticsearch2MappingInheritance(TestCase):
     def assertDictEqual(self, a, b):
         default = JSONSerializer().default
         self.assertEqual(
@@ -819,7 +818,7 @@ class TestElasticsearchMappingInheritance(TestCase):
 
     def setUp(self):
         # Create ES mapping
-        self.es_mapping = ElasticsearchSearchBackend.mapping_class(models.SearchTestChild)
+        self.es_mapping = Elasticsearch2SearchBackend.mapping_class(models.SearchTestChild)
 
         # Create ES document
         self.obj = models.SearchTestChild(title="Hello", subtitle="World", page_id=1)
@@ -838,12 +837,12 @@ class TestElasticsearchMappingInheritance(TestCase):
             'searchtests_searchtest_searchtests_searchtestchild': {
                 'properties': {
                     # New
-                    'extra_content': {'type': 'string', 'include_in_all': True},
-                    'subtitle': {'type': 'string', 'include_in_all': True, 'index_analyzer': 'edgengram_analyzer'},
-                    'page': {
+                    'searchtests_searchtestchild__extra_content': {'type': 'string', 'include_in_all': True},
+                    'searchtests_searchtestchild__subtitle': {'type': 'string', 'include_in_all': True, 'analyzer': 'edgengram_analyzer', 'search_analyzer': 'standard'},
+                    'searchtests_searchtestchild__page': {
                         'type': 'nested',
                         'properties': {
-                            'title': {'type': 'string', 'include_in_all': True, 'index_analyzer': 'edgengram_analyzer'},
+                            'title': {'type': 'string', 'include_in_all': True, 'analyzer': 'edgengram_analyzer', 'search_analyzer': 'standard'},
                             'search_description': {'type': 'string', 'include_in_all': True},
                             'live_filter': {'index': 'not_analyzed', 'type': 'boolean', 'include_in_all': False},
                         }
@@ -852,17 +851,17 @@ class TestElasticsearchMappingInheritance(TestCase):
                     # Inherited
                     'pk': {'index': 'not_analyzed', 'type': 'string', 'store': 'yes', 'include_in_all': False},
                     'content_type': {'index': 'not_analyzed', 'type': 'string', 'include_in_all': False},
-                    '_partials': {'index_analyzer': 'edgengram_analyzer', 'include_in_all': False, 'type': 'string'},
+                    '_partials': {'analyzer': 'edgengram_analyzer', 'search_analyzer': 'standard', 'include_in_all': False, 'type': 'string'},
                     'live_filter': {'index': 'not_analyzed', 'type': 'boolean', 'include_in_all': False},
                     'published_date_filter': {'index': 'not_analyzed', 'type': 'date', 'include_in_all': False},
-                    'title': {'type': 'string', 'include_in_all': True, 'index_analyzer': 'edgengram_analyzer'},
+                    'title': {'type': 'string', 'include_in_all': True, 'analyzer': 'edgengram_analyzer', 'search_analyzer': 'standard'},
                     'title_filter': {'index': 'not_analyzed', 'type': 'string', 'include_in_all': False},
                     'content': {'type': 'string', 'include_in_all': True},
                     'callable_indexed_field': {'type': 'string', 'include_in_all': True},
                     'tags': {
                         'type': 'nested',
                         'properties': {
-                            'name': {'type': 'string', 'include_in_all': True, 'index_analyzer': 'edgengram_analyzer'},
+                            'name': {'type': 'string', 'include_in_all': True, 'analyzer': 'edgengram_analyzer', 'search_analyzer': 'standard'},
                             'slug_filter': {'index': 'not_analyzed', 'type': 'string', 'include_in_all': False},
                         }
                     },
@@ -889,16 +888,16 @@ class TestElasticsearchMappingInheritance(TestCase):
         # Check
         expected_result = {
             # New
-            'extra_content': '',
-            'subtitle': 'World',
-            'page': {
+            'searchtests_searchtestchild__extra_content': '',
+            'searchtests_searchtestchild__subtitle': 'World',
+            'searchtests_searchtestchild__page': {
                 'title': 'Root',
                 'search_description': '',
                 'live_filter': True,
             },
 
             # Changed
-            'content_type': 'searchtests_searchtest_searchtests_searchtestchild',
+            'content_type': ['searchtests.SearchTestChild', 'searchtests.SearchTest'],
 
             # Inherited
             'pk': str(self.obj.pk),
@@ -922,7 +921,7 @@ class TestElasticsearchMappingInheritance(TestCase):
 
 class TestBackendConfiguration(TestCase):
     def test_default_settings(self):
-        backend = ElasticsearchSearchBackend(params={})
+        backend = Elasticsearch2SearchBackend(params={})
 
         self.assertEqual(len(backend.hosts), 1)
         self.assertEqual(backend.hosts[0]['host'], 'localhost')
@@ -931,7 +930,7 @@ class TestBackendConfiguration(TestCase):
 
     def test_hosts(self):
         # This tests that HOSTS goes to es_hosts
-        backend = ElasticsearchSearchBackend(params={
+        backend = Elasticsearch2SearchBackend(params={
             'HOSTS': [
                 {
                     'host': '127.0.0.1',
@@ -949,7 +948,7 @@ class TestBackendConfiguration(TestCase):
 
     def test_urls(self):
         # This test backwards compatibility with old URLS setting
-        backend = ElasticsearchSearchBackend(params={
+        backend = Elasticsearch2SearchBackend(params={
             'URLS': [
                 'http://localhost:12345',
                 'https://127.0.0.1:54321',
@@ -979,7 +978,7 @@ class TestBackendConfiguration(TestCase):
 
 
 @unittest.skipUnless(os.environ.get('ELASTICSEARCH_URL', False), "ELASTICSEARCH_URL not set")
-@unittest.skipUnless(os.environ.get('ELASTICSEARCH_VERSION', '1') == '1', "ELASTICSEARCH_VERSION not set to 1")
+@unittest.skipUnless(os.environ.get('ELASTICSEARCH_VERSION', '1') == '2', "ELASTICSEARCH_VERSION not set to 2")
 class TestRebuilder(TestCase):
     def assertDictEqual(self, a, b):
         default = JSONSerializer().default
@@ -1026,7 +1025,7 @@ class TestRebuilder(TestCase):
 
 
 @unittest.skipUnless(os.environ.get('ELASTICSEARCH_URL', False), "ELASTICSEARCH_URL not set")
-@unittest.skipUnless(os.environ.get('ELASTICSEARCH_VERSION', '1') == '1', "ELASTICSEARCH_VERSION not set to 1")
+@unittest.skipUnless(os.environ.get('ELASTICSEARCH_VERSION', '1') == '2', "ELASTICSEARCH_VERSION not set to 2")
 class TestAtomicRebuilder(TestCase):
     def setUp(self):
         self.backend = get_search_backend('elasticsearch')
@@ -1091,14 +1090,21 @@ class TestAtomicRebuilder(TestCase):
         self.assertFalse(self.es.indices.exists(current_index_name))
 
 
-class TestOldNameDeprecationWarning(TestCase):
-    def test_old_name_deprecation(self):
-        from wagtail.wagtailsearch.backends.elasticsearch import ElasticSearch
+class TestGetModelRoot(TestCase):
+    def test_root_model(self):
+        from wagtail.wagtailcore.models import Page
 
-        with warnings.catch_warnings(record=True) as w:
-            warnings.simplefilter('always')
+        self.assertEqual(get_model_root(Page), Page)
 
-            ElasticSearch({})
+    def test_child_model(self):
+        from wagtail.wagtailcore.models import Page
+        from wagtail.tests.testapp.models import SimplePage
 
-        self.assertEqual(len(w), 1)
-        self.assertIs(w[0].category, RemovedInWagtail18Warning)
+        self.assertEqual(get_model_root(SimplePage), Page)
+
+    def test_grandchild_model(self):
+        # MTIChildPage inherits from MTIBasePage which inherits from Page
+        from wagtail.wagtailcore.models import Page
+        from wagtail.tests.testapp.models import MTIChildPage
+
+        self.assertEqual(get_model_root(MTIChildPage), Page)

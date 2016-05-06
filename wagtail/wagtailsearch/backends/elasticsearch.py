@@ -12,7 +12,8 @@ from elasticsearch.helpers import bulk
 from wagtail.utils.deprecation import RemovedInWagtail18Warning
 from wagtail.wagtailsearch.backends.base import (
     BaseSearchBackend, BaseSearchQuery, BaseSearchResults)
-from wagtail.wagtailsearch.index import FilterField, RelatedFields, SearchField, class_is_indexed
+from wagtail.wagtailsearch.index import (
+    FilterField, Indexed, RelatedFields, SearchField, class_is_indexed)
 
 
 class ElasticsearchMapping(object):
@@ -42,8 +43,20 @@ class ElasticsearchMapping(object):
         'TimeField': 'date',
     }
 
+    # Contains the configuration required to use the edgengram_analyzer
+    # on a field. It's different in Elasticsearch 2 so it's been put in
+    # an attribute here to make it easier to override in a subclass.
+    edgengram_analyzer_config = {
+        'index_analyzer': 'edgengram_analyzer',
+    }
+
     def __init__(self, model):
         self.model = model
+
+    def get_parent(self):
+        for base in self.model.__bases__:
+            if issubclass(base, Indexed) and issubclass(base, models.Model):
+                return type(self)(base)
 
     def get_document_type(self):
         return self.model.indexed_get_content_type()
@@ -75,7 +88,7 @@ class ElasticsearchMapping(object):
                     mapping['boost'] = field.boost
 
                 if field.partial_match:
-                    mapping['index_analyzer'] = 'edgengram_analyzer'
+                    mapping.update(self.edgengram_analyzer_config)
 
                 mapping['include_in_all'] = True
 
@@ -94,8 +107,9 @@ class ElasticsearchMapping(object):
         fields = {
             'pk': dict(type='string', index='not_analyzed', store='yes', include_in_all=False),
             'content_type': dict(type='string', index='not_analyzed', include_in_all=False),
-            '_partials': dict(type='string', index_analyzer='edgengram_analyzer', include_in_all=False),
+            '_partials': dict(type='string', include_in_all=False),
         }
+        fields['_partials'].update(self.edgengram_analyzer_config)
 
         fields.update(dict(
             self.get_field_mapping(field) for field in self.model.get_search_fields()
@@ -305,15 +319,18 @@ class ElasticsearchSearchQuery(BaseSearchQuery):
 
         return query
 
+    def get_content_type_filter(self):
+        return {
+            'prefix': {
+                'content_type': self.queryset.model.indexed_get_content_type()
+            }
+        }
+
     def get_filters(self):
         filters = []
 
         # Filter by content type
-        filters.append({
-            'prefix': {
-                'content_type': self.queryset.model.indexed_get_content_type()
-            }
-        })
+        filters.append(self.get_content_type_filter())
 
         # Apply filters from queryset
         queryset_filters = self._get_filters_from_queryset()

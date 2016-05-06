@@ -82,19 +82,21 @@ If any of these features are important to you, we recommend using Elasticsearch 
 Elasticsearch Backend
 ---------------------
 
-``wagtail.wagtailsearch.backends.elasticsearch``
+``wagtail.wagtailsearch.backends.elasticsearch`` (Elasticsearch 1.x)
+
+``wagtail.wagtailsearch.backends.elasticsearch2`` (Elasticsearch 2.x)
 
 .. versionchanged:: 1.1
 
     Before 1.1, the full path to the backend class had to be specified: ``wagtail.wagtailsearch.backends.elasticsearch.ElasticSearch``
 
+.. versionchanged:: 1.7
+
+    Support for Elasticsearch 2.x was added
+
 Prerequisites are the `Elasticsearch`_ service itself and, via pip, the `elasticsearch-py`_ package:
 
 .. _Elasticsearch: https://www.elastic.co/downloads/past-releases/elasticsearch-1-7-3
-
-.. note::
-
-   Wagtail doesn't support Elasticsearch 2.0 yet; please use 1.x in the meantime. Elasticsearch 2.0 support is scheduled for a future release.
 
 .. code-block:: sh
 
@@ -106,7 +108,7 @@ The backend is configured in settings:
 
   WAGTAILSEARCH_BACKENDS = {
       'default': {
-          'BACKEND': 'wagtail.wagtailsearch.backends.elasticsearch',
+          'BACKEND': 'wagtail.wagtailsearch.backends.elasticsearch2',
           'URLS': ['http://localhost:9200'],
           'INDEX': 'wagtail',
           'TIMEOUT': 5,
