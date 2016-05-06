@@ -1,6 +1,7 @@
 from __future__ import absolute_import, unicode_literals
 
 import json
+import warnings
 
 from django.db import models
 from django.utils.crypto import get_random_string
@@ -8,12 +9,13 @@ from django.utils.six.moves.urllib.parse import urlparse
 from elasticsearch import Elasticsearch, NotFoundError
 from elasticsearch.helpers import bulk
 
+from wagtail.utils.deprecation import RemovedInWagtail18Warning
 from wagtail.wagtailsearch.backends.base import (
     BaseSearchBackend, BaseSearchQuery, BaseSearchResults)
 from wagtail.wagtailsearch.index import FilterField, RelatedFields, SearchField, class_is_indexed
 
 
-class ElasticSearchMapping(object):
+class ElasticsearchMapping(object):
     type_map = {
         'AutoField': 'integer',
         'BinaryField': 'binary',
@@ -146,10 +148,10 @@ class ElasticSearchMapping(object):
         return doc
 
     def __repr__(self):
-        return '<ElasticSearchMapping: %s>' % (self.model.__name__, )
+        return '<ElasticsearchMapping: %s>' % (self.model.__name__, )
 
 
-class ElasticSearchQuery(BaseSearchQuery):
+class ElasticsearchSearchQuery(BaseSearchQuery):
     DEFAULT_OPERATOR = 'or'
 
     def _process_lookup(self, field, lookup, value):
@@ -351,7 +353,7 @@ class ElasticSearchQuery(BaseSearchQuery):
         return json.dumps(self.get_query())
 
 
-class ElasticSearchResults(BaseSearchResults):
+class ElasticsearchSearchResults(BaseSearchResults):
     def _get_es_body(self, for_count=False):
         body = {
             'query': self.query.get_query()
@@ -411,7 +413,7 @@ class ElasticSearchResults(BaseSearchResults):
         return max(hit_count, 0)
 
 
-class ElasticSearchIndex(object):
+class ElasticsearchIndex(object):
     def __init__(self, backend, name):
         self.backend = backend
         self.es = backend.es
@@ -528,7 +530,7 @@ class ElasticSearchIndex(object):
         self.put()
 
 
-class ElasticSearchIndexRebuilder(object):
+class ElasticsearchIndexRebuilder(object):
     def __init__(self, index):
         self.index = index
 
@@ -545,7 +547,7 @@ class ElasticSearchIndexRebuilder(object):
         self.index.refresh()
 
 
-class ElasticSearchAtomicIndexRebuilder(ElasticSearchIndexRebuilder):
+class ElasticsearchAtomicIndexRebuilder(ElasticsearchIndexRebuilder):
     def __init__(self, index):
         self.alias = index
         self.index = index.backend.index_class(
@@ -602,13 +604,13 @@ class ElasticSearchAtomicIndexRebuilder(ElasticSearchIndexRebuilder):
             self.index.put_alias(self.alias.name)
 
 
-class ElasticSearchBackend(BaseSearchBackend):
-    index_class = ElasticSearchIndex
-    query_class = ElasticSearchQuery
-    results_class = ElasticSearchResults
-    mapping_class = ElasticSearchMapping
-    basic_rebuilder_class = ElasticSearchIndexRebuilder
-    atomic_rebuilder_class = ElasticSearchAtomicIndexRebuilder
+class ElasticsearchSearchBackend(BaseSearchBackend):
+    index_class = ElasticsearchIndex
+    query_class = ElasticsearchSearchQuery
+    results_class = ElasticsearchSearchResults
+    mapping_class = ElasticsearchMapping
+    basic_rebuilder_class = ElasticsearchIndexRebuilder
+    atomic_rebuilder_class = ElasticsearchAtomicIndexRebuilder
 
     settings = {
         'settings': {
@@ -655,7 +657,7 @@ class ElasticSearchBackend(BaseSearchBackend):
     }
 
     def __init__(self, params):
-        super(ElasticSearchBackend, self).__init__(params)
+        super(ElasticsearchSearchBackend, self).__init__(params)
 
         # Get settings
         self.hosts = params.pop('HOSTS', None)
@@ -723,7 +725,16 @@ class ElasticSearchBackend(BaseSearchBackend):
     def delete(self, obj):
         self.get_index().delete_item(obj)
 
-# Backwards compatibility
-ElasticSearch = ElasticSearchBackend
 
-SearchBackend = ElasticSearchBackend
+class ElasticSearch(ElasticsearchSearchBackend):
+    def __init__(self, params):
+        warnings.warn(
+            "The wagtail.wagtailsearch.backends.elasticsearch.ElasticSearch has "
+            "been moved to wagtail.wagtailsearch.backends.elasticsearch.ElasticsearchSearchBackend",
+            category=RemovedInWagtail18Warning, stacklevel=2
+        )
+
+        super(ElasticSearch, self).__init__(params)
+
+
+SearchBackend = ElasticsearchSearchBackend
