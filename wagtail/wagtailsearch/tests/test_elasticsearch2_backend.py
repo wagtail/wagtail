@@ -604,7 +604,7 @@ class TestElasticsearch2SearchResults(TestCase):
             body={'query': 'QUERY'},
             _source=False,
             fields='pk',
-            index='wagtail'
+            index='wagtail__searchtests_searchtest'
         )
 
     @mock.patch('elasticsearch.Elasticsearch.search')
@@ -620,7 +620,7 @@ class TestElasticsearch2SearchResults(TestCase):
             body={'query': 'QUERY'},
             _source=False,
             fields='pk',
-            index='wagtail',
+            index='wagtail__searchtests_searchtest',
             size=1
         )
 
@@ -636,7 +636,7 @@ class TestElasticsearch2SearchResults(TestCase):
             body={'query': 'QUERY'},
             _source=False,
             fields='pk',
-            index='wagtail',
+            index='wagtail__searchtests_searchtest',
             size=3
         )
 
@@ -652,7 +652,7 @@ class TestElasticsearch2SearchResults(TestCase):
             body={'query': 'QUERY'},
             _source=False,
             fields='pk',
-            index='wagtail',
+            index='wagtail__searchtests_searchtest',
             size=10
         )
 
@@ -669,7 +669,7 @@ class TestElasticsearch2SearchResults(TestCase):
             body={'query': 'QUERY'},
             _source=False,
             fields='pk',
-            index='wagtail',
+            index='wagtail__searchtests_searchtest',
             size=1
         )
 
