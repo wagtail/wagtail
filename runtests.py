@@ -17,6 +17,7 @@ def make_parser():
     parser.add_argument('--deprecation', choices=['all', 'pending', 'imminent', 'none'], default='pending')
     parser.add_argument('--postgres', action='store_true')
     parser.add_argument('--elasticsearch', action='store_true')
+    parser.add_argument('--elasticsearch2', action='store_true')
     parser.add_argument('rest', nargs='*')
     return parser
 
@@ -49,6 +50,13 @@ def runtests():
 
     if args.elasticsearch:
         os.environ.setdefault('ELASTICSEARCH_URL', 'http://localhost:9200')
+        os.environ.setdefault('ELASTICSEARCH_VERSION', '1')
+
+        if args.elasticsearch2:
+            raise RuntimeError("You cannot test both Elasticsearch 1 and 2 together")
+    elif args.elasticsearch2:
+        os.environ.setdefault('ELASTICSEARCH_URL', 'http://localhost:9200')
+        os.environ.setdefault('ELASTICSEARCH_VERSION', '2')
     elif 'ELASTICSEARCH_URL' in os.environ:
         # forcibly delete the ELASTICSEARCH_URL setting to skip those tests
         del os.environ['ELASTICSEARCH_URL']
