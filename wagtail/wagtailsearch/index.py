@@ -94,8 +94,6 @@ def class_is_indexed(cls):
 
 
 class BaseField(object):
-    suffix = ''
-
     def __init__(self, field_name, **kwargs):
         self.field_name = field_name
         self.kwargs = kwargs
@@ -109,9 +107,6 @@ class BaseField(object):
             return field.attname
         except models.fields.FieldDoesNotExist:
             return self.field_name
-
-    def get_index_name(self, cls):
-        return self.get_attname(cls) + self.suffix
 
     def get_type(self, cls):
         if 'type' in self.kwargs:
@@ -148,16 +143,13 @@ class SearchField(BaseField):
 
 
 class FilterField(BaseField):
-    suffix = '_filter'
+    pass
 
 
 class RelatedFields(object):
     def __init__(self, field_name, fields):
         self.field_name = field_name
         self.fields = fields
-
-    def get_index_name(self, cls):
-        return self.field_name
 
     def get_field(self, cls):
         return cls._meta.get_field(self.field_name)

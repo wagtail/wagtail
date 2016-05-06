@@ -46,6 +46,14 @@ class ElasticsearchMapping(object):
     def get_document_type(self):
         return self.model.indexed_get_content_type()
 
+    def get_field_column_name(self, field):
+        if isinstance(field, FilterField):
+            return field.get_attname(self.model) + '_filter'
+        elif isinstance(field, SearchField):
+            return field.get_attname(self.model)
+        elif isinstance(field, RelatedFields):
+            return field.field_name
+
     def get_field_mapping(self, field):
         if isinstance(field, RelatedFields):
             mapping = {'type': 'nested', 'properties': {}}
@@ -54,7 +62,7 @@ class ElasticsearchMapping(object):
                 sub_field_name, sub_field_mapping = self.get_field_mapping(sub_field)
                 mapping['properties'][sub_field_name] = sub_field_mapping
 
-            return field.get_index_name(self.model), mapping
+            return self.get_field_column_name(field), mapping
         else:
             mapping = {'type': self.type_map.get(field.get_type(self.model), 'string')}
 
@@ -75,7 +83,7 @@ class ElasticsearchMapping(object):
                 for key, value in field.kwargs['es_extra'].items():
                     mapping[key] = value
 
-            return field.get_index_name(self.model), mapping
+            return self.get_field_column_name(field), mapping
 
     def get_mapping(self):
         # Make field list
@@ -102,10 +110,11 @@ class ElasticsearchMapping(object):
         doc = {}
         partials = []
         model = type(obj)
+        mapping = type(self)(model)
 
         for field in fields:
             value = field.get_value(obj)
-            doc[field.get_index_name(model)] = value
+            doc[mapping.get_field_column_name(field)] = value
 
             # Check if this field should be added into _partials
             if isinstance(field, SearchField) and field.partial_match:
@@ -134,7 +143,7 @@ class ElasticsearchMapping(object):
                     value, extra_partials = self._get_nested_document(field.fields, value)
                     partials.extend(extra_partials)
 
-            doc[field.get_index_name(self.model)] = value
+            doc[self.get_field_column_name(field)] = value
 
             # Check if this field should be added into _partials
             if isinstance(field, SearchField) and field.partial_match:
@@ -150,23 +159,27 @@ class ElasticsearchMapping(object):
 
 
 class ElasticsearchSearchQuery(BaseSearchQuery):
+    mapping_class = ElasticsearchMapping
     DEFAULT_OPERATOR = 'or'
 
+    def __init__(self, *args, **kwargs):
+        super(ElasticsearchSearchQuery, self).__init__(*args, **kwargs)
+        self.mapping = self.mapping_class(self.queryset.model)
+
     def _process_lookup(self, field, lookup, value):
-        # Get the name of the field in the index
-        field_index_name = field.get_index_name(self.queryset.model)
+        column_name = self.mapping.get_field_column_name(field)
 
         if lookup == 'exact':
             if value is None:
                 return {
                     'missing': {
-                        'field': field_index_name,
+                        'field': column_name,
                     }
                 }
             else:
                 return {
                     'term': {
-                        field_index_name: value,
+                        column_name: value,
                     }
                 }
 
@@ -174,14 +187,14 @@ class ElasticsearchSearchQuery(BaseSearchQuery):
             if value:
                 return {
                     'missing': {
-                        'field': field_index_name,
+                        'field': column_name,
                     }
                 }
             else:
                 return {
                     'not': {
                         'missing': {
-                            'field': field_index_name,
+                            'field': column_name,
                         }
                     }
                 }
@@ -189,14 +202,14 @@ class ElasticsearchSearchQuery(BaseSearchQuery):
         if lookup in ['startswith', 'prefix']:
             return {
                 'prefix': {
-                    field_index_name: value,
+                    column_name: value,
                 }
             }
 
         if lookup in ['gt', 'gte', 'lt', 'lte']:
             return {
                 'range': {
-                    field_index_name: {
+                    column_name: {
                         lookup: value,
                     }
                 }
@@ -207,7 +220,7 @@ class ElasticsearchSearchQuery(BaseSearchQuery):
 
             return {
                 'range': {
-                    field_index_name: {
+                    column_name: {
                         'gte': lower,
                         'lte': upper,
                     }
@@ -217,7 +230,7 @@ class ElasticsearchSearchQuery(BaseSearchQuery):
         if lookup == 'in':
             return {
                 'terms': {
-                    field_index_name: list(value),
+                    column_name: list(value),
                 }
             }
 
@@ -335,10 +348,10 @@ class ElasticsearchSearchQuery(BaseSearchQuery):
                     field_name = order_by_field[1:]
 
                 field = self._get_filterable_field(field_name)
-                field_index_name = field.get_index_name(self.queryset.model)
+                column_name = self.mapping.get_field_column_name(field)
 
                 sort.append({
-                    field_index_name: 'desc' if reverse else 'asc'
+                    column_name: 'desc' if reverse else 'asc'
                 })
 
             return sort
