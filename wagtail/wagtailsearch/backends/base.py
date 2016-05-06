@@ -225,6 +225,17 @@ class BaseSearch(object):
         if query_string == "":
             return []
 
+        # Only fields that are indexed as a SearchField can be passed in fields
+        if fields:
+            allowed_fields = {field.field_name for field in model.get_searchable_search_fields()}
+
+            for field_name in fields:
+                if field_name not in allowed_fields:
+                    raise FieldError(
+                        'Cannot search with field "' + field_name + '". Please add index.SearchField(\'' +
+                        field_name + '\') to ' + model.__name__ + '.search_fields.'
+                    )
+
         # Apply filters to queryset
         if filters:
             queryset = queryset.filter(**filters)
