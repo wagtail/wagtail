@@ -6,7 +6,7 @@ from wagtail.wagtailsearch.backends.base import (
     BaseSearchBackend, BaseSearchQuery, BaseSearchResults)
 
 
-class DBSearchQuery(BaseSearchQuery):
+class DatabaseSearchQuery(BaseSearchQuery):
     DEFAULT_OPERATOR = 'and'
 
     def _process_lookup(self, field, lookup, value):
@@ -65,7 +65,7 @@ class DBSearchQuery(BaseSearchQuery):
         return q
 
 
-class DBSearchResults(BaseSearchResults):
+class DatabaseSearchResults(BaseSearchResults):
     def get_queryset(self):
         queryset = self.query.queryset
         q = self.query.get_extra_q()
@@ -79,12 +79,12 @@ class DBSearchResults(BaseSearchResults):
         return self.get_queryset().count()
 
 
-class DBSearchBackend(BaseSearchBackend):
-    query_class = DBSearchQuery
-    results_class = DBSearchResults
+class DatabaseSearchBackend(BaseSearchBackend):
+    query_class = DatabaseSearchQuery
+    results_class = DatabaseSearchResults
 
     def __init__(self, params):
-        super(DBSearchBackend, self).__init__(params)
+        super(DatabaseSearchBackend, self).__init__(params)
 
     def reset_index(self):
         pass  # Not needed
@@ -105,6 +105,6 @@ class DBSearchBackend(BaseSearchBackend):
         pass  # Not needed
 
 # Backwards compatibility
-DBSearch = DBSearchBackend
+DBSearch = DatabaseSearchBackend
 
-SearchBackend = DBSearchBackend
+SearchBackend = DatabaseSearchBackend
