@@ -4,7 +4,7 @@ Wagtail's release process
 
 .. note::
 
-Based on Django's release process
+    Based on Django's release process
 
 Official releases
 =================
@@ -169,9 +169,26 @@ Wagtail 1.6 and 1.7. At this point in time:
 Supported versions of Django
 ============================
 
+Each release of Wagtail declares which versions of Django it supports.
+
+Typically new Wagtail feature release supports the last long-term support versions and
+all following versions of Django.
+
+For example, consider a moment in time before release of Wagtail 1.5
+and after following releases:
+
+ * Django 1.8 (LTS)
+ * Django 1.9
+ * Wagtail 1.4 (LTS) - Released before Django 1.10 and supports Django 1.8 and 1.9
+ * Django 1.10
+
+Wagtail 1.5 going to support Django 1.8 (LTS), 1.9, 1.10.
+Wagtail 1.4 still support only Django 1.8 (LTS) and 1.9.
+
 .. note::
 
-    TODO
+    Would be great to put compatibility info (Django / Python) into
+    index page of documentation, I think.
 
 .. _release-process:
 
