@@ -130,6 +130,7 @@ Contributors
 * Nick Smith
 * João Luiz Lorencetti
 * Jason Morrison
+* Mario César
 
 Translators
 ===========

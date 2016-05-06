@@ -65,6 +65,7 @@ Bug fixes
  * REM units in Wagtailuserbar caused incorrect spacing (Vincent Audebert)
  * Explorer menu no longer scrolls with page content (Vincent Audebert)
  * Border added around explorer menu to stop it blending in with StreamField block listing (Alex Gleason)
+ * ``decorate_urlpatterns`` now uses ``functools.update_wrapper`` to keep view names and docstrings (Mario César)
 
 
 Upgrade considerations
