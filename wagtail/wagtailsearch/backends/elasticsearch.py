@@ -168,6 +168,18 @@ class ElasticsearchSearchQuery(BaseSearchQuery):
         super(ElasticsearchSearchQuery, self).__init__(*args, **kwargs)
         self.mapping = self.mapping_class(self.queryset.model)
 
+        # Convert field names into index column names
+        if self.fields:
+            fields = []
+            searchable_fields = {f.field_name: f for f in self.queryset.model.get_searchable_search_fields()}
+            for field_name in self.fields:
+                if field_name in searchable_fields:
+                    field_name = self.mapping.get_field_column_name(searchable_fields[field_name])
+
+                fields.append(field_name)
+
+            self.fields = fields
+
     def _process_lookup(self, field, lookup, value):
         column_name = self.mapping.get_field_column_name(field)
 
