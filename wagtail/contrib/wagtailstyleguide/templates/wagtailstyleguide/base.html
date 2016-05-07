@@ -1,6 +1,6 @@
 {% extends "wagtailadmin/base.html" %}
 
-{% load wagtailadmin_tags wagtailadmin_ui_tags compress i18n static gravatar %}
+{% load wagtailadmin_tags wagtailadmin_ui_tags i18n staticfiles gravatar %}
 
 {% block extra_css %}
     {{ block.super }}
@@ -298,7 +298,7 @@
             <button class="button button-secondary button-longrunning"><span class="icon icon-spinner"></span>Click me</button>
 
             <h4>Small</h4>
-            <button class="button-small button-longrunning"><span class="icon icon-spinner"></span>Click me</button>
+            <button class="button button-small button-longrunning"><span class="icon icon-spinner"></span>Click me</button>
 
             <h4>Buttons where the text is replaced on click</h4>
             <button class="button button-longrunning" data-clicked-text="Test"><span class="icon icon-spinner"></span><em>Click me</em></button>
