@@ -58,7 +58,6 @@ class WuiOptionalBlockNode(WuiNode):
         end_tag = 'end' + name
 
         blocks = cls.OPTIONAL_BLOCKS
-        parse_till = [end_tag] + list(blocks)
 
         final_nodelists = {}
 
