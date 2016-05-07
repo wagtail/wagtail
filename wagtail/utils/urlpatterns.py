@@ -1,6 +1,6 @@
 from __future__ import absolute_import, unicode_literals
 
-from functools import wraps
+from functools import update_wrapper
 
 
 def decorate_urlpatterns(urlpatterns, decorator):
@@ -9,6 +9,6 @@ def decorate_urlpatterns(urlpatterns, decorator):
             decorate_urlpatterns(pattern.url_patterns, decorator)
 
         if hasattr(pattern, '_callback'):
-            pattern._callback = wraps(pattern.callback)(decorator(pattern.callback))
+            pattern._callback = update_wrapper(decorator(pattern.callback), pattern.callback)
 
     return urlpatterns
