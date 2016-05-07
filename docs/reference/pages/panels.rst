@@ -105,7 +105,7 @@ PageChooserPanel
 
 
         class BookPage(Page):
-            publisher = models.ForeignKey(
+            related_page = models.ForeignKey(
                 'wagtailcore.Page',
                 null=True,
                 blank=True,
