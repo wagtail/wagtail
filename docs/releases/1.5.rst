@@ -54,6 +54,7 @@ Minor features
  * Added ``WAGTAIL_APPEND_SLASH`` setting to determine whether page URLs end in a trailing slash - see :ref:`append_slash` (Andrew Tork Baker)
  * Added auto resizing text field, richtext field, and snippet chooser to styleguide (Liam Brenner)
  * Support field widget media inside ``StreamBlock`` blocks (Karl Hobley)
+ * Spinner was added to Save button on site settings (Liam Brenner)
 
 Bug fixes
 ~~~~~~~~~
