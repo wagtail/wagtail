@@ -55,6 +55,7 @@ Minor features
  * Added auto resizing text field, richtext field, and snippet chooser to styleguide (Liam Brenner)
  * Support field widget media inside ``StreamBlock`` blocks (Karl Hobley)
  * Spinner was added to Save button on site settings (Liam Brenner)
+ * Added success message after logout from Admin (Liam Brenner)
 
 Bug fixes
 ~~~~~~~~~
