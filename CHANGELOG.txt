@@ -36,7 +36,6 @@ Changelog
  * Fix: All admin forms that could potentially include file upload fields now specify `multipart/form-data` where appropriate (Tim Heap)
  * Fix: REM units in Wagtailuserbar caused incorrect spacing (Vincent Audebert)
  * Fix: Explorer menu no longer scrolls with page content (Vincent Audebert)
- * Fix: Border added around explorer menu to stop it blending in with StreamField block listing (Alex Gleason)
  * Fix: `decorate_urlpatterns` now uses `functools.update_wrapper` to keep view names and docstrings (Mario César)
 
 
@@ -52,6 +51,7 @@ Changelog
  * Fix: Previewing inaccessible pages no longer fails with `ALLOWED_HOSTS = ['*']` (Robert Rollins)
  * Fix: The submit button 'spinner' no longer activates if the form has client-side validation errors (Jack Paine, Matt Westcott)
  * Fix: Overriding `MESSAGE_TAGS` in project settings no longer causes messages in the Wagtail admin to lose their styling (Tim Heap)
+ * Fix: Border added around explorer menu to stop it blending in with StreamField block listing; also fixes invisible explorer menu in Firefox 46 (Alex Gleason)
 
 
 1.4.3 (04.04.2016)
