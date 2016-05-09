@@ -126,6 +126,7 @@ def login(request):
 def logout(request):
     response = auth_views.logout(request, next_page='wagtailadmin_login')
 
+    messages.success(request, _('You have been successfully logged out.'))
     # By default, logging out will generate a fresh sessionid cookie. We want to use the
     # absence of sessionid as an indication that front-end pages are being viewed by a
     # non-logged-in user and are therefore cacheable, so we forcibly delete the cookie here.
