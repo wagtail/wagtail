@@ -25,7 +25,8 @@ def get_model_root(model):
     wagtailimages.Image
     """
     if model._meta.parents:
-        return list(model._meta.parents.items())[0][0]
+        parent_model = list(model._meta.parents.items())[0][0]
+        return get_model_root(parent_model)
 
     return model
 
