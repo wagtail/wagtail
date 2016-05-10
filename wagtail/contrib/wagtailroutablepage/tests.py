@@ -5,10 +5,7 @@ from django.test import RequestFactory, TestCase
 
 from wagtail.contrib.wagtailroutablepage.templatetags.wagtailroutablepage_tags import \
     routablepageurl
-from wagtail.tests.routablepage.models import (
-    RoutablePageTest,
-    RoutablePageWithoutIndexRouteTest,
-)
+from wagtail.tests.routablepage.models import RoutablePageTest, RoutablePageWithoutIndexRouteTest
 from wagtail.wagtailcore.models import Page, Site
 
 
