@@ -9,9 +9,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-03-09 13:55+0000\n"
-"PO-Revision-Date: 2016-03-09 13:58+0000\n"
-"Last-Translator: mattwestcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2016-04-11 13:57+0100\n"
+"PO-Revision-Date: 2016-04-11 13:00+0000\n"
+"Last-Translator: Karl Hobley <karl@torchbox.com>\n"
 "Language-Team: Chinese (http://www.transifex.com/torchbox/wagtail/language/"
 "zh/)\n"
 "MIME-Version: 1.0\n"
@@ -346,9 +346,6 @@ msgstr "添加子页面至'%(title)s'"
 msgid "Add subpage"
 msgstr "添加子页面"
 
-msgid "Add child page"
-msgstr "添加子页面"
-
 msgid "Previous"
 msgstr "向前"
 
@@ -478,6 +475,9 @@ msgstr "第 '{0}' 页已发布。"
 #, python-brace-format
 msgid "Page '{0}' rejected for publication."
 msgstr "第 '{0}' 页已被拒绝发布。"
+
+msgid "Add child page"
+msgstr "添加子页面"
 
 msgid "Choose an item"
 msgstr "选择一个选项"

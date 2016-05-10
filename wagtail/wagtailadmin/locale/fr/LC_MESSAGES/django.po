@@ -6,7 +6,7 @@
 # Adrien <laadrien@gmail.com>, 2014
 # André Bouatchidzé <a@anbz.net>, 2015
 # Antonin ENFRUN <anton@zorgameuh.org>, 2016
-# Bertrand Bordage <bordage.bertrand@gmail.com>, 2015
+# Bertrand Bordage <bordage.bertrand@gmail.com>, 2015-2016
 # nahuel, 2014
 # nahuel, 2014
 # pierre marfoure <pierre@onoffdesign.com>, 2016
@@ -16,9 +16,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-03-09 13:55+0000\n"
-"PO-Revision-Date: 2016-03-14 09:58+0000\n"
-"Last-Translator: Tom Dyson <tom@torchbox.com>\n"
+"POT-Creation-Date: 2016-04-11 13:57+0100\n"
+"PO-Revision-Date: 2016-04-11 13:00+0000\n"
+"Last-Translator: Karl Hobley <karl@torchbox.com>\n"
 "Language-Team: French (http://www.transifex.com/torchbox/wagtail/language/"
 "fr/)\n"
 "MIME-Version: 1.0\n"
@@ -26,6 +26,9 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: fr\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+msgid "You do not have permission to access the admin"
+msgstr "Vous n’avez pas l’autorisation d’accéder à l’administration"
 
 msgid "Scheduled publishing"
 msgstr "Publication programmée"
@@ -139,6 +142,9 @@ msgstr "La date de publication doit être antérieure à la date d'expiration"
 msgid "Expiry date/time must be in the future"
 msgstr "La date d'expiration doit être dans le futur"
 
+msgid "You cannot have multiple permission records for the same collection."
+msgstr "Vous ne pouvez avoir plusieurs permissions pour la même collection."
+
 msgid "Account"
 msgstr "Compte"
 
@@ -230,7 +236,7 @@ msgid "Delete"
 msgstr "Supprimer"
 
 msgid "Explorer"
-msgstr "Explorer"
+msgstr "Explorateur"
 
 msgid "Internal link"
 msgstr "Lien interne"
@@ -294,8 +300,22 @@ msgstr "Insérer un lien"
 msgid "Add an external link"
 msgstr "Ajouter un lien externe"
 
+msgid ""
+"This collection cannot be deleted, because it is not empty. It contains:"
+msgstr ""
+"Cette collection ne peut être supprimée, car elle n’est pas vide. Elle "
+"contient :"
+
 msgid "Name"
 msgstr "Nom"
+
+#, python-format
+msgid ""
+"No collections have been created. Why not <a href=\"%(add_collection_url)s"
+"\">add one</a>?"
+msgstr ""
+"Aucune collection n’a été créée. Pourquoi ne pas <a href="
+"\"%(add_collection_url)s\">en ajouter une</a> ?"
 
 #, python-format
 msgid "Add %(heading)s"
@@ -719,16 +739,6 @@ msgstr "Ajouter une sous-page à '%(title)s'"
 msgid "Add subpage"
 msgstr "Ajouter une sous-page"
 
-msgid ""
-"This page is published but does not exist within a configured Site, so "
-"cannot be viewed."
-msgstr ""
-"Cette page est publiée, mais elle n'existe dans aucun des sites configurés, "
-"elle ne pourra donc pas être vue."
-
-msgid "Add child page"
-msgstr "Ajouter une sous-page"
-
 #, python-format
 msgid ""
 "\n"
@@ -775,6 +785,12 @@ msgstr "Versions de"
 msgid "Current draft"
 msgstr "Brouillon actuel"
 
+msgid "Review this revision"
+msgstr "Passer en revue cette révision"
+
+msgid "No revision of this page exist"
+msgstr "Aucune révision n’existe pour cette page"
+
 #, python-format
 msgid ""
 "\n"
@@ -802,8 +818,14 @@ msgstr "Entrez un terme de recherche ci-dessus"
 msgid "No pages use"
 msgstr "Aucune page utilisée"
 
+msgid "Collection"
+msgstr "Collection"
+
 msgid "Home"
 msgstr "Accueil"
+
+msgid "All collections"
+msgstr "Toutes les collections"
 
 msgid "January"
 msgstr "Janvier"
@@ -897,8 +919,14 @@ msgstr ""
 msgid "Go to Wagtail admin interface"
 msgstr "Aller sur l'interface d'administration de Wagtail"
 
+msgid "Go to Wagtail admin"
+msgstr "Aller sur l’administration de Wagtail"
+
 msgid "Add a child page"
 msgstr "Ajouter une page sous-page"
+
+msgid "Show in Explorer"
+msgstr "Montrer dans l’explorateur"
 
 msgid "Test"
 msgstr "Test"
@@ -942,12 +970,24 @@ msgid "Revision from {0} of page '{1}' has been scheduled for publishing."
 msgstr "Version de {0} de page \"{1}\" a été planifiée pour la publication."
 
 #, python-brace-format
+msgid "Page '{0}' has been scheduled for publishing."
+msgstr "La page « {0} » a été planifiée pour publication."
+
+#, python-brace-format
+msgid "Revision from {0} of page '{1}' has been published."
+msgstr "La révision du {0} de la page « {1} » a été publiée."
+
+#, python-brace-format
 msgid "Page '{0}' has been published."
 msgstr "Page '{0}' publiée."
 
 #, python-brace-format
 msgid "Page '{0}' has been submitted for moderation."
 msgstr "La page \"{0}\" a été soumise pour modération."
+
+#, python-brace-format
+msgid "Page '{0}' has been replaced with revision from {1}."
+msgstr "La page « {0} » a été remplacée par une révision du {1}."
 
 #, python-brace-format
 msgid "Page '{0}' has been updated."
@@ -1002,8 +1042,19 @@ msgstr "La page '{0}' est maintenant verrouillée."
 msgid "Page '{0}' is now unlocked."
 msgstr "La page '{0}' est maintenant déverrouillée."
 
+#, python-format
+msgid "You are viewing a previous revision of this page from <b>%s</b> by %s"
+msgstr ""
+"Vous passez en revue une révision passée de cette page du <b>%s</b> par %s"
+
 msgid "Pages"
 msgstr "Pages"
+
+msgid "Collections"
+msgstr "Collections"
+
+msgid "Add child page"
+msgstr "Ajouter une sous-page"
 
 msgid "Choose an item"
 msgstr "Choisissez un élément"

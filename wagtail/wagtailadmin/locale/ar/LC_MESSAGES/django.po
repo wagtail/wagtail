@@ -10,9 +10,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-03-09 13:55+0000\n"
-"PO-Revision-Date: 2016-03-09 13:58+0000\n"
-"Last-Translator: mattwestcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2016-04-11 13:57+0100\n"
+"PO-Revision-Date: 2016-04-11 13:00+0000\n"
+"Last-Translator: Karl Hobley <karl@torchbox.com>\n"
 "Language-Team: Arabic (http://www.transifex.com/torchbox/wagtail/language/"
 "ar/)\n"
 "MIME-Version: 1.0\n"
@@ -342,14 +342,6 @@ msgstr "هذه الصفحة مغلقة لأي تنقيح"
 msgid "Add subpage"
 msgstr "أضف صفحة تحتية"
 
-msgid ""
-"This page is published but does not exist within a configured Site, so "
-"cannot be viewed."
-msgstr "هذه الصفحة قد نشرت ولكن لا توجد داخل موضع مشكل فإنه غير قايل للنظر"
-
-msgid "Add child page"
-msgstr "أضف صفحة لطفل "
-
 msgid "Previous"
 msgstr "سابق"
 
@@ -373,6 +365,9 @@ msgstr "انظر في الواقع"
 
 msgid "Pages"
 msgstr "صفحات"
+
+msgid "Add child page"
+msgstr "أضف صفحة لطفل "
 
 msgid "Choose another page"
 msgstr "إختر صفحة أخرى"

@@ -5,13 +5,14 @@
 # Translators:
 # Aarni Koskela, 2016
 # Eetu Häivälä <eetu.haivala@anders.fi>, 2016
+# Rauli Laine <rauli.laine@iki.fi>, 2016
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-03-09 13:55+0000\n"
-"PO-Revision-Date: 2016-03-01 19:01+0000\n"
-"Last-Translator: mattwestcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2016-04-11 13:57+0100\n"
+"PO-Revision-Date: 2016-04-11 13:00+0000\n"
+"Last-Translator: Karl Hobley <karl@torchbox.com>\n"
 "Language-Team: Finnish (http://www.transifex.com/torchbox/wagtail/language/"
 "fi/)\n"
 "MIME-Version: 1.0\n"
@@ -81,8 +82,17 @@ msgstr "Korkeus"
 msgid "Closeness"
 msgstr "Läheisyys"
 
+msgid "Add"
+msgstr "Lisää"
+
+msgid "Add/edit images you own"
+msgstr "Lisää/muokkaa kuvia jota omistat"
+
 msgid "Edit"
 msgstr "Muokkaa"
+
+msgid "Edit any image"
+msgstr "Muokkaa mitä vain kuvaa"
 
 msgid "title"
 msgstr "otsikko"
@@ -222,14 +232,6 @@ msgid "Sorry, no images match \"<em>%(query_string)s</em>\""
 msgstr ""
 "Pahoittelut, yksikään kuva ei täsmää hakuun \"<em>%(query_string)s</em>\""
 
-#, python-format
-msgid ""
-"You've not uploaded any images. Why not <a href="
-"\"%(wagtailimages_add_image_url)s\">add one now</a>?"
-msgstr ""
-"Et ole lisännyt yhtään kuvaa. Mikset vaikka <a href="
-"\"%(wagtailimages_add_image_url)s\">lisäisi yhtä nyt</a>?"
-
 msgid "Generating URL"
 msgstr "Generoidaan osoitetta"
 
@@ -280,6 +282,9 @@ msgstr "Raahaa ja pudota kuvia tälle alueelle lähettääksesi ne heti."
 msgid "Or choose from your computer"
 msgstr "Tai valitse tietokoneeltasi"
 
+msgid "Add to collection:"
+msgstr "Lisää kokoelmaan:"
+
 msgid ""
 "Upload successful. Please update this image with a more appropriate title, "
 "if necessary. You may also delete the image completely if the upload wasn't "
@@ -299,6 +304,12 @@ msgstr "Päivitä"
 
 msgid "Delete"
 msgstr "Poista"
+
+msgid "Image permissions"
+msgstr "Kuvan oikeudet"
+
+msgid "Add an image permission"
+msgstr "Lisää kuvaoikeus"
 
 msgid "Search images"
 msgstr "Hae kuvia"
@@ -330,6 +341,12 @@ msgstr "Kuva '{0}' lisätty."
 
 msgid "The image could not be created due to errors."
 msgstr "Kuvaa ei voitu luoda virheiden vuoksi."
+
+#, python-format
+msgid "%(count)s image"
+msgid_plural "%(count)s images"
+msgstr[0] "%(count)s kuva"
+msgstr[1] "%(count)s kuvaa"
 
 msgid "Choose another image"
 msgstr "Valitse toinen kuva"

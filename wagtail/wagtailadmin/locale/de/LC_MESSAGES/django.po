@@ -13,18 +13,20 @@
 # karlsander <karlsander@gmail.com>, 2014
 # M0rph 3u5 <transifex@m0rph3u5.net>, 2014
 # Martin Löhle <martin.loehle@web-forest.de>, 2016
-# mattwestcott <matthew@torchbox.com>, 2015
+# Matt Westcott <matthew@torchbox.com>, 2015
 # Max Pfeiffer <max.pfeiffer@alp-phone.ch>, 2015
 # pcraston <patrick@craston.com>, 2014
 # pcraston <patrick@craston.com>, 2014
+# tobias schmidt <tobias.schmidt82@gmail.com>, 2016
+# Vorlif <flori@vorlif.org>, 2016
 # Wasilis Mandratzis-Walz, 2015
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-03-09 13:55+0000\n"
-"PO-Revision-Date: 2016-03-09 18:07+0000\n"
-"Last-Translator: Jannis Vajen\n"
+"POT-Creation-Date: 2016-04-11 13:57+0100\n"
+"PO-Revision-Date: 2016-04-17 09:42+0000\n"
+"Last-Translator: tobias schmidt <tobias.schmidt82@gmail.com>\n"
 "Language-Team: German (http://www.transifex.com/torchbox/wagtail/language/"
 "de/)\n"
 "MIME-Version: 1.0\n"
@@ -149,7 +151,7 @@ msgid "This slug is already in use"
 msgstr "Der Kurztitel wird bereits verwendet"
 
 msgid "Go live date/time must be before expiry date/time"
-msgstr "Das Veröffentlichungsdatum muss vor dem Verfallsdatum liegen"
+msgstr "Das Veröffentlichungsdatum muss vor dem Ablaufsdatum liegen"
 
 msgid "Expiry date/time must be in the future"
 msgstr "Das Verfallsdatum muss in der Zukunft sein"
@@ -395,7 +397,7 @@ msgid "Draft"
 msgstr "Entwurf"
 
 msgid "Live"
-msgstr "Veröffentlicht"
+msgstr "Seite anzeigen"
 
 msgid "Site summary"
 msgstr "Seitenzusammenfassung"
@@ -625,7 +627,7 @@ msgid "Publish"
 msgstr "Veröffentlichen"
 
 msgid "Submit for moderation"
-msgstr "Zur Freischaltung einreichen"
+msgstr "Zur Moderation einreichen"
 
 msgid "This page has unsaved changes."
 msgstr "Diese Seite hat ungesicherte Änderungen."
@@ -673,8 +675,8 @@ msgid ""
 "                        "
 msgstr ""
 "\n"
-"Die Ursprungs-Ebene ist der Ort, an dem Du neue Websites zu Deiner Wagtail-"
-"Installation hinzufügen kannst. Seiten, die hier erstellt werden, sind über "
+"Die Ursprungs-Ebene ist der Ort, an dem Sie neue Websites zu Ihrer Wagtail-"
+"Installation hinzufügen können. Seiten, die hier erstellt werden, sind über "
 "keine URL zu erreichen, solange sie nicht einer Website zugeordnet werden."
 
 msgid "Configure a site now."
@@ -750,16 +752,6 @@ msgid "Add a child page to '%(title)s'"
 msgstr "Unterseite zu ‚%(title)s‘ hinzufügen"
 
 msgid "Add subpage"
-msgstr "Unterseite hinzufügen"
-
-msgid ""
-"This page is published but does not exist within a configured Site, so "
-"cannot be viewed."
-msgstr ""
-"Diese Seite ist veröffentlicht, sie existiert aber nicht in einer "
-"konfigurierten Website und kann deswegen nicht betrachtet werden."
-
-msgid "Add child page"
 msgstr "Unterseite hinzufügen"
 
 #, python-format
@@ -1085,11 +1077,20 @@ msgstr "Seiten"
 msgid "Collections"
 msgstr "Sammlungen"
 
+msgid "Add child page"
+msgstr "Unterseite hinzufügen"
+
+msgid "More"
+msgstr "Mehr"
+
+msgid "Revisions"
+msgstr "Revisionen"
+
 msgid "Choose an item"
 msgstr "Eintrag wählen"
 
 msgid "Choose another item"
-msgstr "Einen anderen Eintrag wählen"
+msgstr "Anderen Eintrag wählen"
 
 msgid "Clear choice"
 msgstr "Auswahl zurücksetzen"
@@ -1098,4 +1099,4 @@ msgid "Edit this item"
 msgstr "Dieses Objekt bearbeiten"
 
 msgid "Choose another page"
-msgstr "Noch eine Seite wählen"
+msgstr "Andere Seite auswählen"

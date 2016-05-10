@@ -6,15 +6,15 @@
 # Douglas Miranda <douglasmirandasilva@gmail.com>, 2014
 # Gladson <gladsonbrito@gmail.com>, 2014
 # Jose Lourenco <jose@lourenco.ws>, 2014-2015
-# Manuela Silva <h_manuela_rodsilva@gmail.com>, 2015
+# Manuela Silva <inactive+h_manuela_rodsilva@transifex.com>, 2015
 # Nuno Matos <tugassoft@gmail.com>, 2016
 # Tiago Henriques <trinosauro@gmail.com>, 2015-2016
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-03-09 13:55+0000\n"
-"PO-Revision-Date: 2016-03-09 22:01+0000\n"
+"POT-Creation-Date: 2016-04-11 13:57+0100\n"
+"PO-Revision-Date: 2016-04-11 13:55+0000\n"
 "Last-Translator: Tiago Henriques <trinosauro@gmail.com>\n"
 "Language-Team: Portuguese (Portugal) (http://www.transifex.com/torchbox/"
 "wagtail/language/pt_PT/)\n"
@@ -740,16 +740,6 @@ msgstr "Adicionar página-filha a %(title)s"
 msgid "Add subpage"
 msgstr "Adicionar página-filha"
 
-msgid ""
-"This page is published but does not exist within a configured Site, so "
-"cannot be viewed."
-msgstr ""
-"Esta página está publicada mas não existe em nenhum dos Sites configurados, "
-"pelo que não pode ser visualizada."
-
-msgid "Add child page"
-msgstr "Adicionar página-filha"
-
 #, python-format
 msgid ""
 "\n"
@@ -1061,6 +1051,15 @@ msgstr "Páginas"
 
 msgid "Collections"
 msgstr "Coleções"
+
+msgid "Add child page"
+msgstr "Adicionar página-filha"
+
+msgid "More"
+msgstr "Mais"
+
+msgid "Revisions"
+msgstr "Versões"
 
 msgid "Choose an item"
 msgstr "Escolher um item"

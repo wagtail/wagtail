@@ -9,9 +9,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-03-09 13:55+0000\n"
-"PO-Revision-Date: 2016-03-09 13:58+0000\n"
-"Last-Translator: mattwestcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2016-04-11 13:57+0100\n"
+"PO-Revision-Date: 2016-04-11 13:00+0000\n"
+"Last-Translator: Karl Hobley <karl@torchbox.com>\n"
 "Language-Team: Bulgarian (http://www.transifex.com/torchbox/wagtail/language/"
 "bg/)\n"
 "MIME-Version: 1.0\n"
@@ -365,9 +365,6 @@ msgstr "Добавете дъщерна страница към '%(title)s'"
 msgid "Add subpage"
 msgstr "Добавете подстраница"
 
-msgid "Add child page"
-msgstr "Добави дъщерна страница"
-
 msgid "Previous"
 msgstr "Предишно"
 
@@ -440,6 +437,9 @@ msgstr "Страница '{0}' е публикувана."
 #, python-brace-format
 msgid "Page '{0}' rejected for publication."
 msgstr "Страница '{0}' отхвърлена от публикуване."
+
+msgid "Add child page"
+msgstr "Добави дъщерна страница"
 
 msgid "Choose an item"
 msgstr "Изберете обект"

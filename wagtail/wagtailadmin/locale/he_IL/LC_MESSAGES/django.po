@@ -9,9 +9,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-03-09 13:55+0000\n"
-"PO-Revision-Date: 2016-03-09 13:58+0000\n"
-"Last-Translator: mattwestcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2016-04-11 13:57+0100\n"
+"PO-Revision-Date: 2016-04-11 13:00+0000\n"
+"Last-Translator: Karl Hobley <karl@torchbox.com>\n"
 "Language-Team: Hebrew (Israel) (http://www.transifex.com/torchbox/wagtail/"
 "language/he_IL/)\n"
 "MIME-Version: 1.0\n"
@@ -566,14 +566,6 @@ msgstr "הוספת תת-עמוד אל '%(title)s'"
 msgid "Add subpage"
 msgstr "הוספת תת עמוד"
 
-msgid ""
-"This page is published but does not exist within a configured Site, so "
-"cannot be viewed."
-msgstr "עמוד זה מפורסם אך לא קיים באתר, לכן אין אפשרות להציג אותו"
-
-msgid "Add child page"
-msgstr "הוספת תת-עמוד"
-
 msgid "Previous"
 msgstr "קודם"
 
@@ -781,6 +773,9 @@ msgstr "עמוד {0} נעול כעת"
 #, python-brace-format
 msgid "Page '{0}' is now unlocked."
 msgstr "עמוד {0} בלתי נעול כעת"
+
+msgid "Add child page"
+msgstr "הוספת תת-עמוד"
 
 msgid "Choose an item"
 msgstr "בחרו פריט"

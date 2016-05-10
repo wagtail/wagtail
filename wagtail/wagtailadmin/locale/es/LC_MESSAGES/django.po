@@ -4,19 +4,21 @@
 #
 # Translators:
 # fooflare <amos.oviedo@gmail.com>, 2014
+# Daniel Chimeno <daniel@chimeno.me>, 2016
 # fooflare <amos.oviedo@gmail.com>, 2014
 # Joaquín Tita <carpincho@gmail.com>, 2014
-# José Alaguna <alagunajs@gmail.com>, 2015-2016
-# mattwestcott <matthew@torchbox.com>, 2016
+# Yusuf (Josè) Luis <alagunajs@gmail.com>, 2015-2016
+# Matt Westcott <matthew@torchbox.com>, 2016
 # Mauricio Baeza <web@mauriciobaeza.net>, 2015
-# Unai Zalakain <unai@gisa-elkartea.org>, 2014
+# Unai Zalakain <inactive+unaizalakain@transifex.com>, 2014
+# Yusuf (Josè) Luis <alagunajs@gmail.com>, 2016
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-03-09 13:55+0000\n"
-"PO-Revision-Date: 2016-03-15 15:52+0000\n"
-"Last-Translator: mattwestcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2016-04-11 13:57+0100\n"
+"PO-Revision-Date: 2016-04-12 08:01+0000\n"
+"Last-Translator: Yusuf (Josè) Luis <alagunajs@gmail.com>\n"
 "Language-Team: Spanish (http://www.transifex.com/torchbox/wagtail/language/"
 "es/)\n"
 "MIME-Version: 1.0\n"
@@ -315,8 +317,8 @@ msgid ""
 "No collections have been created. Why not <a href=\"%(add_collection_url)s"
 "\">add one</a>?"
 msgstr ""
-"Ninguna colección ha sido creada. Por qué no <a href=\"%(add_collection_url)s"
-"\">añades una</a>?"
+"Ninguna colección ha sido creada. ¿Por qué no <a href="
+"\"%(add_collection_url)s\">añades una</a>?"
 
 #, python-format
 msgid "Add %(heading)s"
@@ -676,7 +678,7 @@ msgid ""
 msgstr ""
 "\n"
 "Si sólo deseas añadir páginas a un sitio existente, crealas como hijas de "
-"una página de inicia en su lugar."
+"una página de inicio en su lugar."
 
 msgid ""
 "\n"
@@ -716,7 +718,7 @@ msgstr "No se han creado páginas en esta ubicación."
 
 #, python-format
 msgid "Why not <a href=\"%(add_page_url)s\">create one</a>?"
-msgstr "Por qué no <a href=\"%(add_page_url)s\">añadir una</a>?"
+msgstr "¿Por qué no <a href=\"%(add_page_url)s\">añadir una</a>?"
 
 msgid "This page is locked to further editing"
 msgstr "Esta página se encuentra bloqueada para su edición"
@@ -738,16 +740,6 @@ msgstr "Añadir página hija a '%(title)s'"
 
 msgid "Add subpage"
 msgstr "Añadir subpágina"
-
-msgid ""
-"This page is published but does not exist within a configured Site, so "
-"cannot be viewed."
-msgstr ""
-"Esta página está publicada pero no existe dentro del sitio configurado, así "
-"que no se puede ver."
-
-msgid "Add child page"
-msgstr "Añadir página hija"
 
 #, python-format
 msgid ""
@@ -1060,6 +1052,15 @@ msgstr "Páginas"
 
 msgid "Collections"
 msgstr "Colecciones"
+
+msgid "Add child page"
+msgstr "Añadir página hija"
+
+msgid "More"
+msgstr "Más"
+
+msgid "Revisions"
+msgstr "Revisiones"
 
 msgid "Choose an item"
 msgstr "Elige un elemento"

@@ -3,7 +3,7 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# Bertrand Bordage <bordage.bertrand@gmail.com>, 2015
+# Bertrand Bordage <bordage.bertrand@gmail.com>, 2015-2016
 # nahuel, 2014
 # nahuel, 2014
 # Sebastien Andrivet <sebastien@andrivet.com>, 2016
@@ -12,9 +12,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-03-09 13:55+0000\n"
-"PO-Revision-Date: 2016-03-01 18:57+0000\n"
-"Last-Translator: mattwestcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2016-04-11 13:57+0100\n"
+"PO-Revision-Date: 2016-03-17 13:35+0000\n"
+"Last-Translator: Bertrand Bordage <bordage.bertrand@gmail.com>\n"
 "Language-Team: French (http://www.transifex.com/torchbox/wagtail/language/"
 "fr/)\n"
 "MIME-Version: 1.0\n"
@@ -146,6 +146,9 @@ msgstr "première publication le"
 msgid "latest revision created at"
 msgstr "dernière version créée le"
 
+msgid "This slug is already in use"
+msgstr "Ce slug est déjà utilisé"
+
 msgid "scheduled"
 msgstr "programmée"
 
@@ -185,14 +188,26 @@ msgstr "version de page"
 msgid "page revisions"
 msgstr "versions de page"
 
+msgid "Add"
+msgstr "Ajouter"
+
 msgid "Add/edit pages you own"
 msgstr "Ajouter/modifier vos pages"
+
+msgid "Edit"
+msgstr "Modifier"
 
 msgid "Edit any page"
 msgstr "Modifier n'importe quelle page"
 
+msgid "Publish"
+msgstr "Publier"
+
 msgid "Publish any page"
 msgstr "Publier n'importe quelle page"
+
+msgid "Lock"
+msgstr "Verrouiller"
 
 msgid "Lock/unlock any page"
 msgstr "Verrouiller/déverrouiller n'importe quelle page"
@@ -217,3 +232,18 @@ msgstr "confidentialité de page"
 
 msgid "page view restrictions"
 msgstr "confidentialités de page"
+
+msgid "name"
+msgstr "nom"
+
+msgid "collection"
+msgstr "collection"
+
+msgid "collections"
+msgstr "collections"
+
+msgid "permission"
+msgstr "permission"
+
+msgid "group collection permission"
+msgstr "permission de collection de groupe"

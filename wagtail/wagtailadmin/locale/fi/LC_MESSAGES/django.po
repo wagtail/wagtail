@@ -5,13 +5,14 @@
 # Translators:
 # Aarni Koskela, 2016
 # Eetu Häivälä <eetu.haivala@anders.fi>, 2016
+# Rauli Laine <rauli.laine@iki.fi>, 2016
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-03-09 13:55+0000\n"
-"PO-Revision-Date: 2016-03-09 13:58+0000\n"
-"Last-Translator: mattwestcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2016-04-11 13:57+0100\n"
+"PO-Revision-Date: 2016-04-11 13:00+0000\n"
+"Last-Translator: Karl Hobley <karl@torchbox.com>\n"
 "Language-Team: Finnish (http://www.transifex.com/torchbox/wagtail/language/"
 "fi/)\n"
 "MIME-Version: 1.0\n"
@@ -19,6 +20,9 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: fi\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "You do not have permission to access the admin"
+msgstr "Sinulla ei ole oikeuksia käyttää hallintaa"
 
 msgid "Scheduled publishing"
 msgstr "Ajastettu julkistus"
@@ -132,6 +136,9 @@ msgstr "Julkaisuajankohdan täytyy olla ennen julkaisun päättymisajankohtaa."
 
 msgid "Expiry date/time must be in the future"
 msgstr "Julkaisun päättymisajankohdan täytyy olla tulevaisuudessa."
+
+msgid "You cannot have multiple permission records for the same collection."
+msgstr "Yhdelle kokoelmalle ei voi olla useampaa pääsyoikeusasetusta."
 
 msgid "Account"
 msgstr "Tili"
@@ -286,6 +293,22 @@ msgstr "Lisää linkki"
 msgid "Add an external link"
 msgstr "Lisää ulkoinen linkki"
 
+msgid ""
+"This collection cannot be deleted, because it is not empty. It contains:"
+msgstr ""
+"Tätä kokoelmaa ei voida poistaa koska se ei ole tyhjä. Kokoelma sisältää:"
+
+msgid "Name"
+msgstr "Nimi"
+
+#, python-format
+msgid ""
+"No collections have been created. Why not <a href=\"%(add_collection_url)s"
+"\">add one</a>?"
+msgstr ""
+"Kokoelmia ei ole luotu. Mikset vaikka <a href=\"%(add_collection_url)s"
+"\">loisi kokoelmaa</a>?"
+
 #, python-format
 msgid "Add %(heading)s"
 msgstr "Lisää %(heading)s"
@@ -398,6 +421,10 @@ msgstr "Voit katsella sivua täältä:"
 #, python-format
 msgid "The page \"%(title)s\" has been approved"
 msgstr "Sivu \"%(title)s\" on hyväksytty"
+
+#, python-format
+msgid "Hello %(username)s,"
+msgstr "Hei %(username)s,"
 
 msgid "Edit your notification preferences here:"
 msgstr "Muokkaa ilmoitusasetuksiasi täällä: "
@@ -573,6 +600,9 @@ msgstr "Julkaise"
 msgid "Submit for moderation"
 msgstr "Lähetä tarkistettavaksi"
 
+msgid "This page has unsaved changes."
+msgstr "Tällä sivulla on tallentamattomia muutoksia."
+
 #, python-format
 msgid "Editing %(page_type)s: %(title)s"
 msgstr "Muokataan %(page_type)s-sivua: %(title)s"
@@ -583,6 +613,12 @@ msgstr "Muokataan %(page_type)s-sivua: <span>%(title)s</span>"
 
 msgid "Page locked"
 msgstr "Sivu lukittu"
+
+msgid "Replace current draft"
+msgstr "Korvaa nykyinen luonnos"
+
+msgid "Publish this revision"
+msgstr "Julkaise tämä versio"
 
 #, python-format
 msgid "Last modified: %(last_mod)s"
@@ -688,16 +724,6 @@ msgstr "Lisää alasivu sivulle '%(title)s'"
 msgid "Add subpage"
 msgstr "Lisää alasivu"
 
-msgid ""
-"This page is published but does not exist within a configured Site, so "
-"cannot be viewed."
-msgstr ""
-"Sivu on julkaistu, muttei kuulu mihinkään konfiguroituun sivustoon, joten "
-"sitä ei voi katsella."
-
-msgid "Add child page"
-msgstr "Lisää alasivu"
-
 #, python-format
 msgid ""
 "\n"
@@ -734,6 +760,22 @@ msgid "Select a new parent page for <span>%(title)s</span>"
 msgstr "Valitse uusi isäntäsivu sivulle <span>%(title)s</span>"
 
 #, python-format
+msgid "Revisions of %(title)s"
+msgstr "Kohteen %(title)s versiot"
+
+msgid "Revisions of"
+msgstr "Versiot:"
+
+msgid "Current draft"
+msgstr "Nykyinen luonnos"
+
+msgid "Review this revision"
+msgstr "Tarkastele tätä versiota"
+
+msgid "No revision of this page exist"
+msgstr "Sivusta ei ole versioita"
+
+#, python-format
 msgid ""
 "\n"
 "                There is one matching page\n"
@@ -759,8 +801,14 @@ msgstr "Syötä hakutermi ylle"
 msgid "No pages use"
 msgstr "Yhtään sivua ei käytä"
 
+msgid "Collection"
+msgstr "Kokoelma"
+
 msgid "Home"
 msgstr "Koti"
+
+msgid "All collections"
+msgstr "Kaikki kokoelmat"
 
 msgid "January"
 msgstr "Tammi"
@@ -854,8 +902,14 @@ msgstr ""
 msgid "Go to Wagtail admin interface"
 msgstr "Siirry Wagtailin hallintaan"
 
+msgid "Go to Wagtail admin"
+msgstr "Siirry Wagtailin hallintaan"
+
 msgid "Add a child page"
 msgstr "Lisää alasivu"
+
+msgid "Show in Explorer"
+msgstr "Näytä sivuselaimessa"
 
 msgid "Test"
 msgstr "Testi"
@@ -868,6 +922,10 @@ msgstr "Salasanasi on vaihdettu."
 
 msgid "Your preferences have been updated successfully!"
 msgstr "Asetuksesi on päivitetty."
+
+#, python-brace-format
+msgid "Page '{0}' created and scheduled for publishing."
+msgstr "Sivu '{0}' luotu ja ajastettu julkaistavaksi."
 
 #, python-brace-format
 msgid "Page '{0}' created and published."
@@ -889,6 +947,34 @@ msgstr "Sivu '{0}' luotu."
 
 msgid "The page could not be created due to validation errors"
 msgstr "Sivua ei voitu luoda validointivirheiden vuoksi."
+
+#, python-brace-format
+msgid "Revision from {0} of page '{1}' has been scheduled for publishing."
+msgstr "Versio {0} sivusta '{1}' on ajastettu julkaistavaksi."
+
+#, python-brace-format
+msgid "Page '{0}' has been scheduled for publishing."
+msgstr "Sivu '{0}' on ajastettu julkaistavaksi."
+
+#, python-brace-format
+msgid "Revision from {0} of page '{1}' has been published."
+msgstr "Versio {0} sivusta '{1}' on julkaistu"
+
+#, python-brace-format
+msgid "Page '{0}' has been published."
+msgstr "Sivu '{0}' julkaistu."
+
+#, python-brace-format
+msgid "Page '{0}' has been submitted for moderation."
+msgstr "Sivu '{0}' on lähetetty tarkastettavaksi."
+
+#, python-brace-format
+msgid "Page '{0}' has been replaced with revision from {1}."
+msgstr "Sivu '{0}' on korvattu versiolla {1}."
+
+#, python-brace-format
+msgid "Page '{0}' has been updated."
+msgstr "Sivu '{0}' päivitetty."
 
 msgid "The page could not be saved as it is locked"
 msgstr "Sivua ei voitu tallentaa, sillä se on lukittu"
@@ -939,8 +1025,18 @@ msgstr "Sivu '{0}' on nyt lukittu"
 msgid "Page '{0}' is now unlocked."
 msgstr "Sivu '{0}' ei ole enää lukittu."
 
+#, python-format
+msgid "You are viewing a previous revision of this page from <b>%s</b> by %s"
+msgstr "Katselet aiempaa versiota %s sivusta, tekijä %s"
+
 msgid "Pages"
 msgstr "Sivut"
+
+msgid "Collections"
+msgstr "Kokoelmat"
+
+msgid "Add child page"
+msgstr "Lisää alasivu"
 
 msgid "Choose an item"
 msgstr "Valitse vaihtoehto"

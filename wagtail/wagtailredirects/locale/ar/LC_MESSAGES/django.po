@@ -4,13 +4,13 @@
 #
 # Translators:
 # Ahmad Kiswani <kiswani.ahmad@gmail.com>, 2016
-# mattwestcott <matthew@torchbox.com>, 2015
+# Matt Westcott <matthew@torchbox.com>, 2015
 # ROGER MICHAEL ASHLEY ALLEN <rogermaallen@gmail.com>, 2015
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-03-09 13:55+0000\n"
+"POT-Creation-Date: 2016-04-11 13:57+0100\n"
 "PO-Revision-Date: 2016-02-07 23:55+0000\n"
 "Last-Translator: Ahmad Kiswani <kiswani.ahmad@gmail.com>\n"
 "Language-Team: Arabic (http://www.transifex.com/torchbox/wagtail/language/"

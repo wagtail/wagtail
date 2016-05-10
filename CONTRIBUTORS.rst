@@ -129,17 +129,17 @@ Translators
 * Bulgarian: Lyuboslav Petrov
 * Catalan: Antoni Aloy, David Llop
 * Chinese: hanfeng, Lihan Li, Leway Colin
-* Chinese (China): hanfeng, Daniel Hwang, Jian Li, Feng Wang
+* Chinese (China): hanfeng, Daniel Hwang, Jian Li, Listeng Teng, Feng Wang
 * Chinese (Taiwan): Lihan Li
 * Croatian (Croatia): Luka Matijević
 * Czech: Ivan Pomykacz, Jiri Stepanek, Marek Turnovec
 * Dutch: benny_AT_it_digin.com, Bram, Brecht Dervaux, Huib Keemink, Thijs Kramer, Samuel Leeuwenburg, mahulst, Michael van Tellingen, Arne Turpyn
 * Dutch (Netherlands): Bram, Franklin Kingma, Maarten Kling, Thijs Kramer
-* Finnish: Eetu Häivälä, Aarni Koskela, Glen Somerville
+* Finnish: Eetu Häivälä, Aarni Koskela, Rauli Laine, Glen Somerville
 * French: Adrien, Timothy Allen, Sebastien Andrivet, Edd Baldry, Bertrand Bordage, André Bouatchidzé, Tom Dyson, Antonin Enfrun, Pierre Marfoure, nahuel
 * Galician: fooflare
 * Georgian: André Bouatchidzé
-* German: Ettore Atalan, Patrick Craston, Florian, Henrik Kröger, Tammo van Lessen, Martin Löhle, Wasilis Mandratzis-Walz, Daniel Manser, m0rph3u5, Max Pfeiffer, Herbert Poul, Karl Sander, Johannes Spielmann, Jannis Vajen, Matthew Westcott
+* German: Ettore Atalan, Patrick Craston, Henrik Kröger, Tammo van Lessen, Martin Löhle, Wasilis Mandratzis-Walz, Daniel Manser, m0rph3u5, Max Pfeiffer, Herbert Poul, Karl Sander, Tobias Schmidt, Johannes Spielmann, Jannis Vajen, Vorlif, Matthew Westcott
 * Greek: Jim Dal, dotoree, Wasilis Mandratzis-Walz, NeotheOne, Serafeim Papastefanos
 * Hebrew (Israel): bjesus, Lior Abazon
 * Hungarian: Laszlo Molnar
@@ -156,12 +156,13 @@ Translators
 * Portuguese (Brazil): Claudemiro Alves Feitosa Neto, Gladson Brito, Thiago Cangussu, Gilson Filho, João Luiz Lorencetti, Douglas Miranda
 * Portuguese (Portugal): Gladson Brito, Thiago Cangussu, Tiago Henriques, Jose Lourenco, Nuno Matos, Douglas Miranda, Manuela Silva
 * Romanian: Dan Braghis
-* Russian: ajk, Daniil, HNKNTA, Sergiy Khalymon, Sergey Komarov, Eugene MechanisM
+* Russian: ajk, Daniil, gsstver, HNKNTA, Sergiy Khalymon, Sergey Komarov, Eugene MechanisM, Alexandr Romantsov
 * Slovak (Slovakia): dellax
-* Spanish: José Alaguna, Mauricio Baeza, Daniel Chimeno, fonso, fooflare, Joaquín Tita, Unai Zalakain
+* Slovenian: Mitja Pagon
+* Spanish: Mauricio Baeza, Daniel Chimeno, fonso, fooflare, Yusuf (Josè) Luis, Joaquín Tita, Unai Zalakain
 * Swedish: Ludwig Kjellström, Thomas Kunambi, Hannes Lohmander
-* Swedish (Sweden): Thomas Kunambi
+* Swedish (Sweden): Jon Karlsson, Thomas Kunambi
 * Turkish: Cihad Gündoǧdu
-* Turkish (Turkey): José Alaguna, Ragıp Ünal
+* Turkish (Turkey): Yusuf (Josè) Luis, Ragıp Ünal
 * Ukrainian: Mykola Zamkovoi
 * Vietnamese: Luan Nguyen

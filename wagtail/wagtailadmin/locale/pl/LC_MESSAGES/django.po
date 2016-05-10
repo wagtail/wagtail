@@ -11,8 +11,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-03-09 13:55+0000\n"
-"PO-Revision-Date: 2016-03-14 22:02+0000\n"
+"POT-Creation-Date: 2016-04-11 13:57+0100\n"
+"PO-Revision-Date: 2016-04-17 19:43+0000\n"
 "Last-Translator: mmiskiew <mmiskiew@gmail.com>\n"
 "Language-Team: Polish (http://www.transifex.com/torchbox/wagtail/language/"
 "pl/)\n"
@@ -752,16 +752,6 @@ msgstr "Dodaj stronę podrzędną do '%(title)s'"
 msgid "Add subpage"
 msgstr "Dodaj podstronę"
 
-msgid ""
-"This page is published but does not exist within a configured Site, so "
-"cannot be viewed."
-msgstr ""
-"Ta strona została opublikowana jednak nie jest przypisana do istniejącej "
-"Strony Głównej - w związku tym nie może zostać wyświetlona."
-
-msgid "Add child page"
-msgstr "Dodaj stronę podrzędną"
-
 #, python-format
 msgid ""
 "\n"
@@ -1077,6 +1067,15 @@ msgstr "Strony"
 
 msgid "Collections"
 msgstr "Kolekcje"
+
+msgid "Add child page"
+msgstr "Dodaj stronę podrzędną"
+
+msgid "More"
+msgstr "Więcej"
+
+msgid "Revisions"
+msgstr "Wersje"
 
 msgid "Choose an item"
 msgstr "Wybierz rzecz"
