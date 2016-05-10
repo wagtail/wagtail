@@ -35,9 +35,6 @@ class RoutablePageMixin(object):
     This class can be mixed in to a Page model, allowing extra routes to be
     added to it.
     """
-    #: Set this to a tuple of ``django.conf.urls.url`` objects.
-    subpage_urls = None
-
     @classmethod
     def get_subpage_urls(cls):
         routes = []
