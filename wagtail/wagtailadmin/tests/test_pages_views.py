@@ -2031,7 +2031,7 @@ class TestPageUnpublish(TestCase, WagtailTestUtils):
 
     def test_unpublish_descendants_view(self):
         """
-        This tests that the unpublish view responds with an unpublish confirm page that contains the form field 'include_descendants'
+        This tests that the unpublish view responds with an unpublish confirm page that does not contain the form field 'include_descendants'
         """
         # Get unpublish page
         response = self.client.get(reverse('wagtailadmin_pages:unpublish', args=(self.page.id, )))

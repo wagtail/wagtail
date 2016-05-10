@@ -11,20 +11,24 @@
             {% csrf_token %}
             <input type="hidden" name="next" value="{{ next }}">
             <ul class="fields">
-                {% if live_descendant_pages %}
+                {% if live_descendant_count and live_descendant_count > 0 %}
                 <li>
                     <div class="field boolean_field checkbox_input">
                         <div class="field-content">
                             <div class="input">
                                 <input id="id_include_descendants" name="include_descendants" type="checkbox">
-                                <span>{% trans 'Unpublish all descendant pages as well.' %}</span>
+                                <span>{% blocktrans count counter=live_descendant_count %}
+                    This will also unpublish one more subpage.
+                {% plural %}
+                    This will also unpublish {{ live_descendant_count }} more subpages.
+                {% endblocktrans %}</span>
                             </div>
                         </div>
                     </div>
                     </li>
                 {% endif %}
                 <li>
-                    <input type="submit" value="{% trans 'Yes, unpublish it' %}">
+                    <input type="submit" class="button" value="{% trans 'Yes, unpublish it' %}">
                 </li>
             </ul>
         </form>
