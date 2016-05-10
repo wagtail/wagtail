@@ -42,6 +42,7 @@ Changelog
 1.4.4 (xx.xx.2016)
 ~~~~~~~~~~~~~~~~~~
 
+ * New translation for Slovenian (Mitja Pagon)
  * Fix: The `wagtailuserbar` template tag now gracefully handles situations where the `request` object is not in the template context (Matt Westcott)
  * Fix: Meta classes on StreamField blocks now handle multiple inheritance correctly (Tim Heap)
  * Fix: Now user can upload images / documents only into permitted collection from choosers

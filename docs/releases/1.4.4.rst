@@ -10,6 +10,11 @@ Wagtail 1.4.4 release notes
 What's changed
 ==============
 
+Translations
+~~~~~~~~~~~~
+
+ * New translation for Slovenian (Mitja Pagon)
+
 Bug fixes
 ~~~~~~~~~
 
