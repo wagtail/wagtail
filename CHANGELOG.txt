@@ -1,7 +1,7 @@
 Changelog
 =========
 
-1.4.4 (xx.xx.2016)
+1.4.4 (10.05.2016)
 ~~~~~~~~~~~~~~~~~~
 
  * New translation for Slovenian (Mitja Pagon)
