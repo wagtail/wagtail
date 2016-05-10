@@ -5,7 +5,10 @@ from django.test import RequestFactory, TestCase
 
 from wagtail.contrib.wagtailroutablepage.templatetags.wagtailroutablepage_tags import \
     routablepageurl
-from wagtail.tests.routablepage.models import RoutablePageTest
+from wagtail.tests.routablepage.models import (
+    RoutablePageTest,
+    RoutablePageWithoutIndexRouteTest,
+)
 from wagtail.wagtailcore.models import Page, Site
 
 
@@ -92,6 +95,16 @@ class TestRoutablePage(TestCase):
         response = self.client.get(self.routable_page.url)
 
         self.assertContains(response, "MAIN VIEW")
+
+    def test_get_routable_page_without_index_route(self):
+        page = self.home_page.add_child(
+            instance=RoutablePageWithoutIndexRouteTest(
+                title="Routable Page without index",
+                live=True
+            )
+        )
+        response = self.client.get(page.url)
+        self.assertContains(response, "DEFAULT PAGE TEMPLATE")
 
     def test_get_archive_by_year_view(self):
         response = self.client.get(self.routable_page.url + 'archive/year/2014/')
