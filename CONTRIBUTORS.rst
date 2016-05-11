@@ -134,6 +134,7 @@ Contributors
 * Moritz Pfeiffer
 * David Seddon
 * Brad Busenius
+* Juha Yrjölä
 
 Translators
 ===========
