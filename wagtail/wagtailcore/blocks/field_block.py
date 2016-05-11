@@ -327,7 +327,7 @@ class RichTextBlock(FieldBlock):
     @cached_property
     def field(self):
         from wagtail.wagtailadmin.rich_text import get_rich_text_editor
-        return forms.CharField(widget=get_rich_text_editor(), **self.field_options)
+        return forms.CharField(widget=get_rich_text_editor(self.editor), **self.field_options)
 
     def value_for_form(self, value):
         # Rich text editors take the source-HTML string as input (and takes care
