@@ -45,7 +45,24 @@ class ImageQuerySet(SearchableQuerySetMixin, models.QuerySet):
 
 
 def get_upload_to(instance, filename):
-    # Dumb proxy to instance method.
+    """
+    Obtain a valid upload path for an image file.
+
+    This needs to be a module-level function so that it can be referenced within migrations,
+    but simply delegates to the `get_upload_to` method of the instance, so that AbstractImage
+    subclasses can override it.
+    """
+    return instance.get_upload_to(filename)
+
+
+def get_rendition_upload_to(instance, filename):
+    """
+    Obtain a valid upload path for an image rendition file.
+
+    This needs to be a module-level function so that it can be referenced within migrations,
+    but simply delegates to the `get_upload_to` method of the instance, so that AbstractRendition
+    subclasses can override it.
+    """
     return instance.get_upload_to(filename)
 
 
@@ -439,7 +456,7 @@ class Filter(models.Model):
 
 class AbstractRendition(models.Model):
     filter = models.ForeignKey(Filter, related_name='+')
-    file = models.ImageField(upload_to='images', width_field='width', height_field='height')
+    file = models.ImageField(upload_to=get_rendition_upload_to, width_field='width', height_field='height')
     width = models.IntegerField(editable=False)
     height = models.IntegerField(editable=False)
     focal_point_key = models.CharField(max_length=255, blank=True, default='', editable=False)
@@ -479,6 +496,11 @@ class AbstractRendition(models.Model):
 
     def __html__(self):
         return self.img_tag()
+
+    def get_upload_to(self, filename):
+        folder_name = 'images'
+        filename = self.file.field.storage.get_valid_name(filename)
+        return os.path.join(folder_name, filename)
 
     class Meta:
         abstract = True

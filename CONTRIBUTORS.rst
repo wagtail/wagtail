@@ -131,6 +131,7 @@ Contributors
 * João Luiz Lorencetti
 * Jason Morrison
 * Mario César
+* Robert Moggach
 
 Translators
 ===========
