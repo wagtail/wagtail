@@ -5,6 +5,7 @@ Changelog
 ~~~~~~~~~~~~~~~~
 
  * Added wagtail.contrib.modeladmin, an app for configuring arbitrary Django models to be edited through the Wagtail admin (Andy Babic)
+ * Added TableBlock, a StreamField block for table-based content (Moritz Pfeiffer, David Seddon, Brad Busenius)
  * The "dynamic serve view" for images has been greatly improved. See release notes for details
  * Moved lesser-user actions in the page explorer into a 'More' dropdown
  * Added a hook `register_page_listing_buttons` for adding action buttons to the page explorer

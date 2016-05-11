@@ -131,6 +131,9 @@ Contributors
 * João Luiz Lorencetti
 * Jason Morrison
 * Mario César
+* Moritz Pfeiffer
+* David Seddon
+* Brad Busenius
 
 Translators
 ===========
