@@ -6,9 +6,9 @@ from django.shortcuts import render
 from django.utils.translation import ugettext as _
 from wagtail.wagtailadmin import messages
 from wagtail.wagtailadmin.forms import SearchForm
+from wagtail.wagtailadmin.rich_text import get_rich_text_editor
 from wagtail.wagtailadmin.widgets import (
     AdminAutoHeightTextInput, AdminDateInput, AdminDateTimeInput, AdminPageChooser, AdminTimeInput)
-from wagtail.wagtailcore.fields import RichTextArea
 from wagtail.wagtailcore.models import Page
 from wagtail.wagtaildocs.widgets import AdminDocumentChooser
 from wagtail.wagtailimages.widgets import AdminImageChooser
@@ -26,7 +26,7 @@ class ExampleForm(forms.Form):
         self.fields['time'].widget = AdminTimeInput()
         self.fields['datetime'].widget = AdminDateTimeInput()
         self.fields['auto_height_text'].widget = AdminAutoHeightTextInput()
-        self.fields['rich_text'].widget = RichTextArea()
+        self.fields['default_rich_text'].widget = get_rich_text_editor('default')
 
     CHOICES = (
         ('choice1', 'choice 1'),
@@ -35,7 +35,7 @@ class ExampleForm(forms.Form):
 
     text = forms.CharField(required=True, help_text="help text")
     auto_height_text = forms.CharField(required=True)
-    rich_text = forms.CharField(required=True)
+    default_rich_text = forms.CharField(required=True)
     url = forms.URLField(required=True)
     email = forms.EmailField(max_length=254)
     date = forms.DateField()
