@@ -43,6 +43,7 @@ Minor features
 
  * Moved lesser-user actions in the page explorer into a 'More' dropdown
  * Added a hook :ref:`register_page_listing_buttons` for adding action buttons to the page explorer
+ * Added the ability to edit existing links in the rich text editor (Loic Teixeira)
  * Password reset email now reminds the user of their username (Matt Westcott)
  * Added :ref:`jinja2 support <settings_tag_jinja2>` for the  ``settings`` template tag (Tim Heap)
  * Added 'revisions' action to pages list (Roel Bruggink)
