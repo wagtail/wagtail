@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-04-11 13:57+0100\n"
+"POT-Creation-Date: 2016-05-11 20:27+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -156,6 +156,16 @@ msgstr ""
 
 #: templates/wagtailimages/chooser/chooser.html:50
 msgid "Uploading..."
+msgstr ""
+
+#: templates/wagtailimages/chooser/chooser.js:73
+#: templates/wagtailimages/multiple/add.html:61
+msgid "Server Error"
+msgstr ""
+
+#: templates/wagtailimages/chooser/chooser.js:74
+#: templates/wagtailimages/multiple/add.html:62
+msgid "Report this error to your webmaster with the following information:"
 msgstr ""
 
 #: templates/wagtailimages/chooser/results.html:6
@@ -373,7 +383,7 @@ msgstr ""
 msgid "Sorry, upload failed."
 msgstr ""
 
-#: templates/wagtailimages/multiple/add.html:60
+#: templates/wagtailimages/multiple/add.html:65
 msgid "Image updated."
 msgstr ""
 

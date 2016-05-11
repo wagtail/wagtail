@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-03-09 13:55+0000\n"
+"POT-Creation-Date: 2016-05-11 20:27+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,19 +17,19 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: forms.py:50
+#: forms.py:51
 msgid "Add"
 msgstr ""
 
-#: forms.py:50
+#: forms.py:51
 msgid "Add/edit documents you own"
 msgstr ""
 
-#: forms.py:51 views/documents.py:106 views/documents.py:145
+#: forms.py:52 views/documents.py:106 views/documents.py:145
 msgid "Edit"
 msgstr ""
 
-#: forms.py:51
+#: forms.py:52
 msgid "Edit any document"
 msgstr ""
 
@@ -160,8 +160,8 @@ msgstr ""
 msgid "File not found"
 msgstr ""
 
-#: templates/wagtaildocs/documents/index.html:22 wagtail_hooks.py:36
-#: wagtail_hooks.py:95
+#: templates/wagtaildocs/documents/index.html:22 wagtail_hooks.py:38
+#: wagtail_hooks.py:97
 msgid "Documents"
 msgstr ""
 
@@ -307,7 +307,7 @@ msgstr ""
 msgid "Document '{0}' deleted."
 msgstr ""
 
-#: wagtail_hooks.py:114
+#: wagtail_hooks.py:116
 #, python-format
 msgid "%(count)s document"
 msgid_plural "%(count)s documents"
