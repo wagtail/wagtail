@@ -32,3 +32,7 @@ class RoutablePageTest(RoutablePage):
     @route(r'^override-name-test/$', name='name_overridden')
     def override_name_test(self, request):
         pass
+
+
+class RoutablePageWithoutIndexRouteTest(RoutablePage):
+    pass
