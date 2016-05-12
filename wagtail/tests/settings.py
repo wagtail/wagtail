@@ -166,3 +166,12 @@ WAGTAIL_SITE_NAME = "Test Site"
 # when the module gets loaded. The decorator 'override_settings' does not work
 # in this scenario.
 WAGTAIL_USER_CUSTOM_FIELDS = ['country']
+
+WAGTAILADMIN_RICH_TEXT_EDITORS = {
+    'default': {
+        'WIDGET': 'wagtail.wagtailadmin.rich_text.HalloRichTextArea'
+    },
+    'custom': {
+        'WIDGET': 'wagtail.tests.testapp.rich_text.CustomRichTextArea'
+    },
+}

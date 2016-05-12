@@ -50,7 +50,7 @@ DEFAULT_RICH_TEXT_EDITORS = {
 }
 
 
-def get_rich_text_editor(name='default'):
+def get_rich_text_editor_widget(name='default'):
     editor_settings = getattr(settings, 'WAGTAILADMIN_RICH_TEXT_EDITORS', DEFAULT_RICH_TEXT_EDITORS)
 
     editor = editor_settings[name]

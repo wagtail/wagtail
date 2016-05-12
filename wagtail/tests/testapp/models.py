@@ -16,7 +16,7 @@ from taggit.models import TaggedItemBase
 
 from wagtail.contrib.settings.models import BaseSetting, register_setting
 from wagtail.wagtailadmin.edit_handlers import (
-    FieldPanel, InlinePanel, MultiFieldPanel, ObjectList, PageChooserPanel, TabbedInterface)
+    FieldPanel, InlinePanel, MultiFieldPanel, ObjectList, PageChooserPanel, TabbedInterface, StreamFieldPanel)
 from wagtail.wagtailadmin.forms import WagtailAdminPageForm
 from wagtail.wagtailcore.blocks import CharBlock, RichTextBlock
 from wagtail.wagtailcore.fields import RichTextField, StreamField
@@ -667,4 +667,43 @@ class ValidatedPage(Page):
     base_form_class = ValidatedPageForm
     content_panels = Page.content_panels + [
         FieldPanel('foo'),
+    ]
+
+
+class DefaultRichTextFieldPage(Page):
+    body = RichTextField()
+
+    content_panels = [
+        FieldPanel('title', classname="full title"),
+        FieldPanel('body'),
+    ]
+
+
+class DefaultRichBlockFieldPage(Page):
+    body = StreamField([
+        ('rich_text', RichTextBlock()),
+    ])
+
+    content_panels = Page.content_panels + [
+        StreamFieldPanel('body')
+    ]
+
+
+class CustomRichTextFieldPage(Page):
+    body = RichTextField(editor='custom')
+
+    content_panels = [
+        FieldPanel('title', classname="full title"),
+        FieldPanel('body'),
+    ]
+
+
+class CustomRichBlockFieldPage(Page):
+    body = StreamField([
+        ('rich_text', RichTextBlock(editor='custom')),
+    ])
+
+    content_panels = [
+        FieldPanel('title', classname="full title"),
+        StreamFieldPanel('body'),
     ]
