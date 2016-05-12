@@ -67,7 +67,7 @@ function enableDirtyFormCheck(formSelector, options) {
     window.addEventListener('beforeunload', function(event) {
         // Ignore if the user clicked on an ignored element
         var triggeredByIgnoredButton = false;
-        var $trigger = $(event.target.activeElement);
+        var $trigger = $(event.explicitOriginalTarget || document.activeElement);
 
         $ignoredButtons.each(function() {
             if ($(this).is($trigger)) {
