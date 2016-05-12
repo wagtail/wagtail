@@ -55,6 +55,7 @@ Changelog
 ~~~~~~~~~~~~~~~~~~
 
  * Fix: Paste / drag operations done entirely with the mouse are now correctly picked up as edits within the rich text editor (Matt Fozard)
+ * Fix: Logic for cancelling the "unsaved changes" check on form submission has been fixed to work cross-browser (Stephen Rice)
 
 
 1.4.4 (10.05.2016)

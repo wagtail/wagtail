@@ -137,6 +137,7 @@ Contributors
 * Juha Yrjölä
 * Bojan Mihelac
 * Robert Moggach
+* Stephen Rice
 
 Translators
 ===========
