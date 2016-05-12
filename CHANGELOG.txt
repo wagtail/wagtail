@@ -34,6 +34,7 @@ Changelog
  * Support field widget media inside `StreamBlock` blocks (Karl Hobley)
  * Spinner was added to Save button on site settings (Liam Brenner)
  * Added success message after logout from Admin (Liam Brenner)
+ * Added `get_upload_to` method to `AbstractRendition` which, when overridden, allows control over where image renditions are stored (Rob Moggach and Matt Westcott)
  * Fix: The currently selected day is now highlighted only in the correct month in date pickers (Jonas Lergell)
  * Fix: Fixed crash when an image without a source file was resized with the "dynamic serve view"
  * Fix: Registered settings admin menu items now show active correctly (Matthew Downey)
