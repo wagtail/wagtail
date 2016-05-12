@@ -1,0 +1,16 @@
+============================================
+Wagtail 1.4.5 release notes - IN DEVELOPMENT
+============================================
+
+.. contents::
+    :local:
+    :depth: 1
+
+
+What's changed
+==============
+
+Bug fixes
+~~~~~~~~~
+
+ * Paste / drag operations done entirely with the mouse are now correctly picked up as edits within the rich text editor (Matt Fozard)
