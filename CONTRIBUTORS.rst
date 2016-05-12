@@ -135,6 +135,7 @@ Contributors
 * David Seddon
 * Brad Busenius
 * Juha Yrjölä
+* Bojan Mihelac
 
 Translators
 ===========
