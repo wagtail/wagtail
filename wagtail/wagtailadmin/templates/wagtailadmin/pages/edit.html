@@ -116,6 +116,7 @@
                 '#page-edit-form',
                 {
                     confirmationMessage: '{{ confirmation_message|escapejs }}',
+                    ignoredButtonsSelector: 'input[type="submit"],button[type="submit"],button.action-preview',
 
                     {% if form.errors %}
                         alwaysDirty: true,
