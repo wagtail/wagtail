@@ -303,8 +303,9 @@ class ChoiceBlock(FieldBlock):
 
 class RichTextBlock(FieldBlock):
 
-    def __init__(self, required=True, help_text=None, **kwargs):
+    def __init__(self, required=True, help_text=None, editor='default', **kwargs):
         self.field_options = {'required': required, 'help_text': help_text}
+        self.editor = editor
         super(RichTextBlock, self).__init__(**kwargs)
 
     def get_default(self):
@@ -325,16 +326,16 @@ class RichTextBlock(FieldBlock):
 
     @cached_property
     def field(self):
-        from wagtail.wagtailcore.fields import RichTextArea
-        return forms.CharField(widget=RichTextArea, **self.field_options)
+        from wagtail.wagtailadmin.rich_text import get_rich_text_editor
+        return forms.CharField(widget=get_rich_text_editor(self.editor), **self.field_options)
 
     def value_for_form(self, value):
-        # RichTextArea takes the source-HTML string as input (and takes care
+        # Rich text editors take the source-HTML string as input (and takes care
         # of expanding it for the purposes of the editor)
         return value.source
 
     def value_from_form(self, value):
-        # RichTextArea returns a source-HTML string; concert to a RichText object
+        # Rich text editors return a source-HTML string; convert to a RichText object
         return RichText(value)
 
     def get_searchable_content(self, value):

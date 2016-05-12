@@ -18,8 +18,8 @@ from wagtail.wagtailadmin.edit_handlers import (
     FieldPanel, InlinePanel, ObjectList, PageChooserPanel, RichTextFieldPanel, TabbedInterface,
     extract_panel_definitions_from_model_class, get_form_for_model)
 from wagtail.wagtailadmin.forms import WagtailAdminModelForm, WagtailAdminPageForm
+from wagtail.wagtailadmin.rich_text import HalloRichTextArea
 from wagtail.wagtailadmin.widgets import AdminAutoHeightTextInput, AdminDateInput, AdminPageChooser
-from wagtail.wagtailcore.fields import RichTextArea
 from wagtail.wagtailcore.models import Page, Site
 from wagtail.wagtailimages.edit_handlers import ImageChooserPanel
 
@@ -58,7 +58,7 @@ class TestGetFormForModel(TestCase):
         # RichTextField - they should retain their default widgets
         EventPageForm = get_form_for_model(EventPage, form_class=WagtailAdminPageForm)
         event_form = EventPageForm()
-        self.assertEqual(type(event_form.fields['body'].widget), RichTextArea)
+        self.assertEqual(type(event_form.fields['body'].widget), HalloRichTextArea)
 
     def test_get_form_for_model_with_specific_fields(self):
         EventPageForm = get_form_for_model(

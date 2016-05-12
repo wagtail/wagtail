@@ -5,6 +5,8 @@
     {{ block.super }}
 
     <link rel="stylesheet" href="{% static 'wagtailstyleguide/css/styleguide.css' %}" type="text/css" />
+
+    {{ example_form.media.css }}
 {% endblock %}
 
 {% block titletag %}{% trans 'Styleguide' %}{% endblock %}
@@ -696,6 +698,9 @@
     {{ block.super }}
 
     {% include "wagtailadmin/pages/_editor_js.html" %}
+
+    {{ example_form.media.js}}
+
     <script>
         $(function(){
             // Debugging for stylesheet problems
