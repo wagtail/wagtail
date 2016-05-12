@@ -15,8 +15,8 @@ class RichTextField(models.TextField):
         super(RichTextField, self).__init__(*args, **kwargs)
 
     def formfield(self, **kwargs):
-        from wagtail.wagtailadmin.rich_text import get_rich_text_editor
-        defaults = {'widget': get_rich_text_editor(self.editor)}
+        from wagtail.wagtailadmin.rich_text import get_rich_text_editor_widget
+        defaults = {'widget': get_rich_text_editor_widget(self.editor)}
         defaults.update(kwargs)
         return super(RichTextField, self).formfield(**defaults)
 
