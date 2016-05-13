@@ -288,7 +288,7 @@ class TestFormBuilder(TestCase):
         )
 
         # Create a form builder
-        self.fb = FormBuilder(self.form_page.form_fields.all())
+        self.fb = FormBuilder(self.form_page.get_form_fields())
 
     def test_fields(self):
         """
