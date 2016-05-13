@@ -522,7 +522,13 @@ def preview_on_create(request, content_type_app_name, content_type_model_name, p
         # calling treebeard's internal _get_path method, we can set a 'realistic' value that
         # will hopefully enable tree traversal operations to at least partially work.
         page.depth = parent_page.depth + 1
-        page.path = page._get_path(parent_page.path, page.depth, parent_page.numchild + 1)
+
+        if parent_page.is_leaf():
+            # set the path as the first child of parent_page
+            page.path = page._get_path(parent_page.path, page.depth, 1)
+        else:
+            # add the new page after the last child of parent_page
+            page.path = parent_page.get_last_child()._inc_path()
 
         # ensure that our unsaved page instance has a suitable url set
         page.set_url_path(parent_page)
