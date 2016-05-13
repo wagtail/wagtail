@@ -2917,3 +2917,42 @@ class TestRevisions(TestCase, WagtailTestUtils):
         # Buttons should be relabelled
         self.assertContains(response, "Replace current draft")
         self.assertContains(response, "Publish this revision")
+
+
+class TestIssue2599(TestCase, WagtailTestUtils):
+    """
+    When previewing a page on creation, we need to assign it a path value consistent with its
+    (future) position in the tree. The naive way of doing this is to give it an index number
+    one more than numchild - however, index numbers are not reassigned on page deletion, so
+    this can result in a path that collides with an existing page (which is invalid).
+    """
+    def test_issue_2599(self):
+        homepage = Page.objects.get(id=2)
+
+        child1 = Page(title='child1')
+        homepage.add_child(instance=child1)
+        child2 = Page(title='child2')
+        homepage.add_child(instance=child2)
+
+        child1.delete()
+
+        self.login()
+        post_data = {
+            'title': "New page!",
+            'content': "Some content",
+            'slug': 'hello-world',
+            'action-submit': "Submit",
+        }
+        response = self.client.post(
+            reverse('wagtailadmin_pages:preview_on_add', args=('tests', 'simplepage', homepage.id)), post_data
+        )
+
+        # Check the response
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'tests/simple_page.html')
+        self.assertContains(response, "New page!")
+
+        # Check that the treebeard attributes were set correctly on the page object
+        self.assertEqual(response.context['self'].depth, homepage.depth + 1)
+        self.assertTrue(response.context['self'].path.startswith(homepage.path))
+        self.assertEqual(response.context['self'].get_parent(), homepage)
