@@ -452,13 +452,18 @@ $(function() {
 
         previewWindow = window.open($this.data('placeholder'), $this.data('windowname'));
 
-        if (/MSIE/.test(navigator.userAgent)) {
-            // If IE, load contents immediately without fancy effects
-            submitPreview.call($this, false);
-        } else {
-            previewWindow.onload = function() {
+        if (previewWindow.addEventListener) {
+            previewWindow.addEventListener('load', function() {
                 submitPreview.call($this, true);
-            }
+            }, false);
+        } else if (previewWindow.attachEvent) {
+            // for IE
+            previewWindow.attachEvent('onload', function() {
+                submitPreview.call($this, true);
+            }, false);
+        } else {
+            // Can't trap onload event, so load contents immediately without fancy effects
+            submitPreview.call($this, false);
         }
 
         function submitPreview(enhanced) {
@@ -481,13 +486,13 @@ $(function() {
                             var hideTimeout = setTimeout(function() {
                                 previewDoc.getElementById('loading-spinner-wrapper').className += ' remove';
                                 clearTimeout(hideTimeout);
-                            })
+                            });
 
  // just enough to give effect without adding discernible slowness
                         } else {
                             previewDoc.open();
                             previewDoc.write(data);
-                            previewDoc.close()
+                            previewDoc.close();
                         }
 
                     } else {
