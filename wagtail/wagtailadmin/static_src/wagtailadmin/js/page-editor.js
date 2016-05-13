@@ -497,6 +497,7 @@ $(function() {
 
                     } else {
                         previewWindow.close();
+                        disableDirtyFormCheck();
                         document.open();
                         document.write(data);
                         document.close();
