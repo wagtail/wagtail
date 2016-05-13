@@ -2,7 +2,6 @@ from __future__ import absolute_import, unicode_literals
 
 import datetime
 import logging
-import unittest
 
 import django
 import mock
@@ -2927,7 +2926,6 @@ class TestIssue2599(TestCase, WagtailTestUtils):
     one more than numchild - however, index numbers are not reassigned on page deletion, so
     this can result in a path that collides with an existing page (which is invalid).
     """
-    @unittest.expectedFailure
     def test_issue_2599(self):
         homepage = Page.objects.get(id=2)
 
