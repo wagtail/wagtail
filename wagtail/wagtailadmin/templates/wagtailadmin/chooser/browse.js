@@ -1,6 +1,6 @@
 function(modal) {
-    /* Set up page navigation and link-types links to open in the modal */
-    $('a.navigate-pages, .link-types a', modal.body).click(function() {
+    /* Set up link-types links to open in the modal */
+    $('.link-types a', modal.body).click(function() {
         modal.loadUrl(this.href);
         return false;
     });
@@ -21,18 +21,28 @@ function(modal) {
     /* Set up search-as-you-type behaviour on the search box */
     var searchUrl = $('form.search-form', modal.body).attr('action');
 
+    /* save initial page browser HTML, so that we can restore it if the search box gets cleared */
+    var initialPageResultsHtml = $('.page-results', modal.body).html();
+
     function search() {
-        $.ajax({
-            url: searchUrl,
-            data: {
-                q: $('#id_q', modal.body).val(),
-                results_only: true
-            },
-            success: function(data, status) {
-                $('.page-results', modal.body).html(data);
-                ajaxifySearchResults();
-            }
-        });
+        var query = $('#id_q', modal.body).val();
+        if (query != '') {
+            $.ajax({
+                url: searchUrl,
+                data: {
+                    q: query,
+                    results_only: true
+                },
+                success: function(data, status) {
+                    $('.page-results', modal.body).html(data);
+                    ajaxifySearchResults();
+                }
+            });
+        } else {
+            /* search box is empty - restore original page browser HTML */
+            $('.page-results', modal.body).html(initialPageResultsHtml);
+            ajaxifyBrowseResults();
+        }
         return false;
     }
 
@@ -60,19 +70,28 @@ function(modal) {
         });
     }
 
+    function ajaxifyBrowseResults() {
+        /* Set up page navigation links to open in the modal */
+        $('.page-results a.navigate-pages', modal.body).click(function() {
+            modal.loadUrl(this.href);
+            return false;
+        });
+
+        /* Set up behaviour of choose-page links, to pass control back to the calling page */
+        $('a.choose-page', modal.body).click(function() {
+            var pageData = $(this).data();
+            pageData.parentId = {{ parent_page.id }};
+            modal.respond('pageChosen', $(this).data());
+            modal.close();
+
+            return false;
+        });
+    }
+    ajaxifyBrowseResults();
+
     /*
     Focus on the search box when opening the modal.
     FIXME: this doesn't seem to have any effect (at least on Chrome)
     */
     $('#id_q', modal.body).focus();
-
-    /* Set up behaviour of choose-page links, to pass control back to the calling page */
-    $('a.choose-page', modal.body).click(function() {
-        var pageData = $(this).data();
-        pageData.parentId = {{ parent_page.id }};
-        modal.respond('pageChosen', $(this).data());
-        modal.close();
-
-        return false;
-    });
 }
