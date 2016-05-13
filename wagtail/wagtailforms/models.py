@@ -37,7 +37,7 @@ FORM_FIELD_CHOICES = (
 @python_2_unicode_compatible
 class AbstractFormSubmission(models.Model):
     """
-    Data for a survey submission.
+    Data for a form submission.
 
     You can create custom submission model based on this abstract model.
     For example, if you need to save additional data or a reference to a user.
@@ -226,7 +226,7 @@ class AbstractForm(Page):
 
     def serve(self, request, *args, **kwargs):
         if request.method == 'POST':
-            form = self.get_form(request.POST)
+            form = self.get_form(request.POST, page=self, user=request.user)
 
             if form.is_valid():
                 self.process_form_submission(form)
@@ -239,7 +239,7 @@ class AbstractForm(Page):
                     self.get_context(request)
                 )
         else:
-            form = self.get_form()
+            form = self.get_form(page=self, user=request.user)
 
         context = self.get_context(request)
         context['form'] = form

@@ -77,7 +77,7 @@ def list_submissions(request, page_id):
         response = HttpResponse(content_type='text/csv; charset=utf-8')
         response['Content-Disposition'] = 'attachment;filename=export.csv'
 
-        # Prevents UnicodeEncodeError for questions with non-ansi symbols
+        # Prevents UnicodeEncodeError for labels with non-ansi symbols
         data_headings = [smart_str(label) for label in data_headings]
 
         writer = csv.writer(response)
