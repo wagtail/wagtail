@@ -329,7 +329,7 @@ wagtail = (function(document, window, wagtail) {
             return this._dropDowns;
         },
 
-        getByIndex(index) {
+        getByIndex: function(index) {
             return this._dropDowns[index];
         },
 
