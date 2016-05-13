@@ -58,6 +58,99 @@ class TestIndexView(TestCase, WagtailTestUtils):
         self.assertEqual(response.context['result_count'], 4)
 
 
+class TestIndexViewWithExplorablePageVisibility(TestCase, WagtailTestUtils):
+    """
+    See wagtail.wagtailadmin.tests.test_pages_views.TestExplorablePageVisibility for an explanation about
+    how the DB is set up, as many of the same rules will apply to these tests.
+    """
+
+    fixtures = ['test_explorable_pages.json']
+
+    def get(self, **params):
+        return self.client.get('/admin/tests/eventpage/', params)
+
+    def test_admin_can_see_every_page(self):
+        self.assertTrue(self.client.login(username='superman', password='password'))
+        response = self.get()
+
+        self.assertEqual(response.status_code, 200)
+        # There are 9 EventPages in the test data, and the superuser should see all of them.
+        self.assertEqual(response.context['result_count'], 9)
+
+    def test_admin_can_see_any_filtered_page(self):
+        self.assertTrue(self.client.login(username='superman', password='password'))
+        response = self.get(audience__exact='private')
+
+        self.assertEqual(response.status_code, 200)
+        # There is 1 private page, but even though it's on "exmaple.com", the superuser should see it anyway.
+        self.assertEqual(response.context['result_count'], 1)
+
+    def test_admin_can_search_for_any_page(self):
+        self.assertTrue(self.client.login(username='superman', password='password'))
+        response = self.get(q='Welcome!')
+
+        self.assertEqual(response.status_code, 200)
+        # Every EventPage's body is "Welcome!", so the superuser should see all of them.
+        self.assertEqual(response.context['result_count'], 9)
+
+    def test_user_lists_only_explorable_pages(self):
+        self.assertTrue(self.client.login(username='jane', password='password'))
+        response = self.get(o='-0')
+
+        self.assertEqual(response.status_code, 200)
+        # There are two pages on testserver, which is all that "jane" should see. The "o='-0'" setting we used above
+        # sorts them in reverse title order.
+        self.assertEqual(response.context['result_count'], 2)
+        self.assertEqual(response.context['object_list'][0].title, 'Welcome to testserver!')
+        self.assertEqual(response.context['object_list'][1].title, 'About us')
+
+        self.assertTrue(self.client.login(username='mary', password='password'))
+        response = self.get()
+
+        self.assertEqual(response.status_code, 200)
+        # The user "mary" can view the admin, but has no explorable pages.
+        self.assertEqual(response.context['result_count'], 0)
+
+        self.assertTrue(self.client.login(username='sam', password='password'))
+        response = self.get(o='0')
+
+        self.assertEqual(response.status_code, 200)
+        # The user "sam" should see only the 2 pages in testserver, and example.com's Page 1. His required ancestors
+        # should NOT be visible.
+        self.assertEqual(response.context['result_count'], 3)
+        self.assertEqual(response.context['object_list'][0].title, 'About us')
+        self.assertEqual(response.context['object_list'][1].title, 'Page 1')
+        self.assertEqual(response.context['object_list'][2].title, 'Welcome to testserver!')
+
+    def test_user_can_see_only_explorable_pages_in_filtered_results(self):
+        self.assertTrue(self.client.login(username='jane', password='password'))
+        response = self.get(audience__exact='private')
+
+        self.assertEqual(response.status_code, 200)
+        # There is 1 private page on "exmaple.com", but jane should not be able to see it.
+        self.assertEqual(response.context['result_count'], 0)
+
+        response = self.get(audience__exact='public')
+
+        self.assertEqual(response.status_code, 200)
+        # There are 2 public pages on testserver, both of which Jane can see.
+        self.assertEqual(response.context['result_count'], 2)
+
+    def test_user_can_see_only_explorable_pages_in_search_results(self):
+        self.assertTrue(self.client.login(username='jane', password='password'))
+        response = self.get(q='Welcome to example.com')
+
+        self.assertEqual(response.status_code, 200)
+        # jane can only see testserver pages, so this search should match nothing.
+        self.assertEqual(response.context['result_count'], 0)
+
+        response = self.get(q='Welcome!')
+
+        self.assertEqual(response.status_code, 200)
+        # jane can only see the two pages on testserver.
+        self.assertEqual(response.context['result_count'], 2)
+
+
 class TestCreateView(TestCase, WagtailTestUtils):
     fixtures = ['test_specific.json']
 

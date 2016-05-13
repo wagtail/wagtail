@@ -24,10 +24,21 @@
         "show_in_menus": false,
         "live": true,
         "depth": 2,
-        "content_type": ["wagtailcore", "page"],
+        "content_type": ["tests", "eventpage"],
         "path": "00010001",
         "url_path": "/home/",
         "slug": "home"
+    }
+},
+{
+    "pk": 2,
+    "model": "tests.eventpage",
+    "fields": {
+        "date_from": "2014-12-25",
+        "audience": "public",
+        "location": "The North Pole",
+        "body": "<p>Welcome!</p>",
+        "cost": "Free"
     }
 },
 
@@ -40,10 +51,21 @@
         "show_in_menus": true,
         "live": true,
         "depth": 3,
-        "content_type": ["wagtailcore", "page"],
+        "content_type": ["tests", "eventpage"],
         "path": "000100010001",
         "url_path": "/home/about-us/",
         "slug": "about-us"
+    }
+},
+{
+    "pk": 3,
+    "model": "tests.eventpage",
+    "fields": {
+        "date_from": "2014-12-25",
+        "audience": "public",
+        "location": "The North Pole",
+        "body": "<p>Welcome!</p>",
+        "cost": "Free"
     }
 },
 
@@ -56,10 +78,21 @@
         "show_in_menus": false,
         "live": true,
         "depth": 2,
-        "content_type": ["wagtailcore", "page"],
+        "content_type": ["tests", "eventpage"],
         "path": "00010002",
         "url_path": "/home/",
         "slug": "example-home"
+    }
+},
+{
+    "pk": 4,
+    "model": "tests.eventpage",
+    "fields": {
+        "date_from": "2014-12-25",
+        "audience": "public",
+        "location": "The North Pole",
+        "body": "<p>Welcome!</p>",
+        "cost": "Free"
     }
 },
 
@@ -72,11 +105,22 @@
         "show_in_menus": true,
         "live": true,
         "depth": 3,
-        "content_type": ["wagtailcore", "page"],
+        "content_type": ["tests", "eventpage"],
         "path": "000100020001",
         "url_path": "/home/content/",
         "slug": "content",
         "owner": 1
+    }
+},
+{
+    "pk": 5,
+    "model": "tests.eventpage",
+    "fields": {
+        "date_from": "2014-12-25",
+        "audience": "public",
+        "location": "The North Pole",
+        "body": "<p>Welcome!</p>",
+        "cost": "Free"
     }
 },
 
@@ -89,11 +133,22 @@
         "show_in_menus": true,
         "live": true,
         "depth": 4,
-        "content_type": ["wagtailcore", "page"],
+        "content_type": ["tests", "eventpage"],
         "path": "0001000200010001",
         "url_path": "/home/content/page-1/",
         "slug": "page-1",
         "owner": 1
+    }
+},
+{
+    "pk": 6,
+    "model": "tests.eventpage",
+    "fields": {
+        "date_from": "2014-12-25",
+        "audience": "public",
+        "location": "The North Pole",
+        "body": "<p>Welcome!</p>",
+        "cost": "Free"
     }
 },
 
@@ -106,11 +161,22 @@
         "show_in_menus": true,
         "live": true,
         "depth": 4,
-        "content_type": ["wagtailcore", "page"],
+        "content_type": ["tests", "eventpage"],
         "path": "0001000200010002",
         "url_path": "/home/content/page-2/",
         "slug": "page-2",
         "owner": 1
+    }
+},
+{
+    "pk": 7,
+    "model": "tests.eventpage",
+    "fields": {
+        "date_from": "2014-12-25",
+        "audience": "public",
+        "location": "The North Pole",
+        "body": "<p>Welcome!</p>",
+        "cost": "Free"
     }
 },
 
@@ -123,11 +189,22 @@
         "show_in_menus": true,
         "live": true,
         "depth": 3,
-        "content_type": ["wagtailcore", "page"],
+        "content_type": ["tests", "eventpage"],
         "path": "000100020002",
         "url_path": "/home/other-content/",
         "slug": "other-content",
         "owner": 1
+    }
+},
+{
+    "pk": 8,
+    "model": "tests.eventpage",
+    "fields": {
+        "date_from": "2014-12-25",
+        "audience": "public",
+        "location": "The North Pole",
+        "body": "<p>Welcome!</p>",
+        "cost": "Free"
     }
 },
 
@@ -140,11 +217,22 @@
         "show_in_menus": true,
         "live": true,
         "depth": 5,
-        "content_type": ["wagtailcore", "page"],
+        "content_type": ["tests", "eventpage"],
         "path": "00010002000100020001",
         "url_path": "/home/content/page-2/child-1/",
         "slug": "child-1",
         "owner": 1
+    }
+},
+{
+    "pk": 9,
+    "model": "tests.eventpage",
+    "fields": {
+        "date_from": "2014-12-25",
+        "audience": "public",
+        "location": "The North Pole",
+        "body": "<p>Welcome!</p>",
+        "cost": "Free"
     }
 },
 
@@ -157,10 +245,21 @@
         "show_in_menus": false,
         "live": true,
         "depth": 2,
-        "content_type": ["wagtailcore", "page"],
+        "content_type": ["tests", "eventpage"],
         "path": "00010003",
-        "url_path": "/homez/",
-        "slug": "homez"
+        "url_path": "/home-2/",
+        "slug": "home-2"
+    }
+},
+{
+    "pk": 10,
+    "model": "tests.eventpage",
+    "fields": {
+        "date_from": "2014-12-25",
+        "audience": "private",
+        "location": "The North Pole",
+        "body": "<p>Welcome!</p>",
+        "cost": "Free"
     }
 },
 

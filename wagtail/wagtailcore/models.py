@@ -1020,8 +1020,7 @@ class Page(six.with_metaclass(PageBase, MP_Node, index.Indexed, ClusterableModel
     @transaction.atomic  # only commit when all descendants are properly updated
     def move(self, target, pos=None):
         """
-        Extension to the treebeard 'move' method to ensure that url_path is updated and the
-        explorable paths cache is cleared.
+        Extension to the treebeard 'move' method to ensure that url_path is updated.
         """
         old_url_path = Page.objects.get(id=self.id).url_path
         super(Page, self).move(target, pos=pos)

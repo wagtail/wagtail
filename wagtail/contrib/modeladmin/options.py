@@ -9,7 +9,8 @@ from django.utils.safestring import mark_safe
 from django.utils.translation import ugettext_lazy as _
 
 from wagtail.wagtailcore import hooks
-from wagtail.wagtailcore.models import Page
+from wagtail.wagtailcore.models import (
+    Page, convert_explorable_paths_to_Q, get_explorable_page_paths)
 from wagtail.wagtailimages.models import Filter
 
 from .helpers import (
@@ -243,13 +244,25 @@ class ModelAdmin(WagtailRegisterable):
 
     def get_queryset(self, request):
         """
-        Returns a QuerySet of all model instances that can be edited by the
-        admin site.
+        Returns a QuerySet of all model instances that can be explored by the
+        current user.
         """
         qs = self.model._default_manager.get_queryset()
         ordering = self.get_ordering(request)
         if ordering:
             qs = qs.order_by(*ordering)
+
+        if not request.user.is_superuser:
+            # Limit the returned Pages to those the user is allowed to explore.
+            # Unlike in the Explorer, we shouldn't return required ancestors, because those are only treated as
+            # explorable for the purpose of navigating the page tree.
+            permitted_paths, _ = get_explorable_page_paths(request.user)
+            if permitted_paths:
+                qs = qs.filter(convert_explorable_paths_to_Q(permitted_paths, []))
+            else:
+                # If the user has no explorable pages, display nothing.
+                qs = self.model._default_manager.none()
+
         return qs
 
     def get_search_fields(self, request):

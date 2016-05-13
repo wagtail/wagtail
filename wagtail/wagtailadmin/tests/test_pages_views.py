@@ -326,9 +326,9 @@ class TestExplorablePageVisibility(TestCase, WagtailTestUtils):
     5  example.com /home/content/
     6  example.com /home/content/page-1/
     7  example.com /home/content/page-2/
-    9  example.com /home/content/page-2/child-1 (only used by TestExplorerNavView)
+    9  example.com /home/content/page-2/child-1
     8  example.com /home/other-content/
-    10 example.com /home-2/ (only used by TestExplorerNavView)
+    10 example.com /home-2/
     ========================================================
 
     Group 1 has permissions rooted at testserver's homepage.
