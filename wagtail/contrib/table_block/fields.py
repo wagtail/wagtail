@@ -29,7 +29,6 @@ class TableInput(WidgetWithScript, forms.HiddenInput):
         return "initTable({0}, {1});".format(json.dumps(id_), json.dumps(self.table_options))
 
 
-
 class TableBlock(FieldBlock):
     def __init__(self, required=True, help_text=None, table_options=None, **kwargs):
         # CharField's 'label' and 'initial' parameters are not exposed, as Block handles that functionality
@@ -102,3 +101,4 @@ class TableBlock(FieldBlock):
     class Meta:
         default = None
         template = 'table_block/blocks/table.html'
+        icon = "table"
