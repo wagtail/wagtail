@@ -12,7 +12,7 @@
             <form action="{% url 'wagtailadmin_pages:unlock' page.id %}" method="POST" class="status-tag primary">
                 {% csrf_token %}
                 <input type="hidden" name="next" value="{% url 'wagtailadmin_pages:edit' page.id %}">
-                <input type="submit" class="unbutton" value="{% trans "Locked" %}">
+                <input type="submit" class="button unbutton" value="{% trans "Locked" %}">
             </form>
         {% else %}
             <span class="status-tag primary">Locked</span>
