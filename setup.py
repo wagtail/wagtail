@@ -41,6 +41,7 @@ testing_extras = [
     'pytz>=2014.7',
     'Pillow>=2.7.0',
     'elasticsearch>=1.0.0',
+    'Jinja2>=2.8,<3.0',
 
     # For coverage and PEP8 linting
     'coverage>=3.7.0',
