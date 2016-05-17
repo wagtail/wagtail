@@ -97,3 +97,46 @@ method in your urls configuration:
 
        url(r'^images/([^/]*)/(\d*)/([^/]*)/[^/]*$', ServeView.as_view(action='redirect'), name='wagtailimages_serve'),
    ]
+
+Sendfile integration
+====================
+
+To serve files with the Django application `sendfile`_, you can use the view
+``SendFileView``. For more details about using the sendfile app, please read its
+documentation.
+
+.. _sendfile: https://github.com/johnsensible/django-sendfile
+
+This view can be used out of the box:
+
+.. code-block:: python
+
+   from wagtail.wagtailimages.views.serve import SendFileView
+
+   urlpatterns = [
+       ...
+
+       url(r'^images/([^/]*)/(\d*)/([^/]*)/[^/]*$', SendFileView.as_view(), name='wagtailimages_serve'),
+   ]
+
+
+You can inherit it to override the backend defined in the ``SENDFILE_BACKEND``
+setting :
+
+.. code-block:: python
+
+    from wagtail.wagtailimages.views.serve import SendFileView
+
+    class MySendFileView(SendFileView):
+        backend = MyCustomBackend
+
+You can also inherit it to serve private files. For example, if the only need
+is to be authenticated (e.g. for Django >= 1.9):
+
+.. code-block:: python
+
+    from django.contrib.auth.mixins import MyPrivateSendFileView
+    from wagtail.wagtailimages.views.serve import SendFileView
+
+    class PrivateSendFileView(LoginRequiredMixin, SendFileView):
+        raise_exception = True
