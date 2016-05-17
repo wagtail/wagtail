@@ -98,6 +98,8 @@ method in your urls configuration:
        url(r'^images/([^/]*)/(\d*)/([^/]*)/[^/]*$', ServeView.as_view(action='redirect'), name='wagtailimages_serve'),
    ]
 
+.. _image_serve_view_sendfile:
+
 Integration with django-sendfile
 --------------------------------
 

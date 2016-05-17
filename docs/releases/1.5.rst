@@ -37,6 +37,7 @@ This view, which is used for requesting image thumbnails from an external app, h
  - It now takes an optional extra path component which can be used for appending a filename to the end of the URL
  - The key is now configurable on the view so you don't have to use your project's ``SECRET_KEY``
  - It's been refactored into a class based view and you can now create multiple serve views with different image models and/or keys
+ - It now supports :ref:`serving image files using django-sendfile <image_serve_view_sendfile>` (Thanks to Yannick Chabbert for implementing this)
 
 Minor features
 ~~~~~~~~~~~~~~
