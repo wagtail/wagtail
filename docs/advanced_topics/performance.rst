@@ -58,6 +58,8 @@ Wagtail is tested on SQLite, and should work on other Django-supported database 
 Public users
 ~~~~~~~~~~~~
 
+.. _caching_proxy:
+
 Caching proxy
 -------------
 
