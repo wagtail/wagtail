@@ -15,5 +15,6 @@ Bug fixes
 
  * Paste / drag operations done entirely with the mouse are now correctly picked up as edits within the rich text editor (Matt Fozard)
  * Logic for cancelling the "unsaved changes" check on form submission has been fixed to work cross-browser (Stephen Rice)
+ * The "unsaved changes" confirmation was erroneously shown on IE / Firefox when previewing a page with validation errors (Matt Westcott)
  * The up / down / delete controls on the "Promoted search results" form no longer trigger a form submission (Matt Westcott)
  * Opening preview window no longer performs user-agent sniffing, and now works correctly on IE11 (Matt Westcott)
