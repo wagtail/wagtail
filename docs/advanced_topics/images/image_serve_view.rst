@@ -78,6 +78,8 @@ And here's an example of this being used in a view:
 Advanced configuration
 ======================
 
+.. _image_serve_view_redirect_action:
+
 Making the view redirect instead of serve
 -----------------------------------------
 
