@@ -49,6 +49,8 @@ Changelog
  * Fix: Removed invalid use of `__` alias that prevented strings getting picked up for translation (Juha Yrjölä)
  * Fix: Routable pages without a main view no longer raise a `TypeError` (Bojan Mihelac)
  * Fix: Fixed UnicodeEncodeError in wagtailforms when downloading a CSV for a form containing non-ASCII field labels on Python 2 (Mikalai Radchuk)
+ * Fix: Server errors during search indexing on creating / updating / deleting a model are now logged, rather than causing the overall operation to fail (Karl Hobley)
+ * Fix: Objects are now correctly removed from search indexes on deletion (Karl Hobley)
 
 
 1.4.5 (xx.xx.xxxx) - IN DEVELOPMENT

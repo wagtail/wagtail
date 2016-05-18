@@ -88,6 +88,8 @@ Bug fixes
  * Removed invalid use of ``__`` alias that prevented strings getting picked up for translation (Juha Yrjölä)
  * :ref:`Routable pages <routable_page_mixin>` without a main view no longer raise a ``TypeError`` (Bojan Mihelac)
  * Fixed UnicodeEncodeError in wagtailforms when downloading a CSV for a form containing non-ASCII field labels on Python 2 (Mikalai Radchuk)
+ * Server errors during search indexing on creating / updating / deleting a model are now logged, rather than causing the overall operation to fail (Karl Hobley)
+ * Objects are now correctly removed from search indexes on deletion (Karl Hobley)
 
 
 Upgrade considerations
