@@ -21,7 +21,7 @@ def get_test_html_from_value(value):
     that's what we expect from the TableBlock.
     """
     data = list(value['data'])  # Make a copy
-    table = '<div class="table"><table>'
+    table = '<table>'
     if value['first_row_is_table_header']:
         row_header = data.pop(0)
         table += '<thead><tr>'
@@ -39,7 +39,7 @@ def get_test_html_from_value(value):
                 table += '<td>%s</td>' % tiny_escape(col)
             first = False
         table += '</tr>'
-    table += '</tbody></table></div>'
+    table += '</tbody></table>'
     return table
 
 
