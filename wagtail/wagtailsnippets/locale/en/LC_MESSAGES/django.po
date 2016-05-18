@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-05-11 20:27+0000\n"
+"POT-Creation-Date: 2016-05-18 21:37+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -58,7 +58,7 @@ msgid "Delete %(snippet_type_name)s - %(instance)s"
 msgstr ""
 
 #: templates/wagtailsnippets/snippets/confirm_delete.html:5
-#: templates/wagtailsnippets/snippets/edit.html:19
+#: templates/wagtailsnippets/snippets/edit.html:21
 msgid "Delete"
 msgstr ""
 
@@ -82,6 +82,11 @@ msgstr ""
 
 #: templates/wagtailsnippets/snippets/create.html:16
 #: templates/wagtailsnippets/snippets/edit.html:16
+msgid "Saving..."
+msgstr ""
+
+#: templates/wagtailsnippets/snippets/create.html:17
+#: templates/wagtailsnippets/snippets/edit.html:17
 msgid "Save"
 msgstr ""
 
