@@ -3,7 +3,7 @@ from __future__ import absolute_import, unicode_literals
 from django.test import TestCase
 from django.utils.html import escape
 
-from wagtail.contrib.table_block.fields import TableBlock
+from wagtail.contrib.table_block.blocks import TableBlock
 
 
 def tiny_escape(val):
