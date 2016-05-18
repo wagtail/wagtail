@@ -6,6 +6,7 @@ from django.test import TestCase, override_settings
 
 from wagtail.tests.search import models
 from wagtail.tests.testapp.models import SimplePage
+from wagtail.tests.utils import WagtailTestUtils
 from wagtail.wagtailcore.models import Page
 from wagtail.wagtailsearch import index
 
@@ -52,7 +53,7 @@ class TestGetIndexedInstance(TestCase):
         'BACKEND': 'wagtail.wagtailsearch.tests.DummySearchBackend'
     }
 })
-class TestInsertOrUpdateObject(TestCase):
+class TestInsertOrUpdateObject(TestCase, WagtailTestUtils):
     def test_inserts_object(self, backend):
         obj = models.SearchTest.objects.create(title="Test")
         index.insert_or_update_object(obj)
@@ -85,7 +86,7 @@ class TestInsertOrUpdateObject(TestCase):
             index.insert_or_update_object(obj)
 
         self.assertEqual(len(cm.output), 1)
-        self.assertIn("ERROR:wagtail.search.index:Exception raised while adding <SearchTest: Test> into the 'default' search backend", cm.output[0])
+        self.assertIn("Exception raised while adding <SearchTest: Test> into the 'default' search backend", cm.output[0])
         self.assertIn("Traceback (most recent call last):", cm.output[0])
         self.assertIn("ValueError: Test", cm.output[0])
 
@@ -96,7 +97,7 @@ class TestInsertOrUpdateObject(TestCase):
         'BACKEND': 'wagtail.wagtailsearch.tests.DummySearchBackend'
     }
 })
-class TestRemoveObject(TestCase):
+class TestRemoveObject(TestCase, WagtailTestUtils):
     def test_removes_object(self, backend):
         obj = models.SearchTest.objects.create(title="Test")
         index.remove_object(obj)
@@ -118,6 +119,6 @@ class TestRemoveObject(TestCase):
             index.remove_object(obj)
 
         self.assertEqual(len(cm.output), 1)
-        self.assertIn("ERROR:wagtail.search.index:Exception raised while deleting <SearchTest: Test> from the 'default' search backend", cm.output[0])
+        self.assertIn("Exception raised while deleting <SearchTest: Test> from the 'default' search backend", cm.output[0])
         self.assertIn("Traceback (most recent call last):", cm.output[0])
         self.assertIn("ValueError: Test", cm.output[0])
