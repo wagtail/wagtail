@@ -1,7 +1,6 @@
 from __future__ import absolute_import, unicode_literals
 
 import mock
-import unittest
 
 from django.test import TestCase, override_settings
 
@@ -104,7 +103,6 @@ class TestRemoveObject(TestCase):
 
         backend().add.assert_called_with(obj)
 
-    @unittest.expectedFailure
     def test_removes_unsaved_object(self, backend):
         obj = models.SearchTest(title="Test")
         index.remove_object(obj)
