@@ -31,7 +31,7 @@ def post_save_signal_handler(instance, **kwargs):
                 backend.add(indexed_instance)
             except Exception:
                 # Catch and log all errors
-                logger.exception("Exception raised while adding an object into the '%s' search backend", backend_name)
+                logger.exception("Exception raised while adding %r into the '%s' search backend", indexed_instance, backend_name)
 
 
 def post_delete_signal_handler(instance, **kwargs):
@@ -43,7 +43,7 @@ def post_delete_signal_handler(instance, **kwargs):
                 backend.delete(indexed_instance)
             except Exception:
                 # Catch and log all errors
-                logger.exception("Exception raised while deleting an object from the '%s' search backend", backend_name)
+                logger.exception("Exception raised while deleting %r from the '%s' search backend", indexed_instance, backend_name)
 
 
 def register_signal_handlers():
