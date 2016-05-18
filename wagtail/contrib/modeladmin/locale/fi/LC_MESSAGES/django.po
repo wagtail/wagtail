@@ -1,0 +1,140 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# Aarni Koskela, 2016
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2016-05-11 20:26+0000\n"
+"PO-Revision-Date: 2016-05-12 12:22+0000\n"
+"Last-Translator: Aarni Koskela\n"
+"Language-Team: Finnish (http://www.transifex.com/torchbox/wagtail/language/"
+"fi/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: fi\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Parent page"
+msgstr "Isäntäsivu"
+
+#, python-format
+msgid "Add %s"
+msgstr "Lisää %s"
+
+#, python-format
+msgid "Add a new %s"
+msgstr "Lisää uusi %s"
+
+msgid "Inspect"
+msgstr "Tarkastele"
+
+#, python-format
+msgid "Inspect this %s"
+msgstr "Tarkastele %s-kohdetta"
+
+msgid "Edit"
+msgstr "Muokkaa"
+
+#, python-format
+msgid "Edit this %s"
+msgstr "Muokkaa %s-kohdetta"
+
+msgid "Delete"
+msgstr "Poista"
+
+#, python-format
+msgid "Delete this %s"
+msgstr "Poista %s"
+
+msgid "Unpublish"
+msgstr "Piilota"
+
+#, python-format
+msgid "Unpublish this %s"
+msgstr "Piilota %s"
+
+msgid "Copy"
+msgstr "Kopioi"
+
+#, python-format
+msgid "Copy this %s"
+msgstr "Kopioi %s"
+
+msgid "image"
+msgstr "kuva"
+
+msgid "Choose a parent page"
+msgstr "Valitse isäntäsivu"
+
+msgid "Continue"
+msgstr "Jatka"
+
+msgid "Save"
+msgstr "Tallenna"
+
+msgid "Go back to listing"
+msgstr "Palaa listaukseen"
+
+msgid "Yes, delete"
+msgstr "Kyllä, poista"
+
+msgid "Home"
+msgstr "Koti"
+
+msgid "Search for"
+msgstr "Hae..."
+
+#, python-format
+msgid "Search %(name)s"
+msgstr "Hae %(name)s"
+
+msgid "Filter"
+msgstr "Suodatin"
+
+msgid "Previous"
+msgstr "Edellinen"
+
+msgid "Next"
+msgstr "Seuraava"
+
+#, python-format
+msgid "The %s could not be created due to errors."
+msgstr "%s ei voitu luoda virheiden vuoksi."
+
+msgid "New"
+msgstr "Uusi"
+
+#, python-format
+msgid "Create new %s"
+msgstr "Luo uusi %s"
+
+msgid "Editing"
+msgstr "Muokataan"
+
+#, python-format
+msgid "Editing %s"
+msgstr "Muokataan %s"
+
+#, python-format
+msgid "The %s could not be saved due to errors."
+msgstr "%s ei voitu tallentaa virheiden vuoksi."
+
+#, python-format
+msgid "Confirm deletion of %s"
+msgstr "Vahvista %s poisto"
+
+#, python-brace-format
+msgid "{model} '{instance}' deleted."
+msgstr "{model} '{instance}' poistettu."
+
+msgid "Inspecting"
+msgstr "Tarkastellaan"
+
+#, python-format
+msgid "Inspecting %s"
+msgstr "Tarkastellaan %s"

@@ -5,18 +5,19 @@
 # Translators:
 # fooflare <amos.oviedo@gmail.com>, 2014
 # fooflare <amos.oviedo@gmail.com>, 2014
-# chimeno <daniel@chimeno.me>, 2016
+# Daniel Chimeno <daniel@chimeno.me>, 2016
 # fooflare <amos.oviedo@gmail.com>, 2014
 # Joaquín Tita <carpincho@gmail.com>, 2014
-# José Alaguna <alagunajs@gmail.com>, 2015-2016
+# Yusuf (Josè) Luis <alagunajs@gmail.com>, 2015-2016
 # Mauricio Baeza <web@mauriciobaeza.net>, 2015
+# Yusuf (Josè) Luis <alagunajs@gmail.com>, 2016
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-03-09 13:55+0000\n"
-"PO-Revision-Date: 2016-03-15 01:52+0000\n"
-"Last-Translator: chimeno <daniel@chimeno.me>\n"
+"POT-Creation-Date: 2016-05-11 20:27+0000\n"
+"PO-Revision-Date: 2016-05-15 22:03+0000\n"
+"Last-Translator: Yusuf (Josè) Luis <alagunajs@gmail.com>\n"
 "Language-Team: Spanish (http://www.transifex.com/torchbox/wagtail/language/"
 "es/)\n"
 "MIME-Version: 1.0\n"
@@ -71,8 +72,7 @@ msgid "Server Error"
 msgstr "Error de servidor"
 
 msgid "Report this error to your webmaster with the following information:"
-msgstr ""
-"Reportar este error a tu administrador web con la siguiente información:"
+msgstr "Reporte este error a su admnistrador web con la siguiente información:"
 
 #, python-format
 msgid ""

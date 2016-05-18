@@ -1,0 +1,168 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# Mitja Pagon <mitja.pagon@inueni.com>, 2016
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2016-05-11 20:27+0000\n"
+"PO-Revision-Date: 2016-03-28 12:40+0000\n"
+"Last-Translator: Mitja Pagon <mitja.pagon@inueni.com>\n"
+"Language-Team: Slovenian (http://www.transifex.com/torchbox/wagtail/language/"
+"sl/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: sl\n"
+"Plural-Forms: nplurals=4; plural=(n%100==1 ? 0 : n%100==2 ? 1 : n%100==3 || n"
+"%100==4 ? 2 : 3);\n"
+
+msgid "From site"
+msgstr "Iz spletnega mesta"
+
+msgid "All sites"
+msgstr "Vsa spletna mesta"
+
+msgid "A redirect with this path already exists."
+msgstr "Preusmeritev za to pot že obstaja."
+
+msgid "redirect from"
+msgstr "Preusmeritev iz"
+
+msgid "site"
+msgstr "spletno mesto"
+
+msgid "permanent"
+msgstr "Stalna"
+
+msgid ""
+"Recommended. Permanent redirects ensure search engines forget the old page "
+"(the 'Redirect from') and index the new page instead."
+msgstr ""
+"Priporočeno. Stalne preusmeritve zagotovijo, da spletni iskalniki pozabijo "
+"staro in namesto nje indeksirajo novo stran."
+
+msgid "redirect to a page"
+msgstr "preusmeri na stran"
+
+msgid "redirect to any URL"
+msgstr "preusmeri na katerikoli URL"
+
+msgid "redirect"
+msgstr "preusmeritev"
+
+msgid "Add redirect"
+msgstr "Dodaj preusmeritev"
+
+msgid "Save"
+msgstr "Shrani"
+
+#, python-format
+msgid "Delete redirect %(title)s"
+msgstr "Izbriši preusmeritev %(title)s"
+
+msgid "Delete"
+msgstr "Izbriši"
+
+msgid "Are you sure you want to delete this redirect?"
+msgstr "Ali ste prepričani, da želite izbrisati preusmeritev?"
+
+msgid "Yes, delete"
+msgstr "Da, izbriši"
+
+#, python-format
+msgid "Editing %(title)s"
+msgstr "Urejanje %(title)s"
+
+msgid "Editing"
+msgstr "Urejanje"
+
+msgid "Delete redirect"
+msgstr "Izbriši preusmeritev"
+
+msgid "Redirects"
+msgstr "Preusmeritve"
+
+msgid "From"
+msgstr "Iz"
+
+msgid "Site"
+msgstr "Spletno mesto"
+
+msgid "To"
+msgstr "Na"
+
+msgid "Type"
+msgstr "Tip"
+
+msgid "Edit this redirect"
+msgstr "Uredi preusmeritev"
+
+msgid "primary"
+msgstr "primarna"
+
+#, python-format
+msgid ""
+"\n"
+"            There is one match\n"
+"        "
+msgid_plural ""
+"\n"
+"            There are %(counter)s matches\n"
+"        "
+msgstr[0] ""
+"\n"
+"            Obstaja en zadetek\n"
+"        "
+msgstr[1] ""
+"\n"
+"            Obstajata %(counter)s zadetka\n"
+"        "
+msgstr[2] ""
+"\n"
+"            Obstajajo %(counter)s zadetki\n"
+"        "
+msgstr[3] ""
+"\n"
+"            Obstaja %(counter)s zadetkov\n"
+"        "
+
+#, python-format
+msgid "Sorry, no redirects match \"<em>%(query_string)s</em>\""
+msgstr ""
+"Žal ni preusmeritve, ki bi ustrezala nizu \"<em>%(query_string)s</em>\""
+
+#, python-format
+msgid ""
+"No redirects have been created. Why not <a href="
+"\"%(wagtailredirects_add_redirect_url)s\">add one</a>?"
+msgstr ""
+"Dodana ni še nobena preusmeritev. Zakaj je nebi <a href="
+"\"%(wagtailredirects_add_redirect_url)s\">dodali</a>?"
+
+msgid "Search redirects"
+msgstr "Iskanje po preusmeritvah"
+
+#, python-brace-format
+msgid "Redirect '{0}' updated."
+msgstr "Preusmeritev '{0}' posodobljena."
+
+msgid "Edit"
+msgstr "Uredi"
+
+msgid "The redirect could not be saved due to errors."
+msgstr "Preusmeritve, zaradi napak, ni bilo možno shraniti."
+
+#, python-brace-format
+msgid "Redirect '{0}' deleted."
+msgstr "Preusmeritev '{0}' izbrisana."
+
+#, python-brace-format
+msgid "Redirect '{0}' added."
+msgstr "Preusmeritev '{0}' dodana."
+
+msgid "The redirect could not be created due to errors."
+msgstr "Preusmeritve, zaradi napak, ni bilo možno ustvariti."

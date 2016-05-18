@@ -1,0 +1,278 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# Mitja Pagon <mitja.pagon@inueni.com>, 2016
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2016-05-11 20:27+0000\n"
+"PO-Revision-Date: 2016-03-27 18:51+0000\n"
+"Last-Translator: Mitja Pagon <mitja.pagon@inueni.com>\n"
+"Language-Team: Slovenian (http://www.transifex.com/torchbox/wagtail/language/"
+"sl/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: sl\n"
+"Plural-Forms: nplurals=4; plural=(n%100==1 ? 0 : n%100==2 ? 1 : n%100==3 || n"
+"%100==4 ? 2 : 3);\n"
+
+msgid "Required. 30 characters or fewer. Letters, digits and @/./+/-/_ only."
+msgstr ""
+"Obvezno. Največ 30 znakov. Dovoljene samo črke, številke in znaki @/./+/-/_."
+
+msgid "This value may contain only letters, numbers and @/./+/-/_ characters."
+msgstr "Vrednost lahko vsebuje samo črke, številke in znake @/./+/-/_."
+
+msgid "A user with that username already exists."
+msgstr "Uporabnik s tem uporabniškim imenom že obstaja."
+
+msgid "The two password fields didn't match."
+msgstr "Polji za geslo se ne ujemata."
+
+msgid "Administrator"
+msgstr "Administrator"
+
+msgid "Administrators have full access to manage any object or setting."
+msgstr ""
+"Administratorji imajo neomejen dostop za urejanje vsebin in nastavitev."
+
+msgid "Password"
+msgstr "Geslo"
+
+msgid "Leave blank if not changing."
+msgstr "Pustite prazno, če ne želite spremeniti."
+
+msgid "Password confirmation"
+msgstr "Potrditev gesla"
+
+msgid "Enter the same password as above, for verification."
+msgstr "Za potrditev, vnesite enako geslo kot zgoraj."
+
+msgid "Email"
+msgstr "E-pošta"
+
+msgid "First Name"
+msgstr "Ime"
+
+msgid "Last Name"
+msgstr "Priimek"
+
+msgid "A group with that name already exists."
+msgstr "Skupina s tem imenom že obstaja."
+
+msgid "You cannot have multiple permission records for the same page."
+msgstr "Za isto stran ne morate imeti več kot enega zapisa dovoljen."
+
+msgid "submitted notifications"
+msgstr "oddaja v potrditev"
+
+msgid "Receive notification when a page is submitted for moderation"
+msgstr "Prejmi obvestilo, ko je stran oddana v potrditev"
+
+msgid "approved notifications"
+msgstr "potrditev objave"
+
+msgid "Receive notification when your page edit is approved"
+msgstr "Prejmi obvestilo, ko je stran potrjena za objavo."
+
+msgid "rejected notifications"
+msgstr "zavrnitev objave"
+
+msgid "Receive notification when your page edit is rejected"
+msgstr "Prejmi obvestilo, ko je objava strani zavrnjena"
+
+msgid "user profile"
+msgstr "uporabniški profil"
+
+msgid "Delete group"
+msgstr "Izbriši skupino"
+
+#, python-format
+msgid ""
+"The group '%(group_name)s' has <strong>%(group_user_count)s</strong> users "
+"assigned."
+msgstr ""
+"Skupina '%(group_name)s' ima dodanih <strong>%(group_user_count)s</strong> "
+"uporabnikov."
+
+msgid ""
+"Deleting this group will revoke this group's permissions from all member "
+"users."
+msgstr ""
+"Izbris skupine bo povzročil, da bodo vsi člani skupine izgubili dovoljenja, "
+"dodeljena skupini."
+
+msgid "Are you sure you want to delete this group?"
+msgstr "Ali ste prepričani, da želite izbrisati skupino?"
+
+msgid "Yes, delete"
+msgstr "Da, izbriši"
+
+msgid "Add group"
+msgstr "Dodaj skupino"
+
+msgid "Editing"
+msgstr "Urejanje"
+
+msgid "Save"
+msgstr "Shrani"
+
+msgid "Object permissions"
+msgstr "Dovoljenja objekta"
+
+msgid "Name"
+msgstr "Ime"
+
+msgid "Add"
+msgstr "Dodaj"
+
+msgid "Change"
+msgstr "Spremeni"
+
+msgid "Delete"
+msgstr "Izbriši"
+
+msgid "Other permissions"
+msgstr "Ostala dovoljenja"
+
+msgid "Page permissions"
+msgstr "Dovoljenja strani"
+
+msgid "Page"
+msgstr "Stran"
+
+msgid "Add a page permission"
+msgstr "Dodaj dovoljenje strani"
+
+msgid "groups"
+msgstr "skupine"
+
+msgid "Add a group"
+msgstr "Dodaj skupino"
+
+#, python-format
+msgid ""
+"There are no groups configured. Why not <a href="
+"\"%(wagtailusers_create_group_url)s\">add some</a>?"
+msgstr ""
+"Dodana ni še nobena skupina. Zakaj je ne bi <a href="
+"\"%(wagtailusers_create_group_url)s\">dodali</a>?"
+
+msgid "Add user"
+msgstr "Dodaj uporabnika"
+
+msgid "Account"
+msgstr "Račun"
+
+msgid "Roles"
+msgstr "Vloge"
+
+msgid "Users"
+msgstr "Uporabniki"
+
+msgid "Add a user"
+msgstr "Dodaj uporabnika"
+
+msgid "Username"
+msgstr "Uporabniško ime"
+
+msgid "Level"
+msgstr "Nivo"
+
+msgid "Status"
+msgstr "Status"
+
+msgid "Admin"
+msgstr "Admin"
+
+msgid "Active"
+msgstr "Aktiven"
+
+msgid "Inactive"
+msgstr "Neaktiven"
+
+#, python-format
+msgid ""
+"\n"
+"            There is one match\n"
+"        "
+msgid_plural ""
+"\n"
+"            There are %(counter)s matches\n"
+"        "
+msgstr[0] ""
+"\n"
+"            Obstaja en zadetek\n"
+"        "
+msgstr[1] ""
+"\n"
+"            Obstajata %(counter)s zadetka\n"
+"        "
+msgstr[2] ""
+"\n"
+"            Obstajajo %(counter)s zadetki\n"
+"        "
+msgstr[3] ""
+"\n"
+"            Obstaja %(counter)s zadetkov\n"
+"        "
+
+#, python-format
+msgid "Sorry, no users match \"<em>%(query_string)s</em>\""
+msgstr "Žal ni uporabnika, ki bi ustrezal nizu \"<em>%(query_string)s</em>\""
+
+#, python-format
+msgid ""
+"There are no users configured. Why not <a href=\"%(wagtailusers_create_url)s"
+"\">add some</a>?"
+msgstr ""
+"Dodan ni še noben uporabnik. Zakaj ga ne bi <a href="
+"\"%(wagtailusers_create_url)s\">dodali</a>?"
+
+msgid "Search groups"
+msgstr "Iskanje po skupinah"
+
+#, python-brace-format
+msgid "Group '{0}' created."
+msgstr "Skupina '{0}' ustvarjena."
+
+msgid "Edit"
+msgstr "Uredi"
+
+msgid "The group could not be created due to errors."
+msgstr "Skupine, zaradi napak, ni bilo možno ustvariti."
+
+#, python-brace-format
+msgid "Group '{0}' updated."
+msgstr "Skupina '{0}' posodobljena."
+
+msgid "The group could not be saved due to errors."
+msgstr "Skupine, zaradi napak, ni bilo možno shraniti."
+
+#, python-brace-format
+msgid "Group '{0}' deleted."
+msgstr "Skupina '{0}' izbrisana."
+
+msgid "Search users"
+msgstr "Iskanje po uporabnikih"
+
+#, python-brace-format
+msgid "User '{0}' created."
+msgstr "Uporabnik '{0}' ustvarjen."
+
+msgid "The user could not be created due to errors."
+msgstr "Uporabnika, zaradi napak, ni bilo možno ustvariti."
+
+#, python-brace-format
+msgid "User '{0}' updated."
+msgstr "Uporabnik '{0}' posodobljen."
+
+msgid "The user could not be saved due to errors."
+msgstr "Uporabnika, zaradi napak, ni bilo možno shraniti."
+
+msgid "Groups"
+msgstr "Skupine"

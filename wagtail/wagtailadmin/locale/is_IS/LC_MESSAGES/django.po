@@ -9,9 +9,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-03-09 13:55+0000\n"
-"PO-Revision-Date: 2016-03-09 13:58+0000\n"
-"Last-Translator: mattwestcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2016-05-11 20:27+0000\n"
+"PO-Revision-Date: 2016-05-11 20:33+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Icelandic (Iceland) (http://www.transifex.com/torchbox/"
 "wagtail/language/is_IS/)\n"
 "MIME-Version: 1.0\n"
@@ -276,9 +276,6 @@ msgstr "Draga"
 msgid "Add subpage"
 msgstr "Bæta við undirsíðu"
 
-msgid "Add child page"
-msgstr "Bæða við undirsíðu"
-
 msgid "Previous"
 msgstr "Fyrra"
 
@@ -443,6 +440,9 @@ msgstr "Síða '{0}' er nú læst."
 #, python-brace-format
 msgid "Page '{0}' is now unlocked."
 msgstr "Síða '{0}' er nú ólæst."
+
+msgid "Add child page"
+msgstr "Bæða við undirsíðu"
 
 msgid "Choose an item"
 msgstr "Veldu"

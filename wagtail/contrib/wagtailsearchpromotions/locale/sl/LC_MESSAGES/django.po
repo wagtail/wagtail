@@ -1,0 +1,195 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# Mitja Pagon <mitja.pagon@inueni.com>, 2016
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2016-05-11 20:27+0000\n"
+"PO-Revision-Date: 2016-03-28 12:40+0000\n"
+"Last-Translator: Mitja Pagon <mitja.pagon@inueni.com>\n"
+"Language-Team: Slovenian (http://www.transifex.com/torchbox/wagtail/language/"
+"sl/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: sl\n"
+"Plural-Forms: nplurals=4; plural=(n%100==1 ? 0 : n%100==2 ? 1 : n%100==3 || n"
+"%100==4 ? 2 : 3);\n"
+
+msgid "Please specify at least one recommendation for this search term."
+msgstr "Prosim določite vsaj eno priporočilo za ta iskalni niz"
+
+msgid "page"
+msgstr "stran"
+
+msgid "description"
+msgstr "opis"
+
+msgid "search promotion"
+msgstr "promoviran rezultat"
+
+msgid "Add search promotion"
+msgstr "Dodaj promoviran rezultat"
+
+msgid "Add search pick"
+msgstr "Dodaj promoviran rezultat"
+
+msgid ""
+"\n"
+"                <p>Promoted search results are a means of recommending "
+"specific pages that might not organically come high up in search results. E."
+"g recommending your primary donation page to a user searching with the less "
+"common term \"<em>giving</em>\".</p>\n"
+"            "
+msgstr ""
+"\n"
+"                <p>Promovirani rezultati iskanja so način priporočanja "
+"določenih strani, ki se sicer ne bi uvrstile visoko med rezultati iskanja. "
+"Npr: priporočilo strani za donacije uporabnikom, ki so vnesli iskalni niz "
+"\"<em>razdajanje</em>\".</p>\n"
+"            "
+
+msgid ""
+"\n"
+"                <p>The \"Search term(s)/phrase\" field below must contain "
+"the full and exact search for which you wish to provide recommended results, "
+"<em>including</em> any misspellings/user error. To help, you can choose from "
+"search terms that have been popular with users of your site.</p>\n"
+"            "
+msgstr ""
+"\n"
+"                <p>Polje \"Iskalni niz(i)/fraze\", spodaj, mora vsebovati "
+"natančno določen iskalni niz za katerega želite prikazovati promovirane "
+"rezultate, vključno z morebitnimi napakami v črkovanju. Pri izbiri si lahko "
+"pomagate s seznamom priljubljenih iskalnih nizov obiskovalcev vašega "
+"spletnega mesta.</p>\n"
+"            "
+
+msgid "Save"
+msgstr "Shrani"
+
+#, python-format
+msgid "Delete %(query)s"
+msgstr "Izbriši %(query)s"
+
+msgid "Delete"
+msgstr "Izbriši"
+
+msgid ""
+"Are you sure you want to delete all promoted results for this search term?"
+msgstr ""
+"Ali ste prepričani, da želite izbrisati vse promovirane rezultati za iskalni "
+"niz?"
+
+msgid "Yes, delete"
+msgstr "Da, izbriši"
+
+#, python-format
+msgid "Editing %(query)s"
+msgstr "Uredi %(query)s"
+
+msgid "Editing"
+msgstr "Urejanje"
+
+msgid "Move up"
+msgstr "Premakni gor"
+
+msgid "Move down"
+msgstr "Premakni navzdol"
+
+msgid "Promoted search result"
+msgstr "Promovirani rezultati iskanja"
+
+msgid "Add recommended page"
+msgstr "Dodaj priporočeno stran"
+
+msgid "Search Terms"
+msgstr "Iskalni nizi"
+
+msgid "Promoted search results"
+msgstr "Promovirani rezultati iskanja"
+
+msgid "Add new promoted result"
+msgstr "Dodaj nov promoviran rezultat"
+
+msgid "Search term(s)"
+msgstr "Iskalni niz(i)"
+
+msgid "Promoted results"
+msgstr "Promovirani rezultati"
+
+msgid "Views (past week)"
+msgstr "Ogledi (pretekli teden)"
+
+msgid "Edit this promotion"
+msgstr "Uredi promoviran rezultat"
+
+msgid "None"
+msgstr "/"
+
+#, python-format
+msgid ""
+"\n"
+"            There is one match\n"
+"        "
+msgid_plural ""
+"\n"
+"            There are %(counter)s matches\n"
+"        "
+msgstr[0] ""
+"\n"
+"            Obstaja en rezultat\n"
+"        "
+msgstr[1] ""
+"\n"
+"            Obstajata %(counter)s rezultata\n"
+"        "
+msgstr[2] ""
+"\n"
+"            Obstajao %(counter)s rezultati\n"
+"        "
+msgstr[3] ""
+"\n"
+"            Obstaja %(counter)s rezultatov\n"
+"        "
+
+#, python-format
+msgid "Sorry, no promoted results match \"<em>%(query_string)s</em>\""
+msgstr ""
+"Žal ni promoviranega rezultata, ki bi ustrezal nizu \"<em>%(query_string)s</"
+"em>\""
+
+#, python-format
+msgid ""
+"No promoted results have been created. Why not <a href="
+"\"%(wagtailsearchpromotions_add_url)s\">add one</a>?"
+msgstr ""
+"Dodan ni še noben promoviran rezultat. Zakaj ga ne bi a href="
+"\"%(wagtailsearchpromotions_add_url)s\">dodali</a>"
+
+msgid "Search promoted results"
+msgstr "Iskanje po promoviranih rezultatih"
+
+#, python-brace-format
+msgid "Editor's picks for '{0}' created."
+msgstr "Promoviran rezultat za '{0}' ustvarjen."
+
+msgid "Edit"
+msgstr "Uredi"
+
+msgid "Recommendations have not been created due to errors"
+msgstr "Promoviranega rezultata, zaradi napak, ni bilo možno ustvariti."
+
+#, python-brace-format
+msgid "Editor's picks for '{0}' updated."
+msgstr "Promoviran rezultat za '{0}' posodobljen."
+
+msgid "Recommendations have not been saved due to errors"
+msgstr "Promoviranega rezultata, zaradi napak, ni bilo možno shraniti."
+
+msgid "Editor's picks deleted."
+msgstr "Promoviran rezultat izbrisan."

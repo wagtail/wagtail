@@ -1,0 +1,219 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# mmiskiew <mmiskiew@gmail.com>, 2016
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2016-05-11 20:26+0000\n"
+"PO-Revision-Date: 2016-05-18 13:45+0000\n"
+"Last-Translator: mmiskiew <mmiskiew@gmail.com>\n"
+"Language-Team: Polish (http://www.transifex.com/torchbox/wagtail/language/"
+"pl/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: pl\n"
+"Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
+"|| n%100>=20) ? 1 : 2);\n"
+
+msgid "Parent page"
+msgstr "Strona nadrzędna"
+
+#, python-format
+msgid "Add %s"
+msgstr "Dodaj %s"
+
+#, python-format
+msgid "Add a new %s"
+msgstr "Dodaj nowy %s"
+
+msgid "Inspect"
+msgstr "Sprawdź"
+
+#, python-format
+msgid "Inspect this %s"
+msgstr "Sprawdź ten %s"
+
+msgid "Edit"
+msgstr "Edytuj"
+
+#, python-format
+msgid "Edit this %s"
+msgstr "Edytuj ten %s"
+
+msgid "Delete"
+msgstr "Usuń"
+
+#, python-format
+msgid "Delete this %s"
+msgstr "Usuń ten %s"
+
+msgid "Unpublish"
+msgstr "Cofnij publikację"
+
+#, python-format
+msgid "Unpublish this %s"
+msgstr "Cofnij tą publikację %s"
+
+msgid "Copy"
+msgstr "Kopiuj"
+
+#, python-format
+msgid "Copy this %s"
+msgstr "Kopiuj ten %s"
+
+msgid "image"
+msgstr "Obraz"
+
+msgid "Choose a parent page"
+msgstr "Wybierz stronę nadrzędną"
+
+#, python-format
+msgid ""
+"%(plural)s can be added to more than one place within your site. Which of "
+"the following would you like to be the parent of your new page?"
+msgstr ""
+"%(plural)s może zostać dodany w więcej niż jednym miejscu na Twojej stronie. "
+"Które z poniższych chciałbyś ustawić jako nadrzędne dla Twojej nowej strony?"
+
+msgid "Continue"
+msgstr "Kontynuuj"
+
+msgid "Save"
+msgstr "Zapisz"
+
+#, python-format
+msgid "%(model_name)s could not be deleted"
+msgstr "%(model_name)s nie mógł zostać usunięty"
+
+#, python-format
+msgid ""
+"'%(instance_name)s' is currently referenced by other objects, and cannot be "
+"deleted without jeopardising data integrity. To delete it successfully, "
+"first remove references from the following objects, then try again:"
+msgstr ""
+"Do '%(instance_name)s' istnieją odwołania z innych obiektów i nie może on "
+"zostać usunięty bez naruszenia integralności danych. Aby usunąć obiekt, "
+"najpierw usuń zależne obiekty i spróbuj ponownie:"
+
+msgid "Go back to listing"
+msgstr "Wróć do listy"
+
+msgid "Yes, delete"
+msgstr "Tak, usuń"
+
+msgid "Home"
+msgstr "Start"
+
+#, python-format
+msgid " By %(filter_title)s "
+msgstr " Dla %(filter_title)s "
+
+#, python-format
+msgid "Sorry, there are no %(name)s matching your search parameters."
+msgstr "Przepraszamy, nie istnieją %(name)s pasujące do Twojego wyszukiwania."
+
+msgid "Search for"
+msgstr "Szukaj"
+
+#, python-format
+msgid "Search %(name)s"
+msgstr "Szukaj %(name)s"
+
+msgid "Filter"
+msgstr "Filtr"
+
+#, python-format
+msgid ""
+"No %(name)s have been created yet. One of the following must be created "
+"before you can add any %(name)s:"
+msgstr ""
+"Żaden %(name)s nie został jeszcze utworzony. Musisz utworzyć przynajmniej "
+"jeden zanim dodasz %(name)s:"
+
+#, python-format
+msgid "No %(name)s have been created yet."
+msgstr "Żadna %(name)s nie została jeszcze utworzona."
+
+#, python-format
+msgid ""
+"\n"
+"                                                Why not <a href=\"%(url)s"
+"\">add one</a>?\n"
+"                                            "
+msgstr ""
+"\n"
+"                                                Dlaczego nie <a href="
+"\"%(url)s\">dodać jednego</a>?\n"
+"                                            "
+
+#, python-format
+msgid "Page %(current_page)s of %(num_pages)s."
+msgstr "Strona %(current_page)s z %(num_pages)s."
+
+#, python-format
+msgid "Back to %(model_name)s list"
+msgstr "Wróć do listy %(model_name)s"
+
+msgid "Previous"
+msgstr "Wstecz"
+
+msgid "Next"
+msgstr "Naprzód"
+
+#, python-brace-format
+msgid "{model_name} '{instance}' created."
+msgstr "{model_name} '{instance}' utworzona."
+
+#, python-format
+msgid "The %s could not be created due to errors."
+msgstr "%s nie mógł zostać utworzony z powodu błędów."
+
+msgid "New"
+msgstr "Nowy"
+
+#, python-format
+msgid "Create new %s"
+msgstr "Utwórz nowy %s"
+
+msgid "Editing"
+msgstr "Edytowanie"
+
+#, python-format
+msgid "Editing %s"
+msgstr "Edytowanie %s"
+
+#, python-brace-format
+msgid "{model_name} '{instance}' updated."
+msgstr "{model_name} '{instance}' uaktualniony."
+
+#, python-format
+msgid "The %s could not be saved due to errors."
+msgstr "%s nie mógł zostać zapisany z powodu błędów."
+
+#, python-format
+msgid "Confirm deletion of %s"
+msgstr "Potwierdź usunięcie %s"
+
+#, python-format
+msgid ""
+"Are you sure you want to delete this %s? If other things in your site are "
+"related to it, they may also be affected."
+msgstr ""
+"Czy na pewno chcesz usunąć %s? Może mieć to wpływ na pozostałe, zależne "
+"elementy na Twojej stronie."
+
+#, python-brace-format
+msgid "{model} '{instance}' deleted."
+msgstr "{model} '{instance}' usunięto."
+
+msgid "Inspecting"
+msgstr "Sprawdzanie"
+
+#, python-format
+msgid "Inspecting %s"
+msgstr "Sprawdzanie %s"
