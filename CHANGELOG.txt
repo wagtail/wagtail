@@ -62,6 +62,7 @@ Changelog
  * Fix: The up / down / delete controls on the "Promoted search results" form no longer trigger a form submission (Matt Westcott)
  * Fix: Opening preview window no longer performs user-agent sniffing, and now works correctly on IE11 (Matt Westcott)
  * Fix: Tree paths are now correctly assigned when previewing a newly-created page underneath a parent with deleted children (Matt Westcott)
+ * Fix: Added BASE_URL setting back to project template
 
 
 1.4.4 (10.05.2016)
