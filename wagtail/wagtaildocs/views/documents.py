@@ -13,7 +13,7 @@ from wagtail.wagtailcore.models import Collection
 from wagtail.wagtaildocs.forms import get_document_form
 from wagtail.wagtaildocs.models import get_document_model
 from wagtail.wagtaildocs.permissions import permission_policy
-from wagtail.wagtailsearch.backends import get_search_backends
+from wagtail.wagtailsearch import index as search_index
 
 permission_checker = PermissionPolicyChecker(permission_policy)
 
@@ -99,8 +99,7 @@ def add(request):
             form.save()
 
             # Reindex the document to make sure all tags are indexed
-            for backend in get_search_backends():
-                backend.add(doc)
+            search_index.insert_or_update_object(doc)
 
             messages.success(request, _("Document '{0}' added.").format(doc.title), buttons=[
                 messages.button(reverse('wagtaildocs:edit', args=(doc.id,)), _('Edit'))
@@ -138,8 +137,7 @@ def edit(request, document_id):
             doc = form.save()
 
             # Reindex the document to make sure all tags are indexed
-            for backend in get_search_backends():
-                backend.add(doc)
+            search_index.insert_or_update_object(doc)
 
             messages.success(request, _("Document '{0}' updated").format(doc.title), buttons=[
                 messages.button(reverse('wagtaildocs:edit', args=(doc.id,)), _('Edit'))

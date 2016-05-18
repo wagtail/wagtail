@@ -13,7 +13,7 @@ from wagtail.wagtailcore.models import Collection
 from wagtail.wagtaildocs.forms import get_document_form
 from wagtail.wagtaildocs.models import get_document_model
 from wagtail.wagtaildocs.permissions import permission_policy
-from wagtail.wagtailsearch.backends import get_search_backends
+from wagtail.wagtailsearch import index as search_index
 
 permission_checker = PermissionPolicyChecker(permission_policy)
 
@@ -110,8 +110,7 @@ def chooser_upload(request):
             form.save()
 
             # Reindex the document to make sure all tags are indexed
-            for backend in get_search_backends():
-                backend.add(document)
+            search_index.insert_or_update_object(document)
 
             return render_modal_workflow(
                 request, None, 'wagtaildocs/chooser/document_chosen.js',

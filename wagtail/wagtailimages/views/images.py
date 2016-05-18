@@ -18,7 +18,7 @@ from wagtail.wagtailimages.forms import URLGeneratorForm, get_image_form
 from wagtail.wagtailimages.models import Filter, get_image_model
 from wagtail.wagtailimages.permissions import permission_policy
 from wagtail.wagtailimages.views.serve import generate_signature
-from wagtail.wagtailsearch.backends import get_search_backends
+from wagtail.wagtailsearch import index as search_index
 
 permission_checker = PermissionPolicyChecker(permission_policy)
 
@@ -110,8 +110,7 @@ def edit(request, image_id):
             form.save()
 
             # Reindex the image to make sure all tags are indexed
-            for backend in get_search_backends():
-                backend.add(image)
+            search_index.insert_or_update_object(image)
 
             messages.success(request, _("Image '{0}' updated.").format(image.title), buttons=[
                 messages.button(reverse('wagtailimages:edit', args=(image.id,)), _('Edit again'))
@@ -251,8 +250,7 @@ def add(request):
             form.save()
 
             # Reindex the image to make sure all tags are indexed
-            for backend in get_search_backends():
-                backend.add(image)
+            search_index.insert_or_update_object(image)
 
             messages.success(request, _("Image '{0}' added.").format(image.title), buttons=[
                 messages.button(reverse('wagtailimages:edit', args=(image.id,)), _('Edit'))
