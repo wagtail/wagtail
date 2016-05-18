@@ -99,13 +99,13 @@ def class_is_indexed(cls):
     return issubclass(cls, Indexed) and issubclass(cls, models.Model) and not cls._meta.abstract
 
 
-def get_indexed_instance(instance):
+def get_indexed_instance(instance, check_exists=True):
     indexed_instance = instance.get_indexed_instance()
     if indexed_instance is None:
         return
 
     # Make sure that the instance is in its class's indexed objects
-    if not type(indexed_instance).get_indexed_objects().filter(pk=indexed_instance.pk).exists():
+    if check_exists and not type(indexed_instance).get_indexed_objects().filter(pk=indexed_instance.pk).exists():
         return
 
     return indexed_instance
@@ -124,7 +124,7 @@ def insert_or_update_object(instance):
 
 
 def remove_object(instance):
-    indexed_instance = get_indexed_instance(instance)
+    indexed_instance = get_indexed_instance(instance, check_exists=False)
 
     if indexed_instance:
         for backend_name, backend in get_search_backends_with_name(with_auto_update=True):
