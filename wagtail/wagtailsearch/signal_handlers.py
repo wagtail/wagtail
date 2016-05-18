@@ -29,7 +29,7 @@ def post_save_signal_handler(instance, **kwargs):
         for backend_name, backend in get_search_backends_with_name(with_auto_update=True):
             try:
                 backend.add(indexed_instance)
-            except:
+            except Exception:
                 # Catch and log all errors
                 logger.exception("Exception raised while adding an object into the '%s' search backend", backend_name)
 
@@ -41,7 +41,7 @@ def post_delete_signal_handler(instance, **kwargs):
         for backend_name, backend in get_search_backends_with_name(with_auto_update=True):
             try:
                 backend.delete(indexed_instance)
-            except:
+            except Exception:
                 # Catch and log all errors
                 logger.exception("Exception raised while deleting an object from the '%s' search backend", backend_name)
 
