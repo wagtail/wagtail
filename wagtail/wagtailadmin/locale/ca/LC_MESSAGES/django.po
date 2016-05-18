@@ -9,9 +9,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-03-09 13:55+0000\n"
-"PO-Revision-Date: 2016-03-09 13:58+0000\n"
-"Last-Translator: mattwestcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2016-05-11 20:27+0000\n"
+"PO-Revision-Date: 2016-05-11 20:33+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Catalan (http://www.transifex.com/torchbox/wagtail/language/"
 "ca/)\n"
 "MIME-Version: 1.0\n"
@@ -167,9 +167,6 @@ msgstr "Revisa el teu correu"
 
 msgid "A link to reset your password has been emailed to you."
 msgstr "S'ha enviat un enllaç per reiniciar la contrasenya al teu correu"
-
-msgid "Please follow the link below to reset your password"
-msgstr "Si us plau segueix el link de sota per reiniciar la teva contrasenya"
 
 msgid "Password reset"
 msgstr "Contrasenya reiniciada"
@@ -443,9 +440,6 @@ msgstr "Afegeix una pàgina filla a '%(title)s'"
 msgid "Add subpage"
 msgstr "Afegeix subpàgina"
 
-msgid "Add child page"
-msgstr "Afegeix una pàgina filla"
-
 msgid "Previous"
 msgstr "Anterior"
 
@@ -522,6 +516,9 @@ msgstr "Pàgina '{0}' publicada."
 #, python-brace-format
 msgid "Page '{0}' rejected for publication."
 msgstr "La pàgina '{0}' ha estat rebutjada per publicació"
+
+msgid "Add child page"
+msgstr "Afegeix una pàgina filla"
 
 msgid "Choose an item"
 msgstr "Escull un element"

@@ -1,0 +1,48 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# Mitja Pagon <mitja.pagon@inueni.com>, 2016
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2016-05-11 20:27+0000\n"
+"PO-Revision-Date: 2016-05-11 20:34+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"Language-Team: Slovenian (http://www.transifex.com/torchbox/wagtail/language/"
+"sl/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: sl\n"
+"Plural-Forms: nplurals=4; plural=(n%100==1 ? 0 : n%100==2 ? 1 : n%100==3 || n"
+"%100==4 ? 2 : 3);\n"
+
+msgid "Choose a root page"
+msgstr "Izberite začetno stran"
+
+msgid "Choose a different root page"
+msgstr "Izberite drugo začetno stran"
+
+msgid "Site"
+msgstr "Spletno mesto"
+
+msgid "Port"
+msgstr "Vrata"
+
+msgid "Site name"
+msgstr "Ime spletnega mesta"
+
+msgid "Root page"
+msgstr "Začetna stran"
+
+msgid "Default?"
+msgstr "Privzeta?"
+
+msgid "Default"
+msgstr "Privzeta"
+
+msgid "Sites"
+msgstr "Spletna mesta"

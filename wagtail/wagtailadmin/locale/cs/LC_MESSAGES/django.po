@@ -10,9 +10,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-03-09 13:55+0000\n"
-"PO-Revision-Date: 2016-03-09 13:58+0000\n"
-"Last-Translator: mattwestcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2016-05-11 20:27+0000\n"
+"PO-Revision-Date: 2016-05-11 20:33+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Czech (http://www.transifex.com/torchbox/wagtail/language/"
 "cs/)\n"
 "MIME-Version: 1.0\n"
@@ -194,9 +194,6 @@ msgstr "Zkontrolujte svoji e-mailovou schránku"
 
 msgid "A link to reset your password has been emailed to you."
 msgstr "Odkaz pro obnovu hesla jsme Vám poslali e-mailem."
-
-msgid "Please follow the link below to reset your password"
-msgstr "Použijte odkaz níže k nastavení nového hesla"
 
 msgid "Password reset"
 msgstr "Obnovení hesla"
@@ -560,9 +557,6 @@ msgstr "Přidat podstránku pod \"%(title)s\""
 msgid "Add subpage"
 msgstr "Přidat podstránku"
 
-msgid "Add child page"
-msgstr "Přidat podstránku"
-
 #, python-format
 msgid ""
 "\n"
@@ -778,6 +772,9 @@ msgstr "Stránka '{0}' je nyní uzamčena."
 #, python-brace-format
 msgid "Page '{0}' is now unlocked."
 msgstr "Stránka '{0}' je nyní odemčena."
+
+msgid "Add child page"
+msgstr "Přidat podstránku"
 
 msgid "Choose an item"
 msgstr "Zvolit položku"

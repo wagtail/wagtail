@@ -1,0 +1,137 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# Mitja Pagon <mitja.pagon@inueni.com>, 2016
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2016-05-11 20:27+0000\n"
+"PO-Revision-Date: 2016-05-11 20:34+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"Language-Team: Slovenian (http://www.transifex.com/torchbox/wagtail/language/"
+"sl/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: sl\n"
+"Plural-Forms: nplurals=4; plural=(n%100==1 ? 0 : n%100==2 ? 1 : n%100==3 || n"
+"%100==4 ? 2 : 3);\n"
+
+msgid "Single line text"
+msgstr "Enovrstično besedilo"
+
+msgid "Multi-line text"
+msgstr "Več vrstično besedilo"
+
+msgid "Email"
+msgstr "E-pošta"
+
+msgid "Number"
+msgstr "Število"
+
+msgid "URL"
+msgstr "URL"
+
+msgid "Checkbox"
+msgstr "Kljukica"
+
+msgid "Checkboxes"
+msgstr "Kljukice"
+
+msgid "Drop down"
+msgstr "Izbirnik"
+
+msgid "Radio buttons"
+msgstr "Izbirni gumbi"
+
+msgid "Date"
+msgstr "Datum"
+
+msgid "Date/time"
+msgstr "Datum/čas"
+
+msgid "submit time"
+msgstr "čas oddaje"
+
+msgid "form submission"
+msgstr "oddani obrazci"
+
+msgid "label"
+msgstr "oznaka"
+
+msgid "The label of the form field"
+msgstr "Oznaka polja obrazca"
+
+msgid "field type"
+msgstr "tip polja"
+
+msgid "required"
+msgstr "obvezno"
+
+msgid "choices"
+msgstr "izbire"
+
+msgid "default value"
+msgstr "privzeta vrednost"
+
+msgid "help text"
+msgstr "besedilo pomoči"
+
+msgid "to address"
+msgstr "naslov prejemnika"
+
+msgid "Optional - form submissions will be emailed to this address"
+msgstr "Opcijsko - oddani obrazci bodo poslani na ta e-naslov"
+
+msgid "from address"
+msgstr "naslov pošiljatelja"
+
+msgid "subject"
+msgstr "zadeva"
+
+#, python-format
+msgid "Delete %(title)s"
+msgstr "Izbriši %(title)s"
+
+msgid "Delete"
+msgstr "Izbriši"
+
+msgid "Are you sure you want to delete this form submission?"
+msgstr "Ali ste prepričani, da želite izbrisati ta oddani obrazec?"
+
+msgid "Delete it"
+msgstr "Izbriši"
+
+msgid "Forms"
+msgstr "Obrazci"
+
+msgid "Pages"
+msgstr "Strani"
+
+#, python-format
+msgid "Submissions of %(form_title)s"
+msgstr "Oddani obrazci %(form_title)s"
+
+msgid "Filter"
+msgstr "Filter"
+
+msgid "Download CSV"
+msgstr "Prenesi CSV"
+
+msgid "Title"
+msgstr "Naziv"
+
+msgid "Origin"
+msgstr "Izvor"
+
+msgid "Submission Date"
+msgstr "Datum vloge"
+
+msgid "Actions"
+msgstr "Dejanja"
+
+msgid "Submission deleted."
+msgstr "Oddan obrazec izbrisan."

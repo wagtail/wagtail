@@ -1,0 +1,181 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# Dan Braghis, 2016
+# Matt Westcott <matthew@torchbox.com>, 2016
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2016-05-11 20:26+0000\n"
+"PO-Revision-Date: 2016-05-18 21:27+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"Language-Team: Romanian (http://www.transifex.com/torchbox/wagtail/language/"
+"ro/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: ro\n"
+"Plural-Forms: nplurals=3; plural=(n==1?0:(((n%100>19)||((n%100==0)&&(n!=0)))?"
+"2:1));\n"
+
+msgid "Parent page"
+msgstr "Pagină părinte"
+
+#, python-format
+msgid "Add %s"
+msgstr "Adaugă %s"
+
+#, python-format
+msgid "Add a new %s"
+msgstr "Adaugă %s nou(ă)"
+
+msgid "Inspect"
+msgstr "Examinează"
+
+#, python-format
+msgid "Inspect this %s"
+msgstr "Examinează %s"
+
+msgid "Edit"
+msgstr "Editează"
+
+#, python-format
+msgid "Edit this %s"
+msgstr "Editează %s"
+
+msgid "Delete"
+msgstr "Șterge"
+
+#, python-format
+msgid "Delete this %s"
+msgstr "Șterge %s"
+
+msgid "Unpublish"
+msgstr "Anulează publicarea"
+
+#, python-format
+msgid "Unpublish this %s"
+msgstr "Anulează publicarea %s"
+
+msgid "Copy"
+msgstr "Copie"
+
+#, python-format
+msgid "Copy this %s"
+msgstr "Copie %s"
+
+msgid "image"
+msgstr "imagine"
+
+msgid "Choose a parent page"
+msgstr "Selectează o pagină părinte"
+
+#, python-format
+msgid ""
+"%(plural)s can be added to more than one place within your site. Which of "
+"the following would you like to be the parent of your new page?"
+msgstr ""
+"%(plural)s pot fi adăugate în câteva locuri în sit-ul Dvstră. Care din "
+"următoarele doriți să fie pagina ascendentă?"
+
+msgid "Continue"
+msgstr "Continuă"
+
+msgid "Save"
+msgstr "Salvează"
+
+#, python-format
+msgid "%(model_name)s could not be deleted"
+msgstr "%(model_name)s nu a putut fi șters"
+
+#, python-format
+msgid ""
+"'%(instance_name)s' is currently referenced by other objects, and cannot be "
+"deleted without jeopardising data integrity. To delete it successfully, "
+"first remove references from the following objects, then try again:"
+msgstr ""
+"Alte obiecte fac referire la '%(instance_name)s', deci nu poate fi "
+"eliminat(ă) fără a pune în pericol integritatea datelor. Pentru a șterge cu "
+"success, eliminează referințele de la obiectele care urmează și încearcă din "
+"nou:"
+
+msgid "Go back to listing"
+msgstr "Înapoi la listă"
+
+msgid "Yes, delete"
+msgstr "Da, șterge"
+
+msgid "Home"
+msgstr "Acasă"
+
+#, python-format
+msgid " By %(filter_title)s "
+msgstr " După %(filter_title)s "
+
+#, python-format
+msgid "Sorry, there are no %(name)s matching your search parameters."
+msgstr "Ne pare rău, parametrii de căutare n-au găsit nimic în %(name)s "
+
+msgid "Search for"
+msgstr "Căută"
+
+msgid "Filter"
+msgstr "Filtrează"
+
+#, python-format
+msgid "Back to %(model_name)s list"
+msgstr "Înapoi la lista %(model_name)s"
+
+msgid "Previous"
+msgstr "Precedent"
+
+msgid "Next"
+msgstr "Următor"
+
+#, python-brace-format
+msgid "{model_name} '{instance}' created."
+msgstr "{model_name} '{instance}' a fost creat(ă)."
+
+#, python-format
+msgid "The %s could not be created due to errors."
+msgstr "%s nu a fost creat(ă) din cauza erorilor."
+
+msgid "New"
+msgstr "Nou"
+
+#, python-format
+msgid "Create new %s"
+msgstr "Crează %s nou(ă)"
+
+msgid "Editing"
+msgstr "Editare"
+
+#, python-format
+msgid "Editing %s"
+msgstr "Editare %s"
+
+#, python-brace-format
+msgid "{model_name} '{instance}' updated."
+msgstr "{model_name} '{instance}' a fost actualizat(ă)."
+
+#, python-format
+msgid "The %s could not be saved due to errors."
+msgstr "%s nu a fost salvat(ă) din cauza erorilor."
+
+#, python-format
+msgid "Confirm deletion of %s"
+msgstr "Confirmă stergerea %s"
+
+#, python-brace-format
+msgid "{model} '{instance}' deleted."
+msgstr "{model} '{instance}' a fost eliminat(ă)."
+
+msgid "Inspecting"
+msgstr "Examinare"
+
+#, python-format
+msgid "Inspecting %s"
+msgstr "Examinare %s"

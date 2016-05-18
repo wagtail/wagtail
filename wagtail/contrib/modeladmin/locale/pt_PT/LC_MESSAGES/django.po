@@ -1,0 +1,72 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# Tiago Henriques <trinosauro@gmail.com>, 2016
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2016-05-11 20:26+0000\n"
+"PO-Revision-Date: 2016-05-12 10:57+0000\n"
+"Last-Translator: Tiago Henriques <trinosauro@gmail.com>\n"
+"Language-Team: Portuguese (Portugal) (http://www.transifex.com/torchbox/"
+"wagtail/language/pt_PT/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: pt_PT\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Parent page"
+msgstr "Página-mãe"
+
+#, python-format
+msgid "Add %s"
+msgstr "Adicionar %s"
+
+#, python-format
+msgid "Add a new %s"
+msgstr "Adicionar novo %s"
+
+msgid "Inspect"
+msgstr "Inspecionar"
+
+#, python-format
+msgid "Inspect this %s"
+msgstr "Inspecionar este %s"
+
+msgid "Edit"
+msgstr "Alterar"
+
+#, python-format
+msgid "Edit this %s"
+msgstr "Alterar este %s"
+
+msgid "Delete"
+msgstr "Apagar"
+
+#, python-format
+msgid "Delete this %s"
+msgstr "Apagar este %s"
+
+msgid "Unpublish"
+msgstr "Despublicar"
+
+#, python-format
+msgid "Unpublish this %s"
+msgstr "Despublicar este %s"
+
+msgid "Copy"
+msgstr "Copiar"
+
+#, python-format
+msgid "Copy this %s"
+msgstr "Copiar este %s"
+
+msgid "image"
+msgstr "imagem"
+
+msgid "Choose a parent page"
+msgstr "Escolher uma página-mãe"

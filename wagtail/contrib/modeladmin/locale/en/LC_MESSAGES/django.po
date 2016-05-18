@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-05-11 20:26+0000\n"
+"POT-Creation-Date: 2016-05-18 21:37+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -49,7 +49,7 @@ msgstr ""
 msgid "Edit this %s"
 msgstr ""
 
-#: helpers.py:285 templates/modeladmin/edit.html.py:13 views.py:748
+#: helpers.py:285 templates/modeladmin/edit.html:15 views.py:748
 msgid "Delete"
 msgstr ""
 
@@ -95,7 +95,11 @@ msgstr ""
 msgid "Continue"
 msgstr ""
 
-#: templates/modeladmin/create.html:33 templates/modeladmin/edit.html.py:8
+#: templates/modeladmin/create.html:33 templates/modeladmin/edit.html:8
+msgid "Saving..."
+msgstr ""
+
+#: templates/modeladmin/create.html:34 templates/modeladmin/edit.html:9
 msgid "Save"
 msgstr ""
 

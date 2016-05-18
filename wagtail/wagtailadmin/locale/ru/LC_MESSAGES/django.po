@@ -5,20 +5,21 @@
 # Translators:
 # ajk, 2014
 # ajk, 2014
+# Alexandr <alexromantsov@gmail.com>, 2016
 # Daniil <fleepd@gmail.com>, 2015
 # Eugene MechanisM <contact@mechanism.name>, 2014-2016
 # HNKNTA <hnknta@gmail.com>, 2014
 # HNKNTA <hnknta@gmail.com>, 2014
-# mattwestcott <matthew@torchbox.com>, 2015
+# Matt Westcott <matthew@torchbox.com>, 2015
 # Sergey Komarov <sjkomarov@gmail.com>, 2014
 # Sergiy Khalymon <sergiykhalimon@gmail.com>, 2015
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-03-09 13:55+0000\n"
-"PO-Revision-Date: 2016-03-09 15:32+0000\n"
-"Last-Translator: Eugene MechanisM <contact@mechanism.name>\n"
+"POT-Creation-Date: 2016-05-11 20:27+0000\n"
+"PO-Revision-Date: 2016-05-11 20:33+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Russian (http://www.transifex.com/torchbox/wagtail/language/"
 "ru/)\n"
 "MIME-Version: 1.0\n"
@@ -224,9 +225,6 @@ msgstr "Проверьте вашу электронную почту"
 
 msgid "A link to reset your password has been emailed to you."
 msgstr "Ссылка для сброса пароля отправлена на адрес вашей электронной почты."
-
-msgid "Please follow the link below to reset your password"
-msgstr "Пожалуйста, проследуйте по ссылке ниже чтобы сбросить ваш пароль"
 
 msgid "Password reset"
 msgstr "Пароль сброшен"
@@ -680,6 +678,9 @@ msgstr "Последние изменения: %(last_mod)s"
 msgid "by %(modified_by)s"
 msgstr "от %(modified_by)s"
 
+msgid "Revisions"
+msgstr "Ревизии"
+
 #, python-format
 msgid "Exploring %(title)s"
 msgstr "Обзор %(title)s"
@@ -780,16 +781,6 @@ msgstr "Добавить дочернюю страницу к '%(title)s'"
 
 msgid "Add subpage"
 msgstr "Добавить подстраницу"
-
-msgid ""
-"This page is published but does not exist within a configured Site, so "
-"cannot be viewed."
-msgstr ""
-"Эта страница опубликована, но не закреплена за Сайтом, поэтому не может быть "
-"просмотрена."
-
-msgid "Add child page"
-msgstr "Добавить дочернюю страницу"
 
 #, python-format
 msgid ""
@@ -1000,6 +991,9 @@ msgstr "Ваш пароль был успешно изменен!"
 msgid "Your preferences have been updated successfully!"
 msgstr "Ваши настройки были успешно изменены!"
 
+msgid "Collections"
+msgstr "Коллекции"
+
 #, python-brace-format
 msgid "Page '{0}' created and scheduled for publishing."
 msgstr "Страница '{0}' создана и запланирована к публикации."
@@ -1102,15 +1096,14 @@ msgstr "Страница '{0}' заблокирована."
 msgid "Page '{0}' is now unlocked."
 msgstr "Страница '{0}' разблокирована."
 
-#, python-format
-msgid "You are viewing a previous revision of this page from <b>%s</b> by %s"
-msgstr "Вы смотрите предыдущую версию этой страницы <b>%s</b> от %s"
-
 msgid "Pages"
 msgstr "Страницы"
 
-msgid "Collections"
-msgstr "Коллекции"
+msgid "Add child page"
+msgstr "Добавить дочернюю страницу"
+
+msgid "More"
+msgstr "Больше"
 
 msgid "Choose an item"
 msgstr "Выбрать элемент"

@@ -4,7 +4,7 @@
 #
 # Translators:
 # Adrien <laadrien@gmail.com>, 2014
-# Bertrand Bordage <bordage.bertrand@gmail.com>, 2015
+# Bertrand Bordage <bordage.bertrand@gmail.com>, 2015-2016
 # nahuel, 2014
 # nahuel, 2014
 # Sebastien Andrivet <sebastien@andrivet.com>, 2016
@@ -13,9 +13,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-03-09 13:55+0000\n"
-"PO-Revision-Date: 2016-03-01 19:01+0000\n"
-"Last-Translator: mattwestcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2016-05-11 20:27+0000\n"
+"PO-Revision-Date: 2016-05-11 20:33+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: French (http://www.transifex.com/torchbox/wagtail/language/"
 "fr/)\n"
 "MIME-Version: 1.0\n"
@@ -86,8 +86,17 @@ msgstr "Hauteur"
 msgid "Closeness"
 msgstr "Proximité"
 
+msgid "Add"
+msgstr "Ajouter"
+
+msgid "Add/edit images you own"
+msgstr "Ajouter/modifier vos images"
+
 msgid "Edit"
 msgstr "Modifier"
+
+msgid "Edit any image"
+msgstr "Modifier n’importe quelle image"
 
 msgid "title"
 msgstr "Titre"
@@ -124,13 +133,6 @@ msgstr "Mots-clés populaires"
 
 msgid "Uploading..."
 msgstr "Téléchargement..."
-
-msgid "Server Error"
-msgstr "Erreur du server"
-
-msgid "Report this error to your webmaster with the following information:"
-msgstr ""
-"Signaler cette erreur à votre webmaster avec les informations suivantes:"
 
 #, python-format
 msgid ""
@@ -237,14 +239,6 @@ msgstr "Images"
 msgid "Sorry, no images match \"<em>%(query_string)s</em>\""
 msgstr "Désolé, aucune image ne correspond à \"<em>%(query_string)s</em>\""
 
-#, python-format
-msgid ""
-"You've not uploaded any images. Why not <a href="
-"\"%(wagtailimages_add_image_url)s\">add one now</a>?"
-msgstr ""
-"Vous n'avez pas encore envoyé d'image. Pourquoi ne pas en <a href="
-"\"%(wagtailimages_add_image_url)s\">ajouter une maintenant</a> ?"
-
 msgid "Generating URL"
 msgstr "Génération d'URL"
 
@@ -296,6 +290,9 @@ msgstr ""
 msgid "Or choose from your computer"
 msgstr "Ou sélectionner à partir de votre ordinateur"
 
+msgid "Add to collection:"
+msgstr "Ajouter à la collection :"
+
 msgid ""
 "Upload successful. Please update this image with a more appropriate title, "
 "if necessary. You may also delete the image completely if the upload wasn't "
@@ -316,6 +313,12 @@ msgstr "Mettre à jour"
 
 msgid "Delete"
 msgstr "Supprimer"
+
+msgid "Image permissions"
+msgstr "Permissions d’image"
+
+msgid "Add an image permission"
+msgstr "Ajouter une permission d’image"
 
 msgid "Search images"
 msgstr "Rechercher des images"
@@ -347,6 +350,12 @@ msgstr "Image '{0}' ajoutée."
 
 msgid "The image could not be created due to errors."
 msgstr "L'image n'a pas pu être créée en raison d'erreurs."
+
+#, python-format
+msgid "%(count)s image"
+msgid_plural "%(count)s images"
+msgstr[0] "%(count)s image"
+msgstr[1] "%(count)s images"
 
 msgid "Choose another image"
 msgstr "Choisir une autre image"

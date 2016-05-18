@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-05-11 20:27+0000\n"
+"POT-Creation-Date: 2016-05-18 21:37+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -41,7 +41,7 @@ msgstr ""
 msgid "Settings"
 msgstr ""
 
-#: forms.py:49 templates/wagtailadmin/base.html.py:16
+#: forms.py:49 templates/wagtailadmin/base.html:16
 #: templates/wagtailadmin/base.html:17 templates/wagtailadmin/base.html:18
 #: templates/wagtailadmin/pages/search.html:3
 #: templates/wagtailadmin/pages/search.html:17
@@ -139,7 +139,7 @@ msgid ""
 "This slug is already in use within the context of its parent page \"%s\""
 msgstr ""
 
-#: forms.py:183 templates/wagtailadmin/pages/_privacy_switch.html.py:13
+#: forms.py:183 templates/wagtailadmin/pages/_privacy_switch.html:13
 #: templates/wagtailadmin/pages/_privacy_switch.html:18
 msgid "Public"
 msgstr ""
@@ -465,7 +465,7 @@ msgstr ""
 #: templates/wagtailadmin/pages/revisions/list.html:22 views/generic.py:107
 #: views/generic.py:162 views/pages.py:214 views/pages.py:219
 #: views/pages.py:227 views/pages.py:343 views/pages.py:371 views/pages.py:390
-#: views/pages.py:635 views/pages.py:693 views/pages.py:851 views/pages.py:871
+#: views/pages.py:641 views/pages.py:699 views/pages.py:857 views/pages.py:877
 #: wagtail_hooks.py:66
 msgid "Edit"
 msgstr ""
@@ -1255,7 +1255,7 @@ msgstr ""
 msgid "Page '{0}' created and published."
 msgstr ""
 
-#: views/pages.py:218 views/pages.py:367 views/pages.py:850
+#: views/pages.py:218 views/pages.py:367 views/pages.py:856
 #: wagtail_hooks.py:72
 msgid "View live"
 msgstr ""
@@ -1334,60 +1334,60 @@ msgstr ""
 msgid "Page '{0}' deleted."
 msgstr ""
 
-#: views/pages.py:634
+#: views/pages.py:640
 #, python-brace-format
 msgid "Page '{0}' unpublished."
 msgstr ""
 
-#: views/pages.py:692
+#: views/pages.py:698
 #, python-brace-format
 msgid "Page '{0}' moved."
 msgstr ""
 
-#: views/pages.py:791
+#: views/pages.py:797
 #, python-brace-format
 msgid "Page '{0}' and {1} subpages copied."
 msgstr ""
 
-#: views/pages.py:794
+#: views/pages.py:800
 #, python-brace-format
 msgid "Page '{0}' copied."
 msgstr ""
 
-#: views/pages.py:844 views/pages.py:865 views/pages.py:886
+#: views/pages.py:850 views/pages.py:871 views/pages.py:892
 #, python-brace-format
 msgid "The page '{0}' is not currently awaiting moderation."
 msgstr ""
 
-#: views/pages.py:849
+#: views/pages.py:855
 #, python-brace-format
 msgid "Page '{0}' published."
 msgstr ""
 
-#: views/pages.py:854
+#: views/pages.py:860
 msgid "Failed to send approval notifications"
 msgstr ""
 
-#: views/pages.py:870
+#: views/pages.py:876
 #, python-brace-format
 msgid "Page '{0}' rejected for publication."
 msgstr ""
 
-#: views/pages.py:874
+#: views/pages.py:880
 msgid "Failed to send rejection notifications"
 msgstr ""
 
-#: views/pages.py:912
+#: views/pages.py:918
 #, python-brace-format
 msgid "Page '{0}' is now locked."
 msgstr ""
 
-#: views/pages.py:936
+#: views/pages.py:942
 #, python-brace-format
 msgid "Page '{0}' is now unlocked."
 msgstr ""
 
-#: views/pages.py:987
+#: views/pages.py:993
 #, python-format
 msgid ""
 "You are viewing a previous revision of this page from <b>%(created_at)s</b> "

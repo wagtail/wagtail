@@ -1,0 +1,55 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# Mitja Pagon <mitja.pagon@inueni.com>, 2016
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2016-05-11 20:27+0000\n"
+"PO-Revision-Date: 2016-03-27 22:58+0000\n"
+"Last-Translator: Mitja Pagon <mitja.pagon@inueni.com>\n"
+"Language-Team: Slovenian (http://www.transifex.com/torchbox/wagtail/language/"
+"sl/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: sl\n"
+"Plural-Forms: nplurals=4; plural=(n%100==1 ? 0 : n%100==2 ? 1 : n%100==3 || n"
+"%100==4 ? 2 : 3);\n"
+
+msgid "Search term(s)/phrase"
+msgstr "Iskalni niz(i)/fraze"
+
+msgid ""
+"Enter the full search string to match. An exact match is required for your "
+"Promoted Results to be displayed, wildcards are NOT allowed."
+msgstr ""
+"Vnesite polni iskalni niz za ujemanje. Za uspešen prikaz priporočenih "
+"strani, je potrebno popolno ujemanje, nadomestni znaki (*) niso dovoljeni."
+
+msgid "Query Daily Hits"
+msgstr "Dnevni zadetki za iskalni niz"
+
+msgid "Popular search terms"
+msgstr "Priljubljeni iskalni nizi"
+
+msgid "Search"
+msgstr "Iskanje"
+
+msgid "Terms"
+msgstr "Nizi"
+
+msgid "Views (past week)"
+msgstr "Ogledi (pretekli teden)"
+
+msgid "No results found"
+msgstr "Ni zadetkov"
+
+msgid "Date"
+msgstr "Datum"
+
+msgid "Choose from popular search terms"
+msgstr "Izberite med priljubljenimi iskalnimi nizi"

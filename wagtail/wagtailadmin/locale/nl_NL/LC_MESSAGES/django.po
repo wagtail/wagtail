@@ -10,9 +10,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-03-09 13:55+0000\n"
-"PO-Revision-Date: 2016-03-09 14:14+0000\n"
-"Last-Translator: Thijs Kramer <thijskramer@gmail.com>\n"
+"POT-Creation-Date: 2016-05-11 20:27+0000\n"
+"PO-Revision-Date: 2016-05-11 20:33+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Dutch (Netherlands) (http://www.transifex.com/torchbox/"
 "wagtail/language/nl_NL/)\n"
 "MIME-Version: 1.0\n"
@@ -209,9 +209,6 @@ msgstr "Controleer uw e-mail"
 msgid "A link to reset your password has been emailed to you."
 msgstr ""
 "Een link om uw wachtwoord te herstellen is naar uw e-mailadres verstuurd."
-
-msgid "Please follow the link below to reset your password"
-msgstr "Klik op de link hieronder om uw wachtwoord te wijzigen"
 
 msgid "Password reset"
 msgstr "Wachtwoord herstel"
@@ -741,16 +738,6 @@ msgstr "Voeg een onderliggende pagina toe aan '%(title)s'"
 msgid "Add subpage"
 msgstr "Voeg onderliggende pagina toe"
 
-msgid ""
-"This page is published but does not exist within a configured Site, so "
-"cannot be viewed."
-msgstr ""
-"Deze pagina is gepubliceerd maar staat niet binnen een geconfigureerde site "
-"waardoor de pagina niet bekeken kan worden. "
-
-msgid "Add child page"
-msgstr "Voeg onderliggende pagina toe"
-
 #, python-format
 msgid ""
 "\n"
@@ -952,6 +939,9 @@ msgstr "Uw wachtwoord is succesvol gewijzigd!"
 msgid "Your preferences have been updated successfully!"
 msgstr "Uw voorkeuren zijn succesvol aangepast!"
 
+msgid "Collections"
+msgstr "Verzamelingen"
+
 #, python-brace-format
 msgid "Page '{0}' created and scheduled for publishing."
 msgstr "De pagina '{0}' is aangemaakt en ingepland voor publicatie."
@@ -1054,15 +1044,11 @@ msgstr "Pagina '{0}' is nu op slot."
 msgid "Page '{0}' is now unlocked."
 msgstr "Pagina '{0}' is nu geopend."
 
-#, python-format
-msgid "You are viewing a previous revision of this page from <b>%s</b> by %s"
-msgstr "Je bekijkt nu een vorige versie van deze pagina van <b>%s</b> door %s"
-
 msgid "Pages"
 msgstr "Pagina's"
 
-msgid "Collections"
-msgstr "Verzamelingen"
+msgid "Add child page"
+msgstr "Voeg onderliggende pagina toe"
 
 msgid "Choose an item"
 msgstr "Kies een item"

@@ -8,9 +8,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-03-09 13:55+0000\n"
-"PO-Revision-Date: 2016-03-09 14:17+0000\n"
-"Last-Translator: Dan Braghis\n"
+"POT-Creation-Date: 2016-05-11 20:27+0000\n"
+"PO-Revision-Date: 2016-05-11 20:33+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Romanian (http://www.transifex.com/torchbox/wagtail/language/"
 "ro/)\n"
 "MIME-Version: 1.0\n"
@@ -208,9 +208,6 @@ msgstr "Verificăți contul de e-mail"
 
 msgid "A link to reset your password has been emailed to you."
 msgstr "Link-ul de resetare a parolei a fost trimis prin e-mail."
-
-msgid "Please follow the link below to reset your password"
-msgstr "Vă rugăm să urmați link-ul de mai jos pentru a reseta parola"
 
 msgid "Password reset"
 msgstr "Resetarea parolei"
@@ -743,16 +740,6 @@ msgstr "Adaugă o pagină dependentă de '%(title)s'"
 msgid "Add subpage"
 msgstr "Adaugă subpagină"
 
-msgid ""
-"This page is published but does not exist within a configured Site, so "
-"cannot be viewed."
-msgstr ""
-"Această pagină este publicată, dar nu poate fi vizualizată pentru că nu "
-"există în cadrul unui Sit configurat."
-
-msgid "Add child page"
-msgstr "Adaugă pagină dependentă"
-
 #, python-format
 msgid ""
 "\n"
@@ -956,6 +943,9 @@ msgstr "Parola a fost schimbată cu succes!"
 msgid "Your preferences have been updated successfully!"
 msgstr "Preferințele au fost schimbare cu success!"
 
+msgid "Collections"
+msgstr "Colecții"
+
 #, python-brace-format
 msgid "Page '{0}' created and scheduled for publishing."
 msgstr "Pagina '{0}' a fost creată și programată pentru publicare."
@@ -1058,17 +1048,11 @@ msgstr "Pagina '{0}' a fost blocată."
 msgid "Page '{0}' is now unlocked."
 msgstr "Pagina '{0}' is fost deblocată."
 
-#, python-format
-msgid "You are viewing a previous revision of this page from <b>%s</b> by %s"
-msgstr ""
-"Sunteți în process de vizualizare a revizie precedente a paginii din <b>%s</"
-"b> de către %s"
-
 msgid "Pages"
 msgstr "Pagini"
 
-msgid "Collections"
-msgstr "Colecții"
+msgid "Add child page"
+msgstr "Adaugă pagină dependentă"
 
 msgid "Choose an item"
 msgstr "Alege un element"

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-05-11 20:27+0000\n"
+"POT-Creation-Date: 2016-05-18 21:37+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -25,7 +25,7 @@ msgstr ""
 msgid "Add/edit documents you own"
 msgstr ""
 
-#: forms.py:52 views/documents.py:106 views/documents.py:145
+#: forms.py:52 views/documents.py:105 views/documents.py:143
 msgid "Edit"
 msgstr ""
 
@@ -267,7 +267,7 @@ msgstr ""
 msgid "Update"
 msgstr ""
 
-#: templates/wagtaildocs/multiple/edit_form.html:15 views/documents.py:167
+#: templates/wagtaildocs/multiple/edit_form.html:15 views/documents.py:165
 msgid "Delete"
 msgstr ""
 
@@ -283,26 +283,26 @@ msgstr ""
 msgid "Search documents"
 msgstr ""
 
-#: views/documents.py:105
+#: views/documents.py:104
 #, python-brace-format
 msgid "Document '{0}' added."
 msgstr ""
 
-#: views/documents.py:110 views/documents.py:149
+#: views/documents.py:109 views/documents.py:147
 msgid "The document could not be saved due to errors."
 msgstr ""
 
-#: views/documents.py:144
+#: views/documents.py:142
 #, python-brace-format
 msgid "Document '{0}' updated"
 msgstr ""
 
-#: views/documents.py:166
+#: views/documents.py:164
 msgid ""
 "The file could not be found. Please change the source or delete the document"
 msgstr ""
 
-#: views/documents.py:190
+#: views/documents.py:188
 #, python-brace-format
 msgid "Document '{0}' deleted."
 msgstr ""

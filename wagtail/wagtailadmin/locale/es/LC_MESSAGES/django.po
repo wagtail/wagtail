@@ -4,19 +4,21 @@
 #
 # Translators:
 # fooflare <amos.oviedo@gmail.com>, 2014
+# Daniel Chimeno <daniel@chimeno.me>, 2016
 # fooflare <amos.oviedo@gmail.com>, 2014
 # Joaquín Tita <carpincho@gmail.com>, 2014
-# José Alaguna <alagunajs@gmail.com>, 2015-2016
-# mattwestcott <matthew@torchbox.com>, 2016
+# Yusuf (Josè) Luis <alagunajs@gmail.com>, 2015-2016
+# Matt Westcott <matthew@torchbox.com>, 2016
 # Mauricio Baeza <web@mauriciobaeza.net>, 2015
-# Unai Zalakain <unai@gisa-elkartea.org>, 2014
+# Unai Zalakain <inactive+unaizalakain@transifex.com>, 2014
+# Yusuf (Josè) Luis <alagunajs@gmail.com>, 2016
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-03-09 13:55+0000\n"
-"PO-Revision-Date: 2016-03-15 15:52+0000\n"
-"Last-Translator: mattwestcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2016-05-11 20:27+0000\n"
+"PO-Revision-Date: 2016-05-15 22:18+0000\n"
+"Last-Translator: Yusuf (Josè) Luis <alagunajs@gmail.com>\n"
 "Language-Team: Spanish (http://www.transifex.com/torchbox/wagtail/language/"
 "es/)\n"
 "MIME-Version: 1.0\n"
@@ -211,8 +213,11 @@ msgstr ""
 "Un enlace para restablecer tu contraseña, te ha sido enviado por correo "
 "electrónico."
 
-msgid "Please follow the link below to reset your password"
-msgstr "Por favor, sigue el enlace de abajo para restablecer tu contraseña"
+msgid "Please follow the link below to reset your password:"
+msgstr "Por favor siga el enlace de abajo para reiniciar su contraseña:"
+
+msgid "Your username (in case you've forgotten):"
+msgstr "Su nombre de usuario (en caso de que la haya olvidado):"
 
 msgid "Password reset"
 msgstr "Restablecer contraseña"
@@ -315,8 +320,8 @@ msgid ""
 "No collections have been created. Why not <a href=\"%(add_collection_url)s"
 "\">add one</a>?"
 msgstr ""
-"Ninguna colección ha sido creada. Por qué no <a href=\"%(add_collection_url)s"
-"\">añades una</a>?"
+"Ninguna colección ha sido creada. ¿Por qué no <a href="
+"\"%(add_collection_url)s\">añades una</a>?"
 
 #, python-format
 msgid "Add %(heading)s"
@@ -643,6 +648,9 @@ msgstr "Última modificación: %(last_mod)s"
 msgid "by %(modified_by)s"
 msgstr "por %(modified_by)s"
 
+msgid "Revisions"
+msgstr "Revisiones"
+
 #, python-format
 msgid "Exploring %(title)s"
 msgstr "Explorando %(title)s"
@@ -676,7 +684,7 @@ msgid ""
 msgstr ""
 "\n"
 "Si sólo deseas añadir páginas a un sitio existente, crealas como hijas de "
-"una página de inicia en su lugar."
+"una página de inicio en su lugar."
 
 msgid ""
 "\n"
@@ -716,7 +724,7 @@ msgstr "No se han creado páginas en esta ubicación."
 
 #, python-format
 msgid "Why not <a href=\"%(add_page_url)s\">create one</a>?"
-msgstr "Por qué no <a href=\"%(add_page_url)s\">añadir una</a>?"
+msgstr "¿Por qué no <a href=\"%(add_page_url)s\">añadir una</a>?"
 
 msgid "This page is locked to further editing"
 msgstr "Esta página se encuentra bloqueada para su edición"
@@ -738,16 +746,6 @@ msgstr "Añadir página hija a '%(title)s'"
 
 msgid "Add subpage"
 msgstr "Añadir subpágina"
-
-msgid ""
-"This page is published but does not exist within a configured Site, so "
-"cannot be viewed."
-msgstr ""
-"Esta página está publicada pero no existe dentro del sitio configurado, así "
-"que no se puede ver."
-
-msgid "Add child page"
-msgstr "Añadir página hija"
 
 #, python-format
 msgid ""
@@ -791,11 +789,21 @@ msgstr "Revisiones de %(title)s"
 msgid "Revisions of"
 msgstr "Revisiones de"
 
+msgid "Revision date"
+msgstr "Fecha de revisión"
+
+msgctxt "points to a user who created a revision"
+msgid "by"
+msgstr "por"
+
 msgid "Current draft"
 msgstr "Borrador actual"
 
 msgid "Review this revision"
 msgstr "Resumen de esta revision"
+
+msgid "No revisions of this page exist"
+msgstr "No existen revisiones de esta página"
 
 msgid "No revision of this page exist"
 msgstr "No existen revisiones de esta página"
@@ -948,6 +956,42 @@ msgstr "¡Tu contraseña ha sido cambiada con éxito!"
 msgid "Your preferences have been updated successfully!"
 msgstr "¡Sus preferencias han sido actualizadas exitosamente!"
 
+msgid "You have been successfully logged out."
+msgstr "Ha cerrado sesión exitosamente."
+
+msgid "Collections"
+msgstr "Colecciones"
+
+msgid "Add a collection"
+msgstr "Añadir a una colección"
+
+msgid "Add collection"
+msgstr "Añadir colección"
+
+#, python-brace-format
+msgid "Collection '{0}' created."
+msgstr "Colección '{0}' creada."
+
+#, python-brace-format
+msgid "Collection '{0}' updated."
+msgstr "Colección '{0}' actualizada."
+
+msgid "The collection could not be saved due to errors."
+msgstr "La colección no puede ser guardada debido a errores."
+
+msgid "Delete collection"
+msgstr "Eliminar colección"
+
+#, python-brace-format
+msgid "Collection '{0}' deleted."
+msgstr "Colección '{0}' eliminada."
+
+msgid "Are you sure you want to delete this collection?"
+msgstr "Estás seguro de que deseas eliminar esta colección?"
+
+msgid "Editing"
+msgstr "Editando"
+
 #, python-brace-format
 msgid "Page '{0}' created and scheduled for publishing."
 msgstr "Página '{0}' creada y programada para publicación."
@@ -965,6 +1009,9 @@ msgstr "Página '{0}' creada y enviada para ser moderada."
 
 msgid "View draft"
 msgstr "Ver borrador"
+
+msgid "Failed to send notifications to moderators"
+msgstr "Fallo al enviar notificaciones a moderadores."
 
 #, python-brace-format
 msgid "Page '{0}' created."
@@ -1039,9 +1086,15 @@ msgstr "La página '{0}' no está esperando a ser moderada."
 msgid "Page '{0}' published."
 msgstr "Página '{0}' publicada."
 
+msgid "Failed to send approval notifications"
+msgstr "Fallo al enviar notificaciones de aprovación"
+
 #, python-brace-format
 msgid "Page '{0}' rejected for publication."
 msgstr "Rechazada la publicación de la página '{0}'."
+
+msgid "Failed to send rejection notifications"
+msgstr "Fallo al enviar notificaciones de rechazo."
 
 #, python-brace-format
 msgid "Page '{0}' is now locked."
@@ -1052,14 +1105,43 @@ msgid "Page '{0}' is now unlocked."
 msgstr "Página '{0}' se encuentra desbloqueada."
 
 #, python-format
-msgid "You are viewing a previous revision of this page from <b>%s</b> by %s"
-msgstr "Estás viendo una revisión previa desta página desde <b>%s</b> por %s"
+msgid ""
+"You are viewing a previous revision of this page from <b>%(created_at)s</b> "
+"by %(user)s"
+msgstr ""
+"Está viendo una revisión previa de esta página del <b>%(created_at)s</b> de "
+"%(user)s"
 
 msgid "Pages"
 msgstr "Páginas"
 
-msgid "Collections"
-msgstr "Colecciones"
+msgid "Preview draft"
+msgstr "Previsualizar borrador"
+
+msgid "Add child page"
+msgstr "Añadir página hija"
+
+#, python-brace-format
+msgid "Add a child page to '{0}' "
+msgstr "Añadir una página hija a '{0}' "
+
+msgid "More"
+msgstr "Más"
+
+msgid "View more options"
+msgstr "Ver más opciones"
+
+msgid "Move this page"
+msgstr "Mover esta página"
+
+msgid "Delete this page"
+msgstr "Eliminar esta página"
+
+msgid "Unpublish this page"
+msgstr "Despublicar esta página"
+
+msgid "View this page's revision history"
+msgstr "Ver el historial de revisiones de ésta página"
 
 msgid "Choose an item"
 msgstr "Elige un elemento"

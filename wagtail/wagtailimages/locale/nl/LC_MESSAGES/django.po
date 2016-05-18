@@ -5,16 +5,16 @@
 # Translators:
 # Brecht Dervaux <info@dervauxbrecht.be>, 2015
 # mahulst, 2014
-# mattwestcott <matthew@torchbox.com>, 2015
+# Matt Westcott <matthew@torchbox.com>, 2015
 # Thijs Kramer <thijskramer@gmail.com>, 2015
 # Thijs Kramer <thijskramer@gmail.com>, 2016
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-03-09 13:55+0000\n"
-"PO-Revision-Date: 2016-03-01 19:01+0000\n"
-"Last-Translator: mattwestcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2016-05-11 20:27+0000\n"
+"PO-Revision-Date: 2016-05-11 20:33+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Dutch (http://www.transifex.com/torchbox/wagtail/language/"
 "nl/)\n"
 "MIME-Version: 1.0\n"
@@ -123,12 +123,6 @@ msgstr "Populaire labels"
 msgid "Uploading..."
 msgstr "Bezig met uploaden..."
 
-msgid "Server Error"
-msgstr "Server error"
-
-msgid "Report this error to your webmaster with the following information:"
-msgstr "Rapporteer dit aan uw webmaster met de volgende informatie:"
-
 #, python-format
 msgid ""
 "\n"
@@ -231,14 +225,6 @@ msgstr "Afbeeldingen"
 #, python-format
 msgid "Sorry, no images match \"<em>%(query_string)s</em>\""
 msgstr "Sorry, er is geen resultaat voor \"\"<em>%(query_string)s</em>\"\" "
-
-#, python-format
-msgid ""
-"You've not uploaded any images. Why not <a href="
-"\"%(wagtailimages_add_image_url)s\">add one now</a>?"
-msgstr ""
-"U hebt geen afbeeldingen geupload. Waarom  <a href="
-"\"%(wagtailimages_add_image_url)s\">voegt u er niet een toe</a>?"
 
 msgid "Generating URL"
 msgstr "URL aan het genereren"
