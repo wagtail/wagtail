@@ -38,6 +38,14 @@ TableBlock
 See :doc:`/reference/contrib/table_block` for documentation. This feature was developed by Moritz Pfeiffer, David Seddon and Brad Busenius.
 
 
+Improved link handling in rich text
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. image:: ../_static/images/releasenotes_1_5_unlink.gif
+
+The user experience around inserting, editing and removing links inside rich text areas has been greatly improved: link destinations are shown as tooltips, and existing links can be edited as well as unlinked. This feature was developed by Loic Teixeira.
+
+
 Improvements to the "Image serve view"
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -54,10 +62,6 @@ This view, which is used for requesting image thumbnails from an external app, h
 Minor features
 ~~~~~~~~~~~~~~
 
- * Moved lesser-user actions in the page explorer into a 'More' dropdown
- * Added a hook :ref:`register_page_listing_buttons` for adding action buttons to the page explorer
- * Added the ability to edit existing links in the rich text editor (Loic Teixeira)
- * Rich text fields now show link destinations as tooltips (Loic Teixeira)
  * Password reset email now reminds the user of their username (Matt Westcott)
  * Added :ref:`jinja2 support <settings_tag_jinja2>` for the  ``settings`` template tag (Tim Heap)
  * Added 'revisions' action to pages list (Roel Bruggink)
