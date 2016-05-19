@@ -1,7 +1,7 @@
 Changelog
 =========
 
-1.5 (xx.xx.xxxx) - IN DEVELOPMENT
+1.5 (xx.xx.xxxx)
 ~~~~~~~~~~~~~~~~
 
  * Added wagtail.contrib.modeladmin, an app for configuring arbitrary Django models to be edited through the Wagtail admin (Andy Babic)
