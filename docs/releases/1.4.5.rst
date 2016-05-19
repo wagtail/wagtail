@@ -20,3 +20,5 @@ Bug fixes
  * Opening preview window no longer performs user-agent sniffing, and now works correctly on IE11 (Matt Westcott)
  * Tree paths are now correctly assigned when previewing a newly-created page underneath a parent with deleted children (Matt Westcott)
  * Added BASE_URL setting back to project template
+ * Clearing the search box in the page chooser now returns the user to the browse view (Matt Westcott)
+ * The above fix also fixed an issue where Internet Explorer got stuck in the search view upon opening the page chooser (Matt Westcott)
