@@ -54,7 +54,7 @@ Changelog
  * Fix: Objects are now correctly removed from search indexes on deletion (Karl Hobley)
 
 
-1.4.5 (xx.xx.xxxx) - IN DEVELOPMENT
+1.4.5 (19.05.2016)
 ~~~~~~~~~~~~~~~~~~
 
  * Fix: Paste / drag operations done entirely with the mouse are now correctly picked up as edits within the rich text editor (Matt Fozard)
