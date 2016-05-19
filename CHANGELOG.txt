@@ -36,6 +36,7 @@ Changelog
  * Added success message after logout from Admin (Liam Brenner)
  * Added `get_upload_to` method to `AbstractRendition` which, when overridden, allows control over where image renditions are stored (Rob Moggach and Matt Westcott)
  * Added a mechanism to customise the add / edit user forms for custom user models (Nigel Fletton)
+ * Added internal provision for swapping in alternative rich text editors (Karl Hobley)
  * Fix: The currently selected day is now highlighted only in the correct month in date pickers (Jonas Lergell)
  * Fix: Fixed crash when an image without a source file was resized with the "dynamic serve view"
  * Fix: Registered settings admin menu items now show active correctly (Matthew Downey)
