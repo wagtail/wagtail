@@ -10,10 +10,22 @@ Wagtail 1.5 release notes
 What's new
 ==========
 
+Reorganised page explorer actions
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. image:: ../_static/images/releasenotes_1_5_explorermenu.png
+
+The action buttons on the page explorer have been reorganised to reduce clutter, and lesser-used actions have been moved to a "More" dropdown. A new hook :ref:`register_page_listing_buttons` has been added for adding custom action buttons to the page explorer.
+
 ModelAdmin
 ~~~~~~~~~~
 
-Wagtail now includes an app ``wagtail.contrib.modeladmin`` (previously available separately as the `wagtailmodeladmin <https://github.com/rkhleics/wagtailmodeladmin>`_ package) which allows you to configure arbitrary Django models to be listed, added and edited through the Wagtail admin. See :doc:`/reference/contrib/modeladmin` for full documentation. This feature was developed by Andy Babic.
+Wagtail now includes an app ``wagtail.contrib.modeladmin`` (previously available separately as the `wagtailmodeladmin <https://github.com/rkhleics/wagtailmodeladmin>`_ package) which allows you to configure arbitrary Django models to be listed, added and edited through the Wagtail admin.
+
+.. image:: ../_static/images/releasenotes_1_5_modeladmin.png
+
+
+See :doc:`/reference/contrib/modeladmin` for full documentation. This feature was developed by Andy Babic.
 
 
 TableBlock
@@ -21,7 +33,7 @@ TableBlock
 
 ``TableBlock``, a new StreamField block type for editing table-based content, is now available through the ``wagtail.contrib.table_block`` module.
 
-.. image:: ../../_static/images/screen40_table_block.png
+.. image:: ../_static/images/screen40_table_block.png
 
 See :doc:`/reference/contrib/table_block` for documentation. This feature was developed by Moritz Pfeiffer, David Seddon and Brad Busenius.
 
