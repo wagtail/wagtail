@@ -1,7 +1,5 @@
 from __future__ import absolute_import, unicode_literals
 
-import unittest
-
 from django.conf import settings
 from django.core.urlresolvers import reverse
 from django.test import TestCase
