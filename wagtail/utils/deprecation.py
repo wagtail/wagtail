@@ -3,14 +3,14 @@ from __future__ import absolute_import, unicode_literals
 import warnings
 
 
-class RemovedInWagtail16Warning(DeprecationWarning):
+class RemovedInWagtail17Warning(DeprecationWarning):
     pass
 
 
-removed_in_next_version_warning = RemovedInWagtail16Warning
+removed_in_next_version_warning = RemovedInWagtail17Warning
 
 
-class RemovedInWagtail17Warning(PendingDeprecationWarning):
+class RemovedInWagtail18Warning(PendingDeprecationWarning):
     pass
 
 
