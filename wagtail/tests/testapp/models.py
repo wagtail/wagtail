@@ -497,7 +497,7 @@ class SnippetChooserModel(models.Model):
     advert = models.ForeignKey(Advert, help_text='help text')
 
     panels = [
-        SnippetChooserPanel('advert', Advert),
+        SnippetChooserPanel('advert'),
     ]
 
 
