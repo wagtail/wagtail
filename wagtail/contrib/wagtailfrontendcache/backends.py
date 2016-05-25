@@ -1,11 +1,11 @@
 from __future__ import absolute_import, unicode_literals
 
-import boto3
-import botocore
 import json
 import logging
 import uuid
 
+import boto3
+import botocore
 from django.core.exceptions import ImproperlyConfigured
 from django.utils.six.moves.urllib.error import HTTPError, URLError
 from django.utils.six.moves.urllib.parse import urlencode, urlparse, urlunparse
