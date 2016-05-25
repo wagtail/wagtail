@@ -105,12 +105,11 @@ class CloudfrontBackend(BaseBackend):
         url_parsed = urlparse(url)
         distribution_id = None
 
-        if type(self.cloudfront_distribution_id) is dict:
+        if isinstance(self.cloudfront_distribution_id, dict)
             host = url_parsed.hostname
             if host in self.cloudfront_distribution_id:
                 distribution_id = self.cloudfront_distribution_id.get(host)
             else:
-                raise ImproperlyConfigured("hostname %s" % host)
                 logger.error("Couldn't purge '%s', hostname '%s' not found in mapping", url, host)
         else:
             distribution_id = self.cloudfront_distribution_id
