@@ -80,8 +80,9 @@ class TestBackendConfiguration(TestCase):
             },
         })
         backends.get('cloudfront').purge('http://www.wagtail.io/home/events/christmas/')
+        backends.get('cloudfront').purge('http://torchbox.com/blog/')
 
-        _create_invalidation.assert_any_call('frontend', '/home/events/christmas/')
+        _create_invalidation.assert_called_once_with('frontend', '/home/events/christmas/')
 
     def test_multiple(self):
         backends = get_backends(backend_settings={
