@@ -8,7 +8,7 @@ import uuid
 
 from django.core.exceptions import ImproperlyConfigured
 from django.utils.six.moves.urllib.error import HTTPError, URLError
-from django.utils.six.moves.urllib.parse import urlparse, urlunparse, urlencode
+from django.utils.six.moves.urllib.parse import urlencode, urlparse, urlunparse
 from django.utils.six.moves.urllib.request import Request, urlopen
 
 from wagtail.wagtailcore import __version__
