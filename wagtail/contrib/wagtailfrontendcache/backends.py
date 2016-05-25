@@ -105,7 +105,7 @@ class CloudfrontBackend(BaseBackend):
         url_parsed = urlparse(url)
         distribution_id = None
 
-        if isinstance(self.cloudfront_distribution_id, dict)
+        if isinstance(self.cloudfront_distribution_id, dict):
             host = url_parsed.hostname
             if host in self.cloudfront_distribution_id:
                 distribution_id = self.cloudfront_distribution_id.get(host)
