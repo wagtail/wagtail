@@ -16,7 +16,8 @@ from taggit.models import TaggedItemBase
 
 from wagtail.contrib.settings.models import BaseSetting, register_setting
 from wagtail.wagtailadmin.edit_handlers import (
-    FieldPanel, InlinePanel, MultiFieldPanel, ObjectList, PageChooserPanel, TabbedInterface, StreamFieldPanel)
+    FieldPanel, InlinePanel, MultiFieldPanel, ObjectList, PageChooserPanel, StreamFieldPanel,
+    TabbedInterface)
 from wagtail.wagtailadmin.forms import WagtailAdminPageForm
 from wagtail.wagtailcore.blocks import CharBlock, RichTextBlock
 from wagtail.wagtailcore.fields import RichTextField, StreamField
