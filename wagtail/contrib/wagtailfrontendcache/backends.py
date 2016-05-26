@@ -97,8 +97,7 @@ class CloudfrontBackend(BaseBackend):
             self.cloudfront_distribution_id = params.pop('DISTRIBUTION_ID')
         except KeyError:
             raise ImproperlyConfigured(
-                "The setting 'WAGTAILFRONTENDCACHE' requires the object "
-                "'DISTRIBUTION_ID'."
+                "The setting 'WAGTAILFRONTENDCACHE' requires the object 'DISTRIBUTION_ID'."
             )
 
     def purge(self, url):
@@ -110,7 +109,9 @@ class CloudfrontBackend(BaseBackend):
             if host in self.cloudfront_distribution_id:
                 distribution_id = self.cloudfront_distribution_id.get(host)
             else:
-                logger.error("Couldn't purge '%s', hostname '%s' not found in mapping", url, host)
+                logger.error(
+                    "Couldn't purge '%s' from CloudFront, Hostname '%s' not found in the DISTRIBUTION_ID mapping",
+                    url, host)
         else:
             distribution_id = self.cloudfront_distribution_id
 
@@ -133,4 +134,6 @@ class CloudfrontBackend(BaseBackend):
                 }
             )
         except botocore.exceptions.ClientError as e:
-            logger.error("Couldn't purge '%s' from CloudFront. ClientError: %s %s", path, e.response['Error']['Code'], e.response['Error']['Message'])
+            logger.error(
+                "Couldn't purge '%s' from CloudFront. ClientError: %s %s", path, e.response['Error']['Code'],
+                e.response['Error']['Message'])
