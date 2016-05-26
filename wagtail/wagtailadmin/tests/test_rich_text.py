@@ -5,11 +5,10 @@ from django.core.urlresolvers import reverse
 from django.test import TestCase
 from django.test.utils import override_settings
 
-from wagtail.tests.utils import WagtailTestUtils
-from wagtail.wagtailcore.models import Page
-
 from wagtail.tests.testapp.rich_text import CustomRichTextArea
-from wagtail.wagtailadmin.rich_text import get_rich_text_editor_widget, HalloRichTextArea
+from wagtail.tests.utils import WagtailTestUtils
+from wagtail.wagtailadmin.rich_text import HalloRichTextArea, get_rich_text_editor_widget
+from wagtail.wagtailcore.models import Page
 
 
 class TestGetRichTextEditorWidget(TestCase):
