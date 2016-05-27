@@ -3290,7 +3290,6 @@ class TestInlineStreamField(TestCase, WagtailTestUtils):
 
 
 class TestRecentEditsPanel(TestCase, WagtailTestUtils):
-
     def setUp(self):
         # Find root page
         self.root_page = Page.objects.get(id=2)
@@ -3299,6 +3298,7 @@ class TestRecentEditsPanel(TestCase, WagtailTestUtils):
         child_page = SimplePage(
             title="Hello world!",
             slug="hello-world",
+            content="Some content here",
         )
         self.root_page.add_child(instance=child_page)
         child_page.save_revision().publish()

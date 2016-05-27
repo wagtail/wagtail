@@ -1395,7 +1395,7 @@ class PageRevision(models.Model):
         default=False,
         db_index=True
     )
-    created_at = models.DateTimeField(verbose_name=_('created at'))
+    created_at = models.DateTimeField(db_index=True, verbose_name=_('created at'))
     user = models.ForeignKey(
         settings.AUTH_USER_MODEL, verbose_name=_('user'), null=True, blank=True,
         on_delete=models.SET_NULL
