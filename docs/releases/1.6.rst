@@ -34,6 +34,7 @@ Minor features
  * Wagtail version number is now shown on the settings menu (Chris Rogers)
  * Added a system check to validate that fields listed in ``search_fields`` are defined on the model (Josh Schneier)
  * Added formal APIs for customising the display of StructBlock forms within the page editor - see :ref:`custom_editing_interfaces_for_structblock` (Matt Westcott)
+ * ``wagtailforms.models.AbstractEmailForm`` now supports multiple email recipients (Serafeim Papastefanos)
 
 
 Bug fixes
