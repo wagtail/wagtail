@@ -9,7 +9,7 @@ import taggit.managers
 from django.conf import settings
 from django.db import migrations, models
 
-import wagtail.wagtailadmin.taggablei
+import wagtail.wagtailadmin.taggable
 import wagtail.wagtailcore.blocks
 import wagtail.wagtailcore.fields
 import wagtail.wagtailimages.blocks
