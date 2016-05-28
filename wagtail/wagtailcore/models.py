@@ -1529,6 +1529,7 @@ PAGE_PERMISSION_TYPE_CHOICES = [
 ]
 
 
+@python_2_unicode_compatible
 class GroupPagePermission(models.Model):
     group = models.ForeignKey(Group, verbose_name=_('group'), related_name='page_permissions', on_delete=models.CASCADE)
     page = models.ForeignKey('Page', verbose_name=_('page'), related_name='group_permissions', on_delete=models.CASCADE)
@@ -1542,6 +1543,13 @@ class GroupPagePermission(models.Model):
         unique_together = ('group', 'page', 'permission_type')
         verbose_name = _('group page permission')
         verbose_name_plural = _('group page permissions')
+
+    def __str__(self):
+        return "Group %d ('%s') has permission '%s' on page %d ('%s')" % (
+            self.group.id, self.group,
+            self.permission_type,
+            self.page.id, self.page
+        )
 
 
 class UserPagePermissionsProxy(object):
