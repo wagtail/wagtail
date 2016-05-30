@@ -40,7 +40,7 @@ Rendering
 
 To render a site, run ``./manage.py staticsitegen``. This will render the entire website and place the HTML in a folder called ``medusa_output``. The static and media folders need to be copied into this folder manually after the rendering is complete. This feature inherits ``django-medusa``'s ability to render your static site to Amazon S3 or Google App Engine; see the `medusa docs <https://github.com/mtigas/django-medusa/blob/master/README.markdown>`_ for configuration details.
 
-To test, open the ``medusa_output`` folder in a terminal and run ``python -m SimpleHTTPServer``.
+To test, open the ``medusa_output`` folder in a terminal and run ``python -m SimpleHTTPServer`` or ``python3 -m http.server`` respectively.
 
 
 Advanced topics
