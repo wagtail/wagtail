@@ -158,10 +158,10 @@ Translators
 * Galician: fooflare
 * Georgian: André Bouatchidzé
 * German: Ettore Atalan, Patrick Craston, Henrik Kröger, Tammo van Lessen, Martin Löhle, Wasilis Mandratzis-Walz, Daniel Manser, m0rph3u5, Max Pfeiffer, Moritz Pfeiffer, Herbert Poul, Karl Sander, Tobias Schmidt, Johannes Spielmann, Jannis Vajen, Vorlif, Matthew Westcott
-* Greek: Jim Dal, dotoree, Wasilis Mandratzis-Walz, NeotheOne, Serafeim Papastefanos
+* Greek: Jim Dal, George Giannoulopoulos, Wasilis Mandratzis-Walz, NeotheOne, Serafeim Papastefanos
 * Hebrew (Israel): bjesus, Lior Abazon
 * Hungarian: Laszlo Molnar
-* Icelandic (Iceland): Arnar Tumi Þorsteinsson, Sævar Öfjörð Magnússon
+* Icelandic (Iceland): Arnar Tumi Þorsteinsson, Kjartan Sverrisson, Sævar Öfjörð Magnússon
 * Indonesian (Indonesia): Sutrisno Efendi
 * Italian: Edd Baldry, Claudio Bantaloukas, Giacomo Ghizzani, Alessio Di Stasio, Andrea Tagliazucchi
 * Japanese: Sangmin Ahn, Shu Ishida, Daigo Shitara, takuan_osho
@@ -174,7 +174,7 @@ Translators
 * Portuguese (Brazil): Claudemiro Alves Feitosa Neto, Luiz Boaretto, Gladson Brito, Thiago Cangussu, Gilson Filho, João Luiz Lorencetti, Douglas Miranda
 * Portuguese (Portugal): Gladson Brito, Thiago Cangussu, Tiago Henriques, Jose Lourenco, Nuno Matos, Douglas Miranda, Manuela Silva
 * Romanian: Dan Braghis
-* Russian: ajk, Daniil, gsstver, HNKNTA, Sergiy Khalymon, Sergey Komarov, Eugene MechanisM, Alexandr Romantsov
+* Russian: ajk, Daniil, gsstver, HNKNTA, Sergiy Khalymon, Sergey Komarov, Eugene MechanisM, Mikalai Radchuk, Alexandr Romantsov
 * Slovak (Slovakia): dellax
 * Slovenian: Mitja Pagon
 * Spanish: Mauricio Baeza, Daniel Chimeno, fonso, fooflare, Yusuf (Josè) Luis, Joaquín Tita, Unai Zalakain
