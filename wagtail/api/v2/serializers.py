@@ -345,7 +345,7 @@ class PageSerializer(BaseSerializer):
         return super(BaseSerializer, self).build_relational_field(field_name, relation_info)
 
 
-def get_serializer_class(model_, fields_, meta_fields=None, base=BaseSerializer):
+def get_serializer_class(model_, fields_, meta_fields, base=BaseSerializer):
     class Meta:
         model = model_
         fields = list(fields_)
