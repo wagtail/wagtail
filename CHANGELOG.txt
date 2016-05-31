@@ -7,7 +7,7 @@ Changelog
  * Image upload form in image chooser now performs client side validation so that the selected file is not lost in the submission (Jack Paine)
 
 
-1.5 (xx.xx.xxxx)
+1.5 (31.05.2016)
 ~~~~~~~~~~~~~~~~
 
  * Added wagtail.contrib.modeladmin, an app for configuring arbitrary Django models to be edited through the Wagtail admin (Andy Babic)
