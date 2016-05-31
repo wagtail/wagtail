@@ -13,8 +13,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-05-11 20:27+0000\n"
-"PO-Revision-Date: 2016-05-17 12:28+0000\n"
+"POT-Creation-Date: 2016-05-18 21:37+0000\n"
+"PO-Revision-Date: 2016-05-18 22:25+0000\n"
 "Last-Translator: Luiz Boaretto <lboaretto@gmail.com>\n"
 "Language-Team: Portuguese (Brazil) (http://www.transifex.com/torchbox/"
 "wagtail/language/pt_BR/)\n"
@@ -125,8 +125,14 @@ msgstr ""
 msgid "search description"
 msgstr "descrição da busca"
 
+msgid "go live date/time"
+msgstr "data/hora para publicar"
+
 msgid "Please add a date-time in the form YYYY-MM-DD hh:mm."
 msgstr "Por favor adicione a data e hora no formato YYYY-MM-DD hh:mm."
+
+msgid "expiry date/time"
+msgstr "data/hora para expirar"
 
 msgid "expired"
 msgstr "expirado"
@@ -173,6 +179,9 @@ msgstr "usuário"
 msgid "content JSON"
 msgstr "conteúdo JSON"
 
+msgid "approved go live at"
+msgstr "aprovado online em"
+
 msgid "page revision"
 msgstr "revisão desta página"
 
@@ -212,8 +221,17 @@ msgstr "tipo de permissão"
 msgid "group page permission"
 msgstr "grupo de permissão da página"
 
+msgid "group page permissions"
+msgstr "grupo de permissões da página"
+
 msgid "password"
 msgstr "senha"
+
+msgid "page view restriction"
+msgstr "restrição de visualização de página"
+
+msgid "page view restrictions"
+msgstr "restrições de visualização da página"
 
 msgid "name"
 msgstr "nome"
@@ -226,3 +244,6 @@ msgstr "coleções"
 
 msgid "permission"
 msgstr "permissão"
+
+msgid "group collection permission"
+msgstr "grupo de permissão de coleção"

@@ -3,7 +3,7 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# fooflare <amos.oviedo@gmail.com>, 2014
+# fooflare <amos.oviedo@gmail.com>, 2014,2016
 # Daniel Chimeno <daniel@chimeno.me>, 2016
 # fooflare <amos.oviedo@gmail.com>, 2014
 # Joaquín Tita <carpincho@gmail.com>, 2014
@@ -16,9 +16,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-05-11 20:27+0000\n"
-"PO-Revision-Date: 2016-05-15 22:18+0000\n"
-"Last-Translator: Yusuf (Josè) Luis <alagunajs@gmail.com>\n"
+"POT-Creation-Date: 2016-05-18 21:37+0000\n"
+"PO-Revision-Date: 2016-05-25 07:36+0000\n"
+"Last-Translator: fooflare <amos.oviedo@gmail.com>\n"
 "Language-Team: Spanish (http://www.transifex.com/torchbox/wagtail/language/"
 "es/)\n"
 "MIME-Version: 1.0\n"
@@ -31,7 +31,7 @@ msgid "You do not have permission to access the admin"
 msgstr "No tienes permisos para acceder al administrador."
 
 msgid "Scheduled publishing"
-msgstr "Agendar publicación"
+msgstr "Publicación programada"
 
 msgid "Common page configuration"
 msgstr "Configuración común de página"
@@ -87,7 +87,7 @@ msgid "New parent page"
 msgstr "Nueva página padre"
 
 msgid "This copy will be a child of this given parent page."
-msgstr "Esta copia tendrá un hijo dado por su página padre."
+msgstr "Esta copia será hija de esta página padre."
 
 msgid "Copy subpages"
 msgstr "Copiar subpáginas"
