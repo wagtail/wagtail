@@ -76,8 +76,12 @@ function insertRichTextDeleteControl(elem) {
     var a = $('<a class="icon icon-cross text-replace delete-control">Delete</a>');
     $(elem).addClass('rich-text-deletable').prepend(a);
     a.click(function() {
+        var widget = $(elem).parent('.richtext').data('IKS-hallo');
         $(elem).fadeOut(function() {
             $(elem).remove();
+            if (widget != undefined && widget.options.editable) {
+                widget.element.trigger('change');
+            }
         });
     });
 }
