@@ -98,20 +98,6 @@ class PageTypeField(Field):
         return page.specific_class._meta.app_label + '.' + page.specific_class.__name__
 
 
-class DocumentDownloadUrlField(Field):
-    """
-    Serializes the "download_url" field for documents.
-
-    Example:
-    "download_url": "http://api.example.com/documents/1/my_document.pdf"
-    """
-    def get_attribute(self, instance):
-        return instance
-
-    def to_representation(self, document):
-        return get_full_url(self.context['request'], document.url)
-
-
 class RelatedField(relations.RelatedField):
     """
     Serializes related objects (eg, foreign keys).
@@ -370,22 +356,6 @@ class PageSerializer(BaseSerializer):
                 return ChildRelationField, {'child_fields': child_relations[field_name].api_fields}
 
         return super(BaseSerializer, self).build_relational_field(field_name, relation_info)
-
-
-class ImageSerializer(BaseSerializer):
-    pass
-
-
-class DocumentSerializer(BaseSerializer):
-    download_url = DocumentDownloadUrlField(read_only=True)
-
-    default_fields = BaseSerializer.default_fields + [
-        'download_url',
-    ]
-
-    meta_fields = BaseSerializer.meta_fields + [
-        'download_url',
-    ]
 
 
 def get_serializer_class(model_, fields_, meta_fields=None, base=BaseSerializer):
