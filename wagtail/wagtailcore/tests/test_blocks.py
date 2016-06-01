@@ -912,6 +912,7 @@ class TestStructBlock(SimpleTestCase):
 
         self.assertIn('<div class="struct-block">', html)
         self.assertIn('<div class="field char_field widget-text_input fieldname-title">', html)
+        self.assertIn('<label for="mylink-title">Title:</label>', html)
         self.assertIn(
             '<input id="mylink-title" name="mylink-title" placeholder="Title" type="text" value="Wagtail site" />', html
         )
@@ -1253,8 +1254,8 @@ class TestListBlock(unittest.TestCase):
     def test_render_form_labels(self):
         html = self.render_form()
 
-        self.assertIn('<label for="links-0-value-title">Title</label>', html)
-        self.assertIn('<label for="links-0-value-link">Link</label>', html)
+        self.assertIn('<label for="links-0-value-title">Title:</label>', html)
+        self.assertIn('<label for="links-0-value-link">Link:</label>', html)
 
     def test_render_form_values(self):
         html = self.render_form()
