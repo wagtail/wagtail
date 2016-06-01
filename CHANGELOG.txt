@@ -24,11 +24,12 @@ Changelog
  * Fix: "Remove link" button in rich text editor didn't trigger "edit" event, leading to the change to sometimes not be persisted (Matt Westcott)
  * Fix: `RichText` values can now be correctly evaluated as booleans (Mike Dingjan, Bertrand Bordage)
  * Fix: wagtailforms no longer assumes an .html extension when determining the landing page template filename (kakulukia)
+ * Fix: StreamField can now be used in an InlinePanel (Gagaro)
 
 
 1.5.2 (08.06.2016)
 ~~~~~~~~~~~~~~~~~~
-
+=======
  * Fixed regression in 1.5.1 on editing external links (Stephen Rice)
 
 1.5.1 (07.06.2016)
