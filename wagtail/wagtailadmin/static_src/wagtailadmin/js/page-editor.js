@@ -262,7 +262,7 @@ function cleanForSlug(val, useURLify) {
     if (URLify != undefined && useURLify !== false) { // Check to be sure that URLify function exists, and that we want to use it.
         return URLify(val, 255, true);
     } else { // If not just do the "replace"
-        return val.replace(/\s/g, '-').replace(/[&\/\\#,+()$~%.'":`@\^!*?<>{}\_]/g, '').toLowerCase();
+        return val.replace(/\s/g, '-').replace(/[&\/\\#,+()$~%.'":`@\^!*?<>{}]/g, '').toLowerCase();
     }
 }
 
