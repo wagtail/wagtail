@@ -2,14 +2,14 @@ from __future__ import absolute_import, unicode_literals
 
 from collections import OrderedDict
 
-from wagtail.api.v2.endpoints import DocumentsAPIEndpoint, ImagesAPIEndpoint, PagesAPIEndpoint
+from wagtail.api.v2.endpoints import PagesAPIEndpoint
 from wagtail.api.v2.filters import (
     ChildOfFilter, DescendantOfFilter, FieldsFilter, OrderingFilter, SearchFilter)
 from wagtail.api.v2.utils import BadRequestError, filter_page_type, page_models_from_string
 from wagtail.wagtailcore.models import Page
 
 from .filters import HasChildrenFilter
-from .serializers import AdminImageSerializer, AdminPageSerializer
+from .serializers import AdminPageSerializer
 
 
 class PagesAdminAPIEndpoint(PagesAPIEndpoint):
@@ -90,22 +90,3 @@ class PagesAdminAPIEndpoint(PagesAPIEndpoint):
         response = super(PagesAdminAPIEndpoint, self).detail_view(request, pk)
         response.data['__types'] = self.get_type_info()
         return response
-
-
-class ImagesAdminAPIEndpoint(ImagesAPIEndpoint):
-    base_serializer_class = AdminImageSerializer
-
-    extra_body_fields = ImagesAPIEndpoint.extra_body_fields + [
-        'thumbnail',
-    ]
-
-    default_fields = ImagesAPIEndpoint.default_fields + [
-        'width',
-        'height',
-        'thumbnail',
-    ]
-
-
-
-class DocumentsAdminAPIEndpoint(DocumentsAPIEndpoint):
-    pass
