@@ -3044,3 +3044,18 @@ class TestInlinePanelMedia(TestCase, WagtailTestUtils):
         response = self.client.get(reverse('wagtailadmin_pages:add', args=('tests', 'sectionedrichtextpage', homepage.id)))
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, 'wagtailadmin/js/hallo-bootstrap.js')
+
+
+class TestInlineStreamField(TestCase, WagtailTestUtils):
+    """
+    Test that streamfields inside an inline child work
+    """
+    def test_inline_streamfield(self):
+        homepage = Page.objects.get(id=2)
+        self.login()
+
+        response = self.client.get(reverse('wagtailadmin_pages:add', args=('tests', 'inlinestreampage', homepage.id)))
+        self.assertEqual(response.status_code, 200)
+
+        # response should include HTML declarations for streamfield child blocks
+        self.assertContains(response, '<li id="__PREFIX__-container" class="sequence-member blockname-rich_text">')

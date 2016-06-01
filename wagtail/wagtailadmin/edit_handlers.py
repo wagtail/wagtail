@@ -621,6 +621,10 @@ class BaseInlinePanel(EditHandler):
             }
         }
 
+    @classmethod
+    def html_declarations(cls):
+        return cls.get_child_edit_handler_class().html_declarations()
+
     def __init__(self, instance=None, form=None):
         super(BaseInlinePanel, self).__init__(instance=instance, form=form)
 

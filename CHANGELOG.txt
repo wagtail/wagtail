@@ -33,6 +33,7 @@ Changelog
  * Fix: `RichText` values can now be correctly evaluated as booleans (Mike Dingjan, Bertrand Bordage)
  * Fix: wagtailforms no longer assumes an .html extension when determining the landing page template filename (kakulukia)
  * Fix: Fixed styling glitch on bi-colour icon + text buttons in Chrome (Janneke Janssen)
+ * Fix: StreamField can now be used in an InlinePanel (Gagaro)
 
 
 1.5.3 (18.07.2016)
@@ -45,6 +46,7 @@ Changelog
 ~~~~~~~~~~~~~~~~~~
 
  * Fixed regression in 1.5.1 on editing external links (Stephen Rice)
+
 
 1.5.1 (07.06.2016)
 ~~~~~~~~~~~~~~~~~~
