@@ -44,7 +44,7 @@ li.sequence-member {
     
     // Copied from page-editor.scss    
     .struct-block li.required > label:after {
-        content: "*";
+        content: '*';
         color: $color-red;
         font-weight: bold;
         display: inline-block;
