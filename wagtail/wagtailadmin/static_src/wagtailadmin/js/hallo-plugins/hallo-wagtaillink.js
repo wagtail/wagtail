@@ -31,7 +31,7 @@
                     }
                 });
                 addButton.on('click', function() {
-                    var enclosingLink, lastSelection, url, urlParams, href, pageId;
+                    var enclosingLink, lastSelection, url, urlParams, href, pageId, linkType;
 
                     // Defaults.
                     url = window.chooserUrls.pageChooser;
@@ -46,17 +46,18 @@
                     if (enclosingLink) {
                         href = enclosingLink.getAttribute('href');
                         pageId = enclosingLink.getAttribute('data-id');
+                        linkType = enclosingLink.getAttribute('data-linktype');
 
                         urlParams['link_text'] = enclosingLink.innerText;
 
-                        if (pageId) {
+                        if (linkType == 'page' && pageId) {
                             // TODO: Actually show the parent not the page itself.
                             url = window.chooserUrls.pageChooser + pageId.toString() + '/';
                         } else if (href.startsWith('mailto:')) {
                             url = window.chooserUrls.emailLinkChooser;
                             href = href.replace('mailto:', '');
                             urlParams['link_url'] = href;
-                        } else {
+                        } else if (linkType == '') {
                             url = window.chooserUrls.externalLinkChooser;
                             urlParams['link_url'] = href;
                         }
