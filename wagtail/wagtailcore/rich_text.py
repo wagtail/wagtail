@@ -143,7 +143,7 @@ class DbWhitelister(Whitelister):
 
 FIND_A_TAG = re.compile(r'<a(\b[^>]*)>')
 FIND_EMBED_TAG = re.compile(r'<embed(\b[^>]*)/>')
-FIND_ATTRS = re.compile(r'([\w-]+)\="([^"]*)"')
+FIND_ATTRS = re.compile(r'([\w-]+)\=(?:"([^"]*)"|\'([^\']*)\')')
 
 
 def extract_attrs(attr_string):
@@ -151,8 +151,8 @@ def extract_attrs(attr_string):
     helper method to extract tag attributes as a dict. Does not escape HTML entities!
     """
     attributes = {}
-    for name, val in FIND_ATTRS.findall(attr_string):
-        attributes[name] = val
+    for name, val2quote, val1quote in FIND_ATTRS.findall(attr_string):
+        attributes[name] = val2quote or val1quote
     return attributes
 
 
