@@ -13,6 +13,7 @@ from django.db import models, transaction
 from django.forms.widgets import TextInput
 from django.template.loader import render_to_string
 from django.utils import timezone
+from django.utils.six import with_metaclass
 from django.utils.translation import ugettext as _
 from django.utils.translation import ugettext_lazy, ungettext
 from modelcluster.forms import ClusterForm, ClusterFormMetaclass
@@ -254,7 +255,16 @@ class WagtailAdminModelFormMetaclass(ClusterFormMetaclass):
         new_class = super(WagtailAdminModelFormMetaclass, cls).__new__(cls, name, bases, attrs)
         return new_class
 
-WagtailAdminModelForm = WagtailAdminModelFormMetaclass(str('WagtailAdminModelForm'), (ClusterForm,), {})
+
+class WagtailAdminModelForm(with_metaclass(WagtailAdminModelFormMetaclass, ClusterForm)):
+    @property
+    def media(self):
+        # Include media from formsets forms. This allow StreamField in InlinePanel for example.
+        media = super(WagtailAdminModelForm, self).media
+        for formset in self.formsets.values():
+            media += formset.media
+        return media
+
 
 # Now, any model forms built off WagtailAdminModelForm instead of ModelForm should pick up
 # the nice form fields defined in FORM_FIELD_OVERRIDES.

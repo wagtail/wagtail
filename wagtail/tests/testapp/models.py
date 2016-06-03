@@ -708,3 +708,21 @@ class CustomRichBlockFieldPage(Page):
         FieldPanel('title', classname="full title"),
         StreamFieldPanel('body'),
     ]
+
+
+# a page that only contains RichTextField within an InlinePanel,
+# to test that the inline child's form media gets pulled through
+class SectionedRichTextPageSection(Orderable):
+    page = ParentalKey('tests.SectionedRichTextPage', related_name='sections')
+    body = RichTextField()
+
+    panels = [
+        FieldPanel('body')
+    ]
+
+
+class SectionedRichTextPage(Page):
+    content_panels = [
+        FieldPanel('title', classname="full title"),
+        InlinePanel('sections')
+    ]
