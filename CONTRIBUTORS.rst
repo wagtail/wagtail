@@ -139,6 +139,7 @@ Contributors
 * Robert Moggach
 * Stephen Rice
 * Behzad Nategh
+* Yann Fouillat
 
 Translators
 ===========
