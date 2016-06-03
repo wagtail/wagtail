@@ -45,14 +45,13 @@
 
                     if (enclosingLink) {
                         href = enclosingLink.getAttribute('href');
-                        pageId = enclosingLink.getAttribute('data-id');
+                        parentPageId = enclosingLink.getAttribute('data-parent-id');
                         linkType = enclosingLink.getAttribute('data-linktype');
 
                         urlParams['link_text'] = enclosingLink.innerText;
 
-                        if (linkType == 'page' && pageId) {
-                            // TODO: Actually show the parent not the page itself.
-                            url = window.chooserUrls.pageChooser + pageId.toString() + '/';
+                        if (linkType == 'page' && parentPageId) {
+                            url = window.chooserUrls.pageChooser + parentPageId.toString() + '/';
                         } else if (href.startsWith('mailto:')) {
                             url = window.chooserUrls.emailLinkChooser;
                             href = href.replace('mailto:', '');
@@ -77,6 +76,7 @@
                                 a.setAttribute('href', pageData.url);
                                 if (pageData.id) {
                                     a.setAttribute('data-id', pageData.id);
+                                    a.setAttribute('data-parent-id', pageData.parentId);
                                     a.setAttribute('data-linktype', 'page');
                                 }
 
