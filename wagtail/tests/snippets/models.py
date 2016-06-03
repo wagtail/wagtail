@@ -2,7 +2,11 @@ from __future__ import absolute_import, unicode_literals
 
 from django.db import models
 from django.utils.encoding import python_2_unicode_compatible
+from modelcluster.fields import ParentalKey
+from modelcluster.models import ClusterableModel
 
+from wagtail.wagtailadmin.edit_handlers import FieldPanel, InlinePanel
+from wagtail.wagtailcore.fields import RichTextField
 from wagtail.wagtailsearch import index
 from wagtail.wagtailsnippets.models import register_snippet
 
@@ -71,3 +75,19 @@ class FancySnippet(models.Model):
 @register_snippet
 class FileUploadSnippet(models.Model):
     file = models.FileField()
+
+
+class RichTextSection(models.Model):
+    snippet = ParentalKey('MultiSectionRichTextSnippet', related_name='sections')
+    body = RichTextField()
+
+    panels = [
+        FieldPanel('body'),
+    ]
+
+
+@register_snippet
+class MultiSectionRichTextSnippet(ClusterableModel):
+    panels = [
+        InlinePanel('sections'),
+    ]

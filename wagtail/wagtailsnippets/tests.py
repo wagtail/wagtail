@@ -690,3 +690,15 @@ class TestSnippetEditHandlers(TestCase, WagtailTestUtils):
         form_class = edit_handler_class.get_form_class(FancySnippet)
         self.assertTrue(issubclass(form_class, WagtailAdminModelForm))
         self.assertTrue(issubclass(form_class, FancySnippetForm))
+
+
+class TestInlinePanelMedia(TestCase, WagtailTestUtils):
+    """
+    Test that form media required by InlinePanels is correctly pulled in to the edit page
+    """
+    def test_inline_panel_media(self):
+        self.login()
+
+        response = self.client.get(reverse('wagtailsnippets:add', args=('snippetstests', 'multisectionrichtextsnippet')))
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, 'wagtailadmin/js/hallo-bootstrap.js')

@@ -138,6 +138,7 @@ Contributors
 * Bojan Mihelac
 * Robert Moggach
 * Stephen Rice
+* Yann Fouillat
 
 Translators
 ===========
