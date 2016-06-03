@@ -778,11 +778,10 @@ class DeleteView(InstanceSpecificView):
 
     def post(self, request, *args, **kwargs):
         try:
+            msg = _("{model} '{instance}' deleted.").format(
+                model=self.verbose_name, instance=self.instance)
             self.delete_instance()
-            messages.success(
-                request,
-                _("{model} '{instance}' deleted.").format(
-                    model=self.verbose_name, instance=self.instance))
+            messages.success(request, msg)
             return redirect(self.index_url)
         except models.ProtectedError:
             linked_objects = []

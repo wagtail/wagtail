@@ -65,6 +65,7 @@ Changelog
  * Fix: Fixed UnicodeEncodeError in wagtailforms when downloading a CSV for a form containing non-ASCII field labels on Python 2 (Mikalai Radchuk)
  * Fix: Server errors during search indexing on creating / updating / deleting a model are now logged, rather than causing the overall operation to fail (Karl Hobley)
  * Fix: Objects are now correctly removed from search indexes on deletion (Karl Hobley)
+ * Fix: Confirmation message on the ModelAdmin delete view no longer errors if the model's string representation depends on the primary key (Yannick Chabbert)
 
 
 1.4.5 (19.05.2016)
