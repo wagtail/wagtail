@@ -17,3 +17,4 @@ Bug fixes
  * When editing a document link in rich text, the document ID is no longer erroneously interpreted as a page ID (Stephen Rice)
  * Removing embedded media from rich text by mouse click action now gets correctly registered as a change to the field (Loic Teixeira)
  * Rich text editor is no longer broken in InlinePanels (Matt Westcott, Yann Fouillat)
+ * Rich text editor is no longer broken in settings (Matt Westcott)
