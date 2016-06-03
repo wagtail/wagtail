@@ -18,3 +18,4 @@ Bug fixes
  * Removing embedded media from rich text by mouse click action now gets correctly registered as a change to the field (Loic Teixeira)
  * Rich text editor is no longer broken in InlinePanels (Matt Westcott, Yann Fouillat)
  * Rich text editor is no longer broken in settings (Matt Westcott)
+ * Link tooltip now shows correct urls for newly inserted document links (Matt Westcott)
