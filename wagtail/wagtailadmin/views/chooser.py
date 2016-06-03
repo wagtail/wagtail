@@ -12,6 +12,11 @@ from wagtail.wagtailcore.utils import resolve_model_string
 
 def shared_context(request, extra_context={}):
     context = {
+        # parent_page ID is passed as a GET parameter on the external_link and email_link views
+        # so that it's remembered when browsing from 'Internal link' to another link type
+        # and back again. On the 'browse' / 'internal link' view this will be overridden to be
+        # sourced from the standard URL path parameter instead.
+        'parent_page_id': request.GET.get('parent_page_id'),
         'allow_external_link': request.GET.get('allow_external_link'),
         'allow_email_link': request.GET.get('allow_email_link'),
     }
@@ -98,6 +103,7 @@ def browse(request, parent_page_id=None):
         'wagtailadmin/chooser/browse.html', 'wagtailadmin/chooser/browse.js',
         shared_context(request, {
             'parent_page': parent_page,
+            'parent_page_id': parent_page.pk,
             'pages': pages,
             'search_form': SearchForm(),
             'page_type_string': page_type_string,
