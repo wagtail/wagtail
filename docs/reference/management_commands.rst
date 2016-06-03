@@ -95,4 +95,4 @@ search_garbage_collect
 
 :code:`./manage.py search_garbage_collect`
 
-Wagtail keeps a log of search queries that are popular on your website. On high traffic websites, this log may get big and you may want to clean out old search queries. This command cleans out all search query logs that are more than one week old.
+Wagtail keeps a log of search queries that are popular on your website. On high traffic websites, this log may get big and you may want to clean out old search queries. This command cleans out all search query logs that are more than one week old (or a number of days configurable through the :ref:`WAGTAILSEARCH_HITS_MAX_AGE <wagtailsearch_hits_max_age>` setting).

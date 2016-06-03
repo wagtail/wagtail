@@ -178,11 +178,6 @@ Search
 
 .. code-block:: python
 
-  # Override the search results template for wagtailsearch
-  WAGTAILSEARCH_RESULTS_TEMPLATE = 'myapp/search_results.html'
-  WAGTAILSEARCH_RESULTS_TEMPLATE_AJAX = 'myapp/includes/search_listing.html'
-
-  # Replace the search backend
   WAGTAILSEARCH_BACKENDS = {
       'default': {
           'BACKEND': 'wagtail.wagtailsearch.backends.elasticsearch2',
@@ -190,7 +185,22 @@ Search
       }
   }
 
-The search settings customise the search results templates as well as choosing a custom backend for search. For a full explanation, see :ref:`search`.
+Define a search backend. For a full explanation, see :ref:`wagtailsearch_backends`.
+
+.. code-block:: python
+
+  WAGTAILSEARCH_RESULTS_TEMPLATE = 'myapp/search_results.html'
+  WAGTAILSEARCH_RESULTS_TEMPLATE_AJAX = 'myapp/includes/search_listing.html'
+
+Override the templates used by the search front-end views.
+
+.. _wagtailsearch_hits_max_age:
+
+.. code-block:: python
+
+  WAGTAILSEARCH_HITS_MAX_AGE = 14
+
+Set the number of days (default 7) that search query logs are kept for; these are used to identify popular search terms for :ref:`promoted search results <editors-picks>`. Queries older than this will be removed by the :ref:`search_garbage_collect` command.
 
 
 Embeds

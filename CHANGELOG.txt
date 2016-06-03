@@ -16,6 +16,7 @@ Changelog
  * Added pagination to "choose destination" view when moving pages (Nick Smith, Žan Anderle)
  * Added ability to annotate search results with score (Karl Hobley)
  * Added ability to limit access to form submissions (Mikalai Radchuk)
+ * Added the ability to configure the number of days search logs are kept for (Stephen Rice)
  * Fix: Migrations for wagtailcore and project template are now reversible (Benjamin Bach)
  * Fix: The default image format label text ('Full width', 'Left-aligned', 'Right-aligned') is now localised (Mikalai Radchuk)
  * Fix: Text on the front-end 'password required' form is now marked for translation (Janneke Janssen)
