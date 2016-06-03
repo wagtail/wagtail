@@ -62,5 +62,12 @@
         "title": "The Chronicles of Narnia",
         "author_id": 3
     }
+},
+{
+    "pk": "boom",
+    "model": "modeladmintest.token",
+    "fields": {
+        "key": "boom"
+    }
 }
 ]

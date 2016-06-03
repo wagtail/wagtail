@@ -316,6 +316,17 @@ class TestDeleteViewWithProtectedRelation(TestCase, WagtailTestUtils):
         self.assertFalse(Author.objects.filter(id=4).exists())
 
 
+class TestDeleteViewModelReprPrimary(TestCase, WagtailTestUtils):
+    fixtures = ['modeladmintest_test.json']
+
+    def setUp(self):
+        self.login()
+
+    def test_delete(self):
+        response = self.client.post('/admin/modeladmintest/token/delete/boom/')
+        self.assertEqual(response.status_code, 302)
+
+
 class TestEditorAccess(TestCase):
     fixtures = ['modeladmintest_test.json']
     expected_status_code = 403
