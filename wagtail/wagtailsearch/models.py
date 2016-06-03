@@ -67,7 +67,7 @@ class QueryDailyHits(models.Model):
         """
         days = getattr(settings, 'WAGTAIL_SEARCH_HITS_TTL', 7) if days is None else days
         min_date = timezone.now().date() - datetime.timedelta(days)
-        
+
         cls.objects.filter(date__lt=min_date).delete()
 
     class Meta:
