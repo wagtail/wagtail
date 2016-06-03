@@ -41,6 +41,9 @@ class PageLinkHandler(object):
 
             if for_editor:
                 editor_attrs = 'data-linktype="page" data-id="%d" ' % page.id
+                parent_page = page.get_parent()
+                if parent_page:
+                    editor_attrs += 'data-parent-id="%d" ' % parent_page.id
             else:
                 editor_attrs = ''
 
