@@ -182,7 +182,8 @@ def chooser_select_format(request, image_id):
                 {'image_json': image_json}
             )
     else:
-        initial = request.GET if request.GET.get('edit') else {'alt_text': image.default_alt_text}
+        initial = {'alt_text': image.default_alt_text}
+        initial.update(request.GET.dict())
         form = ImageInsertionForm(initial=initial)
 
     return render_modal_workflow(
