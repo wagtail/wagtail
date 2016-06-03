@@ -1,10 +1,12 @@
 {% load i18n %}
 <table class="listing">
-    <col width="40%" />
-    <col width="40%"/>
-    <col />
+    {% if is_editor %}<col width="5%"/>{% endif %}
+    <col width="20%"/>
+    <col/>
+    <col width="10%"/>
     <thead>
         <tr>
+            {% if is_editor %}<th></th>{% endif %}
             <th class="title">{% trans "Search term(s)" %}</th>
             <th>{% trans "Promoted results" %}</th>
             <th>{% trans "Views (past week)" %}</th>
@@ -13,6 +15,11 @@
     <tbody>
         {% for query in queries %}
             <tr>
+                {% if is_editor %}
+                    <td>
+                        <a href="{% url 'wagtailsearchpromotions:delete' query.id %}" class="icon text-replace icon-bin">{% trans "Delete" %}</a>
+                    </td>
+                {% endif %}
                 <td class="title">
                     <h2><a href="{% url 'wagtailsearchpromotions:edit' query.id %}" title="{% trans 'Edit this promotion' %}">{{ query.query_string }}</a></h2>
                 </td>

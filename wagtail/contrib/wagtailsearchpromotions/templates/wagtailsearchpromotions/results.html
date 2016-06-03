@@ -2,7 +2,7 @@
 {% if queries %}
     {% if is_searching %}
         <h2>
-        {% blocktrans count counter=queries|length %}
+        {% blocktrans count counter=queries_count %}
             There is one match
         {% plural %}
             There are {{ counter }} matches
