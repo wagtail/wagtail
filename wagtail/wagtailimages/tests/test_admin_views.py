@@ -444,7 +444,30 @@ class TestImageChooserChosenView(TestCase, WagtailTestUtils):
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'wagtailimages/chooser/image_chosen.js')
 
-    # TODO: Test posting
+
+class TestImageChooserSelectFormatView(TestCase, WagtailTestUtils):
+    def setUp(self):
+        self.login()
+
+        # Create an image to edit
+        self.image = Image.objects.create(
+            title="Test image",
+            file=get_test_image_file(),
+        )
+
+    def get(self, params={}):
+        return self.client.get(reverse('wagtailimages:chooser_select_format', args=(self.image.id,)), params)
+
+    def test_simple(self):
+        response = self.get()
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'wagtailimages/chooser/select_format.html')
+        self.assertTemplateUsed(response, 'wagtailimages/chooser/select_format.js')
+
+    def test_with_edit_params(self):
+        response = self.get(params={'alt_text': "some previous alt text"})
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, 'value=\\"some previous alt text\\"')
 
 
 class TestImageChooserUploadView(TestCase, WagtailTestUtils):

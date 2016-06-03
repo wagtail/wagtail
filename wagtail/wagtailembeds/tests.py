@@ -153,6 +153,11 @@ class TestChooser(TestCase, WagtailTestUtils):
         r = self.client.get('/admin/embeds/chooser/')
         self.assertEqual(r.status_code, 200)
 
+    def test_chooser_with_edit_params(self):
+        r = self.client.get('/admin/embeds/chooser/?url=http://example2.com')
+        self.assertEqual(r.status_code, 200)
+        self.assertContains(r, 'value=\\"http://example2.com\\"')
+
     @patch('wagtail.wagtailembeds.embeds.get_embed')
     def test_submit_valid_embed(self, get_embed):
         get_embed.return_value = Embed(html='<img src="http://www.example.com" />', title="An example embed")
