@@ -11,7 +11,8 @@ from wagtail.wagtailembeds.forms import EmbedForm
 
 
 def chooser(request):
-    form = EmbedForm()
+    initial = request.GET if request.GET.get('edit') else {}
+    form = EmbedForm(initial=initial)
 
     return render_modal_workflow(request, 'wagtailembeds/chooser/chooser.html', 'wagtailembeds/chooser/chooser.js', {
         'form': form,

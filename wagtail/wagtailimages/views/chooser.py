@@ -182,7 +182,8 @@ def chooser_select_format(request, image_id):
                 {'image_json': image_json}
             )
     else:
-        form = ImageInsertionForm(initial={'alt_text': image.default_alt_text})
+        initial = request.GET if request.GET.get('edit') else {'alt_text': image.default_alt_text}
+        form = ImageInsertionForm(initial=initial)
 
     return render_modal_workflow(
         request, 'wagtailimages/chooser/select_format.html', 'wagtailimages/chooser/select_format.js',
