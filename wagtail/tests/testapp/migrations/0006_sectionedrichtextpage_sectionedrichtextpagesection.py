@@ -9,7 +9,7 @@ import wagtail.wagtailcore.fields
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('wagtailcore', '0029_unicode_slugfield_dj19'),
+        ('wagtailcore', '0028_merge'),
         ('tests', '0005_customrichblockfieldpage_customrichtextfieldpage_defaultrichblockfieldpage_defaultrichtextfieldpage'),
     ]
 
