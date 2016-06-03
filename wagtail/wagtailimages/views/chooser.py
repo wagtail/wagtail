@@ -144,7 +144,8 @@ def chooser_upload(request):
     else:
         form = ImageForm(user=request.user)
 
-    images = Image.objects.order_by('title')
+    images = Image.objects.order_by('-created_at')
+    paginator, images = paginate(request, images, per_page=12)
 
     return render_modal_workflow(
         request, 'wagtailimages/chooser/chooser.html', 'wagtailimages/chooser/chooser.js',
