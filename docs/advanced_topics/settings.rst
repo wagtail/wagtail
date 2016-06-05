@@ -230,6 +230,16 @@ Images
 This setting lets you provide your own image model for use in Wagtail, which might extend the built-in ``AbstractImage`` class or replace it entirely.
 
 
+Maximum Upload size for Images
+------------------------------
+
+.. code-block:: python
+
+    WAGTAILIMAGES_MAX_UPLOAD_SIZE = 20 * 1024 * 1024  # i.e. 20MB
+
+This setting lets you override the maximum upload size for images (in bytes). If omitted, Wagtail will fall back to using its 10MB default value.
+
+
 Password Management
 -------------------
 
