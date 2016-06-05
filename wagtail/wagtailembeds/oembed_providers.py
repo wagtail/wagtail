@@ -287,8 +287,8 @@ OEMBED_ENDPOINTS = {
     "http://openapi.etsy.com/svc/oembed/": [
         "^http(?:s)?://(?:www\\.)?etsy\\.com/listing/.+$"
     ],
-    "https://audioboo.fm/publishing/oembed.{format}": [
-        "^http(?:s)?://audioboo\\.fm/boos/.+$"
+    "https://audioboom.com/publishing/oembed.{format}": [
+        "^http(?:s)?://audioboom\\.com/boos/.+$"
     ],
     "http://demo.clikthrough.com/services/oembed/": [
         "^http(?:s)?://demo\\.clikthrough\\.com/theater/video/.+$"
