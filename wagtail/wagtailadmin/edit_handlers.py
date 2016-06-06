@@ -354,7 +354,7 @@ class FieldRowPanel(object):
         # If child panel doesn't have a col# class then append default based on
         # number of columns
         for child in self.children:
-            if re.match("^.*?(col)[1-9]{1}(?![3-9])[0-2]{0,1}.*?$", child.classname) is None:
+            if not re.search(r'\bcol\d+\b', child.classname):
                 child.classname += col_count
 
         return type(str('_FieldRowPanel'), (BaseFieldRowPanel,), {

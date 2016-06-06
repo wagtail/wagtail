@@ -16,7 +16,7 @@ from wagtail.tests.utils import WagtailTestUtils
 from wagtail.utils.deprecation import RemovedInWagtail17Warning
 from wagtail.wagtailadmin.edit_handlers import (
     FieldPanel, InlinePanel, ObjectList, PageChooserPanel, RichTextFieldPanel, TabbedInterface,
-    extract_panel_definitions_from_model_class, get_form_for_model)
+    extract_panel_definitions_from_model_class, get_form_for_model, FieldRowPanel)
 from wagtail.wagtailadmin.forms import WagtailAdminModelForm, WagtailAdminPageForm
 from wagtail.wagtailadmin.rich_text import HalloRichTextArea
 from wagtail.wagtailadmin.widgets import AdminAutoHeightTextInput, AdminDateInput, AdminPageChooser
@@ -423,6 +423,110 @@ class TestFieldPanel(TestCase):
         self.assertIn('<p class="error-message">', result)
         self.assertIn('<span>Enter a valid date.</span>', result)
 
+class TestFieldRowPanel(TestCase):
+    def setUp(self):
+        self.EventPageForm = get_form_for_model(
+            EventPage, form_class=WagtailAdminPageForm, formsets=[])
+        self.event = EventPage(title='Abergavenny sheepdog trials',
+                               date_from=date(2014, 7, 20), date_to=date(2014, 7, 21))
+
+        self.DatesPanel = FieldRowPanel([
+            FieldPanel('date_from', classname='col4'),
+            FieldPanel('date_to', classname='coltwo'),
+        ]).bind_to_model(EventPage)
+
+    def test_render_as_object(self):
+        form = self.EventPageForm(
+            {'title': 'Pontypridd sheepdog trials', 'date_from': '2014-07-20', 'date_to': '2014-07-22'},
+            instance=self.event)
+
+        form.is_valid()
+
+        field_panel = self.DatesPanel(
+            instance=self.event,
+            form=form
+        )
+        result = field_panel.render_as_object()
+
+        # check that the populated form field is included
+        self.assertIn('value="2014-07-22"', result)
+
+        # there should be no errors on this field
+        self.assertNotIn('<p class="error-message">', result)
+
+    def test_render_as_field(self):
+        form = self.EventPageForm(
+            {'title': 'Pontypridd sheepdog trials', 'date_from': '2014-07-20', 'date_to': '2014-07-22'},
+            instance=self.event)
+
+        form.is_valid()
+
+        field_panel = self.DatesPanel(
+            instance=self.event,
+            form=form
+        )
+        result = field_panel.render_as_field()
+
+        # check that label is output in the 'field' style
+        self.assertIn('<label for="id_date_to">End date:</label>', result)
+        self.assertNotIn('<legend>End date</legend>', result)
+
+        # check that help text is included
+        self.assertIn('Not required if event is on a single day', result)
+
+        # check that the populated form field is included
+        self.assertIn('value="2014-07-22"', result)
+
+        # there should be no errors on this field
+        self.assertNotIn('<p class="error-message">', result)
+
+    def test_error_message_is_rendered(self):
+        form = self.EventPageForm(
+            {'title': 'Pontypridd sheepdog trials', 'date_from': '2014-07-20', 'date_to': '2014-07-33'},
+            instance=self.event)
+
+        form.is_valid()
+
+        field_panel = self.DatesPanel(
+            instance=self.event,
+            form=form
+        )
+        result = field_panel.render_as_field()
+
+        self.assertIn('<p class="error-message">', result)
+        self.assertIn('<span>Enter a valid date.</span>', result)
+
+    def test_add_col_when_wrong_in_panel_def(self):
+        form = self.EventPageForm(
+            {'title': 'Pontypridd sheepdog trials', 'date_from': '2014-07-20', 'date_to': '2014-07-33'},
+            instance=self.event)
+
+        form.is_valid()
+
+        field_panel = self.DatesPanel(
+            instance=self.event,
+            form=form
+        )
+
+        result = field_panel.render_as_field()
+
+        self.assertIn('<li class="field-col coltwo col6', result)
+
+    def test_added_col_doesnt_change_siblings(self):
+        form = self.EventPageForm(
+            {'title': 'Pontypridd sheepdog trials', 'date_from': '2014-07-20', 'date_to': '2014-07-33'},
+            instance=self.event)
+
+        form.is_valid()
+
+        field_panel = self.DatesPanel(
+            instance=self.event,
+            form=form
+        )
+
+        result = field_panel.render_as_field()
+
+        self.assertIn('<li class="field-col col4', result)
 
 class TestPageChooserPanel(TestCase):
     fixtures = ['test.json']
