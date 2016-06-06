@@ -423,6 +423,7 @@ class TestFieldPanel(TestCase):
         self.assertIn('<p class="error-message">', result)
         self.assertIn('<span>Enter a valid date.</span>', result)
 
+
 class TestFieldRowPanel(TestCase):
     def setUp(self):
         self.EventPageForm = get_form_for_model(
@@ -527,6 +528,7 @@ class TestFieldRowPanel(TestCase):
         result = field_panel.render_as_field()
 
         self.assertIn('<li class="field-col col4', result)
+
 
 class TestPageChooserPanel(TestCase):
     fixtures = ['test.json']
