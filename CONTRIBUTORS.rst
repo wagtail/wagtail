@@ -138,7 +138,7 @@ Contributors
 * Bojan Mihelac
 * Robert Moggach
 * Stephen Rice
-* Yann Fouillat
+* Yann Fouillat (Gagaro)
 
 Translators
 ===========
