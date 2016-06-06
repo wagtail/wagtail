@@ -139,7 +139,7 @@ Contributors
 * Robert Moggach
 * Stephen Rice
 * Behzad Nategh
-* Yann Fouillat
+* Yann Fouillat (Gagaro)
 
 Translators
 ===========
