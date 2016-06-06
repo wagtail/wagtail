@@ -1,0 +1,22 @@
+============================================
+Wagtail 1.5.1 release notes - IN DEVELOPMENT
+============================================
+
+.. contents::
+    :local:
+    :depth: 1
+
+
+What's new
+==========
+
+
+Bug fixes
+~~~~~~~~~
+
+ * When editing a document link in rich text, the document ID is no longer erroneously interpreted as a page ID (Stephen Rice)
+ * Removing embedded media from rich text by mouse click action now gets correctly registered as a change to the field (Loic Teixeira)
+ * Rich text editor is no longer broken in InlinePanels (Matt Westcott, Gagaro)
+ * Rich text editor is no longer broken in settings (Matt Westcott)
+ * Link tooltip now shows correct urls for newly inserted document links (Matt Westcott)
+ * Now page chooser (in a rich text editor) opens up at the link's parent page, rather than at the page itself (Matt Westcott)

@@ -1,17 +1,17 @@
-import json
-import mock
-import collections
+from __future__ import absolute_import, unicode_literals
 
+import collections
+import json
+
+import mock
+from django.core.urlresolvers import reverse
 from django.test import TestCase
 from django.test.utils import override_settings
-from django.core.urlresolvers import reverse
-
-from wagtail.wagtailcore.models import Page
 
 from wagtail.contrib.wagtailapi import signal_handlers
-
 from wagtail.tests.demosite import models
 from wagtail.tests.testapp.models import StreamPage
+from wagtail.wagtailcore.models import Page
 
 
 def get_total_page_count():

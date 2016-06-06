@@ -1,19 +1,19 @@
+from __future__ import absolute_import, unicode_literals
+
 import json
 
 from django.core.urlresolvers import reverse
 from django.shortcuts import get_object_or_404, render
 
 from wagtail.utils.pagination import paginate
-from wagtail.wagtailadmin.modal_workflow import render_modal_workflow
 from wagtail.wagtailadmin.forms import SearchForm
+from wagtail.wagtailadmin.modal_workflow import render_modal_workflow
 from wagtail.wagtailadmin.utils import PermissionPolicyChecker
 from wagtail.wagtailcore.models import Collection
-from wagtail.wagtailsearch.backends import get_search_backends
-
-from wagtail.wagtaildocs.models import get_document_model
 from wagtail.wagtaildocs.forms import get_document_form
+from wagtail.wagtaildocs.models import get_document_model
 from wagtail.wagtaildocs.permissions import permission_policy
-
+from wagtail.wagtailsearch import index as search_index
 
 permission_checker = PermissionPolicyChecker(permission_policy)
 
@@ -27,6 +27,7 @@ def get_document_json(document):
     return json.dumps({
         'id': document.id,
         'title': document.title,
+        'url': document.url,
         'edit_link': reverse('wagtaildocs:edit', args=(document.id,)),
     })
 
@@ -36,7 +37,7 @@ def chooser(request):
 
     if permission_policy.user_has_permission(request.user, 'add'):
         DocumentForm = get_document_form(Document)
-        uploadform = DocumentForm()
+        uploadform = DocumentForm(user=request.user)
     else:
         uploadform = None
 
@@ -102,23 +103,22 @@ def chooser_upload(request):
     Document = get_document_model()
     DocumentForm = get_document_form(Document)
 
-    if request.POST:
+    if request.method == 'POST':
         document = Document(uploaded_by_user=request.user)
-        form = DocumentForm(request.POST, request.FILES, instance=document)
+        form = DocumentForm(request.POST, request.FILES, instance=document, user=request.user)
 
         if form.is_valid():
             form.save()
 
             # Reindex the document to make sure all tags are indexed
-            for backend in get_search_backends():
-                backend.add(document)
+            search_index.insert_or_update_object(document)
 
             return render_modal_workflow(
                 request, None, 'wagtaildocs/chooser/document_chosen.js',
                 {'document_json': get_document_json(document)}
             )
     else:
-        form = DocumentForm()
+        form = DocumentForm(user=request.user)
 
     documents = Document.objects.order_by('title')
 

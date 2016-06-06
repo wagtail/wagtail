@@ -1,4 +1,4 @@
-from __future__ import unicode_literals
+from __future__ import absolute_import, unicode_literals
 
 import copy
 from itertools import groupby
@@ -13,13 +13,14 @@ from django.db import models, transaction
 from django.forms.widgets import TextInput
 from django.template.loader import render_to_string
 from django.utils import timezone
+from django.utils.six import with_metaclass
 from django.utils.translation import ugettext as _
 from django.utils.translation import ugettext_lazy, ungettext
 from modelcluster.forms import ClusterForm, ClusterFormMetaclass
 from taggit.managers import TaggableManager
 
 from wagtail.wagtailadmin import widgets
-from wagtail.wagtailcore.models import Page, Collection, GroupCollectionPermission
+from wagtail.wagtailcore.models import Collection, GroupCollectionPermission, Page
 
 
 class URLOrAbsolutePathValidator(validators.URLValidator):
@@ -50,23 +51,15 @@ class SearchForm(forms.Form):
         super(SearchForm, self).__init__(*args, **kwargs)
         self.fields['q'].widget.attrs = {'placeholder': placeholder}
 
-    q = forms.CharField(label=_("Search term"), widget=forms.TextInput())
+    q = forms.CharField(label=ugettext_lazy("Search term"), widget=forms.TextInput())
 
 
 class ExternalLinkChooserForm(forms.Form):
     url = URLOrAbsolutePathField(required=True, label=ugettext_lazy("URL"))
-
-
-class ExternalLinkChooserWithLinkTextForm(forms.Form):
-    url = URLOrAbsolutePathField(required=True, label=ugettext_lazy("URL"))
-    link_text = forms.CharField(required=True)
+    link_text = forms.CharField(required=False)
 
 
 class EmailLinkChooserForm(forms.Form):
-    email_address = forms.EmailField(required=True)
-
-
-class EmailLinkChooserWithLinkTextForm(forms.Form):
     email_address = forms.EmailField(required=True)
     link_text = forms.CharField(required=False)
 
@@ -262,7 +255,16 @@ class WagtailAdminModelFormMetaclass(ClusterFormMetaclass):
         new_class = super(WagtailAdminModelFormMetaclass, cls).__new__(cls, name, bases, attrs)
         return new_class
 
-WagtailAdminModelForm = WagtailAdminModelFormMetaclass(str('WagtailAdminModelForm'), (ClusterForm,), {})
+
+class WagtailAdminModelForm(with_metaclass(WagtailAdminModelFormMetaclass, ClusterForm)):
+    @property
+    def media(self):
+        # Include media from formsets forms. This allow StreamField in InlinePanel for example.
+        media = super(WagtailAdminModelForm, self).media
+        for formset in self.formsets.values():
+            media += formset.media
+        return media
+
 
 # Now, any model forms built off WagtailAdminModelForm instead of ModelForm should pick up
 # the nice form fields defined in FORM_FIELD_OVERRIDES.
@@ -418,7 +420,9 @@ class BaseGroupCollectionMemberPermissionFormSet(forms.BaseFormSet):
         collections = [
             form.cleaned_data['collection']
             for form in self.forms
-            if form not in self.deleted_forms
+            # need to check for presence of 'collection' in cleaned_data,
+            # because a completely blank form passes validation
+            if form not in self.deleted_forms and 'collection' in form.cleaned_data
         ]
         if len(set(collections)) != len(collections):
             # collections list contains duplicates
@@ -435,7 +439,10 @@ class BaseGroupCollectionMemberPermissionFormSet(forms.BaseFormSet):
             )
 
         # get a set of (collection, permission) tuples for all ticked permissions
-        forms_to_save = [form for form in self.forms if form not in self.deleted_forms]
+        forms_to_save = [
+            form for form in self.forms
+            if form not in self.deleted_forms and 'collection' in form.cleaned_data
+        ]
 
         final_permission_records = set()
         for form in forms_to_save:

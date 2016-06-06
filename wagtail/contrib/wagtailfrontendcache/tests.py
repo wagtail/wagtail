@@ -1,11 +1,13 @@
+from __future__ import absolute_import, unicode_literals
+
 from django.test import TestCase
 from django.test.utils import override_settings
 
-from wagtail.wagtailcore.models import Page
-from wagtail.tests.testapp.models import EventIndex
-
+from wagtail.contrib.wagtailfrontendcache.backends import (
+    BaseBackend, CloudflareBackend, HTTPBackend)
 from wagtail.contrib.wagtailfrontendcache.utils import get_backends
-from wagtail.contrib.wagtailfrontendcache.backends import HTTPBackend, CloudflareBackend, BaseBackend
+from wagtail.tests.testapp.models import EventIndex
+from wagtail.wagtailcore.models import Page
 
 
 class TestBackendConfiguration(TestCase):

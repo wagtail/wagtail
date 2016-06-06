@@ -1,17 +1,17 @@
-from django.shortcuts import render, redirect, get_object_or_404
+from __future__ import absolute_import, unicode_literals
 
 from django.core.urlresolvers import reverse
+from django.shortcuts import get_object_or_404, redirect, render
 from django.utils.translation import ugettext as _
 from django.views.decorators.vary import vary_on_headers
 
+from wagtail.contrib.wagtailsearchpromotions import forms
 from wagtail.utils.pagination import paginate
+from wagtail.wagtailadmin import messages
+from wagtail.wagtailadmin.forms import SearchForm
+from wagtail.wagtailadmin.utils import any_permission_required, permission_required
 from wagtail.wagtailsearch import forms as search_forms
 from wagtail.wagtailsearch.models import Query
-from wagtail.wagtailadmin.forms import SearchForm
-from wagtail.wagtailadmin import messages
-from wagtail.wagtailadmin.utils import permission_required, any_permission_required
-
-from wagtail.contrib.wagtailsearchpromotions import forms
 
 
 @any_permission_required(
@@ -73,7 +73,7 @@ def save_searchpicks(query, new_query, searchpicks_formset):
 
 @permission_required('wagtailsearchpromotions.add_searchpromotion')
 def add(request):
-    if request.POST:
+    if request.method == 'POST':
         # Get query
         query_form = search_forms.QueryForm(request.POST)
         if query_form.is_valid():
@@ -109,7 +109,7 @@ def add(request):
 def edit(request, query_id):
     query = get_object_or_404(Query, id=query_id)
 
-    if request.POST:
+    if request.method == 'POST':
         # Get query
         query_form = search_forms.QueryForm(request.POST)
         # and the recommendations
@@ -147,7 +147,7 @@ def edit(request, query_id):
 def delete(request, query_id):
     query = get_object_or_404(Query, id=query_id)
 
-    if request.POST:
+    if request.method == 'POST':
         query.editors_picks.all().delete()
         messages.success(request, _("Editor's picks deleted."))
         return redirect('wagtailsearchpromotions:index')

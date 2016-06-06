@@ -1,13 +1,16 @@
+from __future__ import absolute_import, unicode_literals
+
 from django import template
 from django.template.loader import render_to_string
 
-from wagtail.wagtailcore.models import Page, PageRevision, PAGE_TEMPLATE_VAR
+from wagtail.wagtailadmin.userbar import (
+    AddPageItem, AdminItem, ApproveModerationEditPageItem, EditPageItem, ExplorePageItem,
+    RejectModerationEditPageItem)
+from wagtail.wagtailcore import hooks
+from wagtail.wagtailcore.models import PAGE_TEMPLATE_VAR, Page, PageRevision
 
 # from django.contrib.auth.decorators import permission_required
 
-from wagtail.wagtailadmin.userbar import AdminItem, ExplorePageItem, EditPageItem, AddPageItem, \
-    ApproveModerationEditPageItem, RejectModerationEditPageItem
-from wagtail.wagtailcore import hooks
 
 register = template.Library()
 
@@ -28,8 +31,10 @@ def get_page_instance(context):
 @register.simple_tag(takes_context=True)
 def wagtailuserbar(context, position='bottom-right'):
     # Find request object
-    request = context['request']
-
+    try:
+        request = context['request']
+    except KeyError:
+        return ''
 
     # Don't render if user doesn't have permission to access the admin area
     if not request.user.has_perm('wagtailadmin.access_admin'):

@@ -3,29 +3,22 @@ from __future__ import absolute_import, unicode_literals
 import collections
 
 from django import forms
+from django.contrib.staticfiles.templatetags.staticfiles import static
 from django.core.exceptions import ValidationError
 from django.forms.utils import ErrorList
 from django.template.loader import render_to_string
-from django.utils.encoding import python_2_unicode_compatible
-from django.utils.functional import cached_property
-from django.contrib.staticfiles.templatetags.staticfiles import static
-
 # Must be imported from Django so we get the new implementation of with_metaclass
 from django.utils import six
+from django.utils.encoding import python_2_unicode_compatible
+from django.utils.functional import cached_property
 
 from .base import Block, DeclarativeSubBlocksMetaclass
 from .utils import js_dict
-
 
 __all__ = ['BaseStructBlock', 'StructBlock', 'StructValue']
 
 
 class BaseStructBlock(Block):
-    class Meta:
-        default = {}
-        template = "wagtailadmin/blocks/struct.html"
-        form_classname = 'struct-block'
-        form_template = 'wagtailadmin/block_forms/struct.html'
 
     def __init__(self, local_blocks=None, **kwargs):
         self._constructor_kwargs = kwargs
@@ -161,6 +154,16 @@ class BaseStructBlock(Block):
             errors.extend(child_block._check_name(**kwargs))
 
         return errors
+
+    class Meta:
+        default = {}
+        template = "wagtailadmin/blocks/struct.html"
+        form_classname = 'struct-block'
+        form_template = 'wagtailadmin/block_forms/struct.html'
+        # No icon specified here, because that depends on the purpose that the
+        # block is being used for. Feel encouraged to specify an icon in your
+        # descendant block type
+        icon = "placeholder"
 
 
 class StructBlock(six.with_metaclass(DeclarativeSubBlocksMetaclass, BaseStructBlock)):

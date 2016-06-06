@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-03-09 13:55+0000\n"
+"POT-Creation-Date: 2016-05-18 21:37+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -27,6 +27,10 @@ msgid "Editing"
 msgstr ""
 
 #: templates/wagtailsettings/edit.html:36
+msgid "Saving..."
+msgstr ""
+
+#: templates/wagtailsettings/edit.html:36
 msgid "Save"
 msgstr ""
 
@@ -34,11 +38,11 @@ msgstr ""
 msgid "Settings"
 msgstr ""
 
-#: views.py:62
+#: views.py:64
 #, python-brace-format
 msgid "{setting_type} updated."
 msgstr ""
 
-#: views.py:69
+#: views.py:71
 msgid "The setting could not be saved due to errors."
 msgstr ""

@@ -22,8 +22,8 @@ except ImportError:
 
 install_requires = [
     "Django>=1.8.1,<1.10",
-    "django-modelcluster>=1.1,<1.2",
-    "django-taggit>=0.17.5",
+    "django-modelcluster>=2.0,<3.0",
+    "django-taggit>=0.18,<0.19",
     "django-treebeard>=3.0,<5.0",
     "djangorestframework>=3.1.3",
     "Pillow>=2.6.1",
@@ -41,6 +41,7 @@ testing_extras = [
     'pytz>=2014.7',
     'Pillow>=2.7.0',
     'elasticsearch>=1.0.0',
+    'Jinja2>=2.8,<3.0',
 
     # For coverage and PEP8 linting
     'coverage>=3.7.0',

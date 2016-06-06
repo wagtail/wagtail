@@ -40,7 +40,7 @@ language_names = [
 language_names.sort()
 
 for (language_name, locale) in language_names:
-    print("%s - %s" % (language_name, locale))
+    print(("%s - %s" % (language_name, locale)).encode('utf-8'))
     print("-----")
     for author in sorted(authors_by_locale[locale]):
         print(author)

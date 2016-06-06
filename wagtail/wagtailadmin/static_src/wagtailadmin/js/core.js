@@ -52,6 +52,9 @@ function initTagField(id, autocompleteUrl) {
  *    - alwaysDirty - When set to true the form will always be considered dirty,
  *      prompting the user even when nothing has been changed.
 */
+
+var dirtyFormCheckIsActive = true;
+
 function enableDirtyFormCheck(formSelector, options) {
     var $form = $(formSelector);
     var $ignoredButtons = $form.find(
@@ -64,7 +67,7 @@ function enableDirtyFormCheck(formSelector, options) {
     window.addEventListener('beforeunload', function(event) {
         // Ignore if the user clicked on an ignored element
         var triggeredByIgnoredButton = false;
-        var $trigger = $(event.target.activeElement);
+        var $trigger = $(event.explicitOriginalTarget || document.activeElement);
 
         $ignoredButtons.each(function() {
             if ($(this).is($trigger)) {
@@ -72,11 +75,15 @@ function enableDirtyFormCheck(formSelector, options) {
             }
         });
 
-        if (!triggeredByIgnoredButton && (alwaysDirty || $form.serialize() != initialData)) {
+        if (dirtyFormCheckIsActive && !triggeredByIgnoredButton && (alwaysDirty || $form.serialize() != initialData)) {
             event.returnValue = confirmationMessage;
             return confirmationMessage;
         }
     });
+}
+
+function disableDirtyFormCheck() {
+    dirtyFormCheckIsActive = false;
 }
 
 $(function() {
@@ -214,7 +221,22 @@ $(function() {
         var $self = $(this);
         var $replacementElem = $('em', $self);
         var reEnableAfter = 30;
-        var dataName = 'disabledtimeout'
+        var dataName = 'disabledtimeout';
+
+        // Perform client-side validation on the form this submit button belongs to (if any)
+        var form = $self.closest('form').get(0);
+        if (form && form.checkValidity && (!form.checkValidity())) {
+            // form exists, browser provides a checkValidity method and checkValidity returns false
+            return;
+        }
+
+        window.cancelSpinner = function() {
+            $self.prop('disabled', '').removeData(dataName).removeClass('button-longrunning-active');
+
+            if ($self.data('clicked-text')) {
+                $replacementElem.text($self.data('original-text'));
+            }
+        };
 
         // Disabling a button prevents it submitting the form, so disabling
         // must occur on a brief timeout only after this function returns.
@@ -226,11 +248,7 @@ $(function() {
                 $self.data(dataName, setTimeout(function() {
                     clearTimeout($self.data(dataName));
 
-                    $self.prop('disabled', '').removeData(dataName).removeClass('button-longrunning-active')
-
-                    if ($self.data('clicked-text')) {
-                        $replacementElem.text($self.data('original-text'));
-                    }
+                    cancelSpinner();
 
                 }, reEnableAfter * 1000));
 
@@ -250,3 +268,213 @@ $(function() {
         }, 10);
     });
 });
+
+
+// =============================================================================
+// Wagtail global module, mainly useful for debugging.
+// =============================================================================
+
+var wagtail = window.wagtail = null;
+
+// =============================================================================
+// Inline dropdown module
+// =============================================================================
+
+wagtail = (function(document, window, wagtail) {
+
+    // Module pattern
+    if (!wagtail) {
+        wagtail = {
+            ui: {}
+        };
+    }
+
+    // Constants
+    var DROPDOWN_SELECTOR = '[data-dropdown]';
+    var LISTING_TITLE_SELECTOR = '[data-listing-page-title]';
+    var LISTING_ACTIVE_CLASS = 'listing__item--active';
+    var ICON_DOWN = 'icon-arrow-down';
+    var ICON_UP = 'icon-arrow-up';
+    var IS_OPEN = 'is-open';
+    var clickEvent = 'click';
+    var TOGGLE_SELECTOR = '[data-dropdown-toggle]';
+    var ARIA = 'aria-hidden';
+    var keys = {
+        ESC: 27,
+        ENTER: 13,
+        SPACE: 32
+    };
+
+
+    /**
+     * Singleton controller and registry for DropDown components.
+     *
+     * Mostly used to maintain open/closed state of components and easily
+     * toggle them when the focus changes.
+     */
+    var DropDownController = {
+        _dropDowns: [],
+
+        closeAllExcept: function(dropDown) {
+            var index = this._dropDowns.indexOf(dropDown);
+
+            this._dropDowns.forEach(function(item, i) {
+                 if (i !== index && item.state.isOpen) {
+                    item.closeDropDown();
+                }
+            });
+        },
+
+        add: function(dropDown) {
+            this._dropDowns.push(dropDown);
+        },
+
+        get: function() {
+            return this._dropDowns;
+        },
+
+        getByIndex: function(index) {
+            return this._dropDowns[index];
+        },
+
+        getOpenDropDown: function() {
+            var needle = null;
+
+            this._dropDowns.forEach(function(item) {
+                if (item.state.isOpen) {
+                    needle = item;
+                }
+            });
+
+            return needle;
+        }
+    };
+
+
+    /**
+     * DropDown component
+     *
+     * Template: _button_with_dropdown.html
+     *
+     * Can contain a list of links
+     * Controllable via a toggle class or the keyboard.
+     */
+    function DropDown(el, registry) {
+        if (!el || !registry ) {
+            if ('error' in console) {
+                console.error('A dropdown was created without an element or the DropDownController.\nMake sure to pass both to your component.');
+                return;
+            }
+        }
+
+        this.el = el;
+        this.$parent = $(el).parents(LISTING_TITLE_SELECTOR);
+
+        this.state = {
+            isOpen: false
+        };
+
+        this.registry = registry;
+
+        this.clickOutsideDropDown = this._clickOutsideDropDown.bind(this);
+        this.closeDropDown = this._closeDropDown.bind(this);
+        this.openDropDown = this._openDropDown.bind(this);
+        this.handleClick = this._handleClick.bind(this);
+        this.handleKeyEvent = this._handleKeyEvent.bind(this);
+
+        el.addEventListener(clickEvent, this.handleClick);
+        el.addEventListener('keydown', this.handleKeyEvent);
+        this.$parent.data('close', this.closeDropDown);
+    }
+
+    DropDown.prototype = {
+
+        _handleKeyEvent: function(e) {
+            var validTriggers = [keys.SPACE, keys.ENTER];
+
+            if (validTriggers.indexOf(e.which) > -1) {
+                e.preventDefault();
+                this.handleClick(e);
+            }
+        },
+
+        _handleClick: function(e) {
+            var el = this.el;
+
+            if (!this.state.isOpen) {
+                this.openDropDown(e);
+            } else {
+                this.closeDropDown(e);
+            }
+        },
+
+        _openDropDown: function(e) {
+            e.stopPropagation();
+            e.preventDefault();
+            var el = this.el;
+            var $parent = this.$parent;
+            var toggle = el.querySelector(TOGGLE_SELECTOR);
+
+            this.state.isOpen = true;
+            this.registry.closeAllExcept(this);
+
+            el.classList.add(IS_OPEN);
+            el.setAttribute(ARIA, false);
+            toggle.classList.remove(ICON_DOWN);
+            toggle.classList.add(ICON_UP);
+            document.addEventListener(clickEvent, this.clickOutsideDropDown, false);
+            $parent.addClass(LISTING_ACTIVE_CLASS);
+        },
+
+        _closeDropDown: function(e) {
+            this.state.isOpen = false;
+
+            var el = this.el;
+            var $parent = this.$parent;
+            var toggle = el.querySelector(TOGGLE_SELECTOR);
+            document.removeEventListener(clickEvent, this.clickOutsideDropDown, false);
+            el.classList.remove(IS_OPEN);
+            toggle.classList.add(ICON_DOWN);
+            toggle.classList.remove(ICON_UP);
+            el.setAttribute(ARIA, true);
+            $parent.removeClass(LISTING_ACTIVE_CLASS);
+        },
+
+        _clickOutsideDropDown: function(e) {
+            var el = this.el;
+            var relTarget = e.relatedTarget || e.toElement;
+
+            if (!$(relTarget).parents().is(el)) {
+                this.closeDropDown();
+            }
+        }
+    };
+
+    function initDropDown() {
+        var dropDown = new DropDown(this, DropDownController)
+        DropDownController.add(dropDown);
+    }
+
+    function handleKeyPress(e) {
+        if (e.which === keys.ESC) {
+            var open = DropDownController.getOpenDropDown();
+            if (open) {
+                open.closeDropDown();
+            }
+        }
+    }
+
+    function initDropDowns() {
+        $(DROPDOWN_SELECTOR).each(initDropDown);
+        $(document).on("keydown", handleKeyPress);
+    }
+
+    $(document).ready(initDropDowns);
+
+    wagtail.ui.DropDownController = DropDownController;
+    return wagtail;
+
+})(document, window, wagtail);
+
+
+

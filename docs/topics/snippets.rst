@@ -72,11 +72,11 @@ Here's what's in the template used by this template tag:
 .. code-block:: html+django
 
   {% for advert in adverts %}
-    <p>
-      <a href="{{ advert.url }}">
-        {{ advert.text }}
-      </a>
-    </p>
+      <p>
+          <a href="{{ advert.url }}">
+              {{ advert.text }}
+          </a>
+      </p>
   {% endfor %}
 
 Then, in your own page templates, you can include your snippet template tag with:
@@ -89,9 +89,9 @@ Then, in your own page templates, you can include your snippet template tag with
 
   {% block content %}
   
-    ...
-
-    {% adverts %}
+      ...
+  
+      {% adverts %}
 
   {% endblock %}
 
@@ -167,11 +167,11 @@ These child objects are now accessible through the page's ``advert_placements`` 
 .. code-block:: html+django
 
   {% for advert_placement in page.advert_placements.all %}
-    <p>
-      <a href="{{ advert_placement.advert.url }}">
-        {{ advert_placement.advert.text }}
-      </a>
-    </p>
+      <p>
+          <a href="{{ advert_placement.advert.url }}">
+              {{ advert_placement.advert.text }}
+          </a>
+      </p>
   {% endfor %}
 
 
@@ -191,7 +191,7 @@ If a snippet model inherits from ``wagtail.wagtailsearch.index.Indexed``, as des
   ...
 
   @register_snippet
-  class Advert(models.Model, index.Indexed):
+  class Advert(index.Indexed, models.Model):
       url = models.URLField(null=True, blank=True)
       text = models.CharField(max_length=255)
 
@@ -213,6 +213,7 @@ Adding tags to snippets is very similar to adding tags to pages. The only differ
 .. code-block:: python
 
     from modelcluster.fields import ParentalKey
+    from modelcluster.models import ClusterableModel
     from taggit.models import TaggedItemBase
     from taggit.managers import TaggableManager
 
@@ -220,7 +221,7 @@ Adding tags to snippets is very similar to adding tags to pages. The only differ
         content_object = ParentalKey('demo.Advert', related_name='tagged_items')
 
     @register_snippet
-    class Advert(models.Model):
+    class Advert(ClusterableModel):
         ...
         tags = TaggableManager(through=AdvertTag, blank=True)
 

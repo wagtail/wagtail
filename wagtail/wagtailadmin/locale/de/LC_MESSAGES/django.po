@@ -7,23 +7,27 @@
 # Ettore Atalan <atalanttore@googlemail.com>, 2015
 # Henrik Kröger <hedwig@riseup.net>, 2015-2016
 # hpoul <herbert.transifex@m.poul.at>, 2015
+# Jannis Vajen, 2016
 # Johannes Spielmann <j@spielmannsolutions.com>, 2014-2015
 # karlsander <karlsander@gmail.com>, 2014
 # karlsander <karlsander@gmail.com>, 2014
 # M0rph 3u5 <transifex@m0rph3u5.net>, 2014
 # Martin Löhle <martin.loehle@web-forest.de>, 2016
-# mattwestcott <matthew@torchbox.com>, 2015
+# Matt Westcott <matthew@torchbox.com>, 2015
 # Max Pfeiffer <max.pfeiffer@alp-phone.ch>, 2015
+# Moritz Pfeiffer <moritz@alp-phone.ch>, 2016
 # pcraston <patrick@craston.com>, 2014
 # pcraston <patrick@craston.com>, 2014
+# tobias schmidt <tobias.schmidt82@gmail.com>, 2016
+# Vorlif <flori@vorlif.org>, 2016
 # Wasilis Mandratzis-Walz, 2015
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-03-01 18:51+0000\n"
-"PO-Revision-Date: 2016-03-02 13:07+0000\n"
-"Last-Translator: Henrik Kröger <hedwig@riseup.net>\n"
+"POT-Creation-Date: 2016-05-18 21:37+0000\n"
+"PO-Revision-Date: 2016-05-13 05:57+0000\n"
+"Last-Translator: Moritz Pfeiffer <moritz@alp-phone.ch>\n"
 "Language-Team: German (http://www.transifex.com/torchbox/wagtail/language/"
 "de/)\n"
 "MIME-Version: 1.0\n"
@@ -148,7 +152,7 @@ msgid "This slug is already in use"
 msgstr "Der Kurztitel wird bereits verwendet"
 
 msgid "Go live date/time must be before expiry date/time"
-msgstr "Das Veröffentlichungsdatum muss vor dem Verfallsdatum liegen"
+msgstr "Das Veröffentlichungsdatum muss vor dem Ablaufsdatum liegen"
 
 msgid "Expiry date/time must be in the future"
 msgstr "Das Verfallsdatum muss in der Zukunft sein"
@@ -221,8 +225,11 @@ msgid "A link to reset your password has been emailed to you."
 msgstr ""
 "Ein Link zum Zurücksetzen Ihres Passwortes wurde Ihnen per Email zugesandt."
 
-msgid "Please follow the link below to reset your password"
-msgstr "Bitte folgen Sie dem Link um Ihr Passwort zurückzusetzen"
+msgid "Please follow the link below to reset your password:"
+msgstr "Bitte folgen Sie dem Link um Ihr Passwort zurückzusetzen:"
+
+msgid "Your username (in case you've forgotten):"
+msgstr "Ihr Benutzername (falls Sie ihn vergessen haben):"
 
 msgid "Password reset"
 msgstr "Passwort zurückgesetzt"
@@ -394,7 +401,7 @@ msgid "Draft"
 msgstr "Entwurf"
 
 msgid "Live"
-msgstr "Veröffentlicht"
+msgstr "Seite anzeigen"
 
 msgid "Site summary"
 msgstr "Seitenzusammenfassung"
@@ -436,25 +443,22 @@ msgid "Signing in..."
 msgstr "Anmelden..."
 
 #, python-format
-msgid "The page \"%(title)s\" has been approved"
-msgstr "Die Seite „%(title)s“ wurde freigeschaltet"
-
-#, python-format
 msgid "The page \"%(title)s\" has been approved."
 msgstr "Die Seite „%(title)s“ wurde freigeschaltet."
 
 msgid "You can view the page here:"
 msgstr "Sie können die Seite hier anzeigen:"
 
-msgid "Hello"
-msgstr "Hallo"
+#, python-format
+msgid "The page \"%(title)s\" has been approved"
+msgstr "Die Seite „%(title)s“ wurde freigeschaltet"
+
+#, python-format
+msgid "Hello %(username)s,"
+msgstr "Hallo %(username)s,"
 
 msgid "Edit your notification preferences here:"
 msgstr "Sie können Ihre Benachrichtigungseinstellungen hier bearbeiten:"
-
-#, python-format
-msgid "The page \"%(title)s\" has been rejected"
-msgstr "Die Seite „%(title)s“ wurde abgelehnt"
 
 #, python-format
 msgid "The page \"%(title)s\" has been rejected."
@@ -464,8 +468,8 @@ msgid "You can edit the page here:"
 msgstr "Sie können die Seite hier bearbeiten:"
 
 #, python-format
-msgid "The page \"%(page)s\" has been submitted for moderation"
-msgstr "Die Seite „%(page)s“ wurde zur Freischaltung eingereicht"
+msgid "The page \"%(title)s\" has been rejected"
+msgstr "Die Seite „%(title)s“ wurde abgelehnt"
 
 #, python-format
 msgid "The page \"%(page)s\" has been submitted for moderation by %(editor)s."
@@ -474,6 +478,10 @@ msgstr ""
 
 msgid "You can preview the page here:"
 msgstr "Sie können hier die Vorschau der Seite anzeigen:"
+
+#, python-format
+msgid "The page \"%(page)s\" has been submitted for moderation"
+msgstr "Die Seite „%(page)s“ wurde zur Freischaltung eingereicht"
 
 msgid "Page privacy"
 msgstr "Seitenschutz"
@@ -623,7 +631,7 @@ msgid "Publish"
 msgstr "Veröffentlichen"
 
 msgid "Submit for moderation"
-msgstr "Zur Freischaltung einreichen"
+msgstr "Zur Moderation einreichen"
 
 msgid "This page has unsaved changes."
 msgstr "Diese Seite hat ungesicherte Änderungen."
@@ -639,6 +647,12 @@ msgstr "Wird bearbeitet %(page_type)s <span>%(title)s</span>"
 msgid "Page locked"
 msgstr "Seite gesperrt"
 
+msgid "Replace current draft"
+msgstr "Aktuellen Entwurf ersetzen"
+
+msgid "Publish this revision"
+msgstr "Diese Revision veröffentlichen"
+
 #, python-format
 msgid "Last modified: %(last_mod)s"
 msgstr "Zuletzt geändert: %(last_mod)s"
@@ -646,6 +660,9 @@ msgstr "Zuletzt geändert: %(last_mod)s"
 #, python-format
 msgid "by %(modified_by)s"
 msgstr "von %(modified_by)s"
+
+msgid "Revisions"
+msgstr "Revisionen"
 
 #, python-format
 msgid "Exploring %(title)s"
@@ -665,8 +682,8 @@ msgid ""
 "                        "
 msgstr ""
 "\n"
-"Die Ursprungs-Ebene ist der Ort, an dem Du neue Websites zu Deiner Wagtail-"
-"Installation hinzufügen kannst. Seiten, die hier erstellt werden, sind über "
+"Die Ursprungs-Ebene ist der Ort, an dem Sie neue Websites zu Ihrer Wagtail-"
+"Installation hinzufügen können. Seiten, die hier erstellt werden, sind über "
 "keine URL zu erreichen, solange sie nicht einer Website zugeordnet werden."
 
 msgid "Configure a site now."
@@ -744,16 +761,6 @@ msgstr "Unterseite zu ‚%(title)s‘ hinzufügen"
 msgid "Add subpage"
 msgstr "Unterseite hinzufügen"
 
-msgid ""
-"This page is published but does not exist within a configured Site, so "
-"cannot be viewed."
-msgstr ""
-"Diese Seite ist veröffentlicht, sie existiert aber nicht in einer "
-"konfigurierten Website und kann deswegen nicht betrachtet werden."
-
-msgid "Add child page"
-msgstr "Unterseite hinzufügen"
-
 #, python-format
 msgid ""
 "\n"
@@ -789,6 +796,32 @@ msgstr "Wählen Sie eine neue übergeordnete Seite für %(title)s"
 #, python-format
 msgid "Select a new parent page for <span>%(title)s</span>"
 msgstr "Wählen Sie eine neue übergeordnete Seite für <span>%(title)s</span>"
+
+#, python-format
+msgid "Revisions of %(title)s"
+msgstr "Revisionen von %(title)s"
+
+msgid "Revisions of"
+msgstr "Revisionen von"
+
+msgid "Revision date"
+msgstr "Revisionsdatum"
+
+msgctxt "points to a user who created a revision"
+msgid "by"
+msgstr "von"
+
+msgid "Current draft"
+msgstr "Aktueller Entwurf"
+
+msgid "Review this revision"
+msgstr "Diese Revision begutachten"
+
+msgid "No revisions of this page exist"
+msgstr "Es existieren keine Revisionen dieser Seite"
+
+msgid "No revision of this page exist"
+msgstr "Es existiert keine Revision dieser Seite"
 
 #, python-format
 msgid ""
@@ -918,17 +951,17 @@ msgstr ""
 "Javascript wird benötigt, um Wagtail zu verwenden, aber es ist derzeit "
 "deaktiviert"
 
-msgid "User bar"
-msgstr "Benutzer"
-
 msgid "Go to Wagtail admin interface"
+msgstr "Zum Wagtail Admin-Interface"
+
+msgid "Go to Wagtail admin"
 msgstr "Zum Wagtail Admin-Interface"
 
 msgid "Add a child page"
 msgstr "Unterseite hinzufügen"
 
-msgid "Add"
-msgstr "Hinzufügen"
+msgid "Show in Explorer"
+msgstr "Im Explorer anzeigen"
 
 msgid "Test"
 msgstr "Test"
@@ -941,6 +974,42 @@ msgstr "Ihr Passwort wurde erfolgreich geändert."
 
 msgid "Your preferences have been updated successfully!"
 msgstr "Ihre Einstellungen wurden gesichert!"
+
+msgid "You have been successfully logged out."
+msgstr "Sie wurden erfolgreich abgemeldet."
+
+msgid "Collections"
+msgstr "Sammlungen"
+
+msgid "Add a collection"
+msgstr "Sammlung hinzufügen"
+
+msgid "Add collection"
+msgstr "Sammlung hinzufügen"
+
+#, python-brace-format
+msgid "Collection '{0}' created."
+msgstr "Sammlung '{0}' wurde erstellt."
+
+#, python-brace-format
+msgid "Collection '{0}' updated."
+msgstr "Sammlung '{0}' geändert."
+
+msgid "The collection could not be saved due to errors."
+msgstr "Beim Speichern der Sammlung sind Fehler aufgetreten."
+
+msgid "Delete collection"
+msgstr "Sammlung löschen"
+
+#, python-brace-format
+msgid "Collection '{0}' deleted."
+msgstr "Sammlung '{0}' gelöscht."
+
+msgid "Are you sure you want to delete this collection?"
+msgstr "Sind Sie sicher, dass Sie diese Sammlung löschen möchten?"
+
+msgid "Editing"
+msgstr "Bearbeiten"
 
 #, python-brace-format
 msgid "Page '{0}' created and scheduled for publishing."
@@ -962,6 +1031,9 @@ msgstr "Die Seite ‚{0}‘ wurde erstellt und zur Freischaltung eingereicht."
 msgid "View draft"
 msgstr "Entwurf anzeigen"
 
+msgid "Failed to send notifications to moderators"
+msgstr "Benachrichtigungen an die Moderatoren konnten nicht versendet werden"
+
 #, python-brace-format
 msgid "Page '{0}' created."
 msgstr "Seite ‚{0}‘ erstellt."
@@ -970,20 +1042,35 @@ msgid "The page could not be created due to validation errors"
 msgstr "Die Seite konnte wegen Prüfungsfehlern nicht erstellt werden."
 
 #, python-brace-format
-msgid "Page '{0}' scheduled for publishing."
-msgstr "Die Seite „{0}“ ist zur Veröffentlichung (zu einem Termin) eingeplant."
+msgid "Revision from {0} of page '{1}' has been scheduled for publishing."
+msgstr ""
+"Revision von {0} von Seite '{1}' wurde zur Veröffentlichung (zu einem "
+"Termin) eingeplant."
 
 #, python-brace-format
-msgid "Page '{0}' published."
-msgstr "Seite ‚{0}‘ veröffentlicht."
+msgid "Page '{0}' has been scheduled for publishing."
+msgstr ""
+"Die Seite „{0}“ wurde zur Veröffentlichung (zu einem Termin) eingeplant."
 
 #, python-brace-format
-msgid "Page '{0}' submitted for moderation."
-msgstr "Seite ‚{0}‘ zur Freischaltung eingereicht."
+msgid "Revision from {0} of page '{1}' has been published."
+msgstr "Revision von {0} von Seite '{1}' wurde veröffentlicht."
 
 #, python-brace-format
-msgid "Page '{0}' updated."
-msgstr "Seite ‚{0}‘ geändert."
+msgid "Page '{0}' has been published."
+msgstr "Seite ‚{0}‘ wurde veröffentlicht."
+
+#, python-brace-format
+msgid "Page '{0}' has been submitted for moderation."
+msgstr "Seite '{0}' wurde zur Moderation eingereicht."
+
+#, python-brace-format
+msgid "Page '{0}' has been replaced with revision from {1}."
+msgstr "Seite '{0}' wurde auf Version von {1} zurückgesetzt."
+
+#, python-brace-format
+msgid "Page '{0}' has been updated."
+msgstr "Seite '{0}' wurde aktualisiert."
 
 msgid "The page could not be saved as it is locked"
 msgstr "Diese Seite konnte nicht gespeichert werden, da sie gesperrt ist."
@@ -1021,8 +1108,18 @@ msgid "The page '{0}' is not currently awaiting moderation."
 msgstr "Die Seite ‚{0}‘ wartet derzeit nicht auf Freischaltung."
 
 #, python-brace-format
+msgid "Page '{0}' published."
+msgstr "Seite ‚{0}‘ veröffentlicht."
+
+msgid "Failed to send approval notifications"
+msgstr "Bestätigungsbenachrichtigungen konnten nicht versendet werden"
+
+#, python-brace-format
 msgid "Page '{0}' rejected for publication."
 msgstr "Die Veröffentlichung der Seite ‚{0}‘ wurde abgelehnt."
+
+msgid "Failed to send rejection notifications"
+msgstr "Ablehnungsbenachrichtigungen konnten nicht versendet werden"
 
 #, python-brace-format
 msgid "Page '{0}' is now locked."
@@ -1032,17 +1129,50 @@ msgstr "Die Seite ‚{0}‘ ist jetzt gesperrt."
 msgid "Page '{0}' is now unlocked."
 msgstr "Die Seite ‚{0}‘ ist jetzt entsperrt."
 
+#, python-format
+msgid ""
+"You are viewing a previous revision of this page from <b>%(created_at)s</b> "
+"by %(user)s"
+msgstr ""
+"Sie betrachten eine frühere Version dieser Seite vom <b>%(created_at)s</b> "
+"von %(user)s"
+
 msgid "Pages"
 msgstr "Seiten"
 
-msgid "Collections"
-msgstr "Sammlungen"
+msgid "Preview draft"
+msgstr "Entwurf anzeigen"
+
+msgid "Add child page"
+msgstr "Unterseite hinzufügen"
+
+#, python-brace-format
+msgid "Add a child page to '{0}' "
+msgstr "Unterseite zu '{0}' hinzufügen"
+
+msgid "More"
+msgstr "Mehr"
+
+msgid "View more options"
+msgstr "Weitere Optionen anzeigen"
+
+msgid "Move this page"
+msgstr "Diese Seite verschieben"
+
+msgid "Delete this page"
+msgstr "Diese Seite löschen"
+
+msgid "Unpublish this page"
+msgstr "Diese Seite depublizieren"
+
+msgid "View this page's revision history"
+msgstr "Revisionsgeschichte dieser Seite anzeigen"
 
 msgid "Choose an item"
 msgstr "Eintrag wählen"
 
 msgid "Choose another item"
-msgstr "Einen anderen Eintrag wählen"
+msgstr "Anderen Eintrag wählen"
 
 msgid "Clear choice"
 msgstr "Auswahl zurücksetzen"
@@ -1051,4 +1181,4 @@ msgid "Edit this item"
 msgstr "Dieses Objekt bearbeiten"
 
 msgid "Choose another page"
-msgstr "Noch eine Seite wählen"
+msgstr "Andere Seite auswählen"

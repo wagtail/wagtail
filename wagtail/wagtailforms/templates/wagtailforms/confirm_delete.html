@@ -13,7 +13,7 @@
         </p>
         <form action="{% url 'wagtailforms:delete_submission' page.id submission.id %}" method="POST">
             {% csrf_token %}
-            <input type="submit" value="{% trans 'Delete it' %}" class="serious">
+            <input type="submit" value="{% trans 'Delete it' %}" class="button serious">
         </form>
     </div>
 {% endblock %}

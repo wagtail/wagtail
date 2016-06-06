@@ -1,14 +1,14 @@
 from __future__ import absolute_import, print_function, unicode_literals
 
-import os
 import io
-import subprocess
 import json
-
+import os
+import subprocess
 
 from setuptools import Command
 from setuptools.command.bdist_egg import bdist_egg
 from setuptools.command.sdist import sdist as base_sdist
+
 from wagtail.wagtailcore import __semver__
 
 

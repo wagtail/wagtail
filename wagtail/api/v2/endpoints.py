@@ -1,28 +1,27 @@
-from __future__ import absolute_import
+from __future__ import absolute_import, unicode_literals
 
 from collections import OrderedDict
 
-from django.conf.urls import url
-from django.http import Http404
-from django.core.urlresolvers import reverse
 from django.apps import apps
-
+from django.conf.urls import url
+from django.core.urlresolvers import reverse
+from django.http import Http404
 from rest_framework import status
+from rest_framework.renderers import BrowsableAPIRenderer, JSONRenderer
 from rest_framework.response import Response
 from rest_framework.viewsets import GenericViewSet
-from rest_framework.renderers import JSONRenderer, BrowsableAPIRenderer
 
 from wagtail.wagtailcore.models import Page
+from wagtail.wagtaildocs.models import get_document_model
 from wagtail.wagtailimages.models import get_image_model
-from wagtail.wagtaildocs.models import Document
 
 from .filters import (
-    FieldsFilter, OrderingFilter, SearchFilter,
-    RestrictedChildOfFilter, RestrictedDescendantOfFilter
-)
+    FieldsFilter, OrderingFilter, RestrictedChildOfFilter, RestrictedDescendantOfFilter,
+    SearchFilter)
 from .pagination import WagtailPagination
-from .serializers import BaseSerializer, PageSerializer, DocumentSerializer, ImageSerializer, get_serializer_class
-from .utils import BadRequestError, page_models_from_string, filter_page_type
+from .serializers import (
+    BaseSerializer, DocumentSerializer, ImageSerializer, PageSerializer, get_serializer_class)
+from .utils import BadRequestError, filter_page_type, page_models_from_string
 
 
 class BaseAPIEndpoint(GenericViewSet):
@@ -283,4 +282,4 @@ class DocumentsAPIEndpoint(BaseAPIEndpoint):
     extra_meta_fields = ['tags', ]
     default_fields = ['title', 'tags']
     name = 'documents'
-    model = Document
+    model = get_document_model()

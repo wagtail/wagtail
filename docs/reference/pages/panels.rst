@@ -105,7 +105,7 @@ PageChooserPanel
 
 
         class BookPage(Page):
-            publisher = models.ForeignKey(
+            related_page = models.ForeignKey(
                 'wagtailcore.Page',
                 null=True,
                 blank=True,
@@ -117,7 +117,9 @@ PageChooserPanel
                 PageChooserPanel('related_page', 'demo.PublisherPage'),
             ]
 
-    ``PageChooserPanel`` takes one required argument, the field name. Optionally, specifying a page type (in the form of an ``"appname.modelname"`` string) will filter the chooser to display only pages of that type. A list or tuple of page types can also be passed in, to allow choosing a page that matches any of those page types::
+    ``PageChooserPanel`` takes one required argument, the field name. Optionally, specifying a page type (in the form of an ``"appname.modelname"`` string) will filter the chooser to display only pages of that type. A list or tuple of page types can also be passed in, to allow choosing a page that matches any of those page types:
+
+    .. code-block:: python
 
         PageChooserPanel('related_page', ['demo.PublisherPage', 'demo.AuthorPage'])
 

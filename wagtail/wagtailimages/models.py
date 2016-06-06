@@ -1,39 +1,36 @@
-from __future__ import unicode_literals
+from __future__ import absolute_import, unicode_literals
 
-import os.path
 import hashlib
-from contextlib import contextmanager
+import os.path
 from collections import OrderedDict
-
-from taggit.managers import TaggableManager
-from willow.image import Image as WillowImage
+from contextlib import contextmanager
 
 import django
-from django.core.files import File
+from django.conf import settings
 from django.core.exceptions import ImproperlyConfigured
+from django.core.files import File
+from django.core.urlresolvers import reverse
 from django.db import models
 from django.db.models.signals import pre_delete, pre_save
 from django.dispatch.dispatcher import receiver
-from django.utils.safestring import mark_safe
-from django.utils.six import BytesIO, text_type
 from django.forms.widgets import flatatt
-from django.conf import settings
-from django.utils.translation import ugettext_lazy as _
 from django.utils.encoding import python_2_unicode_compatible
 from django.utils.functional import cached_property
-from django.utils.six import string_types
-from django.core.urlresolvers import reverse
-
+from django.utils.safestring import mark_safe
+from django.utils.six import BytesIO, string_types, text_type
+from django.utils.translation import ugettext_lazy as _
+from taggit.managers import TaggableManager
 from unidecode import unidecode
+from willow.image import Image as WillowImage
 
+from wagtail.wagtailadmin.taggable import TagSearchable
+from wagtail.wagtailadmin.utils import get_object_usage
 from wagtail.wagtailcore import hooks
 from wagtail.wagtailcore.models import CollectionMember
-from wagtail.wagtailadmin.taggable import TagSearchable
+from wagtail.wagtailimages.exceptions import InvalidFilterSpecError
+from wagtail.wagtailimages.rect import Rect
 from wagtail.wagtailsearch import index
 from wagtail.wagtailsearch.queryset import SearchableQuerySetMixin
-from wagtail.wagtailimages.rect import Rect
-from wagtail.wagtailimages.exceptions import InvalidFilterSpecError
-from wagtail.wagtailadmin.utils import get_object_usage
 
 
 class SourceImageIOError(IOError):
@@ -48,7 +45,24 @@ class ImageQuerySet(SearchableQuerySetMixin, models.QuerySet):
 
 
 def get_upload_to(instance, filename):
-    # Dumb proxy to instance method.
+    """
+    Obtain a valid upload path for an image file.
+
+    This needs to be a module-level function so that it can be referenced within migrations,
+    but simply delegates to the `get_upload_to` method of the instance, so that AbstractImage
+    subclasses can override it.
+    """
+    return instance.get_upload_to(filename)
+
+
+def get_rendition_upload_to(instance, filename):
+    """
+    Obtain a valid upload path for an image rendition file.
+
+    This needs to be a module-level function so that it can be referenced within migrations,
+    but simply delegates to the `get_upload_to` method of the instance, so that AbstractRendition
+    subclasses can override it.
+    """
     return instance.get_upload_to(filename)
 
 
@@ -123,9 +137,9 @@ class AbstractImage(CollectionMember, TagSearchable):
         return reverse('wagtailimages:image_usage',
                        args=(self.id,))
 
-    search_fields = TagSearchable.search_fields + CollectionMember.search_fields + (
+    search_fields = TagSearchable.search_fields + CollectionMember.search_fields + [
         index.FilterField('uploaded_by_user'),
-    )
+    ]
 
     def __str__(self):
         return self.title
@@ -442,7 +456,7 @@ class Filter(models.Model):
 
 class AbstractRendition(models.Model):
     filter = models.ForeignKey(Filter, related_name='+')
-    file = models.ImageField(upload_to='images', width_field='width', height_field='height')
+    file = models.ImageField(upload_to=get_rendition_upload_to, width_field='width', height_field='height')
     width = models.IntegerField(editable=False)
     height = models.IntegerField(editable=False)
     focal_point_key = models.CharField(max_length=255, blank=True, default='', editable=False)
@@ -482,6 +496,11 @@ class AbstractRendition(models.Model):
 
     def __html__(self):
         return self.img_tag()
+
+    def get_upload_to(self, filename):
+        folder_name = 'images'
+        filename = self.file.field.storage.get_valid_name(filename)
+        return os.path.join(folder_name, filename)
 
     class Meta:
         abstract = True

@@ -1,7 +1,8 @@
+from __future__ import absolute_import, unicode_literals
+
 from django.utils.encoding import python_2_unicode_compatible
 
 from wagtail.wagtailcore import blocks
-
 from wagtail.wagtailembeds.format import embed_to_frontend_html
 
 
@@ -60,3 +61,6 @@ class EmbedBlock(blocks.URLBlock):
             return None
         else:
             return EmbedValue(value)
+
+    class Meta:
+        icon = "media"

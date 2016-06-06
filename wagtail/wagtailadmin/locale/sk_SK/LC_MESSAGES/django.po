@@ -8,9 +8,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-03-01 18:51+0000\n"
-"PO-Revision-Date: 2016-03-01 18:55+0000\n"
-"Last-Translator: mattwestcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2016-05-18 21:37+0000\n"
+"PO-Revision-Date: 2016-05-11 20:33+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Slovak (Slovakia) (http://www.transifex.com/torchbox/wagtail/"
 "language/sk_SK/)\n"
 "MIME-Version: 1.0\n"
@@ -165,9 +165,6 @@ msgstr "Skontrolujte váš email"
 msgid "A link to reset your password has been emailed to you."
 msgstr "Odkaz na resetovanie hesla bol zaslaný na vašu emailovú adresu."
 
-msgid "Please follow the link below to reset your password"
-msgstr "Prosím kliknite na odkaz nižšie pre resetovanie vášho hesla"
-
 msgid "Password reset"
 msgstr "Obnova hesla"
 
@@ -319,21 +316,18 @@ msgstr "Zabudli ste heslo?"
 msgid "You can view the page here:"
 msgstr "Tu môžete vidieť stránku"
 
-msgid "Hello"
-msgstr "Ahoj"
-
 msgid "Edit your notification preferences here:"
 msgstr "Tu upravte vaše notifikáčné nastavenia:"
 
 msgid "You can edit the page here:"
 msgstr "Tu môžete upraviť stránku:"
 
+msgid "You can preview the page here:"
+msgstr "Tu môžete vidieť stránku:"
+
 #, python-format
 msgid "The page \"%(page)s\" has been submitted for moderation"
 msgstr "Stránka \"%(page)s\" bola odoslaná na moderáciu"
-
-msgid "You can preview the page here:"
-msgstr "Tu môžete vidieť stránku:"
 
 msgid "Page privacy"
 msgstr "Nastavenie súkromia stránky"
@@ -461,9 +455,6 @@ msgstr "Prehliadať"
 msgid "Add subpage"
 msgstr "Pridať podstránku"
 
-msgid "Add child page"
-msgstr "Pridať rodičovskú stránku"
-
 msgid "Previous"
 msgstr "Predchádzajúca"
 
@@ -580,9 +571,6 @@ msgstr ""
 msgid "Go to Wagtail admin interface"
 msgstr "Pokračovať do administrátorskej časti"
 
-msgid "Add"
-msgstr "Pridať"
-
 msgid "Sorry, you do not have permission to access this area."
 msgstr "Prepáčte, ale na prístup k tejto časti nemáte oprávnenia"
 
@@ -612,18 +600,6 @@ msgstr "Stránka '{0}' bola vytvorená."
 
 msgid "The page could not be created due to validation errors"
 msgstr "Táto stránka nemôže byť vytvorená, kvôli validačným chybám."
-
-#, python-brace-format
-msgid "Page '{0}' published."
-msgstr "Stránka '{0}' bola publikovaná."
-
-#, python-brace-format
-msgid "Page '{0}' submitted for moderation."
-msgstr "Stránka '{0}' bola odoslaná na moderáciu."
-
-#, python-brace-format
-msgid "Page '{0}' updated."
-msgstr "Stránka '{0}' bola aktualizovaná."
 
 msgid "The page could not be saved as it is locked"
 msgstr "Stránka nemohla byť uložená, pretože je momentálne uzamknutá."
@@ -655,6 +631,10 @@ msgid "The page '{0}' is not currently awaiting moderation."
 msgstr "Stránka '{0}'  momentálne čaká na moderáciu"
 
 #, python-brace-format
+msgid "Page '{0}' published."
+msgstr "Stránka '{0}' bola publikovaná."
+
+#, python-brace-format
 msgid "Page '{0}' is now locked."
 msgstr "Stránka '{0}' bola uzamknutá."
 
@@ -664,6 +644,9 @@ msgstr "Stránka '{0}' bola odomknutá."
 
 msgid "Pages"
 msgstr "Stránky"
+
+msgid "Add child page"
+msgstr "Pridať rodičovskú stránku"
 
 msgid "Choose an item"
 msgstr "Zvoľte položku"

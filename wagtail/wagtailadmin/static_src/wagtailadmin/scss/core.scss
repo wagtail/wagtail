@@ -16,6 +16,8 @@
 @import 'wagtailadmin/scss/components/progressbar';
 @import 'wagtailadmin/scss/components/datetimepicker';
 @import 'wagtailadmin/scss/components/main-nav';
+@import 'wagtailadmin/scss/components/indicator';
+@import 'wagtailadmin/scss/components/tooltips';
 
 @import 'wagtailadmin/scss/fonts';
 
@@ -117,7 +119,7 @@ body {
 }
 
 footer {
-    @include transition(all 0.2s ease);
+    // @include transition(all 0.2s ease);
     @include transition(bottom 0.5s ease 1s);
     @include row();
     border-radius: 3px 3px 0 0;
@@ -491,10 +493,10 @@ footer,
 .nav-toggle,
 footer,
 .logo {
-    @include transition(all 0.2s ease);
+    // @include transition(all 0.2s ease);
 }
 
-.nav-main a,
-a {
-    @include transition(color 0.2s ease, background-color 0.2s ease);
-}
+// .nav-main a,
+// a {
+    // @include transition(color 0.2s ease, background-color 0.2s ease);
+// }

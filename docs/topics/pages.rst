@@ -50,10 +50,10 @@ This example represents a typical blog post:
 
         # Search index configuraiton
 
-        search_fields = Page.search_fields + (
+        search_fields = Page.search_fields + [
             index.SearchField('body'),
             index.FilterField('date'),
-        )
+        ]
 
 
         # Editor panels configuration
@@ -119,11 +119,11 @@ Search
 
 The ``search_fields`` attribute defines which fields are added to the search index and how they are indexed.
 
-This should be a tuple of ``SearchField`` and ``FilterField`` objects. ``SearchField`` adds a field for full-text search. ``FilterField`` adds a field for filtering the results. A field can be indexed with both ``SearchField`` and ``FilterField`` at the same time (but only one instance of each).
+This should be a list of ``SearchField`` and ``FilterField`` objects. ``SearchField`` adds a field for full-text search. ``FilterField`` adds a field for filtering the results. A field can be indexed with both ``SearchField`` and ``FilterField`` at the same time (but only one instance of each).
 
 In the above example, we've indexed ``body`` for full-text search and ``date`` for filtering.
 
-The arguments that these field types accept are documented here: :ref:`wagtailsearch_indexing_fields`.
+The arguments that these field types accept are documented in :ref:`wagtailsearch_indexing_fields`.
 
 
 Editor panels

@@ -77,12 +77,17 @@ def get_search_backend(backend='default', **kwargs):
     return backend_cls(params)
 
 
-def get_search_backends(with_auto_update=False):
+def get_search_backends_with_name(with_auto_update=False):
     if hasattr(settings, 'WAGTAILSEARCH_BACKENDS'):
         for backend, params in settings.WAGTAILSEARCH_BACKENDS.items():
             if with_auto_update and params.get('AUTO_UPDATE', True) is False:
                 continue
 
-            yield get_search_backend(backend)
+            yield backend, get_search_backend(backend)
     else:
-        yield get_search_backend('default')
+        yield 'default', get_search_backend('default')
+
+
+def get_search_backends(with_auto_update=False):
+    # For backwards compatibility
+    return (backend for _, backend in get_search_backends_with_name(with_auto_update=with_auto_update))

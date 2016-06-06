@@ -162,16 +162,28 @@ The following example defines a basic blog post model in ``blog/models.py``:
         intro = models.CharField(max_length=250)
         body = RichTextField(blank=True)
 
-        search_fields = Page.search_fields + (
+        search_fields = Page.search_fields + [
             index.SearchField('intro'),
             index.SearchField('body'),
-        )
+        ]
 
         content_panels = Page.content_panels + [
             FieldPanel('date'),
             FieldPanel('intro'),
             FieldPanel('body', classname="full")
         ]
+
+
+.. note::
+   On Wagtail versions before 1.5, ``search_fields`` needs to be defined as a tuple:
+
+   .. code-block:: python
+
+        search_fields = Page.search_fields + (
+            index.SearchField('intro'),
+            index.SearchField('body'),
+        )
+
 
 Create a template at ``blog/templates/blog/blog_page.html``:
 
@@ -229,10 +241,10 @@ model:
         intro = models.CharField(max_length=250)
         body = RichTextField(blank=True)
 
-        search_fields = Page.search_fields + (
+        search_fields = Page.search_fields + [
             index.SearchField('intro'),
             index.SearchField('body'),
-        )
+        ]
 
         content_panels = Page.content_panels + [
             FieldPanel('date'),
@@ -258,7 +270,7 @@ Adjust your blog page template to include the image:
         <p class="meta">{{ page.date }}</p>
 
         {% if page.main_image %}
-          {% image page.main_image width-400 %}
+            {% image page.main_image width-400 %}
         {% endif %}
 
         <div class="intro">{{ page.intro }}</div>

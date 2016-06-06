@@ -8,14 +8,15 @@
 # Johannes Spielmann <j@spielmannsolutions.com>, 2014
 # karlsander <karlsander@gmail.com>, 2014
 # karlsander <karlsander@gmail.com>, 2014
+# Moritz Pfeiffer <moritz@alp-phone.ch>, 2016
 # Wasilis Mandratzis-Walz, 2015
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-03-01 18:52+0000\n"
-"PO-Revision-Date: 2016-03-02 13:07+0000\n"
-"Last-Translator: Henrik Kröger <hedwig@riseup.net>\n"
+"POT-Creation-Date: 2016-05-18 21:37+0000\n"
+"PO-Revision-Date: 2016-05-19 07:26+0000\n"
+"Last-Translator: Moritz Pfeiffer <moritz@alp-phone.ch>\n"
 "Language-Team: German (http://www.transifex.com/torchbox/wagtail/language/"
 "de/)\n"
 "MIME-Version: 1.0\n"
@@ -80,6 +81,9 @@ msgstr "%(snippet_type_name)s erstellen"
 
 msgid "New"
 msgstr "Erstellen"
+
+msgid "Saving..."
+msgstr "Speichern..."
 
 msgid "Save"
 msgstr "Speichern"

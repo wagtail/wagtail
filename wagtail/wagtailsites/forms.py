@@ -1,8 +1,10 @@
+from __future__ import absolute_import, unicode_literals
+
 from django import forms
 from django.utils.translation import ugettext_lazy as _
 
-from wagtail.wagtailcore.models import Site
 from wagtail.wagtailadmin.widgets import AdminPageChooser
+from wagtail.wagtailcore.models import Site
 
 
 class SiteForm(forms.ModelForm):

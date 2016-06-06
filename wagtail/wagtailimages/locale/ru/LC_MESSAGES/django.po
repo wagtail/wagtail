@@ -5,15 +5,17 @@
 # Translators:
 # ajk, 2014
 # Eugene MechanisM <contact@mechanism.name>, 2014-2016
-# mattwestcott <matthew@torchbox.com>, 2015
+# Matt Westcott <matthew@torchbox.com>, 2015
+# Mikalai Radchuk <radchuk.m@gmail.com>, 2016
 # Sergey Komarov <sjkomarov@gmail.com>, 2014
+# gsstver <gsstver@gmail.com>, 2016
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-03-01 18:52+0000\n"
-"PO-Revision-Date: 2016-03-03 20:58+0000\n"
-"Last-Translator: Eugene MechanisM <contact@mechanism.name>\n"
+"POT-Creation-Date: 2016-05-18 21:37+0000\n"
+"PO-Revision-Date: 2016-05-26 13:33+0000\n"
+"Last-Translator: Mikalai Radchuk <radchuk.m@gmail.com>\n"
 "Language-Team: Russian (http://www.transifex.com/torchbox/wagtail/language/"
 "ru/)\n"
 "MIME-Version: 1.0\n"
@@ -257,19 +259,19 @@ msgstr ""
 
 #, python-format
 msgid ""
-"You've not uploaded any images in this collection. Why not <a href="
-"\"%(wagtailimages_add_image_url)s\">add one now</a>?"
+"You haven't uploaded any images in this collection. Why not <a href="
+"\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
 msgstr ""
-"Вы еще не загрузили ни одного изображения в эту коллекцию. Почему бы <a href="
-"\"%(wagtailimages_add_image_url)s\">не сделать это сейчас</a>?"
+"Вы не загрузили ни одного изображения в эту коллекцию. Почему бы <a href="
+"\"%(wagtailimages_add_image_url)s\">не загрузить сейчас</a>?"
 
 #, python-format
 msgid ""
-"You've not uploaded any images. Why not <a href="
-"\"%(wagtailimages_add_image_url)s\">add one now</a>?"
+"You haven't uploaded any images. Why not <a href="
+"\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
 msgstr ""
-"Вы еще не загрузили ни одного изображения. Почему бы <a href="
-"\"%(wagtailimages_add_image_url)s\">не сделать это сейчас</a>?"
+"Вы не загрузили ни одного изображения. Почему бы <a href="
+"\"%(wagtailimages_add_image_url)s\">не загрузить сейчас</a>?"
 
 msgid "Generating URL"
 msgstr "Создание URL"

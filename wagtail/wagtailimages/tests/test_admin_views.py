@@ -1,14 +1,20 @@
-from __future__ import unicode_literals
+from __future__ import absolute_import, unicode_literals
 
 import json
 
+from django.contrib.auth import get_user_model
+from django.contrib.auth.models import Group, Permission
+from django.core.files.uploadedfile import SimpleUploadedFile
+from django.core.urlresolvers import reverse
+from django.template.defaultfilters import filesizeformat
 from django.test import TestCase, override_settings
 from django.utils.http import urlquote
-from django.core.urlresolvers import reverse
-from django.contrib.auth import get_user_model
-from django.contrib.auth.models import Permission, Group
-from django.core.files.uploadedfile import SimpleUploadedFile
-from django.template.defaultfilters import filesizeformat
+
+from wagtail.tests.utils import WagtailTestUtils
+from wagtail.wagtailcore.models import Collection, GroupCollectionPermission
+from wagtail.wagtailimages.views.serve import generate_signature
+
+from .utils import Image, get_test_image_file
 
 # Get the chars that Django considers safe to leave unescaped in a URL
 # This list changed in Django 1.8:  https://github.com/django/django/commit/e167e96cfea670422ca75d0b35fe7c4195f25b63
@@ -17,12 +23,6 @@ try:
     urlquote_safechars = RFC3986_SUBDELIMS + str('/~:@')
 except ImportError:  # < Django 1,8
     urlquote_safechars = '/'
-
-from wagtail.tests.utils import WagtailTestUtils
-from wagtail.wagtailcore.models import Collection, GroupCollectionPermission
-from wagtail.wagtailimages.utils import generate_signature
-
-from .utils import Image, get_test_image_file
 
 
 class TestImageIndexView(TestCase, WagtailTestUtils):
@@ -74,6 +74,9 @@ class TestImageAddView(TestCase, WagtailTestUtils):
         # as standard, only the root collection exists and so no 'Collection' option
         # is displayed on the form
         self.assertNotContains(response, '<label for="id_collection">')
+
+        # Ensure the form supports file uploads
+        self.assertContains(response, 'enctype="multipart/form-data"')
 
     def test_get_with_collections(self):
         root_collection = Collection.get_first_root_node()
@@ -264,6 +267,9 @@ class TestImageEditView(TestCase, WagtailTestUtils):
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'wagtailimages/images/edit.html')
 
+        # Ensure the form supports file uploads
+        self.assertContains(response, 'enctype="multipart/form-data"')
+
     @override_settings(WAGTAIL_USAGE_COUNT_ENABLED=True)
     def test_with_usage_count(self):
         response = self.get()
@@ -367,9 +373,7 @@ class TestImageDeleteView(TestCase, WagtailTestUtils):
         self.assertTemplateUsed(response, 'wagtailimages/images/confirm_delete.html')
 
     def test_delete(self):
-        response = self.post({
-            'hello': 'world'
-        })
+        response = self.post()
 
         # Should redirect back to index
         self.assertRedirects(response, reverse('wagtailimages:index'))
@@ -498,6 +502,75 @@ class TestImageChooserUploadView(TestCase, WagtailTestUtils):
 
         # Check that the image was created
         self.assertTrue(Image.objects.filter(title="Test image").exists())
+
+
+class TestImageChooserUploadViewWithLimitedPermissions(TestCase, WagtailTestUtils):
+    def setUp(self):
+        add_image_permission = Permission.objects.get(
+            content_type__app_label='wagtailimages', codename='add_image'
+        )
+        admin_permission = Permission.objects.get(
+            content_type__app_label='wagtailadmin', codename='access_admin'
+        )
+
+        root_collection = Collection.get_first_root_node()
+        self.evil_plans_collection = root_collection.add_child(name="Evil plans")
+
+        conspirators_group = Group.objects.create(name="Evil conspirators")
+        conspirators_group.permissions.add(admin_permission)
+        GroupCollectionPermission.objects.create(
+            group=conspirators_group,
+            collection=self.evil_plans_collection,
+            permission=add_image_permission
+        )
+
+        user = get_user_model().objects.create_user(
+            username='moriarty',
+            email='moriarty@example.com',
+            password='password'
+        )
+        user.groups.add(conspirators_group)
+
+        self.client.login(username='moriarty', password='password')
+
+    def test_get(self):
+        response = self.client.get(reverse('wagtailimages:chooser_upload'))
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'wagtailimages/chooser/chooser.html')
+
+        # user only has access to one collection, so no 'Collection' option
+        # is displayed on the form
+        self.assertNotContains(response, '<label for="id_collection">')
+
+    def test_get_chooser(self):
+        response = self.client.get(reverse('wagtailimages:chooser'))
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'wagtailimages/chooser/chooser.html')
+
+        # user only has access to one collection, so no 'Collection' option
+        # is displayed on the form
+        self.assertNotContains(response, '<label for="id_collection">')
+
+    def test_add(self):
+        response = self.client.post(reverse('wagtailimages:chooser_upload'), {
+            'title': "Test image",
+            'file': SimpleUploadedFile('test.png', get_test_image_file().file.getvalue()),
+        })
+
+        self.assertEqual(response.status_code, 200)
+
+        # Check that the image was created
+        images = Image.objects.filter(title="Test image")
+        self.assertEqual(images.count(), 1)
+
+        # Image should be created in the 'evil plans' collection,
+        # despite there being no collection field in the form, because that's the
+        # only one the user has access to
+        self.assertTrue(Image.objects.filter(title="Test image").exists())
+        self.assertEqual(
+            Image.objects.get(title="Test image").collection,
+            self.evil_plans_collection
+        )
 
 
 class TestMultipleImageUploader(TestCase, WagtailTestUtils):

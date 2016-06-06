@@ -10,12 +10,6 @@ $explorer-z-index: 500;
     top: 0;
     left: 0;
     display: none;
-    -webkit-perspective: 1000px;
-    -moz-perspective: 1000px;
-    perspective: 1000px;
-    -webkit-perspective-origin: 50% 200%;
-    -moz-perspective-origin: 50% 200%;
-    perspective-origin: 50% 200%;
 
     ul {
         background: $color-grey-1;

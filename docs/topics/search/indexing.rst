@@ -74,10 +74,10 @@ This creates an ``EventPage`` model with two fields: ``description`` and ``date`
         description = models.TextField()
         date = models.DateField()
 
-        search_fields = Page.search_fields + ( # Inherit search_fields from Page
+        search_fields = Page.search_fields + [ # Inherit search_fields from Page
             index.SearchField('description'),
             index.FilterField('date'),
-        )
+        ]
 
 
     # Get future events which contain the string "Christmas" in the title or description
@@ -180,13 +180,13 @@ One use for this is indexing the ``get_*_display`` methods Django creates automa
 
         is_private = models.BooleanField(choices=IS_PRIVATE_CHOICES)
 
-        search_fields = Page.search_fields + (
+        search_fields = Page.search_fields + [
             # Index the human-readable string for searching.
             index.SearchField('get_is_private_display'),
 
             # Index the boolean value for filtering.
             index.FilterField('is_private'),
-        )
+        ]
 
 Callables also provide a way to index fields from related models. In the example from :ref:`inline_panels`, to index each BookPage by the titles of its related_links:
 
@@ -216,20 +216,20 @@ To do this, inherit from ``index.Indexed`` and add some ``search_fields`` to the
 
     from wagtail.wagtailsearch import index
 
-    class Book(models.Model, index.Indexed):
+    class Book(index.Indexed, models.Model):
         title = models.CharField(max_length=255)
         genre = models.CharField(max_length=255, choices=GENRE_CHOICES)
         author = models.ForeignKey(Author)
         published_date = models.DateTimeField()
 
-        search_fields = (
+        search_fields = [
             index.SearchField('title', partial_match=True, boost=10),
             index.SearchField('get_genre_display'),
 
             index.FilterField('genre'),
             index.FilterField('author'),
             index.FilterField('published_date'),
-        )
+        ]
 
     # As this model doesn't have a search method in its QuerySet, we have to call search directly on the backend
     >>> from wagtail.wagtailsearch.backends import get_search_backend

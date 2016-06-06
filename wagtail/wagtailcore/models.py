@@ -1,53 +1,53 @@
-from __future__ import unicode_literals
+from __future__ import absolute_import, unicode_literals
 
-
-import logging
 import json
-import warnings
-
+import logging
 from collections import defaultdict
-from modelcluster.models import ClusterableModel, get_all_child_relations
-from django.db import models, connection, transaction
-from django.db.models import Q
-from django.db.models.signals import post_save, pre_delete, post_delete
+from django import VERSION as DJANGO_VERSION
+
+from django.conf import settings
+from django.contrib.auth.models import Group, Permission
+from django.contrib.contenttypes.models import ContentType
+from django.core import checks
+from django.core.cache import cache
+from django.core.exceptions import ValidationError
+from django.core.handlers.base import BaseHandler
+from django.core.handlers.wsgi import WSGIRequest
+from django.core.urlresolvers import reverse
+from django.db import connection, models, transaction
+from django.db.models import Case, IntegerField, Q, When
+from django.db.models.signals import post_delete, post_save, pre_delete
 from django.dispatch.dispatcher import receiver
 from django.http import Http404
-from django.core.cache import cache
-from django.core.handlers.wsgi import WSGIRequest
-from django.core.handlers.base import BaseHandler
-from django.core.urlresolvers import reverse
-from django.contrib.contenttypes.models import ContentType
-from django.contrib.auth.models import Group, Permission
-from django.conf import settings
 from django.template.response import TemplateResponse
-from django.utils import timezone
+# Must be imported from Django so we get the new implementation of with_metaclass
+from django.utils import six, timezone
+from django.utils.encoding import python_2_unicode_compatible
+from django.utils.functional import cached_property
 from django.utils.six import StringIO
 from django.utils.six.moves.urllib.parse import urlparse
 from django.utils.text import slugify
 from django.utils.translation import ugettext_lazy as _
-from django.core.exceptions import ValidationError
-from django.utils.functional import cached_property
-from django.utils.encoding import python_2_unicode_compatible
-from django.core import checks
-
-# Must be imported from Django so we get the new implementation of with_metaclass
-from django.utils import six
-
+from modelcluster.models import ClusterableModel, get_all_child_relations
 from treebeard.mp_tree import MP_Node
 
-from wagtail.wagtailcore.utils import camelcase_to_underscore, resolve_model_string
+from wagtail.utils.deprecation import SearchFieldsShouldBeAList
 from wagtail.wagtailcore.query import PageQuerySet, TreeQuerySet
-from wagtail.wagtailcore.url_routing import RouteResult
 from wagtail.wagtailcore.signals import page_published, page_unpublished
-
+from wagtail.wagtailcore.url_routing import RouteResult
+from wagtail.wagtailcore.utils import (
+    WAGTAIL_APPEND_SLASH, camelcase_to_underscore, resolve_model_string)
 from wagtail.wagtailsearch import index
-
-from wagtail.utils.deprecation import RemovedInWagtail15Warning
-
 
 logger = logging.getLogger('wagtail.core')
 
 PAGE_TEMPLATE_VAR = 'page'
+
+
+MATCH_HOSTNAME_PORT = 0
+MATCH_HOSTNAME_DEFAULT = 1
+MATCH_DEFAULT = 2
+MATCH_HOSTNAME = 3
 
 
 class SiteManager(models.Manager):
@@ -93,11 +93,17 @@ class Site(models.Model):
         return (self.hostname, self.port)
 
     def __str__(self):
-        return (
-            self.hostname +
-            ("" if self.port == 80 else (":%d" % self.port)) +
-            (" [default]" if self.is_default_site else "")
-        )
+        if self.site_name:
+            return(
+                self.site_name +
+                (" [default]" if self.is_default_site else "")
+            )
+        else:
+            return(
+                self.hostname +
+                ("" if self.port == 80 else (":%d" % self.port)) +
+                (" [default]" if self.is_default_site else "")
+            )
 
     @staticmethod
     def find_for_request(request):
@@ -114,21 +120,53 @@ class Site(models.Model):
         NB this means that high-numbered ports on an extant hostname may
         still be routed to a different hostname which is set as the default
         """
+
         try:
-            hostname = request.META['HTTP_HOST'].split(':')[0]  # KeyError here goes to the final except clause
-            try:
-                # find a Site matching this specific hostname
-                return Site.objects.get(hostname=hostname)  # Site.DoesNotExist here goes to the final except clause
-            except Site.MultipleObjectsReturned:
-                # as there were more than one, try matching by port too
-                port = request.META['SERVER_PORT']  # KeyError here goes to the final except clause
-                return Site.objects.get(hostname=hostname, port=int(port))
-                # Site.DoesNotExist here goes to the final except clause
-        except (Site.DoesNotExist, KeyError):
-            # If no matching site exists, or request does not specify an HTTP_HOST (which
-            # will often be the case for the Django test client), look for a catch-all Site.
-            # If that fails, let the Site.DoesNotExist propagate back to the caller
-            return Site.objects.get(is_default_site=True)
+            hostname = request.get_host().split(':')[0]
+        except KeyError:
+            hostname = None
+
+        try:
+            port = request.get_port()
+        except (AttributeError, KeyError):
+            port = request.META.get('SERVER_PORT')
+
+        sites = list(Site.objects.annotate(match=Case(
+            # annotate the results by best choice descending
+
+            # put exact hostname+port match first
+            When(hostname=hostname, port=port, then=MATCH_HOSTNAME_PORT),
+
+            # then put hostname+default (better than just hostname or just default)
+            When(hostname=hostname, is_default_site=True, then=MATCH_HOSTNAME_DEFAULT),
+
+            # then match default with different hostname. there is only ever
+            # one default, so order it above (possibly multiple) hostname
+            # matches so we can use sites[0] below to access it
+            When(is_default_site=True, then=MATCH_DEFAULT),
+
+            # because of the filter below, if it's not default then its a hostname match
+            default=MATCH_HOSTNAME,
+
+            output_field=IntegerField(),
+        )).filter(Q(hostname=hostname) | Q(is_default_site=True)).order_by(
+            'match'
+        ).select_related(
+            'root_page'
+        ))
+
+        if sites:
+            # if theres a unique match or hostname (with port or default) match
+            if len(sites) == 1 or sites[0].match in (MATCH_HOSTNAME_PORT, MATCH_HOSTNAME_DEFAULT):
+                return sites[0]
+
+            # if there is a default match with a different hostname, see if
+            # there are many hostname matches. if only 1 then use that instead
+            # otherwise we use the default
+            if sites[0].match == MATCH_DEFAULT:
+                return sites[len(sites) == 2]
+
+        raise Site.DoesNotExist()
 
     @property
     def root_url(self):
@@ -192,13 +230,6 @@ def clear_site_root_paths_on_delete(sender, instance, **kwargs):
 PAGE_MODEL_CLASSES = []
 
 
-def get_content_type_list(models):
-    """
-    Helper function to return a list of content types, given a list of models
-    """
-    return ContentType.objects.get_for_models(*models).values()
-
-
 def get_page_models():
     """
     Returns a list of all non-abstract Page model classes defined in this project.
@@ -212,19 +243,6 @@ def get_default_page_content_type():
     has been deleted.
     """
     return ContentType.objects.get_for_model(Page)
-
-
-def get_page_types():
-    """
-    DEPRECATED.
-    Returns a list of ContentType objects for all non-abstract Page model classes
-    defined in this project.
-    """
-    warnings.warn(
-        "get_page_types is deprecated - please use get_page_models instead",
-        RemovedInWagtail15Warning, stacklevel=2)
-
-    return get_content_type_list(PAGE_MODEL_CLASSES)
 
 
 class BasePageManager(models.Manager):
@@ -273,17 +291,26 @@ class PageBase(models.base.ModelBase):
 
 
 @python_2_unicode_compatible
-class Page(six.with_metaclass(PageBase, MP_Node, ClusterableModel, index.Indexed)):
+class Page(six.with_metaclass(PageBase, MP_Node, index.Indexed, ClusterableModel)):
     title = models.CharField(
         verbose_name=_('title'),
         max_length=255,
         help_text=_("The page title as you'd like it to be seen by the public")
     )
-    slug = models.SlugField(
-        verbose_name=_('slug'),
-        max_length=255,
-        help_text=_("The name of the page as it will appear in URLs e.g http://domain.com/blog/[my-slug]/")
-    )
+    # use django 1.9+ SlugField with unicode support
+    if DJANGO_VERSION >= (1, 9):
+        slug = models.SlugField(
+            verbose_name=_('slug'),
+            allow_unicode=True,
+            max_length=255,
+            help_text=_("The name of the page as it will appear in URLs e.g http://domain.com/blog/[my-slug]/")
+        )
+    else:
+        slug = models.SlugField(
+            verbose_name=_('slug'),
+            max_length=255,
+            help_text=_("The name of the page as it will appear in URLs e.g http://domain.com/blog/[my-slug]/")
+        )
     content_type = models.ForeignKey(
         'contenttypes.ContentType',
         verbose_name=_('content type'),
@@ -348,7 +375,7 @@ class Page(six.with_metaclass(PageBase, MP_Node, ClusterableModel, index.Indexed
         editable=False
     )
 
-    search_fields = (
+    search_fields = SearchFieldsShouldBeAList([
         index.SearchField('title', partial_match=True, boost=2),
         index.FilterField('id'),
         index.FilterField('live'),
@@ -360,7 +387,7 @@ class Page(six.with_metaclass(PageBase, MP_Node, ClusterableModel, index.Indexed
         index.FilterField('show_in_menus'),
         index.FilterField('first_published_at'),
         index.FilterField('latest_revision_created_at'),
-    )
+    ], name='search_fields on Page subclasses')
 
     # Do not allow plain Page instances to be created through the Wagtail admin
     is_creatable = False
@@ -427,7 +454,10 @@ class Page(six.with_metaclass(PageBase, MP_Node, ClusterableModel, index.Indexed
 
         if not self.slug:
             # Try to auto-populate slug from title
-            base_slug = slugify(self.title)
+            if DJANGO_VERSION >= (1, 9):
+                base_slug = slugify(self.title, allow_unicode=True)
+            else:
+                base_slug = slugify(self.title)
 
             # only proceed if we get a non-empty base slug back from slugify
             if base_slug:
@@ -518,7 +548,7 @@ class Page(six.with_metaclass(PageBase, MP_Node, ClusterableModel, index.Indexed
                     errors.append(
                         checks.Warning(
                             "Field hasn't specified on_delete action",
-                            hint="Set on_delete=models.SET_NULL and make sure the field is nullable.",
+                            hint="Set on_delete=models.SET_NULL and make sure the field is nullable or set on_delete=models.PROTECT. Wagtail does not allow simple database CASCADE because it will corrupt its tree storage.",
                             obj=field,
                             id='wagtailcore.W001',
                         )
@@ -556,19 +586,6 @@ class Page(six.with_metaclass(PageBase, MP_Node, ClusterableModel, index.Indexed
                     id='wagtailcore.E002'
                 )
             )
-
-        from wagtail.wagtailadmin.forms import WagtailAdminPageForm
-        if not issubclass(cls.base_form_class, WagtailAdminPageForm):
-            errors.append(checks.Error(
-                "base_form_class does not extend WagtailAdminPageForm",
-                hint="Ensure that {}.{} extends WagtailAdminPageForm".format(
-                    cls.base_form_class.__module__,
-                    cls.base_form_class.__name__),
-                obj=cls,
-                id='wagtailcore.E002'))
-        # Sadly, there is no way of checking the form class returned from
-        # cls.get_edit_handler().get_form_class(cls), as these calls can hit
-        # the DB in order to fetch content types.
 
         return errors
 
@@ -760,6 +777,13 @@ class Page(six.with_metaclass(PageBase, MP_Node, ClusterableModel, index.Indexed
         for (site_id, root_path, root_url) in Site.get_site_root_paths():
             if self.url_path.startswith(root_path):
                 page_path = reverse('wagtail_serve', args=(self.url_path[len(root_path):],))
+
+                # Remove the trailing slash from the URL reverse generates if
+                # WAGTAIL_APPEND_SLASH is False and we're not trying to serve
+                # the root path
+                if not WAGTAIL_APPEND_SLASH and page_path != '/':
+                    page_path = page_path.rstrip('/')
+
                 return (site_id, root_url, page_path)
 
     @property
@@ -873,18 +897,6 @@ class Page(six.with_metaclass(PageBase, MP_Node, ClusterableModel, index.Indexed
         return cls._clean_subpage_models
 
     @classmethod
-    def clean_subpage_types(cls):
-        """
-        DEPRECATED.
-        Returns the list of subpage types, normalised as ContentType objects
-        """
-        warnings.warn(
-            "clean_subpage_types is deprecated - please use clean_subpage_models instead",
-            RemovedInWagtail15Warning, stacklevel=2)
-
-        return get_content_type_list(cls.clean_subpage_models())
-
-    @classmethod
     def clean_parent_page_models(cls):
         """
         Returns the list of parent page types, normalised as model classes.
@@ -910,18 +922,6 @@ class Page(six.with_metaclass(PageBase, MP_Node, ClusterableModel, index.Indexed
         return cls._clean_parent_page_models
 
     @classmethod
-    def clean_parent_page_types(cls):
-        """
-        DEPRECATED.
-        Returns the list of parent page types, normalised as ContentType objects
-        """
-        warnings.warn(
-            "clean_parent_page_types is deprecated - please use clean_parent_page_models instead",
-            RemovedInWagtail15Warning, stacklevel=2)
-
-        return get_content_type_list(cls.clean_parent_page_models())
-
-    @classmethod
     def allowed_parent_page_models(cls):
         """
         Returns the list of page types that this page type can be a subpage of,
@@ -933,19 +933,6 @@ class Page(six.with_metaclass(PageBase, MP_Node, ClusterableModel, index.Indexed
         ]
 
     @classmethod
-    def allowed_parent_page_types(cls):
-        """
-        DEPRECATED.
-        Returns the list of page types that this page type can be a subpage of,
-        as a list of ContentType objects
-        """
-        warnings.warn(
-            "allowed_parent_page_types is deprecated - please use allowed_parent_page_models instead",
-            RemovedInWagtail15Warning, stacklevel=2)
-
-        return get_content_type_list(cls.allowed_parent_page_models())
-
-    @classmethod
     def allowed_subpage_models(cls):
         """
         Returns the list of page types that this page type can have as subpages,
@@ -955,19 +942,6 @@ class Page(six.with_metaclass(PageBase, MP_Node, ClusterableModel, index.Indexed
             subpage_model for subpage_model in cls.clean_subpage_models()
             if cls in subpage_model.clean_parent_page_models()
         ]
-
-    @classmethod
-    def allowed_subpage_types(cls):
-        """
-        DEPRECATED.
-        Returns the list of page types that this page type can have as subpages,
-        as a list of ContentType objects
-        """
-        warnings.warn(
-            "allowed_subpage_types is deprecated - please use allowed_subpage_models instead",
-            RemovedInWagtail15Warning, stacklevel=2)
-
-        return get_content_type_list(cls.allowed_subpage_models())
 
     @classmethod
     def creatable_subpage_models(cls):
@@ -1212,6 +1186,10 @@ class Page(six.with_metaclass(PageBase, MP_Node, ClusterableModel, index.Indexed
             # whatever we find in ALLOWED_HOSTS
             try:
                 hostname = settings.ALLOWED_HOSTS[0]
+                if hostname == '*':
+                    # '*' is a valid value to find in ALLOWED_HOSTS[0], but it's not a valid domain name.
+                    # So we pretend it isn't there.
+                    raise IndexError
             except IndexError:
                 hostname = 'localhost'
             path = '/'
@@ -1680,7 +1658,7 @@ class PagePermissionTester(object):
         return (
             self.user.is_superuser or
             ('edit' in self.permissions) or
-            ('add' in self.permissions and self.page.owner_id == self.user.id)
+            ('add' in self.permissions and self.page.owner_id == self.user.pk)
         )
 
     def can_delete(self):
@@ -1701,7 +1679,7 @@ class PagePermissionTester(object):
             # user can only delete if all pages in this subtree are unpublished and owned by this user
             return (
                 (not self.page.live) and
-                (self.page.owner_id == self.user.id) and
+                (self.page.owner_id == self.user.pk) and
                 (not self.page.get_descendants().exclude(live=False, owner=self.user).exists())
             )
 
@@ -1860,9 +1838,9 @@ class CollectionMember(models.Model):
         on_delete=models.CASCADE
     )
 
-    search_fields = (
+    search_fields = SearchFieldsShouldBeAList([
         index.FilterField('collection'),
-    )
+    ], name='search_fields on CollectionMember subclasses')
 
     class Meta:
         abstract = True

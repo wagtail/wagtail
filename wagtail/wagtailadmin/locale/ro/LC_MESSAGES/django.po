@@ -8,9 +8,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-03-01 18:51+0000\n"
-"PO-Revision-Date: 2016-03-01 22:47+0000\n"
-"Last-Translator: Dan Braghis\n"
+"POT-Creation-Date: 2016-05-18 21:37+0000\n"
+"PO-Revision-Date: 2016-05-11 20:33+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Romanian (http://www.transifex.com/torchbox/wagtail/language/"
 "ro/)\n"
 "MIME-Version: 1.0\n"
@@ -208,9 +208,6 @@ msgstr "Verificăți contul de e-mail"
 
 msgid "A link to reset your password has been emailed to you."
 msgstr "Link-ul de resetare a parolei a fost trimis prin e-mail."
-
-msgid "Please follow the link below to reset your password"
-msgstr "Vă rugăm să urmați link-ul de mai jos pentru a reseta parola"
 
 msgid "Password reset"
 msgstr "Resetarea parolei"
@@ -426,25 +423,22 @@ msgid "Signing in..."
 msgstr "În curs de conectare..."
 
 #, python-format
-msgid "The page \"%(title)s\" has been approved"
-msgstr "Pagina \"%(title)s\" a fost aprobată"
-
-#, python-format
 msgid "The page \"%(title)s\" has been approved."
 msgstr "Pagina \"%(title)s\" a fost aprobată."
 
 msgid "You can view the page here:"
 msgstr "Puteți vedea pagina aici:"
 
-msgid "Hello"
-msgstr "Salut"
+#, python-format
+msgid "The page \"%(title)s\" has been approved"
+msgstr "Pagina \"%(title)s\" a fost aprobată"
+
+#, python-format
+msgid "Hello %(username)s,"
+msgstr "Salut %(username)s,"
 
 msgid "Edit your notification preferences here:"
 msgstr "Editează preferințele de notificare aici:"
-
-#, python-format
-msgid "The page \"%(title)s\" has been rejected"
-msgstr "Pagina \"%(title)s\" a fost respinsă"
 
 #, python-format
 msgid "The page \"%(title)s\" has been rejected."
@@ -454,8 +448,8 @@ msgid "You can edit the page here:"
 msgstr "Puteți edita pagina aici:"
 
 #, python-format
-msgid "The page \"%(page)s\" has been submitted for moderation"
-msgstr "Pagina \"%(page)s\" a fost trimisă pentru moderare"
+msgid "The page \"%(title)s\" has been rejected"
+msgstr "Pagina \"%(title)s\" a fost respinsă"
 
 #, python-format
 msgid "The page \"%(page)s\" has been submitted for moderation by %(editor)s."
@@ -464,6 +458,10 @@ msgstr ""
 
 msgid "You can preview the page here:"
 msgstr "Puteți examina pagina aici:"
+
+#, python-format
+msgid "The page \"%(page)s\" has been submitted for moderation"
+msgstr "Pagina \"%(page)s\" a fost trimisă pentru moderare"
 
 msgid "Page privacy"
 msgstr "Confidențialitate"
@@ -631,6 +629,12 @@ msgstr "Editare %(page_type)s <span>%(title)s</span>"
 msgid "Page locked"
 msgstr "Pagină blocată"
 
+msgid "Replace current draft"
+msgstr "Înlocuiește ciorna curentă"
+
+msgid "Publish this revision"
+msgstr "Publică această revizie"
+
 #, python-format
 msgid "Last modified: %(last_mod)s"
 msgstr "Ultima modificare: %(last_mod)s"
@@ -736,16 +740,6 @@ msgstr "Adaugă o pagină dependentă de '%(title)s'"
 msgid "Add subpage"
 msgstr "Adaugă subpagină"
 
-msgid ""
-"This page is published but does not exist within a configured Site, so "
-"cannot be viewed."
-msgstr ""
-"Această pagină este publicată, dar nu poate fi vizualizată pentru că nu "
-"există în cadrul unui Sit configurat."
-
-msgid "Add child page"
-msgstr "Adaugă pagină dependentă"
-
 #, python-format
 msgid ""
 "\n"
@@ -780,6 +774,22 @@ msgstr "Alege o pagină de bază nouă pentru %(title)s"
 #, python-format
 msgid "Select a new parent page for <span>%(title)s</span>"
 msgstr "Alege o pagină de bază nouă pentru <span>%(title)s</span>"
+
+#, python-format
+msgid "Revisions of %(title)s"
+msgstr "Revizii pentru %(title)s"
+
+msgid "Revisions of"
+msgstr "Revizii ale"
+
+msgid "Current draft"
+msgstr "Ciornă curentă"
+
+msgid "Review this revision"
+msgstr "Revezi această revizie"
+
+msgid "No revision of this page exist"
+msgstr "Această pagină nu are nici o revizie."
 
 #, python-format
 msgid ""
@@ -909,17 +919,17 @@ msgstr ""
 msgid "Javascript is required to use Wagtail, but it is currently disabled"
 msgstr "Wagtail are nevoie de JavaScript, care la moment este dezactivat."
 
-msgid "User bar"
-msgstr "Bară utilizator"
-
 msgid "Go to Wagtail admin interface"
+msgstr "Spre interfața de administrare Wagtail"
+
+msgid "Go to Wagtail admin"
 msgstr "Spre interfața de administrare Wagtail"
 
 msgid "Add a child page"
 msgstr "Adaugă o pagină dependentă"
 
-msgid "Add"
-msgstr "Adaugă"
+msgid "Show in Explorer"
+msgstr "Arată în Explorator"
 
 msgid "Test"
 msgstr "Test"
@@ -932,6 +942,9 @@ msgstr "Parola a fost schimbată cu succes!"
 
 msgid "Your preferences have been updated successfully!"
 msgstr "Preferințele au fost schimbare cu success!"
+
+msgid "Collections"
+msgstr "Colecții"
 
 #, python-brace-format
 msgid "Page '{0}' created and scheduled for publishing."
@@ -959,19 +972,31 @@ msgid "The page could not be created due to validation errors"
 msgstr "Pagina nu a fost creată din cauza erorilor de validare."
 
 #, python-brace-format
-msgid "Page '{0}' scheduled for publishing."
+msgid "Revision from {0} of page '{1}' has been scheduled for publishing."
+msgstr "Revizia din {0} a paginii '{1}' a fost programată pentru publicare."
+
+#, python-brace-format
+msgid "Page '{0}' has been scheduled for publishing."
 msgstr "Pagina '{0}' a fost programată pentru publicare."
 
 #, python-brace-format
-msgid "Page '{0}' published."
+msgid "Revision from {0} of page '{1}' has been published."
+msgstr "Revizia din {0} a paginii '{1}' a fost publicată."
+
+#, python-brace-format
+msgid "Page '{0}' has been published."
 msgstr "Pagina '{0}' a fost publicată."
 
 #, python-brace-format
-msgid "Page '{0}' submitted for moderation."
+msgid "Page '{0}' has been submitted for moderation."
 msgstr "Pagina '{0}' a fost trimisă pentru moderare."
 
 #, python-brace-format
-msgid "Page '{0}' updated."
+msgid "Page '{0}' has been replaced with revision from {1}."
+msgstr "Pagina '{0}' a fost schimbată cu revizia {1}."
+
+#, python-brace-format
+msgid "Page '{0}' has been updated."
 msgstr "Pagina '{0}' a fost actualizată."
 
 msgid "The page could not be saved as it is locked"
@@ -1008,6 +1033,10 @@ msgid "The page '{0}' is not currently awaiting moderation."
 msgstr "Pagina '{0}' nu este în moderare la moment."
 
 #, python-brace-format
+msgid "Page '{0}' published."
+msgstr "Pagina '{0}' a fost publicată."
+
+#, python-brace-format
 msgid "Page '{0}' rejected for publication."
 msgstr "Publicare paginii '{0}' a fost refuzată."
 
@@ -1022,8 +1051,8 @@ msgstr "Pagina '{0}' is fost deblocată."
 msgid "Pages"
 msgstr "Pagini"
 
-msgid "Collections"
-msgstr "Colecții"
+msgid "Add child page"
+msgstr "Adaugă pagină dependentă"
 
 msgid "Choose an item"
 msgstr "Alege un element"

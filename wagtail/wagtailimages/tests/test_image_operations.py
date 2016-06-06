@@ -1,11 +1,13 @@
-from mock import Mock
+from __future__ import absolute_import, unicode_literals
 
 from django.test import TestCase
 from django.utils.six import BytesIO
+from mock import Mock
+
 from wagtail.wagtailcore import hooks
 from wagtail.wagtailimages import image_operations
 from wagtail.wagtailimages.exceptions import InvalidFilterSpecError
-from wagtail.wagtailimages.models import Image, Filter
+from wagtail.wagtailimages.models import Filter, Image
 from wagtail.wagtailimages.tests.utils import get_test_image_file
 
 
@@ -55,8 +57,7 @@ class ImageOperationTestCase(TestCase):
             for attr, value in expected_output.items():
                 self.assertEqual(getattr(operation, attr), value)
 
-        test_name = 'test_filter_%s' % filter_spec
-        test_filter_spec.__name__ = test_name
+        test_filter_spec.__name__ = str('test_filter_%s' % filter_spec)
         return test_filter_spec
 
     @classmethod
@@ -64,8 +65,8 @@ class ImageOperationTestCase(TestCase):
         def test_filter_spec_error(self):
             self.assertRaises(InvalidFilterSpecError, self.operation_class, *filter_spec.split('-'))
 
-        test_name = 'test_filter_%s_raises_%s' % (filter_spec, InvalidFilterSpecError.__name__)
-        test_filter_spec_error.__name__ = test_name
+        test_filter_spec_error.__name__ = str('test_filter_%s_raises_%s' % (
+            filter_spec, InvalidFilterSpecError.__name__))
         return test_filter_spec_error
 
     @classmethod
@@ -85,8 +86,7 @@ class ImageOperationTestCase(TestCase):
             # Check
             self.assertEqual(operation_recorder.ran_operations, expected_output)
 
-        test_name = 'test_run_%s' % filter_spec
-        test_run.__name__ = test_name
+        test_run.__name__ = str('test_run_%s' % filter_spec)
         return test_run
 
     @classmethod

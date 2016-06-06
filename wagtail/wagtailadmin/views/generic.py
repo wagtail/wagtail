@@ -1,6 +1,9 @@
+from __future__ import absolute_import, unicode_literals
+
 from django.core.urlresolvers import reverse
-from django.shortcuts import render, redirect, get_object_or_404
-from django.utils.translation import ugettext as _, ugettext_lazy as __
+from django.shortcuts import get_object_or_404, redirect, render
+from django.utils.translation import ugettext as _
+from django.utils.translation import ugettext_lazy
 from django.views.generic.base import View
 
 from wagtail.wagtailadmin import messages
@@ -121,7 +124,7 @@ class EditView(PermissionCheckedMixin, View):
     index_url_name = None
     edit_url_name = None
     delete_url_name = None
-    page_title = __("Editing")
+    page_title = ugettext_lazy("Editing")
     context_object_name = None
     template_name = 'wagtailadmin/generic/edit.html'
     permission_required = 'change'

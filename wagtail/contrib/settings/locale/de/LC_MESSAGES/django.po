@@ -4,13 +4,14 @@
 #
 # Translators:
 # Henrik Kröger <hedwig@riseup.net>, 2016
+# Moritz Pfeiffer <moritz@alp-phone.ch>, 2016
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-03-01 18:51+0000\n"
-"PO-Revision-Date: 2016-03-02 13:08+0000\n"
-"Last-Translator: Henrik Kröger <hedwig@riseup.net>\n"
+"POT-Creation-Date: 2016-05-18 21:37+0000\n"
+"PO-Revision-Date: 2016-05-12 06:42+0000\n"
+"Last-Translator: Moritz Pfeiffer <moritz@alp-phone.ch>\n"
 "Language-Team: German (http://www.transifex.com/torchbox/wagtail/language/"
 "de/)\n"
 "MIME-Version: 1.0\n"
@@ -25,6 +26,9 @@ msgstr "%(setting_type_name)s - %(instance)s bearbeiten"
 
 msgid "Editing"
 msgstr "Bearbeiten"
+
+msgid "Saving..."
+msgstr "Speichern..."
 
 msgid "Save"
 msgstr "Speichern"

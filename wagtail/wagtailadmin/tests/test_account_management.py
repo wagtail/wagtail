@@ -1,4 +1,4 @@
-from __future__ import unicode_literals
+from __future__ import absolute_import, unicode_literals
 
 from django.contrib.auth import get_user_model
 from django.contrib.auth.models import Group, Permission
@@ -50,7 +50,7 @@ class TestAuthentication(TestCase, WagtailTestUtils):
         self.assertTrue('_auth_user_id' in self.client.session)
         self.assertEqual(
             str(self.client.session['_auth_user_id']),
-            str(get_user_model().objects.get(username='test').id)
+            str(get_user_model().objects.get(username='test').pk)
         )
 
     def test_already_logged_in_redirect(self):
@@ -206,6 +206,7 @@ class TestAccountSection(TestCase, WagtailTestUtils):
         """
         # Post new password to change password page
         post_data = {
+            'old_password': 'password',
             'new_password1': 'newpassword',
             'new_password2': 'newpassword',
         }

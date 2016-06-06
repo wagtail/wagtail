@@ -385,14 +385,14 @@ body.explorer-open {
 
     .explorer {
         width: 400px;
-        position: absolute;
-        top: 0;
-        left: 99%;
+        position: fixed;
+        top: 0 !important;
+        left: $menu-width;
         margin-top: 175px; // same as .nav-main minus 1 pixel for border
     }
 
     .dl-menu {
-        position: absolute;
+        position: fixed;
     }
 
     body.nav-open {
@@ -414,6 +414,17 @@ body.explorer-open {
 
         .explorer:before {
             display: none;
+        }
+
+        .explorer:after {
+            content: '';
+            width: calc(100% - 2px);
+            height: 100%;
+            position: absolute;
+            top: 0;
+            right: 0;
+            z-index: -1;
+            box-shadow: 0 0 2px rgba(255, 255, 255, 0.9);
         }
 
         .nav-main {

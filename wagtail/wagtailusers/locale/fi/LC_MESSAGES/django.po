@@ -5,13 +5,14 @@
 # Translators:
 # Aarni Koskela, 2016
 # Eetu Häivälä <eetu.haivala@anders.fi>, 2016
+# Rauli Laine <rauli.laine@iki.fi>, 2016
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-03-01 18:52+0000\n"
-"PO-Revision-Date: 2016-03-01 19:08+0000\n"
-"Last-Translator: mattwestcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2016-05-18 21:37+0000\n"
+"PO-Revision-Date: 2016-03-18 07:39+0000\n"
+"Last-Translator: Aarni Koskela\n"
 "Language-Team: Finnish (http://www.transifex.com/torchbox/wagtail/language/"
 "fi/)\n"
 "MIME-Version: 1.0\n"
@@ -39,6 +40,9 @@ msgstr "Salasanakentät eivät täsmää."
 msgid "Administrator"
 msgstr "Ylläpitäjä"
 
+msgid "Administrators have full access to manage any object or setting."
+msgstr "Ylläpitäjät voivat hallita mitä tahansa kohdetta tai asetusta."
+
 msgid "Password"
 msgstr "Salasana"
 
@@ -62,6 +66,9 @@ msgstr "Sukunimi"
 
 msgid "A group with that name already exists."
 msgstr "Samanniminen ryhmä on jo olemassa."
+
+msgid "You cannot have multiple permission records for the same page."
+msgstr "Samalle sivulle ei voi olla useampaa pääsylupatietuetta."
 
 msgid "submitted notifications"
 msgstr "lähetys&shy;ilmoitukset"
@@ -261,3 +268,6 @@ msgstr "Käyttäjä '{0}' päivitetty."
 
 msgid "The user could not be saved due to errors."
 msgstr "Käyttäjää ei voitu tallentaa virheiden vuoksi."
+
+msgid "Groups"
+msgstr "Ryhmät"

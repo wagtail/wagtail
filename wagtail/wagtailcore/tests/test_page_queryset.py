@@ -1,8 +1,10 @@
+from __future__ import absolute_import, unicode_literals
+
 from django.test import TestCase
 
+from wagtail.tests.testapp.models import EventPage, SingleEventPage
 from wagtail.wagtailcore.models import Page, PageViewRestriction
 from wagtail.wagtailcore.signals import page_unpublished
-from wagtail.tests.testapp.models import EventPage, SingleEventPage
 
 
 class TestPageQuerySet(TestCase):

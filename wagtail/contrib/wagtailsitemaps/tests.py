@@ -1,8 +1,10 @@
-from django.test import TestCase
-from django.core.cache import cache
+from __future__ import absolute_import, unicode_literals
 
+from django.core.cache import cache
+from django.test import TestCase
+
+from wagtail.tests.testapp.models import EventIndex, SimplePage
 from wagtail.wagtailcore.models import Page, PageViewRestriction, Site
-from wagtail.tests.testapp.models import SimplePage, EventIndex
 
 from .sitemap_generator import Sitemap
 

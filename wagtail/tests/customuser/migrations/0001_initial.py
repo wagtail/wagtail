@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 
-from django.db import models, migrations
+from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
@@ -14,7 +14,7 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='CustomUser',
             fields=[
-                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+                ('identifier', models.AutoField(serialize=False, primary_key=True)),
                 ('password', models.CharField(max_length=128, verbose_name='password')),
 
                 (
@@ -34,6 +34,7 @@ class Migration(migrations.Migration):
                 ('is_active', models.BooleanField(default=True)),
                 ('first_name', models.CharField(max_length=50, blank=True)),
                 ('last_name', models.CharField(max_length=50, blank=True)),
+                ('country', models.CharField(max_length=100, blank=True)),
                 (
                     'groups',
                     models.ManyToManyField(

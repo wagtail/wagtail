@@ -1,0 +1,24 @@
+{% load i18n %}
+<div class="field boolean_field widget-checkbox_input">
+    <label for="{{ attrs.id }}-handsontable-header">{%  trans 'Row header' %}</label>
+    <div class="field-content">
+        <div class="input">
+            <input type="checkbox" id="{{ attrs.id }}-handsontable-header" name="handsontable-header"/>
+        </div>
+        <p class="help">{% trans 'Display the first row as a header.' %}</p>
+    </div>
+</div>
+<br/>
+<div class="field boolean_field widget-checkbox_input">
+    <label for="{{ attrs.id }}-handsontable-col-header">{%  trans 'Column header' %}</label>
+    <div class="field-content">
+        <div class="input">
+            <input type="checkbox" id="{{ attrs.id }}-handsontable-col-header" name="handsontable-col-header"/>
+        </div>
+        <p class="help">{% trans 'Display the first column as a header.' %}</p>
+    </div>
+</div>
+<br/>
+<div id="{{ attrs.id }}-handsontable-container"></div>
+{{ original_field_html }}
+

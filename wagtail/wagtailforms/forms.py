@@ -1,3 +1,5 @@
+from __future__ import absolute_import, unicode_literals
+
 from collections import OrderedDict
 
 import django.forms
@@ -6,7 +8,7 @@ import django.forms
 class BaseForm(django.forms.Form):
     def __init__(self, *args, **kwargs):
         kwargs.setdefault('label_suffix', '')
-        return super(BaseForm, self).__init__(*args, **kwargs)
+        super(BaseForm, self).__init__(*args, **kwargs)
 
 
 class FormBuilder(object):
@@ -97,7 +99,7 @@ class FormBuilder(object):
         return options
 
     def get_form_class(self):
-        return type('WagtailForm', (BaseForm,), self.formfields)
+        return type(str('WagtailForm'), (BaseForm,), self.formfields)
 
 
 class SelectDateForm(django.forms.Form):

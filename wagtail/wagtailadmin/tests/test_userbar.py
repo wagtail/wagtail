@@ -1,13 +1,15 @@
-from django.test import TestCase
-from django.test.client import RequestFactory
-from django.core.urlresolvers import reverse
-from django.template import Template, Context
+from __future__ import absolute_import, unicode_literals
+
 from django.contrib.auth import get_user_model
 from django.contrib.auth.models import AnonymousUser
+from django.core.urlresolvers import reverse
+from django.template import Context, Template
+from django.test import TestCase
+from django.test.client import RequestFactory
 
+from wagtail.tests.testapp.models import BusinessChild, BusinessIndex
 from wagtail.tests.utils import WagtailTestUtils
-from wagtail.wagtailcore.models import Page, Site, PAGE_TEMPLATE_VAR
-from wagtail.tests.testapp.models import BusinessIndex, BusinessChild
+from wagtail.wagtailcore.models import PAGE_TEMPLATE_VAR, Page, Site
 
 
 class TestUserbarTag(TestCase):
@@ -33,6 +35,13 @@ class TestUserbarTag(TestCase):
         }))
 
         self.assertIn("<!-- Wagtail user bar embed code -->", content)
+
+    def test_userbar_does_not_break_without_request(self):
+        template = Template("{% load wagtailuserbar %}{% wagtailuserbar %}boom")
+        content = template.render(Context({
+        }))
+
+        self.assertEqual("boom", content)
 
     def test_userbar_tag_self(self):
         """
