@@ -23,3 +23,4 @@ Bug fixes
  * Reverted fix for explorer menu scrolling with page content, as it blocked access to menus that exceed screen height
  * Image listing in the image chooser no longer becomes unpaginated after an invalid upload form submission (Stephen Rice)
  * Confirmation message on the ModelAdmin delete view no longer errors if the model's string representation depends on the primary key (Yannick Chabbert)
+ * Applied correct translation tags for 'permanent' / 'temporary' labels on redirects (Matt Westcott)

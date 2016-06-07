@@ -19,6 +19,7 @@ Changelog
  * Fix: Now page chooser (in a rich text editor) opens up at the link's parent page, rather than at the page itself (Matt Westcott)
  * Fix: Reverted fix for explorer menu scrolling with page content, as it blocked access to menus that exceed screen height
  * Fix: Image listing in the image chooser no longer becomes unpaginated after an invalid upload form submission (Stephen Rice)
+ * Fix: Applied correct translation tags for 'permanent' / 'temporary' labels on redirects (Matt Westcott)
 
 
 1.5 (31.05.2016)
