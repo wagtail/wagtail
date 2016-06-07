@@ -16,6 +16,7 @@ Here's an example snippet from the Wagtail demo website:
 .. code-block:: python
 
   from django.db import models
+  from django.utils.encoding import python_2_unicode_compatible
 
   from wagtail.wagtailadmin.edit_handlers import FieldPanel
   from wagtail.wagtailsnippets.models import register_snippet
@@ -23,6 +24,7 @@ Here's an example snippet from the Wagtail demo website:
   ...
 
   @register_snippet
+  @python_2_unicode_compatible  # provide equivalent __unicode__ and __str__ methods on Python 2
   class Advert(models.Model):
       url = models.URLField(null=True, blank=True)
       text = models.CharField(max_length=255)
@@ -32,7 +34,7 @@ Here's an example snippet from the Wagtail demo website:
           FieldPanel('text'),
       ]
       
-      def __str__(self):              # __unicode__ on Python 2
+      def __str__(self):
           return self.text
 
 The ``Advert`` model uses the basic Django model class and defines two properties: text and URL. The editing interface is very close to that provided for ``Page``-derived models, with fields assigned in the ``panels`` property. Snippets do not use multiple tabs of fields, nor do they provide the "save as draft" or "submit for moderation" features.
@@ -148,7 +150,7 @@ To attach multiple adverts to a page, the ``SnippetChooserPanel`` can be placed 
           SnippetChooserPanel('advert'),
       ]
   
-      def __str__(self):              # __unicode__ on Python 2
+      def __str__(self):
           return self.page.title + " -> " + self.advert.text
   
   
