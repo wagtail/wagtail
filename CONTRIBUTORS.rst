@@ -148,14 +148,14 @@ Translators
 * Bulgarian: Lyuboslav Petrov
 * Catalan: Antoni Aloy, David Llop
 * Chinese: hanfeng, Lihan Li, Leway Colin
-* Chinese (China): hanfeng, Daniel Hwang, Jian Li, Listeng Teng, Feng Wang
+* Chinese (China): hanfeng, Daniel Hwang, Jian Li, Listeng Teng, Feng Wang, Joey Zhao
 * Chinese (Taiwan): Lihan Li
 * Croatian (Croatia): Luka Matijević
 * Czech: Ivan Pomykacz, Jiri Stepanek, Marek Turnovec
 * Dutch: benny_AT_it_digin.com, Bram, Brecht Dervaux, Huib Keemink, Thijs Kramer, Samuel Leeuwenburg, mahulst, Michael van Tellingen, Arne Turpyn
 * Dutch (Netherlands): Bram, Franklin Kingma, Maarten Kling, Thijs Kramer
 * Finnish: Eetu Häivälä, Aarni Koskela, Rauli Laine, Glen Somerville, Juha Yrjölä
-* French: Adrien, Timothy Allen, Sebastien Andrivet, Edd Baldry, Bertrand Bordage, André Bouatchidzé, Tom Dyson, Antonin Enfrun, Pierre Marfoure, nahuel
+* French: Adrien, Timothy Allen, Sebastien Andrivet, Edd Baldry, Bertrand Bordage, André Bouatchidzé, Tom Dyson, Antonin Enfrun, Léo, Pierre Marfoure, nahuel
 * Galician: fooflare
 * Georgian: André Bouatchidzé
 * German: Ettore Atalan, Patrick Craston, Henrik Kröger, Tammo van Lessen, Martin Löhle, Wasilis Mandratzis-Walz, Daniel Manser, m0rph3u5, Max Pfeiffer, Moritz Pfeiffer, Herbert Poul, Karl Sander, Tobias Schmidt, Johannes Spielmann, Jannis Vajen, Vorlif, Matthew Westcott

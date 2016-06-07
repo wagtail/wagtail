@@ -7,13 +7,14 @@
 # Daniel Hwang <danielblinkhw@gmail.com>, 2015
 # hanfeng <appweb.cn@gmail.com>, 2014
 # listeng teng <aosp@163.com>, 2016
+# 飘 赵 <275980464@qq.com>, 2016
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-05-18 21:37+0000\n"
-"PO-Revision-Date: 2016-05-11 20:33+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2016-06-06 13:54+0000\n"
+"Last-Translator: 飘 赵 <275980464@qq.com>\n"
 "Language-Team: Chinese (China) (http://www.transifex.com/torchbox/wagtail/"
 "language/zh_CN/)\n"
 "MIME-Version: 1.0\n"
@@ -195,6 +196,9 @@ msgstr "检查您的邮件"
 
 msgid "A link to reset your password has been emailed to you."
 msgstr "已将重置密码的链接发送到您的邮箱。"
+
+msgid "Please follow the link below to reset your password:"
+msgstr "请点击下面的链接来重置密码"
 
 msgid "Password reset"
 msgstr "密码已重置。"
@@ -598,6 +602,9 @@ msgstr "上一次编辑： %(last_mod)s"
 msgid "by %(modified_by)s"
 msgstr "被 %(modified_by)s"
 
+msgid "Revisions"
+msgstr "修订"
+
 #, python-format
 msgid "Exploring %(title)s"
 msgstr "浏览 %(title)s"
@@ -731,6 +738,13 @@ msgstr "%(title)s 的修订"
 
 msgid "Revisions of"
 msgstr "修订"
+
+msgid "Revision date"
+msgstr "修订时间"
+
+msgctxt "points to a user who created a revision"
+msgid "by"
+msgstr "于"
 
 msgid "Current draft"
 msgstr "当前草稿"
