@@ -20,3 +20,5 @@ Bug fixes
  * Rich text editor is no longer broken in settings (Matt Westcott)
  * Link tooltip now shows correct urls for newly inserted document links (Matt Westcott)
  * Now page chooser (in a rich text editor) opens up at the link's parent page, rather than at the page itself (Matt Westcott)
+ * Reverted fix for explorer menu scrolling with page content, as it blocked access to menus that exceed screen height
+ 
