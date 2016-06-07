@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-05-18 21:37+0000\n"
-"PO-Revision-Date: 2016-06-06 13:50+0000\n"
+"PO-Revision-Date: 2016-06-06 13:52+0000\n"
 "Last-Translator: 飘 赵 <275980464@qq.com>\n"
 "Language-Team: Chinese (China) (http://www.transifex.com/torchbox/wagtail/"
 "language/zh_CN/)\n"
@@ -19,29 +19,14 @@ msgstr ""
 "Language: zh_CN\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
-msgid "Styleguide"
-msgstr "样式引导"
+msgid "Row header"
+msgstr "表头"
 
-msgid "Save"
-msgstr "保存"
+msgid "Display the first row as a header."
+msgstr "将第一行视为表头。"
 
-msgid "Delete image"
-msgstr "删除图像"
+msgid "Column header"
+msgstr "标题列"
 
-msgid "Search something"
-msgstr "搜索"
-
-msgid "Success message"
-msgstr "成功信息"
-
-msgid "View live"
-msgstr "实时查看"
-
-msgid "Edit"
-msgstr "编辑"
-
-msgid "Warning message"
-msgstr "警告信息"
-
-msgid "Error message"
-msgstr "错误信息"
+msgid "Display the first column as a header."
+msgstr "将第一列视为标题列。"

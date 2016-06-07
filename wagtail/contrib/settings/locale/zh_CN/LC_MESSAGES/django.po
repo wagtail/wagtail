@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-05-18 21:37+0000\n"
-"PO-Revision-Date: 2016-06-06 13:50+0000\n"
+"PO-Revision-Date: 2016-06-04 07:07+0000\n"
 "Last-Translator: 飘 赵 <275980464@qq.com>\n"
 "Language-Team: Chinese (China) (http://www.transifex.com/torchbox/wagtail/"
 "language/zh_CN/)\n"
@@ -19,29 +19,21 @@ msgstr ""
 "Language: zh_CN\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
-msgid "Styleguide"
-msgstr "样式引导"
+msgid "Editing"
+msgstr "正在编辑"
+
+msgid "Saving..."
+msgstr "正在保存"
 
 msgid "Save"
 msgstr "保存"
 
-msgid "Delete image"
-msgstr "删除图像"
+msgid "Settings"
+msgstr "设置"
 
-msgid "Search something"
-msgstr "搜索"
+#, python-brace-format
+msgid "{setting_type} updated."
+msgstr "{setting_type} 已更新。"
 
-msgid "Success message"
-msgstr "成功信息"
-
-msgid "View live"
-msgstr "实时查看"
-
-msgid "Edit"
-msgstr "编辑"
-
-msgid "Warning message"
-msgstr "警告信息"
-
-msgid "Error message"
-msgstr "错误信息"
+msgid "The setting could not be saved due to errors."
+msgstr "无法保存设置。出现错误。"
