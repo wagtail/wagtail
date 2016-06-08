@@ -714,6 +714,9 @@ def move_choose_destination(request, page_to_move_id, viewed_page_id=None):
 
         child_pages.append(target)
 
+    # Pagination
+    paginator, child_pages = paginate(request, child_pages, per_page=50)
+
     return render(request, 'wagtailadmin/pages/move_choose_destination.html', {
         'page_to_move': page_to_move,
         'viewed_page': viewed_page,

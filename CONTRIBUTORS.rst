@@ -168,6 +168,7 @@ Contributors
 * Jayden Smith
 * emg36
 * Stein Strindhaug
+* Žan Anderle
 
 Translators
 ===========
