@@ -56,7 +56,7 @@
                             url = window.chooserUrls.emailLinkChooser;
                             href = href.replace('mailto:', '');
                             urlParams['link_url'] = href;
-                        } else if (linkType == '') {
+                        } else if (!linkType) {  /* external link */
                             url = window.chooserUrls.externalLinkChooser;
                             urlParams['link_url'] = href;
                         }
