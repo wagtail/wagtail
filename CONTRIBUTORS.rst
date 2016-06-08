@@ -1,5 +1,5 @@
 Authors
-================
+=======
 
 * Matthew Westcott (Torchbox) twitter: @gasmanic
 * David Cranwell (Torchbox) twitter: @davecranwell
@@ -140,6 +140,7 @@ Contributors
 * Stephen Rice
 * Behzad Nategh
 * Yann Fouillat (Gagaro)
+* Jonny Scholes
 
 Translators
 ===========

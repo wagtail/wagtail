@@ -22,6 +22,8 @@ Minor features
 Bug fixes
 ~~~~~~~~~
 
+ * Email templates and document uploader now support custom `STATICFILES_STORAGE` (Jonny Scholes)
+
 
 Upgrade considerations
 ======================
