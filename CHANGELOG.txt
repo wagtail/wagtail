@@ -9,6 +9,12 @@ Changelog
  * oEmbed URL for audioBoom was updated (Janneke Janssen)
 
 
+1.5.2 (08.06.2016)
+~~~~~~~~~~~~~~~~~~
+
+ * Fixed regression in 1.5.1 on editing external links (Stephen Rice)
+
+
 1.5.1 (07.06.2016)
 ~~~~~~~~~~~~~~~~~~
 
