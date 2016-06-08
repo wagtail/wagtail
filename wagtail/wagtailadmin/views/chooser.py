@@ -1,12 +1,13 @@
 from __future__ import absolute_import, unicode_literals
 
 from django.http import Http404
-from django.shortcuts import get_object_or_404, render
+from django.shortcuts import render
 
 from wagtail.utils.pagination import paginate
 from wagtail.wagtailadmin.forms import EmailLinkChooserForm, ExternalLinkChooserForm, SearchForm
 from wagtail.wagtailadmin.modal_workflow import render_modal_workflow
-from wagtail.wagtailcore.models import Page
+from wagtail.wagtailadmin.utils import get_page_if_explorable
+from wagtail.wagtailcore.models import Page, get_closest_common_ancestor_path
 from wagtail.wagtailcore.utils import resolve_model_string
 
 
@@ -48,14 +49,17 @@ def filter_page_type(queryset, page_models):
 
 
 def browse(request, parent_page_id=None):
-    # Find parent page
     if parent_page_id:
-        parent_page = get_object_or_404(Page, id=parent_page_id)
+        parent_page = get_page_if_explorable(parent_page_id, request)
     else:
         parent_page = Page.get_first_root_node()
+        if not request.user.is_superuser:
+            cca_path = get_closest_common_ancestor_path(request.user)
+            if cca_path:
+                parent_page = Page.objects.get(path=cca_path)
 
-    # Get children of parent page
-    pages = parent_page.get_children()
+    # Include only the explorable children in the unfiltered page queryset.
+    pages = parent_page.get_explorable_children(request.user).prefetch_related('content_type')
 
     # Filter them by page type
     # A missing or empty page_type parameter indicates 'all page types' (i.e. descendants of wagtailcore.page)

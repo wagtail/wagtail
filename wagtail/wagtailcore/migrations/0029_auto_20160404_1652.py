@@ -8,7 +8,7 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('wagtailcore', '0028_merge'),
+        ('wagtailcore', '0029_unicode_slugfield_dj19'),
     ]
 
     operations = [

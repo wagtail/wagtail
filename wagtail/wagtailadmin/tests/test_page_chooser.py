@@ -199,6 +199,86 @@ class TestChooserBrowseChild(TestCase, WagtailTestUtils):
         self.assertEqual(response.context['pages'].number, 5)
 
 
+class TestChooserBrowseWithExplorablePageRestrictions(TestCase, WagtailTestUtils):
+    """
+    See wagtail.wagtailadmin.tests.test_pages_views.TestExplorablePageVisibility for an explanation about
+    how the DB is set up, as many of the same rules will apply to these tests.
+    """
+
+    fixtures = ['test_explorable_pages.json']
+
+    def browse(self, **kwargs):
+        return self.client.get(reverse('wagtailadmin_choose_page'), **kwargs)
+
+    def browse_child(self, page_id, **kwargs):
+        return self.client.get(reverse('wagtailadmin_choose_page_child', args=[page_id]), **kwargs)
+
+    def test_default_browse_roots_tree_at_rootpage_for_superusers(self):
+        self.assertTrue(self.client.login(username='superman', password='password'))
+        response = self.browse()
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.context['parent_page'].pk, 1)
+
+    def test_default_browse_does_not_restrict_page_listing_for_superusers(self):
+        self.assertTrue(self.client.login(username='superman', password='password'))
+        response = self.browse()
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(len(response.context['pages']), Page.get_first_root_node().get_children().count())
+        # Confirm that the superuser can see all the homepages, which no other user in the fixture can do.
+        self.assertSequenceEqual(
+            ['Welcome to testserver!', 'Welcome to example.com!', 'Welcome to example.com Again!'],
+            [page.title for page in response.context['pages']]
+        )
+
+    def test_default_browse_roots_tree_at_CCA_for_non_superusers(self):
+        # Jane's CCA is the testserver homepage.
+        self.assertTrue(self.client.login(username='jane', password='password'))
+        response = self.browse()
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.context['parent_page'].pk, 2)
+
+        # Sam's CCA is the root page, since he has perms on both testserver and example.com.
+        self.assertTrue(self.client.login(username='sam', password='password'))
+        response = self.browse()
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.context['parent_page'].pk, 1)
+
+        # Josh's CCA is the example.com homepage.
+        self.assertTrue(self.client.login(username='josh', password='password'))
+        response = self.browse()
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.context['parent_page'].pk, 4)
+
+    def test_browse_restricts_page_listing_for_non_superusers(self):
+        self.assertTrue(self.client.login(username='josh', password='password'))
+        # Get the page listing rooted at the /home/content page on example.com. Josh should not see Page 2.
+        response = self.browse_child(5)
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.context['parent_page'].pk, 5)
+        self.assertNotIn(Page.objects.get(pk=7), response.context['pages'])
+
+    def test_non_superuser_browsing_unpermitted_site_page_gets_403(self):
+        self.assertTrue(self.client.login(username='bob', password='password'))
+        response = self.browse_child(7, HTTP_HOST="example.com")
+        # Bob has permission to explore example.com's "Page 1", but not "Page 2", so the chooser should deny access.
+        self.assertEqual(response.status_code, 403)
+
+    def test_non_superuser_browsings_non_site_page_gets_404(self):
+        self.assertTrue(self.client.login(username='jane', password='password'))
+        response = self.browse_child(4)
+        # Jane doesn't have permission to see the example.com homepage, and it's not associted with the current site,
+        # so the Explorer should claim it doesn't exist.
+        self.assertEqual(response.status_code, 404)
+
+    def test_browsing_nonexistant_page_gets_404(self):
+        self.assertTrue(self.client.login(username='superman', password='password'))
+        # No Page exists with this ID.
+        response = self.browse_child(9999999)
+        self.assertEqual(response.status_code, 404)
+
+
 class TestChooserSearch(TestCase, WagtailTestUtils):
     def setUp(self):
         self.root_page = Page.objects.get(id=2)
