@@ -318,10 +318,21 @@ def explorable_ancestors(page, user):
     """
     Example: {% explorable_ancestors page_obj user_obj as ancestors %}
     Since the Page.get_explorable_ancestors function takes a User object as
-    input, we can't call directly from the template. This template tag does
+    input, we can't call it directly from the template. This template tag does
     that for us.
     """
     return page.get_explorable_ancestors(user)
+
+
+@register.assignment_tag
+def choosable_ancestors(page, user):
+    """
+    Example: {% choosable_ancestors page_obj user_obj as ancestors %}
+    Since the Page.get_choosable_ancestors function takes a User object as
+    input, we can't call it directly from the template. This template tag does
+    that for us.
+    """
+    return page.get_choosable_ancestors(user)
 
 
 @register.assignment_tag
@@ -335,8 +346,37 @@ def is_explorable_root(page, user):
 
 
 @register.assignment_tag
-def can_perform_actions(user, page):
+def is_choosable_root(page, user):
     """
-    Example: {% can_perform_actions request.user page as user_can_perform_actions %}
+    Example: {% is_choosable_root page_obj user_obj as page_is_choosable_root %}
+    Since the Page.is_choosable_root function takes a User object as input, we
+    can't call it directly from the template. This template tag does that for us.
+    """
+    return page.is_choosable_root(user)
+
+
+@register.assignment_tag
+def user_can_explore_page(user, page):
+    """
+    Example: {% user_can_explore_page request.user page as page_is_explorable %}
+    """
+    return page.permissions_for_user(user).can_explore()
+
+
+@register.assignment_tag
+def user_can_perform_actions(user, page):
+    """
+    Example: {% user_can_perform_actions request.user page as page_is_actionable %}
+
+    This tag differs from can_explore_page as it will return False for pages that the
+    user can explore through, but cannot act upon.
     """
     return page.permissions_for_user(user).can_explore(allow_ancestors=False)
+
+
+@register.assignment_tag
+def user_can_choose_page(user, page):
+    """
+    Example: {% user_can_choose_page request.user page as page_is_choosable %}
+    """
+    return page.permissions_for_user(user).can_choose()

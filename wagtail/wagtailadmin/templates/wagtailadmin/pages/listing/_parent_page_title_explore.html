@@ -15,8 +15,8 @@
 
 {% include "wagtailadmin/pages/_privacy_switch.html" with page=parent_page %}
 
-{% can_perform_actions request.user parent_page as user_can_perform_actions %}
-{% if user_can_perform_actions %}
+{% user_can_perform_actions request.user parent_page as page_is_actionable %}
+{% if page_is_actionable %}
     <ul class="actions">
         {% page_listing_buttons parent_page parent_page_perms is_parent=True %}
     </ul>

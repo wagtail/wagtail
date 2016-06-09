@@ -1325,22 +1325,51 @@ class Page(six.with_metaclass(PageBase, MP_Node, index.Indexed, ClusterableModel
 
     def get_explorable_children(self, user):
         """
-        Returns a queryset of all the node's children that the given user is permitted to see in the Explorer.
+        Returns a queryset of all the node's children that the given user is permitted to explore.
         """
-        # Superusers see all children.
-        if user.is_superuser:
-            return self.get_children()
+        return filter_explorable_pages(self.get_children(), user)
 
-        permitted_paths, required_ancestors = get_explorable_page_paths(user)
-        if permitted_paths:
-            return self.get_children().filter(convert_explorable_paths_to_Q(permitted_paths, required_ancestors))
-        else:
-            # If the User has no explorable pages, display nothing.
-            return Page.objects.none()
+    def get_choosable_children(self, user):
+        """
+        Returns a queryset of all the node's children that the given user is permitted to choose.
+        """
+        return filter_choosable_pages(self.get_children(), user)
 
     def get_explorable_ancestors(self, user):
         """
-        Returns a queryset of all the node's ancestors that the given user is permitted to see in the Explorer.
+        Returns a queryset of all the node's ancestors that the given user is permitted to explore.
+        """
+        return self._get_permitted_ancestors(user)
+
+    def get_choosable_ancestors(self, user):
+        """
+        Returns a queryset of all the node's ancestors that the given user is permitted to choose.
+        """
+        return self._get_permitted_ancestors(user, choosable=True)
+
+    def is_explorable_root(self, user):
+        # A superuser's explorable root is the Root page.
+        if user.is_superuser:
+            return self.is_root()
+
+        return self.path == get_closest_common_ancestor_path(user)
+
+    def is_choosable_root(self, user):
+        # A superuser's explorable root is the Root page.
+        if user.is_superuser:
+            return self.is_root()
+
+        return self.path == get_closest_common_ancestor_path(user, choosable=True)
+
+    def is_on_site(self, site):
+        """
+        Returns True if this Page is decendent from the given Site's root page.
+        """
+        return Page.objects.descendant_of(site.root_page, inclusive=True).filter(pk=self.id).exists()
+
+    def _get_permitted_ancestors(self, user, choosable=False):
+        """
+        Internal function that does the work for get_explorable_ancestors() and get_choosable_ancestors().
         """
         # Superusers see all the ancestors.
         if user.is_superuser:
@@ -1352,7 +1381,7 @@ class Page(six.with_metaclass(PageBase, MP_Node, index.Indexed, ClusterableModel
             for pos in range(0, len(self.path) + 1 - self.steplen, self.steplen)[1:]
         ]
 
-        cca_path = get_closest_common_ancestor_path(user)
+        cca_path = get_closest_common_ancestor_path(user, choosable)
         if cca_path:
             # Return only pages with paths that are at least as long as the Closest Common Ancestor's path.
             explorable_ancestor_paths = [path for path in ancestor_paths if len(path) >= len(cca_path)]
@@ -1361,19 +1390,6 @@ class Page(six.with_metaclass(PageBase, MP_Node, index.Indexed, ClusterableModel
             # If the user has no permitted paths, they have no explorable ancestors.
             return Page.objects.none()
 
-    def is_explorable_root(self, user):
-        # A superuser's explorable root is the Root page.
-        if user.is_superuser:
-            return self.is_root()
-
-        return self.path == get_closest_common_ancestor_path(user)
-
-    def is_on_site(self, site):
-        """
-        Returns True if this Page is decendent from the given Site's root page.
-        """
-        return Page.objects.descendant_of(site.root_page, inclusive=True).filter(pk=self.id).exists()
-
     class Meta:
         verbose_name = _('page')
         verbose_name_plural = _('pages')
@@ -1381,19 +1397,45 @@ class Page(six.with_metaclass(PageBase, MP_Node, index.Indexed, ClusterableModel
 
 def get_explorable_page_paths(user):
     """
-    Returns a tuple of lists of treebeard "path" values.
-    The first list is the set of paths which the given user is explicitly permitted to administer (meaning they can
-    administer all children of those paths, too).
-    The second list is the paths which must be shown to the user in order for them to navigate to their permitted Pages
-    in the Explorer. Unlike the paths in the first list, the children of these paths are not to be automatically made
-    visible.
+    Returns a pair of lists of treebeard "path" values for the given User's explorable Pages.
+    The first list is the set of paths which the given user is permitted to administer (meaning they can administer all
+    children of those paths, too).
+    The second list is the paths which must be shown to the User in order for them to navigate to their permitted Pages
+    in the Explorer. Unlike the paths in the first list, the children of these paths should not to be made visible,
+    which is why the lists are separated.
+
+    The first element of the second list is always the Closest Common Ancestor of the User's explorable Pages.
+    """
+    return _get_permitted_page_paths(user)
+
+
+def get_choosable_page_paths(user):
+    """
+    Returns a pair of lists of treebeard "path" values for the given User's choosable Pages.
+    The first list is the set of Page paths for which the given User has the "choose" Permission (meaning they
+    can choose all children of those paths, too).
+    The second list is the paths which must be shown to the User in order for them to navigate to their choosable Pages
+    in the Page Chooser. Unlike the paths in the first list, these pages are NOT choosable, and should not be selectable
+    in the Page Chooser, nor should their children be displayed.
+
+    The first element of the second list is always the Closest Common Ancestor of the User's choosable Pages.
+    """
+    return _get_permitted_page_paths(user, choosable=True)
+
+
+def _get_permitted_page_paths(user, choosable=False):
+    """
+    Internal function that does the work for get_explorable_page_paths() and get_choosable_page_paths().
+
+    Use choosable=True to return paths for Pages for which the given User has the "choose" Permission, instead of
+    returning paths for Pages that the User is allowed to administer.
 
     NOTE: The first element of the second list is always the Closest Common Ancestor of the User's permitted Pages.
     """
     # We cache the output of this function because it can potentially be called several times per request. The cache
     # persists only until the request is complete, and each request gets a completely separate cache instance.
     cache = RequestCacheMiddleware.get_cache()
-    cache_key = 'explorable_pages'
+    cache_key = 'choosable_pages' if choosable else 'explorable_pages'
     if cache is not None:
         permitted_paths, required_ancestors = cache.get(cache_key, ([], []))
     else:
@@ -1401,7 +1443,7 @@ def get_explorable_page_paths(user):
         permitted_paths, required_ancestors = [], []
 
     if not permitted_paths:
-        permitted_paths = UserPagePermissionsProxy(user).permitted_paths()
+        permitted_paths = UserPagePermissionsProxy(user).permitted_paths(choosable)
 
         # Calculate the "closest common ancestor" of all the permitted Pages by finding their common prefix, then
         # chopping off the end to make the length a multiple of Page.steplen.
@@ -1435,10 +1477,10 @@ def get_explorable_page_paths(user):
     return permitted_paths, required_ancestors
 
 
-def convert_explorable_paths_to_Q(permitted_paths, required_ancestors):
+def convert_permitted_paths_to_Q(permitted_paths, required_ancestors):
     """
-    Converts the output of get_explorable_page_paths() to a Q object which will filter a QuerySet down to the
-    appropriate set of Pages.
+    Converts the outputs from get_explorable_page_paths() or get_choosable_page_paths() to a Q object which will
+    filter a QuerySet down to the appropriate set of Pages.
     """
     path_Qs = Q()
     for path in permitted_paths:
@@ -1448,15 +1490,51 @@ def convert_explorable_paths_to_Q(permitted_paths, required_ancestors):
     return path_Qs
 
 
-def get_closest_common_ancestor_path(user):
+def get_closest_common_ancestor_path(user, choosable=False):
     """
-    Returns the Closest Common Ancestor for the specified user, or None if the user has no explorable page paths.
+    Returns the Closest Common Ancestor for the specified User, or None if the User has no explorable Page paths.
+
+    Pass in choosable=True to get the CCA path of the User's choosable pages, rather then their explorable pages.
     """
-    permitted_paths, required_ancestors = get_explorable_page_paths(user)
+    permitted_paths, required_ancestors = _get_permitted_page_paths(user, choosable)
     if permitted_paths:
         return required_ancestors[0]
     else:
         return None
+
+
+def filter_explorable_pages(queryset, user, include_ancestors=True):
+    """
+    This filters the queryset to include only those Pages which are explorable by the given User.
+    """
+    return _filter_permitted_pages(queryset, user, include_ancestors, choosable=False)
+
+
+def filter_choosable_pages(queryset, user, include_ancestors=True):
+    """
+    This filters the queryset to include only those Pages which are choosable by the given User.
+    """
+    return _filter_permitted_pages(queryset, user, include_ancestors, choosable=True)
+
+
+def _filter_permitted_pages(queryset, user, include_ancestors=True, choosable=False):
+    """
+    This filters the queryset to include only those Pages which are explorable/choosable by the given User.
+    If include_ancestors is False, ancestor pages which are normally required to allow the User to
+    navigate to their permitted pages will not be included.
+    """
+    # Superusers can explore all pages.
+    if user.is_superuser:
+        return queryset
+
+    permitted_paths, required_ancestors = _get_permitted_page_paths(user, choosable)
+    if permitted_paths:
+        return queryset.filter(
+            convert_permitted_paths_to_Q(permitted_paths, required_ancestors if include_ancestors else [])
+        )
+    else:
+        # If the User has no permitted pages, display nothing.
+        return queryset.none()
 
 
 def get_navigation_menu_items(user):
@@ -1469,25 +1547,19 @@ def get_navigation_menu_items(user):
     # of their explorable pages.
     depth_change = 0
 
-    # Only non-superuers might need the 'pages' query to be restricted.
-    if not user.is_superuser:
-        permitted_paths, required_ancestors = get_explorable_page_paths(user)
-        if permitted_paths:
-            # Limit the listing to only the user's explorable pages. Always include the Root page, even if it's
-            # not an explorable path, since it's required for the depth_list algorithm.
-            pages = pages.filter(
-                convert_explorable_paths_to_Q(permitted_paths, required_ancestors) | Q(depth=1)
-            )
+    # Limit the listing to only the user's explorable pages. Always include the Root page, even if it's
+    # not an explorable path, since it's required for the depth_list algorithm.
+    pages = filter_explorable_pages(pages, user) | Page.objects.filter(depth=1)
 
-            # Find the depth of the Closest Common Ancestor.
-            cca_depth = len(required_ancestors[0]) / Page.steplen
-            # Alter depth_change if needed.
-            if cca_depth > 2:
-                depth_change = cca_depth - 2
-        else:
-            # If the User has no explorable pages, display nothing.
-            pages = Page.objects.none()
-
+    # filter_explorable_pages() already called this, but we need the permitted_paths and required_ancestors values
+    # for further processing. get_explorable_page_paths() is cached, though, so there's no redundant DB query.
+    permitted_paths, required_ancestors = get_explorable_page_paths(user)
+    if not user.is_superuser and permitted_paths:
+        # Find the depth of the Closest Common Ancestor.
+        cca_depth = len(required_ancestors[0]) / Page.steplen
+        # Alter depth_change if needed.
+        if cca_depth > 2:
+            depth_change = cca_depth - 2
 
     # Turn 'pages' into a tree structure:
     #     tree_node = (page, children)
@@ -1810,27 +1882,32 @@ class UserPagePermissionsProxy(object):
         """Return True if the user has permission to Choose any pages"""
         return self.choosable_pages().exists()
 
-    def permitted_paths(self):
+    def permitted_paths(self, choosable=False):
         """
-        Return a list of paths to Pages that this User is directly permitted to explore.
+        Return a list of paths to Pages that this User is directly permitted to explore/choose.
 
         This is not the same as the *_pages functions in this class, as it only returns paths to
         the pages which are directly permissioned in the GroupPagePermissions model. It does not return
         decendant paths of said pages.
+
+        Use choosable=True to return paths for Pages that are choosable, rather than Pages that are explorable.
         """
-
         if not self.user.is_active:
-            return Page.objects.none()
+            return []
         if self.user.is_superuser:
-            return Page.objects.all()
+            # Superusers are permitted to explore the tree root, which lets them explore every Page on the server.
+            return [Page.get_first_root_node().path]
 
-        # Retrieve the path(s) for each Page for which this user has at least one GroupPagePermission
-        # that provides explorability.
+        # Retrieve the path(s) for each Page for which this user has either at least one GroupPagePermission
+        # that provides explorability, or for which the user has the 'choose' GroupPagePermission.
         permitted_paths = Page.objects.distinct().values_list('path', flat=True).filter(
-            group_permissions__group__in=self.user.groups.all(),
-            # All permission types except 'choose' provide explorability.
-            group_permissions__permission_type__in=[perm[0] for perm in PAGE_PERMISSION_TYPES if perm[0] != 'choose']
+            group_permissions__group__in=self.user.groups.all()
         )
+        if choosable:
+            permitted_paths = permitted_paths.filter(group_permissions__permission_type='choose')
+        else:
+            explorable_perms = [perm[0] for perm in PAGE_PERMISSION_TYPES if perm[0] != 'choose']
+            permitted_paths = permitted_paths.filter(group_permissions__permission_type__in=explorable_perms)
         return list(permitted_paths)
 
     def has_permitted_paths(self):
@@ -1980,13 +2057,18 @@ class PagePermissionTester(object):
             # no publishing required, so the already-tested 'add' permission is sufficient
             return True
 
-    def can_choose(self):
+    def can_choose(self, allow_ancestors=True):
         if not self.user.is_active:
             return False
-        if self.page_is_root:
-            return False
+        if self.user.is_superuser:
+            return True
 
-        return self.user.is_superuser or ('choose' in self.permissions)
+        if 'choose' in self.permissions:
+            return True
+
+        # If this page isn't directly permitted, return whether or not this page is in the required ancestors of the
+        # user's choosable section(s) of the tree. Unless the caller told us not to allow ancestors.
+        return allow_ancestors and self.page.path in get_choosable_page_paths(self.user)[1]
 
     def can_explore(self, allow_ancestors=True):
         """

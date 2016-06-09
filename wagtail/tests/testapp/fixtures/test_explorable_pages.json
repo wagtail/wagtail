@@ -353,7 +353,16 @@
     }
 },
 {
-    "pk": 4,
+    "pk": 3,
+    "model": "wagtailcore.grouppagepermission",
+    "fields": {
+        "group": ["Group 1"],
+        "page": 2,
+        "permission_type": "choose"
+    }
+},
+{
+    "pk": 5,
     "model": "wagtailcore.grouppagepermission",
     "fields": {
         "group": ["Group 2"],
@@ -362,7 +371,16 @@
     }
 },
 {
-    "pk": 5,
+    "pk": 6,
+    "model": "wagtailcore.grouppagepermission",
+    "fields": {
+        "group": ["Group 2"],
+        "page": 6,
+        "permission_type": "choose"
+    }
+},
+{
+    "pk": 7,
     "model": "wagtailcore.grouppagepermission",
     "fields": {
         "group": ["Group 3"],
@@ -370,7 +388,15 @@
         "permission_type": "edit"
     }
 },
-
+{
+    "pk": 8,
+    "model": "wagtailcore.grouppagepermission",
+    "fields": {
+        "group": ["Group 3"],
+        "page": 8,
+        "permission_type": "choose"
+    }
+},
 
 {
     "pk": 1,

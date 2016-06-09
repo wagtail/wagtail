@@ -6,8 +6,9 @@ from django.shortcuts import render
 from wagtail.utils.pagination import paginate
 from wagtail.wagtailadmin.forms import EmailLinkChooserForm, ExternalLinkChooserForm, SearchForm
 from wagtail.wagtailadmin.modal_workflow import render_modal_workflow
-from wagtail.wagtailadmin.utils import get_page_if_explorable
-from wagtail.wagtailcore.models import Page, get_closest_common_ancestor_path
+from wagtail.wagtailadmin.utils import get_page_if_choosable
+from wagtail.wagtailcore.models import (
+    Page, filter_choosable_pages, get_choosable_page_paths, get_closest_common_ancestor_path)
 from wagtail.wagtailcore.utils import resolve_model_string
 
 
@@ -50,16 +51,16 @@ def filter_page_type(queryset, page_models):
 
 def browse(request, parent_page_id=None):
     if parent_page_id:
-        parent_page = get_page_if_explorable(parent_page_id, request)
+        parent_page = get_page_if_choosable(parent_page_id, request)
     else:
         parent_page = Page.get_first_root_node()
         if not request.user.is_superuser:
-            cca_path = get_closest_common_ancestor_path(request.user)
+            cca_path = get_closest_common_ancestor_path(request.user, choosable=True)
             if cca_path:
                 parent_page = Page.objects.get(path=cca_path)
 
-    # Include only the explorable children in the unfiltered page queryset.
-    pages = parent_page.get_explorable_children(request.user).prefetch_related('content_type')
+    # Include only the choosable children in the unfiltered page queryset.
+    pages = parent_page.get_choosable_children(request.user).prefetch_related('content_type')
 
     # Filter them by page type
     # A missing or empty page_type parameter indicates 'all page types' (i.e. descendants of wagtailcore.page)
@@ -79,12 +80,15 @@ def browse(request, parent_page_id=None):
     else:
         desired_classes = (Page, )
 
-    can_choose_root = request.GET.get('can_choose_root', False)
+    # Users must be able to navigate through required ancestors, but cannot choose them.
+    required_ancestors = get_choosable_page_paths(request.user)[1]
 
-    # Parent page can be chosen if it is a instance of desired_classes
+    # Parent page can be chosen if it is a instance of desired_classes, and it's not a required ancestor.
+    can_choose_root = request.GET.get('can_choose_root', False)
     parent_page.can_choose = (
         issubclass(parent_page.specific_class or Page, desired_classes) and
-        (can_choose_root or not parent_page.is_root())
+        (can_choose_root or not parent_page.is_root()) and
+        parent_page.path not in required_ancestors
     )
 
     # Pagination
@@ -94,7 +98,9 @@ def browse(request, parent_page_id=None):
 
     # Annotate each page with can_choose/can_decend flags
     for page in pages:
-        if desired_classes == (Page, ):
+        if page.path in required_ancestors:
+            page.can_choose = False
+        elif desired_classes == (Page, ):
             page.can_choose = True
         else:
             page.can_choose = issubclass(page.specific_class or Page, desired_classes)
@@ -128,10 +134,11 @@ def search(request, parent_page_id=None):
 
     search_form = SearchForm(request.GET)
     if search_form.is_valid() and search_form.cleaned_data['q']:
-        pages = Page.objects.exclude(
-            depth=1  # never include root
-        )
+        # Never include the Root page. Prefetch the content_type for better performance.
+        pages = Page.objects.exclude(depth=1).prefetch_related('content_type')
         pages = filter_page_type(pages, desired_classes)
+        pages = filter_choosable_pages(pages, request.user, include_ancestors=False)
+
         pages = pages.search(search_form.cleaned_data['q'], fields=['title'])
     else:
         pages = Page.objects.none()

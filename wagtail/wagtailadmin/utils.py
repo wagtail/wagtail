@@ -228,19 +228,42 @@ def send_notification(page_revision_id, notification, excluded_user_id):
 
 def get_page_if_explorable(page_id, request, allow_ancestors=True):
     """
-    Returns the Page with the given page_id if the user has permission to explore that Page.
-    If the Page is not explorable, an exception will be thrown:
+    Returns the Page with the given page_id, if the current user has permission to explore that Page.
+    """
+    return _get_page_if_permitted(page_id, request, allow_ancestors, choosable=False)
+
+
+def get_page_if_choosable(page_id, request, allow_ancestors=True):
+    """
+    Returns the Page with the given page_id, if the current user has permission to choose that Page.
+    """
+    return _get_page_if_permitted(page_id, request, allow_ancestors, choosable=True)
+
+
+def _get_page_if_permitted(page_id, request, allow_ancestors, choosable):
+    """
+    Internal function called by get_page_if_explorable() and get_page_if_choosable(), which does all their work.
+    If the Page is not explorable/choosable, an exception will be thrown:
         PermissionDenied if the Page is on the current site
         Http404 if not
 
-    Required ancestors are normally considered explorable, since Explorer needs to let users traverse through them
-    to get to the pages they are permitted to perform actions upon.
-    If allow_ancestors is False, though, required ancestors will not be considered explorable.
-    This lets Explorer display a required ancestor, but still prohibit users from performing any actions upon it.
+    Required ancestors are normally considered explorable/choosable, since Explorer and the Page Chooser need to let
+    users traverse through them to get to the Pages they are permitted to act upon or choose.
+    If allow_ancestors=False, though, required ancestors will not be considered explorable/choosable.
+    This lets Explorer/PageChooser *display* a required ancestor to a user who isn't permitted to act upon or choose it.
+
+    If choosable=True, the Page's permissibility will be evaluated based on whether it's got the "choose" permission,
+    rather than whether it's explorable.
     """
     page = get_object_or_404(Page, id=page_id)
-    # Superusers can explore every page. Other users can explore permitted pages that are on any Site.
-    if request.user.is_superuser or page.permissions_for_user(request.user).can_explore(allow_ancestors):
+    # Superusers can explore and choose every page.
+    if request.user.is_superuser:
+        return page
+
+    # Other users can explore/choose permitted pages that are on any Site. Note that short-cicuiting will prevent
+    # can_explore() and can_choose() from being executed when they shouldn't be.
+    page_perms_proxy = page.permissions_for_user(request.user)
+    if (choosable and page_perms_proxy.can_choose(allow_ancestors)) or page_perms_proxy.can_explore(allow_ancestors):
         return page
 
     # At this point, we know the user isn't allowed to explore this Page.

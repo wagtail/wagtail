@@ -57,7 +57,10 @@
                         {% with page.get_parent as parent %}
                             <td class="parent" valign="top">
                                 {% if parent %}
-                                    <a href="{% url 'wagtailadmin_explore' parent.id %}">{{ parent.title }}</a>
+                                  {% user_can_explore_page request.user parent as parent_is_permitted %}
+                                  {% if parent_is_permitted %}
+                                      <a href="{% url 'wagtailadmin_explore' parent.id %}">{{ parent.title }}</a>
+                                  {% endif %}
                                 {% endif %}
                             </td>
                         {% endwith %}

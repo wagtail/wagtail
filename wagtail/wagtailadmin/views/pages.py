@@ -20,7 +20,7 @@ from wagtail.wagtailadmin.forms import CopyForm, SearchForm
 from wagtail.wagtailadmin.utils import get_page_if_explorable, send_notification
 from wagtail.wagtailcore import hooks
 from wagtail.wagtailcore.models import (
-    Page, PageRevision, get_closest_common_ancestor_path, get_navigation_menu_items
+    Page, PageRevision, filter_explorable_pages, get_closest_common_ancestor_path, get_navigation_menu_items
 )
 
 
@@ -827,8 +827,9 @@ def search(request):
         form = SearchForm(request.GET)
         if form.is_valid():
             q = form.cleaned_data['q']
-
-            pages = Page.objects.all().prefetch_related('content_type').search(q)
+            pages = Page.objects.prefetch_related('content_type')
+            pages = filter_explorable_pages(pages, request.user, include_ancestors=False)
+            pages = pages.search(q)
             paginator, pages = paginate(request, pages)
     else:
         form = SearchForm()
