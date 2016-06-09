@@ -165,6 +165,7 @@ Contributors
 * Luiz Boaretto
 * Jonathon Moore
 * Kees Hink
+* Jayden Smith
 
 Translators
 ===========
