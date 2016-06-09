@@ -2956,3 +2956,22 @@ class TestIssue2599(TestCase, WagtailTestUtils):
         self.assertEqual(response.context['self'].depth, homepage.depth + 1)
         self.assertTrue(response.context['self'].path.startswith(homepage.path))
         self.assertEqual(response.context['self'].get_parent(), homepage)
+
+
+class TestInlinePanelMedia(TestCase, WagtailTestUtils):
+    """
+    Test that form media required by InlinePanels is correctly pulled in to the edit page
+    """
+    def test_inline_panel_media(self):
+        homepage = Page.objects.get(id=2)
+        self.login()
+
+        # simplepage does not need hallo...
+        response = self.client.get(reverse('wagtailadmin_pages:add', args=('tests', 'simplepage', homepage.id)))
+        self.assertEqual(response.status_code, 200)
+        self.assertNotContains(response, 'wagtailadmin/js/hallo-bootstrap.js')
+
+        # but sectionedrichtextpage does
+        response = self.client.get(reverse('wagtailadmin_pages:add', args=('tests', 'sectionedrichtextpage', homepage.id)))
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, 'wagtailadmin/js/hallo-bootstrap.js')

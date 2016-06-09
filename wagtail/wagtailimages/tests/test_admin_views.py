@@ -490,6 +490,24 @@ class TestImageChooserUploadView(TestCase, WagtailTestUtils):
         # The form should have an error
         self.assertFormError(response, 'uploadform', 'file', "This field is required.")
 
+    def test_pagination_after_upload_form_error(self):
+        for i in range(0, 20):
+            Image.objects.create(
+                title="Test image %d" % i,
+                file=get_test_image_file(),
+            )
+
+        response = self.client.post(reverse('wagtailimages:chooser_upload'), {
+            'title': "Test image",
+        })
+
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'wagtailimages/chooser/chooser.html')
+
+        # The re-rendered image chooser listing should be paginated
+        self.assertContains(response, "Page 1 of ")
+        self.assertEqual(12, len(response.context['images']))
+
     @override_settings(DEFAULT_FILE_STORAGE='wagtail.tests.dummy_external_storage.DummyExternalStorage')
     def test_upload_with_external_storage(self):
         response = self.client.post(reverse('wagtailimages:chooser_upload'), {

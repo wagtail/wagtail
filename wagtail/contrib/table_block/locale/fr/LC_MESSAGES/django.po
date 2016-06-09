@@ -1,0 +1,32 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# Léo <leo@naeka.fr>, 2016
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2016-05-18 21:37+0000\n"
+"PO-Revision-Date: 2016-06-06 08:43+0000\n"
+"Last-Translator: Léo <leo@naeka.fr>\n"
+"Language-Team: French (http://www.transifex.com/torchbox/wagtail/language/"
+"fr/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: fr\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+msgid "Row header"
+msgstr "Ligne d'en-tête"
+
+msgid "Display the first row as a header."
+msgstr "Afficher la première ligne en tant qu'en-tête."
+
+msgid "Column header"
+msgstr "Colonne d'en-tête"
+
+msgid "Display the first column as a header."
+msgstr "Afficher la première colonne en tant qu'en-tête."

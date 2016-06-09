@@ -16,10 +16,14 @@ Minor features
 
  * Page slugs now allow unicode on Django >= 1.9 (Behzad Nategh)
  * Image upload form in image chooser now performs client side validation so that the selected file is not lost in the submission (Jack Paine)
+ * oEmbed URL for audioBoom was updated (Janneke Janssen)
+ * Remember tree location in page chooser when switching between Internal / External / Email link (Matt Westcott)
 
 
 Bug fixes
 ~~~~~~~~~
+
+ * Email templates and document uploader now support custom `STATICFILES_STORAGE` (Jonny Scholes)
 
 
 Upgrade considerations

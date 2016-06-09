@@ -6,6 +6,29 @@ Changelog
 
  * Page slugs now allow unicode on Django >= 1.9 (Behzad Nategh)
  * Image upload form in image chooser now performs client side validation so that the selected file is not lost in the submission (Jack Paine)
+ * oEmbed URL for audioBoom was updated (Janneke Janssen)
+ * Remember tree location in page chooser when switching between Internal / External / Email link (Matt Westcott)
+ * Fix: Email templates and document uploader now support custom `STATICFILES_STORAGE` (Jonny Scholes)
+
+
+1.5.2 (08.06.2016)
+~~~~~~~~~~~~~~~~~~
+
+ * Fixed regression in 1.5.1 on editing external links (Stephen Rice)
+
+
+1.5.1 (07.06.2016)
+~~~~~~~~~~~~~~~~~~
+
+ * Fix: When editing a document link in rich text, the document ID is no longer erroneously interpreted as a page ID (Stephen Rice)
+ * Fix: Removing embedded media from rich text by mouse click action now gets correctly registered as a change to the field (Loic Teixeira)
+ * Fix: Rich text editor is no longer broken in InlinePanels (Matt Westcott, Gagaro)
+ * Fix: Rich text editor is no longer broken in settings (Matt Westcott)
+ * Fix: Link tooltip now shows correct urls for newly inserted document links (Matt Westcott)
+ * Fix: Now page chooser (in a rich text editor) opens up at the link's parent page, rather than at the page itself (Matt Westcott)
+ * Fix: Reverted fix for explorer menu scrolling with page content, as it blocked access to menus that exceed screen height
+ * Fix: Image listing in the image chooser no longer becomes unpaginated after an invalid upload form submission (Stephen Rice)
+ * Fix: Applied correct translation tags for 'permanent' / 'temporary' labels on redirects (Matt Westcott)
 
 
 1.5 (31.05.2016)
@@ -59,6 +82,7 @@ Changelog
  * Fix: Fixed UnicodeEncodeError in wagtailforms when downloading a CSV for a form containing non-ASCII field labels on Python 2 (Mikalai Radchuk)
  * Fix: Server errors during search indexing on creating / updating / deleting a model are now logged, rather than causing the overall operation to fail (Karl Hobley)
  * Fix: Objects are now correctly removed from search indexes on deletion (Karl Hobley)
+ * Fix: Confirmation message on the ModelAdmin delete view no longer errors if the model's string representation depends on the primary key (Yannick Chabbert)
 
 
 1.4.5 (19.05.2016)

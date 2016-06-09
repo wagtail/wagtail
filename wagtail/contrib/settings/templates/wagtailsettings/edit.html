@@ -43,11 +43,9 @@
 
 {% block extra_css %}
     {% include "wagtailadmin/pages/_editor_css.html" %}
-    {{ form.media.css }}
     {{ site_switcher.media.css }}
 {% endblock %}
 {% block extra_js %}
     {% include "wagtailadmin/pages/_editor_js.html" %}
-    {{ form.media.js }}
     {{ site_switcher.media.js }}
 {% endblock %}

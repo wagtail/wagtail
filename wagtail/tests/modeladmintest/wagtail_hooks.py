@@ -3,7 +3,7 @@ from __future__ import absolute_import, unicode_literals
 from wagtail.contrib.modeladmin.options import ModelAdmin, ModelAdminGroup, modeladmin_register
 from wagtail.tests.testapp.models import BusinessChild, EventPage, SingleEventPage
 
-from .models import Author, Book
+from .models import Author, Book, Token
 
 
 class AuthorModelAdmin(ModelAdmin):
@@ -24,6 +24,11 @@ class BookModelAdmin(ModelAdmin):
     search_fields = ('title', )
     inspect_view_enabled = True
     inspect_view_fields_exclude = ('title', )
+
+
+class TokenModelAdmin(ModelAdmin):
+    model = Token
+    list_display = ('key',)
 
 
 class EventPageAdmin(ModelAdmin):
@@ -53,5 +58,6 @@ class BusinessChildAdmin(ModelAdmin):
 
 modeladmin_register(AuthorModelAdmin)
 modeladmin_register(BookModelAdmin)
+modeladmin_register(TokenModelAdmin)
 modeladmin_register(EventsAdminGroup)
 modeladmin_register(BusinessChildAdmin)
