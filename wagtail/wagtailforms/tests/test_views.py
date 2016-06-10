@@ -160,15 +160,9 @@ class TestFormsSubmissions(TestCase, WagtailTestUtils):
         self.form_page = make_form_page()
 
         # Add a couple of form submissions
-        old_form_submission = FormSubmission.objects.create(
-            page=self.form_page,
-            form_data=json.dumps({
-                'your-email': "old@example.com",
-                'your-message': "this is a really old message",
-            }),
-        )
-        old_form_submission.submit_time = '2013-01-01T12:00:00.000Z'
-        old_form_submission.save()
+        # (save new_form_submission first, so that we're more likely to reveal bugs where
+        # we're relying on the database's internal ordering instead of explicitly ordering
+        # by submit_time)
 
         new_form_submission = FormSubmission.objects.create(
             page=self.form_page,
@@ -179,6 +173,16 @@ class TestFormsSubmissions(TestCase, WagtailTestUtils):
         )
         new_form_submission.submit_time = '2014-01-01T12:00:00.000Z'
         new_form_submission.save()
+
+        old_form_submission = FormSubmission.objects.create(
+            page=self.form_page,
+            form_data=json.dumps({
+                'your-email': "old@example.com",
+                'your-message': "this is a really old message",
+            }),
+        )
+        old_form_submission.submit_time = '2013-01-01T12:00:00.000Z'
+        old_form_submission.save()
 
         # Login
         self.login()
