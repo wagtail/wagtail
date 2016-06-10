@@ -11,6 +11,7 @@ Changelog
  * `FieldRowPanel` now creates equal-width columns automatically if `col*` classnames are not specified (Chris Rogers)
  * Form builder now validates against multiple fields with the same name (Richard McMillan)
  * Fix: Email templates and document uploader now support custom `STATICFILES_STORAGE` (Jonny Scholes)
+ * Fix: Removed alignment options (deprecated in HTML and not rendered by Wagtail) from `TableBlock` context menu (Moritz Pfeiffer)
 
 
 1.5.2 (08.06.2016)

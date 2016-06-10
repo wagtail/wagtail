@@ -35,7 +35,7 @@ function initTable(id, tableOptions) {
         var parentDiv = $('.widget-table_input').parent();
         parentDiv.find('.field-content').width(width);
         parentDiv.find('.fieldname-table .field-content .field-content').width('80%');
-    };
+    }
 
     try {
         dataForForm = $.parseJSON(hiddenStreamInput.val());
@@ -108,6 +108,19 @@ function initTable(id, tableOptions) {
     finalOptions.afterCreateRow = structureEvent;
     finalOptions.afterRemoveCol = structureEvent;
     finalOptions.afterRemoveRow = structureEvent;
+    finalOptions.contextMenu = [
+        'row_above',
+        'row_below',
+        '---------',
+        'col_left',
+        'col_right',
+        '---------',
+        'remove_row',
+        'remove_col',
+        '---------',
+        'undo',
+        'redo'
+    ];
     hot = new Handsontable(document.getElementById(containerId), finalOptions);
     hot.render(); // Call to render removes 'null' literals from empty cells
 
