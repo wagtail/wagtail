@@ -11,7 +11,7 @@ from django.views.decorators.vary import vary_on_headers
 from wagtail.utils.pagination import paginate
 from wagtail.wagtailadmin import messages
 from wagtail.wagtailadmin.forms import SearchForm
-from wagtail.wagtailadmin.utils import PermissionPolicyChecker, permission_denied
+from wagtail.wagtailadmin.utils import PermissionPolicyChecker, permission_denied, popular_tags_for_model
 from wagtail.wagtailcore.models import Collection, Site
 from wagtail.wagtailimages.exceptions import InvalidFilterSpecError
 from wagtail.wagtailimages.forms import URLGeneratorForm, get_image_form
@@ -76,7 +76,7 @@ def index(request):
             'is_searching': bool(query_string),
 
             'search_form': form,
-            'popular_tags': Image.popular_tags(),
+            'popular_tags': popular_tags_for_model(Image),
             'collections': collections,
             'current_collection': current_collection,
             'user_can_add': permission_policy.user_has_permission(request.user, 'add'),

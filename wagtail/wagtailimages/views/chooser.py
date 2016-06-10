@@ -8,7 +8,7 @@ from django.shortcuts import get_object_or_404, render
 from wagtail.utils.pagination import paginate
 from wagtail.wagtailadmin.forms import SearchForm
 from wagtail.wagtailadmin.modal_workflow import render_modal_workflow
-from wagtail.wagtailadmin.utils import PermissionPolicyChecker
+from wagtail.wagtailadmin.utils import PermissionPolicyChecker, popular_tags_for_model
 from wagtail.wagtailcore.models import Collection
 from wagtail.wagtailimages.formats import get_image_format
 from wagtail.wagtailimages.forms import ImageInsertionForm, get_image_form
@@ -98,7 +98,7 @@ def chooser(request):
         'is_searching': False,
         'query_string': q,
         'will_select_format': request.GET.get('select_format'),
-        'popular_tags': Image.popular_tags(),
+        'popular_tags': popular_tags_for_model(Image),
         'collections': collections,
     })
 
