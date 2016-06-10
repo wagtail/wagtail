@@ -81,7 +81,11 @@ def browse(request, parent_page_id=None):
         desired_classes = (Page, )
 
     # Users must be able to navigate through required ancestors, but cannot choose them.
-    required_ancestors = get_choosable_page_paths(request.user)[1]
+    if not request.user.is_superuser:
+        required_ancestors = get_choosable_page_paths(request.user)[1]
+    else:
+        # Superusers don't have required ancestors because they have implicit permission on the Root page.
+        required_ancestors = []
 
     # Parent page can be chosen if it is a instance of desired_classes, and it's not a required ancestor.
     can_choose_root = request.GET.get('can_choose_root', False)

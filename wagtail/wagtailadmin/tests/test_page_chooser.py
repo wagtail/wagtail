@@ -199,7 +199,7 @@ class TestChooserBrowseChild(TestCase, WagtailTestUtils):
         self.assertEqual(response.context['pages'].number, 5)
 
 
-class TestChooserBrowseWithExplorablePageRestrictions(TestCase, WagtailTestUtils):
+class TestChooserBrowseWithChoosablePageRestrictions(TestCase, WagtailTestUtils):
     """
     See wagtail.wagtailadmin.tests.test_pages_views.TestExplorablePageVisibility for an explanation about
     how the DB is set up, as many of the same rules will apply to these tests.
@@ -277,6 +277,23 @@ class TestChooserBrowseWithExplorablePageRestrictions(TestCase, WagtailTestUtils
         # No Page exists with this ID.
         response = self.browse_child(9999999)
         self.assertEqual(response.status_code, 404)
+
+    def test_browse_makes_required_ancesors_visible_but_not_choosable(self):
+        self.assertTrue(self.client.login(username='sam', password='password'))
+        # Get the page listing rooted at sam's CCA, which should be the root page.
+        response = self.browse()
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.context['parent_page'].pk, 1)
+        # Josh should see the testserver homepage and example.com homepage.
+        listed_pages = [page for page in response.context['pages']]
+        self.assertSequenceEqual([2, 4], [page.pk for page in listed_pages])
+        # Josh should not be able to choose the example.com homepage.
+        self.assertFalse(listed_pages[1].can_choose)
+
+        # Browse the tree at page 4, so we can confirm that the parent_page context var is also made unchoosable
+        # when it's a required ancestor.
+        response = self.browse_child(4)
+        self.assertFalse(response.context['parent_page'].can_choose)
 
 
 class TestChooserSearch(TestCase, WagtailTestUtils):
@@ -375,6 +392,47 @@ class TestChooserSearch(TestCase, WagtailTestUtils):
     def test_with_invalid_page_type(self):
         response = self.get({'page_type': 'foo'})
         self.assertEqual(response.status_code, 404)
+
+
+class TestChooserSearchWithChoosablePageRestrictions(TestCase, WagtailTestUtils):
+    """
+    See wagtail.wagtailadmin.tests.test_pages_views.TestExplorablePageVisibility for an explanation about
+    how the DB is set up, as many of the same rules will apply to these tests.
+    """
+
+    fixtures = ['test_explorable_pages.json']
+
+    def search(self, params=None):
+        return self.client.get(reverse('wagtailadmin_choose_page_search'), params or {})
+
+    def test_search_results_appear_for_permitted_user(self):
+        # Jane should be able to see testserver's homepage.
+        self.assertTrue(self.client.login(username='jane', password='password'))
+        response = self.search({'q': 'testserver'})
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'wagtailadmin/chooser/_search_results.html')
+        self.assertContains(response, "Welcome to testserver!")
+
+    def test_search_results_exclude_unchoosable_pages(self):
+        # Bob, however, should not see testserver's homepage, because he's not in a Group with permission to choose it.
+        self.assertTrue(self.client.login(username='bob', password='password'))
+        response = self.search({'q': 'testserver'})
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'wagtailadmin/chooser/_search_results.html')
+        self.assertNotContains(response, "Welcome to testserver!")
+        self.assertContains(response, 'There are 0 matches')
+
+    def test_search_results_exclude_required_ancestors(self):
+        self.assertTrue(self.client.login(username='josh', password='password'))
+        response = self.search({'q': 'Other Content'})
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, "Other Content")
+
+        # The example.com homepage is a required ancestor of Josh's permitted pages, so he can't choose it.
+        # Thus, the Chooser search shouldn't include it.
+        response = self.search({'q': 'Welcome to example.com!'})
+        self.assertEqual(response.status_code, 200)
+        self.assertNotContains(response, "Welcome to example.com!")
 
 
 class TestChooserExternalLink(TestCase, WagtailTestUtils):

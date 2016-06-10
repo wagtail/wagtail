@@ -331,9 +331,9 @@ class TestExplorablePageVisibility(TestCase, WagtailTestUtils):
     10 example.com /home-2/
     ========================================================
 
-    Group 1 has permissions rooted at testserver's homepage.
-    Group 2 has permissions rooted at exammple.com's page-1.
-    Group 3 has permissions rooted at exammple.com's other-content.
+    Group 1 has explore and choose permissions rooted at testserver's homepage.
+    Group 2 has explore and choose permissions rooted at exammple.com's page-1.
+    Group 3 has explore and choose permissions rooted at exammple.com's other-content.
 
     User "jane" is in Group 1.
     User "bob" is in Group 2.
@@ -1823,6 +1823,47 @@ class TestPageSearch(TestCase, WagtailTestUtils):
         # Testing is_active
         response = self.get({'q': query, 'active-option': "true"})
         self.assertContains(response, test_string % (query, base_css + " nolink"), status_code=200, html=True)
+
+
+class TestPageSearchWithExplorablePageRestrictions(TestCase, WagtailTestUtils):
+    """
+    See wagtail.wagtailadmin.tests.test_pages_views.TestExplorablePageVisibility for an explanation about
+    how the DB is set up, as many of the same rules will apply to these tests.
+    """
+
+    fixtures = ['test_explorable_pages.json']
+
+    def search(self, params=None, **extra):
+        return self.client.get(reverse('wagtailadmin_pages:search'), params or {}, **extra)
+
+    def test_search_results_appear_for_permitted_user(self):
+        # Jane should be able to see testserver's homepage.
+        self.assertTrue(self.client.login(username='jane', password='password'))
+        response = self.search({'q': 'testserver'})
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'wagtailadmin/pages/search.html')
+        self.assertContains(response, "Welcome to testserver!")
+
+    def test_search_results_exclude_unexplorable_pages(self):
+        # Bob, however, should not see testserver's homepage, because he's not in a Group with permission to explore it.
+        self.assertTrue(self.client.login(username='bob', password='password'))
+        response = self.search({'q': 'testserver'})
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'wagtailadmin/pages/search.html')
+        self.assertNotContains(response, "Welcome to testserver!")
+        self.assertContains(response, 'Sorry, no pages match')
+
+    def test_search_results_exclude_required_ancestors(self):
+        self.assertTrue(self.client.login(username='josh', password='password'))
+        response = self.search({'q': 'Other Content'})
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, "Other Content")
+
+        # The example.com homepage is a required ancestor of Josh's permitted pages, so he can't act upon it.
+        # Thus, the Explorer search shouldn't include it.
+        response = self.search({'q': 'Welcome to example.com!'})
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, "Sorry, no pages match")
 
 
 class TestPageMove(TestCase, WagtailTestUtils):
