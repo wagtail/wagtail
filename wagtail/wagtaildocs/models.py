@@ -3,6 +3,7 @@ from __future__ import absolute_import, unicode_literals
 import os.path
 
 from django.conf import settings
+from django.contrib.contenttypes.models import ContentType
 from django.core.exceptions import ImproperlyConfigured
 from django.core.urlresolvers import reverse
 from django.db import models
@@ -12,9 +13,9 @@ from django.dispatch.dispatcher import receiver
 from django.utils.encoding import python_2_unicode_compatible
 from django.utils.translation import ugettext_lazy as _
 from taggit.managers import TaggableManager
+from taggit.models import Tag
 
 from wagtail.utils.deprecation import SearchFieldsShouldBeAList
-from wagtail.wagtailadmin.taggable import TagSearchable
 from wagtail.wagtailadmin.utils import get_object_usage
 from wagtail.wagtailcore.models import CollectionMember
 from wagtail.wagtailsearch import index
@@ -26,7 +27,7 @@ class DocumentQuerySet(SearchableQuerySetMixin, models.QuerySet):
 
 
 @python_2_unicode_compatible
-class AbstractDocument(CollectionMember, TagSearchable):
+class AbstractDocument(CollectionMember, index.Indexed, models.Model):
     title = models.CharField(max_length=255, verbose_name=_('title'))
     file = models.FileField(upload_to='documents', verbose_name=_('file'))
     created_at = models.DateTimeField(verbose_name=_('created at'), auto_now_add=True)
@@ -43,9 +44,26 @@ class AbstractDocument(CollectionMember, TagSearchable):
 
     objects = DocumentQuerySet.as_manager()
 
-    search_fields = SearchFieldsShouldBeAList(TagSearchable.search_fields + CollectionMember.search_fields + [
+    search_fields = SearchFieldsShouldBeAList(CollectionMember.search_fields + [
+        index.SearchField('title', partial_match=True, boost=10),
+        index.RelatedFields('tags', [
+            index.SearchField('name', partial_match=True, boost=10),
+        ]),
         index.FilterField('uploaded_by_user'),
-    ], name='search_fields on Document subclasses')
+    ], name='search_fields on AbstractDocument subclasses')
+
+    @classmethod
+    def get_indexed_objects(cls):
+        return super(AbstractDocument, cls).get_indexed_objects().prefetch_related('tagged_items__tag')
+
+    @classmethod
+    def popular_tags(cls):
+        content_type = ContentType.objects.get_for_model(cls)
+        return Tag.objects.filter(
+            taggit_taggeditem_items__content_type=content_type
+        ).annotate(
+            item_count=models.Count('taggit_taggeditem_items')
+        ).order_by('-item_count')[:10]
 
     def __str__(self):
         return self.title
