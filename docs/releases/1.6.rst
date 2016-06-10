@@ -18,6 +18,7 @@ Minor features
  * Image upload form in image chooser now performs client side validation so that the selected file is not lost in the submission (Jack Paine)
  * oEmbed URL for audioBoom was updated (Janneke Janssen)
  * Remember tree location in page chooser when switching between Internal / External / Email link (Matt Westcott)
+ * ``FieldRowPanel`` now creates equal-width columns automatically if ``col*`` classnames are not specified (Chris Rogers)
 
 
 Bug fixes
