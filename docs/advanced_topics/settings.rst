@@ -339,7 +339,7 @@ Usage for images, documents and snippets
 
     WAGTAIL_USAGE_COUNT_ENABLED = True
 
-When enabled Wagtail shows where a particular image, document or snippet is being used on your site (disabled by default). An link will appear on the edit page showing you which pages they have been used on.
+When enabled Wagtail shows where a particular image, document or snippet is being used on your site (disabled by default). A link will appear on the edit page showing you which pages they have been used on.
 
 
 URL Patterns
