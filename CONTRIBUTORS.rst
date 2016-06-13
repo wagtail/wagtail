@@ -141,6 +141,7 @@ Contributors
 * Behzad Nategh
 * Yann Fouillat (Gagaro)
 * Jonny Scholes
+* Richard McMillan
 
 Translators
 ===========

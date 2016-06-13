@@ -289,6 +289,7 @@ class WagtailAdminPageForm(WagtailAdminModelForm):
             return self.cleaned_data['seo_title'].strip()
 
     def clean(self):
+
         cleaned_data = super(WagtailAdminPageForm, self).clean()
         if 'slug' in self.cleaned_data:
             if not Page._slug_is_available(

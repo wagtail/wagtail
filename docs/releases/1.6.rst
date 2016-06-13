@@ -19,6 +19,7 @@ Minor features
  * oEmbed URL for audioBoom was updated (Janneke Janssen)
  * Remember tree location in page chooser when switching between Internal / External / Email link (Matt Westcott)
  * ``FieldRowPanel`` now creates equal-width columns automatically if ``col*`` classnames are not specified (Chris Rogers)
+ * Form builder now validates against multiple fields with the same name (Richard McMillan)
 
 
 Bug fixes

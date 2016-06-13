@@ -17,7 +17,7 @@ from wagtail.wagtailadmin.edit_handlers import FieldPanel
 from wagtail.wagtailadmin.utils import send_mail
 from wagtail.wagtailcore.models import Orderable, Page, UserPagePermissionsProxy, get_page_models
 
-from .forms import FormBuilder
+from .forms import FormBuilder, WagtailAdminFormPageForm
 
 FORM_FIELD_CHOICES = (
     ('singleline', _('Single line text')),
@@ -134,6 +134,8 @@ class AbstractForm(Page):
     """
 
     form_builder = FormBuilder
+
+    base_form_class = WagtailAdminFormPageForm
 
     def __init__(self, *args, **kwargs):
         super(AbstractForm, self).__init__(*args, **kwargs)
