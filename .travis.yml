@@ -77,16 +77,6 @@ after_success:
 
 # Who to notify about build results
 notifications:
-  email:
-    recipients:
-      - wagtail-ci@torchbox.com
-    on_success: change
-    on_failure: always
-  webhooks:
-    urls:
-      - secure: "dQZBPlCC2OQE2L7EqOMkKsQxCJm05BhFrfmKmJ0AnKqxiEyZDKd2JiQaMg8X7XtIdJ87dlnBZH5h3erPSMgI3mIfNCWKKs/f6idgWIXPpklzU95KmPOrCoOyT3lkDTEOXCYXhgvOExp8qLHc4qjEWbSoIfPwqYyPlGry3Z76UBM="
-    on_success: change
-    on_failure: always
   slack:
     secure: Y/UERaVnR+RL2dOqLR0Nc60JdGkejQ1Ae5zvPRYdDiMIGSv/1KC3T5Dp8NxamqIlozbQNmRaZD+i4AdX60g1M3xlB9DMINzY584YK0X2T2S28+xIgE0MQJijbpfbk2veV8PMeA6EHNpG4zoT+4sbcSyljt9TPcYTTTiTB8rAtc0=
 
