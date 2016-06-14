@@ -1,6 +1,6 @@
 # The scripts for building the base images can be found in scripts/drone-images
 
-build:
+pipeline:
   flake8:
     image: python:3.5
     commands:
