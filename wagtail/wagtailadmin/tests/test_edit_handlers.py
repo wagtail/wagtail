@@ -15,8 +15,8 @@ from wagtail.tests.testapp.models import (
 from wagtail.tests.utils import WagtailTestUtils
 from wagtail.utils.deprecation import RemovedInWagtail17Warning
 from wagtail.wagtailadmin.edit_handlers import (
-    FieldPanel, InlinePanel, ObjectList, PageChooserPanel, RichTextFieldPanel, TabbedInterface,
-    extract_panel_definitions_from_model_class, get_form_for_model, FieldRowPanel)
+    FieldPanel, FieldRowPanel, InlinePanel, ObjectList, PageChooserPanel, RichTextFieldPanel,
+    TabbedInterface, extract_panel_definitions_from_model_class, get_form_for_model)
 from wagtail.wagtailadmin.forms import WagtailAdminModelForm, WagtailAdminPageForm
 from wagtail.wagtailadmin.rich_text import HalloRichTextArea
 from wagtail.wagtailadmin.widgets import AdminAutoHeightTextInput, AdminDateInput, AdminPageChooser
