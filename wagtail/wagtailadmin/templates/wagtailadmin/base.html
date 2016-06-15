@@ -37,7 +37,7 @@
                         {% if has_errors and messages %}<div style='display: none'>{% endif %}
 
                         {% for message in messages %}
-                            <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message|safe }}</li>
+                            <li class="{% message_tags message %}">{{ message|safe }}</li>
                         {% endfor %}
 
                         {% if has_errors and messages %}</div>{% endif %}
