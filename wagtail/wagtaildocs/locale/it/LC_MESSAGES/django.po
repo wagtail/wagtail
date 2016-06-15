@@ -8,9 +8,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-03-09 13:55+0000\n"
-"PO-Revision-Date: 2016-03-15 09:59+0000\n"
-"Last-Translator: Giacomo Ghizzani <giacomo.ghz@gmail.com>\n"
+"POT-Creation-Date: 2016-05-18 21:37+0000\n"
+"PO-Revision-Date: 2016-05-11 20:33+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Italian (http://www.transifex.com/torchbox/wagtail/language/"
 "it/)\n"
 "MIME-Version: 1.0\n"
@@ -60,12 +60,6 @@ msgstr "Carica"
 
 msgid "Uploading..."
 msgstr "Caricamento..."
-
-msgid "Server Error"
-msgstr "Errore del Server"
-
-msgid "Report this error to your webmaster with the following information:"
-msgstr "Presenta questo errore al tuo webmaster con le seguenti informazioni:"
 
 #, python-format
 msgid ""
@@ -145,6 +139,14 @@ msgstr "Caricato"
 
 #, python-format
 msgid ""
+"You haven't uploaded any documents in this collection. Why not <a href="
+"\"%(wagtaildocs_add_document_url)s\">upload one now</a>?"
+msgstr ""
+"Non hai caricato alcun documento in questa collezione. Perché non <a href="
+"\"%(wagtaildocs_add_document_url)s\">ne carichi uno adesso</a>?"
+
+#, python-format
+msgid ""
 "You haven't uploaded any documents. Why not <a href="
 "\"%(wagtaildocs_add_document_url)s\">upload one now</a>?"
 msgstr ""
@@ -188,6 +190,9 @@ msgstr[1] ""
 "        <span>%(total)s</span> Documenti\n"
 "    "
 
+msgid "Add multiple documents"
+msgstr "Aggiungi documenti multipli"
+
 msgid "Add documents"
 msgstr "Aggiungi documenti"
 
@@ -219,6 +224,12 @@ msgstr "Aggiorna"
 
 msgid "Delete"
 msgstr "Elimina"
+
+msgid "Document permissions"
+msgstr "Permessi del documento"
+
+msgid "Add a document permission"
+msgstr "Aggiungi un permesso al documento"
 
 msgid "Search documents"
 msgstr "Cerca documenti"

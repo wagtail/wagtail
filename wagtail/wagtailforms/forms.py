@@ -1,12 +1,17 @@
+from __future__ import absolute_import, unicode_literals
+
 from collections import OrderedDict
 
 import django.forms
+from django.utils.translation import ugettext_lazy as _
+
+from wagtail.wagtailadmin.forms import WagtailAdminPageForm
 
 
 class BaseForm(django.forms.Form):
     def __init__(self, *args, **kwargs):
         kwargs.setdefault('label_suffix', '')
-        return super(BaseForm, self).__init__(*args, **kwargs)
+        super(BaseForm, self).__init__(*args, **kwargs)
 
 
 class FormBuilder(object):
@@ -97,7 +102,7 @@ class FormBuilder(object):
         return options
 
     def get_form_class(self):
-        return type('WagtailForm', (BaseForm,), self.formfields)
+        return type(str('WagtailForm'), (BaseForm,), self.formfields)
 
 
 class SelectDateForm(django.forms.Form):
@@ -109,3 +114,27 @@ class SelectDateForm(django.forms.Form):
         required=False,
         widget=django.forms.DateInput(attrs={'placeholder': 'Date to'})
     )
+
+
+class WagtailAdminFormPageForm(WagtailAdminPageForm):
+
+    def clean(self):
+
+        super(WagtailAdminFormPageForm, self).clean()
+
+        # Check for dupe form field labels - fixes #585
+        if 'form_fields' in self.formsets:
+            _forms = self.formsets['form_fields'].forms
+            for f in _forms:
+                f.is_valid()
+
+            for i, form in enumerate(_forms):
+                if 'label' in form.changed_data:
+                    label = form.cleaned_data.get('label')
+                    for idx, ff in enumerate(_forms):
+                        # Exclude self
+                        if idx != i and label == ff.cleaned_data.get('label'):
+                            form.add_error(
+                                'label',
+                                django.forms.ValidationError(_('There is another field with the label %s, please change one of them.' % label))
+                            )

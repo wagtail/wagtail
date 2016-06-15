@@ -15,7 +15,7 @@
                 <div>
                     <label for="menu-search-q">{% trans "Search" %}</label>
                     <input type="text" id="menu-search-q" name="q" placeholder="{% trans 'Search' %}" />
-                    <button type="submit">{% trans "Search" %}</button>
+                    <button class="button" type="submit">{% trans "Search" %}</button>
                 </div>
             </form>
 
@@ -34,7 +34,7 @@
                 {% if messages %}
                     <ul>
                         {% for message in messages %}
-                            <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message|safe }}</li>
+                            <li class="{% message_tags message %}">{{ message|safe }}</li>
                         {% endfor %}
                     </ul>
                 {% endif %}

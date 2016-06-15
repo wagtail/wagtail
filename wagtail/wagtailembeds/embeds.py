@@ -1,3 +1,5 @@
+from __future__ import absolute_import, unicode_literals
+
 from datetime import datetime
 
 from wagtail.wagtailembeds.finders import get_default_finder

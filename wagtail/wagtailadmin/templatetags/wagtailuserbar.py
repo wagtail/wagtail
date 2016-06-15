@@ -1,3 +1,5 @@
+from __future__ import absolute_import, unicode_literals
+
 from django import template
 from django.template.loader import render_to_string
 
@@ -29,8 +31,10 @@ def get_page_instance(context):
 @register.simple_tag(takes_context=True)
 def wagtailuserbar(context, position='bottom-right'):
     # Find request object
-    request = context['request']
-
+    try:
+        request = context['request']
+    except KeyError:
+        return ''
 
     # Don't render if user doesn't have permission to access the admin area
     if not request.user.has_perm('wagtailadmin.access_admin'):

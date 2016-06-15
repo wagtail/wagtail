@@ -1,3 +1,5 @@
+from __future__ import absolute_import, unicode_literals
+
 from django.apps import apps
 from django.core.urlresolvers import reverse
 from django.http import Http404
@@ -126,7 +128,7 @@ def create(request, app_label, model_name):
     edit_handler_class = get_snippet_edit_handler(model)
     form_class = edit_handler_class.get_form_class(model)
 
-    if request.POST:
+    if request.method == 'POST':
         form = form_class(request.POST, request.FILES, instance=instance)
 
         if form.is_valid():
@@ -155,6 +157,7 @@ def create(request, app_label, model_name):
     return render(request, 'wagtailsnippets/snippets/create.html', {
         'model_opts': model._meta,
         'edit_handler': edit_handler,
+        'form': form,
     })
 
 
@@ -169,7 +172,7 @@ def edit(request, app_label, model_name, id):
     edit_handler_class = get_snippet_edit_handler(model)
     form_class = edit_handler_class.get_form_class(model)
 
-    if request.POST:
+    if request.method == 'POST':
         form = form_class(request.POST, request.FILES, instance=instance)
 
         if form.is_valid():
@@ -198,7 +201,8 @@ def edit(request, app_label, model_name, id):
     return render(request, 'wagtailsnippets/snippets/edit.html', {
         'model_opts': model._meta,
         'instance': instance,
-        'edit_handler': edit_handler
+        'edit_handler': edit_handler,
+        'form': form,
     })
 
 
@@ -211,7 +215,7 @@ def delete(request, app_label, model_name, id):
 
     instance = get_object_or_404(model, id=id)
 
-    if request.POST:
+    if request.method == 'POST':
         instance.delete()
         messages.success(
             request,

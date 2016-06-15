@@ -1,3 +1,5 @@
+from __future__ import absolute_import, unicode_literals
+
 from django.utils.functional import cached_property
 
 from wagtail.wagtailcore.blocks import ChooserBlock
@@ -21,3 +23,6 @@ class ImageChooserBlock(ChooserBlock):
             return get_rendition_or_not_found(value, 'original').img_tag()
         else:
             return ''
+
+    class Meta:
+        icon = "image"

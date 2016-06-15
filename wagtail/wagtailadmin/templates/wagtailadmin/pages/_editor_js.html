@@ -6,22 +6,22 @@
 
 <script>
     window.chooserUrls = {
-        'pageChooser': '{% url "wagtailadmin_choose_page" %}'
+        'pageChooser': '{% url "wagtailadmin_choose_page" %}',
+        'externalLinkChooser': '{% url "wagtailadmin_choose_page_external_link" %}',
+        'emailLinkChooser': '{% url "wagtailadmin_choose_page_email_link" %}'
     };
 </script>
 
 <script src="{% static 'wagtailadmin/js/vendor/rangy-core.js' %}"></script>
-<script src="{% static 'wagtailadmin/js/vendor/hallo.js' %}"></script>
 <script src="{% static 'wagtailadmin/js/vendor/mousetrap.min.js' %}"></script>
 <script src="{% static 'wagtailadmin/js/expanding_formset.js' %}"></script>
 <script src="{% static 'wagtailadmin/js/modal-workflow.js' %}"></script>
-<script src="{% static 'wagtailadmin/js/hallo-plugins/hallo-wagtaillink.js' %}"></script>
-<script src="{% static 'wagtailadmin/js/hallo-plugins/hallo-hr.js' %}"></script>
-<script src="{% static 'wagtailadmin/js/hallo-plugins/hallo-requireparagraphs.js' %}"></script>
 <script src="{% static 'wagtailadmin/js/page-editor.js' %}"></script>
 <script src="{% static 'wagtailadmin/js/page-chooser.js' %}"></script>
+<script src="{% static 'admin/js/vendor/xregexp/xregexp.min.js' %}"></script>
 <script src="{% static 'admin/js/urlify.js' %}"></script>
 <script src="{% static 'wagtailadmin/js/privacy-switch.js' %}"></script>
+<script src="{% static 'wagtailadmin/js/vendor/bootstrap-tooltip.js' %}"></script>
 
 {% hook_output 'insert_editor_js' %}
 

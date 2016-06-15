@@ -1,4 +1,4 @@
-from __future__ import unicode_literals
+from __future__ import absolute_import, unicode_literals
 
 import hashlib
 import os
@@ -16,7 +16,8 @@ from taggit.models import TaggedItemBase
 
 from wagtail.contrib.settings.models import BaseSetting, register_setting
 from wagtail.wagtailadmin.edit_handlers import (
-    FieldPanel, InlinePanel, MultiFieldPanel, ObjectList, PageChooserPanel, TabbedInterface)
+    FieldPanel, InlinePanel, MultiFieldPanel, ObjectList, PageChooserPanel, StreamFieldPanel,
+    TabbedInterface)
 from wagtail.wagtailadmin.forms import WagtailAdminPageForm
 from wagtail.wagtailcore.blocks import CharBlock, RichTextBlock
 from wagtail.wagtailcore.fields import RichTextField, StreamField
@@ -211,11 +212,11 @@ class EventPage(Page):
         related_name='+'
     )
 
-    search_fields = (
+    search_fields = [
         index.SearchField('get_audience_display'),
         index.SearchField('location'),
         index.SearchField('body'),
-    )
+    ]
 
     password_required_template = 'tests/event_page_password_required.html'
 
@@ -497,7 +498,7 @@ class SnippetChooserModel(models.Model):
     advert = models.ForeignKey(Advert, help_text='help text')
 
     panels = [
-        SnippetChooserPanel('advert', Advert),
+        SnippetChooserPanel('advert'),
     ]
 
 
@@ -558,6 +559,11 @@ class IconSetting(BaseSetting):
 
 class NotYetRegisteredSetting(BaseSetting):
     pass
+
+
+@register_setting
+class FileUploadSetting(BaseSetting):
+    file = models.FileField()
 
 
 class BlogCategory(models.Model):
@@ -662,4 +668,61 @@ class ValidatedPage(Page):
     base_form_class = ValidatedPageForm
     content_panels = Page.content_panels + [
         FieldPanel('foo'),
+    ]
+
+
+class DefaultRichTextFieldPage(Page):
+    body = RichTextField()
+
+    content_panels = [
+        FieldPanel('title', classname="full title"),
+        FieldPanel('body'),
+    ]
+
+
+class DefaultRichBlockFieldPage(Page):
+    body = StreamField([
+        ('rich_text', RichTextBlock()),
+    ])
+
+    content_panels = Page.content_panels + [
+        StreamFieldPanel('body')
+    ]
+
+
+class CustomRichTextFieldPage(Page):
+    body = RichTextField(editor='custom')
+
+    content_panels = [
+        FieldPanel('title', classname="full title"),
+        FieldPanel('body'),
+    ]
+
+
+class CustomRichBlockFieldPage(Page):
+    body = StreamField([
+        ('rich_text', RichTextBlock(editor='custom')),
+    ])
+
+    content_panels = [
+        FieldPanel('title', classname="full title"),
+        StreamFieldPanel('body'),
+    ]
+
+
+# a page that only contains RichTextField within an InlinePanel,
+# to test that the inline child's form media gets pulled through
+class SectionedRichTextPageSection(Orderable):
+    page = ParentalKey('tests.SectionedRichTextPage', related_name='sections')
+    body = RichTextField()
+
+    panels = [
+        FieldPanel('body')
+    ]
+
+
+class SectionedRichTextPage(Page):
+    content_panels = [
+        FieldPanel('title', classname="full title"),
+        InlinePanel('sections')
     ]

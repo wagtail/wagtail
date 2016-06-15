@@ -1,3 +1,5 @@
+from __future__ import absolute_import, unicode_literals
+
 from django.forms.utils import ErrorList
 from django.utils.translation import ugettext as _
 
@@ -17,7 +19,7 @@ def chooser(request):
 
 
 def chooser_upload(request):
-    if request.POST:
+    if request.method == 'POST':
         form = EmbedForm(request.POST, request.FILES)
 
         if form.is_valid():

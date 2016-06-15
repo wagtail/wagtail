@@ -1,3 +1,5 @@
+from __future__ import absolute_import, unicode_literals
+
 from django.contrib import admin
 from django.contrib.auth.admin import GroupAdmin
 from django.contrib.auth.models import Group
@@ -19,5 +21,6 @@ class GroupPagePermissionInline(admin.TabularInline):
 class GroupAdminWithPagePermissions(GroupAdmin):
     inlines = GroupAdmin.inlines + [GroupPagePermissionInline]
 
-admin.site.unregister(Group)
+if admin.site.is_registered(Group):
+    admin.site.unregister(Group)
 admin.site.register(Group, GroupAdminWithPagePermissions)

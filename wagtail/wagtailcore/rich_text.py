@@ -1,4 +1,4 @@
-from __future__ import unicode_literals  # ensure that RichText.__str__ returns unicode
+from __future__ import absolute_import, unicode_literals
 
 import re  # parsing HTML with regexes LIKE A BOSS.
 
@@ -41,6 +41,9 @@ class PageLinkHandler(object):
 
             if for_editor:
                 editor_attrs = 'data-linktype="page" data-id="%d" ' % page.id
+                parent_page = page.get_parent()
+                if parent_page:
+                    editor_attrs += 'data-parent-id="%d" ' % parent_page.id
             else:
                 editor_attrs = ''
 

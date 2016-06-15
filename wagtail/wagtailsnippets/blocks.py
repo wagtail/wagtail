@@ -1,4 +1,4 @@
-from __future__ import unicode_literals
+from __future__ import absolute_import, unicode_literals
 
 from django.utils.functional import cached_property
 
@@ -14,3 +14,6 @@ class SnippetChooserBlock(ChooserBlock):
     def widget(self):
         from wagtail.wagtailsnippets.widgets import AdminSnippetChooser
         return AdminSnippetChooser(self.target_model)
+
+    class Meta:
+        icon = "snippet"

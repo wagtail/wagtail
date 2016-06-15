@@ -12,9 +12,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-03-09 13:55+0000\n"
-"PO-Revision-Date: 2016-03-15 09:58+0000\n"
-"Last-Translator: Edd Baldry <edd.baldry@gmail.com>\n"
+"POT-Creation-Date: 2016-05-18 21:37+0000\n"
+"PO-Revision-Date: 2016-05-11 20:33+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Italian (http://www.transifex.com/torchbox/wagtail/language/"
 "it/)\n"
 "MIME-Version: 1.0\n"
@@ -204,9 +204,6 @@ msgstr "Controlla la tua email"
 
 msgid "A link to reset your password has been emailed to you."
 msgstr "Il link per resettare la tua password ti è stato invitato via email."
-
-msgid "Please follow the link below to reset your password"
-msgstr "Per favore segui il link qui sotto per resettare la tua password"
 
 msgid "Password reset"
 msgstr "Resetta password"
@@ -643,6 +640,9 @@ msgstr "Ultima modifica: %(last_mod)s"
 msgid "by %(modified_by)s"
 msgstr "di %(modified_by)s"
 
+msgid "Revisions"
+msgstr "Revisioni"
+
 #, python-format
 msgid "Exploring %(title)s"
 msgstr "Esplorando %(title)s"
@@ -744,16 +744,6 @@ msgstr "Aggiungi pagina figlio a '%(title)s'"
 
 msgid "Add subpage"
 msgstr "Aggiungi sottopagina"
-
-msgid ""
-"This page is published but does not exist within a configured Site, so "
-"cannot be viewed."
-msgstr ""
-"Questa pagina è stata pubblicata ma non esiste nella configurazione del "
-"sito, quindi non può esser vista."
-
-msgid "Add child page"
-msgstr "Aggiungi pagina figlio"
 
 #, python-format
 msgid ""
@@ -958,6 +948,9 @@ msgstr "La tua password è stato modificata con successo"
 msgid "Your preferences have been updated successfully!"
 msgstr "Le tue preferenze sono state aggiornate con successo!"
 
+msgid "Collections"
+msgstr "Collezioni"
+
 #, python-brace-format
 msgid "Page '{0}' created and scheduled for publishing."
 msgstr "Pagina '{0}' creata e schedulata per la pubblicazione."
@@ -1060,16 +1053,14 @@ msgstr "Pagina '{0}' bloccata."
 msgid "Page '{0}' is now unlocked."
 msgstr "Pagina '{0}' sbloccata."
 
-#, python-format
-msgid "You are viewing a previous revision of this page from <b>%s</b> by %s"
-msgstr ""
-"Stai vedendo una revisione precedente di questa pagina da <b>%s</b> da %s"
-
 msgid "Pages"
 msgstr "Pagine"
 
-msgid "Collections"
-msgstr "Collezioni"
+msgid "Add child page"
+msgstr "Aggiungi pagina figlio"
+
+msgid "More"
+msgstr "Ancora"
 
 msgid "Choose an item"
 msgstr "Scegli un elemento"

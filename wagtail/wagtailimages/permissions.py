@@ -1,3 +1,5 @@
+from __future__ import absolute_import, unicode_literals
+
 from wagtail.wagtailcore.permission_policies.collections import CollectionOwnershipPermissionPolicy
 from wagtail.wagtailimages.models import Image, get_image_model
 

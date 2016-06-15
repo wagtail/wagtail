@@ -1,4 +1,4 @@
-from __future__ import absolute_import
+from __future__ import absolute_import, unicode_literals
 
 from collections import OrderedDict
 
@@ -8,7 +8,6 @@ from rest_framework import relations, serializers
 from rest_framework.fields import Field, SkipField
 from taggit.managers import _TaggableManager
 
-from wagtail.utils.compat import get_related_model
 from wagtail.wagtailcore import fields as wagtailcore_fields
 
 from .utils import get_full_url, pages_for_site
@@ -363,7 +362,7 @@ class PageSerializer(BaseSerializer):
         if relation_info.to_many:
             model = getattr(self.Meta, 'model')
             child_relations = {
-                child_relation.field.rel.related_name: get_related_model(child_relation)
+                child_relation.field.rel.related_name: child_relation.related_model
                 for child_relation in get_all_child_relations(model)
             }
 
@@ -394,7 +393,7 @@ def get_serializer_class(model_, fields_, meta_fields=None, base=BaseSerializer)
         model = model_
         fields = base.default_fields + list(fields_)
 
-    return type(model_.__name__ + 'Serializer', (base, ), {
+    return type(str(model_.__name__ + 'Serializer'), (base, ), {
         'Meta': Meta,
         'meta_fields': base.meta_fields + list(meta_fields or []),
     })

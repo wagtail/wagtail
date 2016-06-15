@@ -1,3 +1,5 @@
+from __future__ import absolute_import, unicode_literals
+
 from django.http import HttpResponse
 
 from wagtail.contrib.wagtailroutablepage.models import RoutablePage, route
@@ -30,3 +32,7 @@ class RoutablePageTest(RoutablePage):
     @route(r'^override-name-test/$', name='name_overridden')
     def override_name_test(self, request):
         pass
+
+
+class RoutablePageWithoutIndexRouteTest(RoutablePage):
+    pass

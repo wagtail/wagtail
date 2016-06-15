@@ -1,3 +1,5 @@
+from __future__ import absolute_import, unicode_literals
+
 import json
 
 from django.core.urlresolvers import reverse
@@ -12,7 +14,7 @@ from wagtail.wagtailimages.formats import get_image_format
 from wagtail.wagtailimages.forms import ImageInsertionForm, get_image_form
 from wagtail.wagtailimages.models import get_image_model
 from wagtail.wagtailimages.permissions import permission_policy
-from wagtail.wagtailsearch.backends import get_search_backends
+from wagtail.wagtailsearch import index as search_index
 
 permission_checker = PermissionPolicyChecker(permission_policy)
 
@@ -41,7 +43,7 @@ def chooser(request):
 
     if permission_policy.user_has_permission(request.user, 'add'):
         ImageForm = get_image_form(Image)
-        uploadform = ImageForm()
+        uploadform = ImageForm(user=request.user)
     else:
         uploadform = None
 
@@ -117,16 +119,15 @@ def chooser_upload(request):
 
     searchform = SearchForm()
 
-    if request.POST:
+    if request.method == 'POST':
         image = Image(uploaded_by_user=request.user)
-        form = ImageForm(request.POST, request.FILES, instance=image)
+        form = ImageForm(request.POST, request.FILES, instance=image, user=request.user)
 
         if form.is_valid():
             form.save()
 
             # Reindex the image to make sure all tags are indexed
-            for backend in get_search_backends():
-                backend.add(image)
+            search_index.insert_or_update_object(image)
 
             if request.GET.get('select_format'):
                 form = ImageInsertionForm(initial={'alt_text': image.default_alt_text})
@@ -141,9 +142,10 @@ def chooser_upload(request):
                     {'image_json': get_image_json(image)}
                 )
     else:
-        form = ImageForm()
+        form = ImageForm(user=request.user)
 
-    images = Image.objects.order_by('title')
+    images = Image.objects.order_by('-created_at')
+    paginator, images = paginate(request, images, per_page=12)
 
     return render_modal_workflow(
         request, 'wagtailimages/chooser/chooser.html', 'wagtailimages/chooser/chooser.js',
@@ -154,7 +156,7 @@ def chooser_upload(request):
 def chooser_select_format(request, image_id):
     image = get_object_or_404(get_image_model(), id=image_id)
 
-    if request.POST:
+    if request.method == 'POST':
         form = ImageInsertionForm(request.POST, initial={'alt_text': image.default_alt_text})
         if form.is_valid():
 

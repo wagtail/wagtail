@@ -5,15 +5,17 @@
     {% trans "New" as new_str %}
     {% include "wagtailadmin/shared/header.html" with title=new_str subtitle=model_opts.verbose_name icon="snippet" tabbed=1 merged=1 %}
 
-    <form action="{% url 'wagtailsnippets:add' model_opts.app_label model_opts.model_name %}" method="POST">
+    <form action="{% url 'wagtailsnippets:add' model_opts.app_label model_opts.model_name %}" method="POST"{% if form.is_multipart %} enctype="multipart/form-data"{% endif %}>
         {% csrf_token %}
         {{ edit_handler.render_form_content }}
 
         <footer>
             <ul>
                 <li class="actions">
-                    <div class="dropdown dropup match-width">
-                        <div><input type="submit" value="{% trans 'Save' %}" /></div>
+                    <div class="dropdown dropup dropdown-button match-width">
+                        <button type="submit" class="button action-save button-longrunning" tabindex="3" data-clicked-text="{% trans 'Saving...' %}">
+                            <span class="icon icon-spinner"></span><em>{% trans 'Save' %}</em>
+                        </button>
                     </div>
                 </li>
             </ul>

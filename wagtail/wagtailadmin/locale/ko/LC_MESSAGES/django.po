@@ -9,9 +9,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-03-09 13:55+0000\n"
-"PO-Revision-Date: 2016-03-09 13:58+0000\n"
-"Last-Translator: mattwestcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2016-05-18 21:37+0000\n"
+"PO-Revision-Date: 2016-05-11 20:33+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Korean (http://www.transifex.com/torchbox/wagtail/language/"
 "ko/)\n"
 "MIME-Version: 1.0\n"
@@ -188,9 +188,6 @@ msgstr "이메일을 확인하여 주세요"
 
 msgid "A link to reset your password has been emailed to you."
 msgstr "비밀번호 초기화를 위한 링크를 이메일로 보냈습니다"
-
-msgid "Please follow the link below to reset your password"
-msgstr "비밀번호 초기화를 위해 아래의 링크를 클릭하여 주세요"
 
 msgid "Password reset"
 msgstr "비밀번호 초기화"
@@ -573,16 +570,6 @@ msgstr "'%(title)s' 에 대한 하위페이지 추가"
 msgid "Add subpage"
 msgstr "하위페이지 추가"
 
-msgid ""
-"This page is published but does not exist within a configured Site, so "
-"cannot be viewed."
-msgstr ""
-"이 페이지는 퍼블리싱 되었지만 설정된 사이트에 존재하지 않으모로 볼 수 없습니"
-"다"
-
-msgid "Add child page"
-msgstr "하위 페이지 추가"
-
 #, python-format
 msgid ""
 "\n"
@@ -816,6 +803,9 @@ msgstr "'{0}' 페이지는 현재 잠겨 있습니다"
 #, python-brace-format
 msgid "Page '{0}' is now unlocked."
 msgstr "'{0}' 페이즈는 현재 잠금해제 상태입니다"
+
+msgid "Add child page"
+msgstr "하위 페이지 추가"
 
 msgid "Choose an item"
 msgstr "아이템 선택"

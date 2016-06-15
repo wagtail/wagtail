@@ -1,4 +1,4 @@
-from __future__ import unicode_literals
+from __future__ import absolute_import, unicode_literals
 
 import json
 import re
@@ -17,7 +17,7 @@ from wagtail.wagtailadmin.edit_handlers import FieldPanel
 from wagtail.wagtailadmin.utils import send_mail
 from wagtail.wagtailcore.models import Orderable, Page, UserPagePermissionsProxy, get_page_models
 
-from .forms import FormBuilder
+from .forms import FormBuilder, WagtailAdminFormPageForm
 
 FORM_FIELD_CHOICES = (
     ('singleline', _('Single line text')),
@@ -68,9 +68,8 @@ class AbstractFormField(Orderable):
     )
     field_type = models.CharField(verbose_name=_('field type'), max_length=16, choices=FORM_FIELD_CHOICES)
     required = models.BooleanField(verbose_name=_('required'), default=True)
-    choices = models.CharField(
+    choices = models.TextField(
         verbose_name=_('choices'),
-        max_length=512,
         blank=True,
         help_text=_('Comma separated list of choices. Only applicable in checkboxes, radio and dropdown.')
     )
@@ -130,10 +129,12 @@ def get_forms_for_user(user):
 
 class AbstractForm(Page):
     """
-    A Form Page. Pages implementing a form should inhert from it
+    A Form Page. Pages implementing a form should inherit from it
     """
 
     form_builder = FormBuilder
+
+    base_form_class = WagtailAdminFormPageForm
 
     def __init__(self, *args, **kwargs):
         super(AbstractForm, self).__init__(*args, **kwargs)

@@ -1,3 +1,5 @@
+from __future__ import absolute_import, unicode_literals
+
 from wagtail.wagtailcore import blocks
 
 
@@ -11,6 +13,7 @@ class LinkBlock(blocks.StructBlock):
         return context
 
     class Meta:
+        icon = "site"
         template = 'tests/blocks/link_block.html'
 
 
@@ -19,4 +22,5 @@ class SectionBlock(blocks.StructBlock):
     body = blocks.RichTextBlock()
 
     class Meta:
+        icon = "form"
         template = 'tests/blocks/section_block.html'

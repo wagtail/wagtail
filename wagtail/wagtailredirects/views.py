@@ -1,3 +1,5 @@
+from __future__ import absolute_import, unicode_literals
+
 from django.core.urlresolvers import reverse
 from django.shortcuts import get_object_or_404, redirect, render
 from django.utils.translation import ugettext as _
@@ -64,7 +66,7 @@ def edit(request, redirect_id):
     ):
         return permission_denied(request)
 
-    if request.POST:
+    if request.method == 'POST':
         form = RedirectForm(request.POST, request.FILES, instance=theredirect)
         if form.is_valid():
             form.save()
@@ -93,7 +95,7 @@ def delete(request, redirect_id):
     ):
         return permission_denied(request)
 
-    if request.POST:
+    if request.method == 'POST':
         theredirect.delete()
         messages.success(request, _("Redirect '{0}' deleted.").format(theredirect.title))
         return redirect('wagtailredirects:index')
@@ -105,7 +107,7 @@ def delete(request, redirect_id):
 
 @permission_checker.require('add')
 def add(request):
-    if request.POST:
+    if request.method == 'POST':
         form = RedirectForm(request.POST, request.FILES)
         if form.is_valid():
             theredirect = form.save()

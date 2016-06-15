@@ -1,7 +1,17 @@
+from __future__ import absolute_import, unicode_literals
+
+import logging
+
 from django.apps import apps
 from django.db import models
 from django.db.models.fields import FieldDoesNotExist
 from django.db.models.fields.related import ForeignObjectRel, OneToOneRel, RelatedField
+
+from wagtail.utils.deprecation import SearchFieldsShouldBeAList
+from wagtail.wagtailsearch.backends import get_search_backends_with_name
+
+
+logger = logging.getLogger('wagtail.search.index')
 
 
 class Indexed(object):
@@ -75,7 +85,7 @@ class Indexed(object):
         """
         return self
 
-    search_fields = ()
+    search_fields = SearchFieldsShouldBeAList([], name='search_fields on Indexed subclasses')
 
 
 def get_indexed_models():
@@ -87,6 +97,42 @@ def get_indexed_models():
 
 def class_is_indexed(cls):
     return issubclass(cls, Indexed) and issubclass(cls, models.Model) and not cls._meta.abstract
+
+
+def get_indexed_instance(instance, check_exists=True):
+    indexed_instance = instance.get_indexed_instance()
+    if indexed_instance is None:
+        return
+
+    # Make sure that the instance is in its class's indexed objects
+    if check_exists and not type(indexed_instance).get_indexed_objects().filter(pk=indexed_instance.pk).exists():
+        return
+
+    return indexed_instance
+
+
+def insert_or_update_object(instance):
+    indexed_instance = get_indexed_instance(instance)
+
+    if indexed_instance:
+        for backend_name, backend in get_search_backends_with_name(with_auto_update=True):
+            try:
+                backend.add(indexed_instance)
+            except Exception:
+                # Catch and log all errors
+                logger.exception("Exception raised while adding %r into the '%s' search backend", indexed_instance, backend_name)
+
+
+def remove_object(instance):
+    indexed_instance = get_indexed_instance(instance, check_exists=False)
+
+    if indexed_instance:
+        for backend_name, backend in get_search_backends_with_name(with_auto_update=True):
+            try:
+                backend.delete(indexed_instance)
+            except Exception:
+                # Catch and log all errors
+                logger.exception("Exception raised while deleting %r from the '%s' search backend", indexed_instance, backend_name)
 
 
 class BaseField(object):
@@ -186,8 +232,6 @@ class RelatedFields(object):
 
         elif isinstance(field, ForeignObjectRel):
             # Reverse relation
-            # Note: we will never get here on Django 1.7 and below as get_field
-            # does not return reverse relations
             if isinstance(field, OneToOneRel):
                 # select_related for reverse OneToOneField
                 queryset = queryset.select_related(self.field_name)

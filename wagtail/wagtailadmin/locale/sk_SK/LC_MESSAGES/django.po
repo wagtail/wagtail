@@ -8,9 +8,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-03-09 13:55+0000\n"
-"PO-Revision-Date: 2016-03-09 13:58+0000\n"
-"Last-Translator: mattwestcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2016-05-18 21:37+0000\n"
+"PO-Revision-Date: 2016-05-11 20:33+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Slovak (Slovakia) (http://www.transifex.com/torchbox/wagtail/"
 "language/sk_SK/)\n"
 "MIME-Version: 1.0\n"
@@ -164,9 +164,6 @@ msgstr "Skontrolujte váš email"
 
 msgid "A link to reset your password has been emailed to you."
 msgstr "Odkaz na resetovanie hesla bol zaslaný na vašu emailovú adresu."
-
-msgid "Please follow the link below to reset your password"
-msgstr "Prosím kliknite na odkaz nižšie pre resetovanie vášho hesla"
 
 msgid "Password reset"
 msgstr "Obnova hesla"
@@ -458,9 +455,6 @@ msgstr "Prehliadať"
 msgid "Add subpage"
 msgstr "Pridať podstránku"
 
-msgid "Add child page"
-msgstr "Pridať rodičovskú stránku"
-
 msgid "Previous"
 msgstr "Predchádzajúca"
 
@@ -650,6 +644,9 @@ msgstr "Stránka '{0}' bola odomknutá."
 
 msgid "Pages"
 msgstr "Stránky"
+
+msgid "Add child page"
+msgstr "Pridať rodičovskú stránku"
 
 msgid "Choose an item"
 msgstr "Zvoľte položku"

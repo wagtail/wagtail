@@ -2,41 +2,21 @@ from __future__ import absolute_import, unicode_literals
 
 import json
 
-from django import forms
 from django.core.serializers.json import DjangoJSONEncoder
 from django.db import models
 from django.utils.six import string_types, with_metaclass
 
-from wagtail.utils.widgets import WidgetWithScript
 from wagtail.wagtailcore.blocks import Block, BlockField, StreamBlock, StreamValue
-from wagtail.wagtailcore.rich_text import DbWhitelister, expand_db_html
-
-
-class RichTextArea(WidgetWithScript, forms.Textarea):
-    def get_panel(self):
-        from wagtail.wagtailadmin.edit_handlers import RichTextFieldPanel
-        return RichTextFieldPanel
-
-    def render(self, name, value, attrs=None):
-        if value is None:
-            translated_value = None
-        else:
-            translated_value = expand_db_html(value, for_editor=True)
-        return super(RichTextArea, self).render(name, translated_value, attrs)
-
-    def render_js_init(self, id_, name, value):
-        return "makeRichTextEditable({0});".format(json.dumps(id_))
-
-    def value_from_datadict(self, data, files, name):
-        original_value = super(RichTextArea, self).value_from_datadict(data, files, name)
-        if original_value is None:
-            return None
-        return DbWhitelister.clean(original_value)
 
 
 class RichTextField(models.TextField):
+    def __init__(self, *args, **kwargs):
+        self.editor = kwargs.pop('editor', 'default')
+        super(RichTextField, self).__init__(*args, **kwargs)
+
     def formfield(self, **kwargs):
-        defaults = {'widget': RichTextArea}
+        from wagtail.wagtailadmin.rich_text import get_rich_text_editor_widget
+        defaults = {'widget': get_rich_text_editor_widget(self.editor)}
         defaults.update(kwargs)
         return super(RichTextField, self).formfield(**defaults)
 

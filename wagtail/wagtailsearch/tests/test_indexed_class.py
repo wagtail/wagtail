@@ -1,3 +1,5 @@
+from __future__ import absolute_import, unicode_literals
+
 from django.test import TestCase
 
 from wagtail.tests.search import models
@@ -16,7 +18,7 @@ class TestContentTypeNames(TestCase):
 
 class TestSearchFields(TestCase):
     def make_dummy_type(self, search_fields):
-        return type('DummyType', (index.Indexed, ), dict(search_fields=search_fields))
+        return type(str('DummyType'), (index.Indexed, ), dict(search_fields=search_fields))
 
     def test_basic(self):
         cls = self.make_dummy_type([
@@ -34,7 +36,7 @@ class TestSearchFields(TestCase):
         # standard convention of:
         #
         #     class SpecificPageType(Page):
-        #         search_fields = Page.search_fields + (some_other_definitions)
+        #         search_fields = Page.search_fields + [some_other_definitions]
         #
         # ...causes the definitions in some_other_definitions to override Page.search_fields
         # as intended.

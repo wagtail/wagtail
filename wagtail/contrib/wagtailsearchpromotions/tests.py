@@ -1,3 +1,5 @@
+from __future__ import absolute_import, unicode_literals
+
 from django.core.urlresolvers import reverse
 from django.test import TestCase
 
@@ -332,10 +334,7 @@ class TestSearchPromotionsDeleteView(TestCase, WagtailTestUtils):
 
     def test_post(self):
         # Submit
-        post_data = {
-            'foo': 'bar',
-        }
-        response = self.client.post(reverse('wagtailsearchpromotions:delete', args=(self.query.id, )), post_data)
+        response = self.client.post(reverse('wagtailsearchpromotions:delete', args=(self.query.id, )))
 
         # User should be redirected back to the index
         self.assertRedirects(response, reverse('wagtailsearchpromotions:index'))

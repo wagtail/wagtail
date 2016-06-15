@@ -1,3 +1,5 @@
+from __future__ import absolute_import, unicode_literals
+
 from django.core.urlresolvers import reverse
 from django.shortcuts import get_object_or_404, redirect, render
 from django.utils.translation import ugettext as _
@@ -11,7 +13,7 @@ from wagtail.wagtailcore.models import Collection
 from wagtail.wagtaildocs.forms import get_document_form
 from wagtail.wagtaildocs.models import get_document_model
 from wagtail.wagtaildocs.permissions import permission_policy
-from wagtail.wagtailsearch.backends import get_search_backends
+from wagtail.wagtailsearch import index as search_index
 
 permission_checker = PermissionPolicyChecker(permission_policy)
 
@@ -90,15 +92,14 @@ def add(request):
     Document = get_document_model()
     DocumentForm = get_document_form(Document)
 
-    if request.POST:
+    if request.method == 'POST':
         doc = Document(uploaded_by_user=request.user)
         form = DocumentForm(request.POST, request.FILES, instance=doc, user=request.user)
         if form.is_valid():
             form.save()
 
             # Reindex the document to make sure all tags are indexed
-            for backend in get_search_backends():
-                backend.add(doc)
+            search_index.insert_or_update_object(doc)
 
             messages.success(request, _("Document '{0}' added.").format(doc.title), buttons=[
                 messages.button(reverse('wagtaildocs:edit', args=(doc.id,)), _('Edit'))
@@ -124,7 +125,7 @@ def edit(request, document_id):
     if not permission_policy.user_has_permission_for_instance(request.user, 'change', doc):
         return permission_denied(request)
 
-    if request.POST:
+    if request.method == 'POST':
         original_file = doc.file
         form = DocumentForm(request.POST, request.FILES, instance=doc, user=request.user)
         if form.is_valid():
@@ -136,8 +137,7 @@ def edit(request, document_id):
             doc = form.save()
 
             # Reindex the document to make sure all tags are indexed
-            for backend in get_search_backends():
-                backend.add(doc)
+            search_index.insert_or_update_object(doc)
 
             messages.success(request, _("Document '{0}' updated").format(doc.title), buttons=[
                 messages.button(reverse('wagtaildocs:edit', args=(doc.id,)), _('Edit'))
@@ -183,7 +183,7 @@ def delete(request, document_id):
     if not permission_policy.user_has_permission_for_instance(request.user, 'delete', doc):
         return permission_denied(request)
 
-    if request.POST:
+    if request.method == 'POST':
         doc.delete()
         messages.success(request, _("Document '{0}' deleted.").format(doc.title))
         return redirect('wagtaildocs:index')

@@ -4,14 +4,15 @@
 #
 # Translators:
 # Eugene MechanisM <contact@mechanism.name>, 2014-2015
+# Mikalai Radchuk <radchuk.m@gmail.com>, 2016
 # Sergiy Khalymon <sergiykhalimon@gmail.com>, 2015
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-03-09 13:55+0000\n"
-"PO-Revision-Date: 2015-12-17 18:44+0000\n"
-"Last-Translator: Eugene MechanisM <contact@mechanism.name>\n"
+"POT-Creation-Date: 2016-05-18 21:37+0000\n"
+"PO-Revision-Date: 2016-05-26 13:28+0000\n"
+"Last-Translator: Mikalai Radchuk <radchuk.m@gmail.com>\n"
 "Language-Team: Russian (http://www.transifex.com/torchbox/wagtail/language/"
 "ru/)\n"
 "MIME-Version: 1.0\n"
@@ -153,6 +154,9 @@ msgstr "Дата Заполнения"
 
 msgid "Actions"
 msgstr "Действия"
+
+msgid "delete"
+msgstr "удалить"
 
 msgid "No form pages have been created."
 msgstr "Страниц с формами не было создано."

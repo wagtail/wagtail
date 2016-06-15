@@ -17,6 +17,7 @@ __all__ = ['ListBlock']
 
 
 class ListBlock(Block):
+
     def __init__(self, child_block, **kwargs):
         super(ListBlock, self).__init__(**kwargs)
 
@@ -158,6 +159,13 @@ class ListBlock(Block):
         errors = super(ListBlock, self).check(**kwargs)
         errors.extend(self.child_block.check(**kwargs))
         return errors
+
+    class Meta:
+        # No icon specified here, because that depends on the purpose that the
+        # block is being used for. Feel encouraged to specify an icon in your
+        # descendant block type
+        icon = "placeholder"
+
 
 DECONSTRUCT_ALIASES = {
     ListBlock: 'wagtail.wagtailcore.blocks.ListBlock',

@@ -1,4 +1,4 @@
-.PHONY: clean-pyc
+.PHONY: clean-pyc develop
 
 help:
 	@echo "clean-pyc - remove Python file artifacts"
@@ -10,6 +10,10 @@ clean-pyc:
 	find . -name '*.pyc' -exec rm -f {} +
 	find . -name '*.pyo' -exec rm -f {} +
 	find . -name '*~' -exec rm -f {} +
+
+develop: clean-pyc
+	pip install -e .[testing,docs]
+	npm install && npm run build
 
 lint:
 	flake8 wagtail

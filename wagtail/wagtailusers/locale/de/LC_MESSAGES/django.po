@@ -3,19 +3,19 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# Florian <flori@vorlif.org>, 2015
+# Vorlif <flori@vorlif.org>, 2015
 # Henrik Kröger <hedwig@riseup.net>, 2016
 # Johannes Spielmann <j@spielmannsolutions.com>, 2014
 # Johannes Spielmann <j@spielmannsolutions.com>, 2014
 # M0rph 3u5 <transifex@m0rph3u5.net>, 2014
-# mattwestcott <matthew@torchbox.com>, 2015
+# Matt Westcott <matthew@torchbox.com>, 2015
 # Tammo van Lessen <tvanlessen@gmail.com>, 2015
 # Wasilis Mandratzis-Walz, 2015
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-03-09 13:55+0000\n"
+"POT-Creation-Date: 2016-05-18 21:37+0000\n"
 "PO-Revision-Date: 2016-03-02 13:07+0000\n"
 "Last-Translator: Henrik Kröger <hedwig@riseup.net>\n"
 "Language-Team: German (http://www.transifex.com/torchbox/wagtail/language/"

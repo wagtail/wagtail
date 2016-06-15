@@ -1,16 +1,65 @@
-from __future__ import unicode_literals
+from __future__ import absolute_import, unicode_literals
 
+from django import forms
 from django.contrib.auth import get_user_model
 from django.contrib.auth.models import Group, Permission
+from django.core.exceptions import ImproperlyConfigured
 from django.core.urlresolvers import reverse
-from django.test import TestCase
+from django.test import TestCase, override_settings
 from django.utils import six
 
 from wagtail.tests.utils import WagtailTestUtils
 from wagtail.wagtailcore import hooks
 from wagtail.wagtailcore.models import (
     Collection, GroupCollectionPermission, GroupPagePermission, Page)
+from wagtail.wagtailusers.forms import UserCreationForm, UserEditForm
 from wagtail.wagtailusers.models import UserProfile
+from wagtail.wagtailusers.views.users import get_user_creation_form, get_user_edit_form
+
+
+class CustomUserCreationForm(UserCreationForm):
+    country = forms.CharField(required=True, label="Country")
+
+
+class CustomUserEditForm(UserEditForm):
+    country = forms.CharField(required=True, label="Country")
+
+
+class TestUserFormHelpers(TestCase):
+
+    def test_get_user_edit_form_with_default_form(self):
+        user_form = get_user_edit_form()
+        self.assertIs(user_form, UserEditForm)
+
+    def test_get_user_creation_form_with_default_form(self):
+        user_form = get_user_creation_form()
+        self.assertIs(user_form, UserCreationForm)
+
+    @override_settings(
+        WAGTAIL_USER_CREATION_FORM='wagtail.wagtailusers.tests.CustomUserCreationForm'
+    )
+    def test_get_user_creation_form_with_custom_form(self):
+        user_form = get_user_creation_form()
+        self.assertIs(user_form, CustomUserCreationForm)
+
+    @override_settings(
+        WAGTAIL_USER_EDIT_FORM='wagtail.wagtailusers.tests.CustomUserEditForm'
+    )
+    def test_get_user_edit_form_with_custom_form(self):
+        user_form = get_user_edit_form()
+        self.assertIs(user_form, CustomUserEditForm)
+
+    @override_settings(
+        WAGTAIL_USER_CREATION_FORM='wagtail.wagtailusers.tests.CustomUserCreationFormDoesNotExist'
+    )
+    def test_get_user_creation_form_with_invalid_form(self):
+        self.assertRaises(ImproperlyConfigured, get_user_creation_form)
+
+    @override_settings(
+        WAGTAIL_USER_EDIT_FORM='wagtail.wagtailusers.tests.CustomUserEditFormDoesNotExist'
+    )
+    def test_get_user_edit_form_with_invalid_form(self):
+        self.assertRaises(ImproperlyConfigured, get_user_edit_form)
 
 
 class TestUserIndexView(TestCase, WagtailTestUtils):
@@ -34,7 +83,7 @@ class TestUserIndexView(TestCase, WagtailTestUtils):
 
     def test_allows_negative_ids(self):
         # see https://github.com/torchbox/wagtail/issues/565
-        get_user_model().objects.create_user('guardian', 'guardian@example.com', 'gu@rd14n', id=-1)
+        get_user_model().objects.create_user('guardian', 'guardian@example.com', 'gu@rd14n', pk=-1)
         response = self.get()
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, 'testuser')
@@ -85,6 +134,30 @@ class TestUserCreateView(TestCase, WagtailTestUtils):
         self.assertEqual(users.count(), 1)
         self.assertEqual(users.first().email, 'test@user.com')
 
+    @override_settings(
+        WAGTAIL_USER_CREATION_FORM='wagtail.wagtailusers.tests.CustomUserCreationForm',
+        WAGTAIL_USER_CUSTOM_FIELDS=['country'],
+    )
+    def test_create_with_custom_form(self):
+        response = self.post({
+            'username': "testuser",
+            'email': "test@user.com",
+            'first_name': "Test",
+            'last_name': "User",
+            'password1': "password",
+            'password2': "password",
+            'country': "testcountry",
+        })
+
+        # Should redirect back to index
+        self.assertRedirects(response, reverse('wagtailusers_users:index'))
+
+        # Check that the user was created
+        users = get_user_model().objects.filter(username='testuser')
+        self.assertEqual(users.count(), 1)
+        self.assertEqual(users.first().email, 'test@user.com')
+        self.assertEqual(users.first().country, 'testcountry')
+
     def test_create_with_password_mismatch(self):
         response = self.post({
             'username': "testuser",
@@ -119,10 +192,10 @@ class TestUserEditView(TestCase, WagtailTestUtils):
         self.login()
 
     def get(self, params={}, user_id=None):
-        return self.client.get(reverse('wagtailusers_users:edit', args=(user_id or self.test_user.id, )), params)
+        return self.client.get(reverse('wagtailusers_users:edit', args=(user_id or self.test_user.pk, )), params)
 
     def post(self, post_data={}, user_id=None):
-        return self.client.post(reverse('wagtailusers_users:edit', args=(user_id or self.test_user.id, )), post_data)
+        return self.client.post(reverse('wagtailusers_users:edit', args=(user_id or self.test_user.pk, )), post_data)
 
     def test_simple(self):
         response = self.get()
@@ -146,8 +219,30 @@ class TestUserEditView(TestCase, WagtailTestUtils):
         self.assertRedirects(response, reverse('wagtailusers_users:index'))
 
         # Check that the user was edited
-        user = get_user_model().objects.get(id=self.test_user.id)
+        user = get_user_model().objects.get(pk=self.test_user.pk)
         self.assertEqual(user.first_name, 'Edited')
+
+    @override_settings(
+        WAGTAIL_USER_EDIT_FORM='wagtail.wagtailusers.tests.CustomUserEditForm',
+    )
+    def test_edit_with_custom_form(self):
+        response = self.post({
+            'username': "testuser",
+            'email': "test@user.com",
+            'first_name': "Edited",
+            'last_name': "User",
+            'password1': "password",
+            'password2': "password",
+            'country': "testcountry",
+        })
+
+        # Should redirect back to index
+        self.assertRedirects(response, reverse('wagtailusers_users:index'))
+
+        # Check that the user was edited
+        user = get_user_model().objects.get(pk=self.test_user.pk)
+        self.assertEqual(user.first_name, 'Edited')
+        self.assertEqual(user.country, 'testcountry')
 
     def test_edit_validation_error(self):
         # Leave "username" field blank. This should give a validation error
@@ -258,8 +353,8 @@ class TestGroupCreateView(TestCase, WagtailTestUtils):
             'page_permissions-0-page': ['1'],
             'page_permissions-0-permission_types': ['edit', 'publish'],
             'page_permissions-TOTAL_FORMS': ['1'],
-            'document_permissions-0-collection': [Collection.get_first_root_node().id],
-            'document_permissions-0-permissions': [self.add_doc_permission.id],
+            'document_permissions-0-collection': [Collection.get_first_root_node().pk],
+            'document_permissions-0-permissions': [self.add_doc_permission.pk],
             'document_permissions-TOTAL_FORMS': ['1'],
         })
 
@@ -293,10 +388,10 @@ class TestGroupCreateView(TestCase, WagtailTestUtils):
         root_collection = Collection.get_first_root_node()
         response = self.post({
             'name': "test group",
-            'document_permissions-0-collection': [root_collection.id],
-            'document_permissions-0-permissions': [self.add_doc_permission.id],
-            'document_permissions-1-collection': [root_collection.id],
-            'document_permissions-1-permissions': [self.change_doc_permission.id],
+            'document_permissions-0-collection': [root_collection.pk],
+            'document_permissions-0-permissions': [self.add_doc_permission.pk],
+            'document_permissions-1-collection': [root_collection.pk],
+            'document_permissions-1-permissions': [self.change_doc_permission.pk],
             'document_permissions-TOTAL_FORMS': ['2'],
         })
 
@@ -311,16 +406,36 @@ class TestGroupCreateView(TestCase, WagtailTestUtils):
             )
         )
 
+    def test_can_submit_blank_permission_form(self):
+        # the formsets for page / collection permissions should gracefully
+        # handle (and ignore) forms that have been left entirely blank
+        response = self.post({
+            'name': "test group",
+            'page_permissions-0-page': [''],
+            'page_permissions-TOTAL_FORMS': ['1'],
+            'document_permissions-0-collection': [''],
+            'document_permissions-TOTAL_FORMS': ['1'],
+        })
+
+        self.assertRedirects(response, reverse('wagtailusers_groups:index'))
+        # The test group now exists, with no page / document permissions
+        new_group = Group.objects.get(name='test group')
+        self.assertEqual(new_group.page_permissions.all().count(), 0)
+        self.assertEqual(
+            new_group.collection_permissions.filter(permission=self.add_doc_permission).count(),
+            0
+        )
+
 
 class TestGroupEditView(TestCase, WagtailTestUtils):
     def setUp(self):
         # Create a group to edit
         self.test_group = Group.objects.create(name='test group')
-        self.root_page = Page.objects.get(id=1)
+        self.root_page = Page.objects.get(pk=1)
         self.root_add_permission = GroupPagePermission.objects.create(page=self.root_page,
                                                                       permission_type='add',
                                                                       group=self.test_group)
-        self.home_page = Page.objects.get(id=2)
+        self.home_page = Page.objects.get(pk=2)
 
         # Get the hook-registered permissions, and add one to this group
         self.registered_permissions = Permission.objects.none()
@@ -350,22 +465,22 @@ class TestGroupEditView(TestCase, WagtailTestUtils):
         self.login()
 
     def get(self, params={}, group_id=None):
-        return self.client.get(reverse('wagtailusers_groups:edit', args=(group_id or self.test_group.id, )), params)
+        return self.client.get(reverse('wagtailusers_groups:edit', args=(group_id or self.test_group.pk, )), params)
 
     def post(self, post_data={}, group_id=None):
         post_defaults = {
             'name': 'test group',
-            'permissions': [self.existing_permission.id],
+            'permissions': [self.existing_permission.pk],
             'page_permissions-TOTAL_FORMS': ['1'],
             'page_permissions-MAX_NUM_FORMS': ['1000'],
             'page_permissions-INITIAL_FORMS': ['1'],
-            'page_permissions-0-page': [self.root_page.id],
+            'page_permissions-0-page': [self.root_page.pk],
             'page_permissions-0-permission_types': ['add'],
             'document_permissions-TOTAL_FORMS': ['1'],
             'document_permissions-MAX_NUM_FORMS': ['1000'],
             'document_permissions-INITIAL_FORMS': ['1'],
-            'document_permissions-0-collection': [self.evil_plans_collection.id],
-            'document_permissions-0-permissions': [self.add_doc_permission.id],
+            'document_permissions-0-collection': [self.evil_plans_collection.pk],
+            'document_permissions-0-permissions': [self.add_doc_permission.pk],
             'image_permissions-TOTAL_FORMS': ['0'],
             'image_permissions-MAX_NUM_FORMS': ['1000'],
             'image_permissions-INITIAL_FORMS': ['0'],
@@ -373,7 +488,7 @@ class TestGroupEditView(TestCase, WagtailTestUtils):
         for k, v in six.iteritems(post_defaults):
             post_data[k] = post_data.get(k, v)
         return self.client.post(reverse(
-            'wagtailusers_groups:edit', args=(group_id or self.test_group.id, )), post_data)
+            'wagtailusers_groups:edit', args=(group_id or self.test_group.pk, )), post_data)
 
     def add_non_registered_perm(self):
         # Some groups may have django permissions assigned that are not
@@ -381,7 +496,7 @@ class TestGroupEditView(TestCase, WagtailTestUtils):
         # that these permissions are not overwritten by our views.
         # Tests that use this method are testing the aforementioned
         # functionality.
-        self.non_registered_perms = Permission.objects.exclude(id__in=self.registered_permissions)
+        self.non_registered_perms = Permission.objects.exclude(pk__in=self.registered_permissions)
         self.non_registered_perm = self.non_registered_perms[0]
         self.test_group.permissions.add(self.non_registered_perm)
 
@@ -400,7 +515,7 @@ class TestGroupEditView(TestCase, WagtailTestUtils):
         self.assertRedirects(response, reverse('wagtailusers_groups:index'))
 
         # Check that the group was edited
-        group = Group.objects.get(id=self.test_group.id)
+        group = Group.objects.get(pk=self.test_group.pk)
         self.assertEqual(group.name, 'test group edited')
 
     def test_group_edit_validation_error(self):
@@ -434,7 +549,7 @@ class TestGroupEditView(TestCase, WagtailTestUtils):
         )
         response = self.post({
             'document_permissions-0-permissions': [
-                self.add_doc_permission.id, self.change_doc_permission.id
+                self.add_doc_permission.pk, self.change_doc_permission.pk
             ],
         })
 
@@ -459,9 +574,9 @@ class TestGroupEditView(TestCase, WagtailTestUtils):
         )
         response = self.post({
             'document_permissions-TOTAL_FORMS': ['2'],
-            'document_permissions-1-collection': [self.root_collection.id],
+            'document_permissions-1-collection': [self.root_collection.pk],
             'document_permissions-1-permissions': [
-                self.add_doc_permission.id, self.change_doc_permission.id
+                self.add_doc_permission.pk, self.change_doc_permission.pk
             ],
         })
 
@@ -521,7 +636,7 @@ class TestGroupEditView(TestCase, WagtailTestUtils):
         )
         self.assertEqual(
             page_permissions_formset.forms[0]['page'].value(),
-            self.root_page.id
+            self.root_page.pk
         )
         self.assertEqual(
             page_permissions_formset.forms[0]['permission_types'].value(),
@@ -543,11 +658,11 @@ class TestGroupEditView(TestCase, WagtailTestUtils):
         self.assertEqual(len(page_permissions_formset.forms), 1)
         self.assertEqual(
             page_permissions_formset.forms[0]['page'].value(),
-            self.root_page.id
+            self.root_page.pk
         )
         self.assertEqual(
-            page_permissions_formset.forms[0]['permission_types'].value(),
-            ['add', 'edit']
+            set(page_permissions_formset.forms[0]['permission_types'].value()),
+            set(['add', 'edit'])
         )
 
         # add edit permission on home
@@ -564,15 +679,15 @@ class TestGroupEditView(TestCase, WagtailTestUtils):
         self.assertEqual(page_permissions_formset.management_form['INITIAL_FORMS'].value(), 2)
         self.assertEqual(
             page_permissions_formset.forms[0]['page'].value(),
-            self.root_page.id
+            self.root_page.pk
         )
         self.assertEqual(
-            page_permissions_formset.forms[0]['permission_types'].value(),
-            ['add', 'edit']
+            set(page_permissions_formset.forms[0]['permission_types'].value()),
+            set(['add', 'edit'])
         )
         self.assertEqual(
             page_permissions_formset.forms[1]['page'].value(),
-            self.home_page.id
+            self.home_page.pk
         )
         self.assertEqual(
             page_permissions_formset.forms[1]['permission_types'].value(),
@@ -582,7 +697,7 @@ class TestGroupEditView(TestCase, WagtailTestUtils):
     def test_duplicate_page_permissions_error(self):
         # Try to submit multiple page permission entries for the same page
         response = self.post({
-            'page_permissions-1-page': [self.root_page.id],
+            'page_permissions-1-page': [self.root_page.pk],
             'page_permissions-1-permission_types': ['edit'],
             'page_permissions-TOTAL_FORMS': ['2'],
         })
@@ -594,7 +709,7 @@ class TestGroupEditView(TestCase, WagtailTestUtils):
     def test_duplicate_document_permissions_error(self):
         # Try to submit multiple document permission entries for the same collection
         response = self.post({
-            'document_permissions-1-page': [self.evil_plans_collection.id],
+            'document_permissions-1-page': [self.evil_plans_collection.pk],
             'document_permissions-1-permissions': [self.change_doc_permission],
             'document_permissions-TOTAL_FORMS': ['2'],
         })
@@ -612,7 +727,7 @@ class TestGroupEditView(TestCase, WagtailTestUtils):
         # The test group has one django permission to begin with
         self.assertEqual(self.test_group.permissions.count(), 1)
         response = self.post({
-            'permissions': [self.existing_permission.id, self.another_permission.id]
+            'permissions': [self.existing_permission.pk, self.another_permission.pk]
         })
         self.assertRedirects(response, reverse('wagtailusers_groups:index'))
         self.assertEqual(self.test_group.permissions.count(), 2)
@@ -626,7 +741,7 @@ class TestGroupEditView(TestCase, WagtailTestUtils):
         # See that the form is set up with the correct initial data
         self.assertEqual(
             response.context['form'].initial.get('permissions'),
-            list(original_permissions.values_list('id', flat=True))
+            list(original_permissions.values_list('pk', flat=True))
         )
 
     def test_group_retains_non_registered_permissions_when_editing(self):
@@ -645,7 +760,7 @@ class TestGroupEditView(TestCase, WagtailTestUtils):
         self.add_non_registered_perm()
         # Add a second registered permission
         self.post({
-            'permissions': [self.existing_permission.id, self.another_permission.id]
+            'permissions': [self.existing_permission.pk, self.another_permission.pk]
         })
 
         # See that there are now three permissions in total

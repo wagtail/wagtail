@@ -1,3 +1,5 @@
+from __future__ import absolute_import, unicode_literals
+
 from django.contrib.auth import get_user_model
 from django.contrib.auth.models import AnonymousUser
 from django.core.urlresolvers import reverse
@@ -33,6 +35,13 @@ class TestUserbarTag(TestCase):
         }))
 
         self.assertIn("<!-- Wagtail user bar embed code -->", content)
+
+    def test_userbar_does_not_break_without_request(self):
+        template = Template("{% load wagtailuserbar %}{% wagtailuserbar %}boom")
+        content = template.render(Context({
+        }))
+
+        self.assertEqual("boom", content)
 
     def test_userbar_tag_self(self):
         """

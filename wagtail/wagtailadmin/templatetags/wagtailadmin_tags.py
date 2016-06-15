@@ -1,10 +1,12 @@
-from __future__ import unicode_literals
+from __future__ import absolute_import, unicode_literals
 
 import itertools
 
+import django
 from django import template
 from django.conf import settings
 from django.contrib.humanize.templatetags.humanize import intcomma
+from django.contrib.messages.constants import DEFAULT_TAGS as MESSAGE_TAGS
 from django.template.defaultfilters import stringfilter
 from django.utils.safestring import mark_safe
 
@@ -20,6 +22,11 @@ from wagtail.wagtailcore.utils import camelcase_to_underscore, escape_script
 register = template.Library()
 
 register.filter('intcomma', intcomma)
+
+if django.VERSION >= (1, 9):
+    assignment_tag = register.simple_tag
+else:
+    assignment_tag = register.assignment_tag
 
 
 @register.inclusion_tag('wagtailadmin/shared/explorer_nav.html')
@@ -93,7 +100,7 @@ def widgettype(bound_field):
             return ""
 
 
-@register.assignment_tag(takes_context=True)
+@assignment_tag(takes_context=True)
 def page_permissions(context, page):
     """
     Usage: {% page_permissions page as page_perms %}
@@ -109,7 +116,7 @@ def page_permissions(context, page):
     return context['user_page_permissions'].for_page(page)
 
 
-@register.assignment_tag(takes_context=True)
+@assignment_tag(takes_context=True)
 def test_page_is_public(context, page):
     """
     Usage: {% test_page_is_public page as is_public %}
@@ -143,12 +150,12 @@ def hook_output(hook_name):
     return mark_safe(''.join(snippets))
 
 
-@register.assignment_tag
+@assignment_tag
 def usage_count_enabled():
     return getattr(settings, 'WAGTAIL_USAGE_COUNT_ENABLED', False)
 
 
-@register.assignment_tag
+@assignment_tag
 def base_url_setting():
     return getattr(settings, 'BASE_URL', None)
 
@@ -292,3 +299,16 @@ def page_listing_buttons(context, page, page_perms, is_parent=False):
         hook(page, page_perms, is_parent)
         for hook in button_hooks))
     return {'page': page, 'buttons': buttons}
+
+
+@register.simple_tag
+def message_tags(message):
+    level_tag = MESSAGE_TAGS.get(message.level)
+    if message.extra_tags and level_tag:
+        return message.extra_tags + ' ' + level_tag
+    elif message.extra_tags:
+        return message.extra_tags
+    elif level_tag:
+        return level_tag
+    else:
+        return ''

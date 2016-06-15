@@ -9,9 +9,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-03-09 13:55+0000\n"
-"PO-Revision-Date: 2016-03-09 13:58+0000\n"
-"Last-Translator: mattwestcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2016-05-18 21:37+0000\n"
+"PO-Revision-Date: 2016-05-11 20:33+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Japanese (http://www.transifex.com/torchbox/wagtail/language/"
 "ja/)\n"
 "MIME-Version: 1.0\n"
@@ -191,9 +191,6 @@ msgstr "メールを確認"
 
 msgid "A link to reset your password has been emailed to you."
 msgstr "パスワードを再設定するリンクがあなたのメールアドレスに送信されました。"
-
-msgid "Please follow the link below to reset your password"
-msgstr "下記のリンクに従ってパスワードを再設定してください。"
 
 msgid "Password reset"
 msgstr "パスワードが再設定されました"
@@ -666,16 +663,6 @@ msgstr "%(title)sに子ページを追加"
 msgid "Add subpage"
 msgstr "サブページを追加"
 
-msgid ""
-"This page is published but does not exist within a configured Site, so "
-"cannot be viewed."
-msgstr ""
-"このページは公開されていますが設定変更後のサイトに存在ないために閲覧できませ"
-"ん。"
-
-msgid "Add child page"
-msgstr "子ページを追加"
-
 #, python-format
 msgid ""
 "\n"
@@ -916,6 +903,9 @@ msgstr "ページ：'{0}' のロックが解除されました。"
 
 msgid "Pages"
 msgstr "ページ"
+
+msgid "Add child page"
+msgstr "子ページを追加"
 
 msgid "Choose an item"
 msgstr "アイテムを選択"

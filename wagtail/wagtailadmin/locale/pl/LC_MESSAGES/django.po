@@ -11,8 +11,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-03-09 13:55+0000\n"
-"PO-Revision-Date: 2016-03-14 22:02+0000\n"
+"POT-Creation-Date: 2016-05-18 21:37+0000\n"
+"PO-Revision-Date: 2016-05-18 14:35+0000\n"
 "Last-Translator: mmiskiew <mmiskiew@gmail.com>\n"
 "Language-Team: Polish (http://www.transifex.com/torchbox/wagtail/language/"
 "pl/)\n"
@@ -210,8 +210,11 @@ msgstr "Sprawdz swoją skrzynkę pocztową"
 msgid "A link to reset your password has been emailed to you."
 msgstr "Link do zresetowania hasła został wysłany pocztą email."
 
-msgid "Please follow the link below to reset your password"
-msgstr "Użyj linku poniżej w celu zresetowania hasła."
+msgid "Please follow the link below to reset your password:"
+msgstr "Użyj linku poniżej w celu zresetowania hasła:"
+
+msgid "Your username (in case you've forgotten):"
+msgstr "Twoja nazwa użytkownika (na wypadek, gdybyś jej zapomniał):"
 
 msgid "Password reset"
 msgstr "Reset hasła"
@@ -655,6 +658,9 @@ msgstr "Ostatnia zmiana: %(last_mod)s"
 msgid "by %(modified_by)s"
 msgstr "przez %(modified_by)s"
 
+msgid "Revisions"
+msgstr "Wersje"
+
 #, python-format
 msgid "Exploring %(title)s"
 msgstr "Przeglądaj %(title)s"
@@ -752,16 +758,6 @@ msgstr "Dodaj stronę podrzędną do '%(title)s'"
 msgid "Add subpage"
 msgstr "Dodaj podstronę"
 
-msgid ""
-"This page is published but does not exist within a configured Site, so "
-"cannot be viewed."
-msgstr ""
-"Ta strona została opublikowana jednak nie jest przypisana do istniejącej "
-"Strony Głównej - w związku tym nie może zostać wyświetlona."
-
-msgid "Add child page"
-msgstr "Dodaj stronę podrzędną"
-
 #, python-format
 msgid ""
 "\n"
@@ -805,11 +801,21 @@ msgstr "Wersje %(title)s"
 msgid "Revisions of"
 msgstr "Wersje"
 
+msgid "Revision date"
+msgstr "Data rewizji"
+
+msgctxt "points to a user who created a revision"
+msgid "by"
+msgstr "przez"
+
 msgid "Current draft"
 msgstr "Aktualny szkic"
 
 msgid "Review this revision"
 msgstr "Sprawdź tą rewizję"
+
+msgid "No revisions of this page exist"
+msgstr "Dla tej strony nie istnieją żadne rewizje"
 
 msgid "No revision of this page exist"
 msgstr "Dla tej strony nie istnieją żadne rewizje"
@@ -966,6 +972,42 @@ msgstr "Twoje hasło zostało zmienione poprawnie!"
 msgid "Your preferences have been updated successfully!"
 msgstr "Twoje ustawienia zostały zaktualizowane!"
 
+msgid "You have been successfully logged out."
+msgstr "Zostałeś pomyślnie wylogowany."
+
+msgid "Collections"
+msgstr "Kolekcje"
+
+msgid "Add a collection"
+msgstr "Dodaj kolekcję"
+
+msgid "Add collection"
+msgstr "Dodaj kolekcję"
+
+#, python-brace-format
+msgid "Collection '{0}' created."
+msgstr "Stworzono kolekcję '{0}'."
+
+#, python-brace-format
+msgid "Collection '{0}' updated."
+msgstr "Uaktualniono kolekcję '{0}'."
+
+msgid "The collection could not be saved due to errors."
+msgstr "Kolekcja nie mogła zostać zapisana z powodu błędów."
+
+msgid "Delete collection"
+msgstr "Usuń kolekcję."
+
+#, python-brace-format
+msgid "Collection '{0}' deleted."
+msgstr "Kolekcja '{0}' usunięta."
+
+msgid "Are you sure you want to delete this collection?"
+msgstr "Czy na pewno chcesz usunąć tą kolekcję?"
+
+msgid "Editing"
+msgstr "Edytowanie"
+
 #, python-brace-format
 msgid "Page '{0}' created and scheduled for publishing."
 msgstr "Strona '{0}' utworzona i zaplanowana do publikacji."
@@ -983,6 +1025,9 @@ msgstr "Strona '{0}' utworzona i przekazana do moderacji."
 
 msgid "View draft"
 msgstr "Pokaż szablon"
+
+msgid "Failed to send notifications to moderators"
+msgstr "Nie udało się wysłać notyfikacji do moderatorów"
 
 #, python-brace-format
 msgid "Page '{0}' created."
@@ -1056,9 +1101,15 @@ msgstr "Strona '{0}' nie oczekuje na przejrzenie."
 msgid "Page '{0}' published."
 msgstr "Strona '{0}' została opublikowana."
 
+msgid "Failed to send approval notifications"
+msgstr "Nie udało się wysłać notyfikacji akceptacji"
+
 #, python-brace-format
 msgid "Page '{0}' rejected for publication."
 msgstr "Strona '{0}' została odrzucona."
+
+msgid "Failed to send rejection notifications"
+msgstr "Nie udało się wysłać notyfikacji odrzuceń"
 
 #, python-brace-format
 msgid "Page '{0}' is now locked."
@@ -1069,14 +1120,43 @@ msgid "Page '{0}' is now unlocked."
 msgstr "Strona '{0}' jest teraz odblokowana."
 
 #, python-format
-msgid "You are viewing a previous revision of this page from <b>%s</b> by %s"
-msgstr "Przeglądasz wcześniejszą rewizję tej strony od <b>%s</b> przez %s"
+msgid ""
+"You are viewing a previous revision of this page from <b>%(created_at)s</b> "
+"by %(user)s"
+msgstr ""
+"Przeglądasz wcześniejszą rewizję tej strony od <b>%(created_at)s</b> przez "
+"%(user)s"
 
 msgid "Pages"
 msgstr "Strony"
 
-msgid "Collections"
-msgstr "Kolekcje"
+msgid "Preview draft"
+msgstr "Podgląd szkicu"
+
+msgid "Add child page"
+msgstr "Dodaj stronę podrzędną"
+
+#, python-brace-format
+msgid "Add a child page to '{0}' "
+msgstr "Dodaj podstronę do '{0}'"
+
+msgid "More"
+msgstr "Więcej"
+
+msgid "View more options"
+msgstr "Wyświetl więcej opcji"
+
+msgid "Move this page"
+msgstr "Przenieś tę stronę"
+
+msgid "Delete this page"
+msgstr "Usuń tę stronę"
+
+msgid "Unpublish this page"
+msgstr "Cofnij publikację tej strony"
+
+msgid "View this page's revision history"
+msgstr "Wyświetl historię rewizji tej strony"
 
 msgid "Choose an item"
 msgstr "Wybierz rzecz"

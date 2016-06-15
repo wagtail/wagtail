@@ -1,3 +1,5 @@
+from __future__ import absolute_import, unicode_literals
+
 import os
 
 WAGTAIL_ROOT = os.path.dirname(__file__)
@@ -59,6 +61,7 @@ TEMPLATES = [
                 'wagtail.wagtailcore.jinja2tags.core',
                 'wagtail.wagtailadmin.jinja2tags.userbar',
                 'wagtail.wagtailimages.jinja2tags.images',
+                'wagtail.contrib.settings.jinja2tags.settings',
             ],
         },
     },
@@ -74,7 +77,6 @@ MIDDLEWARE_CLASSES = (
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 
     'wagtail.wagtailcore.middleware.SiteMiddleware',
-
     'wagtail.wagtailredirects.middleware.RedirectMiddleware',
 )
 
@@ -90,6 +92,7 @@ INSTALLED_APPS = (
     'wagtail.tests.snippets',
     'wagtail.tests.routablepage',
     'wagtail.tests.search',
+    'wagtail.tests.modeladmintest',
     'wagtail.contrib.wagtailstyleguide',
     'wagtail.contrib.wagtailsitemaps',
     'wagtail.contrib.wagtailroutablepage',
@@ -97,6 +100,8 @@ INSTALLED_APPS = (
     'wagtail.contrib.wagtailapi',
     'wagtail.contrib.wagtailsearchpromotions',
     'wagtail.contrib.settings',
+    'wagtail.contrib.modeladmin',
+    'wagtail.contrib.table_block',
     'wagtail.wagtailforms',
     'wagtail.wagtailsearch',
     'wagtail.wagtailembeds',
@@ -155,3 +160,18 @@ if 'ELASTICSEARCH_URL' in os.environ:
 
 
 WAGTAIL_SITE_NAME = "Test Site"
+
+# Extra user field for custom user edit and create form tests. This setting
+# needs to here because it is used at the module level of wagtailusers.forms
+# when the module gets loaded. The decorator 'override_settings' does not work
+# in this scenario.
+WAGTAIL_USER_CUSTOM_FIELDS = ['country']
+
+WAGTAILADMIN_RICH_TEXT_EDITORS = {
+    'default': {
+        'WIDGET': 'wagtail.wagtailadmin.rich_text.HalloRichTextArea'
+    },
+    'custom': {
+        'WIDGET': 'wagtail.tests.testapp.rich_text.CustomRichTextArea'
+    },
+}

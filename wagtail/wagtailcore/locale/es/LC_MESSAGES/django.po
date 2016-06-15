@@ -5,19 +5,19 @@
 # Translators:
 # fooflare <amos.oviedo@gmail.com>, 2014
 # fooflare <amos.oviedo@gmail.com>, 2014
-# chimeno <daniel@chimeno.me>, 2015-2016
+# Daniel Chimeno <daniel@chimeno.me>, 2015-2016
 # fooflare <amos.oviedo@gmail.com>, 2014
 # Joaquín Tita <carpincho@gmail.com>, 2014
-# José Alaguna <alagunajs@gmail.com>, 2015-2016
-# Unai Zalakain <unai@gisa-elkartea.org>, 2014
-# Unai Zalakain <unai@gisa-elkartea.org>, 2014
+# Yusuf (Josè) Luis <alagunajs@gmail.com>, 2015-2016
+# Unai Zalakain <inactive+unaizalakain@transifex.com>, 2014
+# Unai Zalakain <inactive+unaizalakain@transifex.com>, 2014
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-03-09 13:55+0000\n"
+"POT-Creation-Date: 2016-05-18 21:37+0000\n"
 "PO-Revision-Date: 2016-03-15 02:02+0000\n"
-"Last-Translator: chimeno <daniel@chimeno.me>\n"
+"Last-Translator: Daniel Chimeno <daniel@chimeno.me>\n"
 "Language-Team: Spanish (http://www.transifex.com/torchbox/wagtail/language/"
 "es/)\n"
 "MIME-Version: 1.0\n"

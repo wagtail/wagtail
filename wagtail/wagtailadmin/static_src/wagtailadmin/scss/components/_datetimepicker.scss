@@ -281,6 +281,10 @@
         color: $color-white;
         background: $color-teal;
     }
+
+    .xdsoft_calendar td.xdsoft_today {
+        font-weight: 700;
+    }
 }
 
 .xdsoft_noselect {

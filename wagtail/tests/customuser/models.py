@@ -1,3 +1,5 @@
+from __future__ import absolute_import, unicode_literals
+
 import sys
 
 from django.contrib.auth.models import (
@@ -31,12 +33,14 @@ class CustomUserManager(BaseUserManager):
 
 
 class CustomUser(AbstractBaseUser, PermissionsMixin):
+    identifier = models.AutoField(primary_key=True)
     username = models.CharField(max_length=100, unique=True)
     email = models.EmailField(max_length=255, blank=True)
     is_staff = models.BooleanField(default=True)
     is_active = models.BooleanField(default=True)
     first_name = models.CharField(max_length=50, blank=True)
     last_name = models.CharField(max_length=50, blank=True)
+    country = models.CharField(max_length=100, blank=True)
 
     USERNAME_FIELD = 'username'
     REQUIRED_FIELDS = ['email']

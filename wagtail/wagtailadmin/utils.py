@@ -1,3 +1,6 @@
+from __future__ import absolute_import, unicode_literals
+
+import logging
 from functools import wraps
 
 from django.conf import settings
@@ -12,6 +15,8 @@ from modelcluster.fields import ParentalKey
 from wagtail.wagtailcore.models import GroupPagePermission, Page, PageRevision
 from wagtail.wagtailusers.models import UserProfile
 
+logger = logging.getLogger('wagtail.admin')
+
 
 def get_object_usage(obj):
     "Returns a queryset of pages that link to a particular object"
@@ -19,10 +24,8 @@ def get_object_usage(obj):
     pages = Page.objects.none()
 
     # get all the relation objects for obj
-    relations = type(obj)._meta.get_all_related_objects(
-        include_hidden=True,
-        include_proxy_eq=True
-    )
+    relations = [f for f in type(obj)._meta.get_fields(include_hidden=True)
+                 if (f.one_to_many or f.one_to_one) and f.auto_created]
     for relation in relations:
         related_model = relation.related_model
 
@@ -168,12 +171,12 @@ def send_notification(page_revision_id, notification, excluded_user_id):
         # Get submitter
         recipients = [revision.user]
     else:
-        return
+        return False
 
     # Get list of email addresses
     email_recipients = [
         recipient for recipient in recipients
-        if recipient.email and recipient.id != excluded_user_id and getattr(
+        if recipient.email and recipient.pk != excluded_user_id and getattr(
             UserProfile.get_for_user(recipient),
             notification + '_notifications'
         )
@@ -181,7 +184,7 @@ def send_notification(page_revision_id, notification, excluded_user_id):
 
     # Return if there are no email addresses
     if not email_recipients:
-        return
+        return True
 
     # Get template
     template_subject = 'wagtailadmin/notifications/' + notification + '_subject.txt'
@@ -195,17 +198,27 @@ def send_notification(page_revision_id, notification, excluded_user_id):
     }
 
     # Send emails
+    sent_count = 0
     for recipient in email_recipients:
-        # update context with this recipient
-        context["user"] = recipient
+        try:
+            # update context with this recipient
+            context["user"] = recipient
 
-        # Get email subject and content
-        email_subject = render_to_string(template_subject, context).strip()
-        email_content = render_to_string(template_text, context).strip()
+            # Get email subject and content
+            email_subject = render_to_string(template_subject, context).strip()
+            email_content = render_to_string(template_text, context).strip()
 
-        kwargs = {}
-        if getattr(settings, 'WAGTAILADMIN_NOTIFICATION_USE_HTML', False):
-            kwargs['html_message'] = render_to_string(template_html, context)
+            kwargs = {}
+            if getattr(settings, 'WAGTAILADMIN_NOTIFICATION_USE_HTML', False):
+                kwargs['html_message'] = render_to_string(template_html, context)
 
-        # Send email
-        send_mail(email_subject, email_content, [recipient.email], **kwargs)
+            # Send email
+            send_mail(email_subject, email_content, [recipient.email], **kwargs)
+            sent_count += 1
+        except Exception:
+            logger.exception(
+                "Failed to send notification email '%s' to %s",
+                email_subject, recipient.email
+            )
+
+    return sent_count == len(email_recipients)

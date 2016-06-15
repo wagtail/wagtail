@@ -1,3 +1,5 @@
+from __future__ import absolute_import, unicode_literals
+
 import re
 
 OEMBED_ENDPOINTS = {
@@ -78,7 +80,7 @@ OEMBED_ENDPOINTS = {
     ],
     "http://api.instagram.com/oembed": [
         "^http://instagr\\.am/p/.+$",
-        "^http[s]?://instagram\\.com/p/.+$"
+        "^http[s]?://(?:www\\.)?instagram\\.com/p/.+$"
     ],
     "https://www.slideshare.net/api/oembed/2": [
         "^http://www\\.slideshare\\.net/.+$"
@@ -285,8 +287,8 @@ OEMBED_ENDPOINTS = {
     "http://openapi.etsy.com/svc/oembed/": [
         "^http(?:s)?://(?:www\\.)?etsy\\.com/listing/.+$"
     ],
-    "https://audioboo.fm/publishing/oembed.{format}": [
-        "^http(?:s)?://audioboo\\.fm/boos/.+$"
+    "https://audioboom.com/publishing/oembed.{format}": [
+        "^http(?:s)?://audioboom\\.com/boos/.+$"
     ],
     "http://demo.clikthrough.com/services/oembed/": [
         "^http(?:s)?://demo\\.clikthrough\\.com/theater/video/.+$"

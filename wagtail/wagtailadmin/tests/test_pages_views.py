@@ -1,15 +1,22 @@
-from datetime import datetime, timedelta
+from __future__ import absolute_import, unicode_literals
+
+import datetime
+import logging
+import os
 
 import django
 import mock
+from django.conf import settings
 from django.contrib.auth import get_user_model
 from django.contrib.auth.models import Group, Permission
+from django.contrib.messages import constants as message_constants
 from django.core import mail, paginator
 from django.core.files.base import ContentFile
 from django.core.urlresolvers import reverse
 from django.db.models.signals import post_delete, pre_delete
 from django.test import TestCase
-from django.utils import timezone
+from django.utils import formats, timezone
+from django.utils.dateparse import parse_date
 
 from wagtail.tests.testapp.models import (
     Advert, AdvertPlacement, BusinessChild, BusinessIndex, BusinessSubIndex, EventPage,
@@ -33,6 +40,11 @@ def submittable_timestamp(timestamp):
     return str(timezone.localtime(timestamp)).split('.')[0]
 
 
+def local_datetime(*args):
+    dt = datetime.datetime(*args)
+    return timezone.make_aware(dt)
+
+
 class TestPageExplorer(TestCase, WagtailTestUtils):
     def setUp(self):
         # Find root page
@@ -50,7 +62,7 @@ class TestPageExplorer(TestCase, WagtailTestUtils):
         self.old_page = StandardIndex(
             title="Old page",
             slug="old-page",
-            latest_revision_created_at=datetime(2010, 1, 1)
+            latest_revision_created_at=local_datetime(2010, 1, 1)
         )
         self.root_page.add_child(instance=self.old_page)
 
@@ -58,7 +70,7 @@ class TestPageExplorer(TestCase, WagtailTestUtils):
             title="New page",
             slug="new-page",
             content="hello",
-            latest_revision_created_at=datetime(2016, 1, 1)
+            latest_revision_created_at=local_datetime(2016, 1, 1)
         )
         self.root_page.add_child(instance=self.new_page)
 
@@ -213,7 +225,7 @@ class TestPageExplorer(TestCase, WagtailTestUtils):
             title="New event",
             location='the moon', audience='public',
             cost='free', date_from='2001-01-01',
-            latest_revision_created_at=datetime(2016, 1, 1)
+            latest_revision_created_at=local_datetime(2016, 1, 1)
         )
         self.root_page.add_child(instance=self.new_event)
 
@@ -498,8 +510,8 @@ class TestPageCreation(TestCase, WagtailTestUtils):
         self.assertFalse(any(Page.find_problems()), 'treebeard found consistency problems')
 
     def test_create_simplepage_scheduled(self):
-        go_live_at = timezone.now() + timedelta(days=1)
-        expire_at = timezone.now() + timedelta(days=2)
+        go_live_at = timezone.now() + datetime.timedelta(days=1)
+        expire_at = timezone.now() + datetime.timedelta(days=2)
         post_data = {
             'title': "New page!",
             'content': "Some content",
@@ -529,8 +541,8 @@ class TestPageCreation(TestCase, WagtailTestUtils):
             'title': "New page!",
             'content': "Some content",
             'slug': 'hello-world',
-            'go_live_at': submittable_timestamp(timezone.now() + timedelta(days=2)),
-            'expire_at': submittable_timestamp(timezone.now() + timedelta(days=1)),
+            'go_live_at': submittable_timestamp(timezone.now() + datetime.timedelta(days=2)),
+            'expire_at': submittable_timestamp(timezone.now() + datetime.timedelta(days=1)),
         }
         response = self.client.post(
             reverse('wagtailadmin_pages:add', args=('tests', 'simplepage', self.root_page.id)), post_data
@@ -547,7 +559,7 @@ class TestPageCreation(TestCase, WagtailTestUtils):
             'title': "New page!",
             'content': "Some content",
             'slug': 'hello-world',
-            'expire_at': submittable_timestamp(timezone.now() + timedelta(days=-1)),
+            'expire_at': submittable_timestamp(timezone.now() + datetime.timedelta(days=-1)),
         }
         response = self.client.post(
             reverse('wagtailadmin_pages:add', args=('tests', 'simplepage', self.root_page.id)), post_data
@@ -597,8 +609,8 @@ class TestPageCreation(TestCase, WagtailTestUtils):
         self.assertFalse(any(Page.find_problems()), 'treebeard found consistency problems')
 
     def test_create_simplepage_post_publish_scheduled(self):
-        go_live_at = timezone.now() + timedelta(days=1)
-        expire_at = timezone.now() + timedelta(days=2)
+        go_live_at = timezone.now() + datetime.timedelta(days=1)
+        expire_at = timezone.now() + datetime.timedelta(days=2)
         post_data = {
             'title': "New page!",
             'content': "Some content",
@@ -860,6 +872,60 @@ class TestPageEdit(TestCase, WagtailTestUtils):
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, 'enctype="multipart/form-data"')
 
+    def test_upload_file_publish(self):
+        """
+        Check that file uploads work when directly publishing
+        """
+        file_upload = ContentFile(b"A new file", name='published-file.txt')
+        post_data = {
+            'title': 'New file',
+            'slug': 'new-file',
+            'file_field': file_upload,
+            'action-publish': "Publish",
+        }
+        response = self.client.post(reverse('wagtailadmin_pages:edit', args=[self.file_page.id]), post_data)
+
+        # Should be redirected to explorer
+        self.assertRedirects(response, reverse('wagtailadmin_explore', args=[self.root_page.id]))
+
+        # Check the new file exists
+        file_page = FilePage.objects.get()
+        self.assertEqual(file_page.file_field.name,
+                         os.path.join('.', file_upload.name))
+        self.assertTrue(os.path.exists(file_page.file_field.path))
+        self.assertEqual(file_page.file_field.read(), b"A new file")
+
+    def test_upload_file_draft(self):
+        """
+        Check that file uploads work when saving a draft
+        """
+        file_upload = ContentFile(b"A new file", name='draft-file.txt')
+        post_data = {
+            'title': 'New file',
+            'slug': 'new-file',
+            'file_field': file_upload,
+        }
+        response = self.client.post(reverse('wagtailadmin_pages:edit', args=[self.file_page.id]), post_data)
+
+        # Should be redirected to edit page
+        self.assertRedirects(response, reverse('wagtailadmin_pages:edit', args=[self.file_page.id]))
+
+        # Check the file was uploaded
+        file_path = os.path.join(settings.MEDIA_ROOT, file_upload.name)
+        self.assertTrue(os.path.exists(file_path))
+        with open(file_path, 'rb') as saved_file:
+            self.assertEqual(saved_file.read(), b"A new file")
+
+        # Publish the draft just created
+        FilePage.objects.get().get_latest_revision().publish()
+
+        # Get the file page, check the file is set
+        file_page = FilePage.objects.get()
+        self.assertEqual(file_page.file_field.name,
+                         os.path.join('.', file_upload.name))
+        self.assertTrue(os.path.exists(file_page.file_field.path))
+        self.assertEqual(file_page.file_field.read(), b"A new file")
+
     def test_page_edit_bad_permissions(self):
         # Remove privileges from user
         self.user.is_superuser = False
@@ -915,8 +981,8 @@ class TestPageEdit(TestCase, WagtailTestUtils):
     def test_edit_post_scheduled(self):
         # put go_live_at and expire_at several days away from the current date, to avoid
         # false matches in content_json__contains tests
-        go_live_at = timezone.now() + timedelta(days=10)
-        expire_at = timezone.now() + timedelta(days=20)
+        go_live_at = timezone.now() + datetime.timedelta(days=10)
+        expire_at = timezone.now() + datetime.timedelta(days=20)
         post_data = {
             'title': "I've been edited!",
             'content': "Some content",
@@ -952,8 +1018,8 @@ class TestPageEdit(TestCase, WagtailTestUtils):
             'title': "I've been edited!",
             'content': "Some content",
             'slug': 'hello-world',
-            'go_live_at': submittable_timestamp(timezone.now() + timedelta(days=2)),
-            'expire_at': submittable_timestamp(timezone.now() + timedelta(days=1)),
+            'go_live_at': submittable_timestamp(timezone.now() + datetime.timedelta(days=2)),
+            'expire_at': submittable_timestamp(timezone.now() + datetime.timedelta(days=1)),
         }
         response = self.client.post(reverse('wagtailadmin_pages:edit', args=(self.child_page.id, )), post_data)
 
@@ -968,7 +1034,7 @@ class TestPageEdit(TestCase, WagtailTestUtils):
             'title': "I've been edited!",
             'content': "Some content",
             'slug': 'hello-world',
-            'expire_at': submittable_timestamp(timezone.now() + timedelta(days=-1)),
+            'expire_at': submittable_timestamp(timezone.now() + datetime.timedelta(days=-1)),
         }
         response = self.client.post(reverse('wagtailadmin_pages:edit', args=(self.child_page.id, )), post_data)
 
@@ -1028,8 +1094,8 @@ class TestPageEdit(TestCase, WagtailTestUtils):
             break
 
     def test_edit_post_publish_scheduled(self):
-        go_live_at = timezone.now() + timedelta(days=1)
-        expire_at = timezone.now() + timedelta(days=2)
+        go_live_at = timezone.now() + datetime.timedelta(days=1)
+        expire_at = timezone.now() + datetime.timedelta(days=2)
         post_data = {
             'title': "I've been edited!",
             'content': "Some content",
@@ -1062,8 +1128,8 @@ class TestPageEdit(TestCase, WagtailTestUtils):
 
     def test_edit_post_publish_now_an_already_scheduled(self):
         # First let's publish a page with a go_live_at in the future
-        go_live_at = timezone.now() + timedelta(days=1)
-        expire_at = timezone.now() + timedelta(days=2)
+        go_live_at = timezone.now() + datetime.timedelta(days=1)
+        expire_at = timezone.now() + datetime.timedelta(days=2)
         post_data = {
             'title': "I've been edited!",
             'content': "Some content",
@@ -1511,7 +1577,7 @@ class TestPageSearch(TestCase, WagtailTestUtils):
         search_fields = Page.search_fields
 
         # Add slug to the search_fields
-        Page.search_fields = Page.search_fields + (SearchField('slug', partial_match=True),)
+        Page.search_fields = Page.search_fields + [SearchField('slug', partial_match=True)]
 
         # Confirm the slug is being searched
         response = self.get({'q': "hello"})
@@ -2467,6 +2533,24 @@ class TestNotificationPreferences(TestCase, WagtailTestUtils):
         self.assertIn(user1.email, email_to)
         self.assertIn(user2.email, email_to)
 
+    @mock.patch('wagtail.wagtailadmin.utils.django_send_mail', side_effect=IOError('Server down'))
+    def test_email_send_error(self, mock_fn):
+        logging.disable(logging.CRITICAL)
+        # Approve
+        self.silent_submit()
+        response = self.approve()
+        logging.disable(logging.NOTSET)
+
+        # An email that fails to send should return a message rather than crash the page
+        self.assertEqual(response.status_code, 302)
+        response = self.client.get(reverse('wagtailadmin_home'))
+
+        # There should be one "approved" message and one "failed to send notifications"
+        messages = list(response.context['messages'])
+        self.assertEqual(len(messages), 2)
+        self.assertEqual(messages[0].level, message_constants.SUCCESS)
+        self.assertEqual(messages[1].level, message_constants.ERROR)
+
 
 class TestLocking(TestCase, WagtailTestUtils):
     def setUp(self):
@@ -2800,7 +2884,7 @@ class TestRevisions(TestCase, WagtailTestUtils):
             "but the very next day you gave it away</p>"
         )
         self.last_christmas_revision = self.christmas_event.save_revision()
-        self.last_christmas_revision.created_at = '2013-12-25'
+        self.last_christmas_revision.created_at = local_datetime(2013, 12, 25)
         self.last_christmas_revision.save()
 
         self.christmas_event.title = "This Christmas"
@@ -2810,7 +2894,7 @@ class TestRevisions(TestCase, WagtailTestUtils):
             "I'll give it to someone special</p>"
         )
         self.this_christmas_revision = self.christmas_event.save_revision()
-        self.this_christmas_revision.created_at = '2014-12-25'
+        self.this_christmas_revision.created_at = local_datetime(2014, 12, 25)
         self.this_christmas_revision.save()
 
         self.login()
@@ -2831,7 +2915,7 @@ class TestRevisions(TestCase, WagtailTestUtils):
         )
         self.assertEqual(response.status_code, 200)
 
-        self.assertContains(response, "25 Dec 2013")
+        self.assertContains(response, formats.localize(parse_date('2013-12-25')))
         last_christmas_preview_url = reverse(
             'wagtailadmin_pages:revisions_view',
             args=(self.christmas_event.id, self.last_christmas_revision.id)
@@ -2843,7 +2927,7 @@ class TestRevisions(TestCase, WagtailTestUtils):
         self.assertContains(response, last_christmas_preview_url)
         self.assertContains(response, last_christmas_revert_url)
 
-        self.assertContains(response, "25 Dec 2014")
+        self.assertContains(response, formats.localize(local_datetime(2014, 12, 25)))
         this_christmas_preview_url = reverse(
             'wagtailadmin_pages:revisions_view',
             args=(self.christmas_event.id, self.this_christmas_revision.id)
@@ -2889,3 +2973,61 @@ class TestRevisions(TestCase, WagtailTestUtils):
         # Buttons should be relabelled
         self.assertContains(response, "Replace current draft")
         self.assertContains(response, "Publish this revision")
+
+
+class TestIssue2599(TestCase, WagtailTestUtils):
+    """
+    When previewing a page on creation, we need to assign it a path value consistent with its
+    (future) position in the tree. The naive way of doing this is to give it an index number
+    one more than numchild - however, index numbers are not reassigned on page deletion, so
+    this can result in a path that collides with an existing page (which is invalid).
+    """
+    def test_issue_2599(self):
+        homepage = Page.objects.get(id=2)
+
+        child1 = Page(title='child1')
+        homepage.add_child(instance=child1)
+        child2 = Page(title='child2')
+        homepage.add_child(instance=child2)
+
+        child1.delete()
+
+        self.login()
+        post_data = {
+            'title': "New page!",
+            'content': "Some content",
+            'slug': 'hello-world',
+            'action-submit': "Submit",
+        }
+        response = self.client.post(
+            reverse('wagtailadmin_pages:preview_on_add', args=('tests', 'simplepage', homepage.id)), post_data
+        )
+
+        # Check the response
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'tests/simple_page.html')
+        self.assertContains(response, "New page!")
+
+        # Check that the treebeard attributes were set correctly on the page object
+        self.assertEqual(response.context['self'].depth, homepage.depth + 1)
+        self.assertTrue(response.context['self'].path.startswith(homepage.path))
+        self.assertEqual(response.context['self'].get_parent(), homepage)
+
+
+class TestInlinePanelMedia(TestCase, WagtailTestUtils):
+    """
+    Test that form media required by InlinePanels is correctly pulled in to the edit page
+    """
+    def test_inline_panel_media(self):
+        homepage = Page.objects.get(id=2)
+        self.login()
+
+        # simplepage does not need hallo...
+        response = self.client.get(reverse('wagtailadmin_pages:add', args=('tests', 'simplepage', homepage.id)))
+        self.assertEqual(response.status_code, 200)
+        self.assertNotContains(response, 'wagtailadmin/js/hallo-bootstrap.js')
+
+        # but sectionedrichtextpage does
+        response = self.client.get(reverse('wagtailadmin_pages:add', args=('tests', 'sectionedrichtextpage', homepage.id)))
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, 'wagtailadmin/js/hallo-bootstrap.js')

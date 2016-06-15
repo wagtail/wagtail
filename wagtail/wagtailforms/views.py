@@ -1,3 +1,5 @@
+from __future__ import absolute_import, unicode_literals
+
 import csv
 import datetime
 
@@ -78,7 +80,7 @@ def list_submissions(request, page_id):
 
         writer = csv.writer(response)
 
-        header_row = ['Submission date'] + [label for name, label in data_fields]
+        header_row = ['Submission date'] + [smart_str(label) for name, label in data_fields]
 
         writer.writerow(header_row)
         for s in submissions:

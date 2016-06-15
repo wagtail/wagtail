@@ -1,4 +1,4 @@
-from __future__ import absolute_import
+from __future__ import absolute_import, unicode_literals
 
 from collections import OrderedDict
 
@@ -12,7 +12,7 @@ from rest_framework.response import Response
 from rest_framework.viewsets import GenericViewSet
 
 from wagtail.wagtailcore.models import Page
-from wagtail.wagtaildocs.models import Document
+from wagtail.wagtaildocs.models import get_document_model
 from wagtail.wagtailimages.models import get_image_model
 
 from .filters import (
@@ -282,4 +282,4 @@ class DocumentsAPIEndpoint(BaseAPIEndpoint):
     extra_meta_fields = ['tags', ]
     default_fields = ['title', 'tags']
     name = 'documents'
-    model = Document
+    model = get_document_model()

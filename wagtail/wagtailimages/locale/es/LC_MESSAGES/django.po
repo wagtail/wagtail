@@ -5,18 +5,19 @@
 # Translators:
 # fooflare <amos.oviedo@gmail.com>, 2014
 # fooflare <amos.oviedo@gmail.com>, 2014
-# chimeno <daniel@chimeno.me>, 2015
+# Daniel Chimeno <daniel@chimeno.me>, 2015
 # fooflare <amos.oviedo@gmail.com>, 2014
 # Joaquín Tita <carpincho@gmail.com>, 2014
-# José Alaguna <alagunajs@gmail.com>, 2015-2016
+# Yusuf (Josè) Luis <alagunajs@gmail.com>, 2015-2016
 # Mauricio Baeza <web@mauriciobaeza.net>, 2015
+# Yusuf (Josè) Luis <alagunajs@gmail.com>, 2016
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-03-09 13:55+0000\n"
-"PO-Revision-Date: 2016-03-15 01:52+0000\n"
-"Last-Translator: José Alaguna <alagunajs@gmail.com>\n"
+"POT-Creation-Date: 2016-05-18 21:37+0000\n"
+"PO-Revision-Date: 2016-05-15 22:04+0000\n"
+"Last-Translator: Yusuf (Josè) Luis <alagunajs@gmail.com>\n"
 "Language-Team: Spanish (http://www.transifex.com/torchbox/wagtail/language/"
 "es/)\n"
 "MIME-Version: 1.0\n"
@@ -140,7 +141,7 @@ msgstr "Error de servidor"
 
 msgid "Report this error to your webmaster with the following information:"
 msgstr ""
-"Reportar este error a tu administrador web con la siguiente información:"
+"Reporte este error a tu administrador web con la siguiente información:"
 
 #, python-format
 msgid ""
@@ -251,19 +252,19 @@ msgstr ""
 
 #, python-format
 msgid ""
-"You've not uploaded any images in this collection. Why not <a href="
-"\"%(wagtailimages_add_image_url)s\">add one now</a>?"
+"You haven't uploaded any images in this collection. Why not <a href="
+"\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
 msgstr ""
-"No has subido imágenes en esta colección. ¿Por qué no <a href="
-"\"%(wagtailimages_add_image_url)s\">subir una ahora</a>?"
+"No ha cargado imágenes en esta colección. Por qué no <a href="
+"\"%(wagtailimages_add_image_url)s\"> carga una ahora</a>?"
 
 #, python-format
 msgid ""
-"You've not uploaded any images. Why not <a href="
-"\"%(wagtailimages_add_image_url)s\">add one now</a>?"
+"You haven't uploaded any images. Why not <a href="
+"\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
 msgstr ""
-"No has subido imágenes. ¿Por qué no <a href=\"%(wagtailimages_add_image_url)s"
-"\">añadir una ahora</a>?"
+"No ha cargado imágenes. Por qué no <a href=\"%(wagtailimages_add_image_url)s"
+"\"> carga una ahora</a>?"
 
 msgid "Generating URL"
 msgstr "Generar URL"

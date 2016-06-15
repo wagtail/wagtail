@@ -1,3 +1,5 @@
+from __future__ import absolute_import, unicode_literals
+
 from django.core.urlresolvers import reverse
 from django.shortcuts import get_object_or_404, redirect, render
 from django.utils.translation import ugettext as _
@@ -71,7 +73,7 @@ def save_searchpicks(query, new_query, searchpicks_formset):
 
 @permission_required('wagtailsearchpromotions.add_searchpromotion')
 def add(request):
-    if request.POST:
+    if request.method == 'POST':
         # Get query
         query_form = search_forms.QueryForm(request.POST)
         if query_form.is_valid():
@@ -107,7 +109,7 @@ def add(request):
 def edit(request, query_id):
     query = get_object_or_404(Query, id=query_id)
 
-    if request.POST:
+    if request.method == 'POST':
         # Get query
         query_form = search_forms.QueryForm(request.POST)
         # and the recommendations
@@ -145,7 +147,7 @@ def edit(request, query_id):
 def delete(request, query_id):
     query = get_object_or_404(Query, id=query_id)
 
-    if request.POST:
+    if request.method == 'POST':
         query.editors_picks.all().delete()
         messages.success(request, _("Editor's picks deleted."))
         return redirect('wagtailsearchpromotions:index')

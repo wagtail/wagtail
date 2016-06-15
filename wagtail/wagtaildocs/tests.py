@@ -1,4 +1,4 @@
-from __future__ import unicode_literals
+from __future__ import absolute_import, unicode_literals
 
 import json
 import os.path
@@ -172,6 +172,9 @@ class TestDocumentAddView(TestCase, WagtailTestUtils):
         # is displayed on the form
         self.assertNotContains(response, '<label for="id_collection">')
 
+        # Ensure the form supports file uploads
+        self.assertContains(response, 'enctype="multipart/form-data"')
+
     def test_get_with_collections(self):
         root_collection = Collection.get_first_root_node()
         root_collection.add_child(name="Evil plans")
@@ -313,6 +316,9 @@ class TestDocumentEditView(TestCase, WagtailTestUtils):
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'wagtaildocs/documents/edit.html')
 
+        # Ensure the form supports file uploads
+        self.assertContains(response, 'enctype="multipart/form-data"')
+
     def test_post(self):
         # Build a fake file
         fake_file = ContentFile(b("A boring example document"))
@@ -361,10 +367,7 @@ class TestDocumentDeleteView(TestCase, WagtailTestUtils):
 
     def test_delete(self):
         # Submit title change
-        post_data = {
-            'foo': 'bar'
-        }
-        response = self.client.post(reverse('wagtaildocs:delete', args=(self.document.id,)), post_data)
+        response = self.client.post(reverse('wagtaildocs:delete', args=(self.document.id,)))
 
         # User should be redirected back to the index
         self.assertRedirects(response, reverse('wagtaildocs:index'))
@@ -501,7 +504,7 @@ class TestMultipleDocumentUploader(TestCase, WagtailTestUtils):
         """
         This tests that only AJAX requests are allowed to POST to the add view
         """
-        response = self.client.post(reverse('wagtaildocs:add_multiple'), {})
+        response = self.client.post(reverse('wagtaildocs:add_multiple'))
 
         # Check response
         self.assertEqual(response.status_code, 400)
@@ -510,7 +513,7 @@ class TestMultipleDocumentUploader(TestCase, WagtailTestUtils):
         """
         This tests that the add view checks for a file when a user POSTs to it
         """
-        response = self.client.post(reverse('wagtaildocs:add_multiple'), {}, HTTP_X_REQUESTED_WITH='XMLHttpRequest')
+        response = self.client.post(reverse('wagtaildocs:add_multiple'), HTTP_X_REQUESTED_WITH='XMLHttpRequest')
 
         # Check response
         self.assertEqual(response.status_code, 400)
@@ -727,6 +730,78 @@ class TestDocumentChooserUploadView(TestCase, WagtailTestUtils):
 
         # Document should be created
         self.assertTrue(models.Document.objects.filter(title="Test document").exists())
+
+
+class TestDocumentChooserUploadViewWithLimitedPermissions(TestCase, WagtailTestUtils):
+    def setUp(self):
+        add_doc_permission = Permission.objects.get(
+            content_type__app_label='wagtaildocs', codename='add_document'
+        )
+        admin_permission = Permission.objects.get(
+            content_type__app_label='wagtailadmin', codename='access_admin'
+        )
+
+        root_collection = Collection.get_first_root_node()
+        self.evil_plans_collection = root_collection.add_child(name="Evil plans")
+
+        conspirators_group = Group.objects.create(name="Evil conspirators")
+        conspirators_group.permissions.add(admin_permission)
+        GroupCollectionPermission.objects.create(
+            group=conspirators_group,
+            collection=self.evil_plans_collection,
+            permission=add_doc_permission
+        )
+
+        user = get_user_model().objects.create_user(
+            username='moriarty',
+            email='moriarty@example.com',
+            password='password'
+        )
+        user.groups.add(conspirators_group)
+
+        self.client.login(username='moriarty', password='password')
+
+    def test_simple(self):
+        response = self.client.get(reverse('wagtaildocs:chooser_upload'))
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'wagtaildocs/chooser/chooser.html')
+        self.assertTemplateUsed(response, 'wagtaildocs/chooser/chooser.js')
+
+        # user only has access to one collection -> should not see the collections field
+        self.assertNotContains(response, 'id_collection')
+
+    def test_chooser_view(self):
+        # The main chooser view also includes the form, so need to test there too
+        response = self.client.get(reverse('wagtaildocs:chooser'))
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'wagtaildocs/chooser/chooser.html')
+        self.assertTemplateUsed(response, 'wagtaildocs/chooser/chooser.js')
+
+        # user only has access to one collection -> should not see the collections field
+        self.assertNotContains(response, 'id_collection')
+
+    def test_post(self):
+        # Build a fake file
+        fake_file = ContentFile(b("A boring example document"))
+        fake_file.name = 'test.txt'
+
+        # Submit
+        post_data = {
+            'title': "Test document",
+            'file': fake_file,
+        }
+        response = self.client.post(reverse('wagtaildocs:chooser_upload'), post_data)
+
+        # Check that the response is a javascript file saying the document was chosen
+        self.assertTemplateUsed(response, 'wagtaildocs/chooser/document_chosen.js')
+        self.assertContains(response, "modal.respond('documentChosen'")
+
+        # Document should be created
+        doc = models.Document.objects.filter(title="Test document")
+        self.assertTrue(doc.exists())
+
+        # Document should be in the 'evil plans' collection
+        self.assertEqual(doc.get().collection, self.evil_plans_collection)
 
 
 class TestDocumentFilenameProperties(TestCase):

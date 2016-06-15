@@ -16,6 +16,7 @@ Here's an example snippet from the Wagtail demo website:
 .. code-block:: python
 
   from django.db import models
+  from django.utils.encoding import python_2_unicode_compatible
 
   from wagtail.wagtailadmin.edit_handlers import FieldPanel
   from wagtail.wagtailsnippets.models import register_snippet
@@ -23,6 +24,7 @@ Here's an example snippet from the Wagtail demo website:
   ...
 
   @register_snippet
+  @python_2_unicode_compatible  # provide equivalent __unicode__ and __str__ methods on Python 2
   class Advert(models.Model):
       url = models.URLField(null=True, blank=True)
       text = models.CharField(max_length=255)
@@ -32,7 +34,7 @@ Here's an example snippet from the Wagtail demo website:
           FieldPanel('text'),
       ]
       
-      def __str__(self):              # __unicode__ on Python 2
+      def __str__(self):
           return self.text
 
 The ``Advert`` model uses the basic Django model class and defines two properties: text and URL. The editing interface is very close to that provided for ``Page``-derived models, with fields assigned in the ``panels`` property. Snippets do not use multiple tabs of fields, nor do they provide the "save as draft" or "submit for moderation" features.
@@ -72,11 +74,11 @@ Here's what's in the template used by this template tag:
 .. code-block:: html+django
 
   {% for advert in adverts %}
-    <p>
-      <a href="{{ advert.url }}">
-        {{ advert.text }}
-      </a>
-    </p>
+      <p>
+          <a href="{{ advert.url }}">
+              {{ advert.text }}
+          </a>
+      </p>
   {% endfor %}
 
 Then, in your own page templates, you can include your snippet template tag with:
@@ -89,9 +91,9 @@ Then, in your own page templates, you can include your snippet template tag with
 
   {% block content %}
   
-    ...
-
-    {% adverts %}
+      ...
+  
+      {% adverts %}
 
   {% endblock %}
 
@@ -148,7 +150,7 @@ To attach multiple adverts to a page, the ``SnippetChooserPanel`` can be placed 
           SnippetChooserPanel('advert'),
       ]
   
-      def __str__(self):              # __unicode__ on Python 2
+      def __str__(self):
           return self.page.title + " -> " + self.advert.text
   
   
@@ -167,11 +169,11 @@ These child objects are now accessible through the page's ``advert_placements`` 
 .. code-block:: html+django
 
   {% for advert_placement in page.advert_placements.all %}
-    <p>
-      <a href="{{ advert_placement.advert.url }}">
-        {{ advert_placement.advert.text }}
-      </a>
-    </p>
+      <p>
+          <a href="{{ advert_placement.advert.url }}">
+              {{ advert_placement.advert.text }}
+          </a>
+      </p>
   {% endfor %}
 
 
@@ -191,7 +193,7 @@ If a snippet model inherits from ``wagtail.wagtailsearch.index.Indexed``, as des
   ...
 
   @register_snippet
-  class Advert(models.Model, index.Indexed):
+  class Advert(index.Indexed, models.Model):
       url = models.URLField(null=True, blank=True)
       text = models.CharField(max_length=255)
 
@@ -213,6 +215,7 @@ Adding tags to snippets is very similar to adding tags to pages. The only differ
 .. code-block:: python
 
     from modelcluster.fields import ParentalKey
+    from modelcluster.models import ClusterableModel
     from taggit.models import TaggedItemBase
     from taggit.managers import TaggableManager
 
@@ -220,7 +223,7 @@ Adding tags to snippets is very similar to adding tags to pages. The only differ
         content_object = ParentalKey('demo.Advert', related_name='tagged_items')
 
     @register_snippet
-    class Advert(models.Model):
+    class Advert(ClusterableModel):
         ...
         tags = TaggableManager(through=AdvertTag, blank=True)
 
