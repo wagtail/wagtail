@@ -1,9 +1,9 @@
-export const API = window.wagtailConfig.api;
-export const API_PAGES = window.wagtailConfig.api.pages;
+export const API = global.wagtailConfig.api;
+export const API_PAGES = global.wagtailConfig.api.pages;
 
 export const EXPLORER_ANIM_DURATION = 220;
 
-export const ADMIN_PAGES = window.wagtailConfig.urls.pages;
+export const ADMIN_PAGES = global.wagtailConfig.urls.pages;
 
 export const EXPLORER_FILTERS = [
   { id: 1, label: 'A', filter: null },
