@@ -35,11 +35,12 @@
             <div class="messages">
                 {% if messages or edit_handler and edit_handler.form and edit_handler.form.non_field_errors %}
                     <ul>
-                        {% for message in messages %}
-                            <li class="{% message_tags message %}">{{ message|safe }}</li>
-                        {% endfor %}
                         {% if edit_handler and edit_handler.form and edit_handler.form.non_field_errors %}
                             <li class="error">{{ edit_handler.form.non_field_errors.as_text }}</li>
+                        {% else %}
+                            {% for message in messages %}
+                                <li class="{% message_tags message %}">{{ message|safe }}</li>
+                            {% endfor %}
                         {% endif %}
                     </ul>
                 {% endif %}
