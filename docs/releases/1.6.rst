@@ -33,3 +33,29 @@ Bug fixes
 Upgrade considerations
 ======================
 
+``TagSearchable`` needs removing from custom image / document model migrations
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+The mixin class ``wagtail.wagtailadmin.taggable.TagSearchable``, used internally by image and document models, has been deprecated. If you are using custom image or document models in your project, the migration(s) which created them will contain frozen references to ``wagtail.wagtailadmin.taggable.TagSearchable``, which must now be removed. The line:
+
+.. code-block:: python
+
+    import wagtail.wagtailadmin.taggable
+
+should be replaced by:
+
+.. code-block:: python
+
+    import wagtail.wagtailsearch.index
+
+and the line:
+
+.. code-block:: python
+
+    bases=(models.Model, wagtail.wagtailadmin.taggable.TagSearchable),
+
+should be updated to:
+
+.. code-block:: python
+
+    bases=(models.Model, wagtail.wagtailsearch.index.Indexed),

@@ -5,8 +5,8 @@ import taggit.managers
 from django.conf import settings
 from django.db import migrations, models
 
-import wagtail.wagtailadmin.taggable
 import wagtail.wagtailimages.models
+import wagtail.wagtailsearch.index
 
 
 class Migration(migrations.Migration):
@@ -54,7 +54,7 @@ class Migration(migrations.Migration):
             options={
                 'abstract': False,
             },
-            bases=(models.Model, wagtail.wagtailadmin.taggable.TagSearchable),
+            bases=(models.Model, wagtail.wagtailsearch.index.Indexed),
         ),
         migrations.CreateModel(
             name='Rendition',
