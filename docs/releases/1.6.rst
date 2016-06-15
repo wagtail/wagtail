@@ -27,6 +27,7 @@ Bug fixes
 
  * Email templates and document uploader now support custom `STATICFILES_STORAGE` (Jonny Scholes)
  * Removed alignment options (deprecated in HTML and not rendered by Wagtail) from `TableBlock` context menu (Moritz Pfeiffer)
+ * Fixed incorrect CSS path on ModelAdmin's "choose a parent page" view
 
 
 Upgrade considerations
