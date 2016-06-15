@@ -30,6 +30,8 @@
     <div class="content-wrapper">
         <div class="content">
             
+            {# Always show messages div so it can be appended to by JS #}
+            <div class="messages">
             {% block messages %}
                 {% form_has_errors as has_errors %}
                 {% if messages or has_errors %}
@@ -48,6 +50,8 @@
                     </ul>
                 {% endif %}
             {% endblock %}
+            </div>
+
 
             <div id="nav-toggle" class="nav-toggle icon text-replace">{% trans "Menu" %}</div>
 
