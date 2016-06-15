@@ -31,20 +31,22 @@
         <div class="content">
             
             {% block messages %}
-            {# Always show messages div so it can be appended to by JS #}
-            <div class="messages">
-                {% if messages or edit_handler and edit_handler.form and edit_handler.form.non_field_errors %}
+                {% form_has_errors as has_errors %}
+                {% if messages or has_errors %}
                     <ul>
-                        {% if edit_handler and edit_handler.form and edit_handler.form.non_field_errors %}
+                        {% if has_errors and messages %}<div style='display: none'>{% endif %}
+
+                        {% for message in messages %}
+                            <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message|safe }}</li>
+                        {% endfor %}
+
+                        {% if has_errors and messages %}</div>{% endif %}
+
+                        {% if has_errors %}
                             <li class="error">{{ edit_handler.form.non_field_errors.as_text }}</li>
-                        {% else %}
-                            {% for message in messages %}
-                                <li class="{% message_tags message %}">{{ message|safe }}</li>
-                            {% endfor %}
                         {% endif %}
                     </ul>
                 {% endif %}
-            </div>
             {% endblock %}
 
             <div id="nav-toggle" class="nav-toggle icon text-replace">{% trans "Menu" %}</div>
