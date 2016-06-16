@@ -1,5 +1,6 @@
 from __future__ import absolute_import, unicode_literals
 
+from django import VERSION as DJANGO_VERSION
 from django.conf.urls import url
 from django.core.urlresolvers import RegexURLResolver
 from django.http import Http404
@@ -63,7 +64,12 @@ class RoutablePageMixin(object):
         args = args or []
         kwargs = kwargs or {}
 
-        return self.get_resolver().reverse(name, *args, **kwargs)
+        if DJANGO_VERSION <= (1, 9):
+            return self.get_resolver().reverse(name, *args, **kwargs)
+        else:
+            # XXX: using an internal django API
+            return self.get_resolver()._reverse_with_prefix(
+                name, '', *args, **kwargs)
 
     def resolve_subpage(self, path):
         """
