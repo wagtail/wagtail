@@ -22,6 +22,7 @@ Minor features
  * Form builder now validates against multiple fields with the same name (Richard McMillan)
  * The 'choices' field on the form builder no longer has a maximum length (Johannes Spielmann)
  * The wagtailimages.Filter model has been removed, and converted to a Python class instead (Gagaro)
+ * Multiple ChooserBlocks inside a StreamField are now prefetched in bulk, for improved performance (Michael van Tellingen, Roel Bruggink, Matt Westcott)
 
 
 Bug fixes
