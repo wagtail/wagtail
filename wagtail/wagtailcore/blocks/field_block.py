@@ -400,10 +400,13 @@ class ChooserBlock(FieldBlock):
                 return None
 
     def bulk_to_python(self, values):
-        # values = a list of primary keys
-       # return a corresponding list of python-ified values
-       products_by_id = self.target_model.objects.in_bulk(values)
-       return [products_by_id[id] for id in values]
+        """Return the model instances for the given list of primary keys.
+
+        The instances should be returned in the same order as the values.
+
+        """
+        products_by_id = self.target_model.objects.in_bulk(values)
+        return [products_by_id[id] for id in values]
 
     def get_prep_value(self, value):
         # the native value (a model instance or None) should serialise to a PK or None
