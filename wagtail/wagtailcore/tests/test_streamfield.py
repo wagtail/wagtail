@@ -4,6 +4,7 @@ from __future__ import absolute_import, unicode_literals
 import json
 
 from django.apps import apps
+from django.core.exceptions import ValidationError
 from django.db import models
 from django.template import Context, Template, engines
 from django.test import TestCase
@@ -156,6 +157,13 @@ class TestStreamFieldRenderingBase(TestCase):
             '<div class="block-text">Hello, World!</div>',
         ])
 
+class TestStreamFieldValidation(TestCase):
+    def setUp(self):
+        self.instance = StreamModel.objects.create(body=json.dumps([]))
+
+    def test_empty_required_streamfield(self):
+        with self.assertRaises(ValidationError):
+            self.instance.clean_fields()
 
 class TestStreamFieldRendering(TestStreamFieldRenderingBase):
     def test_to_string(self):
