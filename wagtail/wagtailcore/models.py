@@ -257,11 +257,6 @@ class PageBase(models.base.ModelBase):
     def __init__(cls, name, bases, dct):
         super(PageBase, cls).__init__(name, bases, dct)
 
-        if cls._deferred:
-            # this is an internal class built for Django's deferred-attribute mechanism;
-            # don't proceed with all this page type registration stuff
-            return
-
         # Override the default `objects` attribute with a `PageManager`.
         # Managers are not inherited by MTI child models, so `Page` subclasses
         # will get a plain `Manager` instead of a `PageManager`.
