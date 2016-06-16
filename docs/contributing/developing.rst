@@ -21,13 +21,13 @@ To download, compile, and install the latest v5.3.0 release of node, do this:
 
 .. code-block:: sh
 
-    nvm install v5.3.0
+    nvm install
 
 And then in any new shell just use the installed version:
 
 .. code-block:: sh
 
-    nvm use v5.3.0
+    nvm use
 
 You will also need to install the **libjpeg** and **zlib** libraries, if you haven't done so already - see Pillow's `platform-specific installation instructions <http://pillow.readthedocs.org/en/latest/installation.html#external-libraries>`_.
 
