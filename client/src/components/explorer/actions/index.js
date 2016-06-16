@@ -95,18 +95,32 @@ export function fetchTree(id=1) {
   return dispatch => {
     dispatch(fetchBranchStart(id));
 
-    return _get(`${API_PAGES}${id}/`)
-      .then(json => {
-        dispatch(fetchBranchComplete(id, json))
+    // TODO Refactor this to use the right fetchChildren separate endpoint client / action.
+    // There should only be the second code path as part of fetchTree,
+    // first path should use fetchChildren of root (before fetchTree gets started).
+    if (id === 1) {
+      return _get(`${API_PAGES}?child_of=root`)
+        .then(rootJSON => {
+          // TODO right now, only works for a single homepage.
+          // TODO What do we do if there is no homepage?
+          const rootId = rootJSON.items[0].id;
 
-        // Recursively walk up the tree to the root, to figure out how deep
-        // in the tree we are.
-        if (json.meta.parent) {
-          dispatch(fetchTree(json.meta.parent.id));
-        } else {
-          dispatch(treeResolved())
-        }
-      });
+          dispatch(fetchTree(rootId));
+        });
+    } else {
+      return _get(`${API_PAGES}${id}/`)
+        .then(json => {
+          dispatch(fetchBranchComplete(id, json))
+
+          // Recursively walk up the tree to the root, to figure out how deep
+          // in the tree we are.
+          if (json.meta.parent) {
+            dispatch(fetchTree(json.meta.parent.id));
+          } else {
+            dispatch(treeResolved())
+          }
+        });
+    }
   }
 }
 
