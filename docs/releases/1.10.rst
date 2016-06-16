@@ -60,6 +60,7 @@ Bug fixes
  * The page type usage listing now have a translatable page title (Ramon de Jezus)
  * Styles for submission filtering form now have a consistent height. (Thijs Kramer)
  * Slicing a search result set no longer loses the annotation added by `annotate_score` (Karl Hobley)
+ * String-based primary keys are now escaped correctly in ModelAdmin URLs (Andreas Nüßlein)
 
 
 Upgrade considerations

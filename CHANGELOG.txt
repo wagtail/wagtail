@@ -49,6 +49,7 @@ Changelog
  * Fix: Styles for submission filtering form now have a consistent height. (Thijs Kramer)
  * Fix: Custom user models with a primary key type requiring `get_db_prep_value` conversion are now supported (thenewguy)
  * Fix: Slicing a search result set no longer loses the annotation added by `annotate_score` (Karl Hobley)
+ * Fix: String-based primary keys are now escaped correctly in ModelAdmin URLs (Andreas Nüßlein)
 
 
 1.9 (16.02.2017)

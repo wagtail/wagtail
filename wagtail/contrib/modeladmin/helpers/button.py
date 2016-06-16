@@ -98,7 +98,7 @@ class ButtonHelper(object):
             classnames_exclude = []
         ph = self.permission_helper
         usr = self.request.user
-        pk = quote(getattr(obj, self.opts.pk.attname))
+        pk = getattr(obj, self.opts.pk.attname)
         btns = []
         if('inspect' not in exclude and ph.user_can_inspect_obj(usr, obj)):
             btns.append(
@@ -158,7 +158,7 @@ class PageButtonHelper(ButtonHelper):
             classnames_exclude = []
         ph = self.permission_helper
         usr = self.request.user
-        pk = quote(getattr(obj, self.opts.pk.attname))
+        pk = getattr(obj, self.opts.pk.attname)
         btns = []
         if('inspect' not in exclude and ph.user_can_inspect_obj(usr, obj)):
             btns.append(
