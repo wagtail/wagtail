@@ -260,9 +260,9 @@ def _get_page_if_permitted(page_id, request, allow_ancestors, choosable):
     if request.user.is_superuser:
         return page
 
-    # Other users can explore/choose permitted pages that are on any Site. Note that short-cicuiting will prevent
+    # Other users can explore/choose permitted pages that are on any Site. Note that short-circuiting will prevent
     # can_explore() and can_choose() from being executed when they shouldn't be.
-    page_perms_proxy = page.permissions_for_user(request.user)
+    page_perms_proxy = page.permissions_for_user(request.user, request)
     if (choosable and page_perms_proxy.can_choose(allow_ancestors)) or page_perms_proxy.can_explore(allow_ancestors):
         return page
 

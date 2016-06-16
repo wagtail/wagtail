@@ -55,12 +55,12 @@ def browse(request, parent_page_id=None):
     else:
         parent_page = Page.get_first_root_node()
         if not request.user.is_superuser:
-            cca_path = get_closest_common_ancestor_path(request.user, choosable=True)
+            cca_path = get_closest_common_ancestor_path(request, choosable=True)
             if cca_path:
                 parent_page = Page.objects.get(path=cca_path)
 
     # Include only the choosable children in the unfiltered page queryset.
-    pages = parent_page.get_choosable_children(request.user).prefetch_related('content_type')
+    pages = parent_page.get_choosable_children(request).prefetch_related('content_type')
 
     # Filter them by page type
     # A missing or empty page_type parameter indicates 'all page types' (i.e. descendants of wagtailcore.page)
@@ -82,7 +82,7 @@ def browse(request, parent_page_id=None):
 
     # Users must be able to navigate through required ancestors, but cannot choose them.
     if not request.user.is_superuser:
-        required_ancestors = get_choosable_page_paths(request.user)[1]
+        required_ancestors = get_choosable_page_paths(request)[1]
     else:
         # Superusers don't have required ancestors because they have implicit permission on the Root page.
         required_ancestors = []
@@ -141,7 +141,7 @@ def search(request, parent_page_id=None):
         # Never include the Root page. Prefetch the content_type for better performance.
         pages = Page.objects.exclude(depth=1).prefetch_related('content_type')
         pages = filter_page_type(pages, desired_classes)
-        pages = filter_choosable_pages(pages, request.user, include_ancestors=False)
+        pages = filter_choosable_pages(pages, request, include_ancestors=False)
 
         pages = pages.search(search_form.cleaned_data['q'], fields=['title'])
     else:

@@ -33,7 +33,7 @@ def get_valid_next_url_from_request(request):
 
 def explorer_nav(request):
     return render(request, 'wagtailadmin/shared/explorer_nav.html', {
-        'nodes': get_navigation_menu_items(request.user),
+        'nodes': get_navigation_menu_items(request),
     })
 
 
@@ -44,11 +44,11 @@ def index(request, parent_page_id=None):
         # The user visited /admin/pages/, so we need to figure out the appropriate "root page" to show them.
         parent_page = Page.get_first_root_node()
         if not request.user.is_superuser:
-            cca_path = get_closest_common_ancestor_path(request.user)
+            cca_path = get_closest_common_ancestor_path(request)
             if cca_path:
                 parent_page = Page.objects.get(path=cca_path)
 
-    pages = parent_page.get_explorable_children(request.user).prefetch_related('content_type')
+    pages = parent_page.get_explorable_children(request).prefetch_related('content_type')
 
     # Get page ordering
     ordering = request.GET.get('ordering', '-latest_revision_created_at')
@@ -828,7 +828,7 @@ def search(request):
         if form.is_valid():
             q = form.cleaned_data['q']
             pages = Page.objects.prefetch_related('content_type')
-            pages = filter_explorable_pages(pages, request.user, include_ancestors=False)
+            pages = filter_explorable_pages(pages, request, include_ancestors=False)
             pages = pages.search(q)
             paginator, pages = paginate(request, pages)
     else:

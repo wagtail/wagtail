@@ -30,9 +30,9 @@ else:
 
 
 @register.inclusion_tag('wagtailadmin/shared/explorer_nav.html')
-def explorer_nav(user):
+def explorer_nav(request):
     return {
-        'nodes': get_navigation_menu_items(user)
+        'nodes': get_navigation_menu_items(request)
     }
 
 
@@ -110,7 +110,7 @@ def page_permissions(context, page):
     # Create a UserPagePermissionsProxy object to represent the user's global permissions, and
     # cache it in the context for the duration of the page request, if one does not exist already
     if 'user_page_permissions' not in context:
-        context['user_page_permissions'] = UserPagePermissionsProxy(context['request'].user)
+        context['user_page_permissions'] = UserPagePermissionsProxy(context['request'].user, request=context['request'])
 
     # Now retrieve a PagePermissionTester from it, specific to the given page
     return context['user_page_permissions'].for_page(page)
@@ -314,69 +314,69 @@ def message_tags(message):
 
 
 @register.assignment_tag
-def explorable_ancestors(page, user):
+def current_users_explorable_ancestors(page, request):
     """
-    Example: {% explorable_ancestors page_obj user_obj as ancestors %}
-    Since the Page.get_explorable_ancestors function takes a User object as
+    Example: {% current_users_explorable_ancestors page_obj request as ancestors %}
+    Since the Page.get_explorable_ancestors function takes a request object as
     input, we can't call it directly from the template. This template tag does
     that for us.
     """
-    return page.get_explorable_ancestors(user)
+    return page.get_explorable_ancestors(request)
 
 
 @register.assignment_tag
-def choosable_ancestors(page, user):
+def current_users_choosable_ancestors(page, request):
     """
-    Example: {% choosable_ancestors page_obj user_obj as ancestors %}
-    Since the Page.get_choosable_ancestors function takes a User object as
+    Example: {% current_users_choosable_ancestors page_obj request as ancestors %}
+    Since the Page.get_choosable_ancestors function takes a request object as
     input, we can't call it directly from the template. This template tag does
     that for us.
     """
-    return page.get_choosable_ancestors(user)
+    return page.get_choosable_ancestors(request)
 
 
 @register.assignment_tag
-def is_explorable_root(page, user):
+def is_current_users_explorable_root(page, request):
     """
-    Example: {% is_explorable_root page_obj user_obj as page_is_explorable_root %}
-    Since the Page.is_explorable_root function takes a User object as input, we
+    Example: {% is_current_users_explorable_root page_obj request as page_is_explorable_root %}
+    Since the Page.is_explorable_root function takes a request object as input, we
     can't call directly from the template. This template tag does that for us.
     """
-    return page.is_explorable_root(user)
+    return page.is_explorable_root(request)
 
 
 @register.assignment_tag
-def is_choosable_root(page, user):
+def is_current_users_choosable_root(page, request):
     """
-    Example: {% is_choosable_root page_obj user_obj as page_is_choosable_root %}
-    Since the Page.is_choosable_root function takes a User object as input, we
+    Example: {% is_current_users_choosable_root page_obj request as page_is_choosable_root %}
+    Since the Page.is_choosable_root function takes a request object as input, we
     can't call it directly from the template. This template tag does that for us.
     """
-    return page.is_choosable_root(user)
+    return page.is_choosable_root(request)
 
 
 @register.assignment_tag
-def user_can_explore_page(user, page):
+def current_user_can_explore_page(request, page):
     """
-    Example: {% user_can_explore_page request.user page as page_is_explorable %}
+    Example: {% current_user_can_explore_page request page as page_is_explorable %}
     """
-    return page.permissions_for_user(user).can_explore()
+    return page.permissions_for_user(request.user, request).can_explore()
 
 
 @register.assignment_tag
-def user_can_perform_actions(user, page):
+def current_user_can_perform_actions(request, page):
     """
-    Example: {% user_can_perform_actions request.user page as page_is_actionable %}
+    Example: {% current_user_can_perform_actions request page as page_is_actionable %}
 
     This tag differs from can_explore_page as it will return False for pages that the
-    user can explore through, but cannot act upon.
+    current user can explore through, but cannot act upon.
     """
-    return page.permissions_for_user(user).can_explore(allow_ancestors=False)
+    return page.permissions_for_user(request.user, request).can_explore(allow_ancestors=False)
 
 
 @register.assignment_tag
-def user_can_choose_page(user, page):
+def current_user_can_choose_page(request, page):
     """
-    Example: {% user_can_choose_page request.user page as page_is_choosable %}
+    Example: {% current_user_can_choose_page request page as page_is_choosable %}
     """
-    return page.permissions_for_user(user).can_choose()
+    return page.permissions_for_user(request.user, request).can_choose()

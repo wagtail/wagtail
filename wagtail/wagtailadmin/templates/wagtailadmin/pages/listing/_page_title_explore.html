@@ -13,7 +13,7 @@
     {% include "wagtailadmin/pages/listing/_locked_indicator.html" with page=page %}
 </h2>
 
-{% user_can_perform_actions request.user page as page_is_actionable %}
+{% current_user_can_perform_actions request page as page_is_actionable %}
 {% if page_is_actionable %}
     <ul class="actions">
         {% page_listing_buttons page page_perms %}

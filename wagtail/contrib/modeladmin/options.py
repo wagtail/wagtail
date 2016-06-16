@@ -247,7 +247,7 @@ class ModelAdmin(WagtailRegisterable):
         current user.
         """
         qs = self.model._default_manager.get_queryset()
-        qs = filter_explorable_pages(qs, request.user, include_ancestors=False)
+        qs = filter_explorable_pages(qs, request, include_ancestors=False)
 
         ordering = self.get_ordering(request)
         if ordering:
