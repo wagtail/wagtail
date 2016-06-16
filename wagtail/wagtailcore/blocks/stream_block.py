@@ -308,7 +308,11 @@ class StreamValue(collections.Sequence):
                 raw_value = self.stream_data[i]
                 type_name = raw_value['type']
                 child_block = self.stream_block.child_blocks[type_name]
-                value = child_block.to_python(raw_value['value'])
+                if hasattr(child_block, 'bulk_to_python'):
+                    self._prefetch_blocks(type_name, child_block)
+                    return self._bound_blocks[i]
+                else:
+                    value = child_block.to_python(raw_value['value'])
             else:
                 type_name, value = self.stream_data[i]
                 child_block = self.stream_block.child_blocks[type_name]
@@ -316,6 +320,23 @@ class StreamValue(collections.Sequence):
             self._bound_blocks[i] = StreamValue.StreamChild(child_block, value)
 
         return self._bound_blocks[i]
+
+    def _prefetch_blocks(self, type_name, child_block):
+        """Prefetch all child blocks for the given `type_name` using the
+        given `child_blocks`.
+
+        This prevents n+ queries for n blocks of a specific type.
+
+        """
+        raw_values = collections.OrderedDict(
+            (i, item['value']) for i, item in enumerate(self.stream_data)
+            if item['type'] == type_name
+        )
+        child_block = self.stream_block.child_blocks[type_name]
+        converted_values = child_block.bulk_to_python(raw_values.values())
+
+        for i, value in zip(raw_values.keys(), converted_values):
+            self._bound_blocks[i] = StreamValue.StreamChild(child_block, value)
 
     def __len__(self):
         return len(self.stream_data)
