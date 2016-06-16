@@ -4,7 +4,7 @@ import json
 
 from django.core.serializers.json import DjangoJSONEncoder
 from django.db import models
-from django.utils.six import string_types, with_metaclass
+from django.utils.six import string_types
 
 from wagtail.wagtailcore.blocks import Block, BlockField, StreamBlock, StreamValue
 
