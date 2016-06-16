@@ -19,6 +19,7 @@ Changelog
  * Fix: Fixed incorrect CSS path on ModelAdmin's "choose a parent page" view
  * Fix: Prevent empty redirect by overnormalisation (Franklin Kingma, Ludolf Takens)
  * Fix: "Remove link" button in rich text editor didn't trigger "edit" event, leading to the change to sometimes not be persisted (Matt Westcott)
+ * Fix: `RichText` values can now be correctly evaluated as booleans (Mike Dingjan, Bertrand Bordage)
 
 
 1.5.2 (08.06.2016)

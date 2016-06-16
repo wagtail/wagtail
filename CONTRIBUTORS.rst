@@ -146,6 +146,7 @@ Contributors
 * Franklin Kingma
 * Ludolf Takens
 * Oktay Altay
+* Bertrand Bordage
 
 Translators
 ===========
