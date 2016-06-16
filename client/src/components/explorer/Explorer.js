@@ -109,7 +109,7 @@ const mapDispatchToProps = (dispatch) => {
   return {
     setDefaultPage: (id) => { dispatch(actions.setDefaultPage(id)) },
     getChildren: (id) => { dispatch(actions.fetchChildren(id)) },
-    onShow: (id) => { dispatch(actions.resetTree(id)); dispatch(actions.fetchTree(id)) },
+    onShow: (id) => { dispatch(actions.fetchRoot()) },
     onFilter: (filter) => { dispatch(actions.setFilter(filter)) },
     loadItemWithChildren: (id) => { dispatch(actions.fetchPage(id)) },
     pushPage: (id) => { dispatch(actions.pushPage(id)) },

@@ -1,4 +1,4 @@
-import { API, API_PAGES } from 'config';
+import { API, API_PAGES, PAGES_ROOT_ID } from 'config';
 
 
 export function fetchStart(id) {
@@ -95,33 +95,33 @@ export function fetchTree(id=1) {
   return dispatch => {
     dispatch(fetchBranchStart(id));
 
-    // TODO Refactor this to use the right fetchChildren separate endpoint client / action.
-    // There should only be the second code path as part of fetchTree,
-    // first path should use fetchChildren of root (before fetchTree gets started).
-    if (id === 1) {
-      return _get(`${API_PAGES}?child_of=root`)
-        .then(rootJSON => {
-          // TODO right now, only works for a single homepage.
-          // TODO What do we do if there is no homepage?
-          const rootId = rootJSON.items[0].id;
+    return _get(`${API_PAGES}${id}/`)
+      .then(json => {
+        dispatch(fetchBranchComplete(id, json))
 
-          dispatch(fetchTree(rootId));
-        });
-    } else {
-      return _get(`${API_PAGES}${id}/`)
-        .then(json => {
-          dispatch(fetchBranchComplete(id, json))
-
-          // Recursively walk up the tree to the root, to figure out how deep
-          // in the tree we are.
-          if (json.meta.parent) {
-            dispatch(fetchTree(json.meta.parent.id));
-          } else {
-            dispatch(treeResolved())
-          }
-        });
-    }
+        // Recursively walk up the tree to the root, to figure out how deep
+        // in the tree we are.
+        if (json.meta.parent) {
+          dispatch(fetchTree(json.meta.parent.id));
+        } else {
+          dispatch(treeResolved())
+        }
+      });
   }
+}
+
+export function fetchRoot() {
+  return (dispatch) => {
+    return _get(`${API_PAGES}?child_of=${PAGES_ROOT_ID}`)
+      .then(json => {
+        // TODO right now, only works for a single homepage.
+        // TODO What do we do if there is no homepage?
+        const rootId = json.items[0].id;
+
+        dispatch(resetTree(rootId));
+        dispatch(fetchTree(rootId));
+      });
+  };
 }
 
 export function toggleExplorer() {
