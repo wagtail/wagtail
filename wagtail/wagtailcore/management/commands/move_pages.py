@@ -6,16 +6,15 @@ from wagtail.wagtailcore.models import Page
 
 
 class Command(BaseCommand):
-    args = "<from id> <to id>"
+    def add_arguments(self, parser):
+        # Positional arguments
+        parser.add_argument('from_id', type=int)
+        parser.add_argument('to_id', type=int)
 
-    def handle(self, _from_id, _to_id, **options):
-        # Convert args to integers
-        from_id = int(_from_id)
-        to_id = int(_to_id)
-
+    def handle(self, *args, **options):
         # Get pages
-        from_page = Page.objects.get(pk=from_id)
-        to_page = Page.objects.get(pk=to_id)
+        from_page = Page.objects.get(pk=options['from_id'])
+        to_page = Page.objects.get(pk=options['to_id'])
         pages = from_page.get_children()
 
         # Move the pages
