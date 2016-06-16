@@ -195,3 +195,7 @@ class RichText(object):
 
     def __str__(self):
         return mark_safe('<div class="rich-text">' + expand_db_html(self.source) + '</div>')
+
+    def __bool__(self):
+        return bool(self.source)
+    __nonzero__ = __bool__
