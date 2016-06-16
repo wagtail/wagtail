@@ -2,19 +2,11 @@ import React, { Component, PropTypes } from 'react';
 import CSSTransitionGroup from 'react-addons-css-transition-group';
 import { EXPLORER_ANIM_DURATION } from 'config';
 
-import ExplorerEmpty from './explorer-empty';
-import ExplorerHeader from './explorer-header';
-import ExplorerItem from './explorer-item';
-import PageCount from './page-count';
-
-
-const LoadingSpinner = (props) => {
-  return (
-    <div className='c-explorer__loading'>
-      <span className="c-explorer__spinner icon icon-spinner" /> Loading...
-    </div>
-  );
-}
+import ExplorerEmpty from './ExplorerEmpty';
+import ExplorerHeader from './ExplorerHeader';
+import ExplorerItem from './ExplorerItem';
+import PageCount from './PageCount';
+import LoadingSpinner from './LoadingSpinner';
 
 export default class ExplorerPanel extends Component {
   constructor(props) {

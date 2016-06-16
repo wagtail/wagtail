@@ -2,9 +2,13 @@ import 'babel-polyfill';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
+import { createStore, applyMiddleware } from 'redux';
+import createLogger from 'redux-logger'
+import thunkMiddleware from 'redux-thunk'
 
-import Explorer, { store } from 'components/explorer';
+import Explorer from 'components/explorer/Explorer';
 import ExplorerToggle from 'components/explorer/toggle';
+import rootReducer from 'components/explorer/reducers';
 
 
 document.addEventListener('DOMContentLoaded', e => {
@@ -17,6 +21,13 @@ document.addEventListener('DOMContentLoaded', e => {
   let label = trigger.innerText;
 
   top.parentNode.appendChild(div);
+
+  const loggerMiddleware = createLogger();
+
+  const store = createStore(
+    rootReducer,
+    applyMiddleware(loggerMiddleware, thunkMiddleware)
+  );
 
   ReactDOM.render((
       <Provider store={store}>

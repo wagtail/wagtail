@@ -1,9 +1,9 @@
 import React from 'react';
 
-const LoadingIndicator = () =>
+const LoadingIndicator = () => (
     <div className="o-icon c-indicator is-spinning">
         <span ariaRole="presentation">Loading...</span>
-    </div>;
-
+    </div>
+);
 
 export default LoadingIndicator;

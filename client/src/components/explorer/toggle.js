@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
-import { mapStateToProps, mapDispatchToProps, } from './connectors/toggle-connector';
 import { connect } from 'react-redux';
-
 
 class Toggle extends Component {
   constructor(props) {
@@ -42,5 +40,19 @@ Toggle.propTypes = {
 
 };
 
-const StatefulToggle = connect(mapStateToProps, mapDispatchToProps)(Toggle);
-export default StatefulToggle;
+const mapStateToProps = (store) => {
+  return {
+    loading: store.explorer.isFetching,
+    visible: store.explorer.isVisible,
+  }
+}
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    onToggle: (id) => {
+      dispatch({ type: 'TOGGLE_EXPLORER', id })
+    }
+  }
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Toggle);

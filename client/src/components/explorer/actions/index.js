@@ -131,7 +131,7 @@ export function toggleExplorer() {
 export function setFilter(filter) {
   return (dispatch, getState) => {
     const { explorer } = getState();
-    let id = explorer.react.path[explorer.react.path.length-1];
+    let id = explorer.path[explorer.path.length-1];
 
     dispatch({
       type: 'SET_FILTER',
@@ -168,8 +168,8 @@ export function fetchChildren(id='root') {
 
     let api = `${API_PAGES}?child_of=${id}`;
 
-    if (explorer.react.filter) {
-      api = `${api}&${explorer.react.filter}`
+    if (explorer.filter) {
+      api = `${api}&${explorer.filter}`
     }
 
     dispatch(fetchChildrenStart(id))

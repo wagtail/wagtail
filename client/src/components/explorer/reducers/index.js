@@ -1,17 +1,13 @@
 import { combineReducers } from 'redux';
-import react from './explorer-reducer';
-import nodes from './node-reducer';
-import transport from './transport-reducer.js';
+import explorer from './explorer';
+import nodes from './nodes';
+import transport from './transport';
 
 
 const rootReducer = combineReducers({
-  explorer: combineReducers({
-    react
-  }),
+  explorer,
   transport,
-  entities: combineReducers({
-    nodes
-  }),
+  nodes,
 });
 
 export default rootReducer;

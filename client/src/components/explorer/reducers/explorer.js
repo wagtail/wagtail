@@ -8,7 +8,7 @@ const stateDefaults = {
   filter: null
 }
 
-export default function react(state = stateDefaults, action) {
+export default function explorer(state = stateDefaults, action) {
 
   let newNodes = state.path;
 

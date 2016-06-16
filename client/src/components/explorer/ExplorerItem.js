@@ -1,9 +1,9 @@
 import React, { Component, PropTypes } from 'react';
-import StateIndicator from 'components/state-indicator';
-import PublishStatus from 'components/publish-status';
-import PublishedTime from 'components/published-time';
 
 import { ADMIN_PAGES } from 'config';
+import PublishStatus from 'components/publish-status/PublishStatus';
+import PublishedTime from 'components/published-time/PublishedTime';
+import StateIndicator from 'components/state-indicator/StateIndicator';
 
 export default class ExplorerItem extends Component {
 

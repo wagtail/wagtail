@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import CSSTransitionGroup from 'react-addons-css-transition-group';
 import { EXPLORER_ANIM_DURATION, EXPLORER_FILTERS } from 'config';
 
-import Filter from './filter';
+import Filter from './Filter';
 
 
 class ExplorerHeader extends Component {

@@ -1,19 +1,10 @@
 import React, { Component, PropTypes } from 'react';
 import CSSTransitionGroup from 'react-addons-css-transition-group';
-
-import { createStore, combineReducers, applyMiddleware } from 'redux';
-import thunkMiddleware from 'redux-thunk'
-import createLogger from 'redux-logger'
 import { connect } from 'react-redux'
 
+import * as actions from './actions';
 import { EXPLORER_ANIM_DURATION } from 'config';
-
-// Redux mappings
-import { mapStateToProps, mapDispatchToProps } from './connectors/explorer-connector';
-import rootReducer from './reducers';
-
-// React components
-import ExplorerPanel from './explorer-panel';
+import ExplorerPanel from './ExplorerPanel';
 
 
 class Explorer extends Component {
@@ -98,15 +89,36 @@ Explorer.propTypes = {
 // Connector
 // =============================================================================
 
-const VisibleExplorer = connect(
+const mapStateToProps = (state, ownProps) => ({
+  visible: state.explorer.isVisible,
+  page: state.explorer.currentPage,
+  depth: state.explorer.depth,
+  loading: state.explorer.isLoading,
+  fetching: state.explorer.isFetching,
+  resolved: state.explorer.isResolved,
+  path: state.explorer.path,
+  // page: state.explorer.page
+  // indexes: state.entities.indexes,
+  nodes: state.nodes,
+  animation: state.explorer.animation,
+  filter: state.explorer.filter,
+  transport: state.transport
+});
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    setDefaultPage: (id) => { dispatch(actions.setDefaultPage(id)) },
+    getChildren: (id) => { dispatch(actions.fetchChildren(id)) },
+    onShow: (id) => { dispatch(actions.resetTree(id)); dispatch(actions.fetchTree(id)) },
+    onFilter: (filter) => { dispatch(actions.setFilter(filter)) },
+    loadItemWithChildren: (id) => { dispatch(actions.fetchPage(id)) },
+    pushPage: (id) => { dispatch(actions.pushPage(id)) },
+    onPop: () => { dispatch(actions.popPage()) },
+    onClose: () => { dispatch(actions.toggleExplorer()) }
+  }
+}
+
+export default connect(
   mapStateToProps,
   mapDispatchToProps
 )(Explorer);
-
-const loggerMiddleware = createLogger();
-
-export default VisibleExplorer;
-export const store = createStore(
-  rootReducer,
-  applyMiddleware(loggerMiddleware, thunkMiddleware)
-);
