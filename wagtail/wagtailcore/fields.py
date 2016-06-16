@@ -4,7 +4,7 @@ import json
 
 from django.core.serializers.json import DjangoJSONEncoder
 from django.db import models
-from django.utils.six import string_types
+from django.utils.six import string_types, with_metaclass
 
 from wagtail.wagtailcore.blocks import Block, BlockField, StreamBlock, StreamValue
 
@@ -21,7 +21,7 @@ class RichTextField(models.TextField):
         return super(RichTextField, self).formfield(**defaults)
 
 
-class StreamField(models.Field):
+class StreamField(with_metaclass(models.SubfieldBase, models.Field)):
     def __init__(self, block_types, **kwargs):
         if isinstance(block_types, Block):
             self.stream_block = block_types
