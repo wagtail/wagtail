@@ -29,6 +29,36 @@ class FooStreamBlock(blocks.StreamBlock):
 
 
 class TestFieldBlock(unittest.TestCase):
+    def test_integerfield_type(self):
+        block = blocks.IntegerBlock()
+        digit = block.value_from_form(1234)
+
+        self.assertEqual(type(digit), int)
+
+    def test_integerfield_render(self):
+        block = blocks.IntegerBlock()
+        digit = block.value_from_form(1234)
+
+        self.assertEqual(digit, 1234)
+
+    def test_integerfield_render_with_error(self):
+        block = blocks.IntegerBlock()
+        block.render_form(
+            1234,
+            errors=ErrorList([ValidationError("This field is required.")]))
+
+    def test_emailfield_render(self):
+        block = blocks.EmailBlock()
+        email = block.render("example@email.com")
+
+        self.assertEqual(email, "example@email.com")
+
+    def test_emailfield_render_with_errors(self):
+        block = blocks.EmailBlock()
+        block.render_form(
+            "example@email.com",
+            errors=ErrorList([ValidationError("This field is required.")]))
+
     def test_charfield_render(self):
         block = blocks.CharBlock()
         html = block.render("Hello world!")

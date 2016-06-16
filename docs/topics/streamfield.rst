@@ -89,6 +89,21 @@ TextBlock
 
 A multi-line text input. As with ``CharBlock``, the keyword arguments ``required``, ``max_length``, ``min_length`` and ``help_text`` are accepted.
 
+
+EmailBlock
+~~~~~~~~~~
+
+``wagtail.wagtailcore.blocks.EmailBlock``
+
+A single-line email input that validates that the email is a valid Email Address. The keyword arguments ``required`` and ``help_text`` are accepted.
+
+IntegerBlock
+~~~~~~~~~~~~
+
+``wagtail.wagtailcore.blocks.IntegerBlock``
+
+A single-line integer input that validates that the integer is a valid whole number. The keyword arguments ``required``, ``max_length``, ``min_length`` and ``help_text`` are accepted.
+
 URLBlock
 ~~~~~~~~
 
