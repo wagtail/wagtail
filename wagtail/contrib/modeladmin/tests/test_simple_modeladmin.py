@@ -1,11 +1,14 @@
 from __future__ import absolute_import, unicode_literals
 
+import re
+
+from bs4 import BeautifulSoup
 import mock
 from django.contrib.auth import get_user_model
 from django.contrib.auth.models import Group
 from django.test import TestCase
 
-from wagtail.tests.modeladmintest.models import Author, Book, Publisher
+from wagtail.tests.modeladmintest.models import Author, Book, Publisher, Token
 from wagtail.tests.utils import WagtailTestUtils
 from wagtail.wagtailimages.models import Image
 from wagtail.wagtailimages.tests.utils import get_test_image_file
@@ -461,3 +464,21 @@ class TestEditorAccess(TestCase):
     def test_delete_post_permitted(self):
         response = self.client.post('/admin/modeladmintest/book/delete/2/')
         self.assertEqual(response.status_code, self.expected_status_code)
+
+
+class TestQuoting(TestCase, WagtailTestUtils):
+    fixtures = ['modeladmintest_test.json']
+    expected_status_code = 200
+
+    def setUp(self):
+        self.login()
+        self.tok_reg = Token.objects.create(key="RegularName")
+        self.tok_irr = Token.objects.create(key="Irregular_Name")
+
+    def test_action_links(self):
+        response = self.client.get('/admin/modeladmintest/token/')
+        soup = BeautifulSoup(response.content, 'html.parser')
+        action_links = soup.find_all(href=re.compile('/admin/modeladmintest/token/'))
+        for link in action_links:
+            link_response = self.client.get(link['href'])
+            self.assertEqual(link_response.status_code, self.expected_status_code)
