@@ -48,11 +48,47 @@ matrix:
      python: 3.5
    - env: TOXENV=py35-dj19-sqlite-elasticsearch
      python: 3.5
+   - env: TOXENV=py27-dj110-sqlite-noelasticsearch
+     python: 2.7
+   - env: TOXENV=py27-dj110-postgres-noelasticsearch
+     python: 2.7
+   - env: TOXENV=py27-dj110-mysql-noelasticsearch
+     python: 2.7
+   - env: TOXENV=py27-dj110-postgres-elasticsearch
+     python: 2.7
+   - env: TOXENV=py27-dj110-sqlite-elasticsearch
+     python: 2.7
+   - env: TOXENV=py34-dj110-sqlite-noelasticsearch
+     python: 3.4
+   - env: TOXENV=py34-dj110-postgres-noelasticsearch
+     python: 3.4
+   - env: TOXENV=py34-dj110-mysql-noelasticsearch
+     python: 3.4
+   - env: TOXENV=py34-dj110-postgres-elasticsearch
+     python: 3.4
+   - env: TOXENV=py34-dj110-sqlite-elasticsearch
+     python: 3.4
+   - env: TOXENV=py35-dj110-sqlite-noelasticsearch
+     python: 3.5
+   - env: TOXENV=py35-dj110-postgres-noelasticsearch
+     python: 3.5
+   - env: TOXENV=py35-dj110-mysql-noelasticsearch
+     python: 3.5
+   - env: TOXENV=py35-dj110-postgres-elasticsearch
+     python: 3.5
+   - env: TOXENV=py35-dj110-sqlite-elasticsearch
+     python: 3.5
   allow_failures:
     - env: TOXENV=py27-dj18-sqlite-elasticsearch
     - env: TOXENV=py27-dj19-postgres-elasticsearch
     - env: TOXENV=py35-dj18-postgres-elasticsearch
     - env: TOXENV=py35-dj19-sqlite-elasticsearch
+    - env: TOXENV=py27-dj110-postgres-elasticsearch
+    - env: TOXENV=py27-dj110-sqlite-elasticsearch
+    - env: TOXENV=py34-dj110-postgres-elasticsearch
+    - env: TOXENV=py34-dj110-sqlite-elasticsearch
+    - env: TOXENV=py35-dj110-postgres-elasticsearch
+    - env: TOXENV=py35-dj110-sqlite-elasticsearch
 
 # Services
 services:
