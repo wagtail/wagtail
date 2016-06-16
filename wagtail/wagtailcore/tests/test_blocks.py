@@ -29,6 +29,54 @@ class FooStreamBlock(blocks.StreamBlock):
 
 
 class TestFieldBlock(unittest.TestCase):
+    def test_integerfield_type(self):
+        block = blocks.IntegerBlock()
+        digit = block.value_from_form(1234)
+
+        self.assertEqual(type(digit), int)
+
+    def test_integerfield_render(self):
+        block = blocks.IntegerBlock()
+        digit = block.value_from_form(1234)
+
+        self.assertEqual(digit, 1234)
+
+    def test_integerfield_render_required_error(self):
+        block = blocks.IntegerBlock()
+
+        with self.assertRaises(ValidationError):
+            block.clean("")
+
+    def test_integerfield_render_max_value_validation(self):
+        block = blocks.IntegerBlock(max_value=20)
+
+        with self.assertRaises(ValidationError):
+            block.clean(25)
+
+    def test_integerfield_render_min_value_validation(self):
+        block = blocks.IntegerBlock(min_value=20)
+
+        with self.assertRaises(ValidationError):
+            block.clean(10)
+
+    def test_emailfield_render(self):
+        block = blocks.EmailBlock()
+        email = block.render("example@email.com")
+
+        self.assertEqual(email, "example@email.com")
+
+    def test_emailfield_render_required_error(self):
+        block = blocks.EmailBlock()
+
+        with self.assertRaises(ValidationError):
+            block.clean("")
+
+    def test_emailfield_format_validation(self):
+        block = blocks.EmailBlock()
+
+        with self.assertRaises(ValidationError):
+            block.clean("example.email.com")
+
     def test_charfield_render(self):
         block = blocks.CharBlock()
         html = block.render("Hello world!")

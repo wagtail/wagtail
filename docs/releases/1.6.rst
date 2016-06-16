@@ -23,6 +23,7 @@ Minor features
  * The 'choices' field on the form builder no longer has a maximum length (Johannes Spielmann)
  * The wagtailimages.Filter model has been removed, and converted to a Python class instead (Gagaro)
  * Multiple ChooserBlocks inside a StreamField are now prefetched in bulk, for improved performance (Michael van Tellingen, Roel Bruggink, Matt Westcott)
+ * Added new EmailBlock and IntegerBlock (Oktay Altay)
 
 
 Bug fixes
