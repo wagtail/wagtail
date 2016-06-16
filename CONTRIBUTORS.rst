@@ -143,6 +143,8 @@ Contributors
 * Jonny Scholes
 * Richard McMillan
 * Johannes Spielmann
+* Franklin Kingma
+* Ludolf Takens
 
 Translators
 ===========

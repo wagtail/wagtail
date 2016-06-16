@@ -76,6 +76,8 @@ class TestRedirects(TestCase):
             '/Hello/world.htm;fizz=three;buzz=five?foo=Bar&Baz=quux2'
         ))
 
+        self.assertEqual('/', normalise_path('/'))  # '/' should stay '/'
+
         # Normalise some rubbish to make sure it doesn't crash
         normalise_path('This is not a URL')
         normalise_path('//////hello/world')
