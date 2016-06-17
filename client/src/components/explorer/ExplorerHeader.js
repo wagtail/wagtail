@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import CSSTransitionGroup from 'react-addons-css-transition-group';
-import { EXPLORER_ANIM_DURATION, EXPLORER_FILTERS } from 'config';
+import { EXPLORER_ANIM_DURATION, EXPLORER_FILTERS, STRINGS } from 'config';
 
 import Icon from 'components/icon/Icon';
 import Filter from './Filter';
@@ -13,10 +13,8 @@ class ExplorerHeader extends Component {
   }
 
   _getBackBtn() {
-    let { onPop } = this.props;
-
     return (
-      <span className='c-explorer__back' onClick={onPop}>
+      <span className='c-explorer__back'>
         <Icon name="arrow-left" />
       </span>
     );
@@ -39,7 +37,7 @@ class ExplorerHeader extends Component {
     let { page, depth } = this.props;
 
     if (depth < 2 || !page) {
-      return 'EXPLORER';
+      return STRINGS['EXPLORER'];
     }
 
     return page.title;
@@ -59,10 +57,10 @@ class ExplorerHeader extends Component {
     return (
       <div className="c-explorer__header">
         <span className={this._getClass()} onClick={onPop}>
-          { depth > 1 ? this._getBackBtn() : null }
           <span className='u-overflow c-explorer__overflow'>
           <CSSTransitionGroup {...transitionProps}>
             <span className='c-explorer__parent-name' key={depth}>
+               { depth > 1 ? this._getBackBtn() : null }
               {this._getTitle()}
             </span>
           </CSSTransitionGroup>
