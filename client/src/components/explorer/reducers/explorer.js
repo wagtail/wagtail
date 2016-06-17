@@ -84,7 +84,7 @@ export default function explorer(state = stateDefaults, action) {
     case 'FETCH_CHILDREN_SUCCESS':
       return Object.assign({}, state, {
         isFetching: false,
-        pageTypes: action.payload.json.__types,
+        pageTypes: Object.assign({}, state.pageTypes, action.payload.json.__types),
       });
 
     case 'SET_FILTER':
