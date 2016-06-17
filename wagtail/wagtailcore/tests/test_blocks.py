@@ -849,6 +849,32 @@ class TestStructBlock(SimpleTestCase):
         result = block.render(value)
         self.assertEqual(result, """<h1>Hello</h1><div class="rich-text"><i>italic</i> world</div>""")
 
+    def test_lazy(self):
+
+        class CustomExc(Exception):
+            pass
+
+        class FailBlock(blocks.CharBlock):
+            def to_python(_self, value):
+                raise CustomExc("to_python() should not have been called yet!")
+
+        block = blocks.StructBlock([
+            ('title', blocks.CharBlock()),
+            ('link', blocks.URLBlock()),
+            ('deferred', FailBlock()),
+        ])
+
+        struct_val = block.to_python({
+            'title': 'Torchbox',
+            'link': 'http://www.torchbox.com',
+            'deferred': 'I am lazy'
+        })
+        self.assertEqual(struct_val['title'], 'Torchbox')
+        self.assertEqual(struct_val['link'], "http://www.torchbox.com")
+
+        with self.assertRaises(CustomExc):
+            self.assertEqual(struct_val['deferred'], 'I am lazy')
+
 
 class TestListBlock(unittest.TestCase):
     def test_initialise_with_class(self):

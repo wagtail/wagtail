@@ -16,6 +16,7 @@ from .base import Block, DeclarativeSubBlocksMetaclass
 from .utils import js_dict
 
 __all__ = ['BaseStructBlock', 'StructBlock', 'StructValue']
+_not_set = object()
 
 
 class BaseStructBlock(Block):
@@ -108,13 +109,8 @@ class BaseStructBlock(Block):
 
     def to_python(self, value):
         # recursively call to_python on children and return as a StructValue
-        return StructValue(self, [
-            (
-                name,
-                (child_block.to_python(value[name]) if name in value else child_block.get_default())
-                # NB the result of get_default is NOT passed through to_python, as it's expected
-                # to be in the block's native type already
-            )
+        return StructValueLazy(self, [
+            StructValueLazyItem(name, child_block, value.get(name, _not_set))
             for name, child_block in self.child_blocks.items()
         ])
 
@@ -173,11 +169,55 @@ class StructBlock(six.with_metaclass(DeclarativeSubBlocksMetaclass, BaseStructBl
 @python_2_unicode_compatible  # provide equivalent __unicode__ and __str__ methods on Py2
 class StructValue(collections.OrderedDict):
     def __init__(self, block, *args):
-        super(StructValue, self).__init__(*args)
         self.block = block
+        super(StructValue, self).__init__(*args)
 
     def __str__(self):
         return self.block.render(self)
+
+    @cached_property
+    def bound_blocks(self):
+        return collections.OrderedDict([
+            (name, block.bind(self.get(name)))
+            for name, block in self.block.child_blocks.items()
+        ])
+
+
+class StructValueLazyItem(object):
+    def __init__(self, name, block, raw_value):
+        self.name = name
+        self.block = block
+        self.raw_value = raw_value
+
+    @cached_property
+    def value(self):
+        if self.raw_value is _not_set:
+            return self.block.get_default()
+        return self.block.to_python(self.raw_value)
+
+
+@python_2_unicode_compatible
+class StructValueLazy(object):
+    def __init__(self, block, values):
+        self.block = block
+        self.values = collections.OrderedDict([
+            (val.name, val) for val in values
+        ])
+
+    def __str__(self):
+        return self.block.render(self)
+
+    def get(self, key, default=None):
+        try:
+            return self[key]
+        except KeyError:
+            return default
+
+    def __getitem__(self, key):
+        return self.values[key].value
+
+    def items(self):
+        return ((key, value.value) for key, value in self.values.items())
 
     @cached_property
     def bound_blocks(self):
