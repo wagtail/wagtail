@@ -166,10 +166,11 @@ class RegexField(FieldBlock):
     def __init__(self, regex, required=True, max_length=None, min_length=None,
                  error_message=None, *args, **kwargs):
         self.field = forms.RegexField(
-            required=required,
             regex=regex,
+            required=required,
             max_length=max_length,
             min_length=min_length,
+            error_message=error_message,
         )
         super(RegexField, self).__init__(*args, **kwargs)
 
