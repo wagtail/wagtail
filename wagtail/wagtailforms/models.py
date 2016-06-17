@@ -2,6 +2,7 @@ from __future__ import unicode_literals
 
 import json
 import os
+import re
 
 from django.contrib.contenttypes.models import ContentType
 from django.core.serializers.json import DjangoJSONEncoder
@@ -135,8 +136,8 @@ class AbstractForm(Page):
     def __init__(self, *args, **kwargs):
         super(AbstractForm, self).__init__(*args, **kwargs)
         if not hasattr(self, 'landing_page_template'):
-            template_wo_ext = os.path.splitext(self.template)[0]
-            self.landing_page_template = template_wo_ext + '_landing.html'
+            name, ext = os.path.splitext(self.template)
+            self.landing_page_template = name + '_landing' + ext
 
     class Meta:
         abstract = True
