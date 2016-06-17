@@ -890,8 +890,8 @@ class TestPageEdit(TestCase, WagtailTestUtils):
 
         # Check the new file exists
         file_page = FilePage.objects.get()
-        self.assertEqual(file_page.file_field.name,
-                         os.path.join('.', file_upload.name))
+        self.assertEqual(os.path.basename(file_page.file_field.name),
+                         os.path.basename(file_upload.name))
         self.assertTrue(os.path.exists(file_page.file_field.path))
         self.assertEqual(file_page.file_field.read(), b"A new file")
 
@@ -921,8 +921,8 @@ class TestPageEdit(TestCase, WagtailTestUtils):
 
         # Get the file page, check the file is set
         file_page = FilePage.objects.get()
-        self.assertEqual(file_page.file_field.name,
-                         os.path.join('.', file_upload.name))
+        self.assertEqual(os.path.basename(file_page.file_field.name),
+                         os.path.basename(file_upload.name))
         self.assertTrue(os.path.exists(file_page.file_field.path))
         self.assertEqual(file_page.file_field.read(), b"A new file")
 
