@@ -4,12 +4,14 @@ root = true
 end_of_line = lf
 insert_final_newline = true
 
-[*.{css,js,py}]
-charset = utf-8
+[*.{css,js,json,py,yml}]
 indent_style = space
+
+[*.{js,py}]
+charset = utf-8
 
 [*.{css,py}]
 indent_size = 4
 
-[*.js]
+[*.{js,json,yml}]
 ident_size = 2
