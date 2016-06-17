@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import CSSTransitionGroup from 'react-addons-css-transition-group';
 import { EXPLORER_ANIM_DURATION, EXPLORER_FILTERS } from 'config';
 
+import Icon from 'components/icon/Icon';
 import Filter from './Filter';
-
 
 class ExplorerHeader extends Component {
 
@@ -17,7 +17,7 @@ class ExplorerHeader extends Component {
 
     return (
       <span className='c-explorer__back' onClick={onPop}>
-        <span className="icon icon-arrow-left"></span>
+        <Icon name="arrow-left" />
       </span>
     );
   }

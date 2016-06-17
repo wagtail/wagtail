@@ -1,6 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 
 import { ADMIN_PAGES } from 'config';
+import Icon from 'components/icon/Icon';
 import PublishStatus from 'components/publish-status/PublishStatus';
 import PublishedTime from 'components/published-time/PublishedTime';
 import StateIndicator from 'components/state-indicator/StateIndicator';
@@ -42,7 +43,7 @@ export default class ExplorerItem extends Component {
       <div onClick={this._onNavigate.bind(this, data.id)} className="c-explorer__item">
         {count > 0 ?
         <span className="c-explorer__children" onClick={this._loadChildren}>
-          <span className="icon icon-folder-inverse" />
+          <Icon name="folder-inverse" />
           <span aria-role='presentation'>
             See Children
           </span>
