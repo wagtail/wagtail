@@ -145,6 +145,7 @@ Contributors
 * Johannes Spielmann
 * Franklin Kingma
 * Ludolf Takens
+* Oktay Altay
 
 Translators
 ===========

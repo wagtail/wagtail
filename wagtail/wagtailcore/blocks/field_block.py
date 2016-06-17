@@ -230,6 +230,34 @@ class DateTimeBlock(FieldBlock):
         icon = "date"
 
 
+class EmailBlock(FieldBlock):
+    def __init__(self, required=True, help_text=None, **kwargs):
+        self.field = forms.EmailField(
+            required=required,
+            help_text=help_text,
+        )
+        super(EmailBlock, self).__init__(**kwargs)
+
+    class Meta:
+        icon = "mail"
+
+
+class IntegerBlock(FieldBlock):
+
+    def __init__(self, required=True, help_text=None, min_value=None,
+                 max_value=None, **kwargs):
+        self.field = forms.IntegerField(
+            required=required,
+            help_text=help_text,
+            min_value=min_value,
+            max_value=max_value
+        )
+        super(IntegerBlock, self).__init__(**kwargs)
+
+    class Meta:
+        icon = "plus-inverse"
+
+
 class ChoiceBlock(FieldBlock):
 
     choices = ()
@@ -465,7 +493,7 @@ class PageChooserBlock(ChooserBlock):
 # rather than wagtailcore.blocks.field.FooBlock
 block_classes = [
     FieldBlock, CharBlock, URLBlock, RichTextBlock, RawHTMLBlock, ChooserBlock, PageChooserBlock,
-    TextBlock, BooleanBlock, DateBlock, TimeBlock, DateTimeBlock, ChoiceBlock,
+    TextBlock, BooleanBlock, DateBlock, TimeBlock, DateTimeBlock, ChoiceBlock, EmailBlock, IntegerBlock,
 ]
 DECONSTRUCT_ALIASES = {
     cls: 'wagtail.wagtailcore.blocks.%s' % cls.__name__
