@@ -376,6 +376,13 @@ class TestPageListing(TestCase):
         page_id_list = self.get_page_id_list(content)
         self.assertEqual(page_id_list, [16])
 
+    def test_filtering_on_boolean(self):
+        response = self.get_response(show_in_menus='false')
+        content = json.loads(response.content.decode('UTF-8'))
+
+        page_id_list = self.get_page_id_list(content)
+        self.assertEqual(page_id_list, [8, 9, 16, 18, 19, 17])
+
     def test_filtering_doesnt_work_on_specific_fields_without_type(self):
         response = self.get_response(date='2013-12-02')
         content = json.loads(response.content.decode('UTF-8'))
@@ -403,6 +410,20 @@ class TestPageListing(TestCase):
 
         self.assertEqual(response.status_code, 400)
         self.assertEqual(content, {'message': "query parameter is not an operation or a recognised field: not_a_field"})
+
+    def test_filtering_int_validation(self):
+        response = self.get_response(id='abc')
+        content = json.loads(response.content.decode('UTF-8'))
+
+        self.assertEqual(response.status_code, 400)
+        self.assertEqual(content, {'message': "field filter error. 'abc' is not a valid value for id (invalid literal for int() with base 10: 'abc')"})
+
+    def test_filtering_boolean_validation(self):
+        response = self.get_response(show_in_menus='abc')
+        content = json.loads(response.content.decode('UTF-8'))
+
+        self.assertEqual(response.status_code, 400)
+        self.assertEqual(content, {'message': "field filter error. 'abc' is not a valid value for show_in_menus (expected 'true' or 'false', got 'abc')"})
 
 
     # CHILD OF FILTER
