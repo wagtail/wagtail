@@ -2,16 +2,16 @@ from __future__ import absolute_import, unicode_literals
 
 import warnings
 
-from django.test import TestCase
+from django.test import TestCase, override_settings
 from django.utils.six import BytesIO
-from mock import Mock
+from mock import Mock, patch
 
 from wagtail.utils.deprecation import RemovedInWagtail19Warning
 from wagtail.wagtailcore import hooks
 from wagtail.wagtailimages import image_operations
 from wagtail.wagtailimages.exceptions import InvalidFilterSpecError
 from wagtail.wagtailimages.models import Filter, Image
-from wagtail.wagtailimages.tests.utils import get_test_image_file
+from wagtail.wagtailimages.tests.utils import get_test_image_file, get_test_image_file_jpeg
 
 
 class WillowOperationRecorder(object):
@@ -487,3 +487,87 @@ class TestFormatFilter(TestCase):
             file=get_test_image_file(),
         )
         self.assertRaises(InvalidFilterSpecError, fil.run, image, BytesIO())
+
+
+class TestJPEGQualityFilter(TestCase):
+    def test_default_quality(self):
+        fil = Filter(spec='width-400')
+        image = Image.objects.create(
+            title="Test image",
+            file=get_test_image_file_jpeg(),
+        )
+
+        f = BytesIO()
+        with patch('PIL.Image.Image.save') as save:
+            fil.run(image, f)
+
+        save.assert_called_with(f, 'JPEG', quality=85, optimize=True, progressive=True)
+
+    def test_jpeg_quality_filter(self):
+        fil = Filter(spec='width-400|jpegquality-40')
+        image = Image.objects.create(
+            title="Test image",
+            file=get_test_image_file_jpeg(),
+        )
+
+        f = BytesIO()
+        with patch('PIL.Image.Image.save') as save:
+            fil.run(image, f)
+
+        save.assert_called_with(f, 'JPEG', quality=40, optimize=True, progressive=True)
+
+    def test_jpeg_quality_filter_invalid(self):
+        fil = Filter(spec='width-400|jpegquality-abc')
+        image = Image.objects.create(
+            title="Test image",
+            file=get_test_image_file_jpeg(),
+        )
+        self.assertRaises(InvalidFilterSpecError, fil.run, image, BytesIO())
+
+    def test_jpeg_quality_filter_no_value(self):
+        fil = Filter(spec='width-400|jpegquality')
+        image = Image.objects.create(
+            title="Test image",
+            file=get_test_image_file_jpeg(),
+        )
+        self.assertRaises(InvalidFilterSpecError, fil.run, image, BytesIO())
+
+    def test_jpeg_quality_filter_too_big(self):
+        fil = Filter(spec='width-400|jpegquality-101')
+        image = Image.objects.create(
+            title="Test image",
+            file=get_test_image_file_jpeg(),
+        )
+        self.assertRaises(InvalidFilterSpecError, fil.run, image, BytesIO())
+
+    @override_settings(
+        WAGTAILIMAGES_JPEG_QUALITY=50
+    )
+    def test_jpeg_quality_setting(self):
+        fil = Filter(spec='width-400')
+        image = Image.objects.create(
+            title="Test image",
+            file=get_test_image_file_jpeg(),
+        )
+
+        f = BytesIO()
+        with patch('PIL.Image.Image.save') as save:
+            fil.run(image, f)
+
+        save.assert_called_with(f, 'JPEG', quality=50, optimize=True, progressive=True)
+
+    @override_settings(
+        WAGTAILIMAGES_JPEG_QUALITY=50
+    )
+    def test_jpeg_quality_filter_overrides_setting(self):
+        fil = Filter(spec='width-400|jpegquality-40')
+        image = Image.objects.create(
+            title="Test image",
+            file=get_test_image_file_jpeg(),
+        )
+
+        f = BytesIO()
+        with patch('PIL.Image.Image.save') as save:
+            fil.run(image, f)
+
+        save.assert_called_with(f, 'JPEG', quality=40, optimize=True, progressive=True)
