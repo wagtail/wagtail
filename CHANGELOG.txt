@@ -11,6 +11,7 @@ Changelog
  * `FieldRowPanel` now creates equal-width columns automatically if `col*` classnames are not specified (Chris Rogers)
  * Form builder now validates against multiple fields with the same name (Richard McMillan)
  * The 'choices' field on the form builder no longer has a maximum length (Johannes Spielmann)
+ * The wagtailimages.Filter model has been removed, and converted to a Python class instead (Gagaro)
  * Add new EmailBlock and IntegerBlock (Oktay Altay)
  * Fix: Email templates and document uploader now support custom `STATICFILES_STORAGE` (Jonny Scholes)
  * Fix: Removed alignment options (deprecated in HTML and not rendered by Wagtail) from `TableBlock` context menu (Moritz Pfeiffer)
@@ -22,7 +23,6 @@ Changelog
 ~~~~~~~~~~~~~~~~~~
 
  * Fixed regression in 1.5.1 on editing external links (Stephen Rice)
-
 
 1.5.1 (07.06.2016)
 ~~~~~~~~~~~~~~~~~~

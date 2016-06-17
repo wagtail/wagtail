@@ -23,7 +23,7 @@ from taggit.managers import TaggableManager
 from unidecode import unidecode
 from willow.image import Image as WillowImage
 
-from wagtail.wagtailadmin.taggable import TagSearchable
+from wagtail.utils.deprecation import SearchFieldsShouldBeAList
 from wagtail.wagtailadmin.utils import get_object_usage
 from wagtail.wagtailcore import hooks
 from wagtail.wagtailcore.models import CollectionMember
@@ -67,7 +67,7 @@ def get_rendition_upload_to(instance, filename):
 
 
 @python_2_unicode_compatible
-class AbstractImage(CollectionMember, TagSearchable):
+class AbstractImage(CollectionMember, index.Indexed, models.Model):
     title = models.CharField(max_length=255, verbose_name=_('title'))
     file = models.ImageField(
         verbose_name=_('file'), upload_to=get_upload_to, width_field='width', height_field='height'
@@ -137,9 +137,13 @@ class AbstractImage(CollectionMember, TagSearchable):
         return reverse('wagtailimages:image_usage',
                        args=(self.id,))
 
-    search_fields = TagSearchable.search_fields + CollectionMember.search_fields + [
+    search_fields = SearchFieldsShouldBeAList(CollectionMember.search_fields + [
+        index.SearchField('title', partial_match=True, boost=10),
+        index.RelatedFields('tags', [
+            index.SearchField('name', partial_match=True, boost=10),
+        ]),
         index.FilterField('uploaded_by_user'),
-    ]
+    ], name='search_fields on AbstractImage subclasses')
 
     def __str__(self):
         return self.title
@@ -251,14 +255,14 @@ class AbstractImage(CollectionMember, TagSearchable):
 
     def get_rendition(self, filter):
         if isinstance(filter, string_types):
-            filter, created = Filter.objects.get_or_create(spec=filter)
+            filter = Filter(spec=filter)
 
         cache_key = filter.get_cache_key(self)
         Rendition = self.get_rendition_model()
 
         try:
             rendition = self.renditions.get(
-                filter=filter,
+                filter=filter.spec,
                 focal_point_key=cache_key,
             )
         except Rendition.DoesNotExist:
@@ -285,7 +289,7 @@ class AbstractImage(CollectionMember, TagSearchable):
             output_filename = output_filename_without_extension + '.' + output_extension
 
             rendition, created = self.renditions.get_or_create(
-                filter=filter,
+                filter=filter.spec,
                 focal_point_key=cache_key,
                 defaults={'file': File(generated_image.f, name=output_filename)}
             )
@@ -367,15 +371,16 @@ def get_image_model():
     return image_model
 
 
-class Filter(models.Model):
+class Filter(object):
     """
     Represents one or more operations that can be applied to an Image to produce a rendition
     appropriate for final display on the website. Usually this would be a resize operation,
     but could potentially involve colour processing, etc.
     """
 
-    # The spec pattern is operation1-var1-var2|operation2-var1
-    spec = models.CharField(max_length=255, unique=True)
+    def __init__(self, spec):
+        # The spec pattern is operation1-var1-var2|operation2-var1
+        self.spec = spec
 
     @cached_property
     def operations(self):
@@ -455,7 +460,7 @@ class Filter(models.Model):
 
 
 class AbstractRendition(models.Model):
-    filter = models.ForeignKey(Filter, related_name='+')
+    filter = models.CharField(max_length=255, db_index=True)
     file = models.ImageField(upload_to=get_rendition_upload_to, width_field='width', height_field='height')
     width = models.IntegerField(editable=False)
     height = models.IntegerField(editable=False)
