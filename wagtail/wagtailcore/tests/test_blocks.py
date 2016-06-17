@@ -41,17 +41,17 @@ class TestFieldBlock(unittest.TestCase):
 
         self.assertEqual(digit, 1234)
 
-    def test_integerfield_render_with_error(self):
+    def test_integerfield_render_required_error(self):
         block = blocks.IntegerBlock()
-        block.render_form(
-            1234,
-            errors=ErrorList([ValidationError("This field is required.")]))
+
+        with self.assertRaises(ValidationError):
+            block.clean("")
 
     def test_integerfield_render_max_value_validation(self):
         block = blocks.IntegerBlock(max_value=20)
 
         with self.assertRaises(ValidationError):
-            block.clean(21)
+            block.clean(25)
 
     def test_integerfield_render_min_value_validation(self):
         block = blocks.IntegerBlock(min_value=20)
@@ -65,13 +65,13 @@ class TestFieldBlock(unittest.TestCase):
 
         self.assertEqual(email, "example@email.com")
 
-    def test_emailfield_render_with_errors(self):
+    def test_emailfield_render_required_error(self):
         block = blocks.EmailBlock()
-        block.render_form(
-            "example@email.com",
-            errors=ErrorList([ValidationError("This field is required.")]))
 
-    def test_emailfield_validation(self):
+        with self.assertRaises(ValidationError):
+            block.clean("")
+
+    def test_emailfield_format_validation(self):
         block = blocks.EmailBlock()
 
         with self.assertRaises(ValidationError):
