@@ -325,8 +325,7 @@ class StreamValue(collections.Sequence):
         """Prefetch all child blocks for the given `type_name` using the
         given `child_blocks`.
 
-        This prevents n+ queries for n blocks of a specific type.
-
+        This prevents n queries for n blocks of a specific type.
         """
         raw_values = collections.OrderedDict(
             (i, item['value']) for i, item in enumerate(self.stream_data)
