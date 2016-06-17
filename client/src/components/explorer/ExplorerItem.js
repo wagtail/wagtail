@@ -1,63 +1,58 @@
-import React, { Component, PropTypes } from 'react';
+import React from 'react';
 
-import { ADMIN_PAGES, STRINGS } from 'config';
-import Icon from 'components/icon/Icon';
-import PublishStatus from 'components/publish-status/PublishStatus';
-import PublishedTime from 'components/published-time/PublishedTime';
-import StateIndicator from 'components/state-indicator/StateIndicator';
+import { ADMIN_URLS, STRINGS } from '../../config/wagtail';
+import Icon from '../../components/Icon/Icon';
+import Button from '../../components/Button/Button';
+import PublicationStatus from '../../components/PublicationStatus/PublicationStatus';
+import AbsoluteDate from '../../components/AbsoluteDate/AbsoluteDate';
 
-export default class ExplorerItem extends Component {
+const ExplorerItem = ({ title, typeName, data, filter, onItemClick }) => {
+  const { id, meta } = data;
+  const status = meta ? meta.status : null;
+  const time = meta ? meta.latest_revision_created_at : null;
 
-  constructor(props) {
-    super(props);
-    this._loadChildren = this._loadChildren.bind(this);
+  // If we only want pages with children, get this info by
+  // looking at the descendants count vs children count.
+  // // TODO refactor.
+  let count = 0;
+  if (meta) {
+    count = filter.match(/has_children/) ? meta.descendants.count - meta.children.count : meta.children.count;
   }
+  const hasChildren = count > 0;
 
-  _onNavigate(id) {
-    window.location.href = `${ADMIN_PAGES}${id}`;
-  }
+  return (
+    <Button href={`${ADMIN_URLS.PAGES}${id}`} className="c-explorer__item">
+      {hasChildren ? (
+        <span
+          role="button"
+          className="c-explorer__children"
+          onClick={onItemClick.bind(null, id)}
+        >
+          <Icon name="folder-inverse" title={STRINGS.SEE_CHILDREN} />
+        </span>
+      ) : null}
 
-  _loadChildren(e) {
-    e.stopPropagation();
-    let { onItemClick, data } = this.props;
-    onItemClick(data.id, data.title);
-  }
+      <h3 className="c-explorer__title">{title}</h3>
 
-  render() {
-    const { title, typeName, data, index } = this.props;
-    const { meta } = data;
-
-    let count = meta.children.count;
-
-    // TODO refactor.
-    // If we only want pages with children, get this info by
-    // looking at the descendants count vs children count.
-    if (this.props.filter && this.props.filter.match(/has_children/)) {
-      count = meta.descendants.count - meta.children.count;
-    }
-
-    return (
-      <div onClick={this._onNavigate.bind(this, data.id)} className="c-explorer__item">
-        {count > 0 ?
-        <span className="c-explorer__children" onClick={this._loadChildren}>
-          <Icon name="folder-inverse" />
-          <span aria-role='presentation'>
-            {STRINGS['SEE_CHILDREN']}
-          </span>
-        </span> : null }
-        <h3 className="c-explorer__title">
-          <StateIndicator state={data.state} />
-          {title}
-        </h3>
-        <p className='c-explorer__meta'>
-          <span className="c-explorer__meta__type">{typeName}</span> | <PublishedTime publishedAt={meta.latest_revision_created_at} /> | <PublishStatus status={meta.status} />
-        </p>
-      </div>
-    );
-  }
-}
+      <p className="c-explorer__meta">
+        <span className="c-explorer__meta__type">{typeName}</span> | <AbsoluteDate time={time} /> | <PublicationStatus status={status} />
+      </p>
+    </Button>
+  );
+};
 
 ExplorerItem.propTypes = {
-  title: PropTypes.string,
-  data: PropTypes.object
+  title: React.PropTypes.string,
+  data: React.PropTypes.object,
+  filter: React.PropTypes.string,
+  typeName: React.PropTypes.string,
+  onItemClick: React.PropTypes.func,
 };
+
+ExplorerItem.defaultProps = {
+  filter: '',
+  data: {},
+  onItemClick: () => {},
+};
+
+export default ExplorerItem;

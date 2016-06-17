@@ -1,0 +1,77 @@
+exports[`ExplorerItem #data 1`] = `
+<Button
+  accessibleLabel={null}
+  className="c-explorer__item"
+  href="/admin/pages/undefined"
+  icon=""
+  isLoading={false}
+  onClick={null}
+  preventDefault={true}
+  target={null}>
+  <h3
+    className="c-explorer__title" />
+  <p
+    className="c-explorer__meta">
+    <span
+      className="c-explorer__meta__type" />
+     |
+    <AbsoluteDate
+      time="" />
+     |
+    <PublicationStatus />
+  </p>
+</Button>
+`;
+
+exports[`ExplorerItem #typeName 1`] = `
+<Button
+  accessibleLabel={null}
+  className="c-explorer__item"
+  href="/admin/pages/undefined"
+  icon=""
+  isLoading={false}
+  onClick={null}
+  preventDefault={true}
+  target={null}>
+  <h3
+    className="c-explorer__title" />
+  <p
+    className="c-explorer__meta">
+    <span
+      className="c-explorer__meta__type">
+      Foo
+    </span>
+     |
+    <AbsoluteDate
+      time="" />
+     |
+    <PublicationStatus />
+  </p>
+</Button>
+`;
+
+exports[`ExplorerItem basic 1`] = `
+<Button
+  accessibleLabel={null}
+  className="c-explorer__item"
+  href="/admin/pages/undefined"
+  icon=""
+  isLoading={false}
+  onClick={null}
+  preventDefault={true}
+  target={null}>
+  <h3
+    className="c-explorer__title" />
+  <p
+    className="c-explorer__meta">
+    <span
+      className="c-explorer__meta__type" />
+     |
+    <AbsoluteDate
+      time={null} />
+     |
+    <PublicationStatus
+      status={null} />
+  </p>
+</Button>
+`;

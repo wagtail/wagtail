@@ -17,7 +17,7 @@ function entryPoint(filename) {
   var name = appName(filename);
   var entryName = path.basename(filename, '.entry.js');
   var outputPath = path.join('wagtail', name, 'static', name, 'js', entryName);
-  return [outputPath, filename];
+  return [outputPath, ['babel-polyfill', filename]];
 }
 
 

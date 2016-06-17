@@ -1,9 +1,10 @@
 import React from 'react';
-import { STRINGS } from 'config';
+import { STRINGS } from '../../config/wagtail';
+import Icon from '../../components/Icon/Icon';
 
 const LoadingSpinner = () => (
   <div className="c-explorer__loading">
-    <span className="c-explorer__spinner icon icon-spinner" /> {STRINGS['LOADING']}...
+    <Icon name="spinner" className="c-explorer__spinner" /> {STRINGS.LOADING}
   </div>
 );
 

@@ -1,15 +1,14 @@
 // min z-index: 500;
 // max z-index: unknown;
 
+// TODO Clean-up unused code in the new version of the explorer
 $explorer-z-index: 500;
 
 .explorer {
-    pointer-events: none;
     width: 100%;
     position: relative;
     top: 0;
     left: 0;
-    display: none;
 
     ul {
         background: $color-grey-1;
@@ -28,33 +27,6 @@ $explorer-z-index: 500;
         &:first-child {
             border-top: 0;
         }
-    }
-
-    a {
-        text-decoration: none;
-        padding: 0.9em;
-        color: $color-white;
-        display: block;
-        position: relative;
-        outline: none;
-        white-space: nowrap;
-        text-overflow: ellipsis;
-        overflow: hidden;
-
-        &:before {
-            opacity: 0.5;
-            margin-right: 0.5em;
-            font-size: 1.5em;
-        }
-
-        &:hover {
-            background: $color-teal-dark;
-            color: $color-white;
-        }
-    }
-
-    .has-children a {
-        padding-right: 5em;
     }
 
     .children {

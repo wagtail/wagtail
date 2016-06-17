@@ -1,0 +1,11 @@
+exports[`AbsoluteDate #time 1`] = `
+<span>
+  19.09.2016
+</span>
+`;
+
+exports[`AbsoluteDate basic 1`] = `
+<span>
+  No date
+</span>
+`;

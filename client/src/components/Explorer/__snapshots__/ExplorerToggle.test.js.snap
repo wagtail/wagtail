@@ -1,0 +1,48 @@
+exports[`ExplorerToggle #children 1`] = `
+<ExplorerToggle
+  isFetching={true}
+  isVisible={false}
+  onToggle={[Function]}
+  store={
+    Object {
+      "dispatch": [Function],
+      "getState": [Function],
+      "replaceReducer": [Function],
+      "subscribe": [Function],
+    }
+  }>
+  <span>
+    To infinity and beyond!
+  </span>
+</ExplorerToggle>
+`;
+
+exports[`ExplorerToggle basic 1`] = `
+<ExplorerToggle
+  isFetching={false}
+  isVisible={false}
+  onToggle={[Function]}
+  store={
+    Object {
+      "dispatch": [Function],
+      "getState": [Function],
+      "replaceReducer": [Function],
+      "subscribe": [Function],
+    }
+  } />
+`;
+
+exports[`ExplorerToggle loading state 1`] = `
+<ExplorerToggle
+  isFetching={true}
+  isVisible={false}
+  onToggle={[Function]}
+  store={
+    Object {
+      "dispatch": [Function],
+      "getState": [Function],
+      "replaceReducer": [Function],
+      "subscribe": [Function],
+    }
+  } />
+`;

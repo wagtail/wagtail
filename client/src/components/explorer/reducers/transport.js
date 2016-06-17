@@ -1,15 +1,23 @@
-export default function transport(state={error: null, showMessage: false}, action) {
-  switch(action.type) {
-    case 'FETCH_FAILURE':
-      return Object.assign({}, state, {
-        error: action.payload.message,
-        showMessage: true
-      });
-    case 'CLEAR_TRANSPORT_ERROR':
-      return Object.assign({}, state, {
-        error: null,
-        showMessage: false
-      });
+import _ from 'lodash';
+
+const defaultState = {
+  error: null,
+  showMessage: false,
+};
+
+export default function transport(state = defaultState, action) {
+  switch (action.type) {
+  case 'FETCH_FAILURE':
+    return _.assign({}, state, {
+      error: action.payload.message,
+      showMessage: true
+    });
+  case 'CLEAR_TRANSPORT_ERROR':
+    return _.assign({}, state, {
+      error: null,
+      showMessage: false
+    });
+  default:
+    return state;
   }
-  return state;
 }

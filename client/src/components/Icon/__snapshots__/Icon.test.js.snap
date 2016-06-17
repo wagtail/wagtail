@@ -1,0 +1,22 @@
+exports[`Icon #className 1`] = `
+<span
+  aria-hidden={true}
+  className="icon icon-test u-test" />
+`;
+
+exports[`Icon #name 1`] = `
+<span
+  aria-hidden={true}
+  className="icon icon-test " />
+`;
+
+exports[`Icon #title 1`] = `
+<span
+  aria-hidden={false}
+  className="icon icon-test ">
+  <span
+    className="visuallyhidden">
+    Test title
+  </span>
+</span>
+`;

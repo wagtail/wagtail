@@ -1,3 +1,7 @@
 {
-  "extends": "wagtail"
+  "extends": "wagtail",
+
+  "env": {
+    "jest": true
+  }
 }

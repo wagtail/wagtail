@@ -18,20 +18,22 @@
     <script>
         (function(document, window) {
             window.wagtailConfig = window.wagtailConfig || {};
-            wagtailConfig.api = {
-                pages: '{% url "wagtailadmin_api_v1:pages:listing" %}',
-                documents: '{% url "wagtailadmin_api_v1:documents:listing" %}',
-                images: '{% url "wagtailadmin_api_v1:images:listing" %}'
+            wagtailConfig.ADMIN_API = {
+                PAGES: '{% url "wagtailadmin_api_v1:pages:listing" %}',
+                DOCUMENTS: '{% url "wagtailadmin_api_v1:documents:listing" %}',
+                IMAGES: '{% url "wagtailadmin_api_v1:images:listing" %}'
             };
-            wagtailConfig.strings = {
-                EXPLORER: "{% trans 'Explorer' %}",
-                LOADING: "{% trans 'Loading' %}",
-                NO_RESULTS: "{% trans 'No results' %}",
-                SEE_CHILDREN: "{% trans 'See Children' %}"
 
+            wagtailConfig.STRINGS = {
+                EXPLORER: "{% trans 'Explorer' %}",
+                LOADING: "{% trans 'Loading...' %}",
+                NO_RESULTS: "{% trans 'No results' %}",
+                SEE_CHILDREN: "{% trans 'See Children' %}",
+                NO_DATE: "{% trans 'No date' %}",
             };
-            wagtailConfig.urls = {
-                pages: '{% url "wagtailadmin_explore_root" %}'
+
+            wagtailConfig.ADMIN_URLS = {
+                PAGES: '{% url "wagtailadmin_explore_root" %}'
             };
         })(document, window);
     </script>
