@@ -1,0 +1,51 @@
+exports[`Button #accessibleLabel 1`] = `
+<a
+  className=" "
+  href="#"
+  onClick={[Function]}
+  rel={null}
+  target={null}>
+  <span
+    className="visuallyhidden">
+    I am here in the shadows
+  </span>
+</a>
+`;
+
+exports[`Button #children 1`] = `
+<a
+  className=" "
+  href="#"
+  onClick={[Function]}
+  rel={null}
+  target={null}>
+  To infinity and beyond!
+</a>
+`;
+
+exports[`Button #icon 1`] = `
+<a
+  className=" icon icon-test-icon"
+  href="#"
+  onClick={[Function]}
+  rel={null}
+  target={null} />
+`;
+
+exports[`Button #icon changes with #isLoading 1`] = `
+<a
+  className=" icon icon-spinner"
+  href="#"
+  onClick={[Function]}
+  rel={null}
+  target={null} />
+`;
+
+exports[`Button basic 1`] = `
+<a
+  className=" "
+  href="#"
+  onClick={[Function]}
+  rel={null}
+  target={null} />
+`;

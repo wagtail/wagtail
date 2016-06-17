@@ -244,6 +244,8 @@ body.nav-open {
 
 // Explorer open condition, widens navigation area
 body.explorer-open {
+    overflow: hidden;
+
     .wrapper {
         transform: translate3d($menu-width*2, 0, 0);
         -webkit-transform: translate3d($menu-width*2, 0, 0);
@@ -442,7 +444,6 @@ body.explorer-open {
         position: absolute;
         top: 0;
         left: 99%;
-        margin-top: 175px; // same as .nav-main minus 1 pixel for border
     }
 
     .dl-menu {
@@ -456,6 +457,19 @@ body.explorer-open {
     }
 
     body.explorer-open {
+        // TODO Do we want this layer appearing when the explorer is open?
+        &:after {
+            content: '';
+            position: fixed;
+            background: rgba(255, 255, 255, 0.5);
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            opacity: 1;
+            animation: opacity .2s ease-out;
+        }
+
         .wrapper {
             -webkit-transform: none;
             transform: none;

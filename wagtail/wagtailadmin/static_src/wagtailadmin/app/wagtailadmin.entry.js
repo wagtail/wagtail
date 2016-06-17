@@ -1,47 +1,48 @@
-import 'babel-polyfill';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
-import { createStore, applyMiddleware } from 'redux';
-import createLogger from 'redux-logger'
-import thunkMiddleware from 'redux-thunk'
+import { createStore, applyMiddleware, compose } from 'redux';
+import thunkMiddleware from 'redux-thunk';
 
 import Explorer from 'components/explorer/Explorer';
-import ExplorerToggle from 'components/explorer/toggle';
+import ExplorerToggle from 'components/explorer/ExplorerToggle';
 import rootReducer from 'components/explorer/reducers';
 
+const initExplorer = () => {
+  const explorerNode = document.querySelector('#explorer');
+  const toggleNode = document.querySelector('[data-explorer-menu-url]');
 
-document.addEventListener('DOMContentLoaded', e => {
-  const top = document.querySelector('.wrapper');
-  const div = document.createElement('div');
-  const trigger = document.querySelector('[data-explorer-menu-url]');
+  if (explorerNode && toggleNode) {
+    const middleware = [
+      thunkMiddleware,
+    ];
 
-  let rect = trigger.getBoundingClientRect();
-  let triggerParent = trigger.parentNode;
-  let label = trigger.innerText;
+    const store = createStore(rootReducer, {}, compose(
+      applyMiddleware(...middleware),
+      // Expose store to Redux DevTools extension.
+      window.devToolsExtension ? window.devToolsExtension() : f => f
+    ));
 
-  top.parentNode.appendChild(div);
-
-  const loggerMiddleware = createLogger();
-
-  const store = createStore(
-    rootReducer,
-    applyMiddleware(loggerMiddleware, thunkMiddleware)
-  );
-
-  ReactDOM.render((
+    const toggle = (
       <Provider store={store}>
-        <ExplorerToggle label={label} />
+        <ExplorerToggle>{toggleNode.innerText}</ExplorerToggle>
       </Provider>
-    ),
-    triggerParent
-  );
+    );
 
-  ReactDOM.render(
-    <Provider store={store}>
-      <Explorer type={'sidebar'} top={0} left={rect.right} defaultPage={1} />
-    </Provider>,
-    div
-  );
+    const explorer = (
+      <Provider store={store}>
+        <Explorer type="sidebar" defaultPage={1} />
+      </Provider>
+    );
 
+    ReactDOM.render(toggle, toggleNode.parentNode);
+    ReactDOM.render(explorer, explorerNode);
+  }
+};
+
+/**
+ * Admin JS entry point. Add in here code to run once the page is loaded.
+ */
+document.addEventListener('DOMContentLoaded', () => {
+  initExplorer();
 });

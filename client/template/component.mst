@@ -1,6 +1,6 @@
-import React, { PropTypes } from 'react';
+import React from 'react';
 
-const {{ name }} = (props) => {
+const {{ name }} = () => {
   return (
     <div className="c-{{ slug }}">
     </div>

@@ -2,12 +2,12 @@ $c-explorer-bg: #4C4E4D;
 $c-explorer-secondary: #aaa;
 $c-explorer-easing: cubic-bezier(0.075, 0.820, 0.165, 1.000);
 
-.c-explorer * {
+.c-explorer, .c-explorer * {
     box-sizing: border-box;
 }
 
 .c-explorer {
-    width: 320px;
+    width: 100%;
     height: 500px;
     background: $c-explorer-bg;
     position: absolute;
@@ -17,10 +17,7 @@ $c-explorer-easing: cubic-bezier(0.075, 0.820, 0.165, 1.000);
     .c-explorer--sidebar {
         height: 100vh;
         box-shadow: 2px 2px 5px rgba(0,0,0,0.2);
-        left: 180px;
-        top: 0;
         z-index: 150;
-        position: fixed;
     }
 
 .c-explorer__header {
@@ -42,7 +39,7 @@ $c-explorer-easing: cubic-bezier(0.075, 0.820, 0.165, 1.000);
     cursor: pointer;
 
     &:hover {
-        color: #fff;
+        color: $color-white;
         background: rgba(0,0,0,0.2);
     }
 }
@@ -65,12 +62,12 @@ $c-explorer-easing: cubic-bezier(0.075, 0.820, 0.165, 1.000);
     &:hover {
         background: rgba(0,0,0,0.5);
         border-color: rgba(0,0,0,0.5);
-        color: #fff;
+        color: $color-white;
     }
 }
 
 .c-filter--active {
-    color: #fff;
+    color: $color-white;
     border-color: rgba(255, 255, 255, .5);
 }
 
@@ -81,7 +78,7 @@ $c-explorer-easing: cubic-bezier(0.075, 0.820, 0.165, 1.000);
     margin-top: -1px;
 
     &:hover {
-        color: #fff;
+        color: $color-white;
     }
 
     .icon {
@@ -93,11 +90,11 @@ $c-explorer-easing: cubic-bezier(0.075, 0.820, 0.165, 1.000);
 
 .c-explorer__title {
     margin: 0;
-    color: #fff;
+    color: $color-white;
 }
 
 .c-explorer__loading {
-    color: #fff;
+    color: $color-white;
     padding: 1rem;
 }
 
@@ -113,7 +110,7 @@ $c-explorer-easing: cubic-bezier(0.075, 0.820, 0.165, 1.000);
 
 .c-explorer__placeholder {
     padding: 1rem;
-    color: #fff;
+    color: $color-white;
 }
 
 .c-explorer__meta {
@@ -127,28 +124,31 @@ $c-explorer-easing: cubic-bezier(0.075, 0.820, 0.165, 1.000);
         text-transform: capitalize;
     }
 
-.c-explorer__item:hover {
-    background: rgba(0, 0, 0, 0.25);
-    color: #fff;
+.c-explorer__item {
+    display: block;
+
+    &:hover {
+        background: rgba(0, 0, 0, 0.25);
+        color: $color-white;
+    }
 }
 
 .c-explorer__see-more {
     cursor: pointer;
     padding: .5rem 1rem;
     background: rgba(0,0,0,0.2);
-    color: #fff;
+    color: $color-white;
 
     &:hover {
         background: rgba(0,0,0,0.4);
     }
 }
 
-
 .c-explorer__children {
     display: inline-block;
     border-radius: 50rem;
     border: solid 1px #aaa;
-    color: #fff;
+    color: $color-white;
     line-height: 1;
     padding: .5em .3em .5em .5em;
     float: right;
@@ -156,28 +156,17 @@ $c-explorer-easing: cubic-bezier(0.075, 0.820, 0.165, 1.000);
 
     &:hover {
         background: rgba(0,0,0,0.5);
-    }
-
-    > [aria-role='presentation'] {
-        display: none;
+        color: $color-white;
     }
 }
 
-
-
-
 .c-status {
-    background: #333;
+    background: $color-grey-1;
     color: #ddd;
     text-transform: uppercase;
     letter-spacing: .03rem;
     font-size: 10px;
 }
-
-.c-status--live {
-
-}
-
 
 .c-explorer__drawer {
     position: absolute;
@@ -187,15 +176,16 @@ $c-explorer-easing: cubic-bezier(0.075, 0.820, 0.165, 1.000);
     overflow-y: auto;
 }
 
-
 .c-explorer__overflow {
     max-width: 12rem;
     display: block;
     text-transform: uppercase;
     float: left;
     width: 100%;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
 }
-
 
 // =============================================================================
 // TODO: move to their own component..
@@ -210,20 +200,12 @@ $c-explorer-easing: cubic-bezier(0.075, 0.820, 0.165, 1.000);
     line-height: 1.5;
 }
 
-.u-overflow {
-    overflow: hidden;
-    white-space: nowrap;
-    text-overflow: ellipsis;
-}
-
-
 .c-explorer__rel {
     position: relative;
     display: block;
     height: 19px;
     width: 100%;
 }
-
 
 .c-explorer__parent-name {
     position: absolute;
@@ -236,17 +218,12 @@ $c-explorer-easing: cubic-bezier(0.075, 0.820, 0.165, 1.000);
 .c-explorer__spinner:after {
     display: inline-block;
     animation: spin 0.5s infinite linear;
-    line-height: 1
+    line-height: 1;
 }
-
-
 
 // =============================================================================
 // Transitions
 // =============================================================================
-
-// $out-circ: cubic-bezier(0.075, 0.820, 0.165, 1.000);
-// $in-circ: cubic-bezier(0.600, 0.040, 0.980, 0.335);
 
 $out-circ: cubic-bezier(0.785, 0.135, 0.150, 0.860);
 $in-circ: cubic-bezier(0.785, 0.135, 0.150, 0.860);
@@ -306,6 +283,9 @@ $c-explorer-duration: 200ms;
     opacity: 0;
 }
 
+// =============================================================================
+// Toggle transition
+// =============================================================================
 
 .explorer-toggle-enter {
     opacity: 0;
@@ -324,7 +304,6 @@ $c-explorer-duration: 200ms;
 .explorer-toggle-leave-active {
     opacity: 0;
 }
-
 
 // =============================================================================
 // Fade transition
@@ -349,28 +328,5 @@ $c-explorer-duration: 200ms;
 }
 
 .explorer-fade-leave-active {
-    opacity: 0;
-}
-
-
-// =============================================================================
-// Header transitions
-// =============================================================================
-
-.header-push-enter {
-    opacity: 0;
-    transition: opacity .1s linear .1s;
-}
-
-.header-push-enter-active {
-    opacity: 1;
-}
-
-.header-push-leave {
-    opacity: 1;
-    transition: opacity .1s;
-}
-
-.header-push-leave-active {
     opacity: 0;
 }
