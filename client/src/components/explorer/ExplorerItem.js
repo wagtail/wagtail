@@ -56,7 +56,7 @@ export default class ExplorerItem extends Component {
           {title}
         </h3>
         <p className='c-explorer__meta'>
-          {typeName} | <PublishedTime publishedAt={meta.first_published_at} /> | <PublishStatus status={meta.status} />
+          {typeName} | <PublishedTime publishedAt={meta.latest_revision_created_at} /> | <PublishStatus status={meta.status} />
         </p>
       </div>
     );

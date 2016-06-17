@@ -6,7 +6,7 @@ const stateDefaults = {
   currentPage: 1,
   defaultPage: 1,
   // Specificies which fields are to be fetched in the API calls.
-  fields: ['title', 'first_published_at', 'status', 'descendants', 'children'],
+  fields: ['title', 'latest_revision_created_at', 'status', 'descendants', 'children'],
   filter: 'has_children=1',
 }
 
