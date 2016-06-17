@@ -216,3 +216,20 @@ def parse_fields_parameter(fields_str):
     fields, _ = parse_fields(fields_str)
 
     return fields
+
+
+def parse_boolean(value):
+    """
+    Parses strings into booleans using the following mapping (case-sensitive):
+
+    'true'   => True
+    'false'  => False
+    '1'      => True
+    '0'      => False
+    """
+    if value in ['true', '1']:
+        return True
+    elif value in ['false', '0']:
+        return False
+    else:
+        raise ValueError("expected 'true' or 'false', got '%s'" % value)
