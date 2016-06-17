@@ -51,6 +51,14 @@
         }
     }
 
+    &--square {
+        border-radius: 0;
+        
+        img {
+            border-radius: 0;
+        }
+    }
+
     &.avatar-on-dark:before {
         color: $color-grey-2;
         border-color: $color-grey-2; 
