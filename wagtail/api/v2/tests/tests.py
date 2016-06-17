@@ -2,7 +2,7 @@ from __future__ import absolute_import, unicode_literals
 
 from unittest import TestCase
 
-from ..utils import FieldsParameterParseError, parse_fields_parameter
+from ..utils import FieldsParameterParseError, parse_fields_parameter, parse_boolean
 
 
 class TestParseFieldsParameter(TestCase):
@@ -235,3 +235,43 @@ class TestParseFieldsParameter(TestCase):
             parse_fields_parameter('*,_')
 
         self.assertEqual(str(e.exception), "'_' must be in the first position")
+
+
+class TestParseBoolean(TestCase):
+    # GOOD STUFF
+
+    def test_valid_true(self):
+        parsed = parse_boolean('true')
+
+        self.assertEqual(parsed, True)
+
+    def test_valid_false(self):
+        parsed = parse_boolean('false')
+
+        self.assertEqual(parsed, False)
+
+    def test_valid_1(self):
+        parsed = parse_boolean('1')
+
+        self.assertEqual(parsed, True)
+
+    def test_valid_0(self):
+        parsed = parse_boolean('0')
+
+        self.assertEqual(parsed, False)
+
+
+    # BAD STUFF
+
+    def test_invalid(self):
+        print("WOO")
+        with self.assertRaises(ValueError) as e:
+            parse_boolean('foo')
+
+        self.assertEqual(str(e.exception), "expected 'true' or 'false', got 'foo'")
+
+    def test_invalid_integer(self):
+        with self.assertRaises(ValueError) as e:
+            parse_boolean('2')
+
+        self.assertEqual(str(e.exception), "expected 'true' or 'false', got '2'")
