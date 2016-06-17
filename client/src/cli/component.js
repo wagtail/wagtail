@@ -6,8 +6,9 @@ var TEMPLATES = path.join(__dirname, '..', '..', 'template');
 
 var files = [
 {
-  name: 'index.js',
-  template: 'component.mst'
+  name: 'component.js',
+  template: 'component.mst',
+  suffix: '.js',
 },
 {
   name: 'style.scss',
@@ -16,6 +17,11 @@ var files = [
 {
   name: 'README.md',
   template: 'README.mst'
+},
+{
+  name: 'component.test.js',
+  template: 'component.test.mst',
+  suffix: '.test.js',
 }
 ];
 
@@ -47,7 +53,7 @@ function write(name, data) {
 // Write files!
 // =============================================================================
 function run(argv) {
-  var name = argv.name;
+  var name = argv.name[0].toUpperCase() + argv.name.substring(1);
   var slug = slugify(name);
   var directory = path.join(argv.dir, slug);
 
@@ -59,8 +65,9 @@ function run(argv) {
   }
 
   files.forEach(function(file) {
+    var fileName = file.suffix ? name + file.suffix : file.name;
     var template = fs.readFileSync(path.join(TEMPLATES, file.template), 'utf8');
-    var newPath = path.join(directory, file.name);
+    var newPath = path.join(directory, fileName);
     var context = {
       name: name,
       slug: slug

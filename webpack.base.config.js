@@ -51,16 +51,18 @@ module.exports = function exports() {
       }),
       new webpack.optimize.CommonsChunkPlugin('common', COMMON_PATH, Infinity)
     ],
-    devtool: '#inline-source-map',
+    devtool: '#eval-cheap-module-source-map',
     module: {
       loaders: [
         {
           test: /\.js$/,
-          loader: 'babel'
+          loader: 'babel',
+          exclude: /node_modules/
         },
         {
           test: /\.jsx$/,
-          loader: 'babel'
+          loader: 'babel',
+          exclude: /node_modules/
         }
       ]
     }

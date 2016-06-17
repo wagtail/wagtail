@@ -1,5 +1,5 @@
 {% extends "wagtailadmin/skeleton.html" %}
-{% load staticfiles wagtailadmin_tags %}
+{% load i18n staticfiles wagtailadmin_tags %}
 
 {% block css %}
     <link rel="stylesheet" href="{% static 'wagtailadmin/css/vendor/jquery-ui/jquery-ui-1.10.3.verdant.css' %}" />
@@ -15,6 +15,26 @@
 {% endblock %}
 
 {% block js %}
+    <script>
+        (function(document, window) {
+            window.wagtailConfig = window.wagtailConfig || {};
+            wagtailConfig.api = {
+                pages: '{% url "wagtailadmin_api_v1:pages:listing" %}',
+                documents: '{% url "wagtailadmin_api_v1:documents:listing" %}',
+                images: '{% url "wagtailadmin_api_v1:images:listing" %}'
+            };
+            wagtailConfig.strings = {
+                EXPLORER: "{% trans 'Explorer' %}",
+                LOADING: "{% trans 'Loading' %}",
+                NO_RESULTS: "{% trans 'No results' %}",
+                SEE_CHILDREN: "{% trans 'See Children' %}"
+
+            };
+            wagtailConfig.urls = {
+                pages: '{% url "wagtailadmin_explore_root" %}'
+            };
+        })(document, window);
+    </script>
     <script src="{% static 'wagtailadmin/js/vendor/jquery-2.2.1.js' %}"></script>
     <script src="{% static 'wagtailadmin/js/vendor/jquery-ui-1.10.3.js' %}"></script>
     <script src="{% static 'wagtailadmin/js/vendor/jquery.datetimepicker.js' %}"></script>
@@ -26,6 +46,11 @@
     <script src="{% static 'wagtailadmin/js/vendor/tag-it.js' %}"></script>
     <script src="{% static 'wagtailadmin/js/core.js' %}"></script>
     {% hook_output 'insert_global_admin_js' %}
+
+    <script src="{% static 'wagtailadmin/js/common.js' %}"></script>
+    <script src="{% static 'wagtailadmin/js/wagtailadmin.js' %}"></script>
+
+
 
     {% main_nav_js %}
 
