@@ -10,10 +10,10 @@ function children(state={
         isFetching: true
       });
 
-    case 'FETCH_CHILDREN_COMPLETE':
+    case 'FETCH_CHILDREN_SUCCESS':
       return Object.assign({}, state, {
-        items: action.json.items.map(item => { return item.id }),
-        count: action.json.meta.total_count,
+        items: action.payload.json.items.map(item => { return item.id }),
+        count: action.payload.json.meta.total_count,
         isFetching: false,
         isLoaded: true
       });
@@ -33,16 +33,16 @@ export default function nodes(state = {}, action) {
   switch(action.type) {
     case 'FETCH_CHILDREN_START':
       return Object.assign({}, state, {
-        [action.id]: Object.assign({}, state[action.id], {
+        [action.payload]: Object.assign({}, state[action.payload], {
           isFetching: true,
-          children: children(state[action.id] ? state[action.id].children : undefined, action)
+          children: children(state[action.payload] ? state[action.payload].children : undefined, action)
         })
       });
 
-    case 'FETCH_CHILDREN_COMPLETE':
+    case 'FETCH_CHILDREN_SUCCESS':
       let map = {};
 
-      action.json.items.forEach(item => {
+      action.payload.json.items.forEach(item => {
         map = Object.assign({}, map, {
           [item.id]: Object.assign({}, defaults, state[item.id], item, {
             isLoaded: true
@@ -51,9 +51,9 @@ export default function nodes(state = {}, action) {
       });
 
       return Object.assign({}, state, map, {
-        [action.id]: Object.assign({}, state[action.id], {
+        [action.payload.id]: Object.assign({}, state[action.payload.id], {
           isFetching: false,
-          children: children(state[action.id].children, action)
+          children: children(state[action.payload.id].children, action)
         })
       });
 
@@ -76,22 +76,22 @@ export default function nodes(state = {}, action) {
 
     case 'FETCH_START':
       return Object.assign({}, state, {
-        [action.id]: Object.assign({}, defaults, state[action.id], {
+        [action.payload]: Object.assign({}, defaults, state[action.payload], {
           isFetching: true,
           isError: false,
         })
       });
 
-    case 'FETCH_BRANCH_COMPLETE':
+    case 'FETCH_BRANCH_SUCCESS':
       return Object.assign({}, state, {
-        [action.id]: Object.assign({}, defaults, state[action.id], action.json, {
+        [action.payload.id]: Object.assign({}, defaults, state[action.payload.id], action.payload.json, {
           isFetching: false,
           isError: false,
           isLoaded: true
         })
       });
 
-    case 'FETCH_COMPLETE':
+    case 'FETCH_SUCCESS':
       return state;
   }
 

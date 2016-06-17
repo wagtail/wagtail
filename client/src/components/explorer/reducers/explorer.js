@@ -17,14 +17,14 @@ export default function explorer(state = stateDefaults, action) {
   switch (action.type) {
     case 'SET_DEFAULT_PAGE':
       return Object.assign({}, state, {
-        defaultPage: action.id
+        defaultPage: action.payload
       });
 
     case 'RESET_TREE':
       return Object.assign({}, state, {
         isFetching: true,
         isResolved: false,
-        currentPage: action.id,
+        currentPage: action.payload,
         path: [],
       });
 
@@ -37,7 +37,7 @@ export default function explorer(state = stateDefaults, action) {
     case 'TOGGLE_EXPLORER':
       return Object.assign({}, state, {
         isVisible: !state.isVisible,
-        currentPage: action.id ? action.id : state.defaultPage,
+        currentPage: action.payload ? action.payload : state.defaultPage,
       });
 
     case 'FETCH_START':
@@ -45,20 +45,20 @@ export default function explorer(state = stateDefaults, action) {
         isFetching: true
       });
 
-    case 'FETCH_BRANCH_COMPLETE':
-      if (state.path.indexOf(action.id) < 0) {
-        newNodes = [action.id].concat(state.path);
+    case 'FETCH_BRANCH_SUCCESS':
+      if (state.path.indexOf(action.payload.id) < 0) {
+        newNodes = [action.payload.id].concat(state.path);
       }
 
       return Object.assign({}, state, {
         path: newNodes,
-        currentPage: state.currentPage ? state.currentPage : action.id
+        currentPage: state.currentPage ? state.currentPage : action.payload.id
       });
 
     // called on fetch page...
-    case 'FETCH_COMPLETE':
-      if (state.path.indexOf(action.id) < 0) {
-        newNodes = state.path.concat([action.id]);
+    case 'FETCH_SUCCESS':
+      if (state.path.indexOf(action.payload.id) < 0) {
+        newNodes = state.path.concat([action.payload.id]);
       }
 
       return Object.assign({}, state, {
@@ -68,7 +68,7 @@ export default function explorer(state = stateDefaults, action) {
 
     case 'PUSH_PAGE':
       return Object.assign({}, state, {
-        path: state.path.concat([action.id])
+        path: state.path.concat([action.payload])
       });
       return state;
 
@@ -78,7 +78,7 @@ export default function explorer(state = stateDefaults, action) {
         path: poppedNodes,
       });
 
-    case 'FETCH_CHILDREN_COMPLETE':
+    case 'FETCH_CHILDREN_SUCCESS':
       return Object.assign({}, state, {
         isFetching: false,
       });

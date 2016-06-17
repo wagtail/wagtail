@@ -1,8 +1,8 @@
 export default function transport(state={error: null, showMessage: false}, action) {
   switch(action.type) {
-    case 'FETCH_ERROR':
+    case 'FETCH_FAILURE':
       return Object.assign({}, state, {
-        error: action.body.message,
+        error: action.payload.message,
         showMessage: true
       });
     case 'CLEAR_TRANSPORT_ERROR':
