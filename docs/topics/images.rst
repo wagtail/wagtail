@@ -203,9 +203,9 @@ Output image format
 
 Wagtail may automatically change the format of some images when they are resized:
 
- - PNG and JPEG images always won't change format
+ - PNG and JPEG images don't change format
  - GIF images without animation are converted to PNGs
- - BMP images are always converted to PNGs
+ - BMP images are converted to PNGs
 
 It is also possible to override the output format on a per-tag basis by using the
 ``format`` filter after the resize rule.
@@ -237,8 +237,15 @@ quality:
     # Make low-quality but small images
     WAGTAILIMAGES_JPEG_QUALITY = 40
 
-Note that this won't affect any previously generated images. You may want to
-delete all renditions so they can regenerate with the new setting.
+Note that this won't affect any previously generated images so you may want to
+delete all renditions so they can regenerate with the new setting. This can be
+done from the Django shell:
+
+.. code-block:: python
+
+    # Replace this with your custom rendition model if you use one
+    >>> from wagtail.wagtailimages.models import Rendition
+    >>> Rendition.objects.all().delete()
 
 Changing per-tag
 ^^^^^^^^^^^^^^^^
