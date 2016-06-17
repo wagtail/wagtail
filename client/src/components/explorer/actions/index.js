@@ -112,13 +112,15 @@ export function fetchTree(id=1) {
 
 export function fetchRoot() {
   return (dispatch) => {
+    // TODO Should not need an id.
+    dispatch(resetTree(1));
+
     return _get(`${API_PAGES}?child_of=${PAGES_ROOT_ID}`)
       .then(json => {
         // TODO right now, only works for a single homepage.
         // TODO What do we do if there is no homepage?
         const rootId = json.items[0].id;
 
-        dispatch(resetTree(rootId));
         dispatch(fetchTree(rootId));
       });
   };
