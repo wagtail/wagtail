@@ -250,6 +250,12 @@ class TestElasticsearchSearchBackend(BackendTests, TestCase):
         results = self.backend.search(None, models.SearchTest)
         self.assertEqual(set(results), set())
 
+    def test_annotate_score(self):
+        results = self.backend.search("Hello", models.SearchTest).annotate_score('_score')
+
+        for result in results:
+            self.assertIsInstance(result._score, float)
+
 
 class TestElasticsearchSearchQuery(TestCase):
     def assertDictEqual(self, a, b):
