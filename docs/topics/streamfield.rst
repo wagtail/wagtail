@@ -122,7 +122,7 @@ RegexBlock
 
 ``wagtail.wagtailcore.blocks.RegexBlock``
 
-A single-line regex input that validates that the value is a valid regex expression. The keyword arguments ``required``, ``regex``, ``max_length``, ``min_length`` and ``error_message`` are accepted.
+A single-line text input that validates a string against a regex expression. The regular expression used for validation must be supplied as the first argument, or as the keyword argument ``regex``. The message text used to indicate a validation error can be customised using the ``error_message`` keyword argument to pass a custom message. The keyword arguments ``regex``, ``required``, ``max_length``, ``min_length`` and ``error_message`` are accepted.
 
 URLBlock
 ~~~~~~~~
