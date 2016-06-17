@@ -17,6 +17,7 @@ Changelog
  * Fix: Removed alignment options (deprecated in HTML and not rendered by Wagtail) from `TableBlock` context menu (Moritz Pfeiffer)
  * Fix: Fixed incorrect CSS path on ModelAdmin's "choose a parent page" view
  * Fix: Prevent empty redirect by overnormalisation (Franklin Kingma, Ludolf Takens)
+ * Fix: test creating page with streamfield was broken (Franklin Kingma, Ludolf Takens)
 
 1.5.2 (08.06.2016)
 ~~~~~~~~~~~~~~~~~~
