@@ -2,7 +2,7 @@ from __future__ import absolute_import, unicode_literals
 
 from rest_framework.filters import BaseFilterBackend
 
-from wagtail.api.v2.utils import BadRequestError
+from wagtail.api.v2.utils import BadRequestError, parse_boolean
 
 
 class HasChildrenFilter(BaseFilterBackend):
@@ -13,12 +13,11 @@ class HasChildrenFilter(BaseFilterBackend):
     def filter_queryset(self, request, queryset, view):
         if 'has_children' in request.GET:
             try:
-                has_children_filter = int(request.GET['has_children'])
-                assert has_children_filter is 1 or has_children_filter is 0
-            except (ValueError, AssertionError):
-                raise BadRequestError("has_children must be 1 or 0")
+                has_children_filter = parse_boolean(request.GET['has_children'])
+            except ValueError:
+                raise BadRequestError("has_children must be 'true' or 'false'")
 
-            if has_children_filter == 1:
+            if has_children_filter is True:
                 return queryset.filter(numchild__gt=0)
             else:
                 return queryset.filter(numchild=0)

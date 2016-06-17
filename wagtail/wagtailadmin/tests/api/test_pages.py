@@ -248,32 +248,47 @@ class TestAdminPageListing(AdminAPITestCase, TestPageListing):
     # HAS CHILDREN FILTER
 
     def test_has_children_filter(self):
-        response = self.get_response(has_children=1)
+        response = self.get_response(has_children='true')
         content = json.loads(response.content.decode('UTF-8'))
 
         page_id_list = self.get_page_id_list(content)
         self.assertEqual(page_id_list, [2, 4, 5, 6, 21, 20])
 
     def test_has_children_filter_off(self):
+        response = self.get_response(has_children='false')
+        content = json.loads(response.content.decode('UTF-8'))
+
+        page_id_list = self.get_page_id_list(content)
+        self.assertEqual(page_id_list, [8, 9, 16, 18, 19, 10, 15, 17, 22, 23, 13, 14, 12])
+
+    def test_has_children_filter_int(self):
+        response = self.get_response(has_children=1)
+        content = json.loads(response.content.decode('UTF-8'))
+
+        page_id_list = self.get_page_id_list(content)
+        self.assertEqual(page_id_list, [2, 4, 5, 6, 21, 20])
+
+    def test_has_children_filter_int_off(self):
         response = self.get_response(has_children=0)
         content = json.loads(response.content.decode('UTF-8'))
 
         page_id_list = self.get_page_id_list(content)
         self.assertEqual(page_id_list, [8, 9, 16, 18, 19, 10, 15, 17, 22, 23, 13, 14, 12])
 
+
     def test_has_children_filter_invalid_integer(self):
         response = self.get_response(has_children=3)
         content = json.loads(response.content.decode('UTF-8'))
 
         self.assertEqual(response.status_code, 400)
-        self.assertEqual(content, {'message': "has_children must be 1 or 0"})
+        self.assertEqual(content, {'message': "has_children must be 'true' or 'false'"})
 
     def test_has_children_filter_invalid_value(self):
         response = self.get_response(has_children='yes')
         content = json.loads(response.content.decode('UTF-8'))
 
         self.assertEqual(response.status_code, 400)
-        self.assertEqual(content, {'message': "has_children must be 1 or 0"})
+        self.assertEqual(content, {'message': "has_children must be 'true' or 'false'"})
 
 
 class TestAdminPageDetail(AdminAPITestCase, TestPageDetail):
