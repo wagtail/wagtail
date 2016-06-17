@@ -1,8 +1,9 @@
 import React from 'react';
+import { STRINGS } from 'config';
 
 const LoadingIndicator = () => (
     <div className="o-icon c-indicator is-spinning">
-        <span ariaRole="presentation">Loading...</span>
+        <span ariaRole="presentation">{STRINGS['LOADING']}...</span>
     </div>
 );
 

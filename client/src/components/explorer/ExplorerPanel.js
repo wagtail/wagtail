@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import CSSTransitionGroup from 'react-addons-css-transition-group';
-import { EXPLORER_ANIM_DURATION } from 'config';
+import { EXPLORER_ANIM_DURATION, STRINGS } from 'config';
 
 import ExplorerEmpty from './ExplorerEmpty';
 import ExplorerHeader from './ExplorerHeader';

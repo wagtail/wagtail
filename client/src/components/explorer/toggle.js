@@ -31,7 +31,7 @@ class Toggle extends Component {
     }
 
     return (
-      <a ref="btn" onClick={this._sandbox} className={cls.join('  ')}>
+      <a href="#" ref="btn" onClick={this._sandbox} className={cls.join('  ')}>
         {this.props.label}
       </a>
     );
