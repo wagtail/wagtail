@@ -89,7 +89,6 @@ TextBlock
 
 A multi-line text input. As with ``CharBlock``, the keyword arguments ``required``, ``max_length``, ``min_length`` and ``help_text`` are accepted.
 
-
 EmailBlock
 ~~~~~~~~~~
 
@@ -103,6 +102,27 @@ IntegerBlock
 ``wagtail.wagtailcore.blocks.IntegerBlock``
 
 A single-line integer input that validates that the integer is a valid whole number. The keyword arguments ``required``, ``max_length``, ``min_length`` and ``help_text`` are accepted.
+
+FloatBlock
+~~~~~~~~~~
+
+``wagtail.wagtailcore.blocks.FloatBlock``
+
+A single-line Float input that validates that the value is a valid floating point number. The keyword arguments ``required``, ``max_value`` and ``min_value``  are accepted.
+
+DecimalBlock
+~~~~~~~~~~
+
+``wagtail.wagtailcore.blocks.DecimalBlock``
+
+A single-line decimal input that validates that the value is a valid decimal number. The keyword arguments ``required``, ``max_value``, ``min_value``, ``max_digits`` and ``decimal_places`` are accepted.
+
+RegexBlock
+~~~~~~~~~~
+
+``wagtail.wagtailcore.blocks.RegexBlock``
+
+A single-line regex input that validates that the value is a valid regex expression. The keyword arguments ``required``, ``regex``, ``max_length``, ``min_length`` and ``error_message`` are accepted.
 
 URLBlock
 ~~~~~~~~
