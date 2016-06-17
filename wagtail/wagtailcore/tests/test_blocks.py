@@ -47,6 +47,18 @@ class TestFieldBlock(unittest.TestCase):
             1234,
             errors=ErrorList([ValidationError("This field is required.")]))
 
+    def test_integerfield_render_max_value_validation(self):
+        block = blocks.IntegerBlock(max_value=20)
+
+        with self.assertRaises(ValidationError):
+            block.clean(21)
+
+    def test_integerfield_render_min_value_validation(self):
+        block = blocks.IntegerBlock(min_value=20)
+
+        with self.assertRaises(ValidationError):
+            block.clean(10)
+
     def test_emailfield_render(self):
         block = blocks.EmailBlock()
         email = block.render("example@email.com")
@@ -58,6 +70,12 @@ class TestFieldBlock(unittest.TestCase):
         block.render_form(
             "example@email.com",
             errors=ErrorList([ValidationError("This field is required.")]))
+
+    def test_emailfield_validation(self):
+        block = blocks.EmailBlock()
+
+        with self.assertRaises(ValidationError):
+            block.clean("example.email.com")
 
     def test_charfield_render(self):
         block = blocks.CharBlock()
