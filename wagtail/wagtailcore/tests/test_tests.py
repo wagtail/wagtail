@@ -46,11 +46,17 @@ class TestWagtailPageTests(WagtailPageTests):
         self.assertTrue(EventIndex.objects.exists())
 
         self.assertCanCreate(self.root, StreamPage, {
-            'title': 'WebDev42',
-            'body': json.dumps([
-                {'type': 'text', 'value': 'Some text'},
-                {'type': 'rich_text', 'value': '<p>Some rich text</p>'},
-            ])})
+            u'title': u'Flierp',
+            u'body-0-type': u'text',
+            u'body-0-value': u'Dit is onze mooie text',
+            u'body-0-order': u'0',
+            u'body-0-deleted': u'',
+            u'body-1-type': u'rich_text',
+            u'body-1-value': u'<p>Dit is onze mooie text in een ferrari</p>',
+            u'body-1-order': u'1',
+            u'body-1-deleted': u'',
+            u'body-count': u'2'
+        })
 
     def test_assert_can_create_subpage_rules(self):
         simple_page = SimplePage(title='Simple Page', slug='simple', content="hello")
