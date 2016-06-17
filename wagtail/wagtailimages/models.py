@@ -410,8 +410,7 @@ class Filter(models.Model):
                 'original-format': original_format,
             }
             for operation in self.operations:
-                # Check that the operation can take the new "env" argument
-                # (added in Wagtail 1.5)
+                # Check that the operation can take the "env" argument
                 try:
                     inspect.getcallargs(operation.run, willow, image, env)
                     accepts_env = True

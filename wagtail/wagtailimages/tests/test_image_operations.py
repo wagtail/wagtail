@@ -414,7 +414,7 @@ class TestFilter(TestCase):
         self.assertEqual(run_mock.call_count, 2)
 
     def test_runs_operations_without_env_argument(self):
-        # The "env" argument was added in Wagtial 1.5. This tests that
+        # The "env" argument was added in Wagtail 1.5. This tests that
         # image operations written for 1.4 will still work
 
         run_mock = Mock()
