@@ -277,7 +277,20 @@ class TestRegexBlock(TestCase):
         block = blocks.RegexBlock()
 
         with self.assertRaises(ValidationError):
-            block.clean("ABC")
+            block.clean("[/]")
+
+    def test_raises_custom_error_message(self):
+        test_message = 'Not a valid library card number.'
+        block = blocks.RegexBlock(regex='[0-9]{3}', error_message=test_message)
+
+        with self.assertRaises(ValidationError):
+            block.clean("[/]")
+
+        html = block.render_form(
+            "[/]",
+            errors=ErrorList([ValidationError(test_message)]))
+
+        self.assertIn(test_message, html)
 
 
 class TestRichTextBlock(TestCase):
