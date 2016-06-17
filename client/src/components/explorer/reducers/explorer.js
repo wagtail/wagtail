@@ -5,7 +5,9 @@ const stateDefaults = {
   path: [],
   currentPage: 1,
   defaultPage: 1,
-  filter: null
+  // Specificies which fields are to be fetched in the API calls.
+  fields: ['title', 'first_published_at', 'status', 'descendants', 'children'],
+  filter: null,
 }
 
 export default function explorer(state = stateDefaults, action) {

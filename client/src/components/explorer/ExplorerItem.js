@@ -35,8 +35,11 @@ export default class ExplorerItem extends Component {
 
     let count = meta.children.count;
 
+    // TODO refactor.
+    // If we only want pages with children, get this info by
+    // looking at the descendants count vs children count.
     if (this.props.filter && this.props.filter.match(/has_children/)) {
-      count = meta.children.children_with_children;
+      count = meta.descendants.count - meta.children.count;
     }
 
     return (

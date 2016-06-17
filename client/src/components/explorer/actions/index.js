@@ -170,6 +170,10 @@ export function fetchChildren(id='root') {
 
     let api = `${API_PAGES}?child_of=${id}`;
 
+    if (explorer.fields) {
+      api += `&fields=${explorer.fields.map(global.encodeURIComponent).join(',')}`;
+    }
+
     if (explorer.filter) {
       api = `${api}&${explorer.filter}`
     }
