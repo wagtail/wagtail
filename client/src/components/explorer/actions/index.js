@@ -9,7 +9,7 @@ function _getHeaders() {
 
   return {
     credentials: 'same-origin',
-    headers: reqHeaders,
+    headers: headers,
     method: 'GET'
   };
 }
@@ -44,7 +44,7 @@ export const treeResolved = createAction('TREE_RESOLVED');
 
 // Make this a bit better... hmm....
 export function fetchTree(id=1) {
-  return dispatch => {
+  return (dispatch) => {
     dispatch(fetchBranchStart(id));
 
     return _get(`${API_PAGES}${id}/`)

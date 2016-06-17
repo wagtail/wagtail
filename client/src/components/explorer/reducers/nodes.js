@@ -84,7 +84,7 @@ export default function nodes(state = {}, action) {
 
     case 'FETCH_BRANCH_SUCCESS':
       return Object.assign({}, state, {
-        [action.payload.id]: Object.assign({}, defaults, state[action.payload.id], action.json, {
+        [action.payload.id]: Object.assign({}, defaults, state[action.payload.id], action.payload.json, {
           isFetching: false,
           isError: false,
           isLoaded: true

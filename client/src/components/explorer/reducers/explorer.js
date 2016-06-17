@@ -50,7 +50,7 @@ export default function explorer(state = stateDefaults, action) {
 
       return Object.assign({}, state, {
         path: newNodes,
-        currentPage: state.currentPage ? state.currentPage : action.id
+        currentPage: state.currentPage ? state.currentPage : action.payload.id
       });
 
     // called on fetch page...
