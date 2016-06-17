@@ -4,7 +4,6 @@ import { ADMIN_PAGES, STRINGS } from 'config';
 import Icon from 'components/icon/Icon';
 import PublishStatus from 'components/publish-status/PublishStatus';
 import PublishedTime from 'components/published-time/PublishedTime';
-import StateIndicator from 'components/state-indicator/StateIndicator';
 
 export default class ExplorerItem extends Component {
 
@@ -43,7 +42,6 @@ export default class ExplorerItem extends Component {
           <Icon name="folder-inverse" title={STRINGS['SEE_CHILDREN']} />
         </span> : null }
         <h3 className="c-explorer__title">
-          <StateIndicator state={data.state} />
           {title}
         </h3>
         <p className='c-explorer__meta'>
