@@ -357,7 +357,6 @@ class TestImageDetail(TestCase):
     def get_response(self, image_id, **params):
         return self.client.get(reverse('wagtailapi_v2:images:detail', args=(image_id, )), params)
 
-
     def test_basic(self):
         response = self.get_response(5)
 
@@ -407,6 +406,71 @@ class TestImageDetail(TestCase):
 
         self.assertIn('tags', content['meta'])
         self.assertEqual(content['meta']['tags'], ['hello', 'world'])
+
+    # FIELDS
+
+    def test_remove_fields(self):
+        response = self.get_response(5, fields='-title')
+        content = json.loads(response.content.decode('UTF-8'))
+
+        self.assertIn('id', set(content.keys()))
+        self.assertNotIn('title', set(content.keys()))
+
+    def test_remove_meta_fields(self):
+        response = self.get_response(5, fields='-type')
+        content = json.loads(response.content.decode('UTF-8'))
+
+        self.assertIn('detail_url', set(content['meta'].keys()))
+        self.assertNotIn('type', set(content['meta'].keys()))
+
+    def test_remove_id_field(self):
+        response = self.get_response(5, fields='-id')
+        content = json.loads(response.content.decode('UTF-8'))
+
+        self.assertIn('title', set(content.keys()))
+        self.assertNotIn('id', set(content.keys()))
+
+    def test_remove_all_fields(self):
+        response = self.get_response(5, fields='_,id,type')
+        content = json.loads(response.content.decode('UTF-8'))
+
+        self.assertEqual(set(content.keys()), {'id', 'meta'})
+        self.assertEqual(set(content['meta'].keys()), {'type'})
+
+    def test_star_in_wrong_position_gives_error(self):
+        response = self.get_response(5, fields='title,*')
+        content = json.loads(response.content.decode('UTF-8'))
+
+        self.assertEqual(response.status_code, 400)
+        self.assertEqual(content, {'message': "fields error: '*' must be in the first position"})
+
+    def test_fields_which_are_not_in_api_fields_gives_error(self):
+        response = self.get_response(5, fields='path')
+        content = json.loads(response.content.decode('UTF-8'))
+
+        self.assertEqual(response.status_code, 400)
+        self.assertEqual(content, {'message': "unknown fields: path"})
+
+    def test_fields_unknown_field_gives_error(self):
+        response = self.get_response(5, fields='123,title,abc')
+        content = json.loads(response.content.decode('UTF-8'))
+
+        self.assertEqual(response.status_code, 400)
+        self.assertEqual(content, {'message': "unknown fields: 123, abc"})
+
+    def test_fields_remove_unknown_field_gives_error(self):
+        response = self.get_response(5, fields='-123,-title,-abc')
+        content = json.loads(response.content.decode('UTF-8'))
+
+        self.assertEqual(response.status_code, 400)
+        self.assertEqual(content, {'message': "unknown fields: 123, abc"})
+
+    def test_nested_fields_on_non_relational_field_gives_error(self):
+        response = self.get_response(5, fields='title(foo,bar)')
+        content = json.loads(response.content.decode('UTF-8'))
+
+        self.assertEqual(response.status_code, 400)
+        self.assertEqual(content, {'message': "'title' does not support nested fields"})
 
 
 @override_settings(

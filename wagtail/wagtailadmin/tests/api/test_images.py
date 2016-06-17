@@ -137,7 +137,6 @@ class TestAdminImageDetail(AdminAPITestCase, TestImageDetail):
     def get_response(self, image_id, **params):
         return self.client.get(reverse('wagtailadmin_api_v1:images:detail', args=(image_id, )), params)
 
-
     def test_basic(self):
         response = self.get_response(5)
 

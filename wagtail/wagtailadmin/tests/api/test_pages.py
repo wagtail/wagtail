@@ -485,6 +485,42 @@ class TestAdminPageDetail(AdminAPITestCase, TestPageDetail):
             'listing_url': 'http://localhost/admin/api/v2beta/pages/?descendant_of=2'
         })
 
+    # FIELDS
+
+    def test_remove_all_meta_fields(self):
+        response = self.get_response(16, fields='-type,-detail_url,-slug,-first_published_at,-html_url,-descendants,-latest_revision_created_at,-children,-show_in_menus,-seo_title,-parent,-status,-search_description')
+        content = json.loads(response.content.decode('UTF-8'))
+
+        self.assertNotIn('meta', set(content.keys()))
+        self.assertIn('id', set(content.keys()))
+
+    def test_remove_all_fields(self):
+        response = self.get_response(16, fields='_,id,type')
+        content = json.loads(response.content.decode('UTF-8'))
+
+        self.assertEqual(set(content.keys()), {'id', 'meta', '__types'})
+        self.assertEqual(set(content['meta'].keys()), {'type'})
+
+    def test_all_nested_fields(self):
+        response = self.get_response(16, fields='feed_image(*)')
+        content = json.loads(response.content.decode('UTF-8'))
+
+        self.assertEqual(set(content['feed_image'].keys()), {'id', 'meta', 'title', 'width', 'height', 'thumbnail'})
+
+    def test_fields_foreign_key(self):
+        response = self.get_response(16)
+        content = json.loads(response.content.decode('UTF-8'))
+
+        feed_image = content['feed_image']
+
+        self.assertIsInstance(feed_image, dict)
+        self.assertEqual(set(feed_image.keys()), {'id', 'meta', 'title'})
+        self.assertIsInstance(feed_image['id'], int)
+        self.assertIsInstance(feed_image['meta'], dict)
+        self.assertEqual(set(feed_image['meta'].keys()), {'type', 'detail_url'})
+        self.assertEqual(feed_image['meta']['type'], 'wagtailimages.Image')
+        self.assertEqual(feed_image['meta']['detail_url'], 'http://localhost/admin/api/v2beta/images/%d/' % feed_image['id'])
+
 
 class TestAdminPageDetailWithStreamField(AdminAPITestCase):
     fixtures = ['test.json']

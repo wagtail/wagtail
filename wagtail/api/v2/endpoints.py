@@ -146,6 +146,10 @@ class BaseAPIEndpoint(GenericViewSet):
         return fields
 
     @classmethod
+    def get_detail_default_fields(cls, model):
+        return cls.get_available_fields(model)
+
+    @classmethod
     def get_listing_default_fields(cls, model):
         return cls.listing_default_fields[:]
 
@@ -184,7 +188,9 @@ class BaseAPIEndpoint(GenericViewSet):
                     pass
 
         # Get list of configured fields
-        if nested:
+        if show_details:
+            fields = set(cls.get_detail_default_fields(model))
+        elif nested:
             fields = set(cls.get_nested_default_fields(model))
         else:
             fields = set(cls.get_listing_default_fields(model))
@@ -262,22 +268,20 @@ class BaseAPIEndpoint(GenericViewSet):
         else:
             model = type(self.get_object())
 
-        if self.action == 'listing_view':
-            if 'fields' in request.GET:
-                try:
-                    fields_config = parse_fields_parameter(request.GET['fields'])
-                except ValueError as e:
-                    raise BadRequestError("fields error: %s" % str(e))
-            else:
-                # Use default fields
-                fields_config = []
+        # Fields
+        if 'fields' in request.GET:
+            try:
+                fields_config = parse_fields_parameter(request.GET['fields'])
+            except ValueError as e:
+                raise BadRequestError("fields error: %s" % str(e))
+        else:
+            # Use default fields
+            fields_config = []
 
+        # Allow "detail_only" (eg parent) fields on detail view
+        if self.action == 'listing_view':
             show_details = False
         else:
-            # Detail views show all fields all the time
-            fields_config = [
-                ('*', False, None)
-            ]
             show_details = True
 
         return self._get_serializer_class(self.request.wagtailapi_router, model, fields_config, show_details=show_details)
