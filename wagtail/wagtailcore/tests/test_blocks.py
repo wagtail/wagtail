@@ -258,6 +258,28 @@ class TestDecimalBlock(TestCase):
             block.clean('19.99')
 
 
+class TestRegexBlock(TestCase):
+
+    def test_render(self):
+        block = blocks.RegexBlock(regex='[0-9]{3}')
+        test_val = '123'
+        block_val = block.value_from_form(test_val)
+
+        self.assertEqual(block_val, test_val)
+
+    def test_raises_required_error(self):
+        block = blocks.RegexBlock()
+
+        with self.assertRaises(ValidationError):
+            block.clean("")
+
+    def test_raises_validation_error(self):
+        block = blocks.RegexBlock()
+
+        with self.assertRaises(ValidationError):
+            block.clean("ABC")
+
+
 class TestRichTextBlock(TestCase):
     fixtures = ['test.json']
 
