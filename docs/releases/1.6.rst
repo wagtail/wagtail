@@ -32,6 +32,7 @@ Bug fixes
  * Removed alignment options (deprecated in HTML and not rendered by Wagtail) from ``TableBlock`` context menu (Moritz Pfeiffer)
  * Fixed incorrect CSS path on ModelAdmin's "choose a parent page" view
  * Prevent empty redirect by overnormalisation
+ * "Remove link" button in rich text editor didn't trigger "edit" event, leading to the change to sometimes not be persisted (Matt Westcott)
 
 
 Upgrade considerations
