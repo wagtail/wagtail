@@ -5,6 +5,7 @@ const stateDefaults = {
   path: [],
   currentPage: 1,
   defaultPage: 1,
+  // TODO Change to include less fields (just 'descendants'?) in the next version of the admin API.
   // Specificies which fields are to be fetched in the API calls.
   fields: ['title', 'latest_revision_created_at', 'status', 'descendants', 'children'],
   filter: 'has_children=1',

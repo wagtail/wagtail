@@ -18,4 +18,14 @@ describe('Icon', () => {
   it('has additional classes if specified', () => {
     expect(shallow(<Icon name="test" className="icon-red icon-big" />).prop('className')).to.contain('icon-red icon-big');
   });
+
+  it('has no accessible label by default', () => {
+    expect(shallow(<Icon name="test" />).children().isEmpty()).to.equal(true);
+  });
+
+  it('has accessible label if specified', () => {
+    const label = shallow(<Icon name="test" title="For screen readers" />).childAt(0);
+    expect(label.text()).to.contain('For screen readers');
+    expect(label.html()).to.contain('aria-role="presentation"');
+  });
 });

@@ -158,7 +158,7 @@ $c-explorer-easing: cubic-bezier(0.075, 0.820, 0.165, 1.000);
         background: rgba(0,0,0,0.5);
     }
 
-    > [aria-role='presentation'] {
+    [aria-role='presentation'] {
         display: none;
     }
 }
