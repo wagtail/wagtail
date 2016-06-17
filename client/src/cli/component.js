@@ -59,8 +59,9 @@ function run(argv) {
   }
 
   files.forEach(function(file) {
+    var fileName = file.name === 'index.js' ? slug[0].toUpperCase() + slug.substring(1) + '.js' : file.name;
     var template = fs.readFileSync(path.join(TEMPLATES, file.template), 'utf8');
-    var newPath = path.join(directory, file.name);
+    var newPath = path.join(directory, fileName);
     var context = {
       name: name,
       slug: slug
