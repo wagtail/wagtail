@@ -44,6 +44,7 @@ Minor features
  * Added ``before_create_page``, ``before_edit_page``, ``before_delete_page`` hooks (Karl Hobley)
  * Updated font sizes and colours to improve legibility of admin menu and buttons (Stein Strindhaug)
  * Added pagination to "choose destination" view when moving pages (Nick Smith, Žan Anderle)
+ * Added ability to annotate search results with score - see :ref:`wagtailsearch_annotating_results_with_score` (Karl Hobley)
 
 
 Bug fixes

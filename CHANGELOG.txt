@@ -14,6 +14,7 @@ Changelog
  * Added `before_create_page`, `before_edit_page`, `before_delete_page` hooks (Karl Hobley)
  * Updated font sizes and colours to improve legibility of admin menu and buttons (Stein Strindhaug)
  * Added pagination to "choose destination" view when moving pages (Nick Smith, Žan Anderle)
+ * Added ability to annotate search results with score (Karl Hobley)
  * Fix: Migrations for wagtailcore and project template are now reversible (Benjamin Bach)
  * Fix: The default image format label text ('Full width', 'Left-aligned', 'Right-aligned') is now localised (Mikalai Radchuk)
  * Fix: Text on the front-end 'password required' form is now marked for translation (Janneke Janssen)
