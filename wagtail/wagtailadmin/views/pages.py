@@ -477,7 +477,7 @@ def has_specific_formerror(errors, specific_error=''):
         return []
 
     err_fields = []
-    for field, errormessage in errors.iteritems():
+    for field, errormessage in errors.items():
         if isinstance(errormessage, collections.Iterable) and \
                 specific_error in [msg for msg in errormessage]:
             err_fields.append(field)
