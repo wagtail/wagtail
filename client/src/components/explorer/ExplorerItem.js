@@ -13,11 +13,6 @@ export default class ExplorerItem extends Component {
     this._loadChildren = this._loadChildren.bind(this);
   }
 
-  _humanType(type) {
-    let part = type.split('.')[1]
-    return part.replace(/([A-Z])/g, ' $1').trim();
-  }
-
   _onNavigate(id) {
     window.location.href = `${ADMIN_PAGES}${id}`;
   }
@@ -29,9 +24,8 @@ export default class ExplorerItem extends Component {
   }
 
   render() {
-    const { title, data, index } = this.props;
+    const { title, typeName, data, index } = this.props;
     const { meta } = data;
-    const typeName = this._humanType(meta.type);
 
     let count = meta.children.count;
 
@@ -56,7 +50,7 @@ export default class ExplorerItem extends Component {
           {title}
         </h3>
         <p className='c-explorer__meta'>
-          {typeName} | <PublishedTime publishedAt={meta.latest_revision_created_at} /> | <PublishStatus status={meta.status} />
+          <span className="c-explorer__meta__type">{typeName}</span> | <PublishedTime publishedAt={meta.latest_revision_created_at} /> | <PublishStatus status={meta.status} />
         </p>
       </div>
     );

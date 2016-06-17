@@ -8,6 +8,8 @@ const stateDefaults = {
   // Specificies which fields are to be fetched in the API calls.
   fields: ['title', 'latest_revision_created_at', 'status', 'descendants', 'children'],
   filter: 'has_children=1',
+  // Coming from the API in order to get translated / pluralised labels.
+  pageTypes: {},
 }
 
 export default function explorer(state = stateDefaults, action) {
@@ -81,6 +83,7 @@ export default function explorer(state = stateDefaults, action) {
     case 'FETCH_CHILDREN_SUCCESS':
       return Object.assign({}, state, {
         isFetching: false,
+        pageTypes: action.payload.json.__types,
       });
 
     case 'SET_FILTER':

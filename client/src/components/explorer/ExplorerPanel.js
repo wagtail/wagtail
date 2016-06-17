@@ -115,7 +115,7 @@ export default class ExplorerPanel extends Component {
   }
 
   renderChildren(page) {
-    let { nodes, filter } = this.props;
+    let { nodes, pageTypes, filter } = this.props;
 
     if (!page || !page.children.items) {
       return [];
@@ -124,11 +124,13 @@ export default class ExplorerPanel extends Component {
     return page.children.items.map(index => {
       return nodes[index];
     }).map(item => {
+      const typeName = pageTypes[item.meta.type] ? pageTypes[item.meta.type].verbose_name : item.meta.type;
       const props = {
         onItemClick: this._onItemClick,
         parent: page,
         key: item.id,
         title: item.title,
+        typeName,
         data: item,
         filter,
       };

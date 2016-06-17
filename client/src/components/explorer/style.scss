@@ -123,6 +123,11 @@ $c-explorer-easing: cubic-bezier(0.075, 0.820, 0.165, 1.000);
     margin-bottom: 0;
 }
 
+    // TODO Could be a utility class
+    .c-explorer__meta__type {
+        text-transform: capitalize;
+    }
+
 .c-explorer__item:hover {
     background: rgba(0, 0, 0, 0.25);
     color: #fff;

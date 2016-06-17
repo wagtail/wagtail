@@ -34,11 +34,12 @@ class Explorer extends Component {
   }
 
   render() {
-    let { visible, depth, nodes, path, items, type, filter, fetching, resolved } = this.props;
+    let { visible, depth, nodes, path, pageTypes, items, type, filter, fetching, resolved } = this.props;
     let page = this._getPage();
 
     const explorerProps = {
       path,
+      pageTypes,
       page,
       type,
       fetching,
@@ -97,6 +98,7 @@ const mapStateToProps = (state, ownProps) => ({
   fetching: state.explorer.isFetching,
   resolved: state.explorer.isResolved,
   path: state.explorer.path,
+  pageTypes: state.explorer.pageTypes,
   // page: state.explorer.page
   // indexes: state.entities.indexes,
   nodes: state.nodes,
