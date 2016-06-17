@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import CSSTransitionGroup from 'react-addons-css-transition-group';
-import { EXPLORER_ANIM_DURATION, EXPLORER_FILTERS } from 'config';
+import { EXPLORER_ANIM_DURATION, EXPLORER_FILTERS, STRINGS } from 'config';
 
 import Icon from 'components/icon/Icon';
 import Filter from './Filter';
@@ -39,7 +39,7 @@ class ExplorerHeader extends Component {
     let { page, depth } = this.props;
 
     if (depth < 2 || !page) {
-      return 'EXPLORER';
+      return STRINGS['EXPLORER'];
     }
 
     return page.title;

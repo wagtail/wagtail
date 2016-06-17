@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 
-import { ADMIN_PAGES } from 'config';
+import { ADMIN_PAGES, STRINGS } from 'config';
 import Icon from 'components/icon/Icon';
 import PublishStatus from 'components/publish-status/PublishStatus';
 import PublishedTime from 'components/published-time/PublishedTime';
@@ -42,7 +42,7 @@ export default class ExplorerItem extends Component {
         <span className="c-explorer__children" onClick={this._loadChildren}>
           <Icon name="folder-inverse" />
           <span aria-role='presentation'>
-            See Children
+            {STRINGS['SEE_CHILDREN']}
           </span>
         </span> : null }
         <h3 className="c-explorer__title">
