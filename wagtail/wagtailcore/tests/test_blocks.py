@@ -2,6 +2,7 @@
 from __future__ import absolute_import, unicode_literals
 
 import base64
+from decimal import Decimal
 import unittest
 
 from django import forms
@@ -192,6 +193,69 @@ class TestFieldBlock(unittest.TestCase):
         block = CalenderBlock()
         self.assertIn('pretty.css', ''.join(block.all_media().render_css()))
         self.assertIn('animations.js', ''.join(block.all_media().render_js()))
+
+
+class TestFloatBlock(TestCase):
+    def test_type(self):
+        block = blocks.FloatBlock()
+        block_val = block.value_from_form(float(1.63))
+        self.assertEqual(type(block_val), float)
+
+    def test_render(self):
+        block = blocks.FloatBlock()
+        test_val = float(1.63)
+        block_val = block.value_from_form(test_val)
+        self.assertEqual(block_val, test_val)
+
+    def test_raises_required_error(self):
+        block = blocks.FloatBlock()
+
+        with self.assertRaises(ValidationError):
+            block.clean("")
+
+    def test_raises_max_value_validation_error(self):
+        block = blocks.FloatBlock(max_value=20)
+
+        with self.assertRaises(ValidationError):
+            block.clean('20.01')
+
+    def test_raises_min_value_validation_error(self):
+        block = blocks.FloatBlock(min_value=20)
+
+        with self.assertRaises(ValidationError):
+            block.clean('19.99')
+
+
+class TestDecimalBlock(TestCase):
+    def test_type(self):
+        block = blocks.DecimalBlock()
+        block_val = block.value_from_form(Decimal('1.63'))
+        self.assertEqual(type(block_val), Decimal)
+
+    def test_render(self):
+        block = blocks.DecimalBlock()
+        test_val = Decimal(1.63)
+        block_val = block.value_from_form(test_val)
+
+        self.assertEqual(block_val, test_val)
+
+    def test_raises_required_error(self):
+        block = blocks.DecimalBlock()
+
+        with self.assertRaises(ValidationError):
+            block.clean("")
+
+    def test_raises_max_value_validation_error(self):
+        block = blocks.DecimalBlock(max_value=20)
+
+        with self.assertRaises(ValidationError):
+            block.clean('20.01')
+
+    def test_raises_min_value_validation_error(self):
+        block = blocks.DecimalBlock(min_value=20)
+
+        with self.assertRaises(ValidationError):
+            block.clean('19.99')
 
 
 class TestRichTextBlock(TestCase):
