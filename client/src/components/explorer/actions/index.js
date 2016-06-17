@@ -1,10 +1,9 @@
 import { createAction } from 'redux-actions';
 
-import { API, API_PAGES, PAGES_ROOT_ID } from 'config';
-
+import { API_PAGES, PAGES_ROOT_ID } from 'config';
 
 function _getHeaders() {
-  let headers = new Headers();
+  const headers = new Headers();
   headers.append('Content-Type', 'application/json');
 
   return {
@@ -15,7 +14,7 @@ function _getHeaders() {
 }
 
 function _get(url) {
-  return fetch(url, _getHeaders()).then(response => response.json())
+  return fetch(url, _getHeaders()).then(response => response.json());
 }
 
 export const fetchStart = createAction('FETCH_START');
@@ -43,23 +42,23 @@ export const resetTree = createAction('RESET_TREE');
 export const treeResolved = createAction('TREE_RESOLVED');
 
 // Make this a bit better... hmm....
-export function fetchTree(id=1) {
+export function fetchTree(id = 1) {
   return (dispatch) => {
     dispatch(fetchBranchStart(id));
 
     return _get(`${API_PAGES}${id}/`)
       .then(json => {
-        dispatch(fetchBranchSuccess(id, json))
+        dispatch(fetchBranchSuccess(id, json));
 
         // Recursively walk up the tree to the root, to figure out how deep
         // in the tree we are.
         if (json.meta.parent) {
           dispatch(fetchTree(json.meta.parent.id));
         } else {
-          dispatch(treeResolved())
+          dispatch(treeResolved());
         }
       });
-  }
+  };
 }
 
 export function fetchRoot() {
@@ -78,23 +77,6 @@ export function fetchRoot() {
 
 export const toggleExplorer = createAction('TOGGLE_EXPLORER');
 
-export function setFilter(filter) {
-  return (dispatch, getState) => {
-    const { explorer } = getState();
-    let id = explorer.path[explorer.path.length-1];
-
-    dispatch({
-      payload: {
-        filter,
-        id
-      },
-      type: 'SET_FILTER'
-    });
-
-    dispatch(fetchChildren(id))
-  }
-}
-
 export const fetchChildrenSuccess = createAction('FETCH_CHILDREN_SUCCESS', (id, json) => {
   return { id, json };
 });
@@ -104,33 +86,51 @@ export const fetchChildrenStart = createAction('FETCH_CHILDREN_START');
 /**
  * Gets the children of a node from the API
  */
-export function fetchChildren(id='root') {
+export function fetchChildren(id = 'root') {
   return (dispatch, getState) => {
     const { explorer } = getState();
 
     let api = `${API_PAGES}?child_of=${id}`;
 
     if (explorer.filter) {
-      api = `${api}&${explorer.filter}`
+      api = `${api}&${explorer.filter}`;
     }
 
-    dispatch(fetchChildrenStart(id))
-      return _get(api)
-        .then(json => dispatch(fetchChildrenSuccess(id, json)))
-  }
+    dispatch(fetchChildrenStart(id));
+
+    return _get(api)
+      .then(json => dispatch(fetchChildrenSuccess(id, json)));
+  };
+}
+
+export function setFilter(filter) {
+  return (dispatch, getState) => {
+    const { explorer } = getState();
+    const id = explorer.path[explorer.path.length - 1];
+
+    dispatch({
+      payload: {
+        filter,
+        id
+      },
+      type: 'SET_FILTER'
+    });
+
+    dispatch(fetchChildren(id));
+  };
 }
 
 /**
  * TODO: determine if page is already loaded, don't load it again, just push.
  */
-export function fetchPage(id=1) {
+export function fetchPage(id = 1) {
   return dispatch => {
-    dispatch(fetchStart(id))
+    dispatch(fetchStart(id));
     return _get(`${API_PAGES}${id}/`)
       .then(json => dispatch(fetchSuccess(id, json)))
       .then(json => dispatch(fetchChildren(id, json)))
-      .catch(json => dispatch(fetchFailure(new Error(JSON.stringify(json)))))
-  }
+      .catch(json => dispatch(fetchFailure(new Error(JSON.stringify(json)))));
+  };
 }
 
 export const setDefaultPage = createAction('SET_DEFAULT_PAGE');
