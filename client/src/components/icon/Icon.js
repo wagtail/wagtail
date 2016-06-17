@@ -2,7 +2,7 @@ import React, { PropTypes } from 'react';
 
 // TODO Add support for accessible label.
 const Icon = ({ name, className }) => (
-  <span className={`icon icon-${name}${className}`} />
+  <span className={`icon icon-${name} ${className}`} />
 );
 
 Icon.propTypes = {
