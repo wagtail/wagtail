@@ -2,9 +2,12 @@ from __future__ import absolute_import, unicode_literals
 
 import json
 
+from django.core.exceptions import ValidationError
 from django.core.serializers.json import DjangoJSONEncoder
 from django.db import models
+from django.forms.utils import ErrorList
 from django.utils.six import string_types, with_metaclass
+from django.utils.translation import ugettext as _
 
 from wagtail.wagtailcore.blocks import Block, BlockField, StreamBlock, StreamValue
 
@@ -109,3 +112,18 @@ class StreamField(with_metaclass(models.SubfieldBase, models.Field)):
         errors = super(StreamField, self).check(**kwargs)
         errors.extend(self.stream_block.check(field=self, **kwargs))
         return errors
+
+    def clean(self, value, model_instance):
+        """
+        Override clean method to run custom check for empty streamfields. An empty streamvalue is
+        is not considered empty by django forms.
+        """
+        cleaned_data = super(StreamField, self).clean(value, model_instance)
+        if not self.blank and not value:
+            raise ValidationError(
+                u'EmptyRequiredStreamField',
+                params={
+                    self.name: ErrorList([_('Required field is left blank')])
+                }
+            )
+        return cleaned_data

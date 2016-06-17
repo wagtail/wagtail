@@ -20,6 +20,7 @@ from wagtail.wagtailadmin.forms import CopyForm, SearchForm
 from wagtail.wagtailadmin.utils import send_notification
 from wagtail.wagtailcore import hooks
 from wagtail.wagtailcore.models import Page, PageRevision, get_navigation_menu_items
+import collections
 
 
 def get_valid_next_url_from_request(request):
@@ -435,7 +436,13 @@ def edit(request, page_id):
             if page.locked:
                 messages.error(request, _("The page could not be saved as it is locked"))
             else:
-                messages.error(request, _("The page could not be saved due to validation errors"))
+                empty_required_streamfields = has_specific_formerror(form.errors, 'EmptyRequiredStreamField')
+                if empty_required_streamfields:
+                    msg = _("The page could not be saved due to required fields(s) being blank: %s") % \
+                        ", ".join(empty_required_streamfields)
+                    messages.error(request, msg)
+                else:
+                    messages.error(request, _("The page could not be saved due to validation errors"))
 
             edit_handler = edit_handler_class(instance=page, form=form)
             errors_debug = (
@@ -463,6 +470,22 @@ def edit(request, page_id):
         'form': form,
         'next': next_url,
     })
+
+
+def has_specific_formerror(errors, specific_error=''):
+    if not specific_error:
+        return []
+
+    err_fields = []
+    for field, errormessage in errors.items():
+        if isinstance(errormessage, collections.Iterable) and \
+                specific_error in [msg for msg in errormessage]:
+            err_fields.append(field)
+        else:
+            if errormessage == specific_error:
+                err_fields.append(errormessage)
+
+    return err_fields
 
 
 def delete(request, page_id):
