@@ -1,94 +1,46 @@
+import { createAction } from 'redux-actions';
+
 import { API, API_PAGES, PAGES_ROOT_ID } from 'config';
 
 
-export function fetchStart(id) {
-  return {
-    type: 'FETCH_START',
-    id
-  };
-}
-
-export function fetchComplete(id, body) {
-  return {
-    type: 'FETCH_COMPLETE',
-    id,
-    body
-  };
-}
-
-export function fetchError(id, body) {
-  return {
-    type: 'FETCH_ERROR',
-    id,
-    body
-  }
-}
-
-export function pushPage(id) {
-  return {
-    type: 'PUSH_PAGE',
-    id: id,
-  }
-}
-
-export function popPage(id)  {
-  return {
-    type: 'POP_PAGE',
-    id: id,
-  }
-}
-
-
-export function jsonHeaders() {
-  let reqHeaders = new Headers();
-  reqHeaders.append('Content-Type', 'application/json');
+function _getHeaders() {
+  let headers = new Headers();
+  headers.append('Content-Type', 'application/json');
 
   return {
-    method: 'GET',
+    credentials: 'same-origin',
     headers: reqHeaders,
-    credentials: 'same-origin'
+    method: 'GET'
   };
-}
-
-
-export function fetchBranchComplete(id, json) {
-  return {
-    type: 'FETCH_BRANCH_COMPLETE',
-    id,
-    json
-  }
-}
-
-export function fetchBranchStart(id) {
-  return {
-    type: 'FETCH_BRANCH_START',
-    id
-  }
-}
-
-export function clearError() {
-  return {
-    type: 'CLEAR_TRANSPORT_ERROR'
-  }
-}
-
-export function resetTree(id) {
-  return {
-    type: 'RESET_TREE',
-    id
-  }
 }
 
 function _get(url) {
-  return fetch(url, jsonHeaders()).then(response => response.json())
+  return fetch(url, _getHeaders()).then(response => response.json())
 }
 
+export const fetchStart = createAction('FETCH_START');
 
-function treeResolved() {
-  return {
-    type: 'TREE_RESOLVED'
-  }
-}
+export const fetchSuccess = createAction('FETCH_SUCCESS', (id, body) => {
+  return { id, body };
+});
+
+export const fetchFailure = createAction('FETCH_FAILURE');
+
+export const pushPage = createAction('PUSH_PAGE');
+
+export const popPage = createAction('POP_PAGE');
+
+export const fetchBranchSuccess = createAction('FETCH_BRANCH_SUCCESS', (id, json) => {
+  return { id, json };
+});
+
+export const fetchBranchStart = createAction('FETCH_BRANCH_START');
+
+export const clearError = createAction('CLEAR_TRANSPORT_ERROR');
+
+export const resetTree = createAction('RESET_TREE');
+
+export const treeResolved = createAction('TREE_RESOLVED');
 
 // Make this a bit better... hmm....
 export function fetchTree(id=1) {
@@ -97,7 +49,7 @@ export function fetchTree(id=1) {
 
     return _get(`${API_PAGES}${id}/`)
       .then(json => {
-        dispatch(fetchBranchComplete(id, json))
+        dispatch(fetchBranchSuccess(id, json))
 
         // Recursively walk up the tree to the root, to figure out how deep
         // in the tree we are.
@@ -124,9 +76,7 @@ export function fetchRoot() {
   };
 }
 
-export function toggleExplorer() {
-  return { type: 'TOGGLE_EXPLORER' };
-}
+export const toggleExplorer = createAction('TOGGLE_EXPLORER');
 
 export function setFilter(filter) {
   return (dispatch, getState) => {
@@ -134,30 +84,22 @@ export function setFilter(filter) {
     let id = explorer.path[explorer.path.length-1];
 
     dispatch({
-      type: 'SET_FILTER',
-      filter,
-      id,
+      payload: {
+        filter,
+        id
+      },
+      type: 'SET_FILTER'
     });
 
     dispatch(fetchChildren(id))
   }
 }
 
-export function fetchChildrenComplete(id, json) {
-  return {
-    type: 'FETCH_CHILDREN_COMPLETE',
-    id,
-    json
-  }
-}
+export const fetchChildrenSuccess = createAction('FETCH_CHILDREN_SUCCESS', (id, json) => {
+  return { id, json };
+});
 
-export function fetchChildrenStart(id) {
-  return {
-    type: 'FETCH_CHILDREN_START',
-    id
-  }
-}
-
+export const fetchChildrenStart = createAction('FETCH_CHILDREN_START');
 
 /**
  * Gets the children of a node from the API
@@ -174,10 +116,9 @@ export function fetchChildren(id='root') {
 
     dispatch(fetchChildrenStart(id))
       return _get(api)
-        .then(json => dispatch(fetchChildrenComplete(id, json)))
+        .then(json => dispatch(fetchChildrenSuccess(id, json)))
   }
 }
-
 
 /**
  * TODO: determine if page is already loaded, don't load it again, just push.
@@ -186,16 +127,10 @@ export function fetchPage(id=1) {
   return dispatch => {
     dispatch(fetchStart(id))
     return _get(`${API_PAGES}${id}/`)
-      .then(json => dispatch(fetchComplete(id, json)))
+      .then(json => dispatch(fetchSuccess(id, json)))
       .then(json => dispatch(fetchChildren(id, json)))
-      .catch(json => dispatch(fetchError(id, json)))
+      .catch(json => dispatch(fetchFailure(new Error(JSON.stringify(json)))))
   }
 }
 
-
-export function setDefaultPage(id) {
-  return {
-    type: 'SET_DEFAULT_PAGE',
-    id
-  }
-}
+export const setDefaultPage = createAction('SET_DEFAULT_PAGE');

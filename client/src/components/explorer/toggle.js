@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
+import * as actions from './actions';
+
 class Toggle extends Component {
   constructor(props) {
     super(props)
@@ -50,7 +52,7 @@ const mapStateToProps = (store) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     onToggle: (id) => {
-      dispatch({ type: 'TOGGLE_EXPLORER', id })
+      dispatch(actions.toggleExplorer());
     }
   }
 };
