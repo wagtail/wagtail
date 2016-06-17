@@ -34,9 +34,6 @@ FORM_FIELD_CHOICES = (
 )
 
 
-HTML_EXTENSION_RE = re.compile(r"(.*)\.[a-z]{3,4}$")
-
-
 @python_2_unicode_compatible
 class FormSubmission(models.Model):
     """Data for a Form submission."""
@@ -138,7 +135,7 @@ class AbstractForm(Page):
     def __init__(self, *args, **kwargs):
         super(AbstractForm, self).__init__(*args, **kwargs)
         if not hasattr(self, 'landing_page_template'):
-            template_wo_ext = re.match(HTML_EXTENSION_RE, self.template).group(1)
+            template_wo_ext = os.path.splitext(self.template)[0]
             self.landing_page_template = template_wo_ext + '_landing.html'
 
     class Meta:
