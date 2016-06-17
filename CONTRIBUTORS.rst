@@ -148,6 +148,7 @@ Contributors
 * Oktay Altay
 * Bertrand Bordage
 * Paul J Stevens
+* kakulukia
 
 Translators
 ===========

@@ -354,6 +354,26 @@ FormPage.content_panels = [
 ]
 
 
+# FormPage with a non-HTML extension
+
+class JadeFormField(AbstractFormField):
+    page = ParentalKey('JadeFormPage', related_name='form_fields')
+
+
+class JadeFormPage(AbstractEmailForm):
+    template = "tests/form_page.jade"
+
+JadeFormPage.content_panels = [
+    FieldPanel('title', classname="full title"),
+    InlinePanel('form_fields', label="Form fields"),
+    MultiFieldPanel([
+        FieldPanel('to_address', classname="full"),
+        FieldPanel('from_address', classname="full"),
+        FieldPanel('subject', classname="full"),
+    ], "Email")
+]
+
+
 # Snippets
 class AdvertPlacement(models.Model):
     page = ParentalKey('wagtailcore.Page', related_name='advert_placements')

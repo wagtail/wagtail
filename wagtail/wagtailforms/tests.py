@@ -8,7 +8,7 @@ from django.core import mail
 from django.core.urlresolvers import reverse
 from django.test import TestCase
 
-from wagtail.tests.testapp.models import FormField, FormPage
+from wagtail.tests.testapp.models import FormField, FormPage, JadeFormPage
 from wagtail.tests.utils import WagtailTestUtils
 from wagtail.wagtailcore.models import Page
 from wagtail.wagtailforms.forms import FormBuilder
@@ -718,3 +718,11 @@ class TestIssue585(TestCase):
             response,
             text="There is another field with the label foo, please change one of them.",
         )
+
+
+class TestNonHtmlExtension(TestCase):
+    fixtures = ['test.json']
+
+    def test_non_html_extension(self):
+        form_page = JadeFormPage(title="test")
+        self.assertEqual(form_page.landing_page_template, "tests/form_page_landing.jade")

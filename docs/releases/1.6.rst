@@ -35,6 +35,7 @@ Bug fixes
  * Prevent empty redirect by overnormalisation
  * "Remove link" button in rich text editor didn't trigger "edit" event, leading to the change to sometimes not be persisted (Matt Westcott)
  * ``RichText`` values can now be correctly evaluated as booleans (Mike Dingjan, Bertrand Bordage)
+ * wagtailforms no longer assumes an .html extension when determining the landing page template filename (kakulukia)
 
 
 Upgrade considerations
