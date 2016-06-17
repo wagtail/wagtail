@@ -108,7 +108,7 @@ class TestLazyStreamField(TestCase):
 
         # 1. Further image block access should not execute any db lookups
         # 2. The blank block '1' should be None.
-        # 3. The values should be in to original order.
+        # 3. The values should be in the original order.
         with self.assertNumQueries(0):
             assert instance.body[0].value.title == 'Test image 1'
             assert instance.body[1].value is None
