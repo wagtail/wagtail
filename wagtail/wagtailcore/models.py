@@ -3,8 +3,8 @@ from __future__ import absolute_import, unicode_literals
 import json
 import logging
 from collections import defaultdict
-from django import VERSION as DJANGO_VERSION
 
+from django import VERSION as DJANGO_VERSION
 from django.conf import settings
 from django.contrib.auth.models import Group, Permission
 from django.contrib.contenttypes.models import ContentType
@@ -257,7 +257,7 @@ class PageBase(models.base.ModelBase):
     def __init__(cls, name, bases, dct):
         super(PageBase, cls).__init__(name, bases, dct)
 
-        if cls._deferred:
+        if DJANGO_VERSION <= (1, 9) and getattr(cls, '_deferred', None):
             # this is an internal class built for Django's deferred-attribute mechanism;
             # don't proceed with all this page type registration stuff
             return
