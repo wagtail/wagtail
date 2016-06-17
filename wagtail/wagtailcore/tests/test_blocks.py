@@ -268,13 +268,13 @@ class TestRegexBlock(TestCase):
         self.assertEqual(block_val, test_val)
 
     def test_raises_required_error(self):
-        block = blocks.RegexBlock()
+        block = blocks.RegexBlock(regex='[0-9]{3}')
 
         with self.assertRaises(ValidationError):
             block.clean("")
 
     def test_raises_validation_error(self):
-        block = blocks.RegexBlock()
+        block = blocks.RegexBlock(regex='[0-9]{3}')
 
         with self.assertRaises(ValidationError):
             block.clean("[/]")

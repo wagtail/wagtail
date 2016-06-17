@@ -161,7 +161,7 @@ class DecimalBlock(FieldBlock):
         icon = "plus-inverse"
 
 
-class RegexField(FieldBlock):
+class RegexBlock(FieldBlock):
 
     def __init__(self, regex, required=True, max_length=None, min_length=None,
                  error_message=None, *args, **kwargs):
@@ -172,7 +172,7 @@ class RegexField(FieldBlock):
             min_length=min_length,
             error_message=error_message,
         )
-        super(RegexField, self).__init__(*args, **kwargs)
+        super(RegexBlock, self).__init__(*args, **kwargs)
 
     class Meta:
         icon = "code"
@@ -554,7 +554,7 @@ block_classes = [
     FieldBlock, CharBlock, URLBlock, RichTextBlock, RawHTMLBlock, ChooserBlock,
     PageChooserBlock, TextBlock, BooleanBlock, DateBlock, TimeBlock,
     DateTimeBlock, ChoiceBlock, EmailBlock, IntegerBlock, FloatBlock,
-    DecimalBlock, RegexField
+    DecimalBlock, RegexBlock
 ]
 DECONSTRUCT_ALIASES = {
     cls: 'wagtail.wagtailcore.blocks.%s' % cls.__name__
