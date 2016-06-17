@@ -17,7 +17,7 @@ from django.core.paginator import InvalidPage, Paginator
 from django.db import models
 from django.db.models.constants import LOOKUP_SEP
 from django.db.models.fields import FieldDoesNotExist
-from django.db.models.fields.related import ForeignObjectRel
+from django.db.models.fields.related import ForeignObjectRel, ManyToManyField
 from django.db.models.sql.constants import QUERY_TERMS
 from django.shortcuts import get_object_or_404, redirect, render
 from django.template.defaultfilters import filesizeformat
@@ -785,7 +785,10 @@ class DeleteView(InstanceSpecificView):
             return redirect(self.index_url)
         except models.ProtectedError:
             linked_objects = []
-            for rel in self.model._meta.get_all_related_objects():
+            fields = self.model._meta.fields_map.values()
+            fields = (obj for obj in fields if not isinstance(
+                obj.field, ManyToManyField))
+            for rel in fields:
                 if rel.on_delete == models.PROTECT:
                     qs = getattr(self.instance, rel.get_accessor_name())
                     for obj in qs.all():
