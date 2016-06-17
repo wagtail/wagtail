@@ -261,27 +261,27 @@ class TestDecimalBlock(TestCase):
 class TestRegexBlock(TestCase):
 
     def test_render(self):
-        block = blocks.RegexBlock(regex='[0-9]{3}')
+        block = blocks.RegexBlock(regex=r'^[0-9]{3}$')
         test_val = '123'
         block_val = block.value_from_form(test_val)
 
         self.assertEqual(block_val, test_val)
 
     def test_raises_required_error(self):
-        block = blocks.RegexBlock(regex='[0-9]{3}')
+        block = blocks.RegexBlock(regex=r'^[0-9]{3}$')
 
         with self.assertRaises(ValidationError):
             block.clean("")
 
     def test_raises_validation_error(self):
-        block = blocks.RegexBlock(regex='[0-9]{3}')
+        block = blocks.RegexBlock(regex=r'^[0-9]{3}$')
 
         with self.assertRaises(ValidationError):
             block.clean("[/]")
 
     def test_raises_custom_error_message(self):
         test_message = 'Not a valid library card number.'
-        block = blocks.RegexBlock(regex='[0-9]{3}', error_message=test_message)
+        block = blocks.RegexBlock(regex=r'^[0-9]{3}$', error_message=test_message)
 
         with self.assertRaises(ValidationError):
             block.clean("[/]")
