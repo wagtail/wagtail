@@ -1,5 +1,7 @@
 $selected-highlight: darken($color-grey-1, 10%);
 $submenu-color: darken($color-grey-1, 5%);
+$footer-account: $selected-highlight;
+$footer-submenu: $submenu-color;
 
 .nav-wrapper {
     position: relative;
@@ -101,18 +103,23 @@ $submenu-color: darken($color-grey-1, 5%);
         }
     }
 
+    .footer-submenu {
+        a {
+            border-left: 3px solid transparent;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+
+            &:before {
+                font-size: 1rem;
+                margin-right: 0.5em;
+                vertical-align: -10%;
+            }
+        }
+    }
+
     .account {
-        @include clearfix();
-
-        .avatar {
-            display: none;
-        }
-
-        em {
-            font-style: normal;
-            float: left;
-            width: 100%;
-        }
+        display: none;
     }
 }
 
@@ -295,34 +302,67 @@ body.explorer-open {
     .nav-main {
         position: absolute;
         top: 175px; // WARNING - magic number - the height of the logo plus search box
-        margin-bottom: 116px; // WARNING - magic number - the height of the .footer
+        margin-bottom: 127px; // WARNING - magic number - the height of the .footer
 
         .footer {
-            padding-top: 1em;
             position: fixed;
-            width: $menu-width - 7;
+            width: $menu-width;
             bottom: 0;
         }
 
+        .footer-open .footer-submenu {
+            max-height: 127px; // WARNING - magic number - the height of the .footer
+        }
+
+        .footer-submenu {
+            @include transition(max-height 0.2s ease);
+            background-color: $footer-submenu;
+            overflow: hidden;
+            max-height: 0;
+        }
+
         .account {
-            @include clearfix();
-            padding-right: 0;
-            padding-left: 15px;
+            @include clearfix;
+            background: $footer-account;
+            color: $color-menu-text;
+            text-transform: uppercase;
+            display: block;
+            cursor: pointer;
+
+            &:hover {
+                outline: none;
+                background-color: rgba(100, 100, 100, 0.15);
+                color: $color-white;
+                text-shadow: -1px -1px 0 rgba(0, 0, 0, 0.3);
+            }
 
             .avatar {
-                display: inline-block;
-                padding: 0;
-                margin: 0 0.7em 0 0;
-                border: 0;
                 float: left;
+                margin-right: 0.9em;
 
                 &:before {
-                    text-shadow: none;
+                    color: inherit;
+                    border-color: inherit;
                 }
             }
 
             em {
-                width: 120px;
+                box-sizing: border-box;
+                padding-right: 1.8em;
+                margin-top: 1.2em;
+                font-style: normal;
+                font-weight: 700;
+                width: 110px;
+                overflow: hidden;
+                white-space: nowrap;
+                text-overflow: ellipsis;
+                float: left;
+
+                &:after {
+                    font-size: 1.5em;
+                    position: absolute;
+                    right: 0.25em;
+                }
             }
         }
 
