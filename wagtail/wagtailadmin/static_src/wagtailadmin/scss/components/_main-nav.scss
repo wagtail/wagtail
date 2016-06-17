@@ -1,5 +1,7 @@
 $selected-highlight: darken($color-grey-1, 10%);
 $submenu-color: darken($color-grey-1, 5%);
+$footer: $selected-highlight;
+$footer-submenu: $submenu-color;
 
 .nav-wrapper {
     position: relative;
@@ -102,16 +104,16 @@ $submenu-color: darken($color-grey-1, 5%);
     }
 
     .account {
-        @include clearfix();
-
-        .avatar {
-            display: none;
-        }
+        // @include clearfix();
+        //
+        // .avatar {
+        //     display: none;
+        // }
 
         em {
             font-style: normal;
-            float: left;
-            width: 100%;
+            // float: left;
+            // width: 100%;
         }
     }
 }
@@ -295,36 +297,61 @@ body.explorer-open {
     .nav-main {
         position: absolute;
         top: 175px; // WARNING - magic number - the height of the logo plus search box
-        margin-bottom: 116px; // WARNING - magic number - the height of the .footer
+        margin-bottom: 127px; // WARNING - magic number - the height of the .footer
 
         .footer {
-            padding-top: 1em;
+            background: $footer;
             position: fixed;
-            width: $menu-width - 7;
+            width: $menu-width;
             bottom: 0;
         }
 
-        .account {
-            @include clearfix();
-            padding-right: 0;
-            padding-left: 15px;
+        .footer-submenu {
+            background: $footer-submenu;
 
-            .avatar {
-                display: inline-block;
-                padding: 0;
-                margin: 0 0.7em 0 0;
-                border: 0;
-                float: left;
+            a {
+                padding: {
+                    right: 1em;
+                    left: 1em;
+                }
 
                 &:before {
-                    text-shadow: none;
+                    font-size: 1.1em;
+                    margin-right: 1.2em;
+                    //margin-right: 2.2em;
                 }
             }
+        }
+
+        .account {
+            text-transform: uppercase;
 
             em {
-                width: 120px;
+                font-weight: 700;
             }
         }
+
+        // .account {
+        //     @include clearfix();
+        //     padding-right: 0;
+        //     padding-left: 15px;
+        //
+        //     .avatar {
+        //         display: inline-block;
+        //         padding: 0;
+        //         margin: 0 0.7em 0 0;
+        //         border: 0;
+        //         float: left;
+        //
+        //         &:before {
+        //             text-shadow: none;
+        //         }
+        //     }
+        //
+        //     em {
+        //         width: 120px;
+        //     }
+        // }
 
         a.submenu-trigger:after {
             content: 'n';

@@ -5,8 +5,20 @@
         {{ menu_html }}
 
         <li class="footer">
-            <a href="{% url 'wagtailadmin_account' %}" title="{% trans 'Edit your account' %}" class="account"><span class="avatar small avatar-on-dark icon icon-user">{% if request.user.email %}<img src="{% gravatar_url request.user.email 25 %}" />{% endif %}</span> <em>{{ request.user.get_full_name|default:request.user.get_username }}</em></a>
-            <div class="menu-item"><a href="{% url 'wagtailadmin_logout' %}" class="icon icon-arrow-left">{% trans "Log out" %}</a></div>
+            <div class="account" title="{% trans 'Edit your account' %}">
+                {% if request.user.email %}
+                    <span class="avatar avatar--square icon icon-user">
+                        <img src="{% gravatar_url request.user.email 25 %}" class="avatar" />
+                    </span>
+                {% endif %}
+                <em>{{ request.user.get_full_name|default:request.user.get_username }}</em>
+            </div>
+
+            <ul class="footer-submenu">
+                <li><a href="{% url 'wagtailadmin_account' %}" class="icon icon-user">{% trans "Account settings" %}</a></li>
+                <li><a href="{% url 'wagtailadmin_logout' %}" class="icon icon-logout">{% trans "Log out" %}</a></li>
+            </ul>
+
         </li>
     </ul>
 </nav>
