@@ -5,7 +5,6 @@ import { EXPLORER_ANIM_DURATION } from 'config';
 import ExplorerEmpty from './ExplorerEmpty';
 import ExplorerHeader from './ExplorerHeader';
 import ExplorerItem from './ExplorerItem';
-import PageCount from './PageCount';
 import LoadingSpinner from './LoadingSpinner';
 
 export default class ExplorerPanel extends Component {
@@ -208,7 +207,6 @@ export default class ExplorerPanel extends Component {
                 {page.isFetching ? <LoadingSpinner key={1} /> : (
                   <div key={0}>
                     {this._getContents()}
-                    {page ? <PageCount id={page.id} count={page.meta.children.count} /> : null}
                   </div>
               )}
               </CSSTransitionGroup>
