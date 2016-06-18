@@ -1,9 +1,11 @@
 from __future__ import absolute_import, unicode_literals
 
 from wagtail.contrib.modeladmin.options import ModelAdmin, ModelAdminGroup, modeladmin_register
+from wagtail.contrib.modeladmin.views import CreateView
 from wagtail.tests.testapp.models import BusinessChild, EventPage, SingleEventPage
 
-from .models import Author, Book, Token
+from .models import Author, Book, Token, Publisher
+from .forms import PublisherModelAdminForm
 
 
 class AuthorModelAdmin(ModelAdmin):
@@ -38,6 +40,16 @@ class TokenModelAdmin(ModelAdmin):
     list_display = ('key',)
 
 
+class PublisherCreateView(CreateView):
+    def get_form_class(self):
+        return PublisherModelAdminForm
+
+
+class PublisherModelAdmin(ModelAdmin):
+    model = Publisher
+    create_view_class = PublisherCreateView
+
+
 class EventPageAdmin(ModelAdmin):
     model = EventPage
     list_display = ('title', 'date_from', 'audience')
@@ -66,5 +78,6 @@ class BusinessChildAdmin(ModelAdmin):
 modeladmin_register(AuthorModelAdmin)
 modeladmin_register(BookModelAdmin)
 modeladmin_register(TokenModelAdmin)
+modeladmin_register(PublisherModelAdmin)
 modeladmin_register(EventsAdminGroup)
 modeladmin_register(BusinessChildAdmin)

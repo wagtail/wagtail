@@ -30,3 +30,12 @@ class Token(models.Model):
 
     def __str__(self):
         return self.key
+
+
+@python_2_unicode_compatible
+class Publisher(models.Model):
+    name = models.CharField(max_length=50)
+    headquartered_in = models.CharField(max_length=50, null=True, blank=True)
+
+    def __str__(self):
+        return self.name

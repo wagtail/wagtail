@@ -4,7 +4,7 @@ from django.contrib.auth import get_user_model
 from django.contrib.auth.models import Group
 from django.test import TestCase
 
-from wagtail.tests.modeladmintest.models import Author, Book
+from wagtail.tests.modeladmintest.models import Author, Book, Publisher
 from wagtail.tests.utils import WagtailTestUtils
 
 
@@ -115,6 +115,19 @@ class TestCreateView(TestCase, WagtailTestUtils):
 
         # Check that the book was created
         self.assertEqual(Book.objects.filter(title="George's Marvellous Medicine").count(), 1)
+
+        response = self.client.get('/admin/modeladmintest/publisher/create/')
+        self.assertIn('name', response.content.decode('UTF-8'))
+        self.assertNotIn('headquartered_in', response.content.decode('UTF-8'))
+        self.assertEqual(
+            [ii for ii in response.context['form'].fields],
+            ['name']
+        )
+        self.client.post('/admin/modeladmintest/publisher/create/', {
+            'name': 'Sharper Collins'
+        })
+        publisher = Publisher.objects.get(name='Sharper Collins')
+        self.assertEqual(publisher.headquartered_in, None)
 
     def test_post_invalid(self):
         initial_book_count = Book.objects.count()

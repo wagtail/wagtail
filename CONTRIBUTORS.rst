@@ -181,6 +181,7 @@ Contributors
 * Luca Perico
 * Gary Krige
 * Hammy Goonan
+* Thejaswi Puthraya
 
 Translators
 ===========

@@ -13,6 +13,7 @@ Changelog
  * Added `first_common_ancestor` method to `PageQuerySet` (Tim Heap)
  * Page chooser now opens at the deepest ancestor page that covers all the pages of the required page type (Tim Heap)
  * `PageChooserBlock` now accepts a `target_model` option to specify the required page type (Tim Heap)
+ * Modeladmin forms now respect `fields` / `exclude` options passed on custom model forms (Thejaswi Puthraya)
  * Fix: `AbstractForm` now respects custom `get_template` methods on the page model (Gagaro)
  * Fix: Use specific page model for the parent page in the explore index (Gagaro)
  * Fix: Remove responsive styles in embed when there is no ratio available (Gagaro)
