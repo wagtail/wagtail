@@ -533,6 +533,7 @@ class StreamPage(Page):
         StreamFieldPanel('body'),
     ]
 
+
 class MTIBasePage(Page):
     is_creatable = False
 
