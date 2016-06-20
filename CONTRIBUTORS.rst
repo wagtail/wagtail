@@ -122,7 +122,7 @@ Contributors
 * Janneke Janssen
 * Roel Bruggink
 * Yannick Chabbert
-* Andy Babic
+* Andy Babic (twitter: @andyjbabic)
 * Tomas Olander
 * Andrew Tork Baker
 * Vincent Audebert

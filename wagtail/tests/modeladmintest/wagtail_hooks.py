@@ -42,6 +42,7 @@ class EventPageAdmin(ModelAdmin):
 
 class SingleEventPageAdmin(EventPageAdmin):
     model = SingleEventPage
+    exclude_from_explorer = True
 
 
 class EventsAdminGroup(ModelAdminGroup):
