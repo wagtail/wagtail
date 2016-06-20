@@ -171,7 +171,7 @@ class TestExcludeFromExplorer(TestCase, WagtailTestUtils):
         self.assertContains(response, 'Saint Patrick')
         # Along with these other test events...
         self.assertContains(response, "Tentative Unpublished Event")
-        self.assertContains(response, "Someone Else's Event")
+        self.assertContains(response, "Ameristralia Day")
 
         # But when viewing the 'Event Index' part of the explorer
         response = self.client.get('/admin/pages/3/')
@@ -179,7 +179,7 @@ class TestExcludeFromExplorer(TestCase, WagtailTestUtils):
         self.assertNotContains(response, 'Saint Patrick')
         # But the other test events should...
         self.assertContains(response, "Tentative Unpublished Event")
-        self.assertContains(response, "Someone Else's Event")
+        self.assertContains(response, "Ameristralia Day")
 
 
 class TestChooseParentView(TestCase, WagtailTestUtils):

@@ -48,9 +48,8 @@ class WagtailRegisterable(object):
 
         @hooks.register('construct_explorer_page_queryset')
         def construct_explorer_page_queryset(parent_page, pages, request):
-            if self.is_pagemodel and self.exclude_from_explorer:
-                pages = pages.not_type(self.model)
-            return pages
+            return self.exclude_pages_from_explorer(parent_page, pages,
+                                                    request)
 
 
 class ThumbnailMixin(object):
@@ -510,6 +509,11 @@ class ModelAdmin(WagtailRegisterable):
             )
         return urls
 
+    def exclude_pages_from_explorer(self, parent_page, pages, request):
+        if self.is_pagemodel and self.exclude_from_explorer:
+            pages = pages.not_type(self.model)
+        return pages
+
 
 class ModelAdminGroup(WagtailRegisterable):
     """
@@ -584,6 +588,12 @@ class ModelAdminGroup(WagtailRegisterable):
         for instance in self.modeladmin_instances:
             urls += instance.get_admin_urls_for_registration()
         return urls
+
+    def exclude_pages_from_explorer(self, parent_page, pages, request):
+        for instance in self.modeladmin_instances:
+            pages = instance.exclude_pages_from_explorer(
+                parent_page, pages, request)
+        return pages
 
 
 def modeladmin_register(modeladmin_class):
