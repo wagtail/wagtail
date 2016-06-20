@@ -48,14 +48,13 @@ def filter_page_type(queryset, page_models):
 
 
 def browse(request, parent_page_id=None):
+    tree_navigable = request.GET.get('tree_navigable', True)
+
     # Find parent page
     if parent_page_id:
         parent_page = get_object_or_404(Page, id=parent_page_id)
     else:
         parent_page = Page.get_first_root_node()
-
-    # Get children of parent page
-    pages = parent_page.get_children()
 
     # Filter them by page type
     # A missing or empty page_type parameter indicates 'all page types' (i.e. descendants of wagtailcore.page)
@@ -65,23 +64,28 @@ def browse(request, parent_page_id=None):
             desired_classes = page_models_from_string(page_type_string)
         except (ValueError, LookupError):
             raise Http404
-
-        # restrict the page listing to just those pages that:
-        # - are of the given content type (taking into account class inheritance)
-        # - or can be navigated into (i.e. have children)
-        choosable_pages = filter_page_type(pages, desired_classes)
-        descendable_pages = pages.filter(numchild__gt=0)
-        pages = choosable_pages | descendable_pages
     else:
         desired_classes = (Page, )
 
-    can_choose_root = request.GET.get('can_choose_root', False)
 
-    # Parent page can be chosen if it is a instance of desired_classes
-    parent_page.can_choose = (
-        issubclass(parent_page.specific_class or Page, desired_classes) and
-        (can_choose_root or not parent_page.is_root())
-    )
+    pages = parent_page.get_children() if tree_navigable else Page.objects.all()
+    choosable_pages = filter_page_type(pages, desired_classes)
+
+    if tree_navigable:
+        # restrict the page listing to just those pages that:
+        # - are of the given content type (taking into account class inheritance)
+        # - or can be navigated into (i.e. have children)
+        descendable_pages = pages.filter(numchild__gt=0)
+        pages = choosable_pages | descendable_pages
+        can_choose_root = request.GET.get('can_choose_root', False)
+        # Parent page can be chosen if it is a instance of desired_classes
+        parent_page.can_choose = (
+            issubclass(parent_page.specific_class or Page, desired_classes) and
+            (can_choose_root or not parent_page.is_root())
+        )
+    else:
+        pages = choosable_pages.order_by('-latest_revision_created_at')
+        can_choose_root = False
 
     # Pagination
     # We apply pagination first so we don't need to walk the entire list
@@ -90,12 +94,16 @@ def browse(request, parent_page_id=None):
 
     # Annotate each page with can_choose/can_decend flags
     for page in pages:
-        if desired_classes == (Page, ):
-            page.can_choose = True
-        else:
-            page.can_choose = issubclass(page.specific_class or Page, desired_classes)
 
-        page.can_descend = page.get_children_count()
+        if tree_navigable:
+            if desired_classes == (Page, ):
+                page.can_choose = True
+            else:
+                page.can_choose = issubclass(page.specific_class or Page, desired_classes)
+            page.can_descend = page.get_children_count()
+        else:
+            page.can_choose = True
+            page.can_descend = False
 
     # Render
     return render_modal_workflow(
@@ -105,6 +113,7 @@ def browse(request, parent_page_id=None):
             'parent_page': parent_page,
             'parent_page_id': parent_page.pk,
             'pages': pages,
+            'tree_navigable': tree_navigable,
             'search_form': SearchForm(),
             'page_type_string': page_type_string,
             'page_type_names': [desired_class.get_verbose_name() for desired_class in desired_classes],

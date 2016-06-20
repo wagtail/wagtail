@@ -559,7 +559,8 @@ class BasePageChooserPanel(BaseChooserPanel):
 
 
 class PageChooserPanel(object):
-    def __init__(self, field_name, page_type=None, can_choose_root=False):
+    def __init__(self, field_name, page_type=None, can_choose_root=False,
+                 tree_navigable=True):
         self.field_name = field_name
 
         if page_type:
@@ -571,6 +572,7 @@ class PageChooserPanel(object):
 
         self.page_type = page_type
         self.can_choose_root = can_choose_root
+        self.tree_navigable = tree_navigable
 
     def bind_to_model(self, model):
         return type(str('_PageChooserPanel'), (BasePageChooserPanel,), {
@@ -578,6 +580,7 @@ class PageChooserPanel(object):
             'field_name': self.field_name,
             'page_type': self.page_type,
             'can_choose_root': self.can_choose_root,
+            'tree_navigable': self.tree_navigable,
         })
 
 
