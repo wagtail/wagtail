@@ -1,5 +1,6 @@
 from __future__ import absolute_import, unicode_literals
 
+import re
 import string
 
 MAX_QUERY_STRING_LENGTH = 255
@@ -19,3 +20,16 @@ def normalise_query_string(query_string):
     query_string = ' '.join(query_string.split())
 
     return query_string
+
+
+def separate_filters_from_query(query_string):
+    filters_regexp = r'(\w+):(\w+|".+")'
+
+    filters = {}
+    for match_object in re.finditer(filters_regexp, query_string):
+        key, value = match_object.groups()
+        filters[key] = value.strip("\"")
+
+    query_string = re.sub(filters_regexp, '', query_string).strip()
+
+    return filters, query_string
