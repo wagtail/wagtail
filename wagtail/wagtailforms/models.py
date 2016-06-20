@@ -1,7 +1,7 @@
 from __future__ import absolute_import, unicode_literals
 
 import json
-import re
+import os
 
 from django.contrib.contenttypes.models import ContentType
 from django.core.serializers.json import DjangoJSONEncoder
@@ -32,9 +32,6 @@ FORM_FIELD_CHOICES = (
     ('date', _('Date')),
     ('datetime', _('Date/time')),
 )
-
-
-HTML_EXTENSION_RE = re.compile(r"(.*)\.html")
 
 
 @python_2_unicode_compatible
@@ -139,8 +136,8 @@ class AbstractForm(Page):
     def __init__(self, *args, **kwargs):
         super(AbstractForm, self).__init__(*args, **kwargs)
         if not hasattr(self, 'landing_page_template'):
-            template_wo_ext = re.match(HTML_EXTENSION_RE, self.template).group(1)
-            self.landing_page_template = template_wo_ext + '_landing.html'
+            name, ext = os.path.splitext(self.template)
+            self.landing_page_template = name + '_landing' + ext
 
     class Meta:
         abstract = True

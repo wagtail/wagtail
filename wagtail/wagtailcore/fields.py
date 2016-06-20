@@ -22,13 +22,13 @@ class RichTextField(models.TextField):
 
 
 class StreamField(with_metaclass(models.SubfieldBase, models.Field)):
-    def __init__(self, block_types, **kwargs):
+    def __init__(self, block_types, child_wrappers=True, **kwargs):
         if isinstance(block_types, Block):
             self.stream_block = block_types
         elif isinstance(block_types, type):
             self.stream_block = block_types()
         else:
-            self.stream_block = StreamBlock(block_types)
+            self.stream_block = StreamBlock(block_types, child_wrappers=child_wrappers)
         super(StreamField, self).__init__(**kwargs)
 
     def get_internal_type(self):
