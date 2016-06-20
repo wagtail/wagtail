@@ -1349,6 +1349,9 @@ class Page(six.with_metaclass(PageBase, MP_Node, index.Indexed, ClusterableModel
         return self._get_permitted_ancestors(request, choosable=True)
 
     def is_explorable_root(self, request):
+        """
+        Returns True if this page is the root of the current user's explorable section of the page tree.
+        """
         # A superuser's explorable root is the Root page.
         if request.user.is_superuser:
             return self.is_root()
@@ -1356,17 +1359,14 @@ class Page(six.with_metaclass(PageBase, MP_Node, index.Indexed, ClusterableModel
         return self.path == get_closest_common_ancestor_path(request)
 
     def is_choosable_root(self, request):
+        """
+        Returns True if this page is the root of the current user's choosable section of the page tree.
+        """
         # A superuser's explorable root is the Root page.
         if request.user.is_superuser:
             return self.is_root()
 
         return self.path == get_closest_common_ancestor_path(request, choosable=True)
-
-    def is_on_site(self, site):
-        """
-        Returns True if this Page is decendent from the given Site's root page.
-        """
-        return Page.objects.descendant_of(site.root_page, inclusive=True).filter(pk=self.id).exists()
 
     def _get_permitted_ancestors(self, request, choosable=False):
         """

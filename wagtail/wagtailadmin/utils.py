@@ -260,16 +260,9 @@ def _get_page_if_permitted(page_id, request, allow_ancestors, choosable):
     if request.user.is_superuser:
         return page
 
-    # Other users can explore/choose permitted pages that are on any Site. Note that short-circuiting will prevent
-    # can_explore() and can_choose() from being executed when they shouldn't be.
+    # Other users can only explore/choose their permitted pages.
     page_perms_proxy = page.permissions_for_user(request.user, request)
     if (choosable and page_perms_proxy.can_choose(allow_ancestors)) or page_perms_proxy.can_explore(allow_ancestors):
         return page
-
-    # At this point, we know the user isn't allowed to explore this Page.
-    if not page.is_on_site(request.site):
-        # The Page isn't on the current Site, so we treat it like it doesn't exist.
-        raise Http404
     else:
-        # The Page is on the current Site, but the user's not permitted to explore it.
         raise PermissionDenied
