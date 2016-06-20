@@ -1,5 +1,3 @@
-# The scripts for building the base images can be found in scripts/drone-images
-
 pipeline:
   flake8:
     image: python:3.5
