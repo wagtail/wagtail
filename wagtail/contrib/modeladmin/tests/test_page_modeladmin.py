@@ -155,6 +155,32 @@ class TestDeleteView(TestCase, WagtailTestUtils):
         self.assertRedirects(response, '%s?next=%s' % (expected_path, expected_next_path))
 
 
+class TestExcludeFromExplorer(TestCase, WagtailTestUtils):
+    fixtures = ['test.json']
+
+    def setUp(self):
+        self.login()
+
+    def test_attribute_effects_explorer(self):
+        response = self.client.get('/admin/tests/singleeventpage/')
+        # Saint Patrick should appear here
+        self.assertContains(response, 'Saint Patrick')
+        response = self.client.get('/admin/tests/eventpage/')
+        # Saint Patrick should also appear here
+        self.assertContains(response, 'Saint Patrick')
+        # Along with these other test events...
+        self.assertContains(response, "Tentative Unpublished Event")
+        self.assertContains(response, "Someone Else's Event")
+
+        # But when viewing the 'Event Index' part of the admin
+        response = self.client.get('/admin/pages/3/')
+        # Saint Patrick should NOT appear here
+        self.assertContains(response, 'Saint Patrick')
+        # But the other test events should...
+        self.assertContains(response, "Tentative Unpublished Event")
+        self.assertContains(response, "Someone Else's Event")
+
+
 class TestChooseParentView(TestCase, WagtailTestUtils):
     fixtures = ['test_specific.json']
 
