@@ -49,8 +49,7 @@ class WagtailRegisterable(object):
         @hooks.register('construct_explorer_page_queryset')
         def construct_explorer_page_queryset(parent_page, pages, request):
             if self.is_pagemodel and self.exclude_from_explorer:
-                kwargs = {'%s__isnull' % self.opts.model_name: False}
-                pages = pages.exclude(**kwargs)
+                pages = pages.not_type(self.model)
             return pages
 
 
