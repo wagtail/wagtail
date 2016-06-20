@@ -259,18 +259,11 @@ class TestChooserBrowseWithChoosablePageRestrictions(TestCase, WagtailTestUtils)
         self.assertEqual(response.context['parent_page'].pk, 5)
         self.assertNotIn(Page.objects.get(pk=7), response.context['pages'])
 
-    def test_non_superuser_browsing_unpermitted_site_page_gets_403(self):
+    def test_non_superuser_browsing_unpermitted_page_gets_403(self):
         self.assertTrue(self.client.login(username='bob', password='password'))
         response = self.browse_child(7, HTTP_HOST="example.com")
         # Bob has permission to explore example.com's "Page 1", but not "Page 2", so the chooser should deny access.
         self.assertEqual(response.status_code, 403)
-
-    def test_non_superuser_browsings_non_site_page_gets_404(self):
-        self.assertTrue(self.client.login(username='jane', password='password'))
-        response = self.browse_child(4)
-        # Jane doesn't have permission to see the example.com homepage, and it's not associted with the current site,
-        # so the Explorer should claim it doesn't exist.
-        self.assertEqual(response.status_code, 404)
 
     def test_browsing_nonexistant_page_gets_404(self):
         self.assertTrue(self.client.login(username='superman', password='password'))

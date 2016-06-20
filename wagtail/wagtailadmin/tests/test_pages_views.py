@@ -407,18 +407,11 @@ class TestExplorablePageVisibility(TestCase, WagtailTestUtils):
         self.assertContains(response, "Welcome to example.com!")
         self.client.logout()
 
-    def test_nonadmin_at_unpermitted_site_page(self):
+    def test_nonadmin_at_unpermitted_page(self):
         self.assertTrue(self.client.login(username='bob', password='password'))
         response = self.client.get(reverse('wagtailadmin_explore', args=[7]), HTTP_HOST="example.com")
         # Bob has permission to explore example.com's "Page 1", but not "Page 2", so Explorer should deny access.
         self.assertEqual(response.status_code, 403)
-
-    def test_nonadmin_at_non_site_page(self):
-        self.assertTrue(self.client.login(username='jane', password='password'))
-        response = self.client.get(reverse('wagtailadmin_explore', args=[4]))
-        # Jane doesn't have permission to see the example.com homepage, and it's not associted with the current site,
-        # so the Explorer should claim it doesn't exist.
-        self.assertEqual(response.status_code, 404)
 
     def test_nonadmin_sees_only_explorable_pages_in_listings(self):
         self.assertTrue(self.client.login(username='sam', password='password'))
@@ -496,18 +489,7 @@ class TestExplorablePageVisibility(TestCase, WagtailTestUtils):
         )
         self.assertEqual(response.status_code, 200)
 
-        # Bob is allowed to see Page 1, and it's on example.com, so it should give 200.
-        response = self.client.get(
-            reverse('wagtailadmin_pages:revisions_index', args=[testserver_home.pk]),
-            HTTP_HOST='example.com'
-        )
-        self.assertEqual(response.status_code, 404)
-        response = self.client.get(
-            reverse('wagtailadmin_pages:revisions_view', args=[testserver_home.pk, testserver_home_revision.pk]),
-            HTTP_HOST='example.com'
-        )
-        self.assertEqual(response.status_code, 404)
-
+        # Bob is not allowed to see the example.com homepage, so it should give 403.
         response = self.client.get(
             reverse('wagtailadmin_pages:revisions_index', args=[example_home.pk]),
             HTTP_HOST='example.com'
