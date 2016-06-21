@@ -147,6 +147,7 @@ Contributors
 * Ludolf Takens
 * Oktay Altay
 * Bertrand Bordage
+* Paul J Stevens
 
 Translators
 ===========
