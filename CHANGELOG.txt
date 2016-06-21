@@ -15,6 +15,7 @@ Changelog
  * Multiple ChooserBlocks inside a StreamField are now prefetched in bulk, for improved performance (Michael van Tellingen, Roel Bruggink, Matt Westcott)
  * Add new EmailBlock and IntegerBlock (Oktay Altay)
  * Added a new FloatBlock, DecimalBlock and a RegexBlock (Oktay Altay, Andy Babic)
+ * Wagtail version number is now shown on the settings menu (Chris Rogers)
  * Fix: Email templates and document uploader now support custom `STATICFILES_STORAGE` (Jonny Scholes)
  * Fix: Removed alignment options (deprecated in HTML and not rendered by Wagtail) from `TableBlock` context menu (Moritz Pfeiffer)
  * Fix: Fixed incorrect CSS path on ModelAdmin's "choose a parent page" view

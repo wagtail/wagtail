@@ -28,9 +28,13 @@ def register_explorer_menu_item():
         order=100)
 
 
+class SettingsMenuItem(SubmenuMenuItem):
+    template = 'wagtailadmin/shared/menu_settings_menu_item.html'
+
+
 @hooks.register('register_admin_menu_item')
 def register_settings_menu():
-    return SubmenuMenuItem(
+    return SettingsMenuItem(
         _('Settings'), settings_menu, classnames='icon icon-cogs', order=10000)
 
 
