@@ -432,10 +432,8 @@ class ChooserBlock(FieldBlock):
 
         The instances must be returned in the same order as the values and keep None values.
         """
-        initial = {key: None for key in values}
         objects = self.target_model.objects.in_bulk(values)
-        initial.update(objects)
-        return [initial[id] for id in values]  # Keeps the ordering the same as in values.
+        return [objects.get(id) for id in values]  # Keeps the ordering the same as in values.
 
     def get_prep_value(self, value):
         # the native value (a model instance or None) should serialise to a PK or None
