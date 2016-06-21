@@ -136,6 +136,11 @@ $submenu-color: darken($color-grey-1, 5%);
     li {
         border: 0;
     }
+
+    .wagtail-version {
+      padding: 1.2em 1.7em;
+      text-align: center;
+    }
 }
 
 .explorer {
@@ -359,10 +364,6 @@ body.explorer-open {
             }
         }
 
-        .wagtail-version {
-          padding: 1.2em 1.7em;
-          text-align: center;
-        }
     }
 
     li.submenu-active {
