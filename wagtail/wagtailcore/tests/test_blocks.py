@@ -2,8 +2,8 @@
 from __future__ import absolute_import, unicode_literals
 
 import base64
-from decimal import Decimal
 import unittest
+from decimal import Decimal
 
 from django import forms
 from django.core.exceptions import ValidationError
