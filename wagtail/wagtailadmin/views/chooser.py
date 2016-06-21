@@ -48,7 +48,9 @@ def filter_page_type(queryset, page_models):
 
 
 def browse(request, parent_page_id=None):
-    tree_navigable = request.GET.get('tree_navigable', True)
+    tree_navigable = True
+    if request.GET.get('tree_navigable') == 'false':
+        tree_navigable = False
 
     # Find parent page
     if parent_page_id:
@@ -67,7 +69,7 @@ def browse(request, parent_page_id=None):
     else:
         desired_classes = (Page, )
 
-
+    can_choose_root = request.GET.get('can_choose_root', False)
     pages = parent_page.get_children() if tree_navigable else Page.objects.all()
     choosable_pages = filter_page_type(pages, desired_classes)
 
@@ -77,7 +79,7 @@ def browse(request, parent_page_id=None):
         # - or can be navigated into (i.e. have children)
         descendable_pages = pages.filter(numchild__gt=0)
         pages = choosable_pages | descendable_pages
-        can_choose_root = request.GET.get('can_choose_root', False)
+
         # Parent page can be chosen if it is a instance of desired_classes
         parent_page.can_choose = (
             issubclass(parent_page.specific_class or Page, desired_classes) and
@@ -85,7 +87,8 @@ def browse(request, parent_page_id=None):
         )
     else:
         pages = choosable_pages.order_by('-latest_revision_created_at')
-        can_choose_root = False
+        if not can_choose_root:
+            pages = pages.filter(depth__gt=1)
 
     # Pagination
     # We apply pagination first so we don't need to walk the entire list
