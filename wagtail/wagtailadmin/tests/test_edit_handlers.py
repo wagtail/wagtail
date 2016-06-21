@@ -556,7 +556,7 @@ class TestPageChooserPanel(TestCase):
 
     def test_render_js_init(self):
         result = self.page_chooser_panel.render_as_field()
-        expected_js = 'createPageChooser("{id}", ["{model}"], {parent}, false);'.format(
+        expected_js = 'createPageChooser("{id}", ["{model}"], {parent}, false, true);'.format(
             id="id_page", model="wagtailcore.page", parent=self.events_index_page.id)
 
         self.assertIn(expected_js, result)
@@ -575,7 +575,7 @@ class TestPageChooserPanel(TestCase):
         result = page_chooser_panel.render_as_field()
 
         # the canChooseRoot flag on createPageChooser should now be true
-        expected_js = 'createPageChooser("{id}", ["{model}"], {parent}, true);'.format(
+        expected_js = 'createPageChooser("{id}", ["{model}"], {parent}, true, true);'.format(
             id="id_page", model="wagtailcore.page", parent=self.events_index_page.id)
         self.assertIn(expected_js, result)
 
@@ -621,7 +621,7 @@ class TestPageChooserPanel(TestCase):
         page_chooser_panel = MyPageChooserPanel(instance=self.test_instance, form=form)
 
         result = page_chooser_panel.render_as_field()
-        expected_js = 'createPageChooser("{id}", ["{model}"], {parent}, false);'.format(
+        expected_js = 'createPageChooser("{id}", ["{model}"], {parent}, false, true);'.format(
             id="id_page", model="tests.eventpage", parent=self.events_index_page.id)
 
         self.assertIn(expected_js, result)
@@ -636,7 +636,7 @@ class TestPageChooserPanel(TestCase):
         page_chooser_panel = MyPageChooserPanel(instance=self.test_instance, form=form)
 
         result = page_chooser_panel.render_as_field()
-        expected_js = 'createPageChooser("{id}", ["{model}"], {parent}, false);'.format(
+        expected_js = 'createPageChooser("{id}", ["{model}"], {parent}, false, true);'.format(
             id="id_page", model="tests.eventpage", parent=self.events_index_page.id)
 
         self.assertIn(expected_js, result)
