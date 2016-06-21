@@ -156,30 +156,25 @@ class TestDeleteView(TestCase, WagtailTestUtils):
 
 
 class TestExcludeFromExplorer(TestCase, WagtailTestUtils):
-    fixtures = ['test.json']
+    fixtures = ['modeladmintest_test.json']
 
     def setUp(self):
         self.login()
 
     def test_attribute_effects_explorer(self):
-        response = self.client.get('/admin/tests/singleeventpage/')
-        # Saint Patrick should appear here
-        self.assertContains(response, 'Saint Patrick')
+        response = self.client.get('/admin/modeladmintest/venuepage/')
 
-        response = self.client.get('/admin/tests/eventpage/')
-        # Saint Patrick should also appear here
-        self.assertContains(response, 'Saint Patrick')
-        # Along with these other test events...
-        self.assertContains(response, "Tentative Unpublished Event")
-        self.assertContains(response, "Ameristralia Day")
+        # Both venue pages from fixture should appear here
+        self.assertContains(response, "Santa&#39;s Grotto")
+        self.assertContains(response, "Santa&#39;s Workshop")
 
         # But when viewing the 'Event Index' part of the explorer
-        response = self.client.get('/admin/pages/3/')
+        response = self.client.get('/admin/pages/4/')
         # Saint Patrick should NOT appear here
-        self.assertNotContains(response, 'Saint Patrick')
-        # But the other test events should...
-        self.assertContains(response, "Tentative Unpublished Event")
-        self.assertContains(response, "Ameristralia Day")
+        self.assertNotContains(response, "Santa&#39;s Grotto")
+        self.assertNotContains(response, "Santa&#39;s Workshop")
+        # But the other test page should...
+        self.assertContains(response, "Claim your free present!")
 
 
 class TestChooseParentView(TestCase, WagtailTestUtils):
