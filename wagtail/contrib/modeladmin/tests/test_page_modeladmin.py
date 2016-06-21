@@ -155,6 +155,28 @@ class TestDeleteView(TestCase, WagtailTestUtils):
         self.assertRedirects(response, '%s?next=%s' % (expected_path, expected_next_path))
 
 
+class TestExcludeFromExplorer(TestCase, WagtailTestUtils):
+    fixtures = ['modeladmintest_test.json']
+
+    def setUp(self):
+        self.login()
+
+    def test_attribute_effects_explorer(self):
+        response = self.client.get('/admin/modeladmintest/venuepage/')
+
+        # Both venue pages from fixture should appear here
+        self.assertContains(response, "Santa&#39;s Grotto")
+        self.assertContains(response, "Santa&#39;s Workshop")
+
+        # But when viewing the 'Event Index' part of the explorer
+        response = self.client.get('/admin/pages/4/')
+        # Saint Patrick should NOT appear here
+        self.assertNotContains(response, "Santa&#39;s Grotto")
+        self.assertNotContains(response, "Santa&#39;s Workshop")
+        # But the other test page should...
+        self.assertContains(response, "Claim your free present!")
+
+
 class TestChooseParentView(TestCase, WagtailTestUtils):
     fixtures = ['test_specific.json']
 

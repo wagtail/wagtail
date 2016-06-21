@@ -25,6 +25,7 @@ class WagtailRegisterable(object):
     ModelAdminGroup instances to be registered with Wagtail's admin area.
     """
     add_to_settings_menu = False
+    exclude_from_explorer = False
 
     def register_with_wagtail(self):
 
@@ -44,6 +45,11 @@ class WagtailRegisterable(object):
         @hooks.register(menu_hook)
         def register_admin_menu_item():
             return self.get_menu_item()
+
+        @hooks.register('construct_explorer_page_queryset')
+        def construct_explorer_page_queryset(parent_page, pages, request):
+            return self.exclude_pages_from_explorer(parent_page, pages,
+                                                    request)
 
 
 class ThumbnailMixin(object):
@@ -503,6 +509,11 @@ class ModelAdmin(WagtailRegisterable):
             )
         return urls
 
+    def exclude_pages_from_explorer(self, parent_page, pages, request):
+        if self.is_pagemodel and self.exclude_from_explorer:
+            pages = pages.not_type(self.model)
+        return pages
+
 
 class ModelAdminGroup(WagtailRegisterable):
     """
@@ -577,6 +588,12 @@ class ModelAdminGroup(WagtailRegisterable):
         for instance in self.modeladmin_instances:
             urls += instance.get_admin_urls_for_registration()
         return urls
+
+    def exclude_pages_from_explorer(self, parent_page, pages, request):
+        for instance in self.modeladmin_instances:
+            pages = instance.exclude_pages_from_explorer(
+                parent_page, pages, request)
+        return pages
 
 
 def modeladmin_register(modeladmin_class):
