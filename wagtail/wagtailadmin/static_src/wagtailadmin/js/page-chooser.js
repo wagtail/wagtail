@@ -11,11 +11,9 @@ function createPageChooser(id, pageTypes, openAtParentId, canChooseRoot, treeNav
         }
 
         var urlParams = {page_type: pageTypes.join(',')};
+        urlParams.tree_navigable = treeNavigable;
         if (canChooseRoot) {
             urlParams.can_choose_root = 'true';
-        }
-        if (treeNavigable) {
-            urlParams.tree_navigable = 'true';
         }
 
         ModalWorkflow({

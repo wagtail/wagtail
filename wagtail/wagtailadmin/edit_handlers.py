@@ -445,8 +445,8 @@ class BaseFieldPanel(EditHandler):
         return mark_safe(render_to_string(self.field_template, context))
 
     @classmethod
-    def required_fields(self):
-        return [self.field_name]
+    def required_fields(cls):
+        return [cls.field_name]
 
 
 class FieldPanel(object):
@@ -523,7 +523,8 @@ class BasePageChooserPanel(BaseChooserPanel):
     def widget_overrides(cls):
         return {cls.field_name: widgets.AdminPageChooser(
             target_models=cls.target_models(),
-            can_choose_root=cls.can_choose_root)}
+            can_choose_root=cls.can_choose_root,
+            tree_navigable=cls.tree_navigable)}
 
     @cached_classmethod
     def target_models(cls):
