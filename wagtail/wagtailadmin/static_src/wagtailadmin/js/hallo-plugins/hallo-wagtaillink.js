@@ -141,6 +141,7 @@
                         sel.setSingleRange(range, false);
 
                         document.execCommand('unlink');
+                        widget.options.editable.element.trigger('change');
                     }
                 });
                 buttonSet.append(cancelButton);

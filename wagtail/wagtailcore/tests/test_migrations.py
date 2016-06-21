@@ -10,11 +10,11 @@ from django.db.migrations.autodetector import MigrationAutodetector
 from django.db.migrations.loader import MigrationLoader
 from django.db.migrations.questioner import MigrationQuestioner
 from django.db.migrations.state import ProjectState
-from django.test import TransactionTestCase
+from django.test import TestCase
 from django.utils.six import iteritems
 
 
-class TestForMigrations(TransactionTestCase):
+class TestForMigrations(TestCase):
     def test__migrations(self):
         app_labels = set(app.label for app in apps.get_app_configs()
                          if app.name.startswith('wagtail.'))

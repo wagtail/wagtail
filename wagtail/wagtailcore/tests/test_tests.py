@@ -1,7 +1,5 @@
 from __future__ import absolute_import, unicode_literals
 
-import json
-
 from django.utils import six
 
 from wagtail.tests.testapp.models import (
@@ -46,11 +44,17 @@ class TestWagtailPageTests(WagtailPageTests):
         self.assertTrue(EventIndex.objects.exists())
 
         self.assertCanCreate(self.root, StreamPage, {
-            'title': 'WebDev42',
-            'body': json.dumps([
-                {'type': 'text', 'value': 'Some text'},
-                {'type': 'rich_text', 'value': '<p>Some rich text</p>'},
-            ])})
+            'title': 'Flierp',
+            'body-0-type': 'text',
+            'body-0-value': 'Dit is onze mooie text',
+            'body-0-order': '0',
+            'body-0-deleted': '',
+            'body-1-type': 'rich_text',
+            'body-1-value': '<p>Dit is onze mooie text in een ferrari</p>',
+            'body-1-order': '1',
+            'body-1-deleted': '',
+            'body-count': '2'
+        })
 
     def test_assert_can_create_subpage_rules(self):
         simple_page = SimplePage(title='Simple Page', slug='simple', content="hello")

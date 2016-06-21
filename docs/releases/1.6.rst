@@ -22,6 +22,8 @@ Minor features
  * Form builder now validates against multiple fields with the same name (Richard McMillan)
  * The 'choices' field on the form builder no longer has a maximum length (Johannes Spielmann)
  * The wagtailimages.Filter model has been removed, and converted to a Python class instead (Gagaro)
+ * Multiple ChooserBlocks inside a StreamField are now prefetched in bulk, for improved performance (Michael van Tellingen, Roel Bruggink, Matt Westcott)
+ * Added new EmailBlock and IntegerBlock (Oktay Altay)
 
 
 Bug fixes
@@ -31,6 +33,7 @@ Bug fixes
  * Removed alignment options (deprecated in HTML and not rendered by Wagtail) from ``TableBlock`` context menu (Moritz Pfeiffer)
  * Fixed incorrect CSS path on ModelAdmin's "choose a parent page" view
  * Prevent empty redirect by overnormalisation
+ * "Remove link" button in rich text editor didn't trigger "edit" event, leading to the change to sometimes not be persisted (Matt Westcott)
 
 
 Upgrade considerations
