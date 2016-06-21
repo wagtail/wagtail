@@ -125,6 +125,11 @@ PageChooserPanel
 
     Passing ``can_choose_root=True`` will allow the editor to choose the tree root as a page. Normally this would be undesirable, since the tree root is never a usable page, but in some specialised cases it may be appropriate; for example, a page with an automatic "related articles" feed could use a PageChooserPanel to select which subsection articles will be taken from, with the root corresponding to 'everywhere'.
 
+    If your are using the ``page_type`` argument to limit choices to pages of a specific type, it's possible that those pages only live in one or two parts of the tree. In which case, having to navigate through the tree to choose a specific page is less useful. Passing ``tree_navigable=False`` will provide a flat list of pages to choose from instead:
+
+    .. code-block:: python
+
+        PageChooserPanel('related_page', 'demo.PublisherPage', tree_navigable=False)
 
 ImageChooserPanel
 -----------------
