@@ -8,7 +8,7 @@ pipeline:
     image: python:3.5
     commands:
       - XDG_CACHE_HOME=/drone/pip-cache pip install wheel
-      - XDG_CACHE_HOME=/drone/pip-cache pip install isort -e .[testing,docs]
+      - XDG_CACHE_HOME=/drone/pip-cache pip install -e .[testing,docs]
       - isort --check-only --diff --recursive wagtail
   js:
     image: node:4.2.4
