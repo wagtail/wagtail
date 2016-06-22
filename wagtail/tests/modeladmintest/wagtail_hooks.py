@@ -3,7 +3,7 @@ from __future__ import absolute_import, unicode_literals
 from wagtail.contrib.modeladmin.options import ModelAdmin, ModelAdminGroup, modeladmin_register
 from wagtail.tests.testapp.models import BusinessChild, EventPage, SingleEventPage
 
-from .models import Author, Book, Token
+from .models import Author, Book, Token, VenuePage
 
 
 class AuthorModelAdmin(ModelAdmin):
@@ -44,9 +44,14 @@ class SingleEventPageAdmin(EventPageAdmin):
     model = SingleEventPage
 
 
+class VenuePageAdmin(ModelAdmin):
+    model = VenuePage
+    exclude_from_explorer = True
+
+
 class EventsAdminGroup(ModelAdminGroup):
     menu_label = "Events"
-    items = (EventPageAdmin, SingleEventPageAdmin)
+    items = (EventPageAdmin, SingleEventPageAdmin, VenuePageAdmin)
     menu_order = 500
 
 

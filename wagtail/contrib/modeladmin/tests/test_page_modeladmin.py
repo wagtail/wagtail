@@ -58,6 +58,27 @@ class TestIndexView(TestCase, WagtailTestUtils):
         self.assertEqual(response.context['result_count'], 4)
 
 
+class TestExcludeFromExplorer(TestCase, WagtailTestUtils):
+    fixtures = ['modeladmintest_test.json']
+
+    def setUp(self):
+        self.login()
+
+    def test_attribute_effects_explorer(self):
+        # The two VenuePages should appear in the venuepage list
+        response = self.client.get('/admin/modeladmintest/venuepage/')
+        self.assertContains(response, "Santa&#39;s Grotto")
+        self.assertContains(response, "Santa&#39;s Workshop")
+
+        # But when viewing the children of 'Christmas' event in explorer
+        response = self.client.get('/admin/pages/4/')
+        self.assertNotContains(response, "Santa&#39;s Grotto")
+        self.assertNotContains(response, "Santa&#39;s Workshop")
+
+        # But the other test page should...
+        self.assertContains(response, "Claim your free present!")
+
+
 class TestCreateView(TestCase, WagtailTestUtils):
     fixtures = ['test_specific.json']
 

@@ -4,6 +4,7 @@ from django.db import models
 from django.utils.encoding import python_2_unicode_compatible
 
 from wagtail.wagtailsearch import index
+from wagtail.wagtailcore.models import Page
 
 
 @python_2_unicode_compatible
@@ -30,3 +31,8 @@ class Token(models.Model):
 
     def __str__(self):
         return self.key
+
+
+class VenuePage(Page):
+    address = models.CharField(max_length=300)
+    capacity = models.IntegerField()
