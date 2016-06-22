@@ -3,8 +3,8 @@ from __future__ import absolute_import, unicode_literals
 from django.db import models
 from django.utils.encoding import python_2_unicode_compatible
 
-from wagtail.wagtailsearch import index
 from wagtail.wagtailcore.models import Page
+from wagtail.wagtailsearch import index
 
 
 @python_2_unicode_compatible
