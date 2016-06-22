@@ -1,4 +1,4 @@
-function createPageChooser(id, pageTypes, openAtParentId, canChooseRoot) {
+function createPageChooser(id, pageTypes, openAtParentId, canChooseRoot, treeNavigable) {
     var chooserElement = $('#' + id + '-chooser');
     var pageTitle = chooserElement.find('.title');
     var input = $('#' + id);
@@ -11,6 +11,7 @@ function createPageChooser(id, pageTypes, openAtParentId, canChooseRoot) {
         }
 
         var urlParams = {page_type: pageTypes.join(',')};
+        urlParams.tree_navigable = treeNavigable;
         if (canChooseRoot) {
             urlParams.can_choose_root = 'true';
         }

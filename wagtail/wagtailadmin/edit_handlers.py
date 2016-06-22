@@ -445,8 +445,8 @@ class BaseFieldPanel(EditHandler):
         return mark_safe(render_to_string(self.field_template, context))
 
     @classmethod
-    def required_fields(self):
-        return [self.field_name]
+    def required_fields(cls):
+        return [cls.field_name]
 
 
 class FieldPanel(object):
@@ -523,7 +523,8 @@ class BasePageChooserPanel(BaseChooserPanel):
     def widget_overrides(cls):
         return {cls.field_name: widgets.AdminPageChooser(
             target_models=cls.target_models(),
-            can_choose_root=cls.can_choose_root)}
+            can_choose_root=cls.can_choose_root,
+            tree_navigable=cls.tree_navigable)}
 
     @cached_classmethod
     def target_models(cls):
@@ -559,7 +560,8 @@ class BasePageChooserPanel(BaseChooserPanel):
 
 
 class PageChooserPanel(object):
-    def __init__(self, field_name, page_type=None, can_choose_root=False):
+    def __init__(self, field_name, page_type=None, can_choose_root=False,
+                 tree_navigable=True):
         self.field_name = field_name
 
         if page_type:
@@ -571,6 +573,7 @@ class PageChooserPanel(object):
 
         self.page_type = page_type
         self.can_choose_root = can_choose_root
+        self.tree_navigable = tree_navigable
 
     def bind_to_model(self, model):
         return type(str('_PageChooserPanel'), (BasePageChooserPanel,), {
@@ -578,6 +581,7 @@ class PageChooserPanel(object):
             'field_name': self.field_name,
             'page_type': self.page_type,
             'can_choose_root': self.can_choose_root,
+            'tree_navigable': self.tree_navigable,
         })
 
 
