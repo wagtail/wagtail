@@ -690,6 +690,11 @@ class TestSnippetChooserBlock(TestCase):
         # None should deserialize to None
         self.assertEqual(block.to_python(None), None)
 
+    def test_reference_model_by_string(self):
+        block = SnippetChooserBlock('tests.Advert')
+        test_advert = Advert.objects.get(text='test_advert')
+        self.assertEqual(block.to_python(test_advert.id), test_advert)
+
     def test_form_render(self):
         block = SnippetChooserBlock(Advert, help_text="pick an advert, any advert")
 
