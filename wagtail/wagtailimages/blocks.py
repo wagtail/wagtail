@@ -18,7 +18,7 @@ class ImageChooserBlock(ChooserBlock):
         from wagtail.wagtailimages.widgets import AdminImageChooser
         return AdminImageChooser
 
-    def render_basic(self, value):
+    def render_basic(self, value, context=None):
         if value:
             return get_rendition_or_not_found(value, 'original').img_tag()
         else:

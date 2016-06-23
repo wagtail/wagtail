@@ -4,17 +4,20 @@ from __future__ import absolute_import, unicode_literals
 import base64
 import collections
 import unittest
+import warnings
 from decimal import Decimal
 
 from django import forms
 from django.core.exceptions import ValidationError
 from django.forms.utils import ErrorList
+from django.template.loader import render_to_string
 from django.test import SimpleTestCase, TestCase
 from django.utils.html import format_html
 from django.utils.safestring import SafeData, mark_safe
 
 from wagtail.tests.testapp.blocks import LinkBlock as CustomLinkBlock
 from wagtail.tests.testapp.blocks import SectionBlock
+from wagtail.utils.deprecation import RemovedInWagtail18Warning
 from wagtail.wagtailcore import blocks
 from wagtail.wagtailcore.models import Page
 from wagtail.wagtailcore.rich_text import RichText
@@ -31,12 +34,44 @@ class FooStreamBlock(blocks.StreamBlock):
         return value
 
 
+class LegacyRenderMethodBlock(blocks.CharBlock):
+    """
+    A block with a render method that doesn't accept a 'context' kwarg.
+    Support for these will be dropped in Wagtail 1.8
+    """
+    def render(self, value):
+        return str(value).upper()
+
+
+class LegacyRenderBasicMethodBlock(blocks.CharBlock):
+    """
+    A block with a render_basic method that doesn't accept a 'context' kwarg.
+    Support for these will be dropped in Wagtail 1.8
+    """
+    def render_basic(self, value):
+        return str(value).upper()
+
+
 class TestFieldBlock(unittest.TestCase):
     def test_charfield_render(self):
         block = blocks.CharBlock()
         html = block.render("Hello world!")
 
         self.assertEqual(html, "Hello world!")
+
+    def test_charfield_render_with_template(self):
+        block = blocks.CharBlock(template='tests/blocks/heading_block.html')
+        html = block.render("Hello world!")
+
+        self.assertEqual(html, '<h1>Hello world!</h1>')
+
+    def test_charfield_render_with_template_with_extra_context(self):
+        block = blocks.CharBlock(template='tests/blocks/heading_block.html')
+        html = block.render("Bonjour le monde!", context={
+            'language': 'fr',
+        })
+
+        self.assertEqual(html, '<h1 lang="fr">Bonjour le monde!</h1>')
 
     def test_charfield_render_form(self):
         block = blocks.CharBlock()
@@ -147,6 +182,24 @@ class TestFieldBlock(unittest.TestCase):
         block = CalenderBlock()
         self.assertIn('pretty.css', ''.join(block.all_media().render_css()))
         self.assertIn('animations.js', ''.join(block.all_media().render_js()))
+
+    def test_legacy_render_basic(self):
+        """
+        LegacyRenderBasicMethodBlock defines a render_basic method that doesn't accept
+        a 'context' kwarg. Calling 'render' should gracefully handle this and return
+        the result of calling render_basic(value) (i.e. without passing context), but
+        generate a RemovedInWagtail18Warning.
+        """
+        block = LegacyRenderBasicMethodBlock()
+
+        with warnings.catch_warnings(record=True) as ws:
+            warnings.simplefilter('always')
+
+            result = block.render('hello')
+
+        self.assertEqual(result, 'HELLO')
+        self.assertEqual(len(ws), 1)
+        self.assertIs(ws[0].category, RemovedInWagtail18Warning)
 
 
 class TestIntegerBlock(unittest.TestCase):
@@ -1041,6 +1094,31 @@ class TestStructBlock(SimpleTestCase):
         result = block.render(value)
         self.assertEqual(result, """<h1>Hello</h1><div class="rich-text"><i>italic</i> world</div>""")
 
+    def test_render_block_with_extra_context(self):
+        block = SectionBlock()
+        value = block.to_python({'title': 'Bonjour', 'body': 'monde <i>italique</i>'})
+        result = block.render(value, context={'language': 'fr'})
+        self.assertEqual(result, """<h1 lang="fr">Bonjour</h1><div class="rich-text">monde <i>italique</i></div>""")
+
+    def test_render_structvalue(self):
+        """
+        The string representation of a StructValue should use the block's template
+        """
+        block = SectionBlock()
+        value = block.to_python({'title': 'Hello', 'body': '<i>italic</i> world'})
+        result = str(value)
+        self.assertEqual(result, """<h1>Hello</h1><div class="rich-text"><i>italic</i> world</div>""")
+
+        # value.render_as_block() should be equivalent to str(value)
+        result = value.render_as_block()
+        self.assertEqual(result, """<h1>Hello</h1><div class="rich-text"><i>italic</i> world</div>""")
+
+    def test_render_structvalue_with_extra_context(self):
+        block = SectionBlock()
+        value = block.to_python({'title': 'Bonjour', 'body': 'monde <i>italique</i>'})
+        result = value.render_as_block(context={'language': 'fr'})
+        self.assertEqual(result, """<h1 lang="fr">Bonjour</h1><div class="rich-text">monde <i>italique</i></div>""")
+
 
 class TestListBlock(unittest.TestCase):
     def test_initialise_with_class(self):
@@ -1083,6 +1161,53 @@ class TestListBlock(unittest.TestCase):
 
         self.assertIn('<li>', html)
         self.assertIn('</li>', html)
+
+    def test_render_calls_block_render_on_children(self):
+        """
+        The default rendering of a ListBlock should invoke the block's render method
+        on each child, rather than just outputting the child value as a string.
+        """
+        block = blocks.ListBlock(
+            blocks.CharBlock(template='tests/blocks/heading_block.html')
+        )
+        html = block.render(["Hello world!", "Goodbye world!"])
+
+        self.assertIn('<h1>Hello world!</h1>', html)
+        self.assertIn('<h1>Goodbye world!</h1>', html)
+
+    def test_render_passes_context_to_children(self):
+        """
+        Template context passed to the render method should be passed on
+        to the render method of the child block.
+        """
+        block = blocks.ListBlock(
+            blocks.CharBlock(template='tests/blocks/heading_block.html')
+        )
+        html = block.render(["Bonjour le monde!", "Au revoir le monde!"], context={
+            'language': 'fr',
+        })
+
+        self.assertIn('<h1 lang="fr">Bonjour le monde!</h1>', html)
+        self.assertIn('<h1 lang="fr">Au revoir le monde!</h1>', html)
+
+    def test_child_with_legacy_render(self):
+        """
+        If the child block has a legacy 'render' method that doesn't accept a 'context'
+        kwarg, ListBlock.render should use the result of calling render(child_value), but
+        generate a RemovedInWagtail18Warning.
+        """
+        block = blocks.ListBlock(LegacyRenderBasicMethodBlock())
+
+        with warnings.catch_warnings(record=True) as ws:
+            warnings.simplefilter('always')
+
+            result = block.render(['hello', 'world'])
+
+        self.assertIn('<li>HELLO</li>', result)
+        self.assertIn('<li>WORLD</li>', result)
+        self.assertEqual(len(ws), 2)
+        self.assertIs(ws[0].category, RemovedInWagtail18Warning)
+        self.assertIs(ws[1].category, RemovedInWagtail18Warning)
 
     def render_form(self):
         class LinkBlock(blocks.StructBlock):
@@ -1425,6 +1550,117 @@ class TestStreamBlock(SimpleTestCase):
         self.assertNotIn('foo', html)
         self.assertNotIn('Hello', html)
         self.assertIn('<div class="block-paragraph"><div class="rich-text">My first paragraph</div></div>', html)
+
+    def test_render_calls_block_render_on_children(self):
+        """
+        The default rendering of a StreamBlock should invoke the block's render method
+        on each child, rather than just outputting the child value as a string.
+        """
+        block = blocks.StreamBlock([
+            ('heading', blocks.CharBlock(template='tests/blocks/heading_block.html')),
+            ('paragraph', blocks.CharBlock()),
+        ])
+        value = block.to_python([
+            {'type': 'heading', 'value': 'Hello'}
+        ])
+        html = block.render(value)
+        self.assertIn('<div class="block-heading"><h1>Hello</h1></div>', html)
+
+        # calling render_as_block() on value (a StreamValue instance)
+        # should be equivalent to block.render(value)
+        html = value.render_as_block()
+        self.assertIn('<div class="block-heading"><h1>Hello</h1></div>', html)
+
+    def test_render_child_with_legacy_render_method(self):
+        """
+        StreamBlock should gracefully handle child blocks with a legacy 'render'
+        method (one which doesn't accept a 'context' kwarg), but output a
+        RemovedInWagtail18Warning
+        """
+        block = blocks.StreamBlock([
+            ('heading', LegacyRenderMethodBlock()),
+            ('paragraph', blocks.CharBlock()),
+        ])
+        value = block.to_python([
+            {'type': 'heading', 'value': 'Hello'}
+        ])
+        with warnings.catch_warnings(record=True) as ws:
+            warnings.simplefilter('always')
+
+            result = block.render(value)
+
+        self.assertIn('<div class="block-heading">HELLO</div>', result)
+        self.assertEqual(len(ws), 1)
+        self.assertIs(ws[0].category, RemovedInWagtail18Warning)
+
+        # calling render_as_block() on value (a StreamValue instance)
+        # should be equivalent to block.render(value)
+        with warnings.catch_warnings(record=True) as ws:
+            warnings.simplefilter('always')
+
+            result = value.render_as_block()
+
+        self.assertIn('<div class="block-heading">HELLO</div>', result)
+        self.assertEqual(len(ws), 1)
+        self.assertIs(ws[0].category, RemovedInWagtail18Warning)
+
+    def test_render_passes_context_to_children(self):
+        block = blocks.StreamBlock([
+            ('heading', blocks.CharBlock(template='tests/blocks/heading_block.html')),
+            ('paragraph', blocks.CharBlock()),
+        ])
+        value = block.to_python([
+            {'type': 'heading', 'value': 'Bonjour'}
+        ])
+        html = block.render(value, context={
+            'language': 'fr',
+        })
+        self.assertIn('<div class="block-heading"><h1 lang="fr">Bonjour</h1></div>', html)
+
+        # calling render_as_block(context=foo) on value (a StreamValue instance)
+        # should be equivalent to block.render(value, context=foo)
+        html = value.render_as_block(context={
+            'language': 'fr',
+        })
+        self.assertIn('<div class="block-heading"><h1 lang="fr">Bonjour</h1></div>', html)
+
+    def test_render_on_stream_child_uses_child_template(self):
+        """
+        Accessing a child element of the stream (giving a StreamChild object) and rendering it
+        should use the block template, not just render the value's string representation
+        """
+        block = blocks.StreamBlock([
+            ('heading', blocks.CharBlock(template='tests/blocks/heading_block.html')),
+            ('paragraph', blocks.CharBlock()),
+        ])
+        value = block.to_python([
+            {'type': 'heading', 'value': 'Hello'}
+        ])
+        html = value[0].render()
+        self.assertEqual('<h1>Hello</h1>', html)
+
+        # StreamChild.__str__ should do the same
+        html = str(value[0])
+        self.assertEqual('<h1>Hello</h1>', html)
+
+        # and so should StreamChild.render_as_block
+        html = value[0].render_as_block()
+        self.assertEqual('<h1>Hello</h1>', html)
+
+    def test_can_pass_context_to_stream_child_template(self):
+        block = blocks.StreamBlock([
+            ('heading', blocks.CharBlock(template='tests/blocks/heading_block.html')),
+            ('paragraph', blocks.CharBlock()),
+        ])
+        value = block.to_python([
+            {'type': 'heading', 'value': 'Bonjour'}
+        ])
+        html = value[0].render(context={'language': 'fr'})
+        self.assertEqual('<h1 lang="fr">Bonjour</h1>', html)
+
+        # the same functionality should be available through the alias `render_as_block`
+        html = value[0].render_as_block(context={'language': 'fr'})
+        self.assertEqual('<h1 lang="fr">Bonjour</h1>', html)
 
     def render_form(self):
         class ArticleBlock(blocks.StreamBlock):
@@ -1950,3 +2186,117 @@ class TestTemplateRendering(TestCase):
 
         self.assertIn('data-prefix="my-link-block"', result)
         self.assertIn('<p>Hello from get_form_context!</p>', result)
+
+
+class TestIncludeBlockTag(TestCase):
+    def test_include_block_tag_with_boundblock(self):
+        """
+        The include_block tag should be able to render a BoundBlock's template
+        while keeping the parent template's context
+        """
+        block = blocks.CharBlock(template='tests/blocks/heading_block.html')
+        bound_block = block.bind('bonjour')
+
+        result = render_to_string('tests/blocks/include_block_test.html', {
+            'test_block': bound_block,
+            'language': 'fr',
+        })
+        self.assertIn('<body><h1 lang="fr">bonjour</h1></body>', result)
+
+    def test_include_block_tag_with_structvalue(self):
+        """
+        The include_block tag should be able to render a StructValue's template
+        while keeping the parent template's context
+        """
+        block = SectionBlock()
+        struct_value = block.to_python({'title': 'Bonjour', 'body': 'monde <i>italique</i>'})
+
+        result = render_to_string('tests/blocks/include_block_test.html', {
+            'test_block': struct_value,
+            'language': 'fr',
+        })
+
+        self.assertIn(
+            """<body><h1 lang="fr">Bonjour</h1><div class="rich-text">monde <i>italique</i></div></body>""",
+            result
+        )
+
+    def test_include_block_tag_with_streamvalue(self):
+        """
+        The include_block tag should be able to render a StreamValue's template
+        while keeping the parent template's context
+        """
+        block = blocks.StreamBlock([
+            ('heading', blocks.CharBlock(template='tests/blocks/heading_block.html')),
+            ('paragraph', blocks.CharBlock()),
+        ], template='tests/blocks/stream_with_language.html')
+
+        stream_value = block.to_python([
+            {'type': 'heading', 'value': 'Bonjour'}
+        ])
+
+        result = render_to_string('tests/blocks/include_block_test.html', {
+            'test_block': stream_value,
+            'language': 'fr',
+        })
+
+        self.assertIn('<div class="heading" lang="fr"><h1 lang="fr">Bonjour</h1></div>', result)
+
+    def test_include_block_tag_with_plain_value(self):
+        """
+        The include_block tag should be able to render a value without a render_as_block method
+        by just rendering it as a string
+        """
+        result = render_to_string('tests/blocks/include_block_test.html', {
+            'test_block': 42,
+        })
+
+        self.assertIn('<body>42</body>', result)
+
+    def test_include_block_tag_with_filtered_value(self):
+        """
+        The block parameter on include_block tag should support complex values including filters,
+        e.g. {% include_block foo|default:123 %}
+        """
+        block = blocks.CharBlock(template='tests/blocks/heading_block.html')
+        bound_block = block.bind('bonjour')
+
+        result = render_to_string('tests/blocks/include_block_test_with_filter.html', {
+            'test_block': bound_block,
+            'language': 'fr',
+        })
+        self.assertIn('<body><h1 lang="fr">bonjour</h1></body>', result)
+
+        result = render_to_string('tests/blocks/include_block_test_with_filter.html', {
+            'test_block': None,
+            'language': 'fr',
+        })
+        self.assertIn('<body>999</body>', result)
+
+    def test_include_block_tag_with_extra_context(self):
+        """
+        Test that it's possible to pass extra context on an include_block tag using
+        {% include_block foo with classname="bar" %}
+        """
+        block = blocks.CharBlock(template='tests/blocks/heading_block.html')
+        bound_block = block.bind('bonjour')
+
+        result = render_to_string('tests/blocks/include_block_with_test.html', {
+            'test_block': bound_block,
+            'language': 'fr',
+        })
+        self.assertIn('<body><h1 lang="fr" class="important">bonjour</h1></body>', result)
+
+    def test_include_block_tag_with_only_flag(self):
+        """
+        A tag such as {% include_block foo with classname="bar" only %}
+        should not inherit the parent context
+        """
+        block = blocks.CharBlock(template='tests/blocks/heading_block.html')
+        bound_block = block.bind('bonjour')
+
+        result = render_to_string('tests/blocks/include_block_only_test.html', {
+            'test_block': bound_block,
+            'language': 'fr',
+        })
+        self.assertIn('<body><h1 class="important">bonjour</h1></body>', result)

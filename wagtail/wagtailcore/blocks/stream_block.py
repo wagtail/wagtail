@@ -9,7 +9,7 @@ from django.forms.utils import ErrorList
 from django.template.loader import render_to_string
 # Must be imported from Django so we get the new implementation of with_metaclass
 from django.utils import six
-from django.utils.encoding import force_text, python_2_unicode_compatible
+from django.utils.encoding import python_2_unicode_compatible
 from django.utils.html import format_html_join
 from django.utils.safestring import mark_safe
 
@@ -205,10 +205,13 @@ class BaseStreamBlock(Block):
             for child in value  # child is a BoundBlock instance
         ]
 
-    def render_basic(self, value):
+    def render_basic(self, value, context=None):
         return format_html_join(
             '\n', '<div class="block-{1}">{0}</div>',
-            [(force_text(child), child.block_type) for child in value]
+            [
+                (child.render(context=context), child.block_type)
+                for child in value
+            ]
         )
 
     def get_searchable_content(self, value):
@@ -341,6 +344,9 @@ class StreamValue(collections.Sequence):
 
     def __repr__(self):
         return repr(list(self))
+
+    def render_as_block(self, context=None):
+        return self.stream_block.render(self, context=context)
 
     def __html__(self):
         return self.stream_block.render(self)

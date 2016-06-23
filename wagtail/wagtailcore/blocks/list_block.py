@@ -140,10 +140,13 @@ class ListBlock(Block):
             for item in value
         ]
 
-    def render_basic(self, value):
+    def render_basic(self, value, context=None):
         children = format_html_join(
             '\n', '<li>{0}</li>',
-            [(self.child_block.render(child_value),) for child_value in value]
+            [
+                (self.child_block._render_with_context(child_value, context=context),)
+                for child_value in value
+            ]
         )
         return format_html("<ul>{0}</ul>", children)
 
