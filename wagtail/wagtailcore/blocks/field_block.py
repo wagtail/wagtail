@@ -536,7 +536,7 @@ class PageChooserBlock(ChooserBlock):
         from wagtail.wagtailadmin.widgets import AdminPageChooser
         return AdminPageChooser(can_choose_root=self.can_choose_root)
 
-    def render_basic(self, value):
+    def render_basic(self, value, context=None):
         if value:
             return format_html('<a href="{0}">{1}</a>', value.url, value.title)
         else:

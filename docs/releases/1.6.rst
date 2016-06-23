@@ -89,3 +89,30 @@ should be updated to:
 .. code-block:: python
 
     bases=(models.Model, wagtail.wagtailsearch.index.Indexed),
+
+``render`` and ``render_basic`` methods on StreamField blocks now accept a ``context`` keyword argument
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+The ``render`` and ``render_basic`` methods on ``wagtail.wagtailcore.blocks.Block`` have been updated to accept an optional ``context`` keyword argument, a template context to use when rendering the block. If you have defined any custom StreamField blocks that override either of these methods, the method signature now needs to be updated to include this keyword argument:
+
+.. code-block:: python
+
+    class MyBlock(Block):
+
+        def render(self, value):
+            ...
+
+        def render_basic(self, value):
+            ...
+
+should now become:
+
+.. code-block:: python
+
+    class MyBlock(Block):
+
+        def render(self, value, context=None):
+            ...
+
+        def render_basic(self, value, context=None):
+            ...

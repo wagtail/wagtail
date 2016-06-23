@@ -1,6 +1,7 @@
 from __future__ import absolute_import, unicode_literals
 
 import collections
+import warnings
 from importlib import import_module
 
 from django import forms
@@ -11,6 +12,8 @@ from django.utils import six
 from django.utils.encoding import force_text, python_2_unicode_compatible
 from django.utils.safestring import mark_safe
 from django.utils.text import capfirst
+
+from wagtail.utils.deprecation import RemovedInWagtail18Warning
 
 # unicode_literals ensures that any render / __str__ methods returning HTML via calls to mark_safe / format_html
 # return a SafeText, not SafeBytes; necessary so that it doesn't get re-encoded when the template engine
@@ -204,24 +207,100 @@ class Block(six.with_metaclass(BaseBlock, object)):
         return value
 
     def get_context(self, value):
+        """
+        Return a dict of context variables (derived from the block value, or otherwise)
+        to be added to the template context when rendering this value through a template.
+        """
         return {
             'self': value,
             self.TEMPLATE_VAR: value,
         }
 
-    def render(self, value):
+    def _render_with_context(self, value, context=None):
+        """
+        Temporary hack to accommodate Block subclasses created for Wagtail <1.6 which
+        have overridden `render` with the type signature:
+            def render(self, value)
+        and will therefore fail when passed a `context` kwarg.
+
+        In Wagtail 1.8, when support for context-less `render` methods is dropped,
+        this method will be deleted (and calls to it replaced with a direct call to `render`).
+        """
+        try:
+            return self.render(value, context=context)
+        except TypeError:
+            # retry without the 'context' kwarg
+            result = self.render(value)
+
+            # if this is successful, the block needs updating for Wagtail >=1.6 -
+            # output a deprecation warning
+
+            # find the specific parent class that defines `render` by stepping through the MRO,
+            # falling back on type(self) if it can't be found for some reason
+            class_with_render_method = next(
+                (cls for cls in type(self).__mro__ if 'render' in cls.__dict__),
+                type(self)
+            )
+
+            warnings.warn(
+                "The render method on %s needs to be updated to accept an optional 'context' "
+                "keyword argument" % class_with_render_method,
+                category=RemovedInWagtail18Warning
+            )
+            return result
+
+    def render(self, value, context=None):
         """
         Return a text rendering of 'value', suitable for display on templates. By default, this will
-        use a template if a 'template' property is specified on the block, and fall back on render_basic
-        otherwise.
+        use a template (with the passed context, supplemented by the result of get_context) if a
+        'template' property is specified on the block, and fall back on render_basic otherwise.
         """
         template = getattr(self.meta, 'template', None)
-        if template:
-            return render_to_string(template, self.get_context(value))
-        else:
-            return self.render_basic(value)
+        if not template:
+            return self._render_basic_with_context(value, context=context)
 
-    def render_basic(self, value):
+        if context is None:
+            new_context = self.get_context(value)
+        else:
+            new_context = dict(context)
+            new_context.update(self.get_context(value))
+
+        return render_to_string(template, new_context)
+
+    def _render_basic_with_context(self, value, context=None):
+        """
+        Temporary hack to accommodate Block subclasses created for Wagtail <1.6 which
+        have overridden `render_basic` with the type signature:
+            def render_basic(self, value)
+        and will therefore fail when passed a `context` kwarg.
+
+        In Wagtail 1.8, when support for context-less `render_basic` methods is dropped,
+        this method will be deleted (and calls to it replaced with a direct call to `render_basic`).
+        """
+        try:
+            return self.render_basic(value, context=context)
+        except TypeError:
+            # retry without the 'context' kwarg
+            result = self.render_basic(value)
+
+            # if this is successful, the block needs updating for Wagtail >=1.6 -
+            # output a deprecation warning
+
+            # find the specific parent class that defines `render_basic` by stepping through the MRO,
+            # falling back on type(self) if it can't be found for some reason
+            class_with_render_basic_method = next(
+                (cls for cls in type(self).__mro__ if 'render_basic' in cls.__dict__),
+                type(self)
+            )
+
+            warnings.warn(
+                "The render_basic method on %s needs to be updated to accept an optional 'context' "
+                "keyword argument" % class_with_render_basic_method,
+                category=RemovedInWagtail18Warning
+            )
+            return result
+
+    def render_basic(self, value, context=None):
         """
         Return a text rendering of 'value', suitable for display on templates. render() will fall back on
         this if the block does not define a 'template' property.
@@ -387,8 +466,8 @@ class BoundBlock(object):
     def render_form(self):
         return self.block.render_form(self.value, self.prefix, errors=self.errors)
 
-    def render(self):
-        return self.block.render(self.value)
+    def render(self, context=None):
+        return self.block._render_with_context(self.value, context=context)
 
     def id_for_label(self):
         return self.block.id_for_label(self.prefix)

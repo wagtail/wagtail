@@ -9,6 +9,7 @@ from decimal import Decimal
 from django import forms
 from django.core.exceptions import ValidationError
 from django.forms.utils import ErrorList
+from django.template.loader import render_to_string
 from django.test import SimpleTestCase, TestCase
 from django.utils.html import format_html
 from django.utils.safestring import SafeData, mark_safe
@@ -37,6 +38,20 @@ class TestFieldBlock(unittest.TestCase):
         html = block.render("Hello world!")
 
         self.assertEqual(html, "Hello world!")
+
+    def test_charfield_render_with_template(self):
+        block = blocks.CharBlock(template='tests/blocks/heading_block.html')
+        html = block.render("Hello world!")
+
+        self.assertEqual(html, '<h1>Hello world!</h1>')
+
+    def test_charfield_render_with_template_with_extra_context(self):
+        block = blocks.CharBlock(template='tests/blocks/heading_block.html')
+        html = block.render("Bonjour le monde!", context={
+            'language': 'fr',
+        })
+
+        self.assertEqual(html, '<h1 lang="fr">Bonjour le monde!</h1>')
 
     def test_charfield_render_form(self):
         block = blocks.CharBlock()
@@ -1084,6 +1099,34 @@ class TestListBlock(unittest.TestCase):
         self.assertIn('<li>', html)
         self.assertIn('</li>', html)
 
+    def test_render_calls_block_render_on_children(self):
+        """
+        The default rendering of a ListBlock should invoke the block's render method
+        on each child, rather than just outputting the child value as a string.
+        """
+        block = blocks.ListBlock(
+            blocks.CharBlock(template='tests/blocks/heading_block.html')
+        )
+        html = block.render(["Hello world!", "Goodbye world!"])
+
+        self.assertIn('<h1>Hello world!</h1>', html)
+        self.assertIn('<h1>Goodbye world!</h1>', html)
+
+    def test_render_passes_context_to_children(self):
+        """
+        Template context passed to the render method should be passed on
+        to the render method of the child block.
+        """
+        block = blocks.ListBlock(
+            blocks.CharBlock(template='tests/blocks/heading_block.html')
+        )
+        html = block.render(["Bonjour le monde!", "Au revoir le monde!"], context={
+            'language': 'fr',
+        })
+
+        self.assertIn('<h1 lang="fr">Bonjour le monde!</h1>', html)
+        self.assertIn('<h1 lang="fr">Au revoir le monde!</h1>', html)
+
     def render_form(self):
         class LinkBlock(blocks.StructBlock):
             title = blocks.CharBlock()
@@ -1425,6 +1468,63 @@ class TestStreamBlock(SimpleTestCase):
         self.assertNotIn('foo', html)
         self.assertNotIn('Hello', html)
         self.assertIn('<div class="block-paragraph"><div class="rich-text">My first paragraph</div></div>', html)
+
+    def test_render_calls_block_render_on_children(self):
+        """
+        The default rendering of a StreamBlock should invoke the block's render method
+        on each child, rather than just outputting the child value as a string.
+        """
+        block = blocks.StreamBlock([
+            ('heading', blocks.CharBlock(template='tests/blocks/heading_block.html')),
+            ('paragraph', blocks.CharBlock()),
+        ])
+        value = block.to_python([
+            {'type': 'heading', 'value': 'Hello'}
+        ])
+        html = block.render(value)
+        self.assertIn('<div class="block-heading"><h1>Hello</h1></div>', html)
+
+    def test_render_passes_context_to_children(self):
+        block = blocks.StreamBlock([
+            ('heading', blocks.CharBlock(template='tests/blocks/heading_block.html')),
+            ('paragraph', blocks.CharBlock()),
+        ])
+        value = block.to_python([
+            {'type': 'heading', 'value': 'Bonjour'}
+        ])
+        html = block.render(value, context={
+            'language': 'fr',
+        })
+        self.assertIn('<div class="block-heading"><h1 lang="fr">Bonjour</h1></div>', html)
+
+    def test_render_on_stream_child_uses_child_template(self):
+        """
+        Accessing a child element of the stream (giving a StreamChild object) and rendering it
+        should use the block template, not just render the value's string representation
+        """
+        block = blocks.StreamBlock([
+            ('heading', blocks.CharBlock(template='tests/blocks/heading_block.html')),
+            ('paragraph', blocks.CharBlock()),
+        ])
+        value = block.to_python([
+            {'type': 'heading', 'value': 'Hello'}
+        ])
+        html = value[0].render()
+        self.assertEqual('<h1>Hello</h1>', html)
+
+        # StreamChild.__str__ should do the same
+        self.assertEqual('<h1>Hello</h1>', str(value[0]))
+
+    def test_can_pass_context_to_stream_child_template(self):
+        block = blocks.StreamBlock([
+            ('heading', blocks.CharBlock(template='tests/blocks/heading_block.html')),
+            ('paragraph', blocks.CharBlock()),
+        ])
+        value = block.to_python([
+            {'type': 'heading', 'value': 'Bonjour'}
+        ])
+        html = value[0].render(context={'language': 'fr'})
+        self.assertEqual('<h1 lang="fr">Bonjour</h1>', html)
 
     def render_form(self):
         class ArticleBlock(blocks.StreamBlock):

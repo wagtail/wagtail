@@ -17,7 +17,7 @@ class DocumentChooserBlock(ChooserBlock):
         from wagtail.wagtaildocs.widgets import AdminDocumentChooser
         return AdminDocumentChooser
 
-    def render_basic(self, value):
+    def render_basic(self, value, context=None):
         if value:
             return format_html('<a href="{0}">{1}</a>', value.url, value.title)
         else:
