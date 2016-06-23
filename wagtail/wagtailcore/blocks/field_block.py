@@ -129,6 +129,55 @@ class TextBlock(FieldBlock):
         icon = "pilcrow"
 
 
+class FloatBlock(FieldBlock):
+
+    def __init__(self, required=True, max_value=None, min_value=None, *args,
+                 **kwargs):
+        self.field = forms.FloatField(
+            required=required,
+            max_value=max_value,
+            min_value=min_value,
+        )
+        super(FloatBlock, self).__init__(*args, **kwargs)
+
+    class Meta:
+        icon = "plus-inverse"
+
+
+class DecimalBlock(FieldBlock):
+
+    def __init__(self, required=True, max_value=None, min_value=None,
+                 max_digits=None, decimal_places=None, *args, **kwargs):
+        self.field = forms.DecimalField(
+            required=required,
+            max_value=max_value,
+            min_value=min_value,
+            max_digits=max_digits,
+            decimal_places=decimal_places,
+        )
+        super(DecimalBlock, self).__init__(*args, **kwargs)
+
+    class Meta:
+        icon = "plus-inverse"
+
+
+class RegexBlock(FieldBlock):
+
+    def __init__(self, regex, required=True, max_length=None, min_length=None,
+                 error_message=None, *args, **kwargs):
+        self.field = forms.RegexField(
+            regex=regex,
+            required=required,
+            max_length=max_length,
+            min_length=min_length,
+            error_message=error_message,
+        )
+        super(RegexBlock, self).__init__(*args, **kwargs)
+
+    class Meta:
+        icon = "code"
+
+
 class URLBlock(FieldBlock):
 
     def __init__(self, required=True, help_text=None, max_length=None, min_length=None, **kwargs):
@@ -500,8 +549,10 @@ class PageChooserBlock(ChooserBlock):
 # Ensure that the blocks defined here get deconstructed as wagtailcore.blocks.FooBlock
 # rather than wagtailcore.blocks.field.FooBlock
 block_classes = [
-    FieldBlock, CharBlock, URLBlock, RichTextBlock, RawHTMLBlock, ChooserBlock, PageChooserBlock,
-    TextBlock, BooleanBlock, DateBlock, TimeBlock, DateTimeBlock, ChoiceBlock, EmailBlock, IntegerBlock,
+    FieldBlock, CharBlock, URLBlock, RichTextBlock, RawHTMLBlock, ChooserBlock,
+    PageChooserBlock, TextBlock, BooleanBlock, DateBlock, TimeBlock,
+    DateTimeBlock, ChoiceBlock, EmailBlock, IntegerBlock, FloatBlock,
+    DecimalBlock, RegexBlock
 ]
 DECONSTRUCT_ALIASES = {
     cls: 'wagtail.wagtailcore.blocks.%s' % cls.__name__

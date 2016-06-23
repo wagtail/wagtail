@@ -3,6 +3,7 @@ from __future__ import absolute_import, unicode_literals
 
 import base64
 import unittest
+from decimal import Decimal
 
 from django import forms
 from django.core.exceptions import ValidationError
@@ -29,54 +30,6 @@ class FooStreamBlock(blocks.StreamBlock):
 
 
 class TestFieldBlock(unittest.TestCase):
-    def test_integerfield_type(self):
-        block = blocks.IntegerBlock()
-        digit = block.value_from_form(1234)
-
-        self.assertEqual(type(digit), int)
-
-    def test_integerfield_render(self):
-        block = blocks.IntegerBlock()
-        digit = block.value_from_form(1234)
-
-        self.assertEqual(digit, 1234)
-
-    def test_integerfield_render_required_error(self):
-        block = blocks.IntegerBlock()
-
-        with self.assertRaises(ValidationError):
-            block.clean("")
-
-    def test_integerfield_render_max_value_validation(self):
-        block = blocks.IntegerBlock(max_value=20)
-
-        with self.assertRaises(ValidationError):
-            block.clean(25)
-
-    def test_integerfield_render_min_value_validation(self):
-        block = blocks.IntegerBlock(min_value=20)
-
-        with self.assertRaises(ValidationError):
-            block.clean(10)
-
-    def test_emailfield_render(self):
-        block = blocks.EmailBlock()
-        email = block.render("example@email.com")
-
-        self.assertEqual(email, "example@email.com")
-
-    def test_emailfield_render_required_error(self):
-        block = blocks.EmailBlock()
-
-        with self.assertRaises(ValidationError):
-            block.clean("")
-
-    def test_emailfield_format_validation(self):
-        block = blocks.EmailBlock()
-
-        with self.assertRaises(ValidationError):
-            block.clean("example.email.com")
-
     def test_charfield_render(self):
         block = blocks.CharBlock()
         html = block.render("Hello world!")
@@ -192,6 +145,156 @@ class TestFieldBlock(unittest.TestCase):
         block = CalenderBlock()
         self.assertIn('pretty.css', ''.join(block.all_media().render_css()))
         self.assertIn('animations.js', ''.join(block.all_media().render_js()))
+
+
+class TestIntegerBlock(unittest.TestCase):
+    def test_type(self):
+        block = blocks.IntegerBlock()
+        digit = block.value_from_form(1234)
+
+        self.assertEqual(type(digit), int)
+
+    def test_render(self):
+        block = blocks.IntegerBlock()
+        digit = block.value_from_form(1234)
+
+        self.assertEqual(digit, 1234)
+
+    def test_render_required_error(self):
+        block = blocks.IntegerBlock()
+
+        with self.assertRaises(ValidationError):
+            block.clean("")
+
+    def test_render_max_value_validation(self):
+        block = blocks.IntegerBlock(max_value=20)
+
+        with self.assertRaises(ValidationError):
+            block.clean(25)
+
+    def test_render_min_value_validation(self):
+        block = blocks.IntegerBlock(min_value=20)
+
+        with self.assertRaises(ValidationError):
+            block.clean(10)
+
+
+class TestEmailBlock(unittest.TestCase):
+    def test_render(self):
+        block = blocks.EmailBlock()
+        email = block.render("example@email.com")
+
+        self.assertEqual(email, "example@email.com")
+
+    def test_render_required_error(self):
+        block = blocks.EmailBlock()
+
+        with self.assertRaises(ValidationError):
+            block.clean("")
+
+    def test_format_validation(self):
+        block = blocks.EmailBlock()
+
+        with self.assertRaises(ValidationError):
+            block.clean("example.email.com")
+
+
+class TestFloatBlock(TestCase):
+    def test_type(self):
+        block = blocks.FloatBlock()
+        block_val = block.value_from_form(float(1.63))
+        self.assertEqual(type(block_val), float)
+
+    def test_render(self):
+        block = blocks.FloatBlock()
+        test_val = float(1.63)
+        block_val = block.value_from_form(test_val)
+        self.assertEqual(block_val, test_val)
+
+    def test_raises_required_error(self):
+        block = blocks.FloatBlock()
+
+        with self.assertRaises(ValidationError):
+            block.clean("")
+
+    def test_raises_max_value_validation_error(self):
+        block = blocks.FloatBlock(max_value=20)
+
+        with self.assertRaises(ValidationError):
+            block.clean('20.01')
+
+    def test_raises_min_value_validation_error(self):
+        block = blocks.FloatBlock(min_value=20)
+
+        with self.assertRaises(ValidationError):
+            block.clean('19.99')
+
+
+class TestDecimalBlock(TestCase):
+    def test_type(self):
+        block = blocks.DecimalBlock()
+        block_val = block.value_from_form(Decimal('1.63'))
+        self.assertEqual(type(block_val), Decimal)
+
+    def test_render(self):
+        block = blocks.DecimalBlock()
+        test_val = Decimal(1.63)
+        block_val = block.value_from_form(test_val)
+
+        self.assertEqual(block_val, test_val)
+
+    def test_raises_required_error(self):
+        block = blocks.DecimalBlock()
+
+        with self.assertRaises(ValidationError):
+            block.clean("")
+
+    def test_raises_max_value_validation_error(self):
+        block = blocks.DecimalBlock(max_value=20)
+
+        with self.assertRaises(ValidationError):
+            block.clean('20.01')
+
+    def test_raises_min_value_validation_error(self):
+        block = blocks.DecimalBlock(min_value=20)
+
+        with self.assertRaises(ValidationError):
+            block.clean('19.99')
+
+
+class TestRegexBlock(TestCase):
+
+    def test_render(self):
+        block = blocks.RegexBlock(regex=r'^[0-9]{3}$')
+        test_val = '123'
+        block_val = block.value_from_form(test_val)
+
+        self.assertEqual(block_val, test_val)
+
+    def test_raises_required_error(self):
+        block = blocks.RegexBlock(regex=r'^[0-9]{3}$')
+
+        with self.assertRaises(ValidationError):
+            block.clean("")
+
+    def test_raises_validation_error(self):
+        block = blocks.RegexBlock(regex=r'^[0-9]{3}$')
+
+        with self.assertRaises(ValidationError):
+            block.clean("[/]")
+
+    def test_raises_custom_error_message(self):
+        test_message = 'Not a valid library card number.'
+        block = blocks.RegexBlock(regex=r'^[0-9]{3}$', error_message=test_message)
+
+        with self.assertRaises(ValidationError):
+            block.clean("[/]")
+
+        html = block.render_form(
+            "[/]",
+            errors=ErrorList([ValidationError(test_message)]))
+
+        self.assertIn(test_message, html)
 
 
 class TestRichTextBlock(TestCase):
