@@ -345,6 +345,9 @@ class StreamValue(collections.Sequence):
     def __repr__(self):
         return repr(list(self))
 
+    def render_as_block(self, context=None):
+        return self.stream_block.render(self, context=context)
+
     def __html__(self):
         return self.stream_block.render(self)
 

@@ -469,6 +469,16 @@ class BoundBlock(object):
     def render(self, context=None):
         return self.block._render_with_context(self.value, context=context)
 
+    def render_as_block(self, context=None):
+        """
+        Alias for render; the include_block tag will specifically check for the presence of a method
+        with this name. (This is because {% include_block %} is just as likely to be invoked on a bare
+        value as a BoundBlock. If we looked for a `render` method instead, we'd run the risk of finding
+        an unrelated method that just happened to have that name - for example, when called on a
+        PageChooserBlock it could end up calling page.render.
+        """
+        return self.block._render_with_context(self.value, context=context)
+
     def id_for_label(self):
         return self.block.id_for_label(self.prefix)
 

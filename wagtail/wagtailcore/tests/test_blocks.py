@@ -1056,6 +1056,31 @@ class TestStructBlock(SimpleTestCase):
         result = block.render(value)
         self.assertEqual(result, """<h1>Hello</h1><div class="rich-text"><i>italic</i> world</div>""")
 
+    def test_render_block_with_extra_context(self):
+        block = SectionBlock()
+        value = block.to_python({'title': 'Bonjour', 'body': 'monde <i>italique</i>'})
+        result = block.render(value, context={'language': 'fr'})
+        self.assertEqual(result, """<h1 lang="fr">Bonjour</h1><div class="rich-text">monde <i>italique</i></div>""")
+
+    def test_render_structvalue(self):
+        """
+        The string representation of a StructValue should use the block's template
+        """
+        block = SectionBlock()
+        value = block.to_python({'title': 'Hello', 'body': '<i>italic</i> world'})
+        result = str(value)
+        self.assertEqual(result, """<h1>Hello</h1><div class="rich-text"><i>italic</i> world</div>""")
+
+        # value.render_as_block() should be equivalent to str(value)
+        result = value.render_as_block()
+        self.assertEqual(result, """<h1>Hello</h1><div class="rich-text"><i>italic</i> world</div>""")
+
+    def test_render_structvalue_with_extra_context(self):
+        block = SectionBlock()
+        value = block.to_python({'title': 'Bonjour', 'body': 'monde <i>italique</i>'})
+        result = value.render_as_block(context={'language': 'fr'})
+        self.assertEqual(result, """<h1 lang="fr">Bonjour</h1><div class="rich-text">monde <i>italique</i></div>""")
+
 
 class TestListBlock(unittest.TestCase):
     def test_initialise_with_class(self):
@@ -1484,6 +1509,11 @@ class TestStreamBlock(SimpleTestCase):
         html = block.render(value)
         self.assertIn('<div class="block-heading"><h1>Hello</h1></div>', html)
 
+        # calling render_as_block() on value (a StreamValue instance)
+        # should be equivalent to block.render(value)
+        html = value.render_as_block()
+        self.assertIn('<div class="block-heading"><h1>Hello</h1></div>', html)
+
     def test_render_passes_context_to_children(self):
         block = blocks.StreamBlock([
             ('heading', blocks.CharBlock(template='tests/blocks/heading_block.html')),
@@ -1493,6 +1523,13 @@ class TestStreamBlock(SimpleTestCase):
             {'type': 'heading', 'value': 'Bonjour'}
         ])
         html = block.render(value, context={
+            'language': 'fr',
+        })
+        self.assertIn('<div class="block-heading"><h1 lang="fr">Bonjour</h1></div>', html)
+
+        # calling render_as_block(context=foo) on value (a StreamValue instance)
+        # should be equivalent to block.render(value, context=foo)
+        html = value.render_as_block(context={
             'language': 'fr',
         })
         self.assertIn('<div class="block-heading"><h1 lang="fr">Bonjour</h1></div>', html)
@@ -1513,7 +1550,12 @@ class TestStreamBlock(SimpleTestCase):
         self.assertEqual('<h1>Hello</h1>', html)
 
         # StreamChild.__str__ should do the same
-        self.assertEqual('<h1>Hello</h1>', str(value[0]))
+        html = str(value[0])
+        self.assertEqual('<h1>Hello</h1>', html)
+
+        # and so should StreamChild.render_as_block
+        html = value[0].render_as_block()
+        self.assertEqual('<h1>Hello</h1>', html)
 
     def test_can_pass_context_to_stream_child_template(self):
         block = blocks.StreamBlock([
@@ -1524,6 +1566,10 @@ class TestStreamBlock(SimpleTestCase):
             {'type': 'heading', 'value': 'Bonjour'}
         ])
         html = value[0].render(context={'language': 'fr'})
+        self.assertEqual('<h1 lang="fr">Bonjour</h1>', html)
+
+        # the same functionality should be available through the alias `render_as_block`
+        html = value[0].render_as_block(context={'language': 'fr'})
         self.assertEqual('<h1 lang="fr">Bonjour</h1>', html)
 
     def render_form(self):

@@ -186,6 +186,9 @@ class StructValue(collections.OrderedDict):
     def __str__(self):
         return self.block.render(self)
 
+    def render_as_block(self, context=None):
+        return self.block.render(self, context=context)
+
     @cached_property
     def bound_blocks(self):
         return collections.OrderedDict([
