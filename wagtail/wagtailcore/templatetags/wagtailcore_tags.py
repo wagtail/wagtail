@@ -1,6 +1,7 @@
 from __future__ import absolute_import, unicode_literals
 
 from django import template
+from django.utils.encoding import force_text
 from django.utils.safestring import mark_safe
 
 from wagtail.wagtailcore import __version__
@@ -46,3 +47,15 @@ def richtext(value):
         html = expand_db_html(value)
 
     return mark_safe('<div class="rich-text">' + html + '</div>')
+
+
+@register.simple_tag(takes_context=True)
+def include_block(context, value):
+    """
+    Render the passed item of StreamField content, passing the current template context
+    if there's an identifiable way of doing so (i.e. if it has a `render_as_block` method).
+    """
+    if hasattr(value, 'render_as_block'):
+        return value.render_as_block(context=context.flatten())
+    else:
+        return force_text(value)
