@@ -74,22 +74,28 @@ class TableBlock(FieldBlock):
     def is_html_renderer(self):
         return self.table_options['renderer'] == 'html'
 
-    def render(self, value):
+    def render(self, value, context=None):
         template = getattr(self.meta, 'template', None)
         if template and value:
             table_header = value['data'][0] if value.get('data', None) and len(value['data']) > 0 and value.get('first_row_is_table_header', False) else None
             first_col_is_header = value.get('first_col_is_header', False)
-            context = {
+
+            if context is None:
+                new_context = {}
+            else:
+                new_context = dict(context)
+
+            new_context.update({
                 'self': value,
                 self.TEMPLATE_VAR: value,
                 'table_header': table_header,
                 'first_col_is_header': first_col_is_header,
                 'html_renderer': self.is_html_renderer(),
                 'data': value['data'][1:] if table_header else value.get('data', [])
-            }
-            return render_to_string(template, context)
+            })
+            return render_to_string(template, new_context)
         else:
-            return self.render_basic(value)
+            return self.render_basic(value, context=context)
 
     @property
     def media(self):
