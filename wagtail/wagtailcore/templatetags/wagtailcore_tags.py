@@ -51,9 +51,10 @@ def richtext(value):
 
 
 class IncludeBlockNode(template.Node):
-    def __init__(self, block_var, extra_context):
+    def __init__(self, block_var, extra_context, use_parent_context):
         self.block_var = block_var
         self.extra_context = extra_context
+        self.use_parent_context = use_parent_context
 
     def render(self, context):
         try:
@@ -62,7 +63,10 @@ class IncludeBlockNode(template.Node):
             return ''
 
         if hasattr(value, 'render_as_block'):
-            new_context = context.flatten()
+            if self.use_parent_context:
+                new_context = context.flatten()
+            else:
+                new_context = {}
 
             if self.extra_context:
                 for var_name, var_value in self.extra_context.items():
@@ -95,7 +99,12 @@ def include_block(parser, token):
     else:
         extra_context = None
 
+    use_parent_context = True
+    if tokens and tokens[0] == 'only':
+        tokens.pop(0)
+        use_parent_context = False
+
     if tokens:
         raise template.TemplateSyntaxError("Unexpected argument to %r tag: %r" % (tag_name, tokens[0]))
 
-    return IncludeBlockNode(block_var, extra_context)
+    return IncludeBlockNode(block_var, extra_context, use_parent_context)

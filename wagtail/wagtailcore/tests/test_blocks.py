@@ -2196,3 +2196,17 @@ class TestIncludeBlockTag(TestCase):
             'language': 'fr',
         })
         self.assertIn('<body><h1 lang="fr" class="important">bonjour</h1></body>', result)
+
+    def test_include_block_tag_with_only_flag(self):
+        """
+        A tag such as {% include_block foo with classname="bar" only %}
+        should not inherit the parent context
+        """
+        block = blocks.CharBlock(template='tests/blocks/heading_block.html')
+        bound_block = block.bind('bonjour')
+
+        result = render_to_string('tests/blocks/include_block_only_test.html', {
+            'test_block': bound_block,
+            'language': 'fr',
+        })
+        self.assertIn('<body><h1 class="important">bonjour</h1></body>', result)
