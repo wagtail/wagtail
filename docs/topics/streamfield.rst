@@ -391,20 +391,24 @@ Since ``StreamField`` accepts an instance of ``StreamBlock`` as a parameter, in 
 Template rendering
 ------------------
 
-The simplest way to render the contents of a StreamField into your template is to output it as a variable, like any other field:
+StreamField provides an HTML representation for the stream content as a whole, as well as for each individual block. To include this HTML into your page, use the ``{% include_block %}`` tag:
 
 .. code-block:: html+django
 
-    {{ page.body }}
+    {% load wagtailcore_tags %}
+
+    {% include_block page.body %}
 
 
-This will render each block of the stream in turn, wrapped in a ``<div class="block-my_block_name">`` element (where ``my_block_name`` is the block name given in the StreamField definition). If you wish to provide your own HTML markup, you can instead iterate over the field's value to access each block in turn:
+In the default rendering, each block of the stream is wrapped in a ``<div class="block-my_block_name">`` element (where ``my_block_name`` is the block name given in the StreamField definition). If you wish to provide your own HTML markup, you can instead iterate over the field's value, and invoke ``{% include_block %}`` on each block in turn:
 
 .. code-block:: html+django
+
+    {% load wagtailcore_tags %}
 
     <article>
         {% for block in page.body %}
-            <section>{{ block }}</section>
+            <section>{% include_block block %}</section>
         {% endfor %}
     </article>
 
@@ -413,22 +417,22 @@ For more control over the rendering of specific block types, each block object p
 
 .. code-block:: html+django
 
+    {% load wagtailcore_tags %}
+
     <article>
         {% for block in page.body %}
             {% if block.block_type == 'heading' %}
                 <h1>{{ block.value }}</h1>
             {% else %}
                 <section class="block-{{ block.block_type }}">
-                    {{ block }}
+                    {% include_block block %}
                 </section>
             {% endif %}
         {% endfor %}
     </article>
 
 
-Each block type provides its own front-end HTML rendering mechanism, and this is used for the output of ``{{ block }}``. For most simple block types, such as CharBlock, this will simply output the field's value, but others will provide their own HTML markup. For example, a ListBlock will output the list of child blocks as a ``<ul>`` element (with each child wrapped in an ``<li>`` element and rendered using the child block's own HTML rendering).
-
-To override this with your own custom HTML rendering, you can pass a ``template`` argument to the block, giving the filename of a template file to be rendered. This is particularly useful for custom block types derived from StructBlock, as the default StructBlock rendering is simple and somewhat generic:
+By default, each block is rendered using simple, minimal HTML markup, or no markup at all. For example, a CharBlock value is rendered as plain text, while a ListBlock outputs its child blocks in a `<ul>` wrapper. To override this with your own custom HTML rendering, you can pass a ``template`` argument to the block, giving the filename of a template file to be rendered. This is particularly useful for custom block types derived from StructBlock:
 
 .. code-block:: python
 
@@ -471,10 +475,82 @@ Within the template, the block value is accessible as the variable ``value``:
         {{ value.biography }}
     </div>
 
+Since ``first_name``, ``surname``, ``photo`` and ``biography`` are defined as blocks in their own right, this could also be written as:
+
+.. code-block:: html+django
+
+    {% load wagtailcore_tags wagtailimages_tags %}
+
+    <div class="person">
+        {% image value.photo width-400 %}
+        <h2>{% include_block value.first_name %} {% include_block value.surname %}</h2>
+        {% include_block value.biography %}
+    </div>
+
+Writing ``{{ my_block }}`` is roughly equivalent to ``{% include_block my_block %}``, but the short form is more restrictive, as it does not pass variables from the calling template such as ``request`` or ``page``; for this reason, it is recommended that you only use it for simple values that do not render HTML of their own. For example, if our PersonBlock used the template:
+
+.. code-block:: html+django
+
+    {% load wagtailimages_tags %}
+
+    <div class="person">
+        {% image value.photo width-400 %}
+        <h2>{{ value.first_name }} {{ value.surname }}</h2>
+
+        {% if request.user.is_authenticated %}
+            <a href="#">Contact this person</a>
+        {% endif %}
+
+        {{ value.biography }}
+    </div>
+
+then the ``request.user.is_authenticated`` test would not work correctly when rendering the block through a ``{{ ... }}`` tag:
+
+.. code-block:: html+django
+
+    {# Incorrect: #}
+
+    {% for block in page.body %}
+        {% if block.block_type == 'person' %}
+            <div>
+                {{ block }}
+            </div>
+        {% endif %}
+    {% endfor %}
+
+    {# Correct: #}
+
+    {% for block in page.body %}
+        {% if block.block_type == 'person' %}
+            <div>
+                {% include_block block %}
+            </div>
+        {% endif %}
+    {% endfor %}
+
+Like Django's ``{% include %}`` tag, ``{% include_block %}`` also allows passing additional variables to the included template, through the syntax ``{% include_block my_block with foo="bar" %}``:
+
+.. code-block:: html+django
+
+    {# In page template: #}
+
+    {% for block in page.body %}
+        {% if block.block_type == 'person' %}
+            {% include_block block with classname="important" %}
+        {% endif %}
+    {% endfor %}
+
+    {# In PersonBlock template: #}
+
+    <div class="{{ classname }}">
+        ...
+    </div>
+
+The syntax ``{% include_block my_block with foo="bar" only %}`` is also supported, to specify that no variables from the parent template other than ``foo`` will be passed to the child template.
 
 .. _streamfield_get_context:
 
-To pass additional context variables to the template, block subclasses can override the ``get_context`` method:
+As well as passing variables from the parent template, block subclasses can pass additional template variables of their own by overriding the ``get_context`` method:
 
 .. code-block:: python
 
