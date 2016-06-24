@@ -2182,3 +2182,17 @@ class TestIncludeBlockTag(TestCase):
             'language': 'fr',
         })
         self.assertIn('<body>999</body>', result)
+
+    def test_include_block_tag_with_extra_context(self):
+        """
+        Test that it's possible to pass extra context on an include_block tag using
+        {% include_block foo with classname="bar" %}
+        """
+        block = blocks.CharBlock(template='tests/blocks/heading_block.html')
+        bound_block = block.bind('bonjour')
+
+        result = render_to_string('tests/blocks/include_block_with_test.html', {
+            'test_block': bound_block,
+            'language': 'fr',
+        })
+        self.assertIn('<body><h1 lang="fr" class="important">bonjour</h1></body>', result)
