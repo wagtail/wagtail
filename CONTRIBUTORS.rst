@@ -149,7 +149,7 @@ Contributors
 * Bertrand Bordage
 * Paul J Stevens
 * kakulukia
-* Raphael Stolz
+* Raphael Stolt
 
 Translators
 ===========
