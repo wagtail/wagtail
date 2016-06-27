@@ -93,12 +93,18 @@ $(function() {
         }
     });
 
+    // Enable toggle to open/close user settings
+    $(document).on('click', '#account', function() {
+        $('#footer').toggleClass('footer-open');
+        $(this).find('em').toggleClass('icon-arrow-down-after icon-arrow-up-after');
+    });
+
     // Resize nav to fit height of window. This is an unimportant bell/whistle to make it look nice
     var fitNav = function() {
         $('.nav-wrapper').css('min-height', $(window).height());
         $('.nav-main').each(function() {
             var thisHeight = $(this).height();
-            var footerHeight = $('.footer', $(this)).height();
+            var footerHeight = $('#footer', $(this)).height();
         });
     };
 

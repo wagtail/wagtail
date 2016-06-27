@@ -104,16 +104,8 @@ $footer-submenu: $submenu-color;
     }
 
     .account {
-        // @include clearfix();
-        //
-        // .avatar {
-        //     display: none;
-        // }
-
         em {
             font-style: normal;
-            // float: left;
-            // width: 100%;
         }
     }
 }
@@ -306,8 +298,15 @@ body.explorer-open {
             bottom: 0;
         }
 
+        .footer-open .footer-submenu {
+            max-height: 127px; // WARNING - magic number - the height of the .footer
+        }
+
         .footer-submenu {
+            @include transition(max-height 0.2s ease);
             background: $footer-submenu;
+            overflow: hidden;
+            max-height: 0;
 
             a {
                 padding: {
@@ -318,40 +317,43 @@ body.explorer-open {
                 &:before {
                     font-size: 1.1em;
                     margin-right: 1.2em;
-                    //margin-right: 2.2em;
                 }
             }
         }
 
         .account {
+            @include clearfix;
             text-transform: uppercase;
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+
+            &:hover {
+                outline: none;
+                background-color: rgba(100, 100, 100, 0.15);
+                color: $color-white;
+                text-shadow: -1px -1px 0 rgba(0, 0, 0, 0.3);
+            }
+
+            .avatar {
+                float: left;
+                margin: 0 1.25em 0 0;
+            }
 
             em {
                 font-weight: 700;
+                width: 120px;
+                overflow: hidden;
+                display: inline-block;
+                float: left;
+
+                &:after {
+                    font-size: 1.5em;
+                    position: absolute;
+                    right: 0.5em;
+                }
             }
         }
-
-        // .account {
-        //     @include clearfix();
-        //     padding-right: 0;
-        //     padding-left: 15px;
-        //
-        //     .avatar {
-        //         display: inline-block;
-        //         padding: 0;
-        //         margin: 0 0.7em 0 0;
-        //         border: 0;
-        //         float: left;
-        //
-        //         &:before {
-        //             text-shadow: none;
-        //         }
-        //     }
-        //
-        //     em {
-        //         width: 120px;
-        //     }
-        // }
 
         a.submenu-trigger:after {
             content: 'n';

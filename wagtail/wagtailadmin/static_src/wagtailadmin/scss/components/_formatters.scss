@@ -33,7 +33,7 @@
         left: 0;
         font-size: 22px;
     }
-   
+
     &.small {
         vertical-align: middle;
         margin: 0 0.5em;
@@ -51,10 +51,14 @@
         }
     }
 
-    &--square {
+    &.square {
         border-radius: 0;
-        
+
         img {
+            border-radius: 0;
+        }
+
+        &:before {
             border-radius: 0;
         }
     }
