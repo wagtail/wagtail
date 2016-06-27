@@ -31,10 +31,13 @@
         <div class="content">
             {# Always show messages div so it can be appended to by JS #}
             <div class="messages">
-                {% if messages %}
+                {% if messages or form.non_field_errors %}
                     <ul>
                         {% for message in messages %}
                             <li class="{% message_tags message %}">{{ message|safe }}</li>
+                        {% endfor %}
+                        {% for error in form.non_field_errors %}
+                            <li class="error">{{ error }}</li>
                         {% endfor %}
                     </ul>
                 {% endif %}

@@ -251,8 +251,13 @@ def create(request, content_type_app_name, content_type_model_name, parent_page_
                     # Ensure the 'next' url is passed through again if present
                     target_url += '?next=%s' % urlquote(next_url)
                 return redirect(target_url)
+
         else:
-            messages.error(request, _("The page could not be created due to validation errors"))
+            if form.non_field_errors:
+                pass
+            else:
+                messages.error(request, _("The page could not be created due to validation errors"))
+
             edit_handler = edit_handler_class(instance=page, form=form)
     else:
         signals.init_new_page.send(sender=create, page=page, parent=parent_page)
@@ -434,6 +439,10 @@ def edit(request, page_id):
         else:
             if page.locked:
                 messages.error(request, _("The page could not be saved as it is locked"))
+
+            elif form.non_field_errors:
+                pass
+
             else:
                 messages.error(request, _("The page could not be saved due to validation errors"))
 
