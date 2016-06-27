@@ -575,7 +575,7 @@ In this example, the variable ``is_happening_today`` will be made available with
 BoundBlocks and values
 ----------------------
 
-As you've seen above, it's possible to assign a particular template for rendering a block. This can be done on any block type (not just StructBlocks), but there are some extra details to be aware of. Consider the following block definition:
+All block types, not just StructBlock, accept a ``template`` parameter to determine how they will be rendered on a page. However, for blocks that handle basic Python data types, such as ``CharBlock`` and ``IntegerBlock``, there are some limitations on where the template will take effect, since those built-in types (``str``, ``int`` and so on) cannot be 'taught' about their template rendering. As an example of this, consider the following block definition:
 
 .. code-block:: python
 
@@ -602,15 +602,21 @@ This gives us a block that behaves as an ordinary text field, but wraps its outp
 
 .. code-block:: html+django
 
+    {% load wagtailcore_tags %}
+
     {% for block in page.body %}
         {% if block.block_type == 'heading' %}
-            {{ block }}  {# This block will output its own <h1>...</h1> tags. #}
+            {% include_block block %}  {# This block will output its own <h1>...</h1> tags. #}
         {% endif %}
     {% endfor %}
 
-This is a powerful feature, but it involves some complexity behind the scenes to make it work. Effectively, HeadingBlock has a double identity - logically it represents a plain Python string value, but in circumstances such as this it needs to yield a 'magic' object that knows its own custom HTML representation. This 'magic' object is an instance of ``BoundBlock`` - an object that represents the pairing of a value and its block definition. (Django developers may recognise this as the same principle behind ``BoundField`` in Django's forms framework.)
+This kind of arrangement - a value that supposedly represents a plain text string, but has its own custom HTML representation when output on a template - would normally be a very messy thing to achieve in Python, but it works here because the items you get when iterating over a StreamField are not actually the 'native' values of the blocks. Instead, each item is returned as an instance of ``BoundBlock`` - an object that represents the pairing of a value and its block definition. By keeping track of the block definition, a ``BoundBlock`` always knows which template to render. To get to the underlying value - in this case, the text content of the heading - you would need to access ``block.value``. Indeed, if you were to output ``{% include_block block.value %}`` on the page, you would find that it renders as plain text, without the ``<h1>`` tags.
 
-Most of the time, you won't need to worry about whether you're dealing with a plain value or a BoundBlock; you can trust Wagtail to do the right thing. However, there are certain cases where the distinction becomes important. For example, consider the following setup:
+(More precisely, the items returned when iterating over a StreamField are instances of a class ``StreamChild``, which provides the ``block_type`` property as well as ``value``.)
+
+Experienced Django developers may find it helpful to compare this to the ``BoundField`` class in Django's forms framework, which represents the pairing of a form field value with its corresponding form field definition, and therefore knows how to render the value as an HTML form field.
+
+Most of the time, you won't need to worry about these internal details; Wagtail will use the template rendering wherever you would expect it to. However, there are certain cases where the illusion isn't quite complete - namely, when accessing children of a ``ListBlock`` or ``StructBlock``. In these cases, there is no ``BoundBlock`` wrapper, and so the item cannot be relied upon to know its own template rendering. For example, consider the following setup, where our ``HeadingBlock`` is a child of a StructBlock:
 
 .. code-block:: python
 
@@ -622,65 +628,40 @@ Most of the time, you won't need to worry about whether you're dealing with a pl
         class Meta:
             template = 'blocks/event.html'
 
-where ``blocks/event.html`` is:
+In ``blocks/event.html``:
 
 .. code-block:: html+django
+
+    {% load wagtailcore_tags %}
 
     <div class="event {% if value.heading == 'Party!' %}lots-of-balloons{% endif %}">
-        {{ value.heading }}
-        - {{ value.description }}
+        {% include_block value.heading %}
+        - {% include_block value.description %}
     </div>
 
-In this case, ``value.heading`` returns the plain string value, because if this weren't the case, the comparison in ``{% if value.heading == 'Party!' %}`` would never succeed. This in turn means that ``{{ value.heading }}`` renders as the plain string, without the ``<h1>`` tags.
-
-Interactions between BoundBlocks and plain values work according to the following rules:
-
-1. When iterating over the value of a StreamField or StreamBlock (as in ``{% for block in page.body %}``), you will get back a sequence of BoundBlocks.
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-This means that ``{{ block }}`` will always render using the block's own template, if one is supplied. More specifically, these ``block`` objects will be instances of StreamChild, which additionally provides the ``block_type`` property.
-
-2. If you have a BoundBlock instance, you can access the plain value as ``block.value``.
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-For example, if you had a particular page template where you wanted HeadingBlock to display as ``<h2>`` rather than ``<h1>``, you could write:
+In this case, ``value.heading`` returns the plain string value rather than a ``BoundBlock``; this is necessary because otherwise the comparison in ``{% if value.heading == 'Party!' %}`` would never succeed. This in turn means that ``{% include_block value.heading %}`` renders as the plain string, without the ``<h1>`` tags. To get the HTML rendering, you need to explicitly access the ``BoundBlock`` instance through ``value.bound_blocks.heading``:
 
 .. code-block:: html+django
 
-    {% for block in page.body %}
-        {% if block.block_type == 'heading' %}
-            <h2>{{ block.value }}</h2>
-        {% endif %}
-    {% endfor %}
-
-3. Accessing a child of a StructBlock (as in ``value.heading``) will return a plain value; to retrieve the BoundBlock instead, use ``value.bound_blocks.heading``.
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-This ensures that template tags such as ``{% if value.heading == 'Party!' %}`` and ``{% image value.photo fill-320x200 %}`` work as expected. The event template above could be rewritten as follows to access the HeadingBlock content as a BoundBlock and use its own HTML representation (with ``<h1>`` tags included):
-
-.. code-block:: html+django
+    {% load wagtailcore_tags %}
 
     <div class="event {% if value.heading == 'Party!' %}lots-of-balloons{% endif %}">
-        {{ value.bound_block.heading }}
-        {{ value.description }}
+        {% include_block value.bound_blocks.heading %}
+        - {% include_block value.description %}
     </div>
 
-However, in this case it's probably more readable to make the ``<h1>`` tag explicit in the EventBlock's template:
+In practice, it would probably be more natural and readable to make the ``<h1>`` tag explicit in the EventBlock's template:
 
 .. code-block:: html+django
+
+    {% load wagtailcore_tags %}
 
     <div class="event {% if value.heading == 'Party!' %}lots-of-balloons{% endif %}">
         <h1>{{ value.heading }}</h1>
-        {{ value.description }}
+        - {% include_block value.description %}
     </div>
 
-4. The value of a ListBlock is a plain Python list; iterating over it returns plain child values.
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-5. StructBlock and StreamBlock values always know how to render their own templates, even if you only have the plain value rather than the BoundBlock.
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-This is possible because the HTML rendering behaviour of these blocks does not interfere with their main role as a container for data - there's no "double identity" as there is for blocks like CharBlock. For example, if a StructBlock is nested in another StructBlock, as in:
+This limitation does not apply to StructBlock and StreamBlock values as children of a StructBlock, because Wagtail implements these as complex objects that know their own template rendering, even when not wrapped in a ``BoundBlock``. For example, if a StructBlock is nested in another StructBlock, as in:
 
 .. code-block:: python
 
@@ -693,7 +674,15 @@ This is possible because the HTML rendering behaviour of these blocks does not i
             ('photo', ImageChooserBlock()),
         ], template='blocks/speaker.html')
 
-then writing ``{{ value.guest_speaker }}`` within the EventBlock's template will use the template rendering from ``blocks/speaker.html`` for that field.
+then ``{% include_block value.guest_speaker %}`` within the EventBlock's template will pick up the template rendering from ``blocks/speaker.html`` as intended.
+
+In summary, interactions between BoundBlocks and plain values work according to the following rules:
+
+1. When iterating over the value of a StreamField or StreamBlock (as in ``{% for block in page.body %}``), you will get back a sequence of BoundBlocks.
+2. If you have a BoundBlock instance, you can access the plain value as ``block.value``.
+3. Accessing a child of a StructBlock (as in ``value.heading``) will return a plain value; to retrieve the BoundBlock instead, use ``value.bound_blocks.heading``.
+4. The value of a ListBlock is a plain Python list; iterating over it returns plain child values.
+5. StructBlock and StreamBlock values always know how to render their own templates, even if you only have the plain value rather than the BoundBlock.
 
 
 .. _custom_editing_interfaces_for_structblock:
