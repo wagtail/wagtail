@@ -302,6 +302,10 @@ class TestDeleteViewWithProtectedRelation(TestCase, WagtailTestUtils):
             response,
             "'J. R. R. Tolkien' is currently referenced by other objects"
         )
+        self.assertContains(
+            response,
+            "<li><b>Book:</b> The Lord of the Rings</li>"
+        )
 
         # Author not deleted
         self.assertTrue(Author.objects.filter(id=1).exists())
