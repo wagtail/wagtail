@@ -14,25 +14,11 @@ matrix:
      python: 2.7
    - env: TOXENV=py33-dj18-postgres-noelasticsearch
      python: 3.3
-   - env: TOXENV=py34-dj18-postgres-noelasticsearch
-     python: 3.4
-   - env: TOXENV=py34-dj18-sqlite-noelasticsearch
-     python: 3.4
-   - env: TOXENV=py34-dj18-mysql-noelasticsearch
-     python: 3.4
    - env: TOXENV=py35-dj18-postgres-noelasticsearch
-     python: 3.5
-   - env: TOXENV=py35-dj18-sqlite-noelasticsearch
-     python: 3.5
-   - env: TOXENV=py35-dj18-mysql-noelasticsearch
      python: 3.5
    - env: TOXENV=py27-dj19-postgres-noelasticsearch
      python: 2.7
    - env: TOXENV=py34-dj19-postgres-noelasticsearch
-     python: 3.4
-   - env: TOXENV=py34-dj19-sqlite-noelasticsearch
-     python: 3.4
-   - env: TOXENV=py34-dj19-mysql-noelasticsearch
      python: 3.4
    - env: TOXENV=py35-dj19-postgres-noelasticsearch
      python: 3.5
@@ -44,9 +30,7 @@ matrix:
      python: 2.7
    - env: TOXENV=py27-dj19-postgres-elasticsearch
      python: 2.7
-   - env: TOXENV=py35-dj18-postgres-elasticsearch
-     python: 3.5
-   - env: TOXENV=py35-dj19-sqlite-elasticsearch
+   - env: TOXENV=py34-dj19-sqlite-elasticsearch
      python: 3.5
    - env: TOXENV=py27-dj110-sqlite-noelasticsearch
      python: 2.7
@@ -54,9 +38,13 @@ matrix:
      python: 2.7
    - env: TOXENV=py27-dj110-mysql-noelasticsearch
      python: 2.7
-   - env: TOXENV=py27-dj110-postgres-elasticsearch
+   - env: TOXENV=py27-dj110-mysql-elasticsearch
      python: 2.7
    - env: TOXENV=py34-dj110-postgres-noelasticsearch
+     python: 3.4
+   - env: TOXENV=py34-dj110-sqlite-noelasticsearch
+     python: 3.4
+   - env: TOXENV=py34-dj110-mysql-noelasticsearch
      python: 3.4
    - env: TOXENV=py35-dj110-sqlite-noelasticsearch
      python: 3.5
@@ -69,16 +57,8 @@ matrix:
   allow_failures:
     - env: TOXENV=py27-dj18-sqlite-elasticsearch
     - env: TOXENV=py27-dj19-postgres-elasticsearch
-    - env: TOXENV=py35-dj18-postgres-elasticsearch
-    - env: TOXENV=py35-dj19-sqlite-elasticsearch
-    - env: TOXENV=py27-dj110-sqlite-noelasticsearch
-    - env: TOXENV=py27-dj110-postgres-noelasticsearch
-    - env: TOXENV=py27-dj110-mysql-noelasticsearch
-    - env: TOXENV=py27-dj110-postgres-elasticsearch
-    - env: TOXENV=py34-dj110-postgres-noelasticsearch
-    - env: TOXENV=py35-dj110-sqlite-noelasticsearch
-    - env: TOXENV=py35-dj110-postgres-noelasticsearch
-    - env: TOXENV=py35-dj110-mysql-noelasticsearch
+    - env: TOXENV=py34-dj19-sqlite-elasticsearch
+    - env: TOXENV=py27-dj110-mysql-elasticsearch
     - env: TOXENV=py35-dj110-postgres-elasticsearch
 
 # Services
