@@ -20,12 +20,12 @@ from wagtail.wagtailusers.views.users import get_user_creation_form, get_user_ed
 
 class CustomUserCreationForm(UserCreationForm):
     country = forms.CharField(required=True, label="Country")
-    document = forms.FileField(required=True, label="Document")
+    attachment = forms.FileField(required=True, label="Attachment")
 
 
 class CustomUserEditForm(UserEditForm):
     country = forms.CharField(required=True, label="Country")
-    document = forms.FileField(required=True, label="Document")
+    attachment = forms.FileField(required=True, label="Attachment")
 
 
 class TestUserFormHelpers(TestCase):
@@ -150,7 +150,7 @@ class TestUserCreateView(TestCase, WagtailTestUtils):
             'password1': "password",
             'password2': "password",
             'country': "testcountry",
-            'document': SimpleUploadedFile('test.txt', b"Uploaded file"),
+            'attachment': SimpleUploadedFile('test.txt', b"Uploaded file"),
         })
 
         # Should redirect back to index
@@ -161,7 +161,7 @@ class TestUserCreateView(TestCase, WagtailTestUtils):
         self.assertEqual(users.count(), 1)
         self.assertEqual(users.first().email, 'test@user.com')
         self.assertEqual(users.first().country, 'testcountry')
-        self.assertEqual(users.first().document.read(), b"Uploaded file")
+        self.assertEqual(users.first().attachment.read(), b"Uploaded file")
 
     def test_create_with_password_mismatch(self):
         response = self.post({
@@ -239,7 +239,7 @@ class TestUserEditView(TestCase, WagtailTestUtils):
             'password1': "password",
             'password2': "password",
             'country': "testcountry",
-            'document': SimpleUploadedFile('test.txt', b"Uploaded file"),
+            'attachment': SimpleUploadedFile('test.txt', b"Uploaded file"),
         })
 
         # Should redirect back to index
@@ -249,7 +249,7 @@ class TestUserEditView(TestCase, WagtailTestUtils):
         user = get_user_model().objects.get(pk=self.test_user.pk)
         self.assertEqual(user.first_name, 'Edited')
         self.assertEqual(user.country, 'testcountry')
-        self.assertEqual(user.document.read(), b"Uploaded file")
+        self.assertEqual(user.attachment.read(), b"Uploaded file")
 
     def test_edit_validation_error(self):
         # Leave "username" field blank. This should give a validation error
