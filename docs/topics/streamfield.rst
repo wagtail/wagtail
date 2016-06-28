@@ -122,7 +122,15 @@ RegexBlock
 
 ``wagtail.wagtailcore.blocks.RegexBlock``
 
-A single-line text input that validates a string against a regex expression. The regular expression used for validation must be supplied as the first argument, or as the keyword argument ``regex``. The message text used to indicate a validation error can be customised using the ``error_message`` keyword argument to pass a custom message. The keyword arguments ``regex``, ``required``, ``max_length``, ``min_length`` and ``error_message`` are accepted.
+A single-line text input that validates a string against a regex expression. The regular expression used for validation must be supplied as the first argument, or as the keyword argument ``regex``. To customise the message text used to indicate a validation error, pass a dictionary as the keyword argument ``error_messages`` containing either or both of the keys ``required`` (for the message shown on an empty value) or ``invalid`` (for the message shown on a non-matching value):
+
+.. code-block:: python
+
+    blocks.RegexBlock(regex=r'^[0-9]{3}$', error_message={
+        'invalid': "Not a valid library card number."
+    })
+
+The keyword arguments ``regex``, ``required``, ``max_length``, ``min_length`` and ``error_messages`` are accepted.
 
 URLBlock
 ~~~~~~~~

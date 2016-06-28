@@ -164,13 +164,13 @@ class DecimalBlock(FieldBlock):
 class RegexBlock(FieldBlock):
 
     def __init__(self, regex, required=True, max_length=None, min_length=None,
-                 error_message=None, *args, **kwargs):
+                 error_messages=None, *args, **kwargs):
         self.field = forms.RegexField(
             regex=regex,
             required=required,
             max_length=max_length,
             min_length=min_length,
-            error_message=error_message,
+            error_messages=error_messages,
         )
         super(RegexBlock, self).__init__(*args, **kwargs)
 

@@ -274,21 +274,40 @@ class TestRegexBlock(TestCase):
     def test_raises_required_error(self):
         block = blocks.RegexBlock(regex=r'^[0-9]{3}$')
 
-        with self.assertRaises(ValidationError):
+        with self.assertRaises(ValidationError) as context:
             block.clean("")
+
+        self.assertIn('This field is required.', context.exception.messages)
+
+    def test_raises_custom_required_error(self):
+        test_message = 'Oops, you missed a bit.'
+        block = blocks.RegexBlock(regex=r'^[0-9]{3}$', error_messages={
+            'required': test_message,
+        })
+
+        with self.assertRaises(ValidationError) as context:
+            block.clean("")
+
+        self.assertIn(test_message, context.exception.messages)
 
     def test_raises_validation_error(self):
         block = blocks.RegexBlock(regex=r'^[0-9]{3}$')
 
-        with self.assertRaises(ValidationError):
+        with self.assertRaises(ValidationError) as context:
             block.clean("[/]")
+
+        self.assertIn('Enter a valid value.', context.exception.messages)
 
     def test_raises_custom_error_message(self):
         test_message = 'Not a valid library card number.'
-        block = blocks.RegexBlock(regex=r'^[0-9]{3}$', error_message=test_message)
+        block = blocks.RegexBlock(regex=r'^[0-9]{3}$', error_messages={
+            'invalid': test_message
+        })
 
-        with self.assertRaises(ValidationError):
+        with self.assertRaises(ValidationError) as context:
             block.clean("[/]")
+
+        self.assertIn(test_message, context.exception.messages)
 
         html = block.render_form(
             "[/]",
