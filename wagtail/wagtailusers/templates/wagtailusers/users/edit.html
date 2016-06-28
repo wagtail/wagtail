@@ -12,7 +12,7 @@
         <li><a href="#roles">{% trans "Roles" %}</a></li>
     </ul>
 
-    <form action="{% url 'wagtailusers_users:edit' user.pk %}" method="POST">
+    <form action="{% url 'wagtailusers_users:edit' user.pk %}" method="POST"{% if form.is_multipart %} enctype="multipart/form-data"{% endif %}>
         <div class="tab-content">
             {% csrf_token %}
 

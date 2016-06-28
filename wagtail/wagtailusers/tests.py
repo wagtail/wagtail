@@ -4,6 +4,7 @@ from django import forms
 from django.contrib.auth import get_user_model
 from django.contrib.auth.models import Group, Permission
 from django.core.exceptions import ImproperlyConfigured
+from django.core.files.uploadedfile import SimpleUploadedFile
 from django.core.urlresolvers import reverse
 from django.test import TestCase, override_settings
 from django.utils import six
@@ -23,10 +24,12 @@ delete_user_perm_codename = "delete_{0}".format(AUTH_USER_MODEL_NAME.lower())
 
 class CustomUserCreationForm(UserCreationForm):
     country = forms.CharField(required=True, label="Country")
+    attachment = forms.FileField(required=True, label="Attachment")
 
 
 class CustomUserEditForm(UserEditForm):
     country = forms.CharField(required=True, label="Country")
+    attachment = forms.FileField(required=True, label="Attachment")
 
 
 class TestUserFormHelpers(TestCase):
@@ -140,7 +143,7 @@ class TestUserCreateView(TestCase, WagtailTestUtils):
 
     @override_settings(
         WAGTAIL_USER_CREATION_FORM='wagtail.wagtailusers.tests.CustomUserCreationForm',
-        WAGTAIL_USER_CUSTOM_FIELDS=['country'],
+        WAGTAIL_USER_CUSTOM_FIELDS=['country', 'document'],
     )
     def test_create_with_custom_form(self):
         response = self.post({
@@ -151,6 +154,7 @@ class TestUserCreateView(TestCase, WagtailTestUtils):
             'password1': "password",
             'password2': "password",
             'country': "testcountry",
+            'attachment': SimpleUploadedFile('test.txt', b"Uploaded file"),
         })
 
         # Should redirect back to index
@@ -161,6 +165,7 @@ class TestUserCreateView(TestCase, WagtailTestUtils):
         self.assertEqual(users.count(), 1)
         self.assertEqual(users.first().email, 'test@user.com')
         self.assertEqual(users.first().country, 'testcountry')
+        self.assertEqual(users.first().attachment.read(), b"Uploaded file")
 
     def test_create_with_password_mismatch(self):
         response = self.post({
@@ -354,6 +359,7 @@ class TestUserEditView(TestCase, WagtailTestUtils):
             'password1': "password",
             'password2': "password",
             'country': "testcountry",
+            'attachment': SimpleUploadedFile('test.txt', b"Uploaded file"),
         })
 
         # Should redirect back to index
@@ -363,6 +369,7 @@ class TestUserEditView(TestCase, WagtailTestUtils):
         user = get_user_model().objects.get(pk=self.test_user.pk)
         self.assertEqual(user.first_name, 'Edited')
         self.assertEqual(user.country, 'testcountry')
+        self.assertEqual(user.attachment.read(), b"Uploaded file")
 
     def test_edit_validation_error(self):
         # Leave "username" field blank. This should give a validation error

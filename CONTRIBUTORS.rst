@@ -159,6 +159,7 @@ Contributors
 * sebworks
 * Sean Muck
 * Fábio Macêdo Mendes
+* Eraldo Energy
 
 Translators
 ===========
