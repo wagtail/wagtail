@@ -13,7 +13,7 @@ class Migration(migrations.Migration):
     operations = [
         migrations.AddField(
             model_name='CustomUser',
-            name='document',
+            name='attachment',
             field=models.FileField(blank=True),
         ),
     ]
