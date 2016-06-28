@@ -120,7 +120,7 @@ def index(request):
 @permission_required(add_user_perm)
 def create(request):
     if request.method == 'POST':
-        form = get_user_creation_form()(request.POST)
+        form = get_user_creation_form()(request.POST, request.FILES)
         if form.is_valid():
             user = form.save()
             messages.success(request, _("User '{0}' created.").format(user), buttons=[
@@ -141,7 +141,7 @@ def create(request):
 def edit(request, user_id):
     user = get_object_or_404(User, pk=user_id)
     if request.method == 'POST':
-        form = get_user_edit_form()(request.POST, instance=user)
+        form = get_user_edit_form()(request.POST, request.FILES, instance=user)
         if form.is_valid():
             user = form.save()
             messages.success(request, _("User '{0}' updated.").format(user), buttons=[
