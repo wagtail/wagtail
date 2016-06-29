@@ -11,7 +11,7 @@
                         <img src="{% gravatar_url request.user.email 25 %}" class="avatar" />
                     </span>
                 {% endif %}
-                <em class="icon icon-arrow-down-after">{{ request.user.first_name|default:request.user.get_username }}</em>
+                <em class="icon icon-arrow-up-after">{{ request.user.first_name|default:request.user.get_username }}</em>
             </div>
 
             <ul class="footer-submenu">

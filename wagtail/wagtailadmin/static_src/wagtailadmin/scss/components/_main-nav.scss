@@ -103,10 +103,21 @@ $footer-submenu: $submenu-color;
         }
     }
 
-    .account {
-        em {
-            font-style: normal;
+    .footer-submenu {
+        a {
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+
+            &:before {
+                margin-right: 0.5em;
+                vertical-align: -10%;
+            }
         }
+    }
+
+    .account {
+        display: none;
     }
 }
 
@@ -308,24 +319,13 @@ body.explorer-open {
             overflow: hidden;
             max-height: 0;
 
-            a {
-                padding: {
-                    right: 1em;
-                    left: 1em;
-                }
 
-                &:before {
-                    font-size: 1.1em;
-                    margin-right: 1.2em;
-                }
-            }
         }
 
         .account {
             @include clearfix;
             text-transform: uppercase;
-            display: flex;
-            align-items: center;
+            display: block;
             cursor: pointer;
 
             &:hover {
@@ -338,13 +338,19 @@ body.explorer-open {
             .avatar {
                 float: left;
                 margin: 0 1.25em 0 0;
+
+                &:before {
+                    color: inherit;
+                    border-color: inherit;
+                }
             }
 
             em {
+                margin-top: 1.2em;
+                font-style: normal;
                 font-weight: 700;
-                width: 120px;
+                width: 110px;
                 overflow: hidden;
-                display: inline-block;
                 float: left;
 
                 &:after {
@@ -356,7 +362,7 @@ body.explorer-open {
         }
 
         a.submenu-trigger:after {
-            content: 'n';
+            content: 'q';
         }
     }
 
