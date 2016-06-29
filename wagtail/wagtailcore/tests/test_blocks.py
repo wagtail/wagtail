@@ -2,9 +2,9 @@
 from __future__ import absolute_import, unicode_literals
 
 import base64
+import collections
 import unittest
 from decimal import Decimal
-import collections
 
 from django import forms
 from django.core.exceptions import ValidationError
@@ -13,7 +13,8 @@ from django.test import SimpleTestCase, TestCase
 from django.utils.html import format_html
 from django.utils.safestring import SafeData, mark_safe
 
-from wagtail.tests.testapp.blocks import SectionBlock, LinkBlock as CustomLinkBlock
+from wagtail.tests.testapp.blocks import LinkBlock as CustomLinkBlock
+from wagtail.tests.testapp.blocks import SectionBlock
 from wagtail.wagtailcore import blocks
 from wagtail.wagtailcore.models import Page
 from wagtail.wagtailcore.rich_text import RichText
