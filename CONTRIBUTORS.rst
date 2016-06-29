@@ -150,8 +150,8 @@ Contributors
 * Paul J Stevens
 * kakulukia
 * Raphael Stolt
-* Eraldo Energy
 * Tim Graham
+* Eraldo Energy
 
 Translators
 ===========
