@@ -337,7 +337,7 @@ body.explorer-open {
 
             .avatar {
                 float: left;
-                margin: 0 1.25em 0 0;
+                margin: 0 0.9em 0 0;
 
                 &:before {
                     color: inherit;
@@ -346,17 +346,21 @@ body.explorer-open {
             }
 
             em {
+                box-sizing: border-box;
+                padding-right: 1.8em;
                 margin-top: 1.2em;
                 font-style: normal;
                 font-weight: 700;
                 width: 110px;
                 overflow: hidden;
+                white-space: nowrap;
+                text-overflow: ellipsis;
                 float: left;
 
                 &:after {
                     font-size: 1.5em;
                     position: absolute;
-                    right: 0.5em;
+                    right: 0.25em;
                 }
             }
         }
