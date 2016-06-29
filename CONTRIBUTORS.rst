@@ -150,6 +150,7 @@ Contributors
 * Paul J Stevens
 * kakulukia
 * Raphael Stolt
+* Tim Graham
 
 Translators
 ===========
