@@ -315,11 +315,9 @@ body.explorer-open {
 
         .footer-submenu {
             @include transition(max-height 0.2s ease);
-            background: $footer-submenu;
+            background-color: $footer-submenu;
             overflow: hidden;
             max-height: 0;
-
-
         }
 
         .account {
@@ -337,7 +335,7 @@ body.explorer-open {
 
             .avatar {
                 float: left;
-                margin: 0 0.9em 0 0;
+                margin-right: 0.9em;
 
                 &:before {
                     color: inherit;
