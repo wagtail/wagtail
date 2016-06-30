@@ -25,6 +25,28 @@ __all__ = ['BaseBlock', 'Block', 'BoundBlock', 'DeclarativeSubBlocksMetaclass', 
 # =========================================
 
 
+@python_2_unicode_compatible
+class BoundBlock(object):
+    def __init__(self, block, value, prefix=None, errors=None):
+        self.block = block
+        self.value = value
+        self.prefix = prefix
+        self.errors = errors
+
+    def render_form(self):
+        return self.block.render_form(self.value, self.prefix, errors=self.errors)
+
+    def render(self):
+        return self.block.render(self.value)
+
+    def id_for_label(self):
+        return self.block.id_for_label(self.prefix)
+
+    def __str__(self):
+        """Render the value according to the block's native rendering"""
+        return self.block.render(self.value)
+
+
 class BaseBlock(type):
     def __new__(mcs, name, bases, attrs):
         meta_class = attrs.pop('Meta', None)
@@ -43,6 +65,7 @@ class BaseBlock(type):
 class Block(six.with_metaclass(BaseBlock, object)):
     name = ''
     creation_counter = 0
+    bound_class = BoundBlock
 
     TEMPLATE_VAR = 'value'
 
@@ -155,7 +178,7 @@ class Block(six.with_metaclass(BaseBlock, object)):
         bound_block.render() rather than blockdef.render(value, prefix) which can't be called from
         within a template.
         """
-        return BoundBlock(self, value, prefix=prefix, errors=errors)
+        return self.bound_class(self, value, prefix=prefix, errors=errors)
 
     def get_default(self):
         """
@@ -374,28 +397,6 @@ class Block(six.with_metaclass(BaseBlock, object)):
     # Block to be explicitly unhashable - Python 3 will do this automatically when defining __eq__,
     # but Python 2 won't, and we'd like the behaviour to be consistent on both.
     __hash__ = None
-
-
-@python_2_unicode_compatible
-class BoundBlock(object):
-    def __init__(self, block, value, prefix=None, errors=None):
-        self.block = block
-        self.value = value
-        self.prefix = prefix
-        self.errors = errors
-
-    def render_form(self):
-        return self.block.render_form(self.value, self.prefix, errors=self.errors)
-
-    def render(self):
-        return self.block.render(self.value)
-
-    def id_for_label(self):
-        return self.block.id_for_label(self.prefix)
-
-    def __str__(self):
-        """Render the value according to the block's native rendering"""
-        return self.block.render(self.value)
 
 
 class DeclarativeSubBlocksMetaclass(BaseBlock):
