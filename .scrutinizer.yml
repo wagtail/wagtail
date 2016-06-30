@@ -1,0 +1,42 @@
+checks:
+    python:
+        duplicate_code: true
+        code_rating: true
+tools:
+    external_code_coverage:
+        timeout: 1200
+        enabled: true
+        runs: 2
+        filter:
+            excluded_paths:
+                - '*/test/*'
+                - '*/south_migrations/*'
+                - '*/migrations/*'
+                - 'wagtail/vendor/*'
+            paths: {  }
+    python_analyzer:
+        enabled: true
+        config:
+            metrics: true
+            duplication_detector:
+                enabled: true
+                min_mass: 25
+        file_extensions:
+            - .py
+        filter:
+            excluded_paths:
+                - '*/test/*'
+                - '*/south_migrations/*'
+                - '*/migrations/*'
+                - 'wagtail/vendor/*'
+            paths: {  }
+filter:
+    excluded_paths:
+        - '*/test/*'
+        - '*/south_migrations/*'
+        - '*/migrations/*'
+        - 'wagtail/vendor/*'
+    paths: {  }
+build_failure_conditions: {  }
+application:
+    type: none

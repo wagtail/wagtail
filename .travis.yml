@@ -67,7 +67,7 @@ services:
 
 # Package installation
 install:
-  - pip install tox coveralls
+  - pip install tox coveralls scrutinizer-ocular
 
 # Pre-test configuration
 before_script:
@@ -80,7 +80,8 @@ script:
   tox
 
 after_success:
-  coveralls
+  - coveralls
+  - ocular
 
 # Who to notify about build results
 notifications:
