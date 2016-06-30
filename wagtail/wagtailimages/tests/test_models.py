@@ -366,6 +366,7 @@ class TestIssue573(TestCase):
         image.get_rendition('fill-800x600')
 
 
+@override_settings(_WAGTAILSEARCH_FORCE_AUTO_UPDATE=['elasticsearch'])
 class TestIssue613(TestCase, WagtailTestUtils):
     def get_elasticsearch_backend(self):
         from django.conf import settings
