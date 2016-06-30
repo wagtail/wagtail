@@ -1,6 +1,6 @@
 $selected-highlight: darken($color-grey-1, 10%);
 $submenu-color: darken($color-grey-1, 5%);
-$footer: $selected-highlight;
+$footer-account: $selected-highlight;
 $footer-submenu: $submenu-color;
 
 .nav-wrapper {
@@ -303,7 +303,6 @@ body.explorer-open {
         margin-bottom: 127px; // WARNING - magic number - the height of the .footer
 
         .footer {
-            background: $footer;
             position: fixed;
             width: $menu-width;
             bottom: 0;
@@ -322,6 +321,7 @@ body.explorer-open {
 
         .account {
             @include clearfix;
+            background: $footer-account;
             text-transform: uppercase;
             display: block;
             cursor: pointer;
