@@ -63,6 +63,11 @@ function enableDirtyFormCheck(formSelector, options) {
     var confirmationMessage = options.confirmationMessage || ' ';
     var alwaysDirty = options.alwaysDirty || false;
     var initialData = $form.serialize();
+    var formSubmitted = false;
+
+    $($form).submit(function() {
+        formSubmitted = true;
+    });
 
     window.addEventListener('beforeunload', function(event) {
         // Ignore if the user clicked on an ignored element
@@ -75,7 +80,10 @@ function enableDirtyFormCheck(formSelector, options) {
             }
         });
 
-        if (dirtyFormCheckIsActive && !triggeredByIgnoredButton && (alwaysDirty || $form.serialize() != initialData)) {
+        var displayConfirmation = dirtyFormCheckIsActive && !formSubmitted && !triggeredByIgnoredButton
+            && (alwaysDirty || $form.serialize() != initialData);
+
+        if (displayConfirmation) {
             event.returnValue = confirmationMessage;
             return confirmationMessage;
         }
