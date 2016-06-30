@@ -20,6 +20,21 @@ You need to create a ``templates/wagtailadmin/`` folder within one of your apps 
       
         # ...
     )
+    
+    # For Django 1.9+ you must also add overextends to the builtins key of your TEMPLATES setting:
+    TEMPLATES = [
+        {
+            'BACKEND': 'django.template.backends.django.DjangoTemplates',
+            'APP_DIRS': True,
+            'OPTIONS': {
+                # ...
+                'builtins': ['overextends.templatetags.overextends_tags'],
+            }
+        },
+    ]
+
+
+
 
 The template blocks that are available to be overridden are as follows:
 
