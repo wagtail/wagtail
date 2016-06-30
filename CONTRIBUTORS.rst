@@ -151,6 +151,7 @@ Contributors
 * kakulukia
 * Raphael Stolt
 * Tim Graham
+* Thibaud Colas
 
 Translators
 ===========
