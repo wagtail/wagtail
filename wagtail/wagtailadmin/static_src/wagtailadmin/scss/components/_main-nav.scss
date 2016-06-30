@@ -105,11 +105,13 @@ $footer-submenu: $submenu-color;
 
     .footer-submenu {
         a {
+            border-left: 3px solid transparent;
             overflow: hidden;
             text-overflow: ellipsis;
             white-space: nowrap;
 
             &:before {
+                font-size: 1rem;
                 margin-right: 0.5em;
                 vertical-align: -10%;
             }
