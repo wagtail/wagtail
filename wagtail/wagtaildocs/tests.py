@@ -921,6 +921,7 @@ class TestGetUsage(TestCase, WagtailTestUtils):
         self.assertRegex(response.content, b'<tbody>(\s|\n)*</tbody>')
 
 
+@override_settings(_WAGTAILSEARCH_FORCE_AUTO_UPDATE=['elasticsearch'])
 class TestIssue613(TestCase, WagtailTestUtils):
     def get_elasticsearch_backend(self):
         from django.conf import settings
