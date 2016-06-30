@@ -8,7 +8,7 @@
             <div class="account" id="account" title="{% trans 'Edit your account' %}">
                 {% if request.user.email %}
                     <span class="avatar square avatar-on-dark icon icon-user">
-                        <img src="{% gravatar_url request.user.email 25 %}" class="avatar" />
+                        <img src="{% gravatar_url request.user.email 25 %}" />
                     </span>
                 {% endif %}
                 <em class="icon icon-arrow-up-after">{{ request.user.first_name|default:request.user.get_username }}</em>
