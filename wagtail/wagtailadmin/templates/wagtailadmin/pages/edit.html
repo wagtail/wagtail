@@ -117,7 +117,7 @@
                 {
                     confirmationMessage: '{{ confirmation_message|escapejs }}',
 
-                    {% if form.errors %}
+                    {% if has_unsaved_changes %}
                         alwaysDirty: true,
                     {% endif %}
                 }
