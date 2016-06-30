@@ -555,6 +555,9 @@ class TestPageCreation(TestCase, WagtailTestUtils):
         self.assertFormError(response, 'form', 'go_live_at', "Go live date/time must be before expiry date/time")
         self.assertFormError(response, 'form', 'expire_at', "Go live date/time must be before expiry date/time")
 
+        # form should be marked as having unsaved changes for the purposes of the dirty-forms warning
+        self.assertContains(response, "alwaysDirty: true")
+
     def test_create_simplepage_scheduled_expire_in_the_past(self):
         post_data = {
             'title': "New page!",
@@ -570,6 +573,9 @@ class TestPageCreation(TestCase, WagtailTestUtils):
 
         # Check that a form error was raised
         self.assertFormError(response, 'form', 'expire_at', "Expiry date/time must be in the future")
+
+        # form should be marked as having unsaved changes for the purposes of the dirty-forms warning
+        self.assertContains(response, "alwaysDirty: true")
 
     def test_create_simplepage_post_publish(self):
         # Connect a mock signal handler to page_published signal
@@ -697,6 +703,9 @@ class TestPageCreation(TestCase, WagtailTestUtils):
 
         # Check that a form error was raised
         self.assertFormError(response, 'form', 'slug', "This slug is already in use")
+
+        # form should be marked as having unsaved changes for the purposes of the dirty-forms warning
+        self.assertContains(response, "alwaysDirty: true")
 
     def test_create_nonexistantparent(self):
         response = self.client.get(reverse('wagtailadmin_pages:add', args=('tests', 'simplepage', 100000)))
@@ -1043,6 +1052,9 @@ class TestPageEdit(TestCase, WagtailTestUtils):
         self.assertFormError(response, 'form', 'go_live_at', "Go live date/time must be before expiry date/time")
         self.assertFormError(response, 'form', 'expire_at', "Go live date/time must be before expiry date/time")
 
+        # form should be marked as having unsaved changes for the purposes of the dirty-forms warning
+        self.assertContains(response, "alwaysDirty: true")
+
     def test_edit_scheduled_expire_in_the_past(self):
         post_data = {
             'title': "I've been edited!",
@@ -1056,6 +1068,9 @@ class TestPageEdit(TestCase, WagtailTestUtils):
 
         # Check that a form error was raised
         self.assertFormError(response, 'form', 'expire_at', "Expiry date/time must be in the future")
+
+        # form should be marked as having unsaved changes for the purposes of the dirty-forms warning
+        self.assertContains(response, "alwaysDirty: true")
 
     def test_page_edit_post_publish(self):
         # Connect a mock signal handler to page_published signal
@@ -2848,6 +2863,27 @@ class TestChildRelationsOnSuperclass(TestCase, WagtailTestUtils):
         self.assertEqual(page.advert_placements.count(), 1)
         self.assertEqual(page.advert_placements.first().advert.text, 'test_advert')
 
+    def test_post_create_form_with_validation_error_in_formset(self):
+        post_data = {
+            'title': "New index!",
+            'slug': 'new-index',
+            'advert_placements-TOTAL_FORMS': '1',
+            'advert_placements-INITIAL_FORMS': '0',
+            'advert_placements-MAX_NUM_FORMS': '1000',
+            'advert_placements-0-advert': '1',
+            'advert_placements-0-colour': '',  # should fail as colour is a required field
+            'advert_placements-0-id': '',
+        }
+        response = self.client.post(
+            reverse('wagtailadmin_pages:add', args=('tests', 'standardindex', self.root_page.id)), post_data
+        )
+
+        # Should remain on the edit page with a validation error
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, "This field is required.")
+        # form should be marked as having unsaved changes
+        self.assertContains(response, "alwaysDirty: true")
+
     def test_get_edit_form(self):
         response = self.client.get(reverse('wagtailadmin_pages:edit', args=(self.index_page.id, )))
         self.assertEqual(response.status_code, 200)
@@ -2884,6 +2920,26 @@ class TestChildRelationsOnSuperclass(TestCase, WagtailTestUtils):
         self.assertEqual(page.advert_placements.count(), 2)
         self.assertEqual(page.advert_placements.all()[0].advert.text, 'test_advert')
         self.assertEqual(page.advert_placements.all()[1].advert.text, 'test_advert')
+
+    def test_post_edit_form_with_validation_error_in_formset(self):
+        post_data = {
+            'title': "My lovely index",
+            'slug': 'my-lovely-index',
+            'advert_placements-TOTAL_FORMS': '1',
+            'advert_placements-INITIAL_FORMS': '1',
+            'advert_placements-MAX_NUM_FORMS': '1000',
+            'advert_placements-0-advert': '1',
+            'advert_placements-0-colour': '',
+            'advert_placements-0-id': self.index_page.advert_placements.first().id,
+            'action-publish': "Publish",
+        }
+        response = self.client.post(reverse('wagtailadmin_pages:edit', args=(self.index_page.id, )), post_data)
+
+        # Should remain on the edit page with a validation error
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, "This field is required.")
+        # form should be marked as having unsaved changes
+        self.assertContains(response, "alwaysDirty: true")
 
 
 class TestRevisions(TestCase, WagtailTestUtils):
