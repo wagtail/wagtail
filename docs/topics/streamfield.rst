@@ -198,7 +198,7 @@ ChoiceBlock
 A dropdown select box for choosing from a list of choices. The following keyword arguments are accepted:
 
 ``choices``
-  A list of choices, in any format accepted by Django's ``choices`` parameter for model fields: https://docs.djangoproject.com/en/stable/ref/models/fields/#field-choices
+  A list of choices, in any format accepted by Django's ``choices`` parameter for model fields (https://docs.djangoproject.com/en/stable/ref/models/fields/#field-choices), or a callable returning such a list.
 
 ``required`` (default: True)
   If true, the field cannot be left blank.
@@ -230,7 +230,7 @@ could be rewritten as a subclass of ChoiceBlock:
             icon = 'cup'
 
 
-``StreamField`` definitions can then refer to ``DrinksChoiceBlock()`` in place of the full ``ChoiceBlock`` definition.
+``StreamField`` definitions can then refer to ``DrinksChoiceBlock()`` in place of the full ``ChoiceBlock`` definition. Note that this only works when ``choices`` is a fixed list, not a callable.
 
 PageChooserBlock
 ~~~~~~~~~~~~~~~~
