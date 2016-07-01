@@ -454,6 +454,19 @@ class TestChoiceBlock(unittest.TestCase):
         self.assertIn('<option value="tea">Tea</option>', html)
         self.assertIn('<option value="coffee" selected="selected">Coffee</option>', html)
 
+    def test_render_required_choice_block_with_callable_choices(self):
+        def callable_choices():
+            return [('tea', 'Tea'), ('coffee', 'Coffee')]
+
+        block = blocks.ChoiceBlock(choices=callable_choices)
+        html = block.render_form('coffee', prefix='beverage')
+        self.assertIn('<select id="beverage" name="beverage" placeholder="">', html)
+        # blank option should still be rendered for required fields
+        # (we may want it as an initial value)
+        self.assertIn('<option value="">%s</option>' % self.blank_choice_dash_label, html)
+        self.assertIn('<option value="tea">Tea</option>', html)
+        self.assertIn('<option value="coffee" selected="selected">Coffee</option>', html)
+
     def test_validate_required_choice_block(self):
         block = blocks.ChoiceBlock(choices=[('tea', 'Tea'), ('coffee', 'Coffee')])
         self.assertEqual(block.clean('coffee'), 'coffee')
@@ -475,6 +488,17 @@ class TestChoiceBlock(unittest.TestCase):
         self.assertIn('<option value="tea">Tea</option>', html)
         self.assertIn('<option value="coffee" selected="selected">Coffee</option>', html)
 
+    def test_render_non_required_choice_block_with_callable_choices(self):
+        def callable_choices():
+            return [('tea', 'Tea'), ('coffee', 'Coffee')]
+
+        block = blocks.ChoiceBlock(choices=callable_choices, required=False)
+        html = block.render_form('coffee', prefix='beverage')
+        self.assertIn('<select id="beverage" name="beverage" placeholder="">', html)
+        self.assertIn('<option value="">%s</option>' % self.blank_choice_dash_label, html)
+        self.assertIn('<option value="tea">Tea</option>', html)
+        self.assertIn('<option value="coffee" selected="selected">Coffee</option>', html)
+
     def test_validate_non_required_choice_block(self):
         block = blocks.ChoiceBlock(choices=[('tea', 'Tea'), ('coffee', 'Coffee')], required=False)
         self.assertEqual(block.clean('coffee'), 'coffee')
@@ -488,6 +512,20 @@ class TestChoiceBlock(unittest.TestCase):
     def test_render_choice_block_with_existing_blank_choice(self):
         block = blocks.ChoiceBlock(
             choices=[('tea', 'Tea'), ('coffee', 'Coffee'), ('', 'No thanks')],
+            required=False)
+        html = block.render_form(None, prefix='beverage')
+        self.assertIn('<select id="beverage" name="beverage" placeholder="">', html)
+        self.assertNotIn('<option value="">%s</option>' % self.blank_choice_dash_label, html)
+        self.assertIn('<option value="" selected="selected">No thanks</option>', html)
+        self.assertIn('<option value="tea">Tea</option>', html)
+        self.assertIn('<option value="coffee">Coffee</option>', html)
+
+    def test_render_choice_block_with_existing_blank_choice_and_with_callable_choices(self):
+        def callable_choices():
+            return [('tea', 'Tea'), ('coffee', 'Coffee'), ('', 'No thanks')]
+
+        block = blocks.ChoiceBlock(
+            choices=callable_choices,
             required=False)
         html = block.render_form(None, prefix='beverage')
         self.assertIn('<select id="beverage" name="beverage" placeholder="">', html)
@@ -590,6 +628,17 @@ class TestChoiceBlock(unittest.TestCase):
         self.assertEqual(block.get_searchable_content("choice-1"),
                          ["Choice 1"])
 
+    def test_searchable_content_with_callable_choices(self):
+        def callable_choices():
+            return [
+                ('choice-1', "Choice 1"),
+                ('choice-2', "Choice 2"),
+            ]
+
+        block = blocks.ChoiceBlock(choices=callable_choices)
+        self.assertEqual(block.get_searchable_content("choice-1"),
+                         ["Choice 1"])
+
     def test_optgroup_searchable_content(self):
         block = blocks.ChoiceBlock(choices=[
             ('Section 1', [
@@ -638,6 +687,30 @@ class TestChoiceBlock(unittest.TestCase):
         # lazy translation objects
         result = json.loads(json.dumps(result))
         self.assertEqual(result, ["Section 2", "Block 2"])
+
+    def test_deconstruct_with_callable_choices(self):
+        def callable_choices():
+            return [
+                ('tea', 'Tea'),
+                ('coffee', 'Coffee'),
+            ]
+
+        block = blocks.ChoiceBlock(choices=callable_choices, required=False)
+        html = block.render_form('tea', prefix='beverage')
+        self.assertIn('<select id="beverage" name="beverage" placeholder="">', html)
+        self.assertIn('<option value="tea" selected="selected">Tea</option>', html)
+
+        self.assertEqual(
+            block.deconstruct(),
+            (
+                'wagtail.wagtailcore.blocks.ChoiceBlock',
+                [],
+                {
+                    'choices': callable_choices,
+                    'required': False,
+                },
+            )
+        )
 
 
 class TestRawHTMLBlock(unittest.TestCase):
