@@ -152,6 +152,7 @@ Contributors
 * Raphael Stolt
 * Tim Graham
 * Thibaud Colas
+* Sean Muck
 
 Translators
 ===========
