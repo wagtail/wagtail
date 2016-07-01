@@ -157,6 +157,7 @@ Contributors
 * Aymeric Augustin
 * Adriaan Tijsseling
 * sebworks
+* Sean Muck
 
 Translators
 ===========
