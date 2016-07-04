@@ -621,6 +621,16 @@ class BaseInlinePanel(EditHandler):
             }
         }
 
+    @classmethod
+    def html_declarations(cls):
+        # We need to include html_declarations for StreamFields in the related model
+        declarations = [
+            field.stream_block.all_html_declarations()
+            for field in cls.related.related_model._meta.fields
+            if hasattr(field, 'stream_block')
+        ]
+        return mark_safe('\n'.join(declarations))
+
     def __init__(self, instance=None, form=None):
         super(BaseInlinePanel, self).__init__(instance=instance, form=form)
 
