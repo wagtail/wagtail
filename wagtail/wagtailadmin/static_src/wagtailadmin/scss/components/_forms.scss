@@ -309,6 +309,8 @@ input[type=checkbox]:checked:before {
             text-align: center;
             background-color: rgba(0, 0, 0, 0.2);
             display: block;
+            border-top-left-radius: inherit;
+            border-bottom-left-radius: inherit;
         }
     }
 
