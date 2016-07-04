@@ -25,6 +25,7 @@ Changelog
  * Fix: "Remove link" button in rich text editor didn't trigger "edit" event, leading to the change to sometimes not be persisted (Matt Westcott)
  * Fix: `RichText` values can now be correctly evaluated as booleans (Mike Dingjan, Bertrand Bordage)
  * Fix: wagtailforms no longer assumes an .html extension when determining the landing page template filename (kakulukia)
+ * Fix: Fixed styling glitch on bi-colour icon + text buttons in Chrome (Janneke Janssen)
 
 
 1.5.2 (08.06.2016)
