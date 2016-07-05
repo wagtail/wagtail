@@ -24,6 +24,27 @@ from wagtail.utils.deprecation import RemovedInWagtail18Warning
 __all__ = ['BaseBlock', 'Block', 'BoundBlock', 'DeclarativeSubBlocksMetaclass', 'BlockWidget', 'BlockField']
 
 
+def accepts_context(func):
+    """
+    Helper function used by _render_with_context and _render_basic_with_context. Return true
+    if the callable 'func' accepts a 'context' keyword argument
+    """
+    try:
+        # Python >= 3.3
+        signature = inspect.signature(func)
+    except AttributeError:
+        # Fall back on inspect.getargspec, available on Python 2.7 but deprecated since 3.5
+        argspec = inspect.getargspec(func)
+        return ('context' in argspec.args) or (argspec.keywords is not None)
+
+    # inspect.signature(func) succeeded - proceed to test for a 'context' kwarg
+    try:
+        signature.bind_partial(context=None)
+        return True
+    except TypeError:
+        return False
+
+
 # =========================================
 # Top-level superclasses and helper objects
 # =========================================
@@ -227,9 +248,7 @@ class Block(six.with_metaclass(BaseBlock, object)):
         In Wagtail 1.8, when support for context-less `render` methods is dropped,
         this method will be deleted (and calls to it replaced with a direct call to `render`).
         """
-        argspec = inspect.getargspec(self.render)
-
-        if ('context' in argspec.args) or argspec.keywords is not None:
+        if accepts_context(self.render):
             # this render method can receive a 'context' kwarg, so we're good
             return self.render(value, context=context)
         else:
@@ -280,9 +299,7 @@ class Block(six.with_metaclass(BaseBlock, object)):
         In Wagtail 1.8, when support for context-less `render_basic` methods is dropped,
         this method will be deleted (and calls to it replaced with a direct call to `render_basic`).
         """
-        argspec = inspect.getargspec(self.render_basic)
-
-        if ('context' in argspec.args) or argspec.keywords is not None:
+        if accepts_context(self.render_basic):
             # this render_basic method can receive a 'context' kwarg, so we're good
             return self.render_basic(value, context=context)
         else:
