@@ -210,7 +210,7 @@ class AbstractEmailForm(AbstractForm):
 
     to_address = models.CharField(
         verbose_name=_('to address'), max_length=255, blank=True,
-        help_text=_("Optional - form submissions will be emailed to this address")
+        help_text=_("Optional - form submissions will be emailed to these addresses. Seperate multiple addresses by comma.")
     )
     from_address = models.CharField(verbose_name=_('from address'), max_length=255, blank=True)
     subject = models.CharField(verbose_name=_('subject'), max_length=255, blank=True)
@@ -219,8 +219,9 @@ class AbstractEmailForm(AbstractForm):
         super(AbstractEmailForm, self).process_form_submission(form)
 
         if self.to_address:
+            addresses = [x.strip() for x in self.to_address.split(',')]
             content = '\n'.join([x[1].label + ': ' + text_type(form.data.get(x[0])) for x in form.fields.items()])
-            send_mail(self.subject, content, [self.to_address], self.from_address,)
+            send_mail(self.subject, content, addresses, self.from_address,)
 
     class Meta:
         abstract = True
