@@ -1,6 +1,7 @@
 from __future__ import absolute_import, unicode_literals
 
 import collections
+import inspect
 import warnings
 from importlib import import_module
 
@@ -226,13 +227,13 @@ class Block(six.with_metaclass(BaseBlock, object)):
         In Wagtail 1.8, when support for context-less `render` methods is dropped,
         this method will be deleted (and calls to it replaced with a direct call to `render`).
         """
-        try:
-            return self.render(value, context=context)
-        except TypeError:
-            # retry without the 'context' kwarg
-            result = self.render(value)
+        argspec = inspect.getargspec(self.render)
 
-            # if this is successful, the block needs updating for Wagtail >=1.6 -
+        if ('context' in argspec.args) or argspec.keywords is not None:
+            # this render method can receive a 'context' kwarg, so we're good
+            return self.render(value, context=context)
+        else:
+            # this render method needs updating for Wagtail >=1.6 -
             # output a deprecation warning
 
             # find the specific parent class that defines `render` by stepping through the MRO,
@@ -247,7 +248,9 @@ class Block(six.with_metaclass(BaseBlock, object)):
                 "keyword argument" % class_with_render_method,
                 category=RemovedInWagtail18Warning
             )
-            return result
+
+            # fall back on a call to 'render' without the context kwarg
+            return self.render(value)
 
     def render(self, value, context=None):
         """
@@ -277,13 +280,13 @@ class Block(six.with_metaclass(BaseBlock, object)):
         In Wagtail 1.8, when support for context-less `render_basic` methods is dropped,
         this method will be deleted (and calls to it replaced with a direct call to `render_basic`).
         """
-        try:
-            return self.render_basic(value, context=context)
-        except TypeError:
-            # retry without the 'context' kwarg
-            result = self.render_basic(value)
+        argspec = inspect.getargspec(self.render_basic)
 
-            # if this is successful, the block needs updating for Wagtail >=1.6 -
+        if ('context' in argspec.args) or argspec.keywords is not None:
+            # this render_basic method can receive a 'context' kwarg, so we're good
+            return self.render_basic(value, context=context)
+        else:
+            # this render_basic method needs updating for Wagtail >=1.6 -
             # output a deprecation warning
 
             # find the specific parent class that defines `render_basic` by stepping through the MRO,
@@ -298,7 +301,9 @@ class Block(six.with_metaclass(BaseBlock, object)):
                 "keyword argument" % class_with_render_basic_method,
                 category=RemovedInWagtail18Warning
             )
-            return result
+
+            # fall back on a call to 'render_basic' without the context kwarg
+            return self.render_basic(value)
 
     def render_basic(self, value, context=None):
         """
