@@ -77,7 +77,52 @@ class TestDocumentListing(TestCase):
 
         for document in content['items']:
             self.assertEqual(set(document.keys()), {'id', 'meta', 'title'})
-            self.assertEqual(set(document['meta'].keys()), {'type', 'detail_url', 'download_url'})
+            self.assertEqual(set(document['meta'].keys()), {'type', 'detail_url', 'download_url', 'tags'})
+
+    def test_remove_fields(self):
+        response = self.get_response(fields='-title')
+        content = json.loads(response.content.decode('UTF-8'))
+
+        for document in content['items']:
+            self.assertEqual(set(document.keys()), {'id', 'meta'})
+
+    def test_remove_meta_fields(self):
+        response = self.get_response(fields='-download_url')
+        content = json.loads(response.content.decode('UTF-8'))
+
+        for document in content['items']:
+            self.assertEqual(set(document.keys()), {'id', 'meta', 'title'})
+            self.assertEqual(set(document['meta'].keys()), {'type', 'detail_url', 'tags'})
+
+    def test_remove_all_meta_fields(self):
+        response = self.get_response(fields='-type,-detail_url,-tags,-download_url')
+        content = json.loads(response.content.decode('UTF-8'))
+
+        for document in content['items']:
+            self.assertEqual(set(document.keys()), {'id', 'title'})
+
+    def test_remove_id_field(self):
+        response = self.get_response(fields='-id')
+        content = json.loads(response.content.decode('UTF-8'))
+
+        for document in content['items']:
+            self.assertEqual(set(document.keys()), {'meta', 'title'})
+
+    def test_all_fields(self):
+        response = self.get_response(fields='*')
+        content = json.loads(response.content.decode('UTF-8'))
+
+        for document in content['items']:
+            self.assertEqual(set(document.keys()), {'id', 'meta', 'title'})
+            self.assertEqual(set(document['meta'].keys()), {'type', 'detail_url', 'tags', 'download_url'})
+
+    def test_all_fields_then_remove_something(self):
+        response = self.get_response(fields='*,-title,-download_url')
+        content = json.loads(response.content.decode('UTF-8'))
+
+        for document in content['items']:
+            self.assertEqual(set(document.keys()), {'id', 'meta'})
+            self.assertEqual(set(document['meta'].keys()), {'type', 'detail_url', 'tags'})
 
     def test_fields_tags(self):
         response = self.get_response(fields='tags')
@@ -85,6 +130,13 @@ class TestDocumentListing(TestCase):
 
         for document in content['items']:
             self.assertIsInstance(document['meta']['tags'], list)
+
+    def test_star_in_wrong_position_gives_error(self):
+        response = self.get_response(fields='title,*')
+        content = json.loads(response.content.decode('UTF-8'))
+
+        self.assertEqual(response.status_code, 400)
+        self.assertEqual(content, {'message': "fields error: '*' must be in the first position"})
 
     def test_fields_which_are_not_in_api_fields_gives_error(self):
         response = self.get_response(fields='uploaded_by_user')
@@ -95,6 +147,13 @@ class TestDocumentListing(TestCase):
 
     def test_fields_unknown_field_gives_error(self):
         response = self.get_response(fields='123,title,abc')
+        content = json.loads(response.content.decode('UTF-8'))
+
+        self.assertEqual(response.status_code, 400)
+        self.assertEqual(content, {'message': "unknown fields: 123, abc"})
+
+    def test_fields_remove_unknown_field_gives_error(self):
+        response = self.get_response(fields='-123,-title,-abc')
         content = json.loads(response.content.decode('UTF-8'))
 
         self.assertEqual(response.status_code, 400)
