@@ -142,7 +142,7 @@ def create(request):
 @permission_required(change_user_perm)
 def edit(request, user_id):
     user = get_object_or_404(User, pk=user_id)
-    can_delete = user_can_delete_user(request, user, request.user.has_perm(delete_user_perm))
+    can_delete = user_can_delete_user(request.user, user)
 
     if request.method == 'POST':
         form = get_user_edit_form()(request.POST, instance=user)
@@ -168,7 +168,7 @@ def edit(request, user_id):
 def delete(request, user_id):
     user = get_object_or_404(User, pk=user_id)
 
-    if not user_can_delete_user(request, user, request.user.has_perm(delete_user_perm)):
+    if not user_can_delete_user(request.user, user):
         return permission_denied(request)
 
     if request.method == 'POST':

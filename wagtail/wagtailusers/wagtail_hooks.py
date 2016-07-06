@@ -103,5 +103,5 @@ def register_users_search_area():
 @hooks.register('register_user_listing_buttons')
 def user_listing_buttons(context, user):
     yield UserListingButton(_('Edit'), reverse('wagtailusers_users:edit', args=[user.pk]), attrs={'title': _('Edit this user')}, priority=10)
-    if user_can_delete_user(context.request, user, context.request.user.has_perm(delete_user_perm)):
+    if user_can_delete_user(context.request.user, user):
         yield UserListingButton(_('Delete'), reverse('wagtailusers_users:delete', args=[user.pk]), classes={'no'}, attrs={'title': _('Delete this user')}, priority=20)
