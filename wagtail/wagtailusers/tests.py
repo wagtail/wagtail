@@ -10,11 +10,15 @@ from django.utils import six
 
 from wagtail.tests.utils import WagtailTestUtils
 from wagtail.wagtailcore import hooks
+from wagtail.wagtailcore.compat import AUTH_USER_APP_LABEL, AUTH_USER_MODEL_NAME
 from wagtail.wagtailcore.models import (
     Collection, GroupCollectionPermission, GroupPagePermission, Page)
 from wagtail.wagtailusers.forms import UserCreationForm, UserEditForm
 from wagtail.wagtailusers.models import UserProfile
 from wagtail.wagtailusers.views.users import get_user_creation_form, get_user_edit_form
+
+
+delete_user_perm_codename = "delete_{0}".format(AUTH_USER_MODEL_NAME.lower())
 
 
 class CustomUserCreationForm(UserCreationForm):
@@ -177,6 +181,122 @@ class TestUserCreateView(TestCase, WagtailTestUtils):
         # Check that the user was not created
         users = get_user_model().objects.filter(username='testuser')
         self.assertEqual(users.count(), 0)
+
+
+class TestUserDeleteView(TestCase, WagtailTestUtils):
+    def setUp(self):
+        # create a user that should be visible in the listing
+        self.test_user = get_user_model().objects.create_user(
+            username='testuser',
+            email='testuser@email.com',
+            password='password'
+        )
+        # also create a superuser to delete
+        self.superuser = get_user_model().objects.create_superuser(
+            username='testsuperuser',
+            email='testsuperuser@email.com',
+            password='password'
+        )
+        self.current_user = self.login()
+
+    def get(self, params={}):
+        return self.client.get(reverse('wagtailusers_users:delete', args=(self.test_user.pk,)), params)
+
+    def post(self, post_data={}):
+        return self.client.post(reverse('wagtailusers_users:delete', args=(self.test_user.pk,)), post_data)
+
+    def test_simple(self):
+        response = self.get()
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'wagtailusers/users/confirm_delete.html')
+
+    def test_delete(self):
+        response = self.post()
+
+        # Should redirect back to index
+        self.assertRedirects(response, reverse('wagtailusers_users:index'))
+
+        # Check that the user was deleted
+        users = get_user_model().objects.filter(username='testuser')
+        self.assertEqual(users.count(), 0)
+
+    def test_user_cannot_delete_self(self):
+        response = self.client.get(reverse('wagtailusers_users:delete', args=(self.current_user.pk,)))
+
+        # Should redirect to admin index (permission denied)
+        self.assertRedirects(response, reverse('wagtailadmin_home'))
+        # Check user was not deleted
+        self.assertTrue(get_user_model().objects.filter(pk=self.current_user.pk).exists())
+
+    def test_user_can_delete_other_superuser(self):
+        response = self.client.get(reverse('wagtailusers_users:delete', args=(self.superuser.pk,)))
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'wagtailusers/users/confirm_delete.html')
+
+        response = self.client.post(reverse('wagtailusers_users:delete', args=(self.superuser.pk,)))
+        # Should redirect back to index
+        self.assertRedirects(response, reverse('wagtailusers_users:index'))
+
+        # Check that the user was deleted
+        users = get_user_model().objects.filter(username='testsuperuser')
+        self.assertEqual(users.count(), 0)
+
+
+class TestUserDeleteViewForNonSuperuser(TestCase, WagtailTestUtils):
+    def setUp(self):
+        # create a user that should be visible in the listing
+        self.test_user = get_user_model().objects.create_user(
+            username='testuser',
+            email='testuser@email.com',
+            password='password'
+        )
+        # create a user with delete permission
+        self.deleter_user = get_user_model().objects.create_user(
+            username='deleter',
+            email='deleter@email.com',
+            password='password'
+        )
+        deleters_group = Group.objects.create(name='User deleters')
+        deleters_group.permissions.add(Permission.objects.get(codename='access_admin'))
+        deleters_group.permissions.add(Permission.objects.get(
+            content_type__app_label=AUTH_USER_APP_LABEL, codename=delete_user_perm_codename
+        ))
+        self.deleter_user.groups.add(deleters_group)
+
+        self.superuser = self.create_test_user()
+
+        self.client.login(username='deleter', password='password')
+
+    def test_simple(self):
+        response = self.client.get(reverse('wagtailusers_users:delete', args=(self.test_user.pk,)))
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'wagtailusers/users/confirm_delete.html')
+
+    def test_delete(self):
+        response = self.client.post(reverse('wagtailusers_users:delete', args=(self.test_user.pk,)))
+
+        # Should redirect back to index
+        self.assertRedirects(response, reverse('wagtailusers_users:index'))
+
+        # Check that the user was deleted
+        users = get_user_model().objects.filter(username='testuser')
+        self.assertEqual(users.count(), 0)
+
+    def test_user_cannot_delete_self(self):
+        response = self.client.post(reverse('wagtailusers_users:delete', args=(self.deleter_user.pk,)))
+
+        # Should redirect to admin index (permission denied)
+        self.assertRedirects(response, reverse('wagtailadmin_home'))
+        # Check user was not deleted
+        self.assertTrue(get_user_model().objects.filter(pk=self.deleter_user.pk).exists())
+
+    def test_user_cannot_delete_superuser(self):
+        response = self.client.post(reverse('wagtailusers_users:delete', args=(self.superuser.pk,)))
+
+        # Should redirect to admin index (permission denied)
+        self.assertRedirects(response, reverse('wagtailadmin_home'))
+        # Check user was not deleted
+        self.assertTrue(get_user_model().objects.filter(pk=self.superuser.pk).exists())
 
 
 class TestUserEditView(TestCase, WagtailTestUtils):

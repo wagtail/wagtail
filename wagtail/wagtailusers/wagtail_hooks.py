@@ -3,6 +3,7 @@ from __future__ import absolute_import, unicode_literals
 from django.conf.urls import include, url
 from django.contrib.auth.models import Permission
 from django.core import urlresolvers
+from django.core.urlresolvers import reverse
 from django.db.models import Q
 from django.utils.translation import ugettext_lazy as _
 
@@ -11,6 +12,8 @@ from wagtail.wagtailadmin.search import SearchArea
 from wagtail.wagtailcore import hooks
 from wagtail.wagtailcore.compat import AUTH_USER_APP_LABEL, AUTH_USER_MODEL_NAME
 from wagtail.wagtailusers.urls import groups, users
+from wagtail.wagtailusers.utils import user_can_delete_user
+from wagtail.wagtailusers.widgets import UserListingButton
 
 
 @hooks.register('register_admin_urls')
@@ -95,3 +98,10 @@ def register_users_search_area():
         name='users',
         classnames='icon icon-user',
         order=600)
+
+
+@hooks.register('register_user_listing_buttons')
+def user_listing_buttons(context, user):
+    yield UserListingButton(_('Edit'), reverse('wagtailusers_users:edit', args=[user.pk]), attrs={'title': _('Edit this user')}, priority=10)
+    if user_can_delete_user(context.request.user, user):
+        yield UserListingButton(_('Delete'), reverse('wagtailusers_users:delete', args=[user.pk]), classes={'no'}, attrs={'title': _('Delete this user')}, priority=20)
