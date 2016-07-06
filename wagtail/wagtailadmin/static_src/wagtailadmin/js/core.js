@@ -45,9 +45,6 @@ function initTagField(id, autocompleteUrl) {
  *  - formSelector - A CSS selector to select the form to apply this check to.
  *
  *  - options - An object for passing in options. Possible options are:
- *    - ignoredButtonsSelector - A CSS selector to find buttons to ignore within
- *      the form. If the navigation was triggered by one of these buttons, The
- *      check will be ignored. defaults to: input[type="submit"].
  *    - confirmationMessage - The message to display in the prompt.
  *    - alwaysDirty - When set to true the form will always be considered dirty,
  *      prompting the user even when nothing has been changed.
@@ -57,25 +54,21 @@ var dirtyFormCheckIsActive = true;
 
 function enableDirtyFormCheck(formSelector, options) {
     var $form = $(formSelector);
-    var $ignoredButtons = $form.find(
-        options.ignoredButtonsSelector || 'input[type="submit"],button[type="submit"]'
-    );
     var confirmationMessage = options.confirmationMessage || ' ';
     var alwaysDirty = options.alwaysDirty || false;
     var initialData = $form.serialize();
+    var formSubmitted = false;
+
+    $($form).submit(function() {
+        formSubmitted = true;
+    });
 
     window.addEventListener('beforeunload', function(event) {
-        // Ignore if the user clicked on an ignored element
-        var triggeredByIgnoredButton = false;
-        var $trigger = $(event.explicitOriginalTarget || document.activeElement);
+        var displayConfirmation = (
+            dirtyFormCheckIsActive && !formSubmitted && (alwaysDirty || $form.serialize() != initialData)
+        );
 
-        $ignoredButtons.each(function() {
-            if ($(this).is($trigger)) {
-                triggeredByIgnoredButton = true;
-            }
-        });
-
-        if (dirtyFormCheckIsActive && !triggeredByIgnoredButton && (alwaysDirty || $form.serialize() != initialData)) {
+        if (displayConfirmation) {
             event.returnValue = confirmationMessage;
             return confirmationMessage;
         }
