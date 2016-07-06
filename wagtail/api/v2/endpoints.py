@@ -12,15 +12,12 @@ from rest_framework.response import Response
 from rest_framework.viewsets import GenericViewSet
 
 from wagtail.wagtailcore.models import Page
-from wagtail.wagtaildocs.models import get_document_model
-from wagtail.wagtailimages.models import get_image_model
 
 from .filters import (
     FieldsFilter, OrderingFilter, RestrictedChildOfFilter, RestrictedDescendantOfFilter,
     SearchFilter)
 from .pagination import WagtailPagination
-from .serializers import (
-    BaseSerializer, DocumentSerializer, ImageSerializer, PageSerializer, get_serializer_class)
+from .serializers import BaseSerializer, PageSerializer, get_serializer_class
 from .utils import BadRequestError, filter_page_type, page_models_from_string
 
 
@@ -263,23 +260,3 @@ class PagesAPIEndpoint(BaseAPIEndpoint):
     def get_object(self):
         base = super(PagesAPIEndpoint, self).get_object()
         return base.specific
-
-
-class ImagesAPIEndpoint(BaseAPIEndpoint):
-    base_serializer_class = ImageSerializer
-    filter_backends = [FieldsFilter, OrderingFilter, SearchFilter]
-    extra_body_fields = ['title', 'width', 'height']
-    extra_meta_fields = ['tags']
-    default_fields = ['title', 'tags']
-    name = 'images'
-    model = get_image_model()
-
-
-class DocumentsAPIEndpoint(BaseAPIEndpoint):
-    base_serializer_class = DocumentSerializer
-    filter_backends = [FieldsFilter, OrderingFilter, SearchFilter]
-    extra_body_fields = ['title']
-    extra_meta_fields = ['tags', ]
-    default_fields = ['title', 'tags']
-    name = 'documents'
-    model = get_document_model()
