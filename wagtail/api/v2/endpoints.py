@@ -12,15 +12,12 @@ from rest_framework.response import Response
 from rest_framework.viewsets import GenericViewSet
 
 from wagtail.wagtailcore.models import Page
-from wagtail.wagtaildocs.models import get_document_model
-from wagtail.wagtailimages.models import get_image_model
 
 from .filters import (
     FieldsFilter, OrderingFilter, RestrictedChildOfFilter, RestrictedDescendantOfFilter,
     SearchFilter)
 from .pagination import WagtailPagination
-from .serializers import (
-    BaseSerializer, DocumentSerializer, ImageSerializer, PageSerializer, get_serializer_class)
+from .serializers import BaseSerializer, PageSerializer, get_serializer_class
 from .utils import BadRequestError, filter_page_type, page_models_from_string
 
 
@@ -52,9 +49,10 @@ class BaseAPIEndpoint(GenericViewSet):
         # Required by BrowsableAPIRenderer
         'format',
     ])
-    extra_body_fields = []
-    extra_meta_fields = []
-    default_fields = []
+    body_fields = ['id']
+    meta_fields = ['type', 'detail_url']
+    default_fields = ['id', 'type', 'detail_url']
+    detail_only_fields = []
     name = None  # Set on subclass.
 
     def get_queryset(self):
@@ -87,7 +85,7 @@ class BaseAPIEndpoint(GenericViewSet):
         This returns a list of field names that are allowed to
         be used in the API (excluding the id field)
         """
-        fields = self.extra_body_fields[:]
+        fields = self.body_fields[:]
 
         if hasattr(model, 'api_fields'):
             fields.extend(model.api_fields)
@@ -99,18 +97,40 @@ class BaseAPIEndpoint(GenericViewSet):
         This returns a list of field names that are allowed to
         be used in the meta section in the API (excluding type and detail_url).
         """
-        meta_fields = self.extra_meta_fields[:]
+        meta_fields = self.meta_fields[:]
 
         if hasattr(model, 'api_meta_fields'):
             meta_fields.extend(model.api_meta_fields)
 
         return meta_fields
 
-    def get_available_fields(self, model):
-        return self.get_body_fields(model) + self.get_meta_fields(model)
+    def get_available_fields(self, model, db_fields_only=False):
+        """
+        Returns a list of all the fields that can be used in the API for the
+        specified model class.
+
+        Setting db_fields_only to True will remove all fields that do not have
+        an underlying column in the database (eg, type/detail_url and any custom
+        fields that are callables)
+        """
+        fields = self.get_body_fields(model) + self.get_meta_fields(model)
+
+        if db_fields_only:
+            # Get list of available database fields then remove any fields in our
+            # list that isn't a database field
+            database_fields = set()
+            for field in model._meta.get_fields():
+                database_fields.add(field.name)
+
+                if hasattr(field, 'attname'):
+                    database_fields.add(field.attname)
+
+            fields = [field for field in fields if field in database_fields]
+
+        return fields
 
     def get_default_fields(self, model):
-        return self.default_fields
+        return self.default_fields[:]
 
     def check_query_parameters(self, queryset):
         """
@@ -118,11 +138,12 @@ class BaseAPIEndpoint(GenericViewSet):
         """
         query_parameters = set(self.request.GET.keys())
 
-        # All query paramters must be either a field or an operation
-        allowed_query_parameters = set(self.get_available_fields(queryset.model)).union(self.known_query_parameters).union({'id'})
+        # All query paramters must be either a database field or an operation
+        allowed_query_parameters = set(self.get_available_fields(queryset.model, db_fields_only=True)).union(self.known_query_parameters)
         unknown_parameters = query_parameters - allowed_query_parameters
         if unknown_parameters:
             raise BadRequestError("query parameter is not an operation or a recognised field: %s" % ', '.join(sorted(unknown_parameters)))
+
 
     def get_serializer_class(self):
         request = self.request
@@ -142,6 +163,13 @@ class BaseAPIEndpoint(GenericViewSet):
         all_fields = list(OrderedDict.fromkeys(all_fields))
 
         if self.action == 'listing_view':
+            # Remove detail only fields
+            for field in self.detail_only_fields:
+                try:
+                    all_fields.remove(field)
+                except KeyError:
+                    pass
+
             # Listing views just show the title field and any other allowed field the user specified
             if 'fields' in request.GET:
                 fields = set(request.GET['fields'].split(','))
@@ -163,7 +191,7 @@ class BaseAPIEndpoint(GenericViewSet):
         if isinstance(self, PagesAPIEndpoint) and self.action == 'detail_view':
             fields.insert(2, 'parent')
 
-        return get_serializer_class(model, fields, meta_fields=meta_fields, base=self.base_serializer_class)
+        return get_serializer_class(model, self.get_default_fields(model) + fields, meta_fields=meta_fields, base=self.base_serializer_class)
 
     def get_serializer_context(self):
         """
@@ -214,21 +242,25 @@ class PagesAPIEndpoint(BaseAPIEndpoint):
         'child_of',
         'descendant_of',
     ])
-    extra_body_fields = [
+    body_fields = BaseAPIEndpoint.body_fields + [
         'title',
     ]
-    extra_meta_fields = [
+    meta_fields = BaseAPIEndpoint.meta_fields + [
+        'html_url',
         'slug',
         'show_in_menus',
         'seo_title',
         'search_description',
         'first_published_at',
+        'parent',
     ]
-    default_fields = [
+    default_fields = BaseAPIEndpoint.default_fields + [
         'title',
+        'html_url',
         'slug',
         'first_published_at',
     ]
+    detail_only_fields = ['parent']
     name = 'pages'
     model = Page
 
@@ -263,23 +295,3 @@ class PagesAPIEndpoint(BaseAPIEndpoint):
     def get_object(self):
         base = super(PagesAPIEndpoint, self).get_object()
         return base.specific
-
-
-class ImagesAPIEndpoint(BaseAPIEndpoint):
-    base_serializer_class = ImageSerializer
-    filter_backends = [FieldsFilter, OrderingFilter, SearchFilter]
-    extra_body_fields = ['title', 'width', 'height']
-    extra_meta_fields = ['tags']
-    default_fields = ['title', 'tags']
-    name = 'images'
-    model = get_image_model()
-
-
-class DocumentsAPIEndpoint(BaseAPIEndpoint):
-    base_serializer_class = DocumentSerializer
-    filter_backends = [FieldsFilter, OrderingFilter, SearchFilter]
-    extra_body_fields = ['title']
-    extra_meta_fields = ['tags', ]
-    default_fields = ['title', 'tags']
-    name = 'documents'
-    model = get_document_model()

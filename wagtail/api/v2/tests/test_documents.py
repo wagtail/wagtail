@@ -77,7 +77,7 @@ class TestDocumentListing(TestCase):
 
         for document in content['items']:
             self.assertEqual(set(document.keys()), {'id', 'meta', 'title'})
-            self.assertEqual(set(document['meta'].keys()), {'type', 'detail_url', 'download_url'})
+            self.assertEqual(set(document['meta'].keys()), {'type', 'detail_url', 'download_url', 'tags'})
 
     def test_fields_tags(self):
         response = self.get_response(fields='tags')

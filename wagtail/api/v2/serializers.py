@@ -9,6 +9,8 @@ from rest_framework.fields import Field, SkipField
 from taggit.managers import _TaggableManager
 
 from wagtail.wagtailcore import fields as wagtailcore_fields
+from wagtail.wagtailcore.models import Page
+from wagtail.wagtaildocs.models import AbstractDocument
 
 from .utils import get_full_url, pages_for_site
 
@@ -98,20 +100,6 @@ class PageTypeField(Field):
         return page.specific_class._meta.app_label + '.' + page.specific_class.__name__
 
 
-class DocumentDownloadUrlField(Field):
-    """
-    Serializes the "download_url" field for documents.
-
-    Example:
-    "download_url": "http://api.example.com/documents/1/my_document.pdf"
-    """
-    def get_attribute(self, instance):
-        return instance
-
-    def to_representation(self, document):
-        return get_full_url(self.context['request'], document.url)
-
-
 class RelatedField(relations.RelatedField):
     """
     Serializes related objects (eg, foreign keys).
@@ -127,13 +115,18 @@ class RelatedField(relations.RelatedField):
     }
     """
     def to_representation(self, value):
+        meta_fields = ['type', 'detail_url']
+
+        # TEMPORARY
+        if isinstance(value, Page):
+            meta_fields += ['html_url']
+
+        if isinstance(value, AbstractDocument):
+            meta_fields += ['download_url']
+
         # Construct a serializer for the related object with just the fields we need
         base_meta_serializer_class = get_model_base_serializer_class(self.context, value.__class__)
-        meta_fields = [
-            field for field in base_meta_serializer_class.meta_fields
-            if field in base_meta_serializer_class.default_fields
-        ]
-        meta_serializer_class = get_serializer_class(value.__class__, meta_fields, base=base_meta_serializer_class)
+        meta_serializer_class = get_serializer_class(value.__class__, meta_fields, meta_fields, base=base_meta_serializer_class)
         meta_serializer = meta_serializer_class(context=self.context)
 
         return OrderedDict([
@@ -198,11 +191,11 @@ class ChildRelationField(Field):
     ]
     """
     def __init__(self, *args, **kwargs):
-        self.child_fields = kwargs.pop('child_fields')
+        self.child_fields = list(kwargs.pop('child_fields'))
         super(ChildRelationField, self).__init__(*args, **kwargs)
 
     def to_representation(self, value):
-        serializer_class = get_serializer_class(value.model, self.child_fields)
+        serializer_class = get_serializer_class(value.model, ['id', 'type'] + self.child_fields, ['type'])
         serializer = serializer_class(context=self.context)
 
         return [
@@ -278,17 +271,6 @@ class BaseSerializer(serializers.ModelSerializer):
     type = TypeField(read_only=True)
     detail_url = DetailUrlField(read_only=True)
 
-    default_fields = [
-        'id',
-        'type',
-        'detail_url',
-    ]
-
-    meta_fields = [
-        'type',
-        'detail_url',
-    ]
-
     def to_representation(self, instance):
         data = OrderedDict()
         fields = [field for field in self.fields.values() if not field.write_only]
@@ -347,15 +329,6 @@ class PageSerializer(BaseSerializer):
     html_url = PageHtmlUrlField(read_only=True)
     parent = PageParentField(read_only=True)
 
-    default_fields = BaseSerializer.default_fields + [
-        'html_url',
-    ]
-
-    meta_fields = BaseSerializer.meta_fields + [
-        'html_url',
-        'parent',
-    ]
-
     def build_relational_field(self, field_name, relation_info):
         # Find all relation fields that point to child class and make them use
         # the ChildRelationField class.
@@ -372,28 +345,12 @@ class PageSerializer(BaseSerializer):
         return super(BaseSerializer, self).build_relational_field(field_name, relation_info)
 
 
-class ImageSerializer(BaseSerializer):
-    pass
-
-
-class DocumentSerializer(BaseSerializer):
-    download_url = DocumentDownloadUrlField(read_only=True)
-
-    default_fields = BaseSerializer.default_fields + [
-        'download_url',
-    ]
-
-    meta_fields = BaseSerializer.meta_fields + [
-        'download_url',
-    ]
-
-
-def get_serializer_class(model_, fields_, meta_fields=None, base=BaseSerializer):
+def get_serializer_class(model_, fields_, meta_fields, base=BaseSerializer):
     class Meta:
         model = model_
-        fields = base.default_fields + list(fields_)
+        fields = list(fields_)
 
     return type(str(model_.__name__ + 'Serializer'), (base, ), {
         'Meta': Meta,
-        'meta_fields': base.meta_fields + list(meta_fields or []),
+        'meta_fields': list(meta_fields),
     })
