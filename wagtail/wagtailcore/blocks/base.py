@@ -2,6 +2,7 @@ from __future__ import absolute_import, unicode_literals
 
 import collections
 import inspect
+import sys
 import warnings
 from importlib import import_module
 
@@ -29,20 +30,17 @@ def accepts_context(func):
     Helper function used by _render_with_context and _render_basic_with_context. Return true
     if the callable 'func' accepts a 'context' keyword argument
     """
-    try:
-        # Python >= 3.3
+    if sys.version_info >= (3, 3):
         signature = inspect.signature(func)
-    except AttributeError:
+        try:
+            signature.bind_partial(context=None)
+            return True
+        except TypeError:
+            return False
+    else:
         # Fall back on inspect.getargspec, available on Python 2.7 but deprecated since 3.5
         argspec = inspect.getargspec(func)
         return ('context' in argspec.args) or (argspec.keywords is not None)
-
-    # inspect.signature(func) succeeded - proceed to test for a 'context' kwarg
-    try:
-        signature.bind_partial(context=None)
-        return True
-    except TypeError:
-        return False
 
 
 # =========================================
