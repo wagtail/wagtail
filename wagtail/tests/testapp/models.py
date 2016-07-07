@@ -55,13 +55,15 @@ class LinkFields(models.Model):
         'wagtailcore.Page',
         null=True,
         blank=True,
-        related_name='+'
+        related_name='+',
+        on_delete=models.CASCADE
     )
     link_document = models.ForeignKey(
         'wagtaildocs.Document',
         null=True,
         blank=True,
-        related_name='+'
+        related_name='+',
+        on_delete=models.CASCADE
     )
 
     @property
@@ -158,15 +160,15 @@ FilePage.content_panels = [
 # Event page
 
 class EventPageCarouselItem(Orderable, CarouselItem):
-    page = ParentalKey('tests.EventPage', related_name='carousel_items')
+    page = ParentalKey('tests.EventPage', related_name='carousel_items', on_delete=models.CASCADE)
 
 
 class EventPageRelatedLink(Orderable, RelatedLink):
-    page = ParentalKey('tests.EventPage', related_name='related_links')
+    page = ParentalKey('tests.EventPage', related_name='related_links', on_delete=models.CASCADE)
 
 
 class EventPageSpeaker(Orderable, LinkFields):
-    page = ParentalKey('tests.EventPage', related_name='speakers')
+    page = ParentalKey('tests.EventPage', related_name='speakers', on_delete=models.CASCADE)
     first_name = models.CharField("Name", max_length=255, blank=True)
     last_name = models.CharField("Surname", max_length=255, blank=True)
     image = models.ForeignKey(
@@ -334,7 +336,7 @@ EventIndex.content_panels = [
 
 
 class FormField(AbstractFormField):
-    page = ParentalKey('FormPage', related_name='form_fields')
+    page = ParentalKey('FormPage', related_name='form_fields', on_delete=models.CASCADE)
 
 
 class FormPage(AbstractEmailForm):
@@ -357,7 +359,7 @@ FormPage.content_panels = [
 # FormPage with a non-HTML extension
 
 class JadeFormField(AbstractFormField):
-    page = ParentalKey('JadeFormPage', related_name='form_fields')
+    page = ParentalKey('JadeFormPage', related_name='form_fields', on_delete=models.CASCADE)
 
 
 class JadeFormPage(AbstractEmailForm):
@@ -376,13 +378,13 @@ JadeFormPage.content_panels = [
 
 # Snippets
 class AdvertPlacement(models.Model):
-    page = ParentalKey('wagtailcore.Page', related_name='advert_placements')
-    advert = models.ForeignKey('tests.Advert', related_name='+')
+    page = ParentalKey('wagtailcore.Page', related_name='advert_placements', on_delete=models.CASCADE)
+    advert = models.ForeignKey('tests.Advert', related_name='+', on_delete=models.CASCADE)
     colour = models.CharField(max_length=255)
 
 
 class AdvertTag(TaggedItemBase):
-    content_object = ParentalKey('Advert', related_name='tagged_items')
+    content_object = ParentalKey('Advert', related_name='tagged_items', on_delete=models.CASCADE)
 
 
 @python_2_unicode_compatible
@@ -486,7 +488,7 @@ class BusinessNowherePage(Page):
 
 
 class TaggedPageTag(TaggedItemBase):
-    content_object = ParentalKey('tests.TaggedPage', related_name='tagged_items')
+    content_object = ParentalKey('tests.TaggedPage', related_name='tagged_items', on_delete=models.CASCADE)
 
 
 class TaggedPage(Page):
@@ -507,15 +509,15 @@ class SingletonPage(Page):
 
 
 class PageChooserModel(models.Model):
-    page = models.ForeignKey('wagtailcore.Page', help_text='help text')
+    page = models.ForeignKey('wagtailcore.Page', help_text='help text', on_delete=models.CASCADE)
 
 
 class EventPageChooserModel(models.Model):
-    page = models.ForeignKey('tests.EventPage', help_text='more help text')
+    page = models.ForeignKey('tests.EventPage', help_text='more help text', on_delete=models.CASCADE)
 
 
 class SnippetChooserModel(models.Model):
-    advert = models.ForeignKey(Advert, help_text='help text')
+    advert = models.ForeignKey(Advert, help_text='help text', on_delete=models.CASCADE)
 
     panels = [
         SnippetChooserPanel('advert'),
@@ -596,8 +598,8 @@ class BlogCategory(models.Model):
 
 
 class BlogCategoryBlogPage(models.Model):
-    category = models.ForeignKey(BlogCategory, related_name="+")
-    page = ParentalKey('ManyToManyBlogPage', related_name='categories')
+    category = models.ForeignKey(BlogCategory, related_name="+", on_delete=models.CASCADE)
+    page = ParentalKey('ManyToManyBlogPage', related_name='categories', on_delete=models.CASCADE)
     panels = [
         FieldPanel('category'),
     ]
@@ -621,7 +623,7 @@ class OneToOnePage(Page):
     """
     body = RichTextBlock(blank=True)
     page_ptr = models.OneToOneField(Page, parent_link=True,
-                                    related_name='+')
+                                    related_name='+', on_delete=models.CASCADE)
 
 
 class GenericSnippetPage(Page):
@@ -738,7 +740,7 @@ class CustomRichBlockFieldPage(Page):
 # a page that only contains RichTextField within an InlinePanel,
 # to test that the inline child's form media gets pulled through
 class SectionedRichTextPageSection(Orderable):
-    page = ParentalKey('tests.SectionedRichTextPage', related_name='sections')
+    page = ParentalKey('tests.SectionedRichTextPage', related_name='sections', on_delete=models.CASCADE)
     body = RichTextField()
 
     panels = [

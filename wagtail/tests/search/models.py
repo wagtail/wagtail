@@ -58,7 +58,7 @@ class SearchTest(index.Indexed, models.Model):
 class SearchTestChild(SearchTest):
     subtitle = models.CharField(max_length=255, null=True, blank=True)
     extra_content = models.TextField()
-    page = models.ForeignKey('wagtailcore.Page', null=True, blank=True)
+    page = models.ForeignKey('wagtailcore.Page', null=True, blank=True, on_delete=models.SET_NULL)
 
     search_fields = SearchTest.search_fields + [
         index.SearchField('subtitle', partial_match=True),

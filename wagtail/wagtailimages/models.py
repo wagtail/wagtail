@@ -512,7 +512,7 @@ class AbstractRendition(models.Model):
 
 
 class Rendition(AbstractRendition):
-    image = models.ForeignKey(Image, related_name='renditions')
+    image = models.ForeignKey(Image, related_name='renditions', on_delete=models.CASCADE)
 
     class Meta:
         unique_together = (
