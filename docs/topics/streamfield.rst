@@ -388,6 +388,8 @@ Since ``StreamField`` accepts an instance of ``StreamBlock`` as a parameter, in 
         carousel = StreamField(CarouselBlock())
 
 
+.. _streamfield_template_rendering:
+
 Template rendering
 ------------------
 

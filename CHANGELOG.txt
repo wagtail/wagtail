@@ -5,6 +5,7 @@ Changelog
 ~~~~~~~~~~~~~~~~
 
  * Django 1.10 support
+ * Added the ``include_block`` template tag for improved StreamField template inclusion (Matt Westcott)
  * Page slugs now allow unicode on Django >= 1.9 (Behzad Nategh)
  * Image upload form in image chooser now performs client side validation so that the selected file is not lost in the submission (Jack Paine)
  * oEmbed URL for audioBoom was updated (Janneke Janssen)
@@ -20,7 +21,6 @@ Changelog
  * Added a system check to validate that fields listed in `search_fields` are defined on the model (Josh Schneier)
  * Added formal APIs for customising the display of StructBlock forms within the page editor (Matt Westcott)
  * `wagtailforms.models.AbstractEmailForm` now supports multiple email recipients (Serafeim Papastefanos)
- * Added the ``include_block`` template tag for improved StreamField template inclusion (Matt Westcott)
  * Added ability to delete users through Settings -> Users (Vincent Audebert; thanks also to Ludolf Takens and Tobias Schmidt for alternative implementations)
  * Page previews now pass additional HTTP headers, to simulate the page being viewed by the logged-in user and avoid clashes with middleware (Robert Rollins)
  * Fix: Email templates and document uploader now support custom `STATICFILES_STORAGE` (Jonny Scholes)

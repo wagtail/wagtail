@@ -17,10 +17,21 @@ Django 1.10 support
 Wagtail is now compatible with Django 1.10. Thanks to Mikalai Radchuk and Paul J Stevens for developing this, and to Tim Graham for reviewing and additional Django core assistance.
 
 
+``{% include_block %}`` tag for improved StreamField template inclusion
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+In previous releases, the standard way of rendering the HTML content of a StreamField was through a simple variable template tag, such as ``{{ page.body }}``. This had the drawback that any templates used in the StreamField rendering would not inherit variables from the parent template's context, such as ``page`` and ``request``. To address this, a new template tag ``{% include_block page.body %}`` has been introduced as the new recommended way of outputting Streamfield content - this replicates the behaviour of Django's ``{% include %}`` tag, passing on the full template context by default. For full documentation, see :ref:`streamfield_template_rendering`. This feature was developed by Matt Westcott.
+
+
+Unicode page slugs
+~~~~~~~~~~~~~~~~~~
+
+Page URL slugs can now contain Unicode characters, when using Django 1.9 or above. This feature was developed by Behzad Nategh.
+
+
 Minor features
 ~~~~~~~~~~~~~~
 
- * Page slugs now allow unicode on Django >= 1.9 (Behzad Nategh)
  * Image upload form in image chooser now performs client side validation so that the selected file is not lost in the submission (Jack Paine)
  * oEmbed URL for audioBoom was updated (Janneke Janssen)
  * Remember tree location in page chooser when switching between Internal / External / Email link (Matt Westcott)
@@ -35,7 +46,6 @@ Minor features
  * Added a system check to validate that fields listed in ``search_fields`` are defined on the model (Josh Schneier)
  * Added formal APIs for customising the display of StructBlock forms within the page editor - see :ref:`custom_editing_interfaces_for_structblock` (Matt Westcott)
  * ``wagtailforms.models.AbstractEmailForm`` now supports multiple email recipients (Serafeim Papastefanos)
- * Added the ``include_block`` template tag for improved StreamField template inclusion. See :doc:`/topics/streamfield` for documentation (Matt Westcott)
  * Added ability to delete users through Settings -> Users (Vincent Audebert; thanks also to Ludolf Takens and Tobias Schmidt for alternative implementations)
  * Page previews now pass additional HTTP headers, to simulate the page being viewed by the logged-in user and avoid clashes with middleware (Robert Rollins)
 
