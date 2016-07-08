@@ -25,8 +25,8 @@ Within the ``models.py`` of one of your apps, create a model that extends ``wagt
 .. code-block:: python
 
     from modelcluster.fields import ParentalKey
-    from wagtail.wagtailadmin.edit_handlers import (FieldPanel, InlinePanel,
-        MultiFieldPanel)
+    from wagtail.wagtailadmin.edit_handlers import (FieldPanel, FieldRowPanel,
+        InlinePanel, MultiFieldPanel)
     from wagtail.wagtailcore.fields import RichTextField
     from wagtail.wagtailforms.models import AbstractEmailForm, AbstractFormField
 
@@ -42,10 +42,12 @@ Within the ``models.py`` of one of your apps, create a model that extends ``wagt
             InlinePanel('form_fields', label="Form fields"),
             FieldPanel('thank_you_text', classname="full"),
             MultiFieldPanel([
-                FieldPanel('to_address', classname="full"),
-                FieldPanel('from_address', classname="full"),
-                FieldPanel('subject', classname="full"),
-            ], "Email")
+                FieldRowPanel([
+                    FieldPanel('from_address', classname="col6"),
+                    FieldPanel('to_address', classname="col6"),
+                ]),
+                FieldPanel('subject'),
+            ], "Email"),
         ]
 
 ``AbstractEmailForm`` defines the fields ``to_address``, ``from_address`` and ``subject``, and expects ``form_fields`` to be defined. Any additional fields are treated as ordinary page content - note that ``FormPage`` is responsible for serving both the form page itself and the landing page after submission, so the model definition should include all necessary content fields for both of those views.
