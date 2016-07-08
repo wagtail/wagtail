@@ -4,6 +4,8 @@ Changelog
 1.6 (xx.xx.xxxx) - IN DEVELOPMENT
 ~~~~~~~~~~~~~~~~
 
+ * Django 1.10 support
+ * Added the ``include_block`` template tag for improved StreamField template inclusion (Matt Westcott)
  * Page slugs now allow unicode on Django >= 1.9 (Behzad Nategh)
  * Image upload form in image chooser now performs client side validation so that the selected file is not lost in the submission (Jack Paine)
  * oEmbed URL for audioBoom was updated (Janneke Janssen)
@@ -13,14 +15,24 @@ Changelog
  * The 'choices' field on the form builder no longer has a maximum length (Johannes Spielmann)
  * The wagtailimages.Filter model has been removed, and converted to a Python class instead (Gagaro)
  * Multiple ChooserBlocks inside a StreamField are now prefetched in bulk, for improved performance (Michael van Tellingen, Roel Bruggink, Matt Westcott)
- * Add new EmailBlock and IntegerBlock (Oktay Altay)
  * Added support for 'exclude_from_explorer' attribute on ModelAdmin class (Andy Babic)
+ * Add new EmailBlock and IntegerBlock (Oktay Altay)
+ * Added a new FloatBlock, DecimalBlock and a RegexBlock (Oktay Altay, Andy Babic)
+ * Wagtail version number is now shown on the settings menu (Chris Rogers)
+ * Added a system check to validate that fields listed in `search_fields` are defined on the model (Josh Schneier)
+ * Added formal APIs for customising the display of StructBlock forms within the page editor (Matt Westcott)
+ * `wagtailforms.models.AbstractEmailForm` now supports multiple email recipients (Serafeim Papastefanos)
+ * Added ability to delete users through Settings -> Users (Vincent Audebert; thanks also to Ludolf Takens and Tobias Schmidt for alternative implementations)
+ * Page previews now pass additional HTTP headers, to simulate the page being viewed by the logged-in user and avoid clashes with middleware (Robert Rollins)
+ * Added back buttons to page delete and unpublish confirmation screens (Matt Westcott)
  * Fix: Email templates and document uploader now support custom `STATICFILES_STORAGE` (Jonny Scholes)
  * Fix: Removed alignment options (deprecated in HTML and not rendered by Wagtail) from `TableBlock` context menu (Moritz Pfeiffer)
  * Fix: Fixed incorrect CSS path on ModelAdmin's "choose a parent page" view
  * Fix: Prevent empty redirect by overnormalisation (Franklin Kingma, Ludolf Takens)
  * Fix: "Remove link" button in rich text editor didn't trigger "edit" event, leading to the change to sometimes not be persisted (Matt Westcott)
  * Fix: `RichText` values can now be correctly evaluated as booleans (Mike Dingjan, Bertrand Bordage)
+ * Fix: wagtailforms no longer assumes an .html extension when determining the landing page template filename (kakulukia)
+ * Fix: Fixed styling glitch on bi-colour icon + text buttons in Chrome (Janneke Janssen)
 
 
 1.5.2 (08.06.2016)
