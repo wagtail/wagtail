@@ -27,7 +27,7 @@ class Migration(migrations.Migration):
             fields=[
                 ('id', models.AutoField(primary_key=True, serialize=False, verbose_name='ID', auto_created=True)),
                 ('body', wagtail.wagtailcore.fields.RichTextField()),
-                ('snippet', modelcluster.fields.ParentalKey(to='snippetstests.MultiSectionRichTextSnippet', related_name='sections')),
+                ('snippet', modelcluster.fields.ParentalKey(to='snippetstests.MultiSectionRichTextSnippet', related_name='sections', on_delete=models.CASCADE)),
             ],
         ),
     ]

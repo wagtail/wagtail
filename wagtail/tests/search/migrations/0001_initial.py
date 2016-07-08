@@ -36,7 +36,7 @@ class Migration(migrations.Migration):
                 ('searchtest_ptr', models.OneToOneField(auto_created=True, on_delete=django.db.models.deletion.CASCADE, parent_link=True, primary_key=True, serialize=False, to='searchtests.SearchTest')),
                 ('subtitle', models.CharField(blank=True, max_length=255, null=True)),
                 ('extra_content', models.TextField()),
-                ('page', models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.CASCADE, to='wagtailcore.Page')),
+                ('page', models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.SET_NULL, to='wagtailcore.Page')),
             ],
             bases=('searchtests.searchtest',),
         ),
