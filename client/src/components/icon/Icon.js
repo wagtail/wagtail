@@ -1,7 +1,7 @@
 import React, { PropTypes } from 'react';
 
 const Icon = ({ name, className, title }) => (
-  <span className={`icon icon-${name} ${className}`}>
+  <span className={`icon icon-${name} ${className}`} aria-hidden={!title}>
     {title ? (
         <span aria-role="presentation">
             {title}
@@ -13,10 +13,12 @@ const Icon = ({ name, className, title }) => (
 Icon.propTypes = {
   name: PropTypes.string.isRequired,
   className: PropTypes.string,
+  title: PropTypes.string,
 };
 
 Icon.defaultProps = {
   className: '',
+  title: null,
 };
 
 export default Icon;
