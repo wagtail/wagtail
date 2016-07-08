@@ -48,6 +48,7 @@ Minor features
  * ``wagtailforms.models.AbstractEmailForm`` now supports multiple email recipients (Serafeim Papastefanos)
  * Added ability to delete users through Settings -> Users (Vincent Audebert; thanks also to Ludolf Takens and Tobias Schmidt for alternative implementations)
  * Page previews now pass additional HTTP headers, to simulate the page being viewed by the logged-in user and avoid clashes with middleware (Robert Rollins)
+ * Added back buttons to page delete and unpublish confirmation screens (Matt Westcott)
 
 
 Bug fixes
