@@ -1,13 +1,15 @@
 from __future__ import absolute_import, unicode_literals
 
 from django.template import engines
-from django.test import TestCase
+from django.template.loader import render_to_string
+from django.test import TestCase, override_settings
 
-from wagtail.wagtailcore import __version__
+from wagtail.tests.testapp.blocks import SectionBlock
+from wagtail.wagtailcore import __version__, blocks
 from wagtail.wagtailcore.models import Page, Site
 
 
-class TestCoreJinja(TestCase):
+class TestCoreGlobalsAndFilters(TestCase):
 
     def setUp(self):
         self.engine = engines['jinja2']
@@ -48,3 +50,100 @@ class TestCoreJinja(TestCase):
         self.assertEqual(
             self.render('{{ wagtail_version() }}'),
             __version__)
+
+
+@override_settings(TEMPLATES=[
+    {
+        'BACKEND': 'django.template.backends.jinja2.Jinja2',
+        'APP_DIRS': True,
+        'OPTIONS': {
+            'extensions': [
+                'wagtail.wagtailcore.jinja2tags.core',
+            ],
+        },
+    },
+])
+class TestIncludeBlockTag(TestCase):
+    def test_include_block_tag_with_boundblock(self):
+        """
+        The include_block tag should be able to render a BoundBlock's template
+        while keeping the parent template's context
+        """
+        block = blocks.CharBlock(template='tests/blocks/heading_block.html')
+        bound_block = block.bind('bonjour')
+
+        result = render_to_string('tests/blocks/include_block_test.html', {
+            'test_block': bound_block,
+            'language': 'fr',
+        })
+        self.assertIn('<body><h1 lang="fr">bonjour</h1></body>', result)
+
+    def test_include_block_tag_with_structvalue(self):
+        """
+        The include_block tag should be able to render a StructValue's template
+        while keeping the parent template's context
+        """
+        block = SectionBlock()
+        struct_value = block.to_python({'title': 'Bonjour', 'body': 'monde <i>italique</i>'})
+
+        result = render_to_string('tests/blocks/include_block_test.html', {
+            'test_block': struct_value,
+            'language': 'fr',
+        })
+
+        self.assertIn(
+            """<body><h1 lang="fr">Bonjour</h1><div class="rich-text">monde <i>italique</i></div></body>""",
+            result
+        )
+
+    def test_include_block_tag_with_streamvalue(self):
+        """
+        The include_block tag should be able to render a StreamValue's template
+        while keeping the parent template's context
+        """
+        block = blocks.StreamBlock([
+            ('heading', blocks.CharBlock(template='tests/blocks/heading_block.html')),
+            ('paragraph', blocks.CharBlock()),
+        ], template='tests/blocks/stream_with_language.html')
+
+        stream_value = block.to_python([
+            {'type': 'heading', 'value': 'Bonjour'}
+        ])
+
+        result = render_to_string('tests/blocks/include_block_test.html', {
+            'test_block': stream_value,
+            'language': 'fr',
+        })
+
+        self.assertIn('<div class="heading" lang="fr"><h1 lang="fr">Bonjour</h1></div>', result)
+
+    def test_include_block_tag_with_plain_value(self):
+        """
+        The include_block tag should be able to render a value without a render_as_block method
+        by just rendering it as a string
+        """
+        result = render_to_string('tests/blocks/include_block_test.html', {
+            'test_block': 42,
+        })
+
+        self.assertIn('<body>42</body>', result)
+
+    def test_include_block_tag_with_filtered_value(self):
+        """
+        The block parameter on include_block tag should support complex values including filters,
+        e.g. {% include_block foo|default:123 %}
+        """
+        block = blocks.CharBlock(template='tests/blocks/heading_block.html')
+        bound_block = block.bind('bonjour')
+
+        result = render_to_string('tests/blocks/include_block_test_with_filter.html', {
+            'test_block': bound_block,
+            'language': 'fr',
+        })
+        self.assertIn('<body><h1 lang="fr">bonjour</h1></body>', result)
+
+        result = render_to_string('tests/blocks/include_block_test_with_filter.html', {
+            'test_block': None,
+            'language': 'fr',
+        })
+        self.assertIn('<body>999</body>', result)
