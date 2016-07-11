@@ -53,7 +53,7 @@ class WagtailCoreExtension(Extension):
             else:
                 new_context = {}
 
-            return value.render_as_block(context=new_context)
+            return jinja2.Markup(value.render_as_block(context=new_context))
 
         return jinja2.Markup(value)
 
