@@ -603,6 +603,12 @@ class Page(six.with_metaclass(PageBase, MP_Node, index.Indexed, ClusterableModel
                 SET url_path= CONCAT(%s, substring(url_path, %s))
                 WHERE path LIKE %s AND id <> %s
             """
+        elif connection.vendor in ('mssql', 'microsoft'):
+            update_statement = """
+                UPDATE wagtailcore_page
+                SET url_path= CONCAT(%s, (SUBSTRING(url_path, 0, %s)))
+                WHERE path LIKE %s AND id <> %s
+            """
         else:
             update_statement = """
                 UPDATE wagtailcore_page
