@@ -4,11 +4,20 @@
 
 import sys
 from importlib import import_module
+import warnings
 
 from django.utils import six
 from django.utils.module_loading import import_string
 from django.core.exceptions import ImproperlyConfigured
 from django.conf import settings
+
+from wagtail.utils.deprecation import RemovedInWagtail18Warning
+
+
+RENAMED_BACKENDS = {
+    'wagtail.wagtailsearch.backends.elasticsearch.ElasticSearch': 'wagtail.wagtailsearch.backends.elasticsearch',
+    'wagtail.wagtailsearch.backends.db.DBSearch': 'wagtail.wagtailsearch.backends.db',
+}
 
 
 class InvalidSearchBackendError(ImproperlyConfigured):
@@ -26,12 +35,28 @@ def get_search_backend_config():
     return search_backends
 
 
+def _check_renamed(backend):
+    if backend in RENAMED_BACKENDS:
+        warnings.warn(
+            "The '%s' search backend path has changed to '%s'. Please update "
+            "the WAGTAILSEARCH_BACKENDS setting to use the new path." % (
+                backend,
+                RENAMED_BACKENDS[backend],
+            ),
+            category=RemovedInWagtail18Warning, stacklevel=2
+        )
+
+        backend = RENAMED_BACKENDS[backend]
+
+    return backend
+
+
 def import_backend(dotted_path):
     """
     Theres two formats for the dotted_path.
     One with the backend class (old) and one without (new)
     eg:
-      old: wagtail.wagtailsearch.backends.elasticsearch.ElasticSearch
+      old: wagtail.wagtailsearch.backends.elasticsearch.ElasticsearchSearchBackend
       new: wagtail.wagtailsearch.backends.elasticsearch
 
     If a new style dotted path was specified, this function would
@@ -50,6 +75,7 @@ def import_backend(dotted_path):
 
 
 def get_search_backend(backend='default', **kwargs):
+    backend = _check_renamed(backend)
     search_backends = get_search_backend_config()
 
     # Try to find the backend
@@ -69,6 +95,7 @@ def get_search_backend(backend='default', **kwargs):
         params = conf.copy()
         params.update(kwargs)
         backend = params.pop('BACKEND')
+        backend = _check_renamed(backend)
 
     # Try to import the backend
     try:
