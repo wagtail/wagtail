@@ -40,7 +40,9 @@ class TypeField(Field):
         return instance
 
     def to_representation(self, obj):
-        return type(obj)._meta.app_label + '.' + type(obj).__name__
+        name = type(obj)._meta.app_label + '.' + type(obj).__name__
+        self.context['view'].seen_types[name] = type(obj)
+        return name
 
 
 class DetailUrlField(Field):
@@ -95,7 +97,9 @@ class PageTypeField(Field):
         return instance
 
     def to_representation(self, page):
-        return page.specific_class._meta.app_label + '.' + page.specific_class.__name__
+        name = page.specific_class._meta.app_label + '.' + page.specific_class.__name__
+        self.context['view'].seen_types[name] = page.specific_class
+        return name
 
 
 class RelatedField(relations.RelatedField):

@@ -54,6 +54,15 @@ class BaseAPIEndpoint(GenericViewSet):
     default_fields = []
     name = None  # Set on subclass.
 
+    def __init__(self, *args, **kwargs):
+        super(BaseAPIEndpoint, self).__init__(*args, **kwargs)
+
+        # seen_types is a mapping of type name strings (format: "app_label.ModelName")
+        # to model classes. When an object is serialised in the API, its model
+        # is added to this mapping. This is used by the Admin API which appends a
+        # summary of the used types to the response.
+        self.seen_types = OrderedDict()
+
     def get_queryset(self):
         return self.model.objects.all().order_by('id')
 
@@ -186,6 +195,15 @@ class BaseAPIEndpoint(GenericViewSet):
             url(r'^$', cls.as_view({'get': 'listing_view'}), name='listing'),
             url(r'^(?P<pk>\d+)/$', cls.as_view({'get': 'detail_view'}), name='detail'),
         ]
+
+    @classmethod
+    def get_model_listing_urlpath(cls, model, namespace=''):
+        if namespace:
+            url_name = namespace + ':listing'
+        else:
+            url_name = 'listing'
+
+        return reverse(url_name)
 
     @classmethod
     def get_object_detail_urlpath(cls, model, pk, namespace=''):
