@@ -13,7 +13,9 @@ from wagtail.tests.search import models
 from wagtail.tests.utils import WagtailTestUtils
 from wagtail.wagtailsearch.backends import (
     InvalidSearchBackendError, get_search_backend, get_search_backends)
+from wagtail.wagtailsearch.backends.base import FieldError
 from wagtail.wagtailsearch.backends.db import DBSearch
+
 
 
 class BackendTests(WagtailTestUtils):
@@ -55,12 +57,15 @@ class BackendTests(WagtailTestUtils):
         testc = models.SearchTestChild()
         testc.title = "Hello"
         testc.live = True
+        testc.content = "Hello"
+        testc.subtitle = "Foo"
         testc.save()
         self.backend.add(testc)
         self.testc = testc
 
         testd = models.SearchTestChild()
         testd.title = "World"
+        testd.subtitle = "Foo"
         testd.save()
         self.backend.add(testd)
         self.testd = testd
@@ -78,6 +83,20 @@ class BackendTests(WagtailTestUtils):
 
         results = self.backend.search("World", models.SearchTest)
         self.assertEqual(set(results), {self.testa, self.testd.searchtest_ptr})
+
+    def test_individual_field(self):
+        results = self.backend.search("Hello", models.SearchTest, fields=['content'])
+        self.assertEqual(set(results), {self.testc.searchtest_ptr})
+
+    def test_individual_field_in_child_class(self):
+        results = self.backend.search("Foo", models.SearchTestChild, fields=['subtitle'])
+        self.assertEqual(set(results), {self.testc, self.testd})
+
+    def test_unknown_field_gives_error(self):
+        self.assertRaises(FieldError, self.backend.search, "Hello Bar", models.SearchTestChild, fields=['unknown'])
+
+    def test_child_field_from_parent_gives_error(self):
+        self.assertRaises(FieldError, self.backend.search, "Hello", models.SearchTest, fields=['subtitle'])
 
     def test_operator_or(self):
         # All records that match any term should be returned
