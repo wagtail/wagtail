@@ -48,7 +48,7 @@ This example represents a typical blog post:
         )
 
 
-        # Search index configuraiton
+        # Search index configuration
 
         search_fields = Page.search_fields + [
             index.SearchField('body'),
