@@ -34,6 +34,12 @@ Changelog
  * Fix: Fixed styling glitch on bi-colour icon + text buttons in Chrome (Janneke Janssen)
 
 
+1.5.3 (18.07.2016)
+~~~~~~~~~~~~~~~~~~
+
+ * Fix: Pin html5lib to version 0.999999 to prevent breakage caused by internal API changes (Liam Brenner)
+
+
 1.5.2 (08.06.2016)
 ~~~~~~~~~~~~~~~~~~
 
