@@ -15,6 +15,7 @@ Changelog
  * The 'choices' field on the form builder no longer has a maximum length (Johannes Spielmann)
  * The wagtailimages.Filter model has been removed, and converted to a Python class instead (Gagaro)
  * Multiple ChooserBlocks inside a StreamField are now prefetched in bulk, for improved performance (Michael van Tellingen, Roel Bruggink, Matt Westcott)
+ * Added support for 'exclude_from_explorer' attribute on ModelAdmin class (Andy Babic)
  * Add new EmailBlock and IntegerBlock (Oktay Altay)
  * Added a new FloatBlock, DecimalBlock and a RegexBlock (Oktay Altay, Andy Babic)
  * Wagtail version number is now shown on the settings menu (Chris Rogers)
