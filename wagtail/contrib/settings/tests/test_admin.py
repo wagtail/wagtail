@@ -3,7 +3,7 @@ from __future__ import absolute_import, unicode_literals
 from django.contrib.auth import get_user_model
 from django.contrib.auth.models import Permission
 from django.core.urlresolvers import reverse
-from django.test import TestCase
+from django.test import TestCase, override_settings
 from django.utils.text import capfirst
 
 from wagtail.contrib.settings.registry import SettingMenuItem
@@ -127,6 +127,7 @@ class TestSettingEditView(BaseTestSettingView):
         self.assertEqual(setting.email, 'test@example.com')
 
 
+@override_settings(ALLOWED_HOSTS=['testserver', 'example.com', 'noneoftheabove.example.com'])
 class TestMultiSite(BaseTestSettingView):
     def setUp(self):
         self.default_site = Site.objects.get(is_default_site=True)

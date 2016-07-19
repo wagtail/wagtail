@@ -84,6 +84,7 @@ class TestValidation(TestCase):
         self.assertTrue(Page.objects.filter(id=christmas_page.id).exists())
 
 
+@override_settings(ALLOWED_HOSTS=['localhost', 'events.example.com', 'about.example.com', 'unknown.site.com'])
 class TestSiteRouting(TestCase):
     fixtures = ['test.json']
 
@@ -377,6 +378,7 @@ class TestServeView(TestCase):
         response = self.client.get('/events/tentative-unpublished-event/')
         self.assertEqual(response.status_code, 404)
 
+    @override_settings(ALLOWED_HOSTS=['localhost', 'events.example.com'])
     def test_serve_with_multiple_sites(self):
         events_page = Page.objects.get(url_path='/home/events/')
         Site.objects.create(hostname='events.example.com', root_page=events_page)
@@ -1146,6 +1148,7 @@ class TestIssue2024(TestCase):
         self.assertEqual(event_index.content_type, ContentType.objects.get_for_model(Page))
 
 
+@override_settings(ALLOWED_HOSTS=['localhost'])
 class TestDummyRequest(TestCase):
     fixtures = ['test.json']
 

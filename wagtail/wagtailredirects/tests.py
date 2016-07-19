@@ -1,13 +1,14 @@
 from __future__ import absolute_import, unicode_literals
 
 from django.core.urlresolvers import reverse
-from django.test import TestCase
+from django.test import TestCase, override_settings
 
 from wagtail.tests.utils import WagtailTestUtils
 from wagtail.wagtailcore.models import Page, Site
 from wagtail.wagtailredirects import models
 
 
+@override_settings(ALLOWED_HOSTS=['testserver', 'localhost', 'test.example.com', 'other.example.com'])
 class TestRedirects(TestCase):
     fixtures = ['test.json']
 
