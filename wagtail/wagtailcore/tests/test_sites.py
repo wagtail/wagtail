@@ -2,7 +2,7 @@ from __future__ import absolute_import, unicode_literals
 
 from django.core.exceptions import ValidationError
 from django.http.request import HttpRequest
-from django.test import TestCase
+from django.test import TestCase, override_settings
 
 from wagtail.wagtailcore.models import Page, Site
 
@@ -58,6 +58,7 @@ class TestSiteNameDisplay(TestCase):
         self.assertEqual(site.__str__(), 'example.com:8080 [default]')
 
 
+@override_settings(ALLOWED_HOSTS=['example.com', 'unknown.com'])
 class TestFindSiteForRequest(TestCase):
     def setUp(self):
         self.default_site = Site.objects.get()
