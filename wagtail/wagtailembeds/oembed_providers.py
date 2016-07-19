@@ -34,8 +34,8 @@ OEMBED_ENDPOINTS = {
         "^http://[-\\w]+\\.dailymotion\\.com/.+$"
     ],
     "http://www.flickr.com/services/oembed/": [
-        "^http://[-\\w]+\\.flickr\\.com/photos/.+$",
-        "^http://flic\\.kr\\.com/.+$"
+        "^http(?:s)?://[-\\w]+\\.flickr\\.com/photos/.+$",
+        "^http(?:s)?://flic\\.kr\\.com/.+$"
     ],
     "http://www.hulu.com/api/oembed.{format}": [
         "^http://www\\.hulu\\.com/watch/.+$"
