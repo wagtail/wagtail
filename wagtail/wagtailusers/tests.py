@@ -852,18 +852,6 @@ class TestGroupEditView(TestCase, WagtailTestUtils):
         self.assertRedirects(response, reverse('wagtailusers_groups:index'))
         self.assertEqual(self.test_group.permissions.count(), 2)
 
-    def test_group_form_includes_non_registered_permissions_in_initial_data(self):
-        self.add_non_registered_perm()
-        original_permissions = self.test_group.permissions.all()
-        self.assertEqual(original_permissions.count(), 2)
-
-        response = self.get()
-        # See that the form is set up with the correct initial data
-        self.assertEqual(
-            response.context['form'].initial.get('permissions'),
-            list(original_permissions.values_list('pk', flat=True))
-        )
-
     def test_group_retains_non_registered_permissions_when_editing(self):
         self.add_non_registered_perm()
         original_permissions = list(self.test_group.permissions.all())  # list() to force evaluation
