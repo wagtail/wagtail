@@ -49,6 +49,7 @@ Minor features
  * Added ability to delete users through Settings -> Users (Vincent Audebert; thanks also to Ludolf Takens and Tobias Schmidt for alternative implementations)
  * Page previews now pass additional HTTP headers, to simulate the page being viewed by the logged-in user and avoid clashes with middleware (Robert Rollins)
  * Added back buttons to page delete and unpublish confirmation screens (Matt Westcott)
+ * Recognise Flickr embed URLs using HTTPS (Danielle Madeley)
 
 
 Bug fixes
