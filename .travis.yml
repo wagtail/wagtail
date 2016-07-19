@@ -61,6 +61,18 @@ matrix:
     - env: TOXENV=py27-dj110-mysql-elasticsearch
     - env: TOXENV=py35-dj110-postgres-elasticsearch
 
+    - env: TOXENV=py27-dj110-sqlite-noelasticsearch
+    - env: TOXENV=py27-dj110-postgres-noelasticsearch
+    - env: TOXENV=py27-dj110-mysql-noelasticsearch
+    - env: TOXENV=py27-dj110-mysql-elasticsearch
+    - env: TOXENV=py34-dj110-postgres-noelasticsearch
+    - env: TOXENV=py34-dj110-sqlite-noelasticsearch
+    - env: TOXENV=py34-dj110-mysql-noelasticsearch
+    - env: TOXENV=py35-dj110-sqlite-noelasticsearch
+    - env: TOXENV=py35-dj110-postgres-noelasticsearch
+    - env: TOXENV=py35-dj110-mysql-noelasticsearch
+    - env: TOXENV=py35-dj110-postgres-elasticsearch
+
 # Services
 services:
   - elasticsearch
