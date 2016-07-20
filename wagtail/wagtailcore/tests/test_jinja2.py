@@ -52,6 +52,8 @@ class TestCoreJinja(TestCase):
 
 
 class TestJinjaEscaping(TestCase):
+    fixtures = ['test.json']
+
     def test_block_render_result_is_safe(self):
         """
         Ensure that any results of template rendering in block.render are marked safe
@@ -80,11 +82,11 @@ class TestJinjaEscaping(TestCase):
             ('paragraph', blocks.RichTextBlock(template='tests/jinja2/rich_text.html'))
         ])
         stream_value = stream_block.to_python([
-            {'type': 'paragraph', 'value': '<p>hello world</p>'},
+            {'type': 'paragraph', 'value': '<p>Merry <a linktype="page" id="4">Christmas</a>!</p>'},
         ])
 
         result = render_to_string('tests/jinja2/stream.html', {
             'value': stream_value,
         })
 
-        self.assertIn('<p>hello world</p>', result)
+        self.assertIn('<div class="rich-text"><p>Merry <a href="/events/christmas/">Christmas</a>!</p></div>', result)
