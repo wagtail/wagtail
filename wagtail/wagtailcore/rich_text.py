@@ -4,7 +4,7 @@ import re  # parsing HTML with regexes LIKE A BOSS.
 
 from django.utils.encoding import python_2_unicode_compatible
 from django.utils.html import escape
-from django.utils.safestring import mark_safe
+from django.utils.safestring import SafeText
 
 from wagtail.wagtailcore import hooks
 from wagtail.wagtailcore.models import Page
@@ -183,7 +183,7 @@ def expand_db_html(html, for_editor=False):
 
 
 @python_2_unicode_compatible
-class RichText(object):
+class RichText(SafeText):
     """
     A custom object used to represent a renderable rich text value.
     Provides a 'source' property to access the original source code,
@@ -194,7 +194,7 @@ class RichText(object):
         self.source = (source or '')
 
     def __str__(self):
-        return mark_safe('<div class="rich-text">' + expand_db_html(self.source) + '</div>')
+        return '<div class="rich-text">' + expand_db_html(self.source) + '</div>'
 
     def __bool__(self):
         return bool(self.source)

@@ -70,3 +70,21 @@ class TestJinjaEscaping(TestCase):
         })
 
         self.assertIn('<p>hello world</p>', result)
+
+    def test_rich_text_is_safe(self):
+        """
+        Ensure that RichText values are marked safe
+        so that they don't get double-escaped when inserted into a parent template (#2542)
+        """
+        stream_block = blocks.StreamBlock([
+            ('paragraph', blocks.RichTextBlock(template='tests/jinja2/rich_text.html'))
+        ])
+        stream_value = stream_block.to_python([
+            {'type': 'paragraph', 'value': '<p>hello world</p>'},
+        ])
+
+        result = render_to_string('tests/jinja2/stream.html', {
+            'value': stream_value,
+        })
+
+        self.assertIn('<p>hello world</p>', result)
