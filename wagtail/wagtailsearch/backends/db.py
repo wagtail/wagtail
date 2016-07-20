@@ -1,11 +1,15 @@
 from __future__ import absolute_import, unicode_literals
 
+import warnings
+
 from django.db import models
 
-from wagtail.wagtailsearch.backends.base import BaseSearch, BaseSearchQuery, BaseSearchResults
+from wagtail.utils.deprecation import RemovedInWagtail18Warning
+from wagtail.wagtailsearch.backends.base import (
+    BaseSearchBackend, BaseSearchQuery, BaseSearchResults)
 
 
-class DBSearchQuery(BaseSearchQuery):
+class DatabaseSearchQuery(BaseSearchQuery):
     DEFAULT_OPERATOR = 'and'
 
     def _process_lookup(self, field, lookup, value):
@@ -64,7 +68,7 @@ class DBSearchQuery(BaseSearchQuery):
         return q
 
 
-class DBSearchResults(BaseSearchResults):
+class DatabaseSearchResults(BaseSearchResults):
     def get_queryset(self):
         queryset = self.query.queryset
         q = self.query.get_extra_q()
@@ -78,12 +82,12 @@ class DBSearchResults(BaseSearchResults):
         return self.get_queryset().count()
 
 
-class DBSearch(BaseSearch):
-    query_class = DBSearchQuery
-    results_class = DBSearchResults
+class DatabaseSearchBackend(BaseSearchBackend):
+    query_class = DatabaseSearchQuery
+    results_class = DatabaseSearchResults
 
     def __init__(self, params):
-        super(DBSearch, self).__init__(params)
+        super(DatabaseSearchBackend, self).__init__(params)
 
     def reset_index(self):
         pass  # Not needed
@@ -104,4 +108,16 @@ class DBSearch(BaseSearch):
         pass  # Not needed
 
 
-SearchBackend = DBSearch
+
+class DBSearch(DatabaseSearchBackend):
+    def __init__(self, params):
+        warnings.warn(
+            "The wagtail.wagtailsearch.backends.db.DBSearch has "
+            "been moved to wagtail.wagtailsearch.backends.db.DatabaseSearchBackend",
+            category=RemovedInWagtail18Warning, stacklevel=2
+        )
+
+        super(DBSearch, self).__init__(params)
+
+
+SearchBackend = DatabaseSearchBackend
