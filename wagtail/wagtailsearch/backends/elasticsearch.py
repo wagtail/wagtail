@@ -370,7 +370,7 @@ class ElasticsearchSearchResults(BaseSearchResults):
     def _do_search(self):
         # Params for elasticsearch query
         params = dict(
-            index=self.backend.index_name,
+            index=self.backend.get_index_for_model(self.query.queryset.model).name,
             body=self._get_es_body(),
             _source=False,
             fields='pk',
@@ -401,7 +401,7 @@ class ElasticsearchSearchResults(BaseSearchResults):
     def _do_count(self):
         # Get count
         hit_count = self.backend.es.count(
-            index=self.backend.index_name,
+            index=self.backend.get_index_for_model(self.query.queryset.model).name,
             body=self._get_es_body(for_count=True),
         )['count']
 
@@ -700,6 +700,9 @@ class ElasticsearchSearchBackend(BaseSearchBackend):
             timeout=self.timeout,
             **params)
 
+    def get_index_for_model(self, model):
+        return self.index_class(self, self.index_name)
+
     def get_index(self):
         return self.index_class(self, self.index_name)
 
@@ -711,19 +714,19 @@ class ElasticsearchSearchBackend(BaseSearchBackend):
         self.get_rebuilder().reset_index()
 
     def add_type(self, model):
-        self.get_index().add_model(model)
+        self.get_index_for_model(model).add_model(model)
 
     def refresh_index(self):
         self.get_index().refresh()
 
     def add(self, obj):
-        self.get_index().add_item(obj)
+        self.get_index_for_model(type(obj)).add_item(obj)
 
     def add_bulk(self, model, obj_list):
-        self.get_index().add_items(model, obj_list)
+        self.get_index_for_model(model).add_items(model, obj_list)
 
     def delete(self, obj):
-        self.get_index().delete_item(obj)
+        self.get_index_for_model(type(obj)).delete_item(obj)
 
 
 class ElasticSearch(ElasticsearchSearchBackend):

@@ -182,9 +182,13 @@ class BaseSearchResults(object):
 class BaseSearchBackend(object):
     query_class = None
     results_class = None
+    rebuilder_class = None
 
     def __init__(self, params):
         pass
+
+    def get_index_for_model(self, model):
+        return None
 
     def get_rebuilder(self):
         return None
