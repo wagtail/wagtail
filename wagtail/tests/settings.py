@@ -55,7 +55,10 @@ TEMPLATES = [
     },
     {
         'BACKEND': 'django.template.backends.jinja2.Jinja2',
-        'APP_DIRS': True,
+        'APP_DIRS': False,
+        'DIRS': [
+            os.path.join(WAGTAIL_ROOT, 'tests', 'testapp', 'jinja2_templates'),
+        ],
         'OPTIONS': {
             'extensions': [
                 'wagtail.wagtailcore.jinja2tags.core',
