@@ -110,7 +110,7 @@ class CloudfrontBackend(BaseBackend):
                 distribution_id = self.cloudfront_distribution_id.get(host)
             else:
                 logger.info(
-                    "Couldn't purge '%s' from CloudFront, Hostname '%s' not found in the DISTRIBUTION_ID mapping",
+                    "Couldn't purge '%s' from CloudFront. Hostname '%s' not found in the DISTRIBUTION_ID mapping",
                     url, host)
         else:
             distribution_id = self.cloudfront_distribution_id
