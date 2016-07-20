@@ -8,6 +8,10 @@ Frontend cache invalidator
    * Multiple backend support added
    * Cloudflare support added
 
+.. versionchanged:: 1.6
+
+   * Amazon CloudFront support added
+
 Many websites use a frontend cache such as Varnish, Squid, Cloudflare or CloudFront to gain extra performance. The downside of using a frontend cache though is that they don't respond well to updating content and will often keep an old version of a page cached after it has been updated.
 
 This document describes how to configure Wagtail to purge old versions of pages from a frontend cache whenever a page gets updated.
@@ -76,10 +80,10 @@ Add an item into the ``WAGTAILFRONTENDCACHE`` and set the ``BACKEND`` parameter 
     }
 
 
-Cloudfront
-^^^^^^^^^^
+Amazon CloudFront
+^^^^^^^^^^^^^^^^^
 
-Within Amazon Web Services you will need at least one CloudFront web distribution. If you don't have one, you can do this here: `CloudFront getting started <https://aws.amazon.com/cloudfront/>`_
+Within Amazon Web Services you will need at least one CloudFront web distribution. If you don't have one, you can get one here: `CloudFront getting started <https://aws.amazon.com/cloudfront/>`_
 
 Add an item into the ``WAGTAILFRONTENDCACHE`` and set the ``BACKEND`` parameter to ``wagtail.contrib.wagtailfrontendcache.backends.CloudfrontBackend``. This backend requires one extra parameter, ``DISTRIBUTION_ID`` (your CloudFront generated distrubition id).
 
@@ -94,7 +98,7 @@ Add an item into the ``WAGTAILFRONTENDCACHE`` and set the ``BACKEND`` parameter 
 
 Configuration of credentials can done in multiple ways. You won't need to store them in your Django settings file. You can read more about this here: `Boto 3 Docs <http://boto3.readthedocs.org/en/latest/guide/configuration.html>`_
 
-In case you run multiple sites with Wagtail and each site has its CloudFront distribution, provide a mapping instead of a single distribution. Make sure these mapping matches with the hostnames provided in your site settings.
+In case you run multiple sites with Wagtail and each site has its CloudFront distribution, provide a mapping instead of a single distribution. Make sure the mapping matches with the hostnames provided in your site settings.
 
 .. code-block:: python
 
@@ -109,7 +113,7 @@ In case you run multiple sites with Wagtail and each site has its CloudFront dis
     }
 
   .. note::
-    In most cases absolute urls with www prefixed should be used in your mapping. Dot not use the www prefix if you absolutely sure you're not using it (e.g. a subdomain).
+    In most cases, absolute URLs with ``www`` prefixed domain names should be used in your mapping. Only drop the ``www`` prefix if you're absolutely sure you're not using it (e.g. a subdomain).
 
 Advanced usage
 --------------
