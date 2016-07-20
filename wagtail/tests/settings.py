@@ -2,9 +2,9 @@ from __future__ import absolute_import, unicode_literals
 
 import os
 
-WAGTAIL_ROOT = os.path.dirname(__file__)
-STATIC_ROOT = os.path.join(WAGTAIL_ROOT, 'test-static')
-MEDIA_ROOT = os.path.join(WAGTAIL_ROOT, 'test-media')
+WAGTAIL_ROOT = os.path.dirname(os.path.dirname(__file__))
+STATIC_ROOT = os.path.join(WAGTAIL_ROOT, 'tests', 'test-static')
+MEDIA_ROOT = os.path.join(WAGTAIL_ROOT, 'tests', 'test-media')
 MEDIA_URL = '/media/'
 
 DATABASES = {
