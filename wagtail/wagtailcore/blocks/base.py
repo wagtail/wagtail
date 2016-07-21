@@ -388,6 +388,15 @@ class Block(six.with_metaclass(BaseBlock, object)):
         """
         return None
 
+    @property
+    def required(self):
+        """
+        Flag used to determine whether labels for this block should display a 'required' asterisk.
+        False by default, since Block does not provide any validation of its own - it's up to subclasses
+        to define what required-ness means.
+        """
+        return False
+
     def deconstruct(self):
         # adapted from django.utils.deconstruct.deconstructible
         module_name = self.__module__

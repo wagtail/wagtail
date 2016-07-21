@@ -78,6 +78,11 @@ class FieldBlock(Block):
     def media(self):
         return self.field.widget.media
 
+    @property
+    def required(self):
+        # a FieldBlock is required iff its underlying form field is required
+        return self.field.required
+
     class Meta:
         # No icon specified here, because that depends on the purpose that the
         # block is being used for. Feel encouraged to specify an icon in your
@@ -455,16 +460,16 @@ class RawHTMLBlock(FieldBlock):
 class ChooserBlock(FieldBlock):
 
     def __init__(self, required=True, help_text=None, **kwargs):
-        self.required = required
-        self.help_text = help_text
+        self._required = required
+        self._help_text = help_text
         super(ChooserBlock, self).__init__(**kwargs)
 
     """Abstract superclass for fields that implement a chooser interface (page, image, snippet etc)"""
     @cached_property
     def field(self):
         return forms.ModelChoiceField(
-            queryset=self.target_model.objects.all(), widget=self.widget, required=self.required,
-            help_text=self.help_text)
+            queryset=self.target_model.objects.all(), widget=self.widget, required=self._required,
+            help_text=self._help_text)
 
     def to_python(self, value):
         # the incoming serialised value should be None or an ID
