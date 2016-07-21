@@ -154,6 +154,7 @@ Contributors
 * Thibaud Colas
 * Tobias Schmidt
 * Chris Darko
+* Aymeric Augustin
 
 Translators
 ===========

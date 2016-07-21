@@ -65,6 +65,8 @@ Bug fixes
  * wagtailforms no longer assumes an .html extension when determining the landing page template filename (kakulukia)
  * Fixed styling glitch on bi-colour icon + text buttons in Chrome (Janneke Janssen)
  * StreamField can now be used in an InlinePanel (Gagaro)
+ * StreamField block renderings using templates no longer undergo double escaping when using Jinja2 (Aymeric Augustin)
+ * RichText objects no longer undergo double escaping when using Jinja2 (Aymeric Augustin, Matt Westcott)
 
 
 Upgrade considerations
