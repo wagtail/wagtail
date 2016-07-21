@@ -41,6 +41,17 @@ li.sequence-member {
             padding: 1.5em 0;
         }
     }
+    
+    // Copied from page-editor.scss    
+    .struct-block li.required > label:after {
+        content: '*';
+        color: $color-red;
+        font-weight: bold;
+        display: inline-block;
+        margin-left: 0.5em;
+        line-height: 1em;
+        font-size: 13px;
+    }
 
     // The top level sequence doesn't have a sequnce-member-inner. This block is basically for things that should only affect inner blocks
     .sequence-member-inner {
