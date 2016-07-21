@@ -19,6 +19,7 @@ from django.utils import formats, timezone
 from django.utils.dateparse import parse_date
 
 from wagtail.tests.testapp.models import (
+    EVENT_AUDIENCE_CHOICES,
     Advert, AdvertPlacement, BusinessChild, BusinessIndex, BusinessSubIndex, EventPage,
     EventPageCarouselItem, FilePage, SimplePage, SingleEventPage, StandardChild, StandardIndex,
     TaggedPage)
@@ -3025,6 +3026,59 @@ class TestIssue2599(TestCase, WagtailTestUtils):
         self.assertEqual(response.context['self'].depth, homepage.depth + 1)
         self.assertTrue(response.context['self'].path.startswith(homepage.path))
         self.assertEqual(response.context['self'].get_parent(), homepage)
+
+
+class TestIssue2492(TestCase, WagtailTestUtils):
+    """
+    The publication submission message generation was performed using
+    the Page class, as opposed to the specific_class for that Page.
+    This test ensures that the specific_class url method is called
+    when the 'view live' message button is created.
+    """
+    def setUp(self):
+        self.root_page = Page.objects.get(id=2)
+        child_page = SingleEventPage(
+            title="Test Event", slug="test-event", location="test location",
+            cost="10", date_from=datetime.datetime.now(),
+            audience=EVENT_AUDIENCE_CHOICES[0][0])
+        self.root_page.add_child(instance=child_page)
+        child_page.save_revision().publish()
+        self.child_page = SingleEventPage.objects.get(id=child_page.id)
+        self.user = self.login()
+
+    def test_page_edit_post_publish_url(self):
+        post_data = {
+            'action-publish': "Publish",
+            'title': self.child_page.title,
+            'date_from': self.child_page.date_from,
+            'slug': self.child_page.slug,
+            'audience': self.child_page.audience,
+            'location': self.child_page.location,
+            'cost': self.child_page.cost,
+            'carousel_items-TOTAL_FORMS': 0,
+            'carousel_items-INITIAL_FORMS': 0,
+            'carousel_items-MIN_NUM_FORMS': 0,
+            'carousel_items-MAX_NUM_FORMS': 0,
+            'speakers-TOTAL_FORMS': 0,
+            'speakers-INITIAL_FORMS': 0,
+            'speakers-MIN_NUM_FORMS': 0,
+            'speakers-MAX_NUM_FORMS': 0,
+            'related_links-TOTAL_FORMS': 0,
+            'related_links-INITIAL_FORMS': 0,
+            'related_links-MIN_NUM_FORMS': 0,
+            'related_links-MAX_NUM_FORMS': 0,
+        }
+        response = self.client.post(
+            reverse('wagtailadmin_pages:edit', args=(self.child_page.id, )),
+            post_data, follow=True)
+
+        # Grab a fresh copy's URL
+        new_url = SingleEventPage.objects.get(id=self.child_page.id).url
+
+        # The "View Live" button should have the custom URL.
+        for message in response.context['messages']:
+            self.assertIn('"{}"'.format(new_url), message.message)
+            break
 
 
 class TestInlinePanelMedia(TestCase, WagtailTestUtils):
