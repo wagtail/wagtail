@@ -901,8 +901,8 @@ class TestStructBlock(SimpleTestCase):
 
     def test_render_form(self):
         class LinkBlock(blocks.StructBlock):
-            title = blocks.CharBlock()
-            link = blocks.URLBlock()
+            title = blocks.CharBlock(required=False)
+            link = blocks.URLBlock(required=False)
 
         block = LinkBlock()
         html = block.render_form(block.to_python({
@@ -924,6 +924,20 @@ class TestStructBlock(SimpleTestCase):
             ),
             html
         )
+        self.assertNotIn('<li class="required">', html)
+
+    def test_render_required_field_indicator(self):
+        class LinkBlock(blocks.StructBlock):
+            title = blocks.CharBlock()
+            link = blocks.URLBlock(required=True)
+
+        block = LinkBlock()
+        html = block.render_form(block.to_python({
+            'title': "Wagtail site",
+            'link': 'http://www.wagtail.io',
+        }), prefix='mylink')
+
+        self.assertIn('<li class="required">', html)
 
     def test_render_form_unknown_field(self):
         class LinkBlock(blocks.StructBlock):
