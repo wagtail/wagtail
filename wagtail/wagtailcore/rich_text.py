@@ -193,8 +193,11 @@ class RichText(object):
     def __init__(self, source):
         self.source = (source or '')
 
+    def __html__(self):
+        return '<div class="rich-text">' + expand_db_html(self.source) + '</div>'
+
     def __str__(self):
-        return mark_safe('<div class="rich-text">' + expand_db_html(self.source) + '</div>')
+        return mark_safe(self.__html__())
 
     def __bool__(self):
         return bool(self.source)

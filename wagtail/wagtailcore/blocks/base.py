@@ -285,7 +285,7 @@ class Block(six.with_metaclass(BaseBlock, object)):
             new_context = dict(context)
             new_context.update(self.get_context(value))
 
-        return render_to_string(template, new_context)
+        return mark_safe(render_to_string(template, new_context))
 
     def _render_basic_with_context(self, value, context=None):
         """

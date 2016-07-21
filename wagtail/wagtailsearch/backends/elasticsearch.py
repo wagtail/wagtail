@@ -1,6 +1,7 @@
 from __future__ import absolute_import, unicode_literals
 
 import json
+import warnings
 
 from django.db import models
 from django.utils.crypto import get_random_string
@@ -8,11 +9,13 @@ from django.utils.six.moves.urllib.parse import urlparse
 from elasticsearch import Elasticsearch, NotFoundError
 from elasticsearch.helpers import bulk
 
-from wagtail.wagtailsearch.backends.base import BaseSearch, BaseSearchQuery, BaseSearchResults
+from wagtail.utils.deprecation import RemovedInWagtail18Warning
+from wagtail.wagtailsearch.backends.base import (
+    BaseSearchBackend, BaseSearchQuery, BaseSearchResults)
 from wagtail.wagtailsearch.index import FilterField, RelatedFields, SearchField, class_is_indexed
 
 
-class ElasticSearchMapping(object):
+class ElasticsearchMapping(object):
     type_map = {
         'AutoField': 'integer',
         'BinaryField': 'binary',
@@ -146,10 +149,10 @@ class ElasticSearchMapping(object):
         return doc
 
     def __repr__(self):
-        return '<ElasticSearchMapping: %s>' % (self.model.__name__, )
+        return '<ElasticsearchMapping: %s>' % (self.model.__name__, )
 
 
-class ElasticSearchQuery(BaseSearchQuery):
+class ElasticsearchSearchQuery(BaseSearchQuery):
     DEFAULT_OPERATOR = 'or'
 
     def _process_lookup(self, field, lookup, value):
@@ -351,7 +354,7 @@ class ElasticSearchQuery(BaseSearchQuery):
         return json.dumps(self.get_query())
 
 
-class ElasticSearchResults(BaseSearchResults):
+class ElasticsearchSearchResults(BaseSearchResults):
     def _get_es_body(self, for_count=False):
         body = {
             'query': self.query.get_query()
@@ -368,7 +371,7 @@ class ElasticSearchResults(BaseSearchResults):
     def _do_search(self):
         # Params for elasticsearch query
         params = dict(
-            index=self.backend.index_name,
+            index=self.backend.get_index_for_model(self.query.queryset.model).name,
             body=self._get_es_body(),
             _source=False,
             fields='pk',
@@ -399,7 +402,7 @@ class ElasticSearchResults(BaseSearchResults):
     def _do_count(self):
         # Get count
         hit_count = self.backend.es.count(
-            index=self.backend.index_name,
+            index=self.backend.get_index_for_model(self.query.queryset.model).name,
             body=self._get_es_body(for_count=True),
         )['count']
 
@@ -411,7 +414,7 @@ class ElasticSearchResults(BaseSearchResults):
         return max(hit_count, 0)
 
 
-class ElasticSearchIndex(object):
+class ElasticsearchIndex(object):
     def __init__(self, backend, name):
         self.backend = backend
         self.es = backend.es
@@ -528,7 +531,7 @@ class ElasticSearchIndex(object):
         self.put()
 
 
-class ElasticSearchIndexRebuilder(object):
+class ElasticsearchIndexRebuilder(object):
     def __init__(self, index):
         self.index = index
 
@@ -545,7 +548,7 @@ class ElasticSearchIndexRebuilder(object):
         self.index.refresh()
 
 
-class ElasticSearchAtomicIndexRebuilder(ElasticSearchIndexRebuilder):
+class ElasticsearchAtomicIndexRebuilder(ElasticsearchIndexRebuilder):
     def __init__(self, index):
         self.alias = index
         self.index = index.backend.index_class(
@@ -602,13 +605,13 @@ class ElasticSearchAtomicIndexRebuilder(ElasticSearchIndexRebuilder):
             self.index.put_alias(self.alias.name)
 
 
-class ElasticSearch(BaseSearch):
-    index_class = ElasticSearchIndex
-    query_class = ElasticSearchQuery
-    results_class = ElasticSearchResults
-    mapping_class = ElasticSearchMapping
-    basic_rebuilder_class = ElasticSearchIndexRebuilder
-    atomic_rebuilder_class = ElasticSearchAtomicIndexRebuilder
+class ElasticsearchSearchBackend(BaseSearchBackend):
+    index_class = ElasticsearchIndex
+    query_class = ElasticsearchSearchQuery
+    results_class = ElasticsearchSearchResults
+    mapping_class = ElasticsearchMapping
+    basic_rebuilder_class = ElasticsearchIndexRebuilder
+    atomic_rebuilder_class = ElasticsearchAtomicIndexRebuilder
 
     settings = {
         'settings': {
@@ -655,7 +658,7 @@ class ElasticSearch(BaseSearch):
     }
 
     def __init__(self, params):
-        super(ElasticSearch, self).__init__(params)
+        super(ElasticsearchSearchBackend, self).__init__(params)
 
         # Get settings
         self.hosts = params.pop('HOSTS', None)
@@ -698,6 +701,9 @@ class ElasticSearch(BaseSearch):
             timeout=self.timeout,
             **params)
 
+    def get_index_for_model(self, model):
+        return self.index_class(self, self.index_name)
+
     def get_index(self):
         return self.index_class(self, self.index_name)
 
@@ -709,19 +715,30 @@ class ElasticSearch(BaseSearch):
         self.get_rebuilder().reset_index()
 
     def add_type(self, model):
-        self.get_index().add_model(model)
+        self.get_index_for_model(model).add_model(model)
 
     def refresh_index(self):
         self.get_index().refresh()
 
     def add(self, obj):
-        self.get_index().add_item(obj)
+        self.get_index_for_model(type(obj)).add_item(obj)
 
     def add_bulk(self, model, obj_list):
-        self.get_index().add_items(model, obj_list)
+        self.get_index_for_model(model).add_items(model, obj_list)
 
     def delete(self, obj):
-        self.get_index().delete_item(obj)
+        self.get_index_for_model(type(obj)).delete_item(obj)
 
 
-SearchBackend = ElasticSearch
+class ElasticSearch(ElasticsearchSearchBackend):
+    def __init__(self, params):
+        warnings.warn(
+            "The wagtail.wagtailsearch.backends.elasticsearch.ElasticSearch has "
+            "been moved to wagtail.wagtailsearch.backends.elasticsearch.ElasticsearchSearchBackend",
+            category=RemovedInWagtail18Warning, stacklevel=2
+        )
+
+        super(ElasticSearch, self).__init__(params)
+
+
+SearchBackend = ElasticsearchSearchBackend

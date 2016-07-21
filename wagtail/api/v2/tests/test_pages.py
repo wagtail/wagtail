@@ -552,12 +552,13 @@ class TestPageListing(TestCase):
 
         self.assertEqual(set(page_id_list), set([16, 18, 19]))
 
-    def test_search_when_ordering_gives_error(self):
+    def test_search_with_order(self):
         response = self.get_response(search='blog', order='title')
         content = json.loads(response.content.decode('UTF-8'))
 
-        self.assertEqual(response.status_code, 400)
-        self.assertEqual(content, {'message': "ordering with a search query is not supported"})
+        page_id_list = self.get_page_id_list(content)
+
+        self.assertEqual(page_id_list, [19, 5, 16, 18])
 
     @override_settings(WAGTAILAPI_SEARCH_ENABLED=False)
     def test_search_when_disabled_gives_error(self):

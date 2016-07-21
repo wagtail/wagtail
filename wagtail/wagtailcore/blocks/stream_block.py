@@ -125,6 +125,9 @@ class BaseStreamBlock(Block):
                 raise TypeError('StreamBlock.render_form unexpectedly received multiple errors')
             error_dict = errors.as_data()[0].params
 
+        # value can be None when the StreamField is in a formset
+        if value is None:
+            value = self.get_default()
         # drop any child values that are an unrecognised block type
         valid_children = [child for child in value if child.block_type in self.child_blocks]
 

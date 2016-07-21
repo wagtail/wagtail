@@ -50,6 +50,7 @@ Minor features
  * Page previews now pass additional HTTP headers, to simulate the page being viewed by the logged-in user and avoid clashes with middleware (Robert Rollins)
  * Added back buttons to page delete and unpublish confirmation screens (Matt Westcott)
  * Recognise Flickr embed URLs using HTTPS (Danielle Madeley)
+ * Success message when publishing a page now correctly respects custom URLs defined on the specific page class (Chris Darko)
 
 
 Bug fixes
@@ -63,6 +64,9 @@ Bug fixes
  * ``RichText`` values can now be correctly evaluated as booleans (Mike Dingjan, Bertrand Bordage)
  * wagtailforms no longer assumes an .html extension when determining the landing page template filename (kakulukia)
  * Fixed styling glitch on bi-colour icon + text buttons in Chrome (Janneke Janssen)
+ * StreamField can now be used in an InlinePanel (Gagaro)
+ * StreamField block renderings using templates no longer undergo double escaping when using Jinja2 (Aymeric Augustin)
+ * RichText objects no longer undergo double escaping when using Jinja2 (Aymeric Augustin, Matt Westcott)
 
 
 Upgrade considerations

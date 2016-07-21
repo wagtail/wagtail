@@ -25,6 +25,7 @@ Changelog
  * Page previews now pass additional HTTP headers, to simulate the page being viewed by the logged-in user and avoid clashes with middleware (Robert Rollins)
  * Added back buttons to page delete and unpublish confirmation screens (Matt Westcott)
  * Recognise Flickr embed URLs using HTTPS (Danielle Madeley)
+ * Success message when publishing a page now correctly respects custom URLs defined on the specific page class (Chris Darko)
  * Fix: Email templates and document uploader now support custom `STATICFILES_STORAGE` (Jonny Scholes)
  * Fix: Removed alignment options (deprecated in HTML and not rendered by Wagtail) from `TableBlock` context menu (Moritz Pfeiffer)
  * Fix: Fixed incorrect CSS path on ModelAdmin's "choose a parent page" view
@@ -33,6 +34,9 @@ Changelog
  * Fix: `RichText` values can now be correctly evaluated as booleans (Mike Dingjan, Bertrand Bordage)
  * Fix: wagtailforms no longer assumes an .html extension when determining the landing page template filename (kakulukia)
  * Fix: Fixed styling glitch on bi-colour icon + text buttons in Chrome (Janneke Janssen)
+ * Fix: StreamField can now be used in an InlinePanel (Gagaro)
+ * Fix: StreamField block renderings using templates no longer undergo double escaping when using Jinja2 (Aymeric Augustin)
+ * Fix: RichText objects no longer undergo double escaping when using Jinja2 (Aymeric Augustin, Matt Westcott)
 
 
 1.5.3 (18.07.2016)
@@ -45,6 +49,7 @@ Changelog
 ~~~~~~~~~~~~~~~~~~
 
  * Fixed regression in 1.5.1 on editing external links (Stephen Rice)
+
 
 1.5.1 (07.06.2016)
 ~~~~~~~~~~~~~~~~~~

@@ -753,3 +753,22 @@ class SectionedRichTextPage(Page):
         FieldPanel('title', classname="full title"),
         InlinePanel('sections')
     ]
+
+
+class InlineStreamPageSection(Orderable):
+    page = ParentalKey('tests.InlineStreamPage', related_name='sections', on_delete=models.CASCADE)
+    body = StreamField([
+        ('text', CharBlock()),
+        ('rich_text', RichTextBlock()),
+        ('image', ImageChooserBlock()),
+    ])
+    panels = [
+        StreamFieldPanel('body')
+    ]
+
+
+class InlineStreamPage(Page):
+    content_panels = [
+        FieldPanel('title', classname="full title"),
+        InlinePanel('sections')
+    ]

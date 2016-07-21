@@ -49,10 +49,6 @@ class OrderingFilter(BaseFilterBackend):
         Eg: ?order=random
         """
         if 'order' in request.GET:
-            # Prevent ordering while searching
-            if 'search' in request.GET:
-                raise BadRequestError("ordering with a search query is not supported")
-
             order_by = request.GET['order']
 
             # Random ordering
@@ -102,9 +98,10 @@ class SearchFilter(BaseFilterBackend):
 
             search_query = request.GET['search']
             search_operator = request.GET.get('search_operator', None)
+            order_by_relevance = 'order' not in request.GET
 
             sb = get_search_backend()
-            queryset = sb.search(search_query, queryset, operator=search_operator)
+            queryset = sb.search(search_query, queryset, operator=search_operator, order_by_relevance=order_by_relevance)
 
         return queryset
 

@@ -43,7 +43,7 @@ Your first Wagtail site
    .. figure:: ../_static/images/tutorial/tutorial_1.png
       :alt: Wagtail welcome message
 
-   You can now access the administrative area at ``/admin``
+   You can now access the administrative area at http://127.0.0.1:8000/admin
 
    .. figure:: ../_static/images/tutorial/tutorial_2.png
       :alt: Administrative screen
