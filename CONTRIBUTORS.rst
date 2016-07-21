@@ -153,6 +153,7 @@ Contributors
 * Tim Graham
 * Thibaud Colas
 * Tobias Schmidt
+* Chris Darko
 
 Translators
 ===========

@@ -50,6 +50,7 @@ Minor features
  * Page previews now pass additional HTTP headers, to simulate the page being viewed by the logged-in user and avoid clashes with middleware (Robert Rollins)
  * Added back buttons to page delete and unpublish confirmation screens (Matt Westcott)
  * Recognise Flickr embed URLs using HTTPS (Danielle Madeley)
+ * Success message when publishing a page now correctly respects custom URLs defined on the specific page class (Chris Darko)
 
 
 Bug fixes
