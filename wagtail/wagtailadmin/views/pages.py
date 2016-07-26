@@ -17,9 +17,10 @@ from django.views.decorators.vary import vary_on_headers
 from wagtail.utils.pagination import paginate
 from wagtail.wagtailadmin import messages, signals
 from wagtail.wagtailadmin.forms import CopyForm, SearchForm
+from wagtail.wagtailadmin.navigation import get_navigation_menu_items
 from wagtail.wagtailadmin.utils import send_notification
 from wagtail.wagtailcore import hooks
-from wagtail.wagtailcore.models import Page, PageRevision, get_navigation_menu_items
+from wagtail.wagtailcore.models import Page, PageRevision
 
 
 def get_valid_next_url_from_request(request):

@@ -12,10 +12,10 @@ from django.utils.safestring import mark_safe
 
 from wagtail.utils.pagination import DEFAULT_PAGE_KEY
 from wagtail.wagtailadmin.menu import admin_menu
+from wagtail.wagtailadmin.navigation import get_navigation_menu_items
 from wagtail.wagtailadmin.search import admin_search_areas
 from wagtail.wagtailcore import hooks
-from wagtail.wagtailcore.models import (
-    PageViewRestriction, UserPagePermissionsProxy, get_navigation_menu_items)
+from wagtail.wagtailcore.models import PageViewRestriction, UserPagePermissionsProxy
 from wagtail.wagtailcore.utils import cautious_slugify as _cautious_slugify
 from wagtail.wagtailcore.utils import camelcase_to_underscore, escape_script
 
