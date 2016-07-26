@@ -29,10 +29,10 @@ else:
     assignment_tag = register.assignment_tag
 
 
-@register.inclusion_tag('wagtailadmin/shared/explorer_nav.html')
-def explorer_nav():
+@register.inclusion_tag('wagtailadmin/shared/explorer_nav.html', takes_context=True)
+def explorer_nav(context):
     return {
-        'nodes': get_navigation_menu_items()
+        'nodes': get_navigation_menu_items(context['request'].user)
     }
 
 
