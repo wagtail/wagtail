@@ -155,6 +155,7 @@ Contributors
 * Tobias Schmidt
 * Chris Darko
 * Aymeric Augustin
+* Adriaan Tijsseling
 
 Translators
 ===========
