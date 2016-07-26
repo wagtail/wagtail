@@ -171,20 +171,6 @@ class TestSendMail(TestCase):
         self.assertEqual(mail.outbox[0].from_email, "webmaster@localhost")
 
 
-class TestExplorerNavView(TestCase, WagtailTestUtils):
-    def setUp(self):
-        self.homepage = Page.objects.get(id=2).specific
-        self.login()
-
-    def test_explorer_nav_view(self):
-        response = self.client.get(reverse('wagtailadmin_explorer_nav'))
-
-        # Check response
-        self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed('wagtailadmin/shared/explorer_nav.html')
-        self.assertEqual(response.context['nodes'][0][0], self.homepage)
-
-
 class TestTagsAutocomplete(TestCase, WagtailTestUtils):
     def setUp(self):
         self.login()
