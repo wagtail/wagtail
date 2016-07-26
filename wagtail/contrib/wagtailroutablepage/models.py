@@ -39,7 +39,7 @@ class RoutablePageMixin(object):
     def get_subpage_urls(cls):
         routes = []
         for attr in dir(cls):
-            val = getattr(cls, attr)
+            val = getattr(cls, attr, None)
             if hasattr(val, '_routablepage_routes'):
                 routes.extend(val._routablepage_routes)
 
