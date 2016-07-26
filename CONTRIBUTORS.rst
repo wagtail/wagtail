@@ -156,6 +156,7 @@ Contributors
 * Chris Darko
 * Aymeric Augustin
 * Adriaan Tijsseling
+* sebworks
 
 Translators
 ===========
