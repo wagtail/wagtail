@@ -3,7 +3,6 @@ from __future__ import absolute_import, unicode_literals
 from django.core.urlresolvers import NoReverseMatch
 from django.test import RequestFactory, TestCase
 
-from wagtail.contrib.wagtailroutablepage.models import RoutablePage
 from wagtail.contrib.wagtailroutablepage.templatetags.wagtailroutablepage_tags import \
     routablepageurl
 from wagtail.tests.routablepage.models import RoutablePageTest, RoutablePageWithoutIndexRouteTest
@@ -137,10 +136,11 @@ class TestRoutablePage(TestCase):
             def __set__(self, instance, value):
                 raise AttributeError
 
-        class RoutablePageTest(RoutablePage):
-            descriptor = InstanceDescriptor()
-
-        RoutablePageTest.get_subpage_urls()
+        try:
+            RoutablePageTest.descriptor = InstanceDescriptor()
+            RoutablePageTest.get_subpage_urls()
+        finally:
+            del RoutablePageTest.descriptor
 
 
 class TestRoutablePageTemplateTag(TestCase):
