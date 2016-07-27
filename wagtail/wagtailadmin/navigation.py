@@ -52,9 +52,10 @@ def get_navigation_menu_items(user):
     # set of pages, for each page in pages_with_direct_permission:
     #  * all ancestors (plus self) from menu_root_depth down
     #  * all descendants that have children
-    #  * all descendants at menu_root_depth, regardless of whether they have children.
+    #  * all descendants at the top level (depth=2), regardless of whether they have children.
     #    (this ensures that a freshly built site with no child pages won't result in an empty menu)
 
+    # construct a filter clause for the ancestors of all pages with direct permission
     ancestor_paths = [
         page.path[0:path_len]
         for page in pages_with_direct_permission
@@ -63,10 +64,11 @@ def get_navigation_menu_items(user):
 
     criteria = Q(path__in=ancestor_paths)
 
+    # add on the descendants for each page with direct permission
     for page in pages_with_direct_permission:
         criteria = criteria | (
             Q(path__startswith=page.path) & (
-                Q(depth=menu_root_depth) | Q(numchild__gt=0)
+                Q(depth=2) | Q(numchild__gt=0)
             )
         )
 
