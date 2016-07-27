@@ -20,7 +20,7 @@ Wagtail is now compatible with Django 1.10. Thanks to Mikalai Radchuk and Paul J
 ``{% include_block %}`` tag for improved StreamField template inclusion
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-In previous releases, the standard way of rendering the HTML content of a StreamField was through a simple variable template tag, such as ``{{ page.body }}``. This had the drawback that any templates used in the StreamField rendering would not inherit variables from the parent template's context, such as ``page`` and ``request``. To address this, a new template tag ``{% include_block page.body %}`` has been introduced as the new recommended way of outputting Streamfield content - this replicates the behaviour of Django's ``{% include %}`` tag, passing on the full template context by default. For full documentation, see :ref:`streamfield_template_rendering`. This feature was developed by Matt Westcott.
+In previous releases, the standard way of rendering the HTML content of a StreamField was through a simple variable template tag, such as ``{{ page.body }}``. This had the drawback that any templates used in the StreamField rendering would not inherit variables from the parent template's context, such as ``page`` and ``request``. To address this, a new template tag ``{% include_block page.body %}`` has been introduced as the new recommended way of outputting Streamfield content - this replicates the behaviour of Django's ``{% include %}`` tag, passing on the full template context by default. For full documentation, see :ref:`streamfield_template_rendering`. This feature was developed by Matt Westcott, and additionally ported to Jinja2 (see: :doc:`/advanced_topics/jinja2`) by Mikalai Radchuk.
 
 
 Unicode page slugs
