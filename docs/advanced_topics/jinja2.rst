@@ -109,7 +109,7 @@ See :ref:`wagtailuserbar_tag` for more information
 
 Output the HTML representation for the stream content as a whole, as well as for each individual block.
 
-Allows to pass template context (by default) to the stream field template.
+Allows to pass template context (by default) to the StreamField template.
 
 .. code-block:: html+jinja
 
@@ -117,10 +117,10 @@ Allows to pass template context (by default) to the stream field template.
     {% include_block page.body with context %} {# The same as the previous #}
     {% include_block page.body without context %}
 
-See :ref:`StreamField template rendering<streamfield_template_rendering>` for more information
+See :ref:`StreamField template rendering<streamfield_template_rendering>` for more information.
 
 .. note::
 
-        The ``{% include_block %}`` tag designed to closely follow the syntax and behaviour
-        of Jinja's ``{% include %}``, so this tag also
-        doesn't allow to pass only specified variables into the context as Django's version.
+        The ``{% include_block %}`` tag is designed to closely follow the syntax and behaviour
+        of Jinja's ``{% include %}``, so it does not implement the Django version's feature of
+        only passing specified variables into the context.
