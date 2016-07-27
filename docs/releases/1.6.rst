@@ -68,6 +68,7 @@ Bug fixes
  * StreamField can now be used in an InlinePanel (Gagaro)
  * StreamField block renderings using templates no longer undergo double escaping when using Jinja2 (Aymeric Augustin)
  * RichText objects no longer undergo double escaping when using Jinja2 (Aymeric Augustin, Matt Westcott)
+ * Saving a page by pressing enter key no longer triggers a "Changes may not be saved message" (Sean Muck, Matt Westcott)
 
 
 Upgrade considerations
