@@ -158,6 +158,7 @@ Contributors
 * Adriaan Tijsseling
 * sebworks
 * Sean Muck
+* Fábio Macêdo Mendes
 
 Translators
 ===========
