@@ -127,9 +127,9 @@ class AbstractImage(CollectionMember, index.Indexed, models.Model):
         while len(os.path.join(folder_name, filename)) >= 95:
             prefix, dot, extension = filename.rpartition('.')
             if prefix:
-              filename = prefix[:-1] + dot + extension
+                filename = prefix[:-1] + dot + extension
             else:
-              filename = extension[:-1]
+                filename = extension[:-1]
         return os.path.join(folder_name, filename)
 
     def get_usage(self):
