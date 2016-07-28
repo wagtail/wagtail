@@ -2,7 +2,7 @@ from __future__ import absolute_import, unicode_literals
 
 from unittest import TestCase
 
-from ..utils import FieldsParameterParseError, parse_fields_parameter, parse_boolean
+from ..utils import FieldsParameterParseError, parse_boolean, parse_fields_parameter
 
 
 class TestParseFieldsParameter(TestCase):
