@@ -22,11 +22,3 @@ class DocumentDownloadUrlField(Field):
 
 class DocumentSerializer(BaseSerializer):
     download_url = DocumentDownloadUrlField(read_only=True)
-
-    default_fields = BaseSerializer.default_fields + [
-        'download_url',
-    ]
-
-    meta_fields = BaseSerializer.meta_fields + [
-        'download_url',
-    ]
