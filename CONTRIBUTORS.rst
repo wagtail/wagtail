@@ -170,6 +170,7 @@ Contributors
 * Stein Strindhaug
 * Žan Anderle
 * Mattias Loverot
+* Ricky Robinett
 
 Translators
 ===========

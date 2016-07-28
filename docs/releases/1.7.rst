@@ -70,6 +70,7 @@ Bug fixes
  * Wagtail's UserProfile model now sets a related_name of ``wagtail_userprofile`` to avoid naming collisions with other user profile models (Matt Westcott)
  * Non-text content is now preserved when adding or editing a link within rich text (Matt Westcott)
  * Fixed preview when ``SECURE_SSL_REDIRECT = True`` (Aymeric Augustin)
+ * Prevent hang when truncating an image filename without an extension (Ricky Robinett)
 
 
 Upgrade considerations
