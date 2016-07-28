@@ -3,6 +3,7 @@ from __future__ import absolute_import, unicode_literals
 from django.db import models
 from django.utils.encoding import python_2_unicode_compatible
 
+from wagtail.wagtailcore.models import Page
 from wagtail.wagtailsearch import index
 
 
@@ -39,3 +40,8 @@ class Publisher(models.Model):
 
     def __str__(self):
         return self.name
+
+
+class VenuePage(Page):
+    address = models.CharField(max_length=300)
+    capacity = models.IntegerField()

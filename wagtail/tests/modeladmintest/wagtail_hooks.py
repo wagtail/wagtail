@@ -5,7 +5,7 @@ from wagtail.contrib.modeladmin.views import CreateView
 from wagtail.tests.testapp.models import BusinessChild, EventPage, SingleEventPage
 
 from .forms import PublisherModelAdminForm
-from .models import Author, Book, Publisher, Token
+from .models import Author, Book, Publisher, Token, VenuePage
 
 
 class AuthorModelAdmin(ModelAdmin):
@@ -63,9 +63,14 @@ class SingleEventPageAdmin(EventPageAdmin):
     model = SingleEventPage
 
 
+class VenuePageAdmin(ModelAdmin):
+    model = VenuePage
+    exclude_from_explorer = True
+
+
 class EventsAdminGroup(ModelAdminGroup):
     menu_label = "Events"
-    items = (EventPageAdmin, SingleEventPageAdmin)
+    items = (EventPageAdmin, SingleEventPageAdmin, VenuePageAdmin)
     menu_order = 500
 
 
