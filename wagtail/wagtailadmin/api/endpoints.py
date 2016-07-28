@@ -26,7 +26,7 @@ class PagesAdminAPIEndpoint(PagesAPIEndpoint):
         SearchFilter,
     ]
 
-    extra_meta_fields = PagesAPIEndpoint.extra_meta_fields + [
+    meta_fields = PagesAPIEndpoint.meta_fields + [
         'latest_revision_created_at',
         'status',
         'children',
@@ -34,11 +34,14 @@ class PagesAdminAPIEndpoint(PagesAPIEndpoint):
         'parent',
     ]
 
-    default_fields = PagesAPIEndpoint.default_fields + [
+    listing_default_fields = PagesAPIEndpoint.listing_default_fields + [
         'latest_revision_created_at',
         'status',
         'children',
     ]
+
+    # Allow the parent field to appear on listings
+    detail_only_fields = []
 
     known_query_parameters = PagesAPIEndpoint.known_query_parameters.union([
         'has_children'
