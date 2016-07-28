@@ -87,6 +87,7 @@ can get to it.
         menu_icon = 'date'  # change as required
         menu_order = 200  # will put in 3rd place (000 being 1st, 100 2nd)
         add_to_settings_menu = False  # or True to add your model to the Settings sub-menu
+        exclude_from_explorer = False # or True to exclude any pages of this type from Wagtail's explorer view
         list_display = ('title', 'example_field2', 'example_field3', 'live')
         list_filter = ('live', 'example_field2', 'example_field3')
         search_fields = ('title',)

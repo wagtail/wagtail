@@ -4,6 +4,7 @@ Changelog
 1.6 (xx.xx.xxxx) - IN DEVELOPMENT
 ~~~~~~~~~~~~~~~~
 
+ * Added `exclude_from_explorer` attribute to the ``ModelAdmin`` class to allow developers to easily hide of instances of a page type from Wagtail's exporer views (Andy Babic)
  * Django 1.10 support
  * Added the ``include_block`` template tag for improved StreamField template inclusion (Matt Westcott, Mikalai Radchuk)
  * Page slugs now allow unicode on Django >= 1.9 (Behzad Nategh)
