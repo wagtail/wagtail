@@ -126,7 +126,10 @@ class AbstractImage(CollectionMember, index.Indexed, models.Model):
         # https://code.djangoproject.com/ticket/9893
         while len(os.path.join(folder_name, filename)) >= 95:
             prefix, dot, extension = filename.rpartition('.')
-            filename = prefix[:-1] + dot + extension
+            if prefix:
+              filename = prefix[:-1] + dot + extension
+            else:
+              filename = extension[:-1]
         return os.path.join(folder_name, filename)
 
     def get_usage(self):
