@@ -123,6 +123,25 @@ class TestRoutablePage(TestCase):
 
         self.assertContains(response, "EXTERNAL VIEW: ARG NOT SET")
 
+    def test_routable_page_can_have_instance_bound_descriptors(self):
+        # This descriptor pretends that it does not exist in the class, hence
+        # it raises an AttributeError when class bound. This is, for instance,
+        # the behavior of django's FileFields.
+        class InstanceDescriptor(object):
+            def __get__(self, instance, cls=None):
+                if instance is None:
+                    raise AttributeError
+                return 'value'
+
+            def __set__(self, instance, value):
+                raise AttributeError
+
+        try:
+            RoutablePageTest.descriptor = InstanceDescriptor()
+            RoutablePageTest.get_subpage_urls()
+        finally:
+            del RoutablePageTest.descriptor
+
 
 class TestRoutablePageTemplateTag(TestCase):
     def setUp(self):
