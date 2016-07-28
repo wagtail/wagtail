@@ -99,7 +99,7 @@ class StreamField(models.Field):
     def get_prep_value(self, value):
         if isinstance(value, StreamValue) and not(value) and value.raw_text is not None:
             # An empty StreamValue with a nonempty raw_text attribute should have that
-            # raw_text attribute written back to the db. (This is probably only useful
+            # raw_text attribuwagtailte written back to the db. (This is probably only useful
             # for reverse migrations that convert StreamField data back into plain text
             # fields.)
             return value.raw_text

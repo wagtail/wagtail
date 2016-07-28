@@ -165,6 +165,53 @@ class TestStreamValueAccess(TestCase):
         self.assertIsInstance(fetched_body[0].value, RichText)
         self.assertEqual(fetched_body[0].value.source, "<h2>hello world</h2>")
 
+    def _test_can_append_to_list(self, block):
+        self.json_body.body.append(block)
+        self.json_body.save()
+
+        # the body should now be a sequence of two rich_text blocks
+        fetched_body = StreamModel.objects.get(id=self.json_body.id).body
+        self.assertIsInstance(fetched_body, StreamValue)
+        self.assertEqual(len(fetched_body), 2)
+        self.assertEqual(fetched_body[0].value, "foo")
+        self.assertEqual(fetched_body[1].value, "bar")
+
+    def test_can_append_to_list(self):
+        self._test_can_append_to_list(('text', 'bar'))
+
+    def test_can_append_json_to_list(self):
+        self._test_can_append_to_list({'type': 'text', 'value': 'bar'})
+
+    def test_insert_stream_child(self):
+        self.json_body.body.insert(0, ('text', 'bar'))
+        self.json_body.save()
+
+        # the body should now be a sequence of two rich_text blocks
+        fetched_body = StreamModel.objects.get(id=self.json_body.id).body
+        self.assertIsInstance(fetched_body, StreamValue)
+        self.assertEqual(len(fetched_body), 2)
+        self.assertEqual(fetched_body[0].value, "bar")
+        self.assertEqual(fetched_body[1].value, "foo")
+
+    def test_delete_stream_child(self):
+        del self.json_body.body[0]
+        self.json_body.save()
+
+        # the body should now be a sequence of two rich_text blocks
+        fetched_body = StreamModel.objects.get(id=self.json_body.id).body
+        self.assertIsInstance(fetched_body, StreamValue)
+        self.assertEqual(len(fetched_body), 0)
+        self.assertEqual(len(fetched_body.stream_data), 0)
+
+    def test_mixed_data_blocks(self):
+        self.json_body.body.append(('text', 'bar'))
+        self.json_body.body.append({'type': 'text', 'value': 'bar'})
+
+        # stream data must be normalized for the same value
+        body = self.json_body.body
+        self.assertEqual(body.stream_data[1], body.stream_data[2])
+        self.assertEqual(body[1].value, body[2].value)
+
 
 class TestStreamFieldRenderingBase(TestCase):
     def setUp(self):

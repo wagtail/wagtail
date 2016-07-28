@@ -260,7 +260,7 @@ class StreamBlock(six.with_metaclass(DeclarativeSubBlocksMetaclass, BaseStreamBl
 
 
 @python_2_unicode_compatible  # provide equivalent __unicode__ and __str__ methods on Py2
-class StreamValue(collections.Sequence):
+class StreamValue(collections.MutableSequence):
     """
     Custom type used to represent the value of a StreamBlock; behaves as a sequence of BoundBlocks
     (which keep track of block types in a way that the values alone wouldn't).
@@ -327,6 +327,67 @@ class StreamValue(collections.Sequence):
 
         return self._bound_blocks[i]
 
+    def __delitem__(self, i):
+        del self.stream_data[i]
+        blocks = self._bound_blocks
+        blocks.pop(i, None)
+        for k, v in sorted(blocks.items()):
+            if k > i:
+                blocks[k - 1] = blocks.pop(k)
+
+    def __setitem__(self, i, value):
+        if isinstance(value, StreamValue.StreamChild):
+            if self.is_lazy:
+                data_item = {'type': value.block_type, 'value': value.value}
+            else:
+                data_item = (value.block_type, value.value)
+            self.stream_data[i] = data_item
+            self._bound_blocks[i] = value
+            return
+
+        # Check if value is JSONish data as represented in the database.
+        # This test is not trivial, hence we make a few defensive checks to
+        # assure that value is valid.
+        is_json = isinstance(value, collections.Mapping)
+        if is_json and set(value.keys()) != {'type', 'value'}:
+            raise ValueError(
+                'A JSON representation of data should consist of a mapping with'
+                'only the `type` and `value` keys.'
+            )
+        if not is_json and len(value) != 2:
+            raise ValueError(
+                'Expect a tuple of (type_name, value): got a sequence of length '
+                '%s' % len(value)
+            )
+
+        # We have to normalize data for it to be compatible with the 'is_lazy'
+        # property.
+        if is_json and self.is_lazy:
+            data_item = dict(value)
+        elif is_json and not self.is_lazy:
+            data_item = (value['type'], value['value'])
+        elif not is_json and self.is_lazy:
+            type_name, data_value = value
+            data_item = {'type': type_name, 'value': data_value}
+        elif not is_json and not self.is_lazy:
+            type_name, data_value = value
+            data_item = (type_name, data_value)
+        else:
+            raise RuntimeError
+
+        self._bound_blocks.pop(i, None)
+        self.stream_data[i] = data_item
+
+    def insert(self, i, value):
+        self.stream_data.insert(i, None)
+        blocks = {
+            (k if k < i else k + 1): v
+            for k, v in self._bound_blocks.items() if k != i
+        }
+        self._bound_blocks.clear()
+        self._bound_blocks.update(blocks)
+        self[i] = value
+
     def _prefetch_blocks(self, type_name, child_block):
         """Prefetch all child blocks for the given `type_name` using the
         given `child_blocks`.
@@ -335,7 +396,7 @@ class StreamValue(collections.Sequence):
         """
         raw_values = collections.OrderedDict(
             (i, item['value']) for i, item in enumerate(self.stream_data)
-            if item['type'] == type_name
+            if item['type'] == type_name and i not in self._bound_blocks
         )
         converted_values = child_block.bulk_to_python(raw_values.values())
 
