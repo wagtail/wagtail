@@ -38,7 +38,6 @@ Minor features
  * ``FieldRowPanel`` now creates equal-width columns automatically if ``col*`` classnames are not specified (Chris Rogers)
  * Form builder now validates against multiple fields with the same name (Richard McMillan)
  * The 'choices' field on the form builder no longer has a maximum length (Johannes Spielmann)
- * The wagtailimages.Filter model has been removed, and converted to a Python class instead (Gagaro)
  * Multiple ChooserBlocks inside a StreamField are now prefetched in bulk, for improved performance (Michael van Tellingen, Roel Bruggink, Matt Westcott)
  * Added new EmailBlock and IntegerBlock (Oktay Altay)
  * Added a new FloatBlock, DecimalBlock and a RegexBlock (Oktay Altay, Andy Babic)
@@ -79,11 +78,6 @@ Form builder ``FormField`` models require a migration
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 The ``choices`` field on the ``wagtailforms.models.AbstractFormField`` model has been changed from a ``CharField`` to a ``TextField``, to allow it to be of unlimited length. If you are using the ``wagtailforms`` module in your project, you will need to run ``python manage.py makemigrations`` and ``python manage.py migrate`` after upgrading, in order to apply this change to your form page models.
-
-``wagtailimages.Filter`` model has been removed
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-The ``wagtailimages.Filter`` model has been removed, and replaced with a ``Filter`` class instead. This class can be imported from the same location as the model: ``wagtail.wagtailimages.models.Filter``. The ``Filter`` class has the same API as the ``Filter`` model did, with the exception that Model methods such as ``Filter.save()``, and ``Filter.objects.get()`` have been removed.
 
 ``TagSearchable`` needs removing from custom image / document model migrations
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
