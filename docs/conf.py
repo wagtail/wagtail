@@ -29,9 +29,6 @@ if not on_rtd:  # only import and set the theme if we're building docs locally
 # documentation root, use os.path.abspath to make it absolute, like shown here.
 sys.path.insert(0, os.path.abspath('..'))
 
-# Get Wagtail version
-from wagtail.wagtailcore import __version__
-
 # Autodoc may need to import some models modules which require django settings
 # be configured
 os.environ['DJANGO_SETTINGS_MODULE'] = 'wagtail.tests.settings'
@@ -76,9 +73,12 @@ copyright = u'2015, Torchbox'
 # The version info for the project you're documenting, acts as replacement for
 # |version| and |release|, also used in various other places throughout the
 # built documents.
-#
+
+# Get Wagtail version
+from wagtail.wagtailcore import __version__, VERSION
+
 # The short X.Y version.
-version = __version__
+version = '{}.{}'.format(VERSION[0], VERSION[1])
 # The full version, including alpha/beta/rc tags.
 release = __version__
 
