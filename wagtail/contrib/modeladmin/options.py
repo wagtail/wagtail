@@ -48,7 +48,7 @@ class WagtailRegisterable(object):
 
         @hooks.register('construct_explorer_page_queryset')
         def construct_explorer_page_queryset(parent_page, queryset, request):
-            return self.modify_explorer_page_querset(
+            return self.modify_explorer_page_queryset(
                 parent_page, queryset, request)
 
 
@@ -509,7 +509,7 @@ class ModelAdmin(WagtailRegisterable):
             )
         return urls
 
-    def modify_explorer_page_querset(self, parent_page, queryset, request):
+    def modify_explorer_page_queryset(self, parent_page, queryset, request):
         if self.is_pagemodel and self.exclude_from_explorer:
             queryset = queryset.not_type(self.model)
         return queryset
