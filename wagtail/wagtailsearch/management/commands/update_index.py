@@ -100,7 +100,7 @@ class Command(BaseCommand):
             '--backend', action='store', dest='backend_name', default=None,
             help="Specify a backend to update")
         parser.add_argument(
-            '--schema-only', action='store', dest='schema_only', default=None,
+            '--schema-only', action='store_true', dest='schema_only', default=False,
             help="Prevents loading any data into the index")
 
     def handle(self, **options):
