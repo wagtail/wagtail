@@ -59,9 +59,11 @@ class ElasticsearchMapping(object):
     def get_field_mapping(self, field):
         if isinstance(field, RelatedFields):
             mapping = {'type': 'nested', 'properties': {}}
+            nested_model = field.get_field(self.model).related_model
+            nested_mapping = type(self)(nested_model)
 
             for sub_field in field.fields:
-                sub_field_name, sub_field_mapping = self.get_field_mapping(sub_field)
+                sub_field_name, sub_field_mapping = nested_mapping.get_field_mapping(sub_field)
                 mapping['properties'][sub_field_name] = sub_field_mapping
 
             return self.get_field_column_name(field), mapping
