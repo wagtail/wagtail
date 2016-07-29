@@ -589,9 +589,9 @@ class ModelAdminGroup(WagtailRegisterable):
             urls += instance.get_admin_urls_for_registration()
         return urls
 
-    def modify_explorer_page_querset(self, parent_page, queryset, request):
+    def modify_explorer_page_queryset(self, parent_page, queryset, request):
         for instance in self.modeladmin_instances:
-            queryset = instance.modify_explorer_page_querset(
+            queryset = instance.modify_explorer_page_queryset(
                 parent_page, queryset, request)
         return queryset
 
