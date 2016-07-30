@@ -107,3 +107,33 @@ def page_listing_more_buttons(page, page_perms, is_parent=False):
                      attrs={'title': _('Unpublish this page')}, priority=40)
     yield Button(_('Revisions'), reverse('wagtailadmin_pages:revisions_index', args=[page.id]),
                  attrs={'title': _("View this page's revision history")}, priority=50)
+
+
+@hooks.register('insert_global_admin_js')
+def enqueue_plugin_scripts():
+    scripts = {}
+    for hook in hooks.get_hooks('enqueue_scripts'):
+        scripts.update(hook())
+
+    HTML = '\n'.join([
+        '<script src="{}"></script>'.format(
+            static(meta['source'])
+        ) for handle, meta in scripts.items()
+    ])
+
+    return HTML
+
+
+@hooks.register('insert_global_admin_css')
+def enqueue_plugin_styles():
+    styles = {}
+    for hook in hooks.get_hooks('enqueue_styles'):
+        styles.update(hook())
+
+    HTML = '\n'.join([
+        '<link rel="stylesheet" href="{}">'.format(
+            static(meta['source'])
+        ) for handle, meta in styles.items()
+    ])
+
+    return HTML
