@@ -146,7 +146,6 @@ class ModelAdmin(WagtailRegisterable):
             self.model, self.inspect_view_enabled)
         self.url_helper = self.get_url_helper_class()(self.model)
 
-
     def get_permission_helper_class(self):
         """
         Returns a permission_helper class to help with permission-based logic
