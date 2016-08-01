@@ -487,6 +487,7 @@ class TestIssue312(TestCase):
             focal_point_key=rend1.focal_point_key,
         )
 
+
 class TestFilenameReduction(TestCase):
     """
     This tests for a bug which results in filenames without extensions
@@ -501,7 +502,7 @@ class TestFilenameReduction(TestCase):
             )
         )
 
-        # Saving file will result in infite loop when bug is present 
+        # Saving file will result in infite loop when bug is present
         image.save()
         self.assertEqual("original_images/thisisaverylongfilename-abcdefghijklmnopqrstuvwxyz-supercalifragilisticexpiali", image.file.name)
 
