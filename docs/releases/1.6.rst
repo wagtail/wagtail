@@ -11,10 +11,10 @@ What's new
 ==========
 
 
-Django 1.10 support
-~~~~~~~~~~~~~~~~~~~
+Provisional Django 1.10 support
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Wagtail is now compatible with Django 1.10. Thanks to Mikalai Radchuk and Paul J Stevens for developing this, and to Tim Graham for reviewing and additional Django core assistance.
+All compatibility issues as of Django 1.10rc1 have been resolved, and we expect to be able to support Django 1.10 final in this release or a follow-up patch release. Thanks to Mikalai Radchuk and Paul J Stevens for developing this, and to Tim Graham for reviewing and additional Django core assistance.
 
 
 ``{% include_block %}`` tag for improved StreamField template inclusion

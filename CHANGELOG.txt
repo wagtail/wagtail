@@ -4,7 +4,7 @@ Changelog
 1.6 (xx.xx.xxxx)
 ~~~~~~~~~~~~~~~~
 
- * Django 1.10 support
+ * Provisional Django 1.10 support
  * Added the ``include_block`` template tag for improved StreamField template inclusion (Matt Westcott, Mikalai Radchuk)
  * Page slugs now allow unicode on Django >= 1.9 (Behzad Nategh)
  * Explorer sidebar menu now limits the displayed pages to the ones the user has permission for (Robert Rollins, Matt Westcott)
