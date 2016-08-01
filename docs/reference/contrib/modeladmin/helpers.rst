@@ -6,7 +6,7 @@ Unlike Django's class of the same name, wagtailadmin's ``ModelAmin`` class acts
 as a 'controller'. While it has a set of attributes and methods to enable you
 to configure how various components should treat your model, the ``ModelAdmin``
 class itself has been deliberately designed to do as little work as possible
-by itsels; It designates all of the real work to a set of swappable, reuseable
+by itself; it designates all of the real work to a set of swappable, reuseable
 components. The theory is: If you want to do something differently, you can
 create new classes (or extend the ones provided by ``modeladmin``) and easily
 configure your ``ModelAdmin`` class use those instead.
