@@ -836,9 +836,9 @@ class TestElasticsearch2MappingInheritance(TestCase):
             'searchtests_searchtest_searchtests_searchtestchild': {
                 'properties': {
                     # New
-                    'extra_content': {'type': 'string', 'include_in_all': True},
-                    'subtitle': {'type': 'string', 'include_in_all': True, 'index_analyzer': 'edgengram_analyzer'},
-                    'page': {
+                    'searchtests_searchtestchild__extra_content': {'type': 'string', 'include_in_all': True},
+                    'searchtests_searchtestchild__subtitle': {'type': 'string', 'include_in_all': True, 'index_analyzer': 'edgengram_analyzer'},
+                    'searchtests_searchtestchild__page': {
                         'type': 'nested',
                         'properties': {
                             'title': {'type': 'string', 'include_in_all': True, 'index_analyzer': 'edgengram_analyzer'},
@@ -887,9 +887,9 @@ class TestElasticsearch2MappingInheritance(TestCase):
         # Check
         expected_result = {
             # New
-            'extra_content': '',
-            'subtitle': 'World',
-            'page': {
+            'searchtests_searchtestchild__extra_content': '',
+            'searchtests_searchtestchild__subtitle': 'World',
+            'searchtests_searchtestchild__page': {
                 'title': 'Root',
                 'search_description': '',
                 'live_filter': True,

@@ -1,5 +1,7 @@
 from __future__ import absolute_import, unicode_literals
 
+from wagtail.wagtailsearch.index import FilterField, RelatedFields, SearchField
+
 from .elasticsearch import (
     ElasticsearchIndex, ElasticsearchMapping, ElasticsearchSearchBackend, ElasticsearchSearchQuery,
     ElasticsearchSearchResults)
@@ -30,7 +32,25 @@ def get_model_root(model):
 
 
 class Elasticsearch2Mapping(ElasticsearchMapping):
-    pass
+    def get_field_column_name(self, field):
+        # Fields in derived models get prefixed with their model name, fields
+        # in the root model don't get prefixed at all
+        # This is to prevent mapping clashes in cases where two page types have
+        # a field with the same name but a different type.
+        root_model = get_model_root(self.model)
+        definition_model = field.get_definition_model(self.model)
+
+        if definition_model != root_model:
+            prefix = definition_model._meta.app_label.lower() + '_' + definition_model.__name__.lower() + '__'
+        else:
+            prefix = ''
+
+        if isinstance(field, FilterField):
+            return prefix + field.get_attname(self.model) + '_filter'
+        elif isinstance(field, SearchField):
+            return prefix + field.get_attname(self.model)
+        elif isinstance(field, RelatedFields):
+            return prefix + field.field_name
 
 
 class Elasticsearch2Index(ElasticsearchIndex):
