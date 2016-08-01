@@ -1,7 +1,7 @@
 Changelog
 =========
 
-1.6 (xx.xx.xxxx) - IN DEVELOPMENT
+1.6 (xx.xx.xxxx)
 ~~~~~~~~~~~~~~~~
 
  * Django 1.10 support
