@@ -7,19 +7,19 @@
 
 The ``modeladmin`` module allows you to create customisable listing
 pages for any model in your Wagtail project, and add navigation elements to the
-Wagtail admin area so that you can reach them. Simply extend the ``ModelAdmin``
-class, override a few attributes to suit your needs, register it with Wagtail
-using an easy one-line method (you can copy and paste from the examples below),
-and you're good to go.
+Wagtail admin area so that you can access them. Simply extend the
+``ModelAdmin`` class, override a few attributes to suit your needs, register
+it with Wagtail using an easy one-line ``modeladmin_register`` method
+(you can copy and paste from the examples below), and you're good to go.
 
 You can use it with any Django model (it doesn’t need to extend ``Page`` or
 be registered as a ``Snippet``), and it won’t interfere with any of the
 existing admin functionality that Wagtail provides.
 
-.. _modeladmin_features:
+.. _modeladmin_feature_summary:
 
-A full list of features
------------------------
+Summary of features
+-------------------
 
 - A customisable list view, allowing you to control what values are displayed
   for each row, available options for result filtering, default ordering, and
@@ -45,6 +45,20 @@ A full list of features
   ``ModelAdmin`` class has a large number of methods that you can override or
   extend, allowing you to customise the behaviour to a greater degree.
 
+---------------------------------------------------
+Want to know more about customising ``ModelAdmin``?
+---------------------------------------------------
+
+.. toctree::
+    :maxdepth: 2
+
+    menu_item
+    indexview
+    create_edit_delete_views
+    inspectview
+    chooseparentview
+    helpers
+    recipes
 
 .. _modeladmin_usage:
 
@@ -197,68 +211,3 @@ that's possible. Just register each of your ModelAdmin classes using
     modeladmin_register(MyModelAdminGroup)
     modeladmin_register(MyOtherModelAdminGroup)
 
-
-Supported list options
------------------------
-
-With the exception of bulk actions and date hierarchy, the ``ModelAdmin`` class
-offers similar list functionality to Django's ``ModelAdmin`` class, providing:
-
-- control over what values are displayed (via the ``list_display`` attribute)
-- control over default ordering (via the ``ordering`` attribute)
-- customisable model-specific text search (via the ``search_fields`` attribute)
-- customisable filters (via the ``list_filter`` attribue)
-
-``list_display`` supports the same fields and methods as Django's ModelAdmin
-class (including ``short_description`` and ``admin_order_field`` on custom
-methods), giving you lots of flexibility when it comes to output.
-`Read more about list_display in the Django docs <https://docs.djangoproject.com/en/1.8/ref/contrib/admin/#django.contrib.admin.ModelAdmin.list_display>`_.
-
-``list_filter`` supports the same field types as Django's ModelAdmin class,
-giving your users an easy way to find what they're looking for.
-`Read more about list_filter in the Django docs <https://docs.djangoproject.com/en/1.8/ref/contrib/admin/#django.contrib.admin.ModelAdmin.list_filter>`_.
-
-
-Customizing the layout 
-----------------------
-
-``edit_handler`` can be used on any Django models.Model classes just like it can be used on ``Page`` classes.
-
-To change the way your ``MyPageModel`` is displayed in the CreateView and the EditView, simply define an ``edit_handler`` or ``panels`` in your model.
-
-.. code-block:: python
-
-    class MyPageModel(models.Model):
-        first_name = models.CharField(max_length=100)
-        last_name = models.CharField(max_length=100)
-        address = models.TextField()
-        
-        panels = [
-            MultiFieldPanel([
-                FieldRowPanel([
-                    FieldPanel('first_name', classname='fn'),
-                    FieldPanel('last_name', classname='ln'),
-            ]),
-            FieldPanel('address', classname='custom1',))
-        ]
-
-Or alternatively:
-
-.. code-block:: python
-
-    class MyPageModel(models.Model):
-        first_name = models.CharField(max_length=100)
-        last_name = models.CharField(max_length=100)
-        address = models.TextField()
-        
-        custom_panels = [
-            MultiFieldPanel([
-                FieldRowPanel([
-                    FieldPanel('first_name', classname='fn'),
-                    FieldPanel('last_name', classname='ln'),
-            ]),
-            FieldPanel('address', classname='custom1',))
-        ]
-        edit_handler = ObjectList(custom_panels)
-        # or
-        edit_handler = TabbedInterface([ObjectList(custom_panels), ObjectList(...)])
