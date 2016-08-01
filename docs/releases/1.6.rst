@@ -29,6 +29,12 @@ Unicode page slugs
 Page URL slugs can now contain Unicode characters, when using Django 1.9 or above. This feature was developed by Behzad Nategh.
 
 
+Permission-limited explorer menu
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+The explorer sidebar menu now limits the displayed pages to the ones the logged-in user has permission for. For example, if a user has permission over the pages MegaCorp / Departments / Finance and MegaCorp / Departments / HR, then their menu will begin at "Departments". This reduces the amount of "drilling-down" the user has to do, and is an initial step towards supporting fully independent sites on the same Wagtail installation. This feature was developed by Robert Rollins and Matt Westcott.
+
+
 Minor features
 ~~~~~~~~~~~~~~
 

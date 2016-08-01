@@ -7,6 +7,7 @@ Changelog
  * Django 1.10 support
  * Added the ``include_block`` template tag for improved StreamField template inclusion (Matt Westcott, Mikalai Radchuk)
  * Page slugs now allow unicode on Django >= 1.9 (Behzad Nategh)
+ * Explorer sidebar menu now limits the displayed pages to the ones the user has permission for (Robert Rollins, Matt Westcott)
  * Image upload form in image chooser now performs client side validation so that the selected file is not lost in the submission (Jack Paine)
  * oEmbed URL for audioBoom was updated (Janneke Janssen)
  * Remember tree location in page chooser when switching between Internal / External / Email link (Matt Westcott)
