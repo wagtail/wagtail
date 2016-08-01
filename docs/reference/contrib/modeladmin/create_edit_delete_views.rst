@@ -1,6 +1,3 @@
-
-.. _modeladmin_other_view_customisation:
-
 ===========================================================
 Customising ``CreateView``, ``EditView`` and ``DeleteView``
 ===========================================================

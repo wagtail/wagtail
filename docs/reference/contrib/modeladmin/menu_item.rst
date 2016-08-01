@@ -1,6 +1,3 @@
-
-.. _modeladmin_menu_item_customisation:
-
 ======================================
 Customising the menu item
 ======================================
