@@ -9,13 +9,14 @@
 # João Luiz Lorencetti <me@dirtycoder.net>, 2016
 # Luiz Boaretto <lboaretto@gmail.com>, 2016
 # Luiz Boaretto <lboaretto@gmail.com>, 2016
+# Marcio Mazza <marciomazza@gmail.com>, 2016
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-05-18 21:37+0000\n"
-"PO-Revision-Date: 2016-05-18 22:25+0000\n"
-"Last-Translator: Luiz Boaretto <lboaretto@gmail.com>\n"
+"PO-Revision-Date: 2016-07-09 19:48+0000\n"
+"Last-Translator: Marcio Mazza <marciomazza@gmail.com>\n"
 "Language-Team: Portuguese (Brazil) (http://www.transifex.com/torchbox/"
 "wagtail/language/pt_BR/)\n"
 "MIME-Version: 1.0\n"
@@ -192,7 +193,7 @@ msgid "Add"
 msgstr "Adicionar"
 
 msgid "Add/edit pages you own"
-msgstr "Adicionar/editar páginas você mesmo"
+msgstr "Adicionar/editar suas páginas"
 
 msgid "Edit"
 msgstr "Editar"

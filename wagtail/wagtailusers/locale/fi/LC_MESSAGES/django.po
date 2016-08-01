@@ -5,7 +5,7 @@
 # Translators:
 # Aarni Koskela, 2016
 # Eetu Häivälä <eetu.haivala@anders.fi>, 2016
-# Rauli Laine <rauli.laine@iki.fi>, 2016
+# Rauli L. <rauli.laine@iki.fi>, 2016
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"

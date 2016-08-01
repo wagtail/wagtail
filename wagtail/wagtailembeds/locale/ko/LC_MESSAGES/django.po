@@ -3,7 +3,7 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# Ji Han Chung <jihanchung20@gmail.com>, 2015
+# Jihan Chung <jihanchung20@gmail.com>, 2015
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"

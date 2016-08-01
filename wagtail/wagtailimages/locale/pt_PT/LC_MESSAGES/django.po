@@ -12,8 +12,8 @@ msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-05-18 21:37+0000\n"
-"PO-Revision-Date: 2016-05-11 20:33+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2016-06-23 16:16+0000\n"
+"Last-Translator: Tiago Henriques <trinosauro@gmail.com>\n"
 "Language-Team: Portuguese (Portugal) (http://www.transifex.com/torchbox/"
 "wagtail/language/pt_PT/)\n"
 "MIME-Version: 1.0\n"
@@ -130,6 +130,12 @@ msgstr "Palavras-chave populares"
 
 msgid "Uploading..."
 msgstr "A carregar..."
+
+msgid "Server Error"
+msgstr "Erro no Servidor"
+
+msgid "Report this error to your webmaster with the following information:"
+msgstr "Comunique este erro ao seu webmaster com a seguinte informação:"
 
 #, python-format
 msgid ""
