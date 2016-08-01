@@ -1,6 +1,3 @@
-
-.. _modeladmin_indexview_customisation:
-
 ============================================
 Customising ``IndexView`` - the listing view
 ============================================

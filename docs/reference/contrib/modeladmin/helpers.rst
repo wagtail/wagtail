@@ -1,6 +1,3 @@
-
-.. _modeladmin_helper_customisation:
-
 ==============================
 Customising the helper classes
 ==============================

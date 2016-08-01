@@ -1,6 +1,3 @@
-
-.. _modeladmin_inspectview_customisation:
-
 ======================================
 Enabling & customising ``InspectView``
 ======================================

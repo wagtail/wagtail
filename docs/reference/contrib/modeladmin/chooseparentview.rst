@@ -1,6 +1,3 @@
-
-.. _modeladmin_chooseparentview_customisation:
-
 ======================================
 Customising ``ChooseParentView``
 ======================================
