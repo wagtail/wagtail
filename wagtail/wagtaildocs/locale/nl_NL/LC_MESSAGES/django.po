@@ -10,8 +10,8 @@ msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-05-18 21:37+0000\n"
-"PO-Revision-Date: 2016-05-11 20:33+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2016-06-13 11:11+0000\n"
+"Last-Translator: Thijs Kramer <thijskramer@gmail.com>\n"
 "Language-Team: Dutch (Netherlands) (http://www.transifex.com/torchbox/"
 "wagtail/language/nl_NL/)\n"
 "MIME-Version: 1.0\n"
@@ -61,6 +61,13 @@ msgstr "Uploaden"
 
 msgid "Uploading..."
 msgstr "Bezig met uploaden..."
+
+msgid "Server Error"
+msgstr "Server Error"
+
+msgid "Report this error to your webmaster with the following information:"
+msgstr ""
+"Rapporteer deze foutmelding aan uw webmaster met de volgende informatie:"
 
 #, python-format
 msgid ""
@@ -144,7 +151,7 @@ msgid ""
 "You haven't uploaded any documents in this collection. Why not <a href="
 "\"%(wagtaildocs_add_document_url)s\">upload one now</a>?"
 msgstr ""
-"Er zijn nog geen documenten aan deze verzameling toegevoegd. Waarom <a href="
+"Er zijn nog geen documenten aan deze collectie toegevoegd. Waarom <a href="
 "\"%(wagtaildocs_add_document_url)s\">voegt u er niet een toe</a>?"
 
 #, python-format
@@ -205,7 +212,7 @@ msgid "Or choose from your computer"
 msgstr "Of kies vanaf uw computer"
 
 msgid "Add to collection:"
-msgstr "Voeg toe aan verzameling:"
+msgstr "Voeg toe aan collectie:"
 
 msgid ""
 "Upload successful. Please update this documents with a more appropriate "

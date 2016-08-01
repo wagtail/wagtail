@@ -3,14 +3,14 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# Giacomo Ghizzani <giacomo.ghz@gmail.com>, 2015
+# Giacomo Ghizzani <giacomo.ghz@gmail.com>, 2015-2016
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-05-18 21:37+0000\n"
-"PO-Revision-Date: 2016-05-11 20:34+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2016-06-24 14:46+0000\n"
+"Last-Translator: Giacomo Ghizzani <giacomo.ghz@gmail.com>\n"
 "Language-Team: Italian (http://www.transifex.com/torchbox/wagtail/language/"
 "it/)\n"
 "MIME-Version: 1.0\n"
@@ -45,3 +45,30 @@ msgstr "Default"
 
 msgid "Sites"
 msgstr "Siti"
+
+msgid "Add a site"
+msgstr "Aggiungi un sito"
+
+msgid "Add site"
+msgstr "Aggiungi sito"
+
+#, python-brace-format
+msgid "Site '{0}' created."
+msgstr "Sito '{0}' creato."
+
+#, python-brace-format
+msgid "Site '{0}' updated."
+msgstr "Sito '{0}' aggiornato."
+
+msgid "The site could not be saved due to errors."
+msgstr "Il sito non può essere salvato a causa di errori."
+
+msgid "Delete site"
+msgstr "Elimina sito"
+
+#, python-brace-format
+msgid "Site '{0}' deleted."
+msgstr "Sito '{0}' eliminato."
+
+msgid "Are you sure you want to delete this site?"
+msgstr "Sei sicuro di voler eliminare questo sito?"

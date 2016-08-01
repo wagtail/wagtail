@@ -14,8 +14,8 @@ msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-05-18 21:37+0000\n"
-"PO-Revision-Date: 2016-05-11 20:33+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2016-06-23 16:25+0000\n"
+"Last-Translator: Tiago Henriques <trinosauro@gmail.com>\n"
 "Language-Team: Portuguese (Portugal) (http://www.transifex.com/torchbox/"
 "wagtail/language/pt_PT/)\n"
 "MIME-Version: 1.0\n"
@@ -207,6 +207,12 @@ msgstr "Verifique o seu e-mail"
 
 msgid "A link to reset your password has been emailed to you."
 msgstr "Foi enviado para o seu e-mail um link para reinicializar a sua senha."
+
+msgid "Please follow the link below to reset your password:"
+msgstr "Por favor siga o link abaixo para reinicializar a sua senha:"
+
+msgid "Your username (in case you've forgotten):"
+msgstr "O seu utilizador (caso o tenha esquecido):"
 
 msgid "Password reset"
 msgstr "Reinicializar senha"
@@ -783,11 +789,21 @@ msgstr "Versões de %(title)s"
 msgid "Revisions of"
 msgstr "Versões de"
 
+msgid "Revision date"
+msgstr "Data da versão"
+
+msgctxt "points to a user who created a revision"
+msgid "by"
+msgstr "por"
+
 msgid "Current draft"
 msgstr "Rascunho atual"
 
 msgid "Review this revision"
 msgstr "Analisar esta versão"
+
+msgid "No revisions of this page exist"
+msgstr "Não existe nenhuma versão desta página"
 
 msgid "No revision of this page exist"
 msgstr "Não existe nenhuma versão desta página"
@@ -940,8 +956,41 @@ msgstr "A sua senha foi alterada com sucesso!"
 msgid "Your preferences have been updated successfully!"
 msgstr "As suas preferências foram atualizadas com sucesso!"
 
+msgid "You have been successfully logged out."
+msgstr "A sua sessão foi terminada com sucesso."
+
 msgid "Collections"
 msgstr "Coleções"
+
+msgid "Add a collection"
+msgstr "Adicionar uma coleção"
+
+msgid "Add collection"
+msgstr "Adicionar coleção"
+
+#, python-brace-format
+msgid "Collection '{0}' created."
+msgstr "Coleção '{0}' criada."
+
+#, python-brace-format
+msgid "Collection '{0}' updated."
+msgstr "Coleção '{0}' atualizada."
+
+msgid "The collection could not be saved due to errors."
+msgstr "A coleção não pôde ser guardada devido a erros."
+
+msgid "Delete collection"
+msgstr "Apagar coleção"
+
+#, python-brace-format
+msgid "Collection '{0}' deleted."
+msgstr "Coleção '{0}' apagada."
+
+msgid "Are you sure you want to delete this collection?"
+msgstr "Tem a certeza que quer apagar esta coleção?"
+
+msgid "Editing"
+msgstr "A editar"
 
 #, python-brace-format
 msgid "Page '{0}' created and scheduled for publishing."
@@ -960,6 +1009,9 @@ msgstr "Página '{0}' criada e enviada para moderação."
 
 msgid "View draft"
 msgstr "Ver rascunho"
+
+msgid "Failed to send notifications to moderators"
+msgstr "Não foi possível notificar os moderadores"
 
 #, python-brace-format
 msgid "Page '{0}' created."
@@ -1033,9 +1085,15 @@ msgstr "A página '{0}' não está a aguardar moderação."
 msgid "Page '{0}' published."
 msgstr "Página '{0}' publicada."
 
+msgid "Failed to send approval notifications"
+msgstr "Não foi possível enviar as notificações de aprovação"
+
 #, python-brace-format
 msgid "Page '{0}' rejected for publication."
 msgstr "Página '{0}' rejeitada para publicação."
+
+msgid "Failed to send rejection notifications"
+msgstr "Não foi possível enviar as notificações de rejeição"
 
 #, python-brace-format
 msgid "Page '{0}' is now locked."
@@ -1045,14 +1103,44 @@ msgstr "A página '{0}' foi trancada."
 msgid "Page '{0}' is now unlocked."
 msgstr "A página '{0}' foi destrancada."
 
+#, python-format
+msgid ""
+"You are viewing a previous revision of this page from <b>%(created_at)s</b> "
+"by %(user)s"
+msgstr ""
+"Está a visualizar uma versão anterior desta página de <b>%(created_at)s</b> "
+"por %(user)s"
+
 msgid "Pages"
 msgstr "Páginas"
+
+msgid "Preview draft"
+msgstr "Visualizar rascunho"
 
 msgid "Add child page"
 msgstr "Adicionar página-filha"
 
+#, python-brace-format
+msgid "Add a child page to '{0}' "
+msgstr "Adicionar página-filha a '{0}'"
+
 msgid "More"
 msgstr "Mais"
+
+msgid "View more options"
+msgstr "Ver mais opções"
+
+msgid "Move this page"
+msgstr "Mover esta página"
+
+msgid "Delete this page"
+msgstr "Apagar esta página"
+
+msgid "Unpublish this page"
+msgstr "Despublicar esta página"
+
+msgid "View this page's revision history"
+msgstr "Ver o histórico de versões desta página"
 
 msgid "Choose an item"
 msgstr "Escolher um item"

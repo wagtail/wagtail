@@ -17,8 +17,8 @@ msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-05-18 21:37+0000\n"
-"PO-Revision-Date: 2016-05-25 07:36+0000\n"
-"Last-Translator: fooflare <amos.oviedo@gmail.com>\n"
+"PO-Revision-Date: 2016-06-07 17:15+0000\n"
+"Last-Translator: Yusuf (Josè) Luis <alagunajs@gmail.com>\n"
 "Language-Team: Spanish (http://www.transifex.com/torchbox/wagtail/language/"
 "es/)\n"
 "MIME-Version: 1.0\n"
@@ -577,7 +577,7 @@ msgid "Unpublish %(title)s"
 msgstr "No publicar %(title)s"
 
 msgid "Unpublish"
-msgstr "No publicar"
+msgstr "Despublicar"
 
 msgid "Are you sure you want to unpublish this page?"
 msgstr "Estás seguro de que no quieres publicar esta página?"
@@ -1064,7 +1064,7 @@ msgstr "Página '{0}' eliminada."
 
 #, python-brace-format
 msgid "Page '{0}' unpublished."
-msgstr "Página '{0}' no publicada."
+msgstr "Página '{0}' despublicada."
 
 #, python-brace-format
 msgid "Page '{0}' moved."

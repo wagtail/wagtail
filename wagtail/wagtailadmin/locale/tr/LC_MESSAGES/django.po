@@ -9,8 +9,8 @@ msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-05-18 21:37+0000\n"
-"PO-Revision-Date: 2016-05-11 20:33+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2016-07-14 08:20+0000\n"
+"Last-Translator: Cihad GÜNDOĞDU <cihadgundogdu@gmail.com>\n"
 "Language-Team: Turkish (http://www.transifex.com/torchbox/wagtail/language/"
 "tr/)\n"
 "MIME-Version: 1.0\n"
@@ -18,6 +18,9 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: tr\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+msgid "You do not have permission to access the admin"
+msgstr "Yönetici bölümüne erişmeye yetkiniz yok"
 
 msgid "Scheduled publishing"
 msgstr "Planlanmış yayın"
@@ -53,6 +56,13 @@ msgstr "Şifreyi sıfırlamak için e posta adresini gir"
 msgid "Please fill your email address."
 msgstr "Lütfen E posta adresini doldu"
 
+msgid ""
+"Sorry, you cannot reset your password here as your user account is managed "
+"by another server."
+msgstr ""
+"Üzgünüz, sizin şifrenizi burada sıfırlayamıyoruz, hesabınız başka bir sunucu "
+"tarafından yönetilmekte"
+
 msgid "This email address is not recognised."
 msgstr "Bu email adresi tanınamadı"
 
@@ -64,6 +74,9 @@ msgstr "Yeni url başlık"
 
 msgid "New parent page"
 msgstr "Yeni üst sayfa"
+
+msgid "This copy will be a child of this given parent page."
+msgstr "Bu kopya verilen ebeveyn sayfanın alt sayfası olmalı"
 
 msgid "Copy subpages"
 msgstr "Alt sayfaları kopyala"
@@ -94,6 +107,9 @@ msgstr "Yayın tarih/saati bitiş tarih/saatinden önce olmalı"
 
 msgid "Expiry date/time must be in the future"
 msgstr "Bitiş tarihi ileri bir tarih olmalı"
+
+msgid "You cannot have multiple permission records for the same collection."
+msgstr "Aynı kolleksiyona ait birden fazla yetkiye sahip olamazsınız"
 
 msgid "Account"
 msgstr "Hesap"
@@ -148,6 +164,12 @@ msgid "A link to reset your password has been emailed to you."
 msgstr ""
 "Şifreni sıfırlamak için gerekli olan bağlantı e posta olarak gönderildi."
 
+msgid "Please follow the link below to reset your password:"
+msgstr "Şifrenizi resetlemek için aşağıdaki bağlantıyı takip edin"
+
+msgid "Your username (in case you've forgotten):"
+msgstr "Kullanıcı adın(Unutmanız durumunda)"
+
 msgid "Password reset"
 msgstr "Şifre sıfırla"
 
@@ -195,6 +217,13 @@ msgstr "Bağlantı ekle"
 
 msgid "Add an external link"
 msgstr "Bir dış bağlantı ekle"
+
+msgid ""
+"This collection cannot be deleted, because it is not empty. It contains:"
+msgstr "Bu kolleksiyon silinemedi, çünkü boş değil ve şunları içeriyor:"
+
+msgid "Name"
+msgstr "İsim"
 
 #, python-format
 msgid "Add %(heading)s"
@@ -270,6 +299,9 @@ msgstr "Wagtail oturumu aç"
 
 msgid "Signing in..."
 msgstr "Giriş yapılıyor..."
+
+msgid "Page privacy"
+msgstr "Sayfa gizliliği"
 
 #, python-format
 msgid "Delete %(title)s"
@@ -394,6 +426,31 @@ msgstr "Sayfa '{0}' taşındı."
 
 msgid "Pages"
 msgstr "Sayfalar"
+
+msgid "Preview draft"
+msgstr "Taslak önizleme"
+
+msgid "Add child page"
+msgstr "Alt sayfa ekle"
+
+#, python-brace-format
+msgid "Add a child page to '{0}' "
+msgstr "'{0}' a bir alt sayfa ekle"
+
+msgid "More"
+msgstr "Daha fazla"
+
+msgid "View more options"
+msgstr "Daha fazla ayar görüntüle"
+
+msgid "Move this page"
+msgstr "Sayfayı taşı"
+
+msgid "Delete this page"
+msgstr "Sayfayı sil"
+
+msgid "Unpublish this page"
+msgstr "Sayfayı yayından kaldır"
 
 msgid "Choose an item"
 msgstr "Bir eleman seçiniz"
