@@ -4,8 +4,6 @@ import json
 import logging
 import uuid
 
-import boto3
-import botocore
 from django.core.exceptions import ImproperlyConfigured
 from django.utils.six.moves.urllib.error import HTTPError, URLError
 from django.utils.six.moves.urllib.parse import urlencode, urlparse, urlunparse
@@ -92,6 +90,8 @@ class CloudflareBackend(BaseBackend):
 
 class CloudfrontBackend(BaseBackend):
     def __init__(self, params):
+        import boto3
+
         self.client = boto3.client('cloudfront')
         try:
             self.cloudfront_distribution_id = params.pop('DISTRIBUTION_ID')
@@ -109,8 +109,8 @@ class CloudfrontBackend(BaseBackend):
             if host in self.cloudfront_distribution_id:
                 distribution_id = self.cloudfront_distribution_id.get(host)
             else:
-                logger.error(
-                    "Couldn't purge '%s' from CloudFront, Hostname '%s' not found in the DISTRIBUTION_ID mapping",
+                logger.info(
+                    "Couldn't purge '%s' from CloudFront. Hostname '%s' not found in the DISTRIBUTION_ID mapping",
                     url, host)
         else:
             distribution_id = self.cloudfront_distribution_id
@@ -120,6 +120,8 @@ class CloudfrontBackend(BaseBackend):
             self._create_invalidation(distribution_id, path)
 
     def _create_invalidation(self, distribution_id, path):
+        import botocore
+
         try:
             self.client.create_invalidation(
                 DistributionId=distribution_id,
