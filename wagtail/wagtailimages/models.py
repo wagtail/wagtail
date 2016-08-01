@@ -255,14 +255,14 @@ class AbstractImage(CollectionMember, index.Indexed, models.Model):
 
     def get_rendition(self, filter):
         if isinstance(filter, string_types):
-            filter, created = Filter.objects.get_or_create(spec=filter)
+            filter = Filter(spec=filter)
 
         cache_key = filter.get_cache_key(self)
         Rendition = self.get_rendition_model()
 
         try:
             rendition = self.renditions.get(
-                filter=filter,
+                filter=filter.spec,
                 focal_point_key=cache_key,
             )
         except Rendition.DoesNotExist:
@@ -289,7 +289,7 @@ class AbstractImage(CollectionMember, index.Indexed, models.Model):
             output_filename = output_filename_without_extension + '.' + output_extension
 
             rendition, created = self.renditions.get_or_create(
-                filter=filter,
+                filter=filter.spec,
                 focal_point_key=cache_key,
                 defaults={'file': File(generated_image.f, name=output_filename)}
             )
@@ -371,15 +371,16 @@ def get_image_model():
     return image_model
 
 
-class Filter(models.Model):
+class Filter(object):
     """
     Represents one or more operations that can be applied to an Image to produce a rendition
     appropriate for final display on the website. Usually this would be a resize operation,
     but could potentially involve colour processing, etc.
     """
 
-    # The spec pattern is operation1-var1-var2|operation2-var1
-    spec = models.CharField(max_length=255, unique=True)
+    def __init__(self, spec):
+        # The spec pattern is operation1-var1-var2|operation2-var1
+        self.spec = spec
 
     @cached_property
     def operations(self):
@@ -459,7 +460,7 @@ class Filter(models.Model):
 
 
 class AbstractRendition(models.Model):
-    filter = models.ForeignKey(Filter, related_name='+')
+    filter = models.CharField(max_length=255, db_index=True)
     file = models.ImageField(upload_to=get_rendition_upload_to, width_field='width', height_field='height')
     width = models.IntegerField(editable=False)
     height = models.IntegerField(editable=False)
