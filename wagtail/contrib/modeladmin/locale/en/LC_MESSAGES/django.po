@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-05-18 21:37+0000\n"
+"POT-Creation-Date: 2016-08-01 13:25+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -240,16 +240,16 @@ msgid ""
 "related to it, they may also be affected."
 msgstr ""
 
-#: views.py:784
+#: views.py:781
 #, python-brace-format
 msgid "{model} '{instance}' deleted."
 msgstr ""
 
-#: views.py:809
+#: views.py:811
 msgid "Inspecting"
 msgstr ""
 
-#: views.py:822
+#: views.py:824
 #, python-format
 msgid "Inspecting %s"
 msgstr ""

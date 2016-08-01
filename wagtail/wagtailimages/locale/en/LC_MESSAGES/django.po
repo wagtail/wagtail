@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-05-18 21:37+0000\n"
+"POT-Creation-Date: 2016-08-01 13:25+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -101,7 +101,7 @@ msgstr ""
 msgid "Add/edit images you own"
 msgstr ""
 
-#: forms.py:90 views/images.py:256
+#: forms.py:90 views/images.py:257
 msgid "Edit"
 msgstr ""
 
@@ -156,16 +156,6 @@ msgstr ""
 
 #: templates/wagtailimages/chooser/chooser.html:50
 msgid "Uploading..."
-msgstr ""
-
-#: templates/wagtailimages/chooser/chooser.js:73
-#: templates/wagtailimages/multiple/add.html:61
-msgid "Server Error"
-msgstr ""
-
-#: templates/wagtailimages/chooser/chooser.js:74
-#: templates/wagtailimages/multiple/add.html:62
-msgid "Report this error to your webmaster with the following information:"
 msgstr ""
 
 #: templates/wagtailimages/chooser/results.html:6
@@ -281,8 +271,8 @@ msgid "File not found"
 msgstr ""
 
 #: templates/wagtailimages/images/index.html:5
-#: templates/wagtailimages/images/index.html:24 wagtail_hooks.py:38
-#: wagtail_hooks.py:106
+#: templates/wagtailimages/images/index.html:24 wagtail_hooks.py:44
+#: wagtail_hooks.py:112
 msgid "Images"
 msgstr ""
 
@@ -383,6 +373,14 @@ msgstr ""
 msgid "Sorry, upload failed."
 msgstr ""
 
+#: templates/wagtailimages/multiple/add.html:61
+msgid "Server Error"
+msgstr ""
+
+#: templates/wagtailimages/multiple/add.html:62
+msgid "Report this error to your webmaster with the following information:"
+msgstr ""
+
 #: templates/wagtailimages/multiple/add.html:65
 msgid "Image updated."
 msgstr ""
@@ -391,7 +389,7 @@ msgstr ""
 msgid "Update"
 msgstr ""
 
-#: templates/wagtailimages/multiple/edit_form.html:15 views/images.py:137
+#: templates/wagtailimages/multiple/edit_form.html:15 views/images.py:138
 msgid "Delete"
 msgstr ""
 
@@ -403,44 +401,44 @@ msgstr ""
 msgid "Add an image permission"
 msgstr ""
 
-#: views/images.py:39 views/images.py:45
+#: views/images.py:40 views/images.py:46
 msgid "Search images"
 msgstr ""
 
-#: views/images.py:115
+#: views/images.py:116
 #, python-brace-format
 msgid "Image '{0}' updated."
 msgstr ""
 
-#: views/images.py:116
+#: views/images.py:117
 msgid "Edit again"
 msgstr ""
 
-#: views/images.py:120
+#: views/images.py:121
 msgid "The image could not be saved due to errors."
 msgstr ""
 
-#: views/images.py:135
+#: views/images.py:136
 msgid ""
 "The source image file could not be found. Please change the source or delete "
 "the image."
 msgstr ""
 
-#: views/images.py:230
+#: views/images.py:231
 #, python-brace-format
 msgid "Image '{0}' deleted."
 msgstr ""
 
-#: views/images.py:255
+#: views/images.py:256
 #, python-brace-format
 msgid "Image '{0}' added."
 msgstr ""
 
-#: views/images.py:260
+#: views/images.py:261
 msgid "The image could not be created due to errors."
 msgstr ""
 
-#: wagtail_hooks.py:125
+#: wagtail_hooks.py:131
 #, python-format
 msgid "%(count)s image"
 msgid_plural "%(count)s images"
