@@ -506,7 +506,7 @@ class TestFilenameReduction(TestCase):
         self.assertEqual("original_images/thisisaverylongfilename-abcdefghijklmnopqrstuvwxyz-supercalifragilisticexpiali", image.file.name)
 
     # Test for happy path. Long filename with extension
-    def test_filename_reduction_no_ext(self):
+    def test_filename_reduction_ext(self):
         # Create an image with a big filename and extensions
         image = Image.objects.create(
             title="Test image",
