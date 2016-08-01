@@ -160,6 +160,7 @@ Contributors
 * Sean Muck
 * Fábio Macêdo Mendes
 * Eraldo Energy
+* Jesse Legg
 
 Translators
 ===========

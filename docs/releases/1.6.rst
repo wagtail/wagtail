@@ -78,6 +78,7 @@ Bug fixes
  * The ``--schema-only`` flag on update_index no longer expects an argument (Karl Hobley)
  * Added file handling to support custom user add/edit forms with images/files (Eraldo Energy)
  * Placeholder text in modeladmin search now uses the correct template variable (Adriaan Tijsseling)
+ * Fixed bad SQL syntax for updating URL paths on Microsoft SQL Server (Jesse Legg)
 
 
 Upgrade considerations
