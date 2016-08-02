@@ -2,7 +2,7 @@
 Customising ``IndexView`` - the listing view
 ============================================
 
-For the sake of consistency, this section of the docs will refer to the list
+For the sake of consistency, this section of the docs will refer to the listing
 view as ``IndexView``, because that is the view class that does all the heavy
 lifting.
 
@@ -21,7 +21,7 @@ on the ``ModelAdmin`` class itself.
 
 Default value: ``('__str__',)``
 
-Set ``list_display`` to control which fields are displayed on the list page 
+Set ``list_display`` to control which fields are displayed in the IndexView 
 for your model.
 
 Example
@@ -242,7 +242,7 @@ A few special cases to note about ``list_display``:
     	full_name = property(full_name_property)
 
 	
-	class PersonAdmin(admin.ModelAdmin):
+	class PersonAdmin(ModelAdmin):
     	list_display = ('full_name',)
 	```
 
@@ -279,7 +279,8 @@ be searched whenever somebody submits a search query using the search box.
 
 Searching is all handled via Django's queryset API, rather than using the
 Wagtail's search backend. This means it will work for all models, whatever 
-search back-end your project is using, and without any further setup needed.
+search backend your project is using, and without any additional setup or 
+configuration.
 
 .. _modeladmin_ordering:
 
@@ -287,11 +288,11 @@ search back-end your project is using, and without any further setup needed.
 ``ModelAdmin.ordering``
 ---------------------------
 
-**Expected value**: A list or tuple in the same format as a model’s [``ordering``](
-https://docs.djangoproject.com/en/1.9/ref/contrib/admin/#django.contrib.admin.ModelAdmin.list_display) parameter.
+**Expected value**: A list or tuple in the same format as a model’s 
+[``ordering``](https://docs.djangoproject.com/en/1.9/ref/contrib/admin/#django.contrib.admin.ModelAdmin.list_display) parameter.
 
-Set ``ordering`` to specify the default ordering of objects when listed in the
-index view.  If not provided, the model’s default ordering will be respected.
+Set ``ordering`` to specify the default ordering of objects when listed by
+IndexView.  If not provided, the model’s default ordering will be respected.
 
 If you need to specify a dynamic order (for example, depending on user or
 language) you can override the ``get_ordering()`` method instead.
@@ -314,7 +315,34 @@ of the index view. By default, this is set to ``100``.
 ``ModelAdmin.get_queryset()``
 -----------------------------
 
-Description coming soon.
+The ``get_queryset`` method returns the 'base' queryset for your model, to
+which any filters and search queries are applied. By default, the ``all()``
+method of your model's default manager is used. But, if for any reason you
+only want a certain sub-set of objects to appear in the IndexView listing,
+overriding the ``get_queryset`` method on your ``ModelAdmin`` class can help
+you with that. The method takes an ``HttpRequest`` object as a parameter, so
+limiting objects by the current logged-in user is possible. 
+
+For example:
+
+```
+from django.db import models
+from wagtail.contrib.modeladmin.options import ModelAdmin
+
+class Person(models.Model):
+	first_name = models.CharField(max_length=50)
+	last_name = models.CharField(max_length=50)
+	managed_by = models.ForeignKey(`auth.User`, on_delete=models.CASCADE)
+
+
+class PersonAdmin(ModelAdmin):
+	list_display = ('first_name', 'last_name')
+
+	def get_queryset(self, request):
+		qs = super(PersonAdmin, self).get_queryset(request)
+		# Only show people managed by the current user
+		return qs.filter(managed_by=request.user)
+```
 
 .. _modeladmin_get_extra_class_names_for_field_col:
 
@@ -322,7 +350,43 @@ Description coming soon.
 ``ModelAdmin.get_extra_class_names_for_field_col()``
 ----------------------------------------------------
 
-Description coming soon.
+The ``get_extra_class_names_for_field_col`` method allows you to add additional
+CSS class names to any of the columns defined by ``list_display`` for your
+model. The method takes two parameters:
+
+- 	``obj``: the object being represented by the current row
+-	``field_name``: the item from ``list_display`` being represented by the
+	curent column
+
+For example, if you'd like to apply some conditional formatting to a cell
+depending on the row's value, you could do something like:
+
+```
+from decimal import Decimal
+from django.db import models
+from wagtail.contrib.modeladmin.options import ModelAdmin
+
+class BankAccount(models.Model):
+	name = models.CharField(max_length=50)
+	account_number = models.CharField(max_length=50)
+	balance = models.DecimalField(max_digits=5, num_places=2)
+
+
+class BankAccountAdmin(ModelAdmin):
+	list_display = ('name', 'account_number', 'balance')
+
+	def get_extra_class_names_for_field_col(self, obj, field_name):
+		field_name == 'balance':
+			if balance <= Decimal('-100.00'):
+				return ['brand-danger']
+			if balance <= Decimal('-0.00'):
+				return ['brand-warning']
+			if balance <= Decimal('-50.00'):
+				return ['brand-info']
+			else:
+				return ['brand-success']
+		return []
+```
 
 .. _modeladmin_get_extra_attrs_for_field_col:
 
@@ -330,8 +394,72 @@ Description coming soon.
 ``ModelAdmin.get_extra_attrs_for_field_col()``
 ----------------------------------------------------
 
-Description coming soon.
+The ``get_extra_attrs_for_field_col`` method allows you to add additional HTML
+attributes to any of the columns defined in ``list_display``. Like the
+``get_extra_class_names_for_field_col`` method above, this method takes two
+parameters: 
 
+- 	``obj``: the object being represented by the current row
+-	``field_name``: the item from ``list_display`` being represented by the
+	curent column
+
+For example, you might like to add some tooltip text to a certain column, to
+help give the value more context:
+
+```
+from django.db import models
+from wagtail.contrib.modeladmin.options import ModelAdmin
+
+
+class Person(models.Model):
+	name = models.CharField(max_length=100)
+	likes_cat_gifs = models.NullBooleanField()
+
+
+class PersonAdmin(ModelAdmin):
+	model = Person
+	list_display = ('name', 'likes_cat_gifs')
+
+	def get_extra_attrs_for_field_col(self, obj, field_name=None):
+        if field_name == 'likes_cat_gifs' and obj.likes_cat_gifs is None:
+    		return {
+    			'title': (
+     				'The person was shown several cat gifs, but failed to '
+    				'indicate a preference.'
+    			),
+    		}
+        return {}
+```
+
+Or you might like to add one or more data attributes to help implement some
+kind of interactivity using javascript:
+
+```
+from django.db import models
+from wagtail.contrib.modeladmin.options import ModelAdmin
+
+
+class Event(models.Model):
+	title = models.CharField(max_length=255)
+	start_date = models.DateField()
+	end_date = models.DateField()
+	start_time = models.TimeField()
+	end_time = models.TimeField()
+
+
+class EventAdmin(ModelAdmin):
+	model = Event
+	list_display = ('title', 'start_date', 'end_date')
+
+	def get_extra_attrs_for_field_col(self, obj, field_name=None):
+        if field_name == 'start_date':
+        	# Add the start time as data to the 'start_date' cell
+    		return { 'data-time': obj.start_time.strftime('%H:%M') }
+    	if field_name == 'end_date':
+    		# Add the end time as data to the 'end_date' cell
+    		return { 'data-time': obj.end_time.strftime('%H:%M') }
+        return {}
+```
 
 .. _modeladmin_index_view_extra_css:
 
