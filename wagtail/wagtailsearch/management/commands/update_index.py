@@ -80,19 +80,19 @@ class Command(BaseCommand):
             object_count = 0
             if not schema_only:
                 for model in models:
+                    self.stdout.write('{}: {}.{} '.format(backend_name, model._meta.app_label, model.__name__).ljust(35), ending='')
+
                     # Add items (1000 at a time)
                     for chunk in self.print_iter_progress(self.queryset_chunks(model.get_indexed_objects())):
                         index.add_items(model, chunk)
                         object_count += len(chunk)
 
-            self.print_newline()
+                    self.print_newline()
 
             # Finish rebuild
             rebuilder.finish()
 
-            self.print_newline()
-            self.stdout.write(backend_name + ": (indexed %d objects)" % object_count)
-            self.print_newline()
+            self.stdout.write(backend_name + ": indexed %d objects" % object_count)
             self.print_newline()
 
     def add_arguments(self, parser):
@@ -100,7 +100,7 @@ class Command(BaseCommand):
             '--backend', action='store', dest='backend_name', default=None,
             help="Specify a backend to update")
         parser.add_argument(
-            '--schema-only', action='store', dest='schema_only', default=None,
+            '--schema-only', action='store_true', dest='schema_only', default=False,
             help="Prevents loading any data into the index")
 
     def handle(self, **options):
@@ -136,8 +136,9 @@ class Command(BaseCommand):
         for i, value in enumerate(iterable, start=1):
             yield value
             self.stdout.write('.', ending='')
-            if i % 50 == 0:
+            if i % 40 == 0:
                 self.print_newline()
+                self.stdout.write(' ' * 35, ending='')
 
             elif i % 10 == 0:
                 self.stdout.write(' ', ending='')

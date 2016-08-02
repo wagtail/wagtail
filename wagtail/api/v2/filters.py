@@ -1,13 +1,14 @@
 from __future__ import absolute_import, unicode_literals
 
 from django.conf import settings
+from django.db import models
 from rest_framework.filters import BaseFilterBackend
-from taggit.managers import _TaggableManager
+from taggit.managers import TaggableManager
 
 from wagtail.wagtailcore.models import Page
 from wagtail.wagtailsearch.backends import get_search_backend
 
-from .utils import BadRequestError, pages_for_site
+from .utils import BadRequestError, pages_for_site, parse_boolean
 
 
 class FieldsFilter(BaseFilterBackend):
@@ -16,13 +17,29 @@ class FieldsFilter(BaseFilterBackend):
         This performs field level filtering on the result set
         Eg: ?title=James Joyce
         """
-        fields = set(view.get_available_fields(queryset.model)).union({'id'})
+        fields = set(view.get_available_fields(queryset.model, db_fields_only=True))
 
         for field_name, value in request.GET.items():
             if field_name in fields:
-                field = getattr(queryset.model, field_name, None)
+                try:
+                    field = queryset.model._meta.get_field(field_name)
+                except LookupError:
+                    field = None
 
-                if isinstance(field, _TaggableManager):
+                # Convert value into python
+                try:
+                    if isinstance(field, (models.BooleanField, models.NullBooleanField)):
+                        value = parse_boolean(value)
+                    elif isinstance(field, (models.IntegerField, models.AutoField)):
+                        value = int(value)
+                except ValueError as e:
+                    raise BadRequestError("field filter error. '%s' is not a valid value for %s (%s)" % (
+                        value,
+                        field_name,
+                        str(e)
+                    ))
+
+                if isinstance(field, TaggableManager):
                     for tag in value.split(','):
                         queryset = queryset.filter(**{field_name + '__name': tag})
 
@@ -67,7 +84,7 @@ class OrderingFilter(BaseFilterBackend):
                 reverse_order = False
 
             # Add ordering
-            if order_by == 'id' or order_by in view.get_available_fields(queryset.model):
+            if order_by in view.get_available_fields(queryset.model):
                 queryset = queryset.order_by(order_by)
             else:
                 # Unknown field

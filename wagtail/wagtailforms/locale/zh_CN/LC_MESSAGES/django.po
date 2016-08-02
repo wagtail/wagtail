@@ -6,7 +6,7 @@
 # hanfeng <appweb.cn@gmail.com>, 2014-2015
 # Feng Wang <wangfeng.w@gmail.com>, 2015
 # hanfeng <appweb.cn@gmail.com>, 2014
-# listeng teng <aosp@163.com>, 2016
+# listeng <aosp@163.com>, 2016
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"

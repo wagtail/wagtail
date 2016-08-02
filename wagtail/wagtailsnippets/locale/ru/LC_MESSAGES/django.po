@@ -3,7 +3,7 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# Eugene MechanisM <contact@mechanism.name>, 2014-2015
+# Eugene MechanisM <eugene@mechanism.pro>, 2014-2015
 # Mikalai Radchuk <radchuk.m@gmail.com>, 2016
 msgid ""
 msgstr ""

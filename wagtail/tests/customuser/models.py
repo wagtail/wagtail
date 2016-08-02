@@ -41,6 +41,7 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
     first_name = models.CharField(max_length=50, blank=True)
     last_name = models.CharField(max_length=50, blank=True)
     country = models.CharField(max_length=100, blank=True)
+    attachment = models.FileField(blank=True)
 
     USERNAME_FIELD = 'username'
     REQUIRED_FIELDS = ['email']

@@ -82,9 +82,3 @@ class AdminPageSerializer(PageSerializer):
     status = PageStatusField(read_only=True)
     children = PageChildrenField(read_only=True)
     descendants = PageDescendantsField(read_only=True)
-
-    meta_fields = PageSerializer.meta_fields + [
-        'status',
-        'children',
-        'descendants',
-    ]

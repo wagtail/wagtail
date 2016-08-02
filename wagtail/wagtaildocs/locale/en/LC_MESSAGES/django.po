@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-05-18 21:37+0000\n"
+"POT-Creation-Date: 2016-08-01 13:25+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -25,7 +25,7 @@ msgstr ""
 msgid "Add/edit documents you own"
 msgstr ""
 
-#: forms.py:52 views/documents.py:105 views/documents.py:143
+#: forms.py:52 views/documents.py:106 views/documents.py:144
 msgid "Edit"
 msgstr ""
 
@@ -33,27 +33,27 @@ msgstr ""
 msgid "Edit any document"
 msgstr ""
 
-#: models.py:30
+#: models.py:29
 msgid "title"
 msgstr ""
 
-#: models.py:31
+#: models.py:30
 msgid "file"
 msgstr ""
 
-#: models.py:32
+#: models.py:31
 msgid "created at"
 msgstr ""
 
-#: models.py:35
+#: models.py:34
 msgid "uploaded by user"
 msgstr ""
 
-#: models.py:42
+#: models.py:41
 msgid "tags"
 msgstr ""
 
-#: models.py:79
+#: models.py:82
 msgid "document"
 msgstr ""
 
@@ -160,8 +160,8 @@ msgstr ""
 msgid "File not found"
 msgstr ""
 
-#: templates/wagtaildocs/documents/index.html:22 wagtail_hooks.py:38
-#: wagtail_hooks.py:97
+#: templates/wagtaildocs/documents/index.html:22 wagtail_hooks.py:44
+#: wagtail_hooks.py:103
 msgid "Documents"
 msgstr ""
 
@@ -267,7 +267,7 @@ msgstr ""
 msgid "Update"
 msgstr ""
 
-#: templates/wagtaildocs/multiple/edit_form.html:15 views/documents.py:165
+#: templates/wagtaildocs/multiple/edit_form.html:15 views/documents.py:166
 msgid "Delete"
 msgstr ""
 
@@ -279,35 +279,35 @@ msgstr ""
 msgid "Add a document permission"
 msgstr ""
 
-#: views/documents.py:51 views/documents.py:56
+#: views/documents.py:52 views/documents.py:57
 msgid "Search documents"
 msgstr ""
 
-#: views/documents.py:104
+#: views/documents.py:105
 #, python-brace-format
 msgid "Document '{0}' added."
 msgstr ""
 
-#: views/documents.py:109 views/documents.py:147
+#: views/documents.py:110 views/documents.py:148
 msgid "The document could not be saved due to errors."
 msgstr ""
 
-#: views/documents.py:142
+#: views/documents.py:143
 #, python-brace-format
 msgid "Document '{0}' updated"
 msgstr ""
 
-#: views/documents.py:164
+#: views/documents.py:165
 msgid ""
 "The file could not be found. Please change the source or delete the document"
 msgstr ""
 
-#: views/documents.py:188
+#: views/documents.py:189
 #, python-brace-format
 msgid "Document '{0}' deleted."
 msgstr ""
 
-#: wagtail_hooks.py:116
+#: wagtail_hooks.py:122
 #, python-format
 msgid "%(count)s document"
 msgid_plural "%(count)s documents"

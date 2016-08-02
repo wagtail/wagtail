@@ -6,14 +6,14 @@
 # hanfeng <appweb.cn@gmail.com>, 2014-2015
 # hanfeng <appweb.cn@gmail.com>, 2014
 # Jian Li <kdlijian@gmail.com>, 2015
-# listeng teng <aosp@163.com>, 2016
+# listeng <aosp@163.com>, 2016
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-05-18 21:37+0000\n"
 "PO-Revision-Date: 2016-03-27 13:02+0000\n"
-"Last-Translator: listeng teng <aosp@163.com>\n"
+"Last-Translator: listeng <aosp@163.com>\n"
 "Language-Team: Chinese (China) (http://www.transifex.com/torchbox/wagtail/"
 "language/zh_CN/)\n"
 "MIME-Version: 1.0\n"

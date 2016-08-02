@@ -603,6 +603,12 @@ class Page(six.with_metaclass(PageBase, MP_Node, index.Indexed, ClusterableModel
                 SET url_path= CONCAT(%s, substring(url_path, %s))
                 WHERE path LIKE %s AND id <> %s
             """
+        elif connection.vendor in ('mssql', 'microsoft'):
+            update_statement = """
+                UPDATE wagtailcore_page
+                SET url_path= CONCAT(%s, (SUBSTRING(url_path, 0, %s)))
+                WHERE path LIKE %s AND id <> %s
+            """
         else:
             update_statement = """
                 UPDATE wagtailcore_page
@@ -1342,47 +1348,6 @@ class Page(six.with_metaclass(PageBase, MP_Node, index.Indexed, ClusterableModel
     class Meta:
         verbose_name = _('page')
         verbose_name_plural = _('pages')
-
-
-def get_navigation_menu_items():
-    # Get all pages that appear in the navigation menu: ones which have children,
-    # or are at the top-level (this rule required so that an empty site out-of-the-box has a working menu)
-    pages = Page.objects.filter(Q(depth=2) | Q(numchild__gt=0)).order_by('path')
-
-    # Turn this into a tree structure:
-    #     tree_node = (page, children)
-    #     where 'children' is a list of tree_nodes.
-    # Algorithm:
-    # Maintain a list that tells us, for each depth level, the last page we saw at that depth level.
-    # Since our page list is ordered by path, we know that whenever we see a page
-    # at depth d, its parent must be the last page we saw at depth (d-1), and so we can
-    # find it in that list.
-
-    depth_list = [(None, [])]  # a dummy node for depth=0, since one doesn't exist in the DB
-
-    for page in pages:
-        # create a node for this page
-        node = (page, [])
-        # retrieve the parent from depth_list
-        parent_page, parent_childlist = depth_list[page.depth - 1]
-        # insert this new node in the parent's child list
-        parent_childlist.append(node)
-
-        # add the new node to depth_list
-        try:
-            depth_list[page.depth] = node
-        except IndexError:
-            # an exception here means that this node is one level deeper than any we've seen so far
-            depth_list.append(node)
-
-    # in Wagtail, the convention is to have one root node in the db (depth=1); the menu proper
-    # begins with the children of that node (depth=2).
-    try:
-        root, root_children = depth_list[1]
-        return root_children
-    except IndexError:
-        # what, we don't even have a root node? Fine, just return an empty list...
-        return []
 
 
 @receiver(pre_delete, sender=Page)

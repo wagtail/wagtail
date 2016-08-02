@@ -157,6 +157,10 @@ Contributors
 * Aymeric Augustin
 * Adriaan Tijsseling
 * sebworks
+* Sean Muck
+* Fábio Macêdo Mendes
+* Eraldo Energy
+* Jesse Legg
 
 Translators
 ===========
@@ -176,7 +180,7 @@ Translators
 * French: Adrien, Timothy Allen, Sebastien Andrivet, Edd Baldry, Bertrand Bordage, André Bouatchidzé, Tom Dyson, Antonin Enfrun, Léo, Pierre Marfoure, nahuel
 * Galician: fooflare
 * Georgian: André Bouatchidzé
-* German: Ettore Atalan, Patrick Craston, Henrik Kröger, Tammo van Lessen, Martin Löhle, Wasilis Mandratzis-Walz, Daniel Manser, m0rph3u5, Max Pfeiffer, Moritz Pfeiffer, Herbert Poul, Karl Sander, Tobias Schmidt, Johannes Spielmann, Jannis Vajen, Vorlif, Matthew Westcott
+* German: Ettore Atalan, Patrick Craston, Henrik Kröger, Tammo van Lessen, Martin Löhle, Wasilis Mandratzis-Walz, Daniel Manser, m0rph3u5, Max Pfeiffer, Moritz Pfeiffer, Herbert Poul, Karl Sander, Tobias Schmidt, Johannes Spielmann, Raphael Stolt, Jannis Vajen, Vorlif, Matthew Westcott
 * Greek: Jim Dal, George Giannoulopoulos, Wasilis Mandratzis-Walz, NeotheOne, Serafeim Papastefanos
 * Hebrew (Israel): bjesus, Lior Abazon
 * Hungarian: Laszlo Molnar
@@ -184,22 +188,22 @@ Translators
 * Indonesian (Indonesia): Sutrisno Efendi
 * Italian: Edd Baldry, Claudio Bantaloukas, Giacomo Ghizzani, Alessio Di Stasio, Andrea Tagliazucchi
 * Japanese: Sangmin Ahn, Shu Ishida, Daigo Shitara, takuan_osho
-* Korean: Kyungil Choi, Ji Han Chung
-* Latvian: Maris Serzans
+* Korean: Kyungil Choi, Jihan Chung
+* Latvian: Reinis Rozenbergs, Maris Serzans
 * Mongolian: Delgermurun Purevkhuu
 * Norwegian Bokmål: Eirik Krogstad, Robin Skahjem-Eriksen
 * Persian: Mohammad reza Jelveh
 * Polish: Mateusz, mmiskiew, utek
-* Portuguese (Brazil): Claudemiro Alves Feitosa Neto, Luiz Boaretto, Gladson Brito, Thiago Cangussu, Gilson Filho, João Luiz Lorencetti, Douglas Miranda
+* Portuguese (Brazil): Claudemiro Alves Feitosa Neto, Luiz Boaretto, Gladson Brito, Thiago Cangussu, Gilson Filho, João Luiz Lorencetti, Marcio Mazza, Douglas Miranda
 * Portuguese (Portugal): Gladson Brito, Thiago Cangussu, Tiago Henriques, Jose Lourenco, Nuno Matos, Douglas Miranda, Manuela Silva
 * Romanian: Dan Braghis
-* Russian: ajk, Daniil, gsstver, HNKNTA, Sergiy Khalymon, Sergey Komarov, Eugene MechanisM, Mikalai Radchuk, Alexandr Romantsov
-* Slovak (Slovakia): dellax
+* Russian: ajk, Andrey Avdey, Daniil, gsstver, HNKNTA, Sergey Khalymon, Sergey Komarov, Eugene MechanisM, Mikalai Radchuk, Alexandr Romantsov
+* Slovak (Slovakia): Stevo Backor, dellax
 * Slovenian: Mitja Pagon
 * Spanish: Mauricio Baeza, Daniel Chimeno, fonso, fooflare, Yusuf (Josè) Luis, Joaquín Tita, Unai Zalakain
 * Swedish: Ludwig Kjellström, Thomas Kunambi, Hannes Lohmander
 * Swedish (Sweden): Jon Karlsson, Thomas Kunambi
 * Turkish: Cihad Gündoǧdu
-* Turkish (Turkey): Yusuf (Josè) Luis, Ragıp Ünal
+* Turkish (Turkey): Saadettin Yasir Akel, Yusuf (Josè) Luis, Ragıp Ünal
 * Ukrainian: Mykola Zamkovoi
 * Vietnamese: Luan Nguyen

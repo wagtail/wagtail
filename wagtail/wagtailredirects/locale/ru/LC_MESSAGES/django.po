@@ -3,15 +3,16 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# Eugene MechanisM <contact@mechanism.name>, 2014-2015
+# Andrey Avdey <talkerbox@live.com>, 2016
+# Eugene MechanisM <eugene@mechanism.pro>, 2014-2015
 # HNKNTA <hnknta@gmail.com>, 2014
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-05-18 21:37+0000\n"
-"PO-Revision-Date: 2016-03-03 20:58+0000\n"
-"Last-Translator: Eugene MechanisM <contact@mechanism.name>\n"
+"PO-Revision-Date: 2016-07-03 12:41+0000\n"
+"Last-Translator: Andrey Avdey <talkerbox@live.com>\n"
 "Language-Team: Russian (http://www.transifex.com/torchbox/wagtail/language/"
 "ru/)\n"
 "MIME-Version: 1.0\n"
@@ -139,7 +140,7 @@ msgid ""
 "\"%(wagtailredirects_add_redirect_url)s\">add one</a>?"
 msgstr ""
 "Перенаправления еще не созданы. Почему бы не <a href="
-"\"%(wagtailredirects_add_redirect_url)s\">добавить один</a>?"
+"\"%(wagtailredirects_add_redirect_url)s\">добавить одно</a>?"
 
 msgid "Search redirects"
 msgstr "Искать перенаправления"

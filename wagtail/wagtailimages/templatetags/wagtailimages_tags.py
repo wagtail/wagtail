@@ -74,7 +74,8 @@ class ImageNode(template.Node):
 
     @cached_property
     def filter(self):
-        return Filter(spec=self.filter_spec)
+        _filter, _ = Filter.objects.get_or_create(spec=self.filter_spec)
+        return _filter
 
     def render(self, context):
         try:

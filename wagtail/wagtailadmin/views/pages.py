@@ -17,9 +17,10 @@ from django.views.decorators.vary import vary_on_headers
 from wagtail.utils.pagination import paginate
 from wagtail.wagtailadmin import messages, signals
 from wagtail.wagtailadmin.forms import CopyForm, SearchForm
+from wagtail.wagtailadmin.navigation import get_navigation_menu_items
 from wagtail.wagtailadmin.utils import send_notification
 from wagtail.wagtailcore import hooks
-from wagtail.wagtailcore.models import Page, PageRevision, get_navigation_menu_items
+from wagtail.wagtailcore.models import Page, PageRevision
 
 
 def get_valid_next_url_from_request(request):
@@ -31,7 +32,7 @@ def get_valid_next_url_from_request(request):
 
 def explorer_nav(request):
     return render(request, 'wagtailadmin/shared/explorer_nav.html', {
-        'nodes': get_navigation_menu_items(),
+        'nodes': get_navigation_menu_items(request.user),
     })
 
 
@@ -254,10 +255,12 @@ def create(request, content_type_app_name, content_type_model_name, parent_page_
         else:
             messages.error(request, _("The page could not be created due to validation errors"))
             edit_handler = edit_handler_class(instance=page, form=form)
+            has_unsaved_changes = True
     else:
         signals.init_new_page.send(sender=create, page=page, parent=parent_page)
         form = form_class(instance=page)
         edit_handler = edit_handler_class(instance=page, form=form)
+        has_unsaved_changes = False
 
     return render(request, 'wagtailadmin/pages/create.html', {
         'content_type': content_type,
@@ -267,6 +270,7 @@ def create(request, content_type_app_name, content_type_model_name, parent_page_
         'preview_modes': page.preview_modes,
         'form': form,
         'next': next_url,
+        'has_unsaved_changes': has_unsaved_changes,
     })
 
 
@@ -446,9 +450,11 @@ def edit(request, page_id):
                     if formset.errors
                 ])
             )
+            has_unsaved_changes = True
     else:
         form = form_class(instance=page)
         edit_handler = edit_handler_class(instance=page, form=form)
+        has_unsaved_changes = False
 
     # Check for revisions still undergoing moderation and warn
     if latest_revision and latest_revision.submitted_for_moderation:
@@ -462,6 +468,7 @@ def edit(request, page_id):
         'preview_modes': page.preview_modes,
         'form': form,
         'next': next_url,
+        'has_unsaved_changes': has_unsaved_changes,
     })
 
 
@@ -528,6 +535,7 @@ def preview_on_edit(request, page_id):
             'edit_handler': edit_handler,
             'preview_modes': page.preview_modes,
             'form': form,
+            'has_unsaved_changes': True,
         })
         response['X-Wagtail-Preview'] = 'error'
         return response
@@ -590,6 +598,7 @@ def preview_on_create(request, content_type_app_name, content_type_model_name, p
             'edit_handler': edit_handler,
             'preview_modes': page.preview_modes,
             'form': form,
+            'has_unsaved_changes': True,
         })
         response['X-Wagtail-Preview'] = 'error'
         return response
