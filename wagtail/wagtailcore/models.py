@@ -375,6 +375,14 @@ class Page(six.with_metaclass(PageBase, MP_Node, index.Indexed, ClusterableModel
         editable=False
     )
 
+    old_url = models.TextField(
+        help_text='Will be null if page url has not changed after a save. Otherwise will be the previous page url.',
+        verbose_name='old page url',
+        blank=True,
+        null=True,
+        editable=False
+    )
+
     search_fields = SearchFieldsShouldBeAList([
         index.SearchField('title', partial_match=True, boost=2),
         index.FilterField('id'),
