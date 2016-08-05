@@ -32,10 +32,6 @@ Using StreamField
             ('heading', blocks.CharBlock(classname="full title")),
             ('paragraph', blocks.RichTextBlock()),
             ('image', ImageChooserBlock()),
-            ('email', blocks.EmailBlock()),
-            ('integer', blocks.IntegerBlock()),
-            ('float', blocks.FloatBlock()),
-            ('decimal' blocks.DecimalBlock()),
         ])
 
         content_panels = Page.content_panels + [
@@ -100,16 +96,12 @@ EmailBlock
 
 A single-line email input that validates that the email is a valid Email Address. The keyword arguments ``required`` and ``help_text`` are accepted.
 
-To use the EmailBlock inside an StreamField see the example above.
-
 IntegerBlock
 ~~~~~~~~~~~~
 
 ``wagtail.wagtailcore.blocks.IntegerBlock``
 
 A single-line integer input that validates that the integer is a valid whole number. The keyword arguments ``required``, ``max_length``, ``min_length`` and ``help_text`` are accepted.
-
-To use the IntegerBlock inside an StreamField see the example above.
 
 FloatBlock
 ~~~~~~~~~~
@@ -118,16 +110,12 @@ FloatBlock
 
 A single-line Float input that validates that the value is a valid floating point number. The keyword arguments ``required``, ``max_value`` and ``min_value``  are accepted.
 
-To use the FloatBlock inside an StreamField see the example above.
-
 DecimalBlock
 ~~~~~~~~~~~~
 
 ``wagtail.wagtailcore.blocks.DecimalBlock``
 
 A single-line decimal input that validates that the value is a valid decimal number. The keyword arguments ``required``, ``max_value``, ``min_value``, ``max_digits`` and ``decimal_places`` are accepted.
-
-To use the DecimalBlock inside an StreamField see the example above.
 
 RegexBlock
 ~~~~~~~~~~
