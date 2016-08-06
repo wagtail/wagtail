@@ -176,6 +176,9 @@ def create(request, content_type_app_name, content_type_model_name, parent_page_
     if page_class not in parent_page.creatable_subpage_models():
         raise PermissionDenied
 
+    if not page_class.can_create_at(parent_page):
+        raise PermissionDenied
+
     page = page_class(owner=request.user)
     edit_handler_class = page_class.get_edit_handler()
     form_class = edit_handler_class.get_form_class(page_class)
