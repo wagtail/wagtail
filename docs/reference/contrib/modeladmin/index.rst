@@ -49,13 +49,12 @@ Want to know more about customising ``ModelAdmin``?
 .. toctree::
     :maxdepth: 2
 
+    primer
     menu_item
     indexview
     create_edit_delete_views
     inspectview
     chooseparentview
-    helpers
-    recipes
 
 .. _modeladmin_usage:
 

@@ -2,18 +2,10 @@
 Customising ``CreateView``, ``EditView`` and ``DeleteView``
 ===========================================================
 
-Before attempting to alter these views, it's important to note that 
-``modeladmin`` only provides 'create', 'edit' and 'delete' functionality for
-non page-type models (i.e. models that do not extend 
-``wagtail.wagtailcore.models.Page``).
-
-There are a lot of additional considerations when dealing with `Page`
-objects, that simply aren't present working with other models (previews and
-revisions, for example), and so, ``modeladmin`` simply redirects you to
-Wagtail's existing views for all page-related actions.
-
-So, just to be clear: If your model is a page-type model, customising any of
-the following will not have any effect:
+**NOTE:** ``modeladmin`` only provides 'create', 'edit' and 'delete'
+functionality for non page type models (i.e. models that do not extend 
+``wagtailcore.models.Page``). If your model is a 'page type' model, customising
+any of the following will not have any effect:
 
 .. _modeladmin_edit_handler_customisation:
 
@@ -68,25 +60,27 @@ Or alternatively:
 
 .. _modeladmin_form_view_extra_css:
 
-----------------------------------
+-----------------------------------
 ``ModelAdmin.form_view_extra_css``
-----------------------------------
+-----------------------------------
 
-**Expected value**: A list, where each item is the path name of a pre-compliled
-stylesheet in your project's static files directory.
+**Expected value**: A list of path names of additional stylesheets to be added
+to ``CreateView`` and ``EditView``
 
-Description coming soon.
+See the following part of the docs to find out more:
+:docs:`_modeladmin_adding_css_and_js`
 
 .. _modeladmin_form_view_extra_js:
 
-----------------------------------
+-----------------------------------
 ``ModelAdmin.form_view_extra_js``
-----------------------------------
+-----------------------------------
 
-**Expected value**: A list, where each item is the path name of a pre-compliled
-JS file in your project's static files directory.
+**Expected value**: A list of path names of additional js files to be added
+to ``CreateView`` and ``EditView``
 
-Description coming soon.
+See the following part of the docs to find out more:
+:docs:`_modeladmin_adding_css_and_js`
 
 .. _modeladmin_create_template_name:
 
@@ -94,9 +88,10 @@ Description coming soon.
 ``ModelAdmin.create_template_name``
 -----------------------------------
 
-**Expected value**: The path to a custom template.
+**Expected value**: The path to a custom template to use for ``CreateView``
 
-Description coming soon.
+See the following part of the docs to find out more:
+:docs:`modeladmin_overriding_templates`
 
 .. _modeladmin_create_view_class:
 
@@ -104,12 +99,11 @@ Description coming soon.
 ``ModelAdmin.create_view_class``
 -----------------------------------
 
-**Expected value**: A ``view`` class that extends 
-``wagtail.contrib.modeladmin.views.WMABaseView``.
+**Expected value**: A custom ``view`` class to replace 
+``modeladmin.views.CreateView``
 
-Default value: ``wagtail.contrib.modeladmin.views.CreateView``
-
-Description coming soon.
+See the following part of the docs to find out more:
+:docs:`_modeladmin_overriding_views`
 
 .. _modeladmin_edit_template_name:
 
@@ -117,9 +111,10 @@ Description coming soon.
 ``ModelAdmin.edit_template_name``
 -----------------------------------
 
-**Expected value**: The path to a custom template.
+**Expected value**: The path to a custom template to use for ``EditView``
 
-Description coming soon.
+See the following part of the docs to find out more:
+:docs:`modeladmin_overriding_templates`
 
 .. _modeladmin_edit_view_class:
 
@@ -127,12 +122,11 @@ Description coming soon.
 ``ModelAdmin.edit_view_class``
 -----------------------------------
 
-**Expected value**: A ``view`` class that extends 
-``wagtail.contrib.modeladmin.views.WMABaseView``.
+**Expected value**: A custom ``view`` class to replace 
+``modeladmin.views.EditView``
 
-Default value: ``wagtail.contrib.modeladmin.views.EditView``
-
-Description coming soon.
+See the following part of the docs to find out more:
+:docs:`_modeladmin_overriding_views`
 
 .. _modeladmin_delete_template_name:
 
@@ -140,9 +134,10 @@ Description coming soon.
 ``ModelAdmin.delete_template_name``
 -----------------------------------
 
-**Expected value**: The path to a custom template.
+**Expected value**: The path to a custom template to use for ``DeleteView``
 
-Description coming soon.
+See the following part of the docs to find out more:
+:docs:`modeladmin_overriding_templates`
 
 .. _modeladmin_delete_view_class:
 
@@ -150,9 +145,8 @@ Description coming soon.
 ``ModelAdmin.delete_view_class``
 -----------------------------------
 
-**Expected value**: A ``view`` class that extends 
-``wagtail.contrib.modeladmin.views.WMABaseView``.
+**Expected value**: A custom ``view`` class to replace 
+``modeladmin.views.DeleteView``
 
-Default value: ``wagtail.contrib.modeladmin.views.DeleteView``
-
-Description coming soon.
+See the following part of the docs to find out more:
+:docs:`_modeladmin_overriding_views`

@@ -315,6 +315,8 @@ of the index view. By default, this is set to ``100``.
 ``ModelAdmin.get_queryset()``
 -----------------------------
 
+**Must return**: A QuerySet
+
 The ``get_queryset`` method returns the 'base' queryset for your model, to
 which any filters and search queries are applied. By default, the ``all()``
 method of your model's default manager is used. But, if for any reason you
@@ -349,6 +351,8 @@ class PersonAdmin(ModelAdmin):
 ----------------------------------------------------
 ``ModelAdmin.get_extra_class_names_for_field_col()``
 ----------------------------------------------------
+
+**Must return**: A list
 
 The ``get_extra_class_names_for_field_col`` method allows you to add additional
 CSS class names to any of the columns defined by ``list_display`` for your
@@ -394,6 +398,8 @@ class BankAccountAdmin(ModelAdmin):
 ``ModelAdmin.get_extra_attrs_for_field_col()``
 ----------------------------------------------------
 
+**Must return**: A dictionary
+
 The ``get_extra_attrs_for_field_col`` method allows you to add additional HTML
 attributes to any of the columns defined in ``list_display``. Like the
 ``get_extra_class_names_for_field_col`` method above, this method takes two
@@ -421,14 +427,15 @@ class PersonAdmin(ModelAdmin):
 	list_display = ('name', 'likes_cat_gifs')
 
 	def get_extra_attrs_for_field_col(self, obj, field_name=None):
+		attrs = super(PersonAdmin, self).get_extra_attrs_for_field_col(obj, field_name)
         if field_name == 'likes_cat_gifs' and obj.likes_cat_gifs is None:
-    		return {
+    		attrs.update({
     			'title': (
      				'The person was shown several cat gifs, but failed to '
     				'indicate a preference.'
     			),
-    		}
-        return {}
+    		})
+        return attrs
 ```
 
 Or you might like to add one or more data attributes to help implement some
@@ -452,36 +459,70 @@ class EventAdmin(ModelAdmin):
 	list_display = ('title', 'start_date', 'end_date')
 
 	def get_extra_attrs_for_field_col(self, obj, field_name=None):
+		attrs = super(EventAdmin, self).get_extra_attrs_for_field_col(obj, field_name)
         if field_name == 'start_date':
         	# Add the start time as data to the 'start_date' cell
-    		return { 'data-time': obj.start_time.strftime('%H:%M') }
-    	if field_name == 'end_date':
+    		attrs.update({ 'data-time': obj.start_time.strftime('%H:%M') })
+    	elif field_name == 'end_date':
     		# Add the end time as data to the 'end_date' cell
-    		return { 'data-time': obj.end_time.strftime('%H:%M') }
-        return {}
+    		attrs.update({ 'data-time': obj.end_time.strftime('%H:%M') })
+        return attrs
 ```
 
-.. _modeladmin_index_view_extra_css:
+.. _modeladmin_thumbnailmixin:
 
------------------------------------
-``ModelAdmin.index_view_extra_css``
------------------------------------
+----------------------------------------------------
+``wagtal.contrib.modeladmin.options.ThumbnailMixin``
+----------------------------------------------------
 
-**Expected value**: A list, where each item is the path name of a pre-compliled
-stylesheet in your project's static files directory.
+If you're using ``wagtailimages.Image`` to define an image for each items in
+your model, ``ThumbnailMixin`` can help you add thumbnail versions of that 
+image to each row in ``IndexView``. To use it, simply extend ``ThumbnailMixin``
+as an well as ``ModelAdmin`` when defining your ``ModelAdmin`` class, and
+change a few attributes to change the thumbnail to your liking, like so: 
 
-Description coming soon.
+```
+from django.db import models
+from wagtail.contrib.modeladmin.options import ThumbnailMixin, ModelAdmin
 
-.. _modeladmin_index_view_extra_js:
+class Person(models.Model):
+	name = models.CharField(max_length=255)
+	avatar = models.ForeignKey('wagtailimages.Image', on_delete=models.SET_NULL, null=True)
+	likes_cat_gifs = models.NullBooleanField()
 
------------------------------------
-``ModelAdmin.index_view_extra_js``
------------------------------------
+class PersonAdmin(ThumbnailMixin, ModelAdmin):
+	
+	# Add 'admin_thumb' to list_display, where you want the thumbnail to appear
+	list_display = ('admin_thumb', 'name', 'likes_cat_gifs')
 
-**Expected value**: A list, where each item is the path name of a pre-compliled
-JS file in your project's static files directory.
+	# Optionally tell IndexView to add buttons to a different column (if the
+	# first column contains the thumbnail, the buttons are likely better off
+	# displayed elsewhere)
+	list_display_add_buttons = 'name'
 
-Description coming soon.
+	"""
+	Set 'thumb_image_field_name' to the name of the ForeignKey field that
+	links to 'wagtailimages.Image'
+	"""
+	thumb_image_field_name = 'avatar'
+	
+	# Optionally override the filter spec used to create each thumb
+	thumb_image_filter_spec = 'fill-100x100' # this is the default
+
+	# Optionally override the 'width' attribute value added to each img tag
+	thumb_image_width = 50 # this is the default
+
+	# Optionally override the class name added to each img tag
+	thumb_classname = 'admin-thumb' # this is the default
+
+	# Optionally override the text that appears in the column header
+	thumb_col_header_text = 'image' # this is the default
+
+	# Optionally specify a fallback image to be used when the object doesn't
+	# have an image set, or the image has been deleted. It can an image from
+	# your static files folder, or an external URL.
+	thumb_default = 'http://lorempixel.com/100/100'
+```
 
 .. _modeladmin_list_display_add_buttons:
 
@@ -491,9 +532,38 @@ Description coming soon.
 
 **Expected value**: A string matching one of the items in ``list_display``.
 
-Default value: ``None``
+If for any reason you'd like to change which column the action buttons appear
+in for each row, you can specify a different column using 
+``list_display_add_buttons`` on your ``ModelAdmin`` class. The value must
+match one of the items your class's ``list_display`` attribute. By default,
+buttons are added to the first column of each row. 
 
-Description coming soon.
+See the ``ThumbnailMixin`` example above to see how 
+``list_display_add_buttons`` can be used.
+
+.. _modeladmin_index_view_extra_css:
+
+-----------------------------------
+``ModelAdmin.index_view_extra_css``
+-----------------------------------
+
+**Expected value**: A list of path names of additional stylesheets to be added
+to the ``IndexView``
+
+See the following part of the docs to find out more:
+:docs:`_modeladmin_adding_css_and_js`
+
+.. _modeladmin_index_view_extra_js:
+
+-----------------------------------
+``ModelAdmin.index_view_extra_js``
+-----------------------------------
+
+**Expected value**: A list of path names of additional js files to be added
+to the ``IndexView``
+
+See the following part of the docs to find out more:
+:docs:`_modeladmin_adding_css_and_js`
 
 .. _modeladmin_index_template_name:
 
@@ -501,11 +571,10 @@ Description coming soon.
 ``ModelAdmin.index_template_name``
 ---------------------------------------
 
-**Expected value**: The path to a custom template.
+**Expected value**: The path to a custom template to use for ``IndexView``
 
-Default value: ``''``
-
-Description coming soon.
+See the following part of the docs to find out more:
+:docs:`modeladmin_overriding_templates`
 
 .. _modeladmin_index_view_class:
 
@@ -513,9 +582,9 @@ Description coming soon.
 ``ModelAdmin.index_view_class``
 ---------------------------------------
 
-**Expected value**: A ``view`` class that extends 
-``wagtail.contrib.modeladmin.views.WMABaseView``.
+**Expected value**: A custom ``view`` class to replace 
+``modeladmin.views.IndexView``
 
-Default value: ``wagtail.contrib.modeladmin.views.IndexView``
+See the following part of the docs to find out more:
+:docs:`_modeladmin_overriding_views`
 
-Description coming soon.
