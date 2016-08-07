@@ -38,51 +38,47 @@ Description coming soon.
 
 .. _modeladmin_inspect_view_extra_css:
 
-------------------------------------------
+-----------------------------------
 ``ModelAdmin.inspect_view_extra_css``
-------------------------------------------
+-----------------------------------
 
-**Expected value**: A list, where each item is the path name of a pre-compliled
-stylesheet in your project's static files directory.
+**Expected value**: A list of path names of additional stylesheets to be added
+to the ``InspectView``
 
-Default value: ``[]``
-
-Description coming soon.
+See the following part of the docs to find out more:
+:docs:`_modeladmin_adding_css_and_js`
 
 .. _modeladmin_inspect_view_extra_js:
 
-------------------------------------------
+-----------------------------------
 ``ModelAdmin.inspect_view_extra_js``
-------------------------------------------
+-----------------------------------
 
-**Expected value**: A list, where each item is the path name of a pre-compliled
-JS file in your project's static files directory.
+**Expected value**: A list of path names of additional js files to be added
+to the ``InspectView``
 
-Default value: ``[]``
+See the following part of the docs to find out more:
+:docs:`_modeladmin_adding_css_and_js`
 
-Description coming soon.
+.. _modeladmin_index_template_name:
 
-.. _modeladmin_inspect_template_name:
+---------------------------------------
+``ModelAdmin.index_template_name``
+---------------------------------------
 
-------------------------------------------
-``ModelAdmin.inspect_template_name``
-------------------------------------------
+**Expected value**: The path to a custom template to use for ``InspectView``
 
-**Expected value**: The path to a custom template.
-
-Default value: ``''``
-
-Description coming soon.
+See the following part of the docs to find out more:
+:docs:`modeladmin_overriding_templates`
 
 .. _modeladmin_inspect_view_class:
 
-------------------------------------------
+---------------------------------------
 ``ModelAdmin.inspect_view_class``
-------------------------------------------
+---------------------------------------
 
-**Expected value**: A ``view`` class that extends 
-``wagtail.contrib.modeladmin.views.WMABaseView``.
+**Expected value**: A custom ``view`` class to replace 
+``modeladmin.views.InspectView``
 
-Default value: ``wagtail.contrib.modeladmin.views.InspectView``
-
-Description coming soon.
+See the following part of the docs to find out more:
+:docs:`_modeladmin_overriding_views`

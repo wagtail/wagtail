@@ -24,9 +24,11 @@ do, modeladmin offers the following attributes that you can override:
 ``ModelAdmin.choose_parent_template_name``
 ------------------------------------------
 
-**Expected value**: The path to a custom template
+**Expected value**: The path to a custom template to use for 
+``ChooseParentView``
 
-Description coming soon.
+See the following part of the docs to find out more:
+:docs:`modeladmin_overriding_templates`
 
 .. _modeladmin_choose_parent_view_class:
 
@@ -34,9 +36,8 @@ Description coming soon.
 ``ModelAdmin.choose_parent_view_class``
 ------------------------------------------
 
-**Expected value**: A ``view`` class that extends 
-``wagtail.contrib.modeladmin.views.WMABaseView``.
+**Expected value**: A custom ``view`` class to replace 
+``modeladmin.views.ChooseParentView``
 
-Default value: ``wagtail.contrib.modeladmin.views.ChooseParentView``
-
-Description coming soon.
+See the following part of the docs to find out more:
+:docs:`_modeladmin_overriding_views`
