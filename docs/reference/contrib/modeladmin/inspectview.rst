@@ -5,7 +5,7 @@ Enabling & customising ``InspectView``
 The ``InspectView`` is disabled by default, as it's not often useful for most
 models. However, if you need a view that enables users to view more detailed
 information about an instance without the option to edit it, you can easily
-enable the inspect view by setting ``inspect_view_enabled`` on your
+enable the inspect view by setting ``inspect_view_enabled=True`` on your
 ``ModelAdmin`` class.
 
 When enabled, an 'Inspect' button will automatically appear for each row in
@@ -13,8 +13,10 @@ your index / listing view, linking to new page that shows values for all
 'concrete' field values (where the field value is stored in the same table
 that represents the model).
 
-You can customise what values are displayed by adding the following attributes
-to your ``ModelAdmin`` class:
+By default, all 'concrete' fields (where the field value is stored as a column
+in the database table for your model) will be shown. You can customise what
+values are displayed by adding the following attributes to your ``ModelAdmin``
+class:
 
 .. _modeladmin_inspect_view_fields:
 
@@ -22,19 +24,29 @@ to your ``ModelAdmin`` class:
 ``ModelAdmin.inspect_view_fields``
 ------------------------------------------
 
-Default value: ``[]``
+**Expected value:** A list or tuple, where each item is the name of a field 
+that you'd like ``InpectView`` to render.
 
-Description coming soon.
+A sensible value will be rendered for most field types.
 
-.. _modeladmin_inspect_view_fields:
+If a field happens to be a ``ForeignKey`` linking to the 
+``wagtailimages.Image`` Model, a thumbnail of that image will be rendered. 
+
+If a field happens to be a ``ForeignKey`` linking to the 
+``wagtaildocs.Document`` Model, a link to that document will be rendered.
+
+
+.. _modeladmin_inspect_view_fields_exclude:
 
 ------------------------------------------
 ``ModelAdmin.inspect_view_fields_exclude``
 ------------------------------------------
 
-Default value: ``[]``
+**Expected value:** A list or tuple, where each item is the name of a field 
+that you'd like to exclude from ``InpectView``
 
-Description coming soon.
+**Note:** If both ``inspect_view_fields`` and ``insepct_view_fields_exclude``
+are set, ``inspect_view_fields_exclude`` will be ignored.
 
 .. _modeladmin_inspect_view_extra_css:
 
