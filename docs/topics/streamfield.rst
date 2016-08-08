@@ -96,12 +96,16 @@ EmailBlock
 
 A single-line email input that validates that the email is a valid Email Address. The keyword arguments ``required`` and ``help_text`` are accepted.
 
+For an example of ``EmailBlock`` in use, see :ref:`streamfield_personblock_example`
+
 IntegerBlock
 ~~~~~~~~~~~~
 
 ``wagtail.wagtailcore.blocks.IntegerBlock``
 
 A single-line integer input that validates that the integer is a valid whole number. The keyword arguments ``required``, ``max_length``, ``min_length`` and ``help_text`` are accepted.
+
+For an example of ``IntegerBlock`` in use, see :ref:`streamfield_personblock_example`
 
 FloatBlock
 ~~~~~~~~~~
@@ -116,6 +120,8 @@ DecimalBlock
 ``wagtail.wagtailcore.blocks.DecimalBlock``
 
 A single-line decimal input that validates that the value is a valid decimal number. The keyword arguments ``required``, ``max_value``, ``min_value``, ``max_digits`` and ``decimal_places`` are accepted.
+
+For an example of ``DecimalBlock`` in use, see :ref:`streamfield_personblock_example`
 
 RegexBlock
 ~~~~~~~~~~
@@ -386,6 +392,27 @@ Since ``StreamField`` accepts an instance of ``StreamBlock`` as a parameter, in 
 
     class HomePage(Page):
         carousel = StreamField(CarouselBlock())
+
+
+.. _streamfield_personblock_example:
+
+Example: ``PersonBlock``
+------------------------
+
+This example demonstrates how the basic block types introduced above can be combined into a more complex block type based on ``StructBlock``:
+
+.. code-block:: python
+
+    from wagtail.wagtailcore import blocks
+
+    class PersonBlock(blocks.StructBlock):
+        name = blocks.CharBlock()
+        height = blocks.DecimalBlock()
+        age = blocks.IntegerBlock()
+        email = blocks.EmailBlock()
+
+        class Meta:
+            template = 'blocks/person_block.html'
 
 
 .. _streamfield_template_rendering:
