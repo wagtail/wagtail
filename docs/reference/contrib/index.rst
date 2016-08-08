@@ -14,7 +14,7 @@ Wagtail ships with a variety of extra optional modules.
     frontendcache
     routablepage
     api/index
-    modeladmin
+    modeladmin/index
     searchpromotions
     table_block
 
@@ -61,8 +61,8 @@ Provides a way of embedding Django URLconfs into pages.
 A module for adding a read only, JSON based web API to your Wagtail site
 
 
-:doc:`modeladmin`
------------------
+:doc:`modeladmin/index`
+-----------------------
 
 A module allowing for more customisable representation and management of custom models in Wagtail's admin area.
 
