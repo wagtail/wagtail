@@ -128,7 +128,7 @@ def get_form_types():
     if _FORM_CONTENT_TYPES is None:
         form_models = [
             model for model in get_page_models()
-            if issubclass(model, AbstractForm)
+            if issubclass(model, FormPageMixin)
         ]
 
         _FORM_CONTENT_TYPES = list(
@@ -151,9 +151,10 @@ def get_forms_for_user(user):
     return editable_forms
 
 
-class AbstractForm(Page):
+class FormPageMixin(object):
     """
-    A Form Page. Pages implementing a form should inherit from it
+    A mixin class that includes form handling. Pages implementing a form should
+    inherit from it.
     """
 
     form_builder = FormBuilder
@@ -161,7 +162,7 @@ class AbstractForm(Page):
     base_form_class = WagtailAdminFormPageForm
 
     def __init__(self, *args, **kwargs):
-        super(AbstractForm, self).__init__(*args, **kwargs)
+        super(FormPageMixin, self).__init__(*args, **kwargs)
         if not hasattr(self, 'landing_page_template'):
             name, ext = os.path.splitext(self.template)
             self.landing_page_template = name + '_landing' + ext
@@ -269,12 +270,18 @@ class AbstractForm(Page):
                 self.get_context(request)
             )
         else:
-            return super(AbstractForm, self).serve_preview(request, mode)
+            return super(FormPageMixin, self).serve_preview(request, mode)
 
 
-class AbstractEmailForm(AbstractForm):
+class AbstractForm(FormPageMixin, Page):
+    class Meta:
+        abstract = True
+
+
+class AbstractEmailForm(FormPageMixin, Page):
     """
-    A Form Page that sends email. Pages implementing a form to be send to an email should inherit from it
+    A Page class that includes form handling for sending emails.
+    Pages implementing a form that sends email should inherit from this.
     """
 
     to_address = models.CharField(
