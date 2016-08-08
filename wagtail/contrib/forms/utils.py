@@ -18,10 +18,10 @@ def get_field_clean_name(label):
 def get_form_types():
     global _FORM_CONTENT_TYPES
     if _FORM_CONTENT_TYPES is None:
-        from wagtail.contrib.forms.models import AbstractForm
+        from wagtail.contrib.forms.models import FormMixin
 
         form_models = [
-            model for model in get_page_models() if issubclass(model, AbstractForm)
+            model for model in get_page_models() if issubclass(model, FormMixin)
         ]
 
         _FORM_CONTENT_TYPES = list(

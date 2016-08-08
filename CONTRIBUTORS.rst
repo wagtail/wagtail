@@ -620,6 +620,7 @@ Contributors
 * Mehrdad Moradizadeh
 * ariadi
 * Thomas van der Hoeven
+* Kurt Wall
 
 
 Translators
