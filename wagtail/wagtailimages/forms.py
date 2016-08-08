@@ -25,6 +25,7 @@ def formfield_for_dbfield(db_field, **kwargs):
 
 class BaseImageForm(BaseCollectionMemberForm):
     permission_policy = images_permission_policy
+    use_required_attribute = False
 
 
 def get_image_form(model):
