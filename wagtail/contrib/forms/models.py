@@ -152,10 +152,8 @@ class AbstractFormField(Orderable):
         ordering = ["sort_order"]
 
 
-class AbstractForm(Page):
-    """
-    A Form Page. Pages implementing a form should inherit from it
-    """
+class FormMixin:
+    """A mixin that adds form builder functionality to the page."""
 
     base_form_class = WagtailAdminFormPageForm
 
@@ -168,9 +166,6 @@ class AbstractForm(Page):
         if not hasattr(self, "landing_page_template"):
             name, ext = os.path.splitext(self.template)
             self.landing_page_template = name + "_landing" + ext
-
-    class Meta:
-        abstract = True
 
     def get_form_fields(self):
         """
@@ -209,7 +204,7 @@ class AbstractForm(Page):
 
         return form_class(*args, **form_params)
 
-    def get_landing_page_template(self, request, *args, **kwargs):
+    def get_landing_page_template(self, *args, **kwargs):
         return self.landing_page_template
 
     def get_submission_class(self):
@@ -299,17 +294,23 @@ def validate_to_address(value):
         validate_email(address.strip())
 
 
-class AbstractEmailForm(AbstractForm):
-    """
-    A Form Page that sends email. Pages implementing a form to be send to an email should inherit from it
-    """
+class AbstractForm(FormMixin, Page):
+    """A Form Page. Pages implementing a form should inherit from it."""
+
+    class Meta:
+        abstract = True
+
+
+class EmailFormMixin(models.Model):
+    """A mixin that adds email sending functionality to the form."""
 
     to_address = models.CharField(
         verbose_name=_("to address"),
         max_length=255,
         blank=True,
         help_text=_(
-            "Optional - form submissions will be emailed to these addresses. Separate multiple addresses by comma."
+            "Optional - form submissions will be emailed to these addresses. "
+            "Separate multiple addresses by comma."
         ),
         validators=[validate_to_address],
     )
@@ -346,7 +347,7 @@ class AbstractEmailForm(AbstractForm):
             if isinstance(value, list):
                 value = ", ".join(value)
 
-            # Format dates and datetimes with SHORT_DATE(TIME)_FORMAT
+            # Format dates and datetime(s) with SHORT_DATE(TIME)_FORMAT
             if isinstance(value, datetime.datetime):
                 value = date_format(value, settings.SHORT_DATETIME_FORMAT)
             elif isinstance(value, datetime.date):
@@ -355,6 +356,15 @@ class AbstractEmailForm(AbstractForm):
             content.append("{}: {}".format(field.label, value))
 
         return "\n".join(content)
+
+    class Meta:
+        abstract = True
+
+
+class AbstractEmailForm(EmailFormMixin, FormMixin, Page):
+    """
+    A Form Page that sends email. Inherit from it if your form sends an email.
+    """
 
     class Meta:
         abstract = True
