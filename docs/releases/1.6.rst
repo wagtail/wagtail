@@ -87,7 +87,12 @@ Upgrade considerations
 Form builder ``FormField`` models require a migration
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-The ``choices`` field on the ``wagtailforms.models.AbstractFormField`` model has been changed from a ``CharField`` to a ``TextField``, to allow it to be of unlimited length. If you are using the ``wagtailforms`` module in your project, you will need to run ``python manage.py makemigrations`` and ``python manage.py migrate`` after upgrading, in order to apply this change to your form page models.
+There are some changes in the ``wagtailforms.models.AbstractFormField`` model:
+
+ * The ``choices`` field has been changed from a ``CharField`` to a ``TextField``, to allow it to be of unlimited length;
+ * The help text for the ``to_address`` field has been changed: it now gives more information on how to specify multiple addresses.
+
+These changes require migration. If you are using the ``wagtailforms`` module in your project, you will need to run ``python manage.py makemigrations`` and ``python manage.py migrate`` after upgrading, in order to apply changes to your form page models.
 
 ``TagSearchable`` needs removing from custom image / document model migrations
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
