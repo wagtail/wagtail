@@ -39,6 +39,7 @@ Middleware (``settings.py``)
     'django.middleware.security.SecurityMiddleware',
 
     'wagtail.wagtailcore.middleware.SiteMiddleware',
+    'wagtail.wagtailcore.middleware.RequestCacheMiddleware',
 
     'wagtail.wagtailredirects.middleware.RedirectMiddleware',
   ]
@@ -441,6 +442,7 @@ These two files should reside in your project directory (``myproject/myproject/`
       'django.middleware.security.SecurityMiddleware',
 
       'wagtail.wagtailcore.middleware.SiteMiddleware',
+      'wagtail.wagtailcore.middleware.RequestCacheMiddleware',
       'wagtail.wagtailredirects.middleware.RedirectMiddleware',
   ]
 

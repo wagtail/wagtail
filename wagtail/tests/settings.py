@@ -80,6 +80,7 @@ MIDDLEWARE_CLASSES = (
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 
     'wagtail.wagtailcore.middleware.SiteMiddleware',
+    'wagtail.wagtailcore.middleware.RequestCacheMiddleware',
     'wagtail.wagtailredirects.middleware.RedirectMiddleware',
 )
 

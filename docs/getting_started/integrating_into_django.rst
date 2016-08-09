@@ -34,6 +34,7 @@ In your settings file, add the following apps to ``INSTALLED_APPS``::
 Add the following entries to ``MIDDLEWARE_CLASSES``::
 
     'wagtail.wagtailcore.middleware.SiteMiddleware',
+    'wagtail.wagtailcore.middleware.RequestCacheMiddleware',
     'wagtail.wagtailredirects.middleware.RedirectMiddleware',
 
 Add a ``STATIC_ROOT`` setting, if your project does not have one already:
