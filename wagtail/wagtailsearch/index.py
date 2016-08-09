@@ -8,7 +8,6 @@ from django.db import models
 from django.db.models.fields import FieldDoesNotExist
 from django.db.models.fields.related import ForeignObjectRel, OneToOneRel, RelatedField
 
-from wagtail.utils.deprecation import SearchFieldsShouldBeAList
 from wagtail.wagtailsearch.backends import get_search_backends_with_name
 
 
@@ -114,7 +113,7 @@ class Indexed(object):
                 )
         return errors
 
-    search_fields = SearchFieldsShouldBeAList([], name='search_fields on Indexed subclasses')
+    search_fields = []
 
 
 def get_indexed_models():

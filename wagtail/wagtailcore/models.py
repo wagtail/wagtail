@@ -31,7 +31,6 @@ from django.utils.translation import ugettext_lazy as _
 from modelcluster.models import ClusterableModel, get_all_child_relations
 from treebeard.mp_tree import MP_Node
 
-from wagtail.utils.deprecation import SearchFieldsShouldBeAList
 from wagtail.wagtailcore.query import PageQuerySet, TreeQuerySet
 from wagtail.wagtailcore.signals import page_published, page_unpublished
 from wagtail.wagtailcore.url_routing import RouteResult
@@ -375,7 +374,7 @@ class Page(six.with_metaclass(PageBase, MP_Node, index.Indexed, ClusterableModel
         editable=False
     )
 
-    search_fields = SearchFieldsShouldBeAList([
+    search_fields = [
         index.SearchField('title', partial_match=True, boost=2),
         index.FilterField('id'),
         index.FilterField('live'),
@@ -387,7 +386,7 @@ class Page(six.with_metaclass(PageBase, MP_Node, index.Indexed, ClusterableModel
         index.FilterField('show_in_menus'),
         index.FilterField('first_published_at'),
         index.FilterField('latest_revision_created_at'),
-    ], name='search_fields on Page subclasses')
+    ]
 
     # Do not allow plain Page instances to be created through the Wagtail admin
     is_creatable = False
@@ -1830,9 +1829,9 @@ class CollectionMember(models.Model):
         on_delete=models.CASCADE
     )
 
-    search_fields = SearchFieldsShouldBeAList([
+    search_fields = [
         index.FilterField('collection'),
-    ], name='search_fields on CollectionMember subclasses')
+    ]
 
     class Meta:
         abstract = True

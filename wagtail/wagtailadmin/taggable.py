@@ -6,7 +6,7 @@ from django.contrib.contenttypes.models import ContentType
 from django.db.models import Count
 from taggit.models import Tag
 
-from wagtail.utils.deprecation import RemovedInWagtail18Warning, SearchFieldsShouldBeAList
+from wagtail.utils.deprecation import RemovedInWagtail18Warning
 from wagtail.wagtailsearch import index
 
 
@@ -16,12 +16,12 @@ class TagSearchable(index.Indexed):
     for models that provide those things.
     """
 
-    search_fields = SearchFieldsShouldBeAList([
+    search_fields = [
         index.SearchField('title', partial_match=True, boost=10),
         index.RelatedFields('tags', [
             index.SearchField('name', partial_match=True, boost=10),
         ]),
-    ], name='search_fields on TagSearchable subclasses')
+    ]
 
     @classmethod
     def popular_tags(cls):

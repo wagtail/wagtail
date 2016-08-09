@@ -23,7 +23,6 @@ from taggit.managers import TaggableManager
 from unidecode import unidecode
 from willow.image import Image as WillowImage
 
-from wagtail.utils.deprecation import SearchFieldsShouldBeAList
 from wagtail.wagtailadmin.utils import get_object_usage
 from wagtail.wagtailcore import hooks
 from wagtail.wagtailcore.models import CollectionMember
@@ -137,13 +136,13 @@ class AbstractImage(CollectionMember, index.Indexed, models.Model):
         return reverse('wagtailimages:image_usage',
                        args=(self.id,))
 
-    search_fields = SearchFieldsShouldBeAList(CollectionMember.search_fields + [
+    search_fields = CollectionMember.search_fields + [
         index.SearchField('title', partial_match=True, boost=10),
         index.RelatedFields('tags', [
             index.SearchField('name', partial_match=True, boost=10),
         ]),
         index.FilterField('uploaded_by_user'),
-    ], name='search_fields on AbstractImage subclasses')
+    ]
 
     def __str__(self):
         return self.title
