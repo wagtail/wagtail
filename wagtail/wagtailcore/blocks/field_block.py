@@ -347,7 +347,7 @@ class ChoiceBlock(FieldBlock):
                     if v1 in ('', None):
                         has_blank_choice = True
                         break
-    
+
             if not has_blank_choice:
                 choices = BLANK_CHOICE_DASH + choices
 
