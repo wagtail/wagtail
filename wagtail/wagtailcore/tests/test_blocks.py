@@ -607,7 +607,7 @@ class TestChoiceBlock(unittest.TestCase):
             ('two', 'Two'),
         ])
         self.assertEqual(block.get_searchable_content('three'), [])
-    
+
     def test_no_blank_choice(self):
         block = blocks.ChoiceBlock(choices=[('tea', 'Tea'), ('coffee', 'Coffee')], include_blank=False)
         html = block.render_form('coffee', prefix='beverage')
