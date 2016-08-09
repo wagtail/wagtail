@@ -1,7 +1,7 @@
 Changelog
 =========
 
-1.5 (xx.xx.xxxx)
+1.7 (xx.xx.xxxx)
 ~~~~~~~~~~~~~~~~
 
 
