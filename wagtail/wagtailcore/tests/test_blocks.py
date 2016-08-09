@@ -607,6 +607,14 @@ class TestChoiceBlock(unittest.TestCase):
             ('two', 'Two'),
         ])
         self.assertEqual(block.get_searchable_content('three'), [])
+    
+    def test_no_blank_choice(self):
+        block = blocks.ChoiceBlock(choices=[('tea', 'Tea'), ('coffee', 'Coffee')], include_blank=False)
+        html = block.render_form('coffee', prefix='beverage')
+        self.assertIn('<select id="beverage" name="beverage" placeholder="">', html)
+        self.assertNotIn('<option value="">%s</option>' % self.blank_choice_dash_label, html)
+        self.assertIn('<option value="tea">Tea</option>', html)
+        self.assertIn('<option value="coffee" selected="selected">Coffee</option>', html)
 
 
 class TestRawHTMLBlock(unittest.TestCase):
