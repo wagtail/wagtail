@@ -206,6 +206,9 @@ A dropdown select box for choosing from a list of choices. The following keyword
 ``help_text``
   Help text to display alongside the field.
 
+``include_blank`` (default: True)
+  If false, the blank choice (``---------``) will not be rendered.
+
 ``ChoiceBlock`` can also be subclassed to produce a reusable block with the same list of choices everywhere it is used. For example, a block definition such as:
 
 .. code-block:: python
