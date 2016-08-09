@@ -2,22 +2,18 @@ from __future__ import absolute_import, unicode_literals
 
 import itertools
 import json
-import warnings
 from functools import total_ordering
 
-from django.contrib.contenttypes.models import ContentType
 from django.core.urlresolvers import reverse
 from django.forms import widgets
 from django.forms.utils import flatatt
 from django.template.loader import render_to_string
 from django.utils.encoding import python_2_unicode_compatible
 from django.utils.formats import get_format
-from django.utils.functional import cached_property
 from django.utils.html import format_html
 from django.utils.translation import ugettext_lazy as _
 from taggit.forms import TagWidget
 
-from wagtail.utils.deprecation import RemovedInWagtail17Warning
 from wagtail.utils.widgets import WidgetWithScript
 from wagtail.wagtailcore import hooks
 from wagtail.wagtailcore.models import Page
@@ -137,30 +133,11 @@ class AdminPageChooser(AdminChooser):
     choose_another_text = _('Choose another page')
     link_to_chosen_text = _('Edit this page')
 
-    def __init__(self, target_models=None, content_type=None, can_choose_root=False, **kwargs):
+    def __init__(self, target_models=None, can_choose_root=False, **kwargs):
         super(AdminPageChooser, self).__init__(**kwargs)
 
         self.target_models = list(target_models or [Page])
-
-        if content_type is not None:
-            if target_models is not None:
-                raise ValueError("Can not set both target_models and content_type")
-            warnings.warn(
-                'The content_type argument for AdminPageChooser() is deprecated. Use the target_models argument instead',
-                category=RemovedInWagtail17Warning)
-            if isinstance(content_type, ContentType):
-                self.target_models = [content_type.model_class()]
-            else:
-                self.target_models = [ct.model_class() for ct in content_type]
-
         self.can_choose_root = can_choose_root
-
-    @cached_property
-    def target_content_types(self):
-        warnings.warn(
-            'AdminPageChooser.target_content_types is deprecated. Use AdminPageChooser.target_models instead',
-            category=RemovedInWagtail17Warning)
-        return list(ContentType.objects.get_for_models(*self.target_models).values())
 
     def _get_lowest_common_page_class(self):
         """
