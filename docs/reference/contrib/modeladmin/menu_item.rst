@@ -5,6 +5,10 @@ Customising the menu item
 You can use the following attributes and methods on the ``ModelAdmin`` class to
 alter the menu item used to represent your model in Wagtail's admin area.
 
+.. contents::
+    :local:
+    :depth: 1
+
 .. _modeladmin_menu_label:
 
 -------------------------
@@ -23,13 +27,13 @@ item that appears in Wagtail's sidebar. If not set, the menu item will use
 ``ModelAdmin.menu_icon``
 -------------------------
 
-**Expected value**: A string matching one Wagtail's icon class names.
+**Expected value**: A string matching one of Wagtail's icon class names.
 
-If you want to change the icon used to represent your Model, you can set the
+If you want to change the icon used to represent your model, you can set the
 ``menu_icon`` attribute on your class to use one of the other icons available
 in Wagtail's CMS. The same icon will be used for the menu item in Wagtail's
 sidebar, and will also appear in the header on the list page and other views
-for your Model. If not set, ``'doc-full-inverse'`` will be used for
+for your model. If not set, ``'doc-full-inverse'`` will be used for
 page-type models, and ``'snippet'`` for others.
 
 If you're using a ``ModelAdminGroup`` class to group together several 

@@ -3,10 +3,22 @@
 ===================================
 
 The ``modeladmin`` app is designed to offer you as much flexibility as possible 
-in how your model and it's objects are represented in Wagtail's CMS. It's
-designed to be used in a similar way to Django's class of the same name, often
-using the same attribute and method names to achieve similar things. However,
-there are a few key differences:
+in how your model and its objects are represented in Wagtail's CMS. This page
+aims to provide you with some background information to help you gain a better
+understanding of what the app can do, and to point you in the right direction,
+depending on the kind of customisations you're looking to make.
+
+.. contents::
+    :local:
+    :depth: 1
+
+---------------------------------------------------------
+Wagtail's ``ModelAdmin`` class isn't the same as Django's
+---------------------------------------------------------
+
+Wagtail's ``ModelAdmin`` class is designed to be used in a similar way to
+Django's class of the same name, and often uses the same attribute and method
+names to achieve similar things. However, there are a few key differences:
 
 -	Add & edit forms are still defined by ``panels`` and ``edit_handlers``
 	^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -92,34 +104,34 @@ The ``ModelAdmin`` class provides several attributes to enable you to easily
 add additional stylesheets and javascript to the admin interface for your
 model. Each atttribute simply needs to be a list of paths to the files you
 want to include. If the path is for a file in your project's static directory,
-wagtail will automatically prepended paths for each path with ``STATIC_URL``,
+Wagtail will automatically prepended paths for each path with ``STATIC_URL``,
 so you don't need to repeat it each time in your list of paths.
 
 If you'd like to add styles or scripts to the ``IndexView``, you should set the
 following attributes:
 
 -	``index_view_extra_css`` -  Where each item is the path name of a
-	pre-compliled stylesheet that you'd like to include.
+	pre-compiled stylesheet that you'd like to include.
 
--	``index_view_extra_js`` - Where each item is the path name of a javascipt
+-	``index_view_extra_js`` - Where each item is the path name of a javascript
 	file that you'd like to include.
 
-If you'd like to do the same for `CreateView` and ``EditView``, you should set
-the following attributes:
+If you'd like to do the same for ``CreateView`` and ``EditView``, you should
+set the following attributes:
 
 -	``form_view_extra_css`` -  Where each item is the path name of a
-	pre-compliled stylesheet that you'd like to include.
+	pre-compiled stylesheet that you'd like to include.
 
--	``form_view_extra_js`` - Where each item is the path name of a javascipt
+-	``form_view_extra_js`` - Where each item is the path name of a javascript
 	file that you'd like to include.
 
 And if you're using the ``InspectView`` for your model, and want to do the same
 for that view, your should set the following attributes:
 
 -	``inspect_view_extra_css`` -  Where each item is the path name of a
-	pre-compliled stylesheet that you'd like to include.
+	pre-compiled stylesheet that you'd like to include.
 
--	``inspect_view_extra_js`` - Where each item is the path name of a javascipt
+-	``inspect_view_extra_js`` - Where each item is the path name of a javascript
 	file that you'd like to include.
 
 .. _modeladmin_overriding_templates:
@@ -128,7 +140,7 @@ for that view, your should set the following attributes:
 Overriding templates
 --------------------
 
-For all modeladmin views, wagtail looks for templates in the following folders
+For all modeladmin views, Wagtail looks for templates in the following folders
 within your project, before resorting to the defaults:
 
 1. ``/modeladmin/app-name/model-name/``
@@ -216,7 +228,7 @@ are designated to set of simple classes (in ``modeladmin``, these are termed
 'helper' classes) and can be found in ``wagtail.contrib.modeladmin.helpers``.
 
 If you ever intend to write and use your own custom views with ``modeladmin``,
-you should familarise yourself with these helpers, as they are made available
+you should familiarise yourself with these helpers, as they are made available
 to views via the ``modeladmin.views.WMABaseView`` view.
 
 There are three types of 'helper class':
@@ -267,7 +279,7 @@ modeladmin_register(MyModelAdmin)
 ```
 
 Or, if you have a more complicated use case, where simply setting that 
-attribute isn't possible (due to circlular imports, for example) or doesn't
+attribute isn't possible (due to circular imports, for example) or doesn't
 meet your needs, you can override the  ``get_url_helper_class`` method, like
 so:
 

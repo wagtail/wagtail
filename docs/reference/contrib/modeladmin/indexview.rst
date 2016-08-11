@@ -9,6 +9,10 @@ lifting.
 You can use the following attributes and methods on the ``ModelAdmin`` class to
 alter how your model data is treated and represented by the ``IndexView``.
 
+.. contents::
+    :local:
+    :depth: 1
+
 .. _modeladmin_list_display:
 
 ---------------------------
@@ -277,10 +281,9 @@ Set ``search_fields`` to enable a search box at the top of the index page
 for your model. You should add names of any fields on the model that should 
 be searched whenever somebody submits a search query using the search box.
 
-Searching is all handled via Django's queryset API, rather than using the
-Wagtail's search backend. This means it will work for all models, whatever 
-search backend your project is using, and without any additional setup or 
-configuration.
+Searching is all handled via Django's queryset API, rather than using Wagtail's
+search backend. This means it will work for all models, whatever search backend
+your project is using, and without any additional setup or configuration.
 
 .. _modeladmin_ordering:
 
@@ -360,7 +363,7 @@ model. The method takes two parameters:
 
 - 	``obj``: the object being represented by the current row
 -	``field_name``: the item from ``list_display`` being represented by the
-	curent column
+	current column
 
 For example, if you'd like to apply some conditional formatting to a cell
 depending on the row's value, you could do something like:
@@ -407,7 +410,7 @@ parameters:
 
 - 	``obj``: the object being represented by the current row
 -	``field_name``: the item from ``list_display`` being represented by the
-	curent column
+	current column
 
 For example, you might like to add some tooltip text to a certain column, to
 help give the value more context:
@@ -475,10 +478,10 @@ class EventAdmin(ModelAdmin):
 ``wagtal.contrib.modeladmin.options.ThumbnailMixin``
 ----------------------------------------------------
 
-If you're using ``wagtailimages.Image`` to define an image for each items in
+If you're using ``wagtailimages.Image`` to define an image for each item in
 your model, ``ThumbnailMixin`` can help you add thumbnail versions of that 
 image to each row in ``IndexView``. To use it, simply extend ``ThumbnailMixin``
-as an well as ``ModelAdmin`` when defining your ``ModelAdmin`` class, and
+as well as ``ModelAdmin`` when defining your ``ModelAdmin`` class, and
 change a few attributes to change the thumbnail to your liking, like so: 
 
 ```

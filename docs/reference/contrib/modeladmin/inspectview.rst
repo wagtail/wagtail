@@ -9,14 +9,17 @@ enable the inspect view by setting ``inspect_view_enabled=True`` on your
 ``ModelAdmin`` class.
 
 When enabled, an 'Inspect' button will automatically appear for each row in
-your index / listing view, linking to new page that shows values for all 
-'concrete' field values (where the field value is stored in the same table
-that represents the model).
+your index / listing view, linking to new page that shows values a list of
+field values for that particular object.
 
 By default, all 'concrete' fields (where the field value is stored as a column
 in the database table for your model) will be shown. You can customise what
 values are displayed by adding the following attributes to your ``ModelAdmin``
 class:
+
+.. contents::
+    :local:
+    :depth: 1
 
 .. _modeladmin_inspect_view_fields:
 
@@ -30,10 +33,10 @@ that you'd like ``InpectView`` to render.
 A sensible value will be rendered for most field types.
 
 If a field happens to be a ``ForeignKey`` linking to the 
-``wagtailimages.Image`` Model, a thumbnail of that image will be rendered. 
+``wagtailimages.Image`` model, a thumbnail of that image will be rendered. 
 
 If a field happens to be a ``ForeignKey`` linking to the 
-``wagtaildocs.Document`` Model, a link to that document will be rendered.
+``wagtaildocs.Document`` model, a link to that document will be rendered.
 
 
 .. _modeladmin_inspect_view_fields_exclude:
@@ -45,7 +48,7 @@ If a field happens to be a ``ForeignKey`` linking to the
 **Expected value:** A list or tuple, where each item is the name of a field 
 that you'd like to exclude from ``InpectView``
 
-**Note:** If both ``inspect_view_fields`` and ``insepct_view_fields_exclude``
+**Note:** If both ``inspect_view_fields`` and ``inspect_view_fields_exclude``
 are set, ``inspect_view_fields_exclude`` will be ignored.
 
 .. _modeladmin_inspect_view_extra_css:
