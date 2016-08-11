@@ -18,6 +18,8 @@ Minor features
 Bug fixes
 ~~~~~~~~~
 
+ * Migrations for wagtailcore and project template are now reversible (Benjamin Bach)
+
 
 Upgrade considerations
 ======================

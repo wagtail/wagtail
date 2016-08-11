@@ -4,6 +4,8 @@ Changelog
 1.7 (xx.xx.xxxx)
 ~~~~~~~~~~~~~~~~
 
+ * Fix: Migrations for wagtailcore and project template are now reversible (Benjamin Bach)
+
 
 1.6 (xx.xx.xxxx)
 ~~~~~~~~~~~~~~~~
