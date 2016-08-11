@@ -458,7 +458,8 @@ class Filter(models.Model):
 
 
 class AbstractRendition(models.Model):
-    filter = models.ForeignKey(Filter, related_name='+')
+    filter = models.ForeignKey(Filter, related_name='+', null=True, blank=True)
+    filter_spec = models.CharField(max_length=255, db_index=True, null=True, blank=True)
     file = models.ImageField(upload_to=get_rendition_upload_to, width_field='width', height_field='height')
     width = models.IntegerField(editable=False)
     height = models.IntegerField(editable=False)
@@ -504,6 +505,12 @@ class AbstractRendition(models.Model):
         folder_name = 'images'
         filename = self.file.field.storage.get_valid_name(filename)
         return os.path.join(folder_name, filename)
+
+    def save(self, *args, **kwargs):
+        # populate the `filter_spec` field with the spec string of the filter. In Wagtail 1.8
+        # Filter will be dropped as a model, and lookups will be done based on this string instead
+        self.filter_spec = self.filter.spec
+        return super(AbstractRendition, self).save(*args, **kwargs)
 
     class Meta:
         abstract = True
