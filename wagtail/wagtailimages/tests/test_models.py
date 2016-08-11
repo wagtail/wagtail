@@ -207,6 +207,12 @@ class TestRenditions(TestCase):
         self.assertEqual(rendition.width, 400)
         self.assertEqual(rendition.height, 300)
 
+        # check that the rendition has been recorded under the correct filter,
+        # via both the Rendition.filter_spec attribute (which will come into action
+        # in Wagtail 1.8) and the linked Filter model (which will be retired in 1.8)
+        self.assertEqual(rendition.filter_spec, 'width-400')
+        self.assertEqual(rendition.filter.spec, 'width-400')
+
     def test_resize_to_max(self):
         rendition = self.image.get_rendition('max-100x100')
 
