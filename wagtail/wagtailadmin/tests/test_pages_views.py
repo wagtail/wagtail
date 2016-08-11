@@ -1,24 +1,32 @@
-from datetime import timedelta
-import mock
+from __future__ import absolute_import, unicode_literals
+
+import datetime
+import logging
+import os
 
 import django
-from django.test import TestCase
-from django.core.urlresolvers import reverse
+import mock
+from django.conf import settings
 from django.contrib.auth import get_user_model
 from django.contrib.auth.models import Group, Permission
+from django.contrib.messages import constants as message_constants
 from django.core import mail, paginator
 from django.core.files.base import ContentFile
-from django.db.models.signals import pre_delete, post_delete
-from django.utils import timezone
+from django.core.urlresolvers import reverse
+from django.db.models.signals import post_delete, pre_delete
+from django.test import TestCase
+from django.utils import formats, timezone
+from django.utils.dateparse import parse_date
 
 from wagtail.tests.testapp.models import (
-    SimplePage, FilePage, EventPage, EventPageCarouselItem,
-    StandardIndex, StandardChild,
-    BusinessIndex, BusinessChild, BusinessSubIndex,
-    TaggedPage, Advert, AdvertPlacement)
+    EVENT_AUDIENCE_CHOICES,
+    Advert, AdvertPlacement, BusinessChild, BusinessIndex, BusinessSubIndex, EventPage,
+    EventPageCarouselItem, FilePage, SimplePage, SingleEventPage, StandardChild, StandardIndex,
+    TaggedPage)
 from wagtail.tests.utils import WagtailTestUtils
 from wagtail.wagtailcore.models import GroupPagePermission, Page, PageRevision, Site
 from wagtail.wagtailcore.signals import page_published, page_unpublished
+from wagtail.wagtailsearch.index import SearchField
 from wagtail.wagtailusers.models import UserProfile
 
 
@@ -33,6 +41,11 @@ def submittable_timestamp(timestamp):
     return str(timezone.localtime(timestamp)).split('.')[0]
 
 
+def local_datetime(*args):
+    dt = datetime.datetime(*args)
+    return timezone.make_aware(dt)
+
+
 class TestPageExplorer(TestCase, WagtailTestUtils):
     def setUp(self):
         # Find root page
@@ -42,8 +55,25 @@ class TestPageExplorer(TestCase, WagtailTestUtils):
         self.child_page = SimplePage(
             title="Hello world!",
             slug="hello-world",
+            content="hello",
         )
         self.root_page.add_child(instance=self.child_page)
+
+        # more child pages to test ordering
+        self.old_page = StandardIndex(
+            title="Old page",
+            slug="old-page",
+            latest_revision_created_at=local_datetime(2010, 1, 1)
+        )
+        self.root_page.add_child(instance=self.old_page)
+
+        self.new_page = SimplePage(
+            title="New page",
+            slug="new-page",
+            content="hello",
+            latest_revision_created_at=local_datetime(2016, 1, 1)
+        )
+        self.root_page.add_child(instance=self.new_page)
 
         # Login
         self.login()
@@ -53,7 +83,11 @@ class TestPageExplorer(TestCase, WagtailTestUtils):
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'wagtailadmin/pages/index.html')
         self.assertEqual(self.root_page, response.context['parent_page'])
-        self.assertTrue(response.context['pages'].paginator.object_list.filter(id=self.child_page.id).exists())
+
+        # child pages should be most recent first
+        # (with null latest_revision_created_at at the end)
+        page_ids = [page.id for page in response.context['pages']]
+        self.assertEqual(page_ids, [self.new_page.id, self.old_page.id, self.child_page.id])
 
     def test_explore_root(self):
         response = self.client.get(reverse('wagtailadmin_explore_root'))
@@ -63,31 +97,89 @@ class TestPageExplorer(TestCase, WagtailTestUtils):
         self.assertTrue(response.context['pages'].paginator.object_list.filter(id=self.root_page.id).exists())
 
     def test_ordering(self):
-        response = self.client.get(reverse('wagtailadmin_explore_root'), {'ordering': 'content_type'})
+        response = self.client.get(
+            reverse('wagtailadmin_explore', args=(self.root_page.id, )),
+            {'ordering': 'title'}
+        )
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'wagtailadmin/pages/index.html')
-        self.assertEqual(response.context['ordering'], 'content_type')
+        self.assertEqual(response.context['ordering'], 'title')
+
+        # child pages should be ordered by title
+        page_ids = [page.id for page in response.context['pages']]
+        self.assertEqual(page_ids, [self.child_page.id, self.new_page.id, self.old_page.id])
+
+    def test_reverse_ordering(self):
+        response = self.client.get(
+            reverse('wagtailadmin_explore', args=(self.root_page.id, )),
+            {'ordering': '-title'}
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'wagtailadmin/pages/index.html')
+        self.assertEqual(response.context['ordering'], '-title')
+
+        # child pages should be ordered by title
+        page_ids = [page.id for page in response.context['pages']]
+        self.assertEqual(page_ids, [self.old_page.id, self.new_page.id, self.child_page.id])
+
+    def test_ordering_by_last_revision_forward(self):
+        response = self.client.get(
+            reverse('wagtailadmin_explore', args=(self.root_page.id, )),
+            {'ordering': 'latest_revision_created_at'}
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'wagtailadmin/pages/index.html')
+        self.assertEqual(response.context['ordering'], 'latest_revision_created_at')
+
+        # child pages should be oldest revision first
+        # (with null latest_revision_created_at at the start)
+        page_ids = [page.id for page in response.context['pages']]
+        self.assertEqual(page_ids, [self.child_page.id, self.old_page.id, self.new_page.id])
 
     def test_invalid_ordering(self):
-        response = self.client.get(reverse('wagtailadmin_explore_root'), {'ordering': 'invalid_order'})
+        response = self.client.get(
+            reverse('wagtailadmin_explore', args=(self.root_page.id, )),
+            {'ordering': 'invalid_order'}
+        )
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'wagtailadmin/pages/index.html')
         self.assertEqual(response.context['ordering'], '-latest_revision_created_at')
 
     def test_reordering(self):
-        response = self.client.get(reverse('wagtailadmin_explore_root'), {'ordering': 'ord'})
+        response = self.client.get(
+            reverse('wagtailadmin_explore', args=(self.root_page.id, )),
+            {'ordering': 'ord'}
+        )
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'wagtailadmin/pages/index.html')
         self.assertEqual(response.context['ordering'], 'ord')
 
+        # child pages should be ordered by native tree order (i.e. by creation time)
+        page_ids = [page.id for page in response.context['pages']]
+        self.assertEqual(page_ids, [self.child_page.id, self.old_page.id, self.new_page.id])
+
         # Pages must not be paginated
         self.assertNotIsInstance(response.context['pages'], paginator.Page)
+
+    def test_construct_explorer_page_queryset_hook(self):
+        # testapp implements a construct_explorer_page_queryset hook
+        # that only returns pages with a slug starting with 'hello'
+        # when the 'polite_pages_only' URL parameter is set
+        response = self.client.get(
+            reverse('wagtailadmin_explore', args=(self.root_page.id, )),
+            {'polite_pages_only': 'yes_please'}
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'wagtailadmin/pages/index.html')
+        page_ids = [page.id for page in response.context['pages']]
+        self.assertEqual(page_ids, [self.child_page.id])
 
     def make_pages(self):
         for i in range(150):
             self.root_page.add_child(instance=SimplePage(
                 title="Page " + str(i),
                 slug="page-" + str(i),
+                content="hello",
             ))
 
     def test_pagination(self):
@@ -126,6 +218,23 @@ class TestPageExplorer(TestCase, WagtailTestUtils):
         # Check that we got the last page
         self.assertEqual(response.context['pages'].number, response.context['pages'].paginator.num_pages)
 
+    def test_listing_uses_specific_models(self):
+        # SingleEventPage has custom URL routing; the 'live' link in the listing
+        # should show the custom URL, which requires us to use the specific version
+        # of the class
+        self.new_event = SingleEventPage(
+            title="New event",
+            location='the moon', audience='public',
+            cost='free', date_from='2001-01-01',
+            latest_revision_created_at=local_datetime(2016, 1, 1)
+        )
+        self.root_page.add_child(instance=self.new_event)
+
+        response = self.client.get(reverse('wagtailadmin_explore', args=(self.root_page.id, )))
+        self.assertEqual(response.status_code, 200)
+
+        self.assertContains(response, '/new-event/pointless-suffix/')
+
 
 class TestPageExplorerSignposting(TestCase, WagtailTestUtils):
     fixtures = ['test.json']
@@ -141,11 +250,12 @@ class TestPageExplorerSignposting(TestCase, WagtailTestUtils):
         self.no_site_page = SimplePage(
             title="Hello world!",
             slug="hello-world",
+            content="hello",
         )
         self.root_page.add_child(instance=self.no_site_page)
 
     def test_admin_at_root(self):
-        self.client.login(username='superuser', password='password')
+        self.assertTrue(self.client.login(username='superuser', password='password'))
         response = self.client.get(reverse('wagtailadmin_explore_root'))
         self.assertEqual(response.status_code, 200)
         # Administrator (or user with add_site permission) should get the full message
@@ -160,7 +270,7 @@ class TestPageExplorerSignposting(TestCase, WagtailTestUtils):
         self.assertContains(response, """<a href="/admin/sites/">Configure a site now.</a>""")
 
     def test_admin_at_non_site_page(self):
-        self.client.login(username='superuser', password='password')
+        self.assertTrue(self.client.login(username='superuser', password='password'))
         response = self.client.get(reverse('wagtailadmin_explore', args=(self.no_site_page.id, )))
         self.assertEqual(response.status_code, 200)
         # Administrator (or user with add_site permission) should get a warning about
@@ -175,14 +285,14 @@ class TestPageExplorerSignposting(TestCase, WagtailTestUtils):
         self.assertContains(response, """<a href="/admin/sites/">Configure a site now.</a>""")
 
     def test_admin_at_site_page(self):
-        self.client.login(username='superuser', password='password')
+        self.assertTrue(self.client.login(username='superuser', password='password'))
         response = self.client.get(reverse('wagtailadmin_explore', args=(self.site_page.id, )))
         self.assertEqual(response.status_code, 200)
         # There should be no warning message here
         self.assertNotContains(response, "Pages created here will not be accessible")
 
     def test_nonadmin_at_root(self):
-        self.client.login(username='siteeditor', password='password')
+        self.assertTrue(self.client.login(username='siteeditor', password='password'))
         response = self.client.get(reverse('wagtailadmin_explore_root'))
         self.assertEqual(response.status_code, 200)
         # Non-admin should get a simple "create pages as children of the homepage" prompt
@@ -193,7 +303,7 @@ class TestPageExplorerSignposting(TestCase, WagtailTestUtils):
         )
 
     def test_nonadmin_at_non_site_page(self):
-        self.client.login(username='siteeditor', password='password')
+        self.assertTrue(self.client.login(username='siteeditor', password='password'))
         response = self.client.get(reverse('wagtailadmin_explore', args=(self.no_site_page.id, )))
         self.assertEqual(response.status_code, 200)
         # Non-admin should get a warning about unroutable pages
@@ -206,7 +316,7 @@ class TestPageExplorerSignposting(TestCase, WagtailTestUtils):
         )
 
     def test_nonadmin_at_site_page(self):
-        self.client.login(username='siteeditor', password='password')
+        self.assertTrue(self.client.login(username='siteeditor', password='password'))
         response = self.client.get(reverse('wagtailadmin_explore', args=(self.site_page.id, )))
         self.assertEqual(response.status_code, 200)
         # There should be no warning message here
@@ -401,8 +511,8 @@ class TestPageCreation(TestCase, WagtailTestUtils):
         self.assertFalse(any(Page.find_problems()), 'treebeard found consistency problems')
 
     def test_create_simplepage_scheduled(self):
-        go_live_at = timezone.now() + timedelta(days=1)
-        expire_at = timezone.now() + timedelta(days=2)
+        go_live_at = timezone.now() + datetime.timedelta(days=1)
+        expire_at = timezone.now() + datetime.timedelta(days=2)
         post_data = {
             'title': "New page!",
             'content': "Some content",
@@ -432,8 +542,8 @@ class TestPageCreation(TestCase, WagtailTestUtils):
             'title': "New page!",
             'content': "Some content",
             'slug': 'hello-world',
-            'go_live_at': submittable_timestamp(timezone.now() + timedelta(days=2)),
-            'expire_at': submittable_timestamp(timezone.now() + timedelta(days=1)),
+            'go_live_at': submittable_timestamp(timezone.now() + datetime.timedelta(days=2)),
+            'expire_at': submittable_timestamp(timezone.now() + datetime.timedelta(days=1)),
         }
         response = self.client.post(
             reverse('wagtailadmin_pages:add', args=('tests', 'simplepage', self.root_page.id)), post_data
@@ -445,12 +555,15 @@ class TestPageCreation(TestCase, WagtailTestUtils):
         self.assertFormError(response, 'form', 'go_live_at', "Go live date/time must be before expiry date/time")
         self.assertFormError(response, 'form', 'expire_at', "Go live date/time must be before expiry date/time")
 
+        # form should be marked as having unsaved changes for the purposes of the dirty-forms warning
+        self.assertContains(response, "alwaysDirty: true")
+
     def test_create_simplepage_scheduled_expire_in_the_past(self):
         post_data = {
             'title': "New page!",
             'content': "Some content",
             'slug': 'hello-world',
-            'expire_at': submittable_timestamp(timezone.now() + timedelta(days=-1)),
+            'expire_at': submittable_timestamp(timezone.now() + datetime.timedelta(days=-1)),
         }
         response = self.client.post(
             reverse('wagtailadmin_pages:add', args=('tests', 'simplepage', self.root_page.id)), post_data
@@ -460,6 +573,9 @@ class TestPageCreation(TestCase, WagtailTestUtils):
 
         # Check that a form error was raised
         self.assertFormError(response, 'form', 'expire_at', "Expiry date/time must be in the future")
+
+        # form should be marked as having unsaved changes for the purposes of the dirty-forms warning
+        self.assertContains(response, "alwaysDirty: true")
 
     def test_create_simplepage_post_publish(self):
         # Connect a mock signal handler to page_published signal
@@ -500,8 +616,8 @@ class TestPageCreation(TestCase, WagtailTestUtils):
         self.assertFalse(any(Page.find_problems()), 'treebeard found consistency problems')
 
     def test_create_simplepage_post_publish_scheduled(self):
-        go_live_at = timezone.now() + timedelta(days=1)
-        expire_at = timezone.now() + timedelta(days=2)
+        go_live_at = timezone.now() + datetime.timedelta(days=1)
+        expire_at = timezone.now() + datetime.timedelta(days=2)
         post_data = {
             'title': "New page!",
             'content': "Some content",
@@ -568,9 +684,7 @@ class TestPageCreation(TestCase, WagtailTestUtils):
         # This tests the existing slug checking on page save
 
         # Create a page
-        self.child_page = SimplePage()
-        self.child_page.title = "Hello world!"
-        self.child_page.slug = "hello-world"
+        self.child_page = SimplePage(title="Hello world!", slug="hello-world", content="hello")
         self.root_page.add_child(instance=self.child_page)
 
         # Attempt to create a new one with the same slug
@@ -589,6 +703,9 @@ class TestPageCreation(TestCase, WagtailTestUtils):
 
         # Check that a form error was raised
         self.assertFormError(response, 'form', 'slug', "This slug is already in use")
+
+        # form should be marked as having unsaved changes for the purposes of the dirty-forms warning
+        self.assertContains(response, "alwaysDirty: true")
 
     def test_create_nonexistantparent(self):
         response = self.client.get(reverse('wagtailadmin_pages:add', args=('tests', 'simplepage', 100000)))
@@ -716,6 +833,7 @@ class TestPageEdit(TestCase, WagtailTestUtils):
         child_page = SimplePage(
             title="Hello world!",
             slug="hello-world",
+            content="hello",
         )
         self.root_page.add_child(instance=child_page)
         child_page.save_revision().publish()
@@ -734,9 +852,11 @@ class TestPageEdit(TestCase, WagtailTestUtils):
         self.file_page = FilePage.objects.get(id=file_page.id)
 
         # Add event page (to test edit handlers)
-        self.event_page = EventPage()
-        self.event_page.title = "Event page"
-        self.event_page.slug = "event-page"
+        self.event_page = EventPage(
+            title="Event page", slug="event-page",
+            location='the moon', audience='public',
+            cost='free', date_from='2001-01-01',
+        )
         self.root_page.add_child(instance=self.event_page)
 
         # Login
@@ -761,6 +881,73 @@ class TestPageEdit(TestCase, WagtailTestUtils):
         response = self.client.get(reverse('wagtailadmin_pages:edit', args=(self.file_page.id, )))
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, 'enctype="multipart/form-data"')
+
+    def test_upload_file_publish(self):
+        """
+        Check that file uploads work when directly publishing
+        """
+        file_upload = ContentFile(b"A new file", name='published-file.txt')
+        post_data = {
+            'title': 'New file',
+            'slug': 'new-file',
+            'file_field': file_upload,
+            'action-publish': "Publish",
+        }
+        response = self.client.post(reverse('wagtailadmin_pages:edit', args=[self.file_page.id]), post_data)
+
+        # Should be redirected to explorer
+        self.assertRedirects(response, reverse('wagtailadmin_explore', args=[self.root_page.id]))
+
+        # Check the new file exists
+        file_page = FilePage.objects.get()
+
+        # In Django < 1.10 the file_field.name starts with ./ whereas in 1.10 it is the basename;
+        # we test against os.path.basename(file_page.file_field.name) so that both possibilities
+        # are handled. os.path.basename can be removed when support for Django <= 1.9 is dropped.
+
+        # (hello, future person grepping for the string `if DJANGO_VERSION < (1, 10)`)
+
+        self.assertEqual(os.path.basename(file_page.file_field.name),
+                         os.path.basename(file_upload.name))
+        self.assertTrue(os.path.exists(file_page.file_field.path))
+        self.assertEqual(file_page.file_field.read(), b"A new file")
+
+    def test_upload_file_draft(self):
+        """
+        Check that file uploads work when saving a draft
+        """
+        file_upload = ContentFile(b"A new file", name='draft-file.txt')
+        post_data = {
+            'title': 'New file',
+            'slug': 'new-file',
+            'file_field': file_upload,
+        }
+        response = self.client.post(reverse('wagtailadmin_pages:edit', args=[self.file_page.id]), post_data)
+
+        # Should be redirected to edit page
+        self.assertRedirects(response, reverse('wagtailadmin_pages:edit', args=[self.file_page.id]))
+
+        # Check the file was uploaded
+        file_path = os.path.join(settings.MEDIA_ROOT, file_upload.name)
+        self.assertTrue(os.path.exists(file_path))
+        with open(file_path, 'rb') as saved_file:
+            self.assertEqual(saved_file.read(), b"A new file")
+
+        # Publish the draft just created
+        FilePage.objects.get().get_latest_revision().publish()
+
+        # In Django < 1.10 the file_field.name starts with ./ whereas in 1.10 it is the basename;
+        # we test against os.path.basename(file_page.file_field.name) so that both possibilities
+        # are handled. os.path.basename can be removed when support for Django <= 1.9 is dropped.
+
+        # (hello, future person grepping for the string `if DJANGO_VERSION < (1, 10)`)
+
+        # Get the file page, check the file is set
+        file_page = FilePage.objects.get()
+        self.assertEqual(os.path.basename(file_page.file_field.name),
+                         os.path.basename(file_upload.name))
+        self.assertTrue(os.path.exists(file_page.file_field.path))
+        self.assertEqual(file_page.file_field.read(), b"A new file")
 
     def test_page_edit_bad_permissions(self):
         # Remove privileges from user
@@ -817,8 +1004,8 @@ class TestPageEdit(TestCase, WagtailTestUtils):
     def test_edit_post_scheduled(self):
         # put go_live_at and expire_at several days away from the current date, to avoid
         # false matches in content_json__contains tests
-        go_live_at = timezone.now() + timedelta(days=10)
-        expire_at = timezone.now() + timedelta(days=20)
+        go_live_at = timezone.now() + datetime.timedelta(days=10)
+        expire_at = timezone.now() + datetime.timedelta(days=20)
         post_data = {
             'title': "I've been edited!",
             'content': "Some content",
@@ -854,8 +1041,8 @@ class TestPageEdit(TestCase, WagtailTestUtils):
             'title': "I've been edited!",
             'content': "Some content",
             'slug': 'hello-world',
-            'go_live_at': submittable_timestamp(timezone.now() + timedelta(days=2)),
-            'expire_at': submittable_timestamp(timezone.now() + timedelta(days=1)),
+            'go_live_at': submittable_timestamp(timezone.now() + datetime.timedelta(days=2)),
+            'expire_at': submittable_timestamp(timezone.now() + datetime.timedelta(days=1)),
         }
         response = self.client.post(reverse('wagtailadmin_pages:edit', args=(self.child_page.id, )), post_data)
 
@@ -865,12 +1052,15 @@ class TestPageEdit(TestCase, WagtailTestUtils):
         self.assertFormError(response, 'form', 'go_live_at', "Go live date/time must be before expiry date/time")
         self.assertFormError(response, 'form', 'expire_at', "Go live date/time must be before expiry date/time")
 
+        # form should be marked as having unsaved changes for the purposes of the dirty-forms warning
+        self.assertContains(response, "alwaysDirty: true")
+
     def test_edit_scheduled_expire_in_the_past(self):
         post_data = {
             'title': "I've been edited!",
             'content': "Some content",
             'slug': 'hello-world',
-            'expire_at': submittable_timestamp(timezone.now() + timedelta(days=-1)),
+            'expire_at': submittable_timestamp(timezone.now() + datetime.timedelta(days=-1)),
         }
         response = self.client.post(reverse('wagtailadmin_pages:edit', args=(self.child_page.id, )), post_data)
 
@@ -878,6 +1068,9 @@ class TestPageEdit(TestCase, WagtailTestUtils):
 
         # Check that a form error was raised
         self.assertFormError(response, 'form', 'expire_at', "Expiry date/time must be in the future")
+
+        # form should be marked as having unsaved changes for the purposes of the dirty-forms warning
+        self.assertContains(response, "alwaysDirty: true")
 
     def test_page_edit_post_publish(self):
         # Connect a mock signal handler to page_published signal
@@ -930,8 +1123,8 @@ class TestPageEdit(TestCase, WagtailTestUtils):
             break
 
     def test_edit_post_publish_scheduled(self):
-        go_live_at = timezone.now() + timedelta(days=1)
-        expire_at = timezone.now() + timedelta(days=2)
+        go_live_at = timezone.now() + datetime.timedelta(days=1)
+        expire_at = timezone.now() + datetime.timedelta(days=2)
         post_data = {
             'title': "I've been edited!",
             'content': "Some content",
@@ -964,8 +1157,8 @@ class TestPageEdit(TestCase, WagtailTestUtils):
 
     def test_edit_post_publish_now_an_already_scheduled(self):
         # First let's publish a page with a go_live_at in the future
-        go_live_at = timezone.now() + timedelta(days=1)
-        expire_at = timezone.now() + timedelta(days=2)
+        go_live_at = timezone.now() + datetime.timedelta(days=1)
+        expire_at = timezone.now() + datetime.timedelta(days=2)
         post_data = {
             'title': "I've been edited!",
             'content': "Some content",
@@ -1047,9 +1240,7 @@ class TestPageEdit(TestCase, WagtailTestUtils):
         # This tests the existing slug checking on page edit
 
         # Create a page
-        self.child_page = SimplePage()
-        self.child_page.title = "Hello world 2"
-        self.child_page.slug = "hello-world2"
+        self.child_page = SimplePage(title="Hello world 2", slug="hello-world2", content="hello")
         self.root_page.add_child(instance=self.child_page)
 
         # Attempt to change the slug to one thats already in use
@@ -1134,9 +1325,11 @@ class TestPageEditReordering(TestCase, WagtailTestUtils):
         self.root_page = Page.objects.get(id=2)
 
         # Add event page
-        self.event_page = EventPage()
-        self.event_page.title = "Event page"
-        self.event_page.slug = "event-page"
+        self.event_page = EventPage(
+            title="Event page", slug="event-page",
+            location='the moon', audience='public',
+            cost='free', date_from='2001-01-01',
+        )
         self.event_page.carousel_items = [
             EventPageCarouselItem(caption='1234567', sort_order=1),
             EventPageCarouselItem(caption='7654321', sort_order=2),
@@ -1243,9 +1436,7 @@ class TestPageDelete(TestCase, WagtailTestUtils):
         self.root_page = Page.objects.get(id=2)
 
         # Add child page
-        self.child_page = SimplePage()
-        self.child_page.title = "Hello world!"
-        self.child_page.slug = "hello-world"
+        self.child_page = SimplePage(title="Hello world!", slug="hello-world", content="hello")
         self.root_page.add_child(instance=self.child_page)
 
         # Add a page with child pages of its own
@@ -1398,6 +1589,32 @@ class TestPageSearch(TestCase, WagtailTestUtils):
         self.assertTemplateUsed(response, 'wagtailadmin/pages/search.html')
         self.assertEqual(response.context['query_string'], "Hello")
 
+    def test_search_searchable_fields(self):
+        # Find root page
+        root_page = Page.objects.get(id=2)
+
+        # Create a page
+        root_page.add_child(instance=SimplePage(
+            title="Hi there!", slug='hello-world', content="good morning",
+            live=True,
+            has_unpublished_changes=False,
+        ))
+
+        # Confirm the slug is not being searched
+        response = self.get({'q': "hello"})
+        self.assertNotContains(response, "There is one matching page")
+        search_fields = Page.search_fields
+
+        # Add slug to the search_fields
+        Page.search_fields = Page.search_fields + [SearchField('slug', partial_match=True)]
+
+        # Confirm the slug is being searched
+        response = self.get({'q': "hello"})
+        self.assertContains(response, "There is one matching page")
+
+        # Reset the search fields
+        Page.search_fields = search_fields
+
     def test_ajax(self):
         response = self.get({'q': "Hello"}, HTTP_X_REQUESTED_WITH='XMLHttpRequest')
         self.assertEqual(response.status_code, 200)
@@ -1445,20 +1662,14 @@ class TestPageMove(TestCase, WagtailTestUtils):
         self.root_page = Page.objects.get(id=2)
 
         # Create two sections
-        self.section_a = SimplePage()
-        self.section_a.title = "Section A"
-        self.section_a.slug = "section-a"
+        self.section_a = SimplePage(title="Section A", slug="section-a", content="hello")
         self.root_page.add_child(instance=self.section_a)
 
-        self.section_b = SimplePage()
-        self.section_b.title = "Section B"
-        self.section_b.slug = "section-b"
+        self.section_b = SimplePage(title="Section B", slug="section-b", content="hello")
         self.root_page.add_child(instance=self.section_b)
 
         # Add test page into section A
-        self.test_page = SimplePage()
-        self.test_page.title = "Hello world!"
-        self.test_page.slug = "hello-world"
+        self.test_page = SimplePage(title="Hello world!", slug="hello-world", content="hello")
         self.section_a.add_child(instance=self.test_page)
 
         # Login
@@ -1502,6 +1713,7 @@ class TestPageCopy(TestCase, WagtailTestUtils):
         self.test_page = self.root_page.add_child(instance=SimplePage(
             title="Hello world!",
             slug='hello-world',
+            content="hello",
             live=True,
             has_unpublished_changes=False,
         ))
@@ -1510,6 +1722,7 @@ class TestPageCopy(TestCase, WagtailTestUtils):
         self.test_child_page = self.test_page.add_child(instance=SimplePage(
             title="Child page",
             slug='child-page',
+            content="hello",
             live=True,
             has_unpublished_changes=True,
         ))
@@ -1517,6 +1730,7 @@ class TestPageCopy(TestCase, WagtailTestUtils):
         self.test_unpublished_child_page = self.test_page.add_child(instance=SimplePage(
             title="Unpublished Child page",
             slug='unpublished-child-page',
+            content="hello",
             live=False,
             has_unpublished_changes=True,
         ))
@@ -1832,6 +2046,7 @@ class TestPageUnpublish(TestCase, WagtailTestUtils):
         self.page = SimplePage(
             title="Hello world!",
             slug='hello-world',
+            content="hello",
             live=True,
         )
         self.root_page.add_child(instance=self.page)
@@ -1915,6 +2130,7 @@ class TestApproveRejectModeration(TestCase, WagtailTestUtils):
         self.page = SimplePage(
             title="Hello world!",
             slug='hello-world',
+            content="hello",
             live=False,
             has_unpublished_changes=True,
         )
@@ -2203,6 +2419,7 @@ class TestNotificationPreferences(TestCase, WagtailTestUtils):
         self.child_page = SimplePage(
             title="Hello world!",
             slug='hello-world',
+            content="hello",
             live=False,
         )
         self.root_page.add_child(instance=self.child_page)
@@ -2345,6 +2562,24 @@ class TestNotificationPreferences(TestCase, WagtailTestUtils):
         self.assertIn(user1.email, email_to)
         self.assertIn(user2.email, email_to)
 
+    @mock.patch('wagtail.wagtailadmin.utils.django_send_mail', side_effect=IOError('Server down'))
+    def test_email_send_error(self, mock_fn):
+        logging.disable(logging.CRITICAL)
+        # Approve
+        self.silent_submit()
+        response = self.approve()
+        logging.disable(logging.NOTSET)
+
+        # An email that fails to send should return a message rather than crash the page
+        self.assertEqual(response.status_code, 302)
+        response = self.client.get(reverse('wagtailadmin_home'))
+
+        # There should be one "approved" message and one "failed to send notifications"
+        messages = list(response.context['messages'])
+        self.assertEqual(len(messages), 2)
+        self.assertEqual(messages[0].level, message_constants.SUCCESS)
+        self.assertEqual(messages[1].level, message_constants.ERROR)
+
 
 class TestLocking(TestCase, WagtailTestUtils):
     def setUp(self):
@@ -2358,6 +2593,7 @@ class TestLocking(TestCase, WagtailTestUtils):
         self.child_page = SimplePage(
             title="Hello world!",
             slug='hello-world',
+            content="hello",
             live=False,
         )
         self.root_page.add_child(instance=self.child_page)
@@ -2627,6 +2863,27 @@ class TestChildRelationsOnSuperclass(TestCase, WagtailTestUtils):
         self.assertEqual(page.advert_placements.count(), 1)
         self.assertEqual(page.advert_placements.first().advert.text, 'test_advert')
 
+    def test_post_create_form_with_validation_error_in_formset(self):
+        post_data = {
+            'title': "New index!",
+            'slug': 'new-index',
+            'advert_placements-TOTAL_FORMS': '1',
+            'advert_placements-INITIAL_FORMS': '0',
+            'advert_placements-MAX_NUM_FORMS': '1000',
+            'advert_placements-0-advert': '1',
+            'advert_placements-0-colour': '',  # should fail as colour is a required field
+            'advert_placements-0-id': '',
+        }
+        response = self.client.post(
+            reverse('wagtailadmin_pages:add', args=('tests', 'standardindex', self.root_page.id)), post_data
+        )
+
+        # Should remain on the edit page with a validation error
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, "This field is required.")
+        # form should be marked as having unsaved changes
+        self.assertContains(response, "alwaysDirty: true")
+
     def test_get_edit_form(self):
         response = self.client.get(reverse('wagtailadmin_pages:edit', args=(self.index_page.id, )))
         self.assertEqual(response.status_code, 200)
@@ -2663,3 +2920,252 @@ class TestChildRelationsOnSuperclass(TestCase, WagtailTestUtils):
         self.assertEqual(page.advert_placements.count(), 2)
         self.assertEqual(page.advert_placements.all()[0].advert.text, 'test_advert')
         self.assertEqual(page.advert_placements.all()[1].advert.text, 'test_advert')
+
+    def test_post_edit_form_with_validation_error_in_formset(self):
+        post_data = {
+            'title': "My lovely index",
+            'slug': 'my-lovely-index',
+            'advert_placements-TOTAL_FORMS': '1',
+            'advert_placements-INITIAL_FORMS': '1',
+            'advert_placements-MAX_NUM_FORMS': '1000',
+            'advert_placements-0-advert': '1',
+            'advert_placements-0-colour': '',
+            'advert_placements-0-id': self.index_page.advert_placements.first().id,
+            'action-publish': "Publish",
+        }
+        response = self.client.post(reverse('wagtailadmin_pages:edit', args=(self.index_page.id, )), post_data)
+
+        # Should remain on the edit page with a validation error
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, "This field is required.")
+        # form should be marked as having unsaved changes
+        self.assertContains(response, "alwaysDirty: true")
+
+
+class TestRevisions(TestCase, WagtailTestUtils):
+    fixtures = ['test.json']
+
+    def setUp(self):
+        self.christmas_event = EventPage.objects.get(url_path='/home/events/christmas/')
+        self.christmas_event.title = "Last Christmas"
+        self.christmas_event.date_from = '2013-12-25'
+        self.christmas_event.body = (
+            "<p>Last Christmas I gave you my heart, "
+            "but the very next day you gave it away</p>"
+        )
+        self.last_christmas_revision = self.christmas_event.save_revision()
+        self.last_christmas_revision.created_at = local_datetime(2013, 12, 25)
+        self.last_christmas_revision.save()
+
+        self.christmas_event.title = "This Christmas"
+        self.christmas_event.date_from = '2014-12-25'
+        self.christmas_event.body = (
+            "<p>This year, to save me from tears, "
+            "I'll give it to someone special</p>"
+        )
+        self.this_christmas_revision = self.christmas_event.save_revision()
+        self.this_christmas_revision.created_at = local_datetime(2014, 12, 25)
+        self.this_christmas_revision.save()
+
+        self.login()
+
+    def test_edit_form_has_revisions_link(self):
+        response = self.client.get(
+            reverse('wagtailadmin_pages:edit', args=(self.christmas_event.id, ))
+        )
+        self.assertEqual(response.status_code, 200)
+        revisions_index_url = reverse(
+            'wagtailadmin_pages:revisions_index', args=(self.christmas_event.id, )
+        )
+        self.assertContains(response, revisions_index_url)
+
+    def test_get_revisions_index(self):
+        response = self.client.get(
+            reverse('wagtailadmin_pages:revisions_index', args=(self.christmas_event.id, ))
+        )
+        self.assertEqual(response.status_code, 200)
+
+        self.assertContains(response, formats.localize(parse_date('2013-12-25')))
+        last_christmas_preview_url = reverse(
+            'wagtailadmin_pages:revisions_view',
+            args=(self.christmas_event.id, self.last_christmas_revision.id)
+        )
+        last_christmas_revert_url = reverse(
+            'wagtailadmin_pages:revisions_revert',
+            args=(self.christmas_event.id, self.last_christmas_revision.id)
+        )
+        self.assertContains(response, last_christmas_preview_url)
+        self.assertContains(response, last_christmas_revert_url)
+
+        self.assertContains(response, formats.localize(local_datetime(2014, 12, 25)))
+        this_christmas_preview_url = reverse(
+            'wagtailadmin_pages:revisions_view',
+            args=(self.christmas_event.id, self.this_christmas_revision.id)
+        )
+        this_christmas_revert_url = reverse(
+            'wagtailadmin_pages:revisions_revert',
+            args=(self.christmas_event.id, self.this_christmas_revision.id)
+        )
+        self.assertContains(response, this_christmas_preview_url)
+        self.assertContains(response, this_christmas_revert_url)
+
+    def test_preview_revision(self):
+        last_christmas_preview_url = reverse(
+            'wagtailadmin_pages:revisions_view',
+            args=(self.christmas_event.id, self.last_christmas_revision.id)
+        )
+        response = self.client.get(last_christmas_preview_url)
+        self.assertEqual(response.status_code, 200)
+
+        self.assertContains(response, "Last Christmas I gave you my heart")
+
+    def test_revert_revision(self):
+        last_christmas_preview_url = reverse(
+            'wagtailadmin_pages:revisions_revert',
+            args=(self.christmas_event.id, self.last_christmas_revision.id)
+        )
+        response = self.client.get(last_christmas_preview_url)
+        self.assertEqual(response.status_code, 200)
+
+        self.assertContains(response, "Editing Event Page")
+        self.assertContains(response, "You are viewing a previous revision of this page")
+
+        # Form should show the content of the revision, not the current draft
+        self.assertContains(response, "Last Christmas I gave you my heart")
+
+        # Form should include a hidden 'revision' field
+        revision_field = (
+            """<input type="hidden" name="revision" value="%d" />""" %
+            self.last_christmas_revision.id
+        )
+        self.assertContains(response, revision_field)
+
+        # Buttons should be relabelled
+        self.assertContains(response, "Replace current draft")
+        self.assertContains(response, "Publish this revision")
+
+
+class TestIssue2599(TestCase, WagtailTestUtils):
+    """
+    When previewing a page on creation, we need to assign it a path value consistent with its
+    (future) position in the tree. The naive way of doing this is to give it an index number
+    one more than numchild - however, index numbers are not reassigned on page deletion, so
+    this can result in a path that collides with an existing page (which is invalid).
+    """
+    def test_issue_2599(self):
+        homepage = Page.objects.get(id=2)
+
+        child1 = Page(title='child1')
+        homepage.add_child(instance=child1)
+        child2 = Page(title='child2')
+        homepage.add_child(instance=child2)
+
+        child1.delete()
+
+        self.login()
+        post_data = {
+            'title': "New page!",
+            'content': "Some content",
+            'slug': 'hello-world',
+            'action-submit': "Submit",
+        }
+        response = self.client.post(
+            reverse('wagtailadmin_pages:preview_on_add', args=('tests', 'simplepage', homepage.id)), post_data
+        )
+
+        # Check the response
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'tests/simple_page.html')
+        self.assertContains(response, "New page!")
+
+        # Check that the treebeard attributes were set correctly on the page object
+        self.assertEqual(response.context['self'].depth, homepage.depth + 1)
+        self.assertTrue(response.context['self'].path.startswith(homepage.path))
+        self.assertEqual(response.context['self'].get_parent(), homepage)
+
+
+class TestIssue2492(TestCase, WagtailTestUtils):
+    """
+    The publication submission message generation was performed using
+    the Page class, as opposed to the specific_class for that Page.
+    This test ensures that the specific_class url method is called
+    when the 'view live' message button is created.
+    """
+    def setUp(self):
+        self.root_page = Page.objects.get(id=2)
+        child_page = SingleEventPage(
+            title="Test Event", slug="test-event", location="test location",
+            cost="10", date_from=datetime.datetime.now(),
+            audience=EVENT_AUDIENCE_CHOICES[0][0])
+        self.root_page.add_child(instance=child_page)
+        child_page.save_revision().publish()
+        self.child_page = SingleEventPage.objects.get(id=child_page.id)
+        self.user = self.login()
+
+    def test_page_edit_post_publish_url(self):
+        post_data = {
+            'action-publish': "Publish",
+            'title': self.child_page.title,
+            'date_from': self.child_page.date_from,
+            'slug': self.child_page.slug,
+            'audience': self.child_page.audience,
+            'location': self.child_page.location,
+            'cost': self.child_page.cost,
+            'carousel_items-TOTAL_FORMS': 0,
+            'carousel_items-INITIAL_FORMS': 0,
+            'carousel_items-MIN_NUM_FORMS': 0,
+            'carousel_items-MAX_NUM_FORMS': 0,
+            'speakers-TOTAL_FORMS': 0,
+            'speakers-INITIAL_FORMS': 0,
+            'speakers-MIN_NUM_FORMS': 0,
+            'speakers-MAX_NUM_FORMS': 0,
+            'related_links-TOTAL_FORMS': 0,
+            'related_links-INITIAL_FORMS': 0,
+            'related_links-MIN_NUM_FORMS': 0,
+            'related_links-MAX_NUM_FORMS': 0,
+        }
+        response = self.client.post(
+            reverse('wagtailadmin_pages:edit', args=(self.child_page.id, )),
+            post_data, follow=True)
+
+        # Grab a fresh copy's URL
+        new_url = SingleEventPage.objects.get(id=self.child_page.id).url
+
+        # The "View Live" button should have the custom URL.
+        for message in response.context['messages']:
+            self.assertIn('"{}"'.format(new_url), message.message)
+            break
+
+
+class TestInlinePanelMedia(TestCase, WagtailTestUtils):
+    """
+    Test that form media required by InlinePanels is correctly pulled in to the edit page
+    """
+    def test_inline_panel_media(self):
+        homepage = Page.objects.get(id=2)
+        self.login()
+
+        # simplepage does not need hallo...
+        response = self.client.get(reverse('wagtailadmin_pages:add', args=('tests', 'simplepage', homepage.id)))
+        self.assertEqual(response.status_code, 200)
+        self.assertNotContains(response, 'wagtailadmin/js/hallo-bootstrap.js')
+
+        # but sectionedrichtextpage does
+        response = self.client.get(reverse('wagtailadmin_pages:add', args=('tests', 'sectionedrichtextpage', homepage.id)))
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, 'wagtailadmin/js/hallo-bootstrap.js')
+
+
+class TestInlineStreamField(TestCase, WagtailTestUtils):
+    """
+    Test that streamfields inside an inline child work
+    """
+    def test_inline_streamfield(self):
+        homepage = Page.objects.get(id=2)
+        self.login()
+
+        response = self.client.get(reverse('wagtailadmin_pages:add', args=('tests', 'inlinestreampage', homepage.id)))
+        self.assertEqual(response.status_code, 200)
+
+        # response should include HTML declarations for streamfield child blocks
+        self.assertContains(response, '<li id="__PREFIX__-container" class="sequence-member blockname-rich_text">')

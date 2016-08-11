@@ -1,13 +1,15 @@
-from django.test import TestCase
-from django.test.client import RequestFactory
-from django.core.urlresolvers import reverse
-from django.template import Template, Context
+from __future__ import absolute_import, unicode_literals
+
 from django.contrib.auth import get_user_model
 from django.contrib.auth.models import AnonymousUser
+from django.core.urlresolvers import reverse
+from django.template import Context, Template
+from django.test import TestCase
+from django.test.client import RequestFactory
 
+from wagtail.tests.testapp.models import BusinessChild, BusinessIndex
 from wagtail.tests.utils import WagtailTestUtils
-from wagtail.wagtailcore.models import Page, PAGE_TEMPLATE_VAR
-from wagtail.tests.testapp.models import BusinessIndex, BusinessChild
+from wagtail.wagtailcore.models import PAGE_TEMPLATE_VAR, Page, Site
 
 
 class TestUserbarTag(TestCase):
@@ -22,6 +24,7 @@ class TestUserbarTag(TestCase):
     def dummy_request(self, user=None):
         request = RequestFactory().get('/')
         request.user = user or AnonymousUser()
+        request.site = Site.objects.first()
         return request
 
     def test_userbar_tag(self):
@@ -32,6 +35,13 @@ class TestUserbarTag(TestCase):
         }))
 
         self.assertIn("<!-- Wagtail user bar embed code -->", content)
+
+    def test_userbar_does_not_break_without_request(self):
+        template = Template("{% load wagtailuserbar %}{% wagtailuserbar %}boom")
+        content = template.render(Context({
+        }))
+
+        self.assertEqual("boom", content)
 
     def test_userbar_tag_self(self):
         """
@@ -85,10 +95,10 @@ class TestUserbarAddLink(TestCase, WagtailTestUtils):
         self.homepage = Page.objects.get(url_path='/home/')
         self.event_index = Page.objects.get(url_path='/home/events/')
 
-        self.business_index = BusinessIndex(title='Business', slug='business', live=True)
+        self.business_index = BusinessIndex(title='Business', live=True)
         self.homepage.add_child(instance=self.business_index)
 
-        self.business_child = BusinessChild(title='Business Child', slug='child', live=True)
+        self.business_child = BusinessChild(title='Business Child', live=True)
         self.business_index.add_child(instance=self.business_child)
 
     def test_page_allowing_subpages(self):
@@ -96,7 +106,7 @@ class TestUserbarAddLink(TestCase, WagtailTestUtils):
 
         # page allows subpages, so the 'add page' button should show
         expected_url = reverse('wagtailadmin_pages:add_subpage', args=(self.event_index.id, ))
-        expected_link = '<a href="%s" target="_parent" class="action icon icon-plus" title="Add a child page">Add</a>' \
+        expected_link = '<a href="%s" target="_parent">Add a child page</a>' \
             % expected_url
         self.assertContains(response, expected_link)
 
@@ -105,7 +115,7 @@ class TestUserbarAddLink(TestCase, WagtailTestUtils):
 
         # page disallows subpages, so the 'add page' button shouldn't show
         expected_url = reverse('wagtailadmin_pages:add_subpage', args=(self.business_index.id, ))
-        expected_link = '<a href="%s" target="_parent" class="action icon icon-plus" title="Add a child page">Add</a>' \
+        expected_link = '<a href="%s" target="_parent">Add a child page</a>' \
             % expected_url
         self.assertNotContains(response, expected_link)
 

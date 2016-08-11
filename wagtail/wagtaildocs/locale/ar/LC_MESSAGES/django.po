@@ -3,14 +3,15 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# Ahmad Kiswani <kiswani.ahmad@gmail.com>, 2016
 # ROGER MICHAEL ASHLEY ALLEN <rogermaallen@gmail.com>, 2015
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-12-17 13:54+0000\n"
-"PO-Revision-Date: 2015-12-17 13:58+0000\n"
-"Last-Translator: mattwestcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2016-05-18 21:37+0000\n"
+"PO-Revision-Date: 2016-05-11 20:33+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Arabic (http://www.transifex.com/torchbox/wagtail/language/"
 "ar/)\n"
 "MIME-Version: 1.0\n"
@@ -20,6 +21,21 @@ msgstr ""
 "Plural-Forms: nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 "
 "&& n%100<=10 ? 3 : n%100>=11 && n%100<=99 ? 4 : 5;\n"
 
+msgid "Edit"
+msgstr "تنقيح"
+
+msgid "title"
+msgstr "عنوان"
+
+msgid "file"
+msgstr "ملف"
+
+msgid "uploaded by user"
+msgstr "رفع عن طريق المستخدم"
+
+msgid "document"
+msgstr "مستند"
+
 msgid "Choose a document"
 msgstr "احتر وثيقة"
 
@@ -28,6 +44,9 @@ msgstr "بحث"
 
 msgid "Upload"
 msgstr "انقل إلى الحاسوب"
+
+msgid "Uploading..."
+msgstr "يتم الرفع..."
 
 msgid "Latest documents"
 msgstr "وثائق أخيرة"
@@ -89,11 +108,11 @@ msgstr "رتبة"
 msgid "Edit this page"
 msgstr "نقح هذه الصفحة"
 
+msgid "Delete"
+msgstr "احذف"
+
 msgid "Search documents"
 msgstr "ابحث وثائق"
-
-msgid "Edit"
-msgstr "تنقيح"
 
 msgid "The document could not be saved due to errors."
 msgstr "كان من غير الممكن حفظ الوثيقة بسبب أخطاء"
@@ -102,9 +121,6 @@ msgid ""
 "The file could not be found. Please change the source or delete the document"
 msgstr ""
 "كان من غبر الممكن العثور على الوثيقة. من فضلك غير المصدر أو احذف الوثيقة"
-
-msgid "Delete"
-msgstr "احذف"
 
 msgid "Choose another document"
 msgstr "اختر وثيقة أخقى"

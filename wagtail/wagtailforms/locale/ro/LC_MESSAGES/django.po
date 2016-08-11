@@ -3,14 +3,14 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# Dan Braghis, 2014-2015
+# Dan Braghis, 2014-2016
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-12-17 13:54+0000\n"
-"PO-Revision-Date: 2015-12-17 14:01+0000\n"
-"Last-Translator: mattwestcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2016-05-18 21:37+0000\n"
+"PO-Revision-Date: 2016-05-11 20:34+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Romanian (http://www.transifex.com/torchbox/wagtail/language/"
 "ro/)\n"
 "MIME-Version: 1.0\n"
@@ -53,8 +53,26 @@ msgstr "Dată"
 msgid "Date/time"
 msgstr "Dată/Timp"
 
+msgid "submit time"
+msgstr "timput trimiterii"
+
+msgid "form submission"
+msgstr "depunere formular"
+
+msgid "label"
+msgstr "etichetă"
+
 msgid "The label of the form field"
 msgstr "Etichetă pentru câmp de formular"
+
+msgid "field type"
+msgstr "tip câmp"
+
+msgid "required"
+msgstr "necesar"
+
+msgid "choices"
+msgstr "opțiuni"
 
 msgid ""
 "Comma separated list of choices. Only applicable in checkboxes, radio and "
@@ -63,12 +81,27 @@ msgstr ""
 "Listă de opțiuni separate prin virgulă. Aplicabil în căsuțe, butoane radio "
 "și liste derulante."
 
+msgid "default value"
+msgstr "valoare implicită"
+
 msgid "Default value. Comma separated values supported for checkboxes."
 msgstr "Valoare implicită. Suportă valori separate prin virgule pentru căsuțe."
+
+msgid "help text"
+msgstr "text de ajutor"
+
+msgid "to address"
+msgstr "adresă la"
 
 msgid "Optional - form submissions will be emailed to this address"
 msgstr ""
 "Opțional. Depunerile de formular vor fi trimise la această adresă de email."
+
+msgid "from address"
+msgstr "adresa de la"
+
+msgid "subject"
+msgstr "subiect"
 
 #, python-format
 msgid "Delete %(title)s"

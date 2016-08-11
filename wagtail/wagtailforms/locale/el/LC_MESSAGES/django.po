@@ -3,15 +3,16 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# dotoree <vdotoree@yahoo.gr>, 2015
+# serafeim <serafeim@torchbox.com>, 2016
+# George Giannoulopoulos <vdotoree@yahoo.gr>, 2015
 # Wasilis Mandratzis-Walz, 2015
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-12-17 13:54+0000\n"
-"PO-Revision-Date: 2015-12-17 14:01+0000\n"
-"Last-Translator: mattwestcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2016-05-18 21:37+0000\n"
+"PO-Revision-Date: 2016-05-14 21:29+0000\n"
+"Last-Translator: serafeim <serafeim@torchbox.com>\n"
 "Language-Team: Greek (http://www.transifex.com/torchbox/wagtail/language/"
 "el/)\n"
 "MIME-Version: 1.0\n"
@@ -53,8 +54,26 @@ msgstr "Ημερομηνία"
 msgid "Date/time"
 msgstr "Ημερομηνία/ώρα "
 
+msgid "submit time"
+msgstr "χρόνος υποβολής"
+
+msgid "form submission"
+msgstr "υποβολές φόρμας"
+
+msgid "label"
+msgstr "ετικέτα"
+
 msgid "The label of the form field"
 msgstr "Η ετικέτα του πεδίου φόρμας"
+
+msgid "field type"
+msgstr "τύπος πεδίου"
+
+msgid "required"
+msgstr "απαραίτητο"
+
+msgid "choices"
+msgstr "επιλογές"
 
 msgid ""
 "Comma separated list of choices. Only applicable in checkboxes, radio and "
@@ -63,13 +82,41 @@ msgstr ""
 "Διαχωρίζονται με κόμμα λίστας επιλογών. Ισχύει μόνο σε πλαίσια ελέγχου, "
 "ραδιόφωνο και αναπτυσσόμενο μενού."
 
+msgid "default value"
+msgstr "αρχική τιμή"
+
 msgid "Default value. Comma separated values supported for checkboxes."
 msgstr ""
 "Προεπιλεγμένη τιμή. Τιμές διαχωρισμένες με κόμμα υποστηρίζονται για πλαίσια "
 "ελέγχου."
 
+msgid "help text"
+msgstr "κείμενο βοήθειας"
+
+msgid "to address"
+msgstr "διεύθυνση προς"
+
 msgid "Optional - form submissions will be emailed to this address"
 msgstr "Προαιρετικά - υποβολές μορφής θα αποστέλλονται σε αυτή τη διεύθυνση"
+
+msgid "from address"
+msgstr "διεύθυνση από"
+
+msgid "subject"
+msgstr "θέμα"
+
+#, python-format
+msgid "Delete %(title)s"
+msgstr "Διαγραφή %(title)s"
+
+msgid "Delete"
+msgstr "Διαγραφή"
+
+msgid "Are you sure you want to delete this form submission?"
+msgstr "Θέλετε να διαγράψετε την υποβολή της φόρμας;"
+
+msgid "Delete it"
+msgstr "Διαγραφή"
 
 msgid "Forms"
 msgstr "Φόρμες"
@@ -104,5 +151,14 @@ msgstr "Προέλευση"
 msgid "Submission Date"
 msgstr "Ημερομηνία Υποβολής"
 
+msgid "Actions"
+msgstr "Ενέργειες"
+
+msgid "delete"
+msgstr "διαγραφή"
+
 msgid "No form pages have been created."
 msgstr "Δεν έχουν δημιουργηθεί σελίδες μορφής. "
+
+msgid "Submission deleted."
+msgstr "Η υποβολή διαγράφηκε."

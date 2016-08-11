@@ -1,9 +1,10 @@
+from __future__ import absolute_import, unicode_literals
+
 import logging
 
 from django.conf import settings
-from django.utils.module_loading import import_string
 from django.core.exceptions import ImproperlyConfigured
-
+from django.utils.module_loading import import_string
 
 logger = logging.getLogger('wagtail.frontendcache')
 

@@ -4,13 +4,13 @@
 #
 # Translators:
 # Maarten Kling <kling.maarten@gmail.com>, 2015
-# Thijs Kramer <thijskramer@gmail.com>, 2015
+# Thijs Kramer <thijskramer@gmail.com>, 2015-2016
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-12-17 13:54+0000\n"
-"PO-Revision-Date: 2015-12-22 16:15+0000\n"
+"POT-Creation-Date: 2016-05-18 21:37+0000\n"
+"PO-Revision-Date: 2016-06-13 11:11+0000\n"
 "Last-Translator: Thijs Kramer <thijskramer@gmail.com>\n"
 "Language-Team: Dutch (Netherlands) (http://www.transifex.com/torchbox/"
 "wagtail/language/nl_NL/)\n"
@@ -19,6 +19,18 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: nl_NL\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Add"
+msgstr "Toevoegen"
+
+msgid "Add/edit documents you own"
+msgstr "Eigen documenten toevoegen/wijzigen"
+
+msgid "Edit"
+msgstr "Wijzig"
+
+msgid "Edit any document"
+msgstr "Alle documenten wijzigen"
 
 msgid "title"
 msgstr "titel"
@@ -49,6 +61,13 @@ msgstr "Uploaden"
 
 msgid "Uploading..."
 msgstr "Bezig met uploaden..."
+
+msgid "Server Error"
+msgstr "Server Error"
+
+msgid "Report this error to your webmaster with the following information:"
+msgstr ""
+"Rapporteer deze foutmelding aan uw webmaster met de volgende informatie:"
 
 #, python-format
 msgid ""
@@ -129,6 +148,14 @@ msgstr "Geupload"
 
 #, python-format
 msgid ""
+"You haven't uploaded any documents in this collection. Why not <a href="
+"\"%(wagtaildocs_add_document_url)s\">upload one now</a>?"
+msgstr ""
+"Er zijn nog geen documenten aan deze collectie toegevoegd. Waarom <a href="
+"\"%(wagtaildocs_add_document_url)s\">voegt u er niet een toe</a>?"
+
+#, python-format
+msgid ""
 "You haven't uploaded any documents. Why not <a href="
 "\"%(wagtaildocs_add_document_url)s\">upload one now</a>?"
 msgstr ""
@@ -172,15 +199,50 @@ msgstr[1] ""
 "        <span>%(total)s</span> Documenten\n"
 "    "
 
+msgid "Add multiple documents"
+msgstr "Voeg meerdere documenten toe"
+
+msgid "Add documents"
+msgstr "Voeg documenten toe"
+
+msgid "Drag and drop documents into this area to upload immediately."
+msgstr "Sleep documenten naar dit gebied om ze direct te uploaden."
+
+msgid "Or choose from your computer"
+msgstr "Of kies vanaf uw computer"
+
+msgid "Add to collection:"
+msgstr "Voeg toe aan collectie:"
+
+msgid ""
+"Upload successful. Please update this documents with a more appropriate "
+"title, if necessary. You may also delete the document completely if the "
+"upload wasn't required."
+msgstr ""
+"Upload geslaagd. Voorzie dit document indien nodig van een betere titel. U "
+"kunt ook het document helemaal verwijderen indien de upload onnodig bleek. "
+
+msgid "Sorry, upload failed."
+msgstr "Sorry, het uploaden is misgegaan."
+
+msgid "Update"
+msgstr "Update"
+
+msgid "Delete"
+msgstr "Verwijderen"
+
+msgid "Document permissions"
+msgstr "Documentmachtigingen"
+
+msgid "Add a document permission"
+msgstr "Voeg een documentmachtiging toe"
+
 msgid "Search documents"
 msgstr "Zoek documenten"
 
 #, python-brace-format
 msgid "Document '{0}' added."
 msgstr "Document '{0}' toegevoegd."
-
-msgid "Edit"
-msgstr "Wijzig"
 
 msgid "The document could not be saved due to errors."
 msgstr "Het document kon vanwege fouten niet worden opgeslagen."
@@ -195,12 +257,15 @@ msgstr ""
 "Het bestand kon niet worden gevonden. Kies een ander bronbestand of "
 "verwijder het document."
 
-msgid "Delete"
-msgstr "Verwijderen"
-
 #, python-brace-format
 msgid "Document '{0}' deleted."
 msgstr "Document '{0}' verwijderd."
+
+#, python-format
+msgid "%(count)s document"
+msgid_plural "%(count)s documents"
+msgstr[0] "%(count)s document"
+msgstr[1] "%(count)s documenten"
 
 msgid "Choose another document"
 msgstr "Kies een ander document"

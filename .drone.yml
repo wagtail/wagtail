@@ -1,18 +1,23 @@
-# The scripts for building the base images can be found in scripts/drone-images
-
 build:
   flake8:
     image: python:3.5
     commands:
       - XDG_CACHE_HOME=/drone/pip-cache pip install flake8
       - flake8 wagtail
-  jscs:
+  isort:
+    image: python:3.5
+    commands:
+      - XDG_CACHE_HOME=/drone/pip-cache pip install wheel
+      - XDG_CACHE_HOME=/drone/pip-cache pip install -e .[testing,docs]
+      - isort --check-only --diff --recursive wagtail
+  js:
     image: node:4.2.4
     commands:
-      - npm install -g jscs@"^1.12.0"
-      - jscs ./wagtail
+      - npm install --quiet
+      - npm run lint
+      - npm run test:unit
   scss-lint:
-    image: wagtail-scss-lint
+    image: torchbox/scss-lint
     commands:
       - scss-lint
   unittest:
@@ -26,3 +31,13 @@ cache:
   mount:
     - node_modules
     - /drone/pip-cache
+
+notify:
+  slack:
+    webhook_url: https://hooks.slack.com/services/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
+    channel: builds
+    username: drone
+    when:
+      success: true
+      failure: true
+      change: true

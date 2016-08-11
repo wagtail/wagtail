@@ -23,10 +23,12 @@
                 <li>
                     {% format_permissions permission_bound_field=form.permissions %}
                 </li>
-                <li>
-                    {% include "wagtailusers/groups/includes/page_permissions_formset.html" with formset=formset only %}
-                </li>
-                <li><input type="submit" value='{% trans "Add group" %}' /></li>
+                {% for panel in permission_panels %}
+                    <li>
+                        {{ panel.as_admin_panel }}
+                    </li>
+                {% endfor %}
+                <li><input type="submit" value='{% trans "Add group" %}' class="button" /></li>
             </ul>
         </form>
     </div>

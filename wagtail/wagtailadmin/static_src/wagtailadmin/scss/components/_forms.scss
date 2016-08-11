@@ -1,9 +1,9 @@
-// These are the generic stylings for forms of any type. 
+// These are the generic stylings for forms of any type.
 // If you're styling something specific to the page editing interface,
 // it probably ought to go in layouts/page-editor.scss
 
 form {
-    ul, 
+    ul,
 
     li {
         list-style-type: none;
@@ -25,7 +25,7 @@ legend {
     @include visuallyhidden();
 }
 
-label, 
+label,
 .label {
     text-transform: none;
     font-weight: bold;
@@ -42,10 +42,10 @@ label,
     }
 }
 
-input, 
-textarea, 
-select, 
-.richtext, 
+input,
+textarea,
+select,
+.richtext,
 .tagit {
     box-sizing: border-box;
     border-radius: 6px;
@@ -70,14 +70,14 @@ select,
         background-color: $color-input-focus;
     }
 
-    &:disabled, 
-    &[disabled], 
-    &:disabled:hover, 
+    &:disabled,
+    &[disabled],
+    &:disabled:hover,
     &[disabled]:hover {
         background-color: inherit;
         cursor: default;
         color: $color-grey-4;
-    }  
+    }
 }
 
 // select boxes
@@ -116,11 +116,11 @@ select,
         }
     }
 
-    
+
 }
 
 // radio and check boxes
-input[type=radio], 
+input[type=radio],
 input[type=checkbox] {
     border-radius: 0;
     cursor: pointer;
@@ -187,14 +187,13 @@ input[type=checkbox]:checked:before {
     color: $color-teal;
 }
 
-// Core button style 
-// Note that these styles include methods to render buttons the same x-browser, described here: 
+// Core button style
+// Note that these styles include methods to render buttons the same x-browser, described here:
 // http: //cbjdigital.com/blog/2010/08/bulletproof_css_input_button_heights
-input[type=submit], 
-input[type=reset], 
-input[type=button], 
-.button, 
-button {
+// input[type=submit],
+// input[type=reset],
+// input[type=button],
+.button {
     border-radius: 3px;
     font-family: Open Sans,Arial,sans-serif;
     width: auto;
@@ -217,35 +216,10 @@ button {
     -webkit-font-smoothing: auto;
     -moz-appearance: none;
 
-    &.button-small {
-        padding: 0 0.8em;
-        height: 2em;
-        font-size: 0.85em;
+    &:hover {
+        color: $color-teal;
     }
 
-    &.button-secondary {
-        color: $color-button;
-        background-color: transparent;
-    }
-
-    // Buttons which are only an icon
-    &.icon.text-replace {
-        font-size: 0; // unavoidable duplication of setting in icons.scss
-        width: 1.8rem;
-        height: 1.8rem;
-
-        &:before {
-            line-height: 1.7em;
-        }
-    }
-
-    &.button-neutral {
-        color: $color-grey-2;
-
-        &:hover {
-            color: $color-teal;
-        }
-    }
 
     &.yes {
         background-color: $color-button-yes;
@@ -269,7 +243,30 @@ button {
         }
     }
 
-    &.no, 
+    &.warning {
+        background-color: $color-button-warning;
+        border: 1px solid $color-button-warning;
+
+        &.button-secondary {
+            border: 1px solid $color-button-warning;
+            color: $color-button-warning;
+            background-color: transparent;
+        }
+
+        &:hover {
+            color: $color-white;
+            border-color: transparent;
+            background-color: $color-button-warning-hover;
+        }
+
+        &.button-nobg:hover {
+            color: $color-button-warning;
+            background-color: transparent;
+        }
+    }
+
+
+    &.no,
     &.serious {
         background-color: $color-button-no;
         border: 1px solid $color-button-no;
@@ -309,9 +306,11 @@ button {
             width: 2em;
             line-height: 1.85em;
             height: 100%;
-            text-align: center;    
+            text-align: center;
             background-color: rgba(0, 0, 0, 0.2);
             display: block;
+            border-top-left-radius: inherit;
+            border-bottom-left-radius: inherit;
         }
     }
 
@@ -325,11 +324,12 @@ button {
         }
     }
 
-    + input[type=submit],
-    + input[type=reset],
-    + input[type=button],
-    + .button,
-    + button {
+
+    // + input[type=submit],
+    // + input[type=reset],
+    // + input[type=button],
+    + .button {
+    // + button {
         margin-left: 1em;
     }
 
@@ -404,8 +404,8 @@ button {
         }
     }
 
-    &:disabled, 
-    &[disabled], 
+    &:disabled,
+    &[disabled],
     &.disabled {
         background-color: $color-grey-3;
         border-color: $color-grey-3;
@@ -413,8 +413,8 @@ button {
         cursor: default;
     }
 
-    &.button-secondary:disabled, 
-    &.button-secondary[disabled], 
+    &.button-secondary:disabled,
+    &.button-secondary[disabled],
     &.button-secondary.disabled {
         background-color: $color-white;
         border-color: $color-grey-3;
@@ -425,10 +425,10 @@ button {
         border: 0;
     }
 
-    @media screen and (min-width: $breakpoint-mobile){
+    @media screen and (min-width: $breakpoint-mobile) {
         font-size: 0.95em;
         padding: 0 1.4em;
-        height: 3em; 
+        height: 3em;
 
         &.icon.text-replace {
             width: 2.2rem;
@@ -437,7 +437,7 @@ button {
             &:before {
                 line-height: 2.1em;
             }
-        }   
+        }
 
         &.button-small {
             &.icon.text-replace {
@@ -461,8 +461,8 @@ button {
         }
 
         &.button-small.bicolor {
-            line-height: 2.2em;
-            padding-left: 3.2em;
+            // line-height: 2.2em;
+            padding-left: 3em;
 
             &:before {
                 width: 1.8em;
@@ -471,6 +471,116 @@ button {
         }
     }
 }
+
+
+.button-small {
+    padding: 0 0.8em;
+    height: 2em;
+    font-size: 0.85em;
+}
+
+    .button-secondary {
+        color: $color-button;
+        background-color: transparent;
+    }
+
+    // Buttons which are only an icon
+    .button.icon.text-replace {
+        font-size: 0; // unavoidable duplication of setting in icons.scss
+        width: 1.8rem;
+        height: 1.8rem;
+
+        &:before {
+            line-height: 1.7em;
+        }
+    }
+
+    .button-neutral {
+        color: $color-grey-2;
+
+        &:hover {
+            color: $color-teal;
+        }
+    }
+
+    .yes {
+        background-color: $color-button-yes;
+        border: 1px solid $color-button-yes;
+
+        &.button-secondary {
+            border: 1px solid $color-button-yes;
+            color: $color-button-yes;
+            background-color: transparent;
+        }
+
+        &:hover {
+            color: $color-white;
+            border-color: transparent;
+            background-color: $color-button-yes-hover;
+        }
+
+        &.button-nobg:hover {
+            color: $color-button-yes;
+            background-color: transparent;
+        }
+    }
+
+    .no,
+    .serious {
+        background-color: $color-button-no;
+        border: 1px solid $color-button-no;
+
+        &.button-secondary {
+            border: 1px solid $color-button-no;
+            color: $color-button-no;
+            background-color: transparent;
+        }
+
+        &:hover {
+            color: $color-white;
+            border-color: transparent;
+            background-color: $color-button-no-hover;
+        }
+
+        &.button-nobg:hover {
+            color: $color-button-no;
+            background-color: transparent;
+        }
+    }
+
+    .button-nobg {
+        border: 0;
+        background-color: transparent;
+    }
+
+    .bicolor {
+        border: 0;
+        padding-left: 3.5em;
+
+        &:before {
+            font-size: 1rem;
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 2em;
+            line-height: 1.85em;
+            height: 100%;
+            text-align: center;
+            background-color: rgba(0, 0, 0, 0.2);
+            display: block;
+        }
+    }
+
+    .button-small.bicolor {
+        padding-left: 3.5em;
+
+        &:before {
+            width: 2em;
+            font-size: 0.8rem;
+            line-height: 1.65em;
+        }
+    }
+
 
 a.button {
     line-height: 2.4em;
@@ -486,9 +596,9 @@ a.button {
 }
 
 // Special styles to counteract Firefox's completely unwarranted assumptions about button styles
-input[type=submit], 
-input[type=reset], 
-input[type=button], 
+input[type=submit],
+input[type=reset],
+input[type=button],
 button {
     padding: 0 1em;
 
@@ -502,10 +612,10 @@ button {
 .button-group {
     @include clearfix;
 
-    input[type=submit], 
-    input[type=reset], 
-    input[type=button], 
-    .button, 
+    input[type=submit],
+    input[type=reset],
+    input[type=button],
+    .button,
     button {
         border-radius: 0;
         float: left;
@@ -528,10 +638,10 @@ button {
 
     &.button-group-square {
         &,
-        input[type=submit], 
-        input[type=reset], 
-        input[type=button], 
-        .button, 
+        input[type=submit],
+        input[type=reset],
+        input[type=button],
+        .button,
         button {
             border-radius: 0;
         }
@@ -606,7 +716,7 @@ button {
 }
 
 // Other text
-.help, 
+.help,
 .error-message {
     font-size: 0.85em;
     font-weight: normal;
@@ -639,9 +749,9 @@ li.focused > .help {
     font-size: 13px;
 }
 
-.error input, 
-.error textarea, 
-.error select, 
+.error input,
+.error textarea,
+.error select,
 .error .tagit {
     border-color: $color-red;
     background-color: $color-input-error-bg;
@@ -650,7 +760,7 @@ li.focused > .help {
 // Layouts for particular kinds of of fields
 
 // permanently show checkbox/radio help as they have no focus state
-.boolean_field .help, 
+.boolean_field .help,
 .radio .help {
     opacity: 1;
 }
@@ -666,7 +776,7 @@ li.focused > .help {
     .input {
         position: relative;
 
-        &:before, 
+        &:before,
         &:after {
             font-family: wagtail;
             position: absolute;
@@ -685,17 +795,17 @@ li.focused > .help {
         }
     }
 
-    input:not([type=radio]), 
-    input:not([type=checkbox]), 
-    input:not([type=submit]), 
+    input:not([type=radio]),
+    input:not([type=checkbox]),
+    input:not([type=submit]),
     input:not([type=button]) {
         padding-left: 2.5em;
     }
 
-    // smaller fields required slight repositioning of icons 
+    // smaller fields required slight repositioning of icons
     &.field-small {
         .input {
-            &:before, 
+            &:before,
             &:after {
                 font-size: 1.3rem; // REMs are necessary here because IE doesn't treat generated content correctly
                 top: 0.3em;
@@ -747,6 +857,7 @@ li.focused > .help {
         display: block;
         width: auto;
         float: none;
+        padding-top: 0; // Negates padding added to label for the group of fields as a whole
     }
 }
 
@@ -771,10 +882,10 @@ li.focused > .help {
 // field sizing and alignment
 
 .field-small {
-    input, 
-    textarea, 
-    select, 
-    .richtext, 
+    input,
+    textarea,
+    select,
+    .richtext,
     .tagit {
         border-radius: 3px;
         padding: 0.4em 1em;
@@ -812,17 +923,17 @@ li.inline .field {
 }
 
 // solve gutter issues of inline fields
-ul.inline li:first-child, 
+ul.inline li:first-child,
 li.inline:first-child {
     margin-left: -$grid-gutter-width / 2;
 }
 
 
-// TODO this chooser style has been made more generic based on two identical methods 
-// for choosing pages and images that were previously included in their own less files 
-// in each app directory (and since deleted). It would be best if an admin 'theme' provided 
-// all the design for a UI in a single place, but should that be a series of overrides to 
-// the css provided from an app? If so, perhaps those two previous less files should be 
+// TODO this chooser style has been made more generic based on two identical methods
+// for choosing pages and images that were previously included in their own less files
+// in each app directory (and since deleted). It would be best if an admin 'theme' provided
+// all the design for a UI in a single place, but should that be a series of overrides to
+// the css provided from an app? If so, perhaps those two previous less files should be
 // re-instated and then overriden here? hmm.
 
 .chooser {
@@ -839,7 +950,7 @@ li.inline:first-child {
         display: block;
     }
 
-    .unchosen, 
+    .unchosen,
     .chosen {
         position: relative;
 
@@ -847,9 +958,9 @@ li.inline:first-child {
             vertical-align: middle;
             font-family: wagtail;
             content: '';
-            position: relative;
-            display: block;
-            float: left;
+            // position: relative
+            display: inline-block;
+            // float: left;
             color: $color-grey-3;
             line-height: 1em;
             font-size: 2.5em;
@@ -864,7 +975,7 @@ li.inline:first-child {
     .actions {
         @include clearfix;
         overflow: hidden;
-        
+
         li {
             float: left;
             margin: 0.3em;
@@ -885,8 +996,9 @@ li.inline:first-child {
     .chosen {
         .title {
             color: $color-grey-1;
-            display: block;
-            padding-left: 3em;
+            // display: block;
+            padding-left: 1em;
+            display: inline-block;
         }
 
         .actions {
@@ -897,7 +1009,7 @@ li.inline:first-child {
 }
 
 .page-chooser {
-    .unchosen, 
+    .unchosen,
     .chosen {
         &:before {
             content: 'b';
@@ -906,7 +1018,7 @@ li.inline:first-child {
 }
 
 .snippet-chooser {
-    .unchosen, 
+    .unchosen,
     .chosen {
         &:before {
             content: 'D';
@@ -915,7 +1027,7 @@ li.inline:first-child {
 }
 
 .document-chooser {
-    .unchosen, 
+    .unchosen,
     .chosen {
         &:before {
             content: 'r';
@@ -924,7 +1036,7 @@ li.inline:first-child {
 }
 
 .image-chooser {
-    .unchosen, 
+    .unchosen,
     .chosen {
         &:before {
             content: 'o';
@@ -932,7 +1044,7 @@ li.inline:first-child {
     }
 
     .chosen {
-        padding-left: $thumbnail-width;   
+        padding-left: $thumbnail-width;
 
         &:before {
             content: '';
@@ -1028,19 +1140,19 @@ li.inline:first-child {
 }
 
 // Transitions
-fieldset, 
-input, 
-textarea, 
+fieldset,
+input,
+textarea,
 select {
     @include transition(background-color 0.2s ease);
 }
 
-input[type=submit], 
-input[type=reset], 
-input[type=button], 
-.button, 
+input[type=submit],
+input[type=reset],
+input[type=button],
+.button,
 button {
-    @include transition(background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease);
+    // @include transition(background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease);
 }
 
 .help {
@@ -1053,13 +1165,17 @@ button {
         padding-top: 1.2em;
         padding-left: 0;
 
-        .choice_field &,
+        .radio_select &,
         .model_multiple_choice_field &,
         .boolean_field &,
-        .choice_field &,
         .model_choice_field &,
         .image_field & {
             padding-top: 0;
+        }
+
+        // Horrid specificity war
+        .model_choice_field.select & {
+            padding-top: 1.2em;
         }
     }
 
@@ -1086,7 +1202,7 @@ button {
 
     .field-content {
         @include column(10, 0);
-    } 
+    }
 
     .field-col {
         float: left;

@@ -26,7 +26,7 @@ Adding more fields to the pages endpoint
 
 By default, the pages endpoint only includes the ``id``, ``title`` and ``type`` fields in both the listing and detail views.
 
-You can add more fields to the pages endpoint by setting an attribute called ``api_fields`` to a ``list`` or ``tuple`` of field names:
+You can add more fields to the pages endpoint by setting an attribute called ``api_fields`` to a ``list`` of field names:
 
 .. code-block:: python
 
@@ -35,7 +35,7 @@ You can add more fields to the pages endpoint by setting an attribute called ``a
         posted_at = models.DateTimeField()
         content = RichTextField()
 
-        api_fields = ('posted_by', 'posted_at', 'content')
+        api_fields = ['posted_by', 'posted_at', 'content']
 
 
 This list also supports child relations (which will be nested inside the returned JSON document):
@@ -46,14 +46,14 @@ This list also supports child relations (which will be nested inside the returne
         page = ParentalKey('BlogPage', related_name='related_links')
         link = models.URLField()
 
-        api_fields = ('link', )
+        api_fields = ['link']
 
     class BlogPage(Page):  
         posted_by = models.CharField()
         posted_at = models.DateTimeField()
         content = RichTextField()
 
-        api_fields = ('posted_by', 'posted_at', 'content', 'related_links')
+        api_fields = ['posted_by', 'posted_at', 'content', 'related_links']
 
 
 Frontend cache invalidation

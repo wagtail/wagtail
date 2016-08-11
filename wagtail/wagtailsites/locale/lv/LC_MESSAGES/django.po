@@ -4,13 +4,14 @@
 #
 # Translators:
 # Maris Serzans <maris.serzans@gmail.com>, 2015
+# Reinis Rozenbergs <reinisr@gmail.com>, 2016
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-12-17 13:55+0000\n"
-"PO-Revision-Date: 2015-12-17 14:01+0000\n"
-"Last-Translator: mattwestcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2016-05-18 21:37+0000\n"
+"PO-Revision-Date: 2016-07-16 12:06+0000\n"
+"Last-Translator: Reinis Rozenbergs <reinisr@gmail.com>\n"
 "Language-Team: Latvian (http://www.transifex.com/torchbox/wagtail/language/"
 "lv/)\n"
 "MIME-Version: 1.0\n"
@@ -27,13 +28,13 @@ msgid "Choose a different root page"
 msgstr "Izvēlēties citu 'root' lapu"
 
 msgid "Site"
-msgstr "Lapa"
+msgstr "Vietne"
 
 msgid "Port"
 msgstr "Ports"
 
 msgid "Root page"
-msgstr "'Root' lapa"
+msgstr "Saknes lapa"
 
 msgid "Default?"
 msgstr "Pēc noklusējuma?"
@@ -42,4 +43,4 @@ msgid "Default"
 msgstr "Noklusējums"
 
 msgid "Sites"
-msgstr "Lapas"
+msgstr "Vietnes"

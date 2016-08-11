@@ -1,6 +1,28 @@
+from __future__ import absolute_import, unicode_literals
+
 import unittest
-from mock import patch
+
+import django.utils.six.moves.urllib.request
 from bs4 import BeautifulSoup
+from django import template
+from django.core.exceptions import ValidationError
+from django.core.urlresolvers import reverse
+from django.test import TestCase, override_settings
+from django.utils.six.moves.urllib.error import URLError
+from mock import patch
+
+from wagtail.tests.utils import WagtailTestUtils
+from wagtail.wagtailcore import blocks
+from wagtail.wagtailembeds.blocks import EmbedBlock, EmbedValue
+from wagtail.wagtailembeds.embeds import get_embed
+from wagtail.wagtailembeds.exceptions import EmbedNotFoundException
+from wagtail.wagtailembeds.finders import get_default_finder
+from wagtail.wagtailembeds.finders.embedly import embedly as wagtail_embedly
+from wagtail.wagtailembeds.finders.embedly import AccessDeniedEmbedlyException, EmbedlyException
+from wagtail.wagtailembeds.finders.oembed import oembed as wagtail_oembed
+from wagtail.wagtailembeds.models import Embed
+from wagtail.wagtailembeds.rich_text import MediaEmbedHandler
+from wagtail.wagtailembeds.templatetags.wagtailembeds_tags import embed as embed_filter
 
 try:
     import embedly  # noqa
@@ -8,29 +30,8 @@ try:
 except ImportError:
     no_embedly = True
 
-import django.utils.six.moves.urllib.request
-from django import template
-from django.test import TestCase, override_settings
-from django.core.exceptions import ValidationError
-from django.core.urlresolvers import reverse
-from django.utils.six.moves.urllib.error import URLError
 
-from wagtail.wagtailcore import blocks
-from wagtail.tests.utils import WagtailTestUtils
 
-from wagtail.wagtailembeds.rich_text import MediaEmbedHandler
-from wagtail.wagtailembeds.embeds import get_embed
-from wagtail.wagtailembeds.exceptions import EmbedNotFoundException
-from wagtail.wagtailembeds.finders.embedly import (
-    EmbedlyException,
-    AccessDeniedEmbedlyException,
-    embedly as wagtail_embedly,
-)
-from wagtail.wagtailembeds.finders.oembed import oembed as wagtail_oembed
-from wagtail.wagtailembeds.finders import get_default_finder
-from wagtail.wagtailembeds.templatetags.wagtailembeds_tags import embed as embed_filter
-from wagtail.wagtailembeds.blocks import EmbedBlock, EmbedValue
-from wagtail.wagtailembeds.models import Embed
 
 
 class TestGetDefaultFinder(TestCase):

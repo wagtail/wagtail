@@ -13,7 +13,7 @@
                 {% for field in form %}
                     {% include "wagtailadmin/shared/field_as_li.html" with field=field %}
                 {% endfor %}
-                <li class="submit"><input type="submit" value="{% trans 'Update' %}" /></li>
+                <li class="submit"><input type="submit" value="{% trans 'Update' %}" class="button" /></li>
             </ul>
         </form>
     </div>

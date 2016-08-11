@@ -3,15 +3,17 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# Eugene MechanisM <contact@mechanism.name>, 2014-2015
-# Sergiy Khalymon <sergiykhalimon@gmail.com>, 2015
+# Andrey Avdey <talkerbox@live.com>, 2016
+# Eugene MechanisM <eugene@mechanism.pro>, 2014-2015
+# Mikalai Radchuk <radchuk.m@gmail.com>, 2016
+# Sergey Khalymon <sergiykhalimon@gmail.com>, 2015
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-12-17 13:54+0000\n"
-"PO-Revision-Date: 2015-12-17 18:44+0000\n"
-"Last-Translator: Eugene MechanisM <contact@mechanism.name>\n"
+"POT-Creation-Date: 2016-05-18 21:37+0000\n"
+"PO-Revision-Date: 2016-07-03 12:21+0000\n"
+"Last-Translator: Andrey Avdey <talkerbox@live.com>\n"
 "Language-Team: Russian (http://www.transifex.com/torchbox/wagtail/language/"
 "ru/)\n"
 "MIME-Version: 1.0\n"
@@ -44,7 +46,7 @@ msgid "Checkboxes"
 msgstr "Флажки"
 
 msgid "Drop down"
-msgstr "Выпадающий вниз"
+msgstr "Выпадающий"
 
 msgid "Radio buttons"
 msgstr "Радиокнопки"
@@ -62,7 +64,7 @@ msgid "form submission"
 msgstr "добавление формы"
 
 msgid "label"
-msgstr "имя"
+msgstr "метка"
 
 msgid "The label of the form field"
 msgstr "Метка поля формы"
@@ -153,6 +155,9 @@ msgstr "Дата Заполнения"
 
 msgid "Actions"
 msgstr "Действия"
+
+msgid "delete"
+msgstr "удалить"
 
 msgid "No form pages have been created."
 msgstr "Страниц с формами не было создано."

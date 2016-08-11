@@ -48,12 +48,12 @@ This example represents a typical blog post:
         )
 
 
-        # Search index configuraiton
+        # Search index configuration
 
-        search_fields = Page.search_fields + (
+        search_fields = Page.search_fields + [
             index.SearchField('body'),
             index.FilterField('date'),
-        )
+        ]
 
 
         # Editor panels configuration
@@ -119,11 +119,11 @@ Search
 
 The ``search_fields`` attribute defines which fields are added to the search index and how they are indexed.
 
-This should be a tuple of ``SearchField`` and ``FilterField`` objects. ``SearchField`` adds a field for full-text search. ``FilterField`` adds a field for filtering the results. A field can be indexed with both ``SearchField`` and ``FilterField`` at the same time (but only one instance of each).
+This should be a list of ``SearchField`` and ``FilterField`` objects. ``SearchField`` adds a field for full-text search. ``FilterField`` adds a field for filtering the results. A field can be indexed with both ``SearchField`` and ``FilterField`` at the same time (but only one instance of each).
 
 In the above example, we've indexed ``body`` for full-text search and ``date`` for filtering.
 
-The arguments that these field types accept are documented here: :ref:`wagtailsearch_indexing_fields`
+The arguments that these field types accept are documented in :ref:`wagtailsearch_indexing_fields`.
 
 
 Editor panels
@@ -141,7 +141,7 @@ Here's a summary of the ``EditHandler`` classes that Wagtail provides out of the
 
 **Basic**
 
-These allow editing of model fields, the ``FieldPanel`` class will choose the correct widget based on the type of the field. ``StreamField`` fields need to use a specialised panel class.
+These allow editing of model fields. The ``FieldPanel`` class will choose the correct widget based on the type of the field, though ``StreamField`` fields need to use a specialised panel class.
 
  - :class:`~wagtail.wagtailadmin.edit_handlers.FieldPanel`
  - :class:`~wagtail.wagtailadmin.edit_handlers.StreamFieldPanel`
@@ -156,7 +156,7 @@ These are used for structuring fields in the interface.
 
 **Chooser**
 
-``ForeignKey`` fields to certain models can use one of the below ``ChooserPanel`` classes. These add a nice modal-based chooser interface (and the image/document choosers also allow uploading new files without leaving the page editor).
+``ForeignKey`` fields to certain models can use one of the below ``ChooserPanel`` classes. These add a nice modal chooser interface, and the image/document choosers also allow uploading new files without leaving the page editor.
 
  - :class:`~wagtail.wagtailadmin.edit_handlers.PageChooserPanel`
  - :class:`~wagtail.wagtailimages.edit_handlers.ImageChooserPanel`
@@ -194,7 +194,7 @@ Setting ``parent_page_types`` to an empty list is a good way of preventing a par
 Template rendering
 ==================
 
-Each page model can be given a HTML template which is rendered when a user browses to a page on the site frontend. This is the simplest and most common way to get Wagtail content to end users (but not the only way).
+Each page model can be given an HTML template which is rendered when a user browses to a page on the site frontend. This is the simplest and most common way to get Wagtail content to end users (but not the only way).
 
 
 Adding a template for a page model
@@ -212,7 +212,7 @@ You just need to create a template in a location where it can be accessed with t
 Template context
 ----------------
 
-Wagtail renders templates with the ``page`` variable bound to the page instance being rendered. Use this to access the content of the page. For example, to get the title of the current page, do ``{{ page.title }}``. All variables provided by `context processors <https://docs.djangoproject.com/en/1.8/ref/templates/api/#subclassing-context-requestcontext>`_ are also available.
+Wagtail renders templates with the ``page`` variable bound to the page instance being rendered. Use this to access the content of the page. For example, to get the title of the current page, use ``{{ page.title }}``. All variables provided by `context processors <https://docs.djangoproject.com/en/1.8/ref/templates/api/#subclassing-context-requestcontext>`_ are also available.
 
 
 Customising template context
@@ -277,17 +277,17 @@ The template can be changed on a per-instance basis by defining a ``get_template
 
             return 'blog/blog_page.html'
 
-In this example, pages that have the ``use_other_template`` boolean field set will use the ``other_blog_page.html`` template. All other pages will use the default ``blog/blog_page.html``.
+In this example, pages that have the ``use_other_template`` boolean field set will use the ``blog/other_blog_page.html`` template. All other pages will use the default ``blog/blog_page.html``.
 
 
 More control over page rendering
 --------------------------------
 
-All page classes have a ``serve()`` method, that internally calls the ``get_context`` and ``get_template`` methods and renders the template. This method is similar to a Django view function, taking a Django ``Request`` object and returning a Django ``Response`` object.
+All page classes have a ``serve()`` method that internally calls the ``get_context`` and ``get_template`` methods and renders the template. This method is similar to a Django view function, taking a Django ``Request`` object and returning a Django ``Response`` object.
 
 This method can also be overridden for complete control over page rendering.
 
-For example, here's a way you could make a page respond with a JSON representation of itself:
+For example, here's a way to make a page respond with a JSON representation of itself:
 
 .. code-block:: python
 
@@ -370,7 +370,7 @@ Each page is added to both Wagtail's builtin :class:`~wagtail.wagtailcore.models
 
 Pages can exist in Python code in two forms, an instance of ``Page`` or an instance of the page model.
 
- When working with multiple page types together, you will typically use instances of Wagtail's :class:`~wagtail.wagtailcore.models.Page` model, which doesn't give you access to any fields specific to their type.
+ When working with multiple page types together, you will typically use instances of Wagtail's :class:`~wagtail.wagtailcore.models.Page` model, which don't give you access to any fields specific to their type.
 
 .. code-block:: python
 
@@ -379,7 +379,7 @@ Pages can exist in Python code in two forms, an instance of ``Page`` or an insta
     >>> Page.objects.all()
     [<Page: Homepage>, <Page: About us>, <Page: Blog>, <Page: A Blog post>, <Page: Another Blog post>]
 
-When working with a single page type, you can work with instances of the user-defined model that gives access to all the fields available in ``Page`` and any user defined fields for that type.
+When working with a single page type, you can work with instances of the user-defined model. These give access to all the fields available in ``Page``, along with any user-defined fields for that type.
 
 .. code-block:: python
 
@@ -387,7 +387,7 @@ When working with a single page type, you can work with instances of the user-de
     >>> BlogPage.objects.all()
     [<BlogPage: A Blog post>, <BlogPage: Another Blog post>]
 
-You can convert a ``Page`` object to a specific object using the ``.specific`` property (this may cause an additional database lookup).
+You can convert a ``Page`` object to its more specific user-defined equivalent using the ``.specific`` property. This may cause an additional database lookup.
 
 .. code-block:: python
 
@@ -417,7 +417,7 @@ You can make your model names more friendly to users of Wagtail by using Django'
         class Meta:
             verbose_name = "homepage"
 
-When users are given a choice of pages to create, the list of page types is generated by splitting your model names on each of their capital letters. Thus a ``HomePage`` model would be named "Home Page" which is a little clumsy. ``verbose_name`` as in the example above, would change this to read "Homepage" which is slightly more conventional.
+When users are given a choice of pages to create, the list of page types is generated by splitting your model names on each of their capital letters. Thus a ``HomePage`` model would be named "Home Page" which is a little clumsy. Defining ``verbose_name`` as in the example above would change this to read "Homepage", which is slightly more conventional.
 
 
 Page QuerySet ordering
@@ -434,7 +434,7 @@ Page QuerySet ordering
         class Meta:
             ordering = ('-publication_date', )  # will not work
 
-This is because ``Page`` enforces ordering QuerySets by path. Instead you must apply the ordering explicitly when you construct a QuerySet:
+This is because ``Page`` enforces ordering QuerySets by path. Instead, you must apply the ordering explicitly when constructing a QuerySet:
 
 .. code-block:: python
 
@@ -443,7 +443,7 @@ This is because ``Page`` enforces ordering QuerySets by path. Instead you must a
 Custom Page managers
 --------------------
 
-You can add a custom Manager to your ``Page`` class. Any custom ``Manager``\s should inherit from :class:`wagtail.wagtailcore.models.PageManager`:
+You can add a custom ``Manager`` to your ``Page`` class. Any custom Managers should inherit from :class:`wagtail.wagtailcore.models.PageManager`:
 
 .. code-block:: python
 
@@ -474,4 +474,4 @@ Alternately, if you only need to add extra ``QuerySet`` methods, you can inherit
     class EventPage(Page):
         start_date = models.DateField()
 
-        objects = PageManager.from_queryset(EventQuerySet)
+        objects = PageManager.from_queryset(EventPageQuerySet)

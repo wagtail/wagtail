@@ -1,24 +1,25 @@
-from django.test import TestCase
-from django.core.urlresolvers import reverse
-from django.test.utils import override_settings
+from __future__ import absolute_import, unicode_literals
+
 from django.contrib.auth import get_user_model
 from django.contrib.auth.models import Permission
-from django.core.exceptions import ImproperlyConfigured
-
+from django.core.files.base import ContentFile
+from django.core.files.uploadedfile import SimpleUploadedFile
+from django.core.urlresolvers import reverse
+from django.test import TestCase
+from django.test.utils import override_settings
 from taggit.models import Tag
 
-from wagtail.tests.utils import WagtailTestUtils
-from wagtail.tests.testapp.models import Advert, SnippetChooserModel, AdvertWithTabbedInterface
+from wagtail.tests.snippets.forms import FancySnippetForm
 from wagtail.tests.snippets.models import (
-    AlphaSnippet, ZuluSnippet, RegisterDecorator, RegisterFunction, SearchableSnippet
-)
-from wagtail.wagtailsnippets.models import register_snippet, SNIPPET_MODELS
-from wagtail.wagtailsnippets.edit_handlers import SnippetChooserPanel
-
-from wagtail.wagtailsnippets.views.snippets import (
-    get_snippet_edit_handler
-)
+    AlphaSnippet, FancySnippet, FileUploadSnippet, RegisterDecorator, RegisterFunction,
+    SearchableSnippet, StandardSnippet, ZuluSnippet)
+from wagtail.tests.testapp.models import Advert, AdvertWithTabbedInterface, SnippetChooserModel
+from wagtail.tests.utils import WagtailTestUtils
+from wagtail.wagtailadmin.forms import WagtailAdminModelForm
 from wagtail.wagtailcore.models import Page
+from wagtail.wagtailsnippets.edit_handlers import SnippetChooserPanel
+from wagtail.wagtailsnippets.models import SNIPPET_MODELS, register_snippet
+from wagtail.wagtailsnippets.views.snippets import get_snippet_edit_handler
 
 
 class TestSnippetIndexView(TestCase, WagtailTestUtils):
@@ -117,15 +118,13 @@ class TestSnippetCreateView(TestCase, WagtailTestUtils):
     def setUp(self):
         self.login()
 
-    def get(self, params={}):
-        return self.client.get(reverse('wagtailsnippets:add',
-                                       args=('tests', 'advert')),
-                               params)
+    def get(self, params={}, model=Advert):
+        args = (model._meta.app_label, model._meta.model_name)
+        return self.client.get(reverse('wagtailsnippets:add', args=args), params)
 
-    def post(self, post_data={}):
-        return self.client.post(reverse('wagtailsnippets:add',
-                                args=('tests', 'advert')),
-                                post_data)
+    def post(self, post_data={}, model=Advert):
+        args = (model._meta.app_label, model._meta.model_name)
+        return self.client.post(reverse('wagtailsnippets:add', args=args), post_data)
 
     def test_simple(self):
         response = self.get()
@@ -176,24 +175,40 @@ class TestSnippetCreateView(TestCase, WagtailTestUtils):
             list(snippet.tags.order_by('name')),
             expected_tags)
 
+    def test_create_file_upload_multipart(self):
+        response = self.get(model=FileUploadSnippet)
+        self.assertContains(response, 'enctype="multipart/form-data"')
 
-class TestSnippetEditView(TestCase, WagtailTestUtils):
+        response = self.post(model=FileUploadSnippet, post_data={
+            'file': SimpleUploadedFile('test.txt', b"Uploaded file")})
+        self.assertRedirects(response, reverse('wagtailsnippets:list',
+                                               args=('snippetstests', 'fileuploadsnippet')))
+        snippet = FileUploadSnippet.objects.get()
+        self.assertEqual(snippet.file.read(), b"Uploaded file")
+
+
+class BaseTestSnippetEditView(TestCase, WagtailTestUtils):
+
+    def get(self, params={}):
+        snippet = self.test_snippet
+        args = (snippet._meta.app_label, snippet._meta.model_name, snippet.id)
+        return self.client.get(reverse('wagtailsnippets:edit', args=args), params)
+
+    def post(self, post_data={}):
+        snippet = self.test_snippet
+        args = (snippet._meta.app_label, snippet._meta.model_name, snippet.id)
+        return self.client.post(reverse('wagtailsnippets:edit', args=args), post_data)
+
+    def setUp(self):
+        self.login()
+
+
+class TestSnippetEditView(BaseTestSnippetEditView):
     fixtures = ['test.json']
 
     def setUp(self):
+        super(TestSnippetEditView, self).setUp()
         self.test_snippet = Advert.objects.get(id=1)
-        self.test_snippet_with_tabbed_interface = AdvertWithTabbedInterface.objects.get(id=1)
-        self.login()
-
-    def get(self, params={}):
-        return self.client.get(reverse('wagtailsnippets:edit',
-                                       args=('tests', 'advert', self.test_snippet.id)),
-                               params)
-
-    def post(self, post_data={}):
-        return self.client.post(reverse('wagtailsnippets:edit',
-                                        args=('tests', 'advert', self.test_snippet.id)),
-                                post_data)
 
     def test_simple(self):
         response = self.get()
@@ -202,16 +217,6 @@ class TestSnippetEditView(TestCase, WagtailTestUtils):
         self.assertNotContains(response, '<ul class="tab-nav merged">')
         self.assertNotContains(response, '<a href="#advert" class="active">Advert</a>', html=True)
         self.assertNotContains(response, '<a href="#other" class="">Other</a>', html=True)
-
-    def test_snippet_with_tabbed_interface(self):
-        reverse_args = ('tests', 'advertwithtabbedinterface', self.test_snippet_with_tabbed_interface.id)
-        response = self.client.get(reverse('wagtailsnippets:edit', args=reverse_args))
-
-        self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, 'wagtailsnippets/snippets/edit.html')
-        self.assertContains(response, '<ul class="tab-nav merged">')
-        self.assertContains(response, '<a href="#advert" class="active">Advert</a>', html=True)
-        self.assertContains(response, '<a href="#other" class="">Other</a>', html=True)
 
     def test_non_existant_model(self):
         response = self.client.get(reverse('wagtailsnippets:edit', args=('tests', 'foo', self.test_snippet.id)))
@@ -253,6 +258,44 @@ class TestSnippetEditView(TestCase, WagtailTestUtils):
             expected_tags)
 
 
+class TestEditTabbedSnippet(BaseTestSnippetEditView):
+
+    def setUp(self):
+        super(TestEditTabbedSnippet, self).setUp()
+        self.test_snippet = AdvertWithTabbedInterface.objects.create(
+            text="test_advert",
+            url="http://www.example.com",
+            something_else="Model with tabbed interface")
+
+    def test_snippet_with_tabbed_interface(self):
+        response = self.get()
+
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'wagtailsnippets/snippets/edit.html')
+        self.assertContains(response, '<ul class="tab-nav merged">')
+        self.assertContains(response, '<a href="#advert" class="active">Advert</a>', html=True)
+        self.assertContains(response, '<a href="#other" class="">Other</a>', html=True)
+
+
+class TestEditFileUploadSnippet(BaseTestSnippetEditView):
+
+    def setUp(self):
+        super(TestEditFileUploadSnippet, self).setUp()
+        self.test_snippet = FileUploadSnippet.objects.create(
+            file=ContentFile(b"Simple text document", 'test.txt'))
+
+    def test_edit_file_upload_multipart(self):
+        response = self.get()
+        self.assertContains(response, 'enctype="multipart/form-data"')
+
+        response = self.post(post_data={
+            'file': SimpleUploadedFile('replacement.txt', b"Replacement document")})
+        self.assertRedirects(response, reverse('wagtailsnippets:list',
+                                               args=('snippetstests', 'fileuploadsnippet')))
+        snippet = FileUploadSnippet.objects.get()
+        self.assertEqual(snippet.file.read(), b"Replacement document")
+
+
 class TestSnippetDelete(TestCase, WagtailTestUtils):
     fixtures = ['test.json']
 
@@ -265,9 +308,8 @@ class TestSnippetDelete(TestCase, WagtailTestUtils):
         self.assertEqual(response.status_code, 200)
 
     def test_delete_post(self):
-        post_data = {'foo': 'bar'}  # For some reason, this test doesn't work without a bit of POST data
         response = self.client.post(
-            reverse('wagtailsnippets:delete', args=('tests', 'advert', self.test_snippet.id, )), post_data
+            reverse('wagtailsnippets:delete', args=('tests', 'advert', self.test_snippet.id, ))
         )
 
         # Should be redirected to explorer page
@@ -323,49 +365,11 @@ class TestSnippetChooserPanel(TestCase, WagtailTestUtils):
         self.assertIn('createSnippetChooser("id_advert", "tests/advert");',
                       self.snippet_chooser_panel.render_as_field())
 
-    def test_target_model_from_string(self):
-        # RemovedInWagtail16Warning: snippet_type argument
-        with self.ignore_deprecation_warnings():
-            result = SnippetChooserPanel(
-                'advert',
-                'tests.advert'
-            ).bind_to_model(SnippetChooserModel).target_model()
-            self.assertIs(result, Advert)
-
-    def test_target_model_from_model(self):
-        # RemovedInWagtail16Warning: snippet_type argument
-        with self.ignore_deprecation_warnings():
-            result = SnippetChooserPanel(
-                'advert',
-                Advert
-            ).bind_to_model(SnippetChooserModel).target_model()
-            self.assertIs(result, Advert)
-
     def test_target_model_autodetected(self):
         result = SnippetChooserPanel(
             'advert'
         ).bind_to_model(SnippetChooserModel).target_model()
         self.assertEqual(result, Advert)
-
-    def test_target_model_malformed_type(self):
-        # RemovedInWagtail16Warning: snippet_type argument
-        with self.ignore_deprecation_warnings():
-            result = SnippetChooserPanel(
-                'advert',
-                'snowman'
-            ).bind_to_model(SnippetChooserModel)
-            self.assertRaises(ImproperlyConfigured,
-                              result.target_model)
-
-    def test_target_model_nonexistent_type(self):
-        # RemovedInWagtail16Warning: snippet_type argument
-        with self.ignore_deprecation_warnings():
-            result = SnippetChooserPanel(
-                'advert',
-                'snowman.lorry'
-            ).bind_to_model(SnippetChooserModel)
-            self.assertRaises(ImproperlyConfigured,
-                              result.target_model)
 
 
 class TestSnippetRegistering(TestCase):
@@ -518,7 +522,7 @@ class TestAddOnlyPermissions(TestCase, WagtailTestUtils):
         add_permission = Permission.objects.get(content_type__app_label='tests', codename='add_advert')
         admin_permission = Permission.objects.get(content_type__app_label='wagtailadmin', codename='access_admin')
         user.user_permissions.add(add_permission, admin_permission)
-        self.client.login(username='addonly', password='password')
+        self.assertTrue(self.client.login(username='addonly', password='password'))
 
     def test_get_index(self):
         response = self.client.get(reverse('wagtailsnippets:list',
@@ -562,7 +566,7 @@ class TestEditOnlyPermissions(TestCase, WagtailTestUtils):
         change_permission = Permission.objects.get(content_type__app_label='tests', codename='change_advert')
         admin_permission = Permission.objects.get(content_type__app_label='wagtailadmin', codename='access_admin')
         user.user_permissions.add(change_permission, admin_permission)
-        self.client.login(username='changeonly', password='password')
+        self.assertTrue(self.client.login(username='changeonly', password='password'))
 
     def test_get_index(self):
         response = self.client.get(reverse('wagtailsnippets:list',
@@ -606,7 +610,7 @@ class TestDeleteOnlyPermissions(TestCase, WagtailTestUtils):
         change_permission = Permission.objects.get(content_type__app_label='tests', codename='delete_advert')
         admin_permission = Permission.objects.get(content_type__app_label='wagtailadmin', codename='access_admin')
         user.user_permissions.add(change_permission, admin_permission)
-        self.client.login(username='deleteonly', password='password')
+        self.assertTrue(self.client.login(username='deleteonly', password='password'))
 
     def test_get_index(self):
         response = self.client.get(reverse('wagtailsnippets:list',
@@ -633,3 +637,29 @@ class TestDeleteOnlyPermissions(TestCase, WagtailTestUtils):
         response = self.client.get(reverse('wagtailsnippets:delete', args=('tests', 'advert', self.test_snippet.id, )))
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'wagtailsnippets/snippets/confirm_delete.html')
+
+
+class TestSnippetEditHandlers(TestCase, WagtailTestUtils):
+    def test_standard_edit_handler(self):
+        edit_handler_class = get_snippet_edit_handler(StandardSnippet)
+        form_class = edit_handler_class.get_form_class(StandardSnippet)
+        self.assertTrue(issubclass(form_class, WagtailAdminModelForm))
+        self.assertFalse(issubclass(form_class, FancySnippetForm))
+
+    def test_fancy_edit_handler(self):
+        edit_handler_class = get_snippet_edit_handler(FancySnippet)
+        form_class = edit_handler_class.get_form_class(FancySnippet)
+        self.assertTrue(issubclass(form_class, WagtailAdminModelForm))
+        self.assertTrue(issubclass(form_class, FancySnippetForm))
+
+
+class TestInlinePanelMedia(TestCase, WagtailTestUtils):
+    """
+    Test that form media required by InlinePanels is correctly pulled in to the edit page
+    """
+    def test_inline_panel_media(self):
+        self.login()
+
+        response = self.client.get(reverse('wagtailsnippets:add', args=('snippetstests', 'multisectionrichtextsnippet')))
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, 'wagtailadmin/js/hallo-bootstrap.js')

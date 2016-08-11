@@ -9,7 +9,9 @@
         <p>{% trans "Are you sure you want to unpublish this page?" %}</p>
         <form action="{% url 'wagtailadmin_pages:unpublish' page.id %}" method="POST">
             {% csrf_token %}
-            <input type="submit" value="{% trans 'Yes, unpublish it' %}">
+            <input type="hidden" name="next" value="{{ next }}">
+            <input type="submit" value="{% trans 'Yes, unpublish it' %}" class="button">
+            <a href="{% if next %}{{ next }}{% else %}{% url 'wagtailadmin_explore' page.get_parent.id %}{% endif %}" class="button button-secondary">{% trans "No, don't unpublish" %}</a>
         </form>
     </div>
 {% endblock %}

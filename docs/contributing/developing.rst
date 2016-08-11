@@ -13,7 +13,7 @@ If you'd prefer to set up all the components manually, read on. These instructio
 Setting up the Wagtail codebase
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Install Node.js, any version between v0.10.x and v0.12.x. Instructions for installing Node.js can be found on the `Node.js download page <https://nodejs.org/download/>`_. You will also need to install the **libjpeg** and **zlib** libraries, if you haven't done so already - see Pillow's `platform-specific installation instructions <http://pillow.readthedocs.org/en/latest/installation.html#external-libraries>`_.
+Install Node.js, v5.3.0 or higher. Instructions for installing Node.js can be found on the `Node.js download page <https://nodejs.org/download/>`_. You will also need to install the **libjpeg** and **zlib** libraries, if you haven't done so already - see Pillow's `platform-specific installation instructions <http://pillow.readthedocs.org/en/latest/installation.html#external-libraries>`_.
 
 Clone a copy of `the Wagtail codebase <https://github.com/torchbox/wagtail>`_:
 
@@ -26,7 +26,7 @@ With your preferred virtualenv activated, install the Wagtail package in develop
 
 .. code-block:: sh
 
-    pip install -e .[testing,docs]
+    pip install -e .[testing,docs] -U
 
 Install the tool chain for building static assets:
 
@@ -110,3 +110,42 @@ This must be done after every change to the source files. To watch the source fi
 .. code-block:: sh
 
     npm start
+
+Compiling the documentation
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+The Wagtail documentation is built by Sphinx. To install Sphinx and compile the documentation, run:
+
+.. code-block:: sh
+
+    cd /path/to/wagtail
+    # Install the documentation dependencies
+    pip install -e .[docs]
+    # Compile the docs
+    cd docs/
+    make html
+
+The compiled documentation will now be in ``docs/_build/html``.
+Open this directory in a web browser to see it.
+Python comes with a module that makes it very easy to preview static files in a web browser.
+To start this simple server, run the following commands:
+
+.. code-block:: sh
+
+    $ cd docs/_build/html/
+    # Python 2
+    $ python2 -mSimpleHTTPServer 8080
+    # Python 3
+    $ python3 -mhttp.server 8080
+
+Now you can open <http://localhost:8080/> in your web browser to see the compiled documentation.
+
+Sphinx caches the built documentation to speed up subsequent compilations.
+Unfortunately, this cache also hides any warnings thrown by unmodified documentation source files.
+To clear the built HTML and start fresh, so you can see all warnings thrown when building the documentation, run:
+
+.. code-block:: sh
+
+    $ cd docs/
+    $ make clean
+    $ make html

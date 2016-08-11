@@ -4,14 +4,15 @@
 #
 # Translators:
 # utek <mail@utek.pl>, 2014
+# mmiskiew <mmiskiew@gmail.com>, 2016
 # utek <mail@utek.pl>, 2014
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-12-17 13:54+0000\n"
-"PO-Revision-Date: 2015-12-17 13:59+0000\n"
-"Last-Translator: mattwestcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2016-05-18 21:37+0000\n"
+"PO-Revision-Date: 2016-05-18 13:48+0000\n"
+"Last-Translator: mmiskiew <mmiskiew@gmail.com>\n"
 "Language-Team: Polish (http://www.transifex.com/torchbox/wagtail/language/"
 "pl/)\n"
 "MIME-Version: 1.0\n"
@@ -20,6 +21,37 @@ msgstr ""
 "Language: pl\n"
 "Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
 "|| n%100>=20) ? 1 : 2);\n"
+
+msgid "GIF, JPEG, PNG"
+msgstr "GIF, JPEG, PNG"
+
+#, python-format
+msgid ""
+"Supported formats: %(supported_formats)s. Maximum filesize: "
+"%(max_upload_size)s."
+msgstr ""
+"Obsługiwane formaty: %(supported_formats)s. Maksymalny rozmiar pliku: "
+"%(max_upload_size)s."
+
+#, python-format
+msgid "Supported formats: %(supported_formats)s."
+msgstr "Obsługiwane formaty: %(supported_formats)s."
+
+#, python-format
+msgid "Not a supported image format. Supported formats: %s."
+msgstr "Nieobsługiwany format obrazu. Obsługiwane formaty: %s."
+
+#, python-format
+msgid "Not a valid %s image."
+msgstr "Nieprawidłowy obraz %s."
+
+#, python-format
+msgid "This file is too big (%%s). Maximum filesize %s."
+msgstr "Ten obraz jest za duży (%%s). Maksymalny rozmiar pliku %s."
+
+#, python-format
+msgid "This file is too big. Maximum filesize %s."
+msgstr "Ten obraz jest za duży. Maksymalny rozmiar pliku %s."
 
 msgid "Filter"
 msgstr "Filtr"
@@ -48,6 +80,42 @@ msgstr "Szerokość"
 msgid "Height"
 msgstr "Wysokość"
 
+msgid "Closeness"
+msgstr "Bliskość"
+
+msgid "Add"
+msgstr "Dodaj"
+
+msgid "Add/edit images you own"
+msgstr "Dodaj/edytuj swoje obrazy"
+
+msgid "Edit"
+msgstr "Edytuj"
+
+msgid "Edit any image"
+msgstr "Edytuj dowolny obraz"
+
+msgid "title"
+msgstr "tytuł"
+
+msgid "file"
+msgstr "plik"
+
+msgid "width"
+msgstr "szerokość"
+
+msgid "height"
+msgstr "wysokość"
+
+msgid "created at"
+msgstr "utworzono dnia"
+
+msgid "uploaded by user"
+msgstr "wgrane przez użytkownika"
+
+msgid "tags"
+msgstr "tagi"
+
 msgid "Choose an image"
 msgstr "Wybierz obraz"
 
@@ -59,6 +127,15 @@ msgstr "Prześlij"
 
 msgid "Popular tags"
 msgstr "Popularne tagi"
+
+msgid "Uploading..."
+msgstr "Wgrywanie..."
+
+msgid "Server Error"
+msgstr "Błąd serwera"
+
+msgid "Report this error to your webmaster with the following information:"
+msgstr "Zgłoś ten błąd administratorowi strony wraz z poniższą informacją:"
 
 #, python-format
 msgid ""
@@ -91,6 +168,28 @@ msgstr "Wybierz format"
 msgid "Insert image"
 msgstr "Wstaw obraz"
 
+#, python-format
+msgid ""
+"\n"
+"        <span>%(total)s</span> Image\n"
+"    "
+msgid_plural ""
+"\n"
+"        <span>%(total)s</span> Images\n"
+"    "
+msgstr[0] ""
+"\n"
+"<span>%(total)s</span> Obraz"
+msgstr[1] ""
+"\n"
+"<span>%(total)s</span> Obrazy"
+msgstr[2] ""
+"\n"
+"<span>%(total)s</span> Obrazy"
+
+msgid "Change image file:"
+msgstr "Zmień plik obrazu:"
+
 msgid "Add an image"
 msgstr "Dodaj obraz"
 
@@ -116,6 +215,31 @@ msgstr "Edycja obrazu %(title)s"
 msgid "Editing"
 msgstr "Edycja"
 
+msgid "Focal point (optional)"
+msgstr "Punkt ogniskowy (opcjonalne)"
+
+msgid ""
+"To define this image's most important region, drag a box over the image "
+"below."
+msgstr ""
+"Aby zaznaczyć najważniejszy fragment tego obrazka, przeciągnij zaznaczenie w "
+"odpowiednie miejsce."
+
+msgid "Current focal point shown"
+msgstr "Pokazano obecny punkt ogniskowy"
+
+msgid "URL Generator"
+msgstr "Generator adresu URL"
+
+msgid "Max dimensions"
+msgstr "Maksymalne wymiary"
+
+msgid "Filesize"
+msgstr "Rozmiar pliku"
+
+msgid "File not found"
+msgstr "Plik nie został odnaleziony"
+
 msgid "Images"
 msgstr "Obrazy"
 
@@ -125,10 +249,18 @@ msgstr "Przepraszamy, żaden obraz nie pasuje do \"<em>%(query_string)s</em>\""
 
 #, python-format
 msgid ""
-"You've not uploaded any images. Why not <a href="
-"\"%(wagtailimages_add_image_url)s\">add one now</a>?"
+"You haven't uploaded any images in this collection. Why not <a href="
+"\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
 msgstr ""
-"Nie przesłano żadnych obrazów. Czemu nie  <a href="
+"Nie przesłałeś żadnych obrazów do tej kolekcji. Czemu nie <a href="
+"\"%(wagtailimages_add_image_url)s\">dodać jednego teraz</a>?"
+
+#, python-format
+msgid ""
+"You haven't uploaded any images. Why not <a href="
+"\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
+msgstr ""
+"Nie przesłałeś żadnych obrazów. Czemu nie <a href="
 "\"%(wagtailimages_add_image_url)s\">dodać jednego teraz</a>?"
 
 msgid "Generating URL"
@@ -146,6 +278,10 @@ msgid ""
 msgstr ""
 "Zwróć uwagę, że generowane obrazki większe niż ekran, podczas podglądu będą "
 "wyglądały na mniejsze, tak żeby zmieściły się na ekranie."
+
+#, python-format
+msgid "Usage of %(title)s"
+msgstr "Użycie %(title)s"
 
 msgid "Usage of"
 msgstr "Wykorzystanie"
@@ -177,14 +313,34 @@ msgstr "Przeciągnij i upusć obrazki w to miejsce żeby je natychmiast przesła
 msgid "Or choose from your computer"
 msgstr "Lub wybierz z komputera"
 
+msgid "Add to collection:"
+msgstr "Dodaj do kolekcji:"
+
+msgid ""
+"Upload successful. Please update this image with a more appropriate title, "
+"if necessary. You may also delete the image completely if the upload wasn't "
+"required."
+msgstr ""
+"Wgranie plików zakończone powodzeniem. Jeśli trzeba zaktualizuj tytuł tego "
+"obrazu. Możesz także usunąć ten obraz jeśli wgranie pliku nie było wymagane."
+
 msgid "Sorry, upload failed."
 msgstr "Przepraszamy, przesyłanie się nie powiodło."
+
+msgid "Image updated."
+msgstr "Uaktualniono obraz."
 
 msgid "Update"
 msgstr "Uaktualnij"
 
 msgid "Delete"
 msgstr "Usuń"
+
+msgid "Image permissions"
+msgstr "Uprawnienia obrazu"
+
+msgid "Add an image permission"
+msgstr "Dodaj uprawnienie obrazu"
 
 msgid "Search images"
 msgstr "Szukaj obrazów"
@@ -193,8 +349,18 @@ msgstr "Szukaj obrazów"
 msgid "Image '{0}' updated."
 msgstr "Uaktualniono obraz '{0}'."
 
+msgid "Edit again"
+msgstr "Ponowna edycja"
+
 msgid "The image could not be saved due to errors."
 msgstr "Obraz nie mógł zostać zapisany z powodu błędów."
+
+msgid ""
+"The source image file could not be found. Please change the source or delete "
+"the image."
+msgstr ""
+"Plik źródłowy obrazu nie mógł zostać znaleziony. Proszę zmień źródło lub "
+"usuń obraz."
 
 #, python-brace-format
 msgid "Image '{0}' deleted."
@@ -207,5 +373,15 @@ msgstr "Dodano obraz '{0}'."
 msgid "The image could not be created due to errors."
 msgstr "Obraz nie mógł zostać stworzony z powodu błędów."
 
+#, python-format
+msgid "%(count)s image"
+msgid_plural "%(count)s images"
+msgstr[0] "%(count)s obraz"
+msgstr[1] "%(count)s obrazów"
+msgstr[2] "%(count)s obrazów"
+
 msgid "Choose another image"
 msgstr "Wybierz inny obraz"
+
+msgid "Edit this image"
+msgstr "Edytuj obraz"

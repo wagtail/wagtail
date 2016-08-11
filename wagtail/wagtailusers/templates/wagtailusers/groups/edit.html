@@ -24,11 +24,13 @@
                 <li>
                     {% format_permissions permission_bound_field=form.permissions %}
                 </li>
+                {% for panel in permission_panels %}
+                    <li>
+                        {{ panel.as_admin_panel }}
+                    </li>
+                {% endfor %}
                 <li>
-                    {% include "wagtailusers/groups/includes/page_permissions_formset.html" with formset=formset only %}
-                </li>
-                <li>
-                    <input type="submit" value="{% trans 'Save' %}" />
+                    <input type="submit" value="{% trans 'Save' %}" class="button" />
 
                     {% if perms.auth.delete_group %}
                         <a href="{% url 'wagtailusers_groups:delete' group.id %}" class="button button-secondary no">{% trans "Delete group" %}</a>

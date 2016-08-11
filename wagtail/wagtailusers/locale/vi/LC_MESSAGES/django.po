@@ -8,9 +8,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-12-17 13:55+0000\n"
-"PO-Revision-Date: 2015-12-17 14:00+0000\n"
-"Last-Translator: mattwestcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2016-05-18 21:37+0000\n"
+"PO-Revision-Date: 2016-03-01 19:08+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Vietnamese (http://www.transifex.com/torchbox/wagtail/"
 "language/vi/)\n"
 "MIME-Version: 1.0\n"
@@ -30,9 +30,6 @@ msgstr "Người dùng với username này đã tồn tại."
 
 msgid "The two password fields didn't match."
 msgstr "Hai mật khẩu không giống nhau."
-
-msgid "If ticked, this user has the ability to manage user accounts."
-msgstr "Nếu chọn, người dùng này có thể quản lý các tài khoản."
 
 msgid "Password"
 msgstr "Mật khẩu"
@@ -54,9 +51,6 @@ msgstr "Tên"
 
 msgid "Last Name"
 msgstr "Họ"
-
-msgid "Administrators have the ability to manage user accounts."
-msgstr "Người điều hành có khả năng quản lý các tài khoản."
 
 msgid "A group with that name already exists."
 msgstr "Nhóm với tên này đã tồn tại."

@@ -10,9 +10,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-12-17 13:54+0000\n"
-"PO-Revision-Date: 2016-01-11 16:08+0000\n"
-"Last-Translator: Marek Turnovec <aesculap@gmail.com>\n"
+"POT-Creation-Date: 2016-05-18 21:37+0000\n"
+"PO-Revision-Date: 2016-05-11 20:33+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Czech (http://www.transifex.com/torchbox/wagtail/language/"
 "cs/)\n"
 "MIME-Version: 1.0\n"
@@ -26,6 +26,9 @@ msgstr "Naplánovat publikaci"
 
 msgid "Common page configuration"
 msgstr "Nastavení stránky"
+
+msgid "Settings"
+msgstr "Nastavení"
 
 msgid "Search"
 msgstr "Hledat"
@@ -120,6 +123,15 @@ msgstr "Soukromé, přístupné pod následujícím heslem"
 msgid "This field is required."
 msgstr "Toto pole je povinné."
 
+msgid "This slug is already in use"
+msgstr "Název pro URL musí být unikátní"
+
+msgid "Go live date/time must be before expiry date/time"
+msgstr "Datum/čas zveřejnění musí být dřívější než datum/čas expirace"
+
+msgid "Expiry date/time must be in the future"
+msgstr "Datum/čas expirace musí být v budoucnosti"
+
 msgid "Account"
 msgstr "Účet"
 
@@ -182,9 +194,6 @@ msgstr "Zkontrolujte svoji e-mailovou schránku"
 
 msgid "A link to reset your password has been emailed to you."
 msgstr "Odkaz pro obnovu hesla jsme Vám poslali e-mailem."
-
-msgid "Please follow the link below to reset your password"
-msgstr "Použijte odkaz níže k nastavení nového hesla"
 
 msgid "Password reset"
 msgstr "Obnovení hesla"
@@ -317,22 +326,18 @@ msgid "Signing in..."
 msgstr "Přihlašování..."
 
 #, python-format
-msgid "The page \"%(title)s\" has been approved"
-msgstr "Stránka \"%(title)s\" byla schválena"
-
-#, python-format
 msgid "The page \"%(title)s\" has been approved."
 msgstr "Stránka \"%(title)s\" byla schválena."
 
 msgid "You can view the page here:"
 msgstr "Stránku můžete zobrazit zde:"
 
+#, python-format
+msgid "The page \"%(title)s\" has been approved"
+msgstr "Stránka \"%(title)s\" byla schválena"
+
 msgid "Edit your notification preferences here:"
 msgstr "Své nastavení notifikací najdete zde:"
-
-#, python-format
-msgid "The page \"%(title)s\" has been rejected"
-msgstr "Stránka \"%(title)s\" byla zamítnuta"
 
 #, python-format
 msgid "The page \"%(title)s\" has been rejected."
@@ -342,11 +347,15 @@ msgid "You can edit the page here:"
 msgstr "Stránku můžete upravit zde:"
 
 #, python-format
-msgid "The page \"%(page)s\" has been submitted for moderation"
-msgstr "Stránka \"%(page)s\" byla odeslána ke schválení"
+msgid "The page \"%(title)s\" has been rejected"
+msgstr "Stránka \"%(title)s\" byla zamítnuta"
 
 msgid "You can preview the page here:"
 msgstr "Náhled stránky můžete zobrazit zde:"
+
+#, python-format
+msgid "The page \"%(page)s\" has been submitted for moderation"
+msgstr "Stránka \"%(page)s\" byla odeslána ke schválení"
 
 msgid "Page privacy"
 msgstr "Viditelnost"
@@ -548,9 +557,6 @@ msgstr "Přidat podstránku pod \"%(title)s\""
 msgid "Add subpage"
 msgstr "Přidat podstránku"
 
-msgid "Add child page"
-msgstr "Přidat podstránku"
-
 #, python-format
 msgid ""
 "\n"
@@ -693,17 +699,11 @@ msgstr "Strana %(page_num)s z %(total_pages)s."
 msgid "Other searches"
 msgstr "Další hledání"
 
-msgid "User bar"
-msgstr "Uživatelská lišta"
-
 msgid "Go to Wagtail admin interface"
 msgstr "Přejít do redakčního systému"
 
 msgid "Add a child page"
 msgstr "Přidat podstránku"
-
-msgid "Add"
-msgstr "Přidat"
 
 msgid "Your password has been changed successfully!"
 msgstr "Vaše heslo bylo úspěšně změněno."
@@ -724,18 +724,6 @@ msgstr "Stránka '{0}' byla vytvořena."
 msgid "The page could not be created due to validation errors"
 msgstr "Stránka nebyla vytvořena, zkontrolujte správné vyplnění polí"
 
-#, python-brace-format
-msgid "Page '{0}' published."
-msgstr "Stránka '{0}' byla publikována."
-
-#, python-brace-format
-msgid "Page '{0}' submitted for moderation."
-msgstr "Stránka '{0}' byla odeslána ke schválení."
-
-#, python-brace-format
-msgid "Page '{0}' updated."
-msgstr "Stránka '{0}' byla upravena."
-
 msgid "The page could not be saved as it is locked"
 msgstr "Stránku nelze uložit, protože je uzamčena"
 
@@ -744,15 +732,6 @@ msgstr "Stránku nelze uložit, zkontrolujte správné vyplnění polí"
 
 msgid "This page is currently awaiting moderation"
 msgstr "Stránka nyní čeká na schválení"
-
-msgid "This slug is already in use"
-msgstr "Název pro URL musí být unikátní"
-
-msgid "Go live date/time must be before expiry date/time"
-msgstr "Datum/čas zveřejnění musí být dřívější než datum/čas expirace"
-
-msgid "Expiry date/time must be in the future"
-msgstr "Datum/čas expirace musí být v budoucnosti"
 
 #, python-brace-format
 msgid "Page '{0}' deleted."
@@ -774,12 +753,13 @@ msgstr "Stránka '{0}' a {1} podstránek bylo zkopírováno."
 msgid "Page '{0}' copied."
 msgstr "Stránka '{0}' byla zkopírována."
 
-msgid "Settings"
-msgstr "Nastavení"
-
 #, python-brace-format
 msgid "The page '{0}' is not currently awaiting moderation."
 msgstr "Stránka '{0}' nyní nečeká na schválení."
+
+#, python-brace-format
+msgid "Page '{0}' published."
+msgstr "Stránka '{0}' byla publikována."
 
 #, python-brace-format
 msgid "Page '{0}' rejected for publication."
@@ -792,6 +772,9 @@ msgstr "Stránka '{0}' je nyní uzamčena."
 #, python-brace-format
 msgid "Page '{0}' is now unlocked."
 msgstr "Stránka '{0}' je nyní odemčena."
+
+msgid "Add child page"
+msgstr "Přidat podstránku"
 
 msgid "Choose an item"
 msgstr "Zvolit položku"

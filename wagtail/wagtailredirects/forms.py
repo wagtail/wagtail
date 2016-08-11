@@ -1,8 +1,9 @@
+from __future__ import absolute_import, unicode_literals
+
 from django import forms
 from django.utils.translation import ugettext_lazy as _
 
 from wagtail.wagtailadmin.widgets import AdminPageChooser
-
 from wagtail.wagtailcore.models import Site
 from wagtail.wagtailredirects.models import Redirect
 

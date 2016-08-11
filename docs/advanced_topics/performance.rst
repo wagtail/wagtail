@@ -25,8 +25,6 @@ We recommend `Redis <http://redis.io/>`_ as a fast, persistent cache. Install Re
 	    }
 	}
 
-Without a persistent cache, Wagtail will recreate all compressible assets at each server start, e.g. when any files change under ``./manage.py runserver``.
-
 
 Search
 ------
@@ -59,6 +57,8 @@ Wagtail is tested on SQLite, and should work on other Django-supported database 
 
 Public users
 ~~~~~~~~~~~~
+
+.. _caching_proxy:
 
 Caching proxy
 -------------

@@ -1,0 +1,84 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# Thomas Kunambi <kunambi@gmail.com>, 2015
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2016-05-18 21:37+0000\n"
+"PO-Revision-Date: 2016-05-11 20:33+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"Language-Team: Swedish (http://www.transifex.com/torchbox/wagtail/language/"
+"sv/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: sv\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "GIF, JPEG, PNG"
+msgstr "GIF, JPEG, PNG"
+
+msgid "Edit"
+msgstr "Editera"
+
+msgid "title"
+msgstr "titel"
+
+msgid "created at"
+msgstr "skapad vid"
+
+msgid "Search"
+msgstr "Sök"
+
+msgid "Save"
+msgstr "Spara"
+
+msgid "Delete image"
+msgstr "Radera bild"
+
+msgid "Yes, delete"
+msgstr "Ja, radera"
+
+msgid "Editing"
+msgstr "Editerar"
+
+msgid "Images"
+msgstr "Bilder"
+
+msgid "URL"
+msgstr "URL"
+
+msgid "Preview"
+msgstr "Förhandsgranska"
+
+#, python-format
+msgid "Usage of %(title)s"
+msgstr "Användning av %(title)s"
+
+msgid "Usage of"
+msgstr "Användning av"
+
+msgid "Title"
+msgstr "Titel"
+
+msgid "Parent"
+msgstr "Förälder"
+
+msgid "Type"
+msgstr "Typ"
+
+msgid "Status"
+msgstr "Status"
+
+msgid "Edit this page"
+msgstr "Editera denna sida"
+
+msgid "Update"
+msgstr "Uppdatera"
+
+msgid "Delete"
+msgstr "Radera"

@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 
-from django.db import models, migrations
+from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
@@ -17,7 +17,7 @@ class Migration(migrations.Migration):
                 ('id', models.AutoField(serialize=False, auto_created=True, verbose_name='ID', primary_key=True)),
                 ('sort_order', models.IntegerField(blank=True, null=True, editable=False)),
                 ('description', models.TextField(blank=True)),
-                ('page', models.ForeignKey(to='wagtailcore.Page')),
+                ('page', models.ForeignKey(on_delete=models.CASCADE, to='wagtailcore.Page')),
             ],
             options={
                 'ordering': ('sort_order',),
@@ -40,7 +40,7 @@ class Migration(migrations.Migration):
                 ('id', models.AutoField(serialize=False, auto_created=True, verbose_name='ID', primary_key=True)),
                 ('date', models.DateField()),
                 ('hits', models.IntegerField(default=0)),
-                ('query', models.ForeignKey(to='wagtailsearch.Query', related_name='daily_hits')),
+                ('query', models.ForeignKey(on_delete=models.CASCADE, to='wagtailsearch.Query', related_name='daily_hits')),
             ],
             options={
             },
@@ -53,7 +53,7 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='editorspick',
             name='query',
-            field=models.ForeignKey(to='wagtailsearch.Query', related_name='editors_picks'),
+            field=models.ForeignKey(on_delete=models.CASCADE, to='wagtailsearch.Query', related_name='editors_picks'),
             preserve_default=True,
         ),
     ]

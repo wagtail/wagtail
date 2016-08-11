@@ -1,0 +1,3 @@
+{% load i18n %}
+
+{% blocktrans with page=revision.page|safe %}The page "{{ page }}" has been submitted for moderation{% endblocktrans %}

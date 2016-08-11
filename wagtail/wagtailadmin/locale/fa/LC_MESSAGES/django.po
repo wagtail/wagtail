@@ -1,0 +1,167 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# Mohammad reza Jelveh <mrj.eleven@gmail.com>, 2015
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2016-05-18 21:37+0000\n"
+"PO-Revision-Date: 2016-05-11 20:33+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"Language-Team: Persian (http://www.transifex.com/torchbox/wagtail/language/"
+"fa/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: fa\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+msgid "Settings"
+msgstr "تنظیمات"
+
+msgid "Search"
+msgstr "جستجو"
+
+msgid "Please fill your email address."
+msgstr "لطفا آدرس ایمیل خود را وارد کنید."
+
+msgid "Publish copied page"
+msgstr "انتشار صفحه ی کپی شده"
+
+msgid "Public"
+msgstr "انتشار"
+
+msgid "Account"
+msgstr "حساب کاربری"
+
+msgid "Change password"
+msgstr "تغییر پسورد"
+
+msgid "Change Password"
+msgstr "تغییر پسورد"
+
+msgid "Update"
+msgstr "آپدیت"
+
+msgid "Login"
+msgstr "ورود"
+
+msgid "Check your email"
+msgstr "ایمیل خود را چک کنید"
+
+msgid "Dashboard"
+msgstr "داشبورد"
+
+msgid "Menu"
+msgstr "منو"
+
+msgid "Move up"
+msgstr "حرکت به بالا"
+
+msgid "Move down"
+msgstr "حرکت به پایین"
+
+msgid "Delete"
+msgstr "حذف"
+
+msgid "Choose"
+msgstr "انتخاب کن"
+
+msgid "Edited"
+msgstr "تصحیح شده"
+
+msgid "Edit"
+msgstr "تصحیح"
+
+msgid "Preview"
+msgstr "نمایش"
+
+msgid "Date"
+msgstr "تاریخ"
+
+msgid "Forgotten it?"
+msgstr "فراموش کردید؟"
+
+msgid "Move"
+msgstr "انتقال"
+
+msgid "Copy"
+msgstr "کپی"
+
+msgid "New"
+msgstr "جدید"
+
+msgid "Publish"
+msgstr "انتشار"
+
+msgid "Previous"
+msgstr "قبلی"
+
+msgid "Next"
+msgstr "بعدی"
+
+msgid "Home"
+msgstr "خانه"
+
+msgid "January"
+msgstr "ژانویه"
+
+msgid "February"
+msgstr "فوریه"
+
+msgid "March"
+msgstr "مارس"
+
+msgid "April"
+msgstr "آپریل"
+
+msgid "May"
+msgstr "مه"
+
+msgid "June"
+msgstr "ژوئن"
+
+msgid "July"
+msgstr "جولای"
+
+msgid "August"
+msgstr "آگوست"
+
+msgid "September"
+msgstr "سپتامبر"
+
+msgid "October"
+msgstr "اکتبر"
+
+msgid "November"
+msgstr "نوامبر"
+
+msgid "December"
+msgstr "دسامبر"
+
+msgid "Sun"
+msgstr "یکشنبه"
+
+msgid "Mon"
+msgstr "دوشنبه"
+
+msgid "Tue"
+msgstr "سه شنبه"
+
+msgid "Wed"
+msgstr "چهارشنبه"
+
+msgid "Thu"
+msgstr "پنجشنبه"
+
+msgid "Fri"
+msgstr "جمعه"
+
+msgid "Sat"
+msgstr "شنبه"
+
+msgid "Log out"
+msgstr "خروج"

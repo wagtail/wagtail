@@ -1,5 +1,6 @@
-import re
+from __future__ import absolute_import, unicode_literals
 
+import re
 
 OEMBED_ENDPOINTS = {
     "https://speakerdeck.com/oembed.{format}": [
@@ -33,8 +34,8 @@ OEMBED_ENDPOINTS = {
         "^http://[-\\w]+\\.dailymotion\\.com/.+$"
     ],
     "http://www.flickr.com/services/oembed/": [
-        "^http://[-\\w]+\\.flickr\\.com/photos/.+$",
-        "^http://flic\\.kr\\.com/.+$"
+        "^http(?:s)?://[-\\w]+\\.flickr\\.com/photos/.+$",
+        "^http(?:s)?://flic\\.kr\\.com/.+$"
     ],
     "http://www.hulu.com/api/oembed.{format}": [
         "^http://www\\.hulu\\.com/watch/.+$"
@@ -79,7 +80,7 @@ OEMBED_ENDPOINTS = {
     ],
     "http://api.instagram.com/oembed": [
         "^http://instagr\\.am/p/.+$",
-        "^http[s]?://instagram\\.com/p/.+$"
+        "^http[s]?://(?:www\\.)?instagram\\.com/p/.+$"
     ],
     "https://www.slideshare.net/api/oembed/2": [
         "^http://www\\.slideshare\\.net/.+$"
@@ -286,8 +287,8 @@ OEMBED_ENDPOINTS = {
     "http://openapi.etsy.com/svc/oembed/": [
         "^http(?:s)?://(?:www\\.)?etsy\\.com/listing/.+$"
     ],
-    "https://audioboo.fm/publishing/oembed.{format}": [
-        "^http(?:s)?://audioboo\\.fm/boos/.+$"
+    "https://audioboom.com/publishing/oembed.{format}": [
+        "^http(?:s)?://audioboom\\.com/boos/.+$"
     ],
     "http://demo.clikthrough.com/services/oembed/": [
         "^http(?:s)?://demo\\.clikthrough\\.com/theater/video/.+$"

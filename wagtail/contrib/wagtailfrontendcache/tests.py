@@ -1,11 +1,13 @@
+from __future__ import absolute_import, unicode_literals
+
 from django.test import TestCase
 from django.test.utils import override_settings
 
-from wagtail.wagtailcore.models import Page
-from wagtail.tests.testapp.models import EventIndex
-
+from wagtail.contrib.wagtailfrontendcache.backends import (
+    BaseBackend, CloudflareBackend, HTTPBackend)
 from wagtail.contrib.wagtailfrontendcache.utils import get_backends
-from wagtail.contrib.wagtailfrontendcache.backends import HTTPBackend, CloudflareBackend, BaseBackend
+from wagtail.tests.testapp.models import EventIndex
+from wagtail.wagtailcore.models import Page
 
 
 class TestBackendConfiguration(TestCase):
@@ -118,7 +120,7 @@ class TestCachePurging(TestCase):
     def test_purge_with_unroutable_page(self):
         PURGED_URLS[:] = []  # reset PURGED_URLS to the empty list
         root = Page.objects.get(url_path='/')
-        page = EventIndex(title='new top-level page', slug='new-top-level-page')
+        page = EventIndex(title='new top-level page')
         root.add_child(instance=page)
         page.save_revision().publish()
         self.assertEqual(PURGED_URLS, [])

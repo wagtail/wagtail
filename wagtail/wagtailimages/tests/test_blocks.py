@@ -1,15 +1,15 @@
 # -*- coding: utf-8 -*
-from __future__ import unicode_literals
+from __future__ import absolute_import, unicode_literals
 
 import os
 
-from django.test import TestCase
-from django.core import serializers
 from django.conf import settings
+from django.core import serializers
+from django.test import TestCase
 
 from wagtail.wagtailimages.blocks import ImageChooserBlock
 
-from .utils import get_test_image_file, Image
+from .utils import Image, get_test_image_file
 
 
 class TestImageChooserBlock(TestCase):

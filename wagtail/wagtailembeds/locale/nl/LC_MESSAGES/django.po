@@ -4,13 +4,14 @@
 #
 # Translators:
 # Thijs Kramer <thijskramer@gmail.com>, 2015
+# Thijs Kramer <thijskramer@gmail.com>, 2016
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-12-17 13:54+0000\n"
-"PO-Revision-Date: 2015-12-17 13:59+0000\n"
-"Last-Translator: mattwestcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2016-05-18 21:37+0000\n"
+"PO-Revision-Date: 2016-02-25 21:13+0000\n"
+"Last-Translator: Thijs Kramer <thijskramer@gmail.com>\n"
 "Language-Team: Dutch (http://www.transifex.com/torchbox/wagtail/language/"
 "nl/)\n"
 "MIME-Version: 1.0\n"
@@ -25,8 +26,11 @@ msgstr "Vul een geldige URL in"
 msgid "URL"
 msgstr "URL"
 
+msgid "embed"
+msgstr "embed"
+
 msgid "Insert embed"
-msgstr "Voeg insluitcode toe"
+msgstr "Voeg embed toe"
 
 msgid "Insert"
 msgstr "Invoegen"
@@ -39,11 +43,11 @@ msgstr ""
 "instellingen."
 
 msgid "Cannot find an embed for this URL."
-msgstr "Kan geen insluiting vinden voor deze URL."
+msgstr "Kan geen embed voor deze URL vinden."
 
 msgid ""
 "There seems to be an error with Embedly while trying to embed this URL. "
 "Please try again later."
 msgstr ""
-"Er lijkt bij het embedden van deze URL een fout met Embedly te zijn. Probeer "
-"het later opnieuw."
+"Er lijkt een fout op te treden met Embedly tijdens het embedden van deze "
+"URL. Probeer het later nog eens."

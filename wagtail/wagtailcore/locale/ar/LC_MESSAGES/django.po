@@ -1,0 +1,94 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# Ahmad Kiswani <kiswani.ahmad@gmail.com>, 2016
+# ROGER MICHAEL ASHLEY ALLEN <rogermaallen@gmail.com>, 2015
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2016-05-18 21:37+0000\n"
+"PO-Revision-Date: 2016-03-01 18:57+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"Language-Team: Arabic (http://www.transifex.com/torchbox/wagtail/language/"
+"ar/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: ar\n"
+"Plural-Forms: nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 "
+"&& n%100<=10 ? 3 : n%100>=11 && n%100<=99 ? 4 : 5;\n"
+
+msgid "site name"
+msgstr "إسم الموقع"
+
+msgid "root page"
+msgstr "الصفحة الرئيسية"
+
+msgid "site"
+msgstr "موقع"
+
+msgid "sites"
+msgstr "مواقع"
+
+msgid "title"
+msgstr "عنوان"
+
+msgid "owner"
+msgstr "صاحب"
+
+msgid "page title"
+msgstr "عنوان الصفحة"
+
+msgid "Please add a date-time in the form YYYY-MM-DD hh:mm."
+msgstr "أضيف من فضلكم تاريخا ووقتا"
+
+msgid "expired"
+msgstr "منقضٍ"
+
+msgid "locked"
+msgstr "مغلق"
+
+msgid "scheduled"
+msgstr "موقت"
+
+msgid "draft"
+msgstr "مسود"
+
+msgid "Default"
+msgstr "عادي"
+
+msgid "page"
+msgstr "صفحة"
+
+msgid "pages"
+msgstr "صفحات"
+
+msgid "user"
+msgstr "مستخدم"
+
+msgid "page revision"
+msgstr "مراجعة صفحة"
+
+msgid "page revisions"
+msgstr "مراجعة صفحات"
+
+msgid "Add/edit pages you own"
+msgstr "أضف أو نقح سفحات أنت الصاحب لها "
+
+msgid "Edit any page"
+msgstr "نقح أي صفحة"
+
+msgid "Publish any page"
+msgstr "انشر أي صفحة"
+
+msgid "Lock/unlock any page"
+msgstr "اغلق أو افتح أي صفحة"
+
+msgid "group"
+msgstr "مجموعة"
+
+msgid "password"
+msgstr "كلمة سر"

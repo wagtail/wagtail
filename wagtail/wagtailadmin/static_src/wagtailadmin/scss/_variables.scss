@@ -1,11 +1,12 @@
-// paths 
+// paths
 
 // We can't use absolute paths here, because those are dependent on Django's
-// STATIC_URL setting. However, django-compressor consistently places the compiled
-// CSS into $ {STATIC_URL}/CACHE/css/ regardless of compilation mode, so we can
-// reliably use relative paths to get back to STATIC_URL. */
+// STATIC_URL setting. Instead, relative paths from the final location of the
+// compiled CSS files are used.
+// */
 
-$static-root: '../../wagtailadmin/images/';
+$static-root: '../../';
+$images-root: $static-root + 'wagtailadmin/images/';
 $font-root: '../../wagtailadmin/fonts/';
 
 // grid settings
@@ -56,11 +57,19 @@ $color-button-yes: $color-green;
 $color-button-yes-hover: darken($color-button-yes, 8%);
 $color-button-no: $color-red;
 $color-button-no-hover: darken($color-button-no, 20%);
+$color-button-warning: $color-orange;
+$color-button-warning-hover: darken($color-orange, 20%);
 $color-link: $color-teal;
 $color-link-hover: $color-teal-dark;
 
 $color-text-base: $color-grey-2;
 $color-text-input: $color-grey-1;
+
+// Color states
+$color-state-live: #59b524;
+$color-state-draft: #808080;
+$color-state-absent: #ff8f11;
+$color-state-live-draft: #43b1b0;
 
 // Fonts
 $font-sans: Open Sans, Arial, sans-serif;
@@ -69,3 +78,6 @@ $font-serif: Roboto Slab, Georgia, serif;
 // misc sizing
 $thumbnail-width: 130px;
 $menu-width: 180px;
+
+
+

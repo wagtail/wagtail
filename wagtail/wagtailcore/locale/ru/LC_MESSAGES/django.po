@@ -4,15 +4,16 @@
 #
 # Translators:
 # ajk, 2014
-# Eugene MechanisM <contact@mechanism.name>, 2014-2015
-# Sergiy Khalymon <sergiykhalimon@gmail.com>, 2015
+# Andrey Avdey <talkerbox@live.com>, 2016
+# Eugene MechanisM <eugene@mechanism.pro>, 2014-2016
+# Sergey Khalymon <sergiykhalimon@gmail.com>, 2015
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-12-17 13:54+0000\n"
-"PO-Revision-Date: 2015-12-17 14:29+0000\n"
-"Last-Translator: Eugene MechanisM <contact@mechanism.name>\n"
+"POT-Creation-Date: 2016-05-18 21:37+0000\n"
+"PO-Revision-Date: 2016-07-02 09:14+0000\n"
+"Last-Translator: Andrey Avdey <talkerbox@live.com>\n"
 "Language-Team: Russian (http://www.transifex.com/torchbox/wagtail/language/"
 "ru/)\n"
 "MIME-Version: 1.0\n"
@@ -36,7 +37,7 @@ msgid ""
 msgstr ""
 "Укажите какой-нибудь отличный от 80 порт, если вам нужен конкретный номер "
 "порта в URL-адресе (например, разработка на порту 8000). Не влияет на "
-"обработку запроса (так форвардинг портов до сих пор работает)."
+"обработку запроса (так что форвардинг портов продолжает работать)."
 
 msgid "site name"
 msgstr "имя сайта"
@@ -68,8 +69,8 @@ msgid ""
 "%(hostname)s is already configured as the default site. You must unset that "
 "before you can save this site as default."
 msgstr ""
-"%(hostname)s уже настроен как сайт по умолчанию. Вы должны сначала у него "
-"отключить флажок, прежде, чем вы можете сохранить этот сайт по умолчанию."
+"%(hostname)s уже настроен как сайт по умолчанию. Вы должны сначала отключить "
+"эту настройку у него, прежде, чем вы можете сохранить этот сайт по умолчанию."
 
 msgid "title"
 msgstr "заголовок"
@@ -131,10 +132,10 @@ msgid "Please add a date-time in the form YYYY-MM-DD hh:mm."
 msgstr "Пожалуйста, добавьте дату и время в формате YYYY-MM-DD hh:mm."
 
 msgid "expiry date/time"
-msgstr "дата/время окончания действия"
+msgstr "дата/время истечения"
 
 msgid "expired"
-msgstr "истекло время действия"
+msgstr "истекло"
 
 msgid "locked"
 msgstr "заблокировано"
@@ -143,7 +144,10 @@ msgid "first published at"
 msgstr "впервые опубликовано"
 
 msgid "latest revision created at"
-msgstr "последняя ревизия создана"
+msgstr "последняя версия создана"
+
+msgid "This slug is already in use"
+msgstr "Этот слаг уже используется"
 
 msgid "scheduled"
 msgstr "запланированное"
@@ -184,14 +188,26 @@ msgstr "версия страницы"
 msgid "page revisions"
 msgstr "версии страницы"
 
+msgid "Add"
+msgstr "Добавить"
+
 msgid "Add/edit pages you own"
 msgstr "Добавить/редактировать свои страницы"
+
+msgid "Edit"
+msgstr "Редактировать"
 
 msgid "Edit any page"
 msgstr "Редактировать любую страницу"
 
+msgid "Publish"
+msgstr "Опубликовать"
+
 msgid "Publish any page"
 msgstr "Опубликовать любую страницу"
+
+msgid "Lock"
+msgstr "Заблокировать"
 
 msgid "Lock/unlock any page"
 msgstr "Заблокировать/разблокировать любую страницу"
@@ -203,7 +219,7 @@ msgid "permission type"
 msgstr "тип прав"
 
 msgid "group page permission"
-msgstr "права на страницу у группы"
+msgstr "право на страницу у группы"
 
 msgid "group page permissions"
 msgstr "права на страницу у группы"
@@ -216,3 +232,18 @@ msgstr "ограничение на просмотр страницы"
 
 msgid "page view restrictions"
 msgstr "ограничения на просмотр страниц"
+
+msgid "name"
+msgstr "имя"
+
+msgid "collection"
+msgstr "коллекция"
+
+msgid "collections"
+msgstr "коллекции"
+
+msgid "permission"
+msgstr "право доступа"
+
+msgid "group collection permission"
+msgstr "право доступа к коллекции у группы"

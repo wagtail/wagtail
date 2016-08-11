@@ -1,33 +1,25 @@
-import mock
+from __future__ import absolute_import, unicode_literals
 
 from datetime import date
 
+import mock
 from django import forms
 from django.core import checks
 from django.core.exceptions import ImproperlyConfigured
 from django.test import TestCase
 
-from wagtail.wagtailadmin.edit_handlers import (
-    get_form_for_model,
-    extract_panel_definitions_from_model_class,
-    FieldPanel,
-    RichTextFieldPanel,
-    TabbedInterface,
-    ObjectList,
-    PageChooserPanel,
-    InlinePanel,
-)
-
-from wagtail.wagtailadmin.forms import WagtailAdminModelForm, WagtailAdminPageForm
-from wagtail.wagtailadmin.widgets import AdminPageChooser, AdminDateInput, AdminAutoHeightTextInput
-from wagtail.wagtailimages.edit_handlers import ImageChooserPanel
-from wagtail.wagtailcore.models import Page, Site
-from wagtail.wagtailcore.fields import RichTextArea
 from wagtail.tests.testapp.forms import ValidatedPageForm
 from wagtail.tests.testapp.models import (
-    PageChooserModel, EventPageChooserModel, EventPage, EventPageSpeaker,
-    SimplePage, ValidatedPage)
+    EventPage, EventPageChooserModel, EventPageSpeaker, PageChooserModel, SimplePage, ValidatedPage)
 from wagtail.tests.utils import WagtailTestUtils
+from wagtail.wagtailadmin.edit_handlers import (
+    FieldPanel, FieldRowPanel, InlinePanel, ObjectList, PageChooserPanel, RichTextFieldPanel,
+    TabbedInterface, extract_panel_definitions_from_model_class, get_form_for_model)
+from wagtail.wagtailadmin.forms import WagtailAdminModelForm, WagtailAdminPageForm
+from wagtail.wagtailadmin.rich_text import HalloRichTextArea
+from wagtail.wagtailadmin.widgets import AdminAutoHeightTextInput, AdminDateInput, AdminPageChooser
+from wagtail.wagtailcore.models import Page, Site
+from wagtail.wagtailimages.edit_handlers import ImageChooserPanel
 
 
 class TestGetFormForModel(TestCase):
@@ -64,7 +56,7 @@ class TestGetFormForModel(TestCase):
         # RichTextField - they should retain their default widgets
         EventPageForm = get_form_for_model(EventPage, form_class=WagtailAdminPageForm)
         event_form = EventPageForm()
-        self.assertEqual(type(event_form.fields['body'].widget), RichTextArea)
+        self.assertEqual(type(event_form.fields['body'].widget), HalloRichTextArea)
 
     def test_get_form_for_model_with_specific_fields(self):
         EventPageForm = get_form_for_model(
@@ -118,7 +110,21 @@ class TestGetFormForModel(TestCase):
         self.assertEqual(type(form.fields['date_from'].widget), forms.PasswordInput)
 
 
+def clear_edit_handler(page_cls):
+    def decorator(fn):
+        def decorated(self):
+            # Clear any old EditHandlers generated
+            page_cls.get_edit_handler.cache_clear()
+            fn(self)
+            # Clear the bad EditHandler generated just now
+            page_cls.get_edit_handler.cache_clear()
+        return decorated
+    return decorator
+
+
 class TestPageEditHandlers(TestCase):
+
+    @clear_edit_handler(EventPage)
     def test_get_edit_handler(self):
         """
         Forms for pages should have a base class of WagtailAdminPageForm.
@@ -129,6 +135,7 @@ class TestPageEditHandlers(TestCase):
         # The generated form should inherit from WagtailAdminPageForm
         self.assertTrue(issubclass(EventPageForm, WagtailAdminPageForm))
 
+    @clear_edit_handler(ValidatedPage)
     def test_get_form_for_page_with_custom_base(self):
         """
         ValidatedPage sets a custom base_form_class. This should be used as the
@@ -141,26 +148,45 @@ class TestPageEditHandlers(TestCase):
         # ValidatedPage.base_form_class == ValidatedPageForm
         self.assertTrue(issubclass(GeneratedValidatedPageForm, ValidatedPageForm))
 
+    @clear_edit_handler(ValidatedPage)
     def test_check_invalid_base_form_class(self):
         class BadFormClass(object):
             pass
 
-        # Clear any old EditHandlers generated
-        ValidatedPage.get_edit_handler.cache_clear()
+        invalid_base_form = checks.Error(
+            "ValidatedPage.base_form_class does not extend WagtailAdminPageForm",
+            hint="Ensure that wagtail.wagtailadmin.tests.test_edit_handlers.BadFormClass extends WagtailAdminPageForm",
+            obj=ValidatedPage,
+            id='wagtailadmin.E001')
+
+        invalid_edit_handler = checks.Error(
+            "ValidatedPage.get_edit_handler().get_form_class(ValidatedPage) does not extend WagtailAdminPageForm",
+            hint="Ensure that the EditHandler for ValidatedPage creates a subclass of WagtailAdminPageForm",
+            obj=ValidatedPage,
+            id='wagtailadmin.E002')
 
         with mock.patch.object(ValidatedPage, 'base_form_class', new=BadFormClass):
+            errors = checks.run_checks()
+
+            # ignore CSS loading errors (to avoid spurious failures on CI servers that
+            # don't build the CSS)
+            errors = [e for e in errors if e.id != 'wagtailadmin.W001']
+
+            self.assertEqual(errors, [invalid_base_form, invalid_edit_handler])
+
+    @clear_edit_handler(ValidatedPage)
+    def test_custom_edit_handler_form_class(self):
+        """
+        Set a custom edit handler on a Page class, but dont customise
+        ValidatedPage.base_form_class, or provide a custom form class for the
+        edit handler. Check the generated form class is of the correct type.
+        """
+        ValidatedPage.edit_handler = TabbedInterface([])
+        with mock.patch.object(ValidatedPage, 'edit_handler', new=TabbedInterface([]), create=True):
+            form_class = ValidatedPage.get_edit_handler().get_form_class(ValidatedPage)
+            self.assertTrue(issubclass(form_class, WagtailAdminPageForm))
             errors = ValidatedPage.check()
-            self.assertEqual(len(errors), 1)
-
-            error = errors[0]
-            self.assertEqual(error, checks.Error(
-                "base_form_class does not extend WagtailAdminPageForm",
-                hint="Ensure that wagtail.wagtailadmin.tests.test_edit_handlers.BadFormClass extends WagtailAdminPageForm",
-                obj=ValidatedPage,
-                id='wagtailcore.E002'))
-
-        # Clear the bad EditHandler generated just now
-        ValidatedPage.get_edit_handler.cache_clear()
+            self.assertEqual(errors, [])
 
 
 class TestExtractPanelDefinitionsFromModelClass(TestCase):
@@ -396,6 +422,112 @@ class TestFieldPanel(TestCase):
         self.assertIn('<span>Enter a valid date.</span>', result)
 
 
+class TestFieldRowPanel(TestCase):
+    def setUp(self):
+        self.EventPageForm = get_form_for_model(
+            EventPage, form_class=WagtailAdminPageForm, formsets=[])
+        self.event = EventPage(title='Abergavenny sheepdog trials',
+                               date_from=date(2014, 7, 20), date_to=date(2014, 7, 21))
+
+        self.DatesPanel = FieldRowPanel([
+            FieldPanel('date_from', classname='col4'),
+            FieldPanel('date_to', classname='coltwo'),
+        ]).bind_to_model(EventPage)
+
+    def test_render_as_object(self):
+        form = self.EventPageForm(
+            {'title': 'Pontypridd sheepdog trials', 'date_from': '2014-07-20', 'date_to': '2014-07-22'},
+            instance=self.event)
+
+        form.is_valid()
+
+        field_panel = self.DatesPanel(
+            instance=self.event,
+            form=form
+        )
+        result = field_panel.render_as_object()
+
+        # check that the populated form field is included
+        self.assertIn('value="2014-07-22"', result)
+
+        # there should be no errors on this field
+        self.assertNotIn('<p class="error-message">', result)
+
+    def test_render_as_field(self):
+        form = self.EventPageForm(
+            {'title': 'Pontypridd sheepdog trials', 'date_from': '2014-07-20', 'date_to': '2014-07-22'},
+            instance=self.event)
+
+        form.is_valid()
+
+        field_panel = self.DatesPanel(
+            instance=self.event,
+            form=form
+        )
+        result = field_panel.render_as_field()
+
+        # check that label is output in the 'field' style
+        self.assertIn('<label for="id_date_to">End date:</label>', result)
+        self.assertNotIn('<legend>End date</legend>', result)
+
+        # check that help text is included
+        self.assertIn('Not required if event is on a single day', result)
+
+        # check that the populated form field is included
+        self.assertIn('value="2014-07-22"', result)
+
+        # there should be no errors on this field
+        self.assertNotIn('<p class="error-message">', result)
+
+    def test_error_message_is_rendered(self):
+        form = self.EventPageForm(
+            {'title': 'Pontypridd sheepdog trials', 'date_from': '2014-07-20', 'date_to': '2014-07-33'},
+            instance=self.event)
+
+        form.is_valid()
+
+        field_panel = self.DatesPanel(
+            instance=self.event,
+            form=form
+        )
+        result = field_panel.render_as_field()
+
+        self.assertIn('<p class="error-message">', result)
+        self.assertIn('<span>Enter a valid date.</span>', result)
+
+    def test_add_col_when_wrong_in_panel_def(self):
+        form = self.EventPageForm(
+            {'title': 'Pontypridd sheepdog trials', 'date_from': '2014-07-20', 'date_to': '2014-07-33'},
+            instance=self.event)
+
+        form.is_valid()
+
+        field_panel = self.DatesPanel(
+            instance=self.event,
+            form=form
+        )
+
+        result = field_panel.render_as_field()
+
+        self.assertIn('<li class="field-col coltwo col6', result)
+
+    def test_added_col_doesnt_change_siblings(self):
+        form = self.EventPageForm(
+            {'title': 'Pontypridd sheepdog trials', 'date_from': '2014-07-20', 'date_to': '2014-07-33'},
+            instance=self.event)
+
+        form.is_valid()
+
+        field_panel = self.DatesPanel(
+            instance=self.event,
+            form=form
+        )
+
+        result = field_panel.render_as_field()
+
+        self.assertIn('<li class="field-col col4', result)
+
+
 class TestPageChooserPanel(TestCase):
     fixtures = ['test.json']
 
@@ -507,28 +639,28 @@ class TestPageChooserPanel(TestCase):
 
         self.assertIn(expected_js, result)
 
-    def test_target_content_type(self):
+    def test_target_models(self):
         result = PageChooserPanel(
             'barbecue',
             'wagtailcore.site'
-        ).bind_to_model(PageChooserModel).target_content_type()[0]
-        self.assertEqual(result.name, 'site')
+        ).bind_to_model(PageChooserModel).target_models()
+        self.assertEqual(result, [Site])
 
-    def test_target_content_type_malformed_type(self):
+    def test_target_models_malformed_type(self):
         result = PageChooserPanel(
             'barbecue',
             'snowman'
         ).bind_to_model(PageChooserModel)
         self.assertRaises(ImproperlyConfigured,
-                          result.target_content_type)
+                          result.target_models)
 
-    def test_target_content_type_nonexistent_type(self):
+    def test_target_models_nonexistent_type(self):
         result = PageChooserPanel(
             'barbecue',
             'snowman.lorry'
         ).bind_to_model(PageChooserModel)
         self.assertRaises(ImproperlyConfigured,
-                          result.target_content_type)
+                          result.target_models)
 
 
 class TestInlinePanel(TestCase, WagtailTestUtils):

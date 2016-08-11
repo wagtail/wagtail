@@ -3,14 +3,14 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# Arnar Tumi Þorsteinsson <arnartumi@gmail.com>, 2015
+# Arnar Tumi Þorsteinsson <arnartumi@gmail.com>, 2015-2016
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-12-17 13:54+0000\n"
-"PO-Revision-Date: 2015-12-17 13:59+0000\n"
-"Last-Translator: mattwestcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2016-05-18 21:37+0000\n"
+"PO-Revision-Date: 2016-05-25 10:09+0000\n"
+"Last-Translator: Arnar Tumi Þorsteinsson <arnartumi@gmail.com>\n"
 "Language-Team: Icelandic (Iceland) (http://www.transifex.com/torchbox/"
 "wagtail/language/is_IS/)\n"
 "MIME-Version: 1.0\n"
@@ -25,9 +25,28 @@ msgstr "Vinsamlegast sláðu inn gilda slóð"
 msgid "URL"
 msgstr "Slóð"
 
+msgid "embed"
+msgstr "innfellt efni"
+
+msgid "Insert embed"
+msgstr "Bæta við innfelldu efni"
+
+msgid "Insert"
+msgstr "Bæta við"
+
 msgid ""
 "There seems to be a problem with your embedly API key. Please check your "
 "settings."
 msgstr ""
 "Það virðist vera vandamál með embedly API lykilinn þinn. Vinsamlegast "
 "athugaðu stillingarnar þínar."
+
+msgid "Cannot find an embed for this URL."
+msgstr "Gat ekki fundið efni til að innfella á þessari slóð."
+
+msgid ""
+"There seems to be an error with Embedly while trying to embed this URL. "
+"Please try again later."
+msgstr ""
+"Það virðist vera sem Embedly skili villu við að reyna að innfella efni af "
+"þessari slóð. Vinsamlegast reynið síðar."

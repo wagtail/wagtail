@@ -1,0 +1,98 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2016-05-18 21:37+0000\n"
+"PO-Revision-Date: 2016-05-11 20:33+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"Language-Team: Hungarian (http://www.transifex.com/torchbox/wagtail/language/"
+"hu/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: hu\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Edit"
+msgstr "Szerkeszt"
+
+msgid "title"
+msgstr "oldalcím"
+
+msgid "file"
+msgstr "fájl"
+
+msgid "created at"
+msgstr "létrehozás ideje"
+
+msgid "uploaded by user"
+msgstr "felhasználó által feltöltött"
+
+msgid "tags"
+msgstr "tags"
+
+msgid "Search"
+msgstr "Keresés"
+
+msgid "Upload"
+msgstr "Feltöltés"
+
+msgid "Uploading..."
+msgstr "Feltöltés folyamatban..."
+
+msgid "Save"
+msgstr "Mentés"
+
+msgid "Delete image"
+msgstr "Kép törlése"
+
+msgid "Yes, delete"
+msgstr "Igen, törlés"
+
+msgid "Editing"
+msgstr "Szerkesztés"
+
+msgid "Filesize"
+msgstr "Fájlméret"
+
+msgid "File not found"
+msgstr "Fájl nem található"
+
+msgid "URL"
+msgstr "URL"
+
+msgid "Preview"
+msgstr "Előnézet"
+
+#, python-format
+msgid "Usage of %(title)s"
+msgstr "A %(title)s használata"
+
+msgid "Usage of"
+msgstr "Használat"
+
+msgid "Title"
+msgstr "Cím"
+
+msgid "Parent"
+msgstr "Szülő"
+
+msgid "Type"
+msgstr "Típus"
+
+msgid "Status"
+msgstr "Állapot"
+
+msgid "Edit this page"
+msgstr "Oldal szerkesztése"
+
+msgid "Update"
+msgstr "Frissítés"
+
+msgid "Delete"
+msgstr "Törlés"

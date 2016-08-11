@@ -5,15 +5,16 @@
 # Translators:
 # Adrien <laadrien@gmail.com>, 2014
 # Bertrand Bordage <bordage.bertrand@gmail.com>, 2015
+# Léo <leo@naeka.fr>, 2016
 # pierre marfoure <pierre@onoffdesign.com>, 2016
 # Tom Dyson <tom@torchbox.com>, 2015
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-12-17 13:54+0000\n"
-"PO-Revision-Date: 2016-01-19 22:28+0000\n"
-"Last-Translator: pierre marfoure <pierre@onoffdesign.com>\n"
+"POT-Creation-Date: 2016-05-18 21:37+0000\n"
+"PO-Revision-Date: 2016-06-06 09:21+0000\n"
+"Last-Translator: Léo <leo@naeka.fr>\n"
 "Language-Team: French (http://www.transifex.com/torchbox/wagtail/language/"
 "fr/)\n"
 "MIME-Version: 1.0\n"
@@ -29,7 +30,7 @@ msgid "Multi-line text"
 msgstr "Texte multiligne"
 
 msgid "Email"
-msgstr "Email"
+msgstr "E-mail"
 
 msgid "Number"
 msgstr "Nombre"
@@ -53,7 +54,7 @@ msgid "Date"
 msgstr "Date"
 
 msgid "Date/time"
-msgstr "Date/Heure"
+msgstr "Date/heure"
 
 msgid "submit time"
 msgstr "Horodatage de soumission"
@@ -68,7 +69,7 @@ msgid "The label of the form field"
 msgstr "Le label du champ de formulaire"
 
 msgid "field type"
-msgstr "Type de champ"
+msgstr "type de champ"
 
 msgid "required"
 msgstr "requis"
@@ -80,8 +81,8 @@ msgid ""
 "Comma separated list of choices. Only applicable in checkboxes, radio and "
 "dropdown."
 msgstr ""
-"Liste de choix séparés par une virgule. Seulement applicable pour les cases "
-"à cocher, les boutons radio et les listes déroulantes."
+"Liste de choix séparés par une virgule. Uniquement applicable aux cases à "
+"cocher, boutons radio et les listes déroulantes."
 
 msgid "default value"
 msgstr "valeur par défaut"
@@ -99,7 +100,7 @@ msgstr "adresse destinataire"
 
 msgid "Optional - form submissions will be emailed to this address"
 msgstr ""
-"Facultatif - les soumissions de formulaire seront envoyées à cette adresse"
+"Facultatif - les soumissions du formulaire seront envoyées à cette adresse"
 
 msgid "from address"
 msgstr "adresse expéditeur"
@@ -115,7 +116,7 @@ msgid "Delete"
 msgstr "Supprimer"
 
 msgid "Are you sure you want to delete this form submission?"
-msgstr "Êtes-vous sûr de vouloir supprimer cette soumission?"
+msgstr "Êtes-vous sûr(e) de vouloir supprimer cette soumission ?"
 
 msgid "Delete it"
 msgstr "La supprimer"
@@ -155,6 +156,9 @@ msgstr "Date de soumission"
 
 msgid "Actions"
 msgstr "Actions"
+
+msgid "delete"
+msgstr "supprimer"
 
 msgid "No form pages have been created."
 msgstr "Aucune page contenant un formulaire n'a été créée."

@@ -7,3 +7,4 @@ Customising Wagtail
 
     page_editing_interface
     branding
+    custom_user_models

@@ -1,22 +1,32 @@
-from mock import MagicMock
+from __future__ import absolute_import, unicode_literals
 
-from django.test import TestCase
-from django import template, forms
-from django.utils import six
+import os
+import unittest
+
+from django import forms, template
+from django.core.exceptions import ImproperlyConfigured
 from django.core.urlresolvers import reverse
-
+from django.test import TestCase, override_settings
+from django.utils import six
+from mock import MagicMock
 from taggit.forms import TagField, TagWidget
 
 from wagtail.tests.testapp.models import CustomImage, CustomImageFilePath
 from wagtail.tests.utils import WagtailTestUtils
-from wagtail.wagtailimages.utils import generate_signature, verify_signature
-from wagtail.wagtailimages.rect import Rect, Vector
-from wagtail.wagtailimages.formats import Format, get_image_format, register_image_format
-from wagtail.wagtailimages.models import Image as WagtailImage
-from wagtail.wagtailimages.forms import get_image_form
 from wagtail.wagtailimages.fields import WagtailImageField
+from wagtail.wagtailimages.formats import Format, get_image_format, register_image_format
+from wagtail.wagtailimages.forms import get_image_form
+from wagtail.wagtailimages.models import Image as WagtailImage
+from wagtail.wagtailimages.rect import Rect, Vector
+from wagtail.wagtailimages.views.serve import ServeView, generate_signature, verify_signature
 
 from .utils import Image, get_test_image_file
+
+try:
+    import sendfile  # noqa
+    sendfile_mod = True
+except:
+    sendfile_mod = False
 
 
 class TestImageTag(TestCase):
@@ -224,6 +234,84 @@ class TestFrontendServeView(TestCase):
         self.assertTrue(response.streaming)
         self.assertEqual(response['Content-Type'], 'image/png')
 
+    def test_get_with_extra_component(self):
+        """
+        Test that a filename can be optionally added to the end of the URL.
+        """
+        # Generate signature
+        signature = generate_signature(self.image.id, 'fill-800x600')
+
+        # Get the image
+        response = self.client.get(reverse('wagtailimages_serve', args=(signature, self.image.id, 'fill-800x600')) + 'test.png')
+
+        # Check response
+        self.assertEqual(response.status_code, 200)
+        self.assertTrue(response.streaming)
+        self.assertEqual(response['Content-Type'], 'image/png')
+
+    def test_get_with_too_many_extra_components(self):
+        """
+        A filename can be appended to the end of the URL, but it must not contain a '/'
+        """
+        # Generate signature
+        signature = generate_signature(self.image.id, 'fill-800x600')
+
+        # Get the image
+        response = self.client.get(reverse('wagtailimages_serve', args=(signature, self.image.id, 'fill-800x600')) + 'test/test.png')
+
+        # URL pattern should not match
+        self.assertEqual(response.status_code, 404)
+
+    def test_get_with_serve_action(self):
+        signature = generate_signature(self.image.id, 'fill-800x600')
+        response = self.client.get(reverse('wagtailimages_serve_action_serve', args=(signature, self.image.id, 'fill-800x600')))
+
+        self.assertEqual(response.status_code, 200)
+        self.assertTrue(response.streaming)
+        self.assertEqual(response['Content-Type'], 'image/png')
+
+    def test_get_with_redirect_action(self):
+        signature = generate_signature(self.image.id, 'fill-800x600')
+        response = self.client.get(reverse('wagtailimages_serve_action_redirect', args=(signature, self.image.id, 'fill-800x600')))
+
+        expected_redirect_url = 'http://testserver/media/images/{filename[0]}.2e16d0ba.fill-800x600{filename[1]}'.format(
+            filename=os.path.splitext(os.path.basename(self.image.file.path))
+        )
+
+        self.assertRedirects(response, expected_redirect_url, status_code=301, fetch_redirect_response=False)
+
+    def test_init_with_unknown_action_raises_error(self):
+        with self.assertRaises(ImproperlyConfigured):
+            ServeView.as_view(action='unknown')
+
+    def test_get_with_custom_key(self):
+        """
+        Test that that the key can be changed on the view
+        """
+        # Generate signature
+        signature = generate_signature(self.image.id, 'fill-800x600', key='custom')
+
+        # Get the image
+        response = self.client.get(reverse('wagtailimages_serve_custom_key', args=(signature, self.image.id, 'fill-800x600')) + 'test.png')
+
+        # Check response
+        self.assertEqual(response.status_code, 200)
+
+    def test_get_with_custom_key_using_default_key(self):
+        """
+        Test that that the key can be changed on the view
+
+        This tests that the default key no longer works when the key is changed on the view
+        """
+        # Generate signature
+        signature = generate_signature(self.image.id, 'fill-800x600')
+
+        # Get the image
+        response = self.client.get(reverse('wagtailimages_serve_custom_key', args=(signature, self.image.id, 'fill-800x600')) + 'test.png')
+
+        # Check response
+        self.assertEqual(response.status_code, 403)
+
     def test_get_invalid_signature(self):
         """
         Test that an invalid signature returns a 403 response
@@ -254,6 +342,53 @@ class TestFrontendServeView(TestCase):
 
         # Check response
         self.assertEqual(response.status_code, 400)
+
+    def test_get_missing_source_image_file(self):
+        """
+        Test that a missing image file gives a 410 response
+
+        When the source image file is missing, it is presumed deleted so we
+        return a 410 "Gone" response.
+        """
+        # Delete the image file
+        os.remove(self.image.file.path)
+
+        # Get the image
+        signature = generate_signature(self.image.id, 'fill-800x600')
+        response = self.client.get(reverse('wagtailimages_serve', args=(signature, self.image.id, 'fill-800x600')))
+
+        # Check response
+        self.assertEqual(response.status_code, 410)
+
+
+class TestFrontendSendfileView(TestCase):
+
+    def setUp(self):
+        self.image = Image.objects.create(
+            title="Test image",
+            file=get_test_image_file(),
+        )
+
+    @override_settings(SENDFILE_BACKEND='sendfile.backends.development')
+    @unittest.skipIf(not sendfile_mod, 'Missing django-sendfile app.')
+    def test_sendfile_nobackend(self):
+        signature = generate_signature(self.image.id, 'fill-800x600')
+        response = self.client.get(reverse('wagtailimages_sendfile',
+                                           args=(signature, self.image.id,
+                                                 'fill-800x600')))
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response['Content-Type'], 'image/png')
+
+    @override_settings(SENDFILE_BACKEND='sendfile.backends.development')
+    def test_sendfile_dummy_backend(self):
+        signature = generate_signature(self.image.id, 'fill-800x600')
+        response = self.client.get(reverse('wagtailimages_sendfile_dummy',
+                                           args=(signature, self.image.id,
+                                                 'fill-800x600')))
+
+        self.assertEqual(response.status_code, 200)
+        self.assertTrue(response.content, 'Dummy backend response')
 
 
 class TestRect(TestCase):
@@ -332,6 +467,7 @@ class TestGetImageForm(TestCase, WagtailTestUtils):
         self.assertEqual(list(form.base_fields.keys()), [
             'title',
             'file',
+            'collection',
             'tags',
             'focal_point_x',
             'focal_point_y',
@@ -345,6 +481,7 @@ class TestGetImageForm(TestCase, WagtailTestUtils):
         self.assertEqual(list(form.base_fields.keys()), [
             'title',
             'file',
+            'collection',
             'tags',
             'focal_point_x',
             'focal_point_y',

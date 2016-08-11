@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 
-from django.db import models, migrations
+from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
@@ -33,11 +33,11 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='redirect',
             name='redirect_page',
-            field=models.ForeignKey(blank=True, null=True, to='wagtailcore.Page', verbose_name='redirect to a page'),
+            field=models.ForeignKey(on_delete=models.CASCADE, blank=True, null=True, to='wagtailcore.Page', verbose_name='redirect to a page'),
         ),
         migrations.AlterField(
             model_name='redirect',
             name='site',
-            field=models.ForeignKey(blank=True, related_name='redirects', null=True, to='wagtailcore.Site', verbose_name='site'),
+            field=models.ForeignKey(on_delete=models.CASCADE, blank=True, related_name='redirects', null=True, to='wagtailcore.Site', verbose_name='site'),
         ),
     ]

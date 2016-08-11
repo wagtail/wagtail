@@ -3,6 +3,7 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# Henrik Kröger <hedwig@riseup.net>, 2016
 # M0rph 3u5 <transifex@m0rph3u5.net>, 2014
 # Max Pfeiffer <max.pfeiffer@alp-phone.ch>, 2015
 # pcraston <patrick@craston.com>, 2014
@@ -12,9 +13,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-12-17 13:54+0000\n"
-"PO-Revision-Date: 2015-12-17 14:02+0000\n"
-"Last-Translator: mattwestcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2016-05-18 21:37+0000\n"
+"PO-Revision-Date: 2016-03-02 13:07+0000\n"
+"Last-Translator: Henrik Kröger <hedwig@riseup.net>\n"
 "Language-Team: German (http://www.transifex.com/torchbox/wagtail/language/"
 "de/)\n"
 "MIME-Version: 1.0\n"
@@ -25,6 +26,18 @@ msgstr ""
 
 msgid "Please specify at least one recommendation for this search term."
 msgstr "Bitte geben Sie mindestens einen Vorschlag für diesen Suchbegriff an."
+
+msgid "page"
+msgstr "Seite"
+
+msgid "description"
+msgstr "Beschreibung"
+
+msgid "search promotion"
+msgstr "Hervorgehobenes Suchergebnis"
+
+msgid "Add search promotion"
+msgstr "Hervorgehobenes Suchergebnis hinzufügen"
 
 msgid "Add search pick"
 msgstr "Suchauswahl hinzufügen"
@@ -39,10 +52,10 @@ msgid ""
 msgstr ""
 "\n"
 "        <p>Hervorgehobene Suchergebnisse sind eine Möglichkeit, bestimmte "
-"Seiten zu empfehlen die von sich aus nicht sehr weit oben in den "
-"Suchergebnissen auftauchen würden. So könnte zum Beispiel ihre Spendenseite "
-"auftauchen wenn nach dem Suchbegriff \"<em>unterstützen</em>\" gesucht wird."
-"</p>\n"
+"Seiten zu empfehlen, die von sich aus nicht sehr weit oben in den "
+"Suchergebnissen auftauchen würden. So könnte zum Beispiel Ihre Spendenseite "
+"auftauchen wenn nach dem Suchbegriff „<em>unterstützen</em>“ gesucht wird.</"
+"p>\n"
 "        "
 
 msgid ""
@@ -54,10 +67,10 @@ msgid ""
 "            "
 msgstr ""
 "\n"
-"        <p>Im Eingabefeld \"Suchbegriffe/Phrasen\" müssen sie den "
+"        <p>Im Eingabefeld „Suchbegriffe/Phrasen“ müssen Sie den "
 "vollständigen und genauen Suchbegriff, inklusive eventueller "
-"Rechtschreibfehler, eingeben, für den sie Seiten empfehlen möchten. Zur "
-"Unterstützung können sie aus häufig verwendeten Suchbegriffen wählen.</p>\n"
+"Rechtschreibfehler, eingeben, für den Sie Seiten empfehlen möchten. Zur "
+"Unterstützung können Sie aus häufig verwendeten Suchbegriffen wählen.</p>\n"
 "        "
 
 msgid "Save"
@@ -116,6 +129,9 @@ msgstr "Hervorgehobene Suchergebnisse"
 msgid "Views (past week)"
 msgstr "Aufrufe (letze Woche)"
 
+msgid "Edit this promotion"
+msgstr "Dieses hervorgehobene Suchergebnis bearbeiten"
+
 msgid "None"
 msgstr "Keine"
 
@@ -140,8 +156,8 @@ msgstr[1] ""
 #, python-format
 msgid "Sorry, no promoted results match \"<em>%(query_string)s</em>\""
 msgstr ""
-"Leider gibt es keine hervorgehobenen Suchergebnisse, die zu \"<em>"
-"%(query_string)s</em>\" passen."
+"Leider gibt es keine hervorgehobenen Suchergebnisse, die zu „<em>"
+"%(query_string)s</em>“ passen."
 
 #, python-format
 msgid ""
@@ -156,7 +172,7 @@ msgstr "Suche hervorgehobene Ergebnisse"
 
 #, python-brace-format
 msgid "Editor's picks for '{0}' created."
-msgstr "Redaktionsempfehlungen für '{0}' erstellt."
+msgstr "Redaktionsempfehlungen für ‚{0}‘ erstellt."
 
 msgid "Edit"
 msgstr "Bearbeiten"
@@ -166,7 +182,7 @@ msgstr "Empfehlungen konnten wegen eines Fehlers nicht erstellt werden"
 
 #, python-brace-format
 msgid "Editor's picks for '{0}' updated."
-msgstr "Redaktionsempfehlungen für '{0}' geändert."
+msgstr "Redaktionsempfehlungen für ‚{0}‘ geändert."
 
 msgid "Recommendations have not been saved due to errors"
 msgstr "Empfehlungen wurden wegen eines Fehlers nicht gespeichert"

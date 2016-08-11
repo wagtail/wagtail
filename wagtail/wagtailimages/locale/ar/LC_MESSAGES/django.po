@@ -3,14 +3,15 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# Ahmad Kiswani <kiswani.ahmad@gmail.com>, 2016
 # ROGER MICHAEL ASHLEY ALLEN <rogermaallen@gmail.com>, 2015
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-12-17 13:54+0000\n"
-"PO-Revision-Date: 2015-12-17 13:59+0000\n"
-"Last-Translator: mattwestcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2016-05-18 21:37+0000\n"
+"PO-Revision-Date: 2016-05-11 20:33+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Arabic (http://www.transifex.com/torchbox/wagtail/language/"
 "ar/)\n"
 "MIME-Version: 1.0\n"
@@ -53,6 +54,24 @@ msgstr "ارتفاع"
 msgid "Closeness"
 msgstr "مقربة"
 
+msgid "Edit"
+msgstr "تنقيح"
+
+msgid "title"
+msgstr "عنوان"
+
+msgid "file"
+msgstr "ملف"
+
+msgid "width"
+msgstr "عرض"
+
+msgid "height"
+msgstr "ارتفاع"
+
+msgid "uploaded by user"
+msgstr "رفع عن طريق المستخدم"
+
 msgid "Choose an image"
 msgstr "اختر صورة"
 
@@ -61,6 +80,9 @@ msgstr "بحث"
 
 msgid "Upload"
 msgstr "انقل إلى الحاسوب"
+
+msgid "Uploading..."
+msgstr "يتم الرفع..."
 
 msgid "Latest images"
 msgstr "احد الصور"
@@ -118,6 +140,9 @@ msgstr "الملف غير موجود"
 
 msgid "Images"
 msgstr "صور"
+
+msgid "URL"
+msgstr "الرابط"
 
 msgid "Preview"
 msgstr "نظر مقدم"
@@ -189,9 +214,6 @@ msgid ""
 "The source image file could not be found. Please change the source or delete "
 "the image."
 msgstr "الصورة الأصلية غير موجودة..  من فضلك غير الأصل أو احذف الصورة"
-
-msgid "Edit"
-msgstr "تنقيح"
 
 msgid "The image could not be created due to errors."
 msgstr "إنشاء الصورة مستخيل بسبب أخطاء"

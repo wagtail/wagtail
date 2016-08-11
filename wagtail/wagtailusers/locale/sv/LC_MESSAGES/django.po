@@ -8,9 +8,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-12-17 13:55+0000\n"
-"PO-Revision-Date: 2015-12-17 14:00+0000\n"
-"Last-Translator: mattwestcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2016-05-18 21:37+0000\n"
+"PO-Revision-Date: 2016-03-01 19:08+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Swedish (http://www.transifex.com/torchbox/wagtail/language/"
 "sv/)\n"
 "MIME-Version: 1.0\n"
@@ -35,9 +35,6 @@ msgstr "De två lösenordsfälten matchade inte."
 msgid "Administrator"
 msgstr "Administratör"
 
-msgid "If ticked, this user has the ability to manage user accounts."
-msgstr "Om ibockad, får denna användare rättigheter att ändra användarkonton"
-
 msgid "Password"
 msgstr "Lösenord"
 
@@ -58,9 +55,6 @@ msgstr "Förnamn"
 
 msgid "Last Name"
 msgstr "Efternamn"
-
-msgid "Administrators have the ability to manage user accounts."
-msgstr "Administratörer har rättigheten att förändra användarkonton."
 
 msgid "A group with that name already exists."
 msgstr "En grupp med det namnet existerar redan."
@@ -130,9 +124,6 @@ msgstr "Sidorättigheter"
 
 msgid "Page"
 msgstr "Sida"
-
-msgid "Permission type"
-msgstr "Rättighetstyper"
 
 msgid "Add a page permission"
 msgstr "Lägg till en sidrättighet"

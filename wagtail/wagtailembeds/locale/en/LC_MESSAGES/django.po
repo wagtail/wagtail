@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-02-05 17:01+0000\n"
+"POT-Creation-Date: 2016-08-01 13:25+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,15 +17,15 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: forms.py:12
+#: forms.py:14
 msgid "Please enter a valid URL"
 msgstr ""
 
-#: forms.py:16
+#: forms.py:18
 msgid "URL"
 msgstr ""
 
-#: models.py:42
+#: models.py:41
 msgid "embed"
 msgstr ""
 
@@ -37,17 +37,17 @@ msgstr ""
 msgid "Insert"
 msgstr ""
 
-#: views/chooser.py:33
+#: views/chooser.py:34
 msgid ""
 "There seems to be a problem with your embedly API key. Please check your "
 "settings."
 msgstr ""
 
-#: views/chooser.py:35
+#: views/chooser.py:36
 msgid "Cannot find an embed for this URL."
 msgstr ""
 
-#: views/chooser.py:38
+#: views/chooser.py:39
 msgid ""
 "There seems to be an error with Embedly while trying to embed this URL. "
 "Please try again later."

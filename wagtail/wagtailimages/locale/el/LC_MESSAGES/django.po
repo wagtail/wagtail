@@ -5,16 +5,16 @@
 # Translators:
 # jim dal <dimitrisdal@gmail.com>, 2014
 # serafeim <serafeim@torchbox.com>, 2014
-# serafeim <serafeim@torchbox.com>, 2014
-# dotoree <vdotoree@yahoo.gr>, 2015
+# serafeim <serafeim@torchbox.com>, 2014,2016
+# George Giannoulopoulos <vdotoree@yahoo.gr>, 2015
 # Wasilis Mandratzis-Walz, 2015
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-12-17 13:54+0000\n"
-"PO-Revision-Date: 2015-12-17 13:59+0000\n"
-"Last-Translator: mattwestcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2016-05-18 21:37+0000\n"
+"PO-Revision-Date: 2016-05-14 21:27+0000\n"
+"Last-Translator: serafeim <serafeim@torchbox.com>\n"
 "Language-Team: Greek (http://www.transifex.com/torchbox/wagtail/language/"
 "el/)\n"
 "MIME-Version: 1.0\n"
@@ -47,6 +47,14 @@ msgstr ""
 msgid "Not a valid %s image."
 msgstr "Μη έγκυρη %s εικόνα."
 
+#, python-format
+msgid "This file is too big (%%s). Maximum filesize %s."
+msgstr "Το αρχείο είναι πολύ μεγάλο (%%s). Μέγιστο μέγεθος αρχείου  %s."
+
+#, python-format
+msgid "This file is too big. Maximum filesize %s."
+msgstr "Το αρχείο είναι πολύ μεγάλο. Μέγιστο μέγεθος αρχείου  %s."
+
 msgid "Filter"
 msgstr "Φίλτρο"
 
@@ -77,6 +85,39 @@ msgstr "Υψος"
 msgid "Closeness"
 msgstr "Εγγύτητα"
 
+msgid "Add"
+msgstr "Προσθήκη"
+
+msgid "Add/edit images you own"
+msgstr "Προσθήκη/επεξεργασία των εικόνων σας"
+
+msgid "Edit"
+msgstr "Επεξεργασία"
+
+msgid "Edit any image"
+msgstr "Επεξεργασία όλων των εικόνων"
+
+msgid "title"
+msgstr "τίτλος"
+
+msgid "file"
+msgstr "αρχείο"
+
+msgid "width"
+msgstr "πλάτος"
+
+msgid "height"
+msgstr "ύψος"
+
+msgid "created at"
+msgstr "δημιουργία στις"
+
+msgid "uploaded by user"
+msgstr "ανέβηκε από το χρήστη"
+
+msgid "tags"
+msgstr "ετικέτες"
+
 msgid "Choose an image"
 msgstr "Επιλέξατε εικόνα"
 
@@ -88,6 +129,15 @@ msgstr "Ανέβασμα"
 
 msgid "Popular tags"
 msgstr "Δημοφιλείς ετικέτες"
+
+msgid "Uploading..."
+msgstr "Ανέβασμα εικόνας ..."
+
+msgid "Server Error"
+msgstr "Σφάλμα"
+
+msgid "Report this error to your webmaster with the following information:"
+msgstr "Αναφέρατε το σφάλμα στο διαχειριστή με τις εξής πληροφορίες:"
 
 #, python-format
 msgid ""
@@ -196,11 +246,19 @@ msgstr ""
 
 #, python-format
 msgid ""
-"You've not uploaded any images. Why not <a href="
-"\"%(wagtailimages_add_image_url)s\">add one now</a>?"
+"You haven't uploaded any images in this collection. Why not <a href="
+"\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
 msgstr ""
-"Δεν υπάρχουν εικόνες. Θέλετε να <a href=\"%(wagtailimages_add_image_url)s"
-"\">προσθέσετε μερικές</a>;"
+"Δεν έχετε ανεβάσει εικόνες στη συλλογή. Θέλετε να <a href="
+"\"%(wagtailimages_add_image_url)s\">ανεβάσετε μία</a>;"
+
+#, python-format
+msgid ""
+"You haven't uploaded any images. Why not <a href="
+"\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
+msgstr ""
+"Δεν έχετε ανεβάσει εικόνες. Θέλετε να <a href="
+"\"%(wagtailimages_add_image_url)s\">ανεβάσετε μία</a>?"
 
 msgid "Generating URL"
 msgstr "Δημιουργία URL"
@@ -255,6 +313,9 @@ msgstr ""
 msgid "Or choose from your computer"
 msgstr "Ή επιλέξτε από τον υπολογιστή σας"
 
+msgid "Add to collection:"
+msgstr "Προσθήκη συλλογής:"
+
 msgid ""
 "Upload successful. Please update this image with a more appropriate title, "
 "if necessary. You may also delete the image completely if the upload wasn't "
@@ -267,11 +328,20 @@ msgstr ""
 msgid "Sorry, upload failed."
 msgstr "Συγγνώμη, η μεταφόρτωση απέτυχε."
 
+msgid "Image updated."
+msgstr "Ενημέρωση εικόνας"
+
 msgid "Update"
 msgstr "Ενημέρωση"
 
 msgid "Delete"
 msgstr "Διαγραφή"
+
+msgid "Image permissions"
+msgstr "Άδειες εικόνων"
+
+msgid "Add an image permission"
+msgstr "Προσθήκη αδειών εικόνων"
 
 msgid "Search images"
 msgstr "Αναζήτηση εικόνων"
@@ -301,11 +371,14 @@ msgstr "Η εικόνα '{0}' διαγράφηκε."
 msgid "Image '{0}' added."
 msgstr "Η εικόνα '{0}' δημιουργήθηκε."
 
-msgid "Edit"
-msgstr "Επεξεργασία"
-
 msgid "The image could not be created due to errors."
 msgstr "Δεν ήταν δυνατή η δημιουργία της εικόνας."
+
+#, python-format
+msgid "%(count)s image"
+msgid_plural "%(count)s images"
+msgstr[0] "%(count)s εικόνα"
+msgstr[1] "%(count)s εικόνες"
 
 msgid "Choose another image"
 msgstr "Επιλογή άλλης εικόνας"

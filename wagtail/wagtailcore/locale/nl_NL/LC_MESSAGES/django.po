@@ -5,13 +5,13 @@
 # Translators:
 # Franklin Kingma <franklin@statix.net>, 2015
 # Maarten Kling <kling.maarten@gmail.com>, 2015
-# Thijs Kramer <thijskramer@gmail.com>, 2015
+# Thijs Kramer <thijskramer@gmail.com>, 2015-2016
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-12-17 13:54+0000\n"
-"PO-Revision-Date: 2015-12-22 17:31+0000\n"
+"POT-Creation-Date: 2016-05-18 21:37+0000\n"
+"PO-Revision-Date: 2016-06-13 11:11+0000\n"
 "Last-Translator: Thijs Kramer <thijskramer@gmail.com>\n"
 "Language-Team: Dutch (Netherlands) (http://www.transifex.com/torchbox/"
 "wagtail/language/nl_NL/)\n"
@@ -52,8 +52,8 @@ msgid ""
 "If true, this site will handle requests for all other hostnames that do not "
 "have a site entry of their own"
 msgstr ""
-"Indien aangevinkt zal deze site alle requests voor alle andere hostnames "
-"afvangen die geen eigen site hebben."
+"Indien aangevinkt zal deze site requests voor alle andere hostnames afvangen "
+"die geen eigen site hebben."
 
 msgid "site"
 msgstr "site"
@@ -82,7 +82,7 @@ msgid ""
 "The name of the page as it will appear in URLs e.g http://domain.com/blog/"
 "[my-slug]/"
 msgstr ""
-"De naam van de pagina zoals deze in de URL komt, bijv. http://website.nl/"
+"De manier waarop de pagina in URL's getoond wordt, bijv. http://domein.nl/"
 "blog/[mijn-slug]/"
 
 msgid "content type"
@@ -143,6 +143,9 @@ msgstr "voor het eerst gepubliceerd op"
 msgid "latest revision created at"
 msgstr "meest recente versie aangemaakt op"
 
+msgid "This slug is already in use"
+msgstr "Deze slug is al in gebruik"
+
 msgid "scheduled"
 msgstr "gepland"
 
@@ -182,14 +185,26 @@ msgstr "pagina revisie"
 msgid "page revisions"
 msgstr "pagina revisie"
 
+msgid "Add"
+msgstr "Toevoegen"
+
 msgid "Add/edit pages you own"
 msgstr "Eigen pagina's toevoegen/wijzigen"
+
+msgid "Edit"
+msgstr "Wijzigen"
 
 msgid "Edit any page"
 msgstr "Alle pagina's wijzigen"
 
+msgid "Publish"
+msgstr "Publiceren"
+
 msgid "Publish any page"
 msgstr "Elke pagina publiceren"
+
+msgid "Lock"
+msgstr "Vergrendelen"
 
 msgid "Lock/unlock any page"
 msgstr "Alle pagina's blokkeren/deblokkeren"
@@ -214,3 +229,18 @@ msgstr "pagina weergave recht"
 
 msgid "page view restrictions"
 msgstr "pagina weergave rechten"
+
+msgid "name"
+msgstr "naam"
+
+msgid "collection"
+msgstr "collectie"
+
+msgid "collections"
+msgstr "collecties"
+
+msgid "permission"
+msgstr "machtiging"
+
+msgid "group collection permission"
+msgstr "groepsmachtiging binnen collectie"

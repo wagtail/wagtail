@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 
-from django.db import models, migrations
+from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
@@ -24,9 +24,11 @@ class Migration(migrations.Migration):
                 )),
                 ('redirect_link', models.URLField(blank=True, verbose_name='Redirect to any URL')),
                 ('redirect_page', models.ForeignKey(
+                    on_delete=models.CASCADE,
                     blank=True, null=True, verbose_name='Redirect to a page', to='wagtailcore.Page'
                 )),
                 ('site', models.ForeignKey(
+                    on_delete=models.CASCADE,
                     blank=True, to='wagtailcore.Site', editable=False, null=True, related_name='redirects'
                 )),
             ],

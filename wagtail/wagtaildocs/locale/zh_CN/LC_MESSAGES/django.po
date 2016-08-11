@@ -8,9 +8,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-12-17 13:54+0000\n"
-"PO-Revision-Date: 2015-12-17 13:58+0000\n"
-"Last-Translator: mattwestcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2016-05-18 21:37+0000\n"
+"PO-Revision-Date: 2016-05-11 20:33+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Chinese (China) (http://www.transifex.com/torchbox/wagtail/"
 "language/zh_CN/)\n"
 "MIME-Version: 1.0\n"
@@ -18,6 +18,9 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: zh_CN\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
+
+msgid "Edit"
+msgstr "编辑"
 
 msgid "Choose a document"
 msgstr "选择一个文档"
@@ -139,15 +142,15 @@ msgstr[0] ""
 "        <span>%(total)s</span> 文档\n"
 "    "
 
+msgid "Delete"
+msgstr "删除"
+
 msgid "Search documents"
 msgstr "搜索文档"
 
 #, python-brace-format
 msgid "Document '{0}' added."
 msgstr "文档'{0}' 已添加"
-
-msgid "Edit"
-msgstr "编辑"
 
 msgid "The document could not be saved due to errors."
 msgstr "无法保存文档，出现错误。"
@@ -159,9 +162,6 @@ msgstr "文档'{0}' 已更新"
 msgid ""
 "The file could not be found. Please change the source or delete the document"
 msgstr "无法找到文件。请修改源或者删除文档。"
-
-msgid "Delete"
-msgstr "删除"
 
 #, python-brace-format
 msgid "Document '{0}' deleted."

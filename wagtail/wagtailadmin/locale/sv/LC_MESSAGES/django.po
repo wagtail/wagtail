@@ -4,14 +4,15 @@
 #
 # Translators:
 # Hannes Lohmander <c.hannes.l@gmail.com>, 2015
+# Thomas Kunambi <kunambi@gmail.com>, 2016
 # Thomas Kunambi <kunambi@gmail.com>, 2015
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-12-17 13:54+0000\n"
-"PO-Revision-Date: 2015-12-17 13:57+0000\n"
-"Last-Translator: mattwestcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2016-05-18 21:37+0000\n"
+"PO-Revision-Date: 2016-05-11 20:33+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Swedish (http://www.transifex.com/torchbox/wagtail/language/"
 "sv/)\n"
 "MIME-Version: 1.0\n"
@@ -20,14 +21,29 @@ msgstr ""
 "Language: sv\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
+msgid "You do not have permission to access the admin"
+msgstr "Du har inte rättighet att tillträda admin"
+
 msgid "Scheduled publishing"
 msgstr "Schemalagd publicering"
+
+msgid "Content"
+msgstr "Innehåll"
+
+msgid "Promote"
+msgstr "Främja"
+
+msgid "Settings"
+msgstr "Inställningar"
 
 msgid "Search"
 msgstr "Sök"
 
 msgid "Search term"
 msgstr "Sökord"
+
+msgid "URL"
+msgstr "URL"
 
 msgid "Enter password"
 msgstr "Ange lösenord"
@@ -110,6 +126,18 @@ msgstr "Privat, tillgänglig med följande lösenord"
 msgid "This field is required."
 msgstr "Det här fältet är obligatoriskt"
 
+msgid "This slug is already in use"
+msgstr "URL-fragmentet är redan i användning"
+
+msgid "Go live date/time must be before expiry date/time"
+msgstr "Gå-livedatum/-tid måste ske före utgångsdatum/-tid"
+
+msgid "Expiry date/time must be in the future"
+msgstr "Utgångsdatum/-tid måste ske i framtiden"
+
+msgid "You cannot have multiple permission records for the same collection."
+msgstr "Du kan inte ha multipla rättigheter för samma kollektion"
+
 msgid "Account"
 msgstr "Konto"
 
@@ -171,9 +199,6 @@ msgstr "Kontrollera din mejl"
 
 msgid "A link to reset your password has been emailed to you."
 msgstr "En länk för att återställa ditt lösenord har mejlats till dig."
-
-msgid "Please follow the link below to reset your password"
-msgstr "Vänligen följ länken nedan för att återställa ditt lösenord"
 
 msgid "Password reset"
 msgstr "Återställ lösenord"
@@ -261,6 +286,26 @@ msgstr "Infoga länk"
 
 msgid "Add an external link"
 msgstr "Infoga extern länk"
+
+msgid ""
+"This collection cannot be deleted, because it is not empty. It contains:"
+msgstr ""
+"Denna kollektion kan inte raderas, eftersom den inte är tom. Den innehåller:"
+
+msgid "Name"
+msgstr "Namn"
+
+#, python-format
+msgid ""
+"No collections have been created. Why not <a href=\"%(add_collection_url)s"
+"\">add one</a>?"
+msgstr ""
+"Inga kollektioner har skapats. Varför inte <a href=\"%(add_collection_url)s"
+"\">skapa en</a>?"
+
+#, python-format
+msgid "Add %(heading)s"
+msgstr "Lägg till %(heading)s"
 
 msgid "Yes, delete"
 msgstr "Ja, radera"
@@ -359,9 +404,8 @@ msgstr "Logga in till Wagtail"
 msgid "Forgotten it?"
 msgstr "Glömt det?"
 
-#, python-format
-msgid "The page \"%(title)s\" has been approved"
-msgstr "Sidan \"%(title)s\" har blivit godkänd"
+msgid "Signing in..."
+msgstr "Loggar in..."
 
 #, python-format
 msgid "The page \"%(title)s\" has been approved."
@@ -370,12 +414,16 @@ msgstr "Sidan \"%(title)s\" har blivit godkänd."
 msgid "You can view the page here:"
 msgstr "Du kan se sidan här:"
 
-msgid "Edit your notification preferences here:"
-msgstr "Editera dina notisinställningar här:"
+#, python-format
+msgid "The page \"%(title)s\" has been approved"
+msgstr "Sidan \"%(title)s\" har blivit godkänd"
 
 #, python-format
-msgid "The page \"%(title)s\" has been rejected"
-msgstr "Sidan \"%(title)s\" har blivit avvisad"
+msgid "Hello %(username)s,"
+msgstr "Hej %(username)s,"
+
+msgid "Edit your notification preferences here:"
+msgstr "Editera dina notisinställningar här:"
 
 #, python-format
 msgid "The page \"%(title)s\" has been rejected."
@@ -385,11 +433,19 @@ msgid "You can edit the page here:"
 msgstr "Du kan editera sidan här:"
 
 #, python-format
-msgid "The page \"%(page)s\" has been submitted for moderation"
-msgstr "Sidan \"%(page)s\" har lämnats in för moderering"
+msgid "The page \"%(title)s\" has been rejected"
+msgstr "Sidan \"%(title)s\" har blivit avvisad"
+
+#, python-format
+msgid "The page \"%(page)s\" has been submitted for moderation by %(editor)s."
+msgstr "Sidan \"%(page)s\" har lämnats in för moderation av %(editor)s."
 
 msgid "You can preview the page here:"
 msgstr "Du kan förhandsgranska sidan här:"
+
+#, python-format
+msgid "The page \"%(page)s\" has been submitted for moderation"
+msgstr "Sidan \"%(page)s\" har lämnats in för moderering"
 
 msgid "Page privacy"
 msgstr "Sidsekretess"
@@ -529,14 +585,23 @@ msgstr "Nya %(page_type)s"
 msgid "New"
 msgstr "Ny"
 
+msgid "Saving..."
+msgstr "Sparar..."
+
 msgid "Save draft"
 msgstr "Spara utkast"
+
+msgid "Publishing..."
+msgstr "Publicerar..."
 
 msgid "Publish"
 msgstr "Publicera"
 
 msgid "Submit for moderation"
 msgstr "Lämna in för moderering"
+
+msgid "This page has unsaved changes."
+msgstr "Den här sidan har osparade ändringar."
 
 #, python-format
 msgid "Editing %(page_type)s: %(title)s"
@@ -548,6 +613,12 @@ msgstr "Editerar %(page_type)s <span>%(title)s</span>"
 
 msgid "Page locked"
 msgstr "Sida låst"
+
+msgid "Replace current draft"
+msgstr "Ersätt existerande utkast"
+
+msgid "Publish this revision"
+msgstr "Publicera denna revision"
 
 #, python-format
 msgid "Last modified: %(last_mod)s"
@@ -566,6 +637,59 @@ msgstr "Dra"
 
 msgid "Updated"
 msgstr "Uppdaterad"
+
+msgid ""
+"\n"
+"                            The root level is where you can add new sites to "
+"your Wagtail installation. Pages created here will not be accessible at any "
+"URL until they are associated with a site.\n"
+"                        "
+msgstr ""
+"\n"
+"                            Rotnivån är där du kan lägga till nya sajter "
+"till din Wagtail installation. Sidor skapade här är inte tillgängliga på "
+"någon URL innan de har associerats till en sajt.\n"
+"                        "
+
+msgid "Configure a site now."
+msgstr "Konfigurera en sajt nu."
+
+msgid ""
+"\n"
+"                            If you just want to add pages to an existing "
+"site, create them as children of the homepage instead.\n"
+"                        "
+msgstr ""
+"\n"
+"                            Om du bara vill skapa en sida till en befintlig "
+"sajt, skapa dem som barn till hemsidan istället.\n"
+"                        "
+
+msgid ""
+"\n"
+"                        Pages created here will not be accessible at any "
+"URL. To add pages to an existing site, create them as children of the "
+"homepage.\n"
+"                    "
+msgstr ""
+"\n"
+"                        Sidor skapade här är ej tillgängliga på någon URL. "
+"För att skapa en sida till en existerande sajt, skapa dem som undersidor "
+"till hemsidan.\n"
+"                    "
+
+msgid ""
+"\n"
+"                        There is no site set up for this location. Pages "
+"created here will not be accessible at any URL until a site is associated "
+"with this location.\n"
+"                    "
+msgstr ""
+"\n"
+"                        Det finns ingen sajt uppsatt för denna plats. Sidor "
+"som skapas här är inte tillgängliga på någon URL förrän en sajt är "
+"associerad med den här platsen.\n"
+"                    "
 
 msgid "No pages have been created at this location."
 msgstr "Inga sidor har skapats på denna plats"
@@ -593,16 +717,6 @@ msgid "Add a child page to '%(title)s'"
 msgstr "Lägg till en undersida till '%(title)s'"
 
 msgid "Add subpage"
-msgstr "Lägg till undersida"
-
-msgid ""
-"This page is published but does not exist within a configured Site, so "
-"cannot be viewed."
-msgstr ""
-"Denna sida är publicerad men finns inte inom en konfigurerad Sajt, så den "
-"kan ej visas."
-
-msgid "Add child page"
 msgstr "Lägg till undersida"
 
 #, python-format
@@ -761,17 +875,11 @@ msgid "Javascript is required to use Wagtail, but it is currently disabled"
 msgstr ""
 "Javascript krävs för att använda Wagtail, men är för tillfället inaktiverat"
 
-msgid "User bar"
-msgstr "Användarpanel"
-
 msgid "Go to Wagtail admin interface"
 msgstr "Gå till Wagtail admingränssnitt"
 
 msgid "Add a child page"
 msgstr "Lägg till en undersida"
-
-msgid "Add"
-msgstr "Lägg till"
 
 msgid "Sorry, you do not have permission to access this area."
 msgstr "Ledsen, du har inte rättigheter att tillträda detta område."
@@ -803,18 +911,6 @@ msgstr "Sida '{0}' skapad."
 msgid "The page could not be created due to validation errors"
 msgstr "Sidan kunde ej bli skapad p.g.a. valideringsfel"
 
-#, python-brace-format
-msgid "Page '{0}' published."
-msgstr "Sida '{0}' publicerad."
-
-#, python-brace-format
-msgid "Page '{0}' submitted for moderation."
-msgstr "Sida '{0}' inlämnad för moderering."
-
-#, python-brace-format
-msgid "Page '{0}' updated."
-msgstr "Sida '{0}' uppdaterad."
-
 msgid "The page could not be saved as it is locked"
 msgstr "Sidan kunde inte sparas eftersom den är låst"
 
@@ -823,15 +919,6 @@ msgstr "Sidan kunde inte sparas p.g.a. valideringsfel"
 
 msgid "This page is currently awaiting moderation"
 msgstr "Sidan väntar på moderering"
-
-msgid "This slug is already in use"
-msgstr "URL-fragmentet är redan i användning"
-
-msgid "Go live date/time must be before expiry date/time"
-msgstr "Gå-livedatum/-tid måste ske före utgångsdatum/-tid"
-
-msgid "Expiry date/time must be in the future"
-msgstr "Utgångsdatum/-tid måste ske i framtiden"
 
 #, python-brace-format
 msgid "Page '{0}' deleted."
@@ -853,18 +940,13 @@ msgstr "Sida '{0}' och {1} undersida kopierad."
 msgid "Page '{0}' copied."
 msgstr "Sida '{0}' kopierad."
 
-msgid "Content"
-msgstr "Innehåll"
-
-msgid "Promote"
-msgstr "Främja"
-
-msgid "Settings"
-msgstr "Inställningar"
-
 #, python-brace-format
 msgid "The page '{0}' is not currently awaiting moderation."
 msgstr "Sidan '{0}' väntar för närvarande inte på moderering."
+
+#, python-brace-format
+msgid "Page '{0}' published."
+msgstr "Sida '{0}' publicerad."
 
 #, python-brace-format
 msgid "Page '{0}' rejected for publication."
@@ -877,6 +959,9 @@ msgstr "Sida '{0}' är nu låst."
 #, python-brace-format
 msgid "Page '{0}' is now unlocked."
 msgstr "Sida '{0}' är nu olåst."
+
+msgid "Add child page"
+msgstr "Lägg till undersida"
 
 msgid "Choose an item"
 msgstr "Välj ett objekt"

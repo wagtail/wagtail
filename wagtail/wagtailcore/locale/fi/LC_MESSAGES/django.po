@@ -5,13 +5,14 @@
 # Translators:
 # Aarni Koskela, 2016
 # Glen Somerville <glen.somerville@gmail.com>, 2015
+# Rauli L. <rauli.laine@iki.fi>, 2016
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-12-17 13:54+0000\n"
-"PO-Revision-Date: 2016-01-14 16:02+0000\n"
-"Last-Translator: Aarni Koskela\n"
+"POT-Creation-Date: 2016-05-18 21:37+0000\n"
+"PO-Revision-Date: 2016-03-17 12:05+0000\n"
+"Last-Translator: Rauli L. <rauli.laine@iki.fi>\n"
 "Language-Team: Finnish (http://www.transifex.com/torchbox/wagtail/language/"
 "fi/)\n"
 "MIME-Version: 1.0\n"
@@ -140,6 +141,9 @@ msgstr "ensin julkaistu"
 msgid "latest revision created at"
 msgstr "uusin versio luotu"
 
+msgid "This slug is already in use"
+msgstr "Lyhytnimi on jo käytössä."
+
 msgid "scheduled"
 msgstr "ajoitettu"
 
@@ -179,14 +183,26 @@ msgstr "sivuversio"
 msgid "page revisions"
 msgstr "sivuversiot"
 
+msgid "Add"
+msgstr "Lisää"
+
 msgid "Add/edit pages you own"
 msgstr "Lisää/muokkaa sivuja jota omistat"
+
+msgid "Edit"
+msgstr "Muokkaa"
 
 msgid "Edit any page"
 msgstr "Muokkaa mitä vain sivua"
 
+msgid "Publish"
+msgstr "Julkaise"
+
 msgid "Publish any page"
 msgstr "Julkaise kaikkia sivuja"
+
+msgid "Lock"
+msgstr "Lukitse"
 
 msgid "Lock/unlock any page"
 msgstr "Lukitse/poista lukitus kaikille sivuille"
@@ -211,3 +227,18 @@ msgstr "sivunkatselurajoitus"
 
 msgid "page view restrictions"
 msgstr "sivunkatselurajoitukset"
+
+msgid "name"
+msgstr "nimi"
+
+msgid "collection"
+msgstr "kokoelma"
+
+msgid "collections"
+msgstr "kokoelmat"
+
+msgid "permission"
+msgstr "oikeudet"
+
+msgid "group collection permission"
+msgstr "ryhmä/kokoelma-oikeus"

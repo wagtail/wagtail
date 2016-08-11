@@ -6,14 +6,15 @@
 # Thiago Cangussu <cng.thg@gmail.com>, 2014
 # Claudemiro Alves Feitosa Neto <dimiro1@gmail.com>, 2015
 # Gladson <gladsonbrito@gmail.com>, 2014
+# João Luiz Lorencetti <me@dirtycoder.net>, 2016
 # Thiago Cangussu <cangussu.thg@gmail.com>, 2014
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-12-17 13:55+0000\n"
-"PO-Revision-Date: 2015-12-17 13:59+0000\n"
-"Last-Translator: mattwestcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2016-05-18 21:37+0000\n"
+"PO-Revision-Date: 2016-04-22 16:42+0000\n"
+"Last-Translator: João Luiz Lorencetti <me@dirtycoder.net>\n"
 "Language-Team: Portuguese (Brazil) (http://www.transifex.com/torchbox/"
 "wagtail/language/pt_BR/)\n"
 "MIME-Version: 1.0\n"
@@ -22,6 +23,24 @@ msgstr ""
 "Language: pt_BR\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
+msgid "From site"
+msgstr "Do site"
+
+msgid "All sites"
+msgstr "Todos os sites"
+
+msgid "A redirect with this path already exists."
+msgstr "Um redirecionamento com esse caminho já existe."
+
+msgid "redirect from"
+msgstr "redirecionar de"
+
+msgid "site"
+msgstr "site"
+
+msgid "permanent"
+msgstr "permanente"
+
 msgid ""
 "Recommended. Permanent redirects ensure search engines forget the old page "
 "(the 'Redirect from') and index the new page instead."
@@ -29,6 +48,15 @@ msgstr ""
 "Recomendado. Redirecionamento permanente garante que mecanismos de busca "
 "esqueçam a página antiga (o 'Redirecionar de') e criem um índice da página "
 "nova."
+
+msgid "redirect to a page"
+msgstr "redirecionar para uma página"
+
+msgid "redirect to any URL"
+msgstr "redirecionar para qualquer URL"
+
+msgid "redirect"
+msgstr "redirecionamento"
 
 msgid "Add redirect"
 msgstr "Adicionar Redirecionamentos"

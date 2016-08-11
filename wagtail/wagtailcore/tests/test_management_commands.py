@@ -1,14 +1,16 @@
+from __future__ import absolute_import, unicode_literals
+
 from datetime import timedelta
 
-from django.test import TestCase
 from django.core import management
+from django.db import models
+from django.test import TestCase
 from django.utils import timezone
 from django.utils.six import StringIO
-from django.db import models
 
+from wagtail.tests.testapp.models import EventPage, SimplePage
 from wagtail.wagtailcore.models import Page, PageRevision
 from wagtail.wagtailcore.signals import page_published, page_unpublished
-from wagtail.tests.testapp.models import SimplePage, EventPage
 
 
 class TestFixTreeCommand(TestCase):
@@ -175,6 +177,7 @@ class TestPublishScheduledPagesCommand(TestCase):
         page = SimplePage(
             title="Hello world!",
             slug="hello-world",
+            content="hello",
             live=False,
             has_unpublished_changes=True,
             go_live_at=timezone.now() - timedelta(days=1),
@@ -204,6 +207,7 @@ class TestPublishScheduledPagesCommand(TestCase):
         page = SimplePage(
             title="Hello world!",
             slug="hello-world",
+            content="hello",
             live=False,
             has_unpublished_changes=True,
             go_live_at=timezone.now() - timedelta(days=1),
@@ -226,6 +230,7 @@ class TestPublishScheduledPagesCommand(TestCase):
         page = SimplePage(
             title="Hello world!",
             slug="hello-world",
+            content="hello",
             live=False,
             go_live_at=timezone.now() + timedelta(days=1),
         )
@@ -257,6 +262,7 @@ class TestPublishScheduledPagesCommand(TestCase):
         page = SimplePage(
             title="Hello world!",
             slug="hello-world",
+            content="hello",
             live=True,
             has_unpublished_changes=False,
             expire_at=timezone.now() - timedelta(days=1),
@@ -282,6 +288,7 @@ class TestPublishScheduledPagesCommand(TestCase):
         page = SimplePage(
             title="Hello world!",
             slug="hello-world",
+            content="hello",
             live=True,
             expire_at=timezone.now() + timedelta(days=1),
         )
@@ -300,6 +307,7 @@ class TestPublishScheduledPagesCommand(TestCase):
         page = SimplePage(
             title="Hello world!",
             slug="hello-world",
+            content="hello",
             live=False,
             expire_at=timezone.now() - timedelta(days=1),
         )

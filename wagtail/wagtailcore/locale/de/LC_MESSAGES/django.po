@@ -3,9 +3,10 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# Florian <flori@vorlif.org>, 2015
+# Vorlif <flori@vorlif.org>, 2015
+# Henrik Kröger <hedwig@riseup.net>, 2016
 # Johannes Spielmann <j@spielmannsolutions.com>, 2014
-# mattwestcott <matthew@torchbox.com>, 2015
+# Matt Westcott <matthew@torchbox.com>, 2015
 # Max Pfeiffer <max.pfeiffer@alp-phone.ch>, 2015
 # Tammo van Lessen <tvanlessen@gmail.com>, 2015
 # Wasilis Mandratzis-Walz, 2015
@@ -13,9 +14,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-12-17 13:54+0000\n"
-"PO-Revision-Date: 2015-12-17 13:58+0000\n"
-"Last-Translator: mattwestcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2016-05-18 21:37+0000\n"
+"PO-Revision-Date: 2016-03-01 19:14+0000\n"
+"Last-Translator: Henrik Kröger <hedwig@riseup.net>\n"
 "Language-Team: German (http://www.transifex.com/torchbox/wagtail/language/"
 "de/)\n"
 "MIME-Version: 1.0\n"
@@ -23,6 +24,12 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: de\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "hostname"
+msgstr "Hostname"
+
+msgid "port"
+msgstr "Port"
 
 msgid ""
 "Set this to something other than 80 if you need a specific port number to "
@@ -32,6 +39,18 @@ msgstr ""
 "Geben Sie hier einen anderen Wert als 80 ein, wenn dieser in URLs auftauchen "
 "soll (z.B. Development Port auf 8000). Dies bezieht sich nicht auf Request "
 "Handling, so dass Port Forwarding weiterhin funktioniert."
+
+msgid "site name"
+msgstr "Website-Name"
+
+msgid "Human-readable name for the site."
+msgstr "Für Menschen lesbarer Name für die Website"
+
+msgid "root page"
+msgstr "Ursprungsseite"
+
+msgid "is default site"
+msgstr "Ist die standardmäßige Website"
 
 msgid ""
 "If true, this site will handle requests for all other hostnames that do not "
@@ -54,8 +73,14 @@ msgstr ""
 "%(hostname)s ist bereits als Standardseite eingestellt. Sie müssen diese "
 "Einstellung ändern bevor Sie diese Seite als Standard einstellen können."
 
+msgid "title"
+msgstr "Titel"
+
 msgid "The page title as you'd like it to be seen by the public"
 msgstr "Der Seitentitel, der öffentlich angezeigt werden soll"
+
+msgid "slug"
+msgstr "Kurztitel"
 
 msgid ""
 "The name of the page as it will appear in URLs e.g http://domain.com/blog/"
@@ -64,11 +89,23 @@ msgstr ""
 "Der Name der Seite, wie er in URLs angezeigt werden soll, z.B. http://domain."
 "com/blog/[my-slug]/"
 
+msgid "content type"
+msgstr "Inhaltstyp"
+
 msgid "live"
 msgstr "Veröffentlicht"
 
+msgid "has unpublished changes"
+msgstr "Hat unveröffentlichte Änderungen"
+
 msgid "URL path"
 msgstr "URL Pfad"
+
+msgid "owner"
+msgstr "Eigner"
+
+msgid "page title"
+msgstr "Seitentitel"
 
 msgid ""
 "Optional. 'Search Engine Friendly' title. This will appear at the top of the "
@@ -77,16 +114,40 @@ msgstr ""
 "Optional. Suchmaschinenfreundlicher Titel. Wird in der Titelleiste des "
 "Browsers angezeigt."
 
+msgid "show in menus"
+msgstr "In Menüs anzeigen"
+
 msgid ""
 "Whether a link to this page will appear in automatically generated menus"
 msgstr ""
 "Ob ein Link zu dieser Seite in automatisch generierten Menüs auftaucht."
 
+msgid "search description"
+msgstr "Suchbeschreibung"
+
+msgid "go live date/time"
+msgstr "Veröffentlichungszeitpunkt"
+
 msgid "Please add a date-time in the form YYYY-MM-DD hh:mm."
 msgstr "Bitte geben ein Datum im Format JJJJ-MM-DD hh:mm:ss ein."
 
+msgid "expiry date/time"
+msgstr "Verfallszeitpunkt"
+
 msgid "expired"
 msgstr "abgelaufen"
+
+msgid "locked"
+msgstr "Gesperrt"
+
+msgid "first published at"
+msgstr "Zuerst publiziert am"
+
+msgid "latest revision created at"
+msgstr "Neuste Revision erstellt am"
+
+msgid "This slug is already in use"
+msgstr "Dieser Kurztitel wird bereits verwendet"
 
 msgid "scheduled"
 msgstr "geplant"
@@ -106,23 +167,56 @@ msgstr "Seite"
 msgid "pages"
 msgstr "Seiten"
 
+msgid "submitted for moderation"
+msgstr "Zur Freischaltung eingereicht"
+
+msgid "created at"
+msgstr "Erstellt am"
+
+msgid "user"
+msgstr "Benutzer"
+
+msgid "content JSON"
+msgstr "JSON Inhalt"
+
+msgid "approved go live at"
+msgstr "Freigegeben zur Veröffentlichung am"
+
 msgid "page revision"
 msgstr "Seitenrevision"
 
 msgid "page revisions"
 msgstr "Seiten Revisionen"
 
+msgid "Add"
+msgstr "Hinzufügen"
+
 msgid "Add/edit pages you own"
-msgstr "Bearbeiten/Hinzufügen von Seiten, die Sie besitzen"
+msgstr "Hinzufügen/Bearbeiten von Seiten, die Sie besitzen"
+
+msgid "Edit"
+msgstr "Bearbeiten"
 
 msgid "Edit any page"
 msgstr "Jede Seite bearbeiten."
 
+msgid "Publish"
+msgstr "Veröffentlichen"
+
 msgid "Publish any page"
 msgstr "Jede Seite veröffentlichen"
 
+msgid "Lock"
+msgstr "Sperren"
+
 msgid "Lock/unlock any page"
 msgstr "Sperren/Entsperren jeder Seite"
+
+msgid "group"
+msgstr "Gruppe"
+
+msgid "permission type"
+msgstr "Berechtigungstyp"
 
 msgid "group page permission"
 msgstr "Gruppen Seitenberechtigung"
@@ -130,8 +224,26 @@ msgstr "Gruppen Seitenberechtigung"
 msgid "group page permissions"
 msgstr "Gruppen Seitenberechtigungen"
 
+msgid "password"
+msgstr "Passwort"
+
 msgid "page view restriction"
 msgstr "Seiten Ansichtsrestriktion"
 
 msgid "page view restrictions"
 msgstr "Seiten Ansichtsrestriktionen"
+
+msgid "name"
+msgstr "Name"
+
+msgid "collection"
+msgstr "Sammlung"
+
+msgid "collections"
+msgstr "Sammlungen"
+
+msgid "permission"
+msgstr "Berechtigung"
+
+msgid "group collection permission"
+msgstr "Gruppen Sammlungsberechtigungen"

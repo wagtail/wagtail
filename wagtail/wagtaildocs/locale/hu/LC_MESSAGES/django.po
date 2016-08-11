@@ -1,0 +1,186 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# Laszlo Molnar <lazlowmiller@gmail.com>, 2016
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2016-05-18 21:37+0000\n"
+"PO-Revision-Date: 2016-05-11 20:33+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"Language-Team: Hungarian (http://www.transifex.com/torchbox/wagtail/language/"
+"hu/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: hu\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Edit"
+msgstr "Szerkeszt"
+
+msgid "title"
+msgstr "oldalcím"
+
+msgid "file"
+msgstr "fájl"
+
+msgid "created at"
+msgstr "létrehozás ideje"
+
+msgid "uploaded by user"
+msgstr "felhasználó által feltöltött"
+
+msgid "tags"
+msgstr "tags"
+
+msgid "document"
+msgstr "dokumentum"
+
+msgid "Choose a document"
+msgstr "dokumentum kiválasztása"
+
+msgid "Search"
+msgstr "Keresés"
+
+msgid "Upload"
+msgstr "Feltöltés"
+
+msgid "Uploading..."
+msgstr "Feltöltés folyamatban..."
+
+#, python-format
+msgid ""
+"\n"
+"            There is one match\n"
+"        "
+msgid_plural ""
+"\n"
+"            There are %(counter)s matches\n"
+"        "
+msgstr[0] ""
+"\n"
+"Találatok száma: 1"
+msgstr[1] ""
+"\n"
+"Találatok száma: %(counter)s"
+
+msgid "Latest documents"
+msgstr "Legutóbbi dokumentumok"
+
+#, python-format
+msgid "Sorry, no documents match \"<em>%(query_string)s</em>\""
+msgstr "Sajnos nincs találat a \"<em>%(query_string)s</em>\" kifejezésre"
+
+msgid "Change document:"
+msgstr "Dokumentum módosítása"
+
+msgid "Add a document"
+msgstr "Dokumentum hozzáadása"
+
+msgid "Add document"
+msgstr "Dokumentum hozzáadása"
+
+#, python-format
+msgid "Delete %(title)s"
+msgstr "Törlés: %(title)s"
+
+msgid "Delete document"
+msgstr "Dokumentum törlése"
+
+msgid "Are you sure you want to delete this document?"
+msgstr "Biztosan törölni szeretné a dokumentumot?"
+
+msgid "Yes, delete"
+msgstr "Igen, törlés"
+
+#, python-format
+msgid "Editing %(title)s"
+msgstr "Szerkesztés: %(title)s"
+
+msgid "Editing"
+msgstr "Szerkesztés"
+
+msgid "Save"
+msgstr "Mentés"
+
+msgid "Filesize"
+msgstr "Fájlméret"
+
+msgid "File not found"
+msgstr "Fájl nem található"
+
+msgid "Documents"
+msgstr "Dokumentumok"
+
+msgid "Title"
+msgstr "Cím"
+
+msgid "File"
+msgstr "Fájl"
+
+msgid "Uploaded"
+msgstr "Feltöltve"
+
+#, python-format
+msgid ""
+"You haven't uploaded any documents. Why not <a href="
+"\"%(wagtaildocs_add_document_url)s\">upload one now</a>?"
+msgstr ""
+"Még nem töltött fel dokumentumot. Nem szeretne <a href="
+"\"%(wagtaildocs_add_document_url)s\">feltölteni egyet?"
+
+#, python-format
+msgid "Usage of %(title)s"
+msgstr "A %(title)s használata"
+
+msgid "Usage of"
+msgstr "Használat"
+
+msgid "Parent"
+msgstr "Szülő"
+
+msgid "Type"
+msgstr "Típus"
+
+msgid "Status"
+msgstr "Állapot"
+
+msgid "Edit this page"
+msgstr "Oldal szerkesztése"
+
+#, python-format
+msgid ""
+"\n"
+"        <span>%(total)s</span> Document\n"
+"    "
+msgid_plural ""
+"\n"
+"        <span>%(total)s</span> Documents\n"
+"    "
+msgstr[0] ""
+"\n"
+"<span>%(total)s</span> Dokumentum"
+msgstr[1] ""
+"\n"
+"<span>%(total)s</span> Dokumentumok"
+
+msgid "Delete"
+msgstr "Törlés"
+
+msgid "Search documents"
+msgstr "Keresés a dokumentumokban"
+
+#, python-brace-format
+msgid "Document '{0}' added."
+msgstr "A '{0}' indexű dokumentum hozzáadva."
+
+msgid "The document could not be saved due to errors."
+msgstr "A dokumentumot nem lehetett elmenteni."
+
+#, python-brace-format
+msgid "Document '{0}' updated"
+msgstr "A '{0}' indexű dokumentum frissítésre került."

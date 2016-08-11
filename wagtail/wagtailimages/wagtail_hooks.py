@@ -1,16 +1,19 @@
+from __future__ import absolute_import, unicode_literals
+
 from django.conf.urls import include, url
+from django.contrib.staticfiles.templatetags.staticfiles import static
 from django.core import urlresolvers
 from django.utils.html import format_html, format_html_join
 from django.utils.translation import ugettext_lazy as _
-from django.contrib.auth.models import Permission
-from django.contrib.staticfiles.templatetags.staticfiles import static
+from django.utils.translation import ungettext
 
-from wagtail.wagtailcore import hooks
 from wagtail.wagtailadmin.menu import MenuItem
-from wagtail.wagtailadmin.site_summary import SummaryItem
 from wagtail.wagtailadmin.search import SearchArea
-
+from wagtail.wagtailadmin.site_summary import SummaryItem
+from wagtail.wagtailcore import hooks
 from wagtail.wagtailimages import admin_urls, image_operations
+from wagtail.wagtailimages.api.admin.endpoints import ImagesAdminAPIEndpoint
+from wagtail.wagtailimages.forms import GroupImagePermissionFormSet
 from wagtail.wagtailimages.models import get_image_model
 from wagtail.wagtailimages.permissions import permission_policy
 from wagtail.wagtailimages.rich_text import ImageEmbedHandler
@@ -21,6 +24,11 @@ def register_admin_urls():
     return [
         url(r'^images/', include(admin_urls, namespace='wagtailimages', app_name='wagtailimages')),
     ]
+
+
+@hooks.register('construct_admin_api')
+def construct_admin_api(router):
+    router.register_endpoint('images', ImagesAdminAPIEndpoint)
 
 
 class ImagesMenuItem(MenuItem):
@@ -57,12 +65,6 @@ def editor_js():
         """,
         urlresolvers.reverse('wagtailimages:chooser')
     )
-
-
-@hooks.register('register_permissions')
-def register_permissions():
-    return Permission.objects.filter(content_type__app_label='wagtailimages',
-                                     codename__in=['add_image', 'change_image'])
 
 
 @hooks.register('register_image_operations')
@@ -111,3 +113,24 @@ def register_images_search_area():
         name='images',
         classnames='icon icon-image',
         order=200)
+
+
+@hooks.register('register_group_permission_panel')
+def register_image_permissions_panel():
+    return GroupImagePermissionFormSet
+
+
+@hooks.register('describe_collection_contents')
+def describe_collection_docs(collection):
+    images_count = get_image_model().objects.filter(collection=collection).count()
+    if images_count:
+        url = urlresolvers.reverse('wagtailimages:index') + ('?collection_id=%d' % collection.id)
+        return {
+            'count': images_count,
+            'count_text': ungettext(
+                "%(count)s image",
+                "%(count)s images",
+                images_count
+            ) % {'count': images_count},
+            'url': url,
+        }

@@ -17,7 +17,9 @@
                 {% for field in searchform %}
                     {% include "wagtailadmin/shared/field_as_li.html" with field=field %}
                 {% endfor %}
-                <li class="submit"><input type="submit" value="{% trans 'Search' %}" /></li>
+                {% if collections %}
+                    {% include "wagtailadmin/shared/collection_chooser.html" %}
+                {% endif %}
                 {% if popular_tags %}
                     <li class="taglist">
                         <h3>{% trans 'Popular tags' %}</h3>
@@ -45,7 +47,7 @@
                         {% endif %}
                     {% endfor %}
                     <li>
-                        <button type="submit" class="button-longrunning" data-clicked-text="{% trans 'Uploading...' %}"><span class="icon icon-spinner"></span><em>{% trans 'Upload' %}</em></button>
+                        <button type="submit" class="button button-longrunning" data-clicked-text="{% trans 'Uploading...' %}"><span class="icon icon-spinner"></span><em>{% trans 'Upload' %}</em></button>
                     </li>
                 </ul>
             </form>

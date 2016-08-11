@@ -4,15 +4,15 @@
 #
 # Translators:
 # Jose Lourenco <jose@lourenco.ws>, 2015
-# Manuela Silva <h_manuela_rodsilva@gmail.com>, 2015
-# Tiago Henriques <trinosauro@gmail.com>, 2015
+# Manuela Silva <inactive+h_manuela_rodsilva@transifex.com>, 2015
+# Tiago Henriques <trinosauro@gmail.com>, 2015-2016
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-12-17 13:55+0000\n"
-"PO-Revision-Date: 2015-12-17 14:00+0000\n"
-"Last-Translator: mattwestcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2016-05-18 21:37+0000\n"
+"PO-Revision-Date: 2016-06-23 16:07+0000\n"
+"Last-Translator: Tiago Henriques <trinosauro@gmail.com>\n"
 "Language-Team: Portuguese (Portugal) (http://www.transifex.com/torchbox/"
 "wagtail/language/pt_PT/)\n"
 "MIME-Version: 1.0\n"
@@ -23,6 +23,31 @@ msgstr ""
 
 msgid "Choose"
 msgstr "Escolher"
+
+msgid "Search"
+msgstr "Pesquisar"
+
+#, python-format
+msgid ""
+"\n"
+"            There is one match\n"
+"        "
+msgid_plural ""
+"\n"
+"            There are %(counter)s matches\n"
+"        "
+msgstr[0] ""
+"\n"
+"Existe um resultado\n"
+" "
+msgstr[1] ""
+"\n"
+"Existem %(counter)s resultados\n"
+" "
+
+#, python-format
+msgid "Sorry, no snippets match \"<em>%(query_string)s</em>\""
+msgstr "Desculpe, nenhum fragmento corresponde a \"<em>%(query_string)s</em>\""
 
 #, python-format
 msgid ""
@@ -53,15 +78,18 @@ msgstr "Adicionar  %(snippet_type_name)s"
 msgid "New"
 msgstr "Adicionar"
 
+msgid "Saving..."
+msgstr "A gravar..."
+
 msgid "Save"
 msgstr "Guardar"
 
 #, python-format
 msgid "Editing %(snippet_type_name)s - %(instance)s"
-msgstr "A editar %(snippet_type_name)s - %(instance)s"
+msgstr "A alterar %(snippet_type_name)s - %(instance)s"
 
 msgid "Editing"
-msgstr "A editar"
+msgstr "A alterar"
 
 msgid "Snippets"
 msgstr "Fragmentos"
@@ -74,7 +102,7 @@ msgid ""
 "No %(snippet_type_name_plural)s have been created. Why not <a href="
 "\"%(wagtailsnippets_create_url)s\">add one</a>?"
 msgstr ""
-"Nenhum %(snippet_type_name_plural)s foi criado. Porque não <a href="
+"Não existe nenhum %(snippet_type_name_plural)s. Porque não <a href="
 "\"%(wagtailsnippets_create_url)s\">criar um</a>?"
 
 #, python-format
@@ -106,14 +134,18 @@ msgid "Status"
 msgstr "Estado"
 
 msgid "Edit this page"
-msgstr "Editar esta página"
+msgstr "Alterar esta página"
+
+#, python-format
+msgid "Search %(snippet_type_name)s"
+msgstr "Pesquisar %(snippet_type_name)s"
 
 #, python-brace-format
 msgid "{snippet_type} '{instance}' created."
 msgstr "{snippet_type} '{instance}' criado."
 
 msgid "Edit"
-msgstr "Editar"
+msgstr "Alterar"
 
 msgid "The snippet could not be created due to errors."
 msgstr "O fragmento não pôde ser criado devido a erros."
@@ -139,4 +171,4 @@ msgstr "Escolher outro/a %s"
 
 #, python-format
 msgid "Edit this %s"
-msgstr "Editar %s"
+msgstr "Alterar %s"

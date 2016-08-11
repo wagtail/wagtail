@@ -1,0 +1,9 @@
+# {{ name }}
+
+About this component
+
+## Usage
+
+```javascript
+import { {{ name }} } from 'wagtail';
+```

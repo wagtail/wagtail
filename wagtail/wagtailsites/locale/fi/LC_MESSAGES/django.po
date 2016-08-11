@@ -4,13 +4,14 @@
 #
 # Translators:
 # Aarni Koskela, 2016
+# Juha Yrjölä <juha.yrjola@iki.fi>, 2016
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-12-17 13:55+0000\n"
-"PO-Revision-Date: 2016-01-14 16:02+0000\n"
-"Last-Translator: Aarni Koskela\n"
+"POT-Creation-Date: 2016-05-18 21:37+0000\n"
+"PO-Revision-Date: 2016-05-12 05:09+0000\n"
+"Last-Translator: Juha Yrjölä <juha.yrjola@iki.fi>\n"
 "Language-Team: Finnish (http://www.transifex.com/torchbox/wagtail/language/"
 "fi/)\n"
 "MIME-Version: 1.0\n"
@@ -45,3 +46,30 @@ msgstr "Oletus"
 
 msgid "Sites"
 msgstr "Sivustot"
+
+msgid "Add a site"
+msgstr "Lisää sivusto"
+
+msgid "Add site"
+msgstr "Lisää sivusto"
+
+#, python-brace-format
+msgid "Site '{0}' created."
+msgstr "Sivusto '{0}' luotu."
+
+#, python-brace-format
+msgid "Site '{0}' updated."
+msgstr "Sivusto '{0}' päivitetty."
+
+msgid "The site could not be saved due to errors."
+msgstr "Sivustoa ei voitu tallentaa virheiden takia."
+
+msgid "Delete site"
+msgstr "Poista sivusto"
+
+#, python-brace-format
+msgid "Site '{0}' deleted."
+msgstr "Sivusto '{0}' poistettu."
+
+msgid "Are you sure you want to delete this site?"
+msgstr "Haluatko varmasti poistaa tämän sivuston?"

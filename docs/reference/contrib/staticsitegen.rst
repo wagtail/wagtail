@@ -1,11 +1,11 @@
 Static site generator
 =====================
 
+.. warning::
+
+    django-medusa is no longer maintained, and is incompatible with Django 1.8 and above; the information below is retained for historical reference only. An alternative module based on the `django-bakery`_ package is available as a third-party contribution: https://github.com/mhnbcu/wagtailbakery
+
 This document describes how to render your Wagtail site into static HTML files on your local file system, Amazon S3 or Google App Engine, using `django medusa`_ and the ``wagtail.contrib.wagtailmedusa`` module.
-
-.. note::
-
-    An alternative module based on the `django-bakery`_ package is available as a third-party contribution: https://github.com/mhnbcu/wagtailbakery
 
 Installing ``django-medusa``
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -40,7 +40,7 @@ Rendering
 
 To render a site, run ``./manage.py staticsitegen``. This will render the entire website and place the HTML in a folder called ``medusa_output``. The static and media folders need to be copied into this folder manually after the rendering is complete. This feature inherits ``django-medusa``'s ability to render your static site to Amazon S3 or Google App Engine; see the `medusa docs <https://github.com/mtigas/django-medusa/blob/master/README.markdown>`_ for configuration details.
 
-To test, open the ``medusa_output`` folder in a terminal and run ``python -m SimpleHTTPServer``.
+To test, open the ``medusa_output`` folder in a terminal and run ``python -m SimpleHTTPServer`` or ``python3 -m http.server`` respectively.
 
 
 Advanced topics
@@ -76,7 +76,7 @@ Then in the template, you can use the ``{% routablepageurl %}`` tag to link betw
     {% load wagtailroutablepage_tags %}
 
     {% if results.has_previous %}
-        <a href="{% routablepageurl page 'page' results.previous_page_number %}">Next page</a>
+        <a href="{% routablepageurl page 'page' results.previous_page_number %}">Previous page</a>
     {% else %}
 
     {% if results.has_next %}

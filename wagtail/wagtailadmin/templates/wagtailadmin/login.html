@@ -11,10 +11,15 @@
 
 {% block furniture %}
     <div class="content-wrapper">
-        {% if form.errors %}
+        {% if messages or form.errors %}
             <div class="messages">
                 <ul>
-                    <li class="error">{% blocktrans %}Your {{ username_field }} and password didn't match. Please try again.{% endblocktrans %}</li>
+                    {% if form.errors %}
+                        <li class="error">{% blocktrans %}Your {{ username_field }} and password didn't match. Please try again.{% endblocktrans %}</li>
+                    {% endif %}
+                    {% for message in messages %}
+                        <li class="{{ message.tags }}">{{ message }}</li>
+                    {% endfor %}
                 </ul>
             </div>
         {% endif %}
@@ -56,7 +61,7 @@
                     </li>
                 {% endcomment %}
                 <li class="submit">
-                    <button type="submit" class="button-longrunning" tabindex="3" data-clicked-text="{% trans 'Signing in...' %}"><span class="icon icon-spinner"></span><em>{% trans 'Sign in' %}</em></button>
+                    <button type="submit" class="button button-longrunning" tabindex="3" data-clicked-text="{% trans 'Signing in...' %}"><span class="icon icon-spinner"></span><em>{% trans 'Sign in' %}</em></button>
                 </li>
             </ul>
         </form>

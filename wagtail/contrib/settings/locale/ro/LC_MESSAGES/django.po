@@ -1,0 +1,41 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# Dan Braghis, 2016
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2016-05-18 21:37+0000\n"
+"PO-Revision-Date: 2016-05-11 20:34+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"Language-Team: Romanian (http://www.transifex.com/torchbox/wagtail/language/"
+"ro/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: ro\n"
+"Plural-Forms: nplurals=3; plural=(n==1?0:(((n%100>19)||((n%100==0)&&(n!=0)))?"
+"2:1));\n"
+
+#, python-format
+msgid "Editing %(setting_type_name)s - %(instance)s"
+msgstr "Editare %(setting_type_name)s - %(instance)s"
+
+msgid "Editing"
+msgstr "Editare"
+
+msgid "Save"
+msgstr "Salvează"
+
+msgid "Settings"
+msgstr "Setări"
+
+#, python-brace-format
+msgid "{setting_type} updated."
+msgstr "{setting_type} a fost actualizat(ă)."
+
+msgid "The setting could not be saved due to errors."
+msgstr "Setarea nu a putut fi salvată din cauza erorilor."

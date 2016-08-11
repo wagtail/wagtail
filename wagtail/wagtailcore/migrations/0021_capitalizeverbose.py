@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 
-from django.db import models, migrations
 import django.db.models.deletion
 from django.conf import settings
+from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
@@ -16,12 +16,12 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='grouppagepermission',
             name='group',
-            field=models.ForeignKey(related_name='page_permissions', to='auth.Group', verbose_name='group'),
+            field=models.ForeignKey(on_delete=models.CASCADE, related_name='page_permissions', to='auth.Group', verbose_name='group'),
         ),
         migrations.AlterField(
             model_name='grouppagepermission',
             name='page',
-            field=models.ForeignKey(related_name='group_permissions', to='wagtailcore.Page', verbose_name='page'),
+            field=models.ForeignKey(on_delete=models.CASCADE, related_name='group_permissions', to='wagtailcore.Page', verbose_name='page'),
         ),
         migrations.AlterField(
             model_name='grouppagepermission',
@@ -31,7 +31,7 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='page',
             name='content_type',
-            field=models.ForeignKey(related_name='pages', to='contenttypes.ContentType', verbose_name='content type'),
+            field=models.ForeignKey(on_delete=models.CASCADE, related_name='pages', to='contenttypes.ContentType', verbose_name='content type'),
         ),
         migrations.AlterField(
             model_name='page',
@@ -121,7 +121,7 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='pagerevision',
             name='page',
-            field=models.ForeignKey(related_name='revisions', to='wagtailcore.Page', verbose_name='page'),
+            field=models.ForeignKey(on_delete=models.CASCADE, related_name='revisions', to='wagtailcore.Page', verbose_name='page'),
         ),
         migrations.AlterField(
             model_name='pagerevision',
@@ -131,12 +131,12 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='pagerevision',
             name='user',
-            field=models.ForeignKey(blank=True, null=True, to=settings.AUTH_USER_MODEL, verbose_name='user'),
+            field=models.ForeignKey(on_delete=models.CASCADE, blank=True, null=True, to=settings.AUTH_USER_MODEL, verbose_name='user'),
         ),
         migrations.AlterField(
             model_name='pageviewrestriction',
             name='page',
-            field=models.ForeignKey(related_name='view_restrictions', to='wagtailcore.Page', verbose_name='page'),
+            field=models.ForeignKey(on_delete=models.CASCADE, related_name='view_restrictions', to='wagtailcore.Page', verbose_name='page'),
         ),
         migrations.AlterField(
             model_name='pageviewrestriction',
@@ -161,6 +161,6 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='site',
             name='root_page',
-            field=models.ForeignKey(related_name='sites_rooted_here', to='wagtailcore.Page', verbose_name='root page'),
+            field=models.ForeignKey(on_delete=models.CASCADE, related_name='sites_rooted_here', to='wagtailcore.Page', verbose_name='root page'),
         ),
     ]

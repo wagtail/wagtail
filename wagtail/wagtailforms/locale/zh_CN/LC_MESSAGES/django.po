@@ -6,13 +6,14 @@
 # hanfeng <appweb.cn@gmail.com>, 2014-2015
 # Feng Wang <wangfeng.w@gmail.com>, 2015
 # hanfeng <appweb.cn@gmail.com>, 2014
+# listeng <aosp@163.com>, 2016
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-12-17 13:54+0000\n"
-"PO-Revision-Date: 2015-12-17 14:01+0000\n"
-"Last-Translator: mattwestcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2016-05-18 21:37+0000\n"
+"PO-Revision-Date: 2016-05-11 20:34+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Chinese (China) (http://www.transifex.com/torchbox/wagtail/"
 "language/zh_CN/)\n"
 "MIME-Version: 1.0\n"
@@ -54,11 +55,62 @@ msgstr "日期"
 msgid "Date/time"
 msgstr "日期/时间"
 
+msgid "submit time"
+msgstr "提交时间"
+
+msgid "form submission"
+msgstr "提交表格"
+
+msgid "label"
+msgstr "标签"
+
+msgid "The label of the form field"
+msgstr "字段的标签"
+
+msgid "field type"
+msgstr "字段类型"
+
+msgid "required"
+msgstr "必填"
+
+msgid "choices"
+msgstr "选项"
+
+msgid ""
+"Comma separated list of choices. Only applicable in checkboxes, radio and "
+"dropdown."
+msgstr "使用逗号分隔多个选项。只能用于复选框、单选框和下拉框"
+
+msgid "default value"
+msgstr "默认值"
+
+msgid "Default value. Comma separated values supported for checkboxes."
+msgstr "默认值。复选框支持使用逗号分隔。"
+
+msgid "help text"
+msgstr "帮助文本"
+
+msgid "to address"
+msgstr "收件人"
+
 msgid "Optional - form submissions will be emailed to this address"
 msgstr "可选 - 提交的表格将通过email发送给此地址"
 
+msgid "from address"
+msgstr "发件人"
+
+msgid "subject"
+msgstr "主题"
+
+#, python-format
+msgid "Delete %(title)s"
+msgstr "删除 %(title)s"
+
 msgid "Delete"
 msgstr "删除"
+
+msgid "Are you sure you want to delete this form submission?"
+msgstr "确认要删除本次表格的提交吗？"
 
 msgid "Delete it"
 msgstr "删除"
@@ -70,6 +122,10 @@ msgid "Pages"
 msgstr "页面"
 
 #, python-format
+msgid "Submissions of %(form_title)s"
+msgstr "提交%(form_title)s"
+
+#, python-format
 msgid "Form data <span>%(form_title)s</span>"
 msgstr "表格数据 <span>%(form_title)s</span>"
 
@@ -78,6 +134,10 @@ msgstr "过滤器"
 
 msgid "Download CSV"
 msgstr "下载为CSV"
+
+#, python-format
+msgid "There have been no submissions of the '%(title)s' form."
+msgstr "表格%(title)s没有已提交的内容"
 
 msgid "Title"
 msgstr "标题"

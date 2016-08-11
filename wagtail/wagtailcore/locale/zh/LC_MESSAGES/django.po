@@ -1,0 +1,50 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2016-05-18 21:37+0000\n"
+"PO-Revision-Date: 2016-03-01 18:57+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"Language-Team: Chinese (http://www.transifex.com/torchbox/wagtail/language/"
+"zh/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: zh\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+msgid ""
+"Set this to something other than 80 if you need a specific port number to "
+"appear in URLs (e.g. development on port 8000). Does not affect request "
+"handling (so port forwarding still works)."
+msgstr ""
+"如果你需要指定端口，请选择一个有别于80的端口(比如开发端口8000)。 不影响接受请"
+"求 （端口转发仍然有效）"
+
+msgid ""
+"If true, this site will handle requests for all other hostnames that do not "
+"have a site entry of their own"
+msgstr ""
+"如果是真的，这个网站将处理没有一个属于自己的主机名的其他所有主机名的请求"
+
+msgid "The page title as you'd like it to be seen by the public"
+msgstr "页面标题，你想被大众所看到的"
+
+msgid ""
+"The name of the page as it will appear in URLs e.g http://domain.com/blog/"
+"[my-slug]/"
+msgstr "一个出现在URL的名字 比如 http://domain.com/blog/[my-slug]/"
+
+msgid ""
+"Optional. 'Search Engine Friendly' title. This will appear at the top of the "
+"browser window."
+msgstr "可选 ‘搜索引擎友好’ 标题。 这会显示在浏览器窗口顶部"
+
+msgid ""
+"Whether a link to this page will appear in automatically generated menus"
+msgstr "一个链接到这页的链接会显示在自动生成的菜单中"

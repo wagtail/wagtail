@@ -1,7 +1,17 @@
+from __future__ import absolute_import, unicode_literals
+
+import logging
+
+from django.apps import apps
+from django.core import checks
 from django.db import models
 from django.db.models.fields import FieldDoesNotExist
-from django.db.models.fields.related import RelatedField, ForeignObjectRel, OneToOneRel
-from django.apps import apps
+from django.db.models.fields.related import ForeignObjectRel, OneToOneRel, RelatedField
+
+from wagtail.wagtailsearch.backends import get_search_backends_with_name
+
+
+logger = logging.getLogger('wagtail.search.index')
 
 
 class Indexed(object):
@@ -75,7 +85,35 @@ class Indexed(object):
         """
         return self
 
-    search_fields = ()
+    @classmethod
+    def _has_field(cls, name):
+        try:
+            cls._meta.get_field(name)
+            return True
+        except models.fields.FieldDoesNotExist:
+            return hasattr(cls, name)
+
+    @classmethod
+    def check(cls, **kwargs):
+        errors = super(Indexed, cls).check(**kwargs)
+        errors.extend(cls._check_search_fields(**kwargs))
+        return errors
+
+    @classmethod
+    def _check_search_fields(cls, **kwargs):
+        errors = []
+        for field in cls.get_search_fields():
+            message = "{model}.search_fields contains field '{name}' but it doesn't exist"
+            if not cls._has_field(field.field_name):
+                errors.append(
+                    checks.Warning(
+                        message.format(model=cls.__name__, name=field.field_name),
+                        obj=cls,
+                    )
+                )
+        return errors
+
+    search_fields = []
 
 
 def get_indexed_models():
@@ -89,9 +127,43 @@ def class_is_indexed(cls):
     return issubclass(cls, Indexed) and issubclass(cls, models.Model) and not cls._meta.abstract
 
 
-class BaseField(object):
-    suffix = ''
+def get_indexed_instance(instance, check_exists=True):
+    indexed_instance = instance.get_indexed_instance()
+    if indexed_instance is None:
+        return
 
+    # Make sure that the instance is in its class's indexed objects
+    if check_exists and not type(indexed_instance).get_indexed_objects().filter(pk=indexed_instance.pk).exists():
+        return
+
+    return indexed_instance
+
+
+def insert_or_update_object(instance):
+    indexed_instance = get_indexed_instance(instance)
+
+    if indexed_instance:
+        for backend_name, backend in get_search_backends_with_name(with_auto_update=True):
+            try:
+                backend.add(indexed_instance)
+            except Exception:
+                # Catch and log all errors
+                logger.exception("Exception raised while adding %r into the '%s' search backend", indexed_instance, backend_name)
+
+
+def remove_object(instance):
+    indexed_instance = get_indexed_instance(instance, check_exists=False)
+
+    if indexed_instance:
+        for backend_name, backend in get_search_backends_with_name(with_auto_update=True):
+            try:
+                backend.delete(indexed_instance)
+            except Exception:
+                # Catch and log all errors
+                logger.exception("Exception raised while deleting %r from the '%s' search backend", indexed_instance, backend_name)
+
+
+class BaseField(object):
     def __init__(self, field_name, **kwargs):
         self.field_name = field_name
         self.kwargs = kwargs
@@ -105,9 +177,6 @@ class BaseField(object):
             return field.attname
         except models.fields.FieldDoesNotExist:
             return self.field_name
-
-    def get_index_name(self, cls):
-        return self.get_attname(cls) + self.suffix
 
     def get_type(self, cls):
         if 'type' in self.kwargs:
@@ -144,16 +213,13 @@ class SearchField(BaseField):
 
 
 class FilterField(BaseField):
-    suffix = '_filter'
+    pass
 
 
 class RelatedFields(object):
     def __init__(self, field_name, fields):
         self.field_name = field_name
         self.fields = fields
-
-    def get_index_name(self, cls):
-        return self.field_name
 
     def get_field(self, cls):
         return cls._meta.get_field(self.field_name)
@@ -186,8 +252,6 @@ class RelatedFields(object):
 
         elif isinstance(field, ForeignObjectRel):
             # Reverse relation
-            # Note: we will never get here on Django 1.7 and below as get_field
-            # does not return reverse relations
             if isinstance(field, OneToOneRel):
                 # select_related for reverse OneToOneField
                 queryset = queryset.select_related(self.field_name)

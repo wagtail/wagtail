@@ -1,6 +1,8 @@
+from __future__ import absolute_import, unicode_literals
+
 from django.core.exceptions import PermissionDenied
 from django.http import Http404
-from django.shortcuts import redirect, render, get_object_or_404
+from django.shortcuts import get_object_or_404, redirect, render
 from django.utils.lru_cache import lru_cache
 from django.utils.text import capfirst
 from django.utils.translation import ugettext as _
@@ -36,10 +38,10 @@ def edit_current_site(request, app_name, model_name):
     # Redirect the user to the edit page for the current site
     # (or the current request does not correspond to a site, the first site in the list)
     site = request.site or Site.objects.first()
-    return redirect('wagtailsettings:edit', site.pk, app_name, model_name)
+    return redirect('wagtailsettings:edit', app_name, model_name, site.pk)
 
 
-def edit(request, site_pk, app_name, model_name):
+def edit(request, app_name, model_name, site_pk):
     model = get_model_from_url_params(app_name, model_name)
     if not user_can_edit_setting_type(request.user, model):
         raise PermissionDenied
@@ -51,7 +53,7 @@ def edit(request, site_pk, app_name, model_name):
     edit_handler_class = get_setting_edit_handler(model)
     form_class = edit_handler_class.get_form_class(model)
 
-    if request.POST:
+    if request.method == 'POST':
         form = form_class(request.POST, request.FILES, instance=instance)
 
         if form.is_valid():
@@ -64,7 +66,7 @@ def edit(request, site_pk, app_name, model_name):
                     instance=instance
                 )
             )
-            return redirect('wagtailsettings:edit', site.pk, app_name, model_name)
+            return redirect('wagtailsettings:edit', app_name, model_name, site.pk)
         else:
             messages.error(request, _("The setting could not be saved due to errors."))
             edit_handler = edit_handler_class(instance=instance, form=form)
@@ -82,6 +84,7 @@ def edit(request, site_pk, app_name, model_name):
         'setting_type_name': setting_type_name,
         'instance': instance,
         'edit_handler': edit_handler,
+        'form': form,
         'site': site,
         'site_switcher': site_switcher,
     })

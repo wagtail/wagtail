@@ -9,9 +9,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-12-17 13:54+0000\n"
-"PO-Revision-Date: 2016-01-15 09:35+0000\n"
-"Last-Translator: Leway Colin <colin4124@gmail.com>\n"
+"POT-Creation-Date: 2016-05-18 21:37+0000\n"
+"PO-Revision-Date: 2016-05-11 20:33+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Chinese (http://www.transifex.com/torchbox/wagtail/language/"
 "zh/)\n"
 "MIME-Version: 1.0\n"
@@ -42,6 +42,9 @@ msgstr "对不起，你不能在此够重置你的密码，因为您的账号是
 
 msgid "This email address is not recognised."
 msgstr "没有找到这个电子邮件地址。"
+
+msgid "This slug is already in use"
+msgstr "这个唯一的地址已被占用"
 
 msgid "Account"
 msgstr "账号"
@@ -93,9 +96,6 @@ msgstr "检查您的电子邮件"
 
 msgid "A link to reset your password has been emailed to you."
 msgstr "一个用于重置密码的链接已经发送到您的电子邮箱中"
-
-msgid "Please follow the link below to reset your password"
-msgstr "请点击下面的链接来重置您的密码"
 
 msgid "Password reset"
 msgstr "密码已重置"
@@ -203,10 +203,6 @@ msgid "Forgotten it?"
 msgstr "忘记了？"
 
 #, python-format
-msgid "The page \"%(title)s\" has been approved"
-msgstr "这个页面 \"%(title)s\" 已经被通过"
-
-#, python-format
 msgid "The page \"%(title)s\" has been approved."
 msgstr "这个页面 \"%(title)s\" 已经被通过"
 
@@ -214,8 +210,8 @@ msgid "You can view the page here:"
 msgstr "你可以在此查看这个页面"
 
 #, python-format
-msgid "The page \"%(title)s\" has been rejected"
-msgstr "这个页面 \"%(title)s\" 已经被拒绝"
+msgid "The page \"%(title)s\" has been approved"
+msgstr "这个页面 \"%(title)s\" 已经被通过"
 
 #, python-format
 msgid "The page \"%(title)s\" has been rejected."
@@ -225,11 +221,15 @@ msgid "You can edit the page here:"
 msgstr "你可以在此编辑这个页面："
 
 #, python-format
-msgid "The page \"%(page)s\" has been submitted for moderation"
-msgstr "这个页面 \"%(page)s\" 已经提交审核"
+msgid "The page \"%(title)s\" has been rejected"
+msgstr "这个页面 \"%(title)s\" 已经被拒绝"
 
 msgid "You can preview the page here:"
 msgstr "你可以在此预览这页："
+
+#, python-format
+msgid "The page \"%(page)s\" has been submitted for moderation"
+msgstr "这个页面 \"%(page)s\" 已经提交审核"
 
 #, python-format
 msgid "Create a page in %(title)s"
@@ -343,9 +343,6 @@ msgstr "添加子页面至'%(title)s'"
 msgid "Add subpage"
 msgstr "添加子页面"
 
-msgid "Add child page"
-msgstr "添加子页面"
-
 msgid "Previous"
 msgstr "向前"
 
@@ -446,26 +443,11 @@ msgstr "您的密码已经更改成功。"
 msgid "Page '{0}' created."
 msgstr "第 '{0}' 页已创建。"
 
-#, python-brace-format
-msgid "Page '{0}' published."
-msgstr "第 '{0}' 页已发布。"
-
-#, python-brace-format
-msgid "Page '{0}' submitted for moderation."
-msgstr "第 '{0}' 页已提交审核。"
-
-#, python-brace-format
-msgid "Page '{0}' updated."
-msgstr "第 '{0}' 页已更新"
-
 msgid "The page could not be saved due to validation errors"
 msgstr "这页无法保存，因为页面发生验证错误"
 
 msgid "This page is currently awaiting moderation"
 msgstr "这页正在等待审核"
-
-msgid "This slug is already in use"
-msgstr "这个唯一的地址已被占用"
 
 #, python-brace-format
 msgid "Page '{0}' deleted."
@@ -484,8 +466,15 @@ msgid "The page '{0}' is not currently awaiting moderation."
 msgstr "第 '{0}' 页当前不需要等待审核。"
 
 #, python-brace-format
+msgid "Page '{0}' published."
+msgstr "第 '{0}' 页已发布。"
+
+#, python-brace-format
 msgid "Page '{0}' rejected for publication."
 msgstr "第 '{0}' 页已被拒绝发布。"
+
+msgid "Add child page"
+msgstr "添加子页面"
 
 msgid "Choose an item"
 msgstr "选择一个选项"

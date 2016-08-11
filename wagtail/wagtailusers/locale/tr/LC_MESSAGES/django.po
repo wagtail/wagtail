@@ -8,9 +8,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-12-17 13:55+0000\n"
-"PO-Revision-Date: 2016-01-12 15:55+0000\n"
-"Last-Translator: Cihad GÜNDOĞDU <cihadgundogdu@gmail.com>\n"
+"POT-Creation-Date: 2016-05-18 21:37+0000\n"
+"PO-Revision-Date: 2016-03-01 19:08+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Turkish (http://www.transifex.com/torchbox/wagtail/language/"
 "tr/)\n"
 "MIME-Version: 1.0\n"
@@ -28,9 +28,6 @@ msgstr "Şifreler uyuşmuyor"
 msgid "Administrator"
 msgstr "Yönetici"
 
-msgid "If ticked, this user has the ability to manage user accounts."
-msgstr "Eğer işaretlenirse, bu kullanıcı kullanıcı hesaplarını yönetebilir"
-
 msgid "Password"
 msgstr "Şifre"
 
@@ -45,9 +42,6 @@ msgstr "Ad"
 
 msgid "Last Name"
 msgstr "Soyad"
-
-msgid "Administrators have the ability to manage user accounts."
-msgstr "Yöneticiler kullanıcı hesaplarını düzenleyebilir"
 
 msgid "A group with that name already exists."
 msgstr "Bu isimde grup mevcut"
@@ -99,9 +93,6 @@ msgstr "Sayfa yetkileri"
 
 msgid "Page"
 msgstr "Sayfa"
-
-msgid "Permission type"
-msgstr "Yetki tipi"
 
 msgid "groups"
 msgstr "gruplar"

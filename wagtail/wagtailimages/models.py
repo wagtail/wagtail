@@ -1,38 +1,35 @@
-from __future__ import unicode_literals
+from __future__ import absolute_import, unicode_literals
 
-import os.path
 import hashlib
-from contextlib import contextmanager
+import os.path
 from collections import OrderedDict
-
-from taggit.managers import TaggableManager
-from willow.image import Image as WillowImage
+from contextlib import contextmanager
 
 import django
-from django.core.files import File
+from django.conf import settings
 from django.core.exceptions import ImproperlyConfigured
+from django.core.files import File
+from django.core.urlresolvers import reverse
 from django.db import models
 from django.db.models.signals import pre_delete, pre_save
 from django.dispatch.dispatcher import receiver
-from django.utils.safestring import mark_safe
-from django.utils.six import BytesIO, text_type
 from django.forms.widgets import flatatt
-from django.conf import settings
-from django.utils.translation import ugettext_lazy as _
 from django.utils.encoding import python_2_unicode_compatible
 from django.utils.functional import cached_property
-from django.utils.six import string_types
-from django.core.urlresolvers import reverse
-
+from django.utils.safestring import mark_safe
+from django.utils.six import BytesIO, string_types, text_type
+from django.utils.translation import ugettext_lazy as _
+from taggit.managers import TaggableManager
 from unidecode import unidecode
+from willow.image import Image as WillowImage
 
+from wagtail.wagtailadmin.utils import get_object_usage
 from wagtail.wagtailcore import hooks
-from wagtail.wagtailadmin.taggable import TagSearchable
+from wagtail.wagtailcore.models import CollectionMember
+from wagtail.wagtailimages.exceptions import InvalidFilterSpecError
+from wagtail.wagtailimages.rect import Rect
 from wagtail.wagtailsearch import index
 from wagtail.wagtailsearch.queryset import SearchableQuerySetMixin
-from wagtail.wagtailimages.rect import Rect
-from wagtail.wagtailimages.exceptions import InvalidFilterSpecError
-from wagtail.wagtailadmin.utils import get_object_usage
 
 
 class SourceImageIOError(IOError):
@@ -47,12 +44,29 @@ class ImageQuerySet(SearchableQuerySetMixin, models.QuerySet):
 
 
 def get_upload_to(instance, filename):
-    # Dumb proxy to instance method.
+    """
+    Obtain a valid upload path for an image file.
+
+    This needs to be a module-level function so that it can be referenced within migrations,
+    but simply delegates to the `get_upload_to` method of the instance, so that AbstractImage
+    subclasses can override it.
+    """
+    return instance.get_upload_to(filename)
+
+
+def get_rendition_upload_to(instance, filename):
+    """
+    Obtain a valid upload path for an image rendition file.
+
+    This needs to be a module-level function so that it can be referenced within migrations,
+    but simply delegates to the `get_upload_to` method of the instance, so that AbstractRendition
+    subclasses can override it.
+    """
     return instance.get_upload_to(filename)
 
 
 @python_2_unicode_compatible
-class AbstractImage(models.Model, TagSearchable):
+class AbstractImage(CollectionMember, index.Indexed, models.Model):
     title = models.CharField(max_length=255, verbose_name=_('title'))
     file = models.ImageField(
         verbose_name=_('file'), upload_to=get_upload_to, width_field='width', height_field='height'
@@ -122,9 +136,13 @@ class AbstractImage(models.Model, TagSearchable):
         return reverse('wagtailimages:image_usage',
                        args=(self.id,))
 
-    search_fields = TagSearchable.search_fields + (
+    search_fields = CollectionMember.search_fields + [
+        index.SearchField('title', partial_match=True, boost=10),
+        index.RelatedFields('tags', [
+            index.SearchField('name', partial_match=True, boost=10),
+        ]),
         index.FilterField('uploaded_by_user'),
-    )
+    ]
 
     def __str__(self):
         return self.title
@@ -248,7 +266,7 @@ class AbstractImage(models.Model, TagSearchable):
             )
         except Rendition.DoesNotExist:
             # Generate the rendition image
-            generated_image, output_format = filter.run(self, BytesIO())
+            generated_image = filter.run(self, BytesIO())
 
             # Generate filename
             input_filename = os.path.basename(self.file.name)
@@ -261,7 +279,7 @@ class AbstractImage(models.Model, TagSearchable):
                 'gif': '.gif',
             }
 
-            output_extension = filter.spec.replace('|', '.') + FORMAT_EXTENSIONS[output_format]
+            output_extension = filter.spec.replace('|', '.') + FORMAT_EXTENSIONS[generated_image.format_name]
             if cache_key:
                 output_extension = cache_key + '.' + output_extension
 
@@ -272,7 +290,7 @@ class AbstractImage(models.Model, TagSearchable):
             rendition, created = self.renditions.get_or_create(
                 filter=filter,
                 focal_point_key=cache_key,
-                defaults={'file': File(generated_image, name=output_filename)}
+                defaults={'file': File(generated_image.f, name=output_filename)}
             )
 
         return rendition
@@ -306,6 +324,7 @@ class Image(AbstractImage):
     admin_form_fields = (
         'title',
         'file',
+        'collection',
         'tags',
         'focal_point_x',
         'focal_point_y',
@@ -380,34 +399,33 @@ class Filter(models.Model):
 
     def run(self, image, output):
         with image.get_willow_image() as willow:
+            original_format = willow.format_name
+
+            # Fix orientation of image
+            willow = willow.auto_orient()
+
             for operation in self.operations:
-                operation.run(willow, image)
+                willow = operation.run(willow, image) or willow
 
-            output_format = willow.original_format
-
-            if willow.original_format == 'jpeg':
+            if original_format == 'jpeg':
                 # Allow changing of JPEG compression quality
                 if hasattr(settings, 'WAGTAILIMAGES_JPEG_QUALITY'):
                     quality = settings.WAGTAILIMAGES_JPEG_QUALITY
                 else:
                     quality = 85
 
-                willow.save_as_jpeg(output, quality=quality)
-            if willow.original_format == 'gif':
+                return willow.save_as_jpeg(output, quality=quality)
+            elif original_format == 'gif':
                 # Convert image to PNG if it's not animated
                 if not willow.has_animation():
-                    output_format = 'png'
-                    willow.save_as_png(output)
+                    return willow.save_as_png(output)
                 else:
-                    willow.save_as_gif(output)
-            if willow.original_format == 'bmp':
+                    return willow.save_as_gif(output)
+            elif original_format == 'bmp':
                 # Convert to PNG
-                output_format = 'png'
-                willow.save_as_png(output)
+                return willow.save_as_png(output)
             else:
-                willow.save(willow.original_format, output)
-
-        return output, output_format
+                return willow.save(original_format, output)
 
     def get_cache_key(self, image):
         vary_parts = []
@@ -441,7 +459,7 @@ class Filter(models.Model):
 
 class AbstractRendition(models.Model):
     filter = models.ForeignKey(Filter, related_name='+')
-    file = models.ImageField(upload_to='images', width_field='width', height_field='height')
+    file = models.ImageField(upload_to=get_rendition_upload_to, width_field='width', height_field='height')
     width = models.IntegerField(editable=False)
     height = models.IntegerField(editable=False)
     focal_point_key = models.CharField(max_length=255, blank=True, default='', editable=False)
@@ -482,12 +500,17 @@ class AbstractRendition(models.Model):
     def __html__(self):
         return self.img_tag()
 
+    def get_upload_to(self, filename):
+        folder_name = 'images'
+        filename = self.file.field.storage.get_valid_name(filename)
+        return os.path.join(folder_name, filename)
+
     class Meta:
         abstract = True
 
 
 class Rendition(AbstractRendition):
-    image = models.ForeignKey(Image, related_name='renditions')
+    image = models.ForeignKey(Image, related_name='renditions', on_delete=models.CASCADE)
 
     class Meta:
         unique_together = (

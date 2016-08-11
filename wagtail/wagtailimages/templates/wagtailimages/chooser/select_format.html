@@ -5,7 +5,7 @@
 
 <div class="row row-flush nice-padding">
     <div class="col6">
-        {% image image max-800x600 %}
+        {% image image max-800x600 class="show-transparency" %}
     </div>
     <div class="col6">
         <form action="{% url 'wagtailimages:chooser_select_format' image.id %}" method="POST">
@@ -14,7 +14,7 @@
                 {% for field in form %}
                     {% include "wagtailadmin/shared/field_as_li.html" with field=field %}
                 {% endfor %}
-                <li><input type="submit" value="{% trans 'Insert image' %}" /></li>
+                <li><input type="submit" value="{% trans 'Insert image' %}"  class="button" /></li>
             </ul>
         </form>
     </div>

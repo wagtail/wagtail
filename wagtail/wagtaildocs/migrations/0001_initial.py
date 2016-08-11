@@ -1,10 +1,11 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 
-from django.db import models, migrations
 import taggit.managers
 from django.conf import settings
-import wagtail.wagtailadmin.taggable
+from django.db import migrations, models
+
+import wagtail.wagtailsearch.index
 
 
 class Migration(migrations.Migration):
@@ -35,6 +36,7 @@ class Migration(migrations.Migration):
                 (
                     'uploaded_by_user',
                     models.ForeignKey(
+                        on_delete=models.CASCADE,
                         editable=False,
                         null=True,
                         blank=True,
@@ -44,6 +46,6 @@ class Migration(migrations.Migration):
             ],
             options={
             },
-            bases=(models.Model, wagtail.wagtailadmin.taggable.TagSearchable),
+            bases=(models.Model, wagtail.wagtailsearch.index.Indexed),
         ),
     ]

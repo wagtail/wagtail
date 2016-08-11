@@ -7,14 +7,16 @@
 # Claudemiro Alves Feitosa Neto <dimiro1@gmail.com>, 2015
 # Douglas Miranda <douglasmirandasilva@gmail.com>, 2014
 # Gladson <gladsonbrito@gmail.com>, 2014
+# Luiz Boaretto <lboaretto@gmail.com>, 2016
+# Luiz Boaretto <lboaretto@gmail.com>, 2016
 # Thiago Cangussu <cangussu.thg@gmail.com>, 2014
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-12-17 13:55+0000\n"
-"PO-Revision-Date: 2015-12-17 14:00+0000\n"
-"Last-Translator: mattwestcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2016-05-18 21:37+0000\n"
+"PO-Revision-Date: 2016-05-17 12:50+0000\n"
+"Last-Translator: Luiz Boaretto <lboaretto@gmail.com>\n"
 "Language-Team: Portuguese (Brazil) (http://www.transifex.com/torchbox/"
 "wagtail/language/pt_BR/)\n"
 "MIME-Version: 1.0\n"
@@ -40,9 +42,10 @@ msgstr "Os dois campos de senha não coincidem."
 msgid "Administrator"
 msgstr "Administrador"
 
-msgid "If ticked, this user has the ability to manage user accounts."
+msgid "Administrators have full access to manage any object or setting."
 msgstr ""
-"Se marcado, este usuário terá a habilidade de gerenciar contas de usuários."
+"Os administradores têm acesso completo para gerenciar qualquer objeto ou "
+"ambiente."
 
 msgid "Password"
 msgstr "Senha"
@@ -65,20 +68,32 @@ msgstr "Primeiro nome"
 msgid "Last Name"
 msgstr "Último nome"
 
-msgid "Administrators have the ability to manage user accounts."
-msgstr "Administradores tem a habilidade de gerenciar contas de usuários."
-
 msgid "A group with that name already exists."
 msgstr "Um grupo com este nome já existe."
+
+msgid "You cannot have multiple permission records for the same page."
+msgstr "Você não pode ter vários registros de permissão para a mesma página."
+
+msgid "submitted notifications"
+msgstr "notificações enviadas"
 
 msgid "Receive notification when a page is submitted for moderation"
 msgstr "Receber uma notificação quando uma página é enviada para a moderação"
 
+msgid "approved notifications"
+msgstr "notificações aprovadas"
+
 msgid "Receive notification when your page edit is approved"
 msgstr "Receber uma notificação quando a edição da sua página for aprovada"
 
+msgid "rejected notifications"
+msgstr "notificações rejeitadas"
+
 msgid "Receive notification when your page edit is rejected"
 msgstr "Receber uma notificação quando a edição da sua página é rejeitada"
+
+msgid "user profile"
+msgstr "Perfil de usuário"
 
 msgid "Delete group"
 msgstr "Remover grupo"
@@ -136,9 +151,6 @@ msgstr "Permissões de página"
 
 msgid "Page"
 msgstr "Página"
-
-msgid "Permission type"
-msgstr "Tipo de permissão"
 
 msgid "Add a page permission"
 msgstr "Adicionar uma permissão de página"
@@ -260,3 +272,6 @@ msgstr "Usuário '{0}' atualizado."
 
 msgid "The user could not be saved due to errors."
 msgstr "O usuário não pôde ser salvo devido à erros."
+
+msgid "Groups"
+msgstr "Grupos"

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-02-05 17:02+0000\n"
+"POT-Creation-Date: 2016-08-01 13:25+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -58,7 +58,7 @@ msgid "Delete %(snippet_type_name)s - %(instance)s"
 msgstr ""
 
 #: templates/wagtailsnippets/snippets/confirm_delete.html:5
-#: templates/wagtailsnippets/snippets/edit.html:19
+#: templates/wagtailsnippets/snippets/edit.html:21
 msgid "Delete"
 msgstr ""
 
@@ -82,6 +82,11 @@ msgstr ""
 
 #: templates/wagtailsnippets/snippets/create.html:16
 #: templates/wagtailsnippets/snippets/edit.html:16
+msgid "Saving..."
+msgstr ""
+
+#: templates/wagtailsnippets/snippets/create.html:17
+#: templates/wagtailsnippets/snippets/edit.html:17
 msgid "Save"
 msgstr ""
 
@@ -94,7 +99,8 @@ msgstr ""
 msgid "Editing"
 msgstr ""
 
-#: templates/wagtailsnippets/snippets/index.html:3 wagtail_hooks.py:31
+#: templates/wagtailsnippets/snippets/index.html:3
+#: templates/wagtailsnippets/snippets/index.html:5 wagtail_hooks.py:33
 msgid "Snippets"
 msgstr ""
 
@@ -150,35 +156,35 @@ msgstr ""
 msgid "Edit this page"
 msgstr ""
 
-#: views/chooser.py:27 views/chooser.py:39 views/snippets.py:84
-#: views/snippets.py:96
+#: views/chooser.py:28 views/chooser.py:40 views/snippets.py:85
+#: views/snippets.py:97
 #, python-format
 msgid "Search %(snippet_type_name)s"
 msgstr ""
 
-#: views/snippets.py:138
+#: views/snippets.py:139
 #, python-brace-format
 msgid "{snippet_type} '{instance}' created."
 msgstr ""
 
-#: views/snippets.py:145 views/snippets.py:188
+#: views/snippets.py:146 views/snippets.py:190
 msgid "Edit"
 msgstr ""
 
-#: views/snippets.py:150
+#: views/snippets.py:151
 msgid "The snippet could not be created due to errors."
 msgstr ""
 
-#: views/snippets.py:181
+#: views/snippets.py:183
 #, python-brace-format
 msgid "{snippet_type} '{instance}' updated."
 msgstr ""
 
-#: views/snippets.py:193
+#: views/snippets.py:195
 msgid "The snippet could not be saved due to errors."
 msgstr ""
 
-#: views/snippets.py:219
+#: views/snippets.py:222
 #, python-brace-format
 msgid "{snippet_type} '{instance}' deleted."
 msgstr ""

@@ -4,13 +4,14 @@
 #
 # Translators:
 # Maris Serzans <maris.serzans@gmail.com>, 2015
+# Reinis Rozenbergs <reinisr@gmail.com>, 2016
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-12-17 13:55+0000\n"
-"PO-Revision-Date: 2015-12-08 14:24+0000\n"
-"Last-Translator: Maris Serzans <maris.serzans@gmail.com>\n"
+"POT-Creation-Date: 2016-05-18 21:37+0000\n"
+"PO-Revision-Date: 2016-07-13 11:20+0000\n"
+"Last-Translator: Reinis Rozenbergs <reinisr@gmail.com>\n"
 "Language-Team: Latvian (http://www.transifex.com/torchbox/wagtail/language/"
 "lv/)\n"
 "MIME-Version: 1.0\n"
@@ -22,6 +23,16 @@ msgstr ""
 
 msgid "Search term(s)/phrase"
 msgstr "Meklēšanas termins(i)/frāze"
+
+msgid ""
+"Enter the full search string to match. An exact match is required for your "
+"Promoted Results to be displayed, wildcards are NOT allowed."
+msgstr ""
+"Ievadiet pilnu meklējamo frāzi. Precīza atbilstība ir nepieciešama lai "
+"parādītu Jūsu reklamētos rezultātus, aizstājējzīmes NAV atļautas."
+
+msgid "Query Daily Hits"
+msgstr "Dienas sasniegtie vaicājumi"
 
 msgid "Popular search terms"
 msgstr "Populāri meklēšanas termini"

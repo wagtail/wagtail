@@ -1,4 +1,4 @@
-from __future__ import unicode_literals
+from __future__ import absolute_import, unicode_literals
 
 from django.db import models
 from django.utils.six.moves.urllib.parse import urlparse
@@ -40,9 +40,9 @@ class Redirect(models.Model):
 
     def get_is_permanent_display(self):
         if self.is_permanent:
-            return "permanent"
+            return _("permanent")
         else:
-            return "temporary"
+            return _("temporary")
 
     @classmethod
     def get_for_site(cls, site=None):
@@ -64,7 +64,7 @@ class Redirect(models.Model):
         if not path.startswith('/'):
             path = '/' + path
 
-        if path.endswith('/'):
+        if path.endswith('/') and len(path) > 1:
             path = path[:-1]
 
         # Parameters must be sorted alphabetically

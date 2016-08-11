@@ -3,14 +3,14 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# Arnar Tumi Þorsteinsson <arnartumi@gmail.com>, 2015
+# Arnar Tumi Þorsteinsson <arnartumi@gmail.com>, 2015-2016
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-12-17 13:54+0000\n"
-"PO-Revision-Date: 2015-12-17 14:01+0000\n"
-"Last-Translator: mattwestcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2016-05-18 21:37+0000\n"
+"PO-Revision-Date: 2016-05-25 12:21+0000\n"
+"Last-Translator: Arnar Tumi Þorsteinsson <arnartumi@gmail.com>\n"
 "Language-Team: Icelandic (Iceland) (http://www.transifex.com/torchbox/"
 "wagtail/language/is_IS/)\n"
 "MIME-Version: 1.0\n"
@@ -21,6 +21,9 @@ msgstr ""
 
 msgid "Single line text"
 msgstr "Textastrengur"
+
+msgid "Multi-line text"
+msgstr "Textabox"
 
 msgid "Email"
 msgstr "Netfang"
@@ -49,9 +52,57 @@ msgstr "Dagsetning"
 msgid "Date/time"
 msgstr "Dagsetning/Tími"
 
+msgid "submit time"
+msgstr "Innsendingartími"
+
+msgid "form submission"
+msgstr "innsending forms"
+
+msgid "label"
+msgstr "merking"
+
+msgid "The label of the form field"
+msgstr "Merking svæðis í formi"
+
+msgid "field type"
+msgstr "inntakssvæði"
+
+msgid "required"
+msgstr "skylda"
+
+msgid "choices"
+msgstr "valmöguleikar"
+
+msgid ""
+"Comma separated list of choices. Only applicable in checkboxes, radio and "
+"dropdown."
+msgstr ""
+"Valmöguleikar með kommu á milli. Á aðeins við um hakreiti, einvalsreiti og "
+"valmyndir."
+
+msgid "default value"
+msgstr "sjálfvalið gildi"
+
+msgid "Default value. Comma separated values supported for checkboxes."
+msgstr ""
+"Sjálfvalið gildi. Listi af gildum með kommu á milli er leyfilegt fyrir "
+"hakreiti."
+
+msgid "help text"
+msgstr "hjálpartexti"
+
+msgid "to address"
+msgstr "til"
+
 msgid "Optional - form submissions will be emailed to this address"
 msgstr ""
 "Valfrjálst - upplýsingar úr innsendum formum verða send á þetta netfang"
+
+msgid "from address"
+msgstr "frá"
+
+msgid "subject"
+msgstr "Viðfangslína"
 
 #, python-format
 msgid "Delete %(title)s"
@@ -72,11 +123,23 @@ msgstr "Skráningarform"
 msgid "Pages"
 msgstr "Síður"
 
+#, python-format
+msgid "Submissions of %(form_title)s"
+msgstr "Innsendingar fyrir %(form_title)s"
+
+#, python-format
+msgid "Form data <span>%(form_title)s</span>"
+msgstr "Gögn formsins <span>%(form_title)s</span>"
+
 msgid "Filter"
 msgstr "Sía"
 
 msgid "Download CSV"
 msgstr "Hlaða niður CSV"
+
+#, python-format
+msgid "There have been no submissions of the '%(title)s' form."
+msgstr "Ekkert hefur verið sent inn fyrir '%(title)s'."
 
 msgid "Title"
 msgstr "Titill"
@@ -86,6 +149,12 @@ msgstr "Uppruni"
 
 msgid "Submission Date"
 msgstr "Dagsetning innsendingar"
+
+msgid "Actions"
+msgstr "Aðgerðir"
+
+msgid "delete"
+msgstr "eyða"
 
 msgid "No form pages have been created."
 msgstr "Engin skráningarform hafa verið búin til"

@@ -3,9 +3,11 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# Henrik Kröger <hedwig@riseup.net>, 2016
 # Johannes Spielmann <j@spielmannsolutions.com>, 2014-2015
 # M0rph 3u5 <transifex@m0rph3u5.net>, 2014
 # Max Pfeiffer <max.pfeiffer@alp-phone.ch>, 2015
+# Moritz Pfeiffer <moritz@alp-phone.ch>, 2016
 # pcraston <patrick@craston.com>, 2014
 # pcraston <patrick@craston.com>, 2014
 # Tammo van Lessen <tvanlessen@gmail.com>, 2015
@@ -14,9 +16,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-12-17 13:54+0000\n"
-"PO-Revision-Date: 2015-12-17 13:59+0000\n"
-"Last-Translator: mattwestcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2016-05-18 21:37+0000\n"
+"PO-Revision-Date: 2016-05-13 06:04+0000\n"
+"Last-Translator: Moritz Pfeiffer <moritz@alp-phone.ch>\n"
 "Language-Team: German (http://www.transifex.com/torchbox/wagtail/language/"
 "de/)\n"
 "MIME-Version: 1.0\n"
@@ -75,7 +77,7 @@ msgid "Resize to max"
 msgstr "Auf Maximalgröße anpassen"
 
 msgid "Resize to fill"
-msgstr "Anpassen, so dass die Größe ausfüllt"
+msgstr "Anpassen, so dass es die Größe ausfüllt"
 
 msgid "Width"
 msgstr "Breite"
@@ -85,6 +87,39 @@ msgstr "Höhe"
 
 msgid "Closeness"
 msgstr "Nähe"
+
+msgid "Add"
+msgstr "Hinzufügen"
+
+msgid "Add/edit images you own"
+msgstr "Hinzufügen/Bearbeiten von Bildern, die Sie besitzen."
+
+msgid "Edit"
+msgstr "Bearbeiten"
+
+msgid "Edit any image"
+msgstr "Jedes Bild bearbeiten"
+
+msgid "title"
+msgstr "Titel"
+
+msgid "file"
+msgstr "Datei"
+
+msgid "width"
+msgstr "Breite"
+
+msgid "height"
+msgstr "Höhe"
+
+msgid "created at"
+msgstr "Erstellt am"
+
+msgid "uploaded by user"
+msgstr "Hochgeladen von Benutzer"
+
+msgid "tags"
+msgstr "Schlagwörter"
 
 msgid "Choose an image"
 msgstr "Bild auswählen"
@@ -97,6 +132,17 @@ msgstr "Hochladen"
 
 msgid "Popular tags"
 msgstr "Häufig verwendete Schlagwörter"
+
+msgid "Uploading..."
+msgstr "Lade hoch…"
+
+msgid "Server Error"
+msgstr "Server-Fehler"
+
+msgid "Report this error to your webmaster with the following information:"
+msgstr ""
+"Melden Sie diesen Fehler Ihrem Webseitenverwalter mit der folgenden "
+"Information:"
 
 #, python-format
 msgid ""
@@ -186,10 +232,10 @@ msgid "URL Generator"
 msgstr "URL Generator"
 
 msgid "Max dimensions"
-msgstr "Max dimensionen"
+msgstr "Max Dimensionen"
 
 msgid "Filesize"
-msgstr "Dateigrösse"
+msgstr "Dateigröße"
 
 msgid "File not found"
 msgstr "Datei nicht gefunden"
@@ -200,15 +246,23 @@ msgstr "Bilder"
 #, python-format
 msgid "Sorry, no images match \"<em>%(query_string)s</em>\""
 msgstr ""
-"Es gibt leider keine Bilder zum Suchbegriff \"<em>%(query_string)s</em>\""
+"Es gibt leider keine Bilder zum Suchbegriff „<em>%(query_string)s</em>“"
 
 #, python-format
 msgid ""
-"You've not uploaded any images. Why not <a href="
-"\"%(wagtailimages_add_image_url)s\">add one now</a>?"
+"You haven't uploaded any images in this collection. Why not <a href="
+"\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
 msgstr ""
-"Sie haben noch keine Bilder hochgeladen. <a href="
-"\"%(wagtailimages_add_image_url)s\">Laden Sie doch jetzt eins hoch!</a>"
+"Sie haben noch keine Bilder in dieser Sammlung hochgeladen. Warum nicht "
+"jetzt <a href=\"%(wagtailimages_add_image_url)s\">eins hochladen</a>?"
+
+#, python-format
+msgid ""
+"You haven't uploaded any images. Why not <a href="
+"\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
+msgstr ""
+"Sie haben noch keine Bilder hochgeladen. Warum nicht jetzt <a href="
+"\"%(wagtailimages_add_image_url)s\">eins hochladen</a>?"
 
 msgid "Generating URL"
 msgstr "URL wird erzeugt"
@@ -223,8 +277,9 @@ msgid ""
 "Note that images generated larger than the screen will appear smaller when "
 "previewed here, so they fit the screen."
 msgstr ""
-"Bitte beachten Sie, dass Bilder die größer als der Bildschirm sind, in der "
-"Vorschau auf Bildschirmgröße verkleinert dargestellt werden."
+"Bitte beachten Sie, dass Bilder, die größer als der Bildschirm generiert "
+"werden, in der Vorschau kleiner erscheinen, sodass sie auf den Bildschirm "
+"passen."
 
 #, python-format
 msgid "Usage of %(title)s"
@@ -255,10 +310,13 @@ msgid "Add images"
 msgstr "Bilder hinzufügen"
 
 msgid "Drag and drop images into this area to upload immediately."
-msgstr "Ziehen Sie ein Bild in diesen Bereich, um es sofort hochzuladen."
+msgstr "Ziehen Sie Bilder in diesen Bereich, um sie sofort hochzuladen."
 
 msgid "Or choose from your computer"
 msgstr "Oder wählen Sie es von Ihrem Computer aus"
+
+msgid "Add to collection:"
+msgstr "Zu Sammlung hinzufügen:"
 
 msgid ""
 "Upload successful. Please update this image with a more appropriate title, "
@@ -271,18 +329,27 @@ msgstr ""
 msgid "Sorry, upload failed."
 msgstr "Entschuldigung, der Upload ist fehlgeschlagen."
 
+msgid "Image updated."
+msgstr "Bild geändert."
+
 msgid "Update"
 msgstr "Updaten"
 
 msgid "Delete"
 msgstr "Löschen"
 
+msgid "Image permissions"
+msgstr "Bild-Berechtigungen"
+
+msgid "Add an image permission"
+msgstr "Eine Bild-Berechtigung hinzufügen"
+
 msgid "Search images"
 msgstr "Nach Bildern suchen"
 
 #, python-brace-format
 msgid "Image '{0}' updated."
-msgstr "Bild '{0}' geändert."
+msgstr "Bild ‚{0}‘ geändert."
 
 msgid "Edit again"
 msgstr "Nochmal bearbeiten"
@@ -299,17 +366,20 @@ msgstr ""
 
 #, python-brace-format
 msgid "Image '{0}' deleted."
-msgstr "Bild '{0}' gelöscht."
+msgstr "Bild ‚{0}‘ gelöscht."
 
 #, python-brace-format
 msgid "Image '{0}' added."
-msgstr "Bild '{0}' hinzugefügt."
-
-msgid "Edit"
-msgstr "Bearbeiten"
+msgstr "Bild ‚{0}‘ hinzugefügt."
 
 msgid "The image could not be created due to errors."
 msgstr "Aufgrund von Fehlern konnte das Bild nicht erstellt werden."
+
+#, python-format
+msgid "%(count)s image"
+msgid_plural "%(count)s images"
+msgstr[0] "%(count)s Bild"
+msgstr[1] "%(count)s Bilder"
 
 msgid "Choose another image"
 msgstr "Anderes Bild wählen"

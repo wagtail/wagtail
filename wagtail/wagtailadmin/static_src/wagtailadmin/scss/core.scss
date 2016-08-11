@@ -16,8 +16,16 @@
 @import 'wagtailadmin/scss/components/progressbar';
 @import 'wagtailadmin/scss/components/datetimepicker';
 @import 'wagtailadmin/scss/components/main-nav';
+@import 'wagtailadmin/scss/components/indicator';
+@import 'wagtailadmin/scss/components/tooltips';
 
 @import 'wagtailadmin/scss/fonts';
+
+// scss-lint:disable all
+#wagtail {
+    @import '../../../../../client/scss/style';
+}
+// scss-lint:enable all
 
 html {
     background: $color-grey-4;
@@ -36,6 +44,14 @@ body {
     &.reordering {
         overflow: visible;
     }
+}
+
+.visuallyvisible {
+    @include visuallyvisible;
+}
+
+.visuallyhidden {
+    @include visuallyhidden;
 }
 
 .capabilitymessage {
@@ -103,11 +119,11 @@ body {
 }
 
 footer {
-    @include transition(all 0.2s ease);
+    // @include transition(all 0.2s ease);
     @include transition(bottom 0.5s ease 1s);
     @include row();
     border-radius: 3px 3px 0 0;
-    box-shadow: 0 0 2px rgba(255, 255, 255, 0.5);    
+    box-shadow: 0 0 2px rgba(255, 255, 255, 0.5);
     background: $color-grey-1;
     position: fixed;
     bottom: 0;
@@ -132,14 +148,21 @@ footer {
     .meta {
         float: right;
         text-align: right;
-        padding-right: $grid-gutter-width/2;
-        line-height: 3.5em;
+        padding: 7px $grid-gutter-width/2;
         font-size: 0.85em;
 
         p {
             margin: 0;
             margin-right: $grid-gutter-width;
             white-space: nowrap;
+        }
+
+        a {
+            color: inherit;
+
+            &:hover {
+                color: $color-link;
+            }
         }
     }
 }
@@ -429,10 +452,6 @@ footer,
 
     // Z-indexes
     .nav-main {
-        li {
-            z-index: 1;
-        }
-
         .footer {
             z-index: 2;
         }
@@ -474,10 +493,10 @@ footer,
 .nav-toggle,
 footer,
 .logo {
-    @include transition(all 0.2s ease);
+    // @include transition(all 0.2s ease);
 }
 
-.nav-main a,
-a {
-    @include transition(color 0.2s ease, background-color 0.2s ease);
-}
+// .nav-main a,
+// a {
+    // @include transition(color 0.2s ease, background-color 0.2s ease);
+// }

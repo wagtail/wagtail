@@ -1,18 +1,19 @@
-import datetime
+from __future__ import absolute_import, unicode_literals
 
 import csv
+import datetime
 
 from django.core.exceptions import PermissionDenied
 from django.http import HttpResponse
-from django.shortcuts import get_object_or_404, render, redirect
+from django.shortcuts import get_object_or_404, redirect, render
 from django.utils.encoding import smart_str
 from django.utils.translation import ugettext as _
 
 from wagtail.utils.pagination import paginate
-from wagtail.wagtailcore.models import Page
-from wagtail.wagtailforms.models import FormSubmission, get_forms_for_user
-from wagtail.wagtailforms.forms import SelectDateForm
 from wagtail.wagtailadmin import messages
+from wagtail.wagtailcore.models import Page
+from wagtail.wagtailforms.forms import SelectDateForm
+from wagtail.wagtailforms.models import FormSubmission, get_forms_for_user
 
 
 def index(request):
@@ -79,7 +80,7 @@ def list_submissions(request, page_id):
 
         writer = csv.writer(response)
 
-        header_row = ['Submission date'] + [label for name, label in data_fields]
+        header_row = ['Submission date'] + [smart_str(label) for name, label in data_fields]
 
         writer.writerow(header_row)
         for s in submissions:

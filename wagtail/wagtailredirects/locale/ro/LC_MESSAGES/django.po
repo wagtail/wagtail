@@ -3,15 +3,15 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# Dan Braghis, 2014-2015
+# Dan Braghis, 2014-2016
 # zerolab, 2014
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-12-17 13:55+0000\n"
-"PO-Revision-Date: 2015-12-17 13:59+0000\n"
-"Last-Translator: mattwestcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2016-05-18 21:37+0000\n"
+"PO-Revision-Date: 2016-03-01 22:23+0000\n"
+"Last-Translator: Dan Braghis\n"
 "Language-Team: Romanian (http://www.transifex.com/torchbox/wagtail/language/"
 "ro/)\n"
 "MIME-Version: 1.0\n"
@@ -21,12 +21,39 @@ msgstr ""
 "Plural-Forms: nplurals=3; plural=(n==1?0:(((n%100>19)||((n%100==0)&&(n!=0)))?"
 "2:1));\n"
 
+msgid "From site"
+msgstr "De la sit"
+
+msgid "All sites"
+msgstr "Toate siturile"
+
+msgid "A redirect with this path already exists."
+msgstr "O redirecționare cu acest nume există deja."
+
+msgid "redirect from"
+msgstr "redirecționare de la"
+
+msgid "site"
+msgstr "sit"
+
+msgid "permanent"
+msgstr "permanent"
+
 msgid ""
 "Recommended. Permanent redirects ensure search engines forget the old page "
 "(the 'Redirect from') and index the new page instead."
 msgstr ""
 "Recomandat. Redirecționările permanente asigură că motoarele de căutare omit "
 "pagina veche ('Redirecționare de la'), indexând pagina nouă în schimb."
+
+msgid "redirect to a page"
+msgstr "redirecționează la o pagină"
+
+msgid "redirect to any URL"
+msgstr "redirecționare la orice URL"
+
+msgid "redirect"
+msgstr "redirecționare"
 
 msgid "Add redirect"
 msgstr "Adaugă redirecționare"
@@ -62,6 +89,9 @@ msgstr "Redirecționări"
 
 msgid "From"
 msgstr "De la"
+
+msgid "Site"
+msgstr "Sit"
 
 msgid "To"
 msgstr "Către"

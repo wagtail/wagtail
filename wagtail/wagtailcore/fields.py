@@ -2,46 +2,43 @@ from __future__ import absolute_import, unicode_literals
 
 import json
 
-from django.db import models
-from django import forms
 from django.core.serializers.json import DjangoJSONEncoder
-from django.utils.six import with_metaclass, string_types
+from django.db import models
+from django.utils.six import string_types
 
-from wagtail.wagtailcore.rich_text import DbWhitelister, expand_db_html
-from wagtail.utils.widgets import WidgetWithScript
-from wagtail.wagtailcore.blocks import Block, StreamBlock, StreamValue, BlockField
-
-
-class RichTextArea(WidgetWithScript, forms.Textarea):
-    def get_panel(self):
-        from wagtail.wagtailadmin.edit_handlers import RichTextFieldPanel
-        return RichTextFieldPanel
-
-    def render(self, name, value, attrs=None):
-        if value is None:
-            translated_value = None
-        else:
-            translated_value = expand_db_html(value, for_editor=True)
-        return super(RichTextArea, self).render(name, translated_value, attrs)
-
-    def render_js_init(self, id_, name, value):
-        return "makeRichTextEditable({0});".format(json.dumps(id_))
-
-    def value_from_datadict(self, data, files, name):
-        original_value = super(RichTextArea, self).value_from_datadict(data, files, name)
-        if original_value is None:
-            return None
-        return DbWhitelister.clean(original_value)
+from wagtail.wagtailcore.blocks import Block, BlockField, StreamBlock, StreamValue
 
 
 class RichTextField(models.TextField):
+    def __init__(self, *args, **kwargs):
+        self.editor = kwargs.pop('editor', 'default')
+        super(RichTextField, self).__init__(*args, **kwargs)
+
     def formfield(self, **kwargs):
-        defaults = {'widget': RichTextArea}
+        from wagtail.wagtailadmin.rich_text import get_rich_text_editor_widget
+        defaults = {'widget': get_rich_text_editor_widget(self.editor)}
         defaults.update(kwargs)
         return super(RichTextField, self).formfield(**defaults)
 
 
-class StreamField(with_metaclass(models.SubfieldBase, models.Field)):
+# https://github.com/django/django/blob/64200c14e0072ba0ffef86da46b2ea82fd1e019a/django/db/models/fields/subclassing.py#L31-L44
+class Creator(object):
+    """
+    A placeholder class that provides a way to set the attribute on the model.
+    """
+    def __init__(self, field):
+        self.field = field
+
+    def __get__(self, obj, type=None):
+        if obj is None:
+            return self
+        return obj.__dict__[self.field.name]
+
+    def __set__(self, obj, value):
+        obj.__dict__[self.field.name] = self.field.to_python(value)
+
+
+class StreamField(models.Field):
     def __init__(self, block_types, **kwargs):
         if isinstance(block_types, Block):
             self.stream_block = block_types
@@ -109,6 +106,9 @@ class StreamField(with_metaclass(models.SubfieldBase, models.Field)):
         else:
             return json.dumps(self.stream_block.get_prep_value(value), cls=DjangoJSONEncoder)
 
+    def from_db_value(self, value, expression, connection, context):
+        return self.to_python(value)
+
     def formfield(self, **kwargs):
         """
         Override formfield to use a plain forms.Field so that we do no transformation on the value
@@ -129,3 +129,10 @@ class StreamField(with_metaclass(models.SubfieldBase, models.Field)):
         errors = super(StreamField, self).check(**kwargs)
         errors.extend(self.stream_block.check(field=self, **kwargs))
         return errors
+
+    def contribute_to_class(self, cls, name, **kwargs):
+        super(StreamField, self).contribute_to_class(cls, name, **kwargs)
+
+        # Add Creator descriptor to allow the field to be set from a list or a
+        # JSON string.
+        setattr(cls, self.name, Creator(self))

@@ -4,14 +4,15 @@
 #
 # Translators:
 # utek <mail@utek.pl>, 2014
+# mmiskiew <mmiskiew@gmail.com>, 2016
 # utek <mail@utek.pl>, 2014
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-12-17 13:55+0000\n"
-"PO-Revision-Date: 2015-12-17 14:00+0000\n"
-"Last-Translator: mattwestcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2016-05-18 21:37+0000\n"
+"PO-Revision-Date: 2016-03-01 22:49+0000\n"
+"Last-Translator: mmiskiew <mmiskiew@gmail.com>\n"
 "Language-Team: Polish (http://www.transifex.com/torchbox/wagtail/language/"
 "pl/)\n"
 "MIME-Version: 1.0\n"
@@ -37,10 +38,10 @@ msgstr "Hasła się nie zgadzają."
 msgid "Administrator"
 msgstr "Administrator"
 
-msgid "If ticked, this user has the ability to manage user accounts."
+msgid "Administrators have full access to manage any object or setting."
 msgstr ""
-"Zaznaczone oznacza, że użytkownik ma możliwość zarządzania kontami "
-"użytkowników"
+"Administratorzy mają pełne uprawnienia do zarządzania każdym obiektem lub "
+"ustawieniem."
 
 msgid "Password"
 msgstr "Hasło"
@@ -63,17 +64,59 @@ msgstr "Pierwsze imię"
 msgid "Last Name"
 msgstr "Nazwisko"
 
-msgid "Administrators have the ability to manage user accounts."
-msgstr "Administratorzy mają możliwość zarządzania kontami użytkowników."
+msgid "A group with that name already exists."
+msgstr "Grupa o tej nazwie już istnieje."
+
+msgid "You cannot have multiple permission records for the same page."
+msgstr "Nie możesz posiadać wielu wystąpień uprawnień dla tej samej strony."
+
+msgid "submitted notifications"
+msgstr "przesłane notyfikacje"
 
 msgid "Receive notification when a page is submitted for moderation"
 msgstr "Otrzymuj powiadomienie gdy strona jest przesłana do moderacji"
 
+msgid "approved notifications"
+msgstr "zaakceptowane notyfikacje"
+
 msgid "Receive notification when your page edit is approved"
 msgstr "Otrzumuj powiadomienie gdy twoja zmiana strony została zatwierdzona"
 
+msgid "rejected notifications"
+msgstr "odrzucone notyfikacje"
+
 msgid "Receive notification when your page edit is rejected"
 msgstr "Otrzymuj powiadomienie gdy twoja zmiana strony została odrzucona"
+
+msgid "user profile"
+msgstr "profil użytkownika"
+
+msgid "Delete group"
+msgstr "Usuń grupę"
+
+#, python-format
+msgid ""
+"The group '%(group_name)s' has <strong>%(group_user_count)s</strong> users "
+"assigned."
+msgstr ""
+"Groupa '%(group_name)s' ma <strong>%(group_user_count)s</strong> "
+"przypisanych użytkowników."
+
+msgid ""
+"Deleting this group will revoke this group's permissions from all member "
+"users."
+msgstr ""
+"Usunięcie tej grupy spowoduje usunięcie uprawnień grupy wszystkich jej "
+"członków."
+
+msgid "Are you sure you want to delete this group?"
+msgstr "Czy na pewno chcesz usunąć tą grupę?"
+
+msgid "Yes, delete"
+msgstr "Tak, usuń"
+
+msgid "Add group"
+msgstr "Dodaj grupę"
 
 msgid "Editing"
 msgstr "Edytowanie"
@@ -81,8 +124,46 @@ msgstr "Edytowanie"
 msgid "Save"
 msgstr "Zapisz"
 
+msgid "Object permissions"
+msgstr "Uprawnienia obiektu"
+
 msgid "Name"
 msgstr "Nazwa"
+
+msgid "Add"
+msgstr "Dodaj"
+
+msgid "Change"
+msgstr "Zmień"
+
+msgid "Delete"
+msgstr "Usuń"
+
+msgid "Other permissions"
+msgstr "Inne uprawnienia"
+
+msgid "Page permissions"
+msgstr "Uprawnienia strony"
+
+msgid "Page"
+msgstr "Strona"
+
+msgid "Add a page permission"
+msgstr "Dodaj uprawnienie strony"
+
+msgid "groups"
+msgstr "grupy"
+
+msgid "Add a group"
+msgstr "Dodaj do grupy"
+
+#, python-format
+msgid ""
+"There are no groups configured. Why not <a href="
+"\"%(wagtailusers_create_group_url)s\">add some</a>?"
+msgstr ""
+"Brak skonfigurowanych grup. Czemu nie <a href="
+"\"%(wagtailusers_create_group_url)s\">dodasz kilku</a>?"
 
 msgid "Add user"
 msgstr "Dodaj użytkownika"
@@ -152,6 +233,30 @@ msgstr ""
 "Brak użytkowników. Czemu nie <a href=\"%(wagtailusers_create_url)s\">dodasz "
 "kilku</a>?"
 
+msgid "Search groups"
+msgstr "Przeszukaj grupy"
+
+#, python-brace-format
+msgid "Group '{0}' created."
+msgstr "Grupa '{0}' utworzona."
+
+msgid "Edit"
+msgstr "Edytuj"
+
+msgid "The group could not be created due to errors."
+msgstr "Grupa nie została utworzona z powodu błędów."
+
+#, python-brace-format
+msgid "Group '{0}' updated."
+msgstr "Grupa '{0}' zaktualizowana."
+
+msgid "The group could not be saved due to errors."
+msgstr "Grupa nie mogła zostać zapisana z powodu błędów."
+
+#, python-brace-format
+msgid "Group '{0}' deleted."
+msgstr "Grupa '{0}' została usunięta."
+
 msgid "Search users"
 msgstr "Szukaj użytkowników"
 
@@ -168,3 +273,6 @@ msgstr "Uaktualniono użytkownika '{0}'."
 
 msgid "The user could not be saved due to errors."
 msgstr "Użytkownik nie mógł zostać zapisany z powodu błędów."
+
+msgid "Groups"
+msgstr "Grupy"

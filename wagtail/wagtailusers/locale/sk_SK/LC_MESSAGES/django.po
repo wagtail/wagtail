@@ -4,13 +4,14 @@
 #
 # Translators:
 # dellax <michalnebbia@gmail.com>, 2015
+# Stevo Backor, 2016
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-12-17 13:55+0000\n"
-"PO-Revision-Date: 2015-12-26 13:44+0000\n"
-"Last-Translator: dellax <michalnebbia@gmail.com>\n"
+"POT-Creation-Date: 2016-05-18 21:37+0000\n"
+"PO-Revision-Date: 2016-07-11 20:58+0000\n"
+"Last-Translator: Stevo Backor\n"
 "Language-Team: Slovak (Slovakia) (http://www.transifex.com/torchbox/wagtail/"
 "language/sk_SK/)\n"
 "MIME-Version: 1.0\n"
@@ -34,10 +35,10 @@ msgstr "Heslá sa nezhodujú."
 msgid "Administrator"
 msgstr "Administrátor"
 
-msgid "If ticked, this user has the ability to manage user accounts."
+msgid "Administrators have full access to manage any object or setting."
 msgstr ""
-"Ak je zaškrtnuté, tento používateľ má práva na upravovanie ostatných "
-"používateľských účtov."
+"Administrátori majú úplný prístup k správe akéhokoľvek objektu alebo "
+"nastavení."
 
 msgid "Password"
 msgstr "Heslo"
@@ -60,11 +61,11 @@ msgstr "Krstné meno"
 msgid "Last Name"
 msgstr "Priezvisko"
 
-msgid "Administrators have the ability to manage user accounts."
-msgstr "Administrátori majú práva na úpravu ostatných používateľských účtov."
-
 msgid "A group with that name already exists."
 msgstr "Skupina s rovnakým názvom už existuje."
+
+msgid "You cannot have multiple permission records for the same page."
+msgstr "Nemôžete mať viac prístupových záznamov pre tú istú stránku."
 
 msgid "submitted notifications"
 msgstr "odoslané notifikácie"
@@ -72,8 +73,14 @@ msgstr "odoslané notifikácie"
 msgid "Receive notification when a page is submitted for moderation"
 msgstr "Dostávať notifikácie keď je stránka pridaná na moderáciu"
 
+msgid "approved notifications"
+msgstr "schválené notifikácie"
+
 msgid "Receive notification when your page edit is approved"
 msgstr "Dostávať notifikácie keď je váš návrh na úpravu stránky potvrdený"
+
+msgid "rejected notifications"
+msgstr "zamietnuté notifikácie"
 
 msgid "Receive notification when your page edit is rejected"
 msgstr "Dostávať notifikácie keď je váš návrh na úpravu stránky zamietnutý"
@@ -91,6 +98,12 @@ msgid ""
 msgstr ""
 "Skupina s názvom '%(group_name)s' má priradených <strong>"
 "%(group_user_count)s</strong> používateľov."
+
+msgid ""
+"Deleting this group will revoke this group's permissions from all member "
+"users."
+msgstr ""
+"Zmazanie tejto skupiny spôsobí odňatie práv skupiny všetkým jej členom."
 
 msgid "Are you sure you want to delete this group?"
 msgstr "Naozaj chcete zmazať túto skupinu?"
@@ -130,9 +143,6 @@ msgstr "Oprávnenia stránky"
 
 msgid "Page"
 msgstr "Stránk"
-
-msgid "Permission type"
-msgstr "Typ oprávnenia"
 
 msgid "Add a page permission"
 msgstr "Pridať oprávnenia stránky"
@@ -185,10 +195,37 @@ msgid "Inactive"
 msgstr "Neaktívne"
 
 #, python-format
+msgid ""
+"\n"
+"            There is one match\n"
+"        "
+msgid_plural ""
+"\n"
+"            There are %(counter)s matches\n"
+"        "
+msgstr[0] ""
+"\n"
+"Jeden výsledok hľadania"
+msgstr[1] ""
+"\n"
+"Našlo sa %(counter)s výsledkov hľadania"
+msgstr[2] ""
+"\n"
+"%(counter)s výsledkov hľadania"
+
+#, python-format
 msgid "Sorry, no users match \"<em>%(query_string)s</em>\""
 msgstr ""
 "Prepáčte, žiadni používatelia nevyhovujú hľadanému výrazu \"<em>"
 "%(query_string)s</em>\""
+
+#, python-format
+msgid ""
+"There are no users configured. Why not <a href=\"%(wagtailusers_create_url)s"
+"\">add some</a>?"
+msgstr ""
+"Zatiaľ nie sú vytvorení žiadni používatelia. Prečo nejakých ne<a href="
+"\"%(wagtailusers_create_url)s\">vytvoriť</a>?"
 
 msgid "Search groups"
 msgstr "Hľadať skupiny"
@@ -230,3 +267,6 @@ msgstr "Používateľ '{0}' bol aktualizovaný."
 
 msgid "The user could not be saved due to errors."
 msgstr "Používateľ nemôže byť uložený kvôli chybám."
+
+msgid "Groups"
+msgstr "Skupiny"

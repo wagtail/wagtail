@@ -24,7 +24,7 @@
                 <td>
                 <a class="button button-small button-secondary" href="
                     {% url 'wagtailforms:delete_submission' form_page.id row.model_id %}">
-                    delete</a>
+                    {% trans 'delete' %}</a>
                 </td>
             </tr>
         {% endfor %}

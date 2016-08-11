@@ -6,13 +6,13 @@
 # Bram <bram2w@live.nl>, 2015
 # Franklin Kingma <franklin@statix.net>, 2015
 # Maarten Kling <kling.maarten@gmail.com>, 2015
-# Thijs Kramer <thijskramer@gmail.com>, 2015
+# Thijs Kramer <thijskramer@gmail.com>, 2015-2016
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-12-17 13:54+0000\n"
-"PO-Revision-Date: 2015-12-22 16:15+0000\n"
+"POT-Creation-Date: 2016-05-18 21:37+0000\n"
+"PO-Revision-Date: 2016-06-13 10:06+0000\n"
 "Last-Translator: Thijs Kramer <thijskramer@gmail.com>\n"
 "Language-Team: Dutch (Netherlands) (http://www.transifex.com/torchbox/"
 "wagtail/language/nl_NL/)\n"
@@ -41,13 +41,13 @@ msgid "Checkbox"
 msgstr "Checkbox"
 
 msgid "Checkboxes"
-msgstr "Checkboxes"
+msgstr "Checkboxen"
 
 msgid "Drop down"
 msgstr "Dropdown"
 
 msgid "Radio buttons"
-msgstr "Keuzerondjes"
+msgstr "Radiobuttons"
 
 msgid "Date"
 msgstr "Datum"
@@ -154,6 +154,9 @@ msgstr "Inzenddatum"
 
 msgid "Actions"
 msgstr "Acties"
+
+msgid "delete"
+msgstr "verwijder"
 
 msgid "No form pages have been created."
 msgstr "Er zijn nog geen pagina's met een formulier aangemaakt."

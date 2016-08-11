@@ -1,10 +1,10 @@
+from __future__ import absolute_import, unicode_literals
+
 from django.test import TestCase
-from django.contrib.contenttypes.models import ContentType
 
+from wagtail.tests.testapp.models import EventPage, SimplePage
 from wagtail.wagtailadmin import widgets
-
 from wagtail.wagtailcore.models import Page
-from wagtail.tests.testapp.models import SimplePage, EventPage
 
 
 class TestAdminPageChooserWidget(TestCase):
@@ -14,7 +14,7 @@ class TestAdminPageChooserWidget(TestCase):
         # Add child page
         self.child_page = SimplePage(
             title="foobarbaz",
-            slug="foobarbaz",
+            content="hello",
         )
         self.root_page.add_child(instance=self.child_page)
 
@@ -51,20 +51,15 @@ class TestAdminPageChooserWidget(TestCase):
     # def test_render_html_init_with_content_type omitted as HTML does not
     # change when selecting a content type
 
-    def test_render_js_init_with_content_type(self):
-        content_type = ContentType.objects.get_for_model(SimplePage)
-        widget = widgets.AdminPageChooser(content_type=content_type)
+    def test_render_js_init_with_target_model(self):
+        widget = widgets.AdminPageChooser(target_models=[SimplePage])
 
         js_init = widget.render_js_init('test-id', 'test', None)
         self.assertEqual(js_init, "createPageChooser(\"test-id\", [\"tests.simplepage\"], null, false);")
 
-    def test_render_js_init_with_multiple_content_types(self):
-        content_types = [
-            # Not using get_for_models as we need deterministic ordering
-            ContentType.objects.get_for_model(SimplePage),
-            ContentType.objects.get_for_model(EventPage),
-        ]
-        widget = widgets.AdminPageChooser(content_type=content_types)
+    def test_render_js_init_with_multiple_target_models(self):
+        target_models = [SimplePage, EventPage]
+        widget = widgets.AdminPageChooser(target_models=target_models)
 
         js_init = widget.render_js_init('test-id', 'test', None)
         self.assertEqual(

@@ -6,7 +6,7 @@ Listing views
 
 Performing a ``GET`` request against one of the endpoints will get you a listing of objects in that endpoint. The response will look something like this:
 
-.. code-block:: json
+.. code-block:: text
 
     GET /api/v1/endpoint_name/
 
@@ -58,7 +58,7 @@ The listing view (``/api/v1/pages/``)
 
 This is what a typical response from a ``GET`` request to this listing would look like:
 
-.. code-block:: json
+.. code-block:: text
 
     GET /api/v1/pages/
 
@@ -110,7 +110,7 @@ Most Wagtail sites are made up of multiple different types of page that each hav
 
 The ``type`` query parameter must be set to the Pages model name in the format: ``app_label.ModelName``.
 
-.. code-block:: json
+.. code-block:: text
 
     GET /api/v1/pages/?type=demo.BlogPage
 
@@ -157,7 +157,7 @@ As you can see, we still only get the ``title`` field, even though we have selec
 
 Just set ``fields`` to a command-separated list of field names that you would like to use.
 
-.. code-block:: json
+.. code-block:: text
 
     GET /api/v1/pages/?type=demo.BlogPage&fields=title,date_posted,feed_image
 
@@ -229,7 +229,7 @@ Filtering on fields
 
 Exact matches on field values can be done by using a query parameter with the same name as the field. Any pages with the field that exactly matches the value of this parameter will be returned.
 
-.. code-block:: json
+.. code-block:: text
 
     GET /api/v1/pages/?type=demo.BlogPage&fields=title,date_posted&date_posted=2015-01-24
 
@@ -267,7 +267,7 @@ Filters the listing to only include direct children of the specified page.
 
 For example, to get all the pages that are direct children of page 7.
 
-.. code-block:: json
+.. code-block:: text
 
     GET /api/v1/pages/?child_of=7
 
@@ -299,7 +299,7 @@ Filters the listing to only include descendants of the specified page.
 
 For example, to get all pages underneath the homepage:
 
-.. code-block:: json
+.. code-block:: text
 
     GET /api/v1/pages/?descendant_of=2
 
@@ -352,7 +352,7 @@ Ordering
 
 Like filtering, it is also possible to order on database fields. The endpoint accepts a query parameter called ``order`` which should be set to the field name to order by. Field names can be prefixed with a ``-`` to reverse the ordering. It is also possible to order randomly by setting this parameter to ``random``.
 
-.. code-block:: json
+.. code-block:: text
 
     GET /api/v1/pages/?type=demo.BlogPage&fields=title,date_posted,feed_image&order=-date_posted
 
@@ -421,7 +421,7 @@ Pagination
 
 Pagination is done using two query parameters called ``limit`` and ``offset``. ``limit`` sets the number of results to return and ``offset`` is the index of the first result to return. The default and maximum value for ``limit`` is ``20``. The maximum value can be changed using the ``WAGTAILAPI_LIMIT_MAX`` setting.
 
-.. code-block:: json
+.. code-block:: text
 
     GET /api/v1/pages/?limit=1&offset=1
 
@@ -453,7 +453,7 @@ Searching
 
 To perform a full-text search, set the ``search`` parameter to the query string you would like to search on.
 
-.. code-block:: json
+.. code-block:: text
 
     GET /api/v1/pages/?search=Blog
 
@@ -511,7 +511,7 @@ The detail view (``/api/v1/pages/{id}/``)
 
 This view gives you access to all of the details for a particular page.
 
-.. code-block:: json
+.. code-block:: text
 
     GET /api/v1/pages/6/
 
@@ -571,7 +571,7 @@ The listing view (``/api/v1/images/``)
 
 This is what a typical response from a ``GET`` request to this listing would look like:
 
-.. code-block:: json
+.. code-block:: text
 
     GET /api/v1/images/
 
@@ -621,7 +621,7 @@ Like the pages endpoint, the images endpoint supports the ``fields`` query param
 
 By default, this will allow you to add the ``width`` and ``height`` fields to your results. If your Wagtail site uses a custom image model, it is possible to have more.
 
-.. code-block:: json
+.. code-block:: text
 
     GET /api/v1/images/?fields=title,width,height
 
@@ -672,7 +672,7 @@ Filtering on fields
 
 Exact matches on field values can be done by using a query parameter with the same name as the field. Any images with the field that exactly matches the value of this parameter will be returned.
 
-.. code-block:: json
+.. code-block:: text
 
     GET /api/v1/pages/?title=James Joyce
 
@@ -701,7 +701,7 @@ Ordering
 
 The images endpoint also accepts the ``order`` parameter which should be set to a field name to order by. Field names can be prefixed with a ``-`` to reverse the ordering. It is also possible to order randomly by setting this parameter to ``random``.
 
-.. code-block:: json
+.. code-block:: text
 
     GET /api/v1/images/?fields=title,width&order=width
 
@@ -749,7 +749,7 @@ Pagination
 
 Pagination is done using two query parameters called ``limit`` and ``offset``. ``limit`` sets the number of results to return and ``offset`` is the index of the first result to return. The default and maximum value for ``limit`` is ``20``. The maximum value can be changed using the ``WAGTAILAPI_LIMIT_MAX`` setting.
 
-.. code-block:: json
+.. code-block:: text
 
     GET /api/v1/images/?limit=1&offset=1
 
@@ -783,7 +783,7 @@ Searching
 
 To perform a full-text search, set the ``search`` parameter to the query string you would like to search on.
 
-.. code-block:: json
+.. code-block:: text
 
     GET /api/v1/images/?search=James
 
@@ -818,7 +818,7 @@ The detail view (``/api/v1/images/{id}/``)
 
 This view gives you access to all of the details for a particular image.
 
-.. code-block:: json
+.. code-block:: text
 
     GET /api/v1/images/5/
 
@@ -854,7 +854,7 @@ The detail view (``/api/v1/documents/{id}/``)
 
 This view gives you access to all of the details for a particular document.
 
-.. code-block:: json
+.. code-block:: text
 
     GET /api/v1/documents/1/
 

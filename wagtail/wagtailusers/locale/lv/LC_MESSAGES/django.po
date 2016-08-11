@@ -4,13 +4,14 @@
 #
 # Translators:
 # Maris Serzans <maris.serzans@gmail.com>, 2015
+# Reinis Rozenbergs <reinisr@gmail.com>, 2016
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-12-17 13:55+0000\n"
-"PO-Revision-Date: 2015-12-17 14:00+0000\n"
-"Last-Translator: mattwestcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2016-05-18 21:37+0000\n"
+"PO-Revision-Date: 2016-07-16 12:09+0000\n"
+"Last-Translator: Reinis Rozenbergs <reinisr@gmail.com>\n"
 "Language-Team: Latvian (http://www.transifex.com/torchbox/wagtail/language/"
 "lv/)\n"
 "MIME-Version: 1.0\n"
@@ -19,6 +20,9 @@ msgstr ""
 "Language: lv\n"
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n != 0 ? 1 : "
 "2);\n"
+
+msgid "Required. 30 characters or fewer. Letters, digits and @/./+/-/_ only."
+msgstr "Obligāts. 30 vai mazāk simbolu. Burti, cipari un @/./+/-/_ simboli."
 
 msgid "A user with that username already exists."
 msgstr "Lietotājvāds aizņemts"
@@ -99,9 +103,6 @@ msgstr "Lapu atļaujas"
 
 msgid "Page"
 msgstr "Lapa"
-
-msgid "Permission type"
-msgstr "Atļaujas veids"
 
 msgid "Add a page permission"
 msgstr "Pievienot atļauju lapai"

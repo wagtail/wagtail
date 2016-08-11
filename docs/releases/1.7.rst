@@ -1,0 +1,25 @@
+=========================
+Wagtail 1.7 release notes
+=========================
+
+.. contents::
+    :local:
+    :depth: 1
+
+
+What's new
+==========
+
+
+Minor features
+~~~~~~~~~~~~~~
+
+
+Bug fixes
+~~~~~~~~~
+
+ * Migrations for wagtailcore and project template are now reversible (Benjamin Bach)
+
+
+Upgrade considerations
+======================

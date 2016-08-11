@@ -1,6 +1,8 @@
+from __future__ import absolute_import, unicode_literals
+
 from django_medusa.renderers import StaticSiteRenderer
 from wagtail.wagtailcore.models import Site
-from wagtail.wagtaildocs.models import Document
+from wagtail.wagtaildocs.models import get_document_model
 
 
 class PageRenderer(StaticSiteRenderer):
@@ -17,6 +19,8 @@ class PageRenderer(StaticSiteRenderer):
 
 class DocumentRenderer(StaticSiteRenderer):
     def get_paths(self):
+        Document = get_document_model()
+
         # Return list of paths to documents
         return (doc.url for doc in Document.objects.all())
 

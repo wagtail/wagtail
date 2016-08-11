@@ -1,16 +1,20 @@
 from django.conf.urls import url, include
-from django.contrib.auth.decorators import permission_required
 from django.views.decorators.cache import cache_control
 
 from wagtail.wagtailadmin.urls import pages as wagtailadmin_pages_urls
+from wagtail.wagtailadmin.urls import collections as wagtailadmin_collections_urls
 from wagtail.wagtailadmin.urls import password_reset as wagtailadmin_password_reset_urls
 from wagtail.wagtailadmin.views import account, chooser, home, pages, tags, userbar
+from wagtail.wagtailadmin.api import urls as api_urls
 from wagtail.wagtailcore import hooks
 from wagtail.utils.urlpatterns import decorate_urlpatterns
+from wagtail.wagtailadmin.decorators import require_admin_access
 
 
 urlpatterns = [
     url(r'^$', home.home, name='wagtailadmin_home'),
+
+    url(r'api/', include(api_urls)),
 
     url(r'^failwhale/$', home.error_test, name='wagtailadmin_error_test'),
 
@@ -31,6 +35,8 @@ urlpatterns = [
 
     url(r'^tag-autocomplete/$', tags.autocomplete, name='wagtailadmin_tag_autocomplete'),
 
+    url(r'^collections/', include(wagtailadmin_collections_urls, namespace='wagtailadmin_collections')),
+
     url(r'^account/$', account.account, name='wagtailadmin_account'),
     url(r'^account/change_password/$', account.change_password, name='wagtailadmin_account_change_password'),
     url(
@@ -50,13 +56,7 @@ for fn in hooks.get_hooks('register_admin_urls'):
 
 
 # Add "wagtailadmin.access_admin" permission check
-urlpatterns = decorate_urlpatterns(
-    urlpatterns,
-    permission_required(
-        'wagtailadmin.access_admin',
-        login_url='wagtailadmin_login'
-    )
-)
+urlpatterns = decorate_urlpatterns(urlpatterns, require_admin_access)
 
 
 # These url patterns do not require an authenticated admin user

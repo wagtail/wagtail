@@ -1,11 +1,13 @@
-from django.test import TestCase
-from django.core.cache import cache
-from django.utils.safestring import SafeString
+from __future__ import absolute_import, unicode_literals
 
+from django.core.cache import cache
+from django.test import TestCase
+from django.utils.safestring import SafeText
+
+from wagtail.tests.testapp.models import SimplePage
 from wagtail.wagtailcore.models import Page, Site
 from wagtail.wagtailcore.templatetags.wagtailcore_tags import richtext
 from wagtail.wagtailcore.utils import resolve_model_string
-from wagtail.tests.testapp.models import SimplePage
 
 
 class TestPageUrlTags(TestCase):
@@ -97,7 +99,7 @@ class TestSiteRootPathsCache(TestCase):
         default_site = Site.objects.get(is_default_site=True)
 
         # Create a new homepage under current homepage
-        new_homepage = SimplePage(title="New Homepage", slug="new-homepage")
+        new_homepage = SimplePage(title="New Homepage", slug="new-homepage", content="hello")
         homepage.add_child(instance=new_homepage)
 
         # Set new homepage as the site root page
@@ -194,7 +196,7 @@ class TestRichtextTag(TestCase):
     def test_call_with_text(self):
         result = richtext("Hello world!")
         self.assertEqual(result, '<div class="rich-text">Hello world!</div>')
-        self.assertIsInstance(result, SafeString)
+        self.assertIsInstance(result, SafeText)
 
     def test_call_with_none(self):
         result = richtext(None)

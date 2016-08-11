@@ -4,13 +4,13 @@
 #
 # Translators:
 # Maarten Kling <kling.maarten@gmail.com>, 2015
-# Thijs Kramer <thijskramer@gmail.com>, 2015
+# Thijs Kramer <thijskramer@gmail.com>, 2015-2016
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-12-17 13:55+0000\n"
-"PO-Revision-Date: 2015-12-22 16:15+0000\n"
+"POT-Creation-Date: 2016-05-18 21:37+0000\n"
+"PO-Revision-Date: 2016-03-08 19:14+0000\n"
 "Last-Translator: Thijs Kramer <thijskramer@gmail.com>\n"
 "Language-Team: Dutch (Netherlands) (http://www.transifex.com/torchbox/"
 "wagtail/language/nl_NL/)\n"
@@ -33,21 +33,20 @@ msgid "A user with that username already exists."
 msgstr "Er bestaat al een gebruiker met deze gebruikersnaam."
 
 msgid "The two password fields didn't match."
-msgstr "De twee wachtwoorden komen niet overeen."
+msgstr "De beide wachtwoorden komen niet overeen."
 
 msgid "Administrator"
 msgstr "Administrator"
 
-msgid "If ticked, this user has the ability to manage user accounts."
+msgid "Administrators have full access to manage any object or setting."
 msgstr ""
-"Deze gebruiker heeft de mogelijkheid gebruikersaccounts te beheren indien "
-"dit is aangevinkt."
+"Administrators hebben volledige rechten op ieder object en alle instellingen."
 
 msgid "Password"
 msgstr "Wachtwoord"
 
 msgid "Leave blank if not changing."
-msgstr "Laat dit veld leeg wanneer u dit niet wijzigt."
+msgstr "Laat leeg indien u dit niet wilt wijzigen."
 
 msgid "Password confirmation"
 msgstr "Herhaal wachtwoord"
@@ -64,11 +63,13 @@ msgstr "Voornaam"
 msgid "Last Name"
 msgstr "Achternaam"
 
-msgid "Administrators have the ability to manage user accounts."
-msgstr "Administrators hebben de mogelijkheid gebruikersaccounts te beheren."
-
 msgid "A group with that name already exists."
 msgstr "Er bestaat al een groep met deze naam."
+
+msgid "You cannot have multiple permission records for the same page."
+msgstr ""
+"Het is niet mogelijk om meerdere machtigingen voor dezelfde pagina in te "
+"stellen."
 
 msgid "submitted notifications"
 msgstr "ingezonden notificaties"
@@ -147,9 +148,6 @@ msgstr "Pagina-machtigingen"
 
 msgid "Page"
 msgstr "Pagina"
-
-msgid "Permission type"
-msgstr "Machtiging"
 
 msgid "Add a page permission"
 msgstr "Voeg een paginamachtiging toe"
@@ -271,3 +269,6 @@ msgstr "Gebruiker '{0}' is bijgewerkt."
 
 msgid "The user could not be saved due to errors."
 msgstr "De gebruiker kon vanwege fouten niet worden opgeslagen."
+
+msgid "Groups"
+msgstr "Groepen"

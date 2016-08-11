@@ -49,7 +49,7 @@
 
                     {% endfor %}
                     <li>
-                        <input type="submit" value="{% trans 'Save' %}" />
+                        <input type="submit" value="{% trans 'Save' %}" class="button" />
                         {% if user_can_delete %}
                             <a href="{% url 'wagtailimages:delete' image.id %}" class="button button-secondary no">{% trans "Delete image" %}</a>
                         {% endif %}

@@ -1,0 +1,8 @@
+{% extends "wagtailadmin/shared/menu_submenu_item.html" %}
+{% load wagtailcore_tags %}
+
+{% block menu_footer %}
+    <li class="footer">
+        <div class="menu-item"><p class="wagtail-version">Wagtail v.{% wagtail_version %}</p></div>
+    </li>
+{% endblock %}

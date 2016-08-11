@@ -1,19 +1,23 @@
+from __future__ import absolute_import, unicode_literals
+
 from functools import wraps
 
 from django.conf import settings
-from django.shortcuts import render, redirect
 from django.contrib import messages
-from django.contrib.auth.forms import SetPasswordForm
-from django.contrib.auth import update_session_auth_hash, views as auth_views
+from django.contrib.auth import views as auth_views
+from django.contrib.auth import update_session_auth_hash
+from django.contrib.auth.forms import PasswordChangeForm
 from django.http import Http404
+from django.shortcuts import redirect, render
 from django.utils.translation import ugettext as _
-from django.views.decorators.debug import sensitive_post_parameters
 from django.views.decorators.cache import never_cache
+from django.views.decorators.debug import sensitive_post_parameters
 
+from wagtail.utils.compat import user_is_authenticated
 from wagtail.wagtailadmin import forms
+from wagtail.wagtailcore.models import UserPagePermissionsProxy
 from wagtail.wagtailusers.forms import NotificationPreferencesForm
 from wagtail.wagtailusers.models import UserProfile
-from wagtail.wagtailcore.models import UserPagePermissionsProxy
 
 
 # Helper functions to check password management settings to enable/disable views as appropriate.
@@ -47,8 +51,8 @@ def change_password(request):
     can_change_password = request.user.has_usable_password()
 
     if can_change_password:
-        if request.POST:
-            form = SetPasswordForm(request.user, request.POST)
+        if request.method == 'POST':
+            form = PasswordChangeForm(request.user, request.POST)
 
             if form.is_valid():
                 form.save()
@@ -57,7 +61,7 @@ def change_password(request):
                 messages.success(request, _("Your password has been changed successfully!"))
                 return redirect('wagtailadmin_account')
         else:
-            form = SetPasswordForm(request.user)
+            form = PasswordChangeForm(request.user)
     else:
         form = None
 
@@ -82,7 +86,7 @@ password_reset_complete = _wrap_password_reset_view(auth_views.password_reset_co
 
 
 def notification_preferences(request):
-    if request.POST:
+    if request.method == 'POST':
         form = NotificationPreferencesForm(request.POST, instance=UserProfile.get_for_user(request.user))
 
         if form.is_valid():
@@ -105,7 +109,7 @@ def notification_preferences(request):
 @sensitive_post_parameters()
 @never_cache
 def login(request):
-    if request.user.is_authenticated() and request.user.has_perm('wagtailadmin.access_admin'):
+    if user_is_authenticated(request.user) and request.user.has_perm('wagtailadmin.access_admin'):
         return redirect('wagtailadmin_home')
     else:
         from django.contrib.auth import get_user_model
@@ -123,6 +127,7 @@ def login(request):
 def logout(request):
     response = auth_views.logout(request, next_page='wagtailadmin_login')
 
+    messages.success(request, _('You have been successfully logged out.'))
     # By default, logging out will generate a fresh sessionid cookie. We want to use the
     # absence of sessionid as an indication that front-end pages are being viewed by a
     # non-logged-in user and are therefore cacheable, so we forcibly delete the cookie here.

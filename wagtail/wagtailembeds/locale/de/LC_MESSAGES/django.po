@@ -3,16 +3,17 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# Florian <flori@vorlif.org>, 2015
+# Vorlif <flori@vorlif.org>, 2015
+# Henrik Kröger <hedwig@riseup.net>, 2016
 # Johannes Spielmann <j@spielmannsolutions.com>, 2014
 # Johannes Spielmann <j@spielmannsolutions.com>, 2014
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-12-17 13:54+0000\n"
-"PO-Revision-Date: 2015-12-17 13:59+0000\n"
-"Last-Translator: mattwestcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2016-05-18 21:37+0000\n"
+"PO-Revision-Date: 2016-02-07 17:52+0000\n"
+"Last-Translator: Henrik Kröger <hedwig@riseup.net>\n"
 "Language-Team: German (http://www.transifex.com/torchbox/wagtail/language/"
 "de/)\n"
 "MIME-Version: 1.0\n"
@@ -27,6 +28,9 @@ msgstr "Bitte geben Sie eine gültige URL ein"
 msgid "URL"
 msgstr "URL"
 
+msgid "embed"
+msgstr "Einbetten"
+
 msgid "Insert embed"
 msgstr "Element einbetten"
 
@@ -37,7 +41,7 @@ msgid ""
 "There seems to be a problem with your embedly API key. Please check your "
 "settings."
 msgstr ""
-"Es gibt ein Problem mit ihrem Embedly API-Key. Bitte überprüfen Sie ihre "
+"Es gibt ein Problem mit Ihrem Embedly API-Key. Bitte überprüfen Sie Ihre "
 "Einstellungen!"
 
 msgid "Cannot find an embed for this URL."

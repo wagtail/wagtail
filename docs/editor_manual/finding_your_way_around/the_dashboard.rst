@@ -9,7 +9,7 @@ The Dashboard provides information on:
 * Any pages currently awaiting moderation (if you have these privileges)
 * Your most recently edited pages
 
-You can return to the Dashboard at any time by clicking the Wagtail log in the top-left of the screen.
+You can return to the Dashboard at any time by clicking the Wagtail logo in the top-left of the screen.
 
 .. image:: ../../_static/images/screen02_dashboard_editor.png
 

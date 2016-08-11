@@ -5,13 +5,14 @@
 # Translators:
 # Claudemiro Alves Feitosa Neto <dimiro1@gmail.com>, 2015
 # Gilson Filho <me@gilsondev.in>, 2014
+# Luiz Boaretto <lboaretto@gmail.com>, 2016
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-12-17 13:54+0000\n"
-"PO-Revision-Date: 2015-12-17 14:01+0000\n"
-"Last-Translator: mattwestcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2016-05-18 21:37+0000\n"
+"PO-Revision-Date: 2016-05-17 11:46+0000\n"
+"Last-Translator: Luiz Boaretto <lboaretto@gmail.com>\n"
 "Language-Team: Portuguese (Brazil) (http://www.transifex.com/torchbox/"
 "wagtail/language/pt_BR/)\n"
 "MIME-Version: 1.0\n"
@@ -53,8 +54,26 @@ msgstr "Data"
 msgid "Date/time"
 msgstr "Data/hora"
 
+msgid "submit time"
+msgstr "data do envio"
+
+msgid "form submission"
+msgstr "envio do formulário"
+
+msgid "label"
+msgstr "rótulo"
+
 msgid "The label of the form field"
 msgstr "O label do campo de formulário"
+
+msgid "field type"
+msgstr "tipo de campo"
+
+msgid "required"
+msgstr "requerido"
+
+msgid "choices"
+msgstr "escolhas"
 
 msgid ""
 "Comma separated list of choices. Only applicable in checkboxes, radio and "
@@ -63,12 +82,40 @@ msgstr ""
 "Escolhas separadas por virgula. Aplicável somente em checkboxes, radio e "
 "dropdown."
 
+msgid "default value"
+msgstr "valor padrão"
+
 msgid "Default value. Comma separated values supported for checkboxes."
 msgstr "Valor padrão: Valores separados por virgula para checkboxes."
+
+msgid "help text"
+msgstr "texto de ajuda"
+
+msgid "to address"
+msgstr "para endereço"
 
 msgid "Optional - form submissions will be emailed to this address"
 msgstr ""
 "Opcional - envios de formulário serão enviadas por email para este endereço"
+
+msgid "from address"
+msgstr "a partir do endereço"
+
+msgid "subject"
+msgstr "assunto"
+
+#, python-format
+msgid "Delete %(title)s"
+msgstr "Remover %(title)s"
+
+msgid "Delete"
+msgstr "Remover"
+
+msgid "Are you sure you want to delete this form submission?"
+msgstr "Tem certeza de que deseja excluir esta submissão do formulário?"
+
+msgid "Delete it"
+msgstr "Remover isso"
 
 msgid "Forms"
 msgstr "Formulários"
@@ -103,5 +150,14 @@ msgstr "Origem"
 msgid "Submission Date"
 msgstr "Data de Envio"
 
+msgid "Actions"
+msgstr "Ações"
+
+msgid "delete"
+msgstr "remover"
+
 msgid "No form pages have been created."
 msgstr "Nenhuma página foi criada."
+
+msgid "Submission deleted."
+msgstr "Submissão removida."

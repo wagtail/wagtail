@@ -14,7 +14,7 @@ App.prototype.scssIncludePaths = function() {
     return [this.sourceFiles];
 };
 App.prototype.scssSources = function() {
-    // Assume that any scss we care about is always within the expected 
+    // Assume that any scss we care about is always within the expected
     // "appname/static_url/appname/scss/" folder.
     // NB: this requires the user to adhere to sass's underscore prefixing
     // to tell the compiler what files are includes.
@@ -32,6 +32,9 @@ var apps = [
     new App('wagtail/contrib/wagtailstyleguide'),
     new App('wagtail/contrib/settings', {
         'appName': 'wagtailsettings',
+    }),
+    new App('wagtail/contrib/modeladmin', {
+        'appName': 'wagtailmodeladmin',
     }),
 ];
 

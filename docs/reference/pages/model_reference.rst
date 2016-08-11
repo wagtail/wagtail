@@ -6,6 +6,8 @@ Model Reference
 
 This document contains reference information for the model classes inside the ``wagtailcore`` module.
 
+.. _page-model-ref:
+
 ``Page``
 ========
 
@@ -80,8 +82,8 @@ Database fields
 
         This is used by the :meth:`~wagtail.wagtailcore.query.PageQuerySet.in_menu` QuerySet filter.
 
-Methods and properies
-~~~~~~~~~~~~~~~~~~~~~
+Methods and properties
+~~~~~~~~~~~~~~~~~~~~~~
 
 In addition to the model fields provided, ``Page`` has many properties and methods that you may wish to reference, use, or override in creating your own models. Those listed here are relatively straightforward to use, but consult the Wagtail source code for a full view of what's possible.
 
@@ -94,6 +96,12 @@ In addition to the model fields provided, ``Page`` has many properties and metho
     .. autoattribute:: url
 
     .. autoattribute:: full_url
+
+    .. automethod:: relative_url
+
+    .. automethod:: get_site
+
+    .. automethod:: get_url_parts
 
     .. automethod:: route
 
@@ -162,6 +170,13 @@ In addition to the model fields provided, ``Page`` has many properties and metho
     .. attribute:: is_creatable
 
         Controls if this page can be created through the Wagtail administration. Defaults to True, and is not inherited by subclasses. This is useful when using `multi-table inheritance <https://docs.djangoproject.com/en/1.8/topics/db/models/#multi-table-inheritance>`_, to stop the base model from being created as an actual page.
+
+    .. attribute:: base_form_class
+
+        The form class used as a base for editing Pages of this type in the Wagtail page editor.
+        This attribute can be set on a model to customise the Page editor form.
+        Forms must be a subclass of :class:`~wagtail.wagtailadmin.forms.WagtailAdminPageForm`.
+        See :ref:`custom_edit_handler_forms` for more information.
 
 ``Site``
 ========
@@ -233,6 +248,8 @@ Methods and properties
          - Everything else will use the ``http://`` scheme and the port will be appended to the end of the hostname (eg. ``http://mysite.com:8000/``)
 
     .. automethod:: get_site_root_paths
+
+.. _page-revision-model-ref:
 
 ``PageRevision``
 ================

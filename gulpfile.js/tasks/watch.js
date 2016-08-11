@@ -7,6 +7,7 @@ var config = require('../config');
  */
 gulp.task('watch', ['build'], function () {
     config.apps.forEach(function(app) {
+        gulp.watch(path.join('./client/src/**/*.scss'), ['styles:sass']);
         gulp.watch(path.join(app.sourceFiles, '*/scss/**'), ['styles:sass']);
         gulp.watch(path.join(app.sourceFiles, '*/css/**'), ['styles:css']);
         gulp.watch(path.join(app.sourceFiles, '*/js/**'), ['scripts']);

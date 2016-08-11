@@ -7,8 +7,8 @@ Compiling
 ~~~~~~~~~
 
 The SCSS source files are compiled to CSS using the
-[gulp](http://gulpjs.com/) build system.
-This requires [node.js](http://nodejs.org) to run.
+`gulp <http://gulpjs.com/>`_ build system.
+This requires `node.js <http://nodejs.org>`_ to run.
 To install the libraries required for compiling the SCSS,
 run the following from the Wagtail repository root:
 

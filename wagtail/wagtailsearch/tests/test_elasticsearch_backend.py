@@ -1,25 +1,29 @@
 # -*- coding: utf-8 -*-
-from __future__ import unicode_literals
+from __future__ import absolute_import, unicode_literals
 
-import os
-import unittest
 import datetime
 import json
+import os
+import time
+import unittest
+import warnings
 
 import mock
+from django.core import management
+from django.db.models import Q
+from django.test import TestCase
+from django.utils.six import StringIO
 from elasticsearch.serializer import JSONSerializer
 
-from django.test import TestCase
-from django.db.models import Q
-
-from wagtail.wagtailsearch.backends import get_search_backend
-from wagtail.wagtailsearch.backends.elasticsearch import ElasticSearch
-
 from wagtail.tests.search import models
+from wagtail.utils.deprecation import RemovedInWagtail18Warning
+from wagtail.wagtailsearch.backends import get_search_backend
+from wagtail.wagtailsearch.backends.elasticsearch import ElasticsearchSearchBackend
+
 from .test_backends import BackendTests
 
 
-class TestElasticSearchBackend(BackendTests, TestCase):
+class TestElasticsearchSearchBackend(BackendTests, TestCase):
     backend_path = 'wagtail.wagtailsearch.backends.elasticsearch'
 
     def test_search_with_spaces_only(self):
@@ -225,15 +229,36 @@ class TestElasticSearchBackend(BackendTests, TestCase):
         results = self.backend.search("Hello World", models.SearchTest, operator='and', fields=['title'])
         self.assertEqual(list(results), [a])
 
+    def test_update_index_command_schema_only(self):
+        # Reset the index, this should clear out the index
+        self.backend.reset_index()
 
-class TestElasticSearchQuery(TestCase):
+        # Give Elasticsearch some time to catch up...
+        time.sleep(1)
+
+        results = self.backend.search(None, models.SearchTest)
+        self.assertEqual(set(results), set())
+
+        # Run update_index command
+        with self.ignore_deprecation_warnings():
+            # ignore any DeprecationWarnings thrown by models with old-style indexed_fields definitions
+            management.call_command(
+                'update_index', backend_name=self.backend_name, schema_only=True, interactive=False, stdout=StringIO()
+            )
+
+        # Unlike the test_update_index_command test. This should not give any results
+        results = self.backend.search(None, models.SearchTest)
+        self.assertEqual(set(results), set())
+
+
+class TestElasticsearchSearchQuery(TestCase):
     def assertDictEqual(self, a, b):
         default = JSONSerializer().default
         self.assertEqual(
             json.dumps(a, sort_keys=True, default=default), json.dumps(b, sort_keys=True, default=default)
         )
 
-    query_class = ElasticSearch.query_class
+    query_class = ElasticsearchSearchBackend.query_class
 
     def test_simple(self):
         # Create a query
@@ -525,7 +550,7 @@ class TestElasticSearchQuery(TestCase):
         self.assertDictEqual(query.get_sort(), expected_result)
 
 
-class TestElasticSearchResults(TestCase):
+class TestElasticsearchSearchResults(TestCase):
     def assertDictEqual(self, a, b):
         default = JSONSerializer().default
         self.assertEqual(
@@ -539,7 +564,7 @@ class TestElasticSearchResults(TestCase):
             self.objects.append(models.SearchTest.objects.create(title=str(i)))
 
     def get_results(self):
-        backend = ElasticSearch({})
+        backend = ElasticsearchSearchBackend({})
         query = mock.MagicMock()
         query.queryset = models.SearchTest.objects.all()
         query.get_query.return_value = 'QUERY'
@@ -703,7 +728,7 @@ class TestElasticSearchResults(TestCase):
         self.assertEqual(results[2], self.objects[0])
 
 
-class TestElasticSearchMapping(TestCase):
+class TestElasticsearchMapping(TestCase):
     def assertDictEqual(self, a, b):
         default = JSONSerializer().default
         self.assertEqual(
@@ -712,7 +737,7 @@ class TestElasticSearchMapping(TestCase):
 
     def setUp(self):
         # Create ES mapping
-        self.es_mapping = ElasticSearch.mapping_class(models.SearchTest)
+        self.es_mapping = ElasticsearchSearchBackend.mapping_class(models.SearchTest)
 
         # Create ES document
         self.obj = models.SearchTest(title="Hello")
@@ -785,7 +810,7 @@ class TestElasticSearchMapping(TestCase):
         self.assertDictEqual(document, expected_result)
 
 
-class TestElasticSearchMappingInheritance(TestCase):
+class TestElasticsearchMappingInheritance(TestCase):
     def assertDictEqual(self, a, b):
         default = JSONSerializer().default
         self.assertEqual(
@@ -794,7 +819,7 @@ class TestElasticSearchMappingInheritance(TestCase):
 
     def setUp(self):
         # Create ES mapping
-        self.es_mapping = ElasticSearch.mapping_class(models.SearchTestChild)
+        self.es_mapping = ElasticsearchSearchBackend.mapping_class(models.SearchTestChild)
 
         # Create ES document
         self.obj = models.SearchTestChild(title="Hello", subtitle="World", page_id=1)
@@ -897,7 +922,7 @@ class TestElasticSearchMappingInheritance(TestCase):
 
 class TestBackendConfiguration(TestCase):
     def test_default_settings(self):
-        backend = ElasticSearch(params={})
+        backend = ElasticsearchSearchBackend(params={})
 
         self.assertEqual(len(backend.hosts), 1)
         self.assertEqual(backend.hosts[0]['host'], 'localhost')
@@ -906,12 +931,13 @@ class TestBackendConfiguration(TestCase):
 
     def test_hosts(self):
         # This tests that HOSTS goes to es_hosts
-        backend = ElasticSearch(params={
+        backend = ElasticsearchSearchBackend(params={
             'HOSTS': [
                 {
                     'host': '127.0.0.1',
                     'port': 9300,
                     'use_ssl': True,
+                    'verify_certs': True,
                 }
             ]
         })
@@ -923,7 +949,7 @@ class TestBackendConfiguration(TestCase):
 
     def test_urls(self):
         # This test backwards compatibility with old URLS setting
-        backend = ElasticSearch(params={
+        backend = ElasticsearchSearchBackend(params={
             'URLS': [
                 'http://localhost:12345',
                 'https://127.0.0.1:54321',
@@ -1061,3 +1087,16 @@ class TestAtomicRebuilder(TestCase):
 
         # Index should be gone
         self.assertFalse(self.es.indices.exists(current_index_name))
+
+
+class TestOldNameDeprecationWarning(TestCase):
+    def test_old_name_deprecation(self):
+        from wagtail.wagtailsearch.backends.elasticsearch import ElasticSearch
+
+        with warnings.catch_warnings(record=True) as w:
+            warnings.simplefilter('always')
+
+            ElasticSearch({})
+
+        self.assertEqual(len(w), 1)
+        self.assertIs(w[0].category, RemovedInWagtail18Warning)

@@ -1,18 +1,19 @@
-import unittest
-from willow.image import Image as WillowImage
+from __future__ import absolute_import, unicode_literals
 
-from django.test import TestCase
-from django.core.urlresolvers import reverse
-from django.test.utils import override_settings
+import unittest
+
 from django.contrib.auth import get_user_model
 from django.contrib.auth.models import Group, Permission
-
 from django.core.files.uploadedfile import SimpleUploadedFile
+from django.core.urlresolvers import reverse
 from django.db.utils import IntegrityError
+from django.test import TestCase
+from django.test.utils import override_settings
+from willow.image import Image as WillowImage
 
-from wagtail.tests.utils import WagtailTestUtils
-from wagtail.wagtailcore.models import Page
 from wagtail.tests.testapp.models import EventPage, EventPageCarouselItem
+from wagtail.tests.utils import WagtailTestUtils
+from wagtail.wagtailcore.models import Collection, GroupCollectionPermission, Page
 from wagtail.wagtailimages.models import Rendition, SourceImageIOError
 from wagtail.wagtailimages.rect import Rect
 
@@ -131,6 +132,21 @@ class TestImageQuerySet(TestCase):
         results = Image.objects.order_by('-title').search("Test")
         self.assertEqual(list(results), [zzz_image, aaa_image])
 
+    def test_search_indexing_prefetches_tags(self):
+        for i in range(0, 10):
+            image = Image.objects.create(
+                title="Test image %d" % i,
+                file=get_test_image_file(),
+            )
+            image.tags.add('aardvark', 'artichoke', 'armadillo')
+
+        with self.assertNumQueries(2):
+            results = {
+                image.title: [tag.name for tag in image.tags.all()]
+                for image in Image.get_indexed_objects()
+            }
+            self.assertTrue('aardvark' in results['Test image 0'])
+
 
 class TestImagePermissions(TestCase):
     def setUp(self):
@@ -145,7 +161,13 @@ class TestImagePermissions(TestCase):
         )
 
         # Owner user must have the add_image permission
-        self.owner.user_permissions.add(Permission.objects.get(codename='add_image'))
+        image_adders_group = Group.objects.create(name="Image adders")
+        GroupCollectionPermission.objects.create(
+            group=image_adders_group,
+            collection=Collection.get_first_root_node(),
+            permission=Permission.objects.get(codename='add_image'),
+        )
+        self.owner.groups.add(image_adders_group)
 
         # Create an image for running tests on
         self.image = Image.objects.create(
@@ -344,6 +366,7 @@ class TestIssue573(TestCase):
         image.get_rendition('fill-800x600')
 
 
+@override_settings(_WAGTAILSEARCH_FORCE_AUTO_UPDATE=['elasticsearch'])
 class TestIssue613(TestCase, WagtailTestUtils):
     def get_elasticsearch_backend(self):
         from django.conf import settings

@@ -3,14 +3,15 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# Ahmad Kiswani <kiswani.ahmad@gmail.com>, 2016
 # ROGER MICHAEL ASHLEY ALLEN <rogermaallen@gmail.com>, 2015
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-12-17 13:54+0000\n"
-"PO-Revision-Date: 2015-12-17 14:01+0000\n"
-"Last-Translator: mattwestcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2016-05-18 21:37+0000\n"
+"PO-Revision-Date: 2016-05-11 20:34+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Arabic (http://www.transifex.com/torchbox/wagtail/language/"
 "ar/)\n"
 "MIME-Version: 1.0\n"
@@ -32,6 +33,9 @@ msgstr "بريد إلكتروني "
 msgid "Number"
 msgstr "عدد"
 
+msgid "URL"
+msgstr "الرابط"
+
 msgid "Radio buttons"
 msgstr "أزرار راديو"
 
@@ -43,6 +47,21 @@ msgstr "تاريخ وقت"
 
 msgid "The label of the form field"
 msgstr "بظاقة حقل النوع"
+
+msgid "required"
+msgstr "مطلوب"
+
+msgid "choices"
+msgstr "اختيارات"
+
+msgid "default value"
+msgstr "القيمة الإفتراضية"
+
+msgid "help text"
+msgstr "نص للمساعدة"
+
+msgid "subject"
+msgstr "موضوع"
 
 msgid "Delete"
 msgstr "احذف"

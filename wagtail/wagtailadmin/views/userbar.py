@@ -1,8 +1,10 @@
-from django.shortcuts import render
-from django.contrib.auth.decorators import permission_required
+from __future__ import absolute_import, unicode_literals
 
-from wagtail.wagtailadmin.userbar import EditPageItem, AddPageItem, ApproveModerationEditPageItem, \
-    RejectModerationEditPageItem
+from django.contrib.auth.decorators import permission_required
+from django.shortcuts import render
+
+from wagtail.wagtailadmin.userbar import (
+    AddPageItem, ApproveModerationEditPageItem, EditPageItem, RejectModerationEditPageItem)
 from wagtail.wagtailcore import hooks
 from wagtail.wagtailcore.models import Page, PageRevision
 

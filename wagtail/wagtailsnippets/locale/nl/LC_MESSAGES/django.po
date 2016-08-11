@@ -5,13 +5,14 @@
 # Translators:
 # benny_AT_it_digin.com <benny@it-digin.com>, 2015
 # Thijs Kramer <thijskramer@gmail.com>, 2015
+# Thijs Kramer <thijskramer@gmail.com>, 2016
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-12-17 13:55+0000\n"
-"PO-Revision-Date: 2015-12-17 14:00+0000\n"
-"Last-Translator: mattwestcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2016-05-18 21:37+0000\n"
+"PO-Revision-Date: 2016-05-18 21:51+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Dutch (http://www.transifex.com/torchbox/wagtail/language/"
 "nl/)\n"
 "MIME-Version: 1.0\n"
@@ -23,14 +24,38 @@ msgstr ""
 msgid "Choose"
 msgstr "Kies"
 
+msgid "Search"
+msgstr "Zoeken"
+
+#, python-format
+msgid ""
+"\n"
+"            There is one match\n"
+"        "
+msgid_plural ""
+"\n"
+"            There are %(counter)s matches\n"
+"        "
+msgstr[0] ""
+"\n"
+"Er is één overeenkomst"
+msgstr[1] ""
+"\n"
+"Er zijn %(counter)s overeenkomsten"
+
+#, python-format
+msgid "Sorry, no snippets match \"<em>%(query_string)s</em>\""
+msgstr ""
+"Helaas, er komen geen snippets overeen met de zoekterm \"<em>"
+"%(query_string)s</em>\""
+
 #, python-format
 msgid ""
 "You haven't created any %(snippet_type_name)s snippets. Why not <a href="
 "\"%(wagtailsnippets_create_snippet_url)s\" target=\"_blank\">create one now"
 msgstr ""
-"U heeft nog geen %(snippet_type_name)s snippets aangemaakt. Waarom <a href="
-"\"%(wagtailsnippets_create_snippet_url)s\" target=\"_blank\">maakt u er nu "
-"niet een aan</a>?"
+"Er is nog geen %(snippet_type_name)s snippet aangemaakt. Waarom <a href="
+"\"%(wagtailsnippets_create_snippet_url)s\">voegt u er niet een toe</a>?"
 
 #, python-format
 msgid "Delete %(snippet_type_name)s - %(instance)s"
@@ -54,14 +79,14 @@ msgid "New"
 msgstr "Nieuw"
 
 msgid "Save"
-msgstr "Bewaar"
+msgstr "Opslaan"
 
 #, python-format
 msgid "Editing %(snippet_type_name)s - %(instance)s"
-msgstr "Bewerk %(snippet_type_name)s - %(instance)s"
+msgstr "Wijzigen %(snippet_type_name)s - %(instance)s"
 
 msgid "Editing"
-msgstr "Bewerken"
+msgstr "Wijzigen"
 
 msgid "Snippets"
 msgstr "Snippets"
@@ -104,6 +129,10 @@ msgstr "Status"
 
 msgid "Edit this page"
 msgstr "Bewerk deze pagina"
+
+#, python-format
+msgid "Search %(snippet_type_name)s"
+msgstr "Zoek %(snippet_type_name)s"
 
 #, python-brace-format
 msgid "{snippet_type} '{instance}' created."

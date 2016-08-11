@@ -5,13 +5,14 @@
 # Translators:
 # benny_AT_it_digin.com <benny@it-digin.com>, 2015
 # Thijs Kramer <thijskramer@gmail.com>, 2015
+# Thijs Kramer <thijskramer@gmail.com>, 2016
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-12-17 13:54+0000\n"
-"PO-Revision-Date: 2015-12-17 14:02+0000\n"
-"Last-Translator: mattwestcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2016-05-18 21:37+0000\n"
+"PO-Revision-Date: 2016-02-25 21:29+0000\n"
+"Last-Translator: Thijs Kramer <thijskramer@gmail.com>\n"
 "Language-Team: Dutch (http://www.transifex.com/torchbox/wagtail/language/"
 "nl/)\n"
 "MIME-Version: 1.0\n"
@@ -21,10 +22,22 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 msgid "Please specify at least one recommendation for this search term."
-msgstr "Geef minstens één aanbeveling op voor deze zoekterm."
+msgstr "Geef minimaal één aanbeveling op voor deze zoekterm."
+
+msgid "page"
+msgstr "pagina"
+
+msgid "description"
+msgstr "omschrijving"
+
+msgid "search promotion"
+msgstr "zoekpromotie"
+
+msgid "Add search promotion"
+msgstr "Voeg een zoekwoord-promotie toe"
 
 msgid "Add search pick"
-msgstr "Voeg een zoek-keuze toe"
+msgstr "Voeg een zoek pick toe"
 
 msgid ""
 "\n"
@@ -50,14 +63,14 @@ msgid ""
 "            "
 msgstr ""
 "\n"
-"                <p>Het \"Zoekterm(en)/zin\"-veld hieronder moet de volledige "
-"en exacte zoekterm bevatten waarvoor u aanbevolen zoekresultaten wilt tonen, "
-"<em>including</em> mogelijke spelfouten. Als hulp kunt u uit zoektermen "
-"kiezen die populair zijn bij gebruikers van uw website.</p>\n"
+"                <p>Het \"Zoekterm(en)\" veld moet een volledige zoekterm, "
+"<em>inclusief</em> mogelijk spelfouten/gebruikersfouten bevatten waarvoor u "
+"een aanbevolen resultaat wilt instellen. Om te helpen kunt u kiezen uit "
+"populaire zoektermen van gebruikers van de website.</p>\n"
 "            "
 
 msgid "Save"
-msgstr "Bewaar"
+msgstr "Opslaan"
 
 #, python-format
 msgid "Delete %(query)s"
@@ -112,8 +125,43 @@ msgstr "Aanbevolen zoekresultaten"
 msgid "Views (past week)"
 msgstr "Views (afgelopen week)"
 
+msgid "Edit this promotion"
+msgstr "Wijzig deze zoekpromotie"
+
 msgid "None"
 msgstr "Geen"
+
+#, python-format
+msgid ""
+"\n"
+"            There is one match\n"
+"        "
+msgid_plural ""
+"\n"
+"            There are %(counter)s matches\n"
+"        "
+msgstr[0] ""
+"\n"
+"            Er is één overeenkomst\n"
+"        "
+msgstr[1] ""
+"\n"
+"            Er zijn %(counter)s overeenkomsten\n"
+"        "
+
+#, python-format
+msgid "Sorry, no promoted results match \"<em>%(query_string)s</em>\""
+msgstr ""
+"Sorry, geen gepromoot zoekresultaat komt overeen met \"<em>%(query_string)s</"
+"em>\""
+
+#, python-format
+msgid ""
+"No promoted results have been created. Why not <a href="
+"\"%(wagtailsearchpromotions_add_url)s\">add one</a>?"
+msgstr ""
+"Er zijn nog geen aanbevolen zoekresultaten aangemaakt. Waarom <a href="
+"\"%(wagtailsearchpromotions_add_url)s\">voegt u er niet een toe</a>?"
 
 msgid "Search promoted results"
 msgstr "Zoek aanbevolen zoekresultaten"

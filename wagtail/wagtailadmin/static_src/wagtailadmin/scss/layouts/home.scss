@@ -33,7 +33,6 @@ header {
     background-color: $color-grey-5;
     margin-bottom: 2em;
     padding-top: 2em;
-    padding-bottom: 2em;
 
     ul.stats {
         @include clearfix();
@@ -42,6 +41,7 @@ header {
 
         li {
             @include column(4);
+            margin-bottom: 2em;
 
             &:before {
                 opacity: 0.2;

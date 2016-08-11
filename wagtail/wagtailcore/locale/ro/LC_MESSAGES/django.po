@@ -3,14 +3,14 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# Dan Braghis, 2014-2015
+# Dan Braghis, 2014-2016
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-12-17 13:54+0000\n"
-"PO-Revision-Date: 2015-12-17 13:58+0000\n"
-"Last-Translator: mattwestcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2016-05-18 21:37+0000\n"
+"PO-Revision-Date: 2016-03-01 22:24+0000\n"
+"Last-Translator: Dan Braghis\n"
 "Language-Team: Romanian (http://www.transifex.com/torchbox/wagtail/language/"
 "ro/)\n"
 "MIME-Version: 1.0\n"
@@ -19,6 +19,12 @@ msgstr ""
 "Language: ro\n"
 "Plural-Forms: nplurals=3; plural=(n==1?0:(((n%100>19)||((n%100==0)&&(n!=0)))?"
 "2:1));\n"
+
+msgid "hostname"
+msgstr "nume gazdă"
+
+msgid "port"
+msgstr "port"
 
 msgid ""
 "Set this to something other than 80 if you need a specific port number to "
@@ -29,6 +35,18 @@ msgstr ""
 "internet (de exemplu, dezvoltare pe portul 8000)  setați aceasta la altceva "
 "decât 80. Nu influențează gestionarea solicitărilor și transmiterile de port "
 "vor continua să funcționeze."
+
+msgid "site name"
+msgstr "nume sit"
+
+msgid "Human-readable name for the site."
+msgstr "Titlu sit lizibil pentru om"
+
+msgid "root page"
+msgstr "pagină de bază"
+
+msgid "is default site"
+msgstr "sit implicit"
 
 msgid ""
 "If true, this site will handle requests for all other hostnames that do not "
@@ -51,8 +69,14 @@ msgstr ""
 "%(hostname)s este definit deja ca sit implicit și trebuie schimbat pentru a "
 "putea seta acest sit ca implicit "
 
+msgid "title"
+msgstr "titlu"
+
 msgid "The page title as you'd like it to be seen by the public"
 msgstr "Titlul paginii așa cum doriți să fie vizibil public"
+
+msgid "slug"
+msgstr "slug"
 
 msgid ""
 "The name of the page as it will appear in URLs e.g http://domain.com/blog/"
@@ -61,8 +85,23 @@ msgstr ""
 "Numele paginii așa cum va apărea în adrese. De exemplu, http://domain.com/"
 "blog/[my-slug]/"
 
+msgid "content type"
+msgstr "tip de conținut"
+
+msgid "live"
+msgstr "live"
+
+msgid "has unpublished changes"
+msgstr "conține modificări nepublicate"
+
 msgid "URL path"
 msgstr "Cale"
+
+msgid "owner"
+msgstr "proprietar"
+
+msgid "page title"
+msgstr "titlu pagină"
 
 msgid ""
 "Optional. 'Search Engine Friendly' title. This will appear at the top of the "
@@ -71,23 +110,50 @@ msgstr ""
 "Opțional. Titlu favorabil motoarelor de căutare. Apare în partea de sus a "
 "browserului."
 
+msgid "show in menus"
+msgstr "arată în meniuri"
+
 msgid ""
 "Whether a link to this page will appear in automatically generated menus"
 msgstr ""
 "Dacă un link către această pagină va apărea în meniurile generate în mod "
 "automat"
 
+msgid "search description"
+msgstr "descriere pentru căutare"
+
+msgid "go live date/time"
+msgstr "data/timpul de publicare"
+
 msgid "Please add a date-time in the form YYYY-MM-DD hh:mm."
 msgstr "Introduceți data și timpul în format YYYY-MM-DD hh:mm."
 
+msgid "expiry date/time"
+msgstr "data/timpul de expirare"
+
 msgid "expired"
 msgstr "expirat"
+
+msgid "locked"
+msgstr "blocat"
+
+msgid "first published at"
+msgstr "publicată pentru prima dată la"
+
+msgid "latest revision created at"
+msgstr "ultima revizie creată la"
+
+msgid "This slug is already in use"
+msgstr "Slug-ul acesta a fost deja folosit"
 
 msgid "scheduled"
 msgstr "programată"
 
 msgid "draft"
 msgstr "ciornă"
+
+msgid "live + draft"
+msgstr "live + ciornă"
 
 msgid "Default"
 msgstr "Implicit"
@@ -98,23 +164,56 @@ msgstr "pagină"
 msgid "pages"
 msgstr "pagini"
 
+msgid "submitted for moderation"
+msgstr "trimisă pentru moderare."
+
+msgid "created at"
+msgstr "creat la"
+
+msgid "user"
+msgstr "utilizator"
+
+msgid "content JSON"
+msgstr "conținut JSON"
+
+msgid "approved go live at"
+msgstr "aprobat pentru publicare la"
+
 msgid "page revision"
 msgstr "revizie pagină"
 
 msgid "page revisions"
 msgstr "revizii pagină"
 
+msgid "Add"
+msgstr "Adaugă"
+
 msgid "Add/edit pages you own"
 msgstr "Adaugă/editeaza pagini deținute"
+
+msgid "Edit"
+msgstr "Editează"
 
 msgid "Edit any page"
 msgstr "Editează orice pagină"
 
+msgid "Publish"
+msgstr "Publică"
+
 msgid "Publish any page"
 msgstr "Publică orice pagină"
 
+msgid "Lock"
+msgstr "Încuie"
+
 msgid "Lock/unlock any page"
 msgstr "Blochează/deblochează orice pagină"
+
+msgid "group"
+msgstr "grup"
+
+msgid "permission type"
+msgstr "tip permisiune"
 
 msgid "group page permission"
 msgstr "permisie grup pagină"
@@ -122,8 +221,26 @@ msgstr "permisie grup pagină"
 msgid "group page permissions"
 msgstr "permisiuni grup pagină"
 
+msgid "password"
+msgstr "parolă"
+
 msgid "page view restriction"
 msgstr "restricție de vizualizare pagină"
 
 msgid "page view restrictions"
 msgstr "restricții de vizualizare pagină"
+
+msgid "name"
+msgstr "nume"
+
+msgid "collection"
+msgstr "colecție"
+
+msgid "collections"
+msgstr "colecții"
+
+msgid "permission"
+msgstr "permisiune"
+
+msgid "group collection permission"
+msgstr "permisiune grup colecție"

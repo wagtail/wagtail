@@ -4,15 +4,15 @@
 #
 # Translators:
 # serafeim <serafeim@torchbox.com>, 2014
-# serafeim <serafeim@torchbox.com>, 2014
-# dotoree <vdotoree@yahoo.gr>, 2015
+# serafeim <serafeim@torchbox.com>, 2014,2016
+# George Giannoulopoulos <vdotoree@yahoo.gr>, 2015
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-12-17 13:54+0000\n"
-"PO-Revision-Date: 2015-12-17 13:59+0000\n"
-"Last-Translator: mattwestcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2016-05-18 21:37+0000\n"
+"PO-Revision-Date: 2016-05-14 21:27+0000\n"
+"Last-Translator: serafeim <serafeim@torchbox.com>\n"
 "Language-Team: Greek (http://www.transifex.com/torchbox/wagtail/language/"
 "el/)\n"
 "MIME-Version: 1.0\n"
@@ -26,6 +26,9 @@ msgstr "Παρακαλώ εισάγετε μια διεύθυνση"
 
 msgid "URL"
 msgstr "Διεύθυνση"
+
+msgid "embed"
+msgstr "ενσωμάτωση"
 
 msgid "Insert embed"
 msgstr "Εισαγωγή ενσωμάτωσης"

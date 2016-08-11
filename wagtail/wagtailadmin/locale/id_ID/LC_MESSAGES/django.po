@@ -1,0 +1,253 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# Sutrisno Efendi <kangfend@gmail.com>, 2015
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2016-05-18 21:37+0000\n"
+"PO-Revision-Date: 2016-05-11 20:33+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"Language-Team: Indonesian (Indonesia) (http://www.transifex.com/torchbox/"
+"wagtail/language/id_ID/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: id_ID\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+msgid "Enter password"
+msgstr "Masukkan kata sandi"
+
+msgid "New title"
+msgstr "Judul baru"
+
+msgid "Copy subpages"
+msgstr "Salin subhalaman"
+
+#, python-format
+msgid "This will copy %(count)s subpage."
+msgid_plural "This will copy %(count)s subpages."
+msgstr[0] "Ini akan menyalin %(count)s subhalaman."
+
+msgid "Publish copied page"
+msgstr "Terbitkan halaman yang telah disalin"
+
+msgid "Public"
+msgstr "Publik"
+
+msgid "Account"
+msgstr "Akun"
+
+msgid "Set gravatar"
+msgstr "Tentukan gravatar"
+
+msgid "Change password"
+msgstr "Ganti kata sandi"
+
+msgid "Change the password you use to log in."
+msgstr "Ganti kata sandi yang Anda gunakan untuk masuk."
+
+msgid "Change Password"
+msgstr "Ganti Kata Sandi"
+
+msgid "Update"
+msgstr "Perbarui"
+
+msgid "Reset password"
+msgstr "Atur ulang kata sandi"
+
+msgid "Password change successful"
+msgstr "Kata sandi berhasil diubah"
+
+msgid "Login"
+msgstr "Masuk"
+
+msgid "Set your new password"
+msgstr "Atur kata sandi baru Anda"
+
+msgid "The passwords do not match. Please try again."
+msgstr "Kata sandi tidak cocok. Silakan coba kembali."
+
+msgid "Check your email"
+msgstr "Periksa email Anda"
+
+msgid "A link to reset your password has been emailed to you."
+msgstr ""
+"Tautan untuk mengatur ulang kata sandi Anda telah dikirim ke email Anda."
+
+msgid "Password reset"
+msgstr "Penyetelan ulang kata sandi"
+
+msgid "Reset your password"
+msgstr "Atur ulang kata sandi Anda"
+
+msgid "Menu"
+msgstr "Menu"
+
+msgid "Add another"
+msgstr "Tambah yang lainnya"
+
+msgid "Delete"
+msgstr "Hapus"
+
+msgid "Internal link"
+msgstr "Tautan internal"
+
+msgid "Email link"
+msgstr "Tautan email"
+
+msgid "Choose"
+msgstr "Pilih"
+
+msgid "Choose a page"
+msgstr "Pilih halaman"
+
+msgid "Add an email link"
+msgstr "Tambahkan tautan email"
+
+msgid "Insert link"
+msgstr "Sisipkan tautan"
+
+msgid "Yes, delete"
+msgstr "Ya, hapus"
+
+msgid "Save"
+msgstr "Simpan"
+
+#, python-format
+msgid "Welcome to the %(site_name)s Wagtail CMS"
+msgstr "Selamat datang di %(site_name)s Wagtail CMS"
+
+msgid "Pages awaiting moderation"
+msgstr "Halaman sedang menunggu moderasi"
+
+msgid "Title"
+msgstr "Judul"
+
+msgid "Type"
+msgstr "Tipe"
+
+msgid "Edited"
+msgstr "Telah diubah"
+
+msgid "Edit this page"
+msgstr "Ubah halaman ini"
+
+msgid "Approve"
+msgstr "Setujui"
+
+msgid "Reject"
+msgstr "Tolak"
+
+msgid "Edit"
+msgstr "Ubah"
+
+msgid "Preview"
+msgstr "Pratinjau"
+
+msgid "Date"
+msgstr "Tanggal"
+
+msgid "Status"
+msgstr "Status"
+
+msgid "Site summary"
+msgstr "Ringkasan situs"
+
+msgid "Sign in"
+msgstr "Masuk"
+
+#, python-format
+msgid "Your %(username_field)s and password didn't match. Please try again."
+msgstr ""
+"%(username_field)s dan kata sandi anda tidak cocok. Silakan coba kembali."
+
+msgid "Sign in to Wagtail"
+msgstr "Masuk ke Wagtail"
+
+msgid "Forgotten it?"
+msgstr "Lupa?"
+
+#, python-format
+msgid "The page \"%(title)s\" has been approved."
+msgstr "Halaman %(title)s telah disetujui."
+
+msgid "You can view the page here:"
+msgstr "Anda dapat melihat halamannya disini:"
+
+#, python-format
+msgid "The page \"%(title)s\" has been approved"
+msgstr "Halaman %(title)s telah disetujui"
+
+#, python-format
+msgid "Create a page in %(title)s"
+msgstr "Buat halaman di %(title)s"
+
+msgid "Create a page in"
+msgstr "Buat halaman di"
+
+#, python-format
+msgid "Pages using %(page_type)s"
+msgstr "Halaman menggunakan %(page_type)s"
+
+#, python-format
+msgid "Delete %(title)s"
+msgstr "Hapus %(title)s"
+
+msgid "Are you sure you want to delete this page?"
+msgstr "Apakah Anda yakin ingin menghapus halaman ini?"
+
+#, python-format
+msgid ""
+"\n"
+"                    This will also delete one more subpage.\n"
+"                "
+msgid_plural ""
+"\n"
+"                    This will also delete %(descendant_count)s more "
+"subpages.\n"
+"                "
+msgstr[0] ""
+"\n"
+"Ini juga akan menghapus %(descendant_count)s subhalaman."
+
+msgid "Delete it"
+msgstr "Hapus"
+
+#, python-format
+msgid "Move %(title)s"
+msgstr "Pindahkan %(title)s"
+
+msgid "Move"
+msgstr "Pindahkan"
+
+#, python-format
+msgid "Are you sure you want to move this page into '%(title)s'?"
+msgstr "Anda yakin ingin memindahkan halaman ini ke dalam '%(title)s'?"
+
+msgid "Yes, move this page"
+msgstr "Ya, pindahkan halaman ini"
+
+#, python-format
+msgid "Copy %(title)s"
+msgstr "Salin %(title)s"
+
+msgid "Copy"
+msgstr "Salin"
+
+msgid "Copy this page"
+msgstr "Salin halaman ini"
+
+#, python-format
+msgid "New %(page_type)s"
+msgstr "%(page_type)s baru"
+
+msgid "New"
+msgstr "Baru"
+
+msgid "Publish"
+msgstr "Terbitkan"

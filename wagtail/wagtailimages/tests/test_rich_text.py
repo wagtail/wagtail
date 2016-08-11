@@ -1,7 +1,8 @@
-from bs4 import BeautifulSoup
-from mock import patch
+from __future__ import absolute_import, unicode_literals
 
+from bs4 import BeautifulSoup
 from django.test import TestCase
+from mock import patch
 
 from wagtail.wagtailimages.rich_text import ImageEmbedHandler
 

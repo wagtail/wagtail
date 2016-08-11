@@ -7,7 +7,7 @@
                 editable: null
             },
             populateToolbar: function(toolbar) {
-                var button, getEnclosingLink, widget;
+                var buttonSet, addButton, cancelButton, getEnclosingLink, widget;
 
                 widget = this;
                 getEnclosingLink = function() {
@@ -17,61 +17,137 @@
                     return $(node).parents('a').get(0);
                 };
 
-                button = $('<span class="' + this.widgetName + '"></span>');
-                button.hallobutton({
-                    uuid: this.options.uuid,
-                    editable: this.options.editable,
-                    label: 'Links',
+                buttonSet = $('<span class="' + this.widgetName + '"></span>');
+
+                addButton = $('<span></span>');
+                addButton = addButton.hallobutton({
+                    uuid: widget.options.uuid,
+                    editable: widget.options.editable,
+                    label: 'Add/Edit Link',
                     icon: 'icon-link',
                     command: null,
                     queryState: function(event) {
-                        return button.hallobutton('checked', !!getEnclosingLink());
+                        return addButton.hallobutton('checked', !!getEnclosingLink());
                     }
                 });
+                addButton.on('click', function() {
+                    var enclosingLink, lastSelection, url, urlParams, href, pageId, linkType;
 
-                toolbar.append(button);
-                return button.on('click', function(event) {
-                    var enclosingLink, lastSelection, url;
+                    // Defaults.
+                    url = window.chooserUrls.pageChooser;
+                    urlParams = {
+                        'allow_external_link': true,
+                        'allow_email_link': true
+                    };
+
+                    enclosingLink = getEnclosingLink();
+                    lastSelection = widget.options.editable.getSelection();
+
+                    if (enclosingLink) {
+                        href = enclosingLink.getAttribute('href');
+                        parentPageId = enclosingLink.getAttribute('data-parent-id');
+                        linkType = enclosingLink.getAttribute('data-linktype');
+
+                        urlParams['link_text'] = enclosingLink.innerText;
+
+                        if (linkType == 'page' && parentPageId) {
+                            url = window.chooserUrls.pageChooser + parentPageId.toString() + '/';
+                        } else if (href.startsWith('mailto:')) {
+                            url = window.chooserUrls.emailLinkChooser;
+                            href = href.replace('mailto:', '');
+                            urlParams['link_url'] = href;
+                        } else if (!linkType) {  /* external link */
+                            url = window.chooserUrls.externalLinkChooser;
+                            urlParams['link_url'] = href;
+                        }
+                    } else if (!lastSelection.collapsed) {
+                        urlParams['link_text'] = lastSelection.toString();
+                    }
+
+                    return ModalWorkflow({
+                        url: url,
+                        urlParams: urlParams,
+                        responses: {
+                            pageChosen: function(pageData) {
+                                var a, text;
+
+                                // Create link
+                                a = document.createElement('a');
+                                a.setAttribute('href', pageData.url);
+                                if (pageData.id) {
+                                    a.setAttribute('data-id', pageData.id);
+                                    a.setAttribute('data-parent-id', pageData.parentId);
+                                    a.setAttribute('data-linktype', 'page');
+                                }
+
+                                if (pageData.id) {
+                                    // If it's a link to an internal page, `pageData.title` will not use the link_text
+                                    // like external and email responses do, overwriting selection text :(
+                                    if (!lastSelection.collapsed) {
+                                        text = lastSelection.toString();
+                                    } else if (enclosingLink) {
+                                        text = enclosingLink.innerHTML;
+                                    }
+                                    else {
+                                        text = pageData.title;
+                                    }
+                                } else {
+                                    text = pageData.title;
+                                }
+                                a.appendChild(document.createTextNode(text));
+
+                                // Remove existing nodes
+                                if (enclosingLink && enclosingLink.parentNode) {
+                                    enclosingLink.parentNode.removeChild(enclosingLink);
+                                }
+                                lastSelection.deleteContents();
+
+                                // Add new node
+                                lastSelection.insertNode(a);
+
+                                return widget.options.editable.element.trigger('change');
+                            }
+                        }
+                    });
+                });
+                buttonSet.append(addButton);
+
+                cancelButton = $('<span></span>');
+                cancelButton = cancelButton.hallobutton({
+                    uuid: widget.options.uuid,
+                    editable: widget.options.editable,
+                    label: 'Remove Link',
+                    icon: 'icon-chain-broken',
+                    command: null,
+                    queryState: function(event) {
+                        if (!!getEnclosingLink()) {
+                            return cancelButton.hallobutton('enable');
+                        } else {
+                            return cancelButton.hallobutton('disable');
+                        }
+                    }
+                });
+                cancelButton.on('click', function() {
+                    var enclosingLink, sel, range;
 
                     enclosingLink = getEnclosingLink();
                     if (enclosingLink) {
-                        $(enclosingLink).replaceWith(enclosingLink.innerHTML);
-                        button.hallobutton('checked', false);
-                        return widget.options.editable.element.trigger('change');
-                    } else {
-                        lastSelection = widget.options.editable.getSelection();
-                        if (lastSelection.collapsed) {
-                            url = window.chooserUrls.pageChooser + '?allow_external_link=true&allow_email_link=true&prompt_for_link_text=true';
-                        } else {
-                            url = window.chooserUrls.pageChooser + '?allow_external_link=true&allow_email_link=true';
-                        }
+                        sel = rangy.getSelection();
+                        range = sel.getRangeAt(0);
 
-                        return ModalWorkflow({
-                            url: url,
-                            responses: {
-                                pageChosen: function(pageData) {
-                                    var a;
+                        range.setStartBefore(sel.anchorNode.parentNode);
+                        range.setEndAfter(sel.anchorNode.parentNode);
 
-                                    a = document.createElement('a');
-                                    a.setAttribute('href', pageData.url);
-                                    if (pageData.id) {
-                                        a.setAttribute('data-id', pageData.id);
-                                        a.setAttribute('data-linktype', 'page');
-                                    }
+                        sel.setSingleRange(range, false);
 
-                                    if ((!lastSelection.collapsed) && lastSelection.canSurroundContents()) {
-                                        lastSelection.surroundContents(a);
-                                    } else {
-                                        a.appendChild(document.createTextNode(pageData.title));
-                                        lastSelection.insertNode(a);
-                                    }
-
-                                    return widget.options.editable.element.trigger('change');
-                                }
-                            }
-                        });
+                        document.execCommand('unlink');
+                        widget.options.editable.element.trigger('change');
                     }
                 });
+                buttonSet.append(cancelButton);
+
+                buttonSet.hallobuttonset();
+                toolbar.append(buttonSet);
             }
         });
     })(jQuery);

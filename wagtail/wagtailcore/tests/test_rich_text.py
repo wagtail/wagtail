@@ -1,15 +1,12 @@
-from mock import patch
+from __future__ import absolute_import, unicode_literals
+
 from bs4 import BeautifulSoup
-
 from django.test import TestCase
+from mock import patch
 
+from wagtail.wagtailcore.models import Page
 from wagtail.wagtailcore.rich_text import (
-    PageLinkHandler,
-    DbWhitelister,
-    extract_attrs,
-    expand_db_html,
-    RichText
-)
+    DbWhitelister, PageLinkHandler, RichText, expand_db_html, extract_attrs)
 
 
 class TestPageLinkHandler(TestCase):
@@ -34,8 +31,20 @@ class TestPageLinkHandler(TestCase):
             {'id': 1},
             True
         )
-        self.assertEqual(result,
-                         '<a data-linktype="page" data-id="1" href="None">')
+        self.assertEqual(
+            result,
+            '<a data-linktype="page" data-id="1" href="None">'
+        )
+
+        events_page_id = Page.objects.get(url_path='/home/events/').pk
+        result = PageLinkHandler.expand_db_attributes(
+            {'id': events_page_id},
+            True
+        )
+        self.assertEqual(
+            result,
+            '<a data-linktype="page" data-id="%d" data-parent-id="2" href="/events/">' % events_page_id
+        )
 
     def test_expand_db_attributes_not_for_editor(self):
         result = PageLinkHandler.expand_db_attributes(
@@ -136,3 +145,10 @@ class TestRichTextValue(TestCase):
             result,
             '<div class="rich-text"><p>Merry <a href="/events/christmas/">Christmas</a>!</p></div>'
         )
+
+    def test_evaluate_value(self):
+        value = RichText(None)
+        self.assertFalse(value)
+
+        value = RichText('<p>wagtail</p>')
+        self.assertTrue(value)

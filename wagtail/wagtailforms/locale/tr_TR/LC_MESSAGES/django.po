@@ -3,15 +3,16 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# José Alaguna <alagunajs@gmail.com>, 2015
+# Yusuf (Josè) Luis <alagunajs@gmail.com>, 2015
 # Ragıp Ünal <ragip@ragipunal.com>, 2015
+# Saadettin Yasir AKEL <destek@nixron.com>, 2016
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-12-17 13:54+0000\n"
-"PO-Revision-Date: 2015-12-17 14:01+0000\n"
-"Last-Translator: mattwestcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2016-05-18 21:37+0000\n"
+"PO-Revision-Date: 2016-07-24 07:36+0000\n"
+"Last-Translator: Saadettin Yasir AKEL <destek@nixron.com>\n"
 "Language-Team: Turkish (Turkey) (http://www.transifex.com/torchbox/wagtail/"
 "language/tr_TR/)\n"
 "MIME-Version: 1.0\n"
@@ -67,6 +68,9 @@ msgid "Default value. Comma separated values supported for checkboxes."
 msgstr ""
 "Varsayılan değer. Açılır kutular için virgülle ayrılmış değerler içindir."
 
+msgid "subject"
+msgstr "Konu"
+
 msgid "Delete"
 msgstr "Sil"
 
@@ -99,6 +103,9 @@ msgstr "Gönderilme Tarihi"
 
 msgid "Actions"
 msgstr "Eylemler"
+
+msgid "delete"
+msgstr "Sil"
 
 msgid "Submission deleted."
 msgstr "Gönderme silindi."

@@ -46,8 +46,9 @@ def remove_admin_access_permissions(apps, schema_editor):
 class Migration(migrations.Migration):
 
     dependencies = [
-        # Need to run wagtailcores initial data migration to make sure the groups are created
-        ('wagtailcore', '0002_initial_data'),
+        # We cannot apply and unapply this migration unless GroupCollectionPermission
+        # is created. #2529
+        ('wagtailcore', '0026_group_collection_permission'),
     ]
 
     operations = [

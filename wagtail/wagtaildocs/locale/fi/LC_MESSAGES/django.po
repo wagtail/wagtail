@@ -4,12 +4,13 @@
 #
 # Translators:
 # Aarni Koskela, 2016
+# Rauli L. <rauli.laine@iki.fi>, 2016
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-12-17 13:54+0000\n"
-"PO-Revision-Date: 2016-01-14 16:17+0000\n"
+"POT-Creation-Date: 2016-05-18 21:37+0000\n"
+"PO-Revision-Date: 2016-05-12 12:22+0000\n"
 "Last-Translator: Aarni Koskela\n"
 "Language-Team: Finnish (http://www.transifex.com/torchbox/wagtail/language/"
 "fi/)\n"
@@ -18,6 +19,18 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: fi\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Add"
+msgstr "Lisää"
+
+msgid "Add/edit documents you own"
+msgstr "Lisää/muokkaa dokumentteja jota omistat"
+
+msgid "Edit"
+msgstr "Muokkaa"
+
+msgid "Edit any document"
+msgstr "Muokkaa mitä vain dokumenttia"
 
 msgid "title"
 msgstr "otsikko"
@@ -48,6 +61,12 @@ msgstr "Lähetä"
 
 msgid "Uploading..."
 msgstr "Lähetetään..."
+
+msgid "Server Error"
+msgstr "Palvelinvirhe"
+
+msgid "Report this error to your webmaster with the following information:"
+msgstr "Raportoi tämä virhe sivuston ylläpitäjälle seuraavan tiedon kanssa:"
 
 #, python-format
 msgid ""
@@ -128,6 +147,14 @@ msgstr "Lähetetty"
 
 #, python-format
 msgid ""
+"You haven't uploaded any documents in this collection. Why not <a href="
+"\"%(wagtaildocs_add_document_url)s\">upload one now</a>?"
+msgstr ""
+"Et ole lisännyt yhtään dokumenttia tähän kokoelmaan. Mikset vaikka <a href="
+"\"%(wagtaildocs_add_document_url)s\">lisäisi yhtä nyt</a>?"
+
+#, python-format
+msgid ""
 "You haven't uploaded any documents. Why not <a href="
 "\"%(wagtaildocs_add_document_url)s\">upload one now</a>?"
 msgstr ""
@@ -171,15 +198,50 @@ msgstr[1] ""
 "        <span>%(total)s</span> dokumenttia\n"
 "    "
 
+msgid "Add multiple documents"
+msgstr "Lisää useampi dokumentti"
+
+msgid "Add documents"
+msgstr "Lisää dokumentteja"
+
+msgid "Drag and drop documents into this area to upload immediately."
+msgstr "Raahaa ja pudota dokumentteja tälle alueelle lähettääksesi ne heti."
+
+msgid "Or choose from your computer"
+msgstr "Tai valitse tietokoneeltasi"
+
+msgid "Add to collection:"
+msgstr "Lisää kokoelmaan:"
+
+msgid ""
+"Upload successful. Please update this documents with a more appropriate "
+"title, if necessary. You may also delete the document completely if the "
+"upload wasn't required."
+msgstr ""
+"Siirto onnistui. Päivitä dokumentti osuvammalla otsikolla, jos tarpeellista. "
+"Voit myös poistaa dokumentin kokonaan, jos siirto ei ollut tarpeellinen."
+
+msgid "Sorry, upload failed."
+msgstr "Pahoittelut, siirto epäonnistui."
+
+msgid "Update"
+msgstr "Päivitä"
+
+msgid "Delete"
+msgstr "Poista"
+
+msgid "Document permissions"
+msgstr "Dokumentin oikeudet"
+
+msgid "Add a document permission"
+msgstr "Lisää dokumenttioikeus"
+
 msgid "Search documents"
 msgstr "Hae dokumentteja"
 
 #, python-brace-format
 msgid "Document '{0}' added."
 msgstr "Dokumentti '{0}' lisätty."
-
-msgid "Edit"
-msgstr "Muokkaa"
 
 msgid "The document could not be saved due to errors."
 msgstr "Dokumenttia ei voitu tallentaa virheiden vuoksi."
@@ -192,12 +254,15 @@ msgid ""
 "The file could not be found. Please change the source or delete the document"
 msgstr "Tiedostoa ei löydy. Vaihda lähde tai poista dokumentti"
 
-msgid "Delete"
-msgstr "Poista"
-
 #, python-brace-format
 msgid "Document '{0}' deleted."
 msgstr "Dokumentti '{0}' poistettu."
+
+#, python-format
+msgid "%(count)s document"
+msgid_plural "%(count)s documents"
+msgstr[0] "%(count)s dokumentti"
+msgstr[1] "%(count)s dokumenttia"
 
 msgid "Choose another document"
 msgstr "Valitse toinen dokumentti"

@@ -10,17 +10,18 @@
 # Huib Keemink <huib@creativedutchmen.com>, 2015
 # mahulst, 2014
 # mahulst, 2014
-# mvantellingen <michaelvantellingen@gmail.com>, 2015
+# Michael van Tellingen <michaelvantellingen@gmail.com>, 2015
 # Samuel Leeuwenburg, 2014
 # Samuel Leeuwenburg, 2014
 # Thijs Kramer <thijskramer@gmail.com>, 2015
+# Thijs Kramer <thijskramer@gmail.com>, 2016
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-12-17 13:54+0000\n"
-"PO-Revision-Date: 2015-12-17 13:57+0000\n"
-"Last-Translator: mattwestcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2016-05-18 21:37+0000\n"
+"PO-Revision-Date: 2016-06-13 09:39+0000\n"
+"Last-Translator: Thijs Kramer <thijskramer@gmail.com>\n"
 "Language-Team: Dutch (http://www.transifex.com/torchbox/wagtail/language/"
 "nl/)\n"
 "MIME-Version: 1.0\n"
@@ -35,11 +36,23 @@ msgstr "Geplande publicatie"
 msgid "Common page configuration"
 msgstr "Algemene pagina-instellingen"
 
+msgid "Content"
+msgstr "Inhoud"
+
+msgid "Promote"
+msgstr "Eigenschappen"
+
+msgid "Settings"
+msgstr "Instellingen"
+
 msgid "Search"
-msgstr "Zoek"
+msgstr "Zoeken"
 
 msgid "Search term"
 msgstr "Zoekterm"
+
+msgid "URL"
+msgstr "URL"
 
 msgid "Enter password"
 msgstr "Voer wachtwoord in"
@@ -62,7 +75,7 @@ msgstr ""
 "wordt door een andere server."
 
 msgid "This email address is not recognised."
-msgstr "Dit e-mailadres is onbekend"
+msgstr "Dit e-mailadres is onbekend."
 
 msgid "New title"
 msgstr "Nieuwe titel"
@@ -121,6 +134,17 @@ msgstr "Afgeschermd, toegankelijk met het volgende wachtwoord"
 
 msgid "This field is required."
 msgstr "Dit veld is verplicht"
+
+msgid "This slug is already in use"
+msgstr "Deze slug is al in gebruik"
+
+msgid "Go live date/time must be before expiry date/time"
+msgstr ""
+"De datum en tijd waarop de pagina live moet komen te staan moet voor de "
+"datum en tijd liggen waarop de pagina vervalt"
+
+msgid "Expiry date/time must be in the future"
+msgstr "Vervaldatum moet in de toekomst zijn."
 
 msgid "Account"
 msgstr "Account"
@@ -185,9 +209,6 @@ msgstr "Check uw e-mail"
 msgid "A link to reset your password has been emailed to you."
 msgstr ""
 "Er is een link om uw wachtwoord te resetten naar uw e-mailadres gestuurd."
-
-msgid "Please follow the link below to reset your password"
-msgstr "Klik op onderstaande link om uw wachtwoord te resetten:"
 
 msgid "Password reset"
 msgstr "Wachtwoord herstel"
@@ -260,9 +281,9 @@ msgid_plural ""
 "            "
 msgstr[0] ""
 "\n"
-"Alleen pagina's van type \"%(type)s\" mogen gekozen worden voor dit veld. "
-"Resultaten van andere soorten pagina's zullen uitgesloten worden uit de "
-"zoekresultaten."
+"Alleen pagina's van het type \"%(type)s\" kunnen gekozen worden voor dit "
+"veld. Resultaten van andere soorten pagina's zullen uitgesloten worden uit "
+"de zoekresultaten."
 msgstr[1] ""
 "\n"
 "Alleen de volgende soorten pagina's mogen gekozen worden voor dit veld: "
@@ -374,22 +395,18 @@ msgid "Forgotten it?"
 msgstr "Wachtwoord vergeten?"
 
 #, python-format
-msgid "The page \"%(title)s\" has been approved"
-msgstr "De pagina \"%(title)s\" is goedgekeurd"
-
-#, python-format
 msgid "The page \"%(title)s\" has been approved."
 msgstr "De pagina \"%(title)s\" is goedgekeurd."
 
 msgid "You can view the page here:"
 msgstr "U kunt de pagina hier bekijken:"
 
+#, python-format
+msgid "The page \"%(title)s\" has been approved"
+msgstr "De pagina \"%(title)s\" is goedgekeurd"
+
 msgid "Edit your notification preferences here:"
 msgstr "Pas uw hier notificatievoorkeuren hier aan:"
-
-#, python-format
-msgid "The page \"%(title)s\" has been rejected"
-msgstr "De pagina \"%(title)s\" is afgewezen"
 
 #, python-format
 msgid "The page \"%(title)s\" has been rejected."
@@ -399,11 +416,15 @@ msgid "You can edit the page here:"
 msgstr "U kunt de pagina hier wijzigen:"
 
 #, python-format
-msgid "The page \"%(page)s\" has been submitted for moderation"
-msgstr "De pagina \"%(page)s\" is ter goedkeuring aangeboden"
+msgid "The page \"%(title)s\" has been rejected"
+msgstr "De pagina \"%(title)s\" is afgewezen"
 
 msgid "You can preview the page here:"
 msgstr "U kunt hier een voorbeeld van de pagina bekijken:"
+
+#, python-format
+msgid "The page \"%(page)s\" has been submitted for moderation"
+msgstr "De pagina \"%(page)s\" is ter goedkeuring aangeboden"
 
 msgid "Page privacy"
 msgstr "Afscherming van de pagina"
@@ -607,16 +628,6 @@ msgstr "Voeg een onderliggende pagina toe aan '%(title)s'"
 msgid "Add subpage"
 msgstr "Voeg onderliggende pagina toe"
 
-msgid ""
-"This page is published but does not exist within a configured Site, so "
-"cannot be viewed."
-msgstr ""
-"Deze pagina is gepubliceerd, maar bestaat niet binnen een geconfigureerde "
-"site waardoor de pagina niet bekeken kan worden."
-
-msgid "Add child page"
-msgstr "Voeg een onderliggende pagina toe"
-
 #, python-format
 msgid ""
 "\n"
@@ -773,17 +784,11 @@ msgstr ""
 "Javascript is vereist om Wagtail te gebruiken, maar is momenteel "
 "uitgeschakeld"
 
-msgid "User bar"
-msgstr "Gebruikersbalk"
-
 msgid "Go to Wagtail admin interface"
 msgstr "Ga naar de Wagtail beheer interface"
 
 msgid "Add a child page"
 msgstr "Voeg een onderliggende pagina toe"
-
-msgid "Add"
-msgstr "Toevoegen"
 
 msgid "Sorry, you do not have permission to access this area."
 msgstr "Sorry, u heeft geen toestemming tot dit gedeelte."
@@ -815,18 +820,6 @@ msgstr "Pagina '{0}' aangemaakt."
 msgid "The page could not be created due to validation errors"
 msgstr "Deze pagina kon niet aangemaakt worden vanwege validatiefouten"
 
-#, python-brace-format
-msgid "Page '{0}' published."
-msgstr "Pagina '{0}' gepubliceerd."
-
-#, python-brace-format
-msgid "Page '{0}' submitted for moderation."
-msgstr "Pagina '{0}' ter goedkeuring ingediend."
-
-#, python-brace-format
-msgid "Page '{0}' updated."
-msgstr "Pagina '{0}' gewijzigd."
-
 msgid "The page could not be saved as it is locked"
 msgstr "De pagina kan niet worden opgeslagen omdat deze is vergrendeld"
 
@@ -835,17 +828,6 @@ msgstr "Deze pagina kon niet opgeslagen worden vanwege validatiefouten"
 
 msgid "This page is currently awaiting moderation"
 msgstr "Deze pagina wacht momenteel op goedkeuring"
-
-msgid "This slug is already in use"
-msgstr "Deze slug is al in gebruik"
-
-msgid "Go live date/time must be before expiry date/time"
-msgstr ""
-"De datum en tijd waarop de pagina live moet komen te staan moet voor de "
-"datum en tijd liggen waarop de pagina vervalt"
-
-msgid "Expiry date/time must be in the future"
-msgstr "Vervaldatum moet in de toekomst zijn."
 
 #, python-brace-format
 msgid "Page '{0}' deleted."
@@ -867,18 +849,13 @@ msgstr "Pagina '{0}' en {1} onderliggende pagina's gekopieerd."
 msgid "Page '{0}' copied."
 msgstr "Pagina '{0}' gekopieerd."
 
-msgid "Content"
-msgstr "Inhoud"
-
-msgid "Promote"
-msgstr "Promoot"
-
-msgid "Settings"
-msgstr "Instellingen"
-
 #, python-brace-format
 msgid "The page '{0}' is not currently awaiting moderation."
 msgstr "The page '{0}' is momenteel niet op goedkeuring aan het wachten."
+
+#, python-brace-format
+msgid "Page '{0}' published."
+msgstr "Pagina '{0}' gepubliceerd."
 
 #, python-brace-format
 msgid "Page '{0}' rejected for publication."
@@ -891,6 +868,9 @@ msgstr "Pagina '{0}' is vergrendeld."
 #, python-brace-format
 msgid "Page '{0}' is now unlocked."
 msgstr "Pagina '{0}' is ontgrendeld."
+
+msgid "Add child page"
+msgstr "Voeg een onderliggende pagina toe"
 
 msgid "Choose an item"
 msgstr "Kies een item"

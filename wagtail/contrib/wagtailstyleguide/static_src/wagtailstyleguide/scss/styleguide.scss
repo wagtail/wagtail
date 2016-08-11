@@ -94,7 +94,7 @@ section {
 }
 
 .icons {
-    :before, 
+    :before,
     :after {
         font-size: 2em;
     }
@@ -113,9 +113,9 @@ section {
         position: relative;
     }
 
-    .icon-spinner:after {
-        position: absolute;
-    }
+    // .spinner .icon-spinner:after {
+    //     position: absolute;
+    // }
 }
 
 .timepicker {

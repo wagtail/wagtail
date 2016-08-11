@@ -1,6 +1,9 @@
+from __future__ import absolute_import, unicode_literals
+
 from django.core.urlresolvers import reverse
-from django.shortcuts import render, redirect, get_object_or_404
-from django.utils.translation import ugettext as _, ugettext_lazy as __
+from django.shortcuts import get_object_or_404, redirect, render
+from django.utils.translation import ugettext as _
+from django.utils.translation import ugettext_lazy
 from django.views.generic.base import View
 
 from wagtail.wagtailadmin import messages
@@ -88,10 +91,17 @@ class CreateView(PermissionCheckedMixin, View):
         self.form = self.form_class()
         return self.render_to_response()
 
+    def save_instance(self):
+        """
+        Called after the form is successfully validated - saves the object to the db
+        and returns the new object. Override this to implement custom save logic.
+        """
+        return self.form.save()
+
     def post(self, request):
         self.form = self.form_class(request.POST)
         if self.form.is_valid():
-            instance = self.form.save()
+            instance = self.save_instance()
 
             messages.success(request, self.success_message.format(instance), buttons=[
                 messages.button(reverse(self.edit_url_name, args=(instance.id,)), _('Edit'))
@@ -114,10 +124,13 @@ class EditView(PermissionCheckedMixin, View):
     index_url_name = None
     edit_url_name = None
     delete_url_name = None
-    page_title = __("Editing")
+    page_title = ugettext_lazy("Editing")
     context_object_name = None
     template_name = 'wagtailadmin/generic/edit.html'
     permission_required = 'change'
+
+    def get_queryset(self):
+        return self.model.objects.all()
 
     def get_page_subtitle(self):
         return str(self.instance)
@@ -128,16 +141,23 @@ class EditView(PermissionCheckedMixin, View):
     def get_delete_url(self):
         return reverse(self.delete_url_name, args=(self.instance.id,))
 
+    def save_instance(self):
+        """
+        Called after the form is successfully validated - saves the object to the db.
+        Override this to implement custom save logic.
+        """
+        return self.form.save()
+
     def get(self, request, instance_id):
-        self.instance = get_object_or_404(self.model, id=instance_id)
+        self.instance = get_object_or_404(self.get_queryset(), id=instance_id)
         self.form = self.form_class(instance=self.instance)
         return self.render_to_response()
 
     def post(self, request, instance_id):
-        self.instance = get_object_or_404(self.model, id=instance_id)
+        self.instance = get_object_or_404(self.get_queryset(), id=instance_id)
         self.form = self.form_class(request.POST, instance=self.instance)
         if self.form.is_valid():
-            self.form.save()
+            self.save_instance()
             messages.success(request, self.success_message.format(self.instance), buttons=[
                 messages.button(reverse(self.edit_url_name, args=(self.instance.id,)), _('Edit'))
             ])
@@ -172,15 +192,16 @@ class DeleteView(PermissionCheckedMixin, View):
     context_object_name = None
     permission_required = 'delete'
 
+    def get_queryset(self):
+        return self.model.objects.all()
+
     def get_page_subtitle(self):
         return str(self.instance)
 
     def get_delete_url(self):
         return reverse(self.delete_url_name, args=(self.instance.id,))
 
-    def get(self, request, instance_id):
-        self.instance = get_object_or_404(self.model, id=instance_id)
-
+    def get_context(self):
         context = {
             'view': self,
             'object': self.instance,
@@ -188,10 +209,17 @@ class DeleteView(PermissionCheckedMixin, View):
         if self.context_object_name:
             context[self.context_object_name] = self.instance
 
+        return context
+
+    def get(self, request, instance_id):
+        self.instance = get_object_or_404(self.get_queryset(), id=instance_id)
+
+        context = self.get_context()
+
         return render(request, self.template_name, context)
 
     def post(self, request, instance_id):
-        self.instance = get_object_or_404(self.model, id=instance_id)
+        self.instance = get_object_or_404(self.get_queryset(), id=instance_id)
         self.instance.delete()
         messages.success(request, self.success_message.format(self.instance))
         return redirect(self.index_url_name)

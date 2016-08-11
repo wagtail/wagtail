@@ -1,0 +1,67 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# Mykola Zamkovoi <nickzam@gmail.com>, 2014
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2016-05-18 21:37+0000\n"
+"PO-Revision-Date: 2016-03-01 18:57+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"Language-Team: Ukrainian (http://www.transifex.com/torchbox/wagtail/language/"
+"uk/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: uk\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
+"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+
+msgid ""
+"Set this to something other than 80 if you need a specific port number to "
+"appear in URLs (e.g. development on port 8000). Does not affect request "
+"handling (so port forwarding still works)."
+msgstr ""
+"Введіть будь-якій інший порт ніж 80, якщо потрібно, щоб цей порт було "
+"вказано у URL (наприклад, для розробки на порту 8000). Не впливає на обробку "
+"запитів (перенаправлення портів буде працювати)."
+
+msgid ""
+"If true, this site will handle requests for all other hostnames that do not "
+"have a site entry of their own"
+msgstr ""
+"Якщо true (істина), цей сайт буде обробляти запити для всіх імен хостів, що "
+"не мають своїх окремих налаштувань"
+
+#, python-format
+msgid ""
+"%(hostname)s is already configured as the default site. You must unset that "
+"before you can save this site as default."
+msgstr ""
+"%(hostname)s вже налаштовано, як сайт за замовчанням. Якщо хочете зберегти "
+"цей сайт, як сайт за замовчанням, спочатку приберіть цей атрибут."
+
+msgid "The page title as you'd like it to be seen by the public"
+msgstr "Заголовок сторінки, який міг би зацікавити публіку"
+
+msgid ""
+"The name of the page as it will appear in URLs e.g http://domain.com/blog/"
+"[my-slug]/"
+msgstr ""
+"Назва сторінки, що з'явиться в URLs (краще латиницею), наприклад: http://"
+"domain.com/blog/[nazva_storinky]/"
+
+msgid ""
+"Optional. 'Search Engine Friendly' title. This will appear at the top of the "
+"browser window."
+msgstr ""
+"Додатково. Назва 'для пошукових систем', буде розташована згори вікна "
+"браузера."
+
+msgid ""
+"Whether a link to this page will appear in automatically generated menus"
+msgstr ""
+"Чи буде посилання на цю сторінку з'являтися в автоматично сгенерованих меню"

@@ -5,13 +5,14 @@
 # Translators:
 # Aarni Koskela, 2016
 # Eetu Häivälä <eetu.haivala@anders.fi>, 2016
+# Rauli L. <rauli.laine@iki.fi>, 2016
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-12-17 13:55+0000\n"
-"PO-Revision-Date: 2016-01-29 09:02+0000\n"
-"Last-Translator: Eetu Häivälä <eetu.haivala@anders.fi>\n"
+"POT-Creation-Date: 2016-05-18 21:37+0000\n"
+"PO-Revision-Date: 2016-03-18 07:39+0000\n"
+"Last-Translator: Aarni Koskela\n"
 "Language-Team: Finnish (http://www.transifex.com/torchbox/wagtail/language/"
 "fi/)\n"
 "MIME-Version: 1.0\n"
@@ -39,8 +40,8 @@ msgstr "Salasanakentät eivät täsmää."
 msgid "Administrator"
 msgstr "Ylläpitäjä"
 
-msgid "If ticked, this user has the ability to manage user accounts."
-msgstr "Jos valittu, tällä käyttäjällä on mahdollisuus hallita käyttäjätilejä."
+msgid "Administrators have full access to manage any object or setting."
+msgstr "Ylläpitäjät voivat hallita mitä tahansa kohdetta tai asetusta."
 
 msgid "Password"
 msgstr "Salasana"
@@ -63,11 +64,11 @@ msgstr "Etunimi"
 msgid "Last Name"
 msgstr "Sukunimi"
 
-msgid "Administrators have the ability to manage user accounts."
-msgstr "Ylläpitäjät voivat hallita käyttäjätilejä."
-
 msgid "A group with that name already exists."
 msgstr "Samanniminen ryhmä on jo olemassa."
+
+msgid "You cannot have multiple permission records for the same page."
+msgstr "Samalle sivulle ei voi olla useampaa pääsylupatietuetta."
 
 msgid "submitted notifications"
 msgstr "lähetys&shy;ilmoitukset"
@@ -146,9 +147,6 @@ msgstr "Sivuoikeudet"
 
 msgid "Page"
 msgstr "Sivu"
-
-msgid "Permission type"
-msgstr "Oikeus&shy;tyyppi"
 
 msgid "Add a page permission"
 msgstr "Lisää sivuoikeus"
@@ -270,3 +268,6 @@ msgstr "Käyttäjä '{0}' päivitetty."
 
 msgid "The user could not be saved due to errors."
 msgstr "Käyttäjää ei voitu tallentaa virheiden vuoksi."
+
+msgid "Groups"
+msgstr "Ryhmät"

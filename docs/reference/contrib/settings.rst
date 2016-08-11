@@ -66,7 +66,7 @@ You can add an icon to the menu by passing an 'icon' argument to the ``register_
 
 .. code-block:: python
 
-    @register_setting(icon='icon-placeholder')
+    @register_setting(icon='placeholder')
     class SocialMediaSettings(BaseSetting):
         class Meta:
             verbose_name = 'social media accounts'
@@ -90,8 +90,8 @@ If access to a setting is required in the code, the :func:`~wagtail.contrib.sett
         social_media_settings = SocialMediaSettings.for_site(request.site)
         ...
 
-Using in templates
-------------------
+Using in Django templates
+-------------------------
 
 Add the ``settings`` context processor to your settings:
 
@@ -118,7 +118,7 @@ Then access the settings through ``{{ settings }}``:
 
     {{ settings.app_label.SocialMediaSettings.instagram }}
 
-(Replace ``app_label`` with the label of the app containing your settings model.)
+.. note:: Replace ``app_label`` with the label of the app containing your settings model.
 
 If you are not in a ``RequestContext``, then context processors will not have run, and the ``settings`` variable will not be availble. To get the ``settings``, use the provided ``{% get_settings %}`` template tag. If a ``request`` is in the template context, but for some reason it is not a ``RequestContext``, just use ``{% get_settings %}``:
 
@@ -137,3 +137,56 @@ If there is no ``request`` available in the template at all, you can use the set
     {{ settings.app_label.SocialMediaSettings.instagram }}
 
 .. note:: You can not reliably get the correct settings instance for the current site from this template tag if the request object is not available. This is only relevant for multisite instances of Wagtail.
+
+.. _settings_tag_jinja2:
+
+Using in Jinja2 templates
+-------------------------
+
+Add ``wagtail.contrib.settings.jinja2tags.settings`` extension to your Jinja2 settings:
+
+.. code-block:: python
+
+    TEMPLATES = [
+        # ...
+        {
+            'BACKEND': 'django.template.backends.jinja2.Jinja2',
+            'APP_DIRS': True,
+            'OPTIONS': {
+                'extensions': [
+                    # ...
+                    'wagtail.contrib.settings.jinja2tags.settings',
+                ],
+            },
+        }
+    ]
+
+
+Then access the settings through the ``settings()`` template function:
+
+.. code-block:: html+jinja
+
+    {{ settings("app_label.SocialMediaSettings").twitter }}
+
+.. note:: Replace ``app_label`` with the label of the app containing your settings model.
+
+This will look for a ``request`` variable in the template context, and find the correct site to use from that. If for some reason you do not have a ``request`` available, you can instead use the settings defined for the default site:
+
+.. code-block:: html+jinja
+
+    {{ settings("app_label.SocialMediaSettings", use_default_site=True).instagram }}
+
+You can store the settings instance in a variable to save some typing, if you have to use multiple values from one model:
+
+.. code-block:: html+jinja
+
+    {% with social_settings=settings("app_label.SocialMediaSettings") %}
+        Follow us on Twitter at @{{ social_settings.twitter }},
+        or Instagram at @{{ social_settings.Instagram }}.
+    {% endwith %}
+
+Or, alternately, using the ``set`` tag:
+
+.. code-block:: html+jinja
+
+    {% set social_settings=settings("app_label.SocialMediaSettings") %}

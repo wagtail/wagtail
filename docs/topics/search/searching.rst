@@ -87,7 +87,7 @@ Specifying the fields to search
 
 By default, Wagtail will search all fields that have been indexed using ``index.SearchField``.
 
-This can be limited to a certian set of fields using the ``fields`` keyword argument:
+This can be limited to a certian set of fields by using the ``fields`` keyword argument:
 
 .. code-block:: python
 
@@ -113,7 +113,7 @@ Both operators have benefits and drawbacks. The "or" operator will return many m
 
 We recommend using the "or" operator when ordering by relevance and the "and" operator when ordering by anything else (note: the database backend doesn't currently support ordering by relevance).
 
-Here's an example of using the "operator" keyword argument:
+Here's an example of using the ``operator`` keyword argument:
 
 .. code-block:: python
 

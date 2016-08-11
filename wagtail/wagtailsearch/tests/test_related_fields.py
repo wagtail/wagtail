@@ -1,8 +1,10 @@
+from __future__ import absolute_import, unicode_literals
+
 from django.test import TestCase
 
-from wagtail.wagtailsearch import index
 from wagtail.tests.search.models import SearchTest, SearchTestChild
-from wagtail.tests.testapp.models import ManyToManyBlogPage, Advert
+from wagtail.tests.testapp.models import Advert, ManyToManyBlogPage
+from wagtail.wagtailsearch import index
 
 
 class TestSelectOnQuerySet(TestCase):

@@ -1,23 +1,21 @@
 # -*- coding: utf-8 -*-
 
-from __future__ import unicode_literals
+from __future__ import absolute_import, unicode_literals
 
 import json
 
 from django.contrib.auth import get_user_model
 from django.core import mail
-from django.core.urlresolvers import reverse
+from django.core.urlresolvers import reverse, reverse_lazy
 from django.test import TestCase, override_settings
+from django.utils.translation import ugettext_lazy as _
 from taggit.models import Tag
 
 from wagtail.tests.utils import WagtailTestUtils
+from wagtail.wagtailadmin.menu import MenuItem
 from wagtail.wagtailadmin.site_summary import PagesSummaryItem
 from wagtail.wagtailadmin.utils import send_mail
 from wagtail.wagtailcore.models import Page, Site
-
-from django.core.urlresolvers import reverse_lazy
-from wagtail.wagtailadmin.menu import MenuItem
-from django.utils.translation import ugettext_lazy as _
 
 
 class TestHome(TestCase, WagtailTestUtils):
@@ -64,7 +62,7 @@ class TestHome(TestCase, WagtailTestUtils):
         # cause a failure when generating Gravatar URLs
         get_user_model().objects.create_superuser(username='snowman', email='☃@thenorthpole.com', password='password')
         # Login
-        self.client.login(username='snowman', password='password')
+        self.assertTrue(self.client.login(username='snowman', password='password'))
         response = self.client.get(reverse('wagtailadmin_home'))
         self.assertEqual(response.status_code, 200)
 
@@ -173,20 +171,6 @@ class TestSendMail(TestCase):
         self.assertEqual(mail.outbox[0].from_email, "webmaster@localhost")
 
 
-class TestExplorerNavView(TestCase, WagtailTestUtils):
-    def setUp(self):
-        self.homepage = Page.objects.get(id=2).specific
-        self.login()
-
-    def test_explorer_nav_view(self):
-        response = self.client.get(reverse('wagtailadmin_explorer_nav'))
-
-        # Check response
-        self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed('wagtailadmin/shared/explorer_nav.html')
-        self.assertEqual(response.context['nodes'][0][0], self.homepage)
-
-
 class TestTagsAutocomplete(TestCase, WagtailTestUtils):
     def setUp(self):
         self.login()
@@ -253,7 +237,7 @@ class TestUserPassesTestPermissionDecorator(TestCase):
     def test_user_passes_test(self):
         # create and log in as a user called Bob
         get_user_model().objects.create_superuser(first_name='Bob', last_name='Mortimer', username='test', email='test@email.com', password='password')
-        self.client.login(username='test', password='password')
+        self.assertTrue(self.client.login(username='test', password='password'))
 
         response = self.client.get(reverse('testapp_bob_only_zone'))
         self.assertEqual(response.status_code, 200)
@@ -261,7 +245,7 @@ class TestUserPassesTestPermissionDecorator(TestCase):
     def test_user_fails_test(self):
         # create and log in as a user not called Bob
         get_user_model().objects.create_superuser(first_name='Vic', last_name='Reeves', username='test', email='test@email.com', password='password')
-        self.client.login(username='test', password='password')
+        self.assertTrue(self.client.login(username='test', password='password'))
 
         response = self.client.get(reverse('testapp_bob_only_zone'))
         self.assertRedirects(response, reverse('wagtailadmin_home'))

@@ -3,20 +3,21 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# Florian <flori@vorlif.org>, 2015
+# Vorlif <flori@vorlif.org>, 2015
+# Henrik Kröger <hedwig@riseup.net>, 2016
 # Johannes Spielmann <j@spielmannsolutions.com>, 2014
 # Johannes Spielmann <j@spielmannsolutions.com>, 2014
 # M0rph 3u5 <transifex@m0rph3u5.net>, 2014
-# mattwestcott <matthew@torchbox.com>, 2015
+# Matt Westcott <matthew@torchbox.com>, 2015
 # Tammo van Lessen <tvanlessen@gmail.com>, 2015
 # Wasilis Mandratzis-Walz, 2015
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-12-17 13:55+0000\n"
-"PO-Revision-Date: 2015-12-17 14:00+0000\n"
-"Last-Translator: mattwestcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2016-05-18 21:37+0000\n"
+"PO-Revision-Date: 2016-03-02 13:07+0000\n"
+"Last-Translator: Henrik Kröger <hedwig@riseup.net>\n"
 "Language-Team: German (http://www.transifex.com/torchbox/wagtail/language/"
 "de/)\n"
 "MIME-Version: 1.0\n"
@@ -27,8 +28,8 @@ msgstr ""
 
 msgid "Required. 30 characters or fewer. Letters, digits and @/./+/-/_ only."
 msgstr ""
-"Erforderlich. Bis zu 30 Zeichen. Buchstaben, Zahlen und die Sonderzeichen \"@"
-"\", \".\", \"+\", und \"_\"."
+"Erforderlich. Bis zu 30 Zeichen. Buchstaben, Zahlen und die Sonderzeichen "
+"„@“, „.“, „+“, und „_“."
 
 msgid "This value may contain only letters, numbers and @/./+/-/_ characters."
 msgstr ""
@@ -44,9 +45,10 @@ msgstr "Die beiden Passwortfelder stimmen nicht überein."
 msgid "Administrator"
 msgstr "Administrator"
 
-msgid "If ticked, this user has the ability to manage user accounts."
+msgid "Administrators have full access to manage any object or setting."
 msgstr ""
-"Wenn ausgewählt hat der Benutzer die Möglichkeit Benutzerkonten zu verwalten."
+"Administratoren haben vollen Zugang um jedes Objekt und jede Einstellung zu "
+"verwalten."
 
 msgid "Password"
 msgstr "Passwort"
@@ -69,21 +71,34 @@ msgstr "Vorname"
 msgid "Last Name"
 msgstr "Nachname"
 
-msgid "Administrators have the ability to manage user accounts."
-msgstr "Administratoren haben die Möglichkeit Benutzerkonten zu verwalten."
-
 msgid "A group with that name already exists."
 msgstr "Es existiert bereits eine Gruppe mit diesem Namen."
+
+msgid "You cannot have multiple permission records for the same page."
+msgstr ""
+"Sie können nicht mehrere Berechtigungseinträge für dieselbe Seite haben."
+
+msgid "submitted notifications"
+msgstr "Eingereicht-Benachrichtigungen"
 
 msgid "Receive notification when a page is submitted for moderation"
 msgstr ""
 "Benachrichtung erhalten, wenn eine Seite zur Freischaltung eingereicht wurde"
 
+msgid "approved notifications"
+msgstr "Zugelassen-Benachrichtigungen"
+
 msgid "Receive notification when your page edit is approved"
 msgstr "Benachrichtigung erhalten, wenn Ihre Änderungen freigeschaltet wurden"
 
+msgid "rejected notifications"
+msgstr "Zurückgewiesen-Benachrichtigungen"
+
 msgid "Receive notification when your page edit is rejected"
 msgstr "Benachrichtung erhalten, wenn Ihre Änderungen abgelehnt wurden"
+
+msgid "user profile"
+msgstr "Benutzerprofil"
 
 msgid "Delete group"
 msgstr "Gruppe löschen"
@@ -93,7 +108,7 @@ msgid ""
 "The group '%(group_name)s' has <strong>%(group_user_count)s</strong> users "
 "assigned."
 msgstr ""
-"Die Gruppe '%(group_name)s' hat <strong>%(group_user_count)s</string> "
+"Der Gruppe ‚%(group_name)s‘ sind <strong>%(group_user_count)s</strong> "
 "Benutzer zugeordnet."
 
 msgid ""
@@ -104,7 +119,7 @@ msgstr ""
 "widerrufen."
 
 msgid "Are you sure you want to delete this group?"
-msgstr "Sind sie sicher, dass Sie diese Gruppe löschen möchten."
+msgstr "Sind Sie sicher, dass Sie diese Gruppe löschen möchten?"
 
 msgid "Yes, delete"
 msgstr "Ja, Löschen"
@@ -142,9 +157,6 @@ msgstr "Seiten Berechtigungen"
 msgid "Page"
 msgstr "Seite"
 
-msgid "Permission type"
-msgstr "Berechtigungstyp"
-
 msgid "Add a page permission"
 msgstr "Einfügen einer Seiten Berechtigung"
 
@@ -160,7 +172,7 @@ msgid ""
 "\"%(wagtailusers_create_group_url)s\">add some</a>?"
 msgstr ""
 "Es sind keine Gruppen konfiguriert. <a href="
-"\"%(wagtailusers_create_group_url)s\">Legen sie eine an.</a>"
+"\"%(wagtailusers_create_group_url)s\">Legen Sie eine an.</a>"
 
 msgid "Add user"
 msgstr "Benutzer hinzufügen"
@@ -216,7 +228,7 @@ msgstr[1] ""
 #, python-format
 msgid "Sorry, no users match \"<em>%(query_string)s</em>\""
 msgstr ""
-"Es gibt leider keine Benutzer zum Suchbegriff \"<em>%(query_string)s</em>\"."
+"Es gibt leider keine Benutzer zum Suchbegriff „<em>%(query_string)s</em>“."
 
 #, python-format
 msgid ""
@@ -231,7 +243,7 @@ msgstr "Gruppe suchen"
 
 #, python-brace-format
 msgid "Group '{0}' created."
-msgstr "Gruppe '{0}' erstellt."
+msgstr "Gruppe ‚{0}‘ erstellt."
 
 msgid "Edit"
 msgstr "Bearbeiten"
@@ -241,28 +253,31 @@ msgstr "Aufgrund von Fehlern konnte die Gruppe nicht erstellt werden."
 
 #, python-brace-format
 msgid "Group '{0}' updated."
-msgstr "Gruppe '{0}' geändert."
+msgstr "Gruppe ‚{0}‘ geändert."
 
 msgid "The group could not be saved due to errors."
 msgstr "Aufgrund von Fehlern konnte die Gruppe nicht gespeichert werden."
 
 #, python-brace-format
 msgid "Group '{0}' deleted."
-msgstr "Gruppe '{0}' wurde gelöscht."
+msgstr "Gruppe ‚{0}‘ wurde gelöscht."
 
 msgid "Search users"
 msgstr "Benutzer suchen"
 
 #, python-brace-format
 msgid "User '{0}' created."
-msgstr "Benutzer '{0}' erstellt."
+msgstr "Benutzer ‚{0}‘ erstellt."
 
 msgid "The user could not be created due to errors."
 msgstr "Aufgrund von Fehlern konnte der Benutzer nicht erstellt werden."
 
 #, python-brace-format
 msgid "User '{0}' updated."
-msgstr "Benutzer '{0}' geändert."
+msgstr "Benutzer ‚{0}‘ geändert."
 
 msgid "The user could not be saved due to errors."
 msgstr "Aufgrund von Fehlern konnte der Benutzer nicht gespeichert werden."
+
+msgid "Groups"
+msgstr "Gruppen"

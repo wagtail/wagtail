@@ -1,6 +1,10 @@
 # coding=utf-8
+from __future__ import absolute_import, unicode_literals
+
 from django.test import TestCase
+
 from wagtail.wagtailimages.shortcuts import get_rendition_or_not_found
+
 from .utils import Image, get_test_image_file
 
 

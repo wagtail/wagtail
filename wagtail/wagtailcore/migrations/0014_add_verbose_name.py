@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 
-from django.db import models, migrations
+from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
@@ -14,13 +14,13 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='grouppagepermission',
             name='group',
-            field=models.ForeignKey(verbose_name='Group', related_name='page_permissions', to='auth.Group'),
+            field=models.ForeignKey(on_delete=models.CASCADE, verbose_name='Group', related_name='page_permissions', to='auth.Group'),
             preserve_default=True,
         ),
         migrations.AlterField(
             model_name='grouppagepermission',
             name='page',
-            field=models.ForeignKey(verbose_name='Page', related_name='group_permissions', to='wagtailcore.Page'),
+            field=models.ForeignKey(on_delete=models.CASCADE, verbose_name='Page', related_name='group_permissions', to='wagtailcore.Page'),
             preserve_default=True,
         ),
         migrations.AlterField(
@@ -77,7 +77,7 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='pageviewrestriction',
             name='page',
-            field=models.ForeignKey(verbose_name='Page', related_name='view_restrictions', to='wagtailcore.Page'),
+            field=models.ForeignKey(on_delete=models.CASCADE, verbose_name='Page', related_name='view_restrictions', to='wagtailcore.Page'),
             preserve_default=True,
         ),
         migrations.AlterField(
@@ -118,7 +118,7 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='site',
             name='root_page',
-            field=models.ForeignKey(verbose_name='Root page', related_name='sites_rooted_here', to='wagtailcore.Page'),
+            field=models.ForeignKey(on_delete=models.CASCADE, verbose_name='Root page', related_name='sites_rooted_here', to='wagtailcore.Page'),
             preserve_default=True,
         ),
     ]

@@ -1,16 +1,22 @@
-import unittest
-import time
+from __future__ import absolute_import, unicode_literals
 
-from django.test import TestCase
-from django.test.utils import override_settings
+import time
+import unittest
+import warnings
+
 from django.conf import settings
 from django.core import management
+from django.test import TestCase
+from django.test.utils import override_settings
 from django.utils.six import StringIO
 
-from wagtail.tests.utils import WagtailTestUtils
 from wagtail.tests.search import models
-from wagtail.wagtailsearch.backends import get_search_backend, get_search_backends, InvalidSearchBackendError
-from wagtail.wagtailsearch.backends.db import DBSearch
+from wagtail.tests.utils import WagtailTestUtils
+from wagtail.utils.deprecation import RemovedInWagtail18Warning
+from wagtail.wagtailsearch.backends import (
+    InvalidSearchBackendError, get_search_backend, get_search_backends)
+from wagtail.wagtailsearch.backends.base import FieldError
+from wagtail.wagtailsearch.backends.db import DatabaseSearchBackend
 
 
 class BackendTests(WagtailTestUtils):
@@ -52,12 +58,15 @@ class BackendTests(WagtailTestUtils):
         testc = models.SearchTestChild()
         testc.title = "Hello"
         testc.live = True
+        testc.content = "Hello"
+        testc.subtitle = "Foo"
         testc.save()
         self.backend.add(testc)
         self.testc = testc
 
         testd = models.SearchTestChild()
         testd.title = "World"
+        testd.subtitle = "Foo"
         testd.save()
         self.backend.add(testd)
         self.testd = testd
@@ -75,6 +84,20 @@ class BackendTests(WagtailTestUtils):
 
         results = self.backend.search("World", models.SearchTest)
         self.assertEqual(set(results), {self.testa, self.testd.searchtest_ptr})
+
+    def test_individual_field(self):
+        results = self.backend.search("Hello", models.SearchTest, fields=['content'])
+        self.assertEqual(set(results), {self.testc.searchtest_ptr})
+
+    def test_individual_field_in_child_class(self):
+        results = self.backend.search("Foo", models.SearchTestChild, fields=['subtitle'])
+        self.assertEqual(set(results), {self.testc, self.testd})
+
+    def test_unknown_field_gives_error(self):
+        self.assertRaises(FieldError, self.backend.search, "Hello Bar", models.SearchTestChild, fields=['unknown'])
+
+    def test_child_field_from_parent_gives_error(self):
+        self.assertRaises(FieldError, self.backend.search, "Hello", models.SearchTest, fields=['subtitle'])
 
     def test_operator_or(self):
         # All records that match any term should be returned
@@ -159,15 +182,32 @@ class BackendTests(WagtailTestUtils):
 class TestBackendLoader(TestCase):
     def test_import_by_name(self):
         db = get_search_backend(backend='default')
-        self.assertIsInstance(db, DBSearch)
+        self.assertIsInstance(db, DatabaseSearchBackend)
 
     def test_import_by_path(self):
         db = get_search_backend(backend='wagtail.wagtailsearch.backends.db')
-        self.assertIsInstance(db, DBSearch)
+        self.assertIsInstance(db, DatabaseSearchBackend)
 
     def test_import_by_full_path(self):
-        db = get_search_backend(backend='wagtail.wagtailsearch.backends.db.DBSearch')
-        self.assertIsInstance(db, DBSearch)
+        db = get_search_backend(backend='wagtail.wagtailsearch.backends.db.DatabaseSearchBackend')
+        self.assertIsInstance(db, DatabaseSearchBackend)
+
+    def test_import_old_name(self):
+        with warnings.catch_warnings(record=True) as w:
+            warnings.simplefilter('always')
+
+            db = get_search_backend(backend='wagtail.wagtailsearch.backends.db.DBSearch')
+
+        self.assertIsInstance(db, DatabaseSearchBackend)
+
+        self.assertEqual(len(w), 1)
+        self.assertIs(w[0].category, RemovedInWagtail18Warning)
+        self.assertEqual(
+            str(w[0].message),
+            "The 'wagtail.wagtailsearch.backends.db.DBSearch' search backend path has "
+            "changed to 'wagtail.wagtailsearch.backends.db'. Please update the "
+            "WAGTAILSEARCH_BACKENDS setting to use the new path."
+        )
 
     def test_nonexistent_backend_import(self):
         self.assertRaises(
@@ -181,7 +221,16 @@ class TestBackendLoader(TestCase):
         backends = list(get_search_backends())
 
         self.assertEqual(len(backends), 1)
-        self.assertIsInstance(backends[0], DBSearch)
+        self.assertIsInstance(backends[0], DatabaseSearchBackend)
+
+    @override_settings(
+        WAGTAILSEARCH_BACKENDS={}
+    )
+    def test_get_search_backends_with_no_default_defined(self):
+        backends = list(get_search_backends())
+
+        self.assertEqual(len(backends), 1)
+        self.assertIsInstance(backends[0], DatabaseSearchBackend)
 
     @override_settings(
         WAGTAILSEARCH_BACKENDS={

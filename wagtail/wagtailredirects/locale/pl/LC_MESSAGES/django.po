@@ -4,14 +4,15 @@
 #
 # Translators:
 # utek <mail@utek.pl>, 2014
+# mmiskiew <mmiskiew@gmail.com>, 2016
 # utek <mail@utek.pl>, 2014
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-12-17 13:55+0000\n"
-"PO-Revision-Date: 2015-12-17 13:59+0000\n"
-"Last-Translator: mattwestcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2016-05-18 21:37+0000\n"
+"PO-Revision-Date: 2016-03-01 23:00+0000\n"
+"Last-Translator: mmiskiew <mmiskiew@gmail.com>\n"
 "Language-Team: Polish (http://www.transifex.com/torchbox/wagtail/language/"
 "pl/)\n"
 "MIME-Version: 1.0\n"
@@ -21,12 +22,39 @@ msgstr ""
 "Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
 "|| n%100>=20) ? 1 : 2);\n"
 
+msgid "From site"
+msgstr "Strona źródłowa"
+
+msgid "All sites"
+msgstr "Wszystkie strony"
+
+msgid "A redirect with this path already exists."
+msgstr "Przekierowanie z tym adresem już istnieje."
+
+msgid "redirect from"
+msgstr "przekierowanie z"
+
+msgid "site"
+msgstr "strona"
+
+msgid "permanent"
+msgstr "stałe"
+
 msgid ""
 "Recommended. Permanent redirects ensure search engines forget the old page "
 "(the 'Redirect from') and index the new page instead."
 msgstr ""
 "Zalecane. Stałe przekierowania dają pewność, że wyszukiwarki zapomną starą "
 "stronę ('Przekieruj z') i zaindeksują w jej miejsce nową."
+
+msgid "redirect to a page"
+msgstr "przekieruj na stronę"
+
+msgid "redirect to any URL"
+msgstr "przekieruj na dowolny adres URL"
+
+msgid "redirect"
+msgstr "przekierowanie"
 
 msgid "Add redirect"
 msgstr "Dodaj przekierowanie"
@@ -59,6 +87,12 @@ msgstr "Usuń przekierowanie"
 
 msgid "Redirects"
 msgstr "Przekierowania"
+
+msgid "From"
+msgstr "Z"
+
+msgid "Site"
+msgstr "Strona"
 
 msgid "To"
 msgstr "Do"
@@ -115,12 +149,19 @@ msgstr "Szukaj przekierowań"
 msgid "Redirect '{0}' updated."
 msgstr "Uaktualniono przekierowanie '{0}'."
 
+msgid "Edit"
+msgstr "Edytuj"
+
 msgid "The redirect could not be saved due to errors."
 msgstr "Przekierowanie nie mogło zostać zapisane z powodu błędów."
 
 #, python-brace-format
 msgid "Redirect '{0}' deleted."
 msgstr "Usunięto przekierowanie '{0}'."
+
+#, python-brace-format
+msgid "Redirect '{0}' added."
+msgstr "Przekierowanie '{0}' dodane."
 
 msgid "The redirect could not be created due to errors."
 msgstr "Przekierowanie nie mogło zostać stworzone z powodu błędów."

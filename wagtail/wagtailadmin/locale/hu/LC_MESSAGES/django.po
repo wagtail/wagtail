@@ -8,9 +8,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-12-17 13:54+0000\n"
-"PO-Revision-Date: 2016-01-07 14:44+0000\n"
-"Last-Translator: Laszlo Molnar <lazlowmiller@gmail.com>\n"
+"POT-Creation-Date: 2016-05-18 21:37+0000\n"
+"PO-Revision-Date: 2016-05-11 20:33+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Hungarian (http://www.transifex.com/torchbox/wagtail/language/"
 "hu/)\n"
 "MIME-Version: 1.0\n"
@@ -178,9 +178,6 @@ msgstr "Ellenőrizze emailjeit"
 
 msgid "A link to reset your password has been emailed to you."
 msgstr "Emailben küldtünk egy link-et a jelszó megváltoztatásához."
-
-msgid "Please follow the link below to reset your password"
-msgstr "Kérem kattintson az alábbi linkre a jelszava módosításához."
 
 msgid "Password reset"
 msgstr "Jelszó módosítva"
@@ -373,25 +370,18 @@ msgid "Signing in..."
 msgstr "Bejelentkezés..."
 
 #, python-format
-msgid "The page \"%(title)s\" has been approved"
-msgstr "A \"%(title)s\" című oldal jóváhagyásra került"
-
-#, python-format
 msgid "The page \"%(title)s\" has been approved."
 msgstr "A \"%(title)s\" című oldal jóváhagyásra került."
 
 msgid "You can view the page here:"
 msgstr "Az oldalt itt tekintheti meg:"
 
-msgid "Hello"
-msgstr "Szia"
+#, python-format
+msgid "The page \"%(title)s\" has been approved"
+msgstr "A \"%(title)s\" című oldal jóváhagyásra került"
 
 msgid "Edit your notification preferences here:"
 msgstr "Az értesítési beállításait itt módosíthatja:"
-
-#, python-format
-msgid "The page \"%(title)s\" has been rejected"
-msgstr "A \"%(title)s\" című oldal elutasításra került"
 
 #, python-format
 msgid "The page \"%(title)s\" has been rejected."
@@ -401,8 +391,8 @@ msgid "You can edit the page here:"
 msgstr "Az oldalt itt szerkesztheti:"
 
 #, python-format
-msgid "The page \"%(page)s\" has been submitted for moderation"
-msgstr "A \"%(page)s\" oldalt benyújtotta moderálásra"
+msgid "The page \"%(title)s\" has been rejected"
+msgstr "A \"%(title)s\" című oldal elutasításra került"
 
 #, python-format
 msgid "The page \"%(page)s\" has been submitted for moderation by %(editor)s."
@@ -411,5 +401,16 @@ msgstr "A \"%(page)s\" oldalt %(editor)s benyújtotta moderálásra."
 msgid "You can preview the page here:"
 msgstr "Az oldal előnézetét itt tekintheti meg:"
 
+#, python-format
+msgid "The page \"%(page)s\" has been submitted for moderation"
+msgstr "A \"%(page)s\" oldalt benyújtotta moderálásra"
+
 msgid "Page privacy"
 msgstr "Az oldal hozzáferése"
+
+#, python-format
+msgid "Delete %(title)s"
+msgstr "Törlés: %(title)s"
+
+msgid "View live"
+msgstr "Előnézet"

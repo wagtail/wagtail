@@ -3,29 +3,22 @@ from __future__ import absolute_import, unicode_literals
 import collections
 
 from django import forms
+from django.contrib.staticfiles.templatetags.staticfiles import static
 from django.core.exceptions import ValidationError
 from django.forms.utils import ErrorList
 from django.template.loader import render_to_string
-from django.utils.encoding import python_2_unicode_compatible
-from django.utils.functional import cached_property
-from django.contrib.staticfiles.templatetags.staticfiles import static
-
 # Must be imported from Django so we get the new implementation of with_metaclass
 from django.utils import six
+from django.utils.encoding import python_2_unicode_compatible
+from django.utils.functional import cached_property
 
 from .base import Block, DeclarativeSubBlocksMetaclass
 from .utils import js_dict
-
 
 __all__ = ['BaseStructBlock', 'StructBlock', 'StructValue']
 
 
 class BaseStructBlock(Block):
-    class Meta:
-        default = {}
-        template = "wagtailadmin/blocks/struct.html"
-        form_classname = 'struct-block'
-        form_template = 'wagtailadmin/block_forms/struct.html'
 
     def __init__(self, local_blocks=None, **kwargs):
         self._constructor_kwargs = kwargs
@@ -66,7 +59,7 @@ class BaseStructBlock(Block):
     def media(self):
         return forms.Media(js=[static('wagtailadmin/js/blocks/struct.js')])
 
-    def render_form(self, value, prefix='', errors=None):
+    def get_form_context(self, value, prefix='', errors=None):
         if errors:
             if len(errors) > 1:
                 # We rely on StructBlock.clean throwing a single ValidationError with a specially crafted
@@ -85,11 +78,18 @@ class BaseStructBlock(Block):
             for name, block in self.child_blocks.items()
         ])
 
-        return render_to_string(self.meta.form_template, {
+        return {
             'children': bound_child_blocks,
             'help_text': getattr(self.meta, 'help_text', None),
             'classname': self.meta.form_classname,
-        })
+            'block_definition': self,
+            'prefix': prefix,
+        }
+
+    def render_form(self, value, prefix='', errors=None):
+        context = self.get_form_context(value, prefix=prefix, errors=errors)
+
+        return render_to_string(self.meta.form_template, context)
 
     def value_from_datadict(self, data, files, prefix):
         return StructValue(self, [
@@ -162,6 +162,16 @@ class BaseStructBlock(Block):
 
         return errors
 
+    class Meta:
+        default = {}
+        template = "wagtailadmin/blocks/struct.html"
+        form_classname = 'struct-block'
+        form_template = 'wagtailadmin/block_forms/struct.html'
+        # No icon specified here, because that depends on the purpose that the
+        # block is being used for. Feel encouraged to specify an icon in your
+        # descendant block type
+        icon = "placeholder"
+
 
 class StructBlock(six.with_metaclass(DeclarativeSubBlocksMetaclass, BaseStructBlock)):
     pass
@@ -175,6 +185,9 @@ class StructValue(collections.OrderedDict):
 
     def __str__(self):
         return self.block.render(self)
+
+    def render_as_block(self, context=None):
+        return self.block.render(self, context=context)
 
     @cached_property
     def bound_blocks(self):

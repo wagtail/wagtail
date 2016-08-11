@@ -3,7 +3,8 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# Florian <flori@vorlif.org>, 2015
+# Vorlif <flori@vorlif.org>, 2015
+# Henrik Kröger <hedwig@riseup.net>, 2016
 # Johannes Spielmann <j@spielmannsolutions.com>, 2014
 # Johannes Spielmann <j@spielmannsolutions.com>, 2014
 # karlsander <karlsander@gmail.com>, 2014
@@ -14,9 +15,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-12-17 13:55+0000\n"
-"PO-Revision-Date: 2015-12-17 13:59+0000\n"
-"Last-Translator: mattwestcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2016-05-18 21:37+0000\n"
+"PO-Revision-Date: 2016-03-02 13:07+0000\n"
+"Last-Translator: Henrik Kröger <hedwig@riseup.net>\n"
 "Language-Team: German (http://www.transifex.com/torchbox/wagtail/language/"
 "de/)\n"
 "MIME-Version: 1.0\n"
@@ -25,13 +26,40 @@ msgstr ""
 "Language: de\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
+msgid "From site"
+msgstr "Von Website"
+
+msgid "All sites"
+msgstr "Alle Websites"
+
+msgid "A redirect with this path already exists."
+msgstr "Eine Weiterleitung mit diesem Pfad existiert bereits."
+
+msgid "redirect from"
+msgstr "Weiterleitung von"
+
+msgid "site"
+msgstr "Webseite"
+
+msgid "permanent"
+msgstr "Permanent"
+
 msgid ""
 "Recommended. Permanent redirects ensure search engines forget the old page "
 "(the 'Redirect from') and index the new page instead."
 msgstr ""
 "Empfohlen. Permanente Weiterleitungen sorgen dafür, dass Suchmaschinen die "
-"alten Einträge vergessen und stattdessen die neue Seite (aus 'Weiterleiten "
-"von') durchsuchen."
+"alten Einträge vergessen und stattdessen die neue Seite (aus ‚Weiterleiten "
+"von‘) durchsuchen."
+
+msgid "redirect to a page"
+msgstr "Zu einer Seite weiterleiten"
+
+msgid "redirect to any URL"
+msgstr "Zu einer URL weiterleiten"
+
+msgid "redirect"
+msgstr "weiterleiten"
 
 msgid "Add redirect"
 msgstr "Weiterleitung hinzufügen"
@@ -104,8 +132,8 @@ msgstr[1] ""
 #, python-format
 msgid "Sorry, no redirects match \"<em>%(query_string)s</em>\""
 msgstr ""
-"Leider gibt es keine Weiterleitungen zum Suchbegriff \"<em>%(query_string)s</"
-"em>\""
+"Leider gibt es keine Weiterleitungen zum Suchbegriff „<em>%(query_string)s</"
+"em>“"
 
 #, python-format
 msgid ""
@@ -120,7 +148,7 @@ msgstr "Such-Umleitungen"
 
 #, python-brace-format
 msgid "Redirect '{0}' updated."
-msgstr "Weiterleitung '{0}' geändert."
+msgstr "Weiterleitung ‚{0}‘ geändert."
 
 msgid "Edit"
 msgstr "Bearbeiten"
@@ -131,11 +159,11 @@ msgstr ""
 
 #, python-brace-format
 msgid "Redirect '{0}' deleted."
-msgstr "Weiterleitung '{0}' gelöscht."
+msgstr "Weiterleitung ‚{0}‘ gelöscht."
 
 #, python-brace-format
 msgid "Redirect '{0}' added."
-msgstr "Weiterleitung '{0}' hinzugefügt"
+msgstr "Weiterleitung ‚{0}‘ hinzugefügt"
 
 msgid "The redirect could not be created due to errors."
 msgstr "Aufgrund von Fehlern konnte die Weiterleitung nicht erstellt werden."

@@ -1,11 +1,12 @@
-from django.test import TestCase
-from django.core.urlresolvers import reverse
-from django.core import paginator
+from __future__ import absolute_import, unicode_literals
 
-from wagtail.wagtailcore.models import Page
-from wagtail.wagtailsearch.models import Query
+from django.core import paginator
+from django.core.urlresolvers import reverse
+from django.test import TestCase
 
 from wagtail.tests.testapp.models import EventPage
+from wagtail.wagtailcore.models import Page
+from wagtail.wagtailsearch.models import Query
 
 
 class TestSearchView(TestCase):
@@ -47,6 +48,8 @@ class TestSearchView(TestCase):
                 event = EventPage(
                     title="Event " + str(i),
                     slug='event-' + str(i),
+                    location='the moon', audience='public',
+                    cost='free', date_from='2001-01-01',
                     live=True,
                 )
                 event_index.add_child(instance=event)

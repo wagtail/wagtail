@@ -1,21 +1,20 @@
-from __future__ import unicode_literals
+from __future__ import absolute_import, unicode_literals
 
 import os.path
 
-from taggit.managers import TaggableManager
-
+from django.conf import settings
+from django.core.exceptions import ImproperlyConfigured
+from django.core.urlresolvers import reverse
 from django.db import models
 from django.db.models.signals import pre_delete
-from django.dispatch.dispatcher import receiver
 from django.dispatch import Signal
-from django.core.urlresolvers import reverse
-from django.core.exceptions import ImproperlyConfigured
-from django.conf import settings
-from django.utils.translation import ugettext_lazy as _
+from django.dispatch.dispatcher import receiver
 from django.utils.encoding import python_2_unicode_compatible
+from django.utils.translation import ugettext_lazy as _
+from taggit.managers import TaggableManager
 
-from wagtail.wagtailadmin.taggable import TagSearchable
 from wagtail.wagtailadmin.utils import get_object_usage
+from wagtail.wagtailcore.models import CollectionMember
 from wagtail.wagtailsearch import index
 from wagtail.wagtailsearch.queryset import SearchableQuerySetMixin
 
@@ -25,7 +24,7 @@ class DocumentQuerySet(SearchableQuerySetMixin, models.QuerySet):
 
 
 @python_2_unicode_compatible
-class AbstractDocument(models.Model, TagSearchable):
+class AbstractDocument(CollectionMember, index.Indexed, models.Model):
     title = models.CharField(max_length=255, verbose_name=_('title'))
     file = models.FileField(upload_to='documents', verbose_name=_('file'))
     created_at = models.DateTimeField(verbose_name=_('created at'), auto_now_add=True)
@@ -42,9 +41,13 @@ class AbstractDocument(models.Model, TagSearchable):
 
     objects = DocumentQuerySet.as_manager()
 
-    search_fields = TagSearchable.search_fields + (
+    search_fields = CollectionMember.search_fields + [
+        index.SearchField('title', partial_match=True, boost=10),
+        index.RelatedFields('tags', [
+            index.SearchField('name', partial_match=True, boost=10),
+        ]),
         index.FilterField('uploaded_by_user'),
-    )
+    ]
 
     def __str__(self):
         return self.title
@@ -82,6 +85,7 @@ class Document(AbstractDocument):
     admin_form_fields = (
         'title',
         'file',
+        'collection',
         'tags'
     )
 

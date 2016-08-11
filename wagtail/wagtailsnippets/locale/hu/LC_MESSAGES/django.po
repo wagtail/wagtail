@@ -7,9 +7,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-12-17 13:55+0000\n"
-"PO-Revision-Date: 2014-02-19 19:01+0000\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"POT-Creation-Date: 2016-05-18 21:37+0000\n"
+"PO-Revision-Date: 2016-05-18 21:51+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Hungarian (http://www.transifex.com/torchbox/wagtail/language/"
 "hu/)\n"
 "MIME-Version: 1.0\n"
@@ -33,8 +33,18 @@ msgstr "Igen, törlés"
 msgid "Save"
 msgstr "Mentés"
 
+msgid "Editing"
+msgstr "Szerkesztés"
+
 msgid "Title"
 msgstr "Cím"
+
+#, python-format
+msgid "Usage of %(title)s"
+msgstr "A %(title)s használata"
+
+msgid "Usage of"
+msgstr "Használat"
 
 msgid "Parent"
 msgstr "Szülő"

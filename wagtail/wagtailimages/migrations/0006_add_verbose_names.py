@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 
-from django.db import models, migrations
 from django.conf import settings
+from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
@@ -26,6 +26,7 @@ class Migration(migrations.Migration):
             model_name='image',
             name='uploaded_by_user',
             field=models.ForeignKey(
+                on_delete=models.CASCADE,
                 blank=True, editable=False, to=settings.AUTH_USER_MODEL, null=True,
                 verbose_name='Uploaded by user'
             ),

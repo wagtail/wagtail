@@ -4,14 +4,15 @@
 #
 # Translators:
 # utek <mail@utek.pl>, 2014
+# mmiskiew <mmiskiew@gmail.com>, 2016
 # utek <mail@utek.pl>, 2014
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-12-17 13:55+0000\n"
-"PO-Revision-Date: 2015-08-26 13:37+0000\n"
-"Last-Translator: Karl Hobley <karl@torchbox.com>\n"
+"POT-Creation-Date: 2016-05-18 21:37+0000\n"
+"PO-Revision-Date: 2016-02-14 21:49+0000\n"
+"Last-Translator: mmiskiew <mmiskiew@gmail.com>\n"
 "Language-Team: Polish (http://www.transifex.com/torchbox/wagtail/language/"
 "pl/)\n"
 "MIME-Version: 1.0\n"
@@ -23,6 +24,17 @@ msgstr ""
 
 msgid "Search term(s)/phrase"
 msgstr "Frazy wyszukiwania"
+
+msgid ""
+"Enter the full search string to match. An exact match is required for your "
+"Promoted Results to be displayed, wildcards are NOT allowed."
+msgstr ""
+"Wprowadź pełną frazę wyszukania do porównania. Dokładne porównanie jest "
+"wymagane żeby twoje wybory redakcji były wyświetlone, symbol wieloznaczności "
+"jest niedozwolony."
+
+msgid "Query Daily Hits"
+msgstr "Dzienny licznik frazy"
 
 msgid "Popular search terms"
 msgstr "Popularne wyszukiwania"
@@ -38,3 +50,9 @@ msgstr "Odsłony (poprzedni tydzień)"
 
 msgid "No results found"
 msgstr "Nie znaleziono"
+
+msgid "Date"
+msgstr "Data"
+
+msgid "Choose from popular search terms"
+msgstr "Wybierz z popularnych fraz wyszukiwania"

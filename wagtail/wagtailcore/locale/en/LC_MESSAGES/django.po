@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-02-05 17:01+0000\n"
+"POT-Creation-Date: 2016-08-01 13:25+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,239 +17,279 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: models.py:59
+#: models.py:60
 msgid "hostname"
 msgstr ""
 
-#: models.py:61
+#: models.py:62
 msgid "port"
 msgstr ""
 
-#: models.py:64
+#: models.py:65
 msgid ""
 "Set this to something other than 80 if you need a specific port number to "
 "appear in URLs (e.g. development on port 8000). Does not affect request "
 "handling (so port forwarding still works)."
 msgstr ""
 
-#: models.py:69
+#: models.py:70
 msgid "site name"
 msgstr ""
 
-#: models.py:73
+#: models.py:74
 msgid "Human-readable name for the site."
 msgstr ""
 
-#: models.py:75
+#: models.py:76
 msgid "root page"
 msgstr ""
 
-#: models.py:77
+#: models.py:78
 msgid "is default site"
 msgstr ""
 
-#: models.py:80
+#: models.py:81
 msgid ""
 "If true, this site will handle requests for all other hostnames that do not "
 "have a site entry of their own"
 msgstr ""
 
-#: models.py:88
+#: models.py:89
 msgid "site"
 msgstr ""
 
-#: models.py:89
+#: models.py:90
 msgid "sites"
 msgstr ""
 
-#: models.py:155
+#: models.py:194
 #, python-format
 msgid ""
 "%(hostname)s is already configured as the default site. You must unset that "
 "before you can save this site as default."
 msgstr ""
 
-#: models.py:277
+#: models.py:296
 msgid "title"
 msgstr ""
 
-#: models.py:279
+#: models.py:298
 msgid "The page title as you'd like it to be seen by the public"
 msgstr ""
 
-#: models.py:282
+#: models.py:303 models.py:310
 msgid "slug"
 msgstr ""
 
-#: models.py:284
+#: models.py:306 models.py:312
 msgid ""
 "The name of the page as it will appear in URLs e.g http://domain.com/blog/"
 "[my-slug]/"
 msgstr ""
 
-#: models.py:290
+#: models.py:316
 msgid "content type"
 msgstr ""
 
-#: models.py:294 models.py:930
+#: models.py:320 models.py:1010
 msgid "live"
 msgstr ""
 
-#: models.py:296
+#: models.py:322
 msgid "has unpublished changes"
 msgstr ""
 
-#: models.py:300
+#: models.py:326
 msgid "URL path"
 msgstr ""
 
-#: models.py:303
+#: models.py:329
 msgid "owner"
 msgstr ""
 
-#: models.py:312
+#: models.py:338
 msgid "page title"
 msgstr ""
 
-#: models.py:315
+#: models.py:341
 msgid ""
 "Optional. 'Search Engine Friendly' title. This will appear at the top of the "
 "browser window."
 msgstr ""
 
-#: models.py:318
+#: models.py:344
 msgid "show in menus"
 msgstr ""
 
-#: models.py:320
+#: models.py:346
 msgid ""
 "Whether a link to this page will appear in automatically generated menus"
 msgstr ""
 
-#: models.py:322
+#: models.py:348
 msgid "search description"
 msgstr ""
 
-#: models.py:325
+#: models.py:351
 msgid "go live date/time"
 msgstr ""
 
-#: models.py:326 models.py:332
+#: models.py:352 models.py:358
 msgid "Please add a date-time in the form YYYY-MM-DD hh:mm."
 msgstr ""
 
-#: models.py:331
+#: models.py:357
 msgid "expiry date/time"
 msgstr ""
 
-#: models.py:336 models.py:921
+#: models.py:362 models.py:1001
 msgid "expired"
 msgstr ""
 
-#: models.py:338
+#: models.py:364
 msgid "locked"
 msgstr ""
 
-#: models.py:341
+#: models.py:367
 msgid "first published at"
 msgstr ""
 
-#: models.py:347
+#: models.py:373
 msgid "latest revision created at"
 msgstr ""
 
-#: models.py:923
+#: models.py:470
+msgid "This slug is already in use"
+msgstr ""
+
+#: models.py:1003
 msgid "scheduled"
 msgstr ""
 
-#: models.py:925
+#: models.py:1005
 msgid "draft"
 msgstr ""
 
-#: models.py:928
+#: models.py:1008
 msgid "live + draft"
 msgstr ""
 
-#: models.py:1138
+#: models.py:1241
 msgid "Default"
 msgstr ""
 
-#: models.py:1246 models.py:1320 models.py:1451 models.py:1695
+#: models.py:1349 models.py:1382 models.py:1519 models.py:1770
 msgid "page"
 msgstr ""
 
-#: models.py:1247
+#: models.py:1350
 msgid "pages"
 msgstr ""
 
-#: models.py:1322
+#: models.py:1384
 msgid "submitted for moderation"
 msgstr ""
 
-#: models.py:1326
+#: models.py:1388
 msgid "created at"
 msgstr ""
 
-#: models.py:1328
+#: models.py:1390
 msgid "user"
 msgstr ""
 
-#: models.py:1331
+#: models.py:1393
 msgid "content JSON"
 msgstr ""
 
-#: models.py:1332
+#: models.py:1394
 msgid "approved go live at"
 msgstr ""
 
-#: models.py:1437
+#: models.py:1499
 msgid "page revision"
 msgstr ""
 
-#: models.py:1438
+#: models.py:1500
 msgid "page revisions"
 msgstr ""
 
-#: models.py:1442
+#: models.py:1504
+msgid "Add"
+msgstr ""
+
+#: models.py:1504
 msgid "Add/edit pages you own"
 msgstr ""
 
-#: models.py:1443
+#: models.py:1505
+msgid "Edit"
+msgstr ""
+
+#: models.py:1505
 msgid "Edit any page"
 msgstr ""
 
-#: models.py:1444
+#: models.py:1506
+msgid "Publish"
+msgstr ""
+
+#: models.py:1506
 msgid "Publish any page"
 msgstr ""
 
-#: models.py:1445
+#: models.py:1507
+msgid "Lock"
+msgstr ""
+
+#: models.py:1507
 msgid "Lock/unlock any page"
 msgstr ""
 
-#: models.py:1450
+#: models.py:1518 models.py:1849
 msgid "group"
 msgstr ""
 
-#: models.py:1453
+#: models.py:1521
 msgid "permission type"
 msgstr ""
 
-#: models.py:1460
+#: models.py:1528
 msgid "group page permission"
 msgstr ""
 
-#: models.py:1461
+#: models.py:1529
 msgid "group page permissions"
 msgstr ""
 
-#: models.py:1696
+#: models.py:1771
 msgid "password"
 msgstr ""
 
-#: models.py:1699
+#: models.py:1774
 msgid "page view restriction"
 msgstr ""
 
-#: models.py:1700
+#: models.py:1775
 msgid "page view restrictions"
+msgstr ""
+
+#: models.py:1790
+msgid "name"
+msgstr ""
+
+#: models.py:1813 models.py:1828 models.py:1855
+msgid "collection"
+msgstr ""
+
+#: models.py:1814
+msgid "collections"
+msgstr ""
+
+#: models.py:1861
+msgid "permission"
+msgstr ""
+
+#: models.py:1874
+msgid "group collection permission"
 msgstr ""

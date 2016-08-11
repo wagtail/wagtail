@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 
-from django.db import models, migrations
+from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
@@ -21,8 +21,8 @@ class Migration(migrations.Migration):
                          auto_created=True)),
                         ('sort_order', models.IntegerField(editable=False, null=True, blank=True)),
                         ('description', models.TextField(verbose_name='Description', blank=True)),
-                        ('page', models.ForeignKey(verbose_name='Page', to='wagtailcore.Page')),
-                        ('query', models.ForeignKey(to='wagtailsearch.Query', related_name='editors_picks')),
+                        ('page', models.ForeignKey(on_delete=models.CASCADE, verbose_name='Page', to='wagtailcore.Page')),
+                        ('query', models.ForeignKey(on_delete=models.CASCADE, to='wagtailsearch.Query', related_name='editors_picks')),
                     ],
                     options={
                         'db_table': 'wagtailsearch_editorspick',

@@ -4,15 +4,15 @@
 #
 # Translators:
 # Jose Lourenco <jose@lourenco.ws>, 2014-2015
-# Manuela Silva <h_manuela_rodsilva@gmail.com>, 2015
-# Tiago Henriques <trinosauro@gmail.com>, 2015
+# Manuela Silva <inactive+h_manuela_rodsilva@transifex.com>, 2015
+# Tiago Henriques <trinosauro@gmail.com>, 2015-2016
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-12-17 13:55+0000\n"
-"PO-Revision-Date: 2015-12-17 14:01+0000\n"
-"Last-Translator: mattwestcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2016-05-18 21:37+0000\n"
+"PO-Revision-Date: 2016-06-23 16:09+0000\n"
+"Last-Translator: Tiago Henriques <trinosauro@gmail.com>\n"
 "Language-Team: Portuguese (Portugal) (http://www.transifex.com/torchbox/"
 "wagtail/language/pt_PT/)\n"
 "MIME-Version: 1.0\n"
@@ -33,14 +33,44 @@ msgstr "Site"
 msgid "Port"
 msgstr "Porta"
 
+msgid "Site name"
+msgstr "Nome do site"
+
 msgid "Root page"
 msgstr "Página raiz"
 
 msgid "Default?"
-msgstr "Predefinição?"
+msgstr "Pré-definido?"
 
 msgid "Default"
-msgstr "Predefinição"
+msgstr "Pré-definido"
 
 msgid "Sites"
 msgstr "Sites"
+
+msgid "Add a site"
+msgstr "Adicionar site"
+
+msgid "Add site"
+msgstr "Adicionar site"
+
+#, python-brace-format
+msgid "Site '{0}' created."
+msgstr "Site '{0}' criado."
+
+#, python-brace-format
+msgid "Site '{0}' updated."
+msgstr "Site '{0}' atualizado."
+
+msgid "The site could not be saved due to errors."
+msgstr "O site não pôde ser guardado devido a erros."
+
+msgid "Delete site"
+msgstr "Apagar site"
+
+#, python-brace-format
+msgid "Site '{0}' deleted."
+msgstr "Site '{0}' apagado."
+
+msgid "Are you sure you want to delete this site?"
+msgstr "Tem a certeza que quer apagar este site?"

@@ -10,7 +10,9 @@ ul.listing {
     font-size: 0.95em;
 
     ul {
-        @include unlist();
+        list-style-type: none;
+        padding-left: 0;
+        // @include unlist();
     }
 
     > li {
@@ -23,12 +25,12 @@ ul.listing {
         font-size: 1em;
     }
 
-    td, 
+    td,
     th {
         padding: 1.2em 1em;
     }
 
-    &.small td, 
+    &.small td,
     th {
         padding: 0.6em 1em;
     }
@@ -81,23 +83,23 @@ ul.listing {
 
     tbody {
         border-bottom: 1px dashed $color-input-border;
-        
-        
+
+
         tr {
             border-top: 1px dashed $color-input-border;
-            
+
             &:first-child {
                 border-top: 1px dashed $color-input-border;
+            }
+
+            &:hover {
+                background-color: #fcfcfc;
             }
         }
     }
 
     &.full-width tbody {
         border: 0;
-    }
-
-    &.full-width tbody tr:hover {
-        background-color: #fdfdfd;
     }
 
     &.chooser {
@@ -110,7 +112,7 @@ ul.listing {
             background-color: $color-teal;
             color: $color-white;
 
-            .title a, 
+            .title a,
             .title a:hover {
                 color: $color-white;
             }
@@ -203,11 +205,12 @@ ul.listing {
             text-decoration: none;
         }
 
-        li {
+        > li {
             float: left;
             padding: 0 0.5em 0 0;
             margin: 0 0 0.5em;
-            line-height: 1em;
+
+            // line-height: 1em;
         }
     }
 
@@ -220,7 +223,7 @@ ul.listing {
             background-color: $color-teal;
         }
     }
-    
+
     .button-secondary {
         background-color: $color-white;
     }
@@ -233,7 +236,7 @@ ul.listing {
     .children,
     .no-children {
         padding: 0;
-       
+
         &:hover {
             background-color: $color-grey-5;
         }
@@ -247,7 +250,7 @@ ul.listing {
     .children a {
         color: $color-teal;
         display: block;
-        
+
         &:before {
             font-size: 3rem;
         }
@@ -256,7 +259,7 @@ ul.listing {
     .no-children a {
         color: $color-grey-3;
         display: block;
-        
+
         &:before {
             font-size: 1.5rem;
         }
@@ -356,17 +359,31 @@ ul.listing {
         }
 
         .button {
-            background-color: transparent;
-            color: $color-white;
-            border-color: $color-teal-darker;
+            background-color: $color-white;
+            color: $color-teal;
+            border-color: $color-teal;
 
             &:hover {
                 color: $color-white;
                 background: $color-teal-darker;
+                border-color: $color-teal-darker;
+            }
+
+            &:active {
+                color: $color-white;
+                background: #333;
+                border-color: #333;
             }
 
             &.bicolor {
                 background: $color-teal-darker;
+                border: solid 1px darken($color-teal-darker, 10%);
+
+                &:active {
+                    color: $color-white;
+                    background: #484848;
+                    border-color: #333;
+                }
             }
         }
     }
@@ -427,7 +444,21 @@ table.listing {
                     color: $color-white;
                 }
             }
+        }
 
+        .button {
+            background-color: transparent;
+            color: $color-white;
+            border-color: $color-teal-darker;
+
+            &:hover {
+                color: $color-white;
+                background: $color-teal-darker;
+            }
+
+            &.bicolor {
+                background: $color-teal-darker;
+            }
         }
     }
 
@@ -571,13 +602,15 @@ table.listing {
             visibility: visible;
         }
 
+
+
         td:hover .actions {
             visibility: visible;
         }
 
         .no-children {
             border-color: transparent;
-            
+
             a {
                 opacity: 0;
             }
@@ -613,6 +646,15 @@ table.listing {
         }
     }
 }
+
+
+// State
+.listing__item--active {
+    > .actions {
+        visibility: visible;
+    }
+}
+
 
 // Transitions
 .listing {

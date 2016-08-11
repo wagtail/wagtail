@@ -4,16 +4,18 @@
 #
 # Translators:
 # ajk, 2014
-# Eugene MechanisM <contact@mechanism.name>, 2014-2015
-# mattwestcott <matthew@torchbox.com>, 2015
+# Eugene MechanisM <eugene@mechanism.pro>, 2014-2016
+# Matt Westcott <matthew@torchbox.com>, 2015
+# Mikalai Radchuk <radchuk.m@gmail.com>, 2016
 # Sergey Komarov <sjkomarov@gmail.com>, 2014
+# gsstver <gsstver@gmail.com>, 2016
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-12-17 13:54+0000\n"
-"PO-Revision-Date: 2015-12-17 18:46+0000\n"
-"Last-Translator: Eugene MechanisM <contact@mechanism.name>\n"
+"POT-Creation-Date: 2016-05-18 21:37+0000\n"
+"PO-Revision-Date: 2016-05-26 13:33+0000\n"
+"Last-Translator: Mikalai Radchuk <radchuk.m@gmail.com>\n"
 "Language-Team: Russian (http://www.transifex.com/torchbox/wagtail/language/"
 "ru/)\n"
 "MIME-Version: 1.0\n"
@@ -85,6 +87,18 @@ msgstr "Высота"
 msgid "Closeness"
 msgstr "Близость"
 
+msgid "Add"
+msgstr "Добавить"
+
+msgid "Add/edit images you own"
+msgstr "Добавить/редактировать свои изображения"
+
+msgid "Edit"
+msgstr "Правка"
+
+msgid "Edit any image"
+msgstr "Редактировать любое изображение"
+
 msgid "title"
 msgstr "заголовок"
 
@@ -120,6 +134,12 @@ msgstr "Популярные теги"
 
 msgid "Uploading..."
 msgstr "Загрузка..."
+
+msgid "Server Error"
+msgstr "Ошибка Сервера"
+
+msgid "Report this error to your webmaster with the following information:"
+msgstr "Сообщите об этой ошибке администратору и укажите следующую информацию:"
 
 #, python-format
 msgid ""
@@ -239,11 +259,19 @@ msgstr ""
 
 #, python-format
 msgid ""
-"You've not uploaded any images. Why not <a href="
-"\"%(wagtailimages_add_image_url)s\">add one now</a>?"
+"You haven't uploaded any images in this collection. Why not <a href="
+"\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
 msgstr ""
-"Вы еще не загрузили ни одного изображения. Почему бы <a href="
-"\"%(wagtailimages_add_image_url)s\">не сделать это сейчас</a>?"
+"Вы не загрузили ни одного изображения в эту коллекцию. Почему бы <a href="
+"\"%(wagtailimages_add_image_url)s\">не загрузить сейчас</a>?"
+
+#, python-format
+msgid ""
+"You haven't uploaded any images. Why not <a href="
+"\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
+msgstr ""
+"Вы не загрузили ни одного изображения. Почему бы <a href="
+"\"%(wagtailimages_add_image_url)s\">не загрузить сейчас</a>?"
 
 msgid "Generating URL"
 msgstr "Создание URL"
@@ -295,6 +323,9 @@ msgstr "Перетяните изображения в эту область д�
 msgid "Or choose from your computer"
 msgstr "Или выберите на вашем компьютере"
 
+msgid "Add to collection:"
+msgstr "Добавить в коллекцию:"
+
 msgid ""
 "Upload successful. Please update this image with a more appropriate title, "
 "if necessary. You may also delete the image completely if the upload wasn't "
@@ -315,6 +346,12 @@ msgstr "Обновить"
 
 msgid "Delete"
 msgstr "Удалить"
+
+msgid "Image permissions"
+msgstr "Права доступа к изображению"
+
+msgid "Add an image permission"
+msgstr "Добавить права доступа к изображению"
 
 msgid "Search images"
 msgstr "Поиск изображений"
@@ -344,11 +381,16 @@ msgstr "Изображение '{0}' удалено."
 msgid "Image '{0}' added."
 msgstr "Изображение '{0}' добавлено."
 
-msgid "Edit"
-msgstr "Правка"
-
 msgid "The image could not be created due to errors."
 msgstr "Это изображение не может быть создано из-за ошибок."
+
+#, python-format
+msgid "%(count)s image"
+msgid_plural "%(count)s images"
+msgstr[0] "%(count)s изображение"
+msgstr[1] "%(count)s изображения"
+msgstr[2] "%(count)s изображений"
+msgstr[3] "%(count)s изображений"
 
 msgid "Choose another image"
 msgstr "Выбрать другое изображение"

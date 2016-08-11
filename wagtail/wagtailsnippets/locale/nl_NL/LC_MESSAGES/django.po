@@ -4,13 +4,13 @@
 #
 # Translators:
 # Maarten Kling <kling.maarten@gmail.com>, 2015
-# Thijs Kramer <thijskramer@gmail.com>, 2015
+# Thijs Kramer <thijskramer@gmail.com>, 2015-2016
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-12-17 13:55+0000\n"
-"PO-Revision-Date: 2015-12-22 16:15+0000\n"
+"POT-Creation-Date: 2016-05-18 21:37+0000\n"
+"PO-Revision-Date: 2016-06-13 09:45+0000\n"
 "Last-Translator: Thijs Kramer <thijskramer@gmail.com>\n"
 "Language-Team: Dutch (Netherlands) (http://www.transifex.com/torchbox/"
 "wagtail/language/nl_NL/)\n"
@@ -67,7 +67,7 @@ msgstr "Verwijder"
 
 #, python-format
 msgid "Are you sure you want to delete this %(snippet_type_name)s?"
-msgstr "Weet je zeker dat je deze wilt verwijderen %(snippet_type_name)s?"
+msgstr "Weet u zeker dat u deze %(snippet_type_name)s wilt verwijderen?"
 
 msgid "Yes, delete"
 msgstr "Ja, verwijder"
@@ -78,6 +78,9 @@ msgstr "Nieuw  %(snippet_type_name)s"
 
 msgid "New"
 msgstr "Nieuw"
+
+msgid "Saving..."
+msgstr "Bezig met opslaan..."
 
 msgid "Save"
 msgstr "Opslaan"

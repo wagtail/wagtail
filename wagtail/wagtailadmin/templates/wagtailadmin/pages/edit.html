@@ -26,29 +26,36 @@
 
     <form id="page-edit-form" action="{% url 'wagtailadmin_pages:edit' page.id %}" method="POST"{% if form.is_multipart %} enctype="multipart/form-data"{% endif %}>
         {% csrf_token %}
+        <input type="hidden" name="next" value="{{ next }}">
         {{ edit_handler.render_form_content }}
+
+        {% if is_revision %}
+            <input type="hidden" name="revision" value="{{ revision.id }}" />
+        {% endif %}
 
         <footer>
             <ul>
                 <li class="actions">
-                    <div class="dropdown dropup dropdown-button match-width">
-                        <button type="submit" class="action-save button-longrunning" tabindex="3" data-clicked-text="{% trans 'Saving...' %}" {% if page.locked %}disabled {% endif %}><span class="icon icon-spinner"></span><em>{% if page.locked %}{% trans 'Page locked' %}{% else %}{% trans 'Save draft' %}{% endif %}</em></button>
-                        
+                    <div class="dropdown dropup dropdown-button match-width {% if is_revision %}warning{% endif %}">
+                        <button type="submit" class="button action-save button-longrunning {% if is_revision %}warning{% endif %}" tabindex="3" data-clicked-text="{% trans 'Saving...' %}" {% if page.locked %}disabled {% endif %}><span class="icon icon-spinner"></span><em>{% if page.locked %}{% trans 'Page locked' %}{% else %}{% if is_revision %}{% trans 'Replace current draft' %}{% else %}{% trans 'Save draft' %}{% endif %}{% endif %}</em></button>
+
                         {% if not page.locked %}
                             <div class="dropdown-toggle icon icon-arrow-up"></div>
                             <ul role="menu">
-                                {% if page_perms.can_unpublish %}
+                                {% if not is_revision and page_perms.can_unpublish %}
                                     <li><a href="{% url 'wagtailadmin_pages:unpublish' page.id %}">{% trans 'Unpublish' %}</a></li>
                                 {% endif %}
-                                {% if page_perms.can_delete %}
+                                {% if not is_revision and page_perms.can_delete %}
                                     <li><a href="{% url 'wagtailadmin_pages:delete' page.id %}" class="shortcut">{% trans 'Delete' %}</a></li>
                                 {% endif %}
                                 {% if page_perms.can_publish %}
                                     <li>
-                                        <button type="submit" name="action-publish" value="action-publish" class="button-longrunning" tabindex="3" data-clicked-text="{% trans 'Publishing...' %}" {% if page.locked %}disabled {% endif %}><span class="icon icon-spinner"></span><em>{% trans 'Publish' %}</em></button>
+                                        <button type="submit" name="action-publish" value="action-publish" class="button button-longrunning {% if is_revision %}warning{% endif %}" tabindex="3" data-clicked-text="{% trans 'Publishing...' %}" {% if page.locked %}disabled {% endif %}><span class="icon icon-spinner"></span><em>{% if is_revision %}{% trans 'Publish this revision' %}{% else %}{% trans 'Publish' %}{% endif %}</em></button>
                                     </li>
                                 {% endif %}
-                                <li><input type="submit" name="action-submit" value="{% trans 'Submit for moderation' %}" class="button" /></li>
+                                {% if not is_revision %}
+                                    <li><input type="submit" name="action-submit" value="{% trans 'Submit for moderation' %}" class="button" /></li>
+                                {% endif %}
                             </ul>
                         {% endif %}
                     </div>
@@ -83,6 +90,7 @@
                                     <span class="avatar small icon icon-user"><img src="{% gravatar_url page.get_latest_revision.user.email 25 %}" /></span>
                                 {% endif %}
                             {% endif %}
+                            <a href="{% url 'wagtailadmin_pages:revisions_index' page.id %}" class="underlined">{% trans 'Revisions' %}</a>
                         {% endif %}
                     </p>
                 </li>
@@ -99,4 +107,21 @@
 {% block extra_js %}
     {{ block.super }}
     {% include "wagtailadmin/pages/_editor_js.html" %}
+
+    <script>
+        $(function() {
+            /* Make user confirm before leaving the editor if there are unsaved changes */
+            {% trans "This page has unsaved changes." as confirmation_message %}
+            enableDirtyFormCheck(
+                '#page-edit-form',
+                {
+                    confirmationMessage: '{{ confirmation_message|escapejs }}',
+
+                    {% if has_unsaved_changes %}
+                        alwaysDirty: true,
+                    {% endif %}
+                }
+            );
+        });
+    </script>
 {% endblock %}

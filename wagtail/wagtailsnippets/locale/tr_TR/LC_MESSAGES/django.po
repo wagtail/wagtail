@@ -1,0 +1,62 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# Yusuf (Josè) Luis <alagunajs@gmail.com>, 2015
+# Yusuf (Josè) Luis <alagunajs@gmail.com>, 2016
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2016-05-18 21:37+0000\n"
+"PO-Revision-Date: 2016-05-18 21:51+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"Language-Team: Turkish (Turkey) (http://www.transifex.com/torchbox/wagtail/"
+"language/tr_TR/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: tr_TR\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+msgid "Choose"
+msgstr "Seç"
+
+msgid "Search"
+msgstr "Ara"
+
+msgid "Delete"
+msgstr "Sil"
+
+msgid "Yes, delete"
+msgstr "Evet, sil"
+
+msgid "New"
+msgstr "Yeni"
+
+msgid "Save"
+msgstr "Kayde"
+
+#, python-format
+msgid "Editing %(snippet_type_name)s - %(instance)s"
+msgstr "%(snippet_type_name)s - %(instance)s düzeltiliyor"
+
+msgid "Editing"
+msgstr "Düzeltiliyor"
+
+msgid "Title"
+msgstr "Başlık"
+
+msgid "Status"
+msgstr "Durum"
+
+msgid "Edit this page"
+msgstr "Bu sayfa düzenle"
+
+msgid "Edit"
+msgstr "Düzenle"
+
+#, python-format
+msgid "Edit this %s"
+msgstr "Bu %s düzenle"

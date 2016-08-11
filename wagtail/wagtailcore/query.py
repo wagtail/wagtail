@@ -1,10 +1,11 @@
+from __future__ import absolute_import, unicode_literals
+
 from collections import defaultdict
 
 from django import VERSION as DJANGO_VERSION
-from django.db.models import Q
-from django.contrib.contenttypes.models import ContentType
 from django.apps import apps
-
+from django.contrib.contenttypes.models import ContentType
+from django.db.models import Q
 from treebeard.mp_tree import MP_NodeQuerySet
 
 from wagtail.wagtailsearch.queryset import SearchableQuerySetMixin
@@ -18,7 +19,7 @@ class TreeQuerySet(MP_NodeQuerySet):
         q = Q(path__startswith=other.path) & Q(depth__gte=other.depth)
 
         if not inclusive:
-            q &= ~self.page_q(other)
+            q &= ~Q(pk=other.pk)
 
         return q
 
@@ -61,7 +62,7 @@ class TreeQuerySet(MP_NodeQuerySet):
         q = Q(path__in=paths)
 
         if not inclusive:
-            q &= ~self.page_q(other)
+            q &= ~Q(pk=other.pk)
 
         return q
 
@@ -100,7 +101,7 @@ class TreeQuerySet(MP_NodeQuerySet):
         q = Q(path__startswith=self.model._get_parent_path_from_path(other.path)) & Q(depth=other.depth)
 
         if not inclusive:
-            q &= ~self.page_q(other)
+            q &= ~Q(pk=other.pk)
 
         return q
 

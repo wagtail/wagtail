@@ -5,13 +5,15 @@
 # Translators:
 # Claudemiro Alves Feitosa Neto <dimiro1@gmail.com>, 2015
 # Gladson <gladsonbrito@gmail.com>, 2014
+# Luiz Boaretto <lboaretto@gmail.com>, 2016
+# Luiz Boaretto <lboaretto@gmail.com>, 2016
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-12-17 13:54+0000\n"
-"PO-Revision-Date: 2015-12-17 14:02+0000\n"
-"Last-Translator: mattwestcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2016-05-18 21:37+0000\n"
+"PO-Revision-Date: 2016-05-18 22:57+0000\n"
+"Last-Translator: Luiz Boaretto <lboaretto@gmail.com>\n"
 "Language-Team: Portuguese (Brazil) (http://www.transifex.com/torchbox/"
 "wagtail/language/pt_BR/)\n"
 "MIME-Version: 1.0\n"
@@ -22,6 +24,21 @@ msgstr ""
 
 msgid "Please specify at least one recommendation for this search term."
 msgstr "Especifique pelo menos uma recomendação para este termo de busca."
+
+msgid "page"
+msgstr "página"
+
+msgid "description"
+msgstr "descrição"
+
+msgid "search promotion"
+msgstr "promoção de pesquisa"
+
+msgid "Add search promotion"
+msgstr "Adicionar promoção de pesquisa"
+
+msgid "Add search pick"
+msgstr "Adicionar sugestão de pesquisa"
 
 msgid ""
 "\n"
@@ -108,6 +125,9 @@ msgstr "Resultados promovidos"
 msgid "Views (past week)"
 msgstr "Visualizações (última semana)"
 
+msgid "Edit this promotion"
+msgstr "Editar esta promoção"
+
 msgid "None"
 msgstr "Nenhum"
 
@@ -132,6 +152,17 @@ msgstr[1] ""
 #, python-format
 msgid "Sorry, no promoted results match \"<em>%(query_string)s</em>\""
 msgstr "Desculpe, nenhum resultado promovido com \"<em>%(query_string)s</em>\""
+
+#, python-format
+msgid ""
+"No promoted results have been created. Why not <a href="
+"\"%(wagtailsearchpromotions_add_url)s\">add one</a>?"
+msgstr ""
+"Nenhum resultado promovido foi criado. Porque não <a href="
+"\"%(wagtailsearchpromotions_add_url)s\">adicionar um</a>?"
+
+msgid "Search promoted results"
+msgstr "Pesquisar resultados promovidos"
 
 #, python-brace-format
 msgid "Editor's picks for '{0}' created."

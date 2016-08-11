@@ -4,15 +4,15 @@
 #
 # Translators:
 # fooflare <amos.oviedo@gmail.com>, 2014
-# fooflare <amos.oviedo@gmail.com>, 2014
+# fooflare <amos.oviedo@gmail.com>, 2014,2016
 # fooflare <amos.oviedo@gmail.com>, 2014
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-12-17 13:55+0000\n"
-"PO-Revision-Date: 2015-12-17 14:00+0000\n"
-"Last-Translator: mattwestcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2016-05-18 21:37+0000\n"
+"PO-Revision-Date: 2016-05-29 16:32+0000\n"
+"Last-Translator: fooflare <amos.oviedo@gmail.com>\n"
 "Language-Team: Galician (http://www.transifex.com/torchbox/wagtail/language/"
 "gl/)\n"
 "MIME-Version: 1.0\n"
@@ -37,10 +37,10 @@ msgstr "Os dous campos de contrasinal non coinciden."
 msgid "Administrator"
 msgstr "Administrador"
 
-msgid "If ticked, this user has the ability to manage user accounts."
+msgid "Administrators have full access to manage any object or setting."
 msgstr ""
-"Se está marcado, este usuario ten a capacidade de xestionar contas de "
-"usuario."
+"Os administradores teñen acceso completo para xestionar calquera obxecto ou "
+"configuración."
 
 msgid "Password"
 msgstr "Contrasinal"
@@ -63,8 +63,59 @@ msgstr "Nome"
 msgid "Last Name"
 msgstr "Apelidos"
 
-msgid "Administrators have the ability to manage user accounts."
-msgstr "Os administradores teñen a capacidade de xestionar contas de usuario."
+msgid "A group with that name already exists."
+msgstr "Un grupo con ese nome xa existe."
+
+msgid "You cannot have multiple permission records for the same page."
+msgstr "Non podes ter múltiples rexistros de permisos para a mesma páxina."
+
+msgid "submitted notifications"
+msgstr "notificacións enviadas"
+
+msgid "Receive notification when a page is submitted for moderation"
+msgstr "Recibir notificación cando unha páxina é enviada para ser moderada"
+
+msgid "approved notifications"
+msgstr "notificacións aprobadas"
+
+msgid "Receive notification when your page edit is approved"
+msgstr "Recibir notificación cando a túa edición de páxina é aprobada"
+
+msgid "rejected notifications"
+msgstr "notificacións rexeitadas"
+
+msgid "Receive notification when your page edit is rejected"
+msgstr "Recibir notificación cando a túa edición de páxina é rexeitada"
+
+msgid "user profile"
+msgstr "perfil de usuario"
+
+msgid "Delete group"
+msgstr "Eliminar grupo"
+
+#, python-format
+msgid ""
+"The group '%(group_name)s' has <strong>%(group_user_count)s</strong> users "
+"assigned."
+msgstr ""
+"O grupo '%(group_name)s' ten <strong>%(group_user_count)s</strong> usuarios "
+"asignados."
+
+msgid ""
+"Deleting this group will revoke this group's permissions from all member "
+"users."
+msgstr ""
+"Eliminando este grupo revogará os permisos deste grupo para todos os "
+"usuarios membro."
+
+msgid "Are you sure you want to delete this group?"
+msgstr "¿Seguro que queres eliminar este grupo?"
+
+msgid "Yes, delete"
+msgstr "Si, eliminar"
+
+msgid "Add group"
+msgstr "Engadir grupo"
 
 msgid "Editing"
 msgstr "Editando"
@@ -72,8 +123,46 @@ msgstr "Editando"
 msgid "Save"
 msgstr "Gardar"
 
+msgid "Object permissions"
+msgstr "Permisos do obxecto"
+
 msgid "Name"
 msgstr "Nome"
+
+msgid "Add"
+msgstr "Engadir"
+
+msgid "Change"
+msgstr "Cambiar"
+
+msgid "Delete"
+msgstr "Eliminar"
+
+msgid "Other permissions"
+msgstr "Outros permisos"
+
+msgid "Page permissions"
+msgstr "Permisos da páxina"
+
+msgid "Page"
+msgstr "Páxina"
+
+msgid "Add a page permission"
+msgstr "Engadir un permiso á páxina"
+
+msgid "groups"
+msgstr "grupos"
+
+msgid "Add a group"
+msgstr "Engadir un grupo"
+
+#, python-format
+msgid ""
+"There are no groups configured. Why not <a href="
+"\"%(wagtailusers_create_group_url)s\">add some</a>?"
+msgstr ""
+"Non hai grupos configurados. ¿Por qué non <a href="
+"\"%(wagtailusers_create_group_url)s\">engadir algún</a>?"
 
 msgid "Add user"
 msgstr "Engadir usuario"
@@ -138,6 +227,30 @@ msgstr ""
 "Non hai usuarios configurados. ¿Por qué non <a href="
 "\"%(wagtailusers_create_url)s\">engadir algún</a>?"
 
+msgid "Search groups"
+msgstr "Procurar grupos"
+
+#, python-brace-format
+msgid "Group '{0}' created."
+msgstr "Grupo '{0}' creado."
+
+msgid "Edit"
+msgstr "Editar"
+
+msgid "The group could not be created due to errors."
+msgstr "O grupo non puido ser creado debido a erros."
+
+#, python-brace-format
+msgid "Group '{0}' updated."
+msgstr "Grupo '{0}' actualizado."
+
+msgid "The group could not be saved due to errors."
+msgstr "O grupo non puido ser gardado debido a erros."
+
+#, python-brace-format
+msgid "Group '{0}' deleted."
+msgstr "Grupo '{0}' eliminado."
+
 msgid "Search users"
 msgstr "Buscar usuarios"
 
@@ -154,3 +267,6 @@ msgstr "Usuario '{0}' actualizado."
 
 msgid "The user could not be saved due to errors."
 msgstr "O usuario non puido ser gardado debido a erros."
+
+msgid "Groups"
+msgstr "Grupos"

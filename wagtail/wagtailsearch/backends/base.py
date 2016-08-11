@@ -1,6 +1,8 @@
 
-from django.db.models.query import QuerySet
+from __future__ import absolute_import, unicode_literals
+
 from django.db.models.lookups import Lookup
+from django.db.models.query import QuerySet
 from django.db.models.sql.where import SubqueryConstraint, WhereNode
 from django.utils.six import text_type
 
@@ -24,15 +26,6 @@ class BaseSearchQuery(object):
         self.fields = fields
         self.operator = operator or self.DEFAULT_OPERATOR
         self.order_by_relevance = order_by_relevance
-
-    def _get_searchable_field(self, field_attname):
-        # Get field
-        field = dict(
-            (field.get_attname(self.queryset.model), field)
-            for field in self.queryset.model.get_searchable_search_fields()
-        ).get(field_attname, None)
-
-        return field
 
     def _get_filterable_field(self, field_attname):
         # Get field
@@ -183,15 +176,19 @@ class BaseSearchResults(object):
         data = list(self[:21])
         if len(data) > 20:
             data[-1] = "...(remaining elements truncated)..."
-        return repr(data)
+        return '<SearchResults %r>' % data
 
 
-class BaseSearch(object):
+class BaseSearchBackend(object):
     query_class = None
     results_class = None
+    rebuilder_class = None
 
     def __init__(self, params):
         pass
+
+    def get_index_for_model(self, model):
+        return None
 
     def get_rebuilder(self):
         return None
@@ -231,6 +228,17 @@ class BaseSearch(object):
         # Check that theres still a query string after the clean up
         if query_string == "":
             return []
+
+        # Only fields that are indexed as a SearchField can be passed in fields
+        if fields:
+            allowed_fields = {field.field_name for field in model.get_searchable_search_fields()}
+
+            for field_name in fields:
+                if field_name not in allowed_fields:
+                    raise FieldError(
+                        'Cannot search with field "' + field_name + '". Please add index.SearchField(\'' +
+                        field_name + '\') to ' + model.__name__ + '.search_fields.'
+                    )
 
         # Apply filters to queryset
         if filters:

@@ -1,17 +1,23 @@
+from __future__ import absolute_import, unicode_literals
+
+import logging
 from functools import wraps
 
-from django.template.loader import render_to_string
-from django.core.mail import send_mail as django_send_mail
 from django.conf import settings
 from django.contrib.auth import get_user_model
-from django.db.models import Q
+from django.contrib.contenttypes.models import ContentType
+from django.core.mail import send_mail as django_send_mail
+from django.db.models import Count, Q
 from django.shortcuts import redirect
+from django.template.loader import render_to_string
 from django.utils.translation import ugettext as _
-
 from modelcluster.fields import ParentalKey
+from taggit.models import Tag
 
-from wagtail.wagtailcore.models import Page, PageRevision, GroupPagePermission
+from wagtail.wagtailcore.models import GroupPagePermission, Page, PageRevision
 from wagtail.wagtailusers.models import UserProfile
+
+logger = logging.getLogger('wagtail.admin')
 
 
 def get_object_usage(obj):
@@ -20,10 +26,8 @@ def get_object_usage(obj):
     pages = Page.objects.none()
 
     # get all the relation objects for obj
-    relations = type(obj)._meta.get_all_related_objects(
-        include_hidden=True,
-        include_proxy_eq=True
-    )
+    relations = [f for f in type(obj)._meta.get_fields(include_hidden=True)
+                 if (f.one_to_many or f.one_to_one) and f.auto_created]
     for relation in relations:
         related_model = relation.related_model
 
@@ -47,6 +51,16 @@ def get_object_usage(obj):
                     )
 
     return pages
+
+
+def popular_tags_for_model(model, count=10):
+    """Return a queryset of the most frequently used tags used on this model class"""
+    content_type = ContentType.objects.get_for_model(model)
+    return Tag.objects.filter(
+        taggit_taggeditem_items__content_type=content_type
+    ).annotate(
+        item_count=Count('taggit_taggeditem_items')
+    ).order_by('-item_count')[:count]
 
 
 def users_with_page_permission(page, permission_type, include_superusers=True):
@@ -169,12 +183,12 @@ def send_notification(page_revision_id, notification, excluded_user_id):
         # Get submitter
         recipients = [revision.user]
     else:
-        return
+        return False
 
     # Get list of email addresses
     email_recipients = [
         recipient for recipient in recipients
-        if recipient.email and recipient.id != excluded_user_id and getattr(
+        if recipient.email and recipient.pk != excluded_user_id and getattr(
             UserProfile.get_for_user(recipient),
             notification + '_notifications'
         )
@@ -182,10 +196,12 @@ def send_notification(page_revision_id, notification, excluded_user_id):
 
     # Return if there are no email addresses
     if not email_recipients:
-        return
+        return True
 
     # Get template
-    template = 'wagtailadmin/notifications/' + notification + '.html'
+    template_subject = 'wagtailadmin/notifications/' + notification + '_subject.txt'
+    template_text = 'wagtailadmin/notifications/' + notification + '.txt'
+    template_html = 'wagtailadmin/notifications/' + notification + '.html'
 
     # Common context to template
     context = {
@@ -194,12 +210,27 @@ def send_notification(page_revision_id, notification, excluded_user_id):
     }
 
     # Send emails
+    sent_count = 0
     for recipient in email_recipients:
-        # update context with this recipient
-        context["user"] = recipient
+        try:
+            # update context with this recipient
+            context["user"] = recipient
 
-        # Get email subject and content
-        email_subject, email_content = render_to_string(template, context).split('\n', 1)
+            # Get email subject and content
+            email_subject = render_to_string(template_subject, context).strip()
+            email_content = render_to_string(template_text, context).strip()
 
-        # Send email
-        send_mail(email_subject, email_content, [recipient.email])
+            kwargs = {}
+            if getattr(settings, 'WAGTAILADMIN_NOTIFICATION_USE_HTML', False):
+                kwargs['html_message'] = render_to_string(template_html, context)
+
+            # Send email
+            send_mail(email_subject, email_content, [recipient.email], **kwargs)
+            sent_count += 1
+        except Exception:
+            logger.exception(
+                "Failed to send notification email '%s' to %s",
+                email_subject, recipient.email
+            )
+
+    return sent_count == len(email_recipients)

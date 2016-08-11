@@ -3,14 +3,15 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# Eugene MechanisM <contact@mechanism.name>, 2014-2015
+# Eugene MechanisM <eugene@mechanism.pro>, 2014-2015
+# Mikalai Radchuk <radchuk.m@gmail.com>, 2016
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-12-17 13:55+0000\n"
-"PO-Revision-Date: 2015-12-17 14:15+0000\n"
-"Last-Translator: Eugene MechanisM <contact@mechanism.name>\n"
+"POT-Creation-Date: 2016-05-18 21:37+0000\n"
+"PO-Revision-Date: 2016-05-26 13:30+0000\n"
+"Last-Translator: Mikalai Radchuk <radchuk.m@gmail.com>\n"
 "Language-Team: Russian (http://www.transifex.com/torchbox/wagtail/language/"
 "ru/)\n"
 "MIME-Version: 1.0\n"
@@ -47,3 +48,30 @@ msgstr "По умолчанию"
 
 msgid "Sites"
 msgstr "Сайты"
+
+msgid "Add a site"
+msgstr "Добавить сайт"
+
+msgid "Add site"
+msgstr "Добавить сайт"
+
+#, python-brace-format
+msgid "Site '{0}' created."
+msgstr "Сайт '{0}' создан."
+
+#, python-brace-format
+msgid "Site '{0}' updated."
+msgstr "Сайт '{0}' обновлен."
+
+msgid "The site could not be saved due to errors."
+msgstr "Сайт не может быть сохранен из-за ошибок."
+
+msgid "Delete site"
+msgstr "Удалить сайт"
+
+#, python-brace-format
+msgid "Site '{0}' deleted."
+msgstr "Сайт '{0}' удален."
+
+msgid "Are you sure you want to delete this site?"
+msgstr "Вы уверены, что хотите удалить этот сайт?"

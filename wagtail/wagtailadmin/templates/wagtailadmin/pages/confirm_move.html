@@ -14,7 +14,7 @@
 
         <form action="{% url 'wagtailadmin_pages:move_confirm' page_to_move.id destination.id %}" method="POST">
             {% csrf_token %}
-            <input type="submit" value="{% trans 'Yes, move this page' %}">
+            <input type="submit" value="{% trans 'Yes, move this page' %}" class="button">
         </form>
     </div>
 {% endblock %}

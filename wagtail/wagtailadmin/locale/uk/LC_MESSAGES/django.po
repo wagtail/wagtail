@@ -1,0 +1,146 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# Mykola Zamkovoi <nickzam@gmail.com>, 2014
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2016-05-18 21:37+0000\n"
+"PO-Revision-Date: 2016-05-11 20:33+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"Language-Team: Ukrainian (http://www.transifex.com/torchbox/wagtail/language/"
+"uk/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: uk\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
+"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+
+msgid "Scheduled publishing"
+msgstr "Запланована публікація"
+
+msgid "Common page configuration"
+msgstr "Загальні налаштування сторінкі"
+
+msgid "Settings"
+msgstr "Налаштування"
+
+msgid "Search"
+msgstr "Пошук"
+
+msgid "Search term"
+msgstr "Пошуковий термін"
+
+msgid "Enter password"
+msgstr "Введіть пароль"
+
+#, python-format
+msgid "Enter your %s"
+msgstr "Введіть ваш %s"
+
+msgid "Enter your email address to reset your password"
+msgstr "Введіть вашу е-мейл адресу для перевстановлення паролю"
+
+msgid "Please fill your email address."
+msgstr "Будь-ласка, введіть вашу е-мейл адресу."
+
+msgid ""
+"Sorry, you cannot reset your password here as your user account is managed "
+"by another server."
+msgstr ""
+"Нажаль ви не можете перевстановиті пароль тут, тому що, ваш обліковий запис "
+"управляється іншим сервером."
+
+msgid "This email address is not recognised."
+msgstr "Ця адреса електронної пошти невідома системі."
+
+msgid "New title"
+msgstr "Новий заголовок"
+
+msgid "New slug"
+msgstr "Нова коротка назва для URL"
+
+msgid "Copy subpages"
+msgstr "Скопіюваті підсторінки"
+
+#, python-format
+msgid "This will copy %(count)s subpage."
+msgid_plural "This will copy %(count)s subpages."
+msgstr[0] "Ця дія скопіює %(count)s підсторінку."
+msgstr[1] "Ця дія скопіює %(count)s підсторінок."
+msgstr[2] "Ця дія скопіює %(count)s підсторінок."
+
+msgid "Publish copied page"
+msgstr "Опублікуваті скопійовані сторінки"
+
+msgid "This page is live. Would you like to publish its copy as well?"
+msgstr ""
+"Ця сторїнка вїдображається на сайті, хочете також опублїкуваті також її "
+"копію?"
+
+msgid "Publish copies"
+msgstr "Опублїкувати копії"
+
+#, python-format
+msgid ""
+"%(count)s of the pages being copied is live. Would you like to publish its "
+"copy?"
+msgid_plural ""
+"%(count)s of the pages being copied are live. Would you like to publish "
+"their copies?"
+msgstr[0] ""
+"%(count)s сторінку, що ви копіюєте, вже опубліковано. Хочете опублїкувати її "
+"копїю?"
+msgstr[1] ""
+"%(count)s сторінок, що ви копіюєте, вже опубліковано. Хочете опублїкувати їх "
+"копїю?"
+msgstr[2] ""
+"%(count)s сторінок, що ви копіюєте, вже опубліковано. Хочете опублїкувати їх "
+"копїю?"
+
+msgid "Public"
+msgstr "Відкритий "
+
+msgid "This field is required."
+msgstr "Це поле необхідно заповнити"
+
+msgid "This slug is already in use"
+msgstr "Ця коротка назва вже використовується"
+
+msgid "Account"
+msgstr "Обліковий запис"
+
+msgid "Set gravatar"
+msgstr "Встановити gravatar"
+
+msgid "Dashboard"
+msgstr "Панель"
+
+msgid "Menu"
+msgstr "Меню"
+
+msgid "Explorer"
+msgstr "Управління файлами"
+
+msgid "Choose a page"
+msgstr "Оберіть сторінку"
+
+#, python-format
+msgid "Welcome to the %(site_name)s Wagtail CMS"
+msgstr "Ласкаво просимо до %(site_name)s Wagtail CMS"
+
+msgid "Sign in"
+msgstr "Увійдіть"
+
+msgid "Sign in to Wagtail"
+msgstr "Увійдіть до Wagtail"
+
+msgid "Forgotten it?"
+msgstr "Забули це?"
+
+msgid "Choose another page"
+msgstr "Оберіть іншу сторінку"

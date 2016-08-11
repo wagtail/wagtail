@@ -1,18 +1,18 @@
 # -*- coding: utf-8 -*-
-from __future__ import unicode_literals
+from __future__ import absolute_import, unicode_literals
 
 import json
 
-from django.test import TestCase
-from django.core import mail
 from django import forms
+from django.core import mail
 from django.core.urlresolvers import reverse
+from django.test import TestCase
 
-from wagtail.wagtailcore.models import Page
-from wagtail.wagtailforms.models import FormSubmission
-from wagtail.wagtailforms.forms import FormBuilder
-from wagtail.tests.testapp.models import FormPage, FormField
+from wagtail.tests.testapp.models import FormField, FormPage, JadeFormPage
 from wagtail.tests.utils import WagtailTestUtils
+from wagtail.wagtailcore.models import Page
+from wagtail.wagtailforms.forms import FormBuilder
+from wagtail.wagtailforms.models import FormSubmission
 
 
 def make_form_page(**kwargs):
@@ -159,10 +159,133 @@ class TestFormSubmission(TestCase):
         self.assertIn("Your choices: None", mail.outbox[0].body)
 
 
+class TestFormSubmissionWithMultipleRecipients(TestCase):
+    def setUp(self):
+        # Create a form page
+        self.form_page = make_form_page(to_address='to@email.com, another@email.com')
+
+    def test_post_valid_form(self):
+        response = self.client.post('/contact-us/', {
+            'your-email': 'bob@example.com',
+            'your-message': 'hello world',
+            'your-choices': {'foo': '', 'bar': '', 'baz': ''}
+        })
+
+        # Check response
+        self.assertContains(response, "Thank you for your feedback.")
+        self.assertTemplateNotUsed(response, 'tests/form_page.html')
+        self.assertTemplateUsed(response, 'tests/form_page_landing.html')
+
+        # check that variables defined in get_context are passed through to the template (#1429)
+        self.assertContains(response, "<p>hello world</p>")
+
+        # Check that one email was sent, but to two recipients
+        self.assertEqual(len(mail.outbox), 1)
+
+        self.assertEqual(mail.outbox[0].subject, "The subject")
+        self.assertIn("Your message: hello world", mail.outbox[0].body)
+        self.assertEqual(mail.outbox[0].from_email, 'from@email.com')
+        self.assertEqual(set(mail.outbox[0].to), {'to@email.com', 'another@email.com'})
+
+        # Check that form submission was saved correctly
+        form_page = Page.objects.get(url_path='/home/contact-us/')
+        self.assertTrue(FormSubmission.objects.filter(page=form_page, form_data__contains='hello world').exists())
+
+
 class TestFormBuilder(TestCase):
     def setUp(self):
         # Create a form page
-        self.form_page = make_form_page()
+        home_page = Page.objects.get(url_path='/home/')
+
+        self.form_page = home_page.add_child(instance=FormPage(
+            title="Contact us",
+            slug="contact-us",
+            to_address="to@email.com",
+            from_address="from@email.com",
+            subject="The subject",
+        ))
+
+        FormField.objects.create(
+            page=self.form_page,
+            sort_order=1,
+            label="Your name",
+            field_type='singleline',
+            required=True,
+        )
+        FormField.objects.create(
+            page=self.form_page,
+            sort_order=2,
+            label="Your message",
+            field_type='multiline',
+            required=True,
+        )
+        FormField.objects.create(
+            page=self.form_page,
+            sort_order=2,
+            label="Your birthday",
+            field_type='date',
+            required=True,
+        )
+        FormField.objects.create(
+            page=self.form_page,
+            sort_order=2,
+            label="Your birthtime :)",
+            field_type='datetime',
+            required=True,
+        )
+        FormField.objects.create(
+            page=self.form_page,
+            sort_order=1,
+            label="Your email",
+            field_type='email',
+            required=True,
+        )
+        FormField.objects.create(
+            page=self.form_page,
+            sort_order=2,
+            label="Your homepage",
+            field_type='url',
+            required=True,
+        )
+        FormField.objects.create(
+            page=self.form_page,
+            sort_order=2,
+            label="Your favourite number",
+            field_type='number',
+            required=True,
+        )
+        FormField.objects.create(
+            page=self.form_page,
+            sort_order=2,
+            label="Your favourite Python IDEs",
+            field_type='dropdown',
+            required=True,
+            choices='PyCharm,vim,nano',
+        )
+        FormField.objects.create(
+            page=self.form_page,
+            sort_order=2,
+            label="Your favourite Python IDE",
+            help_text="Choose one",
+            field_type='radio',
+            required=True,
+            choices='PyCharm,vim,nano',
+        )
+        FormField.objects.create(
+            page=self.form_page,
+            sort_order=3,
+            label="Your choices",
+            field_type='checkboxes',
+            required=False,
+            choices='foo,bar,baz',
+        )
+        FormField.objects.create(
+            page=self.form_page,
+            sort_order=3,
+            label="I agree to the Terms of Use",
+            field_type='checkbox',
+            required=True,
+        )
 
         # Create a form builder
         self.fb = FormBuilder(self.form_page.form_fields.all())
@@ -173,18 +296,44 @@ class TestFormBuilder(TestCase):
         """
         form_class = self.fb.get_form_class()
 
-        self.assertIn('your-email', form_class.base_fields.keys())
-        self.assertIn('your-message', form_class.base_fields.keys())
+        # All fields are present in form
+        field_names = form_class.base_fields.keys()
+        self.assertIn('your-name', field_names)
+        self.assertIn('your-message', field_names)
+        self.assertIn('your-birthday', field_names)
+        self.assertIn('your-birthtime', field_names)
+        self.assertIn('your-email', field_names)
+        self.assertIn('your-homepage', field_names)
+        self.assertIn('your-favourite-number', field_names)
+        self.assertIn('your-favourite-python-ides', field_names)
+        self.assertIn('your-favourite-python-ide', field_names)
+        self.assertIn('your-choices', field_names)
+        self.assertIn('i-agree-to-the-terms-of-use', field_names)
 
-        self.assertIsInstance(form_class.base_fields['your-email'], forms.EmailField)
+        # All fields have proper type
+        self.assertIsInstance(form_class.base_fields['your-name'], forms.CharField)
         self.assertIsInstance(form_class.base_fields['your-message'], forms.CharField)
+        self.assertIsInstance(form_class.base_fields['your-birthday'], forms.DateField)
+        self.assertIsInstance(form_class.base_fields['your-birthtime'], forms.DateTimeField)
+        self.assertIsInstance(form_class.base_fields['your-email'], forms.EmailField)
+        self.assertIsInstance(form_class.base_fields['your-homepage'], forms.URLField)
+        self.assertIsInstance(form_class.base_fields['your-favourite-number'], forms.DecimalField)
+        self.assertIsInstance(form_class.base_fields['your-favourite-python-ides'], forms.ChoiceField)
+        self.assertIsInstance(form_class.base_fields['your-favourite-python-ide'], forms.ChoiceField)
+        self.assertIsInstance(form_class.base_fields['your-choices'], forms.MultipleChoiceField)
+        self.assertIsInstance(form_class.base_fields['i-agree-to-the-terms-of-use'], forms.BooleanField)
+
+        # Some fields have non-default widgets
+        self.assertIsInstance(form_class.base_fields['your-message'].widget, forms.Textarea)
+        self.assertIsInstance(form_class.base_fields['your-favourite-python-ide'].widget, forms.RadioSelect)
+        self.assertIsInstance(form_class.base_fields['your-choices'].widget, forms.CheckboxSelectMultiple)
 
 
 class TestFormsIndex(TestCase):
     fixtures = ['test.json']
 
     def setUp(self):
-        self.client.login(username='siteeditor', password='password')
+        self.assertTrue(self.client.login(username='siteeditor', password='password'))
         self.form_page = Page.objects.get(url_path='/home/contact-us/')
 
     def make_form_pages(self):
@@ -250,7 +399,7 @@ class TestFormsIndex(TestCase):
 
     def test_cannot_see_forms_without_permission(self):
         # Login with as a user without permission to see forms
-        self.client.login(username='eventeditor', password='password')
+        self.assertTrue(self.client.login(username='eventeditor', password='password'))
 
         response = self.client.get(reverse('wagtailforms:index'))
 
@@ -314,9 +463,30 @@ class TestFormsSubmissions(TestCase, WagtailTestUtils):
         self.assertTemplateUsed(response, 'wagtailforms/index_submissions.html')
         self.assertEqual(len(response.context['data_rows']), 2)
 
-    def test_list_submissions_filtering(self):
+    def test_list_submissions_filtering_date_from(self):
         response = self.client.get(
             reverse('wagtailforms:list_submissions', args=(self.form_page.id, )), {'date_from': '01/01/2014'}
+        )
+
+        # Check response
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'wagtailforms/index_submissions.html')
+        self.assertEqual(len(response.context['data_rows']), 1)
+
+    def test_list_submissions_filtering_date_to(self):
+        response = self.client.get(
+            reverse('wagtailforms:list_submissions', args=(self.form_page.id, )), {'date_to': '12/31/2013'}
+        )
+
+        # Check response
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'wagtailforms/index_submissions.html')
+        self.assertEqual(len(response.context['data_rows']), 1)
+
+    def test_list_submissions_filtering_range(self):
+        response = self.client.get(
+            reverse('wagtailforms:list_submissions', args=(self.form_page.id, )),
+            {'date_from': '12/31/2013', 'date_to': '01/02/2014'}
         )
 
         # Check response
@@ -364,16 +534,58 @@ class TestFormsSubmissions(TestCase, WagtailTestUtils):
 
     def test_list_submissions_csv_export(self):
         response = self.client.get(
-            reverse('wagtailforms:list_submissions', args=(self.form_page.id, )),
-            {'date_from': '01/01/2014', 'action': 'CSV'}
+            reverse('wagtailforms:list_submissions', args=(self.form_page.id,)),
+            {'action': 'CSV'}
         )
 
         # Check response
         self.assertEqual(response.status_code, 200)
-        data_line = response.content.decode().split("\n")[1]
-        self.assertIn('new@example.com', data_line)
+        data_lines = response.content.decode().split("\n")
 
-    def test_list_submissions_csv_export_with_unicode(self):
+        self.assertEqual(data_lines[0], 'Submission date,Your email,Your message,Your choices\r')
+        self.assertEqual(data_lines[1], '2013-01-01 12:00:00+00:00,old@example.com,this is a really old message,None\r')
+        self.assertEqual(data_lines[2], '2014-01-01 12:00:00+00:00,new@example.com,this is a fairly new message,None\r')
+
+    def test_list_submissions_csv_export_with_date_from_filtering(self):
+        response = self.client.get(
+            reverse('wagtailforms:list_submissions', args=(self.form_page.id,)),
+            {'action': 'CSV', 'date_from': '01/01/2014'}
+        )
+
+        # Check response
+        self.assertEqual(response.status_code, 200)
+        data_lines = response.content.decode().split("\n")
+
+        self.assertEqual(data_lines[0], 'Submission date,Your email,Your message,Your choices\r')
+        self.assertEqual(data_lines[1], '2014-01-01 12:00:00+00:00,new@example.com,this is a fairly new message,None\r')
+
+    def test_list_submissions_csv_export_with_date_to_filtering(self):
+        response = self.client.get(
+            reverse('wagtailforms:list_submissions', args=(self.form_page.id,)),
+            {'action': 'CSV', 'date_to': '12/31/2013'}
+        )
+
+        # Check response
+        self.assertEqual(response.status_code, 200)
+        data_lines = response.content.decode().split("\n")
+
+        self.assertEqual(data_lines[0], 'Submission date,Your email,Your message,Your choices\r')
+        self.assertEqual(data_lines[1], '2013-01-01 12:00:00+00:00,old@example.com,this is a really old message,None\r')
+
+    def test_list_submissions_csv_export_with_range_filtering(self):
+        response = self.client.get(
+            reverse('wagtailforms:list_submissions', args=(self.form_page.id,)),
+            {'action': 'CSV', 'date_from': '12/31/2013', 'date_to': '01/02/2014'}
+        )
+
+        # Check response
+        self.assertEqual(response.status_code, 200)
+        data_lines = response.content.decode().split("\n")
+
+        self.assertEqual(data_lines[0], 'Submission date,Your email,Your message,Your choices\r')
+        self.assertEqual(data_lines[1], '2014-01-01 12:00:00+00:00,new@example.com,this is a fairly new message,None\r')
+
+    def test_list_submissions_csv_export_with_unicode_in_submission(self):
         unicode_form_submission = FormSubmission.objects.create(
             page=self.form_page,
             form_data=json.dumps({
@@ -394,12 +606,45 @@ class TestFormsSubmissions(TestCase, WagtailTestUtils):
         data_line = response.content.decode('utf-8').split("\n")[1]
         self.assertIn('こんにちは、世界', data_line)
 
+    def test_list_submissions_csv_export_with_unicode_in_field(self):
+        FormField.objects.create(
+            page=self.form_page,
+            sort_order=2,
+            label="Выберите самую любимую IDE для разработке на Python",
+            help_text="Вы можете выбрать только один вариант",
+            field_type='radio',
+            required=True,
+            choices='PyCharm,vim,nano',
+        )
+        unicode_form_submission = FormSubmission.objects.create(
+            page=self.form_page,
+            form_data=json.dumps({
+                'your-email': "unicode@example.com",
+                'your-message': "We don\'t need unicode here",
+                'vyberite-samuiu-liubimuiu-ide-dlia-razrabotke-na-python': "vim",
+            }),
+        )
+        unicode_form_submission.submit_time = '2014-01-02T12:00:00.000Z'
+        unicode_form_submission.save()
+
+        response = self.client.get(
+            reverse('wagtailforms:list_submissions', args=(self.form_page.id, )),
+            {'date_from': '01/02/2014', 'action': 'CSV'}
+        )
+
+        # Check response
+        self.assertEqual(response.status_code, 200)
+
+        data_lines = response.content.decode('utf-8').split("\n")
+        self.assertIn('Выберите самую любимую IDE для разработке на Python', data_lines[0])
+        self.assertIn('vim', data_lines[1])
+
 
 class TestDeleteFormSubmission(TestCase):
     fixtures = ['test.json']
 
     def setUp(self):
-        self.client.login(username='siteeditor', password='password')
+        self.assertTrue(self.client.login(username='siteeditor', password='password'))
         self.form_page = Page.objects.get(url_path='/home/contact-us/')
 
     def test_delete_submission_show_cofirmation(self):
@@ -425,8 +670,7 @@ class TestDeleteFormSubmission(TestCase):
         self.assertRedirects(response, reverse("wagtailforms:list_submissions", args=(self.form_page.id, )))
 
     def test_delete_submission_bad_permissions(self):
-        self.form_page = make_form_page()
-        self.client.login(username="eventeditor", password="password")
+        self.assertTrue(self.client.login(username="eventeditor", password="password"))
 
         response = self.client.post(reverse(
             'wagtailforms:delete_submission',
@@ -444,7 +688,7 @@ class TestIssue798(TestCase):
     fixtures = ['test.json']
 
     def setUp(self):
-        self.client.login(username='siteeditor', password='password')
+        self.assertTrue(self.client.login(username='siteeditor', password='password'))
         self.form_page = Page.objects.get(url_path='/home/contact-us/').specific
 
         # Add a number field to the page
@@ -467,3 +711,51 @@ class TestIssue798(TestCase):
 
         # Check that form submission was saved correctly
         self.assertTrue(FormSubmission.objects.filter(page=self.form_page, form_data__contains='7.3').exists())
+
+
+class TestIssue585(TestCase):
+    fixtures = ['test.json']
+
+    def setUp(self):
+
+        self.assertTrue(self.client.login(username='superuser', password='password'))
+        # Find root page
+        self.root_page = Page.objects.get(id=2)
+
+    def test_adding_duplicate_form_labels(self):
+        post_data = {
+            'title': "Form page!",
+            'content': "Some content",
+            'slug': 'contact-us',
+            'form_fields-TOTAL_FORMS': '3',
+            'form_fields-INITIAL_FORMS': '3',
+            'form_fields-MIN_NUM_FORMS': '0',
+            'form_fields-MAX_NUM_FORMS': '1000',
+            'form_fields-0-id': '',
+            'form_fields-0-label': 'foo',
+            'form_fields-0-field_type': 'singleline',
+            'form_fields-1-id': '',
+            'form_fields-1-label': 'foo',
+            'form_fields-1-field_type': 'singleline',
+            'form_fields-2-id': '',
+            'form_fields-2-label': 'bar',
+            'form_fields-2-field_type': 'singleline',
+        }
+        response = self.client.post(
+            reverse('wagtailadmin_pages:add', args=('tests', 'formpage', self.root_page.id)), post_data
+        )
+
+        self.assertEqual(response.status_code, 200)
+
+        self.assertContains(
+            response,
+            text="There is another field with the label foo, please change one of them.",
+        )
+
+
+class TestNonHtmlExtension(TestCase):
+    fixtures = ['test.json']
+
+    def test_non_html_extension(self):
+        form_page = JadeFormPage(title="test")
+        self.assertEqual(form_page.landing_page_template, "tests/form_page_landing.jade")

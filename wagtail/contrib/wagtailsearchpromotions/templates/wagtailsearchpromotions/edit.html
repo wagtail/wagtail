@@ -10,13 +10,13 @@
 
         <ul class="fields">
             <li>
-                {% include "wagtailsearch/queries/chooser_field.html" with field=query_form.query_string only %}   
+                {% include "wagtailsearch/queries/chooser_field.html" with field=query_form.query_string only %}
             </li>
-            <li> 
+            <li>
                 {% include "wagtailsearchpromotions/includes/searchpromotions_formset.html" with formset=searchpicks_formset only %}
             </li>
             <li>
-                <input type="submit" value="{% trans 'Save' %}" />
+                <input type="submit" value="{% trans 'Save' %}" class="button" />
                 <a href="{% url 'wagtailsearchpromotions:delete' query.id %}" class="button button-secondary no">{% trans "Delete" %}</a>
             </li>
         </ul>

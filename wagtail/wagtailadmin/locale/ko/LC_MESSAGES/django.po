@@ -3,15 +3,15 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# Ji Han Chung <jihanchung20@gmail.com>, 2015
+# Jihan Chung <jihanchung20@gmail.com>, 2015
 # Kyungil Choi <hanpama@gmail.com>, 2015
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-12-17 13:54+0000\n"
-"PO-Revision-Date: 2015-12-17 13:57+0000\n"
-"Last-Translator: mattwestcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2016-05-18 21:37+0000\n"
+"PO-Revision-Date: 2016-05-11 20:33+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Korean (http://www.transifex.com/torchbox/wagtail/language/"
 "ko/)\n"
 "MIME-Version: 1.0\n"
@@ -25,6 +25,15 @@ msgstr "예정된 퍼블리싱"
 
 msgid "Common page configuration"
 msgstr "기본 페이지 설정"
+
+msgid "Content"
+msgstr "콘텐츠"
+
+msgid "Promote"
+msgstr "홍보"
+
+msgid "Settings"
+msgstr "설정"
 
 msgid "Search"
 msgstr "검색"
@@ -110,6 +119,15 @@ msgstr "비공개, 다음의 비밀번호로 접근 가능"
 msgid "This field is required."
 msgstr "필수 작성 항목입니다"
 
+msgid "This slug is already in use"
+msgstr "이 슬러그는 이미 사용되었습니다"
+
+msgid "Go live date/time must be before expiry date/time"
+msgstr "라이브를 위한 날짜 및 시간은 만료 날짜 및 시간보다 앞서야 합니다"
+
+msgid "Expiry date/time must be in the future"
+msgstr "만료 날짜는 현재 이후의 날짜 및 시간이어야 합니다"
+
 msgid "Account"
 msgstr "계정"
 
@@ -170,9 +188,6 @@ msgstr "이메일을 확인하여 주세요"
 
 msgid "A link to reset your password has been emailed to you."
 msgstr "비밀번호 초기화를 위한 링크를 이메일로 보냈습니다"
-
-msgid "Please follow the link below to reset your password"
-msgstr "비밀번호 초기화를 위해 아래의 링크를 클릭하여 주세요"
 
 msgid "Password reset"
 msgstr "비밀번호 초기화"
@@ -329,22 +344,18 @@ msgid "Forgotten it?"
 msgstr "잊어버리셨나요?"
 
 #, python-format
-msgid "The page \"%(title)s\" has been approved"
-msgstr "\"%(title)s\" 페이지가 승인 되었습니다"
-
-#, python-format
 msgid "The page \"%(title)s\" has been approved."
 msgstr "\"%(title)s\" 페이지가 승인 되었습니다"
 
 msgid "You can view the page here:"
 msgstr "여기서 페이지를 볼 수 있습니다"
 
+#, python-format
+msgid "The page \"%(title)s\" has been approved"
+msgstr "\"%(title)s\" 페이지가 승인 되었습니다"
+
 msgid "Edit your notification preferences here:"
 msgstr "당신의 알림 선호 순위를 여기서 바꿔주세요"
-
-#, python-format
-msgid "The page \"%(title)s\" has been rejected"
-msgstr "\"%(title)s\" 페이지가 거절되었습니다"
 
 #, python-format
 msgid "The page \"%(title)s\" has been rejected."
@@ -354,11 +365,15 @@ msgid "You can edit the page here:"
 msgstr "여기서 페이지를 수정할 수 있습니다"
 
 #, python-format
-msgid "The page \"%(page)s\" has been submitted for moderation"
-msgstr "검토를 위해 \"%(page)s\" 페이지가 제출 되었습니다"
+msgid "The page \"%(title)s\" has been rejected"
+msgstr "\"%(title)s\" 페이지가 거절되었습니다"
 
 msgid "You can preview the page here:"
 msgstr "여기서 페이지를 미리 볼 수 있습니다:"
+
+#, python-format
+msgid "The page \"%(page)s\" has been submitted for moderation"
+msgstr "검토를 위해 \"%(page)s\" 페이지가 제출 되었습니다"
 
 msgid "Page privacy"
 msgstr "비공개 페이지"
@@ -555,16 +570,6 @@ msgstr "'%(title)s' 에 대한 하위페이지 추가"
 msgid "Add subpage"
 msgstr "하위페이지 추가"
 
-msgid ""
-"This page is published but does not exist within a configured Site, so "
-"cannot be viewed."
-msgstr ""
-"이 페이지는 퍼블리싱 되었지만 설정된 사이트에 존재하지 않으모로 볼 수 없습니"
-"다"
-
-msgid "Add child page"
-msgstr "하위 페이지 추가"
-
 #, python-format
 msgid ""
 "\n"
@@ -714,17 +719,11 @@ msgstr ""
 "와그테일을 사용하기 위해서는 자바스크립트가 필요하지만, 현재 이 기능이 비활성"
 "화 되어 있습니다"
 
-msgid "User bar"
-msgstr "사용자 바"
-
 msgid "Go to Wagtail admin interface"
 msgstr "와그테일 관리자 페이지로 이동"
 
 msgid "Add a child page"
 msgstr "하위페이지 추가"
-
-msgid "Add"
-msgstr "추가"
 
 msgid "Sorry, you do not have permission to access this area."
 msgstr "죄송합니다, 해당 영역에 접근할 권한이 없습니다."
@@ -756,18 +755,6 @@ msgstr "'{0}' 페이지가 생성되었습니다"
 msgid "The page could not be created due to validation errors"
 msgstr "이 페이지는 오류에 의해 생성될 수 없습니다"
 
-#, python-brace-format
-msgid "Page '{0}' published."
-msgstr "'{0}' 페이지가 퍼블리싱 되었습니다"
-
-#, python-brace-format
-msgid "Page '{0}' submitted for moderation."
-msgstr "'{0}' 가 검토에 의해 제출되었습니다"
-
-#, python-brace-format
-msgid "Page '{0}' updated."
-msgstr "'{0}' 페이지가 업데이트 되었습니다"
-
 msgid "The page could not be saved as it is locked"
 msgstr "이 페이지는 잠겨 있으므로 저장할 수 없습니다"
 
@@ -776,15 +763,6 @@ msgstr "이 페이지는 오류에 의해 저장할 수 없습니다"
 
 msgid "This page is currently awaiting moderation"
 msgstr "이 페이지는 현재 검토를 기다리고 있습니다"
-
-msgid "This slug is already in use"
-msgstr "이 슬러그는 이미 사용되었습니다"
-
-msgid "Go live date/time must be before expiry date/time"
-msgstr "라이브를 위한 날짜 및 시간은 만료 날짜 및 시간보다 앞서야 합니다"
-
-msgid "Expiry date/time must be in the future"
-msgstr "만료 날짜는 현재 이후의 날짜 및 시간이어야 합니다"
 
 #, python-brace-format
 msgid "Page '{0}' deleted."
@@ -806,18 +784,13 @@ msgstr "'{0}' 페이지 그리고 {1} 개의 하위페이지가 복사되었습�
 msgid "Page '{0}' copied."
 msgstr "'{0}' 페이지가 복사 되었습니다"
 
-msgid "Content"
-msgstr "콘텐츠"
-
-msgid "Promote"
-msgstr "홍보"
-
-msgid "Settings"
-msgstr "설정"
-
 #, python-brace-format
 msgid "The page '{0}' is not currently awaiting moderation."
 msgstr "'{0}' 페이지는 현재 검토를 기다리고 있지 않습니다"
+
+#, python-brace-format
+msgid "Page '{0}' published."
+msgstr "'{0}' 페이지가 퍼블리싱 되었습니다"
 
 #, python-brace-format
 msgid "Page '{0}' rejected for publication."
@@ -830,6 +803,9 @@ msgstr "'{0}' 페이지는 현재 잠겨 있습니다"
 #, python-brace-format
 msgid "Page '{0}' is now unlocked."
 msgstr "'{0}' 페이즈는 현재 잠금해제 상태입니다"
+
+msgid "Add child page"
+msgstr "하위 페이지 추가"
 
 msgid "Choose an item"
 msgstr "아이템 선택"

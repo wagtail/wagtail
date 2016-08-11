@@ -1,10 +1,11 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 
-from django.db import models, migrations
-from django.conf import settings
 import django.db.models.deletion
 from django import VERSION as DJANGO_VERSION
+from django.conf import settings
+from django.db import migrations, models
+
 import wagtail.wagtailsearch.index
 
 
@@ -210,6 +211,7 @@ class Migration(migrations.Migration):
                 )),
                 ('expired', models.BooleanField(default=False, verbose_name='Expired', editable=False)),
                 ('content_type', models.ForeignKey(
+                    on_delete=models.CASCADE,
                     verbose_name='Content type',
                     related_name='pages',
                     to='contenttypes.ContentType'
@@ -238,7 +240,7 @@ class Migration(migrations.Migration):
             options={
                 'abstract': False,
             },
-            bases=(models.Model, wagtail.wagtailsearch.index.Indexed),
+            bases=(wagtail.wagtailsearch.index.Indexed, models.Model),
         ),
         migrations.RunPython(
             set_page_path_collation, migrations.RunPython.noop
@@ -257,8 +259,9 @@ class Migration(migrations.Migration):
                     ],
                     max_length=20
                 )),
-                ('group', models.ForeignKey(verbose_name='Group', related_name='page_permissions', to='auth.Group')),
+                ('group', models.ForeignKey(on_delete=models.CASCADE, verbose_name='Group', related_name='page_permissions', to='auth.Group')),
                 ('page', models.ForeignKey(
+                    on_delete=models.CASCADE,
                     verbose_name='Page',
                     related_name='group_permissions',
                     to='wagtailcore.Page'
@@ -285,8 +288,8 @@ class Migration(migrations.Migration):
                 ('approved_go_live_at', models.DateTimeField(
                     null=True, verbose_name='Approved go live at', blank=True
                 )),
-                ('page', models.ForeignKey(verbose_name='Page', related_name='revisions', to='wagtailcore.Page')),
-                ('user', models.ForeignKey(null=True, verbose_name='User', blank=True, to=settings.AUTH_USER_MODEL)),
+                ('page', models.ForeignKey(on_delete=models.CASCADE, verbose_name='Page', related_name='revisions', to='wagtailcore.Page')),
+                ('user', models.ForeignKey(on_delete=models.CASCADE, null=True, verbose_name='User', blank=True, to=settings.AUTH_USER_MODEL)),
             ],
         ),
         migrations.AlterModelOptions(
@@ -299,6 +302,7 @@ class Migration(migrations.Migration):
                 ('id', models.AutoField(auto_created=True, verbose_name='ID', serialize=False, primary_key=True)),
                 ('password', models.CharField(verbose_name='Password', max_length=255)),
                 ('page', models.ForeignKey(
+                    on_delete=models.CASCADE,
                     verbose_name='Page',
                     related_name='view_restrictions',
                     to='wagtailcore.Page'
@@ -332,6 +336,7 @@ class Migration(migrations.Migration):
                     )
                 )),
                 ('root_page', models.ForeignKey(
+                    on_delete=models.CASCADE,
                     verbose_name='Root page',
                     related_name='sites_rooted_here',
                     to='wagtailcore.Page'

@@ -1,11 +1,11 @@
+from __future__ import absolute_import, unicode_literals
+
 import os
 
-
-WAGTAIL_ROOT = os.path.dirname(__file__)
-STATIC_ROOT = os.path.join(WAGTAIL_ROOT, 'test-static')
-MEDIA_ROOT = os.path.join(WAGTAIL_ROOT, 'test-media')
+WAGTAIL_ROOT = os.path.dirname(os.path.dirname(__file__))
+STATIC_ROOT = os.path.join(WAGTAIL_ROOT, 'tests', 'test-static')
+MEDIA_ROOT = os.path.join(WAGTAIL_ROOT, 'tests', 'test-media')
 MEDIA_URL = '/media/'
-
 
 DATABASES = {
     'default': {
@@ -50,16 +50,21 @@ TEMPLATES = [
                 'wagtail.tests.context_processors.do_not_use_static_url',
                 'wagtail.contrib.settings.context_processors.settings',
             ],
+            'debug': True,
         },
     },
     {
         'BACKEND': 'django.template.backends.jinja2.Jinja2',
-        'APP_DIRS': True,
+        'APP_DIRS': False,
+        'DIRS': [
+            os.path.join(WAGTAIL_ROOT, 'tests', 'testapp', 'jinja2_templates'),
+        ],
         'OPTIONS': {
             'extensions': [
                 'wagtail.wagtailcore.jinja2tags.core',
                 'wagtail.wagtailadmin.jinja2tags.userbar',
                 'wagtail.wagtailimages.jinja2tags.images',
+                'wagtail.contrib.settings.jinja2tags.settings',
             ],
         },
     },
@@ -75,7 +80,6 @@ MIDDLEWARE_CLASSES = (
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 
     'wagtail.wagtailcore.middleware.SiteMiddleware',
-
     'wagtail.wagtailredirects.middleware.RedirectMiddleware',
 )
 
@@ -91,6 +95,7 @@ INSTALLED_APPS = (
     'wagtail.tests.snippets',
     'wagtail.tests.routablepage',
     'wagtail.tests.search',
+    'wagtail.tests.modeladmintest',
     'wagtail.contrib.wagtailstyleguide',
     'wagtail.contrib.wagtailsitemaps',
     'wagtail.contrib.wagtailroutablepage',
@@ -98,6 +103,8 @@ INSTALLED_APPS = (
     'wagtail.contrib.wagtailapi',
     'wagtail.contrib.wagtailsearchpromotions',
     'wagtail.contrib.settings',
+    'wagtail.contrib.modeladmin',
+    'wagtail.contrib.table_block',
     'wagtail.wagtailforms',
     'wagtail.wagtailsearch',
     'wagtail.wagtailembeds',
@@ -107,6 +114,7 @@ INSTALLED_APPS = (
     'wagtail.wagtailsnippets',
     'wagtail.wagtaildocs',
     'wagtail.wagtailadmin',
+    'wagtail.api.v2',
     'wagtail.wagtailcore',
 
     'taggit',
@@ -135,8 +143,6 @@ PASSWORD_HASHERS = (
     'django.contrib.auth.hashers.MD5PasswordHasher',  # don't use the intentionally slow default password hasher
 )
 
-COMPRESS_ENABLED = False  # disable compression so that we can run tests on the content of the compress tag
-
 
 WAGTAILSEARCH_BACKENDS = {
     'default': {
@@ -157,3 +163,18 @@ if 'ELASTICSEARCH_URL' in os.environ:
 
 
 WAGTAIL_SITE_NAME = "Test Site"
+
+# Extra user field for custom user edit and create form tests. This setting
+# needs to here because it is used at the module level of wagtailusers.forms
+# when the module gets loaded. The decorator 'override_settings' does not work
+# in this scenario.
+WAGTAIL_USER_CUSTOM_FIELDS = ['country', 'attachment']
+
+WAGTAILADMIN_RICH_TEXT_EDITORS = {
+    'default': {
+        'WIDGET': 'wagtail.wagtailadmin.rich_text.HalloRichTextArea'
+    },
+    'custom': {
+        'WIDGET': 'wagtail.tests.testapp.rich_text.CustomRichTextArea'
+    },
+}

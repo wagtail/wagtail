@@ -3,15 +3,15 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# Ji Han Chung <jihanchung20@gmail.com>, 2015
+# Jihan Chung <jihanchung20@gmail.com>, 2015
 # Kyungil Choi <hanpama@gmail.com>, 2015
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-12-17 13:55+0000\n"
-"PO-Revision-Date: 2015-12-17 14:00+0000\n"
-"Last-Translator: mattwestcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2016-05-18 21:37+0000\n"
+"PO-Revision-Date: 2016-03-01 19:08+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Korean (http://www.transifex.com/torchbox/wagtail/language/"
 "ko/)\n"
 "MIME-Version: 1.0\n"
@@ -36,10 +36,6 @@ msgstr "두 개의 비밀번호가 일치하지 않습니다."
 msgid "Administrator"
 msgstr "관리자"
 
-msgid "If ticked, this user has the ability to manage user accounts."
-msgstr ""
-"선택한 경우, 이 사용자는 사용자 계정을 관리할 수 있는 권한을 가지게 됩니다."
-
 msgid "Password"
 msgstr "비밀번호"
 
@@ -60,9 +56,6 @@ msgstr "이름"
 
 msgid "Last Name"
 msgstr "성"
-
-msgid "Administrators have the ability to manage user accounts."
-msgstr "관리자는 사용자 계정을 관리할 수 있는 권한을 가지고 있습니다."
 
 msgid "A group with that name already exists."
 msgstr "해당 이름의 그룹은 이미 사용되고 있습니다."
@@ -130,9 +123,6 @@ msgstr "페이지 권한"
 
 msgid "Page"
 msgstr "페이지"
-
-msgid "Permission type"
-msgstr "권한 형태"
 
 msgid "Add a page permission"
 msgstr "페이지 권한 추가"

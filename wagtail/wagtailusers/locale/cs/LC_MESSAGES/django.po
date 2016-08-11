@@ -8,9 +8,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-12-17 13:55+0000\n"
-"PO-Revision-Date: 2016-01-11 16:08+0000\n"
-"Last-Translator: mattwestcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2016-05-18 21:37+0000\n"
+"PO-Revision-Date: 2016-03-01 19:08+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Czech (http://www.transifex.com/torchbox/wagtail/language/"
 "cs/)\n"
 "MIME-Version: 1.0\n"
@@ -38,9 +38,6 @@ msgstr "Zadaná hesla se neshodují."
 msgid "Administrator"
 msgstr "Administrátor"
 
-msgid "If ticked, this user has the ability to manage user accounts."
-msgstr "Povolí tomuto uživateli spravovat uživatelské účty."
-
 msgid "Password"
 msgstr "Heslo"
 
@@ -61,9 +58,6 @@ msgstr "Jméno"
 
 msgid "Last Name"
 msgstr "Příjmení"
-
-msgid "Administrators have the ability to manage user accounts."
-msgstr "Administrátoři mohou spravovat uživatelské účty."
 
 msgid "A group with that name already exists."
 msgstr "Skupina s tímto názvem již existuje."

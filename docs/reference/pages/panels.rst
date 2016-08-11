@@ -81,7 +81,7 @@ FieldRowPanel
 
     Use of FieldRowPanel particularly helps reduce the "snow-blindness" effect of seeing so many fields on the page, for complex models. It also improves the perceived association between fields of a similar nature. For example if you created a model representing an "Event" which had a starting date and ending date, it may be intuitive to find the start and end date on the same "row".
 
-    FieldRowPanel should be used in combination with ``col*`` class names added to each of the child Panels of the FieldRowPanel. The Wagtail editing interface is laid out using a grid system, in which the maximum width of the editor is 12 columns. Classes ``col1``-``col12`` can be applied to each child of a FieldRowPanel. The class ``col3`` will ensure that field appears 3 columns wide or a quarter the width. ``col4`` would cause the field to be 4 columns wide, or a third the width.
+    By default, the panel is divided into equal-width columns, but this can be overridden by adding ``col*`` class names to each of the child Panels of the FieldRowPanel. The Wagtail editing interface is laid out using a grid system, in which the maximum width of the editor is 12 columns. Classes ``col1``-``col12`` can be applied to each child of a FieldRowPanel. The class ``col3`` will ensure that field appears 3 columns wide or a quarter the width. ``col4`` would cause the field to be 4 columns wide, or a third the width.
 
     .. attribute:: FieldRowPanel.children
 
@@ -105,7 +105,7 @@ PageChooserPanel
 
 
         class BookPage(Page):
-            publisher = models.ForeignKey(
+            related_page = models.ForeignKey(
                 'wagtailcore.Page',
                 null=True,
                 blank=True,
@@ -117,7 +117,9 @@ PageChooserPanel
                 PageChooserPanel('related_page', 'demo.PublisherPage'),
             ]
 
-    ``PageChooserPanel`` takes one required argument, the field name. Optionally, specifying a page type (in the form of an ``"appname.modelname"`` string) will filter the chooser to display only pages of that type. A list or tuple of page types can also be passed in, to allow choosing a page that matches any of those page types::
+    ``PageChooserPanel`` takes one required argument, the field name. Optionally, specifying a page type (in the form of an ``"appname.modelname"`` string) will filter the chooser to display only pages of that type. A list or tuple of page types can also be passed in, to allow choosing a page that matches any of those page types:
+
+    .. code-block:: python
 
         PageChooserPanel('related_page', ['demo.PublisherPage', 'demo.AuthorPage'])
 

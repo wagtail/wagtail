@@ -6,15 +6,15 @@
 # NeotheOne <neotheone@programmer.net>, 2015
 # serafeim <serafeim@torchbox.com>, 2014
 # serafeim <serafeim@torchbox.com>, 2014
-# dotoree <vdotoree@yahoo.gr>, 2015
+# George Giannoulopoulos <vdotoree@yahoo.gr>, 2015
 # Wasilis Mandratzis-Walz, 2015
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-12-17 13:55+0000\n"
-"PO-Revision-Date: 2015-12-17 14:00+0000\n"
-"Last-Translator: mattwestcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2016-05-18 21:37+0000\n"
+"PO-Revision-Date: 2016-03-01 19:08+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Greek (http://www.transifex.com/torchbox/wagtail/language/"
 "el/)\n"
 "MIME-Version: 1.0\n"
@@ -42,11 +42,6 @@ msgstr "Τα δύο πεδία κωδικών δεν είναι ίδια."
 msgid "Administrator"
 msgstr "Διαχειριστής"
 
-msgid "If ticked, this user has the ability to manage user accounts."
-msgstr ""
-"Αν επιλεγεί, ο συγκεκριμένος χρήστης έχει τη δυνατότητα διαχείρισης "
-"λογαριασμών χρηστών."
-
 msgid "Password"
 msgstr "Κωδικός"
 
@@ -67,10 +62,6 @@ msgstr "Όνομα"
 
 msgid "Last Name"
 msgstr "Επίθετο"
-
-msgid "Administrators have the ability to manage user accounts."
-msgstr ""
-"Οι Διαχειριστές έχουν τη δυνατότητα να διαχειρίζονται λογαριασμούς χρηστών."
 
 msgid "A group with that name already exists."
 msgstr "Υπάρχει ήδη ομάδα με το συγκεκριμένο όνομα ομάδας."
@@ -141,9 +132,6 @@ msgstr "Δικαιώματα στην σελίδα "
 
 msgid "Page"
 msgstr "Σελίδα"
-
-msgid "Permission type"
-msgstr "Αδεια τύπου"
 
 msgid "Add a page permission"
 msgstr "Προσθήκη άδειας σελίδας"

@@ -1,0 +1,64 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# Jiri Stepanek <stepiiicz@gmail.com>, 2015
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2016-05-18 21:37+0000\n"
+"PO-Revision-Date: 2016-03-01 18:57+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"Language-Team: Czech (http://www.transifex.com/torchbox/wagtail/language/"
+"cs/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: cs\n"
+"Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
+
+msgid ""
+"Set this to something other than 80 if you need a specific port number to "
+"appear in URLs (e.g. development on port 8000). Does not affect request "
+"handling (so port forwarding still works)."
+msgstr ""
+"Nastavte, pokud potřebujete mít v URL jiné číslo portu než 80 (např. vývoj "
+"na portu 8000). Neovlivňuje zpracování requestů (lze tedy použít s "
+"přesměrováním portů)."
+
+msgid ""
+"If true, this site will handle requests for all other hostnames that do not "
+"have a site entry of their own"
+msgstr ""
+"Je-li nastaveno, bude tento web výchozí pro všechny hostname, která nemají "
+"přiřazen žádný web."
+
+#, python-format
+msgid ""
+"%(hostname)s is already configured as the default site. You must unset that "
+"before you can save this site as default."
+msgstr ""
+"%(hostname)s je již nastaven jako výchozí web. Toto nastavení musíte nejprve "
+"zrušit."
+
+msgid "The page title as you'd like it to be seen by the public"
+msgstr "Veřejně viditelný název stránky"
+
+msgid ""
+"The name of the page as it will appear in URLs e.g http://domain.com/blog/"
+"[my-slug]/"
+msgstr "Název stránky viditelný v URL, např. http://domain.com/blog/[my-slug]/"
+
+msgid ""
+"Optional. 'Search Engine Friendly' title. This will appear at the top of the "
+"browser window."
+msgstr ""
+"Nepovinné. SEO-friendly název. Zobrazí se v horní části okna prohlížeče."
+
+msgid ""
+"Whether a link to this page will appear in automatically generated menus"
+msgstr ""
+"Určuje, zda se bude odkaz na tuto stránku zobrazovat v automaticky "
+"generovaných menu"

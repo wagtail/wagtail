@@ -3,13 +3,13 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# Giacomo Ghizzani <giacomo.ghz@gmail.com>, 2015
+# Giacomo Ghizzani <giacomo.ghz@gmail.com>, 2015-2016
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-12-17 13:54+0000\n"
-"PO-Revision-Date: 2015-12-29 08:37+0000\n"
+"POT-Creation-Date: 2016-05-18 21:37+0000\n"
+"PO-Revision-Date: 2016-06-24 14:31+0000\n"
 "Last-Translator: Giacomo Ghizzani <giacomo.ghz@gmail.com>\n"
 "Language-Team: Italian (http://www.transifex.com/torchbox/wagtail/language/"
 "it/)\n"
@@ -80,6 +80,18 @@ msgstr "Altezza"
 msgid "Closeness"
 msgstr "Vicinanza"
 
+msgid "Add"
+msgstr "Aggiungi"
+
+msgid "Add/edit images you own"
+msgstr "Aggiungi/modifica immagini di tua proprietà"
+
+msgid "Edit"
+msgstr "Modifica"
+
+msgid "Edit any image"
+msgstr "Modifica qualche immagine"
+
 msgid "title"
 msgstr "titolo"
 
@@ -115,6 +127,12 @@ msgstr "Tags popolari"
 
 msgid "Uploading..."
 msgstr "Caricamento..."
+
+msgid "Server Error"
+msgstr "Errore del Server"
+
+msgid "Report this error to your webmaster with the following information:"
+msgstr "Presenta questo errore al tuo webmaster con le seguenti informazioni:"
 
 #, python-format
 msgid ""
@@ -224,8 +242,16 @@ msgstr ""
 
 #, python-format
 msgid ""
-"You've not uploaded any images. Why not <a href="
-"\"%(wagtailimages_add_image_url)s\">add one now</a>?"
+"You haven't uploaded any images in this collection. Why not <a href="
+"\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
+msgstr ""
+"Non hai caricato nessuna immagine in questa collezione. Perché non <a href="
+"\"%(wagtailimages_add_image_url)s\">ne aggiungi una adesso</a>?"
+
+#, python-format
+msgid ""
+"You haven't uploaded any images. Why not <a href="
+"\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
 msgstr ""
 "Non hai caricato nessuna immagine. Perché non <a href="
 "\"%(wagtailimages_add_image_url)s\">ne aggiungi una adesso</a>?"
@@ -282,6 +308,9 @@ msgstr ""
 msgid "Or choose from your computer"
 msgstr "Oppure sceglila dal tuo computer"
 
+msgid "Add to collection:"
+msgstr "Aggiungi alla collezione:"
+
 msgid ""
 "Upload successful. Please update this image with a more appropriate title, "
 "if necessary. You may also delete the image completely if the upload wasn't "
@@ -301,6 +330,12 @@ msgstr "Aggiorna"
 
 msgid "Delete"
 msgstr "Elimina"
+
+msgid "Image permissions"
+msgstr "Permessi per l'immagine"
+
+msgid "Add an image permission"
+msgstr "Aggiungi un permesso per l'immagine"
 
 msgid "Search images"
 msgstr "Cerca immagini"
@@ -330,11 +365,14 @@ msgstr "Immagine '{0}' eliminata."
 msgid "Image '{0}' added."
 msgstr "Immagine '{0}' aggiunta."
 
-msgid "Edit"
-msgstr "Modifica"
-
 msgid "The image could not be created due to errors."
 msgstr "L'immagine non può essere creata a causa di errori."
+
+#, python-format
+msgid "%(count)s image"
+msgid_plural "%(count)s images"
+msgstr[0] "%(count)s immagine"
+msgstr[1] "%(count)s immagini"
 
 msgid "Choose another image"
 msgstr "Scegli un'altra immagine"

@@ -1,10 +1,11 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 
-from django.db import models, migrations
-import wagtail.wagtailimages.models
 import taggit.managers
 from django.conf import settings
+from django.db import migrations, models
+
+import wagtail.wagtailimages.models
 
 
 class Migration(migrations.Migration):
@@ -42,7 +43,7 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='image',
             name='uploaded_by_user',
-            field=models.ForeignKey(blank=True, null=True, to=settings.AUTH_USER_MODEL, editable=False, verbose_name='uploaded by user'),
+            field=models.ForeignKey(on_delete=models.CASCADE, blank=True, null=True, to=settings.AUTH_USER_MODEL, editable=False, verbose_name='uploaded by user'),
         ),
         migrations.AlterField(
             model_name='image',
