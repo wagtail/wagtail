@@ -4,32 +4,7 @@ from __future__ import unicode_literals
 
 from django.db import migrations
 
-
-def fill_filter_spec_forward(apps, schema_editor):
-    # Populate Rendition.filter_spec with the spec string of the corresponding Filter object
-    Rendition = apps.get_model('wagtailimages', 'Rendition')
-    db_alias = schema_editor.connection.alias
-    for rendition in Rendition.objects.using(db_alias).select_related('filter'):
-        rendition.filter_spec = rendition.filter.spec
-        rendition.save()
-
-
-def fill_filter_spec_reverse(apps, schema_editor):
-    # Populate the Rendition.filter
-    Rendition = apps.get_model('wagtailimages', 'Rendition')
-    Filter = apps.get_model('wagtailimages', 'Filter')
-    db_alias = schema_editor.connection.alias
-
-    filters_by_spec = {}
-    for rendition in Rendition.objects.using(db_alias):
-        try:
-            filter = filters_by_spec[rendition.filter_spec]
-        except KeyError:
-            filter, _ = Filter.objects.get_or_create(spec=rendition.filter_spec)
-            filters_by_spec[rendition.filter_spec] = filter
-
-        rendition.filter = filter
-        rendition.save()
+from wagtail.wagtailimages.utils import get_fill_filter_spec_migrations
 
 
 class Migration(migrations.Migration):
@@ -38,6 +13,7 @@ class Migration(migrations.Migration):
         ('wagtailimages', '0014_add_filter_spec_field'),
     ]
 
+    forward, reverse = get_fill_filter_spec_migrations('wagtailimages', 'Rendition')
     operations = [
-        migrations.RunPython(fill_filter_spec_forward, fill_filter_spec_reverse),
+        migrations.RunPython(forward, reverse),
     ]
