@@ -58,3 +58,25 @@ Bug fixes
 
 Upgrade considerations
 ======================
+
+.. _filter_spec_migration:
+
+Custom image models require a data migration for the new ``filter_spec`` field
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+The data model for image renditions will be changed in Wagtail 1.8 to eliminate ``Filter`` as a model. Wagtail sites using a custom image model (see :ref:`custom_image_model`) need to have a schema and data migration in place prior to upgrading to Wagtail 1.8. To create these migrations:
+
+ * Run ``manage.py makemigrations`` to create the schema migration
+ * Run ``manage.py makemigrations --empty myapp`` (replacing ``myapp`` with the name of the app containing the custom image model) to create an empty migration
+ * Edit the created migration to contain::
+
+    from wagtail.wagtailimages.utils import get_fill_filter_spec_migrations
+
+   and, for the ``operations`` list::
+
+    forward, reverse = get_fill_filter_spec_migrations('myapp', 'CustomRendition')
+    operations = [
+        migrations.RunPython(forward, reverse),
+    ]
+
+   replacing ``myapp`` and ``CustomRendition`` with the app and model name for the custom rendition model.
