@@ -536,7 +536,7 @@ class AbstractRendition(models.Model):
                     "Custom image model %r needs a data migration to populate filter_src" % cls,
                     hint="The database representation of image filters has been changed, and a data "
                     "migration needs to be put in place before upgrading to Wagtail 1.8, in order to "
-                    "avoid data loss. See <URL>",
+                    "avoid data loss. See http://docs.wagtail.io/en/latest/releases/1.7.html#filter-spec-migration",
                     obj=cls,
                     id='wagtailimages.W001',
                 )
