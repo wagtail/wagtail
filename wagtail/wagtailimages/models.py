@@ -7,11 +7,13 @@ from contextlib import contextmanager
 
 import django
 from django.conf import settings
+from django.core import checks
 from django.core.exceptions import ImproperlyConfigured
 from django.core.files import File
 from django.core.urlresolvers import reverse
 from django.db import models
 from django.db.models.signals import post_delete, pre_save
+from django.db.utils import DatabaseError
 from django.dispatch.dispatcher import receiver
 from django.forms.widgets import flatatt
 from django.utils.encoding import python_2_unicode_compatible
@@ -511,6 +513,36 @@ class AbstractRendition(models.Model):
         # Filter will be dropped as a model, and lookups will be done based on this string instead
         self.filter_spec = self.filter.spec
         return super(AbstractRendition, self).save(*args, **kwargs)
+
+    @classmethod
+    def check(cls, **kwargs):
+        errors = super(AbstractRendition, cls).check(**kwargs)
+
+        # If a filter_spec column exists on this model, and contains null entries, warn that
+        # a data migration needs to be performed to populate it
+
+        try:
+            null_filter_spec_exists = cls.objects.filter(filter_spec__isnull=True).exists()
+        except DatabaseError:
+            # The database is not in a state where the above lookup makes sense;
+            # this is entirely expected, because system checks are performed before running
+            # migrations. We're only interested in the specific case where the column exists
+            # in the db and contains nulls.
+            null_filter_spec_exists = False
+
+        if null_filter_spec_exists:
+            errors.append(
+                checks.Warning(
+                    "Custom image model %r needs a data migration to populate filter_src" % cls,
+                    hint="The database representation of image filters has been changed, and a data "
+                    "migration needs to be put in place before upgrading to Wagtail 1.8, in order to "
+                    "avoid data loss. See <URL>",
+                    obj=cls,
+                    id='wagtailimages.W001',
+                )
+            )
+
+        return errors
 
     class Meta:
         abstract = True
