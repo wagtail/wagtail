@@ -1,7 +1,7 @@
 Changelog
 =========
 
-1.6 (xx.xx.xxxx)
+1.6 (15.08.2016)
 ~~~~~~~~~~~~~~~~
 
  * Django 1.10 support
