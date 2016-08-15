@@ -1,5 +1,5 @@
 {% extends "wagtailadmin/base.html" %}
-{% load wagtailimages_tags %}
+{% load wagtailimages_tags wagtailadmin_tags %}
 {% load i18n %}
 {% block titletag %}{% trans "Editing" %} {{ user.get_username}}{% endblock %}
 {% block content %}
@@ -12,7 +12,7 @@
         <li><a href="#roles">{% trans "Roles" %}</a></li>
     </ul>
 
-    <form action="{% url 'wagtailusers_users:edit' user.pk %}" method="POST"{% if form.is_multipart %} enctype="multipart/form-data"{% endif %}>
+    <form action="{% url 'wagtailusers_users:edit' user.pk %}" method="POST"{% if form.is_multipart %} enctype="multipart/form-data" {% novalidate_on_django_1_10 %}{% endif %}>
         <div class="tab-content">
             {% csrf_token %}
 

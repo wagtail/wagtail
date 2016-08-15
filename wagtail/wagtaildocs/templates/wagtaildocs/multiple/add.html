@@ -1,5 +1,5 @@
 {% extends "wagtailadmin/base.html" %}
-{% load i18n staticfiles %}
+{% load i18n staticfiles wagtailadmin_tags %}
 {% block titletag %}{% trans "Add multiple documents" %}{% endblock %}
 {% block extra_css %}
     {{ block.super }}
@@ -16,7 +16,7 @@
             <p>{% trans "Drag and drop documents into this area to upload immediately." %}</p>
             <p>{{ help_text }}
 
-            <form action="{% url 'wagtaildocs:add_multiple' %}" method="POST" enctype="multipart/form-data">
+            <form action="{% url 'wagtaildocs:add_multiple' %}" method="POST" enctype="multipart/form-data" {% novalidate_on_django_1_10 %}>
                 <div class="replace-file-input">
                     <button class="button bicolor icon icon-plus">{% trans "Or choose from your computer" %}</button>
                     <input id="fileupload" type="file" name="files[]" data-url="{% url 'wagtaildocs:add_multiple' %}" multiple>
