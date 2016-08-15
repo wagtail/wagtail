@@ -10,7 +10,7 @@ from wagtail.wagtailcore.models import Page
 from wagtail.wagtailcore.utils import resolve_model_string
 
 
-def shared_context(request, extra_context={}):
+def shared_context(request, extra_context=None):
     context = {
         # parent_page ID is passed as a GET parameter on the external_link and email_link views
         # so that it's remembered when browsing from 'Internal link' to another link type
@@ -20,7 +20,8 @@ def shared_context(request, extra_context={}):
         'allow_external_link': request.GET.get('allow_external_link'),
         'allow_email_link': request.GET.get('allow_email_link'),
     }
-    context.update(extra_context)
+    if extra_context:
+        context.update(extra_context)
     return context
 
 
