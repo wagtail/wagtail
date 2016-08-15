@@ -1,5 +1,5 @@
 {% extends "wagtailadmin/base.html" %}
-{% load i18n %}
+{% load i18n wagtailadmin_tags %}
 
 {% block titletag %}{{ view.page_title }}{% endblock %}
 
@@ -7,7 +7,7 @@
 
     {% include "wagtailadmin/shared/header.html" with title=view.page_title icon=view.header_icon %}
 
-    <form action="{{ view.get_add_url }}" method="POST"{% if form.is_multipart %} enctype="multipart/form-data"{% endif %}>
+    <form action="{{ view.get_add_url }}" method="POST"{% if form.is_multipart %} enctype="multipart/form-data" {% novalidate_on_django_1_10 %}{% endif %}>
         {% csrf_token %}
 
         {% block hidden_fields %}

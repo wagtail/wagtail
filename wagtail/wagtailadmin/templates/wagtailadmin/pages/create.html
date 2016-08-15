@@ -17,7 +17,7 @@
         </div>
     </header>
 
-    <form id="page-edit-form" action="{% url 'wagtailadmin_pages:add' content_type.app_label content_type.model parent_page.id %}" method="POST"{% if form.is_multipart %} enctype="multipart/form-data"{% endif %}>
+    <form id="page-edit-form" action="{% url 'wagtailadmin_pages:add' content_type.app_label content_type.model parent_page.id %}" method="POST"{% if form.is_multipart %} enctype="multipart/form-data" {% novalidate_on_django_1_10 %}{% endif %}>
         {% csrf_token %}
         <input type="hidden" name="next" value="{{ next }}">
         {{ edit_handler.render_form_content }}

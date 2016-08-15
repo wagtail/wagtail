@@ -50,6 +50,7 @@ Changelog
  * Fix: Added file handling to support custom user add/edit forms with images/files (Eraldo Energy)
  * Fix: Placeholder text in modeladmin search now uses the correct template variable (Adriaan Tijsseling)
  * Fix: Fixed bad SQL syntax for updating URL paths on Microsoft SQL Server (Jesse Legg)
+ * Fix: Added workaround for Django 1.10 bug https://code.djangoproject.com/ticket/27037 causing forms with file upload fields to fail validation (Matt Westcott)
 
 
 1.5.3 (18.07.2016)
