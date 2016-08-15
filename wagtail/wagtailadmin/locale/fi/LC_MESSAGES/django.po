@@ -11,8 +11,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-05-18 21:37+0000\n"
-"PO-Revision-Date: 2016-05-12 12:22+0000\n"
+"POT-Creation-Date: 2016-08-01 13:25+0000\n"
+"PO-Revision-Date: 2016-08-15 06:45+0000\n"
 "Last-Translator: Aarni Koskela\n"
 "Language-Team: Finnish (http://www.transifex.com/torchbox/wagtail/language/"
 "fi/)\n"
@@ -54,7 +54,7 @@ msgstr "Syötä salasana"
 
 #, python-format
 msgid "Enter your %s"
-msgstr "Syötä %ssi"
+msgstr "Syötä %s"
 
 msgid "Enter your email address to reset your password"
 msgstr "Syötä sähköpostiosoitteesi palauttaaksesi salasanasi"
@@ -522,18 +522,21 @@ msgstr[1] ""
 "\n"
 "Tämä poistaa myös %(descendant_count)s alasivua."
 
+msgid "Yes, delete it"
+msgstr "Kyllä, poista"
+
+msgid "No, don't delete it"
+msgstr "Ei, älä poista"
+
+#, python-format
 msgid ""
-"Alternatively you can unpublish the page. This removes the page from public "
-"view and you can edit or publish it again later."
+"Alternatively you can <a href=\"%(unpublish_url)s\">unpublish the page</a>. "
+"This removes the page from public view and you can edit or publish it again "
+"later."
 msgstr ""
-"Vaihtoehtoisesti voit myös piilottaa sivun. Tämä poistaa sivun julkisesti "
-"näkyviltä jolloin voit muokata tai julkaista sen myöhemmin uudelleen."
-
-msgid "Delete it"
-msgstr "Poista se"
-
-msgid "Unpublish it"
-msgstr "Piilota se"
+"Voit myös <a href=\"%(unpublish_url)s\">perua sivun julkaisun</a>. Tämä "
+"poistaa sivun näkyvistä. Voit sitten muokata sitä ja julkistaa sen uudelleen "
+"myöhemmin."
 
 #, python-format
 msgid "Move %(title)s"
@@ -568,6 +571,9 @@ msgstr "Haluatko varmasti piilottaa tämän sivun?"
 
 msgid "Yes, unpublish it"
 msgstr "Kyllä, piilota"
+
+msgid "No, don't unpublish"
+msgstr "Ei, älä piilota"
 
 msgid "Pages using"
 msgstr "Käyttävät sivut"

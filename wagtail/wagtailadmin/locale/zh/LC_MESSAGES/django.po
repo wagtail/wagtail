@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-05-18 21:37+0000\n"
-"PO-Revision-Date: 2016-05-11 20:33+0000\n"
+"POT-Creation-Date: 2016-08-01 13:25+0000\n"
+"PO-Revision-Date: 2016-08-01 13:28+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Chinese (http://www.transifex.com/torchbox/wagtail/language/"
 "zh/)\n"
@@ -251,17 +251,6 @@ msgstr "删除%(title)s"
 
 msgid "Are you sure you want to delete this page?"
 msgstr "你确定你要删除此页吗？"
-
-msgid ""
-"Alternatively you can unpublish the page. This removes the page from public "
-"view and you can edit or publish it again later."
-msgstr "你页可以取消发布此页。此页将不能从外部访问，你可以编辑后再次发布。"
-
-msgid "Delete it"
-msgstr "删除"
-
-msgid "Unpublish it"
-msgstr "取消发布"
 
 #, python-format
 msgid "Move %(title)s"

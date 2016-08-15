@@ -12,8 +12,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-05-18 21:37+0000\n"
-"PO-Revision-Date: 2016-07-03 13:34+0000\n"
+"POT-Creation-Date: 2016-08-01 13:25+0000\n"
+"PO-Revision-Date: 2016-08-01 13:33+0000\n"
 "Last-Translator: Andrey Avdey <talkerbox@live.com>\n"
 "Language-Team: Russian (http://www.transifex.com/torchbox/wagtail/language/"
 "ru/)\n"
@@ -171,6 +171,12 @@ msgstr ""
 "Группы еще не созданы. Почему бы не <a href="
 "\"%(wagtailusers_create_group_url)s\">добавить</a>?"
 
+msgid "Delete user"
+msgstr "Удалить пользователя"
+
+msgid "Are you sure you want to delete this user?"
+msgstr "Вы уверены, что хотите удалить этого пользователя?"
+
 msgid "Add user"
 msgstr "Добавить пользователя"
 
@@ -280,5 +286,15 @@ msgstr "Пользователь '{0}' обновлен."
 msgid "The user could not be saved due to errors."
 msgstr "Пользователь но может быть сохранен из-за ошибок."
 
+#, python-brace-format
+msgid "User '{0}' deleted."
+msgstr "Пользователь '{0}' удалён."
+
 msgid "Groups"
 msgstr "Группы"
+
+msgid "Edit this user"
+msgstr "Редактировать этого пользователя"
+
+msgid "Delete this user"
+msgstr "Удалить этого пользователя"

@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-05-18 21:37+0000\n"
-"PO-Revision-Date: 2016-05-11 20:34+0000\n"
+"POT-Creation-Date: 2016-08-01 13:25+0000\n"
+"PO-Revision-Date: 2016-08-01 13:29+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Korean (http://www.transifex.com/torchbox/wagtail/language/"
 "ko/)\n"
@@ -64,9 +64,6 @@ msgstr ""
 
 msgid "Default value. Comma separated values supported for checkboxes."
 msgstr "기본값. 콤마로 분류되는 값들은 체크박스를 지원합니다."
-
-msgid "Optional - form submissions will be emailed to this address"
-msgstr "옵션 - 이 주소로 양식 제출에 대한 이메일이 전송 될 것입니다."
 
 #, python-format
 msgid "Delete %(title)s"

@@ -9,9 +9,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-05-18 21:37+0000\n"
-"PO-Revision-Date: 2016-07-16 11:57+0000\n"
-"Last-Translator: Reinis Rozenbergs <reinisr@gmail.com>\n"
+"POT-Creation-Date: 2016-08-01 13:25+0000\n"
+"PO-Revision-Date: 2016-08-01 13:28+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Latvian (http://www.transifex.com/torchbox/wagtail/language/"
 "lv/)\n"
 "MIME-Version: 1.0\n"
@@ -430,12 +430,6 @@ msgstr "Dzēst %(title)s"
 
 msgid "Are you sure you want to delete this page?"
 msgstr "Dzēst lapu?"
-
-msgid "Delete it"
-msgstr "Dzēst"
-
-msgid "Unpublish it"
-msgstr "Atsaukt publikāciju"
 
 #, python-format
 msgid "Move %(title)s"

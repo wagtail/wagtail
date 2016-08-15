@@ -19,8 +19,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-05-18 21:37+0000\n"
-"PO-Revision-Date: 2016-07-01 21:12+0000\n"
+"POT-Creation-Date: 2016-08-01 13:25+0000\n"
+"PO-Revision-Date: 2016-08-01 14:00+0000\n"
 "Last-Translator: Andrey Avdey <talkerbox@live.com>\n"
 "Language-Team: Russian (http://www.transifex.com/torchbox/wagtail/language/"
 "ru/)\n"
@@ -574,19 +574,21 @@ msgstr[3] ""
 "\n"
 "Это так же удалит еще %(descendant_count)s подстраниц."
 
+msgid "Yes, delete it"
+msgstr "Да, удалить"
+
+msgid "No, don't delete it"
+msgstr "Нет, не удалять"
+
+#, python-format
 msgid ""
-"Alternatively you can unpublish the page. This removes the page from public "
-"view and you can edit or publish it again later."
+"Alternatively you can <a href=\"%(unpublish_url)s\">unpublish the page</a>. "
+"This removes the page from public view and you can edit or publish it again "
+"later."
 msgstr ""
-"Как вариант, вы можете снять с публикации эту страницу. Это скроет страницу "
-"от публичного просмотра и позже вы сможете отредактировать и опубликовать её "
-"снова."
-
-msgid "Delete it"
-msgstr "Удалить"
-
-msgid "Unpublish it"
-msgstr "Снять с публикации"
+"Как вариант, вы можете <a href=\"%(unpublish_url)s\">снять с публикации эту "
+"страницу</a>. Это скроет страницу от публичного просмотра и позже вы сможете "
+"отредактировать и опубликовать её снова."
 
 #, python-format
 msgid "Move %(title)s"
@@ -622,6 +624,9 @@ msgstr "Вы уверены, что хотите отменить публика
 
 msgid "Yes, unpublish it"
 msgstr "Да, отменить публикацию"
+
+msgid "No, don't unpublish"
+msgstr "Нет, оставить неопубликованным"
 
 msgid "Pages using"
 msgstr "Страницы, использующие"

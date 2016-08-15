@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-05-18 21:37+0000\n"
-"PO-Revision-Date: 2016-03-01 22:45+0000\n"
+"POT-Creation-Date: 2016-08-01 13:25+0000\n"
+"PO-Revision-Date: 2016-08-01 13:58+0000\n"
 "Last-Translator: Dan Braghis\n"
 "Language-Team: Romanian (http://www.transifex.com/torchbox/wagtail/language/"
 "ro/)\n"
@@ -162,6 +162,12 @@ msgstr ""
 "Nu există nici un grup configurat. De ce să nu <a href="
 "\"%(wagtailusers_create_group_url)s\">adăugați câțiva</a>?"
 
+msgid "Delete user"
+msgstr "Șterge utilizator"
+
+msgid "Are you sure you want to delete this user?"
+msgstr "Sigur doriți să ștergeți acest utilizator?"
+
 msgid "Add user"
 msgstr "Adaugă utilizator"
 
@@ -269,5 +275,15 @@ msgstr "Utilizatorul '{0}' a fost actualizat."
 msgid "The user could not be saved due to errors."
 msgstr "Utilizatorul nu a fost salvat din cauza erorilor."
 
+#, python-brace-format
+msgid "User '{0}' deleted."
+msgstr "Utilizatorul '{0}' a fost șters."
+
 msgid "Groups"
 msgstr "Grupuri"
+
+msgid "Edit this user"
+msgstr "Editează acest utlizator"
+
+msgid "Delete this user"
+msgstr "Șterge acest utlizator"

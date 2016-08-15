@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-05-18 21:37+0000\n"
-"PO-Revision-Date: 2016-05-11 20:33+0000\n"
+"POT-Creation-Date: 2016-08-01 13:25+0000\n"
+"PO-Revision-Date: 2016-08-01 13:28+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Slovenian (http://www.transifex.com/torchbox/wagtail/language/"
 "sl/)\n"
@@ -497,19 +497,6 @@ msgstr "Izbriši %(title)s"
 
 msgid "Are you sure you want to delete this page?"
 msgstr "Ali ste prepričani, da želite stran izbrisati?"
-
-msgid ""
-"Alternatively you can unpublish the page. This removes the page from public "
-"view and you can edit or publish it again later."
-msgstr ""
-"Stran lahko tudi umaknete iz objave. To naredi stran nevidno za obiskovalce, "
-"še vedno jo lahko urejate in naknadno objavite kasneje."
-
-msgid "Delete it"
-msgstr "Izbriši"
-
-msgid "Unpublish it"
-msgstr "Umakni iz objave"
 
 #, python-format
 msgid "Move %(title)s"

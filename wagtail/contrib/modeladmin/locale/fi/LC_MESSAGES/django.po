@@ -8,9 +8,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-05-18 21:37+0000\n"
-"PO-Revision-Date: 2016-05-18 21:52+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2016-08-01 13:25+0000\n"
+"PO-Revision-Date: 2016-08-15 06:49+0000\n"
+"Last-Translator: Aarni Koskela\n"
 "Language-Team: Finnish (http://www.transifex.com/torchbox/wagtail/language/"
 "fi/)\n"
 "MIME-Version: 1.0\n"
@@ -71,11 +71,26 @@ msgstr "kuva"
 msgid "Choose a parent page"
 msgstr "Valitse isäntäsivu"
 
+#, python-format
+msgid ""
+"%(plural)s can be added to more than one place within your site. Which of "
+"the following would you like to be the parent of your new page?"
+msgstr ""
+"%(plural)s voidaan lisätä useampaan kuin yhteen paikkaan sivustollasi. Mihin "
+"haluaisit uuden sivun lisättävän?"
+
 msgid "Continue"
 msgstr "Jatka"
 
+msgid "Saving..."
+msgstr "Tallennetaan..."
+
 msgid "Save"
 msgstr "Tallenna"
+
+#, python-format
+msgid "%(model_name)s could not be deleted"
+msgstr "%(model_name)s-kohdetta ei voitu poistaa"
 
 msgid "Go back to listing"
 msgstr "Palaa listaukseen"
@@ -85,6 +100,10 @@ msgstr "Kyllä, poista"
 
 msgid "Home"
 msgstr "Koti"
+
+#, python-format
+msgid "Sorry, there are no %(name)s matching your search parameters."
+msgstr "Haulla ei löytynyt yhtään %(name)s-kohdetta."
 
 msgid "Search for"
 msgstr "Hae..."
@@ -96,11 +115,46 @@ msgstr "Hae %(name)s"
 msgid "Filter"
 msgstr "Suodatin"
 
+#, python-format
+msgid ""
+"No %(name)s have been created yet. One of the following must be created "
+"before you can add any %(name)s:"
+msgstr ""
+"Yhtään %(name)s-kohdetta ei ole luotu vielä. Yksi seuraavista tulee luoda "
+"ennen kuin voit luoda %(name)s-kohteita:"
+
+#, python-format
+msgid "No %(name)s have been created yet."
+msgstr "Yhtään %(name)s-kohdetta ei ole luotu vielä."
+
+#, python-format
+msgid ""
+"\n"
+"                                                Why not <a href=\"%(url)s"
+"\">add one</a>?\n"
+"                                            "
+msgstr ""
+"\n"
+"Mikset <a href=\"%(url)s\">lisäisi yhtä</a>?\n"
+"                                            "
+
+#, python-format
+msgid "Page %(current_page)s of %(num_pages)s."
+msgstr "Sivu %(current_page)s/%(num_pages)s."
+
+#, python-format
+msgid "Back to %(model_name)s list"
+msgstr "Palaa %(model_name)s -listaan"
+
 msgid "Previous"
 msgstr "Edellinen"
 
 msgid "Next"
 msgstr "Seuraava"
+
+#, python-brace-format
+msgid "{model_name} '{instance}' created."
+msgstr "{model_name} '{instance}' luotu."
 
 #, python-format
 msgid "The %s could not be created due to errors."
@@ -119,6 +173,10 @@ msgstr "Muokataan"
 #, python-format
 msgid "Editing %s"
 msgstr "Muokataan %s"
+
+#, python-brace-format
+msgid "{model_name} '{instance}' updated."
+msgstr "{model_name} '{instance}' päivitetty."
 
 #, python-format
 msgid "The %s could not be saved due to errors."
