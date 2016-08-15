@@ -1,4 +1,4 @@
-{% load wagtailimages_tags %}
+{% load wagtailimages_tags wagtailadmin_tags %}
 {% load i18n %}
 {% trans "Choose an image" as choose_str %}
 {% include "wagtailadmin/shared/header.html" with title=choose_str merged=1 tabbed=1 icon="image" %}
@@ -36,7 +36,7 @@
     </section>
     {% if uploadform %}
         <section id="upload" class="{% if uploadform.errors %}active{% endif %} nice-padding">
-            <form class="image-upload" action="{% url 'wagtailimages:chooser_upload' %}{% if will_select_format %}?select_format=true{% endif %}" method="POST" enctype="multipart/form-data">
+            <form class="image-upload" action="{% url 'wagtailimages:chooser_upload' %}{% if will_select_format %}?select_format=true{% endif %}" method="POST" enctype="multipart/form-data" {% novalidate_on_django_1_10 %}>
                 {% csrf_token %}
                 <ul class="fields">
                     {% for field in uploadform %}

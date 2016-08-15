@@ -1,4 +1,4 @@
-{% load i18n %}
+{% load i18n wagtailadmin_tags %}
 {% trans "Choose a document" as  choose_str %}
 {% include "wagtailadmin/shared/header.html" with title=choose_str tabbed=1 merged=1 icon="doc-full-inverse" %}
 
@@ -28,7 +28,7 @@
     </section>
     {% if uploadform %}
         <section id="upload" class="{% if uploadform.errors %}active {% endif %}nice-padding">
-            <form class="document-upload" action="{% url 'wagtaildocs:chooser_upload' %}" method="POST" enctype="multipart/form-data">
+            <form class="document-upload" action="{% url 'wagtaildocs:chooser_upload' %}" method="POST" enctype="multipart/form-data" {% novalidate_on_django_1_10 %}>
                 {% csrf_token %}
                 <ul class="fields">
                     {% for field in uploadform %}
