@@ -197,33 +197,48 @@ class Site(models.Model):
                     ]}
                 )
 
-    @staticmethod
-    def get_site_root_paths():
+    @classmethod
+    def get_site_root_paths(cls):
         """
         Return a list of (root_path, root_url) tuples, most specific path first -
-        used to translate url_paths into actual URLs with hostnames
+        used to translate url_paths into actual URLs with hostnames.
+
+        This will be loaded from cache and memoized to reduce round-trip-times
+        to the cache.
         """
-        result = cache.get('wagtail_site_root_paths')
+        try:
+            return cls._wagtail_site_root_paths
+        except AttributeError:
+            cls._wagtail_site_root_paths = result = cache.get('wagtail_site_root_paths')
 
-        if result is None:
-            result = [
-                (site.id, site.root_page.url_path, site.root_url)
-                for site in Site.objects.select_related('root_page').order_by('-root_page__url_path')
-            ]
-            cache.set('wagtail_site_root_paths', result, 3600)
+            if result is None:
+                result = [
+                    (site.id, site.root_page.url_path, site.root_url)
+                    for site in Site.objects.select_related('root_page').order_by('-root_page__url_path')
+                ]
+                cache.set('wagtail_site_root_paths', result, 3600)
 
-        return result
+            return result
+
+    @classmethod
+    def invalidate_site_root_paths(cls):
+        """
+        Invalidate the cache for get_site_root_paths and remove any memoized
+        result.
+        """
+        del cls._wagtail_site_root_paths
+        cache.delete('wagtail_site_root_paths')
 
 
 # Clear the wagtail_site_root_paths from the cache whenever Site records are updated
 @receiver(post_save, sender=Site)
 def clear_site_root_paths_on_save(sender, instance, **kwargs):
-    cache.delete('wagtail_site_root_paths')
+    Site.invalidate_site_root_paths()
 
 
 @receiver(post_delete, sender=Site)
 def clear_site_root_paths_on_delete(sender, instance, **kwargs):
-    cache.delete('wagtail_site_root_paths')
+    Site.invalidate_site_root_paths()
 
 
 PAGE_MODEL_CLASSES = []
@@ -501,7 +516,7 @@ class Page(six.with_metaclass(PageBase, MP_Node, index.Indexed, ClusterableModel
 
         # Check if this is a root page of any sites and clear the 'wagtail_site_root_paths' key if so
         if Site.objects.filter(root_page=self).exists():
-            cache.delete('wagtail_site_root_paths')
+            Site.invalidate_site_root_paths()
 
         # Log
         if is_new:
