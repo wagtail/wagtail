@@ -1228,12 +1228,20 @@ class Page(six.with_metaclass(PageBase, MP_Node, index.Indexed, ClusterableModel
 
         request = WSGIRequest(dummy_values)
 
-        # Apply middleware to the request - see http://www.mellowmorning.com/2011/04/18/mock-django-request-for-testing/
-        handler = BaseHandler()
-        handler.load_middleware()
-        # call each middleware in turn and throw away any responses that they might return
-        for middleware_method in handler._request_middleware:
-            middleware_method(request)
+        # Apply middleware to the request
+        # Note that Django makes sure only one of the middleware settings are
+        # used in a project
+        if hasattr(settings, 'MIDDLEWARE'):
+            handler = BaseHandler()
+            handler.load_middleware()
+            handler._middleware_chain(request)
+        elif hasattr(settings, 'MIDDLEWARE_CLASSES'):
+            # Pre Django 1.10 style - see http://www.mellowmorning.com/2011/04/18/mock-django-request-for-testing/
+            handler = BaseHandler()
+            handler.load_middleware()
+            # call each middleware in turn and throw away any responses that they might return
+            for middleware_method in handler._request_middleware:
+                middleware_method(request)
 
         return request
 
