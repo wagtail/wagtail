@@ -6,6 +6,7 @@ Changelog
 
  * The Wagtail version number can now be obtained as a tuple using ``from wagtail import VERSION`` (Tim Heap)
  * Fix: Migrations for wagtailcore and project template are now reversible (Benjamin Bach)
+ * Fix: The default image format label text ('Full width', 'Left-aligned', 'Right-aligned') is now localised (Mikalai Radchuk)
 
 
 1.6 (15.08.2016)

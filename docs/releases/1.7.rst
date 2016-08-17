@@ -21,6 +21,7 @@ Bug fixes
 ~~~~~~~~~
 
  * Migrations for wagtailcore and project template are now reversible (Benjamin Bach)
+ * The default image format label text ('Full width', 'Left-aligned', 'Right-aligned') is now localised (Mikalai Radchuk)
 
 
 Upgrade considerations
