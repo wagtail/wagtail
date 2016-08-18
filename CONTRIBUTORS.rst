@@ -174,10 +174,11 @@ Translators
 * Chinese (Taiwan): Lihan Li
 * Croatian (Croatia): Luka Matijević
 * Czech: Ivan Pomykacz, Jiri Stepanek, Marek Turnovec
+* Danish: Asger Sørensen
 * Dutch: benny_AT_it_digin.com, Bram, Brecht Dervaux, Huib Keemink, Thijs Kramer, Samuel Leeuwenburg, mahulst, Michael van Tellingen, Arne Turpyn
 * Dutch (Netherlands): Bram, Franklin Kingma, Maarten Kling, Thijs Kramer
 * Finnish: Eetu Häivälä, Aarni Koskela, Rauli Laine, Glen Somerville, Juha Yrjölä
-* French: Adrien, Timothy Allen, Sebastien Andrivet, Edd Baldry, Bertrand Bordage, André Bouatchidzé, Tom Dyson, Antonin Enfrun, Léo, Pierre Marfoure, nahuel
+* French: Adrien, Timothy Allen, Sebastien Andrivet, Bertrand Bordage, André Bouatchidzé, Tom Dyson, Antonin Enfrun, Axel Haustant, Léo, Pierre Marfoure, nahuel
 * Galician: fooflare
 * Georgian: André Bouatchidzé
 * German: Ettore Atalan, Patrick Craston, Henrik Kröger, Tammo van Lessen, Martin Löhle, Wasilis Mandratzis-Walz, Daniel Manser, m0rph3u5, Max Pfeiffer, Moritz Pfeiffer, Herbert Poul, Karl Sander, Tobias Schmidt, Johannes Spielmann, Raphael Stolt, Jannis Vajen, Vorlif, Matthew Westcott
@@ -194,7 +195,7 @@ Translators
 * Norwegian Bokmål: Eirik Krogstad, Robin Skahjem-Eriksen
 * Persian: Mohammad reza Jelveh
 * Polish: Mateusz, mmiskiew, utek
-* Portuguese (Brazil): Claudemiro Alves Feitosa Neto, Luiz Boaretto, Gladson Brito, Thiago Cangussu, Gilson Filho, João Luiz Lorencetti, Marcio Mazza, Douglas Miranda
+* Portuguese (Brazil): Claudemiro Alves Feitosa Neto, Luiz Boaretto, Gladson Brito, Thiago Cangussu, Gilson Filho, João Luiz Lorencetti, Marcio Mazza, Douglas Miranda, Guilherme Nabanete
 * Portuguese (Portugal): Gladson Brito, Thiago Cangussu, Tiago Henriques, Jose Lourenco, Nuno Matos, Douglas Miranda, Manuela Silva
 * Romanian: Dan Braghis
 * Russian: ajk, Andrey Avdey, Daniil, gsstver, HNKNTA, Sergey Khalymon, Sergey Komarov, Eugene MechanisM, Mikalai Radchuk, Alexandr Romantsov
