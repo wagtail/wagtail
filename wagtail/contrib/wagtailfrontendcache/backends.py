@@ -7,7 +7,7 @@ from django.utils.six.moves.urllib.error import HTTPError, URLError
 from django.utils.six.moves.urllib.parse import urlencode, urlparse, urlunparse
 from django.utils.six.moves.urllib.request import Request, urlopen
 
-from wagtail.wagtailcore import __version__
+from wagtail import __version__
 
 logger = logging.getLogger('wagtail.frontendcache')
 
