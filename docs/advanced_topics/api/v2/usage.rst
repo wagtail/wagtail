@@ -1,0 +1,238 @@
+==========================
+Wagtail API v2 Usage Guide
+==========================
+
+.. note::
+
+   This is the usage guide for version 2 of the API, for version 1, see TODO
+
+The Wagtail API module exposes a public, read only, JSON-formatted API which
+can be used by external clients (such as a mobile app) or the site's frontend.
+
+.. contents::
+
+Fetching content
+================
+
+To fetch content over the API, perform a ``GET`` request against one of the
+following endpoints:
+
+ - Pages ``/api/v2/pages/``
+ - Images ``/api/v2/images/``
+ - Documents ``/api/v2/documents/``
+
+.. note::
+
+    The available endpoints and their URLs may vary from site-to-site, depending
+    on how the API has been configured.
+
+Example response
+----------------
+
+Each response contains the list of items (``items``) and the total count
+(``meta.total_count``). The total count is irrespective of pagination.
+
+TODO EXAMPLE
+
+Custom page fields in the API
+-----------------------------
+
+Wagtail sites contain many page types, each with their own set of fields. The
+``pages`` endpoint will only expose the common fields by default (such as
+``title`` and ``slug``).
+
+To access custom page fields with the API, select the page type with the
+``?type`` parameter. This will filter the results to only include pages of that
+type but will also make all the exported custom fields for that type available
+in the API.
+
+TODO example
+
+.. note::
+
+    Only fields that have been explicitly exported by the developer may be used
+    in the API. This is done by adding a ``api_fields`` attribute to the page
+    model. You can read about configuration here TODO.
+
+This doesn't apply to images/documents as there is only one model exposed in
+those endpoints. But for projects that have customised image/document models,
+the ``api_fields`` attribute can be used to export any custom fields into the
+API.
+
+Pagination
+----------
+
+The number of items in the response can be changed by using the ``?limit``
+parameter (default: 20) and the number of items to skip can be changed by using
+the ``?offset`` parameter.
+
+TODO EXAMPLE
+
+.. note::
+
+    There may be a maximum value for the ``?limit`` parameter. This can be
+    modified in your project settings by setting ``WAGTAILAPI_LIMIT_MAX`` to
+    either a number (the new maximum value) or ``None`` (which disables maximum
+    value check).
+
+Ordering
+--------
+
+The results can be ordered by any field by setting the ``?order`` parameter to
+the name of the field to order by.
+
+TODO EXAMPLE
+
+The results will be ordered in ascending order by default. This can be changed
+to descending order by prefixing the field name with a ``-`` sign.
+
+TODO EXAMPLE
+
+Random ordering
+^^^^^^^^^^^^^^^
+
+Passing ``random`` into the ``?order`` parameter will make results return in a
+random order.
+
+TODO EXAMPLE
+
+Filtering
+---------
+
+Any field may be used in an exact match filter. Use the filter name as the
+parameter and the value to match against.
+
+TODO example
+
+Search
+------
+
+Passing a query to the ``?search`` parameter will perform a full-text search on
+the results.
+
+The query is split into "terms" (by word boundary), then each term is normalised
+(lowercased and unaccented).
+
+TODO example
+
+Search operator
+^^^^^^^^^^^^^^^
+
+The ``search_operator`` specifies how multiple terms in the query should be
+handled. There are two possible values:
+
+ - ``and`` - All terms in the search query (excluding stop words) must exist in
+   each result
+ - ``or`` - At least one term in the search query must exist in each result
+
+The default search operator used by the API depends on which search engine is in
+use by the site. If the site uses Elasticsearch, the ``or`` operator is used by
+default. If the site uses Wagtail's built in database backend then the ``and``
+operator is used by default.
+
+The ``or`` operator is generally better than ``and`` as it allows the user to be
+inexact with their query and the ranking algorithm can still return relevant
+results. However, Wagtail's database search backend doesn't support ranking yet,
+so the ``or`` operator may return irrelevant results on the first page.
+
+For this reason, it's also recommended to use the ``and`` operator when using
+``?search`` in conjunction with ``?order`` (as this disables ranking).
+
+TODO example
+
+Fields
+------
+
+By default, only a subset of the available fields are returned in the response.
+The ``?fields`` parameter can be used to both add additional fields to the
+response and remove default fields that you know you won't need.
+
+Additional fields
+^^^^^^^^^^^^^^^^^
+
+Aadditional fields can be added to the response by setting ``?fields`` to a
+comma-separated list of field names you want to add.
+
+For example, ``?fields=body,feed_image`` will add the ``body`` and ``feed_image``
+fields to the response.
+
+This can also be used across relationships. For example,
+``?fields=body,feed_image(width,height)`` will nest the ``width`` and ``height``
+of the image in the response.
+
+All fields
+^^^^^^^^^^
+
+Setting ``?fields`` to and asterisk (``*``) will add all available fields to be
+added to the response. This is useful for discovering what fields have been
+exported.
+
+For example: ``?fields=*``
+
+Removing fields
+^^^^^^^^^^^^^^^
+
+Fields you know that you do not need can be removed by prefixing the name with a
+``-`` and adding it to ``?fields``.
+
+For example, ``?fields=-title,body`` will remove ``title`` and add ``body``.
+
+This can also be used with the asterisk. For example, ``?fields=*,-body``
+adds all fields except for ``body``.
+
+Removing all default fields
+^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+To specify exactly the fields you need, you can set the first item in fields to
+an underscore (``_``) which removes all default fields.
+
+For example, ``?fields=_,title`` will only return the title field.
+
+Detail views
+------------
+
+TODO Fields
+
+Default endpoint fields reference
+=================================
+
+Pages
+-----
+
+TODO
+
+Images
+------
+
+TODO
+
+Documents
+---------
+
+TODO
+
+Changes since v1
+================
+
+Breaking changes
+----------------
+
+ - The results list in listing responses has been renamed to ``items`` (was
+   previously either ``pages``, ``images`` or ``documents``)
+
+Major features
+--------------
+
+ - The ``fields`` parameter has been improved to allow removing fields, adding
+   all fields and customising nested fields
+
+Minor features
+--------------
+
+ - ``html_url``, ``slug``, ``first_publised_at``, ``expires_at`` and
+   ``show_in_menus`` fields have been added to the pages endpoint
+ - ``download_url`` field has been added to the documents endpoint
+ - Multiple page types can be specified in ``type`` parameter on pages endpoint
+ - ``true`` and ``false`` may now be used when filtering boolean fields
+ - ``order`` can now be used in conjunction with ``search``
+ - ``search_operator`` parameter was added
