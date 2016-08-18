@@ -4,6 +4,7 @@ Changelog
 1.7 (xx.xx.xxxx)
 ~~~~~~~~~~~~~~~~
 
+ * The Wagtail version number can now be obtained as a tuple using ``from wagtail import VERSION`` (Tim Heap)
  * Fix: Migrations for wagtailcore and project template are now reversible (Benjamin Bach)
 
 
