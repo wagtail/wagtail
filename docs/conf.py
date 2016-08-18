@@ -75,7 +75,7 @@ copyright = u'2015, Torchbox'
 # built documents.
 
 # Get Wagtail version
-from wagtail.wagtailcore import __version__, VERSION
+from wagtail import __version__, VERSION
 
 # The short X.Y version.
 version = '{}.{}'.format(VERSION[0], VERSION[1])

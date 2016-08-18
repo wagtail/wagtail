@@ -5,7 +5,7 @@ from django.template.defaulttags import token_kwargs
 from django.utils.encoding import force_text
 from django.utils.safestring import mark_safe
 
-from wagtail.wagtailcore import __version__
+from wagtail import __version__
 from wagtail.wagtailcore.models import Page
 from wagtail.wagtailcore.rich_text import RichText, expand_db_html
 

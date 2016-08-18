@@ -2,7 +2,7 @@
 
 import sys
 
-from wagtail.wagtailcore import __version__
+from wagtail import __version__
 from wagtail.utils.setup import assets, sdist, check_bdist_egg
 
 try:
