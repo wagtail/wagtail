@@ -157,7 +157,7 @@ class AbstractForm(Page):
         return form_class(*args, **form_params)
 
     def process_form_submission(self, form):
-        FormSubmission.objects.create(
+        return FormSubmission.objects.create(
             form_data=json.dumps(form.cleaned_data, cls=DjangoJSONEncoder),
             page=self,
         )
@@ -216,12 +216,15 @@ class AbstractEmailForm(AbstractForm):
     subject = models.CharField(verbose_name=_('subject'), max_length=255, blank=True)
 
     def process_form_submission(self, form):
-        super(AbstractEmailForm, self).process_form_submission(form)
-
+        submission = super(AbstractEmailForm, self).process_form_submission(form)
         if self.to_address:
-            addresses = [x.strip() for x in self.to_address.split(',')]
-            content = '\n'.join([x[1].label + ': ' + text_type(form.data.get(x[0])) for x in form.fields.items()])
-            send_mail(self.subject, content, addresses, self.from_address,)
+            self.send_form_mail(form)
+        return submission
+
+    def send_form_mail(self, form):
+        addresses = [x.strip() for x in self.to_address.split(',')]
+        content = '\n'.join([x[1].label + ': ' + text_type(form.data.get(x[0])) for x in form.fields.items()])
+        send_mail(self.subject, content, addresses, self.from_address,)
 
     class Meta:
         abstract = True
