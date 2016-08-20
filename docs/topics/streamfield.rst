@@ -103,7 +103,7 @@ IntegerBlock
 
 ``wagtail.wagtailcore.blocks.IntegerBlock``
 
-A single-line integer input that validates that the integer is a valid whole number. The keyword arguments ``required``, ``max_length``, ``min_length`` and ``help_text`` are accepted.
+A single-line integer input that validates that the integer is a valid whole number. The keyword arguments ``required``, ``max_value``, ``min_value`` and ``help_text`` are accepted.
 
 For an example of ``IntegerBlock`` in use, see :ref:`streamfield_personblock_example`
 
