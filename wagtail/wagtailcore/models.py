@@ -262,14 +262,6 @@ class PageBase(models.base.ModelBase):
             # don't proceed with all this page type registration stuff
             return
 
-        # Override the default `objects` attribute with a `PageManager`.
-        # Managers are not inherited by MTI child models, so `Page` subclasses
-        # will get a plain `Manager` instead of a `PageManager`.
-        # If the developer has set their own custom `Manager` subclass, do not
-        # clobber it.
-        if not cls._meta.abstract and type(cls.objects) is models.Manager:
-            PageManager().contribute_to_class(cls, 'objects')
-
         if 'template' not in dct:
             # Define a default template path derived from the app name and model name
             cls.template = "%s/%s.html" % (cls._meta.app_label, camelcase_to_underscore(name))
@@ -290,8 +282,21 @@ class PageBase(models.base.ModelBase):
             PAGE_MODEL_CLASSES.append(cls)
 
 
+class AbstractPage(MP_Node):
+    """
+    Abstract superclass for Page. According to Django's inheritance rules, managers set on
+    abstract models are inherited by subclasses, but managers set on concrete models that are extended
+    via multi-table inheritance are not. We therefore need to attach PageManager to an abstract
+    superclass to ensure that it is retained by subclasses of Page.
+    """
+    objects = PageManager()
+
+    class Meta:
+        abstract = True
+
+
 @python_2_unicode_compatible
-class Page(six.with_metaclass(PageBase, MP_Node, index.Indexed, ClusterableModel)):
+class Page(six.with_metaclass(PageBase, AbstractPage, index.Indexed, ClusterableModel)):
     title = models.CharField(
         verbose_name=_('title'),
         max_length=255,
@@ -391,8 +396,6 @@ class Page(six.with_metaclass(PageBase, MP_Node, index.Indexed, ClusterableModel
 
     # Do not allow plain Page instances to be created through the Wagtail admin
     is_creatable = False
-
-    objects = PageManager()
 
     def __init__(self, *args, **kwargs):
         super(Page, self).__init__(*args, **kwargs)
