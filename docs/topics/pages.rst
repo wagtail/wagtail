@@ -440,6 +440,8 @@ This is because ``Page`` enforces ordering QuerySets by path. Instead, you must 
 
     news_items = NewsItemPage.objects.live().order_by('-publication_date')
 
+.. _custom_page_managers:
+
 Custom Page managers
 --------------------
 
