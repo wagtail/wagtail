@@ -140,6 +140,9 @@ class TestFormWithCustomSubmission(TestCase, WagtailTestUtils):
         self.assertTemplateUsed(response, 'tests/form_page_with_custom_submission.html')
         self.assertTemplateNotUsed(response, 'tests/form_page_with_custom_submission_landing.html')
 
+        # check that variables defined in get_context are passed through to the template (#1429)
+        self.assertContains(response, "<p>hello world</p>")
+
     def test_post_invalid_form(self):
         response = self.client.post('/contact-us/', {
             'your-email': 'bob',
@@ -163,6 +166,9 @@ class TestFormWithCustomSubmission(TestCase, WagtailTestUtils):
         self.assertContains(response, "Thank you for your patience!")
         self.assertTemplateNotUsed(response, 'tests/form_page_with_custom_submission.html')
         self.assertTemplateUsed(response, 'tests/form_page_with_custom_submission_landing.html')
+
+        # check that variables defined in get_context are passed through to the template (#1429)
+        self.assertContains(response, "<p>hello world</p>")
 
         # Check that an email was sent
         self.assertEqual(len(mail.outbox), 1)
@@ -262,8 +268,46 @@ class TestFormSubmissionWithMultipleRecipients(TestCase):
         self.assertTrue(FormSubmission.objects.filter(page=form_page, form_data__contains='hello world').exists())
 
 
-# TODO: TestFormWithCustomSubmission
-# TODO: TestFormSubmissionWithMultipleRecipientsAndWithCustomSubmission
+class TestFormSubmissionWithMultipleRecipientsAndWithCustomSubmission(TestCase, WagtailTestUtils):
+    def setUp(self):
+        # Create a form page
+        self.form_page = make_form_page_with_custom_submission(**{
+            'intro': '<p>Boring intro text</p>',
+            'thank_you_text': '<p>Thank you for your patience!</p>',
+            'to_address': 'to@email.com, another@email.com',
+        })
+
+        self.user = self.login()
+
+    def test_post_valid_form(self):
+        response = self.client.post('/contact-us/', {
+            'your-email': 'bob@example.com',
+            'your-message': 'hello world',
+            'your-choices': {'foo': '', 'bar': '', 'baz': ''}
+        })
+
+        # Check response
+        self.assertContains(response, "Thank you for your patience!")
+        self.assertTemplateNotUsed(response, 'tests/form_page_with_custom_submission.html')
+        self.assertTemplateUsed(response, 'tests/form_page_with_custom_submission_landing.html')
+
+        # check that variables defined in get_context are passed through to the template (#1429)
+        self.assertContains(response, "<p>hello world</p>")
+
+        # Check that one email was sent, but to two recipients
+        self.assertEqual(len(mail.outbox), 1)
+
+        self.assertEqual(mail.outbox[0].subject, "The subject")
+        self.assertIn("Your message: hello world", mail.outbox[0].body)
+        self.assertEqual(mail.outbox[0].from_email, 'from@email.com')
+        self.assertEqual(set(mail.outbox[0].to), {'to@email.com', 'another@email.com'})
+
+        # Check that form submission was saved correctly
+        form_page = Page.objects.get(url_path='/home/contact-us/')
+        self.assertTrue(
+            CustomFormPageSubmission.objects.filter(page=form_page, form_data__contains='hello world').exists()
+        )
+
 
 class TestIssue798(TestCase):
     fixtures = ['test.json']

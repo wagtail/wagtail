@@ -396,6 +396,11 @@ class FormPageWithCustomSubmission(AbstractEmailForm):
     intro = RichTextField(blank=True)
     thank_you_text = RichTextField(blank=True)
 
+    def get_context(self, request, *args, **kwargs):
+        context = super(FormPageWithCustomSubmission, self).get_context(request)
+        context['greeting'] = "hello world"
+        return context
+
     def get_form_fields(self):
         return self.custom_form_fields.all()
 
