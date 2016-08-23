@@ -57,6 +57,49 @@ class Elasticsearch2Mapping(ElasticsearchMapping):
         elif isinstance(field, RelatedFields):
             return prefix + field.field_name
 
+    def get_content_type(self):
+        """
+        Returns the content type as a string for the model.
+
+        For example: "wagtailcore.Page"
+                     "myapp.MyModel"
+        """
+        return self.model._meta.app_label + '.' + self.model.__name__
+
+    def get_all_content_types(self):
+        """
+        Returns all the content type strings that apply to this model.
+        This includes the models' content type and all concrete ancestor
+        models that inherit from Indexed.
+
+        For example: ["myapp.MyPageModel", "wagtailcore.Page"]
+                     ["myapp.MyModel"]
+        """
+        # Add our content type
+        content_types = [self.get_content_type()]
+
+        # Add all ancestor classes content types as well
+        ancestor = self.get_parent()
+        while ancestor:
+            content_types.append(ancestor.get_content_type())
+            ancestor = ancestor.get_parent()
+
+        return content_types
+
+    def get_document(self, obj):
+        # In the Elasticsearch 2 backend, we use a more efficient way to
+        # represent the content type of a document.
+
+        # Instead of using a long string of model names that is queried using a
+        # "prefix" query, we instead use a multi-value string field and query it
+        # using a simple "match" query.
+
+        # The only reason why this isn't implemented in the Elasticsearch 1.x
+        # backend yet is backwards compatibility
+        doc = super(Elasticsearch2Mapping, self).get_document(obj)
+        doc['content_type'] = self.get_all_content_types()
+        return doc
+
 
 class Elasticsearch2Index(ElasticsearchIndex):
     pass
@@ -64,6 +107,17 @@ class Elasticsearch2Index(ElasticsearchIndex):
 
 class Elasticsearch2SearchQuery(ElasticsearchSearchQuery):
     mapping_class = Elasticsearch2Mapping
+
+    def get_content_type_filter(self):
+        # Query content_type using a "match" query. See comment in
+        # Elasticsearch2Mapping.get_document for more details
+        content_type = self.mapping_class(self.queryset.model).get_content_type()
+
+        return {
+            'match': {
+                'content_type': content_type
+            }
+        }
 
 
 class Elasticsearch2SearchResults(ElasticsearchSearchResults):

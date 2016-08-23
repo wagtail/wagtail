@@ -12,7 +12,8 @@ from elasticsearch.helpers import bulk
 from wagtail.utils.deprecation import RemovedInWagtail18Warning
 from wagtail.wagtailsearch.backends.base import (
     BaseSearchBackend, BaseSearchQuery, BaseSearchResults)
-from wagtail.wagtailsearch.index import FilterField, RelatedFields, SearchField, class_is_indexed
+from wagtail.wagtailsearch.index import (
+    FilterField, Indexed, RelatedFields, SearchField, class_is_indexed)
 
 
 class ElasticsearchMapping(object):
@@ -51,6 +52,11 @@ class ElasticsearchMapping(object):
 
     def __init__(self, model):
         self.model = model
+
+    def get_parent(self):
+        for base in self.model.__bases__:
+            if issubclass(base, Indexed) and issubclass(base, models.Model):
+                return type(self)(base)
 
     def get_document_type(self):
         return self.model.indexed_get_content_type()
@@ -313,15 +319,18 @@ class ElasticsearchSearchQuery(BaseSearchQuery):
 
         return query
 
+    def get_content_type_filter(self):
+        return {
+            'prefix': {
+                'content_type': self.queryset.model.indexed_get_content_type()
+            }
+        }
+
     def get_filters(self):
         filters = []
 
         # Filter by content type
-        filters.append({
-            'prefix': {
-                'content_type': self.queryset.model.indexed_get_content_type()
-            }
-        })
+        filters.append(self.get_content_type_filter())
 
         # Apply filters from queryset
         queryset_filters = self._get_filters_from_queryset()
