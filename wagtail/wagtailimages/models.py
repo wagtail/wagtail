@@ -25,6 +25,7 @@ from taggit.managers import TaggableManager
 from unidecode import unidecode
 from willow.image import Image as WillowImage
 
+from wagtail.utils.deprecation import RemovedInWagtail19Warning
 from wagtail.wagtailadmin.utils import get_object_usage
 from wagtail.wagtailcore import hooks
 from wagtail.wagtailcore.models import CollectionMember
@@ -421,7 +422,7 @@ class Filter(models.Model):
                     accepts_env = False
                     warnings.warn("ImageOperation run methods should take 4 "
                                   "arguments. %d.run only takes 3.",
-                                  RemovedInWagtail17Warning)
+                                  RemovedInWagtail19Warning)
 
                 # Call operation
                 if accepts_env:
