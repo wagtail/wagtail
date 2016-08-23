@@ -8,7 +8,6 @@ from django.contrib.auth import get_user_model
 from django.contrib.auth.models import AnonymousUser
 from django.contrib.contenttypes.models import ContentType
 from django.core.exceptions import ValidationError
-from django.core.urlresolvers import reverse
 from django.http import Http404, HttpRequest
 from django.test import Client, TestCase
 from django.test.client import RequestFactory
@@ -1055,36 +1054,6 @@ class TestIssue1216(TestCase):
         new_christmas_event = EventPage.objects.get(id=christmas_event.id)
         expected_url_path = "/home/%s/%s/" % (new_event_index_slug, new_christmas_slug)
         self.assertEqual(new_christmas_event.url_path, expected_url_path)
-
-
-class TestIssue2892(TestCase, WagtailTestUtils):
-    """
-    Issue 756 reports that page can be created using a direct url,
-    even if can_create_at returns False.
-    """
-
-    fixtures = ['test.json']
-
-    def test_singleton_page_creation(self):
-        self.login()
-
-        root_page = Page.objects.get(url_path='/home/')
-        add_url = reverse('wagtailadmin_pages:add', args=[
-            SingletonPage._meta.app_label, SingletonPage._meta.model_name, root_page.pk])
-
-        # A single singleton page should be creatable
-        self.assertTrue(SingletonPage.can_create_at(root_page))
-        response = self.client.get(add_url)
-        self.assertEqual(response.status_code, 200)
-
-        # Create a singleton page
-        root_page.add_child(instance=SingletonPage(
-            title='singleton', slug='singleton'))
-
-        # A second singleton page should not be creatable
-        self.assertFalse(SingletonPage.can_create_at(root_page))
-        response = self.client.get(add_url)
-        self.assertEqual(response.status_code, 403)
 
 
 class TestIsCreatable(TestCase):

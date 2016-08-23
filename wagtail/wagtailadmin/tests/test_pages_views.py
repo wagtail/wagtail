@@ -19,10 +19,9 @@ from django.utils import formats, timezone
 from django.utils.dateparse import parse_date
 
 from wagtail.tests.testapp.models import (
-    EVENT_AUDIENCE_CHOICES,
-    Advert, AdvertPlacement, BusinessChild, BusinessIndex, BusinessSubIndex, EventPage,
-    EventPageCarouselItem, FilePage, SimplePage, SingleEventPage, StandardChild, StandardIndex,
-    TaggedPage)
+    EVENT_AUDIENCE_CHOICES, Advert, AdvertPlacement, BusinessChild, BusinessIndex, BusinessSubIndex,
+    EventPage, EventPageCarouselItem, FilePage, SimplePage, SingleEventPage, SingletonPage,
+    StandardChild, StandardIndex, TaggedPage)
 from wagtail.tests.utils import WagtailTestUtils
 from wagtail.wagtailcore.models import GroupPagePermission, Page, PageRevision, Site
 from wagtail.wagtailcore.signals import page_published, page_unpublished
@@ -460,6 +459,32 @@ class TestPageCreation(TestCase, WagtailTestUtils):
         response = self.client.get(
             reverse('wagtailadmin_pages:add', args=('tests', 'mtibasepage', self.root_page.id))
         )
+        self.assertEqual(response.status_code, 403)
+
+    def test_cannot_create_page_when_can_create_at_returns_false(self):
+        # issue #2892
+
+        # Check that creating a second SingletonPage results in a permission
+        # denied error.
+
+        # SingletonPage overrides the can_create_at method to make it return
+        # False if another SingletonPage already exists.
+
+        add_url = reverse('wagtailadmin_pages:add', args=[
+            SingletonPage._meta.app_label, SingletonPage._meta.model_name, self.root_page.pk])
+
+        # A single singleton page should be creatable
+        self.assertTrue(SingletonPage.can_create_at(self.root_page))
+        response = self.client.get(add_url)
+        self.assertEqual(response.status_code, 200)
+
+        # Create a singleton page
+        self.root_page.add_child(instance=SingletonPage(
+            title='singleton', slug='singleton'))
+
+        # A second singleton page should not be creatable
+        self.assertFalse(SingletonPage.can_create_at(self.root_page))
+        response = self.client.get(add_url)
         self.assertEqual(response.status_code, 403)
 
     def test_cannot_create_page_with_wrong_parent_page_types(self):
