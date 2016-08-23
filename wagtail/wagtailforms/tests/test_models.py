@@ -5,12 +5,13 @@ import json
 
 from django.core import mail
 from django.test import TestCase
-from wagtail.tests.testapp.models import FormField, JadeFormPage
+from wagtail.tests.testapp.models import FormField, JadeFormPage, CustomFormPageSubmission
+from wagtail.tests.utils import WagtailTestUtils
 
 from wagtail.wagtailcore.models import Page
 from wagtail.wagtailforms.models import FormSubmission
 
-from wagtail.wagtailforms.tests.utils import make_form_page
+from wagtail.wagtailforms.tests.utils import make_form_page, make_form_page_with_custom_submission
 
 
 class TestFormSubmission(TestCase):
@@ -115,6 +116,113 @@ class TestFormSubmission(TestCase):
         self.assertContains(response, "Thank you for your feedback.")
         self.assertTemplateNotUsed(response, 'tests/form_page.html')
         self.assertTemplateUsed(response, 'tests/form_page_landing.html')
+
+        # Check that the checkbox was serialised in the email correctly
+        self.assertEqual(len(mail.outbox), 1)
+        self.assertIn("Your choices: None", mail.outbox[0].body)
+
+
+class TestFormWithCustomSubmission(TestCase, WagtailTestUtils):
+    def setUp(self):
+        # Create a form page
+        self.form_page = make_form_page_with_custom_submission(**{
+            'intro': '<p>Boring intro text</p>',
+            'thank_you_text': '<p>Thank you for your patience!</p>',
+        })
+
+        self.user = self.login()
+
+    def test_get_form(self):
+        response = self.client.get('/contact-us/')
+
+        # Check response
+        self.assertContains(response, """<label for="id_your-email">Your email</label>""")
+        self.assertTemplateUsed(response, 'tests/form_page_with_custom_submission.html')
+        self.assertTemplateNotUsed(response, 'tests/form_page_with_custom_submission_landing.html')
+
+    def test_post_invalid_form(self):
+        response = self.client.post('/contact-us/', {
+            'your-email': 'bob',
+            'your-message': 'hello world',
+            'your-choices': ''
+        })
+
+        # Check response
+        self.assertContains(response, "Enter a valid email address.")
+        self.assertTemplateUsed(response, 'tests/form_page_with_custom_submission.html')
+        self.assertTemplateNotUsed(response, 'tests/form_page_with_custom_submission_landing.html')
+
+    def test_post_valid_form(self):
+        response = self.client.post('/contact-us/', {
+            'your-email': 'bob@example.com',
+            'your-message': 'hello world',
+            'your-choices': {'foo': '', 'bar': '', 'baz': ''}
+        })
+
+        # Check response
+        self.assertContains(response, "Thank you for your patience!")
+        self.assertTemplateNotUsed(response, 'tests/form_page_with_custom_submission.html')
+        self.assertTemplateUsed(response, 'tests/form_page_with_custom_submission_landing.html')
+
+        # Check that an email was sent
+        self.assertEqual(len(mail.outbox), 1)
+        self.assertEqual(mail.outbox[0].subject, "The subject")
+        self.assertIn("Your message: hello world", mail.outbox[0].body)
+        self.assertEqual(mail.outbox[0].to, ['to@email.com'])
+        self.assertEqual(mail.outbox[0].from_email, 'from@email.com')
+
+        # Check that form submission was saved correctly
+        form_page = Page.objects.get(url_path='/home/contact-us/')
+        self.assertTrue(CustomFormPageSubmission.objects.filter(page=form_page, form_data__contains='hello world').exists())
+
+    def test_post_unicode_characters(self):
+        self.client.post('/contact-us/', {
+            'your-email': 'bob@example.com',
+            'your-message': 'こんにちは、世界',
+            'your-choices': {'foo': '', 'bar': '', 'baz': ''}
+        })
+
+        # Check the email
+        self.assertEqual(len(mail.outbox), 1)
+        self.assertIn("Your message: こんにちは、世界", mail.outbox[0].body)
+
+        # Check the form submission
+        submission = CustomFormPageSubmission.objects.get()
+        submission_data = json.loads(submission.form_data)
+        self.assertEqual(submission_data['your-message'], 'こんにちは、世界')
+
+    def test_post_multiple_values(self):
+        response = self.client.post('/contact-us/', {
+            'your-email': 'bob@example.com',
+            'your-message': 'hello world',
+            'your-choices': {'foo': 'on', 'bar': 'on', 'baz': 'on'}
+        })
+
+        # Check response
+        self.assertContains(response, "Thank you for your patience!")
+        self.assertTemplateNotUsed(response, 'tests/form_page_with_custom_submission.html')
+        self.assertTemplateUsed(response, 'tests/form_page_with_custom_submission_landing.html')
+
+        # Check that the three checkbox values were saved correctly
+        form_page = Page.objects.get(url_path='/home/contact-us/')
+        submission = CustomFormPageSubmission.objects.filter(
+            page=form_page, form_data__contains='hello world'
+        )
+        self.assertIn("foo", submission[0].form_data)
+        self.assertIn("bar", submission[0].form_data)
+        self.assertIn("baz", submission[0].form_data)
+
+    def test_post_blank_checkbox(self):
+        response = self.client.post('/contact-us/', {
+            'your-email': 'bob@example.com',
+            'your-message': 'hello world',
+            'your-choices': {},
+        })
+
+        # Check response
+        self.assertContains(response, "Thank you for your patience!")
+        self.assertTemplateNotUsed(response, 'tests/form_page_with_custom_submission.html')
+        self.assertTemplateUsed(response, 'tests/form_page_with_custom_submission_landing.html')
 
         # Check that the checkbox was serialised in the email correctly
         self.assertEqual(len(mail.outbox), 1)
