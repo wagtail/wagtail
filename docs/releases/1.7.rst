@@ -33,6 +33,7 @@ Bug fixes
  * Migrations for wagtailcore and project template are now reversible (Benjamin Bach)
  * The default image format label text ('Full width', 'Left-aligned', 'Right-aligned') is now localised (Mikalai Radchuk)
  * Text on the front-end 'password required' form is now marked for translation (Janneke Janssen)
+ * Fixed toggle behaviour of userbar on mobile (Robert Rollins)
 
 
 Upgrade considerations
