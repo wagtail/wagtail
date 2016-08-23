@@ -1,6 +1,13 @@
 Changelog
 =========
 
+
+1.6.1 (xx.xx.xxxx)
+~~~~~~~~~~~~~~~~~~
+
+ * Fix: Wagtail's middleware classes are now compatible with Django 1.10's new-style middleware (Karl Hobley)
+
+
 1.6 (15.08.2016)
 ~~~~~~~~~~~~~~~~
 
