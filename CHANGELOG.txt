@@ -13,6 +13,7 @@ Changelog
 ~~~~~~~~~~~~~~~~~~
 
  * Fix: Wagtail's middleware classes are now compatible with Django 1.10's new-style middleware (Karl Hobley)
+ * Fix: The `Pages.can_create_at` method is now checked in the create page view (Mikalai Radchuk)
 
 
 1.6 (15.08.2016)
