@@ -160,6 +160,15 @@ def base_url_setting():
     return getattr(settings, 'BASE_URL', None)
 
 
+@assignment_tag
+def allow_unicode_slugs():
+    if django.VERSION < (1, 9):
+        # Unicode slugs are unsupported on Django 1.8
+        return False
+    else:
+        return getattr(settings, 'WAGTAIL_ALLOW_UNICODE_SLUGS', True)
+
+
 class EscapeScriptNode(template.Node):
     TAG_NAME = 'escapescript'
 

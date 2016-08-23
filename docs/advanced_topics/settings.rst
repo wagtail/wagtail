@@ -307,6 +307,15 @@ Case-Insensitive Tags
 
 Tags are case-sensitive by default ('music' and 'Music' are treated as distinct tags). In many cases the reverse behaviour is preferable.
 
+Unicode Page Slugs
+------------------
+
+.. code-block:: python
+
+  WAGTAIL_ALLOW_UNICODE_SLUGS = True
+
+By default, page slugs can contain any alphanumeric characters, including non-Latin alphabets (except on Django 1.8, where only ASCII characters are supported). Set this to False to limit slugs to ASCII characters.
+
 Custom User Edit Forms
 ----------------------
 
