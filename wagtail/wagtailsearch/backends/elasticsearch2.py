@@ -32,6 +32,11 @@ def get_model_root(model):
 
 
 class Elasticsearch2Mapping(ElasticsearchMapping):
+    edgengram_analyzer_config = {
+        'analyzer': 'edgengram_analyzer',
+        'search_analyzer': 'standard',
+    }
+
     def get_field_column_name(self, field):
         # Fields in derived models get prefixed with their model name, fields
         # in the root model don't get prefixed at all

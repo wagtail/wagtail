@@ -42,6 +42,13 @@ class ElasticsearchMapping(object):
         'TimeField': 'date',
     }
 
+    # Contains the configuration required to use the edgengram_analyzer
+    # on a field. It's different in Elasticsearch 2 so it's been put in
+    # an attribute here to make it easier to override in a subclass.
+    edgengram_analyzer_config = {
+        'index_analyzer': 'edgengram_analyzer',
+    }
+
     def __init__(self, model):
         self.model = model
 
@@ -75,7 +82,7 @@ class ElasticsearchMapping(object):
                     mapping['boost'] = field.boost
 
                 if field.partial_match:
-                    mapping['index_analyzer'] = 'edgengram_analyzer'
+                    mapping.update(self.edgengram_analyzer_config)
 
                 mapping['include_in_all'] = True
 
@@ -94,8 +101,9 @@ class ElasticsearchMapping(object):
         fields = {
             'pk': dict(type='string', index='not_analyzed', store='yes', include_in_all=False),
             'content_type': dict(type='string', index='not_analyzed', include_in_all=False),
-            '_partials': dict(type='string', index_analyzer='edgengram_analyzer', include_in_all=False),
+            '_partials': dict(type='string', include_in_all=False),
         }
+        fields['_partials'].update(self.edgengram_analyzer_config)
 
         fields.update(dict(
             self.get_field_mapping(field) for field in self.model.get_search_fields()
