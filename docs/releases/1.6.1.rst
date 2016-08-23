@@ -1,0 +1,16 @@
+============================================
+Wagtail 1.6.1 release notes - IN DEVELOPMENT
+============================================
+
+.. contents::
+    :local:
+    :depth: 1
+
+
+What's new
+==========
+
+Bug fixes
+~~~~~~~~~
+
+* Fix: Wagtail's middleware classes are now compatible with Django 1.10's `new-style middleware <https://docs.djangoproject.com/en/1.10/releases/1.10/#new-style-middleware>`_ (Karl Hobley)
