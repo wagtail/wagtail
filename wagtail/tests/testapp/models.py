@@ -1,13 +1,18 @@
 from __future__ import absolute_import, unicode_literals
 
 import hashlib
+import json
 import os
 
+from django.conf import settings
 from django.contrib.contenttypes.fields import GenericForeignKey
 from django.contrib.contenttypes.models import ContentType
 from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
+from django.core.serializers.json import DjangoJSONEncoder
 from django.db import models
+from django.shortcuts import render
 from django.utils.encoding import python_2_unicode_compatible
+from django.utils.six import text_type
 from modelcluster.contrib.taggit import ClusterTaggableManager
 from modelcluster.fields import ParentalKey
 from modelcluster.models import ClusterableModel
@@ -19,11 +24,12 @@ from wagtail.wagtailadmin.edit_handlers import (
     FieldPanel, InlinePanel, MultiFieldPanel, ObjectList, PageChooserPanel, StreamFieldPanel,
     TabbedInterface)
 from wagtail.wagtailadmin.forms import WagtailAdminPageForm
+from wagtail.wagtailadmin.utils import send_mail
 from wagtail.wagtailcore.blocks import CharBlock, RichTextBlock
 from wagtail.wagtailcore.fields import RichTextField, StreamField
 from wagtail.wagtailcore.models import Orderable, Page, PageManager
 from wagtail.wagtaildocs.edit_handlers import DocumentChooserPanel
-from wagtail.wagtailforms.models import AbstractEmailForm, AbstractFormField
+from wagtail.wagtailforms.models import AbstractEmailForm, AbstractFormField, AbstractFormSubmission
 from wagtail.wagtailimages.blocks import ImageChooserBlock
 from wagtail.wagtailimages.edit_handlers import ImageChooserPanel
 from wagtail.wagtailimages.models import AbstractImage, Image
@@ -374,6 +380,90 @@ JadeFormPage.content_panels = [
         FieldPanel('subject', classname="full"),
     ], "Email")
 ]
+
+
+# FormPage with a custom FormSubmission
+
+class FormPageWithCustomSubmission(AbstractEmailForm):
+    """
+    This Form page:
+        * Have custom submission model
+        * Have custom related_name (see `FormFieldWithCustomSubmission.page`)
+        * Saves reference to a user
+        * Doesn't render html form, if submission for current user is present
+    """
+
+    intro = RichTextField(blank=True)
+    thank_you_text = RichTextField(blank=True)
+
+    def get_context(self, request, *args, **kwargs):
+        context = super(FormPageWithCustomSubmission, self).get_context(request)
+        context['greeting'] = "hello world"
+        return context
+
+    def get_form_fields(self):
+        return self.custom_form_fields.all()
+
+    def get_data_fields(self):
+        data_fields = [
+            ('username', 'Username'),
+        ]
+        data_fields += super(FormPageWithCustomSubmission, self).get_data_fields()
+
+        return data_fields
+
+    def get_submission_class(self):
+        return CustomFormPageSubmission
+
+    def process_form_submission(self, form):
+        self.get_submission_class().objects.create(
+            form_data=json.dumps(form.cleaned_data, cls=DjangoJSONEncoder),
+            page=self, user=form.user
+        )
+
+        if self.to_address:
+            addresses = [x.strip() for x in self.to_address.split(',')]
+            content = '\n'.join([x[1].label + ': ' + text_type(form.data.get(x[0])) for x in form.fields.items()])
+            send_mail(self.subject, content, addresses, self.from_address,)
+
+    def serve(self, request, *args, **kwargs):
+        if self.get_submission_class().objects.filter(page=self, user__pk=request.user.pk).exists():
+            return render(
+                request,
+                self.template,
+                self.get_context(request)
+            )
+
+        return super(FormPageWithCustomSubmission, self).serve(request, *args, **kwargs)
+
+
+FormPageWithCustomSubmission.content_panels = [
+    FieldPanel('title', classname="full title"),
+    FieldPanel('intro', classname="full"),
+    InlinePanel('custom_form_fields', label="Form fields"),
+    FieldPanel('thank_you_text', classname="full"),
+    MultiFieldPanel([
+        FieldPanel('to_address', classname="full"),
+        FieldPanel('from_address', classname="full"),
+        FieldPanel('subject', classname="full"),
+    ], "Email")
+]
+
+
+class FormFieldWithCustomSubmission(AbstractFormField):
+    page = ParentalKey(FormPageWithCustomSubmission, related_name='custom_form_fields')
+
+
+class CustomFormPageSubmission(AbstractFormSubmission):
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+
+    def get_data(self):
+        form_data = super(CustomFormPageSubmission, self).get_data()
+        form_data.update({
+            'username': self.user.username,
+        })
+
+        return form_data
 
 
 # Snippets
