@@ -499,7 +499,7 @@ class TestJPEGQualityFilter(TestCase):
 
         f = BytesIO()
         with patch('PIL.Image.Image.save') as save:
-            out = fil.run(image, f)
+            fil.run(image, f)
 
         save.assert_called_with(f, 'JPEG', quality=85)
 
@@ -512,7 +512,7 @@ class TestJPEGQualityFilter(TestCase):
 
         f = BytesIO()
         with patch('PIL.Image.Image.save') as save:
-            out = fil.run(image, f)
+            fil.run(image, f)
 
         save.assert_called_with(f, 'JPEG', quality=40)
 
@@ -552,7 +552,7 @@ class TestJPEGQualityFilter(TestCase):
 
         f = BytesIO()
         with patch('PIL.Image.Image.save') as save:
-            out = fil.run(image, f)
+            fil.run(image, f)
 
         save.assert_called_with(f, 'JPEG', quality=50)
 
@@ -568,6 +568,6 @@ class TestJPEGQualityFilter(TestCase):
 
         f = BytesIO()
         with patch('PIL.Image.Image.save') as save:
-            out = fil.run(image, f)
+            fil.run(image, f)
 
         save.assert_called_with(f, 'JPEG', quality=40)
