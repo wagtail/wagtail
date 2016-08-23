@@ -259,10 +259,17 @@ function InlinePanel(opts) {
 }
 
 function cleanForSlug(val, useURLify) {
-    if (URLify != undefined && useURLify !== false) { // Check to be sure that URLify function exists, and that we want to use it.
-        return URLify(val, 255, true);
-    } else { // If not just do the "replace"
-        return val.replace(/\s/g, '-').replace(/[&\/\\#,+()$~%.'":`@\^!*?<>{}]/g, '').toLowerCase();
+    if (useURLify) {
+        // URLify performs extra processing on the string (e.g. removing stopwords) and is more suitable
+        // for creating a slug from the title, rather than sanitising a slug entered manually
+        return URLify(val, 255, unicodeSlugsEnabled);
+    } else {
+        // just do the "replace"
+        if (unicodeSlugsEnabled) {
+            return val.replace(/\s/g, '-').replace(/[&\/\\#,+()$~%.'":`@\^!*?<>{}]/g, '').toLowerCase();
+        } else {
+            return val.replace(/\s/g, '-').replace(/[^A-Za-z0-9\-\_]/g, '').toLowerCase();
+        }
     }
 }
 
@@ -272,13 +279,13 @@ function initSlugAutoPopulate() {
     $('#id_title').on('focus', function() {
         /* slug should only follow the title field if its value matched the title's value at the time of focus */
         var currentSlug = $('#id_slug').val();
-        var slugifiedTitle = cleanForSlug(this.value);
+        var slugifiedTitle = cleanForSlug(this.value, true);
         slugFollowsTitle = (currentSlug == slugifiedTitle);
     });
 
     $('#id_title').on('keyup keydown keypress blur', function() {
         if (slugFollowsTitle) {
-            var slugifiedTitle = cleanForSlug(this.value);
+            var slugifiedTitle = cleanForSlug(this.value, true);
             $('#id_slug').val(slugifiedTitle);
         }
     });
