@@ -3,55 +3,16 @@ from __future__ import absolute_import, unicode_literals
 
 import json
 
-from django import forms
-from django.core import mail
-from django.core.urlresolvers import reverse
 from django.test import TestCase
-
-from wagtail.tests.testapp.models import FormField, FormPage, JadeFormPage
+from django.core.urlresolvers import reverse
+from wagtail.tests.testapp.models import FormPage, FormField
 from wagtail.tests.utils import WagtailTestUtils
 from wagtail.wagtailadmin.edit_handlers import get_form_for_model
 from wagtail.wagtailadmin.forms import WagtailAdminPageForm
 from wagtail.wagtailcore.models import Page
 from wagtail.wagtailforms.edit_handlers import FormSubmissionsPanel
-from wagtail.wagtailforms.forms import FormBuilder
 from wagtail.wagtailforms.models import FormSubmission
-
-
-def make_form_page(**kwargs):
-    kwargs.setdefault('title', "Contact us")
-    kwargs.setdefault('slug', "contact-us")
-    kwargs.setdefault('to_address', "to@email.com")
-    kwargs.setdefault('from_address', "from@email.com")
-    kwargs.setdefault('subject', "The subject")
-
-    home_page = Page.objects.get(url_path='/home/')
-    form_page = home_page.add_child(instance=FormPage(**kwargs))
-
-    FormField.objects.create(
-        page=form_page,
-        sort_order=1,
-        label="Your email",
-        field_type='email',
-        required=True,
-    )
-    FormField.objects.create(
-        page=form_page,
-        sort_order=2,
-        label="Your message",
-        field_type='multiline',
-        required=True,
-    )
-    FormField.objects.create(
-        page=form_page,
-        sort_order=3,
-        label="Your choices",
-        field_type='checkboxes',
-        required=False,
-        choices='foo,bar,baz',
-    )
-
-    return form_page
+from wagtail.wagtailforms.tests.utils import make_form_page
 
 
 class TestFormResponsesPanel(TestCase):
@@ -86,284 +47,6 @@ class TestFormResponsesPanel(TestCase):
         result = self.panel.render()
 
         self.assertEqual('', result)
-
-
-class TestFormSubmission(TestCase):
-    def setUp(self):
-        # Create a form page
-        self.form_page = make_form_page()
-
-    def test_get_form(self):
-        response = self.client.get('/contact-us/')
-
-        # Check response
-        self.assertContains(response, """<label for="id_your-email">Your email</label>""")
-        self.assertTemplateUsed(response, 'tests/form_page.html')
-        self.assertTemplateNotUsed(response, 'tests/form_page_landing.html')
-
-        # check that variables defined in get_context are passed through to the template (#1429)
-        self.assertContains(response, "<p>hello world</p>")
-
-    def test_post_invalid_form(self):
-        response = self.client.post('/contact-us/', {
-            'your-email': 'bob',
-            'your-message': 'hello world',
-            'your-choices': ''
-        })
-
-        # Check response
-        self.assertContains(response, "Enter a valid email address.")
-        self.assertTemplateUsed(response, 'tests/form_page.html')
-        self.assertTemplateNotUsed(response, 'tests/form_page_landing.html')
-
-    def test_post_valid_form(self):
-        response = self.client.post('/contact-us/', {
-            'your-email': 'bob@example.com',
-            'your-message': 'hello world',
-            'your-choices': {'foo': '', 'bar': '', 'baz': ''}
-        })
-
-        # Check response
-        self.assertContains(response, "Thank you for your feedback.")
-        self.assertTemplateNotUsed(response, 'tests/form_page.html')
-        self.assertTemplateUsed(response, 'tests/form_page_landing.html')
-
-        # check that variables defined in get_context are passed through to the template (#1429)
-        self.assertContains(response, "<p>hello world</p>")
-
-        # Check that an email was sent
-        self.assertEqual(len(mail.outbox), 1)
-        self.assertEqual(mail.outbox[0].subject, "The subject")
-        self.assertIn("Your message: hello world", mail.outbox[0].body)
-        self.assertEqual(mail.outbox[0].to, ['to@email.com'])
-        self.assertEqual(mail.outbox[0].from_email, 'from@email.com')
-
-        # Check that form submission was saved correctly
-        form_page = Page.objects.get(url_path='/home/contact-us/')
-        self.assertTrue(FormSubmission.objects.filter(page=form_page, form_data__contains='hello world').exists())
-
-    def test_post_unicode_characters(self):
-        self.client.post('/contact-us/', {
-            'your-email': 'bob@example.com',
-            'your-message': 'こんにちは、世界',
-            'your-choices': {'foo': '', 'bar': '', 'baz': ''}
-        })
-
-        # Check the email
-        self.assertEqual(len(mail.outbox), 1)
-        self.assertIn("Your message: こんにちは、世界", mail.outbox[0].body)
-
-        # Check the form submission
-        submission = FormSubmission.objects.get()
-        submission_data = json.loads(submission.form_data)
-        self.assertEqual(submission_data['your-message'], 'こんにちは、世界')
-
-    def test_post_multiple_values(self):
-        response = self.client.post('/contact-us/', {
-            'your-email': 'bob@example.com',
-            'your-message': 'hello world',
-            'your-choices': {'foo': 'on', 'bar': 'on', 'baz': 'on'}
-        })
-
-        # Check response
-        self.assertContains(response, "Thank you for your feedback.")
-        self.assertTemplateNotUsed(response, 'tests/form_page.html')
-        self.assertTemplateUsed(response, 'tests/form_page_landing.html')
-
-        # Check that the three checkbox values were saved correctly
-        form_page = Page.objects.get(url_path='/home/contact-us/')
-        submission = FormSubmission.objects.filter(
-            page=form_page, form_data__contains='hello world'
-        )
-        self.assertIn("foo", submission[0].form_data)
-        self.assertIn("bar", submission[0].form_data)
-        self.assertIn("baz", submission[0].form_data)
-
-    def test_post_blank_checkbox(self):
-        response = self.client.post('/contact-us/', {
-            'your-email': 'bob@example.com',
-            'your-message': 'hello world',
-            'your-choices': {},
-        })
-
-        # Check response
-        self.assertContains(response, "Thank you for your feedback.")
-        self.assertTemplateNotUsed(response, 'tests/form_page.html')
-        self.assertTemplateUsed(response, 'tests/form_page_landing.html')
-
-        # Check that the checkbox was serialised in the email correctly
-        self.assertEqual(len(mail.outbox), 1)
-        self.assertIn("Your choices: None", mail.outbox[0].body)
-
-
-class TestFormSubmissionWithMultipleRecipients(TestCase):
-    def setUp(self):
-        # Create a form page
-        self.form_page = make_form_page(to_address='to@email.com, another@email.com')
-
-    def test_post_valid_form(self):
-        response = self.client.post('/contact-us/', {
-            'your-email': 'bob@example.com',
-            'your-message': 'hello world',
-            'your-choices': {'foo': '', 'bar': '', 'baz': ''}
-        })
-
-        # Check response
-        self.assertContains(response, "Thank you for your feedback.")
-        self.assertTemplateNotUsed(response, 'tests/form_page.html')
-        self.assertTemplateUsed(response, 'tests/form_page_landing.html')
-
-        # check that variables defined in get_context are passed through to the template (#1429)
-        self.assertContains(response, "<p>hello world</p>")
-
-        # Check that one email was sent, but to two recipients
-        self.assertEqual(len(mail.outbox), 1)
-
-        self.assertEqual(mail.outbox[0].subject, "The subject")
-        self.assertIn("Your message: hello world", mail.outbox[0].body)
-        self.assertEqual(mail.outbox[0].from_email, 'from@email.com')
-        self.assertEqual(set(mail.outbox[0].to), {'to@email.com', 'another@email.com'})
-
-        # Check that form submission was saved correctly
-        form_page = Page.objects.get(url_path='/home/contact-us/')
-        self.assertTrue(FormSubmission.objects.filter(page=form_page, form_data__contains='hello world').exists())
-
-
-class TestFormBuilder(TestCase):
-    def setUp(self):
-        # Create a form page
-        home_page = Page.objects.get(url_path='/home/')
-
-        self.form_page = home_page.add_child(instance=FormPage(
-            title="Contact us",
-            slug="contact-us",
-            to_address="to@email.com",
-            from_address="from@email.com",
-            subject="The subject",
-        ))
-
-        FormField.objects.create(
-            page=self.form_page,
-            sort_order=1,
-            label="Your name",
-            field_type='singleline',
-            required=True,
-        )
-        FormField.objects.create(
-            page=self.form_page,
-            sort_order=2,
-            label="Your message",
-            field_type='multiline',
-            required=True,
-        )
-        FormField.objects.create(
-            page=self.form_page,
-            sort_order=2,
-            label="Your birthday",
-            field_type='date',
-            required=True,
-        )
-        FormField.objects.create(
-            page=self.form_page,
-            sort_order=2,
-            label="Your birthtime :)",
-            field_type='datetime',
-            required=True,
-        )
-        FormField.objects.create(
-            page=self.form_page,
-            sort_order=1,
-            label="Your email",
-            field_type='email',
-            required=True,
-        )
-        FormField.objects.create(
-            page=self.form_page,
-            sort_order=2,
-            label="Your homepage",
-            field_type='url',
-            required=True,
-        )
-        FormField.objects.create(
-            page=self.form_page,
-            sort_order=2,
-            label="Your favourite number",
-            field_type='number',
-            required=True,
-        )
-        FormField.objects.create(
-            page=self.form_page,
-            sort_order=2,
-            label="Your favourite Python IDEs",
-            field_type='dropdown',
-            required=True,
-            choices='PyCharm,vim,nano',
-        )
-        FormField.objects.create(
-            page=self.form_page,
-            sort_order=2,
-            label="Your favourite Python IDE",
-            help_text="Choose one",
-            field_type='radio',
-            required=True,
-            choices='PyCharm,vim,nano',
-        )
-        FormField.objects.create(
-            page=self.form_page,
-            sort_order=3,
-            label="Your choices",
-            field_type='checkboxes',
-            required=False,
-            choices='foo,bar,baz',
-        )
-        FormField.objects.create(
-            page=self.form_page,
-            sort_order=3,
-            label="I agree to the Terms of Use",
-            field_type='checkbox',
-            required=True,
-        )
-
-        # Create a form builder
-        self.fb = FormBuilder(self.form_page.get_form_fields())
-
-    def test_fields(self):
-        """
-        This tests that all fields were added to the form with the correct types
-        """
-        form_class = self.fb.get_form_class()
-
-        # All fields are present in form
-        field_names = form_class.base_fields.keys()
-        self.assertIn('your-name', field_names)
-        self.assertIn('your-message', field_names)
-        self.assertIn('your-birthday', field_names)
-        self.assertIn('your-birthtime', field_names)
-        self.assertIn('your-email', field_names)
-        self.assertIn('your-homepage', field_names)
-        self.assertIn('your-favourite-number', field_names)
-        self.assertIn('your-favourite-python-ides', field_names)
-        self.assertIn('your-favourite-python-ide', field_names)
-        self.assertIn('your-choices', field_names)
-        self.assertIn('i-agree-to-the-terms-of-use', field_names)
-
-        # All fields have proper type
-        self.assertIsInstance(form_class.base_fields['your-name'], forms.CharField)
-        self.assertIsInstance(form_class.base_fields['your-message'], forms.CharField)
-        self.assertIsInstance(form_class.base_fields['your-birthday'], forms.DateField)
-        self.assertIsInstance(form_class.base_fields['your-birthtime'], forms.DateTimeField)
-        self.assertIsInstance(form_class.base_fields['your-email'], forms.EmailField)
-        self.assertIsInstance(form_class.base_fields['your-homepage'], forms.URLField)
-        self.assertIsInstance(form_class.base_fields['your-favourite-number'], forms.DecimalField)
-        self.assertIsInstance(form_class.base_fields['your-favourite-python-ides'], forms.ChoiceField)
-        self.assertIsInstance(form_class.base_fields['your-favourite-python-ide'], forms.ChoiceField)
-        self.assertIsInstance(form_class.base_fields['your-choices'], forms.MultipleChoiceField)
-        self.assertIsInstance(form_class.base_fields['i-agree-to-the-terms-of-use'], forms.BooleanField)
-
-        # Some fields have non-default widgets
-        self.assertIsInstance(form_class.base_fields['your-message'].widget, forms.Textarea)
-        self.assertIsInstance(form_class.base_fields['your-favourite-python-ide'].widget, forms.RadioSelect)
-        self.assertIsInstance(form_class.base_fields['your-choices'].widget, forms.CheckboxSelectMultiple)
 
 
 class TestFormsIndex(TestCase):
@@ -450,6 +133,7 @@ class TestFormsIndex(TestCase):
         self.assertIn(self.form_page, response.context['form_pages'])
 
 
+# TODO: Rename to TestFormsSubmissionsList
 class TestFormsSubmissions(TestCase, WagtailTestUtils):
     def setUp(self):
         # Create a form page
@@ -677,6 +361,9 @@ class TestFormsSubmissions(TestCase, WagtailTestUtils):
         self.assertIn('vim', data_lines[1])
 
 
+# TODO: add TestCustomFormsSubmissionsList
+
+
 class TestDeleteFormSubmission(TestCase):
     fixtures = ['test.json']
 
@@ -721,33 +408,7 @@ class TestDeleteFormSubmission(TestCase):
         self.assertEqual(FormSubmission.objects.count(), 2)
 
 
-class TestIssue798(TestCase):
-    fixtures = ['test.json']
-
-    def setUp(self):
-        self.assertTrue(self.client.login(username='siteeditor', password='password'))
-        self.form_page = Page.objects.get(url_path='/home/contact-us/').specific
-
-        # Add a number field to the page
-        FormField.objects.create(
-            page=self.form_page,
-            label="Your favourite number",
-            field_type='number',
-        )
-
-    def test_post(self):
-        response = self.client.post('/contact-us/', {
-            'your-email': 'bob@example.com',
-            'your-message': 'hello world',
-            'your-choices': {'foo': '', 'bar': '', 'baz': ''},
-            'your-favourite-number': '7.3',
-        })
-
-        # Check response
-        self.assertTemplateUsed(response, 'tests/form_page_landing.html')
-
-        # Check that form submission was saved correctly
-        self.assertTrue(FormSubmission.objects.filter(page=self.form_page, form_data__contains='7.3').exists())
+# TODO: add TestDeleteCustomFormSubmission
 
 
 class TestIssue585(TestCase):
@@ -788,11 +449,3 @@ class TestIssue585(TestCase):
             response,
             text="There is another field with the label foo, please change one of them.",
         )
-
-
-class TestNonHtmlExtension(TestCase):
-    fixtures = ['test.json']
-
-    def test_non_html_extension(self):
-        form_page = JadeFormPage(title="test")
-        self.assertEqual(form_page.landing_page_template, "tests/form_page_landing.jade")
