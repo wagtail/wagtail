@@ -3,6 +3,7 @@ from __future__ import absolute_import, unicode_literals
 
 import base64
 import collections
+import json
 import unittest
 import warnings
 from decimal import Decimal
@@ -14,6 +15,7 @@ from django.template.loader import render_to_string
 from django.test import SimpleTestCase, TestCase
 from django.utils.html import format_html
 from django.utils.safestring import SafeData, mark_safe
+from django.utils.translation import ugettext_lazy as _
 
 from wagtail.tests.testapp.blocks import LinkBlock as CustomLinkBlock
 from wagtail.tests.testapp.blocks import SectionBlock
@@ -607,6 +609,34 @@ class TestChoiceBlock(unittest.TestCase):
             ('two', 'Two'),
         ])
         self.assertEqual(block.get_searchable_content('three'), [])
+
+    def test_searchable_content_with_lazy_translation(self):
+        block = blocks.ChoiceBlock(choices=[
+            ('choice-1', _("Choice 1")),
+            ('choice-2', _("Choice 2")),
+        ])
+        result = block.get_searchable_content("choice-1")
+        # result must survive JSON (de)serialisation, which is not the case for
+        # lazy translation objects
+        result = json.loads(json.dumps(result))
+        self.assertEqual(result, ["Choice 1"])
+
+    def test_optgroup_searchable_content_with_lazy_translation(self):
+        block = blocks.ChoiceBlock(choices=[
+            (_('Section 1'), [
+                ('1-1', _("Block 1")),
+                ('1-2', _("Block 2")),
+            ]),
+            (_('Section 2'), [
+                ('2-1', _("Block 1")),
+                ('2-2', _("Block 2")),
+            ]),
+        ])
+        result = block.get_searchable_content("2-2")
+        # result must survive JSON (de)serialisation, which is not the case for
+        # lazy translation objects
+        result = json.loads(json.dumps(result))
+        self.assertEqual(result, ["Section 2", "Block 2"])
 
 
 class TestRawHTMLBlock(unittest.TestCase):
