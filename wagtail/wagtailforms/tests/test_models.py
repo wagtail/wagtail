@@ -136,6 +136,23 @@ class TestFormWithCustomSubmission(TestCase, WagtailTestUtils):
         self.assertContains(response, """<label for="id_your-email">Your email</label>""")
         self.assertTemplateUsed(response, 'tests/form_page_with_custom_submission.html')
         self.assertTemplateNotUsed(response, 'tests/form_page_with_custom_submission_landing.html')
+        self.assertNotContains(response, '<div>You must log in first.</div>', html=True)
+        self.assertContains(response, '<p>Boring intro text</p>', html=True)
+
+        # check that variables defined in get_context are passed through to the template (#1429)
+        self.assertContains(response, "<p>hello world</p>")
+
+    def test_get_form_with_anonymous_user(self):
+        self.client.logout()
+
+        response = self.client.get('/contact-us/')
+
+        # Check response
+        self.assertNotContains(response, """<label for="id_your-email">Your email</label>""")
+        self.assertTemplateUsed(response, 'tests/form_page_with_custom_submission.html')
+        self.assertTemplateNotUsed(response, 'tests/form_page_with_custom_submission_landing.html')
+        self.assertContains(response, '<div>You must log in first.</div>', html=True)
+        self.assertNotContains(response, '<p>Boring intro text</p>', html=True)
 
         # check that variables defined in get_context are passed through to the template (#1429)
         self.assertContains(response, "<p>hello world</p>")
@@ -177,6 +194,46 @@ class TestFormWithCustomSubmission(TestCase, WagtailTestUtils):
         # Check that form submission was saved correctly
         form_page = Page.objects.get(url_path='/home/contact-us/')
         self.assertTrue(CustomFormPageSubmission.objects.filter(page=form_page, form_data__contains='hello world').exists())
+
+    def test_post_form_twice(self):
+        # First submission
+        response = self.client.post('/contact-us/', {
+            'your-email': 'bob@example.com',
+            'your-message': 'hello world',
+            'your-choices': {'foo': '', 'bar': '', 'baz': ''}
+        })
+
+        # Check response
+        self.assertTemplateNotUsed(response, 'tests/form_page_with_custom_submission.html')
+        self.assertTemplateUsed(response, 'tests/form_page_with_custom_submission_landing.html')
+        self.assertContains(response, '<p>Thank you for your patience!</p>', html=True)
+        self.assertNotContains(response, '<div>The form is already filled.</div>', html=True)
+
+        # Check that first form submission was saved correctly
+        submissions_qs = CustomFormPageSubmission.objects.filter(user=self.user, page=self.form_page)
+        self.assertEqual(submissions_qs.count(), 1)
+        self.assertTrue(submissions_qs.filter(form_data__contains='hello world').exists())
+
+        # Second submission
+        response = self.client.post('/contact-us/', {
+            'your-email': 'bob@example.com',
+            'your-message': 'hello world',
+            'your-choices': {'foo': '', 'bar': '', 'baz': ''}
+        })
+
+        # Check response
+        self.assertTemplateUsed(response, 'tests/form_page_with_custom_submission.html')
+        self.assertTemplateNotUsed(response, 'tests/form_page_with_custom_submission_landing.html')
+        self.assertNotContains(response, '<p>Thank you for your patience!</p>', html=True)
+        self.assertContains(response, '<div>The form is already filled.</div>', html=True)
+        self.assertNotContains(response, '<div>You must log in first.</div>', html=True)
+        self.assertNotContains(response, '<p>Boring intro text</p>', html=True)
+
+        # Check that first submission exists and second submission wasn't saved
+        submissions_qs = CustomFormPageSubmission.objects.filter(user=self.user, page=self.form_page)
+        self.assertEqual(submissions_qs.count(), 1)
+        self.assertTrue(submissions_qs.filter(form_data__contains='hello world').exists())
+        self.assertFalse(submissions_qs.filter(form_data__contains='hello cruel world').exists())
 
     def test_post_unicode_characters(self):
         self.client.post('/contact-us/', {
