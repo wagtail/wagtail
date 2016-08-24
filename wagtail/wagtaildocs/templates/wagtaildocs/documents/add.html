@@ -1,5 +1,5 @@
 {% extends "wagtailadmin/base.html" %}
-{% load i18n wagtailadmin_tags %}
+{% load i18n %}
 {% load wagtailimages_tags %}
 {% block titletag %}{% trans "Add a document" %}{% endblock %}
 
@@ -21,7 +21,7 @@
     {% include "wagtailadmin/shared/header.html" with title=add_str icon="doc-full-inverse" %}
 
     <div class="nice-padding">
-        <form action="{% url 'wagtaildocs:add' %}" method="POST" enctype="multipart/form-data" {% novalidate_on_django_1_10 %}>
+        <form action="{% url 'wagtaildocs:add' %}" method="POST" enctype="multipart/form-data">
             {% csrf_token %}
             <ul class="fields">
                 {% for field in form %}

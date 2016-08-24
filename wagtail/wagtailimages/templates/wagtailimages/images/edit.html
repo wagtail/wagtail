@@ -1,5 +1,5 @@
 {% extends "wagtailadmin/base.html" %}
-{% load wagtailimages_tags wagtailadmin_tags staticfiles i18n %}
+{% load wagtailimages_tags staticfiles i18n %}
 {% block titletag %}{% blocktrans with title=image.title %}Editing image {{ title }}{% endblocktrans %}{% endblock %}
 {% block extra_css %}
     {{ block.super }}
@@ -34,7 +34,7 @@
     <div class="row row-flush nice-padding">
 
         <div class="col5">
-            <form action="{% url 'wagtailimages:edit' image.id %}" method="POST" enctype="multipart/form-data" {% novalidate_on_django_1_10 %}>
+            <form action="{% url 'wagtailimages:edit' image.id %}" method="POST" enctype="multipart/form-data">
                 {% csrf_token %}
                 <ul class="fields">
                     {% for field in form %}
