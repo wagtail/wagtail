@@ -8,6 +8,7 @@ Changelog
  * Fix: Wagtail's middleware classes are now compatible with Django 1.10's new-style middleware (Karl Hobley)
  * Fix: The `Pages.can_create_at` method is now checked in the create page view (Mikalai Radchuk)
  * Fix: Fixed regression on Django 1.10.1 causing Page subclasses to fail to use PageManager (Matt Westcott)
+ * Fix: ChoiceBlocks with lazy translations as option labels no longer break Elasticsearch indexing (Matt Westcott)
 
 
 1.6 (15.08.2016)
