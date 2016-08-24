@@ -15,7 +15,9 @@ from django.template.loader import render_to_string
 from django.test import SimpleTestCase, TestCase
 from django.utils.html import format_html
 from django.utils.safestring import SafeData, mark_safe
-from django.utils.translation import ugettext_lazy as _
+
+# non-standard import name for ugettext_lazy, to prevent strings from being picked up for translation
+from django.utils.translation import ugettext_lazy as __
 
 from wagtail.tests.testapp.blocks import LinkBlock as CustomLinkBlock
 from wagtail.tests.testapp.blocks import SectionBlock
@@ -612,8 +614,8 @@ class TestChoiceBlock(unittest.TestCase):
 
     def test_searchable_content_with_lazy_translation(self):
         block = blocks.ChoiceBlock(choices=[
-            ('choice-1', _("Choice 1")),
-            ('choice-2', _("Choice 2")),
+            ('choice-1', __("Choice 1")),
+            ('choice-2', __("Choice 2")),
         ])
         result = block.get_searchable_content("choice-1")
         # result must survive JSON (de)serialisation, which is not the case for
@@ -623,13 +625,13 @@ class TestChoiceBlock(unittest.TestCase):
 
     def test_optgroup_searchable_content_with_lazy_translation(self):
         block = blocks.ChoiceBlock(choices=[
-            (_('Section 1'), [
-                ('1-1', _("Block 1")),
-                ('1-2', _("Block 2")),
+            (__('Section 1'), [
+                ('1-1', __("Block 1")),
+                ('1-2', __("Block 2")),
             ]),
-            (_('Section 2'), [
-                ('2-1', _("Block 1")),
-                ('2-2', _("Block 2")),
+            (__('Section 2'), [
+                ('2-1', __("Block 1")),
+                ('2-2', __("Block 2")),
             ]),
         ])
         result = block.get_searchable_content("2-2")
