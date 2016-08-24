@@ -4,7 +4,7 @@
 
 <div class="nice-padding">
     <p class="help-block help-warning">{% trans "Privacy changes apply to all children of this page too." %}</p>
-    <form action="{% url 'wagtailadmin_pages:set_privacy' page.id %}" method="POST">
+    <form action="{% url 'wagtailadmin_pages:set_privacy' page.id %}" method="POST" novalidate>
         {% csrf_token %}
         <ul class="fields">
             {% include "wagtailadmin/shared/field_as_li.html" with field=form.restriction_type %}

@@ -1,5 +1,5 @@
 {% extends "wagtailadmin/base.html" %}
-{% load i18n wagtailadmin_tags %}
+{% load i18n %}
 {% block titletag %}{% blocktrans %}Editing {{ setting_type_name}} - {{ instance }}{% endblocktrans %}{% endblock %}
 {% block bodyclass %}menu-settings{% endblock %}
 {% block content %}
@@ -15,7 +15,7 @@
             </div>
             <div class="right">
                 {% if site_switcher %}
-                <form method="get" id="settings-site-switch">
+                <form method="get" id="settings-site-switch" novalidate>
                     <label for="{{ site_switcher.site.id_for_label }}">
                         Site:
                     </label>
@@ -26,7 +26,7 @@
         </div>
     </header>
 
-    <form action="{% url 'wagtailsettings:edit' opts.app_label opts.model_name site.pk %}" method="POST"{% if form.is_multipart %} enctype="multipart/form-data" {% novalidate_on_django_1_10 %}{% endif %}>
+    <form action="{% url 'wagtailsettings:edit' opts.app_label opts.model_name site.pk %}" method="POST" novalidate{% if form.is_multipart %} enctype="multipart/form-data"{% endif %}>
         {% csrf_token %}
         {{ edit_handler.render_form_content }}
 

@@ -321,17 +321,3 @@ def message_tags(message):
         return level_tag
     else:
         return ''
-
-
-@register.simple_tag
-def novalidate_on_django_1_10():
-    """
-    Django 1.10 has a bug that breaks client-side validation on forms that include
-    prefilled file upload fields. This is due to be fixed in Django 1.10.1; as a
-    workaround, we apply this tag to disable client-side validation (using the
-    'novalidate' attribute) on all forms with enctype="multipart/form-data".
-    """
-    if django.VERSION >= (1, 10, 0) and django.VERSION < (1, 10, 1):
-        return 'novalidate'
-    else:
-        return ''

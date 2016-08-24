@@ -8,7 +8,7 @@
         {% image image max-800x600 class="show-transparency" %}
     </div>
     <div class="col6">
-        <form action="{% url 'wagtailimages:chooser_select_format' image.id %}" method="POST">
+        <form action="{% url 'wagtailimages:chooser_select_format' image.id %}" method="POST" novalidate>
             {% csrf_token %}
             <ul class="fields">
                 {% for field in form %}

@@ -15,7 +15,7 @@
     {% include "wagtailadmin/shared/header.html" with title=editing_str subtitle=group.name icon="group" %}
 
     <div class="nice-padding">
-        <form action="{% url 'wagtailusers_groups:edit' group.id %}" method="POST">
+        <form action="{% url 'wagtailusers_groups:edit' group.id %}" method="POST" novalidate>
             {% csrf_token %}
 
             <ul class="fields">
