@@ -92,6 +92,10 @@ class TestElasticsearchSearchBackend(BackendTests, TestCase):
         self.assertEqual(len(results), 1)
         self.assertEqual(results[0].id, obj.id)
 
+    def test_related_objects_search(self):
+        results = self.backend.search("A subobject", models.SearchTest)
+        self.assertEqual(set(results), {self.testa})
+
     def test_ascii_folding(self):
         # Reset the index
         self.backend.reset_index()
@@ -743,6 +747,7 @@ class TestElasticsearchMapping(TestCase):
         self.obj = models.SearchTest(title="Hello")
         self.obj.save()
         self.obj.tags.add("a tag")
+        self.obj.subobjects.create(name="A subobject")
 
     def test_get_document_type(self):
         self.assertEqual(self.es_mapping.get_document_type(), 'searchtests_searchtest')
@@ -769,7 +774,13 @@ class TestElasticsearchMapping(TestCase):
                         'properties': {
                             'name': {'type': 'string', 'include_in_all': True, 'index_analyzer': 'edgengram_analyzer'},
                             'slug_filter': {'index': 'not_analyzed', 'type': 'string', 'include_in_all': False},
-                        }
+                        },
+                    },
+                    'subobjects': {
+                        'type': 'nested',
+                        'properties': {
+                            'name': {'type': 'string', 'include_in_all': True, 'index_analyzer': 'edgengram_analyzer'},
+                        },
                     },
                 }
             }
@@ -792,7 +803,7 @@ class TestElasticsearchMapping(TestCase):
         expected_result = {
             'pk': str(self.obj.pk),
             'content_type': 'searchtests_searchtest',
-            '_partials': ['Hello', 'a tag'],
+            '_partials': ['A subobject', 'Hello', 'a tag'],
             'live_filter': False,
             'published_date_filter': None,
             'title': 'Hello',
@@ -803,6 +814,11 @@ class TestElasticsearchMapping(TestCase):
                 {
                     'name': 'a tag',
                     'slug_filter': 'a-tag',
+                }
+            ],
+            'subobjects': [
+                {
+                    'name': 'A subobject'
                 }
             ],
         }
@@ -825,6 +841,7 @@ class TestElasticsearchMappingInheritance(TestCase):
         self.obj = models.SearchTestChild(title="Hello", subtitle="World", page_id=1)
         self.obj.save()
         self.obj.tags.add("a tag")
+        self.obj.subobjects.create(name="A subobject")
 
     def test_get_document_type(self):
         self.assertEqual(self.es_mapping.get_document_type(), 'searchtests_searchtest_searchtests_searchtestchild')
@@ -864,7 +881,13 @@ class TestElasticsearchMappingInheritance(TestCase):
                         'properties': {
                             'name': {'type': 'string', 'include_in_all': True, 'index_analyzer': 'edgengram_analyzer'},
                             'slug_filter': {'index': 'not_analyzed', 'type': 'string', 'include_in_all': False},
-                        }
+                        },
+                    },
+                    'subobjects': {
+                        'type': 'nested',
+                        'properties': {
+                            'name': {'type': 'string', 'include_in_all': True, 'index_analyzer': 'edgengram_analyzer'},
+                        },
                     },
                 }
             }
@@ -902,7 +925,7 @@ class TestElasticsearchMappingInheritance(TestCase):
 
             # Inherited
             'pk': str(self.obj.pk),
-            '_partials': ['Hello', 'Root', 'World', 'a tag'],
+            '_partials': ['A subobject', 'Hello', 'Root', 'World', 'a tag'],
             'live_filter': False,
             'published_date_filter': None,
             'title': 'Hello',
@@ -913,6 +936,11 @@ class TestElasticsearchMappingInheritance(TestCase):
                 {
                     'name': 'a tag',
                     'slug_filter': 'a-tag',
+                }
+            ],
+            'subobjects': [
+                {
+                    'name': 'A subobject',
                 }
             ],
         }

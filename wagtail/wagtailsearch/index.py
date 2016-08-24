@@ -230,6 +230,9 @@ class RelatedFields(object):
         if isinstance(field, RelatedField):
             return getattr(obj, self.field_name)
 
+        if isinstance(field, ForeignObjectRel):
+            return getattr(obj, self.field_name)
+
     def select_on_queryset(self, queryset):
         """
         This method runs either prefetch_related or select_related on the queryset

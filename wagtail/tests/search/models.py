@@ -19,6 +19,9 @@ class SearchTest(index.Indexed, models.Model):
             index.SearchField('name', partial_match=True),
             index.FilterField('slug'),
         ]),
+        index.RelatedFields('subobjects', [
+            index.SearchField('name', partial_match=True),
+        ]),
         index.SearchField('content'),
         index.SearchField('callable_indexed_field'),
         index.FilterField('title'),
@@ -69,3 +72,11 @@ class SearchTestChild(SearchTest):
             index.FilterField('live'),
         ]),
     ]
+
+
+class SearchTestSubObject(models.Model):
+    parent = models.ForeignKey(SearchTest, related_name='subobjects')
+    name = models.CharField(max_length=255)
+
+    def __str__(self):
+        return self.name
