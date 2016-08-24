@@ -24,7 +24,7 @@
             </div>
         {% endif %}
 
-        <form action="{% url 'wagtailadmin_login' %}" method="post" autocomplete="off">
+        <form action="{% url 'wagtailadmin_login' %}" method="post" autocomplete="off" novalidate>
             {% csrf_token %}
 
             {% url 'wagtailadmin_home' as home_url %}

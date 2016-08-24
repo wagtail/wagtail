@@ -216,13 +216,6 @@ $(function() {
         var reEnableAfter = 30;
         var dataName = 'disabledtimeout';
 
-        // Perform client-side validation on the form this submit button belongs to (if any)
-        var form = $self.closest('form').get(0);
-        if (form && form.checkValidity && (!form.checkValidity())) {
-            // form exists, browser provides a checkValidity method and checkValidity returns false
-            return;
-        }
-
         window.cancelSpinner = function() {
             $self.prop('disabled', '').removeData(dataName).removeClass('button-longrunning-active');
 
@@ -230,6 +223,13 @@ $(function() {
                 $replacementElem.text($self.data('original-text'));
             }
         };
+
+        // If client-side validation is active on this form, and is going to block submission of the
+        // form, don't activate the spinner
+        var form = $self.closest('form').get(0);
+        if (form && form.checkValidity && !form.noValidate && (!form.checkValidity())) {
+            return;
+        }
 
         // Disabling a button prevents it submitting the form, so disabling
         // must occur on a brief timeout only after this function returns.

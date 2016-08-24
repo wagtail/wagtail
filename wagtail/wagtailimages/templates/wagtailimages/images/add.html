@@ -1,5 +1,5 @@
 {% extends "wagtailadmin/base.html" %}
-{% load wagtailimages_tags wagtailadmin_tags %}
+{% load wagtailimages_tags %}
 {% load i18n %}
 {% block titletag %}{% trans "Add an image" %}{% endblock %}
 
@@ -21,7 +21,7 @@
     {% include "wagtailadmin/shared/header.html" with title=add_str icon="image" %}
 
     <div class="nice-padding">
-        <form action="{% url 'wagtailimages:add' %}" method="POST" enctype="multipart/form-data" {% novalidate_on_django_1_10 %}>
+        <form action="{% url 'wagtailimages:add' %}" method="POST" enctype="multipart/form-data" novalidate>
             {% csrf_token %}
             <ul class="fields">
                 {% for field in form %}

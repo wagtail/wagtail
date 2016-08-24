@@ -1,11 +1,11 @@
 {% extends "wagtailadmin/base.html" %}
-{% load i18n wagtailadmin_tags %}
+{% load i18n %}
 {% block titletag %}{% blocktrans with snippet_type_name=model_opts.verbose_name %}New  {{ snippet_type_name }}{% endblocktrans %}{% endblock %}
 {% block content %}
     {% trans "New" as new_str %}
     {% include "wagtailadmin/shared/header.html" with title=new_str subtitle=model_opts.verbose_name icon="snippet" tabbed=1 merged=1 %}
 
-    <form action="{% url 'wagtailsnippets:add' model_opts.app_label model_opts.model_name %}" method="POST"{% if form.is_multipart %} enctype="multipart/form-data" {% novalidate_on_django_1_10 %}{% endif %}>
+    <form action="{% url 'wagtailsnippets:add' model_opts.app_label model_opts.model_name %}" method="POST" novalidate{% if form.is_multipart %} enctype="multipart/form-data"{% endif %}>
         {% csrf_token %}
         {{ edit_handler.render_form_content }}
 

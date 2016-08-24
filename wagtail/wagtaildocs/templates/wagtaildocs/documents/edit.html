@@ -1,5 +1,5 @@
 {% extends "wagtailadmin/base.html" %}
-{% load i18n wagtailadmin_tags %}
+{% load i18n %}
 {% load wagtailimages_tags %}
 {% block titletag %}{% blocktrans with title=document.title %}Editing {{ title }}{% endblocktrans %}{% endblock %}
 
@@ -23,7 +23,7 @@
     <div class="row row-flush nice-padding">
 
         <div class="col10 divider-after">
-            <form action="{% url 'wagtaildocs:edit' document.id %}" method="POST" enctype="multipart/form-data" {% novalidate_on_django_1_10 %}>
+            <form action="{% url 'wagtaildocs:edit' document.id %}" method="POST" enctype="multipart/form-data" novalidate>
                 {% csrf_token %}
                 <ul class="fields">
                     {% for field in form %}
