@@ -370,10 +370,10 @@ class ChoiceBlock(FieldBlock):
                 # This is an optgroup, so look inside the group for options
                 for k2, v2 in v:
                     if value == k2 or text_value == force_text(k2):
-                        return [k, v2]
+                        return [force_text(k), force_text(v2)]
             else:
                 if value == k or text_value == force_text(k):
-                    return [v]
+                    return [force_text(v)]
         return []  # Value was not found in the list of choices
 
     class Meta:
