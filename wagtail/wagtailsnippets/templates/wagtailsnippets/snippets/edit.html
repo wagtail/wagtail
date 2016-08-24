@@ -5,7 +5,7 @@
     {% trans "Editing" as editing_str %}
     {% include "wagtailadmin/shared/header.html" with title=editing_str subtitle=instance icon="snippet" usage_object=instance tabbed=1 merged=1 %}
 
-    <form action="{% url 'wagtailsnippets:edit' model_opts.app_label model_opts.model_name instance.id %}" method="POST"{% if form.is_multipart %} enctype="multipart/form-data"{% endif %}>
+    <form action="{% url 'wagtailsnippets:edit' model_opts.app_label model_opts.model_name instance.id %}" method="POST" novalidate{% if form.is_multipart %} enctype="multipart/form-data"{% endif %}>
         {% csrf_token %}
         {{ edit_handler.render_form_content }}
 

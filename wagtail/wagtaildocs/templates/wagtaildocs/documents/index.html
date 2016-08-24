@@ -30,7 +30,7 @@
 
     <div class="nice-padding">
         {% if collections %}
-            <form class="image-search search-bar" action="{% url 'wagtaildocs:index' %}" method="GET">
+            <form class="image-search search-bar" action="{% url 'wagtaildocs:index' %}" method="GET" novalidate>
                 <ul class="fields">
                     {% include "wagtailadmin/shared/collection_chooser.html" %}
                 </ul>

@@ -8,7 +8,7 @@
     {% include "wagtailadmin/shared/header.html" with title=view.page_title subtitle=view.get_page_subtitle icon=view.header_icon %}
 
     <div class="nice-padding">
-        <form action="{{ view.get_edit_url }}" method="POST"{% if form.is_multipart %} enctype="multipart/form-data"{% endif %}>
+        <form action="{{ view.get_edit_url }}" method="POST" novalidate{% if form.is_multipart %} enctype="multipart/form-data"{% endif %}>
             {% csrf_token %}
 
             {% block hidden_fields %}
