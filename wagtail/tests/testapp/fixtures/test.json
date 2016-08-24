@@ -441,6 +441,93 @@
 },
 
 {
+    "pk": 17,
+    "model": "wagtailcore.page",
+    "fields": {
+        "title": "Contact us one more time",
+        "numchild": 0,
+        "show_in_menus": true,
+        "live": true,
+        "depth": 3,
+        "content_type": ["tests", "formpagewithcustomsubmission"],
+        "path": "000100010007",
+        "url_path": "/home/contact-us-one-more-time/",
+        "slug": "contact-us-one-more-time"
+    }
+},
+{
+    "pk": 17,
+    "model": "tests.formpagewithcustomsubmission",
+    "fields": {
+        "to_address": "to@email.com",
+        "from_address": "from@email.com",
+        "subject": "The subject"
+    }
+},
+{
+    "pk": 1,
+    "model": "tests.formfieldwithcustomsubmission",
+    "fields": {
+        "sort_order": 1,
+        "label": "Your email",
+        "field_type": "email",
+        "required": true,
+        "choices": "",
+        "default_value": "",
+        "help_text": "",
+        "page": 17
+    }
+},
+{
+    "pk": 2,
+    "model": "tests.formfieldwithcustomsubmission",
+    "fields": {
+        "sort_order": 2,
+        "label": "Your message",
+        "field_type": "multiline",
+        "required": true,
+        "choices": "",
+        "default_value": "",
+        "help_text": "",
+        "page": 17
+    }
+},
+{
+    "pk": 3,
+    "model": "tests.formfieldwithcustomsubmission",
+    "fields": {
+        "sort_order": 3,
+        "label": "Your choices",
+        "field_type": "checkboxes",
+        "required": false,
+        "choices": "foo,bar,baz",
+        "default_value": "",
+        "help_text": "",
+        "page": 17
+    }
+},
+{
+    "pk": 1,
+    "model": "tests.customformpagesubmission",
+    "fields": {
+        "form_data": "{\"your-email\": \"old@example.com\", \"your-message\": \"this is a really old message\"}",
+        "user": 2,
+        "page": 16,
+        "submit_time": "2013-01-01T12:00:00.000Z"
+    }
+},
+{
+    "pk": 2,
+    "model": "tests.customformpagesubmission",
+    "fields": {
+        "form_data": "{\"your-email\": \"new@example.com\", \"your-message\": \"this is a fairly new message\"}",
+        "user": 5,
+        "page": 16,
+        "submit_time": "2014-01-01T12:00:00.000Z"
+    }
+},
+
+{
     "pk": 1,
     "model": "wagtailcore.site",
     "fields": {

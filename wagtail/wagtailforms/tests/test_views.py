@@ -677,7 +677,48 @@ class TestDeleteFormSubmission(TestCase):
         self.assertEqual(FormSubmission.objects.count(), 2)
 
 
-# TODO: add TestDeleteCustomFormSubmission
+class TestDeleteCustomFormSubmission(TestCase):
+    fixtures = ['test.json']
+
+    def setUp(self):
+        self.assertTrue(self.client.login(username='siteeditor', password='password'))
+        self.form_page = Page.objects.get(url_path='/home/contact-us-one-more-time/')
+
+    def test_delete_submission_show_cofirmation(self):
+        response = self.client.get(reverse(
+            'wagtailforms:delete_submission',
+            args=(self.form_page.id, CustomFormPageSubmission.objects.first().id)
+        ))
+        # Check show confirm page when HTTP method is GET
+        self.assertTemplateUsed(response, 'wagtailforms/confirm_delete.html')
+
+        # Check that the deletion has not happened with GET request
+        self.assertEqual(CustomFormPageSubmission.objects.count(), 2)
+
+    def test_delete_submission_with_permissions(self):
+        response = self.client.post(reverse(
+            'wagtailforms:delete_submission',
+            args=(self.form_page.id, CustomFormPageSubmission.objects.first().id)
+        ))
+
+        # Check that the submission is gone
+        self.assertEqual(CustomFormPageSubmission.objects.count(), 1)
+        # Should be redirected to list of submissions
+        self.assertRedirects(response, reverse("wagtailforms:list_submissions", args=(self.form_page.id, )))
+
+    def test_delete_submission_bad_permissions(self):
+        self.assertTrue(self.client.login(username="eventeditor", password="password"))
+
+        response = self.client.post(reverse(
+            'wagtailforms:delete_submission',
+            args=(self.form_page.id, CustomFormPageSubmission.objects.first().id)
+        ))
+
+        # Check that the user recieved a 403 response
+        self.assertEqual(response.status_code, 403)
+
+        # Check that the deletion has not happened
+        self.assertEqual(CustomFormPageSubmission.objects.count(), 2)
 
 
 class TestIssue585(TestCase):
