@@ -46,6 +46,8 @@ def make_form_page(**kwargs):
 
 def make_form_page_with_custom_submission(**kwargs):
     kwargs.setdefault('title', "Contact us")
+    kwargs.setdefault('intro', "<p>Boring intro text</p>")
+    kwargs.setdefault('thank_you_text', "<p>Thank you for your patience!</p>")
     kwargs.setdefault('slug', "contact-us")
     kwargs.setdefault('to_address', "to@email.com")
     kwargs.setdefault('from_address', "from@email.com")

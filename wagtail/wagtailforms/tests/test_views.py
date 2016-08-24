@@ -3,17 +3,17 @@ from __future__ import absolute_import, unicode_literals
 
 import json
 
-from django.core.urlresolvers import reverse
+from django.contrib.auth import get_user_model
 from django.test import TestCase
-
-from wagtail.tests.testapp.models import FormField, FormPage
+from django.core.urlresolvers import reverse
+from wagtail.tests.testapp.models import FormPage, FormField, CustomFormPageSubmission, FormFieldWithCustomSubmission
 from wagtail.tests.utils import WagtailTestUtils
 from wagtail.wagtailadmin.edit_handlers import get_form_for_model
 from wagtail.wagtailadmin.forms import WagtailAdminPageForm
 from wagtail.wagtailcore.models import Page
 from wagtail.wagtailforms.edit_handlers import FormSubmissionsPanel
 from wagtail.wagtailforms.models import FormSubmission
-from wagtail.wagtailforms.tests.utils import make_form_page
+from wagtail.wagtailforms.tests.utils import make_form_page, make_form_page_with_custom_submission
 
 
 class TestFormResponsesPanel(TestCase):
@@ -134,8 +134,7 @@ class TestFormsIndex(TestCase):
         self.assertIn(self.form_page, response.context['form_pages'])
 
 
-# TODO: Rename to TestFormsSubmissionsList
-class TestFormsSubmissions(TestCase, WagtailTestUtils):
+class TestFormsSubmissionsList(TestCase, WagtailTestUtils):
     def setUp(self):
         # Create a form page
         self.form_page = make_form_page()
@@ -362,7 +361,276 @@ class TestFormsSubmissions(TestCase, WagtailTestUtils):
         self.assertIn('vim', data_lines[1])
 
 
-# TODO: add TestCustomFormsSubmissionsList
+class TestCustomFormsSubmissionsList(TestCase, WagtailTestUtils):
+    def create_test_user_without_admin(self, username):
+        user_model = get_user_model()
+
+        user_data = dict()
+        user_data[user_model.USERNAME_FIELD] = username
+        user_data['password'] = 'password'
+
+        for field in user_model.REQUIRED_FIELDS:
+            user_data[field] = field
+
+        return user_model.objects.create(**user_data)
+
+    def setUp(self):
+        # Create a form page
+        self.form_page = make_form_page_with_custom_submission()
+
+        # Add a couple of form submissions
+        old_form_submission = CustomFormPageSubmission.objects.create(
+            user=self.create_test_user_without_admin('user-john'),
+            page=self.form_page,
+            form_data=json.dumps({
+                'your-email': "old@example.com",
+                'your-message': "this is a really old message",
+            }),
+        )
+        old_form_submission.submit_time = '2013-01-01T12:00:00.000Z'
+        old_form_submission.save()
+
+        new_form_submission = CustomFormPageSubmission.objects.create(
+            user=self.create_test_user_without_admin('user-m1kola'),
+            page=self.form_page,
+            form_data=json.dumps({
+                'your-email': "new@example.com",
+                'your-message': "this is a fairly new message",
+            }),
+        )
+        new_form_submission.submit_time = '2014-01-01T12:00:00.000Z'
+        new_form_submission.save()
+
+        # Login
+        self.login()
+
+    def make_list_submissions(self):
+        """
+        This makes 100 submissions to test pagination on the forms submissions page
+        """
+        for i in range(100):
+            submission = CustomFormPageSubmission(
+                user=self.create_test_user_without_admin('generated-username-%s' % i),
+                page=self.form_page,
+                form_data=json.dumps({
+                    'hello': 'world'
+                })
+            )
+            submission.save()
+
+    def test_list_submissions(self):
+        response = self.client.get(reverse('wagtailforms:list_submissions', args=(self.form_page.id,)))
+
+        # Check response
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'wagtailforms/index_submissions.html')
+        self.assertEqual(len(response.context['data_rows']), 2)
+
+        # CustomFormPageSubmission have custom field. This field should appear in the listing
+        self.assertContains(response, '<th>Username</th>', html=True)
+        self.assertContains(response, '<td>user-m1kola</td>', html=True)
+        self.assertContains(response, '<td>user-john</td>', html=True)
+
+    def test_list_submissions_filtering_date_from(self):
+        response = self.client.get(
+            reverse('wagtailforms:list_submissions', args=(self.form_page.id,)), {'date_from': '01/01/2014'}
+        )
+
+        # Check response
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'wagtailforms/index_submissions.html')
+        self.assertEqual(len(response.context['data_rows']), 1)
+
+        # CustomFormPageSubmission have custom field. This field should appear in the listing
+        self.assertContains(response, '<th>Username</th>', html=True)
+        self.assertContains(response, '<td>user-m1kola</td>', html=True)
+
+    def test_list_submissions_filtering_date_to(self):
+        response = self.client.get(
+            reverse('wagtailforms:list_submissions', args=(self.form_page.id,)), {'date_to': '12/31/2013'}
+        )
+
+        # Check response
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'wagtailforms/index_submissions.html')
+        self.assertEqual(len(response.context['data_rows']), 1)
+
+        # CustomFormPageSubmission have custom field. This field should appear in the listing
+        self.assertContains(response, '<th>Username</th>', html=True)
+        self.assertContains(response, '<td>user-john</td>', html=True)
+
+    def test_list_submissions_filtering_range(self):
+        response = self.client.get(
+            reverse('wagtailforms:list_submissions', args=(self.form_page.id,)),
+            {'date_from': '12/31/2013', 'date_to': '01/02/2014'}
+        )
+
+        # Check response
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'wagtailforms/index_submissions.html')
+        self.assertEqual(len(response.context['data_rows']), 1)
+
+        # CustomFormPageSubmission have custom field. This field should appear in the listing
+        self.assertContains(response, '<th>Username</th>', html=True)
+        self.assertContains(response, '<td>user-m1kola</td>', html=True)
+
+    def test_list_submissions_pagination(self):
+        self.make_list_submissions()
+
+        response = self.client.get(reverse('wagtailforms:list_submissions', args=(self.form_page.id,)), {'p': 2})
+
+        # Check response
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'wagtailforms/index_submissions.html')
+
+        # Check that we got the correct page
+        self.assertEqual(response.context['submissions'].number, 2)
+
+        # CustomFormPageSubmission have custom field. This field should appear in the listing
+        self.assertContains(response, '<th>Username</th>', html=True)
+        self.assertContains(response, 'generated-username-', count=20)
+
+    def test_list_submissions_pagination_invalid(self):
+        self.make_list_submissions()
+
+        response = self.client.get(
+            reverse('wagtailforms:list_submissions', args=(self.form_page.id,)), {'p': 'Hello World!'}
+        )
+
+        # Check response
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'wagtailforms/index_submissions.html')
+
+        # Check that we got page one
+        self.assertEqual(response.context['submissions'].number, 1)
+
+    def test_list_submissions_pagination_out_of_range(self):
+        self.make_list_submissions()
+
+        response = self.client.get(reverse('wagtailforms:list_submissions', args=(self.form_page.id,)),
+                                   {'p': 99999})
+
+        # Check response
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'wagtailforms/index_submissions.html')
+
+        # Check that we got the last page
+        self.assertEqual(response.context['submissions'].number,
+                         response.context['submissions'].paginator.num_pages)
+
+    def test_list_submissions_csv_export(self):
+        response = self.client.get(
+            reverse('wagtailforms:list_submissions', args=(self.form_page.id,)),
+            {'action': 'CSV'}
+        )
+
+        # Check response
+        self.assertEqual(response.status_code, 200)
+        data_lines = response.content.decode().split("\n")
+
+        self.assertEqual(data_lines[0], 'Username,Submission date,Your email,Your message,Your choices\r')
+        self.assertEqual(data_lines[1],
+                         'user-john,2013-01-01 12:00:00+00:00,old@example.com,this is a really old message,None\r')
+        self.assertEqual(data_lines[2],
+                         'user-m1kola,2014-01-01 12:00:00+00:00,new@example.com,this is a fairly new message,None\r')
+
+    def test_list_submissions_csv_export_with_date_from_filtering(self):
+        response = self.client.get(
+            reverse('wagtailforms:list_submissions', args=(self.form_page.id,)),
+            {'action': 'CSV', 'date_from': '01/01/2014'}
+        )
+
+        # Check response
+        self.assertEqual(response.status_code, 200)
+        data_lines = response.content.decode().split("\n")
+
+        self.assertEqual(data_lines[0], 'Username,Submission date,Your email,Your message,Your choices\r')
+        self.assertEqual(data_lines[1],
+                         'user-m1kola,2014-01-01 12:00:00+00:00,new@example.com,this is a fairly new message,None\r')
+
+    def test_list_submissions_csv_export_with_date_to_filtering(self):
+        response = self.client.get(
+            reverse('wagtailforms:list_submissions', args=(self.form_page.id,)),
+            {'action': 'CSV', 'date_to': '12/31/2013'}
+        )
+
+        # Check response
+        self.assertEqual(response.status_code, 200)
+        data_lines = response.content.decode().split("\n")
+
+        self.assertEqual(data_lines[0], 'Username,Submission date,Your email,Your message,Your choices\r')
+        self.assertEqual(data_lines[1],
+                         'user-john,2013-01-01 12:00:00+00:00,old@example.com,this is a really old message,None\r')
+
+    def test_list_submissions_csv_export_with_range_filtering(self):
+        response = self.client.get(
+            reverse('wagtailforms:list_submissions', args=(self.form_page.id,)),
+            {'action': 'CSV', 'date_from': '12/31/2013', 'date_to': '01/02/2014'}
+        )
+
+        # Check response
+        self.assertEqual(response.status_code, 200)
+        data_lines = response.content.decode().split("\n")
+
+        self.assertEqual(data_lines[0], 'Username,Submission date,Your email,Your message,Your choices\r')
+        self.assertEqual(data_lines[1],
+                         'user-m1kola,2014-01-01 12:00:00+00:00,new@example.com,this is a fairly new message,None\r')
+
+    def test_list_submissions_csv_export_with_unicode_in_submission(self):
+        unicode_form_submission = CustomFormPageSubmission.objects.create(
+            user=self.create_test_user_without_admin('user-bob'),
+            page=self.form_page,
+            form_data=json.dumps({
+                'your-email': "unicode@example.com",
+                'your-message': 'こんにちは、世界',
+            }),
+        )
+        unicode_form_submission.submit_time = '2014-01-02T12:00:00.000Z'
+        unicode_form_submission.save()
+
+        response = self.client.get(
+            reverse('wagtailforms:list_submissions', args=(self.form_page.id,)),
+            {'date_from': '01/02/2014', 'action': 'CSV'}
+        )
+
+        # Check response
+        self.assertEqual(response.status_code, 200)
+        data_line = response.content.decode('utf-8').split("\n")[1]
+        self.assertIn('こんにちは、世界', data_line)
+
+    def test_list_submissions_csv_export_with_unicode_in_field(self):
+        FormFieldWithCustomSubmission.objects.create(
+            page=self.form_page,
+            sort_order=2,
+            label="Выберите самую любимую IDE для разработке на Python",
+            help_text="Вы можете выбрать только один вариант",
+            field_type='radio',
+            required=True,
+            choices='PyCharm,vim,nano',
+        )
+        unicode_form_submission = CustomFormPageSubmission.objects.create(
+            user=self.create_test_user_without_admin('user-bob'),
+            page=self.form_page,
+            form_data=json.dumps({
+                'your-email': "unicode@example.com",
+                'your-message': "We don\'t need unicode here",
+                'vyberite-samuiu-liubimuiu-ide-dlia-razrabotke-na-python': "vim",
+            }),
+        )
+        unicode_form_submission.submit_time = '2014-01-02T12:00:00.000Z'
+        unicode_form_submission.save()
+
+        response = self.client.get(
+            reverse('wagtailforms:list_submissions', args=(self.form_page.id,)),
+            {'date_from': '01/02/2014', 'action': 'CSV'}
+        )
+
+        # Check response
+        self.assertEqual(response.status_code, 200)
+
+        data_lines = response.content.decode('utf-8').split("\n")
+        self.assertIn('Выберите самую любимую IDE для разработке на Python', data_lines[0])
+        self.assertIn('vim', data_lines[1])
 
 
 class TestDeleteFormSubmission(TestCase):

@@ -125,10 +125,7 @@ class TestFormSubmission(TestCase):
 class TestFormWithCustomSubmission(TestCase, WagtailTestUtils):
     def setUp(self):
         # Create a form page
-        self.form_page = make_form_page_with_custom_submission(**{
-            'intro': '<p>Boring intro text</p>',
-            'thank_you_text': '<p>Thank you for your patience!</p>',
-        })
+        self.form_page = make_form_page_with_custom_submission()
 
         self.user = self.login()
 
@@ -271,11 +268,9 @@ class TestFormSubmissionWithMultipleRecipients(TestCase):
 class TestFormSubmissionWithMultipleRecipientsAndWithCustomSubmission(TestCase, WagtailTestUtils):
     def setUp(self):
         # Create a form page
-        self.form_page = make_form_page_with_custom_submission(**{
-            'intro': '<p>Boring intro text</p>',
-            'thank_you_text': '<p>Thank you for your patience!</p>',
-            'to_address': 'to@email.com, another@email.com',
-        })
+        self.form_page = make_form_page_with_custom_submission(
+            to_address='to@email.com, another@email.com'
+        )
 
         self.user = self.login()
 
