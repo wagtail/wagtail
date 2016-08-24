@@ -23,7 +23,7 @@
     "model": "wagtailcore.page",
     "fields": {
         "title": "Welcome to the Wagtail test site!",
-        "numchild": 6,
+        "numchild": 7,
         "show_in_menus": false,
         "live": true,
         "depth": 2,
