@@ -15,7 +15,6 @@ from django.template.loader import render_to_string
 from django.test import SimpleTestCase, TestCase
 from django.utils.html import format_html
 from django.utils.safestring import SafeData, mark_safe
-
 # non-standard import name for ugettext_lazy, to prevent strings from being picked up for translation
 from django.utils.translation import ugettext_lazy as __
 
