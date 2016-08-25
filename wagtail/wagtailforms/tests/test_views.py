@@ -583,7 +583,8 @@ class TestCustomFormsSubmissionsList(TestCase, WagtailTestUtils):
                 user=self.create_test_user_without_admin('generated-username-%s' % i),
                 page=self.form_page,
                 form_data=json.dumps({
-                    'hello': 'world'
+                    'your-email': "generated-your-email-%s" % i,
+                    'your-message': "generated-your-message-%s" % i,
                 })
             )
             submission.save()
