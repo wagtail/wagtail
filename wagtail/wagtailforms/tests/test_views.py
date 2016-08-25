@@ -393,16 +393,7 @@ class TestFormsSubmissionsExport(TestCase, WagtailTestUtils):
 
 class TestCustomFormsSubmissionsExport(TestCase, WagtailTestUtils):
     def create_test_user_without_admin(self, username):
-        user_model = get_user_model()
-
-        user_data = dict()
-        user_data[user_model.USERNAME_FIELD] = username
-        user_data['password'] = 'password'
-
-        for field in user_model.REQUIRED_FIELDS:
-            user_data[field] = field
-
-        return user_model.objects.create(**user_data)
+        return get_user_model().objects.create_user(username=username, password='123')
 
     def setUp(self):
         # Create a form page
@@ -551,16 +542,7 @@ class TestCustomFormsSubmissionsExport(TestCase, WagtailTestUtils):
 
 class TestCustomFormsSubmissionsList(TestCase, WagtailTestUtils):
     def create_test_user_without_admin(self, username):
-        user_model = get_user_model()
-
-        user_data = dict()
-        user_data[user_model.USERNAME_FIELD] = username
-        user_data['password'] = 'password'
-
-        for field in user_model.REQUIRED_FIELDS:
-            user_data[field] = field
-
-        return user_model.objects.create(**user_data)
+        return get_user_model().objects.create_user(username=username, password='123')
 
     def setUp(self):
         # Create a form page
