@@ -185,7 +185,7 @@ Search
   # Replace the search backend
   WAGTAILSEARCH_BACKENDS = {
       'default': {
-          'BACKEND': 'wagtail.wagtailsearch.backends.elasticsearch',
+          'BACKEND': 'wagtail.wagtailsearch.backends.elasticsearch2',
           'INDEX': 'myapp'
       }
   }
@@ -359,7 +359,7 @@ URL Patterns
 
   urlpatterns = [
       url(r'^django-admin/', include(admin.site.urls)),
-  
+
       url(r'^admin/', include(wagtailadmin_urls)),
       url(r'^search/', include(wagtailsearch_urls)),
       url(r'^documents/', include(wagtaildocs_urls)),
@@ -569,7 +569,7 @@ These two files should reside in your project directory (``myproject/myproject/`
   # Replace the search backend
   #WAGTAILSEARCH_BACKENDS = {
   #  'default': {
-  #    'BACKEND': 'wagtail.wagtailsearch.backends.elasticsearch',
+  #    'BACKEND': 'wagtail.wagtailsearch.backends.elasticsearch2',
   #    'INDEX': 'myapp'
   #  }
   #}
