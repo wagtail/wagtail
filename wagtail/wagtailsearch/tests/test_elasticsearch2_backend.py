@@ -16,7 +16,7 @@ from elasticsearch.serializer import JSONSerializer
 
 from wagtail.tests.search import models
 from wagtail.wagtailsearch.backends import get_search_backend
-from wagtail.wagtailsearch.backends.elasticsearch2 import Elasticsearch2SearchBackend
+from wagtail.wagtailsearch.backends.elasticsearch2 import Elasticsearch2SearchBackend, get_model_root
 
 from .test_backends import BackendTests
 
@@ -1087,3 +1087,23 @@ class TestAtomicRebuilder(TestCase):
 
         # Index should be gone
         self.assertFalse(self.es.indices.exists(current_index_name))
+
+
+class TestGetModelRoot(TestCase):
+    def test_root_model(self):
+        from wagtail.wagtailcore.models import Page
+
+        self.assertEqual(get_model_root(Page), Page)
+
+    def test_child_model(self):
+        from wagtail.wagtailcore.models import Page
+        from wagtail.tests.testapp.models import SimplePage
+
+        self.assertEqual(get_model_root(SimplePage), Page)
+
+    def test_grandchild_model(self):
+        # MTIChildPage inherits from MTIBasePage which inherits from Page
+        from wagtail.wagtailcore.models import Page
+        from wagtail.tests.testapp.models import MTIChildPage
+
+        self.assertEqual(get_model_root(MTIChildPage), Page)
