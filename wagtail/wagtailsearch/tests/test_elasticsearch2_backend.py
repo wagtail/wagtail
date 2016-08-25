@@ -16,7 +16,8 @@ from elasticsearch.serializer import JSONSerializer
 
 from wagtail.tests.search import models
 from wagtail.wagtailsearch.backends import get_search_backend
-from wagtail.wagtailsearch.backends.elasticsearch2 import Elasticsearch2SearchBackend, get_model_root
+from wagtail.wagtailsearch.backends.elasticsearch2 import (
+    Elasticsearch2SearchBackend, get_model_root)
 
 from .test_backends import BackendTests
 
