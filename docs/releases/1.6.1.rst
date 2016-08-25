@@ -17,6 +17,7 @@ Bug fixes
 * The :meth:`~wagtail.wagtailcore.models.Page.can_create_at` method is now checked in the create page view (Mikalai Radchuk)
 * Fixed regression on Django 1.10.1 causing Page subclasses to fail to use PageManager (Matt Westcott)
 * ChoiceBlocks with lazy translations as option labels no longer break Elasticsearch indexing (Matt Westcott)
+* The page editor no longer fails to load JavaScript files with ``ManifestStaticFilesStorage`` (Matt Westcott)
 
 
 Upgrade considerations

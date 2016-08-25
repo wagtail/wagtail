@@ -16,6 +16,7 @@ Changelog
  * Fix: The `Pages.can_create_at` method is now checked in the create page view (Mikalai Radchuk)
  * Fix: Fixed regression on Django 1.10.1 causing Page subclasses to fail to use PageManager (Matt Westcott)
  * Fix: ChoiceBlocks with lazy translations as option labels no longer break Elasticsearch indexing (Matt Westcott)
+ * Fix: The page editor no longer fails to load JavaScript files with ``ManifestStaticFilesStorage`` (Matt Westcott)
 
 
 1.6 (15.08.2016)
