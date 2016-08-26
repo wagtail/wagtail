@@ -10,7 +10,7 @@ Changelog
  * Fix: The default image format label text ('Full width', 'Left-aligned', 'Right-aligned') is now localised (Mikalai Radchuk)
 
 
-1.6.1 (xx.xx.xxxx)
+1.6.1 (26.08.2016)
 ~~~~~~~~~~~~~~~~~~
 
  * Fix: Wagtail's middleware classes are now compatible with Django 1.10's new-style middleware (Karl Hobley)
