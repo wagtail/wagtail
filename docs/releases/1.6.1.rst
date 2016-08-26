@@ -18,6 +18,7 @@ Bug fixes
 * Fixed regression on Django 1.10.1 causing Page subclasses to fail to use PageManager (Matt Westcott)
 * ChoiceBlocks with lazy translations as option labels no longer break Elasticsearch indexing (Matt Westcott)
 * The page editor no longer fails to load JavaScript files with ``ManifestStaticFilesStorage`` (Matt Westcott)
+* Django 1.10 enables client-side validation for all forms by default, but it fails to handle all the nuances of how forms are used in Wagtail. The client-side validation has been disabled for the Wagtail UI (Matt Westcott)
 
 
 Upgrade considerations
