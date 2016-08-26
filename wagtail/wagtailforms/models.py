@@ -218,10 +218,10 @@ class AbstractEmailForm(AbstractForm):
     def process_form_submission(self, form):
         submission = super(AbstractEmailForm, self).process_form_submission(form)
         if self.to_address:
-            self.send_form_mail(form)
+            self.send_mail(form)
         return submission
 
-    def send_form_mail(self, form):
+    def send_mail(self, form):
         addresses = [x.strip() for x in self.to_address.split(',')]
         content = '\n'.join([x[1].label + ': ' + text_type(form.data.get(x[0])) for x in form.fields.items()])
         send_mail(self.subject, content, addresses, self.from_address,)

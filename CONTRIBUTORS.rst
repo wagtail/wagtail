@@ -161,6 +161,7 @@ Contributors
 * Fábio Macêdo Mendes
 * Eraldo Energy
 * Jesse Legg
+* Tim Leguijt
 
 Translators
 ===========
