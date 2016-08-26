@@ -10,6 +10,12 @@ Wagtail 1.6.1 release notes
 What's new
 ==========
 
+Minor features
+~~~~~~~~~~~~~~
+
+* Added ``WAGTAIL_ALLOW_UNICODE_SLUGS`` setting to make Unicode support optional in page slugs (Matt Westcott)
+
+
 Bug fixes
 ~~~~~~~~~
 

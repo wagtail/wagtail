@@ -5,6 +5,7 @@ Changelog
 1.6.1 (26.08.2016)
 ~~~~~~~~~~~~~~~~~~
 
+ * Added ``WAGTAIL_ALLOW_UNICODE_SLUGS`` setting to make Unicode support optional in page slugs (Matt Westcott)
  * Fix: Wagtail's middleware classes are now compatible with Django 1.10's new-style middleware (Karl Hobley)
  * Fix: The `Pages.can_create_at` method is now checked in the create page view (Mikalai Radchuk)
  * Fix: Fixed regression on Django 1.10.1 causing Page subclasses to fail to use PageManager (Matt Westcott)
