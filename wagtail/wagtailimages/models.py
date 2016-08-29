@@ -416,7 +416,7 @@ class Filter(models.Model):
                 else:
                     quality = 85
 
-                return willow.save_as_jpeg(output, quality=quality)
+                return willow.save_as_jpeg(output, quality=quality, progressive=True, optimize=True)
             elif original_format == 'gif':
                 # Convert image to PNG if it's not animated
                 if not willow.has_animation():
