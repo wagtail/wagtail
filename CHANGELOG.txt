@@ -4,6 +4,7 @@ Changelog
 1.7 (xx.xx.xxxx)
 ~~~~~~~~~~~~~~~~
 
+ * Added support for AWS CloudFront in frontend cache invalidation module (Rob Moorman)
  * The Wagtail version number can now be obtained as a tuple using `from wagtail import VERSION` (Tim Heap)
  * ``send_mail`` logic has been moved from ``AbstractEmailForm.process_form_submission`` into ``AbstractEmailForm.send_mail``. Now it's easier to override this logic (Tim Leguijt)
  * Fix: Migrations for wagtailcore and project template are now reversible (Benjamin Bach)

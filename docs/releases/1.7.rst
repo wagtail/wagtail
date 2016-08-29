@@ -11,6 +11,15 @@ What's new
 ==========
 
 
+AWS CloudFront support added to cache invalidation module
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Wagtail's cache invalidation module can now invalidate pages cached in AWS CloudFront when they are updated or unpublished.
+This feature was developed by Rob Moorman.
+
+See: :ref:`frontendcache_aws_cloudfront`
+
+
 Minor features
 ~~~~~~~~~~~~~~
 

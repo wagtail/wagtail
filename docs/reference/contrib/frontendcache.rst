@@ -79,6 +79,7 @@ Add an item into the ``WAGTAILFRONTENDCACHE`` and set the ``BACKEND`` parameter 
         },
     }
 
+.. _frontendcache_aws_cloudfront:
 
 Amazon CloudFront
 ^^^^^^^^^^^^^^^^^
