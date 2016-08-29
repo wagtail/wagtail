@@ -59,7 +59,7 @@ This list also supports child relations (which will be nested inside the returne
 Frontend cache invalidation
 ---------------------------
 
-If you have a Varnish, Squid or Cloudflare instance in front of your API, the ``wagtailapi`` module can automatically invalidate cached responses for you whenever they are updated in the database.
+If you have a Varnish, Squid, Cloudflare or CloudFront instance in front of your API, the ``wagtailapi`` module can automatically invalidate cached responses for you whenever they are updated in the database.
 
 To enable it, firstly configure the ``wagtail.contrib.wagtailfrontendcache`` module within your project (see [Wagtail frontend cache docs](http://docs.wagtail.io/en/latest/contrib_components/frontendcache.html) for more information).
 

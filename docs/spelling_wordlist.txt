@@ -4,6 +4,7 @@ backends
 callable
 callables
 Cloudflare
+Cloudfront
 contrib
 Django
 Elasticsearch

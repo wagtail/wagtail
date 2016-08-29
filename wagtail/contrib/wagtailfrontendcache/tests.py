@@ -1,10 +1,13 @@
 from __future__ import absolute_import, unicode_literals
 
+import mock
+
+from django.core.exceptions import ImproperlyConfigured
 from django.test import TestCase
 from django.test.utils import override_settings
 
 from wagtail.contrib.wagtailfrontendcache.backends import (
-    BaseBackend, CloudflareBackend, HTTPBackend)
+    BaseBackend, CloudflareBackend, CloudfrontBackend, HTTPBackend)
 from wagtail.contrib.wagtailfrontendcache.utils import get_backends
 from wagtail.tests.testapp.models import EventIndex
 from wagtail.wagtailcore.models import Page
@@ -44,6 +47,42 @@ class TestBackendConfiguration(TestCase):
 
         self.assertEqual(backends['cloudflare'].cloudflare_email, 'test@test.com')
         self.assertEqual(backends['cloudflare'].cloudflare_token, 'this is the token')
+
+    def test_cloudfront(self):
+        backends = get_backends(backend_settings={
+            'cloudfront': {
+                'BACKEND': 'wagtail.contrib.wagtailfrontendcache.backends.CloudfrontBackend',
+                'DISTRIBUTION_ID': 'frontend',
+            },
+        })
+
+        self.assertEqual(set(backends.keys()), set(['cloudfront']))
+        self.assertIsInstance(backends['cloudfront'], CloudfrontBackend)
+
+        self.assertEqual(backends['cloudfront'].cloudfront_distribution_id, 'frontend')
+
+    def test_cloudfront_validate_distribution_id(self):
+        with self.assertRaises(ImproperlyConfigured):
+            get_backends(backend_settings={
+                'cloudfront': {
+                    'BACKEND': 'wagtail.contrib.wagtailfrontendcache.backends.CloudfrontBackend',
+                },
+            })
+
+    @mock.patch('wagtail.contrib.wagtailfrontendcache.backends.CloudfrontBackend._create_invalidation')
+    def test_cloudfront_distribution_id_mapping(self, _create_invalidation):
+        backends = get_backends(backend_settings={
+            'cloudfront': {
+                'BACKEND': 'wagtail.contrib.wagtailfrontendcache.backends.CloudfrontBackend',
+                'DISTRIBUTION_ID': {
+                    'www.wagtail.io': 'frontend',
+                }
+            },
+        })
+        backends.get('cloudfront').purge('http://www.wagtail.io/home/events/christmas/')
+        backends.get('cloudfront').purge('http://torchbox.com/blog/')
+
+        _create_invalidation.assert_called_once_with('frontend', '/home/events/christmas/')
 
     def test_multiple(self):
         backends = get_backends(backend_settings={
