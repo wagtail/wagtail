@@ -19,6 +19,7 @@ Changelog
  * Added the ability to configure the number of days search logs are kept for (Stephen Rice)
  * `SnippetChooserBlock` now supports passing the model name as a string (Nick Smith)
  * Redesigned account settings / logout area in the sidebar for better clarity (Janneke Janssen)
+ * Pillow's image optimisation is now applied when saving JPEG images (Karl Hobley)
  * Fix: Migrations for wagtailcore and project template are now reversible (Benjamin Bach)
  * Fix: Migrations no longer depend on wagtailcore and taggit's `__latest__` migration, logically preventing those apps from receiving new migrations (Matt Westcott)
  * Fix: The default image format label text ('Full width', 'Left-aligned', 'Right-aligned') is now localised (Mikalai Radchuk)

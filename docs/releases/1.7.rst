@@ -49,6 +49,7 @@ Minor features
  * Added the ability to configure the number of days search logs are kept for, through the :ref:`WAGTAILSEARCH_HITS_MAX_AGE <wagtailsearch_hits_max_age>` setting (Stephen Rice)
  * ``SnippetChooserBlock`` now supports passing the model name as a string (Nick Smith)
  * Redesigned account settings / logout area in the sidebar for better clarity (Janneke Janssen)
+ * Pillow's image optimisation is now applied when saving JPEG images (Karl Hobley)
 
 
 Bug fixes
