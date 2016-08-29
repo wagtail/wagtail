@@ -8,7 +8,7 @@ Frontend cache invalidator
    * Multiple backend support added
    * Cloudflare support added
 
-.. versionchanged:: 1.6
+.. versionchanged:: 1.7
 
    * Amazon CloudFront support added
 
