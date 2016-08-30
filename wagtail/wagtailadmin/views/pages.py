@@ -20,7 +20,7 @@ from wagtail.wagtailadmin.forms import CopyForm, SearchForm
 from wagtail.wagtailadmin.navigation import get_navigation_menu_items
 from wagtail.wagtailadmin.utils import send_notification
 from wagtail.wagtailcore import hooks
-from wagtail.wagtailcore.models import Page, PageRevision
+from wagtail.wagtailcore.models import Page, PageRevision, UserPagePermissionsProxy
 
 
 def get_valid_next_url_from_request(request):
@@ -641,7 +641,8 @@ def preview_loading(request):
 def unpublish(request, page_id):
     page = get_object_or_404(Page, id=page_id).specific
 
-    if not page.permissions_for_user(request.user).can_unpublish():
+    user_perms = UserPagePermissionsProxy(request.user)
+    if not user_perms.for_page(page).can_unpublish():
         raise PermissionDenied
 
     next_url = get_valid_next_url_from_request(request)
@@ -651,13 +652,11 @@ def unpublish(request, page_id):
 
         page.unpublish()
 
-        if include_descendants == 'on':
+        if include_descendants:
             live_descendant_pages = page.get_descendants().live().specific()
             for live_descendant_page in live_descendant_pages:
-                if not live_descendant_page.permissions_for_user(request.user).can_unpublish():
-                    raise PermissionDenied
-            for live_descendant_page in live_descendant_pages:
-                live_descendant_page.unpublish()
+                if user_perms.for_page(live_descendant_page).can_unpublish():
+                    live_descendant_page.unpublish()
 
         messages.success(request, _("Page '{0}' unpublished.").format(page.title), buttons=[
             messages.button(reverse('wagtailadmin_pages:edit', args=(page.id,)), _('Edit'))
