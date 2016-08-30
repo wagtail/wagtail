@@ -34,6 +34,8 @@ Each response contains the list of items (``items``) and the total count
 
 TODO EXAMPLE
 
+.. _apiv2_custom_page_fields:
+
 Custom page fields in the API
 -----------------------------
 
