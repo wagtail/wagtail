@@ -19,25 +19,13 @@
         <tr>
             <td class="title"><h3>{{ content_perms_dict.object|capfirst }}</h3></td>
             <td>
-                {% with content_perms_dict.add as perm_tuple %}
-                    {% if perm_tuple %}
-                        <input id="id_permissions_{{ perm_tuple.0.id }}" name="permissions" type="checkbox" {{ perm_tuple.1 }} value="{{ perm_tuple.0.id }}">
-                    {% endif %}
-                {% endwith %}
+                {% if content_perms_dict.add %}{{ content_perms_dict.add.tag }}{% endif %}
             </td>
             <td>
-                {% with content_perms_dict.change as perm_tuple %}
-                    {% if perm_tuple %}
-                        <input id="id_permissions_{{ perm_tuple.0.id }}" name="permissions" type="checkbox" {{ perm_tuple.1 }} value="{{ perm_tuple.0.id }}">
-                    {% endif %}
-                {% endwith %}
+                {% if content_perms_dict.change %}{{ content_perms_dict.change.tag }}{% endif %}
             </td>
             <td>
-                {% with content_perms_dict.delete as perm_tuple %}
-                    {% if perm_tuple %}
-                        <input id="id_permissions_{{ perm_tuple.0.id }}" name="permissions" type="checkbox" {{ perm_tuple.1 }} value="{{ perm_tuple.0.id }}">
-                    {% endif %}
-                {% endwith %}
+                {% if content_perms_dict.delete %}{{ content_perms_dict.delete.tag }}{% endif %}
             </td>
         </tr>
         {% endfor %}
@@ -57,11 +45,9 @@
     <tbody>
         {% for perm_tuple in other_perms %}
             <tr>
-                <td>{{ perm_tuple.0.name }}</td>
+                <td class="title"><label for="{{ perm_tuple.1.id_for_label }}" class="plain-checkbox-label">{{ perm_tuple.0.name }}</label></td>
                 <td>
-                    <label for="id_permissions_{{ perm_tuple.0.id }}">
-                        <input id="id_permissions_{{ perm_tuple.0.id }}" name="permissions" type="checkbox" {{ perm_tuple.1 }} value="{{ perm_tuple.0.id }}">
-                    </label>
+                    {{ perm_tuple.1.tag }}
                 </td>
             </tr>
         {% endfor %}
