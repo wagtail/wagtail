@@ -20,6 +20,12 @@ This feature was developed by Rob Moorman.
 See: :ref:`frontendcache_aws_cloudfront`
 
 
+Unpublishing subpages
+~~~~~~~~~~~~~~~~~~~~~
+
+Unpublishing a page now gives the option to unpublish its subpages at the same time. This feature was developed by Jordi Joan.
+
+
 Minor features
 ~~~~~~~~~~~~~~
 
