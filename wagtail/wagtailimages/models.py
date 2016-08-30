@@ -11,7 +11,7 @@ from django.core.exceptions import ImproperlyConfigured
 from django.core.files import File
 from django.core.urlresolvers import reverse
 from django.db import models
-from django.db.models.signals import pre_delete, pre_save
+from django.db.models.signals import post_delete, pre_save
 from django.dispatch.dispatcher import receiver
 from django.forms.widgets import flatatt
 from django.utils.encoding import python_2_unicode_compatible
@@ -343,8 +343,8 @@ def image_feature_detection(sender, instance, **kwargs):
             instance.set_focal_point(instance.get_suggested_focal_point())
 
 
-# Receive the pre_delete signal and delete the file associated with the model instance.
-@receiver(pre_delete, sender=Image)
+# Receive the post_delete signal and delete the file associated with the model instance.
+@receiver(post_delete, sender=Image)
 def image_delete(sender, instance, **kwargs):
     # Pass false so FileField doesn't save the model.
     instance.file.delete(False)
@@ -518,8 +518,8 @@ class Rendition(AbstractRendition):
         )
 
 
-# Receive the pre_delete signal and delete the file associated with the model instance.
-@receiver(pre_delete, sender=Rendition)
+# Receive the post_delete signal and delete the file associated with the model instance.
+@receiver(post_delete, sender=Rendition)
 def rendition_delete(sender, instance, **kwargs):
     # Pass false so FileField doesn't save the model.
     instance.file.delete(False)
