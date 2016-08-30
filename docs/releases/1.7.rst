@@ -23,8 +23,8 @@ See: :ref:`frontendcache_aws_cloudfront`
 Minor features
 ~~~~~~~~~~~~~~
 
-* The Wagtail version number can now be obtained as a tuple using ``from wagtail import VERSION`` (Tim Heap)
-* ``send_mail`` logic has been moved from ``AbstractEmailForm.process_form_submission`` into ``AbstractEmailForm.send_mail``. Now it's easier to override this logic (Tim Leguijt)
+ * The Wagtail version number can now be obtained as a tuple using ``from wagtail import VERSION`` (Tim Heap)
+ * ``send_mail`` logic has been moved from ``AbstractEmailForm.process_form_submission`` into ``AbstractEmailForm.send_mail``. Now it's easier to override this logic (Tim Leguijt)
 
 
 Bug fixes
