@@ -4,7 +4,7 @@ Wagtail API v2 Usage Guide
 
 .. note::
 
-   This is the usage guide for version 2 of the API, for version 1, see :doc:`/reference/contrib/api/usage`
+   This is the usage guide for version 2 of the API. For version 1, see :doc:`/reference/contrib/api/usage`
 
 The Wagtail API module exposes a public, read only, JSON-formatted API which
 can be used by external clients (such as a mobile app) or the site's frontend.
@@ -105,6 +105,10 @@ on the ``blog.BlogPage`` model in the :ref:`configuration docs <apiv2_page_field
                 "published_date": "2016-08-30",
                 "authors": [
                     {
+                        "id": 1,
+                        "meta": {
+                            "type": "blog.BlogPageAuthor",
+                        },
                         "name": "Karl Hobley"
                     }
                 ]
