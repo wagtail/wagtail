@@ -21,21 +21,21 @@
             <td>
                 {% with content_perms_dict.add as perm_tuple %}
                     {% if perm_tuple %}
-                        <input id="id_permissions_{{ perm_tuple.0.id }}" name="permissions" type="checkbox" {{ perm_tuple.1 }} value="{{ perm_tuple.0.id }}">
+                        <input id="id_permissions_{{ perm_tuple.0.id }}" name="permissions" type="checkbox" {{ perm_tuple.1|safe }} value="{{ perm_tuple.0.id }}">
                     {% endif %}
                 {% endwith %}
             </td>
             <td>
                 {% with content_perms_dict.change as perm_tuple %}
                     {% if perm_tuple %}
-                        <input id="id_permissions_{{ perm_tuple.0.id }}" name="permissions" type="checkbox" {{ perm_tuple.1 }} value="{{ perm_tuple.0.id }}">
+                        <input id="id_permissions_{{ perm_tuple.0.id }}" name="permissions" type="checkbox" {{ perm_tuple.1|safe }} value="{{ perm_tuple.0.id }}">
                     {% endif %}
                 {% endwith %}
             </td>
             <td>
                 {% with content_perms_dict.delete as perm_tuple %}
                     {% if perm_tuple %}
-                        <input id="id_permissions_{{ perm_tuple.0.id }}" name="permissions" type="checkbox" {{ perm_tuple.1 }} value="{{ perm_tuple.0.id }}">
+                        <input id="id_permissions_{{ perm_tuple.0.id }}" name="permissions" type="checkbox" {{ perm_tuple.1|safe }} value="{{ perm_tuple.0.id }}">
                     {% endif %}
                 {% endwith %}
             </td>
@@ -60,7 +60,7 @@
                 <td>{{ perm_tuple.0.name }}</td>
                 <td>
                     <label for="id_permissions_{{ perm_tuple.0.id }}">
-                        <input id="id_permissions_{{ perm_tuple.0.id }}" name="permissions" type="checkbox" {{ perm_tuple.1 }} value="{{ perm_tuple.0.id }}">
+                        <input id="id_permissions_{{ perm_tuple.0.id }}" name="permissions" type="checkbox" {{ perm_tuple.1|safe }} value="{{ perm_tuple.0.id }}">
                     </label>
                 </td>
             </tr>
