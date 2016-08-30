@@ -21,7 +21,7 @@ Here's an example:
 
     # models.py
     from django.db import models
-    from django.db.models.signals import pre_delete
+    from django.db.models.signals import post_delete
     from django.dispatch import receiver
     
     from wagtail.wagtailimages.models import Image, AbstractImage, AbstractRendition
@@ -49,13 +49,13 @@ Here's an example:
 
 
     # Delete the source image file when an image is deleted
-    @receiver(pre_delete, sender=CustomImage)
+    @receiver(post_delete, sender=CustomImage)
     def image_delete(sender, instance, **kwargs):
         instance.file.delete(False)
 
 
     # Delete the rendition image file when a rendition is deleted
-    @receiver(pre_delete, sender=CustomRendition)
+    @receiver(post_delete, sender=CustomRendition)
     def rendition_delete(sender, instance, **kwargs):
         instance.file.delete(False)
 
