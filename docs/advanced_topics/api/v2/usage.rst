@@ -4,7 +4,7 @@ Wagtail API v2 Usage Guide
 
 .. note::
 
-   This is the usage guide for version 2 of the API, for version 1, see TODO
+   This is the usage guide for version 2 of the API, for version 1, see :doc:`/reference/contrib/api/usage`
 
 The Wagtail API module exposes a public, read only, JSON-formatted API which
 can be used by external clients (such as a mobile app) or the site's frontend.
@@ -32,7 +32,36 @@ Example response
 Each response contains the list of items (``items``) and the total count
 (``meta.total_count``). The total count is irrespective of pagination.
 
-TODO EXAMPLE
+.. code-block:: text
+
+    GET /api/v2/endpoint_name/
+
+    HTTP 200 OK
+    Content-Type: application/json
+
+    {
+        "meta": {
+            "total_count": "total number of results"
+        },
+        "items": [
+            {
+                "id": 1,
+                "meta": {
+                    "type": "app_name.ModelName",
+                    "detail_url": "http://api.example.com/api/v2/endpoint_name/1/"
+                },
+                "field": "value"
+            },
+            {
+                "id": 2,
+                "meta": {
+                    "type": "app_name.ModelName",
+                    "detail_url": "http://api.example.com/api/v2/endpoint_name/2/"
+                },
+                "field": "different value"
+            }
+        ]
+    }
 
 .. _apiv2_custom_page_fields:
 
@@ -48,13 +77,48 @@ To access custom page fields with the API, select the page type with the
 type but will also make all the exported custom fields for that type available
 in the API.
 
-TODO example
+For example, to access the ``published_date``, ``body`` and ``authors`` fields
+on the ``blog.BlogPage`` model in the :ref:`configuration docs <apiv2_page_fields_configuration>`:
+
+.. code-block:: text
+
+    GET /api/v2/pages/?type=blog.BlogPage&fields=published_date,body,authors(name)
+
+    HTTP 200 OK
+    Content-Type: application/json
+
+    {
+        "meta": {
+            "total_count": 10
+        },
+        "items": [
+            {
+                "id": 1,
+                "meta": {
+                    "type": "blog.BlogPage",
+                    "detail_url": "http://api.example.com/api/v2/pages/1/",
+                    "html_url": "http://www.example.com/blog/my-blog-post/",
+                    "slug": "my-blog-post",
+                    "first_published_at": "2016-08-30T16:52:00Z"
+                },
+                "title": "Test blog post",
+                "published_date": "2016-08-30",
+                "authors": [
+                    {
+                        "name": "Karl Hobley"
+                    }
+                ]
+            },
+
+            ...
+        ]
+    }
 
 .. note::
 
     Only fields that have been explicitly exported by the developer may be used
     in the API. This is done by adding a ``api_fields`` attribute to the page
-    model. You can read about configuration here TODO.
+    model. You can read about configuration :ref:`here <apiv2_page_fields_configuration>`.
 
 This doesn't apply to images/documents as there is only one model exposed in
 those endpoints. But for projects that have customised image/document models,
@@ -68,7 +132,23 @@ The number of items in the response can be changed by using the ``?limit``
 parameter (default: 20) and the number of items to skip can be changed by using
 the ``?offset`` parameter.
 
-TODO EXAMPLE
+For example:
+
+.. code-block:: text
+
+    GET /api/v2/pages/?offset=20&limit=20
+
+    HTTP 200 OK
+    Content-Type: application/json
+
+    {
+        "meta": {
+            "total_count": 50
+        },
+        "items": [
+            pages 20 - 40 will be listed here.
+        ]
+    }
 
 .. note::
 
@@ -83,20 +163,75 @@ Ordering
 The results can be ordered by any field by setting the ``?order`` parameter to
 the name of the field to order by.
 
-TODO EXAMPLE
+.. code-block:: text
+
+    GET /api/v2/pages/?order=title
+
+    HTTP 200 OK
+    Content-Type: application/json
+
+    {
+        "meta": {
+            "total_count": 50
+        },
+        "items": [
+            pages will be listed here in ascending title order (a-z)
+        ]
+    }
 
 The results will be ordered in ascending order by default. This can be changed
 to descending order by prefixing the field name with a ``-`` sign.
 
-TODO EXAMPLE
+.. code-block:: text
+
+    GET /api/v2/pages/?order=-title
+
+    HTTP 200 OK
+    Content-Type: application/json
+
+    {
+        "meta": {
+            "total_count": 50
+        },
+        "items": [
+            pages will be listed here in descending title order (z-a)
+        ]
+    }
+
+.. note::
+
+    Ordering is case-sensitive so lowercase letters are always ordered after
+    uppercase letters when in ascending order.
 
 Random ordering
 ^^^^^^^^^^^^^^^
 
 Passing ``random`` into the ``?order`` parameter will make results return in a
-random order.
+random order. If there is no caching, each request will return results in a
+different order.
 
-TODO EXAMPLE
+.. code-block:: text
+
+    GET /api/v2/pages/?order=random
+
+    HTTP 200 OK
+    Content-Type: application/json
+
+    {
+        "meta": {
+            "total_count": 50
+        },
+        "items": [
+            pages will be listed here in random order
+        ]
+    }
+
+.. note::
+
+    It's not possible to use ``?offset`` while ordering randomly because
+    consistent random ordering cannot be guarenteed over multiple requests
+    (so requests for subsequent pages may return results that also appeared in
+    previous pages).
 
 Filtering
 ---------
@@ -104,7 +239,33 @@ Filtering
 Any field may be used in an exact match filter. Use the filter name as the
 parameter and the value to match against.
 
-TODO example
+For example, to find a page with the slug "about":
+
+.. code-block:: text
+
+    GET /api/v2/pages/?slug=about
+
+    HTTP 200 OK
+    Content-Type: application/json
+
+    {
+        "meta": {
+            "total_count": 1
+        },
+        "items": [
+            {
+                "id": 10,
+                "meta": {
+                    "type": "standard.StandardPage",
+                    "detail_url": "http://api.example.com/api/v2/pages/10/",
+                    "html_url": "http://www.example.com/about/",
+                    "slug": "about",
+                    "first_published_at": "2016-08-30T16:52:00Z"
+                },
+                "title": "About"
+            },
+        ]
+    }
 
 Search
 ------
@@ -115,7 +276,7 @@ the results.
 The query is split into "terms" (by word boundary), then each term is normalised
 (lowercased and unaccented).
 
-TODO example
+For example: ``?search=James+Joyce``
 
 Search operator
 ^^^^^^^^^^^^^^^
@@ -140,7 +301,7 @@ so the ``or`` operator may return irrelevant results on the first page.
 For this reason, it's also recommended to use the ``and`` operator when using
 ``?search`` in conjunction with ``?order`` (as this disables ranking).
 
-TODO example
+For example: ``?search=James+Joyce&search_operator=and``
 
 Fields
 ------

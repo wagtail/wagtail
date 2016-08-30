@@ -93,6 +93,8 @@ Next, register the URLs so Django can route requests into the API:
 With this configuration, pages will be available at ``/api/v2/pages/``, images
 at ``/api/v2/images/`` and documents at ``/api/v2/documents/``
 
+.. _apiv2_page_fields_configuration:
+
 Adding custom page fields
 -------------------------
 
