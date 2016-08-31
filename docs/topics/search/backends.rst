@@ -52,11 +52,6 @@ By default (when using the Elasticsearch backend), when the ``update_index`` com
 
 Setting the ``ATOMIC_REBUILD`` setting to ``True`` makes Wagtail rebuild into a separate index while keep the old index active until the new one is fully built. When the rebuild is finished, the indexes are swapped atomically and the old index is deleted.
 
-.. warning:: Experimental feature
-
-    This feature is currently experimental. Please use it with caution.
-
-
 ``BACKEND``
 ===========
 
