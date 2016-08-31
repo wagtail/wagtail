@@ -13,7 +13,7 @@ from django.core.files import File
 from django.core.urlresolvers import reverse
 from django.db import models
 from django.db.models.signals import post_delete, pre_save
-from django.db.utils import OperationalError
+from django.db.utils import DatabaseError
 from django.dispatch.dispatcher import receiver
 from django.forms.widgets import flatatt
 from django.utils.encoding import python_2_unicode_compatible
@@ -523,7 +523,7 @@ class AbstractRendition(models.Model):
 
         try:
             null_filter_spec_exists = cls.objects.filter(filter_spec__isnull=True).exists()
-        except OperationalError:
+        except DatabaseError:
             # The database is not in a state where the above lookup makes sense;
             # this is entirely expected, because system checks are performed before running
             # migrations. We're only interested in the specific case where the column exists
