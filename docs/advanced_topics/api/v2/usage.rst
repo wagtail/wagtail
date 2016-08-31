@@ -317,7 +317,7 @@ response and remove default fields that you know you won't need.
 Additional fields
 ^^^^^^^^^^^^^^^^^
 
-Aadditional fields can be added to the response by setting ``?fields`` to a
+Additional fields can be added to the response by setting ``?fields`` to a
 comma-separated list of field names you want to add.
 
 For example, ``?fields=body,feed_image`` will add the ``body`` and ``feed_image``
