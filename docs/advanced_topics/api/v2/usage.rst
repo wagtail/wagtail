@@ -297,18 +297,16 @@ handled. There are two possible values:
    each result
  - ``or`` - At least one term in the search query must exist in each result
 
-The default search operator used by the API depends on which search engine is in
-use by the site. If the site uses Elasticsearch, the ``or`` operator is used by
-default. If the site uses Wagtail's built in database backend then the ``and``
-operator is used by default.
-
 The ``or`` operator is generally better than ``and`` as it allows the user to be
-inexact with their query and the ranking algorithm can still return relevant
-results. However, Wagtail's database search backend doesn't support ranking yet,
-so the ``or`` operator may return irrelevant results on the first page.
+inexact with their query and the ranking algorithm will make sure that
+irrelevant results are not returned at the top of the page.
 
-For this reason, it's also recommended to use the ``and`` operator when using
-``?search`` in conjunction with ``?order`` (as this disables ranking).
+The default search operator depends on whether the search engine being used by
+the site supports ranking. If it does (Elasticsearch), the operator will default
+to ``or``. Otherwise (database), it will default to ``and``.
+
+For the same reason, it's also recommended to use the ``and`` operator when
+using ``?search`` in conjunction with ``?order`` (as this disables ranking).
 
 For example: ``?search=James+Joyce&order=-first_published_at&search_operator=and``
 
