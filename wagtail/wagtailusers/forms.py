@@ -218,6 +218,9 @@ class GroupForm(forms.ModelForm):
     class Meta:
         model = Group
         fields = ("name", "permissions", )
+        widgets = {
+            'permissions': forms.CheckboxSelectMultiple(),
+        }
 
     def clean_name(self):
         # Since Group.name is unique, this check is redundant,
