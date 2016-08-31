@@ -761,7 +761,8 @@ class TestGroupEditView(TestCase, WagtailTestUtils):
         soup = BeautifulSoup(response.content, 'html5lib')
 
         self.assertTrue(
-            soup.find('input',
+            soup.find(
+                'input',
                 {'name': 'permissions', 'type': 'checkbox', 'checked': 'checked', 'value': self.existing_permission.id}
             )
         )
