@@ -310,7 +310,7 @@ so the ``or`` operator may return irrelevant results on the first page.
 For this reason, it's also recommended to use the ``and`` operator when using
 ``?search`` in conjunction with ``?order`` (as this disables ranking).
 
-For example: ``?search=James+Joyce&search_operator=and``
+For example: ``?search=James+Joyce&order=-first_published_at&search_operator=and``
 
 Fields
 ------
