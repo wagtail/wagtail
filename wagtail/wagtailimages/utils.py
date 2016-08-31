@@ -9,10 +9,12 @@ def get_fill_filter_spec_migrations(app_name, rendition_model_name):
     def fill_filter_spec_forward(apps, schema_editor):
         # Populate Rendition.filter_spec with the spec string of the corresponding Filter object
         Rendition = apps.get_model(app_name, rendition_model_name)
+        Filter = apps.get_model('wagtailimages', 'Filter')
+
         db_alias = schema_editor.connection.alias
-        for rendition in Rendition.objects.using(db_alias).select_related('filter'):
-            rendition.filter_spec = rendition.filter.spec
-            rendition.save()
+        for flt in Filter.objects.using(db_alias):
+            renditions = Rendition.objects.using(db_alias).filter(filter=flt, filter_spec__isnull=True)
+            renditions.update(filter_spec=flt.spec)
 
     def fill_filter_spec_reverse(apps, schema_editor):
         # Populate the Rendition.filter
