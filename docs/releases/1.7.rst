@@ -26,6 +26,14 @@ Unpublishing subpages
 Unpublishing a page now gives the option to unpublish its subpages at the same time. This feature was developed by Jordi Joan.
 
 
+Elasticsearch 2 support
+~~~~~~~~~~~~~~~~~~~~~~~
+
+Wagtail now supports Elasticsearch 2. Note that you need to change backend in ``WAGTAILSEARCH_BACKENDS``, if you wish to switch to Elasticsearch 2. This feature was developed by Karl Hobley.
+
+See: :ref:`wagtailsearch_backends_elasticsearch`
+
+
 Minor features
 ~~~~~~~~~~~~~~
 
