@@ -461,7 +461,7 @@ class Filter(models.Model):
 
 class AbstractRendition(models.Model):
     filter = models.ForeignKey(Filter, related_name='+', null=True, blank=True)
-    filter_spec = models.CharField(max_length=255, db_index=True, null=True, blank=True)
+    filter_spec = models.CharField(max_length=255, db_index=True, blank=True, default='')
     file = models.ImageField(upload_to=get_rendition_upload_to, width_field='width', height_field='height')
     width = models.IntegerField(editable=False)
     height = models.IntegerField(editable=False)
@@ -522,7 +522,7 @@ class AbstractRendition(models.Model):
         # a data migration needs to be performed to populate it
 
         try:
-            null_filter_spec_exists = cls.objects.filter(filter_spec__isnull=True).exists()
+            null_filter_spec_exists = cls.objects.filter(filter_spec='').exists()
         except DatabaseError:
             # The database is not in a state where the above lookup makes sense;
             # this is entirely expected, because system checks are performed before running
