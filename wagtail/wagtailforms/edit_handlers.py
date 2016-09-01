@@ -28,7 +28,7 @@ class FormSubmissionsPanel(object):
         self.heading = heading
 
     def bind_to_model(self, model):
-        heading = _('{} submissions').format(model._meta.model_name)
+        heading = _('{} submissions').format(model.get_verbose_name())
         return type(str('_FormResponsesPanel'), (BaseFormSubmissionsPanel,), {
             'model': model,
             'heading': self.heading or heading,
