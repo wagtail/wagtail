@@ -75,3 +75,24 @@ You now need to create two templates named ``form_page.html`` and ``form_page_la
     </html>
 
 ``form_page_landing.html`` is a regular Wagtail template, displayed after the user makes a successful form submission.
+
+
+.. _wagtailforms_formsubmissionpanel:
+
+Displaying form submission information
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+``FormSubmissionsPanel`` can be added to your page's panel definitions to display the number of form submissions and the time of the most recent submission, along with a quick link to access the full submission data:
+
+.. code-block:: python
+
+    from wagtail.wagtailforms.edit_handlers import FormSubmissionsPanel
+
+    class FormPage(AbstractEmailForm):
+        # ...
+
+        content_panels = AbstractEmailForm.content_panels + [
+            FormSubmissionsPanel(),
+            FieldPanel('intro', classname="full"),
+            # ...
+        ]
