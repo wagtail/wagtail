@@ -9,7 +9,7 @@
                 <label class="label">{{ total }}</label>
                 <div class="field-content">
                     <div class="input">
-                        <a href="{% url 'wagtailforms:list_submissions' self.instance.id %}">{{ submissions.count }}</a>
+                        <a href="{% url 'wagtailforms:list_submissions' self.instance.id %}">{{ submission_count }}</a>
                     </div>
                 </div>
             </div>
@@ -19,7 +19,7 @@
                 <label class="label">{{ latest }}</label>
                 <div class="field-content">
                     <p>
-                        {{ submissions.last.submit_time }}
+                        {{ last_submit_time }}
                     </p>
                 </div>
             </div>

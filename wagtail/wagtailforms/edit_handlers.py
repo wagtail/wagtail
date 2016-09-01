@@ -13,13 +13,15 @@ class BaseFormSubmissionsPanel(EditHandler):
     def render(self):
         from .models import FormSubmission
         submissions = FormSubmission.objects.filter(page=self.instance)
+        submission_count = submissions.count()
 
-        if not submissions:
+        if not submission_count:
             return ''
 
         return mark_safe(render_to_string(self.template, {
             'self': self,
-            'submissions': submissions
+            'submission_count': submission_count,
+            'last_submit_time': submissions.order_by('submit_time').last().submit_time,
         }))
 
 
