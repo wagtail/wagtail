@@ -15,6 +15,12 @@ Changelog
  * Fix: Fixed toggle behaviour of userbar on mobile (Robert Rollins)
 
 
+1.6.2 (XX.XX.XXXX)
+~~~~~~~~~~~~~~~~~~
+
+ * Fix: Initial values of checkboxes on group permission edit form now are visible on Django 1.10 (Matt Westcott)
+
+
 1.6.1 (26.08.2016)
 ~~~~~~~~~~~~~~~~~~
 
