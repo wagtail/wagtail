@@ -16,7 +16,7 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='rendition',
             name='filter_spec',
-            field=models.CharField(blank=True, db_index=True, max_length=255, null=True),
+            field=models.CharField(blank=True, db_index=True, default='', max_length=255),
         ),
         migrations.AlterField(
             model_name='rendition',

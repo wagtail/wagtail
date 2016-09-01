@@ -13,7 +13,7 @@ def get_fill_filter_spec_migrations(app_name, rendition_model_name):
 
         db_alias = schema_editor.connection.alias
         for flt in Filter.objects.using(db_alias):
-            renditions = Rendition.objects.using(db_alias).filter(filter=flt, filter_spec__isnull=True)
+            renditions = Rendition.objects.using(db_alias).filter(filter=flt, filter_spec='')
             renditions.update(filter_spec=flt.spec)
 
     def fill_filter_spec_reverse(apps, schema_editor):
