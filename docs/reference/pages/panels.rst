@@ -160,6 +160,26 @@ ImageChooserPanel
 
     Displaying ``Image`` objects in a template requires the use of a template tag. See :ref:`image_tag`.
 
+FormSubmissionsPanel
+--------------------
+
+.. module:: wagtail.wagtailforms.edit_handlers
+
+.. class:: FormSubmissionsPanel
+
+    This panel adds a single, read-only section in the edit interface for pages implementing the :class:`~wagtail.wagtailforms.models.AbstractForm` model.
+    It includes the number of total submissions for the given form and also a link to the listing of submissions.
+
+    .. code-block:: python
+
+        from wagtail.wagtailforms.models import AbstractForm
+        from wagtail.wagtailforms.edit_handlers import FormSubmissionsPanel
+
+        class ContactFormPage(AbstractForm):
+            content_panels = [
+                FormSubmissionsPanel(),
+            ]
+
 DocumentChooserPanel
 --------------------
 

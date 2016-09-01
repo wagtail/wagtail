@@ -10,7 +10,10 @@ from django.test import TestCase
 
 from wagtail.tests.testapp.models import FormField, FormPage, JadeFormPage
 from wagtail.tests.utils import WagtailTestUtils
+from wagtail.wagtailadmin.edit_handlers import get_form_for_model
+from wagtail.wagtailadmin.forms import WagtailAdminPageForm
 from wagtail.wagtailcore.models import Page
+from wagtail.wagtailforms.edit_handlers import FormSubmissionsPanel
 from wagtail.wagtailforms.forms import FormBuilder
 from wagtail.wagtailforms.models import FormSubmission
 
@@ -49,6 +52,40 @@ def make_form_page(**kwargs):
     )
 
     return form_page
+
+
+class TestFormResponsesPanel(TestCase):
+    def setUp(self):
+        self.form_page = make_form_page()
+
+        self.FormPageForm = get_form_for_model(
+            FormPage, form_class=WagtailAdminPageForm
+        )
+
+        submissions_panel = FormSubmissionsPanel().bind_to_model(FormPage)
+
+        self.panel = submissions_panel(self.form_page, self.FormPageForm())
+
+    def test_render_with_submissions(self):
+        """Show the panel with the count of submission and a link to the list_submissions view."""
+        self.client.post('/contact-us/', {
+            'your-email': 'bob@example.com',
+            'your-message': 'hello world',
+            'your-choices': {'foo': '', 'bar': '', 'baz': ''}
+        })
+
+        result = self.panel.render()
+
+        url = reverse('wagtailforms:list_submissions', args=(self.form_page.id,))
+        link = '<a href="{}">1</a>'.format(url)
+
+        self.assertIn(link, result)
+
+    def test_render_without_submissions(self):
+        """The panel should not be shown if the number of submission is zero."""
+        result = self.panel.render()
+
+        self.assertEqual('', result)
 
 
 class TestFormSubmission(TestCase):
@@ -456,7 +493,7 @@ class TestFormsSubmissions(TestCase, WagtailTestUtils):
             submission.save()
 
     def test_list_submissions(self):
-        response = self.client.get(reverse('wagtailforms:list_submissions', args=(self.form_page.id, )))
+        response = self.client.get(reverse('wagtailforms:list_submissions', args=(self.form_page.id,)))
 
         # Check response
         self.assertEqual(response.status_code, 200)
@@ -465,7 +502,7 @@ class TestFormsSubmissions(TestCase, WagtailTestUtils):
 
     def test_list_submissions_filtering_date_from(self):
         response = self.client.get(
-            reverse('wagtailforms:list_submissions', args=(self.form_page.id, )), {'date_from': '01/01/2014'}
+            reverse('wagtailforms:list_submissions', args=(self.form_page.id,)), {'date_from': '01/01/2014'}
         )
 
         # Check response
@@ -497,7 +534,7 @@ class TestFormsSubmissions(TestCase, WagtailTestUtils):
     def test_list_submissions_pagination(self):
         self.make_list_submissions()
 
-        response = self.client.get(reverse('wagtailforms:list_submissions', args=(self.form_page.id, )), {'p': 2})
+        response = self.client.get(reverse('wagtailforms:list_submissions', args=(self.form_page.id,)), {'p': 2})
 
         # Check response
         self.assertEqual(response.status_code, 200)
@@ -510,7 +547,7 @@ class TestFormsSubmissions(TestCase, WagtailTestUtils):
         self.make_list_submissions()
 
         response = self.client.get(
-            reverse('wagtailforms:list_submissions', args=(self.form_page.id, )), {'p': 'Hello World!'}
+            reverse('wagtailforms:list_submissions', args=(self.form_page.id,)), {'p': 'Hello World!'}
         )
 
         # Check response
@@ -523,7 +560,7 @@ class TestFormsSubmissions(TestCase, WagtailTestUtils):
     def test_list_submissions_pagination_out_of_range(self):
         self.make_list_submissions()
 
-        response = self.client.get(reverse('wagtailforms:list_submissions', args=(self.form_page.id, )), {'p': 99999})
+        response = self.client.get(reverse('wagtailforms:list_submissions', args=(self.form_page.id,)), {'p': 99999})
 
         # Check response
         self.assertEqual(response.status_code, 200)
@@ -597,7 +634,7 @@ class TestFormsSubmissions(TestCase, WagtailTestUtils):
         unicode_form_submission.save()
 
         response = self.client.get(
-            reverse('wagtailforms:list_submissions', args=(self.form_page.id, )),
+            reverse('wagtailforms:list_submissions', args=(self.form_page.id,)),
             {'date_from': '01/02/2014', 'action': 'CSV'}
         )
 
@@ -667,7 +704,7 @@ class TestDeleteFormSubmission(TestCase):
         # Check that the submission is gone
         self.assertEqual(FormSubmission.objects.count(), 1)
         # Should be redirected to list of submissions
-        self.assertRedirects(response, reverse("wagtailforms:list_submissions", args=(self.form_page.id, )))
+        self.assertRedirects(response, reverse("wagtailforms:list_submissions", args=(self.form_page.id,)))
 
     def test_delete_submission_bad_permissions(self):
         self.assertTrue(self.client.login(username="eventeditor", password="password"))
