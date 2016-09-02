@@ -17,7 +17,7 @@ Changelog
  * Fix: Image rendition / document file deletion now happens on a post_delete signal, so that files are not lost if the deletion does not proceed (Janneke Janssen)
 
 
-1.6.2 (XX.XX.XXXX)
+1.6.2 (02.09.2016)
 ~~~~~~~~~~~~~~~~~~
 
  * Fix: Initial values of checkboxes on group permission edit form now are visible on Django 1.10 (Matt Westcott)
