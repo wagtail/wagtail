@@ -2,7 +2,7 @@ Changelog
 =========
 
 
-1.6.2 (XX.XX.XXXX)
+1.6.2 (02.09.2016)
 ~~~~~~~~~~~~~~~~~~
 
  * Fix: Initial values of checkboxes on group permission edit form now are visible on Django 1.10 (Matt Westcott)
