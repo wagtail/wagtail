@@ -138,7 +138,7 @@ ModelAdminGroup allows you to group them all together nicely.
         menu_label = 'Snippet Model'  # ditch this to use verbose_name_plural from model
         menu_icon = 'snippet'  # change as required
         list_display = ('title', 'example_field2', 'example_field3')
-        list_filter = (example_field2', 'example_field3')
+        list_filter = ('example_field2', 'example_field3')
         search_fields = ('title',)
 
 
@@ -147,7 +147,7 @@ ModelAdminGroup allows you to group them all together nicely.
         menu_label = 'Some other model'  # ditch this to use verbose_name_plural from model
         menu_icon = 'snippet'  # change as required
         list_display = ('title', 'example_field2', 'example_field3')
-        list_filter = (example_field2', 'example_field3')
+        list_filter = ('example_field2', 'example_field3')
         search_fields = ('title',)
 
 
