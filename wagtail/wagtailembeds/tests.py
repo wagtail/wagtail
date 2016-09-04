@@ -22,7 +22,8 @@ from wagtail.wagtailembeds.finders.embedly import AccessDeniedEmbedlyException, 
 from wagtail.wagtailembeds.finders.oembed import oembed as wagtail_oembed
 from wagtail.wagtailembeds.models import Embed
 from wagtail.wagtailembeds.rich_text import MediaEmbedHandler
-from wagtail.wagtailembeds.templatetags.wagtailembeds_tags import embed as embed_filter, embed_tag
+from wagtail.wagtailembeds.templatetags.wagtailembeds_tags import embed as embed_filter
+from wagtail.wagtailembeds.templatetags.wagtailembeds_tags import embed_tag
 
 try:
     import embedly  # noqa
