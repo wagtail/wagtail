@@ -612,7 +612,7 @@ These two files should reside in your project directory (``myproject/myproject/`
   from wagtail.wagtailcore import urls as wagtail_urls
   from wagtail.wagtailadmin import urls as wagtailadmin_urls
   from wagtail.wagtaildocs import urls as wagtaildocs_urls
-  from wagtail.wagtailsearch import urls as wagtailsearch__urls
+  from wagtail.wagtailsearch import urls as wagtailsearch_urls
 
 
   urlpatterns = patterns('',
