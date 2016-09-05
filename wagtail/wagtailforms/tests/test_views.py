@@ -4,9 +4,11 @@ from __future__ import absolute_import, unicode_literals
 import json
 
 from django.contrib.auth import get_user_model
-from django.test import TestCase
 from django.core.urlresolvers import reverse
-from wagtail.tests.testapp.models import FormPage, FormField, CustomFormPageSubmission, FormFieldWithCustomSubmission
+from django.test import TestCase
+
+from wagtail.tests.testapp.models import (
+    CustomFormPageSubmission, FormField, FormFieldWithCustomSubmission, FormPage)
 from wagtail.tests.utils import WagtailTestUtils
 from wagtail.wagtailadmin.edit_handlers import get_form_for_model
 from wagtail.wagtailadmin.forms import WagtailAdminPageForm
