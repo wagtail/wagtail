@@ -396,6 +396,9 @@ class Page(six.with_metaclass(PageBase, AbstractPage, index.Indexed, Clusterable
     # Do not allow plain Page instances to be created through the Wagtail admin
     is_creatable = False
 
+    def get_title():
+        return self.seo_title or self.title
+
     def __init__(self, *args, **kwargs):
         super(Page, self).__init__(*args, **kwargs)
         if not self.id and not self.content_type_id:
