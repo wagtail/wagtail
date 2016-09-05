@@ -13,6 +13,7 @@ Changelog
  * Fix: Migrations for wagtailcore and project template are now reversible (Benjamin Bach)
  * Fix: The default image format label text ('Full width', 'Left-aligned', 'Right-aligned') is now localised (Mikalai Radchuk)
  * Fix: Text on the front-end 'password required' form is now marked for translation (Janneke Janssen)
+ * Fix: Text on the page view restriction form is now marked for translation (Luiz Boaretto)
  * Fix: Fixed toggle behaviour of userbar on mobile (Robert Rollins)
  * Fix: Image rendition / document file deletion now happens on a post_delete signal, so that files are not lost if the deletion does not proceed (Janneke Janssen)
 
