@@ -180,11 +180,11 @@ class CopyForm(forms.Form):
 
 
 class PageViewRestrictionForm(forms.Form):
-    restriction_type = forms.ChoiceField(label="Visibility", choices=[
+    restriction_type = forms.ChoiceField(label=ugettext_lazy("Visibility"), choices=[
         ('none', ugettext_lazy("Public")),
         ('password', ugettext_lazy("Private, accessible with the following password")),
     ], widget=forms.RadioSelect)
-    password = forms.CharField(required=False)
+    password = forms.CharField(label=ugettext_lazy("Password"), required=False)
 
     def clean(self):
         cleaned_data = super(PageViewRestrictionForm, self).clean()
