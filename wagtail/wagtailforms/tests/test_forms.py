@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 from __future__ import absolute_import, unicode_literals
 
-from django.test import TestCase
 from django import forms
-from wagtail.tests.testapp.models import FormField, FormPage
+from django.test import TestCase
 
+from wagtail.tests.testapp.models import FormField, FormPage
 from wagtail.wagtailcore.models import Page
 from wagtail.wagtailforms.forms import FormBuilder
 
