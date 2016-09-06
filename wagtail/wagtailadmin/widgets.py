@@ -4,6 +4,7 @@ import itertools
 import json
 from functools import total_ordering
 
+from django.conf import settings
 from django.core.urlresolvers import reverse
 from django.forms import widgets
 from django.forms.utils import flatatt
@@ -17,6 +18,11 @@ from taggit.forms import TagWidget
 from wagtail.utils.widgets import WidgetWithScript
 from wagtail.wagtailcore import hooks
 from wagtail.wagtailcore.models import Page
+from wagtail.wagtailadmin.datetimepicker import to_datetimepicker_format
+
+
+DEFAULT_DATE_FORMAT = '%Y-%m-%d'
+DEFAULT_DATETIME_FORMAT = '%Y-%m-%d %H:%M'
 
 
 class AdminAutoHeightTextInput(WidgetWithScript, widgets.Textarea):
@@ -36,13 +42,24 @@ class AdminDateInput(WidgetWithScript, widgets.DateInput):
     # Set a default date format to match the one that our JS date picker expects -
     # it can still be overridden explicitly, but this way it won't be affected by
     # the DATE_INPUT_FORMATS setting
-    def __init__(self, attrs=None, format='%Y-%m-%d'):
-        super(AdminDateInput, self).__init__(attrs=attrs, format=format)
+    def __init__(self, attrs=None, format=None, js_format=None):
+        fmt = format
+        if fmt is None:
+            fmt = getattr(settings, 'WAGTAIL_DATE_FORMAT', DEFAULT_DATE_FORMAT)
+        self.js_format = js_format
+        if fmt != DEFAULT_DATE_FORMAT and self.js_format is None:
+            self.js_format = to_datetimepicker_format(fmt)
+        super(AdminDateInput, self).__init__(attrs=attrs, format=fmt)
 
     def render_js_init(self, id_, name, value):
+        config = {
+            'dayOfWeekStart': get_format('FIRST_DAY_OF_WEEK'),
+        }
+        if self.js_format:
+            config['format'] = self.js_format
         return 'initDateChooser({0}, {1});'.format(
             json.dumps(id_),
-            json.dumps({'dayOfWeekStart': get_format('FIRST_DAY_OF_WEEK')})
+            json.dumps(config)
         )
 
 
@@ -55,13 +72,25 @@ class AdminTimeInput(WidgetWithScript, widgets.TimeInput):
 
 
 class AdminDateTimeInput(WidgetWithScript, widgets.DateTimeInput):
-    def __init__(self, attrs=None, format='%Y-%m-%d %H:%M'):
-        super(AdminDateTimeInput, self).__init__(attrs=attrs, format=format)
+    def __init__(self, attrs=None, format=None, js_format=None):
+        fmt = format
+        if fmt is None:
+            fmt = getattr(settings, 'WAGTAIL_DATETIME_FORMAT',
+                          DEFAULT_DATETIME_FORMAT)
+        self.js_format = js_format
+        if fmt != DEFAULT_DATETIME_FORMAT and self.js_format is None:
+            self.js_format = to_datetimepicker_format(fmt)
+        super(AdminDateTimeInput, self).__init__(attrs=attrs, format=fmt)
 
     def render_js_init(self, id_, name, value):
+        config = {
+            'dayOfWeekStart': get_format('FIRST_DAY_OF_WEEK'),
+        }
+        if self.js_format:
+            config['format'] = self.js_format
         return 'initDateTimeChooser({0}, {1});'.format(
             json.dumps(id_),
-            json.dumps({'dayOfWeekStart': get_format('FIRST_DAY_OF_WEEK')})
+            json.dumps(config)
         )
 
 

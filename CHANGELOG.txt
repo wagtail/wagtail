@@ -4,6 +4,7 @@ Changelog
 1.7 (xx.xx.xxxx)
 ~~~~~~~~~~~~~~~~
 
+ * Added support for custom date and datetime formats (Bojan Mihelac)
  * Elasticsearch 2 support (Karl Hobley)
  * Added support for AWS CloudFront in frontend cache invalidation module (Rob Moorman)
  * Unpublishing a page now gives the option to unpublish subpages too (Jordi Joan)

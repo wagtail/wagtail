@@ -7,6 +7,7 @@ import json
 import unittest
 import warnings
 from decimal import Decimal
+from datetime import date
 
 # non-standard import name for ugettext_lazy, to prevent strings from being picked up for translation
 from django import forms
@@ -2106,6 +2107,35 @@ class TestPageChooserBlock(TestCase):
 
         self.assertEqual(nonrequired_block.clean(christmas_page), christmas_page)
         self.assertEqual(nonrequired_block.clean(None), None)
+
+
+class TestDateBlock(TestCase):
+
+    def test_render_form(self):
+        block = blocks.DateBlock()
+        value = date(2015, 8, 13)
+        result = block.render_form(value, prefix='dateblock')
+        self.assertIn(
+            '<script>initDateChooser("dateblock", {"dayOfWeekStart": 0});</script>',
+            result
+        )
+        self.assertIn(
+            '<input id="dateblock" name="dateblock" placeholder="" type="text" value="2015-08-13" />',
+            result
+        )
+
+    def test_render_form_with_format(self):
+        block = blocks.DateBlock(format='%d.%m.%Y')
+        value = date(2015, 8, 13)
+        result = block.render_form(value, prefix='dateblock')
+        self.assertIn(
+            '<script>initDateChooser("dateblock", {"dayOfWeekStart": 0, "format": "d.m.Y"});</script>',
+            result
+        )
+        self.assertIn(
+            '<input id="dateblock" name="dateblock" placeholder="" type="text" value="13.08.2015" />',
+            result
+        )
 
 
 class TestSystemCheck(TestCase):
