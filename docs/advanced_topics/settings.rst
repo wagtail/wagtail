@@ -383,6 +383,18 @@ When enabled Wagtail shows where a particular image, document or snippet is bein
 
     The usage count only applies to direct (database) references. Using documents, images and snippets within StreamFields or rich text fields will not be taken into account.
 
+Date and DateTime inputs
+------------------------
+
+.. code-block:: python
+
+    WAGTAIL_DATE_FORMAT = '%d.%m.%Y.'
+    WAGTAIL_DATETIME_FORMAT = '%d.%m.%Y. %H:%M'
+
+
+Specifies the date and datetime format to be used in input fields in the Wagtail admin. The format is specified in `Python datetime module syntax <https://docs.python.org/3/library/datetime.html#strftime-strptime-behavior>`_, and must be one of the recognised formats listed in the ``DATE_INPUT_FORMATS`` or ``DATETIME_INPUT_FORMATS`` setting respectively (see `DATE_INPUT_FORMATS <https://docs.djangoproject.com/en/1.10/ref/settings/#std:setting-DATE_INPUT_FORMATS>`_).
+
+
 URL Patterns
 ~~~~~~~~~~~~
 

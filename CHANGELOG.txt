@@ -27,6 +27,7 @@ Changelog
  * Draft page view is now restricted to users with edit / publish permission over the page (Kees Hink)
  * Added the option to delete a previously saved focal point on a image (Maarten Kling)
  * Page explorer menu item, search and summary panel are now hidden for users with no page permissions (Tim Heap)
+ * Added support for custom date and datetime formats in input fields (Bojan Mihelac)
  * Fix: Marked 'Date from' / 'Date to' strings in wagtailforms for translation (Vorlif)
  * Fix: "File" field label on image edit form is now translated (Stein Strindhaug)
  * Fix: Unreliable preview is now reliable by always opening in a new window (Kjartan Sverrisson)

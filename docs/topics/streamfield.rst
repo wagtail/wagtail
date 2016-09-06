@@ -157,7 +157,10 @@ DateBlock
 
 ``wagtail.wagtailcore.blocks.DateBlock``
 
-A date picker. The keyword arguments ``required`` and ``help_text`` are accepted.
+A date picker. The keyword arguments ``required``, ``help_text`` and ``format`` are accepted.
+
+``format`` (default: None)
+  Date format. If not specifed Wagtail will use ``WAGTAIL_DATE_FORMAT`` setting with fallback to '%Y-%m-%d'.
 
 TimeBlock
 ~~~~~~~~~
@@ -171,7 +174,10 @@ DateTimeBlock
 
 ``wagtail.wagtailcore.blocks.DateTimeBlock``
 
-A combined date / time picker. The keyword arguments ``required`` and ``help_text`` are accepted.
+A combined date / time picker. The keyword arguments ``required``, ``help_text`` and ``format`` are accepted.
+
+``format`` (default: None)
+  Date format. If not specifed Wagtail will use ``WAGTAIL_DATETIME_FORMAT`` setting with fallback to '%Y-%m-%d %H:%M'.
 
 RichTextBlock
 ~~~~~~~~~~~~~
