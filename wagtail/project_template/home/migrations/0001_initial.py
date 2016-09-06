@@ -7,7 +7,7 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('wagtailcore', '__latest__'),
+        ('wagtailcore', '0029_unicode_slugfield_dj19'),
     ]
 
     operations = [
