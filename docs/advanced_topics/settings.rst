@@ -362,7 +362,8 @@ Date and DateTime inputs
     WAGTAIL_DATE_FORMAT = '%d.%m.%Y.'
     WAGTAIL_DATETIME_FORMAT = '%d.%m.%Y. %H:%M'
 
-Allows using of custom date and datetime formats in wagtail inputs.
+
+Allows the use of custom date and datetime formats in Wagtail inputs.
 
 
 URL Patterns
