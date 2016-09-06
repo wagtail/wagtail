@@ -53,6 +53,7 @@ Bug fixes
 ~~~~~~~~~
 
  * Migrations for wagtailcore and project template are now reversible (Benjamin Bach)
+ * Migrations no longer depend on wagtailcore and taggit's ``__latest__`` migration, logically preventing those apps from receiving new migrations (Matt Westcott)
  * The default image format label text ('Full width', 'Left-aligned', 'Right-aligned') is now localised (Mikalai Radchuk)
  * Text on the front-end 'password required' form is now marked for translation (Janneke Janssen)
  * Text on the page view restriction form is now marked for translation (Luiz Boaretto)
@@ -66,6 +67,26 @@ Bug fixes
 
 Upgrade considerations
 ======================
+
+Project template's initial migration should not depend on ``wagtailcore.__latest__``
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+On projects created under previous releases of Wagtail, the ``home/migrations/0001_initial.py`` migration created by the ``wagtail start`` command contains the following dependency line:
+
+.. code-block:: python
+
+    dependencies = [
+        ('wagtailcore', '__latest__'),
+    ]
+
+This may produce ``InconsistentMigrationHistory`` errors under Django 1.10 when upgrading Wagtail, since Django interprets this to mean that no new migrations can legally be added to wagtailcore after this migration is applied. This line should be changed to:
+
+.. code-block:: python
+
+    dependencies = [
+        ('wagtailcore', '0029_unicode_slugfield_dj19'),
+    ]
+
 
 .. _filter_spec_migration:
 
