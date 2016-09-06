@@ -16,9 +16,9 @@ from django.utils.translation import ugettext_lazy as _
 from taggit.forms import TagWidget
 
 from wagtail.utils.widgets import WidgetWithScript
+from wagtail.wagtailadmin.datetimepicker import to_datetimepicker_format
 from wagtail.wagtailcore import hooks
 from wagtail.wagtailcore.models import Page
-from wagtail.wagtailadmin.datetimepicker import to_datetimepicker_format
 
 
 DEFAULT_DATE_FORMAT = '%Y-%m-%d'

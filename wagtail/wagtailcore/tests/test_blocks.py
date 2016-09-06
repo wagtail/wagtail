@@ -6,8 +6,8 @@ import collections
 import json
 import unittest
 import warnings
-from decimal import Decimal
 from datetime import date
+from decimal import Decimal
 
 # non-standard import name for ugettext_lazy, to prevent strings from being picked up for translation
 from django import forms
