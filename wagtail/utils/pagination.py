@@ -1,13 +1,13 @@
 from __future__ import absolute_import, unicode_literals
 
-from urlparse import parse_qs
-
 from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
 
 try:
     from urllib import urlencode
+    from urlparse import parse_qs
 except ImportError:
     from urllib.parse import urlencode
+    from urllib.parse import parse_qs
 
 
 DEFAULT_PAGE_KEY = 'p'
