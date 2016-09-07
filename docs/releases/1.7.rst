@@ -41,6 +41,7 @@ Minor features
  * The Wagtail version number can now be obtained as a tuple using ``from wagtail import VERSION`` (Tim Heap)
  * ``send_mail`` logic has been moved from ``AbstractEmailForm.process_form_submission`` into ``AbstractEmailForm.send_mail``. Now it's easier to override this logic (Tim Leguijt)
  * Added ``before_create_page``, ``before_edit_page``, ``before_delete_page`` hooks (Karl Hobley)
+ * Updated font sizes and colours to improve legibility of admin menu and buttons (Stein Strindhaug)
 
 
 Bug fixes

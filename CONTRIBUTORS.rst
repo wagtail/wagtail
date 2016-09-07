@@ -167,6 +167,7 @@ Contributors
 * Kees Hink
 * Jayden Smith
 * emg36
+* Stein Strindhaug
 
 Translators
 ===========
