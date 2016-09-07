@@ -1,6 +1,9 @@
 from __future__ import absolute_import, unicode_literals
 
-from urllib import urlencode
+try:
+    from urllib import urlencode
+except ImportError:
+    from urllib.parse import urlencode
 from urlparse import parse_qs
 
 from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
