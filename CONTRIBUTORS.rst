@@ -162,6 +162,8 @@ Contributors
 * Eraldo Energy
 * Jesse Legg
 * Tim Leguijt
+* Luiz Boaretto
+* Jonathon Moore
 
 Translators
 ===========
