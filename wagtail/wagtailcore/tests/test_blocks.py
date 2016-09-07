@@ -2129,10 +2129,10 @@ class TestDateBlock(TestCase):
         value = date(2015, 8, 13)
         result = block.render_form(value, prefix='dateblock')
         self.assertIn(
-            '<script>initDateChooser("dateblock", {"dayOfWeekStart": 0, "format": "d.m.Y"});</script>',
+            '"format": "d.m.Y"',
             result
         )
-        self.assertIn(
+        self.assertInHTML(
             '<input id="dateblock" name="dateblock" placeholder="" type="text" value="13.08.2015" />',
             result
         )

@@ -88,18 +88,18 @@ class TestAdminDateInput(TestCase):
         widget = widgets.AdminDateInput(format='%d.%m.%Y.', js_format='d.m.Y.')
 
         js_init = widget.render_js_init('test-id', 'test', None)
-        self.assertEqual(
+        self.assertIn(
+            '"format": "d.m.Y."',
             js_init,
-            'initDateChooser("test-id", {"dayOfWeekStart": 0, "format": "d.m.Y."});'
         )
 
     def test_render_js_init_with_format(self):
         widget = widgets.AdminDateInput(format='%d.%m.%Y.')
 
         js_init = widget.render_js_init('test-id', 'test', None)
-        self.assertEqual(
+        self.assertIn(
+            '"format": "d.m.Y."',
             js_init,
-            'initDateChooser("test-id", {"dayOfWeekStart": 0, "format": "d.m.Y."});'
         )
 
     @override_settings(WAGTAIL_DATE_FORMAT='%d.%m.%Y.')
@@ -107,9 +107,9 @@ class TestAdminDateInput(TestCase):
         widget = widgets.AdminDateInput()
 
         js_init = widget.render_js_init('test-id', 'test', None)
-        self.assertEqual(
+        self.assertIn(
+            '"format": "d.m.Y."',
             js_init,
-            'initDateChooser("test-id", {"dayOfWeekStart": 0, "format": "d.m.Y."});'
         )
 
 
@@ -125,17 +125,18 @@ class TestAdminDateTimeInput(TestCase):
         widget = widgets.AdminDateTimeInput(format='%d.%m.%Y. %H:%M')
 
         js_init = widget.render_js_init('test-id', 'test', None)
-        self.assertEqual(
+        self.assertIn(
+            '"format": "d.m.Y. H:i"',
             js_init,
-            'initDateTimeChooser("test-id", {"dayOfWeekStart": 0, "format": "d.m.Y. H:i"});'
         )
+
 
     @override_settings(WAGTAIL_DATETIME_FORMAT='%d.%m.%Y. %H:%M')
     def test_render_js_init_with_format_from_settings(self):
         widget = widgets.AdminDateTimeInput()
 
         js_init = widget.render_js_init('test-id', 'test', None)
-        self.assertEqual(
+        self.assertIn(
+            '"format": "d.m.Y. H:i"',
             js_init,
-            'initDateTimeChooser("test-id", {"dayOfWeekStart": 0, "format": "d.m.Y. H:i"});'
         )
