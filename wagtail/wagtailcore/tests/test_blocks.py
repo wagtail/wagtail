@@ -6,7 +6,7 @@ import collections
 import json
 import unittest
 import warnings
-from datetime import date
+from datetime import date, datetime
 from decimal import Decimal
 
 # non-standard import name for ugettext_lazy, to prevent strings from being picked up for translation
@@ -2134,6 +2134,22 @@ class TestDateBlock(TestCase):
         )
         self.assertInHTML(
             '<input id="dateblock" name="dateblock" placeholder="" type="text" value="13.08.2015" />',
+            result
+        )
+
+
+class TestDateTimeBlock(TestCase):
+
+    def test_render_form_with_format(self):
+        block = blocks.DateTimeBlock(format='%d.%m.%Y %H:%M')
+        value = datetime(2015, 8, 13, 10, 0)
+        result = block.render_form(value, prefix='datetimeblock')
+        self.assertIn(
+            '"format": "d.m.Y H:i"',
+            result
+        )
+        self.assertInHTML(
+            '<input id="datetimeblock" name="datetimeblock" placeholder="" type="text" value="13.08.2015 10:00" />',
             result
         )
 

@@ -272,12 +272,15 @@ class TimeBlock(FieldBlock):
 
 class DateTimeBlock(FieldBlock):
 
-    def __init__(self, required=True, help_text=None, **kwargs):
+    def __init__(self, required=True, help_text=None, format=None, js_format=None,
+                 **kwargs):
         self.field_options = {'required': required, 'help_text': help_text}
         try:
             self.field_options['input_formats'] = kwargs.pop('input_formats')
         except KeyError:
             pass
+        self.format = format
+        self.js_format = js_format
         super(DateTimeBlock, self).__init__(**kwargs)
 
     @cached_property
@@ -286,8 +289,6 @@ class DateTimeBlock(FieldBlock):
         field_kwargs = {
             'widget': AdminDateTimeInput(format=self.format, js_format=self.js_format),
         }
-        if self.format:
-            field_kwargs['format'] = self.format
         field_kwargs.update(self.field_options)
         return forms.DateTimeField(**field_kwargs)
 
