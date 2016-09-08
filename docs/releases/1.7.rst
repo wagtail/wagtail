@@ -51,6 +51,7 @@ Bug fixes
  * Text on the page view restriction form is now marked for translation (Luiz Boaretto)
  * Fixed toggle behaviour of userbar on mobile (Robert Rollins)
  * Image rendition / document file deletion now happens on a post_delete signal, so that files are not lost if the deletion does not proceed (Janneke Janssen)
+ * "Your recent edits" list on dashboard no longer leaves out pages that another user has subsequently edited (Michael Cordover, Kees Hink, João Luiz Lorencetti)
 
 
 Upgrade considerations

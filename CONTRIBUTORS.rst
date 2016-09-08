@@ -164,6 +164,7 @@ Contributors
 * Tim Leguijt
 * Luiz Boaretto
 * Jonathon Moore
+* Kees Hink
 
 Translators
 ===========
