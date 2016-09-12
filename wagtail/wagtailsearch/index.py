@@ -2,14 +2,16 @@ from __future__ import absolute_import, unicode_literals
 
 import inspect
 import logging
+import base64
 
 from django.apps import apps
 from django.core import checks
 from django.db import models
 from django.db.models.fields import FieldDoesNotExist
+from django.db.models.fields.files import FileField
 from django.db.models.fields.related import ForeignObjectRel, OneToOneRel, RelatedField
 
-from wagtail.wagtailsearch.backends import get_search_backends_with_name
+from wagtail.wagtailsearch.backends import get_search_backends_with_name, support_mapper_attachments
 
 
 logger = logging.getLogger('wagtail.search.index')
@@ -203,6 +205,8 @@ class BaseField(object):
         try:
             field = self.get_field(obj.__class__)
             value = field.value_from_object(obj)
+            if isinstance(field, FileField) and support_mapper_attachments():
+                value = base64.b64encode(obj.file.file.read()).decode()
             if hasattr(field, 'get_searchable_content'):
                 value = field.get_searchable_content(value)
             return value
