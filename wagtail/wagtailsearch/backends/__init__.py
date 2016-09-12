@@ -135,6 +135,7 @@ def get_search_backends(with_auto_update=False):
     # For backwards compatibility
     return (backend for _, backend in get_search_backends_with_name(with_auto_update=with_auto_update))
 
+
 def support_mapper_attachments():
     from .elasticsearch2 import Elasticsearch2SearchBackend
     backend = [x for x in get_search_backends_with_name()][0][1]
