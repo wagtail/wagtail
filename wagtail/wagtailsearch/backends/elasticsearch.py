@@ -26,7 +26,7 @@ class ElasticsearchMapping(object):
         'DateField': 'date',
         'DateTimeField': 'date',
         'DecimalField': 'double',
-        'FileField': 'string',
+        'FileField': 'attachment',
         'FilePathField': 'string',
         'FloatField': 'double',
         'IntegerField': 'integer',
