@@ -84,13 +84,16 @@ class ElasticsearchMapping(object):
             mapping = {'type': self.type_map.get(field.get_type(self.model), 'string')}
 
             if isinstance(field, SearchField):
-                if field.boost:
-                    mapping['boost'] = field.boost
+                if field.search_content:
+                    mapping = {'type': 'attachment'}
+                else:
+                    if field.boost:
+                        mapping['boost'] = field.boost
 
-                if field.partial_match:
-                    mapping.update(self.edgengram_analyzer_config)
+                    if field.partial_match:
+                        mapping.update(self.edgengram_analyzer_config)
 
-                mapping['include_in_all'] = True
+                    mapping['include_in_all'] = True
 
             elif isinstance(field, FilterField):
                 mapping['index'] = 'not_analyzed'
@@ -99,7 +102,6 @@ class ElasticsearchMapping(object):
             if 'es_extra' in field.kwargs:
                 for key, value in field.kwargs['es_extra'].items():
                     mapping[key] = value
-
             return self.get_field_column_name(field), mapping
 
     def get_mapping(self):
