@@ -1,5 +1,6 @@
 from __future__ import absolute_import, unicode_literals
 
+import base64
 import inspect
 import logging
 
@@ -10,7 +11,6 @@ from django.db.models.fields import FieldDoesNotExist
 from django.db.models.fields.related import ForeignObjectRel, OneToOneRel, RelatedField
 
 from wagtail.wagtailsearch.backends import get_search_backends_with_name
-
 
 logger = logging.getLogger('wagtail.search.index')
 
@@ -203,6 +203,8 @@ class BaseField(object):
         try:
             field = self.get_field(obj.__class__)
             value = field.value_from_object(obj)
+            if hasattr(self, 'search_content') and self.search_content:
+                value = base64.b64encode(obj.file.file.read()).decode()
             if hasattr(field, 'get_searchable_content'):
                 value = field.get_searchable_content(value)
             return value
@@ -217,10 +219,11 @@ class BaseField(object):
 
 
 class SearchField(BaseField):
-    def __init__(self, field_name, boost=None, partial_match=False, **kwargs):
+    def __init__(self, field_name, boost=None, partial_match=False, search_content=False, **kwargs):
         super(SearchField, self).__init__(field_name, **kwargs)
         self.boost = boost
         self.partial_match = partial_match
+        self.search_content = search_content
 
 
 class FilterField(BaseField):
