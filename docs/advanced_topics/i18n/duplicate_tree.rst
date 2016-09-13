@@ -58,11 +58,20 @@ Here's an example of how this could be implemented (with English as the main lan
 
 .. code-block:: python
 
+    from wagtail.wagtailcore.models import Page
+    from wagtail.wagtailadmin.edit_handlers import MultiFieldPanel, PageChooserPanel
+
+
     class TranslatablePageMixin(models.Model):
         # One link for each alternative language
         # These should only be used on the main language page (english)
         french_link = models.ForeignKey(Page, null=True, on_delete=models.SET_NULL, blank=True, related_name='+')
         spanish_link = models.ForeignKey(Page, null=True, on_delete=models.SET_NULL, blank=True, related_name='+')
+
+        panels = [
+            PageChooserPanel('french_link'),
+            PageChooserPanel('spanish_link'),
+        ]
 
         def get_language(self):
             """
@@ -121,10 +130,18 @@ Here's an example of how this could be implemented (with English as the main lan
 
     class AboutPage(Page, TranslatablePageMixin):
         ...
+        content_panels = [
+            ...
+            MultiFieldPanel(TranslatablePageMixin.panels, 'Language links')
+        ]
 
 
     class ContactPage(Page, TranslatablePageMixin):
         ...
+        content_panels = [
+            ...
+            MultiFieldPanel(TranslatablePageMixin.panels, 'Language links')
+        ]
 
 
 You can make use of these methods in your template by doing:

@@ -3287,3 +3287,73 @@ class TestInlineStreamField(TestCase, WagtailTestUtils):
 
         # response should include HTML declarations for streamfield child blocks
         self.assertContains(response, '<li id="__PREFIX__-container" class="sequence-member blockname-rich_text">')
+
+
+class TestRecentEditsPanel(TestCase, WagtailTestUtils):
+    def setUp(self):
+        # Find root page
+        self.root_page = Page.objects.get(id=2)
+
+        # Add child page
+        child_page = SimplePage(
+            title="Hello world!",
+            slug="hello-world",
+            content="Some content here",
+        )
+        self.root_page.add_child(instance=child_page)
+        child_page.save_revision().publish()
+        self.child_page = SimplePage.objects.get(id=child_page.id)
+
+        get_user_model().objects.create_superuser(username='alice', email='alice@email.com', password='password')
+        get_user_model().objects.create_superuser(username='bob', email='bob@email.com', password='password')
+
+    def change_something(self, title):
+        post_data = {'title': title, 'content': "Some content", 'slug': 'hello-world'}
+        response = self.client.post(reverse('wagtailadmin_pages:edit', args=(self.child_page.id, )), post_data)
+
+        # Should be redirected to edit page
+        self.assertRedirects(response, reverse('wagtailadmin_pages:edit', args=(self.child_page.id, )))
+
+        # The page should have "has_unpublished_changes" flag set
+        child_page_new = SimplePage.objects.get(id=self.child_page.id)
+        self.assertTrue(child_page_new.has_unpublished_changes)
+
+    def go_to_dashboard_response(self):
+        response = self.client.get(reverse('wagtailadmin_home'))
+        self.assertEqual(response.status_code, 200)
+        return response
+
+    def test_your_recent_edits(self):
+        # Login as Bob
+        self.client.login(username='bob', password='password')
+
+        # Bob hasn't edited anything yet
+        response = self.client.get(reverse('wagtailadmin_home'))
+        self.assertNotIn('Your most recent edits', response.content.decode('utf-8'))
+
+        # Login as Alice
+        self.client.logout()
+        self.client.login(username='alice', password='password')
+
+        # Alice changes something
+        self.change_something("Alice's edit")
+
+        # Edit should show up on dashboard
+        response = self.go_to_dashboard_response()
+        self.assertIn('Your most recent edits', response.content.decode('utf-8'))
+
+        # Bob changes something
+        self.client.login(username='bob', password='password')
+        self.change_something("Bob's edit")
+
+        # Edit shows up on Bobs dashboard
+        response = self.go_to_dashboard_response()
+        self.assertIn('Your most recent edits', response.content.decode('utf-8'))
+
+        # Login as Alice again
+        self.client.logout()
+        self.client.login(username='alice', password='password')
+
+        # Alice's dashboard should still list that first edit
+        response = self.go_to_dashboard_response()
+        self.assertIn('Your most recent edits', response.content.decode('utf-8'))

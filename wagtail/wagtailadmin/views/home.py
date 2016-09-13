@@ -1,7 +1,6 @@
 from __future__ import absolute_import, unicode_literals
 
 from django.conf import settings
-from django.db.models import F
 from django.shortcuts import render
 from django.template.loader import render_to_string
 
@@ -49,14 +48,18 @@ class RecentEditsPanel(object):
     def __init__(self, request):
         self.request = request
         # Last n edited pages
-        self.last_edits = PageRevision.objects.filter(
-            user=self.request.user,
-            created_at=F('page__latest_revision_created_at')
-        ).order_by('-created_at')[:5]
+        self.last_edits = PageRevision.objects.raw(
+            """
+            SELECT wp.* FROM
+                wagtailcore_pagerevision wp JOIN (
+                    SELECT max(created_at) AS max_created_at, page_id FROM
+                        wagtailcore_pagerevision WHERE user_id = %s GROUP BY page_id ORDER BY max_created_at DESC LIMIT %s
+                ) AS max_rev ON max_rev.max_created_at = wp.created_at ORDER BY wp.created_at DESC
+             """, [self.request.user.pk, 5])
 
     def render(self):
         return render_to_string('wagtailadmin/home/recent_edits.html', {
-            'last_edits': self.last_edits,
+            'last_edits': list(self.last_edits),
         }, request=self.request)
 
 
