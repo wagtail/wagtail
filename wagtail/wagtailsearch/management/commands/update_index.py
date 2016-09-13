@@ -46,8 +46,8 @@ def group_models_by_index(backend, models):
             models_by_index[index.name].append(model)
 
     return collections.OrderedDict([
-        (indices[index_name], models)
-        for index_name, models in models_by_index.items()
+        (indices[index_name], index_models)
+        for index_name, index_models in models_by_index.items()
     ])
 
 
