@@ -1,7 +1,6 @@
 from __future__ import absolute_import, unicode_literals
 
 from wagtail.wagtailsearch.index import FilterField, RelatedFields, SearchField
-from wagtail.wagtailsearch.backends import support_mapper_attachments
 
 from .elasticsearch import (
     ElasticsearchIndex, ElasticsearchMapping, ElasticsearchSearchBackend, ElasticsearchSearchQuery,
@@ -57,16 +56,6 @@ class Elasticsearch2Mapping(ElasticsearchMapping):
             return prefix + field.get_attname(self.model)
         elif isinstance(field, RelatedFields):
             return prefix + field.field_name
-
-    def get_field_mapping(self, field):
-        cname, mapping = super().get_field_mapping(field)
-        if mapping['type'] == 'attachment':
-            if support_mapper_attachments():
-                mapping = {'type': 'attachment'}
-                # TODO: Stripping the rest of the fields because we can't use them with `mapper-attachments`
-            else:
-                mapping['type'] = 'string'
-        return cname, mapping
 
     def get_content_type(self):
         """
