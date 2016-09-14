@@ -475,8 +475,22 @@ class ElasticsearchSearchResults(BaseSearchResults):
         # Send to Elasticsearch
         hits = self.backend.es.search(**params)
 
-        # Get pks from results
-        pks = [hit['fields']['pk'][0] for hit in hits['hits']['hits']]
+        pks = []
+        highlight = {}
+        for hit in hits['hits']['hits']:
+            # Get pks from results
+            pk = hit['fields']['pk'][0]
+            pks.append(pk)
+
+            # Get highlight
+            for field_def in self.highlight_params['fields']:
+                field_name = field_def.keys()[0]
+
+                field_highlight = highlight.get(pk, {})
+                field_highlight.update({
+                    field_name: hit.get('highlight', {}).get(field_name, [None])[0]
+                })
+                highlight[pk] = field_highlight
 
         # Initialise results dictionary
         results = dict((str(pk), None) for pk in pks)
@@ -484,7 +498,13 @@ class ElasticsearchSearchResults(BaseSearchResults):
         # Find objects in database and add them to dict
         queryset = self.query.queryset.filter(pk__in=pks)
         for obj in queryset:
-            results[str(obj.pk)] = obj
+            str_pk = str(obj.pk)
+            obj_highlight = highlight.get(str_pk)
+            if obj_highlight:
+                for field_name, field_highlight in obj_highlight.items():
+                    setattr(obj, field_name + '_highlight', field_highlight)
+
+            results[str_pk] = obj
 
         # Return results in order given by Elasticsearch
         return [results[str(pk)] for pk in pks if results[str(pk)]]
