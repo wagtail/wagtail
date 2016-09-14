@@ -403,9 +403,28 @@ class ElasticsearchSearchResults(BaseSearchResults):
         self.highlight_params = {}
 
     def highlight(self, **kwargs):
-        self.highlight_params['require_field_match'] = kwargs.get('require_field_match', None)
-        self.highlight_params['fields'] = kwargs.get('fields', [])
+        # It's possible to pass list of dicts and dict as the fields param
+        fields = kwargs.get('fields', [])
+        if isinstance(fields, dict):
+            fields = [{k: v} for k, v in fields.items()]
 
+        post_processed_fields = []
+
+        # Allow to highlight only SearchField
+        searchable_search_fields = {f.field_name: f for f in self.query.queryset.model.get_searchable_search_fields()}
+        for field_def in fields:
+            field_name = field_def.keys()[0] if isinstance(field_def, dict) and len(field_def) else None
+
+            field = searchable_search_fields.get(field_name)
+            if field:
+                field_column_name = self.query.mapping.get_field_column_name(field)
+                mapped_field_def = {
+                    field_column_name: field_def[field_name]
+                }
+                post_processed_fields.append(mapped_field_def)
+
+        self.highlight_params['fields'] = post_processed_fields
+        self.highlight_params['require_field_match'] = kwargs.get('require_field_match', None)
         return self
 
     def _clone(self):
