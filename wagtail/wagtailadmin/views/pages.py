@@ -179,6 +179,11 @@ def create(request, content_type_app_name, content_type_model_name, parent_page_
     if not page_class.can_create_at(parent_page):
         raise PermissionDenied
 
+    for fn in hooks.get_hooks('before_create_page'):
+        result = fn(request, parent_page, page_class)
+        if hasattr(result, 'status_code'):
+            return result
+
     page = page_class(owner=request.user)
     edit_handler_class = page_class.get_edit_handler()
     form_class = edit_handler_class.get_form_class(page_class)
