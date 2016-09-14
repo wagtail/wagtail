@@ -408,7 +408,7 @@ class ElasticsearchSearchResults(BaseSearchResults):
         if isinstance(fields, dict):
             fields = [{k: v} for k, v in fields.items()]
 
-        post_processed_fields = []
+        post_processed_fields = {}
 
         # Allow to highlight only SearchField
         searchable_search_fields = {f.field_name: f for f in self.query.queryset.model.get_searchable_search_fields()}
@@ -421,7 +421,7 @@ class ElasticsearchSearchResults(BaseSearchResults):
                 mapped_field_def = {
                     field_column_name: field_def[field_name]
                 }
-                post_processed_fields.append(mapped_field_def)
+                post_processed_fields[field_name] = mapped_field_def
 
         self.highlight_params['fields'] = post_processed_fields
         self.highlight_params['require_field_match'] = kwargs.get('require_field_match', None)
@@ -446,7 +446,7 @@ class ElasticsearchSearchResults(BaseSearchResults):
 
             if self.highlight_params['fields']:
                 highlight = {
-                    'fields': self.highlight_params['fields'],
+                    'fields': self.highlight_params['fields'].values(),
                 }
 
                 if self.highlight_params['require_field_match'] is not None:
@@ -483,12 +483,12 @@ class ElasticsearchSearchResults(BaseSearchResults):
             pks.append(pk)
 
             # Get highlight
-            for field_def in self.highlight_params['fields']:
-                field_name = field_def.keys()[0]
+            for field_name, field_def in self.highlight_params['fields'].items():
+                field_column_name = field_def.keys()[0]
 
                 field_highlight = highlight.get(pk, {})
                 field_highlight.update({
-                    field_name: hit.get('highlight', {}).get(field_name, [None])[0]
+                    field_name: hit.get('highlight', {}).get(field_column_name, [None])[0]
                 })
                 highlight[pk] = field_highlight
 
