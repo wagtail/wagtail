@@ -294,6 +294,11 @@ def edit(request, page_id):
     if not page_perms.can_edit():
         raise PermissionDenied
 
+    for fn in hooks.get_hooks('before_edit_page'):
+        result = fn(request, page)
+        if hasattr(result, 'status_code'):
+            return result
+
     edit_handler_class = page_class.get_edit_handler()
     form_class = edit_handler_class.get_form_class(page_class)
 
