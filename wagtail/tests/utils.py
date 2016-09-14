@@ -103,6 +103,16 @@ class WagtailTestUtils(object):
         """
         return _AssertLogsContext(self, logger, level)
 
+    @contextmanager
+    def register_hook(self, hook_name, fn):
+        from wagtail.wagtailcore import hooks
+
+        hooks.register(hook_name, fn)
+        try:
+            yield
+        finally:
+            hooks.get_hooks(hook_name).remove(fn)
+
 
 class WagtailPageTests(WagtailTestUtils, TestCase):
     """
