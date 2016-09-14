@@ -398,6 +398,22 @@ class ElasticsearchSearchQuery(BaseSearchQuery):
 
 
 class ElasticsearchSearchResults(BaseSearchResults):
+    def __init__(self, *args, **kwargs):
+        super(ElasticsearchSearchResults, self).__init__(*args, **kwargs)
+        self.highlight_params = {}
+
+    def highlight(self, **kwargs):
+        self.highlight_params['require_field_match'] = kwargs.get('require_field_match', None)
+        self.highlight_params['fields'] = kwargs.get('fields', [])
+
+        return self
+
+    def _clone(self):
+        new = super(ElasticsearchSearchResults, self)._clone()
+        new.highlight_params = self.highlight_params
+
+        return new
+
     def _get_es_body(self, for_count=False):
         body = {
             'query': self.query.get_query()
@@ -408,6 +424,18 @@ class ElasticsearchSearchResults(BaseSearchResults):
 
             if sort is not None:
                 body['sort'] = sort
+
+            if self.highlight_params['fields']:
+                highlight = {
+                    'fields': self.highlight_params['fields'],
+                }
+
+                if self.highlight_params['require_field_match'] is not None:
+                    highlight.update({
+                        'require_field_match': self.highlight_params['require_field_match'],
+                    })
+
+                body['highlight'] = highlight
 
         return body
 
