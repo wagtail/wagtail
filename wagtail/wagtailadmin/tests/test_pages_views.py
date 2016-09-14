@@ -14,6 +14,7 @@ from django.core import mail, paginator
 from django.core.files.base import ContentFile
 from django.core.urlresolvers import reverse
 from django.db.models.signals import post_delete, pre_delete
+from django.http import HttpRequest, HttpResponse
 from django.test import TestCase
 from django.utils import formats, timezone
 from django.utils.dateparse import parse_date
@@ -848,6 +849,65 @@ class TestPageCreation(TestCase, WagtailTestUtils):
         self.assertEqual(response.status_code, 200)
         self.assertFormError(response, 'form', 'slug', "Ensure this value has at most 255 characters (it has 287).")
 
+    def test_before_create_page_hook(self):
+        def hook_func(request, parent_page, page_class):
+            self.assertIsInstance(request, HttpRequest)
+            self.assertEqual(parent_page.id, self.root_page.id)
+            self.assertEqual(page_class, SimplePage)
+
+            return HttpResponse("Overridden!")
+
+        with self.register_hook('before_create_page', hook_func):
+            response = self.client.get(
+                reverse('wagtailadmin_pages:add', args=('tests', 'simplepage', self.root_page.id))
+            )
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.content, b"Overridden!")
+
+    def test_before_create_page_hook_post(self):
+        def hook_func(request, parent_page, page_class):
+            self.assertIsInstance(request, HttpRequest)
+            self.assertEqual(parent_page.id, self.root_page.id)
+            self.assertEqual(page_class, SimplePage)
+
+            return HttpResponse("Overridden!")
+
+        with self.register_hook('before_create_page', hook_func):
+            post_data = {
+                'title': "New page!",
+                'content': "Some content",
+                'slug': 'hello-world',
+            }
+            response = self.client.post(
+                reverse('wagtailadmin_pages:add', args=('tests', 'simplepage', self.root_page.id)),
+                post_data
+            )
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.content, b"Overridden!")
+
+    def test_after_create_page_hook(self):
+        def hook_func(request, page):
+            self.assertIsInstance(request, HttpRequest)
+            self.assertIsInstance(page, SimplePage)
+
+            return HttpResponse("Overridden!")
+
+        with self.register_hook('after_create_page', hook_func):
+            post_data = {
+                'title': "New page!",
+                'content': "Some content",
+                'slug': 'hello-world',
+            }
+            response = self.client.post(
+                reverse('wagtailadmin_pages:add', args=('tests', 'simplepage', self.root_page.id)),
+                post_data
+            )
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.content, b"Overridden!")
+
 
 class TestPageEdit(TestCase, WagtailTestUtils):
     def setUp(self):
@@ -1343,6 +1403,61 @@ class TestPageEdit(TestCase, WagtailTestUtils):
         self.assertNotContains(response, "This title only exists on the live database record")
         self.assertContains(response, "Some content with a draft edit")
 
+    def test_before_edit_page_hook(self):
+        def hook_func(request, page):
+            self.assertIsInstance(request, HttpRequest)
+            self.assertEqual(page.id, self.child_page.id)
+
+            return HttpResponse("Overridden!")
+
+        with self.register_hook('before_edit_page', hook_func):
+            response = self.client.get(reverse('wagtailadmin_pages:edit', args=(self.child_page.id, )))
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.content, b"Overridden!")
+
+    def test_before_edit_page_hook_post(self):
+        def hook_func(request, page):
+            self.assertIsInstance(request, HttpRequest)
+            self.assertEqual(page.id, self.child_page.id)
+
+            return HttpResponse("Overridden!")
+
+        with self.register_hook('before_edit_page', hook_func):
+            post_data = {
+                'title': "I've been edited!",
+                'content': "Some content",
+                'slug': 'hello-world-new',
+                'action-publish': "Publish",
+            }
+            response = self.client.post(
+                reverse('wagtailadmin_pages:edit', args=(self.child_page.id, )), post_data
+            )
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.content, b"Overridden!")
+
+    def test_after_edit_page_hook(self):
+        def hook_func(request, page):
+            self.assertIsInstance(request, HttpRequest)
+            self.assertEqual(page.id, self.child_page.id)
+
+            return HttpResponse("Overridden!")
+
+        with self.register_hook('after_edit_page', hook_func):
+            post_data = {
+                'title': "I've been edited!",
+                'content': "Some content",
+                'slug': 'hello-world-new',
+                'action-publish': "Publish",
+            }
+            response = self.client.post(
+                reverse('wagtailadmin_pages:edit', args=(self.child_page.id, )), post_data
+            )
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.content, b"Overridden!")
+
 
 class TestPageEditReordering(TestCase, WagtailTestUtils):
     def setUp(self):
@@ -1593,6 +1708,45 @@ class TestPageDelete(TestCase, WagtailTestUtils):
 
         self.assertIn((StandardIndex, self.child_index.id), post_delete_signals_received)
         self.assertIn((StandardChild, self.grandchild_page.id), post_delete_signals_received)
+
+    def test_before_delete_page_hook(self):
+        def hook_func(request, page):
+            self.assertIsInstance(request, HttpRequest)
+            self.assertEqual(page.id, self.child_page.id)
+
+            return HttpResponse("Overridden!")
+
+        with self.register_hook('before_delete_page', hook_func):
+            response = self.client.get(reverse('wagtailadmin_pages:delete', args=(self.child_page.id, )))
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.content, b"Overridden!")
+
+    def test_before_delete_page_hook_post(self):
+        def hook_func(request, page):
+            self.assertIsInstance(request, HttpRequest)
+            self.assertEqual(page.id, self.child_page.id)
+
+            return HttpResponse("Overridden!")
+
+        with self.register_hook('before_delete_page', hook_func):
+            response = self.client.post(reverse('wagtailadmin_pages:delete', args=(self.child_page.id, )))
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.content, b"Overridden!")
+
+    def test_after_delete_page_hook(self):
+        def hook_func(request, page):
+            self.assertIsInstance(request, HttpRequest)
+            self.assertEqual(page.id, self.child_page.id)
+
+            return HttpResponse("Overridden!")
+
+        with self.register_hook('after_delete_page', hook_func):
+            response = self.client.post(reverse('wagtailadmin_pages:delete', args=(self.child_page.id, )))
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.content, b"Overridden!")
 
 
 class TestPageSearch(TestCase, WagtailTestUtils):
