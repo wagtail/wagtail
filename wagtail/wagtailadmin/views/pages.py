@@ -490,6 +490,11 @@ def delete(request, page_id):
     if not page.permissions_for_user(request.user).can_delete():
         raise PermissionDenied
 
+    for fn in hooks.get_hooks('before_delete_page'):
+        result = fn(request, page)
+        if hasattr(result, 'status_code'):
+            return result
+
     next_url = get_valid_next_url_from_request(request)
 
     if request.method == 'POST':
