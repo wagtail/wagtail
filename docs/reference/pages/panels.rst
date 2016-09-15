@@ -22,7 +22,7 @@ FieldPanel
 
         The CSS class ``full`` can be used to format the panel so it covers the full width of the Wagtail page editor.
 
-        The CSS class ``title`` can be used to mark a field as the source for auto-generated slug strings.
+        The CSS class ``title`` can be used to give the field a larger text size, suitable for representing page titles and section headings.
 
     .. attribute:: FieldPanel.widget (optional)
 
