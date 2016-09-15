@@ -409,19 +409,14 @@ class ElasticsearchSearchResults(BaseSearchResults):
             fields = [{k: v} for k, v in fields.items()]
 
         post_processed_fields = {}
-
-        # Allow to highlight only SearchField
-        searchable_search_fields = {f.field_name: f for f in self.query.queryset.model.get_searchable_search_fields()}
         for field_def in fields:
             field_name = field_def.keys()[0] if isinstance(field_def, dict) and len(field_def) else None
-
-            field = searchable_search_fields.get(field_name)
-            if field:
-                field_column_name = self.query.mapping.get_field_column_name(field)
-                mapped_field_def = {
+            if field_name:
+                field_column_name = '*{}'.format(field_name)
+                post_processed_field_def = {
                     field_column_name: field_def[field_name]
                 }
-                post_processed_fields[field_name] = mapped_field_def
+                post_processed_fields[field_name] = post_processed_field_def
 
         self.highlight_params['fields'] = post_processed_fields
         self.highlight_params['require_field_match'] = kwargs.get('require_field_match', None)
@@ -483,14 +478,7 @@ class ElasticsearchSearchResults(BaseSearchResults):
             pks.append(pk)
 
             # Get highlight
-            for field_name, field_def in self.highlight_params.get('fields', {}).items():
-                field_column_name = field_def.keys()[0]
-
-                field_highlight = highlight.get(pk, {})
-                field_highlight.update({
-                    field_name: hit.get('highlight', {}).get(field_column_name, [None])[0]
-                })
-                highlight[pk] = field_highlight
+            highlight[pk] = hit.get('highlight', {})
 
         # Initialise results dictionary
         results = dict((str(pk), None) for pk in pks)
@@ -499,10 +487,22 @@ class ElasticsearchSearchResults(BaseSearchResults):
         queryset = self.query.queryset.filter(pk__in=pks)
         for obj in queryset:
             str_pk = str(obj.pk)
-            obj_highlight = highlight.get(str_pk)
-            if obj_highlight:
-                for field_name, field_highlight in obj_highlight.items():
-                    setattr(obj, field_name + '_highlight', field_highlight)
+
+            fields_to_highlight = self.highlight_params.get('fields', {}).keys()
+            if fields_to_highlight:
+                obj_model = obj.specific_class
+                obj_mapping = self.backend.mapping_class(obj_model)
+                searchable_search_fields = {f.field_name: f for f in obj_model.get_searchable_search_fields()}
+
+                for field_name in fields_to_highlight:
+                    highlighted_field = None
+
+                    field = searchable_search_fields.get(field_name)
+                    if field:
+                        field_column_name = obj_mapping.get_field_column_name(field)
+                        highlighted_field = highlight.get(str_pk, {}).get(field_column_name, [None])[0]
+
+                    setattr(obj, '{}_highlight'.format(field_name), highlighted_field)
 
             results[str_pk] = obj
 
