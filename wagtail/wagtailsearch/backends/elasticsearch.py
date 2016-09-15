@@ -412,6 +412,8 @@ class ElasticsearchSearchResults(BaseSearchResults):
         for field_def in fields:
             field_name = field_def.keys()[0] if isinstance(field_def, dict) and len(field_def) else None
             if field_name:
+                # Use wildcard column name on request. This allows us to query against all content types.
+                # Alternative solution: get all indexed models and add all possible column names into request.
                 field_column_name = '*{}'.format(field_name)
                 post_processed_field_def = {
                     field_column_name: field_def[field_name]
@@ -439,6 +441,7 @@ class ElasticsearchSearchResults(BaseSearchResults):
             if sort is not None:
                 body['sort'] = sort
 
+            # Add highlighting into a body, if fields are specified
             if self.highlight_params.get('fields'):
                 highlight = {
                     'fields': self.highlight_params['fields'].values(),
@@ -490,6 +493,7 @@ class ElasticsearchSearchResults(BaseSearchResults):
 
             fields_to_highlight = self.highlight_params.get('fields', {}).keys()
             if fields_to_highlight:
+                # TODO: replace specific_class with content type. Doesn't work with non-Page models
                 obj_model = obj.specific_class
                 obj_mapping = self.backend.mapping_class(obj_model)
                 searchable_search_fields = {f.field_name: f for f in obj_model.get_searchable_search_fields()}
