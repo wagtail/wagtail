@@ -379,8 +379,6 @@ Hooks for customising the way users are directed through the process of creating
 
   .. code-block:: python
 
-    from django.http import HttpResponse
-
     from wagtail.wagtailcore import hooks
 
     from .models import AwesomePage
