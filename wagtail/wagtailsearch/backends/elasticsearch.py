@@ -444,7 +444,7 @@ class ElasticsearchSearchResults(BaseSearchResults):
             if sort is not None:
                 body['sort'] = sort
 
-            if self.highlight_params['fields']:
+            if self.highlight_params.get('fields'):
                 highlight = {
                     'fields': self.highlight_params['fields'].values(),
                 }
@@ -483,7 +483,7 @@ class ElasticsearchSearchResults(BaseSearchResults):
             pks.append(pk)
 
             # Get highlight
-            for field_name, field_def in self.highlight_params['fields'].items():
+            for field_name, field_def in self.highlight_params.get('fields', {}).items():
                 field_column_name = field_def.keys()[0]
 
                 field_highlight = highlight.get(pk, {})
