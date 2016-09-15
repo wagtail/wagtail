@@ -13,7 +13,7 @@ Any other relevant information. For example, why do you consider this a bug and 
 
 ### Technical details
 
-* Python version:
-* Django version:
-* Wagtail version:
-* Browser version:
+* Python version: Run `python --version`.
+* Django version: Look in your requirements.txt, or run `pip list | grep -i django`.
+* Wagtail version: Hover over the Wagtail bird in the admin, or look in the Settings menu, look in your requirements.txt, or run `pip list | grep -i wagtail`.
+* Browser version: You can use http://www.whatsmybrowser.org/ to find this out.
