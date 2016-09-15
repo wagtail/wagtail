@@ -3,6 +3,7 @@ from __future__ import absolute_import, unicode_literals
 import json
 import warnings
 
+from django.contrib.contenttypes.models import ContentType
 from django.db import models
 from django.utils.crypto import get_random_string
 from django.utils.six.moves.urllib.parse import urlparse
@@ -456,13 +457,18 @@ class ElasticsearchSearchResults(BaseSearchResults):
 
         return body
 
+    def _get_content_type(self, content_type):
+        app_label, model = content_type.rsplit('_', 2)[1:]
+
+        return ContentType.objects.get_by_natural_key(app_label, model)
+
     def _do_search(self):
         # Params for elasticsearch query
         params = dict(
             index=self.backend.get_index_for_model(self.query.queryset.model).name,
             body=self._get_es_body(),
             _source=False,
-            fields='pk',
+            fields=['pk', 'content_type'],
             from_=self.start,
         )
 
@@ -474,14 +480,18 @@ class ElasticsearchSearchResults(BaseSearchResults):
         hits = self.backend.es.search(**params)
 
         pks = []
-        highlight = {}
+        data_by_pk = {}
         for hit in hits['hits']['hits']:
             # Get pks from results
             pk = hit['fields']['pk'][0]
             pks.append(pk)
 
+            # Get content type
+            data_by_pk.setdefault(pk, {})
+            data_by_pk[pk]['content_type'] = self._get_content_type(hit['fields']['content_type'][0])
+
             # Get highlight
-            highlight[pk] = hit.get('highlight', {})
+            data_by_pk[pk]['highlight'] = hit.get('highlight', {})
 
         # Initialise results dictionary
         results = dict((str(pk), None) for pk in pks)
@@ -493,8 +503,7 @@ class ElasticsearchSearchResults(BaseSearchResults):
 
             fields_to_highlight = self.highlight_params.get('fields', {}).keys()
             if fields_to_highlight:
-                # TODO: replace specific_class with content type. Doesn't work with non-Page models
-                obj_model = obj.specific_class
+                obj_model = data_by_pk[str_pk]['content_type'].model_class()
                 obj_mapping = self.backend.mapping_class(obj_model)
                 searchable_search_fields = {f.field_name: f for f in obj_model.get_searchable_search_fields()}
 
@@ -504,7 +513,7 @@ class ElasticsearchSearchResults(BaseSearchResults):
                     field = searchable_search_fields.get(field_name)
                     if field:
                         field_column_name = obj_mapping.get_field_column_name(field)
-                        highlighted_field = highlight.get(str_pk, {}).get(field_column_name, [None])[0]
+                        highlighted_field = data_by_pk[str_pk]['highlight'].get(field_column_name, [None])[0]
 
                     setattr(obj, '{}_highlight'.format(field_name), highlighted_field)
 
