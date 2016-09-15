@@ -1192,6 +1192,7 @@ class Page(six.with_metaclass(PageBase, AbstractPage, index.Indexed, Clusterable
             hostname = url_info.hostname
             path = url_info.path
             port = url_info.port or 80
+            scheme = url_info.scheme
         else:
             # Cannot determine a URL to this page - cobble one together based on
             # whatever we find in ALLOWED_HOSTS
@@ -1205,26 +1206,33 @@ class Page(six.with_metaclass(PageBase, AbstractPage, index.Indexed, Clusterable
                 hostname = 'localhost'
             path = '/'
             port = 80
+            scheme = 'http'
 
         dummy_values = {
             'REQUEST_METHOD': 'GET',
             'PATH_INFO': path,
             'SERVER_NAME': hostname,
             'SERVER_PORT': port,
+            'SERVER_PROTOCOL': 'HTTP/1.1',
             'HTTP_HOST': hostname,
+            'wsgi.version': (1, 0),
             'wsgi.input': StringIO(),
+            'wsgi.errors': StringIO(),
+            'wsgi.url_scheme': scheme,
+            'wsgi.multithread': True,
+            'wsgi.multiprocess': True,
+            'wsgi.run_once': False,
         }
 
         # Add important values from the original request object, if it was provided.
+        HEADERS_FROM_ORIGINAL_REQUEST = [
+            'REMOTE_ADDR', 'HTTP_X_FORWARDED_FOR', 'HTTP_COOKIE', 'HTTP_USER_AGENT',
+            'wsgi.version', 'wsgi.multithread', 'wsgi.multiprocess', 'wsgi.run_once',
+        ]
         if original_request:
-            if original_request.META.get('REMOTE_ADDR'):
-                dummy_values['REMOTE_ADDR'] = original_request.META['REMOTE_ADDR']
-            if original_request.META.get('HTTP_X_FORWARDED_FOR'):
-                dummy_values['HTTP_X_FORWARDED_FOR'] = original_request.META['HTTP_X_FORWARDED_FOR']
-            if original_request.META.get('HTTP_COOKIE'):
-                dummy_values['HTTP_COOKIE'] = original_request.META['HTTP_COOKIE']
-            if original_request.META.get('HTTP_USER_AGENT'):
-                dummy_values['HTTP_USER_AGENT'] = original_request.META['HTTP_USER_AGENT']
+            for header in HEADERS_FROM_ORIGINAL_REQUEST:
+                if header in original_request.META:
+                    dummy_values[header] = original_request.META[header]
 
         # Add additional custom metadata sent by the caller.
         dummy_values.update(**meta)
