@@ -1160,6 +1160,21 @@ class TestDummyRequest(TestCase):
         self.assertEqual(request.path, '/events/')
         self.assertEqual(request.META['HTTP_HOST'], 'localhost')
 
+        # check other env vars required by the WSGI spec
+        self.assertEqual(request.META['REQUEST_METHOD'], 'GET')
+        self.assertEqual(request.META['SCRIPT_NAME'], '')
+        self.assertEqual(request.META['PATH_INFO'], '/events/')
+        self.assertEqual(request.META['SERVER_NAME'], 'localhost')
+        self.assertEqual(request.META['SERVER_PORT'], 80)
+        self.assertEqual(request.META['SERVER_PROTOCOL'], 'HTTP/1.1')
+        self.assertEqual(request.META['wsgi.version'], (1, 0))
+        self.assertEqual(request.META['wsgi.url_scheme'], 'http')
+        self.assertIn('wsgi.input', request.META)
+        self.assertIn('wsgi.errors', request.META)
+        self.assertIn('wsgi.multithread', request.META)
+        self.assertIn('wsgi.multiprocess', request.META)
+        self.assertIn('wsgi.run_once', request.META)
+
     def test_dummy_request_for_accessible_page_with_original_request(self):
         event_index = Page.objects.get(url_path='/home/events/')
         original_headers = {
@@ -1177,6 +1192,21 @@ class TestDummyRequest(TestCase):
         self.assertEqual(request.META['HTTP_X_FORWARDED_FOR'], original_request.META['HTTP_X_FORWARDED_FOR'])
         self.assertEqual(request.META['HTTP_COOKIE'], original_request.META['HTTP_COOKIE'])
         self.assertEqual(request.META['HTTP_USER_AGENT'], original_request.META['HTTP_USER_AGENT'])
+
+        # check other env vars required by the WSGI spec
+        self.assertEqual(request.META['REQUEST_METHOD'], 'GET')
+        self.assertEqual(request.META['SCRIPT_NAME'], '')
+        self.assertEqual(request.META['PATH_INFO'], '/events/')
+        self.assertEqual(request.META['SERVER_NAME'], 'localhost')
+        self.assertEqual(request.META['SERVER_PORT'], 80)
+        self.assertEqual(request.META['SERVER_PROTOCOL'], 'HTTP/1.1')
+        self.assertEqual(request.META['wsgi.version'], (1, 0))
+        self.assertEqual(request.META['wsgi.url_scheme'], 'http')
+        self.assertIn('wsgi.input', request.META)
+        self.assertIn('wsgi.errors', request.META)
+        self.assertIn('wsgi.multithread', request.META)
+        self.assertIn('wsgi.multiprocess', request.META)
+        self.assertIn('wsgi.run_once', request.META)
 
     @override_settings(ALLOWED_HOSTS=['production.example.com'])
     def test_dummy_request_for_inaccessible_page_should_use_valid_host(self):
