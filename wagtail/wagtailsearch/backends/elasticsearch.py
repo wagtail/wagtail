@@ -458,7 +458,7 @@ class ElasticsearchSearchResults(BaseSearchResults):
         return body
 
     def _get_content_type(self, content_type):
-        app_label, model = content_type.rsplit('_', 2)[1:]
+        app_label, model = content_type.rsplit('_', 2)[-2:]
 
         return ContentType.objects.get_by_natural_key(app_label, model)
 
