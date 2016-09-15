@@ -66,7 +66,7 @@ MultiFieldPanel
 InlinePanel
 -----------
 
-.. class:: InlinePanel(relation_name, panels=None, classname=None, label='', help_text='', min_num=None, max_num=None)
+.. class:: InlinePanel(relation_name, panels=None, classname='', label='', help_text='', min_num=None, max_num=None)
 
     This panel allows for the creation of a "cluster" of related objects over a join to a separate model, such as a list of related links or slides to an image carousel.
 

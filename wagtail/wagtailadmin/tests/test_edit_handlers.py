@@ -671,8 +671,9 @@ class TestInlinePanel(TestCase, WagtailTestUtils):
         Check that the inline panel renders the panels set on the model
         when no 'panels' parameter is passed in the InlinePanel definition
         """
-        SpeakerObjectList = ObjectList([InlinePanel('speakers', label="Speakers")]).bind_to_model(EventPage)
-        SpeakerInlinePanel = SpeakerObjectList.children[0]
+        SpeakerObjectList = ObjectList([
+            InlinePanel('speakers', label="Speakers", classname="classname-for-speakers")
+        ]).bind_to_model(EventPage)
         EventPageForm = SpeakerObjectList.get_form_class(EventPage)
 
         # SpeakerInlinePanel should instruct the form class to include a 'speakers' formset
@@ -681,10 +682,11 @@ class TestInlinePanel(TestCase, WagtailTestUtils):
         event_page = EventPage.objects.get(slug='christmas')
 
         form = EventPageForm(instance=event_page)
-        panel = SpeakerInlinePanel(instance=event_page, form=form)
+        panel = SpeakerObjectList(instance=event_page, form=form)
 
         result = panel.render_as_field()
 
+        self.assertIn('<li class="object classname-for-speakers">', result)
         self.assertIn('<label for="id_speakers-0-first_name">Name:</label>', result)
         self.assertIn('value="Father"', result)
         self.assertIn('<label for="id_speakers-0-last_name">Surname:</label>', result)
@@ -699,8 +701,8 @@ class TestInlinePanel(TestCase, WagtailTestUtils):
         # rendered panel must contain maintenance form for the formset
         self.assertIn('<input id="id_speakers-TOTAL_FORMS" name="speakers-TOTAL_FORMS" type="hidden"', result)
 
-        # render_js_init must provide the JS initializer
-        self.assertIn('var panel = InlinePanel({', panel.render_js_init())
+        # rendered panel must include the JS initializer
+        self.assertIn('var panel = InlinePanel({', result)
 
     def test_render_with_panel_overrides(self):
         """
@@ -751,5 +753,4 @@ class TestInlinePanel(TestCase, WagtailTestUtils):
     def test_invalid_inlinepanel_declaration(self):
         with self.ignore_deprecation_warnings():
             self.assertRaises(TypeError, lambda: InlinePanel(label="Speakers"))
-            self.assertRaises(TypeError, lambda: InlinePanel(EventPage, 'speakers', 'bacon', label="Speakers"))
             self.assertRaises(TypeError, lambda: InlinePanel(EventPage, 'speakers', label="Speakers", bacon="chunky"))

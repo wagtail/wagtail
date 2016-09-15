@@ -166,6 +166,7 @@ Contributors
 * Jonathon Moore
 * Kees Hink
 * Jayden Smith
+* emg36
 
 Translators
 ===========

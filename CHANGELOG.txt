@@ -18,6 +18,7 @@ Changelog
  * Fix: Fixed toggle behaviour of userbar on mobile (Robert Rollins)
  * Fix: Image rendition / document file deletion now happens on a post_delete signal, so that files are not lost if the deletion does not proceed (Janneke Janssen)
  * Fix: "Your recent edits" list on dashboard no longer leaves out pages that another user has subsequently edited (Michael Cordover, Kees Hink, João Luiz Lorencetti)
+ * Fix: `InlinePanel` now accepts a `classname` parameter as per the documentation (emg36, Matt Westcott)
 
 
 1.6.2 (02.09.2016)
