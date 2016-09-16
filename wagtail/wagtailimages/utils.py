@@ -17,20 +17,25 @@ def get_fill_filter_spec_migrations(app_name, rendition_model_name):
             renditions.update(filter_spec=flt.spec)
 
     def fill_filter_spec_reverse(apps, schema_editor):
-        # Populate the Rendition.filter
+        # Populate the Rendition.filter field with Filter objects that match the spec in the
+        # Rendition's filter_spec field
         Rendition = apps.get_model(app_name, rendition_model_name)
         Filter = apps.get_model('wagtailimages', 'Filter')
         db_alias = schema_editor.connection.alias
 
-        filters_by_spec = {}
-        for rendition in Rendition.objects.using(db_alias):
-            try:
-                filter = filters_by_spec[rendition.filter_spec]
-            except KeyError:
-                filter, _ = Filter.objects.get_or_create(spec=rendition.filter_spec)
-                filters_by_spec[rendition.filter_spec] = filter
+        while True:
+            # repeat this process until we've confirmed that no remaining renditions exist with
+            # a null 'filter' field - this minimises the possibility of new ones being inserted
+            # by active server processes while the query is in progress
 
-            rendition.filter = filter
-            rendition.save()
+            # Find all distinct filter_spec strings used by renditions with a null 'filter' field
+            unmatched_filter_specs = Rendition.objects.using(db_alias).filter(
+                filter__isnull=True).values_list('filter_spec', flat=True).distinct()
+            if not unmatched_filter_specs:
+                break
+
+            for filter_spec in unmatched_filter_specs:
+                filter, _ = Filter.objects.using(db_alias).get_or_create(spec=filter_spec)
+                Rendition.objects.using(db_alias).filter(filter_spec=filter_spec).update(filter=filter)
 
     return (fill_filter_spec_forward, fill_filter_spec_reverse)
