@@ -2,12 +2,14 @@ from __future__ import absolute_import, unicode_literals
 
 from itertools import groupby
 
+import django
 from django import forms
 from django.conf import settings
 from django.contrib.auth import get_user_model
 from django.contrib.auth.models import Group, Permission
 from django.db import transaction
 from django.template.loader import render_to_string
+from django.utils.html import mark_safe
 from django.utils.translation import ugettext_lazy as _
 
 from wagtail.wagtailadmin.widgets import AdminPageChooser
@@ -16,6 +18,12 @@ from wagtail.wagtailcore.models import (
     PAGE_PERMISSION_TYPE_CHOICES, PAGE_PERMISSION_TYPES, GroupPagePermission, Page,
     UserPagePermissionsProxy)
 from wagtail.wagtailusers.models import UserProfile
+
+
+if django.VERSION >= (1, 9):
+    from django.contrib.auth.password_validation import (
+        password_validators_help_text_html, validate_password
+    )
 
 User = get_user_model()
 
@@ -86,7 +94,9 @@ class UserForm(UsernameForm):
         super(UserForm, self).__init__(*args, **kwargs)
 
         if self.password_required:
-            self.fields['password1'].help_text = ''
+            self.fields['password1'].help_text = (
+                mark_safe(password_validators_help_text_html())
+                if django.VERSION >= (1, 9) else '')
             self.fields['password1'].required = True
             self.fields['password2'].required = True
 
@@ -119,6 +129,10 @@ class UserForm(UsernameForm):
                 self.error_messages['password_mismatch'],
                 code='password_mismatch',
             ))
+
+        if django.VERSION >= (1, 9) and password1:
+            validate_password(password1, user=self.instance)
+
         return password2
 
     def _clean_fields(self):
