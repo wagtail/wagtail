@@ -2,12 +2,13 @@ from __future__ import absolute_import, unicode_literals
 
 from itertools import groupby
 
-from django import forms
+from django import forms, VERSION as django_version
 from django.conf import settings
 from django.contrib.auth import get_user_model
 from django.contrib.auth.models import Group, Permission
 from django.db import transaction
 from django.template.loader import render_to_string
+from django.utils.html import mark_safe
 from django.utils.translation import ugettext_lazy as _
 
 from wagtail.wagtailadmin.widgets import AdminPageChooser
@@ -16,6 +17,13 @@ from wagtail.wagtailcore.models import (
     PAGE_PERMISSION_TYPE_CHOICES, PAGE_PERMISSION_TYPES, GroupPagePermission, Page,
     UserPagePermissionsProxy)
 from wagtail.wagtailusers.models import UserProfile
+
+
+DJANGO_GTE_1_9 = django_version >= (1, 9)
+if DJANGO_GTE_1_9:
+    from django.contrib.auth.password_validation import (
+        password_validators_help_text_html, validate_password
+    )
 
 User = get_user_model()
 
@@ -86,7 +94,9 @@ class UserForm(UsernameForm):
         super(UserForm, self).__init__(*args, **kwargs)
 
         if self.password_required:
-            self.fields['password1'].help_text = ''
+            self.fields['password1'].help_text = (
+                mark_safe(password_validators_help_text_html())
+                if DJANGO_GTE_1_9 else '')
             self.fields['password1'].required = True
             self.fields['password2'].required = True
 
@@ -110,6 +120,12 @@ class UserForm(UsernameForm):
                 code='duplicate_username',
             ))
         return username
+
+    def clean_password1(self):
+        password = self.cleaned_data.get('password1')
+        if DJANGO_GTE_1_9 and password:
+            validate_password(password, user=self.instance)
+        return password
 
     def clean_password2(self):
         password1 = self.cleaned_data.get('password1')
