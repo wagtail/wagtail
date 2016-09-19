@@ -37,7 +37,7 @@ class ExplorerHeader extends Component {
     let { page, depth } = this.props;
 
     if (depth < 2 || !page) {
-      return STRINGS['EXPLORER'];
+      return STRINGS.EXPLORER;
     }
 
     return page.title;

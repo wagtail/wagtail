@@ -39,7 +39,7 @@ export default class ExplorerItem extends Component {
       <div onClick={this._onNavigate.bind(this, data.id)} className="c-explorer__item">
         {count > 0 ?
         <span className="c-explorer__children" onClick={this._loadChildren}>
-          <Icon name="folder-inverse" title={STRINGS['SEE_CHILDREN']} />
+          <Icon name="folder-inverse" title={STRINGS.SEE_CHILDREN} />
         </span> : null }
         <h3 className="c-explorer__title">
           {title}
