@@ -51,9 +51,15 @@ function ModalWorkflow(opts) {
     };
 
     self.loadResponseText = function(responseText) {
-        var response = eval('(' + responseText + ')');
+        var response;
 
-        self.loadBody(response);
+        try {
+            response = JSON.parse( responseText );
+        } catch ( error ) {
+            window.location = window.location.host;
+        }
+
+        self.loadBody( response );
     };
 
     self.loadBody = function(response) {
@@ -63,9 +69,15 @@ function ModalWorkflow(opts) {
             container.modal('show');
         }
 
+        // if the response contains an `onload` function, call the function with the current
+        // context as a parameter.
         if (response.onload) {
-            // if the response is a function
-            response.onload(self);
+            var onLoadFunction = new Function('', 'return ' + response.onload)();
+            if (typeof onLoadFunction === 'function') {
+                onLoadFunction(self);
+            } else {
+                throw new Error('ModalWorkflow.loadBody: Error evaluating onload function');
+            }
         }
     };
 
