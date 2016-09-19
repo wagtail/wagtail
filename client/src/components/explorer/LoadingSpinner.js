@@ -4,7 +4,7 @@ import Icon from 'components/icon/Icon';
 
 const LoadingSpinner = () => (
   <div className="c-explorer__loading">
-    <Icon name="spinner" className="c-explorer__spinner" /> {STRINGS['LOADING']}...
+    <Icon name="spinner" className="c-explorer__spinner" /> {STRINGS['LOADING']}
   </div>
 );
 
