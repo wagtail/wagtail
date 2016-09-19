@@ -19,6 +19,6 @@ def render_modal_workflow(request, html_template, js_template, template_vars=Non
 
     if js_template:
         js = render_to_string(js_template, template_vars or {}, request=request)
-        response_keyvars.update({'onload': js.replace('\n','')})
+        response_keyvars.update({'onload': js.replace('\n', '')})
 
-    return HttpResponse(json.dumps(response_keyvars) , content_type="text/javascript")
+    return HttpResponse(json.dumps(response_keyvars), content_type="text/javascript")
