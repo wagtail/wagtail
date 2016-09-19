@@ -367,7 +367,7 @@ Hooks for customising the way users are directed through the process of creating
 .. _before_create_page:
 
 ``before_create_page``
-~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~
 
   Called at the beginning of the "create page" view passing in the request, the parent page and page model class.
 
@@ -401,7 +401,7 @@ Hooks for customising the way users are directed through the process of creating
 .. _before_delete_page:
 
 ``before_delete_page``
-~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~
 
   Called at the beginning of the "delete page" view passing in the request and the page object.
 
