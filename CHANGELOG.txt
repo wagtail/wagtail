@@ -22,6 +22,12 @@ Changelog
  * Fix: Disabled use of escape key to revert content of rich text fields, which could cause accidental data loss (Matt Westcott)
 
 
+1.6.3 (XX.XX.2016)
+~~~~~~~~~~~~~~~~~~
+
+ * Fix: Restore compatibility with django-debug-toolbar 1.5 (Matt Westcott)
+
+
 1.6.2 (02.09.2016)
 ~~~~~~~~~~~~~~~~~~
 
