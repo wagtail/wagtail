@@ -7,8 +7,7 @@ import Icon from '../../src/components/icon/Icon';
 
 describe('Icon', () => {
   it('exists', () => {
-    // eslint-disable-next-line no-unused-expressions
-    expect(Icon).to.exist;
+    expect(Icon).to.be.a('function');
   });
 
   it('has just icon classes by default', () => {

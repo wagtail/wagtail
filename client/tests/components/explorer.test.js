@@ -8,8 +8,7 @@ import ExplorerItem from '../../src/components/explorer/ExplorerItem';
 
 describe('Explorer', () => {
   it('exists', () => {
-    // eslint-disable-next-line no-unused-expressions
-    expect(Explorer).to.exist;
+    expect(Explorer).to.be.a('function');
   });
 
   describe('ExplorerItem', () => {
@@ -24,8 +23,7 @@ describe('Explorer', () => {
     };
 
     it('exists', () => {
-      // eslint-disable-next-line no-unused-expressions
-      expect(ExplorerItem).to.exist;
+      expect(ExplorerItem).to.be.a('function');
     });
 
     it('has item metadata', () => {

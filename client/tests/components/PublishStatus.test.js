@@ -13,12 +13,10 @@ describe('PublishStatus', () => {
   };
 
   it('exists', () => {
-    // eslint-disable-next-line no-unused-expressions
-    expect(PublishStatus).to.exist;
+    expect(PublishStatus).to.be.a('function');
   });
 
-  // TODO Skipped because causing a test error.
-  // Apparently this is fixed when using React 15.
+  // TODO Skipped because causing a test error. Apparently this is fixed when using React 15.
   it.skip('does not render without status object', () => {
     expect(shallow(<PublishStatus />).isEmpty()).to.equal(true);
   });

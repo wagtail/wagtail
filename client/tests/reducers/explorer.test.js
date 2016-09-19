@@ -10,22 +10,19 @@ import transport from 'components/explorer/reducers/transport';
 describe('explorer reducers', () => {
   describe('root', () => {
     it('exists', () => {
-      // eslint-disable-next-line no-unused-expressions
-      expect(rootReducer).to.exist;
+      expect(rootReducer).to.be.a('function');
     });
   });
 
   describe('explorer', () => {
     it('exists', () => {
-      // eslint-disable-next-line no-unused-expressions
-      expect(explorer).to.exist;
+      expect(explorer).to.be.a('function');;
     });
   });
 
   describe('nodes', () => {
     it('exists', () => {
-      // eslint-disable-next-line no-unused-expressions
-      expect(nodes).to.exist;
+      expect(nodes).to.be.a('function');;
     });
   });
 
@@ -36,8 +33,7 @@ describe('explorer reducers', () => {
     };
 
     it('exists', () => {
-      // eslint-disable-next-line no-unused-expressions
-      expect(transport).to.exist;
+      expect(transport).to.be.a('function');;
     });
 
     it('returns the initial state', () => {
