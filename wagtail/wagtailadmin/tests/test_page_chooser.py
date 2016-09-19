@@ -318,27 +318,27 @@ class TestChooserExternalLink(TestCase, WagtailTestUtils):
     def test_create_link(self):
         response = self.post({'url': 'http://www.example.com/', 'link_text': 'example'})
         self.assertEqual(response.status_code, 200)
-        self.assertContains(response, "'onload'")  # indicates success / post back to calling page
+        self.assertContains(response, "onload")  # indicates success / post back to calling page
         self.assertContains(response, "'url': 'http://www.example.com/'")
         self.assertContains(response, "'title': 'example'")  # When link text is given, it is used
 
     def test_create_link_without_text(self):
         response = self.post({'url': 'http://www.example.com/'})
         self.assertEqual(response.status_code, 200)
-        self.assertContains(response, "'onload'")  # indicates success / post back to calling page
+        self.assertContains(response, "onload")  # indicates success / post back to calling page
         self.assertContains(response, "'url': 'http://www.example.com/'")
         self.assertContains(response, "'title': 'http://www.example.com/'")  # When no text is given, it uses the url
 
     def test_invalid_url(self):
         response = self.post({'url': 'ntp://www.example.com', 'link_text': 'example'})
         self.assertEqual(response.status_code, 200)
-        self.assertContains(response, "'html'")  # indicates failure / show error message
+        self.assertContains(response, "html")  # indicates failure / show error message
         self.assertContains(response, "Enter a valid URL.")
 
     def test_allow_local_url(self):
         response = self.post({'url': '/admin/', 'link_text': 'admin'})
         self.assertEqual(response.status_code, 200)
-        self.assertContains(response, "'onload'")  # indicates success / post back to calling page
+        self.assertContains(response, "onload")  # indicates success / post back to calling page
         self.assertContains(response, "'url': '/admin/',")
         self.assertContains(response, "'title': 'admin'")
 
