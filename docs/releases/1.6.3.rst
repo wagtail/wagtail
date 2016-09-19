@@ -1,0 +1,16 @@
+===========================
+Wagtail 1.6.3 release notes
+===========================
+
+.. contents::
+    :local:
+    :depth: 1
+
+
+What's changed
+==============
+
+Bug fixes
+~~~~~~~~~
+
+* Restore compatibility with django-debug-toolbar 1.5 (Matt Westcott)
