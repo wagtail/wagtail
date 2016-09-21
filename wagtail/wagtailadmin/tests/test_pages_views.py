@@ -21,6 +21,7 @@ from django.utils.dateparse import parse_date
 
 from wagtail.tests.testapp.models import (
     EVENT_AUDIENCE_CHOICES, Advert, AdvertPlacement, BusinessChild, BusinessIndex, BusinessSubIndex,
+    DefaultStreamPage,
     EventPage, EventPageCarouselItem, FilePage, SimplePage, SingleEventPage, SingletonPage,
     StandardChild, StandardIndex, TaggedPage)
 from wagtail.tests.utils import WagtailTestUtils
@@ -3511,3 +3512,36 @@ class TestRecentEditsPanel(TestCase, WagtailTestUtils):
         # Alice's dashboard should still list that first edit
         response = self.go_to_dashboard_response()
         self.assertIn('Your most recent edits', response.content.decode('utf-8'))
+
+
+class TestIssue2994(TestCase, WagtailTestUtils):
+    """
+    When submitting the add/edit page form, Django 1.10.1 fails to update StreamFields
+    that have a default value, because it notices the lack of postdata field
+    with a name exactly matching the field name and wrongly assumes that the field has
+    been omitted from the form. To avoid this in Django 1.10.1, we need to set
+    dont_use_model_field_default_for_empty_data=True on the widget; in Django >=1.10.2,
+    we need to provide a custom value_omitted_from_data method.
+    """
+    def setUp(self):
+        self.root_page = Page.objects.get(id=2)
+        self.user = self.login()
+
+    def test_page_edit_post_publish_url(self):
+        # Post
+        post_data = {
+            'title': "Issue 2994 test",
+            'slug': 'issue-2994-test',
+            'body-count': '1',
+            'body-0-deleted': '',
+            'body-0-order': '0',
+            'body-0-type': 'text',
+            'body-0-value': 'hello world',
+            'action-publish': "Publish",
+        }
+        self.client.post(
+            reverse('wagtailadmin_pages:add', args=('tests', 'defaultstreampage', self.root_page.id)), post_data
+        )
+        new_page = DefaultStreamPage.objects.get(slug='issue-2994-test')
+        self.assertEqual(1, len(new_page.body))
+        self.assertEqual('hello world', new_page.body[0].value)
