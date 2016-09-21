@@ -145,7 +145,7 @@ def get_forms_for_user(user):
     editable_forms = editable_forms.filter(content_type__in=get_form_types())
 
     # Apply hooks
-    for fn in hooks.get_hooks('construct_forms_for_user'):
+    for fn in hooks.get_hooks('filter_form_submissions_for_user'):
         editable_forms = fn(user, editable_forms)
 
     return editable_forms
