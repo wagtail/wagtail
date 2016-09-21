@@ -26,7 +26,7 @@ class ElasticsearchMapping(object):
         'DateField': 'date',
         'DateTimeField': 'date',
         'DecimalField': 'double',
-        'FileField': 'string',
+        'FileField': 'attachment',
         'FilePathField': 'string',
         'FloatField': 'double',
         'IntegerField': 'integer',
@@ -84,9 +84,7 @@ class ElasticsearchMapping(object):
             mapping = {'type': self.type_map.get(field.get_type(self.model), 'string')}
 
             if isinstance(field, SearchField):
-                if field.search_content:
-                    mapping = {'type': 'attachment'}
-                else:
+                if not mapping['type'] == 'attachment':
                     if field.boost:
                         mapping['boost'] = field.boost
 
