@@ -171,6 +171,9 @@ class BaseStreamBlock(Block):
             for (index, child_block_type_name, value) in values_with_indexes
         ])
 
+    def value_omitted_from_data(self, data, files, prefix):
+        return ('%s-count' % prefix) not in data
+
     def clean(self, value):
         cleaned_data = []
         errors = {}

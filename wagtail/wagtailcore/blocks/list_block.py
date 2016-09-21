@@ -108,6 +108,9 @@ class ListBlock(Block):
         values_with_indexes.sort()
         return [v for (i, v) in values_with_indexes]
 
+    def value_omitted_from_data(self, data, files, prefix):
+        return ('%s-count' % prefix) not in data
+
     def clean(self, value):
         result = []
         errors = []
