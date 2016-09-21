@@ -37,6 +37,7 @@ Unpublishing a page now gives the option to unpublish its subpages at the same t
 Minor features
 ~~~~~~~~~~~~~~
 
+ * The ``|embed`` filter has been converted into a templatetag ``{% embed %}`` (Janneke Janssen)
  * The ``wagtailforms`` module now provides a ``FormSubmissionPanel`` for displaying details of form submissions; see :ref:`wagtailforms_formsubmissionpanel` for documentation. (João Luiz Lorencetti)
  * The Wagtail version number can now be obtained as a tuple using ``from wagtail import VERSION`` (Tim Heap)
  * ``send_mail`` logic has been moved from ``AbstractEmailForm.process_form_submission`` into ``AbstractEmailForm.send_mail``. Now it's easier to override this logic (Tim Leguijt)
