@@ -12,7 +12,7 @@ class EmbedValue(object):
     Native value of an EmbedBlock. Should, at minimum, have a 'url' property
     and render as the embed HTML when rendered in a template.
     NB We don't use a wagtailembeds.model.Embed object for this, because
-    we want to be able to do {{ value.url|embed:max_width=500 }} without
+    we want to be able to do {% embed value.url 500 %} without
     doing a redundant fetch of the embed at the default width.
     """
     def __init__(self, url):
