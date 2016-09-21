@@ -556,6 +556,19 @@ class StreamPage(Page):
     ]
 
 
+class DefaultStreamPage(Page):
+    body = StreamField([
+        ('text', CharBlock()),
+        ('rich_text', RichTextBlock()),
+        ('image', ImageChooserBlock()),
+    ], default='')
+
+    content_panels = [
+        FieldPanel('title'),
+        StreamFieldPanel('body'),
+    ]
+
+
 class MTIBasePage(Page):
     is_creatable = False
 
