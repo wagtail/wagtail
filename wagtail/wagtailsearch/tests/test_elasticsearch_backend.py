@@ -583,6 +583,9 @@ class TestElasticsearchSearchResults(TestCase):
                         '_type': 'searchtests_searchtest',
                         'fields': {
                             'pk': [str(result)],
+                            'content_type': [
+                                'searchtests_searchtest'
+                            ]
                         }
                     }
                     for result in results
@@ -605,7 +608,7 @@ class TestElasticsearchSearchResults(TestCase):
             from_=0,
             body={'query': 'QUERY'},
             _source=False,
-            fields='pk',
+            fields=['pk', 'content_type'],
             index='wagtail'
         )
 
@@ -621,7 +624,7 @@ class TestElasticsearchSearchResults(TestCase):
             from_=10,
             body={'query': 'QUERY'},
             _source=False,
-            fields='pk',
+            fields=['pk', 'content_type'],
             index='wagtail',
             size=1
         )
@@ -637,7 +640,7 @@ class TestElasticsearchSearchResults(TestCase):
             from_=1,
             body={'query': 'QUERY'},
             _source=False,
-            fields='pk',
+            fields=['pk', 'content_type'],
             index='wagtail',
             size=3
         )
@@ -653,7 +656,7 @@ class TestElasticsearchSearchResults(TestCase):
             from_=10,
             body={'query': 'QUERY'},
             _source=False,
-            fields='pk',
+            fields=['pk', 'content_type'],
             index='wagtail',
             size=10
         )
@@ -670,7 +673,7 @@ class TestElasticsearchSearchResults(TestCase):
             from_=20,
             body={'query': 'QUERY'},
             _source=False,
-            fields='pk',
+            fields=['pk', 'content_type'],
             index='wagtail',
             size=1
         )

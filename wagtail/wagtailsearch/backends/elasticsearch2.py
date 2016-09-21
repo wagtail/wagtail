@@ -1,5 +1,6 @@
 from __future__ import absolute_import, unicode_literals
 
+from django.contrib.contenttypes.models import ContentType
 from wagtail.wagtailsearch.index import FilterField, RelatedFields, SearchField
 
 from .elasticsearch import (
@@ -121,7 +122,11 @@ class Elasticsearch2SearchQuery(ElasticsearchSearchQuery):
 
 
 class Elasticsearch2SearchResults(ElasticsearchSearchResults):
-    pass
+
+    def _get_content_type(self, content_type):
+        app_label, model = content_type.split('.')
+
+        return ContentType.objects.get_by_natural_key(app_label.lower(), model.lower())
 
 
 class Elasticsearch2SearchBackend(ElasticsearchSearchBackend):

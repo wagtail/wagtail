@@ -3,6 +3,7 @@ from __future__ import absolute_import, unicode_literals
 import json
 import warnings
 
+from django.contrib.contenttypes.models import ContentType
 from django.db import models
 from django.utils.crypto import get_random_string
 from django.utils.six.moves.urllib.parse import urlparse
@@ -398,6 +399,38 @@ class ElasticsearchSearchQuery(BaseSearchQuery):
 
 
 class ElasticsearchSearchResults(BaseSearchResults):
+    def __init__(self, *args, **kwargs):
+        super(ElasticsearchSearchResults, self).__init__(*args, **kwargs)
+        self.highlight_params = {}
+
+    def highlight(self, **kwargs):
+        # It's possible to pass list of dicts and dict as the fields param
+        fields = kwargs.get('fields', [])
+        if isinstance(fields, dict):
+            fields = [{k: v} for k, v in fields.items()]
+
+        post_processed_fields = {}
+        for field_def in fields:
+            field_name = field_def.keys()[0] if isinstance(field_def, dict) and len(field_def) else None
+            if field_name:
+                # Use wildcard column name on request. This allows us to query against all content types.
+                # Alternative solution: get all indexed models and add all possible column names into request.
+                field_column_name = '*{}'.format(field_name)
+                post_processed_field_def = {
+                    field_column_name: field_def[field_name]
+                }
+                post_processed_fields[field_name] = post_processed_field_def
+
+        self.highlight_params['fields'] = post_processed_fields
+        self.highlight_params['require_field_match'] = kwargs.get('require_field_match', None)
+        return self
+
+    def _clone(self):
+        new = super(ElasticsearchSearchResults, self)._clone()
+        new.highlight_params = self.highlight_params
+
+        return new
+
     def _get_es_body(self, for_count=False):
         body = {
             'query': self.query.get_query()
@@ -409,7 +442,25 @@ class ElasticsearchSearchResults(BaseSearchResults):
             if sort is not None:
                 body['sort'] = sort
 
+            # Add highlighting into a body, if fields are specified
+            if self.highlight_params.get('fields'):
+                highlight = {
+                    'fields': self.highlight_params['fields'].values(),
+                }
+
+                if self.highlight_params['require_field_match'] is not None:
+                    highlight.update({
+                        'require_field_match': self.highlight_params['require_field_match'],
+                    })
+
+                body['highlight'] = highlight
+
         return body
+
+    def _get_content_type(self, content_type):
+        app_label, model = content_type.rsplit('_', 2)[-2:]
+
+        return ContentType.objects.get_by_natural_key(app_label, model)
 
     def _do_search(self):
         # Params for elasticsearch query
@@ -417,7 +468,7 @@ class ElasticsearchSearchResults(BaseSearchResults):
             index=self.backend.get_index_for_model(self.query.queryset.model).name,
             body=self._get_es_body(),
             _source=False,
-            fields='pk',
+            fields=['pk', 'content_type'],
             from_=self.start,
         )
 
@@ -428,8 +479,19 @@ class ElasticsearchSearchResults(BaseSearchResults):
         # Send to Elasticsearch
         hits = self.backend.es.search(**params)
 
-        # Get pks from results
-        pks = [hit['fields']['pk'][0] for hit in hits['hits']['hits']]
+        pks = []
+        data_by_pk = {}
+        for hit in hits['hits']['hits']:
+            # Get pks from results
+            pk = hit['fields']['pk'][0]
+            pks.append(pk)
+
+            # Get content type
+            data_by_pk.setdefault(pk, {})
+            data_by_pk[pk]['content_type'] = self._get_content_type(hit['fields']['content_type'][0])
+
+            # Get highlight
+            data_by_pk[pk]['highlight'] = hit.get('highlight', {})
 
         # Initialise results dictionary
         results = dict((str(pk), None) for pk in pks)
@@ -437,7 +499,25 @@ class ElasticsearchSearchResults(BaseSearchResults):
         # Find objects in database and add them to dict
         queryset = self.query.queryset.filter(pk__in=pks)
         for obj in queryset:
-            results[str(obj.pk)] = obj
+            str_pk = str(obj.pk)
+
+            fields_to_highlight = self.highlight_params.get('fields', {}).keys()
+            if fields_to_highlight:
+                obj_model = data_by_pk[str_pk]['content_type'].model_class()
+                obj_mapping = self.backend.mapping_class(obj_model)
+                searchable_search_fields = {f.field_name: f for f in obj_model.get_searchable_search_fields()}
+
+                for field_name in fields_to_highlight:
+                    highlighted_field = None
+
+                    field = searchable_search_fields.get(field_name)
+                    if field:
+                        field_column_name = obj_mapping.get_field_column_name(field)
+                        highlighted_field = data_by_pk[str_pk]['highlight'].get(field_column_name, [None])[0]
+
+                    setattr(obj, '{}_highlight'.format(field_name), highlighted_field)
+
+            results[str_pk] = obj
 
         # Return results in order given by Elasticsearch
         return [results[str(pk)] for pk in pks if results[str(pk)]]
