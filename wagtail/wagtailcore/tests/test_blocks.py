@@ -26,6 +26,11 @@ from wagtail.wagtailcore.models import Page
 from wagtail.wagtailcore.rich_text import RichText
 
 
+# Skip the tests for Block.value_omitted_from_data on versions of Django that do not
+# implement Widget.value_omitted_from_data (scheduled to be added in Django 1.10.2)
+SKIP_VALUE_OMITTED_FROM_DATA_TESTS = not hasattr(forms.Widget, 'value_omitted_from_data')
+
+
 class FooStreamBlock(blocks.StreamBlock):
     text = blocks.CharBlock()
     error = 'At least one block must say "foo"'
@@ -692,6 +697,7 @@ class TestRawHTMLBlock(unittest.TestCase):
         self.assertEqual(result, '<blink>BÖÖM</blink>')
         self.assertIsInstance(result, SafeData)
 
+    @unittest.skipIf(SKIP_VALUE_OMITTED_FROM_DATA_TESTS, "value_omitted_from_data is not available")
     def test_value_omitted_from_data(self):
         block = blocks.RawHTMLBlock()
         self.assertFalse(block.value_omitted_from_data({'rawhtml': 'ohai'}, {}, 'rawhtml'))
@@ -1102,6 +1108,7 @@ class TestStructBlock(SimpleTestCase):
         self.assertTrue(isinstance(struct_val, blocks.StructValue))
         self.assertTrue(isinstance(struct_val.bound_blocks['link'].block, blocks.URLBlock))
 
+    @unittest.skipIf(SKIP_VALUE_OMITTED_FROM_DATA_TESTS, "value_omitted_from_data is not available")
     def test_value_omitted_from_data(self):
         block = blocks.StructBlock([
             ('title', blocks.CharBlock()),
@@ -1424,6 +1431,7 @@ class TestListBlock(unittest.TestCase):
 
         self.assertEqual(content, ["Wagtail", "Django"])
 
+    @unittest.skipIf(SKIP_VALUE_OMITTED_FROM_DATA_TESTS, "value_omitted_from_data is not available")
     def test_value_omitted_from_data(self):
         block = blocks.ListBlock(blocks.CharBlock())
 
@@ -1811,6 +1819,7 @@ class TestStreamBlock(SimpleTestCase):
             html
         )
 
+    @unittest.skipIf(SKIP_VALUE_OMITTED_FROM_DATA_TESTS, "value_omitted_from_data is not available")
     def test_value_omitted_from_data(self):
         block = blocks.StreamBlock([
             ('heading', blocks.CharBlock()),
