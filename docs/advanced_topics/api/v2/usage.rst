@@ -276,6 +276,60 @@ For example, to find a page with the slug "about":
         ]
     }
 
+Filtering by tree position (pages only)
+---------------------------------------
+
+Pages can additionally be filtered by their position of the tree. For this,
+there are two parameters you can use: ``?child_of`` and ``?descendant_of``.
+
+The ``?child_of`` filter takes the id of a page and filters the list of results
+to contain only direct children of that page.
+
+For example, this can be useful for constructing the main menu, by passing the
+id of the homepage to the filter:
+
+.. code-block:: text
+
+    GET /api/v2/pages/?child_of=2&show_in_menus=true
+
+    HTTP 200 OK
+    Content-Type: application/json
+
+    {
+        "meta": {
+            "total_count": 5
+        },
+        "items": [
+            {
+                "id": 3,
+                "meta": {
+                    "type": "blog.BlogIndexPage",
+                    "detail_url": "http://api.example.com/api/v2/pages/3/",
+                    "html_url": "http://www.example.com/blog/",
+                    "slug": "blog",
+                    "first_published_at": "2016-09-21T13:54:00Z"
+                },
+                "title": "About"
+            },
+            {
+                "id": 10,
+                "meta": {
+                    "type": "standard.StandardPage",
+                    "detail_url": "http://api.example.com/api/v2/pages/10/",
+                    "html_url": "http://www.example.com/about/",
+                    "slug": "about",
+                    "first_published_at": "2016-08-30T16:52:00Z"
+                },
+                "title": "About"
+            },
+
+            ...
+        ]
+    }
+
+The ``?descendant_of`` filter also takes the id of a page but includes all
+descendants (children of children) instead of just directly children.
+
 Search
 ------
 
