@@ -223,9 +223,15 @@ Hooks for building new areas of the admin interface (alongside pages, images, do
 ``filter_form_submissions_for_user``
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-  Allows to limit access to form submissions. Doesn't affect page editing.
+  Allows access to form submissions to be customised on a per-user, per-form basis.
 
-  Return a queryset of ``Page`` objects to be shown in the Forms administration area.
+  This hook takes two parameters:
+   - The user attempting to access form submissions
+   - A ``QuerySet`` of form pages
+
+  The hook must return a ``QuerySet`` containing a subset of these form pages which the user is allowed to access the submissions for.
+
+  For example, to prevent non-superusers from accessing form submissions:
 
   .. code-block:: python
 
