@@ -15,6 +15,7 @@ from unidecode import unidecode
 
 from wagtail.wagtailadmin.edit_handlers import FieldPanel
 from wagtail.wagtailadmin.utils import send_mail
+from wagtail.wagtailcore import hooks
 from wagtail.wagtailcore.models import Orderable, Page, UserPagePermissionsProxy, get_page_models
 
 from .forms import FormBuilder, WagtailAdminFormPageForm
@@ -140,8 +141,14 @@ def get_forms_for_user(user):
     """
     Return a queryset of form pages that this user is allowed to access the submissions for
     """
-    editable_pages = UserPagePermissionsProxy(user).editable_pages()
-    return editable_pages.filter(content_type__in=get_form_types())
+    editable_forms = UserPagePermissionsProxy(user).editable_pages()
+    editable_forms = editable_forms.filter(content_type__in=get_form_types())
+
+    # Apply hooks
+    for fn in hooks.get_hooks('construct_forms_for_user'):
+        editable_forms = fn(user, editable_forms)
+
+    return editable_forms
 
 
 class AbstractForm(Page):
