@@ -170,6 +170,14 @@ class Block(six.with_metaclass(BaseBlock, object)):
     def value_from_datadict(self, data, files, prefix):
         raise NotImplementedError('%s.value_from_datadict' % self.__class__)
 
+    def value_omitted_from_data(self, data, files, name):
+        """
+        Used only for top-level blocks wrapped by BlockWidget (i.e.: typically only StreamBlock)
+        to inform ModelForm logic on Django >=1.10.2 whether the field is absent from the form
+        submission (and should therefore revert to the field default).
+        """
+        return name not in data
+
     def bind(self, value, prefix=None, errors=None):
         """
         Return a BoundBlock which represents the association of this block definition with a value
@@ -594,6 +602,9 @@ class BlockWidget(forms.Widget):
 
     def value_from_datadict(self, data, files, name):
         return self.block_def.value_from_datadict(data, files, name)
+
+    def value_omitted_from_data(self, data, files, name):
+        return self.block_def.value_omitted_from_data(data, files, name)
 
 
 class BlockField(forms.Field):

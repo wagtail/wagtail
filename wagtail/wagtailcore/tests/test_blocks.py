@@ -692,6 +692,12 @@ class TestRawHTMLBlock(unittest.TestCase):
         self.assertEqual(result, '<blink>BÖÖM</blink>')
         self.assertIsInstance(result, SafeData)
 
+    def test_value_omitted_from_data(self):
+        block = blocks.RawHTMLBlock()
+        self.assertFalse(block.value_omitted_from_data({'rawhtml': 'ohai'}, {}, 'rawhtml'))
+        self.assertFalse(block.value_omitted_from_data({'rawhtml': ''}, {}, 'rawhtml'))
+        self.assertTrue(block.value_omitted_from_data({'nothing-here': 'nope'}, {}, 'rawhtml'))
+
     def test_clean_required_field(self):
         block = blocks.RawHTMLBlock()
         result = block.clean(mark_safe('<blink>BÖÖM</blink>'))
@@ -1096,6 +1102,16 @@ class TestStructBlock(SimpleTestCase):
         self.assertTrue(isinstance(struct_val, blocks.StructValue))
         self.assertTrue(isinstance(struct_val.bound_blocks['link'].block, blocks.URLBlock))
 
+    def test_value_omitted_from_data(self):
+        block = blocks.StructBlock([
+            ('title', blocks.CharBlock()),
+            ('link', blocks.URLBlock()),
+        ])
+
+        # overall value is considered present in the form if any sub-field is present
+        self.assertFalse(block.value_omitted_from_data({'mylink-title': 'Torchbox'}, {}, 'mylink'))
+        self.assertTrue(block.value_omitted_from_data({'nothing-here': 'nope'}, {}, 'mylink'))
+
     def test_default_is_returned_as_structvalue(self):
         """When returning the default value of a StructBlock (e.g. because it's
         a child of another StructBlock, and the outer value is missing that key)
@@ -1407,6 +1423,17 @@ class TestListBlock(unittest.TestCase):
         ])
 
         self.assertEqual(content, ["Wagtail", "Django"])
+
+    def test_value_omitted_from_data(self):
+        block = blocks.ListBlock(blocks.CharBlock())
+
+        # overall value is considered present in the form if the 'count' field is present
+        self.assertFalse(block.value_omitted_from_data({'mylist-count': '0'}, {}, 'mylist'))
+        self.assertFalse(block.value_omitted_from_data({
+            'mylist-count': '1',
+            'mylist-0-value': 'hello', 'mylist-0-deleted': '', 'mylist-0-order': '0'
+        }, {}, 'mylist'))
+        self.assertTrue(block.value_omitted_from_data({'nothing-here': 'nope'}, {}, 'mylist'))
 
     def test_ordering_in_form_submission_uses_order_field(self):
         block = blocks.ListBlock(blocks.CharBlock())
@@ -1783,6 +1810,20 @@ class TestStreamBlock(SimpleTestCase):
             ),
             html
         )
+
+    def test_value_omitted_from_data(self):
+        block = blocks.StreamBlock([
+            ('heading', blocks.CharBlock()),
+        ])
+
+        # overall value is considered present in the form if the 'count' field is present
+        self.assertFalse(block.value_omitted_from_data({'mystream-count': '0'}, {}, 'mystream'))
+        self.assertFalse(block.value_omitted_from_data({
+            'mystream-count': '1',
+            'mystream-0-type': 'heading', 'mystream-0-value': 'hello',
+            'mystream-0-deleted': '', 'mystream-0-order': '0'
+        }, {}, 'mystream'))
+        self.assertTrue(block.value_omitted_from_data({'nothing-here': 'nope'}, {}, 'mystream'))
 
     def test_validation_errors(self):
         class ValidatedBlock(blocks.StreamBlock):

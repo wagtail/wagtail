@@ -97,6 +97,12 @@ class BaseStructBlock(Block):
             for name, block in self.child_blocks.items()
         ])
 
+    def value_omitted_from_data(self, data, files, prefix):
+        return all(
+            block.value_omitted_from_data(data, files, '%s-%s' % (prefix, name))
+            for name, block in self.child_blocks.items()
+        )
+
     def clean(self, value):
         result = []  # build up a list of (name, value) tuples to be passed to the StructValue constructor
         errors = {}
