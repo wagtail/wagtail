@@ -50,7 +50,7 @@ class TestFormResponsesPanel(TestCase):
         self.assertEqual('', result)
 
 
-class TestFormsIndex(TestCase):
+class TestFormsIndex(TestCase, WagtailTestUtils):
     fixtures = ['test.json']
 
     def setUp(self):
@@ -133,6 +133,25 @@ class TestFormsIndex(TestCase):
         # Check that the user can see the form page
         self.assertIn(self.form_page, response.context['form_pages'])
 
+    def test_cant_see_forms_after_filter_form_submissions_for_user_hook(self):
+        # Hook allows to see forms only to superusers
+        def construct_forms_for_user(user, queryset):
+            if not user.is_superuser:
+                queryset = queryset.none()
+
+            return queryset
+
+        response = self.client.get(reverse('wagtailforms:index'))
+
+        # Check that an user can see the form page
+        self.assertIn(self.form_page, response.context['form_pages'])
+
+        with self.register_hook('filter_form_submissions_for_user', construct_forms_for_user):
+            response = self.client.get(reverse('wagtailforms:index'))
+
+        # Check that an user can't see the form page
+        self.assertNotIn(self.form_page, response.context['form_pages'])
+
 
 # TODO: Rename to TestFormsSubmissionsList
 class TestFormsSubmissions(TestCase, WagtailTestUtils):
@@ -184,6 +203,24 @@ class TestFormsSubmissions(TestCase, WagtailTestUtils):
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'wagtailforms/index_submissions.html')
         self.assertEqual(len(response.context['data_rows']), 2)
+
+    def test_list_submissions_after_filter_form_submissions_for_user_hook(self):
+        # Hook forbids to delete form submissions for everyone
+        def construct_forms_for_user(user, queryset):
+            return queryset.none()
+
+        response = self.client.get(reverse('wagtailforms:list_submissions', args=(self.form_page.id,)))
+
+        # An user can see form submissions without the hook
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'wagtailforms/index_submissions.html')
+        self.assertEqual(len(response.context['data_rows']), 2)
+
+        with self.register_hook('filter_form_submissions_for_user', construct_forms_for_user):
+            response = self.client.get(reverse('wagtailforms:list_submissions', args=(self.form_page.id,)))
+
+        # An user cant' see form submissions with the hook
+        self.assertEqual(response.status_code, 403)
 
     def test_list_submissions_filtering_date_from(self):
         response = self.client.get(
@@ -267,6 +304,33 @@ class TestFormsSubmissions(TestCase, WagtailTestUtils):
         self.assertEqual(data_lines[0], 'Submission date,Your email,Your message,Your choices\r')
         self.assertEqual(data_lines[1], '2013-01-01 12:00:00+00:00,old@example.com,this is a really old message,None\r')
         self.assertEqual(data_lines[2], '2014-01-01 12:00:00+00:00,new@example.com,this is a fairly new message,None\r')
+
+    def test_list_submissions_csv_export_after_filter_form_submissions_for_user_hook(self):
+        # Hook forbids to delete form submissions for everyone
+        def construct_forms_for_user(user, queryset):
+            return queryset.none()
+
+        response = self.client.get(
+            reverse('wagtailforms:list_submissions', args=(self.form_page.id,)),
+            {'action': 'CSV'}
+        )
+
+        # An user can export form submissions without the hook
+        self.assertEqual(response.status_code, 200)
+        data_lines = response.content.decode().split("\n")
+
+        self.assertEqual(data_lines[0], 'Submission date,Your email,Your message,Your choices\r')
+        self.assertEqual(data_lines[1], '2013-01-01 12:00:00+00:00,old@example.com,this is a really old message,None\r')
+        self.assertEqual(data_lines[2], '2014-01-01 12:00:00+00:00,new@example.com,this is a fairly new message,None\r')
+
+        with self.register_hook('filter_form_submissions_for_user', construct_forms_for_user):
+            response = self.client.get(
+                reverse('wagtailforms:list_submissions', args=(self.form_page.id,)),
+                {'action': 'CSV'}
+            )
+
+        # An user can't export form submission with the hook
+        self.assertEqual(response.status_code, 403)
 
     def test_list_submissions_csv_export_with_date_from_filtering(self):
         response = self.client.get(
@@ -365,7 +429,7 @@ class TestFormsSubmissions(TestCase, WagtailTestUtils):
 # TODO: add TestCustomFormsSubmissionsList
 
 
-class TestDeleteFormSubmission(TestCase):
+class TestDeleteFormSubmission(TestCase, WagtailTestUtils):
     fixtures = ['test.json']
 
     def setUp(self):
@@ -407,6 +471,29 @@ class TestDeleteFormSubmission(TestCase):
 
         # Check that the deletion has not happened
         self.assertEqual(FormSubmission.objects.count(), 2)
+
+    def test_delete_submission_after_filter_form_submissions_for_user_hook(self):
+        # Hook forbids to delete form submissions for everyone
+        def construct_forms_for_user(user, queryset):
+            return queryset.none()
+
+        with self.register_hook('filter_form_submissions_for_user', construct_forms_for_user):
+            response = self.client.post(reverse(
+                'wagtailforms:delete_submission',
+                args=(self.form_page.id, FormSubmission.objects.first().id)
+            ))
+
+        # An user can't delete a from submission with the hook
+        self.assertEqual(response.status_code, 403)
+        self.assertEqual(FormSubmission.objects.count(), 2)
+
+        # An user can delete a form submission without the hook
+        response = self.client.post(reverse(
+            'wagtailforms:delete_submission',
+            args=(self.form_page.id, FormSubmission.objects.first().id)
+        ))
+        self.assertEqual(FormSubmission.objects.count(), 1)
+        self.assertRedirects(response, reverse("wagtailforms:list_submissions", args=(self.form_page.id,)))
 
 
 # TODO: add TestDeleteCustomFormSubmission

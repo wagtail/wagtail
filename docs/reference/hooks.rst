@@ -215,7 +215,36 @@ Hooks for building new areas of the admin interface (alongside pages, images, do
 ``register_permissions``
 ~~~~~~~~~~~~~~~~~~~~~~~~
 
-  Return a queryset of Permission objects to be shown in the Groups administration area.
+  Return a queryset of ``Permission`` objects to be shown in the Groups administration area.
+
+
+.. _filter_form_submissions_for_user:
+
+``filter_form_submissions_for_user``
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+  Allows access to form submissions to be customised on a per-user, per-form basis.
+
+  This hook takes two parameters:
+   - The user attempting to access form submissions
+   - A ``QuerySet`` of form pages
+
+  The hook must return a ``QuerySet`` containing a subset of these form pages which the user is allowed to access the submissions for.
+
+  For example, to prevent non-superusers from accessing form submissions:
+
+  .. code-block:: python
+
+    from wagtail.wagtailcore import hooks
+
+
+    @hooks.register('filter_form_submissions_for_user')
+    def construct_forms_for_user(user, queryset):
+        if not user.is_superuser:
+            queryset = queryset.none()
+
+        return queryset
+
 
 
 Editor interface
