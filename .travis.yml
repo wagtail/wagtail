@@ -68,6 +68,7 @@ matrix:
      python: 3.5
    - env: TOXENV=py35-dj110-postgres-elasticsearch2 INSTALL_ELASTICSEARCH2=yes
      python: 3.5
+     sudo: true
    - env: TOXENV=py35-dj110head-postgres-noelasticsearch
      python: 3.5
    - env: TOXENV=py35-dj110head-postgres-elasticsearch2 INSTALL_ELASTICSEARCH2=yes
