@@ -29,6 +29,7 @@ FORM_FIELD_CHOICES = (
     ('checkbox', _('Checkbox')),
     ('checkboxes', _('Checkboxes')),
     ('dropdown', _('Drop down')),
+    ('multiselect', _('Multiple Select')),
     ('radio', _('Radio buttons')),
     ('date', _('Date')),
     ('datetime', _('Date/time')),
