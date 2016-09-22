@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-08-01 13:25+0000\n"
+"POT-Creation-Date: 2016-09-22 15:51+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -21,23 +21,23 @@ msgstr ""
 msgid "You do not have permission to access the admin"
 msgstr ""
 
-#: edit_handlers.py:716
+#: edit_handlers.py:708
 msgid "Scheduled publishing"
 msgstr ""
 
-#: edit_handlers.py:730
+#: edit_handlers.py:722
 msgid "Common page configuration"
 msgstr ""
 
-#: edit_handlers.py:753
+#: edit_handlers.py:745
 msgid "Content"
 msgstr ""
 
-#: edit_handlers.py:755
+#: edit_handlers.py:747
 msgid "Promote"
 msgstr ""
 
-#: edit_handlers.py:757 wagtail_hooks.py:38
+#: edit_handlers.py:749 wagtail_hooks.py:38
 msgid "Settings"
 msgstr ""
 
@@ -139,6 +139,10 @@ msgid ""
 "This slug is already in use within the context of its parent page \"%s\""
 msgstr ""
 
+#: forms.py:183
+msgid "Visibility"
+msgstr ""
+
 #: forms.py:184 templates/wagtailadmin/pages/_privacy_switch.html:13
 #: templates/wagtailadmin/pages/_privacy_switch.html:18
 msgid "Public"
@@ -146,6 +150,10 @@ msgstr ""
 
 #: forms.py:185
 msgid "Private, accessible with the following password"
+msgstr ""
+
+#: forms.py:187
+msgid "Password"
 msgstr ""
 
 #: forms.py:193
@@ -340,7 +348,7 @@ msgstr[1] ""
 msgid "Choose"
 msgstr ""
 
-#: templates/wagtailadmin/chooser/browse.html:5 widgets.py:136
+#: templates/wagtailadmin/chooser/browse.html:5 widgets.py:132
 msgid "Choose a page"
 msgstr ""
 
@@ -399,6 +407,7 @@ msgstr ""
 
 #: templates/wagtailadmin/generic/create.html:24
 #: templates/wagtailadmin/generic/edit.html:26
+#: templates/wagtailadmin/page_privacy/set_privacy.html:13
 msgid "Save"
 msgstr ""
 
@@ -447,7 +456,7 @@ msgstr ""
 #: templates/wagtailadmin/home/recent_edits.html:22
 #: templates/wagtailadmin/pages/listing/_page_title_explore.html:7
 #: templates/wagtailadmin/userbar/item_page_edit.html:6 wagtail_hooks.py:71
-#: widgets.py:138
+#: widgets.py:134
 msgid "Edit this page"
 msgstr ""
 
@@ -464,9 +473,9 @@ msgstr ""
 #: templates/wagtailadmin/home/pages_for_moderation.html:42
 #: templates/wagtailadmin/home/recent_edits.html:28
 #: templates/wagtailadmin/pages/revisions/list.html:22 views/generic.py:107
-#: views/generic.py:162 views/pages.py:215 views/pages.py:220
-#: views/pages.py:228 views/pages.py:347 views/pages.py:375 views/pages.py:394
-#: views/pages.py:650 views/pages.py:708 views/pages.py:866 views/pages.py:886
+#: views/generic.py:162 views/pages.py:223 views/pages.py:228
+#: views/pages.py:236 views/pages.py:360 views/pages.py:388 views/pages.py:407
+#: views/pages.py:677 views/pages.py:739 views/pages.py:897 views/pages.py:917
 #: wagtail_hooks.py:70
 msgid "Edit"
 msgstr ""
@@ -737,11 +746,25 @@ msgstr ""
 msgid "Are you sure you want to unpublish this page?"
 msgstr ""
 
-#: templates/wagtailadmin/pages/confirm_unpublish.html:13
+#: templates/wagtailadmin/pages/confirm_unpublish.html:20
+#, python-format
+msgid ""
+"\n"
+"                    This page has one subpage. Unpublish this too\n"
+"                "
+msgid_plural ""
+"\n"
+"                    This page has %(live_descendant_count)s subpages. "
+"Unpublish these too\n"
+"                "
+msgstr[0] ""
+msgstr[1] ""
+
+#: templates/wagtailadmin/pages/confirm_unpublish.html:31
 msgid "Yes, unpublish it"
 msgstr ""
 
-#: templates/wagtailadmin/pages/confirm_unpublish.html:14
+#: templates/wagtailadmin/pages/confirm_unpublish.html:32
 msgid "No, don't unpublish"
 msgstr ""
 
@@ -1252,149 +1275,149 @@ msgstr ""
 msgid "Editing"
 msgstr ""
 
-#: views/pages.py:214
+#: views/pages.py:222
 #, python-brace-format
 msgid "Page '{0}' created and scheduled for publishing."
 msgstr ""
 
-#: views/pages.py:218
+#: views/pages.py:226
 #, python-brace-format
 msgid "Page '{0}' created and published."
 msgstr ""
 
-#: views/pages.py:219 views/pages.py:371 views/pages.py:865
+#: views/pages.py:227 views/pages.py:384 views/pages.py:896
 #: wagtail_hooks.py:76
 msgid "View live"
 msgstr ""
 
-#: views/pages.py:225
+#: views/pages.py:233
 #, python-brace-format
 msgid "Page '{0}' created and submitted for moderation."
 msgstr ""
 
-#: views/pages.py:227 views/pages.py:390
+#: views/pages.py:235 views/pages.py:403
 msgid "View draft"
 msgstr ""
 
-#: views/pages.py:232 views/pages.py:399
+#: views/pages.py:240 views/pages.py:412
 msgid "Failed to send notifications to moderators"
 msgstr ""
 
-#: views/pages.py:234
+#: views/pages.py:242
 #, python-brace-format
 msgid "Page '{0}' created."
 msgstr ""
 
-#: views/pages.py:256
+#: views/pages.py:264
 msgid "The page could not be created due to validation errors"
 msgstr ""
 
-#: views/pages.py:332
+#: views/pages.py:345
 #, python-brace-format
 msgid "Revision from {0} of page '{1}' has been scheduled for publishing."
 msgstr ""
 
-#: views/pages.py:339
+#: views/pages.py:352
 #, python-brace-format
 msgid "Page '{0}' has been scheduled for publishing."
 msgstr ""
 
-#: views/pages.py:356
+#: views/pages.py:369
 #, python-brace-format
 msgid "Revision from {0} of page '{1}' has been published."
 msgstr ""
 
-#: views/pages.py:363
+#: views/pages.py:376
 #, python-brace-format
 msgid "Page '{0}' has been published."
 msgstr ""
 
-#: views/pages.py:382
+#: views/pages.py:395
 #, python-brace-format
 msgid "Page '{0}' has been submitted for moderation."
 msgstr ""
 
-#: views/pages.py:405
+#: views/pages.py:418
 #, python-brace-format
 msgid "Page '{0}' has been replaced with revision from {1}."
 msgstr ""
 
-#: views/pages.py:412
+#: views/pages.py:425
 #, python-brace-format
 msgid "Page '{0}' has been updated."
 msgstr ""
 
-#: views/pages.py:440
+#: views/pages.py:453
 msgid "The page could not be saved as it is locked"
 msgstr ""
 
-#: views/pages.py:442
+#: views/pages.py:455
 msgid "The page could not be saved due to validation errors"
 msgstr ""
 
-#: views/pages.py:461
+#: views/pages.py:474
 msgid "This page is currently awaiting moderation"
 msgstr ""
 
-#: views/pages.py:486
+#: views/pages.py:504
 #, python-brace-format
 msgid "Page '{0}' deleted."
 msgstr ""
 
-#: views/pages.py:649
+#: views/pages.py:676
 #, python-brace-format
 msgid "Page '{0}' unpublished."
 msgstr ""
 
-#: views/pages.py:707
+#: views/pages.py:738
 #, python-brace-format
 msgid "Page '{0}' moved."
 msgstr ""
 
-#: views/pages.py:806
+#: views/pages.py:837
 #, python-brace-format
 msgid "Page '{0}' and {1} subpages copied."
 msgstr ""
 
-#: views/pages.py:809
+#: views/pages.py:840
 #, python-brace-format
 msgid "Page '{0}' copied."
 msgstr ""
 
-#: views/pages.py:859 views/pages.py:880 views/pages.py:901
+#: views/pages.py:890 views/pages.py:911 views/pages.py:932
 #, python-brace-format
 msgid "The page '{0}' is not currently awaiting moderation."
 msgstr ""
 
-#: views/pages.py:864
+#: views/pages.py:895
 #, python-brace-format
 msgid "Page '{0}' published."
 msgstr ""
 
-#: views/pages.py:869
+#: views/pages.py:900
 msgid "Failed to send approval notifications"
 msgstr ""
 
-#: views/pages.py:885
+#: views/pages.py:916
 #, python-brace-format
 msgid "Page '{0}' rejected for publication."
 msgstr ""
 
-#: views/pages.py:889
+#: views/pages.py:920
 msgid "Failed to send rejection notifications"
 msgstr ""
 
-#: views/pages.py:927
+#: views/pages.py:958
 #, python-brace-format
 msgid "Page '{0}' is now locked."
 msgstr ""
 
-#: views/pages.py:951
+#: views/pages.py:982
 #, python-brace-format
 msgid "Page '{0}' is now unlocked."
 msgstr ""
 
-#: views/pages.py:1002
+#: views/pages.py:1033
 #, python-format
 msgid ""
 "You are viewing a previous revision of this page from <b>%(created_at)s</b> "
@@ -1442,22 +1465,22 @@ msgstr ""
 msgid "View this page's revision history"
 msgstr ""
 
-#: widgets.py:81
+#: widgets.py:77
 msgid "Choose an item"
 msgstr ""
 
-#: widgets.py:82
+#: widgets.py:78
 msgid "Choose another item"
 msgstr ""
 
-#: widgets.py:83
+#: widgets.py:79
 msgid "Clear choice"
 msgstr ""
 
-#: widgets.py:84
+#: widgets.py:80
 msgid "Edit this item"
 msgstr ""
 
-#: widgets.py:137
+#: widgets.py:133
 msgid "Choose another page"
 msgstr ""

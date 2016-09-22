@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-08-01 13:25+0000\n"
+"POT-Creation-Date: 2016-09-22 15:51+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -73,7 +73,7 @@ msgstr ""
 msgid "A group with that name already exists."
 msgstr ""
 
-#: forms.py:310
+#: forms.py:313
 msgid "You cannot have multiple permission records for the same page."
 msgstr ""
 
@@ -157,7 +157,7 @@ msgid "Object permissions"
 msgstr ""
 
 #: templates/wagtailusers/groups/includes/formatted_permissions.html:11
-#: templates/wagtailusers/groups/includes/formatted_permissions.html:53
+#: templates/wagtailusers/groups/includes/formatted_permissions.html:41
 #: templates/wagtailusers/groups/list.html:6
 #: templates/wagtailusers/users/list.html:7
 msgid "Name"
@@ -177,7 +177,7 @@ msgstr ""
 msgid "Delete"
 msgstr ""
 
-#: templates/wagtailusers/groups/includes/formatted_permissions.html:47
+#: templates/wagtailusers/groups/includes/formatted_permissions.html:35
 msgid "Other permissions"
 msgstr ""
 

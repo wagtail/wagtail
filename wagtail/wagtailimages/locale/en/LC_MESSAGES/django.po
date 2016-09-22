@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-08-01 13:25+0000\n"
+"POT-Creation-Date: 2016-09-22 15:51+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -51,6 +51,18 @@ msgstr ""
 #: fields.py:53
 #, python-format
 msgid "This file is too big. Maximum filesize %s."
+msgstr ""
+
+#: formats.py:93
+msgid "Full width"
+msgstr ""
+
+#: formats.py:94
+msgid "Left-aligned"
+msgstr ""
+
+#: formats.py:95
+msgid "Right-aligned"
 msgstr ""
 
 #: forms.py:71
@@ -109,31 +121,31 @@ msgstr ""
 msgid "Edit any image"
 msgstr ""
 
-#: models.py:71
+#: models.py:72
 msgid "title"
 msgstr ""
 
-#: models.py:73
+#: models.py:74
 msgid "file"
 msgstr ""
 
-#: models.py:75
+#: models.py:76
 msgid "width"
 msgstr ""
 
-#: models.py:76
+#: models.py:77
 msgid "height"
 msgstr ""
 
-#: models.py:77
+#: models.py:78
 msgid "created at"
 msgstr ""
 
-#: models.py:79
+#: models.py:80
 msgid "uploaded by user"
 msgstr ""
 
-#: models.py:83
+#: models.py:84
 msgid "tags"
 msgstr ""
 
