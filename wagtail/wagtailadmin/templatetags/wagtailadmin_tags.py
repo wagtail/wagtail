@@ -329,3 +329,19 @@ def message_tags(message):
         return level_tag
     else:
         return ''
+
+
+@register.assignment_tag(takes_context=True)
+def form_has_errors(context):
+    try:
+        edit_handler = template.Variable('edit_handler').resolve(context)
+    except template.VariableDoesNotExist:
+        return False
+
+    if edit_handler is not None:
+        if hasattr(edit_handler, 'form'):
+            if hasattr(edit_handler.form, 'non_field_errors'):
+                if len(edit_handler.form.non_field_errors()):
+                    return True
+
+    return False
