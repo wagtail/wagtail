@@ -37,9 +37,9 @@ Configure endpoints
 -------------------
 
 Next, it's time to configure which content will be exposed on the API. Each
-content type (such has pages, images and documents) have their own endpoint.
-Endpoints are combined by a router which joins the endpoints together and
-provides the url configuration you can hook into the rest of your project.
+content type (such as pages, images and documents) has its own endpoint.
+Endpoints are combined by a router, which provides the url configuration you
+can hook into the rest of your project.
 
 Wagtail provides three endpoint classes you can use:
 
