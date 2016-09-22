@@ -45,6 +45,7 @@ Minor features
  * Updated font sizes and colours to improve legibility of admin menu and buttons (Stein Strindhaug)
  * Added pagination to "choose destination" view when moving pages (Nick Smith, Žan Anderle)
  * Added ability to annotate search results with score - see :ref:`wagtailsearch_annotating_results_with_score` (Karl Hobley)
+ * Added ability to limit access to form submissions - see :ref:`filter_form_submissions_for_user` (Mikalai Radchuk)
 
 
 Bug fixes
