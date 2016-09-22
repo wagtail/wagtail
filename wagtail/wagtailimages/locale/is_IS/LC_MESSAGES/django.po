@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-05-18 21:37+0000\n"
+"POT-Creation-Date: 2016-08-01 13:25+0000\n"
 "PO-Revision-Date: 2016-05-25 12:17+0000\n"
 "Last-Translator: Arnar Tumi Þorsteinsson <arnartumi@gmail.com>\n"
 "Language-Team: Icelandic (Iceland) (http://www.transifex.com/torchbox/"
@@ -128,12 +128,6 @@ msgstr "Vinsæl merki"
 
 msgid "Uploading..."
 msgstr "Hleð inn..."
-
-msgid "Server Error"
-msgstr "Villa á netþjóni"
-
-msgid "Report this error to your webmaster with the following information:"
-msgstr "Sendu þessa villu á vefstjóra með eftirfarandi upplýsingum:"
 
 #, python-format
 msgid ""
@@ -319,6 +313,12 @@ msgstr ""
 
 msgid "Sorry, upload failed."
 msgstr "Því miður tókst ekki að hlaða upp myndunum."
+
+msgid "Server Error"
+msgstr "Villa á netþjóni"
+
+msgid "Report this error to your webmaster with the following information:"
+msgstr "Sendu þessa villu á vefstjóra með eftirfarandi upplýsingum:"
 
 msgid "Image updated."
 msgstr "Mynd uppfærð"

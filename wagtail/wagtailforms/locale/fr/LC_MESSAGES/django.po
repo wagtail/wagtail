@@ -4,6 +4,7 @@
 #
 # Translators:
 # Adrien <laadrien@gmail.com>, 2014
+# Axel Haustant, 2016
 # Bertrand Bordage <bordage.bertrand@gmail.com>, 2015
 # Léo <leo@naeka.fr>, 2016
 # pierre marfoure <pierre@onoffdesign.com>, 2016
@@ -12,9 +13,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-05-18 21:37+0000\n"
-"PO-Revision-Date: 2016-06-06 09:21+0000\n"
-"Last-Translator: Léo <leo@naeka.fr>\n"
+"POT-Creation-Date: 2016-08-01 13:25+0000\n"
+"PO-Revision-Date: 2016-08-11 13:59+0000\n"
+"Last-Translator: Axel Haustant\n"
 "Language-Team: French (http://www.transifex.com/torchbox/wagtail/language/"
 "fr/)\n"
 "MIME-Version: 1.0\n"
@@ -22,6 +23,11 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: fr\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+#, python-format
+msgid "There is another field with the label %s, please change one of them."
+msgstr ""
+"Il y a un autre champ avec le label %s, veuillez changer l'un d'entre eux."
 
 msgid "Single line text"
 msgstr "Texte d'une seule ligne"
@@ -98,9 +104,12 @@ msgstr "texte d'aide"
 msgid "to address"
 msgstr "adresse destinataire"
 
-msgid "Optional - form submissions will be emailed to this address"
+msgid ""
+"Optional - form submissions will be emailed to these addresses. Separate "
+"multiple addresses by comma."
 msgstr ""
-"Facultatif - les soumissions du formulaire seront envoyées à cette adresse"
+"Facultatif - les soumissions du formulaire seront envoyées à ces adresses. "
+"Séparez les adresses multiples par une virgule."
 
 msgid "from address"
 msgstr "adresse expéditeur"

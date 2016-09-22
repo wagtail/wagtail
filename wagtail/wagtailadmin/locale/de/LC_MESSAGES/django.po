@@ -4,10 +4,10 @@
 #
 # Translators:
 # Daniel Manser <me@danielmanser.com>, 2015
-# Ettore Atalan <atalanttore@googlemail.com>, 2015
+# Ettore Atalan <atalanttore@googlemail.com>, 2015-2016
 # Henrik Kröger <hedwig@riseup.net>, 2015-2016
 # hpoul <herbert.transifex@m.poul.at>, 2015
-# Jannis Vajen, 2016
+# Jannis, 2016
 # Johannes Spielmann <j@spielmannsolutions.com>, 2014-2015
 # karlsander <karlsander@gmail.com>, 2014
 # karlsander <karlsander@gmail.com>, 2014
@@ -25,9 +25,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-05-18 21:37+0000\n"
-"PO-Revision-Date: 2016-05-13 05:57+0000\n"
-"Last-Translator: Moritz Pfeiffer <moritz@alp-phone.ch>\n"
+"POT-Creation-Date: 2016-08-01 13:25+0000\n"
+"PO-Revision-Date: 2016-08-01 14:26+0000\n"
+"Last-Translator: Ettore Atalan <atalanttore@googlemail.com>\n"
 "Language-Team: German (http://www.transifex.com/torchbox/wagtail/language/"
 "de/)\n"
 "MIME-Version: 1.0\n"
@@ -548,19 +548,11 @@ msgstr[1] ""
 "\n"
 "%(descendant_count)s Unterseiten werden auch gelöscht."
 
-msgid ""
-"Alternatively you can unpublish the page. This removes the page from public "
-"view and you can edit or publish it again later."
-msgstr ""
-"Alternativ können Sie die Seite depublizieren. Die Seite wird aus der "
-"öffentlichen Ansicht entfernt und Sie können sie später noch bearbeiten oder "
-"erneut veröffentlichen."
+msgid "Yes, delete it"
+msgstr "Ja, löschen"
 
-msgid "Delete it"
-msgstr "Löschen"
-
-msgid "Unpublish it"
-msgstr "Depublizieren"
+msgid "No, don't delete it"
+msgstr "Nein, nicht löschen"
 
 #, python-format
 msgid "Move %(title)s"

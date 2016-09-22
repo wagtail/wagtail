@@ -6,14 +6,14 @@
 # Daniel Chimeno <daniel@chimeno.me>, 2015
 # Joaquín Tita <carpincho@gmail.com>, 2014
 # Yusuf (Josè) Luis <alagunajs@gmail.com>, 2015
-# Mauricio Baeza <web@mauriciobaeza.net>, 2014
+# Mauricio Baeza <python@amigos.email>, 2014
 # Yusuf (Josè) Luis <alagunajs@gmail.com>, 2016
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-05-18 21:37+0000\n"
-"PO-Revision-Date: 2016-05-15 22:02+0000\n"
+"POT-Creation-Date: 2016-08-01 13:25+0000\n"
+"PO-Revision-Date: 2016-08-01 19:24+0000\n"
 "Last-Translator: Yusuf (Josè) Luis <alagunajs@gmail.com>\n"
 "Language-Team: Spanish (http://www.transifex.com/torchbox/wagtail/language/"
 "es/)\n"
@@ -22,6 +22,10 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: es\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#, python-format
+msgid "There is another field with the label %s, please change one of them."
+msgstr "Hay otro campo con la etiqueta %s, por favor cambie alguno de ellos."
 
 msgid "Single line text"
 msgstr "Una línea de texto"
@@ -98,9 +102,12 @@ msgstr "texto de ayuda"
 msgid "to address"
 msgstr "a dirección"
 
-msgid "Optional - form submissions will be emailed to this address"
+msgid ""
+"Optional - form submissions will be emailed to these addresses. Separate "
+"multiple addresses by comma."
 msgstr ""
-"Opcional - el formulario será enviado por correo electrónico a esta dirección"
+"Opcional - los formularios seran enviados por correo electrónico a estas "
+"direcciones."
 
 msgid "from address"
 msgstr "desde dirección"

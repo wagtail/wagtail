@@ -11,9 +11,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-05-18 21:37+0000\n"
-"PO-Revision-Date: 2016-05-12 03:48+0000\n"
-"Last-Translator: alfuhigi <abajall@gmail.com>\n"
+"POT-Creation-Date: 2016-08-01 13:25+0000\n"
+"PO-Revision-Date: 2016-08-01 13:28+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Arabic (http://www.transifex.com/torchbox/wagtail/language/"
 "ar/)\n"
 "MIME-Version: 1.0\n"
@@ -332,12 +332,6 @@ msgstr "اختر نوع الصفحة التي تريد إنشائها"
 
 msgid "Are you sure you want to delete this page?"
 msgstr "هل تريد فعلا حذف هذه الصفحة؟ "
-
-msgid "Delete it"
-msgstr "احذفه"
-
-msgid "Unpublish it"
-msgstr "ألغ نشره"
 
 #, python-format
 msgid "Move %(title)s"

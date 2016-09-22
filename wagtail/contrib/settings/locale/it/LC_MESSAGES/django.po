@@ -3,15 +3,16 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# Carlo Miron <C8E@miron.it>, 2016
 # Edd Baldry <edd.baldry@gmail.com>, 2016
 # Giacomo Ghizzani <giacomo.ghz@gmail.com>, 2016
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-05-18 21:37+0000\n"
-"PO-Revision-Date: 2016-06-24 14:03+0000\n"
-"Last-Translator: Giacomo Ghizzani <giacomo.ghz@gmail.com>\n"
+"POT-Creation-Date: 2016-08-01 13:25+0000\n"
+"PO-Revision-Date: 2016-08-21 08:36+0000\n"
+"Last-Translator: Carlo Miron <C8E@miron.it>\n"
 "Language-Team: Italian (http://www.transifex.com/torchbox/wagtail/language/"
 "it/)\n"
 "MIME-Version: 1.0\n"
@@ -41,4 +42,4 @@ msgid "{setting_type} updated."
 msgstr "{setting_type} modificato."
 
 msgid "The setting could not be saved due to errors."
-msgstr "L'impostazione non può essere salvato a causa di errori."
+msgstr "L'impostazione non può essere salvata a causa di errori."

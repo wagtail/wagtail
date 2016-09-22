@@ -3,13 +3,14 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# Kornél Novák <nkornel@gmail.com>, 2016
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-05-18 21:37+0000\n"
-"PO-Revision-Date: 2016-05-11 20:34+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2016-08-01 13:25+0000\n"
+"PO-Revision-Date: 2016-09-21 08:52+0000\n"
+"Last-Translator: Kornél Novák <nkornel@gmail.com>\n"
 "Language-Team: Hungarian (http://www.transifex.com/torchbox/wagtail/language/"
 "hu/)\n"
 "MIME-Version: 1.0\n"
@@ -18,11 +19,26 @@ msgstr ""
 "Language: hu\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
+msgid "Single line text"
+msgstr "Egysoros szöveg"
+
+msgid "Multi-line text"
+msgstr "Többsoros szöveg"
+
+msgid "Email"
+msgstr "E-mail"
+
+msgid "Number"
+msgstr "Szám"
+
 msgid "URL"
 msgstr "URL"
 
 msgid "Date"
 msgstr "Dátum"
+
+msgid "default value"
+msgstr "alapértelmezett érték"
 
 #, python-format
 msgid "Delete %(title)s"
@@ -30,6 +46,15 @@ msgstr "Törlés: %(title)s"
 
 msgid "Delete"
 msgstr "Törlés"
+
+msgid "Pages"
+msgstr "Oldalak"
+
+msgid "Filter"
+msgstr "Szűrő"
+
+msgid "Download CSV"
+msgstr "CSV letöltése"
 
 msgid "Title"
 msgstr "Cím"

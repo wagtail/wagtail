@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-05-18 21:37+0000\n"
+"POT-Creation-Date: 2016-08-01 13:25+0000\n"
 "PO-Revision-Date: 2016-05-29 16:37+0000\n"
 "Last-Translator: fooflare <amos.oviedo@gmail.com>\n"
 "Language-Team: Galician (http://www.transifex.com/torchbox/wagtail/language/"
@@ -129,13 +129,6 @@ msgstr "Etiquetas populares"
 
 msgid "Uploading..."
 msgstr "Subindo..."
-
-msgid "Server Error"
-msgstr "Erro do Servidor"
-
-msgid "Report this error to your webmaster with the following information:"
-msgstr ""
-"Informar deste erro ao teu administrador da web coa seguinte información:"
 
 #, python-format
 msgid ""
@@ -322,6 +315,13 @@ msgstr ""
 
 msgid "Sorry, upload failed."
 msgstr "Síntoo, a subida fallou."
+
+msgid "Server Error"
+msgstr "Erro do Servidor"
+
+msgid "Report this error to your webmaster with the following information:"
+msgstr ""
+"Informar deste erro ao teu administrador da web coa seguinte información:"
 
 msgid "Image updated."
 msgstr "Imaxe actualizada."

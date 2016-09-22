@@ -7,13 +7,14 @@
 # serafeim <serafeim@torchbox.com>, 2014
 # serafeim <serafeim@torchbox.com>, 2014,2016
 # Wasilis Mandratzis-Walz, 2015
+# Yiannis Inglessis <negletios@users.noreply.github.com>, 2016
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-05-18 21:37+0000\n"
-"PO-Revision-Date: 2016-05-14 21:16+0000\n"
-"Last-Translator: serafeim <serafeim@torchbox.com>\n"
+"POT-Creation-Date: 2016-08-01 13:25+0000\n"
+"PO-Revision-Date: 2016-09-20 11:31+0000\n"
+"Last-Translator: Yiannis Inglessis <negletios@users.noreply.github.com>\n"
 "Language-Team: Greek (http://www.transifex.com/torchbox/wagtail/language/"
 "el/)\n"
 "MIME-Version: 1.0\n"
@@ -537,18 +538,22 @@ msgstr[1] ""
 "σελίδες.\n"
 "                "
 
+msgid "Yes, delete it"
+msgstr "Ναι, διαγράψτε το"
+
+msgid "No, don't delete it"
+msgstr "Όχι, μην το διαγράψετε"
+
+#, python-format
 msgid ""
-"Alternatively you can unpublish the page. This removes the page from public "
-"view and you can edit or publish it again later."
+"Alternatively you can <a href=\"%(unpublish_url)s\">unpublish the page</a>. "
+"This removes the page from public view and you can edit or publish it again "
+"later."
 msgstr ""
-"Εναλλακτικά μπορείτε να αποεκδόσετε τη σελίδα ώστε να μην εμφανίζεται στο "
-"κοινό. Στη συνέχεια μπορείτε να τη διορθώστε και να την εκδόσετε ."
-
-msgid "Delete it"
-msgstr "Διαγραφή"
-
-msgid "Unpublish it"
-msgstr "Απο-έκδοση"
+"Εναλλακτικά μπορείτε να κάνετε <a href=\"%(unpublish_url)s\">κατάργηση "
+"δημοσίευσης της σελίδας </a>. Αυτό θα αφαιρέσει την σελίδα από την "
+"ιστοσελίδα σας, αλλά θα μπορείτε να την επεξεργαστείτε και να την "
+"δημοσιεύσετε αργότερα."
 
 #, python-format
 msgid "Move %(title)s"
@@ -584,6 +589,9 @@ msgstr "Είστε σίγουρος ότι θέλετε να αποεκδόσε�
 
 msgid "Yes, unpublish it"
 msgstr "Ναι, να αποεκδοθεί"
+
+msgid "No, don't unpublish"
+msgstr "Όχι, να μην γίνει κατάργηση δημοσίευσης  "
 
 msgid "Pages using"
 msgstr "Οι σελίδες που το χρησιμοποιούν"

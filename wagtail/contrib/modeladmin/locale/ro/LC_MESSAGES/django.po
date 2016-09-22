@@ -9,9 +9,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-05-18 21:37+0000\n"
-"PO-Revision-Date: 2016-05-18 21:52+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2016-08-01 13:25+0000\n"
+"PO-Revision-Date: 2016-08-01 14:15+0000\n"
+"Last-Translator: Dan Braghis\n"
 "Language-Team: Romanian (http://www.transifex.com/torchbox/wagtail/language/"
 "ro/)\n"
 "MIME-Version: 1.0\n"
@@ -78,11 +78,14 @@ msgid ""
 "%(plural)s can be added to more than one place within your site. Which of "
 "the following would you like to be the parent of your new page?"
 msgstr ""
-"%(plural)s pot fi adăugate în câteva locuri în sit-ul Dvstră. Care din "
+"%(plural)s pot fi adăugate în câteva locuri în sait-ul Dvstră. Care din "
 "următoarele doriți să fie pagina ascendentă?"
 
 msgid "Continue"
 msgstr "Continuă"
+
+msgid "Saving..."
+msgstr "În curse de salvare..."
 
 msgid "Save"
 msgstr "Salvează"
@@ -122,8 +125,40 @@ msgstr "Ne pare rău, parametrii de căutare n-au găsit nimic în %(name)s "
 msgid "Search for"
 msgstr "Căută"
 
+#, python-format
+msgid "Search %(name)s"
+msgstr "Caută %(name)s"
+
 msgid "Filter"
 msgstr "Filtrează"
+
+#, python-format
+msgid ""
+"No %(name)s have been created yet. One of the following must be created "
+"before you can add any %(name)s:"
+msgstr ""
+"%(name)s nu au fost create încă. Înainte de a putea să adăugați %(name)s, "
+"una din următoarele trebuiesc create:"
+
+#, python-format
+msgid "No %(name)s have been created yet."
+msgstr "Nu a fost creată nici o %(name)s."
+
+#, python-format
+msgid ""
+"\n"
+"                                                Why not <a href=\"%(url)s"
+"\">add one</a>?\n"
+"                                            "
+msgstr ""
+"\n"
+"                                                De ce să nu adăugați <a href="
+"\"%(url)s\">una</a>?\n"
+"                                            "
+
+#, python-format
+msgid "Page %(current_page)s of %(num_pages)s."
+msgstr "Pagina %(current_page)s din %(num_pages)s."
 
 #, python-format
 msgid "Back to %(model_name)s list"
@@ -168,6 +203,14 @@ msgstr "%s nu a fost salvat(ă) din cauza erorilor."
 #, python-format
 msgid "Confirm deletion of %s"
 msgstr "Confirmă stergerea %s"
+
+#, python-format
+msgid ""
+"Are you sure you want to delete this %s? If other things in your site are "
+"related to it, they may also be affected."
+msgstr ""
+"Sigur doriți să ștergeți %s? Alte părți ale sait-ului legate de aceasta pot "
+"fi afectate."
 
 #, python-brace-format
 msgid "{model} '{instance}' deleted."

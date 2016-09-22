@@ -1,0 +1,94 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# Yiannis Inglessis <negletios@users.noreply.github.com>, 2016
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2016-08-01 13:25+0000\n"
+"PO-Revision-Date: 2016-09-20 12:49+0000\n"
+"Last-Translator: Yiannis Inglessis <negletios@users.noreply.github.com>\n"
+"Language-Team: Greek (http://www.transifex.com/torchbox/wagtail/language/"
+"el/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: el\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#, python-format
+msgid "Add %s"
+msgstr "Προσθήκη %s"
+
+#, python-format
+msgid "Add a new %s"
+msgstr "Προσθήκη νέου %s "
+
+msgid "Inspect"
+msgstr "Επιθεωρείστε"
+
+#, python-format
+msgid "Inspect this %s"
+msgstr "Επιθεωρείστε το %s"
+
+msgid "Edit"
+msgstr "Επεξεργασία"
+
+#, python-format
+msgid "Edit this %s"
+msgstr "Επεξεργαστείτε το %s"
+
+msgid "Delete"
+msgstr "Διαγραφή"
+
+#, python-format
+msgid "Delete this %s"
+msgstr "Διαγράψτε το %s"
+
+msgid "Unpublish"
+msgstr "Κατάργηση δημοσίευσης"
+
+#, python-format
+msgid "Unpublish this %s"
+msgstr "Κατάργηση δημοσίευσης  %s"
+
+msgid "Copy"
+msgstr "Αντιγραφή"
+
+#, python-format
+msgid "Copy this %s"
+msgstr "Αντιγραφή του %s"
+
+msgid "image"
+msgstr "Εικόνα"
+
+msgid "Previous"
+msgstr "Προηγούμενο"
+
+msgid "Next"
+msgstr "Επόμενο"
+
+msgid "New"
+msgstr "Καινούργιο"
+
+#, python-format
+msgid "Create new %s"
+msgstr "Δημιουργία καινούργιου %s"
+
+msgid "Editing"
+msgstr "Υπό επεξεργασία"
+
+#, python-format
+msgid "Editing %s"
+msgstr "Επεξεργάζεται %s"
+
+#, python-brace-format
+msgid "{model_name} '{instance}' updated."
+msgstr "{model_name} '{instance}' ενημερώθηκε."
+
+#, python-format
+msgid "The %s could not be saved due to errors."
+msgstr "%s δεν μπορεί να αποθηκευτεί λόγω σφαλμάτων."
