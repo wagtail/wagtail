@@ -244,6 +244,7 @@ Contributors
 * Lucas Moeskops
 * Rob van der Linde
 * Paul Kamp
+* dwasyl
 
 Translators
 ===========
