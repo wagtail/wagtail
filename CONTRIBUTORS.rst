@@ -169,6 +169,7 @@ Contributors
 * emg36
 * Stein Strindhaug
 * Žan Anderle
+* Mattias Loverot
 
 Translators
 ===========

@@ -61,6 +61,7 @@ Bug fixes
  * "Your recent edits" list on dashboard no longer leaves out pages that another user has subsequently edited (Michael Cordover, Kees Hink, João Luiz Lorencetti)
  * ``InlinePanel`` now accepts a ``classname`` parameter as per the documentation (emg36, Matt Westcott)
  * Disabled use of escape key to revert content of rich text fields, which could cause accidental data loss (Matt Westcott)
+ * Setting ``USE_THOUSAND_SEPARATOR = True`` no longer breaks the rendering of numbers in JS code for InlinePanel (Mattias Loverot, Matt Westcott)
 
 
 Upgrade considerations

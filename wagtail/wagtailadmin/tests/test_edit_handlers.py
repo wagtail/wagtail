@@ -6,7 +6,7 @@ import mock
 from django import forms
 from django.core import checks
 from django.core.exceptions import ImproperlyConfigured
-from django.test import TestCase
+from django.test import TestCase, override_settings
 
 from wagtail.tests.testapp.forms import ValidatedPageForm
 from wagtail.tests.testapp.models import (
@@ -749,6 +749,27 @@ class TestInlinePanel(TestCase, WagtailTestUtils):
 
         # render_js_init must provide the JS initializer
         self.assertIn('var panel = InlinePanel({', panel.render_js_init())
+
+    @override_settings(USE_L10N=True, USE_THOUSAND_SEPARATOR=True)
+    def test_no_thousand_separators_in_js(self):
+        """
+        Test that the USE_THOUSAND_SEPARATOR setting does not screw up the rendering of numbers
+        (specifically maxForms=1000) in the JS initializer:
+        https://github.com/torchbox/wagtail/pull/2699
+        """
+        SpeakerObjectList = ObjectList([
+            InlinePanel('speakers', label="Speakers", panels=[
+                FieldPanel('first_name', widget=forms.Textarea),
+                ImageChooserPanel('image'),
+            ]),
+        ]).bind_to_model(EventPage)
+        SpeakerInlinePanel = SpeakerObjectList.children[0]
+        EventPageForm = SpeakerObjectList.get_form_class(EventPage)
+        event_page = EventPage.objects.get(slug='christmas')
+        form = EventPageForm(instance=event_page)
+        panel = SpeakerInlinePanel(instance=event_page, form=form)
+
+        self.assertIn('maxForms: 1000', panel.render_js_init())
 
     def test_invalid_inlinepanel_declaration(self):
         with self.ignore_deprecation_warnings():
