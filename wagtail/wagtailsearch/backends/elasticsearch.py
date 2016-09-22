@@ -430,6 +430,7 @@ class ElasticsearchSearchResults(BaseSearchResults):
 
         # Get pks from results
         pks = [hit['fields']['pk'][0] for hit in hits['hits']['hits']]
+        scores = {str(hit['fields']['pk'][0]): hit['_score'] for hit in hits['hits']['hits']}
 
         # Initialise results dictionary
         results = dict((str(pk), None) for pk in pks)
@@ -438,6 +439,9 @@ class ElasticsearchSearchResults(BaseSearchResults):
         queryset = self.query.queryset.filter(pk__in=pks)
         for obj in queryset:
             results[str(obj.pk)] = obj
+
+            if self._score_field:
+                setattr(obj, self._score_field, scores.get(str(obj.pk)))
 
         # Return results in order given by Elasticsearch
         return [results[str(pk)] for pk in pks if results[str(pk)]]

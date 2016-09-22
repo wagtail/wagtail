@@ -166,8 +166,36 @@ For example:
     [<EventPage: Easter>, <EventPage: Halloween>, <EventPage: Christmas>]
 
 
-.. _wagtailsearch_frontend_views:
+Annotating results with score
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+.. versionadded:: 1.7
+
+For each matched result, Elasticsearch calculates a "score", which is a number
+that represents how relevant the result is based on the user's query. The
+results are usually ordered based on the score.
+
+There are some cases where having access to the score is useful (such as
+programmatically combining two queries for different models). You can add the
+score to each result by calling the ``.annotate_score(field)`` method on the
+``SearchQuerySet``.
+
+For example:
+
+.. code-block:: python
+
+    >>> events = EventPage.objects.search("Event").annotate_score("_score")
+    >>> for event in events:
+    ...    print(event.title, event._score)
+    ...
+    ("Easter", 2.5),
+    ("Haloween", 1.7),
+    ("Christmas", 1.5),
+
+Note that the score itself is arbitrary and it is only useful for comparison
+of results for the same query.
+
+.. _wagtailsearch_frontend_views:
 
 An example page search view
 ===========================
