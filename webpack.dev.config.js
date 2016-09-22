@@ -4,6 +4,7 @@ var config = base('development');
 
 // development overrides go here
 config.watch = true;
-config.devtool = 'cheap-module-eval-source-map';
+// See http://webpack.github.io/docs/configuration.html#devtool
+config.devtool = 'inline-source-map';
 
 module.exports = config;
