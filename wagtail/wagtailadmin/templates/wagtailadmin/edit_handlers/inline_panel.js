@@ -1,3 +1,5 @@
+{% load l10n %}
+{% localize off %}
 (function() {
     var panel = InlinePanel({
         formsetPrefix: "id_{{ self.formset.prefix }}",
@@ -13,3 +15,4 @@
     panel.updateMoveButtonDisabledStates();
     panel.updateAddButtonState();
 })();
+{% endlocalize %}
