@@ -2,11 +2,11 @@ from __future__ import absolute_import, unicode_literals
 
 import logging
 import re
-import urlparse
 
 from django.conf import settings
 from django.core.exceptions import ImproperlyConfigured
 from django.utils.module_loading import import_string
+from django.utils.six.moves.urllib.parse import urlparse, urlunparse
 
 logger = logging.getLogger('wagtail.frontendcache')
 
@@ -78,13 +78,13 @@ def purge_page_from_cache(page, backend_settings=None, backends=None):
                 _purged_urls = []
                 # Purge the given url for each managed language instead of just the one with the current language
                 for isocode, description in settings.LANGUAGES:
-                    up = urlparse.urlparse(page_url)
-                    new_page_url = urlparse.urlunparse((up.scheme,
-                                                        up.netloc,
-                                                        re.sub(langs_regex, "/%s/" % isocode, up.path),
-                                                        up.params,
-                                                        up.query,
-                                                        up.fragment))
+                    up = urlparse(page_url)
+                    new_page_url = urlunparse((up.scheme,
+                                               up.netloc,
+                                               re.sub(langs_regex, "/%s/" % isocode, up.path),
+                                               up.params,
+                                               up.query,
+                                               up.fragment))
 
                     purge_url = new_page_url + path[1:]
                     # Check for best performance. True if re.sub found no match
