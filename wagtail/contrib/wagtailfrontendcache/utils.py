@@ -95,7 +95,7 @@ def purge_page_from_cache(page, backend_settings=None, backends=None):
                     logger.info("[%s] Purging URL: %s", backend_name, purge_url)
                     backend.purge(purge_url)
 
-                    _purged_urls.append(purge_url)    
+                    _purged_urls.append(purge_url)
             else:
                 logger.info("[%s] Purging URL: %s", backend_name, page_url + path[1:])
                 backend.purge(page_url + path[1:])
