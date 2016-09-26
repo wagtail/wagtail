@@ -2,7 +2,7 @@ from __future__ import absolute_import, unicode_literals
 
 from itertools import groupby
 
-from django import VERSION as django_version
+import django
 from django import forms
 from django.conf import settings
 from django.contrib.auth import get_user_model
@@ -20,8 +20,7 @@ from wagtail.wagtailcore.models import (
 from wagtail.wagtailusers.models import UserProfile
 
 
-DJANGO_GTE_1_9 = django_version >= (1, 9)
-if DJANGO_GTE_1_9:
+if django.VERSION >= (1, 9):
     from django.contrib.auth.password_validation import (
         password_validators_help_text_html, validate_password
     )
@@ -97,7 +96,7 @@ class UserForm(UsernameForm):
         if self.password_required:
             self.fields['password1'].help_text = (
                 mark_safe(password_validators_help_text_html())
-                if DJANGO_GTE_1_9 else '')
+                if django.VERSION >= (1, 9) else '')
             self.fields['password1'].required = True
             self.fields['password2'].required = True
 
@@ -124,7 +123,7 @@ class UserForm(UsernameForm):
 
     def clean_password1(self):
         password = self.cleaned_data.get('password1')
-        if DJANGO_GTE_1_9 and password:
+        if django.VERSION >= (1, 9) and password:
             validate_password(password, user=self.instance)
         return password
 
