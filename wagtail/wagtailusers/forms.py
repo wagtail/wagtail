@@ -68,7 +68,7 @@ class UserForm(UsernameForm):
     password_required = True
 
     error_messages = {
-        'duplicate_username': _('A user with that username already exists.'),
+        'duplicate_username': _("A user with that username already exists."),
         'password_mismatch': _("The two password fields didn't match."),
     }
 
@@ -79,11 +79,11 @@ class UserForm(UsernameForm):
     password1 = forms.CharField(
         label=_('Password'), required=False,
         widget=forms.PasswordInput,
-        help_text=_('Leave blank if not changing.'))
+        help_text=_("Leave blank if not changing."))
     password2 = forms.CharField(
-        label=_('Password confirmation'), required=False,
+        label=_("Password confirmation"), required=False,
         widget=forms.PasswordInput,
-        help_text=_('Enter the same password as above, for verification.'))
+        help_text=_("Enter the same password as above, for verification."))
 
     is_superuser = forms.BooleanField(
         label=_("Administrator"), required=False,
@@ -128,8 +128,8 @@ class UserForm(UsernameForm):
         return password
 
     def clean_password2(self):
-        password1 = self.cleaned_data.get('password1')
-        password2 = self.cleaned_data.get('password2')
+        password1 = self.cleaned_data.get("password1")
+        password2 = self.cleaned_data.get("password2")
         if password2 != password1:
             self.add_error('password2', forms.ValidationError(
                 self.error_messages['password_mismatch'],
