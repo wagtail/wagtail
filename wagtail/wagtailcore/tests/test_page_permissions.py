@@ -1,9 +1,10 @@
 from __future__ import absolute_import, unicode_literals
 
 from django.contrib.auth import get_user_model
+from django.contrib.auth.models import Group
 from django.test import TestCase
 
-from wagtail.tests.testapp.models import BusinessSubIndex, EventPage
+from wagtail.tests.testapp.models import BusinessSubIndex, EventIndex, EventPage
 from wagtail.wagtailcore.models import GroupPagePermission, Page, UserPagePermissionsProxy
 
 
@@ -188,6 +189,49 @@ class TestPagePermission(TestCase):
         # and add permission on the destination
         self.assertFalse(moderator_event_perms.can_move_to(homepage))
         self.assertTrue(moderator_event_perms.can_move_to(unpublished_event_page))
+
+    def test_cannot_bulk_delete_without_permissions(self):
+        event_moderator = get_user_model().objects.get(username='eventmoderator')
+        events_page = EventIndex.objects.get(url_path='/home/events/')
+        events_perms = events_page.permissions_for_user(event_moderator)
+
+        self.assertFalse(events_perms.can_delete())
+
+    def test_can_bulk_delete_with_permissions(self):
+        event_moderator = get_user_model().objects.get(username='eventmoderator')
+        events_page = EventIndex.objects.get(url_path='/home/events/')
+
+        # Assign 'bulk_delete' permission to the event_moderator group
+        event_moderators_group = Group.objects.get(name='Event moderators')
+        GroupPagePermission.objects.create(
+            group=event_moderators_group, page=events_page, permission_type='bulk_delete'
+        )
+
+        events_perms = events_page.permissions_for_user(event_moderator)
+
+        self.assertTrue(events_perms.can_delete())
+
+    def test_need_delete_permission_to_bulk_delete(self):
+        """
+        Having bulk_delete permission is not in itself sufficient to allow deleting pages -
+        you need actual edit permission on the pages too.
+
+        In this test the event editor is given bulk_delete permission, but since their
+        only other permission is 'add', they cannot delete published pages or pages owned
+        by other users, and therefore the bulk deletion cannot happen.
+        """
+        event_editor = get_user_model().objects.get(username='eventeditor')
+        events_page = EventIndex.objects.get(url_path='/home/events/')
+
+        # Assign 'bulk_delete' permission to the event_editor group
+        event_editors_group = Group.objects.get(name='Event editors')
+        GroupPagePermission.objects.create(
+            group=event_editors_group, page=events_page, permission_type='bulk_delete'
+        )
+
+        events_perms = events_page.permissions_for_user(event_editor)
+
+        self.assertFalse(events_perms.can_delete())
 
     def test_inactive_user_has_no_permissions(self):
         user = get_user_model().objects.get(username='inactiveuser')

@@ -1536,6 +1536,7 @@ PAGE_PERMISSION_TYPES = [
     ('add', _("Add"), _("Add/edit pages you own")),
     ('edit', _("Edit"), _("Edit any page")),
     ('publish', _("Publish"), _("Publish any page")),
+    ('bulk_delete', _("Bulk delete"), _("Delete pages with children")),
     ('lock', _("Lock"), _("Lock/unlock any page")),
 ]
 
@@ -1694,6 +1695,10 @@ class PagePermissionTester(object):
         if self.user.is_superuser:
             # superusers require no further checks
             return True
+
+        # if the user does not have bulk_delete permission, they may only delete leaf pages
+        if 'bulk_delete' not in self.permissions and not self.page.is_leaf():
+            return False
 
         if 'edit' in self.permissions:
             # if the user does not have publish permission, we also need to confirm that there
