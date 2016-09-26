@@ -97,6 +97,9 @@ Options
  - **boost** (``int/float``) - This allows you to set fields as being more important than others. Setting this to a high number on a field will cause pages with matches in that field to be ranked higher. By default, this is set to 2 on the Page title field and 1 on all other fields.
  - **es_extra** (``dict``) - This field is to allow the developer to set or override any setting on the field in the ElasticSearch mapping. Use this if you want to make use of any ElasticSearch features that are not yet supported in Wagtail.
 
+ .. note::
+
+      To index django's ``FileFields`` you need to install the ``mapper-attachments`` plugin for ElasticSearch. For Version >= 5 this has been renamed to ``ingest-attachment`` and not yet been tested.
 
 ``index.FilterField``
 ---------------------

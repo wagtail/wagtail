@@ -6,7 +6,7 @@ import warnings
 from django.db import models
 from django.utils.crypto import get_random_string
 from django.utils.six.moves.urllib.parse import urlparse
-from elasticsearch import Elasticsearch, NotFoundError
+from elasticsearch import Elasticsearch, NotFoundError, RequestError
 from elasticsearch.helpers import bulk
 
 from wagtail.utils.deprecation import RemovedInWagtail18Warning
@@ -26,7 +26,7 @@ class ElasticsearchMapping(object):
         'DateField': 'date',
         'DateTimeField': 'date',
         'DecimalField': 'double',
-        'FileField': 'string',
+        'FileField': 'attachment',
         'FilePathField': 'string',
         'FloatField': 'double',
         'IntegerField': 'integer',
@@ -84,13 +84,14 @@ class ElasticsearchMapping(object):
             mapping = {'type': self.type_map.get(field.get_type(self.model), 'string')}
 
             if isinstance(field, SearchField):
-                if field.boost:
-                    mapping['boost'] = field.boost
+                if not mapping['type'] == 'attachment':
+                    if field.boost:
+                        mapping['boost'] = field.boost
 
-                if field.partial_match:
-                    mapping.update(self.edgengram_analyzer_config)
+                    if field.partial_match:
+                        mapping.update(self.edgengram_analyzer_config)
 
-                mapping['include_in_all'] = True
+                    mapping['include_in_all'] = True
 
             elif isinstance(field, FilterField):
                 mapping['index'] = 'not_analyzed'
@@ -509,9 +510,18 @@ class ElasticsearchIndex(object):
         mapping = self.mapping_class(model)
 
         # Put mapping
-        self.es.indices.put_mapping(
-            index=self.name, doc_type=mapping.get_document_type(), body=mapping.get_mapping()
-        )
+        try:
+            self.es.indices.put_mapping(
+                index=self.name, doc_type=mapping.get_document_type(), body=mapping.get_mapping()
+            )
+        except RequestError as e:
+            if 'No handler for type [attachment] declared' in str(e.info):
+                raise AssertionError(
+                    "To index FileField's you need to install the mapper-attachments plugin for ElasticSearch.\n"
+                    "For ES2: https://www.elastic.co/guide/en/elasticsearch/plugins/2.4/mapper-attachments.html\n"
+                    "Below ES2.2: https://github.com/elastic/elasticsearch-mapper-attachments\n")
+            else:
+                raise e
 
     def add_item(self, item):
         # Make sure the object can be indexed
