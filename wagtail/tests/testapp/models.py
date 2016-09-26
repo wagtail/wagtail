@@ -563,8 +563,6 @@ class DefaultStreamPage(Page):
         ('image', ImageChooserBlock()),
     ], default='')
 
-    api_fields = ('body',)
-
     content_panels = [
         FieldPanel('title'),
         StreamFieldPanel('body'),
