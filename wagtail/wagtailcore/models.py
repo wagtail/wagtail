@@ -1684,7 +1684,7 @@ class PagePermissionTester(object):
         if 'edit' in self.permissions:
             # if the user does not have publish permission, we also need to confirm that there
             # are no published pages here
-            if not ('publish' in self.permissions):
+            if 'publish' not in self.permissions:
                 pages_to_delete = self.page.get_descendants(inclusive=True)
                 if pages_to_delete.live().exists():
                     return False
