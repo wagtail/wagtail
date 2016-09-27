@@ -18,6 +18,7 @@ Changelog
  * Added ability to limit access to form submissions (Mikalai Radchuk)
  * Added the ability to configure the number of days search logs are kept for (Stephen Rice)
  * Fix: Migrations for wagtailcore and project template are now reversible (Benjamin Bach)
+ * Fix: Migrations no longer depend on wagtailcore and taggit's `__latest__` migration, logically preventing those apps from receiving new migrations (Matt Westcott)
  * Fix: The default image format label text ('Full width', 'Left-aligned', 'Right-aligned') is now localised (Mikalai Radchuk)
  * Fix: Text on the front-end 'password required' form is now marked for translation (Janneke Janssen)
  * Fix: Text on the page view restriction form is now marked for translation (Luiz Boaretto)
