@@ -51,3 +51,42 @@ Upgrade considerations
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 The ``get_image_model`` function should now be imported from ``wagtail.wagtailimages`` rather than ``wagtail.wagtailimages.models``. See :ref:`custom_image_model_referring_to_image_model`.
+
+
+Non-administrators now need 'bulk delete' permission to delete pages with children
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+As a precaution against accidental data loss, this release introduces a new "bulk delete" permission on pages, which can be set through the Settings -> Groups area. Non-administrator users must have this permission in order to delete pages that have children; a user without this permission would have to delete each child individually before deleting the parent. By default, no groups are assigned this new permission. If you wish to restore the previous behaviour, and don't want to configure permissions manually through the admin interface, you can do so with a data migration. Create an empty migration using ``./manage.py makemigrations myapp --empty --name assign_bulk_delete_permission`` (replacing ``myapp`` with the name of one of your project's apps) and edit the migration file to contain the following:
+
+.. code-block:: python
+
+    from __future__ import unicode_literals
+
+    from django.db import migrations
+
+
+    def add_bulk_delete_permission(apps, schema_editor):
+        """Find all groups with add/edit page permissions, and assign them bulk_delete permission"""
+        GroupPagePermission = apps.get_model('wagtailcore', 'GroupPagePermission')
+        for group_id, page_id in GroupPagePermission.objects.filter(
+            permission_type__in=['add', 'edit']
+        ).values_list('group', 'page').distinct():
+            GroupPagePermission.objects.create(
+                group_id=group_id, page_id=page_id, permission_type='bulk_delete'
+            )
+
+
+    def remove_bulk_delete_permission(apps, schema_editor):
+        GroupPagePermission = apps.get_model('wagtailcore', 'GroupPagePermission')
+        GroupPagePermission.objects.filter(permission_type='bulk_delete').delete()
+
+
+    class Migration(migrations.Migration):
+
+        dependencies = [
+            # keep the original dependencies line
+        ]
+
+        operations = [
+            migrations.RunPython(add_bulk_delete_permission, remove_bulk_delete_permission),
+        ]
