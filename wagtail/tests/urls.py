@@ -1,6 +1,9 @@
 from __future__ import absolute_import, unicode_literals
 
+from django.conf import settings
+
 from django.conf.urls import include, url
+from django.conf.urls.i18n import i18n_patterns
 
 from wagtail.api.v2.endpoints import PagesAPIEndpoint
 from wagtail.api.v2.router import WagtailAPIRouter
@@ -40,3 +43,10 @@ urlpatterns = [
     # Wagtail's serving mechanism
     url(r'', include(wagtail_urls)),
 ]
+
+# For anything not caught by a more specific rule above, hand over to
+# Wagtail's serving mechanism
+if settings.USE_I18N and len(settings.LANGUAGES) > 1:
+    urlpatterns.append(i18n_patterns('', url(r'', include(wagtail_urls))))
+else :
+    urlpatterns.append(url(r'', include(wagtail_urls)))
