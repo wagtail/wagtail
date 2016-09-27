@@ -1,6 +1,10 @@
 from __future__ import absolute_import, unicode_literals
 
+from django.conf import settings
+from django import VERSION as DJANGO_VERSION
+
 from django.conf.urls import include, url
+from django.conf.urls.i18n import i18n_patterns
 
 from wagtail.api.v2.endpoints import PagesAPIEndpoint
 from wagtail.api.v2.router import WagtailAPIRouter
@@ -38,6 +42,10 @@ urlpatterns = [
 
     # For anything not caught by a more specific rule above, hand over to
     # Wagtail's serving mechanism
-    url(r'', include(wagtail_urls))
-
+    url(r'', include(wagtail_urls)),
 ]
+
+if DJANGO_VERSION < (1, 10):
+    urlpatterns += i18n_patterns('', url(r'', include(wagtail_urls)))
+else :
+    urlpatterns += i18n_patterns(url(r'', include(wagtail_urls)))
