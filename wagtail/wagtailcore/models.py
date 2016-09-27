@@ -1691,21 +1691,30 @@ class PagePermissionTester(object):
         if self.page_is_root:  # root node is not a page and can never be deleted, even by superusers
             return False
 
-        if self.user.is_superuser or ('publish' in self.permissions):
-            # Users with publish permission can unpublish any pages that need to be unpublished to achieve deletion
+        if self.user.is_superuser:
+            # superusers require no further checks
             return True
 
-        elif 'edit' in self.permissions:
-            # user can only delete if there are no live pages in this subtree
-            return (not self.page.live) and (not self.page.get_descendants().filter(live=True).exists())
+        if 'edit' in self.permissions:
+            # if the user does not have publish permission, we also need to confirm that there
+            # are no published pages here
+            if 'publish' not in self.permissions:
+                pages_to_delete = self.page.get_descendants(inclusive=True)
+                if pages_to_delete.live().exists():
+                    return False
+
+            return True
 
         elif 'add' in self.permissions:
-            # user can only delete if all pages in this subtree are unpublished and owned by this user
-            return (
-                (not self.page.live) and
-                (self.page.owner_id == self.user.pk) and
-                (not self.page.get_descendants().exclude(live=False, owner=self.user).exists())
-            )
+            pages_to_delete = self.page.get_descendants(inclusive=True)
+            if 'publish' in self.permissions:
+                # we don't care about live state, but all pages must be owned by this user
+                # (i.e. eliminating pages owned by this user must give us the empty set)
+                return not pages_to_delete.exclude(owner=self.user).exists()
+            else:
+                # all pages must be owned by this user and non-live
+                # (i.e. eliminating non-live pages owned by this user must give us the empty set)
+                return not pages_to_delete.exclude(live=False, owner=self.user).exists()
 
         else:
             return False
