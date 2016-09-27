@@ -1,6 +1,5 @@
 from __future__ import absolute_import, unicode_literals
 
-from django.conf import settings
 from django import VERSION as DJANGO_VERSION
 
 from django.conf.urls import include, url
@@ -47,5 +46,5 @@ urlpatterns = [
 
 if DJANGO_VERSION < (1, 10):
     urlpatterns += i18n_patterns('', url(r'', include(wagtail_urls)))
-else :
+else:
     urlpatterns += i18n_patterns(url(r'', include(wagtail_urls)))
