@@ -1,11 +1,11 @@
 {% extends "wagtailadmin/base.html" %}
 {% load i18n %}
 
-{% block titletag %}{% blocktrans with title=page.title %}Revisions of {{ title }}{% endblocktrans %}{% endblock %}
+{% block titletag %}{% blocktrans with title=page.get_title_for_display %}Revisions of {{ title }}{% endblocktrans %}{% endblock %}
 
 {% block content %}
     {% trans "Revisions of" as revisions_str %}
-    {% include "wagtailadmin/shared/header.html" with title=revisions_str subtitle=page.title icon="doc-empty-inverse" %}
+    {% include "wagtailadmin/shared/header.html" with title=revisions_str subtitle=page.get_title_for_display icon="doc-empty-inverse" %}
 
     <div class="nice-padding">
         <div id="revision-results" class="revisions">

@@ -1,6 +1,6 @@
 {% extends "wagtailadmin/base.html" %}
 {% load wagtailadmin_tags staticfiles i18n %}
-{% block titletag %}{% blocktrans with title=parent_page.title %}Exploring {{ title }}{% endblocktrans %}{% endblock %}
+{% block titletag %}{% blocktrans with title=parent_page.get_title_for_display %}Exploring {{ title }}{% endblocktrans %}{% endblock %}
 {% block bodyclass %}page-explorer {% if ordering == 'ord' %}reordering{% endif %}{% endblock %}
 
 {% block content %}

@@ -2,7 +2,7 @@
 
 {% for page, children in nodes %}
 	<li {% if children %}class="has-children"{% endif %}>
-	    <a href="{% url 'wagtailadmin_explore' page.id %}" class="icon icon-folder-open-inverse">{{ page.title }}</a>
+	    <a href="{% url 'wagtailadmin_explore' page.id %}" class="icon icon-folder-open-inverse">{{ page.get_title_for_display }}</a>
 	    {% if children %}
 	        <div class="children icon icon-arrow-right"></div>
 	        <ul class="dl-submenu">

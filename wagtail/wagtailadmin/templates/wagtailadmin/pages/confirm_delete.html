@@ -1,10 +1,10 @@
 {% extends "wagtailadmin/base.html" %}
 {% load i18n wagtailadmin_tags %}
-{% block titletag %}{% blocktrans with title=page.title %}Delete {{ title }}{% endblocktrans %}{% endblock %}
+{% block titletag %}{% blocktrans with title=page.get_title_for_display %}Delete {{ title }}{% endblocktrans %}{% endblock %}
 
 {% block content %}
     {% trans "Delete" as del_str %}
-    {% include "wagtailadmin/shared/header.html" with title=del_str subtitle=page.title icon="doc-empty-inverse" %}
+    {% include "wagtailadmin/shared/header.html" with title=del_str subtitle=page.get_title_for_display icon="doc-empty-inverse" %}
 
     <div class="nice-padding">
         <p>

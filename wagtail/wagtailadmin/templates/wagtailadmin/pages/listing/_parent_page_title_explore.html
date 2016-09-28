@@ -5,9 +5,9 @@
 
 <h2>
     {% if parent_page_perms.can_edit %}
-        <a href="{% url 'wagtailadmin_pages:edit' parent_page.id %}">{{ parent_page.title }}</a>
+        <a href="{% url 'wagtailadmin_pages:edit' parent_page.id %}">{{ parent_page.get_title_for_display }}</a>
     {% else %}
-        {{ parent_page.title }}
+        {{ parent_page.get_title_for_display }}
     {% endif %}
 
     {% include "wagtailadmin/pages/listing/_locked_indicator.html" with page=parent_page %}

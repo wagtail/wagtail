@@ -7,9 +7,9 @@ Navigation controls for the page listing in 'explore' mode
 <td class="{% if allow_navigation %}{% if page.is_navigable %}children{% else %}no-children{% endif %}{% endif %}">
     {% if allow_navigation %}
         {% if page.is_navigable %}
-            <a href="{% url 'wagtailadmin_explore' page.id %}" class="icon text-replace icon-arrow-right" title="{% blocktrans with title=page.title %}Explore child pages of '{{ title }}'{% endblocktrans %}">{% trans "Explore" %}</a>
+            <a href="{% url 'wagtailadmin_explore' page.id %}" class="icon text-replace icon-arrow-right" title="{% blocktrans with title=page.get_title_for_display %}Explore child pages of '{{ title }}'{% endblocktrans %}">{% trans "Explore" %}</a>
         {% elif page_perms.can_add_subpage %}
-            <a href="{% url 'wagtailadmin_pages:add_subpage' page.id %}" class="icon text-replace icon-plus-inverse" title="{% blocktrans with title=page.title %}Add a child page to '{{ title }}'{% endblocktrans %}">{% trans 'Add subpage' %}</a>
+            <a href="{% url 'wagtailadmin_pages:add_subpage' page.id %}" class="icon text-replace icon-plus-inverse" title="{% blocktrans with title=page.get_title_for_display %}Add a child page to '{{ title }}'{% endblocktrans %}">{% trans 'Add subpage' %}</a>
         {% endif %}
     {% endif %}
 </td>

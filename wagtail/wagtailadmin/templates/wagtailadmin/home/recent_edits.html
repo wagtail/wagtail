@@ -19,7 +19,7 @@
                         <tr>
                             <td class="title" valign="top">
                                 <h2>
-                                    <a href="{% url 'wagtailadmin_pages:edit' revision.page.id %}" title="{% trans 'Edit this page' %}">{{ revision.page.title }}</a>
+                                    <a href="{% url 'wagtailadmin_pages:edit' revision.page.id %}" title="{% trans 'Edit this page' %}">{{ revision.page.get_title_for_display }}</a>
 
                                     {% include "wagtailadmin/pages/listing/_privacy_indicator.html" with page=revision.page %}
                                     {% include "wagtailadmin/pages/listing/_locked_indicator.html" with page=revision.page %}

@@ -1,9 +1,9 @@
 {% extends "wagtailadmin/base.html" %}
 {% load i18n %}
-{% block titletag %}{% blocktrans with title=page.title%}Unpublish {{ title }}{% endblocktrans %}{% endblock %}
+{% block titletag %}{% blocktrans with title=page.get_title_for_display %}Unpublish {{ title }}{% endblocktrans %}{% endblock %}
 {% block content %}
     {% trans "Unpublish" as unpublish_str %}
-    {% include "wagtailadmin/shared/header.html" with title=unpublish_str subtitle=page.title icon="doc-empty-inverse" %}
+    {% include "wagtailadmin/shared/header.html" with title=unpublish_str subtitle=page.get_title_for_display icon="doc-empty-inverse" %}
 
     <div class="nice-padding">
         <p>{% trans "Are you sure you want to unpublish this page?" %}</p>
