@@ -673,6 +673,12 @@ class Page(six.with_metaclass(PageBase, AbstractPage, index.Indexed, Clusterable
             else:
                 raise Http404
 
+    def get_admin_display_title(self):
+        """
+        Return the title for this page as it should appear in the admin backend.
+        """
+        return self.title
+
     def save_revision(self, user=None, submitted_for_moderation=False, approved_go_live_at=None, changed=True):
         self.full_clean()
 

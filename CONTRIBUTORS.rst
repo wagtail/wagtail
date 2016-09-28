@@ -172,6 +172,7 @@ Contributors
 * Mattias Loverot
 * Ricky Robinett
 * Axel Haustant
+* Henk-Jan van Hasselaar
 
 Translators
 ===========
