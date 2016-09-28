@@ -54,7 +54,7 @@ def list_submissions(request, page_id):
 
     data_fields = form_page.get_data_fields()
 
-    submissions = form_submission_class.objects.filter(page=form_page)
+    submissions = form_submission_class.objects.filter(page=form_page).order_by('submit_time')
     data_headings = [label for name, label in data_fields]
 
     select_date_form = SelectDateForm(request.GET)
