@@ -11,7 +11,9 @@ def deep_update(source, overrides):
     """
     if sys.version_info >= (3, 0):
         items = overrides.items()
+    else:
         items = overrides.iteritems()
+
     for key, value in items:
         if isinstance(value, collections.Mapping) and value:
             returned = deep_update(source.get(key, {}), value)
