@@ -28,8 +28,8 @@ Whenever a user creates a page through the Wagtail admin, that user is designate
 
 The full set of available permission types is as follows:
 
-* **Add** - grants the ability to create new subpages underneath this page (provided the page model permits this - see :ref:`page_type_business_rules`), and to edit and delete pages owned by the current user.
-* **Edit** - grants the ability to edit and delete this page, and any pages underneath it, regardless of ownership. A user with only 'edit' permission may not create new pages, only existing ones.
+* **Add** - grants the ability to create new subpages underneath this page (provided the page model permits this - see :ref:`page_type_business_rules`), and to edit and delete pages owned by the current user. Published pages cannot be deleted unless the user also has 'publish' permission.
+* **Edit** - grants the ability to edit and delete this page, and any pages underneath it, regardless of ownership. A user with only 'edit' permission may not create new pages, only existing ones. Published pages cannot be deleted unless the user also has 'publish' permission.
 * **Publish** - grants the ability to publish and unpublish this page and/or its children. A user without publish permission cannot directly make changes that are visible to visitors of the website; instead, they must submit their changes for moderation (which will send a notification to users with publish permission). Publish permission is independent of edit permission; a user with only publish permission will not be able to make any edits of their own.
 * **Lock** - grants the ability to lock or unlock this page (and any pages underneath it) for editing, preventing users from making any further edits to it.
 
