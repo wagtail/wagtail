@@ -1,5 +1,6 @@
 import collections
 
+
 def deep_update(source, overrides):
     """Update a nested dictionary or similar mapping.
 
