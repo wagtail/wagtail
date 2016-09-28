@@ -226,15 +226,17 @@ class Block(six.with_metaclass(BaseBlock, object)):
         """
         return value
 
-    def get_context(self, value):
+    def get_context(self, value, context=None):
         """
         Return a dict of context variables (derived from the block value, or otherwise)
         to be added to the template context when rendering this value through a template.
         """
-        return {
+        context = context or {}
+        context.update({
             'self': value,
             self.TEMPLATE_VAR: value,
-        }
+        })
+        return context
 
     def _render_with_context(self, value, context=None):
         """
@@ -282,8 +284,7 @@ class Block(six.with_metaclass(BaseBlock, object)):
         if context is None:
             new_context = self.get_context(value)
         else:
-            new_context = dict(context)
-            new_context.update(self.get_context(value))
+            new_context = self.get_context(value, dict(context))
 
         return mark_safe(render_to_string(template, new_context))
 
