@@ -55,6 +55,8 @@ Minor features
  * Redundant action buttons are now omitted from the root page in the explorer (Nick Smith)
  * Locked pages are now disabled from editing at the browser level (Edd Baldry)
  * Added :meth:`wagtail.wagtailcore.query.PageQuerySet.in_site` method for filtering page querysets to pages within the specified site (Chris Rogers)
+ * Added the ability to override the default index settings for Elasticsearch. See :ref:`wagtailsearch_backends_elasticsearch` (PyMan Claudio Marinozzi)
+ * Extra options for the Elasticsearch constructor should be now defined with the new key ``OPTIONS`` of the ``WAGTAILSEARCH_BACKENDS`` setting (PyMan Claudio Marinozzi)
 
 
 Bug fixes
@@ -141,3 +143,8 @@ The ``wagtail.contrib.wagtailfrontendcache.backends.CloudflareBackend`` module h
     }
 
 For details of how to obtain the zone identifier, see `the Cloudflare API documentation <https://api.cloudflare.com/#getting-started-resource-ids>`_.
+
+Extra options for the Elasticsearch constructor should be now defined with the new key ``OPTIONS`` of the ``WAGTAILSEARCH_BACKENDS`` setting
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+For the Elasticsearch backend, all extra keys defined in ``WAGTAILSEARCH_BACKENDS`` are passed directly to the Elasticsearch constructor. All these keys now should be moved inside the new ``OPTIONS`` dictionary. The old behaviour is still supported, but deprecated.
