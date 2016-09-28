@@ -189,6 +189,7 @@ Contributors
 * Diederik van der Boor
 * Sean Hoefler
 * Edd Baldry
+* PyMan Claudio Marinozzi
 
 Translators
 ===========
