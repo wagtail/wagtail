@@ -742,6 +742,7 @@ class ElasticsearchSearchBackend(BaseSearchBackend):
                     'http_auth': http_auth,
                 })
 
+        self.settings = self.settings.copy() # Make the class settings attribute as instance settings attribute
         self.settings = deep_update(self.settings, params.pop("INDEX_SETTINGS", {}))
 
         # Get Elasticsearch interface
