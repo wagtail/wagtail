@@ -743,10 +743,19 @@ class ElasticsearchSearchBackend(BaseSearchBackend):
 
         # Get Elasticsearch interface
         # Any remaining params are passed into the Elasticsearch constructor
+        options = params.pop('OPTIONS', {})
+        if not options and params:
+            options = params
+
+            warnings.warn(
+                "Any extra parameter for the ElasticSearch constructor must be passed through the OPTIONS dictionary.",
+                category=RemovedInWagtail18Warning, stacklevel=2
+            )
+
         self.es = Elasticsearch(
             hosts=self.hosts,
             timeout=self.timeout,
-            **params)
+            **options)
 
     def get_index_for_model(self, model):
         return self.index_class(self, self.index_name)
