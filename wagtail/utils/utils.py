@@ -1,5 +1,6 @@
 from __future__ import absolute_import, unicode_literals
 
+import sys
 import collections
 
 
@@ -8,7 +9,10 @@ def deep_update(source, overrides):
 
     Modify ``source`` in place.
     """
-    for key, value in overrides.iteritems():
+    if sys.version_info >= (3, 0):
+        items = overrides.items()
+        items = overrides.iteritems()
+    for key, value in items:
         if isinstance(value, collections.Mapping) and value:
             returned = deep_update(source.get(key, {}), value)
             source[key] = returned
