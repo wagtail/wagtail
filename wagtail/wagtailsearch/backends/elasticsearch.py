@@ -10,6 +10,7 @@ from elasticsearch import Elasticsearch, NotFoundError
 from elasticsearch.helpers import bulk
 
 from wagtail.utils.deprecation import RemovedInWagtail18Warning
+from wagtail.utils.utils import deep_update
 from wagtail.wagtailsearch.backends.base import (
     BaseSearchBackend, BaseSearchQuery, BaseSearchResults)
 from wagtail.wagtailsearch.index import (
@@ -740,6 +741,8 @@ class ElasticsearchSearchBackend(BaseSearchBackend):
                     'verify_certs': use_ssl,
                     'http_auth': http_auth,
                 })
+
+        self.settings = deep_update(self.settings, params.pop("INDEX_SETTINGS", {}))
 
         # Get Elasticsearch interface
         # Any remaining params are passed into the Elasticsearch constructor
