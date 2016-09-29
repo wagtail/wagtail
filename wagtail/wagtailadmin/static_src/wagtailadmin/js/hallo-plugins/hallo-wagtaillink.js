@@ -77,9 +77,18 @@
                                     linkHasExistingContent = true;
                                 } else if (!lastSelection.collapsed) {
                                     // Turning a selection into a link
+
                                     a = document.createElement('a');
                                     lastSelection.surroundContents(a);
-                                    // TODO: unlink all existing links in the selection
+
+                                    // unlink all previously existing links in the selection,
+                                    // now nested within 'a'
+                                    $('a[href]', a).each(function() {
+                                        var parent = this.parentNode;
+                                        while (this.firstChild) parent.insertBefore(this.firstChild, this);
+                                        parent.removeChild(this);
+                                    });
+
                                     linkHasExistingContent = true;
                                 } else {
                                     // Inserting a new link at the cursor position
