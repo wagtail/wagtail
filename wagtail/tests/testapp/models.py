@@ -875,3 +875,9 @@ class InlineStreamPage(Page):
         FieldPanel('title', classname="full title"),
         InlinePanel('sections')
     ]
+
+
+class UserProfile(models.Model):
+    # Wagtail's schema must be able to coexist alongside a custom UserProfile model
+    user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    favourite_colour = models.CharField(max_length=255)

@@ -8,7 +8,9 @@ from django.utils.translation import ugettext_lazy as _
 
 @python_2_unicode_compatible
 class UserProfile(models.Model):
-    user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    user = models.OneToOneField(
+        settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='wagtail_userprofile'
+    )
 
     submitted_notifications = models.BooleanField(
         verbose_name=_('submitted notifications'),
