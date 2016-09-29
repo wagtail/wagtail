@@ -28,7 +28,7 @@ Changelog
  * Fix: `InlinePanel` now accepts a `classname` parameter as per the documentation (emg36, Matt Westcott)
  * Fix: Disabled use of escape key to revert content of rich text fields, which could cause accidental data loss (Matt Westcott)
  * Fix: Setting `USE_THOUSAND_SEPARATOR = True` no longer breaks the rendering of numbers in JS code for InlinePanel (Mattias Loverot, Matt Westcott)
-
+ * Fix: `purge_page_from_cache` now purges the url of each managed language when using `i18n_patterns` (PyMan Claudio Marinozzi)
 
 1.6.3 (XX.XX.2016)
 ~~~~~~~~~~~~~~~~~~
