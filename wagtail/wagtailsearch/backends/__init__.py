@@ -6,7 +6,7 @@ import sys
 from importlib import import_module
 import warnings
 
-from django.utils import six
+from django.utils import six, translation
 from django.utils.module_loading import import_string
 from django.core.exceptions import ImproperlyConfigured
 from django.conf import settings
@@ -74,9 +74,19 @@ def import_backend(dotted_path):
             six.reraise(ImportError, e, sys.exc_info()[2])
 
 
-def get_search_backend(backend='default', **kwargs):
+def get_search_backend(backend=None, **kwargs):
     backend = _check_renamed(backend)
     search_backends = get_search_backend_config()
+
+    if backend is None:
+        # Get backend with LANGUAGE_CODE = cur_language
+        cur_language = translation.get_language()
+        for key, params in search_backends.items():
+            if params.get('LANGUAGE_CODE', None) == cur_language:
+                backend = key
+                break
+        else:
+            backend = 'default'
 
     # Try to find the backend
     try:

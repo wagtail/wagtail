@@ -5,7 +5,7 @@ from wagtail.wagtailsearch.backends import get_search_backend
 
 class SearchableQuerySetMixin(object):
     def search(self, query_string, fields=None,
-               operator=None, order_by_relevance=True, backend='default'):
+               operator=None, order_by_relevance=True, backend=None):
         """
         This runs a search query on all the items in the QuerySet
         """

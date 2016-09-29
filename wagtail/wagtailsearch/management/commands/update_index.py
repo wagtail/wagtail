@@ -5,6 +5,7 @@ import collections
 from django.conf import settings
 from django.core.management.base import BaseCommand
 from django.db import transaction
+from django.utils import translation
 
 from wagtail.wagtailsearch.backends import get_search_backend
 from wagtail.wagtailsearch.index import get_indexed_models
@@ -57,6 +58,12 @@ class Command(BaseCommand):
 
         backend = get_search_backend(backend_name)
 
+        # Activate backend language
+        cur_language = translation.get_language()
+        backend_language = getattr(backend, 'language_code', None)
+        if backend_language is not None:
+            translation.activate(backend_language)
+
         if not backend.rebuilder_class:
             self.stdout.write("Backend '%s' doesn't require rebuilding" % backend_name)
             return
@@ -91,6 +98,10 @@ class Command(BaseCommand):
 
             # Finish rebuild
             rebuilder.finish()
+
+            # Return to Original Thread Language
+            if backend_language is not None:
+                translation.activate(cur_language)
 
             self.stdout.write(backend_name + ": indexed %d objects" % object_count)
             self.print_newline()

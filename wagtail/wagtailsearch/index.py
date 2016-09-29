@@ -5,6 +5,7 @@ import logging
 
 from django.apps import apps
 from django.core import checks
+from django.utils import translation
 from django.db import models
 from django.db.models.fields import FieldDoesNotExist
 from django.db.models.fields.related import ForeignObjectRel, OneToOneRel, RelatedField
@@ -144,12 +145,17 @@ def insert_or_update_object(instance):
     indexed_instance = get_indexed_instance(instance)
 
     if indexed_instance:
+        cur_language = translation.get_language()
         for backend_name, backend in get_search_backends_with_name(with_auto_update=True):
+            backend_language = getattr(backend, 'language_code', None)
+            if backend_language is not None:
+                translation.activate(backend_language)
             try:
                 backend.add(indexed_instance)
             except Exception:
                 # Catch and log all errors
                 logger.exception("Exception raised while adding %r into the '%s' search backend", indexed_instance, backend_name)
+        translation.activate(cur_language)
 
 
 def remove_object(instance):
