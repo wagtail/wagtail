@@ -400,7 +400,7 @@ class TestUserProfileCreation(TestCase, WagtailTestUtils):
     def test_user_created_without_profile(self):
         self.assertEqual(UserProfile.objects.filter(user=self.test_user).count(), 0)
         with self.assertRaises(UserProfile.DoesNotExist):
-            self.test_user.userprofile
+            self.test_user.wagtail_userprofile
 
     def test_user_profile_created_when_method_called(self):
         self.assertIsInstance(UserProfile.get_for_user(self.test_user), UserProfile)

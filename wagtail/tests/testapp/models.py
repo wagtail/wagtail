@@ -3,6 +3,7 @@ from __future__ import absolute_import, unicode_literals
 import hashlib
 import os
 
+from django.conf import settings
 from django.contrib.contenttypes.fields import GenericForeignKey
 from django.contrib.contenttypes.models import ContentType
 from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
@@ -772,3 +773,9 @@ class InlineStreamPage(Page):
         FieldPanel('title', classname="full title"),
         InlinePanel('sections')
     ]
+
+
+class UserProfile(models.Model):
+    # Wagtail's schema must be able to coexist alongside a custom UserProfile model
+    user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    favourite_colour = models.CharField(max_length=255)
