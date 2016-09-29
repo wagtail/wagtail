@@ -1,7 +1,7 @@
-function createPageChooser(id, pageTypes, openAtParentId, canChooseRoot, userPerms) {
+function oldcreatePageChooser(id, pageTypes, openAtParentId, canChooseRoot, userPerms) {
     var chooserElement = $('#' + id + '-chooser');
     var pageTitle = chooserElement.find('.title');
-    var input = $('#' + id);
+    var input = $('#' + id);getSelection
     var editLink = chooserElement.find('.edit-link');
 
     $('.action-choose', chooserElement).on('click', function() {

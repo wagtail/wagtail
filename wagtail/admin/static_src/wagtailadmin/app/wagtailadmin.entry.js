@@ -9,6 +9,8 @@ import {
   initUpgradeNotification,
 } from 'wagtail-client';
 
+import { createPageChooser } from './modal-workflow';
+
 if (process.env.NODE_ENV === 'development') {
   // Run react-axe in development only, so it does not affect performance
   // in production, and does not break unit tests either.
@@ -38,3 +40,6 @@ document.addEventListener('DOMContentLoaded', () => {
   initSubmenus();
   initUpgradeNotification();
 });
+
+
+window.createPageChooser = createPageChooser;
