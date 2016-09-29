@@ -319,15 +319,15 @@ class TestChooserExternalLink(TestCase, WagtailTestUtils):
         response = self.post({'url': 'http://www.example.com/', 'link_text': 'example'})
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, "'onload'")  # indicates success / post back to calling page
-        self.assertContains(response, "'url': 'http://www.example.com/'")
-        self.assertContains(response, "'title': 'example'")  # When link text is given, it is used
+        self.assertContains(response, '"url": "http://www.example.com/"')
+        self.assertContains(response, '"title": "example"')  # When link text is given, it is used
 
     def test_create_link_without_text(self):
         response = self.post({'url': 'http://www.example.com/'})
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, "'onload'")  # indicates success / post back to calling page
-        self.assertContains(response, "'url': 'http://www.example.com/'")
-        self.assertContains(response, "'title': 'http://www.example.com/'")  # When no text is given, it uses the url
+        self.assertContains(response, '"url": "http://www.example.com/"')
+        self.assertContains(response, '"title": "http://www.example.com/"')  # When no text is given, it uses the url
 
     def test_invalid_url(self):
         response = self.post({'url': 'ntp://www.example.com', 'link_text': 'example'})
@@ -339,8 +339,8 @@ class TestChooserExternalLink(TestCase, WagtailTestUtils):
         response = self.post({'url': '/admin/', 'link_text': 'admin'})
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, "'onload'")  # indicates success / post back to calling page
-        self.assertContains(response, "'url': '/admin/',")
-        self.assertContains(response, "'title': 'admin'")
+        self.assertContains(response, '"url": "/admin/"')
+        self.assertContains(response, '"title": "admin"')
 
 
 class TestChooserEmailLink(TestCase, WagtailTestUtils):
@@ -363,10 +363,10 @@ class TestChooserEmailLink(TestCase, WagtailTestUtils):
 
     def test_create_link(self):
         request = self.post({'email_address': 'example@example.com', 'link_text': 'contact'})
-        self.assertContains(request, "'url': 'mailto:example@example.com',")
-        self.assertContains(request, "'title': 'contact'")  # When link text is given, it is used
+        self.assertContains(request, '"url": "mailto:example@example.com"')
+        self.assertContains(request, '"title": "contact"')  # When link text is given, it is used
 
     def test_create_link_without_text(self):
         request = self.post({'email_address': 'example@example.com'})
-        self.assertContains(request, "'url': 'mailto:example@example.com',")
-        self.assertContains(request, "'title': 'example@example.com'")  # When no link text is given, it uses the email
+        self.assertContains(request, '"url": "mailto:example@example.com"')
+        self.assertContains(request, '"title": "example@example.com"')  # When no link text is given, it uses the email
