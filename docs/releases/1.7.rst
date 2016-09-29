@@ -109,3 +109,8 @@ The data model for image renditions will be changed in Wagtail 1.8 to eliminate 
     ]
 
    replacing ``myapp`` and ``CustomRendition`` with the app and model name for the custom rendition model.
+
+Extra options for the Elasticsearch constructor should be now defined with the new key ``OPTIONS`` of the WAGTAILSEARCH_BACKENDS setting 
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+For the ElasticSearch backend all extra keys defined WAGTAILSEARCH_BACKENDS are passed directly to the Elasticsearch constructor. All these keys now should be moved inside the new ``OPTIONS`` dictionary. The old behaviour is still supported, but deprecated.
