@@ -985,6 +985,13 @@ class TestBackendConfiguration(TestCase):
 
     def test_default_index_settings_override(self):
         backend = ElasticsearchSearchBackend(params={
+            'INDEX_SETTINGS': {
+                "settings": {  # Already existing key
+                    "number_of_shards": 2,  # New key
+                    "analysis": {  # Already existing key
+                        "analyzer": {  # Already existing key
+                            "edgengram_analyzer": {  # Already existing key
+                                "tokenizer": "standard"  # Key redefinition
                             }
                         }
                     }
