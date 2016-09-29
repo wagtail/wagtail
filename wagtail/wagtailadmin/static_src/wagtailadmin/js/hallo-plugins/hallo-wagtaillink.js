@@ -69,41 +69,41 @@
                         urlParams: urlParams,
                         responses: {
                             pageChosen: function(pageData) {
-                                var a, text;
+                                var a, text, linkHasExistingContent;
 
-                                // Create link
-                                a = document.createElement('a');
+                                if (enclosingLink) {
+                                    // Editing an existing link
+                                    a = enclosingLink;
+                                    linkHasExistingContent = true;
+                                } else if (!lastSelection.collapsed) {
+                                    // Turning a selection into a link
+                                    a = document.createElement('a');
+                                    lastSelection.surroundContents(a);
+                                    // TODO: unlink all existing links in the selection
+                                    linkHasExistingContent = true;
+                                } else {
+                                    // Inserting a new link at the cursor position
+                                    a = document.createElement('a');
+                                    lastSelection.insertNode(a);
+                                    linkHasExistingContent = false;
+                                }
+
+                                // Set link attributes
                                 a.setAttribute('href', pageData.url);
                                 if (pageData.id) {
                                     a.setAttribute('data-id', pageData.id);
                                     a.setAttribute('data-parent-id', pageData.parentId);
                                     a.setAttribute('data-linktype', 'page');
-                                }
-
-                                if (pageData.id) {
-                                    // If it's a link to an internal page, `pageData.title` will not use the link_text
-                                    // like external and email responses do, overwriting selection text :(
-                                    if (!lastSelection.collapsed) {
-                                        text = lastSelection.toString();
-                                    } else if (enclosingLink) {
-                                        text = enclosingLink.innerHTML;
-                                    }
-                                    else {
-                                        text = pageData.title;
-                                    }
                                 } else {
-                                    text = pageData.title;
+                                    a.removeAttribute('data-id');
+                                    a.removeAttribute('data-parent-id');
+                                    a.removeAttribute('data-linktype');
                                 }
-                                a.appendChild(document.createTextNode(text));
 
-                                // Remove existing nodes
-                                if (enclosingLink && enclosingLink.parentNode) {
-                                    enclosingLink.parentNode.removeChild(enclosingLink);
+                                if (pageData['prefer_this_title_as_link_text'] || !linkHasExistingContent) {
+                                    // overwrite existing link content with the returned 'title' text
+                                    a.innerText = pageData.title;
                                 }
-                                lastSelection.deleteContents();
-
-                                // Add new node
-                                lastSelection.insertNode(a);
 
                                 return widget.options.editable.element.trigger('change');
                             }
