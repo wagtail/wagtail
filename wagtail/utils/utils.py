@@ -1,7 +1,7 @@
 from __future__ import absolute_import, unicode_literals
 
-import sys
 import collections
+import sys
 
 
 def deep_update(source, overrides):
