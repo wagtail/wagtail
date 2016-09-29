@@ -47,6 +47,7 @@ Minor features
  * Added ability to annotate search results with score - see :ref:`wagtailsearch_annotating_results_with_score` (Karl Hobley)
  * Added ability to limit access to form submissions - see :ref:`filter_form_submissions_for_user` (Mikalai Radchuk)
  * Added the ability to configure the number of days search logs are kept for, through the :ref:`WAGTAILSEARCH_HITS_MAX_AGE <wagtailsearch_hits_max_age>` setting (Stephen Rice)
+ * Added the ability to override the default index settings for ElasticSearch. See :ref:`wagtailsearch_backends_elasticsearch` (PyMan Claudio Marinozzi)
 
 
 Bug fixes
