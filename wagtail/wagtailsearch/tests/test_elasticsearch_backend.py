@@ -983,6 +983,26 @@ class TestBackendConfiguration(TestCase):
         self.assertEqual(backend.hosts[3]['use_ssl'], True)
         self.assertEqual(backend.hosts[3]['url_prefix'], '/hello')
 
+    def test_default_index_settings_override(self):
+        backend = ElasticsearchSearchBackend(params={
+                            }
+                        }
+                    }
+                }
+            }
+        })
+
+        # Check structure
+        self.assertIn("number_of_shards", backend.settings["settings"].keys())
+        self.assertIn("analysis", backend.settings["settings"].keys())
+        self.assertIn("analyzer", backend.settings["settings"]["analysis"].keys())
+        self.assertIn("edgengram_analyzer", backend.settings["settings"]["analysis"]["analyzer"].keys())
+        self.assertIn("tokenizer", backend.settings["settings"]["analysis"]["analyzer"]["edgengram_analyzer"].keys())
+        # Check values
+        self.assertEqual(backend.settings["settings"]["number_of_shards"], 2)
+        self.assertEqual(backend.settings["settings"]["analysis"]["analyzer"]["edgengram_analyzer"]["tokenizer"], "standard")
+        self.assertEqual(backend.settings["settings"]["analysis"]["analyzer"]["edgengram_analyzer"]["type"], "custom")  # Check if a default setting still exists
+
 
 @unittest.skipUnless(os.environ.get('ELASTICSEARCH_URL', False), "ELASTICSEARCH_URL not set")
 @unittest.skipUnless(os.environ.get('ELASTICSEARCH_VERSION', '1') == '1', "ELASTICSEARCH_VERSION not set to 1")
