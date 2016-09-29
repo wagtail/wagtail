@@ -2,6 +2,7 @@ from __future__ import absolute_import, unicode_literals
 
 from django.core.urlresolvers import reverse
 from django.test import TestCase
+from django.utils.http import urlencode
 
 from wagtail.tests.testapp.models import EventIndex, EventPage, SimplePage
 from wagtail.tests.utils import WagtailTestUtils
@@ -304,16 +305,22 @@ class TestChooserExternalLink(TestCase, WagtailTestUtils):
     def get(self, params={}):
         return self.client.get(reverse('wagtailadmin_choose_page_external_link'), params)
 
-    def post(self, post_data={}):
-        return self.client.post(reverse('wagtailadmin_choose_page_external_link'), post_data)
+    def post(self, post_data={}, url_params={}):
+        url = reverse('wagtailadmin_choose_page_external_link')
+        if url_params:
+            url += '?' + urlencode(url_params)
+        return self.client.post(url, post_data)
 
     def test_simple(self):
         response = self.get()
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'wagtailadmin/chooser/external_link.html')
 
-    def test_get_with_param(self):
-        self.assertEqual(self.get({'link_text': 'foo'}).status_code, 200)
+    def test_prepopulated_form(self):
+        response = self.get({'link_text': 'Torchbox', 'link_url': 'https://torchbox.com/'})
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, 'Torchbox')
+        self.assertContains(response, 'https://torchbox.com/')
 
     def test_create_link(self):
         response = self.post({'url': 'http://www.example.com/', 'link_text': 'example'})
@@ -321,6 +328,7 @@ class TestChooserExternalLink(TestCase, WagtailTestUtils):
         self.assertContains(response, "'onload'")  # indicates success / post back to calling page
         self.assertContains(response, '"url": "http://www.example.com/"')
         self.assertContains(response, '"title": "example"')  # When link text is given, it is used
+        self.assertContains(response, '"prefer_this_title_as_link_text": true')
 
     def test_create_link_without_text(self):
         response = self.post({'url': 'http://www.example.com/'})
@@ -328,6 +336,26 @@ class TestChooserExternalLink(TestCase, WagtailTestUtils):
         self.assertContains(response, "'onload'")  # indicates success / post back to calling page
         self.assertContains(response, '"url": "http://www.example.com/"')
         self.assertContains(response, '"title": "http://www.example.com/"')  # When no text is given, it uses the url
+        self.assertContains(response, '"prefer_this_title_as_link_text": false')
+
+    def test_notice_changes_to_link_text(self):
+        response = self.post(
+            {'url': 'http://www.example.com/', 'link_text': 'example'},  # POST data
+            {'link_url': 'http://old.example.com/', 'link_text': 'example'}  # GET params - initial data
+        )
+        self.assertContains(response, '"url": "http://www.example.com/"')
+        self.assertContains(response, '"title": "example"')
+        # no change to link text, so prefer the existing link/selection content where available
+        self.assertContains(response, '"prefer_this_title_as_link_text": false')
+
+        response = self.post(
+            {'url': 'http://www.example.com/', 'link_text': 'new example'},  # POST data
+            {'link_url': 'http://old.example.com/', 'link_text': 'example'}  # GET params - initial data
+        )
+        self.assertContains(response, '"url": "http://www.example.com/"')
+        self.assertContains(response, '"title": "new example"')
+        # link text has changed, so tell the caller to use it
+        self.assertContains(response, '"prefer_this_title_as_link_text": true')
 
     def test_invalid_url(self):
         response = self.post({'url': 'ntp://www.example.com', 'link_text': 'example'})
@@ -350,23 +378,50 @@ class TestChooserEmailLink(TestCase, WagtailTestUtils):
     def get(self, params={}):
         return self.client.get(reverse('wagtailadmin_choose_page_email_link'), params)
 
-    def post(self, post_data={}):
-        return self.client.post(reverse('wagtailadmin_choose_page_email_link'), post_data)
+    def post(self, post_data={}, url_params={}):
+        url = reverse('wagtailadmin_choose_page_email_link')
+        if url_params:
+            url += '?' + urlencode(url_params)
+        return self.client.post(url, post_data)
 
     def test_simple(self):
         response = self.get()
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'wagtailadmin/chooser/email_link.html')
 
-    def test_get_with_param(self):
-        self.assertEqual(self.get({'link_text': 'foo'}).status_code, 200)
+    def test_prepopulated_form(self):
+        response = self.get({'link_text': 'Example', 'link_url': 'example@example.com'})
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, 'Example')
+        self.assertContains(response, 'example@example.com')
 
     def test_create_link(self):
-        request = self.post({'email_address': 'example@example.com', 'link_text': 'contact'})
-        self.assertContains(request, '"url": "mailto:example@example.com"')
-        self.assertContains(request, '"title": "contact"')  # When link text is given, it is used
+        response = self.post({'email_address': 'example@example.com', 'link_text': 'contact'})
+        self.assertContains(response, '"url": "mailto:example@example.com"')
+        self.assertContains(response, '"title": "contact"')  # When link text is given, it is used
+        self.assertContains(response, '"prefer_this_title_as_link_text": true')
 
     def test_create_link_without_text(self):
-        request = self.post({'email_address': 'example@example.com'})
-        self.assertContains(request, '"url": "mailto:example@example.com"')
-        self.assertContains(request, '"title": "example@example.com"')  # When no link text is given, it uses the email
+        response = self.post({'email_address': 'example@example.com'})
+        self.assertContains(response, '"url": "mailto:example@example.com"')
+        self.assertContains(response, '"title": "example@example.com"')  # When no link text is given, it uses the email
+        self.assertContains(response, '"prefer_this_title_as_link_text": false')
+
+    def test_notice_changes_to_link_text(self):
+        response = self.post(
+            {'email_address': 'example2@example.com', 'link_text': 'example'},  # POST data
+            {'link_url': 'example@example.com', 'link_text': 'example'}  # GET params - initial data
+        )
+        self.assertContains(response, '"url": "mailto:example2@example.com"')
+        self.assertContains(response, '"title": "example"')
+        # no change to link text, so prefer the existing link/selection content where available
+        self.assertContains(response, '"prefer_this_title_as_link_text": false')
+
+        response = self.post(
+            {'email_address': 'example2@example.com', 'link_text': 'new example'},  # POST data
+            {'link_url': 'example@example.com', 'link_text': 'example'}  # GET params - initial data
+        )
+        self.assertContains(response, '"url": "mailto:example2@example.com"')
+        self.assertContains(response, '"title": "new example"')
+        # link text has changed, so tell the caller to use it
+        self.assertContains(response, '"prefer_this_title_as_link_text": true')

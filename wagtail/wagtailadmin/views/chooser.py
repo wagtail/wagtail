@@ -163,6 +163,12 @@ def external_link(request):
             result = {
                 'url': form.cleaned_data['url'],
                 'title': form.cleaned_data['link_text'].strip() or form.cleaned_data['url'],
+                # If the user has explicitly entered / edited something in the link_text field,
+                # always use that text. If not, we should favour keeping the existing link/selection
+                # text, where applicable.
+                # (Normally this will match the link_text passed in the URL here anyhow,
+                # but that won't account for non-text content such as images.)
+                'prefer_this_title_as_link_text': ('link_text' in form.changed_data),
             }
 
             return render_modal_workflow(
@@ -197,6 +203,10 @@ def email_link(request):
             result = {
                 'url': 'mailto:' + form.cleaned_data['email_address'],
                 'title': form.cleaned_data['link_text'].strip() or form.cleaned_data['email_address'],
+                # If the user has explicitly entered / edited something in the link_text field,
+                # always use that text. If not, we should favour keeping the existing link/selection
+                # text, where applicable.
+                'prefer_this_title_as_link_text': ('link_text' in form.changed_data),
             }
             return render_modal_workflow(
                 request,
