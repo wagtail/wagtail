@@ -129,21 +129,21 @@ Other than ``BACKEND``, the keys are optional and default to the values shown. A
       'default': {
           ...,
           'INDEX_SETTINGS': {
-          	'settings': {
-          		'number_of_shards': 2,
-          		'index': {
-          			'analysis': {
-          				'analyzer': {
-          					'default': {
-          						'type': 'italian'
-          					}
-          				}
-          			}
-          		}
-          	}
-          },
+              'settings': {
+                  'number_of_shards': 2,
+                      'index': {
+                          'analysis': {
+                              'analyzer': {
+                                  'default': {
+                                      'type': 'italian'
+                                  }
+                              }
+                          }
+                      }
+                  }
+              },
+          }
       }
-  }
 
 If you prefer not to run an Elasticsearch server in development or production, there are many hosted services available, including `Bonsai`_, who offer a free account suitable for testing and development. To use Bonsai:
 
