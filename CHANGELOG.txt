@@ -30,7 +30,7 @@ Changelog
  * Fix: Setting `USE_THOUSAND_SEPARATOR = True` no longer breaks the rendering of numbers in JS code for InlinePanel (Mattias Loverot, Matt Westcott)
 
 
-1.6.3 (XX.XX.2016)
+1.6.3 (30.09.2016)
 ~~~~~~~~~~~~~~~~~~
 
  * Fix: Restore compatibility with django-debug-toolbar 1.5 (Matt Westcott)
