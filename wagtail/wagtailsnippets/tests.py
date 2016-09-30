@@ -2,6 +2,7 @@ from __future__ import absolute_import, unicode_literals
 
 from django.contrib.auth import get_user_model
 from django.contrib.auth.models import Permission
+from django.core.exceptions import ValidationError
 from django.core.files.base import ContentFile
 from django.core.files.uploadedfile import SimpleUploadedFile
 from django.core.urlresolvers import reverse
@@ -17,6 +18,7 @@ from wagtail.tests.testapp.models import Advert, AdvertWithTabbedInterface, Snip
 from wagtail.tests.utils import WagtailTestUtils
 from wagtail.wagtailadmin.forms import WagtailAdminModelForm
 from wagtail.wagtailcore.models import Page
+from wagtail.wagtailsnippets.blocks import SnippetChooserBlock
 from wagtail.wagtailsnippets.edit_handlers import SnippetChooserPanel
 from wagtail.wagtailsnippets.models import SNIPPET_MODELS, register_snippet
 from wagtail.wagtailsnippets.views.snippets import get_snippet_edit_handler
@@ -663,3 +665,62 @@ class TestInlinePanelMedia(TestCase, WagtailTestUtils):
         response = self.client.get(reverse('wagtailsnippets:add', args=('snippetstests', 'multisectionrichtextsnippet')))
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, 'wagtailadmin/js/hallo-bootstrap.js')
+
+
+class TestSnippetChooserBlock(TestCase):
+    fixtures = ['test.json']
+
+    def test_serialize(self):
+        """The value of a SnippetChooserBlock (a snippet instance) should serialize to an ID"""
+        block = SnippetChooserBlock(Advert)
+        test_advert = Advert.objects.get(text='test_advert')
+
+        self.assertEqual(block.get_prep_value(test_advert), test_advert.id)
+
+        # None should serialize to None
+        self.assertEqual(block.get_prep_value(None), None)
+
+    def test_deserialize(self):
+        """The serialized value of a SnippetChooserBlock (an ID) should deserialize to a snippet instance"""
+        block = SnippetChooserBlock(Advert)
+        test_advert = Advert.objects.get(text='test_advert')
+
+        self.assertEqual(block.to_python(test_advert.id), test_advert)
+
+        # None should deserialize to None
+        self.assertEqual(block.to_python(None), None)
+
+    def test_form_render(self):
+        block = SnippetChooserBlock(Advert, help_text="pick an advert, any advert")
+
+        empty_form_html = block.render_form(None, 'advert')
+        self.assertIn('<input id="advert" name="advert" placeholder="" type="hidden" />', empty_form_html)
+        self.assertIn('createSnippetChooser("advert", "tests/advert");', empty_form_html)
+
+        test_advert = Advert.objects.get(text='test_advert')
+        test_advert_form_html = block.render_form(test_advert, 'advert')
+        expected_html = '<input id="advert" name="advert" placeholder="" type="hidden" value="%d" />' % test_advert.id
+        self.assertIn(expected_html, test_advert_form_html)
+        self.assertIn("pick an advert, any advert", test_advert_form_html)
+
+    def test_form_response(self):
+        block = SnippetChooserBlock(Advert)
+        test_advert = Advert.objects.get(text='test_advert')
+
+        value = block.value_from_datadict({'advert': str(test_advert.id)}, {}, 'advert')
+        self.assertEqual(value, test_advert)
+
+        empty_value = block.value_from_datadict({'advert': ''}, {}, 'advert')
+        self.assertEqual(empty_value, None)
+
+    def test_clean(self):
+        required_block = SnippetChooserBlock(Advert)
+        nonrequired_block = SnippetChooserBlock(Advert, required=False)
+        test_advert = Advert.objects.get(text='test_advert')
+
+        self.assertEqual(required_block.clean(test_advert), test_advert)
+        with self.assertRaises(ValidationError):
+            required_block.clean(None)
+
+        self.assertEqual(nonrequired_block.clean(test_advert), test_advert)
+        self.assertEqual(nonrequired_block.clean(None), None)
