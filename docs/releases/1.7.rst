@@ -47,6 +47,7 @@ Minor features
  * Added ability to annotate search results with score - see :ref:`wagtailsearch_annotating_results_with_score` (Karl Hobley)
  * Added ability to limit access to form submissions - see :ref:`filter_form_submissions_for_user` (Mikalai Radchuk)
  * Added the ability to configure the number of days search logs are kept for, through the :ref:`WAGTAILSEARCH_HITS_MAX_AGE <wagtailsearch_hits_max_age>` setting (Stephen Rice)
+ * Added the ability to override the default index settings for ElasticSearch. See :ref:`wagtailsearch_backends_elasticsearch` (PyMan Claudio Marinozzi)
 
 
 Bug fixes
@@ -109,3 +110,8 @@ The data model for image renditions will be changed in Wagtail 1.8 to eliminate 
     ]
 
    replacing ``myapp`` and ``CustomRendition`` with the app and model name for the custom rendition model.
+
+Extra options for the Elasticsearch constructor should be now defined with the new key ``OPTIONS`` of the WAGTAILSEARCH_BACKENDS setting 
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+For the Elasticsearch backend, all extra keys defined in ``WAGTAILSEARCH_BACKENDS`` are passed directly to the Elasticsearch constructor. All these keys now should be moved inside the new ``OPTIONS`` dictionary. The old behaviour is still supported, but deprecated.

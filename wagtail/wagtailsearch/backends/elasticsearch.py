@@ -10,6 +10,7 @@ from elasticsearch import Elasticsearch, NotFoundError
 from elasticsearch.helpers import bulk
 
 from wagtail.utils.deprecation import RemovedInWagtail18Warning
+from wagtail.utils.utils import deep_update
 from wagtail.wagtailsearch.backends.base import (
     BaseSearchBackend, BaseSearchQuery, BaseSearchResults)
 from wagtail.wagtailsearch.index import (
@@ -741,12 +742,24 @@ class ElasticsearchSearchBackend(BaseSearchBackend):
                     'http_auth': http_auth,
                 })
 
+        self.settings = self.settings.copy()  # Make the class settings attribute as instance settings attribute
+        self.settings = deep_update(self.settings, params.pop("INDEX_SETTINGS", {}))
+
         # Get Elasticsearch interface
         # Any remaining params are passed into the Elasticsearch constructor
+        options = params.pop('OPTIONS', {})
+        if not options and params:
+            options = params
+
+            warnings.warn(
+                "Any extra parameter for the ElasticSearch constructor must be passed through the OPTIONS dictionary.",
+                category=RemovedInWagtail18Warning, stacklevel=2
+            )
+
         self.es = Elasticsearch(
             hosts=self.hosts,
             timeout=self.timeout,
-            **params)
+            **options)
 
     def get_index_for_model(self, model):
         return self.index_class(self, self.index_name)

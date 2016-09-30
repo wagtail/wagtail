@@ -28,6 +28,8 @@ Changelog
  * Fix: `InlinePanel` now accepts a `classname` parameter as per the documentation (emg36, Matt Westcott)
  * Fix: Disabled use of escape key to revert content of rich text fields, which could cause accidental data loss (Matt Westcott)
  * Fix: Setting `USE_THOUSAND_SEPARATOR = True` no longer breaks the rendering of numbers in JS code for InlinePanel (Mattias Loverot, Matt Westcott)
+ * Fix: Extra options for the Elasticsearch constructor should be now defined with the new key ``OPTIONS`` of the WAGTAILSEARCH_BACKENDS setting (PyMan Claudio Marinozzi)
+ * Added the ability to override the default index settings for ElasticSearch (PyMan Claudio Marinozzi)
 
 
 1.6.3 (XX.XX.2016)
