@@ -12,7 +12,7 @@ import wagtail.wagtailimages.blocks
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('wagtailcore', '0030_index_on_pagerevision_created_at'),
+        ('wagtailcore', '0029_unicode_slugfield_dj19'),
         ('tests', '0008_inlinestreampage_inlinestreampagesection'),
     ]
 
