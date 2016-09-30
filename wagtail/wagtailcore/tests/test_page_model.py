@@ -83,6 +83,10 @@ class TestValidation(TestCase):
         homepage.add_child(instance=christmas_page)
         self.assertTrue(Page.objects.filter(id=christmas_page.id).exists())
 
+    def test_get_title_for_display(self):
+        homepage = Page.objects.get(url_path='/home/')
+        self.assertEquals(homepage.title, homepage.get_title_for_display())
+
 
 @override_settings(ALLOWED_HOSTS=['localhost', 'events.example.com', 'about.example.com', 'unknown.site.com'])
 class TestSiteRouting(TestCase):

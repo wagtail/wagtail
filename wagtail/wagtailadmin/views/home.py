@@ -62,7 +62,7 @@ class RecentEditsPanel(object):
         pages = {p.pk: p for p in specific_pages}
         self.last_edits = [
             [review, pages.get(review.page.pk)] for review in last_edits
-            ]
+        ]
 
     def render(self):
         return render_to_string('wagtailadmin/home/recent_edits.html', {
