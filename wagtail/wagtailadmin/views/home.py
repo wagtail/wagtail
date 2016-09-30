@@ -59,7 +59,7 @@ class RecentEditsPanel(object):
         last_edits = list(last_edits)
         page_keys = [pr.page.pk for pr in last_edits]
         specific_pages = Page.objects.filter(pk__in=page_keys).specific()
-        pages = {p.pk : p for p in specific_pages}
+        pages = {p.pk: p for p in specific_pages}
         self.last_edits = [
             [review, pages.get(review.page.pk)] for review in last_edits
             ]

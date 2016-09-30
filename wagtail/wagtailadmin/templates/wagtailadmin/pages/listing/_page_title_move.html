@@ -6,7 +6,7 @@ Expects a variable 'page', the page instance.
 
 <h2>
     {% if page.can_choose %}
-        <a href="{% url 'wagtailadmin_pages:move_confirm' page_to_move.id page.id %}">{{ page.get_title_for_display }}</a>
+        <a href="{% url 'wagtailadmin_pages:move_confirm' page_to_move.id page.id %}">{{ page.specific.get_title_for_display }}</a>
     {% else %}
         {{ page.get_title_for_display }}
     {% endif %}
