@@ -15,28 +15,28 @@
                     </tr>
                 </thead>
                 <tbody>
-                    {% for revision in last_edits %}
+                    {% for revision, page in last_edits %}
                         <tr>
                             <td class="title" valign="top">
                                 <h2>
-                                    <a href="{% url 'wagtailadmin_pages:edit' revision.page.id %}" title="{% trans 'Edit this page' %}">{{ revision.page.get_title_for_display }}</a>
+                                    <a href="{% url 'wagtailadmin_pages:edit' page.id %}" title="{% trans 'Edit this page' %}">{{ page.get_title_for_display }}</a>
 
-                                    {% include "wagtailadmin/pages/listing/_privacy_indicator.html" with page=revision.page %}
-                                    {% include "wagtailadmin/pages/listing/_locked_indicator.html" with page=revision.page %}
+                                    {% include "wagtailadmin/pages/listing/_privacy_indicator.html" with page=page %}
+                                    {% include "wagtailadmin/pages/listing/_locked_indicator.html" with page=page %}
                                 </h2>
                                 <ul class="actions">
-                                    <li><a href="{% url 'wagtailadmin_pages:edit' revision.page.id %}" class="button button-small button-secondary">{% trans "Edit" %}</a></li>
-                                    {% if revision.page.has_unpublished_changes %}
-                                        <li><a href="{% url 'wagtailadmin_pages:view_draft' revision.page.id %}" class="button button-small button-secondary">{% trans 'Draft' %}</a></li>
+                                    <li><a href="{% url 'wagtailadmin_pages:edit' page.id %}" class="button button-small button-secondary">{% trans "Edit" %}</a></li>
+                                    {% if page.has_unpublished_changes %}
+                                        <li><a href="{% url 'wagtailadmin_pages:view_draft' page.id %}" class="button button-small button-secondary">{% trans 'Draft' %}</a></li>
                                     {% endif %}
-                                    {% if revision.page.live %}
-                                        <li><a href="{{ revision.page.url }}" class="button button-small button-secondary">{% trans 'Live' %}</a></li>
+                                    {% if page.live %}
+                                        <li><a href="{{ page.url }}" class="button button-small button-secondary">{% trans 'Live' %}</a></li>
                                     {% endif %}
                                 </ul>
                             </td>
                             <td valign="top"><div class="human-readable-date" title="{{ revision.created_at|date:"d M Y H:i" }}">{{ revision.created_at|timesince }} ago</div></td>
                             <td valign="top">
-                                {% include "wagtailadmin/shared/page_status_tag.html" with page=revision.page %}
+                                {% include "wagtailadmin/shared/page_status_tag.html" with page=page %}
                             </td>
                         </tr>
                     {% endfor %}
