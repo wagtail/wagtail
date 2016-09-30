@@ -147,7 +147,7 @@ msgstr "保存"
 
 #, python-format
 msgid "Welcome to the %(site_name)s Wagtail CMS"
-msgstr "欢迎来到%(site_name)s的Wagtail内容管理系统"
+msgstr "欢迎来到%(site_name)s的内容管理系统"
 
 msgid ""
 "This is your dashboard on which helpful information about content you've "
@@ -197,7 +197,7 @@ msgid "Sign in"
 msgstr "登录"
 
 msgid "Sign in to Wagtail"
-msgstr "登录Wagtail"
+msgstr "登录"
 
 msgid "Forgotten it?"
 msgstr "忘记了？"

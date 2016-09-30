@@ -7,6 +7,14 @@
 .. image:: https://coveralls.io/repos/torchbox/wagtail/badge.svg?branch=master
     :target: https://coveralls.io/r/torchbox/wagtail?branch=master
 
+Development
+===========
+
+    cd gulpfile.js
+    npm install
+    npm run build
+    pip install git+https://github.com/linsec/wagtail.git@stable/1.6.x
+
 Wagtail CMS
 ===========
 
