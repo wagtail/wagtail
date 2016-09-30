@@ -34,6 +34,7 @@ Changelog
 ~~~~~~~~~~~~~~~~~~
 
  * Fix: Restore compatibility with django-debug-toolbar 1.5 (Matt Westcott)
+ * Fix: Edits to StreamFields are no longer ignored in page edits on Django >=1.10.1 when a default value exists (Matt Westcott)
 
 
 1.6.2 (02.09.2016)
