@@ -2,7 +2,7 @@ Changelog
 =========
 
 
-1.6.3 (XX.XX.2016)
+1.6.3 (30.09.2016)
 ~~~~~~~~~~~~~~~~~~
 
  * Fix: Restore compatibility with django-debug-toolbar 1.5 (Matt Westcott)
