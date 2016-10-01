@@ -94,7 +94,7 @@ $(function() {
     });
 
     // Enable toggle to open/close user settings
-    $(document).on('click', '#account', function() {
+    $(document).on('click', '#account-settings', function() {
         $('#footer').toggleClass('footer-open');
         $(this).find('em').toggleClass('icon-arrow-down-after icon-arrow-up-after');
     });
