@@ -178,6 +178,8 @@ In addition to the model fields provided, ``Page`` has many properties and metho
         Forms must be a subclass of :class:`~wagtail.wagtailadmin.forms.WagtailAdminPageForm`.
         See :ref:`custom_edit_handler_forms` for more information.
 
+.. _site-model-ref:
+
 ``Site``
 ========
 
