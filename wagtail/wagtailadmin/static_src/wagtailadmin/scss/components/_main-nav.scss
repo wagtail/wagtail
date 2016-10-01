@@ -324,6 +324,7 @@ body.explorer-open {
         .account {
             @include clearfix;
             background: $footer-account;
+            color: $color-menu-text;
             text-transform: uppercase;
             display: block;
             cursor: pointer;
