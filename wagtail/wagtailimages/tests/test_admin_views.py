@@ -67,13 +67,13 @@ class TestImageIndexView(TestCase, WagtailTestUtils):
 
         # prev link should exist and include collection_id
         self.assertTrue(
-            ("?p=1&amp;collection_id=%i" % evil_plans_collection.id) in response_body
-            or ("?collection_id=%i&amp;p=1" % evil_plans_collection.id) in response_body
+            ("?p=1&amp;collection_id=%i" % evil_plans_collection.id) in response_body or
+            ("?collection_id=%i&amp;p=1" % evil_plans_collection.id) in response_body
         )
         # next link should exist and include collection_id
         self.assertTrue(
-            ("?p=3&amp;collection_id=%i" % evil_plans_collection.id) in response_body
-            or ("?collection_id=%i&amp;p=3" % evil_plans_collection.id) in response_body
+            ("?p=3&amp;collection_id=%i" % evil_plans_collection.id) in response_body or
+            ("?collection_id=%i&amp;p=3" % evil_plans_collection.id) in response_body
         )
 
     def test_ordering(self):
