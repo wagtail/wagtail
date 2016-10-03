@@ -173,6 +173,7 @@ def remove_object(instance):
 class BaseField(object):
     def __init__(self, field_name, **kwargs):
         self.field_name = field_name
+        self.language = None
         self.kwargs = kwargs
 
     def get_field(self, cls):
@@ -223,10 +224,11 @@ class BaseField(object):
 
 
 class SearchField(BaseField):
-    def __init__(self, field_name, boost=None, partial_match=False, **kwargs):
+    def __init__(self, field_name, boost=None, partial_match=False, language=None, **kwargs):
         super(SearchField, self).__init__(field_name, **kwargs)
         self.boost = boost
         self.partial_match = partial_match
+        self.language = language
 
 
 class FilterField(BaseField):
@@ -237,6 +239,7 @@ class RelatedFields(object):
     def __init__(self, field_name, fields):
         self.field_name = field_name
         self.fields = fields
+        self.language = None
 
     def get_field(self, cls):
         return cls._meta.get_field(self.field_name)
