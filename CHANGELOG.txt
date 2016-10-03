@@ -17,6 +17,8 @@ Changelog
  * Added ability to annotate search results with score (Karl Hobley)
  * Added ability to limit access to form submissions (Mikalai Radchuk)
  * Added the ability to configure the number of days search logs are kept for (Stephen Rice)
+ * `SnippetChooserBlock` now supports passing the model name as a string (Nick Smith)
+ * Redesigned account settings / logout area in the sidebar for better clarity (Janneke Janssen)
  * Fix: Migrations for wagtailcore and project template are now reversible (Benjamin Bach)
  * Fix: Migrations no longer depend on wagtailcore and taggit's `__latest__` migration, logically preventing those apps from receiving new migrations (Matt Westcott)
  * Fix: The default image format label text ('Full width', 'Left-aligned', 'Right-aligned') is now localised (Mikalai Radchuk)
@@ -30,10 +32,11 @@ Changelog
  * Fix: Setting `USE_THOUSAND_SEPARATOR = True` no longer breaks the rendering of numbers in JS code for InlinePanel (Mattias Loverot, Matt Westcott)
 
 
-1.6.3 (XX.XX.2016)
+1.6.3 (30.09.2016)
 ~~~~~~~~~~~~~~~~~~
 
  * Fix: Restore compatibility with django-debug-toolbar 1.5 (Matt Westcott)
+ * Fix: Edits to StreamFields are no longer ignored in page edits on Django >=1.10.1 when a default value exists (Matt Westcott)
 
 
 1.6.2 (02.09.2016)

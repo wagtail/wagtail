@@ -61,8 +61,7 @@ will contain the correct URLs:
     </url>
 
 
-Find out more about `working with Sites
-</reference/pages/model_reference.html?highlight=site#site>`.
+Find out more about :ref:`working with Sites<site-model-ref>`.
 
 
 Customising

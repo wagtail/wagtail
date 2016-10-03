@@ -84,4 +84,4 @@ Reordering and deleting content in StreamField
 * Click the rubbish bin on the far right to delete a field
 
 .. Warning::
-	Once a StreamField field is deleted it cannot be retrieved if the page has not been saved. Save your pages regularly so that if you acidentally delete a field you can reload the page to undo your latest edit.
+	Once a StreamField field is deleted it cannot be retrieved if the page has not been saved. Save your pages regularly so that if you accidentally delete a field you can reload the page to undo your latest edit.
