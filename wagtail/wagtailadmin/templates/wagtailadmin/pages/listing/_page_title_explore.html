@@ -4,9 +4,9 @@
 
 <h2>
     {% if page_perms.can_edit %}
-        <a href="{% url 'wagtailadmin_pages:edit' page.id %}" title="{% trans 'Edit this page' %}">{{ page.get_title_for_display }}</a>
+        <a href="{% url 'wagtailadmin_pages:edit' page.id %}" title="{% trans 'Edit this page' %}">{{ page.get_admin_display_title }}</a>
     {% else %}
-        {{ page.get_title_for_display }}
+        {{ page.get_admin_display_title }}
     {% endif %}
 
     {% include "wagtailadmin/pages/listing/_privacy_indicator.html" with page=page %}

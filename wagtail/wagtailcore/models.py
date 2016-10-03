@@ -405,7 +405,7 @@ class Page(six.with_metaclass(PageBase, AbstractPage, index.Indexed, Clusterable
             self.content_type = ContentType.objects.get_for_model(self)
 
     def __str__(self):
-        return self.get_title_for_display()
+        return self.get_admin_display_title()
 
     def set_url_path(self, parent):
         """
@@ -673,7 +673,7 @@ class Page(six.with_metaclass(PageBase, AbstractPage, index.Indexed, Clusterable
             else:
                 raise Http404
 
-    def get_title_for_display(self):
+    def get_admin_display_title(self):
         """
         Return title used to display in the admin
         """

@@ -45,7 +45,7 @@
         {% if pages %}
             {% for page in pages %}
                 {% page_permissions page as page_perms %}
-                <tr {% if ordering == "ord" %}id="page_{{ page.id }}" data-page-title="{{ page.get_title_for_display }}"{% endif %} class="{% if not page.live %}unpublished{% endif %} {% block page_row_classname %}{% endblock %}">
+                <tr {% if ordering == "ord" %}id="page_{{ page.id }}" data-page-title="{{ page.get_admin_display_title }}"{% endif %} class="{% if not page.live %}unpublished{% endif %} {% block page_row_classname %}{% endblock %}">
                     {% if show_ordering_column %}
                         <td class="ord">{% if orderable and ordering == "ord" %}<div class="handle icon icon-grip text-replace">{% trans 'Drag' %}</div>{% endif %}</td>
                     {% endif %}
@@ -57,7 +57,7 @@
                         {% with page.get_parent as parent %}
                             <td class="parent" valign="top">
                                 {% if parent %}
-                                    <a href="{% url 'wagtailadmin_explore' parent.id %}">{{ parent.get_title_for_display }}</a>
+                                    <a href="{% url 'wagtailadmin_explore' parent.id %}">{{ parent.get_admin_display_title }}</a>
                                 {% endif %}
                             </td>
                         {% endwith %}
