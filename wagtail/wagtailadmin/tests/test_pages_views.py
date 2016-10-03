@@ -3523,9 +3523,10 @@ class TestRecentEditsPanel(TestCase, WagtailTestUtils):
         self.client.user = get_user_model().objects.get(email='bob@email.com')
         # get the panel to get the last edits
         panel = RecentEditsPanel(self.client)
-
-        self.assertEqual(panel.last_edits[0][0], PageRevision.objects.get(pk=2))
-        self.assertEqual(panel.last_edits[0][1], Page.objects.get(pk=3).specific)
+        # check if the revision is the revision of edited Page
+        self.assertEqual(panel.last_edits[0][0].page, Page.objects.get(pk=self.child_page.id))
+        # check if the page in this list is the specific page of this revision
+        self.assertEqual(panel.last_edits[0][1], Page.objects.get(pk=self.child_page.id).specific)
 
 
 class TestIssue2994(TestCase, WagtailTestUtils):
