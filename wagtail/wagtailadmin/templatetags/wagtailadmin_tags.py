@@ -9,6 +9,7 @@ from django.conf import settings
 from django.contrib.humanize.templatetags.humanize import intcomma
 from django.contrib.messages.constants import DEFAULT_TAGS as MESSAGE_TAGS
 from django.template.defaultfilters import stringfilter
+from django.utils.html import conditional_escape
 from django.utils.safestring import mark_safe
 
 from wagtail.utils.pagination import DEFAULT_PAGE_KEY, replace_page_in_query
@@ -337,4 +338,4 @@ def replace_page_param(query, page_number, page_key='p'):
     """
     Replaces ``page_key`` from query string with ``page_number``.
     """
-    return replace_page_in_query(query, page_number, page_key)
+    return conditional_escape(replace_page_in_query(query, page_number, page_key))
