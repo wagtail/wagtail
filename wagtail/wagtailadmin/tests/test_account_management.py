@@ -115,6 +115,16 @@ class TestAuthentication(TestCase, WagtailTestUtils):
         # Check that the user was redirected to the login page and that next was set correctly
         self.assertRedirects(response, reverse('wagtailadmin_login') + '?next=' + reverse('wagtailadmin_home'))
 
+    def test_not_logged_in_gives_403_to_ajax_requests(self):
+        """
+        This tests that a not logged in user is given a 403 error on AJAX requests
+        """
+        # Get dashboard
+        response = self.client.get(reverse('wagtailadmin_home'), HTTP_X_REQUESTED_WITH='XMLHttpRequest')
+
+        # AJAX requests should be given a 403 error instead of being redirected
+        self.assertEqual(response.status_code, 403)
+
     def test_not_logged_in_redirect_default_settings(self):
         """
         This does the same as the above test but checks that it
@@ -146,6 +156,21 @@ class TestAuthentication(TestCase, WagtailTestUtils):
         # Check that the user was redirected to the login page and that next was set correctly
         self.assertRedirects(response, reverse('wagtailadmin_login') + '?next=' + reverse('wagtailadmin_home'))
         self.assertContains(response, 'You do not have permission to access the admin')
+
+    def test_logged_in_no_permission_gives_403_to_ajax_requests(self):
+        """
+        This tests that a logged in user without admin access permissions is
+        given a 403 error on ajax requests
+        """
+        # Login as unprivileged user
+        get_user_model().objects.create_user(username='unprivileged', password='123')
+        self.assertTrue(self.client.login(username='unprivileged', password='123'))
+
+        # Get dashboard
+        response = self.client.get(reverse('wagtailadmin_home'), HTTP_X_REQUESTED_WITH='XMLHttpRequest')
+
+        # AJAX requests should be given a 403 error instead of being redirected
+        self.assertEqual(response.status_code, 403)
 
 
 class TestAccountSection(TestCase, WagtailTestUtils):
