@@ -32,6 +32,7 @@ Changelog
  * Fix: Setting `USE_THOUSAND_SEPARATOR = True` no longer breaks the rendering of numbers in JS code for InlinePanel (Mattias Loverot, Matt Westcott)
  * Fix: Images / documents pagination now preserves GET parameters (Bojan Mihelac)
  * Fix: Wagtail's UserProfile model now sets a related_name of ``wagtail_userprofile`` to avoid naming collisions with other user profile models (Matt Westcott)
+ * Fix: Non-text content is now preserved when adding or editing a link within rich text (Matt Westcott)
 
 
 1.6.3 (30.09.2016)
