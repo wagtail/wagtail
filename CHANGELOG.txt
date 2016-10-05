@@ -34,6 +34,7 @@ Changelog
  * Fix: Images / documents pagination now preserves GET parameters (Bojan Mihelac)
  * Fix: Wagtail's UserProfile model now sets a related_name of ``wagtail_userprofile`` to avoid naming collisions with other user profile models (Matt Westcott)
  * Fix: Non-text content is now preserved when adding or editing a link within rich text (Matt Westcott)
+ * Fix: Fixed preview when `SECURE_SSL_REDIRECT = True` (Aymeric Augustin)
 
 
 1.6.3 (30.09.2016)

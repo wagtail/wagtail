@@ -1229,6 +1229,8 @@ class Page(six.with_metaclass(PageBase, AbstractPage, index.Indexed, Clusterable
             'REMOTE_ADDR', 'HTTP_X_FORWARDED_FOR', 'HTTP_COOKIE', 'HTTP_USER_AGENT',
             'wsgi.version', 'wsgi.multithread', 'wsgi.multiprocess', 'wsgi.run_once',
         ]
+        if settings.SECURE_PROXY_SSL_HEADER:
+            HEADERS_FROM_ORIGINAL_REQUEST.append(settings.SECURE_PROXY_SSL_HEADER[0])
         if original_request:
             for header in HEADERS_FROM_ORIGINAL_REQUEST:
                 if header in original_request.META:
