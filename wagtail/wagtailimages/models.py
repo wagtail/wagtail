@@ -125,13 +125,14 @@ class AbstractImage(CollectionMember, index.Indexed, models.Model):
 
         # Truncate filename so it fits in the 100 character limit
         # https://code.djangoproject.com/ticket/9893
-        while len(os.path.join(folder_name, filename)) >= 95:
-            prefix, dot, extension = filename.rpartition('.')
-            if prefix:
-                filename = prefix[:-1] + dot + extension
-            else:
-                filename = extension[:-1]
-        return os.path.join(folder_name, filename)
+        full_path = os.path.join(folder_name, filename)
+        if len(full_path) >= 95:
+            chars_to_trim = len(full_path) - 94
+            prefix, extension = os.path.splitext(filename)
+            filename = prefix[:-chars_to_trim] + extension
+            full_path = os.path.join(folder_name, filename)
+
+        return full_path
 
     def get_usage(self):
         return get_object_usage(self)
