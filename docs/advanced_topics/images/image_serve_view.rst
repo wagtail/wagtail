@@ -75,6 +75,16 @@ And here's an example of this being used in a view:
             'image_url': generate_image_url(image, 'fill-100x100')
         })
 
+
+Image operations can be chained by joining them with a ``|`` character:
+
+.. code-block:: python
+
+        return render(request, 'display_image.html', {
+            'image_url': generate_image_url(image, 'fill-100x100|jpegquality-40')
+        })
+
+
 Advanced configuration
 ======================
 
