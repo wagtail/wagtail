@@ -97,7 +97,7 @@ class Whitelister(object):
         attributes"""
         doc = BeautifulSoup(html, 'html5lib')
         cls.clean_node(doc, doc)
-        return doc.decode()
+        return "".join([child.decode() for child in doc.body.childGenerator()])
 
     @classmethod
     def clean_node(cls, doc, node):
