@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-09-22 15:51+0100\n"
+"POT-Creation-Date: 2016-10-05 16:37+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -972,16 +972,18 @@ msgid ""
 msgstr ""
 
 #: templates/wagtailadmin/pages/listing/_pagination.html:14
-#: templates/wagtailadmin/shared/pagination_nav.html:21
-#: templates/wagtailadmin/shared/pagination_nav.html:23
-#: templates/wagtailadmin/shared/pagination_nav.html:25
+#: templates/wagtailadmin/shared/pagination_nav.html:28
+#: templates/wagtailadmin/shared/pagination_nav.html:30
+#: templates/wagtailadmin/shared/pagination_nav.html:32
+#: templates/wagtailadmin/shared/pagination_nav.html:34
 msgid "Previous"
 msgstr ""
 
 #: templates/wagtailadmin/pages/listing/_pagination.html:19
-#: templates/wagtailadmin/shared/pagination_nav.html:32
-#: templates/wagtailadmin/shared/pagination_nav.html:34
-#: templates/wagtailadmin/shared/pagination_nav.html:36
+#: templates/wagtailadmin/shared/pagination_nav.html:41
+#: templates/wagtailadmin/shared/pagination_nav.html:43
+#: templates/wagtailadmin/shared/pagination_nav.html:45
+#: templates/wagtailadmin/shared/pagination_nav.html:47
 msgid "Next"
 msgstr ""
 
@@ -1172,11 +1174,15 @@ msgstr[1] ""
 msgid "Edit your account"
 msgstr ""
 
-#: templates/wagtailadmin/shared/main_nav.html:9
+#: templates/wagtailadmin/shared/main_nav.html:18
+msgid "Account settings"
+msgstr ""
+
+#: templates/wagtailadmin/shared/main_nav.html:19
 msgid "Log out"
 msgstr ""
 
-#: templates/wagtailadmin/shared/pagination_nav.html:16
+#: templates/wagtailadmin/shared/pagination_nav.html:23
 #, python-format
 msgid "Page %(page_num)s of %(total_pages)s."
 msgstr ""

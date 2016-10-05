@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-09-22 15:51+0100\n"
+"POT-Creation-Date: 2016-10-05 16:38+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -77,31 +77,31 @@ msgstr ""
 msgid "You cannot have multiple permission records for the same page."
 msgstr ""
 
-#: models.py:14
+#: models.py:16
 msgid "submitted notifications"
 msgstr ""
 
-#: models.py:16
+#: models.py:18
 msgid "Receive notification when a page is submitted for moderation"
 msgstr ""
 
-#: models.py:20
+#: models.py:22
 msgid "approved notifications"
 msgstr ""
 
-#: models.py:22
+#: models.py:24
 msgid "Receive notification when your page edit is approved"
 msgstr ""
 
-#: models.py:26
+#: models.py:28
 msgid "rejected notifications"
 msgstr ""
 
-#: models.py:28
+#: models.py:30
 msgid "Receive notification when your page edit is rejected"
 msgstr ""
 
-#: models.py:39
+#: models.py:41
 msgid "user profile"
 msgstr ""
 

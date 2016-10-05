@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-09-22 15:51+0100\n"
+"POT-Creation-Date: 2016-10-05 16:37+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -121,31 +121,31 @@ msgstr ""
 msgid "Edit any image"
 msgstr ""
 
-#: models.py:72
+#: models.py:75
 msgid "title"
 msgstr ""
 
-#: models.py:74
+#: models.py:77
 msgid "file"
 msgstr ""
 
-#: models.py:76
+#: models.py:79
 msgid "width"
 msgstr ""
 
-#: models.py:77
+#: models.py:80
 msgid "height"
 msgstr ""
 
-#: models.py:78
+#: models.py:81
 msgid "created at"
 msgstr ""
 
-#: models.py:80
+#: models.py:83
 msgid "uploaded by user"
 msgstr ""
 
-#: models.py:84
+#: models.py:87
 msgid "tags"
 msgstr ""
 
@@ -284,7 +284,7 @@ msgstr ""
 
 #: templates/wagtailimages/images/index.html:5
 #: templates/wagtailimages/images/index.html:24 wagtail_hooks.py:44
-#: wagtail_hooks.py:112
+#: wagtail_hooks.py:114
 msgid "Images"
 msgstr ""
 
@@ -450,7 +450,7 @@ msgstr ""
 msgid "The image could not be created due to errors."
 msgstr ""
 
-#: wagtail_hooks.py:131
+#: wagtail_hooks.py:133
 #, python-format
 msgid "%(count)s image"
 msgid_plural "%(count)s images"
