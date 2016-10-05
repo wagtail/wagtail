@@ -4,6 +4,7 @@
 #
 # Translators:
 # ajk, 2014
+# Andrey Avdey <talkerbox@live.com>, 2016
 # Eugene MechanisM <eugene@mechanism.pro>, 2014-2016
 # Matt Westcott <matthew@torchbox.com>, 2015
 # Mikalai Radchuk <radchuk.m@gmail.com>, 2016
@@ -13,9 +14,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-08-01 13:25+0000\n"
-"PO-Revision-Date: 2016-05-26 13:33+0000\n"
-"Last-Translator: Mikalai Radchuk <radchuk.m@gmail.com>\n"
+"POT-Creation-Date: 2016-09-22 15:51+0100\n"
+"PO-Revision-Date: 2016-09-24 10:51+0000\n"
+"Last-Translator: Andrey Avdey <talkerbox@live.com>\n"
 "Language-Team: Russian (http://www.transifex.com/torchbox/wagtail/language/"
 "ru/)\n"
 "MIME-Version: 1.0\n"
@@ -56,6 +57,15 @@ msgstr "Файл слишком большой (%%s). Максимальный �
 #, python-format
 msgid "This file is too big. Maximum filesize %s."
 msgstr "Файл слишком большой. Максимальный размер файла %s."
+
+msgid "Full width"
+msgstr "По ширине"
+
+msgid "Left-aligned"
+msgstr "По левому краю"
+
+msgid "Right-aligned"
+msgstr "По правому краю"
 
 msgid "Filter"
 msgstr "Фильтр"

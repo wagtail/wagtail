@@ -3,6 +3,7 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# Daniel Chimeno <daniel@chimeno.me>, 2016
 # Daniel Chimeno <daniel@chimeno.me>, 2015
 # Joaquín Tita <carpincho@gmail.com>, 2014
 # Yusuf (Josè) Luis <alagunajs@gmail.com>, 2015
@@ -12,8 +13,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-08-01 13:25+0000\n"
-"PO-Revision-Date: 2016-08-01 19:24+0000\n"
+"POT-Creation-Date: 2016-09-22 15:51+0100\n"
+"PO-Revision-Date: 2016-09-26 05:48+0000\n"
 "Last-Translator: Yusuf (Josè) Luis <alagunajs@gmail.com>\n"
 "Language-Team: Spanish (http://www.transifex.com/torchbox/wagtail/language/"
 "es/)\n"
@@ -22,6 +23,9 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: es\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "{} submissions"
+msgstr "{} presentaciones"
 
 #, python-format
 msgid "There is another field with the label %s, please change one of them."
@@ -99,6 +103,9 @@ msgstr ""
 msgid "help text"
 msgstr "texto de ayuda"
 
+msgid "Submission date"
+msgstr "Fecha de envío"
+
 msgid "to address"
 msgstr "a dirección"
 
@@ -127,6 +134,12 @@ msgstr "¿Seguro que quieres eliminar este formulario?"
 
 msgid "Delete it"
 msgstr "Elimínalo"
+
+msgid "Total submissions"
+msgstr "Presentaciones totales"
+
+msgid "Latest submission"
+msgstr "Última presentación"
 
 msgid "Forms"
 msgstr "Formularios"
@@ -157,9 +170,6 @@ msgstr "Título"
 
 msgid "Origin"
 msgstr "Origen"
-
-msgid "Submission Date"
-msgstr "Fecha de presentación"
 
 msgid "Actions"
 msgstr "Acciones"

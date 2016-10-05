@@ -9,9 +9,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-08-01 13:25+0000\n"
-"PO-Revision-Date: 2016-03-01 18:57+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2016-09-22 15:51+0100\n"
+"PO-Revision-Date: 2016-09-28 08:11+0000\n"
+"Last-Translator: Ahmad Kiswani <kiswani.ahmad@gmail.com>\n"
 "Language-Team: Arabic (http://www.transifex.com/torchbox/wagtail/language/"
 "ar/)\n"
 "MIME-Version: 1.0\n"
@@ -20,6 +20,15 @@ msgstr ""
 "Language: ar\n"
 "Plural-Forms: nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 "
 "&& n%100<=10 ? 3 : n%100>=11 && n%100<=99 ? 4 : 5;\n"
+
+msgid "Password"
+msgstr "كلمة سر"
+
+msgid "The password you have entered is not correct. Please try again."
+msgstr "كلمة المرور غير صحيحة, الرجاء المحاولة مرة أخرى."
+
+msgid "port"
+msgstr "منفذ"
 
 msgid "site name"
 msgstr "إسم الموقع"
@@ -36,11 +45,17 @@ msgstr "مواقع"
 msgid "title"
 msgstr "عنوان"
 
+msgid "live"
+msgstr "حي"
+
 msgid "owner"
 msgstr "صاحب"
 
 msgid "page title"
 msgstr "عنوان الصفحة"
+
+msgid "search description"
+msgstr "وصف البحث"
 
 msgid "Please add a date-time in the form YYYY-MM-DD hh:mm."
 msgstr "أضيف من فضلكم تاريخا ووقتا"
@@ -50,6 +65,9 @@ msgstr "منقضٍ"
 
 msgid "locked"
 msgstr "مغلق"
+
+msgid "first published at"
+msgstr "نشر للمرة الأولى في"
 
 msgid "scheduled"
 msgstr "موقت"
@@ -75,14 +93,26 @@ msgstr "مراجعة صفحة"
 msgid "page revisions"
 msgstr "مراجعة صفحات"
 
+msgid "Add"
+msgstr "أضف"
+
 msgid "Add/edit pages you own"
 msgstr "أضف أو نقح سفحات أنت الصاحب لها "
+
+msgid "Edit"
+msgstr "تعديل"
 
 msgid "Edit any page"
 msgstr "نقح أي صفحة"
 
+msgid "Publish"
+msgstr "انشر"
+
 msgid "Publish any page"
 msgstr "انشر أي صفحة"
+
+msgid "Lock"
+msgstr "أقفل"
 
 msgid "Lock/unlock any page"
 msgstr "اغلق أو افتح أي صفحة"
@@ -90,5 +120,23 @@ msgstr "اغلق أو افتح أي صفحة"
 msgid "group"
 msgstr "مجموعة"
 
+msgid "permission type"
+msgstr "نوع  التصريح"
+
 msgid "password"
 msgstr "كلمة سر"
+
+msgid "name"
+msgstr "اسم"
+
+msgid "permission"
+msgstr "تصريح"
+
+msgid "Password required"
+msgstr "كلمة السر مطلوبة"
+
+msgid "You need a password to access this page."
+msgstr "هذه الصفحة تتطلب كلمة مرور."
+
+msgid "Continue"
+msgstr "أكمل"

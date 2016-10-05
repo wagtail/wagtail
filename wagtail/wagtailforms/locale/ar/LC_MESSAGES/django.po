@@ -9,9 +9,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-08-01 13:25+0000\n"
-"PO-Revision-Date: 2016-08-01 13:29+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2016-09-22 15:51+0100\n"
+"PO-Revision-Date: 2016-09-28 08:38+0000\n"
+"Last-Translator: Ahmad Kiswani <kiswani.ahmad@gmail.com>\n"
 "Language-Team: Arabic (http://www.transifex.com/torchbox/wagtail/language/"
 "ar/)\n"
 "MIME-Version: 1.0\n"
@@ -22,10 +22,10 @@ msgstr ""
 "&& n%100<=10 ? 3 : n%100>=11 && n%100<=99 ? 4 : 5;\n"
 
 msgid "Single line text"
-msgstr "نص اه سظر واحد"
+msgstr "نص ذو سطر واحد"
 
 msgid "Multi-line text"
-msgstr "نص له سظور عديدة"
+msgstr "نص متعدد الأسطر"
 
 msgid "Email"
 msgstr "بريد إلكتروني "
@@ -36,6 +36,12 @@ msgstr "عدد"
 msgid "URL"
 msgstr "الرابط"
 
+msgid "Checkbox"
+msgstr "خانة الاختيار"
+
+msgid "Checkboxes"
+msgstr "خانات الاختيار"
+
 msgid "Radio buttons"
 msgstr "أزرار راديو"
 
@@ -45,20 +51,38 @@ msgstr "تاريخ"
 msgid "Date/time"
 msgstr "تاريخ وقت"
 
+msgid "submit time"
+msgstr "تاريخ النشر"
+
+msgid "form submission"
+msgstr "نشر النموذج"
+
+msgid "label"
+msgstr "بطاقة"
+
 msgid "The label of the form field"
 msgstr "بظاقة حقل النوع"
+
+msgid "field type"
+msgstr "نوع الحقل"
 
 msgid "required"
 msgstr "مطلوب"
 
 msgid "choices"
-msgstr "اختيارات"
+msgstr "خيارات"
 
 msgid "default value"
 msgstr "القيمة الإفتراضية"
 
 msgid "help text"
 msgstr "نص للمساعدة"
+
+msgid "Submission date"
+msgstr "تاريخ التقديم"
+
+msgid "to address"
+msgstr "إلى العنوان"
 
 msgid "subject"
 msgstr "موضوع"
@@ -70,13 +94,13 @@ msgid "Delete it"
 msgstr "احذفه"
 
 msgid "Forms"
-msgstr "أشكال"
+msgstr "نماذج"
 
 msgid "Pages"
 msgstr "صفحات"
 
 msgid "Filter"
-msgstr "ارسح"
+msgstr "فلتر"
 
 msgid "Title"
 msgstr "عنوان"
@@ -84,14 +108,14 @@ msgstr "عنوان"
 msgid "Origin"
 msgstr "أصل"
 
-msgid "Submission Date"
-msgstr "تاريح التقديم"
-
 msgid "Actions"
 msgstr "أفعال"
 
+msgid "delete"
+msgstr "حذف"
+
 msgid "No form pages have been created."
-msgstr "لم تنسئ أي صفحات الشكل"
+msgstr "لم تنشئ أي  نماذج."
 
 msgid "Submission deleted."
 msgstr "حذفت المواد المقدمة"

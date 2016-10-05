@@ -11,13 +11,14 @@
 # Yusuf (Josè) Luis <alagunajs@gmail.com>, 2015-2016
 # Unai Zalakain <inactive+unaizalakain@transifex.com>, 2014
 # Unai Zalakain <inactive+unaizalakain@transifex.com>, 2014
+# Yusuf (Josè) Luis <alagunajs@gmail.com>, 2016
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-08-01 13:25+0000\n"
-"PO-Revision-Date: 2016-03-15 02:02+0000\n"
-"Last-Translator: Daniel Chimeno <daniel@chimeno.me>\n"
+"POT-Creation-Date: 2016-09-22 15:51+0100\n"
+"PO-Revision-Date: 2016-09-26 05:49+0000\n"
+"Last-Translator: Yusuf (Josè) Luis <alagunajs@gmail.com>\n"
 "Language-Team: Spanish (http://www.transifex.com/torchbox/wagtail/language/"
 "es/)\n"
 "MIME-Version: 1.0\n"
@@ -25,6 +26,12 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: es\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Password"
+msgstr "Contraseña"
+
+msgid "The password you have entered is not correct. Please try again."
+msgstr "La que ha ingresado no es correcta. Por favor intente de nuevo."
 
 msgid "hostname"
 msgstr "nombre del host"
@@ -248,3 +255,12 @@ msgstr "permiso"
 
 msgid "group collection permission"
 msgstr "grupo de permisos de colección"
+
+msgid "Password required"
+msgstr "Contraseña requerida"
+
+msgid "You need a password to access this page."
+msgstr "Necesita una contraseña para acceder a esta página."
+
+msgid "Continue"
+msgstr "Continuar"

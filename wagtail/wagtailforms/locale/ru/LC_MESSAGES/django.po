@@ -11,8 +11,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-08-01 13:25+0000\n"
-"PO-Revision-Date: 2016-08-01 14:02+0000\n"
+"POT-Creation-Date: 2016-09-22 15:51+0100\n"
+"PO-Revision-Date: 2016-09-24 10:57+0000\n"
 "Last-Translator: Andrey Avdey <talkerbox@live.com>\n"
 "Language-Team: Russian (http://www.transifex.com/torchbox/wagtail/language/"
 "ru/)\n"
@@ -23,6 +23,9 @@ msgstr ""
 "Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
 "%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n"
 "%100>=11 && n%100<=14)? 2 : 3);\n"
+
+msgid "{} submissions"
+msgstr "{} добавлений"
 
 #, python-format
 msgid "There is another field with the label %s, please change one of them."
@@ -98,6 +101,9 @@ msgstr "Значение по умолчанию. Разделенные зап�
 msgid "help text"
 msgstr "текст подсказки"
 
+msgid "Submission date"
+msgstr "Дата добавлления"
+
 msgid "to address"
 msgstr "адрес назначения"
 
@@ -126,6 +132,12 @@ msgstr "Вы уверены, что хотите удалить эту форм�
 
 msgid "Delete it"
 msgstr "Удалить"
+
+msgid "Total submissions"
+msgstr "Всего добавлений"
+
+msgid "Latest submission"
+msgstr "Псоледнее добавление"
 
 msgid "Forms"
 msgstr "Формы"
@@ -156,9 +168,6 @@ msgstr "Заголовок"
 
 msgid "Origin"
 msgstr "Происхождение"
-
-msgid "Submission Date"
-msgstr "Дата Заполнения"
 
 msgid "Actions"
 msgstr "Действия"

@@ -5,14 +5,14 @@
 # Translators:
 # Daigo Shitara <stain.witness@gmail.com>, 2014,2016
 # Sangmin Ahn <gijigae@gmail.com>, 2015
-# takuan_osho <shimizu.taku@gmail.com>, 2015
+# SHIMIZU Taku <shimizu.taku@gmail.com>, 2015
 # 石田秀 <ishidashu@gmail.com>, 2015
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-08-01 13:25+0000\n"
-"PO-Revision-Date: 2016-08-01 13:29+0000\n"
+"POT-Creation-Date: 2016-09-22 15:51+0100\n"
+"PO-Revision-Date: 2016-09-22 15:05+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Japanese (http://www.transifex.com/torchbox/wagtail/language/"
 "ja/)\n"
@@ -144,9 +144,6 @@ msgstr "タイトル"
 
 msgid "Origin"
 msgstr "出身"
-
-msgid "Submission Date"
-msgstr "送信日"
 
 msgid "Actions"
 msgstr "操作"

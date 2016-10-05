@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-08-01 13:25+0000\n"
-"PO-Revision-Date: 2016-05-25 12:28+0000\n"
+"POT-Creation-Date: 2016-09-22 15:51+0100\n"
+"PO-Revision-Date: 2016-10-04 09:25+0000\n"
 "Last-Translator: Arnar Tumi Þorsteinsson <arnartumi@gmail.com>\n"
 "Language-Team: Icelandic (Iceland) (http://www.transifex.com/torchbox/"
 "wagtail/language/is_IS/)\n"
@@ -18,6 +18,12 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: is_IS\n"
 "Plural-Forms: nplurals=2; plural=(n % 10 != 1 || n % 100 == 11);\n"
+
+msgid "Password"
+msgstr "Lylkilorð"
+
+msgid "The password you have entered is not correct. Please try again."
+msgstr "Lykilorðið sem þú slóst inn er ekki rétt. Vinsamlegast reynið aftur."
 
 msgid "hostname"
 msgstr "slóð"
@@ -240,3 +246,12 @@ msgstr "heimild"
 
 msgid "group collection permission"
 msgstr "safnheimild hóps"
+
+msgid "Password required"
+msgstr "Setja þarf inn lykilorð"
+
+msgid "You need a password to access this page."
+msgstr "Þú þarft lykilorð til að fá aðgang að þessari síðu"
+
+msgid "Continue"
+msgstr "Áfram"

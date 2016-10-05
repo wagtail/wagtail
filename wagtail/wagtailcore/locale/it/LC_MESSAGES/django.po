@@ -5,14 +5,14 @@
 # Translators:
 # Alessio Di Stasio <aledista@gmail.com>, 2015
 # Edd Baldry <edd.baldry@gmail.com>, 2016
-# Giacomo Ghizzani <giacomo.ghz@gmail.com>, 2015
+# Giacomo Ghizzani <giacomo.ghz@gmail.com>, 2015-2016
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-08-01 13:25+0000\n"
-"PO-Revision-Date: 2016-03-14 21:29+0000\n"
-"Last-Translator: Edd Baldry <edd.baldry@gmail.com>\n"
+"POT-Creation-Date: 2016-09-22 15:51+0100\n"
+"PO-Revision-Date: 2016-10-03 16:06+0000\n"
+"Last-Translator: Giacomo Ghizzani <giacomo.ghz@gmail.com>\n"
 "Language-Team: Italian (http://www.transifex.com/torchbox/wagtail/language/"
 "it/)\n"
 "MIME-Version: 1.0\n"
@@ -20,6 +20,12 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: it\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Password"
+msgstr "Password"
+
+msgid "The password you have entered is not correct. Please try again."
+msgstr "La password inserita non è corretta. Riprovare."
 
 msgid "hostname"
 msgstr "hostname"
@@ -241,3 +247,12 @@ msgstr "permesso"
 
 msgid "group collection permission"
 msgstr "permesso della collezione del gruppo"
+
+msgid "Password required"
+msgstr "Richiesta password"
+
+msgid "You need a password to access this page."
+msgstr "Devi avere una password per accedere a questa pagina."
+
+msgid "Continue"
+msgstr "Continua"

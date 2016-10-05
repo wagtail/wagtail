@@ -188,7 +188,7 @@ Translators
 * Dutch: benny_AT_it_digin.com, Bram, Brecht Dervaux, Huib Keemink, Thijs Kramer, Samuel Leeuwenburg, mahulst, Rob Moorman, Michael van Tellingen, Arne Turpyn
 * Dutch (Netherlands): Bram, Franklin Kingma, Maarten Kling, Thijs Kramer
 * Finnish: Eetu Häivälä, Niklas Jerva, Aarni Koskela, Rauli Laine, Glen Somerville, Juha Yrjölä
-* French: Adrien, Timothy Allen, Sebastien Andrivet, Bertrand Bordage, André Bouatchidzé, Tom Dyson, Antonin Enfrun, Axel Haustant, Léo, Pierre Marfoure, nahuel
+* French: Adrien, Timothy Allen, Sebastien Andrivet, Bertrand Bordage, André Bouatchidzé, Tom Dyson, Antonin Enfrun, Axel Haustant, Léo, Pierre Marfoure, nahuel, Benoît Vogel
 * Galician: fooflare
 * Georgian: André Bouatchidzé
 * German: Ettore Atalan, Patrick Craston, Henrik Kröger, Tammo van Lessen, Martin Löhle, Wasilis Mandratzis-Walz, Daniel Manser, m0rph3u5, Max Pfeiffer, Moritz Pfeiffer, Herbert Poul, Karl Sander, Tobias Schmidt, Johannes Spielmann, Raphael Stolt, Jannis Vajen, Vorlif, Matthew Westcott
@@ -198,7 +198,7 @@ Translators
 * Icelandic (Iceland): Arnar Tumi Þorsteinsson, Kjartan Sverrisson, Sævar Öfjörð Magnússon
 * Indonesian (Indonesia): Sutrisno Efendi
 * Italian: Edd Baldry, Claudio Bantaloukas, Giacomo Ghizzani, Carlo Miron, Alessio Di Stasio, Andrea Tagliazucchi
-* Japanese: Sangmin Ahn, Shu Ishida, Daigo Shitara, takuan_osho
+* Japanese: Sangmin Ahn, Shu Ishida, Daigo Shitara, Shimizu Taku
 * Korean: Kyungil Choi, Jihan Chung
 * Latvian: Reinis Rozenbergs, Maris Serzans
 * Mongolian: Delgermurun Purevkhuu
@@ -215,6 +215,6 @@ Translators
 * Swedish: Ludwig Kjellström, Thomas Kunambi, Hannes Lohmander
 * Swedish (Sweden): Jon Karlsson, Thomas Kunambi
 * Turkish: Cihad Gündoǧdu
-* Turkish (Turkey): Saadettin Yasir Akel, Yusuf (Josè) Luis, Ragıp Ünal
+* Turkish (Turkey): Saadettin Yasir Akel, Cihad Gündoǧdu, Yusuf (Josè) Luis, Ragıp Ünal
 * Ukrainian: Mykola Zamkovoi
 * Vietnamese: Luan Nguyen

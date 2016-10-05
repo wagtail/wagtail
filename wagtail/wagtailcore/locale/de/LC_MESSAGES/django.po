@@ -8,15 +8,16 @@
 # Johannes Spielmann <j@spielmannsolutions.com>, 2014
 # Matt Westcott <matthew@torchbox.com>, 2015
 # Max Pfeiffer <max.pfeiffer@alp-phone.ch>, 2015
+# Moritz Pfeiffer <moritz@alp-phone.ch>, 2016
 # Tammo van Lessen <tvanlessen@gmail.com>, 2015
 # Wasilis Mandratzis-Walz, 2015
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-08-01 13:25+0000\n"
-"PO-Revision-Date: 2016-03-01 19:14+0000\n"
-"Last-Translator: Henrik Kröger <hedwig@riseup.net>\n"
+"POT-Creation-Date: 2016-09-22 15:51+0100\n"
+"PO-Revision-Date: 2016-09-23 06:27+0000\n"
+"Last-Translator: Moritz Pfeiffer <moritz@alp-phone.ch>\n"
 "Language-Team: German (http://www.transifex.com/torchbox/wagtail/language/"
 "de/)\n"
 "MIME-Version: 1.0\n"
@@ -24,6 +25,12 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: de\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Password"
+msgstr "Passwort"
+
+msgid "The password you have entered is not correct. Please try again."
+msgstr "Das eingegebene Passwort ist falsch. Bitte versuchen Sie es erneut."
 
 msgid "hostname"
 msgstr "Hostname"
@@ -247,3 +254,12 @@ msgstr "Berechtigung"
 
 msgid "group collection permission"
 msgstr "Gruppen Sammlungsberechtigungen"
+
+msgid "Password required"
+msgstr "Passwort erforderlich"
+
+msgid "You need a password to access this page."
+msgstr "Sie benötigen ein Passwort um diese Seite aufzurufen."
+
+msgid "Continue"
+msgstr "Weiter"

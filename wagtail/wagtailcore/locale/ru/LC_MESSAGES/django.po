@@ -11,8 +11,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-08-01 13:25+0000\n"
-"PO-Revision-Date: 2016-07-02 09:14+0000\n"
+"POT-Creation-Date: 2016-09-22 15:51+0100\n"
+"PO-Revision-Date: 2016-09-24 10:56+0000\n"
 "Last-Translator: Andrey Avdey <talkerbox@live.com>\n"
 "Language-Team: Russian (http://www.transifex.com/torchbox/wagtail/language/"
 "ru/)\n"
@@ -23,6 +23,12 @@ msgstr ""
 "Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
 "%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n"
 "%100>=11 && n%100<=14)? 2 : 3);\n"
+
+msgid "Password"
+msgstr "Пароль"
+
+msgid "The password you have entered is not correct. Please try again."
+msgstr "Введённый вами пароль неверный. Попробуйте еще раз."
 
 msgid "hostname"
 msgstr "имя хоста"
@@ -247,3 +253,12 @@ msgstr "право доступа"
 
 msgid "group collection permission"
 msgstr "право доступа к коллекции у группы"
+
+msgid "Password required"
+msgstr "Требуется пароль"
+
+msgid "You need a password to access this page."
+msgstr "Вам нужен пароль для доступа к этой странице."
+
+msgid "Continue"
+msgstr "Продолжить"

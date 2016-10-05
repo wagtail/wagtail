@@ -7,6 +7,7 @@
 # André Bouatchidzé <a@anbz.net>, 2015
 # Antonin ENFRUN <anton@zorgameuh.org>, 2016
 # Axel Haustant, 2016
+# Benoît Vogel <contact@spicy-informatique.com>, 2016
 # Bertrand Bordage <bordage.bertrand@gmail.com>, 2015-2016
 # Léo <leo@naeka.fr>, 2016
 # nahuel, 2014
@@ -18,9 +19,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-08-01 13:25+0000\n"
-"PO-Revision-Date: 2016-08-11 14:00+0000\n"
-"Last-Translator: Axel Haustant\n"
+"POT-Creation-Date: 2016-09-22 15:51+0100\n"
+"PO-Revision-Date: 2016-09-24 10:37+0000\n"
+"Last-Translator: Benoît Vogel <contact@spicy-informatique.com>\n"
 "Language-Team: French (http://www.transifex.com/torchbox/wagtail/language/"
 "fr/)\n"
 "MIME-Version: 1.0\n"
@@ -126,11 +127,17 @@ msgid ""
 "This slug is already in use within the context of its parent page \"%s\""
 msgstr "Ce slug est déjà utilisé dans le contexte de sa page parent \"%s\""
 
+msgid "Visibility"
+msgstr "Visibilité"
+
 msgid "Public"
 msgstr "Public"
 
 msgid "Private, accessible with the following password"
 msgstr "Privé, accessible avec le mot de passe ci-dessous"
+
+msgid "Password"
+msgstr "Mot de passe"
 
 msgid "This field is required."
 msgstr "Champ requis."
@@ -584,6 +591,26 @@ msgstr "Dépublier"
 
 msgid "Are you sure you want to unpublish this page?"
 msgstr "Êtes vous sûr(e) de vouloir dépublier cette page ?"
+
+#, python-format
+msgid ""
+"\n"
+"                    This page has one subpage. Unpublish this too\n"
+"                "
+msgid_plural ""
+"\n"
+"                    This page has %(live_descendant_count)s subpages. "
+"Unpublish these too\n"
+"                "
+msgstr[0] ""
+"\n"
+"                    Cette page a une sous-page. La dépublier aussi\n"
+"                "
+msgstr[1] ""
+"\n"
+"                    Cette page a %(live_descendant_count)s sous-pages. Les "
+"dépublier aussi\n"
+"                "
 
 msgid "Yes, unpublish it"
 msgstr "Oui, la dépublier"
