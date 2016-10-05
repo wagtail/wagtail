@@ -198,6 +198,8 @@ Wagtail comes with three pre-defined image formats, but more can be defined in P
 
 For more information about image formats, including creating your own, see :ref:`rich_text_image_formats`
 
+.. _output_image_format:
+
 Output image format
 -------------------
 
@@ -217,6 +219,9 @@ For example, to make the tag always convert the image to a JPEG, use ``format-jp
     {% image page.photo width-400 format-jpeg %}
 
 You may also use ``format-png`` or ``format-gif``.
+
+
+.. _jpeg_image_quality:
 
 JPEG image quality
 ------------------

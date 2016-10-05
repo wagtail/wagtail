@@ -19,6 +19,12 @@ Wagtail now supports Elasticsearch 2. Note that you need to change backend in ``
 See: :ref:`wagtailsearch_backends_elasticsearch`
 
 
+New image tag options for file type and JPEG compression level
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+The ``{% image %}`` tag now supports extra parameters for specifying the image file type and JPEG compression level on a per-tag basis. See :ref:`output_image_format` and :ref:`jpeg_image_quality`. This feature was developed by Karl Hobley.
+
+
 AWS CloudFront support added to cache invalidation module
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 

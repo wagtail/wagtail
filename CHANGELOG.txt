@@ -5,6 +5,7 @@ Changelog
 ~~~~~~~~~~~~~~~~
 
  * Elasticsearch 2 support (Karl Hobley)
+ * Added parameters to image tag to specify file type and JPEG compression level (Karl Hobley)
  * Added support for AWS CloudFront in frontend cache invalidation module (Rob Moorman)
  * Unpublishing a page now gives the option to unpublish subpages too (Jordi Joan)
  * The ``|embed`` filter has been converted into a templatetag ``{% embed %}`` (Janneke Janssen)
