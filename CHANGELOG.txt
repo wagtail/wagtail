@@ -4,6 +4,8 @@ Changelog
 1.8 (xx.xx.xxxx) - IN DEVELOPMENT
 ~~~~~~~~~~~~~~~~
 
+* Allows to define a custom `edit_handler` on site settings (Axel Haustant)
+
 
 1.7 (xx.xx.xxxx) - IN DEVELOPMENT
 ~~~~~~~~~~~~~~~~
