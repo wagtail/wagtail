@@ -102,7 +102,17 @@ class Elasticsearch2Mapping(ElasticsearchMapping):
 
 
 class Elasticsearch2Index(ElasticsearchIndex):
-    pass
+    def add_model(self, model):
+        # Get mapping
+        mapping = self.mapping_class(model)
+
+        # Put mapping
+        self.es.indices.put_mapping(
+            # pass update_all_types=True as a workaround to avoid "Can't redefine search field" errors -
+            # see https://github.com/torchbox/wagtail/issues/2968
+            index=self.name, doc_type=mapping.get_document_type(), body=mapping.get_mapping(),
+            update_all_types=True
+        )
 
 
 class Elasticsearch2SearchQuery(ElasticsearchSearchQuery):
