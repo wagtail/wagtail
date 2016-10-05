@@ -171,6 +171,7 @@ Contributors
 * Žan Anderle
 * Mattias Loverot
 * Ricky Robinett
+* Axel Haustant
 
 Translators
 ===========
