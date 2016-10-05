@@ -30,8 +30,11 @@ def get_model_from_url_params(app_name, model_name):
 
 @lru_cache()
 def get_setting_edit_handler(model):
-    panels = extract_panel_definitions_from_model_class(model, ['site'])
-    return ObjectList(panels).bind_to_model(model)
+    if hasattr(model, 'edit_handler'):
+        return model.edit_handler.bind_to_model(model)
+    else:
+        panels = extract_panel_definitions_from_model_class(model, ['site'])
+        return ObjectList(panels).bind_to_model(model)
 
 
 def edit_current_site(request, app_name, model_name):
