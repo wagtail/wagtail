@@ -797,7 +797,7 @@ class TestDeleteFormSubmission(TestCase, WagtailTestUtils):
             args=(self.form_page.id, FormSubmission.objects.first().id)
         ))
 
-        # Check that the user recieved a 403 response
+        # Check that the user received a 403 response
         self.assertEqual(response.status_code, 403)
 
         # Check that the deletion has not happened
@@ -864,7 +864,7 @@ class TestDeleteCustomFormSubmission(TestCase):
             args=(self.form_page.id, CustomFormPageSubmission.objects.first().id)
         ))
 
-        # Check that the user recieved a 403 response
+        # Check that the user received a 403 response
         self.assertEqual(response.status_code, 403)
 
         # Check that the deletion has not happened
