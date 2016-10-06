@@ -173,6 +173,7 @@ Contributors
 * Ricky Robinett
 * Axel Haustant
 * Henk-Jan van Hasselaar
+* alexfromvl
 
 Translators
 ===========
