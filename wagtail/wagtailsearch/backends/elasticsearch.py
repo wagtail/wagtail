@@ -1,7 +1,6 @@
 from __future__ import absolute_import, unicode_literals
 
 import json
-import warnings
 
 from django.db import models
 from django.utils.crypto import get_random_string
@@ -9,7 +8,6 @@ from django.utils.six.moves.urllib.parse import urlparse
 from elasticsearch import Elasticsearch, NotFoundError
 from elasticsearch.helpers import bulk
 
-from wagtail.utils.deprecation import RemovedInWagtail18Warning
 from wagtail.wagtailsearch.backends.base import (
     BaseSearchBackend, BaseSearchQuery, BaseSearchResults)
 from wagtail.wagtailsearch.index import (
@@ -775,17 +773,6 @@ class ElasticsearchSearchBackend(BaseSearchBackend):
 
     def delete(self, obj):
         self.get_index_for_model(type(obj)).delete_item(obj)
-
-
-class ElasticSearch(ElasticsearchSearchBackend):
-    def __init__(self, params):
-        warnings.warn(
-            "The wagtail.wagtailsearch.backends.elasticsearch.ElasticSearch has "
-            "been moved to wagtail.wagtailsearch.backends.elasticsearch.ElasticsearchSearchBackend",
-            category=RemovedInWagtail18Warning, stacklevel=2
-        )
-
-        super(ElasticSearch, self).__init__(params)
 
 
 SearchBackend = ElasticsearchSearchBackend
