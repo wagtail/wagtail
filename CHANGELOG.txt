@@ -12,6 +12,7 @@ Changelog
  * Fix: Use specific page model for the parent page in the explore index (Gagaro)
  * Fix: Remove responsive styles in embed when there is no ratio available (Gagaro)
  * Fix: Parent page link in page search modal no longer disappears on hover (Dan Braghis)
+ * Fix: ModelAdmin views now consistently call `get_context_data` (Andy Babic)
 
 
 1.7 (20.10.2016)
