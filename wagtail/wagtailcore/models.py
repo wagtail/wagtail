@@ -1799,8 +1799,25 @@ class PagePermissionTester(object):
 
 
 class PageViewRestriction(models.Model):
-    page = models.ForeignKey('Page', verbose_name=_('page'), related_name='view_restrictions', on_delete=models.CASCADE)
-    password = models.CharField(verbose_name=_('password'), max_length=255)
+    NONE = 'none'
+    PASSWORD = 'password'
+    GROUPS = 'groups'
+    LOGIN = 'login'
+
+    RESTRICTION_CHOICES = (
+        (NONE, _("Public")),
+        (LOGIN, _("Private, accessible to logged-in users")),
+        (PASSWORD, _("Private, accessible with the following password")),
+        (GROUPS, _("Private, accessible to users in specific groups")),
+    )
+
+    restriction_type = models.CharField(
+        max_length=20, choices=RESTRICTION_CHOICES)
+    page = models.ForeignKey(
+        'Page', verbose_name=_('page'), related_name='view_restrictions', on_delete=models.CASCADE
+    )
+    password = models.CharField(verbose_name=_('password'), max_length=255, blank=True)
+    groups = models.ManyToManyField(Group, blank=True)
 
     class Meta:
         verbose_name = _('page view restriction')

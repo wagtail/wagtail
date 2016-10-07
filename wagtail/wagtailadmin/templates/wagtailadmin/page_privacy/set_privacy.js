@@ -5,12 +5,20 @@ function(modal) {
     });
 
     var restrictionTypePasswordField = $("input[name='restriction_type'][value='password']", modal.body);
-    var passwordField = $("#id_password", modal.body);
+    var restrictionTypeGroupsField = $("input[name='restriction_type'][value='groups']", modal.body);
+    var passwordField = $(".password-field", modal.body);
+    var groupsFields = $('#groups-fields', modal.body);
+
     function refreshFormFields() {
         if (restrictionTypePasswordField.is(':checked')) {
-            passwordField.removeAttr('disabled');
+            passwordField.show();
+            groupsFields.hide();
+        } else if (restrictionTypeGroupsField.is(':checked')){
+            passwordField.hide();
+            groupsFields.show();
         } else {
-            passwordField.attr('disabled', true);
+            passwordField.hide();
+            groupsFields.hide();
         }
     }
     refreshFormFields();

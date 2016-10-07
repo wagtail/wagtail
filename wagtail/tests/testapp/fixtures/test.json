@@ -23,7 +23,7 @@
     "model": "wagtailcore.page",
     "fields": {
         "title": "Welcome to the Wagtail test site!",
-        "numchild": 7,
+        "numchild": 9,
         "show_in_menus": false,
         "live": true,
         "depth": 2,
@@ -526,6 +526,51 @@
         "submit_time": "2014-01-01T12:00:00.000Z"
     }
 },
+{
+    "pk": 18,
+    "model": "wagtailcore.page",
+    "fields": {
+        "title": "Secret event editor plans",
+        "numchild": 0,
+        "show_in_menus": true,
+        "live": true,
+        "depth": 3,
+        "content_type": ["tests", "simplepage"],
+        "path": "000100010008",
+        "url_path": "/home/secret-event-editor-plans/",
+        "slug": "secret-event-editor-plans"
+    }
+},
+{
+    "pk": 18,
+    "model": "tests.simplepage",
+    "fields": {
+        "content": "<p>let's move Easter to Christmas</p>"
+    }
+},
+{
+    "pk": 19,
+    "model": "wagtailcore.page",
+    "fields": {
+        "title": "Secret login plans",
+        "numchild": 0,
+        "show_in_menus": true,
+        "live": true,
+        "depth": 3,
+        "content_type": ["tests", "simplepage"],
+        "path": "000100010009",
+        "url_path": "/home/secret-login-plans/",
+        "slug": "secret-login-plans"
+    }
+},
+{
+    "pk": 19,
+    "model": "tests.simplepage",
+    "fields": {
+        "content": "<p>collect logs</p>"
+    }
+},
+
 
 {
     "pk": 1,
@@ -833,7 +878,27 @@
     "model": "wagtailcore.pageviewrestriction",
     "fields": {
         "page": 11,
+        "restriction_type": "password",
         "password": "swordfish"
+    }
+},
+{
+    "pk": 2,
+    "model": "wagtailcore.pageviewrestriction",
+    "fields": {
+        "page": 18,
+        "restriction_type": "groups",
+        "groups": [
+            ["Event editors"]
+        ]
+    }
+},
+{
+    "pk": 3,
+    "model": "wagtailcore.pageviewrestriction",
+    "fields": {
+        "page": 19,
+        "restriction_type": "login"
     }
 },
 {
