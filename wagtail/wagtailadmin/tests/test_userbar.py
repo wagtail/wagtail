@@ -83,7 +83,7 @@ class TestUserbarFrontend(TestCase, WagtailTestUtils):
 
         response = self.client.get(reverse('wagtailadmin_userbar_frontend', args=(self.homepage.id, )))
 
-        # Check that the user recieved a forbidden message
+        # Check that the user received a forbidden message
         self.assertEqual(response.status_code, 403)
 
 
@@ -139,5 +139,5 @@ class TestUserbarModeration(TestCase, WagtailTestUtils):
 
         response = self.client.get(reverse('wagtailadmin_userbar_moderation', args=(self.revision.id, )))
 
-        # Check that the user recieved a forbidden message
+        # Check that the user received a forbidden message
         self.assertEqual(response.status_code, 403)

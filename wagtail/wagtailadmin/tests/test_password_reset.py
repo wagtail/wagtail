@@ -40,7 +40,7 @@ class TestUserPasswordReset(TestCase, WagtailTestUtils):
         # Get password reset page
         response = self.client.get(reverse('wagtailadmin_password_reset'))
 
-        # Check that the user recieved a 404
+        # Check that the user received a 404
         self.assertEqual(response.status_code, 404)
 
     @override_settings(ROOT_URLCONF="wagtail.wagtailadmin.urls")
