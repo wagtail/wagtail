@@ -925,16 +925,13 @@ class InspectView(InstanceSpecificView):
         return fields
 
     def get_context_data(self, **kwargs):
-        context = super(InspectView, self).get_context_data(**kwargs)
         buttons = self.button_helper.get_buttons_for_obj(
             self.instance, exclude=['inspect'])
-        context.update({
-            'view': self,
+        kwargs.update({
             'fields': self.get_fields_dict(),
             'buttons': buttons,
-            'instance': self.instance,
         })
-        return context
+        return super(InspectView, self).get_context_data(**kwargs)
 
     def get_template_names(self):
         return self.model_admin.get_inspect_template()
