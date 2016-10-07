@@ -123,3 +123,23 @@ The data model for image renditions will be changed in Wagtail 1.8 to eliminate 
     ]
 
    replacing ``myapp`` and ``CustomRendition`` with the app and model name for the custom rendition model.
+
+
+``embed`` template filter is now a template tag
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+The ``embed`` template filter, used to translate the URL of a media resource (such as a YouTube video) into a corresponding embeddable HTML fragment, has now been converted to a template tag. Any template code such as:
+
+.. code-block:: html+django
+
+    {% load wagtailembeds_tags %}
+    ...
+    {{ my_media_url|embed }}
+
+should now be rewritten as:
+
+.. code-block:: html+django
+
+    {% load wagtailembeds_tags %}
+    ...
+    {% embed my_media_url %}
