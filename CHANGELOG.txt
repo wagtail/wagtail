@@ -8,6 +8,7 @@ Changelog
  * Added `get_landing_page_template` getter method to `AbstractForm` (Gagaro)
  * Added `Page.get_admin_display_title` method to override how the title is displayed in the admin (Henk-Jan van Hasselaar)
  * Fix: `AbstractForm` now respects custom `get_template` methods on the page model (Gagaro)
+ * Fix: Use specific page model for the parent page in the explore index (Gagaro)
 
 
 1.7 (xx.xx.xxxx) - IN DEVELOPMENT

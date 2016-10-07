@@ -237,6 +237,12 @@ class TestPageExplorer(TestCase, WagtailTestUtils):
 
         self.assertContains(response, '/new-event/pointless-suffix/')
 
+    def test_parent_page_is_specific(self):
+        response = self.client.get(reverse('wagtailadmin_explore', args=(self.child_page.id, )))
+        self.assertEqual(response.status_code, 200)
+
+        self.assertIsInstance(response.context['parent_page'], SimplePage)
+
 
 class TestPageExplorerSignposting(TestCase, WagtailTestUtils):
     fixtures = ['test.json']
