@@ -89,4 +89,5 @@ def edit(request, app_name, model_name, site_pk):
         'form': form,
         'site': site,
         'site_switcher': site_switcher,
+        'tabbed': edit_handler_class.__name__ == '_TabbedInterface',
     })
