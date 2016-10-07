@@ -38,9 +38,9 @@ def explorer_nav(request):
 
 def index(request, parent_page_id=None):
     if parent_page_id:
-        parent_page = get_object_or_404(Page, id=parent_page_id)
+        parent_page = get_object_or_404(Page, id=parent_page_id).specific
     else:
-        parent_page = Page.get_first_root_node()
+        parent_page = Page.get_first_root_node().specific
 
     pages = parent_page.get_children().prefetch_related('content_type')
 
