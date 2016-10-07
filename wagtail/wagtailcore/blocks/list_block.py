@@ -147,7 +147,7 @@ class ListBlock(Block):
         children = format_html_join(
             '\n', '<li>{0}</li>',
             [
-                (self.child_block._render_with_context(child_value, context=context),)
+                (self.child_block.render(child_value, context=context),)
                 for child_value in value
             ]
         )

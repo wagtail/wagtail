@@ -39,7 +39,7 @@ then add the following to your settings::
 
     WAGTAILSEARCH_BACKENDS = {
         'default': {
-            'BACKEND': 'wagtail.wagtailsearch.backends.elasticsearch.ElasticSearch',
+            'BACKEND': 'wagtail.wagtailsearch.backends.elasticsearch',
             'INDEX': '{{ project_name }}',
         },
     }

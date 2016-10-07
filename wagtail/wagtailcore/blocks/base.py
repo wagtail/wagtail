@@ -1,9 +1,6 @@
 from __future__ import absolute_import, unicode_literals
 
 import collections
-import inspect
-import sys
-import warnings
 from importlib import import_module
 
 from django import forms
@@ -15,32 +12,12 @@ from django.utils.encoding import force_text, python_2_unicode_compatible
 from django.utils.safestring import mark_safe
 from django.utils.text import capfirst
 
-from wagtail.utils.deprecation import RemovedInWagtail18Warning
-
 # unicode_literals ensures that any render / __str__ methods returning HTML via calls to mark_safe / format_html
 # return a SafeText, not SafeBytes; necessary so that it doesn't get re-encoded when the template engine
 # calls force_text, which would cause it to lose its 'safe' flag
 
 
 __all__ = ['BaseBlock', 'Block', 'BoundBlock', 'DeclarativeSubBlocksMetaclass', 'BlockWidget', 'BlockField']
-
-
-def accepts_context(func):
-    """
-    Helper function used by _render_with_context and _render_basic_with_context. Return true
-    if the callable 'func' accepts a 'context' keyword argument
-    """
-    if sys.version_info >= (3, 3):
-        signature = inspect.signature(func)
-        try:
-            signature.bind_partial(context=None)
-            return True
-        except TypeError:
-            return False
-    else:
-        # Fall back on inspect.getargspec, available on Python 2.7 but deprecated since 3.5
-        argspec = inspect.getargspec(func)
-        return ('context' in argspec.args) or (argspec.keywords is not None)
 
 
 # =========================================
@@ -244,39 +221,6 @@ class Block(six.with_metaclass(BaseBlock, object)):
             self.TEMPLATE_VAR: value,
         }
 
-    def _render_with_context(self, value, context=None):
-        """
-        Temporary hack to accommodate Block subclasses created for Wagtail <1.6 which
-        have overridden `render` with the type signature:
-            def render(self, value)
-        and will therefore fail when passed a `context` kwarg.
-
-        In Wagtail 1.8, when support for context-less `render` methods is dropped,
-        this method will be deleted (and calls to it replaced with a direct call to `render`).
-        """
-        if accepts_context(self.render):
-            # this render method can receive a 'context' kwarg, so we're good
-            return self.render(value, context=context)
-        else:
-            # this render method needs updating for Wagtail >=1.6 -
-            # output a deprecation warning
-
-            # find the specific parent class that defines `render` by stepping through the MRO,
-            # falling back on type(self) if it can't be found for some reason
-            class_with_render_method = next(
-                (cls for cls in type(self).__mro__ if 'render' in cls.__dict__),
-                type(self)
-            )
-
-            warnings.warn(
-                "The render method on %s needs to be updated to accept an optional 'context' "
-                "keyword argument" % class_with_render_method,
-                category=RemovedInWagtail18Warning
-            )
-
-            # fall back on a call to 'render' without the context kwarg
-            return self.render(value)
-
     def render(self, value, context=None):
         """
         Return a text rendering of 'value', suitable for display on templates. By default, this will
@@ -285,7 +229,7 @@ class Block(six.with_metaclass(BaseBlock, object)):
         """
         template = getattr(self.meta, 'template', None)
         if not template:
-            return self._render_basic_with_context(value, context=context)
+            return self.render_basic(value, context=context)
 
         if context is None:
             new_context = self.get_context(value)
@@ -294,39 +238,6 @@ class Block(six.with_metaclass(BaseBlock, object)):
             new_context.update(self.get_context(value))
 
         return mark_safe(render_to_string(template, new_context))
-
-    def _render_basic_with_context(self, value, context=None):
-        """
-        Temporary hack to accommodate Block subclasses created for Wagtail <1.6 which
-        have overridden `render_basic` with the type signature:
-            def render_basic(self, value)
-        and will therefore fail when passed a `context` kwarg.
-
-        In Wagtail 1.8, when support for context-less `render_basic` methods is dropped,
-        this method will be deleted (and calls to it replaced with a direct call to `render_basic`).
-        """
-        if accepts_context(self.render_basic):
-            # this render_basic method can receive a 'context' kwarg, so we're good
-            return self.render_basic(value, context=context)
-        else:
-            # this render_basic method needs updating for Wagtail >=1.6 -
-            # output a deprecation warning
-
-            # find the specific parent class that defines `render_basic` by stepping through the MRO,
-            # falling back on type(self) if it can't be found for some reason
-            class_with_render_basic_method = next(
-                (cls for cls in type(self).__mro__ if 'render_basic' in cls.__dict__),
-                type(self)
-            )
-
-            warnings.warn(
-                "The render_basic method on %s needs to be updated to accept an optional 'context' "
-                "keyword argument" % class_with_render_basic_method,
-                category=RemovedInWagtail18Warning
-            )
-
-            # fall back on a call to 'render_basic' without the context kwarg
-            return self.render_basic(value)
 
     def render_basic(self, value, context=None):
         """
@@ -504,7 +415,7 @@ class BoundBlock(object):
         return self.block.render_form(self.value, self.prefix, errors=self.errors)
 
     def render(self, context=None):
-        return self.block._render_with_context(self.value, context=context)
+        return self.block.render(self.value, context=context)
 
     def render_as_block(self, context=None):
         """
@@ -514,7 +425,7 @@ class BoundBlock(object):
         an unrelated method that just happened to have that name - for example, when called on a
         PageChooserBlock it could end up calling page.render.
         """
-        return self.block._render_with_context(self.value, context=context)
+        return self.block.render(self.value, context=context)
 
     def id_for_label(self):
         return self.block.id_for_label(self.prefix)

@@ -5,7 +5,6 @@ import base64
 import collections
 import json
 import unittest
-import warnings
 from decimal import Decimal
 
 # non-standard import name for ugettext_lazy, to prevent strings from being picked up for translation
@@ -21,7 +20,6 @@ from django.utils.translation import ugettext_lazy as __
 
 from wagtail.tests.testapp.blocks import LinkBlock as CustomLinkBlock
 from wagtail.tests.testapp.blocks import SectionBlock
-from wagtail.utils.deprecation import RemovedInWagtail18Warning
 from wagtail.wagtailcore import blocks
 from wagtail.wagtailcore.models import Page
 from wagtail.wagtailcore.rich_text import RichText
@@ -36,24 +34,6 @@ class FooStreamBlock(blocks.StreamBlock):
         if not any(block.value == 'foo' for block in value):
             raise blocks.StreamBlockValidationError(non_block_errors=ErrorList([self.error]))
         return value
-
-
-class LegacyRenderMethodBlock(blocks.CharBlock):
-    """
-    A block with a render method that doesn't accept a 'context' kwarg.
-    Support for these will be dropped in Wagtail 1.8
-    """
-    def render(self, value):
-        return str(value).upper()
-
-
-class LegacyRenderBasicMethodBlock(blocks.CharBlock):
-    """
-    A block with a render_basic method that doesn't accept a 'context' kwarg.
-    Support for these will be dropped in Wagtail 1.8
-    """
-    def render_basic(self, value):
-        return str(value).upper()
 
 
 class TestFieldBlock(unittest.TestCase):
@@ -186,24 +166,6 @@ class TestFieldBlock(unittest.TestCase):
         block = CalenderBlock()
         self.assertIn('pretty.css', ''.join(block.all_media().render_css()))
         self.assertIn('animations.js', ''.join(block.all_media().render_js()))
-
-    def test_legacy_render_basic(self):
-        """
-        LegacyRenderBasicMethodBlock defines a render_basic method that doesn't accept
-        a 'context' kwarg. Calling 'render' should gracefully handle this and return
-        the result of calling render_basic(value) (i.e. without passing context), but
-        generate a RemovedInWagtail18Warning.
-        """
-        block = LegacyRenderBasicMethodBlock()
-
-        with warnings.catch_warnings(record=True) as ws:
-            warnings.simplefilter('always')
-
-            result = block.render('hello')
-
-        self.assertEqual(result, 'HELLO')
-        self.assertEqual(len(ws), 1)
-        self.assertIs(ws[0].category, RemovedInWagtail18Warning)
 
 
 class TestIntegerBlock(unittest.TestCase):
@@ -1255,25 +1217,6 @@ class TestListBlock(unittest.TestCase):
         self.assertIn('<h1 lang="fr">Bonjour le monde!</h1>', html)
         self.assertIn('<h1 lang="fr">Au revoir le monde!</h1>', html)
 
-    def test_child_with_legacy_render(self):
-        """
-        If the child block has a legacy 'render' method that doesn't accept a 'context'
-        kwarg, ListBlock.render should use the result of calling render(child_value), but
-        generate a RemovedInWagtail18Warning.
-        """
-        block = blocks.ListBlock(LegacyRenderBasicMethodBlock())
-
-        with warnings.catch_warnings(record=True) as ws:
-            warnings.simplefilter('always')
-
-            result = block.render(['hello', 'world'])
-
-        self.assertIn('<li>HELLO</li>', result)
-        self.assertIn('<li>WORLD</li>', result)
-        self.assertEqual(len(ws), 2)
-        self.assertIs(ws[0].category, RemovedInWagtail18Warning)
-        self.assertIs(ws[1].category, RemovedInWagtail18Warning)
-
     def render_form(self):
         class LinkBlock(blocks.StructBlock):
             title = blocks.CharBlock()
@@ -1647,39 +1590,6 @@ class TestStreamBlock(SimpleTestCase):
         # should be equivalent to block.render(value)
         html = value.render_as_block()
         self.assertIn('<div class="block-heading"><h1>Hello</h1></div>', html)
-
-    def test_render_child_with_legacy_render_method(self):
-        """
-        StreamBlock should gracefully handle child blocks with a legacy 'render'
-        method (one which doesn't accept a 'context' kwarg), but output a
-        RemovedInWagtail18Warning
-        """
-        block = blocks.StreamBlock([
-            ('heading', LegacyRenderMethodBlock()),
-            ('paragraph', blocks.CharBlock()),
-        ])
-        value = block.to_python([
-            {'type': 'heading', 'value': 'Hello'}
-        ])
-        with warnings.catch_warnings(record=True) as ws:
-            warnings.simplefilter('always')
-
-            result = block.render(value)
-
-        self.assertIn('<div class="block-heading">HELLO</div>', result)
-        self.assertEqual(len(ws), 1)
-        self.assertIs(ws[0].category, RemovedInWagtail18Warning)
-
-        # calling render_as_block() on value (a StreamValue instance)
-        # should be equivalent to block.render(value)
-        with warnings.catch_warnings(record=True) as ws:
-            warnings.simplefilter('always')
-
-            result = value.render_as_block()
-
-        self.assertIn('<div class="block-heading">HELLO</div>', result)
-        self.assertEqual(len(ws), 1)
-        self.assertIs(ws[0].category, RemovedInWagtail18Warning)
 
     def test_render_passes_context_to_children(self):
         block = blocks.StreamBlock([
