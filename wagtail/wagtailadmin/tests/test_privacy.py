@@ -26,7 +26,9 @@ class TestSetPrivacyView(TestCase, WagtailTestUtils):
             content="hello",
             live=True,
         ))
-        PageViewRestriction.objects.create(page=self.private_page, password='password123')
+        PageViewRestriction.objects.create(
+            page=self.private_page, restriction_type='password', password='password123'
+        )
 
         self.private_child_page = self.private_page.add_child(instance=SimplePage(
             title="Private child page",
