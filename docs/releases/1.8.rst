@@ -24,6 +24,7 @@ Bug fixes
 
  * ``AbstractForm`` now respects custom ``get_template`` methods on the page model (Gagaro)
  * Use specific page model for the parent page in the explore index (Gagaro)
+ * Remove responsive styles in embed when there is no ratio available (Gagaro)
 
 
 Upgrade considerations
