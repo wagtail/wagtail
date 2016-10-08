@@ -4,6 +4,7 @@ Changelog
 1.8 (xx.xx.xxxx) - IN DEVELOPMENT
 ~~~~~~~~~~~~~~~~
 
+ * Fix: remove responsive behavior in embed when there is no ratio available (Gagaro)
 
 1.7 (xx.xx.xxxx) - IN DEVELOPMENT
 ~~~~~~~~~~~~~~~~

@@ -1,3 +1,3 @@
-<div style="padding-bottom: {{ ratio }};" class="responsive-object">
+<div{% if ratio is not None %} style="padding-bottom: {{ ratio }};" class="responsive-object"{% endif %}>
     {{ embed.html|safe }}
 </div>
