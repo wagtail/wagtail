@@ -881,3 +881,20 @@ class UserProfile(models.Model):
     # Wagtail's schema must be able to coexist alongside a custom UserProfile model
     user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     favourite_colour = models.CharField(max_length=255)
+
+
+class PanelSettings(TestSetting):
+    panels = [
+        FieldPanel('title')
+    ]
+
+
+class TabbedSettings(TestSetting):
+    edit_handler = TabbedInterface([
+        ObjectList([
+            FieldPanel('title')
+        ], heading='First tab'),
+        ObjectList([
+            FieldPanel('email')
+        ], heading='Second tab'),
+    ])
