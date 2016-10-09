@@ -31,12 +31,15 @@ class TestIndexView(TestCase, WagtailTestUtils):
     def test_tr_attributes(self):
         response = self.get()
 
-        # Charlie & The Chocolate factory should be 1st book in the list (odd)
-        # `data-author_yob` should be added, the 'book' class should appear
-        # as well add 'odd', and `data-object_pk` should be set also.
+        # Charlie & The Chocolate factory should be in the list with the
+        # `data-author_yob` and `data-object_pk` attributes added
         self.assertContains(response, 'data-author_yob="1916"')
         self.assertContains(response, 'data-object_pk="3"')
-        self.assertContains(response, 'class="book odd"')
+
+        # There should be two odd rows and two even ones, and 'book' should be
+        # add to the `class` attribute for every one.
+        self.assertContains(response, 'class="book odd"', count=2)
+        self.assertContains(response, 'class="book even"', count=2)
 
     def test_filter(self):
         # Filter by author 1 (JRR Tolkien)
