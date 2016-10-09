@@ -158,7 +158,11 @@ def result_row_display(context, index):
     view = context['view']
     row_attrs_dict = view.model_admin.get_extra_attrs_for_row(obj, context)
     row_attrs_dict['data-object_pk'] = obj.pk
-    row_attrs_dict['class'] = 'odd' if (index % 2 == 0) else 'even'
+    odd_or_even = 'odd' if (index % 2 == 0) else 'even'
+    if 'class' in row_attrs_dict:
+        row_attrs_dict['class'] += ' %s' % odd_or_even
+    else:
+        row_attrs_dict['class'] = odd_or_even
     row_attrs = ''.join(
         ' %s="%s"' % (key, val) for key, val in row_attrs_dict.items())
     context.update({
