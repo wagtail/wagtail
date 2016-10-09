@@ -156,8 +156,14 @@ def admin_list_filter(view, spec):
 def result_row_display(context, index):
     obj = context['object_list'][index]
     view = context['view']
+    row_attrs_dict = view.model_admin.get_extra_attrs_for_row(obj, context)
+    row_attrs_dict['data-object_pk'] = obj.pk
+    row_attrs_dict['class'] = 'odd' if (index % 2 == 0) else 'even'
+    row_attrs = ''.join(
+        ' %s="%s"' % (key, val) for key, val in row_attrs_dict.items())
     context.update({
         'obj': obj,
+        'row_attrs': mark_safe(row_attrs),
         'action_buttons': view.get_buttons_for_obj(obj),
     })
     return context

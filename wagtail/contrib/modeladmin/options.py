@@ -259,6 +259,14 @@ class ModelAdmin(WagtailRegisterable):
         """
         return self.search_fields or ()
 
+    def get_extra_attrs_for_row(self, obj, context):
+        """
+        Return a dictionary of HTML attributes to be added to the `<tr>`
+        element for the suppled `obj` when rendering the results table in
+        `index_view`. `data-object-pk` is already added by default.
+        """
+        return {}
+
     def get_extra_class_names_for_field_col(self, obj, field_name):
         """
         Return a list of additional CSS class names to be added to the table
