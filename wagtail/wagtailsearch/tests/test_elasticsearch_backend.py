@@ -6,7 +6,6 @@ import json
 import os
 import time
 import unittest
-import warnings
 
 import mock
 from django.core import management
@@ -16,7 +15,6 @@ from django.utils.six import StringIO
 from elasticsearch.serializer import JSONSerializer
 
 from wagtail.tests.search import models
-from wagtail.utils.deprecation import RemovedInWagtail18Warning
 from wagtail.wagtailsearch.backends import get_search_backend
 from wagtail.wagtailsearch.backends.elasticsearch import ElasticsearchSearchBackend
 
@@ -1095,16 +1093,3 @@ class TestAtomicRebuilder(TestCase):
 
         # Index should be gone
         self.assertFalse(self.es.indices.exists(current_index_name))
-
-
-class TestOldNameDeprecationWarning(TestCase):
-    def test_old_name_deprecation(self):
-        from wagtail.wagtailsearch.backends.elasticsearch import ElasticSearch
-
-        with warnings.catch_warnings(record=True) as w:
-            warnings.simplefilter('always')
-
-            ElasticSearch({})
-
-        self.assertEqual(len(w), 1)
-        self.assertIs(w[0].category, RemovedInWagtail18Warning)

@@ -2,7 +2,6 @@ from __future__ import absolute_import, unicode_literals
 
 import time
 import unittest
-import warnings
 
 from django.conf import settings
 from django.core import management
@@ -12,7 +11,6 @@ from django.utils.six import StringIO
 
 from wagtail.tests.search import models
 from wagtail.tests.utils import WagtailTestUtils
-from wagtail.utils.deprecation import RemovedInWagtail18Warning
 from wagtail.wagtailsearch.backends import (
     InvalidSearchBackendError, get_search_backend, get_search_backends)
 from wagtail.wagtailsearch.backends.base import FieldError
@@ -202,23 +200,6 @@ class TestBackendLoader(TestCase):
     def test_import_by_full_path(self):
         db = get_search_backend(backend='wagtail.wagtailsearch.backends.db.DatabaseSearchBackend')
         self.assertIsInstance(db, DatabaseSearchBackend)
-
-    def test_import_old_name(self):
-        with warnings.catch_warnings(record=True) as w:
-            warnings.simplefilter('always')
-
-            db = get_search_backend(backend='wagtail.wagtailsearch.backends.db.DBSearch')
-
-        self.assertIsInstance(db, DatabaseSearchBackend)
-
-        self.assertEqual(len(w), 1)
-        self.assertIs(w[0].category, RemovedInWagtail18Warning)
-        self.assertEqual(
-            str(w[0].message),
-            "The 'wagtail.wagtailsearch.backends.db.DBSearch' search backend path has "
-            "changed to 'wagtail.wagtailsearch.backends.db'. Please update the "
-            "WAGTAILSEARCH_BACKENDS setting to use the new path."
-        )
 
     def test_nonexistent_backend_import(self):
         self.assertRaises(
