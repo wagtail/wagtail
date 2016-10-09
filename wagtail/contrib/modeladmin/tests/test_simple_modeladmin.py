@@ -28,6 +28,17 @@ class TestIndexView(TestCase, WagtailTestUtils):
         # User has add permission
         self.assertEqual(response.context['user_can_create'], True)
 
+    def test_tr_attributes(self):
+        response = self.get()
+        # The Chonicles of Narnia should be first
+        self.assertContains(
+            response,
+            '<tr data-author-yob="1898" class="odd" data-object_pk="4">')
+        # Charlie & The Chocolate factory should be 2nd
+        self.assertContains(
+            response,
+            '<tr data-author-yob="1916" class="even" data-object_pk="3">')
+
     def test_filter(self):
         # Filter by author 1 (JRR Tolkien)
         response = self.get(author__id__exact=1)

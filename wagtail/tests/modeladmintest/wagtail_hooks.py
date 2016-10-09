@@ -25,6 +25,11 @@ class BookModelAdmin(ModelAdmin):
     inspect_view_enabled = True
     inspect_view_fields_exclude = ('title', )
 
+    def get_extra_attrs_for_row(self, obj, context):
+        return {
+            'data-author-yob': obj.author.date_of_birth.year
+        }
+
 
 class TokenModelAdmin(ModelAdmin):
     model = Token
