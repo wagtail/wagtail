@@ -28,6 +28,19 @@ class TestIndexView(TestCase, WagtailTestUtils):
         # User has add permission
         self.assertEqual(response.context['user_can_create'], True)
 
+    def test_tr_attributes(self):
+        response = self.get()
+
+        # Charlie & The Chocolate factory should be in the list with the
+        # `data-author_yob` and `data-object_pk` attributes added
+        self.assertContains(response, 'data-author-yob="1916"')
+        self.assertContains(response, 'data-object-pk="3"')
+
+        # There should be two odd rows and two even ones, and 'book' should be
+        # add to the `class` attribute for every one.
+        self.assertContains(response, 'class="book odd"', count=2)
+        self.assertContains(response, 'class="book even"', count=2)
+
     def test_filter(self):
         # Filter by author 1 (JRR Tolkien)
         response = self.get(author__id__exact=1)

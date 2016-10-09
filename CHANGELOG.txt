@@ -7,6 +7,7 @@ Changelog
  * Added support of a custom `edit_handler` in site settings (Axel Haustant)
  * Added `get_landing_page_template` getter method to `AbstractForm` (Gagaro)
  * Added `Page.get_admin_display_title` method to override how the title is displayed in the admin (Henk-Jan van Hasselaar)
+ * Added support for specifying custom HTML attributes for table rows on ModelAdmin index pages (Andy Babic)
  * Fix: `AbstractForm` now respects custom `get_template` methods on the page model (Gagaro)
  * Fix: Use specific page model for the parent page in the explore index (Gagaro)
  * Fix: Remove responsive styles in embed when there is no ratio available (Gagaro)

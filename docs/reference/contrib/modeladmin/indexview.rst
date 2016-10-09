@@ -362,6 +362,50 @@ For example:
             return qs.filter(managed_by=request.user)
 
 
+.. _modeladmin_get_extra_attrs_for_row:
+
+----------------------------------------------------
+``ModelAdmin.get_extra_attrs_for_row()``
+----------------------------------------------------
+
+**Must return**: A dictionary
+
+The `get_extra_attrs_for_row` method allows you to add html attributes to
+the opening `<tr>` tag for each result, in addition to the `data-object_pk` and
+`class` attributes already added by the `result_row_display` tag.
+
+If you want to add additional CSS classes, simply provide those class names 
+as a string value using the `class` key, and the `odd`/`even` will be appended
+to your custom class names when rendering.
+
+For example, if you wanted to add some additional class names based on field
+values, you could do something like:
+
+.. code-block:: python
+
+    from decimal import Decimal
+    from django.db import models
+    from wagtail.contrib.modeladmin.options import ModelAdmin
+
+    class BankAccount(models.Model):
+        name = models.CharField(max_length=50)
+        account_number = models.CharField(max_length=50)
+        balance = models.DecimalField(max_digits=5, num_places=2)
+
+
+    class BankAccountAdmin(ModelAdmin):
+        list_display = ('name', 'account_number', 'balance')
+
+        def get_extra_attrs_for_row(self, obj, context):
+            if obj.balance < Decimal('0.00'):
+                classname = 'balance-negative'
+            else:
+                classname = 'balance-positive'
+            return {
+                'class': classname,
+            }
+
+
 .. _modeladmin_get_extra_class_names_for_field_col:
 
 ----------------------------------------------------

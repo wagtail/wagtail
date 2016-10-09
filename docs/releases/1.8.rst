@@ -17,6 +17,7 @@ Minor features
  * Added support of a custom ``edit_handler`` for site settings. See :ref:`docs for the site settings module <edit_handlers_settings>`. (Axel Haustant)
  * Added ``get_landing_page_template`` getter method to ``AbstractForm`` (Gagaro)
  * Added ``Page.get_admin_display_title`` method to override how the title is displayed in the admin (Henk-Jan van Hasselaar)
+ * Added support for specifying custom HTML attributes for table rows on ModelAdmin index pages. See :ref:`modeladmin_get_extra_attrs_for_row` (Andy Babic)
 
 
 Bug fixes
