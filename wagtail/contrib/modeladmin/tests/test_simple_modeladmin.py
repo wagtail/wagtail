@@ -30,14 +30,16 @@ class TestIndexView(TestCase, WagtailTestUtils):
 
     def test_tr_attributes(self):
         response = self.get()
-        # The Chonicles of Narnia should be first
+
+        # Charlie & The Chocolate factory should be 1st
         self.assertContains(
             response,
-            '<tr data-author-yob="1898" class="odd" data-object_pk="4">')
-        # Charlie & The Chocolate factory should be 2nd
+            '<tr data-author-yob="1916" class="odd" data-object_pk="3">')
+
+        # The Chonicles of Narnia should be 2nd
         self.assertContains(
             response,
-            '<tr data-author-yob="1916" class="even" data-object_pk="3">')
+            '<tr data-author-yob="1898" class="even" data-object_pk="4">')
 
     def test_filter(self):
         # Filter by author 1 (JRR Tolkien)
