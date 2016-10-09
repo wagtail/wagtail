@@ -28,7 +28,8 @@ class BookModelAdmin(ModelAdmin):
 
     def get_extra_attrs_for_row(self, obj, context):
         return {
-            'data-author-yob': obj.author.date_of_birth.year
+            'data-author_yob': obj.author.date_of_birth.year,
+            'class': 'book',
         }
 
 
