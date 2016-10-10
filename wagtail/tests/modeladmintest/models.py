@@ -3,6 +3,7 @@ from __future__ import absolute_import, unicode_literals
 from django.db import models
 from django.utils.encoding import python_2_unicode_compatible
 
+from wagtail.wagtailcore.models import Orderable
 from wagtail.wagtailsearch import index
 
 
@@ -16,7 +17,7 @@ class Author(models.Model):
 
 
 @python_2_unicode_compatible
-class Book(models.Model, index.Indexed):
+class Book(Orderable, index.Indexed):
     author = models.ForeignKey(Author, on_delete=models.PROTECT)
     title = models.CharField(max_length=255)
 
