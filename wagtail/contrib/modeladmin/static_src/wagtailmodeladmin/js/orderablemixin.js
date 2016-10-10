@@ -3,9 +3,6 @@ $(function() {
     var listing_tbody = $('.listing tbody');
     var listing_thead = $('.listing thead');
     var sorted_cols = listing_thead.find('th.sorted');
-    $('ul.actions').each(function(){
-        $(this).closest('td').addClass('has-buttons')
-    });
     order_header.find('a').addClass('text-replace icon-order').removeClass('icon-arrow-down-after icon-arrow-up-after');
 
     if(sorted_cols.length == 1 && order_header.hasClass('sorted') && order_header.hasClass('ascending')){
@@ -27,7 +24,7 @@ $(function() {
                 // Work out what page moved and where it moved to
                 var movedElement = $(ui.item[0]);
                 var movedElementOrderTD = movedElement.find('td.field-index_order');
-                var movedObjectId = movedElementOrderTD.data('obj_pk');
+                var movedObjectId = movedElementOrderTD.data('obj-pk');
                 var newPosition = $(movedElement).prevAll().length + 1;
 
                 // Build url
@@ -35,7 +32,7 @@ $(function() {
     
                 // Post
                 $.get(url, function(){
-                    addMessage('success', '"' + movedElementOrderTD.data('obj_title') + '" has been moved successfully.')
+                    addMessage('success', '"' + movedElementOrderTD.data('obj-title') + '" has been moved successfully.')
                 })
 
                 listing_tbody.find('tr:nth-child(odd)').removeClass('even').addClass('odd');

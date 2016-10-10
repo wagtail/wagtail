@@ -1,14 +1,17 @@
 .listing {
-    color: #666666;
+    color: #666;
 }
 
 .result-list {
 
-    tbody { overflow: auto; }
+    tbody { 
+        overflow: auto;
+    }
 
     tr.odd { 
         background-color: #f2f2f2; 
     }
+
     tr.odd:hover {
         background-color: #f4f4f4;
     }
@@ -16,23 +19,20 @@
     tr.even {
         background-color: #fafafa;
     }
+
     tr.even:hover {
         background-color: #fcfcfc;
     }
 
-    tr > td { background-color: inherit; }
+    tr > td { 
+        background-color: inherit;
+    }
 
     tr.ui-sortable-helper {
         background-color: #ffffff;
 
-        .field-admin_thumb,
-        .field-index_order,
-        .has-buttons {
+        .visible-on-drag {
             display: table-cell;
         }
     }
-}
-
-th.column-index_order, td.field-index_order {
-    width: 20px;
 }
