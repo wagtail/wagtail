@@ -1,22 +1,22 @@
 from __future__ import absolute_import, unicode_literals
 
+import warnings
+
 from django.conf.urls import url
 from django.contrib.auth.models import Permission
 from django.core.exceptions import ImproperlyConfigured
 from django.db.models import Model
-from django.forms.widgets import flatatt
 from django.utils.safestring import mark_safe
-from django.utils.translation import ugettext_lazy as _
 
+from wagtail.utils.deprecation import RemovedInWagtail19Warning
 from wagtail.wagtailcore import hooks
 from wagtail.wagtailcore.models import Page
-from wagtail.wagtailimages.models import Filter
 
 from .helpers import (
     AdminURLHelper, ButtonHelper, PageAdminURLHelper, PageButtonHelper, PagePermissionHelper,
     PermissionHelper)
 from .menus import GroupMenuItem, ModelAdminMenuItem, SubMenu
-from .mixins import ThumbnailMixin, OrderableMixin
+from .mixins import ThumbnailMixin as _ThumbnailMixin
 from .views import ChooseParentView, CreateView, DeleteView, EditView, IndexView, InspectView
 
 
@@ -557,3 +557,11 @@ def modeladmin_register(modeladmin_class):
     """
     instance = modeladmin_class()
     instance.register_with_wagtail()
+
+
+class ThumbnailMixin(_ThumbnailMixin):
+    def __init__(self, *args, **kwargs):
+        warnings.warn((
+            "`ThumbnailMixin` has moved to `wagtail.contrib.modeladmin.mixins`"
+            "."), RemovedInWagtail19Warning)
+        super(ThumbnailMixin, self).__init__(*args, **kwargs)
