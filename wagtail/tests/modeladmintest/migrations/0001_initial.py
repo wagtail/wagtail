@@ -32,7 +32,8 @@ class Migration(migrations.Migration):
                 ('author', models.ForeignKey(on_delete=django.db.models.deletion.PROTECT, to='modeladmintest.Author')),
             ],
             options={
-                'ordering': ('sort_order',),
+                'ordering': ['sort_order'],
+                'abstract': False,
             },
             bases=(models.Model, wagtail.wagtailsearch.index.Indexed),
         ),
