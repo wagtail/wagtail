@@ -31,6 +31,9 @@ class Migration(migrations.Migration):
                 ('title', models.CharField(max_length=255)),
                 ('author', models.ForeignKey(on_delete=django.db.models.deletion.PROTECT, to='modeladmintest.Author')),
             ],
+            options={
+                'ordering': ('sort_order',),
+            },
             bases=(models.Model, wagtail.wagtailsearch.index.Indexed),
         ),
     ]
