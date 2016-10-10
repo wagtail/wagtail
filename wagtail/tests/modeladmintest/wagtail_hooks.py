@@ -1,7 +1,8 @@
 from __future__ import absolute_import, unicode_literals
 
-from wagtail.contrib.modeladmin.options import ModelAdmin, ModelAdminGroup, modeladmin_register
 from wagtail.contrib.modeladmin.mixins import OrderableMixin, ThumbnailMixin
+from wagtail.contrib.modeladmin.options import ModelAdmin, ModelAdminGroup, modeladmin_register
+
 from wagtail.tests.testapp.models import BusinessChild, EventPage, SingleEventPage
 
 from .models import Author, Book, Token
