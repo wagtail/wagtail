@@ -210,7 +210,6 @@ class InstanceSpecificView(WMABaseView):
 
 class IndexView(WMABaseView):
 
-    # IndexView settings
     ORDER_VAR = 'o'
     ORDER_TYPE_VAR = 'ot'
     PAGE_VAR = 'p'
