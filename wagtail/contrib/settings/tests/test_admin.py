@@ -11,7 +11,6 @@ from wagtail.contrib.settings.views import get_setting_edit_handler
 from wagtail.tests.testapp.models import FileUploadSetting, IconSetting, TestSetting
 from wagtail.tests.testapp.models import PanelSettings, TabbedSettings
 from wagtail.tests.utils import WagtailTestUtils
-from wagtail.wagtailadmin.edit_handlers import FieldPanel, ObjectList, TabbedInterface
 from wagtail.wagtailcore import hooks
 from wagtail.wagtailcore.models import Page, Site
 
