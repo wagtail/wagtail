@@ -1,13 +1,13 @@
 from __future__ import absolute_import, unicode_literals
 
 from wagtail.contrib.modeladmin.options import ModelAdmin, ModelAdminGroup, modeladmin_register
-from wagtail.contrib.modeladmin.mixins import OrderableMixin
+from wagtail.contrib.modeladmin.mixins import OrderableMixin, ThumbnailMixin
 from wagtail.tests.testapp.models import BusinessChild, EventPage, SingleEventPage
 
 from .models import Author, Book, Token
 
 
-class AuthorModelAdmin(ModelAdmin):
+class AuthorModelAdmin(ThumbnailMixin, ModelAdmin):
     model = Author
     menu_order = 200
     list_display = ('name', 'date_of_birth')
