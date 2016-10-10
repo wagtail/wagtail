@@ -9,6 +9,7 @@ from django.shortcuts import get_object_or_404
 from django.utils.safestring import mark_safe
 from django.utils.translation import ugettext_lazy as _
 
+from wagtail.wagtailcore.models import Orderable
 from wagtail.wagtailimages.models import Filter
 
 
@@ -56,6 +57,19 @@ class OrderableMixin(object):
     view when the model extends the `wagtail.wagtailcore.models.Orderable`
     abstract model class.
     """
+
+    def __init__(self, parent=None):
+        super(OrderableMixin, self).__init__(parent)
+        """
+        Don't allow initialisation unless self.model subclasses
+        `wagtail.wagtailcore.models.Orderable`
+        """
+        if not issubclass(self.model, Orderable):
+            raise ImproperlyConfigured(
+                u"You are using `OrderableMixin` for you '%s' class, but the "
+                "specified model is not a sub-class of "
+                "`wagtail.wagtailcore.models.Orderable`." %
+                self.__class__.__name__)
 
     def get_list_display(self, request):
         """
