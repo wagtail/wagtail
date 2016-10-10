@@ -16,6 +16,7 @@ from .helpers import (
     AdminURLHelper, ButtonHelper, PageAdminURLHelper, PageButtonHelper, PagePermissionHelper,
     PermissionHelper)
 from .menus import GroupMenuItem, ModelAdminMenuItem, SubMenu
+from .mixins import ThumbnailMixin, OrderableMixin
 from .views import ChooseParentView, CreateView, DeleteView, EditView, IndexView, InspectView
 
 
@@ -44,44 +45,6 @@ class WagtailRegisterable(object):
         @hooks.register(menu_hook)
         def register_admin_menu_item():
             return self.get_menu_item()
-
-
-class ThumbnailMixin(object):
-    """
-    Mixin class to help display thumbnail images in ModelAdmin listing results.
-    `thumb_image_field_name` must be overridden to name a ForeignKey field on
-    your model, linking to `wagtailimages.Image`.
-    """
-    thumb_image_field_name = 'image'
-    thumb_image_filter_spec = 'fill-100x100'
-    thumb_image_width = 50
-    thumb_classname = 'admin-thumb'
-    thumb_col_header_text = _('image')
-    thumb_default = None
-
-    def admin_thumb(self, obj):
-        try:
-            image = getattr(obj, self.thumb_image_field_name, None)
-        except AttributeError:
-            raise ImproperlyConfigured(
-                u"The `thumb_image_field_name` attribute on your `%s` class "
-                "must name a field on your model." % self.__class__.__name__
-            )
-
-        img_attrs = {
-            'src': self.thumb_default,
-            'width': self.thumb_image_width,
-            'class': self.thumb_classname,
-        }
-        if image:
-            fltr, _ = Filter.objects.get_or_create(
-                spec=self.thumb_image_filter_spec)
-            img_attrs.update({'src': image.get_rendition(fltr).url})
-            return mark_safe('<img{}>'.format(flatatt(img_attrs)))
-        elif self.thumb_default:
-            return mark_safe('<img{}>'.format(flatatt(img_attrs)))
-        return ''
-    admin_thumb.short_description = thumb_col_header_text
 
 
 class ModelAdmin(WagtailRegisterable):
