@@ -57,7 +57,6 @@ class OrderableMixin(object):
     view when the model extends the `wagtail.wagtailcore.models.Orderable`
     abstract model class.
     """
-
     def __init__(self, parent=None):
         super(OrderableMixin, self).__init__(parent)
         """
@@ -72,9 +71,7 @@ class OrderableMixin(object):
                 self.__class__.__name__)
 
     def get_list_display(self, request):
-        """
-        Always add `index_order` as the first column in results
-        """
+        """Add `index_order` as the first column in results"""
         list_display = super(OrderableMixin, self).get_list_display(request)
         if self.permission_helper.user_can_edit_obj(request.user, None):
             if type(list_display) is list:
@@ -102,20 +99,28 @@ class OrderableMixin(object):
         up via JS. The PK isn't present elsewhere (yet!), and the title is
         used for adding success messages on completion.
         """
-        col_attrs = super(OrderableMixin, self).get_extra_attrs_for_field_col(
+        attrs = super(OrderableMixin, self).get_extra_attrs_for_field_col(
             obj, field_name)
         if field_name == 'index_order':
-            col_attrs.update({
-                'data-obj_pk': obj.pk,
-                'data-obj_title': obj.__str__(),
+            attrs.update({
+                'data-obj-pk': obj.pk,
+                'data-obj-title': obj.__str__(),
+                'width': 20,
             })
-        return col_attrs
+        return attrs
+
+    def get_extra_class_names_for_field_col(self, field_name, obj):
+        """
+        Add the `visible-on-drag` class to certain columns
+        """
+        if field_name in ('index_order', self.list_display[0], 'admin_thumb',
+                          self.list_display_add_buttons or ''):
+            return ['visible-on-drag']
+        return super(OrderableMixin, self).get_extra_class_names_for_field_col(
+            field_name, obj)
 
     def index_order(self, obj):
-        """
-        The content for the `index_order` column is just a grip handle for
-        dragging each row.
-        """
+        """Content for the `index_order` column"""
         return mark_safe(
             '<div class="handle icon icon-grip text-replace" '
             'aria-hidden="true">Drag</div>'
@@ -159,9 +164,6 @@ class OrderableMixin(object):
         return js
 
     def get_admin_urls_for_registration(self):
-        """
-        Register an additional URL for the `reorder_view` view
-        """
         urls = super(OrderableMixin, self).get_admin_urls_for_registration()
         urls += (
             url(
