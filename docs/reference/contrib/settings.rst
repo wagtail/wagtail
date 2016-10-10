@@ -38,6 +38,8 @@ Create a model that inherits from ``BaseSetting``, and register it using the ``r
 
 A 'Social media settings' link will appear in the Wagtail admin 'Settings' menu.
 
+.. _edit_handlers_settings:
+
 Edit handlers
 -------------
 
