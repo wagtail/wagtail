@@ -33,8 +33,8 @@ class TestIndexView(TestCase, WagtailTestUtils):
 
         # Charlie & The Chocolate factory should be in the list with the
         # `data-author_yob` and `data-object_pk` attributes added
-        self.assertContains(response, 'data-author_yob="1916"')
-        self.assertContains(response, 'data-object_pk="3"')
+        self.assertContains(response, 'data-author-yob="1916"')
+        self.assertContains(response, 'data-object-pk="3"')
 
         # There should be two odd rows and two even ones, and 'book' should be
         # add to the `class` attribute for every one.

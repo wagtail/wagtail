@@ -157,7 +157,7 @@ def result_row_display(context, index):
     obj = context['object_list'][index]
     view = context['view']
     row_attrs_dict = view.model_admin.get_extra_attrs_for_row(obj, context)
-    row_attrs_dict['data-object_pk'] = obj.pk
+    row_attrs_dict['data-object-pk'] = obj.pk
     odd_or_even = 'odd' if (index % 2 == 0) else 'even'
     if 'class' in row_attrs_dict:
         row_attrs_dict['class'] += ' %s' % odd_or_even
