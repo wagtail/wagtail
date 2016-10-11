@@ -5,8 +5,10 @@ from django.contrib.auth.models import Permission
 from django.contrib.staticfiles.templatetags.staticfiles import static
 from django.core.urlresolvers import reverse
 from django.utils.translation import ugettext_lazy as _
+
 from wagtail.wagtailadmin.menu import MenuItem, SubmenuMenuItem, settings_menu
 from wagtail.wagtailadmin.search import SearchArea
+from wagtail.wagtailadmin.utils import user_has_any_page_permission
 from wagtail.wagtailadmin.widgets import Button, ButtonWithDropdownFromHook, PageListingButton
 from wagtail.wagtailcore import hooks
 from wagtail.wagtailcore.permissions import collection_permission_policy
@@ -16,6 +18,9 @@ class ExplorerMenuItem(MenuItem):
     @property
     def media(self):
         return forms.Media(js=[static('wagtailadmin/js/explorer-menu.js')])
+
+    def is_shown(self, request):
+        return user_has_any_page_permission(request.user)
 
 
 @hooks.register('register_admin_menu_item')
@@ -43,13 +48,21 @@ def register_permissions():
     return Permission.objects.filter(content_type__app_label='wagtailadmin', codename='access_admin')
 
 
+class PageSearchArea(SearchArea):
+    def __init__(self):
+        super(PageSearchArea, self).__init__(
+            _('Pages'), reverse('wagtailadmin_pages:search'),
+            name='pages',
+            classnames='icon icon-folder-open-inverse',
+            order=100)
+
+    def is_shown(self, request):
+        return user_has_any_page_permission(request.user)
+
+
 @hooks.register('register_admin_search_area')
 def register_pages_search_area():
-    return SearchArea(
-        _('Pages'), reverse('wagtailadmin_pages:search'),
-        name='pages',
-        classnames='icon icon-folder-open-inverse',
-        order=100)
+    return PageSearchArea()
 
 
 class CollectionsMenuItem(MenuItem):

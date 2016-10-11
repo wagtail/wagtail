@@ -234,3 +234,27 @@ def send_notification(page_revision_id, notification, excluded_user_id):
             )
 
     return sent_count == len(email_recipients)
+
+
+def user_has_any_page_permission(user):
+    """
+    Check if a user has any permission to add, edit, or otherwise manage any
+    page.
+    """
+    # Can't do nothin if you're not active.
+    if not user.is_active:
+        return False
+
+    # Superusers can do anything.
+    if user.is_superuser:
+        return True
+
+    # At least one of the users groups has a GroupPagePermission.
+    # The user can probably do something.
+    if GroupPagePermission.objects.filter(group__in=user.groups.all()).exists():
+        return True
+
+    # Specific permissions for a page type do not mean anything.
+
+    # No luck! This user can not do anything with pages.
+    return False
