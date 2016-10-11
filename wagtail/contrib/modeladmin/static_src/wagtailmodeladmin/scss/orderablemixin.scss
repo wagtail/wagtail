@@ -8,20 +8,14 @@
         overflow: auto;
     }
 
-    tr {
-        transition: background-color 0.2s ease;
-
-        > td { 
-            background-color: inherit;
-        }
-    } 
+    
 
     tr.odd { 
         background-color: #f2f2f2; 
     }
 
     tr.odd:hover {
-        background-color: #f4f4f4;
+        background-color: #f5f5f5;
     }
 
     tr.even {
@@ -29,14 +23,14 @@
     }
 
     tr.even:hover {
-        background-color: #fcfcfc;
+        background-color: #fdfdfd;
     }
 
-    tr.ui-sortable-helper {
-        background-color: #fff;
+    tr > td { 
+        background-color: inherit;
+    } 
 
-        .visible-on-drag {
-            display: table-cell;
-        }
+    tr.ui-sortable-helper .visible-on-drag {
+        display: table-cell;
     }
 }
