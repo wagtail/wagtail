@@ -274,6 +274,7 @@ Contributors
 * Dário Marcelino
 * Dave Bell
 * Ben Weatherman
+* Carlo Ascani
 
 Translators
 ===========

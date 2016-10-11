@@ -15,6 +15,7 @@ Other features
 ~~~~~~~~~~~~~~
 
 * Persist tab hash in URL to allow direct navigation to tabs in the admin interface (Ben Weatherman)
+* Animate the chevron icon when opening sub-menus in the admin (Carlo Ascani)
 
 Bug fixes
 ~~~~~~~~~

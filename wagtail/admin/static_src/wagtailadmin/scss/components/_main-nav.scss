@@ -121,6 +121,20 @@ $footer-submenu: $submenu-color;
     }
 }
 
+.submenu-trigger:after {
+    @include medium {
+        // The menus are collapsible on desktop only.
+        content: map-get($icons, arrow-right);
+        width: auto;
+        @include transition(transform 0.3s ease);
+
+        .submenu-active > & {
+            transform-origin: 50% 50%;
+            transform: rotate(180deg);
+        }
+    }
+}
+
 .nav-submenu {
     background: $submenu-color;
 
@@ -335,10 +349,6 @@ body.explorer-open {
                     right: 0.25em;
                 }
             }
-        }
-
-        a.submenu-trigger:after {
-            content: 'n';
         }
     }
 
