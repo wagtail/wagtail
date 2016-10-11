@@ -391,8 +391,8 @@ class BaseGroupCollectionMemberPermissionFormSet(forms.BaseFormSet):
 
         for collection, collection_permissions in groupby(
             instance.collection_permissions.filter(
-                permission__in=self.permission_queryset,
-            ).order_by('collection'),
+                permission__in=self.permission_queryset
+            ).select_related('permission__content_type', 'collection').order_by('collection'),
             lambda cp: cp.collection
         ):
             initial_data.append({
@@ -487,7 +487,7 @@ def collection_member_permission_formset_factory(
     permission_queryset = Permission.objects.filter(
         content_type__app_label=model._meta.app_label,
         codename__in=[codename for codename, short_label, long_label in permission_types]
-    )
+    ).select_related('content_type')
 
     if default_prefix is None:
         default_prefix = '%s_permissions' % model._meta.model_name
@@ -499,7 +499,7 @@ def collection_member_permission_formset_factory(
         (i.e. group or user) for a specific collection
         """
         collection = forms.ModelChoiceField(
-            queryset=Collection.objects.all()
+            queryset=Collection.objects.all().prefetch_related('group_permissions')
         )
         permissions = forms.ModelMultipleChoiceField(
             queryset=permission_queryset,

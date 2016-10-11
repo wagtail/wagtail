@@ -201,7 +201,7 @@ class GroupForm(forms.ModelForm):
         self.registered_permissions = Permission.objects.none()
         for fn in hooks.get_hooks('register_permissions'):
             self.registered_permissions = self.registered_permissions | fn()
-        self.fields['permissions'].queryset = self.registered_permissions
+        self.fields['permissions'].queryset = self.registered_permissions.select_related('content_type')
 
     required_css_class = "required"
 
@@ -276,7 +276,7 @@ class BaseGroupPagePermissionFormSet(forms.BaseFormSet):
         initial_data = []
 
         for page, page_permissions in groupby(
-            instance.page_permissions.order_by('page'), lambda pp: pp.page
+            instance.page_permissions.select_related('page').order_by('page'), lambda pp: pp.page
         ):
             initial_data.append({
                 'page': page,
