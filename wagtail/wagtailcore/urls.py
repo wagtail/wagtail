@@ -1,6 +1,7 @@
 from __future__ import absolute_import, unicode_literals
 
 from django.conf.urls import url
+from django.contrib.auth import views as auth_views
 
 from wagtail.wagtailcore import views
 from wagtail.wagtailcore.utils import WAGTAIL_APPEND_SLASH
@@ -21,6 +22,8 @@ else:
 urlpatterns = [
     url(r'^_util/authenticate_with_password/(\d+)/(\d+)/$', views.authenticate_with_password,
         name='wagtailcore_authenticate_with_password'),
+    url(r'^_util/login/$', auth_views.login, {'template_name': 'wagtailcore/login.html'},
+        name='wagtailcore_login'),
 
     # Front-end page views are handled through Wagtail's core.views.serve
     # mechanism
