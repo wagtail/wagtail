@@ -18,12 +18,10 @@ from django.http import HttpRequest, HttpResponse
 from django.test import TestCase, modify_settings
 from django.utils import formats, timezone
 from django.utils.dateparse import parse_date
-
 from wagtail.tests.testapp.models import (
     EVENT_AUDIENCE_CHOICES, Advert, AdvertPlacement, BusinessChild, BusinessIndex, BusinessSubIndex,
-    DefaultStreamPage, EventCategory,
-    EventPage, EventPageCarouselItem, FilePage, SimplePage, SingleEventPage, SingletonPage,
-    StandardChild, StandardIndex, TaggedPage)
+    DefaultStreamPage, EventCategory, EventPage, EventPageCarouselItem, FilePage, SimplePage,
+    SingleEventPage, SingletonPage, StandardChild, StandardIndex, TaggedPage)
 from wagtail.tests.utils import WagtailTestUtils
 from wagtail.wagtailadmin.views.home import RecentEditsPanel
 from wagtail.wagtailcore.models import GroupPagePermission, Page, PageRevision, Site
@@ -78,7 +76,7 @@ class TestPageExplorer(TestCase, WagtailTestUtils):
         self.root_page.add_child(instance=self.new_page)
 
         # Login
-        self.login()
+        self.user = self.login()
 
     def test_explore(self):
         response = self.client.get(reverse('wagtailadmin_explore', args=(self.root_page.id, )))
@@ -242,6 +240,20 @@ class TestPageExplorer(TestCase, WagtailTestUtils):
         self.assertEqual(response.status_code, 200)
 
         self.assertIsInstance(response.context['parent_page'], SimplePage)
+
+    def test_explorer_no_perms(self):
+        self.user.is_superuser = False
+        self.user.user_permissions.add(
+            Permission.objects.get(content_type__app_label='wagtailadmin', codename='access_admin')
+        )
+        self.user.save()
+
+        admin = reverse('wagtailadmin_home')
+        self.assertRedirects(
+            self.client.get(reverse('wagtailadmin_explore', args=(self.root_page.id, ))),
+            admin)
+        self.assertRedirects(
+            self.client.get(reverse('wagtailadmin_explore_root')), admin)
 
 
 class TestPageExplorerSignposting(TestCase, WagtailTestUtils):
@@ -1934,8 +1946,7 @@ class TestPageSearch(TestCase, WagtailTestUtils):
             Permission.objects.get(content_type__app_label='wagtailadmin', codename='access_admin')
         )
         self.user.save()
-        response = self.get()
-        self.assertRedirects(response, '/admin/')
+        self.assertRedirects(self.get(), '/admin/')
 
 
 class TestPageMove(TestCase, WagtailTestUtils):
@@ -1987,6 +1998,7 @@ class TestPageMove(TestCase, WagtailTestUtils):
 
 
 class TestPageCopy(TestCase, WagtailTestUtils):
+
     def setUp(self):
         # Find root page
         self.root_page = Page.objects.get(id=2)
@@ -2052,7 +2064,7 @@ class TestPageCopy(TestCase, WagtailTestUtils):
         response = self.client.post(reverse('wagtailadmin_pages:copy', args=(self.test_page.id, )), post_data)
 
         # Check that the user received a 403 response
-        self.assertEqual(response.status_code, 403)
+        self.assertRedirects(response, reverse('wagtailadmin_home'))
 
     def test_page_copy_post(self):
         post_data = {
