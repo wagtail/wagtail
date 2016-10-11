@@ -20,6 +20,7 @@ from django.utils.translation import ugettext_lazy as __
 
 from wagtail.tests.testapp.blocks import LinkBlock as CustomLinkBlock
 from wagtail.tests.testapp.blocks import SectionBlock
+from wagtail.tests.testapp.models import SimplePage
 from wagtail.wagtailcore import blocks
 from wagtail.wagtailcore.models import Page
 from wagtail.wagtailcore.rich_text import RichText
@@ -2036,6 +2037,11 @@ class TestPageChooserBlock(TestCase):
         self.assertIn(expected_html, christmas_form_html)
         self.assertIn("pick a page, any page", christmas_form_html)
 
+    def test_form_render_with_target_model(self):
+        block = blocks.PageChooserBlock(help_text="pick a page, any page", target_model='tests.SimplePage')
+        empty_form_html = block.render_form(None, 'page')
+        self.assertIn('createPageChooser("page", ["tests.simplepage"], null, false);', empty_form_html)
+
     def test_form_render_with_can_choose_root(self):
         block = blocks.PageChooserBlock(help_text="pick a page, any page", can_choose_root=True)
         empty_form_html = block.render_form(None, 'page')
@@ -2062,6 +2068,26 @@ class TestPageChooserBlock(TestCase):
 
         self.assertEqual(nonrequired_block.clean(christmas_page), christmas_page)
         self.assertEqual(nonrequired_block.clean(None), None)
+
+    def test_target_model_string(self):
+        block = blocks.PageChooserBlock(target_model='tests.SimplePage')
+        self.assertEqual(block.target_model, SimplePage)
+
+    def test_target_model_literal(self):
+        block = blocks.PageChooserBlock(target_model=SimplePage)
+        self.assertEqual(block.target_model, SimplePage)
+
+    def test_deconstruct_target_model_string(self):
+        block = blocks.PageChooserBlock(target_model='tests.SimplePage')
+        self.assertEqual(block.deconstruct(), (
+            'wagtail.wagtailcore.blocks.PageChooserBlock',
+            (), {'target_model': 'tests.SimplePage'}))
+
+    def test_deconstruct_target_model_literal(self):
+        block = blocks.PageChooserBlock(target_model=SimplePage)
+        self.assertEqual(block.deconstruct(), (
+            'wagtail.wagtailcore.blocks.PageChooserBlock',
+            (), {'target_model': 'tests.SimplePage'}))
 
 
 class TestSystemCheck(TestCase):

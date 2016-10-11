@@ -242,6 +242,9 @@ A control for selecting a page object, using Wagtail's page browser. The followi
 ``required`` (default: True)
   If true, the field cannot be left blank.
 
+``target_model`` (default: Page)
+  Restrict choices to a single Page type.
+
 ``can_choose_root`` (default: False)
   If true, the editor can choose the tree root as a page. Normally this would be undesirable, since the tree root is never a usable page, but in some specialised cases it may be appropriate. For example, a block providing a feed of related articles could use a PageChooserBlock to select which subsection of the site articles will be taken from, with the root corresponding to 'everywhere'.
 
