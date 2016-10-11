@@ -4,7 +4,6 @@
 
 
 .result-list {
-    padding: 0 15px;
 
     table {
         margin-bottom: 0;
@@ -133,14 +132,18 @@ p.no-results {
 
     .result-list {
         padding: 0 1.5% 0 0;
-    }
 
-    .result-list tbody th:first-child {
-        padding-left: 50px;
-    }
+        &.col12 {
+            padding-right: 0;
 
-    .result-list.col12 tbody td:last-child {
-        padding-right: 50px;
+            tbody td:last-child {
+                padding-right: 50px;
+            }
+        }
+
+        tbody th:first-child {
+            padding-left: 50px;
+        }
     }
 
     div.pagination {
