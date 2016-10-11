@@ -240,3 +240,5 @@ Reference
             homepage.get_children().specific()
 
         See also: :py:attr:`Page.specific <wagtail.wagtailcore.models.Page.specific>`
+
+    .. automethod:: first_common_ancestor
