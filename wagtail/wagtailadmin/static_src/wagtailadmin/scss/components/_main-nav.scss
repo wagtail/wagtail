@@ -121,10 +121,19 @@ $footer-submenu: $submenu-color;
     .account {
         display: none;
     }
+
+    .submenu-trigger:after {
+        width: auto;
+        transition: transform .3s ease;
+        content: 'q';
+    }
 }
 
 .nav-submenu {
+    transition: max-height .2s;
     background: $submenu-color;
+    overflow: hidden;
+    max-height: 0;
 
     h2 {
         display: none;
@@ -150,6 +159,17 @@ $footer-submenu: $submenu-color;
     .wagtail-version {
         padding: 1.2em 1.7em;
         text-align: center;
+    }
+}
+
+.submenu-active {
+    .submenu-trigger:after {
+        transform-origin: 50% 50%;
+        transform: rotate(180deg);
+    }
+
+    .nav-submenu {
+        max-height: 1000px;
     }
 }
 
