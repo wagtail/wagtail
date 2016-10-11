@@ -8,6 +8,14 @@
         overflow: auto;
     }
 
+    tr {
+        transition: background-color 0.2s ease;
+
+        > td { 
+            background-color: inherit;
+        }
+    } 
+
     tr.odd { 
         background-color: #f2f2f2; 
     }
@@ -22,10 +30,6 @@
 
     tr.even:hover {
         background-color: #fcfcfc;
-    }
-
-    tr > td { 
-        background-color: inherit;
     }
 
     tr.ui-sortable-helper {
