@@ -18,7 +18,8 @@ from wagtail.utils.pagination import paginate
 from wagtail.wagtailadmin import messages, signals
 from wagtail.wagtailadmin.forms import CopyForm, SearchForm
 from wagtail.wagtailadmin.navigation import get_navigation_menu_items
-from wagtail.wagtailadmin.utils import send_notification
+from wagtail.wagtailadmin.utils import (
+    send_notification, user_has_any_page_permission, user_passes_test)
 from wagtail.wagtailcore import hooks
 from wagtail.wagtailcore.models import Page, PageRevision, UserPagePermissionsProxy
 
@@ -880,6 +881,7 @@ def copy(request, page_id):
 
 
 @vary_on_headers('X-Requested-With')
+@user_passes_test(user_has_any_page_permission)
 def search(request):
     pages = []
     q = None

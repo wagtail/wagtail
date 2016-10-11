@@ -5,6 +5,7 @@ from __future__ import absolute_import, unicode_literals
 import json
 
 from django.contrib.auth import get_user_model
+from django.contrib.auth.models import Group, Permission
 from django.core import mail
 from django.core.urlresolvers import reverse, reverse_lazy
 from django.test import TestCase, override_settings
@@ -14,7 +15,7 @@ from taggit.models import Tag
 from wagtail.tests.utils import WagtailTestUtils
 from wagtail.wagtailadmin.menu import MenuItem
 from wagtail.wagtailadmin.site_summary import PagesSummaryItem
-from wagtail.wagtailadmin.utils import send_mail
+from wagtail.wagtailadmin.utils import send_mail, user_has_any_page_permission
 from wagtail.wagtailcore.models import Page, Site
 
 
@@ -250,3 +251,38 @@ class TestUserPassesTestPermissionDecorator(TestCase):
 
         response = self.client.get(reverse('testapp_bob_only_zone'))
         self.assertRedirects(response, reverse('wagtailadmin_home'))
+
+
+class TestUserHasAnyPagePermission(TestCase):
+    def test_superuser(self):
+        user = get_user_model().objects.create_superuser(
+            username='superuser', email='admin@example.com', password='p')
+        self.assertTrue(user_has_any_page_permission(user))
+
+    def test_inactive_superuser(self):
+        user = get_user_model().objects.create_superuser(
+            username='superuser', email='admin@example.com', password='p')
+        user.is_active = False
+        self.assertFalse(user_has_any_page_permission(user))
+
+    def test_editor(self):
+        user = get_user_model().objects.create_user(
+            username='editor', email='ed@example.com', password='p')
+        editors = Group.objects.get(name='Editors')
+        user.groups.add(editors)
+        self.assertTrue(user_has_any_page_permission(user))
+
+    def test_moderator(self):
+        user = get_user_model().objects.create_user(
+            username='moderator', email='mod@example.com', password='p')
+        editors = Group.objects.get(name='Moderators')
+        user.groups.add(editors)
+        self.assertTrue(user_has_any_page_permission(user))
+
+    def test_no_permissions(self):
+        user = get_user_model().objects.create_user(
+            username='pleb', email='pleb@example.com', password='p')
+        user.user_permissions.add(
+            Permission.objects.get(content_type__app_label='wagtailadmin', codename='access_admin')
+        )
+        self.assertFalse(user_has_any_page_permission(user))

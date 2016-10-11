@@ -1,0 +1,10 @@
+{% load i18n %}
+
+<form class="nav-search" action="{{ search_url }}" method="get">
+    <div>
+        <label for="menu-search-q">{% trans "Search" %}</label>
+        <input type="text" id="menu-search-q" name="q" placeholder="{% trans 'Search' %}" />
+        <button class="button" type="submit">{% trans "Search" %}</button>
+    </div>
+</form>
+
