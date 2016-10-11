@@ -82,7 +82,7 @@ class OrderableMixin(object):
                 self.__class__.__name__)
 
     def get_list_display(self, request):
-        """Add `index_order` as the first column in results"""
+        """Add `index_order` as the first column to results"""
         list_display = super(OrderableMixin, self).get_list_display(request)
         if self.permission_helper.user_can_edit_obj(request.user, None):
             if type(list_display) is list:
@@ -97,12 +97,12 @@ class OrderableMixin(object):
         If `list_display_add_buttons` isn't set, ensure the buttons are not
         added to the `index_order` column.
         """
-        if self.list_display_add_buttons:
-            return self.list_display_add_buttons
-        list_display = self.get_list_display(request)
-        if list_display[0] == 'index_order':
+        col_field_name = super(
+            OrderableMixin, self).get_list_display_add_buttons(request)
+        if col_field_name == 'index_order':
+            list_display = self.get_list_display(request)
             return list_display[1]
-        return list_display[0]
+        return col_field_name
 
     def get_extra_attrs_for_field_col(self, field_name, obj):
         """
@@ -124,11 +124,12 @@ class OrderableMixin(object):
         """
         Add the `visible-on-drag` class to certain columns
         """
+        classnames = super(OrderableMixin, self).get_extra_class_names_for_field_col(
+            field_name, obj)
         if field_name in ('index_order', self.list_display[0], 'admin_thumb',
                           self.list_display_add_buttons or ''):
-            return ['visible-on-drag']
-        return super(OrderableMixin, self).get_extra_class_names_for_field_col(
-            field_name, obj)
+            classnames.append('visible-on-drag')
+        return classnames
 
     def index_order(self, obj):
         """Content for the `index_order` column"""
