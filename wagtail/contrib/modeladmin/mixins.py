@@ -50,6 +50,17 @@ class ThumbnailMixin(object):
         return ''
     admin_thumb.short_description = thumb_col_header_text
 
+    def get_extra_attrs_for_field_col(self, obj, field_name):
+        """
+        Add a width attribute to the column to help with sizing (especially
+        when used with OrderableMixin)
+        """
+        attrs = super(ThumbnailMixin, self).get_extra_attrs_for_field_col(
+            obj, field_name)
+        if field_name == 'admin_thumb':
+            attrs['width'] = self.thumb_image_width
+        return attrs
+
 
 class OrderableMixin(object):
     """
