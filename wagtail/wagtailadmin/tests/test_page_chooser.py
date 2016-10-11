@@ -298,6 +298,84 @@ class TestChooserSearch(TestCase, WagtailTestUtils):
         self.assertEqual(response.status_code, 404)
 
 
+class TestAutomaticRootPageDetection(TestCase, WagtailTestUtils):
+    def setUp(self):
+        self.tree_root = Page.objects.get(id=1)
+        self.home_page = Page.objects.get(id=2)
+
+        self.about_page = self.home_page.add_child(instance=SimplePage(
+            title='About', content='About Foo'))
+        self.contact_page = self.about_page.add_child(instance=SimplePage(
+            title='Contact', content='Content Foo'))
+        self.people_page = self.about_page.add_child(instance=SimplePage(
+            title='People', content='The people of Foo'))
+
+        self.event_index = self.make_event_section('Events')
+
+        self.login()
+
+    def make_event_section(self, name):
+        event_index = self.home_page.add_child(instance=EventIndex(
+            title=name))
+        event_index.add_child(instance=EventPage(
+            title='First Event',
+            location='Bar', audience='public',
+            cost='free', date_from='2001-01-01'))
+        event_index.add_child(instance=EventPage(
+            title='Second Event',
+            location='Baz', audience='public',
+            cost='free', date_from='2001-01-01'))
+        return event_index
+
+    def get_best_root(self, params={}):
+        response = self.client.get(reverse('wagtailadmin_choose_page'), params)
+        return response.context['parent_page'].specific
+
+    def test_no_type_filter(self):
+        self.assertEqual(self.get_best_root(), self.tree_root)
+
+    def test_type_page(self):
+        self.assertEqual(
+            self.get_best_root({'page_type': 'wagtailcore.Page'}),
+            self.tree_root)
+
+    def test_type_eventpage(self):
+        """
+        The chooser should start at the EventIndex that holds all the
+        EventPages.
+        """
+        self.assertEqual(
+            self.get_best_root({'page_type': 'tests.EventPage'}),
+            self.event_index)
+
+    def test_type_eventpage_two_indexes(self):
+        """
+        The chooser should start at the home page, as there are two
+        EventIndexes with EventPages.
+        """
+        self.make_event_section('Other events')
+        self.assertEqual(
+            self.get_best_root({'page_type': 'tests.EventPage'}),
+            self.home_page)
+
+    def test_type_simple_page(self):
+        """
+        The chooser should start at the home page, as all SimplePages are
+        directly under it
+        """
+        self.assertEqual(
+            self.get_best_root({'page_type': 'tests.BusinessIndex'}),
+            self.tree_root)
+
+    def test_type_missing(self):
+        """
+        The chooser should start at the root, as there are no BusinessIndexes
+        """
+        self.assertEqual(
+            self.get_best_root({'page_type': 'tests.BusinessIndex'}),
+            self.tree_root)
+
+
 class TestChooserExternalLink(TestCase, WagtailTestUtils):
     def setUp(self):
         self.login()
