@@ -15,10 +15,13 @@ Minor features
 ~~~~~~~~~~~~~~
 
  * Added support of a custom ``edit_handler`` for site settings. See :ref:`docs for the site settings module <edit_handlers_settings>`. (Axel Haustant)
+ * Added ``get_landing_page_template`` getter method to ``AbstractForm`` (Gagaro)
 
 
 Bug fixes
 ~~~~~~~~~
+
+ * ``AbstractForm`` now respects custom ``get_template`` methods on the page model (Gagaro)
 
 
 Upgrade considerations

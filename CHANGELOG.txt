@@ -4,7 +4,9 @@ Changelog
 1.8 (xx.xx.xxxx) - IN DEVELOPMENT
 ~~~~~~~~~~~~~~~~
 
-* Added support of a custom `edit_handler` in site settings (Axel Haustant)
+ * Added support of a custom `edit_handler` in site settings (Axel Haustant)
+ * Added `get_landing_page_template` getter method to `AbstractForm` (Gagaro)
+ * Fix: `AbstractForm` now respects custom `get_template` methods on the page model (Gagaro)
 
 
 1.7 (xx.xx.xxxx) - IN DEVELOPMENT
