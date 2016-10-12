@@ -4,7 +4,7 @@ import datetime
 
 from django import forms
 from django.db.models.fields import BLANK_CHOICE_DASH
-from django.template.loader import render_to_string
+from django.template.loader import get_template
 from django.utils import six
 from django.utils.dateparse import parse_date, parse_datetime, parse_time
 from django.utils.encoding import force_text
@@ -17,6 +17,9 @@ from wagtail.wagtailcore.rich_text import RichText
 from .base import Block
 
 
+FIELD_BLOCK_TEMPLATE = None
+
+
 class FieldBlock(Block):
     """A block that wraps a Django form field"""
 
@@ -24,6 +27,8 @@ class FieldBlock(Block):
         return self.field.widget.id_for_label(prefix)
 
     def render_form(self, value, prefix='', errors=None):
+        global FIELD_BLOCK_TEMPLATE
+
         widget = self.field.widget
 
         widget_attrs = {'id': prefix, 'placeholder': self.label}
@@ -37,7 +42,10 @@ class FieldBlock(Block):
             widget_html = widget.render(prefix, field_value, attrs=widget_attrs)
             widget_has_rendered_errors = False
 
-        return render_to_string('wagtailadmin/block_forms/field.html', {
+        if FIELD_BLOCK_TEMPLATE is None:
+            FIELD_BLOCK_TEMPLATE = get_template('wagtailadmin/block_forms/field.html')
+
+        return FIELD_BLOCK_TEMPLATE.render({
             'name': self.name,
             'classes': self.meta.classname,
             'widget': widget_html,
