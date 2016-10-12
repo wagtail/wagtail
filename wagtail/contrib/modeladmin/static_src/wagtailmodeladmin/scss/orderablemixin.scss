@@ -1,36 +1,19 @@
-.listing {
-    color: #666;
-}
-
 .result-list {
 
     tbody { 
         overflow: auto;
     }
 
-    
-
-    tr.odd { 
-        background-color: #f2f2f2; 
-    }
-
-    tr.odd:hover {
-        background-color: #f5f5f5;
-    }
-
-    tr.even {
-        background-color: #fafafa;
-    }
-
-    tr.even:hover {
-        background-color: #fdfdfd;
-    }
-
     tr > td { 
         background-color: inherit;
     } 
 
-    tr.ui-sortable-helper .visible-on-drag {
-        display: table-cell;
-    }
+    tr.ui-sortable-helper {
+        background-color: #fff;
+
+        .visible-on-drag {
+            display: table-cell;
+        }
+
+    } 
 }
