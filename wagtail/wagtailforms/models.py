@@ -207,6 +207,9 @@ class AbstractForm(Page):
 
         return form_class(*args, **form_params)
 
+    def get_landing_page_template(self, request, *args, **kwargs):
+        return self.landing_page_template
+
     def get_submission_class(self):
         """
         Returns submission class.
@@ -242,7 +245,7 @@ class AbstractForm(Page):
                 # TODO: It is much better to redirect to it
                 return render(
                     request,
-                    self.landing_page_template,
+                    self.get_landing_page_template(request),
                     self.get_context(request)
                 )
         else:
@@ -252,7 +255,7 @@ class AbstractForm(Page):
         context['form'] = form
         return render(
             request,
-            self.template,
+            self.get_template(request),
             context
         )
 
@@ -265,7 +268,7 @@ class AbstractForm(Page):
         if mode == 'landing':
             return render(
                 request,
-                self.landing_page_template,
+                self.get_landing_page_template(request),
                 self.get_context(request)
             )
         else:
