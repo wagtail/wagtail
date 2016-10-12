@@ -76,10 +76,10 @@ class OrderableMixin(object):
         """
         if not issubclass(self.model, Orderable):
             raise ImproperlyConfigured(
-                u"You are using `OrderableMixin` for you '%s' class, but the "
-                "specified model is not a sub-class of "
-                "`wagtail.wagtailcore.models.Orderable`." %
-                self.__class__.__name__)
+                u"You are using OrderableMixin for your '%s' class, but the "
+                "django model specified is not a sub-class of "
+                "'wagtail.wagtailcore.models.Orderable." %
+                self.__class__.__name__,)
 
     def get_list_display(self, request):
         """Add `index_order` as the first column to results"""
