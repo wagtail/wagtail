@@ -1,3 +1,5 @@
+@import 'wagtailadmin/scss/variables';
+
 .content header {
     margin-bottom: 0;
 }
@@ -6,22 +8,49 @@
 .result-list {
 
     table {
+        color: #666;
         margin-bottom: 0;
     }
 
-    body th {
-        background-color: transparent;
-        text-align: left;
-        padding: 1.2em 1em;
+    thead {
+
+        th.sorted a {
+            color: $color-teal;
+        }
     }
 
-    tbody tr:hover ul.actions {
-        visibility: visible;
-    }
+    tbody {
+        overflow: auto;
 
-    tbody td,
-    tbody th {
-        vertical-align: top;
+        td,
+        th {
+            vertical-align: top;
+        }
+
+        tr:hover ul.actions {
+            visibility: visible;
+        }
+
+        tr.odd { 
+            background-color: #f2f2f2; 
+        }
+
+        tr.odd:hover {
+            background-color: #f5f5f5;
+        }
+
+        tr.even {
+            background-color: #fafafa;
+        }
+
+        tr.even:hover {
+            background-color: #fdfdfd;
+        }
+
+        tr > td { 
+            background-color: inherit;
+        } 
+
     }
 }
 
@@ -68,7 +97,6 @@
         border: 1px solid #43b1b0;
         color: #43b1b0;
         text-decoration: none;
-        text-transform: uppercase;
         position: relative;
         overflow: hidden;
         outline: none;
