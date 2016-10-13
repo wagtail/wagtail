@@ -72,7 +72,7 @@ def get_navigation_menu_items(user):
             )
         )
 
-    pages = Page.objects.filter(criteria).order_by('path')
+    pages = Page.objects.filter(criteria).order_by('path').specific()
 
     # Turn this into a tree structure:
     #     tree_node = (page, children)

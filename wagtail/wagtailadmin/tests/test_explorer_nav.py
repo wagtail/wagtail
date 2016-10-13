@@ -52,13 +52,13 @@ class TestExplorerNavView(TestCase, WagtailTestUtils):
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed('wagtailadmin/shared/explorer_nav.html')
         self.assertEqual(len(response.context['nodes']), 3)
-        self.assertEqual(response.context['nodes'][0][0], Page.objects.get(id=2))
-        self.assertEqual(response.context['nodes'][1][0], Page.objects.get(id=4))
-        self.assertEqual(response.context['nodes'][1][1][0][0], Page.objects.get(id=5))
-        self.assertEqual(response.context['nodes'][1][1][0][1][0][0], Page.objects.get(id=7))
+        self.assertEqual(response.context['nodes'][0][0], Page.objects.get(id=2).specific)
+        self.assertEqual(response.context['nodes'][1][0], Page.objects.get(id=4).specific)
+        self.assertEqual(response.context['nodes'][1][1][0][0], Page.objects.get(id=5).specific)
+        self.assertEqual(response.context['nodes'][1][1][0][1][0][0], Page.objects.get(id=7).specific)
         # Even though example.com's Home 2 has no children, it's still displayed because it's at
         # the top menu level for this user
-        self.assertEqual(response.context['nodes'][2][0], Page.objects.get(id=10))
+        self.assertEqual(response.context['nodes'][2][0], Page.objects.get(id=10).specific)
 
     def test_nav_root_for_nonadmin_is_closest_common_ancestor(self):
         self.assertTrue(self.client.login(username='jane', password='password'))
@@ -67,7 +67,7 @@ class TestExplorerNavView(TestCase, WagtailTestUtils):
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed('wagtailadmin/shared/explorer_nav.html')
         self.assertEqual(len(response.context['nodes']), 1)
-        self.assertEqual(response.context['nodes'][0][0], Page.objects.get(id=2))
+        self.assertEqual(response.context['nodes'][0][0], Page.objects.get(id=2).specific)
         self.client.logout()
 
         self.assertTrue(self.client.login(username='sam', password='password'))
@@ -76,8 +76,8 @@ class TestExplorerNavView(TestCase, WagtailTestUtils):
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed('wagtailadmin/shared/explorer_nav.html')
         self.assertEqual(len(response.context['nodes']), 2)
-        self.assertEqual(response.context['nodes'][0][0], Page.objects.get(id=2))
-        self.assertEqual(response.context['nodes'][1][0], Page.objects.get(id=4))
+        self.assertEqual(response.context['nodes'][0][0], Page.objects.get(id=2).specific)
+        self.assertEqual(response.context['nodes'][1][0], Page.objects.get(id=4).specific)
 
     def test_nonadmin_sees_leaf_pages_at_root_level(self):
         self.assertTrue(self.client.login(username='bob', password='password'))
@@ -89,7 +89,7 @@ class TestExplorerNavView(TestCase, WagtailTestUtils):
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed('wagtailadmin/shared/explorer_nav.html')
         self.assertEqual(len(response.context['nodes']), 1)
-        self.assertEqual(response.context['nodes'][0][0], Page.objects.get(id=6))
+        self.assertEqual(response.context['nodes'][0][0], Page.objects.get(id=6).specific)
         self.assertEqual(len(response.context['nodes'][0][1]), 0)
 
     def test_nonadmin_sees_pages_below_closest_common_ancestor(self):
@@ -104,13 +104,13 @@ class TestExplorerNavView(TestCase, WagtailTestUtils):
         self.assertTemplateUsed('wagtailadmin/shared/explorer_nav.html')
 
         self.assertEqual(len(response.context['nodes']), 2)
-        self.assertEqual(response.context['nodes'][0][0], Page.objects.get(id=5))
+        self.assertEqual(response.context['nodes'][0][0], Page.objects.get(id=5).specific)
         # page-1 is childless, but user has direct permission on it, so it should be shown
         self.assertEqual(len(response.context['nodes'][0][1]), 1)
-        self.assertEqual(response.context['nodes'][0][1][0][0], Page.objects.get(id=6))
+        self.assertEqual(response.context['nodes'][0][1][0][0], Page.objects.get(id=6).specific)
         self.assertEqual(len(response.context['nodes'][0][1][0][1]), 0)
 
-        self.assertEqual(response.context['nodes'][1][0], Page.objects.get(id=8))
+        self.assertEqual(response.context['nodes'][1][0], Page.objects.get(id=8).specific)
         self.assertEqual(len(response.context['nodes'][1][1]), 0)
 
     def test_nonadmin_sees_only_explorable_pages(self):
@@ -128,13 +128,13 @@ class TestExplorerNavView(TestCase, WagtailTestUtils):
         self.assertEqual(len(response.context['nodes']), 2)
         # Sam should see the testserver homepage, the example.com homepage, and the Content page,
         # but should not see Page 2.
-        self.assertEqual(response.context['nodes'][0][0], Page.objects.get(id=2))
-        self.assertEqual(response.context['nodes'][1][0], Page.objects.get(id=4))
-        self.assertEqual(response.context['nodes'][1][1][0][0], Page.objects.get(id=5))
+        self.assertEqual(response.context['nodes'][0][0], Page.objects.get(id=2).specific)
+        self.assertEqual(response.context['nodes'][1][0], Page.objects.get(id=4).specific)
+        self.assertEqual(response.context['nodes'][1][1][0][0], Page.objects.get(id=5).specific)
         self.assertEqual(len(response.context['nodes'][1][1][0][1]), 1)
         # page-1 is included in the menu, despite being a leaf node, because Sam has direct
         # permission on it
-        self.assertEqual(response.context['nodes'][1][1][0][1][0][0], Page.objects.get(id=6))
+        self.assertEqual(response.context['nodes'][1][1][0][1][0][0], Page.objects.get(id=6).specific)
         self.client.logout()
 
         self.assertTrue(self.client.login(username='jane', password='password'))
@@ -143,7 +143,7 @@ class TestExplorerNavView(TestCase, WagtailTestUtils):
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed('wagtailadmin/shared/explorer_nav.html')
         self.assertEqual(len(response.context['nodes']), 1)
-        self.assertEqual(response.context['nodes'][0][0], Page.objects.get(id=2))
+        self.assertEqual(response.context['nodes'][0][0], Page.objects.get(id=2).specific)
         self.assertEqual(len(response.context['nodes'][0][1]), 0)
 
     def test_nonadmin_with_no_page_perms_sees_nothing_in_nav(self):

@@ -25,6 +25,7 @@ from wagtail.tests.testapp.models import (
     EventPage, EventPageCarouselItem, FilePage, SimplePage, SingleEventPage, SingletonPage,
     StandardChild, StandardIndex, TaggedPage)
 from wagtail.tests.utils import WagtailTestUtils
+from wagtail.wagtailadmin.views.home import RecentEditsPanel
 from wagtail.wagtailcore.models import GroupPagePermission, Page, PageRevision, Site
 from wagtail.wagtailcore.signals import page_published, page_unpublished
 from wagtail.wagtailsearch.index import SearchField
@@ -3512,6 +3513,20 @@ class TestRecentEditsPanel(TestCase, WagtailTestUtils):
         # Alice's dashboard should still list that first edit
         response = self.go_to_dashboard_response()
         self.assertIn('Your most recent edits', response.content.decode('utf-8'))
+
+    def test_panel(self):
+        """Test if the panel actually returns expected pages """
+        self.client.login(username='bob', password='password')
+        # change a page
+        self.change_something("Bob's edit")
+        # set a user to 'mock' a request
+        self.client.user = get_user_model().objects.get(email='bob@email.com')
+        # get the panel to get the last edits
+        panel = RecentEditsPanel(self.client)
+        # check if the revision is the revision of edited Page
+        self.assertEqual(panel.last_edits[0][0].page, Page.objects.get(pk=self.child_page.id))
+        # check if the page in this list is the specific page of this revision
+        self.assertEqual(panel.last_edits[0][1], Page.objects.get(pk=self.child_page.id).specific)
 
 
 class TestIssue2994(TestCase, WagtailTestUtils):
