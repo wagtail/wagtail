@@ -10,6 +10,7 @@ Changelog
  * Fix: `AbstractForm` now respects custom `get_template` methods on the page model (Gagaro)
  * Fix: Use specific page model for the parent page in the explore index (Gagaro)
  * Fix: Remove responsive styles in embed when there is no ratio available (Gagaro)
+ * Fix: Parent page link in page search modal no longer disappears on hover (Dan Braghis)
 
 
 1.7 (xx.xx.xxxx) - IN DEVELOPMENT
