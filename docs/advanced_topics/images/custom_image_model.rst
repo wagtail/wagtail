@@ -89,6 +89,8 @@ Then set the ``WAGTAILIMAGES_IMAGE_MODEL`` setting to point to it:
     Any templates that reference the builtin image model will still continue to
     work as before but would need to be updated in order to see any new images.
 
+.. _custom_image_model_referring_to_image_model:
+
 Referring to the image model
 ============================
 
