@@ -100,10 +100,11 @@ class WMABaseView(TemplateView):
         return self.model_admin.get_queryset(request or self.request)
 
     def get_context_data(self, **kwargs):
-        kwargs.update({
+        context = {
             'view': self,
             'model_admin': self.model_admin,
-        })
+        }
+        context.update(kwargs)
         return super(WMABaseView, self).get_context_data(**kwargs)
 
 
@@ -142,12 +143,13 @@ class ModelFormView(WMABaseView, FormView):
         instance = self.get_instance()
         edit_handler_class = self.get_edit_handler_class()
         form = self.get_form()
-        kwargs.update({
+        context = {
             'is_multipart': form.is_multipart(),
             'edit_handler': edit_handler_class(instance=instance, form=form),
             'form': form,
-        })
-        return super(ModelFormView, self).get_context_data(**kwargs)
+        }
+        context.update(kwargs)
+        return super(ModelFormView, self).get_context_data(**context)
 
     def get_success_message(self, instance):
         return _("{model_name} '{instance}' created.").format(
@@ -204,8 +206,9 @@ class InstanceSpecificView(WMABaseView):
         return self.url_helper.get_action_url('delete', self.pk_quoted)
 
     def get_context_data(self, **kwargs):
-        kwargs['instance'] = self.instance
-        return super(InstanceSpecificView, self).get_context_data(**kwargs)
+        context = {'instance': self.instance}
+        context.update(kwargs)
+        return super(InstanceSpecificView, self).get_context_data(**context)
 
 
 class IndexView(WMABaseView):
@@ -613,7 +616,7 @@ class IndexView(WMABaseView):
                     return True
         return False
 
-    def get_context_data(self, *args, **kwargs):
+    def get_context_data(self, **kwargs):
         user = self.request.user
         all_count = self.get_base_queryset().count()
         queryset = self.get_queryset()
@@ -625,7 +628,7 @@ class IndexView(WMABaseView):
         except InvalidPage:
             page_obj = paginator.page(1)
 
-        kwargs.update({
+        context = {
             'view': self,
             'all_count': all_count,
             'result_count': result_count,
@@ -633,18 +636,20 @@ class IndexView(WMABaseView):
             'page_obj': page_obj,
             'object_list': page_obj.object_list,
             'user_can_create': self.permission_helper.user_can_create(user)
-        })
+        }
 
         if self.is_pagemodel:
             models = self.model.allowed_parent_page_models()
             allowed_parent_types = [m._meta.verbose_name for m in models]
             valid_parents = self.permission_helper.get_valid_parent_pages(user)
             valid_parent_count = valid_parents.count()
-            kwargs.update({
+            context.update({
                 'no_valid_parents': not valid_parent_count,
                 'required_parent_types': allowed_parent_types,
             })
-        return super(IndexView, self).get_context_data(**kwargs)
+
+        context.update(kwargs)
+        return super(IndexView, self).get_context_data(**context)
 
     def get_template_names(self):
         return self.model_admin.get_index_template()
@@ -707,9 +712,12 @@ class EditView(ModelFormView, InstanceSpecificView):
             model_name=capfirst(self.verbose_name), instance=instance)
 
     def get_context_data(self, **kwargs):
-        kwargs['user_can_delete'] = self.permission_helper.user_can_delete_obj(
-            self.request.user, self.instance)
-        return super(EditView, self).get_context_data(**kwargs)
+        context = {
+            'user_can_delete': self.permission_helper.user_can_delete_obj(
+                self.request.user, self.instance)
+        }
+        context.update(kwargs)
+        return super(EditView, self).get_context_data(**context)
 
     def get_error_message(self):
         name = self.verbose_name
@@ -924,13 +932,13 @@ class InspectView(InstanceSpecificView):
         return fields
 
     def get_context_data(self, **kwargs):
-        buttons = self.button_helper.get_buttons_for_obj(
-            self.instance, exclude=['inspect'])
-        kwargs.update({
+        context = {
             'fields': self.get_fields_dict(),
-            'buttons': buttons,
-        })
-        return super(InspectView, self).get_context_data(**kwargs)
+            'buttons': self.button_helper.get_buttons_for_obj(
+                self.instance, exclude=['inspect']),
+        }
+        context.update(kwargs)
+        return super(InspectView, self).get_context_data(**context)
 
     def get_template_names(self):
         return self.model_admin.get_inspect_template()
