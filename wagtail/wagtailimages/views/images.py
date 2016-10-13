@@ -14,9 +14,10 @@ from wagtail.wagtailadmin.forms import SearchForm
 from wagtail.wagtailadmin.utils import (
     PermissionPolicyChecker, permission_denied, popular_tags_for_model)
 from wagtail.wagtailcore.models import Collection, Site
+from wagtail.wagtailimages import get_image_model
 from wagtail.wagtailimages.exceptions import InvalidFilterSpecError
 from wagtail.wagtailimages.forms import URLGeneratorForm, get_image_form
-from wagtail.wagtailimages.models import Filter, get_image_model
+from wagtail.wagtailimages.models import Filter
 from wagtail.wagtailimages.permissions import permission_policy
 from wagtail.wagtailimages.views.serve import generate_signature
 from wagtail.wagtailsearch import index as search_index

@@ -36,7 +36,8 @@ from wagtail.wagtailadmin import messages
 from wagtail.wagtailadmin.edit_handlers import (
     ObjectList, extract_panel_definitions_from_model_class)
 from wagtail.wagtaildocs.models import get_document_model
-from wagtail.wagtailimages.models import Filter, get_image_model
+from wagtail.wagtailimages import get_image_model
+from wagtail.wagtailimages.models import Filter
 
 from .forms import ParentChooserForm
 
