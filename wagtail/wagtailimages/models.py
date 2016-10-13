@@ -10,7 +10,6 @@ from contextlib import contextmanager
 import django
 from django.conf import settings
 from django.core import checks
-from django.core.exceptions import ImproperlyConfigured
 from django.core.files import File
 from django.core.urlresolvers import reverse
 from django.db import models
@@ -27,7 +26,7 @@ from taggit.managers import TaggableManager
 from unidecode import unidecode
 from willow.image import Image as WillowImage
 
-from wagtail.utils.deprecation import RemovedInWagtail19Warning
+from wagtail.utils.deprecation import RemovedInWagtail19Warning, RemovedInWagtail110Warning
 from wagtail.wagtailadmin.utils import get_object_usage
 from wagtail.wagtailcore import hooks
 from wagtail.wagtailcore.models import CollectionMember
@@ -46,6 +45,14 @@ class SourceImageIOError(IOError):
 
 class ImageQuerySet(SearchableQuerySetMixin, models.QuerySet):
     pass
+
+
+def get_image_model():
+    warnings.warn("wagtail.wagtailimages.models.get_image_model "
+                  "has been moved to wagtail.wagtailimages.get_image_model",
+                  RemovedInWagtail110Warning)
+    from wagtail.wagtailimages import get_image_model
+    return get_image_model()
 
 
 def get_upload_to(instance, filename):
@@ -357,26 +364,6 @@ def image_feature_detection(sender, instance, **kwargs):
 def image_delete(sender, instance, **kwargs):
     # Pass false so FileField doesn't save the model.
     instance.file.delete(False)
-
-
-def get_image_model():
-    from django.conf import settings
-    from django.apps import apps
-
-    try:
-        app_label, model_name = settings.WAGTAILIMAGES_IMAGE_MODEL.split('.')
-    except AttributeError:
-        return Image
-    except ValueError:
-        raise ImproperlyConfigured("WAGTAILIMAGES_IMAGE_MODEL must be of the form 'app_label.model_name'")
-
-    image_model = apps.get_model(app_label, model_name)
-    if image_model is None:
-        raise ImproperlyConfigured(
-            "WAGTAILIMAGES_IMAGE_MODEL refers to model '%s' that has not been installed" %
-            settings.WAGTAILIMAGES_IMAGE_MODEL
-        )
-    return image_model
 
 
 class Filter(models.Model):
