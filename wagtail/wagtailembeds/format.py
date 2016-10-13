@@ -21,6 +21,7 @@ def embed_to_frontend_html(url):
         return render_to_string('wagtailembeds/embed_frontend.html', {
             'embed': embed,
             'ratio': ratio,
+            'is_responsive': ratio is not None,
         })
     except EmbedException:
         # silently ignore failed embeds, rather than letting them crash the page
