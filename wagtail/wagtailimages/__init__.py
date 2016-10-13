@@ -8,12 +8,21 @@ default_app_config = 'wagtail.wagtailimages.apps.WagtailImagesAppConfig'
 
 
 def get_image_model_string():
-    """Get the dotted app.Model name for the image model"""
+    """
+    Get the dotted ``app.Model`` name for the image model as a string.
+    Useful for developers making Wagtail plugins that need to refer to the
+    image model, such as in foreign keys, but the model itself is not required.
+    """
     return getattr(settings, 'WAGTAILIMAGES_IMAGE_MODEL', 'wagtailimages.Image')
 
 
 def get_image_model():
-    """Get the image model from WAGTAILIMAGES_IMAGE_MODEL."""
+    """
+    Get the image model from the ``WAGTAILIMAGES_IMAGE_MODEL`` setting.
+    Useful for developers making Wagtail plugins that need the image model.
+    Defaults to the standard :class:`~wagtail.wagtailimages.models.Image` model
+    if no custom model is defined.
+    """
     from django.apps import apps
     model_string = get_image_model_string()
     try:
