@@ -5,6 +5,7 @@ Changelog
 ~~~~~~~~~~~~~~~~
 
 * Added support of a custom `edit_handler` in site settings (Axel Haustant)
+* Added getters for templates in `AbstractForm` (Gagaro)
 
 
 1.7 (xx.xx.xxxx) - IN DEVELOPMENT
