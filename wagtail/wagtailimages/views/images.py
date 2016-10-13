@@ -3,6 +3,7 @@ from __future__ import absolute_import, unicode_literals
 import os
 
 from django.core.urlresolvers import NoReverseMatch, reverse
+from django.db.models import ProtectedError
 from django.http import HttpResponse, JsonResponse
 from django.shortcuts import get_object_or_404, redirect, render
 from django.utils.translation import ugettext as _
@@ -228,9 +229,18 @@ def delete(request, image_id):
         return permission_denied(request)
 
     if request.method == 'POST':
-        image.delete()
-        messages.success(request, _("Image '{0}' deleted.").format(image.title))
-        return redirect('wagtailimages:index')
+        try:
+            image.delete()
+            messages.success(request, _("Image '{0}' deleted.").format(image.title))
+            return redirect('wagtailimages:index')
+        except ProtectedError as e:
+            item = e.protected_objects[0]
+            messages.warning(request, _(
+                "Image '{0}' can't be deleted because is in use in '{1}'."
+            ).format(image.title, item.title), buttons=[
+                messages.button(reverse('wagtailadmin_pages:edit', args=(item.id,)),
+                                _('Edit {0}').format(item._meta.verbose_name))
+            ])
 
     return render(request, "wagtailimages/images/confirm_delete.html", {
         'image': image,
