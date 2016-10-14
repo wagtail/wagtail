@@ -7,10 +7,11 @@ from django.contrib.admin.templatetags.admin_list import ResultList, result_head
 from django.contrib.admin.utils import display_for_field, display_for_value, lookup_field
 from django.core.exceptions import ObjectDoesNotExist
 from django.db import models
+from django.forms.utils import flatatt
 from django.template import Library
 from django.template.loader import get_template
 from django.utils.encoding import force_text
-from django.utils.html import format_html, format_html_join
+from django.utils.html import format_html
 from django.utils.safestring import mark_safe
 from django.utils.translation import ugettext as _
 
@@ -74,12 +75,8 @@ def items_for_result(view, result):
         row_attrs_dict = modeladmin.get_extra_attrs_for_field_col(
             field_name, result)
         row_attrs_dict['class'] = ' ' . join(row_classes)
-
-        row_attrs = format_html_join(
-            ' ', '{0}="{1}"',
-            ((key, val) for key, val in row_attrs_dict.items())
-        )
-        yield format_html('<td {}>{}</td>', row_attrs, result_repr)
+        row_attrs = flatatt(row_attrs_dict)
+        yield format_html('<td{}>{}</td>', row_attrs, result_repr)
 
 
 def results(view, object_list):
@@ -166,12 +163,9 @@ def result_row_display(context, index):
     else:
         row_attrs_dict['class'] = odd_or_even
 
-    row_attrs = format_html_join(
-        ' ', '{0}="{1}"', ((key, val) for key, val in row_attrs_dict.items())
-    )
     context.update({
         'obj': obj,
-        'row_attrs': row_attrs,
+        'row_attrs': mark_safe(flatatt(row_attrs_dict)),
         'action_buttons': view.get_buttons_for_obj(obj),
     })
     return context
