@@ -1,4 +1,2 @@
 {% load modeladmin_tags %}
-{% for item in result %}
-    {% result_row_value_display forloop.counter0 %}
-{% endfor %}
+{% for item in result %}{{ item }}{% endfor %}

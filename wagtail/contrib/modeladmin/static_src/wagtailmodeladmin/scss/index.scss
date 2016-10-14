@@ -6,50 +6,35 @@
 
 
 .result-list {
+    margin-bottom: 0;
+}
 
-    table {
-        color: $color-text-base;
-        margin-bottom: 0;
+.listing {
+
+    td,
+    th {
+        vertical-align: top;
     }
 
-    thead {
-
-        th.sorted a {
-            color: $color-teal;
-        }
+    thead th.sorted a {
+        color: $color-teal;
     }
 
     tbody {
         overflow: auto;
 
-        td,
-        th {
-            vertical-align: top;
-        }
-
         tr:hover ul.actions {
             visibility: visible;
         }
 
-        tr.odd { 
-            background-color: #f2f2f2; 
-        }
-
-        tr.odd:hover {
-            background-color: #f5f5f5;
-        }
-
-        tr.even {
-            background-color: #fafafa;
-        }
-
-        tr.even:hover {
-            background-color: #fdfdfd;
-        }
-
         tr > td { 
             background-color: inherit;
-        } 
+            
+            a.edit-obj { 
+                color: inherit;
+                font-weight:600; 
+            }
+        }
 
     }
 }

@@ -1,12 +1,15 @@
 from __future__ import absolute_import, unicode_literals
 
 import datetime
-
 import django
-from django.contrib.admin.templatetags.admin_list import ResultList, result_headers
-from django.contrib.admin.utils import display_for_field, display_for_value, lookup_field
+
+from django.contrib.admin.templatetags.admin_list import (
+    ResultList, result_headers)
+from django.contrib.admin.utils import (
+    display_for_field, display_for_value, lookup_field, quote)
 from django.core.exceptions import ObjectDoesNotExist
 from django.db import models
+from django.forms.utils import flatatt
 from django.template import Library
 from django.template.loader import get_template
 from django.utils.encoding import force_text
@@ -17,7 +20,7 @@ from django.utils.translation import ugettext as _
 register = Library()
 
 
-def items_for_result(view, result):
+def items_for_result(context, view, result):
     """
     Generates the actual list of data.
     """
@@ -74,15 +77,35 @@ def items_for_result(view, result):
         row_attrs_dict = modeladmin.get_extra_attrs_for_field_col(
             field_name, result)
         row_attrs_dict['class'] = ' ' . join(row_classes)
-        row_attrs = ''.join(
-            ' %s="%s"' % (key, val) for key, val in row_attrs_dict.items())
-        row_attrs_safe = mark_safe(row_attrs)
-        yield format_html('<td{}>{}</td>', row_attrs_safe, result_repr)
+        row_attrs = flatatt(row_attrs_dict)
+        request = context['request']
+        if field_name == modeladmin.get_list_display_add_buttons(request):
+            buttons = view.get_buttons_for_obj(result)
+            button_template = get_template('modeladmin/includes/button.html')
+            buttons_html = ''
+            if buttons:
+                buttons_html = ' <ul class="buttons">'
+                for button in buttons:
+                    buttons_html += button_template.render({'button': button})
+                buttons_html += '</ul>'
+                buttons_html = mark_safe(buttons_html)
+            if(
+                modeladmin.add_edit_link_to_buttons_col_value and
+                view.permission_helper.user_can_edit_obj(request.user, result)
+            ):
+                edit_url = modeladmin.url_helper.get_action_url(
+                    'edit', quote(result.pk))
+                yield format_html(
+                    '<td{}><a class="edit-obj" title="{}" href="{}">{}</a>{}</td>',
+                    row_attrs, _('Edit this item'), edit_url, result_repr, buttons_html)
+
+            yield format_html('<td{}>{}{}</td>', row_attrs, result_repr, buttons_html)
+        yield format_html('<td{}>{}</td>', row_attrs, result_repr)
 
 
-def results(view, object_list):
+def results(context, view, object_list):
     for item in object_list:
-        yield ResultList(None, items_for_result(view, item))
+        yield ResultList(None, items_for_result(context, view, item))
 
 
 @register.inclusion_tag("modeladmin/includes/result_list.html",
@@ -101,7 +124,7 @@ def result_list(context):
     context.update({
         'result_headers': headers,
         'num_sorted_fields': num_sorted_fields,
-        'results': list(results(view, object_list))})
+        'results': list(results(context, view, object_list))})
     return context
 
 
@@ -155,30 +178,8 @@ def admin_list_filter(view, spec):
     "modeladmin/includes/result_row.html", takes_context=True)
 def result_row_display(context, index):
     obj = context['object_list'][index]
-    view = context['view']
     context.update({
         'obj': obj,
-        'action_buttons': view.get_buttons_for_obj(obj),
-    })
-    return context
-
-
-@register.inclusion_tag(
-    "modeladmin/includes/result_row_value.html", takes_context=True)
-def result_row_value_display(context, index):
-    add_action_buttons = False
-    item = context['item']
-    closing_tag = mark_safe(item[-5:])
-    request = context['request']
-    model_admin = context['view'].model_admin
-    field_name = model_admin.get_list_display(request)[index]
-    if field_name == model_admin.get_list_display_add_buttons(request):
-        add_action_buttons = True
-        item = mark_safe(item[0:-5])
-    context.update({
-        'item': item,
-        'add_action_buttons': add_action_buttons,
-        'closing_tag': closing_tag,
     })
     return context
 
