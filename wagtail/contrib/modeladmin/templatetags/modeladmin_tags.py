@@ -1,12 +1,10 @@
 from __future__ import absolute_import, unicode_literals
 
 import datetime
-import django
 
-from django.contrib.admin.templatetags.admin_list import (
-    ResultList, result_headers)
-from django.contrib.admin.utils import (
-    display_for_field, display_for_value, lookup_field, quote)
+import django
+from django.contrib.admin.templatetags.admin_list import ResultList, result_headers
+from django.contrib.admin.utils import display_for_field, display_for_value, lookup_field, quote
 from django.core.exceptions import ObjectDoesNotExist
 from django.db import models
 from django.forms.utils import flatatt
