@@ -38,8 +38,10 @@ class DatabaseSearchQuery(BaseSearchQuery):
 
         if self.query_string is not None:
             # Get fields
-            fields = self.fields or [field.field_name for field in model.get_searchable_search_fields()]
-
+            fields = self.fields or [
+                field.db_search if field.db_search else field.field_name
+                for field in model.get_db_searchable_search_fields()
+            ]
             # Get terms
             terms = self.query_string.split()
             if not terms:
@@ -49,11 +51,6 @@ class DatabaseSearchQuery(BaseSearchQuery):
             for term in terms:
                 term_query = models.Q()
                 for field_name in fields:
-                    # Check if the field exists (this will filter out indexed callables)
-                    try:
-                        model._meta.get_field(field_name)
-                    except models.fields.FieldDoesNotExist:
-                        continue
 
                     # Filter on this field
                     term_query |= models.Q(**{'%s__icontains' % field_name: term})

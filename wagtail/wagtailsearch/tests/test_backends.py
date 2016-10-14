@@ -62,6 +62,7 @@ class BackendTests(WagtailTestUtils):
         testb.title = "Hello"
         testb.live = True
         testb.save()
+        testb.tags.add("tag")
         self.backend.add(testb)
         self.testb = testb
 

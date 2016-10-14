@@ -16,7 +16,7 @@ class SearchTest(index.Indexed, models.Model):
     search_fields = [
         index.SearchField('title', partial_match=True),
         index.RelatedFields('tags', [
-            index.SearchField('name', partial_match=True),
+            index.SearchField('name', partial_match=True, db_search="tags__name"),
             index.FilterField('slug'),
         ]),
         index.SearchField('content'),

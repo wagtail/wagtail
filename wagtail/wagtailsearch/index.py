@@ -62,6 +62,32 @@ class Indexed(object):
         ]
 
     @classmethod
+    def get_db_searchable_search_fields(cls):
+        """
+        DB search fields are top level search fields defined in the page and any related
+        search fields that have a db_search value defined
+        """
+        fields = []
+        for field in cls.get_search_fields():
+            if isinstance(field, SearchField) and not field.db_search:
+                # Check if the field exists (this will filter out indexed callables)
+                try:
+                    cls._meta.get_field(field.field_name)
+                except models.fields.FieldDoesNotExist:
+                    continue
+                else:
+                    fields.append(field)
+            elif isinstance(field, SearchField) and field.db_search:
+                fields.add(field)
+            elif isinstance(field, RelatedFields):
+                fields += [
+                    field for field in field.fields
+                    if isinstance(field, SearchField) and field.db_search
+                ]
+
+        return fields
+
+    @classmethod
     def get_filterable_search_fields(cls):
         return [
             field for field in cls.get_search_fields()
@@ -217,10 +243,11 @@ class BaseField(object):
 
 
 class SearchField(BaseField):
-    def __init__(self, field_name, boost=None, partial_match=False, **kwargs):
+    def __init__(self, field_name, boost=None, partial_match=False, db_search=None, **kwargs):
         super(SearchField, self).__init__(field_name, **kwargs)
         self.boost = boost
         self.partial_match = partial_match
+        self.db_search = db_search
 
 
 class FilterField(BaseField):

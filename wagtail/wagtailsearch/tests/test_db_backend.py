@@ -26,3 +26,7 @@ class TestDBBackend(BackendTests, TestCase):
         for result in results:
             # DB backend doesn't do scoring, so annotate_score should just add None
             self.assertIsNone(result._score)
+
+    def test_tag_result(self):
+        results = self.backend.search("tag", models.SearchTest)
+        self.assertEqual(set(results), {self.testb})
