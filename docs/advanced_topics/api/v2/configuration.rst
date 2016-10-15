@@ -29,7 +29,7 @@ Add ``wagtail.api.v2`` to ``INSTALLED_APPS`` in your Django project settings:
         ...
     ]
 
-Optionally, you may also want to add ``restframework`` to ``INSTALLED_APPS``.
+Optionally, you may also want to add ``rest_framework`` to ``INSTALLED_APPS``.
 This would make the API browsable when viewed from a web browser but is not
 required for basic JSON-formatted output.
 
