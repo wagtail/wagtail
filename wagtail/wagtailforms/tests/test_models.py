@@ -22,7 +22,7 @@ class TestFormSubmission(TestCase):
         response = self.client.get('/contact-us/')
 
         # Check response
-        self.assertContains(response, """<label for="id_your-email">Your email</label>""")
+        self.assertContains(response, """<label for="id_your_email">Your email</label>""")
         self.assertTemplateUsed(response, 'tests/form_page.html')
         self.assertTemplateNotUsed(response, 'tests/form_page_landing.html')
 
@@ -31,9 +31,9 @@ class TestFormSubmission(TestCase):
 
     def test_post_invalid_form(self):
         response = self.client.post('/contact-us/', {
-            'your-email': 'bob',
-            'your-message': 'hello world',
-            'your-choices': ''
+            'your_email': 'bob',
+            'your_message': 'hello world',
+            'your_choices': ''
         })
 
         # Check response
@@ -43,9 +43,9 @@ class TestFormSubmission(TestCase):
 
     def test_post_valid_form(self):
         response = self.client.post('/contact-us/', {
-            'your-email': 'bob@example.com',
-            'your-message': 'hello world',
-            'your-choices': {'foo': '', 'bar': '', 'baz': ''}
+            'your_email': 'bob@example.com',
+            'your_message': 'hello world',
+            'your_choices': {'foo': '', 'bar': '', 'baz': ''}
         })
 
         # Check response
@@ -69,9 +69,9 @@ class TestFormSubmission(TestCase):
 
     def test_post_unicode_characters(self):
         self.client.post('/contact-us/', {
-            'your-email': 'bob@example.com',
-            'your-message': 'こんにちは、世界',
-            'your-choices': {'foo': '', 'bar': '', 'baz': ''}
+            'your_email': 'bob@example.com',
+            'your_message': 'こんにちは、世界',
+            'your_choices': {'foo': '', 'bar': '', 'baz': ''}
         })
 
         # Check the email
@@ -81,13 +81,13 @@ class TestFormSubmission(TestCase):
         # Check the form submission
         submission = FormSubmission.objects.get()
         submission_data = json.loads(submission.form_data)
-        self.assertEqual(submission_data['your-message'], 'こんにちは、世界')
+        self.assertEqual(submission_data['your_message'], 'こんにちは、世界')
 
     def test_post_multiple_values(self):
         response = self.client.post('/contact-us/', {
-            'your-email': 'bob@example.com',
-            'your-message': 'hello world',
-            'your-choices': {'foo': 'on', 'bar': 'on', 'baz': 'on'}
+            'your_email': 'bob@example.com',
+            'your_message': 'hello world',
+            'your_choices': {'foo': 'on', 'bar': 'on', 'baz': 'on'}
         })
 
         # Check response
@@ -106,9 +106,9 @@ class TestFormSubmission(TestCase):
 
     def test_post_blank_checkbox(self):
         response = self.client.post('/contact-us/', {
-            'your-email': 'bob@example.com',
-            'your-message': 'hello world',
-            'your-choices': {},
+            'your_email': 'bob@example.com',
+            'your_message': 'hello world',
+            'your_choices': {},
         })
 
         # Check response
@@ -132,7 +132,7 @@ class TestFormWithCustomSubmission(TestCase, WagtailTestUtils):
         response = self.client.get('/contact-us/')
 
         # Check response
-        self.assertContains(response, """<label for="id_your-email">Your email</label>""")
+        self.assertContains(response, """<label for="id_your_email">Your email</label>""")
         self.assertTemplateUsed(response, 'tests/form_page_with_custom_submission.html')
         self.assertTemplateNotUsed(response, 'tests/form_page_with_custom_submission_landing.html')
         self.assertNotContains(response, '<div>You must log in first.</div>', html=True)
@@ -147,7 +147,7 @@ class TestFormWithCustomSubmission(TestCase, WagtailTestUtils):
         response = self.client.get('/contact-us/')
 
         # Check response
-        self.assertNotContains(response, """<label for="id_your-email">Your email</label>""")
+        self.assertNotContains(response, """<label for="id_your_email">Your email</label>""")
         self.assertTemplateUsed(response, 'tests/form_page_with_custom_submission.html')
         self.assertTemplateNotUsed(response, 'tests/form_page_with_custom_submission_landing.html')
         self.assertContains(response, '<div>You must log in first.</div>', html=True)
@@ -158,9 +158,9 @@ class TestFormWithCustomSubmission(TestCase, WagtailTestUtils):
 
     def test_post_invalid_form(self):
         response = self.client.post('/contact-us/', {
-            'your-email': 'bob',
-            'your-message': 'hello world',
-            'your-choices': ''
+            'your_email': 'bob',
+            'your_message': 'hello world',
+            'your_choices': ''
         })
 
         # Check response
@@ -170,9 +170,9 @@ class TestFormWithCustomSubmission(TestCase, WagtailTestUtils):
 
     def test_post_valid_form(self):
         response = self.client.post('/contact-us/', {
-            'your-email': 'bob@example.com',
-            'your-message': 'hello world',
-            'your-choices': {'foo': '', 'bar': '', 'baz': ''}
+            'your_email': 'bob@example.com',
+            'your_message': 'hello world',
+            'your_choices': {'foo': '', 'bar': '', 'baz': ''}
         })
 
         # Check response
@@ -197,9 +197,9 @@ class TestFormWithCustomSubmission(TestCase, WagtailTestUtils):
     def test_post_form_twice(self):
         # First submission
         response = self.client.post('/contact-us/', {
-            'your-email': 'bob@example.com',
-            'your-message': 'hello world',
-            'your-choices': {'foo': '', 'bar': '', 'baz': ''}
+            'your_email': 'bob@example.com',
+            'your_message': 'hello world',
+            'your_choices': {'foo': '', 'bar': '', 'baz': ''}
         })
 
         # Check response
@@ -215,9 +215,9 @@ class TestFormWithCustomSubmission(TestCase, WagtailTestUtils):
 
         # Second submission
         response = self.client.post('/contact-us/', {
-            'your-email': 'bob@example.com',
-            'your-message': 'hello world',
-            'your-choices': {'foo': '', 'bar': '', 'baz': ''}
+            'your_email': 'bob@example.com',
+            'your_message': 'hello world',
+            'your_choices': {'foo': '', 'bar': '', 'baz': ''}
         })
 
         # Check response
@@ -236,9 +236,9 @@ class TestFormWithCustomSubmission(TestCase, WagtailTestUtils):
 
     def test_post_unicode_characters(self):
         self.client.post('/contact-us/', {
-            'your-email': 'bob@example.com',
-            'your-message': 'こんにちは、世界',
-            'your-choices': {'foo': '', 'bar': '', 'baz': ''}
+            'your_email': 'bob@example.com',
+            'your_message': 'こんにちは、世界',
+            'your_choices': {'foo': '', 'bar': '', 'baz': ''}
         })
 
         # Check the email
@@ -248,13 +248,13 @@ class TestFormWithCustomSubmission(TestCase, WagtailTestUtils):
         # Check the form submission
         submission = CustomFormPageSubmission.objects.get()
         submission_data = json.loads(submission.form_data)
-        self.assertEqual(submission_data['your-message'], 'こんにちは、世界')
+        self.assertEqual(submission_data['your_message'], 'こんにちは、世界')
 
     def test_post_multiple_values(self):
         response = self.client.post('/contact-us/', {
-            'your-email': 'bob@example.com',
-            'your-message': 'hello world',
-            'your-choices': {'foo': 'on', 'bar': 'on', 'baz': 'on'}
+            'your_email': 'bob@example.com',
+            'your_message': 'hello world',
+            'your_choices': {'foo': 'on', 'bar': 'on', 'baz': 'on'}
         })
 
         # Check response
@@ -273,9 +273,9 @@ class TestFormWithCustomSubmission(TestCase, WagtailTestUtils):
 
     def test_post_blank_checkbox(self):
         response = self.client.post('/contact-us/', {
-            'your-email': 'bob@example.com',
-            'your-message': 'hello world',
-            'your-choices': {},
+            'your_email': 'bob@example.com',
+            'your_message': 'hello world',
+            'your_choices': {},
         })
 
         # Check response
@@ -295,9 +295,9 @@ class TestFormSubmissionWithMultipleRecipients(TestCase):
 
     def test_post_valid_form(self):
         response = self.client.post('/contact-us/', {
-            'your-email': 'bob@example.com',
-            'your-message': 'hello world',
-            'your-choices': {'foo': '', 'bar': '', 'baz': ''}
+            'your_email': 'bob@example.com',
+            'your_message': 'hello world',
+            'your_choices': {'foo': '', 'bar': '', 'baz': ''}
         })
 
         # Check response
@@ -332,9 +332,9 @@ class TestFormSubmissionWithMultipleRecipientsAndWithCustomSubmission(TestCase, 
 
     def test_post_valid_form(self):
         response = self.client.post('/contact-us/', {
-            'your-email': 'bob@example.com',
-            'your-message': 'hello world',
-            'your-choices': {'foo': '', 'bar': '', 'baz': ''}
+            'your_email': 'bob@example.com',
+            'your_message': 'hello world',
+            'your_choices': {'foo': '', 'bar': '', 'baz': ''}
         })
 
         # Check response
@@ -376,10 +376,10 @@ class TestIssue798(TestCase):
 
     def test_post(self):
         response = self.client.post('/contact-us/', {
-            'your-email': 'bob@example.com',
-            'your-message': 'hello world',
-            'your-choices': {'foo': '', 'bar': '', 'baz': ''},
-            'your-favourite-number': '7.3',
+            'your_email': 'bob@example.com',
+            'your_message': 'hello world',
+            'your_choices': {'foo': '', 'bar': '', 'baz': ''},
+            'your_favourite_number': '7.3',
         })
 
         # Check response
