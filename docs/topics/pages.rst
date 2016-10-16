@@ -476,4 +476,4 @@ Alternately, if you only need to add extra ``QuerySet`` methods, you can inherit
     class EventPage(Page):
         start_date = models.DateField()
 
-        objects = PageManager.from_queryset(EventPageQuerySet)
+        objects = PageManager.from_queryset(EventPageQuerySet)()
