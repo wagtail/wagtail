@@ -450,7 +450,7 @@ msgid "Hello %(username)s,"
 msgstr "Salut %(username)s,"
 
 msgid "Edit your notification preferences here:"
-msgstr "Modifié vos préférences de notifications ici :"
+msgstr "Modifiez vos préférences de notifications ici :"
 
 #, python-format
 msgid "The page \"%(title)s\" has been rejected."
