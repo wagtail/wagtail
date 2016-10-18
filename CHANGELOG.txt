@@ -14,6 +14,7 @@ Changelog
  * Fix: Parent page link in page search modal no longer disappears on hover (Dan Braghis)
  * Fix: ModelAdmin views now consistently call `get_context_data` (Andy Babic)
  * Fix: Header for search results on the redirects index page now shows the correct count when the listing is paginated (Nick Smith)
+ * Fix: `set_url_paths` management command is now compatible with Django 1.10 (Benjamin Bach)
 
 
 1.7 (20.10.2016)
