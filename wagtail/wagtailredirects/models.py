@@ -21,7 +21,7 @@ class Redirect(models.Model):
         "Recommended. Permanent redirects ensure search engines "
         "forget the old page (the 'Redirect from') and index the new page instead."
     ))
-    redirect_page = models.ParentalKey(
+    redirect_page = ParentalKey(
         'wagtailcore.Page',
         verbose_name=_("redirect to a page"),
         related_name='redirects',
@@ -29,7 +29,7 @@ class Redirect(models.Model):
         on_delete=models.CASCADE
     )
     redirect_link = models.URLField(verbose_name=_("redirect to any URL"), blank=True)
-    
+
     @property
     def title(self):
         return self.old_path
