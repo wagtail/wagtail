@@ -28,7 +28,7 @@ Bug fixes
  * Remove responsive styles in embed when there is no ratio available (Gagaro)
  * Parent page link in page search modal no longer disappears on hover (Dan Braghis)
  * ModelAdmin views now consistently call ``get_context_data`` (Andy Babic)
-
+ * Header for search results on the redirects index page now shows the correct count when the listing is paginated (Nick Smith)
 
 Upgrade considerations
 ======================
