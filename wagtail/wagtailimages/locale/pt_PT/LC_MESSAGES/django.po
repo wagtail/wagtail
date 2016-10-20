@@ -11,9 +11,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-09-22 15:51+0100\n"
-"PO-Revision-Date: 2016-09-22 15:03+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2016-10-05 16:37+0100\n"
+"PO-Revision-Date: 2016-10-14 13:47+0000\n"
+"Last-Translator: Tiago Henriques <trinosauro@gmail.com>\n"
 "Language-Team: Portuguese (Portugal) (http://www.transifex.com/torchbox/"
 "wagtail/language/pt_PT/)\n"
 "MIME-Version: 1.0\n"
@@ -52,6 +52,15 @@ msgstr "Este ficheiro é demasiado grande (%%s). Tamanho máximo %s."
 #, python-format
 msgid "This file is too big. Maximum filesize %s."
 msgstr "Este ficheiro é demasiado grande. Tamanho do ficheiro máximo %s."
+
+msgid "Full width"
+msgstr "Largura completa"
+
+msgid "Left-aligned"
+msgstr "Alinhar à esquerda"
+
+msgid "Right-aligned"
+msgstr "Alinhar à direita"
 
 msgid "Filter"
 msgstr "Filtro"

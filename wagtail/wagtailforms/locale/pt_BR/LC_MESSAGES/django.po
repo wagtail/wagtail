@@ -7,13 +7,14 @@
 # Gilson Filho <me@gilsondev.in>, 2014
 # Guilherme Nabanete <neoheartz@gmail.com>, 2016
 # Luiz Boaretto <lboaretto@gmail.com>, 2016
+# Luiz Boaretto <lboaretto@gmail.com>, 2016
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-09-22 15:51+0100\n"
-"PO-Revision-Date: 2016-09-22 15:05+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2016-10-05 16:37+0100\n"
+"PO-Revision-Date: 2016-10-06 03:11+0000\n"
+"Last-Translator: Luiz Boaretto <lboaretto@gmail.com>\n"
 "Language-Team: Portuguese (Brazil) (http://www.transifex.com/torchbox/"
 "wagtail/language/pt_BR/)\n"
 "MIME-Version: 1.0\n"
@@ -21,6 +22,9 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: pt_BR\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+msgid "{} submissions"
+msgstr "{} envios"
 
 #, python-format
 msgid "There is another field with the label %s, please change one of them."
@@ -96,6 +100,9 @@ msgstr "Valor padrão: Valores separados por virgula para checkboxes."
 msgid "help text"
 msgstr "texto de ajuda"
 
+msgid "Submission date"
+msgstr "Data de envio"
+
 msgid "to address"
 msgstr "para endereço"
 
@@ -124,6 +131,12 @@ msgstr "Tem certeza de que deseja excluir esta submissão do formulário?"
 
 msgid "Delete it"
 msgstr "Remover isso"
+
+msgid "Total submissions"
+msgstr "Total de envios"
+
+msgid "Latest submission"
+msgstr "Último envio"
 
 msgid "Forms"
 msgstr "Formulários"
