@@ -40,7 +40,7 @@ testing_extras = [
     'python-dateutil>=2.2',
     'pytz>=2014.7',
     'Pillow>=2.7.0',
-    'elasticsearch>=1.0.0',
+    'elasticsearch>=1.0.0,<3.0',
     'Jinja2>=2.8,<3.0',
     'boto3>=1.1,<1.2',
 
