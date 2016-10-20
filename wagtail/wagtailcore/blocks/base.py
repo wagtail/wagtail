@@ -50,6 +50,7 @@ class Block(six.with_metaclass(BaseBlock, object)):
         label = None
         icon = "placeholder"
         classname = None
+        group = ''
 
     """
     Setting a 'dependencies' list serves as a shortcut for the common case where a complex block type
