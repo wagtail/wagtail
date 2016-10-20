@@ -64,6 +64,9 @@ All block types accept the following optional keyword arguments:
 ``template``
   The path to a Django template that will be used to render this block on the front end. See `Template rendering`_.
 
+``group``
+  The group used to categorize this block, i.e. any blocks with the same group name will be shown together in the editor interface with the group name as a heading.
+
 The basic block types provided by Wagtail are as follows:
 
 CharBlock

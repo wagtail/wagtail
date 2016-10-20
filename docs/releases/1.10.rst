@@ -41,7 +41,8 @@ Other features
  * Page explorer menu item, search and summary panel are now hidden for users with no page permissions (Tim Heap)
  * Added support for custom date and datetime formats in input fields (Bojan Mihelac)
  * Added support for custom Django REST framework serialiser fields in ``Page.api_fields`` using a new ``APIField`` class (Karl Hobley)
- * Added ``classname`` argument to ``StreamFieldPanel`` (Christine Ho).
+ * Added ``classname`` argument to ``StreamFieldPanel`` (Christine Ho)
+ * Added ``group`` keyword argument to StreamField blocks for grouping related blocks together in the block menu (Andreas Nüßlein)
 
 
 Bug fixes

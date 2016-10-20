@@ -2231,6 +2231,40 @@ class TestStreamBlock(WagtailTestUtils, SimpleTestCase):
         self.assertFalse(value1 == value3)
         self.assertTrue(value1 != value3)
 
+    def test_render_considers_group_attribute(self):
+        """If group attributes are set in Block Meta classes, render a <h3> for each different block"""
+
+        class Group1Block1(blocks.CharBlock):
+            class Meta:
+                group = 'group1'
+
+        class Group1Block2(blocks.CharBlock):
+            class Meta:
+                group = 'group1'
+
+        class Group2Block1(blocks.CharBlock):
+            class Meta:
+                group = 'group2'
+
+        class Group2Block2(blocks.CharBlock):
+            class Meta:
+                group = 'group2'
+
+        class NoGroupBlock(blocks.CharBlock):
+            pass
+
+        block = blocks.StreamBlock([
+            ('b1', Group1Block1()),
+            ('b2', Group1Block2()),
+            ('b3', Group2Block1()),
+            ('b4', Group2Block2()),
+            ('ngb', NoGroupBlock()),
+        ])
+        html = block.render_form('')
+        self.assertNotIn('<h3></h3>', block.render_form(''))
+        self.assertIn('<h3>group1</h3>', html)
+        self.assertIn('<h3>group2</h3>', html)
+
 
 class TestPageChooserBlock(TestCase):
     fixtures = ['test.json']

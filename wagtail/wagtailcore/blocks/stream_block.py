@@ -140,7 +140,7 @@ class BaseStreamBlock(Block):
         return render_to_string('wagtailadmin/block_forms/stream.html', {
             'prefix': prefix,
             'list_members_html': list_members_html,
-            'child_blocks': self.child_blocks.values(),
+            'child_blocks': sorted(self.child_blocks.values(), key=lambda child_block: child_block.meta.group),
             'header_menu_prefix': '%s-before' % prefix,
             'block_errors': error_dict.get(NON_FIELD_ERRORS),
         })
