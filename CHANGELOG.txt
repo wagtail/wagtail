@@ -13,7 +13,7 @@ Changelog
  * Fix: Parent page link in page search modal no longer disappears on hover (Dan Braghis)
 
 
-1.7 (xx.xx.xxxx) - IN DEVELOPMENT
+1.7 (20.10.2016)
 ~~~~~~~~~~~~~~~~
 
  * Elasticsearch 2 support (Karl Hobley)
