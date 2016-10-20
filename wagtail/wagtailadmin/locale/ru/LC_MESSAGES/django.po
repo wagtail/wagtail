@@ -9,8 +9,9 @@
 # Andrey Avdey <talkerbox@live.com>, 2016
 # Daniil <fleepd@gmail.com>, 2015
 # Eugene MechanisM <eugene@mechanism.pro>, 2014-2016
-# HNKNTA <hnknta@gmail.com>, 2014
-# HNKNTA <hnknta@gmail.com>, 2014
+# Eugene MechanisM <eugene@mechanism.pro>, 2016
+# Никита Викторович <hnknta@gmail.com>, 2014
+# Никита Викторович <hnknta@gmail.com>, 2014
 # Matt Westcott <matthew@torchbox.com>, 2015
 # Mikalai Radchuk <radchuk.m@gmail.com>, 2016
 # Sergey Komarov <sjkomarov@gmail.com>, 2014
@@ -19,9 +20,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-09-22 15:51+0100\n"
-"PO-Revision-Date: 2016-09-24 10:54+0000\n"
-"Last-Translator: Andrey Avdey <talkerbox@live.com>\n"
+"POT-Creation-Date: 2016-10-05 16:37+0100\n"
+"PO-Revision-Date: 2016-10-05 17:04+0000\n"
+"Last-Translator: Eugene MechanisM <eugene@mechanism.pro>\n"
 "Language-Team: Russian (http://www.transifex.com/torchbox/wagtail/language/"
 "ru/)\n"
 "MIME-Version: 1.0\n"
@@ -999,6 +1000,9 @@ msgstr[3] "Использовано %(useage_count)s раз"
 
 msgid "Edit your account"
 msgstr "Редактировать ваш аккаунт"
+
+msgid "Account settings"
+msgstr "Настройки аккаунта"
 
 msgid "Log out"
 msgstr "Выйти"

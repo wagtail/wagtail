@@ -8,9 +8,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-09-22 15:51+0100\n"
-"PO-Revision-Date: 2016-09-22 15:05+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2016-10-05 16:37+0100\n"
+"PO-Revision-Date: 2016-10-05 19:18+0000\n"
+"Last-Translator: Dan Braghis\n"
 "Language-Team: Romanian (http://www.transifex.com/torchbox/wagtail/language/"
 "ro/)\n"
 "MIME-Version: 1.0\n"
@@ -19,6 +19,9 @@ msgstr ""
 "Language: ro\n"
 "Plural-Forms: nplurals=3; plural=(n==1?0:(((n%100>19)||((n%100==0)&&(n!=0)))?"
 "2:1));\n"
+
+msgid "{} submissions"
+msgstr "{} depuneri"
 
 #, python-format
 msgid "There is another field with the label %s, please change one of them."
@@ -94,6 +97,9 @@ msgstr "Valoare implicită. Suportă valori separate prin virgule pentru căsuț
 msgid "help text"
 msgstr "text de ajutor"
 
+msgid "Submission date"
+msgstr "Data trimiterii"
+
 msgid "to address"
 msgstr "adresă la"
 
@@ -122,6 +128,12 @@ msgstr "Sigur doriți să ștergeți această depunere de formular?"
 
 msgid "Delete it"
 msgstr "Șterge"
+
+msgid "Total submissions"
+msgstr "Total depuneri"
+
+msgid "Latest submission"
+msgstr "Ultima depunere"
 
 msgid "Forms"
 msgstr "Formulare"

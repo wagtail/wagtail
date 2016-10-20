@@ -3,13 +3,14 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# geek pantura <geekpantura@gmail.com>, 2016
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-09-22 15:51+0100\n"
-"PO-Revision-Date: 2016-05-18 21:51+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2016-10-05 16:38+0100\n"
+"PO-Revision-Date: 2016-10-08 17:52+0000\n"
+"Last-Translator: geek pantura <geekpantura@gmail.com>\n"
 "Language-Team: Indonesian (Indonesia) (http://www.transifex.com/torchbox/"
 "wagtail/language/id_ID/)\n"
 "MIME-Version: 1.0\n"
@@ -21,6 +22,9 @@ msgstr ""
 msgid "Choose"
 msgstr "Pilih"
 
+msgid "Search"
+msgstr "Pencarian"
+
 msgid "Delete"
 msgstr "Hapus"
 
@@ -30,11 +34,20 @@ msgstr "Ya, hapus"
 msgid "New"
 msgstr "Baru"
 
+msgid "Saving..."
+msgstr "Menyimpan"
+
 msgid "Save"
 msgstr "Simpan"
 
+msgid "Editing"
+msgstr "Menyunting"
+
 msgid "Title"
 msgstr "Judul"
+
+msgid "Usage of"
+msgstr "Penggunaan"
 
 msgid "Type"
 msgstr "Tipe"

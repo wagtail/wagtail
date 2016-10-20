@@ -9,7 +9,9 @@
 # Axel Haustant, 2016
 # Benoît Vogel <contact@spicy-informatique.com>, 2016
 # Bertrand Bordage <bordage.bertrand@gmail.com>, 2015-2016
+# Dominique PERETTI <dperetti@gmail.com>, 2016
 # Léo <leo@naeka.fr>, 2016
+# Matt Westcott <matthew@torchbox.com>, 2016
 # nahuel, 2014
 # nahuel, 2014
 # pierre marfoure <pierre@onoffdesign.com>, 2016
@@ -19,9 +21,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-09-22 15:51+0100\n"
-"PO-Revision-Date: 2016-09-24 10:37+0000\n"
-"Last-Translator: Benoît Vogel <contact@spicy-informatique.com>\n"
+"POT-Creation-Date: 2016-10-05 16:37+0100\n"
+"PO-Revision-Date: 2016-10-17 13:38+0000\n"
+"Last-Translator: Dominique PERETTI <dperetti@gmail.com>\n"
 "Language-Team: French (http://www.transifex.com/torchbox/wagtail/language/"
 "fr/)\n"
 "MIME-Version: 1.0\n"
@@ -450,7 +452,7 @@ msgid "Hello %(username)s,"
 msgstr "Salut %(username)s,"
 
 msgid "Edit your notification preferences here:"
-msgstr "Modifié vos préférences de notifications ici :"
+msgstr "Modifiez vos préférences de notifications ici :"
 
 #, python-format
 msgid "The page \"%(title)s\" has been rejected."
@@ -944,6 +946,9 @@ msgstr[1] "Utilisé %(useage_count)s fois"
 
 msgid "Edit your account"
 msgstr "Modifiez votre compte"
+
+msgid "Account settings"
+msgstr "Paramètres du compte"
 
 msgid "Log out"
 msgstr "Se déconnecter"

@@ -4,14 +4,15 @@
 #
 # Translators:
 # Cihad GÜNDOĞDU <cihadgundogdu@gmail.com>, 2016
+# Saadettin Yasir AKEL <yasirakel@gmail.com>, 2016
 # Yusuf (Josè) Luis <alagunajs@gmail.com>, 2016
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-09-22 15:51+0100\n"
-"PO-Revision-Date: 2016-10-03 12:20+0000\n"
-"Last-Translator: Cihad GÜNDOĞDU <cihadgundogdu@gmail.com>\n"
+"POT-Creation-Date: 2016-10-05 16:37+0100\n"
+"PO-Revision-Date: 2016-10-12 12:57+0000\n"
+"Last-Translator: Saadettin Yasir AKEL <yasirakel@gmail.com>\n"
 "Language-Team: Turkish (Turkey) (http://www.transifex.com/torchbox/wagtail/"
 "language/tr_TR/)\n"
 "MIME-Version: 1.0\n"
@@ -41,4 +42,4 @@ msgid "{setting_type} updated."
 msgstr "{setting_type} güncellendi."
 
 msgid "The setting could not be saved due to errors."
-msgstr "Ayarı hataları nedeniyle kurtarılamadı."
+msgstr "Ayarlar, hatalar nedeniyle kaydedilemedi."

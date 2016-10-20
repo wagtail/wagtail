@@ -8,9 +8,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-09-22 15:51+0100\n"
-"PO-Revision-Date: 2016-09-22 15:03+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2016-10-05 16:37+0100\n"
+"PO-Revision-Date: 2016-10-05 19:17+0000\n"
+"Last-Translator: Dan Braghis\n"
 "Language-Team: Romanian (http://www.transifex.com/torchbox/wagtail/language/"
 "ro/)\n"
 "MIME-Version: 1.0\n"
@@ -19,6 +19,12 @@ msgstr ""
 "Language: ro\n"
 "Plural-Forms: nplurals=3; plural=(n==1?0:(((n%100>19)||((n%100==0)&&(n!=0)))?"
 "2:1));\n"
+
+msgid "Password"
+msgstr "Parolă"
+
+msgid "The password you have entered is not correct. Please try again."
+msgstr "Parola introdusă nu este corectă. Vă rugăm să încercați din nou."
 
 msgid "hostname"
 msgstr "nume gazdă"
@@ -244,3 +250,12 @@ msgstr "permisiune"
 
 msgid "group collection permission"
 msgstr "permisiune grup colecție"
+
+msgid "Password required"
+msgstr "Parolă necesară"
+
+msgid "You need a password to access this page."
+msgstr "Aveți nevoie de o parolă pentru a accesa această pagină."
+
+msgid "Continue"
+msgstr "Continuă"
