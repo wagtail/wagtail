@@ -99,6 +99,7 @@ class ModelAdmin(WagtailRegisterable):
     menu_order = None
     list_display = ('__str__',)
     list_display_add_buttons = None
+    add_edit_link_to_buttons_col_value = True
     inspect_view_fields = []
     inspect_view_fields_exclude = []
     inspect_view_enabled = False
