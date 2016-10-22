@@ -23,8 +23,8 @@ $(function() {
 
                 // Work out what page moved and where it moved to
                 var movedElement = $(ui.item[0]);
-                var movedElementOrderTD = movedElement.find('td.field-index_order');
-                var movedObjectId = movedElementOrderTD.data('obj-pk');
+                var movedObjectId = movedElement.data('object-pk');
+                var movedObjectTitle = movedElement.find('td.field-index_order').data('title');
                 var newPosition = $(movedElement).prevAll().length + 1;
 
                 // Build url
@@ -32,12 +32,8 @@ $(function() {
     
                 // Post
                 $.get(url, function(){
-                    addMessage('success', '"' + movedElementOrderTD.data('obj-title') + '" has been moved successfully.')
-                })
-
-                listing_tbody.find('tr:nth-child(odd)').removeClass('even').addClass('odd');
-                listing_tbody.find('tr:nth-child(even)').removeClass('odd').addClass('even');
-
+                    addMessage('success', '"' + movedObjectTitle + '" has been moved successfully.');
+                });
             }
         });
         listing_tbody.disableSelection();

@@ -107,18 +107,19 @@ class OrderableMixin(object):
     def get_extra_attrs_for_field_col(self, field_name, obj):
         """
         Add data attributes to the `index_order` column that can be picked
-        up via JS. The PK isn't present elsewhere (yet!), and the title is
-        used for adding success messages on completion.
+        up via JS. The width attribute helps the column remain at a fixed size
+        while dragging and the title is used for generating a success message
+        on completion reorder completion.
         """
         attrs = super(OrderableMixin, self).get_extra_attrs_for_field_col(
             obj, field_name)
         if field_name == 'index_order':
             attrs.update({
-                'data-obj-pk': obj.pk,
-                'data-obj-title': obj.__str__(),
+                'data-title': obj.__str__(),
                 'width': 20,
             })
         return attrs
+
 
     def get_extra_class_names_for_field_col(self, field_name, obj):
         """
