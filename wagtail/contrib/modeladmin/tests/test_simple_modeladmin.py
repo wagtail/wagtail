@@ -101,7 +101,7 @@ class TestOrderableMixin(TestCase, WagtailTestUtils):
         response = self.get_index()
 
         # This tests the original HTML, rather than the JS modified version
-        self.assertContains(response, '<th scope="col" class="sortable column-index_order sorted ascending"><a href="?o=-0" class="teal icon icon-arrow-up-after">Order</a></th>', html=True)
+        self.assertContains(response, '<th scope="col" class="sortable column-index_order sorted ascending"><a href="?o=-0" class="icon icon-arrow-up-after">Order</a></th>', html=True)
         # There should be a handle for each row
         self.assertContains(response, '<div class="handle icon icon-grip text-replace" aria-hidden="true">Drag</div>', count=4, html=True)
 

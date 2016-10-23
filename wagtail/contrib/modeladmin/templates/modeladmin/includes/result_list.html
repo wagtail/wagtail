@@ -4,8 +4,8 @@
     <thead>
         <tr>
             {% for header in result_headers %}
-            <th scope="col" {{ header.class_attrib }}>
-                {% if header.sortable %}<a href="{{ header.url_primary }}" class="teal icon {% if header.ascending %}icon-arrow-up-after{% else %}icon-arrow-down-after{% endif %}">{% endif %}
+            <th scope="col"{{ header.class_attrib }}>
+                {% if header.sortable %}<a href="{{ header.url_primary }}" class="icon {% if header.ascending %}icon-arrow-up-after{% else %}icon-arrow-down-after{% endif %}">{% endif %}
                 {{ header.text|capfirst }}
                 {% if header.sortable %}</a>{% endif %}
            </th>

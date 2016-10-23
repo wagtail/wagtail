@@ -23,7 +23,6 @@ class BookModelAdmin(OrderableMixin, ModelAdmin):
     menu_order = 300
     list_display = ('title', 'author')
     list_filter = ('author', )
-    ordering = ('title', )
     search_fields = ('title', )
     inspect_view_enabled = True
     inspect_view_fields_exclude = ('title', )
