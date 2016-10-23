@@ -1,0 +1,19 @@
+.result-list {
+
+    tbody { 
+        overflow: auto;
+    }
+
+    tr > td { 
+        background-color: inherit;
+    } 
+
+    tr.ui-sortable-helper {
+        background-color: #fff;
+
+        .visible-on-drag {
+            display: table-cell;
+        }
+
+    } 
+}
