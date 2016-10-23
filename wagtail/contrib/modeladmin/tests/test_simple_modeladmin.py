@@ -88,6 +88,96 @@ class TestIndexView(TestCase, WagtailTestUtils):
         self.assertEqual(response.context['result_count'], 4)
 
 
+class TestOrderableMixin(TestCase, WagtailTestUtils):
+    fixtures = ['modeladmintest_test.json']
+
+    def setUp(self):
+        self.login()
+
+    def get_index(self):
+        return self.client.get('/admin/modeladmintest/book/')
+
+    def test_columns_added(self):
+        response = self.get_index()
+
+        # This tests the original HTML, rather than the JS modified version
+        self.assertContains(response, '<th scope="col" class="sortable column-index_order sorted ascending"><a href="?o=-0" class="icon icon-arrow-up-after">Order</a></th>', html=True)
+        # There should be a handle for each row
+        self.assertContains(response, '<div class="handle icon icon-grip text-replace" aria-hidden="true">Drag</div>', count=4, html=True)
+
+    def test_index_order_view(self):
+
+        the_lotr = Book.objects.get(pk=1)
+        the_hobbit = Book.objects.get(pk=2)
+        charlie_choc = Book.objects.get(pk=3)
+        chrons_of_narnia = Book.objects.get(pk=4)
+
+        # The sort_order in the fixture matches alphabetical order of titles
+        natural_ordered_objects = [
+            charlie_choc, chrons_of_narnia, the_hobbit, the_lotr
+        ]
+
+        # This is what the listing view should show by default
+        response = self.get_index()
+        self.assertEqual(list(response.context['object_list']), natural_ordered_objects)
+
+        # Now let's move charlie and the chocolate factory to last place
+        response = self.client.get('/admin/modeladmintest/book/reorder/3/?position=4')
+        self.assertEqual(response.status_code, 200)
+
+        # The new order of should be
+        newly_ordered_objects = [
+            chrons_of_narnia, the_hobbit, the_lotr, charlie_choc
+        ]
+
+        # Check that the above order is correct
+        response = self.get_index()
+        objects_from_response = list(response.context['object_list'])
+        self.assertEqual(objects_from_response, newly_ordered_objects)
+
+        # Check that the actual `sort_order` values are correct / have no gaps
+        pos = 1
+        for obj in objects_from_response:
+            self.assertEqual(obj.sort_order, pos)
+            pos += 1
+
+
+        # Now let's move charlie and the chocolate factory back to first place
+        response = self.client.get('/admin/modeladmintest/book/reorder/3/?position=1')
+        self.assertEqual(response.status_code, 200)
+
+        # Check that the order is back to what it was originally
+        response = self.get_index()
+        objects_from_response = list(response.context['object_list'])
+        self.assertEqual(objects_from_response, natural_ordered_objects)
+
+        # Check that the actual `sort_order` values are correct / have no gaps
+        pos = 1
+        for obj in objects_from_response:
+            self.assertEqual(obj.sort_order, pos)
+            pos += 1
+
+        # Now let's move the 3rd place book (The Hobbit) to 2nd place, so the
+        # current 2nd place book (Narnia) should move to 3rd
+        response = self.client.get('/admin/modeladmintest/book/reorder/2/?position=2')
+        self.assertEqual(response.status_code, 200)
+
+        newly_ordered_objects = [
+            charlie_choc, the_hobbit, chrons_of_narnia, the_lotr
+        ]
+
+        # Check that the above order is correct
+        response = self.get_index()
+        objects_from_response = list(response.context['object_list'])
+        self.assertEqual(objects_from_response, newly_ordered_objects)
+
+        # Check that the actual `sort_order` values are correct / have no gaps
+        pos = 1
+        for obj in objects_from_response:
+            self.assertEqual(obj.sort_order, pos)
+            pos += 1
+
+
 class TestCreateView(TestCase, WagtailTestUtils):
     fixtures = ['modeladmintest_test.json']
 
@@ -382,4 +472,8 @@ class TestEditorAccess(TestCase):
 
     def test_delete_post_permitted(self):
         response = self.client.post('/admin/modeladmintest/book/delete/2/')
+        self.assertEqual(response.status_code, self.expected_status_code)
+
+    def test_reorder_permitted(self):
+        response = self.client.get('/admin/modeladmintest/book/reorder/1/')
         self.assertEqual(response.status_code, self.expected_status_code)
