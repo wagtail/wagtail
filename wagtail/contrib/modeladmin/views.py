@@ -106,7 +106,7 @@ class WMABaseView(TemplateView):
             'model_admin': self.model_admin,
         }
         context.update(kwargs)
-        return super(WMABaseView, self).get_context_data(**kwargs)
+        return super(WMABaseView, self).get_context_data(**context)
 
 
 class ModelFormView(WMABaseView, FormView):
