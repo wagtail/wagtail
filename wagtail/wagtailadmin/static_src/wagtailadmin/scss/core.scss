@@ -71,6 +71,8 @@ body {
 
 .wrapper {
     @include clearfix();
+    height: 100vh;
+    min-height: 800px;
     transition: transform 0.2s ease;
 }
 
@@ -113,6 +115,7 @@ body {
     @include row();
     background: $color-white;
     border-top: 0 solid $color-grey-5; // this top border provides space for the floating logo to toggle the menu
+    height: 100%;
     padding-bottom: 4em;
     position: relative; // yuk. necessary for positions for jquery ui widgets
 }
@@ -490,7 +493,7 @@ footer,
 
 @media screen and (min-width: 90em) {
     .wrapper {
-        max-width: $breakpoint-desktop-larger;
+        width: 100%;
     }
 
     footer {
