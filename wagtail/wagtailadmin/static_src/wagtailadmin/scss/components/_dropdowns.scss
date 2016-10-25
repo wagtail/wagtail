@@ -216,6 +216,7 @@
 
     .dropdown-toggle {
         background-color: $color-button-warning;
+        color: $color-button-warning-text;
 
         &:hover {
             background-color: $color-button-warning-hover;

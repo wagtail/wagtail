@@ -221,7 +221,7 @@ footer {
                 content: 'n';
                 padding-left: 20px;
                 font-size: 2em;
-                color: $color-teal-darker;
+                color: lighten($color-teal, 10%)!important;
                 line-height: 0.9em;
             }
         }

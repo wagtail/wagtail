@@ -44,11 +44,17 @@
     }
 
     .warning {
-        background-color: $color-orange;
-
+        background-color: $color-button-warning;
+        color: $color-button-warning-text;
         &:before {
             font-family: wagtail;
             content: '!';
+        }
+        .avatar {
+            &:before {
+                color: $color-button-warning-text;
+                border: 1px solid $color-button-warning-text;
+            }
         }
     }
 
