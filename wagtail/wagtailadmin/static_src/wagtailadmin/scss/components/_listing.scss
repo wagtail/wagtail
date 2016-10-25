@@ -430,7 +430,7 @@ table.listing {
             font-size: 1em;
             opacity: 1;
             position: absolute;
-            right: 5%;
+            right: 10%;
             top: 2em;
         }
 
@@ -669,6 +669,9 @@ table.listing {
     .children,
     .no-children {
         @include transition(background-color 0.2s ease);
+        @media screen and (min-width: $breakpoint-desktop-larger) {
+            padding-right: 19em
+        }
     }
 
     .children a,
