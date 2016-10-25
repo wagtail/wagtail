@@ -295,7 +295,7 @@ class AbstractEmailForm(AbstractForm):
 
     def send_mail(self, form):
         addresses = [x.strip() for x in self.to_address.split(',')]
-        content = '\n'.join([x[1].label + ': ' + text_type(form.data.get(x[0])) for x in form.fields.items()])
+        content = '\n'.join([x[1].label + ': ' + text_type( ', '.join(dict(form.data.lists())[x[0]]) ) for x in form.fields.items()])
         send_mail(self.subject, content, addresses, self.from_address,)
 
     class Meta:
