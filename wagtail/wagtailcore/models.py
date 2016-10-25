@@ -396,6 +396,12 @@ class Page(six.with_metaclass(PageBase, AbstractPage, index.Indexed, Clusterable
     # Do not allow plain Page instances to be created through the Wagtail admin
     is_creatable = False
 
+    # Define these attributes early to avoid masking errors. (Issue #3078)
+    # The canonical definition is in wagtailadmin.edit_handlers.
+    content_panels = []
+    promote_panels = []
+    settings_panels = []
+
     def __init__(self, *args, **kwargs):
         super(Page, self).__init__(*args, **kwargs)
         if not self.id and not self.content_type_id:

@@ -174,6 +174,7 @@ Contributors
 * Axel Haustant
 * Henk-Jan van Hasselaar
 * alexfromvl
+* Jaap Roes
 
 Translators
 ===========
