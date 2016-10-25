@@ -19,6 +19,7 @@ Changelog
  * Fix: ModelAdmin views now consistently call `get_context_data` (Andy Babic)
  * Fix: Header for search results on the redirects index page now shows the correct count when the listing is paginated (Nick Smith)
  * Fix: `set_url_paths` management command is now compatible with Django 1.10 (Benjamin Bach)
+ * Fix: Form builder email notifications now output multiple values correctly (Sævar Öfjörð Magnússon)
 
 
 1.7 (20.10.2016)
