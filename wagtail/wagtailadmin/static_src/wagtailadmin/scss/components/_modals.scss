@@ -98,7 +98,13 @@ $zindex-modal-background: 500;
     padding-bottom: 2em;
 
     header {
+        padding-left: 2em;
         padding-right: 100px;
+    }
+
+    .header-title {
+        padding-left: 1em!important;
+        /* @TODO That specificity isn't working out so well... */
     }
 }
 

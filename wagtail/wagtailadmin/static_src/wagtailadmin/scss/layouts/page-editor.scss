@@ -9,8 +9,7 @@
     }
 
     .breadcrumb {
-        margin-top: -1.2em;
-        margin-bottom: 2em;
+        margin: -1.2em 0 2em 0;
     }
 
     .modal .breadcrumb {
@@ -28,6 +27,10 @@
         .home {
             padding-left: 0;
         }
+    }
+
+    .header-title {
+        padding-left: 4em;
     }
 }
 

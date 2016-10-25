@@ -10,6 +10,10 @@
         padding: 0;
         position: relative;
         margin-right: 1px;
+
+        &:first-of-type {
+            padding-left: 1.2em;
+        }
     }
 
     a {
@@ -118,5 +122,9 @@
     .modal-content .tab-nav li {
         padding: 0;
         min-width: 0;
+
+        &:first-of-type {
+            padding-left: 2.5em;
+        }
     }
 }
