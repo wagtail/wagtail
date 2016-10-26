@@ -104,7 +104,8 @@ $zindex-modal-background: 500;
 
     .header-title {
         padding-left: 1em!important;
-        /* @TODO That specificity isn't working out so well... */
+        /* We need !important as the modal is nested within the page-editor and
+        page-editor.scss is compiled after this file */
     }
 }
 

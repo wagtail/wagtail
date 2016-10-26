@@ -12,7 +12,8 @@
 
         <div class="row row-flush">
             <div class="left col9 header-title">
-                <h1 class="icon icon-doc-empty-inverse">{% blocktrans with title=page.get_admin_display_title page_type=content_type.model_class.get_verbose_name %}Editing {{ page_type }} <span>{{ title }}</span>{% endblocktrans %}</h1>
+                <h1 class="icon icon-doc-empty-inverse">
+                {% blocktrans with title=page.get_admin_display_title page_type=content_type.model_class.get_verbose_name %}Editing {{ page_type }} <span>{{ title }}</span>{% endblocktrans %}</h1>
             </div>
             <div class="right col3">
                 {% trans "Status" %}
