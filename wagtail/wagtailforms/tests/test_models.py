@@ -125,7 +125,7 @@ class TestFormSubmission(TestCase):
 
         # Check that the checkbox was serialised in the email correctly
         self.assertEqual(len(mail.outbox), 1)
-        self.assertIn("Your choices: None", mail.outbox[0].body)
+        self.assertIn("Your choices: ", mail.outbox[0].body)
 
 
 class TestFormWithCustomSubmission(TestCase, WagtailTestUtils):

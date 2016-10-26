@@ -300,8 +300,6 @@ class AbstractEmailForm(AbstractForm):
             value = field.value()
             if isinstance(value, list):
                 value = ', '.join(value)
-                if len(value) == 0:
-                    value = 'None'
             content.append('{}: {}'.format(field.label, value))
         content = '\n'.join(content)
         send_mail(self.subject, content, addresses, self.from_address,)
