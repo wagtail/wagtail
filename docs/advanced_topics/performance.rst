@@ -55,6 +55,27 @@ Database
 Wagtail is tested on SQLite, and should work on other Django-supported database backends, but we recommend PostgreSQL for production use.
 
 
+Templates
+---------
+
+The overhead from reading and compiling templates can add up. In some cases a significant performance improvement can be gained by using `Django's cached template loader <https://docs.djangoproject.com/en/1.10/ref/templates/api/#django.template.loaders.cached.Loader>`_::
+
+    TEMPLATES = [{
+        'BACKEND': 'django.template.backends.django.DjangoTemplates',
+        'DIRS': [os.path.join(BASE_DIR, 'templates')],
+        'OPTIONS': {
+	    'loaders': [
+	        ('django.template.loaders.cached.Loader', [
+		    'django.template.loaders.filesystem.Loader',
+		    'django.template.loaders.app_directories.Loader',
+	        ]),
+	    ],
+        },
+    }]
+
+There is a caveat associated with this loader though. Changes to a template file will not be picked up once it is cached. This means that this loader should *not* be enabled during development.
+
+
 Public users
 ~~~~~~~~~~~~
 
