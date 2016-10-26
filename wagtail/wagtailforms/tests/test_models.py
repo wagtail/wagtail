@@ -104,6 +104,13 @@ class TestFormSubmission(TestCase):
         self.assertIn("bar", submission[0].form_data)
         self.assertIn("baz", submission[0].form_data)
 
+        # Check that the all the multiple checkbox values are serialised in the
+        # email correctly
+        self.assertEqual(len(mail.outbox), 1)
+        self.assertIn("bar", mail.outbox[0].body)
+        self.assertIn("foo", mail.outbox[0].body)
+        self.assertIn("baz", mail.outbox[0].body)
+
     def test_post_blank_checkbox(self):
         response = self.client.post('/contact-us/', {
             'your-email': 'bob@example.com',
