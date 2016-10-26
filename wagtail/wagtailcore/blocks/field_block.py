@@ -13,6 +13,7 @@ from django.utils.html import format_html
 from django.utils.safestring import mark_safe
 
 from wagtail.wagtailcore.rich_text import RichText
+from wagtail.wagtailcore.utils import resolve_model_string
 
 from .base import Block
 
@@ -530,25 +531,34 @@ class ChooserBlock(FieldBlock):
 
 class PageChooserBlock(ChooserBlock):
 
-    def __init__(self, can_choose_root=False, **kwargs):
+    def __init__(self, target_model='wagtailcore.Page', can_choose_root=False,
+                 **kwargs):
+        self._target_model = target_model
         self.can_choose_root = can_choose_root
         super(PageChooserBlock, self).__init__(**kwargs)
 
     @cached_property
     def target_model(self):
-        from wagtail.wagtailcore.models import Page  # TODO: allow limiting to specific page types
-        return Page
+        return resolve_model_string(self._target_model)
 
     @cached_property
     def widget(self):
         from wagtail.wagtailadmin.widgets import AdminPageChooser
-        return AdminPageChooser(can_choose_root=self.can_choose_root)
+        return AdminPageChooser(target_models=[self.target_model],
+                                can_choose_root=self.can_choose_root)
 
     def render_basic(self, value, context=None):
         if value:
             return format_html('<a href="{0}">{1}</a>', value.url, value.title)
         else:
             return ''
+
+    def deconstruct(self):
+        name, args, kwargs = super(PageChooserBlock, self).deconstruct()
+        if 'target_model' in kwargs:
+            opts = self.target_model._meta
+            kwargs['target_model'] = '{}.{}'.format(opts.app_label, opts.object_name)
+        return name, args, kwargs
 
     class Meta:
         icon = "redirect"
