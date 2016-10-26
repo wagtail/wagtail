@@ -283,7 +283,7 @@ ul.listing {
 
     th.ord,
     &.full-width th:first-child.ord {
-        padding-left: 10px;
+        padding-left: 25px;
     }
 
     th.ord a:before {
@@ -649,7 +649,7 @@ table.listing {
 
         &.full-width td:first-child,
         &.full-width th:first-child {
-            padding-left: 50px;
+            padding-left: 25px;
         }
 
         &.full-width .divider td {
@@ -681,5 +681,12 @@ table.listing {
     .children a,
     .no-children a {
         @include transition(all 0.2s ease);
+    }
+}
+
+// Ordering
+td.ord {
+    .handle {
+    margin-top: -28px;
     }
 }
