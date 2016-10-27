@@ -14,7 +14,7 @@ The easiest way to contribute to Wagtail is to tell us how to improve it! First,
 Pull requests
 ~~~~~~~~~~~~~
 
-If you're a Python or Django developer, `fork it <https://github.com/torchbox/wagtail/>`_ and read the :ref:`developing docs <developing>` to get stuck in! Send us a useful pull request and we'll post you a `t-shirt <https://twitter.com/WagtailCMS/status/432166799464210432/photo/1>`_. We welcome all contributions, whether they solve problems which are specific to you or they address existing issues. If you're stuck for ideas, pick something from the `issue list <https://github.com/torchbox/wagtail/issues?state=open>`_, or email us directly on `hello@wagtail.io <mailto:hello@wagtail.io>`_ if you'd like us to suggest something!
+If you're a Python or Django developer, `fork it <https://github.com/torchbox/wagtail/>`_ and read the :ref:`developing docs <developing>` to get stuck in! We welcome all contributions, whether they solve problems which are specific to you or they address existing issues. If you're stuck for ideas, pick something from the `issue list <https://github.com/torchbox/wagtail/issues?state=open>`_, or email us directly on `hello@wagtail.io <mailto:hello@wagtail.io>`_ if you'd like us to suggest something!
 
 .. toctree::
     :maxdepth: 2

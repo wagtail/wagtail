@@ -78,6 +78,4 @@ If you're a Python or Django developer, fork the repo and get stuck in! We run a
 
 You might like to start by reviewing the `coding guidelines <http://docs.wagtail.io/en/latest/contributing/developing.html#coding-guidelines>`_ and checking issues with the `Ready to develop <https://github.com/torchbox/wagtail/issues?q=is%3Aopen+is%3Aissue+label%3A%22Ready+to+develop%21%22>`_ label.
 
-Send us a particularly useful pull request and we'll post you a `t-shirt <https://twitter.com/WagtailCMS/status/432166799464210432/photo/1>`_.
-
 We also welcome translations for Wagtail's interface. Translation work should be submitted through `Transifex <https://www.transifex.com/projects/p/wagtail/>`_.
