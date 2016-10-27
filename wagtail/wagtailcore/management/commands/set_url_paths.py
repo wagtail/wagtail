@@ -13,8 +13,8 @@ class Command(BaseCommand):
         root.specific.set_url_path(parent)
         root.save(update_fields=['url_path'])
         for child in root.get_children():
-            set_subtree(child.specific, root)
+            self.set_subtree(child.specific, root)
 
     def handle(self, *args, **options):
         for node in Page.get_root_nodes():
-            set_subtree(node)
+            self.set_subtree(node)
