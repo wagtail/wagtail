@@ -23,8 +23,14 @@ def pageurl(context, page):
 
 @register.simple_tag(takes_context=True)
 def slugurl(context, slug):
-    """Returns the URL for the page that has the given slug."""
-    page = Page.objects.filter(slug=slug).first()
+    """Returns the URL for the page that has the given slug per site."""
+    site = context['request'].site
+    site_parent = Page.objects.filter(id=site.root_page_id)[0]
+    page = Page.objects.filter(slug=slug)
+    if pages:
+        for p in pages:
+            if p.get_parent() == site_parent or p == site_parent:
+                page = p
 
     if page:
         return page.relative_url(context['request'].site)
