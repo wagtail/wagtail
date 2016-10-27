@@ -17,7 +17,7 @@ for support - use our [Wagtail support group](https://groups.google.com/forum/#!
 Please review the 
 [coding guidelines](http://docs.wagtail.io/en/latest/contributing/developing.html#coding-guidelines). 
 You might like to start by checking issues with the 
-[Ready to develop](https://github.com/torchbox/wagtail/issues?q=is%3Aopen+is%3Aissue+label%3A%22Ready+to+develop%21%22) label.
+[difficulty:Easy](https://github.com/torchbox/wagtail/labels/difficulty%3AEasy) label.
 
 ## Code reviews
 
