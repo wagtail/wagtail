@@ -10,7 +10,7 @@ class Command(BaseCommand):
     help = 'Resets url_path fields on each page recursively'
 
     def set_subtree(self, root, parent=None):
-        root.specific.set_url_path(parent)
+        root.set_url_path(parent)
         root.save(update_fields=['url_path'])
         for child in root.get_children():
             self.set_subtree(child.specific, root)
