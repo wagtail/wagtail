@@ -103,9 +103,8 @@ $zindex-modal-background: 500;
     }
 
     .header-title {
-        padding-left: 1em!important;
-        /* We need !important as the modal is nested within the page-editor and
-        page-editor.scss is compiled after this file */
+        padding-left: 0em!important;
+        margin-left: -28px;
     }
 }
 

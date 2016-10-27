@@ -31,6 +31,13 @@
 
     .header-title {
         padding-left: 3.1em;
+
+        @media screen and (max-width: $breakpoint-mobile) {
+            padding-left: 0;
+            margin-left: -28px;
+            // Because it's nested within tab-merged which we've given padding
+            // on mobile viewports due to snippets
+        }
     }
 }
 

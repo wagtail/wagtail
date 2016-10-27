@@ -436,6 +436,8 @@ footer,
     .breadcrumb {
         padding-top: 0;
         background: $color-teal-darker;
+        margin-left: -($desktop-nice-padding);
+        margin-right: -($desktop-nice-padding);
 
         li {
             a,
@@ -489,6 +491,12 @@ footer,
         width: 90em;
     }
 }
+
+// @media screen and (max-width: $breakpoint-mobile) {
+//     .breadcrumb {
+//         padding-left: $mobile-nice-padding;
+//     }
+// }
 
 // Transitions (resolution agnostic)
 .content-wrapper,
