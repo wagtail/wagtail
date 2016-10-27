@@ -57,7 +57,7 @@
                         {% with page.get_parent as parent %}
                             <td class="parent" valign="top">
                                 {% if parent %}
-                                    <a href="{% url 'wagtailadmin_explore' parent.id %}">{{ parent.get_admin_display_title }}</a>
+                                    <a href="{% url 'wagtailadmin_choose_page_child' parent.id %}" class="navigate-parent">{{ parent.get_admin_display_title }}</a>
                                 {% endif %}
                             </td>
                         {% endwith %}

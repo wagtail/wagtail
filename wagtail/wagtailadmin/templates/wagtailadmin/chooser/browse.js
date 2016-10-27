@@ -68,6 +68,12 @@ function(modal) {
             $('.page-results', modal.body).load(this.href, ajaxifySearchResults);
             return false;
         });
+        /* Set up links to parent pages sho that they can be browsed within the
+        modal */
+        $('.page-results a.navigate-parent', modal.body).click(function() {
+            modal.loadUrl(this.href);
+            return false;
+        });
     }
 
     function ajaxifyBrowseResults() {
