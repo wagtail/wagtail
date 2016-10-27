@@ -115,10 +115,11 @@ def clear_edit_handler(page_cls):
         def decorated(self):
             # Clear any old EditHandlers generated
             page_cls.get_edit_handler.cache_clear()
-            fn(self)
-            # Clear the bad EditHandler generated just now
-            page_cls.get_edit_handler.cache_clear()
-        return decorated
+            try:
+                fn(self)
+            finally:
+                # Clear the bad EditHandler generated just now
+                page_cls.get_edit_handler.cache_clear()
     return decorator
 
 
