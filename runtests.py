@@ -1,20 +1,21 @@
 #!/usr/bin/env python
 
-import sys
+from __future__ import absolute_import, unicode_literals
+
+import argparse
 import os
 import shutil
+import sys
 import warnings
-import argparse
 
 from django.core.management import execute_from_command_line
-
 
 os.environ['DJANGO_SETTINGS_MODULE'] = 'wagtail.tests.settings'
 
 
 def make_parser():
     parser = argparse.ArgumentParser()
-    parser.add_argument('--deprecation', choices=['all', 'pending', 'imminent', 'none'], default='pending')
+    parser.add_argument('--deprecation', choices=['all', 'pending', 'imminent', 'none'], default='imminent')
     parser.add_argument('--postgres', action='store_true')
     parser.add_argument('--elasticsearch', action='store_true')
     parser.add_argument('--elasticsearch2', action='store_true')
