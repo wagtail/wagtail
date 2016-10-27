@@ -128,3 +128,14 @@
         }
     }
 }
+
+@media screen and (max-width: $breakpoint-mobile) {
+    // To allow tabs on the edit page to be editable
+    .tab-nav li:first-of-type {
+        padding-left: 1.6em;
+    }
+
+    .tab-nav li {
+        width: 25%;
+    }
+}
