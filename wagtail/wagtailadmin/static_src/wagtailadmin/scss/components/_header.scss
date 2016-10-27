@@ -9,7 +9,7 @@ header {
         color: $color-white;
     }
 
-    h1, 
+    h1,
     h2 {
         margin: 0;
         color: $color-white;
@@ -30,7 +30,6 @@ header {
         float: left;
         margin-right: 2em;
         }
-    }
 
     .left {
         float: left;
@@ -51,7 +50,7 @@ header {
         margin-bottom: 0;
     }
 
-    &.tab-merged, 
+    &.tab-merged,
     &.no-border {
         border: 0;
 
@@ -89,7 +88,7 @@ header {
         @include visuallyhidden();
     }
 
-    input[type=text], 
+    input[type=text],
     select {
         border-width: 0;
 
@@ -134,7 +133,7 @@ header {
         .second {
             clear: none;
 
-            .right, 
+            .right,
             .left {
                 float: right;
             }
