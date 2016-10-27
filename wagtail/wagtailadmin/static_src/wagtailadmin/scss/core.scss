@@ -145,13 +145,13 @@ footer {
 
     .actions {
         width: 250px;
-        margin-right: $grid-gutter-width/2;
+        margin-right: $grid-gutter-width / 2;
     }
 
     .meta {
         float: right;
         text-align: right;
-        padding: 7px $grid-gutter-width/2;
+        padding: 7px $grid-gutter-width / 2;
         font-size: 0.85em;
 
         p {
@@ -491,12 +491,6 @@ footer,
         width: 90em;
     }
 }
-
-// @media screen and (max-width: $breakpoint-mobile) {
-//     .breadcrumb {
-//         padding-left: $mobile-nice-padding;
-//     }
-// }
 
 // Transitions (resolution agnostic)
 .content-wrapper,
