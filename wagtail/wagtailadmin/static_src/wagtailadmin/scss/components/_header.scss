@@ -29,6 +29,13 @@ header {
     .col {
         float: left;
         margin-right: 2em;
+
+        // @media screen and (max-width: $breakpoint-mobile) {
+        //     // To all hamburger menu to be visible
+        //     padding-left: 2em;
+        //     margin-top: -2px;
+        // No... This fixes the snippet page but breaks all else
+        }
     }
 
     .left {
@@ -53,6 +60,13 @@ header {
     &.tab-merged, 
     &.no-border {
         border: 0;
+
+        @media screen and (max-width: $breakpoint-mobile) {
+            // To all hamburger menu to be visible
+            padding-left: $desktop-nice-padding;
+            padding-top: 11px;
+        }
+
     }
 
     &.merged.no-border {
@@ -150,11 +164,6 @@ header {
 
         .col9 {
             @include column(9);
-        }
-
-        .breadcrumb {
-            margin-left: -($desktop-nice-padding);
-            margin-right: -($desktop-nice-padding);
         }
     }
 }
