@@ -179,6 +179,7 @@ Contributors
 * Shawn Makinson
 * Tom Miller
 * Luca Perico
+* Gary Krige
 
 Translators
 ===========
