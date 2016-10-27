@@ -175,6 +175,7 @@ Contributors
 * Henk-Jan van Hasselaar
 * alexfromvl
 * Jaap Roes
+* Ducky
 
 Translators
 ===========
