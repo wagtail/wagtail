@@ -1,6 +1,7 @@
 from __future__ import absolute_import, unicode_literals
 
 import unittest
+import warnings
 
 import django.utils.six.moves.urllib.request
 from bs4 import BeautifulSoup
@@ -12,6 +13,7 @@ from django.utils.six.moves.urllib.error import URLError
 from mock import patch
 
 from wagtail.tests.utils import WagtailTestUtils
+from wagtail.utils.deprecation import RemovedInWagtail19Warning
 from wagtail.wagtailcore import blocks
 from wagtail.wagtailembeds.blocks import EmbedBlock, EmbedValue
 from wagtail.wagtailembeds.embeds import get_embed
@@ -341,29 +343,43 @@ class TestOembed(TestCase):
 class TestEmbedFilter(TestCase):
     @patch('wagtail.wagtailembeds.embeds.get_embed')
     def test_direct_call(self, get_embed):
-        get_embed.return_value = Embed(html='<img src="http://www.example.com" />')
+        with warnings.catch_warnings(record=True) as ws:
+            warnings.resetwarnings()
+            warnings.simplefilter('always')
 
-        result = embed_filter('http://www.youtube.com/watch/')
+            get_embed.return_value = Embed(html='<img src="http://www.example.com" />')
 
-        self.assertEqual(result, '<img src="http://www.example.com" />')
+            result = embed_filter('http://www.youtube.com/watch/')
+
+            self.assertEqual(result, '<img src="http://www.example.com" />')
+            self.assertEqual(len(ws), 1)
+            self.assertIs(ws[0].category, RemovedInWagtail19Warning)
 
     @patch('wagtail.wagtailembeds.embeds.get_embed')
     def test_call_from_template(self, get_embed):
-        get_embed.return_value = Embed(html='<img src="http://www.example.com" />')
+        with warnings.catch_warnings(record=True) as ws:
+            warnings.resetwarnings()
+            warnings.simplefilter('always')
+            get_embed.return_value = Embed(html='<img src="http://www.example.com" />')
 
-        temp = template.Template('{% load wagtailembeds_tags %}{{ "http://www.youtube.com/watch/"|embed }}')
-        result = temp.render(template.Context())
+            temp = template.Template('{% load wagtailembeds_tags %}{{ "http://www.youtube.com/watch/"|embed }}')
+            result = temp.render(template.Context())
 
-        self.assertEqual(result, '<img src="http://www.example.com" />')
+            self.assertEqual(result, '<img src="http://www.example.com" />')
+            self.assertEqual(len(ws), 1)
+            self.assertIs(ws[0].category, RemovedInWagtail19Warning)
 
     @patch('wagtail.wagtailembeds.embeds.get_embed')
     def test_catches_embed_not_found(self, get_embed):
-        get_embed.side_effect = EmbedNotFoundException
+        with warnings.catch_warnings(record=True) as ws:
+            get_embed.side_effect = EmbedNotFoundException
 
-        temp = template.Template('{% load wagtailembeds_tags %}{{ "http://www.youtube.com/watch/"|embed }}')
-        result = temp.render(template.Context())
+            temp = template.Template('{% load wagtailembeds_tags %}{{ "http://www.youtube.com/watch/"|embed }}')
+            result = temp.render(template.Context())
 
-        self.assertEqual(result, '')
+            self.assertEqual(result, '')
+            self.assertEqual(len(ws), 1)
+            self.assertIs(ws[0].category, RemovedInWagtail19Warning)
 
 
 class TestEmbedTag(TestCase):
