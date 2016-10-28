@@ -145,7 +145,56 @@ We are now ready to create a blog. To do so, run
 
 Add the new ``blog`` app to ``INSTALLED_APPS`` in ``mysite/settings/base.py``.
 
-The following example defines a basic blog post model in ``blog/models.py``:
+Blog Index and Posts
+~~~~~~~~~~~~~~~~~~~~
+
+Lets start with a simple index page for our blog. In ``blog/models.py``:
+
+.. code-block:: python
+
+    class BlogIndexPage(Page):
+        intro = RichTextField(blank=True)
+
+        content_panels = Page.content_panels + [
+            FieldPanel('intro', classname="full")
+        ]
+
+Run ``python manage.py makemigrations`` and ``python manage.py migrate``.
+
+Since the model is called ``BlogIndexPage``, the default template name
+(unless we override it) will be ``blog/templates/blog/blog_index_page.html:``
+
+.. code-block:: html+django
+
+    {% extends "base.html" %}
+
+    {% load wagtailcore_tags %}
+
+    {% block body_class %}template-blogindexpage{% endblock %}
+
+    {% block content %}
+        <h1>{{ page.title }}</h1>
+
+        <div class="intro">{{ page.intro|richtext }}</div>
+
+        {% for post in page.get_children %}
+            <h2><a href="{% slugurl post.slug %}">{{ post.title }}</a></h2>
+            {{ post.specific.intro }}
+            {{ post.specific.body|richtext }}
+        {% endfor %}
+
+    {% endblock %}
+
+Most of this should be familiar, but we'll explain ``get_children`` a bit later.
+Note the ``slugurl`` tag, which is similar to Django's ``url`` tag but
+intended to take a Wagtail slug as an argument.
+
+In the Wagtail admin, create a ``BlogIndexPage`` under the Homepage,
+make sure it has the slug "blog" on the Promote tab, and publish it.
+You should now be able to access the url ``/blog`` on your site
+(note how the slug from the Promote tab defines the page URL).
+
+Now we need a model and template for our blog posts. In ``blog/models.py``:
 
 .. code-block:: python
 
@@ -173,7 +222,6 @@ The following example defines a basic blog post model in ``blog/models.py``:
             FieldPanel('body', classname="full")
         ]
 
-
 .. note::
    On Wagtail versions before 1.5, ``search_fields`` needs to be defined as a tuple:
 
@@ -184,6 +232,8 @@ The following example defines a basic blog post model in ``blog/models.py``:
             index.SearchField('body'),
         )
 
+
+Run ``python manage.py makemigrations`` and ``python manage.py migrate``.
 
 Create a template at ``blog/templates/blog/blog_page.html``:
 
@@ -202,21 +252,85 @@ Create a template at ``blog/templates/blog/blog_page.html``:
         <div class="intro">{{ page.intro }}</div>
 
         {{ page.body|richtext }}
+
+        <p><a href="{{ page.get_parent.url }}">Return to blog</a></p>
+
     {% endblock %}
 
-Run ``python manage.py makemigrations`` and ``python manage.py migrate``.
+Note the use of Wagtail's built-in ``get_parent()`` method to obtain the
+URL of the blog this post is a part of.
 
-.. figure:: ../_static/images/tutorial/tutorial_4.png
-   :alt: Create page screen
+Now create a few blog posts as children of ``BlogIndexPage.``
+Be sure to select type "BlogPage" when creating your posts.
+
+.. figure:: ../_static/images/tutorial/tutorial_4a.png
+   :alt: Create blog post as child of BlogIndex
+
+.. figure:: ../_static/images/tutorial/tutorial_4b.png
+  :alt: Choose type BlogPost
+
+Wagtail gives you full control over what kinds of content can be created under
+various parent content types, but we won't go into that here. By default,
+any page type can be a child of any other page type.
 
 .. figure:: ../_static/images/tutorial/tutorial_5.png
    :alt: Page edit screen
 
+You should now have the very beginnings of a working blog.
+Access the ``/blog`` URL and you should see something like this:
+
+.. figure:: ../_static/images/tutorial/tutorial_7.png
+   :alt: Blog basics
+
+Titles should link to post pages, and a link back to the blog's
+homepage should appear in the footer of each post page.
+
+Parents and Children
+~~~~~~~~~~~~~~~~~~~~
+
+Much of the work you'll be doing in Wagtail revolves around the concept of hierarchical
+"tree" structures consisting of nodes and leaves (see :doc:`../reference/pages/theory`).
+In this case, the ``BlogIndexPage`` is a "node" and individual ``BlogPage`` instances
+are the "leaves".
+
+Take another look at the guts of ``BlogIndexPage:``
+
+.. code-block:: html+django
+
+    {% for post in page.get_children %}
+        <h2>{{ post.title }}</h2>
+        {{ post.specific.intro }}
+        {{ post.specific.body|richtext }}
+    {% endfor %}
+
+Every "page" in Wagtail can call out to its parent or children
+from its own position in the hierarchy. But why do we have to
+specify ``post.specific.title`` rather than ``post.title?``
+This has to do with the way we defined our model:
+
+``class BlogPage(Page):``
+
+The ``get_children()`` method got us a list of ``Page`` base classes. When we want to reference
+properties of the instances that inherits from the base class, Wagtail provides the ``specific``
+method that retrieves the actual ``BlogPage`` record.
+
+To tighten up template code like this, we could use Django's ``with`` tag:
+
+.. code-block:: html+django
+
+    {% for post in page.get_children %}
+        {% with post=post.specific %}
+            <h2>{{ post.title }}</h2>
+            {{ post.intro }}
+            {{ post.body|richtext }}
+        {% endwith %}
+    {% endfor %}
+
 Image support
 ~~~~~~~~~~~~~
 
-Wagtail provides support for images out of the box. To add them to your
-model:
+Wagtail provides support for images out of the box. To add them to
+your ``BlogPage`` model:
 
 .. code-block:: python
 
@@ -284,143 +398,167 @@ Adjust your blog page template to include the image:
 You can read more about using images in templates in the
 :doc:`docs <../topics/images>`.
 
-Blog Index
-~~~~~~~~~~
 
-Let us extend the Blog app to provide an index.
-
-.. code-block:: python
-
-    class BlogIndexPage(Page):
-        intro = RichTextField(blank=True)
-
-        content_panels = Page.content_panels + [
-            FieldPanel('intro', classname="full")
-        ]
-
-The above creates an index type to collect all our blog posts.
-
-``blog/templates/blog/blog_index_page.html``
-
-.. code-block:: html+django
-
-    {% extends "base.html" %}
-
-    {% load wagtailcore_tags %}
-
-    {% block body_class %}template-blogindexpage{% endblock %}
-
-    {% block content %}
-        <h1>{{ page.title }}</h1>
-
-        <div class="intro">{{ page.intro|richtext }}</div>
-    {% endblock %}
-
-Related items
+Tagging Posts
 ~~~~~~~~~~~~~
 
-Let's extend the BlogIndexPage to add related links. The related links
-can be BlogPages or external links. Change ``blog/models.py`` to
+Let's say we want to let editors "tag" their posts, so that readers can, e.g.,
+view all bicycle-related content together. For this, we'll need to invoke
+the tagging system bundled with Wagtail, attach it to the ``BlogPage``
+model and content panels, and render linked tags on the blog post template.
+Of course, we'll need a working tag-specific URL view as well.
+
+First, alter ``models.py`` once more:
 
 .. code-block:: python
 
     from django.db import models
 
+    from modelcluster.tags import ClusterTaggableManager
     from modelcluster.fields import ParentalKey
+    from taggit.models import TaggedItemBase
 
-    from wagtail.wagtailcore.models import Page, Orderable
+    from wagtail.wagtailcore.models import Page
     from wagtail.wagtailcore.fields import RichTextField
-    from wagtail.wagtailadmin.edit_handlers import (FieldPanel,
-                                                    InlinePanel,
-                                                    MultiFieldPanel,
-                                                    PageChooserPanel)
+    from wagtail.wagtailadmin.edit_handlers import FieldPanel, MultiFieldPanel
     from wagtail.wagtailimages.edit_handlers import ImageChooserPanel
     from wagtail.wagtailsearch import index
 
 
-    # ...
+    class BlogPageTag(TaggedItemBase):
+        content_object = ParentalKey('BlogPage', related_name='tagged_items')
 
-    class LinkFields(models.Model):
-        link_external = models.URLField("External link", blank=True)
-        link_page = models.ForeignKey(
-            'wagtailcore.Page',
+
+    class BlogPage(Page):
+        main_image = models.ForeignKey(
+            'wagtailimages.Image',
             null=True,
             blank=True,
+            on_delete=models.SET_NULL,
             related_name='+'
         )
+        date = models.DateField("Post date")
+        intro = models.CharField(max_length=250)
+        body = RichTextField(blank=True)
+        tags = ClusterTaggableManager(through=BlogPageTag, blank=True)
 
-        @property
-        def link(self):
-            if self.link_page:
-                return self.link_page.url
-            else:
-                return self.link_external
-
-        panels = [
-            FieldPanel('link_external'),
-            PageChooserPanel('link_page'),
+        search_fields = Page.search_fields + [
+            index.SearchField('intro'),
+            index.SearchField('body'),
         ]
 
-        class Meta:
-            abstract = True
-
-
-    # Related links
-    class RelatedLink(LinkFields):
-        title = models.CharField(max_length=255, help_text="Link title")
-
-        panels = [
-            FieldPanel('title'),
-            MultiFieldPanel(LinkFields.panels, "Link"),
+        content_panels = Page.content_panels + [
+            FieldPanel('date'),
+            ImageChooserPanel('main_image'),
+            FieldPanel('intro'),
+            FieldPanel('body'),
+            MultiFieldPanel([
+                FieldPanel('tags'),
+            ], heading="Tags"),
         ]
-
-        class Meta:
-            abstract = True
 
 
     class BlogIndexPage(Page):
         intro = RichTextField(blank=True)
 
-        content_panels = Page.content_panels + [
-            FieldPanel('intro', classname="full"),
-            InlinePanel('related_links', label="Related links"),
-        ]
+Note the new ``modelcluster`` and ``taggit`` imports, the addition of a new
+``BlogPageTag`` model, the addition of a ``tags`` field on ``BlogPage``,
+and the use of ``MultiFieldPanel`` in ``content_panels`` to let users
+select tags.
 
+Edit one of your ``BlogPage`` instances, and you should now be able to tag posts:
 
-    class BlogIndexRelatedLink(Orderable, RelatedLink):
-        page = ParentalKey('BlogIndexPage', related_name='related_links')
+.. figure:: ../_static/images/tutorial/tutorial_8.png
+   :alt: Tagging a post
 
-.. figure:: ../_static/images/tutorial/tutorial_7.png
-   :alt: Blog index edit screen
+To render tags on a ``BlogPage``, add this to ``blog_page.html:``
 
-Extend ``blog_index_page.html`` to show related items
+.. code-block:: html+django
+
+    {% if page.specific.tags.all.count %}
+        <div class="tags">
+            <h3>Tags</h3>
+            {% for tag in page.specific.tags.all %}
+                <a href="{% slugurl 'tags' %}?tag={{ tag }}"><button type="button">{{ tag }}</button></a>
+            {% endfor %}
+        </div>
+    {% endif %}
+
+Visiting a blog post with tags should now show a set of linked
+buttons at the bottom - one for each tag. However, clicking a button
+will get you a 404, since we haven't yet defined a "tags" view, which
+is going to require a little extra magic. Add to ``models.py:``
+
+.. code-block:: python
+
+    class BlogTagIndexPage(Page):
+
+        def get_context(self, request):
+
+            # Filter by tag
+            tag = request.GET.get('tag')
+            blogpages = BlogPage.objects.filter().filter(tags__name=tag)
+
+            # Update template context
+            context = super(BlogTagIndexPage, self).get_context(request)
+            context['blogpages'] = blogpages
+            return context
+
+Note that this Page-based model defines no fields of its own.
+Even without fields, subclassing ``Page`` makes it a part of the
+Wagtail ecosystem, so that you can give it a title and URL in the
+admin, and so that you can manipulate its contents by returning
+a queryset from its ``get_context()`` method.
+
+Migrate this in, then create a new ``BlogTagIndexPage`` in the admin.
+You'll probably want to create the new page/view under Homepage,
+parallel to your Blog index. Give it the slug "tags" on the Promote tab.
+
+Access ``/tags`` and Django will tell you what you probably already knew:
+you need to create a template ``blog/blog_tag_index_page.html:``
 
 .. code-block:: html+django
 
     {% extends "base.html" %}
-
     {% load wagtailcore_tags %}
 
-    {% block body_class %}template-blogindexpage{% endblock %}
-
     {% block content %}
-        <h1>{{ page.title }}</h1>
 
-        <div class="intro">{{ page.intro|richtext }}</div>
-
-        {% if page.related_links.all %}
-            <ul>
-                {% for item in page.related_links.all %}
-                    <li><a href="{{ item.link }}">{{ item.title }}</a></li>
-                {% endfor %}
-            </ul>
+        {% if request.GET.tag|length %}
+            <h4>Showing pages tagged "{{ request.GET.tag|safe }}"</h4>
         {% endif %}
+
+        {% for blogpage in blogpages %}
+
+              <p>
+                  <strong><a href="{% pageurl blogpage %}">{{ blogpage.title }}</a></strong><br />
+                  <small>Revised: {{ blogpage.latest_revision_created_at }}</small><br />
+                  {% if blogpage.author %}
+                    <p>By {{ blogpage.author.profile }}</p>
+                  {% endif %}
+              </p>
+
+        {% empty %}
+            No pages found with that tag.
+        {% endfor %}
+
     {% endblock %}
 
-You now have a fully working blog with featured blog posts.
+Unlike in the previous example, we're linking to pages here with the builtin ``pageurl``
+tag rather than ``slugurl``. The difference is that ``pageurl`` takes a Page object
+as an argument. Use whichever one best suits your purpose.
 
-.. figure:: ../_static/images/tutorial/tutorial_8.png
-   :alt: Barebones blog index
+We're also calling the built-in ``latest_revision_created_at`` field on the ``Page``
+model - handy to know this is always available.
+
+We haven't yet added an "author" field to our ``BlogPage`` model, nor do we have
+a Profile model for authors  - we'll leave those as an exercise for the reader.
+
+Clicking the tag button at the bottom of a BlogPost should now render a page
+something like this:
+
+.. figure:: ../_static/images/tutorial/tutorial_9.png
+   :alt: A simple tag view
 
 Where next
 ----------
