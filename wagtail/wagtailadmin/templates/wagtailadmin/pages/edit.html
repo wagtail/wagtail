@@ -3,7 +3,7 @@
 {% load gravatar %}
 {% load i18n %}
 {% block titletag %}{% blocktrans with title=page.get_admin_display_title page_type=content_type.model_class.get_verbose_name %}Editing {{ page_type }}: {{ title }}{% endblocktrans %}{% endblock %}
-{% block bodyclass %}page-editor {% if page.live %}page-is-live{% endif %} model-{{ content_type.model }}{% endblock %}
+{% block bodyclass %}page-editor {% if page.live %}page-is-live{% endif %} model-{{ content_type.model }} {% if page.locked %}page-locked{% endif %}{% endblock %}
 
 {% block content %}
     {% page_permissions page as page_perms %}
@@ -28,9 +28,7 @@
         {% csrf_token %}
 
         <input type="hidden" name="next" value="{{ next }}">
-        {% if page.locked %}<div class="page-locked">{% endif %}
-            {{ edit_handler.render_form_content }}
-        {% if page.locked %}</div>{% endif %}
+        {{ edit_handler.render_form_content }}
 
         {% if is_revision %}
             <input type="hidden" name="revision" value="{{ revision.id }}" />
