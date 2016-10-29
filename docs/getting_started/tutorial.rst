@@ -178,7 +178,7 @@ Since the model is called ``BlogIndexPage``, the default template name
         <div class="intro">{{ page.intro|richtext }}</div>
 
         {% for post in page.get_children %}
-            <h2><a href="{% slugurl post.slug %}">{{ post.title }}</a></h2>
+            <h2><a href="{% pageurl post %}">{{ post.title }}</a></h2>
             {{ post.specific.intro }}
             {{ post.specific.body|richtext }}
         {% endfor %}
@@ -186,8 +186,8 @@ Since the model is called ``BlogIndexPage``, the default template name
     {% endblock %}
 
 Most of this should be familiar, but we'll explain ``get_children`` a bit later.
-Note the ``slugurl`` tag, which is similar to Django's ``url`` tag but
-intended to take a Wagtail slug as an argument.
+Note the ``pageurl`` tag, which is similar to Django's ``url`` tag but
+takes a Wagtail Page object as an argument.
 
 In the Wagtail admin, create a ``BlogIndexPage`` under the Homepage,
 make sure it has the slug "blog" on the Promote tab, and publish it.
@@ -221,17 +221,6 @@ Now we need a model and template for our blog posts. In ``blog/models.py``:
             FieldPanel('intro'),
             FieldPanel('body', classname="full")
         ]
-
-.. note::
-   On Wagtail versions before 1.5, ``search_fields`` needs to be defined as a tuple:
-
-   .. code-block:: python
-
-        search_fields = Page.search_fields + (
-            index.SearchField('intro'),
-            index.SearchField('body'),
-        )
-
 
 Run ``python manage.py makemigrations`` and ``python manage.py migrate``.
 
@@ -270,8 +259,8 @@ Be sure to select type "BlogPage" when creating your posts.
   :alt: Choose type BlogPost
 
 Wagtail gives you full control over what kinds of content can be created under
-various parent content types, but we won't go into that here. By default,
-any page type can be a child of any other page type.
+various parent content types. By default, any page type can be a child of any
+other page type.
 
 .. figure:: ../_static/images/tutorial/tutorial_5.png
    :alt: Page edit screen
@@ -305,14 +294,16 @@ Take another look at the guts of ``BlogIndexPage:``
 
 Every "page" in Wagtail can call out to its parent or children
 from its own position in the hierarchy. But why do we have to
-specify ``post.specific.title`` rather than ``post.title?``
+specify ``post.specific.intro`` rather than ``post.intro?``
 This has to do with the way we defined our model:
 
 ``class BlogPage(Page):``
 
-The ``get_children()`` method got us a list of ``Page`` base classes. When we want to reference
-properties of the instances that inherits from the base class, Wagtail provides the ``specific``
-method that retrieves the actual ``BlogPage`` record.
+The ``get_children()`` method gets us a list of ``Page`` base classes. When we want to reference
+properties of the instances that inherit from the base class, Wagtail provides the ``specific``
+method that retrieves the actual ``BlogPage`` record. While the "title" field is present on
+the base ``Page`` model, "intro" is only present on the ``BlogPage`` model, so we need
+``.specific`` to access it.
 
 To tighten up template code like this, we could use Django's ``with`` tag:
 
@@ -321,10 +312,64 @@ To tighten up template code like this, we could use Django's ``with`` tag:
     {% for post in page.get_children %}
         {% with post=post.specific %}
             <h2>{{ post.title }}</h2>
-            {{ post.intro }}
+            <p>{{ post.intro }}</p>
             {{ post.body|richtext }}
         {% endwith %}
     {% endfor %}
+
+When you start writing more customized Wagtail code, you'll find a whole set of QuerySet
+modifiers to help you navigate the hierarchy.
+
+.. code-block:: python
+
+    # Given a page object 'somepage':
+    MyModel.objects.descendant_of(somepage)
+    child_of(page) / not_child_of(somepage)
+    ancestor_of(somepage) / not_ancestor_of(somepage)
+    parent_of(somepage) / not_parent_of(somepage)
+    sibling_of(somepage) / not_sibling_of(somepage)
+    # ... and ...
+    somepage.get_children()
+    somepage.get_ancestors()
+    somepage.get_descendants()
+    somepage.get_siblings()
+
+For more information, see: :doc:`../reference/pages/queryset_reference`
+
+Overriding Context
+~~~~~~~~~~~~~~~~~~
+
+There are a couple of problems with our blog index view:
+
+1) Blogs generally display content in reverse chronological order
+2) We want to make sure we're only displaying *published* content.
+
+To accomplish these things, we need to do more than just grab the index
+page's children in the template. Instead, we'll want to modify the
+QuerySet in the model definition. Wagtail makes this possible via
+the overridable ``get_context()`` method. Modify your ``BlogIndexPage``
+model like this:
+
+.. code-block:: python
+
+    class BlogIndexPage(Page):
+        intro = RichTextField(blank=True)
+
+        def get_context(self, request):
+            # Update context to include only published posts, ordered by reverse-chron
+            context = super(BlogIndexPage, self).get_context(request)
+            blogpages = self.get_children().live().order_by('-first_published_at')
+            context['blogpages'] = blogpages
+            return context
+
+You'll also need to modify your ``blog_index_page.html`` template slightly.
+Change:
+
+``{% for post in page.get_children %} to {% for post in blogpages %}``
+
+Now try Unpublishing one of your posts - it should disappear from the blog index
+page. The remaining posts should now be sorted with the most recently modified
+posts first.
 
 Image support
 ~~~~~~~~~~~~~
@@ -471,7 +516,7 @@ Edit one of your ``BlogPage`` instances, and you should now be able to tag posts
 .. figure:: ../_static/images/tutorial/tutorial_8.png
    :alt: Tagging a post
 
-To render tags on a ``BlogPage``, add this to ``blog_page.html:``
+To render tags on a ``BlogPage,`` add this to ``blog_page.html:``
 
 .. code-block:: html+django
 
@@ -525,13 +570,13 @@ you need to create a template ``blog/blog_tag_index_page.html:``
     {% block content %}
 
         {% if request.GET.tag|length %}
-            <h4>Showing pages tagged "{{ request.GET.tag|safe }}"</h4>
+            <h4>Showing pages tagged "{{ request.GET.tag }}"</h4>
         {% endif %}
 
         {% for blogpage in blogpages %}
 
               <p>
-                  <strong><a href="{% pageurl blogpage %}">{{ blogpage.title }}</a></strong><br />
+                  <strong><a href="{% slugurl blogpage.slug %}">{{ blogpage.title }}</a></strong><br />
                   <small>Revised: {{ blogpage.latest_revision_created_at }}</small><br />
                   {% if blogpage.author %}
                     <p>By {{ blogpage.author.profile }}</p>
@@ -544,9 +589,10 @@ you need to create a template ``blog/blog_tag_index_page.html:``
 
     {% endblock %}
 
-Unlike in the previous example, we're linking to pages here with the builtin ``pageurl``
-tag rather than ``slugurl``. The difference is that ``pageurl`` takes a Page object
-as an argument. Use whichever one best suits your purpose.
+Unlike in the previous example, we're linking to pages here with the builtin ``slugurl``
+tag rather than ``pageurl``. The difference is that ``slugurl`` takes a Page slug
+(from the Promote tab) as an argument. ``pageurl`` is more commonly used because it
+is unambiguous, but use whichever one best suits your purpose.
 
 We're also calling the built-in ``latest_revision_created_at`` field on the ``Page``
 model - handy to know this is always available.
