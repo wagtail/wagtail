@@ -118,6 +118,18 @@ body {
     position: relative; // yuk. necessary for positions for jquery ui widgets
 }
 
+.page-locked {
+
+    .tab-content {
+    cursor: not-allowed;
+    user-select: none;
+
+        & > * {
+            pointer-events: none;
+        }
+    }
+}
+
 footer {
     // @include transition(all 0.2s ease);
     @include transition(bottom 0.5s ease 1s);
