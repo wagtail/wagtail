@@ -188,6 +188,7 @@ Contributors
 * Morgan Aubert
 * Diederik van der Boor
 * Sean Hoefler
+* Edd Baldry
 
 Translators
 ===========

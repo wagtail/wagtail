@@ -53,6 +53,7 @@ Minor features
  * Added ``above_login``, ``below_login``, ``fields`` and ``login_form`` customisation blocks to the login page template - see :doc:`/advanced_topics/customisation/admin_templates` (Tim Heap)
  * ``ChoiceBlock`` now accepts a callable as the choices list (Mikalai Radchuk)
  * Redundant action buttons are now omitted from the root page in the explorer (Nick Smith)
+ * Locked pages are now disabled from editing at the browser level (Edd Baldry)
 
 
 Bug fixes

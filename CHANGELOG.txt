@@ -22,6 +22,7 @@ Changelog
  * Added `above_login`, `below_login`, `fields` and `login_form` customisation blocks to the login page template (Tim Heap)
  * `ChoiceBlock` now accepts a callable as the choices list (Mikalai Radchuk)
  * Redundant action buttons are now omitted from the root page in the explorer (Nick Smith)
+ * Locked pages are now disabled from editing at the browser level (Edd Baldry)
  * Fix: `AbstractForm` now respects custom `get_template` methods on the page model (Gagaro)
  * Fix: Use specific page model for the parent page in the explore index (Gagaro)
  * Fix: Remove responsive styles in embed when there is no ratio available (Gagaro)
