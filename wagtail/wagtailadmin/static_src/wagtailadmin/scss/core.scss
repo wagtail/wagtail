@@ -121,10 +121,10 @@ body {
 .page-locked {
 
     .tab-content {
-    cursor: not-allowed;
-    user-select: none;
+        cursor: not-allowed;
+        user-select: none;
 
-        & > * {
+        > * {
             pointer-events: none;
         }
     }
@@ -154,13 +154,13 @@ footer {
 
     .actions {
         width: 250px;
-        margin-right: $grid-gutter-width/2;
+        margin-right: $grid-gutter-width / 2;
     }
 
     .meta {
         float: right;
         text-align: right;
-        padding: 7px $grid-gutter-width/2;
+        padding: 7px $grid-gutter-width / 2;
         font-size: 0.85em;
 
         p {
