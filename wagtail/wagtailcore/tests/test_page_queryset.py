@@ -397,6 +397,16 @@ class TestPageQuerySet(TestCase):
         # Check that the event is in the results
         self.assertTrue(pages.filter(id=event.id).exists())
 
+    def test_in_site(self):
+        all_events = EventPage.objects.all()
+        site_2_events = EventPage.objects.in_site(request.site)
+
+        # Check that there are more events in all_events and in site_2_events
+        self.assertTrue(len(all_events) > len(site_2_events))
+
+        # Check that site_2_events are actually under the 2nd site
+        for event in site_2_events:
+            self.assertTrue(event.get_site() == "site2")
 
 class TestPageQuerySetSearch(TestCase):
     fixtures = ['test.json']
