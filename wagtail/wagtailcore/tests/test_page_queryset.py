@@ -2,8 +2,8 @@ from __future__ import absolute_import, unicode_literals
 
 from django.test import TestCase
 
-from wagtail.tests.testapp.models import EventPage, SingleEventPage
-from wagtail.wagtailcore.models import Page, PageViewRestriction
+from wagtail.tests.testapp.models import EventPage, SimplePage, SingleEventPage
+from wagtail.wagtailcore.models import Page, PageViewRestriction, Site
 from wagtail.wagtailcore.signals import page_unpublished
 
 
@@ -396,6 +396,39 @@ class TestPageQuerySet(TestCase):
 
         # Check that the event is in the results
         self.assertTrue(pages.filter(id=event.id).exists())
+
+
+class TestPageQueryInSite(TestCase):
+    fixtures = ['test.json']
+
+    def setUp(self):
+        self.site_2_page = SimplePage(
+            title="Site 2 page",
+            slug="site_2_page",
+            content="Hello",
+        )
+        Page.get_first_root_node().add_child(instance=self.site_2_page)
+        self.site_2_subpage = SimplePage(
+            title="Site 2 subpage",
+            slug="site_2_subpage",
+            content="Hello again",
+        )
+        self.site_2_page.add_child(instance=self.site_2_subpage)
+
+        self.site_2 = Site.objects.create(
+            hostname='example.com',
+            port=8080,
+            root_page=Page.objects.get(pk=self.site_2_page.pk),
+            is_default_site=False
+        )
+        self.about_us_page = SimplePage.objects.get(url_path='/home/about-us/')
+
+    def test_in_site(self):
+        site_2_pages = SimplePage.objects.in_site(self.site_2)
+
+        self.assertIn(self.site_2_page, site_2_pages)
+        self.assertIn(self.site_2_subpage, site_2_pages)
+        self.assertNotIn(self.about_us_page, site_2_pages)
 
 
 class TestPageQuerySetSearch(TestCase):

@@ -71,6 +71,15 @@ Reference
 
     .. automethod:: not_in_menu
 
+    .. automethod:: in_site
+
+        Example:
+
+        .. code-block:: python
+
+            # Get all the EventPages in the current site
+            site_events = EventPage.objects.in_site(request.site)
+
     .. automethod:: page
 
         Example:
