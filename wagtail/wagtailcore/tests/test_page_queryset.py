@@ -413,6 +413,7 @@ class TestPageQuerySet(TestCase):
         for event in site_2_events:
             self.assertTrue(event.get_site() == site)
 
+
 class TestPageQuerySetSearch(TestCase):
     fixtures = ['test.json']
 
