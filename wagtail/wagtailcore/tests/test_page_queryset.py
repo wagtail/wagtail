@@ -1,14 +1,17 @@
 from __future__ import absolute_import, unicode_literals
 
-from django.test import TestCase
+from django.test import TestCase, RequestFactory
 
 from wagtail.tests.testapp.models import EventPage, SingleEventPage
-from wagtail.wagtailcore.models import Page, PageViewRestriction
+from wagtail.wagtailcore.models import Page, PageViewRestriction, Site
 from wagtail.wagtailcore.signals import page_unpublished
 
 
 class TestPageQuerySet(TestCase):
     fixtures = ['test.json']
+
+    def setUp(self):
+        self.factory = RequestFactory()
 
     def test_live(self):
         pages = Page.objects.live()
@@ -398,15 +401,17 @@ class TestPageQuerySet(TestCase):
         self.assertTrue(pages.filter(id=event.id).exists())
 
     def test_in_site(self):
+        site = Site.objects.get(id=2)
+
         all_events = EventPage.objects.all()
-        site_2_events = EventPage.objects.in_site(request.site)
+        site_2_events = EventPage.objects.in_site(site)
 
         # Check that there are more events in all_events and in site_2_events
         self.assertTrue(len(all_events) > len(site_2_events))
 
         # Check that site_2_events are actually under the 2nd site
         for event in site_2_events:
-            self.assertTrue(event.get_site() == "site2")
+            self.assertTrue(event.get_site() == site)
 
 class TestPageQuerySetSearch(TestCase):
     fixtures = ['test.json']
