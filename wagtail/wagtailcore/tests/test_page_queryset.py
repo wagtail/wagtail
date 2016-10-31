@@ -1,6 +1,6 @@
 from __future__ import absolute_import, unicode_literals
 
-from django.test import TestCase, RequestFactory
+from django.test import TestCase
 
 from wagtail.tests.testapp.models import EventPage, SingleEventPage
 from wagtail.wagtailcore.models import Page, PageViewRestriction, Site
@@ -9,9 +9,6 @@ from wagtail.wagtailcore.signals import page_unpublished
 
 class TestPageQuerySet(TestCase):
     fixtures = ['test.json']
-
-    def setUp(self):
-        self.factory = RequestFactory()
 
     def test_live(self):
         pages = Page.objects.live()
