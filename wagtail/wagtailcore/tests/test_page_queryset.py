@@ -2,7 +2,7 @@ from __future__ import absolute_import, unicode_literals
 
 from django.test import TestCase
 
-from wagtail.tests.testapp.models import EventPage, SingleEventPage, SimplePage
+from wagtail.tests.testapp.models import EventPage, SimplePage, SingleEventPage
 from wagtail.wagtailcore.models import Page, PageViewRestriction, Site
 from wagtail.wagtailcore.signals import page_unpublished
 
