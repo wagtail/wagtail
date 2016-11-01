@@ -5,6 +5,7 @@ import logging
 from django.conf import settings
 from django.core.exceptions import ImproperlyConfigured
 from django.utils.module_loading import import_string
+from django.apps import apps
 
 logger = logging.getLogger('wagtail.frontendcache')
 
@@ -71,3 +72,14 @@ def purge_page_from_cache(page, backend_settings=None, backends=None):
         for path in page.specific.get_cached_paths():
             logger.info("[%s] Purging URL: %s", backend_name, page_url + path[1:])
             backend.purge(page_url + path[1:])
+
+
+def get_sites(site_id=None):
+    Site = apps.get_model('wagtailcore', 'Site')
+
+    if site_id is None:
+        sites = Site.objects.all()
+    else:
+        sites = Site.objects.filter(pk=site_id)
+
+    return sites
