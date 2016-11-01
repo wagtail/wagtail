@@ -2,7 +2,7 @@ from __future__ import absolute_import, unicode_literals
 
 from django.test import TestCase
 
-from wagtail.tests.testapp.models import EventPage, SingleEventPage
+from wagtail.tests.testapp.models import EventPage, SingleEventPage, SimplePage
 from wagtail.wagtailcore.models import Page, PageViewRestriction, Site
 from wagtail.wagtailcore.signals import page_unpublished
 
@@ -397,18 +397,38 @@ class TestPageQuerySet(TestCase):
         # Check that the event is in the results
         self.assertTrue(pages.filter(id=event.id).exists())
 
-    def test_in_site(self):
-        site = Site.objects.get(id=2)
 
-        all_events = EventPage.objects.all()
-        site_2_events = EventPage.objects.in_site(site)
+class TestPageQueryInSite(TestCase):
+    fixtures = ['test.json']
+
+    def setUp(self):
+        self.site_2_page = SimplePage.objects.create(
+            title="Site 2 page",
+            slug="site_2_page",
+            content="Hello",
+            path='00010002',
+            depth=1
+        )
+
+        self.site_2 = Site.objects.create(
+            hostname='example.com',
+            port=8080,
+            root_page=Page.objects.get(pk=self.site_2_page.pk),
+            is_default_site=False
+        )
+
+    def test_in_site(self):
+        all_simple_pages = SimplePage.objects.all()
+        print len(all_simple_pages)
+        site_2_pages = SimplePage.objects.in_site(self.site_2)
+        print len(site_2_pages)
 
         # Check that there are more events in all_events and in site_2_events
-        self.assertTrue(len(all_events) > len(site_2_events))
+        self.assertTrue(len(all_simple_pages) > len(site_2_pages))
 
         # Check that site_2_events are actually under the 2nd site
-        for event in site_2_events:
-            self.assertTrue(event.get_site() == site)
+        for page in site_2_pages:
+            self.assertTrue(page.get_site() == self.site_2)
 
 
 class TestPageQuerySetSearch(TestCase):
