@@ -419,9 +419,7 @@ class TestPageQueryInSite(TestCase):
 
     def test_in_site(self):
         all_simple_pages = SimplePage.objects.all()
-        print len(all_simple_pages)
         site_2_pages = SimplePage.objects.in_site(self.site_2)
-        print len(site_2_pages)
 
         # Check that there are more events in all_events and in site_2_events
         self.assertTrue(len(all_simple_pages) > len(site_2_pages))
