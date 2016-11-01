@@ -176,6 +176,9 @@ Contributors
 * alexfromvl
 * Jaap Roes
 * Ducky
+* Shawn Makinson
+* Tom Miller
+* Luca Perico
 
 Translators
 ===========

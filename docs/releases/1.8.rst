@@ -14,7 +14,7 @@ What's new
 New page privacy options
 ~~~~~~~~~~~~~~~~~~~~~~~~
 
-Previously users with publishing permissions were able to make a page available by password. Now they also can make the page to be accessible to logged-in users or to users from specific groups. This feature was developed by Matt Westcott.
+Previously users with publishing permissions were able to restrict access to a page based on a shared password. Now they can also restrict access to logged-in users only, or to users from specific groups. This feature was developed by Shawn Makinson, Tom Miller, Luca Perico and Matt Westcott.
 
 See: :ref:`private_pages`
 
