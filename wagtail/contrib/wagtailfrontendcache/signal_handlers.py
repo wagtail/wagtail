@@ -1,12 +1,10 @@
 from __future__ import absolute_import, unicode_literals
 
 from django.apps import apps
-from django.db.models.signals import post_save
-from django.db.models.signals import post_delete
+from django.db.models.signals import post_delete, post_save
 
-from wagtail.contrib.wagtailfrontendcache.utils import purge_page_from_cache
-from wagtail.contrib.wagtailfrontendcache.utils import purge_url_from_cache
-from wagtail.contrib.wagtailfrontendcache.utils import get_sites
+from wagtail.contrib.wagtailfrontendcache.utils import (
+    get_sites, purge_page_from_cache, purge_url_from_cache)
 from wagtail.wagtailcore.signals import page_published, page_unpublished
 
 
