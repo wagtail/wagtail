@@ -332,6 +332,7 @@ def message_tags(message):
     else:
         return ''
 
+
 @register.assignment_tag
 def current_users_explorable_ancestors(page, request):
     """
@@ -342,6 +343,7 @@ def current_users_explorable_ancestors(page, request):
     """
     return page.get_permitted_ancestors(request)
 
+
 @register.assignment_tag
 def current_users_choosable_ancestors(page, request):
     """
@@ -351,6 +353,7 @@ def current_users_choosable_ancestors(page, request):
     that for us.
     """
     return page.get_permitted_ancestors(request, choosable=True)
+
 
 @register.assignment_tag
 def is_current_users_explorable_root(page, request):
@@ -370,6 +373,7 @@ def is_current_users_choosable_root(page, request):
     can't call it directly from the template. This template tag does that for us.
     """
     return page.is_permitted_root(request, choosable=True)
+
 
 @register.simple_tag
 def replace_page_param(query, page_number, page_key='p'):

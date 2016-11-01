@@ -330,6 +330,7 @@ class TestPageExplorerSignposting(TestCase, WagtailTestUtils):
         # There should be no warning message here
         self.assertNotContains(response, "Pages created here will not be accessible")
 
+
 class TestExplorablePageVisibility(TestCase, WagtailTestUtils):
     """
     Test the way that the Explorable Pages functionality manifests within the Explorer.

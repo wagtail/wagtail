@@ -1415,6 +1415,7 @@ class Page(six.with_metaclass(PageBase, AbstractPage, index.Indexed, Clusterable
         verbose_name = _('page')
         verbose_name_plural = _('pages')
 
+
 def get_closest_common_ancestor_path(request, choosable=False):
     """
     Global method that returns the Closest Common Ancestor for the specified User, or None if the User has no
@@ -1422,7 +1423,6 @@ def get_closest_common_ancestor_path(request, choosable=False):
     then their explorable pages.
     """
     permitted_paths = UserPagePermissionsProxy(request.user).permitted_paths(choosable)
-    required_ancestors = []
     # Calculate the "closest common ancestor" of all the permitted Pages by finding their common prefix, then
     # chopping off the end to make the length a multiple of Page.steplen.
     if permitted_paths:
@@ -1434,6 +1434,7 @@ def get_closest_common_ancestor_path(request, choosable=False):
     else:
         # The user is not permitted to see any pages, and therefore has no required ancestors, either.
         return None
+
 
 @receiver(pre_delete, sender=Page)
 def unpublish_page_before_delete(sender, instance, **kwargs):
