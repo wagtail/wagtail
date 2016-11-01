@@ -352,7 +352,7 @@ class PageQuerySet(SearchableQuerySetMixin, TreeQuerySet):
 
     def in_site(self, site):
         """
-        This returns all pages of type self in a site.
+        This filters the QuerySet to only contain pages of type self in a specific site.
         """
         return self.descendant_of(site.root_page, inclusive=True)
 
