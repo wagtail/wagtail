@@ -1390,7 +1390,7 @@ class Page(six.with_metaclass(PageBase, AbstractPage, index.Indexed, Clusterable
 
     def get_permitted_ancestors(self, request, choosable=False):
         """
-        Internal function that does the work for get_explorable_ancestors() and get_choosable_ancestors().
+        Returns the permitted ancestors for a user on a given request.
         """
         # Superusers see all the ancestors.
         if request.user.is_superuser:
