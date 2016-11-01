@@ -176,6 +176,8 @@ Customising the page editor interface
 The page editor can be customised further. See :doc:`/advanced_topics/customisation/page_editing_interface`.
 
 
+.. _page_type_business_rules:
+
 Parent page / subpage type rules
 --------------------------------
 
