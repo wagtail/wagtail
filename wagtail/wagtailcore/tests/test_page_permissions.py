@@ -4,7 +4,7 @@ from django.contrib.auth import get_user_model
 from django.test import TestCase
 
 from wagtail.tests.testapp.models import BusinessSubIndex, EventPage
-from wagtail.wagtailcore.models import Page, UserPagePermissionsProxy
+from wagtail.wagtailcore.models import GroupPagePermission, Page, UserPagePermissionsProxy
 
 
 class TestPagePermission(TestCase):
@@ -95,7 +95,8 @@ class TestPagePermission(TestCase):
         self.assertTrue(unpub_perms.can_edit())
 
         self.assertFalse(homepage_perms.can_delete())
-        self.assertTrue(christmas_page_perms.can_delete())  # cannot delete because it is published
+        # can delete a published page because we have publish permission
+        self.assertTrue(christmas_page_perms.can_delete())
         self.assertTrue(unpub_perms.can_delete())
 
         self.assertFalse(homepage_perms.can_publish())
@@ -128,6 +129,65 @@ class TestPagePermission(TestCase):
         self.assertTrue(board_meetings_perms.can_move())
         # cannot move because the parent_page_types rule of BusinessSubIndex forbids EventPage as a parent
         self.assertFalse(board_meetings_perms.can_move_to(christmas_page))
+
+    def test_publish_page_permissions_without_edit(self):
+        event_moderator = get_user_model().objects.get(username='eventmoderator')
+
+        # Remove 'edit' permission from the event_moderator group
+        GroupPagePermission.objects.filter(group__name='Event moderators', permission_type='edit').delete()
+
+        homepage = Page.objects.get(url_path='/home/')
+        christmas_page = EventPage.objects.get(url_path='/home/events/christmas/')
+        unpublished_event_page = EventPage.objects.get(url_path='/home/events/tentative-unpublished-event/')
+        # 'someone else's event' is owned by eventmoderator
+        moderator_event_page = EventPage.objects.get(url_path='/home/events/someone-elses-event/')
+
+        homepage_perms = homepage.permissions_for_user(event_moderator)
+        christmas_page_perms = christmas_page.permissions_for_user(event_moderator)
+        unpub_perms = unpublished_event_page.permissions_for_user(event_moderator)
+        moderator_event_perms = moderator_event_page.permissions_for_user(event_moderator)
+
+        # we still have add permission within events
+        self.assertFalse(homepage_perms.can_add_subpage())
+        self.assertTrue(christmas_page_perms.can_add_subpage())
+
+        # add permission lets us edit our own event
+        self.assertFalse(christmas_page_perms.can_edit())
+        self.assertTrue(moderator_event_perms.can_edit())
+
+        # with add + publish permissions, can delete a published page owned by us
+        self.assertTrue(moderator_event_perms.can_delete())
+        # but NOT a page owned by someone else (which would require edit permission)
+        self.assertFalse(christmas_page_perms.can_delete())
+        # ...even an unpublished one
+        self.assertFalse(unpub_perms.can_delete())
+
+        # we can still publish/unpublish events regardless of owner
+        self.assertFalse(homepage_perms.can_publish())
+        self.assertTrue(christmas_page_perms.can_publish())
+        self.assertTrue(unpub_perms.can_publish())
+
+        self.assertFalse(homepage_perms.can_unpublish())
+        self.assertTrue(christmas_page_perms.can_unpublish())
+        self.assertFalse(unpub_perms.can_unpublish())  # cannot unpublish a page that isn't published
+
+        self.assertFalse(homepage_perms.can_publish_subpage())
+        self.assertTrue(christmas_page_perms.can_publish_subpage())
+        self.assertTrue(unpub_perms.can_publish_subpage())
+
+        # reorder permission is considered equivalent to publish permission
+        # (so we can do it on pages we can't edit)
+        self.assertFalse(homepage_perms.can_reorder_children())
+        self.assertTrue(christmas_page_perms.can_reorder_children())
+        self.assertTrue(unpub_perms.can_reorder_children())
+
+        # moving requires edit permission
+        self.assertFalse(homepage_perms.can_move())
+        self.assertFalse(christmas_page_perms.can_move())
+        self.assertTrue(moderator_event_perms.can_move())
+        # and add permission on the destination
+        self.assertFalse(moderator_event_perms.can_move_to(homepage))
+        self.assertTrue(moderator_event_perms.can_move_to(unpublished_event_page))
 
     def test_inactive_user_has_no_permissions(self):
         user = get_user_model().objects.get(username='inactiveuser')
