@@ -10,7 +10,7 @@ We ask that all Python contributions adhere to the `PEP8 <http://www.python.org/
 Python 2 and 3 compatibility
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-All contributions should support Python 2 and 3 and we recommend using the `six <https://pythonhosted.org/six/>`_ compatibility library (use the pip version installed as a dependency, not the version bundled with Django).
+All contributions should support Python 2 and 3 and we recommend using the `six <https://pythonhosted.org/six/>`_ compatibility library (use the version bundled with Django, ``django.utils.six``).
 
 Django compatibility
 ~~~~~~~~~~~~~~~~~~~~
