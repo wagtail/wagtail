@@ -15,7 +15,7 @@ for support - use our [Wagtail support group](https://groups.google.com/forum/#!
 ## New code
 
 Please review the 
-[coding guidelines](http://docs.wagtail.io/en/latest/contributing/developing.html#coding-guidelines). 
+[contributing guidelines](http://docs.wagtail.io/en/latest/contributing/index.html). 
 You might like to start by checking issues with the 
 [difficulty:Easy](https://github.com/torchbox/wagtail/labels/difficulty%3AEasy) label.
 
