@@ -180,6 +180,7 @@ Contributors
 * Tom Miller
 * Luca Perico
 * Gary Krige
+* Hammy Goonan
 
 Translators
 ===========
