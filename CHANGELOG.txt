@@ -5,6 +5,7 @@ Changelog
 ~~~~~~~~~~~~~~~~
 
  * New page privacy options (Shawn Makinson, Tom Miller, Luca Perico, Matt Westcott)
+ * New 'bulk delete' permission type for deleting pages with children (Matt Westcott)
  * Added support of a custom `edit_handler` in site settings (Axel Haustant)
  * Added `get_landing_page_template` getter method to `AbstractForm` (Gagaro)
  * Added `Page.get_admin_display_title` method to override how the title is displayed in the admin (Henk-Jan van Hasselaar)
@@ -21,6 +22,7 @@ Changelog
  * Fix: `set_url_paths` management command is now compatible with Django 1.10 (Benjamin Bach)
  * Fix: Form builder email notifications now output multiple values correctly (Sævar Öfjörð Magnússon)
  * Fix: Closing 'more' dropdown on explorer no longer jumps to the top of the page (Ducky)
+ * Fix: Users with only publish permission are no longer given implicit permission to delete pages (Matt Westcott)
 
 
 1.7 (20.10.2016)

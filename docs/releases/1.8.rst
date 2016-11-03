@@ -19,6 +19,16 @@ Previously users with publishing permissions were able to restrict access to a p
 See: :ref:`private_pages`
 
 
+Restrictions on bulk-deletion of pages
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Previously, any user with edit permission over a page and its descendants was able to delete them all as a single action, which led to the risk of accidental deletions. To guard against this, the permission rules have been revised so that a user with basic permissions can only delete pages that have no children; in order to delete a whole subtree, they must individually delete each child page first. A new "bulk delete" permission type has been added which allows a user to delete pages with children, as before; superusers receive this permission implicitly, and so there is no change of behaviour for them.
+
+See: :ref:`permissions`
+
+This feature was developed by Matt Westcott.
+
+
 Minor features
 ~~~~~~~~~~~~~~
 
@@ -43,6 +53,7 @@ Bug fixes
  * ``set_url_paths`` management command is now compatible with Django 1.10 (Benjamin Bach)
  * Form builder email notifications now output multiple values correctly (Sævar Öfjörð Magnússon)
  * Closing 'more' dropdown on explorer no longer jumps to the top of the page (Ducky)
+ * Users with only publish permission are no longer given implicit permission to delete pages (Matt Westcott)
 
 Upgrade considerations
 ======================
