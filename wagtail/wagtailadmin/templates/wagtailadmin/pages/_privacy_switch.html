@@ -5,6 +5,7 @@
     {% page_permissions page as page_perms %}
 {% endif %}
 
+{% if not page.is_root %}
 <div class="privacy-indicator {% if is_public %}public{% else %}private{% endif %}">
     {% trans "Privacy" %}
     {% if page_perms.can_set_view_restrictions %}
@@ -21,3 +22,4 @@
         {% endif %}
     {% endif %}
 </div>
+{% endif %}
