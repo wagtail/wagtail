@@ -23,8 +23,6 @@ You can configure which backend to use with the ``WAGTAILSEARCH_BACKENDS`` setti
 ``AUTO_UPDATE``
 ===============
 
- .. versionadded:: 1.0
-
 By default, Wagtail will automatically keep all indexes up to date. This could impact performance when editing content, especially if your index is hosted on an external service.
 
 The ``AUTO_UPDATE`` setting allows you to disable this on a per-index basis:
@@ -46,8 +44,6 @@ If you have disabled auto update, you must run the :ref:`update_index` command o
 ``ATOMIC_REBUILD``
 ==================
 
-.. versionadded:: 1.1
-
 By default (when using the Elasticsearch backend), when the ``update_index`` command is run, Wagtail deletes the index and rebuilds it from scratch. This causes the search engine to not return results until the rebuild is complete and is also risky as you can't rollback if an error occurs.
 
 Setting the ``ATOMIC_REBUILD`` setting to ``True`` makes Wagtail rebuild into a separate index while keep the old index active until the new one is fully built. When the rebuild is finished, the indexes are swapped atomically and the old index is deleted.
@@ -63,10 +59,6 @@ Database Backend (default)
 --------------------------
 
 ``wagtail.wagtailsearch.backends.db``
-
-.. versionchanged:: 1.1
-
-    Before 1.1, the full path to the backend class had to be specified: ``wagtail.wagtailsearch.backends.db.DBSearch``
 
 The database backend is very basic and is intended only to be used in development and on small sites. It cannot order results by relevance, severely hampering its usefulness when searching a large collection of pages.
 
@@ -84,25 +76,27 @@ If any of these features are important to you, we recommend using Elasticsearch 
 Elasticsearch Backend
 ---------------------
 
-``wagtail.wagtailsearch.backends.elasticsearch`` (Elasticsearch 1.x)
-
-``wagtail.wagtailsearch.backends.elasticsearch2`` (Elasticsearch 2.x)
-
-.. versionchanged:: 1.1
-
-    Before 1.1, the full path to the backend class had to be specified: ``wagtail.wagtailsearch.backends.elasticsearch.ElasticSearch``
-
 .. versionchanged:: 1.7
 
     Support for Elasticsearch 2.x was added
 
-Prerequisites are the `Elasticsearch`_ service itself and, via pip, the `elasticsearch-py`_ package:
+Elasticsearch versions 1 and 2 are supported. Use the appropriate backend for your version:
+
+``wagtail.wagtailsearch.backends.elasticsearch`` (Elasticsearch 1.x)
+
+``wagtail.wagtailsearch.backends.elasticsearch2`` (Elasticsearch 2.x)
+
+Prerequisites are the `Elasticsearch`_ service itself and, via pip, the `elasticsearch-py`_ package. The major version of the package must match the installed version of Elasticsearch:
 
 .. _Elasticsearch: https://www.elastic.co/downloads/past-releases/elasticsearch-1-7-3
 
 .. code-block:: sh
 
-  pip install elasticsearch
+  pip install "elasticsearch>=1.0.0,<2.0.0"  # for Elasticsearch 1.x
+
+.. code-block:: sh
+
+  pip install "elasticsearch>=2.0.0,<3.0.0"  # for Elasticsearch 2.x
 
 The backend is configured in settings:
 
