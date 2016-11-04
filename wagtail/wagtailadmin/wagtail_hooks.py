@@ -105,5 +105,6 @@ def page_listing_more_buttons(page, page_perms, is_parent=False):
     if page_perms.can_unpublish():
         yield Button(_('Unpublish'), reverse('wagtailadmin_pages:unpublish', args=[page.id]),
                      attrs={'title': _('Unpublish this page')}, priority=40)
-    yield Button(_('Revisions'), reverse('wagtailadmin_pages:revisions_index', args=[page.id]),
-                 attrs={'title': _("View this page's revision history")}, priority=50)
+    if not page.is_root():
+        yield Button(_('Revisions'), reverse('wagtailadmin_pages:revisions_index', args=[page.id]),
+                     attrs={'title': _("View this page's revision history")}, priority=50)
