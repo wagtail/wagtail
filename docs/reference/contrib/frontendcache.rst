@@ -113,7 +113,7 @@ In case you run multiple sites with Wagtail and each site has its CloudFront dis
         },
     }
 
-  .. note::
+.. note::
     In most cases, absolute URLs with ``www`` prefixed domain names should be used in your mapping. Only drop the ``www`` prefix if you're absolutely sure you're not using it (e.g. a subdomain).
 
 Advanced usage
