@@ -299,11 +299,11 @@ This has to do with the way we defined our model:
 
 ``class BlogPage(Page):``
 
-The ``get_children()`` method gets us a list of ``Page`` base classes. When we want to reference
-properties of the instances that inherit from the base class, Wagtail provides the ``specific``
-method that retrieves the actual ``BlogPage`` record. While the "title" field is present on
-the base ``Page`` model, "intro" is only present on the ``BlogPage`` model, so we need
-``.specific`` to access it.
+The ``get_children()`` method gets us a list of instances of the ``Page`` base class.
+When we want to reference properties of the instances that inherit from the base class,
+Wagtail provides the ``specific`` method that retrieves the actual ``BlogPage`` record.
+While the "title" field is present on the base ``Page`` model, "intro" is only present
+on the ``BlogPage`` model, so we need ``.specific`` to access it.
 
 To tighten up template code like this, we could use Django's ``with`` tag:
 
@@ -341,7 +341,7 @@ Overriding Context
 
 There are a couple of problems with our blog index view:
 
-1) Blogs generally display content in reverse chronological order
+1) Blogs generally display content in *reverse* chronological order
 2) We want to make sure we're only displaying *published* content.
 
 To accomplish these things, we need to do more than just grab the index
@@ -362,6 +362,8 @@ model like this:
             context['blogpages'] = blogpages
             return context
 
+All we've done here is to retrieve the original context, create a custom queryset,
+add it to the retrieved context, and return the modified context back to the view.
 You'll also need to modify your ``blog_index_page.html`` template slightly.
 Change:
 
@@ -447,8 +449,8 @@ You can read more about using images in templates in the
 Tags and Categories
 ~~~~~~~~~~~~~~~~~~~
 
-What's a blog without a solid taxonomy? You'll probably want Categories
-for "big picture" taxonomy ("News," "Sports," "Politics," etc.) and Tags
+What's a blog without a taxonomy? You'll probably want Categories
+for "big picture" organization ("News," "Sports," "Politics," etc.) and Tags
 for fine-grained sorting ("Bicycle," "Clinton," "Electric Vehicles," etc.)
 You'll need mechanisms to let editors manage tags categories and attach them to posts,
 ways to display them on your blog pages, and views that display all posts belonging
@@ -532,10 +534,15 @@ To render tags on a ``BlogPage,`` add this to ``blog_page.html:``
         </div>
     {% endif %}
 
+Notice that we're linking to pages here with the builtin ``slugurl``
+tag rather than ``pageurl``, which we used earlier. The difference is that ``slugurl`` takes a
+Page slug (from the Promote tab) as an argument. ``pageurl`` is more commonly used because it
+is unambiguous and avoids extra database lookups. But in the case of this loop, the Page object
+isn't readily available, so we fall back on the less-preferred  ``slugurl`` tag.
+
 Visiting a blog post with tags should now show a set of linked
 buttons at the bottom - one for each tag. However, clicking a button
-will get you a 404, since we haven't yet defined a "tags" view, which
-is going to require a little extra magic. Add to ``models.py:``
+will get you a 404, since we haven't yet defined a "tags" view. Add to ``models.py:``
 
 .. code-block:: python
 
@@ -579,7 +586,7 @@ you need to create a template ``blog/blog_tag_index_page.html:``
         {% for blogpage in blogpages %}
 
               <p>
-                  <strong><a href="{% slugurl blogpage.slug %}">{{ blogpage.title }}</a></strong><br />
+                  <strong><a href="{% pageurl blogpage %}">{{ blogpage.title }}</a></strong><br />
                   <small>Revised: {{ blogpage.latest_revision_created_at }}</small><br />
                   {% if blogpage.author %}
                     <p>By {{ blogpage.author.profile }}</p>
@@ -592,12 +599,7 @@ you need to create a template ``blog/blog_tag_index_page.html:``
 
     {% endblock %}
 
-Unlike in the previous example, we're linking to pages here with the builtin ``slugurl``
-tag rather than ``pageurl``. The difference is that ``slugurl`` takes a Page slug
-(from the Promote tab) as an argument. ``pageurl`` is more commonly used because it
-is unambiguous, but use whichever one best suits your purpose.
-
-We're also calling the built-in ``latest_revision_created_at`` field on the ``Page``
+We're calling the built-in ``latest_revision_created_at`` field on the ``Page``
 model - handy to know this is always available.
 
 We haven't yet added an "author" field to our ``BlogPage`` model, nor do we have
@@ -771,9 +773,9 @@ Assuming you've created a "Science" category and added some posts to that catego
 able to access a URL like ``/blog/cat/science.`` Now we just need to add category links to our index
 and post templates.
 
-We'll also need to be able to reverse blog category links, using a tempate tag
-that is not in Wagtail core. In your project settings, add ``'wagtail.contrib.wagtailroutablepage'``
-to ``INSTALLED_APPS``, then modify ``blog_index_page.html``:
+We'll also need to be able to reverse blog category links, using a tempate tag that is in
+Wagtail's "contrib" module, not in core. In your project settings, add
+``'wagtail.contrib.wagtailroutablepage'`` to ``INSTALLED_APPS``, then modify ``blog_index_page.html``:
 
 .. code-block:: html+django
 
@@ -801,7 +803,7 @@ to ``INSTALLED_APPS``, then modify ``blog_index_page.html``:
         <div class="intro">{{ page.intro|richtext }}</div>
         {% for post in blogpages %}
             {% with post=post.specific %}
-                <h2><a href="{% slugurl post.slug %}">{{ post.title }}</a></h2>
+                <h2><a href="{% pageurl post %}">{{ post.title }}</a></h2>
                 {{ post.latest_revision_created_at }}<br />
 
                 {% if post.blog_categories.all %}
@@ -834,7 +836,8 @@ to the corresponding blog category view, using the URL we named earlier (``blog_
 passing in the slug of the current category. We also display the category name in the header.
 You'll probably want to do something similar on ``blog_page.html``.
 
-And with that, we've got both tags and categories working, and our categories system is nice and dry.
+And with that, we've got both tags and categories working, and our categories system is nice and DRY
+because we used a single model (view) to handle both the blog's homepage and its category displays.
 
 .. figure:: ../_static/images/tutorial/tutorial_14.png
   :alt: Blog category view
