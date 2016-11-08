@@ -1,14 +1,18 @@
 from __future__ import absolute_import, unicode_literals
 
 from .elasticsearch2 import (
-    Elasticsearch2Mapping, Elasticsearch2SearchBackend, Elasticsearch2SearchQuery,
-    Elasticsearch2SearchResults)
+    Elasticsearch2Index, Elasticsearch2Mapping, Elasticsearch2SearchBackend,
+    Elasticsearch2SearchQuery, Elasticsearch2SearchResults)
 
 
 class Elasticsearch5Mapping(Elasticsearch2Mapping):
     keyword_type = 'keyword'
     text_type = 'text'
     set_index_not_analyzed_on_filter_fields = False
+
+
+class Elasticsearch5Index(Elasticsearch2Index):
+    pass
 
 
 class Elasticsearch5SearchQuery(Elasticsearch2SearchQuery):
@@ -72,6 +76,7 @@ class Elasticsearch5SearchResults(Elasticsearch2SearchResults):
 
 class Elasticsearch5SearchBackend(Elasticsearch2SearchBackend):
     mapping_class = Elasticsearch5Mapping
+    index_class = Elasticsearch5Index
     query_class = Elasticsearch5SearchQuery
     results_class = Elasticsearch5SearchResults
 
