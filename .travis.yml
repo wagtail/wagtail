@@ -41,6 +41,15 @@ matrix:
    - env: TOXENV=py34-dj19-sqlite-elasticsearch2 INSTALL_ELASTICSEARCH2=yes
      python: 3.5
      sudo: true
+   - env: TOXENV=py27-dj18-sqlite-elasticsearch5 INSTALL_ELASTICSEARCH5=yes
+     python: 2.7
+     sudo: true
+   - env: TOXENV=py27-dj19-postgres-elasticsearch5 INSTALL_ELASTICSEARCH5=yes
+     python: 2.7
+     sudo: true
+   - env: TOXENV=py34-dj19-sqlite-elasticsearch5 INSTALL_ELASTICSEARCH5=yes
+     python: 3.5
+     sudo: true
    - env: TOXENV=py27-dj110-sqlite-noelasticsearch
      python: 2.7
    - env: TOXENV=py27-dj110-postgres-noelasticsearch
@@ -50,6 +59,9 @@ matrix:
    - env: TOXENV=py27-dj110-mysql-elasticsearch
      python: 2.7
    - env: TOXENV=py27-dj110-mysql-elasticsearch2 INSTALL_ELASTICSEARCH2=yes
+     python: 2.7
+     sudo: true
+   - env: TOXENV=py27-dj110-mysql-elasticsearch5 INSTALL_ELASTICSEARCH5=yes
      python: 2.7
      sudo: true
    - env: TOXENV=py34-dj110-postgres-noelasticsearch
@@ -69,9 +81,15 @@ matrix:
    - env: TOXENV=py35-dj110-postgres-elasticsearch2 INSTALL_ELASTICSEARCH2=yes
      python: 3.5
      sudo: true
+   - env: TOXENV=py35-dj110-postgres-elasticsearch5 INSTALL_ELASTICSEARCH5=yes
+     python: 3.5
+     sudo: true
    - env: TOXENV=py35-dj110head-postgres-noelasticsearch
      python: 3.5
    - env: TOXENV=py35-dj110head-postgres-elasticsearch2 INSTALL_ELASTICSEARCH2=yes
+     python: 3.5
+     sudo: true
+   - env: TOXENV=py35-dj110head-postgres-elasticsearch5 INSTALL_ELASTICSEARCH5=yes
      python: 3.5
      sudo: true
   allow_failures:
@@ -86,7 +104,12 @@ matrix:
     - env: TOXENV=py27-dj110-mysql-elasticsearch2 INSTALL_ELASTICSEARCH2=yes
     - env: TOXENV=py35-dj110-postgres-elasticsearch2 INSTALL_ELASTICSEARCH2=yes
     - env: TOXENV=py35-dj110head-postgres-elasticsearch2 INSTALL_ELASTICSEARCH2=yes
-
+    - env: TOXENV=py27-dj18-sqlite-elasticsearch5 INSTALL_ELASTICSEARCH5=yes
+    - env: TOXENV=py27-dj19-postgres-elasticsearch5 INSTALL_ELASTICSEARCH5=yes
+    - env: TOXENV=py34-dj19-sqlite-elasticsearch5 INSTALL_ELASTICSEARCH5=yes
+    - env: TOXENV=py27-dj110-mysql-elasticsearch5 INSTALL_ELASTICSEARCH5=yes
+    - env: TOXENV=py35-dj110-postgres-elasticsearch5 INSTALL_ELASTICSEARCH5=yes
+    - env: TOXENV=py35-dj110head-postgres-elasticsearch5 INSTALL_ELASTICSEARCH5=yes
 
 # Services
 services:
@@ -96,6 +119,7 @@ services:
 install:
   - pip install tox coveralls
   - 'if [[ -n "$INSTALL_ELASTICSEARCH2" ]]; then ./scripts/travis/install_elasticsearch2.sh; fi'
+  - 'if [[ -n "$INSTALL_ELASTICSEARCH5" ]]; then ./scripts/travis/install_elasticsearch5.sh; fi'
 
 # Pre-test configuration
 before_script:
