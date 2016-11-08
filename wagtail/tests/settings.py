@@ -171,7 +171,9 @@ WAGTAILSEARCH_BACKENDS = {
 AUTH_USER_MODEL = 'customuser.CustomUser'
 
 if 'ELASTICSEARCH_URL' in os.environ:
-    if os.environ.get('ELASTICSEARCH_VERSION') == '2':
+    if os.environ.get('ELASTICSEARCH_VERSION') == '5':
+        backend = 'wagtail.wagtailsearch.backends.elasticsearch5'
+    elif os.environ.get('ELASTICSEARCH_VERSION') == '2':
         backend = 'wagtail.wagtailsearch.backends.elasticsearch2'
     else:
         backend = 'wagtail.wagtailsearch.backends.elasticsearch'
