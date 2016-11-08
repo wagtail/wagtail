@@ -43,6 +43,7 @@ class ElasticsearchMapping(object):
 
     keyword_type = 'string'
     text_type = 'string'
+    set_index_not_analyzed_on_filter_fields = True
 
     # Contains the configuration required to use the edgengram_analyzer
     # on a field. It's different in Elasticsearch 2 so it's been put in
@@ -100,7 +101,11 @@ class ElasticsearchMapping(object):
                 if mapping['type'] == 'string':
                     mapping['type'] = self.keyword_type
 
-                mapping['index'] = 'not_analyzed'
+                if self.set_index_not_analyzed_on_filter_fields:
+                    # Not required on ES5 as that uses the "keyword" type for
+                    # filtered string fields
+                    mapping['index'] = 'not_analyzed'
+
                 mapping['include_in_all'] = False
 
             if 'es_extra' in field.kwargs:
@@ -112,11 +117,17 @@ class ElasticsearchMapping(object):
     def get_mapping(self):
         # Make field list
         fields = {
-            'pk': dict(type=self.keyword_type, index='not_analyzed', store=True, include_in_all=False),
-            'content_type': dict(type=self.keyword_type, index='not_analyzed', include_in_all=False),
+            'pk': dict(type=self.keyword_type, store=True, include_in_all=False),
+            'content_type': dict(type=self.keyword_type, include_in_all=False),
             '_partials': dict(type=self.text_type, include_in_all=False),
         }
         fields['_partials'].update(self.edgengram_analyzer_config)
+
+        if self.set_index_not_analyzed_on_filter_fields:
+            # Not required on ES5 as that uses the "keyword" type for
+            # filtered string fields
+            fields['pk']['index'] = 'not_analyzed'
+            fields['content_type']['index'] = 'not_analyzed'
 
         fields.update(dict(
             self.get_field_mapping(field) for field in self.model.get_search_fields()

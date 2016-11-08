@@ -7,6 +7,7 @@ from .elasticsearch2 import (
 class Elasticsearch5Mapping(Elasticsearch2Mapping):
     keyword_type = 'keyword'
     text_type = 'text'
+    set_index_not_analyzed_on_filter_fields = False
 
 
 class Elasticsearch5SearchQuery(Elasticsearch2SearchQuery):
