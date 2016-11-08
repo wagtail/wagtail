@@ -603,7 +603,7 @@ class TestElasticsearch5SearchResults(TestCase):
             from_=0,
             body={'query': 'QUERY'},
             _source=False,
-            fields='pk',
+            stored_fields='pk',
             index='wagtail__searchtests_searchtest'
         )
 
@@ -619,7 +619,7 @@ class TestElasticsearch5SearchResults(TestCase):
             from_=10,
             body={'query': 'QUERY'},
             _source=False,
-            fields='pk',
+            stored_fields='pk',
             index='wagtail__searchtests_searchtest',
             size=1
         )
@@ -635,7 +635,7 @@ class TestElasticsearch5SearchResults(TestCase):
             from_=1,
             body={'query': 'QUERY'},
             _source=False,
-            fields='pk',
+            stored_fields='pk',
             index='wagtail__searchtests_searchtest',
             size=3
         )
@@ -651,7 +651,7 @@ class TestElasticsearch5SearchResults(TestCase):
             from_=10,
             body={'query': 'QUERY'},
             _source=False,
-            fields='pk',
+            stored_fields='pk',
             index='wagtail__searchtests_searchtest',
             size=10
         )
@@ -668,7 +668,7 @@ class TestElasticsearch5SearchResults(TestCase):
             from_=20,
             body={'query': 'QUERY'},
             _source=False,
-            fields='pk',
+            stored_fields='pk',
             index='wagtail__searchtests_searchtest',
             size=1
         )
