@@ -753,20 +753,20 @@ class TestElasticsearch5Mapping(TestCase):
         expected_result = {
             'searchtests_searchtest': {
                 'properties': {
-                    'pk': {'index': 'not_analyzed', 'type': 'keyword', 'store': True, 'include_in_all': False},
-                    'content_type': {'index': 'not_analyzed', 'type': 'keyword', 'include_in_all': False},
+                    'pk': {'type': 'keyword', 'store': True, 'include_in_all': False},
+                    'content_type': {'type': 'keyword', 'include_in_all': False},
                     '_partials': {'analyzer': 'edgengram_analyzer', 'search_analyzer': 'standard', 'include_in_all': False, 'type': 'text'},
-                    'live_filter': {'index': 'not_analyzed', 'type': 'boolean', 'include_in_all': False},
-                    'published_date_filter': {'index': 'not_analyzed', 'type': 'date', 'include_in_all': False},
+                    'live_filter': {'type': 'boolean', 'include_in_all': False},
+                    'published_date_filter': {'type': 'date', 'include_in_all': False},
                     'title': {'type': 'text', 'include_in_all': True, 'analyzer': 'edgengram_analyzer', 'search_analyzer': 'standard'},
-                    'title_filter': {'index': 'not_analyzed', 'type': 'keyword', 'include_in_all': False},
+                    'title_filter': {'type': 'keyword', 'include_in_all': False},
                     'content': {'type': 'text', 'include_in_all': True},
                     'callable_indexed_field': {'type': 'text', 'include_in_all': True},
                     'tags': {
                         'type': 'nested',
                         'properties': {
                             'name': {'type': 'text', 'include_in_all': True, 'analyzer': 'edgengram_analyzer', 'search_analyzer': 'standard'},
-                            'slug_filter': {'index': 'not_analyzed', 'type': 'keyword', 'include_in_all': False},
+                            'slug_filter': {'type': 'keyword', 'include_in_all': False},
                         }
                     },
                 }
@@ -843,25 +843,25 @@ class TestElasticsearch5MappingInheritance(TestCase):
                         'properties': {
                             'title': {'type': 'text', 'include_in_all': True, 'analyzer': 'edgengram_analyzer', 'search_analyzer': 'standard'},
                             'search_description': {'type': 'text', 'include_in_all': True},
-                            'live_filter': {'index': 'not_analyzed', 'type': 'boolean', 'include_in_all': False},
+                            'live_filter': {'type': 'boolean', 'include_in_all': False},
                         }
                     },
 
                     # Inherited
-                    'pk': {'index': 'not_analyzed', 'type': 'keyword', 'store': True, 'include_in_all': False},
-                    'content_type': {'index': 'not_analyzed', 'type': 'keyword', 'include_in_all': False},
+                    'pk': {'type': 'keyword', 'store': True, 'include_in_all': False},
+                    'content_type': {'type': 'keyword', 'include_in_all': False},
                     '_partials': {'analyzer': 'edgengram_analyzer', 'search_analyzer': 'standard', 'include_in_all': False, 'type': 'text'},
-                    'live_filter': {'index': 'not_analyzed', 'type': 'boolean', 'include_in_all': False},
-                    'published_date_filter': {'index': 'not_analyzed', 'type': 'date', 'include_in_all': False},
+                    'live_filter': {'type': 'boolean', 'include_in_all': False},
+                    'published_date_filter': {'type': 'date', 'include_in_all': False},
                     'title': {'type': 'text', 'include_in_all': True, 'analyzer': 'edgengram_analyzer', 'search_analyzer': 'standard'},
-                    'title_filter': {'index': 'not_analyzed', 'type': 'keyword', 'include_in_all': False},
+                    'title_filter': {'type': 'keyword', 'include_in_all': False},
                     'content': {'type': 'text', 'include_in_all': True},
                     'callable_indexed_field': {'type': 'text', 'include_in_all': True},
                     'tags': {
                         'type': 'nested',
                         'properties': {
                             'name': {'type': 'text', 'include_in_all': True, 'analyzer': 'edgengram_analyzer', 'search_analyzer': 'standard'},
-                            'slug_filter': {'index': 'not_analyzed', 'type': 'keyword', 'include_in_all': False},
+                            'slug_filter': {'type': 'keyword', 'include_in_all': False},
                         }
                     },
                 }
