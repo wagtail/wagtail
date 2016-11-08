@@ -112,7 +112,7 @@ class ElasticsearchMapping(object):
     def get_mapping(self):
         # Make field list
         fields = {
-            'pk': dict(type=self.keyword_type, index='not_analyzed', store='yes', include_in_all=False),
+            'pk': dict(type=self.keyword_type, index='not_analyzed', store=True, include_in_all=False),
             'content_type': dict(type=self.keyword_type, index='not_analyzed', include_in_all=False),
             '_partials': dict(type=self.text_type, include_in_all=False),
         }
