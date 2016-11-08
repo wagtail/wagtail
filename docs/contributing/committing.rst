@@ -10,9 +10,9 @@ by at least one other reviewer or committer,
 unless the change is a small documentation change or fixing a typo.
 
 Most code contributions will be in the form of pull requests from Github.
-Pull requests should not be merged from Github though.
-Instead, the code should be checked out by a committer locally,
-the changes examined and rebased,
+Pull requests should not be merged from Github, apart from small documentation fixes, 
+which can be merged with the 'Squash and merge' option. Instead, the code should 
+be checked out by a committer locally, the changes examined and rebased,
 the ``CHANGELOG.txt`` and release notes updated,
 and finally the code should be pushed to the master branch.
 This process is covered in more detail below.
