@@ -26,22 +26,9 @@ matrix:
      python: 3.5
    - env: TOXENV=py35-dj19-mysql-noelasticsearch
      python: 3.5
-   - env: TOXENV=py27-dj18-sqlite-elasticsearch
-     python: 2.7
    - env: TOXENV=py27-dj19-postgres-elasticsearch
      python: 2.7
-   - env: TOXENV=py34-dj19-sqlite-elasticsearch
-     python: 3.5
-   - env: TOXENV=py27-dj18-sqlite-elasticsearch2 INSTALL_ELASTICSEARCH2=yes
-     python: 2.7
-     sudo: true
    - env: TOXENV=py27-dj19-postgres-elasticsearch2 INSTALL_ELASTICSEARCH2=yes
-     python: 2.7
-     sudo: true
-   - env: TOXENV=py34-dj19-sqlite-elasticsearch2 INSTALL_ELASTICSEARCH2=yes
-     python: 3.5
-     sudo: true
-   - env: TOXENV=py27-dj18-sqlite-elasticsearch5 INSTALL_ELASTICSEARCH5=yes
      python: 2.7
      sudo: true
    - env: TOXENV=py27-dj19-postgres-elasticsearch5 INSTALL_ELASTICSEARCH5=yes
@@ -56,11 +43,6 @@ matrix:
      python: 2.7
    - env: TOXENV=py27-dj110-mysql-noelasticsearch
      python: 2.7
-   - env: TOXENV=py27-dj110-mysql-elasticsearch
-     python: 2.7
-   - env: TOXENV=py27-dj110-mysql-elasticsearch2 INSTALL_ELASTICSEARCH2=yes
-     python: 2.7
-     sudo: true
    - env: TOXENV=py27-dj110-mysql-elasticsearch5 INSTALL_ELASTICSEARCH5=yes
      python: 2.7
      sudo: true
@@ -86,30 +68,15 @@ matrix:
      sudo: true
    - env: TOXENV=py35-dj110head-postgres-noelasticsearch
      python: 3.5
-   - env: TOXENV=py35-dj110head-postgres-elasticsearch2 INSTALL_ELASTICSEARCH2=yes
-     python: 3.5
-     sudo: true
-   - env: TOXENV=py35-dj110head-postgres-elasticsearch5 INSTALL_ELASTICSEARCH5=yes
-     python: 3.5
-     sudo: true
   allow_failures:
-    - env: TOXENV=py27-dj18-sqlite-elasticsearch
     - env: TOXENV=py27-dj19-postgres-elasticsearch
-    - env: TOXENV=py34-dj19-sqlite-elasticsearch
-    - env: TOXENV=py27-dj110-mysql-elasticsearch
     - env: TOXENV=py35-dj110-postgres-elasticsearch
-    - env: TOXENV=py27-dj18-sqlite-elasticsearch2 INSTALL_ELASTICSEARCH2=yes
     - env: TOXENV=py27-dj19-postgres-elasticsearch2 INSTALL_ELASTICSEARCH2=yes
-    - env: TOXENV=py34-dj19-sqlite-elasticsearch2 INSTALL_ELASTICSEARCH2=yes
-    - env: TOXENV=py27-dj110-mysql-elasticsearch2 INSTALL_ELASTICSEARCH2=yes
     - env: TOXENV=py35-dj110-postgres-elasticsearch2 INSTALL_ELASTICSEARCH2=yes
-    - env: TOXENV=py35-dj110head-postgres-elasticsearch2 INSTALL_ELASTICSEARCH2=yes
-    - env: TOXENV=py27-dj18-sqlite-elasticsearch5 INSTALL_ELASTICSEARCH5=yes
     - env: TOXENV=py27-dj19-postgres-elasticsearch5 INSTALL_ELASTICSEARCH5=yes
     - env: TOXENV=py34-dj19-sqlite-elasticsearch5 INSTALL_ELASTICSEARCH5=yes
     - env: TOXENV=py27-dj110-mysql-elasticsearch5 INSTALL_ELASTICSEARCH5=yes
     - env: TOXENV=py35-dj110-postgres-elasticsearch5 INSTALL_ELASTICSEARCH5=yes
-    - env: TOXENV=py35-dj110head-postgres-elasticsearch5 INSTALL_ELASTICSEARCH5=yes
 
 # Services
 services:
