@@ -41,6 +41,9 @@ class ElasticsearchMapping(object):
         'TimeField': 'date',
     }
 
+    keyword_type = 'string'
+    text_type = 'string'
+
     # Contains the configuration required to use the edgengram_analyzer
     # on a field. It's different in Elasticsearch 2 so it's been put in
     # an attribute here to make it easier to override in a subclass.
@@ -82,6 +85,9 @@ class ElasticsearchMapping(object):
             mapping = {'type': self.type_map.get(field.get_type(self.model), 'string')}
 
             if isinstance(field, SearchField):
+                if mapping['type'] == 'string':
+                    mapping['type'] = self.text_type
+
                 if field.boost:
                     mapping['boost'] = field.boost
 
@@ -91,6 +97,9 @@ class ElasticsearchMapping(object):
                 mapping['include_in_all'] = True
 
             elif isinstance(field, FilterField):
+                if mapping['type'] == 'string':
+                    mapping['type'] = self.keyword_type
+
                 mapping['index'] = 'not_analyzed'
                 mapping['include_in_all'] = False
 
@@ -103,9 +112,9 @@ class ElasticsearchMapping(object):
     def get_mapping(self):
         # Make field list
         fields = {
-            'pk': dict(type='string', index='not_analyzed', store='yes', include_in_all=False),
-            'content_type': dict(type='string', index='not_analyzed', include_in_all=False),
-            '_partials': dict(type='string', include_in_all=False),
+            'pk': dict(type=self.keyword_type, index='not_analyzed', store='yes', include_in_all=False),
+            'content_type': dict(type=self.keyword_type, index='not_analyzed', include_in_all=False),
+            '_partials': dict(type=self.text_type, include_in_all=False),
         }
         fields['_partials'].update(self.edgengram_analyzer_config)
 
