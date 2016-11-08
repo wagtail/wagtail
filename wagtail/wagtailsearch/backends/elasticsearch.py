@@ -416,6 +416,8 @@ class ElasticsearchSearchQuery(BaseSearchQuery):
 
 
 class ElasticsearchSearchResults(BaseSearchResults):
+    fields_param_name = 'fields'
+
     def _get_es_body(self, for_count=False):
         body = {
             'query': self.query.get_query()
@@ -435,9 +437,10 @@ class ElasticsearchSearchResults(BaseSearchResults):
             index=self.backend.get_index_for_model(self.query.queryset.model).name,
             body=self._get_es_body(),
             _source=False,
-            fields='pk',
             from_=self.start,
         )
+
+        params[self.fields_param_name] = 'pk'
 
         # Add size if set
         if self.stop is not None:
