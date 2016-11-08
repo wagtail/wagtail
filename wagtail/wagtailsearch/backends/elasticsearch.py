@@ -240,10 +240,8 @@ class ElasticsearchSearchQuery(BaseSearchQuery):
                 }
             else:
                 return {
-                    'not': {
-                        'missing': {
-                            'field': column_name,
-                        }
+                    'exists': {
+                        'field': column_name,
                     }
                 }
 

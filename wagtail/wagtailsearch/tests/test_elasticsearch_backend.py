@@ -438,7 +438,7 @@ class TestElasticsearchSearchQuery(TestCase):
         # Check it
         expected_result = {'filtered': {'filter': {'and': [
             {'prefix': {'content_type': 'searchtests_searchtest'}},
-            {'not': {'missing': {'field': 'title_filter'}}}
+            {'exists': {'field': 'title_filter'}}
         ]}, 'query': {'multi_match': {'query': 'Hello', 'fields': ['_all', '_partials']}}}}
         self.assertDictEqual(query.get_query(), expected_result)
 
