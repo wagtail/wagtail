@@ -19,6 +19,11 @@ class PurgeRequest(Request):
         return 'PURGE'
 
 
+class DeleteRequest(Request):
+    def get_method(self):
+        return 'DELETE'
+
+
 class BaseBackend(object):
     def purge(self, url):
         raise NotImplementedError
@@ -65,16 +70,22 @@ class CloudflareBackend(BaseBackend):
     def __init__(self, params):
         self.cloudflare_email = params.pop('EMAIL')
         self.cloudflare_token = params.pop('TOKEN')
+        self.cloudflare_zoneid = params.pop('ZONEID')
 
     def purge(self, url):
         try:
-            response = urlopen('https://www.cloudflare.com/api_json.html', data=urlencode({
-                'email': self.cloudflare_email,
-                'tkn': self.cloudflare_token,
-                'a': 'zone_file_purge',
-                'z': urlparse(url).netloc,
-                'url': url
-            }).encode('utf-8'))
+            purge_url = 'https://api.cloudflare.com/client/v4/zones/{0}/purge_cache'.format(self.cloudflare_zoneid)
+
+            request = DeleteRequest(
+                purge_url,
+                headers={
+                    "X-Auth-Email": self.cloudflare_email,
+                    "X-Auth-Key": self.cloudflare_token,
+                    "Content-Type": "application/json",
+                }
+            )
+            data = json.dumps({"files": [url]})
+            response = urlopen(request, data=data)
         except HTTPError as e:
             logger.error("Couldn't purge '%s' from Cloudflare. HTTPError: %d %s", url, e.code, e.reason)
             return
