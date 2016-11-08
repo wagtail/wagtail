@@ -41,6 +41,7 @@ Minor features
  * ``PageChooserBlock`` now accepts a ``target_model`` option to specify the required page type (Tim Heap)
  * Modeladmin forms now respect ``fields`` / ``exclude`` options passed on custom model forms (Thejaswi Puthraya)
  * Added new StreamField block type ``StaticBlock`` for blocks that occupy a position in a stream but otherwise have no configuration; see :ref:`streamfield_staticblock` (Benoît Vogel)
+ * Updated Cloudflare cache module to use the v4 API (Albert O'Connor)
 
 
 Bug fixes
@@ -103,3 +104,22 @@ As a precaution against accidental data loss, this release introduces a new "bul
         operations = [
             migrations.RunPython(add_bulk_delete_permission, remove_bulk_delete_permission),
         ]
+
+
+Cloudflare cache module now requires a ``ZONEID`` setting
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+The ``wagtail.contrib.wagtailfrontendcache.backends.CloudflareBackend`` module has been updated to use Cloudflare's v4 API, replacing the previous v1 implementation (which is `unsupported as of November 9th, 2016 <https://www.cloudflare.com/docs/client-api/>`_). The new API requires users to supply a *zone identifier*, which should be passed as the ``ZONEID`` field of the ``WAGTAILFRONTENDCACHE`` setting:
+
+.. code-block:: python
+
+    WAGTAILFRONTENDCACHE = {
+        'cloudflare': {
+            'BACKEND': 'wagtail.contrib.wagtailfrontendcache.backends.CloudflareBackend',
+            'EMAIL': 'your-cloudflare-email-address@example.com',
+            'TOKEN': 'your cloudflare api token',
+            'ZONEID': 'your cloudflare domain zone id',
+        },
+    }
+
+For details of how to obtain the zone identifier, see `the Cloudflare API documentation <https://api.cloudflare.com/#getting-started-resource-ids>`_.

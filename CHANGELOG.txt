@@ -15,6 +15,7 @@ Changelog
  * `PageChooserBlock` now accepts a `target_model` option to specify the required page type (Tim Heap)
  * Modeladmin forms now respect `fields` / `exclude` options passed on custom model forms (Thejaswi Puthraya)
  * Added new StreamField block type `StaticBlock` (Benoît Vogel)
+ * Updated Cloudflare cache module to use the v4 API (Albert O'Connor)
  * Fix: `AbstractForm` now respects custom `get_template` methods on the page model (Gagaro)
  * Fix: Use specific page model for the parent page in the explore index (Gagaro)
  * Fix: Remove responsive styles in embed when there is no ratio available (Gagaro)

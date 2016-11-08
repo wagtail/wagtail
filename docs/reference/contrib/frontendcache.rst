@@ -60,12 +60,17 @@ Finally, make sure you have configured your frontend cache to accept PURGE reque
  - `Squid <http://wiki.squid-cache.org/SquidFaq/OperatingSquid#How_can_I_purge_an_object_from_my_cache.3F>`_
 
 
+.. _frontendcache_cloudflare:
+
 Cloudflare
 ^^^^^^^^^^
 
 Firstly, you need to register an account with Cloudflare if you haven't already got one. You can do this here: `Cloudflare Sign up <https://www.cloudflare.com/sign-up>`_
 
-Add an item into the ``WAGTAILFRONTENDCACHE`` and set the ``BACKEND`` parameter to ``wagtail.contrib.wagtailfrontendcache.backends.CloudflareBackend``. This backend requires two extra parameters, ``EMAIL`` (your Cloudflare account email) and ``TOKEN`` (your API token from Cloudflare).
+Add an item into the ``WAGTAILFRONTENDCACHE`` and set the ``BACKEND`` parameter to ``wagtail.contrib.wagtailfrontendcache.backends.CloudflareBackend``. This backend requires three extra parameters, ``EMAIL`` (your Cloudflare account email), ``TOKEN`` (your API token from Cloudflare), and ``ZONEID`` (for zone id for your domain, see below).
+
+To find the ``ZONEID`` for your domain, read the `Cloudflare API Documentation <https://api.cloudflare.com/#getting-started-resource-ids>`_
+
 
 .. code-block:: python
 
@@ -76,6 +81,7 @@ Add an item into the ``WAGTAILFRONTENDCACHE`` and set the ``BACKEND`` parameter 
             'BACKEND': 'wagtail.contrib.wagtailfrontendcache.backends.CloudflareBackend',
             'EMAIL': 'your-cloudflare-email-address@example.com',
             'TOKEN': 'your cloudflare api token',
+            'ZONEID': 'your cloudflare domain zone id',
         },
     }
 
