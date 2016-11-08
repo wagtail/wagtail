@@ -759,7 +759,7 @@ class TestElasticsearchMapping(TestCase):
         expected_result = {
             'searchtests_searchtest': {
                 'properties': {
-                    'pk': {'index': 'not_analyzed', 'type': 'string', 'store': 'yes', 'include_in_all': False},
+                    'pk': {'index': 'not_analyzed', 'type': 'string', 'store': True, 'include_in_all': False},
                     'content_type': {'index': 'not_analyzed', 'type': 'string', 'include_in_all': False},
                     '_partials': {'index_analyzer': 'edgengram_analyzer', 'include_in_all': False, 'type': 'string'},
                     'live_filter': {'index': 'not_analyzed', 'type': 'boolean', 'include_in_all': False},
@@ -854,7 +854,7 @@ class TestElasticsearchMappingInheritance(TestCase):
                     },
 
                     # Inherited
-                    'pk': {'index': 'not_analyzed', 'type': 'string', 'store': 'yes', 'include_in_all': False},
+                    'pk': {'index': 'not_analyzed', 'type': 'string', 'store': True, 'include_in_all': False},
                     'content_type': {'index': 'not_analyzed', 'type': 'string', 'include_in_all': False},
                     '_partials': {'index_analyzer': 'edgengram_analyzer', 'include_in_all': False, 'type': 'string'},
                     'live_filter': {'index': 'not_analyzed', 'type': 'boolean', 'include_in_all': False},

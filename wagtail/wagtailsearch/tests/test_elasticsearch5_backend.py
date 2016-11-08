@@ -753,7 +753,7 @@ class TestElasticsearch5Mapping(TestCase):
         expected_result = {
             'searchtests_searchtest': {
                 'properties': {
-                    'pk': {'index': 'not_analyzed', 'type': 'keyword', 'store': 'yes', 'include_in_all': False},
+                    'pk': {'index': 'not_analyzed', 'type': 'keyword', 'store': True, 'include_in_all': False},
                     'content_type': {'index': 'not_analyzed', 'type': 'keyword', 'include_in_all': False},
                     '_partials': {'analyzer': 'edgengram_analyzer', 'search_analyzer': 'standard', 'include_in_all': False, 'type': 'text'},
                     'live_filter': {'index': 'not_analyzed', 'type': 'boolean', 'include_in_all': False},
@@ -848,7 +848,7 @@ class TestElasticsearch5MappingInheritance(TestCase):
                     },
 
                     # Inherited
-                    'pk': {'index': 'not_analyzed', 'type': 'keyword', 'store': 'yes', 'include_in_all': False},
+                    'pk': {'index': 'not_analyzed', 'type': 'keyword', 'store': True, 'include_in_all': False},
                     'content_type': {'index': 'not_analyzed', 'type': 'keyword', 'include_in_all': False},
                     '_partials': {'analyzer': 'edgengram_analyzer', 'search_analyzer': 'standard', 'include_in_all': False, 'type': 'text'},
                     'live_filter': {'index': 'not_analyzed', 'type': 'boolean', 'include_in_all': False},
