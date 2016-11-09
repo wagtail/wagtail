@@ -350,6 +350,8 @@ Any block type is valid as the sub-block type, including structural types:
         ('amount', blocks.CharBlock()),
     ])))
 
+The keyword arguments ``max_length`` and ``min_length`` are accepted.
+
 
 StreamBlock
 ~~~~~~~~~~~
