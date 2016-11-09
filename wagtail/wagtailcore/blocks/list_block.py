@@ -130,7 +130,7 @@ class ListBlock(Block):
     def clean(self, value):
         result = []
         errors = {}
-        for child_val in value:
+        for i, child_val in enumerate(value):
             try:
                 result.append(self.child_block.clean(child_val))
             except ValidationError as e:

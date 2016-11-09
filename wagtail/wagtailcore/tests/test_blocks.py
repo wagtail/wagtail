@@ -1447,6 +1447,66 @@ class TestListBlock(unittest.TestCase):
         )
         self.assertIn('value="chocolate"', form_html)
 
+    def test_max_length_validation_error(self):
+        block = blocks.ListBlock(blocks.CharBlock(), max_length=1)
+
+        value = [
+            blocks.CharBlock(value='Foo'),
+            blocks.CharBlock(value='Bar')
+        ]
+
+        with self.assertRaises(ValidationError) as catcher:
+            block.clean(value)
+        self.assertEqual(catcher.exception.params, {
+            '__all__': ['Maximum of 1 is reached'],
+        })
+
+    def test_min_length_validation_error(self):
+        block = blocks.ListBlock(blocks.CharBlock(), min_length=3)
+
+        value = [
+            blocks.CharBlock(value='Foo'),
+            blocks.CharBlock(value='Bar')
+        ]
+
+        with self.assertRaises(ValidationError) as catcher:
+            block.clean(value)
+        self.assertEqual(catcher.exception.params, {
+            '__all__': ['Minimum of 3 is required'],
+        })
+
+    def test_validation_errors(self):
+        class ValidatedBlock(blocks.StreamBlock):
+            char = blocks.CharBlock()
+            url = blocks.URLBlock()
+        block = ValidatedBlock()
+
+        value = [
+            blocks.BoundBlock(
+                block=block.child_blocks['char'],
+                value='',
+            ),
+            blocks.BoundBlock(
+                block=block.child_blocks['char'],
+                value='foo',
+            ),
+            blocks.BoundBlock(
+                block=block.child_blocks['url'],
+                value='http://example.com/',
+            ),
+            blocks.BoundBlock(
+                block=block.child_blocks['url'],
+                value='not a url',
+            ),
+        ]
+
+        with self.assertRaises(ValidationError) as catcher:
+            block.clean(value)
+        self.assertEqual(catcher.exception.params, {
+            0: ['This field is required.'],
+            3: ['Enter a valid URL.'],
+        })
+
 
 class TestStreamBlock(SimpleTestCase):
     def test_initialisation(self):
