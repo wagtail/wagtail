@@ -152,6 +152,10 @@ Lets start with a simple index page for our blog. In ``blog/models.py``:
 
 .. code-block:: python
 
+    from wagtail.wagtailcore.models import Page
+    from wagtail.wagtailcore.fields import RichTextField
+    from wagtail.wagtailadmin.edit_handlers import FieldPanel
+
     class BlogIndexPage(Page):
         intro = RichTextField(blank=True)
 
@@ -206,6 +210,9 @@ Now we need a model and template for our blog posts. In ``blog/models.py``:
     from wagtail.wagtailsearch import index
 
 
+    # ...
+
+
     class BlogPage(Page):
         date = models.DateField("Post date")
         intro = models.CharField(max_length=250)
@@ -250,7 +257,7 @@ Note the use of Wagtail's built-in ``get_parent()`` method to obtain the
 URL of the blog this post is a part of.
 
 Now create a few blog posts as children of ``BlogIndexPage.``
-Be sure to select type "BlogPage" when creating your posts.
+Be sure to select type "Blog Page" when creating your posts.
 
 .. figure:: ../_static/images/tutorial/tutorial_4a.png
    :alt: Create blog post as child of BlogIndex
@@ -287,7 +294,7 @@ Take another look at the guts of ``BlogIndexPage:``
 .. code-block:: html+django
 
     {% for post in page.get_children %}
-        <h2>{{ post.title }}</h2>
+        <h2><a href="{% pageurl post %}">{{ post.title }}</a></h2>
         {{ post.specific.intro }}
         {{ post.specific.body|richtext }}
     {% endfor %}
@@ -311,7 +318,7 @@ To tighten up template code like this, we could use Django's ``with`` tag:
 
     {% for post in page.get_children %}
         {% with post=post.specific %}
-            <h2>{{ post.title }}</h2>
+            <h2><a href="{% pageurl post %}">{{ post.title }}</a></h2>
             <p>{{ post.intro }}</p>
             {{ post.body|richtext }}
         {% endwith %}
@@ -362,14 +369,14 @@ model like this:
             context['blogpages'] = blogpages
             return context
 
-All we've done here is to retrieve the original context, create a custom queryset,
+All we've done here is retrieve the original context, create a custom queryset,
 add it to the retrieved context, and return the modified context back to the view.
 You'll also need to modify your ``blog_index_page.html`` template slightly.
 Change:
 
-``{% for post in page.get_children %} to {% for post in blogpages %}``
+``{% for post in page.get_children %}`` to ``{% for post in blogpages %}``
 
-Now try Unpublishing one of your posts - it should disappear from the blog index
+Now try unpublishing one of your posts - it should disappear from the blog index
 page. The remaining posts should now be sorted with the most recently modified
 posts first.
 
@@ -446,17 +453,14 @@ You can read more about using images in templates in the
 :doc:`docs <../topics/images>`.
 
 
-Tags and Categories
-~~~~~~~~~~~~~~~~~~~
+Tagging Posts
+~~~~~~~~~~~~~
 
-What's a blog without a taxonomy? You'll probably want Categories
-for "big picture" organization ("News," "Sports," "Politics," etc.) and Tags
-for fine-grained sorting ("Bicycle," "Clinton," "Electric Vehicles," etc.)
-You'll need mechanisms to let editors manage tags categories and attach them to posts,
-ways to display them on your blog pages, and views that display all posts belonging
-to a given tag or category.
-
-Let's start with tags, since they're bundled with Wagtail.
+Let's say we want to let editors "tag" their posts, so that readers can, e.g.,
+view all bicycle-related content together. For this, we'll need to invoke
+the tagging system bundled with Wagtail, attach it to the ``BlogPage``
+model and content panels, and render linked tags on the blog post template.
+Of course, we'll need a working tag-specific URL view as well.
 
 First, alter ``models.py`` once more:
 
@@ -498,13 +502,13 @@ First, alter ``models.py`` once more:
         ]
 
         content_panels = Page.content_panels + [
-            FieldPanel('date'),
+            MultiFieldPanel([
+                FieldPanel('date'),
+                FieldPanel('tags'),
+            ], heading="Blog information"),
             ImageChooserPanel('main_image'),
             FieldPanel('intro'),
             FieldPanel('body'),
-            MultiFieldPanel([
-                FieldPanel('tags'),
-            ], heading="Tags"),
         ]
 
 
@@ -512,23 +516,23 @@ First, alter ``models.py`` once more:
         intro = RichTextField(blank=True)
 
 Note the new ``modelcluster`` and ``taggit`` imports, the addition of a new
-``BlogPageTag`` model, the addition of a ``tags`` field on ``BlogPage``,
-and the use of ``MultiFieldPanel`` in ``content_panels`` to let users
-select tags.
+``BlogPageTag`` model, and the addition of a ``tags`` field on ``BlogPage``.
+We've also taken the opportunity to use a ``MultiFieldPanel`` in ``content_panels``
+to group the date and tags fields together for readability.
 
 Edit one of your ``BlogPage`` instances, and you should now be able to tag posts:
 
 .. figure:: ../_static/images/tutorial/tutorial_8.png
    :alt: Tagging a post
 
-To render tags on a ``BlogPage,`` add this to ``blog_page.html:``
+To render tags on a ``BlogPage``, add this to ``blog_page.html``:
 
 .. code-block:: html+django
 
-    {% if page.specific.tags.all.count %}
+    {% if page.tags.all.count %}
         <div class="tags">
             <h3>Tags</h3>
-            {% for tag in page.specific.tags.all %}
+            {% for tag in page.tags.all %}
                 <a href="{% slugurl 'tags' %}?tag={{ tag }}"><button type="button">{{ tag }}</button></a>
             {% endfor %}
         </div>
@@ -542,7 +546,7 @@ isn't readily available, so we fall back on the less-preferred  ``slugurl`` tag.
 
 Visiting a blog post with tags should now show a set of linked
 buttons at the bottom - one for each tag. However, clicking a button
-will get you a 404, since we haven't yet defined a "tags" view. Add to ``models.py:``
+will get you a 404, since we haven't yet defined a "tags" view. Add to ``models.py``:
 
 .. code-block:: python
 
@@ -570,7 +574,7 @@ You'll probably want to create the new page/view under Homepage,
 parallel to your Blog index. Give it the slug "tags" on the Promote tab.
 
 Access ``/tags`` and Django will tell you what you probably already knew:
-you need to create a template ``blog/blog_tag_index_page.html:``
+you need to create a template ``blog/blog_tag_index_page.html``:
 
 .. code-block:: html+django
 
@@ -610,237 +614,6 @@ something like this:
 
 .. figure:: ../_static/images/tutorial/tutorial_9.png
    :alt: A simple tag view
-
-Categories
-~~~~~~~~~~
-
-Now to add a Categories system. Again, alter ``models.py``:
-
-.. code-block:: python
-
-    class BlogCategory(models.Model):
-        name = models.CharField(max_length=256)
-        slug = models.CharField(max_length=12)
-
-        def __str__(self):
-            return self.name
-
-        class Meta:
-            verbose_name_plural = "Blog Categories"
-
-This model does *not* subclass the Wagtail ``Page``
-model, and is *not* a Wagtail Snippet - it's a standard Django model! While we could have created
-categories as Pages, that wouldn't really make a lot of sense - while we'll eventually
-want pages for our categories, a category itself is more of a metadata storage structure than a page,
-so it makes sense to make it a vanilla Django model. As a result, this exercise will also show
-how to integrate non-Wagtail models into the Wagtail workflow.
-
-As an aside, the ``BlogCategory`` model could easily live in a totally different app of your
-Django project, and just be imported normally into your Wagtail blog app. This would be important if you were, e.g.,
-integrating a Wagtail blog into a pre-existing Django site that already had a system of categories.
-
-We want to create a ManyToMany relationship between BlogCategory and BlogPage. In standard Django, we would do
-something like this:
-
-``categories = models.ManyToManyField(BlogCategory, blank=True)``
-
-However, it's a bit trickier than that with Wagtail because of the ``modelcluster`` dependency it
-uses to maintain hierarchical relationships. ``modelcluster`` is at the heart of Wagtail, but does not
-support M2M relationships. Instead, we'll need to define the related table manually:
-
-.. code-block:: python
-
-    class BlogCategoryBlogPage(Orderable, models.Model):
-        category = models.ForeignKey(BlogCategory, related_name="+")
-        page = ParentalKey(BlogPage, related_name='blog_categories')
-
-This model's table will store relationships between blog pages and the categories assigned to them,
-effectively giving us the equivalent of a ManyToMany relationship. For readability, we named the class
-by concatenating the names of the two related models. The class also subclasses ``Orderable``,
-which means you'll be able to control the order of Categories on a blog post via the Wagtail admin.
-
-Now we just need to attach a "panel" for the relationship to our BlogPost. In the ``BlogPost`` model,
-add an ``InlinePanel`` for the "related_name" ``blog_categories:``
-
-.. code-block:: python
-
-    content_panels = Page.content_panels + [
-        FieldPanel('date'),
-        ImageChooserPanel('main_image'),
-        FieldPanel('intro'),
-        FieldPanel('body'),
-        InlinePanel('blog_categories', label="Blog Categories"),
-        MultiFieldPanel([
-            FieldPanel('tags'),
-        ], heading="Tags"),
-    ]
-
-Run ``python manage.py makemigrations`` and ``python manage.py migrate,`` then view an admin page for a ``BlogPage:``
-
-.. figure:: ../_static/images/tutorial/tutorial_10.png
-   :alt: A category picker for BlogPage
-
-At first, we have no categories to choose from. Unlike the Django admin, we can't add them on the fly from here.
-Since we didn't create ``BlogCategory`` as a Page or Snippet, Wagtail isn't automatically aware of it, so we'll
-need to expose it in the admin manually.  Fortunately, Wagtail provides a mechanism for this,
-via ``ModelAdmin``. Create a new file in your blog app, called ``wagtail_hooks.py:``
-
-.. code-block:: python
-
-    from wagtail.contrib.modeladmin.options import (ModelAdmin, modeladmin_register)
-    from blog.models import BlogCategory
-
-    class BlogCategoryAdmin(ModelAdmin):
-        model = BlogCategory
-        add_to_settings_menu = True
-        list_display = ('name', 'slug')
-
-    modeladmin_register(BlogCategoryAdmin)
-
-``wagtail_hooks`` lets you control aspects of the admin, and to expose non-Wagtail models.
-In this example, we've specified:
-
-``add_to_settings_menu = True``
-
-So that our BlogCategories appear in the global Settings menu:
-
-.. figure:: ../_static/images/tutorial/tutorial_11.png
-   :alt: Adding Blog Categories to Settings
-
-.. figure:: ../_static/images/tutorial/tutorial_12.png
-  :alt: Categories listing
-
-After using your new Blog Categories interface to create some categories, you can select them from the
-InlinePanel in a BlogPage:
-
-.. figure:: ../_static/images/tutorial/tutorial_13.png
-  :alt: Newly created categories available to a BlogPage
-
-Now that we're storing categories on posts, we need a view to display them, and a way to link to them.
-Rather than create another model for the new view, let's consider a category to be a "slice" of data exposed
-on the ``BlogIndexPage.``  We can pass a category to the view either as URL parameter: ``/blog?cat=science``
-or as a keyword on the end of the URL, which is much cleaner: ``/blog/science``. To access that keyword, we'll
-take advantage of Wagtail's :doc:`RoutablePageMixin <../reference/contrib/routablepage>`  class. Modify
-``BlogIndexPage`` like this:
-
-.. code-block:: python
-
-    from wagtail.contrib.wagtailroutablepage.models import RoutablePageMixin, route
-    from django.shortcuts import get_object_or_404, render
-
-    class BlogIndexPage(RoutablePageMixin, Page):
-        intro = RichTextField(blank=True)
-
-        def get_context(self, request):
-            # Update context to include only published posts, ordered by reverse-chron
-            context = super(BlogIndexPage, self).get_context(request)
-            blogpages = self.get_children().live().order_by('-first_published_at')
-
-            # Include queryset of non-empty blog categories for menu
-            usedcats = BlogCategoryBlogPage.objects.distinct().values_list('category__slug', flat=True)
-            blogcats = BlogCategory.objects.filter(slug__in=usedcats)
-
-            context['blogpages'] = blogpages
-            context['blogcats'] = blogcats
-            return context
-
-        @route(r'^cat/(\w+)/$', name="blog_category")
-        def category(self, request, catslug=None):
-            """
-            Filter BlogPages by category
-            """
-            category = get_object_or_404(BlogCategory, slug=catslug)
-            blogpages = BlogPage.objects.filter(
-                blog_categories__category=category).live().order_by('-first_published_at')
-
-            context = self.get_context(request)
-            context['blogpages'] = blogpages
-            context['category'] = category
-            return render(request, 'blog/blog_index_page.html', context)
-
-The ``@route`` decorator is new, but as you can see, it works pretty much the same as standard Django URLs,
-with a regex pattern matcher and a route name, which we'll use in a minute. The ``^cat...`` in the regex
-matches a URL pattern starting at the parent page, so in this case we're matching e.g.
-``/blog/cat/science.``  We query for a ``BlogCategory`` object (or 404), then use it to filter ``BlogPage``
-records, traversing through our "ManyToMany" table. Note that when using ``route,``
-we need to call Django's ``render()`` manually, specifying the template name.
-
-Since we want to display a nav menu including all non-empty categories, we also insert that queryset
-into the context (notice how the ``category()`` suburl calls ``get_context()`` before
-appending to context, so the categories list is available on all blog index views.)
-
-Assuming you've created a "Science" category and added some posts to that category, you should now be
-able to access a URL like ``/blog/cat/science.`` Now we just need to add category links to our index
-and post templates.
-
-We'll also need to be able to reverse blog category links, using a tempate tag that is in
-Wagtail's "contrib" module, not in core. In your project settings, add
-``'wagtail.contrib.wagtailroutablepage'`` to ``INSTALLED_APPS``, then modify ``blog_index_page.html``:
-
-.. code-block:: html+django
-
-    {% extends "base.html" %}
-
-    {% load wagtailcore_tags %}
-    {% load wagtailroutablepage_tags %}
-
-    {% block body_class %}template-blogindexpage{% endblock %}
-
-    {% block content %}
-
-        {% if blogcats %}
-            <h3>Blog categories:</h3>
-            <ul>
-                {% for cat in blogcats  %}
-                    <li><a href="{% routablepageurl page "blog_category" cat.slug %}">
-                        {{ cat.name }}</a></li>
-                {% endfor %}
-            </ul>
-        {% endif %}
-
-        <h1>{{ page.title }}{% if category %} - {{ category.name }}{% endif %}</h1>
-
-        <div class="intro">{{ page.intro|richtext }}</div>
-        {% for post in blogpages %}
-            {% with post=post.specific %}
-                <h2><a href="{% pageurl post %}">{{ post.title }}</a></h2>
-                {{ post.latest_revision_created_at }}<br />
-
-                {% if post.blog_categories.all %}
-                    Filed under:
-                    {% for cat in post.blog_categories.all %}
-                        <a href="{% routablepageurl page "blog_category" cat.category.slug %}">
-                            {{ cat.category.name }}</a>{% if not forloop.last %}, {% endif %}
-                    {% endfor %}<br />
-                {% endif %}
-
-                {% if post.tags.all %}
-                    Tags:
-                    {% for tag in post.tags.all %}
-                        <a href="{% slugurl 'tags' %}?tag={{ tag }}">
-                            <button type="button">{{ tag }}</button></a>
-                    {% endfor %}<br />
-                {% endif %}
-
-                <p>Intro: {{ post.intro }}</p>
-                {{ post.body|richtext }}
-            {% endwith %}
-        {% endfor %}
-
-    {% endblock %}
-
-
-Study the "Filed under:" section -
-we loop through each of a blog post's categories (if it has any), and for each, we reverse the URL
-to the corresponding blog category view, using the URL we named earlier (``blog_category``), and
-passing in the slug of the current category. We also display the category name in the header.
-You'll probably want to do something similar on ``blog_page.html``.
-
-And with that, we've got both tags and categories working, and our categories system is nice and DRY
-because we used a single model (view) to handle both the blog's homepage and its category displays.
-
-.. figure:: ../_static/images/tutorial/tutorial_14.png
-  :alt: Blog category view
 
 
 Where next
