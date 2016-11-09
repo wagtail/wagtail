@@ -1475,38 +1475,6 @@ class TestListBlock(unittest.TestCase):
             '__all__': ['Minimum of 3 is required'],
         })
 
-    def test_validation_errors(self):
-        class ValidatedBlock(blocks.StreamBlock):
-            char = blocks.CharBlock()
-            url = blocks.URLBlock()
-        block = ValidatedBlock()
-
-        value = [
-            blocks.BoundBlock(
-                block=block.child_blocks['char'],
-                value='',
-            ),
-            blocks.BoundBlock(
-                block=block.child_blocks['char'],
-                value='foo',
-            ),
-            blocks.BoundBlock(
-                block=block.child_blocks['url'],
-                value='http://example.com/',
-            ),
-            blocks.BoundBlock(
-                block=block.child_blocks['url'],
-                value='not a url',
-            ),
-        ]
-
-        with self.assertRaises(ValidationError) as catcher:
-            block.clean(value)
-        self.assertEqual(catcher.exception.params, {
-            0: ['This field is required.'],
-            3: ['Enter a valid URL.'],
-        })
-
 
 class TestStreamBlock(SimpleTestCase):
     def test_initialisation(self):
