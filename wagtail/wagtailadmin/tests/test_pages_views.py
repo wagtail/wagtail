@@ -3448,7 +3448,7 @@ class TestInlineStreamField(TestCase, WagtailTestUtils):
         self.assertEqual(response.status_code, 200)
 
         # response should include HTML declarations for streamfield child blocks
-        self.assertContains(response, '<li id="__PREFIX__-container" class="sequence-member blockname-rich_text">')
+        self.assertContains(response, '<li id="__PREFIX__-container" class="sequence-member">')
 
 
 class TestRecentEditsPanel(TestCase, WagtailTestUtils):
