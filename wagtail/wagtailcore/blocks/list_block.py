@@ -139,16 +139,16 @@ class ListBlock(Block):
         max_length = self.list_options['max_length']
         if max_length and max_length < len(value):
             raise ListBlockValidationError(non_block_errors=ErrorList([
-                ValidationError(_("Maximum of %s is reached" % max_length))]))
+                ValidationError(_("The maximum number of items is %s" % max_length))]))
 
         min_length = self.list_options['min_length']
         if min_length and min_length > len(value):
             raise ListBlockValidationError(non_block_errors=ErrorList([
-                ValidationError(_("Minimum of %s is required" % min_length))]))
+                ValidationError(_("The minimum number of items is %s" % min_length))]))
 
         if errors:
             # The message here is arbitrary - outputting error messages is delegated to the child blocks,
-            # which only involves the 'params' list
+            # which only involves the list of block errors
             raise ListBlockValidationError(block_errors=errors)
 
         return result

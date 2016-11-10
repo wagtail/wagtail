@@ -352,6 +352,14 @@ Any block type is valid as the sub-block type, including structural types:
 
 The keyword arguments ``max_length`` and ``min_length`` are accepted.
 
+.. code-block:: python
+
+    ('ingredients_list', blocks.ListBlock(
+        blocks.CharBlock(label="Ingredient"),
+        max_length=3,
+        min_length=1
+    ))
+
 
 StreamBlock
 ~~~~~~~~~~~

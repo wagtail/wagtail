@@ -1458,7 +1458,7 @@ class TestListBlock(unittest.TestCase):
         with self.assertRaises(ValidationError) as catcher:
             block.clean(value)
         self.assertEqual(catcher.exception.params, {
-            '__all__': ['Maximum of 1 is reached'],
+            '__all__': ['The maximum number of items is 1'],
         })
 
     def test_min_length_validation_error(self):
@@ -1472,8 +1472,20 @@ class TestListBlock(unittest.TestCase):
         with self.assertRaises(ValidationError) as catcher:
             block.clean(value)
         self.assertEqual(catcher.exception.params, {
-            '__all__': ['Minimum of 3 is required'],
+            '__all__': ['The minimum number of items is 3'],
         })
+
+    def test_passes_min_and_max_length_validation(self):
+        block = blocks.ListBlock(blocks.CharBlock(), max_length=3, min_length=2)
+
+        value = [
+            blocks.CharBlock(value='Foo'),
+            blocks.CharBlock(value='Bar'),
+            blocks.CharBlock(value='Biz')
+        ]
+
+        result = block.clean(value)
+        self.assertEqual(len(result), 3)
 
 
 class TestStreamBlock(SimpleTestCase):
