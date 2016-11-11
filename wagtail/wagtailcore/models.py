@@ -566,8 +566,7 @@ class Page(six.with_metaclass(PageBase, AbstractPage, index.Indexed, Clusterable
             errors.append(
                 checks.Error(
                     "Manager does not inherit from PageManager",
-                    hint="Ensure that custom Page managers inherit from {}.{}".format(
-                        PageManager.__module__, PageManager.__name__),
+                    hint="Ensure that custom Page managers inherit from wagtail.wagtailcore.models.PageManager",
                     obj=cls,
                     id='wagtailcore.E002',
                 )
