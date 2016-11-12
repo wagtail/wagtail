@@ -182,6 +182,7 @@ Contributors
 * Gary Krige
 * Hammy Goonan
 * Thejaswi Puthraya
+* Benoît Vogel
 
 Translators
 ===========

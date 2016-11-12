@@ -277,6 +277,36 @@ EmbedBlock
 A field for the editor to enter a URL to a media item (such as a YouTube video) to appear as embedded media on the page. The keyword arguments ``required``, ``max_length``, ``min_length`` and ``help_text`` are accepted.
 
 
+.. _streamfield_staticblock:
+
+StaticBlock
+~~~~~~~~~~~
+
+``wagtail.wagtailcore.blocks.StaticBlock``
+
+A block which doesn't have any fields, thus passes no particular values to its template during rendering. This can be useful if you need the editor to be able to insert some content which is always the same or doesn't need to be configured within the page editor, such as an address, embed code from third-party services, or more complex pieces of code if the template uses template tags.
+
+By default, some default text (which contains the ``label`` keyword argument if you pass it) will be displayed in the editor interface, so that the block doesn't look empty. But you can also customise it entirely by passing a text string as the ``admin_text`` keyword argument instead:
+
+.. code-block:: python
+
+    blocks.StaticBlock(
+        admin_text='Latest posts: no configuration needed.',
+        # or admin_text=mark_safe('<b>Latest posts</b>: no configuration needed.'),
+        template='latest_posts.html')
+
+``StaticBlock`` can also be subclassed to produce a reusable block with the same configuration everywhere it is used:
+
+.. code-block:: python
+
+    class LatestPostsStaticBlock(blocks.StaticBlock):
+        class Meta:
+            icon = 'user'
+            label = 'Latest posts'
+            admin_text = '{label}: configured elsewhere'.format(label=label)
+            template = 'latest_posts.html'
+
+
 Structural block types
 ----------------------
 
