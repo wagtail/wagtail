@@ -183,6 +183,7 @@ Contributors
 * Hammy Goonan
 * Thejaswi Puthraya
 * Benoît Vogel
+* Manuel E. Gutierrez
 
 Translators
 ===========
