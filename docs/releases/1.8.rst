@@ -82,6 +82,11 @@ to:
 
 You will then be able to run ``manage.py makemigrations`` and ``manage.py migrate`` as normal.
 
+Additionally, third-party code that accesses the Filter and Rendition models directly should note the following and make updates where applicable:
+
+ * ``Filter`` will no longer be a Django model as of Wagtail 1.9, and as such, ORM operations on it (such as ``save()`` and ``Filter.objects``) are deprecated. It should be instantiated and used as an in-memory object instead - for example, ``flt, created = Filter.objects.get_or_create(spec='fill-100x100')`` should become ``flt = Filter(spec='fill-100x100')``.
+ * The ``filter`` field of Rendition models is no longer in use; lookups should instead be performed on the ``filter_spec`` field, which contains a filter spec string such as ``'fill-100x100'``.
+
 
 ``wagtail.wagtailimages.models.get_image_model`` has moved
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
