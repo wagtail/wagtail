@@ -269,7 +269,7 @@ class AbstractImage(CollectionMember, index.Indexed, models.Model):
 
     def get_rendition(self, filter):
         if isinstance(filter, string_types):
-            filter, created = Filter.objects.get_or_create(spec=filter)
+            filter = Filter(spec=filter)
 
         cache_key = filter.get_cache_key(self)
         Rendition = self.get_rendition_model()
@@ -365,6 +365,7 @@ def image_delete(sender, instance, **kwargs):
     instance.file.delete(False)
 
 
+# RemovedInWagtail19Warning: We will remove the models.Model
 class Filter(models.Model):
     """
     Represents one or more operations that can be applied to an Image to produce a rendition
@@ -481,6 +482,27 @@ class Filter(models.Model):
             operations.extend(fn())
 
         cls._registered_operations = dict(operations)
+
+    def save(self, *args, **kwargs):
+        warnings.warn(
+            "Filter.save() is deprecated; Filter will no longer be an ORM model in Wagtail 1.9. "
+            "Instantiate and use it in-memory instead",
+            RemovedInWagtail19Warning, stacklevel=2
+        )
+        return super(Filter, self).save(*args, **kwargs)
+
+
+class WarnOnManagerAccess(object):
+    def __get__(self, obj, objtype=None):
+        warnings.warn(
+            "Filter.objects is deprecated; Filter will no longer be an ORM model in Wagtail 1.9. "
+            "Instantiate and use it in-memory instead",
+            RemovedInWagtail19Warning, stacklevel=2
+        )
+        return objtype._objects
+
+Filter._objects = Filter.objects
+Filter.objects = WarnOnManagerAccess()
 
 
 class AbstractRendition(models.Model):
