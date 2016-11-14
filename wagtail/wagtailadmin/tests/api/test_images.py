@@ -194,11 +194,9 @@ class TestAdminImageDetail(AdminAPITestCase, TestImageDetail):
         content = json.loads(response.content.decode('UTF-8'))
 
         self.assertIn('thumbnail', content)
-        self.assertEqual(content['thumbnail'], {
-            'url': '/media/images/test.max-165x165.png',
-            'width': 165,
-            'height': 123
-        })
+        self.assertEqual(content['thumbnail']['width'], 165)
+        self.assertEqual(content['thumbnail']['height'], 123)
+        self.assertTrue(content['thumbnail']['url'].startswith('/media/images/test'))
 
         # Check that source_image_error didn't appear
         self.assertNotIn('source_image_error', content['meta'])

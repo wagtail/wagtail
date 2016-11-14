@@ -1,6 +1,7 @@
 from __future__ import absolute_import, unicode_literals
 
-from wagtail.contrib.modeladmin.options import ModelAdmin, ModelAdminGroup, modeladmin_register
+from wagtail.contrib.modeladmin.options import (
+    ModelAdmin, ModelAdminGroup, ThumbnailMixin, modeladmin_register)
 from wagtail.contrib.modeladmin.views import CreateView
 from wagtail.tests.testapp.models import BusinessChild, EventPage, SingleEventPage
 
@@ -18,15 +19,16 @@ class AuthorModelAdmin(ModelAdmin):
     inspect_view_fields = ('name', )
 
 
-class BookModelAdmin(ModelAdmin):
+class BookModelAdmin(ThumbnailMixin, ModelAdmin):
     model = Book
     menu_order = 300
-    list_display = ('title', 'author')
+    list_display = ('title', 'author', 'admin_thumb')
     list_filter = ('author', )
     ordering = ('title', )
     search_fields = ('title', )
     inspect_view_enabled = True
     inspect_view_fields_exclude = ('title', )
+    thumb_image_field_name = 'cover_image'
 
     def get_extra_attrs_for_row(self, obj, context):
         return {
