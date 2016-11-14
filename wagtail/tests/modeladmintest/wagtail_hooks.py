@@ -4,8 +4,8 @@ from wagtail.contrib.modeladmin.options import ModelAdmin, ModelAdminGroup, mode
 from wagtail.contrib.modeladmin.views import CreateView
 from wagtail.tests.testapp.models import BusinessChild, EventPage, SingleEventPage
 
-from .models import Author, Book, Token, Publisher
 from .forms import PublisherModelAdminForm
+from .models import Author, Book, Publisher, Token
 
 
 class AuthorModelAdmin(ModelAdmin):
