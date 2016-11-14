@@ -82,6 +82,29 @@ Bug fixes
 Upgrade considerations
 ======================
 
+``unique_together`` constraint on custom image rendition models needs updating
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+If your project is using a custom image model (see :ref:`custom_image_model`), you will need to
+update the ``unique_together`` option on the corresponding Rendition model when upgrading to Wagtail 1.8. Change the line:
+
+.. code-block:: python
+
+    unique_together = (
+        ('image', 'filter', 'focal_point_key'),
+    )
+
+to:
+
+.. code-block:: python
+
+    unique_together = (
+        ('image', 'filter_spec', 'focal_point_key'),
+    )
+
+You will then be able to run ``manage.py makemigrations`` and ``manage.py migrate`` as normal.
+
+
 ``wagtail.wagtailimages.models.get_image_model`` has moved
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
