@@ -501,6 +501,7 @@ class WarnOnManagerAccess(object):
         )
         return objtype._objects
 
+
 Filter._objects = Filter.objects
 Filter.objects = WarnOnManagerAccess()
 
