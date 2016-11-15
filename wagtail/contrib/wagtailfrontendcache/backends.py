@@ -1,13 +1,14 @@
 from __future__ import absolute_import, unicode_literals
 
-import json
 import logging
 import uuid
 
 from django.core.exceptions import ImproperlyConfigured
 from django.utils.six.moves.urllib.error import HTTPError, URLError
-from django.utils.six.moves.urllib.parse import urlencode, urlparse, urlunparse
+from django.utils.six.moves.urllib.parse import urlparse, urlunparse
 from django.utils.six.moves.urllib.request import Request, urlopen
+
+import requests
 
 from wagtail import __version__
 
@@ -17,11 +18,6 @@ logger = logging.getLogger('wagtail.frontendcache')
 class PurgeRequest(Request):
     def get_method(self):
         return 'PURGE'
-
-
-class DeleteRequest(Request):
-    def get_method(self):
-        return 'DELETE'
 
 
 class BaseBackend(object):
@@ -76,26 +72,38 @@ class CloudflareBackend(BaseBackend):
         try:
             purge_url = 'https://api.cloudflare.com/client/v4/zones/{0}/purge_cache'.format(self.cloudflare_zoneid)
 
-            request = DeleteRequest(
+            headers = {
+                "X-Auth-Email": self.cloudflare_email,
+                "X-Auth-Key": self.cloudflare_token,
+                "Content-Type": "application/json",
+            }
+
+            data = {"files": [url]}
+
+            response = requests.delete(
                 purge_url,
-                headers={
-                    "X-Auth-Email": self.cloudflare_email,
-                    "X-Auth-Key": self.cloudflare_token,
-                    "Content-Type": "application/json",
-                }
+                json=data,
+                headers=headers,
             )
-            data = json.dumps({"files": [url]})
-            response = urlopen(request, data=data)
-        except HTTPError as e:
-            logger.error("Couldn't purge '%s' from Cloudflare. HTTPError: %d %s", url, e.code, e.reason)
+
+            try:
+                response_json = response.json()
+            except ValueError:
+                if response.status_code != 200:
+                    response.raise_for_status()
+                else:
+                    logger.error("Couldn't purge '%s' from Cloudflare. Unexpected JSON parse error.", url)
+
+        except requests.exceptions.HTTPError as e:
+            logger.error("Couldn't purge '%s' from Cloudflare. HTTPError: %d %s", url, e.response.status_code, e.message)
             return
-        except URLError as e:
-            logger.error("Couldn't purge '%s' from Cloudflare. URLError: %s", url, e.reason)
+        except requests.exceptions.InvalidURL as e:
+            logger.error("Couldn't purge '%s' from Cloudflare. URLError: %s", url, e.message)
             return
 
-        response_json = json.loads(response.read().decode('utf-8'))
-        if response_json['result'] == 'error':
-            logger.error("Couldn't purge '%s' from Cloudflare. Cloudflare error '%s'", url, response_json['msg'])
+        if response_json['success'] is False:
+            error_messages = ', '.join([err['message'] for err in response_json['errors']])
+            logger.error("Couldn't purge '%s' from Cloudflare. Cloudflare errors '%s'", url, error_messages)
             return
 
 
