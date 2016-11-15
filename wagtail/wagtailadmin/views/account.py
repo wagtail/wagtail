@@ -79,6 +79,7 @@ def _wrap_password_reset_view(view_func):
         return view_func(*args, **kwargs)
     return wrapper
 
+
 password_reset = _wrap_password_reset_view(auth_views.password_reset)
 password_reset_done = _wrap_password_reset_view(auth_views.password_reset_done)
 password_reset_confirm = _wrap_password_reset_view(auth_views.password_reset_confirm)

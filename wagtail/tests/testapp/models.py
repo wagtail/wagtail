@@ -228,6 +228,7 @@ class EventPage(Page):
 
     password_required_template = 'tests/event_page_password_required.html'
 
+
 EventPage.content_panels = [
     FieldPanel('title', classname="full title"),
     FieldPanel('date_from'),
@@ -275,6 +276,7 @@ class SingleEventPage(EventPage):
         else:
             # fall back to default routing rules
             return super(SingleEventPage, self).route(request, path_components)
+
 
 SingleEventPage.content_panels = [FieldPanel('excerpt')] + EventPage.content_panels
 
@@ -335,6 +337,7 @@ class EventIndex(Page):
             }
         ]
 
+
 EventIndex.content_panels = [
     FieldPanel('title', classname="full title"),
     FieldPanel('intro', classname="full"),
@@ -350,6 +353,7 @@ class FormPage(AbstractEmailForm):
         context = super(FormPage, self).get_context(request)
         context['greeting'] = "hello world"
         return context
+
 
 FormPage.content_panels = [
     FieldPanel('title', classname="full title"),
@@ -370,6 +374,7 @@ class JadeFormField(AbstractFormField):
 
 class JadeFormPage(AbstractEmailForm):
     template = "tests/form_page.jade"
+
 
 JadeFormPage.content_panels = [
     FieldPanel('title', classname="full title"),
@@ -543,6 +548,7 @@ StandardIndex.promote_panels = []
 class StandardChild(Page):
     pass
 
+
 # Test overriding edit_handler with a custom one
 StandardChild.edit_handler = TabbedInterface([
     ObjectList(StandardChild.content_panels, heading='Content'),
@@ -583,6 +589,7 @@ class TaggedPageTag(TaggedItemBase):
 
 class TaggedPage(Page):
     tags = ClusterTaggableManager(through=TaggedPageTag, blank=True)
+
 
 TaggedPage.content_panels = [
     FieldPanel('title', classname="full title"),

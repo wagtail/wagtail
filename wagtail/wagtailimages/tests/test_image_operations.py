@@ -130,6 +130,7 @@ class TestDoNothingOperation(ImageOperationTestCase):
         ('original', dict(width=1000, height=1000), []),
     ]
 
+
 TestDoNothingOperation.setup_test_methods()
 
 
@@ -298,6 +299,7 @@ class TestFillOperation(ImageOperationTestCase):
         ]),
     ]
 
+
 TestFillOperation.setup_test_methods()
 
 
@@ -330,6 +332,7 @@ class TestMinMaxOperation(ImageOperationTestCase):
         ]),
     ]
 
+
 TestMinMaxOperation.setup_test_methods()
 
 
@@ -358,6 +361,7 @@ class TestWidthHeightOperation(ImageOperationTestCase):
             ('resize', ((800, 400), ), {}),
         ]),
     ]
+
 
 TestWidthHeightOperation.setup_test_methods()
 

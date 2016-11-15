@@ -317,6 +317,7 @@ def compile_endpoints():
 
     return endpoints
 
+
 OEMBED_ENDPOINTS_COMPILED = compile_endpoints()
 
 

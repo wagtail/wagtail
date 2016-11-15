@@ -196,6 +196,7 @@ class EscapeScriptNode(template.Node):
         parser.delete_first_token()
         return cls(nodelist)
 
+
 register.tag(EscapeScriptNode.TAG_NAME, EscapeScriptNode.handle)
 
 

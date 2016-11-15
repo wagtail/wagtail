@@ -460,6 +460,7 @@ class EventPageSpeaker(Orderable, AbstractLinkFields):
         MultiFieldPanel(AbstractLinkFields.panels, "Link"),
     ]
 
+
 EventPage.content_panels = Page.content_panels + [
     FieldPanel('date_from'),
     FieldPanel('date_to'),

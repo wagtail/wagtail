@@ -248,6 +248,7 @@ class BasePageManager(models.Manager):
     def get_queryset(self):
         return PageQuerySet(self.model).order_by('path')
 
+
 PageManager = BasePageManager.from_queryset(PageQuerySet)
 
 
@@ -1840,6 +1841,7 @@ class PageViewRestriction(models.Model):
 class BaseCollectionManager(models.Manager):
     def get_queryset(self):
         return TreeQuerySet(self.model).order_by('path')
+
 
 CollectionManager = BaseCollectionManager.from_queryset(TreeQuerySet)
 
