@@ -185,6 +185,7 @@ Contributors
 * Benoît Vogel
 * Manuel E. Gutierrez
 * Albert O'Connor
+* Morgan Aubert
 
 Translators
 ===========

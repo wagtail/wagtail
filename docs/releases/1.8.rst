@@ -57,6 +57,7 @@ Bug fixes
  * Form builder email notifications now output multiple values correctly (Sævar Öfjörð Magnússon)
  * Closing 'more' dropdown on explorer no longer jumps to the top of the page (Ducky)
  * Users with only publish permission are no longer given implicit permission to delete pages (Matt Westcott)
+ * ``search_garbage_collect`` management command now works when wagtailsearchpromotions is not installed (Morgan Aubert)
 
 Upgrade considerations
 ======================
