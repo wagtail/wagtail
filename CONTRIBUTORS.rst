@@ -184,6 +184,7 @@ Contributors
 * Thejaswi Puthraya
 * Benoît Vogel
 * Manuel E. Gutierrez
+* Morgan Aubert
 
 Translators
 ===========
