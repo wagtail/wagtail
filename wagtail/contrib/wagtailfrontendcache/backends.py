@@ -20,6 +20,11 @@ class PurgeRequest(Request):
         return 'PURGE'
 
 
+class DeleteRequest(Request):
+    def get_method(self):
+        return 'DELETE'
+
+
 class BaseBackend(object):
     def purge(self, url):
         raise NotImplementedError
