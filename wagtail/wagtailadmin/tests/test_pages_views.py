@@ -343,13 +343,13 @@ class TestPageCreation(TestCase, WagtailTestUtils):
         response = self.client.get(reverse('wagtailadmin_pages:add_subpage', args=(self.root_page.id, )))
         self.assertEqual(response.status_code, 200)
 
-        self.assertContains(response, "Simple Page")
+        self.assertContains(response, "Simple page")
         # List of available page types should not contain pages with is_creatable = False
-        self.assertNotContains(response, "MTI Base Page")
+        self.assertNotContains(response, "MTI base page")
         # List of available page types should not contain abstract pages
-        self.assertNotContains(response, "Abstract Page")
+        self.assertNotContains(response, "Abstract page")
         # List of available page types should not contain pages whose parent_page_types forbid it
-        self.assertNotContains(response, "Business Child")
+        self.assertNotContains(response, "Business child")
 
     def test_add_subpage_with_subpage_types(self):
         # Add a BusinessIndex to test business rules in
@@ -362,9 +362,9 @@ class TestPageCreation(TestCase, WagtailTestUtils):
         response = self.client.get(reverse('wagtailadmin_pages:add_subpage', args=(business_index.id, )))
         self.assertEqual(response.status_code, 200)
 
-        self.assertContains(response, "Business Child")
+        self.assertContains(response, "Business child")
         # List should not contain page types not in the subpage_types list
-        self.assertNotContains(response, "Simple Page")
+        self.assertNotContains(response, "Simple page")
 
     def test_add_subpage_with_one_valid_subpage_type(self):
         # Add a BusinessSubIndex to test business rules in
@@ -3307,7 +3307,7 @@ class TestRevisions(TestCase, WagtailTestUtils):
         response = self.client.get(last_christmas_preview_url)
         self.assertEqual(response.status_code, 200)
 
-        self.assertContains(response, "Editing Event Page")
+        self.assertContains(response, "Editing Event page")
         self.assertContains(response, "You are viewing a previous revision of this page")
 
         # Form should show the content of the revision, not the current draft
