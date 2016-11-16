@@ -26,7 +26,7 @@ from django.utils.encoding import python_2_unicode_compatible
 from django.utils.functional import cached_property
 from django.utils.six import StringIO
 from django.utils.six.moves.urllib.parse import urlparse
-from django.utils.text import slugify
+from django.utils.text import capfirst, slugify
 from django.utils.translation import ugettext_lazy as _
 from modelcluster.models import ClusterableModel, get_all_child_relations
 from treebeard.mp_tree import MP_Node
@@ -1002,11 +1002,11 @@ class Page(six.with_metaclass(PageBase, AbstractPage, index.Indexed, Clusterable
     @classmethod
     def get_verbose_name(cls):
         """
-            Returns the human-readable "verbose name" of this page model e.g "Blog page".
+        Returns the human-readable "verbose name" of this page model e.g "Blog page".
         """
         # This is similar to doing cls._meta.verbose_name.title()
         # except this doesn't convert any characters to lowercase
-        return ' '.join([word[0].upper() + word[1:] for word in cls._meta.verbose_name.split()])
+        return capfirst(cls._meta.verbose_name)
 
     @property
     def status_string(self):
