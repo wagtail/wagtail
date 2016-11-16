@@ -31,6 +31,7 @@ install_requires = [
     "html5lib>=0.999,<1",
     "Unidecode>=0.04.14",
     "Willow>=0.4,<0.5",
+    "requests>=2.11.1",
 ]
 
 # Testing dependencies
