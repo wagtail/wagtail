@@ -41,7 +41,9 @@ class Query(models.Model):
         """
         Deletes all Query records that have no daily hits or editors picks
         """
-        cls.objects.filter(daily_hits__isnull=True, editors_picks__isnull=True).delete()
+        extra_filter_kwargs = {'editors_picks__isnull': True, } if hasattr(cls, 'editors_picks') \
+            else {}
+        cls.objects.filter(daily_hits__isnull=True, **extra_filter_kwargs).delete()
 
     @classmethod
     def get(cls, query_string):
