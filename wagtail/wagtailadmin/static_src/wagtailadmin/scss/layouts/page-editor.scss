@@ -408,9 +408,12 @@ footer .preview {
         }
 
         &.stream-field {
-            &:hover .object-help,
             .object-help {
                 opacity: 0;
+                position: relative;
+            }
+            &:hover .object-help {
+                opacity: 1;
             }
         }
 
