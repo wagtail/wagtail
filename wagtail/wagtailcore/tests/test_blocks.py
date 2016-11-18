@@ -2001,6 +2001,25 @@ class TestStreamBlock(SimpleTestCase):
         self.assertEqual(stream_value[0].value, 'A different default heading')
 
 
+class TestChooserBlock(TestCase):
+    fixtures = ['test.json']
+
+    def test_form_render(self):
+        class CustomChooserBlock(blocks.ChooserBlock):
+            target_model = Page
+            widget = forms.Select
+
+        block = CustomChooserBlock()
+
+        empty_form_html = block.render_form(None, 'page')
+        self.assertIn('<select id="page" name="page" placeholder="">', empty_form_html)
+
+        christmas_page = Page.objects.get(slug='christmas')
+        christmas_form_html = block.render_form(christmas_page, 'page')
+        expected_html = '<option value="%d" selected="selected">Christmas</option>' % christmas_page.id
+        self.assertIn(expected_html, christmas_form_html)
+
+
 class TestPageChooserBlock(TestCase):
     fixtures = ['test.json']
 
