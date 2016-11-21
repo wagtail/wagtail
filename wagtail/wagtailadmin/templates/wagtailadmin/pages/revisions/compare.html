@@ -1,5 +1,5 @@
 {% extends "wagtailadmin/base.html" %}
-{% load i18n %}
+{% load i18n wagtailadmin_tags %}
 
 {% block titletag %}{% blocktrans with title=page.get_admin_display_title %}Comparing {{ title }}{% endblocktrans %}{% endblock %}
 
@@ -64,14 +64,13 @@
                                 {% if move %}
                                     {% if move > 0 %}
                                         {% blocktrans count counter=move %}
-                                            Moved down one place.
+                                            Moved down 1 place.
                                         {% plural %}
                                             Moved down {{ counter }} places.
                                         {% endblocktrans %}
                                     {% elif move < 0 %}
-                                        {# TODO: How can we make this positive? #}
-                                        {% blocktrans count counter=move %}
-                                            Moved up one place.
+                                        {% blocktrans count counter=move|abs %}
+                                            Moved up 1 place.
                                         {% plural %}
                                             Moved up {{ counter }} places.
                                         {% endblocktrans %}
