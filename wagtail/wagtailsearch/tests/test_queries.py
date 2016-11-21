@@ -1,12 +1,9 @@
-
 from __future__ import absolute_import, unicode_literals
 
 import datetime
 
-from django.conf import settings
 from django.core import management
 from django.test import TestCase
-from django.test.utils import override_settings
 from django.utils.six import StringIO
 
 from wagtail.contrib.wagtailsearchpromotions.models import SearchPromotion
