@@ -481,7 +481,15 @@ def edit(request, page_id):
 
     # Check for revisions still undergoing moderation and warn
     if latest_revision and latest_revision.submitted_for_moderation:
-        messages.warning(request, _("This page is currently awaiting moderation"))
+        buttons = []
+
+        if page.live:
+            buttons.append(messages.button(
+                reverse('wagtailadmin_pages:revisions_compare', args=(page.id, 'live', latest_revision.id)),
+                _('Compare with live version')
+            ))
+
+        messages.warning(request, _("This page is currently awaiting moderation"), buttons=buttons)
 
     return render(request, 'wagtailadmin/pages/edit.html', {
         'page': page,
@@ -1074,3 +1082,55 @@ def revisions_view(request, page_id, revision_id):
     revision_page = revision.as_page_object()
 
     return revision_page.serve_preview(page.dummy_request(request), page.default_preview_mode)
+
+
+def revisions_compare(request, page_id, revision_id_a, revision_id_b):
+    page = get_object_or_404(Page, id=page_id).specific
+
+    # Get revision to compare from
+    if revision_id_a == 'live':
+        if not page.live:
+            raise Http404
+
+        revision_a = page
+        revision_a_heading = _("Live")
+    elif revision_id_a == 'earliest':
+        revision_a = page.revisions.order_by('created_at', 'id').first()
+        if revision_a:
+            revision_a = revision_a.as_page_object()
+            revision_a_heading = _("Earliest")
+        else:
+            raise Http404
+    else:
+        revision_a = get_object_or_404(page.revisions, id=revision_id_a).as_page_object()
+        revision_a_heading = str(get_object_or_404(page.revisions, id=revision_id_a).created_at)
+
+    # Get revision to compare to
+    if revision_id_b == 'live':
+        if not page.live:
+            raise Http404
+
+        revision_b = page
+        revision_b_heading = _("Live")
+    elif revision_id_b == 'latest':
+        revision_b = page.revisions.order_by('created_at', 'id').last()
+        if revision_b:
+            revision_b = revision_b.as_page_object()
+            revision_b_heading = _("Latest")
+        else:
+            raise Http404
+    else:
+        revision_b = get_object_or_404(page.revisions, id=revision_id_b).as_page_object()
+        revision_b_heading = str(get_object_or_404(page.revisions, id=revision_id_b).created_at)
+
+    comparison = page.get_edit_handler().get_comparison(revision_a, revision_b)
+    comparison = [comp for comp in comparison if comp.has_changed()]
+
+    return render(request, 'wagtailadmin/pages/revisions/compare.html', {
+        'page': page,
+        'revision_a_heading': revision_a_heading,
+        'revision_a': revision_a,
+        'revision_b_heading': revision_b_heading,
+        'revision_b': revision_b,
+        'comparison': comparison,
+    })

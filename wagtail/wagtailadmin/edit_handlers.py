@@ -5,6 +5,7 @@ import re
 
 import django
 from django import forms
+from django.db.models.fields import FieldDoesNotExist
 from django.core.exceptions import ImproperlyConfigured
 from django.forms.models import fields_for_model
 from django.template.loader import render_to_string
@@ -13,7 +14,7 @@ from django.utils.six import text_type
 from django.utils.translation import ugettext_lazy
 
 from wagtail.utils.decorators import cached_classmethod
-from wagtail.wagtailadmin import widgets
+from wagtail.wagtailadmin import compare, widgets
 from wagtail.wagtailcore.models import Page
 from wagtail.wagtailcore.utils import camelcase_to_underscore, resolve_model_string
 
@@ -199,6 +200,10 @@ class EditHandler(object):
         """
         return mark_safe(self.render_as_object() + self.render_missing_fields())
 
+    @classmethod
+    def get_comparison(cls, obj_a, obj_b):
+        return []
+
 
 class BaseCompositeEditHandler(EditHandler):
     """
@@ -265,6 +270,15 @@ class BaseCompositeEditHandler(EditHandler):
             'self': self
         }))
 
+    @classmethod
+    def get_comparison(cls, obj_a, obj_b):
+        comparators = []
+
+        for child in cls.children:
+            comparators.extend(child.get_comparison(obj_a, obj_b))
+
+        return comparators
+
 
 class BaseFormEditHandler(BaseCompositeEditHandler):
     """
@@ -324,7 +338,6 @@ class BaseObjectList(BaseFormEditHandler):
 
 
 class ObjectList(object):
-
     def __init__(self, children, heading="", classname="",
                  base_form_class=None):
         self.children = children
@@ -451,6 +464,35 @@ class BaseFieldPanel(EditHandler):
     def required_fields(cls):
         return [cls.field_name]
 
+    @classmethod
+    def get_comparison_class(cls):
+        # Hide fields with hidden widget
+        widget_override = cls.widget_overrides().get(cls.field_name, None)
+        if widget_override and widget_override.is_hidden:
+            return
+
+        try:
+            field = cls.model._meta.get_field(cls.field_name)
+
+            if field.get_internal_type() in ['CharField', 'TextField']:
+                return compare.RichTextFieldComparison
+        except FieldDoesNotExist:
+            pass
+
+        return compare.FieldComparison
+
+    @classmethod
+    def get_comparison(cls, obj_a, obj_b):
+        comparator_class = cls.get_comparison_class()
+
+        if comparator_class:
+            field = cls.model._meta.get_field(cls.field_name)
+            val_a = field.value_from_object(obj_a)
+            val_b = field.value_from_object(obj_b)
+            return [comparator_class(field, val_a, val_b)]
+        else:
+            return []
+
 
 class FieldPanel(object):
     def __init__(self, field_name, classname="", widget=None):
@@ -472,7 +514,9 @@ class FieldPanel(object):
 
 
 class BaseRichTextFieldPanel(BaseFieldPanel):
-    pass
+    @classmethod
+    def get_comparison_class(cls):
+        return compare.RichTextFieldComparison
 
 
 class RichTextFieldPanel(object):
@@ -620,6 +664,19 @@ class BaseInlinePanel(EditHandler):
     @classmethod
     def html_declarations(cls):
         return cls.get_child_edit_handler_class().html_declarations()
+
+    @classmethod
+    def get_comparison(cls, obj_a, obj_b):
+        field = cls.model._meta.get_field(cls.relation_name)
+        val_a = getattr(obj_a, field.name)
+        val_b = getattr(obj_b, field.name)
+
+        field_comparisons = [
+            (lambda panel: lambda obj_a, obj_b: panel.bind_to_model(cls.related.related_model).get_comparison(obj_a, obj_b))(p)
+            for p in cls.get_panel_definitions()
+        ]
+
+        return [compare.ChildRelationComparison(field, val_a, val_b, field_comparisons)]
 
     def __init__(self, instance=None, form=None):
         super(BaseInlinePanel, self).__init__(instance=instance, form=form)
@@ -776,6 +833,10 @@ class BaseStreamFieldPanel(BaseFieldPanel):
     @classmethod
     def html_declarations(cls):
         return cls.block_def.all_html_declarations()
+
+    @classmethod
+    def get_comparison_class(cls):
+        return compare.StreamFieldComparison
 
     def id_for_label(self):
         # a StreamField may consist of many input fields, so it's not meaningful to
