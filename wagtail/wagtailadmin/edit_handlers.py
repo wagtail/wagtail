@@ -477,6 +477,9 @@ class BaseFieldPanel(EditHandler):
             if field.choices:
                 return compare.ChoiceFieldComparison
 
+            if field.is_relation:
+                return compare.ForeignObjectComparison
+
             if field.get_internal_type() in ['CharField', 'TextField']:
                 return compare.RichTextFieldComparison
         except FieldDoesNotExist:
@@ -599,10 +602,6 @@ class BasePageChooserPanel(BaseChooserPanel):
             return target_models
         else:
             return [cls.model._meta.get_field(cls.field_name).rel.to]
-
-    @classmethod
-    def get_comparison_class(cls):
-        return compare.PageFieldComparison
 
 
 class PageChooserPanel(object):

@@ -4,7 +4,6 @@ from django.template.loader import render_to_string
 from django.utils.safestring import mark_safe
 from six import text_type
 
-from wagtail.wagtailadmin.compare import FieldComparison
 from wagtail.wagtailadmin.edit_handlers import BaseChooserPanel
 
 from .widgets import AdminSnippetChooser
@@ -33,10 +32,6 @@ class BaseSnippetChooserPanel(BaseChooserPanel):
             self.object_type_name: instance_obj,
         }))
 
-    @classmethod
-    def get_comparison_class(cls):
-        return SnippetFieldComparison
-
 
 class SnippetChooserPanel(object):
     def __init__(self, field_name):
@@ -47,25 +42,3 @@ class SnippetChooserPanel(object):
             'model': model,
             'field_name': self.field_name,
         })
-
-
-class SnippetFieldComparison(FieldComparison):
-    def htmldiff(self):
-        obj_a = self.field.related_model.objects.filter(id=self.val_a).first()
-        obj_b = self.field.related_model.objects.filter(id=self.val_b).first()
-
-        if obj_a != obj_b:
-            if obj_a and obj_b:
-                # Changed
-                return TextDiff([('deletion', text_type(obj_a.title)), ('addition', text_type(obj_b.title))]).to_html()
-            elif obj_b:
-                # Added
-                return TextDiff([('addition', text_type(obj_b.title))]).to_html()
-            elif obj_a:
-                # Removed
-                return TextDiff([('deletion', text_type(obj_a.title))]).to_html()
-        else:
-            if obj_a:
-                return text_type(obj_a.title)
-            else:
-                return _("None")

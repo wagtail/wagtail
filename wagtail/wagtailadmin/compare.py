@@ -71,24 +71,29 @@ class ChoiceFieldComparison(FieldComparison):
             return val_a
 
 
-class PageFieldComparison(FieldComparison):
-    def htmldiff(self):
-        page_a = Page.objects.filter(id=self.val_a).first()
-        page_b = Page.objects.filter(id=self.val_b).first()
+class ForeignObjectComparison(FieldComparison):
+    def get_objects(self):
+        model = self.field.related_model
+        obj_a = model.objects.filter(id=self.val_a).first()
+        obj_b = model.objects.filter(id=self.val_b).first()
+        return obj_a, obj_b
 
-        if page_a != page_b:
-            if page_a and page_b:
+    def htmldiff(self):
+        obj_a, obj_b = self.get_objects()
+
+        if obj_a != obj_b:
+            if obj_a and obj_b:
                 # Changed
-                return TextDiff([('deletion', page_a.title), ('addition', page_b.title)]).to_html()
-            elif page_b:
+                return TextDiff([('deletion', force_text(obj_a)), ('addition', force_text(obj_b))]).to_html()
+            elif obj_b:
                 # Added
-                return TextDiff([('addition', page_b.title)]).to_html()
-            elif page_a:
+                return TextDiff([('addition', force_text(obj_b))]).to_html()
+            elif obj_a:
                 # Removed
-                return TextDiff([('deletion', page_a.title),]).to_html()
+                return TextDiff([('deletion', force_text(obj_a))]).to_html()
         else:
-            if page_a:
-                return page_a.title
+            if obj_a:
+                return force_text(obj_a)
             else:
                 return _("None")
 
