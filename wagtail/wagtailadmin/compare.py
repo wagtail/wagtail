@@ -7,6 +7,9 @@ from django.utils.encoding import force_text
 from django.utils.html import escape
 from django.utils.safestring import mark_safe
 from django.utils.text import capfirst
+from django.utils.translation import ugettext_lazy as _
+
+from wagtail.wagtailcore.models import Page
 
 
 class FieldComparison:
@@ -55,6 +58,28 @@ class RichTextFieldComparison(TextFieldComparison):
 
 class StreamFieldComparison(RichTextFieldComparison):
     pass
+
+
+class PageFieldComparison(FieldComparison):
+    def htmldiff(self):
+        page_a = Page.objects.filter(id=self.val_a).first()
+        page_b = Page.objects.filter(id=self.val_b).first()
+
+        if page_a != page_b:
+            if page_a and page_b:
+                # Changed
+                return TextDiff([('deletion', page_a.title), ('addition', page_b.title)]).to_html()
+            elif page_b:
+                # Added
+                return TextDiff([('addition', page_b.title)]).to_html()
+            elif page_a:
+                # Removed
+                return TextDiff([('deletion', page_a.title),]).to_html()
+        else:
+            if page_a:
+                return page_a.title
+            else:
+                return _("None")
 
 
 class ChildRelationComparison:
