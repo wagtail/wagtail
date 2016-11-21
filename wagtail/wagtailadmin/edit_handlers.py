@@ -597,6 +597,10 @@ class BasePageChooserPanel(BaseChooserPanel):
         else:
             return [cls.model._meta.get_field(cls.field_name).rel.to]
 
+    @classmethod
+    def get_comparison_class(cls):
+        return compare.PageFieldComparison
+
 
 class PageChooserPanel(object):
     def __init__(self, field_name, page_type=None, can_choose_root=False):
