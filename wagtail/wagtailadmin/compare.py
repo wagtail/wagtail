@@ -60,6 +60,17 @@ class StreamFieldComparison(RichTextFieldComparison):
     pass
 
 
+class ChoiceFieldComparison(FieldComparison):
+    def htmldiff(self):
+        val_a = force_text(dict(self.field.flatchoices).get(self.val_a, self.val_a), strings_only=True)
+        val_b = force_text(dict(self.field.flatchoices).get(self.val_b, self.val_b), strings_only=True)
+
+        if self.val_a != self.val_b:
+            return TextDiff([('deletion', val_a), ('addition', val_b)]).to_html()
+        else:
+            return val_a
+
+
 class PageFieldComparison(FieldComparison):
     def htmldiff(self):
         page_a = Page.objects.filter(id=self.val_a).first()
