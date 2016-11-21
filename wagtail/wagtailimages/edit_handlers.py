@@ -2,9 +2,8 @@ from __future__ import absolute_import, unicode_literals
 
 from django.template.loader import render_to_string
 
-from wagtail.wagtailadmin.compare import FieldComparison
+from wagtail.wagtailadmin.compare import ForeignObjectComparison
 from wagtail.wagtailadmin.edit_handlers import BaseChooserPanel
-from wagtail.wagtailimages.models import get_image_model
 
 from .widgets import AdminImageChooser
 
@@ -32,11 +31,11 @@ class ImageChooserPanel(object):
         })
 
 
-class ImageFieldComparison(FieldComparison):
+class ImageFieldComparison(ForeignObjectComparison):
     def htmldiff(self):
-        model = get_image_model()
+        image_a, image_b = self.get_objects()
 
         return render_to_string("wagtailimages/widgets/compare.html", {
-            'image_a': model.objects.filter(id=self.val_a).first(),
-            'image_b': model.objects.filter(id=self.val_b).first(),
+            'image_a': image_a,
+            'image_b': image_b,
         })
