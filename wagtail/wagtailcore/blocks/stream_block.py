@@ -345,6 +345,12 @@ class StreamValue(collections.Sequence):
         for i, value in zip(raw_values.keys(), converted_values):
             self._bound_blocks[i] = StreamValue.StreamChild(child_block, value)
 
+    def __eq__(self, other):
+        if not isinstance(other, StreamValue):
+            return False
+
+        return self.stream_data == other.stream_data
+
     def __len__(self):
         return len(self.stream_data)
 

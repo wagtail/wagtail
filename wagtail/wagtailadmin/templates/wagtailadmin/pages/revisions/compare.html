@@ -1,0 +1,97 @@
+{% extends "wagtailadmin/base.html" %}
+{% load i18n %}
+
+{% block titletag %}{% blocktrans with title=page.get_admin_display_title %}Comparing {{ title }}{% endblocktrans %}{% endblock %}
+
+{% block extra_css %}
+    {{ block.super }}
+
+    <style>
+        .comparison {
+            width: 100%;
+        }
+
+        .comparison td {
+            vertical-align: top;
+        }
+
+        .comparison .child-object {
+            margin-top: 10px;
+            padding: 5px;
+            border: 1px solid rgb(238, 238, 238);
+        }
+
+        .comparison .child-object.addition {
+            background-color: rgb(234, 255, 234);
+            border-color: rgb(166, 243, 166);
+        }
+
+        .comparison .child-object.deletion {
+            background-color: rgb(255, 236, 236);
+            border-color: rgb(248, 203, 203);
+        }
+
+        .comparison span.addition {
+            background-color: rgb(166, 243, 166);
+            text-decoration: underline;
+        }
+
+        .comparison span.deletion {
+            background-color: rgb(248, 203, 203);
+            text-decoration: line-through;
+        }
+    </style>
+{% endblock %}
+
+{% block content %}
+    {% trans "Comparing" as comparing_str %}
+    {% include "wagtailadmin/shared/header.html" with title=comparing_str subtitle=page.get_admin_display_title icon="doc-empty-inverse" %}
+
+    <div class="nice-padding">
+        <p><a href="{% url 'wagtailadmin_pages:edit' page.id %}">{% trans "Edit this page" %}</a></p>
+        <p><a href="{% url 'wagtailadmin_pages:revisions_index' page.id %}">{% trans "View revisions" %}</a></p>
+
+        <div class="comparison">
+            {% for comp in comparison %}
+                <h3>{{ comp.field_label }}</h3>
+
+                {% if comp.is_field %}
+                    {{ comp.htmldiff }}
+                {% elif comp.is_child_relation %}
+                    {% for child_comp in comp.get_child_comparisons %}
+                        <div class="child-object {% if child_comp.is_addition %}addition{% elif child_comp.is_deletion %}deletion{% endif %}">
+                            {% with child_comp.get_position_change as move %}
+                                {% if move %}
+                                    {% if move > 0 %}
+                                        {% blocktrans count counter=move %}
+                                            Moved down one place.
+                                        {% plural %}
+                                            Moved down {{ counter }} places.
+                                        {% endblocktrans %}
+                                    {% elif move < 0 %}
+                                        {# TODO: How can we make this positive? #}
+                                        {% blocktrans count counter=move %}
+                                            Moved up one place.
+                                        {% plural %}
+                                            Moved up {{ counter }} places.
+                                        {% endblocktrans %}
+                                    {% endif %}
+                                {% endif %}
+                            {% endwith %}
+
+                            <dl>
+                                {% for field_comp in child_comp.get_field_comparisons %}
+                                    <dt>{{ field_comp.field_label }}</dt>
+                                    <dd>{{ field_comp.htmldiff }}</dd>
+                                {% endfor %}
+                            </dl>
+                        </div>
+                    {% endfor %}
+                {% endif %}
+            {% endfor %}
+            {% if not comparison %}
+                <h3>{% trans "These two revisions are the exact same" %}</h3>
+            {% endif %}
+        </div>
+    </div>
+{% endblock %}
