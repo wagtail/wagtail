@@ -53,7 +53,7 @@ class TextFieldComparison(FieldComparison):
 
 class RichTextFieldComparison(TextFieldComparison):
     def htmldiff(self):
-        return diff_text(BeautifulSoup(force_text(self.val_a)).getText('\n'), BeautifulSoup(force_text(self.val_b)).getText('\n')).to_html()
+        return diff_text(BeautifulSoup(force_text(self.val_a)).getText('\n\n'), BeautifulSoup(force_text(self.val_b)).getText('\n\n')).to_html()
 
 
 class StreamFieldComparison(RichTextFieldComparison):
@@ -339,19 +339,27 @@ class TextDiff:
         html = ""
 
         for change_type, value in self.changes:
+            if value == '\n':
+                if change_type != 'deletion':
+                    value = "<br/>"
+                else:
+                    value = ""
+            else:
+                value = escape(value)
+
             if change_type == 'equal':
-                html += escape(value)
+                html += value
             elif change_type == 'addition':
                 html += '<{tag} class="{classname}">{value}</{tag}>'.format(
                     tag=tag,
                     classname=addition_class,
-                    value=escape(value)
+                    value=value
                 )
             elif change_type == 'deletion':
                 html += '<{tag} class="{classname}">{value}</{tag}>'.format(
                     tag=tag,
                     classname=deletion_class,
-                    value=escape(value)
+                    value=value
                 )
 
         return mark_safe(html)
