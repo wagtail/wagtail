@@ -37,7 +37,7 @@ class FieldComparison:
         if self.val_a != self.val_b:
             return TextDiff([('deletion', self.val_a), ('addition', self.val_b)]).to_html()
         else:
-            return self.val_a
+            return escape(self.val_a)
 
     def has_changed(self):
         """
@@ -53,7 +53,7 @@ class TextFieldComparison(FieldComparison):
 
 class RichTextFieldComparison(TextFieldComparison):
     def htmldiff(self):
-        return diff_text(BeautifulSoup(force_text(self.val_a)).getText('\n\n'), BeautifulSoup(force_text(self.val_b)).getText('\n\n')).to_html()
+        return diff_text(BeautifulSoup(force_text(self.val_a)).getText(), BeautifulSoup(force_text(self.val_b)).getText()).to_html()
 
 
 class StreamFieldComparison(RichTextFieldComparison):
@@ -68,7 +68,7 @@ class ChoiceFieldComparison(FieldComparison):
         if self.val_a != self.val_b:
             return TextDiff([('deletion', val_a), ('addition', val_b)]).to_html()
         else:
-            return val_a
+            return escape(val_a)
 
 
 class ForeignObjectComparison(FieldComparison):
@@ -93,9 +93,9 @@ class ForeignObjectComparison(FieldComparison):
                 return TextDiff([('deletion', force_text(obj_a))]).to_html()
         else:
             if obj_a:
-                return force_text(obj_a)
+                return escape(force_text(obj_a))
             else:
-                return _("None")
+                return mark_safe(_("None"))
 
 
 class ChildRelationComparison:
@@ -344,27 +344,19 @@ class TextDiff:
         html = ""
 
         for change_type, value in self.changes:
-            if value == '\n':
-                if change_type != 'deletion':
-                    value = "<br/>"
-                else:
-                    value = ""
-            else:
-                value = escape(value)
-
             if change_type == 'equal':
-                html += value
+                html += escape(value)
             elif change_type == 'addition':
                 html += '<{tag} class="{classname}">{value}</{tag}>'.format(
                     tag=tag,
                     classname=addition_class,
-                    value=value
+                    value=escape(value)
                 )
             elif change_type == 'deletion':
                 html += '<{tag} class="{classname}">{value}</{tag}>'.format(
                     tag=tag,
                     classname=deletion_class,
-                    value=value
+                    value=escape(value)
                 )
 
         return mark_safe(html)
@@ -428,4 +420,21 @@ def diff_text(a, b):
             for token in a_tok[i1:i2]:
                 changes.append(('equal', token))
 
-    return TextDiff(changes)
+    # Merge ajacent changes which have the same type. This just cleans up the HTML a bit
+    merged_changes = []
+    current_value = []
+    current_change_type = None
+    for change_type, value in changes:
+        if change_type != current_change_type:
+            if current_change_type is not None:
+                merged_changes.append((current_change_type, ''.join(current_value)))
+                current_value = []
+
+            current_change_type = change_type
+
+        current_value.append(value)
+
+    if current_value:
+        merged_changes.append((current_change_type, ''.join(current_value)))
+
+    return TextDiff(merged_changes)
