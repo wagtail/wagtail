@@ -1123,7 +1123,8 @@ def revisions_compare(request, page_id, revision_id_a, revision_id_b):
         revision_b = get_object_or_404(page.revisions, id=revision_id_b).as_page_object()
         revision_b_heading = str(get_object_or_404(page.revisions, id=revision_id_b).created_at)
 
-    comparison = page.get_edit_handler().get_comparison(revision_a, revision_b)
+    comparison = page.get_edit_handler().get_comparison()
+    comparison = [comp(revision_a, revision_b) for comp in comparison]
     comparison = [comp for comp in comparison if comp.has_changed()]
 
     return render(request, 'wagtailadmin/pages/revisions/compare.html', {

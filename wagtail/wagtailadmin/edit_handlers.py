@@ -9,6 +9,7 @@ from django.db.models.fields import FieldDoesNotExist
 from django.core.exceptions import ImproperlyConfigured
 from django.forms.models import fields_for_model
 from django.template.loader import render_to_string
+from django.utils.functional import curry
 from django.utils.safestring import mark_safe
 from django.utils.six import text_type
 from django.utils.translation import ugettext_lazy
@@ -201,7 +202,7 @@ class EditHandler(object):
         return mark_safe(self.render_as_object() + self.render_missing_fields())
 
     @classmethod
-    def get_comparison(cls, obj_a, obj_b):
+    def get_comparison(cls):
         return []
 
 
@@ -271,11 +272,11 @@ class BaseCompositeEditHandler(EditHandler):
         }))
 
     @classmethod
-    def get_comparison(cls, obj_a, obj_b):
+    def get_comparison(cls):
         comparators = []
 
         for child in cls.children:
-            comparators.extend(child.get_comparison(obj_a, obj_b))
+            comparators.extend(child.get_comparison())
 
         return comparators
 
@@ -488,14 +489,12 @@ class BaseFieldPanel(EditHandler):
         return compare.FieldComparison
 
     @classmethod
-    def get_comparison(cls, obj_a, obj_b):
+    def get_comparison(cls):
         comparator_class = cls.get_comparison_class()
 
         if comparator_class:
             field = cls.model._meta.get_field(cls.field_name)
-            val_a = field.value_from_object(obj_a)
-            val_b = field.value_from_object(obj_b)
-            return [comparator_class(field, val_a, val_b)]
+            return [curry(comparator_class, field)]
         else:
             return []
 
@@ -672,17 +671,14 @@ class BaseInlinePanel(EditHandler):
         return cls.get_child_edit_handler_class().html_declarations()
 
     @classmethod
-    def get_comparison(cls, obj_a, obj_b):
+    def get_comparison(cls):
         field = cls.model._meta.get_field(cls.relation_name)
-        val_a = getattr(obj_a, field.name)
-        val_b = getattr(obj_b, field.name)
+        field_comparisons = []
 
-        field_comparisons = [
-            (lambda panel: lambda obj_a, obj_b: panel.bind_to_model(cls.related.related_model).get_comparison(obj_a, obj_b))(p)
-            for p in cls.get_panel_definitions()
-        ]
+        for panel in cls.get_panel_definitions():
+            field_comparisons.extend(panel.bind_to_model(cls.related.related_model).get_comparison())
 
-        return [compare.ChildRelationComparison(field, val_a, val_b, field_comparisons)]
+        return [curry(compare.ChildRelationComparison, field, field_comparisons)]
 
     def __init__(self, instance=None, form=None):
         super(BaseInlinePanel, self).__init__(instance=instance, form=form)
