@@ -294,7 +294,9 @@ class ChildObjectComparison:
         indicates the object moved up one space.
         """
         if not self.is_addition() and not self.is_deletion():
-            return getattr(self.obj_b, 'sort_order', 0) - getattr(self.obj_a, 'sort_order', 0)
+            sort_a = getattr(self.obj_a, 'sort_order', 0) or 0
+            sort_b = getattr(self.obj_b, 'sort_order', 0) or 0
+            return sort_b - sort_a
 
     def get_field_comparisons(self):
         """
