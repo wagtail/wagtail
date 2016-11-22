@@ -16,10 +16,10 @@ class FieldComparison:
     is_field = True
     is_child_relation = False
 
-    def __init__(self, field, val_a, val_b):
+    def __init__(self, field, obj_a, obj_b):
         self.field = field
-        self.val_a = val_a
-        self.val_b = val_b
+        self.val_a = field.value_from_object(obj_a)
+        self.val_b = field.value_from_object(obj_b)
 
     def field_label(self):
         """
@@ -102,11 +102,11 @@ class ChildRelationComparison:
     is_field = False
     is_child_relation = True
 
-    def __init__(self, field, val_a, val_b, field_comparisons):
+    def __init__(self, field, field_comparisons, obj_a, obj_b):
         self.field = field
-        self.val_a = val_a
-        self.val_b = val_b
         self.field_comparisons = field_comparisons
+        self.val_a = getattr(obj_a, field.related_name)
+        self.val_b = getattr(obj_b, field.related_name)
 
     def field_label(self):
         """
@@ -211,7 +211,7 @@ class ChildRelationComparison:
         return map_forwards, map_backwards, added, deleted
 
     def get_child_comparison(self, obj_a, obj_b):
-        return ChildObjectComparison(self.field.related_model, obj_a, obj_b, self.field_comparisons)
+        return ChildObjectComparison(self.field.related_model, self.field_comparisons, obj_a, obj_b)
 
     def get_child_comparisons(self):
         """
@@ -267,11 +267,11 @@ class ChildRelationComparison:
 
 
 class ChildObjectComparison:
-    def __init__(self, model, obj_a, obj_b, field_comparisons):
+    def __init__(self, model, field_comparisons, obj_a, obj_b):
         self.model = model
+        self.field_comparisons = field_comparisons
         self.obj_a = obj_a
         self.obj_b = obj_b
-        self.field_comparisons = field_comparisons
 
     def is_addition(self):
         """
@@ -308,10 +308,10 @@ class ChildObjectComparison:
             obj = self.obj_a or self.obj_b
 
             for field_comparison in self.field_comparisons:
-                comparisons.extend(field_comparison(obj, obj))
+                comparisons.append(field_comparison(obj, obj))
         else:
             for field_comparison in self.field_comparisons:
-                comparisons.extend(field_comparison(self.obj_a, self.obj_b))
+                comparisons.append(field_comparison(self.obj_a, self.obj_b))
 
         return comparisons
 
