@@ -1,67 +1,8 @@
 {% extends "wagtailadmin/base.html" %}
-{% load i18n wagtailadmin_tags %}
+{% load static i18n wagtailadmin_tags %}
 
 {% block titletag %}{% blocktrans with title=page.get_admin_display_title %}Comparing {{ title }}{% endblocktrans %}{% endblock %}
 
-{% block extra_css %}
-    {{ block.super }}
-
-    <style>
-        .comparison {
-            width: 100%;
-        }
-
-        .comparison td {
-            vertical-align: top;
-        }
-
-        .comparison .child-object {
-            margin-top: 10px;
-            padding: 5px;
-            border: 1px solid rgb(238, 238, 238);
-        }
-
-        .comparison .child-object.addition {
-            background-color: rgb(234, 255, 234);
-            border-color: rgb(166, 243, 166);
-        }
-
-        .comparison .child-object.deletion {
-            background-color: rgb(255, 236, 236);
-            border-color: rgb(248, 203, 203);
-        }
-
-        .comparison span.addition {
-            background-color: rgb(166, 243, 166);
-            text-decoration: underline;
-        }
-
-        .comparison span.deletion {
-            background-color: rgb(248, 203, 203);
-            text-decoration: line-through;
-        }
-
-        .comparison .preview-image {
-            display: inline-block;
-        }
-
-        .comparison .preview-image.addition {
-            border: 2px solid rgb(166, 243, 166);
-        }
-
-        .comparison .preview-image.deletion {
-            border: 2px solid rgb(248, 203, 203);
-        }
-
-        ul.comparison.fields {
-            list-style-type: none;
-        }
-
-        .comparison .field-content {
-            vertical-align: middle;
-        }
-    </style>
-{% endblock %}
 
 {% block content %}
     {% trans "Comparing" as comparing_str %}
@@ -72,47 +13,56 @@
         <a href="{% url 'wagtailadmin_pages:revisions_index' page.id %}">{% trans "View revisions" %}</a>
     </div>
 
-    <ul class="comparison fields">
+    <ul class="comparison">
         {% for comp in comparison %}
         <li>
-            <label>{{ comp.field_label }}:</label>
-            <div class="field-content">
-                {% if comp.is_field %}
-                    {{ comp.htmldiff }}
-                {% elif comp.is_child_relation %}
-                    {% for child_comp in comp.get_child_comparisons %}
-                        <div class="child-object {% if child_comp.is_addition %}addition{% elif child_comp.is_deletion %}deletion{% endif %}">
-                            {% with child_comp.get_position_change as move %}
-                                {% if move %}
-                                    {% if move > 0 %}
-                                        {% blocktrans count counter=move %}
-                                            Moved down 1 place.
-                                        {% plural %}
-                                            Moved down {{ counter }} places.
-                                        {% endblocktrans %}
-                                    {% elif move < 0 %}
-                                        {% blocktrans count counter=move|abs %}
-                                            Moved up 1 place.
-                                        {% plural %}
-                                            Moved up {{ counter }} places.
-                                        {% endblocktrans %}
+            <div class="comparison__field">
+                <label class="comparison__field-label">{{ comp.field_label }}:</label>
+                <div class="comparison__field-content">
+                    {% if comp.is_field %}
+                        {{ comp.htmldiff }}
+                    {% elif comp.is_child_relation %}
+                        {% for child_comp in comp.get_child_comparisons %}
+                            <div class="comparison__child-object {% if child_comp.is_addition %}addition{% elif child_comp.is_deletion %}deletion{% endif %}">
+                                {% with child_comp.get_position_change as move %}
+                                    {% if move %}
+                                        {% if move > 0 %}
+                                            {% blocktrans count counter=move %}
+                                                Moved down 1 place.
+                                            {% plural %}
+                                                Moved down {{ counter }} places.
+                                            {% endblocktrans %}
+                                        {% elif move < 0 %}
+                                            {% blocktrans count counter=move|abs %}
+                                                Moved up 1 place.
+                                            {% plural %}
+                                                Moved up {{ counter }} places.
+                                            {% endblocktrans %}
+                                        {% endif %}
                                     {% endif %}
-                                {% endif %}
-                            {% endwith %}
+                                {% endwith %}
 
-                            <dl>
-                                {% for field_comp in child_comp.get_field_comparisons %}
-                                    <dt>{{ field_comp.field_label }}</dt>
-                                    <dd>{{ field_comp.htmldiff }}</dd>
-                                {% endfor %}
-                            </dl>
-                        </div>
-                    {% endfor %}
-                {% endif %}
+                                <dl>
+                                    {% for field_comp in child_comp.get_field_comparisons %}
+                                        <dt>{{ field_comp.field_label }}</dt>
+                                        <dd>{{ field_comp.htmldiff }}</dd>
+                                    {% endfor %}
+                                </dl>
+                            </div>
+                        {% endfor %}
+                    {% endif %}
+                </div>
             </div>
         </li>
         {% empty %}
             <h3>{% trans "There are no differences between these two revisions" %}</h3>
         {% endfor %}
     </ul>
+{% endblock %}
+
+
+{% block extra_css %}
+    {{ block.super }}
+
+    <link rel="stylesheet" href="{% static 'wagtailadmin/css/layouts/compare-revisions.css' %}" type="text/css" />
 {% endblock %}
