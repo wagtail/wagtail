@@ -52,6 +52,14 @@
         .comparison .preview-image.deletion {
             border: 2px solid rgb(248, 203, 203);
         }
+
+        ul.comparison.fields {
+            list-style-type: none;
+        }
+
+        .comparison .field-content {
+            vertical-align: middle;
+        }
     </style>
 {% endblock %}
 
@@ -60,13 +68,15 @@
     {% include "wagtailadmin/shared/header.html" with title=comparing_str subtitle=page.get_admin_display_title icon="doc-empty-inverse" %}
 
     <div class="nice-padding">
-        <p><a href="{% url 'wagtailadmin_pages:edit' page.id %}">{% trans "Edit this page" %}</a></p>
-        <p><a href="{% url 'wagtailadmin_pages:revisions_index' page.id %}">{% trans "View revisions" %}</a></p>
+        <a href="{% url 'wagtailadmin_pages:edit' page.id %}">{% trans "Edit this page" %}</a> |
+        <a href="{% url 'wagtailadmin_pages:revisions_index' page.id %}">{% trans "View revisions" %}</a>
+    </div>
 
-        <div class="comparison">
-            {% for comp in comparison %}
-                <h3>{{ comp.field_label }}</h3>
-
+    <ul class="comparison fields">
+        {% for comp in comparison %}
+        <li>
+            <label>{{ comp.field_label }}:</label>
+            <div class="field-content">
                 {% if comp.is_field %}
                     {{ comp.htmldiff }}
                 {% elif comp.is_child_relation %}
@@ -99,10 +109,10 @@
                         </div>
                     {% endfor %}
                 {% endif %}
-            {% endfor %}
-            {% if not comparison %}
-                <h3>{% trans "These two revisions are the exact same" %}</h3>
-            {% endif %}
-        </div>
-    </div>
+            </div>
+        </li>
+        {% empty %}
+            <h3>{% trans "There are no differences between these two revisions" %}</h3>
+        {% endfor %}
+    </ul>
 {% endblock %}
