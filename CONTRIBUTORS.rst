@@ -186,6 +186,7 @@ Contributors
 * Manuel E. Gutierrez
 * Albert O'Connor
 * Morgan Aubert
+* Diederik van der Boor
 
 Translators
 ===========

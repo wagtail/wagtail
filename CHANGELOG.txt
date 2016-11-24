@@ -28,6 +28,7 @@ Changelog
  * Fix: Closing 'more' dropdown on explorer no longer jumps to the top of the page (Ducky)
  * Fix: Users with only publish permission are no longer given implicit permission to delete pages (Matt Westcott)
  * Fix: `search_garbage_collect` management command now works when wagtailsearchpromotions is not installed (Morgan Aubert)
+ * Fix: `wagtail.contrib.settings` context processor no longer fails when `request.site` is unavailable (Diederik van der Boor)
 
 
 1.7 (20.10.2016)
