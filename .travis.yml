@@ -4,6 +4,13 @@ cache: pip
 # Use container-based infrastructure
 sudo: false
 
+# Install JDK8 for Elasticsearch 5
+addons:
+  apt:
+    packages:
+     - oracle-java8-installer
+     - oracle-java8-set-default
+
 matrix:
   include:
    - env: TOXENV=py27-dj18-postgres-noelasticsearch
