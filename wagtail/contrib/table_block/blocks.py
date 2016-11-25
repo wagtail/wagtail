@@ -74,6 +74,12 @@ class TableBlock(FieldBlock):
     def is_html_renderer(self):
         return self.table_options['renderer'] == 'html'
 
+    def get_searchable_content(self, value):
+        content = []
+        for row in value.get('data', []):
+            content.extend([v for v in row if v])
+        return content
+
     def render(self, value, context=None):
         template = getattr(self.meta, 'template', None)
         if template and value:
