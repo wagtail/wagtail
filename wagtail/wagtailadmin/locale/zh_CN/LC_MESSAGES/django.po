@@ -306,7 +306,7 @@ msgstr "保存"
 
 #, python-format
 msgid "Welcome to the %(site_name)s Wagtail CMS"
-msgstr "欢迎使用 %(site_name)s  Wagtail CMS"
+msgstr "欢迎使用 %(site_name)s 的内容管理系统"
 
 msgid ""
 "This is your dashboard on which helpful information about content you've "
@@ -383,7 +383,7 @@ msgid "Your %(username_field)s and password didn't match. Please try again."
 msgstr "用户 %(username_field)s 密码不匹配，请重试"
 
 msgid "Sign in to Wagtail"
-msgstr "登录Wagtail"
+msgstr "登录"
 
 msgid "Forgotten it?"
 msgstr "不记得了？"
