@@ -155,7 +155,8 @@ def extract_attrs(attr_string):
     """
     attributes = {}
     for name, val in FIND_ATTRS.findall(attr_string):
-        attributes[name] = val
+        # Replaces '&amp' per '&' here in order to prevent extracted URLs to be double-escaped.
+        attributes[name] = val.replace('&amp;', '&')
     return attributes
 
 
