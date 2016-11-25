@@ -62,6 +62,8 @@ Bug fixes
  * Users with only publish permission are no longer given implicit permission to delete pages (Matt Westcott)
  * ``search_garbage_collect`` management command now works when wagtailsearchpromotions is not installed (Morgan Aubert)
  * ``wagtail.contrib.settings`` context processor no longer fails when ``request.site`` is unavailable (Diederik van der Boor)
+ * ``TableBlock`` content is now indexed for search (Morgan Aubert)
+
 
 Upgrade considerations
 ======================
