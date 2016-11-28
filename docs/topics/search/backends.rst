@@ -90,13 +90,13 @@ Prerequisites are the `Elasticsearch`_ service itself and, via pip, the `elastic
 
 .. _Elasticsearch: https://www.elastic.co/downloads/past-releases/elasticsearch-1-7-3
 
-.. code-block:: sh
+.. code-block:: console
 
-  pip install "elasticsearch>=1.0.0,<2.0.0"  # for Elasticsearch 1.x
+  $ pip install "elasticsearch>=1.0.0,<2.0.0"  # for Elasticsearch 1.x
 
-.. code-block:: sh
+.. code-block:: console
 
-  pip install "elasticsearch>=2.0.0,<3.0.0"  # for Elasticsearch 2.x
+  $ pip install "elasticsearch>=2.0.0,<3.0.0"  # for Elasticsearch 2.x
 
 The backend is configured in settings:
 
