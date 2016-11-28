@@ -293,8 +293,6 @@ For example, to get all the pages that are direct children of page 7.
 
 **descendant_of**
 
-.. versionadded:: 1.1
-
 Filters the listing to only include descendants of the specified page.
 
 For example, to get all pages underneath the homepage:
