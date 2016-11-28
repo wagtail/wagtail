@@ -4,6 +4,7 @@ import datetime
 
 from django import forms
 from django.db.models.fields import BLANK_CHOICE_DASH
+from django.forms.fields import CallableChoiceIterator
 from django.template.loader import render_to_string
 from django.utils import six
 from django.utils.dateparse import parse_date, parse_datetime, parse_time
@@ -322,9 +323,13 @@ class ChoiceBlock(FieldBlock):
 
     def __init__(self, choices=None, required=True, help_text=None, **kwargs):
         if choices is None:
-            # no choices specified, so pick up the choice list defined at the class level
-            choices = list(self.choices)
+            # no choices specified, so pick up the choice defined at the class level
+            choices = self.choices
+        elif callable(choices):
+            # Support of callable choices
+            choices = CallableChoiceIterator(choices)
         else:
+            # Cast as a list, even if we got CallableChoiceIterator object
             choices = list(choices)
 
         # keep a copy of all kwargs (including our normalised choices list) for deconstruct()
@@ -335,27 +340,42 @@ class ChoiceBlock(FieldBlock):
         if help_text is not None:
             self._constructor_kwargs['help_text'] = help_text
 
-        # If choices does not already contain a blank option, insert one
-        # (to match Django's own behaviour for modelfields:
-        # https://github.com/django/django/blob/1.7.5/django/db/models/fields/__init__.py#L732-744)
-        has_blank_choice = False
-        for v1, v2 in choices:
-            if isinstance(v2, (list, tuple)):
-                # this is a named group, and v2 is the value list
-                has_blank_choice = any([value in ('', None) for value, label in v2])
-                if has_blank_choice:
-                    break
-            else:
-                # this is an individual choice; v1 is the value
-                if v1 in ('', None):
-                    has_blank_choice = True
-                    break
-
-        if not has_blank_choice:
-            choices = BLANK_CHOICE_DASH + choices
-
+        choices = self.get_callable_choices(choices)
         self.field = forms.ChoiceField(choices=choices, required=required, help_text=help_text)
         super(ChoiceBlock, self).__init__(**kwargs)
+
+    def get_callable_choices(self, choices):
+        """
+        Because we need to support callable choices and insert blank choice into choices list
+        we will always pass callable into `forms.ChoiceField`.
+        """
+        def choices_callable():
+            # Variable choices can be an instance of CallableChoiceIterator,
+            # and we don't want to call it twice if produced list doesn't contain blank choice,
+            # so cast it as a list here
+            local_choices = list(choices)
+
+            # If choices does not already contain a blank option, insert one
+            # (to match Django's own behaviour for modelfields:
+            # https://github.com/django/django/blob/1.7.5/django/db/models/fields/__init__.py#L732-744)
+            has_blank_choice = False
+            for v1, v2 in local_choices:
+                if isinstance(v2, (list, tuple)):
+                    # this is a named group, and v2 is the value list
+                    has_blank_choice = any([value in ('', None) for value, label in v2])
+                    if has_blank_choice:
+                        break
+                else:
+                    # this is an individual choice; v1 is the value
+                    if v1 in ('', None):
+                        has_blank_choice = True
+                        break
+
+            if not has_blank_choice:
+                return BLANK_CHOICE_DASH + list(local_choices)
+
+            return local_choices
+        return choices_callable
 
     def deconstruct(self):
         """
@@ -364,7 +384,14 @@ class ChoiceBlock(FieldBlock):
         users to define subclasses of ChoiceBlock in their models.py, with specific choice lists
         passed in, without references to those classes ending up frozen into migrations.
         """
-        return ('wagtail.wagtailcore.blocks.ChoiceBlock', [], self._constructor_kwargs)
+
+        # Actually, we can just return CallableChoiceIterator,
+        # but it will be casted as a list in __init__ method
+        _constructor_kwargs = self._constructor_kwargs.copy()
+        if isinstance(_constructor_kwargs['choices'], CallableChoiceIterator):
+            _constructor_kwargs['choices'] = _constructor_kwargs['choices'].choices_func
+
+        return 'wagtail.wagtailcore.blocks.ChoiceBlock', [], _constructor_kwargs
 
     def get_searchable_content(self, value):
         # Return the display value as the searchable value
