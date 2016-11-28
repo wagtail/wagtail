@@ -28,12 +28,12 @@ Here's an example snippet from the Wagtail demo website:
   class Advert(models.Model):
       url = models.URLField(null=True, blank=True)
       text = models.CharField(max_length=255)
-  
+
       panels = [
           FieldPanel('url'),
           FieldPanel('text'),
       ]
-      
+
       def __str__(self):
           return self.text
 
@@ -90,9 +90,9 @@ Then, in your own page templates, you can include your snippet template tag with
   ...
 
   {% block content %}
-  
+
       ...
-  
+
       {% adverts %}
 
   {% endblock %}
@@ -115,7 +115,7 @@ In the above example, the list of adverts is a fixed list, displayed independent
           on_delete=models.SET_NULL,
           related_name='+'
       )
-  
+
       content_panels = Page.content_panels + [
           SnippetChooserPanel('advert'),
           # ...
@@ -135,28 +135,28 @@ To attach multiple adverts to a page, the ``SnippetChooserPanel`` can be placed 
   from wagtail.wagtailsnippets.edit_handlers import SnippetChooserPanel
 
   from modelcluster.fields import ParentalKey
-  
+
   ...
 
   class BookPageAdvertPlacement(Orderable, models.Model):
       page = ParentalKey('demo.BookPage', related_name='advert_placements')
       advert = models.ForeignKey('demo.Advert', related_name='+')
-  
+
       class Meta:
           verbose_name = "advert placement"
           verbose_name_plural = "advert placements"
-  
+
       panels = [
           SnippetChooserPanel('advert'),
       ]
-  
+
       def __str__(self):
           return self.page.title + " -> " + self.advert.text
-  
-  
+
+
   class BookPage(Page):
       ...
-  
+
       content_panels = Page.content_panels + [
           InlinePanel('advert_placements', label="Adverts"),
           # ...

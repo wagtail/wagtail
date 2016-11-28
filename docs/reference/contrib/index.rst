@@ -1,7 +1,7 @@
 Contrib modules
 ===============
 
-Wagtail ships with a variety of extra optional modules. 
+Wagtail ships with a variety of extra optional modules.
 
 
 .. toctree::

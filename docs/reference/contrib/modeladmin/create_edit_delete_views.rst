@@ -3,7 +3,7 @@ Customising ``CreateView``, ``EditView`` and ``DeleteView``
 ===========================================================
 
 **NOTE:** ``modeladmin`` only provides 'create', 'edit' and 'delete'
-functionality for non page type models (i.e. models that do not extend 
+functionality for non page type models (i.e. models that do not extend
 ``wagtailcore.models.Page``). If your model is a 'page type' model, customising
 any of the following will not have any effect:
 
@@ -27,7 +27,7 @@ model class.
         first_name = models.CharField(max_length=100)
         last_name = models.CharField(max_length=100)
         address = models.TextField()
-        
+
         panels = [
             MultiFieldPanel([
                 FieldRowPanel([
@@ -45,7 +45,7 @@ Or alternatively:
         first_name = models.CharField(max_length=100)
         last_name = models.CharField(max_length=100)
         address = models.TextField()
-        
+
         custom_panels = [
             MultiFieldPanel([
                 FieldRowPanel([
@@ -99,7 +99,7 @@ See the following part of the docs to find out more:
 ``ModelAdmin.create_view_class``
 -----------------------------------
 
-**Expected value**: A custom ``view`` class to replace 
+**Expected value**: A custom ``view`` class to replace
 ``modeladmin.views.CreateView``
 
 See the following part of the docs to find out more:
@@ -122,7 +122,7 @@ See the following part of the docs to find out more:
 ``ModelAdmin.edit_view_class``
 -----------------------------------
 
-**Expected value**: A custom ``view`` class to replace 
+**Expected value**: A custom ``view`` class to replace
 ``modeladmin.views.EditView``
 
 See the following part of the docs to find out more:
@@ -145,7 +145,7 @@ See the following part of the docs to find out more:
 ``ModelAdmin.delete_view_class``
 -----------------------------------
 
-**Expected value**: A custom ``view`` class to replace 
+**Expected value**: A custom ``view`` class to replace
 ``modeladmin.views.DeleteView``
 
 See the following part of the docs to find out more:
