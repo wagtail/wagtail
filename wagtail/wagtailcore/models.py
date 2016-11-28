@@ -31,6 +31,7 @@ from django.utils.translation import ugettext_lazy as _
 from modelcluster.models import ClusterableModel, get_all_child_relations
 from treebeard.mp_tree import MP_Node
 
+from wagtail.utils.compat import user_is_authenticated
 from wagtail.wagtailcore.query import PageQuerySet, TreeQuerySet
 from wagtail.wagtailcore.signals import page_published, page_unpublished
 from wagtail.wagtailcore.url_routing import RouteResult
@@ -1832,6 +1833,25 @@ class PageViewRestriction(models.Model):
     )
     password = models.CharField(verbose_name=_('password'), max_length=255, blank=True)
     groups = models.ManyToManyField(Group, blank=True)
+
+    def accept_request(self, request):
+        if self.restriction_type == PageViewRestriction.PASSWORD:
+            passed_restrictions = request.session.get('passed_page_view_restrictions', [])
+            if self.id not in passed_restrictions:
+                return False
+
+        elif self.restriction_type == PageViewRestriction.LOGIN:
+            if not user_is_authenticated(request.user):
+                return False
+
+        elif self.restriction_type == PageViewRestriction.GROUPS:
+            if not request.user.is_superuser:
+                current_user_groups = request.user.groups.all()
+
+                if not any(group in current_user_groups for group in self.groups.all()):
+                    return False
+
+        return True
 
     class Meta:
         verbose_name = _('page view restriction')
