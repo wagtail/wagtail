@@ -78,7 +78,7 @@ Here's an example of how this could be implemented (with English as the main lan
             This returns the language code for this page.
             """
             # Look through ancestors of this page for its language homepage
-            # The language homepage is located at depth 3 
+            # The language homepage is located at depth 3
             language_homepage = self.get_ancestors(inclusive=True).get(depth=3)
 
             # The slug of language homepages should always be set to the language code

@@ -13,17 +13,19 @@ We have tried to minimise external dependencies for a working installation of Wa
 Cache
 -----
 
-We recommend `Redis <http://redis.io/>`_ as a fast, persistent cache. Install Redis through your package manager (on Debian or Ubuntu: ``sudo apt-get install redis-server``), add ``django-redis`` to your ``requirements.txt``, and enable it as a cache backend::
+We recommend `Redis <http://redis.io/>`_ as a fast, persistent cache. Install Redis through your package manager (on Debian or Ubuntu: ``sudo apt-get install redis-server``), add ``django-redis`` to your ``requirements.txt``, and enable it as a cache backend:
 
-	CACHES = {
-	    'default': {
-	        'BACKEND': 'django_redis.cache.RedisCache',
-	        'LOCATION': '127.0.0.1:6379',
-	        'OPTIONS': {
-	            'CLIENT_CLASS': 'django_redis.client.DefaultClient',
-	        }
-	    }
-	}
+.. code-block:: python
+
+    CACHES = {
+        'default': {
+            'BACKEND': 'django_redis.cache.RedisCache',
+            'LOCATION': '127.0.0.1:6379',
+            'OPTIONS': {
+                'CLIENT_CLASS': 'django_redis.client.DefaultClient',
+            }
+        }
+    }
 
 
 Search
@@ -31,11 +33,15 @@ Search
 
 Wagtail has strong support for `Elasticsearch <http://www.elasticsearch.org/>`_ - both in the editor interface and for users of your site - but can fall back to a database search if Elasticsearch isn't present. Elasticsearch is faster and more powerful than the Django ORM for text search, so we recommend installing it or using a hosted service like `Searchly <http://www.searchly.com/>`_.
 
-Once the Elasticsearch server is installed and running. Install the ``elasticsearch`` Python module with::
+Once the Elasticsearch server is installed and running. Install the ``elasticsearch`` Python module with:
 
-    pip install elasticsearch
+.. code-block:: console
 
-then add the following to your settings::
+    $ pip install elasticsearch
+
+then add the following to your settings:
+
+.. code-block:: python
 
     WAGTAILSEARCH_BACKENDS = {
         'default': {
@@ -44,9 +50,11 @@ then add the following to your settings::
         },
     }
 
-Once Elasticsearch is configured, you can index any existing content you may have::
+Once Elasticsearch is configured, you can index any existing content you may have:
 
-    ./manage.py update_index
+.. code-block:: console
+
+    $ ./manage.py update_index
 
 
 Database
@@ -58,18 +66,20 @@ Wagtail is tested on SQLite, and should work on other Django-supported database 
 Templates
 ---------
 
-The overhead from reading and compiling templates can add up. In some cases a significant performance improvement can be gained by using `Django's cached template loader <https://docs.djangoproject.com/en/1.10/ref/templates/api/#django.template.loaders.cached.Loader>`_::
+The overhead from reading and compiling templates can add up. In some cases a significant performance improvement can be gained by using `Django's cached template loader <https://docs.djangoproject.com/en/1.10/ref/templates/api/#django.template.loaders.cached.Loader>`_:
+
+.. code-block:: python
 
     TEMPLATES = [{
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [os.path.join(BASE_DIR, 'templates')],
         'OPTIONS': {
-	    'loaders': [
-	        ('django.template.loaders.cached.Loader', [
-		    'django.template.loaders.filesystem.Loader',
-		    'django.template.loaders.app_directories.Loader',
-	        ]),
-	    ],
+        'loaders': [
+            ('django.template.loaders.cached.Loader', [
+            'django.template.loaders.filesystem.Loader',
+            'django.template.loaders.app_directories.Loader',
+            ]),
+        ],
         },
     }]
 

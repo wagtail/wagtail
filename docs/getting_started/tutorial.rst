@@ -4,14 +4,18 @@ Your first Wagtail site
 .. note::
    This tutorial covers setting up a brand new Wagtail project. If you'd like to add Wagtail to an existing Django project instead, see :doc:`integrating_into_django`.
 
-1. Install Wagtail and its dependencies::
+1. Install Wagtail and its dependencies:
 
-    pip install wagtail
+   .. code-block:: console
 
-2. Start your site::
+       $ pip install wagtail
 
-    wagtail start mysite
-    cd mysite
+2. Start your site:
+
+   .. code-block:: console
+
+       $ wagtail start mysite
+       $ cd mysite
 
    Wagtail provides a ``start`` command similar to
    ``django-admin.py startproject``. Running ``wagtail start mysite`` in
@@ -20,22 +24,28 @@ Your first Wagtail site
    "home" app with a blank ``HomePage`` model and basic templates and a sample
    "search" app.
 
-3. Install project dependencies::
+3. Install project dependencies:
 
-    pip install -r requirements.txt
+   .. code-block:: console
+
+       $ pip install -r requirements.txt
 
    This ensures that you have the relevant version of Django for the project you've just created.
 
-4. Create the database::
+4. Create the database:
 
-    python manage.py migrate
+   .. code-block:: console
+
+       $ python manage.py migrate
 
    If you haven't updated the project settings, this will be a SQLite
    database file in the project directory.
 
-5. Create an admin user::
+5. Create an admin user:
 
-    python manage.py createsuperuser
+   .. code-block:: console
+
+       $ python manage.py createsuperuser
 
 6. ``python manage.py runserver`` If everything worked,
    http://127.0.0.1:8000 will show you a welcome page

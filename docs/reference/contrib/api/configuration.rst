@@ -30,7 +30,7 @@ You can add more fields to the pages endpoint by setting an attribute called ``a
 
 .. code-block:: python
 
-    class BlogPage(Page):  
+    class BlogPage(Page):
         posted_by = models.CharField()
         posted_at = models.DateTimeField()
         content = RichTextField()
@@ -48,7 +48,7 @@ This list also supports child relations (which will be nested inside the returne
 
         api_fields = ['link']
 
-    class BlogPage(Page):  
+    class BlogPage(Page):
         posted_by = models.CharField()
         posted_at = models.DateTimeField()
         content = RichTextField()

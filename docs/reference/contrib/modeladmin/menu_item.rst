@@ -17,7 +17,7 @@ alter the menu item used to represent your model in Wagtail's admin area.
 
 **Expected value**: A string.
 
-Set this attribute to a string value to override the label used for the menu 
+Set this attribute to a string value to override the label used for the menu
 item that appears in Wagtail's sidebar. If not set, the menu item will use
 ``verbose_name_plural`` from your model's ``Meta`` data.
 
@@ -36,7 +36,7 @@ sidebar, and will also appear in the header on the list page and other views
 for your model. If not set, ``'doc-full-inverse'`` will be used for
 page-type models, and ``'snippet'`` for others.
 
-If you're using a ``ModelAdminGroup`` class to group together several 
+If you're using a ``ModelAdminGroup`` class to group together several
 ``ModelAdmin`` classes in their own sub-menu, and want to change the menu item
 used to represent the group, you should override the ``menu_icon`` attribute on
 your ``ModelAdminGroup`` class (``'icon-folder-open-inverse'`` is the default).
@@ -67,7 +67,7 @@ greater than that if you wish to keep the explorer menu item at the top.
 
 If you'd like the menu item for your model to appear in Wagtail's 'Settings'
 sub-menu instead of at the top level, add ``add_to_setings_menu = True`` to
-your ``ModelAdmin`` class. 
+your ``ModelAdmin`` class.
 
 This will only work for indivdual ``ModelAdmin`` classes registered with their
 own ``modeladmin_register`` call. It won't work for members of a

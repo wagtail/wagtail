@@ -27,7 +27,7 @@ do, modeladmin offers the following attributes that you can override:
 ``ModelAdmin.choose_parent_template_name``
 ------------------------------------------
 
-**Expected value**: The path to a custom template to use for 
+**Expected value**: The path to a custom template to use for
 ``ChooseParentView``
 
 See the following part of the docs to find out more:
@@ -39,7 +39,7 @@ See the following part of the docs to find out more:
 ``ModelAdmin.choose_parent_view_class``
 ------------------------------------------
 
-**Expected value**: A custom ``view`` class to replace 
+**Expected value**: A custom ``view`` class to replace
 ``modeladmin.views.ChooseParentView``
 
 See the following part of the docs to find out more:

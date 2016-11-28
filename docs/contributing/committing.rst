@@ -10,8 +10,8 @@ by at least one other reviewer or committer,
 unless the change is a small documentation change or fixing a typo.
 
 Most code contributions will be in the form of pull requests from Github.
-Pull requests should not be merged from Github, apart from small documentation fixes, 
-which can be merged with the 'Squash and merge' option. Instead, the code should 
+Pull requests should not be merged from Github, apart from small documentation fixes,
+which can be merged with the 'Squash and merge' option. Instead, the code should
 be checked out by a committer locally, the changes examined and rebased,
 the ``CHANGELOG.txt`` and release notes updated,
 and finally the code should be pushed to the master branch.
@@ -42,16 +42,16 @@ You can fix up any small mistakes in the commits,
 such as typos and formatting, as part of the rebase.
 ``git rebase --interactive`` is an excellent tool for this job.
 
-.. code-block:: sh
+.. code-block:: console
 
-    # Get the latest commits from Wagtail
+    $ # Get the latest commits from Wagtail
     $ git fetch upstream
     $ git checkout master
     $ git merge --ff-only upstream/master
-    # Rebase this pull request on to master
+    $ # Rebase this pull request on to master
     $ git checkout pr/xxxx
     $ git rebase master
-    # Update master to this commit
+    $ # Update master to this commit
     $ git checkout master
     $ git merge --ff-only pr/xxxx
 
@@ -92,7 +92,7 @@ If the changes to be merged are small enough to be a single commit,
 amend this single commit with the additions to
 the ``CHANGELOG.txt``, release notes, and contributors:
 
-.. code-block:: sh
+.. code-block:: console
 
     $ git add CHANGELOG.txt docs/releases/x.x.x.rst CONTRIBUTORS.rst
     $ git commit --amend --no-edit
@@ -101,7 +101,7 @@ If the changes do not fit in a single commit, make a new commit with the updates
 the ``CHANGELOG.txt``, release notes, and contributors.
 The commit message should say ``Release notes for #xxxx``:
 
-.. code-block:: sh
+.. code-block:: console
 
     $ git add CHANGELOG.txt docs/releases/x.x.x.rst CONTRIBUTORS.rst
     $ git commit -m 'Release notes for #xxxx'
@@ -111,11 +111,11 @@ Push to master
 
 The changes are ready to be pushed to ``master`` now.
 
-.. code-block:: sh
+.. code-block:: console
 
-    # Check that everything looks OK
+    $ # Check that everything looks OK
     $ git log upstream/master..master --oneline
     $ git push --dry-run upstream master
-    # Push the commits!
+    $ # Push the commits!
     $ git push upstream master
     $ git branch -d pr/xxxx

@@ -12,17 +12,12 @@ Page permissions
 
 Permissions can be attached at any point in the page tree, and propagate down the tree. For example, if a site had the page tree::
 
-    MegaCorp
-     |
-     |-- About us
-     |
-      -- Offices
-         |
-         |- UK
-         |
-         |- France
-         |
-         |- Germany
+    MegaCorp/
+        About us
+        Offices/
+            UK
+            France
+            Germany
 
 then a group with 'edit' permissions on the 'Offices' page would automatically receive the ability to edit the 'UK', 'France' and 'Germany' pages. Permissions can be set globally for the entire tree by assigning them on the 'root' page - since all pages must exist underneath the root node, and the root cannot be deleted, this permission will cover all pages that exist now and in future.
 

@@ -70,7 +70,9 @@ Upgrade considerations
 Addition of ``wagtailsites`` app
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-The Sites administration interface is contained within a new app, ``wagtailsites``. To enable this on an existing Wagtail project, add the line::
+The Sites administration interface is contained within a new app, ``wagtailsites``. To enable this on an existing Wagtail project, add the line:
+
+.. code-block:: python
 
     'wagtail.wagtailsites',
 
