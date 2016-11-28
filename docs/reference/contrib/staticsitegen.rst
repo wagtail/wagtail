@@ -12,9 +12,9 @@ Installing ``django-medusa``
 
 First, install ``django-medusa`` and ``django-sendfile`` from pip:
 
-.. code-block:: sh
+.. code-block:: console
 
-    pip install django-medusa django-sendfile
+    $ pip install django-medusa django-sendfile
 
 Then add ``django_medusa`` and ``wagtail.contrib.wagtailmedusa`` to ``INSTALLED_APPS``:
 
