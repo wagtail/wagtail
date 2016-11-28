@@ -6,7 +6,7 @@ from django import forms
 from django.contrib.staticfiles.templatetags.staticfiles import static
 from django.core.exceptions import NON_FIELD_ERRORS, ValidationError
 from django.forms.utils import ErrorList
-from django.template.loader import render_to_string
+from django.template.loader import get_template
 # Must be imported from Django so we get the new implementation of with_metaclass
 from django.utils import six
 from django.utils.encoding import python_2_unicode_compatible
@@ -19,6 +19,10 @@ from .base import Block, BoundBlock, DeclarativeSubBlocksMetaclass
 from .utils import indent, js_dict
 
 __all__ = ['BaseStreamBlock', 'StreamBlock', 'StreamValue', 'StreamBlockValidationError']
+
+
+STREAM_MEMBER_TEMPLATE = None
+STREAM_TEMPLATE = None
 
 
 class StreamBlockValidationError(ValidationError):
@@ -64,9 +68,15 @@ class BaseStreamBlock(Block):
         Render the HTML for a single list item. This consists of an <li> wrapper, hidden fields
         to manage ID/deleted state/type, delete/reorder buttons, and the child block's own HTML.
         """
+        global STREAM_MEMBER_TEMPLATE
+
         child_block = self.child_blocks[block_type_name]
         child = child_block.bind(value, prefix="%s-value" % prefix, errors=errors)
-        return render_to_string('wagtailadmin/block_forms/stream_member.html', {
+
+        if STREAM_MEMBER_TEMPLATE is None:
+            STREAM_MEMBER_TEMPLATE = get_template('wagtailadmin/block_forms/stream_member.html')
+
+        return STREAM_MEMBER_TEMPLATE.render({
             'child_blocks': self.child_blocks.values(),
             'block_type_name': block_type_name,
             'prefix': prefix,
@@ -115,6 +125,8 @@ class BaseStreamBlock(Block):
         return "StreamBlock(%s)" % js_dict(opts)
 
     def render_form(self, value, prefix='', errors=None):
+        global STREAM_TEMPLATE
+
         error_dict = {}
         if errors:
             if len(errors) > 1:
@@ -137,7 +149,10 @@ class BaseStreamBlock(Block):
             for (i, child) in enumerate(valid_children)
         ]
 
-        return render_to_string('wagtailadmin/block_forms/stream.html', {
+        if STREAM_TEMPLATE is None:
+            STREAM_TEMPLATE = get_template('wagtailadmin/block_forms/stream.html')
+
+        return STREAM_TEMPLATE.render({
             'prefix': prefix,
             'list_members_html': list_members_html,
             'child_blocks': self.child_blocks.values(),
