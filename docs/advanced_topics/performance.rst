@@ -13,7 +13,9 @@ We have tried to minimise external dependencies for a working installation of Wa
 Cache
 -----
 
-We recommend `Redis <http://redis.io/>`_ as a fast, persistent cache. Install Redis through your package manager (on Debian or Ubuntu: ``sudo apt-get install redis-server``), add ``django-redis`` to your ``requirements.txt``, and enable it as a cache backend::
+We recommend `Redis <http://redis.io/>`_ as a fast, persistent cache. Install Redis through your package manager (on Debian or Ubuntu: ``sudo apt-get install redis-server``), add ``django-redis`` to your ``requirements.txt``, and enable it as a cache backend:
+
+.. code-block:: python
 
 	CACHES = {
 	    'default': {
@@ -33,9 +35,9 @@ Wagtail has strong support for `Elasticsearch <http://www.elasticsearch.org/>`_ 
 
 Once the Elasticsearch server is installed and running. Install the ``elasticsearch`` Python module with::
 
-    pip install elasticsearch
+then add the following to your settings:
 
-then add the following to your settings::
+.. code-block:: python
 
     WAGTAILSEARCH_BACKENDS = {
         'default': {
@@ -58,7 +60,9 @@ Wagtail is tested on SQLite, and should work on other Django-supported database 
 Templates
 ---------
 
-The overhead from reading and compiling templates can add up. In some cases a significant performance improvement can be gained by using `Django's cached template loader <https://docs.djangoproject.com/en/1.10/ref/templates/api/#django.template.loaders.cached.Loader>`_::
+The overhead from reading and compiling templates can add up. In some cases a significant performance improvement can be gained by using `Django's cached template loader <https://docs.djangoproject.com/en/1.10/ref/templates/api/#django.template.loaders.cached.Loader>`_:
+
+.. code-block:: python
 
     TEMPLATES = [{
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
