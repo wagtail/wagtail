@@ -70,9 +70,6 @@ The search may not return any results while this command is running, so avoid ru
 Specifying which backend to update
 ``````````````````````````````````
 
-.. versionadded:: 0.7
-
-
 By default, ``update_index`` will rebuild all the search indexes listed in ``WAGTAILSEARCH_BACKENDS``.
 
 If you have multiple backends and would only like to update one of them, you can use the ``--backend`` option.
@@ -86,8 +83,6 @@ For example, to update just the default backend:
 
 Indexing the schema only
 ````````````````````````
-
-.. versionadded:: 1.5
 
 You can prevent the ``update_index`` command from indexing any data by using the ``--schema-only`` option:
 
