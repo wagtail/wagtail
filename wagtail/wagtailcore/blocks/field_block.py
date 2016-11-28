@@ -139,6 +139,18 @@ class TextBlock(FieldBlock):
         icon = "pilcrow"
 
 
+class BlockQuoteBlock(TextBlock):
+
+    def render_basic(self, value, context=None):
+        if value:
+            return format_html('<blockquote>{0}</blockquote>', value)
+        else:
+            return ''
+
+    class Meta:
+        icon = "openquote"
+
+
 class FloatBlock(FieldBlock):
 
     def __init__(self, required=True, max_value=None, min_value=None, *args,
@@ -600,7 +612,7 @@ block_classes = [
     FieldBlock, CharBlock, URLBlock, RichTextBlock, RawHTMLBlock, ChooserBlock,
     PageChooserBlock, TextBlock, BooleanBlock, DateBlock, TimeBlock,
     DateTimeBlock, ChoiceBlock, EmailBlock, IntegerBlock, FloatBlock,
-    DecimalBlock, RegexBlock
+    DecimalBlock, RegexBlock, BlockQuoteBlock
 ]
 DECONSTRUCT_ALIASES = {
     cls: 'wagtail.wagtailcore.blocks.%s' % cls.__name__

@@ -41,6 +41,7 @@ Minor features
  * ``PageChooserBlock`` now accepts a ``target_model`` option to specify the required page type (Tim Heap)
  * Modeladmin forms now respect ``fields`` / ``exclude`` options passed on custom model forms (Thejaswi Puthraya)
  * Added new StreamField block type ``StaticBlock`` for blocks that occupy a position in a stream but otherwise have no configuration; see :ref:`streamfield_staticblock` (Benoît Vogel)
+ * Added new StreamField block type ``BlockQuoteBlock`` (Scot Hacker)
  * Updated Cloudflare cache module to use the v4 API (Albert O'Connor)
  * Added ``exclude_from_explorer`` attribute to the ``ModelAdmin`` class to allow hiding instances of a page type from Wagtail's explorer views (Andy Babic)
  * Added ``above_login``, ``below_login``, ``fields`` and ``login_form`` customisation blocks to the login page template - see :doc:`/advanced_topics/customisation/admin_templates` (Tim Heap)

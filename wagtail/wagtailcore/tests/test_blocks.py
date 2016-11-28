@@ -221,6 +221,14 @@ class TestEmailBlock(unittest.TestCase):
             block.clean("example.email.com")
 
 
+class TestBlockQuoteBlock(unittest.TestCase):
+    def test_render(self):
+        block = blocks.BlockQuoteBlock()
+        quote = block.render("Now is the time...")
+
+        self.assertEqual(quote, "<blockquote>Now is the time...</blockquote>")
+
+
 class TestFloatBlock(TestCase):
     def test_type(self):
         block = blocks.FloatBlock()
