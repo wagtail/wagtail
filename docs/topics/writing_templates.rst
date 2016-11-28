@@ -85,7 +85,9 @@ Images (tag)
 
 The ``image`` tag inserts an XHTML-compatible ``img`` element into the page, setting its ``src``, ``width``, ``height`` and ``alt``. See also :ref:`image_tag_alt`.
 
-The syntax for the ``image`` tag is thus::
+The syntax for the ``image`` tag is thus:
+
+.. code-block:: html+django
 
     {% image [image] [resize-rule] %}
 

@@ -72,18 +72,24 @@ This change shouldn't affect most people as ``SearchResults`` behaves very simil
 Removal of validate_image_format from custom image model migrations (Django 1.7+)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-If your project is running on Django 1.7, and you have defined a custom image model (by extending the ``wagtailimages.AbstractImage`` class), the migration that creates this model will probably have a reference to ``wagtail.wagtailimages.utils.validators.validate_image_format``. This module has now been removed, which will cause ``manage.py migrate`` to fail with an ``ImportError`` (even if the migration has already been applied). You will need to edit the migration file to remove the line::
+If your project is running on Django 1.7, and you have defined a custom image model (by extending the ``wagtailimages.AbstractImage`` class), the migration that creates this model will probably have a reference to ``wagtail.wagtailimages.utils.validators.validate_image_format``. This module has now been removed, which will cause ``manage.py migrate`` to fail with an ``ImportError`` (even if the migration has already been applied). You will need to edit the migration file to remove the line:
+
+.. code-block:: python
 
     import wagtail.wagtailimages.utils.validators
 
-and the ``validators`` attribute of the 'file' field - that is, the line::
+and the ``validators`` attribute of the 'file' field - that is, the line:
+
+.. code-block:: python
 
     ('file', models.ImageField(upload_to=wagtail.wagtailimages.models.get_upload_to,
         width_field='width', height_field='height',
         validators=[wagtail.wagtailimages.utils.validators.validate_image_format],
         verbose_name='File')),
 
-should become::
+should become:
+
+    .. code-block:: python
 
     ('file', models.ImageField(upload_to=wagtail.wagtailimages.models.get_upload_to,
         width_field='width', height_field='height', verbose_name='File')),
