@@ -190,6 +190,14 @@ A text area for entering raw HTML which will be rendered unescaped in the page o
 .. WARNING::
    When this block is in use, there is nothing to prevent editors from inserting malicious scripts into the page, including scripts that would allow the editor to acquire administrator privileges when another administrator views the page. Do not use this block unless your editors are fully trusted.
 
+BlockQuoteBlock
+~~~~~~~~~~~~~~~
+
+``wagtail.wagtailcore.blocks.BlockQuoteBlock``
+
+A text field, the contents of which will be wrapped in an HTML `<blockquote>` tag pair. The keyword arguments ``required``, ``max_length``, ``min_length`` and ``help_text`` are accepted.
+
+
 ChoiceBlock
 ~~~~~~~~~~~
 
