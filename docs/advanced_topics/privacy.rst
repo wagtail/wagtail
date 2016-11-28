@@ -87,5 +87,5 @@ The attribute ``password_required_template`` can be defined on a page model to u
 
     class VideoPage(Page):
         ...
-        
+
         password_required_template = 'video/password_required.html'

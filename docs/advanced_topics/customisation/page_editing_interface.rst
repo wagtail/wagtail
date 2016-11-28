@@ -102,7 +102,7 @@ To begin, import the ``Format`` class, ``register_image_format`` function, and o
   The label used in the chooser form when inserting the image into the :class:`~wagtail.wagtailcore.fields.RichTextField`.
 
 ``classnames``
-  The string to assign to the ``class`` attribute of the generated ``<img>`` tag. 
+  The string to assign to the ``class`` attribute of the generated ``<img>`` tag.
 
   .. note::
     Any class names you provide must have CSS rules matching them written separately, as part of the front end CSS code. Specifying a ``classnames`` value of ``left`` will only ensure that class is output in the generated markup, it won't cause the image to align itself left.

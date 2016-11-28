@@ -17,15 +17,15 @@ We recommend `Redis <http://redis.io/>`_ as a fast, persistent cache. Install Re
 
 .. code-block:: python
 
-	CACHES = {
-	    'default': {
-	        'BACKEND': 'django_redis.cache.RedisCache',
-	        'LOCATION': '127.0.0.1:6379',
-	        'OPTIONS': {
-	            'CLIENT_CLASS': 'django_redis.client.DefaultClient',
-	        }
-	    }
-	}
+    CACHES = {
+        'default': {
+            'BACKEND': 'django_redis.cache.RedisCache',
+            'LOCATION': '127.0.0.1:6379',
+            'OPTIONS': {
+                'CLIENT_CLASS': 'django_redis.client.DefaultClient',
+            }
+        }
+    }
 
 
 Search
@@ -74,12 +74,12 @@ The overhead from reading and compiling templates can add up. In some cases a si
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [os.path.join(BASE_DIR, 'templates')],
         'OPTIONS': {
-	    'loaders': [
-	        ('django.template.loaders.cached.Loader', [
-		    'django.template.loaders.filesystem.Loader',
-		    'django.template.loaders.app_directories.Loader',
-	        ]),
-	    ],
+        'loaders': [
+            ('django.template.loaders.cached.Loader', [
+            'django.template.loaders.filesystem.Loader',
+            'django.template.loaders.app_directories.Loader',
+            ]),
+        ],
         },
     }]
 
