@@ -242,12 +242,20 @@ class ButtonHelper(object):
         self.permission_helper = view.permission_helper
         self.url_helper = view.url_helper
 
-    def finalise_classname(self, classnames_add=[None], classnames_exclude=[None]):
+    def finalise_classname(self, classnames_add=None, classnames_exclude=None):
+        if classnames_add is None:
+            classnames_add = []
+        if classnames_exclude is None:
+            classnames_exclude = []
         combined = self.default_button_classnames + classnames_add
         finalised = [cn for cn in combined if cn not in classnames_exclude]
         return ' '.join(finalised)
 
-    def add_button(self, classnames_add=[None], classnames_exclude=[None]):
+    def add_button(self, classnames_add=None, classnames_exclude=None):
+        if classnames_add is None:
+            classnames_add = []
+        if classnames_exclude is None:
+            classnames_exclude = []
         classnames = self.add_button_classnames + classnames_add
         cn = self.finalise_classname(classnames, classnames_exclude)
         return {
@@ -257,7 +265,11 @@ class ButtonHelper(object):
             'title': _('Add a new %s') % self.verbose_name,
         }
 
-    def inspect_button(self, pk, classnames_add=[None], classnames_exclude=[None]):
+    def inspect_button(self, pk, classnames_add=None, classnames_exclude=None):
+        if classnames_add is None:
+            classnames_add = []
+        if classnames_exclude is None:
+            classnames_exclude = []
         classnames = self.inspect_button_classnames + classnames_add
         cn = self.finalise_classname(classnames, classnames_exclude)
         return {
@@ -267,7 +279,11 @@ class ButtonHelper(object):
             'title': _('Inspect this %s') % self.verbose_name,
         }
 
-    def edit_button(self, pk, classnames_add=[None], classnames_exclude=[None]):
+    def edit_button(self, pk, classnames_add=None, classnames_exclude=None):
+        if classnames_add is None:
+            classnames_add = []
+        if classnames_exclude is None:
+            classnames_exclude = []
         classnames = self.edit_button_classnames + classnames_add
         cn = self.finalise_classname(classnames, classnames_exclude)
         return {
@@ -277,7 +293,11 @@ class ButtonHelper(object):
             'title': _('Edit this %s') % self.verbose_name,
         }
 
-    def delete_button(self, pk, classnames_add=[None], classnames_exclude=[None]):
+    def delete_button(self, pk, classnames_add=None, classnames_exclude=None):
+        if classnames_add is None:
+            classnames_add = []
+        if classnames_exclude is None:
+            classnames_exclude = []
         classnames = self.delete_button_classnames + classnames_add
         cn = self.finalise_classname(classnames, classnames_exclude)
         return {
@@ -287,8 +307,14 @@ class ButtonHelper(object):
             'title': _('Delete this %s') % self.verbose_name,
         }
 
-    def get_buttons_for_obj(self, obj, exclude=[None], classnames_add=[None],
-                            classnames_exclude=[None]):
+    def get_buttons_for_obj(self, obj, exclude=None, classnames_add=None,
+                            classnames_exclude=None):
+        if exclude is None:
+            exclude = []
+        if classnames_add is None:
+            classnames_add = []
+        if classnames_exclude is None:
+            classnames_exclude = []
         ph = self.permission_helper
         usr = self.request.user
         pk = quote(getattr(obj, self.opts.pk.attname))
@@ -313,7 +339,11 @@ class PageButtonHelper(ButtonHelper):
     unpublish_button_classnames = []
     copy_button_classnames = []
 
-    def unpublish_button(self, pk, classnames_add=[None], classnames_exclude=[None]):
+    def unpublish_button(self, pk, classnames_add=None, classnames_exclude=None):
+        if classnames_add is None:
+            classnames_add = []
+        if classnames_exclude is None:
+            classnames_exclude = []
         classnames = self.unpublish_button_classnames + classnames_add
         cn = self.finalise_classname(classnames, classnames_exclude)
         return {
@@ -323,7 +353,11 @@ class PageButtonHelper(ButtonHelper):
             'title': _('Unpublish this %s') % self.verbose_name,
         }
 
-    def copy_button(self, pk, classnames_add=[None], classnames_exclude=[None]):
+    def copy_button(self, pk, classnames_add=None, classnames_exclude=None):
+        if classnames_add is None:
+            classnames_add = []
+        if classnames_exclude is None:
+            classnames_exclude = []
         classnames = self.copy_button_classnames + classnames_add
         cn = self.finalise_classname(classnames, classnames_exclude)
         return {
@@ -333,8 +367,14 @@ class PageButtonHelper(ButtonHelper):
             'title': _('Copy this %s') % self.verbose_name,
         }
 
-    def get_buttons_for_obj(self, obj, exclude=[None], classnames_add=[None],
-                            classnames_exclude=[None]):
+    def get_buttons_for_obj(self, obj, exclude=None, classnames_add=None,
+                            classnames_exclude=None):
+        if exclude is None:
+            exclude = []
+        if classnames_add is None:
+            classnames_add = []
+        if classnames_exclude is None:
+            classnames_exclude = []
         ph = self.permission_helper
         usr = self.request.user
         pk = quote(getattr(obj, self.opts.pk.attname))
