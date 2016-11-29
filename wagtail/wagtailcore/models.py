@@ -36,7 +36,7 @@ from wagtail.wagtailcore.query import PageQuerySet, TreeQuerySet
 from wagtail.wagtailcore.signals import page_published, page_unpublished
 from wagtail.wagtailcore.url_routing import RouteResult
 from wagtail.wagtailcore.utils import (
-    WAGTAIL_APPEND_SLASH, camelcase_to_underscore, resolve_model_string)
+    WAGTAIL_APPEND_SLASH, accepts_kwarg, camelcase_to_underscore, resolve_model_string)
 from wagtail.wagtailsearch import index
 
 logger = logging.getLogger('wagtail.core')
@@ -784,7 +784,7 @@ class Page(six.with_metaclass(PageBase, AbstractPage, index.Indexed, Clusterable
         """
         return (not self.is_leaf()) or self.depth == 2
 
-    def get_url_parts(self):
+    def get_url_parts(self, hints=None):
         """
         Determine the URL for this page and return it as a tuple of
         ``(site_id, site_root_url, page_url_relative_to_site_root)``.
@@ -795,7 +795,12 @@ class Page(six.with_metaclass(PageBase, AbstractPage, index.Indexed, Clusterable
         should override this method in order to have those operations return
         the custom URLs.
         """
-        for (site_id, root_path, root_url) in Site.get_site_root_paths():
+        if hints is not None and 'site_root_paths' in hints:
+            site_root_paths = hints['site_root_paths']
+        else:
+            site_root_paths = Site.get_site_root_paths()
+
+        for (site_id, root_path, root_url) in site_root_paths:
             if self.url_path.startswith(root_path):
                 page_path = reverse('wagtail_serve', args=(self.url_path[len(root_path):],))
 
@@ -844,13 +849,16 @@ class Page(six.with_metaclass(PageBase, AbstractPage, index.Indexed, Clusterable
         else:
             return root_url + page_path
 
-    def relative_url(self, current_site):
+    def relative_url(self, current_site, hints=None):
         """
         Return the 'most appropriate' URL for this page taking into account the site we're currently on;
         a local URL if the site matches, or a fully qualified one otherwise.
         Return None if the page is not routable.
         """
-        url_parts = self.get_url_parts()
+        if accepts_kwarg(self.get_url_parts, 'hints'):
+            url_parts = self.get_url_parts(hints=hints)
+        else:
+            url_parts = self.get_url_parts()
 
         if url_parts is None:
             # page is not routable
