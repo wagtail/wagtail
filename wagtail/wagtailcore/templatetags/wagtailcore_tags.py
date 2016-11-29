@@ -8,6 +8,7 @@ from django.utils.safestring import mark_safe
 from wagtail import __version__
 from wagtail.wagtailcore.models import Page
 from wagtail.wagtailcore.rich_text import RichText, expand_db_html
+from wagtail.wagtailcore.utils import accepts_kwarg
 
 register = template.Library()
 
@@ -24,7 +25,16 @@ def pageurl(context, page):
         # request.site not available in the current context; fall back on page.url
         return page.url
 
-    return page.relative_url(current_site)
+    # RemovedInWagtail113Warning - this accepts_kwarg test can be removed when we drop support
+    # for relative_url methods which omit the `request` kwarg
+    if accepts_kwarg(page.relative_url, 'request'):
+        # Pass page.relative_url the request object, which may contain a cached copy of
+        # Site.get_site_root_paths()
+        # This avoids page.relative_url having to make a database/cache fetch for this list
+        # each time it's called.
+        return page.relative_url(current_site, request=context.get('request'))
+    else:
+        return page.relative_url(current_site)
 
 
 @register.simple_tag(takes_context=True)
@@ -32,7 +42,10 @@ def slugurl(context, slug):
     """Returns the URL for the page that has the given slug."""
     page = Page.objects.filter(slug=slug).first()
 
-    if not page:
+    if page:
+        # call pageurl() instead of page.relative_url() here so we get the ``accepts_kwarg`` logic
+        return pageurl(context, page)
+    else:
         return None
 
     try:
