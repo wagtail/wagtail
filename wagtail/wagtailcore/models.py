@@ -825,6 +825,8 @@ class Page(six.with_metaclass(PageBase, AbstractPage, index.Indexed, Clusterable
         of data that may be used to avoid repeated database / cache lookups; see ``get_url_parts``
         for details.
         """
+        # RemovedInWagtail110Warning - this accepts_kwarg test can be removed when we drop support
+        # for get_url_parts methods which omit the `hints` kwarg
         if accepts_kwarg(self.get_url_parts, 'hints'):
             url_parts = self.get_url_parts(hints=hints)
         else:
