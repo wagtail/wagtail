@@ -6,8 +6,9 @@ from django.utils.encoding import force_text
 from django.utils.safestring import mark_safe
 
 from wagtail import __version__
-from wagtail.wagtailcore.models import Page
+from wagtail.wagtailcore.models import Page, Site
 from wagtail.wagtailcore.rich_text import RichText, expand_db_html
+from wagtail.wagtailcore.utils import accepts_kwarg
 
 register = template.Library()
 
@@ -24,7 +25,22 @@ def pageurl(context, page):
         # request.site not available in the current context; fall back on page.url
         return page.url
 
-    return page.relative_url(current_site)
+    if accepts_kwarg(page.relative_url, 'hints'):
+        # Pass page.relative_url a hints dictionary containing a 'site_root_paths' list
+        # which we obtain from Site.get_site_root_paths() and cache in the request object.
+        # This avoids page.relative_url having to make a database/cache fetch for this list
+        # each time it's called.
+        try:
+            site_root_paths = context['request'].wagtail_site_root_paths
+        except AttributeError:
+            site_root_paths = Site.get_site_root_paths()
+            context['request'].wagtail_site_root_paths = site_root_paths
+
+        return page.relative_url(current_site, hints={
+            'site_root_paths': site_root_paths
+        })
+    else:
+        return page.relative_url(current_site)
 
 
 @register.simple_tag(takes_context=True)
@@ -32,7 +48,9 @@ def slugurl(context, slug):
     """Returns the URL for the page that has the given slug."""
     page = Page.objects.filter(slug=slug).first()
 
-    if not page:
+    if page:
+        return pageurl(context, page)
+    else:
         return None
 
     try:
