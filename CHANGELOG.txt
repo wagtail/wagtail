@@ -33,6 +33,7 @@ Changelog
  * Fix: `search_garbage_collect` management command now works when wagtailsearchpromotions is not installed (Morgan Aubert)
  * Fix: `wagtail.contrib.settings` context processor no longer fails when `request.site` is unavailable (Diederik van der Boor)
  * Fix: `TableBlock` content is now indexed for search (Morgan Aubert)
+ * Fix: `Page.copy()` is now marked as `alters_data`, to prevent template code from triggering it (Diederik van der Boor)
 
 
 1.7 (20.10.2016)

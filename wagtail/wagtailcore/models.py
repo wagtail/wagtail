@@ -1182,6 +1182,8 @@ class Page(six.with_metaclass(PageBase, AbstractPage, index.Indexed, Clusterable
 
         return page_copy
 
+    copy.alters_data = True
+
     def permissions_for_user(self, user):
         """
         Return a PagePermissionsTester object defining what actions the user can perform on this page
