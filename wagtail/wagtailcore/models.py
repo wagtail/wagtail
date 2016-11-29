@@ -794,6 +794,14 @@ class Page(six.with_metaclass(PageBase, AbstractPage, index.Indexed, Clusterable
         and ``get_site`` properties and methods; pages with custom URL routing
         should override this method in order to have those operations return
         the custom URLs.
+
+        Accepts an optional keyword argument ``hints``, a dict of data that may
+        be used to avoid repeated database / cache lookups. Currently the only
+        recognised item in this dict is ``site_root_paths``, a copy of the site
+        records list returned by ``Site.get_site_root_paths()``. Typically, a
+        page model that overrides ``get_url_parts`` should not need to deal with
+        ``hints`` directly, and should just pass it to the original method when
+        calling ``super``.
         """
         if hints is not None and 'site_root_paths' in hints:
             site_root_paths = hints['site_root_paths']
@@ -853,7 +861,9 @@ class Page(six.with_metaclass(PageBase, AbstractPage, index.Indexed, Clusterable
         """
         Return the 'most appropriate' URL for this page taking into account the site we're currently on;
         a local URL if the site matches, or a fully qualified one otherwise.
-        Return None if the page is not routable.
+        Return None if the page is not routable. Accepts an optional keyword argument ``hints``, a dict
+        of data that may be used to avoid repeated database / cache lookups; see ``get_url_parts``
+        for details.
         """
         if accepts_kwarg(self.get_url_parts, 'hints'):
             url_parts = self.get_url_parts(hints=hints)
