@@ -2,6 +2,7 @@ from __future__ import absolute_import, unicode_literals
 
 import json
 import logging
+import warnings
 from collections import defaultdict
 from django import VERSION as DJANGO_VERSION
 
@@ -32,6 +33,7 @@ from modelcluster.models import ClusterableModel, get_all_child_relations
 from treebeard.mp_tree import MP_Node
 
 from wagtail.utils.compat import user_is_authenticated
+from wagtail.utils.deprecation import RemovedInWagtail110Warning
 from wagtail.wagtailcore.query import PageQuerySet, TreeQuerySet
 from wagtail.wagtailcore.signals import page_published, page_unpublished
 from wagtail.wagtailcore.url_routing import RouteResult
@@ -595,6 +597,18 @@ class Page(six.with_metaclass(PageBase, AbstractPage, index.Indexed, Clusterable
                     id='wagtailcore.E002'
                 )
             )
+
+        if not accepts_kwarg(cls.relative_url, 'hints'):
+            warnings.warn(
+                "%s.relative_url should accept a 'hints' keyword argument. "
+                "See http://docs.wagtail.io/en/v1.8/reference/pages/model_reference.html#wagtail.wagtailcore.models.Page.relative_url" % cls,
+                RemovedInWagtail110Warning)
+
+        if not accepts_kwarg(cls.get_url_parts, 'hints'):
+            warnings.warn(
+                "%s.get_url_parts should accept a 'hints' keyword argument. "
+                "See http://docs.wagtail.io/en/v1.8/reference/pages/model_reference.html#wagtail.wagtailcore.models.Page.get_url_parts" % cls,
+                RemovedInWagtail110Warning)
 
         return errors
 
