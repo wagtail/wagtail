@@ -25,6 +25,8 @@ def pageurl(context, page):
         # request.site not available in the current context; fall back on page.url
         return page.url
 
+    # RemovedInWagtail110Warning - this accepts_kwarg test can be removed when we drop support
+    # for relative_url methods which omit the `hints` kwarg
     if accepts_kwarg(page.relative_url, 'hints'):
         # Pass page.relative_url a hints dictionary containing a 'site_root_paths' list
         # which we obtain from Site.get_site_root_paths() and cache in the request object.
