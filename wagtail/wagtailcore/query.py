@@ -350,6 +350,12 @@ class PageQuerySet(SearchableQuerySetMixin, TreeQuerySet):
         else:
             return self._clone(klass=SpecificQuerySet)
 
+    def in_site(self, site):
+        """
+        This filters the QuerySet to only contain pages within the specified site
+        """
+        return self.descendant_of(site.root_page, inclusive=True)
+
 
 def specific_iterator(qs):
     """
