@@ -2,6 +2,7 @@ from __future__ import absolute_import, unicode_literals
 
 import json
 import logging
+import warnings
 from collections import defaultdict
 from django import VERSION as DJANGO_VERSION
 
@@ -32,11 +33,12 @@ from modelcluster.models import ClusterableModel, get_all_child_relations
 from treebeard.mp_tree import MP_Node
 
 from wagtail.utils.compat import user_is_authenticated
+from wagtail.utils.deprecation import RemovedInWagtail110Warning
 from wagtail.wagtailcore.query import PageQuerySet, TreeQuerySet
 from wagtail.wagtailcore.signals import page_published, page_unpublished
 from wagtail.wagtailcore.url_routing import RouteResult
 from wagtail.wagtailcore.utils import (
-    WAGTAIL_APPEND_SLASH, camelcase_to_underscore, resolve_model_string)
+    WAGTAIL_APPEND_SLASH, accepts_kwarg, camelcase_to_underscore, resolve_model_string)
 from wagtail.wagtailsearch import index
 
 logger = logging.getLogger('wagtail.core')
@@ -596,6 +598,18 @@ class Page(six.with_metaclass(PageBase, AbstractPage, index.Indexed, Clusterable
                 )
             )
 
+        if not accepts_kwarg(cls.relative_url, 'hints'):
+            warnings.warn(
+                "%s.relative_url should accept a 'hints' keyword argument. "
+                "See http://docs.wagtail.io/en/v1.8/reference/pages/model_reference.html#wagtail.wagtailcore.models.Page.relative_url" % cls,
+                RemovedInWagtail110Warning)
+
+        if not accepts_kwarg(cls.get_url_parts, 'hints'):
+            warnings.warn(
+                "%s.get_url_parts should accept a 'hints' keyword argument. "
+                "See http://docs.wagtail.io/en/v1.8/reference/pages/model_reference.html#wagtail.wagtailcore.models.Page.get_url_parts" % cls,
+                RemovedInWagtail110Warning)
+
         return errors
 
     def _update_descendant_url_paths(self, old_url_path, new_url_path):
@@ -784,7 +798,7 @@ class Page(six.with_metaclass(PageBase, AbstractPage, index.Indexed, Clusterable
         """
         return (not self.is_leaf()) or self.depth == 2
 
-    def get_url_parts(self):
+    def get_url_parts(self, hints=None):
         """
         Determine the URL for this page and return it as a tuple of
         ``(site_id, site_root_url, page_url_relative_to_site_root)``.
@@ -794,8 +808,21 @@ class Page(six.with_metaclass(PageBase, AbstractPage, index.Indexed, Clusterable
         and ``get_site`` properties and methods; pages with custom URL routing
         should override this method in order to have those operations return
         the custom URLs.
+
+        Accepts an optional keyword argument ``hints``, a dict of data that may
+        be used to avoid repeated database / cache lookups. Currently the only
+        recognised item in this dict is ``site_root_paths``, a copy of the site
+        records list returned by ``Site.get_site_root_paths()``. Typically, a
+        page model that overrides ``get_url_parts`` should not need to deal with
+        ``hints`` directly, and should just pass it to the original method when
+        calling ``super``.
         """
-        for (site_id, root_path, root_url) in Site.get_site_root_paths():
+        if hints is not None and 'site_root_paths' in hints:
+            site_root_paths = hints['site_root_paths']
+        else:
+            site_root_paths = Site.get_site_root_paths()
+
+        for (site_id, root_path, root_url) in site_root_paths:
             if self.url_path.startswith(root_path):
                 page_path = reverse('wagtail_serve', args=(self.url_path[len(root_path):],))
 
@@ -844,13 +871,20 @@ class Page(six.with_metaclass(PageBase, AbstractPage, index.Indexed, Clusterable
         else:
             return root_url + page_path
 
-    def relative_url(self, current_site):
+    def relative_url(self, current_site, hints=None):
         """
         Return the 'most appropriate' URL for this page taking into account the site we're currently on;
         a local URL if the site matches, or a fully qualified one otherwise.
-        Return None if the page is not routable.
+        Return None if the page is not routable. Accepts an optional keyword argument ``hints``, a dict
+        of data that may be used to avoid repeated database / cache lookups; see ``get_url_parts``
+        for details.
         """
-        url_parts = self.get_url_parts()
+        # RemovedInWagtail110Warning - this accepts_kwarg test can be removed when we drop support
+        # for get_url_parts methods which omit the `hints` kwarg
+        if accepts_kwarg(self.get_url_parts, 'hints'):
+            url_parts = self.get_url_parts(hints=hints)
+        else:
+            url_parts = self.get_url_parts()
 
         if url_parts is None:
             # page is not routable

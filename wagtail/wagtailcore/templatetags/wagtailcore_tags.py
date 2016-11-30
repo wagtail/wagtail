@@ -6,8 +6,9 @@ from django.utils.encoding import force_text
 from django.utils.safestring import mark_safe
 
 from wagtail import __version__
-from wagtail.wagtailcore.models import Page
+from wagtail.wagtailcore.models import Page, Site
 from wagtail.wagtailcore.rich_text import RichText, expand_db_html
+from wagtail.wagtailcore.utils import accepts_kwarg
 
 register = template.Library()
 
@@ -18,7 +19,30 @@ def pageurl(context, page):
     Outputs a page's URL as relative (/foo/bar/) if it's within the same site as the
     current page, or absolute (http://example.com/foo/bar/) if not.
     """
-    return page.relative_url(context['request'].site)
+    try:
+        current_site = context['request'].site
+    except (KeyError, AttributeError):
+        # request.site not available in the current context; fall back on page.url
+        return page.url
+
+    # RemovedInWagtail110Warning - this accepts_kwarg test can be removed when we drop support
+    # for relative_url methods which omit the `hints` kwarg
+    if accepts_kwarg(page.relative_url, 'hints'):
+        # Pass page.relative_url a hints dictionary containing a 'site_root_paths' list
+        # which we obtain from Site.get_site_root_paths() and cache in the request object.
+        # This avoids page.relative_url having to make a database/cache fetch for this list
+        # each time it's called.
+        try:
+            site_root_paths = context['request'].wagtail_site_root_paths
+        except AttributeError:
+            site_root_paths = Site.get_site_root_paths()
+            context['request'].wagtail_site_root_paths = site_root_paths
+
+        return page.relative_url(current_site, hints={
+            'site_root_paths': site_root_paths
+        })
+    else:
+        return page.relative_url(current_site)
 
 
 @register.simple_tag(takes_context=True)
@@ -27,7 +51,7 @@ def slugurl(context, slug):
     page = Page.objects.filter(slug=slug).first()
 
     if page:
-        return page.relative_url(context['request'].site)
+        return pageurl(context, page)
     else:
         return None
 

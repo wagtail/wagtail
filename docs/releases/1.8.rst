@@ -141,3 +141,23 @@ The ``wagtail.contrib.wagtailfrontendcache.backends.CloudflareBackend`` module h
     }
 
 For details of how to obtain the zone identifier, see `the Cloudflare API documentation <https://api.cloudflare.com/#getting-started-resource-ids>`_.
+
+
+``Page.get_url_parts`` and ``Page.relative_url`` now accept a ``hints`` kwarg
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+The ``get_url_parts`` and ``relative_url`` methods on ``Page`` now accept an optional ``hints`` keyword argument. If you have overridden either of these methods on any of your page models, you will need to update the method signature to support this keyword argument; most likely, this will involve changing the line:
+
+.. code-block:: python
+
+    def get_url_parts(self):
+
+to:
+
+.. code-block:: python
+
+    def get_url_parts(self, hints=None):
+
+and passing ``hints=hints`` at the point where you are calling ``get_url_parts`` on ``super`` (if applicable).
+
+See: :meth:`wagtail.wagtailcore.models.Page.get_url_parts` and :meth:`wagtail.wagtailcore.models.Page.relative_url`
