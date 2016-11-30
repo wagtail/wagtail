@@ -52,6 +52,7 @@ Minor features
  * Added ``exclude_from_explorer`` attribute to the ``ModelAdmin`` class to allow hiding instances of a page type from Wagtail's explorer views (Andy Babic)
  * Added ``above_login``, ``below_login``, ``fields`` and ``login_form`` customisation blocks to the login page template - see :doc:`/advanced_topics/customisation/admin_templates` (Tim Heap)
  * ``ChoiceBlock`` now accepts a callable as the choices list (Mikalai Radchuk)
+ * Redundant action buttons are now omitted from the root page in the explorer (Nick Smith)
 
 
 Bug fixes
