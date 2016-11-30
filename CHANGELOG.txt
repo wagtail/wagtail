@@ -6,6 +6,7 @@ Changelog
 
  * New page privacy options (Shawn Makinson, Tom Miller, Luca Perico, Matt Westcott)
  * New 'bulk delete' permission type for deleting pages with children (Matt Westcott)
+ * Elasticsearch 5 support (Karl Hobley)
  * Added support of a custom `edit_handler` in site settings (Axel Haustant)
  * Added `get_landing_page_template` getter method to `AbstractForm` (Gagaro)
  * Added `Page.get_admin_display_title` method to override how the title is displayed in the admin (Henk-Jan van Hasselaar)

@@ -29,6 +29,12 @@ See: :ref:`permissions`
 This feature was developed by Matt Westcott.
 
 
+Elasticsearch 5 support
+~~~~~~~~~~~~~~~~~~~~~~~
+
+Wagtail now supports Elasticsearch 5. See :ref:`wagtailsearch_backends_elasticsearch` for configuration details. This feature was developed by Karl Hobley.
+
+
 Minor features
 ~~~~~~~~~~~~~~
 
