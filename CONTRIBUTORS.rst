@@ -187,7 +187,7 @@ Contributors
 * Albert O'Connor
 * Morgan Aubert
 * Diederik van der Boor
-* shoefler
+* Sean Hoefler
 
 Translators
 ===========
