@@ -22,10 +22,16 @@ $color-deletion-light: #ffebeb;
 
     &__field-label {
         @include column(2);
+
+        padding: 0;
     }
 
     &__field-content {
         @include column(10, 0);
+
+        dl {
+            margin-top: 0;
+        }
     }
 
     &__child-object {
