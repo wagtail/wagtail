@@ -220,7 +220,7 @@ Now we need a model and template for our blog posts. In ``blog/models.py``:
     from wagtail.wagtailsearch import index
 
 
-    # ...
+    # Keep the definition of BlogIndexPage, and add:
 
 
     class BlogPage(Page):
@@ -401,6 +401,8 @@ Add a new ``BlogPageGalleryImage`` model to ``models.py``:
 
     from django.db import models
 
+    # New imports added for ParentalKey, Orderable, InlinePanel, ImageChooserPanel
+
     from modelcluster.fields import ParentalKey
 
     from wagtail.wagtailcore.models import Page, Orderable
@@ -409,7 +411,9 @@ Add a new ``BlogPageGalleryImage`` model to ``models.py``:
     from wagtail.wagtailimages.edit_handlers import ImageChooserPanel
     from wagtail.wagtailsearch import index
 
-    # ...
+
+    # ... (Keep the definition of BlogIndexPage, and update BlogPage:)
+
 
     class BlogPage(Page):
         date = models.DateField("Post date")
@@ -558,6 +562,8 @@ First, alter ``models.py`` once more:
 
     from django.db import models
 
+    # New imports added for ClusterTaggableManager, TaggedItemBase, MultiFieldPanel
+
     from modelcluster.fields import ParentalKey
     from modelcluster.tags import ClusterTaggableManager
     from taggit.models import TaggedItemBase
@@ -567,6 +573,9 @@ First, alter ``models.py`` once more:
     from wagtail.wagtailadmin.edit_handlers import FieldPanel, InlinePanel, MultiFieldPanel
     from wagtail.wagtailimages.edit_handlers import ImageChooserPanel
     from wagtail.wagtailsearch import index
+
+
+    # ... (Keep the definition of BlogIndexPage)
 
 
     class BlogPageTag(TaggedItemBase):
@@ -579,7 +588,7 @@ First, alter ``models.py`` once more:
         body = RichTextField(blank=True)
         tags = ClusterTaggableManager(through=BlogPageTag, blank=True)
 
-        # ...
+        # ... (Keep the main_image method and search_fields definition)
 
         content_panels = Page.content_panels + [
             MultiFieldPanel([
