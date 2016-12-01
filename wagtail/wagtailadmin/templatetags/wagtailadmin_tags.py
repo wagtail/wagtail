@@ -2,7 +2,6 @@ from __future__ import absolute_import, unicode_literals
 
 import itertools
 
-
 import django
 from django import template
 from django.conf import settings
@@ -14,10 +13,11 @@ from django.utils.safestring import mark_safe
 
 from wagtail.utils.pagination import DEFAULT_PAGE_KEY, replace_page_in_query
 from wagtail.wagtailadmin.menu import admin_menu
-from wagtail.wagtailadmin.navigation import get_navigation_menu_items
+from wagtail.wagtailadmin.navigation import (
+    get_navigation_menu_items, get_pages_with_direct_explore_permission)
 from wagtail.wagtailadmin.search import admin_search_areas
 from wagtail.wagtailcore import hooks
-from wagtail.wagtailcore.models import PageViewRestriction, UserPagePermissionsProxy
+from wagtail.wagtailcore.models import Page, PageViewRestriction, UserPagePermissionsProxy
 from wagtail.wagtailcore.utils import cautious_slugify as _cautious_slugify
 from wagtail.wagtailcore.utils import camelcase_to_underscore, escape_script
 
@@ -55,10 +55,21 @@ def main_nav(context):
     }
 
 
-@register.inclusion_tag('wagtailadmin/shared/breadcrumb.html')
-def explorer_breadcrumb(page, include_self=False):
+@register.inclusion_tag('wagtailadmin/shared/breadcrumb.html', takes_context=True)
+def explorer_breadcrumb(context, page, include_self=False):
+    user = context['request'].user
+
+    # find the closest common ancestor of the pages that this user has direct explore permission
+    # (i.e. add/edit/publish/lock) over; this will be the root of the breadcrumb
+    try:
+        cca = get_pages_with_direct_explore_permission(user).first_common_ancestor(
+            include_self=True, strict=True
+        )
+    except Page.DoesNotExist:
+        return {'pages': Page.objects.none()}
+
     return {
-        'pages': page.get_ancestors(inclusive=include_self)
+        'pages': page.get_ancestors(inclusive=include_self).descendant_of(cca, inclusive=True)
     }
 
 
