@@ -5,16 +5,21 @@ from django.db.models import Q
 from wagtail.wagtailcore.models import Page
 
 
-def get_navigation_menu_items(user):
+def get_pages_with_direct_explore_permission(user):
     # Get all pages that the user has direct add/edit/publish/lock permission on
     if user.is_superuser:
         # superuser has implicit permission on the root node
-        pages_with_direct_permission = Page.objects.filter(depth=1)
+        return Page.objects.filter(depth=1)
     else:
-        pages_with_direct_permission = Page.objects.filter(
+        return Page.objects.filter(
             group_permissions__group__in=user.groups.all(),
             group_permissions__permission_type__in=['add', 'edit', 'publish', 'lock']
         )
+
+
+def get_navigation_menu_items(user):
+    # Get all pages that the user has direct add/edit/publish/lock permission on
+    pages_with_direct_permission = get_pages_with_direct_explore_permission(user)
 
     if not(pages_with_direct_permission):
         return []

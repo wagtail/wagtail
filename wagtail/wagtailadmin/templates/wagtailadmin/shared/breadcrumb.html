@@ -2,8 +2,9 @@
 
 <ul class="breadcrumb">
     {% for page in pages %}
-        {% if page.is_root %}
-            <li class="home"><a href="{% url 'wagtailadmin_explore_root' %}" class="icon icon-home text-replace">{% trans 'Home' %}</a></li>
+        {% if forloop.first %}
+            {# first item in breadcrumb displays as a 'home' icon in place of the title #}
+            <li class="home"><a href="{% if page.is_root %}{% url 'wagtailadmin_explore_root' %}{% else %}{% url 'wagtailadmin_explore' page.id %}{% endif %}" class="icon icon-home text-replace">{% trans 'Home' %}</a></li>
         {% else %}
             <li><a href="{% url 'wagtailadmin_explore' page.id %}">{{ page.get_admin_display_title }}</a></li>
         {% endif %}
