@@ -1,14 +1,11 @@
 {% load i18n %}
 
 <ul class="breadcrumb">
-    {% for page in page.get_ancestors %}
+    {% for page in pages %}
         {% if page.is_root %}
             <li class="home"><a href="{% url 'wagtailadmin_explore_root' %}" class="icon icon-home text-replace">{% trans 'Home' %}</a></li>
         {% else %}
             <li><a href="{% url 'wagtailadmin_explore' page.id %}">{{ page.get_admin_display_title }}</a></li>
         {% endif %}
     {% endfor %}
-    {% if include_self %}
-        <li><a href="{% url 'wagtailadmin_explore' page.id %}">{{ page.get_admin_display_title }}</a></li>
-    {% endif %}
 </ul>
