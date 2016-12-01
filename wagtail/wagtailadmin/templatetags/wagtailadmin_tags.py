@@ -334,6 +334,48 @@ def message_tags(message):
         return ''
 
 
+@register.assignment_tag
+def current_users_explorable_ancestors(page, request):
+    """
+    Example: {% current_users_explorable_ancestors page_obj request as ancestors %}
+    Since the Page.get_explorable_ancestors function takes a request object as
+    input, we can't call it directly from the template. This template tag does
+    that for us.
+    """
+    return page.get_permitted_ancestors(request)
+
+
+@register.assignment_tag
+def current_users_choosable_ancestors(page, request):
+    """
+    Example: {% current_users_choosable_ancestors page_obj request as ancestors %}
+    Since the Page.get_choosable_ancestors function takes a request object as
+    input, we can't call it directly from the template. This template tag does
+    that for us.
+    """
+    return page.get_permitted_ancestors(request, choosable=True)
+
+
+@register.assignment_tag
+def is_current_users_explorable_root(page, request):
+    """
+    Example: {% is_current_users_explorable_root page_obj request as page_is_explorable_root %}
+    Since the Page.is_explorable_root function takes a request object as input, we
+    can't call directly from the template. This template tag does that for us.
+    """
+    return page.is_permitted_root(request)
+
+
+@register.assignment_tag
+def is_current_users_choosable_root(page, request):
+    """
+    Example: {% is_current_users_choosable_root page_obj request as page_is_choosable_root %}
+    Since the Page.is_choosable_root function takes a request object as input, we
+    can't call it directly from the template. This template tag does that for us.
+    """
+    return page.is_permitted_root(request, choosable=True)
+
+
 @register.simple_tag
 def replace_page_param(query, page_number, page_key='p'):
     """
