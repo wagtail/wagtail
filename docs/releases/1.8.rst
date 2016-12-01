@@ -148,3 +148,33 @@ Extra options for the Elasticsearch constructor should be now defined with the n
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 For the Elasticsearch backend, all extra keys defined in ``WAGTAILSEARCH_BACKENDS`` are passed directly to the Elasticsearch constructor. All these keys now should be moved inside the new ``OPTIONS`` dictionary. The old behaviour is still supported, but deprecated.
+
+For example, the following configuration changes the connection class that the Elasticsearch connector_ uses:
+
+.. code-block:: python
+
+    from elasticsearch import RequestsHttpConnection
+
+    WAGTAILSEARCH_BACKENDS = {
+        'default': {
+            'BACKEND': 'wagtail.wagtailsearch.backends.elasticsearch',
+            'connection_class': RequestsHttpConnection,
+        }
+    }
+
+As ``connection_class`` needs to be passed through to the Elasticsearch connector_,  it should be moved to the new ``OPTIONS`` dictionary:
+
+.. code-block:: python
+
+    from elasticsearch import RequestsHttpConnection
+
+    WAGTAILSEARCH_BACKENDS = {
+        'default': {
+            'BACKEND': 'wagtail.wagtailsearch.backends.elasticsearch',
+            'OPTIONS': {
+                'connection_class': RequestsHttpConnection,
+            }
+        }
+    }
+
+.. _connector: https://elasticsearch-py.readthedocs.io/en/master/api.html#elasticsearch
