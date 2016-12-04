@@ -43,7 +43,7 @@ testing_extras = [
     'Pillow>=2.7.0',
     'elasticsearch>=1.0.0,<3.0',
     'Jinja2>=2.8,<3.0',
-    'boto3>=1.1,<1.2',
+    'boto3>=1.4,<1.5',
 
     # For coverage and PEP8 linting
     'coverage>=3.7.0',
