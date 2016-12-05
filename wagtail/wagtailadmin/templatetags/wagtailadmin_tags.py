@@ -55,6 +55,13 @@ def main_nav(context):
     }
 
 
+@register.inclusion_tag('wagtailadmin/shared/breadcrumb.html')
+def explorer_breadcrumb(page, include_self=False):
+    return {
+        'pages': page.get_ancestors(inclusive=include_self)
+    }
+
+
 @register.inclusion_tag('wagtailadmin/shared/search_other.html', takes_context=True)
 def search_other(context, current=None):
     request = context['request']
