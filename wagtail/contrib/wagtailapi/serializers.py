@@ -268,7 +268,7 @@ class PageSerializer(BaseSerializer):
             if field_name in child_relations and hasattr(child_relations[field_name], 'api_fields'):
                 return ChildRelationField, {'child_fields': child_relations[field_name].api_fields}
 
-        return super(BaseSerializer, self).build_relational_field(field_name, relation_info)
+        return super(PageSerializer, self).build_relational_field(field_name, relation_info)
 
 
 class ImageSerializer(BaseSerializer):
