@@ -26,6 +26,7 @@ Changelog
  * Added `in_site` method for filtering page querysets to pages within the specified site (Chris Rogers)
  * Added the ability to override the default index settings for Elasticsearch (PyMan Claudio Marinozzi)
  * Extra options for the Elasticsearch constructor should be now defined with the new key `OPTIONS` of the `WAGTAILSEARCH_BACKENDS` setting (PyMan Claudio Marinozzi)
+ * Breadcrumb in the page explorer is now restricted to the pages the user has permission over (Jeffrey Chau, Robert Rollins, Matt Westcott)
  * Fix: `AbstractForm` now respects custom `get_template` methods on the page model (Gagaro)
  * Fix: Use specific page model for the parent page in the explore index (Gagaro)
  * Fix: Remove responsive styles in embed when there is no ratio available (Gagaro)

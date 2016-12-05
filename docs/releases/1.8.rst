@@ -57,6 +57,7 @@ Minor features
  * Added :meth:`wagtail.wagtailcore.query.PageQuerySet.in_site` method for filtering page querysets to pages within the specified site (Chris Rogers)
  * Added the ability to override the default index settings for Elasticsearch. See :ref:`wagtailsearch_backends_elasticsearch` (PyMan Claudio Marinozzi)
  * Extra options for the Elasticsearch constructor should be now defined with the new key ``OPTIONS`` of the ``WAGTAILSEARCH_BACKENDS`` setting (PyMan Claudio Marinozzi)
+ * Breadcrumb in the page explorer is now restricted to the pages the user has permission over (Jeffrey Chau, Robert Rollins, Matt Westcott)
 
 
 Bug fixes

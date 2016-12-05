@@ -190,6 +190,7 @@ Contributors
 * Sean Hoefler
 * Edd Baldry
 * PyMan Claudio Marinozzi
+* Jeffrey Chau
 
 Translators
 ===========
