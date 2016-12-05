@@ -191,6 +191,7 @@ Contributors
 * Edd Baldry
 * PyMan Claudio Marinozzi
 * Jeffrey Chau
+* Craig Loftus
 
 Translators
 ===========
