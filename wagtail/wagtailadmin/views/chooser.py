@@ -10,6 +10,7 @@ from wagtail.wagtailadmin.forms import EmailLinkChooserForm, ExternalLinkChooser
 from wagtail.wagtailadmin.modal_workflow import render_modal_workflow
 from wagtail.wagtailcore.models import Page
 from wagtail.wagtailcore.utils import resolve_model_string
+from wagtail.wagtailcore import hooks
 
 
 def shared_context(request, extra_context=None):
@@ -92,6 +93,10 @@ def browse(request, parent_page_id=None):
         (can_choose_root or not parent_page.is_root())
     )
 
+    if hooks.get_hooks('construct_explorer_page_queryset') and request:
+        for hook in hooks.get_hooks('construct_explorer_page_queryset'):
+            pages = hook(parent_page, pages, request)
+
     # Pagination
     # We apply pagination first so we don't need to walk the entire list
     # in the block below
@@ -140,6 +145,14 @@ def search(request, parent_page_id=None):
         pages = pages.search(search_form.cleaned_data['q'], fields=['title'])
     else:
         pages = Page.objects.none()
+
+    if hooks.get_hooks('construct_explorer_page_queryset') and request:
+        page_ids = [page.id for page in pages]
+        if page_ids:
+            pages = Page.objects.filter(id__in=page_ids)
+            parent_page = Page.objects.filter(path='/').first()
+            for hook in hooks.get_hooks('construct_explorer_page_queryset'):
+                pages = hook(parent_page, pages, request)
 
     paginator, pages = paginate(request, pages, per_page=25)
 

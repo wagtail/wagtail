@@ -3,6 +3,7 @@ from __future__ import absolute_import, unicode_literals
 from django.db.models import Q
 
 from wagtail.wagtailcore.models import Page
+from wagtail.wagtailcore import hooks
 
 
 def get_pages_with_direct_explore_permission(user):
@@ -17,7 +18,7 @@ def get_pages_with_direct_explore_permission(user):
         )
 
 
-def get_navigation_menu_items(user):
+def get_navigation_menu_items(user, request=None):
     # Get all pages that the user has direct add/edit/publish/lock permission on
     pages_with_direct_permission = get_pages_with_direct_explore_permission(user)
 
@@ -78,6 +79,11 @@ def get_navigation_menu_items(user):
         )
 
     pages = Page.objects.filter(criteria).order_by('path').specific()
+
+    if hooks.get_hooks('construct_explorer_page_queryset') and request:
+        parent_page = Page.objects.filter(path='/').first()
+        for hook in hooks.get_hooks('construct_explorer_page_queryset'):
+            pages = hook(parent_page, pages, request)
 
     # Turn this into a tree structure:
     #     tree_node = (page, children)

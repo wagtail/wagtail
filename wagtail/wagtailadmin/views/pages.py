@@ -32,7 +32,7 @@ def get_valid_next_url_from_request(request):
 
 def explorer_nav(request):
     return render(request, 'wagtailadmin/shared/explorer_nav.html', {
-        'nodes': get_navigation_menu_items(request.user),
+        'nodes': get_navigation_menu_items(request.user, request=request),
     })
 
 
