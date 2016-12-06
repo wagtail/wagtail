@@ -8,13 +8,14 @@
 # Edd Baldry <edd.baldry@gmail.com>, 2016
 # Edd <edd.baldry@googlemail.com>, 2016
 # Giacomo Ghizzani <giacomo.ghz@gmail.com>, 2015-2016
+# giammi <gian-maria.daffre@giammi.org>, 2016
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-10-05 16:37+0100\n"
-"PO-Revision-Date: 2016-10-05 15:39+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2016-11-26 19:26+0000\n"
+"Last-Translator: giammi <gian-maria.daffre@giammi.org>\n"
 "Language-Team: Italian (http://www.transifex.com/torchbox/wagtail/language/"
 "it/)\n"
 "MIME-Version: 1.0\n"
@@ -948,6 +949,9 @@ msgstr[1] "Usato %(useage_count)s volte"
 
 msgid "Edit your account"
 msgstr "Modifica il tuo account"
+
+msgid "Account settings"
+msgstr "Impostazioni dell 'account"
 
 msgid "Log out"
 msgstr "Esci"

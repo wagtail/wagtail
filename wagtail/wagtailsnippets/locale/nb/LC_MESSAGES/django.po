@@ -4,13 +4,14 @@
 #
 # Translators:
 # Eirik Krogstad <eirikkr@gmail.com>, 2015
+# Stein Strindhaug <stein.strindhaug@gmail.com>, 2016
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-10-05 16:38+0100\n"
-"PO-Revision-Date: 2016-05-18 21:51+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2016-11-18 10:58+0000\n"
+"Last-Translator: Stein Strindhaug <stein.strindhaug@gmail.com>\n"
 "Language-Team: Norwegian Bokmål (http://www.transifex.com/torchbox/wagtail/"
 "language/nb/)\n"
 "MIME-Version: 1.0\n"
@@ -21,6 +22,30 @@ msgstr ""
 
 msgid "Choose"
 msgstr "Velg"
+
+msgid "Search"
+msgstr "Søk"
+
+#, python-format
+msgid ""
+"\n"
+"            There is one match\n"
+"        "
+msgid_plural ""
+"\n"
+"            There are %(counter)s matches\n"
+"        "
+msgstr[0] ""
+"\n"
+"Det er ett treff"
+msgstr[1] ""
+"\n"
+"\n"
+"Det er %(counter)s treff"
+
+#, python-format
+msgid "Sorry, no snippets match \"<em>%(query_string)s</em>\""
+msgstr "Beklager, ingen snutter samsvarer med <em>\"%(query_string)s\"</em>"
 
 #, python-format
 msgid ""
@@ -50,6 +75,9 @@ msgstr "Ny %(snippet_type_name)s"
 
 msgid "New"
 msgstr "Ny"
+
+msgid "Saving..."
+msgstr "Lagrer..."
 
 msgid "Save"
 msgstr "Lagre"
@@ -105,6 +133,10 @@ msgstr "Status"
 
 msgid "Edit this page"
 msgstr "Rediger denne siden"
+
+#, python-format
+msgid "Search %(snippet_type_name)s"
+msgstr "Søk etter %(snippet_type_name)s"
 
 #, python-brace-format
 msgid "{snippet_type} '{instance}' created."

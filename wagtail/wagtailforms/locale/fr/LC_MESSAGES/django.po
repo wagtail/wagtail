@@ -5,6 +5,7 @@
 # Translators:
 # Adrien <laadrien@gmail.com>, 2014
 # Axel Haustant, 2016
+# Benoît Vogel <contact@spicy-informatique.com>, 2016
 # Bertrand Bordage <bordage.bertrand@gmail.com>, 2015
 # Léo <leo@naeka.fr>, 2016
 # pierre marfoure <pierre@onoffdesign.com>, 2016
@@ -14,8 +15,8 @@ msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-10-05 16:37+0100\n"
-"PO-Revision-Date: 2016-09-22 15:05+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2016-10-26 05:03+0000\n"
+"Last-Translator: Benoît Vogel <contact@spicy-informatique.com>\n"
 "Language-Team: French (http://www.transifex.com/torchbox/wagtail/language/"
 "fr/)\n"
 "MIME-Version: 1.0\n"
@@ -23,6 +24,9 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: fr\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+msgid "{} submissions"
+msgstr "{} soumissions"
 
 #, python-format
 msgid "There is another field with the label %s, please change one of them."
@@ -101,6 +105,9 @@ msgstr ""
 msgid "help text"
 msgstr "texte d'aide"
 
+msgid "Submission date"
+msgstr "Date de soumission"
+
 msgid "to address"
 msgstr "adresse destinataire"
 
@@ -129,6 +136,12 @@ msgstr "Êtes-vous sûr(e) de vouloir supprimer cette soumission ?"
 
 msgid "Delete it"
 msgstr "La supprimer"
+
+msgid "Total submissions"
+msgstr "Nombre total de soumissions"
+
+msgid "Latest submission"
+msgstr "Soumission la plus récente"
 
 msgid "Forms"
 msgstr "Formulaires"

@@ -4,13 +4,14 @@
 #
 # Translators:
 # Eirik Krogstad <eirikkr@gmail.com>, 2015
+# Stein Strindhaug <stein.strindhaug@gmail.com>, 2016
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-10-05 16:37+0100\n"
-"PO-Revision-Date: 2016-05-11 20:33+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2016-11-18 11:56+0000\n"
+"Last-Translator: Stein Strindhaug <stein.strindhaug@gmail.com>\n"
 "Language-Team: Norwegian Bokmål (http://www.transifex.com/torchbox/wagtail/"
 "language/nb/)\n"
 "MIME-Version: 1.0\n"
@@ -19,8 +20,35 @@ msgstr ""
 "Language: nb\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
+msgid "Add"
+msgstr "Legg til"
+
+msgid "Add/edit documents you own"
+msgstr "Legg til/rediger dokumenter du eier"
+
 msgid "Edit"
 msgstr "Endre"
+
+msgid "Edit any document"
+msgstr "Rediger ethvert dokument"
+
+msgid "title"
+msgstr "tittel"
+
+msgid "file"
+msgstr "fil"
+
+msgid "created at"
+msgstr "opprettet"
+
+msgid "uploaded by user"
+msgstr "opplastet av bruker"
+
+msgid "tags"
+msgstr "stikkord"
+
+msgid "document"
+msgstr "dokument"
 
 msgid "Choose a document"
 msgstr "Velg et dokument"
@@ -30,6 +58,15 @@ msgstr "Søk"
 
 msgid "Upload"
 msgstr "Last opp"
+
+msgid "Uploading..."
+msgstr "Laster opp..."
+
+msgid "Server Error"
+msgstr "Serverfeil"
+
+msgid "Report this error to your webmaster with the following information:"
+msgstr "Rapporter denne feilen til de webansvarlige med følgende info:"
 
 #, python-format
 msgid ""
@@ -108,6 +145,14 @@ msgstr "Opplastet"
 
 #, python-format
 msgid ""
+"You haven't uploaded any documents in this collection. Why not <a href="
+"\"%(wagtaildocs_add_document_url)s\">upload one now</a>?"
+msgstr ""
+"Du har ikke lastet opp noen dokumenter til denne samlingen. Hvorfor ikke <a "
+"href=\"%(wagtaildocs_add_document_url)s\">laste opp et nå</a>?"
+
+#, python-format
+msgid ""
 "You haven't uploaded any documents. Why not <a href="
 "\"%(wagtaildocs_add_document_url)s\">upload one now</a>?"
 msgstr ""
@@ -151,8 +196,44 @@ msgstr[1] ""
 "<span>%(total)s</span> dokumenter\n"
 " "
 
+msgid "Add multiple documents"
+msgstr "Legg til flere dokumenter"
+
+msgid "Add documents"
+msgstr "Legg til dokumenter"
+
+msgid "Drag and drop documents into this area to upload immediately."
+msgstr "Dra og slipp dokumenter i dette feltet for å laste opp umiddelbart."
+
+msgid "Or choose from your computer"
+msgstr "Eller velg fra din datamaskin"
+
+msgid "Add to collection:"
+msgstr "Legg til i samling:"
+
+msgid ""
+"Upload successful. Please update this documents with a more appropriate "
+"title, if necessary. You may also delete the document completely if the "
+"upload wasn't required."
+msgstr ""
+"Opplasting vellykket. Du kan oppdatere dette dokumentet med den mer passende "
+"tittel, om nødvendig. Du kan også slette dokumentet dersom opplastingen ikke "
+"var nødvendig."
+
+msgid "Sorry, upload failed."
+msgstr "Beklager, opplasting feilet."
+
+msgid "Update"
+msgstr "Oppdater"
+
 msgid "Delete"
 msgstr "Slett"
+
+msgid "Document permissions"
+msgstr "Dokumenttillatelser"
+
+msgid "Add a document permission"
+msgstr "Legg til dokumenttillatelse"
 
 msgid "Search documents"
 msgstr "Søk i dokumenter"
@@ -175,6 +256,12 @@ msgstr "Filen ble ikke funnet. Endre kilde for dokumentet eller slett det"
 #, python-brace-format
 msgid "Document '{0}' deleted."
 msgstr "Dokumentet \"{0}\" er slettet."
+
+#, python-format
+msgid "%(count)s document"
+msgid_plural "%(count)s documents"
+msgstr[0] "%(count)s dokument"
+msgstr[1] "%(count)s dokumenter"
 
 msgid "Choose another document"
 msgstr "Velg et annet dokument"

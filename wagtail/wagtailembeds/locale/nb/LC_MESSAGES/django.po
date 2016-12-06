@@ -4,13 +4,14 @@
 #
 # Translators:
 # Eirik Krogstad <eirikkr@gmail.com>, 2015
+# Stein Strindhaug <stein.strindhaug@gmail.com>, 2016
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-10-05 16:37+0100\n"
-"PO-Revision-Date: 2015-12-17 13:59+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2016-11-18 11:44+0000\n"
+"Last-Translator: Stein Strindhaug <stein.strindhaug@gmail.com>\n"
 "Language-Team: Norwegian Bokmål (http://www.transifex.com/torchbox/wagtail/"
 "language/nb/)\n"
 "MIME-Version: 1.0\n"
@@ -24,6 +25,9 @@ msgstr "Skriv inn en gyldig URL"
 
 msgid "URL"
 msgstr "URL"
+
+msgid "embed"
+msgstr "innbygg"
 
 msgid "Insert embed"
 msgstr "Sett inn innbygg"

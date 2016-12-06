@@ -4,13 +4,14 @@
 #
 # Translators:
 # Cihad GÜNDOĞDU <cihadgundogdu@gmail.com>, 2016
+# Ragıp Ünal <ragip@ragipunal.com>, 2016
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-10-05 16:37+0100\n"
-"PO-Revision-Date: 2016-09-22 15:03+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2016-11-02 08:33+0000\n"
+"Last-Translator: Ragıp Ünal <ragip@ragipunal.com>\n"
 "Language-Team: Turkish (http://www.transifex.com/torchbox/wagtail/language/"
 "tr/)\n"
 "MIME-Version: 1.0\n"
@@ -18,6 +19,9 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: tr\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+msgid "Password"
+msgstr "Şifre"
 
 msgid "site name"
 msgstr "site ad"
@@ -178,3 +182,6 @@ msgstr "izin"
 
 msgid "group collection permission"
 msgstr "grup kolleksiyon izni"
+
+msgid "Password required"
+msgstr "Şifre zorunlu"

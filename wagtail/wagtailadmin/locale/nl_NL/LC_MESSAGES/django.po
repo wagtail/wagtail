@@ -11,8 +11,8 @@ msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-10-05 16:37+0100\n"
-"PO-Revision-Date: 2016-10-05 15:39+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2016-11-23 19:08+0000\n"
+"Last-Translator: Thijs Kramer <thijskramer@gmail.com>\n"
 "Language-Team: Dutch (Netherlands) (http://www.transifex.com/torchbox/"
 "wagtail/language/nl_NL/)\n"
 "MIME-Version: 1.0\n"
@@ -123,11 +123,17 @@ msgstr ""
 "Er bestaat al een pagina met deze slug binnen de context van de "
 "bovenliggende pagina \"%s\""
 
+msgid "Visibility"
+msgstr "Zichtbaarheid"
+
 msgid "Public"
 msgstr "Openbaar"
 
 msgid "Private, accessible with the following password"
 msgstr "Privé, toegankelijk met het volgende wachtwoord:"
+
+msgid "Password"
+msgstr "Wachtwoord"
 
 msgid "This field is required."
 msgstr "Dit is een verplicht veld."
@@ -531,6 +537,22 @@ msgstr[1] ""
 "\n"
 "Dit zal ook %(descendant_count)s onderliggende pagina's verwijderen."
 
+msgid "Yes, delete it"
+msgstr "Ja, verwijderen"
+
+msgid "No, don't delete it"
+msgstr "Nee, niet verwijderen"
+
+#, python-format
+msgid ""
+"Alternatively you can <a href=\"%(unpublish_url)s\">unpublish the page</a>. "
+"This removes the page from public view and you can edit or publish it again "
+"later."
+msgstr ""
+"U kunt ook de publicatie van de pagina <a href=\"%(unpublish_url)s"
+"\">ongedaan maken</a>. Dit zorgt ervoor dat de pagina niet meer publiekelijk "
+"zichtbaar is en u kunt de pagina later bewerken of opnieuw publiceren."
+
 #, python-format
 msgid "Move %(title)s"
 msgstr "Verplaats %(title)s"
@@ -563,8 +585,29 @@ msgstr "Publicatie ongedaan maken"
 msgid "Are you sure you want to unpublish this page?"
 msgstr "Weet u zeker dat u de publicatie van deze pagina ongedaan wilt maken?"
 
+#, python-format
+msgid ""
+"\n"
+"                    This page has one subpage. Unpublish this too\n"
+"                "
+msgid_plural ""
+"\n"
+"                    This page has %(live_descendant_count)s subpages. "
+"Unpublish these too\n"
+"                "
+msgstr[0] ""
+"\n"
+"Deze pagina heeft 1 onderliggende pagina. Maak deze publicatie ook ongedaan."
+msgstr[1] ""
+"\n"
+"Deze pagina heeft %(live_descendant_count)s onderliggende pagina's. Maak de "
+"publicatie van deze pagina's ook ongedaan."
+
 msgid "Yes, unpublish it"
 msgstr "Ja, maak publicatie ongedaan"
+
+msgid "No, don't unpublish"
+msgstr "Nee, niet de publicatie ongedaan maken"
 
 msgid "Pages using"
 msgstr "Pagina's van het type"
@@ -897,6 +940,9 @@ msgstr[1] "%(useage_count)s keer gebruikt"
 msgid "Edit your account"
 msgstr "Wijzig uw account"
 
+msgid "Account settings"
+msgstr "Accountinstellingen"
+
 msgid "Log out"
 msgstr "Uitloggen"
 
@@ -966,7 +1012,7 @@ msgid "Collection '{0}' updated."
 msgstr "Collectie '{0}' is gewijzigd."
 
 msgid "The collection could not be saved due to errors."
-msgstr "De collectie kon niet worden opgeslagen door fouten."
+msgstr "De collectie kon vanwege fouten niet worden opgeslagen."
 
 msgid "Delete collection"
 msgstr "Verwijder collectie"
@@ -1075,14 +1121,14 @@ msgid "Page '{0}' published."
 msgstr "Pagina '{0}' gepubliceerd."
 
 msgid "Failed to send approval notifications"
-msgstr "Het versturen van goedkeur-notificaties is mislukt"
+msgstr "Het versturen van goedkeuringsnotificaties is mislukt"
 
 #, python-brace-format
 msgid "Page '{0}' rejected for publication."
 msgstr "Pagina '{0}' afgewezen voor publicatie."
 
 msgid "Failed to send rejection notifications"
-msgstr "Het versturen van afkeur-notificaties is mislukt"
+msgstr "Het versturen van afkeuringsnotificaties is mislukt"
 
 #, python-brace-format
 msgid "Page '{0}' is now locked."

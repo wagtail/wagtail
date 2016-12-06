@@ -5,6 +5,7 @@
 # Translators:
 # hanfeng <appweb.cn@gmail.com>, 2014-2015
 # Daniel Hwang <danielblinkhw@gmail.com>, 2015
+# Fred Zeng <979738295@qq.com>, 2016
 # hanfeng <appweb.cn@gmail.com>, 2014
 # listeng <aosp@163.com>, 2016
 # 飘 赵 <275980464@qq.com>, 2016
@@ -13,8 +14,8 @@ msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-10-05 16:37+0100\n"
-"PO-Revision-Date: 2016-10-05 15:39+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2016-11-23 11:15+0000\n"
+"Last-Translator: Fred Zeng <979738295@qq.com>\n"
 "Language-Team: Chinese (China) (http://www.transifex.com/torchbox/wagtail/"
 "language/zh_CN/)\n"
 "MIME-Version: 1.0\n"
@@ -122,6 +123,9 @@ msgstr "公开"
 msgid "Private, accessible with the following password"
 msgstr "私有，使用下列的密码访问："
 
+msgid "Password"
+msgstr "密码"
+
 msgid "This field is required."
 msgstr "必需字段"
 
@@ -199,6 +203,9 @@ msgstr "已将重置密码的链接发送到您的邮箱。"
 
 msgid "Please follow the link below to reset your password:"
 msgstr "请点击下面的链接来重置密码"
+
+msgid "Your username (in case you've forgotten):"
+msgstr "以防遗忘，请填写你的用户名:"
 
 msgid "Password reset"
 msgstr "密码已重置。"
@@ -356,7 +363,7 @@ msgid "Draft"
 msgstr "草稿"
 
 msgid "Live"
-msgstr "发布"
+msgstr "预览"
 
 msgid "Site summary"
 msgstr "网站摘要"
@@ -493,6 +500,9 @@ msgstr[0] ""
 "\n"
 "这也会删除 %(descendant_count)s 个子页面。"
 
+msgid "Yes, delete it"
+msgstr "确认删除"
+
 #, python-format
 msgid "Move %(title)s"
 msgstr "移动%(title)s"
@@ -525,6 +535,9 @@ msgstr "确认取消发布此页面？"
 
 msgid "Yes, unpublish it"
 msgstr "是的。取消发布"
+
+msgid "No, don't unpublish"
+msgstr "否，不发布"
 
 msgid "Pages using"
 msgstr "页面使用"
@@ -839,6 +852,9 @@ msgstr[0] "已使用%(useage_count)s次"
 msgid "Edit your account"
 msgstr "编辑账户"
 
+msgid "Account settings"
+msgstr "帐号设置"
+
 msgid "Log out"
 msgstr "注销"
 
@@ -883,6 +899,12 @@ msgstr "密码成功修改！"
 
 msgid "Your preferences have been updated successfully!"
 msgstr "参数成功更新！"
+
+msgid "You have been successfully logged out."
+msgstr "注销成功"
+
+msgid "Editing"
+msgstr "正在编辑"
 
 #, python-brace-format
 msgid "Page '{0}' created and scheduled for publishing."
@@ -966,8 +988,20 @@ msgstr "页面 '{0}'已锁定"
 msgid "Page '{0}' is now unlocked."
 msgstr "页面 '{0}'已解锁。"
 
+msgid "Preview draft"
+msgstr "预览草稿"
+
 msgid "Add child page"
 msgstr "添加子页面"
+
+msgid "More"
+msgstr "更多"
+
+msgid "View more options"
+msgstr "查看更多"
+
+msgid "Delete this page"
+msgstr "删除此页面"
 
 msgid "Choose an item"
 msgstr "选择一项"

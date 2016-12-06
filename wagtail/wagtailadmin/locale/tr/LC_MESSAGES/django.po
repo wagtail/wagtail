@@ -4,13 +4,14 @@
 #
 # Translators:
 # Cihad GÜNDOĞDU <cihadgundogdu@gmail.com>, 2016
+# Ragıp Ünal <ragip@ragipunal.com>, 2016
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-10-05 16:37+0100\n"
-"PO-Revision-Date: 2016-10-05 15:39+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2016-11-02 08:34+0000\n"
+"Last-Translator: Ragıp Ünal <ragip@ragipunal.com>\n"
 "Language-Team: Turkish (http://www.transifex.com/torchbox/wagtail/language/"
 "tr/)\n"
 "MIME-Version: 1.0\n"
@@ -95,6 +96,9 @@ msgstr "Genel"
 
 msgid "Private, accessible with the following password"
 msgstr "Özel, aşağıdaki parola ile erişilebilir."
+
+msgid "Password"
+msgstr "Şifre"
 
 msgid "This field is required."
 msgstr "Bu alan zorunludur."
@@ -193,6 +197,9 @@ msgstr "Aşağı taşı"
 
 msgid "Delete"
 msgstr "Sil"
+
+msgid "Explorer"
+msgstr "Keşfedici"
 
 msgid "Internal link"
 msgstr "İç bağlantı"
@@ -303,9 +310,21 @@ msgstr "Giriş yapılıyor..."
 msgid "Page privacy"
 msgstr "Sayfa gizliliği"
 
+msgid "Private"
+msgstr "Gizli"
+
 #, python-format
 msgid "Delete %(title)s"
 msgstr "%(title)s sil"
+
+msgid "Yes, delete it"
+msgstr "Evet, onu sil."
+
+msgid "No, don't delete it"
+msgstr "Hayır, onu silme!"
+
+msgid "Move"
+msgstr "Taşı"
 
 msgid "New"
 msgstr "Yeni"

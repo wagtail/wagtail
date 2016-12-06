@@ -12,8 +12,8 @@ msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-10-05 16:37+0100\n"
-"PO-Revision-Date: 2016-10-05 15:39+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2016-11-28 10:45+0000\n"
+"Last-Translator: mmiskiew <mmiskiew@gmail.com>\n"
 "Language-Team: Polish (http://www.transifex.com/torchbox/wagtail/language/"
 "pl/)\n"
 "MIME-Version: 1.0\n"
@@ -126,11 +126,17 @@ msgid ""
 "This slug is already in use within the context of its parent page \"%s\""
 msgstr "Slug jest już wykorzystywany w kontekście strony nadrzędnej \"%s\""
 
+msgid "Visibility"
+msgstr "Widoczność"
+
 msgid "Public"
 msgstr "Publiczna"
 
 msgid "Private, accessible with the following password"
 msgstr "Prywatna, dostępna za użyciem nastepującego hasła"
+
+msgid "Password"
+msgstr "Hasło"
 
 msgid "This field is required."
 msgstr "To pole jest wymagane."
@@ -546,6 +552,22 @@ msgstr[2] ""
 "podrzędnych.\n"
 "                "
 
+msgid "Yes, delete it"
+msgstr "Tak, usuń"
+
+msgid "No, don't delete it"
+msgstr "Nie usuwaj"
+
+#, python-format
+msgid ""
+"Alternatively you can <a href=\"%(unpublish_url)s\">unpublish the page</a>. "
+"This removes the page from public view and you can edit or publish it again "
+"later."
+msgstr ""
+"Alternatywnie możesz <a href=\"%(unpublish_url)s\">odpublikowaćstronę</a>. "
+"Ta operacja ukrywa stronę przed czytelnikami i możesz ją edytować lub "
+"opublikować ponownie później."
+
 #, python-format
 msgid "Move %(title)s"
 msgstr "Przesuń %(title)s"
@@ -578,8 +600,34 @@ msgstr "Cofnij publikację"
 msgid "Are you sure you want to unpublish this page?"
 msgstr "Czy na pewno chcesz cofnąć publikację tej strony?"
 
+#, python-format
+msgid ""
+"\n"
+"                    This page has one subpage. Unpublish this too\n"
+"                "
+msgid_plural ""
+"\n"
+"                    This page has %(live_descendant_count)s subpages. "
+"Unpublish these too\n"
+"                "
+msgstr[0] ""
+"\n"
+"Ta strona posiada podstronę. Odpublikuj ją również         "
+msgstr[1] ""
+"\n"
+"Ta strona posiada %(live_descendant_count)s podstron. Odpublikuj je "
+"również.\n"
+"                "
+msgstr[2] ""
+"\n"
+"Ta strona posiada %(live_descendant_count)s podstron. Odpublikuj je również\n"
+"                "
+
 msgid "Yes, unpublish it"
 msgstr "Tak, cofnij publikację"
+
+msgid "No, don't unpublish"
+msgstr "Anuluj publikację"
 
 msgid "Pages using"
 msgstr "Strony używające"
@@ -910,6 +958,9 @@ msgstr[2] "Użyto %(useage_count)s razy"
 
 msgid "Edit your account"
 msgstr "Edytuj swoje konto"
+
+msgid "Account settings"
+msgstr "Ustawienia konta"
 
 msgid "Log out"
 msgstr "Wyloguj się"

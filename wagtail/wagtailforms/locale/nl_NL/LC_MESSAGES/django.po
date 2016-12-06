@@ -12,8 +12,8 @@ msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-10-05 16:37+0100\n"
-"PO-Revision-Date: 2016-09-22 15:05+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2016-11-23 19:10+0000\n"
+"Last-Translator: Thijs Kramer <thijskramer@gmail.com>\n"
 "Language-Team: Dutch (Netherlands) (http://www.transifex.com/torchbox/"
 "wagtail/language/nl_NL/)\n"
 "MIME-Version: 1.0\n"
@@ -21,6 +21,13 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: nl_NL\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "{} submissions"
+msgstr "{} inzendingen"
+
+#, python-format
+msgid "There is another field with the label %s, please change one of them."
+msgstr "Er is al een ander veld met het label %s. Wijzig een van beide velden."
 
 msgid "Single line text"
 msgstr "Enkele regel tekst"
@@ -94,8 +101,18 @@ msgstr ""
 msgid "help text"
 msgstr "hulptekst"
 
+msgid "Submission date"
+msgstr "Datum van inzending"
+
 msgid "to address"
 msgstr "e-mailadres ontvanger"
+
+msgid ""
+"Optional - form submissions will be emailed to these addresses. Separate "
+"multiple addresses by comma."
+msgstr ""
+"Optioneel - formulierinzendingen zullen naar deze adressen verstuurd worden. "
+"Vul meerdere adressen gescheiden door een komma in."
 
 msgid "from address"
 msgstr "e-mail afzender"
@@ -115,6 +132,12 @@ msgstr "Weet u zeker dat u deze inzending wilt verwijderen?"
 
 msgid "Delete it"
 msgstr "Verwijderen"
+
+msgid "Total submissions"
+msgstr "Totaal aantal inzendingen"
+
+msgid "Latest submission"
+msgstr "Laatste inzending"
 
 msgid "Forms"
 msgstr "Formulieren"

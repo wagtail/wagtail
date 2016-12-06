@@ -196,13 +196,14 @@ Contributors
 Translators
 ===========
 
+* Afrikaans: Jaco du Plessis
 * Arabic: alfuhigi, Roger Allen, Ahmad Kiswani, Mohamed Mayla
 * Basque: Unai Zalakain
 * Bulgarian: Lyuboslav Petrov
 * Catalan: Antoni Aloy, David Llop, Roger Pons
 * Chinese: hanfeng, Lihan Li, Leway Colin
-* Chinese (China): hanfeng, Daniel Hwang, Jian Li, Listeng Teng, Feng Wang, Joey Zhao
-* Chinese (Taiwan): Lihan Li
+* Chinese (China): hanfeng, Daniel Hwang, Jian Li, Listeng Teng, Feng Wang, Fred Zeng, Joey Zhao, zhushajun
+* Chinese (Taiwan): Lihan Li, Jp Shieh
 * Croatian (Croatia): Luka Matijević
 * Czech: Ivan Pomykacz, Jiri Stepanek, Marek Turnovec
 * Danish: Asger Sørensen
@@ -218,7 +219,7 @@ Translators
 * Hungarian: Laszlo Molnar, Kornél Novák Mergulhão
 * Icelandic (Iceland): Arnar Tumi Þorsteinsson, Kjartan Sverrisson, Sævar Öfjörð Magnússon
 * Indonesian (Indonesia): Sutrisno Efendi, Geek Pantura
-* Italian: Edd Baldry, Claudio Bantaloukas, Giacomo Ghizzani, Carlo Miron, Alessio Di Stasio, Andrea Tagliazucchi
+* Italian: Edd Baldry, Claudio Bantaloukas, Gian-Maria Daffre, Giacomo Ghizzani, Carlo Miron, Alessio Di Stasio, Andrea Tagliazucchi
 * Japanese: Sangmin Ahn, Shu Ishida, Daigo Shitara, Shimizu Taku
 * Korean: Kyungil Choi, Jihan Chung
 * Latvian: Reinis Rozenbergs, Maris Serzans
