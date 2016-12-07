@@ -192,6 +192,7 @@ Contributors
 * PyMan Claudio Marinozzi
 * Jeffrey Chau
 * Craig Loftus
+* MattRijk
 
 Translators
 ===========
