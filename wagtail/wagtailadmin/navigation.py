@@ -2,8 +2,8 @@ from __future__ import absolute_import, unicode_literals
 
 from django.db.models import Q
 
-from wagtail.wagtailcore.models import Page
 from wagtail.wagtailcore import hooks
+from wagtail.wagtailcore.models import Page
 
 
 def get_pages_with_direct_explore_permission(user):
