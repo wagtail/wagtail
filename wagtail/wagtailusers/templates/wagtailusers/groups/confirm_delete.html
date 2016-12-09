@@ -8,7 +8,11 @@
 
     <div class="nice-padding">
         <p>
-            {% blocktrans with group_user_count=group.user_set.count group_name=group.name %}The group '{{ group_name }}' has <strong>{{ group_user_count }}</strong> users assigned.{% endblocktrans %}
+            {% blocktrans with group_name=group.name count group_user_count=group.user_set.count %}
+                The group '{{ group_name }}' has <strong>{{ group_user_count }}</strong> member.
+            {% plural %}
+                The group '{{ group_name }}' has <strong>{{ group_user_count }}</strong> members.
+            {% endblocktrans %}
         </p>
         <p>
             {% if group.user_set.count %}
