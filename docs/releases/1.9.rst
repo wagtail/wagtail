@@ -1,0 +1,29 @@
+==========================================
+Wagtail 1.9 release notes - IN DEVELOPMENT
+==========================================
+
+.. contents::
+    :local:
+    :depth: 1
+
+
+What's new
+==========
+
+
+
+Minor features
+~~~~~~~~~~~~~~
+
+
+
+
+Bug fixes
+~~~~~~~~~
+
+
+
+
+Upgrade considerations
+======================
+
