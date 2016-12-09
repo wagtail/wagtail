@@ -27,10 +27,10 @@
                                 <ul class="actions">
                                     <li><a href="{% url 'wagtailadmin_pages:edit' page.id %}" class="button button-small button-secondary">{% trans "Edit" %}</a></li>
                                     {% if page.has_unpublished_changes %}
-                                        <li><a href="{% url 'wagtailadmin_pages:view_draft' page.id %}" class="button button-small button-secondary">{% trans 'Draft' %}</a></li>
+                                        <li><a href="{% url 'wagtailadmin_pages:view_draft' page.id %}" class="button button-small button-secondary" target="_blank">{% trans 'Draft' %}</a></li>
                                     {% endif %}
                                     {% if page.live %}
-                                        <li><a href="{{ page.url }}" class="button button-small button-secondary">{% trans 'Live' %}</a></li>
+                                        <li><a href="{{ page.url }}" class="button button-small button-secondary" target="_blank">{% trans 'Live' %}</a></li>
                                     {% endif %}
                                 </ul>
                             </td>

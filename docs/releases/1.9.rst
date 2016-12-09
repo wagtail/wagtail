@@ -15,7 +15,7 @@ What's new
 Minor features
 ~~~~~~~~~~~~~~
 
-
+ * View live / draft links in the admin now consistently open in a new window (Marco Fucci)
 
 
 Bug fixes

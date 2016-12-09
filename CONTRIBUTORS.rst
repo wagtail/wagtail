@@ -193,6 +193,7 @@ Contributors
 * Jeffrey Chau
 * Craig Loftus
 * MattRijk
+* Marco Fucci
 
 Translators
 ===========
