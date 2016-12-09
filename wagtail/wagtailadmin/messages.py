@@ -31,5 +31,5 @@ def error(request, message, buttons=None):
     return messages.error(request, render(message, buttons))
 
 
-def button(url, text):
-    return url, text
+def button(url, text, new_window=False):
+    return url, text, new_window
