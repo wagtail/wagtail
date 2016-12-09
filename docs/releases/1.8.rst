@@ -14,7 +14,9 @@ What's new
 New page privacy options
 ~~~~~~~~~~~~~~~~~~~~~~~~
 
-Previously users with publishing permissions were able to restrict access to a page based on a shared password. Now they can also restrict access to logged-in users only, or to users from specific groups. This feature was developed by Shawn Makinson, Tom Miller, Luca Perico and Matt Westcott.
+.. image:: ../_static/images/releasenotes_1_8_pageprivacy.png
+
+Access to pages can now be restricted based on user accounts and group membership, rather than just through a shared password. This makes it possible to set up intranet-style sites via the admin, with no additional coding. This feature was developed by Shawn Makinson, Tom Miller, Luca Perico and Matt Westcott.
 
 See: :ref:`private_pages`
 
