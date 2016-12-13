@@ -532,7 +532,7 @@ This method is now available from our templates. Update ``blog_index_page.html``
 
     ...
 
-    {% for post in page.get_children %}
+    {% for post in blogpages %}
         {% with post=post.specific %}
             <h2><a href="{% pageurl post %}">{{ post.title }}</a></h2>
 

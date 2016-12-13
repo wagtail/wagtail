@@ -194,6 +194,7 @@ Contributors
 * Craig Loftus
 * MattRijk
 * Marco Fucci
+* Mihail Russu
 
 Translators
 ===========
