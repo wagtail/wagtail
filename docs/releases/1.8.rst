@@ -37,7 +37,7 @@ Elasticsearch 5 support
 Wagtail now supports Elasticsearch 5. See :ref:`wagtailsearch_backends_elasticsearch` for configuration details. This feature was developed by Karl Hobley.
 
 
-Minor features
+Other features
 ~~~~~~~~~~~~~~
 
  * Added support of a custom ``edit_handler`` for site settings. See :ref:`docs for the site settings module <edit_handlers_settings>`. (Axel Haustant)
