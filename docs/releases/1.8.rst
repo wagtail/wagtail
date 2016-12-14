@@ -37,6 +37,18 @@ Elasticsearch 5 support
 Wagtail now supports Elasticsearch 5. See :ref:`wagtailsearch_backends_elasticsearch` for configuration details. This feature was developed by Karl Hobley.
 
 
+Permission-limited admin breadcrumb
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Breadcrumb links within the admin are now limited to the portion of the page tree that covers all pages the user has permission over. As with the changes to the explorer sidebar menu in Wagtail 1.6, this is a step towards supporting full multi-tenancy (where multiple sites on the same Wagtail installation can be fully isolated from each other through permission configuration). This feature was developed by Jeffrey Chau, Robert Rollins and Matt Westcott.
+
+
+Updated tutorial
+~~~~~~~~~~~~~~~~
+
+The ":doc:`Your first Wagtail site </getting_started/tutorial>`" tutorial has been extensively updated to cover concepts such as dynamic page listings, template context variables, and tagging. This update was contributed by Scot Hacker, with additions from Matt Westcott.
+
+
 Other features
 ~~~~~~~~~~~~~~
 
@@ -59,7 +71,6 @@ Other features
  * Added :meth:`wagtail.wagtailcore.query.PageQuerySet.in_site` method for filtering page querysets to pages within the specified site (Chris Rogers)
  * Added the ability to override the default index settings for Elasticsearch. See :ref:`wagtailsearch_backends_elasticsearch` (PyMan Claudio Marinozzi)
  * Extra options for the Elasticsearch constructor should be now defined with the new key ``OPTIONS`` of the ``WAGTAILSEARCH_BACKENDS`` setting (PyMan Claudio Marinozzi)
- * Breadcrumb in the page explorer is now restricted to the pages the user has permission over (Jeffrey Chau, Robert Rollins, Matt Westcott)
 
 
 Bug fixes
