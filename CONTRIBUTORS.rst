@@ -195,6 +195,7 @@ Contributors
 * MattRijk
 * Marco Fucci
 * Mihail Russu
+* Robert Slotboom
 
 Translators
 ===========

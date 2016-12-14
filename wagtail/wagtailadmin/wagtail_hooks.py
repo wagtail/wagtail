@@ -77,10 +77,10 @@ def page_listing_buttons(page, page_perms, is_parent=False):
     if page_perms.can_add_subpage():
         if is_parent:
             yield Button(_('Add child page'), reverse('wagtailadmin_pages:add_subpage', args=[page.id]),
-                         attrs={'title': _("Add a child page to '{0}' ".format(page.get_admin_display_title()))}, classes={'button', 'button-small', 'bicolor', 'icon', 'white', 'icon-plus'}, priority=40)
+                         attrs={'title': _("Add a child page to '{0}' ").format(page.get_admin_display_title())}, classes={'button', 'button-small', 'bicolor', 'icon', 'white', 'icon-plus'}, priority=40)
         else:
             yield PageListingButton(_('Add child page'), reverse('wagtailadmin_pages:add_subpage', args=[page.id]),
-                                    attrs={'title': _("Add a child page to '{0}' ".format(page.get_admin_display_title()))}, priority=40)
+                                    attrs={'title': _("Add a child page to '{0}' ").format(page.get_admin_display_title())}, priority=40)
 
     yield ButtonWithDropdownFromHook(
         _('More'),
