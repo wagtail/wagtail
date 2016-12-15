@@ -1,7 +1,7 @@
 Changelog
 =========
 
-1.8 (xx.xx.xxxx) - IN DEVELOPMENT
+1.8 (15.12.2016)
 ~~~~~~~~~~~~~~~~
 
  * New page privacy options (Shawn Makinson, Tom Miller, Luca Perico, Matt Westcott)
