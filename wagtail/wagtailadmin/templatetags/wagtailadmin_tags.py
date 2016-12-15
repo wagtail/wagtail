@@ -79,7 +79,6 @@ def explorer_site(user, root_site_name="Root"):
     """
     explorable_root = get_pages_with_direct_explore_permission(user).first()
     if explorable_root.title == "Root":
-        print explorable_root
         return root_site_name
     else:
         return explorable_root
