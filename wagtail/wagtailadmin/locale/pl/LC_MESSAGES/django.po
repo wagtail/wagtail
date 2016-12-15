@@ -11,9 +11,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-10-05 16:37+0100\n"
-"PO-Revision-Date: 2016-11-28 10:45+0000\n"
-"Last-Translator: mmiskiew <mmiskiew@gmail.com>\n"
+"POT-Creation-Date: 2016-12-06 22:44+0000\n"
+"PO-Revision-Date: 2016-12-06 22:46+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Polish (http://www.transifex.com/torchbox/wagtail/language/"
 "pl/)\n"
 "MIME-Version: 1.0\n"
@@ -128,15 +128,6 @@ msgstr "Slug jest już wykorzystywany w kontekście strony nadrzędnej \"%s\""
 
 msgid "Visibility"
 msgstr "Widoczność"
-
-msgid "Public"
-msgstr "Publiczna"
-
-msgid "Private, accessible with the following password"
-msgstr "Prywatna, dostępna za użyciem nastepującego hasła"
-
-msgid "Password"
-msgstr "Hasło"
 
 msgid "This field is required."
 msgstr "To pole jest wymagane."
@@ -502,6 +493,9 @@ msgstr "Odblokowany"
 
 msgid "Privacy"
 msgstr "Prywatność"
+
+msgid "Public"
+msgstr "Publiczna"
 
 msgid "Private"
 msgstr "Prywatna"
@@ -980,10 +974,6 @@ msgstr ""
 "Używasz <strong>przestarzałej</strong> przeglądarki nie wspieranej przez tą "
 "aplikację. Proszę <a href=\"http://browsehappy.com/\">zaktualizuj swoją "
 "przeglądarkę</a>."
-
-msgid "Javascript is required to use Wagtail, but it is currently disabled"
-msgstr ""
-"Obsługa Javascript jest wymagana przez Wagtail, ale obecnie jest wyłączona"
 
 msgid "Go to Wagtail admin interface"
 msgstr "Idź do panelu administratora Wagtaila"

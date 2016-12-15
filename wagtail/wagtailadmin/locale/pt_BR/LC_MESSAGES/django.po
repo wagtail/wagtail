@@ -15,9 +15,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-10-05 16:37+0100\n"
-"PO-Revision-Date: 2016-10-06 03:13+0000\n"
-"Last-Translator: Luiz Boaretto <lboaretto@gmail.com>\n"
+"POT-Creation-Date: 2016-12-06 22:44+0000\n"
+"PO-Revision-Date: 2016-12-06 22:46+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Portuguese (Brazil) (http://www.transifex.com/torchbox/"
 "wagtail/language/pt_BR/)\n"
 "MIME-Version: 1.0\n"
@@ -127,15 +127,6 @@ msgstr "Este endereço já está em uso no contexto desta página raíz \"%s\""
 
 msgid "Visibility"
 msgstr "Visibilidade"
-
-msgid "Public"
-msgstr "Público"
-
-msgid "Private, accessible with the following password"
-msgstr "Privado, acessível com a seguinte senha"
-
-msgid "Password"
-msgstr "Senha"
 
 msgid "This field is required."
 msgstr "Este campo é obrigatório."
@@ -492,6 +483,9 @@ msgstr "Desbloqueado"
 
 msgid "Privacy"
 msgstr "Particular"
+
+msgid "Public"
+msgstr "Público"
 
 msgid "Private"
 msgstr "Privativo"
@@ -964,11 +958,6 @@ msgstr ""
 "Você está usando um navegador <strong>não atualizado</string> não suportado "
 "por este software. Por favor <a href=\"http://browsehappy.com/\">atualize o "
 "seu navegador</a>"
-
-msgid "Javascript is required to use Wagtail, but it is currently disabled"
-msgstr ""
-"É necessário ter Javascript habilitado para usar Wagtail, mas atualmente "
-"está desabilitado."
 
 msgid "Go to Wagtail admin interface"
 msgstr "Ir para administração Wagtail"

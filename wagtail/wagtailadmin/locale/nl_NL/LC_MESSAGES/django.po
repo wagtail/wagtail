@@ -10,9 +10,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-10-05 16:37+0100\n"
-"PO-Revision-Date: 2016-11-23 19:08+0000\n"
-"Last-Translator: Thijs Kramer <thijskramer@gmail.com>\n"
+"POT-Creation-Date: 2016-12-06 22:44+0000\n"
+"PO-Revision-Date: 2016-12-06 22:46+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Dutch (Netherlands) (http://www.transifex.com/torchbox/"
 "wagtail/language/nl_NL/)\n"
 "MIME-Version: 1.0\n"
@@ -125,15 +125,6 @@ msgstr ""
 
 msgid "Visibility"
 msgstr "Zichtbaarheid"
-
-msgid "Public"
-msgstr "Openbaar"
-
-msgid "Private, accessible with the following password"
-msgstr "Privé, toegankelijk met het volgende wachtwoord:"
-
-msgid "Password"
-msgstr "Wachtwoord"
 
 msgid "This field is required."
 msgstr "Dit is een verplicht veld."
@@ -495,6 +486,9 @@ msgstr "Gedeblokkeerd"
 
 msgid "Privacy"
 msgstr "Privacy"
+
+msgid "Public"
+msgstr "Openbaar"
 
 msgid "Private"
 msgstr "Privé"
@@ -961,11 +955,6 @@ msgstr ""
 "U gebruikt een <strong>verouderde</strong> browser die niet ondersteund "
 "wordt door deze software. <a href=\"http://browsehappy.com/\">Upgrade uw "
 "browser</a> a.u.b."
-
-msgid "Javascript is required to use Wagtail, but it is currently disabled"
-msgstr ""
-"Javascript is vereist om Wagtail te kunnen gebruiken, maar is momenteel "
-"uitgeschakeld."
 
 msgid "Go to Wagtail admin interface"
 msgstr "Ga naar de Wagtail admin interface"

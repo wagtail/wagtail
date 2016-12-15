@@ -8,9 +8,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-10-05 16:37+0100\n"
-"PO-Revision-Date: 2016-10-05 19:15+0000\n"
-"Last-Translator: Dan Braghis\n"
+"POT-Creation-Date: 2016-12-06 22:44+0000\n"
+"PO-Revision-Date: 2016-12-06 22:46+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Romanian (http://www.transifex.com/torchbox/wagtail/language/"
 "ro/)\n"
 "MIME-Version: 1.0\n"
@@ -125,15 +125,6 @@ msgstr "Acest slug este deja folosit în contextul paginii părinte \"%s\""
 
 msgid "Visibility"
 msgstr "Vizibilitate"
-
-msgid "Public"
-msgstr "Public"
-
-msgid "Private, accessible with the following password"
-msgstr "Privat. Accesibil cu parola următoare"
-
-msgid "Password"
-msgstr "Parolă"
 
 msgid "This field is required."
 msgstr "Acest câmp este obligatoriu."
@@ -500,6 +491,9 @@ msgstr "Deblocat"
 
 msgid "Privacy"
 msgstr "Confidențialitate"
+
+msgid "Public"
+msgstr "Public"
 
 msgid "Private"
 msgstr "Privat"
@@ -971,9 +965,6 @@ msgstr ""
 "Folosiți un browser web <strong>învechit</strong> care nu este suportat de "
 "această aplicație. Vă rugăm să <a href=\"http://browsehappy.com/"
 "\">actualizați browser-ul</a> Dvstră."
-
-msgid "Javascript is required to use Wagtail, but it is currently disabled"
-msgstr "Wagtail are nevoie de JavaScript, care la moment este dezactivat."
 
 msgid "Go to Wagtail admin interface"
 msgstr "Spre interfața de administrare Wagtail"
