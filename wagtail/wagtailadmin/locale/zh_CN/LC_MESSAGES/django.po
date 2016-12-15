@@ -13,9 +13,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-10-05 16:37+0100\n"
-"PO-Revision-Date: 2016-11-23 11:15+0000\n"
-"Last-Translator: Fred Zeng <979738295@qq.com>\n"
+"POT-Creation-Date: 2016-12-06 22:44+0000\n"
+"PO-Revision-Date: 2016-12-06 22:46+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Chinese (China) (http://www.transifex.com/torchbox/wagtail/"
 "language/zh_CN/)\n"
 "MIME-Version: 1.0\n"
@@ -116,15 +116,6 @@ msgstr[0] ""
 msgid ""
 "This slug is already in use within the context of its parent page \"%s\""
 msgstr "此缩写在父页面\"%s\"环境中已被使用。"
-
-msgid "Public"
-msgstr "公开"
-
-msgid "Private, accessible with the following password"
-msgstr "私有，使用下列的密码访问："
-
-msgid "Password"
-msgstr "密码"
 
 msgid "This field is required."
 msgstr "必需字段"
@@ -461,6 +452,9 @@ msgstr "已解锁"
 
 msgid "Privacy"
 msgstr "隐私"
+
+msgid "Public"
+msgstr "公开"
 
 msgid "Private"
 msgstr "私有"
@@ -872,9 +866,6 @@ msgid ""
 msgstr ""
 "您正在使用一个本软件不支持的<strong>过期的</strong> 浏览器。请 <a href="
 "\"http://browsehappy.com/\">更新浏览器</a>。"
-
-msgid "Javascript is required to use Wagtail, but it is currently disabled"
-msgstr "Wagtail需要启用Javascript，但Javascript当前被禁用"
 
 msgid "Go to Wagtail admin interface"
 msgstr "转到管理界面"
