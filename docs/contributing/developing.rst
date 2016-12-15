@@ -3,9 +3,9 @@
 Development
 -----------
 
-Setting up a local copy of `the Wagtail git repository <https://github.com/torchbox/wagtail>`_ is slightly more involved than running a release package of Wagtail, as it requires `Node.js <https://nodejs.org/>`_ and NPM for building Javascript and CSS assets. (This is not required when running a release version, as the compiled assets are included in the release package.)
+Setting up a local copy of `the Wagtail git repository <https://github.com/wagtail/wagtail>`_ is slightly more involved than running a release package of Wagtail, as it requires `Node.js <https://nodejs.org/>`_ and NPM for building Javascript and CSS assets. (This is not required when running a release version, as the compiled assets are included in the release package.)
 
-If you're happy to develop on a virtual machine, the `vagrant-wagtail-develop <https://github.com/torchbox/vagrant-wagtail-develop>`_ setup script is the fastest way to get up and running. This will provide you with a running instance of the `Wagtail demo site <https://github.com/torchbox/wagtaildemo/>`_, with the Wagtail and wagtaildemo codebases available as shared folders for editing on your host machine.
+If you're happy to develop on a virtual machine, the `vagrant-wagtail-develop <https://github.com/wagtail/vagrant-wagtail-develop>`_ setup script is the fastest way to get up and running. This will provide you with a running instance of the `Wagtail demo site <https://github.com/wagtail/wagtaildemo/>`_, with the Wagtail and wagtaildemo codebases available as shared folders for editing on your host machine.
 
 (Build scripts for other platforms would be very much welcomed - if you create one, please let us know via the `Wagtail Developers group <https://groups.google.com/forum/#!forum/wagtail-developers>`_!)
 
@@ -17,11 +17,11 @@ Setting up the Wagtail codebase
 
 Install Node.js, v5.3.0 or higher. Instructions for installing Node.js can be found on the `Node.js download page <https://nodejs.org/download/>`_. You will also need to install the **libjpeg** and **zlib** libraries, if you haven't done so already - see Pillow's `platform-specific installation instructions <http://pillow.readthedocs.org/en/latest/installation.html#external-libraries>`_.
 
-Clone a copy of `the Wagtail codebase <https://github.com/torchbox/wagtail>`_:
+Clone a copy of `the Wagtail codebase <https://github.com/wagtail/wagtail>`_:
 
 .. code-block:: console
 
-    $ git clone https://github.com/torchbox/wagtail.git
+    $ git clone https://github.com/wagtail/wagtail.git
     $ cd wagtail
 
 With your preferred virtualenv activated, install the Wagtail package in development mode with the included testing and documentation dependencies:
@@ -42,7 +42,7 @@ Compile the assets:
 
     $ npm run build
 
-Any Wagtail sites you start up in this virtualenv will now run against this development instance of Wagtail. We recommend using the `Wagtail demo site <https://github.com/torchbox/wagtaildemo/>`_ as a basis for developing Wagtail.
+Any Wagtail sites you start up in this virtualenv will now run against this development instance of Wagtail. We recommend using the `Wagtail demo site <https://github.com/wagtail/wagtaildemo/>`_ as a basis for developing Wagtail.
 
 .. _testing:
 

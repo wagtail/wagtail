@@ -100,5 +100,5 @@ Update to ``focal_point_key`` field on custom Rendition models
 
 The ``focal_point_key`` field on wagtailimages.Rendition has been changed to ``null=False``, to fix an issue with duplicate renditions being created. If you have defined a custom Rendition model in your project (by extending the ``wagtailimages.AbstractRendition`` class), you will need to apply a migration to make the corresponding change on your custom model. Unfortunately neither South nor Django 1.7's migration system are able to generate this automatically - you will need to customise the migration produced by ``./manage.py schemamigration`` / ``./manage.py makemigrations``, using the wagtailimages migration as a guide:
 
- - https://github.com/torchbox/wagtail/blob/master/wagtail/wagtailimages/south_migrations/0004_auto__chg_field_rendition_focal_point_key.py (for South / Django 1.6)
- - https://github.com/torchbox/wagtail/blob/master/wagtail/wagtailimages/migrations/0004_make_focal_point_key_not_nullable.py (for Django 1.7)
+ - https://github.com/wagtail/wagtail/blob/master/wagtail/wagtailimages/south_migrations/0004_auto__chg_field_rendition_focal_point_key.py (for South / Django 1.6)
+ - https://github.com/wagtail/wagtail/blob/master/wagtail/wagtailimages/migrations/0004_make_focal_point_key_not_nullable.py (for Django 1.7)

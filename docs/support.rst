@@ -9,7 +9,7 @@ If you have general questions about Wagtail, or you're looking for help on how t
 Issues
 ~~~~~~
 
-If you think you've found a bug in Wagtail, or you'd like to suggest a new feature, please check the current list at `github.com/torchbox/wagtail/issues <https://github.com/torchbox/wagtail/issues>`_. If your bug or suggestion isn't there, raise a new issue, providing as much relevant context as possible.
+If you think you've found a bug in Wagtail, or you'd like to suggest a new feature, please check the current list at `github.com/wagtail/wagtail/issues <https://github.com/wagtail/wagtail/issues>`_. If your bug or suggestion isn't there, raise a new issue, providing as much relevant context as possible.
 
 Torchbox
 ~~~~~~~~
