@@ -91,7 +91,7 @@ class TestSiteRootPathsCache(TestCase):
         site and return None as their url.
 
         Fix: d6cce69a397d08d5ee81a8cbc1977ab2c9db2682
-        Discussion: https://github.com/torchbox/wagtail/issues/7
+        Discussion: https://github.com/wagtail/wagtail/issues/7
         """
         # Get homepage, root page and site
         root_page = Page.objects.get(id=1)
@@ -129,7 +129,7 @@ class TestSiteRootPathsCache(TestCase):
         the site and return None as their url.
 
         Fix: d6cce69a397d08d5ee81a8cbc1977ab2c9db2682
-        Discussion: https://github.com/torchbox/wagtail/issues/157
+        Discussion: https://github.com/wagtail/wagtail/issues/157
         """
         # Get homepage
         homepage = Page.objects.get(url_path='/home/')
