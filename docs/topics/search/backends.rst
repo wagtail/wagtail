@@ -108,6 +108,10 @@ Prerequisites are the `Elasticsearch`_ service itself and, via pip, the `elastic
 
   pip install "elasticsearch>=5.0.0,<6.0.0"  # for Elasticsearch 5.x
 
+.. code-block:: sh
+
+  pip install "elasticsearch>=5.0.0,<6.0.0"  # for Elasticsearch 5.x
+
 The backend is configured in settings:
 
 .. code-block:: python
