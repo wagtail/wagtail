@@ -1,7 +1,6 @@
 from __future__ import absolute_import, unicode_literals
 
 import hashlib
-import inspect
 import os.path
 import warnings
 from collections import OrderedDict
@@ -25,7 +24,7 @@ from taggit.managers import TaggableManager
 from unidecode import unidecode
 from willow.image import Image as WillowImage
 
-from wagtail.utils.deprecation import RemovedInWagtail19Warning, RemovedInWagtail110Warning
+from wagtail.utils.deprecation import RemovedInWagtail110Warning
 from wagtail.wagtailadmin.utils import get_object_usage
 from wagtail.wagtailcore import hooks
 from wagtail.wagtailcore.models import CollectionMember
@@ -404,24 +403,7 @@ class Filter(models.Model):
                 'original-format': original_format,
             }
             for operation in self.operations:
-                # Check that the operation can take the "env" argument
-                try:
-                    inspect.getcallargs(operation.run, willow, image, env)
-                    accepts_env = True
-                except TypeError:
-                    # Check that the paramters fit the old style, so we don't
-                    # raise a warning if there is a coding error
-                    inspect.getcallargs(operation.run, willow, image)
-                    accepts_env = False
-                    warnings.warn("ImageOperation run methods should take 4 "
-                                  "arguments. %d.run only takes 3.",
-                                  RemovedInWagtail19Warning)
-
-                # Call operation
-                if accepts_env:
-                    willow = operation.run(willow, image, env) or willow
-                else:
-                    willow = operation.run(willow, image) or willow
+                willow = operation.run(willow, image, env) or willow
 
             # Find the output format to use
             if 'output-format' in env:
