@@ -79,10 +79,13 @@ def explorer_site(user, root_site_name="Root"):
     Usage: {% explorer_site user site_name}
     """
     explorable_root = get_pages_with_direct_explore_permission(user).first()
-    if explorable_root.title == "Root":
-        return root_site_name
+    if explorable_root:
+        if explorable_root.title == "Root":
+            return root_site_name
+        else:
+            return explorable_root
     else:
-        return explorable_root
+        return None
 
 
 @register.inclusion_tag('wagtailadmin/shared/search_other.html', takes_context=True)
