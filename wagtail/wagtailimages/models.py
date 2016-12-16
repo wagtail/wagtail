@@ -365,7 +365,7 @@ def image_delete(sender, instance, **kwargs):
     instance.file.delete(False)
 
 
-# RemovedInWagtail19Warning: We will remove the models.Model
+# RemovedInWagtail110Warning: We will remove the models.Model
 class Filter(models.Model):
     """
     Represents one or more operations that can be applied to an Image to produce a rendition
@@ -485,9 +485,9 @@ class Filter(models.Model):
 
     def save(self, *args, **kwargs):
         warnings.warn(
-            "Filter.save() is deprecated; Filter will no longer be an ORM model in Wagtail 1.9. "
+            "Filter.save() is deprecated; Filter will no longer be an ORM model in Wagtail 1.10. "
             "Instantiate and use it in-memory instead",
-            RemovedInWagtail19Warning, stacklevel=2
+            RemovedInWagtail110Warning, stacklevel=2
         )
         return super(Filter, self).save(*args, **kwargs)
 
@@ -495,9 +495,9 @@ class Filter(models.Model):
 class WarnOnManagerAccess(object):
     def __get__(self, obj, objtype=None):
         warnings.warn(
-            "Filter.objects is deprecated; Filter will no longer be an ORM model in Wagtail 1.9. "
+            "Filter.objects is deprecated; Filter will no longer be an ORM model in Wagtail 1.10. "
             "Instantiate and use it in-memory instead",
-            RemovedInWagtail19Warning, stacklevel=2
+            RemovedInWagtail110Warning, stacklevel=2
         )
         return objtype._objects
 
@@ -507,7 +507,6 @@ Filter.objects = WarnOnManagerAccess()
 
 
 class AbstractRendition(models.Model):
-    filter = models.ForeignKey(Filter, related_name='+', null=True, blank=True)  # DEPRECATED - RemovedInWagtail19Warning
     filter_spec = models.CharField(max_length=255, db_index=True)
     file = models.ImageField(upload_to=get_rendition_upload_to, width_field='width', height_field='height')
     width = models.IntegerField(editable=False)
