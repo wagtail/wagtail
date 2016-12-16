@@ -73,7 +73,7 @@ def explorer_breadcrumb(context, page, include_self=False):
     }
 
 
-@register.simple_tag
+@register.assignment_tag
 def explorer_site(user, root_site_name="Root"):
     """
     Usage: {% explorer_site user site_name}
