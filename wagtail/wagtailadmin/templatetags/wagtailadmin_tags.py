@@ -72,6 +72,7 @@ def explorer_breadcrumb(context, page, include_self=False):
         'pages': page.get_ancestors(inclusive=include_self).descendant_of(cca, inclusive=True)
     }
 
+
 @register.simple_tag
 def explorer_site(user, root_site_name="Root"):
     """
