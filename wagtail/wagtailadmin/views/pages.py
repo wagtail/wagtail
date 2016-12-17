@@ -224,7 +224,7 @@ def create(request, content_type_app_name, content_type_model_name, parent_page_
                     ])
                 else:
                     messages.success(request, _("Page '{0}' created and published.").format(page.get_admin_display_title()), buttons=[
-                        messages.button(page.url, _('View live')),
+                        messages.button(page.url, _('View live'), new_window=True),
                         messages.button(reverse('wagtailadmin_pages:edit', args=(page.id,)), _('Edit'))
                     ])
             elif is_submitting:
@@ -232,8 +232,15 @@ def create(request, content_type_app_name, content_type_model_name, parent_page_
                     request,
                     _("Page '{0}' created and submitted for moderation.").format(page.get_admin_display_title()),
                     buttons=[
-                        messages.button(reverse('wagtailadmin_pages:view_draft', args=(page.id,)), _('View draft')),
-                        messages.button(reverse('wagtailadmin_pages:edit', args=(page.id,)), _('Edit'))
+                        messages.button(
+                            reverse('wagtailadmin_pages:view_draft', args=(page.id,)),
+                            _('View draft'),
+                            new_window=True
+                        ),
+                        messages.button(
+                            reverse('wagtailadmin_pages:edit', args=(page.id,)),
+                            _('Edit')
+                        )
                     ]
                 )
                 if not send_notification(page.get_latest_revision().id, 'submitted', request.user.pk):
@@ -381,7 +388,8 @@ def edit(request, page_id):
                     messages.success(request, message, buttons=[
                         messages.button(
                             page.url,
-                            _('View live')
+                            _('View live'),
+                            new_window=True
                         ),
                         messages.button(
                             reverse('wagtailadmin_pages:edit', args=(page_id,)),
@@ -400,7 +408,8 @@ def edit(request, page_id):
                 messages.success(request, message, buttons=[
                     messages.button(
                         reverse('wagtailadmin_pages:view_draft', args=(page_id,)),
-                        _('View draft')
+                        _('View draft'),
+                        new_window=True
                     ),
                     messages.button(
                         reverse('wagtailadmin_pages:edit', args=(page_id,)),
@@ -893,7 +902,7 @@ def approve_moderation(request, revision_id):
     if request.method == 'POST':
         revision.approve_moderation()
         messages.success(request, _("Page '{0}' published.").format(revision.page.get_admin_display_title()), buttons=[
-            messages.button(revision.page.url, _('View live')),
+            messages.button(revision.page.url, _('View live'), new_window=True),
             messages.button(reverse('wagtailadmin_pages:edit', args=(revision.page.id,)), _('Edit'))
         ])
         if not send_notification(revision.id, 'approved', request.user.pk):

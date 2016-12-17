@@ -14,7 +14,6 @@ from django.core.files import File
 from django.core.urlresolvers import reverse
 from django.db import models
 from django.db.models.signals import post_delete, pre_save
-from django.db.utils import DatabaseError
 from django.dispatch.dispatcher import receiver
 from django.forms.widgets import flatatt
 from django.utils.encoding import python_2_unicode_compatible
@@ -270,14 +269,14 @@ class AbstractImage(CollectionMember, index.Indexed, models.Model):
 
     def get_rendition(self, filter):
         if isinstance(filter, string_types):
-            filter, created = Filter.objects.get_or_create(spec=filter)
+            filter = Filter(spec=filter)
 
         cache_key = filter.get_cache_key(self)
         Rendition = self.get_rendition_model()
 
         try:
             rendition = self.renditions.get(
-                filter=filter,
+                filter_spec=filter.spec,
                 focal_point_key=cache_key,
             )
         except Rendition.DoesNotExist:
@@ -304,7 +303,7 @@ class AbstractImage(CollectionMember, index.Indexed, models.Model):
             output_filename = output_filename_without_extension + '.' + output_extension
 
             rendition, created = self.renditions.get_or_create(
-                filter=filter,
+                filter_spec=filter.spec,
                 focal_point_key=cache_key,
                 defaults={'file': File(generated_image.f, name=output_filename)}
             )
@@ -366,6 +365,7 @@ def image_delete(sender, instance, **kwargs):
     instance.file.delete(False)
 
 
+# RemovedInWagtail19Warning: We will remove the models.Model
 class Filter(models.Model):
     """
     Represents one or more operations that can be applied to an Image to produce a rendition
@@ -483,10 +483,32 @@ class Filter(models.Model):
 
         cls._registered_operations = dict(operations)
 
+    def save(self, *args, **kwargs):
+        warnings.warn(
+            "Filter.save() is deprecated; Filter will no longer be an ORM model in Wagtail 1.9. "
+            "Instantiate and use it in-memory instead",
+            RemovedInWagtail19Warning, stacklevel=2
+        )
+        return super(Filter, self).save(*args, **kwargs)
+
+
+class WarnOnManagerAccess(object):
+    def __get__(self, obj, objtype=None):
+        warnings.warn(
+            "Filter.objects is deprecated; Filter will no longer be an ORM model in Wagtail 1.9. "
+            "Instantiate and use it in-memory instead",
+            RemovedInWagtail19Warning, stacklevel=2
+        )
+        return objtype._objects
+
+
+Filter._objects = Filter.objects
+Filter.objects = WarnOnManagerAccess()
+
 
 class AbstractRendition(models.Model):
-    filter = models.ForeignKey(Filter, related_name='+', null=True, blank=True)
-    filter_spec = models.CharField(max_length=255, db_index=True, blank=True, default='')
+    filter = models.ForeignKey(Filter, related_name='+', null=True, blank=True)  # DEPRECATED - RemovedInWagtail19Warning
+    filter_spec = models.CharField(max_length=255, db_index=True)
     file = models.ImageField(upload_to=get_rendition_upload_to, width_field='width', height_field='height')
     width = models.IntegerField(editable=False)
     height = models.IntegerField(editable=False)
@@ -533,39 +555,23 @@ class AbstractRendition(models.Model):
         filename = self.file.field.storage.get_valid_name(filename)
         return os.path.join(folder_name, filename)
 
-    def save(self, *args, **kwargs):
-        # populate the `filter_spec` field with the spec string of the filter. In Wagtail 1.8
-        # Filter will be dropped as a model, and lookups will be done based on this string instead
-        self.filter_spec = self.filter.spec
-        return super(AbstractRendition, self).save(*args, **kwargs)
-
     @classmethod
     def check(cls, **kwargs):
         errors = super(AbstractRendition, cls).check(**kwargs)
-
-        # If a filter_spec column exists on this model, and contains null entries, warn that
-        # a data migration needs to be performed to populate it
-
-        try:
-            null_filter_spec_exists = cls.objects.filter(filter_spec='').exists()
-        except DatabaseError:
-            # The database is not in a state where the above lookup makes sense;
-            # this is entirely expected, because system checks are performed before running
-            # migrations. We're only interested in the specific case where the column exists
-            # in the db and contains nulls.
-            null_filter_spec_exists = False
-
-        if null_filter_spec_exists:
-            errors.append(
-                checks.Warning(
-                    "Custom image model %r needs a data migration to populate filter_src" % cls,
-                    hint="The database representation of image filters has been changed, and a data "
-                    "migration needs to be put in place before upgrading to Wagtail 1.8, in order to "
-                    "avoid data loss. See http://docs.wagtail.io/en/latest/releases/1.7.html#filter-spec-migration",
-                    obj=cls,
-                    id='wagtailimages.W001',
+        if not cls._meta.abstract:
+            if not any(
+                set(constraint) == set(['image', 'filter_spec', 'focal_point_key'])
+                for constraint in cls._meta.unique_together
+            ):
+                errors.append(
+                    checks.Error(
+                        "Custom rendition model %r has an invalid unique_together setting" % cls,
+                        hint="Custom rendition models must include the constraint "
+                        "('image', 'filter_spec', 'focal_point_key') in their unique_together definition.",
+                        obj=cls,
+                        id='wagtailimages.E001',
+                    )
                 )
-            )
 
         return errors
 
@@ -578,7 +584,7 @@ class Rendition(AbstractRendition):
 
     class Meta:
         unique_together = (
-            ('image', 'filter', 'focal_point_key'),
+            ('image', 'filter_spec', 'focal_point_key'),
         )
 
 

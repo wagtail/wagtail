@@ -43,7 +43,7 @@ testing_extras = [
     'Pillow>=2.7.0',
     'elasticsearch>=1.0.0,<3.0',
     'Jinja2>=2.8,<3.0',
-    'boto3>=1.1,<1.2',
+    'boto3>=1.4,<1.5',
 
     # For coverage and PEP8 linting
     'coverage>=3.7.0',
@@ -53,11 +53,11 @@ testing_extras = [
 
 # Documentation dependencies
 documentation_extras = [
+    'pyenchant==1.6.6',
+    'sphinxcontrib-spelling>=2.3.0',
     'Sphinx>=1.3.1',
     'sphinx-autobuild>=0.5.2',
     'sphinx_rtd_theme>=0.1.8',
-    'sphinxcontrib-spelling==2.1.1',
-    'pyenchant==1.6.6',
 ]
 
 setup(

@@ -87,8 +87,7 @@ class ThumbnailMixin(object):
             'class': self.thumb_classname,
         }
         if image:
-            fltr, _ = Filter.objects.get_or_create(
-                spec=self.thumb_image_filter_spec)
+            fltr = Filter(spec=self.thumb_image_filter_spec)
             img_attrs.update({'src': image.get_rendition(fltr).url})
             return mark_safe('<img{}>'.format(flatatt(img_attrs)))
         elif self.thumb_default:

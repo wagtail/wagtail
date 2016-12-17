@@ -208,10 +208,8 @@ class TestRenditions(TestCase):
         self.assertEqual(rendition.height, 300)
 
         # check that the rendition has been recorded under the correct filter,
-        # via both the Rendition.filter_spec attribute (which will come into action
-        # in Wagtail 1.8) and the linked Filter model (which will be retired in 1.8)
+        # via the Rendition.filter_spec attribute (in active use as of Wagtail 1.8)
         self.assertEqual(rendition.filter_spec, 'width-400')
-        self.assertEqual(rendition.filter.spec, 'width-400')
 
     def test_resize_to_max(self):
         rendition = self.image.get_rendition('max-100x100')
@@ -487,7 +485,7 @@ class TestIssue312(TestCase):
             IntegrityError,
             Rendition.objects.create,
             image=rend1.image,
-            filter=rend1.filter,
+            filter_spec=rend1.filter_spec,
             width=rend1.width,
             height=rend1.height,
             focal_point_key=rend1.focal_point_key,

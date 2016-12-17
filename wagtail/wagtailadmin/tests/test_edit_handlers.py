@@ -756,7 +756,7 @@ class TestInlinePanel(TestCase, WagtailTestUtils):
         """
         Test that the USE_THOUSAND_SEPARATOR setting does not screw up the rendering of numbers
         (specifically maxForms=1000) in the JS initializer:
-        https://github.com/torchbox/wagtail/pull/2699
+        https://github.com/wagtail/wagtail/pull/2699
         """
         SpeakerObjectList = ObjectList([
             InlinePanel('speakers', label="Speakers", panels=[

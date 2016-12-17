@@ -1,0 +1,29 @@
+==========================================
+Wagtail 1.9 release notes - IN DEVELOPMENT
+==========================================
+
+.. contents::
+    :local:
+    :depth: 1
+
+
+What's new
+==========
+
+
+
+Minor features
+~~~~~~~~~~~~~~
+
+ * View live / draft links in the admin now consistently open in a new window (Marco Fucci)
+
+
+Bug fixes
+~~~~~~~~~
+
+
+
+
+Upgrade considerations
+======================
+

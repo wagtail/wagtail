@@ -6,6 +6,8 @@ Form builder
 
 The ``wagtailforms`` module allows you to set up single-page forms, such as a 'Contact us' form, as pages of a Wagtail site. It provides a set of base models that site implementers can extend to create their own ``FormPage`` type with their own site-specific templates. Once a page type has been set up in this way, editors can build forms within the usual page editor, consisting of any number of fields. Form submissions are stored for later retrieval through a new 'Forms' section within the Wagtail admin interface; in addition, they can be optionally e-mailed to an address specified by the editor.
 
+.. note::
+  **wagtailforms is not a replacement for** `Django's form support <https://docs.djangoproject.com/en/1.10/topics/forms/>`_. It is designed as a way for page authors to build general-purpose data collection forms without having to write code. If you intend to build a form that assigns specific behaviour to individual fields (such as creating user accounts), or needs a custom HTML layout, you will almost certainly be better served by a standard Django form, where the fields are fixed in code rather than defined on-the-fly by a page author. See the `wagtail-form-example project <https://github.com/gasman/wagtail-form-example/commits/master>`_ for an example of integrating a Django form into a Wagtail page.
 
 Usage
 ~~~~~

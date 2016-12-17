@@ -71,4 +71,4 @@ Tests
 
 Wagtail has a suite of tests, which we are committed to improving and expanding. See :ref:`testing`.
 
-We run continuous integration at `travis-ci.org/torchbox/wagtail <https://travis-ci.org/torchbox/wagtail>`_ to ensure that no commits or pull requests introduce test failures. If your contributions add functionality to Wagtail, please include the additional tests to cover it; if your contributions alter existing functionality, please update the relevant tests accordingly.
+We run continuous integration at `travis-ci.org/wagtail/wagtail <https://travis-ci.org/wagtail/wagtail>`_ to ensure that no commits or pull requests introduce test failures. If your contributions add functionality to Wagtail, please include the additional tests to cover it; if your contributions alter existing functionality, please update the relevant tests accordingly.

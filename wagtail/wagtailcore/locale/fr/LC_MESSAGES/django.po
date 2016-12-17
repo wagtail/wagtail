@@ -14,8 +14,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-10-05 16:37+0100\n"
-"PO-Revision-Date: 2016-09-24 10:28+0000\n"
+"POT-Creation-Date: 2016-12-06 22:44+0000\n"
+"PO-Revision-Date: 2016-12-07 01:55+0000\n"
 "Last-Translator: Benoît Vogel <contact@spicy-informatique.com>\n"
 "Language-Team: French (http://www.transifex.com/torchbox/wagtail/language/"
 "fr/)\n"
@@ -24,6 +24,13 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: fr\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+#, python-brace-format
+msgid "{label}: this block has no options."
+msgstr "{label}: ce bloc n'a aucune option."
+
+msgid "This block has no options."
+msgstr "Ce bloc n'a aucune option."
 
 msgid "Password"
 msgstr "Mot de passe"
@@ -216,6 +223,12 @@ msgstr "Publier"
 msgid "Publish any page"
 msgstr "Publier n'importe quelle page"
 
+msgid "Bulk delete"
+msgstr "Supprimer en masse"
+
+msgid "Delete pages with children"
+msgstr "Supprimer des pages avec leurs enfants"
+
 msgid "Lock"
 msgstr "Verrouiller"
 
@@ -233,6 +246,18 @@ msgstr "permission de page par groupe"
 
 msgid "group page permissions"
 msgstr "permissions de page par groupe"
+
+msgid "Public"
+msgstr "Publique"
+
+msgid "Private, accessible to logged-in users"
+msgstr "Privée, accessible aux utilisateurs connectés"
+
+msgid "Private, accessible with the following password"
+msgstr "Privée, accessible avec le mot de passe suivant"
+
+msgid "Private, accessible to users in specific groups"
+msgstr "Privée, accessible aux utilisateurs dans des groupes spécifiques"
 
 msgid "password"
 msgstr "mot de passe"
@@ -257,6 +282,21 @@ msgstr "permission"
 
 msgid "group collection permission"
 msgstr "permission de collection de groupe"
+
+msgid "Log in"
+msgstr "Connexion"
+
+msgid "Your username and password didn't match. Please try again."
+msgstr ""
+"Vos nom d'utilisateur et mot de passe ne correspondent pas. Merci de bien "
+"vouloir réessayer."
+
+msgid ""
+"Your account doesn't have access to this page. To proceed, please log in "
+"with an account that has access."
+msgstr ""
+"Votre compte n'a pas accès à cette page. Pour continuer, merci de vous "
+"connecter avec un compte qui y a accès."
 
 msgid "Password required"
 msgstr "Mot de passe requis"

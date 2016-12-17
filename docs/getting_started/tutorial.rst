@@ -80,7 +80,7 @@ Edit ``home/models.py`` as follows, to add a ``body`` field to the model:
         body = RichTextField(blank=True)
 
         content_panels = Page.content_panels + [
-            FieldPanel('body', classname="full")
+            FieldPanel('body', classname="full"),
         ]
 
 ``body`` is defined as ``RichTextField``, a special Wagtail field. You
@@ -220,7 +220,7 @@ Now we need a model and template for our blog posts. In ``blog/models.py``:
     from wagtail.wagtailsearch import index
 
 
-    # ...
+    # Keep the definition of BlogIndexPage, and add:
 
 
     class BlogPage(Page):
@@ -236,7 +236,7 @@ Now we need a model and template for our blog posts. In ``blog/models.py``:
         content_panels = Page.content_panels + [
             FieldPanel('date'),
             FieldPanel('intro'),
-            FieldPanel('body', classname="full")
+            FieldPanel('body', classname="full"),
         ]
 
 Run ``python manage.py makemigrations`` and ``python manage.py migrate``.
@@ -311,7 +311,7 @@ Take another look at the guts of ``BlogIndexPage:``
 
 Every "page" in Wagtail can call out to its parent or children
 from its own position in the hierarchy. But why do we have to
-specify ``post.specific.intro`` rather than ``post.intro?``
+specify ``post.specific.intro`` rather than ``post.intro``?
 This has to do with the way we defined our model:
 
 ``class BlogPage(Page):``
@@ -390,31 +390,32 @@ Now try unpublishing one of your posts - it should disappear from the blog index
 page. The remaining posts should now be sorted with the most recently modified
 posts first.
 
-Image support
-~~~~~~~~~~~~~
+Images
+~~~~~~
 
-Wagtail provides support for images out of the box. To add them to
-your ``BlogPage`` model:
+Let's add the ability to attach an image gallery to our blog posts. While it's possible to simply insert images into the ``body`` rich text field, there are several advantages to setting up our gallery images as a new dedicated object type within the database - this way, you have full control of the layout and styling of the images on the template, rather than having to lay them out in a particular way within the rich text field. It also makes it possible for the images to be used elsewhere, independently of the blog text - for example, displaying a thumbnail on the blog index page.
+
+Add a new ``BlogPageGalleryImage`` model to ``models.py``:
 
 .. code-block:: python
 
     from django.db import models
 
-    from wagtail.wagtailcore.models import Page
+    # New imports added for ParentalKey, Orderable, InlinePanel, ImageChooserPanel
+
+    from modelcluster.fields import ParentalKey
+
+    from wagtail.wagtailcore.models import Page, Orderable
     from wagtail.wagtailcore.fields import RichTextField
-    from wagtail.wagtailadmin.edit_handlers import FieldPanel
+    from wagtail.wagtailadmin.edit_handlers import FieldPanel, InlinePanel
     from wagtail.wagtailimages.edit_handlers import ImageChooserPanel
     from wagtail.wagtailsearch import index
 
 
+    # ... (Keep the definition of BlogIndexPage, and update BlogPage:)
+
+
     class BlogPage(Page):
-        main_image = models.ForeignKey(
-            'wagtailimages.Image',
-            null=True,
-            blank=True,
-            on_delete=models.SET_NULL,
-            related_name='+'
-        )
         date = models.DateField("Post date")
         intro = models.CharField(max_length=250)
         body = RichTextField(blank=True)
@@ -426,14 +427,41 @@ your ``BlogPage`` model:
 
         content_panels = Page.content_panels + [
             FieldPanel('date'),
-            ImageChooserPanel('main_image'),
             FieldPanel('intro'),
-            FieldPanel('body'),
+            FieldPanel('body', classname="full"),
+            InlinePanel('gallery_images', label="Gallery images"),
         ]
+
+
+    class BlogPageGalleryImage(Orderable):
+        page = ParentalKey(BlogPage, related_name='gallery_images')
+        image = models.ForeignKey(
+            'wagtailimages.Image', on_delete=models.CASCADE, related_name='+'
+        )
+        caption = models.CharField(blank=True, max_length=250)
+
+        panels = [
+            ImageChooserPanel('image'),
+            FieldPanel('caption'),
+        ]
+
 
 Run ``python manage.py makemigrations`` and ``python manage.py migrate``.
 
-Adjust your blog page template to include the image:
+There are a few new concepts here, so let's take them one at a time:
+
+Inheriting from ``Orderable`` adds a ``sort_order`` field to the model, to keep track of the ordering of images in the gallery.
+
+The ``ParentalKey`` to ``BlogPage`` is what attaches the gallery images to a specific page. A ``ParentalKey`` works similarly to a ``ForeignKey``, but also defines ``BlogPageGalleryImage`` as a "child" of the ``BlogPage`` model, so that it's treated as a fundamental part of the page in operations like submitting for moderation, and tracking revision history.
+
+``image`` is a ``ForeignKey`` to Wagtail's built-in ``Image`` model, where the images themselves are stored. This comes with a dedicated panel type, ``ImageChooserPanel``, which provides a pop-up interface for choosing an existing image or uploading a new one. This way, we allow an image to exist in multiple galleries - effectively, we've created a many-to-many relationship between pages and images.
+
+Specifying ``on_delete=models.CASCADE`` on the foreign key means that if the image is deleted from the system, the gallery entry is deleted as well. (In other situations, it might be appropriate to leave the entry in place - for example, if an "our staff" page included a list of people with headshots, and one of those photos was deleted, we'd rather leave the person in place on the page without a photo. In this case, we'd set the foreign key to ``blank=True, null=True, on_delete=models.SET_NULL``.)
+
+Finally, adding the ``InlinePanel`` to ``BlogPage.content_panels`` makes the gallery images available on the editing interface for ``BlogPage``.
+
+
+Adjust your blog page template to include the images:
 
 .. code-block:: html+django
 
@@ -447,20 +475,76 @@ Adjust your blog page template to include the image:
         <h1>{{ page.title }}</h1>
         <p class="meta">{{ page.date }}</p>
 
-        {% if page.main_image %}
-            {% image page.main_image width-400 %}
-        {% endif %}
-
         <div class="intro">{{ page.intro }}</div>
 
         {{ page.body|richtext }}
+
+        {% for item in page.gallery_images.all %}
+            <div style="float: left; margin: 10px">
+                {% image item.image fill-320x240 %}
+                <p>{{ item.caption }}</p>
+            </div>
+        {% endfor %}
+
+        <p><a href="{{ page.get_parent.url }}">Return to blog</a></p>
+
     {% endblock %}
 
-.. figure:: ../_static/images/tutorial/tutorial_6.png
+Here we use the ``{% image %}`` tag (which exists in the ``wagtailimages_tags`` library, imported at the top of the template) to insert an ``<img>`` element, with a ``fill-320x240`` parameter to indicate that the image should be resized and cropped to fill a 320x240 rectangle. You can read more about using images in templates in the :doc:`docs <../topics/images>`.
+
+.. figure:: ../_static/images/tutorial/tutorial_6.jpg
    :alt: A blog post sample
 
-You can read more about using images in templates in the
-:doc:`docs <../topics/images>`.
+Since our gallery images are database objects in their own right, we can now query and re-use them independently of the blog post body. Let's define a ``main_image`` method, which returns the image from the first gallery item (or ``None`` if no gallery items exist):
+
+.. code-block:: python
+
+    class BlogPage(Page):
+        date = models.DateField("Post date")
+        intro = models.CharField(max_length=250)
+        body = RichTextField(blank=True)
+
+        def main_image(self):
+            gallery_item = self.gallery_images.first()
+            if gallery_item:
+                return gallery_item.image
+            else:
+                return None
+
+        search_fields = Page.search_fields + [
+            index.SearchField('intro'),
+            index.SearchField('body'),
+        ]
+
+        content_panels = Page.content_panels + [
+            FieldPanel('date'),
+            FieldPanel('intro'),
+            FieldPanel('body', classname="full"),
+            InlinePanel('gallery_images', label="Gallery images"),
+        ]
+
+
+This method is now available from our templates. Update ``blog_index_page.html`` to include the main image as a thumbnail alongside each post:
+
+.. code-block:: html+django
+
+    {% load wagtailcore_tags wagtailimages_tags %}
+
+    ...
+
+    {% for post in blogpages %}
+        {% with post=post.specific %}
+            <h2><a href="{% pageurl post %}">{{ post.title }}</a></h2>
+
+            {% with post.main_image as main_image %}
+                {% if main_image %}{% image main_image fill-160x100 %}{% endif %}
+            {% endwith %}
+
+            <p>{{ post.intro }}</p>
+            {{ post.body|richtext }}
+        {% endwith %}
+    {% endfor %}
+
 
 
 Tagging Posts
@@ -478,15 +562,20 @@ First, alter ``models.py`` once more:
 
     from django.db import models
 
-    from modelcluster.tags import ClusterTaggableManager
+    # New imports added for ClusterTaggableManager, TaggedItemBase, MultiFieldPanel
+
     from modelcluster.fields import ParentalKey
+    from modelcluster.tags import ClusterTaggableManager
     from taggit.models import TaggedItemBase
 
-    from wagtail.wagtailcore.models import Page
+    from wagtail.wagtailcore.models import Page, Orderable
     from wagtail.wagtailcore.fields import RichTextField
-    from wagtail.wagtailadmin.edit_handlers import FieldPanel, MultiFieldPanel
+    from wagtail.wagtailadmin.edit_handlers import FieldPanel, InlinePanel, MultiFieldPanel
     from wagtail.wagtailimages.edit_handlers import ImageChooserPanel
     from wagtail.wagtailsearch import index
+
+
+    # ... (Keep the definition of BlogIndexPage)
 
 
     class BlogPageTag(TaggedItemBase):
@@ -494,36 +583,25 @@ First, alter ``models.py`` once more:
 
 
     class BlogPage(Page):
-        main_image = models.ForeignKey(
-            'wagtailimages.Image',
-            null=True,
-            blank=True,
-            on_delete=models.SET_NULL,
-            related_name='+'
-        )
         date = models.DateField("Post date")
         intro = models.CharField(max_length=250)
         body = RichTextField(blank=True)
         tags = ClusterTaggableManager(through=BlogPageTag, blank=True)
 
-        search_fields = Page.search_fields + [
-            index.SearchField('intro'),
-            index.SearchField('body'),
-        ]
+        # ... (Keep the main_image method and search_fields definition)
 
         content_panels = Page.content_panels + [
             MultiFieldPanel([
                 FieldPanel('date'),
                 FieldPanel('tags'),
             ], heading="Blog information"),
-            ImageChooserPanel('main_image'),
             FieldPanel('intro'),
             FieldPanel('body'),
+            InlinePanel('gallery_images', label="Gallery images"),
         ]
 
 
-    class BlogIndexPage(Page):
-        intro = RichTextField(blank=True)
+Run ``python manage.py makemigrations`` and ``python manage.py migrate``.
 
 Note the new ``modelcluster`` and ``taggit`` imports, the addition of a new
 ``BlogPageTag`` model, and the addition of a ``tags`` field on ``BlogPage``.

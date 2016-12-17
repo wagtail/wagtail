@@ -331,6 +331,83 @@ class TestPageExplorerSignposting(TestCase, WagtailTestUtils):
         self.assertNotContains(response, "Pages created here will not be accessible")
 
 
+
+class TestExplorablePageVisibility(TestCase, WagtailTestUtils):
+    """
+    Test the way that the Explorable Pages functionality manifests within the Explorer.
+    This is isolated in its own test case because it requires a custom page tree and custom set of
+    users and groups.
+    The fixture sets up this page tree:
+    ========================================================
+    ID Site          Path
+    ========================================================
+    1              /
+    2  testserver  /home/
+    3  testserver  /home/about-us/
+    4  example.com /example-home/
+    5  example.com /example-home/content/
+    6  example.com /example-home/content/page-1/
+    7  example.com /example-home/content/page-2/
+    9  example.com /example-home/content/page-2/child-1
+    8  example.com /example-home/other-content/
+    10 example2.com /home-2/
+    ========================================================
+    Group 1 has explore and choose permissions rooted at testserver's homepage.
+    Group 2 has explore and choose permissions rooted at example.com's page-1.
+    Group 3 has explore and choose permissions rooted at example.com's other-content.
+    User "jane" is in Group 1.
+    User "bob" is in Group 2.
+    User "sam" is in Groups 1 and 2.
+    User "josh" is in Groups 2 and 3.
+    User "mary" is is no Groups, but she has the "access wagtail admin" permission.
+    User "superman" is an admin.
+    """
+
+    fixtures = ['test_explorable_pages.json']
+
+    # Integration tests adapted from @coredumperror
+
+    def test_admin_can_explore_every_page(self):
+        self.assertTrue(self.client.login(username='superman', password='password'))
+        for page in Page.objects.all():
+            response = self.client.get(reverse('wagtailadmin_explore', args=[page.pk]))
+            self.assertEqual(response.status_code, 200)
+
+    def test_admin_sees_root_page_as_explorer_root(self):
+        self.assertTrue(self.client.login(username='superman', password='password'))
+        response = self.client.get(reverse('wagtailadmin_explore_root'))
+        self.assertEqual(response.status_code, 200)
+        # Administrator should see the full list of children of the Root page.
+        self.assertContains(response, "Welcome to testserver!")
+        self.assertContains(response, "Welcome to example.com!")
+
+    def test_admin_sees_breadcrumbs_up_to_root_page(self):
+        self.assertTrue(self.client.login(username='superman', password='password'))
+        response = self.client.get(reverse('wagtailadmin_explore', args=[6]))
+        self.assertEqual(response.status_code, 200)
+
+        self.assertInHTML(
+            """<li class="home"><a href="/admin/pages/" class="icon icon-home text-replace">Home</a></li>""",
+            str(response.content)
+        )
+        self.assertInHTML("""<li><a href="/admin/pages/4/">Welcome to example.com!</a></li>""", str(response.content))
+        self.assertInHTML("""<li><a href="/admin/pages/5/">Content</a></li>""", str(response.content))
+
+    def test_nonadmin_sees_breadcrumbs_up_to_cca(self):
+        self.assertTrue(self.client.login(username='josh', password='password'))
+        response = self.client.get(reverse('wagtailadmin_explore', args=[6]))
+        self.assertEqual(response.status_code, 200)
+        # While at "Page 1", Josh should see the breadcrumbs leading only as far back as the example.com homepage,
+        # since it's his Closest Common Ancestor.
+        self.assertInHTML(
+            """<li class="home"><a href="/admin/pages/4/" class="icon icon-home text-replace">Home</a></li>""",
+            str(response.content)
+        )
+        self.assertInHTML("""<li><a href="/admin/pages/5/">Content</a></li>""", str(response.content))
+        # The page title shouldn't appear because it's the "home" breadcrumb.
+        self.assertNotContains(response, "Welcome to example.com!")
+
+
 class TestPageCreation(TestCase, WagtailTestUtils):
     def setUp(self):
         # Find root page

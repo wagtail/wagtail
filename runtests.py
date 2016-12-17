@@ -19,6 +19,7 @@ def make_parser():
     parser.add_argument('--postgres', action='store_true')
     parser.add_argument('--elasticsearch', action='store_true')
     parser.add_argument('--elasticsearch2', action='store_true')
+    parser.add_argument('--elasticsearch5', action='store_true')
     parser.add_argument('rest', nargs='*')
     return parser
 
@@ -58,6 +59,9 @@ def runtests():
     elif args.elasticsearch2:
         os.environ.setdefault('ELASTICSEARCH_URL', 'http://localhost:9200')
         os.environ.setdefault('ELASTICSEARCH_VERSION', '2')
+    elif args.elasticsearch5:
+        os.environ.setdefault('ELASTICSEARCH_URL', 'http://localhost:9200')
+        os.environ.setdefault('ELASTICSEARCH_VERSION', '5')
     elif 'ELASTICSEARCH_URL' in os.environ:
         # forcibly delete the ELASTICSEARCH_URL setting to skip those tests
         del os.environ['ELASTICSEARCH_URL']

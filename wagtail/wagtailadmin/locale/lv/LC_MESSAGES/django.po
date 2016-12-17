@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-10-05 16:37+0100\n"
-"PO-Revision-Date: 2016-10-05 15:39+0000\n"
+"POT-Creation-Date: 2016-12-06 22:44+0000\n"
+"PO-Revision-Date: 2016-12-06 22:46+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Latvian (http://www.transifex.com/torchbox/wagtail/language/"
 "lv/)\n"
@@ -122,12 +122,6 @@ msgid ""
 msgstr ""
 "Šis tekstuālais identifikators jau lietots kontekstā ar augstāka līmeņa lapu "
 "\"%s\""
-
-msgid "Public"
-msgstr "Publisks"
-
-msgid "Private, accessible with the following password"
-msgstr "Privāts, pieejams ar šādu paroli"
 
 msgid "This field is required."
 msgstr "Šis lauks ir nepieciešams"
@@ -406,6 +400,9 @@ msgstr "Atslēgts"
 
 msgid "Privacy"
 msgstr "Privātums"
+
+msgid "Public"
+msgstr "Publisks"
 
 msgid "Private"
 msgstr "Privāts"
@@ -721,9 +718,6 @@ msgstr ""
 "Jūs lietojat <strong>novecojušu</strong> interneta pārlūku, kas neatbalsta "
 "šo programmatūru. Lūdzu <a href=\"http://browsehappy.com/\">atjaunojiet savu "
 "pārlūku</a>."
-
-msgid "Javascript is required to use Wagtail, but it is currently disabled"
-msgstr "Lai lietotu Wagtail, nepieciešams Javascript, kas šobrīd ir atspējots."
 
 msgid "Go to Wagtail admin interface"
 msgstr "Doties uz Wagtail administrācijas intefeisu"

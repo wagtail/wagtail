@@ -481,7 +481,7 @@ class BlockWidget(forms.Widget):
 
     # Flag used by Django 1.10.1 (only) to indicate that this widget will not necessarily submit
     # a postdata item with a name that matches the field name -
-    # see https://github.com/django/django/pull/7068, https://github.com/torchbox/wagtail/issues/2994
+    # see https://github.com/django/django/pull/7068, https://github.com/wagtail/wagtail/issues/2994
     dont_use_model_field_default_for_empty_data = True
 
     def __init__(self, block_def, attrs=None):

@@ -1,7 +1,7 @@
 Issue tracking
 ==============
 
-We welcome bug reports, feature requests and pull requests through Wagtail's `Github issue tracker <https://github.com/torchbox/wagtail/issues>`_.
+We welcome bug reports, feature requests and pull requests through Wagtail's `Github issue tracker <https://github.com/wagtail/wagtail/issues>`_.
 
 Issues
 ------
