@@ -127,6 +127,7 @@ def add_subpage(request, parent_page_id):
     return render(request, 'wagtailadmin/pages/add_subpage.html', {
         'parent_page': parent_page,
         'page_types': page_types,
+        'next': get_valid_next_url_from_request(request),
     })
 
 

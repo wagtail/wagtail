@@ -17,7 +17,7 @@
                     <li>
                         <div class="row row-flush">
                             <div class="col6">
-                                <a href="{% url 'wagtailadmin_pages:add' app_label model_name parent_page.id %}" class="icon icon-plus-inverse icon-larger">{{ verbose_name }}</a>
+                                <a href="{% url 'wagtailadmin_pages:add' app_label model_name parent_page.id %}{% if next %}?next={{ next }}{% endif %}" class="icon icon-plus-inverse icon-larger">{{ verbose_name }}</a>
                             </div>
 
                             <small class="col6" style="text-align:right">
