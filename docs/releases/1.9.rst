@@ -28,6 +28,7 @@ Other features
  * Added :ref:`before_copy_page` and :ref:`after_copy_page` hooks (Matheus Bratfisch)
  * View live / draft links in the admin now consistently open in a new window (Marco Fucci)
  * ``ChoiceBlock`` now omits the blank option if the block is required and has a default value (Andreas Nüßlein)
+ * The ``add_subpage`` view now maintains a ``next`` URL parameter to specify where to redirect to after completing page creation (Robert Rollins)
 
 
 Bug fixes

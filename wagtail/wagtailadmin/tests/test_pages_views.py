@@ -421,6 +421,8 @@ class TestPageCreation(TestCase, WagtailTestUtils):
         self.assertEqual(response.status_code, 200)
 
         self.assertContains(response, "Simple page")
+        target_url = reverse('wagtailadmin_pages:add', args=('tests', 'simplepage', self.root_page.id))
+        self.assertContains(response, 'href="%s"' % target_url)
         # List of available page types should not contain pages with is_creatable = False
         self.assertNotContains(response, "MTI base page")
         # List of available page types should not contain abstract pages
@@ -480,6 +482,17 @@ class TestPageCreation(TestCase, WagtailTestUtils):
     def test_add_subpage_nonexistantparent(self):
         response = self.client.get(reverse('wagtailadmin_pages:add_subpage', args=(100000, )))
         self.assertEqual(response.status_code, 404)
+
+    def test_add_subpage_with_next_param(self):
+        response = self.client.get(
+            reverse('wagtailadmin_pages:add_subpage', args=(self.root_page.id, )),
+            {'next': '/admin/users/'}
+        )
+        self.assertEqual(response.status_code, 200)
+
+        self.assertContains(response, "Simple page")
+        target_url = reverse('wagtailadmin_pages:add', args=('tests', 'simplepage', self.root_page.id))
+        self.assertContains(response, 'href="%s?next=/admin/users/"' % target_url)
 
     def test_create_simplepage(self):
         response = self.client.get(reverse('wagtailadmin_pages:add', args=('tests', 'simplepage', self.root_page.id)))

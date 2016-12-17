@@ -9,6 +9,7 @@ Changelog
  * Added `before_copy_page` and `after_copy_page` hooks (Matheus Bratfisch)
  * View live / draft links in the admin now consistently open in a new window (Marco Fucci)
  * `ChoiceBlock` now omits the blank option if the block is required and has a default value (Andreas Nüßlein)
+ * The `add_subpage` view now maintains a `next` URL parameter to specify where to redirect to after completing page creation (Robert Rollins)
  * Fix: Help text for StreamField is now visible and does not cover block controls (Stein Strindhaug)
  * Fix: "X minutes ago" timestamps are now marked for translation (Janneke Janssen, Matt Westcott)
 
