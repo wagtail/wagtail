@@ -196,6 +196,7 @@ Contributors
 * Marco Fucci
 * Mihail Russu
 * Robert Slotboom
+* Erick M'bwana
 
 Translators
 ===========
