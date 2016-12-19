@@ -10,6 +10,12 @@ Wagtail 1.9 release notes - IN DEVELOPMENT
 What's new
 ==========
 
+Bulk-deletion of form submissions
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Form builder form submissions can now be deleted in bulk from the form submissions index page. This feature was sponsored by St John's College, Oxford and developed by Karl Hobley.
+
+
 Accessing parent context from StreamField block ``get_context`` methods
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 

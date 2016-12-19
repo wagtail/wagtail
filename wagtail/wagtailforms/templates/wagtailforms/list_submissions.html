@@ -6,25 +6,29 @@
     <col />
     <thead>
         <tr>
+            <th colspan="{{ data_headings|length|add:1 }}">
+                <button class="button no" id="delete-submissions" style="visibility: hidden">Delete selected submissions</button>
+            </th>
+        </tr>
+        <tr>
+            <th><input type="checkbox" id="select-all" /></th>
             {% for heading in data_headings %}
                 <th>{{ heading }}</th>
             {% endfor %}
-            <th>{% trans "Actions" %}</th>
         </tr>
     </thead>
     <tbody>
         {% for row in data_rows %}
             <tr>
+                <td>
+                    <input type="checkbox" name="selected-submissions" class="select-submission" value="{{ row.model_id }}" />
+                </td>
                 {% for cell in row.fields %}
                     <td>
                         {{ cell }}
                     </td>
                 {% endfor %}
                 <td>
-                <a class="button button-small button-secondary" href="
-                    {% url 'wagtailforms:delete_submission' form_page.id row.model_id %}">
-                    {% trans 'delete' %}</a>
-                </td>
             </tr>
         {% endfor %}
     </tbody>

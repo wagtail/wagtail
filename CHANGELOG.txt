@@ -4,6 +4,7 @@ Changelog
 1.9 (xx.xx.xxxx) - IN DEVELOPMENT
 ~~~~~~~~~~~~~~~~
 
+ * Form builder form submissions can now be bulk-deleted (Karl Hobley)
  * `get_context` methods on StreamField blocks can now access variables from the parent context (Mikael Svensson, Peter Baumgartner)
  * Added `before_copy_page` and `after_copy_page` hooks (Matheus Bratfisch)
  * View live / draft links in the admin now consistently open in a new window (Marco Fucci)
