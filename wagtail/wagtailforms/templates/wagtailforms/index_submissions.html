@@ -23,6 +23,67 @@
                 },
                 lang: 'lang'
             });
+
+            var selectAllCheckbox = document.getElementById('select-all');
+            var deleteButton = document.getElementById('delete-submissions');
+            var selectedSubmissions = {};
+
+            function updateActions() {
+                var everySubmissionSelected = Object.values(selectedSubmissions).every(function(v) { return v; });
+                var someSubmissionsSelected = Object.values(selectedSubmissions).some(function(v) { return v; })
+
+                // Select all box state
+                if (everySubmissionSelected) {
+                    // Every submission has been selected
+                    selectAllCheckbox.checked = true;
+                    selectAllCheckbox.indeterminate = false;
+                } else if (someSubmissionsSelected) {
+                    // At least one, but not all submissions have been selected
+                    selectAllCheckbox.checked = false;
+                    selectAllCheckbox.indeterminate = true;
+                } else {
+                    // No submissions have been selected
+                    selectAllCheckbox.checked = false;
+                    selectAllCheckbox.indeterminate = false;
+                }
+
+                // Delete button state
+                if (someSubmissionsSelected) {
+                    deleteButton.classList.remove('disabled')
+                    deleteButton.disabled = false;
+                } else {
+                    deleteButton.classList.add('disabled')
+                    deleteButton.disabled = true;
+                }
+            }
+
+            // Initialise selectedSubmissions
+            $('input[type=checkbox].select-submission').each(function() {
+                selectedSubmissions[this.dataset.submissionId] = false;
+            });
+
+
+            // Event handlers
+
+            $(selectAllCheckbox).on('change', function() {
+                // Select/deselect all
+                for (var submissionId in selectedSubmissions) {
+                    selectedSubmissions[submissionId] = this.checked;
+                }
+
+                // Update checkbox states in DOM
+                $('input[type=checkbox].select-submission').each(function() {
+                    this.checked = selectedSubmissions[this.dataset.submissionId];
+                });
+
+                updateActions();
+            });
+
+            $('input[type=checkbox].select-submission').on('change', function() {
+                selectedSubmissions[this.dataset.submissionId] = this.checked;
+
+                updateActions();
+            });
         });
     </script>
 {% endblock %}
@@ -55,10 +116,15 @@
     </header>
     <div class="nice-padding">
         {% if submissions %}
-            {% include "wagtailforms/list_submissions.html" %}
+            <form action="{% url 'wagtailforms:delete_submissions' form_page.id %}" method="get">
+                <input type="checkbox" id="select-all" />
+                <button class="button text-replace no icon icon-bin disabled" id="delete-submissions" disabled></button>
 
-            {% include "wagtailadmin/shared/pagination_nav.html" with items=submissions is_searching=False linkurl='-' %}
-            {# Here we pass an invalid non-empty URL name as linkurl to generate pagination links with the URL path omitted #}
+                {% include "wagtailforms/list_submissions.html" %}
+
+                {% include "wagtailadmin/shared/pagination_nav.html" with items=submissions is_searching=False linkurl='-' %}
+                {# Here we pass an invalid non-empty URL name as linkurl to generate pagination links with the URL path omitted #}
+            </form>
         {% else %}
             <p class="no-results-message">{% blocktrans with title=form_page.title %}There have been no submissions of the '{{ title }}' form.{% endblocktrans %}</p>
         {% endif %}

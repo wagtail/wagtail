@@ -26,22 +26,25 @@ def index(request):
     })
 
 
-def delete_submission(request, page_id, submission_id):
+def delete_submissions(request, page_id):
     if not get_forms_for_user(request.user).filter(id=page_id).exists():
         raise PermissionDenied
 
     page = get_object_or_404(Page, id=page_id).specific
-    submission = get_object_or_404(page.get_submission_class(), id=submission_id)
+
+    # Get submissions
+    submission_ids = [int(key[7:]) for key in request.GET.keys() if key.startswith('select-')]
+    submissions = page.get_submission_class()._default_manager.filter(id__in=submission_ids)
 
     if request.method == 'POST':
-        submission.delete()
+        submissions.delete()
 
-        messages.success(request, _("Submission deleted."))
+        messages.success(request, _("X submissions have been deleted."))  # FIXME
         return redirect('wagtailforms:list_submissions', page_id)
 
     return render(request, 'wagtailforms/confirm_delete.html', {
         'page': page,
-        'submission': submission
+        'submissions': submissions,
     })
 
 

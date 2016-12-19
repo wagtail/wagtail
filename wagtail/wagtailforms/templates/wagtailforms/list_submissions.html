@@ -6,6 +6,7 @@
     <col />
     <thead>
         <tr>
+            <th></th>
             {% for heading in data_headings %}
                 <th>{{ heading }}</th>
             {% endfor %}
@@ -14,6 +15,9 @@
     <tbody>
         {% for row in data_rows %}
             <tr>
+                <td>
+                    <input type="checkbox" name="select-{{ row.model_id }}" class="select-submission" data-submission-id="{{ row.model_id }}" />
+                </td>
                 {% for cell in row.fields %}
                     <td>
                         {{ cell }}
