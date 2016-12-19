@@ -9,7 +9,6 @@
             {% for heading in data_headings %}
                 <th>{{ heading }}</th>
             {% endfor %}
-            <th>{% trans "Actions" %}</th>
         </tr>
     </thead>
     <tbody>
@@ -21,10 +20,6 @@
                     </td>
                 {% endfor %}
                 <td>
-                <a class="button button-small button-secondary" href="
-                    {% url 'wagtailforms:delete_submission' form_page.id row.model_id %}">
-                    {% trans 'delete' %}</a>
-                </td>
             </tr>
         {% endfor %}
     </tbody>
