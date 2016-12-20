@@ -7,7 +7,7 @@ from django.core.exceptions import PermissionDenied
 from django.http import HttpResponse
 from django.shortcuts import get_object_or_404, redirect, render
 from django.utils.encoding import smart_str
-from django.utils.translation import ugettext as _
+from django.utils.translation import ugettext as _, ungettext
 
 from wagtail.utils.pagination import paginate
 from wagtail.wagtailadmin import messages
@@ -37,9 +37,17 @@ def delete_submissions(request, page_id):
     submissions = page.get_submission_class()._default_manager.filter(id__in=submission_ids)
 
     if request.method == 'POST':
+        count = submissions.count()
         submissions.delete()
 
-        messages.success(request, _("X submissions have been deleted."))  # FIXME
+        messages.success(request, ungettext(
+            "One submission has been deleted.",
+            "%(count)d submissions have been deleted.",
+            count) % {
+                'count': count,
+            }
+        )
+
         return redirect('wagtailforms:list_submissions', page_id)
 
     return render(request, 'wagtailforms/confirm_delete.html', {
