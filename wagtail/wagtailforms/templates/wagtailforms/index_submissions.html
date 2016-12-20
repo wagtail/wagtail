@@ -50,10 +50,10 @@
                 // Delete button state
                 if (someSubmissionsSelected) {
                     deleteButton.classList.remove('disabled')
-                    deleteButton.disabled = false;
+                    deleteButton.style.visibility = "visible";
                 } else {
                     deleteButton.classList.add('disabled')
-                    deleteButton.disabled = true;
+                    deleteButton.style.visibility = "hidden";
                 }
             }
 
@@ -88,7 +88,7 @@
     </script>
 {% endblock %}
 {% block content %}
-    <header class="nice-padding">
+    <header class="nice-padding" style="margin-bottom: 0px;">
         <form action="" method="get" novalidate>
             <div class="row">
                 <div class="left">
@@ -117,8 +117,6 @@
     <div class="nice-padding">
         {% if submissions %}
             <form action="{% url 'wagtailforms:delete_submissions' form_page.id %}" method="get">
-                <button class="button text-replace no icon icon-bin disabled" id="delete-submissions" disabled></button>
-
                 {% include "wagtailforms/list_submissions.html" %}
 
                 {% include "wagtailadmin/shared/pagination_nav.html" with items=submissions is_searching=False linkurl='-' %}
