@@ -5,7 +5,9 @@ from django.contrib.auth.models import Group
 from django.test import TestCase
 
 from wagtail.tests.testapp.models import BusinessSubIndex, EventIndex, EventPage
-from wagtail.wagtailcore.models import GroupPagePermission, Page, UserPagePermissionsProxy
+from wagtail.wagtailcore.models import (
+    DefaultUserPagePermissionsProxy, GroupPagePermission, Page, UserPagePermissionsProxy
+)
 
 
 class TestPagePermission(TestCase):
@@ -466,3 +468,24 @@ class TestPagePermission(TestCase):
         perms = UserPagePermissionsProxy(user).for_page(christmas_page)
 
         self.assertFalse(perms.can_lock())
+
+
+class CustomUserPagePermission(DefaultUserPagePermissionsProxy):
+    pass
+
+
+class TestPagePermissionProxy(TestCase):
+    fixtures = ['test.json']
+
+    def test_default_user_page_permission_proxy(self):
+        user = get_user_model().objects.get(username='inactiveuser')
+        permission_proxy = UserPagePermissionsProxy(user)
+        self.assertIsInstance(permission_proxy, DefaultUserPagePermissionsProxy)
+
+
+    def test_override_user_page_permission_proxy(self):
+        custom_permission = 'wagtail.wagtailcore.tests.test_page_permissions.CustomUserPagePermission'
+        with self.settings(WAGTAIL_USER_PAGE_PERMISSION_PROXY=custom_permission):
+            user = get_user_model().objects.get(username='inactiveuser')
+            permission_proxy = UserPagePermissionsProxy(user)
+            self.assertIsInstance(permission_proxy, CustomUserPagePermission)

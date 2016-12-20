@@ -24,6 +24,7 @@ from django.template.response import TemplateResponse
 from django.utils import six, timezone
 from django.utils.encoding import python_2_unicode_compatible
 from django.utils.functional import cached_property
+from django.utils.module_loading import import_string
 from django.utils.six import StringIO
 from django.utils.six.moves.urllib.parse import urlparse
 from django.utils.text import capfirst, slugify
@@ -1573,6 +1574,16 @@ class GroupPagePermission(models.Model):
 
 
 class UserPagePermissionsProxy(object):
+
+    def __new__(cls, *args, **kwargs):
+        klass_path = getattr(settings, 'WAGTAIL_USER_PAGE_PERMISSION_PROXY', 'wagtail.wagtailcore.models.DefaultUserPagePermissionsProxy')
+        klass = import_string(klass_path)
+        obj = super().__new__(klass, *args, **kwargs)
+        obj.__init__(*args, **kwargs)
+        return obj
+
+
+class DefaultUserPagePermissionsProxy(object):
     """Helper object that encapsulates all the page permission rules that this user has
     across the page hierarchy."""
     def __init__(self, user):
