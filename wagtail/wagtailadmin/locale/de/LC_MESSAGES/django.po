@@ -486,14 +486,23 @@ msgstr "Die Seite „%(page)s“ wurde zur Freischaltung eingereicht"
 msgid "Page privacy"
 msgstr "Seitenschutz"
 
+msgid "Collection privacy"
+msgstr "Sammlungsschutz"
+
 msgid "This page has been made private by a parent page."
 msgstr "Diese Seite wurde durch eine Oberseite geschützt."
+
+msgid "This collection has been made private by a parent collection."
+msgstr "Diese Sammlung wurde durch eine Obersammlung geschützt."
 
 msgid "You can edit the privacy settings on:"
 msgstr "Sie können die Schutzeinstellungen hier bearbeiten:"
 
 msgid "Privacy changes apply to all children of this page too."
 msgstr "Schutzeinstellungen gelten ebenfalls für alle Unterseiten."
+
+msgid "Privacy changes apply to all children of this collection too."
+msgstr "Schutzeinstellungen gelten ebenfalls für alle Untersammlungen."
 
 msgid "Edit lock"
 msgstr "Sperre bearbeiten"

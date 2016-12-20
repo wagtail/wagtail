@@ -1831,7 +1831,7 @@ class BaseViewRestriction(models.Model):
     restriction_type = models.CharField(
         max_length=20, choices=RESTRICTION_CHOICES)
     password = models.CharField(verbose_name=_('password'), max_length=255, blank=True)
-    groups = models.ManyToManyField(Group, blank=True)
+    groups = models.ManyToManyField(Group, verbose_name=_('groups'), blank=True)
 
     def accept_request(self, request):
         if self.restriction_type == BaseViewRestriction.PASSWORD:

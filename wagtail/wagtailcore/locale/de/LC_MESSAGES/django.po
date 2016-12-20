@@ -274,6 +274,12 @@ msgstr "Sammlung"
 msgid "collections"
 msgstr "Sammlungen"
 
+msgid "collection view restriction"
+msgstr "Sammlung Ansichtsrestriktion"
+
+msgid "collections view restrictions"
+msgstr "Sammlungen Ansichtsrestriktionen"
+
 msgid "permission"
 msgstr "Berechtigung"
 
