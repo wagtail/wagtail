@@ -6,7 +6,7 @@ from django.http import Http404, HttpResponse
 from django.shortcuts import get_object_or_404, redirect
 
 from wagtail.wagtailcore import hooks
-from wagtail.wagtailcore.forms import PasswordPageViewRestrictionForm
+from wagtail.wagtailcore.forms import PasswordBaseViewRestrictionForm
 from wagtail.wagtailcore.models import Page, PageViewRestriction
 
 
@@ -29,14 +29,14 @@ def serve(request, path):
 
 def authenticate_with_password(request, page_view_restriction_id, page_id):
     """
-    Handle a submission of PasswordPageViewRestrictionForm to grant view access over a
+    Handle a submission of PasswordBaseViewRestrictionForm to grant view access over a
     subtree that is protected by a PageViewRestriction
     """
     restriction = get_object_or_404(PageViewRestriction, id=page_view_restriction_id)
     page = get_object_or_404(Page, id=page_id).specific
 
     if request.method == 'POST':
-        form = PasswordPageViewRestrictionForm(request.POST, instance=restriction)
+        form = PasswordBaseViewRestrictionForm(request.POST, instance=restriction)
         if form.is_valid():
             has_existing_session = (settings.SESSION_COOKIE_NAME in request.COOKIES)
             passed_restrictions = request.session.setdefault('passed_page_view_restrictions', [])
@@ -50,7 +50,7 @@ def authenticate_with_password(request, page_view_restriction_id, page_id):
 
             return redirect(form.cleaned_data['return_url'])
     else:
-        form = PasswordPageViewRestrictionForm(instance=restriction)
+        form = PasswordBaseViewRestrictionForm(instance=restriction)
 
     action_url = reverse('wagtailcore_authenticate_with_password', args=[restriction.id, page.id])
     return page.serve_password_required_response(request, form, action_url)

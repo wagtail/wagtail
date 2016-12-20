@@ -17,7 +17,9 @@ from wagtail.wagtailadmin.navigation import (
     get_navigation_menu_items, get_pages_with_direct_explore_permission)
 from wagtail.wagtailadmin.search import admin_search_areas
 from wagtail.wagtailcore import hooks
-from wagtail.wagtailcore.models import Page, PageViewRestriction, UserPagePermissionsProxy
+from wagtail.wagtailcore.models import (Collection, CollectionViewRestriction,
+                                        Page, PageViewRestriction,
+                                        UserPagePermissionsProxy)
 from wagtail.wagtailcore.utils import cautious_slugify as _cautious_slugify
 from wagtail.wagtailcore.utils import camelcase_to_underscore, escape_script
 
@@ -142,6 +144,25 @@ def page_permissions(context, page):
 
     # Now retrieve a PagePermissionTester from it, specific to the given page
     return context['user_page_permissions'].for_page(page)
+
+
+@assignment_tag(takes_context=True)
+def test_collection_is_public(context, collection):
+    """
+    Usage: {% test_collection_is_public collection as is_public %}
+    Sets 'is_public' to True iff there are no collection view restrictions in place
+    on this collection.
+    Caches the list of collection view restrictions in the context, to avoid repeated
+    DB queries on repeated calls.
+    """
+    if 'all_collection_view_restrictions' not in context:
+        context['all_collection_view_restrictions'] = CollectionViewRestriction.objects.select_related('collection').values_list(
+            'collection__name', flat=True
+        )
+
+    is_private = collection.name in context['all_collection_view_restrictions']
+
+    return not is_private
 
 
 @assignment_tag(takes_context=True)
