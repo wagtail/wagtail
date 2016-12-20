@@ -42,6 +42,7 @@ from wagtail.wagtailsearch import index
 logger = logging.getLogger('wagtail.core')
 
 PAGE_TEMPLATE_VAR = 'page'
+COLLECTION_TEMPLATE_VAR = 'collection'
 
 
 MATCH_HOSTNAME_PORT = 0
@@ -1835,7 +1836,7 @@ class BaseViewRestriction(models.Model):
 
     def accept_request(self, request):
         if self.restriction_type == BaseViewRestriction.PASSWORD:
-            passed_restrictions = request.session.get('passed_page_view_restrictions', [])
+            passed_restrictions = request.session.get('passed_view_restrictions', [])
             if self.id not in passed_restrictions:
                 return False
 
@@ -1916,9 +1917,31 @@ class Collection(MP_Node):
     def get_prev_siblings(self, inclusive=False):
         return self.get_siblings(inclusive).filter(path__lte=self.path).order_by('-path')
 
+    def get_context(self, request, *args, **kwargs):
+        return {
+            COLLECTION_TEMPLATE_VAR: self,
+            'self': self,
+            'request': request,
+        }
+
     def get_view_restrictions(self):
         """Return a query set of all collection view restrictions that apply to this collection"""
         return CollectionViewRestriction.objects.filter(collection__in=self.get_ancestors(inclusive=True))
+
+    password_required_template = getattr(settings, 'PASSWORD_REQUIRED_TEMPLATE', 'wagtailcore/password_required.html')
+
+    def serve_password_required_response(self, request, form, action_url):
+        """
+        Serve a response indicating that the user has been denied access to view this collection,
+        and must supply a password.
+        form = a Django form object containing the password input
+            (and zero or more hidden fields that also need to be output on the template)
+        action_url = URL that this form should be POSTed to
+        """
+        context = self.get_context(request)
+        context['form'] = form
+        context['action_url'] = action_url
+        return TemplateResponse(request, self.password_required_template, context)
 
     class Meta:
         verbose_name = _('collection')

@@ -60,7 +60,7 @@ class ServeView(View):
 
         if hasattr(image, 'collection'):
             for fn in hooks.get_hooks('before_serve_from_collection'):
-                result = fn(image.collection, request)
+                result = fn(image.collection, request, obj=image)
                 if isinstance(result, HttpResponse):
                     return result
 
