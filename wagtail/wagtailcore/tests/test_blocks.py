@@ -926,6 +926,38 @@ class TestStructBlock(SimpleTestCase):
 
         self.assertHTMLEqual(html, expected_html)
 
+    def test_render_api_calls_block_render_api_on_fields_with_context(self):
+        """
+        The render_api method of a StructBlock should invoke the block's render_api method
+        on each field and the context should be passed on.
+        """
+        class ContextBlock(blocks.CharBlock):
+            def render_api(self, value, context=None):
+                return context[value]
+
+        class AuthorBlock(blocks.StructBlock):
+            language = ContextBlock()
+            author = ContextBlock()
+
+        block = AuthorBlock()
+        api_representation = block.render_api(
+            {
+                'language': 'en',
+                'author': 'wagtail',
+            },
+            context={
+                'en': 'English',
+                'wagtail': 'Wagtail!'
+            }
+        )
+
+        self.assertDictEqual(
+            api_representation, {
+                'language': 'English',
+                'author': 'Wagtail!'
+            }
+        )
+
     def test_render_unknown_field(self):
         class LinkBlock(blocks.StructBlock):
             title = blocks.CharBlock()
@@ -1299,6 +1331,27 @@ class TestListBlock(unittest.TestCase):
         self.assertIn('<h1 lang="fr">Bonjour le monde!</h1>', html)
         self.assertIn('<h1 lang="fr">Au revoir le monde!</h1>', html)
 
+    def test_render_api_calls_block_render_api_on_children_with_context(self):
+        """
+        The render_api method of a ListBlock should invoke the block's render_api method
+        on each child and the context should be passed on.
+        """
+        class ContextBlock(blocks.CharBlock):
+            def render_api(self, value, context=None):
+                return context[value]
+
+        block = blocks.ListBlock(
+            ContextBlock()
+        )
+        api_representation = block.render_api(["en", "fr"], context={
+            'en': 'Hello world!',
+            'fr': 'Bonjour le monde!'
+        })
+
+        self.assertEqual(
+            api_representation, ['Hello world!', 'Bonjour le monde!']
+        )
+
     def render_form(self):
         class LinkBlock(blocks.StructBlock):
             title = blocks.CharBlock()
@@ -1616,6 +1669,37 @@ class TestStreamBlock(SimpleTestCase):
         value = block.to_python(data)
 
         return block.render(value)
+
+    def test_render_api_calls_block_render_api_on_children_with_context(self):
+        """
+        The render_api method of a StreamBlock should invoke the block's render_api method
+        on each child and the context should be passed on.
+        """
+        class ContextBlock(blocks.CharBlock):
+            def render_api(self, value, context=None):
+                return context[value]
+
+        block = blocks.StreamBlock([
+            ('language', ContextBlock()),
+            ('author', ContextBlock()),
+        ])
+        api_representation = block.render_api(
+            block.to_python([
+                {'type': 'language', 'value': 'en'},
+                {'type': 'author', 'value': 'wagtail'},
+            ]),
+            context={
+                'en': 'English',
+                'wagtail': 'Wagtail!'
+            }
+        )
+
+        self.assertListEqual(
+            api_representation, [
+                {'type': 'language', 'value': 'English'},
+                {'type': 'author', 'value': 'Wagtail!'},
+            ]
+        )
 
     def test_render(self):
         html = self.render_article([
