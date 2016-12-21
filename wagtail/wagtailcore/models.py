@@ -1040,6 +1040,8 @@ class Page(six.with_metaclass(PageBase, AbstractPage, index.Indexed, Clusterable
                 setattr(page_copy, field, value)
 
         if to:
+            if recursive and (to == self or to.is_descendant_of(self)):
+                raise Exception("You cannot copy a tree branch recursively into itself")
             page_copy = to.add_child(instance=page_copy)
         else:
             page_copy = self.add_sibling(instance=page_copy)
@@ -1752,6 +1754,30 @@ class PagePermissionTester(object):
         else:
             # no publishing required, so the already-tested 'add' permission is sufficient
             return True
+
+    def can_copy_to(self, destination, recursive=False):
+        # reject the logically impossible cases first
+        # recursive can't copy to the same tree otherwise it will be on infinite loop
+        if recursive and (self.page == destination or destination.is_descendant_of(self.page)):
+            return False
+
+        # shortcut the trivial 'everything' / 'nothing' permissions
+        if not self.user.is_active:
+            return False
+        if self.user.is_superuser:
+            return True
+
+        # Inspect permissions on the destination
+        destination_perms = self.user_perms.for_page(destination)
+
+        if not destination.specific_class.creatable_subpage_models():
+            return False
+
+        # we always need at least add permission in the target
+        if 'add' not in destination_perms.permissions:
+            return False
+
+        return True
 
 
 class PageViewRestriction(models.Model):
