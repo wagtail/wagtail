@@ -9,6 +9,8 @@ The ``wagtailforms`` module allows you to set up single-page forms, such as a 'C
 .. note::
   **wagtailforms is not a replacement for** `Django's form support <https://docs.djangoproject.com/en/1.10/topics/forms/>`_. It is designed as a way for page authors to build general-purpose data collection forms without having to write code. If you intend to build a form that assigns specific behaviour to individual fields (such as creating user accounts), or needs a custom HTML layout, you will almost certainly be better served by a standard Django form, where the fields are fixed in code rather than defined on-the-fly by a page author. See the `wagtail-form-example project <https://github.com/gasman/wagtail-form-example/commits/master>`_ for an example of integrating a Django form into a Wagtail page.
 
+.. _form_builder_usage:
+
 Usage
 ~~~~~
 
@@ -27,13 +29,17 @@ Within the ``models.py`` of one of your apps, create a model that extends ``wagt
 .. code-block:: python
 
     from modelcluster.fields import ParentalKey
-    from wagtail.wagtailadmin.edit_handlers import (FieldPanel, FieldRowPanel,
-        InlinePanel, MultiFieldPanel)
+    from wagtail.wagtailadmin.edit_handlers import (
+        FieldPanel, FieldRowPanel,
+        InlinePanel, MultiFieldPanel
+    )
     from wagtail.wagtailcore.fields import RichTextField
     from wagtail.wagtailforms.models import AbstractEmailForm, AbstractFormField
 
+
     class FormField(AbstractFormField):
         page = ParentalKey('FormPage', related_name='form_fields')
+
 
     class FormPage(AbstractEmailForm):
         intro = RichTextField(blank=True)
@@ -98,3 +104,12 @@ Displaying form submission information
             FieldPanel('intro', classname="full"),
             # ...
         ]
+
+
+Index
+~~~~~
+
+.. toctree::
+    :maxdepth: 1
+
+    customisation

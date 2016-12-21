@@ -8,7 +8,7 @@ Wagtail ships with a variety of extra optional modules.
     :maxdepth: 2
 
     settings
-    forms
+    forms/index
     staticsitegen
     sitemaps
     frontendcache
@@ -25,8 +25,8 @@ Wagtail ships with a variety of extra optional modules.
 Site-wide settings that are editable by administrators in the Wagtail admin.
 
 
-:doc:`forms`
-------------
+:doc:`forms/index`
+------------------
 
 Allows forms to be created by admins and provides an interface for browsing form submissions.
 
