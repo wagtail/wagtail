@@ -1094,7 +1094,10 @@ class Page(six.with_metaclass(PageBase, AbstractPage, index.Indexed, Clusterable
                 setattr(page_copy, field, value)
 
         if to:
-            page_copy = to.add_child(instance=page_copy)
+            if to != self and not to.is_descendant_of(self):
+                page_copy = to.add_child(instance=page_copy)
+            else:
+                raise Exception("You cannot copy a tree into itself")
         else:
             page_copy = self.add_sibling(instance=page_copy)
 
