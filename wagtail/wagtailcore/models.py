@@ -1578,8 +1578,7 @@ class UserPagePermissionsProxy(object):
     def __new__(cls, *args, **kwargs):
         klass_path = getattr(settings, 'WAGTAIL_USER_PAGE_PERMISSION_PROXY', 'wagtail.wagtailcore.models.DefaultUserPagePermissionsProxy')
         klass = import_string(klass_path)
-        obj = super().__new__(klass, *args, **kwargs)
-        obj.__init__(*args, **kwargs)
+        obj = klass(*args, **kwargs)
         return obj
 
 
