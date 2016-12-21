@@ -2226,6 +2226,19 @@ class TestPageCopy(TestCase, WagtailTestUtils):
             "This slug is already in use within the context of its parent page \"Welcome to your new Wagtail site!\""
         )
 
+    def test_page_copy_post_and_subpages_to_same_tree_branch(self):
+        # This tests the existing slug checking on page copy when changing the parent page
+
+        # Attempt to copy the page and changed the parent page
+        post_data = {
+            'new_title': "Hello world 2",
+            'new_slug': 'hello-world',
+            'new_parent_page': str(self.test_child_page.id),
+            'copy_subpages': True,
+        }
+        response = self.client.post(reverse('wagtailadmin_pages:copy', args=(self.test_page.id,)), post_data)
+        self.assertEqual(response.status_code, 403)
+
     def test_page_copy_post_existing_slug_to_another_parent_page(self):
         # This tests the existing slug checking on page copy when changing the parent page
 
