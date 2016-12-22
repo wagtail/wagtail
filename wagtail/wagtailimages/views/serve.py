@@ -15,10 +15,11 @@ from django.utils.six import text_type
 from django.views.generic import View
 
 from wagtail.wagtailcore import hooks
+from wagtail.utils import sendfile_streaming_backend
 from wagtail.utils.sendfile import sendfile
 from wagtail.wagtailimages import get_image_model
 from wagtail.wagtailimages.exceptions import InvalidFilterSpecError
-from wagtail.wagtailimages.models import SourceImageIOError
+from wagtail.wagtailimages.models import SourceImageIOError, Rendition
 
 
 def generate_signature(image_id, filter_spec, key=None):
@@ -94,3 +95,43 @@ class SendFileView(ServeView):
 
     def serve(self, rendition):
         return sendfile(self.request, rendition.file.path, backend=self.backend)
+
+
+class RenditionServeView(View):
+    """To protect your images based on the collection, you could use this
+    view in your url configuration like this:
+    url(r'^media/(images/.*)', RenditionServeView.as_view()),
+
+    In this case the images are served by django as long as they are using the
+    rendition class "wagtail.wagtailimages.models.Rendition".
+    "media/" must match the MEDIA_URL with the SCRIPT_PREFIX removed,
+    "images" must match the upload_to folder of the rendition class.
+    """
+    action = 'serve'
+    key = None
+
+    @classonlymethod
+    def as_view(cls, **initkwargs):
+        if 'action' in initkwargs:
+            if initkwargs['action'] not in ['serve']:
+                raise ImproperlyConfigured("RenditionServeView action must be 'serve'")
+
+        return super(RenditionServeView, cls).as_view(**initkwargs)
+
+    def get(self, request, filename):
+        rendition = get_object_or_404(Rendition, file=filename)
+        image = rendition.image
+
+        if hasattr(image, 'collection'):
+            for fn in hooks.get_hooks('before_serve_from_collection'):
+                result = fn(image.collection, request, obj=image)
+                if isinstance(result, HttpResponse):
+                    return result
+
+        return getattr(self, self.action)(rendition)
+
+    def serve(self, rendition):
+        if hasattr(settings, 'SENDFILE_BACKEND'):
+            return sendfile(self.request, rendition.file.path)
+        else:
+            return sendfile(self.request, rendition.file.path, backend=sendfile_streaming_backend.sendfile)
