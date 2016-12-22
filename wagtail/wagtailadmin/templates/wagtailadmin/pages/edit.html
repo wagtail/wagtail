@@ -50,8 +50,8 @@
               }
               .dropdown.dropdown-button.moreactions {
                   width: 3em;
-                  height: 3em;
-
+                  height: 2.4em;
+                  font-size: 0.9em;
               }
               .dropdown.moreactions.open ul {
                 left: auto;
@@ -68,7 +68,7 @@
                 border-bottom-width: 4px;
               }
               .dropdown.dropdown-button.moreactions .dropdown-toggle {
-                border-radius: 0.5em;
+                border-radius: 3px;
                 border: 0;
                 width: 3em;
                 height: 2.4em;
@@ -77,8 +77,8 @@
                 text-align: center;
               }
               .dropdown.dropup.dropdown-button.moreactions.open .dropdown-toggle {
-                border-bottom-left-radius: 0.5em;
-                border-bottom-right-radius: 0.5em;
+                border-bottom-left-radius: 3px;
+                border-bottom-right-radius: 3px;
                 margin-top: -1em;
                 padding-top: 1em;
               }
@@ -92,6 +92,10 @@
                 .dropdown.moreactions.open ul {
                   bottom: 4em;
                   right: -6em;
+                }
+                .dropdown.dropdown-button.moreactions {
+                    height: 3em;
+                    font-size: 0.95em;
                 }
                 .dropdown.dropdown-button.moreactions .dropdown-toggle {
                   height: 3em;
@@ -123,7 +127,9 @@
                 <button type="submit" class="button action-save button-longrunning {% if is_revision %}warning{% endif %}" tabindex="3"
                 data-clicked-text="{% trans 'Saving...' %}" {% if page.locked %}disabled {% endif %}>
                 <span class="icon icon-spinner"></span><em>
-                  {% if page.locked %}{% trans 'Page locked' %}{% else %}{% if is_revision %}{% trans 'Replace current draft' %}{% else %}{% trans 'Save draft' %}{% endif %}{% endif %}
+                  {% if page.locked %}
+                  <b class="icon icon-locked"></b>
+                  <b class="hidesmall">{% trans 'Page locked' %}</b>{% else %}{% if is_revision %}{% trans 'Replace current draft' %}{% else %}{% trans 'Save draft' %}{% endif %}{% endif %}
                 </em></button>
               </li>
               {% if page_perms.can_publish %}
@@ -134,9 +140,11 @@
                     <i class="icon icon-tick"></i>
                     {% if is_revision %}{% trans 'Publish this revision' %}{% else %}<b class="hidesmall">{% trans 'Publish' %}</b>{% endif %}</em></button>
                 </li>
-              {% elif not is_revision %}
+              {% elif not is_revision and not page.locked %}
                 <li class="actions variable">
-                    <input type="submit" name="action-submit" value="{% trans 'Submit for moderation' %}" class="button" />
+                    <button type="submit" name="action-submit" value="{% trans 'Submit for moderation' %}" title="{% trans 'Submit for moderation' %}" class="button icon icon-mail yes" >
+                      <b class="hidesmall">{% trans 'Submit for moderation' %}</b>
+                    </button>
                 </li>
               {% endif %}
 
@@ -180,7 +188,7 @@
               <li class="actions variable">
                 <div class="dropdown dropup dropdown-button moreactions {% if is_revision %}warning{% endif %}">
 
-                    <div class="dropdown-toggle xicon xicon-arrow-up" title="{% trans "More actions..." %}">
+                    <div class="dropdown-toggle" title="{% trans "More actions..." %}">
                       &bull;&bull;&bull;
                     </div>
                     <ul role="menu">
@@ -208,7 +216,7 @@
                       {% if preview_modes|length > 1 %}
                       {% comment %}
                       {% if not preview_modes|length > 1 %}
-
+                      
                         <!-- dummy preview modes -->
                         <li>
                             {% include "wagtailadmin/pages/_preview_button_on_edit.html" with icon=1 label="Preview mode 1" %}
