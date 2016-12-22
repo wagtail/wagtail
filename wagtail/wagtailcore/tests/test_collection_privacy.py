@@ -1,5 +1,8 @@
 from __future__ import absolute_import, unicode_literals
-from urllib.parse import quote
+try:
+    from urllib.parse import quote
+except ImportError:
+     from urlparse import quote
 
 from django.contrib.auth.models import Group
 from django.contrib.contenttypes.models import ContentType
