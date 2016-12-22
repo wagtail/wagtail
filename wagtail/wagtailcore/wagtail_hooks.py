@@ -2,7 +2,7 @@ from __future__ import absolute_import, unicode_literals
 try:
     from urllib.parse import unquote
 except ImportError:
-     from urlparse import unquote
+     from urllib import unquote
 
 from django.conf import settings
 from django.contrib.contenttypes.models import ContentType
