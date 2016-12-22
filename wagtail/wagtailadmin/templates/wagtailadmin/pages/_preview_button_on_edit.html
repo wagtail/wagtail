@@ -1,4 +1,5 @@
 <button class="button action-preview {% if icon %}icon icon-view{% endif %}"
     data-action="{% url 'wagtailadmin_pages:preview_on_edit' page.id %}{% if mode %}?mode={{ mode|urlencode }}{% endif %}"
     data-placeholder="{% url 'wagtailadmin_pages:preview' %}"
-    data-windowname="wagtail_preview_{{ page.id }}">{{ label }}</button>
+    data-windowname="wagtail_preview_{{ page.id }}">{% if icon %}<span class="hidesmall">{{ label }}</span>{% else %}{{ label }}{% endif %}
+    </button>
