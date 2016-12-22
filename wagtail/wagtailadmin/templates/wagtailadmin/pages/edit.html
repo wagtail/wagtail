@@ -41,6 +41,13 @@
               .actions.variable {
                 width: auto;
               }
+              .actions.variable .dropdown ul li a,
+              .actions.variable .dropdown ul li .button {
+                padding-right: 1em;
+                max-width: 18em;
+                overflow: hidden;
+                text-overflow: ellipsis;
+              }
               .dropdown.dropdown-button.moreactions {
                   width: 3em;
                   height: 3em;
@@ -50,7 +57,7 @@
                 left: auto;
                 right: -1em;
                 bottom: 3.4em;
-                width: 15em;
+                min-width: 15em;
                 border-radius: 0.5em;
               }
               .dropdown.moreactions.open ul li .noborder {
@@ -93,11 +100,19 @@
                 .hidesmall {
                   display: inline-block;
                 }
+                .actions.variable .dropdown ul li a,
+                .actions.variable .dropdown ul li .button {
+                  max-width: 22em;
+                }
               }
 
               @media screen and (min-width: 90em) {
                 .onlybig {
                   display: inline-block;
+                }
+                .actions.variable .dropdown ul li a,
+                .actions.variable .dropdown ul li .button {
+                  max-width: 30em;
                 }
               }
             </style>
@@ -113,7 +128,7 @@
               </li>
               {% if page_perms.can_publish %}
                 <li class="actions variable">
-                  <button type="submit" name="action-publish" value="action-publish" class="button button-longrunning yes {% if is_revision %}warning{% endif %}"
+                  <button type="submit" name="action-publish" value="action-publish" class="button button-longrunning {% if not page.locked %} yes{% endif %} {% if is_revision %}warning{% endif %}"
                   tabindex="3" data-clicked-text="{% trans 'Publishing...' %}" {% if page.locked %}disabled {% endif %}><span
                   class="icon icon-spinner"></span><em>
                     <i class="icon icon-tick"></i>
@@ -126,12 +141,23 @@
               {% endif %}
 
               {% trans 'Preview' as preview_label %}
+              {% comment %}
               {% if preview_modes|length > 1 %}
-                <li class="actions preview">
-                      <div class="dropdown dropup dropdown-button match-width">
+                <li class="actions preview variable">
+                      <div class="dropdown dropup dropdown-button xmatch-width">
                           {% include "wagtailadmin/pages/_preview_button_on_edit.html" with label=preview_label icon=1 %}
                           <div class="dropdown-toggle icon icon-arrow-up"></div>
                           <ul role="menu">
+                            <!-- dummy preview modes -->
+                            <li>
+                                {% include "wagtailadmin/pages/_preview_button_on_edit.html" with  label="Fake mode 1" %}
+                            </li>
+                            <li>
+                                {% include "wagtailadmin/pages/_preview_button_on_edit.html" with  label="Fake" %}
+                            </li>
+                            <li>
+                                {% include "wagtailadmin/pages/_preview_button_on_edit.html" with  label="Fake newsletter for fun" %}
+                            </li>
                               {% for mode_name, mode_display_name in preview_modes %}
                                   <li>
                                       {% include "wagtailadmin/pages/_preview_button_on_edit.html" with mode=mode_name label=mode_display_name %}
@@ -141,18 +167,24 @@
                       </div>
                 </li>
               {% else %}
-                <li class="actions preview variable">
-                  {% include "wagtailadmin/pages/_preview_button_on_edit.html" with label=preview_label icon=1 %}
-                </li>
-              {% endif %}
-              {% if not page.locked %}
-                <li class="actions variable">
-                  <div class="dropdown dropup dropdown-button moreactions {% if is_revision %}warning{% endif %}">
 
-                      <div class="dropdown-toggle xicon xicon-arrow-up">
-                        &bull;&bull;&bull;
-                      </div>
-                      <ul role="menu">
+
+              {% endif %}
+              {% endcomment %}
+
+              <li class="actions preview variable" title="{{ preview_label }}">
+                {% include "wagtailadmin/pages/_preview_button_on_edit.html" with label=preview_label icon=2 %}
+              </li>
+
+
+              <li class="actions variable">
+                <div class="dropdown dropup dropdown-button moreactions {% if is_revision %}warning{% endif %}">
+
+                    <div class="dropdown-toggle xicon xicon-arrow-up" title="{% trans "More actions..." %}">
+                      &bull;&bull;&bull;
+                    </div>
+                    <ul role="menu">
+                      {% if not page.locked %}
                         {% if not is_revision  %}
                           {% if page_perms.can_delete %}
                               <li class=""><a href="{% url 'wagtailadmin_pages:delete' page.id %}" class="shortcut button button-secondary noborder no">
@@ -167,26 +199,52 @@
 
                           {% endif %}
 
-
                           {% if page_perms.can_delete or page_perms.can_unpublish  %}
                             <li class="spacer"></li>
                           {% endif %}
-
                         {% endif %}
+                      {% endif %}
+
+                      {% if preview_modes|length > 1 %}
+                      {% comment %}
+                      {% if not preview_modes|length > 1 %}
+
+                        <!-- dummy preview modes -->
                         <li>
-                          <a href="{% url 'wagtailadmin_pages:revisions_index' page.id %}" class="xunderlined">
-                            <span class="icon icon-time"></span>
-                            {% trans 'Revisions' %}</a>
+                            {% include "wagtailadmin/pages/_preview_button_on_edit.html" with icon=1 label="Preview mode 1" %}
                         </li>
-                        {% if page_perms.can_publish and not is_revision %}
-                          <li class="spacer"></li>
-                          <li><input type="submit" name="action-submit" value="{% trans 'Submit for moderation' %}" class="button" /></li>
-                        {% endif %}
+                        <li>
+                            {% include "wagtailadmin/pages/_preview_button_on_edit.html" with icon=1 label="Preview 2" %}
+                        </li>
+                        <li>
+                            {% include "wagtailadmin/pages/_preview_button_on_edit.html" with icon=1 label="Very long fake preview mode to test variable width" %}
+                        </li>
+                        {% comment %}
+                        {% endcomment %}
+                        {% for mode_name, mode_display_name in preview_modes %}
+                            <li>
+                                {% include "wagtailadmin/pages/_preview_button_on_edit.html" with icon=1 mode=mode_name label=mode_display_name %}
+                            </li>
+                        {% endfor %}
+                        <li class="spacer"></li>
+                      {% endif %}
 
-                      </ul>
-                  </div>
-                </li>
-              {% endif %}
+
+
+
+                      <li>
+                        <a href="{% url 'wagtailadmin_pages:revisions_index' page.id %}" class="xunderlined">
+                          <span class="icon icon-time"></span>
+                          {% trans 'Revisions' %}</a>
+                      </li>
+                      {% if page_perms.can_publish and not is_revision and not page.locked %}
+                        <li class="spacer"></li>
+                        <li><input type="submit" name="action-submit" value="{% trans 'Submit for moderation' %}" class="button" /></li>
+                      {% endif %}
+
+                    </ul>
+                </div>
+              </li>
               <li class="meta">
                   <p class="modified">
                       {% if page.get_latest_revision %}
