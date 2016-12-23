@@ -1,7 +1,7 @@
 Form builder customisation
 ==========================
 
-For basic usage example see :ref:`form_builder_usage`.
+For a basic usage example see :ref:`form_builder_usage`.
 
 Custom ``related_name`` for form fields
 ---------------------------------------
@@ -355,7 +355,7 @@ The following example shows how to create a multi-step form.
 
             if request.method == 'POST':
                 # The first step will be submitted with step_number == 2,
-                # so we need to get a from from previous step
+                # so we need to get a form from previous step
                 # Edge case - submission of the last step
                 prev_step = step if is_last_step else paginator.page(step.previous_page_number())
 
@@ -373,7 +373,7 @@ The following example shows how to create a multi-step form.
                         form_class = self.get_form_class_for_step(step)
                         form = form_class(page=self, user=request.user)
                     else:
-                        # If there is no more steps, create form for all fields
+                        # If there is no next step, create form for all fields
                         form = self.get_form(
                             request.session[session_key_data],
                             page=self, user=request.user
@@ -443,9 +443,10 @@ Depending on your requirements, you may need to add extra checks.
 Show results
 ------------
 
-If are implementing polls or surveys, you may want to show results after submission. The following example demonstrates how to do this.
+If you are implementing polls or surveys, you may want to show results after submission.
+The following example demonstrates how to do this.
 
-At first, you need to collect results as shown below:
+First, you need to collect results as shown below:
 
 .. code-block:: python
 
