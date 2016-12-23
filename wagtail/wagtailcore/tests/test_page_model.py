@@ -777,11 +777,8 @@ class TestCopyPage(TestCase):
         old_christmas_event = events_index.get_children().filter(slug='christmas').first().specific
         old_christmas_event.save_revision()
 
-
         with self.assertRaises(Exception) as exception:
-            # Copy it
-
-            new_events_index = events_index.copy(
+            events_index.copy(
                 recursive=True, update_attrs={'title': "New events index", 'slug': 'new-events-index'}, to=events_index
             )
         self.assertEqual(str(exception.exception), "You cannot copy a tree branch recursively into itself")
