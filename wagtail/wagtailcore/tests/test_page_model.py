@@ -784,8 +784,7 @@ class TestCopyPage(TestCase):
             new_events_index = events_index.copy(
                 recursive=True, update_attrs={'title': "New events index", 'slug': 'new-events-index'}, to=events_index
             )
-        self.assertEqual(str(exception.exception), "You cannot copy a tree into itself")
-
+        self.assertEqual(str(exception.exception), "You cannot copy a tree branch recursively into itself")
 
     def test_copy_page_updates_user(self):
         event_moderator = get_user_model().objects.get(username='eventmoderator')
