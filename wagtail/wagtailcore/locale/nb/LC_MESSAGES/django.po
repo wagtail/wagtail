@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-10-05 16:37+0100\n"
-"PO-Revision-Date: 2016-11-18 10:44+0000\n"
+"POT-Creation-Date: 2016-12-06 22:44+0000\n"
+"PO-Revision-Date: 2016-12-07 12:09+0000\n"
 "Last-Translator: Stein Strindhaug <stein.strindhaug@gmail.com>\n"
 "Language-Team: Norwegian Bokmål (http://www.transifex.com/torchbox/wagtail/"
 "language/nb/)\n"
@@ -19,6 +19,13 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: nb\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#, python-brace-format
+msgid "{label}: this block has no options."
+msgstr "{label}: denne blokken har ingen alternativer."
+
+msgid "This block has no options."
+msgstr "Denne blokken har ingen alternativer."
 
 msgid "Password"
 msgstr "Passord"
@@ -206,6 +213,12 @@ msgstr "Publiser"
 msgid "Publish any page"
 msgstr "Publiser enhver side"
 
+msgid "Bulk delete"
+msgstr "Massesletting"
+
+msgid "Delete pages with children"
+msgstr "Slett sider med undersider"
+
 msgid "Lock"
 msgstr "Lås"
 
@@ -223,6 +236,18 @@ msgstr "gruppetillatelse for side"
 
 msgid "group page permissions"
 msgstr "gruppetillatelser for sider"
+
+msgid "Public"
+msgstr "Offentlig"
+
+msgid "Private, accessible to logged-in users"
+msgstr "Privat, tilgjengelig kun for innloggede brukere"
+
+msgid "Private, accessible with the following password"
+msgstr "Privat, tilgjengelig med følgende passord"
+
+msgid "Private, accessible to users in specific groups"
+msgstr "Privat, tilgjengelig kun for brukere i spesifikke grupper"
 
 msgid "password"
 msgstr "passord"
@@ -247,6 +272,19 @@ msgstr "tillatelse"
 
 msgid "group collection permission"
 msgstr "gruppetillatelse for samling"
+
+msgid "Log in"
+msgstr "Logg inn"
+
+msgid "Your username and password didn't match. Please try again."
+msgstr "Ditt brukernavn og passord stemmer ikke overens. Vennligst prøv igjen."
+
+msgid ""
+"Your account doesn't have access to this page. To proceed, please log in "
+"with an account that has access."
+msgstr ""
+"Din brukerkonto har ikke tilgang på denne siden. For å fortsette må du logge "
+"inn med en konto som har tilgang."
 
 msgid "Password required"
 msgstr "Passord påkrevd"

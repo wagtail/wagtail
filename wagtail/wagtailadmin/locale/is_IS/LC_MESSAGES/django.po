@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-10-05 16:37+0100\n"
-"PO-Revision-Date: 2016-10-05 15:39+0000\n"
+"POT-Creation-Date: 2016-12-06 22:44+0000\n"
+"PO-Revision-Date: 2016-12-06 22:46+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Icelandic (Iceland) (http://www.transifex.com/torchbox/"
 "wagtail/language/is_IS/)\n"
@@ -122,15 +122,6 @@ msgstr "Þessi vefslóð (e.slug) er þegar í notkun innan ramma yfirsíðu \"%
 
 msgid "Visibility"
 msgstr "Sýnileiki"
-
-msgid "Public"
-msgstr "Í birtingu"
-
-msgid "Private, accessible with the following password"
-msgstr "Læst, aðgengileg með eftirfarandi lykilorði"
-
-msgid "Password"
-msgstr "Lykilorð"
 
 msgid "This field is required."
 msgstr "Þennan reit þarf að fylla út."
@@ -492,6 +483,9 @@ msgstr "Aflæst"
 
 msgid "Privacy"
 msgstr "Aðgengi"
+
+msgid "Public"
+msgstr "Í birtingu"
 
 msgid "Private"
 msgstr "Prívat"
@@ -958,11 +952,6 @@ msgstr ""
 "Þú ert að nota <strong>úreldan</strong> vafra sem ekki er studdur af þessum "
 "hugbúnaði. Vinsamlegast <a href=\"http://browsehappy.com/\">uppfærðu vafrann "
 "þinn</a>."
-
-msgid "Javascript is required to use Wagtail, but it is currently disabled"
-msgstr ""
-"Javascript er nauðsynlegt til að nota Wagtail, en það er slökkt á því í "
-"vafranum þínum"
 
 msgid "Go to Wagtail admin interface"
 msgstr "Fara á Wagtail stjórnborð"

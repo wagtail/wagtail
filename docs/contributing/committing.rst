@@ -22,7 +22,7 @@ Check out the code locally
 
 If the code has been submitted as a pull request,
 you should fetch the changes and check them out in your Wagtail repository.
-A simple way to do this is by adding the following ``git`` alias to your ``~/.gitconfig`` (assuming ``upstream`` is ``torchbox/wagtail``):
+A simple way to do this is by adding the following ``git`` alias to your ``~/.gitconfig`` (assuming ``upstream`` is ``wagtail/wagtail``):
 
 .. code-block:: text
 

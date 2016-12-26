@@ -167,8 +167,6 @@ For example:
 Annotating results with score
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-.. versionadded:: 1.7
-
 For each matched result, Elasticsearch calculates a "score", which is a number
 that represents how relevant the result is based on the user's query. The
 results are usually ordered based on the score.

@@ -150,7 +150,7 @@ class TestElasticsearch2SearchBackend(BackendTests, TestCase):
         This tests that punctuation characters are treated the same
         way in both indexing and querying.
 
-        See: https://github.com/torchbox/wagtail/issues/937
+        See: https://github.com/wagtail/wagtail/issues/937
         """
         # Reset the index
         self.reset_index()

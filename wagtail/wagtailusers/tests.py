@@ -91,7 +91,7 @@ class TestUserIndexView(TestCase, WagtailTestUtils):
         self.assertContains(response, 'testuser')
 
     def test_allows_negative_ids(self):
-        # see https://github.com/torchbox/wagtail/issues/565
+        # see https://github.com/wagtail/wagtail/issues/565
         get_user_model().objects.create_user('guardian', 'guardian@example.com', 'gu@rd14n', pk=-1)
         response = self.get()
         self.assertEqual(response.status_code, 200)
