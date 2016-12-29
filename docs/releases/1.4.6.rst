@@ -1,0 +1,16 @@
+===========================
+Wagtail 1.4.6 release notes
+===========================
+
+.. contents::
+    :local:
+    :depth: 1
+
+
+What's changed
+==============
+
+Bug fixes
+~~~~~~~~~
+
+ * Pin html5lib to version 0.999999 to prevent breakage caused by internal API changes (Liam Brenner)

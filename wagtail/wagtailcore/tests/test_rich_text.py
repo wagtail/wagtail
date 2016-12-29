@@ -145,3 +145,10 @@ class TestRichTextValue(TestCase):
             result,
             '<div class="rich-text"><p>Merry <a href="/events/christmas/">Christmas</a>!</p></div>'
         )
+
+    def test_evaluate_value(self):
+        value = RichText(None)
+        self.assertFalse(value)
+
+        value = RichText('<p>wagtail</p>')
+        self.assertTrue(value)

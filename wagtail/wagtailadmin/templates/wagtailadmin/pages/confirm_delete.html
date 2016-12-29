@@ -1,10 +1,10 @@
 {% extends "wagtailadmin/base.html" %}
 {% load i18n wagtailadmin_tags %}
-{% block titletag %}{% blocktrans with title=page.title %}Delete {{ title }}{% endblocktrans %}{% endblock %}
+{% block titletag %}{% blocktrans with title=page.get_admin_display_title %}Delete {{ title }}{% endblocktrans %}{% endblock %}
 
 {% block content %}
     {% trans "Delete" as del_str %}
-    {% include "wagtailadmin/shared/header.html" with title=del_str subtitle=page.title icon="doc-empty-inverse" %}
+    {% include "wagtailadmin/shared/header.html" with title=del_str subtitle=page.get_admin_display_title icon="doc-empty-inverse" %}
 
     <div class="nice-padding">
         <p>
@@ -17,14 +17,18 @@
                 {% endblocktrans %}
             {% endif %}
         </p>
-        {% page_permissions page as page_perms %}
-        {% if page_perms.can_unpublish %}
-            <p>{% trans "Alternatively you can unpublish the page. This removes the page from public view and you can edit or publish it again later." %}</p>
-        {% endif %}
+
         <form action="{% url 'wagtailadmin_pages:delete' page.id %}" method="POST">
             {% csrf_token %}
             <input type="hidden" name="next" value="{{ next }}">
-            <input type="submit" value="{% trans 'Delete it' %}" class="button serious {% if page.live %}button-secondary{% endif %}"> {% if page_perms.can_unpublish %}<a href="{% url 'wagtailadmin_pages:unpublish' page.id %}" class="button">{% trans 'Unpublish it' %}</a>{% endif %}
+            <input type="submit" value="{% trans 'Yes, delete it' %}" class="button serious">
+            <a href="{% if next %}{{ next }}{% else %}{% url 'wagtailadmin_explore' page.get_parent.id %}{% endif %}" class="button button-secondary">{% trans "No, don't delete it" %}</a>
         </form>
+
+        {% page_permissions page as page_perms %}
+        {% if page_perms.can_unpublish %}
+            {% url 'wagtailadmin_pages:unpublish' page.id as unpublish_url %}
+            <p style="margin-top: 1em">{% blocktrans %}Alternatively you can <a href="{{ unpublish_url }}">unpublish the page</a>. This removes the page from public view and you can edit or publish it again later.{% endblocktrans %}</p>
+        {% endif %}
     </div>
 {% endblock %}

@@ -17,6 +17,7 @@ develop: clean-pyc
 
 lint:
 	flake8 wagtail
+	isort --check-only --diff --recursive wagtail
 
 test:
 	python runtests.py

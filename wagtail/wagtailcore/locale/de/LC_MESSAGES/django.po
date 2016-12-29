@@ -8,15 +8,16 @@
 # Johannes Spielmann <j@spielmannsolutions.com>, 2014
 # Matt Westcott <matthew@torchbox.com>, 2015
 # Max Pfeiffer <max.pfeiffer@alp-phone.ch>, 2015
+# Moritz Pfeiffer <moritz@alp-phone.ch>, 2016
 # Tammo van Lessen <tvanlessen@gmail.com>, 2015
 # Wasilis Mandratzis-Walz, 2015
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-05-18 21:37+0000\n"
-"PO-Revision-Date: 2016-03-01 19:14+0000\n"
-"Last-Translator: Henrik Kröger <hedwig@riseup.net>\n"
+"POT-Creation-Date: 2016-12-06 22:44+0000\n"
+"PO-Revision-Date: 2016-12-07 07:53+0000\n"
+"Last-Translator: Moritz Pfeiffer <moritz@alp-phone.ch>\n"
 "Language-Team: German (http://www.transifex.com/torchbox/wagtail/language/"
 "de/)\n"
 "MIME-Version: 1.0\n"
@@ -24,6 +25,19 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: de\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#, python-brace-format
+msgid "{label}: this block has no options."
+msgstr "{label}: dieser Block hat keine Einstellmöglichkeiten."
+
+msgid "This block has no options."
+msgstr "Dieser Block hat keine Einstellmöglichkeiten."
+
+msgid "Password"
+msgstr "Passwort"
+
+msgid "The password you have entered is not correct. Please try again."
+msgstr "Das eingegebene Passwort ist falsch. Bitte versuchen Sie es erneut."
 
 msgid "hostname"
 msgstr "Hostname"
@@ -206,6 +220,12 @@ msgstr "Veröffentlichen"
 msgid "Publish any page"
 msgstr "Jede Seite veröffentlichen"
 
+msgid "Bulk delete"
+msgstr "Alles löschen"
+
+msgid "Delete pages with children"
+msgstr "Seiten inkl. Unterseiten löschen"
+
 msgid "Lock"
 msgstr "Sperren"
 
@@ -223,6 +243,18 @@ msgstr "Gruppen Seitenberechtigung"
 
 msgid "group page permissions"
 msgstr "Gruppen Seitenberechtigungen"
+
+msgid "Public"
+msgstr "Öffentlich"
+
+msgid "Private, accessible to logged-in users"
+msgstr "Privat, nur für angemeldete Benutzer einsehbar"
+
+msgid "Private, accessible with the following password"
+msgstr "Privat, einsehbar mit folgendem Passwort"
+
+msgid "Private, accessible to users in specific groups"
+msgstr "Privat, einsehbar für Benutzer in bestimmten Gruppen"
 
 msgid "password"
 msgstr "Passwort"
@@ -247,3 +279,27 @@ msgstr "Berechtigung"
 
 msgid "group collection permission"
 msgstr "Gruppen Sammlungsberechtigungen"
+
+msgid "Log in"
+msgstr "Anmelden"
+
+msgid "Your username and password didn't match. Please try again."
+msgstr ""
+"Ihr Benutzername und Ihr Passwort wurden nicht erkannt. Bitte versuchen Sie "
+"es erneut!"
+
+msgid ""
+"Your account doesn't have access to this page. To proceed, please log in "
+"with an account that has access."
+msgstr ""
+"Ihr Konto hat keinen Zugang zu dieser Seite. Um fortzufahren melden Sie sich "
+"mit einem Konto an, das Zugang hat."
+
+msgid "Password required"
+msgstr "Passwort erforderlich"
+
+msgid "You need a password to access this page."
+msgstr "Sie benötigen ein Passwort um diese Seite aufzurufen."
+
+msgid "Continue"
+msgstr "Weiter"

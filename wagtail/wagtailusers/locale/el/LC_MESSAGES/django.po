@@ -3,18 +3,19 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# NeotheOne <neotheone@programmer.net>, 2015
+# Yiannis Inglessis <inactive+ne0the0ne@transifex.com>, 2015
 # serafeim <serafeim@torchbox.com>, 2014
 # serafeim <serafeim@torchbox.com>, 2014
 # George Giannoulopoulos <vdotoree@yahoo.gr>, 2015
 # Wasilis Mandratzis-Walz, 2015
+# Yiannis Inglessis <negletios@users.noreply.github.com>, 2016
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-05-18 21:37+0000\n"
-"PO-Revision-Date: 2016-03-01 19:08+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2016-12-06 22:44+0000\n"
+"PO-Revision-Date: 2016-09-20 12:49+0000\n"
+"Last-Translator: Yiannis Inglessis <negletios@users.noreply.github.com>\n"
 "Language-Team: Greek (http://www.transifex.com/torchbox/wagtail/language/"
 "el/)\n"
 "MIME-Version: 1.0\n"
@@ -41,6 +42,11 @@ msgstr "Τα δύο πεδία κωδικών δεν είναι ίδια."
 
 msgid "Administrator"
 msgstr "Διαχειριστής"
+
+msgid "Administrators have full access to manage any object or setting."
+msgstr ""
+"Οι διαχειριστές έχουν πλήρη πρόσβαση στην  διαχείριση κάθε αντικειμένου ή "
+"ρύθμισης. "
 
 msgid "Password"
 msgstr "Κωδικός"
@@ -149,6 +155,9 @@ msgid ""
 msgstr ""
 "There are no groups configured. Why not <a href="
 "\"%(wagtailusers_create_group_url)s\">add some</a>?"
+
+msgid "Delete user"
+msgstr "Διαγραφή χρήστη."
 
 msgid "Add user"
 msgstr "Προσθήκη χρήστη"

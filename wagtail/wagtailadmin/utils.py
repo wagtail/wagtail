@@ -5,12 +5,14 @@ from functools import wraps
 
 from django.conf import settings
 from django.contrib.auth import get_user_model
+from django.contrib.contenttypes.models import ContentType
 from django.core.mail import send_mail as django_send_mail
-from django.db.models import Q
+from django.db.models import Count, Q
 from django.shortcuts import redirect
 from django.template.loader import render_to_string
 from django.utils.translation import ugettext as _
 from modelcluster.fields import ParentalKey
+from taggit.models import Tag
 
 from wagtail.wagtailcore.models import GroupPagePermission, Page, PageRevision
 from wagtail.wagtailusers.models import UserProfile
@@ -49,6 +51,16 @@ def get_object_usage(obj):
                     )
 
     return pages
+
+
+def popular_tags_for_model(model, count=10):
+    """Return a queryset of the most frequently used tags used on this model class"""
+    content_type = ContentType.objects.get_for_model(model)
+    return Tag.objects.filter(
+        taggit_taggeditem_items__content_type=content_type
+    ).annotate(
+        item_count=Count('taggit_taggeditem_items')
+    ).order_by('-item_count')[:count]
 
 
 def users_with_page_permission(page, permission_type, include_superusers=True):

@@ -17,7 +17,7 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='SectionedRichTextPage',
             fields=[
-                ('page_ptr', models.OneToOneField(parent_link=True, to='wagtailcore.Page', serialize=False, auto_created=True, primary_key=True)),
+                ('page_ptr', models.OneToOneField(parent_link=True, to='wagtailcore.Page', serialize=False, auto_created=True, primary_key=True, on_delete=models.CASCADE)),
             ],
             options={
                 'abstract': False,
@@ -30,7 +30,7 @@ class Migration(migrations.Migration):
                 ('id', models.AutoField(verbose_name='ID', primary_key=True, serialize=False, auto_created=True)),
                 ('sort_order', models.IntegerField(editable=False, null=True, blank=True)),
                 ('body', wagtail.wagtailcore.fields.RichTextField()),
-                ('page', modelcluster.fields.ParentalKey(related_name='sections', to='tests.SectionedRichTextPage')),
+                ('page', modelcluster.fields.ParentalKey(related_name='sections', to='tests.SectionedRichTextPage', on_delete=models.CASCADE)),
             ],
             options={
                 'ordering': ['sort_order'],

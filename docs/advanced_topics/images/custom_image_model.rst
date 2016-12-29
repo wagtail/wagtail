@@ -1,5 +1,6 @@
 .. _custom_image_model:
 
+===================
 Custom image models
 ===================
 
@@ -21,9 +22,9 @@ Here's an example:
 
     # models.py
     from django.db import models
-    from django.db.models.signals import pre_delete
+    from django.db.models.signals import post_delete
     from django.dispatch import receiver
-    
+
     from wagtail.wagtailimages.models import Image, AbstractImage, AbstractRendition
 
 
@@ -44,18 +45,18 @@ Here's an example:
 
         class Meta:
             unique_together = (
-                ('image', 'filter', 'focal_point_key'),
+                ('image', 'filter_spec', 'focal_point_key'),
             )
 
 
     # Delete the source image file when an image is deleted
-    @receiver(pre_delete, sender=CustomImage)
+    @receiver(post_delete, sender=CustomImage)
     def image_delete(sender, instance, **kwargs):
         instance.file.delete(False)
 
 
     # Delete the rendition image file when a rendition is deleted
-    @receiver(pre_delete, sender=CustomRendition)
+    @receiver(post_delete, sender=CustomRendition)
     def rendition_delete(sender, instance, **kwargs):
         instance.file.delete(False)
 
@@ -87,3 +88,14 @@ Then set the ``WAGTAILIMAGES_IMAGE_MODEL`` setting to point to it:
 
     Any templates that reference the builtin image model will still continue to
     work as before but would need to be updated in order to see any new images.
+
+.. _custom_image_model_referring_to_image_model:
+
+Referring to the image model
+============================
+
+.. module:: wagtail.wagtailimages
+
+.. autofunction:: get_image_model
+
+.. autofunction:: get_image_model_string

@@ -38,6 +38,8 @@ Create a model that inherits from ``BaseSetting``, and register it using the ``r
 
 A 'Social media settings' link will appear in the Wagtail admin 'Settings' menu.
 
+.. _edit_handlers_settings:
+
 Edit handlers
 -------------
 
@@ -56,6 +58,29 @@ Settings use edit handlers much like the rest of Wagtail.  Add a ``panels`` sett
             PageChooserPanel('donate_page'),
             PageChooserPanel('sign_up_page'),
         ]
+
+You can also customize the editor handlers :ref:`like you would do for Page model <customising_the_tabbed_interface>`
+with a custom ``edit_handler`` attribute:
+
+.. code-block:: python
+
+    from wagtail.wagtailadmin.edit_handlers import TabbedInterface, ObjectList
+
+    @register_setting
+    class MySettings(BaseSettings):
+        # ...
+        first_tab_panels = [
+            FieldPanel('field_1'),
+        ]
+        second_tab_panels = [
+            FieldPanel('field_2'),
+        ]
+
+        edit_handler = TabbedInterface([
+            ObjectList(first_tab_panels, heading='First tab'),
+            ObjectList(second_tab_panels, heading='Second tab'),
+        ])
+
 
 Appearance
 ----------
@@ -118,7 +143,7 @@ Then access the settings through ``{{ settings }}``:
 
     {{ settings.app_label.SocialMediaSettings.instagram }}
 
-(Replace ``app_label`` with the label of the app containing your settings model.)
+.. note:: Replace ``app_label`` with the label of the app containing your settings model.
 
 If you are not in a ``RequestContext``, then context processors will not have run, and the ``settings`` variable will not be availble. To get the ``settings``, use the provided ``{% get_settings %}`` template tag. If a ``request`` is in the template context, but for some reason it is not a ``RequestContext``, just use ``{% get_settings %}``:
 
@@ -168,7 +193,7 @@ Then access the settings through the ``settings()`` template function:
 
     {{ settings("app_label.SocialMediaSettings").twitter }}
 
-(Replace ``app_label`` with the label of the app containing your settings model.)
+.. note:: Replace ``app_label`` with the label of the app containing your settings model.
 
 This will look for a ``request`` variable in the template context, and find the correct site to use from that. If for some reason you do not have a ``request`` available, you can instead use the settings defined for the default site:
 

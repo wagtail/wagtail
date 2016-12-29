@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-05-18 21:37+0000\n"
+"POT-Creation-Date: 2016-12-06 22:44+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -37,7 +37,7 @@ msgstr ""
 msgid "site"
 msgstr ""
 
-#: models.py:18
+#: models.py:18 models.py:43
 msgid "permanent"
 msgstr ""
 
@@ -53,6 +53,10 @@ msgstr ""
 
 #: models.py:28
 msgid "redirect to any URL"
+msgstr ""
+
+#: models.py:45
+msgid "temporary"
 msgstr ""
 
 #: models.py:94
@@ -123,10 +127,6 @@ msgstr ""
 
 #: templates/wagtailredirects/list.html:27
 msgid "Edit this redirect"
-msgstr ""
-
-#: templates/wagtailredirects/list.html:39
-msgid "primary"
 msgstr ""
 
 #: templates/wagtailredirects/results.html:5

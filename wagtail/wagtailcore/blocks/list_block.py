@@ -108,6 +108,9 @@ class ListBlock(Block):
         values_with_indexes.sort()
         return [v for (i, v) in values_with_indexes]
 
+    def value_omitted_from_data(self, data, files, prefix):
+        return ('%s-count' % prefix) not in data
+
     def clean(self, value):
         result = []
         errors = []
@@ -140,10 +143,13 @@ class ListBlock(Block):
             for item in value
         ]
 
-    def render_basic(self, value):
+    def render_basic(self, value, context=None):
         children = format_html_join(
             '\n', '<li>{0}</li>',
-            [(self.child_block.render(child_value),) for child_value in value]
+            [
+                (self.child_block.render(child_value, context=context),)
+                for child_value in value
+            ]
         )
         return format_html("<ul>{0}</ul>", children)
 

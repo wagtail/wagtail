@@ -16,11 +16,11 @@ You can sort this listing either via Name or Username.
 Clicking on a user's name will open their profile details. From here you can then edit that users details.
 
 .. Note::
-	It is possible to change user's passwords in this interface, but it is worth encouraging your users to use the 'Forgotten password' link on the login screen instead. This should save you some time!
+    It is possible to change user's passwords in this interface, but it is worth encouraging your users to use the 'Forgotten password' link on the login screen instead. This should save you some time!
 
 Click the 'Roles' tab to edit the level of access your users have. By default there are three roles:
 
-+--------------+--------------+-----------------+-----------------+ 
++--------------+--------------+-----------------+-----------------+
 | Role         | Create drafts| Publish content | Access Settings |
 +==============+==============+=================+=================+
 | Editor       |      Yes     |       No        |       No        |

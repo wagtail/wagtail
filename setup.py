@@ -2,7 +2,7 @@
 
 import sys
 
-from wagtail.wagtailcore import __version__
+from wagtail import __version__
 from wagtail.utils.setup import assets, sdist, check_bdist_egg
 
 try:
@@ -21,16 +21,17 @@ except ImportError:
 
 
 install_requires = [
-    "Django>=1.8.1,<1.10",
+    "Django>=1.8.1,<1.11",
     "django-modelcluster>=2.0,<3.0",
     "django-taggit>=0.18,<0.19",
     "django-treebeard>=3.0,<5.0",
     "djangorestframework>=3.1.3",
     "Pillow>=2.6.1",
-    "beautifulsoup4>=4.3.2",
+    "beautifulsoup4>=4.5.1",
     "html5lib>=0.999,<1",
     "Unidecode>=0.04.14",
-    "Willow>=0.3b4,<0.4",
+    "Willow>=0.4,<0.5",
+    "requests>=2.11.1,<3.0",
 ]
 
 # Testing dependencies
@@ -40,21 +41,23 @@ testing_extras = [
     'python-dateutil>=2.2',
     'pytz>=2014.7',
     'Pillow>=2.7.0',
-    'elasticsearch>=1.0.0',
+    'elasticsearch>=1.0.0,<3.0',
     'Jinja2>=2.8,<3.0',
+    'boto3>=1.4,<1.5',
 
     # For coverage and PEP8 linting
     'coverage>=3.7.0',
     'flake8>=2.2.0',
+    'isort>=4.2.0',
 ]
 
 # Documentation dependencies
 documentation_extras = [
+    'pyenchant==1.6.6',
+    'sphinxcontrib-spelling>=2.3.0',
     'Sphinx>=1.3.1',
     'sphinx-autobuild>=0.5.2',
     'sphinx_rtd_theme>=0.1.8',
-    'sphinxcontrib-spelling==2.1.1',
-    'pyenchant==1.6.6',
 ]
 
 setup(
@@ -84,6 +87,7 @@ setup(
         'Framework :: Django',
         'Framework :: Django :: 1.8',
         'Framework :: Django :: 1.9',
+        'Framework :: Django :: 1.10',
         'Topic :: Internet :: WWW/HTTP :: Site Management',
     ],
     install_requires=install_requires,

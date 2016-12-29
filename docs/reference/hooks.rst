@@ -69,8 +69,6 @@ Hooks for building new areas of the admin interface (alongside pages, images, do
 ``construct_homepage_summary_items``
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-  .. versionadded:: 1.0
-
   Add or remove items from the 'site summary' bar on the admin homepage (which shows the number of pages and other object that exist on the site). The callable passed into this hook should take a ``request`` object and a list of ``SummaryItem`` objects to be modified as required. These objects have a ``render()`` method, which returns an HTML string, and an ``order`` property, which is an integer that specifies the order in which the items will appear.
 
 
@@ -215,7 +213,36 @@ Hooks for building new areas of the admin interface (alongside pages, images, do
 ``register_permissions``
 ~~~~~~~~~~~~~~~~~~~~~~~~
 
-  Return a queryset of Permission objects to be shown in the Groups administration area.
+  Return a queryset of ``Permission`` objects to be shown in the Groups administration area.
+
+
+.. _filter_form_submissions_for_user:
+
+``filter_form_submissions_for_user``
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+  Allows access to form submissions to be customised on a per-user, per-form basis.
+
+  This hook takes two parameters:
+   - The user attempting to access form submissions
+   - A ``QuerySet`` of form pages
+
+  The hook must return a ``QuerySet`` containing a subset of these form pages which the user is allowed to access the submissions for.
+
+  For example, to prevent non-superusers from accessing form submissions:
+
+  .. code-block:: python
+
+    from wagtail.wagtailcore import hooks
+
+
+    @hooks.register('filter_form_submissions_for_user')
+    def construct_forms_for_user(user, queryset):
+        if not user.is_superuser:
+            queryset = queryset.none()
+
+        return queryset
+
 
 
 Editor interface
@@ -278,12 +305,12 @@ Hooks for customising the editing interface for pages and snippets.
   Add additional CSS files or snippets to all admin pages.
 
   .. code-block:: python
-  
+
     from django.utils.html import format_html
     from django.contrib.staticfiles.templatetags.staticfiles import static
-  
+
     from wagtail.wagtailcore import hooks
-  
+
     @hooks.register('insert_global_admin_css')
     def global_admin_css():
         return format_html('<link rel="stylesheet" href="{}">', static('my/wagtail/theme.css'))
@@ -364,6 +391,32 @@ Hooks for customising the way users are directed through the process of creating
         return HttpResponse("Congrats on making content!", content_type="text/plain")
 
 
+.. _before_create_page:
+
+``before_create_page``
+~~~~~~~~~~~~~~~~~~~~~~
+
+  Called at the beginning of the "create page" view passing in the request, the parent page and page model class.
+
+  The function does not have to return anything, but if an object with a ``status_code`` property is returned, Wagtail will use it as a response object and skip the rest of the view.
+
+  Unlike, ``after_create_page``, this is run both for both ``GET`` and ``POST`` requests.
+
+  This can be used to completely override the editor on a per-view basis:
+
+  .. code-block:: python
+
+    from wagtail.wagtailcore import hooks
+
+    from .models import AwesomePage
+    from .admin_views import edit_awesome_page
+
+    @hooks.register('before_create_page')
+    def before_create_page(request, parent_page, page_class):
+        # Use a custom create view for the AwesomePage model
+        if page_class == AwesomePage:
+            return create_awesome_page(request, parent_page)
+
 .. _after_delete_page:
 
 ``after_delete_page``
@@ -372,12 +425,32 @@ Hooks for customising the way users are directed through the process of creating
   Do something after a ``Page`` object is deleted. Uses the same behavior as ``after_create_page``.
 
 
+.. _before_delete_page:
+
+``before_delete_page``
+~~~~~~~~~~~~~~~~~~~~~~
+
+  Called at the beginning of the "delete page" view passing in the request and the page object.
+
+  Uses the same behavior as ``before_create_page``.
+
+
 .. _after_edit_page:
 
 ``after_edit_page``
 ~~~~~~~~~~~~~~~~~~~
 
   Do something with a ``Page`` object after it has been updated. Uses the same behavior as ``after_create_page``.
+
+
+.. _before_edit_page:
+
+``before_edit_page``
+~~~~~~~~~~~~~~~~~~~~~
+
+  Called at the beginning of the "edit page" view passing in the request and the page object.
+
+  Uses the same behavior as ``before_create_page``.
 
 
 .. _construct_wagtail_userbar:

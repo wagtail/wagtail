@@ -15,3 +15,4 @@ Advanced topics
     third_party_tutorials
     jinja2
     testing
+    api/index

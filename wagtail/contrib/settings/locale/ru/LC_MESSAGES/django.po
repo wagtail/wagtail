@@ -3,14 +3,14 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# Eugene MechanisM <contact@mechanism.name>, 2016
+# Eugene MechanisM <eugene@mechanism.pro>, 2016
 # Matt Westcott <matthew@torchbox.com>, 2016
 # Mikalai Radchuk <radchuk.m@gmail.com>, 2016
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-05-18 21:37+0000\n"
+"POT-Creation-Date: 2016-12-06 22:44+0000\n"
 "PO-Revision-Date: 2016-05-25 09:38+0000\n"
 "Last-Translator: Mikalai Radchuk <radchuk.m@gmail.com>\n"
 "Language-Team: Russian (http://www.transifex.com/torchbox/wagtail/language/"

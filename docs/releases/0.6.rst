@@ -62,4 +62,4 @@ Deprecated features
 ===================
 
  * The ``wagtail.wagtailsearch.indexed`` module has been renamed to ``wagtail.wagtailsearch.index``
- 
+

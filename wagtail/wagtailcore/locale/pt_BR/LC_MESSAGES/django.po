@@ -9,13 +9,14 @@
 # João Luiz Lorencetti <me@dirtycoder.net>, 2016
 # Luiz Boaretto <lboaretto@gmail.com>, 2016
 # Luiz Boaretto <lboaretto@gmail.com>, 2016
+# Marcio Mazza <marciomazza@gmail.com>, 2016
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-05-18 21:37+0000\n"
-"PO-Revision-Date: 2016-05-18 22:25+0000\n"
-"Last-Translator: Luiz Boaretto <lboaretto@gmail.com>\n"
+"POT-Creation-Date: 2016-12-06 22:44+0000\n"
+"PO-Revision-Date: 2016-12-06 22:47+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Portuguese (Brazil) (http://www.transifex.com/torchbox/"
 "wagtail/language/pt_BR/)\n"
 "MIME-Version: 1.0\n"
@@ -23,6 +24,12 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: pt_BR\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+msgid "Password"
+msgstr "Senha"
+
+msgid "The password you have entered is not correct. Please try again."
+msgstr "A senha que você digitou não está correta. Por favor, tente novamente."
 
 msgid "hostname"
 msgstr "nome do host"
@@ -192,7 +199,7 @@ msgid "Add"
 msgstr "Adicionar"
 
 msgid "Add/edit pages you own"
-msgstr "Adicionar/editar páginas você mesmo"
+msgstr "Adicionar/editar suas páginas"
 
 msgid "Edit"
 msgstr "Editar"
@@ -247,3 +254,12 @@ msgstr "permissão"
 
 msgid "group collection permission"
 msgstr "grupo de permissão de coleção"
+
+msgid "Password required"
+msgstr "Senha requerida"
+
+msgid "You need a password to access this page."
+msgstr "Você precisa de uma senha para acessar esta página."
+
+msgid "Continue"
+msgstr "Continuar"

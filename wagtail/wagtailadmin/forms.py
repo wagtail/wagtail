@@ -20,7 +20,9 @@ from modelcluster.forms import ClusterForm, ClusterFormMetaclass
 from taggit.managers import TaggableManager
 
 from wagtail.wagtailadmin import widgets
-from wagtail.wagtailcore.models import Collection, GroupCollectionPermission, Page
+from wagtail.wagtailcore.models import (
+    Collection, GroupCollectionPermission, Page, PageViewRestriction
+)
 
 
 class URLOrAbsolutePathValidator(validators.URLValidator):
@@ -179,21 +181,32 @@ class CopyForm(forms.Form):
         return cleaned_data
 
 
-class PageViewRestrictionForm(forms.Form):
-    restriction_type = forms.ChoiceField(label="Visibility", choices=[
-        ('none', ugettext_lazy("Public")),
-        ('password', ugettext_lazy("Private, accessible with the following password")),
-    ], widget=forms.RadioSelect)
-    password = forms.CharField(required=False)
+class PageViewRestrictionForm(forms.ModelForm):
+    restriction_type = forms.ChoiceField(
+        label=ugettext_lazy("Visibility"), choices=PageViewRestriction.RESTRICTION_CHOICES,
+        widget=forms.RadioSelect)
 
-    def clean(self):
-        cleaned_data = super(PageViewRestrictionForm, self).clean()
+    def __init__(self, *args, **kwargs):
+        super(PageViewRestrictionForm, self).__init__(*args, **kwargs)
 
-        if cleaned_data.get('restriction_type') == 'password' and not cleaned_data.get('password'):
-            self._errors["password"] = self.error_class([_('This field is required.')])
-            del cleaned_data['password']
+        self.fields['groups'].widget = forms.CheckboxSelectMultiple()
+        self.fields['groups'].queryset = Group.objects.all()
 
-        return cleaned_data
+    def clean_password(self):
+        password = self.cleaned_data.get('password')
+        if self.cleaned_data.get('restriction_type') == PageViewRestriction.PASSWORD and not password:
+            raise forms.ValidationError(_("This field is required."), code='invalid')
+        return password
+
+    def clean_groups(self):
+        groups = self.cleaned_data.get('groups')
+        if self.cleaned_data.get('restriction_type') == PageViewRestriction.GROUPS and not groups:
+            raise forms.ValidationError(_("Please select at least one group."), code='invalid')
+        return groups
+
+    class Meta:
+        model = PageViewRestriction
+        fields = ('restriction_type', 'password', 'groups')
 
 
 # Form field properties to override whenever we encounter a model field

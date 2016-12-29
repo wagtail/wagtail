@@ -2,11 +2,9 @@ from __future__ import absolute_import, unicode_literals
 
 import math
 import re
-import warnings
 
 import django
 from django import forms
-from django.contrib.contenttypes.models import ContentType
 from django.core.exceptions import ImproperlyConfigured
 from django.forms.models import fields_for_model
 from django.template.loader import render_to_string
@@ -15,7 +13,6 @@ from django.utils.six import text_type
 from django.utils.translation import ugettext_lazy
 
 from wagtail.utils.decorators import cached_classmethod
-from wagtail.utils.deprecation import RemovedInWagtail17Warning
 from wagtail.wagtailadmin import widgets
 from wagtail.wagtailcore.models import Page
 from wagtail.wagtailcore.utils import camelcase_to_underscore, resolve_model_string
@@ -252,10 +249,16 @@ class BaseCompositeEditHandler(EditHandler):
     def __init__(self, instance=None, form=None):
         super(BaseCompositeEditHandler, self).__init__(instance=instance, form=form)
 
-        self.children = [
-            handler_class(instance=self.instance, form=self.form)
-            for handler_class in self.__class__.children
-        ]
+        self.children = []
+        for child in self.__class__.children:
+            if not getattr(child, "children", None) and getattr(child, "field_name", None):
+                if self.form._meta.exclude:
+                    if child.field_name in self.form._meta.exclude:
+                        continue
+                if self.form._meta.fields:
+                    if child.field_name not in self.form._meta.fields:
+                        continue
+            self.children.append(child(instance=self.instance, form=self.form))
 
     def render(self):
         return mark_safe(render_to_string(self.template, {
@@ -550,13 +553,6 @@ class BasePageChooserPanel(BaseChooserPanel):
         else:
             return [cls.model._meta.get_field(cls.field_name).rel.to]
 
-    @cached_classmethod
-    def target_content_type(cls):
-        warnings.warn(
-            '{cls}.target_content_type() is deprecated. Use {cls}.target_models() instead'.format(cls=cls.__name__),
-            category=RemovedInWagtail17Warning)
-        return list(ContentType.objects.get_for_models(*cls.target_models()).values())
-
 
 class PageChooserPanel(object):
     def __init__(self, field_name, page_type=None, can_choose_root=False):
@@ -621,6 +617,10 @@ class BaseInlinePanel(EditHandler):
             }
         }
 
+    @classmethod
+    def html_declarations(cls):
+        return cls.get_child_edit_handler_class().html_declarations()
+
     def __init__(self, instance=None, form=None):
         super(BaseInlinePanel, self).__init__(instance=instance, form=form)
 
@@ -672,13 +672,14 @@ class BaseInlinePanel(EditHandler):
 
 
 class InlinePanel(object):
-    def __init__(self, relation_name, panels=None, label='', help_text='', min_num=None, max_num=None):
+    def __init__(self, relation_name, panels=None, classname='', label='', help_text='', min_num=None, max_num=None):
         self.relation_name = relation_name
         self.panels = panels
         self.label = label
         self.help_text = help_text
         self.min_num = min_num
         self.max_num = max_num
+        self.classname = classname
 
     def bind_to_model(self, model):
         if django.VERSION >= (1, 9):
@@ -696,7 +697,8 @@ class InlinePanel(object):
             # TODO: can we pick this out of the foreign key definition as an alternative?
             # (with a bit of help from the inlineformset object, as we do for label/heading)
             'min_num': self.min_num,
-            'max_num': self.max_num
+            'max_num': self.max_num,
+            'classname': self.classname,
         })
 
 

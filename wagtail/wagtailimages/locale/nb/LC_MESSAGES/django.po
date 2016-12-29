@@ -4,13 +4,14 @@
 #
 # Translators:
 # Eirik Krogstad <eirikkr@gmail.com>, 2015
+# Stein Strindhaug <stein.strindhaug@gmail.com>, 2016
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-05-18 21:37+0000\n"
-"PO-Revision-Date: 2016-05-11 20:33+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2016-12-06 22:44+0000\n"
+"PO-Revision-Date: 2016-11-18 12:15+0000\n"
+"Last-Translator: Stein Strindhaug <stein.strindhaug@gmail.com>\n"
 "Language-Team: Norwegian Bokmål (http://www.transifex.com/torchbox/wagtail/"
 "language/nb/)\n"
 "MIME-Version: 1.0\n"
@@ -50,6 +51,15 @@ msgstr "Denne fila er for stor (%%s). Maksimal filstørrelse er %s."
 msgid "This file is too big. Maximum filesize %s."
 msgstr "Denne fila er for stor. Maksimal filstørrelse er %s."
 
+msgid "Full width"
+msgstr "Fullbredde"
+
+msgid "Left-aligned"
+msgstr "Venstrejustert"
+
+msgid "Right-aligned"
+msgstr "Høyrejustert"
+
 msgid "Filter"
 msgstr "Filter"
 
@@ -80,8 +90,38 @@ msgstr "Høyde"
 msgid "Closeness"
 msgstr "Nærhet til fokuspunkt"
 
+msgid "Add"
+msgstr "Legg til"
+
+msgid "Add/edit images you own"
+msgstr "Legg til/rediger bilder du eier"
+
 msgid "Edit"
 msgstr "Endre"
+
+msgid "Edit any image"
+msgstr "Rediger ethvert bilde"
+
+msgid "title"
+msgstr "tittel"
+
+msgid "file"
+msgstr "fil"
+
+msgid "width"
+msgstr "bredde"
+
+msgid "height"
+msgstr "høyde"
+
+msgid "created at"
+msgstr "opprettet"
+
+msgid "uploaded by user"
+msgstr "opplastet av bruker"
+
+msgid "tags"
+msgstr "stikkord"
 
 msgid "Choose an image"
 msgstr "Velg et bilde"
@@ -93,7 +133,10 @@ msgid "Upload"
 msgstr "Last opp"
 
 msgid "Popular tags"
-msgstr "Populære tags"
+msgstr "Populære stikkord"
+
+msgid "Uploading..."
+msgstr "Laster opp..."
 
 #, python-format
 msgid ""
@@ -199,6 +242,22 @@ msgstr "Bilder"
 msgid "Sorry, no images match \"<em>%(query_string)s</em>\""
 msgstr "Beklager, ingen bilder samsvarer med <em>\"%(query_string)s\"</em>"
 
+#, python-format
+msgid ""
+"You haven't uploaded any images in this collection. Why not <a href="
+"\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
+msgstr ""
+"Du har ikke lastet opp noen bilder til denne samlingen. Hvorfor ikke <a href="
+"\"%(wagtailimages_add_image_url)s\">laste opp et nå</a>?"
+
+#, python-format
+msgid ""
+"You haven't uploaded any images. Why not <a href="
+"\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
+msgstr ""
+"Du har ikke lastet opp noen bilder. Hvorfor ikke <a href="
+"\"%(wagtailimages_add_image_url)s\">laste opp et nå</a>?"
+
 msgid "Generating URL"
 msgstr "Genererer URL"
 
@@ -249,6 +308,9 @@ msgstr "Dra og slipp bilder i dette feltet for å laste opp umiddelbart."
 msgid "Or choose from your computer"
 msgstr "Eller velg fra din datamaskin"
 
+msgid "Add to collection:"
+msgstr "Legg til i samling:"
+
 msgid ""
 "Upload successful. Please update this image with a more appropriate title, "
 "if necessary. You may also delete the image completely if the upload wasn't "
@@ -261,11 +323,26 @@ msgstr ""
 msgid "Sorry, upload failed."
 msgstr "Beklager, opplasting feilet."
 
+msgid "Server Error"
+msgstr "Serverfeil"
+
+msgid "Report this error to your webmaster with the following information:"
+msgstr "Rapporter denne feilen til de webansvarlige med følgende info:"
+
+msgid "Image updated."
+msgstr "Bildet er oppdatert."
+
 msgid "Update"
 msgstr "Oppdater"
 
 msgid "Delete"
 msgstr "Slett"
+
+msgid "Image permissions"
+msgstr "Bildetillatelser"
+
+msgid "Add an image permission"
+msgstr "Legg til bildetillatelse"
 
 msgid "Search images"
 msgstr "Søk i bilder"
@@ -295,6 +372,12 @@ msgstr "Bildet \"{0}\" er lagt til."
 
 msgid "The image could not be created due to errors."
 msgstr "Bildet kunne ikke opprettes grunnet feil."
+
+#, python-format
+msgid "%(count)s image"
+msgid_plural "%(count)s images"
+msgstr[0] "%(count)s bilde"
+msgstr[1] "%(count)s bilder"
 
 msgid "Choose another image"
 msgstr "Velg et annet bilde"

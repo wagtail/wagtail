@@ -49,6 +49,33 @@ class TestImageIndexView(TestCase, WagtailTestUtils):
             response = self.get({'p': page})
             self.assertEqual(response.status_code, 200)
 
+    def test_pagination_preserves_other_params(self):
+        root_collection = Collection.get_first_root_node()
+        evil_plans_collection = root_collection.add_child(name="Evil plans")
+
+        for i in range(1, 50):
+            self.image = Image.objects.create(
+                title="Test image %i" % i,
+                file=get_test_image_file(),
+                collection=evil_plans_collection
+            )
+
+        response = self.get({'collection_id': evil_plans_collection.id, 'p': 2})
+        self.assertEqual(response.status_code, 200)
+
+        response_body = response.content.decode('utf8')
+
+        # prev link should exist and include collection_id
+        self.assertTrue(
+            ("?p=1&amp;collection_id=%i" % evil_plans_collection.id) in response_body or
+            ("?collection_id=%i&amp;p=1" % evil_plans_collection.id) in response_body
+        )
+        # next link should exist and include collection_id
+        self.assertTrue(
+            ("?p=3&amp;collection_id=%i" % evil_plans_collection.id) in response_body or
+            ("?collection_id=%i&amp;p=3" % evil_plans_collection.id) in response_body
+        )
+
     def test_ordering(self):
         orderings = ['title', '-created_at']
         for ordering in orderings:
@@ -444,7 +471,30 @@ class TestImageChooserChosenView(TestCase, WagtailTestUtils):
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'wagtailimages/chooser/image_chosen.js')
 
-    # TODO: Test posting
+
+class TestImageChooserSelectFormatView(TestCase, WagtailTestUtils):
+    def setUp(self):
+        self.login()
+
+        # Create an image to edit
+        self.image = Image.objects.create(
+            title="Test image",
+            file=get_test_image_file(),
+        )
+
+    def get(self, params={}):
+        return self.client.get(reverse('wagtailimages:chooser_select_format', args=(self.image.id,)), params)
+
+    def test_simple(self):
+        response = self.get()
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'wagtailimages/chooser/select_format.html')
+        self.assertTemplateUsed(response, 'wagtailimages/chooser/select_format.js')
+
+    def test_with_edit_params(self):
+        response = self.get(params={'alt_text': "some previous alt text"})
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, 'value=\\"some previous alt text\\"')
 
 
 class TestImageChooserUploadView(TestCase, WagtailTestUtils):

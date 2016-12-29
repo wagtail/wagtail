@@ -1,19 +1,17 @@
 from __future__ import absolute_import, unicode_literals
 
-import warnings
 from datetime import date
 
 import mock
 from django import forms
 from django.core import checks
 from django.core.exceptions import ImproperlyConfigured
-from django.test import TestCase
+from django.test import TestCase, override_settings
 
 from wagtail.tests.testapp.forms import ValidatedPageForm
 from wagtail.tests.testapp.models import (
     EventPage, EventPageChooserModel, EventPageSpeaker, PageChooserModel, SimplePage, ValidatedPage)
 from wagtail.tests.utils import WagtailTestUtils
-from wagtail.utils.deprecation import RemovedInWagtail17Warning
 from wagtail.wagtailadmin.edit_handlers import (
     FieldPanel, FieldRowPanel, InlinePanel, ObjectList, PageChooserPanel, RichTextFieldPanel,
     TabbedInterface, extract_panel_definitions_from_model_class, get_form_for_model)
@@ -117,10 +115,11 @@ def clear_edit_handler(page_cls):
         def decorated(self):
             # Clear any old EditHandlers generated
             page_cls.get_edit_handler.cache_clear()
-            fn(self)
-            # Clear the bad EditHandler generated just now
-            page_cls.get_edit_handler.cache_clear()
-        return decorated
+            try:
+                fn(self)
+            finally:
+                # Clear the bad EditHandler generated just now
+                page_cls.get_edit_handler.cache_clear()
     return decorator
 
 
@@ -664,46 +663,6 @@ class TestPageChooserPanel(TestCase):
         self.assertRaises(ImproperlyConfigured,
                           result.target_models)
 
-    def test_target_content_type(self):
-        with warnings.catch_warnings(record=True) as ws:
-            warnings.simplefilter('always')
-
-            result = PageChooserPanel(
-                'barbecue',
-                'wagtailcore.site'
-            ).bind_to_model(PageChooserModel).target_content_type()[0]
-            self.assertEqual(result.name, 'site')
-
-            self.assertEqual(len(ws), 1)
-            self.assertIs(ws[0].category, RemovedInWagtail17Warning)
-
-    def test_target_content_type_malformed_type(self):
-        with warnings.catch_warnings(record=True) as ws:
-            warnings.simplefilter('always')
-
-            result = PageChooserPanel(
-                'barbecue',
-                'snowman'
-            ).bind_to_model(PageChooserModel)
-            self.assertRaises(ImproperlyConfigured,
-                              result.target_content_type)
-
-            self.assertEqual(len(ws), 1)
-            self.assertIs(ws[0].category, RemovedInWagtail17Warning)
-
-    def test_target_content_type_nonexistent_type(self):
-        with warnings.catch_warnings(record=True) as ws:
-            warnings.simplefilter('always')
-
-            result = PageChooserPanel(
-                'barbecue',
-                'snowman.lorry'
-            ).bind_to_model(PageChooserModel)
-            self.assertRaises(ImproperlyConfigured,
-                              result.target_content_type)
-            self.assertEqual(len(ws), 1)
-            self.assertIs(ws[0].category, RemovedInWagtail17Warning)
-
 
 class TestInlinePanel(TestCase, WagtailTestUtils):
     fixtures = ['test.json']
@@ -713,8 +672,9 @@ class TestInlinePanel(TestCase, WagtailTestUtils):
         Check that the inline panel renders the panels set on the model
         when no 'panels' parameter is passed in the InlinePanel definition
         """
-        SpeakerObjectList = ObjectList([InlinePanel('speakers', label="Speakers")]).bind_to_model(EventPage)
-        SpeakerInlinePanel = SpeakerObjectList.children[0]
+        SpeakerObjectList = ObjectList([
+            InlinePanel('speakers', label="Speakers", classname="classname-for-speakers")
+        ]).bind_to_model(EventPage)
         EventPageForm = SpeakerObjectList.get_form_class(EventPage)
 
         # SpeakerInlinePanel should instruct the form class to include a 'speakers' formset
@@ -723,10 +683,11 @@ class TestInlinePanel(TestCase, WagtailTestUtils):
         event_page = EventPage.objects.get(slug='christmas')
 
         form = EventPageForm(instance=event_page)
-        panel = SpeakerInlinePanel(instance=event_page, form=form)
+        panel = SpeakerObjectList(instance=event_page, form=form)
 
         result = panel.render_as_field()
 
+        self.assertIn('<li class="object classname-for-speakers">', result)
         self.assertIn('<label for="id_speakers-0-first_name">Name:</label>', result)
         self.assertIn('value="Father"', result)
         self.assertIn('<label for="id_speakers-0-last_name">Surname:</label>', result)
@@ -741,8 +702,8 @@ class TestInlinePanel(TestCase, WagtailTestUtils):
         # rendered panel must contain maintenance form for the formset
         self.assertIn('<input id="id_speakers-TOTAL_FORMS" name="speakers-TOTAL_FORMS" type="hidden"', result)
 
-        # render_js_init must provide the JS initializer
-        self.assertIn('var panel = InlinePanel({', panel.render_js_init())
+        # rendered panel must include the JS initializer
+        self.assertIn('var panel = InlinePanel({', result)
 
     def test_render_with_panel_overrides(self):
         """
@@ -790,8 +751,28 @@ class TestInlinePanel(TestCase, WagtailTestUtils):
         # render_js_init must provide the JS initializer
         self.assertIn('var panel = InlinePanel({', panel.render_js_init())
 
+    @override_settings(USE_L10N=True, USE_THOUSAND_SEPARATOR=True)
+    def test_no_thousand_separators_in_js(self):
+        """
+        Test that the USE_THOUSAND_SEPARATOR setting does not screw up the rendering of numbers
+        (specifically maxForms=1000) in the JS initializer:
+        https://github.com/wagtail/wagtail/pull/2699
+        """
+        SpeakerObjectList = ObjectList([
+            InlinePanel('speakers', label="Speakers", panels=[
+                FieldPanel('first_name', widget=forms.Textarea),
+                ImageChooserPanel('image'),
+            ]),
+        ]).bind_to_model(EventPage)
+        SpeakerInlinePanel = SpeakerObjectList.children[0]
+        EventPageForm = SpeakerObjectList.get_form_class(EventPage)
+        event_page = EventPage.objects.get(slug='christmas')
+        form = EventPageForm(instance=event_page)
+        panel = SpeakerInlinePanel(instance=event_page, form=form)
+
+        self.assertIn('maxForms: 1000', panel.render_js_init())
+
     def test_invalid_inlinepanel_declaration(self):
         with self.ignore_deprecation_warnings():
             self.assertRaises(TypeError, lambda: InlinePanel(label="Speakers"))
-            self.assertRaises(TypeError, lambda: InlinePanel(EventPage, 'speakers', 'bacon', label="Speakers"))
             self.assertRaises(TypeError, lambda: InlinePanel(EventPage, 'speakers', label="Speakers", bacon="chunky"))

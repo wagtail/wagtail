@@ -5,7 +5,7 @@
 
 <div class="tab-content">
     <section id="form" class="active nice-padding">
-        <form class="embed-form" action="{% url 'wagtailembeds:chooser_upload' %}" method="POST">
+        <form class="embed-form" action="{% url 'wagtailembeds:chooser_upload' %}" method="POST" novalidate>
             {% csrf_token %}
             <ul class="fields">
                 {% for field in form %}

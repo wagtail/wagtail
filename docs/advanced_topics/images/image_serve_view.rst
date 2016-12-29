@@ -53,7 +53,7 @@ block the initial response while rendering like the ``{% image %}`` tag does.
 .. code-block:: python
 
     from django.core.urlresolvers import reverse
-    from wagtail.wagtailimages.utils import generate_signature
+    from wagtail.wagtailimages.views.serve import generate_signature
 
     def generate_image_url(image, filter_spec):
         signature = generate_signature(image.id, filter_spec)
@@ -74,6 +74,16 @@ And here's an example of this being used in a view:
         return render(request, 'display_image.html', {
             'image_url': generate_image_url(image, 'fill-100x100')
         })
+
+
+Image operations can be chained by joining them with a ``|`` character:
+
+.. code-block:: python
+
+        return render(request, 'display_image.html', {
+            'image_url': generate_image_url(image, 'fill-100x100|jpegquality-40')
+        })
+
 
 Advanced configuration
 ======================

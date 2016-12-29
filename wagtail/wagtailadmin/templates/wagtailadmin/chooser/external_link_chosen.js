@@ -1,7 +1,4 @@
 function(modal) {
-    modal.respond('pageChosen', {
-        'url': '{{ url|escapejs }}',
-        'title': '{{ link_text|escapejs }}'
-    });
+    modal.respond('pageChosen', {{ result_json|safe }});
     modal.close();
 }

@@ -3,6 +3,7 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# Axel Haustant, 2016
 # Bertrand Bordage <bordage.bertrand@gmail.com>, 2015-2016
 # Léo <leo@naeka.fr>, 2016
 # nahuel, 2014
@@ -13,9 +14,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-05-18 21:37+0000\n"
-"PO-Revision-Date: 2016-06-06 09:40+0000\n"
-"Last-Translator: Léo <leo@naeka.fr>\n"
+"POT-Creation-Date: 2016-12-06 22:44+0000\n"
+"PO-Revision-Date: 2016-08-11 13:56+0000\n"
+"Last-Translator: Axel Haustant\n"
 "Language-Team: French (http://www.transifex.com/torchbox/wagtail/language/"
 "fr/)\n"
 "MIME-Version: 1.0\n"
@@ -170,6 +171,12 @@ msgstr ""
 "Il n'y a pas de groupe configuré. Pourquoi ne pas <a href="
 "\"%(wagtailusers_create_group_url)s\">en ajouter un</a> ?"
 
+msgid "Delete user"
+msgstr "Supprimer l'utilisateur"
+
+msgid "Are you sure you want to delete this user?"
+msgstr "Êtes-vous sûr de vouloir supprimer cet utilisateur ?"
+
 msgid "Add user"
 msgstr "Ajouter l'utilisateur"
 
@@ -275,5 +282,15 @@ msgstr "Utilisateur '{0}' mis à jour."
 msgid "The user could not be saved due to errors."
 msgstr "L'utilisateur ne peut être enregistré du fait d'erreurs."
 
+#, python-brace-format
+msgid "User '{0}' deleted."
+msgstr "Utilisateur '{0}' supprimé."
+
 msgid "Groups"
 msgstr "Groupes"
+
+msgid "Edit this user"
+msgstr "Modifier cet utilisateur"
+
+msgid "Delete this user"
+msgstr "Supprimer cet utilisateur"

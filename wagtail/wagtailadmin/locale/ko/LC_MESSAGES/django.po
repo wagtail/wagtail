@@ -3,14 +3,14 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# Ji Han Chung <jihanchung20@gmail.com>, 2015
+# Jihan Chung <jihanchung20@gmail.com>, 2015
 # Kyungil Choi <hanpama@gmail.com>, 2015
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-05-18 21:37+0000\n"
-"PO-Revision-Date: 2016-05-11 20:33+0000\n"
+"POT-Creation-Date: 2016-12-06 22:44+0000\n"
+"PO-Revision-Date: 2016-12-06 22:46+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Korean (http://www.transifex.com/torchbox/wagtail/language/"
 "ko/)\n"
@@ -109,12 +109,6 @@ msgstr[0] ""
 msgid ""
 "This slug is already in use within the context of its parent page \"%s\""
 msgstr "이 슬러그는 이미 상위 페이지 \"%s\" 에서 사용되어지고 있습니다"
-
-msgid "Public"
-msgstr "공개"
-
-msgid "Private, accessible with the following password"
-msgstr "비공개, 다음의 비밀번호로 접근 가능"
 
 msgid "This field is required."
 msgstr "필수 작성 항목입니다"
@@ -400,6 +394,9 @@ msgstr "잠금 해제"
 msgid "Privacy"
 msgstr "비공개"
 
+msgid "Public"
+msgstr "공개"
+
 msgid "Private"
 msgstr "비공개"
 
@@ -437,19 +434,6 @@ msgid_plural ""
 msgstr[0] ""
 "\n"
 "%(descendant_count)s 개의 하위 페이지들도 삭제될 예정입니다"
-
-msgid ""
-"Alternatively you can unpublish the page. This removes the page from public "
-"view and you can edit or publish it again later."
-msgstr ""
-"대신 이  페이지에 대한 퍼블리싱을 해제할 수 있습니다. 이를 통해 웹뷰에서 이"
-"를 제거하고, 추후 이를 수정하거나 다시 퍼블리싱 할 수 있습니다"
-
-msgid "Delete it"
-msgstr "삭제"
-
-msgid "Unpublish it"
-msgstr "퍼블리싱 해제"
 
 #, python-format
 msgid "Move %(title)s"
@@ -713,11 +697,6 @@ msgid ""
 msgstr ""
 "당신은 현재 이 서비스를 사용할 <strong>유효한</strong> 브라우저를 사용하고 있"
 "지 않습니다. 브라우저를 업그레이드 해주세요"
-
-msgid "Javascript is required to use Wagtail, but it is currently disabled"
-msgstr ""
-"와그테일을 사용하기 위해서는 자바스크립트가 필요하지만, 현재 이 기능이 비활성"
-"화 되어 있습니다"
 
 msgid "Go to Wagtail admin interface"
 msgstr "와그테일 관리자 페이지로 이동"

@@ -4,12 +4,14 @@
     Javascript declarations to be included on the 'create page' and 'edit page' views
 {% endcomment %}
 
+{% allow_unicode_slugs as unicode_slugs_enabled %}
 <script>
     window.chooserUrls = {
         'pageChooser': '{% url "wagtailadmin_choose_page" %}',
         'externalLinkChooser': '{% url "wagtailadmin_choose_page_external_link" %}',
         'emailLinkChooser': '{% url "wagtailadmin_choose_page_email_link" %}'
     };
+    window.unicodeSlugsEnabled = {% if unicode_slugs_enabled %}true{% else %}false{% endif %};
 </script>
 
 <script src="{% static 'wagtailadmin/js/vendor/rangy-core.js' %}"></script>
@@ -18,8 +20,8 @@
 <script src="{% static 'wagtailadmin/js/modal-workflow.js' %}"></script>
 <script src="{% static 'wagtailadmin/js/page-editor.js' %}"></script>
 <script src="{% static 'wagtailadmin/js/page-chooser.js' %}"></script>
-<script src="{% static 'admin/js/vendor/xregexp/xregexp.min.js' %}"></script>
-<script src="{% static 'admin/js/urlify.js' %}"></script>
+<script src="{% static 'wagtailadmin/js/vendor/xregexp.min.js' %}"></script>
+<script src="{% static 'wagtailadmin/js/vendor/urlify.js' %}"></script>
 <script src="{% static 'wagtailadmin/js/privacy-switch.js' %}"></script>
 <script src="{% static 'wagtailadmin/js/vendor/bootstrap-tooltip.js' %}"></script>
 

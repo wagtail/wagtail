@@ -10,9 +10,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-05-18 21:37+0000\n"
-"PO-Revision-Date: 2016-05-11 20:33+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2016-12-06 22:44+0000\n"
+"PO-Revision-Date: 2016-11-23 19:11+0000\n"
+"Last-Translator: Thijs Kramer <thijskramer@gmail.com>\n"
 "Language-Team: Dutch (Netherlands) (http://www.transifex.com/torchbox/"
 "wagtail/language/nl_NL/)\n"
 "MIME-Version: 1.0\n"
@@ -51,6 +51,15 @@ msgstr "Dit bestand is te groot (%%s). De maximale bestandsgrootte is %s."
 #, python-format
 msgid "This file is too big. Maximum filesize %s."
 msgstr "Dit bestand is te groot. Maximale bestandsgrootte %s."
+
+msgid "Full width"
+msgstr "Volledige breedte"
+
+msgid "Left-aligned"
+msgstr "Links uitgelijnd"
+
+msgid "Right-aligned"
+msgstr "Rechts uitgelijnd"
 
 msgid "Filter"
 msgstr "Filter"
@@ -235,6 +244,22 @@ msgstr "Afbeeldingen"
 msgid "Sorry, no images match \"<em>%(query_string)s</em>\""
 msgstr "Sorry, geen afbeelding overeenkomst \"<em>%(query_string)s</em>\""
 
+#, python-format
+msgid ""
+"You haven't uploaded any images in this collection. Why not <a href="
+"\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
+msgstr ""
+"Er zijn nog geen afbeeldingen toegevoegd aan deze collectie. Waarom <a href="
+"\"%(wagtailimages_add_image_url)s\">uploadt u er niet nu een</a>?"
+
+#, python-format
+msgid ""
+"You haven't uploaded any images. Why not <a href="
+"\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
+msgstr ""
+"Er zijn nog geen afbeeldingen toegevoegd. Waarom <a href="
+"\"%(wagtailimages_add_image_url)s\">uploadt u er niet nu een</a>?"
+
 msgid "Generating URL"
 msgstr "Bezig met URL genereren"
 
@@ -286,7 +311,7 @@ msgid "Or choose from your computer"
 msgstr "Of kies vanaf uw computer"
 
 msgid "Add to collection:"
-msgstr "Voeg toe aan verzameling:"
+msgstr "Voeg toe aan collectie:"
 
 msgid ""
 "Upload successful. Please update this image with a more appropriate title, "
@@ -299,6 +324,13 @@ msgstr ""
 
 msgid "Sorry, upload failed."
 msgstr "Sorry, upload ging fout."
+
+msgid "Server Error"
+msgstr "Server error"
+
+msgid "Report this error to your webmaster with the following information:"
+msgstr ""
+"Rapporteer deze foutmelding aan uw webmaster met de volgende informatie:"
 
 msgid "Image updated."
 msgstr "Afbeelding is bijgewerkt."

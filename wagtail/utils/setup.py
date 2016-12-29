@@ -9,7 +9,7 @@ from setuptools import Command
 from setuptools.command.bdist_egg import bdist_egg
 from setuptools.command.sdist import sdist as base_sdist
 
-from wagtail.wagtailcore import __semver__
+from wagtail import __semver__
 
 
 class assets_mixin(object):

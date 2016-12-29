@@ -117,9 +117,11 @@ Since Wagtail 0.3, the wagtailadmin module automatically takes care of registeri
 New fields on Image and Rendition models
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Several new fields have been added to the Image and Rendition models to support :ref:`image_feature_detection`. These will be added to the database when you run ``./manage.py migrate``. If you have defined a custom image model (by extending the ``wagtailimages.AbstractImage`` and ``wagtailimages.AbstractRendition`` classes and specifying ``WAGTAILIMAGES_IMAGE_MODEL`` in settings), the change needs to be applied to that model's database table too. Running the command::
+Several new fields have been added to the Image and Rendition models to support :ref:`image_feature_detection`. These will be added to the database when you run ``./manage.py migrate``. If you have defined a custom image model (by extending the ``wagtailimages.AbstractImage`` and ``wagtailimages.AbstractRendition`` classes and specifying ``WAGTAILIMAGES_IMAGE_MODEL`` in settings), the change needs to be applied to that model's database table too. Running the command:
 
-  ./manage.py schemamigration myapp --auto add_image_focal_point_fields
+.. code-block:: console
+
+    $ ./manage.py schemamigration myapp --auto add_image_focal_point_fields
 
 (with 'myapp' replaced with your app name) will generate the necessary migration file.
 

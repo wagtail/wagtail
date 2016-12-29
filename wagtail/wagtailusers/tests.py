@@ -1,15 +1,19 @@
 from __future__ import absolute_import, unicode_literals
 
+from bs4 import BeautifulSoup
+
 from django import forms
 from django.contrib.auth import get_user_model
 from django.contrib.auth.models import Group, Permission
 from django.core.exceptions import ImproperlyConfigured
+from django.core.files.uploadedfile import SimpleUploadedFile
 from django.core.urlresolvers import reverse
 from django.test import TestCase, override_settings
 from django.utils import six
 
 from wagtail.tests.utils import WagtailTestUtils
 from wagtail.wagtailcore import hooks
+from wagtail.wagtailcore.compat import AUTH_USER_APP_LABEL, AUTH_USER_MODEL_NAME
 from wagtail.wagtailcore.models import (
     Collection, GroupCollectionPermission, GroupPagePermission, Page)
 from wagtail.wagtailusers.forms import UserCreationForm, UserEditForm
@@ -17,12 +21,17 @@ from wagtail.wagtailusers.models import UserProfile
 from wagtail.wagtailusers.views.users import get_user_creation_form, get_user_edit_form
 
 
+delete_user_perm_codename = "delete_{0}".format(AUTH_USER_MODEL_NAME.lower())
+
+
 class CustomUserCreationForm(UserCreationForm):
     country = forms.CharField(required=True, label="Country")
+    attachment = forms.FileField(required=True, label="Attachment")
 
 
 class CustomUserEditForm(UserEditForm):
     country = forms.CharField(required=True, label="Country")
+    attachment = forms.FileField(required=True, label="Attachment")
 
 
 class TestUserFormHelpers(TestCase):
@@ -82,7 +91,7 @@ class TestUserIndexView(TestCase, WagtailTestUtils):
         self.assertContains(response, 'testuser')
 
     def test_allows_negative_ids(self):
-        # see https://github.com/torchbox/wagtail/issues/565
+        # see https://github.com/wagtail/wagtail/issues/565
         get_user_model().objects.create_user('guardian', 'guardian@example.com', 'gu@rd14n', pk=-1)
         response = self.get()
         self.assertEqual(response.status_code, 200)
@@ -136,7 +145,7 @@ class TestUserCreateView(TestCase, WagtailTestUtils):
 
     @override_settings(
         WAGTAIL_USER_CREATION_FORM='wagtail.wagtailusers.tests.CustomUserCreationForm',
-        WAGTAIL_USER_CUSTOM_FIELDS=['country'],
+        WAGTAIL_USER_CUSTOM_FIELDS=['country', 'document'],
     )
     def test_create_with_custom_form(self):
         response = self.post({
@@ -147,6 +156,7 @@ class TestUserCreateView(TestCase, WagtailTestUtils):
             'password1': "password",
             'password2': "password",
             'country': "testcountry",
+            'attachment': SimpleUploadedFile('test.txt', b"Uploaded file"),
         })
 
         # Should redirect back to index
@@ -157,6 +167,7 @@ class TestUserCreateView(TestCase, WagtailTestUtils):
         self.assertEqual(users.count(), 1)
         self.assertEqual(users.first().email, 'test@user.com')
         self.assertEqual(users.first().country, 'testcountry')
+        self.assertEqual(users.first().attachment.read(), b"Uploaded file")
 
     def test_create_with_password_mismatch(self):
         response = self.post({
@@ -177,6 +188,122 @@ class TestUserCreateView(TestCase, WagtailTestUtils):
         # Check that the user was not created
         users = get_user_model().objects.filter(username='testuser')
         self.assertEqual(users.count(), 0)
+
+
+class TestUserDeleteView(TestCase, WagtailTestUtils):
+    def setUp(self):
+        # create a user that should be visible in the listing
+        self.test_user = get_user_model().objects.create_user(
+            username='testuser',
+            email='testuser@email.com',
+            password='password'
+        )
+        # also create a superuser to delete
+        self.superuser = get_user_model().objects.create_superuser(
+            username='testsuperuser',
+            email='testsuperuser@email.com',
+            password='password'
+        )
+        self.current_user = self.login()
+
+    def get(self, params={}):
+        return self.client.get(reverse('wagtailusers_users:delete', args=(self.test_user.pk,)), params)
+
+    def post(self, post_data={}):
+        return self.client.post(reverse('wagtailusers_users:delete', args=(self.test_user.pk,)), post_data)
+
+    def test_simple(self):
+        response = self.get()
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'wagtailusers/users/confirm_delete.html')
+
+    def test_delete(self):
+        response = self.post()
+
+        # Should redirect back to index
+        self.assertRedirects(response, reverse('wagtailusers_users:index'))
+
+        # Check that the user was deleted
+        users = get_user_model().objects.filter(username='testuser')
+        self.assertEqual(users.count(), 0)
+
+    def test_user_cannot_delete_self(self):
+        response = self.client.get(reverse('wagtailusers_users:delete', args=(self.current_user.pk,)))
+
+        # Should redirect to admin index (permission denied)
+        self.assertRedirects(response, reverse('wagtailadmin_home'))
+        # Check user was not deleted
+        self.assertTrue(get_user_model().objects.filter(pk=self.current_user.pk).exists())
+
+    def test_user_can_delete_other_superuser(self):
+        response = self.client.get(reverse('wagtailusers_users:delete', args=(self.superuser.pk,)))
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'wagtailusers/users/confirm_delete.html')
+
+        response = self.client.post(reverse('wagtailusers_users:delete', args=(self.superuser.pk,)))
+        # Should redirect back to index
+        self.assertRedirects(response, reverse('wagtailusers_users:index'))
+
+        # Check that the user was deleted
+        users = get_user_model().objects.filter(username='testsuperuser')
+        self.assertEqual(users.count(), 0)
+
+
+class TestUserDeleteViewForNonSuperuser(TestCase, WagtailTestUtils):
+    def setUp(self):
+        # create a user that should be visible in the listing
+        self.test_user = get_user_model().objects.create_user(
+            username='testuser',
+            email='testuser@email.com',
+            password='password'
+        )
+        # create a user with delete permission
+        self.deleter_user = get_user_model().objects.create_user(
+            username='deleter',
+            email='deleter@email.com',
+            password='password'
+        )
+        deleters_group = Group.objects.create(name='User deleters')
+        deleters_group.permissions.add(Permission.objects.get(codename='access_admin'))
+        deleters_group.permissions.add(Permission.objects.get(
+            content_type__app_label=AUTH_USER_APP_LABEL, codename=delete_user_perm_codename
+        ))
+        self.deleter_user.groups.add(deleters_group)
+
+        self.superuser = self.create_test_user()
+
+        self.client.login(username='deleter', password='password')
+
+    def test_simple(self):
+        response = self.client.get(reverse('wagtailusers_users:delete', args=(self.test_user.pk,)))
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'wagtailusers/users/confirm_delete.html')
+
+    def test_delete(self):
+        response = self.client.post(reverse('wagtailusers_users:delete', args=(self.test_user.pk,)))
+
+        # Should redirect back to index
+        self.assertRedirects(response, reverse('wagtailusers_users:index'))
+
+        # Check that the user was deleted
+        users = get_user_model().objects.filter(username='testuser')
+        self.assertEqual(users.count(), 0)
+
+    def test_user_cannot_delete_self(self):
+        response = self.client.post(reverse('wagtailusers_users:delete', args=(self.deleter_user.pk,)))
+
+        # Should redirect to admin index (permission denied)
+        self.assertRedirects(response, reverse('wagtailadmin_home'))
+        # Check user was not deleted
+        self.assertTrue(get_user_model().objects.filter(pk=self.deleter_user.pk).exists())
+
+    def test_user_cannot_delete_superuser(self):
+        response = self.client.post(reverse('wagtailusers_users:delete', args=(self.superuser.pk,)))
+
+        # Should redirect to admin index (permission denied)
+        self.assertRedirects(response, reverse('wagtailadmin_home'))
+        # Check user was not deleted
+        self.assertTrue(get_user_model().objects.filter(pk=self.superuser.pk).exists())
 
 
 class TestUserEditView(TestCase, WagtailTestUtils):
@@ -234,6 +361,7 @@ class TestUserEditView(TestCase, WagtailTestUtils):
             'password1': "password",
             'password2': "password",
             'country': "testcountry",
+            'attachment': SimpleUploadedFile('test.txt', b"Uploaded file"),
         })
 
         # Should redirect back to index
@@ -243,6 +371,7 @@ class TestUserEditView(TestCase, WagtailTestUtils):
         user = get_user_model().objects.get(pk=self.test_user.pk)
         self.assertEqual(user.first_name, 'Edited')
         self.assertEqual(user.country, 'testcountry')
+        self.assertEqual(user.attachment.read(), b"Uploaded file")
 
     def test_edit_validation_error(self):
         # Leave "username" field blank. This should give a validation error
@@ -271,7 +400,7 @@ class TestUserProfileCreation(TestCase, WagtailTestUtils):
     def test_user_created_without_profile(self):
         self.assertEqual(UserProfile.objects.filter(user=self.test_user).count(), 0)
         with self.assertRaises(UserProfile.DoesNotExist):
-            self.test_user.userprofile
+            self.test_user.wagtail_userprofile
 
     def test_user_profile_created_when_method_called(self):
         self.assertIsInstance(UserProfile.get_for_user(self.test_user), UserProfile)
@@ -623,6 +752,21 @@ class TestGroupEditView(TestCase, WagtailTestUtils):
             0
         )
 
+    def test_group_edit_loads_with_django_permissions_shown(self):
+        # the checkbox for self.existing_permission should be ticked
+        response = self.get()
+
+        # Use BeautifulSoup to search for a checkbox element with name="permissions", checked="checked",
+        # value=<existing_permission.id>. Can't use assertContains here because the id attribute is unpredictable
+        soup = BeautifulSoup(response.content, 'html5lib')
+
+        self.assertTrue(
+            soup.find(
+                'input',
+                {'name': 'permissions', 'type': 'checkbox', 'checked': 'checked', 'value': self.existing_permission.id}
+            )
+        )
+
     def test_group_edit_loads_with_page_permissions_shown(self):
         # The test group has one page permission to begin with
         self.assertEqual(self.test_group.page_permissions.count(), 1)
@@ -731,18 +875,6 @@ class TestGroupEditView(TestCase, WagtailTestUtils):
         })
         self.assertRedirects(response, reverse('wagtailusers_groups:index'))
         self.assertEqual(self.test_group.permissions.count(), 2)
-
-    def test_group_form_includes_non_registered_permissions_in_initial_data(self):
-        self.add_non_registered_perm()
-        original_permissions = self.test_group.permissions.all()
-        self.assertEqual(original_permissions.count(), 2)
-
-        response = self.get()
-        # See that the form is set up with the correct initial data
-        self.assertEqual(
-            response.context['form'].initial.get('permissions'),
-            list(original_permissions.values_list('pk', flat=True))
-        )
 
     def test_group_retains_non_registered_permissions_when_editing(self):
         self.add_non_registered_perm()

@@ -25,6 +25,7 @@ class WagtailRegisterable(object):
     ModelAdminGroup instances to be registered with Wagtail's admin area.
     """
     add_to_settings_menu = False
+    exclude_from_explorer = False
 
     def register_with_wagtail(self):
 
@@ -44,6 +45,18 @@ class WagtailRegisterable(object):
         @hooks.register(menu_hook)
         def register_admin_menu_item():
             return self.get_menu_item()
+
+        # Overriding the explorer page queryset is a somewhat 'niche' / experimental
+        # operation, so only attach that hook if we specifically opt into it
+        # by returning True from will_modify_explorer_page_queryset
+        if self.will_modify_explorer_page_queryset():
+            @hooks.register('construct_explorer_page_queryset')
+            def construct_explorer_page_queryset(parent_page, queryset, request):
+                return self.modify_explorer_page_queryset(
+                    parent_page, queryset, request)
+
+    def will_modify_explorer_page_queryset(self):
+        return False
 
 
 class ThumbnailMixin(object):
@@ -74,8 +87,7 @@ class ThumbnailMixin(object):
             'class': self.thumb_classname,
         }
         if image:
-            fltr, _ = Filter.objects.get_or_create(
-                spec=self.thumb_image_filter_spec)
+            fltr = Filter(spec=self.thumb_image_filter_spec)
             img_attrs.update({'src': image.get_rendition(fltr).url})
             return mark_safe('<img{}>'.format(flatatt(img_attrs)))
         elif self.thumb_default:
@@ -258,6 +270,14 @@ class ModelAdmin(WagtailRegisterable):
         when a search is initiated from the list view.
         """
         return self.search_fields or ()
+
+    def get_extra_attrs_for_row(self, obj, context):
+        """
+        Return a dictionary of HTML attributes to be added to the `<tr>`
+        element for the suppled `obj` when rendering the results table in
+        `index_view`. `data-object-pk` is already added by default.
+        """
+        return {}
 
     def get_extra_class_names_for_field_col(self, obj, field_name):
         """
@@ -504,6 +524,14 @@ class ModelAdmin(WagtailRegisterable):
             )
         return urls
 
+    def will_modify_explorer_page_queryset(self):
+        return (self.is_pagemodel and self.exclude_from_explorer)
+
+    def modify_explorer_page_queryset(self, parent_page, queryset, request):
+        if self.is_pagemodel and self.exclude_from_explorer:
+            queryset = queryset.not_type(self.model)
+        return queryset
+
 
 class ModelAdminGroup(WagtailRegisterable):
     """
@@ -578,6 +606,18 @@ class ModelAdminGroup(WagtailRegisterable):
         for instance in self.modeladmin_instances:
             urls += instance.get_admin_urls_for_registration()
         return urls
+
+    def will_modify_explorer_page_queryset(self):
+        return any(
+            instance.will_modify_explorer_page_queryset()
+            for instance in self.modeladmin_instances
+        )
+
+    def modify_explorer_page_queryset(self, parent_page, queryset, request):
+        for instance in self.modeladmin_instances:
+            queryset = instance.modify_explorer_page_queryset(
+                parent_page, queryset, request)
+        return queryset
 
 
 def modeladmin_register(modeladmin_class):

@@ -1,13 +1,18 @@
 from __future__ import absolute_import, unicode_literals
 
 import hashlib
+import json
 import os
 
+from django.conf import settings
 from django.contrib.contenttypes.fields import GenericForeignKey
 from django.contrib.contenttypes.models import ContentType
 from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
+from django.core.serializers.json import DjangoJSONEncoder
 from django.db import models
+from django.shortcuts import render
 from django.utils.encoding import python_2_unicode_compatible
+from django.utils.six import text_type
 from modelcluster.contrib.taggit import ClusterTaggableManager
 from modelcluster.fields import ParentalKey
 from modelcluster.models import ClusterableModel
@@ -19,11 +24,12 @@ from wagtail.wagtailadmin.edit_handlers import (
     FieldPanel, InlinePanel, MultiFieldPanel, ObjectList, PageChooserPanel, StreamFieldPanel,
     TabbedInterface)
 from wagtail.wagtailadmin.forms import WagtailAdminPageForm
+from wagtail.wagtailadmin.utils import send_mail
 from wagtail.wagtailcore.blocks import CharBlock, RichTextBlock
 from wagtail.wagtailcore.fields import RichTextField, StreamField
 from wagtail.wagtailcore.models import Orderable, Page, PageManager
 from wagtail.wagtaildocs.edit_handlers import DocumentChooserPanel
-from wagtail.wagtailforms.models import AbstractEmailForm, AbstractFormField
+from wagtail.wagtailforms.models import AbstractEmailForm, AbstractFormField, AbstractFormSubmission
 from wagtail.wagtailimages.blocks import ImageChooserBlock
 from wagtail.wagtailimages.edit_handlers import ImageChooserPanel
 from wagtail.wagtailimages.models import AbstractImage, Image
@@ -55,13 +61,15 @@ class LinkFields(models.Model):
         'wagtailcore.Page',
         null=True,
         blank=True,
-        related_name='+'
+        related_name='+',
+        on_delete=models.CASCADE
     )
     link_document = models.ForeignKey(
         'wagtaildocs.Document',
         null=True,
         blank=True,
-        related_name='+'
+        related_name='+',
+        on_delete=models.CASCADE
     )
 
     @property
@@ -158,15 +166,15 @@ FilePage.content_panels = [
 # Event page
 
 class EventPageCarouselItem(Orderable, CarouselItem):
-    page = ParentalKey('tests.EventPage', related_name='carousel_items')
+    page = ParentalKey('tests.EventPage', related_name='carousel_items', on_delete=models.CASCADE)
 
 
 class EventPageRelatedLink(Orderable, RelatedLink):
-    page = ParentalKey('tests.EventPage', related_name='related_links')
+    page = ParentalKey('tests.EventPage', related_name='related_links', on_delete=models.CASCADE)
 
 
 class EventPageSpeaker(Orderable, LinkFields):
-    page = ParentalKey('tests.EventPage', related_name='speakers')
+    page = ParentalKey('tests.EventPage', related_name='speakers', on_delete=models.CASCADE)
     first_name = models.CharField("Name", max_length=255, blank=True)
     last_name = models.CharField("Surname", max_length=255, blank=True)
     image = models.ForeignKey(
@@ -220,6 +228,7 @@ class EventPage(Page):
 
     password_required_template = 'tests/event_page_password_required.html'
 
+
 EventPage.content_panels = [
     FieldPanel('title', classname="full title"),
     FieldPanel('date_from'),
@@ -267,6 +276,7 @@ class SingleEventPage(EventPage):
         else:
             # fall back to default routing rules
             return super(SingleEventPage, self).route(request, path_components)
+
 
 SingleEventPage.content_panels = [FieldPanel('excerpt')] + EventPage.content_panels
 
@@ -327,6 +337,7 @@ class EventIndex(Page):
             }
         ]
 
+
 EventIndex.content_panels = [
     FieldPanel('title', classname="full title"),
     FieldPanel('intro', classname="full"),
@@ -334,7 +345,7 @@ EventIndex.content_panels = [
 
 
 class FormField(AbstractFormField):
-    page = ParentalKey('FormPage', related_name='form_fields')
+    page = ParentalKey('FormPage', related_name='form_fields', on_delete=models.CASCADE)
 
 
 class FormPage(AbstractEmailForm):
@@ -342,6 +353,7 @@ class FormPage(AbstractEmailForm):
         context = super(FormPage, self).get_context(request)
         context['greeting'] = "hello world"
         return context
+
 
 FormPage.content_panels = [
     FieldPanel('title', classname="full title"),
@@ -354,15 +366,120 @@ FormPage.content_panels = [
 ]
 
 
+# FormPage with a non-HTML extension
+
+class JadeFormField(AbstractFormField):
+    page = ParentalKey('JadeFormPage', related_name='form_fields', on_delete=models.CASCADE)
+
+
+class JadeFormPage(AbstractEmailForm):
+    template = "tests/form_page.jade"
+
+
+JadeFormPage.content_panels = [
+    FieldPanel('title', classname="full title"),
+    InlinePanel('form_fields', label="Form fields"),
+    MultiFieldPanel([
+        FieldPanel('to_address', classname="full"),
+        FieldPanel('from_address', classname="full"),
+        FieldPanel('subject', classname="full"),
+    ], "Email")
+]
+
+
+# FormPage with a custom FormSubmission
+
+class FormPageWithCustomSubmission(AbstractEmailForm):
+    """
+    This Form page:
+        * Have custom submission model
+        * Have custom related_name (see `FormFieldWithCustomSubmission.page`)
+        * Saves reference to a user
+        * Doesn't render html form, if submission for current user is present
+    """
+
+    intro = RichTextField(blank=True)
+    thank_you_text = RichTextField(blank=True)
+
+    def get_context(self, request, *args, **kwargs):
+        context = super(FormPageWithCustomSubmission, self).get_context(request)
+        context['greeting'] = "hello world"
+        return context
+
+    def get_form_fields(self):
+        return self.custom_form_fields.all()
+
+    def get_data_fields(self):
+        data_fields = [
+            ('username', 'Username'),
+        ]
+        data_fields += super(FormPageWithCustomSubmission, self).get_data_fields()
+
+        return data_fields
+
+    def get_submission_class(self):
+        return CustomFormPageSubmission
+
+    def process_form_submission(self, form):
+        self.get_submission_class().objects.create(
+            form_data=json.dumps(form.cleaned_data, cls=DjangoJSONEncoder),
+            page=self, user=form.user
+        )
+
+        if self.to_address:
+            addresses = [x.strip() for x in self.to_address.split(',')]
+            content = '\n'.join([x[1].label + ': ' + text_type(form.data.get(x[0])) for x in form.fields.items()])
+            send_mail(self.subject, content, addresses, self.from_address,)
+
+    def serve(self, request, *args, **kwargs):
+        if self.get_submission_class().objects.filter(page=self, user__pk=request.user.pk).exists():
+            return render(
+                request,
+                self.template,
+                self.get_context(request)
+            )
+
+        return super(FormPageWithCustomSubmission, self).serve(request, *args, **kwargs)
+
+
+FormPageWithCustomSubmission.content_panels = [
+    FieldPanel('title', classname="full title"),
+    FieldPanel('intro', classname="full"),
+    InlinePanel('custom_form_fields', label="Form fields"),
+    FieldPanel('thank_you_text', classname="full"),
+    MultiFieldPanel([
+        FieldPanel('to_address', classname="full"),
+        FieldPanel('from_address', classname="full"),
+        FieldPanel('subject', classname="full"),
+    ], "Email")
+]
+
+
+class FormFieldWithCustomSubmission(AbstractFormField):
+    page = ParentalKey(FormPageWithCustomSubmission, related_name='custom_form_fields')
+
+
+class CustomFormPageSubmission(AbstractFormSubmission):
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+
+    def get_data(self):
+        form_data = super(CustomFormPageSubmission, self).get_data()
+        form_data.update({
+            'username': self.user.username,
+        })
+
+        return form_data
+
+
 # Snippets
 class AdvertPlacement(models.Model):
-    page = ParentalKey('wagtailcore.Page', related_name='advert_placements')
-    advert = models.ForeignKey('tests.Advert', related_name='+')
+    page = ParentalKey('wagtailcore.Page', related_name='advert_placements', on_delete=models.CASCADE)
+    advert = models.ForeignKey('tests.Advert', related_name='+', on_delete=models.CASCADE)
     colour = models.CharField(max_length=255)
 
 
 class AdvertTag(TaggedItemBase):
-    content_object = ParentalKey('Advert', related_name='tagged_items')
+    content_object = ParentalKey('Advert', related_name='tagged_items', on_delete=models.CASCADE)
 
 
 @python_2_unicode_compatible
@@ -431,6 +548,7 @@ StandardIndex.promote_panels = []
 class StandardChild(Page):
     pass
 
+
 # Test overriding edit_handler with a custom one
 StandardChild.edit_handler = TabbedInterface([
     ObjectList(StandardChild.content_panels, heading='Content'),
@@ -466,11 +584,12 @@ class BusinessNowherePage(Page):
 
 
 class TaggedPageTag(TaggedItemBase):
-    content_object = ParentalKey('tests.TaggedPage', related_name='tagged_items')
+    content_object = ParentalKey('tests.TaggedPage', related_name='tagged_items', on_delete=models.CASCADE)
 
 
 class TaggedPage(Page):
     tags = ClusterTaggableManager(through=TaggedPageTag, blank=True)
+
 
 TaggedPage.content_panels = [
     FieldPanel('title', classname="full title"),
@@ -487,15 +606,15 @@ class SingletonPage(Page):
 
 
 class PageChooserModel(models.Model):
-    page = models.ForeignKey('wagtailcore.Page', help_text='help text')
+    page = models.ForeignKey('wagtailcore.Page', help_text='help text', on_delete=models.CASCADE)
 
 
 class EventPageChooserModel(models.Model):
-    page = models.ForeignKey('tests.EventPage', help_text='more help text')
+    page = models.ForeignKey('tests.EventPage', help_text='more help text', on_delete=models.CASCADE)
 
 
 class SnippetChooserModel(models.Model):
-    advert = models.ForeignKey(Advert, help_text='help text')
+    advert = models.ForeignKey(Advert, help_text='help text', on_delete=models.CASCADE)
 
     panels = [
         SnippetChooserPanel('advert'),
@@ -527,6 +646,24 @@ class StreamPage(Page):
     ])
 
     api_fields = ('body',)
+
+    content_panels = [
+        FieldPanel('title'),
+        StreamFieldPanel('body'),
+    ]
+
+
+class DefaultStreamPage(Page):
+    body = StreamField([
+        ('text', CharBlock()),
+        ('rich_text', RichTextBlock()),
+        ('image', ImageChooserBlock()),
+    ], default='')
+
+    content_panels = [
+        FieldPanel('title'),
+        StreamFieldPanel('body'),
+    ]
 
 
 class MTIBasePage(Page):
@@ -571,8 +708,8 @@ class BlogCategory(models.Model):
 
 
 class BlogCategoryBlogPage(models.Model):
-    category = models.ForeignKey(BlogCategory, related_name="+")
-    page = ParentalKey('ManyToManyBlogPage', related_name='categories')
+    category = models.ForeignKey(BlogCategory, related_name="+", on_delete=models.CASCADE)
+    page = ParentalKey('ManyToManyBlogPage', related_name='categories', on_delete=models.CASCADE)
     panels = [
         FieldPanel('category'),
     ]
@@ -596,7 +733,7 @@ class OneToOnePage(Page):
     """
     body = RichTextBlock(blank=True)
     page_ptr = models.OneToOneField(Page, parent_link=True,
-                                    related_name='+')
+                                    related_name='+', on_delete=models.CASCADE)
 
 
 class GenericSnippetPage(Page):
@@ -713,7 +850,7 @@ class CustomRichBlockFieldPage(Page):
 # a page that only contains RichTextField within an InlinePanel,
 # to test that the inline child's form media gets pulled through
 class SectionedRichTextPageSection(Orderable):
-    page = ParentalKey('tests.SectionedRichTextPage', related_name='sections')
+    page = ParentalKey('tests.SectionedRichTextPage', related_name='sections', on_delete=models.CASCADE)
     body = RichTextField()
 
     panels = [
@@ -726,3 +863,45 @@ class SectionedRichTextPage(Page):
         FieldPanel('title', classname="full title"),
         InlinePanel('sections')
     ]
+
+
+class InlineStreamPageSection(Orderable):
+    page = ParentalKey('tests.InlineStreamPage', related_name='sections', on_delete=models.CASCADE)
+    body = StreamField([
+        ('text', CharBlock()),
+        ('rich_text', RichTextBlock()),
+        ('image', ImageChooserBlock()),
+    ])
+    panels = [
+        StreamFieldPanel('body')
+    ]
+
+
+class InlineStreamPage(Page):
+    content_panels = [
+        FieldPanel('title', classname="full title"),
+        InlinePanel('sections')
+    ]
+
+
+class UserProfile(models.Model):
+    # Wagtail's schema must be able to coexist alongside a custom UserProfile model
+    user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    favourite_colour = models.CharField(max_length=255)
+
+
+class PanelSettings(TestSetting):
+    panels = [
+        FieldPanel('title')
+    ]
+
+
+class TabbedSettings(TestSetting):
+    edit_handler = TabbedInterface([
+        ObjectList([
+            FieldPanel('title')
+        ], heading='First tab'),
+        ObjectList([
+            FieldPanel('email')
+        ], heading='Second tab'),
+    ])

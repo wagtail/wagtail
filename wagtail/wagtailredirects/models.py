@@ -64,7 +64,7 @@ class Redirect(models.Model):
         if not path.startswith('/'):
             path = '/' + path
 
-        if path.endswith('/'):
+        if path.endswith('/') and len(path) > 1:
             path = path[:-1]
 
         # Parameters must be sorted alphabetically

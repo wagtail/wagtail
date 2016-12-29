@@ -4,13 +4,14 @@
 #
 # Translators:
 # Eirik Krogstad <eirikkr@gmail.com>, 2015
+# Stein Strindhaug <stein.strindhaug@gmail.com>, 2016
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-05-18 21:37+0000\n"
-"PO-Revision-Date: 2016-05-11 20:34+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2016-12-06 22:44+0000\n"
+"PO-Revision-Date: 2016-11-18 11:56+0000\n"
+"Last-Translator: Stein Strindhaug <stein.strindhaug@gmail.com>\n"
 "Language-Team: Norwegian Bokmål (http://www.transifex.com/torchbox/wagtail/"
 "language/nb/)\n"
 "MIME-Version: 1.0\n"
@@ -18,6 +19,13 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: nb\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "{} submissions"
+msgstr "{} innsendinger"
+
+#, python-format
+msgid "There is another field with the label %s, please change one of them."
+msgstr "Det er et annet felt med feltnavnet %s, du må endre en av dem."
 
 msgid "Single line text"
 msgstr "Enkeltlinje tekst"
@@ -52,8 +60,26 @@ msgstr "Dato"
 msgid "Date/time"
 msgstr "Dato/klokkeslett"
 
+msgid "submit time"
+msgstr "tidspunkt innsendt"
+
+msgid "form submission"
+msgstr "innsendt skjema"
+
+msgid "label"
+msgstr "feltnavn"
+
 msgid "The label of the form field"
 msgstr "Visningsnavn for skjemafeltet"
+
+msgid "field type"
+msgstr "felttype"
+
+msgid "required"
+msgstr "påkrevet"
+
+msgid "choices"
+msgstr "valg"
 
 msgid ""
 "Comma separated list of choices. Only applicable in checkboxes, radio and "
@@ -62,11 +88,33 @@ msgstr ""
 "Kommaseparert liste av valg. Brukes bare for avkrysningsbokser, radioknapper "
 "og rullegardinmeny."
 
+msgid "default value"
+msgstr "standardverdi"
+
 msgid "Default value. Comma separated values supported for checkboxes."
 msgstr "Standardverdi. Kommaseparerte verdier støttes for avkrysningsbokser."
 
-msgid "Optional - form submissions will be emailed to this address"
-msgstr "Valgfritt - innsendte skjema blir sendt til denne e-postadressen"
+msgid "help text"
+msgstr "hjelpetekst"
+
+msgid "Submission date"
+msgstr "Innsendt dato"
+
+msgid "to address"
+msgstr "til-adresse"
+
+msgid ""
+"Optional - form submissions will be emailed to these addresses. Separate "
+"multiple addresses by comma."
+msgstr ""
+"Valgfritt - innsendte skjema blir sendt til disse e-postadressene. Legg til "
+"flere adresser adskildt med komma."
+
+msgid "from address"
+msgstr "fra-adresse"
+
+msgid "subject"
+msgstr "emne"
 
 #, python-format
 msgid "Delete %(title)s"
@@ -80,6 +128,12 @@ msgstr "Er du sikker på at du vil slette dette innsendte skjemaet?"
 
 msgid "Delete it"
 msgstr "Slett det"
+
+msgid "Total submissions"
+msgstr "Alle innsendinger"
+
+msgid "Latest submission"
+msgstr "Siste innsendinger"
 
 msgid "Forms"
 msgstr "Skjemaer"
@@ -111,11 +165,11 @@ msgstr "Tittel"
 msgid "Origin"
 msgstr "Opphav"
 
-msgid "Submission Date"
-msgstr "Innsendt dato"
-
 msgid "Actions"
 msgstr "Handlinger"
+
+msgid "delete"
+msgstr "slett"
 
 msgid "No form pages have been created."
 msgstr "Ingen skjemasider har blitt opprettet."

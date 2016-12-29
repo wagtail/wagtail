@@ -8,9 +8,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-05-18 21:37+0000\n"
-"PO-Revision-Date: 2016-05-11 20:33+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2016-12-06 22:44+0000\n"
+"PO-Revision-Date: 2016-09-08 20:24+0000\n"
+"Last-Translator: Cihad GÜNDOĞDU <cihadgundogdu@gmail.com>\n"
 "Language-Team: Turkish (http://www.transifex.com/torchbox/wagtail/language/"
 "tr/)\n"
 "MIME-Version: 1.0\n"
@@ -19,8 +19,17 @@ msgstr ""
 "Language: tr\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
+msgid "Add"
+msgstr "Ekle"
+
+msgid "Add/edit documents you own"
+msgstr "Dökümanlarını ekle/düzenle"
+
 msgid "Edit"
 msgstr "Düzenle"
+
+msgid "Edit any document"
+msgstr "Döküman düzenle"
 
 msgid "title"
 msgstr "başlık"
@@ -41,7 +50,7 @@ msgid "document"
 msgstr "döküman"
 
 msgid "Choose a document"
-msgstr "Döküman seç"
+msgstr "Bir döküman seç"
 
 msgid "Search"
 msgstr "Ara"
@@ -51,6 +60,12 @@ msgstr "Yükle"
 
 msgid "Uploading..."
 msgstr "Yükleniyor..."
+
+msgid "Server Error"
+msgstr "Sunucu Hatası"
+
+msgid "Report this error to your webmaster with the following information:"
+msgstr "Aşağıdaki bilgilerle bu hatayı webmaster a raporlayın"
 
 msgid "Latest documents"
 msgstr "Son dökümanlar"
@@ -120,5 +135,61 @@ msgstr "Durum"
 msgid "Edit this page"
 msgstr "Bu sayfayı düzenle"
 
+msgid "Add multiple documents"
+msgstr "Çoklu döküman ekle"
+
+msgid "Add documents"
+msgstr "Dökümanları ekle"
+
+msgid "Or choose from your computer"
+msgstr "Veya bilgisayarınızdan seçin"
+
+msgid "Add to collection:"
+msgstr "Koleksiyona ekle:"
+
+msgid ""
+"Upload successful. Please update this documents with a more appropriate "
+"title, if necessary. You may also delete the document completely if the "
+"upload wasn't required."
+msgstr ""
+"Yükleme başarılı. Eğer gerek görürseniz bu dökümanı daha uygun bir başlıkla "
+"güncelleyin. Döküman gerekli değilse tamame silebilirsiniz."
+
+msgid "Sorry, upload failed."
+msgstr "Üzgünüm, yükleme başarısız."
+
+msgid "Update"
+msgstr "Güncelle"
+
 msgid "Delete"
 msgstr "Sil"
+
+msgid "Document permissions"
+msgstr "Döküman izinleri"
+
+msgid "Add a document permission"
+msgstr "Döküman izni ekle"
+
+msgid "Search documents"
+msgstr "Dökümanları ara"
+
+#, python-brace-format
+msgid "Document '{0}' added."
+msgstr "Döküman '{0}' eklendi."
+
+msgid "The document could not be saved due to errors."
+msgstr "Döküman hatalar nedeniyle kadedilemedi."
+
+#, python-brace-format
+msgid "Document '{0}' updated"
+msgstr "Döküman '{0}' güncellendi."
+
+#, python-brace-format
+msgid "Document '{0}' deleted."
+msgstr "Döküman '{0}' silindi."
+
+msgid "Choose another document"
+msgstr "Başka döküman seç"
+
+msgid "Edit this document"
+msgstr "Bu dökümanı düzenle"

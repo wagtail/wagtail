@@ -2,8 +2,8 @@
 {% load i18n %}
 {% block titletag %}{% trans "Snippets" %}{% endblock %}
 {% block content %}
-
-    {% include "wagtailadmin/shared/header.html" with title="Snippets" icon="snippet" %}
+    {% trans "Snippets" as snippets_str %}
+    {% include "wagtailadmin/shared/header.html" with title=snippets_str icon="snippet" %}
 
     <div class="nice-padding">
         <ul class="listing">

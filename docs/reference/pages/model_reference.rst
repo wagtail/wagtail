@@ -111,6 +111,8 @@ In addition to the model fields provided, ``Page`` has many properties and metho
 
     .. automethod:: get_template
 
+    .. automethod:: get_admin_display_title
+
     .. autoattribute:: preview_modes
 
     .. automethod:: serve_preview
@@ -177,6 +179,8 @@ In addition to the model fields provided, ``Page`` has many properties and metho
         This attribute can be set on a model to customise the Page editor form.
         Forms must be a subclass of :class:`~wagtail.wagtailadmin.forms.WagtailAdminPageForm`.
         See :ref:`custom_edit_handler_forms` for more information.
+
+.. _site-model-ref:
 
 ``Site``
 ========

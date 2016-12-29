@@ -10,6 +10,7 @@ from django.contrib.contenttypes.models import ContentType
 from django.core.exceptions import ValidationError
 from django.http import Http404, HttpRequest
 from django.test import Client, TestCase
+from django.test.client import RequestFactory
 from django.test.utils import override_settings
 
 from wagtail.tests.testapp.models import (
@@ -82,7 +83,12 @@ class TestValidation(TestCase):
         homepage.add_child(instance=christmas_page)
         self.assertTrue(Page.objects.filter(id=christmas_page.id).exists())
 
+    def test_get_admin_display_title(self):
+        homepage = Page.objects.get(url_path='/home/')
+        self.assertEqual(homepage.title, homepage.get_admin_display_title())
 
+
+@override_settings(ALLOWED_HOSTS=['localhost', 'events.example.com', 'about.example.com', 'unknown.site.com'])
 class TestSiteRouting(TestCase):
     fixtures = ['test.json']
 
@@ -376,6 +382,7 @@ class TestServeView(TestCase):
         response = self.client.get('/events/tentative-unpublished-event/')
         self.assertEqual(response.status_code, 404)
 
+    @override_settings(ALLOWED_HOSTS=['localhost', 'events.example.com'])
     def test_serve_with_multiple_sites(self):
         events_page = Page.objects.get(url_path='/home/events/')
         Site.objects.create(hostname='events.example.com', root_page=events_page)
@@ -1081,6 +1088,18 @@ class TestIsCreatable(TestCase):
         self.assertNotIn(AbstractPage, get_page_models())
 
 
+class TestDeferredPageClasses(TestCase):
+    def test_deferred_page_classes_are_not_registered(self):
+        """
+        In Django <1.10, a call to `defer` such as `SimplePage.objects.defer('content')`
+        will dynamically create a subclass of SimplePage. Ensure that these subclasses
+        are not registered in the get_page_models() list
+        """
+        list(SimplePage.objects.defer('content'))
+        simplepage_subclasses = [cls for cls in get_page_models() if issubclass(cls, SimplePage)]
+        self.assertEqual(simplepage_subclasses, [SimplePage])
+
+
 class TestPageManager(TestCase):
     def test_page_manager(self):
         """
@@ -1133,6 +1152,7 @@ class TestIssue2024(TestCase):
         self.assertEqual(event_index.content_type, ContentType.objects.get_for_model(Page))
 
 
+@override_settings(ALLOWED_HOSTS=['localhost'])
 class TestDummyRequest(TestCase):
     fixtures = ['test.json']
 
@@ -1143,6 +1163,54 @@ class TestDummyRequest(TestCase):
         # request should have the correct path and hostname for this page
         self.assertEqual(request.path, '/events/')
         self.assertEqual(request.META['HTTP_HOST'], 'localhost')
+
+        # check other env vars required by the WSGI spec
+        self.assertEqual(request.META['REQUEST_METHOD'], 'GET')
+        self.assertEqual(request.META['SCRIPT_NAME'], '')
+        self.assertEqual(request.META['PATH_INFO'], '/events/')
+        self.assertEqual(request.META['SERVER_NAME'], 'localhost')
+        self.assertEqual(request.META['SERVER_PORT'], 80)
+        self.assertEqual(request.META['SERVER_PROTOCOL'], 'HTTP/1.1')
+        self.assertEqual(request.META['wsgi.version'], (1, 0))
+        self.assertEqual(request.META['wsgi.url_scheme'], 'http')
+        self.assertIn('wsgi.input', request.META)
+        self.assertIn('wsgi.errors', request.META)
+        self.assertIn('wsgi.multithread', request.META)
+        self.assertIn('wsgi.multiprocess', request.META)
+        self.assertIn('wsgi.run_once', request.META)
+
+    def test_dummy_request_for_accessible_page_with_original_request(self):
+        event_index = Page.objects.get(url_path='/home/events/')
+        original_headers = {
+            'REMOTE_ADDR': '192.168.0.1',
+            'HTTP_X_FORWARDED_FOR': '192.168.0.2,192.168.0.3',
+            'HTTP_COOKIE': "test=1;blah=2",
+            'HTTP_USER_AGENT': "Test Agent",
+        }
+        factory = RequestFactory(**original_headers)
+        original_request = factory.get('/home/events/')
+        request = event_index.dummy_request(original_request)
+
+        # request should have the all the special headers we set in original_request
+        self.assertEqual(request.META['REMOTE_ADDR'], original_request.META['REMOTE_ADDR'])
+        self.assertEqual(request.META['HTTP_X_FORWARDED_FOR'], original_request.META['HTTP_X_FORWARDED_FOR'])
+        self.assertEqual(request.META['HTTP_COOKIE'], original_request.META['HTTP_COOKIE'])
+        self.assertEqual(request.META['HTTP_USER_AGENT'], original_request.META['HTTP_USER_AGENT'])
+
+        # check other env vars required by the WSGI spec
+        self.assertEqual(request.META['REQUEST_METHOD'], 'GET')
+        self.assertEqual(request.META['SCRIPT_NAME'], '')
+        self.assertEqual(request.META['PATH_INFO'], '/events/')
+        self.assertEqual(request.META['SERVER_NAME'], 'localhost')
+        self.assertEqual(request.META['SERVER_PORT'], 80)
+        self.assertEqual(request.META['SERVER_PROTOCOL'], 'HTTP/1.1')
+        self.assertEqual(request.META['wsgi.version'], (1, 0))
+        self.assertEqual(request.META['wsgi.url_scheme'], 'http')
+        self.assertIn('wsgi.input', request.META)
+        self.assertIn('wsgi.errors', request.META)
+        self.assertIn('wsgi.multithread', request.META)
+        self.assertIn('wsgi.multiprocess', request.META)
+        self.assertIn('wsgi.run_once', request.META)
 
     @override_settings(ALLOWED_HOSTS=['production.example.com'])
     def test_dummy_request_for_inaccessible_page_should_use_valid_host(self):

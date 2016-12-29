@@ -153,18 +153,24 @@ If you are upgrading from Elasticsearch 0.90.x, you may also need to update the 
 Wagtail version upgrade notifications are enabled by default
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Starting from Wagtail 1.0, the admin dashboard will (for admin users only) perform a check to see if newer releases are available. This also provides the Wagtail team with the hostname of your Wagtail site. If you’d rather not receive update notifications, or if you’d like your site to remain unknown, you can disable it by adding this line to your settings file::
+Starting from Wagtail 1.0, the admin dashboard will (for admin users only) perform a check to see if newer releases are available. This also provides the Wagtail team with the hostname of your Wagtail site. If you’d rather not receive update notifications, or if you’d like your site to remain unknown, you can disable it by adding this line to your settings file:
+
+.. code-block:: python
 
     WAGTAIL_ENABLE_UPDATE_CHECK = False
 
 ``InlinePanel`` definitions no longer need to specify the base model
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-In previous versions of Wagtail, inline child blocks on a page or snippet were defined using a declaration like::
+In previous versions of Wagtail, inline child blocks on a page or snippet were defined using a declaration like:
+
+.. code-block:: python
 
     InlinePanel(HomePage, 'carousel_items', label="Carousel items")
 
-It is no longer necessary to pass the base model as a parameter, so this declaration should be changed to::
+It is no longer necessary to pass the base model as a parameter, so this declaration should be changed to:
+
+.. code-block:: python
 
     InlinePanel('carousel_items', label="Carousel items")
 
@@ -207,11 +213,15 @@ If you were previously using the external ``wagtailapi`` module (which has now b
 **1. Representation of foreign keys has changed**
 
 Foreign keys were previously represented by just the value of their primary key.
-For example::
+For example:
+
+.. code-block:: python
 
     "feed_image": 1
 
-This has now been changed to add some ``meta`` information::
+This has now been changed to add some ``meta`` information:
+
+.. code-block:: python
 
     "feed_image": {
         "id": 1,
@@ -225,7 +235,9 @@ This has now been changed to add some ``meta`` information::
 **2. On the page detail view, the "parent" field has been moved out of meta**
 
 Previously, there was a "parent" field in the "meta" section on the page detail
-view::
+view:
+
+.. code-block:: python
 
     {
         "id": 10,
@@ -239,7 +251,9 @@ view::
 
 
 This has now been moved to the top level. Also, the above change to how foreign
-keys are represented applies to this field too::
+keys are represented applies to this field too:
+
+.. code-block:: python
 
     {
         "id": 10,
@@ -285,7 +299,7 @@ EditHandler internal API has changed
 
 While it is not an official Wagtail API, it has been possible for Wagtail site implementers to define their own ``EditHandler`` subclasses for use in panel definitions, to customise the behaviour of the page / snippet editing forms. If you have made use of this facility, you will need to update your custom EditHandlers, as this mechanism has been refactored (to allow EditHandler classes to keep a persistent reference to their corresponding model). If you have only used Wagtail's built-in panel types (``FieldPanel``, ``InlinePanel``, ``PageChooserPanel`` and so on), you are unaffected by this change.
 
-Previously, functions like ``FieldPanel`` acted as 'factory' functions, where a call such as ``FieldPanel('title')`` constructed and returned an ``EditHandler`` subclass tailored to work on a 'title' field. These functions now return an object with a ``bind_to_model`` method instead; the EditHandler subclass can be obtained by calling this with the model class as a parameter. As a guide to updating your custom EditHandler code, you may wish to refer to `the relevant change to the Wagtail codebase <https://github.com/torchbox/wagtail/commit/121c01c7f7db6087a985fa8dc9957bc78b9f6a6a>`_.
+Previously, functions like ``FieldPanel`` acted as 'factory' functions, where a call such as ``FieldPanel('title')`` constructed and returned an ``EditHandler`` subclass tailored to work on a 'title' field. These functions now return an object with a ``bind_to_model`` method instead; the EditHandler subclass can be obtained by calling this with the model class as a parameter. As a guide to updating your custom EditHandler code, you may wish to refer to `the relevant change to the Wagtail codebase <https://github.com/wagtail/wagtail/commit/121c01c7f7db6087a985fa8dc9957bc78b9f6a6a>`_.
 
 chooser_panel templates are obsolete
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -308,7 +322,9 @@ Previously, the ``document_served`` signal (which is fired whenever a user downl
 Custom image models must specify an ``admin_form_fields`` list
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Previously, the forms for creating and editing images followed Django's default behaviour of showing all fields defined on the model; this would include any custom fields specific to your project that you defined by subclassing ``AbstractImage`` and setting ``WAGTAILIMAGES_IMAGE_MODEL``. This behaviour is risky as it may lead to fields being unintentionally exposed to the user, and so Django has deprecated this, for removal in Django 1.8. Accordingly, if you create your own custom subclass of ``AbstractImage``, you must now provide an ``admin_form_fields`` property, listing the fields that should appear on the image creation / editing form - for example::
+Previously, the forms for creating and editing images followed Django's default behaviour of showing all fields defined on the model; this would include any custom fields specific to your project that you defined by subclassing ``AbstractImage`` and setting ``WAGTAILIMAGES_IMAGE_MODEL``. This behaviour is risky as it may lead to fields being unintentionally exposed to the user, and so Django has deprecated this, for removal in Django 1.8. Accordingly, if you create your own custom subclass of ``AbstractImage``, you must now provide an ``admin_form_fields`` property, listing the fields that should appear on the image creation / editing form - for example:
+
+.. code-block:: python
 
     from wagtail.wagtailimages.models import AbstractImage, Image
 

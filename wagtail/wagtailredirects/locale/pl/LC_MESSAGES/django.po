@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-05-18 21:37+0000\n"
-"PO-Revision-Date: 2016-03-01 23:00+0000\n"
+"POT-Creation-Date: 2016-12-06 22:44+0000\n"
+"PO-Revision-Date: 2016-11-17 15:37+0000\n"
 "Last-Translator: mmiskiew <mmiskiew@gmail.com>\n"
 "Language-Team: Polish (http://www.transifex.com/torchbox/wagtail/language/"
 "pl/)\n"
@@ -52,6 +52,9 @@ msgstr "przekieruj na stronę"
 
 msgid "redirect to any URL"
 msgstr "przekieruj na dowolny adres URL"
+
+msgid "temporary"
+msgstr "tymczasowy"
 
 msgid "redirect"
 msgstr "przekierowanie"
@@ -102,9 +105,6 @@ msgstr "Typ"
 
 msgid "Edit this redirect"
 msgstr "Edytuj to przekierowanie"
-
-msgid "primary"
-msgstr "główne"
 
 #, python-format
 msgid ""

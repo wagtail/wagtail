@@ -17,9 +17,9 @@ from django.core.paginator import InvalidPage, Paginator
 from django.db import models
 from django.db.models.constants import LOOKUP_SEP
 from django.db.models.fields import FieldDoesNotExist
-from django.db.models.fields.related import ForeignObjectRel
+from django.db.models.fields.related import ForeignObjectRel, ManyToManyField
 from django.db.models.sql.constants import QUERY_TERMS
-from django.shortcuts import get_object_or_404, redirect, render
+from django.shortcuts import get_object_or_404, redirect
 from django.template.defaultfilters import filesizeformat
 from django.utils import six
 from django.utils.decorators import method_decorator
@@ -36,7 +36,8 @@ from wagtail.wagtailadmin import messages
 from wagtail.wagtailadmin.edit_handlers import (
     ObjectList, extract_panel_definitions_from_model_class)
 from wagtail.wagtaildocs.models import get_document_model
-from wagtail.wagtailimages.models import Filter, get_image_model
+from wagtail.wagtailimages import get_image_model
+from wagtail.wagtailimages.models import Filter
 
 from .forms import ParentChooserForm
 
@@ -99,6 +100,14 @@ class WMABaseView(TemplateView):
     def get_base_queryset(self, request=None):
         return self.model_admin.get_queryset(request or self.request)
 
+    def get_context_data(self, **kwargs):
+        context = {
+            'view': self,
+            'model_admin': self.model_admin,
+        }
+        context.update(kwargs)
+        return super(WMABaseView, self).get_context_data(**context)
+
 
 class ModelFormView(WMABaseView, FormView):
 
@@ -132,18 +141,16 @@ class ModelFormView(WMABaseView, FormView):
         )
 
     def get_context_data(self, **kwargs):
-        context = super(ModelFormView, self).get_context_data(**kwargs)
         instance = self.get_instance()
         edit_handler_class = self.get_edit_handler_class()
         form = self.get_form()
-        context.update({
-            'view': self,
-            'model_admin': self.model_admin,
+        context = {
             'is_multipart': form.is_multipart(),
             'edit_handler': edit_handler_class(instance=instance, form=form),
             'form': form,
-        })
-        return context
+        }
+        context.update(kwargs)
+        return super(ModelFormView, self).get_context_data(**context)
 
     def get_success_message(self, instance):
         return _("{model_name} '{instance}' created.").format(
@@ -199,10 +206,14 @@ class InstanceSpecificView(WMABaseView):
     def delete_url(self):
         return self.url_helper.get_action_url('delete', self.pk_quoted)
 
+    def get_context_data(self, **kwargs):
+        context = {'instance': self.instance}
+        context.update(kwargs)
+        return super(InstanceSpecificView, self).get_context_data(**context)
+
 
 class IndexView(WMABaseView):
 
-    # IndexView settings
     ORDER_VAR = 'o'
     ORDER_TYPE_VAR = 'ot'
     PAGE_VAR = 'p'
@@ -606,7 +617,7 @@ class IndexView(WMABaseView):
                     return True
         return False
 
-    def get_context_data(self, *args, **kwargs):
+    def get_context_data(self, **kwargs):
         user = self.request.user
         all_count = self.get_base_queryset().count()
         queryset = self.get_queryset()
@@ -637,7 +648,9 @@ class IndexView(WMABaseView):
                 'no_valid_parents': not valid_parent_count,
                 'required_parent_types': allowed_parent_types,
             })
-        return context
+
+        context.update(kwargs)
+        return super(IndexView, self).get_context_data(**context)
 
     def get_template_names(self):
         return self.model_admin.get_index_template()
@@ -700,9 +713,12 @@ class EditView(ModelFormView, InstanceSpecificView):
             model_name=capfirst(self.verbose_name), instance=instance)
 
     def get_context_data(self, **kwargs):
-        kwargs['user_can_delete'] = self.permission_helper.user_can_delete_obj(
-            self.request.user, self.instance)
-        return super(EditView, self).get_context_data(**kwargs)
+        context = {
+            'user_can_delete': self.permission_helper.user_can_delete_obj(
+                self.request.user, self.instance)
+        }
+        context.update(kwargs)
+        return super(EditView, self).get_context_data(**context)
 
     def get_error_message(self):
         name = self.verbose_name
@@ -727,20 +743,25 @@ class ChooseParentView(WMABaseView):
 
     def get(self, request, *args, **kwargs):
         form = self.get_form(request)
-        context = {'view': self, 'form': form}
-        return render(request, self.get_template(), context)
+        context = self.get_context_data(form=form)
+        return self.render_to_response(context)
 
     def post(self, request, *args, **kargs):
         form = self.get_form(request)
         if form.is_valid():
-            parent_pk = quote(form.cleaned_data['parent_page'].pk)
-            return redirect(self.url_helper.get_action_url(
-                'add', self.app_label, self.model_name, parent_pk))
+            return self.form_valid(form)
+        return self.form_invalid(form)
 
-        context = {'view': self, 'form': form}
-        return render(request, self.get_template(), context)
+    def form_valid(self, form):
+        parent_pk = quote(form.cleaned_data['parent_page'].pk)
+        return redirect(self.url_helper.get_action_url(
+            'add', self.app_label, self.model_name, parent_pk))
 
-    def get_template(self):
+    def form_invalid(self, form):
+        context = self.get_context_data(form=form)
+        return self.render_to_response(context)
+
+    def get_template_names(self):
         return self.model_admin.get_choose_parent_template()
 
 
@@ -769,10 +790,6 @@ class DeleteView(InstanceSpecificView):
             "site are related to it, they may also be affected."
         ) % self.verbose_name
 
-    def get(self, request, *args, **kwargs):
-        context = {'view': self, 'instance': self.instance}
-        return self.render_to_response(context)
-
     def delete_instance(self):
         self.instance.delete()
 
@@ -785,18 +802,18 @@ class DeleteView(InstanceSpecificView):
             return redirect(self.index_url)
         except models.ProtectedError:
             linked_objects = []
-            for rel in self.model._meta.get_all_related_objects():
+            fields = self.model._meta.fields_map.values()
+            fields = (obj for obj in fields if not isinstance(
+                obj.field, ManyToManyField))
+            for rel in fields:
                 if rel.on_delete == models.PROTECT:
                     qs = getattr(self.instance, rel.get_accessor_name())
                     for obj in qs.all():
                         linked_objects.append(obj)
-
-            context = {
-                'view': self,
-                'instance': self.instance,
-                'protected_error': True,
-                'linked_objects': linked_objects,
-            }
+            context = self.get_context_data(
+                protected_error=True,
+                linked_objects=linked_objects
+            )
             return self.render_to_response(context)
 
     def get_template_names(self):
@@ -872,7 +889,7 @@ class InspectView(InstanceSpecificView):
         """ Render an image """
         image = getattr(self.instance, field_name)
         if image:
-            fltr, _ = Filter.objects.get_or_create(spec='max-400x400')
+            fltr = Filter(spec='max-400x400')
             rendition = image.get_rendition(fltr)
             return rendition.img_tag
         return self.model_admin.get_empty_value_display(field_name)
@@ -916,16 +933,13 @@ class InspectView(InstanceSpecificView):
         return fields
 
     def get_context_data(self, **kwargs):
-        context = super(InspectView, self).get_context_data(**kwargs)
-        buttons = self.button_helper.get_buttons_for_obj(
-            self.instance, exclude=['inspect'])
-        context.update({
-            'view': self,
+        context = {
             'fields': self.get_fields_dict(),
-            'buttons': buttons,
-            'instance': self.instance,
-        })
-        return context
+            'buttons': self.button_helper.get_buttons_for_obj(
+                self.instance, exclude=['inspect']),
+        }
+        context.update(kwargs)
+        return super(InspectView, self).get_context_data(**context)
 
     def get_template_names(self):
         return self.model_admin.get_inspect_template()

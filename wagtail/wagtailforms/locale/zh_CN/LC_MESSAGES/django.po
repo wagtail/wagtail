@@ -6,13 +6,13 @@
 # hanfeng <appweb.cn@gmail.com>, 2014-2015
 # Feng Wang <wangfeng.w@gmail.com>, 2015
 # hanfeng <appweb.cn@gmail.com>, 2014
-# listeng teng <aosp@163.com>, 2016
+# listeng <aosp@163.com>, 2016
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-05-18 21:37+0000\n"
-"PO-Revision-Date: 2016-05-11 20:34+0000\n"
+"POT-Creation-Date: 2016-12-06 22:44+0000\n"
+"PO-Revision-Date: 2016-09-22 15:05+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Chinese (China) (http://www.transifex.com/torchbox/wagtail/"
 "language/zh_CN/)\n"
@@ -93,9 +93,6 @@ msgstr "帮助文本"
 msgid "to address"
 msgstr "收件人"
 
-msgid "Optional - form submissions will be emailed to this address"
-msgstr "可选 - 提交的表格将通过email发送给此地址"
-
 msgid "from address"
 msgstr "发件人"
 
@@ -144,9 +141,6 @@ msgstr "标题"
 
 msgid "Origin"
 msgstr "原始"
-
-msgid "Submission Date"
-msgstr "提交日期"
 
 msgid "Actions"
 msgstr "动作"

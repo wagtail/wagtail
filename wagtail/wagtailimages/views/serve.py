@@ -15,8 +15,9 @@ from django.utils.six import text_type
 from django.views.generic import View
 
 from wagtail.utils.sendfile import sendfile
+from wagtail.wagtailimages import get_image_model
 from wagtail.wagtailimages.exceptions import InvalidFilterSpecError
-from wagtail.wagtailimages.models import SourceImageIOError, get_image_model
+from wagtail.wagtailimages.models import SourceImageIOError
 
 
 def generate_signature(image_id, filter_spec, key=None):

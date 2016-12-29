@@ -2,6 +2,6 @@
 {% load i18n %}
 
 {% block content %}
-    <p>{% blocktrans with title=revision.page.title|safe %}The page "{{ title }}" has been rejected.{% endblocktrans %}</p>
+    <p>{% blocktrans with title=revision.page.get_admin_display_title|safe %}The page "{{ title }}" has been rejected.{% endblocktrans %}</p>
     <p>{% trans "You can edit the page here:"%} <a href="{{ settings.BASE_URL }}{% url 'wagtailadmin_pages:edit' revision.page.id %}">{{ settings.BASE_URL }}{% url 'wagtailadmin_pages:edit' revision.page.id %}</a></p>
 {% endblock %}

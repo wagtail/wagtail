@@ -3,14 +3,15 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# Andrey Avdey <talkerbox@live.com>, 2016
 # Mikalai Radchuk <radchuk.m@gmail.com>, 2016
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-05-18 21:37+0000\n"
-"PO-Revision-Date: 2016-05-26 13:25+0000\n"
-"Last-Translator: Mikalai Radchuk <radchuk.m@gmail.com>\n"
+"POT-Creation-Date: 2016-12-06 22:44+0000\n"
+"PO-Revision-Date: 2016-07-03 12:37+0000\n"
+"Last-Translator: Andrey Avdey <talkerbox@live.com>\n"
 "Language-Team: Russian (http://www.transifex.com/torchbox/wagtail/language/"
 "ru/)\n"
 "MIME-Version: 1.0\n"
@@ -68,7 +69,7 @@ msgid "Copy this %s"
 msgstr "Копировать %s"
 
 msgid "image"
-msgstr "Изображение"
+msgstr "изображение"
 
 msgid "Choose a parent page"
 msgstr "Выберите родительскую страницу"
@@ -93,7 +94,7 @@ msgstr "Сохранить"
 
 #, python-format
 msgid "%(model_name)s could not be deleted"
-msgstr "%(model_name)s не может быть удален"
+msgstr "%(model_name)s не может быть удалено"
 
 #, python-format
 msgid ""
@@ -209,7 +210,7 @@ msgid ""
 "Are you sure you want to delete this %s? If other things in your site are "
 "related to it, they may also be affected."
 msgstr ""
-"Вы уверены, что вы хотите удалить %s? Если другие объекты на вашем сайте "
+"Вы уверены, что хотите удалить %s? Если другие объекты на вашем сайте "
 "связаны с удаляемым объектом, они тоже могут быть затронуты."
 
 #, python-brace-format

@@ -7,15 +7,17 @@
 # Douglas Miranda <douglasmirandasilva@gmail.com>, 2014-2015
 # Gilson Filho <me@gilsondev.in>, 2014
 # Gladson <gladsonbrito@gmail.com>, 2014
+# Guilherme Nabanete <neoheartz@gmail.com>, 2016
 # Luiz Boaretto <lboaretto@gmail.com>, 2016
 # Luiz Boaretto <lboaretto@gmail.com>, 2016
+# Marcio Mazza <marciomazza@gmail.com>, 2016
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-05-18 21:37+0000\n"
-"PO-Revision-Date: 2016-05-18 22:51+0000\n"
-"Last-Translator: Luiz Boaretto <lboaretto@gmail.com>\n"
+"POT-Creation-Date: 2016-12-06 22:44+0000\n"
+"PO-Revision-Date: 2016-12-06 22:46+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Portuguese (Brazil) (http://www.transifex.com/torchbox/"
 "wagtail/language/pt_BR/)\n"
 "MIME-Version: 1.0\n"
@@ -123,11 +125,8 @@ msgid ""
 "This slug is already in use within the context of its parent page \"%s\""
 msgstr "Este endereço já está em uso no contexto desta página raíz \"%s\""
 
-msgid "Public"
-msgstr "Público"
-
-msgid "Private, accessible with the following password"
-msgstr "Privado, acessível com a seguinte senha"
+msgid "Visibility"
+msgstr "Visibilidade"
 
 msgid "This field is required."
 msgstr "Este campo é obrigatório."
@@ -282,14 +281,15 @@ msgid_plural ""
 "            "
 msgstr[0] ""
 "\n"
-"                Somente páginas do tipo \"%(type)s\" pode ser escolhido para "
-"este campo. Resultados da pesquisa irá excluir páginas de outros tipos.\n"
+"                Somente páginas do tipo \"%(type)s\" podem ser escolhidas "
+"para este campo. Os resultados da pesquisa excluirão páginas de outros "
+"tipos.\n"
 "                "
 msgstr[1] ""
 "\n"
-"                Somente os seguintes tipos de página pode ser escolhido para "
-"este campo: %(type)s. Resultados da pesquisa irá excluir páginas de outros "
-"tipos.\n"
+"                Somente os seguintes tipos de página podem ser escolhidos "
+"para este campo: %(type)s. Os resultados da pesquisa excluirão páginas de "
+"outros tipos.\n"
 "            "
 
 msgid "Add an email link"
@@ -484,6 +484,9 @@ msgstr "Desbloqueado"
 msgid "Privacy"
 msgstr "Particular"
 
+msgid "Public"
+msgstr "Público"
+
 msgid "Private"
 msgstr "Privativo"
 
@@ -528,18 +531,21 @@ msgstr[1] ""
 "páginas.\n"
 "                "
 
+msgid "Yes, delete it"
+msgstr "Sim, exclua"
+
+msgid "No, don't delete it"
+msgstr "Não excluir"
+
+#, python-format
 msgid ""
-"Alternatively you can unpublish the page. This removes the page from public "
-"view and you can edit or publish it again later."
+"Alternatively you can <a href=\"%(unpublish_url)s\">unpublish the page</a>. "
+"This removes the page from public view and you can edit or publish it again "
+"later."
 msgstr ""
-"Você pode cancelar a publicaçåo da página de outra forma. Isso vai remover a "
-"página de publicação e então pode editar e publicá-lo mais tarde."
-
-msgid "Delete it"
-msgstr "Excluir"
-
-msgid "Unpublish it"
-msgstr "Despublicar"
+"Alternativamente você também pode <a href=\"%(unpublish_url)s\">despublicar "
+"a página</a>. Isso remove a página da visão pública e você pode editar e "
+"republicar novamente mais tarde."
 
 #, python-format
 msgid "Move %(title)s"
@@ -572,8 +578,31 @@ msgstr "Despublicar"
 msgid "Are you sure you want to unpublish this page?"
 msgstr "Tem certeza que deseja despublicar essa página?"
 
+#, python-format
+msgid ""
+"\n"
+"                    This page has one subpage. Unpublish this too\n"
+"                "
+msgid_plural ""
+"\n"
+"                    This page has %(live_descendant_count)s subpages. "
+"Unpublish these too\n"
+"                "
+msgstr[0] ""
+"\n"
+"                    Esta página tem uma sub-página. Despublicar isso também\n"
+"                "
+msgstr[1] ""
+"\n"
+"                    Esta página tem %(live_descendant_count)s subpáginas. "
+"Despublicar estes também\n"
+"                "
+
 msgid "Yes, unpublish it"
 msgstr "Sim, quero despublicar"
+
+msgid "No, don't unpublish"
+msgstr "Não despublicar"
 
 msgid "Pages using"
 msgstr "Usando páginas"
@@ -908,6 +937,9 @@ msgstr[1] "Usado %(useage_count)s vezes"
 msgid "Edit your account"
 msgstr "Edite sua conta"
 
+msgid "Account settings"
+msgstr "Configurações da Conta"
+
 msgid "Log out"
 msgstr "Sair"
 
@@ -926,11 +958,6 @@ msgstr ""
 "Você está usando um navegador <strong>não atualizado</string> não suportado "
 "por este software. Por favor <a href=\"http://browsehappy.com/\">atualize o "
 "seu navegador</a>"
-
-msgid "Javascript is required to use Wagtail, but it is currently disabled"
-msgstr ""
-"É necessário ter Javascript habilitado para usar Wagtail, mas atualmente "
-"está desabilitado."
 
 msgid "Go to Wagtail admin interface"
 msgstr "Ir para administração Wagtail"

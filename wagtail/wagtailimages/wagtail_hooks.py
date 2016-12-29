@@ -11,9 +11,9 @@ from wagtail.wagtailadmin.menu import MenuItem
 from wagtail.wagtailadmin.search import SearchArea
 from wagtail.wagtailadmin.site_summary import SummaryItem
 from wagtail.wagtailcore import hooks
-from wagtail.wagtailimages import admin_urls, image_operations
+from wagtail.wagtailimages import admin_urls, get_image_model, image_operations
+from wagtail.wagtailimages.api.admin.endpoints import ImagesAdminAPIEndpoint
 from wagtail.wagtailimages.forms import GroupImagePermissionFormSet
-from wagtail.wagtailimages.models import get_image_model
 from wagtail.wagtailimages.permissions import permission_policy
 from wagtail.wagtailimages.rich_text import ImageEmbedHandler
 
@@ -23,6 +23,11 @@ def register_admin_urls():
     return [
         url(r'^images/', include(admin_urls, namespace='wagtailimages', app_name='wagtailimages')),
     ]
+
+
+@hooks.register('construct_admin_api')
+def construct_admin_api(router):
+    router.register_endpoint('images', ImagesAdminAPIEndpoint)
 
 
 class ImagesMenuItem(MenuItem):
@@ -70,6 +75,8 @@ def register_image_operations():
         ('max', image_operations.MinMaxOperation),
         ('width', image_operations.WidthHeightOperation),
         ('height', image_operations.WidthHeightOperation),
+        ('jpegquality', image_operations.JPEGQualityOperation),
+        ('format', image_operations.FormatOperation),
     ]
 
 

@@ -178,19 +178,29 @@ Search
 
 .. code-block:: python
 
-  # Override the search results template for wagtailsearch
-  WAGTAILSEARCH_RESULTS_TEMPLATE = 'myapp/search_results.html'
-  WAGTAILSEARCH_RESULTS_TEMPLATE_AJAX = 'myapp/includes/search_listing.html'
-
-  # Replace the search backend
   WAGTAILSEARCH_BACKENDS = {
       'default': {
-          'BACKEND': 'wagtail.wagtailsearch.backends.elasticsearch',
+          'BACKEND': 'wagtail.wagtailsearch.backends.elasticsearch2',
           'INDEX': 'myapp'
       }
   }
 
-The search settings customise the search results templates as well as choosing a custom backend for search. For a full explanation, see :ref:`search`.
+Define a search backend. For a full explanation, see :ref:`wagtailsearch_backends`.
+
+.. code-block:: python
+
+  WAGTAILSEARCH_RESULTS_TEMPLATE = 'myapp/search_results.html'
+  WAGTAILSEARCH_RESULTS_TEMPLATE_AJAX = 'myapp/includes/search_listing.html'
+
+Override the templates used by the search front-end views.
+
+.. _wagtailsearch_hits_max_age:
+
+.. code-block:: python
+
+  WAGTAILSEARCH_HITS_MAX_AGE = 14
+
+Set the number of days (default 7) that search query logs are kept for; these are used to identify popular search terms for :ref:`promoted search results <editors-picks>`. Queries older than this will be removed by the :ref:`search_garbage_collect` command.
 
 
 Embeds
@@ -215,9 +225,9 @@ Providing an API key for the Embedly service will use that as a embed backend, w
 
 To use Embedly, you must also install their Python module:
 
-.. code-block:: sh
+.. code-block:: console
 
-  pip install embedly
+  $ pip install embedly
 
 
 Images
@@ -307,6 +317,15 @@ Case-Insensitive Tags
 
 Tags are case-sensitive by default ('music' and 'Music' are treated as distinct tags). In many cases the reverse behaviour is preferable.
 
+Unicode Page Slugs
+------------------
+
+.. code-block:: python
+
+  WAGTAIL_ALLOW_UNICODE_SLUGS = True
+
+By default, page slugs can contain any alphanumeric characters, including non-Latin alphabets (except on Django 1.8, where only ASCII characters are supported). Set this to False to limit slugs to ASCII characters.
+
 Custom User Edit Forms
 ----------------------
 
@@ -359,7 +378,7 @@ URL Patterns
 
   urlpatterns = [
       url(r'^django-admin/', include(admin.site.urls)),
-  
+
       url(r'^admin/', include(wagtailadmin_urls)),
       url(r'^search/', include(wagtailsearch_urls)),
       url(r'^documents/', include(wagtaildocs_urls)),
@@ -569,7 +588,7 @@ These two files should reside in your project directory (``myproject/myproject/`
   # Replace the search backend
   #WAGTAILSEARCH_BACKENDS = {
   #  'default': {
-  #    'BACKEND': 'wagtail.wagtailsearch.backends.elasticsearch',
+  #    'BACKEND': 'wagtail.wagtailsearch.backends.elasticsearch2',
   #    'INDEX': 'myapp'
   #  }
   #}
@@ -603,7 +622,7 @@ These two files should reside in your project directory (``myproject/myproject/`
   from wagtail.wagtailcore import urls as wagtail_urls
   from wagtail.wagtailadmin import urls as wagtailadmin_urls
   from wagtail.wagtaildocs import urls as wagtaildocs_urls
-  from wagtail.wagtailsearch import urls as wagtailsearch__urls
+  from wagtail.wagtailsearch import urls as wagtailsearch_urls
 
 
   urlpatterns = patterns('',

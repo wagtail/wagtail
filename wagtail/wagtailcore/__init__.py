@@ -1,7 +1,7 @@
-__version__ = '1.6a1'
-# Required for npm package for frontend
-__semver__ = '1.6.0-alpha'
-default_app_config = 'wagtail.wagtailcore.apps.WagtailCoreAppConfig'
+from __future__ import absolute_import, unicode_literals
+
+# Imported for historical reasons
+from wagtail import __semver__, __version__  # noqa
 
 
 def setup():
@@ -9,5 +9,6 @@ def setup():
     from wagtail.utils.deprecation import removed_in_next_version_warning
 
     warnings.simplefilter("default", removed_in_next_version_warning)
+
 
 setup()

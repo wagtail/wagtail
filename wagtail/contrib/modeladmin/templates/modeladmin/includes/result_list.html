@@ -14,9 +14,7 @@
     </thead>
     <tbody>
     {% for result in results %}
-        <tr class="{% cycle 'odd' 'even' %}">
-            {% result_row_display forloop.counter0 %}
-        </tr>
+        {% result_row_display forloop.counter0 %}
     {% endfor %}
 </tbody>
 </table>

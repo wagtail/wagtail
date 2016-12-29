@@ -9,11 +9,11 @@ import taggit.managers
 from django.conf import settings
 from django.db import migrations, models
 
-import wagtail.wagtailadmin.taggable
 import wagtail.wagtailcore.blocks
 import wagtail.wagtailcore.fields
 import wagtail.wagtailimages.blocks
 import wagtail.wagtailimages.models
+import wagtail.wagtailsearch.index
 
 
 class Migration(migrations.Migration):
@@ -145,7 +145,7 @@ class Migration(migrations.Migration):
             options={
                 'abstract': False,
             },
-            bases=(models.Model, wagtail.wagtailadmin.taggable.TagSearchable),
+            bases=(models.Model, wagtail.wagtailsearch.index.Indexed),
         ),
         migrations.CreateModel(
             name='CustomImageFilePath',
@@ -167,7 +167,7 @@ class Migration(migrations.Migration):
             options={
                 'abstract': False,
             },
-            bases=(models.Model, wagtail.wagtailadmin.taggable.TagSearchable),
+            bases=(models.Model, wagtail.wagtailsearch.index.Indexed),
         ),
         migrations.CreateModel(
             name='CustomManagerPage',
@@ -293,7 +293,7 @@ class Migration(migrations.Migration):
             name='FormPage',
             fields=[
                 ('page_ptr', models.OneToOneField(auto_created=True, on_delete=django.db.models.deletion.CASCADE, parent_link=True, primary_key=True, serialize=False, to='wagtailcore.Page')),
-                ('to_address', models.CharField(blank=True, help_text='Optional - form submissions will be emailed to this address', max_length=255, verbose_name='to address')),
+                ('to_address', models.CharField(blank=True, help_text='Optional - form submissions will be emailed to these addresses. Separate multiple addresses by comma.', max_length=255, verbose_name='to address')),
                 ('from_address', models.CharField(blank=True, max_length=255, verbose_name='from address')),
                 ('subject', models.CharField(blank=True, max_length=255, verbose_name='subject')),
             ],

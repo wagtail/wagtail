@@ -3,17 +3,18 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# Eugene MechanisM <contact@mechanism.name>, 2014-2016
-# HNKNTA <hnknta@gmail.com>, 2014
+# Andrey Avdey <talkerbox@live.com>, 2016
+# Eugene MechanisM <eugene@mechanism.pro>, 2014-2016
+# Никита Викторович <hnknta@gmail.com>, 2014
 # Matt Westcott <matthew@torchbox.com>, 2015
 # Mikalai Radchuk <radchuk.m@gmail.com>, 2016
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-05-18 21:37+0000\n"
-"PO-Revision-Date: 2016-05-26 13:34+0000\n"
-"Last-Translator: Mikalai Radchuk <radchuk.m@gmail.com>\n"
+"POT-Creation-Date: 2016-12-06 22:44+0000\n"
+"PO-Revision-Date: 2016-07-03 08:24+0000\n"
+"Last-Translator: Andrey Avdey <talkerbox@live.com>\n"
 "Language-Team: Russian (http://www.transifex.com/torchbox/wagtail/language/"
 "ru/)\n"
 "MIME-Version: 1.0\n"
@@ -103,7 +104,7 @@ msgstr ""
 "Извините, подходящих документов не найдено \"<em>%(query_string)s</em>\""
 
 msgid "Change document:"
-msgstr "Изменить документ"
+msgstr "Изменить документ:"
 
 msgid "Add a document"
 msgstr "Добавить документ"
@@ -210,7 +211,7 @@ msgstr[2] ""
 "    "
 msgstr[3] ""
 "\n"
-"        <span>%(total)s</span> Документа\n"
+"        <span>%(total)s</span> Документов\n"
 "    "
 
 msgid "Add multiple documents"
@@ -235,7 +236,7 @@ msgid ""
 msgstr ""
 "Загрузка успешна. Пожалуйста, обновите заголовки для этих документов на "
 "более подходящие, если это необходимо. Так же вы можете полностью удалить "
-"изображение если его загрузка не была обязательной."
+"изображение если его загрузка не требовалась."
 
 msgid "Sorry, upload failed."
 msgstr "Извините, загрузка не удалась."
@@ -269,7 +270,7 @@ msgstr "Документ '{0}' обновлен"
 msgid ""
 "The file could not be found. Please change the source or delete the document"
 msgstr ""
-"Файл не может быть найден. Пожалуйста. измените исходный файл или удалите "
+"Файл не может быть найден. Пожалуйста, измените исходный файл или удалите "
 "документ"
 
 #, python-brace-format

@@ -28,9 +28,13 @@ def register_explorer_menu_item():
         order=100)
 
 
+class SettingsMenuItem(SubmenuMenuItem):
+    template = 'wagtailadmin/shared/menu_settings_menu_item.html'
+
+
 @hooks.register('register_admin_menu_item')
 def register_settings_menu():
-    return SubmenuMenuItem(
+    return SettingsMenuItem(
         _('Settings'), settings_menu, classnames='icon icon-cogs', order=10000)
 
 
@@ -73,10 +77,10 @@ def page_listing_buttons(page, page_perms, is_parent=False):
     if page_perms.can_add_subpage():
         if is_parent:
             yield Button(_('Add child page'), reverse('wagtailadmin_pages:add_subpage', args=[page.id]),
-                         attrs={'title': _("Add a child page to '{0}' ".format(page.title))}, classes={'button', 'button-small', 'bicolor', 'icon', 'white', 'icon-plus'}, priority=40)
+                         attrs={'title': _("Add a child page to '{0}' ").format(page.get_admin_display_title())}, classes={'button', 'button-small', 'bicolor', 'icon', 'white', 'icon-plus'}, priority=40)
         else:
             yield PageListingButton(_('Add child page'), reverse('wagtailadmin_pages:add_subpage', args=[page.id]),
-                                    attrs={'title': _("Add a child page to '{0}' ".format(page.title))}, priority=40)
+                                    attrs={'title': _("Add a child page to '{0}' ").format(page.get_admin_display_title())}, priority=40)
 
     yield ButtonWithDropdownFromHook(
         _('More'),
@@ -101,5 +105,6 @@ def page_listing_more_buttons(page, page_perms, is_parent=False):
     if page_perms.can_unpublish():
         yield Button(_('Unpublish'), reverse('wagtailadmin_pages:unpublish', args=[page.id]),
                      attrs={'title': _('Unpublish this page')}, priority=40)
-    yield Button(_('Revisions'), reverse('wagtailadmin_pages:revisions_index', args=[page.id]),
-                 attrs={'title': _("View this page's revision history")}, priority=50)
+    if not page.is_root():
+        yield Button(_('Revisions'), reverse('wagtailadmin_pages:revisions_index', args=[page.id]),
+                     attrs={'title': _("View this page's revision history")}, priority=50)

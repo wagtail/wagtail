@@ -4,13 +4,14 @@
 #
 # Translators:
 # Aarni Koskela, 2016
+# Niklas Jerva <niklas.jerva@gmail.com>, 2016
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-05-18 21:37+0000\n"
-"PO-Revision-Date: 2016-05-18 21:52+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2016-12-06 22:44+0000\n"
+"PO-Revision-Date: 2016-09-01 21:36+0000\n"
+"Last-Translator: Niklas Jerva <niklas.jerva@gmail.com>\n"
 "Language-Team: Finnish (http://www.transifex.com/torchbox/wagtail/language/"
 "fi/)\n"
 "MIME-Version: 1.0\n"
@@ -71,11 +72,36 @@ msgstr "kuva"
 msgid "Choose a parent page"
 msgstr "Valitse isäntäsivu"
 
+#, python-format
+msgid ""
+"%(plural)s can be added to more than one place within your site. Which of "
+"the following would you like to be the parent of your new page?"
+msgstr ""
+"%(plural)s voidaan lisätä useampaan kuin yhteen paikkaan sivustollasi. Mihin "
+"haluaisit uuden sivun lisättävän?"
+
 msgid "Continue"
 msgstr "Jatka"
 
+msgid "Saving..."
+msgstr "Tallennetaan..."
+
 msgid "Save"
 msgstr "Tallenna"
+
+#, python-format
+msgid "%(model_name)s could not be deleted"
+msgstr "%(model_name)s-kohdetta ei voitu poistaa"
+
+#, python-format
+msgid ""
+"'%(instance_name)s' is currently referenced by other objects, and cannot be "
+"deleted without jeopardising data integrity. To delete it successfully, "
+"first remove references from the following objects, then try again:"
+msgstr ""
+"'%(instance_name)s' viitataan muissa objekteissa ja sitä ei voida poistaa "
+"ilman tietojen eheyden vaarantumista. Jotta kohteen voi poistaa "
+"turvallisesti täytyy sinun poistaa viittaukset alla luetelluista objekteista:"
 
 msgid "Go back to listing"
 msgstr "Palaa listaukseen"
@@ -85,6 +111,14 @@ msgstr "Kyllä, poista"
 
 msgid "Home"
 msgstr "Koti"
+
+#, python-format
+msgid " By %(filter_title)s "
+msgstr "Tekijä %(filter_title)s"
+
+#, python-format
+msgid "Sorry, there are no %(name)s matching your search parameters."
+msgstr "Haulla ei löytynyt yhtään %(name)s-kohdetta."
 
 msgid "Search for"
 msgstr "Hae..."
@@ -96,11 +130,46 @@ msgstr "Hae %(name)s"
 msgid "Filter"
 msgstr "Suodatin"
 
+#, python-format
+msgid ""
+"No %(name)s have been created yet. One of the following must be created "
+"before you can add any %(name)s:"
+msgstr ""
+"Yhtään %(name)s-kohdetta ei ole luotu vielä. Yksi seuraavista tulee luoda "
+"ennen kuin voit luoda %(name)s-kohteita:"
+
+#, python-format
+msgid "No %(name)s have been created yet."
+msgstr "Yhtään %(name)s-kohdetta ei ole luotu vielä."
+
+#, python-format
+msgid ""
+"\n"
+"                                                Why not <a href=\"%(url)s"
+"\">add one</a>?\n"
+"                                            "
+msgstr ""
+"\n"
+"Mikset <a href=\"%(url)s\">lisäisi yhtä</a>?\n"
+"                                            "
+
+#, python-format
+msgid "Page %(current_page)s of %(num_pages)s."
+msgstr "Sivu %(current_page)s/%(num_pages)s."
+
+#, python-format
+msgid "Back to %(model_name)s list"
+msgstr "Palaa %(model_name)s -listaan"
+
 msgid "Previous"
 msgstr "Edellinen"
 
 msgid "Next"
 msgstr "Seuraava"
+
+#, python-brace-format
+msgid "{model_name} '{instance}' created."
+msgstr "{model_name} '{instance}' luotu."
 
 #, python-format
 msgid "The %s could not be created due to errors."
@@ -120,6 +189,10 @@ msgstr "Muokataan"
 msgid "Editing %s"
 msgstr "Muokataan %s"
 
+#, python-brace-format
+msgid "{model_name} '{instance}' updated."
+msgstr "{model_name} '{instance}' päivitetty."
+
 #, python-format
 msgid "The %s could not be saved due to errors."
 msgstr "%s ei voitu tallentaa virheiden vuoksi."
@@ -127,6 +200,14 @@ msgstr "%s ei voitu tallentaa virheiden vuoksi."
 #, python-format
 msgid "Confirm deletion of %s"
 msgstr "Vahvista %s poisto"
+
+#, python-format
+msgid ""
+"Are you sure you want to delete this %s? If other things in your site are "
+"related to it, they may also be affected."
+msgstr ""
+"Oletko varma, että haluat poistaa %s? Tämä saattaa vaikuttaa muihin "
+"sivustossa kohteeseen liityviin asioihin."
 
 #, python-brace-format
 msgid "{model} '{instance}' deleted."

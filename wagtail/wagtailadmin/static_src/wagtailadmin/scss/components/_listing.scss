@@ -6,7 +6,7 @@ ul.listing {
 
 .listing {
     margin-bottom: 2em;
-    color: lighten($color-text-base, 20%);
+    color: lighten($color-text-base, 10%);
     font-size: 0.95em;
 
     ul {
@@ -115,6 +115,10 @@ ul.listing {
             .title a,
             .title a:hover {
                 color: $color-white;
+            }
+
+            .parent a {
+                color: $color-link-hover;
             }
 
             .status-tag {

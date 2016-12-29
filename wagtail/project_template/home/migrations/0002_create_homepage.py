@@ -12,10 +12,11 @@ def create_homepage(apps, schema_editor):
     HomePage = apps.get_model('home.HomePage')
 
     # Delete the default homepage
-    Page.objects.get(id=2).delete()
+    # If migration is run multiple times, it may have already been deleted
+    Page.objects.filter(id=2).delete()
 
     # Create content type for homepage model
-    homepage_content_type, created = ContentType.objects.get_or_create(
+    homepage_content_type, __ = ContentType.objects.get_or_create(
         model='homepage', app_label='home')
 
     # Create a new homepage
@@ -34,6 +35,19 @@ def create_homepage(apps, schema_editor):
         hostname='localhost', root_page=homepage, is_default_site=True)
 
 
+def remove_homepage(apps, schema_editor):
+    # Get models
+    ContentType = apps.get_model('contenttypes.ContentType')
+    HomePage = apps.get_model('home.HomePage')
+
+    # Delete the default homepage
+    # Page and Site objects CASCADE
+    HomePage.objects.filter(slug='home', depth=2).delete()
+
+    # Delete content type for homepage model
+    ContentType.objects.filter(model='homepage', app_label='home').delete()
+
+
 class Migration(migrations.Migration):
 
     dependencies = [
@@ -41,5 +55,5 @@ class Migration(migrations.Migration):
     ]
 
     operations = [
-        migrations.RunPython(create_homepage),
+        migrations.RunPython(create_homepage, remove_homepage),
     ]

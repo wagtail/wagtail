@@ -84,7 +84,6 @@ class TestTableBlock(TestTableBlockRenderingBase):
         self.assertHTMLEqual(result, expected)
         self.assertIn('Test 2', result)
 
-
     def test_render_empty_table(self):
         """
         An empty table should render okay.
@@ -92,7 +91,6 @@ class TestTableBlock(TestTableBlockRenderingBase):
         block = TableBlock()
         result = block.render(self.default_value)
         self.assertHTMLEqual(result, self.default_expected)
-
 
     def test_do_not_render_html(self):
         """
@@ -108,7 +106,6 @@ class TestTableBlock(TestTableBlockRenderingBase):
         block = TableBlock()
         result = block.render(value)
         self.assertHTMLEqual(result, expected)
-
 
     def test_row_headers(self):
         """
@@ -134,7 +131,6 @@ class TestTableBlock(TestTableBlockRenderingBase):
         result = block.render(value)
         self.assertHTMLEqual(result, expected)
 
-
     def test_row_and_column_headers(self):
         """
         Test row and column headers at the same time.
@@ -146,7 +142,6 @@ class TestTableBlock(TestTableBlockRenderingBase):
         block = TableBlock()
         result = block.render(value)
         self.assertHTMLEqual(result, expected)
-
 
     def test_value_for_and_from_form(self):
         """
@@ -162,7 +157,6 @@ class TestTableBlock(TestTableBlockRenderingBase):
         self.assertJSONEqual(expected_json, returned_json)
         self.assertEqual(block.value_from_form(returned_json), value)
 
-
     def test_is_html_renderer(self):
         """
         Test that settings flow through correctly to
@@ -177,3 +171,27 @@ class TestTableBlock(TestTableBlockRenderingBase):
         new_options['renderer'] = 'html'
         block2 = TableBlock(table_options=new_options)
         self.assertEqual(block2.is_html_renderer(), True)
+
+    def test_searchable_content(self):
+        value = {'first_row_is_table_header': False, 'first_col_is_header': False,
+                 'data': [['Test 1', 'Test 2', 'Test 3'], [None, 'Bar', None],
+                          [None, 'Foo', None]]}
+        block = TableBlock()
+        content = block.get_searchable_content(value)
+        self.assertEqual(content, ['Test 1', 'Test 2', 'Test 3', 'Bar', 'Foo', ])
+
+    def test_render_with_extra_context(self):
+        """
+        Test that extra context variables passed in block.render are passed through
+        to the template.
+        """
+        block = TableBlock(template="tests/blocks/table_block_with_caption.html")
+
+        value = {'first_row_is_table_header': False, 'first_col_is_header': False,
+                 'data': [['Test 1', 'Test 2', 'Test 3'], [None, None, None],
+                          [None, None, None]]}
+        result = block.render(value, context={
+            'caption': "A fascinating table."
+        })
+        self.assertIn("Test 1", result)
+        self.assertIn("<div>A fascinating table.</div>", result)

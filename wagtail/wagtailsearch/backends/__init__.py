@@ -15,12 +15,23 @@ class InvalidSearchBackendError(ImproperlyConfigured):
     pass
 
 
+def get_search_backend_config():
+    search_backends = getattr(settings, 'WAGTAILSEARCH_BACKENDS', {})
+
+    # Make sure the default backend is always defined
+    search_backends.setdefault('default', {
+        'BACKEND': 'wagtail.wagtailsearch.backends.db',
+    })
+
+    return search_backends
+
+
 def import_backend(dotted_path):
     """
     Theres two formats for the dotted_path.
     One with the backend class (old) and one without (new)
     eg:
-      old: wagtail.wagtailsearch.backends.elasticsearch.ElasticSearch
+      old: wagtail.wagtailsearch.backends.elasticsearch.ElasticsearchSearchBackend
       new: wagtail.wagtailsearch.backends.elasticsearch
 
     If a new style dotted path was specified, this function would
@@ -39,19 +50,12 @@ def import_backend(dotted_path):
 
 
 def get_search_backend(backend='default', **kwargs):
-    # Get configuration
-    default_conf = {
-        'default': {
-            'BACKEND': 'wagtail.wagtailsearch.backends.db',
-        },
-    }
-    WAGTAILSEARCH_BACKENDS = getattr(
-        settings, 'WAGTAILSEARCH_BACKENDS', default_conf)
+    search_backends = get_search_backend_config()
 
     # Try to find the backend
     try:
         # Try to get the WAGTAILSEARCH_BACKENDS entry for the given backend name first
-        conf = WAGTAILSEARCH_BACKENDS[backend]
+        conf = search_backends[backend]
     except KeyError:
         try:
             # Trying to import the given backend, in case it's a dotted path
@@ -77,15 +81,27 @@ def get_search_backend(backend='default', **kwargs):
     return backend_cls(params)
 
 
-def get_search_backends_with_name(with_auto_update=False):
-    if hasattr(settings, 'WAGTAILSEARCH_BACKENDS'):
-        for backend, params in settings.WAGTAILSEARCH_BACKENDS.items():
-            if with_auto_update and params.get('AUTO_UPDATE', True) is False:
-                continue
+def _backend_requires_auto_update(backend_name, params):
+    if params.get('AUTO_UPDATE', True):
+        return True
 
-            yield backend, get_search_backend(backend)
-    else:
-        yield 'default', get_search_backend('default')
+    # _WAGTAILSEARCH_FORCE_AUTO_UPDATE is only used by Wagtail tests. It allows
+    # us to test AUTO_UPDATE behaviour against Elasticsearch without having to
+    # have AUTO_UPDATE enabed for every test.
+    force_auto_update = getattr(settings, '_WAGTAILSEARCH_FORCE_AUTO_UPDATE', [])
+    if backend_name in force_auto_update:
+        return True
+
+    return False
+
+
+def get_search_backends_with_name(with_auto_update=False):
+    search_backends = get_search_backend_config()
+    for backend, params in search_backends.items():
+        if with_auto_update and _backend_requires_auto_update(backend, params) is False:
+            continue
+
+        yield backend, get_search_backend(backend)
 
 
 def get_search_backends(with_auto_update=False):

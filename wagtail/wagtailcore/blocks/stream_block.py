@@ -9,7 +9,7 @@ from django.forms.utils import ErrorList
 from django.template.loader import render_to_string
 # Must be imported from Django so we get the new implementation of with_metaclass
 from django.utils import six
-from django.utils.encoding import force_text, python_2_unicode_compatible
+from django.utils.encoding import python_2_unicode_compatible
 from django.utils.html import format_html_join
 from django.utils.safestring import mark_safe
 
@@ -125,6 +125,9 @@ class BaseStreamBlock(Block):
                 raise TypeError('StreamBlock.render_form unexpectedly received multiple errors')
             error_dict = errors.as_data()[0].params
 
+        # value can be None when the StreamField is in a formset
+        if value is None:
+            value = self.get_default()
         # drop any child values that are an unrecognised block type
         valid_children = [child for child in value if child.block_type in self.child_blocks]
 
@@ -168,6 +171,9 @@ class BaseStreamBlock(Block):
             for (index, child_block_type_name, value) in values_with_indexes
         ])
 
+    def value_omitted_from_data(self, data, files, prefix):
+        return ('%s-count' % prefix) not in data
+
     def clean(self, value):
         cleaned_data = []
         errors = {}
@@ -205,10 +211,13 @@ class BaseStreamBlock(Block):
             for child in value  # child is a BoundBlock instance
         ]
 
-    def render_basic(self, value):
+    def render_basic(self, value, context=None):
         return format_html_join(
             '\n', '<div class="block-{1}">{0}</div>',
-            [(force_text(child), child.block_type) for child in value]
+            [
+                (child.render(context=context), child.block_type)
+                for child in value
+            ]
         )
 
     def get_searchable_content(self, value):
@@ -308,7 +317,11 @@ class StreamValue(collections.Sequence):
                 raw_value = self.stream_data[i]
                 type_name = raw_value['type']
                 child_block = self.stream_block.child_blocks[type_name]
-                value = child_block.to_python(raw_value['value'])
+                if hasattr(child_block, 'bulk_to_python'):
+                    self._prefetch_blocks(type_name, child_block)
+                    return self._bound_blocks[i]
+                else:
+                    value = child_block.to_python(raw_value['value'])
             else:
                 type_name, value = self.stream_data[i]
                 child_block = self.stream_block.child_blocks[type_name]
@@ -317,11 +330,29 @@ class StreamValue(collections.Sequence):
 
         return self._bound_blocks[i]
 
+    def _prefetch_blocks(self, type_name, child_block):
+        """Prefetch all child blocks for the given `type_name` using the
+        given `child_blocks`.
+
+        This prevents n queries for n blocks of a specific type.
+        """
+        raw_values = collections.OrderedDict(
+            (i, item['value']) for i, item in enumerate(self.stream_data)
+            if item['type'] == type_name
+        )
+        converted_values = child_block.bulk_to_python(raw_values.values())
+
+        for i, value in zip(raw_values.keys(), converted_values):
+            self._bound_blocks[i] = StreamValue.StreamChild(child_block, value)
+
     def __len__(self):
         return len(self.stream_data)
 
     def __repr__(self):
         return repr(list(self))
+
+    def render_as_block(self, context=None):
+        return self.stream_block.render(self, context=context)
 
     def __html__(self):
         return self.stream_block.render(self)

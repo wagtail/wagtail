@@ -5,7 +5,7 @@
     {% trans "Editing" as editing_str %}
     {% include "wagtailadmin/shared/header.html" with title=editing_str subtitle=query.query_string icon="pick"  %}
 
-    <form action="{% url 'wagtailsearchpromotions:edit' query.id %}" method="POST" class="nice-padding">
+    <form action="{% url 'wagtailsearchpromotions:edit' query.id %}" method="POST" class="nice-padding" novalidate>
         {% csrf_token %}
 
         <ul class="fields">

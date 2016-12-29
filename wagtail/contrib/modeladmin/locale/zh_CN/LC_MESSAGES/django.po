@@ -1,0 +1,134 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# Fred Zeng <979738295@qq.com>, 2016
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2016-12-06 22:44+0000\n"
+"PO-Revision-Date: 2016-11-23 11:05+0000\n"
+"Last-Translator: Fred Zeng <979738295@qq.com>\n"
+"Language-Team: Chinese (China) (http://www.transifex.com/torchbox/wagtail/"
+"language/zh_CN/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: zh_CN\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+msgid "Parent page"
+msgstr "上一级页面"
+
+#, python-format
+msgid "Add %s"
+msgstr "添加 %s"
+
+#, python-format
+msgid "Add a new %s"
+msgstr "添加新的 %s"
+
+msgid "Edit"
+msgstr "编辑"
+
+#, python-format
+msgid "Edit this %s"
+msgstr "编辑此 %s"
+
+msgid "Delete"
+msgstr "删除"
+
+#, python-format
+msgid "Delete this %s"
+msgstr "删除 %s"
+
+msgid "Unpublish"
+msgstr "取消发布"
+
+#, python-format
+msgid "Unpublish this %s"
+msgstr "取消发布 %s"
+
+msgid "Copy"
+msgstr "复制"
+
+#, python-format
+msgid "Copy this %s"
+msgstr "复制该 %s"
+
+msgid "image"
+msgstr "图片"
+
+msgid "Choose a parent page"
+msgstr "选择上级页面"
+
+msgid "Saving..."
+msgstr "正在保存..."
+
+msgid "Save"
+msgstr "保存"
+
+#, python-format
+msgid "%(model_name)s could not be deleted"
+msgstr " %(model_name)s 不可删除"
+
+msgid "Go back to listing"
+msgstr "回到列表"
+
+msgid "Yes, delete"
+msgstr "确认删除"
+
+msgid "Home"
+msgstr "主页"
+
+#, python-format
+msgid " By %(filter_title)s "
+msgstr "By  %(filter_title)s "
+
+#, python-format
+msgid "Sorry, there are no %(name)s matching your search parameters."
+msgstr "没有找到与 %(name)s 匹配的项"
+
+msgid "Search for"
+msgstr "搜索"
+
+#, python-format
+msgid "Search %(name)s"
+msgstr "搜索  %(name)s "
+
+msgid "Filter"
+msgstr "筛选"
+
+#, python-format
+msgid "Page %(current_page)s of %(num_pages)s."
+msgstr "页面  %(current_page)s /  %(num_pages)s "
+
+msgid "Previous"
+msgstr "上一页"
+
+msgid "Next"
+msgstr "下一页"
+
+msgid "New"
+msgstr "新建"
+
+#, python-format
+msgid "Create new %s"
+msgstr "添加新的 %s"
+
+msgid "Editing"
+msgstr "正在编辑"
+
+#, python-format
+msgid "Editing %s"
+msgstr "正在编辑%s"
+
+#, python-format
+msgid "Confirm deletion of %s"
+msgstr "确认删除%s"
+
+#, python-brace-format
+msgid "{model} '{instance}' deleted."
+msgstr "{model} '{instance}'已删除"

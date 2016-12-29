@@ -8,12 +8,13 @@
 # Edd Baldry <edd.baldry@gmail.com>, 2016
 # Edd <edd.baldry@googlemail.com>, 2016
 # Giacomo Ghizzani <giacomo.ghz@gmail.com>, 2015-2016
+# giammi <gian-maria.daffre@giammi.org>, 2016
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-05-18 21:37+0000\n"
-"PO-Revision-Date: 2016-05-11 20:33+0000\n"
+"POT-Creation-Date: 2016-12-06 22:44+0000\n"
+"PO-Revision-Date: 2016-12-06 22:46+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Italian (http://www.transifex.com/torchbox/wagtail/language/"
 "it/)\n"
@@ -120,11 +121,8 @@ msgid ""
 "This slug is already in use within the context of its parent page \"%s\""
 msgstr "Questo slug è già in uso nel contesto della pagina padre \"%s\""
 
-msgid "Public"
-msgstr "Pubblico"
-
-msgid "Private, accessible with the following password"
-msgstr "Privato, accessibile con la seguente password"
+msgid "Visibility"
+msgstr "Visibilità"
 
 msgid "This field is required."
 msgstr "Questo campo è obbligatorio"
@@ -204,6 +202,12 @@ msgstr "Controlla la tua email"
 
 msgid "A link to reset your password has been emailed to you."
 msgstr "Il link per resettare la tua password ti è stato invitato via email."
+
+msgid "Please follow the link below to reset your password:"
+msgstr "Per favore segui il link qui sotto per resettare la tua password"
+
+msgid "Your username (in case you've forgotten):"
+msgstr "La tua username (nel caso l'avessi dimenticata)"
 
 msgid "Password reset"
 msgstr "Resetta password"
@@ -485,6 +489,9 @@ msgstr "Sbloccato"
 msgid "Privacy"
 msgstr "Privacy"
 
+msgid "Public"
+msgstr "Pubblico"
+
 msgid "Private"
 msgstr "Privato"
 
@@ -529,19 +536,21 @@ msgstr[1] ""
 "sottopagine.\n"
 "                "
 
+msgid "Yes, delete it"
+msgstr "Si, eliminalo"
+
+msgid "No, don't delete it"
+msgstr "No, non eliminarlo"
+
+#, python-format
 msgid ""
-"Alternatively you can unpublish the page. This removes the page from public "
-"view and you can edit or publish it again later."
+"Alternatively you can <a href=\"%(unpublish_url)s\">unpublish the page</a>. "
+"This removes the page from public view and you can edit or publish it again "
+"later."
 msgstr ""
-"In alternativa puoi annullare la pubblicazione della pagina. Questo rimuove "
-"la pagina dalla visione pubblica e puoi modificare o pubblicare la pagina "
-"più avanti."
-
-msgid "Delete it"
-msgstr "Eliminala"
-
-msgid "Unpublish it"
-msgstr "Annulla pubblicazione"
+"Altrimenti puoi <a href=\"%(unpublish_url)s\">annullare la pubblicazione "
+"della pagina</a>. Questo rimuoverà la pagina dalla visione pubblica e potrai "
+"modificarla e pubblicarla nuovamente."
 
 #, python-format
 msgid "Move %(title)s"
@@ -574,8 +583,32 @@ msgstr "Annulla pubblicazione"
 msgid "Are you sure you want to unpublish this page?"
 msgstr "Sei sicuro di voler annullare la pubblicazione di questa pagina?"
 
+#, python-format
+msgid ""
+"\n"
+"                    This page has one subpage. Unpublish this too\n"
+"                "
+msgid_plural ""
+"\n"
+"                    This page has %(live_descendant_count)s subpages. "
+"Unpublish these too\n"
+"                "
+msgstr[0] ""
+"\n"
+"                    Questa pagina ha una sottopagina. Annullare la "
+"pubblicazione anche di questa\n"
+"                "
+msgstr[1] ""
+"\n"
+"                    Questa pagina ha %(live_descendant_count)s sottopagine. "
+"Annullare la pubblicazione anche di queste\n"
+"                "
+
 msgid "Yes, unpublish it"
 msgstr "Si, annulla la pubblicazione"
+
+msgid "No, don't unpublish"
+msgstr "No, non annullare la pubblicazione"
 
 msgid "Pages using"
 msgstr "Pagina usate"
@@ -788,14 +821,24 @@ msgstr "Le revisioni di %(title)s"
 msgid "Revisions of"
 msgstr "Le revisioni di"
 
+msgid "Revision date"
+msgstr "Data revisione"
+
+msgctxt "points to a user who created a revision"
+msgid "by"
+msgstr "da"
+
 msgid "Current draft"
 msgstr "La bozza corrente"
 
 msgid "Review this revision"
 msgstr "Controlla questa revisione"
 
+msgid "No revisions of this page exist"
+msgstr "Nessuna revisione esistente per questa pagina"
+
 msgid "No revision of this page exist"
-msgstr "Nessuna revisione di questa pagina esiste"
+msgstr "Nessuna revisione esistente per questa pagina"
 
 #, python-format
 msgid ""
@@ -901,6 +944,9 @@ msgstr[1] "Usato %(useage_count)s volte"
 msgid "Edit your account"
 msgstr "Modifica il tuo account"
 
+msgid "Account settings"
+msgstr "Impostazioni dell 'account"
+
 msgid "Log out"
 msgstr "Esci"
 
@@ -919,10 +965,6 @@ msgstr ""
 "Stai usando un <strong>vecchio</strong> browser non supportato da questo "
 "software. Per favore <a href=\"http://browsehappy.com/\">aggiorna il tuo "
 "browser</a>."
-
-msgid "Javascript is required to use Wagtail, but it is currently disabled"
-msgstr ""
-"Javascript è richiesto per l'uso di Wagtail, ma al momento è disabilitato"
 
 msgid "Go to Wagtail admin interface"
 msgstr "Vai all'interfaccia admin di Wagtail"
@@ -948,8 +990,41 @@ msgstr "La tua password è stato modificata con successo"
 msgid "Your preferences have been updated successfully!"
 msgstr "Le tue preferenze sono state aggiornate con successo!"
 
+msgid "You have been successfully logged out."
+msgstr "Logout eseguito con successo."
+
 msgid "Collections"
 msgstr "Collezioni"
+
+msgid "Add a collection"
+msgstr "Aggiungi una collezione"
+
+msgid "Add collection"
+msgstr "Aggiungi collezione"
+
+#, python-brace-format
+msgid "Collection '{0}' created."
+msgstr "Collezione '{0}' creata."
+
+#, python-brace-format
+msgid "Collection '{0}' updated."
+msgstr "Collezione '{0}' aggiornata."
+
+msgid "The collection could not be saved due to errors."
+msgstr "La collezione non può essere salvata a causa di errori."
+
+msgid "Delete collection"
+msgstr "Elimina collezione"
+
+#, python-brace-format
+msgid "Collection '{0}' deleted."
+msgstr "Collezione '{0}' eliminata."
+
+msgid "Are you sure you want to delete this collection?"
+msgstr "Sei sicuro di voler eliminare questa collezione?"
+
+msgid "Editing"
+msgstr "Modifica"
 
 #, python-brace-format
 msgid "Page '{0}' created and scheduled for publishing."
@@ -968,6 +1043,9 @@ msgstr "Page '{0}' creata e inviata per moderazione"
 
 msgid "View draft"
 msgstr "Guarda bozza"
+
+msgid "Failed to send notifications to moderators"
+msgstr "Invio notifiche ai moderatori fallito"
 
 #, python-brace-format
 msgid "Page '{0}' created."
@@ -1041,9 +1119,15 @@ msgstr "La pagina '{0}' non è al momento in attesa di moderazione."
 msgid "Page '{0}' published."
 msgstr "Pagina '{0}' pubblicata."
 
+msgid "Failed to send approval notifications"
+msgstr "Invio notifiche di approvazione fallito"
+
 #, python-brace-format
 msgid "Page '{0}' rejected for publication."
 msgstr "Pagina '{0}' respinta per la pubblicazione."
+
+msgid "Failed to send rejection notifications"
+msgstr "Invio notifiche di rifiuto fallito "
 
 #, python-brace-format
 msgid "Page '{0}' is now locked."
@@ -1053,14 +1137,44 @@ msgstr "Pagina '{0}' bloccata."
 msgid "Page '{0}' is now unlocked."
 msgstr "Pagina '{0}' sbloccata."
 
+#, python-format
+msgid ""
+"You are viewing a previous revision of this page from <b>%(created_at)s</b> "
+"by %(user)s"
+msgstr ""
+"Stai vedendo una revisione precedente di questa pagina <b>%(created_at)s</b> "
+"da %(user)s"
+
 msgid "Pages"
 msgstr "Pagine"
+
+msgid "Preview draft"
+msgstr "Anteprima bozza"
 
 msgid "Add child page"
 msgstr "Aggiungi pagina figlio"
 
+#, python-brace-format
+msgid "Add a child page to '{0}' "
+msgstr "Aggiungi una pagina figlio a '{0}'"
+
 msgid "More"
 msgstr "Ancora"
+
+msgid "View more options"
+msgstr "Vedi altre opzioni"
+
+msgid "Move this page"
+msgstr "Sposta questa pagina"
+
+msgid "Delete this page"
+msgstr "Elimina questa pagina"
+
+msgid "Unpublish this page"
+msgstr "Annulla pubblicazione di questa pagina"
+
+msgid "View this page's revision history"
+msgstr "Vedi storico revisioni di questa pagina"
 
 msgid "Choose an item"
 msgstr "Scegli un elemento"

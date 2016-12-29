@@ -1,9 +1,16 @@
 from __future__ import absolute_import, unicode_literals
 
+import django
 from django import http
 from django.utils.six.moves.urllib.parse import urlparse
 
 from wagtail.wagtailredirects import models
+
+
+if django.VERSION >= (1, 10):
+    from django.utils.deprecation import MiddlewareMixin
+else:
+    MiddlewareMixin = object
 
 
 def get_redirect(request, path):
@@ -17,7 +24,7 @@ def get_redirect(request, path):
 
 
 # Originally pinched from: https://github.com/django/django/blob/master/django/contrib/redirects/middleware.py
-class RedirectMiddleware(object):
+class RedirectMiddleware(MiddlewareMixin):
     def process_response(self, request, response):
         # No need to check for a redirect for non-404 responses.
         if response.status_code != 404:

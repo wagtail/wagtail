@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-05-18 21:37+0000\n"
-"PO-Revision-Date: 2016-05-18 13:48+0000\n"
+"POT-Creation-Date: 2016-12-06 22:44+0000\n"
+"PO-Revision-Date: 2016-11-17 15:37+0000\n"
 "Last-Translator: mmiskiew <mmiskiew@gmail.com>\n"
 "Language-Team: Polish (http://www.transifex.com/torchbox/wagtail/language/"
 "pl/)\n"
@@ -19,6 +19,13 @@ msgstr ""
 "Language: pl\n"
 "Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
 "|| n%100>=20) ? 1 : 2);\n"
+
+msgid "{} submissions"
+msgstr "{} zgłoszeń"
+
+#, python-format
+msgid "There is another field with the label %s, please change one of them."
+msgstr "Istnieje inne pole o nazwie %s, proszę zmień jedno z nich."
 
 msgid "Single line text"
 msgstr "Tekst w jednej linii"
@@ -90,11 +97,18 @@ msgstr "Domyślna wartość. Wartości oddzielone przecinkami dla checkboxów"
 msgid "help text"
 msgstr "tekst pomocniczy"
 
+msgid "Submission date"
+msgstr "Data zgłoszenia"
+
 msgid "to address"
 msgstr "do adresu"
 
-msgid "Optional - form submissions will be emailed to this address"
-msgstr "Opcjonalne - wysyłki formularza zostaną wysłane na ten adres email"
+msgid ""
+"Optional - form submissions will be emailed to these addresses. Separate "
+"multiple addresses by comma."
+msgstr ""
+"Opcjonalne - wysyłki formularza zostaną wysłane na te adresy email. "
+"Oddzielaj adresy przecinkiem."
 
 msgid "from address"
 msgstr "adres formularza"
@@ -114,6 +128,12 @@ msgstr "Czy na pewno chcesz usunąć to zgłoszenie formularza?"
 
 msgid "Delete it"
 msgstr "Usuń"
+
+msgid "Total submissions"
+msgstr "Wszystkich zgłoszeń"
+
+msgid "Latest submission"
+msgstr "Ostatnie zgłoszenie"
 
 msgid "Forms"
 msgstr "Formularze"
@@ -144,9 +164,6 @@ msgstr "Tytuł"
 
 msgid "Origin"
 msgstr "Źródło"
-
-msgid "Submission Date"
-msgstr "Data zgłoszenia"
 
 msgid "Actions"
 msgstr "Akcje"

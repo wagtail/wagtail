@@ -84,6 +84,36 @@ class TestLazyStreamField(TestCase):
         with self.assertNumQueries(0):
             instances_lookup[self.no_image.pk].body[0]
 
+    def test_lazy_load_queryset_bulk(self):
+        """
+        Ensure that lazy loading StreamField works when gotten as part of a
+        queryset list
+        """
+        file_obj = get_test_image_file()
+        image_1 = Image.objects.create(title='Test image 1', file=file_obj)
+        image_3 = Image.objects.create(title='Test image 3', file=file_obj)
+
+        with_image = StreamModel.objects.create(body=json.dumps([
+            {'type': 'image', 'value': image_1.pk},
+            {'type': 'image', 'value': None},
+            {'type': 'image', 'value': image_3.pk},
+            {'type': 'text', 'value': 'foo'}]))
+
+        with self.assertNumQueries(1):
+            instance = StreamModel.objects.get(pk=with_image.pk)
+
+        # Prefetch all image blocks
+        with self.assertNumQueries(1):
+            instance.body[0]
+
+        # 1. Further image block access should not execute any db lookups
+        # 2. The blank block '1' should be None.
+        # 3. The values should be in the original order.
+        with self.assertNumQueries(0):
+            assert instance.body[0].value.title == 'Test image 1'
+            assert instance.body[1].value is None
+            assert instance.body[2].value.title == 'Test image 3'
+
 
 class TestSystemCheck(TestCase):
     def tearDown(self):

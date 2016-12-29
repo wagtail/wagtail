@@ -9,9 +9,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-05-18 21:37+0000\n"
-"PO-Revision-Date: 2016-03-17 11:34+0000\n"
-"Last-Translator: Eetu Häivälä <eetu.haivala@anders.fi>\n"
+"POT-Creation-Date: 2016-12-06 22:44+0000\n"
+"PO-Revision-Date: 2016-08-15 06:46+0000\n"
+"Last-Translator: Aarni Koskela\n"
 "Language-Team: Finnish (http://www.transifex.com/torchbox/wagtail/language/"
 "fi/)\n"
 "MIME-Version: 1.0\n"
@@ -51,6 +51,9 @@ msgstr "uudelleenohjaa sivulle"
 
 msgid "redirect to any URL"
 msgstr "uudelleenohjaa URL-osoitteeseen"
+
+msgid "temporary"
+msgstr "tilapäinen"
 
 msgid "redirect"
 msgstr "uudelleenohjus"
@@ -101,9 +104,6 @@ msgstr "Tyyppi"
 
 msgid "Edit this redirect"
 msgstr "Muokkaa tätä edelleenohjausta"
-
-msgid "primary"
-msgstr "ensisijainen"
 
 #, python-format
 msgid ""

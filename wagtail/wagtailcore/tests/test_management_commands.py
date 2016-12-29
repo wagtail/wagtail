@@ -132,6 +132,17 @@ class TestMovePagesCommand(TestCase):
             self.assertEqual(Page.objects.get(id=page_id).get_parent(), about_us)
 
 
+class TestSetUrlPathsCommand(TestCase):
+
+    fixtures = ['test.json']
+
+    def run_command(self):
+        management.call_command('set_url_paths', interactive=False, stdout=StringIO())
+
+    def test_set_url_paths(self):
+        self.run_command()
+
+
 class TestReplaceTextCommand(TestCase):
     fixtures = ['test.json']
 

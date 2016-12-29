@@ -4,16 +4,17 @@
 #
 # Translators:
 # ajk, 2014
-# Eugene MechanisM <contact@mechanism.name>, 2014-2016
-# HNKNTA <hnknta@gmail.com>, 2014
+# Andrey Avdey <talkerbox@live.com>, 2016
+# Eugene MechanisM <eugene@mechanism.pro>, 2014-2016
+# Никита Викторович <hnknta@gmail.com>, 2014
 # Sergey Komarov <sjkomarov@gmail.com>, 2014
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-05-18 21:37+0000\n"
-"PO-Revision-Date: 2016-03-09 15:29+0000\n"
-"Last-Translator: Eugene MechanisM <contact@mechanism.name>\n"
+"POT-Creation-Date: 2016-12-06 22:44+0000\n"
+"PO-Revision-Date: 2016-08-01 13:33+0000\n"
+"Last-Translator: Andrey Avdey <talkerbox@live.com>\n"
 "Language-Team: Russian (http://www.transifex.com/torchbox/wagtail/language/"
 "ru/)\n"
 "MIME-Version: 1.0\n"
@@ -33,7 +34,7 @@ msgid "This value may contain only letters, numbers and @/./+/-/_ characters."
 msgstr "Это значение может содержать только буквы, цифры и @/./+/-/_ символы."
 
 msgid "A user with that username already exists."
-msgstr "Пользователь с таким именем пользователя уже существует. "
+msgstr "Пользователь с таким именем уже существует. "
 
 msgid "The two password fields didn't match."
 msgstr "Два поля с паролями не совпадают."
@@ -72,26 +73,26 @@ msgstr "Группа с таким названием уже существуе�
 
 msgid "You cannot have multiple permission records for the same page."
 msgstr ""
-"Вы не можете иметь несколько записей с правами доступа на одной и той же "
-"странице."
+"Вы не можете иметь несколько записей с правами доступа для одной и той же "
+"страницы."
 
 msgid "submitted notifications"
 msgstr "уведомления при добавлении"
 
 msgid "Receive notification when a page is submitted for moderation"
-msgstr "Принимать уведомление, когда страница отправлена на модерацию."
+msgstr "Принимать уведомление при отправке страницы на модерацию."
 
 msgid "approved notifications"
 msgstr "уведомления при утверждении"
 
 msgid "Receive notification when your page edit is approved"
-msgstr "Принимать уведомление, когда ваша редакция страницы одобрена."
+msgstr "Принимать уведомление при одобрении вашей редакции страницы."
 
 msgid "rejected notifications"
 msgstr "уведомления при отклонении"
 
 msgid "Receive notification when your page edit is rejected"
-msgstr "Принимать уведомление, когда ваша редакция страницы отклонена."
+msgstr "Принимать уведомление при отклонении вашей редакции страницы."
 
 msgid "user profile"
 msgstr "профиль пользователя"
@@ -105,14 +106,14 @@ msgid ""
 "assigned."
 msgstr ""
 "В группе '%(group_name)s' состоит <strong>%(group_user_count)s</strong> "
-"назначенных пользователей."
+"пользователей."
 
 msgid ""
 "Deleting this group will revoke this group's permissions from all member "
 "users."
 msgstr ""
-"Удаление этой группы приведет к удалению прав, которые давала эта группа "
-"всем ее участникам."
+"Удаление этой группы приведет к удалению прав, которые она давала всем ее "
+"участникам."
 
 msgid "Are you sure you want to delete this group?"
 msgstr "Вы уверены что хотите удалить эту группу?"
@@ -130,7 +131,7 @@ msgid "Save"
 msgstr "Сохранить"
 
 msgid "Object permissions"
-msgstr "Разрешения для объекта"
+msgstr "Разрешения на объекты"
 
 msgid "Name"
 msgstr "Имя"
@@ -148,13 +149,13 @@ msgid "Other permissions"
 msgstr "Другие разрешения"
 
 msgid "Page permissions"
-msgstr "Права у страницы"
+msgstr "Права на страницы"
 
 msgid "Page"
 msgstr "Страница"
 
 msgid "Add a page permission"
-msgstr "Добавить разрешения страницы"
+msgstr "Добавить права на страницу"
 
 msgid "groups"
 msgstr "группы"
@@ -169,6 +170,12 @@ msgid ""
 msgstr ""
 "Группы еще не созданы. Почему бы не <a href="
 "\"%(wagtailusers_create_group_url)s\">добавить</a>?"
+
+msgid "Delete user"
+msgstr "Удалить пользователя"
+
+msgid "Are you sure you want to delete this user?"
+msgstr "Вы уверены, что хотите удалить этого пользователя?"
 
 msgid "Add user"
 msgstr "Добавить пользователя"
@@ -195,7 +202,7 @@ msgid "Status"
 msgstr "Статус"
 
 msgid "Admin"
-msgstr "Админ"
+msgstr "Администратор"
 
 msgid "Active"
 msgstr "Активный"
@@ -228,7 +235,7 @@ msgstr[3] ""
 #, python-format
 msgid "Sorry, no users match \"<em>%(query_string)s</em>\""
 msgstr ""
-"Извините, подходящих пользователей не найдено \"<em>%(query_string)s</em>\""
+"Извините, пользователей, подходящих \"<em>%(query_string)s</em>\", не найдено"
 
 #, python-format
 msgid ""
@@ -246,7 +253,7 @@ msgid "Group '{0}' created."
 msgstr "Группа '{0}' создана."
 
 msgid "Edit"
-msgstr "Правка"
+msgstr "Править"
 
 msgid "The group could not be created due to errors."
 msgstr "Группа не может быть создана из-за ошибок."
@@ -279,5 +286,15 @@ msgstr "Пользователь '{0}' обновлен."
 msgid "The user could not be saved due to errors."
 msgstr "Пользователь но может быть сохранен из-за ошибок."
 
+#, python-brace-format
+msgid "User '{0}' deleted."
+msgstr "Пользователь '{0}' удалён."
+
 msgid "Groups"
 msgstr "Группы"
+
+msgid "Edit this user"
+msgstr "Редактировать этого пользователя"
+
+msgid "Delete this user"
+msgstr "Удалить этого пользователя"

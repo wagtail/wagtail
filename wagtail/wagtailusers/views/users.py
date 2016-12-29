@@ -13,9 +13,11 @@ from django.views.decorators.vary import vary_on_headers
 from wagtail.utils.pagination import paginate
 from wagtail.wagtailadmin import messages
 from wagtail.wagtailadmin.forms import SearchForm
-from wagtail.wagtailadmin.utils import any_permission_required, permission_required
+from wagtail.wagtailadmin.utils import (
+    any_permission_required, permission_denied, permission_required)
 from wagtail.wagtailcore.compat import AUTH_USER_APP_LABEL, AUTH_USER_MODEL_NAME
 from wagtail.wagtailusers.forms import UserCreationForm, UserEditForm
+from wagtail.wagtailusers.utils import user_can_delete_user
 
 User = get_user_model()
 
@@ -120,7 +122,7 @@ def index(request):
 @permission_required(add_user_perm)
 def create(request):
     if request.method == 'POST':
-        form = get_user_creation_form()(request.POST)
+        form = get_user_creation_form()(request.POST, request.FILES)
         if form.is_valid():
             user = form.save()
             messages.success(request, _("User '{0}' created.").format(user), buttons=[
@@ -140,8 +142,10 @@ def create(request):
 @permission_required(change_user_perm)
 def edit(request, user_id):
     user = get_object_or_404(User, pk=user_id)
+    can_delete = user_can_delete_user(request.user, user)
+
     if request.method == 'POST':
-        form = get_user_edit_form()(request.POST, instance=user)
+        form = get_user_edit_form()(request.POST, request.FILES, instance=user)
         if form.is_valid():
             user = form.save()
             messages.success(request, _("User '{0}' updated.").format(user), buttons=[
@@ -156,4 +160,22 @@ def edit(request, user_id):
     return render(request, 'wagtailusers/users/edit.html', {
         'user': user,
         'form': form,
+        'can_delete': can_delete,
+    })
+
+
+@permission_required(delete_user_perm)
+def delete(request, user_id):
+    user = get_object_or_404(User, pk=user_id)
+
+    if not user_can_delete_user(request.user, user):
+        return permission_denied(request)
+
+    if request.method == 'POST':
+        user.delete()
+        messages.success(request, _("User '{0}' deleted.").format(user))
+        return redirect('wagtailusers_users:index')
+
+    return render(request, "wagtailusers/users/confirm_delete.html", {
+        'user': user,
     })

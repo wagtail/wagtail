@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-05-18 21:37+0000\n"
-"PO-Revision-Date: 2016-05-11 20:33+0000\n"
+"POT-Creation-Date: 2016-12-06 22:44+0000\n"
+"PO-Revision-Date: 2016-12-06 22:46+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Indonesian (Indonesia) (http://www.transifex.com/torchbox/"
 "wagtail/language/id_ID/)\n"
@@ -35,9 +35,6 @@ msgstr[0] "Ini akan menyalin %(count)s subhalaman."
 
 msgid "Publish copied page"
 msgstr "Terbitkan halaman yang telah disalin"
-
-msgid "Public"
-msgstr "Publik"
 
 msgid "Account"
 msgstr "Akun"
@@ -183,6 +180,9 @@ msgstr "Anda dapat melihat halamannya disini:"
 msgid "The page \"%(title)s\" has been approved"
 msgstr "Halaman %(title)s telah disetujui"
 
+msgid "Public"
+msgstr "Publik"
+
 #, python-format
 msgid "Create a page in %(title)s"
 msgstr "Buat halaman di %(title)s"
@@ -214,9 +214,6 @@ msgid_plural ""
 msgstr[0] ""
 "\n"
 "Ini juga akan menghapus %(descendant_count)s subhalaman."
-
-msgid "Delete it"
-msgstr "Hapus"
 
 #, python-format
 msgid "Move %(title)s"

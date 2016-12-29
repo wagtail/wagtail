@@ -4,6 +4,7 @@ from django.contrib.auth.views import redirect_to_login as auth_redirect_to_logi
 from django.core.urlresolvers import reverse
 from django.utils.translation import ugettext as _
 
+from wagtail.utils.compat import user_is_anonymous
 from wagtail.wagtailadmin import messages
 
 
@@ -16,7 +17,7 @@ def require_admin_access(view_func):
     def decorated_view(request, *args, **kwargs):
         user = request.user
 
-        if user.is_anonymous():
+        if user_is_anonymous(user):
             return redirect_to_login(request)
 
         if user.has_perms(['wagtailadmin.access_admin']):

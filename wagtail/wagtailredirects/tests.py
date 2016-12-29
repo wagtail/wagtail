@@ -1,13 +1,14 @@
 from __future__ import absolute_import, unicode_literals
 
 from django.core.urlresolvers import reverse
-from django.test import TestCase
+from django.test import TestCase, override_settings
 
 from wagtail.tests.utils import WagtailTestUtils
 from wagtail.wagtailcore.models import Page, Site
 from wagtail.wagtailredirects import models
 
 
+@override_settings(ALLOWED_HOSTS=['testserver', 'localhost', 'test.example.com', 'other.example.com'])
 class TestRedirects(TestCase):
     fixtures = ['test.json']
 
@@ -75,6 +76,8 @@ class TestRedirects(TestCase):
         self.assertNotEqual(path, normalise_path(  # '.htm' is not the same as '.html'
             '/Hello/world.htm;fizz=three;buzz=five?foo=Bar&Baz=quux2'
         ))
+
+        self.assertEqual('/', normalise_path('/'))  # '/' should stay '/'
 
         # Normalise some rubbish to make sure it doesn't crash
         normalise_path('This is not a URL')

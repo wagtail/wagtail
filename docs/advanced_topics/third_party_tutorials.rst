@@ -6,6 +6,7 @@ Third-party tutorials
     The following list is a collection of tutorials and development notes from third-party developers.
     Some of the older links may not apply to the latest Wagtail versions.
 
+* `Wagtail: 2 Steps for Adding Pages Outside of the CMS <https://www.caktusgroup.com/blog/2016/02/15/wagtail-2-steps-adding-pages-outside-cms/>`_ (15 February 2016)
 * `Adding a Twitter Widget for Wagtail’s new StreamField <https://jossingram.wordpress.com/2015/04/02/adding-a-twitter-widget-for-wagtails-new-streamfield/>`_ (2 April 2015)
 * `Working With Wagtail: Menus <http://www.tivix.com/blog/working-with-wagtail-menus/>`_ (22 January 2015)
 * `Upgrading Wagtail to use Django 1.7 locally using vagrant <https://jossingram.wordpress.com/2014/12/10/upgrading-wagtail-to-use-django-1-7-locally-using-vagrant/>`_ (10 December 2014)

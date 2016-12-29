@@ -307,18 +307,8 @@
         }
       },
       _keys: function(event) {
-        var old, widget;
+        var widget;
         widget = event.data;
-        if (event.keyCode === 27) {
-          old = widget.getContents();
-          widget.restoreOriginalContent(event);
-          widget._trigger("restored", null, {
-            editable: widget,
-            content: widget.getContents(),
-            thrown: old
-          });
-          return widget.turnOff();
-        }
       },
       _rangesEqual: function(r1, r2) {
         if (r1.startContainer !== r2.startContainer) {

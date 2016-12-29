@@ -42,6 +42,15 @@ label,
     }
 }
 
+.plain-checkbox-label {
+    // cancel heavy / floated label styles, for labels that should appear inline against checkboxes
+
+    float: none;
+    color: inherit;
+    font-weight: inherit;
+    font-size: inherit;
+}
+
 input,
 textarea,
 select,
@@ -309,6 +318,8 @@ input[type=checkbox]:checked:before {
             text-align: center;
             background-color: rgba(0, 0, 0, 0.2);
             display: block;
+            border-top-left-radius: inherit;
+            border-bottom-left-radius: inherit;
         }
     }
 
@@ -474,7 +485,7 @@ input[type=checkbox]:checked:before {
 .button-small {
     padding: 0 0.8em;
     height: 2em;
-    font-size: 0.85em;
+    font-size: 0.95em;
 }
 
     .button-secondary {

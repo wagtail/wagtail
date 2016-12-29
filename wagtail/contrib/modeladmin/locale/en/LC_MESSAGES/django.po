@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-05-18 21:37+0000\n"
+"POT-Creation-Date: 2016-12-06 22:44+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -21,62 +21,62 @@ msgstr ""
 msgid "Parent page"
 msgstr ""
 
-#: helpers.py:255 views.py:722
+#: helpers.py:263 views.py:738
 #, python-format
 msgid "Add %s"
 msgstr ""
 
-#: helpers.py:257
+#: helpers.py:265
 #, python-format
 msgid "Add a new %s"
 msgstr ""
 
-#: helpers.py:265
+#: helpers.py:277
 msgid "Inspect"
 msgstr ""
 
-#: helpers.py:267
+#: helpers.py:279
 #, python-format
 msgid "Inspect this %s"
 msgstr ""
 
-#: helpers.py:275 views.py:155
+#: helpers.py:291 views.py:162
 msgid "Edit"
 msgstr ""
 
-#: helpers.py:277
+#: helpers.py:293
 #, python-format
 msgid "Edit this %s"
 msgstr ""
 
-#: helpers.py:285 templates/modeladmin/edit.html:15 views.py:748
+#: helpers.py:305 templates/modeladmin/edit.html:15 views.py:769
 msgid "Delete"
 msgstr ""
 
-#: helpers.py:287
+#: helpers.py:307
 #, python-format
 msgid "Delete this %s"
 msgstr ""
 
-#: helpers.py:321
+#: helpers.py:351
 msgid "Unpublish"
 msgstr ""
 
-#: helpers.py:323
+#: helpers.py:353
 #, python-format
 msgid "Unpublish this %s"
 msgstr ""
 
-#: helpers.py:331
+#: helpers.py:365
 msgid "Copy"
 msgstr ""
 
-#: helpers.py:333
+#: helpers.py:367
 #, python-format
 msgid "Copy this %s"
 msgstr ""
 
-#: options.py:59
+#: options.py:72
 msgid "image"
 msgstr ""
 
@@ -133,7 +133,7 @@ msgstr ""
 msgid " By %(filter_title)s "
 msgstr ""
 
-#: templates/modeladmin/includes/result_list.html:25
+#: templates/modeladmin/includes/result_list.html:23
 #, python-format
 msgid "Sorry, there are no %(name)s matching your search parameters."
 msgstr ""
@@ -182,74 +182,74 @@ msgstr ""
 msgid "Back to %(model_name)s list"
 msgstr ""
 
-#: templatetags/modeladmin_tags.py:116
+#: templatetags/modeladmin_tags.py:115
 msgid "Previous"
 msgstr ""
 
-#: templatetags/modeladmin_tags.py:129
+#: templatetags/modeladmin_tags.py:128
 msgid "Next"
 msgstr ""
 
-#: views.py:149
+#: views.py:156
 #, python-brace-format
 msgid "{model_name} '{instance}' created."
 msgstr ""
 
-#: views.py:160
+#: views.py:167
 #, python-format
 msgid "The %s could not be created due to errors."
 msgstr ""
 
-#: views.py:647
+#: views.py:660
 msgid "New"
 msgstr ""
 
-#: views.py:672
+#: views.py:685
 #, python-format
 msgid "Create new %s"
 msgstr ""
 
-#: views.py:682
+#: views.py:695
 msgid "Editing"
-msgstr ""
-
-#: views.py:696
-#, python-format
-msgid "Editing %s"
-msgstr ""
-
-#: views.py:699
-#, python-brace-format
-msgid "{model_name} '{instance}' updated."
 msgstr ""
 
 #: views.py:709
 #, python-format
+msgid "Editing %s"
+msgstr ""
+
+#: views.py:712
+#, python-brace-format
+msgid "{model_name} '{instance}' updated."
+msgstr ""
+
+#: views.py:725
+#, python-format
 msgid "The %s could not be saved due to errors."
 msgstr ""
 
-#: views.py:764
+#: views.py:785
 #, python-format
 msgid "Confirm deletion of %s"
 msgstr ""
 
-#: views.py:768
+#: views.py:789
 #, python-format
 msgid ""
 "Are you sure you want to delete this %s? If other things in your site are "
 "related to it, they may also be affected."
 msgstr ""
 
-#: views.py:784
+#: views.py:798
 #, python-brace-format
 msgid "{model} '{instance}' deleted."
 msgstr ""
 
-#: views.py:809
+#: views.py:825
 msgid "Inspecting"
 msgstr ""
 
-#: views.py:822
+#: views.py:838
 #, python-format
 msgid "Inspecting %s"
 msgstr ""

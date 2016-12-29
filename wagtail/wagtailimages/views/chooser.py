@@ -8,11 +8,11 @@ from django.shortcuts import get_object_or_404, render
 from wagtail.utils.pagination import paginate
 from wagtail.wagtailadmin.forms import SearchForm
 from wagtail.wagtailadmin.modal_workflow import render_modal_workflow
-from wagtail.wagtailadmin.utils import PermissionPolicyChecker
+from wagtail.wagtailadmin.utils import PermissionPolicyChecker, popular_tags_for_model
 from wagtail.wagtailcore.models import Collection
+from wagtail.wagtailimages import get_image_model
 from wagtail.wagtailimages.formats import get_image_format
 from wagtail.wagtailimages.forms import ImageInsertionForm, get_image_form
-from wagtail.wagtailimages.models import get_image_model
 from wagtail.wagtailimages.permissions import permission_policy
 from wagtail.wagtailsearch import index as search_index
 
@@ -98,7 +98,7 @@ def chooser(request):
         'is_searching': False,
         'query_string': q,
         'will_select_format': request.GET.get('select_format'),
-        'popular_tags': Image.popular_tags(),
+        'popular_tags': popular_tags_for_model(Image),
         'collections': collections,
     })
 
@@ -183,7 +183,9 @@ def chooser_select_format(request, image_id):
                 {'image_json': image_json}
             )
     else:
-        form = ImageInsertionForm(initial={'alt_text': image.default_alt_text})
+        initial = {'alt_text': image.default_alt_text}
+        initial.update(request.GET.dict())
+        form = ImageInsertionForm(initial=initial)
 
     return render_modal_workflow(
         request, 'wagtailimages/chooser/select_format.html', 'wagtailimages/chooser/select_format.js',

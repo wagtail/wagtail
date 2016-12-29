@@ -3,11 +3,13 @@ from __future__ import absolute_import, unicode_literals
 from django.contrib.auth import get_user_model
 from django.contrib.auth.models import Permission
 from django.core.urlresolvers import reverse
-from django.test import TestCase
+from django.test import TestCase, override_settings
 from django.utils.text import capfirst
 
 from wagtail.contrib.settings.registry import SettingMenuItem
-from wagtail.tests.testapp.models import FileUploadSetting, IconSetting, TestSetting
+from wagtail.contrib.settings.views import get_setting_edit_handler
+from wagtail.tests.testapp.models import (
+    FileUploadSetting, IconSetting, PanelSettings, TabbedSettings, TestSetting)
 from wagtail.tests.utils import WagtailTestUtils
 from wagtail.wagtailcore import hooks
 from wagtail.wagtailcore.models import Page, Site
@@ -127,6 +129,7 @@ class TestSettingEditView(BaseTestSettingView):
         self.assertEqual(setting.email, 'test@example.com')
 
 
+@override_settings(ALLOWED_HOSTS=['testserver', 'example.com', 'noneoftheabove.example.com'])
 class TestMultiSite(BaseTestSettingView):
     def setUp(self):
         self.default_site = Site.objects.get(is_default_site=True)
@@ -216,3 +219,32 @@ class TestAdminPermission(TestCase, WagtailTestUtils):
                 break
         else:
             self.fail('Change permission for tests.TestSetting not registered')
+
+
+class TestEditHandlers(TestCase):
+    def setUp(self):
+        get_setting_edit_handler.cache_clear()
+
+    def test_default_model_introspection(self):
+        handler = get_setting_edit_handler(TestSetting)
+        self.assertEqual(handler.__name__, '_ObjectList')
+        self.assertEqual(len(handler.children), 2)
+        first = handler.children[0]
+        self.assertEqual(first.__name__, '_FieldPanel')
+        self.assertEqual(first.field_name, 'title')
+        second = handler.children[1]
+        self.assertEqual(second.__name__, '_FieldPanel')
+        self.assertEqual(second.field_name, 'email')
+
+    def test_with_custom_panels(self):
+        handler = get_setting_edit_handler(PanelSettings)
+        self.assertEqual(handler.__name__, '_ObjectList')
+        self.assertEqual(len(handler.children), 1)
+        first = handler.children[0]
+        self.assertEqual(first.__name__, '_FieldPanel')
+        self.assertEqual(first.field_name, 'title')
+
+    def test_with_custom_edit_handler(self):
+        handler = get_setting_edit_handler(TabbedSettings)
+        self.assertEqual(handler.__name__, '_TabbedInterface')
+        self.assertEqual(len(handler.children), 2)

@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-05-18 21:37+0000\n"
-"PO-Revision-Date: 2016-05-25 12:21+0000\n"
+"POT-Creation-Date: 2016-12-06 22:44+0000\n"
+"PO-Revision-Date: 2016-10-04 09:28+0000\n"
 "Last-Translator: Arnar Tumi Þorsteinsson <arnartumi@gmail.com>\n"
 "Language-Team: Icelandic (Iceland) (http://www.transifex.com/torchbox/"
 "wagtail/language/is_IS/)\n"
@@ -18,6 +18,15 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: is_IS\n"
 "Plural-Forms: nplurals=2; plural=(n % 10 != 1 || n % 100 == 11);\n"
+
+msgid "{} submissions"
+msgstr "{} innsendingar"
+
+#, python-format
+msgid "There is another field with the label %s, please change one of them."
+msgstr ""
+"Það er annar reitur sem hefur merkinguna %s, vinsamlegast breyttu öðrum "
+"þeirra."
 
 msgid "Single line text"
 msgstr "Textastrengur"
@@ -91,12 +100,18 @@ msgstr ""
 msgid "help text"
 msgstr "hjálpartexti"
 
+msgid "Submission date"
+msgstr "Dagsetning innsendingar"
+
 msgid "to address"
 msgstr "til"
 
-msgid "Optional - form submissions will be emailed to this address"
+msgid ""
+"Optional - form submissions will be emailed to these addresses. Separate "
+"multiple addresses by comma."
 msgstr ""
-"Valfrjálst - upplýsingar úr innsendum formum verða send á þetta netfang"
+"Valfrjálst - upplýsingar úr innsendum formum verða send á þessi netföng. "
+"Aðskildu netföng með kommu."
 
 msgid "from address"
 msgstr "frá"
@@ -116,6 +131,12 @@ msgstr "Ertu viss um að þú viljir eyða þessari innsendingu?"
 
 msgid "Delete it"
 msgstr "Eyða"
+
+msgid "Total submissions"
+msgstr "Heildarfjöldi innsendinga"
+
+msgid "Latest submission"
+msgstr "Síðasta innsending"
 
 msgid "Forms"
 msgstr "Skráningarform"
@@ -146,9 +167,6 @@ msgstr "Titill"
 
 msgid "Origin"
 msgstr "Uppruni"
-
-msgid "Submission Date"
-msgstr "Dagsetning innsendingar"
 
 msgid "Actions"
 msgstr "Aðgerðir"

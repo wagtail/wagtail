@@ -23,16 +23,16 @@ Fields on related objects can now be indexed in Elasticsearch using the new ``in
 
 .. code-block:: python
 
-    class Book(models.Model, indexed.Indexed):
+    class Book(models.Model, index.Indexed):
         ...
 
         search_fields = [
-            indexed.SearchField('title'),
-            indexed.FilterField('published_date'),
+            index.SearchField('title'),
+            index.FilterField('published_date'),
 
-            indexed.RelatedFields('author', [
-                indexed.SearchField('name'),
-                indexed.FilterField('date_of_birth'),
+            index.RelatedFields('author', [
+                index.SearchField('name'),
+                index.FilterField('date_of_birth'),
             ]),
         ]
 

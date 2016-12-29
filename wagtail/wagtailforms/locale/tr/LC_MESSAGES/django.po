@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-05-18 21:37+0000\n"
-"PO-Revision-Date: 2016-05-11 20:34+0000\n"
+"POT-Creation-Date: 2016-12-06 22:44+0000\n"
+"PO-Revision-Date: 2016-09-22 15:05+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Turkish (http://www.transifex.com/torchbox/wagtail/language/"
 "tr/)\n"
@@ -92,9 +92,6 @@ msgstr "yardım metni"
 msgid "to address"
 msgstr "adrese"
 
-msgid "Optional - form submissions will be emailed to this address"
-msgstr "İsteğe bağlı - form gönderileri bu adrese gönderilecektir."
-
 msgid "from address"
 msgstr "adresinden"
 
@@ -136,11 +133,11 @@ msgstr "Başlık"
 msgid "Origin"
 msgstr "Başlangıç"
 
-msgid "Submission Date"
-msgstr "Gönderi Tarihi"
-
 msgid "Actions"
 msgstr "İşlemler"
+
+msgid "delete"
+msgstr "sil"
 
 msgid "No form pages have been created."
 msgstr "Oluşturulmuş form sayfası yok"

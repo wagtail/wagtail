@@ -1,9 +1,9 @@
-.. image:: https://api.travis-ci.org/torchbox/wagtail.svg?branch=master
-    :target: https://travis-ci.org/torchbox/wagtail
+.. image:: https://api.travis-ci.org/wagtail/wagtail.svg?branch=master
+    :target: https://travis-ci.org/wagtail/wagtail
 .. image:: https://img.shields.io/pypi/l/wagtail.svg
     :target: https://pypi.python.org/pypi/wagtail/
 .. image:: https://img.shields.io/pypi/v/wagtail.svg
-    :target: https://crate.io/packages/wagtail/
+    :target: https://pypi.python.org/pypi/wagtail/
 .. image:: https://coveralls.io/repos/torchbox/wagtail/badge.svg?branch=master
     :target: https://coveralls.io/r/torchbox/wagtail?branch=master
 
@@ -76,8 +76,6 @@ Contributing
 ~~~~~~~~~~~~
 If you're a Python or Django developer, fork the repo and get stuck in! We run a separate group for developers of Wagtail itself at https://groups.google.com/forum/#!forum/wagtail-developers (please note that this is not for support requests).
 
-You might like to start by reviewing the `coding guidelines <http://docs.wagtail.io/en/latest/contributing/developing.html#coding-guidelines>`_ and checking issues with the `Ready to develop <https://github.com/torchbox/wagtail/issues?q=is%3Aopen+is%3Aissue+label%3A%22Ready+to+develop%21%22>`_ label.
-
-Send us a particularly useful pull request and we'll post you a `t-shirt <https://twitter.com/WagtailCMS/status/432166799464210432/photo/1>`_.
+You might like to start by reviewing the `contributing guidelines <http://docs.wagtail.io/en/latest/contributing/index.html>`_ and checking issues with the `difficulty:Easy <https://github.com/wagtail/wagtail/labels/difficulty%3AEasy>`_ label.
 
 We also welcome translations for Wagtail's interface. Translation work should be submitted through `Transifex <https://www.transifex.com/projects/p/wagtail/>`_.

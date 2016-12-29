@@ -40,6 +40,8 @@ class ZuluSnippet(models.Model):
 
 class RegisterFunction(models.Model):
     pass
+
+
 register_snippet(RegisterFunction)
 
 
@@ -78,7 +80,7 @@ class FileUploadSnippet(models.Model):
 
 
 class RichTextSection(models.Model):
-    snippet = ParentalKey('MultiSectionRichTextSnippet', related_name='sections')
+    snippet = ParentalKey('MultiSectionRichTextSnippet', related_name='sections', on_delete=models.CASCADE)
     body = RichTextField()
 
     panels = [

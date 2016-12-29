@@ -3,16 +3,16 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# Jose Lourenco <jose@lourenco.ws>, 2014
+# Jose Lourenco <jose@lourenco.ws>, 2014,2016
 # Manuela Silva <inactive+h_manuela_rodsilva@transifex.com>, 2015
 # Tiago Henriques <trinosauro@gmail.com>, 2015-2016
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-05-18 21:37+0000\n"
-"PO-Revision-Date: 2016-05-11 20:34+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2016-12-06 22:44+0000\n"
+"PO-Revision-Date: 2016-10-14 13:48+0000\n"
+"Last-Translator: Tiago Henriques <trinosauro@gmail.com>\n"
 "Language-Team: Portuguese (Portugal) (http://www.transifex.com/torchbox/"
 "wagtail/language/pt_PT/)\n"
 "MIME-Version: 1.0\n"
@@ -20,6 +20,13 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: pt_PT\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "{} submissions"
+msgstr "{} envios"
+
+#, python-format
+msgid "There is another field with the label %s, please change one of them."
+msgstr "Existe outro campo com a etiqueta %s, por favor altere um deles."
 
 msgid "Single line text"
 msgstr "Texto de uma só linha"
@@ -93,13 +100,18 @@ msgstr ""
 msgid "help text"
 msgstr "texto de ajuda"
 
+msgid "Submission date"
+msgstr "Data de envio"
+
 msgid "to address"
 msgstr "endereço do destinatário"
 
-msgid "Optional - form submissions will be emailed to this address"
+msgid ""
+"Optional - form submissions will be emailed to these addresses. Separate "
+"multiple addresses by comma."
 msgstr ""
-"Opcional - os formulários recebidos serão enviados por e-mail para este "
-"endereço"
+"Opcional - os formulários submetidos serão enviados para os  endereços de "
+"email seguintes. Separe entre si com uma vírgula os endereços."
 
 msgid "from address"
 msgstr "endereço do remetente"
@@ -119,6 +131,12 @@ msgstr "Tem certeza que quer apagar este envio de formulário?"
 
 msgid "Delete it"
 msgstr "Apagar"
+
+msgid "Total submissions"
+msgstr "Total de envios"
+
+msgid "Latest submission"
+msgstr "Último envio"
 
 msgid "Forms"
 msgstr "Formulários"
@@ -150,11 +168,11 @@ msgstr "Título"
 msgid "Origin"
 msgstr "Origem"
 
-msgid "Submission Date"
-msgstr "Data de Envio"
-
 msgid "Actions"
 msgstr "Ações"
+
+msgid "delete"
+msgstr "apagar"
 
 msgid "No form pages have been created."
 msgstr "Não existem páginas de formulário."

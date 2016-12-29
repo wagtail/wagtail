@@ -10,9 +10,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-05-18 21:37+0000\n"
-"PO-Revision-Date: 2016-03-01 23:00+0000\n"
-"Last-Translator: mmiskiew <mmiskiew@gmail.com>\n"
+"POT-Creation-Date: 2016-12-06 22:44+0000\n"
+"PO-Revision-Date: 2016-12-06 22:47+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Polish (http://www.transifex.com/torchbox/wagtail/language/"
 "pl/)\n"
 "MIME-Version: 1.0\n"
@@ -21,6 +21,12 @@ msgstr ""
 "Language: pl\n"
 "Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
 "|| n%100>=20) ? 1 : 2);\n"
+
+msgid "Password"
+msgstr "Hasło"
+
+msgid "The password you have entered is not correct. Please try again."
+msgstr "Wprowadzone hasło nie jest prawidłowe. Proszę spróbować ponownie."
 
 msgid "hostname"
 msgstr "nazwa hosta"
@@ -244,3 +250,12 @@ msgstr "uprawnienia"
 
 msgid "group collection permission"
 msgstr "uprawnienia kolekcji grup"
+
+msgid "Password required"
+msgstr "Hasło jest wymagane"
+
+msgid "You need a password to access this page."
+msgstr "Musisz podać hasło aby uzyskać dostęp do tej strony."
+
+msgid "Continue"
+msgstr "Kontynuuj"

@@ -51,7 +51,6 @@ module.exports = function exports() {
       }),
       new webpack.optimize.CommonsChunkPlugin('common', COMMON_PATH, Infinity)
     ],
-    devtool: '#inline-source-map',
     module: {
       loaders: [
         {

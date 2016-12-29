@@ -9,16 +9,16 @@
 # Joaquín Tita <carpincho@gmail.com>, 2014
 # Yusuf (Josè) Luis <alagunajs@gmail.com>, 2015-2016
 # Matt Westcott <matthew@torchbox.com>, 2016
-# Mauricio Baeza <web@mauriciobaeza.net>, 2015
+# Mauricio Baeza <python@amigos.email>, 2015
 # Unai Zalakain <inactive+unaizalakain@transifex.com>, 2014
 # Yusuf (Josè) Luis <alagunajs@gmail.com>, 2016
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-05-18 21:37+0000\n"
-"PO-Revision-Date: 2016-05-25 07:36+0000\n"
-"Last-Translator: fooflare <amos.oviedo@gmail.com>\n"
+"POT-Creation-Date: 2016-12-06 22:44+0000\n"
+"PO-Revision-Date: 2016-12-09 17:30+0000\n"
+"Last-Translator: Yusuf (Josè) Luis <alagunajs@gmail.com>\n"
 "Language-Team: Spanish (http://www.transifex.com/torchbox/wagtail/language/"
 "es/)\n"
 "MIME-Version: 1.0\n"
@@ -125,14 +125,14 @@ msgid ""
 msgstr ""
 "Esta marca ya esta en uso dentro del contexto de su página padre \"%s\""
 
-msgid "Public"
-msgstr "Público"
-
-msgid "Private, accessible with the following password"
-msgstr "Privado, accessible con la siguiente contraseña"
+msgid "Visibility"
+msgstr "Visibilidad"
 
 msgid "This field is required."
 msgstr "Este campo es necesario."
+
+msgid "Please select at least one group."
+msgstr "Por favor seleccione al menos un grupo."
 
 msgid "This slug is already in use"
 msgstr "Este slug ya está en uso"
@@ -493,6 +493,9 @@ msgstr "Desbloqueada"
 msgid "Privacy"
 msgstr "Privacidad"
 
+msgid "Public"
+msgstr "Público"
+
 msgid "Private"
 msgstr "Privado"
 
@@ -537,18 +540,21 @@ msgstr[1] ""
 "más.\n"
 "                "
 
+msgid "Yes, delete it"
+msgstr "Si, elimínelo"
+
+msgid "No, don't delete it"
+msgstr "No, no eliminarlo"
+
+#, python-format
 msgid ""
-"Alternatively you can unpublish the page. This removes the page from public "
-"view and you can edit or publish it again later."
+"Alternatively you can <a href=\"%(unpublish_url)s\">unpublish the page</a>. "
+"This removes the page from public view and you can edit or publish it again "
+"later."
 msgstr ""
-"Otra opción es no publicar la página. Esto no permite que el público la vea "
-"y la puedes editar o volver a publicar más tarde."
-
-msgid "Delete it"
-msgstr "Elimínalo"
-
-msgid "Unpublish it"
-msgstr "No publicar"
+"Alternativamente puede<a href=\"%(unpublish_url)s\">despublicar la página</"
+"a>. Esto removerá la página de la vista pública y podrá editar o publicarla "
+"luego."
 
 #, python-format
 msgid "Move %(title)s"
@@ -577,13 +583,36 @@ msgid "Unpublish %(title)s"
 msgstr "No publicar %(title)s"
 
 msgid "Unpublish"
-msgstr "No publicar"
+msgstr "Despublicar"
 
 msgid "Are you sure you want to unpublish this page?"
 msgstr "Estás seguro de que no quieres publicar esta página?"
 
+#, python-format
+msgid ""
+"\n"
+"                    This page has one subpage. Unpublish this too\n"
+"                "
+msgid_plural ""
+"\n"
+"                    This page has %(live_descendant_count)s subpages. "
+"Unpublish these too\n"
+"                "
+msgstr[0] ""
+"\n"
+"                    Esta página tiene una subpágina. Despublíquela también\n"
+"                "
+msgstr[1] ""
+"\n"
+"                    Esta página tiene %(live_descendant_count)s subpáginas. "
+"Despublique estas también\n"
+"                "
+
 msgid "Yes, unpublish it"
 msgstr "Sí, no publicar"
+
+msgid "No, don't unpublish"
+msgstr "No, no despuclicar"
 
 msgid "Pages using"
 msgstr "Páginas usando"
@@ -909,6 +938,9 @@ msgstr[1] "Utilizado %(useage_count)s veces"
 msgid "Edit your account"
 msgstr "Editar tu cuenta"
 
+msgid "Account settings"
+msgstr "Configuraciones de cuenta"
+
 msgid "Log out"
 msgstr "Cerrar sesión"
 
@@ -928,9 +960,22 @@ msgstr ""
 "este software. Por favor <a href=\"http://browsehappy.com/\">actualiza tu "
 "navegador</a>."
 
-msgid "Javascript is required to use Wagtail, but it is currently disabled"
+msgid ""
+"\n"
+"            Javascript is required to use Wagtail, but it is currently "
+"disabled.<br />\n"
+"            Here are the <a href=\"http://www.enable-javascript.com/\" "
+"target=\"_blank\" rel=\"noopener\">instructions how to enable JavaScript in "
+"your web browser</a>.\n"
+"        "
 msgstr ""
-"Javascript es requerido para usar Wagtail, pero actualmente está desactivado."
+"\n"
+"            Se requiere Javascript para usar Wagtail, pero actualmente está "
+"deshabilitado.<br />\n"
+"            acá puede encontrar <a href=\"http://www.enable-javascript.com/"
+"\" target=\"_blank\" rel=\"noopener\">instrucciones sobre como habilitar "
+"JavaScript en su navegador web</a>.\n"
+"        "
 
 msgid "Go to Wagtail admin interface"
 msgstr "Ir a la interface de admin Wagtail"
@@ -1064,7 +1109,7 @@ msgstr "Página '{0}' eliminada."
 
 #, python-brace-format
 msgid "Page '{0}' unpublished."
-msgstr "Página '{0}' no publicada."
+msgstr "Página '{0}' despublicada."
 
 #, python-brace-format
 msgid "Page '{0}' moved."

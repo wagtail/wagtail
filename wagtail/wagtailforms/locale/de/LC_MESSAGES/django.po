@@ -12,8 +12,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-05-18 21:37+0000\n"
-"PO-Revision-Date: 2016-05-12 07:17+0000\n"
+"POT-Creation-Date: 2016-12-06 22:44+0000\n"
+"PO-Revision-Date: 2016-09-23 06:27+0000\n"
 "Last-Translator: Moritz Pfeiffer <moritz@alp-phone.ch>\n"
 "Language-Team: German (http://www.transifex.com/torchbox/wagtail/language/"
 "de/)\n"
@@ -22,6 +22,15 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: de\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "{} submissions"
+msgstr "{} Abgaben"
+
+#, python-format
+msgid "There is another field with the label %s, please change one of them."
+msgstr ""
+"Es gibt ein weiteres Feld mit der Bezeichnung %s, bitte ändern Sie eines der "
+"beiden."
 
 msgid "Single line text"
 msgstr "Einzeiliger Text"
@@ -94,11 +103,18 @@ msgstr ""
 msgid "help text"
 msgstr "Hilfetext"
 
+msgid "Submission date"
+msgstr "Einreichungsdatum"
+
 msgid "to address"
 msgstr "An-Adresse"
 
-msgid "Optional - form submissions will be emailed to this address"
-msgstr "Optional – eingereichte Formulare werden an diese Adresse geschickt"
+msgid ""
+"Optional - form submissions will be emailed to these addresses. Separate "
+"multiple addresses by comma."
+msgstr ""
+"Optional – eingereichte Formulare werden an diese Adresse geschickt. Trennen "
+"Sie mehrere Adressen mit einem Komma."
 
 msgid "from address"
 msgstr "Von-Adresse"
@@ -118,6 +134,12 @@ msgstr "Sind Sie sicher, dass Sie diese Formular-Eingabe löschen wollen?"
 
 msgid "Delete it"
 msgstr "Löschen"
+
+msgid "Total submissions"
+msgstr "Anzahl Abgaben"
+
+msgid "Latest submission"
+msgstr "Neueste Abgabe"
 
 msgid "Forms"
 msgstr "Formulare"
@@ -148,9 +170,6 @@ msgstr "Titel"
 
 msgid "Origin"
 msgstr "Ursprung"
-
-msgid "Submission Date"
-msgstr "Einreichungsdatum"
 
 msgid "Actions"
 msgstr "Aktionen"

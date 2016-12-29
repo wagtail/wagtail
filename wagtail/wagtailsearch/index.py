@@ -1,13 +1,14 @@
 from __future__ import absolute_import, unicode_literals
 
+import inspect
 import logging
 
 from django.apps import apps
+from django.core import checks
 from django.db import models
 from django.db.models.fields import FieldDoesNotExist
 from django.db.models.fields.related import ForeignObjectRel, OneToOneRel, RelatedField
 
-from wagtail.utils.deprecation import SearchFieldsShouldBeAList
 from wagtail.wagtailsearch.backends import get_search_backends_with_name
 
 
@@ -85,7 +86,35 @@ class Indexed(object):
         """
         return self
 
-    search_fields = SearchFieldsShouldBeAList([], name='search_fields on Indexed subclasses')
+    @classmethod
+    def _has_field(cls, name):
+        try:
+            cls._meta.get_field(name)
+            return True
+        except models.fields.FieldDoesNotExist:
+            return hasattr(cls, name)
+
+    @classmethod
+    def check(cls, **kwargs):
+        errors = super(Indexed, cls).check(**kwargs)
+        errors.extend(cls._check_search_fields(**kwargs))
+        return errors
+
+    @classmethod
+    def _check_search_fields(cls, **kwargs):
+        errors = []
+        for field in cls.get_search_fields():
+            message = "{model}.search_fields contains field '{name}' but it doesn't exist"
+            if not cls._has_field(field.field_name):
+                errors.append(
+                    checks.Warning(
+                        message.format(model=cls.__name__, name=field.field_name),
+                        obj=cls,
+                    )
+                )
+        return errors
+
+    search_fields = []
 
 
 def get_indexed_models():
@@ -136,8 +165,6 @@ def remove_object(instance):
 
 
 class BaseField(object):
-    suffix = ''
-
     def __init__(self, field_name, **kwargs):
         self.field_name = field_name
         self.kwargs = kwargs
@@ -152,8 +179,15 @@ class BaseField(object):
         except models.fields.FieldDoesNotExist:
             return self.field_name
 
-    def get_index_name(self, cls):
-        return self.get_attname(cls) + self.suffix
+    def get_definition_model(self, cls):
+        try:
+            field = self.get_field(cls)
+            return field.model
+        except models.fields.FieldDoesNotExist:
+            # Find where it was defined by walking the inheritance tree
+            for base_cls in inspect.getmro(cls):
+                if self.field_name in base_cls.__dict__:
+                    return base_cls
 
     def get_type(self, cls):
         if 'type' in self.kwargs:
@@ -190,7 +224,7 @@ class SearchField(BaseField):
 
 
 class FilterField(BaseField):
-    suffix = '_filter'
+    pass
 
 
 class RelatedFields(object):
@@ -198,11 +232,12 @@ class RelatedFields(object):
         self.field_name = field_name
         self.fields = fields
 
-    def get_index_name(self, cls):
-        return self.field_name
-
     def get_field(self, cls):
         return cls._meta.get_field(self.field_name)
+
+    def get_definition_model(self, cls):
+        field = self.get_field(cls)
+        return field.model
 
     def get_value(self, obj):
         field = self.get_field(obj.__class__)

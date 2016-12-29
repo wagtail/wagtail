@@ -6,14 +6,15 @@
 # Aarni Koskela, 2016
 # Eetu Häivälä <eetu.haivala@anders.fi>, 2016
 # Juha Yrjölä <juha.yrjola@iki.fi>, 2016
-# Rauli Laine <rauli.laine@iki.fi>, 2016
+# Niklas Jerva <niklas.jerva@gmail.com>, 2016
+# Rauli L. <rauli.laine@iki.fi>, 2016
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-05-18 21:37+0000\n"
-"PO-Revision-Date: 2016-05-12 12:22+0000\n"
-"Last-Translator: Aarni Koskela\n"
+"POT-Creation-Date: 2016-12-06 22:44+0000\n"
+"PO-Revision-Date: 2016-12-06 22:46+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Finnish (http://www.transifex.com/torchbox/wagtail/language/"
 "fi/)\n"
 "MIME-Version: 1.0\n"
@@ -54,7 +55,7 @@ msgstr "Syötä salasana"
 
 #, python-format
 msgid "Enter your %s"
-msgstr "Syötä %ssi"
+msgstr "Syötä %s"
 
 msgid "Enter your email address to reset your password"
 msgstr "Syötä sähköpostiosoitteesi palauttaaksesi salasanasi"
@@ -119,12 +120,6 @@ msgstr[1] ""
 msgid ""
 "This slug is already in use within the context of its parent page \"%s\""
 msgstr "Lyhytnimi on jo käytössä isäntäsivun \"%s\" alla"
-
-msgid "Public"
-msgstr "Julkinen"
-
-msgid "Private, accessible with the following password"
-msgstr "Yksityinen, pääsy salasanalla"
 
 msgid "This field is required."
 msgstr "Tämä kenttä on pakollinen."
@@ -481,6 +476,9 @@ msgstr "Ei lukittu"
 msgid "Privacy"
 msgstr "Yksityisyys"
 
+msgid "Public"
+msgstr "Julkinen"
+
 msgid "Private"
 msgstr "Yksityinen"
 
@@ -522,18 +520,21 @@ msgstr[1] ""
 "\n"
 "Tämä poistaa myös %(descendant_count)s alasivua."
 
+msgid "Yes, delete it"
+msgstr "Kyllä, poista"
+
+msgid "No, don't delete it"
+msgstr "Ei, älä poista"
+
+#, python-format
 msgid ""
-"Alternatively you can unpublish the page. This removes the page from public "
-"view and you can edit or publish it again later."
+"Alternatively you can <a href=\"%(unpublish_url)s\">unpublish the page</a>. "
+"This removes the page from public view and you can edit or publish it again "
+"later."
 msgstr ""
-"Vaihtoehtoisesti voit myös piilottaa sivun. Tämä poistaa sivun julkisesti "
-"näkyviltä jolloin voit muokata tai julkaista sen myöhemmin uudelleen."
-
-msgid "Delete it"
-msgstr "Poista se"
-
-msgid "Unpublish it"
-msgstr "Piilota se"
+"Voit myös <a href=\"%(unpublish_url)s\">perua sivun julkaisun</a>. Tämä "
+"poistaa sivun näkyvistä. Voit sitten muokata sitä ja julkistaa sen uudelleen "
+"myöhemmin."
 
 #, python-format
 msgid "Move %(title)s"
@@ -568,6 +569,9 @@ msgstr "Haluatko varmasti piilottaa tämän sivun?"
 
 msgid "Yes, unpublish it"
 msgstr "Kyllä, piilota"
+
+msgid "No, don't unpublish"
+msgstr "Ei, älä piilota"
 
 msgid "Pages using"
 msgstr "Käyttävät sivut"
@@ -776,6 +780,10 @@ msgstr "Versiot:"
 msgid "Revision date"
 msgstr "Version päivämäärä"
 
+msgctxt "points to a user who created a revision"
+msgid "by"
+msgstr "tekijä"
+
 msgid "Current draft"
 msgstr "Nykyinen luonnos"
 
@@ -906,11 +914,6 @@ msgid ""
 msgstr ""
 "Käytössäsi on <strong>vanhentunut</strong> selain jota tämä ohjelmisto ei "
 "tue. Ole hyvä ja <a href=\"http://browsehappy.com/\">päivitä selaimesi</a>."
-
-msgid "Javascript is required to use Wagtail, but it is currently disabled"
-msgstr ""
-"Javascriptin täytyy olla käytössä jotta Wagtailia voi käyttää, mutta se on "
-"tällä hetkellä kytketty pois käytöstä."
 
 msgid "Go to Wagtail admin interface"
 msgstr "Siirry Wagtailin hallintaan"

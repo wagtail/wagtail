@@ -147,6 +147,14 @@ class Block(six.with_metaclass(BaseBlock, object)):
     def value_from_datadict(self, data, files, prefix):
         raise NotImplementedError('%s.value_from_datadict' % self.__class__)
 
+    def value_omitted_from_data(self, data, files, name):
+        """
+        Used only for top-level blocks wrapped by BlockWidget (i.e.: typically only StreamBlock)
+        to inform ModelForm logic on Django >=1.10.2 whether the field is absent from the form
+        submission (and should therefore revert to the field default).
+        """
+        return name not in data
+
     def bind(self, value, prefix=None, errors=None):
         """
         Return a BoundBlock which represents the association of this block definition with a value
@@ -204,24 +212,34 @@ class Block(six.with_metaclass(BaseBlock, object)):
         return value
 
     def get_context(self, value):
+        """
+        Return a dict of context variables (derived from the block value, or otherwise)
+        to be added to the template context when rendering this value through a template.
+        """
         return {
             'self': value,
             self.TEMPLATE_VAR: value,
         }
 
-    def render(self, value):
+    def render(self, value, context=None):
         """
         Return a text rendering of 'value', suitable for display on templates. By default, this will
-        use a template if a 'template' property is specified on the block, and fall back on render_basic
-        otherwise.
+        use a template (with the passed context, supplemented by the result of get_context) if a
+        'template' property is specified on the block, and fall back on render_basic otherwise.
         """
         template = getattr(self.meta, 'template', None)
-        if template:
-            return render_to_string(template, self.get_context(value))
-        else:
-            return self.render_basic(value)
+        if not template:
+            return self.render_basic(value, context=context)
 
-    def render_basic(self, value):
+        if context is None:
+            new_context = self.get_context(value)
+        else:
+            new_context = dict(context)
+            new_context.update(self.get_context(value))
+
+        return mark_safe(render_to_string(template, new_context))
+
+    def render_basic(self, value, context=None):
         """
         Return a text rendering of 'value', suitable for display on templates. render() will fall back on
         this if the block does not define a 'template' property.
@@ -288,6 +306,15 @@ class Block(six.with_metaclass(BaseBlock, object)):
         when the given field prefix is in use. Return None if no 'for' attribute should be used.
         """
         return None
+
+    @property
+    def required(self):
+        """
+        Flag used to determine whether labels for this block should display a 'required' asterisk.
+        False by default, since Block does not provide any validation of its own - it's up to subclasses
+        to define what required-ness means.
+        """
+        return False
 
     def deconstruct(self):
         # adapted from django.utils.deconstruct.deconstructible
@@ -387,8 +414,18 @@ class BoundBlock(object):
     def render_form(self):
         return self.block.render_form(self.value, self.prefix, errors=self.errors)
 
-    def render(self):
-        return self.block.render(self.value)
+    def render(self, context=None):
+        return self.block.render(self.value, context=context)
+
+    def render_as_block(self, context=None):
+        """
+        Alias for render; the include_block tag will specifically check for the presence of a method
+        with this name. (This is because {% include_block %} is just as likely to be invoked on a bare
+        value as a BoundBlock. If we looked for a `render` method instead, we'd run the risk of finding
+        an unrelated method that just happened to have that name - for example, when called on a
+        PageChooserBlock it could end up calling page.render.
+        """
+        return self.block.render(self.value, context=context)
 
     def id_for_label(self):
         return self.block.id_for_label(self.prefix)
@@ -441,6 +478,12 @@ class DeclarativeSubBlocksMetaclass(BaseBlock):
 
 class BlockWidget(forms.Widget):
     """Wraps a block object as a widget so that it can be incorporated into a Django form"""
+
+    # Flag used by Django 1.10.1 (only) to indicate that this widget will not necessarily submit
+    # a postdata item with a name that matches the field name -
+    # see https://github.com/django/django/pull/7068, https://github.com/wagtail/wagtail/issues/2994
+    dont_use_model_field_default_for_empty_data = True
+
     def __init__(self, block_def, attrs=None):
         super(BlockWidget, self).__init__(attrs=attrs)
         self.block_def = block_def
@@ -470,6 +513,9 @@ class BlockWidget(forms.Widget):
 
     def value_from_datadict(self, data, files, name):
         return self.block_def.value_from_datadict(data, files, name)
+
+    def value_omitted_from_data(self, data, files, name):
+        return self.block_def.value_omitted_from_data(data, files, name)
 
 
 class BlockField(forms.Field):

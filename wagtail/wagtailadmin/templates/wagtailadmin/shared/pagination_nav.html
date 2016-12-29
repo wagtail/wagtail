@@ -1,4 +1,5 @@
 {% load i18n %}
+{% load wagtailadmin_tags %}
 {% if not is_ajax %}
     {% comment %}
         HACK: This template expects to be passed a 'linkurl' parameter, containing a URL name
@@ -8,9 +9,15 @@
         of the form "?q=123", implicitly preserving the current URL path.
         Using the {% url ... as ... %} form of the tag ensures that this fails silently,
         rather than throwing a NoReverseMatch exception.
+
+        If 'linkurl' is not passed, it will instead preserve the current URL and parameters,
+        just replacing the 'p' parameter.
     {% endcomment %}
-    {% url linkurl as url_to_use %}
+    {% if linkurl %}
+      {% url linkurl as url_to_use %}
+    {% endif %}
 {% endif %}
+
 <div class="pagination">
     <p>{% blocktrans with page_num=items.number total_pages=items.paginator.num_pages %}Page {{ page_num }} of {{ total_pages }}.{% endblocktrans %}</p>
     <ul>
@@ -20,6 +27,8 @@
                     <a href="#" data-page="{{ items.previous_page_number }}" class="icon icon-arrow-left">{% trans 'Previous' %}</a>
                 {% elif is_searching %}
                     <a href="{{ url_to_use }}?q={{ query_string|urlencode }}&amp;p={{ items.previous_page_number }}" class="icon icon-arrow-left">{% trans 'Previous' %}</a>
+                {% elif not linkurl %}
+                    <a href="?{% replace_page_param request.META.QUERY_STRING items.previous_page_number %}" class="icon icon-arrow-left">{% trans 'Previous' %}</a>
                 {% else %}
                     <a href="{{ url_to_use }}?p={{ items.previous_page_number }}&amp;ordering={{ ordering }}" class="icon icon-arrow-left">{% trans 'Previous' %}</a>
                 {% endif %}
@@ -31,6 +40,8 @@
                     <a href="#" data-page="{{ items.next_page_number }}" class="icon icon-arrow-right-after">{% trans 'Next' %}</a>
                 {% elif is_searching %}
                     <a href="{{ url_to_use }}?q={{ query_string|urlencode }}&amp;p={{ items.next_page_number }}" class="icon icon-arrow-right-after">{% trans 'Next' %}</a>
+                {% elif not linkurl %}
+                    <a href="?{% replace_page_param request.META.QUERY_STRING items.next_page_number %}" class="icon icon-arrow-right-after">{% trans 'Next' %}</a>
                 {% else %}
                     <a href="{{ url_to_use }}?p={{ items.next_page_number }}&amp;ordering={{ ordering }}" class="icon icon-arrow-right-after">{% trans 'Next' %}</a>
                 {% endif %}

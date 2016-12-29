@@ -1,0 +1,16 @@
+===========================
+Wagtail 1.6.2 release notes
+===========================
+
+.. contents::
+    :local:
+    :depth: 1
+
+
+What's changed
+==============
+
+Bug fixes
+~~~~~~~~~
+
+* Initial values of checkboxes on group permission edit form now are visible on Django 1.10 (Matt Westcott)

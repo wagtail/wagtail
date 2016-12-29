@@ -29,7 +29,7 @@ Basic text fields have no formatting options. How these display will be determin
 Rich text fields
 ================
 
-Most of the time though, you need formatting options to create beautiful looking pages. So some fields, like the fields in the 'Paragraph block' shown in the screenshot, have many of the options you would expect from a word processor. These are referred to as rich text fields. 
+Most of the time though, you need formatting options to create beautiful looking pages. So some fields, like the fields in the 'Paragraph block' shown in the screenshot, have many of the options you would expect from a word processor. These are referred to as rich text fields.
 
 So, when you click into one of these fields, you will be presented with a set of tools which allow you to format and style your text. These tools also allow you to insert links, images, videos clips and links to documents.
 
@@ -84,4 +84,4 @@ Reordering and deleting content in StreamField
 * Click the rubbish bin on the far right to delete a field
 
 .. Warning::
-	Once a StreamField field is deleted it cannot be retrieved if the page has not been saved. Save your pages regularly so that if you acidentally delete a field you can reload the page to undo your latest edit.
+    Once a StreamField field is deleted it cannot be retrieved if the page has not been saved. Save your pages regularly so that if you accidentally delete a field you can reload the page to undo your latest edit.

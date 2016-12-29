@@ -7,13 +7,14 @@
 # serafeim <serafeim@torchbox.com>, 2014
 # serafeim <serafeim@torchbox.com>, 2014
 # Wasilis Mandratzis-Walz, 2015
+# Yiannis Inglessis <negletios@users.noreply.github.com>, 2016
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-05-18 21:37+0000\n"
-"PO-Revision-Date: 2016-05-18 21:51+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2016-12-06 22:44+0000\n"
+"PO-Revision-Date: 2016-09-20 12:43+0000\n"
+"Last-Translator: Yiannis Inglessis <negletios@users.noreply.github.com>\n"
 "Language-Team: Greek (http://www.transifex.com/torchbox/wagtail/language/"
 "el/)\n"
 "MIME-Version: 1.0\n"
@@ -24,6 +25,25 @@ msgstr ""
 
 msgid "Choose"
 msgstr "Επιλογή"
+
+msgid "Search"
+msgstr "Αναζήτηση"
+
+#, python-format
+msgid ""
+"\n"
+"            There is one match\n"
+"        "
+msgid_plural ""
+"\n"
+"            There are %(counter)s matches\n"
+"        "
+msgstr[0] ""
+"\n"
+"Υπάρχει ένα αποτέλεσμα"
+msgstr[1] ""
+"\n"
+"Υπάρχουν %(counter)s αποτελέσματα"
 
 #, python-format
 msgid ""
@@ -54,6 +74,9 @@ msgstr "Δημιουργία %(snippet_type_name)s"
 
 msgid "New"
 msgstr "Δημιουργία"
+
+msgid "Saving..."
+msgstr "Αποθήκευση..."
 
 msgid "Save"
 msgstr "Αποθήκευση"

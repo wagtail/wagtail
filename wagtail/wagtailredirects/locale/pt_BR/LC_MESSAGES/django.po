@@ -6,15 +6,16 @@
 # Thiago Cangussu <cng.thg@gmail.com>, 2014
 # Claudemiro Alves Feitosa Neto <dimiro1@gmail.com>, 2015
 # Gladson <gladsonbrito@gmail.com>, 2014
+# Guilherme Nabanete <neoheartz@gmail.com>, 2016
 # João Luiz Lorencetti <me@dirtycoder.net>, 2016
 # Thiago Cangussu <cangussu.thg@gmail.com>, 2014
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-05-18 21:37+0000\n"
-"PO-Revision-Date: 2016-04-22 16:42+0000\n"
-"Last-Translator: João Luiz Lorencetti <me@dirtycoder.net>\n"
+"POT-Creation-Date: 2016-12-06 22:44+0000\n"
+"PO-Revision-Date: 2016-08-10 03:17+0000\n"
+"Last-Translator: Guilherme Nabanete <neoheartz@gmail.com>\n"
 "Language-Team: Portuguese (Brazil) (http://www.transifex.com/torchbox/"
 "wagtail/language/pt_BR/)\n"
 "MIME-Version: 1.0\n"
@@ -54,6 +55,9 @@ msgstr "redirecionar para uma página"
 
 msgid "redirect to any URL"
 msgstr "redirecionar para qualquer URL"
+
+msgid "temporary"
+msgstr "temporário"
 
 msgid "redirect"
 msgstr "redirecionamento"
@@ -104,9 +108,6 @@ msgstr "Tipo"
 
 msgid "Edit this redirect"
 msgstr "Edite esse redirecionamento"
-
-msgid "primary"
-msgstr "primário"
 
 #, python-format
 msgid ""

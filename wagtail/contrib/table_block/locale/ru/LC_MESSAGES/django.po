@@ -3,14 +3,15 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# Andrey Avdey <talkerbox@live.com>, 2016
 # Mikalai Radchuk <radchuk.m@gmail.com>, 2016
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-05-18 21:37+0000\n"
-"PO-Revision-Date: 2016-05-26 14:17+0000\n"
-"Last-Translator: Mikalai Radchuk <radchuk.m@gmail.com>\n"
+"POT-Creation-Date: 2016-12-06 22:44+0000\n"
+"PO-Revision-Date: 2016-07-03 13:12+0000\n"
+"Last-Translator: Andrey Avdey <talkerbox@live.com>\n"
 "Language-Team: Russian (http://www.transifex.com/torchbox/wagtail/language/"
 "ru/)\n"
 "MIME-Version: 1.0\n"
@@ -22,13 +23,13 @@ msgstr ""
 "%100>=11 && n%100<=14)? 2 : 3);\n"
 
 msgid "Row header"
-msgstr "Заголовок ряда"
+msgstr "Заголовок строки"
 
 msgid "Display the first row as a header."
-msgstr "Отображать первый ряд как заголовок"
+msgstr "Отображать первую строку как заголовок"
 
 msgid "Column header"
-msgstr "Заголовок колонки"
+msgstr "Заголовок столбца"
 
 msgid "Display the first column as a header."
-msgstr "Отображать первую колонку как заголовок"
+msgstr "Отображать первый столбец как заголовок"

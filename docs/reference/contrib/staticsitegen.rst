@@ -1,20 +1,20 @@
 Static site generator
 =====================
 
+.. warning::
+
+    django-medusa is no longer maintained, and is incompatible with Django 1.8 and above; the information below is retained for historical reference only. An alternative module based on the `django-bakery`_ package is available as a third-party contribution: https://github.com/mhnbcu/wagtailbakery
+
 This document describes how to render your Wagtail site into static HTML files on your local file system, Amazon S3 or Google App Engine, using `django medusa`_ and the ``wagtail.contrib.wagtailmedusa`` module.
-
-.. note::
-
-    An alternative module based on the `django-bakery`_ package is available as a third-party contribution: https://github.com/mhnbcu/wagtailbakery
 
 Installing ``django-medusa``
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 First, install ``django-medusa`` and ``django-sendfile`` from pip:
 
-.. code-block:: sh
+.. code-block:: console
 
-    pip install django-medusa django-sendfile
+    $ pip install django-medusa django-sendfile
 
 Then add ``django_medusa`` and ``wagtail.contrib.wagtailmedusa`` to ``INSTALLED_APPS``:
 
