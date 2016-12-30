@@ -197,6 +197,7 @@ Contributors
 * Mihail Russu
 * Robert Slotboom
 * Erick M'bwana
+* Andreas Nüßlein
 
 Translators
 ===========
