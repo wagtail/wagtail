@@ -55,6 +55,10 @@ function initTagField(id, autocompleteUrl) {
 
 var dirtyFormCheckIsActive = true;
 
+// Some browsers (webkit) don't handle explicitOriginalTarget, so emulate it. 
+window.lastClickedIgnoredTrigger = false;
+
+
 function enableDirtyFormCheck(formSelector, options) {
     var $form = $(formSelector);
     var $ignoredButtons = $form.find(
@@ -63,14 +67,22 @@ function enableDirtyFormCheck(formSelector, options) {
     var confirmationMessage = options.confirmationMessage || ' ';
     var alwaysDirty = options.alwaysDirty || false;
     var initialData = $form.serialize();
+    
+    $ignoredButtons.each(function() {
+        var $el = $(this);
 
+        $el.on('click', function(e) {
+            window.lastClickedIgnoredTrigger = this;
+        })
+    });
+    
     window.addEventListener('beforeunload', function(event) {
         // Ignore if the user clicked on an ignored element
         var triggeredByIgnoredButton = false;
         var $trigger = $(event.explicitOriginalTarget || document.activeElement);
 
         $ignoredButtons.each(function() {
-            if ($(this).is($trigger)) {
+            if ($(this).is($trigger) || this === window.lastClickedIgnoredTrigger) {
                 triggeredByIgnoredButton = true;
             }
         });
