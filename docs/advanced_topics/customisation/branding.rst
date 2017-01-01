@@ -3,14 +3,16 @@
 Custom branding
 ===============
 
-In your projects with Wagtail, you may wish to replace elements such as the Wagtail logo within the admin interface with your own branding. This can be done through Django's template inheritance mechanism, along with the `django-overextends <https://github.com/stephenmcd/django-overextends>`_ package.
+In your projects with Wagtail, you may wish to replace elements such as the Wagtail logo within the admin interface with your own branding. This can be done through Django's template inheritance mechanism.
 
-Install ``django-overextends`` with ``pip install django-overextends`` (or add ``django-overextends`` to your project's requirements file), and add ``'overextends'`` to your project's ``INSTALLED_APPS``. You now need to create a ``templates/wagtailadmin/`` folder within one of your apps - this may be an existing one, or a new one created for this purpose, for example, ``dashboard``. This app must be registered in ``INSTALLED_APPS`` before ``wagtail.wagtailadmin``::
+.. note::
+   Using ``{% extends %}`` in this way on a template you're currently overriding is only supported in Django 1.9 and above. On Django 1.8, you will need to use `django-overextends <https://github.com/stephenmcd/django-overextends>`_ instead.
+
+You need to create a ``templates/wagtailadmin/`` folder within one of your apps - this may be an existing one, or a new one created for this purpose, for example, ``dashboard``. This app must be registered in ``INSTALLED_APPS`` before ``wagtail.wagtailadmin``::
 
     INSTALLED_APPS = (
         # ...
 
-        'overextends',
         'dashboard',
       
         'wagtail.wagtailcore',
@@ -19,18 +21,6 @@ Install ``django-overextends`` with ``pip install django-overextends`` (or add `
         # ...
     )
 
-    # For Django 1.9+ you must also add overextends to the builtins key of your TEMPLATES setting:
-    TEMPLATES = [
-        {
-            'BACKEND': 'django.template.backends.django.DjangoTemplates',
-            'APP_DIRS': True,
-            'OPTIONS': {
-                # ...
-                'builtins': ['overextends.templatetags.overextends_tags'],
-            }
-        },
-    ]
-
 The template blocks that are available to be overridden are as follows:
 
 ``branding_logo``
@@ -38,7 +28,7 @@ The template blocks that are available to be overridden are as follows:
 
 To replace the default logo, create a template file ``dashboard/templates/wagtailadmin/base.html`` that overrides the block ``branding_logo``::
 
-    {% overextends "wagtailadmin/base.html" %}
+    {% extends "wagtailadmin/base.html" %}
     {% load staticfiles %}
     
     {% block branding_logo %}
@@ -50,7 +40,7 @@ To replace the default logo, create a template file ``dashboard/templates/wagtai
 
 To replace the favicon displayed when viewing admin pages, create a template file ``dashboard/templates/wagtailadmin/admin_base.html`` that overrides the block ``branding_favicon``::
 
-    {% overextends "wagtailadmin/admin_base.html" %}
+    {% extends "wagtailadmin/admin_base.html" %}
     {% load staticfiles %}
 
     {% block branding_favicon %}
@@ -62,7 +52,7 @@ To replace the favicon displayed when viewing admin pages, create a template fil
 
 To replace the login message, create a template file ``dashboard/templates/wagtailadmin/login.html`` that overrides the block ``branding_login``::
 
-    {% overextends "wagtailadmin/login.html" %}
+    {% extends "wagtailadmin/login.html" %}
 
     {% block branding_login %}Sign in to Frank's Site{% endblock %}
 
@@ -71,6 +61,6 @@ To replace the login message, create a template file ``dashboard/templates/wagta
 
 To replace the welcome message on the dashboard, create a template file ``dashboard/templates/wagtailadmin/home.html`` that overrides the block ``branding_welcome``::
 
-    {% overextends "wagtailadmin/home.html" %}
+    {% extends "wagtailadmin/home.html" %}
 
     {% block branding_welcome %}Welcome to Frank's Site{% endblock %}
