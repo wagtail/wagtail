@@ -8,7 +8,7 @@ Issues
 
 An issue must always correspond to a specific action with a well-defined completion state: fixing a bug, adding a new feature, updating documentation, cleaning up code. Open-ended issues where the end result is not immediately clear ("come up with a way of doing translations") are fine, as long as there's a clear way to progress the issue and identify when it has been completed (not e.g. "make rich text fields suck less").
 
-Do not use issues for support queries or other questions ("How do I do X?" - although "Implement a way of doing X" or "Document how to do X" could well be valid issues). These should go on the `Wagtail Support Google group <https://groups.google.com/forum/#!forum/wagtail>`_.
+Do not use issues for support queries or other questions ("How do I do X?" - although "Implement a way of doing X" or "Document how to do X" could well be valid issues). These should be asked on `Stack Overflow <http://stackoverflow.com/questions/tagged/wagtail>`_, or for discussions that do not fit Stack Overflow's question-and-answer format, the `Wagtail Support Google group <https://groups.google.com/forum/#!forum/wagtail>`_.
 
 As soon as a ticket is opened - ideally within one day - a member of the core team will give it an initial classification, by either closing it as invalid or assigning it to a milestone. Don't be discouraged if you feel that your ticket has been given a lower priority than it deserves - this decision isn't permanent. We will consider all feedback, and reassign or reopen tickets where appropriate.
 
