@@ -15,7 +15,23 @@ If you'd prefer to set up all the components manually, read on. These instructio
 Setting up the Wagtail codebase
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Install Node.js, v5.3.0 or higher. Instructions for installing Node.js can be found on the `Node.js download page <https://nodejs.org/download/>`_. You will also need to install the **libjpeg** and **zlib** libraries, if you haven't done so already - see Pillow's `platform-specific installation instructions <http://pillow.readthedocs.org/en/latest/installation.html#external-libraries>`_.
+This project requires Node.js version 5.3.0. To manage the correct version, Node Version Manager (NVM) can be used.
+
+`Go to the NVM Github page for installation instructions <https://github.com/creationix/nvm>`_.
+
+To download, compile, and install the latest v5.3.0 release of node, do this:
+
+.. code-block:: sh
+
+    nvm install
+
+And then in any new shell just use the installed version:
+
+.. code-block:: sh
+
+    nvm use
+
+You will also need to install the **libjpeg** and **zlib** libraries, if you haven't done so already - see Pillow's `platform-specific installation instructions <http://pillow.readthedocs.org/en/latest/installation.html#external-libraries>`_.
 
 Clone a copy of `the Wagtail codebase <https://github.com/wagtail/wagtail>`_:
 

@@ -9,6 +9,9 @@
       "browserify-shim"
     ]
   },
+  "engines": {
+    "node": "5.3.0"
+  },
   "browserify-shim": {},
   "devDependencies": {
     "babel-cli": "^6.5.1",
