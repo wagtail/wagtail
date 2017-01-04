@@ -208,9 +208,6 @@ A dropdown select box for choosing from a list of choices. The following keyword
 ``choices``
   A list of choices, in any format accepted by Django's ``choices`` parameter for model fields (https://docs.djangoproject.com/en/stable/ref/models/fields/#field-choices), or a callable returning such a list.
 
-``default`` (default: None)
-  The choice that will initially be selected.
-
 ``required`` (default: True)
   If true, the field cannot be left blank.
 
