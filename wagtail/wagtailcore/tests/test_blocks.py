@@ -426,6 +426,15 @@ class TestChoiceBlock(unittest.TestCase):
         self.assertIn('<option value="tea">Tea</option>', html)
         self.assertIn('<option value="coffee" selected="selected">Coffee</option>', html)
 
+    def test_render_required_choice_block_with_default(self):
+        block = blocks.ChoiceBlock(choices=[('tea', 'Tea'), ('coffee', 'Coffee')], default='tea')
+        html = block.render_form('coffee', prefix='beverage')
+        self.assertIn('<select id="beverage" name="beverage" placeholder="">', html)
+        # blank option should NOT be rendered if default and required are set.
+        self.assertNotIn('<option value="">%s</option>' % self.blank_choice_dash_label, html)
+        self.assertIn('<option value="tea">Tea</option>', html)
+        self.assertIn('<option value="coffee" selected="selected">Coffee</option>', html)
+
     def test_render_required_choice_block_with_callable_choices(self):
         def callable_choices():
             return [('tea', 'Tea'), ('coffee', 'Coffee')]
