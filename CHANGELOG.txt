@@ -6,6 +6,7 @@ Changelog
 
  * View live / draft links in the admin now consistently open in a new window (Marco Fucci)
  * `ChoiceBlock` now omits the blank option if the block is required and has a default value (Andreas Nüßlein)
+ * Fix: Help text for StreamField is now visible and does not cover block controls (Stein Strindhaug)
 
 
 1.8 (15.12.2016)

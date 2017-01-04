@@ -22,7 +22,7 @@ Minor features
 Bug fixes
 ~~~~~~~~~
 
-
+* Help text for StreamField is now visible and does not cover block controls (Stein Strindhaug)
 
 
 Upgrade considerations
