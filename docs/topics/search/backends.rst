@@ -134,18 +134,17 @@ Other than ``BACKEND``, the keys are optional and default to the values shown. A
           ...,
           'INDEX_SETTINGS': {
               'settings': {
-                  'number_of_shards': 2,
-                      'index': {
-                          'analysis': {
-                              'analyzer': {
-                                  'default': {
-                                      'type': 'italian'
-                                  }
+                  'index': {
+                      'number_of_shards': 1,
+                      'analysis': {
+                          'analyzer': {
+                              'default': {
+                                  'type': 'italian'
                               }
                           }
                       }
                   }
-              },
+              }
           }
       }
 
