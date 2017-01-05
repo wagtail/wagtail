@@ -37,7 +37,7 @@
                     {% endif %}
                 </td>
                 <td><a href="{{ doc.url }}" class="nolink" download>{{ doc.filename }}</a></td>
-                <td><div class="human-readable-date" title="{{ doc.created_at|date:"d M Y H:i" }}">{{ doc.created_at|timesince }} ago</div></td>
+                <td><div class="human-readable-date" title="{{ doc.created_at|date:"d M Y H:i" }}">{{ doc.created_at|timesince }} {% trans 'ago' %}</div></td>
             </tr>
         {% endfor %}
     </tbody>
