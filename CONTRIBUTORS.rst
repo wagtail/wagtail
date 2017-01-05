@@ -199,6 +199,7 @@ Contributors
 * Erick M'bwana
 * Andreas Nüßlein
 * John Heasly
+* Nikolai Røed Kristiansen
 
 Translators
 ===========
