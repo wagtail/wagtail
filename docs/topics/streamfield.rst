@@ -467,6 +467,8 @@ StreamField provides an HTML representation for the stream content as a whole, a
 
     {% load wagtailcore_tags %}
 
+     ...
+
     {% include_block page.body %}
 
 
@@ -475,6 +477,8 @@ In the default rendering, each block of the stream is wrapped in a ``<div class=
 .. code-block:: html+django
 
     {% load wagtailcore_tags %}
+
+     ...
 
     <article>
         {% for block in page.body %}
@@ -488,6 +492,8 @@ For more control over the rendering of specific block types, each block object p
 .. code-block:: html+django
 
     {% load wagtailcore_tags %}
+
+     ...
 
     <article>
         {% for block in page.body %}

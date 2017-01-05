@@ -198,6 +198,7 @@ Contributors
 * Robert Slotboom
 * Erick M'bwana
 * Andreas Nüßlein
+* John Heasly
 
 Translators
 ===========
