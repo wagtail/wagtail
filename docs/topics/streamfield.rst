@@ -467,6 +467,8 @@ StreamField provides an HTML representation for the stream content as a whole, a
 
     {% load wagtailcore_tags %}
 
+     ...
+
     {% include_block page.body %}
 
 
@@ -475,6 +477,8 @@ In the default rendering, each block of the stream is wrapped in a ``<div class=
 .. code-block:: html+django
 
     {% load wagtailcore_tags %}
+
+     ...
 
     <article>
         {% for block in page.body %}
@@ -488,6 +492,8 @@ For more control over the rendering of specific block types, each block object p
 .. code-block:: html+django
 
     {% load wagtailcore_tags %}
+
+     ...
 
     <article>
         {% for block in page.body %}
@@ -539,6 +545,8 @@ Within the template, the block value is accessible as the variable ``value``:
 
     {% load wagtailimages_tags %}
 
+    ...
+
     <div class="person">
         {% image value.photo width-400 %}
         <h2>{{ value.first_name }} {{ value.surname }}</h2>
@@ -551,6 +559,8 @@ Since ``first_name``, ``surname``, ``photo`` and ``biography`` are defined as bl
 
     {% load wagtailcore_tags wagtailimages_tags %}
 
+    ...
+
     <div class="person">
         {% image value.photo width-400 %}
         <h2>{% include_block value.first_name %} {% include_block value.surname %}</h2>
@@ -562,6 +572,8 @@ Writing ``{{ my_block }}`` is roughly equivalent to ``{% include_block my_block 
 .. code-block:: html+django
 
     {% load wagtailimages_tags %}
+
+    ...
 
     <div class="person">
         {% image value.photo width-400 %}
