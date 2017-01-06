@@ -4,8 +4,8 @@ from django.conf import settings
 from django.shortcuts import render
 from django.template.loader import render_to_string
 
-from wagtail.wagtailadmin.site_summary import SiteSummaryPanel
 from wagtail.wagtailadmin.navigation import get_explorable_root_page
+from wagtail.wagtailadmin.site_summary import SiteSummaryPanel
 from wagtail.wagtailcore import hooks
 from wagtail.wagtailcore.models import Page, PageRevision, UserPagePermissionsProxy
 
@@ -84,7 +84,10 @@ def home(request):
         fn(request, panels)
 
     root_page = get_explorable_root_page(request.user)
-    root_site = root_page.get_site()
+    if root_page:
+        root_site = root_page.get_site()
+    else:
+        root_site = None
 
     return render(request, "wagtailadmin/home.html", {
         'root_page': root_page,

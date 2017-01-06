@@ -16,11 +16,16 @@ def get_pages_with_direct_explore_permission(user):
             group_permissions__permission_type__in=['add', 'edit', 'publish', 'lock']
         )
 
+
 def get_explorable_root_page(user):
     # Get the highest common explorable ancestor for the given user
-    return get_pages_with_direct_explore_permission(user).first_common_ancestor(
-        include_self=True,
-        strict=True)
+    pages = get_pages_with_direct_explore_permission(user)
+    if pages:
+        return pages.first_common_ancestor(
+            include_self=True,
+            strict=True)
+    else:
+        return None
 
 
 def get_navigation_menu_items(user):
