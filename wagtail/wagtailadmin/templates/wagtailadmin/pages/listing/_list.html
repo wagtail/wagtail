@@ -23,7 +23,7 @@
                     {% block parent_page_title %}
                     {% endblock %}
                 </td>
-                <td class="updated" valign="bottom">{% if parent_page.latest_revision_created_at %}<div class="human-readable-date" title="{{ parent_page.latest_revision_created_at|date:"d M Y H:i" }}">{{ parent_page.latest_revision_created_at|timesince }} {% trans 'ago' %}</div>{% endif %}</td>
+                <td class="updated" valign="bottom">{% if parent_page.latest_revision_created_at %}<div class="human-readable-date" title="{{ parent_page.latest_revision_created_at|date:"d M Y H:i" }}">{% blocktrans with time_period=parent_page.latest_revision_created_at|timesince %}{{ time_period }} ago{% endblocktrans %}</div>{% endif %}</td>
                 <td class="type" valign="bottom">
                     {% if not parent_page.is_root %}
                         {{ parent_page.content_type.model_class.get_verbose_name }}
@@ -62,7 +62,7 @@
                             </td>
                         {% endwith %}
                     {% endif %}
-                    <td class="updated" valign="top">{% if page.latest_revision_created_at %}<div class="human-readable-date" title="{{ page.latest_revision_created_at|date:"d M Y H:i" }}">{{ page.latest_revision_created_at|timesince }} {% trans 'ago' %}</div>{% endif %}</td>
+                    <td class="updated" valign="top">{% if page.latest_revision_created_at %}<div class="human-readable-date" title="{{ page.latest_revision_created_at|date:"d M Y H:i" }}">{% blocktrans with time_period=page.latest_revision_created_at|timesince %}{{ time_period }} ago{% endblocktrans %}</div>{% endif %}</td>
                     <td class="type" valign="top">{{ page.content_type.model_class.get_verbose_name }}</td>
                     <td class="status" valign="top">
                         {% include "wagtailadmin/shared/page_status_tag.html" with page=page %}

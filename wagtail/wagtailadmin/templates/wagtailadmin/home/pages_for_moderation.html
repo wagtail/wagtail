@@ -50,7 +50,7 @@
                                 {{ revision.page.content_type.model_class.get_verbose_name }}
                             </td>
                             <td valign="top">
-                                <div class="human-readable-date" title="{{ revision.created_at|date:"d M Y H:i" }}">{{ revision.created_at|timesince }} {% trans 'ago' %} </div>
+                                <div class="human-readable-date" title="{{ revision.created_at|date:"d M Y H:i" }}">{% blocktrans with time_period=revision.created_at|timesince %}{{ time_period }} ago{% endblocktrans %} </div>
                                 by {{ revision.user.get_full_name|default:revision.user.get_username }}
                             </td>
                         </tr>
