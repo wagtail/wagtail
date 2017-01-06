@@ -5,6 +5,7 @@ from django.shortcuts import render
 from django.template.loader import render_to_string
 
 from wagtail.wagtailadmin.site_summary import SiteSummaryPanel
+from wagtail.wagtailadmin.navigation import get_explorable_root_page
 from wagtail.wagtailcore import hooks
 from wagtail.wagtailcore.models import Page, PageRevision, UserPagePermissionsProxy
 
@@ -82,8 +83,13 @@ def home(request):
     for fn in hooks.get_hooks('construct_homepage_panels'):
         fn(request, panels)
 
+    root_page = get_explorable_root_page(request.user)
+    root_site = root_page.get_site()
+
     return render(request, "wagtailadmin/home.html", {
-        'site_name': settings.WAGTAIL_SITE_NAME,
+        'root_page': root_page,
+        'root_site': root_site,
+        'site_name': root_site.site_name if root_site is not None else settings.WAGTAIL_SITE_NAME,
         'panels': sorted(panels, key=lambda p: p.order),
         'user': request.user
     })
