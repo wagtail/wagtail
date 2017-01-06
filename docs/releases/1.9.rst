@@ -22,6 +22,12 @@ Accessing parent context from StreamField block ``get_context`` methods
 The ``get_context`` method on StreamField blocks now receives a ``parent_context`` keyword argument, consisting of the dict of variables passed in from the calling template. For example, this makes it possible to perform pagination logic within ``get_context``, retrieving the current page number from ``parent_context['request'].GET``. See :ref:`get_context on StreamField blocks <streamfield_get_context>`. This feature was developed by Mikael Svensson and Peter Baumgartner.
 
 
+Welcome message customisation for multi-tenanted installations
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+The welcome message on the admin dashboard has been updated to be more suitable for multi-tenanted installations. Users whose page permissions lie within a single site will now see that site name in the welcome message, rather than the installation-wide ``WAGTAIL_SITE_NAME``. As before, this message can be customised, and additional template variables have been provided for this purpose - see :ref:`custom_branding`. This feature was developed by Jeffrey Chau.
+
+
 Other features
 ~~~~~~~~~~~~~~
 

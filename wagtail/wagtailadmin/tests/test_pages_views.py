@@ -407,6 +407,21 @@ class TestExplorablePageVisibility(TestCase, WagtailTestUtils):
         # The page title shouldn't appear because it's the "home" breadcrumb.
         self.assertNotContains(response, "Welcome to example.com!")
 
+    def test_admin_home_page_changes_with_permissions(self):
+        self.assertTrue(self.client.login(username='bob', password='password'))
+        response = self.client.get(reverse('wagtailadmin_home'))
+        self.assertEqual(response.status_code, 200)
+        # Bob should only see the welcome for example.com, not testserver
+        self.assertContains(response, "Welcome to the example.com Wagtail CMS")
+        self.assertNotContains(response, "testserver")
+
+    def test_breadcrumb_with_no_user_permissions(self):
+        self.assertTrue(self.client.login(username='mary', password='password'))
+        response = self.client.get(reverse('wagtailadmin_home'))
+        self.assertEqual(response.status_code, 200)
+        # Since Mary has no page permissions, she should not see the breadcrumb
+        self.assertNotContains(response, """<li class="home"><a href="/admin/pages/4/" class="icon icon-home text-replace">Home</a></li>""")
+
 
 class TestPageCreation(TestCase, WagtailTestUtils):
     def setUp(self):
