@@ -2300,6 +2300,62 @@ class TestPageCopy(TestCase, WagtailTestUtils):
         # treebeard should report no consistency problems with the tree
         self.assertFalse(any(Page.find_problems()), 'treebeard found consistency problems')
 
+    def test_before_copy_page_hook(self):
+        def hook_func(request, page):
+            self.assertIsInstance(request, HttpRequest)
+            self.assertIsInstance(page.specific, SimplePage)
+
+            return HttpResponse("Overridden!")
+
+        with self.register_hook('before_copy_page', hook_func):
+            response = self.client.get(reverse('wagtailadmin_pages:copy', args=(self.test_page.id,)))
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.content, b"Overridden!")
+
+    def test_before_copy_page_hook_post(self):
+        def hook_func(request, page):
+            self.assertIsInstance(request, HttpRequest)
+            self.assertIsInstance(page.specific, SimplePage)
+
+            return HttpResponse("Overridden!")
+
+        with self.register_hook('before_copy_page', hook_func):
+            post_data = {
+                'new_title': "Hello world 2",
+                'new_slug': 'hello-world-2',
+                'new_parent_page': str(self.root_page.id),
+                'copy_subpages': False,
+                'publish_copies': False,
+            }
+            response = self.client.post(reverse('wagtailadmin_pages:copy', args=(self.test_page.id,)), post_data)
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.content, b"Overridden!")
+
+    def test_after_copy_page_hook(self):
+        def hook_func(request, page, new_page):
+            self.assertIsInstance(request, HttpRequest)
+            self.assertIsInstance(page.specific, SimplePage)
+            self.assertIsInstance(new_page.specific, SimplePage)
+
+            return HttpResponse("Overridden!")
+
+        with self.register_hook('after_copy_page', hook_func):
+            post_data = {
+                'new_title': "Hello world 2",
+                'new_slug': 'hello-world-2',
+                'new_parent_page': str(self.root_page.id),
+                'copy_subpages': False,
+                'publish_copies': False,
+            }
+            response = self.client.post(reverse('wagtailadmin_pages:copy', args=(self.test_page.id,)), post_data)
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.content, b"Overridden!")
+
+
+
 
 class TestPageUnpublish(TestCase, WagtailTestUtils):
     def setUp(self):

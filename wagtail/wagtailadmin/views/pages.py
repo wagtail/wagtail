@@ -809,6 +809,11 @@ def copy(request, page_id):
 
     next_url = get_valid_next_url_from_request(request)
 
+    for fn in hooks.get_hooks('before_copy_page'):
+        result = fn(request, page)
+        if hasattr(result, 'status_code'):
+            return result
+
     # Check if user is submitting
     if request.method == 'POST':
         # Prefill parent_page in case the form is invalid (as prepopulated value for the form field,
@@ -847,6 +852,11 @@ def copy(request, page_id):
                 )
             else:
                 messages.success(request, _("Page '{0}' copied.").format(page.get_admin_display_title()))
+
+            for fn in hooks.get_hooks('after_copy_page'):
+                result = fn(request, page, new_page)
+                if hasattr(result, 'status_code'):
+                    return result
 
             # Redirect to explore of parent page
             if next_url:

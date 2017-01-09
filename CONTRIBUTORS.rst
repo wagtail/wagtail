@@ -204,6 +204,7 @@ Contributors
 * glassresistor
 * Mikael Svensson
 * Peter Baumgartner
+* Matheus Bratfisch
 
 Translators
 ===========

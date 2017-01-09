@@ -19,6 +19,7 @@ The ``get_context`` method on StreamField blocks now receives a ``parent_context
 Other features
 ~~~~~~~~~~~~~~
 
+ * Added :ref:`before_copy_page` and :ref:`after_copy_page` hooks (Matheus Bratfisch)
  * View live / draft links in the admin now consistently open in a new window (Marco Fucci)
  * ``ChoiceBlock`` now omits the blank option if the block is required and has a default value (Andreas Nüßlein)
 
