@@ -809,6 +809,11 @@ def copy(request, page_id):
 
     next_url = get_valid_next_url_from_request(request)
 
+    for fn in hooks.get_hooks('before_copy_page'):
+        result = fn(request, page)
+        if hasattr(result, 'status_code'):
+            return result
+
     # Check if user is submitting
     if request.method == 'POST':
         # Prefill parent_page in case the form is invalid (as prepopulated value for the form field,
@@ -838,6 +843,11 @@ def copy(request, page_id):
                 keep_live=(can_publish and form.cleaned_data.get('publish_copies')),
                 user=request.user,
             )
+
+            for fn in hooks.get_hooks('after_copy_page'):
+                result = fn(request, page, new_page)
+                if hasattr(result, 'status_code'):
+                    return result
 
             # Give a success message back to the user
             if form.cleaned_data.get('copy_subpages'):

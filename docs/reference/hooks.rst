@@ -453,6 +453,24 @@ Hooks for customising the way users are directed through the process of creating
   Uses the same behavior as ``before_create_page``.
 
 
+.. _after_copy_page:
+
+``after_copy_page``
+~~~~~~~~~~~~~~~~~~~
+
+  Do something with a ``Page`` object after it has been copied pasing in the request, page object and the new copied page. Uses the same behavior as ``after_create_page``.
+
+
+.. _before_copy_page:
+
+``before_copy_page``
+~~~~~~~~~~~~~~~~~~~~~
+
+  Called at the beginning of the "copy page" view passing in the request and the page object.
+
+  Uses the same behavior as ``before_create_page``.
+
+
 .. _construct_wagtail_userbar:
 
 ``construct_wagtail_userbar``
