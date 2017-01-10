@@ -201,6 +201,7 @@ Contributors
 * John Heasly
 * Nikolai Røed Kristiansen
 * Alex Zagorodniuk
+* glassresistor
 
 Translators
 ===========

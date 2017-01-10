@@ -132,7 +132,7 @@ A single-line text input that validates a string against a regex expression. The
 
 .. code-block:: python
 
-    blocks.RegexBlock(regex=r'^[0-9]{3}$', error_message={
+    blocks.RegexBlock(regex=r'^[0-9]{3}$', error_messages={
         'invalid': "Not a valid library card number."
     })
 
