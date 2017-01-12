@@ -200,6 +200,7 @@ Contributors
 * Andreas Nüßlein
 * John Heasly
 * Nikolai Røed Kristiansen
+* Alex Zagorodniuk
 
 Translators
 ===========
