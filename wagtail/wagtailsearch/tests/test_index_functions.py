@@ -135,3 +135,34 @@ class TestRemoveObject(TestCase, WagtailTestUtils):
         self.assertIn("Exception raised while deleting <SearchTest: Test> from the 'default' search backend", cm.output[0])
         self.assertIn("Traceback (most recent call last):", cm.output[0])
         self.assertIn("ValueError: Test", cm.output[0])
+
+
+@mock.patch('wagtail.wagtailsearch.tests.DummySearchBackend', create=True)
+@override_settings(WAGTAILSEARCH_BACKENDS={
+    'default': {
+        'BACKEND': 'wagtail.wagtailsearch.tests.DummySearchBackend'
+    }
+})
+class TestSignalHandlers(TestCase, WagtailTestUtils):
+    def test_index_on_create(self, backend):
+        backend().reset_mock()
+        obj = models.SearchTest.objects.create(title="Test", content="This is the content")
+        backend().add.assert_called_with(obj)
+
+    def test_index_on_update(self, backend):
+        obj = models.SearchTest.objects.create(title="Test", content="This is the content")
+
+        backend().reset_mock()
+        obj.title = "Updated test"
+        obj.save()
+
+        backend().add.assert_called_once()
+        indexed_object = backend().add.call_args[0][0]
+        self.assertEqual(indexed_object.title, "Updated test")
+
+    def test_index_on_delete(self, backend):
+        obj = models.SearchTest.objects.create(title="Test", content="This is the content")
+
+        backend().reset_mock()
+        obj.delete()
+        backend().delete.assert_called_with(obj)
