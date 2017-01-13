@@ -1,7 +1,7 @@
 from __future__ import absolute_import, unicode_literals
 
-import re
 import inspect
+import re
 import sys
 
 # helpers for Javascript expression formatting

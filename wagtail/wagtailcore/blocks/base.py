@@ -1,7 +1,7 @@
 from __future__ import absolute_import, unicode_literals
 
-import warnings
 import collections
+import warnings
 from importlib import import_module
 
 from django import forms
