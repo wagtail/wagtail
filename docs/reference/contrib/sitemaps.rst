@@ -30,6 +30,11 @@ Then, in ``urls.py``, you need to add a link to the ``wagtail.contrib.wagtailsit
         ...
 
         url('^sitemap\.xml$', sitemap),
+
+        ...
+
+        # Ensure that the 'sitemap' line appears above the default Wagtail page serving route
+        url(r'', include(wagtail_urls)),
     ]
 
 
