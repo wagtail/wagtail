@@ -166,3 +166,16 @@ class TestSignalHandlers(TestCase, WagtailTestUtils):
         backend().reset_mock()
         obj.delete()
         backend().delete.assert_called_with(obj)
+
+    def test_do_not_index_fields_omitted_from_update_fields(self, backend):
+        obj = models.SearchTest.objects.create(title="Test", content="This is the original content")
+
+        backend().reset_mock()
+        obj.title = "Updated test"
+        obj.content = "This is the updated content"
+        obj.save(update_fields=['title'])
+
+        backend().add.assert_called_once()
+        indexed_object = backend().add.call_args[0][0]
+        self.assertEqual(indexed_object.title, "Updated test")
+        self.assertEqual(indexed_object.content, "This is the original content")
