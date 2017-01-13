@@ -56,12 +56,16 @@ class TestGetIndexedInstance(TestCase):
 class TestInsertOrUpdateObject(TestCase, WagtailTestUtils):
     def test_inserts_object(self, backend):
         obj = models.SearchTest.objects.create(title="Test")
+        backend().reset_mock()
+
         index.insert_or_update_object(obj)
 
         backend().add.assert_called_with(obj)
 
     def test_doesnt_insert_unsaved_object(self, backend):
         obj = models.SearchTest(title="Test")
+        backend().reset_mock()
+
         index.insert_or_update_object(obj)
 
         self.assertFalse(backend().add.mock_calls)
@@ -72,6 +76,9 @@ class TestInsertOrUpdateObject(TestCase, WagtailTestUtils):
 
         # Convert page into a generic "Page" object and add it into the index
         unspecific_page = page.page_ptr
+
+        backend().reset_mock()
+
         index.insert_or_update_object(unspecific_page)
 
         # It should be automatically converted back to the specific version
@@ -81,6 +88,7 @@ class TestInsertOrUpdateObject(TestCase, WagtailTestUtils):
         obj = models.SearchTest.objects.create(title="Test")
 
         backend().add.side_effect = ValueError("Test")
+        backend().reset_mock()
 
         with self.assertLogs('wagtail.search.index', level='ERROR') as cm:
             index.insert_or_update_object(obj)
@@ -100,18 +108,23 @@ class TestInsertOrUpdateObject(TestCase, WagtailTestUtils):
 class TestRemoveObject(TestCase, WagtailTestUtils):
     def test_removes_object(self, backend):
         obj = models.SearchTest.objects.create(title="Test")
+        backend().reset_mock()
+
         index.remove_object(obj)
 
-        backend().add.assert_called_with(obj)
+        backend().delete.assert_called_with(obj)
 
     def test_removes_unsaved_object(self, backend):
         obj = models.SearchTest(title="Test")
+        backend().reset_mock()
+
         index.remove_object(obj)
 
         backend().delete.assert_called_with(obj)
 
     def test_catches_index_error(self, backend):
         obj = models.SearchTest.objects.create(title="Test")
+        backend().reset_mock()
 
         backend().delete.side_effect = ValueError("Test")
 
