@@ -1,5 +1,6 @@
 from __future__ import absolute_import, unicode_literals
 
+import warnings
 import collections
 from importlib import import_module
 
@@ -15,7 +16,8 @@ from django.utils.text import capfirst
 # unicode_literals ensures that any render / __str__ methods returning HTML via calls to mark_safe / format_html
 # return a SafeText, not SafeBytes; necessary so that it doesn't get re-encoded when the template engine
 # calls force_text, which would cause it to lose its 'safe' flag
-
+from wagtail.utils.deprecation import RemovedInWagtail111Warning
+from wagtail.wagtailcore.blocks.utils import accepts_kwarg
 
 __all__ = ['BaseBlock', 'Block', 'BoundBlock', 'DeclarativeSubBlocksMetaclass', 'BlockWidget', 'BlockField']
 
@@ -211,15 +213,18 @@ class Block(six.with_metaclass(BaseBlock, object)):
         """
         return value
 
-    def get_context(self, value):
+    def get_context(self, value, parent_context=None):
         """
-        Return a dict of context variables (derived from the block value, or otherwise)
-        to be added to the template context when rendering this value through a template.
+        Return a dict of context variables (derived from the block value and combined with the parent_context)
+        to be used as the template context when rendering this value through a template.
         """
-        return {
+
+        context = parent_context or {}
+        context.update({
             'self': value,
             self.TEMPLATE_VAR: value,
-        }
+        })
+        return context
 
     def render(self, value, context=None):
         """
@@ -231,11 +236,23 @@ class Block(six.with_metaclass(BaseBlock, object)):
         if not template:
             return self.render_basic(value, context=context)
 
+        if not accepts_kwarg(self.get_context, 'parent_context'):
+            class_with_render_method = next(
+                (cls for cls in type(self).__mro__ if 'get_context' in cls.__dict__),
+                type(self)
+            )
+            warnings.warn(
+                "The get_context method on %s needs to be updated to accept an optional 'parent_context' "
+                "keyword argument" % class_with_render_method,
+                category=RemovedInWagtail111Warning
+            )
+            new_context = self.get_context(value)
+            return mark_safe(render_to_string(template, new_context))
+
         if context is None:
             new_context = self.get_context(value)
         else:
-            new_context = dict(context)
-            new_context.update(self.get_context(value))
+            new_context = self.get_context(value, parent_context=dict(context))
 
         return mark_safe(render_to_string(template, new_context))
 
