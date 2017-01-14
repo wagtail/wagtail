@@ -82,7 +82,7 @@ class TestFieldBlock(unittest.TestCase):
 
         self.assertEqual(len(ws), 1)
         self.assertIs(ws[0].category, RemovedInWagtail111Warning)
-        self.assertEqual(html, '<h1>Bonjour le monde!</h1>')
+        self.assertEqual(html, '<h1 lang="fr">Bonjour le monde!</h1>')
 
     def test_charfield_render_form(self):
         block = blocks.CharBlock()
