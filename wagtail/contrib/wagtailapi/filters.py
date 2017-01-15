@@ -101,9 +101,10 @@ class SearchFilter(BaseFilterBackend):
                 raise BadRequestError("filtering by tag with a search query is not supported")
 
             search_query = request.GET['search']
+            search_operator = request.GET.get('operator', None)
 
             sb = get_search_backend()
-            queryset = sb.search(search_query, queryset)
+            queryset = sb.search(search_query, queryset, operator=search_operator)
 
         return queryset
 

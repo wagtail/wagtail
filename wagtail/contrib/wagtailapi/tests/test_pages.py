@@ -534,6 +534,22 @@ class TestPageListing(TestCase):
         self.assertEqual(response.status_code, 400)
         self.assertEqual(content, {'message': "filtering by tag with a search query is not supported"})
 
+    def test_search_operator_and(self):
+        response = self.get_response(type='demosite.BlogEntryPage', search='blog again', operator='and')
+        content = json.loads(response.content.decode('UTF-8'))
+
+        page_id_list = self.get_page_id_list(content)
+
+        self.assertEqual(set(page_id_list), set([18]))
+
+    def test_search_operator_or(self):
+        response = self.get_response(type='demosite.BlogEntryPage', search='blog again', operator='or')
+        content = json.loads(response.content.decode('UTF-8'))
+
+        page_id_list = self.get_page_id_list(content)
+
+        self.assertEqual(set(page_id_list), set([16, 18, 19]))
+
 
 class TestPageDetail(TestCase):
     fixtures = ['demosite.json']
