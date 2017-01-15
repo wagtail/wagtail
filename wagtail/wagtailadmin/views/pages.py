@@ -844,11 +844,6 @@ def copy(request, page_id):
                 user=request.user,
             )
 
-            for fn in hooks.get_hooks('after_copy_page'):
-                result = fn(request, page, new_page)
-                if hasattr(result, 'status_code'):
-                    return result
-
             # Give a success message back to the user
             if form.cleaned_data.get('copy_subpages'):
                 messages.success(
@@ -857,6 +852,11 @@ def copy(request, page_id):
                 )
             else:
                 messages.success(request, _("Page '{0}' copied.").format(page.get_admin_display_title()))
+
+            for fn in hooks.get_hooks('after_copy_page'):
+                result = fn(request, page, new_page)
+                if hasattr(result, 'status_code'):
+                    return result
 
             # Redirect to explore of parent page
             if next_url:
