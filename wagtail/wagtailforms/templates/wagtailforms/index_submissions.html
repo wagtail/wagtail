@@ -29,8 +29,9 @@
             var selectedSubmissions = {};
 
             function updateActions() {
-                var everySubmissionSelected = Object.values(selectedSubmissions).every(function(v) { return v; });
-                var someSubmissionsSelected = Object.values(selectedSubmissions).some(function(v) { return v; })
+                var submissionCheckboxes = $('input[type=checkbox].select-submission');
+                var someSubmissionsSelected = submissionCheckboxes.is(':checked');
+                var everySubmissionSelected = !submissionCheckboxes.is(':not(:checked)');
 
                 // Select all box state
                 if (everySubmissionSelected) {
@@ -57,31 +58,21 @@
                 }
             }
 
-            // Initialise selectedSubmissions
-            $('input[type=checkbox].select-submission').each(function() {
-                selectedSubmissions[this.value] = false;
-            });
-
 
             // Event handlers
 
             $(selectAllCheckbox).on('change', function() {
-                // Select/deselect all
-                for (var submissionId in selectedSubmissions) {
-                    selectedSubmissions[submissionId] = this.checked;
-                }
+                let checked = this.checked;
 
-                // Update checkbox states in DOM
+                // Update checkbox states
                 $('input[type=checkbox].select-submission').each(function() {
-                    this.checked = selectedSubmissions[this.value];
+                    this.checked = checked;
                 });
 
                 updateActions();
             });
 
             $('input[type=checkbox].select-submission').on('change', function() {
-                selectedSubmissions[this.value] = this.checked;
-
                 updateActions();
             });
         });
