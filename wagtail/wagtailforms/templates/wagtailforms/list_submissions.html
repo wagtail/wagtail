@@ -21,7 +21,7 @@
         {% for row in data_rows %}
             <tr>
                 <td>
-                    <input type="checkbox" name="select-{{ row.model_id }}" class="select-submission" data-submission-id="{{ row.model_id }}" />
+                    <input type="checkbox" name="select-{{ row.model_id }}" class="select-submission" value="{{ row.model_id }}" />
                 </td>
                 {% for cell in row.fields %}
                     <td>

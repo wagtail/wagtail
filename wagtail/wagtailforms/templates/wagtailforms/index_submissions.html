@@ -59,7 +59,7 @@
 
             // Initialise selectedSubmissions
             $('input[type=checkbox].select-submission').each(function() {
-                selectedSubmissions[this.dataset.submissionId] = false;
+                selectedSubmissions[this.value] = false;
             });
 
 
@@ -73,14 +73,14 @@
 
                 // Update checkbox states in DOM
                 $('input[type=checkbox].select-submission').each(function() {
-                    this.checked = selectedSubmissions[this.dataset.submissionId];
+                    this.checked = selectedSubmissions[this.value];
                 });
 
                 updateActions();
             });
 
             $('input[type=checkbox].select-submission').on('change', function() {
-                selectedSubmissions[this.dataset.submissionId] = this.checked;
+                selectedSubmissions[this.value] = this.checked;
 
                 updateActions();
             });
