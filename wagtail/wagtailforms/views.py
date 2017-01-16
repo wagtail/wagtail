@@ -33,7 +33,7 @@ def delete_submissions(request, page_id):
     page = get_object_or_404(Page, id=page_id).specific
 
     # Get submissions
-    submission_ids = [int(key[7:]) for key in request.GET.keys() if key.startswith('select-')]
+    submission_ids = request.GET.getlist('selected-submissions')
     submissions = page.get_submission_class()._default_manager.filter(id__in=submission_ids)
 
     if request.method == 'POST':

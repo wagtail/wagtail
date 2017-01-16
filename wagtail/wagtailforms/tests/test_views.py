@@ -771,7 +771,7 @@ class TestDeleteFormSubmission(TestCase, WagtailTestUtils):
         response = self.client.get(reverse(
             'wagtailforms:delete_submissions',
             args=(self.form_page.id, )
-        ) + '?select-{}=on'.format(FormSubmission.objects.first().id))
+        ) + '?selected-submissions={}'.format(FormSubmission.objects.first().id))
         # Check show confirm page when HTTP method is GET
         self.assertTemplateUsed(response, 'wagtailforms/confirm_delete.html')
 
@@ -782,7 +782,7 @@ class TestDeleteFormSubmission(TestCase, WagtailTestUtils):
         response = self.client.post(reverse(
             'wagtailforms:delete_submissions',
             args=(self.form_page.id, )
-        ) + '?select-{}=on'.format(FormSubmission.objects.first().id))
+        ) + '?selected-submissions={}'.format(FormSubmission.objects.first().id))
 
         # Check that the submission is gone
         self.assertEqual(FormSubmission.objects.count(), 1)
@@ -793,7 +793,7 @@ class TestDeleteFormSubmission(TestCase, WagtailTestUtils):
         response = self.client.post(reverse(
             'wagtailforms:delete_submissions',
             args=(self.form_page.id, )
-        ) + '?select-{}=on&select-{}=on'.format(FormSubmission.objects.first().id, FormSubmission.objects.last().id))
+        ) + '?selected-submissions={}&selected-submissions={}'.format(FormSubmission.objects.first().id, FormSubmission.objects.last().id))
 
         # Check that both submissions are gone
         self.assertEqual(FormSubmission.objects.count(), 0)
@@ -806,7 +806,7 @@ class TestDeleteFormSubmission(TestCase, WagtailTestUtils):
         response = self.client.post(reverse(
             'wagtailforms:delete_submissions',
             args=(self.form_page.id, )
-        ) + '?select-{}=on'.format(FormSubmission.objects.first().id))
+        ) + '?selected-submissions={}'.format(FormSubmission.objects.first().id))
 
         # Check that the user received a 403 response
         self.assertEqual(response.status_code, 403)
@@ -823,7 +823,7 @@ class TestDeleteFormSubmission(TestCase, WagtailTestUtils):
             response = self.client.post(reverse(
                 'wagtailforms:delete_submissions',
                 args=(self.form_page.id, )
-            ) + '?select-{}=on'.format(FormSubmission.objects.first().id))
+            ) + '?selected-submissions={}'.format(FormSubmission.objects.first().id))
 
         # An user can't delete a from submission with the hook
         self.assertEqual(response.status_code, 403)
@@ -833,7 +833,7 @@ class TestDeleteFormSubmission(TestCase, WagtailTestUtils):
         response = self.client.post(reverse(
             'wagtailforms:delete_submissions',
             args=(self.form_page.id, )
-        ) + '?select-{}=on'.format(CustomFormPageSubmission.objects.first().id))
+        ) + '?selected-submissions={}'.format(CustomFormPageSubmission.objects.first().id))
         self.assertEqual(FormSubmission.objects.count(), 1)
         self.assertRedirects(response, reverse("wagtailforms:list_submissions", args=(self.form_page.id,)))
 
@@ -849,7 +849,7 @@ class TestDeleteCustomFormSubmission(TestCase):
         response = self.client.get(reverse(
             'wagtailforms:delete_submissions',
             args=(self.form_page.id, )
-        ) + '?select-{}=on'.format(CustomFormPageSubmission.objects.first().id))
+        ) + '?selected-submissions={}'.format(CustomFormPageSubmission.objects.first().id))
 
         # Check show confirm page when HTTP method is GET
         self.assertTemplateUsed(response, 'wagtailforms/confirm_delete.html')
@@ -861,7 +861,7 @@ class TestDeleteCustomFormSubmission(TestCase):
         response = self.client.post(reverse(
             'wagtailforms:delete_submissions',
             args=(self.form_page.id, )
-        ) + '?select-{}=on'.format(CustomFormPageSubmission.objects.first().id))
+        ) + '?selected-submissions={}'.format(CustomFormPageSubmission.objects.first().id))
 
         # Check that the submission is gone
         self.assertEqual(CustomFormPageSubmission.objects.count(), 1)
@@ -872,7 +872,7 @@ class TestDeleteCustomFormSubmission(TestCase):
         response = self.client.post(reverse(
             'wagtailforms:delete_submissions',
             args=(self.form_page.id, )
-        ) + '?select-{}=on&select-{}=on'.format(CustomFormPageSubmission.objects.first().id, CustomFormPageSubmission.objects.last().id))
+        ) + '?selected-submissions={}&selected-submissions={}'.format(CustomFormPageSubmission.objects.first().id, CustomFormPageSubmission.objects.last().id))
 
         # Check that both submissions are gone
         self.assertEqual(CustomFormPageSubmission.objects.count(), 0)
@@ -885,7 +885,7 @@ class TestDeleteCustomFormSubmission(TestCase):
         response = self.client.post(reverse(
             'wagtailforms:delete_submissions',
             args=(self.form_page.id, )
-        ) + '?select-{}=on'.format(CustomFormPageSubmission.objects.first().id))
+        ) + '?selected-submissions={}'.format(CustomFormPageSubmission.objects.first().id))
 
         # Check that the user received a 403 response
         self.assertEqual(response.status_code, 403)
