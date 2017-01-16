@@ -636,8 +636,8 @@ As well as passing variables from the parent template, block subclasses can pass
         title = blocks.CharBlock(required=True)
         date = blocks.DateBlock(required=True)
 
-        def get_context(self, value):
-            context = super(EventBlock, self).get_context(value)
+        def get_context(self, value, parent_context=None):
+            context = super(EventBlock, self).get_context(value, parent_context=parent_context)
             context['is_happening_today'] = (value['date'] == datetime.date.today())
             return context
 
@@ -645,7 +645,7 @@ As well as passing variables from the parent template, block subclasses can pass
             template = 'myapp/blocks/event.html'
 
 
-In this example, the variable ``is_happening_today`` will be made available within the block template.
+In this example, the variable ``is_happening_today`` will be made available within the block template. The ``parent_context`` keyword argument is available when the block is rendered through an ``{% include_block %}`` tag, and is a dict of variables passed from the calling template.
 
 
 BoundBlocks and values

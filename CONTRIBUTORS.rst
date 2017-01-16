@@ -202,6 +202,8 @@ Contributors
 * Nikolai Røed Kristiansen
 * Alex Zagorodniuk
 * glassresistor
+* Mikael Svensson
+* Peter Baumgartner
 
 Translators
 ===========

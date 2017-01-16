@@ -4,6 +4,7 @@ Changelog
 1.9 (xx.xx.xxxx) - IN DEVELOPMENT
 ~~~~~~~~~~~~~~~~
 
+ * `get_context` methods on StreamField blocks can now access variables from the parent context (Mikael Svensson, Peter Baumgartner)
  * View live / draft links in the admin now consistently open in a new window (Marco Fucci)
  * `ChoiceBlock` now omits the blank option if the block is required and has a default value (Andreas Nüßlein)
  * Fix: Help text for StreamField is now visible and does not cover block controls (Stein Strindhaug)

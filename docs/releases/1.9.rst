@@ -10,9 +10,13 @@ Wagtail 1.9 release notes - IN DEVELOPMENT
 What's new
 ==========
 
+Accessing parent context from StreamField block ``get_context`` methods
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+The ``get_context`` method on StreamField blocks now receives a ``parent_context`` keyword argument, consisting of the dict of variables passed in from the calling template. For example, this makes it possible to perform pagination logic within ``get_context``, retrieving the current page number from ``parent_context['request'].GET``. See :ref:`get_context on StreamField blocks <streamfield_get_context>`. This feature was developed by Mikael Svensson and Peter Baumgartner.
 
 
-Minor features
+Other features
 ~~~~~~~~~~~~~~
 
  * View live / draft links in the admin now consistently open in a new window (Marco Fucci)
@@ -29,3 +33,32 @@ Bug fixes
 Upgrade considerations
 ======================
 
+``get_context`` methods on StreamField blocks need updating
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Previously, ``get_context`` methods on StreamField blocks returned a dict of variables which would be merged into the calling template's context before rendering the block template. ``get_context`` methods now receive a ``parent_context`` dict, and are responsible for returning the final context dictionary with any new variables merged into it. The old calling convention is now deprecated, and will be phased out in Wagtail 1.11.
+
+In most cases, the method will be calling ``get_context`` on the superclass, and can be updated by passing the new ``parent_context`` keyword argument to it:
+
+.. code-block:: python
+
+    class MyBlock(Block):
+
+        def get_context(self, value):
+            context = super(MyBlock, self).get_context(value)
+            ...
+            return context
+
+becomes:
+
+.. code-block:: python
+
+    class MyBlock(Block):
+
+        def get_context(self, value, parent_context=None):
+            context = super(MyBlock, self).get_context(value, parent_context=parent_context)
+            ...
+            return context
+
+
+Note that ``get_context`` methods on page models are unaffected by this change.
