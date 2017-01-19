@@ -647,7 +647,7 @@ will get you a 404, since we haven't yet defined a "tags" view. Add to ``models.
 
             # Filter by tag
             tag = request.GET.get('tag')
-            blogpages = BlogPage.objects.filter().filter(tags__name=tag)
+            blogpages = BlogPage.objects.filter(tags__name=tag)
 
             # Update template context
             context = super(BlogTagIndexPage, self).get_context(request)
