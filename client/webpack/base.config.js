@@ -54,13 +54,9 @@ module.exports = function exports() {
     module: {
       loaders: [
         {
-          test: /\.js$/,
+          test: /\.(js|jsx)$/,
           loader: 'babel'
         },
-        {
-          test: /\.jsx$/,
-          loader: 'babel'
-        }
       ]
     }
   };
