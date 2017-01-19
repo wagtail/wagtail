@@ -47,7 +47,7 @@
   },
   "scripts": {
     "postinstall": "cd ./client; npm install; cd ..",
-    "build": "gulp build; webpack --progress --colors --config ./client/webpack/prd.config.js",
+    "build": "gulp build; webpack --progress --colors --config ./client/webpack/prod.config.js",
     "watch": "webpack --progress --colors --config ./client/webpack/dev.config.js & gulp watch",
     "start": "npm run watch",
     "lint:js": "eslint --max-warnings 16 ./client/webpack/*.config.js ./client/src",
