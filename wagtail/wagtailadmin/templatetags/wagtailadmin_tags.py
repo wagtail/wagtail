@@ -60,9 +60,8 @@ def explorer_breadcrumb(context, page, include_self=False):
 
     # find the closest common ancestor of the pages that this user has direct explore permission
     # (i.e. add/edit/publish/lock) over; this will be the root of the breadcrumb
-    try:
-        cca = get_explorable_root_page(user)
-    except Page.DoesNotExist:
+    cca = get_explorable_root_page(user)
+    if not cca:
         return {'pages': Page.objects.none()}
 
     return {

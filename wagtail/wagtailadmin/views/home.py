@@ -89,10 +89,13 @@ def home(request):
     else:
         root_site = None
 
+    if root_site:
+        real_site_name = root_site.site_name else root_site.hostname
+
     return render(request, "wagtailadmin/home.html", {
         'root_page': root_page,
         'root_site': root_site,
-        'site_name': root_site.site_name if root_site is not None else settings.WAGTAIL_SITE_NAME,
+        'site_name': real_site_name if real_site_name else settings.WAGTAIL_SITE_NAME,
         'panels': sorted(panels, key=lambda p: p.order),
         'user': request.user
     })
