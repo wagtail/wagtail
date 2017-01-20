@@ -252,6 +252,11 @@ class Page(six.with_metaclass(PageBase, AbstractPage, index.Indexed, Clusterable
         max_length=255,
         help_text=_("The page title as you'd like it to be seen by the public")
     )
+    # to reflect changes from the
+    draft_title = models.CharField(
+        max_length=255,
+        editable=False
+    )
     # use django 1.9+ SlugField with unicode support
     if DJANGO_VERSION >= (1, 9):
         slug = models.SlugField(
