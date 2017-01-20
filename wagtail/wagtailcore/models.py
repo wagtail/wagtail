@@ -688,6 +688,9 @@ class Page(six.with_metaclass(PageBase, AbstractPage, index.Indexed, Clusterable
         self.latest_revision_created_at = revision.created_at
         update_fields.append('latest_revision_created_at')
 
+        self.draft_title = self.title
+        update_fields.append('draft_title')
+
         if changed:
             self.has_unpublished_changes = True
             update_fields.append('has_unpublished_changes')
@@ -1481,6 +1484,7 @@ class PageRevision(models.Model):
 
         # also copy over other properties which are meaningful for the page as a whole, not a
         # specific revision of it
+        obj.draft_title = self.page.draft_title
         obj.live = self.page.live
         obj.has_unpublished_changes = self.page.has_unpublished_changes
         obj.owner = self.page.owner
