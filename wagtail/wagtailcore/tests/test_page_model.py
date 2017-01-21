@@ -88,7 +88,7 @@ class TestValidation(TestCase):
 
     def test_get_admin_display_title(self):
         homepage = Page.objects.get(url_path='/home/')
-        self.assertEqual(homepage.title, homepage.get_admin_display_title())
+        self.assertEqual(homepage.draft_title, homepage.get_admin_display_title())
 
 
 @override_settings(ALLOWED_HOSTS=['localhost', 'events.example.com', 'about.example.com', 'unknown.site.com'])
