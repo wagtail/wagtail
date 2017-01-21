@@ -670,7 +670,7 @@ class Page(six.with_metaclass(PageBase, AbstractPage, index.Indexed, Clusterable
         """
         Return the title for this page as it should appear in the admin backend.
         """
-        return self.title
+        return self.draft_title
 
     def save_revision(self, user=None, submitted_for_moderation=False, approved_go_live_at=None, changed=True):
         self.full_clean()
