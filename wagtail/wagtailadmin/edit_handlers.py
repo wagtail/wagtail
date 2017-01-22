@@ -249,10 +249,16 @@ class BaseCompositeEditHandler(EditHandler):
     def __init__(self, instance=None, form=None):
         super(BaseCompositeEditHandler, self).__init__(instance=instance, form=form)
 
-        self.children = [
-            handler_class(instance=self.instance, form=self.form)
-            for handler_class in self.__class__.children
-        ]
+        self.children = []
+        for child in self.__class__.children:
+            if not getattr(child, "children", None) and getattr(child, "field_name", None):
+                if self.form._meta.exclude:
+                    if child.field_name in self.form._meta.exclude:
+                        continue
+                if self.form._meta.fields:
+                    if child.field_name not in self.form._meta.fields:
+                        continue
+            self.children.append(child(instance=self.instance, form=self.form))
 
     def render(self):
         return mark_safe(render_to_string(self.template, {
@@ -442,8 +448,8 @@ class BaseFieldPanel(EditHandler):
         return mark_safe(render_to_string(self.field_template, context))
 
     @classmethod
-    def required_fields(self):
-        return [self.field_name]
+    def required_fields(cls):
+        return [cls.field_name]
 
 
 class FieldPanel(object):

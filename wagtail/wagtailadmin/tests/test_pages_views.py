@@ -331,6 +331,83 @@ class TestPageExplorerSignposting(TestCase, WagtailTestUtils):
         self.assertNotContains(response, "Pages created here will not be accessible")
 
 
+
+class TestExplorablePageVisibility(TestCase, WagtailTestUtils):
+    """
+    Test the way that the Explorable Pages functionality manifests within the Explorer.
+    This is isolated in its own test case because it requires a custom page tree and custom set of
+    users and groups.
+    The fixture sets up this page tree:
+    ========================================================
+    ID Site          Path
+    ========================================================
+    1              /
+    2  testserver  /home/
+    3  testserver  /home/about-us/
+    4  example.com /example-home/
+    5  example.com /example-home/content/
+    6  example.com /example-home/content/page-1/
+    7  example.com /example-home/content/page-2/
+    9  example.com /example-home/content/page-2/child-1
+    8  example.com /example-home/other-content/
+    10 example2.com /home-2/
+    ========================================================
+    Group 1 has explore and choose permissions rooted at testserver's homepage.
+    Group 2 has explore and choose permissions rooted at example.com's page-1.
+    Group 3 has explore and choose permissions rooted at example.com's other-content.
+    User "jane" is in Group 1.
+    User "bob" is in Group 2.
+    User "sam" is in Groups 1 and 2.
+    User "josh" is in Groups 2 and 3.
+    User "mary" is is no Groups, but she has the "access wagtail admin" permission.
+    User "superman" is an admin.
+    """
+
+    fixtures = ['test_explorable_pages.json']
+
+    # Integration tests adapted from @coredumperror
+
+    def test_admin_can_explore_every_page(self):
+        self.assertTrue(self.client.login(username='superman', password='password'))
+        for page in Page.objects.all():
+            response = self.client.get(reverse('wagtailadmin_explore', args=[page.pk]))
+            self.assertEqual(response.status_code, 200)
+
+    def test_admin_sees_root_page_as_explorer_root(self):
+        self.assertTrue(self.client.login(username='superman', password='password'))
+        response = self.client.get(reverse('wagtailadmin_explore_root'))
+        self.assertEqual(response.status_code, 200)
+        # Administrator should see the full list of children of the Root page.
+        self.assertContains(response, "Welcome to testserver!")
+        self.assertContains(response, "Welcome to example.com!")
+
+    def test_admin_sees_breadcrumbs_up_to_root_page(self):
+        self.assertTrue(self.client.login(username='superman', password='password'))
+        response = self.client.get(reverse('wagtailadmin_explore', args=[6]))
+        self.assertEqual(response.status_code, 200)
+
+        self.assertInHTML(
+            """<li class="home"><a href="/admin/pages/" class="icon icon-home text-replace">Home</a></li>""",
+            str(response.content)
+        )
+        self.assertInHTML("""<li><a href="/admin/pages/4/">Welcome to example.com!</a></li>""", str(response.content))
+        self.assertInHTML("""<li><a href="/admin/pages/5/">Content</a></li>""", str(response.content))
+
+    def test_nonadmin_sees_breadcrumbs_up_to_cca(self):
+        self.assertTrue(self.client.login(username='josh', password='password'))
+        response = self.client.get(reverse('wagtailadmin_explore', args=[6]))
+        self.assertEqual(response.status_code, 200)
+        # While at "Page 1", Josh should see the breadcrumbs leading only as far back as the example.com homepage,
+        # since it's his Closest Common Ancestor.
+        self.assertInHTML(
+            """<li class="home"><a href="/admin/pages/4/" class="icon icon-home text-replace">Home</a></li>""",
+            str(response.content)
+        )
+        self.assertInHTML("""<li><a href="/admin/pages/5/">Content</a></li>""", str(response.content))
+        # The page title shouldn't appear because it's the "home" breadcrumb.
+        self.assertNotContains(response, "Welcome to example.com!")
+
+
 class TestPageCreation(TestCase, WagtailTestUtils):
     def setUp(self):
         # Find root page
@@ -343,13 +420,13 @@ class TestPageCreation(TestCase, WagtailTestUtils):
         response = self.client.get(reverse('wagtailadmin_pages:add_subpage', args=(self.root_page.id, )))
         self.assertEqual(response.status_code, 200)
 
-        self.assertContains(response, "Simple Page")
+        self.assertContains(response, "Simple page")
         # List of available page types should not contain pages with is_creatable = False
-        self.assertNotContains(response, "MTI Base Page")
+        self.assertNotContains(response, "MTI base page")
         # List of available page types should not contain abstract pages
-        self.assertNotContains(response, "Abstract Page")
+        self.assertNotContains(response, "Abstract page")
         # List of available page types should not contain pages whose parent_page_types forbid it
-        self.assertNotContains(response, "Business Child")
+        self.assertNotContains(response, "Business child")
 
     def test_add_subpage_with_subpage_types(self):
         # Add a BusinessIndex to test business rules in
@@ -362,9 +439,9 @@ class TestPageCreation(TestCase, WagtailTestUtils):
         response = self.client.get(reverse('wagtailadmin_pages:add_subpage', args=(business_index.id, )))
         self.assertEqual(response.status_code, 200)
 
-        self.assertContains(response, "Business Child")
+        self.assertContains(response, "Business child")
         # List should not contain page types not in the subpage_types list
-        self.assertNotContains(response, "Simple Page")
+        self.assertNotContains(response, "Simple page")
 
     def test_add_subpage_with_one_valid_subpage_type(self):
         # Add a BusinessSubIndex to test business rules in
@@ -2223,6 +2300,62 @@ class TestPageCopy(TestCase, WagtailTestUtils):
         # treebeard should report no consistency problems with the tree
         self.assertFalse(any(Page.find_problems()), 'treebeard found consistency problems')
 
+    def test_before_copy_page_hook(self):
+        def hook_func(request, page):
+            self.assertIsInstance(request, HttpRequest)
+            self.assertIsInstance(page.specific, SimplePage)
+
+            return HttpResponse("Overridden!")
+
+        with self.register_hook('before_copy_page', hook_func):
+            response = self.client.get(reverse('wagtailadmin_pages:copy', args=(self.test_page.id,)))
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.content, b"Overridden!")
+
+    def test_before_copy_page_hook_post(self):
+        def hook_func(request, page):
+            self.assertIsInstance(request, HttpRequest)
+            self.assertIsInstance(page.specific, SimplePage)
+
+            return HttpResponse("Overridden!")
+
+        with self.register_hook('before_copy_page', hook_func):
+            post_data = {
+                'new_title': "Hello world 2",
+                'new_slug': 'hello-world-2',
+                'new_parent_page': str(self.root_page.id),
+                'copy_subpages': False,
+                'publish_copies': False,
+            }
+            response = self.client.post(reverse('wagtailadmin_pages:copy', args=(self.test_page.id,)), post_data)
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.content, b"Overridden!")
+
+    def test_after_copy_page_hook(self):
+        def hook_func(request, page, new_page):
+            self.assertIsInstance(request, HttpRequest)
+            self.assertIsInstance(page.specific, SimplePage)
+            self.assertIsInstance(new_page.specific, SimplePage)
+
+            return HttpResponse("Overridden!")
+
+        with self.register_hook('after_copy_page', hook_func):
+            post_data = {
+                'new_title': "Hello world 2",
+                'new_slug': 'hello-world-2',
+                'new_parent_page': str(self.root_page.id),
+                'copy_subpages': False,
+                'publish_copies': False,
+            }
+            response = self.client.post(reverse('wagtailadmin_pages:copy', args=(self.test_page.id,)), post_data)
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.content, b"Overridden!")
+
+
+
 
 class TestPageUnpublish(TestCase, WagtailTestUtils):
     def setUp(self):
@@ -3307,7 +3440,7 @@ class TestRevisions(TestCase, WagtailTestUtils):
         response = self.client.get(last_christmas_preview_url)
         self.assertEqual(response.status_code, 200)
 
-        self.assertContains(response, "Editing Event Page")
+        self.assertContains(response, "Editing Event page")
         self.assertContains(response, "You are viewing a previous revision of this page")
 
         # Form should show the content of the revision, not the current draft
@@ -3448,7 +3581,7 @@ class TestInlineStreamField(TestCase, WagtailTestUtils):
         self.assertEqual(response.status_code, 200)
 
         # response should include HTML declarations for streamfield child blocks
-        self.assertContains(response, '<li id="__PREFIX__-container" class="sequence-member blockname-rich_text">')
+        self.assertContains(response, '<li id="__PREFIX__-container" class="sequence-member">')
 
 
 class TestRecentEditsPanel(TestCase, WagtailTestUtils):

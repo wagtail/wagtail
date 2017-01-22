@@ -1,7 +1,7 @@
 {
   "name": "wagtail",
   "version": "1.0.0",
-  "repository": "https://github.com/torchbox/wagtail",
+  "repository": "https://github.com/wagtail/wagtail",
   "private": true,
   "browser": {},
   "browserify": {

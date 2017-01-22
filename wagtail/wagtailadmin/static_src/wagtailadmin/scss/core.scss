@@ -61,7 +61,6 @@ body {
     padding: 1em 2em;
     margin: 0;
     position: relative;
-    width: 100%;
     text-align: center;
 
     a {
@@ -118,6 +117,18 @@ body {
     position: relative; // yuk. necessary for positions for jquery ui widgets
 }
 
+.page-locked {
+
+    .tab-content {
+        cursor: not-allowed;
+        user-select: none;
+
+        > * {
+            pointer-events: none;
+        }
+    }
+}
+
 footer {
     // @include transition(all 0.2s ease);
     @include transition(bottom 0.5s ease 1s);
@@ -142,13 +153,13 @@ footer {
 
     .actions {
         width: 250px;
-        margin-right: $grid-gutter-width/2;
+        margin-right: $grid-gutter-width / 2;
     }
 
     .meta {
         float: right;
         text-align: right;
-        padding: 7px $grid-gutter-width/2;
+        padding: 7px $grid-gutter-width / 2;
         font-size: 0.85em;
 
         p {

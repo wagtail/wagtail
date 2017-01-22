@@ -2,10 +2,11 @@ from __future__ import absolute_import, unicode_literals
 
 from wagtail.contrib.modeladmin.mixins import OrderableMixin, ThumbnailMixin
 from wagtail.contrib.modeladmin.options import ModelAdmin, ModelAdminGroup, modeladmin_register
-
+from wagtail.contrib.modeladmin.views import CreateView
 from wagtail.tests.testapp.models import BusinessChild, EventPage, SingleEventPage
 
-from .models import Author, Book, Token
+from .forms import PublisherModelAdminForm
+from .models import Author, Book, Publisher, Token, VenuePage
 
 
 class AuthorModelAdmin(ThumbnailMixin, ModelAdmin):
@@ -18,14 +19,15 @@ class AuthorModelAdmin(ThumbnailMixin, ModelAdmin):
     inspect_view_fields = ('name', )
 
 
-class BookModelAdmin(OrderableMixin, ModelAdmin):
+class BookModelAdmin(OrderableMixin, ThumbnailMixin, ModelAdmin):
     model = Book
     menu_order = 300
-    list_display = ('title', 'author')
+    list_display = ('title', 'author', 'admin_thumb')
     list_filter = ('author', )
     search_fields = ('title', )
     inspect_view_enabled = True
     inspect_view_fields_exclude = ('title', )
+    thumb_image_field_name = 'cover_image'
 
     def get_extra_attrs_for_row(self, obj, context):
         return {
@@ -37,6 +39,16 @@ class BookModelAdmin(OrderableMixin, ModelAdmin):
 class TokenModelAdmin(ModelAdmin):
     model = Token
     list_display = ('key',)
+
+
+class PublisherCreateView(CreateView):
+    def get_form_class(self):
+        return PublisherModelAdminForm
+
+
+class PublisherModelAdmin(ModelAdmin):
+    model = Publisher
+    create_view_class = PublisherCreateView
 
 
 class EventPageAdmin(ModelAdmin):
@@ -52,9 +64,14 @@ class SingleEventPageAdmin(EventPageAdmin):
     model = SingleEventPage
 
 
+class VenuePageAdmin(ModelAdmin):
+    model = VenuePage
+    exclude_from_explorer = True
+
+
 class EventsAdminGroup(ModelAdminGroup):
     menu_label = "Events"
-    items = (EventPageAdmin, SingleEventPageAdmin)
+    items = (EventPageAdmin, SingleEventPageAdmin, VenuePageAdmin)
     menu_order = 500
 
 
@@ -67,5 +84,6 @@ class BusinessChildAdmin(ModelAdmin):
 modeladmin_register(AuthorModelAdmin)
 modeladmin_register(BookModelAdmin)
 modeladmin_register(TokenModelAdmin)
+modeladmin_register(PublisherModelAdmin)
 modeladmin_register(EventsAdminGroup)
 modeladmin_register(BusinessChildAdmin)

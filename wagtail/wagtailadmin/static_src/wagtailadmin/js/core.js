@@ -474,6 +474,3 @@ wagtail = (function(document, window, wagtail) {
     return wagtail;
 
 })(document, window, wagtail);
-
-
-

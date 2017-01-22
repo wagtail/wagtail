@@ -149,7 +149,7 @@ class TestElasticsearchSearchBackend(BackendTests, TestCase):
         This tests that punctuation characters are treated the same
         way in both indexing and querying.
 
-        See: https://github.com/torchbox/wagtail/issues/937
+        See: https://github.com/wagtail/wagtail/issues/937
         """
         # Reset the index
         self.reset_index()
@@ -438,7 +438,7 @@ class TestElasticsearchSearchQuery(TestCase):
         # Check it
         expected_result = {'filtered': {'filter': {'and': [
             {'prefix': {'content_type': 'searchtests_searchtest'}},
-            {'not': {'missing': {'field': 'title_filter'}}}
+            {'exists': {'field': 'title_filter'}}
         ]}, 'query': {'multi_match': {'query': 'Hello', 'fields': ['_all', '_partials']}}}}
         self.assertDictEqual(query.get_query(), expected_result)
 
@@ -759,7 +759,7 @@ class TestElasticsearchMapping(TestCase):
         expected_result = {
             'searchtests_searchtest': {
                 'properties': {
-                    'pk': {'index': 'not_analyzed', 'type': 'string', 'store': 'yes', 'include_in_all': False},
+                    'pk': {'index': 'not_analyzed', 'type': 'string', 'store': True, 'include_in_all': False},
                     'content_type': {'index': 'not_analyzed', 'type': 'string', 'include_in_all': False},
                     '_partials': {'index_analyzer': 'edgengram_analyzer', 'include_in_all': False, 'type': 'string'},
                     'live_filter': {'index': 'not_analyzed', 'type': 'boolean', 'include_in_all': False},
@@ -854,7 +854,7 @@ class TestElasticsearchMappingInheritance(TestCase):
                     },
 
                     # Inherited
-                    'pk': {'index': 'not_analyzed', 'type': 'string', 'store': 'yes', 'include_in_all': False},
+                    'pk': {'index': 'not_analyzed', 'type': 'string', 'store': True, 'include_in_all': False},
                     'content_type': {'index': 'not_analyzed', 'type': 'string', 'include_in_all': False},
                     '_partials': {'index_analyzer': 'edgengram_analyzer', 'include_in_all': False, 'type': 'string'},
                     'live_filter': {'index': 'not_analyzed', 'type': 'boolean', 'include_in_all': False},
@@ -980,6 +980,33 @@ class TestBackendConfiguration(TestCase):
         self.assertEqual(backend.hosts[3]['port'], 443)
         self.assertEqual(backend.hosts[3]['use_ssl'], True)
         self.assertEqual(backend.hosts[3]['url_prefix'], '/hello')
+
+    def test_default_index_settings_override(self):
+        backend = ElasticsearchSearchBackend(params={
+            'INDEX_SETTINGS': {
+                "settings": {  # Already existing key
+                    "number_of_shards": 2,  # New key
+                    "analysis": {  # Already existing key
+                        "analyzer": {  # Already existing key
+                            "edgengram_analyzer": {  # Already existing key
+                                "tokenizer": "standard"  # Key redefinition
+                            }
+                        }
+                    }
+                }
+            }
+        })
+
+        # Check structure
+        self.assertIn("number_of_shards", backend.settings["settings"].keys())
+        self.assertIn("analysis", backend.settings["settings"].keys())
+        self.assertIn("analyzer", backend.settings["settings"]["analysis"].keys())
+        self.assertIn("edgengram_analyzer", backend.settings["settings"]["analysis"]["analyzer"].keys())
+        self.assertIn("tokenizer", backend.settings["settings"]["analysis"]["analyzer"]["edgengram_analyzer"].keys())
+        # Check values
+        self.assertEqual(backend.settings["settings"]["number_of_shards"], 2)
+        self.assertEqual(backend.settings["settings"]["analysis"]["analyzer"]["edgengram_analyzer"]["tokenizer"], "standard")
+        self.assertEqual(backend.settings["settings"]["analysis"]["analyzer"]["edgengram_analyzer"]["type"], "custom")  # Check if a default setting still exists
 
 
 @unittest.skipUnless(os.environ.get('ELASTICSEARCH_URL', False), "ELASTICSEARCH_URL not set")

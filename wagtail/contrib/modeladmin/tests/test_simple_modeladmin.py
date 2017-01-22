@@ -4,8 +4,10 @@ from django.contrib.auth import get_user_model
 from django.contrib.auth.models import Group
 from django.test import TestCase
 
-from wagtail.tests.modeladmintest.models import Author, Book
+from wagtail.tests.modeladmintest.models import Author, Book, Publisher
 from wagtail.tests.utils import WagtailTestUtils
+from wagtail.wagtailimages.models import Image
+from wagtail.wagtailimages.tests.utils import get_test_image_file
 
 
 class TestIndexView(TestCase, WagtailTestUtils):
@@ -13,6 +15,14 @@ class TestIndexView(TestCase, WagtailTestUtils):
 
     def setUp(self):
         self.login()
+
+        img = Image.objects.create(
+            title="LOTR cover",
+            file=get_test_image_file(),
+        )
+        book = Book.objects.get(title="The Lord of the Rings")
+        book.cover_image = img
+        book.save()
 
     def get(self, **params):
         return self.client.get('/admin/modeladmintest/book/', params)
@@ -206,6 +216,19 @@ class TestCreateView(TestCase, WagtailTestUtils):
         # Check that the book was created
         self.assertEqual(Book.objects.filter(title="George's Marvellous Medicine").count(), 1)
 
+        response = self.client.get('/admin/modeladmintest/publisher/create/')
+        self.assertIn('name', response.content.decode('UTF-8'))
+        self.assertNotIn('headquartered_in', response.content.decode('UTF-8'))
+        self.assertEqual(
+            [ii for ii in response.context['form'].fields],
+            ['name']
+        )
+        self.client.post('/admin/modeladmintest/publisher/create/', {
+            'name': 'Sharper Collins'
+        })
+        publisher = Publisher.objects.get(name='Sharper Collins')
+        self.assertEqual(publisher.headquartered_in, None)
+
     def test_post_invalid(self):
         initial_book_count = Book.objects.count()
 
@@ -229,17 +252,25 @@ class TestInspectView(TestCase, WagtailTestUtils):
     def setUp(self):
         self.login()
 
+        img = Image.objects.create(
+            title="LOTR cover",
+            file=get_test_image_file(),
+        )
+        book = Book.objects.get(title="The Lord of the Rings")
+        book.cover_image = img
+        book.save()
+
     def get_for_author(self, author_id):
         return self.client.get('/admin/modeladmintest/author/inspect/%d/' % author_id)
 
     def get_for_book(self, book_id):
         return self.client.get('/admin/modeladmintest/book/inspect/%d/' % book_id)
 
-    def author_test_simple(self):
+    def test_author_simple(self):
         response = self.get_for_author(1)
         self.assertEqual(response.status_code, 200)
 
-    def author_test_name_present(self):
+    def test_author_name_present(self):
         """
         The author name should appear twice. Once in the header, and once
         more in the field listing
@@ -247,19 +278,19 @@ class TestInspectView(TestCase, WagtailTestUtils):
         response = self.get_for_author(1)
         self.assertContains(response, 'J. R. R. Tolkien', 2)
 
-    def author_test_dob_not_present(self):
+    def test_author_dob_not_present(self):
         """
         The date of birth shouldn't appear, because the field wasn't included
         in the `inspect_view_fields` list
         """
         response = self.get_for_author(1)
-        self.assertNotContains(response, '1892', 2)
+        self.assertNotContains(response, '1892')
 
-    def book_test_simple(self):
+    def test_book_simple(self):
         response = self.get_for_book(1)
         self.assertEqual(response.status_code, 200)
 
-    def book_test_title_present(self):
+    def test_book_title_present(self):
         """
         The book title should appear once only, in the header, as 'title'
         was added to the `inspect_view_fields_ignore` list
@@ -267,7 +298,7 @@ class TestInspectView(TestCase, WagtailTestUtils):
         response = self.get_for_book(1)
         self.assertContains(response, 'The Lord of the Rings', 1)
 
-    def book_test_author_present(self):
+    def test_book_author_present(self):
         """
         The author name should appear, because 'author' is not in
         `inspect_view_fields_ignore` and should be returned by the

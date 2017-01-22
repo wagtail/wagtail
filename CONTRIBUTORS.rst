@@ -174,17 +174,49 @@ Contributors
 * Axel Haustant
 * Henk-Jan van Hasselaar
 * alexfromvl
+* Jaap Roes
+* Ducky
+* Shawn Makinson
+* Tom Miller
+* Luca Perico
+* Gary Krige
+* Hammy Goonan
+* Thejaswi Puthraya
+* Benoît Vogel
+* Manuel E. Gutierrez
+* Albert O'Connor
+* Morgan Aubert
+* Diederik van der Boor
+* Sean Hoefler
+* Edd Baldry
+* PyMan Claudio Marinozzi
+* Jeffrey Chau
+* Craig Loftus
+* MattRijk
+* Marco Fucci
+* Mihail Russu
+* Robert Slotboom
+* Erick M'bwana
+* Andreas Nüßlein
+* John Heasly
+* Nikolai Røed Kristiansen
+* Alex Zagorodniuk
+* glassresistor
+* Mikael Svensson
+* Peter Baumgartner
+* Matheus Bratfisch
 
 Translators
 ===========
 
+* Afrikaans: Jaco du Plessis
 * Arabic: alfuhigi, Roger Allen, Ahmad Kiswani, Mohamed Mayla
 * Basque: Unai Zalakain
 * Bulgarian: Lyuboslav Petrov
 * Catalan: Antoni Aloy, David Llop, Roger Pons
 * Chinese: hanfeng, Lihan Li, Leway Colin
-* Chinese (China): hanfeng, Daniel Hwang, Jian Li, Listeng Teng, Feng Wang, Joey Zhao
-* Chinese (Taiwan): Lihan Li
+* Chinese (China): hanfeng, Daniel Hwang, Jian Li, Listeng Teng, Feng Wang, Fred Zeng, Joey Zhao, zhushajun
+* Chinese (Taiwan): Lihan Li, Jp Shieh
 * Croatian (Croatia): Luka Matijević
 * Czech: Ivan Pomykacz, Jiri Stepanek, Marek Turnovec
 * Danish: Asger Sørensen
@@ -200,7 +232,7 @@ Translators
 * Hungarian: Laszlo Molnar, Kornél Novák Mergulhão
 * Icelandic (Iceland): Arnar Tumi Þorsteinsson, Kjartan Sverrisson, Sævar Öfjörð Magnússon
 * Indonesian (Indonesia): Sutrisno Efendi, Geek Pantura
-* Italian: Edd Baldry, Claudio Bantaloukas, Giacomo Ghizzani, Carlo Miron, Alessio Di Stasio, Andrea Tagliazucchi
+* Italian: Edd Baldry, Claudio Bantaloukas, Gian-Maria Daffre, Giacomo Ghizzani, Carlo Miron, Alessio Di Stasio, Andrea Tagliazucchi
 * Japanese: Sangmin Ahn, Shu Ishida, Daigo Shitara, Shimizu Taku
 * Korean: Kyungil Choi, Jihan Chung
 * Latvian: Reinis Rozenbergs, Maris Serzans

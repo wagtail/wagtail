@@ -4,13 +4,14 @@
 #
 # Translators:
 # Eirik Krogstad <eirikkr@gmail.com>, 2015
+# Stein Strindhaug <stein.strindhaug@gmail.com>, 2016
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-10-05 16:38+0100\n"
-"PO-Revision-Date: 2016-08-01 13:29+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2016-12-06 22:44+0000\n"
+"PO-Revision-Date: 2016-11-18 10:52+0000\n"
+"Last-Translator: Stein Strindhaug <stein.strindhaug@gmail.com>\n"
 "Language-Team: Norwegian Bokmål (http://www.transifex.com/torchbox/wagtail/"
 "language/nb/)\n"
 "MIME-Version: 1.0\n"
@@ -34,6 +35,11 @@ msgstr "Passordfeltene stemmer ikke overens."
 
 msgid "Administrator"
 msgstr "Administrator"
+
+msgid "Administrators have full access to manage any object or setting."
+msgstr ""
+"Administratorer har full tilgang til å administrere alle objekter eller "
+"innstillinger."
 
 msgid "Password"
 msgstr "Passord"
@@ -59,14 +65,29 @@ msgstr "Etternavn"
 msgid "A group with that name already exists."
 msgstr "En gruppe med det navnet eksisterer allerede."
 
+msgid "You cannot have multiple permission records for the same page."
+msgstr "Du kan ikke ha flere tillatelsesoppføringer for samme side."
+
+msgid "submitted notifications"
+msgstr "innsendingsvarsel"
+
 msgid "Receive notification when a page is submitted for moderation"
 msgstr "Motta varsel når en side blir sendt til godkjenning"
+
+msgid "approved notifications"
+msgstr "godkjenningsvarsel"
 
 msgid "Receive notification when your page edit is approved"
 msgstr "Motta varsel når din sideredigering blir godkjent"
 
+msgid "rejected notifications"
+msgstr "avvisningsvarsel"
+
 msgid "Receive notification when your page edit is rejected"
 msgstr "Motta varsel når din sideredigering blir avvist"
+
+msgid "user profile"
+msgstr "brukerprofil"
 
 msgid "Delete group"
 msgstr "Slett gruppe"
@@ -138,6 +159,12 @@ msgid ""
 msgstr ""
 "Det er ingen grupper konfigurert. Hvorfor ikke <a href="
 "\"%(wagtailusers_create_group_url)s\">legge en til</a>?"
+
+msgid "Delete user"
+msgstr "Slett bruker"
+
+msgid "Are you sure you want to delete this user?"
+msgstr "Er du sikker på at du vil slette denne brukeren?"
 
 msgid "Add user"
 msgstr "Legg til bruker"
@@ -242,3 +269,16 @@ msgstr "Brukeren \"{0}\" er oppdatert."
 
 msgid "The user could not be saved due to errors."
 msgstr "Brukeren kunne ikke lagres grunnet feil."
+
+#, python-brace-format
+msgid "User '{0}' deleted."
+msgstr "Brukeren \"{0}\" er slettet."
+
+msgid "Groups"
+msgstr "Grupper"
+
+msgid "Edit this user"
+msgstr "Rediger denne brukeren"
+
+msgid "Delete this user"
+msgstr "Slett denne brukeren"

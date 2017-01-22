@@ -10,9 +10,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-10-05 16:37+0100\n"
-"PO-Revision-Date: 2016-09-22 15:03+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2016-12-06 22:44+0000\n"
+"PO-Revision-Date: 2016-11-17 15:38+0000\n"
+"Last-Translator: mmiskiew <mmiskiew@gmail.com>\n"
 "Language-Team: Polish (http://www.transifex.com/torchbox/wagtail/language/"
 "pl/)\n"
 "MIME-Version: 1.0\n"
@@ -52,6 +52,15 @@ msgstr "Ten obraz jest za duży (%%s). Maksymalny rozmiar pliku %s."
 #, python-format
 msgid "This file is too big. Maximum filesize %s."
 msgstr "Ten obraz jest za duży. Maksymalny rozmiar pliku %s."
+
+msgid "Full width"
+msgstr "Pełna szerokość"
+
+msgid "Left-aligned"
+msgstr "Wyrównanie do lewej"
+
+msgid "Right-aligned"
+msgstr "Wyrównanie do prawej"
 
 msgid "Filter"
 msgstr "Filtr"

@@ -26,11 +26,12 @@ from django.utils.encoding import python_2_unicode_compatible
 from django.utils.functional import cached_property
 from django.utils.six import StringIO
 from django.utils.six.moves.urllib.parse import urlparse
-from django.utils.text import slugify
+from django.utils.text import capfirst, slugify
 from django.utils.translation import ugettext_lazy as _
 from modelcluster.models import ClusterableModel, get_all_child_relations
 from treebeard.mp_tree import MP_Node
 
+from wagtail.utils.compat import user_is_authenticated
 from wagtail.wagtailcore.query import PageQuerySet, TreeQuerySet
 from wagtail.wagtailcore.signals import page_published, page_unpublished
 from wagtail.wagtailcore.url_routing import RouteResult
@@ -248,6 +249,7 @@ class BasePageManager(models.Manager):
     def get_queryset(self):
         return PageQuerySet(self.model).order_by('path')
 
+
 PageManager = BasePageManager.from_queryset(PageQuerySet)
 
 
@@ -395,6 +397,12 @@ class Page(six.with_metaclass(PageBase, AbstractPage, index.Indexed, Clusterable
 
     # Do not allow plain Page instances to be created through the Wagtail admin
     is_creatable = False
+
+    # Define these attributes early to avoid masking errors. (Issue #3078)
+    # The canonical definition is in wagtailadmin.edit_handlers.
+    content_panels = []
+    promote_panels = []
+    settings_panels = []
 
     def __init__(self, *args, **kwargs):
         super(Page, self).__init__(*args, **kwargs)
@@ -560,8 +568,7 @@ class Page(six.with_metaclass(PageBase, AbstractPage, index.Indexed, Clusterable
             errors.append(
                 checks.Error(
                     "Manager does not inherit from PageManager",
-                    hint="Ensure that custom Page managers inherit from {}.{}".format(
-                        PageManager.__module__, PageManager.__name__),
+                    hint="Ensure that custom Page managers inherit from wagtail.wagtailcore.models.PageManager",
                     obj=cls,
                     id='wagtailcore.E002',
                 )
@@ -996,11 +1003,11 @@ class Page(six.with_metaclass(PageBase, AbstractPage, index.Indexed, Clusterable
     @classmethod
     def get_verbose_name(cls):
         """
-            Returns the human-readable "verbose name" of this page model e.g "Blog page".
+        Returns the human-readable "verbose name" of this page model e.g "Blog page".
         """
         # This is similar to doing cls._meta.verbose_name.title()
         # except this doesn't convert any characters to lowercase
-        return ' '.join([word[0].upper() + word[1:] for word in cls._meta.verbose_name.split()])
+        return capfirst(cls._meta.verbose_name)
 
     @property
     def status_string(self):
@@ -1174,6 +1181,8 @@ class Page(six.with_metaclass(PageBase, AbstractPage, index.Indexed, Clusterable
                 )
 
         return page_copy
+
+    copy.alters_data = True
 
     def permissions_for_user(self, user):
         """
@@ -1530,6 +1539,7 @@ PAGE_PERMISSION_TYPES = [
     ('add', _("Add"), _("Add/edit pages you own")),
     ('edit', _("Edit"), _("Edit any page")),
     ('publish', _("Publish"), _("Publish any page")),
+    ('bulk_delete', _("Bulk delete"), _("Delete pages with children")),
     ('lock', _("Lock"), _("Lock/unlock any page")),
 ]
 
@@ -1685,21 +1695,34 @@ class PagePermissionTester(object):
         if self.page_is_root:  # root node is not a page and can never be deleted, even by superusers
             return False
 
-        if self.user.is_superuser or ('publish' in self.permissions):
-            # Users with publish permission can unpublish any pages that need to be unpublished to achieve deletion
+        if self.user.is_superuser:
+            # superusers require no further checks
             return True
 
-        elif 'edit' in self.permissions:
-            # user can only delete if there are no live pages in this subtree
-            return (not self.page.live) and (not self.page.get_descendants().filter(live=True).exists())
+        # if the user does not have bulk_delete permission, they may only delete leaf pages
+        if 'bulk_delete' not in self.permissions and not self.page.is_leaf():
+            return False
+
+        if 'edit' in self.permissions:
+            # if the user does not have publish permission, we also need to confirm that there
+            # are no published pages here
+            if 'publish' not in self.permissions:
+                pages_to_delete = self.page.get_descendants(inclusive=True)
+                if pages_to_delete.live().exists():
+                    return False
+
+            return True
 
         elif 'add' in self.permissions:
-            # user can only delete if all pages in this subtree are unpublished and owned by this user
-            return (
-                (not self.page.live) and
-                (self.page.owner_id == self.user.pk) and
-                (not self.page.get_descendants().exclude(live=False, owner=self.user).exists())
-            )
+            pages_to_delete = self.page.get_descendants(inclusive=True)
+            if 'publish' in self.permissions:
+                # we don't care about live state, but all pages must be owned by this user
+                # (i.e. eliminating pages owned by this user must give us the empty set)
+                return not pages_to_delete.exclude(owner=self.user).exists()
+            else:
+                # all pages must be owned by this user and non-live
+                # (i.e. eliminating non-live pages owned by this user must give us the empty set)
+                return not pages_to_delete.exclude(live=False, owner=self.user).exists()
 
         else:
             return False
@@ -1793,8 +1816,44 @@ class PagePermissionTester(object):
 
 
 class PageViewRestriction(models.Model):
-    page = models.ForeignKey('Page', verbose_name=_('page'), related_name='view_restrictions', on_delete=models.CASCADE)
-    password = models.CharField(verbose_name=_('password'), max_length=255)
+    NONE = 'none'
+    PASSWORD = 'password'
+    GROUPS = 'groups'
+    LOGIN = 'login'
+
+    RESTRICTION_CHOICES = (
+        (NONE, _("Public")),
+        (LOGIN, _("Private, accessible to logged-in users")),
+        (PASSWORD, _("Private, accessible with the following password")),
+        (GROUPS, _("Private, accessible to users in specific groups")),
+    )
+
+    restriction_type = models.CharField(
+        max_length=20, choices=RESTRICTION_CHOICES)
+    page = models.ForeignKey(
+        'Page', verbose_name=_('page'), related_name='view_restrictions', on_delete=models.CASCADE
+    )
+    password = models.CharField(verbose_name=_('password'), max_length=255, blank=True)
+    groups = models.ManyToManyField(Group, blank=True)
+
+    def accept_request(self, request):
+        if self.restriction_type == PageViewRestriction.PASSWORD:
+            passed_restrictions = request.session.get('passed_page_view_restrictions', [])
+            if self.id not in passed_restrictions:
+                return False
+
+        elif self.restriction_type == PageViewRestriction.LOGIN:
+            if not user_is_authenticated(request.user):
+                return False
+
+        elif self.restriction_type == PageViewRestriction.GROUPS:
+            if not request.user.is_superuser:
+                current_user_groups = request.user.groups.all()
+
+                if not any(group in current_user_groups for group in self.groups.all()):
+                    return False
+
+        return True
 
     class Meta:
         verbose_name = _('page view restriction')
@@ -1804,6 +1863,7 @@ class PageViewRestriction(models.Model):
 class BaseCollectionManager(models.Manager):
     def get_queryset(self):
         return TreeQuerySet(self.model).order_by('path')
+
 
 CollectionManager = BaseCollectionManager.from_queryset(TreeQuerySet)
 

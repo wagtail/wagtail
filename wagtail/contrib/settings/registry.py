@@ -80,5 +80,6 @@ class Registry(list):
             return None
         return Model
 
+
 registry = Registry()
 register_setting = registry.register_decorator

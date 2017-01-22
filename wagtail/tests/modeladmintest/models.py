@@ -3,7 +3,8 @@ from __future__ import absolute_import, unicode_literals
 from django.db import models
 from django.utils.encoding import python_2_unicode_compatible
 
-from wagtail.wagtailcore.models import Orderable
+
+from wagtail.wagtailcore.models import Orderable, Page
 from wagtail.wagtailsearch import index
 
 
@@ -20,6 +21,7 @@ class Author(models.Model):
 class Book(Orderable, index.Indexed):
     author = models.ForeignKey(Author, on_delete=models.PROTECT)
     title = models.CharField(max_length=255)
+    cover_image = models.ForeignKey('wagtailimages.Image', on_delete=models.SET_NULL, null=True, blank=True)
 
     def __str__(self):
         return self.title
@@ -31,3 +33,17 @@ class Token(models.Model):
 
     def __str__(self):
         return self.key
+
+
+@python_2_unicode_compatible
+class Publisher(models.Model):
+    name = models.CharField(max_length=50)
+    headquartered_in = models.CharField(max_length=50, null=True, blank=True)
+
+    def __str__(self):
+        return self.name
+
+
+class VenuePage(Page):
+    address = models.CharField(max_length=300)
+    capacity = models.IntegerField()

@@ -5,7 +5,7 @@ end_of_line = lf
 insert_final_newline = true
 trim_trailing_whitespace = true
 
-[*.{css,js,json,py,yml}]
+[*.{css,js,json,py,yml,rst}]
 indent_style = space
 
 [*.{js,py}]

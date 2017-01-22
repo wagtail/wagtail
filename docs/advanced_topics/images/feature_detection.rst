@@ -19,9 +19,9 @@ Installing OpenCV on Debian/Ubuntu
 
 Debian and ubuntu provide an apt-get package called ``python-opencv``:
 
- .. code-block:: sh
+ .. code-block:: console
 
-    sudo apt-get install python-opencv python-numpy
+    $ sudo apt-get install python-opencv python-numpy
 
 This will install PyOpenCV into your site packages. If you are using a virtual environment, you need to make sure site packages are enabled or Wagtail will not be able to import PyOpenCV.
 

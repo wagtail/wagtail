@@ -1,12 +1,15 @@
 from __future__ import absolute_import, unicode_literals
 
 import os
+
 import django
 
 WAGTAIL_ROOT = os.path.dirname(os.path.dirname(__file__))
 STATIC_ROOT = os.path.join(WAGTAIL_ROOT, 'tests', 'test-static')
 MEDIA_ROOT = os.path.join(WAGTAIL_ROOT, 'tests', 'test-media')
 MEDIA_URL = '/media/'
+
+TIME_ZONE = 'Asia/Tokyo'
 
 DATABASES = {
     'default': {
@@ -168,7 +171,9 @@ WAGTAILSEARCH_BACKENDS = {
 AUTH_USER_MODEL = 'customuser.CustomUser'
 
 if 'ELASTICSEARCH_URL' in os.environ:
-    if os.environ.get('ELASTICSEARCH_VERSION') == '2':
+    if os.environ.get('ELASTICSEARCH_VERSION') == '5':
+        backend = 'wagtail.wagtailsearch.backends.elasticsearch5'
+    elif os.environ.get('ELASTICSEARCH_VERSION') == '2':
         backend = 'wagtail.wagtailsearch.backends.elasticsearch2'
     else:
         backend = 'wagtail.wagtailsearch.backends.elasticsearch'

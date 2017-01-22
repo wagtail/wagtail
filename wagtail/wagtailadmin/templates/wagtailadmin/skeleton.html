@@ -20,7 +20,12 @@
     <!--[if lt IE 9]>
         <p class="capabilitymessage">{% blocktrans %}You are using an <strong>outdated</strong> browser not supported by this software. Please <a href="http://browsehappy.com/">upgrade your browser</a>.{% endblocktrans %}</p>
     <![endif]-->
-    <noscript class="capabilitymessage">{% trans 'Javascript is required to use Wagtail, but it is currently disabled' %}</noscript>
+    <noscript class="capabilitymessage">
+        {% blocktrans %}
+            Javascript is required to use Wagtail, but it is currently disabled.<br />
+            Here are the <a href="http://www.enable-javascript.com/" target="_blank" rel="noopener">instructions how to enable JavaScript in your web browser</a>.
+        {% endblocktrans %}
+    </noscript>
 
     {% block js %}{% endblock %}
 

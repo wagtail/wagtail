@@ -57,5 +57,6 @@ class WagtailCoreExtension(Extension):
 
         return jinja2.Markup(value)
 
+
 # Nicer import names
 core = WagtailCoreExtension

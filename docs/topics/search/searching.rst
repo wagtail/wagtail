@@ -102,8 +102,6 @@ Changing search behaviour
 Search operator
 ^^^^^^^^^^^^^^^
 
-.. versionadded:: 1.2
-
 The search operator specifies how search should behave when the user has typed in multiple search terms. There are two possible values:
 
  - "or" - The results must match at least one term (default for Elasticsearch)
@@ -151,8 +149,6 @@ For page, image and document models, the ``operator`` keyword argument is also s
 Custom ordering
 ^^^^^^^^^^^^^^^
 
-.. versionadded:: 1.2
-
 By default, search results are ordered by relevance, if the backend supports it. To preserve the QuerySet's existing ordering, the ``order_by_relevance`` keyword argument needs to be set to ``False`` on the ``search()`` method.
 
 For example:
@@ -170,8 +166,6 @@ For example:
 
 Annotating results with score
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-.. versionadded:: 1.7
 
 For each matched result, Elasticsearch calculates a "score", which is a number
 that represents how relevant the result is based on the user's query. The

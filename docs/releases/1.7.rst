@@ -111,16 +111,20 @@ The data model for image renditions will be changed in Wagtail 1.8 to eliminate 
 
  * Run ``manage.py makemigrations`` to create the schema migration
  * Run ``manage.py makemigrations --empty myapp`` (replacing ``myapp`` with the name of the app containing the custom image model) to create an empty migration
- * Edit the created migration to contain::
+ * Edit the created migration to contain:
 
-    from wagtail.wagtailimages.utils import get_fill_filter_spec_migrations
+   .. code-block:: python
 
-   and, for the ``operations`` list::
+       from wagtail.wagtailimages.utils import get_fill_filter_spec_migrations
 
-    forward, reverse = get_fill_filter_spec_migrations('myapp', 'CustomRendition')
-    operations = [
-        migrations.RunPython(forward, reverse),
-    ]
+   and, for the ``operations`` list:
+
+   .. code-block:: python
+
+       forward, reverse = get_fill_filter_spec_migrations('myapp', 'CustomRendition')
+       operations = [
+           migrations.RunPython(forward, reverse),
+       ]
 
    replacing ``myapp`` and ``CustomRendition`` with the app and model name for the custom rendition model.
 

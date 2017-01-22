@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-10-05 16:37+0100\n"
-"PO-Revision-Date: 2016-10-05 15:39+0000\n"
+"POT-Creation-Date: 2016-12-06 22:44+0000\n"
+"PO-Revision-Date: 2016-12-06 22:46+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Ukrainian (http://www.transifex.com/torchbox/wagtail/language/"
 "uk/)\n"
@@ -102,9 +102,6 @@ msgstr[2] ""
 "%(count)s сторінок, що ви копіюєте, вже опубліковано. Хочете опублїкувати їх "
 "копїю?"
 
-msgid "Public"
-msgstr "Відкритий "
-
 msgid "This field is required."
 msgstr "Це поле необхідно заповнити"
 
@@ -141,6 +138,9 @@ msgstr "Увійдіть до Wagtail"
 
 msgid "Forgotten it?"
 msgstr "Забули це?"
+
+msgid "Public"
+msgstr "Відкритий "
 
 msgid "Choose another page"
 msgstr "Оберіть іншу сторінку"

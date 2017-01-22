@@ -150,7 +150,7 @@ class TestElasticsearch2SearchBackend(BackendTests, TestCase):
         This tests that punctuation characters are treated the same
         way in both indexing and querying.
 
-        See: https://github.com/torchbox/wagtail/issues/937
+        See: https://github.com/wagtail/wagtail/issues/937
         """
         # Reset the index
         self.reset_index()
@@ -433,7 +433,7 @@ class TestElasticsearch2SearchQuery(TestCase):
         # Check it
         expected_result = {'filtered': {'filter': {'and': [
             {'match': {'content_type': 'searchtests.SearchTest'}},
-            {'not': {'missing': {'field': 'title_filter'}}}
+            {'exists': {'field': 'title_filter'}}
         ]}, 'query': {'multi_match': {'query': 'Hello', 'fields': ['_all', '_partials']}}}}
         self.assertDictEqual(query.get_query(), expected_result)
 
@@ -754,7 +754,7 @@ class TestElasticsearch2Mapping(TestCase):
         expected_result = {
             'searchtests_searchtest': {
                 'properties': {
-                    'pk': {'index': 'not_analyzed', 'type': 'string', 'store': 'yes', 'include_in_all': False},
+                    'pk': {'index': 'not_analyzed', 'type': 'string', 'store': True, 'include_in_all': False},
                     'content_type': {'index': 'not_analyzed', 'type': 'string', 'include_in_all': False},
                     '_partials': {'analyzer': 'edgengram_analyzer', 'search_analyzer': 'standard', 'include_in_all': False, 'type': 'string'},
                     'live_filter': {'index': 'not_analyzed', 'type': 'boolean', 'include_in_all': False},
@@ -849,7 +849,7 @@ class TestElasticsearch2MappingInheritance(TestCase):
                     },
 
                     # Inherited
-                    'pk': {'index': 'not_analyzed', 'type': 'string', 'store': 'yes', 'include_in_all': False},
+                    'pk': {'index': 'not_analyzed', 'type': 'string', 'store': True, 'include_in_all': False},
                     'content_type': {'index': 'not_analyzed', 'type': 'string', 'include_in_all': False},
                     '_partials': {'analyzer': 'edgengram_analyzer', 'search_analyzer': 'standard', 'include_in_all': False, 'type': 'string'},
                     'live_filter': {'index': 'not_analyzed', 'type': 'boolean', 'include_in_all': False},

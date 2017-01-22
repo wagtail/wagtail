@@ -6,14 +6,15 @@
 # ajk, 2014
 # Andrey Avdey <talkerbox@live.com>, 2016
 # Eugene MechanisM <eugene@mechanism.pro>, 2014-2016
+# Mikalai Radchuk <radchuk.m@gmail.com>, 2016
 # Sergey Khalymon <sergiykhalimon@gmail.com>, 2015
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-10-05 16:37+0100\n"
-"PO-Revision-Date: 2016-09-24 10:56+0000\n"
-"Last-Translator: Andrey Avdey <talkerbox@live.com>\n"
+"POT-Creation-Date: 2016-12-06 22:44+0000\n"
+"PO-Revision-Date: 2016-12-07 08:51+0000\n"
+"Last-Translator: Mikalai Radchuk <radchuk.m@gmail.com>\n"
 "Language-Team: Russian (http://www.transifex.com/torchbox/wagtail/language/"
 "ru/)\n"
 "MIME-Version: 1.0\n"
@@ -23,6 +24,13 @@ msgstr ""
 "Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
 "%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n"
 "%100>=11 && n%100<=14)? 2 : 3);\n"
+
+#, python-brace-format
+msgid "{label}: this block has no options."
+msgstr "{label}: этот блок не имеет опций."
+
+msgid "This block has no options."
+msgstr "Этот блок не имеет опций."
 
 msgid "Password"
 msgstr "Пароль"
@@ -212,6 +220,12 @@ msgstr "Опубликовать"
 msgid "Publish any page"
 msgstr "Опубликовать любую страницу"
 
+msgid "Bulk delete"
+msgstr "Массовое удаление"
+
+msgid "Delete pages with children"
+msgstr "Удалить вместе с дочерними страницами"
+
 msgid "Lock"
 msgstr "Заблокировать"
 
@@ -229,6 +243,18 @@ msgstr "право на страницу у группы"
 
 msgid "group page permissions"
 msgstr "права на страницу у группы"
+
+msgid "Public"
+msgstr "Публично"
+
+msgid "Private, accessible to logged-in users"
+msgstr "Приватно, доступно для зарегистрированных пользователей"
+
+msgid "Private, accessible with the following password"
+msgstr "Приватно, доступно со следующим паролем"
+
+msgid "Private, accessible to users in specific groups"
+msgstr "Приватно, доступно для пользователей из указанных групп"
 
 msgid "password"
 msgstr "пароль"
@@ -253,6 +279,20 @@ msgstr "право доступа"
 
 msgid "group collection permission"
 msgstr "право доступа к коллекции у группы"
+
+msgid "Log in"
+msgstr "Войти"
+
+msgid "Your username and password didn't match. Please try again."
+msgstr ""
+"Ваши имя пользователя и пароль не подходят. Пожалуйста, попробуйте еще раз."
+
+msgid ""
+"Your account doesn't have access to this page. To proceed, please log in "
+"with an account that has access."
+msgstr ""
+"Ваш аккаунт не имеет доступа к этой странице. Для просмотра, пожалуйста, "
+"войдите, используя аккаунт, который имеет доступ."
 
 msgid "Password required"
 msgstr "Требуется пароль"

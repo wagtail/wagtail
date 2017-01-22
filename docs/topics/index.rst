@@ -11,3 +11,4 @@ Usage guide
     search/index
     snippets
     streamfield
+    permissions

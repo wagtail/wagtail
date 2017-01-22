@@ -8,12 +8,13 @@
 # Edd Baldry <edd.baldry@gmail.com>, 2016
 # Edd <edd.baldry@googlemail.com>, 2016
 # Giacomo Ghizzani <giacomo.ghz@gmail.com>, 2015-2016
+# giammi <gian-maria.daffre@giammi.org>, 2016
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-10-05 16:37+0100\n"
-"PO-Revision-Date: 2016-10-05 15:39+0000\n"
+"POT-Creation-Date: 2016-12-06 22:44+0000\n"
+"PO-Revision-Date: 2016-12-06 22:46+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Italian (http://www.transifex.com/torchbox/wagtail/language/"
 "it/)\n"
@@ -122,15 +123,6 @@ msgstr "Questo slug è già in uso nel contesto della pagina padre \"%s\""
 
 msgid "Visibility"
 msgstr "Visibilità"
-
-msgid "Public"
-msgstr "Pubblico"
-
-msgid "Private, accessible with the following password"
-msgstr "Privato, accessibile con la seguente password"
-
-msgid "Password"
-msgstr "Password"
 
 msgid "This field is required."
 msgstr "Questo campo è obbligatorio"
@@ -496,6 +488,9 @@ msgstr "Sbloccato"
 
 msgid "Privacy"
 msgstr "Privacy"
+
+msgid "Public"
+msgstr "Pubblico"
 
 msgid "Private"
 msgstr "Privato"
@@ -949,6 +944,9 @@ msgstr[1] "Usato %(useage_count)s volte"
 msgid "Edit your account"
 msgstr "Modifica il tuo account"
 
+msgid "Account settings"
+msgstr "Impostazioni dell 'account"
+
 msgid "Log out"
 msgstr "Esci"
 
@@ -967,10 +965,6 @@ msgstr ""
 "Stai usando un <strong>vecchio</strong> browser non supportato da questo "
 "software. Per favore <a href=\"http://browsehappy.com/\">aggiorna il tuo "
 "browser</a>."
-
-msgid "Javascript is required to use Wagtail, but it is currently disabled"
-msgstr ""
-"Javascript è richiesto per l'uso di Wagtail, ma al momento è disabilitato"
 
 msgid "Go to Wagtail admin interface"
 msgstr "Vai all'interfaccia admin di Wagtail"

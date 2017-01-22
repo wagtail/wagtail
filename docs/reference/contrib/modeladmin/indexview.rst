@@ -25,18 +25,18 @@ on the ``ModelAdmin`` class itself.
 
 Default value: ``('__str__',)``
 
-Set ``list_display`` to control which fields are displayed in the IndexView 
+Set ``list_display`` to control which fields are displayed in the IndexView
 for your model.
 
 Example
 
 ```
-list_display = ('first_name', 'last_name')  
+list_display = ('first_name', 'last_name')
 ```
 
 You have three possible values that can be used in list_display:
 
--   A field of the model. For example: 
+-   A field of the model. For example:
 
     .. code-block:: python
 
@@ -173,9 +173,9 @@ A few special cases to note about ``list_display``:
 
 
     By default, the ability to sort results by an item in ``list_display`` is
-    only offered when it's a field that has an actual database value (because 
+    only offered when it's a field that has an actual database value (because
     sorting is done at the database level). However, if the output of the
-    method is representative of a database field, you can indicate this fact by 
+    method is representative of a database field, you can indicate this fact by
     setting the ``admin_order_field`` attribute on that method, like so:
 
     .. code-block:: python
@@ -222,8 +222,8 @@ A few special cases to note about ``list_display``:
     .. code-block:: python
 
         from django.db import models
-        
-        
+
+
         class Blog(models.Model):
             title = models.CharField(max_length=255)
             author = models.ForeignKey(Person, on_delete=models.CASCADE)
@@ -235,8 +235,8 @@ A few special cases to note about ``list_display``:
 
 
 -   Elements of ``list_display`` can also be properties. Please note however,
-    that due to the way properties work in Python, setting 
-    ``short_description`` on a property is only possible when using the 
+    that due to the way properties work in Python, setting
+    ``short_description`` on a property is only possible when using the
     ``property()`` function and **not** with the ``@property`` decorator.
 
     For example:
@@ -256,7 +256,7 @@ A few special cases to note about ``list_display``:
 
             full_name = property(full_name_property)
 
-        
+
         class PersonAdmin(ModelAdmin):
             list_display = ('full_name',)
 
@@ -268,7 +268,7 @@ A few special cases to note about ``list_display``:
 ---------------------------
 
 **Expected value**: A list or tuple, where each item is the name of model field
-of type ``BooleanField``, ``CharField``, ``DateField``, ``DateTimeField``, 
+of type ``BooleanField``, ``CharField``, ``DateField``, ``DateTimeField``,
 ``IntegerField`` or ``ForeignKey``.
 
 Set ``list_filter`` to activate filters in the right sidebar of the list page
@@ -290,7 +290,7 @@ for your model. For example:
 of type ``CharField``, ``TextField``, ``RichTextField`` or ``StreamField``.
 
 Set ``search_fields`` to enable a search box at the top of the index page
-for your model. You should add names of any fields on the model that should 
+for your model. You should add names of any fields on the model that should
 be searched whenever somebody submits a search query using the search box.
 
 Searching is all handled via Django's queryset API, rather than using Wagtail's
@@ -303,7 +303,7 @@ your project is using, and without any additional setup or configuration.
 ``ModelAdmin.ordering``
 ---------------------------
 
-**Expected value**: A list or tuple in the same format as a model’s 
+**Expected value**: A list or tuple in the same format as a model’s
 [``ordering``](https://docs.djangoproject.com/en/1.9/ref/contrib/admin/#django.contrib.admin.ModelAdmin.list_display) parameter.
 
 Set ``ordering`` to specify the default ordering of objects when listed by
@@ -338,7 +338,7 @@ method of your model's default manager is used. But, if for any reason you
 only want a certain sub-set of objects to appear in the IndexView listing,
 overriding the ``get_queryset`` method on your ``ModelAdmin`` class can help
 you with that. The method takes an ``HttpRequest`` object as a parameter, so
-limiting objects by the current logged-in user is possible. 
+limiting objects by the current logged-in user is possible.
 
 For example:
 
@@ -374,7 +374,7 @@ The `get_extra_attrs_for_row` method allows you to add html attributes to
 the opening `<tr>` tag for each result, in addition to the `data-object_pk` and
 `class` attributes already added by the `result_row_display` tag.
 
-If you want to add additional CSS classes, simply provide those class names 
+If you want to add additional CSS classes, simply provide those class names
 as a string value using the `class` key, and the `odd`/`even` will be appended
 to your custom class names when rendering.
 
@@ -464,7 +464,7 @@ depending on the row's value, you could do something like:
 The ``get_extra_attrs_for_field_col`` method allows you to add additional HTML
 attributes to any of the columns defined in ``list_display``. Like the
 ``get_extra_class_names_for_field_col`` method above, this method takes two
-parameters: 
+parameters:
 
 -   ``obj``: the object being represented by the current row
 -   ``field_name``: the item from ``list_display`` being represented by the
@@ -539,10 +539,10 @@ kind of interactivity using javascript:
 ----------------------------------------------------
 
 If you're using ``wagtailimages.Image`` to define an image for each item in
-your model, ``ThumbnailMixin`` can help you add thumbnail versions of that 
+your model, ``ThumbnailMixin`` can help you add thumbnail versions of that
 image to each row in ``IndexView``. To use it, simply extend ``ThumbnailMixin``
 as well as ``ModelAdmin`` when defining your ``ModelAdmin`` class, and
-change a few attributes to change the thumbnail to your liking, like so: 
+change a few attributes to change the thumbnail to your liking, like so:
 
 .. code-block:: python
 
@@ -555,7 +555,7 @@ change a few attributes to change the thumbnail to your liking, like so:
         likes_cat_gifs = models.NullBooleanField()
 
     class PersonAdmin(ThumbnailMixin, ModelAdmin):
-        
+
         # Add 'admin_thumb' to list_display, where you want the thumbnail to appear
         list_display = ('admin_thumb', 'name', 'likes_cat_gifs')
 
@@ -569,7 +569,7 @@ change a few attributes to change the thumbnail to your liking, like so:
         links to 'wagtailimages.Image'
         """
         thumb_image_field_name = 'avatar'
-        
+
         # Optionally override the filter spec used to create each thumb
         thumb_image_filter_spec = 'fill-100x100' # this is the default
 
@@ -597,12 +597,12 @@ change a few attributes to change the thumbnail to your liking, like so:
 **Expected value**: A string matching one of the items in ``list_display``.
 
 If for any reason you'd like to change which column the action buttons appear
-in for each row, you can specify a different column using 
+in for each row, you can specify a different column using
 ``list_display_add_buttons`` on your ``ModelAdmin`` class. The value must
 match one of the items your class's ``list_display`` attribute. By default,
-buttons are added to the first column of each row. 
+buttons are added to the first column of each row.
 
-See the ``ThumbnailMixin`` example above to see how 
+See the ``ThumbnailMixin`` example above to see how
 ``list_display_add_buttons`` can be used.
 
 .. _modeladmin_index_view_extra_css:
@@ -646,7 +646,7 @@ See the following part of the docs to find out more:
 ``ModelAdmin.index_view_class``
 ---------------------------------------
 
-**Expected value**: A custom ``view`` class to replace 
+**Expected value**: A custom ``view`` class to replace
 ``modeladmin.views.IndexView``
 
 See the following part of the docs to find out more:

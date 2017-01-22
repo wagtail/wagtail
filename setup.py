@@ -22,8 +22,8 @@ except ImportError:
 
 install_requires = [
     "Django>=1.8.1,<1.11",
-    "django-modelcluster>=2.0,<3.0",
-    "django-taggit>=0.18,<0.19",
+    "django-modelcluster==3.0a1",
+    "django-taggit>=0.20,<1.0",
     "django-treebeard>=3.0,<5.0",
     "djangorestframework>=3.1.3",
     "Pillow>=2.6.1",
@@ -31,6 +31,7 @@ install_requires = [
     "html5lib>=0.999,<1",
     "Unidecode>=0.04.14",
     "Willow>=0.4,<0.5",
+    "requests>=2.11.1,<3.0",
 ]
 
 # Testing dependencies
@@ -42,7 +43,7 @@ testing_extras = [
     'Pillow>=2.7.0',
     'elasticsearch>=1.0.0,<3.0',
     'Jinja2>=2.8,<3.0',
-    'boto3>=1.1,<1.2',
+    'boto3>=1.4,<1.5',
 
     # For coverage and PEP8 linting
     'coverage>=3.7.0',
@@ -52,11 +53,11 @@ testing_extras = [
 
 # Documentation dependencies
 documentation_extras = [
+    'pyenchant==1.6.6',
+    'sphinxcontrib-spelling>=2.3.0',
     'Sphinx>=1.3.1',
     'sphinx-autobuild>=0.5.2',
     'sphinx_rtd_theme>=0.1.8',
-    'sphinxcontrib-spelling==2.1.1',
-    'pyenchant==1.6.6',
 ]
 
 setup(
