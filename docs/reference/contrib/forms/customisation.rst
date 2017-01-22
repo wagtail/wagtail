@@ -334,7 +334,7 @@ The following example shows how to create a multi-step form.
 
         def serve(self, request, *args, **kwargs):
             """
-            Implements simple a multi-step form.
+            Implements a simple multi-step form.
 
             Stores each step into a session.
             When the last step was submitted correctly, saves whole form into a DB.
