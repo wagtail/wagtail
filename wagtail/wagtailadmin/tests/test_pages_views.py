@@ -669,6 +669,7 @@ class TestPageCreation(TestCase, WagtailTestUtils):
         self.assertRedirects(response, reverse('wagtailadmin_pages:edit', args=(page.id, )))
 
         self.assertEqual(page.title, post_data['title'])
+        self.assertEqual(page.draft_title, post_data['title'])
         self.assertIsInstance(page, SimplePage)
         self.assertFalse(page.live)
         self.assertFalse(page.first_published_at)
@@ -766,6 +767,7 @@ class TestPageCreation(TestCase, WagtailTestUtils):
         self.assertRedirects(response, reverse('wagtailadmin_explore', args=(self.root_page.id, )))
 
         self.assertEqual(page.title, post_data['title'])
+        self.assertEqual(page.draft_title, post_data['title'])
         self.assertIsInstance(page, SimplePage)
         self.assertTrue(page.live)
         self.assertTrue(page.first_published_at)
@@ -975,6 +977,7 @@ class TestPageCreation(TestCase, WagtailTestUtils):
         # Whitespace should be automatically stripped from title and seo_title
         page = Page.objects.order_by('-id').first()
         self.assertEqual(page.title, 'Hello')
+        self.assertEqual(page.draft_title, 'Hello')
         self.assertEqual(page.seo_title, 'hello SEO')
 
     def test_long_slug(self):
