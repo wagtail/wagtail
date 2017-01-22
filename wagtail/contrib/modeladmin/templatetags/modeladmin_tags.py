@@ -71,12 +71,12 @@ def items_for_result(view, result):
         if force_text(result_repr) == '':
             result_repr = mark_safe('&nbsp;')
         row_classes.extend(
-            modeladmin.get_extra_class_names_for_field_col(field_name, result))
-        row_attrs_dict = modeladmin.get_extra_attrs_for_field_col(
-            field_name, result)
-        row_attrs_dict['class'] = ' ' . join(row_classes)
-        row_attrs = flatatt(row_attrs_dict)
-        yield format_html('<td{}>{}</td>', row_attrs, result_repr)
+            modeladmin.get_extra_class_names_for_field_col(result, field_name)
+        )
+        row_attrs = modeladmin.get_extra_attrs_for_field_col(result, field_name)
+        row_attrs['class'] = ' ' . join(row_classes)
+        row_attrs_flat = flatatt(row_attrs)
+        yield format_html('<td{}>{}</td>', row_attrs_flat, result_repr)
 
 
 def results(view, object_list):

@@ -10,7 +10,7 @@ from wagtail.wagtailimages.models import Image
 from wagtail.wagtailimages.tests.utils import get_test_image_file
 
 
-class TestIndexView(TestCase, WagtailTestUtils):
+class TestBookIndexView(TestCase, WagtailTestUtils):
     fixtures = ['modeladmintest_test.json']
 
     def setUp(self):
@@ -47,7 +47,7 @@ class TestIndexView(TestCase, WagtailTestUtils):
         self.assertContains(response, 'data-object-pk="3"')
 
         # There should be two odd rows and two even ones, and 'book' should be
-        # add to the `class` attribute for every one.
+        # added to the `class` attribute for every one.
         self.assertContains(response, 'class="book odd"', count=2)
         self.assertContains(response, 'class="book even"', count=2)
 
@@ -96,6 +96,32 @@ class TestIndexView(TestCase, WagtailTestUtils):
 
         # There are four books in the test data
         self.assertEqual(response.context['result_count'], 4)
+
+
+class TestAuthorIndexView(TestCase, WagtailTestUtils):
+    fixtures = ['modeladmintest_test.json']
+
+    def setUp(self):
+        self.login()
+
+    def get(self, **params):
+        return self.client.get('/admin/modeladmintest/author/', params)
+
+    def test_col_extra_class_names(self):
+        response = self.get()
+        self.assertEqual(response.status_code, 200)
+        test_html = """
+            <td class="field-first_book for-author-1">The Lord of the Rings</td>
+        """
+        self.assertContains(response, test_html, html=True)
+
+    def test_col_extra_attributes(self):
+        response = self.get()
+        self.assertEqual(response.status_code, 200)
+        test_html = """
+            <td class="field-last_book" data-for_author="1">The Hobbit</td>
+        """
+        self.assertContains(response, test_html, html=True)
 
 
 class TestCreateView(TestCase, WagtailTestUtils):

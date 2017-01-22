@@ -53,6 +53,7 @@ Bug fixes
  * Help text for StreamField is now visible and does not cover block controls (Stein Strindhaug)
  * "X minutes ago" timestamps are now marked for translation (Janneke Janssen, Matt Westcott)
  * Avoid indexing unsaved field content on `save(update_fields=[...])` operations (Matt Westcott)
+ * Corrected ordering of arguments passed to ModelAdmin ``get_extra_class_names_for_field_col`` / ``get_extra_attrs_for_field_col`` methods (Andy Babic)
 
 
 Upgrade considerations
