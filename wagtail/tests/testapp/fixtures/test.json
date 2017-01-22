@@ -4,6 +4,7 @@
     "model": "wagtailcore.page",
     "fields": {
         "title": "Root",
+        "draft_title": "Root",
         "numchild": 1,
         "show_in_menus": false,
         "live": true,
@@ -23,6 +24,7 @@
     "model": "wagtailcore.page",
     "fields": {
         "title": "Welcome to the Wagtail test site!",
+        "draft_title": "Welcome to the Wagtail test site!",
         "numchild": 9,
         "show_in_menus": false,
         "live": true,
@@ -40,6 +42,7 @@
     "model": "wagtailcore.page",
     "fields": {
         "title": "Events",
+        "draft_title": "Events",
         "numchild": 6,
         "show_in_menus": true,
         "live": true,
@@ -63,6 +66,7 @@
     "model": "wagtailcore.page",
     "fields": {
         "title": "Christmas",
+        "draft_title": "Christmas",
         "numchild": 0,
         "show_in_menus": true,
         "live": true,
@@ -92,6 +96,7 @@
     "model": "wagtailcore.page",
     "fields": {
         "title": "Saint Patrick",
+        "draft_title": "Saint Patrick",
         "numchild": 0,
         "show_in_menus": true,
         "live": true,
@@ -138,6 +143,7 @@
     "model": "wagtailcore.page",
     "fields": {
         "title": "Tentative Unpublished Event",
+        "draft_title": "Tentative Unpublished Event",
         "numchild": 0,
         "show_in_menus": true,
         "live": false,
@@ -166,6 +172,7 @@
     "model": "wagtailcore.page",
     "fields": {
         "title": "Someone Else's Event",
+        "draft_title": "Someone Else's Event",
         "numchild": 0,
         "show_in_menus": true,
         "live": false,
@@ -194,6 +201,7 @@
     "model": "wagtailcore.page",
     "fields": {
         "title": "About us",
+        "draft_title": "About us",
         "numchild": 0,
         "show_in_menus": true,
         "live": true,
@@ -219,6 +227,7 @@
     "model": "wagtailcore.page",
     "fields": {
         "title": "Contact us",
+        "draft_title": "Contact us",
         "numchild": 0,
         "show_in_menus": true,
         "live": true,
@@ -244,6 +253,7 @@
     "model": "wagtailcore.page",
     "fields": {
         "title": "Ameristralia Day",
+        "draft_title": "Ameristralia Day",
         "numchild": 0,
         "show_in_menus": true,
         "live": true,
@@ -315,6 +325,7 @@
     "model": "wagtailcore.page",
     "fields": {
         "title": "Old style route method",
+        "draft_title": "Old style route method",
         "numchild": 0,
         "show_in_menus": true,
         "live": true,
@@ -338,6 +349,7 @@
     "model": "wagtailcore.page",
     "fields": {
         "title": "Secret plans",
+        "draft_title": "Secret plans",
         "numchild": 1,
         "show_in_menus": true,
         "live": true,
@@ -361,6 +373,7 @@
     "model": "wagtailcore.page",
     "fields": {
         "title": "Steal underpants",
+        "draft_title": "Steal underpants",
         "numchild": 0,
         "show_in_menus": true,
         "live": true,
@@ -387,6 +400,7 @@
     "model": "wagtailcore.page",
     "fields": {
         "title": "My locked page",
+        "draft_title": "My locked page",
         "numchild": 0,
         "show_in_menus": true,
         "live": true,
@@ -403,6 +417,7 @@
     "model": "wagtailcore.page",
     "fields": {
         "title": "Businessy events",
+        "draft_title": "Businessy events",
         "numchild": 1,
         "show_in_menus": true,
         "live": false,
@@ -426,6 +441,7 @@
     "model": "wagtailcore.page",
     "fields": {
         "title": "Board meetings",
+        "draft_title": "Board meetings",
         "numchild": 0,
         "show_in_menus": true,
         "live": false,
@@ -449,6 +465,7 @@
     "model": "wagtailcore.page",
     "fields": {
         "title": "Contact us one more time",
+        "draft_title": "Contact us one more time",
         "numchild": 0,
         "show_in_menus": true,
         "live": true,
@@ -535,6 +552,7 @@
     "model": "wagtailcore.page",
     "fields": {
         "title": "Secret event editor plans",
+        "draft_title": "Secret event editor plans",
         "numchild": 0,
         "show_in_menus": true,
         "live": true,
@@ -557,6 +575,7 @@
     "model": "wagtailcore.page",
     "fields": {
         "title": "Secret login plans",
+        "draft_title": "Secret login plans",
         "numchild": 0,
         "show_in_menus": true,
         "live": true,
