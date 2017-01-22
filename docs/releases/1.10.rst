@@ -21,6 +21,7 @@ Other features
  * The homepage created in the project template is now titled "Home" rather than "Homepage" (Karl Hobley)
  * Signal receivers for custom ``Image`` and ``Rendition`` models are connected automatically (Mike Dingjan)
  * ``PageChooserBlock`` can now accept a list/tuple of page models as ``target_model`` (Mikalai Radchuk)
+ * Styling tweaks for the ModelAdmin's ``IndexView`` to be more inline with the Wagtail styleguide (Andy Babic)
 
 
 Bug fixes
