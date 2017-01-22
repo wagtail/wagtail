@@ -252,7 +252,7 @@ class Page(six.with_metaclass(PageBase, AbstractPage, index.Indexed, Clusterable
         max_length=255,
         help_text=_("The page title as you'd like it to be seen by the public")
     )
-    # to reflect changes from the
+    # to reflect title of a current draft in the admin UI
     draft_title = models.CharField(
         max_length=255,
         editable=False
