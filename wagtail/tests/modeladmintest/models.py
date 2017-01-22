@@ -15,6 +15,13 @@ class Author(models.Model):
     def __str__(self):
         return self.name
 
+    def first_book(self):
+        # For testing use of object methods in list_display
+        book = self.book_set.first()
+        if book:
+            return book.title
+        return ''
+
 
 @python_2_unicode_compatible
 class Book(models.Model, index.Indexed):
