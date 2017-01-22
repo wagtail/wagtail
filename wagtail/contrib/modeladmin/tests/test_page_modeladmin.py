@@ -230,13 +230,22 @@ class TestChooseParentViewForNonSuperuser(TestCase, WagtailTestUtils):
 
     def setUp(self):
         homepage = Page.objects.get(url_path='/home/')
-        business_index = BusinessIndex(title='Public Business Index')
+        business_index = BusinessIndex(
+            title='Public Business Index',
+            draft_title='Public Business Index',
+        )
         homepage.add_child(instance=business_index)
 
-        another_business_index = BusinessIndex(title='Another Business Index')
+        another_business_index = BusinessIndex(
+            title='Another Business Index',
+            draft_title='Another Business Index',
+        )
         homepage.add_child(instance=another_business_index)
 
-        secret_business_index = BusinessIndex(title='Private Business Index')
+        secret_business_index = BusinessIndex(
+            title='Private Business Index',
+            draft_title='Private Business Index',
+        )
         homepage.add_child(instance=secret_business_index)
 
         business_editors = Group.objects.create(name='Business editors')
