@@ -1213,6 +1213,14 @@ class TestPageEdit(TestCase, WagtailTestUtils):
         child_page_new = SimplePage.objects.get(id=self.child_page.id)
         self.assertTrue(child_page_new.has_unpublished_changes)
 
+        # Page fields should not be changed (because we just created a new draft)
+        self.assertEqual(child_page_new.title, self.child_page.title)
+        self.assertEqual(child_page_new.content, self.child_page.content)
+        self.assertEqual(child_page_new.slug, self.child_page.slug)
+
+        # The draft_title should have a new title
+        self.assertEqual(child_page_new.draft_title, post_data['title'])
+
     def test_page_edit_post_when_locked(self):
         # Tests that trying to edit a locked page results in an error
 
@@ -1336,6 +1344,7 @@ class TestPageEdit(TestCase, WagtailTestUtils):
         # Check that the page was edited
         child_page_new = SimplePage.objects.get(id=self.child_page.id)
         self.assertEqual(child_page_new.title, post_data['title'])
+        self.assertEqual(child_page_new.draft_title, post_data['title'])
 
         # Check that the page_published signal was fired
         self.assertEqual(mock_handler.call_count, 1)
