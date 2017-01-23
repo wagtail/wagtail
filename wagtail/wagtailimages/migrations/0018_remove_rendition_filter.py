@@ -8,7 +8,7 @@ from django.db import migrations
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('wagtailimages', '0016_deprecate_rendition_filter_relation'),
+        ('wagtailimages', '0017_reduce_focal_point_key_max_length'),
     ]
 
     operations = [
