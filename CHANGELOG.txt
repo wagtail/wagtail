@@ -10,6 +10,7 @@ Changelog
  * Added `construct_image_chooser_queryset`, `construct_document_chooser_queryset` and `construct_page_chooser_queryset` hooks (Gagaro)
  * The homepage created in the project template is now titled "Home" rather than "Homepage" (Karl Hobley)
  * Signal receivers for custom `Image` and `Rendition` models are connected automatically (Mike Dingjan)
+ * `PageChooserBlock` can now accept a list/tuple of page models as `target_model` (Mikalai Radchuk)
  * Fix: Marked 'Date from' / 'Date to' strings in wagtailforms for translation (Vorlif)
  * Fix: Unreliable preview is now reliable by always opening in a new window (Kjartan Sverrisson)
  * Fix: Fixed placement of `{{ block.super }}` in `snippets/type_index.html` (LB (Ben Johnston))
