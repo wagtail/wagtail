@@ -89,8 +89,9 @@ def home(request):
     else:
         root_site = None
 
+    real_site_name = None
     if root_site:
-        real_site_name = root_site.site_name else root_site.hostname
+        real_site_name = root_site.site_name if root_site.site_name else root_site.hostname
 
     return render(request, "wagtailadmin/home.html", {
         'root_page': root_page,
