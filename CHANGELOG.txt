@@ -13,6 +13,7 @@ Changelog
  * The `add_subpage` view now maintains a `next` URL parameter to specify where to redirect to after completing page creation (Robert Rollins)
  * Fix: Help text for StreamField is now visible and does not cover block controls (Stein Strindhaug)
  * Fix: "X minutes ago" timestamps are now marked for translation (Janneke Janssen, Matt Westcott)
+ * Fix: Avoid indexing unsaved field content on `save(update_fields=[...])` operations (Matt Westcott)
 
 
 1.8 (15.12.2016)

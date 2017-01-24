@@ -42,6 +42,7 @@ Bug fixes
 
  * Help text for StreamField is now visible and does not cover block controls (Stein Strindhaug)
  * "X minutes ago" timestamps are now marked for translation (Janneke Janssen, Matt Westcott)
+ * Avoid indexing unsaved field content on `save(update_fields=[...])` operations (Matt Westcott)
 
 
 Upgrade considerations
