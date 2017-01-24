@@ -7,6 +7,7 @@ from django.utils.html import format_html, format_html_join
 from django.utils.translation import ugettext_lazy as _
 from django.utils.translation import ungettext
 
+from wagtail.wagtailadmin.choosers import choosers
 from wagtail.wagtailadmin.menu import MenuItem
 from wagtail.wagtailadmin.search import SearchArea
 from wagtail.wagtailadmin.site_summary import SummaryItem
@@ -17,6 +18,10 @@ from wagtail.wagtaildocs.forms import GroupDocumentPermissionFormSet
 from wagtail.wagtaildocs.models import get_document_model
 from wagtail.wagtaildocs.permissions import permission_policy
 from wagtail.wagtaildocs.rich_text import DocumentLinkHandler
+from wagtail.wagtaildocs.widgets import AdminDocumentChooser
+
+
+choosers.register_widget(get_document_model(), AdminDocumentChooser)
 
 
 @hooks.register('register_admin_urls')

@@ -8,11 +8,17 @@ from django.core import urlresolvers
 from django.utils.html import format_html
 from django.utils.translation import ugettext_lazy as _
 
+from wagtail.wagtailadmin.choosers import choosers
 from wagtail.wagtailadmin.menu import MenuItem
 from wagtail.wagtailcore import hooks
 from wagtail.wagtailsnippets import urls
 from wagtail.wagtailsnippets.models import get_snippet_models
 from wagtail.wagtailsnippets.permissions import user_can_edit_snippets
+from wagtail.wagtailsnippets.widgets import AdminSnippetChooser
+
+
+for model in get_snippet_models():
+    choosers.register_widget(model, AdminSnippetChooser)
 
 
 @hooks.register('register_admin_urls')

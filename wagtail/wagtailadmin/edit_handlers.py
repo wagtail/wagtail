@@ -14,6 +14,7 @@ from django.utils.translation import ugettext_lazy
 
 from wagtail.utils.decorators import cached_classmethod
 from wagtail.wagtailadmin import widgets
+from wagtail.wagtailadmin.choosers import choosers
 from wagtail.wagtailcore.models import Page
 from wagtail.wagtailcore.utils import camelcase_to_underscore, resolve_model_string
 
@@ -513,10 +514,26 @@ class BaseChooserPanel(BaseFieldPanel):
         instance_obj = self.get_chosen_item()
         context = {
             'field': self.bound_field,
-            self.object_type_name: instance_obj,
+            'object': instance_obj,
             'is_chosen': bool(instance_obj),  # DEPRECATED - passed to templates for backwards compatibility only
         }
         return mark_safe(render_to_string(self.field_template, context))
+
+    @classmethod
+    def widget_overrides(cls):
+        field = cls.model._meta.get_field(cls.field_name)
+        return {cls.field_name: choosers.get_widget(field.rel.model)}
+
+
+class ChooserPanel(object):
+    def __init__(self, field_name):
+        self.field_name = field_name
+
+    def bind_to_model(self, model):
+        return type(str('_ChooserPanel'), (BaseChooserPanel,), {
+            'model': model,
+            'field_name': self.field_name,
+        })
 
 
 class BasePageChooserPanel(BaseChooserPanel):

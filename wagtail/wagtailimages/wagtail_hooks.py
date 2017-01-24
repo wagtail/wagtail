@@ -7,6 +7,7 @@ from django.utils.html import format_html, format_html_join
 from django.utils.translation import ugettext_lazy as _
 from django.utils.translation import ungettext
 
+from wagtail.wagtailadmin.choosers import choosers
 from wagtail.wagtailadmin.menu import MenuItem
 from wagtail.wagtailadmin.search import SearchArea
 from wagtail.wagtailadmin.site_summary import SummaryItem
@@ -16,6 +17,10 @@ from wagtail.wagtailimages.api.admin.endpoints import ImagesAdminAPIEndpoint
 from wagtail.wagtailimages.forms import GroupImagePermissionFormSet
 from wagtail.wagtailimages.permissions import permission_policy
 from wagtail.wagtailimages.rich_text import ImageEmbedHandler
+from wagtail.wagtailimages.widgets import AdminImageChooser
+
+
+choosers.register_widget(get_image_model(), AdminImageChooser)
 
 
 @hooks.register('register_admin_urls')
