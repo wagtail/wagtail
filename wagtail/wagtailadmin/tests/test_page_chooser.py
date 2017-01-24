@@ -199,6 +199,21 @@ class TestChooserBrowseChild(TestCase, WagtailTestUtils):
         response = self.get({'p': 100})
         self.assertEqual(response.context['pages'].number, 5)
 
+    def test_with_hook_construct_explorer_page_queryset(self):
+        polite_page = SimplePage(
+            title="Hello world!",
+            slug="hello-world",
+            content="hello santa"
+        )
+        self.root_page.add_child(instance=polite_page)
+
+        response = self.get({'polite_pages_only': 'yes_please'})
+
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'wagtailadmin/chooser/browse.html')
+        self.assertEqual(len(response.context['pages']), 1)
+        self.assertEqual(response.context['pages'][0].id, polite_page.id)
+
 
 class TestChooserSearch(TestCase, WagtailTestUtils):
     def setUp(self):
@@ -296,6 +311,28 @@ class TestChooserSearch(TestCase, WagtailTestUtils):
     def test_with_invalid_page_type(self):
         response = self.get({'page_type': 'foo'})
         self.assertEqual(response.status_code, 404)
+
+    def test_with_hook_construct_explorer_page_queryset(self):
+        polite_page = SimplePage(
+            title="Hello world!",
+            slug="hello-world",
+            content="hello santa"
+        )
+        self.root_page.add_child(instance=polite_page)
+
+        not_polite = SimplePage(
+            title="Hello world! from not polite",
+            slug="bye-world",
+            content="bye santa"
+        )
+        self.root_page.add_child(instance=not_polite)
+
+        response = self.get({'polite_pages_only': 'yes_please', 'q': 'hello'})
+
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'wagtailadmin/chooser/_search_results.html')
+        self.assertEqual(len(response.context['pages']), 1)
+        self.assertEqual(response.context['pages'][0].id, polite_page.id)
 
 
 class TestAutomaticRootPageDetection(TestCase, WagtailTestUtils):

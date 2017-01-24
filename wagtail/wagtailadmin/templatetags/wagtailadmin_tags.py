@@ -34,7 +34,7 @@ else:
 @register.inclusion_tag('wagtailadmin/shared/explorer_nav.html', takes_context=True)
 def explorer_nav(context):
     return {
-        'nodes': get_navigation_menu_items(context['request'].user)
+        'nodes': get_navigation_menu_items(context['request'].user, request=context['request'])
     }
 
 

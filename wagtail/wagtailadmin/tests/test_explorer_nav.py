@@ -153,3 +153,24 @@ class TestExplorerNavView(TestCase, WagtailTestUtils):
         self.assertEqual(response.status_code, 200)
         # Being in no Groups, Mary should ot be shown any nodes.
         self.assertEqual(len(response.context['nodes']), 0)
+
+    def test_explorer_nav_with_hook_construct_explorer_page_queryset(self):
+        root_page = Page.objects.get(id=1)
+
+        # Add child page
+        polite_page = Page(
+            title="Hello world!",
+            slug="hello-world",
+        )
+        root_page.add_child(instance=polite_page)
+
+        self.assertTrue(self.client.login(username='superman', password='password'))
+        response = self.client.get(
+            reverse('wagtailadmin_explorer_nav'),
+            {'polite_pages_only': 'yes_please'}
+        )
+
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'wagtailadmin/shared/explorer_nav.html')
+        self.assertEqual(len(response.context['nodes']), 1)
+        self.assertEqual(response.context['nodes'][0][0].id, polite_page.id)
