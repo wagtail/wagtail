@@ -3,19 +3,32 @@ from django.conf.urls import url, include
 from wagtail.wagtailcore import hooks
 
 
-def register_viewsets():
-    for fn in hooks.get_hooks('register_admin_viewset'):
-        viewset = fn()
+class ViewSetRegistry(object):
+    def __init__(self):
+        self.viewsets = []
 
-        if viewset:
-            urlpatterns = viewset.get_urlpatterns()
+    def populate(self):
+        for fn in hooks.get_hooks('register_admin_viewset'):
+            viewset = fn()
+            self.register(viewset)
 
-            if urlpatterns:
-                @hooks.register('register_admin_urls')
-                def register_admin_urls():
-                    return [
-                        url(
-                            r'^{}/'.format(viewset.name),
-                            include(urlpatterns, app_name=viewset.name, namespace=viewset.name)
-                        ),
-                    ]
+    def register(self, viewset_cls):
+        self.viewsets.append(viewset_cls)
+        return viewset_cls
+
+    def get_urlpatterns(self):
+        urlpatterns = []
+
+        for viewset in self.viewsets:
+            vs_urlpatterns = viewset.get_urlpatterns()
+
+            if vs_urlpatterns:
+                urlpatterns.append(url(
+                    r'^{}/'.format(viewset.name),
+                    include(vs_urlpatterns, namespace=viewset.name)
+                ))
+
+        return urlpatterns
+
+
+viewsets = ViewSetRegistry()
