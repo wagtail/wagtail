@@ -142,6 +142,7 @@ class ModelAdmin(WagtailRegisterable):
     inspect_view_extra_js = []
     form_view_extra_css = []
     form_view_extra_js = []
+    exclude_fields = []
 
     def __init__(self, parent=None):
         """

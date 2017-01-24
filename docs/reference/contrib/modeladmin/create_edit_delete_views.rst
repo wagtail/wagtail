@@ -150,3 +150,12 @@ See the following part of the docs to find out more:
 
 See the following part of the docs to find out more:
 :ref:`modeladmin_overriding_views`
+
+.. _modeladmin_exclude_fields:
+
+-----------------------------------
+``ModelAdmin.exclude_fields``
+-----------------------------------
+
+**Expected value**: An array of Model fields to be excluded from Create/Edit pages.
+

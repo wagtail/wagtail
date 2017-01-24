@@ -115,7 +115,7 @@ class ModelFormView(WMABaseView, FormView):
         if hasattr(self.model, 'edit_handler'):
             edit_handler = self.model.edit_handler
         else:
-            panels = extract_panel_definitions_from_model_class(self.model)
+            panels = extract_panel_definitions_from_model_class(self.model, exclude=self.model_admin.exclude_fields)
             edit_handler = ObjectList(panels)
         return edit_handler.bind_to_model(self.model)
 

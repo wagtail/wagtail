@@ -9,6 +9,8 @@ from wagtail.tests.utils import WagtailTestUtils
 from wagtail.wagtailimages.models import Image
 from wagtail.wagtailimages.tests.utils import get_test_image_file
 
+import mock
+
 
 class TestIndexView(TestCase, WagtailTestUtils):
     fixtures = ['modeladmintest_test.json']
@@ -155,6 +157,16 @@ class TestCreateView(TestCase, WagtailTestUtils):
         # Check that a form error was raised
         self.assertFormError(response, 'form', 'title', "This field is required.")
 
+    def test_exclude_passed_to_extract_panel_definitions(self):
+        path_to_exclude_fields_property = 'wagtail.contrib.modeladmin.options.ModelAdmin.exclude_fields'
+        with mock.patch('wagtail.contrib.modeladmin.views.extract_panel_definitions_from_model_class') as m:
+            with mock.patch(path_to_exclude_fields_property, new_callable=mock.PropertyMock) as mock_exclude_fields:
+                mock_exclude_fields.return_value = ['123']
+
+                self.get()
+                mock_exclude_fields.assert_called()
+                m.assert_called_with(Book, exclude=mock_exclude_fields.return_value)
+
 
 class TestInspectView(TestCase, WagtailTestUtils):
     fixtures = ['modeladmintest_test.json']
@@ -270,6 +282,16 @@ class TestEditView(TestCase, WagtailTestUtils):
 
         # Check that a form error was raised
         self.assertFormError(response, 'form', 'title', "This field is required.")
+
+    def test_exclude_passed_to_extract_panel_definitions(self):
+        path_to_exclude_fields_property = 'wagtail.contrib.modeladmin.options.ModelAdmin.exclude_fields'
+        with mock.patch('wagtail.contrib.modeladmin.views.extract_panel_definitions_from_model_class') as m:
+            with mock.patch(path_to_exclude_fields_property, new_callable=mock.PropertyMock) as mock_exclude_fields:
+                mock_exclude_fields.return_value = ['123']
+
+                self.get(1)
+                mock_exclude_fields.assert_called()
+                m.assert_called_with(Book, exclude=mock_exclude_fields.return_value)
 
 
 class TestPageSpecificViews(TestCase, WagtailTestUtils):
