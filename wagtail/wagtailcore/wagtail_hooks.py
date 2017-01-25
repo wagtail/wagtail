@@ -2,7 +2,7 @@ from __future__ import absolute_import, unicode_literals
 try:
     from urllib.parse import unquote
 except ImportError:
-     from urllib import unquote
+    from urllib import unquote
 
 from django.conf import settings
 from django.contrib.contenttypes.models import ContentType
@@ -31,8 +31,10 @@ def check_page_view_restrictions(page, request, serve_args, serve_kwargs):
         if not restriction.accept_request(request):
             if restriction.restriction_type == BaseViewRestriction.PASSWORD:
                 from wagtail.wagtailcore.forms import PasswordBaseViewRestrictionForm
-                form = PasswordBaseViewRestrictionForm(instance=restriction,
-                                                       initial={'return_url': request.get_full_path()})
+                form = PasswordBaseViewRestrictionForm(
+                    instance=restriction,
+                    initial={'return_url': request.get_full_path()}
+                )
                 action_url = reverse('wagtailcore_authenticate_with_password', args=['page', restriction.id, 0, page.id])
                 return page.serve_password_required_response(request, form, action_url)
 

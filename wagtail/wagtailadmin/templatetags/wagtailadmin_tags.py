@@ -17,9 +17,11 @@ from wagtail.wagtailadmin.navigation import (
     get_navigation_menu_items, get_pages_with_direct_explore_permission)
 from wagtail.wagtailadmin.search import admin_search_areas
 from wagtail.wagtailcore import hooks
-from wagtail.wagtailcore.models import (Collection, CollectionViewRestriction,
-                                        Page, PageViewRestriction,
-                                        UserPagePermissionsProxy)
+from wagtail.wagtailcore.models import (
+    CollectionViewRestriction,
+    Page, PageViewRestriction,
+    UserPagePermissionsProxy
+)
 from wagtail.wagtailcore.utils import cautious_slugify as _cautious_slugify
 from wagtail.wagtailcore.utils import camelcase_to_underscore, escape_script
 
