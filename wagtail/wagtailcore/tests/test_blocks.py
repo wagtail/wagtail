@@ -21,7 +21,7 @@ from django.utils.translation import ugettext_lazy as __
 
 from wagtail.tests.testapp.blocks import LinkBlock as CustomLinkBlock
 from wagtail.tests.testapp.blocks import SectionBlock
-from wagtail.tests.testapp.models import SimplePage, EventPage
+from wagtail.tests.testapp.models import EventPage, SimplePage
 from wagtail.utils.deprecation import RemovedInWagtail111Warning
 from wagtail.wagtailcore import blocks
 from wagtail.wagtailcore.models import Page
