@@ -2197,13 +2197,13 @@ class TestPageChooserBlock(TestCase):
         block = blocks.PageChooserBlock(target_model='tests.SimplePage')
         self.assertEqual(block.deconstruct(), (
             'wagtail.wagtailcore.blocks.PageChooserBlock',
-            (), {'target_model': 'tests.SimplePage'}))
+            (), {'target_model': ['tests.SimplePage']}))
 
     def test_deconstruct_target_model_literal(self):
         block = blocks.PageChooserBlock(target_model=SimplePage)
         self.assertEqual(block.deconstruct(), (
             'wagtail.wagtailcore.blocks.PageChooserBlock',
-            (), {'target_model': 'tests.SimplePage'}))
+            (), {'target_model': ['tests.SimplePage']}))
 
 
 class TestStaticBlock(unittest.TestCase):
