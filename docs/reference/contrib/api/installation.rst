@@ -20,5 +20,11 @@ To install, add ``wagtail.contrib.wagtailapi`` and ``rest_framework`` to ``INSTA
 
     urlpatterns = [
         ...
+
         url(r'^api/', include(wagtailapi_urls)),
+
+        ...
+
+        # Ensure that the wagtailapi_urls line appears above the default Wagtail page serving route
+        url(r'', include(wagtail_urls)),
     ]

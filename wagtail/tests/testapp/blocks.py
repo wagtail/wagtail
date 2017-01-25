@@ -7,9 +7,9 @@ class LinkBlock(blocks.StructBlock):
     title = blocks.CharBlock()
     url = blocks.URLBlock()
 
-    def get_context(self, value):
-        context = super(LinkBlock, self).get_context(value)
-        context['classname'] = 'important' if value['title'] == 'Torchbox' else 'normal'
+    def get_context(self, value, parent_context=None):
+        context = super(LinkBlock, self).get_context(value, parent_context)
+        context['classname'] = parent_context['classname'] if value['title'] == 'Torchbox' else 'normal'
         return context
 
     def get_form_context(self, value, prefix='', errors=None):

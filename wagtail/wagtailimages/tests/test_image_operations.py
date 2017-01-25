@@ -1,12 +1,9 @@
 from __future__ import absolute_import, unicode_literals
 
-import warnings
-
 from django.test import TestCase, override_settings
 from django.utils.six import BytesIO
 from mock import Mock, patch
 
-from wagtail.utils.deprecation import RemovedInWagtail19Warning
 from wagtail.wagtailcore import hooks
 from wagtail.wagtailimages import image_operations
 from wagtail.wagtailimages.exceptions import InvalidFilterSpecError
@@ -414,33 +411,6 @@ class TestFilter(TestCase):
             file=get_test_image_file(),
         )
         fil.run(image, BytesIO())
-
-        self.assertEqual(run_mock.call_count, 2)
-
-    def test_runs_operations_without_env_argument(self):
-        # The "env" argument was added in Wagtail 1.5. This tests that
-        # image operations written for 1.4 will still work
-
-        run_mock = Mock()
-
-        def run(willow, image):
-            run_mock(willow, image)
-
-        self.operation_instance.run = run
-
-        fil = Filter(spec='operation1|operation2')
-        image = Image.objects.create(
-            title="Test image",
-            file=get_test_image_file(),
-        )
-
-        with warnings.catch_warnings(record=True) as ws:
-            warnings.simplefilter('always')
-
-            fil.run(image, BytesIO())
-
-            self.assertEqual(len(ws), 2)
-            self.assertIs(ws[0].category, RemovedInWagtail19Warning)
 
         self.assertEqual(run_mock.call_count, 2)
 

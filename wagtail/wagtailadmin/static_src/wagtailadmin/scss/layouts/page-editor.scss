@@ -408,9 +408,15 @@ footer .preview {
         }
 
         &.stream-field {
-            &:hover .object-help,
             .object-help {
                 opacity: 0;
+                position: relative;
+                width: 100%;
+                padding-left: 6.4em;
+            }
+            
+            &:hover .object-help {
+                opacity: 1;
             }
         }
 

@@ -196,6 +196,15 @@ Contributors
 * Marco Fucci
 * Mihail Russu
 * Robert Slotboom
+* Erick M'bwana
+* Andreas Nüßlein
+* John Heasly
+* Nikolai Røed Kristiansen
+* Alex Zagorodniuk
+* glassresistor
+* Mikael Svensson
+* Peter Baumgartner
+* Matheus Bratfisch
 
 Translators
 ===========

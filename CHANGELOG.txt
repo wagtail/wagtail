@@ -4,7 +4,16 @@ Changelog
 1.9 (xx.xx.xxxx) - IN DEVELOPMENT
 ~~~~~~~~~~~~~~~~
 
+ * Form builder form submissions can now be bulk-deleted (Karl Hobley)
+ * `get_context` methods on StreamField blocks can now access variables from the parent context (Mikael Svensson, Peter Baumgartner)
+ * Updated admin dashboard welcome message for multi-tenanted installations (Jeffrey Chau)
+ * Added `before_copy_page` and `after_copy_page` hooks (Matheus Bratfisch)
  * View live / draft links in the admin now consistently open in a new window (Marco Fucci)
+ * `ChoiceBlock` now omits the blank option if the block is required and has a default value (Andreas Nüßlein)
+ * The `add_subpage` view now maintains a `next` URL parameter to specify where to redirect to after completing page creation (Robert Rollins)
+ * Fix: Help text for StreamField is now visible and does not cover block controls (Stein Strindhaug)
+ * Fix: "X minutes ago" timestamps are now marked for translation (Janneke Janssen, Matt Westcott)
+ * Fix: Avoid indexing unsaved field content on `save(update_fields=[...])` operations (Matt Westcott)
 
 
 1.8 (15.12.2016)

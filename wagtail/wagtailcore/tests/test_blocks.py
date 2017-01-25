@@ -5,6 +5,7 @@ import base64
 import collections
 import json
 import unittest
+import warnings
 from decimal import Decimal
 
 # non-standard import name for ugettext_lazy, to prevent strings from being picked up for translation
@@ -21,6 +22,7 @@ from django.utils.translation import ugettext_lazy as __
 from wagtail.tests.testapp.blocks import LinkBlock as CustomLinkBlock
 from wagtail.tests.testapp.blocks import SectionBlock
 from wagtail.tests.testapp.models import SimplePage
+from wagtail.utils.deprecation import RemovedInWagtail111Warning
 from wagtail.wagtailcore import blocks
 from wagtail.wagtailcore.models import Page
 from wagtail.wagtailcore.rich_text import RichText
@@ -37,6 +39,17 @@ class FooStreamBlock(blocks.StreamBlock):
         return value
 
 
+class NoExtraContextCharBlock(blocks.CharBlock):
+    def get_context(self, value):
+        return super(blocks.CharBlock, self).get_context(value)
+
+
+class ContextCharBlock(blocks.CharBlock):
+    def get_context(self, value, parent_context=None):
+        value = str(value).upper()
+        return super(blocks.CharBlock, self).get_context(value, parent_context)
+
+
 class TestFieldBlock(unittest.TestCase):
     def test_charfield_render(self):
         block = blocks.CharBlock()
@@ -51,11 +64,24 @@ class TestFieldBlock(unittest.TestCase):
         self.assertEqual(html, '<h1>Hello world!</h1>')
 
     def test_charfield_render_with_template_with_extra_context(self):
-        block = blocks.CharBlock(template='tests/blocks/heading_block.html')
+        block = ContextCharBlock(template='tests/blocks/heading_block.html')
         html = block.render("Bonjour le monde!", context={
             'language': 'fr',
         })
 
+        self.assertEqual(html, '<h1 lang="fr">BONJOUR LE MONDE!</h1>')
+
+    def test_charfield_render_with_legacy_get_context(self):
+        block = NoExtraContextCharBlock(template='tests/blocks/heading_block.html')
+        with warnings.catch_warnings(record=True) as ws:
+            warnings.simplefilter('always')
+
+            html = block.render("Bonjour le monde!", context={
+                'language': 'fr',
+            })
+
+        self.assertEqual(len(ws), 1)
+        self.assertIs(ws[0].category, RemovedInWagtail111Warning)
         self.assertEqual(html, '<h1 lang="fr">Bonjour le monde!</h1>')
 
     def test_charfield_render_form(self):
@@ -423,6 +449,15 @@ class TestChoiceBlock(unittest.TestCase):
         # blank option should still be rendered for required fields
         # (we may want it as an initial value)
         self.assertIn('<option value="">%s</option>' % self.blank_choice_dash_label, html)
+        self.assertIn('<option value="tea">Tea</option>', html)
+        self.assertIn('<option value="coffee" selected="selected">Coffee</option>', html)
+
+    def test_render_required_choice_block_with_default(self):
+        block = blocks.ChoiceBlock(choices=[('tea', 'Tea'), ('coffee', 'Coffee')], default='tea')
+        html = block.render_form('coffee', prefix='beverage')
+        self.assertIn('<select id="beverage" name="beverage" placeholder="">', html)
+        # blank option should NOT be rendered if default and required are set.
+        self.assertNotIn('<option value="">%s</option>' % self.blank_choice_dash_label, html)
         self.assertIn('<option value="tea">Tea</option>', html)
         self.assertIn('<option value="coffee" selected="selected">Coffee</option>', html)
 
@@ -2352,7 +2387,8 @@ class TestTemplateRendering(TestCase):
     def test_render_with_custom_context(self):
         block = CustomLinkBlock()
         value = block.to_python({'title': 'Torchbox', 'url': 'http://torchbox.com/'})
-        result = block.render(value)
+        context = {'classname': 'important'}
+        result = block.render(value, context)
 
         self.assertEqual(result, '<a href="http://torchbox.com/" class="important">Torchbox</a>')
 

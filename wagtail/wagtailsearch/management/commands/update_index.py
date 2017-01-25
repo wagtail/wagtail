@@ -117,7 +117,7 @@ class Command(BaseCommand):
 
         # Update backends
         for backend_name in backend_names:
-            self.update_backend(backend_name, schema_only=options['schema_only'])
+            self.update_backend(backend_name, schema_only=options.get('schema_only', False))
 
     def print_newline(self):
         self.stdout.write('')
