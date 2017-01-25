@@ -71,6 +71,51 @@ class ChoiceFieldComparison(FieldComparison):
             return escape(val_a)
 
 
+class TagsFieldComparison(FieldComparison):
+    def get_tags(self):
+        tags_a = [
+            tag.tag.slug
+            for tag in self.val_a
+        ]
+
+        tags_b = [
+            tag.tag.slug
+            for tag in self.val_b
+        ]
+
+        return tags_a, tags_b
+
+    def htmldiff(self):
+        # Get tags
+        tags_a, tags_b = self.get_tags()
+
+        # Calculate changes
+        sm = difflib.SequenceMatcher(0, tags_a, tags_b)
+        changes = []
+        for op, i1, i2, j1, j2 in sm.get_opcodes():
+            if op == 'replace':
+                for tag in tags_a[i1:i2]:
+                    changes.append(('deletion', tag))
+                for tag in tags_b[j1:j2]:
+                    changes.append(('addition', tag))
+            elif op == 'delete':
+                for tag in tags_a[i1:i2]:
+                    changes.append(('deletion', tag))
+            elif op == 'insert':
+                for tag in tags_b[j1:j2]:
+                    changes.append(('addition', tag))
+            elif op == 'equal':
+                for tag in tags_a[i1:i2]:
+                    changes.append(('equal', tag))
+
+        # Convert changelist to HTML
+        return TextDiff(changes).to_html()
+
+    def has_changed(self):
+        tags_a, tags_b = self.get_tags()
+        return tags_a != tags_b
+
+
 class ForeignObjectComparison(FieldComparison):
     def get_objects(self):
         model = self.field.related_model

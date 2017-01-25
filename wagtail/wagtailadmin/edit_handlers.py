@@ -3,6 +3,8 @@ from __future__ import absolute_import, unicode_literals
 import math
 import re
 
+from taggit.managers import TaggableManager
+
 import django
 from django import forms
 from django.db.models.fields import FieldDoesNotExist
@@ -479,6 +481,9 @@ class BaseFieldPanel(EditHandler):
                 return compare.ChoiceFieldComparison
 
             if field.is_relation:
+                if isinstance(field, TaggableManager):
+                    return compare.TagsFieldComparison
+
                 return compare.ForeignObjectComparison
 
             if field.get_internal_type() in ['CharField', 'TextField']:
