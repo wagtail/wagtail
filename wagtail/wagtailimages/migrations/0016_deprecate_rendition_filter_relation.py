@@ -35,6 +35,12 @@ class Migration(migrations.Migration):
         #   that successfully applied the old 1.8 version of this migration are consistent with
         #   other setups.
         #
+        # Since Django will optimise away any AlterField operations that appear to match
+        # the current state (according to earlier migrations) - which would cause them to be
+        # skipped on installations that ran the earlier (max_length=255) versions of the
+        # migrations - we need to make them superficially different; we do this by stepping
+        # max_length down from 18 to 17 then 16.
+        #
         # Projects with a custom image model don't have to worry about this - they'll have an existing
         # migration with the max_length=255, and will get a new migration reducing it to max_length=16
         # the next time they run makemigrations.
@@ -42,7 +48,7 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='rendition',
             name='focal_point_key',
-            field=models.CharField(blank=True, default='', max_length=16, editable=False),
+            field=models.CharField(blank=True, default='', max_length=17, editable=False),
         ),
 
         migrations.AlterUniqueTogether(

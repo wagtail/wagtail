@@ -13,9 +13,9 @@ class Migration(migrations.Migration):
     operations = [
         # The Wagtail 1.8 version of migration wagtailimages/0016 did not include the
         # step to reduce focal_point_key's max_length to 16, necessary to make it work
-        # on some MySQL configurations. This migration serves only to ensure that
-        # installations upgrading from 1.8 to >=1.8.1 have this change applied; on other
-        # setups (where the current 0016 and 0017 are applied together), this is a no-op.
+        # on some MySQL configurations. This migration (added in 1.8.1) ensures that
+        # installations that were already successfully running 1.8 receive this change
+        # on upgrading to 1.8.1 or later.
         migrations.AlterField(
             model_name='rendition',
             name='focal_point_key',
