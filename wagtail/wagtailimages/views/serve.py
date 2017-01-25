@@ -14,12 +14,12 @@ from django.utils.decorators import classonlymethod
 from django.utils.six import text_type
 from django.views.generic import View
 
-from wagtail.wagtailcore import hooks
 from wagtail.utils import sendfile_streaming_backend
 from wagtail.utils.sendfile import sendfile
+from wagtail.wagtailcore import hooks
 from wagtail.wagtailimages import get_image_model
 from wagtail.wagtailimages.exceptions import InvalidFilterSpecError
-from wagtail.wagtailimages.models import SourceImageIOError, Rendition
+from wagtail.wagtailimages.models import Rendition, SourceImageIOError
 
 
 def generate_signature(image_id, filter_spec, key=None):

@@ -20,10 +20,9 @@ from django.utils.functional import cached_property
 from django.utils.safestring import mark_safe
 from django.utils.six import BytesIO, string_types, text_type
 from django.utils.translation import ugettext_lazy as _
+
 from taggit.managers import TaggableManager
 from unidecode import unidecode
-from willow.image import Image as WillowImage
-
 from wagtail.utils.deprecation import RemovedInWagtail110Warning
 from wagtail.wagtailadmin.utils import get_object_usage
 from wagtail.wagtailcore import hooks
@@ -32,6 +31,7 @@ from wagtail.wagtailimages.exceptions import InvalidFilterSpecError
 from wagtail.wagtailimages.rect import Rect
 from wagtail.wagtailsearch import index
 from wagtail.wagtailsearch.queryset import SearchableQuerySetMixin
+from willow.image import Image as WillowImage
 
 
 class SourceImageIOError(IOError):

@@ -9,13 +9,13 @@ from django.core.urlresolvers import reverse
 from django.db.utils import IntegrityError
 from django.test import TestCase
 from django.test.utils import override_settings
-from willow.image import Image as WillowImage
 
 from wagtail.tests.testapp.models import EventPage, EventPageCarouselItem
 from wagtail.tests.utils import WagtailTestUtils
 from wagtail.wagtailcore.models import Collection, GroupCollectionPermission, Page
 from wagtail.wagtailimages.models import Rendition, SourceImageIOError
 from wagtail.wagtailimages.rect import Rect
+from willow.image import Image as WillowImage
 
 from .utils import Image, get_test_image_file
 
