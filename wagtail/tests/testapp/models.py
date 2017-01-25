@@ -14,7 +14,7 @@ from django.shortcuts import render
 from django.utils.encoding import python_2_unicode_compatible
 from django.utils.six import text_type
 from modelcluster.contrib.taggit import ClusterTaggableManager
-from modelcluster.fields import ParentalKey
+from modelcluster.fields import ParentalKey, ParentalManyToManyField
 from modelcluster.models import ClusterableModel
 from taggit.managers import TaggableManager
 from taggit.models import TaggedItemBase
@@ -197,6 +197,13 @@ class EventPageSpeaker(Orderable, LinkFields):
     ]
 
 
+class EventCategory(models.Model):
+    name = models.CharField("Name", max_length=255)
+
+    def __str__(self):
+        return self.name
+
+
 class EventPage(Page):
     date_from = models.DateField("Start date", null=True)
     date_to = models.DateField(
@@ -219,6 +226,7 @@ class EventPage(Page):
         on_delete=models.SET_NULL,
         related_name='+'
     )
+    categories = ParentalManyToManyField(EventCategory, blank=True)
 
     search_fields = [
         index.SearchField('get_audience_display'),
@@ -243,6 +251,7 @@ EventPage.content_panels = [
     FieldPanel('body', classname="full"),
     InlinePanel('speakers', label="Speakers"),
     InlinePanel('related_links', label="Related links"),
+    FieldPanel('categories'),
 ]
 
 EventPage.promote_panels = [
