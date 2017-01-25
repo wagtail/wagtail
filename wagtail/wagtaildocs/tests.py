@@ -5,7 +5,6 @@ import os.path
 import unittest
 
 import django
-import mock
 from bs4 import BeautifulSoup
 from django.conf import settings
 from django.contrib.auth import get_user_model
@@ -17,6 +16,7 @@ from django.test import TestCase
 from django.test.utils import override_settings
 from django.utils.six import b
 
+import mock
 from wagtail.tests.testapp.models import EventPage, EventPageRelatedLink
 from wagtail.tests.utils import WagtailTestUtils
 from wagtail.wagtailcore.models import Collection, GroupCollectionPermission, Page

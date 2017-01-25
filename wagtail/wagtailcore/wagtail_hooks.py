@@ -1,16 +1,17 @@
 from __future__ import absolute_import, unicode_literals
-try:
-    from urllib.parse import unquote
-except ImportError:
-    from urllib import unquote
 
 from django.conf import settings
-from django.contrib.contenttypes.models import ContentType
 from django.contrib.auth.views import redirect_to_login
+from django.contrib.contenttypes.models import ContentType
 from django.core.urlresolvers import reverse
 
 from wagtail.wagtailcore import hooks
 from wagtail.wagtailcore.models import BaseViewRestriction
+
+try:
+    from urllib.parse import unquote
+except ImportError:
+    from urllib import unquote
 
 
 def require_wagtail_login(next):

@@ -1,8 +1,4 @@
 from __future__ import absolute_import, unicode_literals
-try:
-    from urllib.parse import quote
-except ImportError:
-    from urllib import quote
 
 from django.contrib.auth.models import Group
 from django.contrib.contenttypes.models import ContentType
@@ -13,8 +9,13 @@ from django.utils.six import b
 
 from wagtail.wagtailcore.models import Collection, CollectionViewRestriction
 from wagtail.wagtaildocs.models import Document
-from wagtail.wagtailimages.views.serve import generate_signature
 from wagtail.wagtailimages.tests.utils import Image, get_test_image_file
+from wagtail.wagtailimages.views.serve import generate_signature
+
+try:
+    from urllib.parse import quote
+except ImportError:
+    from urllib import quote
 
 
 class TestCollectionPrivacyDocument(TestCase):

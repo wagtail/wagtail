@@ -8,8 +8,7 @@ from django.shortcuts import get_object_or_404, redirect
 
 from wagtail.wagtailcore import hooks
 from wagtail.wagtailcore.forms import PasswordBaseViewRestrictionForm
-from wagtail.wagtailcore.models import (
-    CollectionViewRestriction, Page, PageViewRestriction)
+from wagtail.wagtailcore.models import CollectionViewRestriction, Page, PageViewRestriction
 
 
 def serve(request, path):

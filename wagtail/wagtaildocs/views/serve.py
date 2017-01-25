@@ -3,13 +3,13 @@ from __future__ import absolute_import, unicode_literals
 from wsgiref.util import FileWrapper
 
 from django.conf import settings
-from django.http import HttpResponse, BadHeaderError, StreamingHttpResponse
+from django.http import BadHeaderError, HttpResponse, StreamingHttpResponse
 from django.shortcuts import get_object_or_404
-from unidecode import unidecode
 
-from wagtail.wagtailcore import hooks
+from unidecode import unidecode
 from wagtail.utils import sendfile_streaming_backend
 from wagtail.utils.sendfile import sendfile
+from wagtail.wagtailcore import hooks
 from wagtail.wagtaildocs.models import document_served, get_document_model
 
 
