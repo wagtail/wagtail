@@ -1,6 +1,12 @@
 Changelog
 =========
 
+1.8.1 (xx.xx.xxxx) - IN DEVELOPMENT
+~~~~~~~~~~~~~~~~~~
+
+ * Fix: Reduced `Rendition.focal_point_key` field length to prevent migration failure when upgrading to Wagtail 1.8 on MySQL with `utf8` character encoding (Andy Chosak, Matt Westcott)
+
+
 1.8 (15.12.2016)
 ~~~~~~~~~~~~~~~~
 

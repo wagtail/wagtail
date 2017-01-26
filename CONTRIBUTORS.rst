@@ -193,6 +193,7 @@ Contributors
 * Jeffrey Chau
 * Craig Loftus
 * Mihail Russu
+* Andy Chosak
 
 Translators
 ===========
