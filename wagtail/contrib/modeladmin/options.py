@@ -142,7 +142,7 @@ class ModelAdmin(WagtailRegisterable):
     inspect_view_extra_js = []
     form_view_extra_css = []
     form_view_extra_js = []
-    exclude_fields = []
+    form_fields_exclude = []
 
     def __init__(self, parent=None):
         """
@@ -159,6 +159,11 @@ class ModelAdmin(WagtailRegisterable):
             self.model, self.inspect_view_enabled)
         self.url_helper = self.get_url_helper_class()(self.model)
 
+    def get_form_fields_exclude(self, request):
+        """
+        Returns a list or tuple of fields names to be excluded from Create/Edit pages.
+        """
+        return self.form_fields_exclude
 
     def get_permission_helper_class(self):
         """

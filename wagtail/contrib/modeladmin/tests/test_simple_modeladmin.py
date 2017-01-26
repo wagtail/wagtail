@@ -157,14 +157,14 @@ class TestCreateView(TestCase, WagtailTestUtils):
         self.assertFormError(response, 'form', 'title', "This field is required.")
 
     def test_exclude_passed_to_extract_panel_definitions(self):
-        path_to_exclude_fields_property = 'wagtail.contrib.modeladmin.options.ModelAdmin.exclude_fields'
+        path_to_form_fields_exclude_property = 'wagtail.contrib.modeladmin.options.ModelAdmin.form_fields_exclude'
         with mock.patch('wagtail.contrib.modeladmin.views.extract_panel_definitions_from_model_class') as m:
-            with mock.patch(path_to_exclude_fields_property, new_callable=mock.PropertyMock) as mock_exclude_fields:
-                mock_exclude_fields.return_value = ['123']
+            with mock.patch(path_to_form_fields_exclude_property, new_callable=mock.PropertyMock) as mock_form_fields_exclude:
+                mock_form_fields_exclude.return_value = ['123']
 
                 self.get()
-                mock_exclude_fields.assert_called()
-                m.assert_called_with(Book, exclude=mock_exclude_fields.return_value)
+                mock_form_fields_exclude.assert_called()
+                m.assert_called_with(Book, exclude=mock_form_fields_exclude.return_value)
 
 
 class TestInspectView(TestCase, WagtailTestUtils):
@@ -283,14 +283,14 @@ class TestEditView(TestCase, WagtailTestUtils):
         self.assertFormError(response, 'form', 'title', "This field is required.")
 
     def test_exclude_passed_to_extract_panel_definitions(self):
-        path_to_exclude_fields_property = 'wagtail.contrib.modeladmin.options.ModelAdmin.exclude_fields'
+        path_to_form_fields_exclude_property = 'wagtail.contrib.modeladmin.options.ModelAdmin.form_fields_exclude'
         with mock.patch('wagtail.contrib.modeladmin.views.extract_panel_definitions_from_model_class') as m:
-            with mock.patch(path_to_exclude_fields_property, new_callable=mock.PropertyMock) as mock_exclude_fields:
-                mock_exclude_fields.return_value = ['123']
+            with mock.patch(path_to_form_fields_exclude_property, new_callable=mock.PropertyMock) as mock_form_fields_exclude:
+                mock_form_fields_exclude.return_value = ['123']
 
                 self.get(1)
-                mock_exclude_fields.assert_called()
-                m.assert_called_with(Book, exclude=mock_exclude_fields.return_value)
+                mock_form_fields_exclude.assert_called()
+                m.assert_called_with(Book, exclude=mock_form_fields_exclude.return_value)
 
 
 class TestPageSpecificViews(TestCase, WagtailTestUtils):
