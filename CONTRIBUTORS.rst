@@ -205,6 +205,7 @@ Contributors
 * Mikael Svensson
 * Peter Baumgartner
 * Matheus Bratfisch
+* Andy Chosak
 
 Translators
 ===========
