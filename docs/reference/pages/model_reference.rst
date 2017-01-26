@@ -117,6 +117,8 @@ In addition to the model fields provided, ``Page`` has many properties and metho
 
     .. automethod:: serve_preview
 
+    .. automethod:: get_parent
+
     .. automethod:: get_ancestors
 
     .. automethod:: get_descendants

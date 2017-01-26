@@ -206,6 +206,7 @@ Contributors
 * Peter Baumgartner
 * Matheus Bratfisch
 * Andy Chosak
+* Kevin Whinnery
 
 Translators
 ===========
