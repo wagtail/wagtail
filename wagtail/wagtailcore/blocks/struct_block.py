@@ -138,6 +138,13 @@ class BaseStructBlock(Block):
             for name, val in value.items()
         ])
 
+    def get_api_representation(self, value, context=None):
+        # recursively call get_api_representation on children and return as a plain dict
+        return dict([
+            (name, self.child_blocks[name].get_api_representation(val, context=context))
+            for name, val in value.items()
+        ])
+
     def get_searchable_content(self, value):
         content = []
 
