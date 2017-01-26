@@ -116,6 +116,8 @@ In addition to the model fields provided, ``Page`` has many properties and metho
     .. autoattribute:: preview_modes
 
     .. automethod:: serve_preview
+    
+    .. automethod:: get_parent
 
     .. automethod:: get_ancestors
 
