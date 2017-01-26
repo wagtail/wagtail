@@ -45,6 +45,7 @@ Other features
 ~~~~~~~~~~~~~~
 
  * Optimised page URL generation by caching site paths in the request scope (Tobias McNulty, Matt Westcott)
+ * The current live version of a page is now tracked on the revision listing view (Matheus Bratfisch)
 
 
 Bug fixes

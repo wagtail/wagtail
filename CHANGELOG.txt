@@ -6,6 +6,7 @@ Changelog
 
  * Added a new page explorer menu built with the admin API and React (Karl Hobley, Josh Barr, Thibaud Colas, Janneke Janssen, Rob Moorman, Maurice Bartnig, Jonny Scholes, Matt Westcott, Sævar Öfjörð Magnússon, Eirikur Ingi Magnusson, Harris Lapiroff, Hugo van den Berg, Olly Willans, Andy Babic, Ben Enright, Bertrand Bordage)
  * Optimised page URL generation by caching site paths in the request scope (Tobias McNulty, Matt Westcott)
+ * The current live version of a page is now tracked on the revision listing view (Matheus Bratfisch)
  * Fix: Unauthenticated AJAX requests to admin views now return 403 rather than redirecting to the login page (Karl Hobley)
  * Fix: `TableBlock` options `afterChange`, `afterCreateCol`, `afterCreateRow`, `afterRemoveCol`, `afterRemoveRow` and `contextMenu` can now be overridden (Loic Teixeira)
 
