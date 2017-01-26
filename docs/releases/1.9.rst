@@ -31,6 +31,7 @@ The welcome message on the admin dashboard has been updated to be more suitable 
 Other features
 ~~~~~~~~~~~~~~
 
+ * Added ``get_api_representation`` method to streamfield blocks allowing the JSON representation in the API to be customised (Marco Fucci)
  * Added :ref:`before_copy_page` and :ref:`after_copy_page` hooks (Matheus Bratfisch)
  * View live / draft links in the admin now consistently open in a new window (Marco Fucci)
  * ``ChoiceBlock`` now omits the blank option if the block is required and has a default value (Andreas Nüßlein)
