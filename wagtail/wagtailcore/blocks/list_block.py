@@ -143,10 +143,10 @@ class ListBlock(Block):
             for item in value
         ]
 
-    def render_api(self, value, context=None):
-        # recursively call render_api on children and return as a list
+    def get_api_representation(self, value, context=None):
+        # recursively call get_api_representation on children and return as a list
         return [
-            self.child_block.render_api(item, context=context)
+            self.child_block.get_api_representation(item, context=context)
             for item in value
         ]
 

@@ -926,13 +926,14 @@ class TestStructBlock(SimpleTestCase):
 
         self.assertHTMLEqual(html, expected_html)
 
-    def test_render_api_calls_block_render_api_on_fields_with_context(self):
+    def test_get_api_representation_calls_same_method_on_fields_with_context(self):
         """
-        The render_api method of a StructBlock should invoke the block's render_api method
-        on each field and the context should be passed on.
+        The get_api_representation method of a StructBlock should invoke
+        the block's get_api_representation method on each field and the
+        context should be passed on.
         """
         class ContextBlock(blocks.CharBlock):
-            def render_api(self, value, context=None):
+            def get_api_representation(self, value, context=None):
                 return context[value]
 
         class AuthorBlock(blocks.StructBlock):
@@ -940,7 +941,7 @@ class TestStructBlock(SimpleTestCase):
             author = ContextBlock()
 
         block = AuthorBlock()
-        api_representation = block.render_api(
+        api_representation = block.get_api_representation(
             {
                 'language': 'en',
                 'author': 'wagtail',
@@ -1331,19 +1332,20 @@ class TestListBlock(unittest.TestCase):
         self.assertIn('<h1 lang="fr">Bonjour le monde!</h1>', html)
         self.assertIn('<h1 lang="fr">Au revoir le monde!</h1>', html)
 
-    def test_render_api_calls_block_render_api_on_children_with_context(self):
+    def test_get_api_representation_calls_same_method_on_children_with_context(self):
         """
-        The render_api method of a ListBlock should invoke the block's render_api method
-        on each child and the context should be passed on.
+        The get_api_representation method of a ListBlock should invoke
+        the block's get_api_representation method on each child and
+        the context should be passed on.
         """
         class ContextBlock(blocks.CharBlock):
-            def render_api(self, value, context=None):
+            def get_api_representation(self, value, context=None):
                 return context[value]
 
         block = blocks.ListBlock(
             ContextBlock()
         )
-        api_representation = block.render_api(["en", "fr"], context={
+        api_representation = block.get_api_representation(["en", "fr"], context={
             'en': 'Hello world!',
             'fr': 'Bonjour le monde!'
         })
@@ -1670,20 +1672,21 @@ class TestStreamBlock(SimpleTestCase):
 
         return block.render(value)
 
-    def test_render_api_calls_block_render_api_on_children_with_context(self):
+    def test_get_api_representation_calls_same_method_on_children_with_context(self):
         """
-        The render_api method of a StreamBlock should invoke the block's render_api method
-        on each child and the context should be passed on.
+        The get_api_representation method of a StreamBlock should invoke
+        the block's get_api_representation method on each child and
+        the context should be passed on.
         """
         class ContextBlock(blocks.CharBlock):
-            def render_api(self, value, context=None):
+            def get_api_representation(self, value, context=None):
                 return context[value]
 
         block = blocks.StreamBlock([
             ('language', ContextBlock()),
             ('author', ContextBlock()),
         ])
-        api_representation = block.render_api(
+        api_representation = block.get_api_representation(
             block.to_python([
                 {'type': 'language', 'value': 'en'},
                 {'type': 'author', 'value': 'wagtail'},

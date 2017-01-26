@@ -225,7 +225,7 @@ class StreamField(Field):
     foreign objects are nested objects with id and meta as attributes.
     """
     def to_representation(self, value):
-        return value.stream_block.render_api(value, self.context)
+        return value.stream_block.get_api_representation(value, self.context)
 
 
 class TagsField(Field):

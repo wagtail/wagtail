@@ -640,12 +640,12 @@ class StreamModel(models.Model):
 
 class ExtendedImageChooserBlock(ImageChooserBlock):
     """
-    Example of Block with custom render_api method.
+    Example of Block with custom get_api_representation method.
     If the request has an 'extended' query param, it returns a dict of id and title,
     otherwise, it returns the default value.
     """
-    def render_api(self, value, context=None):
-        image_id = super(ExtendedImageChooserBlock, self).render_api(value, context=context)
+    def get_api_representation(self, value, context=None):
+        image_id = super(ExtendedImageChooserBlock, self).get_api_representation(value, context=context)
         if 'request' in context and context['request'].query_params.get('extended', False):
             return {
                 'id': image_id,

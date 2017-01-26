@@ -239,7 +239,7 @@ class Block(six.with_metaclass(BaseBlock, object)):
 
         return mark_safe(render_to_string(template, new_context))
 
-    def render_api(self, value, context=None):
+    def get_api_representation(self, value, context=None):
         """
         Can be used to customise the API response and defaults to the value returned by get_prep_value.
         """

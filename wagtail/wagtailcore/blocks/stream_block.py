@@ -211,13 +211,13 @@ class BaseStreamBlock(Block):
             for child in value  # child is a BoundBlock instance
         ]
 
-    def render_api(self, value, context=None):
+    def get_api_representation(self, value, context=None):
         if value is None:
             # treat None as identical to an empty stream
             return []
 
         return [
-            {'type': child.block.name, 'value': child.block.render_api(child.value, context=context)}
+            {'type': child.block.name, 'value': child.block.get_api_representation(child.value, context=context)}
             for child in value  # child is a BoundBlock instance
         ]
 
