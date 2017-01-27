@@ -44,6 +44,11 @@ urlpatterns = [
         account.notification_preferences,
         name='wagtailadmin_account_notification_preferences'
     ),
+    url(
+        r'^account/language_preferences/$',
+        account.language_preferences,
+        name='wagtailadmin_account_language_preferences'
+    ),
     url(r'^logout/$', account.logout, name='wagtailadmin_logout'),
 ]
 

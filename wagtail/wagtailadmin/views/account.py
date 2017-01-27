@@ -10,13 +10,15 @@ from django.contrib.auth.forms import PasswordChangeForm
 from django.http import Http404
 from django.shortcuts import redirect, render
 from django.utils.translation import ugettext as _
+from django.utils.translation import activate
 from django.views.decorators.cache import never_cache
 from django.views.decorators.debug import sensitive_post_parameters
 
 from wagtail.utils.compat import user_is_authenticated
 from wagtail.wagtailadmin import forms
+from wagtail.wagtailadmin.utils import get_available_admin_languages
 from wagtail.wagtailcore.models import UserPagePermissionsProxy
-from wagtail.wagtailusers.forms import NotificationPreferencesForm
+from wagtail.wagtailusers.forms import NotificationPreferencesForm, PreferredLanguageForm
 from wagtail.wagtailusers.models import UserProfile
 
 
@@ -40,7 +42,8 @@ def account(request):
 
     return render(request, 'wagtailadmin/account/account.html', {
         'show_change_password': password_management_enabled() and request.user.has_usable_password(),
-        'show_notification_preferences': show_notification_preferences
+        'show_notification_preferences': show_notification_preferences,
+        'show_preferred_language_preferences': len(get_available_admin_languages()) > 1
     })
 
 
@@ -103,6 +106,23 @@ def notification_preferences(request):
         return redirect('wagtailadmin_account')
 
     return render(request, 'wagtailadmin/account/notification_preferences.html', {
+        'form': form,
+    })
+
+
+def language_preferences(request):
+    if request.method == 'POST':
+        form = PreferredLanguageForm(request.POST, instance=UserProfile.get_for_user(request.user))
+
+        if form.is_valid():
+            user_profile = form.save()
+            # This will set the language only for this request/thread
+            activate(user_profile.preferred_language)
+            messages.success(request, _("Your preferences have been updated."))
+    else:
+        form = PreferredLanguageForm(instance=UserProfile.get_for_user(request.user))
+
+    return render(request, 'wagtailadmin/account/language_preferences.html', {
         'form': form,
     })
 

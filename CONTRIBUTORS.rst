@@ -228,6 +228,7 @@ Contributors
 * Thijs Kramer
 * Ramon de Jezus
 * Ross Curzon-Butler
+* Daniel Chimeno
 
 Translators
 ===========
