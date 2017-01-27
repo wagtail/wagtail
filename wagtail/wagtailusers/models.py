@@ -30,6 +30,14 @@ class UserProfile(models.Model):
         help_text=_("Receive notification when your page edit is rejected")
     )
 
+    prefered_language = models.CharField(
+        verbose_name=_('prefered language'),
+        max_length=10,
+        help_text=_("Select language for the admin"),
+        choices=settings.LANGUAGES,
+        default='en'
+    )
+
     @classmethod
     def get_for_user(cls, user):
         return cls.objects.get_or_create(user=user)[0]
