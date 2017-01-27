@@ -16,7 +16,7 @@ from django.views.decorators.debug import sensitive_post_parameters
 from wagtail.utils.compat import user_is_authenticated
 from wagtail.wagtailadmin import forms
 from wagtail.wagtailcore.models import UserPagePermissionsProxy
-from wagtail.wagtailusers.forms import NotificationPreferencesForm
+from wagtail.wagtailusers.forms import NotificationPreferencesForm, PreferedLanguageForm
 from wagtail.wagtailusers.models import UserProfile
 
 
@@ -103,6 +103,21 @@ def notification_preferences(request):
         return redirect('wagtailadmin_account')
 
     return render(request, 'wagtailadmin/account/notification_preferences.html', {
+        'form': form,
+    })
+
+
+def language_preferences(request):
+    if request.method == 'POST':
+        form = PreferedLanguageForm(request.POST, instance=UserProfile.get_for_user(request.user))
+
+        if form.is_valid():
+            form.save()
+            messages.success(request, _("Your preferences have been update successfully!"))
+    else:
+        form = PreferedLanguageForm(instance=UserProfile.get_for_user(request.user))
+
+    return render(request, 'wagtailadmin/account/language_preferences.html', {
         'form': form,
     })
 
