@@ -31,6 +31,7 @@ The welcome message on the admin dashboard has been updated to be more suitable 
 Other features
 ~~~~~~~~~~~~~~
 
+ * Changed text of "Draft" and "Live" buttons to "View draft" and "View live" (Dan Braghis)
  * Added ``get_api_representation`` method to streamfield blocks allowing the JSON representation in the API to be customised (Marco Fucci)
  * Added :ref:`before_copy_page` and :ref:`after_copy_page` hooks (Matheus Bratfisch)
  * View live / draft links in the admin now consistently open in a new window (Marco Fucci)
