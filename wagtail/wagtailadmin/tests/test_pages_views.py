@@ -5,6 +5,7 @@ import logging
 import os
 
 import django
+import mock
 from django.conf import settings
 from django.contrib.auth import get_user_model
 from django.contrib.auth.models import Group, Permission
@@ -18,7 +19,6 @@ from django.test import TestCase
 from django.utils import formats, timezone
 from django.utils.dateparse import parse_date
 
-import mock
 from wagtail.tests.testapp.models import (
     EVENT_AUDIENCE_CHOICES, Advert, AdvertPlacement, BusinessChild, BusinessIndex, BusinessSubIndex,
     DefaultStreamPage, EventPage, EventPageCarouselItem, FilePage, SimplePage, SingleEventPage,

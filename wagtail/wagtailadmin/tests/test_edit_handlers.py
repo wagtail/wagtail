@@ -2,12 +2,12 @@ from __future__ import absolute_import, unicode_literals
 
 from datetime import date
 
+import mock
 from django import forms
 from django.core import checks
 from django.core.exceptions import ImproperlyConfigured
 from django.test import TestCase, override_settings
 
-import mock
 from wagtail.tests.testapp.forms import ValidatedPageForm
 from wagtail.tests.testapp.models import (
     EventPage, EventPageChooserModel, EventPageSpeaker, PageChooserModel, SimplePage, ValidatedPage)
