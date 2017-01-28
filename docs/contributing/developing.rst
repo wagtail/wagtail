@@ -57,13 +57,21 @@ From the root of the Wagtail codebase, run the following command to run all the 
 
 **Running only some of the tests**
 
-At the time of writing, Wagtail has well over 1000 tests, which takes a while to
+At the time of writing, Wagtail has well over 2500 tests, which takes a while to
 run. You can run tests for only one part of Wagtail by passing in the path as
 an argument to ``runtests.py``:
 
 .. code-block:: console
 
     $ python runtests.py wagtail.wagtailcore
+
+You can also run tests for individual TestCases by passing in the path as
+an argument to ``runtests.py``
+
+.. code-block::console
+
+    $ python runtests.py wagtail.wagtailcore.tests.test_blocks.TestIntegerBlock
+
 
 **Testing against PostgreSQL**
 
