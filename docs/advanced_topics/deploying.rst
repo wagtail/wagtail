@@ -8,11 +8,6 @@ Wagtail is straightforward to deploy on modern Linux-based distributions, but se
 
 Our current preferences are for Nginx, Gunicorn and supervisor on Debian, but Wagtail should run with any of the combinations detailed in Django's `deployment documentation <https://docs.djangoproject.com/en/dev/howto/deployment/>`_.
 
-On Gondor
-~~~~~~~~~
-
-`Gondor <https://gondor.io/>`_ specialise in Python hosting. They provide Redis and Elasticsearch, which are two of the services we recommend for high-performance production sites. Gondor have written a comprehensive tutorial on running your Wagtail site on their platform, at `gondor.io/blog/2014/02/14/how-run-wagtail-cms-gondor/ <https://gondor.io/blog/2014/02/14/how-run-wagtail-cms-gondor/>`_.
-
 On Openshift
 ~~~~~~~~~~~~
 

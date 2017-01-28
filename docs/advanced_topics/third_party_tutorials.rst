@@ -22,7 +22,6 @@ Third-party tutorials
 * `Wagtail notes: managing redirects as pages <http://www.coactivate.org/projects/ejucovy/blog/2014/05/10/wagtail-notes-managing-redirects-as-pages/>`_ (10 May 2014)
 * `Wagtail notes: dynamic templates per page <http://www.coactivate.org/projects/ejucovy/blog/2014/05/10/wagtail-notes-dynamic-templates-per-page/>`_ (10 May 2014)
 * `Wagtail notes: type-constrained PageChooserPanel <http://www.coactivate.org/projects/ejucovy/blog/2014/05/09/wagtail-notes-type-constrained-pagechooserpanel/>`_ (9 May 2014)
-* `How to Run the Wagtail CMS on Gondor <https://gondor.io/blog/2014/02/14/how-run-wagtail-cms-gondor/>`_ (14 February 2014)
 
 .. tip::
 
