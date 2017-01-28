@@ -68,7 +68,7 @@ an argument to ``runtests.py``:
 You can also run tests for individual TestCases by passing in the path as
 an argument to ``runtests.py``
 
-.. code-block::console
+.. code-block:: console
 
     $ python runtests.py wagtail.wagtailcore.tests.test_blocks.TestIntegerBlock
 
