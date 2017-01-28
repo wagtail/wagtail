@@ -1025,6 +1025,18 @@ class TestPageDetailWithStreamField(TestCase):
         # ForeignKeys in a StreamField shouldn't be translated into dictionary representation
         self.assertEqual(content['body'], [{'type': 'image', 'value': 1}])
 
+    def test_image_block_with_custom_get_api_representation(self):
+        stream_page = self.make_stream_page('[{"type": "image", "value": 1}]')
+
+        response_url = '{}?extended=1'.format(
+            reverse('wagtailapi_v2:pages:detail', args=(stream_page.id, ))
+        )
+        response = self.client.get(response_url)
+        content = json.loads(response.content.decode('utf-8'))
+
+        # the custom get_api_representation returns a dict of id and title for the image
+        self.assertEqual(content['body'], [{'type': 'image', 'value': {'id': 1, 'title': 'A missing image'}}])
+
 
 @override_settings(
     WAGTAILFRONTENDCACHE={

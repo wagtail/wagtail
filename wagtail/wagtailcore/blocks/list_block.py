@@ -143,6 +143,13 @@ class ListBlock(Block):
             for item in value
         ]
 
+    def get_api_representation(self, value, context=None):
+        # recursively call get_api_representation on children and return as a list
+        return [
+            self.child_block.get_api_representation(item, context=context)
+            for item in value
+        ]
+
     def render_basic(self, value, context=None):
         children = format_html_join(
             '\n', '<li>{0}</li>',

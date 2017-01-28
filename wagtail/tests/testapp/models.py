@@ -638,11 +638,27 @@ class StreamModel(models.Model):
     ])
 
 
+class ExtendedImageChooserBlock(ImageChooserBlock):
+    """
+    Example of Block with custom get_api_representation method.
+    If the request has an 'extended' query param, it returns a dict of id and title,
+    otherwise, it returns the default value.
+    """
+    def get_api_representation(self, value, context=None):
+        image_id = super(ExtendedImageChooserBlock, self).get_api_representation(value, context=context)
+        if 'request' in context and context['request'].query_params.get('extended', False):
+            return {
+                'id': image_id,
+                'title': value.title
+            }
+        return image_id
+
+
 class StreamPage(Page):
     body = StreamField([
         ('text', CharBlock()),
         ('rich_text', RichTextBlock()),
-        ('image', ImageChooserBlock()),
+        ('image', ExtendedImageChooserBlock()),
     ])
 
     api_fields = ('body',)

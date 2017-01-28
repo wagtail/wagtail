@@ -96,10 +96,12 @@ You can now edit the homepage within the Wagtail admin area (go to Explorer, Hom
 
 The page template now needs to be updated to reflect the changes made
 to the model. Wagtail uses normal Django templates to render each page
-type. It automatically generates a template filename from the model name
-by separating capital letters with underscores (e.g. HomePage becomes
-home\_page.html). Edit
-``home/templates/home/home_page.html`` to contain the following:
+type. By default, it will look for a template filename formed from the app and model name,
+separating capital letters with underscores (e.g. HomePage within the 'home' app becomes
+``home/home_page.html``). This template file can exist in any location recognised by
+`Django's template rules <https://docs.djangoproject.com/en/1.10/intro/tutorial03/#write-views-that-actually-do-something>`__; conventionally it is placed under a ``templates`` folder within the app.
+
+Edit ``home/templates/home/home_page.html`` to contain the following:
 
 .. code-block:: html+django
 
@@ -176,7 +178,8 @@ Lets start with a simple index page for our blog. In ``blog/models.py``:
 Run ``python manage.py makemigrations`` and ``python manage.py migrate``.
 
 Since the model is called ``BlogIndexPage``, the default template name
-(unless we override it) will be ``blog/templates/blog/blog_index_page.html:``
+(unless we override it) will be ``blog/templates/blog/blog_index_page.html``. Create this file
+with the following content:
 
 .. code-block:: html+django
 

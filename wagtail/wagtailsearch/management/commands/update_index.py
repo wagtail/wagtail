@@ -21,7 +21,7 @@ def group_models_by_index(backend, models):
 
     For example, Elasticsearch 2 requires all page models to be together, but
     separate from other content types (eg, images and documents) to prevent
-    field mapping collisions (eg, images and documents):
+    field mapping collisions:
 
     >>> group_models_by_index(elasticsearch2_backend, [
     ...     wagtailcore.Page,
