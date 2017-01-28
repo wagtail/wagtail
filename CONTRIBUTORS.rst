@@ -207,6 +207,7 @@ Contributors
 * Matheus Bratfisch
 * Andy Chosak
 * Kevin Whinnery
+* Martey Dodoo
 
 Translators
 ===========
