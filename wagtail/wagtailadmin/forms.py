@@ -16,15 +16,13 @@ from django.utils import timezone
 from django.utils.six import with_metaclass
 from django.utils.translation import ugettext as _
 from django.utils.translation import ugettext_lazy, ungettext
+
 from modelcluster.forms import ClusterForm, ClusterFormMetaclass
 from taggit.managers import TaggableManager
-
 from wagtail.wagtailadmin import widgets
 from wagtail.wagtailcore.models import (
-    BaseViewRestriction,
-    Collection, GroupCollectionPermission, CollectionViewRestriction,
-    Page, PageViewRestriction
-)
+    BaseViewRestriction, Collection, CollectionViewRestriction, GroupCollectionPermission, Page,
+    PageViewRestriction)
 
 
 class URLOrAbsolutePathValidator(validators.URLValidator):
