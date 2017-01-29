@@ -285,7 +285,8 @@ class TestAccountSection(TestCase, WagtailTestUtils):
         # Check that the user received an account page
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'wagtailadmin/account/language_preferences.html')
-        # Page should contain a 'Change password' option
+
+        # Page should contain a 'Language Preferences' title
         self.assertContains(response, "Language Preferences")
 
     def test_language_preferences_view_post(self):
@@ -293,19 +294,19 @@ class TestAccountSection(TestCase, WagtailTestUtils):
         This post to the language preferences view and checks that the
         user's profile is updated
         """
-        #Post new values to the language preferences page
+        # Post new values to the language preferences page
         post_data = {
             'prefered_language': 'es'
         }
-        response = self.client.post(reverse('wagtail_account_language_preferences', post_data))
+        response = self.client.post(reverse('wagtailadmin_account_language_preferences'), post_data)
 
-        # Check that the user was redirected to the account page
-        self.assertRedirects(response, reverse('wagtailadmin_account_language_preferences'))
+        # Check that the user was redirected to the account language preferences page
+        self.assertEqual(response.status_code, 200)
 
         profile = UserProfile.get_for_user(get_user_model().objects.get(pk=self.user.pk))
 
-        # Check that the notification preferences are as submitted
-        self.assertTrue(profile.rejected_notifications, 'es')
+        # Check that the language preferences are stored
+        self.assertEqual(profile.prefered_language, 'es')
 
 
 class TestAccountManagementForNonModerator(TestCase, WagtailTestUtils):
