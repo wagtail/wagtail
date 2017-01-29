@@ -31,9 +31,6 @@ class LocaleAdminMiddleware(MiddlewareMixin):
         :param request:
         :return:
         """
-        if 'admin' in request.path: #TODO: Change to a proper way to look if is admin
+        if 'admin' in request.path:  # TODO: Change to a proper way to look if is admin
             if request.user:
                 activate(request.user.wagtail_userprofile.prefered_language)
-
-
-
