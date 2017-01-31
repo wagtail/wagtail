@@ -7,6 +7,7 @@ from django.core.urlresolvers import reverse
 from django.utils.translation import ugettext_lazy as _
 from wagtail.wagtailadmin.menu import MenuItem, SubmenuMenuItem, settings_menu
 from wagtail.wagtailadmin.search import SearchArea
+from wagtail.wagtailadmin.viewsets import viewsets
 from wagtail.wagtailadmin.widgets import Button, ButtonWithDropdownFromHook, PageListingButton
 from wagtail.wagtailcore import hooks
 from wagtail.wagtailcore.permissions import collection_permission_policy
@@ -108,3 +109,9 @@ def page_listing_more_buttons(page, page_perms, is_parent=False):
     if not page.is_root():
         yield Button(_('Revisions'), reverse('wagtailadmin_pages:revisions_index', args=[page.id]),
                      attrs={'title': _("View this page's revision history")}, priority=50)
+
+
+@hooks.register('register_admin_urls')
+def register_viewsets_urls():
+    viewsets.populate()
+    return viewsets.get_urlpatterns()
