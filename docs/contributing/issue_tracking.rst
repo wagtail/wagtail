@@ -35,6 +35,10 @@ As with issues, the core team will classify pull requests as soon as they are op
 
 Subsequently (ideally within a week or two, but possibly longer for larger submissions) a core team member will merge it if it is ready to be merged, or tag it as requiring further work ('needs work' / 'needs tests' / 'needs docs'). In the latter case, they may also reassign it to a later milestone ('real-soon-now' or 'some-day'). Pull requests that require further work are handled and prioritised in the same way as issues - anyone is welcome to pick one up from the backlog, whether or not they were the original committer.
 
+Rebasing / squashing of pull requests is welcome, but not essential. When doing so, do not squash commits that need reviewing into previous ones and make sure to preserve the sequence of changes. To fix mistakes in earlier commits, use ``git commit --fixup`` so that the final merge can be done with ``git rebase -i --autosquash``.
+
+Core team members working on Wagtail are expected to go through the same process with their own fork of the project.
+
 Release schedule
 ----------------
 

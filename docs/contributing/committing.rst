@@ -8,6 +8,9 @@ or for anyone interested in the process of getting code committed to Wagtail.
 Code should only be committed after it has been reviewed
 by at least one other reviewer or committer,
 unless the change is a small documentation change or fixing a typo.
+If additional code changes are made after the review, it is OK to commit them
+without further review if they are uncontroversial and small enough that no
+bugs are likely to be introduced.
 
 Most code contributions will be in the form of pull requests from Github.
 Pull requests should not be merged from Github, apart from small documentation fixes,
@@ -41,6 +44,8 @@ as merge commits make the commit history harder to read for small changes.
 You can fix up any small mistakes in the commits,
 such as typos and formatting, as part of the rebase.
 ``git rebase --interactive`` is an excellent tool for this job.
+
+Ideally, use this as an opportunity to squash the changes to a few commits, so each commit is making a single meaningful change (and not breaking anything). If this is not possible because of the nature of the changes, go with the least ugly.
 
 .. code-block:: console
 
@@ -119,3 +124,11 @@ The changes are ready to be pushed to ``master`` now.
     $ # Push the commits!
     $ git push upstream master
     $ git branch -d pr/xxxx
+
+When you have made a mistake
+============================
+
+It's ok! Everyone makes mistakes. If you realise that recent merged changes
+have a negative impact, create a new pull request with a revert of the changes
+and merge it without waiting for a review. The PR will serve as additional
+documentation for the changes, and will run through the CI tests.
