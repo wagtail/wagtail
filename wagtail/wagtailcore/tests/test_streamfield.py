@@ -221,3 +221,13 @@ class TestStreamFieldJinjaRendering(TestStreamFieldRenderingBase):
         rendered = self.render('{{ instance.body }}', {
             'instance': self.instance})
         self.assertHTMLEqual(rendered, self.expected)
+
+
+class TestRequiredStreamField(TestCase):
+    def test_non_blank_field_is_required(self):
+        field = StreamField([('paragraph', blocks.CharBlock())], blank=False)
+        self.assertTrue(field.stream_block.required)
+
+    def test_blank_field_is_not_required(self):
+        field = StreamField([('paragraph', blocks.CharBlock())], blank=True)
+        self.assertFalse(field.stream_block.required)
