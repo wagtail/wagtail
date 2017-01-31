@@ -177,9 +177,14 @@ class BaseStreamBlock(Block):
     def value_omitted_from_data(self, data, files, prefix):
         return ('%s-count' % prefix) not in data
 
+    @property
+    def required(self):
+        return self.meta.required
+
     def clean(self, value):
         cleaned_data = []
         errors = {}
+        non_block_errors = ErrorList()
         for i, child in enumerate(value):  # child is a StreamChild instance
             try:
                 cleaned_data.append(
@@ -188,10 +193,13 @@ class BaseStreamBlock(Block):
             except ValidationError as e:
                 errors[i] = ErrorList([e])
 
-        if errors:
+        if self.required and len(value) == 0:
+            non_block_errors.append(ValidationError('This field is required', code='invalid'))
+
+        if errors or non_block_errors:
             # The message here is arbitrary - outputting error messages is delegated to the child blocks,
             # which only involves the 'params' list
-            raise StreamBlockValidationError(block_errors=errors)
+            raise StreamBlockValidationError(block_errors=errors, non_block_errors=non_block_errors)
 
         return StreamValue(self, cleaned_data)
 
@@ -279,6 +287,7 @@ class BaseStreamBlock(Block):
         # descendant block type
         icon = "placeholder"
         default = []
+        required = True
 
 
 class StreamBlock(six.with_metaclass(DeclarativeSubBlocksMetaclass, BaseStreamBlock)):
