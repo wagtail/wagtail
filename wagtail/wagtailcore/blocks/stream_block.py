@@ -34,7 +34,7 @@ class StreamBlockValidationError(ValidationError):
 
 class BaseStreamBlock(Block):
 
-    def __init__(self, local_blocks=None, **kwargs):
+    def __init__(self, local_blocks=None, required=True, **kwargs):
         self._constructor_kwargs = kwargs
 
         super(BaseStreamBlock, self).__init__(**kwargs)
@@ -47,6 +47,8 @@ class BaseStreamBlock(Block):
                 self.child_blocks[name] = block
 
         self.dependencies = self.child_blocks.values()
+
+        self._required = required
 
     def get_default(self):
         """
@@ -174,9 +176,14 @@ class BaseStreamBlock(Block):
     def value_omitted_from_data(self, data, files, prefix):
         return ('%s-count' % prefix) not in data
 
+    @property
+    def required(self):
+        return self._required
+
     def clean(self, value):
         cleaned_data = []
         errors = {}
+        non_block_errors = ErrorList()
         for i, child in enumerate(value):  # child is a BoundBlock instance
             try:
                 cleaned_data.append(
@@ -185,10 +192,13 @@ class BaseStreamBlock(Block):
             except ValidationError as e:
                 errors[i] = ErrorList([e])
 
-        if errors:
+        if self.required and len(value) == 0:
+            non_block_errors.append(ValidationError('This field is required', code='invalid'))
+
+        if errors or non_block_errors:
             # The message here is arbitrary - outputting error messages is delegated to the child blocks,
             # which only involves the 'params' list
-            raise StreamBlockValidationError(block_errors=errors)
+            raise StreamBlockValidationError(block_errors=errors, non_block_errors=non_block_errors)
 
         return StreamValue(self, cleaned_data)
 
@@ -248,7 +258,7 @@ class BaseStreamBlock(Block):
         to a custom subclass in the user's models.py that may or may not stick around.
         """
         path = 'wagtail.wagtailcore.blocks.StreamBlock'
-        args = [self.child_blocks.items()]
+        args = [self.child_blocks.items(), self._required]
         kwargs = self._constructor_kwargs
         return (path, args, kwargs)
 
