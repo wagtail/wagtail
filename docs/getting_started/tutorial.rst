@@ -168,6 +168,7 @@ Lets start with a simple index page for our blog. In ``blog/models.py``:
     from wagtail.wagtailcore.fields import RichTextField
     from wagtail.wagtailadmin.edit_handlers import FieldPanel
 
+
     class BlogIndexPage(Page):
         intro = RichTextField(blank=True)
 
@@ -269,7 +270,7 @@ Create a template at ``blog/templates/blog/blog_page.html``:
 Note the use of Wagtail's built-in ``get_parent()`` method to obtain the
 URL of the blog this post is a part of.
 
-Now create a few blog posts as children of ``BlogIndexPage.``
+Now create a few blog posts as children of ``BlogIndexPage``.
 Be sure to select type "Blog Page" when creating your posts.
 
 .. figure:: ../_static/images/tutorial/tutorial_4a.png
@@ -302,7 +303,7 @@ Much of the work you'll be doing in Wagtail revolves around the concept of hiera
 In this case, the ``BlogIndexPage`` is a "node" and individual ``BlogPage`` instances
 are the "leaves".
 
-Take another look at the guts of ``BlogIndexPage:``
+Take another look at the guts of ``blog_index_page.html``:
 
 .. code-block:: html+django
 
@@ -705,6 +706,107 @@ something like this:
 
 .. figure:: ../_static/images/tutorial/tutorial_9.png
    :alt: A simple tag view
+
+
+Categories
+~~~~~~~~~~
+
+Let's add a category system to our blog. Unlike tags, where a page author can bring a tag into existence simply by using it on a page, our categories will be a fixed list, managed by the site owner through a separate area of the admin interface.
+
+First, we define a ``BlogCategory`` model. A category is not a page in its own right, and so we define it as a standard Django ``models.Model`` rather than inheriting from ``Page``. Wagtail introduces the concept of "snippets" for reusable pieces of content that need to be managed through the admin interface, but do not exist as part of the page tree themselves; a model can be registered as a snippet by adding the ``@register_snippet`` decorator. All the field types we've used so far on pages can be used on snippets too - here we'll give each category an icon image as well as a name. Add to ``blog/models.py``:
+
+
+.. code-block:: python
+
+    from wagtail.wagtailsnippets.models import register_snippet
+
+
+    @register_snippet
+    class BlogCategory(models.Model):
+        name = models.CharField(max_length=255)
+        icon = models.ForeignKey(
+            'wagtailimages.Image', null=True, blank=True,
+            on_delete=models.SET_NULL, related_name='+'
+        )
+
+        panels = [
+            FieldPanel('name'),
+            ImageChooserPanel('icon'),
+        ]
+
+        def __str__(self):
+            return self.name
+
+        class Meta:
+            verbose_name_plural = 'blog categories'
+
+
+Note that we are using ``panels`` rather than ``content_panels`` here - since snippets generally have no need for fields such as slug or publish date, the editing interface for them is not split into separate 'content' / 'promote' / 'settings' tabs as standard, and so there is no need to distinguish between 'content panels' and 'promote panels'.
+
+Migrate this change in, and create a few categories through the Snippets area which now appears in the admin menu.
+
+We can now add categories to the ``BlogPage`` model, as a many-to-many field. The field type we use for this is ``ParentalManyToManyField`` - this is a variant of the standard Django ``ManyToManyField`` which ensures that the chosen objects are correctly stored against the page record in the revision history, in much the same way that ``ParentalKey`` replaces ``ForeignKey`` for one-to-many relations.
+
+
+.. code-block:: python
+
+    # New imports added for forms and ParentalManyToManyField
+    from django import forms
+    from django.db import models
+
+    from modelcluster.fields import ParentalKey, ParentalManyToManyField
+    from modelcluster.tags import ClusterTaggableManager
+    from taggit.models import TaggedItemBase
+
+    # ...
+
+    class BlogPage(Page):
+        date = models.DateField("Post date")
+        intro = models.CharField(max_length=250)
+        body = RichTextField(blank=True)
+        tags = ClusterTaggableManager(through=BlogPageTag, blank=True)
+        categories = ParentalManyToManyField('blog.BlogCategory', blank=True)
+
+        # ... (Keep the main_image method and search_fields definition)
+
+        content_panels = Page.content_panels + [
+            MultiFieldPanel([
+                FieldPanel('date'),
+                FieldPanel('tags'),
+                FieldPanel('categories', widget=forms.CheckboxSelectMultiple),
+            ], heading="Blog information"),
+            FieldPanel('intro'),
+            FieldPanel('body'),
+            InlinePanel('gallery_images', label="Gallery images"),
+        ]
+
+
+Here we're making use of the ``widget`` keyword argument on the ``FieldPanel`` definition to specify a checkbox-based widget instead of the default multiple select box, as this is often considered more user-friendly.
+
+Finally, we can update the ``blog_page.html`` template to display the categories:
+
+.. code-block:: html+django
+
+    <h1>{{ page.title }}</h1>
+    <p class="meta">{{ page.date }}</p>
+
+    {% with categories=page.categories.all %}
+        {% if categories %}
+            <h3>Posted in:</h3>
+            <ul>
+                {% for category in categories %}
+                    <li style="display: inline">
+                        {% image category.icon fill-32x32 style="vertical-align: middle" %}
+                        {{ category.name }}
+                    </li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+    {% endwith %}
+
+
+.. figure:: ../_static/images/tutorial/tutorial_10.jpg
+   :alt: A blog post with categories
 
 
 Where next
