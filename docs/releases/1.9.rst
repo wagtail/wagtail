@@ -51,6 +51,12 @@ Bug fixes
 Upgrade considerations
 ======================
 
+``django-modelcluster`` and ``django-taggit`` dependencies updated
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Wagtail now requires version 3.0 or later of ``django-modelcluster`` and version 0.20 or later of ``django-taggit``; earlier versions are unsupported. In normal circumstances these packages will be upgraded automatically when upgrading Wagtail; however, if your Wagtail project has a requirements file that explicitly specifies an older version, this will need to be updated.
+
+
 ``get_context`` methods on StreamField blocks need updating
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
