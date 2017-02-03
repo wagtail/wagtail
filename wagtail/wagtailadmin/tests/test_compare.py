@@ -4,7 +4,7 @@ import unittest
 
 from django.test import TestCase
 from django.utils.functional import curry
-from django.utils.safestring import SafeString
+from django.utils.safestring import SafeText
 
 from wagtail.tests.testapp.models import EventPage, EventPageSpeaker, SimplePage, StreamPage, TaggedPage
 from wagtail.wagtailadmin import compare
@@ -28,7 +28,7 @@ class TestFieldComparison(TestCase):
         self.assertFalse(comparison.is_child_relation)
         self.assertEqual(comparison.field_label(), "Content")
         self.assertEqual(comparison.htmldiff(), 'Content')
-        self.assertIsInstance(comparison.htmldiff(), SafeString)
+        self.assertIsInstance(comparison.htmldiff(), SafeText)
         self.assertFalse(comparison.has_changed())
 
     def test_has_changed(self):
@@ -39,7 +39,7 @@ class TestFieldComparison(TestCase):
         )
 
         self.assertEqual(comparison.htmldiff(), '<span class="deletion">Original content</span><span class="addition">Modified content</span>')
-        self.assertIsInstance(comparison.htmldiff(), SafeString)
+        self.assertIsInstance(comparison.htmldiff(), SafeText)
         self.assertTrue(comparison.has_changed())
 
     def test_htmldiff_escapes_value(self):
@@ -50,7 +50,7 @@ class TestFieldComparison(TestCase):
         )
 
         self.assertEqual(comparison.htmldiff(), '<span class="deletion">Original content</span><span class="addition">&lt;script type=&quot;text/javascript&quot;&gt;doSomethingBad();&lt;/script&gt;</span>')
-        self.assertIsInstance(comparison.htmldiff(), SafeString)
+        self.assertIsInstance(comparison.htmldiff(), SafeText)
 
 
 class TestTextFieldComparison(TestFieldComparison):
@@ -66,7 +66,7 @@ class TestTextFieldComparison(TestFieldComparison):
         )
 
         self.assertEqual(comparison.htmldiff(), '<span class="deletion">Original</span><span class="addition">Modified</span> content')
-        self.assertIsInstance(comparison.htmldiff(), SafeString)
+        self.assertIsInstance(comparison.htmldiff(), SafeText)
         self.assertTrue(comparison.has_changed())
 
 
@@ -82,7 +82,7 @@ class TestRichTextFieldComparison(TestTextFieldComparison):
         )
 
         self.assertEqual(comparison.htmldiff(), '<span class="deletion">Original</span><span class="addition">Modified</span> content')
-        self.assertIsInstance(comparison.htmldiff(), SafeString)
+        self.assertIsInstance(comparison.htmldiff(), SafeText)
         self.assertTrue(comparison.has_changed())
 
     def test_htmldiff_escapes_value(self):
@@ -94,7 +94,7 @@ class TestRichTextFieldComparison(TestTextFieldComparison):
         )
 
         self.assertEqual(comparison.htmldiff(), '<span class="deletion">Original content</span><span class="addition">doSomethingBad();</span>')
-        self.assertIsInstance(comparison.htmldiff(), SafeString)
+        self.assertIsInstance(comparison.htmldiff(), SafeText)
 
 
 class TestStreamFieldComparison(TestCase):
@@ -117,7 +117,7 @@ class TestStreamFieldComparison(TestCase):
         self.assertFalse(comparison.is_child_relation)
         self.assertEqual(comparison.field_label(), "Body")
         self.assertEqual(comparison.htmldiff(), 'Content')
-        self.assertIsInstance(comparison.htmldiff(), SafeString)
+        self.assertIsInstance(comparison.htmldiff(), SafeText)
         self.assertFalse(comparison.has_changed())
 
     def test_has_changed(self):
@@ -134,7 +134,7 @@ class TestStreamFieldComparison(TestCase):
         )
 
         self.assertEqual(comparison.htmldiff(), '<span class="deletion">Original</span><span class="addition">Modified</span> content')
-        self.assertIsInstance(comparison.htmldiff(), SafeString)
+        self.assertIsInstance(comparison.htmldiff(), SafeText)
         self.assertTrue(comparison.has_changed())
 
     @unittest.expectedFailure
@@ -152,7 +152,7 @@ class TestStreamFieldComparison(TestCase):
         )
 
         self.assertEqual(comparison.htmldiff(), '<span class="deletion">Original</span><span class="addition">Modified</span> content')
-        self.assertIsInstance(comparison.htmldiff(), SafeString)
+        self.assertIsInstance(comparison.htmldiff(), SafeText)
         self.assertTrue(comparison.has_changed())
 
     def test_htmldiff_escapes_value(self):
@@ -169,7 +169,7 @@ class TestStreamFieldComparison(TestCase):
         )
 
         self.assertEqual(comparison.htmldiff(), '<span class="deletion">Original content</span><span class="addition">&lt;script type=&quot;text/javascript&quot;&gt;doSomethingBad();&lt;/script&gt;</span>')
-        self.assertIsInstance(comparison.htmldiff(), SafeString)
+        self.assertIsInstance(comparison.htmldiff(), SafeText)
 
     @unittest.expectedFailure
     def test_htmldiff_escapes_value_richtext(self):
@@ -186,7 +186,7 @@ class TestStreamFieldComparison(TestCase):
         )
 
         self.assertEqual(comparison.htmldiff(), '<span class="deletion">Original content</span><span class="addition">doSomethingBad();</span>')
-        self.assertIsInstance(comparison.htmldiff(), SafeString)
+        self.assertIsInstance(comparison.htmldiff(), SafeText)
 
 
 class TestChoiceFieldComparison(TestCase):
@@ -203,7 +203,7 @@ class TestChoiceFieldComparison(TestCase):
         self.assertFalse(comparison.is_child_relation)
         self.assertEqual(comparison.field_label(), "Audience")
         self.assertEqual(comparison.htmldiff(), 'Public')
-        self.assertIsInstance(comparison.htmldiff(), SafeString)
+        self.assertIsInstance(comparison.htmldiff(), SafeText)
         self.assertFalse(comparison.has_changed())
 
     def test_has_changed(self):
@@ -214,7 +214,7 @@ class TestChoiceFieldComparison(TestCase):
         )
 
         self.assertEqual(comparison.htmldiff(), '<span class="deletion">Public</span><span class="addition">Private</span>')
-        self.assertIsInstance(comparison.htmldiff(), SafeString)
+        self.assertIsInstance(comparison.htmldiff(), SafeText)
         self.assertTrue(comparison.has_changed())
 
 
@@ -236,7 +236,7 @@ class TestTagsFieldComparison(TestCase):
         self.assertFalse(comparison.is_child_relation)
         self.assertEqual(comparison.field_label(), "Tags")
         self.assertEqual(comparison.htmldiff(), 'wagtail, bird')
-        self.assertIsInstance(comparison.htmldiff(), SafeString)
+        self.assertIsInstance(comparison.htmldiff(), SafeText)
         self.assertFalse(comparison.has_changed())
 
     def test_has_changed(self):
@@ -251,7 +251,7 @@ class TestTagsFieldComparison(TestCase):
         comparison = self.comparison_class(TaggedPage._meta.get_field('tags'), a, b)
 
         self.assertEqual(comparison.htmldiff(), 'wagtail, <span class="deletion">bird</span>, <span class="addition">motacilla</span>')
-        self.assertIsInstance(comparison.htmldiff(), SafeString)
+        self.assertIsInstance(comparison.htmldiff(), SafeText)
         self.assertTrue(comparison.has_changed())
 
 
@@ -281,7 +281,7 @@ class TestForeignObjectComparison(TestCase):
         self.assertFalse(comparison.is_child_relation)
         self.assertEqual(comparison.field_label(), "Feed image")
         self.assertEqual(comparison.htmldiff(), 'Test image 1')
-        self.assertIsInstance(comparison.htmldiff(), SafeString)
+        self.assertIsInstance(comparison.htmldiff(), SafeText)
         self.assertFalse(comparison.has_changed())
 
     def test_has_changed(self):
@@ -292,7 +292,7 @@ class TestForeignObjectComparison(TestCase):
         )
 
         self.assertEqual(comparison.htmldiff(), '<span class="deletion">Test image 1</span><span class="addition">Test image 2</span>')
-        self.assertIsInstance(comparison.htmldiff(), SafeString)
+        self.assertIsInstance(comparison.htmldiff(), SafeText)
         self.assertTrue(comparison.has_changed())
 
 
