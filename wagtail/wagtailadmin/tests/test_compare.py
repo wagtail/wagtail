@@ -6,7 +6,7 @@ from django.test import TestCase
 from django.utils.functional import curry
 from django.utils.safestring import SafeString
 
-from wagtail.tests.testapp.models import EventPage, EventPageSpeaker, SimplePage, StreamPage
+from wagtail.tests.testapp.models import EventPage, EventPageSpeaker, SimplePage, StreamPage, TaggedPage
 from wagtail.wagtailadmin import compare
 from wagtail.wagtailcore.blocks import StreamValue
 from wagtail.wagtailcore.models import Page
@@ -214,6 +214,43 @@ class TestChoiceFieldComparison(TestCase):
         )
 
         self.assertEqual(comparison.htmldiff(), '<span class="deletion">Public</span><span class="addition">Private</span>')
+        self.assertIsInstance(comparison.htmldiff(), SafeString)
+        self.assertTrue(comparison.has_changed())
+
+
+class TestTagsFieldComparison(TestCase):
+    comparison_class = compare.TagsFieldComparison
+
+    def test_hasnt_changed(self):
+        a = TaggedPage()
+        a.tags.add('wagtail')
+        a.tags.add('bird')
+
+        b = TaggedPage()
+        b.tags.add('wagtail')
+        b.tags.add('bird')
+
+        comparison = self.comparison_class(TaggedPage._meta.get_field('tags'), a, b)
+
+        self.assertTrue(comparison.is_field)
+        self.assertFalse(comparison.is_child_relation)
+        self.assertEqual(comparison.field_label(), "Tags")
+        self.assertEqual(comparison.htmldiff(), 'wagtail, bird')
+        self.assertIsInstance(comparison.htmldiff(), SafeString)
+        self.assertFalse(comparison.has_changed())
+
+    def test_has_changed(self):
+        a = TaggedPage()
+        a.tags.add('wagtail')
+        a.tags.add('bird')
+
+        b = TaggedPage()
+        b.tags.add('wagtail')
+        b.tags.add('motacilla')
+
+        comparison = self.comparison_class(TaggedPage._meta.get_field('tags'), a, b)
+
+        self.assertEqual(comparison.htmldiff(), 'wagtail, <span class="deletion">bird</span>, <span class="addition">motacilla</span>')
         self.assertIsInstance(comparison.htmldiff(), SafeString)
         self.assertTrue(comparison.has_changed())
 
