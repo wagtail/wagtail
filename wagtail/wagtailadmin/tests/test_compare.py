@@ -6,10 +6,10 @@ from django.test import TestCase
 from django.utils.functional import curry
 from django.utils.safestring import SafeText
 
-from wagtail.tests.testapp.models import EventPage, EventPageSpeaker, SimplePage, StreamPage, TaggedPage
+from wagtail.tests.testapp.models import (
+    EventPage, EventPageSpeaker, SimplePage, StreamPage, TaggedPage)
 from wagtail.wagtailadmin import compare
 from wagtail.wagtailcore.blocks import StreamValue
-from wagtail.wagtailcore.models import Page
 from wagtail.wagtailimages import get_image_model
 from wagtail.wagtailimages.tests.utils import get_test_image_file
 

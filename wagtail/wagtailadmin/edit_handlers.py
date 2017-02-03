@@ -3,18 +3,17 @@ from __future__ import absolute_import, unicode_literals
 import math
 import re
 
-from taggit.managers import TaggableManager
-
 import django
 from django import forms
-from django.db.models.fields import FieldDoesNotExist
 from django.core.exceptions import ImproperlyConfigured
+from django.db.models.fields import FieldDoesNotExist
 from django.forms.models import fields_for_model
 from django.template.loader import render_to_string
 from django.utils.functional import curry
 from django.utils.safestring import mark_safe
 from django.utils.six import text_type
 from django.utils.translation import ugettext_lazy
+from taggit.managers import TaggableManager
 
 from wagtail.utils.decorators import cached_classmethod
 from wagtail.wagtailadmin import compare, widgets
