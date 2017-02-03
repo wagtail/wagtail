@@ -9,8 +9,8 @@ Code should only be committed after it has been reviewed
 by at least one other reviewer or committer,
 unless the change is a small documentation change or fixing a typo.
 If additional code changes are made after the review, it is OK to commit them
-without further review if they are uncontroversial and small enough that no
-bugs are likely to be introduced.
+without further review if they are uncontroversial and small enough that
+there is minimal chance of introducing new bugs.
 
 Most code contributions will be in the form of pull requests from Github.
 Pull requests should not be merged from Github, apart from small documentation fixes,
@@ -45,7 +45,11 @@ You can fix up any small mistakes in the commits,
 such as typos and formatting, as part of the rebase.
 ``git rebase --interactive`` is an excellent tool for this job.
 
-Ideally, use this as an opportunity to squash the changes to a few commits, so each commit is making a single meaningful change (and not breaking anything). If this is not possible because of the nature of the changes, go with the least ugly.
+Ideally, use this as an opportunity to squash the changes to a few commits, so
+each commit is making a single meaningful change (and not breaking anything).
+If this is not possible because of the nature of the changes, it's acceptable
+to either squash into a commit or leave all commits unsquashed,
+depending on which will be more readable in the commit history.
 
 .. code-block:: console
 
