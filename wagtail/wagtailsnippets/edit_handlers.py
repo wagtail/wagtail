@@ -2,7 +2,6 @@ from __future__ import absolute_import, unicode_literals
 
 from django.template.loader import render_to_string
 from django.utils.safestring import mark_safe
-from six import text_type
 
 from wagtail.wagtailadmin.edit_handlers import BaseChooserPanel
 

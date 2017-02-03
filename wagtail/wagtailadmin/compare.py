@@ -9,8 +9,6 @@ from django.utils.safestring import mark_safe
 from django.utils.text import capfirst
 from django.utils.translation import ugettext_lazy as _
 
-from wagtail.wagtailcore.models import Page
-
 
 class FieldComparison:
     is_field = True
