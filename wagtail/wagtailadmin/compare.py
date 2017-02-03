@@ -109,7 +109,7 @@ class TagsFieldComparison(FieldComparison):
                     changes.append(('equal', tag))
 
         # Convert changelist to HTML
-        return TextDiff(changes).to_html()
+        return TextDiff(changes, separator=", ").to_html()
 
     def has_changed(self):
         tags_a, tags_b = self.get_tags()
@@ -384,29 +384,30 @@ class ChildObjectComparison:
 
 
 class TextDiff:
-    def __init__(self, changes):
+    def __init__(self, changes, separator=""):
         self.changes = changes
+        self.separator = separator
 
     def to_html(self, tag='span', addition_class='addition', deletion_class='deletion'):
-        html = ""
+        html = []
 
         for change_type, value in self.changes:
             if change_type == 'equal':
-                html += escape(value)
+                html.append(escape(value))
             elif change_type == 'addition':
-                html += '<{tag} class="{classname}">{value}</{tag}>'.format(
+                html.append('<{tag} class="{classname}">{value}</{tag}>'.format(
                     tag=tag,
                     classname=addition_class,
                     value=escape(value)
-                )
+                ))
             elif change_type == 'deletion':
-                html += '<{tag} class="{classname}">{value}</{tag}>'.format(
+                html.append('<{tag} class="{classname}">{value}</{tag}>'.format(
                     tag=tag,
                     classname=deletion_class,
                     value=escape(value)
-                )
+                ))
 
-        return mark_safe(html)
+        return mark_safe(self.separator.join(html))
 
 
 def diff_text(a, b):
