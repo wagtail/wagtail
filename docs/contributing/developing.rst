@@ -140,7 +140,7 @@ The Wagtail documentation is built by Sphinx. To install Sphinx and compile the 
 
 .. code-block:: console
 
-    $ cd /path/to/wagtail some text
+    $ cd /path/to/wagtail
     $ # Install the documentation dependencies
     $ pip install -e .[docs]
     $ # Compile the docs

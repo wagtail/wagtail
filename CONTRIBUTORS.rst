@@ -208,6 +208,7 @@ Contributors
 * Andy Chosak
 * Kevin Whinnery
 * Martey Dodoo
+* David Ray
 
 Translators
 ===========
