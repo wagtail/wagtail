@@ -15,6 +15,7 @@ Changelog
  * The `add_subpage` view now maintains a `next` URL parameter to specify where to redirect to after completing page creation (Robert Rollins)
  * The `wagtailforms` module now allows to define custom form submission model, add custom data to CSV export and some other customisations (Mikalai Radchuk)
  * The Webpack configuration is now in a subfolder, and uses env-specific configurations (Janneke Janssen, Thibaud Colas)
+ * Added page titles to title text on action buttons in the explorer, for improved accessibility (Matt Westcott)
  * Fix: Help text for StreamField is now visible and does not cover block controls (Stein Strindhaug)
  * Fix: "X minutes ago" timestamps are now marked for translation (Janneke Janssen, Matt Westcott)
  * Fix: Avoid indexing unsaved field content on `save(update_fields=[...])` operations (Matt Westcott)
