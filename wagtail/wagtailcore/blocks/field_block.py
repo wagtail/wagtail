@@ -85,7 +85,7 @@ class FieldBlock(Block):
 
     @property
     def required(self):
-        # a FieldBlock is required iff its underlying form field is required
+        # a FieldBlock is required if its underlying form field is required
         return self.field.required
 
     class Meta:
