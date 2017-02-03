@@ -22,6 +22,12 @@ var autoprefixerConfig = {
     cascade: false,
 };
 
+var cssnanoConfig = {
+    discardUnused: {
+        fontFace: false,
+    },
+};
+
 gulp.task('styles', ['styles:sass', 'styles:css', 'styles:assets']);
 
 // Copy all assets that are not CSS files.
@@ -33,7 +39,7 @@ gulp.task('styles:css', function() {
     });
 
     return gulp.src(sources, {base: '.'})
-        .pipe(config.isProduction ? cssnano() : gutil.noop())
+        .pipe(config.isProduction ? cssnano(cssnanoConfig) : gutil.noop())
         .pipe(autoprefixer(autoprefixerConfig))
         .pipe(renameSrcToDest())
         .pipe(size({ title: 'Vendor CSS' }))
@@ -59,7 +65,7 @@ gulp.task('styles:sass', function () {
             includePaths: includePaths,
             outputStyle: 'expanded'
         }).on('error', sass.logError))
-        .pipe(config.isProduction ? cssnano() : gutil.noop())
+        .pipe(config.isProduction ? cssnano(cssnanoConfig) : gutil.noop())
         .pipe(autoprefixer(autoprefixerConfig))
         .pipe(size({ title: 'Wagtail CSS' }))
         .pipe(config.isProduction ? gutil.noop() : sourcemaps.write())
