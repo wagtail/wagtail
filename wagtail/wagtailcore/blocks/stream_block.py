@@ -361,6 +361,9 @@ class StreamValue(collections.Sequence):
 
         return self.stream_data == other.stream_data
 
+    def __ne__(self, other):
+        return not self.__eq__(other)
+
     def __len__(self):
         return len(self.stream_data)
 
