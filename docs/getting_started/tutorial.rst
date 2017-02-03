@@ -708,6 +708,8 @@ something like this:
    :alt: A simple tag view
 
 
+.. _tutorial_categories:
+
 Categories
 ~~~~~~~~~~
 

@@ -10,6 +10,12 @@ Wagtail 1.9 release notes - IN DEVELOPMENT
 What's new
 ==========
 
+Many-to-many relations on page models
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Wagtail now supports a new field type ``ParentalManyToManyField`` that can be used to set up many-to-many relations on pages. For details, see the :ref:`tutorial_categories` section of the tutorial. This feature was developed by Thejaswi Puthraya and Matt Westcott.
+
+
 Bulk-deletion of form submissions
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
