@@ -3,6 +3,7 @@ var gulp = require('gulp');
 var sass = require('gulp-sass');
 var cssnano = require('gulp-cssnano');
 var sourcemaps = require('gulp-sourcemaps');
+var size = require('gulp-size');
 var config = require('../config');
 var autoprefixer = require('gulp-autoprefixer');
 var simpleCopyTask = require('../lib/simplyCopy');
@@ -35,6 +36,7 @@ gulp.task('styles:css', function() {
         .pipe(config.isProduction ? cssnano() : gutil.noop())
         .pipe(autoprefixer(autoprefixerConfig))
         .pipe(renameSrcToDest())
+        .pipe(size({ title: 'Vendor CSS' }))
         .pipe(gulp.dest('.'))
         .on('error', gutil.log);
 });
@@ -59,6 +61,7 @@ gulp.task('styles:sass', function () {
         }).on('error', sass.logError))
         .pipe(config.isProduction ? cssnano() : gutil.noop())
         .pipe(autoprefixer(autoprefixerConfig))
+        .pipe(size({ title: 'Wagtail CSS' }))
         .pipe(config.isProduction ? gutil.noop() : sourcemaps.write())
         .pipe(gulp.dest(function (file) {
             // e.g. wagtailadmin/scss/core.scss -> wagtailadmin/css/core.css
