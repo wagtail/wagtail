@@ -1,3 +1,4 @@
+var path = require('path');
 var gulp = require('gulp');
 var sass = require('gulp-sass');
 var cssnano = require('gulp-cssnano');
@@ -6,6 +7,7 @@ var config = require('../config');
 var autoprefixer = require('gulp-autoprefixer');
 var simpleCopyTask = require('../lib/simplyCopy');
 var normalizePath = require('../lib/normalize-path');
+var renameSrcToDest = require('../lib/rename-src-to-dest');
 var gutil = require('gulp-util');
 
 var flatten = function(arrOfArr) {
@@ -14,10 +16,30 @@ var flatten = function(arrOfArr) {
     }, []);
 };
 
-gulp.task('styles', ['styles:sass', 'styles:css']);
+var autoprefixerConfig = {
+    browsers: ['last 3 versions', 'ie 11'],
+    cascade: false,
+};
 
-gulp.task('styles:css', simpleCopyTask('css/**/*'));
+gulp.task('styles', ['styles:sass', 'styles:css', 'styles:assets']);
 
+// Copy all assets that are not CSS files.
+gulp.task('styles:assets', simpleCopyTask('css/**/!(*.css)'));
+
+gulp.task('styles:css', function() {
+    var sources = config.apps.map(function(app) {
+        return path.join(app.sourceFiles, app.appName, 'css/**/*.css');
+    });
+
+    return gulp.src(sources, {base: '.'})
+        .pipe(config.isProduction ? cssnano() : gutil.noop())
+        .pipe(autoprefixer(autoprefixerConfig))
+        .pipe(renameSrcToDest())
+        .pipe(gulp.dest('.'))
+        .on('error', gutil.log);
+});
+
+// For Sass files,
 gulp.task('styles:sass', function () {
     // Wagtail Sass files include each other across applications,
     // e.g. wagtailimages Sass files will include wagtailadmin/sass/mixins.scss
@@ -36,10 +58,7 @@ gulp.task('styles:sass', function () {
             outputStyle: 'expanded'
         }).on('error', sass.logError))
         .pipe(config.isProduction ? cssnano() : gutil.noop())
-        .pipe(autoprefixer({
-            browsers: ['last 3 versions', 'ie 11'],
-            cascade: false
-        }))
+        .pipe(autoprefixer(autoprefixerConfig))
         .pipe(config.isProduction ? gutil.noop() : sourcemaps.write())
         .pipe(gulp.dest(function (file) {
             // e.g. wagtailadmin/scss/core.scss -> wagtailadmin/css/core.css
