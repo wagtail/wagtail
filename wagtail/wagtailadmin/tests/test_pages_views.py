@@ -3325,6 +3325,83 @@ class TestRevisions(TestCase, WagtailTestUtils):
         self.assertContains(response, "Publish this revision")
 
 
+class TestCompareRevisions(TestCase, WagtailTestUtils):
+    # Actual tests for the comparison classes can be found in test_compare.py
+
+    fixtures = ['test.json']
+
+    def setUp(self):
+        self.christmas_event = EventPage.objects.get(url_path='/home/events/christmas/')
+        self.christmas_event.title = "Last Christmas"
+        self.christmas_event.date_from = '2013-12-25'
+        self.christmas_event.body = (
+            "<p>Last Christmas I gave you my heart, "
+            "but the very next day you gave it away</p>"
+        )
+        self.last_christmas_revision = self.christmas_event.save_revision()
+        self.last_christmas_revision.created_at = local_datetime(2013, 12, 25)
+        self.last_christmas_revision.save()
+
+        self.christmas_event.title = "This Christmas"
+        self.christmas_event.date_from = '2014-12-25'
+        self.christmas_event.body = (
+            "<p>This year, to save me from tears, "
+            "I'll give it to someone special</p>"
+        )
+        self.this_christmas_revision = self.christmas_event.save_revision()
+        self.this_christmas_revision.created_at = local_datetime(2014, 12, 25)
+        self.this_christmas_revision.save()
+
+        self.login()
+
+    def test_compare_revisions(self):
+        compare_url = reverse(
+            'wagtailadmin_pages:revisions_compare',
+            args=(self.christmas_event.id, self.last_christmas_revision.id, self.this_christmas_revision.id)
+        )
+        response = self.client.get(compare_url)
+        self.assertEqual(response.status_code, 200)
+
+        self.assertContains(response, '<span class="deletion">Last Christmas I gave you my heart, but the very next day you gave it away</span><span class="addition">This year, to save me from tears, I&#39;ll give it to someone special</span>')
+
+    def test_compare_revisions_earliest(self):
+        compare_url = reverse(
+            'wagtailadmin_pages:revisions_compare',
+            args=(self.christmas_event.id, 'earliest', self.this_christmas_revision.id)
+        )
+        response = self.client.get(compare_url)
+        self.assertEqual(response.status_code, 200)
+
+        self.assertContains(response, '<span class="deletion">Last Christmas I gave you my heart, but the very next day you gave it away</span><span class="addition">This year, to save me from tears, I&#39;ll give it to someone special</span>')
+
+    def test_compare_revisions_latest(self):
+        compare_url = reverse(
+            'wagtailadmin_pages:revisions_compare',
+            args=(self.christmas_event.id, self.last_christmas_revision.id, 'latest')
+        )
+        response = self.client.get(compare_url)
+        self.assertEqual(response.status_code, 200)
+
+        self.assertContains(response, '<span class="deletion">Last Christmas I gave you my heart, but the very next day you gave it away</span><span class="addition">This year, to save me from tears, I&#39;ll give it to someone special</span>')
+
+    def test_compare_revisions_live(self):
+        # Mess with the live version, bypassing revisions
+        self.christmas_event.body = (
+            "<p>This year, to save me from tears, "
+            "I'll just feed it to the dog</p>"
+        )
+        self.christmas_event.save(update_fields=['body'])
+
+        compare_url = reverse(
+            'wagtailadmin_pages:revisions_compare',
+            args=(self.christmas_event.id, self.last_christmas_revision.id, 'live')
+        )
+        response = self.client.get(compare_url)
+        self.assertEqual(response.status_code, 200)
+
+        self.assertContains(response, '<span class="deletion">Last Christmas I gave you my heart, but the very next day you gave it away</span><span class="addition">This year, to save me from tears, I&#39;ll just feed it to the dog</span>')
+
+
 class TestIssue2599(TestCase, WagtailTestUtils):
     """
     When previewing a page on creation, we need to assign it a path value consistent with its
