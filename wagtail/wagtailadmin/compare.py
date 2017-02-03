@@ -53,7 +53,10 @@ class TextFieldComparison(FieldComparison):
 
 class RichTextFieldComparison(TextFieldComparison):
     def htmldiff(self):
-        return diff_text(BeautifulSoup(force_text(self.val_a)).getText(), BeautifulSoup(force_text(self.val_b)).getText()).to_html()
+        return diff_text(
+            BeautifulSoup(force_text(self.val_a), 'html5lib').getText(),
+            BeautifulSoup(force_text(self.val_b), 'html5lib').getText()
+        ).to_html()
 
 
 class StreamFieldComparison(RichTextFieldComparison):
