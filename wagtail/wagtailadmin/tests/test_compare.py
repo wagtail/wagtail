@@ -10,7 +10,7 @@ from wagtail.tests.testapp.models import EventPage, EventPageSpeaker, SimplePage
 from wagtail.wagtailadmin import compare
 from wagtail.wagtailcore.blocks import StreamValue
 from wagtail.wagtailcore.models import Page
-from wagtail.wagtailimages.models import get_image_model
+from wagtail.wagtailimages import get_image_model
 from wagtail.wagtailimages.tests.utils import get_test_image_file
 
 
