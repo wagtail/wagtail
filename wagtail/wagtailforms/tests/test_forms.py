@@ -107,7 +107,7 @@ class TestFormBuilder(TestCase):
             page=self.form_page,
             sort_order=1,
             label="A Hidden Field",
-            field_type='hiddenfield',
+            field_type='hidden',
             required=False,
         )
 

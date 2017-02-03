@@ -84,7 +84,7 @@ class FormBuilder(object):
         'radio': create_radio_field,
         'checkboxes': create_checkboxes_field,
         'checkbox': create_checkbox_field,
-        'hiddenfield': create_hidden_field,
+        'hidden': create_hidden_field,
     }
 
     @property
