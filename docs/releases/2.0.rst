@@ -13,6 +13,8 @@ What's new
 Other features
 ~~~~~~~~~~~~~~
 
+ * Added hidden field to the form builder (Ross Crawford-d'Heureuse)
+
 
 Bug fixes
 ~~~~~~~~~

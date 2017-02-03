@@ -257,6 +257,7 @@ Contributors
 * Mads Jensen
 * Samir Shah
 * Patrick Woods
+* Ross Crawford-d'Heureuse
 
 Translators
 ===========
