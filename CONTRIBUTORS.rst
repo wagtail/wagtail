@@ -209,6 +209,7 @@ Contributors
 * Kevin Whinnery
 * Martey Dodoo
 * David Ray
+* Alasdair Nicol
 
 Translators
 ===========
