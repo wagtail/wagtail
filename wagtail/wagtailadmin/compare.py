@@ -72,49 +72,60 @@ class ChoiceFieldComparison(FieldComparison):
             return escape(val_a)
 
 
-class TagsFieldComparison(FieldComparison):
-    def get_tags(self):
-        tags_a = [
-            tag.tag.slug
-            for tag in self.val_a
-        ]
+class M2MFieldComparison(FieldComparison):
+    def get_items(self):
+        return list(self.val_a), list(self.val_b)
 
-        tags_b = [
-            tag.tag.slug
-            for tag in self.val_b
-        ]
-
-        return tags_a, tags_b
+    def get_item_display(self, item):
+        return str(item)
 
     def htmldiff(self):
         # Get tags
-        tags_a, tags_b = self.get_tags()
+        items_a, items_b = self.get_items()
 
         # Calculate changes
-        sm = difflib.SequenceMatcher(0, tags_a, tags_b)
+        sm = difflib.SequenceMatcher(0, items_a, items_b)
         changes = []
         for op, i1, i2, j1, j2 in sm.get_opcodes():
             if op == 'replace':
-                for tag in tags_a[i1:i2]:
-                    changes.append(('deletion', tag))
-                for tag in tags_b[j1:j2]:
-                    changes.append(('addition', tag))
+                for item in items_a[i1:i2]:
+                    changes.append(('deletion', self.get_item_display(item)))
+                for item in items_b[j1:j2]:
+                    changes.append(('addition', self.get_item_display(item)))
             elif op == 'delete':
-                for tag in tags_a[i1:i2]:
-                    changes.append(('deletion', tag))
+                for item in items_a[i1:i2]:
+                    changes.append(('deletion', self.get_item_display(item)))
             elif op == 'insert':
-                for tag in tags_b[j1:j2]:
-                    changes.append(('addition', tag))
+                for item in items_b[j1:j2]:
+                    changes.append(('addition', self.get_item_display(item)))
             elif op == 'equal':
-                for tag in tags_a[i1:i2]:
-                    changes.append(('equal', tag))
+                for item in items_a[i1:i2]:
+                    changes.append(('equal', self.get_item_display(item)))
 
         # Convert changelist to HTML
         return TextDiff(changes, separator=", ").to_html()
 
     def has_changed(self):
-        tags_a, tags_b = self.get_tags()
-        return tags_a != tags_b
+        items_a, items_b = self.get_items()
+        return items_a != items_b
+
+
+class TagsFieldComparison(M2MFieldComparison):
+    def get_items(self):
+        tags_a = [
+            tag.tag
+            for tag in self.val_a
+        ]
+
+        tags_b = [
+            tag.tag
+            for tag in self.val_b
+        ]
+
+        return tags_a, tags_b
+
+    def get_item_display(self, tag):
+        return tag.slug
 
 
 class ForeignObjectComparison(FieldComparison):
