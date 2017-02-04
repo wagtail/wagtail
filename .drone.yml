@@ -1,4 +1,4 @@
-build:
+pipeline:
   flake8:
     image: python:3.5
     commands:
