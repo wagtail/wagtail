@@ -66,7 +66,9 @@
                 {% endcomment %}
                 {% endblock %}
                 <li class="submit">
+                    {% block submit_buttons %}
                     <button type="submit" class="button button-longrunning" tabindex="3" data-clicked-text="{% trans 'Signing in...' %}"><span class="icon icon-spinner"></span><em>{% trans 'Sign in' %}</em></button>
+                    {% endblock %}
                 </li>
             </ul>
         {% endblock %}
