@@ -482,6 +482,8 @@ class BaseFieldPanel(EditHandler):
             if field.is_relation:
                 if isinstance(field, TaggableManager):
                     return compare.TagsFieldComparison
+                elif field.many_to_many:
+                    return compare.M2MFieldComparison
 
                 return compare.ForeignObjectComparison
 
