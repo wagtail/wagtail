@@ -1,21 +1,22 @@
 from __future__ import absolute_import, unicode_literals
 
+import warnings
+
 from django.conf.urls import url
 from django.contrib.auth.models import Permission
 from django.core.exceptions import ImproperlyConfigured
 from django.db.models import Model
-from django.forms.widgets import flatatt
 from django.utils.safestring import mark_safe
-from django.utils.translation import ugettext_lazy as _
 
+from wagtail.utils.deprecation import RemovedInWagtail19Warning
 from wagtail.wagtailcore import hooks
 from wagtail.wagtailcore.models import Page
-from wagtail.wagtailimages.models import Filter
 
 from .helpers import (
     AdminURLHelper, ButtonHelper, PageAdminURLHelper, PageButtonHelper, PagePermissionHelper,
     PermissionHelper)
 from .menus import GroupMenuItem, ModelAdminMenuItem, SubMenu
+from .mixins import ThumbnailMixin as _ThumbnailMixin
 from .views import ChooseParentView, CreateView, DeleteView, EditView, IndexView, InspectView
 
 
@@ -57,43 +58,6 @@ class WagtailRegisterable(object):
 
     def will_modify_explorer_page_queryset(self):
         return False
-
-
-class ThumbnailMixin(object):
-    """
-    Mixin class to help display thumbnail images in ModelAdmin listing results.
-    `thumb_image_field_name` must be overridden to name a ForeignKey field on
-    your model, linking to `wagtailimages.Image`.
-    """
-    thumb_image_field_name = 'image'
-    thumb_image_filter_spec = 'fill-100x100'
-    thumb_image_width = 50
-    thumb_classname = 'admin-thumb'
-    thumb_col_header_text = _('image')
-    thumb_default = None
-
-    def admin_thumb(self, obj):
-        try:
-            image = getattr(obj, self.thumb_image_field_name, None)
-        except AttributeError:
-            raise ImproperlyConfigured(
-                u"The `thumb_image_field_name` attribute on your `%s` class "
-                "must name a field on your model." % self.__class__.__name__
-            )
-
-        img_attrs = {
-            'src': self.thumb_default,
-            'width': self.thumb_image_width,
-            'class': self.thumb_classname,
-        }
-        if image:
-            fltr = Filter(spec=self.thumb_image_filter_spec)
-            img_attrs.update({'src': image.get_rendition(fltr).url})
-            return mark_safe('<img{}>'.format(flatatt(img_attrs)))
-        elif self.thumb_default:
-            return mark_safe('<img{}>'.format(flatatt(img_attrs)))
-        return ''
-    admin_thumb.short_description = thumb_col_header_text
 
 
 class ModelAdmin(WagtailRegisterable):
@@ -626,3 +590,11 @@ def modeladmin_register(modeladmin_class):
     """
     instance = modeladmin_class()
     instance.register_with_wagtail()
+
+
+class ThumbnailMixin(_ThumbnailMixin):
+    def __init__(self, *args, **kwargs):
+        warnings.warn((
+            "`ThumbnailMixin` has moved to `wagtail.contrib.modeladmin.mixins`"
+            "."), RemovedInWagtail19Warning)
+        super(ThumbnailMixin, self).__init__(*args, **kwargs)

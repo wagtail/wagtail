@@ -36,7 +36,8 @@
     "model": "modeladmintest.book",
     "fields": {
         "title": "The Lord of the Rings",
-        "author_id": 1
+        "author_id": 1,
+        "sort_order": 4
     }
 },
 {
@@ -44,7 +45,8 @@
     "model": "modeladmintest.book",
     "fields": {
         "title": "The Hobbit",
-        "author_id": 1
+        "author_id": 1,
+        "sort_order": 3
     }
 },
 {
@@ -52,7 +54,8 @@
     "model": "modeladmintest.book",
     "fields": {
         "title": "Charlie and the Chocolate Factory",
-        "author_id": 2
+        "author_id": 2,
+        "sort_order": 1
     }
 },
 {
@@ -60,7 +63,8 @@
     "model": "modeladmintest.book",
     "fields": {
         "title": "The Chronicles of Narnia",
-        "author_id": 3
+        "author_id": 3,
+        "sort_order": 2
     }
 },
 {
