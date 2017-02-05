@@ -125,6 +125,36 @@ If your Elasticsearch instance is located somewhere else, you can set the
 
     $ ELASTICSEARCH_URL=http://my-elasticsearch-instance:9200 python runtests.py --elasticsearch
 
+**Browser and device support**
+
+Wagtail is meant to be used on a wide variety of devices and browsers. Supported browser / device versions include:
+
+=============  =============  =============
+Browser        Device/OS      Version(s)
+=============  =============  =============
+Mobile Safari  iOS Phone      Last 2
+Mobile Safari  iOS Tablet     Last 2
+Chrome         Android        Last 2
+IE             Desktop        11
+Chrome         Desktop        Last 2
+MS Edge        Desktop        Last 2
+Firefox        Desktop        Latest
+Firefox ESR    Desktop        Latest
+Safari         macOS          Last 2
+=============  =============  =============
+
+We aim for Wagtail to work in those environments. Our development standards ensure that the site is usable on other browsers **and will work on future browsers**. To test on IE, install virtual machines `made available by Microsoft <https://developer.microsoft.com/en-us/microsoft-edge/tools/vms/>`_.
+
+Unsupported browsers / devices include:
+
+=============  =============  =============
+Browser        Device/OS      Version(s)
+=============  =============  =============
+Stock browser  Android        All
+IE             Desktop        10 and below
+Safari         Windows        All
+=============  =============  =============
+
 Compiling static assets
 ~~~~~~~~~~~~~~~~~~~~~~~
 
