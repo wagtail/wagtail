@@ -25,7 +25,7 @@ pipeline:
     commands:
       - XDG_CACHE_HOME=/drone/pip-cache pip install wheel
       - XDG_CACHE_HOME=/drone/pip-cache pip install -e .[testing,docs]
-      - python runtests.py
+      - python -u runtests.py
 
 cache:
   mount:
