@@ -4,6 +4,7 @@ Changelog
 1.10 (xx.xx.xxxx) - IN DEVELOPMENT
 ~~~~~~~~~~~~~~~~~
 
+* Hook can now be ordered (Gagaro)
 
 1.9 (xx.xx.xxxx) - IN DEVELOPMENT
 ~~~~~~~~~~~~~~~~
