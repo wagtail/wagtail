@@ -14,7 +14,8 @@ What's new
 Other features
 ~~~~~~~~~~~~~~
 
-- Use minified versions of jQuery and jQuery UI in the admin. Total savings without compression 371 KB (Tom Dyson)
+ * Use minified versions of jQuery and jQuery UI in the admin. Total savings without compression 371 KB (Tom Dyson)
+ * Hooks can now specify the order in which they are run (Gagaro)
 
 Bug fixes
 ~~~~~~~~~

@@ -5,6 +5,8 @@ Changelog
 ~~~~~~~~~~~~~~~~~
 
  * Use minified versions of jQuery and jQuery UI in the admin. Total savings without compression 371 KB (Tom Dyson)
+ * Hooks can now specify the order in which they are run (Gagaro)
+
 
 1.9 (xx.xx.xxxx) - IN DEVELOPMENT
 ~~~~~~~~~~~~~~~~
