@@ -273,7 +273,7 @@ class ButtonHelper(object):
         classnames = self.inspect_button_classnames + classnames_add
         cn = self.finalise_classname(classnames, classnames_exclude)
         return {
-            'url': self.url_helper.get_action_url('inspect', quote(pk)),
+            'url': self.url_helper.get_action_url('inspect', pk),
             'label': _('Inspect'),
             'classname': cn,
             'title': _('Inspect this %s') % self.verbose_name,
@@ -287,7 +287,7 @@ class ButtonHelper(object):
         classnames = self.edit_button_classnames + classnames_add
         cn = self.finalise_classname(classnames, classnames_exclude)
         return {
-            'url': self.url_helper.get_action_url('edit', quote(pk)),
+            'url': self.url_helper.get_action_url('edit', pk),
             'label': _('Edit'),
             'classname': cn,
             'title': _('Edit this %s') % self.verbose_name,
@@ -301,7 +301,7 @@ class ButtonHelper(object):
         classnames = self.delete_button_classnames + classnames_add
         cn = self.finalise_classname(classnames, classnames_exclude)
         return {
-            'url': self.url_helper.get_action_url('delete', quote(pk)),
+            'url': self.url_helper.get_action_url('delete', pk),
             'label': _('Delete'),
             'classname': cn,
             'title': _('Delete this %s') % self.verbose_name,
@@ -347,7 +347,7 @@ class PageButtonHelper(ButtonHelper):
         classnames = self.unpublish_button_classnames + classnames_add
         cn = self.finalise_classname(classnames, classnames_exclude)
         return {
-            'url': self.url_helper.get_action_url('unpublish', quote(pk)),
+            'url': self.url_helper.get_action_url('unpublish', pk),
             'label': _('Unpublish'),
             'classname': cn,
             'title': _('Unpublish this %s') % self.verbose_name,
@@ -361,7 +361,7 @@ class PageButtonHelper(ButtonHelper):
         classnames = self.copy_button_classnames + classnames_add
         cn = self.finalise_classname(classnames, classnames_exclude)
         return {
-            'url': self.url_helper.get_action_url('copy', quote(pk)),
+            'url': self.url_helper.get_action_url('copy', pk),
             'label': _('Copy'),
             'classname': cn,
             'title': _('Copy this %s') % self.verbose_name,
