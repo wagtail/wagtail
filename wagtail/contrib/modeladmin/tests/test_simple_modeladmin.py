@@ -46,10 +46,9 @@ class TestIndexView(TestCase, WagtailTestUtils):
         self.assertContains(response, 'data-author-yob="1916"')
         self.assertContains(response, 'data-object-pk="3"')
 
-        # There should be two odd rows and two even ones, and 'book' should be
-        # add to the `class` attribute for every one.
-        self.assertContains(response, 'class="book odd"', count=2)
-        self.assertContains(response, 'class="book even"', count=2)
+        # There should be four rows and 'book' should the `class` attribute
+        # value for each one.
+        self.assertContains(response, 'class="book"', count=4)
 
     def test_filter(self):
         # Filter by author 1 (JRR Tolkien)
