@@ -7,7 +7,7 @@ from django.utils.functional import curry
 from django.utils.safestring import SafeText
 
 from wagtail.tests.testapp.models import (
-    EventPage, EventPageSpeaker, SimplePage, StreamPage, TaggedPage)
+    EventCategory, EventPage, EventPageSpeaker, SimplePage, StreamPage, TaggedPage)
 from wagtail.wagtailadmin import compare
 from wagtail.wagtailcore.blocks import StreamValue
 from wagtail.wagtailimages import get_image_model
@@ -253,6 +253,49 @@ class TestTagsFieldComparison(TestCase):
         self.assertEqual(comparison.htmldiff(), 'wagtail, <span class="deletion">bird</span>, <span class="addition">motacilla</span>')
         self.assertIsInstance(comparison.htmldiff(), SafeText)
         self.assertTrue(comparison.has_changed())
+
+
+class TestM2MFieldComparison(TestCase):
+    fixtures = ['test.json']
+    comparison_class = compare.M2MFieldComparison
+
+    def setUp(self):
+        self.meetings_category = EventCategory.objects.create(name='Meetings')
+        self.parties_category = EventCategory.objects.create(name='Parties')
+        self.holidays_category = EventCategory.objects.create(name='Holidays')
+
+    def test_hasnt_changed(self):
+        christmas_event = EventPage.objects.get(url_path='/home/events/christmas/')
+        saint_patrick_event = EventPage.objects.get(url_path='/home/events/saint-patrick/')
+
+        christmas_event.categories = [self.meetings_category, self.parties_category]
+        saint_patrick_event.categories = [self.meetings_category, self.parties_category]
+
+        comparison = self.comparison_class(
+            EventPage._meta.get_field('categories'), christmas_event, saint_patrick_event
+        )
+
+        self.assertTrue(comparison.is_field)
+        self.assertFalse(comparison.is_child_relation)
+        self.assertEqual(comparison.field_label(), "Categories")
+        self.assertFalse(comparison.has_changed())
+        self.assertEqual(comparison.htmldiff(), 'Meetings, Parties')
+        self.assertIsInstance(comparison.htmldiff(), SafeText)
+
+    def test_has_changed(self):
+        christmas_event = EventPage.objects.get(url_path='/home/events/christmas/')
+        saint_patrick_event = EventPage.objects.get(url_path='/home/events/saint-patrick/')
+
+        christmas_event.categories = [self.meetings_category, self.parties_category]
+        saint_patrick_event.categories = [self.meetings_category, self.holidays_category]
+
+        comparison = self.comparison_class(
+            EventPage._meta.get_field('categories'), christmas_event, saint_patrick_event
+        )
+
+        self.assertTrue(comparison.has_changed())
+        self.assertEqual(comparison.htmldiff(), 'Meetings, <span class="deletion">Parties</span>, <span class="addition">Holidays</span>')
+        self.assertIsInstance(comparison.htmldiff(), SafeText)
 
 
 class TestForeignObjectComparison(TestCase):
