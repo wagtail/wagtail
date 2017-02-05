@@ -16,3 +16,4 @@ This section of the documentation is written for the users of a Wagtail-powered 
    documents_images_snippets/index
    managing_redirects
    administrator_tasks/index
+   browser_issues
