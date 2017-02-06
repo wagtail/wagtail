@@ -2203,6 +2203,20 @@ class TestStreamBlock(SimpleTestCase):
         self.assertEqual(stream_value[0].block_type, 'heading')
         self.assertEqual(stream_value[0].value, 'A different default heading')
 
+    def test_stream_value_equality(self):
+        block = blocks.StreamBlock([
+            ('text', blocks.CharBlock()),
+        ])
+        value1 = block.to_python([{'type': 'text', 'value': 'hello'}])
+        value2 = block.to_python([{'type': 'text', 'value': 'hello'}])
+        value3 = block.to_python([{'type': 'text', 'value': 'goodbye'}])
+
+        self.assertTrue(value1 == value2)
+        self.assertFalse(value1 != value2)
+
+        self.assertFalse(value1 == value3)
+        self.assertTrue(value1 != value3)
+
 
 class TestPageChooserBlock(TestCase):
     fixtures = ['test.json']

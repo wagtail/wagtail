@@ -28,6 +28,10 @@ ul.listing {
     td,
     th {
         padding: 1.2em 1em;
+
+        &.no-padding {
+            padding: 0;
+        }
     }
 
     &.small td,

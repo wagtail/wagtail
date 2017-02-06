@@ -354,3 +354,8 @@ def replace_page_param(query, page_number, page_key='p'):
     Replaces ``page_key`` from query string with ``page_number``.
     """
     return conditional_escape(replace_page_in_query(query, page_number, page_key))
+
+
+@register.filter('abs')
+def _abs(val):
+    return abs(val)
