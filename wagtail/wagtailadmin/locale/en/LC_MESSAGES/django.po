@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-12-06 22:44+0000\n"
+"POT-Creation-Date: 2017-02-06 12:33+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,27 +17,31 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
+#: compare.py:155
+msgid "None"
+msgstr ""
+
 #: decorators.py:26
 msgid "You do not have permission to access the admin"
 msgstr ""
 
-#: edit_handlers.py:714
+#: edit_handlers.py:779
 msgid "Scheduled publishing"
 msgstr ""
 
-#: edit_handlers.py:728
+#: edit_handlers.py:793
 msgid "Common page configuration"
 msgstr ""
 
-#: edit_handlers.py:751
+#: edit_handlers.py:816
 msgid "Content"
 msgstr ""
 
-#: edit_handlers.py:753
+#: edit_handlers.py:818
 msgid "Promote"
 msgstr ""
 
-#: edit_handlers.py:755 wagtail_hooks.py:38
+#: edit_handlers.py:820 wagtail_hooks.py:38
 msgid "Settings"
 msgstr ""
 
@@ -298,7 +302,7 @@ msgstr ""
 #: templates/wagtailadmin/pages/confirm_delete.html:6
 #: templates/wagtailadmin/pages/edit.html:50
 #: templates/wagtailadmin/permissions/includes/collection_member_permissions_form.html:13
-#: wagtail_hooks.py:103
+#: wagtail_hooks.py:136
 msgid "Delete"
 msgstr ""
 
@@ -446,8 +450,8 @@ msgstr ""
 #: templates/wagtailadmin/home/pages_for_moderation.html:24
 #: templates/wagtailadmin/home/recent_edits.html:22
 #: templates/wagtailadmin/pages/listing/_page_title_explore.html:7
-#: templates/wagtailadmin/userbar/item_page_edit.html:6 wagtail_hooks.py:71
-#: widgets.py:135
+#: templates/wagtailadmin/pages/revisions/compare.html:13
+#: templates/wagtailadmin/userbar/item_page_edit.html:6 widgets.py:135
 msgid "Edit this page"
 msgstr ""
 
@@ -464,10 +468,10 @@ msgstr ""
 #: templates/wagtailadmin/home/pages_for_moderation.html:42
 #: templates/wagtailadmin/home/recent_edits.html:28
 #: templates/wagtailadmin/pages/revisions/list.html:22 views/generic.py:107
-#: views/generic.py:162 views/pages.py:223 views/pages.py:228
-#: views/pages.py:236 views/pages.py:360 views/pages.py:388 views/pages.py:407
-#: views/pages.py:677 views/pages.py:739 views/pages.py:897 views/pages.py:917
-#: wagtail_hooks.py:70
+#: views/generic.py:162 views/pages.py:224 views/pages.py:229
+#: views/pages.py:243 views/pages.py:368 views/pages.py:397 views/pages.py:417
+#: views/pages.py:695 views/pages.py:757 views/pages.py:925 views/pages.py:945
+#: wagtail_hooks.py:71
 msgid "Edit"
 msgstr ""
 
@@ -477,6 +481,14 @@ msgstr ""
 #: templates/wagtailadmin/pages/preview.html:5
 #: templates/wagtailadmin/pages/revisions/list.html:20
 msgid "Preview"
+msgstr ""
+
+#: templates/wagtailadmin/home/pages_for_moderation.html:53
+#: templates/wagtailadmin/home/recent_edits.html:37
+#: templates/wagtailadmin/pages/listing/_list.html:26
+#: templates/wagtailadmin/pages/listing/_list.html:65
+#, python-format
+msgid "%(time_period)s ago"
 msgstr ""
 
 #: templates/wagtailadmin/home/recent_edits.html:5
@@ -496,11 +508,12 @@ msgstr ""
 msgid "Status"
 msgstr ""
 
-#: templates/wagtailadmin/home/recent_edits.html:30 wagtail_hooks.py:73
+#: templates/wagtailadmin/home/recent_edits.html:30
 msgid "Draft"
 msgstr ""
 
-#: templates/wagtailadmin/home/recent_edits.html:33 wagtail_hooks.py:76
+#: templates/wagtailadmin/home/recent_edits.html:33 views/pages.py:1096
+#: views/pages.py:1114
 msgid "Live"
 msgstr ""
 
@@ -708,7 +721,7 @@ msgstr ""
 msgid "Move %(title)s"
 msgstr ""
 
-#: templates/wagtailadmin/pages/confirm_move.html:5 wagtail_hooks.py:97
+#: templates/wagtailadmin/pages/confirm_move.html:5 wagtail_hooks.py:122
 msgid "Move"
 msgstr ""
 
@@ -734,7 +747,7 @@ msgid "Unpublish %(title)s"
 msgstr ""
 
 #: templates/wagtailadmin/pages/confirm_unpublish.html:5
-#: templates/wagtailadmin/pages/edit.html:47 wagtail_hooks.py:106
+#: templates/wagtailadmin/pages/edit.html:47 wagtail_hooks.py:143
 msgid "Unpublish"
 msgstr ""
 
@@ -773,11 +786,11 @@ msgstr ""
 msgid "Copy %(title)s"
 msgstr ""
 
-#: templates/wagtailadmin/pages/copy.html:5 wagtail_hooks.py:100
+#: templates/wagtailadmin/pages/copy.html:5 wagtail_hooks.py:129
 msgid "Copy"
 msgstr ""
 
-#: templates/wagtailadmin/pages/copy.html:27 wagtail_hooks.py:101
+#: templates/wagtailadmin/pages/copy.html:27
 msgid "Copy this page"
 msgstr ""
 
@@ -852,7 +865,7 @@ msgstr ""
 msgid "by %(modified_by)s"
 msgstr ""
 
-#: templates/wagtailadmin/pages/edit.html:94 wagtail_hooks.py:109
+#: templates/wagtailadmin/pages/edit.html:94 wagtail_hooks.py:150
 msgid "Revisions"
 msgstr ""
 
@@ -956,7 +969,8 @@ msgid "Add a child page to '%(title)s'"
 msgstr ""
 
 #: templates/wagtailadmin/pages/listing/_navigation_explore.html:12
-msgid "Add subpage"
+#: wagtail_hooks.py:93 wagtail_hooks.py:101
+msgid "Add child page"
 msgstr ""
 
 #: templates/wagtailadmin/pages/listing/_pagination.html:8
@@ -1010,6 +1024,61 @@ msgstr ""
 msgid "Select a new parent page for <span>%(title)s</span>"
 msgstr ""
 
+#: templates/wagtailadmin/pages/revisions/compare.html:4
+#, python-format
+msgid "Comparing %(title)s"
+msgstr ""
+
+#: templates/wagtailadmin/pages/revisions/compare.html:7
+msgid "Comparing"
+msgstr ""
+
+#: templates/wagtailadmin/pages/revisions/compare.html:14
+msgid "View revisions"
+msgstr ""
+
+#: templates/wagtailadmin/pages/revisions/compare.html:24
+msgid "Fields"
+msgstr ""
+
+#: templates/wagtailadmin/pages/revisions/compare.html:25
+msgid "Changes"
+msgstr ""
+
+#: templates/wagtailadmin/pages/revisions/compare.html:46
+#, python-format
+msgid ""
+"\n"
+"                                                            Moved down 1 "
+"place.\n"
+"                                                        "
+msgid_plural ""
+"\n"
+"                                                            Moved down "
+"%(counter)s places.\n"
+"                                                        "
+msgstr[0] ""
+msgstr[1] ""
+
+#: templates/wagtailadmin/pages/revisions/compare.html:52
+#, python-format
+msgid ""
+"\n"
+"                                                            Moved up 1 "
+"place.\n"
+"                                                        "
+msgid_plural ""
+"\n"
+"                                                            Moved up "
+"%(counter)s places.\n"
+"                                                        "
+msgstr[0] ""
+msgstr[1] ""
+
+#: templates/wagtailadmin/pages/revisions/compare.html:77
+msgid "There are no differences between these two revisions"
+msgstr ""
+
 #: templates/wagtailadmin/pages/revisions/index.html:4
 #, python-format
 msgid "Revisions of %(title)s"
@@ -1036,7 +1105,11 @@ msgstr ""
 msgid "Review this revision"
 msgstr ""
 
-#: templates/wagtailadmin/pages/revisions/list.html:31
+#: templates/wagtailadmin/pages/revisions/list.html:28
+msgid "Compare with previous revision"
+msgstr ""
+
+#: templates/wagtailadmin/pages/revisions/list.html:36
 msgid "No revisions of this page exist"
 msgstr ""
 
@@ -1222,7 +1295,7 @@ msgstr ""
 msgid "Show in Explorer"
 msgstr ""
 
-#: tests/tests.py:228
+#: tests/tests.py:229
 msgid "Test"
 msgstr ""
 
@@ -1285,194 +1358,223 @@ msgstr ""
 msgid "Editing"
 msgstr ""
 
-#: views/pages.py:222
+#: views/pages.py:223
 #, python-brace-format
 msgid "Page '{0}' created and scheduled for publishing."
 msgstr ""
 
-#: views/pages.py:226
+#: views/pages.py:227
 #, python-brace-format
 msgid "Page '{0}' created and published."
 msgstr ""
 
-#: views/pages.py:227 views/pages.py:384 views/pages.py:896
-#: wagtail_hooks.py:76
+#: views/pages.py:228 views/pages.py:392 views/pages.py:924
+#: wagtail_hooks.py:85
 msgid "View live"
 msgstr ""
 
-#: views/pages.py:233
+#: views/pages.py:234
 #, python-brace-format
 msgid "Page '{0}' created and submitted for moderation."
 msgstr ""
 
-#: views/pages.py:235 views/pages.py:403
+#: views/pages.py:238 views/pages.py:412 wagtail_hooks.py:78
 msgid "View draft"
 msgstr ""
 
-#: views/pages.py:240 views/pages.py:412
+#: views/pages.py:248 views/pages.py:422
 msgid "Failed to send notifications to moderators"
 msgstr ""
 
-#: views/pages.py:242
+#: views/pages.py:250
 #, python-brace-format
 msgid "Page '{0}' created."
 msgstr ""
 
-#: views/pages.py:264
+#: views/pages.py:272
 msgid "The page could not be created due to validation errors"
 msgstr ""
 
-#: views/pages.py:345
+#: views/pages.py:353
 #, python-brace-format
 msgid "Revision from {0} of page '{1}' has been scheduled for publishing."
 msgstr ""
 
-#: views/pages.py:352
+#: views/pages.py:360
 #, python-brace-format
 msgid "Page '{0}' has been scheduled for publishing."
 msgstr ""
 
-#: views/pages.py:369
+#: views/pages.py:377
 #, python-brace-format
 msgid "Revision from {0} of page '{1}' has been published."
 msgstr ""
 
-#: views/pages.py:376
+#: views/pages.py:384
 #, python-brace-format
 msgid "Page '{0}' has been published."
 msgstr ""
 
-#: views/pages.py:395
+#: views/pages.py:404
 #, python-brace-format
 msgid "Page '{0}' has been submitted for moderation."
 msgstr ""
 
-#: views/pages.py:418
+#: views/pages.py:428
 #, python-brace-format
 msgid "Page '{0}' has been replaced with revision from {1}."
 msgstr ""
 
-#: views/pages.py:425
+#: views/pages.py:435
 #, python-brace-format
 msgid "Page '{0}' has been updated."
 msgstr ""
 
-#: views/pages.py:453
+#: views/pages.py:463
 msgid "The page could not be saved as it is locked"
 msgstr ""
 
-#: views/pages.py:455
+#: views/pages.py:465
 msgid "The page could not be saved due to validation errors"
 msgstr ""
 
-#: views/pages.py:474
+#: views/pages.py:489
+msgid "Compare with live version"
+msgstr ""
+
+#: views/pages.py:492
 msgid "This page is currently awaiting moderation"
 msgstr ""
 
-#: views/pages.py:504
+#: views/pages.py:522
 #, python-brace-format
 msgid "Page '{0}' deleted."
 msgstr ""
 
-#: views/pages.py:676
+#: views/pages.py:694
 #, python-brace-format
 msgid "Page '{0}' unpublished."
 msgstr ""
 
-#: views/pages.py:738
+#: views/pages.py:756
 #, python-brace-format
 msgid "Page '{0}' moved."
 msgstr ""
 
-#: views/pages.py:837
+#: views/pages.py:860
 #, python-brace-format
 msgid "Page '{0}' and {1} subpages copied."
 msgstr ""
 
-#: views/pages.py:840
+#: views/pages.py:863
 #, python-brace-format
 msgid "Page '{0}' copied."
 msgstr ""
 
-#: views/pages.py:890 views/pages.py:911 views/pages.py:932
+#: views/pages.py:918 views/pages.py:939 views/pages.py:960
 #, python-brace-format
 msgid "The page '{0}' is not currently awaiting moderation."
 msgstr ""
 
-#: views/pages.py:895
+#: views/pages.py:923
 #, python-brace-format
 msgid "Page '{0}' published."
 msgstr ""
 
-#: views/pages.py:900
+#: views/pages.py:928
 msgid "Failed to send approval notifications"
 msgstr ""
 
-#: views/pages.py:916
+#: views/pages.py:944
 #, python-brace-format
 msgid "Page '{0}' rejected for publication."
 msgstr ""
 
-#: views/pages.py:920
+#: views/pages.py:948
 msgid "Failed to send rejection notifications"
 msgstr ""
 
-#: views/pages.py:958
+#: views/pages.py:986
 #, python-brace-format
 msgid "Page '{0}' is now locked."
 msgstr ""
 
-#: views/pages.py:982
+#: views/pages.py:1010
 #, python-brace-format
 msgid "Page '{0}' is now unlocked."
 msgstr ""
 
-#: views/pages.py:1033
+#: views/pages.py:1061
 #, python-format
 msgid ""
 "You are viewing a previous revision of this page from <b>%(created_at)s</b> "
 "by %(user)s"
 msgstr ""
 
+#: views/pages.py:1101
+msgid "Earliest"
+msgstr ""
+
+#: views/pages.py:1119
+msgid "Latest"
+msgstr ""
+
 #: wagtail_hooks.py:49
 msgid "Pages"
 msgstr ""
 
-#: wagtail_hooks.py:74
-msgid "Preview draft"
-msgstr ""
-
-#: wagtail_hooks.py:79 wagtail_hooks.py:82
-msgid "Add child page"
-msgstr ""
-
-#: wagtail_hooks.py:80 wagtail_hooks.py:83
+#: wagtail_hooks.py:73
 #, python-brace-format
-msgid "Add a child page to '{0}' "
+msgid "Edit '{title}'"
 msgstr ""
 
-#: wagtail_hooks.py:86
+#: wagtail_hooks.py:80
+#, python-brace-format
+msgid "Preview draft version of '{title}'"
+msgstr ""
+
+#: wagtail_hooks.py:87
+#, python-brace-format
+msgid "View live version of '{title}'"
+msgstr ""
+
+#: wagtail_hooks.py:95 wagtail_hooks.py:103
+#, python-brace-format
+msgid "Add a child page to '{title}' "
+msgstr ""
+
+#: wagtail_hooks.py:108
 msgid "More"
 msgstr ""
 
-#: wagtail_hooks.py:91
-msgid "View more options"
+#: wagtail_hooks.py:113
+#, python-brace-format
+msgid "View more options for '{title}'"
 msgstr ""
 
-#: wagtail_hooks.py:98
-msgid "Move this page"
+#: wagtail_hooks.py:124
+#, python-brace-format
+msgid "Move page '{title}'"
 msgstr ""
 
-#: wagtail_hooks.py:104
-msgid "Delete this page"
+#: wagtail_hooks.py:131
+#, python-brace-format
+msgid "Copy page '{title}'"
 msgstr ""
 
-#: wagtail_hooks.py:107
-msgid "Unpublish this page"
+#: wagtail_hooks.py:138
+#, python-brace-format
+msgid "Delete page '{title}'"
 msgstr ""
 
-#: wagtail_hooks.py:110
-msgid "View this page's revision history"
+#: wagtail_hooks.py:145
+#, python-brace-format
+msgid "Unpublish page '{title}'"
+msgstr ""
+
+#: wagtail_hooks.py:152
+#, python-brace-format
+msgid "View revision history for '{title}'"
 msgstr ""
 
 #: widgets.py:78
