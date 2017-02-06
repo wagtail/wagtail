@@ -4,6 +4,7 @@ Changelog
 1.9 (xx.xx.xxxx) - IN DEVELOPMENT
 ~~~~~~~~~~~~~~~~
 
+ * Added a `submit_buttons` block to login template (Gagaro)
  * Added support for many-to-many relations on page models (Thejaswi Puthraya, Matt Westcott)
  * Form builder form submissions can now be bulk-deleted (Karl Hobley)
  * `get_context` methods on StreamField blocks can now access variables from the parent context (Mikael Svensson, Peter Baumgartner)
