@@ -5,15 +5,15 @@
 # Translators:
 # utek <mail@utek.pl>, 2014
 # Mateusz <undefined5102@gmail.com>, 2015
-# mmiskiew <mmiskiew@gmail.com>, 2016
+# Miłosz Miśkiewicz, 2016-2017
 # utek <mail@utek.pl>, 2014
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-12-06 22:44+0000\n"
-"PO-Revision-Date: 2016-12-06 22:46+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2017-01-03 14:00+0000\n"
+"Last-Translator: Miłosz Miśkiewicz\n"
 "Language-Team: Polish (http://www.transifex.com/torchbox/wagtail/language/"
 "pl/)\n"
 "MIME-Version: 1.0\n"
@@ -131,6 +131,9 @@ msgstr "Widoczność"
 
 msgid "This field is required."
 msgstr "To pole jest wymagane."
+
+msgid "Please select at least one group."
+msgstr "Proszę wybrać co najmniej jedną grupę"
 
 msgid "This slug is already in use"
 msgstr "Ten slug jest już w użyciu"
@@ -974,6 +977,23 @@ msgstr ""
 "Używasz <strong>przestarzałej</strong> przeglądarki nie wspieranej przez tą "
 "aplikację. Proszę <a href=\"http://browsehappy.com/\">zaktualizuj swoją "
 "przeglądarkę</a>."
+
+msgid ""
+"\n"
+"            Javascript is required to use Wagtail, but it is currently "
+"disabled.<br />\n"
+"            Here are the <a href=\"http://www.enable-javascript.com/\" "
+"target=\"_blank\" rel=\"noopener\">instructions how to enable JavaScript in "
+"your web browser</a>.\n"
+"        "
+msgstr ""
+"\n"
+"            Javascript jest wymagany do korzystanie z Wagtail, jednak "
+"obecnie jest wyłączony.<br />\n"
+"            Tutaj znajdują się instrukcje jak  <a href=\"http://www.enable-"
+"javascript.com/\" target=\"_blank\" rel=\"noopener\">uruchomić JavaScript w "
+"Twojej przeglądarce</a>.\n"
+"        "
 
 msgid "Go to Wagtail admin interface"
 msgstr "Idź do panelu administratora Wagtaila"

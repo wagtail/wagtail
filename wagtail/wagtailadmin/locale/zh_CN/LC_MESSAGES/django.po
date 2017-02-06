@@ -7,7 +7,7 @@
 # Daniel Hwang <danielblinkhw@gmail.com>, 2015
 # Fred Zeng <979738295@qq.com>, 2016
 # hanfeng <appweb.cn@gmail.com>, 2014
-# listeng <aosp@163.com>, 2016
+# Listeng, 2016
 # 飘 赵 <275980464@qq.com>, 2016
 msgid ""
 msgstr ""

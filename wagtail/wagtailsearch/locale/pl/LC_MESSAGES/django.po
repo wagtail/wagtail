@@ -4,7 +4,7 @@
 #
 # Translators:
 # utek <mail@utek.pl>, 2014
-# mmiskiew <mmiskiew@gmail.com>, 2016
+# Miłosz Miśkiewicz, 2016
 # utek <mail@utek.pl>, 2014
 msgid ""
 msgstr ""
@@ -12,7 +12,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-12-06 22:44+0000\n"
 "PO-Revision-Date: 2016-02-14 21:49+0000\n"
-"Last-Translator: mmiskiew <mmiskiew@gmail.com>\n"
+"Last-Translator: Miłosz Miśkiewicz\n"
 "Language-Team: Polish (http://www.transifex.com/torchbox/wagtail/language/"
 "pl/)\n"
 "MIME-Version: 1.0\n"

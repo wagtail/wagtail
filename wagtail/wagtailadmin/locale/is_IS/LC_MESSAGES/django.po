@@ -3,7 +3,7 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# Arnar Tumi Þorsteinsson <arnartumi@gmail.com>, 2015-2016
+# Arnar Tumi Þorsteinsson <arnartumi@gmail.com>, 2015-2017
 # Kjartan Sverrisson <kjartan@wow.is>, 2016
 # saevarom <saevar@saevar.is>, 2015
 msgid ""
@@ -11,8 +11,8 @@ msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-12-06 22:44+0000\n"
-"PO-Revision-Date: 2016-12-06 22:46+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2017-01-12 10:29+0000\n"
+"Last-Translator: Arnar Tumi Þorsteinsson <arnartumi@gmail.com>\n"
 "Language-Team: Icelandic (Iceland) (http://www.transifex.com/torchbox/"
 "wagtail/language/is_IS/)\n"
 "MIME-Version: 1.0\n"
@@ -125,6 +125,9 @@ msgstr "Sýnileiki"
 
 msgid "This field is required."
 msgstr "Þennan reit þarf að fylla út."
+
+msgid "Please select at least one group."
+msgstr "Vinsamlegast veljið amk eina grúppu."
 
 msgid "This slug is already in use"
 msgstr "Þessi vefslóð (e.slug) er þegar í notkun"
@@ -934,6 +937,9 @@ msgstr[1] "Notað %(useage_count)s sinnum"
 msgid "Edit your account"
 msgstr "Breyta reikningnum þínum"
 
+msgid "Account settings"
+msgstr "Stillingar reiknings"
+
 msgid "Log out"
 msgstr "Útskrá"
 
@@ -952,6 +958,24 @@ msgstr ""
 "Þú ert að nota <strong>úreldan</strong> vafra sem ekki er studdur af þessum "
 "hugbúnaði. Vinsamlegast <a href=\"http://browsehappy.com/\">uppfærðu vafrann "
 "þinn</a>."
+
+msgid ""
+"\n"
+"            Javascript is required to use Wagtail, but it is currently "
+"disabled.<br />\n"
+"            Here are the <a href=\"http://www.enable-javascript.com/\" "
+"target=\"_blank\" rel=\"noopener\">instructions how to enable JavaScript in "
+"your web browser</a>.\n"
+"        "
+msgstr ""
+"\n"
+"            Wagtail þarfnast Javascript til að virka, en það er óvirkjað í "
+"vafranum þínum.<br />\n"
+"            Hérna eru <a href=\"http://www.enable-javascript.com/\" target="
+"\"_blank\" rel=\"noopener\">leiðbeiningar um hvernig á að virkja Javascript "
+"í vafranum.</a>\n"
+"\n"
+"        "
 
 msgid "Go to Wagtail admin interface"
 msgstr "Fara á Wagtail stjórnborð"
@@ -1140,7 +1164,7 @@ msgid "Preview draft"
 msgstr "Forskoða uppkast"
 
 msgid "Add child page"
-msgstr "Bæða við undirsíðu"
+msgstr "Bæta við undirsíðu"
 
 #, python-brace-format
 msgid "Add a child page to '{0}' "
