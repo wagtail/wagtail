@@ -21,6 +21,8 @@ Wagtail now provides the ability to view differences between revisions of a page
 Many-to-many relations on page models
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+.. image:: ../_static/images/releasenotes_1_9_m2m.png
+
 Wagtail now supports a new field type ``ParentalManyToManyField`` that can be used to set up many-to-many relations on pages. For details, see the :ref:`tutorial_categories` section of the tutorial. This feature was developed by Thejaswi Puthraya and Matt Westcott.
 
 
