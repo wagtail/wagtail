@@ -10,6 +10,14 @@ Wagtail 1.9 release notes - IN DEVELOPMENT
 What's new
 ==========
 
+Revision comparisons
+~~~~~~~~~~~~~~~~~~~~
+
+.. image:: ../_static/images/releasenotes_1_9_revisioncomparison.png
+
+Wagtail now provides the ability to view differences between revisions of a page, from the revisions listing page and when reviewing a page in moderation. This feature was developed by Karl Hobley, Janneke Janssen and Matt Westcott. Thank you to Blackstone Chambers for sponsoring this feature.
+
+
 Many-to-many relations on page models
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
