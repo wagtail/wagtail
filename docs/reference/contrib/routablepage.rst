@@ -9,6 +9,7 @@
 The ``RoutablePageMixin`` mixin provides a convenient way for a page to respond on multiple sub-URLs with different views. For example, a blog section on a site might provide several different types of index page at URLs like ``/blog/2013/06/``, ``/blog/authors/bob/``, ``/blog/tagged/python/``, all served by the same page instance.
 
 A ``Page`` using ``RoutablePageMixin`` exists within the page tree like any other page, but URL paths underneath it are checked against a list of patterns. If none of the patterns match, control is passed to subpages as usual (or failing that, a 404 error is thrown).
+Per default a route for ``r'^$'`` exists, which serves the content exactly like a regular ``Page`` would. It can be overridden by using ``@route(r'^$')`` on any other method of the inheriting class.
 
 
 Installation
@@ -41,7 +42,7 @@ Here's an example of an ``EventPage`` with three views:
     class EventPage(RoutablePageMixin, Page):
         ...
 
-        @route(r'^$')
+        @route(r'^$') # will override the default Page serving mechanism
         def current_events(self, request):
             """
             View function for the current events page

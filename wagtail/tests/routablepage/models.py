@@ -10,9 +10,6 @@ def routable_page_external_view(request, arg="ARG NOT SET"):
 
 
 class RoutablePageTest(RoutablePage):
-    @route(r'^$')
-    def main(self, request):
-        return HttpResponse("MAIN VIEW")
 
     @route(r'^archive/year/(\d+)/$')
     def archive_by_year(self, request, year):
@@ -34,5 +31,7 @@ class RoutablePageTest(RoutablePage):
         pass
 
 
-class RoutablePageWithoutIndexRouteTest(RoutablePage):
-    pass
+class RoutablePageWithOverriddenIndexRouteTest(RoutablePage):
+    @route(r'^$')
+    def main(self, request):
+        return HttpResponse("OVERRIDDEN INDEX ROUTE")

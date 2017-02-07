@@ -3,6 +3,7 @@ from __future__ import absolute_import, unicode_literals
 from django.conf.urls import url
 from django.core.urlresolvers import RegexURLResolver
 from django.http import Http404
+from django.template.response import TemplateResponse
 
 from wagtail.wagtailcore.models import Page
 from wagtail.wagtailcore.url_routing import RouteResult
@@ -35,6 +36,16 @@ class RoutablePageMixin(object):
     This class can be mixed in to a Page model, allowing extra routes to be
     added to it.
     """
+    @route(r'^$')
+    def index_route(self, request, *args, **kwargs):
+        request.is_preview = getattr(request, 'is_preview', False)
+
+        return TemplateResponse(
+            request,
+            self.get_template(request, *args, **kwargs),
+            self.get_context(request, *args, **kwargs)
+        )
+
     @classmethod
     def get_subpage_urls(cls):
         routes = []
@@ -45,7 +56,7 @@ class RoutablePageMixin(object):
 
         return tuple([
             route[0]
-            for route in sorted(routes, key=lambda route: route[1])
+            for route in reversed(sorted(routes, key=lambda route: route[1]))
         ])
 
     @classmethod
