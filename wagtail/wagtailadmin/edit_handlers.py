@@ -17,6 +17,7 @@ from taggit.managers import TaggableManager
 
 from wagtail.utils.decorators import cached_classmethod
 from wagtail.wagtailadmin import compare, widgets
+from wagtail.wagtailcore.fields import RichTextField
 from wagtail.wagtailcore.models import Page
 from wagtail.wagtailcore.utils import camelcase_to_underscore, resolve_model_string
 
@@ -487,7 +488,7 @@ class BaseFieldPanel(EditHandler):
 
                 return compare.ForeignObjectComparison
 
-            if field.get_internal_type() in ['CharField', 'TextField']:
+            if isinstance(field, RichTextField):
                 return compare.RichTextFieldComparison
         except FieldDoesNotExist:
             pass
