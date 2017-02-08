@@ -10,7 +10,6 @@ from django.utils.six.moves.urllib.parse import urlparse
 from elasticsearch import Elasticsearch, NotFoundError
 from elasticsearch.helpers import bulk
 
-from wagtail.utils.deprecation import RemovedInWagtail110Warning
 from wagtail.utils.utils import deep_update
 from wagtail.wagtailsearch.backends.base import (
     BaseSearchBackend, BaseSearchQuery, BaseSearchResults)
@@ -770,13 +769,6 @@ class ElasticsearchSearchBackend(BaseSearchBackend):
         # Get Elasticsearch interface
         # Any remaining params are passed into the Elasticsearch constructor
         options = params.pop('OPTIONS', {})
-        if not options and params:
-            options = params
-
-            warnings.warn(
-                "Any extra parameter for the ElasticSearch constructor must be passed through the OPTIONS dictionary.",
-                category=RemovedInWagtail110Warning, stacklevel=2
-            )
 
         self.es = Elasticsearch(
             hosts=self.hosts,
