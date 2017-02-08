@@ -415,6 +415,15 @@ class Page(six.with_metaclass(PageBase, AbstractPage, index.Indexed, Clusterable
     def __str__(self):
         return self.title
 
+    @cached_property
+    def cached_site_root_paths(self):
+        """
+        Cache the result of this method locally on a request-specific class
+        instance (the Page) to reduce the number of cache round trips generated
+        by the underlying method.
+        """
+        return Site.get_site_root_paths()
+
     def set_url_path(self, parent):
         """
         Populate the url_path field based on this page's slug and the specified parent page.
@@ -795,7 +804,7 @@ class Page(six.with_metaclass(PageBase, AbstractPage, index.Indexed, Clusterable
         should override this method in order to have those operations return
         the custom URLs.
         """
-        for (site_id, root_path, root_url) in Site.get_site_root_paths():
+        for (site_id, root_path, root_url) in self.cached_site_root_paths:
             if self.url_path.startswith(root_path):
                 page_path = reverse('wagtail_serve', args=(self.url_path[len(root_path):],))
 
@@ -838,7 +847,7 @@ class Page(six.with_metaclass(PageBase, AbstractPage, index.Indexed, Clusterable
 
         site_id, root_url, page_path = url_parts
 
-        if len(Site.get_site_root_paths()) == 1:
+        if len(self.cached_site_root_paths) == 1:
             # we're only running a single site, so a local URL is sufficient
             return page_path
         else:
