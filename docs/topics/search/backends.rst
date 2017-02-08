@@ -158,6 +158,35 @@ If you prefer not to run an Elasticsearch server in development or production, t
 .. _elasticsearch-py: http://elasticsearch-py.readthedocs.org
 .. _Bonsai: https://bonsai.io/signup
 
+Amazon AWS Elasticsearch
+~~~~~~~~~~~~~~~~~~~~~~~~
+
+The Elasticsearch backend is compatible with `Amazon Elasticsearch Service`_, but requires additional configuration to handle IAM based authentication. This can be done with the `requests-aws4auth`_ package along with the following configuration:
+
+.. code-block:: python
+
+  from elasticsearch import Elasticsearch, RequestsHttpConnection
+  from requests_aws4auth import AWS4Auth
+
+  WAGTAILSEARCH_BACKENDS = {
+      'default': {
+          'BACKEND': 'wagtail.wagtailsearch.backends.elasticsearch',
+          'INDEX': 'wagtail',
+          'TIMEOUT': 5,
+          'HOSTS': [{
+            'host': 'YOURCLUSTER.REGION.es.amazonaws.com',
+            'port': 443,
+            'use_ssl': True,
+            'verify_certs': True,
+            'http_auth': AWS4Auth('ACCESS_KEY', 'SECRET_KEY', 'REGION', 'es'),
+          }],
+          'connection_class': RequestsHttpConnection,
+      }
+  }
+
+.. _Amazon Elasticsearch Service: https://aws.amazon.com/elasticsearch-service/
+.. _requests-aws4auth: https://pypi.python.org/pypi/requests-aws4auth
+
 
 Rolling Your Own
 ----------------
