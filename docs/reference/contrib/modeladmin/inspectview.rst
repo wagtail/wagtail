@@ -28,16 +28,19 @@ class:
 ------------------------------------------
 
 **Expected value:** A list or tuple, where each item is the name of a field
-that you'd like ``InpectView`` to render.
+or attribute on the instance that you'd like ``InpectView`` to render.
 
 A sensible value will be rendered for most field types.
 
-If a field happens to be a ``ForeignKey`` linking to the
-``wagtailimages.Image`` model, a thumbnail of that image will be rendered.
+If you have ``wagtail.wagtailimages`` installed, and the value happens to be an
+instance of ``wagtailimages.models.Image`` (or a custom model that subclasses
+``wagtailimages.models.AbstractImage``), a thumbnail of that image will be
+rendered.
 
-If a field happens to be a ``ForeignKey`` linking to the
-``wagtaildocs.Document`` model, a link to that document will be rendered.
-
+If you have `wagtail.wagtaildocs` installed, and the value happens to be an
+instance of `wagtaildocs.models.Document` (or a custom model that subclasses
+``wagtaildocs.models.AbstractDocument``), a link to that document will be
+rendered, along with the document title, file extension and size.
 
 .. _modeladmin_inspect_view_fields_exclude:
 
