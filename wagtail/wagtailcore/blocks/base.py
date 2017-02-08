@@ -246,7 +246,7 @@ class Block(six.with_metaclass(BaseBlock, object)):
                 "keyword argument" % class_with_render_method,
                 category=RemovedInWagtail111Warning
             )
-            new_context = context
+            new_context = context or {}
             new_context.update(self.get_context(value))
             return mark_safe(render_to_string(template, new_context))
 
