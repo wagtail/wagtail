@@ -1,5 +1,6 @@
 from __future__ import absolute_import, unicode_literals
 
+from django.conf import settings
 from django.conf.urls import url
 from django.contrib.auth.models import Permission
 from django.core.exceptions import ImproperlyConfigured
@@ -10,7 +11,6 @@ from django.utils.translation import ugettext_lazy as _
 
 from wagtail.wagtailcore import hooks
 from wagtail.wagtailcore.models import Page
-from wagtail.wagtailimages.models import Filter
 
 from .helpers import (
     AdminURLHelper, ButtonHelper, PageAdminURLHelper, PageButtonHelper, PagePermissionHelper,
@@ -72,6 +72,14 @@ class ThumbnailMixin(object):
     thumb_col_header_text = _('image')
     thumb_default = None
 
+    def __init__(self, *args, **kwargs):
+        if 'wagtail.wagtailimages' not in settings.INSTALLED_APPS:
+            raise ImproperlyConfigured(
+                u"The `wagtail.wagtailimages` app must be installed in order "
+                "to use the `ThumbnailMixin` class."
+            )
+        super(ThumbnailMixin, self).__init__(*args, **kwargs)
+
     def admin_thumb(self, obj):
         try:
             image = getattr(obj, self.thumb_image_field_name, None)
@@ -86,13 +94,17 @@ class ThumbnailMixin(object):
             'width': self.thumb_image_width,
             'class': self.thumb_classname,
         }
-        if image:
-            fltr = Filter(spec=self.thumb_image_filter_spec)
-            img_attrs.update({'src': image.get_rendition(fltr).url})
-            return mark_safe('<img{}>'.format(flatatt(img_attrs)))
-        elif self.thumb_default:
-            return mark_safe('<img{}>'.format(flatatt(img_attrs)))
-        return ''
+        if not image:
+            if self.thumb_default:
+                return mark_safe('<img{}>'.format(flatatt(img_attrs)))
+            return ''
+
+        # try to get a rendition of the image to use
+        from wagtail.wagtailimages.shortcuts import get_rendition_or_not_found
+        spec = self.thumb_image_filter_spec
+        rendition = get_rendition_or_not_found(image, spec)
+        img_attrs.update({'src': rendition.url})
+        return mark_safe('<img{}>'.format(flatatt(img_attrs)))
     admin_thumb.short_description = thumb_col_header_text
 
 
