@@ -316,6 +316,7 @@ class TestAccountSection(TestCase, WagtailTestUtils):
         response = self.client.post(reverse('wagtailadmin_account_language_preferences'), post_data)
         self.assertEqual(profile.preferred_language, 'en')
 
+
 class TestAccountManagementForNonModerator(TestCase, WagtailTestUtils):
     """
     Tests of reduced-functionality for editors

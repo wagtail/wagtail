@@ -10,7 +10,7 @@ from django.contrib.auth.forms import PasswordChangeForm
 from django.http import Http404
 from django.shortcuts import redirect, render
 from django.utils.translation import ugettext as _
-from django.utils import translation
+from django.utils.translation import activate
 from django.views.decorators.cache import never_cache
 from django.views.decorators.debug import sensitive_post_parameters
 
@@ -115,7 +115,7 @@ def language_preferences(request):
         if form.is_valid():
             user_profile = form.save()
             # This will set the language only for this request/thread
-            translation.activate(user_profile.preferred_language)
+            activate(user_profile.preferred_language)
             messages.success(request, _("Your preferences have been updated successfully!."))
     else:
         form = PreferredLanguageForm(instance=UserProfile.get_for_user(request.user))
