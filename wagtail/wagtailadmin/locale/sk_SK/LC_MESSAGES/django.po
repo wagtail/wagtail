@@ -3,6 +3,7 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# Jozef Karabelly <jozefkarabelly@gmail.com>, 2017
 # dellax <michalnebbia@gmail.com>, 2015
 # Stevo Backor, 2016
 msgid ""
@@ -10,8 +11,8 @@ msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-12-06 22:44+0000\n"
-"PO-Revision-Date: 2016-12-06 22:46+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2017-01-04 17:39+0000\n"
+"Last-Translator: Jozef Karabelly <jozefkarabelly@gmail.com>\n"
 "Language-Team: Slovak (Slovakia) (http://www.transifex.com/torchbox/wagtail/"
 "language/sk_SK/)\n"
 "MIME-Version: 1.0\n"
@@ -125,6 +126,9 @@ msgstr "Tento slug je už použitý v kontexte jeho rodičovskej stránky \"%s\"
 
 msgid "This field is required."
 msgstr "Toto pole je povinné."
+
+msgid "Please select at least one group."
+msgstr "Prosím, vyberte aspoň jednu skupinu."
 
 msgid "This slug is already in use"
 msgstr "Tento slug sa už používa"
@@ -506,6 +510,12 @@ msgstr[2] ""
 "\n"
 "Toto odstráni tiež %(descendant_count)s podstránok."
 
+msgid "Yes, delete it"
+msgstr "Áno, vymazať"
+
+msgid "No, don't delete it"
+msgstr "Nie, nevymazať"
+
 #, python-format
 msgid "Move %(title)s"
 msgstr "Presunúť %(title)s"
@@ -539,6 +549,9 @@ msgstr "Naozaj chcete odpublikovať túto stránku?"
 
 msgid "Yes, unpublish it"
 msgstr "Áno, odpublikovať"
+
+msgid "No, don't unpublish"
+msgstr "Nie, nepublikovať"
 
 msgid "Pages using"
 msgstr "Stránky požívajúce"
@@ -808,6 +821,9 @@ msgstr[2] "Použité %(useage_count)s krát"
 msgid "Edit your account"
 msgstr "Upraviť váš účet"
 
+msgid "Account settings"
+msgstr "Nastavenia účtu"
+
 msgid "Log out"
 msgstr "Odhlásiť sa"
 
@@ -826,6 +842,23 @@ msgstr ""
 "Používate <strong>zastaralý</strong> prehliadač, ktorý nie je podporovaný "
 "týmto systémom. Prosím <a href=\"http://browsehappy.com/\">aktualizujte váš "
 "prehliadač</a>."
+
+msgid ""
+"\n"
+"            Javascript is required to use Wagtail, but it is currently "
+"disabled.<br />\n"
+"            Here are the <a href=\"http://www.enable-javascript.com/\" "
+"target=\"_blank\" rel=\"noopener\">instructions how to enable JavaScript in "
+"your web browser</a>.\n"
+"        "
+msgstr ""
+"\n"
+"            Javascript je potrebný na použitie Wagtailu, ale momentálne je "
+"vypnutý.<br />\n"
+"            Tu sú <a href=\"http://www.enable-javascript.com/\" target="
+"\"_blank\" rel=\"noopener\">inštrukcie ako zapnúť JavaScript vo Vašom "
+"webovom prehliadači</a>.\n"
+"        "
 
 msgid "Go to Wagtail admin interface"
 msgstr "Pokračovať do administrátorskej časti"

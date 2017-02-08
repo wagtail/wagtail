@@ -4,13 +4,14 @@
 #
 # Translators:
 # Jihan Chung <jihanchung20@gmail.com>, 2015
+# Kyungil Choi <hanpama@gmail.com>, 2017
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-12-06 22:44+0000\n"
-"PO-Revision-Date: 2016-05-18 21:51+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2017-01-22 22:41+0000\n"
+"Last-Translator: Kyungil Choi <hanpama@gmail.com>\n"
 "Language-Team: Korean (http://www.transifex.com/torchbox/wagtail/language/"
 "ko/)\n"
 "MIME-Version: 1.0\n"
@@ -21,6 +22,27 @@ msgstr ""
 
 msgid "Choose"
 msgstr "선택"
+
+msgid "Search"
+msgstr "검색"
+
+#, python-format
+msgid ""
+"\n"
+"            There is one match\n"
+"        "
+msgid_plural ""
+"\n"
+"            There are %(counter)s matches\n"
+"        "
+msgstr[0] ""
+"\n"
+"일시하는 %(counter)s개 결과가 있습니다."
+
+#, python-format
+msgid "Sorry, no snippets match \"<em>%(query_string)s</em>\""
+msgstr ""
+"죄송합니다, \"<em>%(query_string)s</em>\"에 일치하는 스니펫은 없습니다."
 
 #, python-format
 msgid ""
@@ -51,6 +73,9 @@ msgstr "새로운 %(snippet_type_name)s"
 
 msgid "New"
 msgstr "새로운"
+
+msgid "Saving..."
+msgstr "저장 중..."
 
 msgid "Save"
 msgstr "저장"
@@ -106,6 +131,10 @@ msgstr "상태"
 
 msgid "Edit this page"
 msgstr "페이지 변경"
+
+#, python-format
+msgid "Search %(snippet_type_name)s"
+msgstr "%(snippet_type_name)s 검색"
 
 #, python-brace-format
 msgid "{snippet_type} '{instance}' created."

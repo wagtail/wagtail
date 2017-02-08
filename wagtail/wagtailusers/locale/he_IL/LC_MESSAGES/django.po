@@ -4,13 +4,14 @@
 #
 # Translators:
 # lior abazon <abazon@v15.org.il>, 2015
+# yossi lalum <lyosefh@gmail.com>, 2017
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-12-06 22:44+0000\n"
-"PO-Revision-Date: 2016-08-01 13:29+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2017-01-30 21:02+0000\n"
+"Last-Translator: yossi lalum <lyosefh@gmail.com>\n"
 "Language-Team: Hebrew (Israel) (http://www.transifex.com/torchbox/wagtail/"
 "language/he_IL/)\n"
 "MIME-Version: 1.0\n"
@@ -33,6 +34,9 @@ msgstr "שתי הסיסמאות לא מתאימות"
 
 msgid "Administrator"
 msgstr "מנהל"
+
+msgid "Administrators have full access to manage any object or setting."
+msgstr "למנהלים יש גישה מלאה לניהול כל אובייקט או הגדרה"
 
 msgid "Password"
 msgstr "סיסמא"
@@ -58,14 +62,29 @@ msgstr "שם משפחה"
 msgid "A group with that name already exists."
 msgstr "קבוצה בשם זה כבר קיימת"
 
+msgid "You cannot have multiple permission records for the same page."
+msgstr "לא יכולה להיות לך יותר מרשומה אחת של הרשאות לאותו הדף"
+
+msgid "submitted notifications"
+msgstr "הודעות שנשלחו"
+
 msgid "Receive notification when a page is submitted for moderation"
 msgstr "קבלו התראה כשהעמוד הוזן לעריכה"
+
+msgid "approved notifications"
+msgstr "הודעות שאושרו"
 
 msgid "Receive notification when your page edit is approved"
 msgstr "קבלו התראה כשעריכת העמוד אושרה"
 
+msgid "rejected notifications"
+msgstr "הודעות שנדחו"
+
 msgid "Receive notification when your page edit is rejected"
 msgstr "קבלו התראה כשעריכת העמוד נדחית"
+
+msgid "user profile"
+msgstr "פרופיל משתמש"
 
 msgid "Delete group"
 msgstr "מחק קבוצה"
@@ -122,6 +141,12 @@ msgstr "קבוצות"
 
 msgid "Add a group"
 msgstr "הוספת קבוצה"
+
+msgid "Delete user"
+msgstr "מחק משתמש"
+
+msgid "Are you sure you want to delete this user?"
+msgstr "האם אתה בטוח שברצונך למחוק משתמש זה?"
 
 msgid "Add user"
 msgstr "הוספת משתמש"
@@ -196,3 +221,12 @@ msgstr "משתמש '{0}' עודכן "
 
 msgid "The user could not be saved due to errors."
 msgstr "לא ניתן לשמור את המשתמש עקב שגיאות"
+
+msgid "Groups"
+msgstr "קבוצות "
+
+msgid "Edit this user"
+msgstr "ערוך משתמש זה"
+
+msgid "Delete this user"
+msgstr "מחק משתמש זה"

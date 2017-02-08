@@ -10,8 +10,18 @@ Wagtail 1.9 release notes - IN DEVELOPMENT
 What's new
 ==========
 
+Revision comparisons
+~~~~~~~~~~~~~~~~~~~~
+
+.. image:: ../_static/images/releasenotes_1_9_revisioncomparison.png
+
+Wagtail now provides the ability to view differences between revisions of a page, from the revisions listing page and when reviewing a page in moderation. This feature was developed by Karl Hobley, Janneke Janssen and Matt Westcott. Thank you to Blackstone Chambers for sponsoring this feature.
+
+
 Many-to-many relations on page models
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. image:: ../_static/images/releasenotes_1_9_m2m.png
 
 Wagtail now supports a new field type ``ParentalManyToManyField`` that can be used to set up many-to-many relations on pages. For details, see the :ref:`tutorial_categories` section of the tutorial. This feature was developed by Thejaswi Puthraya and Matt Westcott.
 
@@ -53,6 +63,7 @@ Bug fixes
  * Help text for StreamField is now visible and does not cover block controls (Stein Strindhaug)
  * "X minutes ago" timestamps are now marked for translation (Janneke Janssen, Matt Westcott)
  * Avoid indexing unsaved field content on `save(update_fields=[...])` operations (Matt Westcott)
+ * Corrected ordering of arguments passed to ModelAdmin ``get_extra_class_names_for_field_col`` / ``get_extra_attrs_for_field_col`` methods (Andy Babic)
 
 
 Upgrade considerations

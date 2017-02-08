@@ -197,6 +197,7 @@ class EventPageSpeaker(Orderable, LinkFields):
     ]
 
 
+@python_2_unicode_compatible
 class EventCategory(models.Model):
     name = models.CharField("Name", max_length=255)
 

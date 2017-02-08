@@ -11,8 +11,8 @@ msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-12-06 22:44+0000\n"
-"PO-Revision-Date: 2016-12-06 22:47+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2016-12-20 16:53+0000\n"
+"Last-Translator: Giacomo Ghizzani <giacomo.ghz@gmail.com>\n"
 "Language-Team: Italian (http://www.transifex.com/torchbox/wagtail/language/"
 "it/)\n"
 "MIME-Version: 1.0\n"
@@ -20,6 +20,13 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: it\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#, python-brace-format
+msgid "{label}: this block has no options."
+msgstr "{label}: questo blocco non ha opzioni."
+
+msgid "This block has no options."
+msgstr "Questo blocco non ha opzioni"
 
 msgid "Password"
 msgstr "Password"
@@ -206,6 +213,12 @@ msgstr "Pubblica"
 msgid "Publish any page"
 msgstr "Pubblica ogni pagina"
 
+msgid "Bulk delete"
+msgstr "Eliminazione massiva"
+
+msgid "Delete pages with children"
+msgstr "Elimina pagine con sottopagine"
+
 msgid "Lock"
 msgstr "Blocca"
 
@@ -223,6 +236,18 @@ msgstr "permesso della pagina del gruppo"
 
 msgid "group page permissions"
 msgstr "permessi delle pagine del gruppo"
+
+msgid "Public"
+msgstr "Pubblico"
+
+msgid "Private, accessible to logged-in users"
+msgstr "Privato, accessibile da utenti loggati"
+
+msgid "Private, accessible with the following password"
+msgstr "Privato, accessibile con la seguente password"
+
+msgid "Private, accessible to users in specific groups"
+msgstr "Privato, accessibile a utenti di gruppi specifici"
 
 msgid "password"
 msgstr "password"
@@ -247,6 +272,17 @@ msgstr "permesso"
 
 msgid "group collection permission"
 msgstr "permesso della collezione del gruppo"
+
+msgid "Log in"
+msgstr "Log in"
+
+msgid "Your username and password didn't match. Please try again."
+msgstr "Username e password non corrispondono. Riprova."
+
+msgid ""
+"Your account doesn't have access to this page. To proceed, please log in "
+"with an account that has access."
+msgstr "Il tuo account non ha accesso a questa pagina."
 
 msgid "Password required"
 msgstr "Richiesta password"

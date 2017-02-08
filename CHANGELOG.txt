@@ -4,6 +4,7 @@ Changelog
 1.9 (xx.xx.xxxx) - IN DEVELOPMENT
 ~~~~~~~~~~~~~~~~
 
+ * Added support for comparing page revisions (Karl Hobley, Janneke Janssen, Matt Westcott)
  * Added support for many-to-many relations on page models (Thejaswi Puthraya, Matt Westcott)
  * Form builder form submissions can now be bulk-deleted (Karl Hobley)
  * `get_context` methods on StreamField blocks can now access variables from the parent context (Mikael Svensson, Peter Baumgartner)
@@ -20,6 +21,7 @@ Changelog
  * Fix: Help text for StreamField is now visible and does not cover block controls (Stein Strindhaug)
  * Fix: "X minutes ago" timestamps are now marked for translation (Janneke Janssen, Matt Westcott)
  * Fix: Avoid indexing unsaved field content on `save(update_fields=[...])` operations (Matt Westcott)
+ * Fix: Corrected ordering of arguments passed to ModelAdmin `get_extra_class_names_for_field_col` / `get_extra_attrs_for_field_col` methods (Andy Babic)
 
 
 1.8.1 (26.01.2017)
