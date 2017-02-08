@@ -84,6 +84,17 @@ class TestFieldBlock(unittest.TestCase):
         self.assertIs(ws[0].category, RemovedInWagtail111Warning)
         self.assertEqual(html, '<h1 lang="fr">Bonjour le monde!</h1>')
 
+    def test_charfield_render_with_legacy_get_context_none(self):
+        block = NoExtraContextCharBlock(template='tests/blocks/heading_block.html')
+        with warnings.catch_warnings(record=True) as ws:
+            warnings.simplefilter('always')
+
+            html = block.render("Bonjour le monde!")
+
+        self.assertEqual(len(ws), 1)
+        self.assertIs(ws[0].category, RemovedInWagtail111Warning)
+        self.assertEqual(html, '<h1>Bonjour le monde!</h1>')
+
     def test_charfield_render_form(self):
         block = blocks.CharBlock()
         html = block.render_form("Hello world!")
