@@ -27,10 +27,10 @@ class SiteMiddleware(MiddlewareMixin):
 class LocaleAdminMiddleware(MiddlewareMixin):
     def process_request(self, request):
         """
-        Set the user prefered language in wagtail admin urls
+        Set the user preferred language in wagtail admin urls
         :param request:
         :return:
         """
         if 'admin' in request.path:  # TODO: Change to a proper way to look if is admin
             if request.user.is_authenticated:
-                activate(request.user.wagtail_userprofile.prefered_language)
+                activate(request.user.wagtail_userprofile.preferred_language)

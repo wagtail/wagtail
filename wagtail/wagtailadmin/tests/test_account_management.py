@@ -296,7 +296,7 @@ class TestAccountSection(TestCase, WagtailTestUtils):
         """
         # Post new values to the language preferences page
         post_data = {
-            'prefered_language': 'es'
+            'preferred_language': 'es'
         }
         response = self.client.post(reverse('wagtailadmin_account_language_preferences'), post_data)
 
@@ -306,7 +306,7 @@ class TestAccountSection(TestCase, WagtailTestUtils):
         profile = UserProfile.get_for_user(get_user_model().objects.get(pk=self.user.pk))
 
         # Check that the language preferences are stored
-        self.assertEqual(profile.prefered_language, 'es')
+        self.assertEqual(profile.preferred_language, 'es')
 
 
 class TestAccountManagementForNonModerator(TestCase, WagtailTestUtils):

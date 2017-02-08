@@ -377,10 +377,10 @@ class NotificationPreferencesForm(forms.ModelForm):
         fields = ("submitted_notifications", "approved_notifications", "rejected_notifications")
 
 
-class PreferedLanguageForm(forms.ModelForm):
+class PreferredLanguageForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
-        super(PreferedLanguageForm, self).__init__(*args, **kwargs)
+        super(PreferredLanguageForm, self).__init__(*args, **kwargs)
 
     class Meta:
         model = UserProfile
-        fields = ("prefered_language",)
+        fields = ("preferred_language",)

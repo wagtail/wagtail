@@ -30,8 +30,8 @@ class UserProfile(models.Model):
         help_text=_("Receive notification when your page edit is rejected")
     )
 
-    prefered_language = models.CharField(
-        verbose_name=_('prefered language'),
+    preferred_language = models.CharField(
+        verbose_name=_('preferred language'),
         max_length=10,
         help_text=_("Select language for the admin"),
         choices=settings.LANGUAGES,

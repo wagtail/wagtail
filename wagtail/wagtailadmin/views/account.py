@@ -17,7 +17,7 @@ from django.views.decorators.debug import sensitive_post_parameters
 from wagtail.utils.compat import user_is_authenticated
 from wagtail.wagtailadmin import forms
 from wagtail.wagtailcore.models import UserPagePermissionsProxy
-from wagtail.wagtailusers.forms import NotificationPreferencesForm, PreferedLanguageForm
+from wagtail.wagtailusers.forms import NotificationPreferencesForm, PreferredLanguageForm
 from wagtail.wagtailusers.models import UserProfile
 
 
@@ -110,15 +110,15 @@ def notification_preferences(request):
 
 def language_preferences(request):
     if request.method == 'POST':
-        form = PreferedLanguageForm(request.POST, instance=UserProfile.get_for_user(request.user))
+        form = PreferredLanguageForm(request.POST, instance=UserProfile.get_for_user(request.user))
 
         if form.is_valid():
             user_profile = form.save()
             # This will set the language only for this request/thread
-            translation.activate(user_profile.prefered_language)
-            messages.success(request, _("Your preferences have been update successfully!"))
+            translation.activate(user_profile.preferred_language)
+            messages.success(request, _("Your preferences have been updated successfully!."))
     else:
-        form = PreferedLanguageForm(instance=UserProfile.get_for_user(request.user))
+        form = PreferredLanguageForm(instance=UserProfile.get_for_user(request.user))
 
     return render(request, 'wagtailadmin/account/language_preferences.html', {
         'form': form,
