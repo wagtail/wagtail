@@ -32,5 +32,5 @@ class LocaleAdminMiddleware(MiddlewareMixin):
         :return:
         """
         if 'admin' in request.path:  # TODO: Change to a proper way to look if is admin
-            if request.user:
+            if request.user.is_authenticated:
                 activate(request.user.wagtail_userprofile.prefered_language)
