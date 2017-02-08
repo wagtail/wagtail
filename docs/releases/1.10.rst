@@ -1,0 +1,23 @@
+===========================================
+Wagtail 1.10 release notes - IN DEVELOPMENT
+===========================================
+
+.. contents::
+    :local:
+    :depth: 1
+
+
+What's new
+==========
+
+
+Other features
+~~~~~~~~~~~~~~
+
+
+Bug fixes
+~~~~~~~~~
+
+
+Upgrade considerations
+======================
