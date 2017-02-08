@@ -45,14 +45,6 @@ class ImageQuerySet(SearchableQuerySetMixin, models.QuerySet):
     pass
 
 
-def get_image_model():
-    warnings.warn("wagtail.wagtailimages.models.get_image_model "
-                  "has been moved to wagtail.wagtailimages.get_image_model",
-                  RemovedInWagtail110Warning)
-    from wagtail.wagtailimages import get_image_model
-    return get_image_model()
-
-
 def get_upload_to(instance, filename):
     """
     Obtain a valid upload path for an image file.

@@ -2,7 +2,6 @@ from __future__ import absolute_import, unicode_literals
 
 import os
 import unittest
-import warnings
 
 from django import forms, template
 from django.conf import settings
@@ -15,7 +14,6 @@ from taggit.forms import TagField, TagWidget
 
 from wagtail.tests.testapp.models import CustomImage, CustomImageFilePath
 from wagtail.tests.utils import WagtailTestUtils
-from wagtail.utils.deprecation import RemovedInWagtail110Warning
 from wagtail.wagtailimages import get_image_model, get_image_model_string
 from wagtail.wagtailimages.fields import WagtailImageField
 from wagtail.wagtailimages.formats import Format, get_image_format, register_image_format
@@ -621,12 +619,3 @@ class TestGetImageModel(WagtailTestUtils, TestCase):
         """Test get_image_model with an invalid model string"""
         with self.assertRaises(ImproperlyConfigured):
             get_image_model()
-
-    def test_deprecated_get_image_model(self):
-        from wagtail.wagtailimages.models import get_image_model
-        with warnings.catch_warnings(record=True) as ws:
-            warnings.simplefilter('always')
-
-            self.assertIs(Image, get_image_model())
-            self.assertEqual(len(ws), 1)
-            self.assertIs(ws[0].category, RemovedInWagtail110Warning)
