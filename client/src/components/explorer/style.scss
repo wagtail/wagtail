@@ -1,5 +1,5 @@
 $c-explorer-bg: #4C4E4D;
-$c-explorer-secondary: #aaa;
+$c-explorer-secondary: #cacaca;
 $c-explorer-easing: cubic-bezier(0.075, 0.820, 0.165, 1.000);
 
 .c-explorer, .c-explorer * {
@@ -31,7 +31,7 @@ $c-explorer-easing: cubic-bezier(0.075, 0.820, 0.165, 1.000);
     padding: .5rem 1rem;
     white-space: nowrap;
     overflow: hidden;
-    width: 80%;
+    width: 100%;
     float: left;
 }
 
@@ -43,34 +43,6 @@ $c-explorer-easing: cubic-bezier(0.075, 0.820, 0.165, 1.000);
         background: rgba(0,0,0,0.2);
     }
 }
-
-.c-explorer__filter {
-    float: right;
-    width: 50px;
-    margin-top: .5rem;
-}
-
-.c-filter {
-    display: inline-block;
-    vertical-align: middle;
-    padding: 0 .25em;
-    border: solid 1px rgba(255,255,255,0.1);
-    border-radius: 2px;
-    line-height: 1;
-    margin-left: .25rem;
-    cursor: pointer;
-    &:hover {
-        background: rgba(0,0,0,0.5);
-        border-color: rgba(0,0,0,0.5);
-        color: $color-white;
-    }
-}
-
-.c-filter--active {
-    color: $color-white;
-    border-color: rgba(255, 255, 255, .5);
-}
-
 
 .c-explorer__back {
     margin-right: .25rem;
@@ -126,6 +98,7 @@ $c-explorer-easing: cubic-bezier(0.075, 0.820, 0.165, 1.000);
 
 .c-explorer__item {
     display: block;
+    position: relative;
 
     &:hover {
         background: rgba(0, 0, 0, 0.25);
@@ -134,25 +107,35 @@ $c-explorer-easing: cubic-bezier(0.075, 0.820, 0.165, 1.000);
 }
 
 .c-explorer__see-more {
-    cursor: pointer;
-    padding: .5rem 1rem;
+    padding: 1rem;
     background: rgba(0,0,0,0.2);
-    color: $color-white;
+    color: $c-explorer-secondary;
+    display: block;
 
     &:hover {
+        color: $c-explorer-secondary;
         background: rgba(0,0,0,0.4);
     }
 }
 
+.c-explorer__see-more__title {
+    color: $color-white;
+}
+
 .c-explorer__children {
     display: inline-block;
-    border-radius: 50rem;
-    border: solid 1px #aaa;
     color: $color-white;
     line-height: 1;
-    padding: .5em .3em .5em .5em;
+    padding: .7em .3em .7em .7em;
     float: right;
     cursor: pointer;
+    display: inline-block;
+    position: absolute;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    font-size: 2em;
+
 
     &:hover {
         background: rgba(0,0,0,0.5);
@@ -162,7 +145,7 @@ $c-explorer-easing: cubic-bezier(0.075, 0.820, 0.165, 1.000);
 
 .c-status {
     background: $color-grey-1;
-    color: #ddd;
+    color: $c-explorer-secondary;
     text-transform: uppercase;
     letter-spacing: .03rem;
     font-size: 10px;

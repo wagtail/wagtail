@@ -34,7 +34,7 @@ class Explorer extends React.Component {
   }
 
   render() {
-    const { isVisible, nodes, path, pageTypes, type, filter, fetching, resolved } = this.props;
+    const { isVisible, nodes, path, pageTypes, type, fetching, resolved } = this.props;
     const page = this.getPage();
 
     const explorerProps = {
@@ -43,14 +43,12 @@ class Explorer extends React.Component {
       page,
       type,
       fetching,
-      filter,
       nodes,
       resolved,
       ref: 'explorer',
       onPop: this.props.onPop,
       onClose: this.props.onClose,
       transport: this.props.transport,
-      onFilter: this.props.onFilter,
       getChildren: this.props.getChildren,
       loadItemWithChildren: this.props.loadItemWithChildren,
       pushPage: this.props.pushPage,
@@ -78,7 +76,6 @@ Explorer.propTypes = {
   resolved: React.PropTypes.bool.isRequired,
   path: React.PropTypes.array,
   type: React.PropTypes.string.isRequired,
-  filter: React.PropTypes.string.isRequired,
   nodes: React.PropTypes.object.isRequired,
   transport: React.PropTypes.object.isRequired,
   page: React.PropTypes.any,
@@ -87,7 +84,6 @@ Explorer.propTypes = {
   setDefaultPage: React.PropTypes.func.isRequired,
   onShow: React.PropTypes.func.isRequired,
   onClose: React.PropTypes.func.isRequired,
-  onFilter: React.PropTypes.func.isRequired,
   getChildren: React.PropTypes.func.isRequired,
   loadItemWithChildren: React.PropTypes.func.isRequired,
   pushPage: React.PropTypes.func.isRequired,
@@ -105,7 +101,6 @@ const mapStateToProps = (state) => ({
   // indexes: state.entities.indexes,
   nodes: state.nodes,
   animation: state.explorer.animation,
-  filter: state.explorer.filter,
   transport: state.transport
 });
 
@@ -113,7 +108,6 @@ const mapDispatchToProps = (dispatch) => ({
   setDefaultPage: (id) => dispatch(actions.setDefaultPage(id)),
   getChildren: (id) => dispatch(actions.fetchChildren(id)),
   onShow: () => dispatch(actions.fetchRoot()),
-  onFilter: (filter) => dispatch(actions.setFilter(filter)),
   loadItemWithChildren: (id) => dispatch(actions.fetchPage(id)),
   pushPage: (id) => dispatch(actions.pushPage(id)),
   onPop: () => dispatch(actions.popPage()),

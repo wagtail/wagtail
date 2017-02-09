@@ -13,6 +13,10 @@ global.wagtailConfig = {
   ADMIN_URLS: {
     PAGES: '/admin/pages/',
   },
+  DATE_FORMATTING: {
+    DATE_FORMAT: 'MMM. D, YYYY',
+    SHORT_DATE_FORMAT: 'DD/MM/YYYY',
+  },
   STRINGS: {
     EXPLORER: 'Explorer',
     LOADING: 'Loading...',

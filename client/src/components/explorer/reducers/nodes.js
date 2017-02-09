@@ -34,7 +34,7 @@ const defaultState = {
 };
 
 // TODO Why isn't the default state used on init?
-export default function nodes(state = {}, action) {
+export default function nodes(state = {}, action = {}) {
   switch (action.type) {
   case 'FETCH_CHILDREN_START':
     // TODO Very hard to understand this code. To refactor.
@@ -66,27 +66,6 @@ export default function nodes(state = {}, action) {
 
   case 'RESET_TREE':
     return defaultState;
-
-  // eslint-disable-next-line no-case-declarations
-  case 'SET_FILTER':
-      // Unset all isLoaded states when the filter changes
-    const updatedState = {};
-
-    // TODO Do not use for in.
-    // TODO Very hard to understand this code. To refactor.
-    // eslint-disable-next-line
-    for (let key in state) {
-      if (state.hasOwnProperty(key)) {
-        // eslint-disable-next-line prefer-const
-        let obj = state[key];
-        obj.children.isLoaded = false;
-        updatedState[obj.id] = _.assign({}, obj, {
-          isLoaded: false,
-        });
-      }
-    }
-
-    return _.assign({}, updatedState);
 
   case 'FETCH_START':
     return _.assign({}, state, {
