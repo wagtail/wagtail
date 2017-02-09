@@ -1,5 +1,6 @@
 from __future__ import absolute_import, unicode_literals
 
+import functools
 import posixpath
 from collections import defaultdict
 
@@ -338,17 +339,30 @@ class PageQuerySet(SearchableQuerySetMixin, TreeQuerySet):
         for page in self.live():
             page.unpublish()
 
-    def specific(self):
+    def specific(self, defer=False):
         """
         This efficiently gets all the specific pages for the queryset, using
         the minimum number of queries.
+
+        When the "defer" keyword argument is set to True, only the basic page
+        fields will be loaded and all specific fields will be deferred. It
+        will still generate a query for each page type though (this may be
+        improved to generate only a single query in a future release).
         """
-        if DJANGO_VERSION >= (1, 9):
-            clone = self._clone()
-            clone._iterable_class = SpecificIterable
-            return clone
+        if defer:
+            if DJANGO_VERSION >= (1, 9):
+                clone = self._clone()
+                clone._iterable_class = DeferredSpecificIterable
+                return clone
+            else:
+                return self._clone(klass=DeferredSpecificQuerySet)
         else:
-            return self._clone(klass=SpecificQuerySet)
+            if DJANGO_VERSION >= (1, 9):
+                clone = self._clone()
+                clone._iterable_class = SpecificIterable
+                return clone
+            else:
+                return self._clone(klass=SpecificQuerySet)
 
     def in_site(self, site):
         """
@@ -357,7 +371,7 @@ class PageQuerySet(SearchableQuerySetMixin, TreeQuerySet):
         return self.descendant_of(site.root_page, inclusive=True)
 
 
-def specific_iterator(qs):
+def specific_iterator(qs, defer=False):
     """
     This efficiently iterates all the specific pages in a queryset, using
     the minimum number of queries.
@@ -378,6 +392,13 @@ def specific_iterator(qs):
     for content_type, pks in pks_by_type.items():
         model = content_types[content_type].model_class()
         pages = model.objects.filter(pk__in=pks)
+
+        if defer:
+            # Defer all specific fields
+            from wagtail.wagtailcore.models import Page
+            fields = [field.attname for field in Page._meta.get_fields() if field.concrete]
+            pages = pages.only(*fields)
+
         pages_by_type[content_type] = {page.pk: page for page in pages}
 
     # Yield all of the pages, in the order they occurred in the original query.
@@ -394,8 +415,15 @@ if DJANGO_VERSION >= (1, 9):
         def __iter__(self):
             return specific_iterator(self.queryset)
 
+    class DeferredSpecificIterable(BaseIterable):
+        def __iter__(self):
+            return specific_iterator(self.queryset, defer=True)
+
 else:
     from django.db.models.query import QuerySet
 
     class SpecificQuerySet(QuerySet):
         iterator = specific_iterator
+
+    class DeferredSpecificQuerySet(QuerySet):
+        iterator = functools.partial(specific_iterator, defer=True)
