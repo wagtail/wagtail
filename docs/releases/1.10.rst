@@ -178,10 +178,31 @@ If any of your applications relied on the previous behaviour, you will have to
 rewrite it to take this into account.
 
 
-``Page.get_url_parts`` and ``Page.relative_url`` now accept a ``hints`` kwarg
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Caching of site-level URL information throughout the request cycle
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-The ``get_url_parts`` and ``relative_url`` methods on ``Page`` now accept an optional ``hints`` keyword argument. If you have overridden either of these methods on any of your page models, you will need to update the method signature to support this keyword argument; most likely, this will involve changing the line:
+
+The ``get_url_parts`` and ``relative_url`` methods on ``Page`` now accept an optional ``request`` keyword argument.
+Additionally, two new methods have been added, ``get_url`` (analogous to the ``url`` property) and ``get_full_url``
+(analogous to the ``full_url``) property. Whenever possible, these methods should be used instead of the property
+versions, and the request passed to each method. For example:
+
+.. code-block:: python
+
+    page_url = my_page.url
+
+would become:
+
+.. code-block:: python
+
+    page_url = my_page.get_url(request=request)
+
+This enables caching of underlying site-level URL information throughout the request cycle, thereby significantly
+reducing the number of cache or SQL queries your site will generate for a given page load. A common use case for these
+methods is any custom template tag your project may include for generating navigation menus.
+
+Furthermore, if you have overridden ``get_url_parts`` or ``relative_url`` on any of your page models, you will need to
+update the method signature to support this keyword argument; most likely, this will involve changing the line:
 
 .. code-block:: python
 
@@ -191,8 +212,16 @@ to:
 
 .. code-block:: python
 
-    def get_url_parts(self, hints=None):
+    def get_url_parts(self, *args, **kwargs):
 
-and passing ``hints=hints`` at the point where you are calling ``get_url_parts`` on ``super`` (if applicable).
+and passing ``*args, **kwargs`` at the point where you are calling ``get_url_parts`` on ``super`` (if applicable), e.g.:
 
-See: :meth:`wagtail.wagtailcore.models.Page.get_url_parts` and :meth:`wagtail.wagtailcore.models.Page.relative_url`
+.. code-block:: python
+
+	super(MyPageModel, self).get_url_parts(*args, **kwargs)
+
+While one could pass only the ``request`` keyword argument, passing all arguments as-is ensures compatibility with any
+future changes to these method signatures.
+
+See: :meth:`wagtail.wagtailcore.models.Page.get_url_parts`, :meth:`wagtail.wagtailcore.models.Page.get_url`,
+:meth:`wagtail.wagtailcore.models.Page.get_full_url`, and :meth:`wagtail.wagtailcore.models.Page.relative_url`

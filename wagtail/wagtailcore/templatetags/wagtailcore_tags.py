@@ -6,7 +6,7 @@ from django.utils.encoding import force_text
 from django.utils.safestring import mark_safe
 
 from wagtail import __version__
-from wagtail.wagtailcore.models import Page, Site
+from wagtail.wagtailcore.models import Page
 from wagtail.wagtailcore.rich_text import RichText, expand_db_html
 from wagtail.wagtailcore.utils import accepts_kwarg
 
@@ -26,21 +26,13 @@ def pageurl(context, page):
         return page.url
 
     # RemovedInWagtail110Warning - this accepts_kwarg test can be removed when we drop support
-    # for relative_url methods which omit the `hints` kwarg
-    if accepts_kwarg(page.relative_url, 'hints'):
-        # Pass page.relative_url a hints dictionary containing a 'site_root_paths' list
-        # which we obtain from Site.get_site_root_paths() and cache in the request object.
+    # for relative_url methods which omit the `request` kwarg
+    if accepts_kwarg(page.relative_url, 'request'):
+        # Pass page.relative_url the request object, which may contain a cached copy of
+        # Site.get_site_root_paths()
         # This avoids page.relative_url having to make a database/cache fetch for this list
         # each time it's called.
-        try:
-            site_root_paths = context['request'].wagtail_site_root_paths
-        except AttributeError:
-            site_root_paths = Site.get_site_root_paths()
-            context['request'].wagtail_site_root_paths = site_root_paths
-
-        return page.relative_url(current_site, hints={
-            'site_root_paths': site_root_paths
-        })
+        return page.relative_url(current_site, request=context.get('request'))
     else:
         return page.relative_url(current_site)
 
