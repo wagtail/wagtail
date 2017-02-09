@@ -441,9 +441,9 @@ body.explorer-open {
 
     .explorer {
         width: 400px;
-        position: absolute;
+        position: fixed;
         top: 0;
-        left: 99%;
+        left: $menu-width;
     }
 
     .dl-menu {

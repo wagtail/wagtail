@@ -1,6 +1,7 @@
 import _ from 'lodash';
 
 const fetch = global.fetch;
+const Headers = global.Headers;
 
 // fetch wrapper for JSON APIs.
 export const get = (url) => {
