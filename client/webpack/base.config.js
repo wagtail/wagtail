@@ -17,7 +17,7 @@ function entryPoint(filename) {
   var name = appName(filename);
   var entryName = path.basename(filename, '.entry.js');
   var outputPath = path.join('wagtail', name, 'static', name, 'js', entryName);
-  return [outputPath, ['babel-polyfill', filename]];
+  return [outputPath, ['whatwg-fetch', 'babel-polyfill', filename]];
 }
 
 
@@ -46,9 +46,6 @@ module.exports = function exports() {
       publicPath: '/static/js/'
     },
     plugins: [
-      new webpack.ProvidePlugin({
-        fetch: 'imports?this=>global!exports?global.fetch!whatwg-fetch'
-      }),
       new webpack.optimize.CommonsChunkPlugin('common', COMMON_PATH, Infinity)
     ],
     module: {

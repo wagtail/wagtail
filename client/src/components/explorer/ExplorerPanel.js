@@ -53,11 +53,19 @@ export default class ExplorerPanel extends React.Component {
 
     document.body.classList.add('explorer-open');
     document.addEventListener('click', this.clickOutside);
+    var Anchors = document.getElementsByTagName("a");
+    for (var i = 0; i < Anchors.length ; i++) {
+      Anchors[i].addEventListener("click", this.clickOutside)
+    }
   }
 
   componentWillUnmount() {
     document.body.classList.remove('explorer-open');
     document.removeEventListener('click', this.clickOutside);
+    var Anchors = document.getElementsByTagName("a");
+    for (var i = 0; i < Anchors.length ; i++) {
+      Anchors[i].removeEventListener("click", this.clickOutside)
+    }
   }
 
   clickOutside(e) {
