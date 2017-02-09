@@ -109,12 +109,4 @@ def get_document_model():
         )
     return document_model
 
-
-# Receive the post_delete signal and delete the file associated with the model instance.
-@receiver(post_delete, sender=Document)
-def document_delete(sender, instance, **kwargs):
-    # Pass false so FileField doesn't save the model.
-    instance.file.delete(False)
-
-
 document_served = Signal(providing_args=['request'])

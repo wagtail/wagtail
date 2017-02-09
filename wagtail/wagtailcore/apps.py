@@ -7,3 +7,7 @@ class WagtailCoreAppConfig(AppConfig):
     name = 'wagtail.wagtailcore'
     label = 'wagtailcore'
     verbose_name = "Wagtail core"
+
+    def ready(self):
+        from wagtail.wagtailcore.signal_handlers import register_signal_handlers
+        register_signal_handlers()

@@ -9,3 +9,7 @@ class WagtailImagesAppConfig(AppConfig):
     name = 'wagtail.wagtailimages'
     label = 'wagtailimages'
     verbose_name = "Wagtail images"
+
+    def ready(self):
+        from wagtail.wagtailimages.signal_handlers import register_signal_handlers
+        register_signal_handlers()

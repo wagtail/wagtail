@@ -347,23 +347,6 @@ class Image(AbstractImage):
     )
 
 
-# Do smartcropping calculations when user saves an image without a focal point
-@receiver(pre_save, sender=Image)
-def image_feature_detection(sender, instance, **kwargs):
-    if getattr(settings, 'WAGTAILIMAGES_FEATURE_DETECTION_ENABLED', False):
-        # Make sure the image doesn't already have a focal point
-        if not instance.has_focal_point():
-            # Set the focal point
-            instance.set_focal_point(instance.get_suggested_focal_point())
-
-
-# Receive the post_delete signal and delete the file associated with the model instance.
-@receiver(post_delete, sender=Image)
-def image_delete(sender, instance, **kwargs):
-    # Pass false so FileField doesn't save the model.
-    instance.file.delete(False)
-
-
 # RemovedInWagtail110Warning: We will remove the models.Model
 class Filter(models.Model):
     """
@@ -567,10 +550,3 @@ class Rendition(AbstractRendition):
         unique_together = (
             ('image', 'filter_spec', 'focal_point_key'),
         )
-
-
-# Receive the post_delete signal and delete the file associated with the model instance.
-@receiver(post_delete, sender=Rendition)
-def rendition_delete(sender, instance, **kwargs):
-    # Pass false so FileField doesn't save the model.
-    instance.file.delete(False)

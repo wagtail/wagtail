@@ -216,17 +216,6 @@ class Site(models.Model):
         return result
 
 
-# Clear the wagtail_site_root_paths from the cache whenever Site records are updated
-@receiver(post_save, sender=Site)
-def clear_site_root_paths_on_save(sender, instance, **kwargs):
-    cache.delete('wagtail_site_root_paths')
-
-
-@receiver(post_delete, sender=Site)
-def clear_site_root_paths_on_delete(sender, instance, **kwargs):
-    cache.delete('wagtail_site_root_paths')
-
-
 PAGE_MODEL_CLASSES = []
 
 
@@ -1383,19 +1372,6 @@ class Page(six.with_metaclass(PageBase, AbstractPage, index.Indexed, Clusterable
     class Meta:
         verbose_name = _('page')
         verbose_name_plural = _('pages')
-
-
-@receiver(pre_delete, sender=Page)
-def unpublish_page_before_delete(sender, instance, **kwargs):
-    # Make sure pages are unpublished before deleting
-    if instance.live:
-        # Don't bother to save, this page is just about to be deleted!
-        instance.unpublish(commit=False)
-
-
-@receiver(post_delete, sender=Page)
-def log_page_deletion(sender, instance, **kwargs):
-    logger.info("Page deleted: \"%s\" id=%d", instance.title, instance.id)
 
 
 class Orderable(models.Model):
