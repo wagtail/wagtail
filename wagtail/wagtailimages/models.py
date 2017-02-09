@@ -12,8 +12,6 @@ from django.core import checks
 from django.core.files import File
 from django.core.urlresolvers import reverse
 from django.db import models
-from django.db.models.signals import post_delete, pre_save
-from django.dispatch.dispatcher import receiver
 from django.forms.widgets import flatatt
 from django.utils.encoding import python_2_unicode_compatible
 from django.utils.functional import cached_property

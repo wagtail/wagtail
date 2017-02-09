@@ -16,8 +16,6 @@ from django.core.handlers.wsgi import WSGIRequest
 from django.core.urlresolvers import reverse
 from django.db import connection, models, transaction
 from django.db.models import Case, IntegerField, Q, When
-from django.db.models.signals import post_delete, post_save, pre_delete
-from django.dispatch.dispatcher import receiver
 from django.http import Http404
 from django.template.response import TemplateResponse
 # Must be imported from Django so we get the new implementation of with_metaclass
