@@ -314,6 +314,7 @@ class TestAccountSection(TestCase, WagtailTestUtils):
             'preferred_language': 'en'
         }
         response = self.client.post(reverse('wagtailadmin_account_language_preferences'), post_data)
+        profile = UserProfile.get_for_user(get_user_model().objects.get(pk=self.user.pk))
         self.assertEqual(profile.preferred_language, 'en')
 
 
