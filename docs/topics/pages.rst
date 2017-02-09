@@ -192,6 +192,47 @@ By default, any page type can be created under any page type and it is not neces
 
 Setting ``parent_page_types`` to an empty list is a good way of preventing a particular page type from being created in the editor interface.
 
+.. _page_urls:
+
+Page URLs
+---------
+
+Page models include several utility methods for overriding or accessing page URLs.
+
+Customising URL patterns for a page model
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+The ``Page.get_url_parts(request)`` method will not typically be called directly, but may be overriden to define custom URL routing for a given page model. It should return a tuple of ``(site_id, root_url, page_path)``, which are used by ``get_url`` and ``get_full_url`` (see below) to construct the given type of page URL.
+
+When overriding ``get_url_parts()``, you should accept ``*args, **kwargs``:
+
+.. code-block:: python
+
+    def get_url_parts(self, *args, **kwargs):
+
+and pass those through at the point where you are calling ``get_url_parts`` on ``super`` (if applicable), e.g.:
+
+.. code-block:: python
+
+    super(MyPageModel, self).get_url_parts(*args, **kwargs)
+
+While you could pass only the ``request`` keyword argument, passing all arguments as-is ensures compatibility with any
+future changes to these method signatures.
+
+For more information, please see :meth:`wagtail.wagtailcore.models.Page.get_url_parts`.
+
+Obtaining URLs for page instances
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+The ``Page.get_url(request)`` method can be called whenever a page URL is needed. It defaults to returning local URLs (not including the protocol or domain) if it can detect that the page is on current site (via ``request.site``); otherwise, a full URL including the protocal and domain is returned. Whenever possible, the optional ``request`` argument should be included to enable per-request caching of site-level URL information and facilitate the generation of local URLs.
+
+A common use case for ``get_url(request)`` is in any custom template tag your project may include for generating navigation menus. When writing a such a
+custom template tag, ensure it includes ``takes_context=True`` and use ``context.get('request')`` to safely pass the
+request or ``None`` if no request exists in the context.
+
+For more information, please see :meth:`wagtail.wagtailcore.models.Page.get_url`.
+
+In the event a full URL (including the protocol and domain is needed), ``Page.get_full_url(request)`` can be used instead. Whenever possible, the optional ``request`` argument should be included to enable per-request caching of site-level URL information. For more information, please see :meth:`wagtail.wagtailcore.models.Page.get_full_url`.
 
 Template rendering
 ==================

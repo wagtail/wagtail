@@ -811,9 +811,9 @@ class Page(six.with_metaclass(PageBase, AbstractPage, index.Indexed, Clusterable
 
         return root_url + page_path
 
-    full_url = property(get_full_url)
+    full_url = property(get_full_url)  # TODO: deprecate this property (using AND overriding it)
 
-    def get_url(self, request=None):
+    def get_url(self, request=None, current_site=None):
         """
         Return the 'most appropriate' URL for referring to this page from the pages we serve,
         within the Wagtail backend and actual website templates;
@@ -821,7 +821,17 @@ class Page(six.with_metaclass(PageBase, AbstractPage, index.Indexed, Clusterable
         (i.e. we know that whatever the current page is being served from, this link will be on the
         same domain), and the full URL (with domain) if not.
         Return None if the page is not routable.
+
+        Accepts an optional but recommended ``request`` keyword argument that, if provided, will
+        be used to cache site-level URL information (thereby avoiding repeated database / cache
+        lookups) and, via the ``request.site`` attribute, determine whether a relative or full URL
+        is most appropriate.
         """
+        # ``current_site`` is purposefully undocumented, as one can simply pass the request and get
+        # a relative URL based on ``request.site``. Nonetheless, support it here to avoid
+        # copy/pasting the code to the ``relative_url`` method below.
+        if current_site is None and request is not None:
+            current_site = getattr(request, 'site', None)
         url_parts = self._safe_get_url_parts(request=request)
 
         if url_parts is None:
@@ -830,34 +840,25 @@ class Page(six.with_metaclass(PageBase, AbstractPage, index.Indexed, Clusterable
 
         site_id, root_url, page_path = url_parts
 
-        if len(self._get_site_root_paths(request)) == 1:
-            # we're only running a single site, so a local URL is sufficient
+        if (current_site is not None and site_id == current_site.id) or len(self._get_site_root_paths(request)) == 1:
+            # the site matches OR we're only running a single site, so a local URL is sufficient
             return page_path
         else:
             return root_url + page_path
 
-    url = property(get_url)
+    url = property(get_url)  # TODO: deprecate this property (using AND overriding it)
 
-    def relative_url(self, current_site, request=None):
+    def relative_url(self, current_site, request=None):  # TODO: deprecate this method
         """
         Return the 'most appropriate' URL for this page taking into account the site we're currently on;
         a local URL if the site matches, or a fully qualified one otherwise.
-        Return None if the page is not routable. Accepts an optional keyword argument ``request``,
-        which may be used to avoid repeated database / cache lookups; see ``get_url_parts``
-        for details.
+        Return None if the page is not routable.
+
+        Accepts an optional but recommended ``request`` keyword argument that, if provided, will
+        be used to cache site-level URL information (thereby avoiding repeated database / cache
+        lookups).
         """
-        url_parts = self._safe_get_url_parts(request)
-
-        if url_parts is None:
-            # page is not routable
-            return
-
-        site_id, root_url, page_path = url_parts
-
-        if site_id == current_site.id:
-            return page_path
-        else:
-            return root_url + page_path
+        return self.get_url(request=request, current_site=current_site)
 
     def get_site(self):
         """

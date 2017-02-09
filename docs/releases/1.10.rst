@@ -199,7 +199,8 @@ would become:
 
 This enables caching of underlying site-level URL information throughout the request cycle, thereby significantly
 reducing the number of cache or SQL queries your site will generate for a given page load. A common use case for these
-methods is any custom template tag your project may include for generating navigation menus.
+methods is any custom template tag your project may include for generating navigation menus. For more information,
+please refer to :ref:`page_urls`.
 
 Furthermore, if you have overridden ``get_url_parts`` or ``relative_url`` on any of your page models, you will need to
 update the method signature to support this keyword argument; most likely, this will involve changing the line:
@@ -214,14 +215,7 @@ to:
 
     def get_url_parts(self, *args, **kwargs):
 
-and passing ``*args, **kwargs`` at the point where you are calling ``get_url_parts`` on ``super`` (if applicable), e.g.:
+and passing those through at the point where you are calling ``get_url_parts`` on ``super`` (if applicable).
 
-.. code-block:: python
-
-	super(MyPageModel, self).get_url_parts(*args, **kwargs)
-
-While one could pass only the ``request`` keyword argument, passing all arguments as-is ensures compatibility with any
-future changes to these method signatures.
-
-See: :meth:`wagtail.wagtailcore.models.Page.get_url_parts`, :meth:`wagtail.wagtailcore.models.Page.get_url`,
+See also: :meth:`wagtail.wagtailcore.models.Page.get_url_parts`, :meth:`wagtail.wagtailcore.models.Page.get_url`,
 :meth:`wagtail.wagtailcore.models.Page.get_full_url`, and :meth:`wagtail.wagtailcore.models.Page.relative_url`
