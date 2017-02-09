@@ -174,6 +174,8 @@ def send_mail(subject, message, recipient_list, from_email=None, **kwargs):
 def send_notification(page_revision_id, notification, notification_user_id):
     # Get revision
     revision = PageRevision.objects.get(id=page_revision_id)
+    # User
+    User = get_user_model()
 
     # Get list of recipients
     if notification == 'submitted':
@@ -207,6 +209,7 @@ def send_notification(page_revision_id, notification, notification_user_id):
     context = {
         "revision": revision,
         "settings": settings,
+        "notification_user": User.objects.get(pk=notification_user_id)
     }
 
     # Send emails
