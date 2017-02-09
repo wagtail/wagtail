@@ -107,4 +107,5 @@ def get_document_model():
         )
     return document_model
 
+
 document_served = Signal(providing_args=['request'])
