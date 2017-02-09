@@ -1,7 +1,6 @@
 import {
   PAGES_ROOT_ID,
   EXPLORER_ANIM_DURATION,
-  EXPLORER_FILTERS,
 } from './config';
 
 describe('config', () => {
@@ -17,9 +16,4 @@ describe('config', () => {
     });
   });
 
-  describe('EXPLORER_FILTERS', () => {
-    it('exists', () => {
-      expect(EXPLORER_FILTERS).toBeDefined();
-    });
-  });
 });

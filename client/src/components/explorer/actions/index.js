@@ -38,7 +38,6 @@ export function fetchChildren(id = 'root') {
 
     return admin.getChildPages(id, {
       fields: explorer.fields,
-      filter: explorer.filter,
     }).then(json => dispatch(fetchChildrenSuccess(id, json)));
   };
 }
@@ -83,23 +82,6 @@ export function fetchRoot() {
 
 export const toggleExplorer = createAction('TOGGLE_EXPLORER');
 
-
-export function setFilter(filter) {
-  return (dispatch, getState) => {
-    const { explorer } = getState();
-    const id = explorer.path[explorer.path.length - 1];
-
-    dispatch({
-      payload: {
-        filter,
-        id,
-      },
-      type: 'SET_FILTER',
-    });
-
-    dispatch(fetchChildren(id));
-  };
-}
 
 /**
  * TODO: determine if page is already loaded, don't load it again, just push.

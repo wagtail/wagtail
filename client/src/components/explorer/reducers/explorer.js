@@ -10,12 +10,11 @@ const defaultState = {
   // TODO Change to include less fields (just 'descendants'?) in the next version of the admin API.
   // Specificies which fields are to be fetched in the API calls.
   fields: ['title', 'latest_revision_created_at', 'status', 'descendants', 'children'],
-  filter: 'has_children=1',
   // Coming from the API in order to get translated / pluralised labels.
   pageTypes: {},
 };
 
-export default function explorer(state = defaultState, action) {
+export default function explorer(state = defaultState, action = {}) {
   let newNodes = state.path;
 
   switch (action.type) {
@@ -85,11 +84,6 @@ export default function explorer(state = defaultState, action) {
       isFetching: false,
       // eslint-disable-next-line no-underscore-dangle
       pageTypes: _.assign({}, state.pageTypes, action.payload.json.__types),
-    });
-
-  case 'SET_FILTER':
-    return _.assign({}, state, {
-      filter: action.filter
     });
 
   default:

@@ -6,7 +6,7 @@ import Button from '../../components/Button/Button';
 import PublicationStatus from '../../components/PublicationStatus/PublicationStatus';
 import AbsoluteDate from '../../components/AbsoluteDate/AbsoluteDate';
 
-const ExplorerItem = ({ title, typeName, data, filter, onItemClick }) => {
+const ExplorerItem = ({ title, typeName, data, onItemClick }) => {
   const { id, meta } = data;
   const status = meta ? meta.status : null;
   const time = meta ? meta.latest_revision_created_at : null;
@@ -16,7 +16,7 @@ const ExplorerItem = ({ title, typeName, data, filter, onItemClick }) => {
   // // TODO refactor.
   let count = 0;
   if (meta) {
-    count = filter.match(/has_children/) ? meta.descendants.count - meta.children.count : meta.children.count;
+    count = meta.children.count;
   }
   const hasChildren = count > 0;
 
@@ -28,7 +28,7 @@ const ExplorerItem = ({ title, typeName, data, filter, onItemClick }) => {
           className="c-explorer__children"
           onClick={onItemClick.bind(null, id)}
         >
-          <Icon name="folder-inverse" title={STRINGS.SEE_CHILDREN} />
+          <Icon name="arrow-right" title={STRINGS.SEE_CHILDREN} />
         </span>
       ) : null}
 
@@ -44,13 +44,11 @@ const ExplorerItem = ({ title, typeName, data, filter, onItemClick }) => {
 ExplorerItem.propTypes = {
   title: React.PropTypes.string,
   data: React.PropTypes.object,
-  filter: React.PropTypes.string,
   typeName: React.PropTypes.string,
   onItemClick: React.PropTypes.func,
 };
 
 ExplorerItem.defaultProps = {
-  filter: '',
   data: {},
   onItemClick: () => {},
 };

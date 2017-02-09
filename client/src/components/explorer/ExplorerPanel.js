@@ -8,6 +8,7 @@ import { STRINGS } from '../../config/wagtail';
 import ExplorerHeader from './ExplorerHeader';
 import ExplorerItem from './ExplorerItem';
 import LoadingSpinner from './LoadingSpinner';
+import PageCount from './PageCount';
 
 export default class ExplorerPanel extends React.Component {
   constructor(props) {
@@ -105,7 +106,7 @@ export default class ExplorerPanel extends React.Component {
   }
 
   renderChildren(page) {
-    const { nodes, pageTypes, filter } = this.props;
+    const { nodes, pageTypes } = this.props;
 
     if (!page || !page.children.items) {
       return [];
@@ -122,7 +123,6 @@ export default class ExplorerPanel extends React.Component {
           title: item.title,
           typeName,
           data: item,
-          filter,
         };
 
         return (
@@ -153,8 +153,6 @@ export default class ExplorerPanel extends React.Component {
       page,
       onPop,
       onClose,
-      onFilter,
-      filter,
       path,
       resolved
     } = this.props;
@@ -169,8 +167,6 @@ export default class ExplorerPanel extends React.Component {
       page,
       onPop,
       onClose,
-      onFilter,
-      filter
     };
 
     const transitionTargetProps = {
@@ -202,8 +198,11 @@ export default class ExplorerPanel extends React.Component {
                 {page.isFetching ? <LoadingSpinner key={1} /> : (
                   <div key={0}>
                     {this.getContents()}
+                    {(page.children.count > page.children.items.length) && (
+                      <PageCount id={page.id} count={page.meta.children.count} title={page.title} />
+                    )}
                   </div>
-              )}
+                )}
               </CSSTransitionGroup>
 
             </div>
@@ -219,8 +218,6 @@ ExplorerPanel.propTypes = {
   onPop: React.PropTypes.func.isRequired,
   onClose: React.PropTypes.func.isRequired,
   type: React.PropTypes.string.isRequired,
-  onFilter: React.PropTypes.func.isRequired,
-  filter: React.PropTypes.string.isRequired,
   path: React.PropTypes.array,
   resolved: React.PropTypes.bool.isRequired,
   init: React.PropTypes.func.isRequired,

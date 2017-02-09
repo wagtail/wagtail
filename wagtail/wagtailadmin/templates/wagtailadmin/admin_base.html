@@ -24,12 +24,22 @@
                 IMAGES: '{% url "wagtailadmin_api_v1:images:listing" %}'
             };
 
+            // We are using Moment.js formatting syntax for now,
+            // TODO: Use django settings defaults and find a way
+            // to parse them in moment.js
+            wagtailConfig.DATE_FORMATTING = {
+                DATE_FORMAT: 'MMM. D, YYYY',
+                SHORT_DATE_FORMAT: 'DD/MM/YYYY'
+            };
+
             wagtailConfig.STRINGS = {
+                PAGE: "{% trans 'Page' %}",
                 PAGES: "{% trans 'Pages' %}",
                 LOADING: "{% trans 'Loading...' %}",
                 NO_RESULTS: "{% trans 'No results' %}",
                 SEE_CHILDREN: "{% trans 'See Children' %}",
                 NO_DATE: "{% trans 'No date' %}",
+                EXPLORE_ALL_IN: "{% trans 'Explore all in' %}",
             };
 
             wagtailConfig.ADMIN_URLS = {

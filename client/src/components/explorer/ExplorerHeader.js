@@ -1,12 +1,11 @@
 import React from 'react';
 import CSSTransitionGroup from 'react-addons-css-transition-group';
-import { EXPLORER_ANIM_DURATION, EXPLORER_FILTERS } from '../../config/config';
+import { EXPLORER_ANIM_DURATION } from '../../config/config';
 import { STRINGS } from '../../config/wagtail';
 
 import Icon from '../../components/Icon/Icon';
-import Filter from '../../components/Explorer/Filter';
 
-const ExplorerHeader = ({ page, depth, filter, onPop, onFilter, transName }) => {
+const ExplorerHeader = ({ page, depth, onPop, transName }) => {
   const title = depth < 2 || !page ? STRINGS.PAGES : page.title;
 
   const transitionProps = {
@@ -34,16 +33,6 @@ const ExplorerHeader = ({ page, depth, filter, onPop, onFilter, transName }) => 
           </CSSTransitionGroup>
         </span>
       </span>
-      <span className="c-explorer__filter">
-        {EXPLORER_FILTERS.map((item) => (
-          <Filter
-            key={item.id}
-            {...item}
-            activeFilter={filter}
-            onFilter={onFilter}
-          />
-        ))}
-      </span>
     </div>
   );
 };
@@ -51,9 +40,7 @@ const ExplorerHeader = ({ page, depth, filter, onPop, onFilter, transName }) => 
 ExplorerHeader.propTypes = {
   page: React.PropTypes.object,
   depth: React.PropTypes.number,
-  filter: React.PropTypes.string,
   onPop: React.PropTypes.func,
-  onFilter: React.PropTypes.func,
   transName: React.PropTypes.string,
 };
 
