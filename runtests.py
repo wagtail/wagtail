@@ -20,6 +20,7 @@ def make_parser():
     parser.add_argument('--elasticsearch', action='store_true')
     parser.add_argument('--elasticsearch2', action='store_true')
     parser.add_argument('--elasticsearch5', action='store_true')
+    parser.add_argument('--bench', action='store_true')
     parser.add_argument('rest', nargs='*')
     return parser
 
@@ -66,7 +67,15 @@ def runtests():
         # forcibly delete the ELASTICSEARCH_URL setting to skip those tests
         del os.environ['ELASTICSEARCH_URL']
 
-    argv = [sys.argv[0], 'test'] + args.rest
+    if args.bench:
+        benchmarks = [
+            'wagtail.wagtailadmin.tests.benches',
+        ]
+
+        argv = [sys.argv[0], 'test', '-v2'] + benchmarks + args.rest
+    else:
+        argv = [sys.argv[0], 'test'] + args.rest
+
     try:
         execute_from_command_line(argv)
     finally:
