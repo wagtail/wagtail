@@ -23,6 +23,21 @@ Alternatively, ``hooks.register`` can be called as an ordinary function, passing
 
   hooks.register('name_of_hook', my_hook_function)
 
+If you need your hooks to run in a particular order, you can pass the ``order`` parameter:
+
+.. code-block:: python
+
+  @hooks.register('name_of_hook', order=1)  # This will run after every hook in the wagtail core
+  def my_hook_function(arg1, arg2...)
+      # your code here
+
+  @hooks.register('name_of_hook', order=-1)  # This will run before every hook in the wagtail core
+  def my_other_hook_function(arg1, arg2...)
+      # your code here
+
+  @hooks.register('name_of_hook', order=2)  # This will run after `my_hook_function`
+  def yet_another_hook_function(arg1, arg2...)
+      # your code here
 
 The available hooks are listed below.
 
