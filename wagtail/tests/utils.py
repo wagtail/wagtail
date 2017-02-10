@@ -104,14 +104,14 @@ class WagtailTestUtils(object):
         return _AssertLogsContext(self, logger, level)
 
     @contextmanager
-    def register_hook(self, hook_name, fn):
+    def register_hook(self, hook_name, fn, order=0):
         from wagtail.wagtailcore import hooks
 
-        hooks.register(hook_name, fn)
+        hooks.register(hook_name, fn, order)
         try:
             yield
         finally:
-            hooks.get_hooks(hook_name).remove(fn)
+            hooks._hooks[hook_name].remove((fn, order))
 
 
 class WagtailPageTests(WagtailTestUtils, TestCase):
