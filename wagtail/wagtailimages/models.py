@@ -11,8 +11,6 @@ from django.core import checks
 from django.core.files import File
 from django.core.urlresolvers import reverse
 from django.db import models
-from django.db.models.signals import post_delete, pre_save
-from django.dispatch.dispatcher import receiver
 from django.forms.widgets import flatatt
 from django.utils.encoding import python_2_unicode_compatible
 from django.utils.functional import cached_property
@@ -337,23 +335,6 @@ class Image(AbstractImage):
     )
 
 
-# Do smartcropping calculations when user saves an image without a focal point
-@receiver(pre_save, sender=Image)
-def image_feature_detection(sender, instance, **kwargs):
-    if getattr(settings, 'WAGTAILIMAGES_FEATURE_DETECTION_ENABLED', False):
-        # Make sure the image doesn't already have a focal point
-        if not instance.has_focal_point():
-            # Set the focal point
-            instance.set_focal_point(instance.get_suggested_focal_point())
-
-
-# Receive the post_delete signal and delete the file associated with the model instance.
-@receiver(post_delete, sender=Image)
-def image_delete(sender, instance, **kwargs):
-    # Pass false so FileField doesn't save the model.
-    instance.file.delete(False)
-
-
 class Filter(object):
     """
     Represents one or more operations that can be applied to an Image to produce a rendition
@@ -535,10 +516,3 @@ class Rendition(AbstractRendition):
         unique_together = (
             ('image', 'filter_spec', 'focal_point_key'),
         )
-
-
-# Receive the post_delete signal and delete the file associated with the model instance.
-@receiver(post_delete, sender=Rendition)
-def rendition_delete(sender, instance, **kwargs):
-    # Pass false so FileField doesn't save the model.
-    instance.file.delete(False)
