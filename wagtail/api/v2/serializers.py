@@ -133,6 +133,9 @@ class PageParentField(relations.RelatedField):
             return parent
 
     def to_representation(self, value):
+        if value is None:
+            return None
+
         serializer_class = get_serializer_class(value.__class__, ['id', 'type', 'detail_url', 'html_url', 'title'], meta_fields=['type', 'detail_url', 'html_url'], base=PageSerializer)
         serializer = serializer_class(context=self.context)
         return serializer.to_representation(value)
@@ -276,12 +279,7 @@ class BaseSerializer(serializers.ModelSerializer):
             except SkipField:
                 continue
 
-            if attribute is None:
-                # We skip `to_representation` for `None` values so that
-                # fields do not have to explicitly deal with that case.
-                meta[field.field_name] = None
-            else:
-                meta[field.field_name] = field.to_representation(attribute)
+            meta[field.field_name] = field.to_representation(attribute)
 
         if meta:
             data['meta'] = meta
