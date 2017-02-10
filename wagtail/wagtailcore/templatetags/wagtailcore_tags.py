@@ -25,7 +25,7 @@ def pageurl(context, page):
         # request.site not available in the current context; fall back on page.url
         return page.url
 
-    # RemovedInWagtail110Warning - this accepts_kwarg test can be removed when we drop support
+    # RemovedInWagtail112Warning - this accepts_kwarg test can be removed when we drop support
     # for relative_url methods which omit the `request` kwarg
     if accepts_kwarg(page.relative_url, 'request'):
         # Pass page.relative_url the request object, which may contain a cached copy of
