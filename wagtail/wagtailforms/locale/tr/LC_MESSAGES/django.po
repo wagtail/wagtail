@@ -1,0 +1,146 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# Cihad GÜNDOĞDU <cihadgundogdu@gmail.com>, 2016
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2016-12-06 22:44+0000\n"
+"PO-Revision-Date: 2016-09-22 15:05+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"Language-Team: Turkish (http://www.transifex.com/torchbox/wagtail/language/"
+"tr/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: tr\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+msgid "Single line text"
+msgstr "Tek satır yazı"
+
+msgid "Multi-line text"
+msgstr "Çok satır yazı"
+
+msgid "Email"
+msgstr "EPosta"
+
+msgid "Number"
+msgstr "Numara"
+
+msgid "URL"
+msgstr "URL"
+
+msgid "Checkbox"
+msgstr "Onay kutusu"
+
+msgid "Checkboxes"
+msgstr "Onay kutuları"
+
+msgid "Drop down"
+msgstr "Açılır menü"
+
+msgid "Radio buttons"
+msgstr "Çoktan seçmeli"
+
+msgid "Date"
+msgstr "Tarih"
+
+msgid "Date/time"
+msgstr "Tarih/saat"
+
+msgid "submit time"
+msgstr "gönderim zamanı"
+
+msgid "form submission"
+msgstr "form gönderme"
+
+msgid "label"
+msgstr "etiket"
+
+msgid "The label of the form field"
+msgstr "Form alanı etiketi"
+
+msgid "field type"
+msgstr "alan tipi"
+
+msgid "required"
+msgstr "zorunlu"
+
+msgid "choices"
+msgstr "seçimler"
+
+msgid ""
+"Comma separated list of choices. Only applicable in checkboxes, radio and "
+"dropdown."
+msgstr ""
+"Virgülle ayrılmış seçim listesi. Sadece onay kutusu, açılır menü ve çoktan "
+"seçmelilere uygulanabilir"
+
+msgid "default value"
+msgstr "varsayılan değer"
+
+msgid "Default value. Comma separated values supported for checkboxes."
+msgstr "Varsayılan değer. Virgülle ayrılmış değerler onay kutularını destekler"
+
+msgid "help text"
+msgstr "yardım metni"
+
+msgid "to address"
+msgstr "adrese"
+
+msgid "from address"
+msgstr "adresinden"
+
+msgid "subject"
+msgstr "konu"
+
+#, python-format
+msgid "Delete %(title)s"
+msgstr "%(title)s sil"
+
+msgid "Delete"
+msgstr "Sil"
+
+msgid "Are you sure you want to delete this form submission?"
+msgstr "Bu form gönderisini silmek istediğinize emin misiniz?"
+
+msgid "Delete it"
+msgstr "Sil"
+
+msgid "Forms"
+msgstr "Formlar"
+
+msgid "Pages"
+msgstr "Sayfalar"
+
+#, python-format
+msgid "Form data <span>%(form_title)s</span>"
+msgstr "Form verisi <span>%(form_title)s</span>"
+
+msgid "Filter"
+msgstr "Filitre"
+
+msgid "Download CSV"
+msgstr "CSV indir"
+
+msgid "Title"
+msgstr "Başlık"
+
+msgid "Origin"
+msgstr "Başlangıç"
+
+msgid "Actions"
+msgstr "İşlemler"
+
+msgid "delete"
+msgstr "sil"
+
+msgid "No form pages have been created."
+msgstr "Oluşturulmuş form sayfası yok"
+
+msgid "Submission deleted."
+msgstr "Gönderi silindi"

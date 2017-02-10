@@ -1,0 +1,209 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# Thomas Kunambi <kunambi@gmail.com>, 2016
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2016-12-06 22:44+0000\n"
+"PO-Revision-Date: 2016-12-06 22:47+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"Language-Team: Swedish (http://www.transifex.com/torchbox/wagtail/language/"
+"sv/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: sv\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "hostname"
+msgstr "värdnamn"
+
+msgid "port"
+msgstr "port"
+
+msgid ""
+"Set this to something other than 80 if you need a specific port number to "
+"appear in URLs (e.g. development on port 8000). Does not affect request "
+"handling (so port forwarding still works)."
+msgstr ""
+"Sätt det här till något annat än 80 om du behöver ett specifikt portnummer "
+"som ska synas i URLen (t.ex. utveckling på port 8000). Påverkar inte "
+"hantering av serverförfrågningar (så vidarebefordring av port fungerar "
+"fortfarande)"
+
+msgid "site name"
+msgstr "sajtnamn"
+
+msgid "Human-readable name for the site."
+msgstr "Läsbart namn för sajten"
+
+msgid "root page"
+msgstr "rotsida"
+
+msgid "is default site"
+msgstr "är standardsajten"
+
+msgid ""
+"If true, this site will handle requests for all other hostnames that do not "
+"have a site entry of their own"
+msgstr ""
+"Om sant, så kommer sajten att hantera serverförfrågningar för alla andra "
+"värdnamn som inte har en egen inmatning"
+
+msgid "site"
+msgstr "sajt"
+
+msgid "sites"
+msgstr "sajter"
+
+#, python-format
+msgid ""
+"%(hostname)s is already configured as the default site. You must unset that "
+"before you can save this site as default."
+msgstr ""
+"%(hostname)s är redan konfigurerad till att vara din standardsajt. Du måste "
+"ändra det värdet innan du kan spara denna sajt som standard."
+
+msgid "title"
+msgstr "titel"
+
+msgid "The page title as you'd like it to be seen by the public"
+msgstr "Sidans titel som du vill att den ska synas publikt"
+
+msgid "slug"
+msgstr "slugg"
+
+msgid ""
+"The name of the page as it will appear in URLs e.g http://domain.com/blog/"
+"[my-slug]/"
+msgstr ""
+"Namnet på sidan så som den kommer att synas i URLer t.ex http://domain.com/"
+"blog/[min-slugg]/"
+
+msgid "content type"
+msgstr "innehållstyp"
+
+msgid "live"
+msgstr "lajv"
+
+msgid "has unpublished changes"
+msgstr "har opublicerade ändringar"
+
+msgid "URL path"
+msgstr "URL sökväg"
+
+msgid "owner"
+msgstr "ägare"
+
+msgid "page title"
+msgstr "sidtitel"
+
+msgid ""
+"Optional. 'Search Engine Friendly' title. This will appear at the top of the "
+"browser window."
+msgstr ""
+"Valfri. 'Sökmotorvänlig' titel. Detta kommer att synas i toppen av "
+"webbläsarens fönster."
+
+msgid "show in menus"
+msgstr "visa i menyer"
+
+msgid ""
+"Whether a link to this page will appear in automatically generated menus"
+msgstr ""
+"Om huruvida en länk till den här sidan ska synas i automatiskt genererade "
+"menyer"
+
+msgid "search description"
+msgstr "sökbeskrivning"
+
+msgid "go live date/time"
+msgstr "gå lajv datum/tid"
+
+msgid "Please add a date-time in the form YYYY-MM-DD hh:mm."
+msgstr "Vänligen skapa en tid i formatet ÅÅÅÅ-MM-DD tt:mm."
+
+msgid "expiry date/time"
+msgstr "utgångsdatum/tid"
+
+msgid "expired"
+msgstr "utgången"
+
+msgid "locked"
+msgstr "låst"
+
+msgid "first published at"
+msgstr "först publicerad vid"
+
+msgid "latest revision created at"
+msgstr "senaste revision skapad vid"
+
+msgid "scheduled"
+msgstr "schemalagd"
+
+msgid "draft"
+msgstr "utkast"
+
+msgid "live + draft"
+msgstr "lajv + utkast"
+
+msgid "Default"
+msgstr "Standard"
+
+msgid "page"
+msgstr "sida"
+
+msgid "pages"
+msgstr "sidor"
+
+msgid "submitted for moderation"
+msgstr "inlämnad för moderering"
+
+msgid "created at"
+msgstr "skapad vid"
+
+msgid "user"
+msgstr "användare"
+
+msgid "content JSON"
+msgstr "innehålls JSON"
+
+msgid "approved go live at"
+msgstr "godkänd att gå lajv vid"
+
+msgid "page revision"
+msgstr "sidorevision"
+
+msgid "page revisions"
+msgstr "sidorevisioner"
+
+msgid "Add/edit pages you own"
+msgstr "Skapa/editera sidor du äger"
+
+msgid "Edit any page"
+msgstr "Editera alla sidor"
+
+msgid "Publish any page"
+msgstr "Publicera alla sidor"
+
+msgid "Lock/unlock any page"
+msgstr "Lås/upplås alla sidor"
+
+msgid "group"
+msgstr "grupp"
+
+msgid "permission type"
+msgstr "rättighetstyp"
+
+msgid "group page permission"
+msgstr "gruppens sidrättighet"
+
+msgid "group page permissions"
+msgstr "gruppens sidrättigheter"
+
+msgid "password"
+msgstr "lösenord"

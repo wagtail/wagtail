@@ -1,13 +1,11 @@
-from __future__ import print_function
+from __future__ import absolute_import, print_function, unicode_literals
 
 import json
-from optparse import make_option
 
 from django.core.management.base import BaseCommand
 from django.utils import dateparse, timezone
 
 from wagtail.wagtailcore.models import Page, PageRevision
-from wagtail.wagtailcore.signals import page_published, page_unpublished
 
 
 def revision_date_expired(r):
@@ -22,14 +20,10 @@ def revision_date_expired(r):
 
 
 class Command(BaseCommand):
-    option_list = BaseCommand.option_list + (
-        make_option(
-            '--dryrun',
-            action='store_true',
-            dest='dryrun',
-            default=False,
-            help='Dry run -- don\'t change anything.'),
-        )
+    def add_arguments(self, parser):
+        parser.add_argument(
+            '--dryrun', action='store_true', dest='dryrun', default=False,
+            help="Dry run -- dont't change anything.")
 
     def handle(self, *args, **options):
         dryrun = False
@@ -56,15 +50,11 @@ class Command(BaseCommand):
             else:
                 print("No expired pages to be deactivated found.")
         else:
-            # need to get the list of expired pages before the update,
-            # so that we can fire the page_unpublished signal on them afterwards
-            expired_pages_list = list(expired_pages)
-
-            expired_pages.update(expired=True, live=False)
-
-            # Fire page_unpublished signal for all expired pages
-            for page in expired_pages_list:
-                page_unpublished.send(sender=page.specific_class, instance=page.specific)
+            # Unpublish the expired pages
+            # Cast to list to make sure the query is fully evaluated
+            # before unpublishing anything
+            for page in list(expired_pages):
+                page.unpublish(set_expired=True)
 
         # 2. get all page revisions for moderation that have been expired
         expired_revs = [
@@ -118,6 +108,3 @@ class Command(BaseCommand):
                 # just run publish for the revision -- since the approved go
                 # live datetime is before now it will make the page live
                 rp.publish()
-
-                # Fire page_published signal
-                page_published.send(sender=rp.page.specific_class, instance=rp.page.specific)

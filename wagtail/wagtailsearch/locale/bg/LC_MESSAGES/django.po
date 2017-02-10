@@ -1,201 +1,38 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# 
+#
 # Translators:
 # Lyuboslav  Petrov <petrov.lyuboslav@gmail.com>, 2014
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-08-01 16:39+0100\n"
-"PO-Revision-Date: 2014-08-01 15:43+0000\n"
+"POT-Creation-Date: 2016-12-06 22:44+0000\n"
+"PO-Revision-Date: 2015-08-26 13:37+0000\n"
 "Last-Translator: Karl Hobley <karl@torchbox.com>\n"
-"Language-Team: Bulgarian (http://www.transifex.com/projects/p/wagtail/language/bg/)\n"
+"Language-Team: Bulgarian (http://www.transifex.com/torchbox/wagtail/language/"
+"bg/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: bg\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: forms.py:9
 msgid "Search term(s)/phrase"
 msgstr "Дума/Фраза за търсене"
 
-#: forms.py:10
-msgid ""
-"Enter the full search string to match. An \n"
-"        exact match is required for your Editors Picks to be \n"
-"        displayed, wildcards are NOT allowed."
-msgstr "Въведете целият стринг. Точно \n        съвпадение е нужно за вашите \"Избрано от Редактора\" \n        да бъдат показани, като wildcards НЕ са позволени."
-
-#: forms.py:36
-msgid "Please specify at least one recommendation for this search term."
-msgstr ""
-
-#: wagtail_hooks.py:23 templates/wagtailsearch/editorspicks/list.html:9
-msgid "Editors picks"
-msgstr "Избрано от Редактора"
-
-#: templates/wagtailsearch/editorspicks/add.html:3
-#: templates/wagtailsearch/editorspicks/add.html:5
-msgid "Add editor's pick"
-msgstr "Добави \"Избрано от Редактора\""
-
-#: templates/wagtailsearch/editorspicks/add.html:10
-msgid ""
-"\n"
-"                <p>Editors picks are a means of recommending specific pages that might not organically come high up in search results. E.g recommending your primary donation page to a user searching with a less common term like \"<em>giving</em>\".</p>\n"
-"                "
-msgstr ""
-
-#: templates/wagtailsearch/editorspicks/add.html:13
-msgid ""
-"\n"
-"                <p>The \"Search term(s)/phrase\" field below must contain the full and exact search for which you wish to provide recommended results, <em>including</em> any misspellings/user error. To help, you can choose from search terms that have been popular with users of your site.</p>\n"
-"            "
-msgstr ""
-
-#: templates/wagtailsearch/editorspicks/add.html:27
-#: templates/wagtailsearch/editorspicks/edit.html:19
-msgid "Save"
-msgstr "Запази"
-
-#: templates/wagtailsearch/editorspicks/confirm_delete.html:3
-#, python-format
-msgid "Delete %(query)s"
-msgstr "Изтрий %(query)s"
-
-#: templates/wagtailsearch/editorspicks/confirm_delete.html:5
-#: templates/wagtailsearch/editorspicks/edit.html:20
-#: templates/wagtailsearch/editorspicks/includes/editorspicks_form.html:6
-msgid "Delete"
-msgstr "Изтрий"
-
-#: templates/wagtailsearch/editorspicks/confirm_delete.html:9
-msgid ""
-"Are you sure you want to delete all editors picks for this search term?"
-msgstr "Сигурен ли сте, че искате да изтриете всички \"Избрано от Редактора\" за тази ключова дума?"
-
-#: templates/wagtailsearch/editorspicks/confirm_delete.html:12
-msgid "Yes, delete"
-msgstr "Да, изтрий го"
-
-#: templates/wagtailsearch/editorspicks/edit.html:3
-#, python-format
-msgid "Editing %(query)s"
-msgstr "Редакция на %(query)s"
-
-#: templates/wagtailsearch/editorspicks/edit.html:5
-msgid "Editing"
-msgstr "Редактиране"
-
-#: templates/wagtailsearch/editorspicks/index.html:3
-msgid "Search Terms"
-msgstr "Фрази за търсене"
-
-#: templates/wagtailsearch/editorspicks/index.html:17
-msgid "Editor's search picks"
-msgstr "\"Избрани от Редактора\" думи за търсене"
-
-#: templates/wagtailsearch/editorspicks/index.html:18
-msgid "Add new editor's pick"
-msgstr "Добави \"Избрано от Редактора\""
-
-#: templates/wagtailsearch/editorspicks/list.html:8
-msgid "Search term(s)"
-msgstr "Дума/Фраза за търсене"
-
-#: templates/wagtailsearch/editorspicks/list.html:10
-#: templates/wagtailsearch/queries/chooser/results.html:8
-msgid "Views (past week)"
-msgstr "Преглед (последната седмица)"
-
-#: templates/wagtailsearch/editorspicks/list.html:17
-msgid "Edit this pick"
-msgstr ""
-
-#: templates/wagtailsearch/editorspicks/list.html:23
-msgid "None"
-msgstr "Нищо"
-
-#: templates/wagtailsearch/editorspicks/results.html:5
-#, python-format
-msgid ""
-"\n"
-"            There is one match\n"
-"        "
-msgid_plural ""
-"\n"
-"            There are %(counter)s matches\n"
-"        "
-msgstr[0] "\n            Има едно съвпадение\n        "
-msgstr[1] "\n            Има %(counter)s съвпадения\n        "
-
-#: templates/wagtailsearch/editorspicks/results.html:18
-#, python-format
-msgid "Sorry, no editor's picks match \"<em>%(query_string)s</em>\""
-msgstr ""
-
-#: templates/wagtailsearch/editorspicks/results.html:21
-#, python-format
-msgid ""
-"No editor's picks have been created. Why not <a "
-"href=\"%(wagtailsearch_editorspicks_add_url)s\">add one</a>?"
-msgstr ""
-
-#: templates/wagtailsearch/editorspicks/includes/editorspicks_form.html:4
-msgid "Move up"
-msgstr "Нагоре"
-
-#: templates/wagtailsearch/editorspicks/includes/editorspicks_form.html:5
-msgid "Move down"
-msgstr "Надолу"
-
-#: templates/wagtailsearch/editorspicks/includes/editorspicks_form.html:10
-msgid "Editors pick"
-msgstr "Избрано от Редактора"
-
-#: templates/wagtailsearch/editorspicks/includes/editorspicks_formset.html:14
-msgid "Add recommended page"
-msgstr "Добави препоръчана страница"
-
-#: templates/wagtailsearch/queries/chooser/chooser.html:2
 msgid "Popular search terms"
 msgstr "Популярни думи за търсене"
 
-#: templates/wagtailsearch/queries/chooser/chooser.html:11
 msgid "Search"
 msgstr "Търсене"
 
-#: templates/wagtailsearch/queries/chooser/results.html:7
 msgid "Terms"
 msgstr "Думи"
 
-#: templates/wagtailsearch/queries/chooser/results.html:22
+msgid "Views (past week)"
+msgstr "Преглед (последната седмица)"
+
 msgid "No results found"
 msgstr "Не са намерени резултати"
-
-#: views/editorspicks.py:47
-msgid "Search editor's picks"
-msgstr ""
-
-#: views/editorspicks.py:83
-msgid "Editor's picks for '{0}' created."
-msgstr ""
-
-#: views/editorspicks.py:89
-msgid "Recommendations have not been created due to errors"
-msgstr ""
-
-#: views/editorspicks.py:117
-msgid "Editor's picks for '{0}' updated."
-msgstr ""
-
-#: views/editorspicks.py:123
-msgid "Recommendations have not been saved due to errors"
-msgstr ""
-
-#: views/editorspicks.py:142
-msgid "Editor's picks deleted."
-msgstr ""

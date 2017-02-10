@@ -1,0 +1,86 @@
+{% extends "wagtailadmin/base.html" %}
+{% load i18n staticfiles %}
+{% block titletag %}{% trans "Add multiple documents" %}{% endblock %}
+{% block extra_css %}
+    {{ block.super }}
+
+    <link rel="stylesheet" href="{% static 'wagtaildocs/css/add-multiple.css' %}" type="text/css" />
+{% endblock %}
+
+{% block content %}
+    {% trans "Add documents" as add_str %}
+    {% include "wagtailadmin/shared/header.html" with title=add_str icon="doc" %}
+
+    <div class="nice-padding">
+        <div class="drop-zone">
+            <p>{% trans "Drag and drop documents into this area to upload immediately." %}</p>
+            <p>{{ help_text }}
+
+            <form action="{% url 'wagtaildocs:add_multiple' %}" method="POST" enctype="multipart/form-data">
+                <div class="replace-file-input">
+                    <button class="button bicolor icon icon-plus">{% trans "Or choose from your computer" %}</button>
+                    <input id="fileupload" type="file" name="files[]" data-url="{% url 'wagtaildocs:add_multiple' %}" multiple>
+                </div>
+                {% csrf_token %}
+                {% if collections %}
+                    <div class="field">
+                        <label for="id_adddocument_collection">{% trans "Add to collection:" %}</label>
+                        <div class="field-content">
+                            <select id="id_adddocument_collection" name="collection">
+                                {% for collection in collections %}
+                                    <option value="{{ collection.id }}">{{ collection.name }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                    </div>
+                {% endif %}
+            </form>
+        </div>
+
+        <div id="overall-progress" class="progress progress-secondary">
+            <div class="bar" style="width: 0%;">0%</div>
+        </div>
+
+        <ul id="upload-list" class="upload-list multiple"></ul>
+    </div>
+
+    <script id="upload-list-item" type="text/template">
+        <li class="row">
+            <div class="left col3">
+                <div class="preview">
+                    <div class="progress">
+                        <div class="bar" style="width: 0%;"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="right col9">
+                <p class="status-msg success">{% trans "Upload successful. Please update this documents with a more appropriate title, if necessary. You may also delete the document completely if the upload wasn't required." %}</p>
+                <p class="status-msg failure">{% trans "Sorry, upload failed." %}</p>
+                <p class="status-msg failure error_messages"></p>
+            </div>
+        </li>
+    </script>
+{% endblock %}
+
+{% block extra_js %}
+    {{ block.super }}
+
+    <!-- this exact order of plugins is vital -->
+    <script src="{% static 'wagtailadmin/js/vendor/jquery.iframe-transport.js' %}"></script>
+    <script src="{% static 'wagtailadmin/js/vendor/jquery.fileupload.js' %}"></script>
+    <script src="{% static 'wagtailadmin/js/vendor/jquery.fileupload-process.js' %}"></script>
+    <script src="{% static 'wagtailadmin/js/vendor/tag-it.js' %}"></script>
+
+    <!-- Main script -->
+    <script src="{% static 'wagtaildocs/js/add-multiple.js' %}"></script>
+
+    {% url 'wagtailadmin_tag_autocomplete' as autocomplete_url %}
+    <script>
+        window.fileupload_opts = {
+            simple_upload_url: "{% url 'wagtaildocs:add' %}"
+        }
+        window.tagit_opts = {
+            autocomplete: {source: "{{ autocomplete_url|addslashes }}"}
+        };
+    </script>
+{% endblock %}

@@ -1,0 +1,11 @@
+{% templatetag openblock %} extends "base.html" {% templatetag closeblock %}
+
+{% templatetag openblock %} block body_class {% templatetag closeblock %}template-homepage{% templatetag openblock %} endblock {% templatetag closeblock %}
+
+{% templatetag openblock %} block content {% templatetag closeblock %}
+    <h1>Welcome to your new Wagtail site!</h1>
+
+    <p>You can access the admin interface <a href="{% templatetag openblock %} url 'wagtailadmin_home' {% templatetag closeblock %}">here</a> (make sure you have run "./manage.py createsuperuser" in the console first).</p>
+
+    <p>If you haven't already given the documentation a read, head over to <a href="http://docs.wagtail.io/">http://docs.wagtail.io</a> to start building on Wagtail</p>
+{% templatetag openblock %} endblock {% templatetag closeblock %}

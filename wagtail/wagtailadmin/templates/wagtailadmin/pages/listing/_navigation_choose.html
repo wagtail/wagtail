@@ -1,0 +1,11 @@
+{% load i18n wagtailadmin_tags %}
+
+{% comment %}
+Navigation controls for the page listing in 'choose' mode
+{% endcomment %}
+
+<td class="{% if allow_navigation and page.can_descend %}children{% endif %}">
+    {% if allow_navigation and page.can_descend %}
+        <a href="{% url 'wagtailadmin_choose_page_child' page.id %}{% querystring p=None %}" class="icon text-replace icon-arrow-right navigate-pages" title="{% blocktrans with title=page.get_admin_display_title %}Explore subpages of '{{ title }}'{% endblocktrans %}">{% trans 'Explore' %}</a>
+    {% endif %}
+</td>

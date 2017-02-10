@@ -1,0 +1,26 @@
+{% load i18n %}
+<table class="listing">
+    <thead>
+        <tr>
+            <th class="name">
+                {% trans "Name" %}
+                {% if ordering == "name" %}
+                    <a href="{% url 'wagtailusers_groups:index' %}" class="icon icon-arrow-down-after teal"></a>
+                {% else %}
+                    <a href="{% url 'wagtailusers_groups:index' %}?ordering=name" class="icon icon-arrow-down-after"></a>
+                {% endif %}
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for group in groups %}
+            <tr>
+                <td class="title">
+                    <h2>
+                        <a href="{% url 'wagtailusers_groups:edit' group.id %}">{{ group.name }}</a>
+                    </h2>
+                </td>
+            </li>
+        {% endfor %}
+    </tbody>
+</table>

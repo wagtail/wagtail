@@ -1,0 +1,11 @@
+{% extends "wagtailadmin/block_forms/sequence.html" %}
+
+{% block sequence_type_class %}stream{% endblock %}
+
+{% block header %}
+    {% if list_members_html %}
+        {% include "wagtailadmin/block_forms/stream_menu.html" with menu_id=prefix|add:"-prependmenu" state="closed" %}
+    {% else %}
+        {% include "wagtailadmin/block_forms/stream_menu.html" with menu_id=prefix|add:"-prependmenu" state="open" %}
+    {% endif %}
+{% endblock %}

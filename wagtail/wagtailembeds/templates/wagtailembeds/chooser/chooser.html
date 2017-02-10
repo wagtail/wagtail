@@ -5,13 +5,13 @@
 
 <div class="tab-content">
     <section id="form" class="active nice-padding">
-        <form class="embed-form" action="{% url 'wagtailembeds_chooser_upload' %}" method="POST">
+        <form class="embed-form" action="{% url 'wagtailembeds:chooser_upload' %}" method="POST" novalidate>
             {% csrf_token %}
             <ul class="fields">
                 {% for field in form %}
                     {% include "wagtailadmin/shared/field_as_li.html" with field=field %}
                 {% endfor %}
-                <li><input type="submit" value="{% trans 'Insert' %}" /></li>
+                <li><button type="submit" class="button  button-longrunning"><span class="icon icon-spinner"></span><em>{% trans 'Insert' %}</em></button></li>
             </ul>
         </form>
     </section>

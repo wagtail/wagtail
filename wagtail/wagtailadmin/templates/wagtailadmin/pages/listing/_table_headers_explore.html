@@ -1,0 +1,70 @@
+{% load i18n %}
+
+{% comment %}
+
+Table headers for the page listing, when in 'explore' mode. Expects the following variables:
+
+sortable: if true, headings are links to wagtailadmin_explore with sort parameters applied.
+show_ordering_column: if true, an 'ordering' column is added.
+orderable: if true, the 'ordering' column is populated (again with links to wagtailadmin_explore).
+
+If either sortable or orderable is true, the following variables are also required:
+
+parent_page: The page instance currently being browsed (used to generate the correct wagtailadmin_explore urls)
+ordering: the current sort parameter
+
+{% endcomment %}
+
+<tr class="table-headers">
+    {% if show_ordering_column %}
+        <th class="ord">
+            {% if orderable %}
+                {% if ordering == "ord" %}
+                    <a href="{% url 'wagtailadmin_explore' parent_page.id %}" class="icon icon-order text-replace" title="{% trans 'Disable ordering of child pages' %}">{% trans 'Order' %}</a>
+                {% else %}
+                    <a href="{% url 'wagtailadmin_explore' parent_page.id %}?ordering=ord" class="icon icon-order text-replace" title="{% trans 'Enable ordering of child pages' %}">{% trans 'Order' %}</a>
+                {% endif %}
+            {% endif %}
+        </th>
+    {% endif %}
+    <th class="title">
+        {% if sortable %}
+            <a href="{% url 'wagtailadmin_explore' parent_page.id %}?ordering={% if ordering == 'title' %}-{% endif %}title" class="icon icon-arrow-{% if ordering == 'title' %}down-after{% elif ordering == '-title' %}up-after{% else %}down-after{% endif %} {% if ordering == 'title' or ordering == '-title' %}teal{% endif %}">
+                {% trans 'Title' %}
+            </a>
+        {% else %}
+            {% trans 'Title' %}
+        {% endif %}
+    </th>
+    {% if show_parent %}
+    <th class="parent">{% trans 'Parent' %}</th>
+    {% endif %}
+     <th class="updated">
+        {% if sortable %}
+            <a href="{% url 'wagtailadmin_explore' parent_page.id %}?ordering={% if ordering == 'latest_revision_created_at' %}-{% endif %}latest_revision_created_at" class="icon icon-arrow-{% if ordering == '-latest_revision_created_at' %}up-after{% else %}down-after{% endif %} {% if ordering == 'latest_revision_created_at' or ordering == '-latest_revision_created_at' %}teal {% endif %}">
+                {% trans 'Updated' %}
+            </a>
+        {% else %}
+            {% trans 'Updated' %}
+        {% endif %}
+    </th>
+    <th class="type">
+        {% if sortable %}
+            <a href="{% url 'wagtailadmin_explore' parent_page.id %}?ordering={% if ordering == 'content_type' %}-{% endif %}content_type" class="icon icon-arrow-{% if ordering == '-content_type' %}up-after{% else %}down-after{% endif %} {% if ordering == 'content_type' or ordering == '-content_type' %}teal {% endif %}">
+                {% trans 'Type' %}
+            </a>
+        {% else %}
+            {% trans 'Type' %}
+        {% endif %}
+    </th>
+    <th class="status">
+        {% if sortable %}
+            <a href="{% url 'wagtailadmin_explore' parent_page.id %}?ordering={% if ordering == 'live' %}-{% endif %}live" class="icon icon-arrow-{% if ordering == '-live' %}up-after{% else %}down-after{% endif %} {% if ordering == 'live' or ordering == '-live' %}teal {% endif %}">
+                {% trans 'Status' %}
+            </a>
+        {% else %}
+            {% trans 'Status' %}
+        {% endif %}
+    </th>
+    <th></th>
+</tr>

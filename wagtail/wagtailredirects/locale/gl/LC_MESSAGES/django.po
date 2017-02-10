@@ -4,31 +4,41 @@
 #
 # Translators:
 # fooflare <amos.oviedo@gmail.com>, 2014
+# fooflare <amos.oviedo@gmail.com>, 2014,2016
 # fooflare <amos.oviedo@gmail.com>, 2014
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-08-01 16:39+0100\n"
-"PO-Revision-Date: 2014-03-23 10:32+0000\n"
-"Last-Translator: fooflare <amos.oviedo@gmail.com>\n"
-"Language-Team: Galician (http://www.transifex.com/projects/p/wagtail/"
-"language/gl/)\n"
-"Language: gl\n"
+"POT-Creation-Date: 2016-12-06 22:44+0000\n"
+"PO-Revision-Date: 2016-08-01 13:29+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"Language-Team: Galician (http://www.transifex.com/torchbox/wagtail/language/"
+"gl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: gl\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: models.py:10
-msgid "Redirect from"
-msgstr "Redirección dende"
+msgid "From site"
+msgstr "Dende sitio web"
 
-#: models.py:12
-msgid "Permanent"
-msgstr "Permanente"
+msgid "All sites"
+msgstr "Todos os sitios web"
 
-#: models.py:12
+msgid "A redirect with this path already exists."
+msgstr "Unha redirección con esta ruta xa existe"
+
+msgid "redirect from"
+msgstr "redireccionar dende"
+
+msgid "site"
+msgstr "sitio web"
+
+msgid "permanent"
+msgstr "permanente"
+
 msgid ""
 "Recommended. Permanent redirects ensure search engines forget the old page "
 "(the 'Redirect from') and index the new page instead."
@@ -37,106 +47,62 @@ msgstr ""
 "esquecen a páxina vella (a 'Redirección desde') e indexa a nova páxina no "
 "seu lugar."
 
-#: models.py:13
-msgid "Redirect to a page"
-msgstr "Redireccionar a unha páxina"
+msgid "redirect to a page"
+msgstr "redireccionar a unha páxina"
 
-#: models.py:14
-msgid "Redirect to any URL"
-msgstr "Redireccionar a algunha URL"
+msgid "redirect to any URL"
+msgstr "redireccionar a calquera URL"
 
-#: views.py:58
-msgid "Search redirects"
-msgstr "Buscar redireccións"
+msgid "redirect"
+msgstr "redireccionar"
 
-#: views.py:71
-msgid "Redirect '{0}' updated."
-msgstr "Redirección '{0}' actualizada"
-
-#: views.py:74
-msgid "The redirect could not be saved due to errors."
-msgstr "A redirección non pede ser gardada debido a erros."
-
-#: views.py:92
-msgid "Redirect '{0}' deleted."
-msgstr "Redirección '{0}' eliminada."
-
-#: views.py:112
-#, fuzzy
-msgid "Redirect '{0}' added."
-msgstr "Redirección '{0}' engadida."
-
-#: views.py:115
-msgid "The redirect could not be created due to errors."
-msgstr "A redirección non pede ser creada debido a erros."
-
-#: wagtail_hooks.py:23 templates/wagtailredirects/index.html:3
-#: templates/wagtailredirects/index.html:17
-msgid "Redirects"
-msgstr "Redirecciona"
-
-#: templates/wagtailredirects/add.html:3 templates/wagtailredirects/add.html:6
-#: templates/wagtailredirects/index.html:18
 msgid "Add redirect"
 msgstr "Engadir redirección"
 
-#: templates/wagtailredirects/add.html:14
-#: templates/wagtailredirects/edit.html:14
 msgid "Save"
 msgstr "Gardar"
 
-#: templates/wagtailredirects/confirm_delete.html:4
 #, python-format
 msgid "Delete redirect %(title)s"
 msgstr "Eliminar redirección %(title)s"
 
-#: templates/wagtailredirects/confirm_delete.html:6
 msgid "Delete"
 msgstr "Eliminar"
 
-#: templates/wagtailredirects/confirm_delete.html:10
 msgid "Are you sure you want to delete this redirect?"
 msgstr "¿Seguro que queres eliminar esta redirección?"
 
-#: templates/wagtailredirects/confirm_delete.html:13
 msgid "Yes, delete"
-msgstr "Sí, eliminar"
+msgstr "Si, eliminar"
 
-#: templates/wagtailredirects/edit.html:4
 #, python-format
 msgid "Editing %(title)s"
 msgstr "Editando %(title)s"
 
-#: templates/wagtailredirects/edit.html:6
 msgid "Editing"
 msgstr "Editando"
 
-#: templates/wagtailredirects/edit.html:15
 msgid "Delete redirect"
 msgstr "Eliminar redirección"
 
-#: templates/wagtailredirects/list.html:11
-#: templates/wagtailredirects/list.html:14
-msgid "From"
-msgstr ""
+msgid "Redirects"
+msgstr "Redirecciona"
 
-#: templates/wagtailredirects/list.html:17
+msgid "From"
+msgstr "Dende"
+
+msgid "Site"
+msgstr "Sitio web"
+
 msgid "To"
 msgstr "A"
 
-#: templates/wagtailredirects/list.html:18
 msgid "Type"
 msgstr "Tipo"
 
-#: templates/wagtailredirects/list.html:25
 msgid "Edit this redirect"
 msgstr "Editar esta redirección"
 
-#: templates/wagtailredirects/list.html:34
-msgid "primary"
-msgstr "primaria"
-
-#: templates/wagtailredirects/results.html:5
 #, python-format
 msgid ""
 "\n"
@@ -155,12 +121,10 @@ msgstr[1] ""
 "            Hai %(counter)s coincidencias\n"
 "        "
 
-#: templates/wagtailredirects/results.html:18
 #, python-format
 msgid "Sorry, no redirects match \"<em>%(query_string)s</em>\""
 msgstr "Sentímolo, ningunha redirección contén \"<em>%(query_string)s</em>\""
 
-#: templates/wagtailredirects/results.html:21
 #, python-format
 msgid ""
 "No redirects have been created. Why not <a href="
@@ -168,3 +132,27 @@ msgid ""
 msgstr ""
 "Non se crearon redireccións. ¿Por qué non <a href="
 "\"%(wagtailredirects_add_redirect_url)s\">engadir unha</a>?"
+
+msgid "Search redirects"
+msgstr "Buscar redireccións"
+
+#, python-brace-format
+msgid "Redirect '{0}' updated."
+msgstr "Redirección '{0}' actualizada"
+
+msgid "Edit"
+msgstr "Editar"
+
+msgid "The redirect could not be saved due to errors."
+msgstr "A redirección non pede ser gardada debido a erros."
+
+#, python-brace-format
+msgid "Redirect '{0}' deleted."
+msgstr "Redirección '{0}' eliminada."
+
+#, python-brace-format
+msgid "Redirect '{0}' added."
+msgstr "Redirección '{0}' engadida."
+
+msgid "The redirect could not be created due to errors."
+msgstr "A redirección non pede ser creada debido a erros."

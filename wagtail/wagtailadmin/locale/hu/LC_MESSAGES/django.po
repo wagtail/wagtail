@@ -1,0 +1,432 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# Kornel Novak Mergulhão <nkornel@gmail.com>, 2016
+# Laszlo Molnar <lazlowmiller@gmail.com>, 2016
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2016-12-06 22:44+0000\n"
+"PO-Revision-Date: 2016-12-06 22:46+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"Language-Team: Hungarian (http://www.transifex.com/torchbox/wagtail/language/"
+"hu/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: hu\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Scheduled publishing"
+msgstr "Oldal közzététele későbbi időpontban"
+
+msgid "Common page configuration"
+msgstr "Az oldal általános beállításai"
+
+msgid "Content"
+msgstr "Tartalom"
+
+msgid "Settings"
+msgstr "Beállítások"
+
+msgid "Search"
+msgstr "Keresés"
+
+msgid "Search term"
+msgstr "Keresett szó(darab)"
+
+msgid "URL"
+msgstr "URL"
+
+msgid "Enter password"
+msgstr "Adja meg a jelszavát"
+
+#, python-format
+msgid "Enter your %s"
+msgstr "Adja meg a %s string-et"
+
+msgid "Enter your email address to reset your password"
+msgstr "Kérem adja meg az email címét, a jelszó változtatáshoz."
+
+msgid "Please fill your email address."
+msgstr "Kérem adja meg az email címét."
+
+msgid ""
+"Sorry, you cannot reset your password here as your user account is managed "
+"by another server."
+msgstr ""
+"Sajnálom, de nem változtathatja meg a jelszavát itt, mert azt egy másik "
+"szerver tárolja."
+
+msgid "This email address is not recognised."
+msgstr "Az email cím nem megfelelő."
+
+msgid "New title"
+msgstr "Új oldalcím"
+
+msgid "New slug"
+msgstr "Új domain-darabka (slug)"
+
+msgid "New parent page"
+msgstr "Új oldal"
+
+msgid "This copy will be a child of this given parent page."
+msgstr "Ez a másolat jelenlegi oldal alá fog tartozni."
+
+msgid "Copy subpages"
+msgstr "Aloldalak másolása"
+
+#, python-format
+msgid "This will copy %(count)s subpage."
+msgid_plural "This will copy %(count)s subpages."
+msgstr[0] "Aloldal másolása %(count)s példányban"
+msgstr[1] "Aloldal másolása %(count)s példányban."
+
+msgid "Publish copied page"
+msgstr "Oldal másolatának közzététele"
+
+msgid "This page is live. Would you like to publish its copy as well?"
+msgstr "Már közzétett oldal. Szeretné az oldal másolatát is közzétenni."
+
+msgid "Publish copies"
+msgstr "Másolatok közzététele"
+
+#, python-format
+msgid ""
+"%(count)s of the pages being copied is live. Would you like to publish its "
+"copy?"
+msgid_plural ""
+"%(count)s of the pages being copied are live. Would you like to publish "
+"their copies?"
+msgstr[0] ""
+"A másolni kívánt oldalt már közzétették %(count)s példányban. A másolatát is "
+"közzéteszi?"
+msgstr[1] ""
+"A másolni kívánt oldalakat már közzétették %(count)s példányban. A "
+"másolatait is közzéteszi?"
+
+#, python-format
+msgid ""
+"This slug is already in use within the context of its parent page \"%s\""
+msgstr "A domain-darabka már használatban van az oldal szülőoldalán \"%s\""
+
+msgid "This field is required."
+msgstr "Egy mező megadása szükséges."
+
+msgid "Expiry date/time must be in the future"
+msgstr "A lejárat dátumának/idejének egy jövőbeni időpontnak kell lennie."
+
+msgid "Account"
+msgstr "Felhasználói profil"
+
+msgid "Set gravatar"
+msgstr "Felhasználói profilkép beállitása Gravatar-ról"
+
+msgid ""
+"Your avatar image is provided by Gravatar and is connected to your email "
+"address. With a Gravatar account you can set an avatar for any number of "
+"other email addresses you use."
+msgstr ""
+"A felhasználói profilképét a Gravatar-ról állítottuk be és azt az email "
+"címéhez kötöttük. A Gravatar profilját több másik email címhez tartózó "
+"profilkép beállításához használhatja."
+
+msgid "Change password"
+msgstr "Jelszó megváltoztatása"
+
+msgid "Change the password you use to log in."
+msgstr "A bejelentkezéshez használt jelszó megváltoztatása."
+
+msgid "Notification preferences"
+msgstr "Értesítési beállítások"
+
+msgid "Choose which email notifications to receive."
+msgstr "Válassza ki miről szeretne email értesítéseket kapni."
+
+msgid "Change Password"
+msgstr "Jelszó megváltoztatása"
+
+msgid ""
+"Your password can't be changed here. Please contact a site administrator."
+msgstr ""
+"A jelszavát itt nem tudja megváltoztatni. Kérem vegye fel a kapcsolatot az "
+"oldal rendszergazdájával."
+
+msgid "Notification Preferences"
+msgstr "Értesítési beállítások"
+
+msgid "Update"
+msgstr "Frissítés"
+
+msgid "Reset password"
+msgstr "Jelszó módosítása"
+
+msgid "Password change successful"
+msgstr "A jelszót sikeresen módosította"
+
+msgid "Login"
+msgstr "Bejelentkezés"
+
+msgid "Set your new password"
+msgstr "Állítsa be az új jelszót"
+
+msgid "The passwords do not match. Please try again."
+msgstr ""
+"A fenti jelszavak nem egyeznek meg egymással. Kérem adja meg ismét azokat."
+
+msgid "Check your email"
+msgstr "Ellenőrizze emailjeit"
+
+msgid "A link to reset your password has been emailed to you."
+msgstr "Emailben küldtünk egy link-et a jelszó megváltoztatásához."
+
+msgid "Please follow the link below to reset your password:"
+msgstr "Kérem kattintson az alábbi linkre a jelszava módosításához."
+
+msgid "Password reset"
+msgstr "Jelszó módosítva"
+
+msgid "Reset your password"
+msgstr "Módosítsa jelszavát"
+
+msgid "Dashboard"
+msgstr "Műszerfal"
+
+msgid "Menu"
+msgstr "Menü"
+
+msgid "Add another"
+msgstr "Másik hozzáadása"
+
+msgid "Move up"
+msgstr "Mozgatás fel"
+
+msgid "Move down"
+msgstr "Mozgatás le"
+
+msgid "Delete"
+msgstr "Törlés"
+
+msgid "Explorer"
+msgstr "Böngésző"
+
+msgid "Internal link"
+msgstr "Belső link"
+
+msgid "External link"
+msgstr "Külső link"
+
+msgid "Email link"
+msgstr "Email link"
+
+#, python-format
+msgid ""
+"\n"
+"        There is one match\n"
+"    "
+msgid_plural ""
+"\n"
+"        There are %(counter)s matches\n"
+"    "
+msgstr[0] ""
+"\n"
+"Egy találat"
+msgstr[1] ""
+"\n"
+"%(counter)s számú találat"
+
+msgid "Choose"
+msgstr "Kiválasztás"
+
+msgid "Choose a page"
+msgstr "Oldal kiválasztása"
+
+#, python-format
+msgid ""
+"\n"
+"                Only pages of type \"%(type)s\" may be chosen for this "
+"field. Search results will exclude pages of other types.\n"
+"                "
+msgid_plural ""
+"\n"
+"                Only the following page types may be chosen for this field: "
+"%(type)s. Search results will exclude pages of other types.\n"
+"            "
+msgstr[0] ""
+"\n"
+"Csak a \"%(type)s\" fajta oldalak választható ki ennél a mezőnél. A keresés "
+"atugorja majd a többi fajta oldalakat."
+msgstr[1] ""
+"\n"
+"Csak a \"%(type)s\" típusú oldalak választható ki ennél a mezőnél. A keresés "
+"atugorja majd a többi fajta oldalakat."
+
+msgid "Add an email link"
+msgstr "Email link hozzáadása"
+
+msgid "Insert link"
+msgstr "Link beszúrása"
+
+msgid "Add an external link"
+msgstr "Külső link hozzáadása"
+
+msgid "Name"
+msgstr "Név"
+
+#, python-format
+msgid "Add %(heading)s"
+msgstr "%(heading)s hozzáadása"
+
+msgid "Yes, delete"
+msgstr "Törlés megerősítése"
+
+msgid "Save"
+msgstr "Mentés"
+
+#, python-format
+msgid "Welcome to the %(site_name)s Wagtail CMS"
+msgstr "Üdvözöljük a %(site_name)s Wagtail CMS oldalra"
+
+msgid ""
+"This is your dashboard on which helpful information about content you've "
+"created will be displayed."
+msgstr ""
+"Íme az Ön műszerfala, amelyen hasznos információk jelennek meg a létrehozott "
+"oldalairól."
+
+msgid "Pages awaiting moderation"
+msgstr "Moderálásra váró oldalak"
+
+msgid "Title"
+msgstr "Cím"
+
+msgid "Parent"
+msgstr "Szülő"
+
+msgid "Type"
+msgstr "Típus"
+
+msgid "Edited"
+msgstr "Szerkesztve"
+
+msgid "Edit this page"
+msgstr "Oldal szerkesztése"
+
+msgid "Approve"
+msgstr "Jóváhagy"
+
+msgid "Reject"
+msgstr "Elutasít"
+
+msgid "Edit"
+msgstr "Szerkeszt"
+
+msgid "Preview"
+msgstr "Előnézet"
+
+msgid "Your most recent edits"
+msgstr "A legutóbbi szerkesztések"
+
+msgid "Date"
+msgstr "Dátum"
+
+msgid "Status"
+msgstr "Állapot"
+
+msgid "Draft"
+msgstr "Vázlat"
+
+msgid "Live"
+msgstr "Közétett oldal"
+
+msgid "Site summary"
+msgstr "Oldal összegzés"
+
+#, python-format
+msgid ""
+"\n"
+"        <span>%(total)s</span> Page\n"
+"    "
+msgid_plural ""
+"\n"
+"        <span>%(total)s</span> Pages\n"
+"    "
+msgstr[0] ""
+"\n"
+"<span>%(total)s</span> Oldal"
+msgstr[1] ""
+"\n"
+"<span>%(total)s</span> Oldalak"
+
+msgid "Sign in"
+msgstr "Bejelentkezés"
+
+#, python-format
+msgid "Your %(username_field)s and password didn't match. Please try again."
+msgstr ""
+"A %(username_field)s felhasználónévhez tartozó jelszó nem megfelelő. "
+"Próbálja újra."
+
+msgid "Sign in to Wagtail"
+msgstr "Bejelentkezés a Wagtail-be"
+
+msgid "Forgotten it?"
+msgstr "Elfelejtette?"
+
+msgid "Signing in..."
+msgstr "Bejelentkezés..."
+
+#, python-format
+msgid "The page \"%(title)s\" has been approved."
+msgstr "A \"%(title)s\" című oldal jóváhagyásra került."
+
+msgid "You can view the page here:"
+msgstr "Az oldalt itt tekintheti meg:"
+
+#, python-format
+msgid "The page \"%(title)s\" has been approved"
+msgstr "A \"%(title)s\" című oldal jóváhagyásra került"
+
+msgid "Edit your notification preferences here:"
+msgstr "Az értesítési beállításait itt módosíthatja:"
+
+#, python-format
+msgid "The page \"%(title)s\" has been rejected."
+msgstr "A \"%(title)s\" című oldal elutasításra került."
+
+msgid "You can edit the page here:"
+msgstr "Az oldalt itt szerkesztheti:"
+
+#, python-format
+msgid "The page \"%(title)s\" has been rejected"
+msgstr "A \"%(title)s\" című oldal elutasításra került"
+
+#, python-format
+msgid "The page \"%(page)s\" has been submitted for moderation by %(editor)s."
+msgstr "A \"%(page)s\" oldalt %(editor)s benyújtotta moderálásra."
+
+msgid "You can preview the page here:"
+msgstr "Az oldal előnézetét itt tekintheti meg:"
+
+#, python-format
+msgid "The page \"%(page)s\" has been submitted for moderation"
+msgstr "A \"%(page)s\" oldalt benyújtotta moderálásra"
+
+msgid "Page privacy"
+msgstr "Az oldal hozzáferése"
+
+msgid "Locked"
+msgstr "Zárolt"
+
+msgid "Public"
+msgstr "Publikus"
+
+#, python-format
+msgid "Delete %(title)s"
+msgstr "Törlés: %(title)s"
+
+msgid "View live"
+msgstr "Előnézet"

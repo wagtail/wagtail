@@ -1,11 +1,2 @@
-{% extends "wagtailadmin/edit_handlers/chooser_panel.html" %}
-{% load i18n %}
-{% block chooser_class %}document-chooser{% endblock %}
-
-{% block chosen_state_view %}
-    <span class="title">{{ document.title }}</span>
-{% endblock %}
-
-{% block clear_button_label %}{% trans "Clear choice" %}{% endblock %}
-{% block choose_another_button_label %}{% trans "Choose another document" %}{% endblock %}
-{% block choose_button_label %}{% trans "Choose a document" %}{% endblock %}
+{# Document chooser is now implemented as an entirely standard form widget - document_chooser_panel.html is redundant #}
+{% include "wagtailadmin/shared/field.html" %}

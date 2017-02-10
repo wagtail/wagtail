@@ -1,0 +1,4 @@
+{% load wagtailadmin_tags %}
+<li class="{% if field.field.required %}required{% endif %} {{ wrapper_classes }} {{ li_classes }} {% if field.errors %}error{% endif %}">
+    {% include "wagtailimages/images/_file_field.html" %}
+</li>

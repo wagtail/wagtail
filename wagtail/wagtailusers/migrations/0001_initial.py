@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 
-from django.db import models, migrations
 from django.conf import settings
+from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
@@ -16,10 +16,19 @@ class Migration(migrations.Migration):
             name='UserProfile',
             fields=[
                 ('id', models.AutoField(serialize=False, verbose_name='ID', auto_created=True, primary_key=True)),
-                ('submitted_notifications', models.BooleanField(default=True, help_text='Receive notification when a page is submitted for moderation')),
-                ('approved_notifications', models.BooleanField(default=True, help_text='Receive notification when your page edit is approved')),
-                ('rejected_notifications', models.BooleanField(default=True, help_text='Receive notification when your page edit is rejected')),
-                ('user', models.OneToOneField(to=settings.AUTH_USER_MODEL)),
+                ('submitted_notifications', models.BooleanField(
+                    default=True,
+                    help_text='Receive notification when a page is submitted for moderation'
+                )),
+                ('approved_notifications', models.BooleanField(
+                    default=True,
+                    help_text='Receive notification when your page edit is approved'
+                )),
+                ('rejected_notifications', models.BooleanField(
+                    default=True,
+                    help_text='Receive notification when your page edit is rejected'
+                )),
+                ('user', models.OneToOneField(on_delete=models.CASCADE, to=settings.AUTH_USER_MODEL)),
             ],
             options={
             },

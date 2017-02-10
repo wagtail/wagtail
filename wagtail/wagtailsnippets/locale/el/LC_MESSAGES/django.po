@@ -1,152 +1,167 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# 
+#
 # Translators:
+# jim dal <dimitrisdal@gmail.com>, 2014
 # serafeim <serafeim@torchbox.com>, 2014
 # serafeim <serafeim@torchbox.com>, 2014
+# Wasilis Mandratzis-Walz, 2015
+# Yiannis Inglessis <negletios@users.noreply.github.com>, 2016
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-08-01 16:39+0100\n"
-"PO-Revision-Date: 2014-08-01 15:43+0000\n"
-"Last-Translator: Karl Hobley <karl@torchbox.com>\n"
-"Language-Team: Greek (http://www.transifex.com/projects/p/wagtail/language/el/)\n"
+"POT-Creation-Date: 2016-12-06 22:44+0000\n"
+"PO-Revision-Date: 2016-09-20 12:43+0000\n"
+"Last-Translator: Yiannis Inglessis <negletios@users.noreply.github.com>\n"
+"Language-Team: Greek (http://www.transifex.com/torchbox/wagtail/language/"
+"el/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: el\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: wagtail_hooks.py:25 templates/wagtailsnippets/snippets/index.html:3
-msgid "Snippets"
-msgstr "Snippets"
-
-#: templates/wagtailsnippets/chooser/choose.html:2
 msgid "Choose"
 msgstr "Επιλογή"
 
-#: templates/wagtailsnippets/edit_handlers/snippet_chooser_panel.html:10
-#, python-format
-msgid "Choose another %(snippet_type_name)s"
-msgstr "Επιλογή άλλου %(snippet_type_name)s"
+msgid "Search"
+msgstr "Αναζήτηση"
 
-#: templates/wagtailsnippets/edit_handlers/snippet_chooser_panel.html:11
 #, python-format
-msgid "Choose %(snippet_type_name)s"
-msgstr "Επιλογή %(snippet_type_name)s"
+msgid ""
+"\n"
+"            There is one match\n"
+"        "
+msgid_plural ""
+"\n"
+"            There are %(counter)s matches\n"
+"        "
+msgstr[0] ""
+"\n"
+"Υπάρχει ένα αποτέλεσμα"
+msgstr[1] ""
+"\n"
+"Υπάρχουν %(counter)s αποτελέσματα"
 
-#: templates/wagtailsnippets/snippets/confirm_delete.html:3
+#, python-format
+msgid ""
+"You haven't created any %(snippet_type_name)s snippets. Why not <a href="
+"\"%(wagtailsnippets_create_snippet_url)s\" target=\"_blank\">create one now"
+msgstr ""
+"Δεν έχετε δημιουργήσει κανένα %(snippet_type_name)s αποσπάσμα. Γιατί να μην "
+"το <a href=\"%(wagtailsnippets_create_snippet_url)s\" target=\"_blank\"> "
+"δημιουργήσετε τώρα"
+
 #, python-format
 msgid "Delete %(snippet_type_name)s - %(instance)s"
 msgstr "Διαγραφή του %(snippet_type_name)s - %(instance)s"
 
-#: templates/wagtailsnippets/snippets/confirm_delete.html:6
-#: templates/wagtailsnippets/snippets/edit.html:20
 msgid "Delete"
 msgstr "Διαγραφή"
 
-#: templates/wagtailsnippets/snippets/confirm_delete.html:10
 #, python-format
 msgid "Are you sure you want to delete this %(snippet_type_name)s?"
 msgstr "Είστε σίγουρος ότι θέλετε να διαγραφεί αυτό το %(snippet_type_name)s;"
 
-#: templates/wagtailsnippets/snippets/confirm_delete.html:13
 msgid "Yes, delete"
 msgstr "Ναι, να διαγραφεί"
 
-#: templates/wagtailsnippets/snippets/create.html:3
 #, python-format
 msgid "New  %(snippet_type_name)s"
 msgstr "Δημιουργία %(snippet_type_name)s"
 
-#: templates/wagtailsnippets/snippets/create.html:6
 msgid "New"
 msgstr "Δημιουργία"
 
-#: templates/wagtailsnippets/snippets/create.html:17
-#: templates/wagtailsnippets/snippets/edit.html:17
+msgid "Saving..."
+msgstr "Αποθήκευση..."
+
 msgid "Save"
 msgstr "Αποθήκευση"
 
-#: templates/wagtailsnippets/snippets/edit.html:3
 #, python-format
 msgid "Editing %(snippet_type_name)s - %(instance)s"
 msgstr "Διόρθωση %(snippet_type_name)s - %(instance)s"
 
-#: templates/wagtailsnippets/snippets/edit.html:6
 msgid "Editing"
 msgstr "Διόρθωση"
 
-#: templates/wagtailsnippets/snippets/list.html:8
-#: templates/wagtailsnippets/snippets/usage.html:16
+msgid "Snippets"
+msgstr "Snippets"
+
 msgid "Title"
 msgstr "Τίτλος"
 
-#: templates/wagtailsnippets/snippets/type_index.html:3
+#, python-format
+msgid ""
+"No %(snippet_type_name_plural)s have been created. Why not <a href="
+"\"%(wagtailsnippets_create_url)s\">add one</a>?"
+msgstr ""
+"Δεν υπάρχουν %(snippet_type_name_plural)s. Θέλετε να <a href="
+"\"%(wagtailsnippets_create_url)s\">προσθέσετε μερικά</a>;"
+
 #, python-format
 msgid "Snippets %(snippet_type_name_plural)s"
 msgstr "Snippets %(snippet_type_name_plural)s"
 
-#: templates/wagtailsnippets/snippets/type_index.html:10
 #, python-format
 msgid "Snippets <span>%(snippet_type_name_plural)s</span>"
 msgstr "Snippets <span>%(snippet_type_name_plural)s</span>"
 
-#: templates/wagtailsnippets/snippets/type_index.html:13
 #, python-format
 msgid "Add %(snippet_type_name)s"
 msgstr "Προσθήκη %(snippet_type_name)s"
 
-#: templates/wagtailsnippets/snippets/type_index.html:23
-#, python-format
-msgid ""
-"No %(snippet_type_name_plural)s have been created. Why not <a "
-"href=\"%(wagtailsnippets_create_url)s\">add one</a>?"
-msgstr "Δεν υπάρχουν %(snippet_type_name_plural)s. Θέλετε να <a href=\"%(wagtailsnippets_create_url)s\">προσθέσετε μερικά</a>;"
-
-#: templates/wagtailsnippets/snippets/usage.html:3
 #, python-format
 msgid "Usage of %(title)s"
-msgstr ""
+msgstr "Χρήση του  %(title)s"
 
-#: templates/wagtailsnippets/snippets/usage.html:5
 msgid "Usage of"
-msgstr ""
+msgstr "Χρήση του "
 
-#: templates/wagtailsnippets/snippets/usage.html:17
 msgid "Parent"
-msgstr ""
+msgstr "Γονέας"
 
-#: templates/wagtailsnippets/snippets/usage.html:18
 msgid "Type"
-msgstr ""
+msgstr "Τύπος"
 
-#: templates/wagtailsnippets/snippets/usage.html:19
 msgid "Status"
-msgstr ""
+msgstr "Κατάσταση"
 
-#: templates/wagtailsnippets/snippets/usage.html:26
 msgid "Edit this page"
-msgstr ""
+msgstr "Επεξεργασία αυτής της σελίδας"
 
-#: views/snippets.py:129
+#, python-brace-format
 msgid "{snippet_type} '{instance}' created."
 msgstr "Δημιουργήθηκε το '{instance}' τύπου {snippet_type}."
 
-#: views/snippets.py:136
+msgid "Edit"
+msgstr "Επεξεργασία "
+
 msgid "The snippet could not be created due to errors."
 msgstr "Δεν ήταν δυνατή η δημιουργία του snippet."
 
-#: views/snippets.py:170
+#, python-brace-format
 msgid "{snippet_type} '{instance}' updated."
 msgstr "Πραγματοποιήθηκε αλλαγή του '{instance}' τύπου {snippet_type}."
 
-#: views/snippets.py:177
 msgid "The snippet could not be saved due to errors."
 msgstr "Δεν ήταν δυνατή η αποθήκευση του snippet."
 
-#: views/snippets.py:206
+#, python-brace-format
 msgid "{snippet_type} '{instance}' deleted."
 msgstr "Το '{instance}' τύπου {snippet_type} διαγράφηκε."
+
+#, python-format
+msgid "Choose %s"
+msgstr "Επιλογή %s"
+
+#, python-format
+msgid "Choose another %s"
+msgstr "Επιλογή διαφορετικού %s"
+
+#, python-format
+msgid "Edit this %s"
+msgstr "Επεξεργασία αυτου %s"

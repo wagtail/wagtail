@@ -1,0 +1,47 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# Daigo Shitara <stain.witness@gmail.com>, 2014,2016
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2016-12-06 22:44+0000\n"
+"PO-Revision-Date: 2016-05-11 20:34+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"Language-Team: Japanese (http://www.transifex.com/torchbox/wagtail/language/"
+"ja/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: ja\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+msgid "Choose a root page"
+msgstr "ルートページを選択"
+
+msgid "Choose a different root page"
+msgstr "他のルートページを選択"
+
+msgid "Site"
+msgstr "サイト"
+
+msgid "Port"
+msgstr "ポート番号"
+
+msgid "Site name"
+msgstr "サイト名"
+
+msgid "Root page"
+msgstr "ルートページ"
+
+msgid "Default?"
+msgstr "デフォルト"
+
+msgid "Default"
+msgstr "デフォルト"
+
+msgid "Sites"
+msgstr "サイト一覧"

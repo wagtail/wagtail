@@ -1,10 +1,14 @@
+from __future__ import absolute_import, unicode_literals
+
 import datetime
 
+from django.conf import settings
 from django.db import models
 from django.utils import timezone
 from django.utils.encoding import python_2_unicode_compatible
+from django.utils.translation import ugettext_lazy as _
 
-from wagtail.wagtailsearch.utils import normalise_query_string, MAX_QUERY_STRING_LENGTH
+from wagtail.wagtailsearch.utils import MAX_QUERY_STRING_LENGTH, normalise_query_string
 
 
 @python_2_unicode_compatible
@@ -37,7 +41,9 @@ class Query(models.Model):
         """
         Deletes all Query records that have no daily hits or editors picks
         """
-        cls.objects.filter(daily_hits__isnull=True, editors_picks__isnull=True).delete()
+        extra_filter_kwargs = {'editors_picks__isnull': True, } if hasattr(cls, 'editors_picks') \
+            else {}
+        cls.objects.filter(daily_hits__isnull=True, **extra_filter_kwargs).delete()
 
     @classmethod
     def get(cls, query_string):
@@ -46,20 +52,23 @@ class Query(models.Model):
     @classmethod
     def get_most_popular(cls, date_since=None):
         # TODO: Implement date_since
-        return cls.objects.filter(daily_hits__isnull=False).annotate(_hits=models.Sum('daily_hits__hits')).distinct().order_by('-_hits')
+        return (cls.objects.filter(daily_hits__isnull=False)
+                .annotate(_hits=models.Sum('daily_hits__hits'))
+                .distinct().order_by('-_hits'))
 
 
 class QueryDailyHits(models.Model):
-    query = models.ForeignKey(Query, db_index=True, related_name='daily_hits')
+    query = models.ForeignKey(Query, db_index=True, related_name='daily_hits', on_delete=models.CASCADE)
     date = models.DateField()
     hits = models.IntegerField(default=0)
 
     @classmethod
-    def garbage_collect(cls):
+    def garbage_collect(cls, days=None):
         """
-        Deletes all QueryDailyHits records that are older than 7 days
+        Deletes all QueryDailyHits records that are older than a set number of days
         """
-        min_date = timezone.now().date() - datetime.timedelta(days=7)
+        days = getattr(settings, 'WAGTAILSEARCH_HITS_MAX_AGE', 7) if days is None else days
+        min_date = timezone.now().date() - datetime.timedelta(days)
 
         cls.objects.filter(date__lt=min_date).delete()
 
@@ -67,16 +76,4 @@ class QueryDailyHits(models.Model):
         unique_together = (
             ('query', 'date'),
         )
-
-
-class EditorsPick(models.Model):
-    query = models.ForeignKey(Query, db_index=True, related_name='editors_picks')
-    page = models.ForeignKey('wagtailcore.Page')
-    sort_order = models.IntegerField(null=True, blank=True, editable=False)
-    description = models.TextField(blank=True)
-
-    def __repr__(self):
-        return 'EditorsPick(query="' + self.query.query_string + '", page="' + self.page.title + '")'
-
-    class Meta:
-        ordering = ('sort_order', )
+        verbose_name = _('Query Daily Hits')

@@ -1,0 +1,116 @@
+$zindex-modal-background: 500;
+
+.fade {
+    @include transition(opacity .15s linear);
+    opacity: 0;
+    
+    &.in {
+        opacity: 1;
+    }
+}
+
+// Kill the scroll on the body
+.modal-open {
+    overflow: hidden;
+
+    .content-wrapper {
+        -webkit-transform: none;
+        transform: none;
+    }
+}
+
+// Container that the modal scrolls within
+.modal {
+    box-sizing: border-box;
+    display: none;
+    overflow: auto;
+    overflow-y: scroll;
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: $zindex-modal-background;
+}
+
+// Shell div to position the modal with bottom padding
+.modal-dialog {
+    box-sizing: border-box;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 0;
+    z-index: ($zindex-modal-background + 10);
+    height: 90%;
+    width: 85%;
+
+    &:before {
+        content: '';
+        display: inline-block;
+        height: 100%;
+        vertical-align: middle;
+        margin-right: -0.25em;
+    }
+}
+
+// Actual modal
+.modal-content {
+    box-sizing: border-box;
+    border-radius: 3px;
+    width: 98.7%;
+    position: relative;
+    background-color: $color-white;
+    outline: none;
+    margin-top: 2em;
+    padding-bottom: 3em;
+    display: inline-block;
+    vertical-align: middle;
+    overflow: hidden;
+}
+
+// Modal background
+.modal-backdrop {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: ($zindex-modal-background - 10);
+    background-color: $color-black;
+    
+    // Fade for backdrop
+    &.fade { opacity: 0; }
+    &.in { opacity: 0.5; }
+}
+
+.modal .close {
+    padding: 0;
+    position: absolute;
+    width: 50px;
+    height: 50px;
+    top: 10px;
+    right: 10px;
+    z-index: 1;
+}
+
+// Where all modal content resides
+.modal-body {
+    position: relative;
+    padding-bottom: 2em;
+
+    header {
+        padding-right: 100px;
+    }
+}
+
+@media screen and (min-width: $breakpoint-mobile) {
+    .modal-dialog {
+        padding: 0 0 2em $menu-width;
+    }
+}
+
+@media screen and (min-width: $breakpoint-desktop-larger) {
+    .modal-dialog {
+        max-width: $breakpoint-desktop-larger;
+        padding: 0 0 2em;
+    }
+}

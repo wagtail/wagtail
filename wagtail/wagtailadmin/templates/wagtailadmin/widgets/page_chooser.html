@@ -1,0 +1,7 @@
+{% extends "wagtailadmin/widgets/chooser.html" %}
+
+{% block chosen_state_view %}
+    <span class="title">{{ page.get_admin_display_title }}</span>
+{% endblock %}
+
+{% block edit_chosen_item_url %}{% if page %}{% url 'wagtailadmin_pages:edit' page.id %}{% endif %}{% endblock %}

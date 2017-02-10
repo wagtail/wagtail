@@ -2,10 +2,10 @@
 <li id="inline_child_{{ child.form.prefix }}">
     <ul class="controls">
         {% if can_order %}
-            <li class="icon text-replace white icon-order-up inline-child-move-up" id="{{ child.form.prefix }}-move-up">{% trans "Move up" %}</li>
-            <li class="icon text-replace white icon-order-down inline-child-move-down" id="{{ child.form.prefix }}-move-down">{% trans "Move down" %}</li>
+            <li><button type="button" class="button icon text-replace white icon-order-up inline-child-move-up" id="{{ child.form.prefix }}-move-up" title="{% trans 'Move up' %}">{% trans "Move up" %}</button></li>
+            <li><button type="button" class="button icon text-replace white icon-order-down inline-child-move-down" id="{{ child.form.prefix }}-move-down" title="{% trans 'Move down' %}">{% trans "Move down" %}</button></li>
         {% endif %}
-        <li class="icon text-replace white icon-bin" id="{{ child.form.DELETE.id_for_label }}-button">{% trans "Delete" %}</li>
+        <li><button type="button" class="button icon text-replace white icon-bin hover-no" id="{{ child.form.DELETE.id_for_label }}-button" title="{% trans 'Delete' %}">{% trans "Delete" %}</button></li>
     </ul>
     {{ child.render_form_content }}
 </li>

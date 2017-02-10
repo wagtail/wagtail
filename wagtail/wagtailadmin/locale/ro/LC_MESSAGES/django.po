@@ -1,94 +1,106 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# 
+#
 # Translators:
-# Dan Braghis, 2014
+# Dan Braghis, 2014-2016
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-08-01 16:38+0100\n"
-"PO-Revision-Date: 2014-08-01 15:43+0000\n"
-"Last-Translator: Karl Hobley <karl@torchbox.com>\n"
-"Language-Team: Romanian (http://www.transifex.com/projects/p/wagtail/language/ro/)\n"
+"POT-Creation-Date: 2016-12-06 22:44+0000\n"
+"PO-Revision-Date: 2016-12-06 22:46+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"Language-Team: Romanian (http://www.transifex.com/torchbox/wagtail/language/"
+"ro/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: ro\n"
-"Plural-Forms: nplurals=3; plural=(n==1?0:(((n%100>19)||((n%100==0)&&(n!=0)))?2:1));\n"
+"Plural-Forms: nplurals=3; plural=(n==1?0:(((n%100>19)||((n%100==0)&&(n!=0)))?"
+"2:1));\n"
 
-#: edit_handlers.py:627
+msgid "You do not have permission to access the admin"
+msgstr "Nu aveți permisiunea de a accesa zona de administrare."
+
 msgid "Scheduled publishing"
-msgstr ""
+msgstr "Publicare programată"
 
-#: edit_handlers.py:641
 msgid "Common page configuration"
 msgstr "Configurație de pagini generală"
 
-#: forms.py:19
+msgid "Content"
+msgstr "Conținut"
+
+msgid "Promote"
+msgstr "Promovează"
+
+msgid "Settings"
+msgstr "Setări"
+
+msgid "Search"
+msgstr "Căutare"
+
 msgid "Search term"
 msgstr "Termen de căutare"
 
-#: forms.py:43
-msgid "Enter your username"
-msgstr "Introduceți numele de utilizator"
+msgid "URL"
+msgstr "Adresă de internet"
 
-#: forms.py:46
 msgid "Enter password"
 msgstr "Introduceți parola"
 
-#: forms.py:51
+#, python-format
+msgid "Enter your %s"
+msgstr "Introduceți %s"
+
 msgid "Enter your email address to reset your password"
 msgstr "Introduceți adresa de e-mail pentru a reseta parola"
 
-#: forms.py:60
 msgid "Please fill your email address."
 msgstr "Introduceți adresa de e-mail."
 
-#: forms.py:73
 msgid ""
 "Sorry, you cannot reset your password here as your user account is managed "
 "by another server."
-msgstr "Ne pare rău, dar nu puteți reseta parola aici. Contul dvs. de utilizator este gestionat de un alt server."
+msgstr ""
+"Ne pare rău, dar nu puteți reseta parola aici. Contul dvs. de utilizator "
+"este gestionat de un alt server."
 
-#: forms.py:76
 msgid "This email address is not recognised."
 msgstr "Adresa e-mail nu este recunoscută."
 
-#: forms.py:88
 msgid "New title"
-msgstr ""
+msgstr "Titlu nou"
 
-#: forms.py:89
 msgid "New slug"
-msgstr ""
+msgstr "Slug nou"
 
-#: forms.py:95
+msgid "New parent page"
+msgstr "Pagină părinte nouă"
+
+msgid "This copy will be a child of this given parent page."
+msgstr "Copia dată va fi descendentă acestei pagini."
+
 msgid "Copy subpages"
-msgstr ""
+msgstr "Copiere subpagini"
 
-#: forms.py:97
 #, python-format
 msgid "This will copy %(count)s subpage."
 msgid_plural "This will copy %(count)s subpages."
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
+msgstr[0] "Va fi copiată %(count)s subpagină"
+msgstr[1] "Vor fi copiate %(count)s pagini."
+msgstr[2] "Vor fi copiate %(count)s subpagini."
 
-#: forms.py:106
 msgid "Publish copied page"
-msgstr ""
+msgstr "Publică pagina copiată"
 
-#: forms.py:107
 msgid "This page is live. Would you like to publish its copy as well?"
-msgstr ""
+msgstr "Această pagină este activă. Doriți să publicați și copia ei?"
 
-#: forms.py:109
 msgid "Publish copies"
-msgstr ""
+msgstr "Publică copiile"
 
-#: forms.py:111
 #, python-format
 msgid ""
 "%(count)s of the pages being copied is live. Would you like to publish its "
@@ -97,495 +109,416 @@ msgid_plural ""
 "%(count)s of the pages being copied are live. Would you like to publish "
 "their copies?"
 msgstr[0] ""
+"%(count)s din paginile în curs de copiere sunt active. Doriți să publicați "
+"și copia ei?"
 msgstr[1] ""
+"%(count)s pagini în curs de copiere sunt active. Doriți să publicați și "
+"copiile lor?"
 msgstr[2] ""
+"%(count)s pagini în curs de copiere sunt active. Doriți să publicați și "
+"copiile lor?"
 
-#: forms.py:124 views/pages.py:155 views/pages.py:272
+#, python-format
+msgid ""
+"This slug is already in use within the context of its parent page \"%s\""
+msgstr "Acest slug este deja folosit în contextul paginii părinte \"%s\""
+
+msgid "Visibility"
+msgstr "Vizibilitate"
+
+msgid "This field is required."
+msgstr "Acest câmp este obligatoriu."
+
 msgid "This slug is already in use"
 msgstr "Această fisă a fost deja folosită"
 
-#: forms.py:130 templates/wagtailadmin/pages/_privacy_indicator.html:13
-#: templates/wagtailadmin/pages/_privacy_indicator.html:18
-msgid "Public"
+msgid "Go live date/time must be before expiry date/time"
 msgstr ""
+"Data/timpul de publicare trebuie să fie înaintea datei/timpului de expirare"
 
-#: forms.py:131
-msgid "Private, accessible with the following password"
+msgid "Expiry date/time must be in the future"
+msgstr "Data/timpul de expirare trebuie să fie în viitor"
+
+msgid "You cannot have multiple permission records for the same collection."
 msgstr ""
+"Nu puteți avea înregistrări de permisiune multiple pentru aceeași colecție."
 
-#: forms.py:139
-msgid "This field is required."
+msgid "Account"
+msgstr "Cont"
+
+msgid "Set gravatar"
+msgstr "Setează gravatar"
+
+msgid ""
+"Your avatar image is provided by Gravatar and is connected to your email "
+"address. With a Gravatar account you can set an avatar for any number of "
+"other email addresses you use."
 msgstr ""
+"Avatarul este oferit de Gravatar și este legat de adresa dvs. de e-mail. "
+"Având un cont Gravatar, puteți seta un avatar pentru orice număr de adrese e-"
+"mail folosite."
 
-#: templates/wagtailadmin/base.html:7 templates/wagtailadmin/home.html:4
+msgid "Change password"
+msgstr "Schimbă parola"
+
+msgid "Change the password you use to log in."
+msgstr "Schimbați parola folosită pentru access."
+
+msgid "Notification preferences"
+msgstr "Preferințe de notificare"
+
+msgid "Choose which email notifications to receive."
+msgstr "Alege ce notificări să primiți prin e-mail."
+
+msgid "Change Password"
+msgstr "Schimbă parola"
+
+msgid ""
+"Your password can't be changed here. Please contact a site administrator."
+msgstr ""
+"Parola nu poate fi schimbată aici. Vă rugăm să contactați administratorii "
+"sitului."
+
+msgid "Notification Preferences"
+msgstr "Preferințe de notificare"
+
+msgid "Update"
+msgstr "Actualizează"
+
+msgid "Reset password"
+msgstr "Resetează parola"
+
+msgid "Password change successful"
+msgstr "Parola a fost schimbată cu succes"
+
+msgid "Login"
+msgstr "Autentificare"
+
+msgid "Set your new password"
+msgstr "Setează parola nouă"
+
+msgid "The passwords do not match. Please try again."
+msgstr "Parolele nu corespund. Vă rugăm să încercați din nou."
+
+msgid "Check your email"
+msgstr "Verificăți contul de e-mail"
+
+msgid "A link to reset your password has been emailed to you."
+msgstr "Link-ul de resetare a parolei a fost trimis prin e-mail."
+
+msgid "Please follow the link below to reset your password:"
+msgstr "Vă rugăm să urmați link-ul de mai jos pentru a reseta parola:"
+
+msgid "Your username (in case you've forgotten):"
+msgstr "Numele D-stră de utilizator (în caz că ați uitat):"
+
+msgid "Password reset"
+msgstr "Resetarea parolei"
+
+msgid "Reset your password"
+msgstr "Resetează parola"
+
 msgid "Dashboard"
 msgstr "Bord"
 
-#: templates/wagtailadmin/base.html:27
 msgid "Menu"
 msgstr "Meniu"
 
-#: templates/wagtailadmin/home.html:22
+msgid "Add another"
+msgstr "Adaugă altă listă"
+
+msgid "Move up"
+msgstr "Deplasează în sus"
+
+msgid "Move down"
+msgstr "Deplasează în jos"
+
+msgid "Delete"
+msgstr "Șterge"
+
+msgid "Explorer"
+msgstr "Explorator"
+
+msgid "Internal link"
+msgstr "Link intern"
+
+msgid "External link"
+msgstr "Link extern"
+
+msgid "Email link"
+msgstr "Link e-mail"
+
+#, python-format
+msgid ""
+"\n"
+"        There is one match\n"
+"    "
+msgid_plural ""
+"\n"
+"        There are %(counter)s matches\n"
+"    "
+msgstr[0] ""
+"\n"
+"Există o potrivire"
+msgstr[1] ""
+"\n"
+"Sunt %(counter)s potriviri"
+msgstr[2] ""
+"\n"
+"\n"
+"Sunt %(counter)s potriviri"
+
+msgid "Choose"
+msgstr "Alege"
+
+msgid "Choose a page"
+msgstr "Alege o pagină"
+
+#, python-format
+msgid ""
+"\n"
+"                Only pages of type \"%(type)s\" may be chosen for this "
+"field. Search results will exclude pages of other types.\n"
+"                "
+msgid_plural ""
+"\n"
+"                Only the following page types may be chosen for this field: "
+"%(type)s. Search results will exclude pages of other types.\n"
+"            "
+msgstr[0] ""
+"\n"
+"Numai pagini de tip \"%(type)s\" pot fi selectate pentru acest câmp. "
+"Rezultatele căutării vor exclude pagini de alt tip.            "
+msgstr[1] ""
+"\n"
+"Numai pagini de tipul următor pot fi selectate pentru acest câmp: %(type)s. "
+"Rezultatele căutării vor exclude pagini de alt tip."
+msgstr[2] ""
+"\n"
+"Numai pagini de tipul următor pot fi selectate pentru acest câmp: %(type)s. "
+"Rezultatele căutării vor exclude pagini de alt tip."
+
+msgid "Add an email link"
+msgstr "Adaugă un link e-mail"
+
+msgid "Insert link"
+msgstr "Inserează link"
+
+msgid "Add an external link"
+msgstr "Adaugă un link extern"
+
+msgid ""
+"This collection cannot be deleted, because it is not empty. It contains:"
+msgstr "Această colecție nu poate fi ștearsă pentru că nu este goală. Conține:"
+
+msgid "Name"
+msgstr "Nume"
+
+#, python-format
+msgid ""
+"No collections have been created. Why not <a href=\"%(add_collection_url)s"
+"\">add one</a>?"
+msgstr ""
+"Nu a fost creată nici o colecție. De ce să nu <a href="
+"\"%(add_collection_url)s\">adăugați una</a>?"
+
+#, python-format
+msgid "Add %(heading)s"
+msgstr "Adaugă %(heading)s"
+
+msgid "Yes, delete"
+msgstr "Da, șterge"
+
+msgid "Save"
+msgstr "Salvează"
+
 #, python-format
 msgid "Welcome to the %(site_name)s Wagtail CMS"
 msgstr "Bine ați venit la %(site_name)s Wagtail CMS"
 
-#: templates/wagtailadmin/home.html:33
 msgid ""
 "This is your dashboard on which helpful information about content you've "
 "created will be displayed."
 msgstr "Aici va fi afișată informație utilă despre conținutul creat de dvs."
 
-#: templates/wagtailadmin/login.html:4 templates/wagtailadmin/login.html:59
-msgid "Sign in"
-msgstr "Conectare"
-
-#: templates/wagtailadmin/login.html:18
-msgid "Your username and password didn't match. Please try again."
-msgstr "Numele de utilizator și parola nu corespund. Vă rugăm să încercați din nou."
-
-#: templates/wagtailadmin/login.html:26
-msgid "Sign in to Wagtail"
-msgstr "Conectați-vă la Wagtail"
-
-#: templates/wagtailadmin/login.html:46
-msgid "Forgotten it?"
-msgstr "Ați uitat?"
-
-#: templates/wagtailadmin/account/account.html:4
-#: templates/wagtailadmin/account/account.html:6
-msgid "Account"
-msgstr "Cont"
-
-#: templates/wagtailadmin/account/account.html:13
-msgid "Set gravatar"
-msgstr "Setează gravatar"
-
-#: templates/wagtailadmin/account/account.html:17
-msgid ""
-"Your avatar image is provided by Gravatar and is connected to your email "
-"address. With a Gravatar account you can set an avatar for any number of "
-"other email addresses you use."
-msgstr "Avatarul este oferit de Gravatar și este legat de adresa dvs. de e-mail. Având un cont Gravatar, puteți seta un avatar pentru orice număr de adrese e-mail folosite."
-
-#: templates/wagtailadmin/account/account.html:25
-#: templates/wagtailadmin/account/change_password.html:4
-#: templates/wagtailadmin/account/change_password.html:6
-msgid "Change password"
-msgstr "Schimbă parola"
-
-#: templates/wagtailadmin/account/account.html:29
-msgid "Change the password you use to log in."
-msgstr "Schimbați parola folosită pentru access."
-
-#: templates/wagtailadmin/account/account.html:36
-msgid "Notification preferences"
-msgstr ""
-
-#: templates/wagtailadmin/account/account.html:40
-msgid "Choose which email notifications to receive."
-msgstr ""
-
-#: templates/wagtailadmin/account/change_password.html:18
-msgid "Change Password"
-msgstr "Schimbă parola"
-
-#: templates/wagtailadmin/account/change_password.html:21
-msgid ""
-"Your password can't be changed here. Please contact a site administrator."
-msgstr "Parola nu poate fi schimbată aici. Vă rugăm să contactați administratorii sitului."
-
-#: templates/wagtailadmin/account/notification_preferences.html:4
-#: templates/wagtailadmin/account/notification_preferences.html:6
-msgid "Notification Preferences"
-msgstr ""
-
-#: templates/wagtailadmin/account/notification_preferences.html:16
-msgid "Update"
-msgstr ""
-
-#: templates/wagtailadmin/account/password_reset/complete.html:4
-#: templates/wagtailadmin/account/password_reset/confirm.html:42
-#: templates/wagtailadmin/account/password_reset/done.html:4
-#: templates/wagtailadmin/account/password_reset/form.html:4
-#: templates/wagtailadmin/account/password_reset/form.html:37
-msgid "Reset password"
-msgstr "Resetează parola"
-
-#: templates/wagtailadmin/account/password_reset/complete.html:15
-msgid "Password change successful"
-msgstr "Parola a fost schimbată cu succes"
-
-#: templates/wagtailadmin/account/password_reset/complete.html:16
-msgid "Login"
-msgstr "Autentificare"
-
-#: templates/wagtailadmin/account/password_reset/confirm.html:4
-#: templates/wagtailadmin/account/password_reset/confirm.html:26
-msgid "Set your new password"
-msgstr "Setează parola nouă"
-
-#: templates/wagtailadmin/account/password_reset/confirm.html:19
-msgid "The passwords do not match. Please try again."
-msgstr "Parolele nu corespund. Vă rugăm să încercați din nou."
-
-#: templates/wagtailadmin/account/password_reset/done.html:15
-msgid "Check your email"
-msgstr "Verificăți contul de e-mail"
-
-#: templates/wagtailadmin/account/password_reset/done.html:16
-msgid "A link to reset your password has been emailed to you."
-msgstr "Link-ul de resetare a parolei a fost trimis prin e-mail."
-
-#: templates/wagtailadmin/account/password_reset/email.txt:2
-msgid "Please follow the link below to reset your password"
-msgstr "Vă rugăm să urmați link-ul de mai jos pentru a reseta parola"
-
-#: templates/wagtailadmin/account/password_reset/email_subject.txt:2
-msgid "Password reset"
-msgstr "Resetarea parolei"
-
-#: templates/wagtailadmin/account/password_reset/form.html:27
-msgid "Reset your password"
-msgstr "Resetează parola"
-
-#: templates/wagtailadmin/chooser/_link_types.html:5
-#: templates/wagtailadmin/chooser/_link_types.html:7
-msgid "Internal link"
-msgstr "Link intern"
-
-#: templates/wagtailadmin/chooser/_link_types.html:11
-#: templates/wagtailadmin/chooser/_link_types.html:13
-msgid "External link"
-msgstr "Link extern"
-
-#: templates/wagtailadmin/chooser/_link_types.html:17
-#: templates/wagtailadmin/chooser/_link_types.html:19
-msgid "Email link"
-msgstr "Link e-mail"
-
-#: templates/wagtailadmin/chooser/_search_form.html:7
-#: templates/wagtailadmin/pages/search.html:3
-#: templates/wagtailadmin/pages/search.html:16
-#: templatetags/wagtailadmin_tags.py:36
-msgid "Search"
-msgstr "Căutare"
-
-#: templates/wagtailadmin/chooser/_search_results.html:3
-#: templatetags/wagtailadmin_tags.py:35
-msgid "Explorer"
-msgstr "Explorator"
-
-#: templates/wagtailadmin/chooser/_search_results.html:8
-#, python-format
-msgid ""
-"\n"
-"            There is one match\n"
-"        "
-msgid_plural ""
-"\n"
-"            There are %(counter)s matches\n"
-"        "
-msgstr[0] "\nExistă o potrivire"
-msgstr[1] "\nSunt %(counter)s potriviri"
-msgstr[2] "\nSunt %(counter)s potriviri"
-
-#: templates/wagtailadmin/chooser/browse.html:2
-#: templates/wagtailadmin/chooser/search.html:2
-#: templates/wagtailadmin/edit_handlers/page_chooser_panel.html:13
-msgid "Choose a page"
-msgstr "Selectează o pagină"
-
-#: templates/wagtailadmin/chooser/email_link.html:2
-msgid "Add an email link"
-msgstr "Adaugă un link e-mail"
-
-#: templates/wagtailadmin/chooser/email_link.html:14
-#: templates/wagtailadmin/chooser/external_link.html:14
-msgid "Insert link"
-msgstr "Inserează link"
-
-#: templates/wagtailadmin/chooser/external_link.html:2
-msgid "Add an external link"
-msgstr "Adaugă un link extern"
-
-#: templates/wagtailadmin/edit_handlers/chooser_panel.html:20
-msgid "Clear choice"
-msgstr "Curăță selecție"
-
-#: templates/wagtailadmin/edit_handlers/chooser_panel.html:22
-msgid "Choose another item"
-msgstr "Alege un alt element"
-
-#: templates/wagtailadmin/edit_handlers/chooser_panel.html:27
-msgid "Choose an item"
-msgstr "Alege un element"
-
-#: templates/wagtailadmin/edit_handlers/inline_panel_child.html:5
-msgid "Move up"
-msgstr "Deplasează în sus"
-
-#: templates/wagtailadmin/edit_handlers/inline_panel_child.html:6
-msgid "Move down"
-msgstr "Deplasează în jos"
-
-#: templates/wagtailadmin/edit_handlers/inline_panel_child.html:8
-#: templates/wagtailadmin/pages/confirm_delete.html:7
-#: templates/wagtailadmin/pages/edit.html:45
-#: templates/wagtailadmin/pages/list.html:84
-#: templates/wagtailadmin/pages/list.html:205
-msgid "Delete"
-msgstr "Șterge"
-
-#: templates/wagtailadmin/edit_handlers/page_chooser_panel.html:12
-msgid "Choose another page"
-msgstr "Alege altă pagină"
-
-#: templates/wagtailadmin/home/pages_for_moderation.html:5
 msgid "Pages awaiting moderation"
 msgstr "Pagini în moderație"
 
-#: templates/wagtailadmin/home/pages_for_moderation.html:13
-#: templates/wagtailadmin/home/recent_edits.html:12
-#: templates/wagtailadmin/pages/list.html:121
-#: templates/wagtailadmin/pages/list.html:124
 msgid "Title"
 msgstr "Titlu"
 
-#: templates/wagtailadmin/home/pages_for_moderation.html:14
-#: templates/wagtailadmin/pages/list.html:22
 msgid "Parent"
 msgstr "Bază"
 
-#: templates/wagtailadmin/home/pages_for_moderation.html:15
-#: templates/wagtailadmin/pages/list.html:24
-#: templates/wagtailadmin/pages/list.html:133
-#: templates/wagtailadmin/pages/list.html:136
 msgid "Type"
 msgstr "Tip"
 
-#: templates/wagtailadmin/home/pages_for_moderation.html:16
 msgid "Edited"
 msgstr "Editat"
 
-#: templates/wagtailadmin/home/pages_for_moderation.html:23
-#: templates/wagtailadmin/home/recent_edits.html:21
-#: templates/wagtailadmin/pages/list.html:176
-#: templates/wagtailadmin/pages/list.html:190
 msgid "Edit this page"
 msgstr "Editează această pagină"
 
-#: templates/wagtailadmin/home/pages_for_moderation.html:28
-#: templates/wagtailadmin/pages/_moderator_userbar.html:12
-#: templates/wagtailadmin/userbar/item_page_approve.html:8
 msgid "Approve"
 msgstr "Aprobă"
 
-#: templates/wagtailadmin/home/pages_for_moderation.html:34
-#: templates/wagtailadmin/pages/_moderator_userbar.html:17
-#: templates/wagtailadmin/userbar/item_page_reject.html:8
 msgid "Reject"
 msgstr "Respinge"
 
-#: templates/wagtailadmin/home/pages_for_moderation.html:37
-#: templates/wagtailadmin/home/recent_edits.html:23
-#: templates/wagtailadmin/pages/_moderator_userbar.html:9
-#: templates/wagtailadmin/pages/list.html:72
-#: templates/wagtailadmin/pages/list.html:190
-#: templates/wagtailadmin/userbar/item_page_edit.html:5
 msgid "Edit"
 msgstr "Editează"
 
-#: templates/wagtailadmin/home/pages_for_moderation.html:38
-#: templates/wagtailadmin/pages/create.html:41
-#: templates/wagtailadmin/pages/edit.html:56
-#: templates/wagtailadmin/pages/preview.html:5
 msgid "Preview"
 msgstr "Examinare"
 
-#: templates/wagtailadmin/home/recent_edits.html:5
 msgid "Your most recent edits"
 msgstr "Modificările cele mai recente"
 
-#: templates/wagtailadmin/home/recent_edits.html:13
 msgid "Date"
 msgstr "Dată"
 
-#: templates/wagtailadmin/home/recent_edits.html:14
-#: templates/wagtailadmin/pages/edit.html:18
-#: templates/wagtailadmin/pages/list.html:25
-#: templates/wagtailadmin/pages/list.html:142
-#: templates/wagtailadmin/pages/list.html:145
 msgid "Status"
 msgstr "Status"
 
-#: templates/wagtailadmin/home/recent_edits.html:25
-#: templates/wagtailadmin/pages/list.html:75
-#: templates/wagtailadmin/pages/list.html:193
 msgid "Draft"
-msgstr ""
+msgstr "Ciornă"
 
-#: templates/wagtailadmin/home/recent_edits.html:28
-#: templates/wagtailadmin/pages/list.html:78
-#: templates/wagtailadmin/pages/list.html:196
 msgid "Live"
-msgstr ""
+msgstr "Activată"
 
-#: templates/wagtailadmin/home/site_summary.html:3
 msgid "Site summary"
-msgstr "Rezumat sit"
+msgstr "Rezumat sait"
 
-#: templates/wagtailadmin/home/site_summary.html:7
 #, python-format
 msgid ""
 "\n"
-"                <span>%(total_pages)s</span> Page\n"
-"            "
+"        <span>%(total)s</span> Page\n"
+"    "
 msgid_plural ""
 "\n"
-"                <span>%(total_pages)s</span> Pages\n"
-"            "
-msgstr[0] "\n<span>%(total_pages)s</span> pagină"
-msgstr[1] "\n<span>%(total_pages)s</span> pagini"
-msgstr[2] "\n<span>%(total_pages)s</span> pagini"
+"        <span>%(total)s</span> Pages\n"
+"    "
+msgstr[0] ""
+"\n"
+"<span>%(total)s</span> pagină"
+msgstr[1] ""
+"\n"
+"<span>%(total)s</span> pagini"
+msgstr[2] ""
+"\n"
+"<span>%(total)s</span> pagini"
 
-#: templates/wagtailadmin/home/site_summary.html:16
+msgid "Sign in"
+msgstr "Conectare"
+
 #, python-format
-msgid ""
-"\n"
-"                <span>%(total_images)s</span> Image\n"
-"            "
-msgid_plural ""
-"\n"
-"                <span>%(total_images)s</span> Images\n"
-"            "
-msgstr[0] "\n<span>%(total_images)s</span> imagine"
-msgstr[1] "\n<span>%(total_images)s</span> imagini"
-msgstr[2] "\n<span>%(total_images)s</span> imagini"
+msgid "Your %(username_field)s and password didn't match. Please try again."
+msgstr ""
+"%(username_field)s și parola nu corespund. Vă rugăm să încercați din nou."
 
-#: templates/wagtailadmin/home/site_summary.html:25
-#, python-format
-msgid ""
-"\n"
-"                <span>%(total_docs)s</span> Document\n"
-"            "
-msgid_plural ""
-"\n"
-"                <span>%(total_docs)s</span> Documents\n"
-"            "
-msgstr[0] "\n<span>%(total_docs)s</span> document"
-msgstr[1] "\n<span>%(total_docs)s</span> documente"
-msgstr[2] "\n<span>%(total_docs)s</span> documente"
+msgid "Sign in to Wagtail"
+msgstr "Conectați-vă la Wagtail"
 
-#: templates/wagtailadmin/notifications/approved.html:1
-#, python-format
-msgid "The page \"%(title)s\" has been approved"
-msgstr "Pagina \"%(title)s\" a fost aprobată"
+msgid "Forgotten it?"
+msgstr "Ați uitat?"
 
-#: templates/wagtailadmin/notifications/approved.html:2
+msgid "Signing in..."
+msgstr "În curs de conectare..."
+
 #, python-format
 msgid "The page \"%(title)s\" has been approved."
 msgstr "Pagina \"%(title)s\" a fost aprobată."
 
-#: templates/wagtailadmin/notifications/approved.html:4
 msgid "You can view the page here:"
 msgstr "Puteți vedea pagina aici:"
 
-#: templates/wagtailadmin/notifications/base_notification.html:3
-msgid "Edit your notification preferences here:"
-msgstr ""
-
-#: templates/wagtailadmin/notifications/rejected.html:1
 #, python-format
-msgid "The page \"%(title)s\" has been rejected"
-msgstr "Pagina \"%(title)s\" a fost respinsă"
+msgid "The page \"%(title)s\" has been approved"
+msgstr "Pagina \"%(title)s\" a fost aprobată"
 
-#: templates/wagtailadmin/notifications/rejected.html:2
+#, python-format
+msgid "Hello %(username)s,"
+msgstr "Salut %(username)s,"
+
+msgid "Edit your notification preferences here:"
+msgstr "Editează preferințele de notificare aici:"
+
 #, python-format
 msgid "The page \"%(title)s\" has been rejected."
 msgstr "Pagina \"%(title)s\" a fost respinsă."
 
-#: templates/wagtailadmin/notifications/rejected.html:4
-#: templates/wagtailadmin/notifications/submitted.html:5
 msgid "You can edit the page here:"
 msgstr "Puteți edita pagina aici:"
 
-#: templates/wagtailadmin/notifications/submitted.html:1
+#, python-format
+msgid "The page \"%(title)s\" has been rejected"
+msgstr "Pagina \"%(title)s\" a fost respinsă"
+
+#, python-format
+msgid "The page \"%(page)s\" has been submitted for moderation by %(editor)s."
+msgstr ""
+"Pagina \"%(page)s\" a fost trimisă pentru moderare de către %(editor)s."
+
+msgid "You can preview the page here:"
+msgstr "Puteți examina pagina aici:"
+
 #, python-format
 msgid "The page \"%(page)s\" has been submitted for moderation"
 msgstr "Pagina \"%(page)s\" a fost trimisă pentru moderare"
 
-#: templates/wagtailadmin/notifications/submitted.html:2
-#, python-format
-msgid "The page \"%(page)s\" has been submitted for moderation."
-msgstr "Pagina \"%(page)s\" a fost trimisă pentru moderare."
-
-#: templates/wagtailadmin/notifications/submitted.html:4
-msgid "You can preview the page here:"
-msgstr "Puteți examina pagina aici:"
-
-#: templates/wagtailadmin/page_privacy/ancestor_privacy.html:2
-#: templates/wagtailadmin/page_privacy/set_privacy.html:2
 msgid "Page privacy"
-msgstr ""
+msgstr "Confidențialitate"
 
-#: templates/wagtailadmin/page_privacy/ancestor_privacy.html:6
 msgid "This page has been made private by a parent page."
-msgstr ""
+msgstr "Această pagină a fost făcută privată de către o pagină părinte."
 
-#: templates/wagtailadmin/page_privacy/ancestor_privacy.html:7
 msgid "You can edit the privacy settings on:"
+msgstr "Puteți edita setările de confidențialitate la:"
+
+msgid "Privacy changes apply to all children of this page too."
 msgstr ""
+"Schimbările setărilor de confidențialitate se aplică și pentru toate "
+"paginile descendente."
 
-#: templates/wagtailadmin/page_privacy/set_privacy.html:6
-msgid "<b>Note:</b> privacy changes apply to all children of this page too."
-msgstr ""
+msgid "Edit lock"
+msgstr "Editează blocare"
 
-#: templates/wagtailadmin/pages/_moderator_userbar.html:4
-#, python-format
-msgid ""
-"\n"
-"            Previewing '%(title)s', submitted by %(submitted_by)s on %(submitted_on)s.\n"
-"        "
-msgstr "\nExaminare '%(title)s', trimisă de %(submitted_by)s pe data de %(submitted_on)s."
+msgid "Locked"
+msgstr "Blocat"
 
-#: templates/wagtailadmin/pages/_privacy_indicator.html:9
+msgid "Unlocked"
+msgstr "Deblocat"
+
 msgid "Privacy"
-msgstr ""
+msgstr "Confidențialitate"
 
-#: templates/wagtailadmin/pages/_privacy_indicator.html:14
-#: templates/wagtailadmin/pages/_privacy_indicator.html:20
+msgid "Public"
+msgstr "Public"
+
 msgid "Private"
-msgstr ""
+msgstr "Privat"
 
-#: templates/wagtailadmin/pages/add_subpage.html:6
 #, python-format
 msgid "Create a page in %(title)s"
 msgstr "Crează o pagină în %(title)s"
 
-#: templates/wagtailadmin/pages/add_subpage.html:9
 msgid "Create a page in"
 msgstr "Crează pagină în"
 
-#: templates/wagtailadmin/pages/add_subpage.html:13
 msgid "Choose which type of page you'd like to create."
 msgstr "Alegeți tipul de pagină pe care doriți să creați."
 
-#: templates/wagtailadmin/pages/add_subpage.html:26
 #, python-format
 msgid "Pages using %(page_type)s"
 msgstr "Pagini de tip %(page_type)s"
 
-#: templates/wagtailadmin/pages/confirm_delete.html:3
 #, python-format
 msgid "Delete %(title)s"
 msgstr "Șterge %(title)s"
 
-#: templates/wagtailadmin/pages/confirm_delete.html:12
 msgid "Are you sure you want to delete this page?"
 msgstr "Sigur doriți să ștergeți această pagină?"
 
-#: templates/wagtailadmin/pages/confirm_delete.html:14
 #, python-format
 msgid ""
 "\n"
@@ -593,475 +526,667 @@ msgid ""
 "                "
 msgid_plural ""
 "\n"
-"                    This will also delete %(descendant_count)s more subpages.\n"
+"                    This will also delete %(descendant_count)s more "
+"subpages.\n"
 "                "
-msgstr[0] "\nAceastă acțiune va șterge și o subpagină."
-msgstr[1] "\nAceastă acțiune va șterge %(descendant_count)s subpagini."
-msgstr[2] "\nAceastă acțiune va șterge %(descendant_count)s subpagini."
+msgstr[0] ""
+"\n"
+"Această acțiune va șterge și o subpagină."
+msgstr[1] ""
+"\n"
+"Această acțiune va șterge %(descendant_count)s subpagini."
+msgstr[2] ""
+"\n"
+"Această acțiune va șterge %(descendant_count)s subpagini."
 
-#: templates/wagtailadmin/pages/confirm_delete.html:22
+msgid "Yes, delete it"
+msgstr "Da, șterge"
+
+msgid "No, don't delete it"
+msgstr "Nu, nu șterge"
+
+#, python-format
 msgid ""
-"Alternatively you can unpublish the page. This removes the page from public "
-"view and you can edit or publish it again later."
-msgstr "Puteți să anulați pagina ca alternativă. Această acțiune retrage pagina  din domeniul public, dar puteți edita sau publica pagina ulterior."
+"Alternatively you can <a href=\"%(unpublish_url)s\">unpublish the page</a>. "
+"This removes the page from public view and you can edit or publish it again "
+"later."
+msgstr ""
+"Puteți să <a href=\"%(unpublish_url)s\">anulați pagina</a> ca alternativă. "
+"Această acțiune retrage pagina  din domeniul public, dar puteți edita sau "
+"publica pagina ulterior."
 
-#: templates/wagtailadmin/pages/confirm_delete.html:26
-msgid "Delete it"
-msgstr "Șterge"
-
-#: templates/wagtailadmin/pages/confirm_delete.html:26
-msgid "Unpublish it"
-msgstr "Anulează publicarea"
-
-#: templates/wagtailadmin/pages/confirm_move.html:3
 #, python-format
 msgid "Move %(title)s"
 msgstr "Mută %(title)s"
 
-#: templates/wagtailadmin/pages/confirm_move.html:6
-#: templates/wagtailadmin/pages/list.html:81
-#: templates/wagtailadmin/pages/list.html:199
 msgid "Move"
 msgstr "Mută"
 
-#: templates/wagtailadmin/pages/confirm_move.html:11
 #, python-format
 msgid "Are you sure you want to move this page into '%(title)s'?"
 msgstr "Sigur doriți să mutați această pagină în '%(title)s'?"
 
-#: templates/wagtailadmin/pages/confirm_move.html:13
 #, python-format
 msgid ""
 "Are you sure you want to move this page and all of its children into "
 "'%(title)s'?"
-msgstr "Sigur doriți să mutați această pagină și paginile dependente în '%(title)s'?"
+msgstr ""
+"Sigur doriți să mutați această pagină și paginile dependente în '%(title)s'?"
 
-#: templates/wagtailadmin/pages/confirm_move.html:18
 msgid "Yes, move this page"
 msgstr "Da, mută această pagină"
 
-#: templates/wagtailadmin/pages/confirm_unpublish.html:3
 #, python-format
 msgid "Unpublish %(title)s"
 msgstr "Anulează publicarea %(title)s"
 
-#: templates/wagtailadmin/pages/confirm_unpublish.html:6
-#: templates/wagtailadmin/pages/edit.html:42
-#: templates/wagtailadmin/pages/list.html:87
-#: templates/wagtailadmin/pages/list.html:208
 msgid "Unpublish"
 msgstr "Anulează publicarea"
 
-#: templates/wagtailadmin/pages/confirm_unpublish.html:10
 msgid "Are you sure you want to unpublish this page?"
 msgstr "Sigur doriți să anulați publicarea aceastei pagini?"
 
-#: templates/wagtailadmin/pages/confirm_unpublish.html:13
+#, python-format
+msgid ""
+"\n"
+"                    This page has one subpage. Unpublish this too\n"
+"                "
+msgid_plural ""
+"\n"
+"                    This page has %(live_descendant_count)s subpages. "
+"Unpublish these too\n"
+"                "
+msgstr[0] ""
+"\n"
+"Această pagină are o subpagină. Anulează și publicarea ei"
+msgstr[1] ""
+"\n"
+"Această pagină are %(live_descendant_count)s subpagini. Anulează publicarea "
+"lor"
+msgstr[2] ""
+"\n"
+"Această pagină are %(live_descendant_count)s subpagini. Anulează și "
+"publicarea lor"
+
 msgid "Yes, unpublish it"
 msgstr "Da, anulează publicarea"
 
-#: templates/wagtailadmin/pages/content_type_use.html:7
+msgid "No, don't unpublish"
+msgstr "Nu, nu anulează publicarea"
+
 msgid "Pages using"
 msgstr "Pagini cu"
 
-#: templates/wagtailadmin/pages/copy.html:3
 #, python-format
 msgid "Copy %(title)s"
-msgstr ""
+msgstr "Copie %(title)s"
 
-#: templates/wagtailadmin/pages/copy.html:6
-#: templates/wagtailadmin/pages/list.html:202
 msgid "Copy"
-msgstr ""
+msgstr "Copie"
 
-#: templates/wagtailadmin/pages/copy.html:26
 msgid "Copy this page"
-msgstr ""
+msgstr "Copie această pagină"
 
-#: templates/wagtailadmin/pages/create.html:5
 #, python-format
 msgid "New %(page_type)s"
 msgstr "%(page_type)s nouă"
 
-#: templates/wagtailadmin/pages/create.html:15
 msgid "New"
 msgstr "Nou"
 
-#: templates/wagtailadmin/pages/create.html:29
-msgid "Save as draft"
-msgstr "Salvează ca ciornă"
+msgid "Saving..."
+msgstr "În curse de salvare..."
 
-#: templates/wagtailadmin/pages/create.html:33
-#: templates/wagtailadmin/pages/edit.html:48
-msgid "Publish"
-msgstr "Publică"
-
-#: templates/wagtailadmin/pages/create.html:35
-#: templates/wagtailadmin/pages/edit.html:50
-msgid "Submit for moderation"
-msgstr "Trimite pentru moderare"
-
-#: templates/wagtailadmin/pages/edit.html:5
-#, python-format
-msgid "Editing %(title)s"
-msgstr "Editare %(title)s"
-
-#: templates/wagtailadmin/pages/edit.html:15
-#, python-format
-msgid "Editing <span>%(title)s</span>"
-msgstr "Editare <span>%(title)s</span>"
-
-#: templates/wagtailadmin/pages/edit.html:38
 msgid "Save draft"
 msgstr "Salvează ca ciornă"
 
-#: templates/wagtailadmin/pages/edit.html:77
+msgid "Publishing..."
+msgstr "În curs de publicare..."
+
+msgid "Publish"
+msgstr "Publică"
+
+msgid "Submit for moderation"
+msgstr "Trimite pentru moderare"
+
+msgid "This page has unsaved changes."
+msgstr "Această pagină conține modificări nesalvate."
+
+#, python-format
+msgid "Editing %(page_type)s: %(title)s"
+msgstr "Editare %(page_type)s: %(title)s"
+
+#, python-format
+msgid "Editing %(page_type)s <span>%(title)s</span>"
+msgstr "Editare %(page_type)s <span>%(title)s</span>"
+
+msgid "Page locked"
+msgstr "Pagină blocată"
+
+msgid "Replace current draft"
+msgstr "Înlocuiește ciorna curentă"
+
+msgid "Publish this revision"
+msgstr "Publică această revizie"
+
 #, python-format
 msgid "Last modified: %(last_mod)s"
 msgstr "Ultima modificare: %(last_mod)s"
 
-#: templates/wagtailadmin/pages/edit.html:79
 #, python-format
 msgid "by %(modified_by)s"
 msgstr "de către %(modified_by)s"
 
-#: templates/wagtailadmin/pages/index.html:3
+msgid "Revisions"
+msgstr "Revizii"
+
 #, python-format
 msgid "Exploring %(title)s"
 msgstr "Explorare %(title)s"
 
-#: templates/wagtailadmin/pages/list.html:90
-#: templates/wagtailadmin/pages/list.html:211
-msgid "Add child page"
-msgstr "Adaugă pagină dependentă"
-
-#: templates/wagtailadmin/pages/list.html:112
-msgid "Disable ordering of child pages"
-msgstr "Dezactivează rânduirea paginilor dependente"
-
-#: templates/wagtailadmin/pages/list.html:112
-#: templates/wagtailadmin/pages/list.html:114
-msgid "Order"
-msgstr "Ordine"
-
-#: templates/wagtailadmin/pages/list.html:114
-msgid "Enable ordering of child pages"
-msgstr "Activează rânduirea paginilor dependente"
-
-#: templates/wagtailadmin/pages/list.html:158
 msgid "Drag"
 msgstr "Glisează"
 
-#: templates/wagtailadmin/pages/list.html:237
-#: templates/wagtailadmin/pages/list.html:241
+msgid "Updated"
+msgstr "Actualizată"
+
+msgid ""
+"\n"
+"                            The root level is where you can add new sites to "
+"your Wagtail installation. Pages created here will not be accessible at any "
+"URL until they are associated with a site.\n"
+"                        "
+msgstr ""
+"\n"
+"Nivelul de bază este pentru adăugare de saituri noi la instanța Wagtail. "
+"Paginile create aici nu sunt accesibile sub nici o adresă de URL până când "
+"nu sunt asociate cu un sait."
+
+msgid "Configure a site now."
+msgstr "Configurează un sait."
+
+msgid ""
+"\n"
+"                            If you just want to add pages to an existing "
+"site, create them as children of the homepage instead.\n"
+"                        "
+msgstr ""
+"\n"
+"Dacă doriți doar să adăugați pagini la un sait existent, creați paginile ca "
+"descendenți ai paginii principale."
+
+msgid ""
+"\n"
+"                        Pages created here will not be accessible at any "
+"URL. To add pages to an existing site, create them as children of the "
+"homepage.\n"
+"                    "
+msgstr ""
+"\n"
+"Paginile create aici nu sunt accesibile sub nici o adresă de URL. Pentru a "
+"adăuga pagini la un sait existent, creați paginile ca descendenți ai paginii "
+"principale."
+
+msgid ""
+"\n"
+"                        There is no site set up for this location. Pages "
+"created here will not be accessible at any URL until a site is associated "
+"with this location.\n"
+"                    "
+msgstr ""
+"\n"
+"Nu există nici un sit pentru această locație. Paginile create aici nu sunt "
+"accesibile sub nici o adresă de URL până când nu asociați un sait cu această "
+"locație."
+
+msgid ""
+"\n"
+"                        There is no site record for this location. Pages "
+"created here will not be accessible at any URL.\n"
+"                    "
+msgstr ""
+"\n"
+"Nu există nici un sait pentru această locație. Paginile create aici nu sunt "
+"accesibile sub nici o adresă de URL."
+
+msgid "No pages have been created at this location."
+msgstr "Nu a fost creată nici o pagină în această locație."
+
 #, python-format
-msgid "Explorer subpages of '%(title)s'"
+msgid "Why not <a href=\"%(add_page_url)s\">create one</a>?"
+msgstr "De ce să nu <a href=\"%(add_page_url)s\">creați una</a>?"
+
+msgid "This page is locked to further editing"
+msgstr "Această pagină este blocată pentru editări ulterioare."
+
+#, python-format
+msgid "Explore subpages of '%(title)s'"
 msgstr "Explorează subpaginile '%(title)s'"
 
-#: templates/wagtailadmin/pages/list.html:237
-#: templates/wagtailadmin/pages/list.html:241
-#: templates/wagtailadmin/pages/list.html:245
 msgid "Explore"
 msgstr "Explorează"
 
-#: templates/wagtailadmin/pages/list.html:245
 #, python-format
 msgid "Explore child pages of '%(title)s'"
-msgstr ""
+msgstr "Explorează paginile dependente de '%(title)s'"
 
-#: templates/wagtailadmin/pages/list.html:247
 #, python-format
 msgid "Add a child page to '%(title)s'"
 msgstr "Adaugă o pagină dependentă de '%(title)s'"
 
-#: templates/wagtailadmin/pages/list.html:247
 msgid "Add subpage"
 msgstr "Adaugă subpagină"
 
-#: templates/wagtailadmin/pages/list.html:256
-msgid "No pages have been created."
-msgstr "Nu a fost creată nici o pagină."
-
-#: templates/wagtailadmin/pages/list.html:256
-#, python-format
-msgid "Why not <a href=\"%(add_page_url)s\">add one</a>?"
-msgstr "De ce să nu <a href=\"%(add_page_url)s\">adăugați una</a>?"
-
-#: templates/wagtailadmin/pages/list.html:263
 #, python-format
 msgid ""
 "\n"
-"            Page %(page_number)s of %(num_pages)s.\n"
-"        "
+"        Page %(page_number)s of %(num_pages)s.\n"
+"    "
 msgstr ""
+"\n"
+"Pagina %(page_number)s din %(num_pages)s."
 
-#: templates/wagtailadmin/pages/list.html:269
-#: templates/wagtailadmin/pages/search_results.html:35
-#: templates/wagtailadmin/pages/search_results.html:37
-#: templates/wagtailadmin/pages/usage_results.html:13
-#: templates/wagtailadmin/shared/pagination_nav.html:21
-#: templates/wagtailadmin/shared/pagination_nav.html:23
-#: templates/wagtailadmin/shared/pagination_nav.html:25
 msgid "Previous"
 msgstr "Precedent"
 
-#: templates/wagtailadmin/pages/list.html:274
-#: templates/wagtailadmin/pages/search_results.html:44
-#: templates/wagtailadmin/pages/search_results.html:46
-#: templates/wagtailadmin/pages/usage_results.html:18
-#: templates/wagtailadmin/shared/pagination_nav.html:32
-#: templates/wagtailadmin/shared/pagination_nav.html:34
-#: templates/wagtailadmin/shared/pagination_nav.html:36
 msgid "Next"
 msgstr "Următor"
 
-#: templates/wagtailadmin/pages/move_choose_destination.html:3
+msgid "This page is protected from public view"
+msgstr "Această pagină este protejată de ochii publicului"
+
+msgid "Disable ordering of child pages"
+msgstr "Dezactivează rânduirea paginilor dependente"
+
+msgid "Order"
+msgstr "Ordine"
+
+msgid "Enable ordering of child pages"
+msgstr "Activează rânduirea paginilor dependente"
+
 #, python-format
 msgid "Select a new parent page for %(title)s"
-msgstr "Selectează o pagină de bază nouă pentru %(title)s"
+msgstr "Alege o pagină de bază nouă pentru %(title)s"
 
-#: templates/wagtailadmin/pages/move_choose_destination.html:7
 #, python-format
 msgid "Select a new parent page for <span>%(title)s</span>"
-msgstr "Selectează o pagină de bază nouă pentru <span>%(title)s</span>"
+msgstr "Alege o pagină de bază nouă pentru <span>%(title)s</span>"
 
-#: templates/wagtailadmin/pages/search_results.html:6
+#, python-format
+msgid "Revisions of %(title)s"
+msgstr "Revizii pentru %(title)s"
+
+msgid "Revisions of"
+msgstr "Revizii ale"
+
+msgid "Revision date"
+msgstr "Data reviziei"
+
+msgctxt "points to a user who created a revision"
+msgid "by"
+msgstr "de către"
+
+msgid "Current draft"
+msgstr "Ciornă curentă"
+
+msgid "Review this revision"
+msgstr "Revezi această revizie"
+
+msgid "No revisions of this page exist"
+msgstr "Această pagină nu are nici o revizie."
+
+msgid "No revision of this page exist"
+msgstr "Această pagină nu are nici o revizie."
+
 #, python-format
 msgid ""
 "\n"
-"                    There is one matching page\n"
-"                "
+"                There is one matching page\n"
+"            "
 msgid_plural ""
 "\n"
-"                    There are %(counter)s matching pages\n"
-"                "
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
-
-#: templates/wagtailadmin/pages/search_results.html:16
-msgid "Other searches"
-msgstr ""
-
-#: templates/wagtailadmin/pages/search_results.html:18
-msgid "Images"
-msgstr "Imagini"
-
-#: templates/wagtailadmin/pages/search_results.html:19
-msgid "Documents"
-msgstr "Documente"
-
-#: templates/wagtailadmin/pages/search_results.html:20
-msgid "Users"
-msgstr "Utilizatori"
-
-#: templates/wagtailadmin/pages/search_results.html:28
-#: templates/wagtailadmin/pages/usage_results.html:7
-#, python-format
-msgid ""
-"\n"
-"                Page %(page_number)s of %(num_pages)s.\n"
+"                There are %(counter)s matching pages\n"
 "            "
-msgstr "\nPagina %(page_number)s din %(num_pages)s."
+msgstr[0] ""
+"\n"
+"O singură pagină se potrivește"
+msgstr[1] ""
+"\n"
+"%(counter)s pagini se potrivesc"
+msgstr[2] ""
+"\n"
+"%(counter)s pagini se potrivesc"
 
-#: templates/wagtailadmin/pages/search_results.html:54
 #, python-format
 msgid "Sorry, no pages match <em>\"%(query_string)s\"</em>"
-msgstr "Ne pare rău, \"<em>%(query_string)s</em>\" nu se potrivește cu nici o pagină"
+msgstr ""
+"Ne pare rău, \"<em>%(query_string)s</em>\" nu se potrivește cu nici o pagină"
 
-#: templates/wagtailadmin/pages/search_results.html:56
 msgid "Enter a search term above"
 msgstr "Introduceți termenii de căutare mai sus"
 
-#: templates/wagtailadmin/pages/usage_results.html:24
 msgid "No pages use"
-msgstr ""
+msgstr "Nici o pagină nu utilizează"
 
-#: templates/wagtailadmin/shared/breadcrumb.html:6
+msgid "Collection"
+msgstr "Colecție"
+
 msgid "Home"
 msgstr "Acasă"
 
-#: templates/wagtailadmin/shared/datetimepicker_translations.html:6
+msgid "All collections"
+msgstr "Toate colecțiile"
+
 msgid "January"
-msgstr ""
+msgstr "Ianuarie"
 
-#: templates/wagtailadmin/shared/datetimepicker_translations.html:7
 msgid "February"
-msgstr ""
+msgstr "Februarie"
 
-#: templates/wagtailadmin/shared/datetimepicker_translations.html:8
 msgid "March"
-msgstr ""
+msgstr "Martie"
 
-#: templates/wagtailadmin/shared/datetimepicker_translations.html:9
 msgid "April"
-msgstr ""
+msgstr "Aprilie"
 
-#: templates/wagtailadmin/shared/datetimepicker_translations.html:10
 msgid "May"
-msgstr ""
+msgstr "Mai"
 
-#: templates/wagtailadmin/shared/datetimepicker_translations.html:11
 msgid "June"
-msgstr ""
+msgstr "Iunie"
 
-#: templates/wagtailadmin/shared/datetimepicker_translations.html:12
 msgid "July"
-msgstr ""
+msgstr "Iulie"
 
-#: templates/wagtailadmin/shared/datetimepicker_translations.html:13
 msgid "August"
-msgstr ""
+msgstr "August"
 
-#: templates/wagtailadmin/shared/datetimepicker_translations.html:14
 msgid "September"
-msgstr ""
+msgstr "Septembrie"
 
-#: templates/wagtailadmin/shared/datetimepicker_translations.html:15
 msgid "October"
-msgstr ""
+msgstr "Octombrie"
 
-#: templates/wagtailadmin/shared/datetimepicker_translations.html:16
 msgid "November"
-msgstr ""
+msgstr "Noiembrie"
 
-#: templates/wagtailadmin/shared/datetimepicker_translations.html:17
 msgid "December"
-msgstr ""
+msgstr "Decembrie"
 
-#: templates/wagtailadmin/shared/datetimepicker_translations.html:20
 msgid "Sun"
-msgstr ""
+msgstr "D"
 
-#: templates/wagtailadmin/shared/datetimepicker_translations.html:21
 msgid "Mon"
-msgstr ""
+msgstr "L"
 
-#: templates/wagtailadmin/shared/datetimepicker_translations.html:22
 msgid "Tue"
-msgstr ""
+msgstr "Ma"
 
-#: templates/wagtailadmin/shared/datetimepicker_translations.html:23
 msgid "Wed"
-msgstr ""
+msgstr "Mi"
 
-#: templates/wagtailadmin/shared/datetimepicker_translations.html:24
 msgid "Thu"
-msgstr ""
+msgstr "J"
 
-#: templates/wagtailadmin/shared/datetimepicker_translations.html:25
 msgid "Fri"
-msgstr ""
+msgstr "V"
 
-#: templates/wagtailadmin/shared/datetimepicker_translations.html:26
 msgid "Sat"
-msgstr ""
+msgstr "S"
 
-#: templates/wagtailadmin/shared/header.html:23
 #, python-format
 msgid "Used %(useage_count)s time"
 msgid_plural "Used %(useage_count)s times"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
+msgstr[0] "%(useage_count)s utilizăre"
+msgstr[1] "%(useage_count)s utilizări"
+msgstr[2] "%(useage_count)s utilizări"
 
-#: templates/wagtailadmin/shared/main_nav.html:10
+msgid "Edit your account"
+msgstr "Editează contul utilizator"
+
 msgid "Account settings"
 msgstr "Setări cont"
 
-#: templates/wagtailadmin/shared/main_nav.html:11
 msgid "Log out"
 msgstr "Deconectare"
 
-#: templates/wagtailadmin/shared/pagination_nav.html:16
 #, python-format
 msgid "Page %(page_num)s of %(total_pages)s."
 msgstr "Pagina %(page_num)s din %(total_pages)s."
 
-#: templates/wagtailadmin/userbar/base.html:4
-msgid "User bar"
-msgstr ""
+msgid "Other searches"
+msgstr "Alte căutări"
 
-#: templates/wagtailadmin/userbar/base.html:14
+msgid ""
+"You are using an <strong>outdated</strong> browser not supported by this "
+"software. Please <a href=\"http://browsehappy.com/\">upgrade your browser</"
+"a>."
+msgstr ""
+"Folosiți un browser web <strong>învechit</strong> care nu este suportat de "
+"această aplicație. Vă rugăm să <a href=\"http://browsehappy.com/"
+"\">actualizați browser-ul</a> Dvstră."
+
 msgid "Go to Wagtail admin interface"
-msgstr ""
+msgstr "Spre interfața de administrare Wagtail"
 
-#: templates/wagtailadmin/userbar/item_page_add.html:5
-msgid "Add another page at this level"
-msgstr ""
+msgid "Go to Wagtail admin"
+msgstr "Spre interfața de administrare Wagtail"
 
-#: templates/wagtailadmin/userbar/item_page_add.html:5
-msgid "Add"
-msgstr ""
+msgid "Add a child page"
+msgstr "Adaugă o pagină dependentă"
 
-#: views/account.py:39
+msgid "Show in Explorer"
+msgstr "Arată în Explorator"
+
+msgid "Test"
+msgstr "Test"
+
+msgid "Sorry, you do not have permission to access this area."
+msgstr "Ne pare rău, nu aveți permisiunea de a accesa această zonă."
+
 msgid "Your password has been changed successfully!"
 msgstr "Parola a fost schimbată cu succes!"
 
-#: views/account.py:60
 msgid "Your preferences have been updated successfully!"
-msgstr ""
+msgstr "Preferințele au fost schimbare cu success!"
 
-#: views/pages.py:169 views/pages.py:286
-msgid "Go live date/time must be before expiry date/time"
-msgstr ""
+msgid "You have been successfully logged out."
+msgstr "V-ați deconectat cu success."
 
-#: views/pages.py:179 views/pages.py:296
-msgid "Expiry date/time must be in the future"
-msgstr ""
+msgid "Collections"
+msgstr "Colecții"
 
-#: views/pages.py:219 views/pages.py:351 views/pages.py:791
-msgid "Page '{0}' published."
-msgstr "Pagina '{0}' a fost publicată."
+msgid "Add a collection"
+msgstr "Adaugă o colecție"
 
-#: views/pages.py:221 views/pages.py:353
-msgid "Page '{0}' submitted for moderation."
-msgstr "Pagina '{0}' a fost trimisă pentru moderare."
+msgid "Add collection"
+msgstr "Adaugă colecție"
 
-#: views/pages.py:224
+#, python-brace-format
+msgid "Collection '{0}' created."
+msgstr "Colecția '{0}' a fost creată."
+
+#, python-brace-format
+msgid "Collection '{0}' updated."
+msgstr "Colecția '{0}' a fost actualizată."
+
+msgid "The collection could not be saved due to errors."
+msgstr "Colecția nu a putut fi salvată din cauza erorilor."
+
+msgid "Delete collection"
+msgstr "Șterge colecția"
+
+#, python-brace-format
+msgid "Collection '{0}' deleted."
+msgstr "Colecția '{0}' a fost ștearsă."
+
+msgid "Are you sure you want to delete this collection?"
+msgstr "Sigur doriți să ștergeți această colecție?"
+
+msgid "Editing"
+msgstr "Editare"
+
+#, python-brace-format
+msgid "Page '{0}' created and scheduled for publishing."
+msgstr "Pagina '{0}' a fost creată și programată pentru publicare."
+
+#, python-brace-format
+msgid "Page '{0}' created and published."
+msgstr "Pagina '{0}' a fost creată și publicată."
+
+msgid "View live"
+msgstr "Vezi în direct"
+
+#, python-brace-format
+msgid "Page '{0}' created and submitted for moderation."
+msgstr "Pagina '{0}' a fost creată și trimisă pentru moderare."
+
+msgid "View draft"
+msgstr "Vezi ciornă"
+
+msgid "Failed to send notifications to moderators"
+msgstr "Trimiterea notificarărilor pentru moderatori au eșuat."
+
+#, python-brace-format
 msgid "Page '{0}' created."
 msgstr "Pagina '{0}' a fost creată."
 
-#: views/pages.py:233
 msgid "The page could not be created due to validation errors"
-msgstr ""
+msgstr "Pagina nu a fost creată din cauza erorilor de validare."
 
-#: views/pages.py:356
-msgid "Page '{0}' updated."
+#, python-brace-format
+msgid "Revision from {0} of page '{1}' has been scheduled for publishing."
+msgstr "Revizia din {0} a paginii '{1}' a fost programată pentru publicare."
+
+#, python-brace-format
+msgid "Page '{0}' has been scheduled for publishing."
+msgstr "Pagina '{0}' a fost programată pentru publicare."
+
+#, python-brace-format
+msgid "Revision from {0} of page '{1}' has been published."
+msgstr "Revizia din {0} a paginii '{1}' a fost publicată."
+
+#, python-brace-format
+msgid "Page '{0}' has been published."
+msgstr "Pagina '{0}' a fost publicată."
+
+#, python-brace-format
+msgid "Page '{0}' has been submitted for moderation."
+msgstr "Pagina '{0}' a fost trimisă pentru moderare."
+
+#, python-brace-format
+msgid "Page '{0}' has been replaced with revision from {1}."
+msgstr "Pagina '{0}' a fost schimbată cu revizia {1}."
+
+#, python-brace-format
+msgid "Page '{0}' has been updated."
 msgstr "Pagina '{0}' a fost actualizată."
 
-#: views/pages.py:365
+msgid "The page could not be saved as it is locked"
+msgstr "Pagina nu a fost salvată pentru că este blocată"
+
 msgid "The page could not be saved due to validation errors"
 msgstr "Pagina nu a fost salvată din cauza erorilor de validare."
 
-#: views/pages.py:378
 msgid "This page is currently awaiting moderation"
 msgstr "Această pagină este în moderare"
 
-#: views/pages.py:409
+#, python-brace-format
 msgid "Page '{0}' deleted."
 msgstr "Pagina '{0}' a fost ștearsă."
 
-#: views/pages.py:575
+#, python-brace-format
 msgid "Page '{0}' unpublished."
 msgstr "Publicare anulată pentru pagina '{0}'."
 
-#: views/pages.py:627
+#, python-brace-format
 msgid "Page '{0}' moved."
 msgstr "Pagina '{0}' a fost mutată."
 
-#: views/pages.py:709
+#, python-brace-format
 msgid "Page '{0}' and {1} subpages copied."
-msgstr ""
+msgstr "Pagina '{0}' și {1} subpagini au fost copiate."
 
-#: views/pages.py:711
+#, python-brace-format
 msgid "Page '{0}' copied."
-msgstr ""
+msgstr "Pagina '{0}' a fost copiată."
 
-#: views/pages.py:785 views/pages.py:804 views/pages.py:824
+#, python-brace-format
 msgid "The page '{0}' is not currently awaiting moderation."
 msgstr "Pagina '{0}' nu este în moderare la moment."
 
-#: views/pages.py:810
+#, python-brace-format
+msgid "Page '{0}' published."
+msgstr "Pagina '{0}' a fost publicată."
+
+msgid "Failed to send approval notifications"
+msgstr "Trimiterea notificărilor de aprobare au eșuat."
+
+#, python-brace-format
 msgid "Page '{0}' rejected for publication."
 msgstr "Publicare paginii '{0}' a fost refuzată."
+
+msgid "Failed to send rejection notifications"
+msgstr "Trimiterea notificărilor de respingere au eșuat."
+
+#, python-brace-format
+msgid "Page '{0}' is now locked."
+msgstr "Pagina '{0}' a fost blocată."
+
+#, python-brace-format
+msgid "Page '{0}' is now unlocked."
+msgstr "Pagina '{0}' is fost deblocată."
+
+#, python-format
+msgid ""
+"You are viewing a previous revision of this page from <b>%(created_at)s</b> "
+"by %(user)s"
+msgstr ""
+"Sunteți în process de vizualizare a revizie precedente a paginii din <b>"
+"%(created_at)s</b> de către %(user)s"
+
+msgid "Pages"
+msgstr "Pagini"
+
+msgid "Preview draft"
+msgstr "Previzualizează ciornă"
+
+msgid "Add child page"
+msgstr "Adaugă pagină dependentă"
+
+#, python-brace-format
+msgid "Add a child page to '{0}' "
+msgstr "Adaugă o pagină dependentă de '{0}'"
+
+msgid "More"
+msgstr "Mai mult"
+
+msgid "View more options"
+msgstr "Vezi mai multe opțiuni"
+
+msgid "Move this page"
+msgstr "Mută această pagină"
+
+msgid "Delete this page"
+msgstr "Șterge această pagină"
+
+msgid "Unpublish this page"
+msgstr "Anulează publicarea acestei pagini"
+
+msgid "View this page's revision history"
+msgstr "Vezi istoricul reviziilor acestei pagini"
+
+msgid "Choose an item"
+msgstr "Alege un element"
+
+msgid "Choose another item"
+msgstr "Alege un alt element"
+
+msgid "Clear choice"
+msgstr "Curăță selecție"
+
+msgid "Edit this item"
+msgstr "Editează acest element"
+
+msgid "Choose another page"
+msgstr "Alege altă pagină"

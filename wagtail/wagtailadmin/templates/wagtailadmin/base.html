@@ -1,14 +1,30 @@
 {% extends "wagtailadmin/admin_base.html" %}
-{% load wagtailadmin_tags %}
-{% load i18n %}
+{% load wagtailadmin_tags wagtailcore_tags staticfiles i18n %}
+
 {% block furniture %}
     <div class="nav-wrapper">
         <div class="inner">
-            <a href="{% url 'wagtailadmin_home' %}" class="logo"><img src="{{ STATIC_URL }}wagtailadmin/images/wagtail-logo.svg" alt="Wagtail" width="80" /><span>{% trans "Dashboard" %}</span></a>
+            <a href="{% url 'wagtailadmin_home' %}" class="logo" title="Wagtail v.{% wagtail_version %}">
+                {% block branding_logo %}
+                    <img class="wagtail-logo" src="{% static 'wagtailadmin/images/wagtail-logo.svg' %}" alt="Wagtail" width="80" />
+                {% endblock %}
+                <span>{% trans "Dashboard" %}</span>
+            </a>
+
+            <form class="nav-search" action="{% url 'wagtailadmin_pages:search' %}" method="get">
+                <div>
+                    <label for="menu-search-q">{% trans "Search" %}</label>
+                    <input type="text" id="menu-search-q" name="q" placeholder="{% trans 'Search' %}" />
+                    <button class="button" type="submit">{% trans "Search" %}</button>
+                </div>
+            </form>
+
             {% main_nav %}
         </div>
 
-        <nav id="explorer" class="explorer"></nav>
+        <span class="explorer-close">Close explorer</span>
+        <nav id="explorer" class="explorer">
+        </nav>
     </div>
 
     <div class="content-wrapper">
@@ -18,13 +34,13 @@
                 {% if messages %}
                     <ul>
                         {% for message in messages %}
-                            <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message|safe }}</li>
+                            <li class="{% message_tags message %}">{{ message|safe }}</li>
                         {% endfor %}
                     </ul>
                 {% endif %}
             </div>
 
-            <div id="nav-toggle" class="icon text-replace">{% trans "Menu" %}</div>
+            <div id="nav-toggle" class="nav-toggle icon text-replace">{% trans "Menu" %}</div>
 
             {% block content %}{% endblock %}
         </div>

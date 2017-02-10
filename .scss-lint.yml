@@ -1,0 +1,161 @@
+# Useful regexes to fix lint errors
+# SpaceBeforeBrace: search "([^\ ])\{" replace "$1 {"
+# SpaceAfterPropertyColon: search "([^\&]):([^\ \n]*);" replace "$1: $2;"
+
+scss_files: 'wagtail/**/static_src/**/scss/**/*.scss'
+
+linters:
+    BorderZero:
+        enabled: true
+
+    Indentation:
+        severity: warning
+        width: 4
+        # because https://github.com/brigade/scss-lint/issues/409
+        allow_non_nested_indentation: true
+        character: space
+
+    ColorKeyword:
+        enabled: true
+
+    ColorVariable:
+        enabled: false
+
+    BangFormat:
+        space_before_bang: true
+        space_after_bang: false
+
+    PropertySortOrder:
+        enabled: false
+
+    Comment:
+        enabled: true
+
+    DeclarationOrder:
+        enabled: true
+
+    DuplicateProperty:
+        enabled: true
+
+    ElsePlacement:
+        enabled: true
+
+    EmptyLineBetweenBlocks:
+        enabled: true
+
+    EmptyRule:
+        enabled: true
+
+    FinalNewline:
+        present: true
+
+    HexLength:
+        style: short
+
+    HexNotation:
+        style: lowercase
+
+    HexValidation:
+        enabled: true
+
+    IdSelector:
+        enabled: true
+        exclude:
+            - '**/choose_parent_page.scss'
+
+    ImportantRule:
+        enabled: false
+        exclude:
+            - '**/_datetimepicker.scss'
+
+    ImportPath:
+        enabled: true
+
+    LeadingZero:
+        enabled: false
+
+    MergeableSelector:
+        enabled: false
+
+    NameFormat:
+        allow_leading_underscore: true
+
+    NestingDepth:
+        max_depth: 5
+
+    SelectorDepth:
+        enabled: false
+
+    # There is currently no de facto standard for selector format in Wagtail, due to:
+    # a) the conversion of django field/widget names to underscored class names
+    # b) the use of third party code such as Hallo.js which uses classes with snakeCaseClasses.
+    SelectorFormat:
+        convention: '.*'  # allow anything
+
+    PlaceholderInExtend:
+        enabled: false
+
+    PropertyCount:
+        enabled: false
+
+    QualifyingElement:
+        allow_element_with_attribute: true
+        allow_element_with_class: true
+        allow_element_with_id: false
+
+    Shorthand:
+        enabled: true
+
+    SingleLinePerProperty:
+        enabled: true
+        allow_single_line_rule_sets: true
+
+    SingleLinePerSelector:
+        enabled: true
+
+    SpaceAfterComma:
+        enabled: true
+
+    SpaceAfterPropertyColon:
+        style: at_least_one_space
+
+    SpaceAfterPropertyName:
+        enabled: true
+
+    SpaceBeforeBrace:
+        enabled: true
+        allow_single_line_padding: true
+        style: space
+
+    SpaceBetweenParens:
+        enabled: true
+
+    StringQuotes:
+        style: single_quotes
+
+    TrailingSemicolon:
+        enabled: true
+
+    TrailingZero:
+        enabled: true
+
+    UnnecessaryMantissa:
+        enabled: true
+
+    UnnecessaryParentReference:
+        enbabled: true
+
+    UrlFormat:
+        enabled: false
+
+    UrlQuotes:
+        enabled: true
+
+    VariableForProperty:
+        enabled: false
+
+    VendorPrefix:
+        enabled: false
+
+    ZeroUnit:
+        enabled: true

@@ -1,14 +1,29 @@
+{% load i18n %}
+{% load wagtailadmin_tags  %}
+
 {{ self.formset.management_form }}
+
 <ul class="multiple" id="id_{{ self.formset.prefix }}-FORMS">
+    {% if self.formset.non_form_errors %}
+        <li class="error-message">
+            {% for error in self.formset.non_form_errors %}
+                <span>{{ error|escape }}</span>
+            {% endfor %}
+        </li>
+    {% endif %}
+
     {% for child in self.children %}
         {% include "wagtailadmin/edit_handlers/inline_panel_child.html" %}
     {% endfor %}
 </ul>
 
 <script type="text/django-form-template" id="id_{{ self.formset.prefix }}-EMPTY_FORM_TEMPLATE">
-    {% include "wagtailadmin/edit_handlers/inline_panel_child.html" with child=self.empty_child %}
+{% escapescript %}
+{% include "wagtailadmin/edit_handlers/inline_panel_child.html" with child=self.empty_child %}
+{% endescapescript %}
 </script>
 
 <p class="add">
-    <a class="button bicolor icon icon-plus" id="id_{{ self.formset.prefix }}-ADD" value="Add">Add {{ self.heading|lower }}</a>
+    <a class="button bicolor icon icon-plus" id="id_{{ self.formset.prefix }}-ADD" value="Add">
+        {% blocktrans with heading=self.heading|lower %}Add {{ heading }}{% endblocktrans %}</a>
 </p>

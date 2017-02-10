@@ -1,0 +1,25 @@
+{% load i18n wagtailadmin_tags %}
+
+{% test_page_is_public page as is_public %}
+{% if not page_perms %}
+    {% page_permissions page as page_perms %}
+{% endif %}
+
+{% if not page.is_root %}
+<div class="privacy-indicator {% if is_public %}public{% else %}private{% endif %}">
+    {% trans "Privacy" %}
+    {% if page_perms.can_set_view_restrictions %}
+        <a href="{% url 'wagtailadmin_pages:set_privacy' page.id %}" class="status-tag primary  action-set-privacy">
+            {# labels are shown/hidden in CSS according to the 'private' / 'public' class on view-permission-indicator #}
+            <span class="label-public icon icon-view">{% trans 'Public' %}</span>
+            <span class="label-private icon icon-no-view">{% trans 'Private' %}</span>
+        </a>
+    {% else %}
+        {% if is_public %}
+            <span class="label-public status-tag primary icon icon-view ">{% trans 'Public' %}</span>
+        {% else %}
+            <span class="label-private status-tag primary icon icon-no-view">{% trans 'Private' %}</span>
+        {% endif %}
+    {% endif %}
+</div>
+{% endif %}

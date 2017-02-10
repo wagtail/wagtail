@@ -1,0 +1,95 @@
+=========================
+Wagtail 0.8 release notes
+=========================
+
+.. contents::
+    :local:
+    :depth: 1
+
+
+What's new
+==========
+
+
+
+Minor features
+~~~~~~~~~~~~~~
+
+ * Page operations (creation, publishing, copying etc) are now logged via Python's ``logging`` framework; to configure this, add a logger entry for ``'wagtail'`` or ``'wagtail.core'`` to the ``LOGGING`` setup in your settings file.
+ * The save button on the page edit page now redirects the user back to the edit page instead of the explorer
+ * Signal handlers for ``wagtail.wagtailsearch`` and ``wagtail.contrib.wagtailfrontendcache`` are now automatically registered when using Django 1.7 or above.
+ * Added a Django 1.7 system check to ensure that foreign keys from Page models are set to ``on_delete=SET_NULL``, to prevent inadvertent (and tree-breaking) page deletions
+ * Improved error reporting on image upload, including ability to set a maximum file size via a new setting ``WAGTAILIMAGES_MAX_UPLOAD_SIZE``
+ * The external image URL generator now keeps persistent image renditions, rather than regenerating them on each request, so it no longer requires a front-end cache.
+ * Added Dutch translation
+
+
+Bug fixes
+~~~~~~~~~
+
+ * Replaced references of .username with .get_username() on users for better custom user model support
+ * Unpinned dependency versions for six and requests to help prevent dependency conflicts
+ * Fixed TypeError when getting embed HTML with oembed on Python 3
+ * Made HTML whitelisting in rich text fields more robust at catching disallowed URL schemes such as ``jav\tascript:``
+ * ``created_at`` timestamps on page revisions were not being preserved on page copy, causing revisions to get out of sequence
+ * When copying pages recursively, revisions of sub-pages were being copied regardless of the ``copy_revisions`` flag
+ * Updated the migration dependencies within the project template to ensure that Wagtail's own migrations consistently apply first
+ * The cache of site root paths is now cleared when a site is deleted
+ * Search indexing now prevents pages from being indexed multiple times, as both the base Page model and the specific subclass
+ * Search indexing now avoids trying to index abstract models
+ * Fixed references to "username" in login form help text for better custom user model support
+ * Later items in a model's search_field list now consistently override earlier items, allowing subclasses to redefine rules from the parent
+ * Image uploader now accepts JPEG images that PIL reports as being in MPO format
+ * Multiple checkbox fields on form-builder forms did not correctly save multiple values
+ * Editing a page's slug and saving it without publishing could sometimes cause the URL paths of child pages to be corrupted
+ * ``latest_revision_created_at`` was being cleared on page publish, causing the page to drop to the bottom of explorer listings
+ * Searches on partial_match fields were wrongly applying prefix analysis to the search query as well as the document (causing e.g. a query for "water" to match against "wagtail")
+
+
+Upgrade considerations
+======================
+
+Corrupted URL paths may need fixing
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+This release fixes a bug in Wagtail 0.7 where editing a parent page's slug could cause the URL paths of child pages to become corrupted. To ensure that your database does not contain any corrupted URL paths, it is recommended that you run ``./manage.py set_url_paths`` after upgrading.
+
+
+Automatic registration of signal handlers (Django 1.7+)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Signal handlers for the ``wagtailsearch`` core app and ``wagtailfrontendcache`` contrib app are automatically registered when using Django 1.7. Calls to ``register_signal_handlers`` from your ``urls.py`` can be removed.
+
+
+Change to search API when using database backend
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+When using the database backend, calling search (either through ``Page.objects.search()`` or on the backend directly) will now return a ``SearchResults`` object rather than a Django ``QuerySet`` to make the database backend work more like the Elasticsearch backend.
+
+This change shouldn't affect most people as ``SearchResults`` behaves very similarly to ``QuerySet``. But it may cause issues if you are calling ``QuerySet`` specific methods after calling ``.search()``. Eg: ``Page.objects.search("Hello").filter(foo="Bar")`` (in this case, ``.filter()`` should be moved before ``.search()`` and it would work as before).
+
+
+Removal of validate_image_format from custom image model migrations (Django 1.7+)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+If your project is running on Django 1.7, and you have defined a custom image model (by extending the ``wagtailimages.AbstractImage`` class), the migration that creates this model will probably have a reference to ``wagtail.wagtailimages.utils.validators.validate_image_format``. This module has now been removed, which will cause ``manage.py migrate`` to fail with an ``ImportError`` (even if the migration has already been applied). You will need to edit the migration file to remove the line:
+
+.. code-block:: python
+
+    import wagtail.wagtailimages.utils.validators
+
+and the ``validators`` attribute of the 'file' field - that is, the line:
+
+.. code-block:: python
+
+    ('file', models.ImageField(upload_to=wagtail.wagtailimages.models.get_upload_to,
+        width_field='width', height_field='height',
+        validators=[wagtail.wagtailimages.utils.validators.validate_image_format],
+        verbose_name='File')),
+
+should become:
+
+    .. code-block:: python
+
+    ('file', models.ImageField(upload_to=wagtail.wagtailimages.models.get_upload_to,
+        width_field='width', height_field='height', verbose_name='File')),

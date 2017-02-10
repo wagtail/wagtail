@@ -1,64 +1,75 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# 
+#
 # Translators:
 # utek <mail@utek.pl>, 2014
+# Miłosz Miśkiewicz, 2016
 # utek <mail@utek.pl>, 2014
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-08-01 16:38+0100\n"
-"PO-Revision-Date: 2014-08-01 15:43+0000\n"
-"Last-Translator: Karl Hobley <karl@torchbox.com>\n"
-"Language-Team: Polish (http://www.transifex.com/projects/p/wagtail/language/pl/)\n"
+"POT-Creation-Date: 2016-12-06 22:44+0000\n"
+"PO-Revision-Date: 2016-05-18 13:47+0000\n"
+"Last-Translator: Miłosz Miśkiewicz\n"
+"Language-Team: Polish (http://www.transifex.com/torchbox/wagtail/language/"
+"pl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: pl\n"
-"Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
+"|| n%100>=20) ? 1 : 2);\n"
 
-#: models.py:21 templates/wagtaildocs/documents/list.html:11
-#: templates/wagtaildocs/documents/list.html:14
-#: templates/wagtaildocs/documents/usage.html:16
-msgid "Title"
-msgstr "Tytuł"
+msgid "Add"
+msgstr "Dodaj"
 
-#: models.py:22 templates/wagtaildocs/documents/list.html:17
-msgid "File"
-msgstr "Plik"
+msgid "Add/edit documents you own"
+msgstr "Dodaj/edytuj swoje dokumenty"
 
-#: models.py:26
-msgid "Tags"
-msgstr "Tagi"
+msgid "Edit"
+msgstr "Edytuj"
 
-#: wagtail_hooks.py:24 templates/wagtaildocs/documents/index.html:16
-msgid "Documents"
-msgstr "Dokumenty"
+msgid "Edit any document"
+msgstr "Edytuj dowolny dokument"
 
-#: templates/wagtaildocs/chooser/chooser.html:2
-#: templates/wagtaildocs/edit_handlers/document_chooser_panel.html:11
+msgid "title"
+msgstr "tytuł"
+
+msgid "file"
+msgstr "plik"
+
+msgid "created at"
+msgstr "utworzono dnia"
+
+msgid "uploaded by user"
+msgstr "wgrane przez użytkownika"
+
+msgid "tags"
+msgstr "tagi"
+
+msgid "document"
+msgstr "dokument"
+
 msgid "Choose a document"
 msgstr "Wybierz dokument"
 
-#: templates/wagtaildocs/chooser/chooser.html:7
-#: templates/wagtaildocs/chooser/chooser.html:19
 msgid "Search"
 msgstr "Szukaj"
 
-#: templates/wagtaildocs/chooser/chooser.html:8
 msgid "Upload"
 msgstr "Prześlij"
 
-#: templates/wagtaildocs/chooser/chooser.html:34
-#: templates/wagtaildocs/documents/add.html:25
-#: templates/wagtaildocs/documents/edit.html:29
-msgid "Save"
-msgstr "Zapisz"
+msgid "Uploading..."
+msgstr "Wgrywanie..."
 
-#: templates/wagtaildocs/chooser/results.html:5
-#: templates/wagtaildocs/documents/results.html:5
+msgid "Server Error"
+msgstr "Błąd serwera"
+
+msgid "Report this error to your webmaster with the following information:"
+msgstr "Zgłoś ten błąd administratorowi strony wraz z poniższą informacją:"
+
 #, python-format
 msgid ""
 "\n"
@@ -68,121 +79,203 @@ msgid_plural ""
 "\n"
 "            There are %(counter)s matches\n"
 "        "
-msgstr[0] "\n            Jedno dopasowanie\n        "
-msgstr[1] "\n            Są %(counter)s dopasowania\n        "
-msgstr[2] "\n            Jest %(counter)s dopasowań\n        "
+msgstr[0] ""
+"\n"
+"            Jedno dopasowanie\n"
+"        "
+msgstr[1] ""
+"\n"
+"            Są %(counter)s dopasowania\n"
+"        "
+msgstr[2] ""
+"\n"
+"            Jest %(counter)s dopasowań\n"
+"        "
 
-#: templates/wagtaildocs/chooser/results.html:12
 msgid "Latest documents"
 msgstr "Najnowsze dokumenty"
 
-#: templates/wagtaildocs/chooser/results.html:19
-#: templates/wagtaildocs/documents/results.html:18
 #, python-format
 msgid "Sorry, no documents match \"<em>%(query_string)s</em>\""
-msgstr "Przepraszamy, żaden dokument nie pasuje do \"<em>%(query_string)s</em>\""
+msgstr ""
+"Przepraszamy, żaden dokument nie pasuje do \"<em>%(query_string)s</em>\""
 
-#: templates/wagtaildocs/documents/_file_field.html:5
 msgid "Change document:"
 msgstr "Zmień dokument:"
 
-#: templates/wagtaildocs/documents/add.html:4
-#: templates/wagtaildocs/documents/index.html:17
 msgid "Add a document"
 msgstr "Dodaj dokument"
 
-#: templates/wagtaildocs/documents/add.html:15
 msgid "Add document"
 msgstr "Dodaj dokument"
 
-#: templates/wagtaildocs/documents/confirm_delete.html:3
 #, python-format
 msgid "Delete %(title)s"
 msgstr "Usuń %(title)s"
 
-#: templates/wagtaildocs/documents/confirm_delete.html:6
-#: templates/wagtaildocs/documents/edit.html:29
 msgid "Delete document"
 msgstr "Usuń dokument"
 
-#: templates/wagtaildocs/documents/confirm_delete.html:10
 msgid "Are you sure you want to delete this document?"
 msgstr "Czy na pewno chcesz usunąć ten dokument?"
 
-#: templates/wagtaildocs/documents/confirm_delete.html:13
 msgid "Yes, delete"
 msgstr "Tak, usuń"
 
-#: templates/wagtaildocs/documents/edit.html:4
 #, python-format
 msgid "Editing %(title)s"
 msgstr "Edycja %(title)s"
 
-#: templates/wagtaildocs/documents/edit.html:15
 msgid "Editing"
 msgstr "Edycja"
 
-#: templates/wagtaildocs/documents/list.html:21
-#: templates/wagtaildocs/documents/list.html:24
+msgid "Save"
+msgstr "Zapisz"
+
+msgid "Filesize"
+msgstr "Rozmiar pliku"
+
+msgid "File not found"
+msgstr "Plik nie został odnaleziony"
+
+msgid "Documents"
+msgstr "Dokumenty"
+
+msgid "Title"
+msgstr "Tytuł"
+
+msgid "File"
+msgstr "Plik"
+
 msgid "Uploaded"
 msgstr "Przesłano"
 
-#: templates/wagtaildocs/documents/results.html:21
 #, python-format
 msgid ""
-"You haven't uploaded any documents. Why not <a "
-"href=\"%(wagtaildocs_add_document_url)s\">upload one now</a>?"
-msgstr "Nie przesłano żadnych dokumentów. Czemu nie  <a href=\"%(wagtaildocs_add_document_url)s\">dodać jednego teraz</a>?"
+"You haven't uploaded any documents in this collection. Why not <a href="
+"\"%(wagtaildocs_add_document_url)s\">upload one now</a>?"
+msgstr ""
+"Nie przesłano żadnych dokumentów do tej kolekcji. Dlaczego nie <a href="
+"\"%(wagtaildocs_add_document_url)s\">dodać jednego teraz</a>?"
 
-#: templates/wagtaildocs/documents/usage.html:3
+#, python-format
+msgid ""
+"You haven't uploaded any documents. Why not <a href="
+"\"%(wagtaildocs_add_document_url)s\">upload one now</a>?"
+msgstr ""
+"Nie przesłano żadnych dokumentów. Czemu nie  <a href="
+"\"%(wagtaildocs_add_document_url)s\">dodać jednego teraz</a>?"
+
 #, python-format
 msgid "Usage of %(title)s"
-msgstr ""
+msgstr "Użycie %(title)s"
 
-#: templates/wagtaildocs/documents/usage.html:5
 msgid "Usage of"
-msgstr ""
+msgstr "Użycie"
 
-#: templates/wagtaildocs/documents/usage.html:17
 msgid "Parent"
-msgstr ""
+msgstr "Rodzic"
 
-#: templates/wagtaildocs/documents/usage.html:18
 msgid "Type"
-msgstr ""
+msgstr "Typ"
 
-#: templates/wagtaildocs/documents/usage.html:19
 msgid "Status"
-msgstr ""
+msgstr "Status"
 
-#: templates/wagtaildocs/documents/usage.html:26
 msgid "Edit this page"
+msgstr "Edytuj tę stronę"
+
+#, python-format
+msgid ""
+"\n"
+"        <span>%(total)s</span> Document\n"
+"    "
+msgid_plural ""
+"\n"
+"        <span>%(total)s</span> Documents\n"
+"    "
+msgstr[0] ""
+"\n"
+"<span>%(total)s</span> Dokument"
+msgstr[1] ""
+"\n"
+" <span>%(total)s</span> Dokumentów"
+msgstr[2] ""
+"\n"
+" <span>%(total)s</span> Dokumentów"
+
+msgid "Add multiple documents"
+msgstr "Dodaj wiele dokumentów"
+
+msgid "Add documents"
+msgstr "Dodaj dokumenty"
+
+msgid "Drag and drop documents into this area to upload immediately."
 msgstr ""
+"Przeciągnij i upuść dokumenty w to miejsce, żeby je natychmiast przesłać."
 
-#: templates/wagtaildocs/edit_handlers/document_chooser_panel.html:9
-msgid "Clear choice"
-msgstr "Wyczyść wybór"
+msgid "Or choose from your computer"
+msgstr "Lub wybierz z komputera"
 
-#: templates/wagtaildocs/edit_handlers/document_chooser_panel.html:10
-msgid "Choose another document"
-msgstr "Wybierz inny dokument"
+msgid "Add to collection:"
+msgstr "Dodaj do kolekcji:"
 
-#: views/documents.py:37 views/documents.py:46
+msgid ""
+"Upload successful. Please update this documents with a more appropriate "
+"title, if necessary. You may also delete the document completely if the "
+"upload wasn't required."
+msgstr ""
+"Wgranie plików zakończone powodzeniem. Jeśli trzeba zaktualizuj tytuł tego "
+"dokumentu. Możesz także usunąć ten dokument jeśli wgranie pliku nie było "
+"wymagane."
+
+msgid "Sorry, upload failed."
+msgstr "Przepraszamy, przesyłanie się nie powiodło."
+
+msgid "Update"
+msgstr "Aktualizacja"
+
+msgid "Delete"
+msgstr "Usuń"
+
+msgid "Document permissions"
+msgstr "Uprawnienia dokumentów"
+
+msgid "Add a document permission"
+msgstr "Dodaj uprawnienie dokumentu"
+
 msgid "Search documents"
 msgstr "Szukaj dokumentów"
 
-#: views/documents.py:86
+#, python-brace-format
 msgid "Document '{0}' added."
 msgstr "Dodano dokument '{0}'."
 
-#: views/documents.py:89 views/documents.py:118
 msgid "The document could not be saved due to errors."
 msgstr "Dokument nie mógł zostać zapisany z powodu błędów."
 
-#: views/documents.py:115
+#, python-brace-format
 msgid "Document '{0}' updated"
 msgstr "Uaktualniono dokument '{0}'"
 
-#: views/documents.py:137
+msgid ""
+"The file could not be found. Please change the source or delete the document"
+msgstr ""
+"Plik nie mógł zostać odnaleziony. Proszę zmień źródło lub usuń dokument"
+
+#, python-brace-format
 msgid "Document '{0}' deleted."
 msgstr "Usunięto dokument '{0}'"
+
+#, python-format
+msgid "%(count)s document"
+msgid_plural "%(count)s documents"
+msgstr[0] "%(count)s dokument"
+msgstr[1] "%(count)s dokumentów"
+msgstr[2] "%(count)s dokumentów"
+
+msgid "Choose another document"
+msgstr "Wybierz inny dokument"
+
+msgid "Edit this document"
+msgstr "Edytuj ten dokument"

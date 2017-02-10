@@ -1,157 +1,210 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
 # Translators:
+# Jose Lourenco <jose@lourenco.ws>, 2014-2016
+# Manuela Silva <inactive+h_manuela_rodsilva@transifex.com>, 2015
 # Thiago Cangussu <cangussu.thg@gmail.com>, 2014
+# Tiago Henriques <trinosauro@gmail.com>, 2015-2016
 msgid ""
 msgstr ""
-"Project-Id-Version: Wagtail 0.5.0\n"
+"Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-08-01 16:39+0100\n"
-"PO-Revision-Date: 2014-08-03 01:59+0100\n"
+"POT-Creation-Date: 2016-12-06 22:44+0000\n"
+"PO-Revision-Date: 2016-08-27 17:27+0000\n"
 "Last-Translator: Jose Lourenco <jose@lourenco.ws>\n"
-"Language-Team: \n"
+"Language-Team: Portuguese (Portugal) (http://www.transifex.com/torchbox/"
+"wagtail/language/pt_PT/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Poedit 1.5.4\n"
 "Language: pt_PT\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: forms.py:18 forms.py:95
-msgid "Administrator"
-msgstr "Administrador"
-
-#: forms.py:20
-msgid "If ticked, this user has the ability to manage user accounts."
-msgstr ""
-"Se selecionado, este utilizador terá permissão para gerir contas de "
-"utilizadores."
-
-#: forms.py:23 forms.py:80
-msgid "Email"
-msgstr "Email"
-
-#: forms.py:24 forms.py:81
-msgid "First Name"
-msgstr "Primeiro Nome"
-
-#: forms.py:25 forms.py:82
-msgid "Last Name"
-msgstr "Último nome"
-
-#: forms.py:68
-msgid "A user with that username already exists."
-msgstr "Um utilizador com esse nome já existe."
-
-#: forms.py:69
-msgid "The two password fields didn't match."
-msgstr "As senhas nos dois campos não coincidem."
-
-#: forms.py:72 templates/wagtailusers/list.html:15
-msgid "Username"
-msgstr "Nome de utilizador"
-
-#: forms.py:75
 msgid "Required. 30 characters or fewer. Letters, digits and @/./+/-/_ only."
 msgstr ""
-"Obrigatório. 30 caracteres ou menos. Somente letras, números e @/./+/-/_."
+"Obrigatório. 30 caracteres ou menos. Apenas letras, algarismos e @/./+/-/_."
 
-#: forms.py:77
 msgid "This value may contain only letters, numbers and @/./+/-/_ characters."
 msgstr ""
 "Este valor apenas pode conter letras, números e os caracteres @/./+/-/_."
 
-#: forms.py:85
+msgid "A user with that username already exists."
+msgstr "Já existe um utilizador com esse nome."
+
+msgid "The two password fields didn't match."
+msgstr "As senhas nos dois campos não coincidem."
+
+msgid "Administrator"
+msgstr "Administrador"
+
+msgid "Administrators have full access to manage any object or setting."
+msgstr ""
+"Os administradores têm pleno acesso à gestão de qualquer objeto ou definição."
+
 msgid "Password"
 msgstr "Senha"
 
-#: forms.py:88
 msgid "Leave blank if not changing."
-msgstr "Deixar em branco se não houver alteração"
+msgstr "Deixar em branco se não estiver a alterar."
 
-#: forms.py:90
 msgid "Password confirmation"
 msgstr "Confirmação de senha"
 
-#: forms.py:92
 msgid "Enter the same password as above, for verification."
-msgstr "Introduza a mesma senha anterior para verificação."
+msgstr "Insira a novamente a mesma senha, para verificação."
 
-#: forms.py:97
-msgid "Administrators have the ability to manage user accounts."
-msgstr "Os administradores têm a permissão para gerir contas de utilizadores."
+msgid "Email"
+msgstr "E-mail"
 
-#: models.py:13
+msgid "First Name"
+msgstr "Nome"
+
+msgid "Last Name"
+msgstr "Apelidos"
+
+msgid "A group with that name already exists."
+msgstr "Já existe um grupo com esse nome."
+
+msgid "You cannot have multiple permission records for the same page."
+msgstr ""
+"Não é permitido ter múltiplos registos de permissão para a mesma página. "
+
+msgid "submitted notifications"
+msgstr "notificações enviadas"
+
 msgid "Receive notification when a page is submitted for moderation"
 msgstr "Receber notificação quando uma página for enviada para moderação"
 
-#: models.py:18
+msgid "approved notifications"
+msgstr "notificações aprovadas"
+
 msgid "Receive notification when your page edit is approved"
-msgstr "Receber notificação quando a edição da sua página for aprovada"
+msgstr "Receber notificação quando a sua alteração de página for aprovada"
 
-#: models.py:23
+msgid "rejected notifications"
+msgstr "notificações rejeitadas"
+
 msgid "Receive notification when your page edit is rejected"
-msgstr "Receber notificação quando a edição da sua página for rejeitada"
+msgstr "Receber notificação quando a sua alteração de página for rejeitada"
 
-#: wagtail_hooks.py:22 templates/wagtailusers/index.html:4
-#: templates/wagtailusers/index.html:17
-msgid "Users"
-msgstr "Utilizadores"
+msgid "user profile"
+msgstr "perfil do utilizador"
 
-#: templates/wagtailusers/create.html:4 templates/wagtailusers/create.html:8
-#: templates/wagtailusers/create.html:35
-msgid "Add user"
-msgstr "Adicionar utilizador"
+msgid "Delete group"
+msgstr "Apagar grupo"
 
-#: templates/wagtailusers/create.html:12 templates/wagtailusers/edit.html:12
-msgid "Account"
-msgstr "Conta"
+#, python-format
+msgid ""
+"The group '%(group_name)s' has <strong>%(group_user_count)s</strong> users "
+"assigned."
+msgstr ""
+"O grupo '%(group_name)s' tem <strong>%(group_user_count)s</strong> "
+"utilizadores."
 
-#: templates/wagtailusers/create.html:13 templates/wagtailusers/create.html:28
-#: templates/wagtailusers/edit.html:13
-msgid "Roles"
-msgstr "Funções (roles)"
+msgid ""
+"Deleting this group will revoke this group's permissions from all member "
+"users."
+msgstr ""
+"Ao apagar este grupo irá retirar as permissões do grupo a todos os "
+"utilizadores membros."
 
-#: templates/wagtailusers/edit.html:4 templates/wagtailusers/edit.html.py:8
+msgid "Are you sure you want to delete this group?"
+msgstr "Tem a certeza que quer apagar este grupo?"
+
+msgid "Yes, delete"
+msgstr "Sim, apagar"
+
+msgid "Add group"
+msgstr "Adicionar grupo"
+
 msgid "Editing"
-msgstr "Editando"
+msgstr "A alterar"
 
-#: templates/wagtailusers/edit.html:30 templates/wagtailusers/edit.html:37
 msgid "Save"
 msgstr "Guardar"
 
-#: templates/wagtailusers/index.html:18
-msgid "Add a user"
-msgstr "Adicionar um utilizador"
+msgid "Object permissions"
+msgstr "Permissões de objeto"
 
-#: templates/wagtailusers/list.html:7
 msgid "Name"
 msgstr "Nome"
 
-#: templates/wagtailusers/list.html:22
+msgid "Add"
+msgstr "Adicionar"
+
+msgid "Change"
+msgstr "Alterar"
+
+msgid "Delete"
+msgstr "Apagar"
+
+msgid "Other permissions"
+msgstr "Outras permissões"
+
+msgid "Page permissions"
+msgstr "Permissões de página"
+
+msgid "Page"
+msgstr "Página"
+
+msgid "Add a page permission"
+msgstr "Adicionar uma permissão de página"
+
+msgid "groups"
+msgstr "grupos"
+
+msgid "Add a group"
+msgstr "Adicionar um grupo"
+
+#, python-format
+msgid ""
+"There are no groups configured. Why not <a href="
+"\"%(wagtailusers_create_group_url)s\">add some</a>?"
+msgstr ""
+"Não existem grupos configurados. Porque não <a href="
+"\"%(wagtailusers_create_group_url)s\">criar um</a>?"
+
+msgid "Delete user"
+msgstr "Apagar utilizador"
+
+msgid "Are you sure you want to delete this user?"
+msgstr "Tem a certeza que quer apagar este utilizador?"
+
+msgid "Add user"
+msgstr "Adicionar utilizador"
+
+msgid "Account"
+msgstr "Conta"
+
+msgid "Roles"
+msgstr "Funções"
+
+msgid "Users"
+msgstr "Utilizadores"
+
+msgid "Add a user"
+msgstr "Adicionar um utilizador"
+
+msgid "Username"
+msgstr "Utilizador"
+
 msgid "Level"
 msgstr "Nível"
 
-#: templates/wagtailusers/list.html:23
 msgid "Status"
 msgstr "Estado"
 
-#: templates/wagtailusers/list.html:36
 msgid "Admin"
-msgstr "Admin"
+msgstr "Administração"
 
-#: templates/wagtailusers/list.html:37
 msgid "Active"
 msgstr "Ativo"
 
-#: templates/wagtailusers/list.html:37
 msgid "Inactive"
 msgstr "Inativo"
 
-#: templates/wagtailusers/results.html:5
 #, python-format
 msgid ""
 "\n"
@@ -163,44 +216,75 @@ msgid_plural ""
 "        "
 msgstr[0] ""
 "\n"
-"            Existe uma correspondência\n"
-"        "
+"Encontrado um resultado"
 msgstr[1] ""
 "\n"
-"            Existem %(counter)s correspondências\n"
+"Encontrados %(counter)s resultados\n"
 "        "
 
-#: templates/wagtailusers/results.html:18
 #, python-format
 msgid "Sorry, no users match \"<em>%(query_string)s</em>\""
 msgstr ""
 "Desculpe, nenhum utilizador corresponde a \"<em>%(query_string)s</em>\""
 
-#: templates/wagtailusers/results.html:21
 #, python-format
 msgid ""
 "There are no users configured. Why not <a href=\"%(wagtailusers_create_url)s"
 "\">add some</a>?"
 msgstr ""
 "Não existem utilizadores configurados. Por que não <a href="
-"\"%(wagtailusers_create_url)s\">adicionar algum</a>?"
+"\"%(wagtailusers_create_url)s\">criar um</a>?"
 
-#: views/users.py:30 views/users.py:37
+msgid "Search groups"
+msgstr "Pesquisar grupos"
+
+#, python-brace-format
+msgid "Group '{0}' created."
+msgstr "Grupo '{0}' criado."
+
+msgid "Edit"
+msgstr "Alterar"
+
+msgid "The group could not be created due to errors."
+msgstr "O grupo não pôde ser criado devido a erros."
+
+#, python-brace-format
+msgid "Group '{0}' updated."
+msgstr "Grupo '{0}' atualizado."
+
+msgid "The group could not be saved due to errors."
+msgstr "O grupo não pôde ser guardado devido a erros."
+
+#, python-brace-format
+msgid "Group '{0}' deleted."
+msgstr "Grupo '{0}' apagado."
+
 msgid "Search users"
-msgstr "Procurar utilizadores"
+msgstr "Pesquisar utilizadores"
 
-#: views/users.py:84
+#, python-brace-format
 msgid "User '{0}' created."
 msgstr "Utilizador '{0}' criado."
 
-#: views/users.py:87
 msgid "The user could not be created due to errors."
 msgstr "O utilizador não pôde ser criado devido a erros."
 
-#: views/users.py:103
+#, python-brace-format
 msgid "User '{0}' updated."
 msgstr "Utilizador '{0}' atualizado."
 
-#: views/users.py:106
 msgid "The user could not be saved due to errors."
 msgstr "O utilizador não pôde ser guardado devido a erros."
+
+#, python-brace-format
+msgid "User '{0}' deleted."
+msgstr "Utilisador '{0}' apagado."
+
+msgid "Groups"
+msgstr "Grupos"
+
+msgid "Edit this user"
+msgstr "Editar este utilisador"
+
+msgid "Delete this user"
+msgstr "Apagar este utilisador"

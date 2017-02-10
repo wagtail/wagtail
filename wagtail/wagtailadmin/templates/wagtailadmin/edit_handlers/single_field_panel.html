@@ -1,6 +1,8 @@
 <fieldset>
     <legend>{{ self.heading }}</legend>
     <ul class="fields">
-        <li>{{ field_content }}</li>
+        <li>
+            {% include "wagtailadmin/shared/field.html" with show_label=False show_help_text=False %}
+        </li>
     </ul>
 </fieldset>

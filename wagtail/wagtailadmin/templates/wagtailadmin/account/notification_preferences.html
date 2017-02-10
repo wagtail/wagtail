@@ -7,13 +7,13 @@
     {% include "wagtailadmin/shared/header.html" with title=prefs_str %}
 
     <div class="nice-padding">
-        <form action="{% url 'wagtailadmin_account_notification_preferences' %}" method="POST">
+        <form action="{% url 'wagtailadmin_account_notification_preferences' %}" method="POST" novalidate>
             {% csrf_token %}
             <ul class="fields">
                 {% for field in form %}
                     {% include "wagtailadmin/shared/field_as_li.html" with field=field %}
                 {% endfor %}
-                <li class="submit"><input type="submit" value="{% trans 'Update' %}" /></li>
+                <li class="submit"><input type="submit" value="{% trans 'Update' %}" class="button" /></li>
             </ul>
         </form>
     </div>

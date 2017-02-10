@@ -1,0 +1,22 @@
+{% load wagtailadmin_tags %}
+<div class="field {{ field|fieldtype }} widget-{{ field|widgettype }}{% if name %} fieldname-{{ name }}{% endif %}{% if classes %} {{ classes }}{% endif %}{% if errors %} error{% endif %}">
+    <div class="field-content">
+        <div class="input">
+            {{ widget }}
+
+            {# This span only used on rare occasions by certain types of input #}
+            <span></span>
+        </div>
+        {% if field.help_text %}
+            <p class="help">{{ field.help_text }}</p>
+        {% endif %}
+
+        {% if errors %}
+            <p class="error-message">
+                {% for error in errors %}
+                    <span>{{ error|escape }}</span>
+                {% endfor %}
+            </p>
+        {% endif %}
+    </div>
+</div>

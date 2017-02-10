@@ -14,4 +14,4 @@ A common feature of Wagtail is the ability to add more than one of a particular 
 
 .. image:: ../../_static/images/screen26_reordering_multiple_items.png
 
-4. You can reorder your multiple items using the up and down arrows. Doing this will affect the order in which they are display on the live page.
+* You can reorder your multiple items using the up and down arrows. Doing this will affect the order in which they are display on the live page.

@@ -1,9 +1,11 @@
-from django.conf.urls import patterns, url
+from __future__ import absolute_import, unicode_literals
 
+from django.conf.urls import url
 
-urlpatterns = patterns(
-    'wagtail.wagtailforms.views',
-    url(r'^$', 'index', name='wagtailforms_index'),
-    url(r'^submissions/(\d+)/$', 'list_submissions', name='wagtailforms_list_submissions'),
+from wagtail.wagtailforms import views
 
-)
+urlpatterns = [
+    url(r'^$', views.index, name='index'),
+    url(r'^submissions/(\d+)/$', views.list_submissions, name='list_submissions'),
+    url(r'^submissions/(\d+)/delete/$', views.delete_submissions, name='delete_submissions')
+]

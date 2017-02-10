@@ -1,0 +1,1010 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# hanfeng <appweb.cn@gmail.com>, 2014-2015
+# Daniel Hwang <danielblinkhw@gmail.com>, 2015
+# Fred Zeng <979738295@qq.com>, 2016
+# hanfeng <appweb.cn@gmail.com>, 2014
+# Listeng, 2016
+# 飘 赵 <275980464@qq.com>, 2016
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2016-12-06 22:44+0000\n"
+"PO-Revision-Date: 2016-12-06 22:46+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"Language-Team: Chinese (China) (http://www.transifex.com/torchbox/wagtail/"
+"language/zh_CN/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: zh_CN\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+msgid "You do not have permission to access the admin"
+msgstr "你没有访问后台管理的权限"
+
+msgid "Scheduled publishing"
+msgstr "定时发布"
+
+msgid "Common page configuration"
+msgstr "常用页面配置"
+
+msgid "Content"
+msgstr "内容"
+
+msgid "Promote"
+msgstr "推荐"
+
+msgid "Settings"
+msgstr "设置"
+
+msgid "Search"
+msgstr "搜索"
+
+msgid "Search term"
+msgstr "搜索条件"
+
+msgid "URL"
+msgstr "URL"
+
+msgid "Enter password"
+msgstr "输入密码"
+
+#, python-format
+msgid "Enter your %s"
+msgstr "输入你的 %s"
+
+msgid "Enter your email address to reset your password"
+msgstr "输入邮件地址以重置密码"
+
+msgid "Please fill your email address."
+msgstr "请填入邮件地址"
+
+msgid ""
+"Sorry, you cannot reset your password here as your user account is managed "
+"by another server."
+msgstr "对不起，您无法重置密码，因为账户不在此处管理"
+
+msgid "This email address is not recognised."
+msgstr "未知邮件地址"
+
+msgid "New title"
+msgstr "新标题"
+
+msgid "New slug"
+msgstr "新"
+
+msgid "New parent page"
+msgstr "新父页面"
+
+msgid "This copy will be a child of this given parent page."
+msgstr "此副本将成为指定父页面的子页面。"
+
+msgid "Copy subpages"
+msgstr "复制子页面"
+
+#, python-format
+msgid "This will copy %(count)s subpage."
+msgid_plural "This will copy %(count)s subpages."
+msgstr[0] "此操作将复制%(count)s 子页面。"
+
+msgid "Publish copied page"
+msgstr "发布复制的页面。"
+
+msgid "This page is live. Would you like to publish its copy as well?"
+msgstr "此页面已发布。你也想发布它的副本吗？"
+
+msgid "Publish copies"
+msgstr "发布副本"
+
+#, python-format
+msgid ""
+"%(count)s of the pages being copied is live. Would you like to publish its "
+"copy?"
+msgid_plural ""
+"%(count)s of the pages being copied are live. Would you like to publish "
+"their copies?"
+msgstr[0] ""
+"%(count)s of the pages being copied are live. Would you like to publish "
+"their copies?"
+
+#, python-format
+msgid ""
+"This slug is already in use within the context of its parent page \"%s\""
+msgstr "此缩写在父页面\"%s\"环境中已被使用。"
+
+msgid "This field is required."
+msgstr "必需字段"
+
+msgid "This slug is already in use"
+msgstr "此缩略名已被使用"
+
+msgid "Go live date/time must be before expiry date/time"
+msgstr "发布日期/时间必须早于过期日期/时间"
+
+msgid "Expiry date/time must be in the future"
+msgstr "过期日期/时间必须是未来时间。"
+
+msgid "You cannot have multiple permission records for the same collection."
+msgstr "对于同一个集合你不能设置多重权限"
+
+msgid "Account"
+msgstr "帐号"
+
+msgid "Set gravatar"
+msgstr "设置gravatar"
+
+msgid ""
+"Your avatar image is provided by Gravatar and is connected to your email "
+"address. With a Gravatar account you can set an avatar for any number of "
+"other email addresses you use."
+msgstr ""
+"您的头像是由Gravatar提供，与您的电邮地址关联。拥有Gravatar帐号，你可以为你的"
+"多个电邮地址设置头像。"
+
+msgid "Change password"
+msgstr "修改密码"
+
+msgid "Change the password you use to log in."
+msgstr "修改用于登录的密码"
+
+msgid "Notification preferences"
+msgstr "提醒设置"
+
+msgid "Choose which email notifications to receive."
+msgstr "选择接收哪些邮件提醒"
+
+msgid "Change Password"
+msgstr "修改密码"
+
+msgid ""
+"Your password can't be changed here. Please contact a site administrator."
+msgstr "您不能修改密码，请联系管理员。"
+
+msgid "Notification Preferences"
+msgstr "提醒设置"
+
+msgid "Update"
+msgstr "更新"
+
+msgid "Reset password"
+msgstr "重置密码"
+
+msgid "Password change successful"
+msgstr "密码修改成功。"
+
+msgid "Login"
+msgstr "登录"
+
+msgid "Set your new password"
+msgstr "设置新密码"
+
+msgid "The passwords do not match. Please try again."
+msgstr "密码不匹配，请重试"
+
+msgid "Check your email"
+msgstr "检查您的邮件"
+
+msgid "A link to reset your password has been emailed to you."
+msgstr "已将重置密码的链接发送到您的邮箱。"
+
+msgid "Please follow the link below to reset your password:"
+msgstr "请点击下面的链接来重置密码"
+
+msgid "Your username (in case you've forgotten):"
+msgstr "以防遗忘，请填写你的用户名:"
+
+msgid "Password reset"
+msgstr "密码已重置。"
+
+msgid "Reset your password"
+msgstr "重设密码"
+
+msgid "Dashboard"
+msgstr "控制面板"
+
+msgid "Menu"
+msgstr "菜单"
+
+msgid "Add another"
+msgstr "添加另外一个"
+
+msgid "Move up"
+msgstr "上移"
+
+msgid "Move down"
+msgstr "下移"
+
+msgid "Delete"
+msgstr "删除"
+
+msgid "Explorer"
+msgstr "资源管理"
+
+msgid "Internal link"
+msgstr "内部链接"
+
+msgid "External link"
+msgstr "外部链接"
+
+msgid "Email link"
+msgstr "电子邮件连接"
+
+#, python-format
+msgid ""
+"\n"
+"        There is one match\n"
+"    "
+msgid_plural ""
+"\n"
+"        There are %(counter)s matches\n"
+"    "
+msgstr[0] ""
+"\n"
+"             %(counter)s 匹配\n"
+"        "
+
+msgid "Choose"
+msgstr "选择"
+
+msgid "Choose a page"
+msgstr "选择一个页面"
+
+#, python-format
+msgid ""
+"\n"
+"                Only pages of type \"%(type)s\" may be chosen for this "
+"field. Search results will exclude pages of other types.\n"
+"                "
+msgid_plural ""
+"\n"
+"                Only the following page types may be chosen for this field: "
+"%(type)s. Search results will exclude pages of other types.\n"
+"            "
+msgstr[0] ""
+"\n"
+"这里只能选择 \"%(type)s\"类型的页面。搜索结果会过滤掉其它类型。"
+
+msgid "Add an email link"
+msgstr "添加一个电邮链接"
+
+msgid "Insert link"
+msgstr "插入链接"
+
+msgid "Add an external link"
+msgstr "添加一个外部链接"
+
+msgid ""
+"This collection cannot be deleted, because it is not empty. It contains:"
+msgstr "集合非空，不能删除，它包含有："
+
+msgid "Name"
+msgstr "名字"
+
+#, python-format
+msgid ""
+"No collections have been created. Why not <a href=\"%(add_collection_url)s"
+"\">add one</a>?"
+msgstr ""
+"没有创建任何集合，为何不<a href=\"%(add_collection_url)s\">创建一个</a>"
+
+#, python-format
+msgid "Add %(heading)s"
+msgstr "添加%(heading)s"
+
+msgid "Yes, delete"
+msgstr "是的， 删除"
+
+msgid "Save"
+msgstr "保存"
+
+#, python-format
+msgid "Welcome to the %(site_name)s Wagtail CMS"
+msgstr "欢迎使用 %(site_name)s  Wagtail CMS"
+
+msgid ""
+"This is your dashboard on which helpful information about content you've "
+"created will be displayed."
+msgstr "这是您的主控台，将会显示您创建的内容的帮助信息。"
+
+msgid "Pages awaiting moderation"
+msgstr "页面等待审核中"
+
+msgid "Title"
+msgstr "标题"
+
+msgid "Parent"
+msgstr "父节点"
+
+msgid "Type"
+msgstr "类型"
+
+msgid "Edited"
+msgstr "已编辑"
+
+msgid "Edit this page"
+msgstr "编辑此页"
+
+msgid "Approve"
+msgstr "通过"
+
+msgid "Reject"
+msgstr "拒绝"
+
+msgid "Edit"
+msgstr "编辑"
+
+msgid "Preview"
+msgstr "预览"
+
+msgid "Your most recent edits"
+msgstr "最近编辑"
+
+msgid "Date"
+msgstr "日期"
+
+msgid "Status"
+msgstr "状态"
+
+msgid "Draft"
+msgstr "草稿"
+
+msgid "Live"
+msgstr "预览"
+
+msgid "Site summary"
+msgstr "网站摘要"
+
+#, python-format
+msgid ""
+"\n"
+"        <span>%(total)s</span> Page\n"
+"    "
+msgid_plural ""
+"\n"
+"        <span>%(total)s</span> Pages\n"
+"    "
+msgstr[0] ""
+"\n"
+"        <span>%(total)s</span> 页面\n"
+"    "
+
+msgid "Sign in"
+msgstr "登录"
+
+#, python-format
+msgid "Your %(username_field)s and password didn't match. Please try again."
+msgstr "用户 %(username_field)s 密码不匹配，请重试"
+
+msgid "Sign in to Wagtail"
+msgstr "登录Wagtail"
+
+msgid "Forgotten it?"
+msgstr "不记得了？"
+
+msgid "Signing in..."
+msgstr "登录中……"
+
+#, python-format
+msgid "The page \"%(title)s\" has been approved."
+msgstr "页面\"%(title)s\"已批准。"
+
+msgid "You can view the page here:"
+msgstr "在这里查看页面："
+
+#, python-format
+msgid "The page \"%(title)s\" has been approved"
+msgstr "页面\"%(title)s\"已批准"
+
+#, python-format
+msgid "Hello %(username)s,"
+msgstr "%(username)s 你好，"
+
+msgid "Edit your notification preferences here:"
+msgstr "在此编辑通知选择"
+
+#, python-format
+msgid "The page \"%(title)s\" has been rejected."
+msgstr "页面\"%(title)s\"被驳回。"
+
+msgid "You can edit the page here:"
+msgstr "你可以在此编辑页面："
+
+#, python-format
+msgid "The page \"%(title)s\" has been rejected"
+msgstr "页面\"%(title)s\"被驳回"
+
+#, python-format
+msgid "The page \"%(page)s\" has been submitted for moderation by %(editor)s."
+msgstr "页面“%(page)s”已被“%(editor)s”审核"
+
+msgid "You can preview the page here:"
+msgstr "可以在此预览页面："
+
+#, python-format
+msgid "The page \"%(page)s\" has been submitted for moderation"
+msgstr "页面\"%(page)s\"已提交审核"
+
+msgid "Page privacy"
+msgstr "页面保护"
+
+msgid "This page has been made private by a parent page."
+msgstr "此页面已被父节点设置为隐藏。"
+
+msgid "You can edit the privacy settings on:"
+msgstr "你可以在这里修改此配置："
+
+msgid "Privacy changes apply to all children of this page too."
+msgstr "隐私也会应用到此页面的所有子页面。"
+
+msgid "Edit lock"
+msgstr "编辑锁定"
+
+msgid "Locked"
+msgstr "已锁定"
+
+msgid "Unlocked"
+msgstr "已解锁"
+
+msgid "Privacy"
+msgstr "隐私"
+
+msgid "Public"
+msgstr "公开"
+
+msgid "Private"
+msgstr "私有"
+
+#, python-format
+msgid "Create a page in %(title)s"
+msgstr "在%(title)s中创建一个页面"
+
+msgid "Create a page in"
+msgstr "创建一个页面，在"
+
+msgid "Choose which type of page you'd like to create."
+msgstr "选择创建的页面类型"
+
+#, python-format
+msgid "Pages using %(page_type)s"
+msgstr " %(page_type)s类型的页面"
+
+#, python-format
+msgid "Delete %(title)s"
+msgstr "删除%(title)s"
+
+msgid "Are you sure you want to delete this page?"
+msgstr "确认删除？"
+
+#, python-format
+msgid ""
+"\n"
+"                    This will also delete one more subpage.\n"
+"                "
+msgid_plural ""
+"\n"
+"                    This will also delete %(descendant_count)s more "
+"subpages.\n"
+"                "
+msgstr[0] ""
+"\n"
+"这也会删除 %(descendant_count)s 个子页面。"
+
+msgid "Yes, delete it"
+msgstr "确认删除"
+
+#, python-format
+msgid "Move %(title)s"
+msgstr "移动%(title)s"
+
+msgid "Move"
+msgstr "移动"
+
+#, python-format
+msgid "Are you sure you want to move this page into '%(title)s'?"
+msgstr "确认将此页面移到'%(title)s'？"
+
+#, python-format
+msgid ""
+"Are you sure you want to move this page and all of its children into "
+"'%(title)s'?"
+msgstr "确认将此页面极其子页面移到'%(title)s'？"
+
+msgid "Yes, move this page"
+msgstr "是的，请开始移动吧"
+
+#, python-format
+msgid "Unpublish %(title)s"
+msgstr "取消发布%(title)s"
+
+msgid "Unpublish"
+msgstr "取消发布"
+
+msgid "Are you sure you want to unpublish this page?"
+msgstr "确认取消发布此页面？"
+
+msgid "Yes, unpublish it"
+msgstr "是的。取消发布"
+
+msgid "No, don't unpublish"
+msgstr "否，不发布"
+
+msgid "Pages using"
+msgstr "页面使用"
+
+#, python-format
+msgid "Copy %(title)s"
+msgstr "复制%(title)s"
+
+msgid "Copy"
+msgstr "复制"
+
+msgid "Copy this page"
+msgstr "复制此页"
+
+#, python-format
+msgid "New %(page_type)s"
+msgstr "新%(page_type)s页面类型"
+
+msgid "New"
+msgstr "新"
+
+msgid "Saving..."
+msgstr "正在保存……"
+
+msgid "Save draft"
+msgstr "保存草稿"
+
+msgid "Publishing..."
+msgstr "正在发布……"
+
+msgid "Publish"
+msgstr "发布"
+
+msgid "Submit for moderation"
+msgstr "提交审核"
+
+msgid "This page has unsaved changes."
+msgstr "页面还没保存"
+
+#, python-format
+msgid "Editing %(page_type)s: %(title)s"
+msgstr "编辑 %(page_type)s: %(title)s"
+
+#, python-format
+msgid "Editing %(page_type)s <span>%(title)s</span>"
+msgstr "编辑 %(page_type)s <span>%(title)s</span>"
+
+msgid "Page locked"
+msgstr "页面已锁定"
+
+msgid "Replace current draft"
+msgstr "替换当前的草稿"
+
+msgid "Publish this revision"
+msgstr "发布这个版本"
+
+#, python-format
+msgid "Last modified: %(last_mod)s"
+msgstr "上一次编辑： %(last_mod)s"
+
+#, python-format
+msgid "by %(modified_by)s"
+msgstr "被 %(modified_by)s"
+
+msgid "Revisions"
+msgstr "修订"
+
+#, python-format
+msgid "Exploring %(title)s"
+msgstr "浏览 %(title)s"
+
+msgid "Drag"
+msgstr "拖曳"
+
+msgid "Updated"
+msgstr "已更新"
+
+msgid ""
+"\n"
+"                            The root level is where you can add new sites to "
+"your Wagtail installation. Pages created here will not be accessible at any "
+"URL until they are associated with a site.\n"
+"                        "
+msgstr ""
+"\n"
+"你可以在根节点添加一个新站点。除非关联一个站点，否则添加的页面将无法通过URL访"
+"问。\n"
+"                        "
+
+msgid "Configure a site now."
+msgstr "现在配置站点"
+
+msgid ""
+"\n"
+"                            If you just want to add pages to an existing "
+"site, create them as children of the homepage instead.\n"
+"                        "
+msgstr ""
+"\n"
+"如果你是想给已存在的站点添加一个页面，请给首页添加一个子页面。"
+
+msgid ""
+"\n"
+"                        Pages created here will not be accessible at any "
+"URL. To add pages to an existing site, create them as children of the "
+"homepage.\n"
+"                    "
+msgstr ""
+"\n"
+"在这里创建的页面将无法通过URL访问，如果你是想给已存在的站点添加一个页面，请给"
+"首页添加一个子页面。"
+
+msgid ""
+"\n"
+"                        There is no site set up for this location. Pages "
+"created here will not be accessible at any URL until a site is associated "
+"with this location.\n"
+"                    "
+msgstr ""
+"\n"
+"当前位置没有配置站点，页面将无法访问。"
+
+msgid ""
+"\n"
+"                        There is no site record for this location. Pages "
+"created here will not be accessible at any URL.\n"
+"                    "
+msgstr ""
+"\n"
+"当前位置没有配置站点，页面将无法访问。"
+
+msgid "No pages have been created at this location."
+msgstr "该位置还没有创建页面。"
+
+#, python-format
+msgid "Why not <a href=\"%(add_page_url)s\">create one</a>?"
+msgstr "为啥不<a href=\"%(add_page_url)s\">创建一个</a>?"
+
+msgid "This page is locked to further editing"
+msgstr "此页面已锁定，无法编辑"
+
+#, python-format
+msgid "Explore subpages of '%(title)s'"
+msgstr "查看'%(title)s'的子页面"
+
+msgid "Explore"
+msgstr "浏览"
+
+#, python-format
+msgid "Explore child pages of '%(title)s'"
+msgstr "查看'%(title)s'的子页面"
+
+#, python-format
+msgid "Add a child page to '%(title)s'"
+msgstr "为'%(title)s'添加子页面"
+
+msgid "Add subpage"
+msgstr "添加子页面"
+
+#, python-format
+msgid ""
+"\n"
+"        Page %(page_number)s of %(num_pages)s.\n"
+"    "
+msgstr ""
+"\n"
+"页面 %(page_number)s / %(num_pages)s。"
+
+msgid "Previous"
+msgstr "上一个"
+
+msgid "Next"
+msgstr "下一个"
+
+msgid "This page is protected from public view"
+msgstr "此页面已受保护，公众不可见。"
+
+msgid "Disable ordering of child pages"
+msgstr "禁用子页面排序"
+
+msgid "Order"
+msgstr "排序"
+
+msgid "Enable ordering of child pages"
+msgstr "启用子页面排序"
+
+#, python-format
+msgid "Select a new parent page for %(title)s"
+msgstr "为 %(title)s选择新父节点"
+
+#, python-format
+msgid "Select a new parent page for <span>%(title)s</span>"
+msgstr "为<span>%(title)s</span>选择新的父节点"
+
+#, python-format
+msgid "Revisions of %(title)s"
+msgstr "%(title)s 的修订"
+
+msgid "Revisions of"
+msgstr "修订"
+
+msgid "Revision date"
+msgstr "修订时间"
+
+msgctxt "points to a user who created a revision"
+msgid "by"
+msgstr "于"
+
+msgid "Current draft"
+msgstr "当前草稿"
+
+msgid "Review this revision"
+msgstr "查看这个修订"
+
+msgid "No revision of this page exist"
+msgstr "当前页面没有修订记录"
+
+#, python-format
+msgid ""
+"\n"
+"                There is one matching page\n"
+"            "
+msgid_plural ""
+"\n"
+"                There are %(counter)s matching pages\n"
+"            "
+msgstr[0] ""
+"\n"
+"有%(counter)s个符合要求的页面"
+
+#, python-format
+msgid "Sorry, no pages match <em>\"%(query_string)s\"</em>"
+msgstr "Sorry,没有符合<em>\"%(query_string)s\"</em>的页面"
+
+msgid "Enter a search term above"
+msgstr "输入检索词"
+
+msgid "No pages use"
+msgstr "没有页面使用"
+
+msgid "Collection"
+msgstr "集合"
+
+msgid "Home"
+msgstr "起始页"
+
+msgid "All collections"
+msgstr "所有集合"
+
+msgid "January"
+msgstr "一月"
+
+msgid "February"
+msgstr "二月"
+
+msgid "March"
+msgstr "三月"
+
+msgid "April"
+msgstr "四月"
+
+msgid "May"
+msgstr "五月"
+
+msgid "June"
+msgstr "六月"
+
+msgid "July"
+msgstr "七月"
+
+msgid "August"
+msgstr "八月"
+
+msgid "September"
+msgstr "九月"
+
+msgid "October"
+msgstr "十月"
+
+msgid "November"
+msgstr "十一月"
+
+msgid "December"
+msgstr "十二月"
+
+msgid "Sun"
+msgstr "周日"
+
+msgid "Mon"
+msgstr "周一"
+
+msgid "Tue"
+msgstr "周二"
+
+msgid "Wed"
+msgstr "周三"
+
+msgid "Thu"
+msgstr "周四"
+
+msgid "Fri"
+msgstr "周五"
+
+msgid "Sat"
+msgstr "周六"
+
+#, python-format
+msgid "Used %(useage_count)s time"
+msgid_plural "Used %(useage_count)s times"
+msgstr[0] "已使用%(useage_count)s次"
+
+msgid "Edit your account"
+msgstr "编辑账户"
+
+msgid "Account settings"
+msgstr "帐号设置"
+
+msgid "Log out"
+msgstr "注销"
+
+#, python-format
+msgid "Page %(page_num)s of %(total_pages)s."
+msgstr "页面 %(page_num)s / %(total_pages)s."
+
+msgid "Other searches"
+msgstr "其它搜索"
+
+msgid ""
+"You are using an <strong>outdated</strong> browser not supported by this "
+"software. Please <a href=\"http://browsehappy.com/\">upgrade your browser</"
+"a>."
+msgstr ""
+"您正在使用一个本软件不支持的<strong>过期的</strong> 浏览器。请 <a href="
+"\"http://browsehappy.com/\">更新浏览器</a>。"
+
+msgid "Go to Wagtail admin interface"
+msgstr "转到管理界面"
+
+msgid "Go to Wagtail admin"
+msgstr "转到管理界面"
+
+msgid "Add a child page"
+msgstr "添加子页面"
+
+msgid "Show in Explorer"
+msgstr "在资源中显示"
+
+msgid "Test"
+msgstr "测试"
+
+msgid "Sorry, you do not have permission to access this area."
+msgstr "对不起， 你没有权限访问。"
+
+msgid "Your password has been changed successfully!"
+msgstr "密码成功修改！"
+
+msgid "Your preferences have been updated successfully!"
+msgstr "参数成功更新！"
+
+msgid "You have been successfully logged out."
+msgstr "注销成功"
+
+msgid "Editing"
+msgstr "正在编辑"
+
+#, python-brace-format
+msgid "Page '{0}' created and scheduled for publishing."
+msgstr "页面 {0} 已创建并计划发布中。"
+
+#, python-brace-format
+msgid "Page '{0}' created and published."
+msgstr "页面'{0}'已创建并发布。"
+
+msgid "View live"
+msgstr "实时查看"
+
+#, python-brace-format
+msgid "Page '{0}' created and submitted for moderation."
+msgstr "页面 '{0}' 已创建并提交审核。"
+
+msgid "View draft"
+msgstr "查看草稿"
+
+#, python-brace-format
+msgid "Page '{0}' created."
+msgstr "页面'{0}'已创建"
+
+msgid "The page could not be created due to validation errors"
+msgstr "验证错误，页面无法创建。"
+
+#, python-brace-format
+msgid "Revision from {0} of page '{1}' has been scheduled for publishing."
+msgstr "页面 {1} 的版本 {0} 正在计划发布中。"
+
+#, python-brace-format
+msgid "Page '{0}' has been scheduled for publishing."
+msgstr "页面 {0} 正在计划发布中。"
+
+msgid "The page could not be saved as it is locked"
+msgstr "页面无法保存，已被锁定。"
+
+msgid "The page could not be saved due to validation errors"
+msgstr "页面无法保存。出现验证错误。"
+
+msgid "This page is currently awaiting moderation"
+msgstr "页面等待审核中"
+
+#, python-brace-format
+msgid "Page '{0}' deleted."
+msgstr "页面'{0}'已删除"
+
+#, python-brace-format
+msgid "Page '{0}' unpublished."
+msgstr "页面'{0}'已取消发布。"
+
+#, python-brace-format
+msgid "Page '{0}' moved."
+msgstr "页面 '{0}' 已移动。"
+
+#, python-brace-format
+msgid "Page '{0}' and {1} subpages copied."
+msgstr "页面 '{0}' 和 {1} 个子页面已复制。"
+
+#, python-brace-format
+msgid "Page '{0}' copied."
+msgstr "页面'{0}'已复制。"
+
+#, python-brace-format
+msgid "The page '{0}' is not currently awaiting moderation."
+msgstr "页面 '{0}'目前不在等待审核。"
+
+#, python-brace-format
+msgid "Page '{0}' published."
+msgstr "页面'{0}'已发布"
+
+#, python-brace-format
+msgid "Page '{0}' rejected for publication."
+msgstr "页面 '{0}'审核失败"
+
+#, python-brace-format
+msgid "Page '{0}' is now locked."
+msgstr "页面 '{0}'已锁定"
+
+#, python-brace-format
+msgid "Page '{0}' is now unlocked."
+msgstr "页面 '{0}'已解锁。"
+
+msgid "Preview draft"
+msgstr "预览草稿"
+
+msgid "Add child page"
+msgstr "添加子页面"
+
+msgid "More"
+msgstr "更多"
+
+msgid "View more options"
+msgstr "查看更多"
+
+msgid "Delete this page"
+msgstr "删除此页面"
+
+msgid "Choose an item"
+msgstr "选择一项"
+
+msgid "Choose another item"
+msgstr "选择其它项"
+
+msgid "Clear choice"
+msgstr "取消选择"
+
+msgid "Edit this item"
+msgstr "编辑此项"
+
+msgid "Choose another page"
+msgstr "选择其它页面"

@@ -1,16 +1,19 @@
 {% load i18n %}
 {% trans "Page privacy" as title_str %}
-{% include "wagtailadmin/shared/header.html" with title=title_str icon="locked" %}
+{% include "wagtailadmin/shared/header.html" with title=title_str icon="no-view" %}
 
 <div class="nice-padding">
     <p class="help-block help-warning">{% trans "Privacy changes apply to all children of this page too." %}</p>
-    <form action="{% url 'wagtailadmin_pages_set_privacy' page.id %}" method="POST">
+    <form action="{% url 'wagtailadmin_pages:set_privacy' page.id %}" method="POST" novalidate>
         {% csrf_token %}
         <ul class="fields">
             {% include "wagtailadmin/shared/field_as_li.html" with field=form.restriction_type %}
             {% include "wagtailadmin/shared/field_as_li.html" with field=form.password li_classes="password-field" %}
         </ul>
-        <input type="submit" value="Save" />
+        <ul class="fields" id="groups-fields">
+            {% include "wagtailadmin/shared/field_as_li.html" with field=form.groups %}
+        </ul>
+        <input type="submit" value="{% trans "Save" %}" class="button" />
     </form>
-    
+
 </div>

@@ -1,0 +1,422 @@
+.dropdown {
+    @include clearfix();
+    position: relative;
+
+    input[type=submit],
+    input[type=reset],
+    input[type=button],
+    button,
+    .button {
+        padding: 0;
+        display: block;
+        width: 100%;
+        height: 3em;
+        line-height: 3em;
+        text-align: left;
+        padding-left: 1em;
+        float: left;
+    }
+
+    input[type=submit],
+    input[type=reset],
+    input[type=button],
+    button {
+        line-height: inherit;
+    }
+
+    ul {
+        @include unlist();
+        background-color: $color-teal;
+        position: absolute;
+        overflow: hidden;
+        top: 100%;
+        left: -2000px;
+        z-index: 500;
+        opacity: 0;
+
+        li {
+            float: none;
+            border-color: rgba(255, 255, 255, 0.2);
+            border-style: solid;
+            border-width: 1px 0 0;
+            overflow: hidden;
+        }
+
+        a {
+            box-sizing: border-box;
+            white-space: nowrap;
+            position: relative;
+            text-decoration: none;
+            text-transform: uppercase;
+            display: block;
+            color: $color-white;
+            padding: 1em;
+            font-weight: normal;
+
+            &:hover {
+                background-color: $color-teal-darker;
+            }
+
+            &.icon {
+                padding-right: 5em;
+
+                &:before,
+                &:after {
+                    right: 1em;
+                }
+            }
+
+            &.shortcut {
+                padding-right: 7em;
+            }
+        }
+
+        a,
+        input[type=submit],
+        input[type=reset],
+        input[type=button],
+        .button,
+        button {
+            border-radius: 0;
+            font-size: 0.95em;
+            -webkit-font-smoothing: auto;
+        }
+
+        label {
+            padding: 1.3em;
+        }
+
+        .kbd {
+            position: absolute;
+            right: 1em;
+            font-weight: 600;
+            font-size: 0.8em;
+            color: rgba(0, 0, 0, 0.3);
+        }
+
+    }
+
+    &.open ul {
+        box-shadow: 0 3px 3px 0 rgba(0, 0, 0, 0.2);
+        opacity: 1;
+        left: 0;
+        display: block;
+    }
+
+    &.match-width ul {
+        width: 100%;
+        min-width: 110px;
+
+        li {
+            white-space: nowrap;
+        }
+    }
+
+    &.dropup ul {
+        box-shadow: 0 -3px 3px 0 rgba(0, 0, 0, 0.2);
+        top: auto;
+        bottom: 100%;
+
+        li {
+            border-width: 0 0 1px;
+        }
+    }
+
+    .dropdown-toggle {
+        color: $color-white;
+        text-transform: uppercase;
+        background-color: $color-teal;
+        line-height: 2.8em;
+        cursor: pointer;
+        height: 100%;
+        border-left: 1px solid rgba(255, 255, 255, 0.2);
+        position: absolute;
+        right: 0;
+        padding: 0 0.5em;
+        text-align: center;
+
+        &:before,
+        &:after {
+            margin: 0;
+        }
+
+        &:before {
+            width: 1em;
+            font-size: 1.2rem;
+        }
+
+        &:hover {
+            background-color: $color-teal-darker;
+        }
+    }
+
+    &.open .dropdown-toggle {
+        background-color: $color-teal-darker;
+    }
+
+    // Styles for dropdowns which are also buttons e.g page editor
+
+    &.dropdown-button {
+        .dropdown-toggle {
+            border-radius: 0 3px 3px 0;
+        }
+
+        &.open {
+            > input[type=button],
+            > input[type=submit],
+            > button,
+            > .button {
+                border-radius: 3px 3px 0 0;
+            }
+
+            .dropdown-toggle {
+                border-radius: 0 3px 0 0;
+            }
+        }
+    }
+
+    &.dropup.dropdown-button {
+        &.open {
+            > input[type=button],
+            > input[type=submit],
+            > button,
+            > .button {
+                border-radius: 0 0 3px 3px;
+            }
+
+            .dropdown-toggle {
+                border-radius: 0 0 3px;
+            }
+        }
+    }
+}
+
+.dropdown.white {
+    ul {
+        background-color: $color-white;
+
+        li {
+            border-top: 1px solid rgba(0, 0, 0, 0.1);
+        }
+
+        a {
+            color: $color-grey-2;
+
+            &:hover {
+                background-color: $color-grey-3;
+            }
+        }
+    }
+}
+
+.dropdown.warning {
+    ul {
+        background-color: $color-button-warning;
+    }
+
+    .dropdown-toggle {
+        background-color: $color-button-warning;
+
+        &:hover {
+            background-color: $color-button-warning-hover;
+        }
+    }
+}
+
+// Transitions
+.dropdown ul {
+    @include transition(opacity 0.2s linear);
+}
+
+
+// =============================================================================
+// Listing view smaller dropdowns
+// =============================================================================
+
+// .c-dropdown {
+// }
+
+.o-icon {
+    display: inline-block;
+    vertical-align: middle;
+    line-height: 1;
+    margin-top: -.25rem;
+}
+
+.c-dropdown__button {
+    display: inline-block;
+    box-sizing: border-box;
+    padding-left: 0.5rem;
+    padding-right: 0.25rem;
+    // Make this the same as the other buttons
+    line-height: 1.85;
+    border: solid 1px transparent;
+    border-radius: 2px;
+    font-size: 0.95em;
+    cursor: pointer;
+    -webkit-font-smoothing: subpixel-antialiased;
+    user-select: none;
+    -webkit-user-select: none;
+}
+
+.c-dropdown__toggle {
+    display: inline-block;
+}
+
+.c-dropdown__menu.c-dropdown__menu {
+    margin-top: .75rem;
+    padding: .75rem 1rem;
+    min-width: 8rem;
+    text-transform: none;
+    position: absolute;
+    z-index: 1;
+    animation: dropdownIn .1s ease-out backwards;
+    list-style: none;
+}
+
+.c-dropdown__item {
+    margin-bottom: .375rem;
+
+    &:hover {
+        .c-dropdown__indicator {
+            opacity: .6;
+        }
+    }
+}
+
+
+
+.c-dropdown__item:last-child {
+    margin-bottom: 0;
+}
+
+.c-dropdown__divider {
+    border-color: #555;
+    border-style: dotted;
+    margin-top: 12px;
+    margin-bottom: 12px;
+}
+
+// =============================================================================
+//  Arrows
+// =============================================================================
+
+.u-arrow:before {
+    content: '';
+    border: solid .35rem transparent;
+    display: block;
+    position: absolute;
+}
+
+.u-arrow--tl:before {
+    bottom: 100%;
+    left: 1rem;
+}
+
+// =============================================================================
+//  Default dropdown theme
+// =============================================================================
+
+// .t-default {
+
+// }
+
+.t-default .u-btn-current {
+    border-color: rgba(0, 0, 0, 0.15);
+    color: #43b1b0;
+}
+
+.t-default .u-btn-current:hover {
+    background: #43b1b0;
+    color: #fff;
+    border-color: #43b1b0;
+}
+
+.t-default .u-btn-current:active {
+    background: #333;
+    color: #fff;
+    border-color: #333;
+}
+
+.t-inverted .u-btn-current {
+    border-color: rgba(0, 0, 0, 0.25);
+    color: #fff;
+}
+
+.t-inverted .u-btn-current:hover {
+    background-color: $color-teal-darker;
+    border-color: $color-teal-darker;
+}
+
+.t-inverted .u-btn-current:active {
+    border-color: rgba(0, 0, 0, 0.25);
+    background: #333;
+    color: #fff;
+}
+
+
+// =============================================================================
+// Dark theme
+// =============================================================================
+
+.t-dark .u-link {
+    color: #fff;
+}
+
+.t-dark .u-link:hover {
+    color: #aaa;
+}
+
+.t-dark .u-background {
+    background: #333;
+}
+
+.t-dark .u-arrow:before {
+    border-bottom-color: #333;
+}
+
+@keyframes dropdownIn {
+    0% {
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 1;
+    }
+}
+
+// =============================================================================
+// Light theme
+// =============================================================================
+
+.t-light .u-link {
+    color: #333;
+}
+
+.t-light .u-link:hover {
+    color: #aaa;
+}
+
+.t-light .u-background {
+    background: #fff;
+    border-color: #ccc;
+}
+
+.t-light .u-arrow:before {
+    border-bottom-color: #fff;
+}
+
+// =============================================================================
+// States
+// =============================================================================
+
+.u-toggle {
+    display: none;
+}
+
+.is-open .u-toggle {
+    display: block;
+}
+
+
+

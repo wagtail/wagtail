@@ -1,26 +1,48 @@
 {% extends "wagtailadmin/base.html" %}
 {% load i18n %}
-{% block titletag %}{% blocktrans with snippet_type_name_plural=snippet_type_name_plural|capfirst %}Snippets {{ snippet_type_name_plural }}{% endblocktrans %}{% endblock %}
-{% block bodyclass %}menu-snippets{% endblock %}
+{% block titletag %}{% blocktrans with snippet_type_name_plural=model_opts.verbose_name_plural|capfirst %}Snippets {{ snippet_type_name_plural }}{% endblocktrans %}{% endblock %}
+
+{% block extra_js %}
+    <script>
+        {{ block.super }}
+        window.headerSearch = {
+            url: "{% url 'wagtailsnippets:list' model_opts.app_label model_opts.model_name %}",
+            termInput: "#id_q",
+            targetOutput: "#snippet-results"
+        }
+    </script>
+{% endblock %}
+
 {% block content %}
 
     <header class="nice-padding">
         <div class="row row-flush">
             <div class="left col9">
-                <h1 class="icon icon-snippet">{% blocktrans with snippet_type_name_plural=snippet_type_name_plural|capfirst %}Snippets <span>{{ snippet_type_name_plural }}</span>{% endblocktrans %}</h1>
+                <h1 class="icon icon-snippet">{% blocktrans with snippet_type_name_plural=model_opts.verbose_name_plural|capfirst %}Snippets <span>{{ snippet_type_name_plural }}</span>{% endblocktrans %}</h1>
+
+                {% if is_searchable %}
+                    <form class="col search-form" action="{% url 'wagtailsnippets:list' model_opts.app_label model_opts.model_name %}" method="get" novalidate>
+                        <ul class="fields">
+                            {% for field in search_form %}
+                                {% include "wagtailadmin/shared/field_as_li.html" with field=field field_classes="field-small iconfield" input_classes="icon-search" %}
+                            {% endfor %}
+                            <li class="submit visuallyhidden"><input type="submit" value="Search" class="button" /></li>
+                        </ul>
+                    </form>
+                {% endif %}
             </div>
             <div class="right col3">
-                <a href="{% url 'wagtailsnippets_create' content_type.app_label content_type.model %}" class="button bicolor icon icon-plus">{% blocktrans %}Add {{ snippet_type_name }}{% endblocktrans %}</a>
-                {# TODO: figure out a way of saying "Add a/an [foo]" #}
+                {% if can_add_snippet %}
+                    <a href="{% url 'wagtailsnippets:add' model_opts.app_label model_opts.model_name %}" class="button bicolor icon icon-plus">{% blocktrans with snippet_type_name=model_opts.verbose_name %}Add {{ snippet_type_name }}{% endblocktrans %}</a>
+                    {# TODO: figure out a way of saying "Add a/an [foo]" #}
+                {% endif %}
             </div>
         </div>
     </header>
+
     <div class="nice-padding">
-        {% if items %}
-            {% include "wagtailsnippets/snippets/list.html" %}
-        {% else %}
-            {% url 'wagtailsnippets_create' content_type.app_label content_type.model as wagtailsnippets_create_url %}
-            <p class="no-results-message">{% blocktrans %}No {{ snippet_type_name_plural }} have been created. Why not <a href="{{ wagtailsnippets_create_url }}">add one</a>?{% endblocktrans %}</p>
-        {% endif %}
+        <div id="snippet-results" class="snippets">
+            {% include "wagtailsnippets/snippets/results.html" %}
+        </div>
     </div>
 {% endblock %}

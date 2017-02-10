@@ -1,56 +1,75 @@
+from __future__ import absolute_import, unicode_literals
+
+import csv
 import datetime
 
-try:
-    import unicodecsv as csv
-    using_unicodecsv = True
-except ImportError:
-    import csv
-    using_unicodecsv = False
-
-from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.core.exceptions import PermissionDenied
 from django.http import HttpResponse
-from django.shortcuts import get_object_or_404, render
-from django.contrib.auth.decorators import permission_required
+from django.shortcuts import get_object_or_404, redirect, render
+from django.utils.encoding import smart_str
+from django.utils.translation import ungettext
 
+from wagtail.utils.pagination import paginate
+from wagtail.wagtailadmin import messages
 from wagtail.wagtailcore.models import Page
-from wagtail.wagtailforms.models import FormSubmission, get_forms_for_user
 from wagtail.wagtailforms.forms import SelectDateForm
+from wagtail.wagtailforms.models import get_forms_for_user
 
 
-@permission_required('wagtailadmin.access_admin')
 def index(request):
-    p = request.GET.get("p", 1)
-
     form_pages = get_forms_for_user(request.user)
 
-    paginator = Paginator(form_pages, 20)
-
-    try:
-        form_pages = paginator.page(p)
-    except PageNotAnInteger:
-        form_pages = paginator.page(1)
-    except EmptyPage:
-        form_pages = paginator.page(paginator.num_pages)
+    paginator, form_pages = paginate(request, form_pages)
 
     return render(request, 'wagtailforms/index.html', {
         'form_pages': form_pages,
     })
 
 
-@permission_required('wagtailadmin.access_admin')
-def list_submissions(request, page_id):
-    form_page = get_object_or_404(Page, id=page_id).specific
-
+def delete_submissions(request, page_id):
     if not get_forms_for_user(request.user).filter(id=page_id).exists():
         raise PermissionDenied
 
-    data_fields = [
-        (field.clean_name, field.label)
-        for field in form_page.form_fields.all()
-    ]
+    page = get_object_or_404(Page, id=page_id).specific
 
-    submissions = FormSubmission.objects.filter(page=form_page)
+    # Get submissions
+    submission_ids = request.GET.getlist('selected-submissions')
+    submissions = page.get_submission_class()._default_manager.filter(id__in=submission_ids)
+
+    if request.method == 'POST':
+        count = submissions.count()
+        submissions.delete()
+
+        messages.success(
+            request,
+            ungettext(
+                "One submission has been deleted.",
+                "%(count)d submissions have been deleted.",
+                count
+            ) % {
+                'count': count,
+            }
+        )
+
+        return redirect('wagtailforms:list_submissions', page_id)
+
+    return render(request, 'wagtailforms/confirm_delete.html', {
+        'page': page,
+        'submissions': submissions,
+    })
+
+
+def list_submissions(request, page_id):
+    if not get_forms_for_user(request.user).filter(id=page_id).exists():
+        raise PermissionDenied
+
+    form_page = get_object_or_404(Page, id=page_id).specific
+    form_submission_class = form_page.get_submission_class()
+
+    data_fields = form_page.get_data_fields()
+
+    submissions = form_submission_class.objects.filter(page=form_page).order_by('submit_time')
+    data_headings = [label for name, label in data_fields]
 
     select_date_form = SelectDateForm(request.GET)
     if select_date_form.is_valid():
@@ -72,43 +91,34 @@ def list_submissions(request, page_id):
         response = HttpResponse(content_type='text/csv; charset=utf-8')
         response['Content-Disposition'] = 'attachment;filename=export.csv'
 
-        if using_unicodecsv:
-            writer = csv.writer(response, encoding='utf-8')
-        else:
-            writer = csv.writer(response)
+        # Prevents UnicodeEncodeError for labels with non-ansi symbols
+        data_headings = [smart_str(label) for label in data_headings]
 
-        header_row = ['Submission date'] + [label for name, label in data_fields]
-
-        writer.writerow(header_row)
+        writer = csv.writer(response)
+        writer.writerow(data_headings)
         for s in submissions:
-            data_row = [s.submit_time]
+            data_row = []
             form_data = s.get_data()
             for name, label in data_fields:
-                data_row.append(form_data.get(name))
+                data_row.append(smart_str(form_data.get(name)))
             writer.writerow(data_row)
         return response
 
-    p = request.GET.get('p', 1)
-    paginator = Paginator(submissions, 20)
+    paginator, submissions = paginate(request, submissions)
 
-    try:
-        submissions = paginator.page(p)
-    except PageNotAnInteger:
-        submissions = paginator.page(1)
-    except EmptyPage:
-        submissions = paginator.page(paginator.num_pages)
-
-    data_headings = [label for name, label in data_fields]
     data_rows = []
     for s in submissions:
         form_data = s.get_data()
-        data_row = [s.submit_time] + [form_data.get(name) for name, label in data_fields]
-        data_rows.append(data_row)
+        data_row = [form_data.get(name) for name, label in data_fields]
+        data_rows.append({
+            "model_id": s.id,
+            "fields": data_row
+        })
 
     return render(request, 'wagtailforms/index_submissions.html', {
-         'form_page': form_page,
-         'select_date_form': select_date_form,
-         'submissions': submissions,
-         'data_headings': data_headings,
-         'data_rows': data_rows
+        'form_page': form_page,
+        'select_date_form': select_date_form,
+        'submissions': submissions,
+        'data_headings': data_headings,
+        'data_rows': data_rows
     })

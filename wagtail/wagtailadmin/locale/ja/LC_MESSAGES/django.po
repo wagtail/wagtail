@@ -1,0 +1,904 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# Daigo Shitara <stain.witness@gmail.com>, 2014,2016
+# 石田秀 <ishidashu@gmail.com>, 2015
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2016-12-06 22:44+0000\n"
+"PO-Revision-Date: 2016-12-06 22:46+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"Language-Team: Japanese (http://www.transifex.com/torchbox/wagtail/language/"
+"ja/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: ja\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+msgid "Scheduled publishing"
+msgstr "予定公開日"
+
+msgid "Common page configuration"
+msgstr "ページの一般設定"
+
+msgid "Content"
+msgstr "コンテンツ"
+
+msgid "Promote"
+msgstr "プロモート"
+
+msgid "Settings"
+msgstr "設定"
+
+msgid "Search"
+msgstr "検索"
+
+msgid "Search term"
+msgstr "検索語"
+
+msgid "URL"
+msgstr "URL"
+
+msgid "Enter password"
+msgstr "パスワードを入力してください"
+
+#, python-format
+msgid "Enter your %s"
+msgstr "%sを入力してください"
+
+msgid "Enter your email address to reset your password"
+msgstr "パスワードをリセットするにはEメールアドレスを入力してください"
+
+msgid "Please fill your email address."
+msgstr "Eメールアドレスを入力してください"
+
+msgid ""
+"Sorry, you cannot reset your password here as your user account is managed "
+"by another server."
+msgstr ""
+"あなたのアカウントは他のサーバーで管理されているため、パスワードのリセットが"
+"できませんでした。"
+
+msgid "This email address is not recognised."
+msgstr "これは正しいメールアドレスではありません。"
+
+msgid "New title"
+msgstr "新規タイトル"
+
+msgid "New slug"
+msgstr "新規スラッグ"
+
+msgid "New parent page"
+msgstr "新規の親ページ"
+
+msgid "This copy will be a child of this given parent page."
+msgstr "複製されたページは選択された親ページの子ページになります。"
+
+msgid "Copy subpages"
+msgstr "サブページをコピーする"
+
+#, python-format
+msgid "This will copy %(count)s subpage."
+msgid_plural "This will copy %(count)s subpages."
+msgstr[0] "%(count)sのサブページがコピーされます。"
+
+msgid "Publish copied page"
+msgstr "コピーしたページを公開する"
+
+msgid "This page is live. Would you like to publish its copy as well?"
+msgstr "元のページは公開されています。複製されたページも公開しますか？"
+
+msgid "Publish copies"
+msgstr "コピーを公開"
+
+#, python-format
+msgid ""
+"%(count)s of the pages being copied is live. Would you like to publish its "
+"copy?"
+msgid_plural ""
+"%(count)s of the pages being copied are live. Would you like to publish "
+"their copies?"
+msgstr[0] ""
+"複製元のページのうち%(count)sページは公開されています。複製されたページも公開"
+"しますか？"
+
+#, python-format
+msgid ""
+"This slug is already in use within the context of its parent page \"%s\""
+msgstr "このスラッグ（\"%s\"）は親ページで既に使用されています。"
+
+msgid "This field is required."
+msgstr "この項目は必須です"
+
+msgid "This slug is already in use"
+msgstr "このスラッグはすでに使われています"
+
+msgid "Go live date/time must be before expiry date/time"
+msgstr "公開予定日は削除予定日よりも前に設定されていなければなりません。"
+
+msgid "Expiry date/time must be in the future"
+msgstr "削除予定日を過ぎています。"
+
+msgid "Account"
+msgstr "アカウント"
+
+msgid "Set gravatar"
+msgstr "Gravatarを設定する"
+
+msgid ""
+"Your avatar image is provided by Gravatar and is connected to your email "
+"address. With a Gravatar account you can set an avatar for any number of "
+"other email addresses you use."
+msgstr ""
+"あなたのアバターアイコンはGravatarによって提供され、あなたのメールアドレスに"
+"関連付けられています。Gravatarのアカウントを取得することにより、あなたのもつ"
+"他のメールアドレスにもアバターアイコンを設定することができます。"
+
+msgid "Change password"
+msgstr "パスワードを変更する"
+
+msgid "Change the password you use to log in."
+msgstr "ログインに使用するパスワードを変更します。"
+
+msgid "Notification preferences"
+msgstr "通知設定"
+
+msgid "Choose which email notifications to receive."
+msgstr "受信するEメール通知を選択します。"
+
+msgid "Change Password"
+msgstr "パスワードを変更する"
+
+msgid ""
+"Your password can't be changed here. Please contact a site administrator."
+msgstr ""
+"パスワードを変更することができません。サイトの管理者に連絡してください。"
+
+msgid "Notification Preferences"
+msgstr "通知方法"
+
+msgid "Update"
+msgstr "アップデート"
+
+msgid "Reset password"
+msgstr "パスワードを再設定"
+
+msgid "Password change successful"
+msgstr "パスワードは変更されました"
+
+msgid "Login"
+msgstr "ログイン"
+
+msgid "Set your new password"
+msgstr "パスワードを設定"
+
+msgid "The passwords do not match. Please try again."
+msgstr "パスワードが一致しませんでした。再度試してください。"
+
+msgid "Check your email"
+msgstr "メールを確認"
+
+msgid "A link to reset your password has been emailed to you."
+msgstr "パスワードを再設定するリンクがあなたのメールアドレスに送信されました。"
+
+msgid "Password reset"
+msgstr "パスワードが再設定されました"
+
+msgid "Reset your password"
+msgstr "パスワードを再設定"
+
+msgid "Dashboard"
+msgstr "ダッシュボード"
+
+msgid "Menu"
+msgstr "メニュー"
+
+msgid "Add another"
+msgstr "項目を追加"
+
+msgid "Move up"
+msgstr "上に移動"
+
+msgid "Move down"
+msgstr "下に移動"
+
+msgid "Delete"
+msgstr "削除"
+
+msgid "Explorer"
+msgstr "探索"
+
+msgid "Internal link"
+msgstr "内部リンク"
+
+msgid "External link"
+msgstr "外部リンク"
+
+msgid "Email link"
+msgstr "メールアドレスのリンク"
+
+#, python-format
+msgid ""
+"\n"
+"        There is one match\n"
+"    "
+msgid_plural ""
+"\n"
+"        There are %(counter)s matches\n"
+"    "
+msgstr[0] ""
+"\n"
+"%(counter)s件の一致があります"
+
+msgid "Choose"
+msgstr "選択"
+
+msgid "Choose a page"
+msgstr "ページを選択"
+
+#, python-format
+msgid ""
+"\n"
+"                Only pages of type \"%(type)s\" may be chosen for this "
+"field. Search results will exclude pages of other types.\n"
+"                "
+msgid_plural ""
+"\n"
+"                Only the following page types may be chosen for this field: "
+"%(type)s. Search results will exclude pages of other types.\n"
+"            "
+msgstr[0] ""
+"\n"
+"%(type)sのページタイプが選択可能です。検索結果は該当しないページタイプを含み"
+"ません。"
+
+msgid "Add an email link"
+msgstr "メールアドレスのリンクを追加"
+
+msgid "Insert link"
+msgstr "リンクを挿入"
+
+msgid "Add an external link"
+msgstr "外部リンクを追加"
+
+#, python-format
+msgid "Add %(heading)s"
+msgstr "%(heading)sを追加"
+
+msgid "Yes, delete"
+msgstr "はい、削除します"
+
+msgid "Save"
+msgstr "保存"
+
+#, python-format
+msgid "Welcome to the %(site_name)s Wagtail CMS"
+msgstr "%(site_name)sのWagtail CMSへようこそ"
+
+msgid ""
+"This is your dashboard on which helpful information about content you've "
+"created will be displayed."
+msgstr ""
+"これがあなたのダッシュボードです。ここにあなたが作成したコンテンツに関する役"
+"立つ情報が表示されます。"
+
+msgid "Pages awaiting moderation"
+msgstr "承認待ちのページ"
+
+msgid "Title"
+msgstr "タイトル"
+
+msgid "Parent"
+msgstr "上位階層"
+
+msgid "Type"
+msgstr "タイプ"
+
+msgid "Edited"
+msgstr "編集"
+
+msgid "Edit this page"
+msgstr "ページを編集"
+
+msgid "Approve"
+msgstr "承認"
+
+msgid "Reject"
+msgstr "拒否"
+
+msgid "Edit"
+msgstr "編集"
+
+msgid "Preview"
+msgstr "プレビュー"
+
+msgid "Your most recent edits"
+msgstr "最近の編集"
+
+msgid "Date"
+msgstr "日付"
+
+msgid "Status"
+msgstr "ステータス"
+
+msgid "Draft"
+msgstr "下書き"
+
+msgid "Live"
+msgstr "公開"
+
+msgid "Site summary"
+msgstr "サイトの概要"
+
+#, python-format
+msgid ""
+"\n"
+"        <span>%(total)s</span> Page\n"
+"    "
+msgid_plural ""
+"\n"
+"        <span>%(total)s</span> Pages\n"
+"    "
+msgstr[0] ""
+"\n"
+"<span>%(total)s</span> 個のページ"
+
+msgid "Sign in"
+msgstr "サインイン"
+
+#, python-format
+msgid "Your %(username_field)s and password didn't match. Please try again."
+msgstr ""
+"%(username_field)sとパスワードが一致しませんでした。再度ためしてください。"
+
+msgid "Sign in to Wagtail"
+msgstr "Wagtailへサインイン"
+
+msgid "Forgotten it?"
+msgstr "パスワードを忘れましたか？"
+
+msgid "Signing in..."
+msgstr "サインイン中..."
+
+#, python-format
+msgid "The page \"%(title)s\" has been approved."
+msgstr "ページ：%(title)s が承認されました"
+
+msgid "You can view the page here:"
+msgstr "このページを閲覧："
+
+#, python-format
+msgid "The page \"%(title)s\" has been approved"
+msgstr "ページ：%(title)s が承認されました"
+
+msgid "Edit your notification preferences here:"
+msgstr "通知方法を編集："
+
+#, python-format
+msgid "The page \"%(title)s\" has been rejected."
+msgstr "ページ：%(title)s は承認されませんでした"
+
+msgid "You can edit the page here:"
+msgstr "このページを編集："
+
+#, python-format
+msgid "The page \"%(title)s\" has been rejected"
+msgstr "ページ：%(title)s は承認されませんでした"
+
+#, python-format
+msgid "The page \"%(page)s\" has been submitted for moderation by %(editor)s."
+msgstr "ページ：%(page)s は現在%(editor)sによる承認待ちです。"
+
+msgid "You can preview the page here:"
+msgstr "ページをプレビュー："
+
+#, python-format
+msgid "The page \"%(page)s\" has been submitted for moderation"
+msgstr "ページ：%(page)s は現在承認待ちです。"
+
+msgid "Page privacy"
+msgstr "ページの公開設定"
+
+msgid "This page has been made private by a parent page."
+msgstr "このページは親ページにより非公開に設定されています。"
+
+msgid "You can edit the privacy settings on:"
+msgstr "公開設定を編集："
+
+msgid "Privacy changes apply to all children of this page too."
+msgstr "公開設定の変更はすべての孫ページに反映されます。"
+
+msgid "Edit lock"
+msgstr "ロックを編集"
+
+msgid "Locked"
+msgstr "ロックあり"
+
+msgid "Unlocked"
+msgstr "ロックなし"
+
+msgid "Privacy"
+msgstr "公開設定"
+
+msgid "Public"
+msgstr "公開"
+
+msgid "Private"
+msgstr "非公開"
+
+#, python-format
+msgid "Create a page in %(title)s"
+msgstr "%(title)sにページを作成"
+
+msgid "Create a page in"
+msgstr "ページを作成"
+
+msgid "Choose which type of page you'd like to create."
+msgstr "作成するページのタイプを選択"
+
+#, python-format
+msgid "Pages using %(page_type)s"
+msgstr "%(page_type)sを使用するページ"
+
+#, python-format
+msgid "Delete %(title)s"
+msgstr "%(title)s を削除"
+
+msgid "Are you sure you want to delete this page?"
+msgstr "このページを削除してよろしいですか？"
+
+#, python-format
+msgid ""
+"\n"
+"                    This will also delete one more subpage.\n"
+"                "
+msgid_plural ""
+"\n"
+"                    This will also delete %(descendant_count)s more "
+"subpages.\n"
+"                "
+msgstr[0] ""
+"\n"
+"この操作により%(descendant_count)s個のサブページが削除されます。"
+
+#, python-format
+msgid "Move %(title)s"
+msgstr "%(title)sを移動"
+
+msgid "Move"
+msgstr "移動"
+
+#, python-format
+msgid "Are you sure you want to move this page into '%(title)s'?"
+msgstr "%(title)sを移動してよろしいですか？"
+
+#, python-format
+msgid ""
+"Are you sure you want to move this page and all of its children into "
+"'%(title)s'?"
+msgstr "%(title)sとその子ページを移動してよろしいですか？"
+
+msgid "Yes, move this page"
+msgstr "はい、このページを移動します。"
+
+#, python-format
+msgid "Unpublish %(title)s"
+msgstr "%(title)sを非公開に設定"
+
+msgid "Unpublish"
+msgstr "非公開に設定"
+
+msgid "Are you sure you want to unpublish this page?"
+msgstr "このページを非公開に設定してよろしいですか？"
+
+msgid "Yes, unpublish it"
+msgstr "はい、非公開に設定します。"
+
+msgid "Pages using"
+msgstr "ページタイプ"
+
+#, python-format
+msgid "Copy %(title)s"
+msgstr "%(title)sを複製"
+
+msgid "Copy"
+msgstr "複製"
+
+msgid "Copy this page"
+msgstr "このページを複製"
+
+#, python-format
+msgid "New %(page_type)s"
+msgstr "新規の%(page_type)s"
+
+msgid "New"
+msgstr "新規作成"
+
+msgid "Saving..."
+msgstr "保存中..."
+
+msgid "Save draft"
+msgstr "下書きを保存"
+
+msgid "Publishing..."
+msgstr "公開中..."
+
+msgid "Publish"
+msgstr "公開"
+
+msgid "Submit for moderation"
+msgstr "承認を受ける"
+
+#, python-format
+msgid "Editing %(page_type)s: %(title)s"
+msgstr "%(page_type)s: %(title)sを編集"
+
+#, python-format
+msgid "Editing %(page_type)s <span>%(title)s</span>"
+msgstr "%(page_type)s <span>%(title)s</span>を編集"
+
+msgid "Page locked"
+msgstr "ページはロックされています"
+
+#, python-format
+msgid "Last modified: %(last_mod)s"
+msgstr "最終編集日：%(last_mod)s"
+
+#, python-format
+msgid "by %(modified_by)s"
+msgstr "編集者：%(modified_by)s"
+
+#, python-format
+msgid "Exploring %(title)s"
+msgstr "%(title)sを閲覧"
+
+msgid "Drag"
+msgstr "ドラッグ"
+
+msgid "Updated"
+msgstr "更新"
+
+msgid ""
+"\n"
+"                            The root level is where you can add new sites to "
+"your Wagtail installation. Pages created here will not be accessible at any "
+"URL until they are associated with a site.\n"
+"                        "
+msgstr ""
+"\n"
+"ルートは、インストールしたWagtailに新しいサイトを追加できる場所です。ここで作"
+"成されたページは、サイトと関連付けするまで、どのURLからもアクセスできません。"
+
+msgid "Configure a site now."
+msgstr "サイトを設定する"
+
+msgid ""
+"\n"
+"                            If you just want to add pages to an existing "
+"site, create them as children of the homepage instead.\n"
+"                        "
+msgstr ""
+"\n"
+"既存のサイトにページを追加したい場合は、ホームページの子ページとして作成して"
+"ください。"
+
+msgid ""
+"\n"
+"                        Pages created here will not be accessible at any "
+"URL. To add pages to an existing site, create them as children of the "
+"homepage.\n"
+"                    "
+msgstr ""
+"\n"
+"ここで作成されたページは、どのURLからもアクセスできません。サイトにページを追"
+"加したい場合は、ホームページの子ページとして作成してください。"
+
+msgid ""
+"\n"
+"                        There is no site set up for this location. Pages "
+"created here will not be accessible at any URL until a site is associated "
+"with this location.\n"
+"                    "
+msgstr ""
+"\n"
+"この場所に設定されたサイトはありません。この場所に作成されたページは、この場"
+"所に紐付けられるまでどのURLからもアクセスできません。"
+
+msgid ""
+"\n"
+"                        There is no site record for this location. Pages "
+"created here will not be accessible at any URL.\n"
+"                    "
+msgstr ""
+"\n"
+"この場所にはサイトのレコードがありません。ここで作成されたページは、どのURLか"
+"らもアクセスできません。"
+
+msgid "No pages have been created at this location."
+msgstr "ここに作成されたページはありません。"
+
+#, python-format
+msgid "Why not <a href=\"%(add_page_url)s\">create one</a>?"
+msgstr "<a href=\"%(add_page_url)s\">ページを作成</a>"
+
+msgid "This page is locked to further editing"
+msgstr "このページにはロックがかかっています。"
+
+#, python-format
+msgid "Explore subpages of '%(title)s'"
+msgstr "%(title)sのサブページを閲覧"
+
+msgid "Explore"
+msgstr "閲覧"
+
+#, python-format
+msgid "Explore child pages of '%(title)s'"
+msgstr "%(title)sの子ページを閲覧"
+
+#, python-format
+msgid "Add a child page to '%(title)s'"
+msgstr "%(title)sに子ページを追加"
+
+msgid "Add subpage"
+msgstr "サブページを追加"
+
+#, python-format
+msgid ""
+"\n"
+"        Page %(page_number)s of %(num_pages)s.\n"
+"    "
+msgstr ""
+"\n"
+"%(num_pages)sページ中%(page_number)sページ目"
+
+msgid "Previous"
+msgstr "前のページ"
+
+msgid "Next"
+msgstr "次のページ"
+
+msgid "This page is protected from public view"
+msgstr "このページは非公開です"
+
+msgid "Disable ordering of child pages"
+msgstr "子ページの序列を無効化"
+
+msgid "Order"
+msgstr "順番に並べる"
+
+msgid "Enable ordering of child pages"
+msgstr "子ページに順番をつける"
+
+#, python-format
+msgid "Select a new parent page for %(title)s"
+msgstr "%(title)sの親ページを選択"
+
+#, python-format
+msgid "Select a new parent page for <span>%(title)s</span>"
+msgstr "<span>%(title)s</span>の親ページを選択"
+
+#, python-format
+msgid ""
+"\n"
+"                There is one matching page\n"
+"            "
+msgid_plural ""
+"\n"
+"                There are %(counter)s matching pages\n"
+"            "
+msgstr[0] ""
+"\n"
+"ページに%(counter)s件の一致があります"
+
+#, python-format
+msgid "Sorry, no pages match <em>\"%(query_string)s\"</em>"
+msgstr ""
+"申し訳ございません、<em>\"%(query_string)s\"</em>に一致するページは見つかりま"
+"せんでした。"
+
+msgid "Enter a search term above"
+msgstr "検索語を入力"
+
+msgid "No pages use"
+msgstr "この語を使用するページはありません。"
+
+msgid "Home"
+msgstr "ホーム"
+
+msgid "January"
+msgstr "一月"
+
+msgid "February"
+msgstr "二月"
+
+msgid "March"
+msgstr "三月"
+
+msgid "April"
+msgstr "四月"
+
+msgid "May"
+msgstr "五月"
+
+msgid "June"
+msgstr "六月"
+
+msgid "July"
+msgstr "七月"
+
+msgid "August"
+msgstr "八月"
+
+msgid "September"
+msgstr "九月"
+
+msgid "October"
+msgstr "十月"
+
+msgid "November"
+msgstr "十一月"
+
+msgid "December"
+msgstr "十二月"
+
+msgid "Sun"
+msgstr "日曜"
+
+msgid "Mon"
+msgstr "月曜"
+
+msgid "Tue"
+msgstr "火曜"
+
+msgid "Wed"
+msgstr "水曜"
+
+msgid "Thu"
+msgstr "木曜"
+
+msgid "Fri"
+msgstr "金曜"
+
+msgid "Sat"
+msgstr "土曜"
+
+#, python-format
+msgid "Used %(useage_count)s time"
+msgid_plural "Used %(useage_count)s times"
+msgstr[0] "%(useage_count)s回使用"
+
+msgid "Edit your account"
+msgstr "アカウント設定"
+
+msgid "Log out"
+msgstr "ログアウト"
+
+#, python-format
+msgid "Page %(page_num)s of %(total_pages)s."
+msgstr "%(total_pages)sページ中%(page_num)sページ目"
+
+msgid "Other searches"
+msgstr "他の検索結果"
+
+msgid ""
+"You are using an <strong>outdated</strong> browser not supported by this "
+"software. Please <a href=\"http://browsehappy.com/\">upgrade your browser</"
+"a>."
+msgstr ""
+"あなたはサポートされていない<strong>古いバージョン</strong>のブラウザを使用し"
+"ています。 <a href=\"http://browsehappy.com/\">ブラウザを更新</a>してくださ"
+"い。."
+
+msgid "Go to Wagtail admin interface"
+msgstr "Wagtailの管理者インターフェースに移動"
+
+msgid "Add a child page"
+msgstr "子ページを追加"
+
+msgid "Test"
+msgstr "テスト"
+
+msgid "Sorry, you do not have permission to access this area."
+msgstr "アクセス権がありません。"
+
+msgid "Your password has been changed successfully!"
+msgstr "パスワードが変更されました。"
+
+msgid "Your preferences have been updated successfully!"
+msgstr "変更が反映されました。"
+
+#, python-brace-format
+msgid "Page '{0}' created and published."
+msgstr "ページ：'{0}' が作成され、公開されました。"
+
+msgid "View live"
+msgstr "閲覧"
+
+#, python-brace-format
+msgid "Page '{0}' created and submitted for moderation."
+msgstr "'{0}' が作成され、承認待ちです。"
+
+msgid "View draft"
+msgstr "下書きを閲覧"
+
+#, python-brace-format
+msgid "Page '{0}' created."
+msgstr "ページ：'{0}' が作成されました。"
+
+msgid "The page could not be created due to validation errors"
+msgstr "このページはエラーにより作成できませんでした。"
+
+msgid "The page could not be saved as it is locked"
+msgstr "このページはロックされているため、保存できませんでした。"
+
+msgid "The page could not be saved due to validation errors"
+msgstr "このページはエラーにより保存できませんでした。"
+
+msgid "This page is currently awaiting moderation"
+msgstr "このページは現在承認待ちです。"
+
+#, python-brace-format
+msgid "Page '{0}' deleted."
+msgstr "ページ：'{0}' が削除されました。"
+
+#, python-brace-format
+msgid "Page '{0}' unpublished."
+msgstr "ページ：'{0}' が非公開に設定されました。"
+
+#, python-brace-format
+msgid "Page '{0}' moved."
+msgstr "ページ：'{0}' が除去されました。"
+
+#, python-brace-format
+msgid "Page '{0}' and {1} subpages copied."
+msgstr "ページ：'{0}' とサブページ：'{1}'が複製されました。 "
+
+#, python-brace-format
+msgid "Page '{0}' copied."
+msgstr "ページ：'{0}' がコピーされました。"
+
+#, python-brace-format
+msgid "The page '{0}' is not currently awaiting moderation."
+msgstr "ページ：'{0}' は現在承認待ちではありません。"
+
+#, python-brace-format
+msgid "Page '{0}' published."
+msgstr "ページ：'{0}' が公開されました。"
+
+#, python-brace-format
+msgid "Page '{0}' rejected for publication."
+msgstr "ページ：'{0}' の公開が拒否されました。"
+
+#, python-brace-format
+msgid "Page '{0}' is now locked."
+msgstr "ページ：'{0}' は現在ロックされています。"
+
+#, python-brace-format
+msgid "Page '{0}' is now unlocked."
+msgstr "ページ：'{0}' のロックが解除されました。"
+
+msgid "Pages"
+msgstr "ページ"
+
+msgid "Add child page"
+msgstr "子ページを追加"
+
+msgid "Choose an item"
+msgstr "アイテムを選択"
+
+msgid "Choose another item"
+msgstr "別のアイテムを選択"
+
+msgid "Clear choice"
+msgstr "選択を解除"
+
+msgid "Edit this item"
+msgstr "アイテムを編集"
+
+msgid "Choose another page"
+msgstr "別のページを選択"

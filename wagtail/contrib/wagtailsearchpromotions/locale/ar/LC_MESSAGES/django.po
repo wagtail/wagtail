@@ -1,0 +1,95 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# Ahmad Kiswani <kiswani.ahmad@gmail.com>, 2016
+# ROGER MICHAEL ASHLEY ALLEN <rogermaallen@gmail.com>, 2015
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2016-12-06 22:44+0000\n"
+"PO-Revision-Date: 2016-02-07 23:55+0000\n"
+"Last-Translator: Ahmad Kiswani <kiswani.ahmad@gmail.com>\n"
+"Language-Team: Arabic (http://www.transifex.com/torchbox/wagtail/language/"
+"ar/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: ar\n"
+"Plural-Forms: nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 "
+"&& n%100<=10 ? 3 : n%100>=11 && n%100<=99 ? 4 : 5;\n"
+
+msgid "Please specify at least one recommendation for this search term."
+msgstr "المرجو تخصيص توصية واحدة على الأقل لمصطلح البحث هذا"
+
+msgid "page"
+msgstr "صفحة"
+
+msgid "description"
+msgstr "وصف"
+
+msgid "Add search pick"
+msgstr "أضف البحث المحتار"
+
+msgid "Save"
+msgstr "احفظ"
+
+msgid "Delete"
+msgstr "احذف"
+
+msgid ""
+"Are you sure you want to delete all promoted results for this search term?"
+msgstr "أتريد فعلا أن تحذف كل النتائج الموجودة لهذا المصطلح المبحوث؟"
+
+msgid "Yes, delete"
+msgstr "نعم احذف"
+
+msgid "Editing"
+msgstr "تنقيح"
+
+msgid "Move up"
+msgstr "تقدم إلى فوق "
+
+msgid "Move down"
+msgstr "تقدم إلى تحت"
+
+msgid "Promoted search result"
+msgstr "نتيجة البحث المطلوب"
+
+msgid "Add recommended page"
+msgstr "أضف الصفحة المشار إليها"
+
+msgid "Search Terms"
+msgstr "مصطلحات البحث"
+
+msgid "Promoted search results"
+msgstr "نتائج البحث المطلوب"
+
+msgid "Add new promoted result"
+msgstr "أضف نتيجة البحث"
+
+msgid "Search term(s)"
+msgstr "مصطلح , مصطلحات البحث"
+
+msgid "Promoted results"
+msgstr "النتائج المطلوبة"
+
+msgid "Views (past week)"
+msgstr "المواقع المبحوثة في الأسبوع الماضي"
+
+msgid "None"
+msgstr "لا أحد"
+
+msgid "Edit"
+msgstr "تنقيح"
+
+msgid "Recommendations have not been created due to errors"
+msgstr "لم تنشأ توصيات بسسبب أخطاء"
+
+msgid "Recommendations have not been saved due to errors"
+msgstr "لم تحفظ توصيات بسبب أخطاء "
+
+msgid "Editor's picks deleted."
+msgstr "حذفت انتقاءات المنقح"

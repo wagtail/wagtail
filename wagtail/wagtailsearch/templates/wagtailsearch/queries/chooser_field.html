@@ -1,9 +1,10 @@
 {% extends "wagtailadmin/shared/field.html" %}
-
+{% load i18n %}
+{% trans "Date" %}
 {% block form_field %}
    <div class="chooser searchterm-chooser">
        {{ field }}
 
-       <input id="{{ field.auto_id }}-chooser" type="button" class="button-secondary searchterms-chooser" value="Choose from popular search terms">
+       <button type="button" id="{{ field.auto_id }}-chooser" class="button button-secondary searchterms-chooser">{% trans "Choose from popular search terms" %}</button>
     </div>
 {% endblock %}

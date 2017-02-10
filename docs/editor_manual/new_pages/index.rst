@@ -3,7 +3,7 @@ Creating new pages
 
 .. image:: ../../_static/images/screen08_add_page_button.png
 
-Create new pages by clicking the Add child page. This creates a child page of the section you are currently in. In this case a child page of the Homepage.
+Create new pages by clicking the **Add child page** button. This creates a child page of the section you are currently in. In this case a child page of the 'School of Fine Art' page.
 
 .. ADD IN OTHER WAYS A CHILD PAGE CAN BE ADDED?>>
 

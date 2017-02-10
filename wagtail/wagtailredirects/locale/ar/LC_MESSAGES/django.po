@@ -1,0 +1,95 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# Ahmad Kiswani <kiswani.ahmad@gmail.com>, 2016
+# Matt Westcott <matthew@torchbox.com>, 2015
+# ROGER MICHAEL ASHLEY ALLEN <rogermaallen@gmail.com>, 2015
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2016-12-06 22:44+0000\n"
+"PO-Revision-Date: 2016-08-01 13:29+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"Language-Team: Arabic (http://www.transifex.com/torchbox/wagtail/language/"
+"ar/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: ar\n"
+"Plural-Forms: nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 "
+"&& n%100<=10 ? 3 : n%100>=11 && n%100<=99 ? 4 : 5;\n"
+
+msgid "All sites"
+msgstr "كل المواقع"
+
+msgid "site"
+msgstr "موقع"
+
+msgid "permanent"
+msgstr "نهائي"
+
+msgid "Add redirect"
+msgstr "أضف غي الاتجاه"
+
+msgid "Save"
+msgstr "احفظ"
+
+msgid "Delete"
+msgstr "احذف"
+
+msgid "Are you sure you want to delete this redirect?"
+msgstr "هل أنت متأكد من أن تريد حذف غير الاتجاه هذا؟ "
+
+msgid "Yes, delete"
+msgstr "نعم احذف"
+
+msgid "Editing"
+msgstr "تنقيح"
+
+msgid "Delete redirect"
+msgstr "احذف غير الاتجاه"
+
+msgid "Redirects"
+msgstr "تغييرات الاتجاه"
+
+msgid "From"
+msgstr "من"
+
+msgid "Site"
+msgstr "موقع"
+
+msgid "To"
+msgstr "إلى"
+
+msgid "Type"
+msgstr "نوع"
+
+msgid "Edit this redirect"
+msgstr "نقح تغيير الاتجاه هذا"
+
+msgid "Search redirects"
+msgstr "ابحث تغييرات الاتجاه"
+
+#, python-brace-format
+msgid "Redirect '{0}' updated."
+msgstr "جددت عملية تغيير الاتجاه {0}"
+
+msgid "Edit"
+msgstr "تنقيح"
+
+msgid "The redirect could not be saved due to errors."
+msgstr "لم تحفظ عملية تغيير الاتجاه بسبب أحطاء"
+
+#, python-brace-format
+msgid "Redirect '{0}' deleted."
+msgstr "تغيير الاتجاه {0} محذوف"
+
+#, python-brace-format
+msgid "Redirect '{0}' added."
+msgstr "تغيير الاتجاه {0} مضاف"
+
+msgid "The redirect could not be created due to errors."
+msgstr "من غير ممكن إنساء تغيير الاتجاه بسبب أخطاء"

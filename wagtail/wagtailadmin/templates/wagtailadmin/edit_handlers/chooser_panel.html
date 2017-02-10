@@ -1,6 +1,12 @@
 {% extends "wagtailadmin/shared/field.html" %}
 {% load i18n %}
 {% comment %}
+    ------
+    DEPRECATED - provided for backwards compatibility with custom (third-party) chooser panels
+    created prior to Wagtail 0.9. New choosers should subclass wagtail.wagtailadmin.widgets.AdminChooser,
+    with a template that extends wagtailadmin/widgets/chooser.html.
+    ------
+
     Either the chosen or unchosen div will be shown, depending on the presence
     of the 'blank' class on the container.
 
@@ -10,21 +16,21 @@
 
 {% block form_field %}
 
-    <div id="{{ field.id_for_label }}-chooser" class="chooser {% block chooser_class %}page-chooser{% endblock %} {% if not is_chosen %}blank{% endif %}">
+    <div id="{{ field.id_for_label }}-chooser" class="chooser {% block chooser_class %}page-chooser{% endblock %} {% if not field.value %}blank{% endif %}">
 
         <div class="chosen">
             {% block chosen_state_view %}{% endblock %}
 
             <div class="actions">
                 {% if not field.field.required %}
-                    <input type="button" class="action-clear button-small button-secondary" value="{% block clear_button_label %}{% trans "Clear choice" %}{% endblock %}">
+                    <button type="button" class="button action-clear button-small button-secondary">{{ field.field.widget.clear_choice_text }}</button
                 {% endif %}
-                <input type="button" class="action-choose button-small button-secondary" value="{% block choose_another_button_label %}{% trans "Choose another item" %}{% endblock %}">
+                <button type="button" class="button action-choose button-small button-secondary">{{ field.field.widget.choose_another_text }}</button>
             </div>
         </div>
 
         <div class="unchosen">
-            <input type="button" class="action-choose button-small button-secondary" value="{% block choose_button_label %}{% trans "Choose an item" %}{% endblock %}">
+            <button type="button" class="button action-choose button-small button-secondary">{{ field.field.widget.choose_one_text }}</button>
         </div>
 
     </div>

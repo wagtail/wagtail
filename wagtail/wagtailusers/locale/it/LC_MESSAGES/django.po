@@ -1,0 +1,288 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# Giacomo Ghizzani <giacomo.ghz@gmail.com>, 2015-2016
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2016-12-06 22:44+0000\n"
+"PO-Revision-Date: 2016-10-03 16:18+0000\n"
+"Last-Translator: Giacomo Ghizzani <giacomo.ghz@gmail.com>\n"
+"Language-Team: Italian (http://www.transifex.com/torchbox/wagtail/language/"
+"it/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: it\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Required. 30 characters or fewer. Letters, digits and @/./+/-/_ only."
+msgstr ""
+"Obbligatorio. 30 caratteri o meno. Sono ammessi soltanto lettere, cifre e "
+"@ / / + / -. / _."
+
+msgid "This value may contain only letters, numbers and @/./+/-/_ characters."
+msgstr "Questo valore può contenere soltanto lettere, numeri e @/./+/-/_"
+
+msgid "A user with that username already exists."
+msgstr "Username esistente."
+
+msgid "The two password fields didn't match."
+msgstr "Le password non corrispondono"
+
+msgid "Administrator"
+msgstr "Amministratore"
+
+msgid "Administrators have full access to manage any object or setting."
+msgstr ""
+"Gli amministratori hanno pieno accesso per gestire qualsiasi oggetto o "
+"settaggio."
+
+msgid "Password"
+msgstr "Password"
+
+msgid "Leave blank if not changing."
+msgstr "Lascia vuoto se non lo cambi."
+
+msgid "Password confirmation"
+msgstr "Conferma password"
+
+msgid "Enter the same password as above, for verification."
+msgstr "Inserire la stessa password di sopra, per verifica."
+
+msgid "Email"
+msgstr "Email"
+
+msgid "First Name"
+msgstr "Nome"
+
+msgid "Last Name"
+msgstr "Cognome"
+
+msgid "A group with that name already exists."
+msgstr "Gruppo già esistente."
+
+msgid "You cannot have multiple permission records for the same page."
+msgstr "Non puoi avere permessi multipli per la stessa pagina."
+
+msgid "submitted notifications"
+msgstr "notifiche inviate"
+
+msgid "Receive notification when a page is submitted for moderation"
+msgstr "Ricevi una notifica quando una pagina viene inviata per la moderazione"
+
+msgid "approved notifications"
+msgstr "notifiche approvate"
+
+msgid "Receive notification when your page edit is approved"
+msgstr "Ricevi notifica quando la modifica di una tua pagina viene approvata"
+
+msgid "rejected notifications"
+msgstr "notifiche rifiutate"
+
+msgid "Receive notification when your page edit is rejected"
+msgstr "Ricevi notifica quando la modifica di una tua pagina viene rifiutata"
+
+msgid "user profile"
+msgstr "profilo utente"
+
+msgid "Delete group"
+msgstr "Elimina gruppo"
+
+#, python-format
+msgid ""
+"The group '%(group_name)s' has <strong>%(group_user_count)s</strong> users "
+"assigned."
+msgstr ""
+"Il gruppo '%(group_name)s' ha <strong>%(group_user_count)s</strong> utenti "
+"assegnati."
+
+msgid ""
+"Deleting this group will revoke this group's permissions from all member "
+"users."
+msgstr ""
+"L'eliminazione di questo gruppo revocherà le autorizzazioni di questo gruppo "
+"da tutti gli utenti membri."
+
+msgid "Are you sure you want to delete this group?"
+msgstr "Sei sicuro di voler eliminare questo gruppo?"
+
+msgid "Yes, delete"
+msgstr "Si, elimina"
+
+msgid "Add group"
+msgstr "Aggiungi gruppo"
+
+msgid "Editing"
+msgstr "Modifica"
+
+msgid "Save"
+msgstr "Salva"
+
+msgid "Object permissions"
+msgstr "Permessi oggetto"
+
+msgid "Name"
+msgstr "Nome"
+
+msgid "Add"
+msgstr "Aggiungi"
+
+msgid "Change"
+msgstr "Modifica"
+
+msgid "Delete"
+msgstr "Elimina"
+
+msgid "Other permissions"
+msgstr "Altri permessi"
+
+msgid "Page permissions"
+msgstr "Permessi della pagina"
+
+msgid "Page"
+msgstr "Pagina"
+
+msgid "Add a page permission"
+msgstr "Aggiungi un permesso alla pagina"
+
+msgid "groups"
+msgstr "Gruppi"
+
+msgid "Add a group"
+msgstr "Aggiungi gruppo"
+
+#, python-format
+msgid ""
+"There are no groups configured. Why not <a href="
+"\"%(wagtailusers_create_group_url)s\">add some</a>?"
+msgstr ""
+"Nessun gruppo configurato. Perché non <a href="
+"\"%(wagtailusers_create_group_url)s\">ne aggiungi qualcuno</a>?"
+
+msgid "Delete user"
+msgstr "Elimina utente"
+
+msgid "Are you sure you want to delete this user?"
+msgstr "Sei sicuro di voler eliminare questo utente?"
+
+msgid "Add user"
+msgstr "Aggiungi utente"
+
+msgid "Account"
+msgstr "Account"
+
+msgid "Roles"
+msgstr "Ruoli"
+
+msgid "Users"
+msgstr "Utenti"
+
+msgid "Add a user"
+msgstr "Aggiungi un utente"
+
+msgid "Username"
+msgstr "Username"
+
+msgid "Level"
+msgstr "Livello"
+
+msgid "Status"
+msgstr "Stato"
+
+msgid "Admin"
+msgstr "Amministratore"
+
+msgid "Active"
+msgstr "Attivo"
+
+msgid "Inactive"
+msgstr "Inattivo"
+
+#, python-format
+msgid ""
+"\n"
+"            There is one match\n"
+"        "
+msgid_plural ""
+"\n"
+"            There are %(counter)s matches\n"
+"        "
+msgstr[0] ""
+"\n"
+"            C'è una corrispondenza\n"
+"        "
+msgstr[1] ""
+"\n"
+"            Ci sono %(counter)s corrispondenze\n"
+"        "
+
+#, python-format
+msgid "Sorry, no users match \"<em>%(query_string)s</em>\""
+msgstr ""
+"Spiacente, nessun utente corrispondente a \"<em>%(query_string)s</em>\""
+
+#, python-format
+msgid ""
+"There are no users configured. Why not <a href=\"%(wagtailusers_create_url)s"
+"\">add some</a>?"
+msgstr ""
+"Non ci sono utenti configurati. Perché non <a href="
+"\"%(wagtailusers_create_url)s\">ne aggiungi qualcuno</a>?"
+
+msgid "Search groups"
+msgstr "Cerca gruppi"
+
+#, python-brace-format
+msgid "Group '{0}' created."
+msgstr "Gruppo '{0}' creato."
+
+msgid "Edit"
+msgstr "Modifica"
+
+msgid "The group could not be created due to errors."
+msgstr "Il gruppo non può essere creato a causa di errori."
+
+#, python-brace-format
+msgid "Group '{0}' updated."
+msgstr "Gruppo '{0}' aggiornato."
+
+msgid "The group could not be saved due to errors."
+msgstr "Il gruppo non può essere salvato a causa di errori."
+
+#, python-brace-format
+msgid "Group '{0}' deleted."
+msgstr "Gruppo '{0}' eliminato."
+
+msgid "Search users"
+msgstr "Cerca utenti"
+
+#, python-brace-format
+msgid "User '{0}' created."
+msgstr "Utente '{0}' creato."
+
+msgid "The user could not be created due to errors."
+msgstr "L'utente non può essere creato a causa di errori."
+
+#, python-brace-format
+msgid "User '{0}' updated."
+msgstr "Utente '{0}' aggiornato."
+
+msgid "The user could not be saved due to errors."
+msgstr "L'utente non può essere salvato a causa di errori."
+
+#, python-brace-format
+msgid "User '{0}' deleted."
+msgstr "Utente '{0}' eliminato."
+
+msgid "Groups"
+msgstr "Gruppi"
+
+msgid "Edit this user"
+msgstr "Modifica questo utente"
+
+msgid "Delete this user"
+msgstr "Elimina questo utente"

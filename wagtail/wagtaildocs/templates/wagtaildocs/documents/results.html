@@ -1,4 +1,4 @@
-{% load i18n %}
+{% load i18n wagtailadmin_tags %}
 {% if documents %}
     {% if is_searching %}
         <h2>
@@ -8,16 +8,24 @@
             There are {{ counter }} matches
         {% endblocktrans %}
         </h2>
+        
+        {% search_other %}
     {% endif %}
 
     {% include "wagtaildocs/documents/list.html" %}
 
-    {% include "wagtailadmin/shared/pagination_nav.html" with items=documents is_searching=is_searching linkurl="wagtaildocs_index" %}
+    {% include "wagtailadmin/shared/pagination_nav.html" with items=documents is_searching=is_searching %}
 {% else %}
     {% if is_searching %}
-         <p>{% blocktrans %}Sorry, no documents match "<em>{{ query_string }}</em>"{% endblocktrans %}</p>
+         <h2>{% blocktrans %}Sorry, no documents match "<em>{{ query_string }}</em>"{% endblocktrans %}</h2>
+         
+         {% search_other %}
     {% else %}
-        {% url 'wagtaildocs_add_document' as wagtaildocs_add_document_url %}
-        <p>{% blocktrans %}You haven't uploaded any documents. Why not <a href="{{ wagtaildocs_add_document_url }}">upload one now</a>?{% endblocktrans %}</p>
+        {% url 'wagtaildocs:add_multiple' as wagtaildocs_add_document_url %}
+        {% if current_collection %}
+            <p>{% blocktrans %}You haven't uploaded any documents in this collection. Why not <a href="{{ wagtaildocs_add_document_url }}">upload one now</a>?{% endblocktrans %}</p>
+        {% else %}
+            <p>{% blocktrans %}You haven't uploaded any documents. Why not <a href="{{ wagtaildocs_add_document_url }}">upload one now</a>?{% endblocktrans %}</p>
+        {% endif %}
     {% endif %}
 {% endif %}

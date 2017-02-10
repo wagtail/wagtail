@@ -1,30 +1,16 @@
-{% load i18n %}
+{% load i18n wagtailadmin_tags %}
 
-{% if page_types_restricted %}
-    <p class="help-block help-warning">
-        {% blocktrans with type=page_type.get_verbose_name %}
-            Only pages of type "{{ type }}" may be chosen for this field. Search results will exclude pages of other types.
-        {% endblocktrans %}
-    </p>
-{% endif %}
-
-{% if not is_searching %}
-    <h2>{% trans "Explorer" %}</h2>
-    {% include "wagtailadmin/shared/breadcrumb.html" with page=parent_page choosing=1 %}
-{% else %}
-    <h2>
-        {% blocktrans count counter=pages|length %}
-            There is one match
-        {% plural %}
-            There are {{ counter }} matches
-        {% endblocktrans %}
-    </h2>
-{% endif %}
+<h2>
+    {% blocktrans count counter=pages.paginator.count %}
+        There is one match
+    {% plural %}
+        There are {{ counter }} matches
+    {% endblocktrans %}
+</h2>
 
 {% if pages %}
-    {% if is_searching %}
-        {% include "wagtailadmin/pages/list.html" with choosing=1 show_parent=1 pages=pages parent_page=parent_page %}
-    {% else %}
-        {% include "wagtailadmin/pages/list.html" with choosing=1 allow_navigation=1 orderable=0 pages=pages parent_page=parent_page %}
-    {% endif %}
+    {% include "wagtailadmin/pages/listing/_list_choose.html" with show_parent=1 pages=pages parent_page=parent_page %}
+
+    {% url 'wagtailadmin_choose_page_search' as pagination_base_url %}
+    {% paginate pages base_url=pagination_base_url classnames="navigate-pages" %}
 {% endif %}

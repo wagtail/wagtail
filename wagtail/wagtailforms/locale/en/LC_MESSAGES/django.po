@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-08-01 16:38+0100\n"
+"POT-Creation-Date: 2017-02-06 12:33+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,74 +17,166 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: models.py:22
-msgid "Single line text"
+#: edit_handlers.py:33
+msgid "{} submissions"
 msgstr ""
 
-#: models.py:23
-msgid "Multi-line text"
+#: forms.py:143
+#, python-format
+msgid "There is another field with the label %s, please change one of them."
 msgstr ""
 
 #: models.py:24
-msgid "Email"
+msgid "Single line text"
 msgstr ""
 
 #: models.py:25
-msgid "Number"
+msgid "Multi-line text"
 msgstr ""
 
 #: models.py:26
-msgid "URL"
+msgid "Email"
 msgstr ""
 
 #: models.py:27
-msgid "Checkbox"
+msgid "Number"
 msgstr ""
 
 #: models.py:28
-msgid "Checkboxes"
+msgid "URL"
 msgstr ""
 
 #: models.py:29
-msgid "Drop down"
+msgid "Checkbox"
 msgstr ""
 
 #: models.py:30
-msgid "Radio buttons"
+msgid "Checkboxes"
 msgstr ""
 
 #: models.py:31
-msgid "Date"
+msgid "Drop down"
 msgstr ""
 
 #: models.py:32
+msgid "Radio buttons"
+msgstr ""
+
+#: models.py:33
+msgid "Date"
+msgstr ""
+
+#: models.py:34
 msgid "Date/time"
 msgstr ""
 
-#: models.py:60
+#: models.py:50
+msgid "submit time"
+msgstr ""
+
+#: models.py:70
+msgid "form submission"
+msgstr ""
+
+#: models.py:83
+msgid "label"
+msgstr ""
+
+#: models.py:85
 msgid "The label of the form field"
 msgstr ""
 
-#: models.py:67
+#: models.py:87
+msgid "field type"
+msgstr ""
+
+#: models.py:88
+msgid "required"
+msgstr ""
+
+#: models.py:90
+msgid "choices"
+msgstr ""
+
+#: models.py:92
 msgid ""
-"Comma seperated list of choices. Only applicable in checkboxes, radio and "
+"Comma separated list of choices. Only applicable in checkboxes, radio and "
 "dropdown."
 msgstr ""
 
-#: models.py:72
-msgid "Default value. Comma seperated values supported for checkboxes."
+#: models.py:95
+msgid "default value"
 msgstr ""
 
-#: models.py:191
-msgid "Optional - form submissions will be emailed to this address"
+#: models.py:98
+msgid "Default value. Comma separated values supported for checkboxes."
 msgstr ""
 
-#: wagtail_hooks.py:23 templates/wagtailforms/index.html:3
-#: templates/wagtailforms/index.html:6
+#: models.py:100
+msgid "help text"
+msgstr ""
+
+#: models.py:187
+msgid "Submission date"
+msgstr ""
+
+#: models.py:284
+msgid "to address"
+msgstr ""
+
+#: models.py:285
+msgid ""
+"Optional - form submissions will be emailed to these addresses. Separate "
+"multiple addresses by comma."
+msgstr ""
+
+#: models.py:287
+msgid "from address"
+msgstr ""
+
+#: models.py:288
+msgid "subject"
+msgstr ""
+
+#: templates/wagtailforms/confirm_delete.html:3
+#, python-format
+msgid "Delete form data %(title)s"
+msgstr ""
+
+#: templates/wagtailforms/confirm_delete.html:7
+msgid "Delete form data"
+msgstr ""
+
+#: templates/wagtailforms/confirm_delete.html:12
+msgid ""
+"\n"
+"                Are you sure you want to delete this form submission?\n"
+"            "
+msgid_plural ""
+"\n"
+"                Are you sure you want to delete these form submissions?\n"
+"            "
+msgstr[0] ""
+msgstr[1] ""
+
+#: templates/wagtailforms/confirm_delete.html:20
+msgid "Delete"
+msgstr ""
+
+#: templates/wagtailforms/edit_handlers/form_responses_panel.html:2
+msgid "Total submissions"
+msgstr ""
+
+#: templates/wagtailforms/edit_handlers/form_responses_panel.html:3
+msgid "Latest submission"
+msgstr ""
+
+#: templates/wagtailforms/index.html:3 templates/wagtailforms/index.html:5
+#: wagtail_hooks.py:29
 msgid "Forms"
 msgstr ""
 
-#: templates/wagtailforms/index.html:7
+#: templates/wagtailforms/index.html:6
 msgid "Pages"
 msgstr ""
 
@@ -93,20 +185,20 @@ msgstr ""
 msgid "Submissions of %(form_title)s"
 msgstr ""
 
-#: templates/wagtailforms/index_submissions.html:36
+#: templates/wagtailforms/index_submissions.html:93
 #, python-format
 msgid "Form data <span>%(form_title)s</span>"
 msgstr ""
 
-#: templates/wagtailforms/index_submissions.html:45
+#: templates/wagtailforms/index_submissions.html:102
 msgid "Filter"
 msgstr ""
 
-#: templates/wagtailforms/index_submissions.html:51
+#: templates/wagtailforms/index_submissions.html:108
 msgid "Download CSV"
 msgstr ""
 
-#: templates/wagtailforms/index_submissions.html:63
+#: templates/wagtailforms/index_submissions.html:122
 #, python-format
 msgid "There have been no submissions of the '%(title)s' form."
 msgstr ""
@@ -119,10 +211,13 @@ msgstr ""
 msgid "Origin"
 msgstr ""
 
-#: templates/wagtailforms/list_submissions.html:9
-msgid "Submission Date"
-msgstr ""
-
 #: templates/wagtailforms/results_forms.html:7
 msgid "No form pages have been created."
 msgstr ""
+
+#: views.py:46
+#, python-format
+msgid "One submission has been deleted."
+msgid_plural "%(count)d submissions have been deleted."
+msgstr[0] ""
+msgstr[1] ""

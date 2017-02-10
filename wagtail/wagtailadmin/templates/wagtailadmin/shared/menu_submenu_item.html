@@ -1,0 +1,9 @@
+<li class="menu-item{% if active %} menu-active{% endif %}">
+    <a href="#" class="submenu-trigger {{ classnames }}"{{ attr_string }}>{{ label }}</a>
+    <div class="nav-submenu">
+        <h2 class="{{ classnames }}">{{ label }}</h2>
+        <ul>{{ menu_html }}
+            {% block menu_footer %}{% endblock %}
+        </ul>
+    </div>
+</li>

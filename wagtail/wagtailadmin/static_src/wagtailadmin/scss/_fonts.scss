@@ -1,0 +1,25 @@
+//  NB: Due to Wagtail's browser support the following @font-face formats are required:
+//  - WOFF for modern browsers
+//  - WOFF2 For super-modern browsers
+//  - TTF for older Android & iOS
+//
+//  This example is all we need now:
+//
+//  @font-face {
+//    font-family: 'MyWebFont';
+//    src: url('myfont.woff2') format('woff2'),
+//         url('myfont.woff') format('woff'),
+//         url('myfont.ttf') format('truetype');
+//  }
+//
+//  See https://css-tricks.com/snippets/css/using-font-face/ for more information.
+
+
+@include webfont(Open Sans, opensans-light, 300, normal);
+@include webfont(Open Sans, opensans-regular, 400, normal);
+@include webfont(Open Sans, opensans-semibold, 600, normal);
+@include webfont(Open Sans, opensans-bold, 700, normal);
+@include webfont(Roboto Slab, robotoslab-regular, 400, normal);
+@include webfont(Roboto Slab, robotoslab-bold, 700, normal);
+
+@import 'wagtailadmin/scss/font-icons';

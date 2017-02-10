@@ -3,51 +3,51 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# Bertrand Bordage <bordage.bertrand@gmail.com>, 2015
+# Léo <leo@naeka.fr>, 2016
 # nahuel, 2014
+# nahuel, 2014
+# Sebastien Andrivet <sebastien@andrivet.com>, 2016
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-08-01 16:38+0100\n"
-"PO-Revision-Date: 2014-03-18 22:04+0000\n"
-"Last-Translator: nahuel\n"
-"Language-Team: French (http://www.transifex.com/projects/p/wagtail/language/"
+"POT-Creation-Date: 2016-12-06 22:44+0000\n"
+"PO-Revision-Date: 2016-06-06 09:11+0000\n"
+"Last-Translator: Léo <leo@naeka.fr>\n"
+"Language-Team: French (http://www.transifex.com/torchbox/wagtail/language/"
 "fr/)\n"
-"Language: fr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: fr\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
-#: forms.py:11
 msgid "Please enter a valid URL"
 msgstr "Entrez une URL valide"
 
-#: forms.py:15
 msgid "URL"
 msgstr "URL"
 
-#: templates/wagtailembeds/chooser/chooser.html:3
+msgid "embed"
+msgstr "intègre"
+
 msgid "Insert embed"
 msgstr "Insérer une intégration"
 
-#: templates/wagtailembeds/chooser/chooser.html:14
 msgid "Insert"
 msgstr "Insérer"
 
-#: views/chooser.py:33
 msgid ""
 "There seems to be a problem with your embedly API key. Please check your "
 "settings."
 msgstr ""
-"Il semble y avoir un problème avec votre clé de l'API embedly. Vérifiez vos "
+"Il semble y avoir un problème avec votre clé d'API embedly. Vérifiez vos "
 "paramètres."
 
-#: views/chooser.py:35
 msgid "Cannot find an embed for this URL."
 msgstr "Impossible de trouver une intégration pour cette URL."
 
-#: views/chooser.py:37
 msgid ""
 "There seems to be an error with Embedly while trying to embed this URL. "
 "Please try again later."

@@ -9,6 +9,8 @@
             There are {{ counter }} matches
         {% endblocktrans %}
         </h2>
+        
+        {% search_other %}
     {% else %}
         <h2>{% trans "Latest images" %}</h2>
     {% endif %}
@@ -16,21 +18,27 @@
     <ul class="listing horiz images">
         {% for image in images %}
             <li>
-                <a class="image-choice" href="{% url 'wagtailimages_edit_image' image.id %}">
-                    <div class="image">{% image image max-165x165 %}</div>
+                <a class="image-choice" href="{% url 'wagtailimages:edit' image.id %}">
+                    {% include "wagtailimages/images/results_image.html" %}
                     <h3>{{ image.title|ellipsistrim:60 }}</h3>
                 </a>
             </li>
         {% endfor %}
     </ul>
 
-    {% include "wagtailadmin/shared/pagination_nav.html" with items=images is_searching=is_searching query_string=query_string linkurl="wagtailimages_index" %}
+    {% include "wagtailadmin/shared/pagination_nav.html" with items=images is_searching=is_searching query_string=query_string %}
 
 {% else %}
     {% if is_searching %}
-        <p>{% blocktrans %}Sorry, no images match "<em>{{ query_string }}</em>"{% endblocktrans %}</p>
+        <h2>{% blocktrans %}Sorry, no images match "<em>{{ query_string }}</em>"{% endblocktrans %}</h2>
+        
+        {% search_other %}
     {% else %}
-        {% url 'wagtailimages_add_image' as wagtailimages_add_image_url %}
-        <p>{% blocktrans %}You've not uploaded any images. Why not <a href="{{ wagtailimages_add_image_url }}">add one now</a>?{% endblocktrans %}</p>
+        {% url 'wagtailimages:add_multiple' as wagtailimages_add_image_url %}
+        {% if current_collection %}
+            <p>{% blocktrans %}You haven't uploaded any images in this collection. Why not <a href="{{ wagtailimages_add_image_url }}">upload one now</a>?{% endblocktrans %}</p>
+        {% else %}
+            <p>{% blocktrans %}You haven't uploaded any images. Why not <a href="{{ wagtailimages_add_image_url }}">upload one now</a>?{% endblocktrans %}</p>
+        {% endif %}
     {% endif %}
 {% endif %}

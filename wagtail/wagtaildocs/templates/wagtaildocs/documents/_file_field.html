@@ -1,7 +1,7 @@
-{% extends "wagtailadmin/shared/field_as_li.html" %}
+{% extends "wagtailadmin/shared/field.html" %}
 {% load i18n %}
 {% block form_field %}
-    <a href="{{ document.url }}" class="icon icon-doc-full-inverse">{{ document.file }}</a><br /><br />
+    <a href="{{ document.url }}" class="icon icon-doc-full-inverse">{{ document.filename }}</a><br /><br />
     {% trans "Change document:" %}
     {{ field }}
 {% endblock %}

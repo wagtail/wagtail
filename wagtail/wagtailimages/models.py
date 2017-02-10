@@ -1,183 +1,301 @@
+from __future__ import absolute_import, unicode_literals
+
+import hashlib
 import os.path
-import re
+from collections import OrderedDict
+from contextlib import contextmanager
 
-from six import BytesIO
-
-from taggit.managers import TaggableManager
-
-from django.core.files import File
-from django.core.exceptions import ImproperlyConfigured, ObjectDoesNotExist
-from django.db import models
-from django.db.models.signals import pre_delete, pre_save
-from django.dispatch.dispatcher import receiver
-from django.utils.safestring import mark_safe
-from django.utils.html import escape, format_html_join
+import django
 from django.conf import settings
-from django.utils.translation import ugettext_lazy  as _
+from django.core import checks
+from django.core.files import File
+from django.core.urlresolvers import reverse
+from django.db import models
+from django.db.models.signals import post_delete, pre_save
+from django.dispatch.dispatcher import receiver
+from django.forms.widgets import flatatt
 from django.utils.encoding import python_2_unicode_compatible
 from django.utils.functional import cached_property
-from django.core.urlresolvers import reverse
-
+from django.utils.safestring import mark_safe
+from django.utils.six import BytesIO, string_types, text_type
+from django.utils.translation import ugettext_lazy as _
+from taggit.managers import TaggableManager
 from unidecode import unidecode
+from willow.image import Image as WillowImage
 
-from wagtail.wagtailadmin.taggable import TagSearchable
-from wagtail.wagtailimages.backends import get_image_backend
-from wagtail.wagtailsearch import index
-from wagtail.wagtailimages.utils.validators import validate_image_format
-from wagtail.wagtailimages.utils.focal_point import FocalPoint
-from wagtail.wagtailimages.utils.feature_detection import FeatureDetector, opencv_available
 from wagtail.wagtailadmin.utils import get_object_usage
+from wagtail.wagtailcore import hooks
+from wagtail.wagtailcore.models import CollectionMember
+from wagtail.wagtailimages.exceptions import InvalidFilterSpecError
+from wagtail.wagtailimages.rect import Rect
+from wagtail.wagtailsearch import index
+from wagtail.wagtailsearch.queryset import SearchableQuerySetMixin
+
+
+class SourceImageIOError(IOError):
+    """
+    Custom exception to distinguish IOErrors that were thrown while opening the source image
+    """
+    pass
+
+
+class ImageQuerySet(SearchableQuerySetMixin, models.QuerySet):
+    pass
 
 
 def get_upload_to(instance, filename):
-    folder_name = 'original_images'
-    filename = instance.file.field.storage.get_valid_name(filename)
+    """
+    Obtain a valid upload path for an image file.
 
-    # do a unidecode in the filename and then
-    # replace non-ascii characters in filename with _ , to sidestep issues with filesystem encoding
-    filename = "".join((i if ord(i) < 128 else '_') for i in unidecode(filename))
+    This needs to be a module-level function so that it can be referenced within migrations,
+    but simply delegates to the `get_upload_to` method of the instance, so that AbstractImage
+    subclasses can override it.
+    """
+    return instance.get_upload_to(filename)
 
-    while len(os.path.join(folder_name, filename)) >= 95:
-        prefix, dot, extension = filename.rpartition('.')
-        filename = prefix[:-1] + dot + extension
-    return os.path.join(folder_name, filename)
+
+def get_rendition_upload_to(instance, filename):
+    """
+    Obtain a valid upload path for an image rendition file.
+
+    This needs to be a module-level function so that it can be referenced within migrations,
+    but simply delegates to the `get_upload_to` method of the instance, so that AbstractRendition
+    subclasses can override it.
+    """
+    return instance.get_upload_to(filename)
 
 
 @python_2_unicode_compatible
-class AbstractImage(models.Model, TagSearchable):
-    title = models.CharField(max_length=255, verbose_name=_('Title') )
-    file = models.ImageField(verbose_name=_('File'), upload_to=get_upload_to, width_field='width', height_field='height', validators=[validate_image_format])
-    width = models.IntegerField(editable=False)
-    height = models.IntegerField(editable=False)
-    created_at = models.DateTimeField(auto_now_add=True)
-    uploaded_by_user = models.ForeignKey(settings.AUTH_USER_MODEL, null=True, blank=True, editable=False)
+class AbstractImage(CollectionMember, index.Indexed, models.Model):
+    title = models.CharField(max_length=255, verbose_name=_('title'))
+    file = models.ImageField(
+        verbose_name=_('file'), upload_to=get_upload_to, width_field='width', height_field='height'
+    )
+    width = models.IntegerField(verbose_name=_('width'), editable=False)
+    height = models.IntegerField(verbose_name=_('height'), editable=False)
+    created_at = models.DateTimeField(verbose_name=_('created at'), auto_now_add=True, db_index=True)
+    uploaded_by_user = models.ForeignKey(
+        settings.AUTH_USER_MODEL, verbose_name=_('uploaded by user'),
+        null=True, blank=True, editable=False, on_delete=models.SET_NULL
+    )
 
-    tags = TaggableManager(help_text=None, blank=True, verbose_name=_('Tags'))
+    tags = TaggableManager(help_text=None, blank=True, verbose_name=_('tags'))
 
-    focal_point_x = models.PositiveIntegerField(null=True, editable=False)
-    focal_point_y = models.PositiveIntegerField(null=True, editable=False)
-    focal_point_width = models.PositiveIntegerField(null=True, editable=False)
-    focal_point_height = models.PositiveIntegerField(null=True, editable=False)
+    focal_point_x = models.PositiveIntegerField(null=True, blank=True)
+    focal_point_y = models.PositiveIntegerField(null=True, blank=True)
+    focal_point_width = models.PositiveIntegerField(null=True, blank=True)
+    focal_point_height = models.PositiveIntegerField(null=True, blank=True)
+
+    file_size = models.PositiveIntegerField(null=True, editable=False)
+
+    objects = ImageQuerySet.as_manager()
+
+    def is_stored_locally(self):
+        """
+        Returns True if the image is hosted on the local filesystem
+        """
+        try:
+            self.file.path
+
+            return True
+        except NotImplementedError:
+            return False
+
+    def get_file_size(self):
+        if self.file_size is None:
+            try:
+                self.file_size = self.file.size
+            except OSError:
+                # File doesn't exist
+                return
+
+            self.save(update_fields=['file_size'])
+
+        return self.file_size
+
+    def get_upload_to(self, filename):
+        folder_name = 'original_images'
+        filename = self.file.field.storage.get_valid_name(filename)
+
+        # do a unidecode in the filename and then
+        # replace non-ascii characters in filename with _ , to sidestep issues with filesystem encoding
+        filename = "".join((i if ord(i) < 128 else '_') for i in unidecode(filename))
+
+        # Truncate filename so it fits in the 100 character limit
+        # https://code.djangoproject.com/ticket/9893
+        full_path = os.path.join(folder_name, filename)
+        if len(full_path) >= 95:
+            chars_to_trim = len(full_path) - 94
+            prefix, extension = os.path.splitext(filename)
+            filename = prefix[:-chars_to_trim] + extension
+            full_path = os.path.join(folder_name, filename)
+
+        return full_path
 
     def get_usage(self):
         return get_object_usage(self)
 
     @property
     def usage_url(self):
-        return reverse('wagtailimages_image_usage',
+        return reverse('wagtailimages:image_usage',
                        args=(self.id,))
 
-    search_fields = TagSearchable.search_fields + (
+    search_fields = CollectionMember.search_fields + [
+        index.SearchField('title', partial_match=True, boost=10),
+        index.RelatedFields('tags', [
+            index.SearchField('name', partial_match=True, boost=10),
+        ]),
         index.FilterField('uploaded_by_user'),
-    )
+    ]
 
     def __str__(self):
         return self.title
 
-    @property
-    def focal_point(self):
+    @contextmanager
+    def get_willow_image(self):
+        # Open file if it is closed
+        close_file = False
+        try:
+            image_file = self.file
+
+            if self.file.closed:
+                # Reopen the file
+                if self.is_stored_locally():
+                    self.file.open('rb')
+                else:
+                    # Some external storage backends don't allow reopening
+                    # the file. Get a fresh file instance. #1397
+                    storage = self._meta.get_field('file').storage
+                    image_file = storage.open(self.file.name, 'rb')
+
+                close_file = True
+        except IOError as e:
+            # re-throw this as a SourceImageIOError so that calling code can distinguish
+            # these from IOErrors elsewhere in the process
+            raise SourceImageIOError(text_type(e))
+
+        # Seek to beginning
+        image_file.seek(0)
+
+        try:
+            yield WillowImage.open(image_file)
+        finally:
+            if close_file:
+                image_file.close()
+
+    def get_rect(self):
+        return Rect(0, 0, self.width, self.height)
+
+    def get_focal_point(self):
         if self.focal_point_x is not None and \
            self.focal_point_y is not None and \
            self.focal_point_width is not None and \
            self.focal_point_height is not None:
-            return FocalPoint(
+            return Rect.from_point(
                 self.focal_point_x,
                 self.focal_point_y,
-                width=self.focal_point_width,
-                height=self.focal_point_height,
+                self.focal_point_width,
+                self.focal_point_height,
             )
 
-    @focal_point.setter
-    def focal_point(self, focal_point):
-        if focal_point is not None:
-            self.focal_point_x = focal_point.x
-            self.focal_point_y = focal_point.y
-            self.focal_point_width = focal_point.width
-            self.focal_point_height = focal_point.height
+    def has_focal_point(self):
+        return self.get_focal_point() is not None
+
+    def set_focal_point(self, rect):
+        if rect is not None:
+            self.focal_point_x = rect.centroid_x
+            self.focal_point_y = rect.centroid_y
+            self.focal_point_width = rect.width
+            self.focal_point_height = rect.height
         else:
             self.focal_point_x = None
             self.focal_point_y = None
             self.focal_point_width = None
             self.focal_point_height = None
 
-    def get_suggested_focal_point(self, backend_name='default'):
-        backend = get_image_backend(backend_name)
-        image_file = self.file.file
+    def get_suggested_focal_point(self):
+        with self.get_willow_image() as willow:
+            faces = willow.detect_faces()
 
-        # Make sure image is open and seeked to the beginning
-        image_file.open('rb')
-        image_file.seek(0)
+            if faces:
+                # Create a bounding box around all faces
+                left = min(face[0] for face in faces)
+                top = min(face[1] for face in faces)
+                right = max(face[2] for face in faces)
+                bottom = max(face[3] for face in faces)
+                focal_point = Rect(left, top, right, bottom)
+            else:
+                features = willow.detect_features()
+                if features:
+                    # Create a bounding box around all features
+                    left = min(feature[0] for feature in features)
+                    top = min(feature[1] for feature in features)
+                    right = max(feature[0] for feature in features)
+                    bottom = max(feature[1] for feature in features)
+                    focal_point = Rect(left, top, right, bottom)
+                else:
+                    return None
 
-        # Load the image
-        image = backend.open_image(self.file.file)
-        image_data = backend.image_data_as_rgb(image)
+        # Add 20% to width and height and give it a minimum size
+        x, y = focal_point.centroid
+        width, height = focal_point.size
 
-        # Make sure we have image data
-        # If the image is animated, image_data_as_rgb will return None
-        if image_data is None:
-            return
+        width *= 1.20
+        height *= 1.20
 
-        # Use feature detection to find a focal point
-        feature_detector = FeatureDetector(image.size, image_data[0], image_data[1])
-        focal_point = feature_detector.get_focal_point()
+        width = max(width, 100)
+        height = max(height, 100)
 
-        # Add 20% extra room around the edge of the focal point
-        if focal_point:
-            focal_point.width *= 1.20
-            focal_point.height *= 1.20
+        return Rect.from_point(x, y, width, height)
 
-        return focal_point
+    @classmethod
+    def get_rendition_model(cls):
+        """ Get the Rendition model for this Image model """
+        if django.VERSION >= (1, 9):
+            return cls.renditions.rel.related_model
+        else:
+            return cls.renditions.related.related_model
 
     def get_rendition(self, filter):
-        if not hasattr(filter, 'process_image'):
-            # assume we've been passed a filter spec string, rather than a Filter object
-            # TODO: keep an in-memory cache of filters, to avoid a db lookup
-            filter, created = Filter.objects.get_or_create(spec=filter)
+        if isinstance(filter, string_types):
+            filter = Filter(spec=filter)
+
+        cache_key = filter.get_cache_key(self)
+        Rendition = self.get_rendition_model()
 
         try:
-            if self.focal_point:
-                rendition = self.renditions.get(
-                    filter=filter,
-                    focal_point_key=self.focal_point.get_key(),
-                )
-            else:
-                rendition = self.renditions.get(
-                    filter=filter,
-                    focal_point_key=None,
-                )
-        except ObjectDoesNotExist:
-            file_field = self.file
+            rendition = self.renditions.get(
+                filter_spec=filter.spec,
+                focal_point_key=cache_key,
+            )
+        except Rendition.DoesNotExist:
+            # Generate the rendition image
+            generated_image = filter.run(self, BytesIO())
 
-            # If we have a backend attribute then pass it to process
-            # image - else pass 'default'
-            backend_name = getattr(self, 'backend', 'default')
-            generated_image = filter.process_image(file_field.file, backend_name=backend_name, focal_point=self.focal_point)
+            # Generate filename
+            input_filename = os.path.basename(self.file.name)
+            input_filename_without_extension, input_extension = os.path.splitext(input_filename)
 
-            # generate new filename derived from old one, inserting the filter spec and focal point key before the extension
-            if self.focal_point is not None:
-                focal_point_key = "focus-" + self.focal_point.get_key()
-            else:
-                focal_point_key = "focus-none"
+            # A mapping of image formats to extensions
+            FORMAT_EXTENSIONS = {
+                'jpeg': '.jpg',
+                'png': '.png',
+                'gif': '.gif',
+            }
 
-            input_filename_parts = os.path.basename(file_field.file.name).split('.')
-            filename_without_extension = '.'.join(input_filename_parts[:-1])
-            extension = '.'.join([focal_point_key, filter.spec] + input_filename_parts[-1:])
-            filename_without_extension = filename_without_extension[:(59-len(extension))] # Truncate filename to prevent it going over 60 chars
-            output_filename = filename_without_extension + '.' + extension
-            generated_image_file = File(generated_image, name=output_filename)
+            output_extension = filter.spec.replace('|', '.') + FORMAT_EXTENSIONS[generated_image.format_name]
+            if cache_key:
+                output_extension = cache_key + '.' + output_extension
 
-            if self.focal_point:
-                rendition, created = self.renditions.get_or_create(
-                    filter=filter,
-                    focal_point_key=self.focal_point.get_key(),
-                    defaults={'file': generated_image_file}
-                )
-            else:
-                rendition, created = self.renditions.get_or_create(
-                    filter=filter,
-                    focal_point_key=None,
-                    defaults={'file': generated_image_file}
-                )
+            # Truncate filename to prevent it going over 60 chars
+            output_filename_without_extension = input_filename_without_extension[:(59 - len(output_extension))]
+            output_filename = output_filename_without_extension + '.' + output_extension
+
+            rendition, created = self.renditions.get_or_create(
+                filter_spec=filter.spec,
+                focal_point_key=cache_key,
+                defaults={'file': File(generated_image.f, name=output_filename)}
+            )
 
         return rendition
 
@@ -199,187 +317,228 @@ class AbstractImage(models.Model, TagSearchable):
         return self.title
 
     def is_editable_by_user(self, user):
-        if user.has_perm('wagtailimages.change_image'):
-            # user has global permission to change images
-            return True
-        elif user.has_perm('wagtailimages.add_image') and self.uploaded_by_user == user:
-            # user has image add permission, which also implicitly provides permission to edit their own images
-            return True
-        else:
-            return False
+        from wagtail.wagtailimages.permissions import permission_policy
+        return permission_policy.user_has_permission_for_instance(user, 'change', self)
 
     class Meta:
         abstract = True
 
 
 class Image(AbstractImage):
-    pass
+    admin_form_fields = (
+        'title',
+        'file',
+        'collection',
+        'tags',
+        'focal_point_x',
+        'focal_point_y',
+        'focal_point_width',
+        'focal_point_height',
+    )
 
 
 # Do smartcropping calculations when user saves an image without a focal point
 @receiver(pre_save, sender=Image)
 def image_feature_detection(sender, instance, **kwargs):
     if getattr(settings, 'WAGTAILIMAGES_FEATURE_DETECTION_ENABLED', False):
-        if not opencv_available:
-            raise ImproperlyConfigured("pyOpenCV could not be found.")
-
         # Make sure the image doesn't already have a focal point
-        if instance.focal_point is None:
+        if not instance.has_focal_point():
             # Set the focal point
-            instance.focal_point = instance.get_suggested_focal_point()
+            instance.set_focal_point(instance.get_suggested_focal_point())
 
 
-# Receive the pre_delete signal and delete the file associated with the model instance.
-@receiver(pre_delete, sender=Image)
+# Receive the post_delete signal and delete the file associated with the model instance.
+@receiver(post_delete, sender=Image)
 def image_delete(sender, instance, **kwargs):
     # Pass false so FileField doesn't save the model.
     instance.file.delete(False)
 
 
-def get_image_model():
-    from django.conf import settings
-    from django.db.models import get_model
-
-    try:
-        app_label, model_name = settings.WAGTAILIMAGES_IMAGE_MODEL.split('.')
-    except AttributeError:
-        return Image
-    except ValueError:
-        raise ImproperlyConfigured("WAGTAILIMAGES_IMAGE_MODEL must be of the form 'app_label.model_name'")
-
-    image_model = get_model(app_label, model_name)
-    if image_model is None:
-        raise ImproperlyConfigured("WAGTAILIMAGES_IMAGE_MODEL refers to model '%s' that has not been installed" % settings.WAGTAILIMAGES_IMAGE_MODEL)
-    return image_model
-
-
-class Filter(models.Model):
+class Filter(object):
     """
-    Represents an operation that can be applied to an Image to produce a rendition
+    Represents one or more operations that can be applied to an Image to produce a rendition
     appropriate for final display on the website. Usually this would be a resize operation,
     but could potentially involve colour processing, etc.
     """
-    spec = models.CharField(max_length=255, db_index=True)
 
-    OPERATION_NAMES = {
-        'max': 'resize_to_max',
-        'min': 'resize_to_min',
-        'width': 'resize_to_width',
-        'height': 'resize_to_height',
-        'fill': 'resize_to_fill',
-        'original': 'no_operation',
-    }
-
-    class InvalidFilterSpecError(ValueError):
-        pass
-
-    def _parse_spec_string(self):
-        # parse the spec string and return the method name and method arg.
-        # There are various possible formats to match against:
-        # 'original'
-        # 'width-200'
-        # 'max-320x200'
-
-        if self.spec == 'original':
-            return Filter.OPERATION_NAMES['original'], None
-
-        match = re.match(r'(width|height)-(\d+)$', self.spec)
-        if match:
-            return Filter.OPERATION_NAMES[match.group(1)], int(match.group(2))
-
-        match = re.match(r'(max|min|fill)-(\d+)x(\d+)$', self.spec)
-        if match:
-            width = int(match.group(2))
-            height = int(match.group(3))
-            return Filter.OPERATION_NAMES[match.group(1)], (width, height)
-
-        # Spec is not one of our recognised patterns
-        raise Filter.InvalidFilterSpecError("Invalid image filter spec: %r" % self.spec)
+    def __init__(self, spec=None):
+        # The spec pattern is operation1-var1-var2|operation2-var1
+        self.spec = spec
 
     @cached_property
-    def _method(self):
-        return self._parse_spec_string()
+    def operations(self):
+        # Search for operations
+        self._search_for_operations()
 
-    def is_valid(self):
-        try:
-            self._parse_spec_string()
-            return True
-        except Filter.InvalidFilterSpecError:
-            return False
+        # Build list of operation objects
+        operations = []
+        for op_spec in self.spec.split('|'):
+            op_spec_parts = op_spec.split('-')
 
-    def process_image(self, input_file, output_file=None, focal_point=None, backend_name='default'):
-        """
-        Run this filter on the given image file then write the result into output_file and return it
-        If output_file is not given, a new BytesIO will be used instead
-        """
-        # Get backend
-        backend = get_image_backend(backend_name)
+            if op_spec_parts[0] not in self._registered_operations:
+                raise InvalidFilterSpecError("Unrecognised operation: %s" % op_spec_parts[0])
 
-        # Parse spec string
-        method_name, method_arg = self._method
+            op_class = self._registered_operations[op_spec_parts[0]]
+            operations.append(op_class(*op_spec_parts))
+        return operations
 
-        # Open image
-        input_file.open('rb')
-        image = backend.open_image(input_file)
-        file_format = image.format
+    def run(self, image, output):
+        with image.get_willow_image() as willow:
+            original_format = willow.format_name
 
-        # Process image
-        method = getattr(backend, method_name)
-        image = method(image, method_arg, focal_point=focal_point)
+            # Fix orientation of image
+            willow = willow.auto_orient()
 
-        # Make sure we have an output file
-        if output_file is None:
-            output_file = BytesIO()
+            env = {
+                'original-format': original_format,
+            }
+            for operation in self.operations:
+                willow = operation.run(willow, image, env) or willow
 
-        # Write output
-        backend.save_image(image, output_file, file_format)
+            # Find the output format to use
+            if 'output-format' in env:
+                # Developer specified an output format
+                output_format = env['output-format']
+            else:
+                # Default to outputting in original format
+                output_format = original_format
 
-        # Close the input file
-        input_file.close()
+                # Convert BMP files to PNG
+                if original_format == 'bmp':
+                    output_format = 'png'
 
-        return output_file
+                # Convert unanimated GIFs to PNG as well
+                if original_format == 'gif' and not willow.has_animation():
+                    output_format = 'png'
+
+            if output_format == 'jpeg':
+                # Allow changing of JPEG compression quality
+                if 'jpeg-quality' in env:
+                    quality = env['jpeg-quality']
+                elif hasattr(settings, 'WAGTAILIMAGES_JPEG_QUALITY'):
+                    quality = settings.WAGTAILIMAGES_JPEG_QUALITY
+                else:
+                    quality = 85
+
+                return willow.save_as_jpeg(output, quality=quality, progressive=True, optimize=True)
+            elif output_format == 'png':
+                return willow.save_as_png(output)
+            elif output_format == 'gif':
+                return willow.save_as_gif(output)
+
+    def get_cache_key(self, image):
+        vary_parts = []
+
+        for operation in self.operations:
+            for field in getattr(operation, 'vary_fields', []):
+                value = getattr(image, field, '')
+                vary_parts.append(str(value))
+
+        vary_string = '-'.join(vary_parts)
+
+        # Return blank string if there are no vary fields
+        if not vary_string:
+            return ''
+
+        return hashlib.sha1(vary_string.encode('utf-8')).hexdigest()[:8]
+
+    _registered_operations = None
+
+    @classmethod
+    def _search_for_operations(cls):
+        if cls._registered_operations is not None:
+            return
+
+        operations = []
+        for fn in hooks.get_hooks('register_image_operations'):
+            operations.extend(fn())
+
+        cls._registered_operations = dict(operations)
 
 
 class AbstractRendition(models.Model):
-    filter = models.ForeignKey('Filter', related_name='+')
-    file = models.ImageField(upload_to='images', width_field='width', height_field='height')
+    filter_spec = models.CharField(max_length=255, db_index=True)
+    file = models.ImageField(upload_to=get_rendition_upload_to, width_field='width', height_field='height')
     width = models.IntegerField(editable=False)
     height = models.IntegerField(editable=False)
-    focal_point_key = models.CharField(max_length=255, null=True, editable=False)
+    focal_point_key = models.CharField(max_length=16, blank=True, default='', editable=False)
 
     @property
     def url(self):
         return self.file.url
 
     @property
-    def attrs(self):
-        return mark_safe(
-            'src="%s" width="%d" height="%d" alt="%s"' % (escape(self.url), self.width, self.height, escape(self.image.title))
-        )
+    def alt(self):
+        return self.image.title
 
-    def img_tag(self, extra_attributes=None):
-        if extra_attributes:
-            extra_attributes_string = format_html_join(' ', '{0}="{1}"', extra_attributes.items())
-            return mark_safe('<img %s %s>' % (self.attrs, extra_attributes_string))
-        else:
-            return mark_safe('<img %s>' % self.attrs)
+    @property
+    def attrs(self):
+        """
+        The src, width, height, and alt attributes for an <img> tag, as a HTML
+        string
+        """
+        return flatatt(self.attrs_dict)
+
+    @property
+    def attrs_dict(self):
+        """
+        A dict of the src, width, height, and alt attributes for an <img> tag.
+        """
+        return OrderedDict([
+            ('src', self.url),
+            ('width', self.width),
+            ('height', self.height),
+            ('alt', self.alt),
+        ])
+
+    def img_tag(self, extra_attributes={}):
+        attrs = self.attrs_dict.copy()
+        attrs.update(extra_attributes)
+        return mark_safe('<img{}>'.format(flatatt(attrs)))
+
+    def __html__(self):
+        return self.img_tag()
+
+    def get_upload_to(self, filename):
+        folder_name = 'images'
+        filename = self.file.field.storage.get_valid_name(filename)
+        return os.path.join(folder_name, filename)
+
+    @classmethod
+    def check(cls, **kwargs):
+        errors = super(AbstractRendition, cls).check(**kwargs)
+        if not cls._meta.abstract:
+            if not any(
+                set(constraint) == set(['image', 'filter_spec', 'focal_point_key'])
+                for constraint in cls._meta.unique_together
+            ):
+                errors.append(
+                    checks.Error(
+                        "Custom rendition model %r has an invalid unique_together setting" % cls,
+                        hint="Custom rendition models must include the constraint "
+                        "('image', 'filter_spec', 'focal_point_key') in their unique_together definition.",
+                        obj=cls,
+                        id='wagtailimages.E001',
+                    )
+                )
+
+        return errors
 
     class Meta:
         abstract = True
 
 
 class Rendition(AbstractRendition):
-    image = models.ForeignKey('Image', related_name='renditions')
+    image = models.ForeignKey(Image, related_name='renditions', on_delete=models.CASCADE)
 
     class Meta:
         unique_together = (
-            ('image', 'filter', 'focal_point_key'),
+            ('image', 'filter_spec', 'focal_point_key'),
         )
 
 
-# Receive the pre_delete signal and delete the file associated with the model instance.
-@receiver(pre_delete, sender=Rendition)
+# Receive the post_delete signal and delete the file associated with the model instance.
+@receiver(post_delete, sender=Rendition)
 def rendition_delete(sender, instance, **kwargs):
     # Pass false so FileField doesn't save the model.
     instance.file.delete(False)
-

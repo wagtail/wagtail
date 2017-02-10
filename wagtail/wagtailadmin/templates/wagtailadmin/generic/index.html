@@ -1,0 +1,13 @@
+{% extends "wagtailadmin/base.html" %}
+{% load i18n %}
+{% block titletag %}{{ view.page_title }}{% endblock %}
+{% block content %}
+    {% if can_add %}
+        {% include "wagtailadmin/shared/header.html" with title=view.page_title add_link=view.add_url_name add_text=view.add_item_label icon=view.header_icon %}
+    {% else %}
+        {% include "wagtailadmin/shared/header.html" with title=view.page_title icon=view.header_icon %}
+    {% endif %}
+
+    {% block listing %}
+    {% endblock %}
+{% endblock %}

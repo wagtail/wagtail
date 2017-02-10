@@ -1,0 +1,16 @@
+<div {{ self.attrs }} class="c-dropdown  {% if is_parent %}t-inverted{% else %}t-default{% endif %}" data-dropdown>
+    <a href="javascript:void(0)" title="{{ title }}" class="c-dropdown__button  u-btn-current">
+        {{ label }}
+        <div data-dropdown-toggle class="o-icon  c-dropdown__toggle  [ icon icon-arrow-down ]"></div>
+    </a>
+    <div class="t-dark">
+        <ul role="menu" class="c-dropdown__menu  u-toggle  u-arrow u-arrow--tl u-background">
+        {% for button in buttons %}
+            <li class="c-dropdown__item ">
+                <a href="{{ button.url }}" title="{{ button.attrs.title }}" class="u-link is-live {{ button.classes|join:' ' }}">
+                    {{ button.label }}
+                </a>
+            </li>
+        {% endfor %}
+    </div>
+</div>

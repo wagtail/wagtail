@@ -2,10 +2,10 @@
 {% load i18n %}
 
 {% block item_content %}
-    <form action="{% url 'wagtailadmin_pages_reject_moderation' self.revision.id %}" target="_parent" method="post">
+    <form action="{% url 'wagtailadmin_pages:reject_moderation' self.revision.id %}" target="_parent" method="post">
         {% csrf_token %}
-        <div class="action icon icon-cross">
-            <input type="submit" value="{% trans 'Reject' %}" />
+        <div class="wagtail-action wagtail-icon wagtail-icon-cross">
+            <input type="submit" value="{% trans 'Reject' %}" class="button" />
         </div>
     </form>
 {% endblock %}

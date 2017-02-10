@@ -1,237 +1,59 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
 # Translators:
 # Gladson <gladsonbrito@gmail.com>, 2014
+# Jose Lourenco <jose@lourenco.ws>, 2014-2015
+# Manuela Silva <inactive+h_manuela_rodsilva@transifex.com>, 2015
+# Manuela Silva <inactive+h_manuela_rodsilva@transifex.com>, 2015
+# Tiago Henriques <trinosauro@gmail.com>, 2015-2016
 msgid ""
 msgstr ""
-"Project-Id-Version: Wagtail 0.5.0\n"
+"Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-08-01 16:39+0100\n"
-"PO-Revision-Date: 2014-08-03 01:58+0100\n"
-"Last-Translator: Jose Lourenco <jose@lourenco.ws>\n"
-"Language-Team: \n"
+"POT-Creation-Date: 2016-12-06 22:44+0000\n"
+"PO-Revision-Date: 2016-03-09 19:39+0000\n"
+"Last-Translator: Tiago Henriques <trinosauro@gmail.com>\n"
+"Language-Team: Portuguese (Portugal) (http://www.transifex.com/torchbox/"
+"wagtail/language/pt_PT/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Poedit 1.5.4\n"
 "Language: pt_PT\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: forms.py:9
 msgid "Search term(s)/phrase"
-msgstr "Procurar termo(s)/frase"
+msgstr "Pesquisar termo(s)/frase"
 
-#: forms.py:10
 msgid ""
-"Enter the full search string to match. An \n"
-"        exact match is required for your Editors Picks to be \n"
-"        displayed, wildcards are NOT allowed."
+"Enter the full search string to match. An exact match is required for your "
+"Promoted Results to be displayed, wildcards are NOT allowed."
 msgstr ""
-"introduza a frase completa a procurar. É \n"
-"        necessária uma coincidência exacta com os termos de procura para que "
-"as suas Seleções de Editor sejam \n"
-"        mostradas, caracteres de substituição (wildcards) NÃO são permitidos."
+"Insira o texto completo a pesquisar. É necessária uma correspondência exata "
+"para que os seus Resultados Promovidos sejam exibidos, não são permitidos "
+"carateres de substituição."
 
-#: forms.py:36
-msgid "Please specify at least one recommendation for this search term."
-msgstr ""
-"Por favor especifique pelo menos uma recomendação para este termo de procura."
+msgid "Query Daily Hits"
+msgstr "Consultar Acessos Diários"
 
-#: wagtail_hooks.py:23 templates/wagtailsearch/editorspicks/list.html:9
-msgid "Editors picks"
-msgstr "Escolhas do editor"
-
-#: templates/wagtailsearch/editorspicks/add.html:3
-#: templates/wagtailsearch/editorspicks/add.html:5
-msgid "Add editor's pick"
-msgstr "Adicionar escolha de editor"
-
-#: templates/wagtailsearch/editorspicks/add.html:10
-msgid ""
-"\n"
-"                <p>Editors picks are a means of recommending specific pages "
-"that might not organically come high up in search results. E.g recommending "
-"your primary donation page to a user searching with a less common term like "
-"\"<em>giving</em>\".</p>\n"
-"                "
-msgstr ""
-"\n"
-"                <p>Escolhas de Editores servem para recomendar páginas que "
-"poderiam não ser selecionadas para aparecer em posição alta em resultados de "
-"pesquisa. Por ex., recomendar a sua página principal de donativos para ser "
-"pesquisada usando termos menos comuns como \"<em>dar</em>\".</p>\n"
-"        "
-
-#: templates/wagtailsearch/editorspicks/add.html:13
-msgid ""
-"\n"
-"                <p>The \"Search term(s)/phrase\" field below must contain "
-"the full and exact search for which you wish to provide recommended results, "
-"<em>including</em> any misspellings/user error. To help, you can choose from "
-"search terms that have been popular with users of your site.</p>\n"
-"            "
-msgstr ""
-"\n"
-"                <p>O campo \"Procurar termo(s)/frase\" abaixo tem de conter "
-"a pesquisa completa e exata para a qual pretende indicar resultados "
-"recomendados, <em>incluindo</em> quaisquer erros de ortografia/utilizador. "
-"Para facilitar, pode escolher de entre termos de pesquisa que tenham sido "
-"usados frequentemente por utilizadores do seu site.</p>\n"
-"        "
-
-#: templates/wagtailsearch/editorspicks/add.html:27
-#: templates/wagtailsearch/editorspicks/edit.html:19
-msgid "Save"
-msgstr "Guardar"
-
-#: templates/wagtailsearch/editorspicks/confirm_delete.html:3
-#, python-format
-msgid "Delete %(query)s"
-msgstr "Eliminar %(query)s"
-
-#: templates/wagtailsearch/editorspicks/confirm_delete.html:5
-#: templates/wagtailsearch/editorspicks/edit.html:20
-#: templates/wagtailsearch/editorspicks/includes/editorspicks_form.html:6
-msgid "Delete"
-msgstr "Eliminar"
-
-#: templates/wagtailsearch/editorspicks/confirm_delete.html:9
-msgid "Are you sure you want to delete all editors picks for this search term?"
-msgstr ""
-"Tem a certeza que pretende eliminar todas as escolhas de editores para este "
-"termo de pesquisa?"
-
-#: templates/wagtailsearch/editorspicks/confirm_delete.html:12
-msgid "Yes, delete"
-msgstr "Sim, eliminar"
-
-#: templates/wagtailsearch/editorspicks/edit.html:3
-#, python-format
-msgid "Editing %(query)s"
-msgstr "Editando %(query)s"
-
-#: templates/wagtailsearch/editorspicks/edit.html:5
-msgid "Editing"
-msgstr "Editando"
-
-#: templates/wagtailsearch/editorspicks/index.html:3
-msgid "Search Terms"
-msgstr "Procurar Termos"
-
-#: templates/wagtailsearch/editorspicks/index.html:17
-msgid "Editor's search picks"
-msgstr "Procurar escolhas de editor"
-
-#: templates/wagtailsearch/editorspicks/index.html:18
-msgid "Add new editor's pick"
-msgstr "Adicionar nova escolha de editor"
-
-#: templates/wagtailsearch/editorspicks/list.html:8
-msgid "Search term(s)"
-msgstr "Procurar termo(s)"
-
-#: templates/wagtailsearch/editorspicks/list.html:10
-#: templates/wagtailsearch/queries/chooser/results.html:8
-msgid "Views (past week)"
-msgstr "Visualizações (última semana)"
-
-#: templates/wagtailsearch/editorspicks/list.html:17
-msgid "Edit this pick"
-msgstr "Editar esta escolha"
-
-#: templates/wagtailsearch/editorspicks/list.html:23
-msgid "None"
-msgstr "Nenhuma"
-
-#: templates/wagtailsearch/editorspicks/results.html:5
-#, python-format
-msgid ""
-"\n"
-"            There is one match\n"
-"        "
-msgid_plural ""
-"\n"
-"            There are %(counter)s matches\n"
-"        "
-msgstr[0] ""
-"\n"
-"            Existe uma ocorrência\n"
-"        "
-msgstr[1] ""
-"\n"
-"            Existem %(counter)s ocorrências\n"
-"        "
-
-#: templates/wagtailsearch/editorspicks/results.html:18
-#, python-format
-msgid "Sorry, no editor's picks match \"<em>%(query_string)s</em>\""
-msgstr ""
-"Desculpe, nenhuma escolha de editor contém \"<em>%(query_string)s</em>\""
-
-#: templates/wagtailsearch/editorspicks/results.html:21
-#, python-format
-msgid ""
-"No editor's picks have been created. Why not <a href="
-"\"%(wagtailsearch_editorspicks_add_url)s\">add one</a>?"
-msgstr ""
-"Nenhuma escolha de editor foi criada. Porque não <a href="
-"\"%(wagtailsearch_editorspicks_add_url)s\">adicionar uma</a>?"
-
-#: templates/wagtailsearch/editorspicks/includes/editorspicks_form.html:4
-msgid "Move up"
-msgstr "Mover para cima"
-
-#: templates/wagtailsearch/editorspicks/includes/editorspicks_form.html:5
-msgid "Move down"
-msgstr "Mover para baixo"
-
-#: templates/wagtailsearch/editorspicks/includes/editorspicks_form.html:10
-msgid "Editors pick"
-msgstr "Escolha de editor"
-
-#: templates/wagtailsearch/editorspicks/includes/editorspicks_formset.html:14
-msgid "Add recommended page"
-msgstr "Adicionar uma página recomendada"
-
-#: templates/wagtailsearch/queries/chooser/chooser.html:2
 msgid "Popular search terms"
-msgstr "Termos de procura populares"
+msgstr "Termos de pesquisa populares"
 
-#: templates/wagtailsearch/queries/chooser/chooser.html:11
 msgid "Search"
-msgstr "Procurar"
+msgstr "Pesquisar"
 
-#: templates/wagtailsearch/queries/chooser/results.html:7
 msgid "Terms"
 msgstr "Termos"
 
-#: templates/wagtailsearch/queries/chooser/results.html:22
+msgid "Views (past week)"
+msgstr "Visualizações (última semana)"
+
 msgid "No results found"
 msgstr "Nenhum resultado encontrado"
 
-#: views/editorspicks.py:47
-msgid "Search editor's picks"
-msgstr "Procurar nas escolhas de editor"
+msgid "Date"
+msgstr "Data"
 
-#: views/editorspicks.py:83
-msgid "Editor's picks for '{0}' created."
-msgstr "Escolhas de editor para '{0}' criadas."
-
-#: views/editorspicks.py:89
-msgid "Recommendations have not been created due to errors"
-msgstr "Recomendações não foram criadas devido a erros."
-
-#: views/editorspicks.py:117
-msgid "Editor's picks for '{0}' updated."
-msgstr "Escolhas de editor para '{0}' atualizadas."
-
-#: views/editorspicks.py:123
-msgid "Recommendations have not been saved due to errors"
-msgstr "Recomendações não foram guardadas devido a erros."
-
-#: views/editorspicks.py:142
-msgid "Editor's picks deleted."
-msgstr "Escolhas de editor eliminadas."
+msgid "Choose from popular search terms"
+msgstr "Escolha entre os termos de pesquisa mais populares"

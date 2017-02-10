@@ -1,15 +1,13 @@
 {% extends "wagtailadmin/base.html" %}
-{% load wagtailimages_tags static compress i18n %}
+{% load wagtailimages_tags staticfiles i18n %}
 
 {% block titletag %}{% blocktrans with title=image.title %}Editing image {{ title }}{% endblocktrans %}{% endblock %}
-
-{% block bodyclass %}menu-images{% endblock %}
 
 {% block content %}
     {% trans "Generating URL" as title_str %}
     {% include "wagtailadmin/shared/header.html" with title=title_str subtitle=image.title icon="image" %}
 
-    <div class="image-url-generator nice-padding" data-generator-url="{% url 'wagtailimages_generate_url' image.id '__filterspec__' %}">
+    <div class="image-url-generator nice-padding" data-generator-url="{% url 'wagtailimages:generate_url' image.id '__filterspec__' %}">
         <form>
             <ul class="fields">
                 {% include "wagtailadmin/shared/field_as_li.html" with field=form.filter_method %}
@@ -17,6 +15,7 @@
                     <ul class="field-row">
                         {% include "wagtailadmin/shared/field_as_li.html" with field=form.width li_classes="field-col col4" %}
                         {% include "wagtailadmin/shared/field_as_li.html" with field=form.height li_classes="field-col col4" %}
+                        {% include "wagtailadmin/shared/field_as_li.html" with field=form.closeness li_classes="field-col col4" %}
                     </ul>
                 </li>
             </ul>
@@ -36,8 +35,8 @@
 {% endblock %}
 
 {% block extra_js %}
-    {% compress js %}
-        <script src="{% static 'wagtailadmin/js/vendor/jquery.ba-throttle-debounce.min.js' %}"></script>
-        <script src="{% static 'wagtailimages/js/image-url-generator.js' %}"></script>
-    {% endcompress %}
+    {{ block.super }}
+
+    <script src="{% static 'wagtailadmin/js/vendor/jquery.ba-throttle-debounce.min.js' %}"></script>
+    <script src="{% static 'wagtailimages/js/image-url-generator.js' %}"></script>
 {% endblock %}

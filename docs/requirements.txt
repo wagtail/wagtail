@@ -1,5 +1,5 @@
-Django>=1.6.2,<1.7
-django-modelcluster>=0.3
-django-taggit==0.11.2
-django-treebeard==2.0
-six==1.7.3
+Django>=1.8,<1.9
+django-modelcluster>=0.5
+django-taggit==0.12.3
+django-treebeard==3.0
+six>=1.7.0

@@ -1,0 +1,123 @@
+@import 'wagtailadmin/scss/variables';
+@import 'wagtailadmin/scss/mixins';
+@import 'wagtailadmin/scss/grid';
+
+section {
+    border-top: 1px solid $color-grey-3;
+    margin-top: 2em;
+    padding: 0 0 2em;
+
+    > h2:first-child {
+        margin: 0;
+        font-size: 1em;
+        background: $color-grey-4;
+        padding: 1em;
+        margin-bottom: 1em;
+    }
+}
+
+.palette {
+    @include clearfix();
+
+    ul {
+        @include clearfix();
+        @include unlist();
+    }
+
+    li {
+        float: left;
+        width: 100px;
+        height: 100px;
+        padding: 10px;
+        color: $color-black;
+    }
+
+    .color-teal {
+        background-color: $color-teal;
+    }
+
+    .color-teal-darker {
+        background-color: $color-teal-darker;
+    }
+
+    .color-teal-dark {
+        background-color: $color-teal-dark;
+    }
+
+    .color-red {
+        background-color: $color-red;
+    }
+
+    .color-orange {
+        background-color: $color-orange;
+    }
+
+    .color-green {
+        background-color: $color-green;
+    }
+
+    .color-blue {
+        background-color: $color-blue;
+    }
+
+    .color-grey-1 {
+        background-color: $color-grey-1;
+    }
+
+    .color-grey-1-1 {
+        background-color: $color-grey-1-1;
+    }
+
+    .color-grey-2 {
+        background-color: $color-grey-2;
+    }
+
+    .color-grey-3 {
+        background-color: $color-grey-3;
+    }
+
+    .color-grey-4 {
+        background-color: $color-grey-4;
+    }
+
+    .color-grey-5 {
+        background-color: $color-grey-5;
+    }
+
+    .color-salmon {
+        background-color: $color-salmon;
+    }
+
+    .color-salmon-light {
+        background-color: $color-salmon-light;
+    }
+}
+
+.icons {
+    :before,
+    :after {
+        font-size: 2em;
+    }
+
+    ul {
+        -webkit-column-count: 3; // Chrome, Safari, Opera
+        -moz-column-count: 3; // Firefox
+        column-count: 3;
+    }
+
+    li {
+        margin-bottom: 1em;
+    }
+
+    .spinner {
+        position: relative;
+    }
+
+    // .spinner .icon-spinner:after {
+    //     position: absolute;
+    // }
+}
+
+.timepicker {
+    height: 150px;
+}

@@ -1,0 +1,11 @@
+{% load staticfiles %}
+<script>
+    window.chooserUrls = {
+        'pageChooser': '{% url "wagtailadmin_choose_page" %}'
+    };
+</script>
+
+<script src="{% static 'wagtailadmin/js/page-chooser.js' %}"></script>
+<script src="{% static 'wagtailadmin/js/expanding_formset.js' %}"></script>
+<script src="{% static 'wagtailadmin/js/modal-workflow.js' %}"></script>
+<script src="{% static 'wagtailusers/js/group-form.js' %}"></script>

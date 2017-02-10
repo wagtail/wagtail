@@ -1,0 +1,194 @@
+@import 'wagtailadmin/scss/variables';
+@import 'wagtailadmin/scss/mixins';
+
+.hallotoolbar {
+    position: absolute;
+    z-index: 5;
+    margin-top: 4em;
+    margin-left: 1.2em;
+
+    &.affixed {
+        position: fixed;
+        margin-top: 0;
+    }
+
+}
+
+// full is added to hallotoolbar when invoked on a field set to the full layout style
+.hallotoolbar.full {
+    margin-left: $mobile-nice-padding;
+}
+
+// stream-field is added to hallotoolbar when invoked on a field within a stream-field 
+.hallotoolbar.stream-field {
+    margin-top: -1em;
+    margin-left: 0;
+
+    &.affixed {
+        margin-top: 0;
+    }
+}
+
+.hallotoolbar button {
+    border-radius: 0;
+    height: 2.4em;
+}
+
+.richtext {
+    font-family: $font-serif;
+    padding-top: 4em;
+    min-height: 50px;
+    overflow: hidden;
+    line-height: 1.5em;
+
+    // Resetting various html tags that have been messed with by Wagtail's main css
+    h1 {
+        text-transform: none;
+    }
+
+    h2 {
+        text-transform: none;
+        display: block;
+    }
+
+    h1 span {
+        font-weight: normal;
+        color: inherit;
+    }
+
+    *:before,
+    *:after {
+        display: none;
+    }
+
+    ol,
+    ul {
+        margin: 1em 0;
+        padding: 0 0 0 40px;
+    }
+
+    li {
+        display: list-item;
+    }
+
+    ul li {
+        list-style-type: disc;
+    }
+
+    ol li {
+        list-style-type: decimal;
+    }
+
+    // Delete controls on embedded blocks with contenteditable='false'
+    .rich-text-deletable {
+        position: relative;
+
+        a.delete-control {
+            position: absolute;
+            right: 0;
+            cursor: pointer;
+            display: none;
+
+            &:before {
+                background-color: rgba(255, 255, 255, 0.8);
+            }
+
+            &:hover:before {
+                background-color: $color-white;
+            }
+        }
+    }
+
+    &.inEditMode {
+        .rich-text-deletable a.delete-control {
+            display: block;
+        }
+    }
+
+    // Set some reasonable default heading styles. These can be overridden in site-specific custom CSS
+    // to make them better reflect their appearance on the front-end (however, it's arguably better for editors
+    // NOT to be thinking about a specific visual appearance when they choose heading levels...)
+
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+        font-family: inherit;
+    }
+
+    h2 {
+        font-size: 2em;
+        line-height: 1.2em;
+        clear: both;
+    }
+
+    h3 {
+        font-size: 1.7em;
+        line-height: 1.194em;
+    }
+
+    h4 {
+        font-size: 1.5em;
+        line-height: 1.267em;
+    }
+
+    h5 {
+        // used for large body text, not really heading
+        font-size: 1.2em;
+        line-height: 1.27em;
+    }
+
+    hr {
+        border-bottom: 1px solid #ccc;
+        border-top: 0;
+        border-left: 0;
+    }
+
+    
+    // These styles correspond to the image formats defined in wagtailimages/formats.py,
+    // so that images displayed in the rich text field receive more or less the same
+    // styling that they would receive on the site front-end.
+    // 
+    // Wagtail installations that define their own image formats (in a myapp.image_formats module)
+    // should ideally use the insert_editor_css hook to pass in their own custom CSS to have those
+    // images render within the rich text area in the same styles that would appear on the front-end.
+
+
+    .richtext-image {
+        margin-top: 3px; // close as possible to match line-height space above p
+
+        img {
+            width: 100%;
+        }
+
+        figcaption {
+            display: block;
+            width: 100%;
+            text-align: left;
+            margin-top: 16px;
+            margin-bottom: 16px;
+        }
+
+        &.small {
+            max-width: 45%;
+        }
+
+        &.left {
+            float: left;
+            margin-right: 16px;
+        }
+
+        &.right {
+            float: right;
+            margin-left: 16px;
+        }
+    }
+}
+
+@media screen and (min-width: $breakpoint-mobile) {
+    .hallotoolbar.full {
+        margin-left: $desktop-nice-padding;
+    }
+}

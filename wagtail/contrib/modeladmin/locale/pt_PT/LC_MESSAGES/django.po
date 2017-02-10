@@ -1,0 +1,224 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# Matt Westcott <matthew@torchbox.com>, 2016
+# Tiago Henriques <trinosauro@gmail.com>, 2016
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2016-12-06 22:44+0000\n"
+"PO-Revision-Date: 2016-08-01 13:04+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"Language-Team: Portuguese (Portugal) (http://www.transifex.com/torchbox/"
+"wagtail/language/pt_PT/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: pt_PT\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Parent page"
+msgstr "Página-mãe"
+
+#, python-format
+msgid "Add %s"
+msgstr "Adicionar %s"
+
+#, python-format
+msgid "Add a new %s"
+msgstr "Adicionar novo %s"
+
+msgid "Inspect"
+msgstr "Inspecionar"
+
+#, python-format
+msgid "Inspect this %s"
+msgstr "Inspecionar este %s"
+
+msgid "Edit"
+msgstr "Alterar"
+
+#, python-format
+msgid "Edit this %s"
+msgstr "Alterar este %s"
+
+msgid "Delete"
+msgstr "Apagar"
+
+#, python-format
+msgid "Delete this %s"
+msgstr "Apagar este %s"
+
+msgid "Unpublish"
+msgstr "Despublicar"
+
+#, python-format
+msgid "Unpublish this %s"
+msgstr "Despublicar este %s"
+
+msgid "Copy"
+msgstr "Copiar"
+
+#, python-format
+msgid "Copy this %s"
+msgstr "Copiar este %s"
+
+msgid "image"
+msgstr "imagem"
+
+msgid "Choose a parent page"
+msgstr "Escolher uma página-mãe"
+
+#, python-format
+msgid ""
+"%(plural)s can be added to more than one place within your site. Which of "
+"the following would you like to be the parent of your new page?"
+msgstr ""
+"%(plural)s podem ser adicionados em mais do que um sítio no seu site. Qual "
+"das seguintes gostaria que fosse a página-mãe da sua nova página?"
+
+msgid "Continue"
+msgstr "Continuar"
+
+msgid "Saving..."
+msgstr "A gravar..."
+
+msgid "Save"
+msgstr "Guardar"
+
+#, python-format
+msgid "%(model_name)s could not be deleted"
+msgstr "%(model_name)s não pôde ser apagado"
+
+#, python-format
+msgid ""
+"'%(instance_name)s' is currently referenced by other objects, and cannot be "
+"deleted without jeopardising data integrity. To delete it successfully, "
+"first remove references from the following objects, then try again:"
+msgstr ""
+"'%(instance_name)s' é neste momento referenciado por outros objetos, e não "
+"pode ser apagado sem comprometer a integridade dos dados. Para apagar "
+"corretamente, remova primeiro as referências dos seguintes objetos e tente "
+"novamente:"
+
+msgid "Go back to listing"
+msgstr "Regressar à listagem"
+
+msgid "Yes, delete"
+msgstr "Sim, apagar"
+
+msgid "Home"
+msgstr "Início"
+
+#, python-format
+msgid " By %(filter_title)s "
+msgstr " Por %(filter_title)s "
+
+#, python-format
+msgid "Sorry, there are no %(name)s matching your search parameters."
+msgstr ""
+"Lamento, mas não existem %(name)s que correspondam aos parâmetros da sua "
+"pesquisa."
+
+msgid "Search for"
+msgstr "Pesquisar por"
+
+#, python-format
+msgid "Search %(name)s"
+msgstr "Pesquisar %(name)s"
+
+msgid "Filter"
+msgstr "Filtro"
+
+#, python-format
+msgid ""
+"No %(name)s have been created yet. One of the following must be created "
+"before you can add any %(name)s:"
+msgstr ""
+"Ainda não foram criados %(name)s. Um dos seguintes tem de ser criado antes "
+"de poder adicionar quaisquer %(name)s:"
+
+#, python-format
+msgid "No %(name)s have been created yet."
+msgstr "Ainda não foram criados %(name)s."
+
+#, python-format
+msgid ""
+"\n"
+"                                                Why not <a href=\"%(url)s"
+"\">add one</a>?\n"
+"                                            "
+msgstr ""
+"\n"
+"Porque não <a href=\"%(url)s\">criar um</a>?\n"
+"                                            "
+
+#, python-format
+msgid "Page %(current_page)s of %(num_pages)s."
+msgstr "Página %(current_page)s de %(num_pages)s."
+
+#, python-format
+msgid "Back to %(model_name)s list"
+msgstr "Regressar a listagem de %(model_name)s"
+
+msgid "Previous"
+msgstr "Anterior"
+
+msgid "Next"
+msgstr "Seguinte"
+
+#, python-brace-format
+msgid "{model_name} '{instance}' created."
+msgstr "{model_name} '{instance}' criado."
+
+#, python-format
+msgid "The %s could not be created due to errors."
+msgstr "Não foi possível criar o %s devido a erros."
+
+msgid "New"
+msgstr "Nova"
+
+#, python-format
+msgid "Create new %s"
+msgstr "Criar novo %s"
+
+msgid "Editing"
+msgstr "A editar"
+
+#, python-format
+msgid "Editing %s"
+msgstr "A editar %s"
+
+#, python-brace-format
+msgid "{model_name} '{instance}' updated."
+msgstr "{model_name} '{instance}' atualizado."
+
+#, python-format
+msgid "The %s could not be saved due to errors."
+msgstr "O %s não pôde ser guardado devido a erros."
+
+#, python-format
+msgid "Confirm deletion of %s"
+msgstr "Confirmar remoção de %s"
+
+#, python-format
+msgid ""
+"Are you sure you want to delete this %s? If other things in your site are "
+"related to it, they may also be affected."
+msgstr ""
+"Tem a certeza que quer apagar este %s? Se outras coisas no seu site "
+"estiverem relacionados com ele, também podem ser afetadas."
+
+#, python-brace-format
+msgid "{model} '{instance}' deleted."
+msgstr "{model} '{instance}' apagado."
+
+msgid "Inspecting"
+msgstr "A inspecionar"
+
+#, python-format
+msgid "Inspecting %s"
+msgstr "A inspecionar %s"

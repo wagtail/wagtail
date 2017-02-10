@@ -1,0 +1,22 @@
+.listing {
+    .field label {
+        display: none;
+    }
+
+    input,
+    select,
+
+    textarea {
+        font-size: 1em;
+    }
+
+    select + span:after {
+        font-size: 2.5em !important;
+    }
+}
+
+.page-permissions-listing {
+    .admin_page_chooser .field-content {
+        width: 100%;  // so that 'choose another page' button displays in its entirety
+    }
+}

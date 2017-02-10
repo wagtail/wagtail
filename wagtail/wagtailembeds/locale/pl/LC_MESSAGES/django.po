@@ -4,40 +4,39 @@
 #
 # Translators:
 # utek <mail@utek.pl>, 2014
+# Miłosz Miśkiewicz, 2016
 # utek <mail@utek.pl>, 2014
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-08-01 16:38+0100\n"
-"PO-Revision-Date: 2014-02-23 10:22+0000\n"
-"Last-Translator: utek <mail@utek.pl>\n"
-"Language-Team: Polish (http://www.transifex.com/projects/p/wagtail/language/"
+"POT-Creation-Date: 2016-12-06 22:44+0000\n"
+"PO-Revision-Date: 2016-02-14 21:38+0000\n"
+"Last-Translator: Miłosz Miśkiewicz\n"
+"Language-Team: Polish (http://www.transifex.com/torchbox/wagtail/language/"
 "pl/)\n"
-"Language: pl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: pl\n"
 "Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
 "|| n%100>=20) ? 1 : 2);\n"
 
-#: forms.py:11
 msgid "Please enter a valid URL"
 msgstr "Wprowadź proszę poprawny URL"
 
-#: forms.py:15
 msgid "URL"
 msgstr "URL"
 
-#: templates/wagtailembeds/chooser/chooser.html:3
+msgid "embed"
+msgstr "osadzony"
+
 msgid "Insert embed"
 msgstr "Wstaw osadzenie"
 
-#: templates/wagtailembeds/chooser/chooser.html:14
 msgid "Insert"
 msgstr "Wstaw"
 
-#: views/chooser.py:33
 msgid ""
 "There seems to be a problem with your embedly API key. Please check your "
 "settings."
@@ -45,11 +44,9 @@ msgstr ""
 "Wygląda na to, że jest problem z Twoim embedly API key. Sprawdź proszę "
 "ustawienia."
 
-#: views/chooser.py:35
 msgid "Cannot find an embed for this URL."
 msgstr "Nie można znaleźć osadzenia dla tego URLa."
 
-#: views/chooser.py:37
 msgid ""
 "There seems to be an error with Embedly while trying to embed this URL. "
 "Please try again later."

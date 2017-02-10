@@ -3,51 +3,50 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# jspielmann <j@spielmannsolutions.com>, 2014
+# Vorlif <flori@vorlif.org>, 2015
+# Henrik Kröger <hedwig@riseup.net>, 2016
+# Johannes Spielmann <j@spielmannsolutions.com>, 2014
+# Johannes Spielmann <j@spielmannsolutions.com>, 2014
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-08-01 16:38+0100\n"
-"PO-Revision-Date: 2014-02-25 17:30+0000\n"
-"Last-Translator: jspielmann <j@spielmannsolutions.com>\n"
-"Language-Team: German (http://www.transifex.com/projects/p/wagtail/language/"
+"POT-Creation-Date: 2016-12-06 22:44+0000\n"
+"PO-Revision-Date: 2016-02-07 17:52+0000\n"
+"Last-Translator: Henrik Kröger <hedwig@riseup.net>\n"
+"Language-Team: German (http://www.transifex.com/torchbox/wagtail/language/"
 "de/)\n"
-"Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: de\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: forms.py:11
 msgid "Please enter a valid URL"
 msgstr "Bitte geben Sie eine gültige URL ein"
 
-#: forms.py:15
 msgid "URL"
 msgstr "URL"
 
-#: templates/wagtailembeds/chooser/chooser.html:3
+msgid "embed"
+msgstr "Einbetten"
+
 msgid "Insert embed"
 msgstr "Element einbetten"
 
-#: templates/wagtailembeds/chooser/chooser.html:14
 msgid "Insert"
 msgstr "Einbetten"
 
-#: views/chooser.py:33
 msgid ""
 "There seems to be a problem with your embedly API key. Please check your "
 "settings."
 msgstr ""
-"Es gibt ein Problem mit ihrem Embedly API-Key. Bitte überprüfen Sie ihre "
+"Es gibt ein Problem mit Ihrem Embedly API-Key. Bitte überprüfen Sie Ihre "
 "Einstellungen!"
 
-#: views/chooser.py:35
 msgid "Cannot find an embed for this URL."
 msgstr "Für diese URL wurde kein Element gefunden."
 
-#: views/chooser.py:37
 msgid ""
 "There seems to be an error with Embedly while trying to embed this URL. "
 "Please try again later."

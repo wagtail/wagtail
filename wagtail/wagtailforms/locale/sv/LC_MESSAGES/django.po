@@ -1,0 +1,154 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# Hannes Lohmander <c.hannes.l@gmail.com>, 2015
+# Ludwig Kjellström <ludwig.kjellstrom@amnesty.se>, 2015
+# Thomas Kunambi <kunambi@gmail.com>, 2015-2016
+# Thomas Kunambi <kunambi@gmail.com>, 2015
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2016-12-06 22:44+0000\n"
+"PO-Revision-Date: 2016-09-22 15:05+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"Language-Team: Swedish (http://www.transifex.com/torchbox/wagtail/language/"
+"sv/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: sv\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Single line text"
+msgstr "Text, enkelrad"
+
+msgid "Multi-line text"
+msgstr "Text, flera rader"
+
+msgid "Email"
+msgstr "E-post"
+
+msgid "Number"
+msgstr "Siffra"
+
+msgid "URL"
+msgstr "URL"
+
+msgid "Checkbox"
+msgstr "Kryssruta"
+
+msgid "Checkboxes"
+msgstr "Kryssrutor"
+
+msgid "Drop down"
+msgstr "Dropdown"
+
+msgid "Radio buttons"
+msgstr "Radioknappar"
+
+msgid "Date"
+msgstr "Datum"
+
+msgid "Date/time"
+msgstr "Datum/tid"
+
+msgid "submit time"
+msgstr "inlämningstid"
+
+msgid "form submission"
+msgstr "formulärinlämning"
+
+msgid "label"
+msgstr "etikett"
+
+msgid "The label of the form field"
+msgstr "Namn på fältet"
+
+msgid "field type"
+msgstr "fälttyp"
+
+msgid "required"
+msgstr "obligatorisk"
+
+msgid "choices"
+msgstr "val"
+
+msgid ""
+"Comma separated list of choices. Only applicable in checkboxes, radio and "
+"dropdown."
+msgstr ""
+"Kommaseparerad lista med val. Används bara för kryssrutor, radioknappar och "
+"rullistor."
+
+msgid "default value"
+msgstr "standardvärde"
+
+msgid "Default value. Comma separated values supported for checkboxes."
+msgstr "Startvärde. Kommaseparerade värden för kryssrutor."
+
+msgid "help text"
+msgstr "hjälptext"
+
+msgid "to address"
+msgstr "mottagaradress"
+
+msgid "from address"
+msgstr "avsändaradress"
+
+msgid "subject"
+msgstr "ämne"
+
+#, python-format
+msgid "Delete %(title)s"
+msgstr "Radera %(title)s"
+
+msgid "Delete"
+msgstr "Radera"
+
+msgid "Are you sure you want to delete this form submission?"
+msgstr "Är du säker på att du vill radera denna formulärinlaga?"
+
+msgid "Delete it"
+msgstr "Radera den"
+
+msgid "Forms"
+msgstr "Formulär"
+
+msgid "Pages"
+msgstr "Sidor"
+
+#, python-format
+msgid "Submissions of %(form_title)s"
+msgstr "Mottagna från %(form_title)s "
+
+#, python-format
+msgid "Form data <span>%(form_title)s</span>"
+msgstr "Formulärdata <span>%(form_title)s</span>"
+
+msgid "Filter"
+msgstr "Filtrera"
+
+msgid "Download CSV"
+msgstr "Ladda ner CSV"
+
+#, python-format
+msgid "There have been no submissions of the '%(title)s' form."
+msgstr "Det finns inga mottagna formulär från '%(title)s'."
+
+msgid "Title"
+msgstr "Titel"
+
+msgid "Origin"
+msgstr "Källa"
+
+msgid "Actions"
+msgstr "Handlingar"
+
+msgid "No form pages have been created."
+msgstr "Inga formulär har skapats."
+
+msgid "Submission deleted."
+msgstr "Inlaga raderad"

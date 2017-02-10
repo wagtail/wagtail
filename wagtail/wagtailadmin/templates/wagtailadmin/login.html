@@ -1,32 +1,42 @@
 {% extends "wagtailadmin/admin_base.html" %}
-{% load compress %}
-{% load i18n %}
+{% load staticfiles i18n %}
 {% block titletag %}{% trans "Sign in" %}{% endblock %}
 {% block bodyclass %}login{% endblock %}
 
 {% block extra_css %}
-    {% compress css %}
-        <link rel="stylesheet" href="{{ STATIC_URL }}wagtailadmin/scss/layouts/login.scss" type="text/x-scss" />
-    {% endcompress %}
+    {{ block.super }}
+
+    <link rel="stylesheet" href="{% static 'wagtailadmin/css/layouts/login.css' %}" type="text/css" />
 {% endblock %}
 
 {% block furniture %}
     <div class="content-wrapper">
-        {% if form.errors %}
+        {% if messages or form.errors %}
             <div class="messages">
                 <ul>
-                    <li class="error">{% trans "Your username and password didn't match. Please try again." %}</li>
+                    {% if form.errors %}
+                        <li class="error">{% blocktrans %}Your {{ username_field }} and password didn't match. Please try again.{% endblocktrans %}</li>
+                    {% endif %}
+                    {% for message in messages %}
+                        <li class="{{ message.tags }}">{{ message }}</li>
+                    {% endfor %}
                 </ul>
             </div>
         {% endif %}
 
-        <form action="{% url 'wagtailadmin_login' %}" method="post" autocomplete="off">
-            {% csrf_token %}
-            <input type="hidden" name="next" value="{{ next }}" />
-            <h1>{% trans "Sign in to Wagtail" %}</h1>
+        {% block above_login %}{% endblock %}
 
-          
+        <form action="{% url 'wagtailadmin_login' %}" method="post" autocomplete="off" novalidate>
+            {% block login_form %}
+            {% csrf_token %}
+
+            {% url 'wagtailadmin_home' as home_url %}
+            <input type="hidden" name="next" value="{{ next|default:home_url }}" />
+
+            <h1>{% block branding_login %}{% trans "Sign in to Wagtail" %}{% endblock %}</h1>
+
             <ul class="fields">
+                {% block fields %}
                 <li class="full">
                     <div class="field iconfield">
                         {{ form.username.label_tag }}
@@ -43,7 +53,7 @@
                         </div>
                     </div>
                     {% if show_password_reset %}
-                        <p class="help"><a href="{% url 'django.contrib.auth.views.password_reset' %}">{% trans "Forgotten it?" %}</a></p>
+                        <p class="help"><a href="{% url 'wagtailadmin_password_reset' %}">{% trans "Forgotten it?" %}</a></p>
                     {% endif %}
                 </li>
                 {% comment %}
@@ -54,15 +64,21 @@
                         </div>
                     </li>
                 {% endcomment %}
+                {% endblock %}
                 <li class="submit">
-                    <input type="submit" value="{% trans 'Sign in' %}"/>
+                    <button type="submit" class="button button-longrunning" tabindex="3" data-clicked-text="{% trans 'Signing in...' %}"><span class="icon icon-spinner"></span><em>{% trans 'Sign in' %}</em></button>
                 </li>
             </ul>
+        {% endblock %}
         </form>
+
+        {% block below_login %}{% endblock %}
+
     </div>
 {% endblock %}
 
 {% block extra_js %}
+{{ block.super }}
 <script>
     $(function(){
         $('form input[name=username]').focus();

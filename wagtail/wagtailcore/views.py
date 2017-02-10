@@ -1,13 +1,13 @@
-import warnings
+from __future__ import absolute_import, unicode_literals
 
-from django.http import HttpResponse, Http404
-from django.shortcuts import get_object_or_404, redirect
-from django.core.urlresolvers import reverse
 from django.conf import settings
+from django.core.urlresolvers import reverse
+from django.http import Http404, HttpResponse
+from django.shortcuts import get_object_or_404, redirect
 
 from wagtail.wagtailcore import hooks
-from wagtail.wagtailcore.models import Page, PageViewRestriction
 from wagtail.wagtailcore.forms import PasswordPageViewRestrictionForm
+from wagtail.wagtailcore.models import Page, PageViewRestriction
 
 
 def serve(request, path):
@@ -35,7 +35,7 @@ def authenticate_with_password(request, page_view_restriction_id, page_id):
     restriction = get_object_or_404(PageViewRestriction, id=page_view_restriction_id)
     page = get_object_or_404(Page, id=page_id).specific
 
-    if request.POST:
+    if request.method == 'POST':
         form = PasswordPageViewRestrictionForm(request.POST, instance=restriction)
         if form.is_valid():
             has_existing_session = (settings.SESSION_COOKIE_NAME in request.COOKIES)

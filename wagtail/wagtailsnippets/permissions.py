@@ -1,33 +1,32 @@
-from django.contrib.auth.models import Permission
+from __future__ import absolute_import, unicode_literals
 
-from wagtail.wagtailsnippets.models import get_snippet_content_types
+from django.contrib.auth import get_permission_codename
+
+from wagtail.wagtailsnippets.models import get_snippet_models
 
 
-def user_can_edit_snippet_type(user, content_type):
-    """ true if user has any permission related to this content type """
-    if user.is_active and user.is_superuser:
-        return True
+def get_permission_name(action, model):
+    return "%s.%s" % (model._meta.app_label, get_permission_codename(action, model._meta))
 
-    permission_codenames = content_type.permission_set.values_list('codename', flat=True)
-    for codename in permission_codenames:
-        permission_name = "%s.%s" % (content_type.app_label, codename)
-        if user.has_perm(permission_name):
+
+def user_can_edit_snippet_type(user, model):
+    """ true if user has 'add', 'change' or 'delete' permission on this model """
+    for action in ('add', 'change', 'delete'):
+        if user.has_perm(get_permission_name(action, model)):
             return True
 
     return False
 
 
 def user_can_edit_snippets(user):
-    """ true if user has any permission related to any content type registered as a snippet type """
-    snippet_content_types = get_snippet_content_types()
-    if user.is_active and user.is_superuser:
-        # admin can edit snippets iff any snippet types exist
-        return bool(snippet_content_types)
+    """
+    true if user has 'add', 'change' or 'delete' permission
+    on any model registered as a snippet type
+    """
+    snippet_models = get_snippet_models()
 
-    permissions = Permission.objects.filter(content_type__in=snippet_content_types).select_related('content_type')
-    for perm in permissions:
-        permission_name = "%s.%s" % (perm.content_type.app_label, perm.codename)
-        if user.has_perm(permission_name):
+    for model in snippet_models:
+        if user_can_edit_snippet_type(user, model):
             return True
 
     return False

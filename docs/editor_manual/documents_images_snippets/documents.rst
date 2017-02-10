@@ -14,4 +14,7 @@ Documents such as PDFs can be managed from the Documents interface, available in
 
 * When editing a document you can replace the file associated with that document record. This means you can update documents without having to update the pages on which they are placed. Changing the file will change it on all pages that use the document.
 * Add or remove tags using the Tags field.
-* Save or delete documents using the buttons at the bottom of the interface. **NOTE:** deleted documents cannot be recovered.
+* Save or delete documents using the buttons at the bottom of the interface.
+
+.. Warning::
+    Deleted documents cannot be recovered.

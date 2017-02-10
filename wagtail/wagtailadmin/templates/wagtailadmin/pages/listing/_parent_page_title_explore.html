@@ -1,0 +1,20 @@
+{% load i18n %}
+{% load wagtailadmin_tags %}
+
+{# The title field for a parent page when the listing is in 'explore' mode #}
+
+<h2>
+    {% if parent_page_perms.can_edit %}
+        <a href="{% url 'wagtailadmin_pages:edit' parent_page.id %}">{{ parent_page.get_admin_display_title }}</a>
+    {% else %}
+        {{ parent_page.get_admin_display_title }}
+    {% endif %}
+
+    {% include "wagtailadmin/pages/listing/_locked_indicator.html" with page=parent_page %}
+</h2>
+
+{% include "wagtailadmin/pages/_privacy_switch.html" with page=parent_page %}
+
+<ul class="actions">
+    {% page_listing_buttons parent_page parent_page_perms is_parent=True %}
+</ul>

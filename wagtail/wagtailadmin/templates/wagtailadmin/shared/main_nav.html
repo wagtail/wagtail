@@ -2,13 +2,23 @@
 {% load i18n %}
 <nav class="nav-main">
     <ul>
-        {% for menu_item in menu_items %}
-            {{ menu_item.render_html }}
-        {% endfor %}
+        {{ menu_html }}
 
-        <li class="footer">
-            <div class="avatar icon icon-user"><a href="{% url 'wagtailadmin_account' %}" title="{% trans 'Account settings' %}">{% if request.user.email %}<img src="{% gravatar_url request.user.email %}" />{% endif %}</a></div>
-            <a href="{% url 'wagtailadmin_logout' %}">{% trans "Log out" %}</a>
+        <li class="footer" id="footer">
+            <div class="account" id="account-settings" title="{% trans 'Edit your account' %}">
+                <span class="avatar square avatar-on-dark icon icon-user">
+                    {% if request.user.email %}
+                    <img src="{% gravatar_url request.user.email 25 %}" />
+                    {% endif %}
+                </span>
+                <em class="icon icon-arrow-up-after">{{ request.user.first_name|default:request.user.get_username }}</em>
+            </div>
+
+            <ul class="footer-submenu">
+                <li><a href="{% url 'wagtailadmin_account' %}" class="icon icon-user">{% trans "Account settings" %}</a></li>
+                <li><a href="{% url 'wagtailadmin_logout' %}" class="icon icon-logout">{% trans "Log out" %}</a></li>
+            </ul>
+
         </li>
     </ul>
 </nav>

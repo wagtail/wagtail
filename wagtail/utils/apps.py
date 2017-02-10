@@ -1,11 +1,8 @@
-try:
-    from importlib import import_module
-except ImportError:
-    # for Python 2.6, fall back on django.utils.importlib (deprecated as of Django 1.7)
-    from django.utils.importlib import import_module
+from __future__ import absolute_import, unicode_literals
 
-import django
-from django.conf import settings
+from importlib import import_module
+
+from django.apps import apps
 from django.utils.module_loading import module_has_submodule
 
 
@@ -14,15 +11,8 @@ def get_app_modules():
     Generator function that yields a module object for each installed app
     yields tuples of (app_name, module)
     """
-    if django.VERSION < (1, 7):
-        # Django 1.6
-        for app in settings.INSTALLED_APPS:
-            yield app, import_module(app)
-    else:
-        # Django 1.7+
-        from django.apps import apps
-        for app in apps.get_app_configs():
-            yield app.name, app.module
+    for app in apps.get_app_configs():
+        yield app.name, app.module
 
 
 def get_app_submodules(submodule_name):

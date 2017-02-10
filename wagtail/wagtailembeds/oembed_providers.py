@@ -1,3 +1,7 @@
+from __future__ import absolute_import, unicode_literals
+
+import re
+
 OEMBED_ENDPOINTS = {
     "https://speakerdeck.com/oembed.{format}": [
         "^http(?:s)?://speakerdeck\\.com/.+$"
@@ -30,8 +34,8 @@ OEMBED_ENDPOINTS = {
         "^http://[-\\w]+\\.dailymotion\\.com/.+$"
     ],
     "http://www.flickr.com/services/oembed/": [
-        "^http://[-\\w]+\\.flickr\\.com/photos/.+$",
-        "^http://flic\\.kr\\.com/.+$"
+        "^http(?:s)?://[-\\w]+\\.flickr\\.com/photos/.+$",
+        "^http(?:s)?://flic\\.kr\\.com/.+$"
     ],
     "http://www.hulu.com/api/oembed.{format}": [
         "^http://www\\.hulu\\.com/watch/.+$"
@@ -76,7 +80,7 @@ OEMBED_ENDPOINTS = {
     ],
     "http://api.instagram.com/oembed": [
         "^http://instagr\\.am/p/.+$",
-        "^http://instagram\\.com/p/.+$"
+        "^http[s]?://(?:www\\.)?instagram\\.com/p/.+$"
     ],
     "https://www.slideshare.net/api/oembed/2": [
         "^http://www\\.slideshare\\.net/.+$"
@@ -152,7 +156,7 @@ OEMBED_ENDPOINTS = {
         "^http://www\\.funnyordie\\.com/videos/.+$"
     ],
     "http://fast.wistia.com/oembed.{format}": [
-        "^http://[-\\w]+\\.wista\\.com/medias/.+$"
+        "^https?://([^/]+\.)?(wistia.com|wi.st)/(medias|embed)/.+$"
     ],
     "http://www.ustream.tv/oembed": [
         "^http(?:s)?://(?:www\\.)?ustream\\.tv/.+$",
@@ -283,20 +287,24 @@ OEMBED_ENDPOINTS = {
     "http://openapi.etsy.com/svc/oembed/": [
         "^http(?:s)?://(?:www\\.)?etsy\\.com/listing/.+$"
     ],
-    "https://audioboo.fm/publishing/oembed.{format}": [
-        "^http(?:s)?://audioboo\\.fm/boos/.+$"
+    "https://audioboom.com/publishing/oembed.{format}": [
+        "^http(?:s)?://audioboom\\.com/boos/.+$"
     ],
     "http://demo.clikthrough.com/services/oembed/": [
         "^http(?:s)?://demo\\.clikthrough\\.com/theater/video/.+$"
     ],
     "http://www.ifttt.com/oembed/": [
         "^http(?:s)?://ifttt\\.com/recipes/.+$"
-    ]
+    ],
+
+    # Added 11th December 2014 - http://developers.issuu.com/api/oembed.html
+    "http://issuu.com/oembed": [
+        "^http(?:s)?://(?:www\\.)?issuu\\.com/[^#?/]+/docs/.+$"
+    ],
 }
 
 
 # Compile endpoints into regular expression objects
-import re
 
 def compile_endpoints():
     endpoints = {}
@@ -308,6 +316,7 @@ def compile_endpoints():
             endpoints[endpoint_key].append(re.compile(pattern))
 
     return endpoints
+
 
 OEMBED_ENDPOINTS_COMPILED = compile_endpoints()
 

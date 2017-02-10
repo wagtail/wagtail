@@ -1,7 +1,10 @@
-from django.shortcuts import render
-from django.contrib.auth.decorators import permission_required
+from __future__ import absolute_import, unicode_literals
 
-from wagtail.wagtailadmin.userbar import EditPageItem, AddPageItem, ApproveModerationEditPageItem, RejectModerationEditPageItem
+from django.contrib.auth.decorators import permission_required
+from django.shortcuts import render
+
+from wagtail.wagtailadmin.userbar import (
+    AddPageItem, ApproveModerationEditPageItem, EditPageItem, RejectModerationEditPageItem)
 from wagtail.wagtailcore import hooks
 from wagtail.wagtailcore.models import Page, PageRevision
 
@@ -13,7 +16,7 @@ def for_frontend(request, page_id):
         AddPageItem(Page.objects.get(id=page_id)),
     ]
 
-    for fn in hooks.get_hooks('construct_wagtail_edit_bird'):
+    for fn in hooks.get_hooks('construct_wagtail_userbar'):
         fn(request, items)
 
     # Render the items
@@ -37,7 +40,7 @@ def for_moderation(request, revision_id):
         RejectModerationEditPageItem(PageRevision.objects.get(id=revision_id)),
     ]
 
-    for fn in hooks.get_hooks('construct_wagtail_edit_bird'):
+    for fn in hooks.get_hooks('construct_wagtail_userbar'):
         fn(request, items)
 
     # Render the items

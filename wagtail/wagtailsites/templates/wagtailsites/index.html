@@ -1,0 +1,47 @@
+{% extends "wagtailadmin/generic/index.html" %}
+{% load i18n %}
+
+{% block listing %}
+    <div class="nice-padding">
+        <div id="sites-list">
+            <table class="listing">
+                <thead>
+                    <tr>
+                        <th class="hostname">
+                            {% trans "Site" %}
+                            {% if ordering == "site" %}
+                                <a href="{% url 'wagtailsites:index' %}" class="icon icon-arrow-down-after teal"></a>
+                            {% else %}
+                                <a href="{% url 'wagtailsites:index' %}?ordering=name" class="icon icon-arrow-down-after"></a>
+                            {% endif %}
+                        </th>
+                        <th class="port">{% trans "Port" %}</th>
+                        <th class="site-name">{% trans "Site name" %}</th>
+                        <th class="root-page">{% trans "Root page" %}</th>
+                        <th class="is-default-site">{% trans "Default?" %}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for site in sites %}
+                        <tr>
+                            <td class="hostname title">
+                                <h2>
+                                    <a href="{% url 'wagtailsites:edit' site.id %}">{{ site.hostname }}</a>
+                                </h2>
+                            </td>
+                            <td class="port">{{ site.port }}</td>
+                            <td class="site-name">
+                                {% if site.site_name %}{{ site.site_name }}{% endif %}
+                            </td>
+                            <td class="root-page">{{ site.root_page }}</td>
+                            <td class="is-default-site">
+                                {% if site.is_default_site %}<div class="status-tag primary">{% trans "Default" %}</div>{% endif %}
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+
+        </div>
+    </div>
+{% endblock %}

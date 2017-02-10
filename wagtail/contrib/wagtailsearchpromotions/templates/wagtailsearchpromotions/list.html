@@ -1,0 +1,30 @@
+{% load i18n %}
+<table class="listing">
+    <col width="40%" />
+    <col width="40%"/>
+    <col />
+    <thead>
+        <tr>
+            <th class="title">{% trans "Search term(s)" %}</th>
+            <th>{% trans "Promoted results" %}</th>
+            <th>{% trans "Views (past week)" %}</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for query in queries %}
+            <tr>
+                <td class="title">
+                    <h2><a href="{% url 'wagtailsearchpromotions:edit' query.id %}" title="{% trans 'Edit this promotion' %}">{{ query.query_string }}</a></h2>
+                </td>
+                <td>
+                    {% for searchpick in query.editors_picks.all %}
+                        <a href="{% url 'wagtailadmin_pages:edit' searchpick.page.id %}" class="nolink">{{ searchpick.page.title }}</a>{% if not forloop.last %}, {% endif %}
+                    {% empty %}
+                        {% trans "None" %}
+                    {% endfor %}
+                </td>
+                <td>{{ query.hits }}</td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>

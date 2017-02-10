@@ -1,0 +1,12 @@
+{% extends "tests/base.html" %}
+{% load wagtailcore_tags wagtailimages_tags %}
+
+{% block html_title %}Event: {{ self.title }}{% endblock %}
+{% block content %}
+  <h2>Event</h2>
+  {% if self.feed_image %}
+      {% image self.feed_image width-200 class="feed-image" %}
+  {% endif %}
+  {{ self.body|richtext }}
+  <p><a href="{% slugurl 'events' %}">Back to events index</a></p>
+{% endblock %}

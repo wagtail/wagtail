@@ -1,13 +1,12 @@
 {% extends "wagtailadmin/admin_base.html" %}
-{% load compress %}
-{% load i18n %}
+{% load staticfiles i18n %}
 {% block titletag %}{% trans "Set your new password" %}{% endblock %}
 {% block bodyclass %}login{% endblock %}
 
 {% block extra_css %}
-    {% compress css %}
-        <link rel="stylesheet" href="{{ STATIC_URL }}wagtailadmin/scss/layouts/login.scss" type="text/x-scss" />
-    {% endcompress %}
+    {{ block.super }}
+
+    <link rel="stylesheet" href="{% static 'wagtailadmin/css/layouts/login.css' %}" type="text/css" />
 {% endblock %}
 
 {% block furniture %}
@@ -20,8 +19,8 @@
                 </ul>
             </div>
         {% endif %}
-      
-        <form method="post">
+
+        <form method="post" novalidate>
             {% csrf_token %}
             <h1>{% trans "Set your new password" %}</h1>
 
@@ -39,7 +38,7 @@
                   </div>
                 </li>
                 <li class="submit">
-                    <input type="submit" value="{% trans 'Reset password' %}"/>
+                    <input type="submit" value="{% trans 'Reset password' %}" class="button" />
                 </li>
             </ul>
         </form>

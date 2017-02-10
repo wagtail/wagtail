@@ -1,10 +1,12 @@
 {% extends "wagtailadmin/base.html" %}
-{% load wagtailadmin_tags compress i18n static gravatar %}
+{% load wagtailadmin_tags i18n staticfiles gravatar %}
 
 {% block extra_css %}
-    {% compress css %}
-        <link rel="stylesheet" href="{{ STATIC_URL }}wagtailstyleguide/scss/styleguide.scss" type="text/x-scss" />
-    {% endcompress %}
+    {{ block.super }}
+
+    <link rel="stylesheet" href="{% static 'wagtailstyleguide/css/styleguide.css' %}" type="text/css" />
+
+    {{ example_form.media.css }}
 {% endblock %}
 
 {% block titletag %}{% trans 'Styleguide' %}{% endblock %}
@@ -33,10 +35,11 @@
                 <li><a href="#progress">Progress indicators</a></li>
                 <li><a href="#misc">Misc formatters</a></li>
                 <li><a href="#icons">Icons</a></li>
+                <li><a href="#ie9">IE9 debugging</a></li>
             </ul>
         </nav>
 
-        <section id="palette">
+        <section id="palette" class="palette">
             <h2>Colour palette</h2>
 
             <ul>
@@ -62,7 +65,7 @@
                 <li class="color-green">color-green</li>
                 <li class="color-blue">color-blue</li>
             </ul>
-           
+
         </section>
 
         <section id="typography">
@@ -152,7 +155,7 @@
                 <li><div class="title"><h2><a href="">List item</a></h2></div></li>
                 <li><div class="title"><h2><a href="">List item</a></h2></div></li>
                 <li><div class="title"><h2><a href="">List item</a></h2></div></li>
-            </ul>   
+            </ul>
 
 
             <h3><code>ul</code> listings with multiple columns</h3>
@@ -223,43 +226,119 @@
 
         <section id="pagination">
             <h2>Pagination</h2>
-            {% include "wagtailadmin/shared/pagination_nav.html" with items=fake_pagination linkurl="wagtailadmin_explore" %}
+            {% paginate example_page %}
         </section>
 
         <section id="buttons">
             <h2>Buttons</h2>
+            <p class="help-block help-warning">Do not use <code>{% filter force_escape|lower %}<input type="button">{% endfilter %}</code> use <code>{% filter force_escape|lower %}<button type="button">{% endfilter %}</code> instead. This addresses inconsistencies between rendering of buttons x-browser.</p>
 
-            <a href="#" class="button">button</a>
-
-            <a href="#" class="button button-secondary">button-secondary</a>
-
-            <a href="#" class="button yes">yes</a>
-
-            <a href="#" class="button no">no / serious</a>
-
-            <a href="#" class="button bicolor icon icon-plus">bicolor with icon</a>
-
-            <a href="#" class="button button-small">button-small</a>
-
-            <a href="#" class="button bicolor button-small icon icon-plus">bicolo button-small</a>
-
-            <a href="#" class="button button-secondary no">mixed 1</a>
-
-            <a href="#" class="button no bicolor icon icon-cog">mixed 2</a>
-
-            <div class="button no bicolor icon icon-cog">button on a div</div>
 
             <p>Buttons must have interaction possible (i.e be an input or button element) to get a suitable hover cursor</p>
 
-            <button>button</button>
+            <h3>Regular buttons</h3>
 
-            <button class="button-small">small button</button>
+            <a href="#" class="button">button link</a>
+            <button class="button">button element</button>
 
-            <button class="bicolor icon icon-plus">bicolor with icon</button>
+            <h3>Secondary buttons</h3>
 
-            <input type="submit" class="bicolor icon icon-plus" value="bicolor only supported on button elements" />
+            <a href="#" class="button button-secondary">button link</a>
+            <button class="button button-secondary">button element</button>
 
-            <button class="icon icon-view">button</button>
+            <h3>Small buttons</h3>
+
+            <a href="#" class="button button-small">button link</a>
+            <button class="button button-small">button element</button>
+
+            <h4>(secondary)</h4>
+            <a href="#" class="button button-small button-secondary">button link</a>
+            <button class="button button-small button-secondary">button element</button>
+
+            <h3>Disabled buttons</h3>
+
+            <a href="#" class="button disabled">button link</a>
+            <button class="button button-small disabled">button element</button>
+
+            <h3>Bi-color icon buttons with text</h3>
+            <p>Note that <code>input</code> elements are not supported by any icon buttons.</p>
+
+            <a href="#" class="button bicolor icon icon-plus">button link</a>
+            <button class="button bicolor icon icon-plus">button element</button>
+
+            <h4>(small)</h4>
+
+            <a href="#" class="button button-small bicolor icon icon-plus">button link</a>
+            <button class="button button-small bicolor icon icon-plus">button element</button>
+
+            <h3>Icon buttons without text</h3>
+
+            <a href="#" class="button text-replace icon icon-cog">button link</a>
+            <button class="button text-replace icon icon-cog">button element</button>
+
+            <h4>(small)</h4>
+
+            <a href="#" class="button button-small text-replace icon icon-cog">button link</a>
+            <button class="button button-small text-replace icon icon-cog">button element</button>
+
+            <h3>Colour signifiers</h3>
+
+            <h4>Positive</h4>
+
+            <a href="#" class="button yes">yes</a>
+            <a href="#" class="button button-small yes">yes</a>
+
+            <h4>Negative</h4>
+
+            <a href="#" class="button no">No</a>
+            <a href="#" class="button button-small no">No</a>
+
+            <h3>Buttons with internal loading indicators (currently only <code>button</code> supported)</h3>
+            <p class="help-block help-warning">Note that in some browsers, clicking these buttons minutely affects the appearance of Dropdown buttons, below. This is yet to be resolved.</p>
+            <button class="button button-longrunning"><span class="icon icon-spinner"></span>Click me</button>
+
+            <h4>Secondary</h4>
+            <button class="button button-secondary button-longrunning"><span class="icon icon-spinner"></span>Click me</button>
+
+            <h4>Small</h4>
+            <button class="button button-small button-longrunning"><span class="icon icon-spinner"></span>Click me</button>
+
+            <h4>Buttons where the text is replaced on click</h4>
+            <button class="button button-longrunning" data-clicked-text="Test"><span class="icon icon-spinner"></span><em>Click me</em></button>
+
+            <h4>Arbitrarily bigger</h4>
+            <style>
+                #button-arbitrarily-bigger{
+                    font-size:1.5em;
+                    padding:1.1em 2.4em;
+                    height:3.5em;
+                }
+            </style>
+            <button class="button button-longrunning" id="button-arbitrarily-bigger"><span class="icon icon-spinner"></span>Click me</button>
+
+            <h3>Mixtures</h3>
+
+            <button class="button icon text-replace yes icon-tick">A proper button</button>
+            <a href="#" class="button icon text-replace white icon-cog">A link button</a>
+            <span class="button icon text-replace no icon-bin">A non-link button</span>
+            <a href="#" class="button bicolor disabled icon icon-tick">button link</a>
+
+        </section>
+
+        <section id="button-groups">
+            <h2>Button groups</h2>
+            <p>Adds rounding to first and last items only</p>
+            <div class="button-group">
+                <button class="button">button element</button>
+                <button class="button">button element</button>
+                <button class="button">button element</button>
+            </div>
+            <br />
+            <div class="button-group">
+                <button class="button icon text-replace yes icon-tick">A proper button</button>
+                <a href="#" class="button icon text-replace white icon-cog">A link button</a>
+                <span class="button icon text-replace no icon-bin">A non-link button</span>
+            </div>
         </section>
 
         <section id="dropdowns">
@@ -325,9 +404,96 @@
                 </div>
 
                 <div class="col3">
-                    <button>button for comparison of height</button>
+                    <button class="button">button for comparison of height</button>
                 </div>
             </div>
+
+            <div class="row">
+                <br />
+
+                <p>
+                    Inline dropdown components, primarily used in the listing.
+                </p>
+
+                <div class="c-dropdown u-para t-default" data-dropdown="">
+                    <a class="c-dropdown__button  u-btn-current">
+                        More
+                        <div data-dropdown-toggle="" class="o-icon  c-dropdown__toggle  [ icon icon-arrow-down ]"></div>
+                    </a>
+                    <div class="t-dark">
+                        <ul role="menu" class="c-dropdown__menu  u-toggle  u-arrow u-arrow--tl u-background">
+                            <li class="c-dropdown__item ">
+                                <a href="/admin/pages/2/move/" class="u-link is-live ">
+                                    Move
+                                </a>
+                            </li>
+                            <li class="c-dropdown__item ">
+                                <a href="/admin/pages/2/copy/" class="u-link is-live ">
+                                    Copy
+                                </a>
+                            </li>
+                            <li class="c-dropdown__item ">
+                                <a href="/admin/pages/2/delete/" class="u-link is-live ">
+                                    Delete
+                                </a>
+                            </li>
+                            <li class="c-dropdown__item ">
+                                <a href="/admin/pages/2/unpublish/" class="u-link is-live ">
+                                    Unpublish
+                                </a>
+                            </li>
+                            <li>
+                                <hr class="c-dropdown__divider">
+                            </li>
+                            <li class="c-dropdown__item">
+                                <a href="#" class="u-link is-live">
+                                    <span title="Live" class="c-indicator c-dropdown__indicator"></span>
+                                    Live
+                                </a>
+                            </li>
+                            <li class="c-dropdown__item">
+                                <a href="#" class="u-link is-draft">
+                                    <span title="Draft" class="c-indicator c-dropdown__indicator"></span>
+                                    Draft
+                                </a>
+                            </li>
+                            <li class="c-dropdown__item">
+                                <a href="#" class="u-link is-live+draft">
+                                    <span title="Live + Draft" class="c-indicator c-dropdown__indicator"></span>
+                                    Live + Draft
+                                </a>
+                            </li>
+                            <li class="c-dropdown__item">
+                                <a href="#" class="u-link is-absent">
+                                    <span title="Absent" class="c-indicator c-dropdown__indicator"></span>
+                                    Absent
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <p>These can also have an inverted  theme:</p>
+            <header class="nice-padding">
+                <div class="c-dropdown  t-inverted" data-dropdown="">
+                    <a class="c-dropdown__button  u-btn-current">
+                        More
+                        <div data-dropdown-toggle="" class="o-icon  c-dropdown__toggle  [ icon icon-arrow-down ]"></div>
+                    </a>
+                    <div class="t-dark">
+                        <ul role="menu" class="c-dropdown__menu  u-toggle  u-arrow u-arrow--tl u-background">
+                            <li class="c-dropdown__item ">
+                                <a href="/admin/pages/2/move/" class="u-link is-live ">
+                                    Move
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </header>
+
+
         </section>
 
         <section id="header">
@@ -335,7 +501,7 @@
 
             {% include "wagtailadmin/shared/header.html" with title=title_trans %}
 
-            {% include "wagtailadmin/shared/header.html" with title=title_trans add_link="wagtailimages_add_image" icon="image" add_text="button" search_url="wagtailimages_index" %}
+            {% include "wagtailadmin/shared/header.html" with title=title_trans add_link="wagtailstyleguide" icon="image" add_text="button" search_url="wagtailimages:index" %}
         </section>
 
         <section id="forms">
@@ -346,24 +512,13 @@
                     {% for field in example_form %}
                         {% if field.name == 'file' %}
                             {% include "wagtailimages/images/_file_field.html" %}
-                        {% elif field.name == 'date' %}
-                            {% include "wagtailadmin/shared/field_as_li.html" with input_classes="iconfield icon-date" %}
                         {% else %}
                             {% include "wagtailadmin/shared/field_as_li.html" %}
                         {% endif %}
                     {% endfor %}
-                    <li><input type="submit" value="{% trans 'Save' %}" /><a href="#" class="button button-secondary no">{% trans "Delete image" %}</a></li>
+                    <li><input type="submit" value="{% trans 'Save' %}" class="button" /><a href="#" class="button button-secondary no">{% trans "Delete image" %}</a></li>
                 </ul>
             </form>
-
-            <h3>TODO: Date picker</h3>
-            <h3>TODO: Time picker</h3>
-            <h3>TODO: Datetime picker</h3>
-            <h3>TODO: Rich text input</h3>            
-            <h3>TODO: Page chooser</h3>
-            <h3>TODO: Image chooser</h3>
-            <h3>TODO: Document chooser</h3>
-            <h3>TODO: Snippet chooser</h3>
         </section>
 
         <section id="editor">
@@ -409,7 +564,7 @@
 
         <section id="progress">
             <h2>Progress indicators</h2>
-            
+
             <div id="progress-example" class="progress active">
                 <div class="bar">60%</div>
             </div>
@@ -425,8 +580,12 @@
             <h2>Misc formatters</h2>
             <h3>Avatar icons</h3>
 
-            <p><span class="avatar small icon icon-user"><img src="{% gravatar_url "david@torchbox.com" 25 %}" /></span> Gravatar set</p>
-            <p><span class="avatar small icon icon-user"><img src="{% gravatar_url "aeon@torchbox.com" 25 %}" /></span> Gravatar not set</p>
+            <p><span class="avatar icon icon-user"><img src="{% gravatar_url "david@torchbox.com" %}" /></span> Gravatar set (normal)</p>
+            <p><span class="avatar icon icon-user"><img src="{% gravatar_url "aeon@torchbox.com" %}" /></span> Gravatar not set (normal)</p>
+            <p><span class="avatar square icon icon-user"><img src="{% gravatar_url "david@torchbox.com" %}" /></span> Gravatar set (square)</p>
+            <p><span class="avatar square icon icon-user"><img src="{% gravatar_url "aeon@torchbox.com" %}" /></span> Gravatar not set (square)</p>
+            <p><span class="avatar small icon icon-user"><img src="{% gravatar_url "david@torchbox.com" %}" /></span> Gravatar set (small)</p>
+            <p><span class="avatar small icon icon-user"><img src="{% gravatar_url "aeon@torchbox.com" %}" /></span> Gravatar not set (small)</p>
 
             <h3>Status tags</h3>
             <div class="status-tag primary">Primary tag</div>
@@ -439,9 +598,13 @@
             <div class="loading-mask loading" style="width:200px">
                 <img src="{% static 'wagtailadmin/images/wagtail-logo.svg' %}" width="200" />
             </div>
+
+            <h3>Image transparency</h3>
+            <p>It can be useful to show users the transparent areas of images. Add a transparency checkerboard with the <code>.show-transparency</code> on the <code>img</code> tag thus:</p>
+            <img src="{% static 'wagtailadmin/images/wagtail-logo.svg' %}" width="200" class="show-transparency" />
         </section>
 
-        <section id="icons">
+        <section id="icons" class="icons">
             <h2>Icons</h2>
 
             <ul class="unlist">
@@ -502,6 +665,7 @@
                 <li class="icon icon-pick">pick</li>
                 <li class="icon icon-redirect">redirect</li>
                 <li class="icon icon-view">view</li>
+                <li class="icon icon-no-view">no-view</li>
                 <li class="icon icon-collapse-up">collapse-up</li>
                 <li class="icon icon-collapse-down">collapse-down</li>
                 <li class="icon icon-help">help</li>
@@ -511,26 +675,73 @@
                 <li class="icon icon-time">time</li>
                 <li class="icon icon-form">form</li>
                 <li class="icon icon-site">site</li>
+                <li class="icon icon-placeholder">placeholder</li>
+                <li class="icon icon-pilcrow">pilcrow</li>
+                <li class="icon icon-title">title</li>
+                <li class="icon icon-code">code</li>
+                <li class="icon icon-openquote">openquote</li>
+                <li class="icon icon-chain-broken">chain-broken</li>
+                <li class="icon icon-table">table</li>
+                <li class="icon icon-logout">logout</li>
             </ul>
 
         </section>
+
+        <section id="ie9">
+            <h2>IE9 debugging</h2>
+
+            <p>Internet Explorer 9 has two critical limitations in its CSS support: a maximum of 31 stylesheets per page and a maximum of 4096 selectors per stylesheet. The latter is particularly problematic when CSS is concatenated.</p>
+
+            <div id="ie9-debug"></div>
+
+        </section>
     </div>
-   
+
 {% endblock %}
 
 {% block extra_js %}
-<script>
-    $(function(){
-        (function runprogress(){
-            var to = setTimeout(function(){
-                runprogress();
-                clearTimeout(to);
-                var to2 = setTimeout(function(){
-                    $('#progress-example .bar').css('width', '20%'); 
-                }, 2000);                
-            }, 3000);
-            $('#progress-example .bar').css('width', '80%');
-        })();
-    })
-</script>
+    {{ block.super }}
+
+    {% include "wagtailadmin/pages/_editor_js.html" %}
+
+    {{ example_form.media.js}}
+
+    <script>
+        $(function(){
+            // Debugging for stylesheet problems
+            var styleSheets = document.styleSheets, totalStyleSheets = styleSheets.length;
+            for (var j = 0; j < totalStyleSheets; j++) {
+                var styleSheet = styleSheets[j], rules = styleSheet.cssRules, totalSelectorsInStylesheet = 0, style = "";
+
+                var totalRulesInStylesheet = rules ? rules.length : 0;
+
+                for (var i = 0; i < totalRulesInStylesheet; i++) {
+                    if (rules[i].selectorText) {
+                        try {
+                            totalSelectorsInStylesheet += rules[i].selectorText.split(',').length;
+                        }
+                        catch (err) {
+                            console.log(err);
+                        }
+                    }
+                }
+
+                if(totalSelectorsInStylesheet > 4095){
+                    style = 'color:red';
+                }
+                $('#ie9-debug').append("<h3>" + styleSheet.href + "</h3>" + "<p>Total rules: <strong>" + totalRulesInStylesheet + "</strong>. " + "Total selectors: <strong style='" + style + "'>" + totalSelectorsInStylesheet + "</strong></p>");
+            }
+
+            (function runprogress(){
+                var to = setTimeout(function(){
+                    runprogress();
+                    clearTimeout(to);
+                    var to2 = setTimeout(function(){
+                        $('#progress-example .bar').css('width', '20%');
+                    }, 2000);
+                }, 3000);
+                $('#progress-example .bar').css('width', '80%');
+            })();
+        })
+    </script>
 {% endblock %}

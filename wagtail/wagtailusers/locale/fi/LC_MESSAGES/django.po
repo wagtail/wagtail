@@ -1,0 +1,289 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# Aarni Koskela, 2016
+# Eetu Häivälä <eetu.haivala@anders.fi>, 2016
+# Rauli L. <rauli.laine@iki.fi>, 2016
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2016-12-06 22:44+0000\n"
+"PO-Revision-Date: 2016-08-15 06:49+0000\n"
+"Last-Translator: Aarni Koskela\n"
+"Language-Team: Finnish (http://www.transifex.com/torchbox/wagtail/language/"
+"fi/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: fi\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Required. 30 characters or fewer. Letters, digits and @/./+/-/_ only."
+msgstr ""
+"Vaadittu. Korkeintaan 30 merkkiä. Ainoastaan kirjaimia, numeroita ja @/./+/-/"
+"_ -erikoismerkkejä."
+
+msgid "This value may contain only letters, numbers and @/./+/-/_ characters."
+msgstr ""
+"Arvo voi sisältää ainoastaan kirjaimia, numeroita ja @/./+/-/_ -"
+"erikoismerkkejä."
+
+msgid "A user with that username already exists."
+msgstr "Käyttäjä tällä käyttäjänimellä on jo olemassa."
+
+msgid "The two password fields didn't match."
+msgstr "Salasanakentät eivät täsmää."
+
+msgid "Administrator"
+msgstr "Ylläpitäjä"
+
+msgid "Administrators have full access to manage any object or setting."
+msgstr "Ylläpitäjät voivat hallita mitä tahansa kohdetta tai asetusta."
+
+msgid "Password"
+msgstr "Salasana"
+
+msgid "Leave blank if not changing."
+msgstr "Jätä tyhjäksi jos ei muutettavaa."
+
+msgid "Password confirmation"
+msgstr "Salasanan vahvistus"
+
+msgid "Enter the same password as above, for verification."
+msgstr "Syötä sama salasana tarkistuksen vuoksi toistamiseen."
+
+msgid "Email"
+msgstr "Sähköposti"
+
+msgid "First Name"
+msgstr "Etunimi"
+
+msgid "Last Name"
+msgstr "Sukunimi"
+
+msgid "A group with that name already exists."
+msgstr "Samanniminen ryhmä on jo olemassa."
+
+msgid "You cannot have multiple permission records for the same page."
+msgstr "Samalle sivulle ei voi olla useampaa pääsylupatietuetta."
+
+msgid "submitted notifications"
+msgstr "lähetys&shy;ilmoitukset"
+
+msgid "Receive notification when a page is submitted for moderation"
+msgstr "Vastaanota ilmoituksia kun sivu lähetetään hyväksyttäväksi"
+
+msgid "approved notifications"
+msgstr "hyväksymis&shy;ilmoitukset"
+
+msgid "Receive notification when your page edit is approved"
+msgstr "Vastaanota ilmoituksia kun sivun muokkauksesi hyväksytään"
+
+msgid "rejected notifications"
+msgstr "hylkäys&shy;ilmoitukset"
+
+msgid "Receive notification when your page edit is rejected"
+msgstr "Vastaanota ilmoituksia kun sivun muokkauksesi hylätään"
+
+msgid "user profile"
+msgstr "käyttäjäprofiili"
+
+msgid "Delete group"
+msgstr "Poista ryhmä"
+
+#, python-format
+msgid ""
+"The group '%(group_name)s' has <strong>%(group_user_count)s</strong> users "
+"assigned."
+msgstr ""
+"Ryhmään '%(group_name)s' on asetettu <strong>%(group_user_count)s</strong> "
+"käyttäjää."
+
+msgid ""
+"Deleting this group will revoke this group's permissions from all member "
+"users."
+msgstr ""
+"Tämän ryhmän poistaminen peruuttaa ryhmän oikeudet kaikilta siihen "
+"kuuluvilta käyttäjiltä."
+
+msgid "Are you sure you want to delete this group?"
+msgstr "Haluatko varmasti poistaa tämän ryhmän?"
+
+msgid "Yes, delete"
+msgstr "Kyllä, poista"
+
+msgid "Add group"
+msgstr "Lisää ryhmä"
+
+msgid "Editing"
+msgstr "Muokataan"
+
+msgid "Save"
+msgstr "Tallenna"
+
+msgid "Object permissions"
+msgstr "Kohteen oikeudet"
+
+msgid "Name"
+msgstr "Nimi"
+
+msgid "Add"
+msgstr "Lisää"
+
+msgid "Change"
+msgstr "Muuta"
+
+msgid "Delete"
+msgstr "Poista"
+
+msgid "Other permissions"
+msgstr "Muut oikeudet"
+
+msgid "Page permissions"
+msgstr "Sivuoikeudet"
+
+msgid "Page"
+msgstr "Sivu"
+
+msgid "Add a page permission"
+msgstr "Lisää sivuoikeus"
+
+msgid "groups"
+msgstr "ryhmät"
+
+msgid "Add a group"
+msgstr "Lisää ryhmä"
+
+#, python-format
+msgid ""
+"There are no groups configured. Why not <a href="
+"\"%(wagtailusers_create_group_url)s\">add some</a>?"
+msgstr ""
+"Yhtään ryhmää ei ole asetettu. Mikset vaikka <a href="
+"\"%(wagtailusers_create_group_url)s\">lisäisi joitakin nyt</a>?"
+
+msgid "Delete user"
+msgstr "Poista käyttäjä"
+
+msgid "Are you sure you want to delete this user?"
+msgstr "Haluatko varmasti poistaa tämän käyttäjän?"
+
+msgid "Add user"
+msgstr "Lisää käyttäjä"
+
+msgid "Account"
+msgstr "Tili"
+
+msgid "Roles"
+msgstr "Roolit"
+
+msgid "Users"
+msgstr "Käyttäjät"
+
+msgid "Add a user"
+msgstr "Lisää käyttäjä"
+
+msgid "Username"
+msgstr "Käyttäjänimi"
+
+msgid "Level"
+msgstr "Taso"
+
+msgid "Status"
+msgstr "Tila"
+
+msgid "Admin"
+msgstr "Ylläpitäjä"
+
+msgid "Active"
+msgstr "Aktiivinen"
+
+msgid "Inactive"
+msgstr "Passiivinen"
+
+#, python-format
+msgid ""
+"\n"
+"            There is one match\n"
+"        "
+msgid_plural ""
+"\n"
+"            There are %(counter)s matches\n"
+"        "
+msgstr[0] ""
+"\n"
+"Löytyi yksi osuma"
+msgstr[1] ""
+"\n"
+"            Löytyi %(counter)s osumaa\n"
+"        "
+
+#, python-format
+msgid "Sorry, no users match \"<em>%(query_string)s</em>\""
+msgstr ""
+"Pahoittelut, yksikään käyttäjä ei täsmää hakuun \"<em>%(query_string)s</em>\""
+
+#, python-format
+msgid ""
+"There are no users configured. Why not <a href=\"%(wagtailusers_create_url)s"
+"\">add some</a>?"
+msgstr ""
+"Yhtään käyttäjää ei ole asetettu. Mikset vaikka <a href="
+"\"%(wagtailusers_create_url)s\">lisäisi joitakin nyt</a>?"
+
+msgid "Search groups"
+msgstr "Hae ryhmiä"
+
+#, python-brace-format
+msgid "Group '{0}' created."
+msgstr "Ryhmä '{0}' luotu."
+
+msgid "Edit"
+msgstr "Muokkaa"
+
+msgid "The group could not be created due to errors."
+msgstr "Ryhmää ei voitu luoda virheiden vuoksi."
+
+#, python-brace-format
+msgid "Group '{0}' updated."
+msgstr "Ryhmä '{0}' päivitetty."
+
+msgid "The group could not be saved due to errors."
+msgstr "Ryhmää ei voitu tallentaa virheiden vuoksi."
+
+#, python-brace-format
+msgid "Group '{0}' deleted."
+msgstr "Ryhmä '{0}' poistettu."
+
+msgid "Search users"
+msgstr "Hae käyttäjiä"
+
+#, python-brace-format
+msgid "User '{0}' created."
+msgstr "Käyttäjä '{0}' luotu."
+
+msgid "The user could not be created due to errors."
+msgstr "Käyttäjää ei voitu luoda virheiden vuoksi."
+
+#, python-brace-format
+msgid "User '{0}' updated."
+msgstr "Käyttäjä '{0}' päivitetty."
+
+msgid "The user could not be saved due to errors."
+msgstr "Käyttäjää ei voitu tallentaa virheiden vuoksi."
+
+#, python-brace-format
+msgid "User '{0}' deleted."
+msgstr "Käyttäjä '{0}' poistettu."
+
+msgid "Groups"
+msgstr "Ryhmät"
+
+msgid "Edit this user"
+msgstr "Muokkaa tätä käyttäjää"
+
+msgid "Delete this user"
+msgstr "Poista tämä käyttäjä"

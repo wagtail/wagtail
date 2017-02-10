@@ -7,162 +7,95 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-08-01 16:39+0100\n"
-"PO-Revision-Date: 2014-03-14 21:12+0000\n"
-"Last-Translator: serafeim <serafeim@torchbox.com>\n"
-"Language-Team: Chinese (http://www.transifex.com/projects/p/wagtail/language/"
+"POT-Creation-Date: 2016-12-06 22:44+0000\n"
+"PO-Revision-Date: 2016-08-01 13:29+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"Language-Team: Chinese (http://www.transifex.com/torchbox/wagtail/language/"
 "zh/)\n"
-"Language: zh\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: zh\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
-#: forms.py:18 forms.py:95
-msgid "Administrator"
-msgstr "管理员"
-
-#: forms.py:20
-msgid "If ticked, this user has the ability to manage user accounts."
-msgstr "如果已选，这个用户将有权限管理用户账号"
-
-#: forms.py:23 forms.py:80
-msgid "Email"
-msgstr "电子邮件"
-
-#: forms.py:24 forms.py:81
-msgid "First Name"
-msgstr "名"
-
-#: forms.py:25 forms.py:82
-msgid "Last Name"
-msgstr "姓"
-
-#: forms.py:68
-msgid "A user with that username already exists."
-msgstr "一个用户已经占用那个用户名"
-
-#: forms.py:69
-msgid "The two password fields didn't match."
-msgstr "两个密码不匹配"
-
-#: forms.py:72 templates/wagtailusers/list.html:15
-msgid "Username"
-msgstr "用户名"
-
-#: forms.py:75
 msgid "Required. 30 characters or fewer. Letters, digits and @/./+/-/_ only."
 msgstr "必填，30个字符以内。仅字母，数字，数字和 @/./+/-/_"
 
-#: forms.py:77
 msgid "This value may contain only letters, numbers and @/./+/-/_ characters."
 msgstr "这个值只能含有字母，数字，数字和 @/./+/-/_"
 
-#: forms.py:85
+msgid "A user with that username already exists."
+msgstr "一个用户已经占用那个用户名"
+
+msgid "The two password fields didn't match."
+msgstr "两个密码不匹配"
+
+msgid "Administrator"
+msgstr "管理员"
+
 msgid "Password"
 msgstr "密码"
 
-#: forms.py:88
 msgid "Leave blank if not changing."
 msgstr "留空如果不修改"
 
-#: forms.py:90
 msgid "Password confirmation"
 msgstr "密码确认"
 
-#: forms.py:92
 msgid "Enter the same password as above, for verification."
 msgstr "输入和上面一样的密码用于验证"
 
-#: forms.py:97
-msgid "Administrators have the ability to manage user accounts."
-msgstr "管理员们有管理用户账号的权限"
+msgid "Email"
+msgstr "电子邮件"
 
-#: models.py:13
-msgid "Receive notification when a page is submitted for moderation"
-msgstr ""
+msgid "First Name"
+msgstr "名"
 
-#: models.py:18
-msgid "Receive notification when your page edit is approved"
-msgstr ""
+msgid "Last Name"
+msgstr "姓"
 
-#: models.py:23
-msgid "Receive notification when your page edit is rejected"
-msgstr ""
-
-#: wagtail_hooks.py:22 templates/wagtailusers/index.html:4
-#: templates/wagtailusers/index.html:17
-msgid "Users"
-msgstr "用户"
-
-#: templates/wagtailusers/create.html:4 templates/wagtailusers/create.html:8
-#: templates/wagtailusers/create.html:35
-msgid "Add user"
-msgstr "添加用户"
-
-#: templates/wagtailusers/create.html:12 templates/wagtailusers/edit.html:12
-msgid "Account"
-msgstr "账号"
-
-#: templates/wagtailusers/create.html:13 templates/wagtailusers/create.html:28
-#: templates/wagtailusers/edit.html:13
-msgid "Roles"
-msgstr "角色"
-
-#: templates/wagtailusers/edit.html:4 templates/wagtailusers/edit.html.py:8
 msgid "Editing"
 msgstr "编辑"
 
-#: templates/wagtailusers/edit.html:30 templates/wagtailusers/edit.html:37
 msgid "Save"
 msgstr "保存"
 
-#: templates/wagtailusers/index.html:18
-msgid "Add a user"
-msgstr "添加用户"
-
-#: templates/wagtailusers/list.html:7
 msgid "Name"
 msgstr "名字"
 
-#: templates/wagtailusers/list.html:22
+msgid "Add user"
+msgstr "添加用户"
+
+msgid "Account"
+msgstr "账号"
+
+msgid "Roles"
+msgstr "角色"
+
+msgid "Users"
+msgstr "用户"
+
+msgid "Add a user"
+msgstr "添加用户"
+
+msgid "Username"
+msgstr "用户名"
+
 msgid "Level"
 msgstr "等级"
 
-#: templates/wagtailusers/list.html:23
 msgid "Status"
 msgstr "状态"
 
-#: templates/wagtailusers/list.html:36
 msgid "Admin"
 msgstr "管理"
 
-#: templates/wagtailusers/list.html:37
 msgid "Active"
 msgstr "有效"
 
-#: templates/wagtailusers/list.html:37
 msgid "Inactive"
 msgstr "无效"
 
-#: templates/wagtailusers/results.html:5
-#, python-format
-msgid ""
-"\n"
-"            There is one match\n"
-"        "
-msgid_plural ""
-"\n"
-"            There are %(counter)s matches\n"
-"        "
-msgstr[0] ""
-
-#: templates/wagtailusers/results.html:18
-#, python-format
-msgid "Sorry, no users match \"<em>%(query_string)s</em>\""
-msgstr ""
-
-#: templates/wagtailusers/results.html:21
 #, python-format
 msgid ""
 "There are no users configured. Why not <a href=\"%(wagtailusers_create_url)s"
@@ -170,22 +103,16 @@ msgid ""
 msgstr ""
 "没有用户. 为什么不 <a href=\"%(wagtailusers_create_url)s\">添加一个</a>?"
 
-#: views/users.py:30 views/users.py:37
-msgid "Search users"
-msgstr ""
-
-#: views/users.py:84
+#, python-brace-format
 msgid "User '{0}' created."
 msgstr "用户 '{0}' 已创建"
 
-#: views/users.py:87
 msgid "The user could not be created due to errors."
 msgstr "无法创建用户，页面有错。"
 
-#: views/users.py:103
+#, python-brace-format
 msgid "User '{0}' updated."
 msgstr "用户 '{0}' 已更新"
 
-#: views/users.py:106
 msgid "The user could not be saved due to errors."
 msgstr "用户无法保存，页面有错。"

@@ -1,11 +1,12 @@
 {% extends "wagtailadmin/base.html" %}
 {% load i18n %}
 {% block titletag %}{% trans 'Search' %}{% endblock %}
-{% block bodyclass %}menu-search{% endblock %}
 {% block extra_js %}
+    {{ block.super }}
+
     <script>
         window.headerSearch = {
-            url: "{% url 'wagtailadmin_pages_search' %}",
+            url: "{% url 'wagtailadmin_pages:search' %}",
             termInput: "#id_q",
             targetOutput: "#page-results"
         }
@@ -14,9 +15,9 @@
 
 {% block content %}
     {% trans "Search" as search_str %}
-    {% include "wagtailadmin/shared/header.html" with title=search_str search_url="wagtailadmin_pages_search" icon="search" %}
+    {% include "wagtailadmin/shared/header.html" with title=search_str search_url="wagtailadmin_pages:search" icon="search" %}
 
     <div id="page-results">
-        {% include "wagtailadmin/pages/search_results.html" with show_parent="True" %}
+        {% include "wagtailadmin/pages/search_results.html" %}
     </div>
 {% endblock %}

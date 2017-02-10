@@ -1,57 +1,25 @@
-{% load i18n %}
+{% load i18n wagtailadmin_tags %}
 <div class="nice-padding">
     {% if pages %}
-        {% if is_searching %}
-            <h2>
-                {% blocktrans count counter=pages.paginator.count %}
-                    There is one matching page
-                {% plural %}
-                    There are {{ counter }} matching pages
-                {% endblocktrans %}
-            </h2>
-        {% endif %}
+        <h2>
+            {% blocktrans count counter=pages.paginator.count %}
+                There is one matching page
+            {% plural %}
+                There are {{ counter }} matching pages
+            {% endblocktrans %}
+        </h2>
 
-        {% if is_searching %}
-            <nav class="listing-filter">
-                <h3 class="filter-title">{% trans "Other searches" %}</h3>
-                <ul class="filter-options">
-                    <li><a href="{% url 'wagtailimages_index' %}?q={{ query_string|urlencode }}" class="icon icon-image">{% trans "Images" %}</a></li>
-                    <li><a href="{% url 'wagtaildocs_index' %}?q={{ query_string|urlencode }}" class="icon icon-doc-full-inverse">{% trans "Documents" %}</a></li>
-                    <li><a href="{% url 'wagtailusers_index' %}?q={{ query_string|urlencode }}" class="icon icon-user">{% trans "Users" %}</a></li>
-                </ul>
-            </nav>
-        {% endif %}
+        {% search_other %}
 
-        {% include "wagtailadmin/pages/list.html" with show_parent=1 allow_navigation=0 %}
+        {% include "wagtailadmin/pages/listing/_list_explore.html" with show_parent=1 allow_navigation=0 %}
 
-        <div class="pagination">
-            <p>{% blocktrans with page_number=pages.number num_pages=pages.paginator.num_pages%}
-                Page {{ page_number }} of {{ num_pages }}.
-            {% endblocktrans %}</p>
-            <ul>
-                <li class="prev">
-                    {% if pages.has_previous %}
-                        {% if is_searching %}
-                            <a href="{% url 'wagtailadmin_pages_search' %}?q={{ query_string|urlencode }}&amp;p={{ pages.previous_page_number }}" class="icon icon-arrow-left">{% trans "Previous" %}</a>
-                        {% else %}
-                            <a href="{% url 'wagtailadmin_pages_search' %}?p={{ pages.previous_page_number }}" class="icon icon-arrow-left">{% trans "Previous" %}</a>
-                        {% endif %}
-                    {% endif %}
-                </li>
-                <li class="next">
-                    {% if pages.has_next %}
-                        {% if is_searching %}
-                            <a href="{% url 'wagtailadmin_pages_search' %}?q={{ query_string|urlencode }}&amp;p={{ pages.next_page_number }}" class="icon icon-arrow-right-after">{% trans 'Next' %}</a>
-                        {% else %}
-                            <a href="{% url 'wagtailadmin_pages_search' %}?p={{ pages.next_page_number }}" class="icon icon-arrow-right-after">{% trans 'Next' %}</a>
-                        {% endif %}
-                    {% endif %}
-                </li>
-            </ul>
-        </div>
+        {% url 'wagtailadmin_pages:search' as pagination_base_url %}
+        {% paginate pages base_url=pagination_base_url %}
     {% else %}
-        {% if is_searching %}
-            <p>{% blocktrans %}Sorry, no pages match <em>"{{ query_string }}"</em>{% endblocktrans %}</p>
+        {% if query_string %}
+            <h2>{% blocktrans %}Sorry, no pages match <em>"{{ query_string }}"</em>{% endblocktrans %}</h2>
+            
+            {% search_other %}
         {% else %}
             <p>{% trans 'Enter a search term above' %}</p>
         {% endif %}

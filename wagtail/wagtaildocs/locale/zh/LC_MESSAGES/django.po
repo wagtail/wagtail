@@ -1,184 +1,105 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# 
+#
 # Translators:
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-08-01 16:38+0100\n"
-"PO-Revision-Date: 2014-08-01 15:43+0000\n"
-"Last-Translator: Karl Hobley <karl@torchbox.com>\n"
-"Language-Team: Chinese (http://www.transifex.com/projects/p/wagtail/language/zh/)\n"
+"POT-Creation-Date: 2016-12-06 22:44+0000\n"
+"PO-Revision-Date: 2016-05-11 20:33+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"Language-Team: Chinese (http://www.transifex.com/torchbox/wagtail/language/"
+"zh/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: zh\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
-#: models.py:21 templates/wagtaildocs/documents/list.html:11
-#: templates/wagtaildocs/documents/list.html:14
-#: templates/wagtaildocs/documents/usage.html:16
-msgid "Title"
-msgstr "标题"
-
-#: models.py:22 templates/wagtaildocs/documents/list.html:17
-msgid "File"
-msgstr "文件"
-
-#: models.py:26
-msgid "Tags"
-msgstr "标签"
-
-#: wagtail_hooks.py:24 templates/wagtaildocs/documents/index.html:16
-msgid "Documents"
-msgstr "文档"
-
-#: templates/wagtaildocs/chooser/chooser.html:2
-#: templates/wagtaildocs/edit_handlers/document_chooser_panel.html:11
 msgid "Choose a document"
 msgstr "选择一个文档"
 
-#: templates/wagtaildocs/chooser/chooser.html:7
-#: templates/wagtaildocs/chooser/chooser.html:19
 msgid "Search"
 msgstr "搜索"
 
-#: templates/wagtaildocs/chooser/chooser.html:8
 msgid "Upload"
 msgstr "上传"
 
-#: templates/wagtaildocs/chooser/chooser.html:34
-#: templates/wagtaildocs/documents/add.html:25
-#: templates/wagtaildocs/documents/edit.html:29
-msgid "Save"
-msgstr "保存"
-
-#: templates/wagtaildocs/chooser/results.html:5
-#: templates/wagtaildocs/documents/results.html:5
-#, python-format
-msgid ""
-"\n"
-"            There is one match\n"
-"        "
-msgid_plural ""
-"\n"
-"            There are %(counter)s matches\n"
-"        "
-msgstr[0] ""
-
-#: templates/wagtaildocs/chooser/results.html:12
 msgid "Latest documents"
 msgstr "最新文档"
 
-#: templates/wagtaildocs/chooser/results.html:19
-#: templates/wagtaildocs/documents/results.html:18
 #, python-format
 msgid "Sorry, no documents match \"<em>%(query_string)s</em>\""
 msgstr "对不起，没有文档匹配\"<em>%(query_string)s</em>\""
 
-#: templates/wagtaildocs/documents/_file_field.html:5
 msgid "Change document:"
 msgstr "修改文档："
 
-#: templates/wagtaildocs/documents/add.html:4
-#: templates/wagtaildocs/documents/index.html:17
 msgid "Add a document"
 msgstr "添加一份文档"
 
-#: templates/wagtaildocs/documents/add.html:15
 msgid "Add document"
 msgstr "添加文档"
 
-#: templates/wagtaildocs/documents/confirm_delete.html:3
 #, python-format
 msgid "Delete %(title)s"
 msgstr "删除%(title)s"
 
-#: templates/wagtaildocs/documents/confirm_delete.html:6
-#: templates/wagtaildocs/documents/edit.html:29
 msgid "Delete document"
 msgstr "删除文档"
 
-#: templates/wagtaildocs/documents/confirm_delete.html:10
 msgid "Are you sure you want to delete this document?"
 msgstr "你确定你要删除这份文档吗？"
 
-#: templates/wagtaildocs/documents/confirm_delete.html:13
 msgid "Yes, delete"
 msgstr "是的，删除"
 
-#: templates/wagtaildocs/documents/edit.html:4
 #, python-format
 msgid "Editing %(title)s"
 msgstr "编辑%(title)s"
 
-#: templates/wagtaildocs/documents/edit.html:15
 msgid "Editing"
 msgstr "编辑"
 
-#: templates/wagtaildocs/documents/list.html:21
-#: templates/wagtaildocs/documents/list.html:24
+msgid "Save"
+msgstr "保存"
+
+msgid "Documents"
+msgstr "文档"
+
+msgid "Title"
+msgstr "标题"
+
+msgid "File"
+msgstr "文件"
+
 msgid "Uploaded"
 msgstr "已上传"
 
-#: templates/wagtaildocs/documents/results.html:21
 #, python-format
 msgid ""
-"You haven't uploaded any documents. Why not <a "
-"href=\"%(wagtaildocs_add_document_url)s\">upload one now</a>?"
-msgstr "你没有上传任何文档。 为什么不 <a href=\"%(wagtaildocs_add_document_url)s\">上传一份</a>?"
-
-#: templates/wagtaildocs/documents/usage.html:3
-#, python-format
-msgid "Usage of %(title)s"
+"You haven't uploaded any documents. Why not <a href="
+"\"%(wagtaildocs_add_document_url)s\">upload one now</a>?"
 msgstr ""
+"你没有上传任何文档。 为什么不 <a href=\"%(wagtaildocs_add_document_url)s\">上"
+"传一份</a>?"
 
-#: templates/wagtaildocs/documents/usage.html:5
-msgid "Usage of"
-msgstr ""
-
-#: templates/wagtaildocs/documents/usage.html:17
-msgid "Parent"
-msgstr ""
-
-#: templates/wagtaildocs/documents/usage.html:18
-msgid "Type"
-msgstr ""
-
-#: templates/wagtaildocs/documents/usage.html:19
-msgid "Status"
-msgstr ""
-
-#: templates/wagtaildocs/documents/usage.html:26
-msgid "Edit this page"
-msgstr ""
-
-#: templates/wagtaildocs/edit_handlers/document_chooser_panel.html:9
-msgid "Clear choice"
-msgstr "清除选择"
-
-#: templates/wagtaildocs/edit_handlers/document_chooser_panel.html:10
-msgid "Choose another document"
-msgstr "选择另外一份文档"
-
-#: views/documents.py:37 views/documents.py:46
-msgid "Search documents"
-msgstr ""
-
-#: views/documents.py:86
+#, python-brace-format
 msgid "Document '{0}' added."
 msgstr "文档'{0}'已添加"
 
-#: views/documents.py:89 views/documents.py:118
 msgid "The document could not be saved due to errors."
 msgstr "有错，文档无法保存。"
 
-#: views/documents.py:115
+#, python-brace-format
 msgid "Document '{0}' updated"
 msgstr "文档'{0}'已更新"
 
-#: views/documents.py:137
+#, python-brace-format
 msgid "Document '{0}' deleted."
 msgstr "文档'{0}'已删除"
+
+msgid "Choose another document"
+msgstr "选择另外一份文档"

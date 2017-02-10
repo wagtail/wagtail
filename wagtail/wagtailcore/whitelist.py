@@ -2,19 +2,33 @@
 A generic HTML whitelisting engine, designed to accommodate subclassing to override
 specific rules.
 """
-from six.moves.urllib.parse import urlparse
+from __future__ import absolute_import, unicode_literals
 
-from bs4 import BeautifulSoup, NavigableString, Tag
+import re
 
+from bs4 import BeautifulSoup, Comment, NavigableString, Tag
 
-ALLOWED_URL_SCHEMES = ['', 'http', 'https', 'ftp', 'mailto', 'tel']
+ALLOWED_URL_SCHEMES = ['http', 'https', 'ftp', 'mailto', 'tel']
+
+PROTOCOL_RE = re.compile("^[a-z0-9][-+.a-z0-9]*:")
 
 
 def check_url(url_string):
-    # TODO: more paranoid checks (urlparse doesn't catch
-    # "jav\tascript:alert('XSS')")
-    url = urlparse(url_string)
-    return (url_string if url.scheme in ALLOWED_URL_SCHEMES else None)
+    # Remove control characters and other disallowed characters
+    # Browsers sometimes ignore these, so that 'jav\tascript:alert("XSS")'
+    # is treated as a valid javascript: link
+
+    unescaped = url_string.lower()
+    unescaped = unescaped.replace("&lt;", "<")
+    unescaped = unescaped.replace("&gt;", ">")
+    unescaped = unescaped.replace("&amp;", "&")
+    unescaped = re.sub("[`\000-\040\177-\240\s]+", '', unescaped)
+    unescaped = unescaped.replace("\ufffd", "")
+    if PROTOCOL_RE.match(unescaped):
+        protocol = unescaped.split(':', 1)[0]
+        if protocol not in ALLOWED_URL_SCHEMES:
+            return None
+    return url_string
 
 
 def attribute_rule(allowed_attrs):
@@ -46,6 +60,7 @@ def attribute_rule(allowed_attrs):
                 del tag[attr]
 
     return fn
+
 
 allow_without_attributes = attribute_rule({})
 
@@ -99,7 +114,12 @@ class Whitelister(object):
             cls.clean_unknown_node(doc, node)
 
     @classmethod
-    def clean_string_node(cls, doc, str):
+    def clean_string_node(cls, doc, node):
+        # Remove comments
+        if isinstance(node, Comment):
+            node.extract()
+            return
+
         # by default, nothing needs to be done to whitelist string nodes
         pass
 

@@ -1,20 +1,20 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 
-from django.db import models, migrations
+from django import VERSION as DJANGO_VERSION
+from django.db import migrations
 
 
 def add_document_permissions_to_admin_groups(apps, schema_editor):
     ContentType = apps.get_model('contenttypes.ContentType')
     Permission = apps.get_model('auth.Permission')
     Group = apps.get_model('auth.Group')
-    Document = apps.get_model('wagtaildocs.Document')
 
     # Get document permissions
     document_content_type, _created = ContentType.objects.get_or_create(
         model='document',
         app_label='wagtaildocs',
-        defaults={'name': 'document'}
+        defaults={'name': 'document'} if DJANGO_VERSION < (1, 8) else {}
     )
 
     add_document_permission, _created = Permission.objects.get_or_create(
@@ -38,6 +38,21 @@ def add_document_permissions_to_admin_groups(apps, schema_editor):
         group.permissions.add(add_document_permission, change_document_permission, delete_document_permission)
 
 
+def remove_document_permissions(apps, schema_editor):
+    """Reverse the above additions of permissions."""
+    ContentType = apps.get_model('contenttypes.ContentType')
+    Permission = apps.get_model('auth.Permission')
+    document_content_type = ContentType.objects.get(
+        model='document',
+        app_label='wagtaildocs',
+    )
+    # This cascades to Group
+    Permission.objects.filter(
+        content_type=document_content_type,
+        codename__in=('add_document', 'change_document', 'delete_document'),
+    ).delete()
+
+
 class Migration(migrations.Migration):
 
     dependencies = [
@@ -48,5 +63,5 @@ class Migration(migrations.Migration):
     ]
 
     operations = [
-        migrations.RunPython(add_document_permissions_to_admin_groups),
+        migrations.RunPython(add_document_permissions_to_admin_groups, remove_document_permissions),
     ]

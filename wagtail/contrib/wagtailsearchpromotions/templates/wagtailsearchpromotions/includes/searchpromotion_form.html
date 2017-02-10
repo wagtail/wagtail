@@ -1,0 +1,24 @@
+{% load i18n %}
+<li id="inline_child_{{ form.prefix }}"{% if form.DELETE.value %} style="display: none;"{% endif %}>
+    <ul class="controls">
+        <li><button type="button" class="button icon text-replace icon-order-up inline-child-move-up" id="{{ form.prefix }}-move-up">{% trans "Move up" %}</button></li>
+        <li><button type="button" class="button icon text-replace icon-order-down inline-child-move-down" id="{{ form.prefix }}-move-down">{% trans "Move down" %}</button></li>
+        <li><button type="button" class="button icon text-replace icon-bin" id="{{ form.DELETE.id_for_label }}-button">{% trans "Delete" %}</button></li>
+    </ul>
+
+    <fieldset>
+        <legend>{% trans "Promoted search result" %}</legend>
+        <ul class="fields">
+            <li class="model_choice_field">
+                {% include "wagtailadmin/shared/field.html" with field=form.page only %}
+            </li>
+            <li class="char_field">
+                {% include "wagtailadmin/shared/field.html" with field=form.description only %}
+            </li>
+        </ul>
+
+        {{ form.id }}
+        {{ form.ORDER }}
+        {{ form.DELETE }}
+    </fieldset>
+</li>

@@ -1,3 +1,5 @@
+from __future__ import absolute_import, unicode_literals
+
 from django.template.loader import render_to_string
 
 
@@ -12,7 +14,7 @@ class Sitemap(object):
 
     def get_urls(self):
         for page in self.get_pages():
-            for url in page.get_sitemap_urls():
+            for url in page.specific.get_sitemap_urls():
                 yield url
 
     def render(self):

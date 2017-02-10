@@ -1,16 +1,21 @@
-from django.test import TestCase, RequestFactory
+from __future__ import absolute_import, unicode_literals
 
+from django.core.urlresolvers import NoReverseMatch
+from django.test import RequestFactory, TestCase
+
+from wagtail.contrib.wagtailroutablepage.templatetags.wagtailroutablepage_tags import \
+    routablepageurl
+from wagtail.tests.routablepage.models import RoutablePageTest, RoutablePageWithoutIndexRouteTest
 from wagtail.wagtailcore.models import Page, Site
-from wagtail.tests.models import RoutablePageTest, routable_page_external_view
-from wagtail.contrib.wagtailroutablepage.templatetags.wagtailroutablepage_tags import routablepageurl
 
 
 class TestRoutablePage(TestCase):
+    model = RoutablePageTest
+
     def setUp(self):
         self.home_page = Page.objects.get(id=2)
-        self.routable_page = self.home_page.add_child(instance=RoutablePageTest(
+        self.routable_page = self.home_page.add_child(instance=self.model(
             title="Routable Page",
-            slug='routable-page',
             live=True,
         ))
 
@@ -38,8 +43,15 @@ class TestRoutablePage(TestCase):
     def test_resolve_external_view(self):
         view, args, kwargs = self.routable_page.resolve_subpage('/external/joe-bloggs/')
 
-        self.assertEqual(view, routable_page_external_view)
+        self.assertEqual(view, self.routable_page.external_view)
         self.assertEqual(args, ('joe-bloggs', ))
+        self.assertEqual(kwargs, {})
+
+    def test_resolve_external_view_other_route(self):
+        view, args, kwargs = self.routable_page.resolve_subpage('/external-no-arg/')
+
+        self.assertEqual(view, self.routable_page.external_view)
+        self.assertEqual(args, ())
         self.assertEqual(kwargs, {})
 
     def test_reverse_main_view(self):
@@ -57,15 +69,39 @@ class TestRoutablePage(TestCase):
 
         self.assertEqual(url, 'archive/author/joe-bloggs/')
 
+    def test_reverse_overridden_name(self):
+        url = self.routable_page.reverse_subpage('name_overridden')
+
+        self.assertEqual(url, 'override-name-test/')
+
+    def test_reverse_overridden_name_default_doesnt_work(self):
+        with self.assertRaises(NoReverseMatch):
+            self.routable_page.reverse_subpage('override_name_test')
+
     def test_reverse_external_view(self):
         url = self.routable_page.reverse_subpage('external_view', args=('joe-bloggs', ))
 
         self.assertEqual(url, 'external/joe-bloggs/')
 
+    def test_reverse_external_view_other_route(self):
+        url = self.routable_page.reverse_subpage('external_view')
+
+        self.assertEqual(url, 'external-no-arg/')
+
     def test_get_main_view(self):
         response = self.client.get(self.routable_page.url)
 
         self.assertContains(response, "MAIN VIEW")
+
+    def test_get_routable_page_without_index_route(self):
+        page = self.home_page.add_child(
+            instance=RoutablePageWithoutIndexRouteTest(
+                title="Routable Page without index",
+                live=True
+            )
+        )
+        response = self.client.get(page.url)
+        self.assertContains(response, "DEFAULT PAGE TEMPLATE")
 
     def test_get_archive_by_year_view(self):
         response = self.client.get(self.routable_page.url + 'archive/year/2014/')
@@ -82,10 +118,39 @@ class TestRoutablePage(TestCase):
 
         self.assertContains(response, "EXTERNAL VIEW: joe-bloggs")
 
+    def test_get_external_view_other_route(self):
+        response = self.client.get(self.routable_page.url + 'external-no-arg/')
 
-class TestRoutablePageTemplateTag(TestRoutablePage):
+        self.assertContains(response, "EXTERNAL VIEW: ARG NOT SET")
+
+    def test_routable_page_can_have_instance_bound_descriptors(self):
+        # This descriptor pretends that it does not exist in the class, hence
+        # it raises an AttributeError when class bound. This is, for instance,
+        # the behavior of django's FileFields.
+        class InstanceDescriptor(object):
+            def __get__(self, instance, cls=None):
+                if instance is None:
+                    raise AttributeError
+                return 'value'
+
+            def __set__(self, instance, value):
+                raise AttributeError
+
+        try:
+            RoutablePageTest.descriptor = InstanceDescriptor()
+            RoutablePageTest.get_subpage_urls()
+        finally:
+            del RoutablePageTest.descriptor
+
+
+class TestRoutablePageTemplateTag(TestCase):
     def setUp(self):
-        super(TestRoutablePageTemplateTag, self).setUp()
+        self.home_page = Page.objects.get(id=2)
+        self.routable_page = self.home_page.add_child(instance=RoutablePageTest(
+            title="Routable Page",
+            live=True,
+        ))
+
         self.rf = RequestFactory()
         self.request = self.rf.get(self.routable_page.url)
         self.request.site = Site.find_for_request(self.request)

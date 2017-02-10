@@ -1,97 +1,301 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
 # Translators:
-# Thiago Cangussu <cangussu.thg@gmail.com>, 2014
+# Jose Lourenco <jose@lourenco.ws>, 2014-2016
+# Manuela Silva <inactive+h_manuela_rodsilva@transifex.com>, 2015
+# Tiago Henriques <trinosauro@gmail.com>, 2015-2016
 msgid ""
 msgstr ""
-"Project-Id-Version: Wagtail 0.5.0\n"
+"Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-08-01 16:38+0100\n"
-"PO-Revision-Date: 2014-08-03 01:52+0100\n"
-"Last-Translator: Jose Lourenco <jose@lourenco.ws>\n"
-"Language-Team: \n"
-"Language: pt_PT\n"
+"POT-Creation-Date: 2016-12-06 22:44+0000\n"
+"PO-Revision-Date: 2016-12-07 14:29+0000\n"
+"Last-Translator: Tiago Henriques <trinosauro@gmail.com>\n"
+"Language-Team: Portuguese (Portugal) (http://www.transifex.com/torchbox/"
+"wagtail/language/pt_PT/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: pt_PT\n"
-"Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Poedit 1.5.4\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: models.py:46
+#, python-brace-format
+msgid "{label}: this block has no options."
+msgstr "{label}: este bloco não tem opções."
+
+msgid "This block has no options."
+msgstr "Este bloco não tem opções."
+
+msgid "Password"
+msgstr "Senha"
+
+msgid "The password you have entered is not correct. Please try again."
+msgstr "Introduziu uma senha incorreta. Por favor tente novamente."
+
+msgid "hostname"
+msgstr "nome do servidor"
+
+msgid "port"
+msgstr "porto"
+
 msgid ""
 "Set this to something other than 80 if you need a specific port number to "
 "appear in URLs (e.g. development on port 8000). Does not affect request "
 "handling (so port forwarding still works)."
 msgstr ""
-"Atribua um valor diferente de 80 se você necessitar que um número de porto "
-"específico apareça nas URLs (ex. desenvolvimento no porto 8000). Não afeta o "
-"tratamento de requisições (assim, o redirecionamento de portos continua a "
+"Defina um valor diferente de 80 se precisar que apareça um número de porta "
+"específico nos URLs (por exemplo, desenvolvimento na porta 8000). Não afeta "
+"o tratamento do pedido (assim o reencaminhamento da porta continua a "
 "funcionar)."
 
-#: models.py:48
+msgid "site name"
+msgstr "nome do site"
+
+msgid "Human-readable name for the site."
+msgstr "Nome legível para o site."
+
+msgid "root page"
+msgstr "página raiz"
+
+msgid "is default site"
+msgstr "é o site pré-definido"
+
 msgid ""
 "If true, this site will handle requests for all other hostnames that do not "
 "have a site entry of their own"
 msgstr ""
-"Se verdadeiro, este site irá processar requisições de todos os outros "
-"hostnames que não tenham um site próprio"
+"Se verdadeiro, este site irá processar os pedidos de todos os outros nomes "
+"de servidor que não tenham uma entrada de site própria"
 
-#: models.py:109
+msgid "site"
+msgstr "site"
+
+msgid "sites"
+msgstr "sites"
+
 #, python-format
 msgid ""
 "%(hostname)s is already configured as the default site. You must unset that "
 "before you can save this site as default."
 msgstr ""
-"O %(hostname)s já está configurado como site pré-definido. Tem de alterar "
+"O %(hostname)s já está configurado como site pré-definido. Tem de remover "
 "essa configuração antes de poder guardar este site como pré-definido."
 
-#: models.py:277
+msgid "title"
+msgstr "título"
+
 msgid "The page title as you'd like it to be seen by the public"
 msgstr "O título da página como você gostaria que fosse visto pelo público"
 
-#: models.py:278
+msgid "slug"
+msgstr "\"slug\""
+
 msgid ""
 "The name of the page as it will appear in URLs e.g http://domain.com/blog/"
 "[my-slug]/"
 msgstr ""
-"O nome da página como ele irá aparecer nas URLs ex.: http://domain.com/blog/"
-"[my-slug]/"
+"O nome da página tal como irá aparecer nos URLs, por exemplo http://domain."
+"com/blog/[my-slug]/"
 
-#: models.py:287
-msgid "Page title"
-msgstr "Título da página"
+msgid "content type"
+msgstr "tipo de conteúdo"
 
-#: models.py:287
+msgid "live"
+msgstr "publicada"
+
+msgid "has unpublished changes"
+msgstr "tem alterações por publicar"
+
+msgid "URL path"
+msgstr "Caminho do URL"
+
+msgid "owner"
+msgstr "dono"
+
+msgid "page title"
+msgstr "título da página"
+
 msgid ""
 "Optional. 'Search Engine Friendly' title. This will appear at the top of the "
 "browser window."
 msgstr ""
-"Opcional. Título 'Amigável para Motores de Busca'. Isto irá aparecer no topo "
+"Opcional. Título \"Otimizado para Motores de Busca\". Irá aparecer no topo "
 "da janela do navegador."
 
-#: models.py:288
+msgid "show in menus"
+msgstr "mostrar nos menus"
+
 msgid ""
 "Whether a link to this page will appear in automatically generated menus"
 msgstr ""
-"Se um link para esta página irá aparecer nos menus gerados automaticamente"
+"Determina se um link para esta página irá aparecer nos menus gerados "
+"automaticamente"
 
-#: models.py:291
-msgid "Go live date/time"
-msgstr "Data/hora de publicação"
+msgid "search description"
+msgstr "descrição de pesquisa"
 
-#: models.py:291 models.py:292
-msgid "Please add a date-time in the form YYYY-MM-DD hh:mm:ss."
-msgstr "Por favor adicione uma data-hora no formato AAAA-MM-DD hh:mm:ss."
+msgid "go live date/time"
+msgstr "publicar em data/hora"
 
-#: models.py:292
-msgid "Expiry date/time"
-msgstr "Data/hora terminal"
+msgid "Please add a date-time in the form YYYY-MM-DD hh:mm."
+msgstr "Por favor adicione uma data-hora no formato YYYY-MM-DD hh:mm."
 
-#: models.py:564
-msgid "name '{0}' (used in subpage_types list) is not defined."
+msgid "expiry date/time"
+msgstr "data/hora final"
+
+msgid "expired"
+msgstr "expirado"
+
+msgid "locked"
+msgstr "trancado"
+
+msgid "first published at"
+msgstr "primeira publicação em"
+
+msgid "latest revision created at"
+msgstr "última versão criada em"
+
+msgid "This slug is already in use"
+msgstr "Este “slug” já está a ser utilizado"
+
+msgid "scheduled"
+msgstr "agendado"
+
+msgid "draft"
+msgstr "rascunho"
+
+msgid "live + draft"
+msgstr "publicada + rascunho"
+
+msgid "Default"
+msgstr "Pré-definido"
+
+msgid "page"
+msgstr "página"
+
+msgid "pages"
+msgstr "páginas"
+
+msgid "submitted for moderation"
+msgstr "enviada para moderação"
+
+msgid "created at"
+msgstr "criado em"
+
+msgid "user"
+msgstr "utilizador"
+
+msgid "content JSON"
+msgstr "conteúdo JSON"
+
+msgid "approved go live at"
+msgstr "aprovado para publicação em"
+
+msgid "page revision"
+msgstr "versão da página"
+
+msgid "page revisions"
+msgstr "versões de página"
+
+msgid "Add"
+msgstr "Adicionar"
+
+msgid "Add/edit pages you own"
+msgstr "Crie/altere as suas páginas"
+
+msgid "Edit"
+msgstr "Alterar"
+
+msgid "Edit any page"
+msgstr "Alterar qualquer página"
+
+msgid "Publish"
+msgstr "Publicar"
+
+msgid "Publish any page"
+msgstr "Publicar qualquer página"
+
+msgid "Bulk delete"
+msgstr "Apagar vários"
+
+msgid "Delete pages with children"
+msgstr "Apagar páginas com filhas"
+
+msgid "Lock"
+msgstr "Trancar"
+
+msgid "Lock/unlock any page"
+msgstr "Trancar/destrancar qualquer página"
+
+msgid "group"
+msgstr "grupo"
+
+msgid "permission type"
+msgstr "tipo de permissão"
+
+msgid "group page permission"
+msgstr "permissão de página de grupo"
+
+msgid "group page permissions"
+msgstr "permissões de página de grupo"
+
+msgid "Public"
+msgstr "Público"
+
+msgid "Private, accessible to logged-in users"
+msgstr "Privado, acessível a utilizadores autenticados"
+
+msgid "Private, accessible with the following password"
+msgstr "Privado, acessível com a seguinte senha"
+
+msgid "Private, accessible to users in specific groups"
+msgstr "Privado, acessível aos utilizadores de grupos específicos"
+
+msgid "password"
+msgstr "senha"
+
+msgid "page view restriction"
+msgstr "restrição de visualização de página"
+
+msgid "page view restrictions"
+msgstr "restrições de visualização de página"
+
+msgid "name"
+msgstr "nome"
+
+msgid "collection"
+msgstr "coleção"
+
+msgid "collections"
+msgstr "coleções"
+
+msgid "permission"
+msgstr "permissão"
+
+msgid "group collection permission"
+msgstr "permissão de coleção de grupo"
+
+msgid "Log in"
+msgstr "Entrar"
+
+msgid "Your username and password didn't match. Please try again."
 msgstr ""
-"O nome  '{0}' (usado na lista de tipos de sub-páginas) não está definido."
+"O seu utilizador e senha não estão corretos. Por favor tente novamente."
+
+msgid ""
+"Your account doesn't have access to this page. To proceed, please log in "
+"with an account that has access."
+msgstr ""
+"A sua conta não tem acesso a esta página. Para continuar, por favor utilize "
+"uma conta que tenha acesso."
+
+msgid "Password required"
+msgstr "Senha obrigatória"
+
+msgid "You need a password to access this page."
+msgstr "É preciso uma senha para aceder a esta página."
+
+msgid "Continue"
+msgstr "Continuar"

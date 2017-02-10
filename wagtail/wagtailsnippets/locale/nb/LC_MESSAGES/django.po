@@ -1,0 +1,172 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# Eirik Krogstad <eirikkr@gmail.com>, 2015
+# Stein Strindhaug <stein.strindhaug@gmail.com>, 2016
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2016-12-06 22:44+0000\n"
+"PO-Revision-Date: 2016-11-18 10:58+0000\n"
+"Last-Translator: Stein Strindhaug <stein.strindhaug@gmail.com>\n"
+"Language-Team: Norwegian Bokmål (http://www.transifex.com/torchbox/wagtail/"
+"language/nb/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: nb\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Choose"
+msgstr "Velg"
+
+msgid "Search"
+msgstr "Søk"
+
+#, python-format
+msgid ""
+"\n"
+"            There is one match\n"
+"        "
+msgid_plural ""
+"\n"
+"            There are %(counter)s matches\n"
+"        "
+msgstr[0] ""
+"\n"
+"Det er ett treff"
+msgstr[1] ""
+"\n"
+"\n"
+"Det er %(counter)s treff"
+
+#, python-format
+msgid "Sorry, no snippets match \"<em>%(query_string)s</em>\""
+msgstr "Beklager, ingen snutter samsvarer med <em>\"%(query_string)s\"</em>"
+
+#, python-format
+msgid ""
+"You haven't created any %(snippet_type_name)s snippets. Why not <a href="
+"\"%(wagtailsnippets_create_snippet_url)s\" target=\"_blank\">create one now"
+msgstr ""
+"Du har ikke opprettet noen %(snippet_type_name)s-snutter. Hvorfor ikke <a "
+"href=\"%(wagtailsnippets_create_snippet_url)s\">lage en nå</a>?"
+
+#, python-format
+msgid "Delete %(snippet_type_name)s - %(instance)s"
+msgstr "Slett %(snippet_type_name)s - %(instance)s"
+
+msgid "Delete"
+msgstr "Slett"
+
+#, python-format
+msgid "Are you sure you want to delete this %(snippet_type_name)s?"
+msgstr "Er du sikker på at du vil slette denne %(snippet_type_name)s?"
+
+msgid "Yes, delete"
+msgstr "Ja, slett"
+
+#, python-format
+msgid "New  %(snippet_type_name)s"
+msgstr "Ny %(snippet_type_name)s"
+
+msgid "New"
+msgstr "Ny"
+
+msgid "Saving..."
+msgstr "Lagrer..."
+
+msgid "Save"
+msgstr "Lagre"
+
+#, python-format
+msgid "Editing %(snippet_type_name)s - %(instance)s"
+msgstr "Redigerer %(snippet_type_name)s - %(instance)s"
+
+msgid "Editing"
+msgstr "Redigerer"
+
+msgid "Snippets"
+msgstr "Snutter"
+
+msgid "Title"
+msgstr "Tittel"
+
+#, python-format
+msgid ""
+"No %(snippet_type_name_plural)s have been created. Why not <a href="
+"\"%(wagtailsnippets_create_url)s\">add one</a>?"
+msgstr ""
+"Ingen %(snippet_type_name_plural)s har blitt opprettet. Hvorfor ikke <a href="
+"\"%(wagtailsnippets_create_url)s\">legge til en</a>?"
+
+#, python-format
+msgid "Snippets %(snippet_type_name_plural)s"
+msgstr "Snutter %(snippet_type_name_plural)s"
+
+#, python-format
+msgid "Snippets <span>%(snippet_type_name_plural)s</span>"
+msgstr "Snutter <span>%(snippet_type_name_plural)s</span>"
+
+#, python-format
+msgid "Add %(snippet_type_name)s"
+msgstr "Legg til %(snippet_type_name)s"
+
+#, python-format
+msgid "Usage of %(title)s"
+msgstr "Bruk av %(title)s"
+
+msgid "Usage of"
+msgstr "Bruk av"
+
+msgid "Parent"
+msgstr "Forelder"
+
+msgid "Type"
+msgstr "Type"
+
+msgid "Status"
+msgstr "Status"
+
+msgid "Edit this page"
+msgstr "Rediger denne siden"
+
+#, python-format
+msgid "Search %(snippet_type_name)s"
+msgstr "Søk etter %(snippet_type_name)s"
+
+#, python-brace-format
+msgid "{snippet_type} '{instance}' created."
+msgstr "{snippet_type} \"{instance}\" opprettet."
+
+msgid "Edit"
+msgstr "Rediger"
+
+msgid "The snippet could not be created due to errors."
+msgstr "Snutten kunne ikke opprettes grunnet feil."
+
+#, python-brace-format
+msgid "{snippet_type} '{instance}' updated."
+msgstr "{snippet_type} \"{instance}\" oppdatert."
+
+msgid "The snippet could not be saved due to errors."
+msgstr "Snutten kunne ikke lagres grunnet feil."
+
+#, python-brace-format
+msgid "{snippet_type} '{instance}' deleted."
+msgstr "{snippet_type} \"{instance}\" slettet."
+
+#, python-format
+msgid "Choose %s"
+msgstr "Velg %s"
+
+#, python-format
+msgid "Choose another %s"
+msgstr "Velg en annen %s"
+
+#, python-format
+msgid "Edit this %s"
+msgstr "Endre %s"

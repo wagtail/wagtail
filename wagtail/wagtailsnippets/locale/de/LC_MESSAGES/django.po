@@ -1,152 +1,181 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# 
+#
 # Translators:
+# Henrik Kröger <hedwig@riseup.net>, 2016
+# Jannis, 2015
 # Johannes Spielmann <j@spielmannsolutions.com>, 2014
 # karlsander <karlsander@gmail.com>, 2014
+# karlsander <karlsander@gmail.com>, 2014
+# Moritz Pfeiffer <moritz@alp-phone.ch>, 2016
+# Raphael Stolt <raphael.stolt@gmail.com>, 2016
+# Wasilis Mandratzis-Walz, 2015
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-08-01 16:39+0100\n"
-"PO-Revision-Date: 2014-08-01 15:43+0000\n"
-"Last-Translator: Karl Hobley <karl@torchbox.com>\n"
-"Language-Team: German (http://www.transifex.com/projects/p/wagtail/language/de/)\n"
+"POT-Creation-Date: 2016-12-06 22:44+0000\n"
+"PO-Revision-Date: 2016-06-27 17:15+0000\n"
+"Last-Translator: Raphael Stolt <raphael.stolt@gmail.com>\n"
+"Language-Team: German (http://www.transifex.com/torchbox/wagtail/language/"
+"de/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: de\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: wagtail_hooks.py:25 templates/wagtailsnippets/snippets/index.html:3
-msgid "Snippets"
-msgstr "Snippets"
-
-#: templates/wagtailsnippets/chooser/choose.html:2
 msgid "Choose"
 msgstr "Auswählen"
 
-#: templates/wagtailsnippets/edit_handlers/snippet_chooser_panel.html:10
-#, python-format
-msgid "Choose another %(snippet_type_name)s"
-msgstr "Anderes %(snippet_type_name)s wählen"
+msgid "Search"
+msgstr "Suche"
 
-#: templates/wagtailsnippets/edit_handlers/snippet_chooser_panel.html:11
 #, python-format
-msgid "Choose %(snippet_type_name)s"
-msgstr "%(snippet_type_name)s wählen"
+msgid ""
+"\n"
+"            There is one match\n"
+"        "
+msgid_plural ""
+"\n"
+"            There are %(counter)s matches\n"
+"        "
+msgstr[0] ""
+"\n"
+"Es gibt ein Ergebnis"
+msgstr[1] ""
+"\n"
+"Es gibt %(counter)s Ergebnisse"
 
-#: templates/wagtailsnippets/snippets/confirm_delete.html:3
+#, python-format
+msgid "Sorry, no snippets match \"<em>%(query_string)s</em>\""
+msgstr ""
+"Leider keine übereinstimmenden Schnipsel zu „<em>%(query_string)s</em>“"
+
+#, python-format
+msgid ""
+"You haven't created any %(snippet_type_name)s snippets. Why not <a href="
+"\"%(wagtailsnippets_create_snippet_url)s\" target=\"_blank\">create one now"
+msgstr ""
+"Sie haben noch keine „%(snippet_type_name)s“ Schnipsel erstellt. <a href="
+"\"%(wagtailsnippets_create_snippet_url)s\" target=\"_blank\">Erstellen Sie "
+"doch jetzt eins.</a>"
+
 #, python-format
 msgid "Delete %(snippet_type_name)s - %(instance)s"
 msgstr "%(snippet_type_name)s - %(instance)s löschen"
 
-#: templates/wagtailsnippets/snippets/confirm_delete.html:6
-#: templates/wagtailsnippets/snippets/edit.html:20
 msgid "Delete"
 msgstr "Löschen"
 
-#: templates/wagtailsnippets/snippets/confirm_delete.html:10
 #, python-format
 msgid "Are you sure you want to delete this %(snippet_type_name)s?"
-msgstr "Sind Sie sicher, dass Sie dieses %(snippet_type_name)s löschen wollen?"
+msgstr ""
+"Sind Sie sicher, dass Sie das „%(snippet_type_name)s“ Schnipsel löschen "
+"wollen?"
 
-#: templates/wagtailsnippets/snippets/confirm_delete.html:13
 msgid "Yes, delete"
 msgstr "Ja, löschen"
 
-#: templates/wagtailsnippets/snippets/create.html:3
 #, python-format
 msgid "New  %(snippet_type_name)s"
 msgstr "%(snippet_type_name)s erstellen"
 
-#: templates/wagtailsnippets/snippets/create.html:6
 msgid "New"
 msgstr "Erstellen"
 
-#: templates/wagtailsnippets/snippets/create.html:17
-#: templates/wagtailsnippets/snippets/edit.html:17
+msgid "Saving..."
+msgstr "Speichern..."
+
 msgid "Save"
 msgstr "Speichern"
 
-#: templates/wagtailsnippets/snippets/edit.html:3
 #, python-format
 msgid "Editing %(snippet_type_name)s - %(instance)s"
 msgstr "%(snippet_type_name)s - %(instance)s bearbeiten"
 
-#: templates/wagtailsnippets/snippets/edit.html:6
 msgid "Editing"
 msgstr "Bearbeiten"
 
-#: templates/wagtailsnippets/snippets/list.html:8
-#: templates/wagtailsnippets/snippets/usage.html:16
+msgid "Snippets"
+msgstr "Schnipsel"
+
 msgid "Title"
 msgstr "Titel"
 
-#: templates/wagtailsnippets/snippets/type_index.html:3
+#, python-format
+msgid ""
+"No %(snippet_type_name_plural)s have been created. Why not <a href="
+"\"%(wagtailsnippets_create_url)s\">add one</a>?"
+msgstr ""
+"Sie haben noch keine „%(snippet_type_name_plural)s“ Schnipsel erstellt. <a "
+"href=\"%(wagtailsnippets_create_url)s\">Erstellen Sie doch jetzt eins.</a>"
+
 #, python-format
 msgid "Snippets %(snippet_type_name_plural)s"
-msgstr "Snippets %(snippet_type_name_plural)s"
+msgstr "Schnipsel %(snippet_type_name_plural)s"
 
-#: templates/wagtailsnippets/snippets/type_index.html:10
 #, python-format
 msgid "Snippets <span>%(snippet_type_name_plural)s</span>"
-msgstr "Snippets <span>%(snippet_type_name_plural)s</span>"
+msgstr "Schnipsel <span>%(snippet_type_name_plural)s</span>"
 
-#: templates/wagtailsnippets/snippets/type_index.html:13
 #, python-format
 msgid "Add %(snippet_type_name)s"
 msgstr "%(snippet_type_name)s hinzufügen"
 
-#: templates/wagtailsnippets/snippets/type_index.html:23
-#, python-format
-msgid ""
-"No %(snippet_type_name_plural)s have been created. Why not <a "
-"href=\"%(wagtailsnippets_create_url)s\">add one</a>?"
-msgstr "Sie haben noch keine %(snippet_type_name_plural)s erstellt. <a href=\"%(wagtailsnippets_create_url)s\">Erstellen Sie doch jetzt eins!</a>"
-
-#: templates/wagtailsnippets/snippets/usage.html:3
 #, python-format
 msgid "Usage of %(title)s"
-msgstr ""
+msgstr "Benutzung von %(title)s"
 
-#: templates/wagtailsnippets/snippets/usage.html:5
 msgid "Usage of"
-msgstr ""
+msgstr "Benutzung von"
 
-#: templates/wagtailsnippets/snippets/usage.html:17
 msgid "Parent"
-msgstr ""
+msgstr "Übergeordnet"
 
-#: templates/wagtailsnippets/snippets/usage.html:18
 msgid "Type"
-msgstr ""
+msgstr "Typ"
 
-#: templates/wagtailsnippets/snippets/usage.html:19
 msgid "Status"
-msgstr ""
+msgstr "Status"
 
-#: templates/wagtailsnippets/snippets/usage.html:26
 msgid "Edit this page"
-msgstr ""
+msgstr "Diese Seite bearbeiten"
 
-#: views/snippets.py:129
+#, python-format
+msgid "Search %(snippet_type_name)s"
+msgstr "Suche %(snippet_type_name)s"
+
+#, python-brace-format
 msgid "{snippet_type} '{instance}' created."
-msgstr "{snippet_type} '{instance}' erstellt"
+msgstr "{snippet_type} ‚{instance}‘ erstellt"
 
-#: views/snippets.py:136
+msgid "Edit"
+msgstr "Bearbeiten"
+
 msgid "The snippet could not be created due to errors."
-msgstr "Aufgrund von Fehlern konnte das Snippet nicht erstellt werden."
+msgstr "Aufgrund von Fehlern konnte das Schnipsel nicht erstellt werden."
 
-#: views/snippets.py:170
+#, python-brace-format
 msgid "{snippet_type} '{instance}' updated."
-msgstr "{snippet_type} '{instance}' geändert."
+msgstr "{snippet_type} ‚{instance}‘ geändert."
 
-#: views/snippets.py:177
 msgid "The snippet could not be saved due to errors."
-msgstr "Aufgrund von Fehlern konnte das Snippet nicht gespeichert werden."
+msgstr "Aufgrund von Fehlern konnte das Schnipsel nicht gespeichert werden."
 
-#: views/snippets.py:206
+#, python-brace-format
 msgid "{snippet_type} '{instance}' deleted."
-msgstr "{snippet_type} '{instance}' gelöscht."
+msgstr "{snippet_type} ‚{instance}‘ gelöscht."
+
+#, python-format
+msgid "Choose %s"
+msgstr "Auswählen %s"
+
+#, python-format
+msgid "Choose another %s"
+msgstr "Eine(n) andere(n) %s auswählen"
+
+#, python-format
+msgid "Edit this %s"
+msgstr "%s bearbeiten"

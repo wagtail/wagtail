@@ -1,0 +1,8 @@
+{% extends 'wagtailadmin/notifications/base.txt' %}
+{% load i18n %}
+
+{% block content %}
+{% blocktrans with title=revision.page.get_admin_display_title|safe %}The page "{{ title }}" has been approved.{% endblocktrans %}
+
+{% trans "You can view the page here:" %} {{ revision.page.full_url }}
+{% endblock %}

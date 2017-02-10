@@ -1,19 +1,2 @@
-{% extends "wagtailadmin/edit_handlers/chooser_panel.html" %}
-{% load wagtailimages_tags %}
-{% load i18n %}
-
-{% block chooser_class %}image-chooser{% endblock %}
-
-{% block chosen_state_view %}
-    <div class="preview-image">
-        {% if image %}
-            {% image image max-130x130 %}
-        {% else %}
-            <img>
-        {% endif %}
-    </div>
-{% endblock %}
-
-{% block clear_button_label %}{% trans "Clear image" %}{% endblock %}
-{% block choose_another_button_label %}{% trans "Choose another image" %}{% endblock %}
-{% block choose_button_label %}{% trans "Choose an image" %}{% endblock %}
+{# Image chooser is now implemented as an entirely standard form widget - image_chooser_panel.html is redundant #}
+{% include "wagtailadmin/shared/field.html" %}

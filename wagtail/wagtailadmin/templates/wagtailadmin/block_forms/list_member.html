@@ -1,0 +1,10 @@
+{% extends "wagtailadmin/block_forms/sequence_member.html" %}
+{% load i18n %}
+
+{% block header_controls %}
+    <div class="sequence-controls list-controls button-group button-group-square">
+        <button type="button" id="{{ prefix }}-moveup" title="{% trans 'Move up' %}" class="button icon text-replace icon-order-up">{% trans 'Move up' %}</button>
+        <button type="button" id="{{ prefix }}-movedown" title="{% trans 'Move down' %}" class="button icon text-replace icon-order-down">{% trans 'Move down' %}</button>
+        <button type="button" id="{{ prefix }}-delete" title="{% trans 'Delete' %}" class="button icon text-replace hover-no icon-bin">{% trans 'Delete' %}</button>
+    </div>
+{% endblock %}

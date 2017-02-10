@@ -1,0 +1,51 @@
+{% extends "wagtailadmin/base.html" %}
+{% load i18n %}
+{% block titletag %}{% blocktrans %}Editing {{ setting_type_name}} - {{ instance }}{% endblocktrans %}{% endblock %}
+{% block bodyclass %}menu-settings{% endblock %}
+{% block content %}
+    <header class="nice-padding {% if tabbed %}merged tab-merged{% endif %}">
+        <div class="row">
+            <div class="left">
+                <div class="col">
+                    <h1 class="icon icon-cogs">
+                        {% trans "Editing" %}
+                        <span>{{ setting_type_name|capfirst }}</span>
+                    </h1>
+                </div>
+            </div>
+            <div class="right">
+                {% if site_switcher %}
+                <form method="get" id="settings-site-switch" novalidate>
+                    <label for="{{ site_switcher.site.id_for_label }}">
+                        Site:
+                    </label>
+                    {{ site_switcher.site }}
+                </form>
+                {% endif %}
+            </div>
+        </div>
+    </header>
+
+    <form action="{% url 'wagtailsettings:edit' opts.app_label opts.model_name site.pk %}" method="POST" novalidate{% if form.is_multipart %} enctype="multipart/form-data"{% endif %}>
+        {% csrf_token %}
+        {{ edit_handler.render_form_content }}
+
+        <footer>
+            <ul>
+                <li class="actions dropdown dropup match-width">
+                    <button type="submit" class="button button-longrunning" tabindex="3" data-clicked-text="{% trans 'Saving...' %}"><span class="icon icon-spinner"></span><em>{% trans 'Save' %}</em></button>
+                </li>
+            </ul>
+        </footer>
+    </form>
+
+{% endblock %}
+
+{% block extra_css %}
+    {% include "wagtailadmin/pages/_editor_css.html" %}
+    {{ site_switcher.media.css }}
+{% endblock %}
+{% block extra_js %}
+    {% include "wagtailadmin/pages/_editor_js.html" %}
+    {{ site_switcher.media.js }}
+{% endblock %}

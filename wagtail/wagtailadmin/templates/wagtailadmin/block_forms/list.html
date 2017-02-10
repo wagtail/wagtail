@@ -1,0 +1,14 @@
+{% extends "wagtailadmin/block_forms/sequence.html" %}
+{% load i18n %}
+
+{% block sequence_type_class %}list{% endblock %}
+
+{% block header %}
+    {% if help_text %}
+        <div class="object-help help">{{ help_text }}</div>
+    {% endif %}
+{% endblock %}
+
+{% block footer %}
+    <button type="button" id="{{ prefix }}-add" class="button bicolor icon icon-plus">{% trans "Add another" %}</button>
+{% endblock %}

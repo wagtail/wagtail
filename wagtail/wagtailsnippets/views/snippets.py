@@ -1,57 +1,39 @@
-from django.http import Http404
-from django.shortcuts import get_object_or_404, render, redirect
-from django.utils.encoding import force_text
-from django.utils.text import capfirst
-from django.contrib.contenttypes.models import ContentType
-from django.contrib import messages
-from django.contrib.auth.decorators import permission_required
-from django.core.exceptions import PermissionDenied
-from django.utils.translation import ugettext as _
+from __future__ import absolute_import, unicode_literals
+
+from django.apps import apps
 from django.core.urlresolvers import reverse
-from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from django.http import Http404
+from django.shortcuts import get_object_or_404, redirect, render
+from django.utils.text import capfirst
+from django.utils.translation import ugettext as _
 
-from wagtail.wagtailadmin.edit_handlers import ObjectList, extract_panel_definitions_from_model_class
-
-from wagtail.wagtailsnippets.models import get_snippet_content_types
-from wagtail.wagtailsnippets.permissions import user_can_edit_snippet_type
+from wagtail.utils.pagination import paginate
+from wagtail.wagtailadmin import messages
+from wagtail.wagtailadmin.edit_handlers import (
+    ObjectList, extract_panel_definitions_from_model_class)
+from wagtail.wagtailadmin.forms import SearchForm
+from wagtail.wagtailadmin.utils import permission_denied
+from wagtail.wagtailsearch.backends import get_search_backend
+from wagtail.wagtailsearch.index import class_is_indexed
+from wagtail.wagtailsnippets.models import get_snippet_models
+from wagtail.wagtailsnippets.permissions import get_permission_name, user_can_edit_snippet_type
 
 
 # == Helper functions ==
-
-
-def get_snippet_type_name(content_type):
-    """ e.g. given the 'advert' content type, return ('Advert', 'Adverts') """
-    # why oh why is this so convoluted?
-    opts = content_type.model_class()._meta
-    return (
-        force_text(opts.verbose_name),
-        force_text(opts.verbose_name_plural)
-    )
-
-
-def get_snippet_type_description(content_type):
-    """ return the meta description of the class associated with the given content type """
-    opts = content_type.model_class()._meta
-    try:
-        return force_text(opts.description)
-    except:
-        return ''
-
-
-def get_content_type_from_url_params(app_name, model_name):
+def get_snippet_model_from_url_params(app_name, model_name):
     """
-    retrieve a content type from an app_name / model_name combo.
-    Throw Http404 if not a valid snippet type
+    Retrieve a model from an app_label / model_name combo.
+    Raise Http404 if the model is not a valid snippet type.
     """
     try:
-        content_type = ContentType.objects.get_by_natural_key(app_name, model_name)
-    except ContentType.DoesNotExist:
+        model = apps.get_model(app_name, model_name)
+    except LookupError:
         raise Http404
-    if content_type not in get_snippet_content_types():
+    if model not in get_snippet_models():
         # don't allow people to hack the URL to edit content types that aren't registered as snippets
         raise Http404
 
-    return content_type
+    return model
 
 
 SNIPPET_EDIT_HANDLERS = {}
@@ -59,10 +41,14 @@ SNIPPET_EDIT_HANDLERS = {}
 
 def get_snippet_edit_handler(model):
     if model not in SNIPPET_EDIT_HANDLERS:
-        panels = extract_panel_definitions_from_model_class(model)
-        edit_handler = ObjectList(panels)
+        if hasattr(model, 'edit_handler'):
+            # use the edit handler specified on the page class
+            edit_handler = model.edit_handler
+        else:
+            panels = extract_panel_definitions_from_model_class(model)
+            edit_handler = ObjectList(panels)
 
-        SNIPPET_EDIT_HANDLERS[model] = edit_handler
+        SNIPPET_EDIT_HANDLERS[model] = edit_handler.bind_to_model(model)
 
     return SNIPPET_EDIT_HANDLERS[model]
 
@@ -70,55 +56,79 @@ def get_snippet_edit_handler(model):
 # == Views ==
 
 
-@permission_required('wagtailadmin.access_admin')
 def index(request):
-    snippet_types = [
-        (
-            get_snippet_type_name(content_type)[1],
-            get_snippet_type_description(content_type),
-            content_type
-        )
-        for content_type in get_snippet_content_types()
-        if user_can_edit_snippet_type(request.user, content_type)
-    ]
+    snippet_model_opts = [
+        model._meta for model in get_snippet_models()
+        if user_can_edit_snippet_type(request.user, model)]
     return render(request, 'wagtailsnippets/snippets/index.html', {
-        'snippet_types': snippet_types,
-    })
+        'snippet_model_opts': sorted(
+            snippet_model_opts, key=lambda x: x.verbose_name.lower())})
 
 
-@permission_required('wagtailadmin.access_admin')  # further permissions are enforced within the view
-def list(request, content_type_app_name, content_type_model_name):
-    content_type = get_content_type_from_url_params(content_type_app_name, content_type_model_name)
-    if not user_can_edit_snippet_type(request.user, content_type):
-        raise PermissionDenied
+def list(request, app_label, model_name):
+    model = get_snippet_model_from_url_params(app_label, model_name)
 
-    model = content_type.model_class()
-    snippet_type_name, snippet_type_name_plural = get_snippet_type_name(content_type)
+    permissions = [
+        get_permission_name(action, model)
+        for action in ['add', 'change', 'delete']
+    ]
+    if not any([request.user.has_perm(perm) for perm in permissions]):
+        return permission_denied(request)
 
     items = model.objects.all()
 
-    return render(request, 'wagtailsnippets/snippets/type_index.html', {
-        'content_type': content_type,
-        'snippet_type_name': snippet_type_name,
-        'snippet_type_name_plural': snippet_type_name_plural,
-        'items': items,
+    # Search
+    is_searchable = class_is_indexed(model)
+    is_searching = False
+    search_query = None
+    if is_searchable and 'q' in request.GET:
+        search_form = SearchForm(request.GET, placeholder=_("Search %(snippet_type_name)s") % {
+            'snippet_type_name': model._meta.verbose_name_plural
+        })
+
+        if search_form.is_valid():
+            search_query = search_form.cleaned_data['q']
+
+            search_backend = get_search_backend()
+            items = search_backend.search(search_query, items)
+            is_searching = True
+
+    else:
+        search_form = SearchForm(placeholder=_("Search %(snippet_type_name)s") % {
+            'snippet_type_name': model._meta.verbose_name_plural
+        })
+
+    paginator, paginated_items = paginate(request, items)
+
+    # Template
+    if request.is_ajax():
+        template = 'wagtailsnippets/snippets/results.html'
+    else:
+        template = 'wagtailsnippets/snippets/type_index.html'
+
+    return render(request, template, {
+        'model_opts': model._meta,
+        'items': paginated_items,
+        'can_add_snippet': request.user.has_perm(get_permission_name('add', model)),
+        'is_searchable': is_searchable,
+        'search_form': search_form,
+        'is_searching': is_searching,
+        'query_string': search_query,
     })
 
 
-@permission_required('wagtailadmin.access_admin')  # further permissions are enforced within the view
-def create(request, content_type_app_name, content_type_model_name):
-    content_type = get_content_type_from_url_params(content_type_app_name, content_type_model_name)
-    if not user_can_edit_snippet_type(request.user, content_type):
-        raise PermissionDenied
+def create(request, app_label, model_name):
+    model = get_snippet_model_from_url_params(app_label, model_name)
 
-    model = content_type.model_class()
-    snippet_type_name = get_snippet_type_name(content_type)[0]
+    permission = get_permission_name('add', model)
+    if not request.user.has_perm(permission):
+        return permission_denied(request)
 
     instance = model()
     edit_handler_class = get_snippet_edit_handler(model)
     form_class = edit_handler_class.get_form_class(model)
 
-    if request.POST:
+    if request.method == 'POST':
         form = form_class(request.POST, request.FILES, instance=instance)
 
         if form.is_valid():
@@ -127,11 +137,16 @@ def create(request, content_type_app_name, content_type_model_name):
             messages.success(
                 request,
                 _("{snippet_type} '{instance}' created.").format(
-                    snippet_type=capfirst(get_snippet_type_name(content_type)[0]),
+                    snippet_type=capfirst(model._meta.verbose_name),
                     instance=instance
-                )
+                ),
+                buttons=[
+                    messages.button(reverse(
+                        'wagtailsnippets:edit', args=(app_label, model_name, instance.id)
+                    ), _('Edit'))
+                ]
             )
-            return redirect('wagtailsnippets_list', content_type.app_label, content_type.model)
+            return redirect('wagtailsnippets:list', app_label, model_name)
         else:
             messages.error(request, _("The snippet could not be created due to errors."))
             edit_handler = edit_handler_class(instance=instance, form=form)
@@ -140,26 +155,24 @@ def create(request, content_type_app_name, content_type_model_name):
         edit_handler = edit_handler_class(instance=instance, form=form)
 
     return render(request, 'wagtailsnippets/snippets/create.html', {
-        'content_type': content_type,
-        'snippet_type_name': snippet_type_name,
+        'model_opts': model._meta,
         'edit_handler': edit_handler,
+        'form': form,
     })
 
 
-@permission_required('wagtailadmin.access_admin')  # further permissions are enforced within the view
-def edit(request, content_type_app_name, content_type_model_name, id):
-    content_type = get_content_type_from_url_params(content_type_app_name, content_type_model_name)
-    if not user_can_edit_snippet_type(request.user, content_type):
-        raise PermissionDenied
+def edit(request, app_label, model_name, id):
+    model = get_snippet_model_from_url_params(app_label, model_name)
 
-    model = content_type.model_class()
-    snippet_type_name = get_snippet_type_name(content_type)[0]
+    permission = get_permission_name('change', model)
+    if not request.user.has_perm(permission):
+        return permission_denied(request)
 
     instance = get_object_or_404(model, id=id)
     edit_handler_class = get_snippet_edit_handler(model)
     form_class = edit_handler_class.get_form_class(model)
 
-    if request.POST:
+    if request.method == 'POST':
         form = form_class(request.POST, request.FILES, instance=instance)
 
         if form.is_valid():
@@ -168,11 +181,16 @@ def edit(request, content_type_app_name, content_type_model_name, id):
             messages.success(
                 request,
                 _("{snippet_type} '{instance}' updated.").format(
-                    snippet_type=capfirst(snippet_type_name),
+                    snippet_type=capfirst(model._meta.verbose_name_plural),
                     instance=instance
-                )
+                ),
+                buttons=[
+                    messages.button(reverse(
+                        'wagtailsnippets:edit', args=(app_label, model_name, instance.id)
+                    ), _('Edit'))
+                ]
             )
-            return redirect('wagtailsnippets_list', content_type.app_label, content_type.model)
+            return redirect('wagtailsnippets:list', app_label, model_name)
         else:
             messages.error(request, _("The snippet could not be saved due to errors."))
             edit_handler = edit_handler_class(instance=instance, form=form)
@@ -181,58 +199,44 @@ def edit(request, content_type_app_name, content_type_model_name, id):
         edit_handler = edit_handler_class(instance=instance, form=form)
 
     return render(request, 'wagtailsnippets/snippets/edit.html', {
-        'content_type': content_type,
-        'snippet_type_name': snippet_type_name,
+        'model_opts': model._meta,
         'instance': instance,
-        'edit_handler': edit_handler
+        'edit_handler': edit_handler,
+        'form': form,
     })
 
 
-@permission_required('wagtailadmin.access_admin')  # further permissions are enforced within the view
-def delete(request, content_type_app_name, content_type_model_name, id):
-    content_type = get_content_type_from_url_params(content_type_app_name, content_type_model_name)
-    if not user_can_edit_snippet_type(request.user, content_type):
-        raise PermissionDenied
+def delete(request, app_label, model_name, id):
+    model = get_snippet_model_from_url_params(app_label, model_name)
 
-    model = content_type.model_class()
-    snippet_type_name = get_snippet_type_name(content_type)[0]
+    permission = get_permission_name('delete', model)
+    if not request.user.has_perm(permission):
+        return permission_denied(request)
 
     instance = get_object_or_404(model, id=id)
 
-    if request.POST:
+    if request.method == 'POST':
         instance.delete()
         messages.success(
             request,
             _("{snippet_type} '{instance}' deleted.").format(
-                snippet_type=capfirst(snippet_type_name),
+                snippet_type=capfirst(model._meta.verbose_name_plural),
                 instance=instance
             )
         )
-        return redirect('wagtailsnippets_list', content_type.app_label, content_type.model)
+        return redirect('wagtailsnippets:list', app_label, model_name)
 
     return render(request, 'wagtailsnippets/snippets/confirm_delete.html', {
-        'content_type': content_type,
-        'snippet_type_name': snippet_type_name,
+        'model_opts': model._meta,
         'instance': instance,
     })
 
 
-@permission_required('wagtailadmin.access_admin')
-def usage(request, content_type_app_name, content_type_model_name, id):
-    content_type = get_content_type_from_url_params(content_type_app_name, content_type_model_name)
-    model = content_type.model_class()
+def usage(request, app_label, model_name, id):
+    model = get_snippet_model_from_url_params(app_label, model_name)
     instance = get_object_or_404(model, id=id)
 
-    # Pagination
-    p = request.GET.get('p', 1)
-    paginator = Paginator(instance.get_usage(), 20)
-
-    try:
-        used_by = paginator.page(p)
-    except PageNotAnInteger:
-        used_by = paginator.page(1)
-    except EmptyPage:
-        used_by = paginator.page(paginator.num_pages)
+    paginator, used_by = paginate(request, instance.get_usage())
 
     return render(request, "wagtailsnippets/snippets/usage.html", {
         'instance': instance,

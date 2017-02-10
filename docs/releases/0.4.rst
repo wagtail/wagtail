@@ -88,7 +88,7 @@ Admin
  * Removed the "More" section from the menu
  * Added pagination to page listings
  * Added a new datetime picker widget
- * Updated hallo.js to version 1.0.4
+ * Updated ``hallo.js`` to version 1.0.4
  * Aesthetic improvements to preview experience
  * Login screen redirects to dashboard if user is already logged in
  * Snippets are now ordered alphabetically
@@ -103,15 +103,15 @@ Search
  * Major refactor of Elasticsearch backend
  * Use ``match`` instead of ``query_string`` queries
  * Fields are now indexed in Elasticsearch with their correct type
- * Filter fields are no longer included in '_all'
- * Fields with partial matching are now indexed together into '_partials'
+ * Filter fields are no longer included in ``_all``
+ * Fields with partial matching are now indexed together into ``_partials``
 
 
 Images
 ------
 
  * Added ``original`` as a resizing rule supported by the ``{% image %}`` tag
- * ``image`` tag now accepts extra keyword arguments to be output as attributes on the img tag
+ * ``image`` tag now accepts extra keyword arguments to be output as attributes on the ``img`` tag
  * Added an ``attrs`` property to image rendition objects to output ``src``, ``width``, ``height`` and ``alt`` attributes all in one go
 
 
@@ -180,7 +180,7 @@ The old names will continue to work, but output a ``DeprecationWarning`` - you a
 New search field configuration format
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-``indexed_fields`` is now deprecated and has been replaced by a new search field configuration format called ``search_fields``. See :ref:`wagtailsearch_for_python_developers` for how to define a ``search_fields`` property on your models.
+``indexed_fields`` is now deprecated and has been replaced by a new search field configuration format called ``search_fields``. See :ref:`wagtailsearch_indexing` for how to define a ``search_fields`` property on your models.
 
 
 ``Page.route`` method should now return a ``RouteResult``

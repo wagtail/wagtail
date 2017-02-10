@@ -1,0 +1,53 @@
+{% extends "wagtailadmin/base.html" %}
+{% load i18n %}
+
+{% block titletag %}{{ view.get_meta_title }}{% endblock %}
+
+{% block extra_css %}
+    {{ view.media.css }}
+{% endblock %}
+
+{% block extra_js %}
+    {{ view.media.js }}
+{% endblock %}
+
+{% block content %}
+    <div>
+
+        {% block header %}
+            {% include "modeladmin/includes/breadcrumb.html" %}
+            {% include "wagtailadmin/shared/header.html" with title=view.get_page_title subtitle=view.get_page_subtitle icon=view.header_icon %}
+        {% endblock %}
+
+        {% block content_main %}
+            <div class="nice-padding">
+
+                <p class="back"><a href="{{ view.index_url }}" class="icon icon-arrow-left">{% blocktrans with view.verbose_name as model_name %}Back to {{ model_name }} list{% endblocktrans %}</a></p>
+
+                {% block fields_output %}
+                    {% if fields %}
+                        <dl>
+                        {% for field in fields %}
+                            <dt class="{{ field.type|lower }}">{{ field.label }}</dt>
+                            <dd>{{ field.value }}</dd>
+                        {% endfor %}
+                        </dl>
+                    {% endif %}
+                {% endblock %}
+            </div>
+        {% endblock %}
+
+    </div>
+
+    {% block footer %}
+        {% if buttons %}
+            <footer>
+                <div class="button-group">
+                    {% for button in buttons %}
+                        {% include "modeladmin/includes/button.html" %}
+                    {% endfor %}
+                </div>
+            </footer>
+        {% endif %}
+    {% endblock %}
+{% endblock %}

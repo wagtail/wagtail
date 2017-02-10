@@ -1,17 +1,31 @@
+from __future__ import absolute_import, unicode_literals
+
 from django.db import models
+from django.utils.six.moves.urllib.parse import urlparse
 from django.utils.translation import ugettext_lazy as _
-
-from wagtail.wagtailadmin.edit_handlers import FieldPanel, MultiFieldPanel, PageChooserPanel
-
-from six.moves.urllib.parse import urlparse
 
 
 class Redirect(models.Model):
-    old_path = models.CharField(verbose_name=_("Redirect from"), max_length=255, unique=True, db_index=True)
-    site = models.ForeignKey('wagtailcore.Site', null=True, blank=True, related_name='redirects', db_index=True, editable=False)
-    is_permanent = models.BooleanField(verbose_name=_("Permanent"), default=True, help_text=_("Recommended. Permanent redirects ensure search engines forget the old page (the 'Redirect from') and index the new page instead.") )
-    redirect_page = models.ForeignKey('wagtailcore.Page', verbose_name=_("Redirect to a page"), null=True, blank=True)
-    redirect_link = models.URLField(verbose_name=_("Redirect to any URL"), blank=True)
+    old_path = models.CharField(verbose_name=_("redirect from"), max_length=255, db_index=True)
+    site = models.ForeignKey(
+        'wagtailcore.Site',
+        verbose_name=_('site'),
+        null=True, blank=True,
+        related_name='redirects',
+        db_index=True,
+        on_delete=models.CASCADE
+    )
+    is_permanent = models.BooleanField(verbose_name=_("permanent"), default=True, help_text=_(
+        "Recommended. Permanent redirects ensure search engines "
+        "forget the old page (the 'Redirect from') and index the new page instead."
+    ))
+    redirect_page = models.ForeignKey(
+        'wagtailcore.Page',
+        verbose_name=_("redirect to a page"),
+        null=True, blank=True,
+        on_delete=models.CASCADE
+    )
+    redirect_link = models.URLField(verbose_name=_("redirect to any URL"), blank=True)
 
     @property
     def title(self):
@@ -26,9 +40,9 @@ class Redirect(models.Model):
 
     def get_is_permanent_display(self):
         if self.is_permanent:
-            return "permanent"
+            return _("permanent")
         else:
-            return "temporary"
+            return _("temporary")
 
     @classmethod
     def get_for_site(cls, site=None):
@@ -39,6 +53,9 @@ class Redirect(models.Model):
 
     @staticmethod
     def normalise_path(url):
+        # Strip whitespace
+        url = url.strip()
+
         # Parse url
         url_parsed = urlparse(url)
 
@@ -47,13 +64,21 @@ class Redirect(models.Model):
         if not path.startswith('/'):
             path = '/' + path
 
-        if path.endswith('/'):
+        if path.endswith('/') and len(path) > 1:
             path = path[:-1]
+
+        # Parameters must be sorted alphabetically
+        parameters = url_parsed[3]
+        parameters_components = parameters.split(';')
+        parameters = ';'.join(sorted(parameters_components))
 
         # Query string components must be sorted alphabetically
         query_string = url_parsed[4]
         query_string_components = query_string.split('&')
         query_string = '&'.join(sorted(query_string_components))
+
+        if parameters:
+            path = path + ';' + parameters
 
         # Add query string to path
         if query_string:
@@ -65,11 +90,6 @@ class Redirect(models.Model):
         # Normalise old path
         self.old_path = Redirect.normalise_path(self.old_path)
 
-Redirect.content_panels = [
-    MultiFieldPanel([
-        FieldPanel('old_path'),
-        FieldPanel('is_permanent'),
-        PageChooserPanel('redirect_page'),
-        FieldPanel('redirect_link'),
-    ])
-]
+    class Meta:
+        verbose_name = _('redirect')
+        unique_together = [('old_path', 'site')]

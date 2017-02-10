@@ -1,25 +1,10 @@
-{% load i18n %}
+{% load i18n wagtailadmin_tags %}
 <div class="nice-padding">
     {% if pages %}
-        {% include "wagtailadmin/pages/list.html" with show_parent=1 allow_navigation=0 %}
+        {% include "wagtailadmin/pages/listing/_list_explore.html" with show_parent=1 allow_navigation=0 %}
 
-        <div class="pagination">
-            <p>{% blocktrans with page_number=pages.number num_pages=pages.paginator.num_pages%}
-                Page {{ page_number }} of {{ num_pages }}.
-            {% endblocktrans %}</p>
-            <ul>
-                <li class="prev">
-                    {% if pages.has_previous %}
-                        <a href="{% url 'wagtailadmin_pages_type_use' app_name content_type.model %}?p={{ pages.previous_page_number }}" class="icon icon-arrow-left">{% trans "Previous" %}</a>
-                    {% endif %}
-                </li>
-                <li class="next">
-                    {% if pages.has_next %}
-                        <a href="{% url 'wagtailadmin_pages_type_use' app_name content_type.model %}?p={{ pages.next_page_number }}" class="icon icon-arrow-right-after">{% trans 'Next' %}</a>
-                    {% endif %}
-                </li>
-            </ul>
-        </div>
+        {% url 'wagtailadmin_pages:type_use' app_name content_type.model as pagination_base_url %}
+        {% paginate pages base_url=pagination_base_url %}
     {% else %}
         <p>{% trans 'No pages use' %}<em>"{{ page_class.get_verbose_name }}"</em>.</p>
     {% endif %}

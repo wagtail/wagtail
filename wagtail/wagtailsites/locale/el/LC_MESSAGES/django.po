@@ -1,0 +1,62 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# Wasilis Mandratzis-Walz, 2015
+# Yiannis Inglessis <negletios@users.noreply.github.com>, 2016
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2016-12-06 22:44+0000\n"
+"PO-Revision-Date: 2016-09-20 12:43+0000\n"
+"Last-Translator: Yiannis Inglessis <negletios@users.noreply.github.com>\n"
+"Language-Team: Greek (http://www.transifex.com/torchbox/wagtail/language/"
+"el/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: el\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Choose a root page"
+msgstr "Επιλέξτε μια κεντρική σελίδα"
+
+msgid "Choose a different root page"
+msgstr "Επιλέξτε μια διαφορετική κεντρική σελίδα"
+
+msgid "Site"
+msgstr "Σελιδα"
+
+msgid "Port"
+msgstr "Θυρα"
+
+msgid "Site name"
+msgstr "Όνομα δικτυακού τόπου"
+
+msgid "Root page"
+msgstr "Κεντρική σελίδα"
+
+msgid "Default?"
+msgstr "Προεπιλογή;"
+
+msgid "Default"
+msgstr "Προεπιλογή"
+
+msgid "Sites"
+msgstr "Σελιδες"
+
+msgid "Add a site"
+msgstr "Προσθήκη δικτυακού τόπου"
+
+msgid "Add site"
+msgstr "Προσθήκη δικτυακού τόπου"
+
+#, python-brace-format
+msgid "Site '{0}' created."
+msgstr "Δημιουργήθηκε ο δικτυακός τόπος '{0}'."
+
+#, python-brace-format
+msgid "Site '{0}' updated."
+msgstr "Ενημέρωση του δικτυακού τόπου '{0}'."

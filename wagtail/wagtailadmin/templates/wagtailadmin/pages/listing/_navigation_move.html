@@ -1,0 +1,11 @@
+{% load i18n %}
+
+{% comment %}
+Navigation controls for the page listing in 'move' mode
+{% endcomment %}
+
+<td class="{% if page.can_descend %}children{% endif %}">
+    {% if page.can_descend %}
+        <a href="{% url 'wagtailadmin_pages:move_choose_destination' page_to_move.id page.id %}" class="icon text-replace icon-arrow-right navigate-pages" title="{% blocktrans with title=page.get_admin_display_title %}Explore subpages of '{{ title }}'{% endblocktrans %}">{% trans 'Explore' %}</a>
+    {% endif %}
+</td>
