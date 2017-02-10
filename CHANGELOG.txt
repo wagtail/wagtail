@@ -4,6 +4,7 @@ Changelog
 1.10 (xx.xx.xxxx) - IN DEVELOPMENT
 ~~~~~~~~~~~~~~~~~
 
+ * Use minified versions of jQuery and jQuery UI in the admin. Total savings without compression 371 KB (Tom Dyson)
 
 1.9 (xx.xx.xxxx) - IN DEVELOPMENT
 ~~~~~~~~~~~~~~~~
