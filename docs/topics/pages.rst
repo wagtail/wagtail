@@ -197,7 +197,9 @@ Setting ``parent_page_types`` to an empty list is a good way of preventing a par
 Page URLs
 ---------
 
-Page models include several utility methods for overriding or accessing page URLs.
+The most common method of retrieving page URLs is by using the ``{% pageurl %}`` template tag. Since it's called from a template, ``pageurl`` automatically includes the optimizations mentioned below. For more information, see :ref:`pageurl_tag`.
+
+Page models also include several low-level methods for overriding or accessing page URLs.
 
 Customising URL patterns for a page model
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -224,7 +226,7 @@ For more information, please see :meth:`wagtail.wagtailcore.models.Page.get_url_
 Obtaining URLs for page instances
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-The ``Page.get_url(request)`` method can be called whenever a page URL is needed. It defaults to returning local URLs (not including the protocol or domain) if it can detect that the page is on current site (via ``request.site``); otherwise, a full URL including the protocal and domain is returned. Whenever possible, the optional ``request`` argument should be included to enable per-request caching of site-level URL information and facilitate the generation of local URLs.
+The ``Page.get_url(request)`` method can be called whenever a page URL is needed. It defaults to returning local URLs (not including the protocol or domain) if it can detect that the page is on current site (via ``request.site``); otherwise, a full URL including the protocol and domain is returned. Whenever possible, the optional ``request`` argument should be included to enable per-request caching of site-level URL information and facilitate the generation of local URLs.
 
 A common use case for ``get_url(request)`` is in any custom template tag your project may include for generating navigation menus. When writing a such a
 custom template tag, ensure it includes ``takes_context=True`` and use ``context.get('request')`` to safely pass the
@@ -232,7 +234,7 @@ request or ``None`` if no request exists in the context.
 
 For more information, please see :meth:`wagtail.wagtailcore.models.Page.get_url`.
 
-In the event a full URL (including the protocol and domain is needed), ``Page.get_full_url(request)`` can be used instead. Whenever possible, the optional ``request`` argument should be included to enable per-request caching of site-level URL information. For more information, please see :meth:`wagtail.wagtailcore.models.Page.get_full_url`.
+In the event a full URL (including the protocol and domain) is needed, ``Page.get_full_url(request)`` can be used instead. Whenever possible, the optional ``request`` argument should be included to enable per-request caching of site-level URL information. For more information, please see :meth:`wagtail.wagtailcore.models.Page.get_full_url`.
 
 Template rendering
 ==================
