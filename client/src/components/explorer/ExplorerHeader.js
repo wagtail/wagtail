@@ -8,14 +8,6 @@ import Icon from '../../components/Icon/Icon';
 const ExplorerHeader = ({ page, depth, onPop, transName }) => {
   const title = depth < 2 || !page ? STRINGS.PAGES : page.title;
 
-  const transitionProps = {
-    component: 'span',
-    transitionEnterTimeout: EXPLORER_ANIM_DURATION,
-    transitionLeaveTimeout: EXPLORER_ANIM_DURATION,
-    transitionName: `explorer-${transName}`,
-    className: 'c-explorer__rel',
-  };
-
   return (
     <div className="c-explorer__header">
       <button
@@ -25,7 +17,13 @@ const ExplorerHeader = ({ page, depth, onPop, transName }) => {
         tabIndex={depth === 1 ? -1 : 0}
       >
         <span className="u-overflow c-explorer__overflow">
-          <CSSTransitionGroup {...transitionProps}>
+          <CSSTransitionGroup
+            component="span"
+            transitionEnterTimeout={EXPLORER_ANIM_DURATION}
+            transitionLeaveTimeout={EXPLORER_ANIM_DURATION}
+            transitionName={`explorer-${transName}`}
+            className="c-explorer__rel"
+          >
             <span className="c-explorer__parent-name" key={depth}>
               {depth > 1 ? (
                 <span className="c-explorer__back">

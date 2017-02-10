@@ -8,8 +8,7 @@ describe('PublicationStatus', () => {
     expect(PublicationStatus).toBeDefined();
   });
 
-  // TODO Skipped because causing a test error. Apparently this is fixed when using React 15.
-  it.skip('basic', () => {
+  it('basic', () => {
     expect(shallow(<PublicationStatus />)).toMatchSnapshot();
   });
 

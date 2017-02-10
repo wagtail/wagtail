@@ -11,3 +11,5 @@ exports[`PublicationStatus #status not live 1`] = `
   live + draft
 </span>
 `;
+
+exports[`PublicationStatus basic 1`] = `null`;

@@ -4,9 +4,9 @@ import { Provider } from 'react-redux';
 import { createStore, applyMiddleware, compose } from 'redux';
 import thunkMiddleware from 'redux-thunk';
 
-import Explorer from 'components/explorer/Explorer';
-import ExplorerToggle from 'components/explorer/ExplorerToggle';
-import rootReducer from 'components/explorer/reducers';
+import Explorer from '../../../../../client/src/components/explorer/Explorer';
+import ExplorerToggle from '../../../../../client/src/components/explorer/ExplorerToggle';
+import rootReducer from '../../../../../client/src/components/explorer/reducers';
 
 const initExplorer = () => {
   const explorerNode = document.querySelector('#explorer');

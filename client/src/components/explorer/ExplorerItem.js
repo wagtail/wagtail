@@ -11,32 +11,27 @@ const ExplorerItem = ({ title, typeName, data, onItemClick }) => {
   const status = meta ? meta.status : null;
   const time = meta ? meta.latest_revision_created_at : null;
 
-  // If we only want pages with children, get this info by
-  // looking at the descendants count vs children count.
-  // // TODO refactor.
-  let count = 0;
-  if (meta) {
-    count = meta.children.count;
-  }
-  const hasChildren = count > 0;
+  // TODO Use meta.children.count once we drop the has_children filter.
+  // const hasChildren = meta ? meta.children.count > 0 : false;
+  const hasChildren = meta ? meta.descendants.count - meta.children.count > 0 : false;
 
   return (
     <div className="c-explorer__item">
-      {hasChildren ? (
-        <button
-          type="button"
-          className="c-explorer__item__children"
-          onClick={onItemClick.bind(null, id)}
-        >
-          <Icon name="arrow-right" title={STRINGS.SEE_CHILDREN} />
-        </button>
-      ) : null}
       <Button href={`${ADMIN_URLS.PAGES}${id}`} className="c-explorer__item__link">
         <h3 className="c-explorer__title">{title}</h3>
         <p className="c-explorer__meta">
           <span className="c-explorer__meta__type">{typeName}</span> | <AbsoluteDate time={time} /> | <PublicationStatus status={status} />
         </p>
       </Button>
+      {hasChildren ? (
+        <Button
+          href={`${ADMIN_URLS.PAGES}${id}`}
+          className="c-explorer__item__children"
+          onClick={onItemClick.bind(null, id)}
+        >
+          <Icon name="arrow-right" title={STRINGS.SEE_CHILDREN} />
+        </Button>
+      ) : null}
     </div>
   );
 };
