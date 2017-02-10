@@ -31,9 +31,6 @@ class ImageRenditionField(Field):
         self.filter_spec = filter_spec
         super(ImageRenditionField, self).__init__(*args, **kwargs)
 
-    def get_attribute(self, instance):
-        return instance
-
     def to_representation(self, image):
         try:
             thumbnail = image.get_rendition(self.filter_spec)
@@ -50,4 +47,4 @@ class ImageRenditionField(Field):
 
 
 class AdminImageSerializer(ImageSerializer):
-    thumbnail = ImageRenditionField('max-165x165', read_only=True)
+    thumbnail = ImageRenditionField('max-165x165', source='*', read_only=True)
