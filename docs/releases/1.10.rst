@@ -16,6 +16,7 @@ Other features
 
  * Use minified versions of jQuery and jQuery UI in the admin. Total savings without compression 371 KB (Tom Dyson)
  * Hooks can now specify the order in which they are run (Gagaro)
+ * Signal receivers for custom ``Image`` and ``Rendition`` models are connected automatically (Mike Dingjan)
 
 Bug fixes
 ~~~~~~~~~
@@ -23,3 +24,24 @@ Bug fixes
 
 Upgrade considerations
 ======================
+
+
+Signals custom ``Image`` and ``Rendition`` models connected automatically
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+If your are using a custom ``Image`` and ``Rendtion`` model, you need to remove the signal receivers, since they're connected automatically now.
+
+Remove the following code
+
+.. code-block:: python
+
+    # Delete the source image file when an image is deleted
+    @receiver(post_delete, sender=CustomImage)
+    def image_delete(sender, instance, **kwargs):
+        instance.file.delete(False)
+
+
+    # Delete the rendition image file when a rendition is deleted
+    @receiver(post_delete, sender=CustomRendition)
+    def rendition_delete(sender, instance, **kwargs):
+        instance.file.delete(False)

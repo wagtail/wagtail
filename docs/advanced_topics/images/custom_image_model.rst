@@ -49,16 +49,9 @@ Here's an example:
             )
 
 
-    # Delete the source image file when an image is deleted
-    @receiver(post_delete, sender=CustomImage)
-    def image_delete(sender, instance, **kwargs):
-        instance.file.delete(False)
+.. versionchanged:: 1.10
 
-
-    # Delete the rendition image file when a rendition is deleted
-    @receiver(post_delete, sender=CustomRendition)
-    def rendition_delete(sender, instance, **kwargs):
-        instance.file.delete(False)
+    As of Wagtail 1.10 it's no longer necessary to connect your own receivers when implementing your own ``Image`` and ``Rendition`` models.
 
 .. note::
 
