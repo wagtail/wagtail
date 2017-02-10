@@ -313,6 +313,32 @@ class BaseSerializer(serializers.ModelSerializer):
         field_kwargs['serializer_class'] = self.child_serializer_classes[field_name]
         return field_class, field_kwargs
 
+    class Meta:
+        fields = [
+            'id',
+            'type',
+            'detail_url',
+        ]
+
+        meta_fields = [
+            'type',
+            'detail_url',
+        ]
+
+        listing_default_fields = [
+            'id',
+            'type',
+            'detail_url',
+        ]
+
+        nested_default_fields = [
+            'id',
+            'type',
+            'detail_url',
+        ]
+
+        detail_only_fields = []
+
 
 class PageSerializer(BaseSerializer):
     type = PageTypeField(read_only=True)
@@ -333,6 +359,43 @@ class PageSerializer(BaseSerializer):
                 return ChildRelationField, {'serializer_class': self.child_serializer_classes[field_name]}
 
         return super(PageSerializer, self).build_relational_field(field_name, relation_info)
+
+    class Meta:
+        fields = BaseSerializer.Meta.fields + [
+            'html_url',
+            'slug',
+            'show_in_menus',
+            'seo_title',
+            'search_description',
+            'first_published_at',
+            'parent',
+            'title',
+        ]
+
+        meta_fields = BaseSerializer.Meta.meta_fields + [
+            'html_url',
+            'slug',
+            'show_in_menus',
+            'seo_title',
+            'search_description',
+            'first_published_at',
+            'parent',
+        ]
+
+        listing_default_fields = BaseSerializer.Meta.listing_default_fields + [
+            'title',
+            'html_url',
+            'slug',
+            'first_published_at',
+        ]
+
+        nested_default_fields = BaseSerializer.Meta.nested_default_fields + [
+            'title',
+        ]
+
+        detail_only_fields = BaseSerializer.Meta.detail_only_fields + [
+            'parent',
+        ]
 
 
 def get_serializer_class(model_, fields_, meta_fields, child_serializer_classes=None, base=BaseSerializer):

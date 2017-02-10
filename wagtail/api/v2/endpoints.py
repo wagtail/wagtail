@@ -53,11 +53,6 @@ class BaseAPIEndpoint(GenericViewSet):
         # Required by BrowsableAPIRenderer
         'format',
     ])
-    body_fields = ['id']
-    meta_fields = ['type', 'detail_url']
-    listing_default_fields = ['id', 'type', 'detail_url']
-    nested_default_fields = ['id', 'type', 'detail_url']
-    detail_only_fields = []
     name = None  # Set on subclass.
 
     def __init__(self, *args, **kwargs):
@@ -94,31 +89,39 @@ class BaseAPIEndpoint(GenericViewSet):
             return Response(data, status=status.HTTP_400_BAD_REQUEST)
         return super(BaseAPIEndpoint, self).handle_exception(exc)
 
+    def check_query_parameters(self, queryset):
+        """
+        Ensure that only valid query paramters are included in the URL.
+        """
+        query_parameters = set(self.request.GET.keys())
+
+        # All query paramters must be either a database field or an operation
+        allowed_query_parameters = set(self.get_available_fields(queryset.model, db_fields_only=True)).union(self.known_query_parameters)
+        unknown_parameters = query_parameters - allowed_query_parameters
+        if unknown_parameters:
+            raise BadRequestError("query parameter is not an operation or a recognised field: %s" % ', '.join(sorted(unknown_parameters)))
+
     @classmethod
-    def get_body_fields(cls, model):
-        """
-        This returns a list of field names that are allowed to
-        be used in the API (excluding the id field)
-        """
-        fields = cls.body_fields[:]
+    def generate_base_serializer_class(cls, model, base_serializer_class):
+        model_ = model
+        custom_fields = getattr(model, 'api_fields', [])
 
-        if hasattr(model, 'api_fields'):
-            fields.extend(model.api_fields)
+        class Meta(base_serializer_class.Meta):
+            model = model_
+            fields = base_serializer_class.Meta.fields + list(custom_fields)
 
-        return fields
+        return type(str(model_.__name__ + 'Serializer'), (base_serializer_class, ), {
+            'Meta': Meta,
+        })
 
     @classmethod
-    def get_meta_fields(cls, model):
-        """
-        This returns a list of field names that are allowed to
-        be used in the meta section in the API (excluding type and detail_url).
-        """
-        meta_fields = cls.meta_fields[:]
-
-        if hasattr(model, 'api_meta_fields'):
-            meta_fields.extend(model.api_meta_fields)
-
-        return meta_fields
+    def get_base_serializer_class(cls, model):
+        if cls.base_serializer_class is not None:
+            return cls.generate_base_serializer_class(model, cls.base_serializer_class)
+        elif hasattr(model, 'serializer_class'):
+            return model.serializer_class
+        else:
+            return cls.generate_base_serializer_class(model, cls.default_base_serializer_class)
 
     @classmethod
     def get_available_fields(cls, model, db_fields_only=False):
@@ -130,7 +133,8 @@ class BaseAPIEndpoint(GenericViewSet):
         an underlying column in the database (eg, type/detail_url and any custom
         fields that are callables)
         """
-        fields = cls.get_body_fields(model) + cls.get_meta_fields(model)
+        base_serializer_class = cls.get_base_serializer_class(model)
+        fields = base_serializer_class.Meta.fields[:]
 
         if db_fields_only:
             # Get list of available database fields then remove any fields in our
@@ -147,51 +151,19 @@ class BaseAPIEndpoint(GenericViewSet):
         return fields
 
     @classmethod
-    def get_detail_default_fields(cls, model):
-        return cls.get_available_fields(model)
-
-    @classmethod
-    def get_listing_default_fields(cls, model):
-        return cls.listing_default_fields[:]
-
-    @classmethod
-    def get_nested_default_fields(cls, model):
-        return cls.nested_default_fields[:]
-
-    def check_query_parameters(self, queryset):
-        """
-        Ensure that only valid query paramters are included in the URL.
-        """
-        query_parameters = set(self.request.GET.keys())
-
-        # All query paramters must be either a database field or an operation
-        allowed_query_parameters = set(self.get_available_fields(queryset.model, db_fields_only=True)).union(self.known_query_parameters)
-        unknown_parameters = query_parameters - allowed_query_parameters
-        if unknown_parameters:
-            raise BadRequestError("query parameter is not an operation or a recognised field: %s" % ', '.join(sorted(unknown_parameters)))
-
-    @classmethod
-    def get_base_serializer_class(cls, model):
-        if cls.base_serializer_class is not None:
-            return cls.base_serializer_class
-        elif hasattr(model, 'serializer_class'):
-            return model.serializer_class
-        else:
-            return cls.default_base_serializer_class
-
-    @classmethod
     def _get_serializer_class(cls, router, model, fields_config, show_details=False, nested=False):
+        base_serializer_class = cls.get_base_serializer_class(model)
+
         # Get all available fields
-        body_fields = cls.get_body_fields(model)
-        meta_fields = cls.get_meta_fields(model)
-        all_fields = body_fields + meta_fields
+        all_fields = base_serializer_class.Meta.fields[:]
+        meta_fields = base_serializer_class.Meta.meta_fields[:]
 
         # Remove any duplicates
         all_fields = list(OrderedDict.fromkeys(all_fields))
 
         if not show_details:
             # Remove detail only fields
-            for field in cls.detail_only_fields:
+            for field in base_serializer_class.Meta.detail_only_fields[:]:
                 try:
                     all_fields.remove(field)
                 except KeyError:
@@ -199,11 +171,11 @@ class BaseAPIEndpoint(GenericViewSet):
 
         # Get list of configured fields
         if show_details:
-            fields = set(cls.get_detail_default_fields(model))
+            fields = set(all_fields)
         elif nested:
-            fields = set(cls.get_nested_default_fields(model))
+            fields = set(base_serializer_class.Meta.nested_default_fields[:])
         else:
-            fields = set(cls.get_listing_default_fields(model))
+            fields = set(base_serializer_class.Meta.listing_default_fields[:])
 
         # If first field is '*' start with all fields
         # If first field is '_' start with no fields
@@ -354,28 +326,6 @@ class PagesAPIEndpoint(BaseAPIEndpoint):
         'child_of',
         'descendant_of',
     ])
-    body_fields = BaseAPIEndpoint.body_fields + [
-        'title',
-    ]
-    meta_fields = BaseAPIEndpoint.meta_fields + [
-        'html_url',
-        'slug',
-        'show_in_menus',
-        'seo_title',
-        'search_description',
-        'first_published_at',
-        'parent',
-    ]
-    listing_default_fields = BaseAPIEndpoint.listing_default_fields + [
-        'title',
-        'html_url',
-        'slug',
-        'first_published_at',
-    ]
-    nested_default_fields = BaseAPIEndpoint.nested_default_fields + [
-        'title',
-    ]
-    detail_only_fields = ['parent']
     name = 'pages'
     model = Page
 

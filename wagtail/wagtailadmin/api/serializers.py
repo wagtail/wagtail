@@ -82,3 +82,28 @@ class AdminPageSerializer(PageSerializer):
     status = PageStatusField(read_only=True)
     children = PageChildrenField(read_only=True)
     descendants = PageDescendantsField(read_only=True)
+
+    class Meta(PageSerializer.Meta):
+        fields = PageSerializer.Meta.fields + [
+            'latest_revision_created_at',
+            'status',
+            'children',
+            'descendants',
+        ]
+
+        meta_fields = PageSerializer.Meta.meta_fields + [
+            'latest_revision_created_at',
+            'status',
+            'children',
+            'descendants',
+            'parent',
+        ]
+
+        listing_default_fields = PageSerializer.Meta.listing_default_fields + [
+            'latest_revision_created_at',
+            'status',
+            'children',
+        ]
+
+        # Allow the parent field to appear on listings
+        detail_only_fields = []

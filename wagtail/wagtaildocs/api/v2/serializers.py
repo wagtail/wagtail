@@ -22,3 +22,10 @@ class DocumentDownloadUrlField(Field):
 
 class DocumentSerializer(BaseSerializer):
     download_url = DocumentDownloadUrlField(read_only=True)
+
+    class Meta(BaseSerializer.Meta):
+        fields = BaseSerializer.Meta.fields + ['title', 'tags', 'download_url']
+        meta_fields = BaseSerializer.Meta.meta_fields + ['tags', 'download_url']
+
+        listing_default_fields = BaseSerializer.Meta.listing_default_fields + ['title', 'tags', 'download_url']
+        nested_default_fields = BaseSerializer.Meta.nested_default_fields + ['title', 'download_url']
