@@ -749,14 +749,13 @@ class Page(six.with_metaclass(PageBase, AbstractPage, index.Indexed, Clusterable
         Return ``Site.get_site_root_paths()``, using the cached copy on the
         request object if available.
         """
+        # if we have a request, use that to cache site_root_paths; otherwise, use self
+        cache_object = request if request else self
         try:
-            site_root_paths = request._wagtail_cached_site_root_paths
+            return cache_object._wagtail_cached_site_root_paths
         except AttributeError:
-            # request is None OR the cache hasn't been set yet
-            site_root_paths = Site.get_site_root_paths()
-            if request is not None:
-                request._wagtail_cached_site_root_paths = site_root_paths
-        return site_root_paths
+            cache_object._wagtail_cached_site_root_paths = Site.get_site_root_paths()
+            return cache_object._wagtail_cached_site_root_paths
 
     def _safe_get_url_parts(self, request=None):
         """
