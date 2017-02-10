@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { ADMIN_URLS, STRINGS } from 'config/wagtail';
+import { ADMIN_URLS, STRINGS } from '../../config/wagtail';
 
 const PageCount = ({ id, count, title }) => (
   <a

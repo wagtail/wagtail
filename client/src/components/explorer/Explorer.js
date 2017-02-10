@@ -14,17 +14,20 @@ class Explorer extends React.Component {
   }
 
   componentDidMount() {
-    if (this.props.defaultPage) {
-      this.props.setDefaultPage(this.props.defaultPage);
+    const { defaultPage, setDefaultPage } = this.props;
+
+    if (defaultPage) {
+      setDefaultPage(defaultPage);
     }
   }
 
   init() {
-    if (this.props.page && this.props.page.isLoaded) {
+    const { page, defaultPage, onShow } = this.props;
+    if (page && page.isLoaded) {
       return;
     }
 
-    this.props.onShow(this.props.page ? this.props.page : this.props.defaultPage);
+    onShow(page ? page : defaultPage);
   }
 
   getPage() {
@@ -34,37 +37,33 @@ class Explorer extends React.Component {
   }
 
   render() {
-    const { isVisible, nodes, path, pageTypes, type, fetching, resolved } = this.props;
-    const page = this.getPage();
-
-    const explorerProps = {
-      path,
-      pageTypes,
-      page,
-      type,
-      fetching,
-      nodes,
-      resolved,
-      ref: 'explorer',
-      onPop: this.props.onPop,
-      onClose: this.props.onClose,
-      transport: this.props.transport,
-      getChildren: this.props.getChildren,
-      loadItemWithChildren: this.props.loadItemWithChildren,
-      pushPage: this.props.pushPage,
-      init: this.init,
-    };
-
-    const transProps = {
-      component: 'div',
-      transitionEnterTimeout: EXPLORER_ANIM_DURATION,
-      transitionLeaveTimeout: EXPLORER_ANIM_DURATION,
-      transitionName: 'explorer-toggle'
-    };
+    const { isVisible, nodes, path, pageTypes, type, fetching, resolved, onPop, onClose, transport, getChildren, loadItemWithChildren, pushPage } = this.props;
 
     return (
-      <CSSTransitionGroup {...transProps}>
-        {isVisible ? <ExplorerPanel {...explorerProps} /> : null}
+      <CSSTransitionGroup
+        component="div"
+        transitionEnterTimeout={EXPLORER_ANIM_DURATION}
+        transitionLeaveTimeout={EXPLORER_ANIM_DURATION}
+        transitionName="explorer-toggle"
+      >
+        {isVisible ? (
+          <ExplorerPanel
+            path={path}
+            pageTypes={pageTypes}
+            page={this.getPage()}
+            type={type}
+            fetching={fetching}
+            nodes={nodes}
+            resolved={resolved}
+            onPop={onPop}
+            onClose={onClose}
+            transport={transport}
+            getChildren={getChildren}
+            loadItemWithChildren={loadItemWithChildren}
+            pushPage={pushPage}
+            init={this.init}
+          />
+        ) : null}
       </CSSTransitionGroup>
     );
   }
