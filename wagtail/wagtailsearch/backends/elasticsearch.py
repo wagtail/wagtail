@@ -2,7 +2,6 @@ from __future__ import absolute_import, unicode_literals
 
 import copy
 import json
-import warnings
 
 from django.db import models
 from django.utils.crypto import get_random_string
