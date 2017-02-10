@@ -22,8 +22,6 @@ Here's an example:
 
     # models.py
     from django.db import models
-    from django.db.models.signals import post_delete
-    from django.dispatch import receiver
 
     from wagtail.wagtailimages.models import Image, AbstractImage, AbstractRendition
 
@@ -49,16 +47,9 @@ Here's an example:
             )
 
 
-    # Delete the source image file when an image is deleted
-    @receiver(post_delete, sender=CustomImage)
-    def image_delete(sender, instance, **kwargs):
-        instance.file.delete(False)
+.. versionchanged:: 1.10
 
-
-    # Delete the rendition image file when a rendition is deleted
-    @receiver(post_delete, sender=CustomRendition)
-    def rendition_delete(sender, instance, **kwargs):
-        instance.file.delete(False)
+    In previous versions of Wagtail it was necessary to connect signal handlers to handle deletion of image files. As of Wagtail 1.10 this is now handled automatically.
 
 .. note::
 

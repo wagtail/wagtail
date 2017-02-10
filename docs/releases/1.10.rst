@@ -18,6 +18,8 @@ Other features
  * Hooks can now specify the order in which they are run (Gagaro)
  * Added a ``submit_buttons`` block to login template (Gagaro)
  * The homepage created in the project template is now titled "Home" rather than "Homepage" (Karl Hobley)
+ * Signal receivers for custom ``Image`` and ``Rendition`` models are connected automatically (Mike Dingjan)
+
 
 Bug fixes
 ~~~~~~~~~
@@ -30,3 +32,22 @@ Bug fixes
 
 Upgrade considerations
 ======================
+
+
+Signals on custom ``Image`` and ``Rendition`` models connected automatically
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Projects using :ref:`custom image models <custom_image_model>` no longer need to set up signal receivers to handle deletion of image files, as this is now handled automatically by Wagtail. The following lines of code should be removed:
+
+.. code-block:: python
+
+    # Delete the source image file when an image is deleted
+    @receiver(post_delete, sender=CustomImage)
+    def image_delete(sender, instance, **kwargs):
+        instance.file.delete(False)
+
+
+    # Delete the rendition image file when a rendition is deleted
+    @receiver(post_delete, sender=CustomRendition)
+    def rendition_delete(sender, instance, **kwargs):
+        instance.file.delete(False)
