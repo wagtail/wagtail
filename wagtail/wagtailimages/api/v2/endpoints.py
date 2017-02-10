@@ -8,7 +8,7 @@ from .serializers import ImageSerializer
 
 
 class ImagesAPIEndpoint(BaseAPIEndpoint):
-    base_serializer_class = ImageSerializer
+    default_base_serializer_class = ImageSerializer
     filter_backends = [FieldsFilter, OrderingFilter, SearchFilter]
     body_fields = BaseAPIEndpoint.body_fields + ['title', 'width', 'height']
     meta_fields = BaseAPIEndpoint.meta_fields + ['tags']

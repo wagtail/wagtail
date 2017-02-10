@@ -8,7 +8,7 @@ from .serializers import DocumentSerializer
 
 
 class DocumentsAPIEndpoint(BaseAPIEndpoint):
-    base_serializer_class = DocumentSerializer
+    default_base_serializer_class = DocumentSerializer
     filter_backends = [FieldsFilter, OrderingFilter, SearchFilter]
     body_fields = BaseAPIEndpoint.body_fields + ['title']
     meta_fields = BaseAPIEndpoint.meta_fields + ['tags', 'download_url']

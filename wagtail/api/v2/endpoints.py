@@ -34,7 +34,8 @@ class BaseAPIEndpoint(GenericViewSet):
         renderer_classes.append(BrowsableAPIRenderer)
 
     pagination_class = WagtailPagination
-    base_serializer_class = BaseSerializer
+    base_serializer_class = None
+    default_base_serializer_class = BaseSerializer
     filter_backends = []
     model = None  # Set on subclass
 
@@ -170,6 +171,15 @@ class BaseAPIEndpoint(GenericViewSet):
             raise BadRequestError("query parameter is not an operation or a recognised field: %s" % ', '.join(sorted(unknown_parameters)))
 
     @classmethod
+    def get_base_serializer_class(cls, model):
+        if cls.base_serializer_class is not None:
+            return cls.base_serializer_class
+        elif hasattr(model, 'serializer_class'):
+            return model.serializer_class
+        else:
+            return cls.default_base_serializer_class
+
+    @classmethod
     def _get_serializer_class(cls, router, model, fields_config, show_details=False, nested=False):
         # Get all available fields
         body_fields = cls.get_body_fields(model)
@@ -257,7 +267,7 @@ class BaseAPIEndpoint(GenericViewSet):
         # Reorder fields so it matches the order of all_fields
         fields = [field for field in all_fields if field in fields]
 
-        return get_serializer_class(model, fields, meta_fields=meta_fields, child_serializer_classes=child_serializer_classes, base=cls.base_serializer_class)
+        return get_serializer_class(model, fields, meta_fields=meta_fields, child_serializer_classes=child_serializer_classes, base=cls.get_base_serializer_class(model))
 
     def get_serializer_class(self):
         request = self.request
@@ -331,7 +341,7 @@ class BaseAPIEndpoint(GenericViewSet):
 
 
 class PagesAPIEndpoint(BaseAPIEndpoint):
-    base_serializer_class = PageSerializer
+    default_base_serializer_class = PageSerializer
     filter_backends = [
         FieldsFilter,
         RestrictedChildOfFilter,
