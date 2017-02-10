@@ -31,7 +31,7 @@ from modelcluster.models import ClusterableModel, get_all_child_relations
 from treebeard.mp_tree import MP_Node
 
 from wagtail.utils.compat import user_is_authenticated
-from wagtail.utils.deprecation import RemovedInWagtail110Warning
+from wagtail.utils.deprecation import RemovedInWagtail112Warning
 from wagtail.wagtailcore.query import PageQuerySet, TreeQuerySet
 from wagtail.wagtailcore.signals import page_published, page_unpublished
 from wagtail.wagtailcore.sites import get_site_for_hostname
@@ -547,14 +547,14 @@ class Page(six.with_metaclass(PageBase, AbstractPage, index.Indexed, Clusterable
         if not accepts_kwarg(cls.relative_url, 'request'):
             warnings.warn(
                 "%s.relative_url should accept a 'request' keyword argument. "
-                "See http://docs.wagtail.io/en/v1.8/reference/pages/model_reference.html#wagtail.wagtailcore.models.Page.relative_url" % cls,
-                RemovedInWagtail110Warning)
+                "See http://docs.wagtail.io/en/v1.10/reference/pages/model_reference.html#wagtail.wagtailcore.models.Page.relative_url" % cls,
+                RemovedInWagtail112Warning)
 
         if not accepts_kwarg(cls.get_url_parts, 'request'):
             warnings.warn(
                 "%s.get_url_parts should accept a 'request' keyword argument. "
-                "See http://docs.wagtail.io/en/v1.8/reference/pages/model_reference.html#wagtail.wagtailcore.models.Page.get_url_parts" % cls,
-                RemovedInWagtail110Warning)
+                "See http://docs.wagtail.io/en/v1.10/reference/pages/model_reference.html#wagtail.wagtailcore.models.Page.get_url_parts" % cls,
+                RemovedInWagtail112Warning)
 
         return errors
 
@@ -760,9 +760,9 @@ class Page(six.with_metaclass(PageBase, AbstractPage, index.Indexed, Clusterable
     def _safe_get_url_parts(self, request=None):
         """
         Backwards-compatibility method to safely call get_url_parts without
-        the new ``request`` kwarg (added in Wagtail 1.11), if needed.
+        the new ``request`` kwarg (added in Wagtail 1.10), if needed.
         """
-        # RemovedInWagtail110Warning - this accepts_kwarg test can be removed when we drop support
+        # RemovedInWagtail112Warning - this accepts_kwarg test can be removed when we drop support
         # for get_url_parts methods which omit the `request` kwarg
         if accepts_kwarg(self.get_url_parts, 'request'):
             return self.get_url_parts(request=request)
