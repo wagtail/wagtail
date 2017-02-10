@@ -131,29 +131,39 @@ class Site(models.Model):
         except (AttributeError, KeyError):
             port = request.META.get('SERVER_PORT')
 
-        sites = list(Site.objects.annotate(match=Case(
-            # annotate the results by best choice descending
+        # look up sites from a cached dictionary keyed on hostname and port
+        cached_sites_for_request = cache.get_or_set('wagtail_sites_for_request', {})
+        site_cache_key = "%s:%s" % (hostname, port)
+        cached_sites = cached_sites_for_request.get(site_cache_key)
 
-            # put exact hostname+port match first
-            When(hostname=hostname, port=port, then=MATCH_HOSTNAME_PORT),
+        if cached_sites:
+            sites = cached_sites
+        else:
+            sites = list(Site.objects.annotate(match=Case(
+                # annotate the results by best choice descending
 
-            # then put hostname+default (better than just hostname or just default)
-            When(hostname=hostname, is_default_site=True, then=MATCH_HOSTNAME_DEFAULT),
+                # put exact hostname+port match first
+                When(hostname=hostname, port=port, then=MATCH_HOSTNAME_PORT),
 
-            # then match default with different hostname. there is only ever
-            # one default, so order it above (possibly multiple) hostname
-            # matches so we can use sites[0] below to access it
-            When(is_default_site=True, then=MATCH_DEFAULT),
+                # then put hostname+default (better than just hostname or just default)
+                When(hostname=hostname, is_default_site=True, then=MATCH_HOSTNAME_DEFAULT),
 
-            # because of the filter below, if it's not default then its a hostname match
-            default=MATCH_HOSTNAME,
+                # then match default with different hostname. there is only ever
+                # one default, so order it above (possibly multiple) hostname
+                # matches so we can use sites[0] below to access it
+                When(is_default_site=True, then=MATCH_DEFAULT),
 
-            output_field=IntegerField(),
-        )).filter(Q(hostname=hostname) | Q(is_default_site=True)).order_by(
-            'match'
-        ).select_related(
-            'root_page'
-        ))
+                # because of the filter below, if it's not default then its a hostname match
+                default=MATCH_HOSTNAME,
+
+                output_field=IntegerField(),
+            )).filter(Q(hostname=hostname) | Q(is_default_site=True)).order_by(
+                'match'
+            ).select_related(
+                'root_page'
+            ))
+            cached_sites_for_request[site_cache_key] = sites
+            cache.set('wagtail_sites_for_request', cached_sites_for_request)
 
         if sites:
             # if theres a unique match or hostname (with port or default) match
@@ -220,11 +230,13 @@ class Site(models.Model):
 @receiver(post_save, sender=Site)
 def clear_site_root_paths_on_save(sender, instance, **kwargs):
     cache.delete('wagtail_site_root_paths')
+    cache.delete('wagtail_sites_for_request')
 
 
 @receiver(post_delete, sender=Site)
 def clear_site_root_paths_on_delete(sender, instance, **kwargs):
     cache.delete('wagtail_site_root_paths')
+    cache.delete('wagtail_sites_for_request')
 
 
 PAGE_MODEL_CLASSES = []
