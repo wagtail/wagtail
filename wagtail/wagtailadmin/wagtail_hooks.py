@@ -26,7 +26,7 @@ class ExplorerMenuItem(MenuItem):
 @hooks.register('register_admin_menu_item')
 def register_explorer_menu_item():
     return ExplorerMenuItem(
-        _('Explorer'), reverse('wagtailadmin_explore_root'),
+        _('Pages'), reverse('wagtailadmin_explore_root'),
         name='explorer',
         classnames='icon icon-folder-open-inverse dl-trigger',
         attrs={'data-explorer-menu-url': reverse('wagtailadmin_explorer_nav')},

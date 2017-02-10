@@ -7,7 +7,7 @@ import Icon from '../../components/Icon/Icon';
 import Filter from '../../components/Explorer/Filter';
 
 const ExplorerHeader = ({ page, depth, filter, onPop, onFilter, transName }) => {
-  const title = depth < 2 || !page ? STRINGS.EXPLORER : page.title;
+  const title = depth < 2 || !page ? STRINGS.PAGES : page.title;
 
   const transitionProps = {
     component: 'span',
