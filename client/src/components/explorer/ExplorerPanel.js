@@ -1,5 +1,6 @@
 import React from 'react';
 import CSSTransitionGroup from 'react-addons-css-transition-group';
+import FocusTrap from 'focus-trap-react'
 
 import { EXPLORER_ANIM_DURATION } from '../../config/config';
 import { STRINGS } from '../../config/wagtail';
@@ -13,7 +14,6 @@ import PageCount from './PageCount';
 export default class ExplorerPanel extends React.Component {
   constructor(props) {
     super(props);
-    this.clickOutside = this.clickOutside.bind(this);
     this.onItemClick = this.onItemClick.bind(this);
 
     this.state = {
@@ -51,34 +51,11 @@ export default class ExplorerPanel extends React.Component {
 
   componentDidMount() {
     this.props.init();
-
     document.body.classList.add('explorer-open');
-    document.addEventListener('click', this.clickOutside);
-    var Anchors = document.getElementsByTagName("a");
-    for (var i = 0; i < Anchors.length ; i++) {
-      Anchors[i].addEventListener("click", this.clickOutside)
-    }
   }
 
   componentWillUnmount() {
     document.body.classList.remove('explorer-open');
-    document.removeEventListener('click', this.clickOutside);
-    var Anchors = document.getElementsByTagName("a");
-    for (var i = 0; i < Anchors.length ; i++) {
-      Anchors[i].removeEventListener("click", this.clickOutside)
-    }
-  }
-
-  clickOutside(e) {
-    const { explorer } = this.refs;
-
-    if (!explorer) {
-      return;
-    }
-
-    if (!explorer.contains(e.target)) {
-      this.props.onClose();
-    }
   }
 
   getClass() {
@@ -189,26 +166,36 @@ export default class ExplorerPanel extends React.Component {
     };
 
     return (
-      <div className={this.getClass()} ref="explorer">
-        <ExplorerHeader {...headerProps} transName={this.state.animation} />
-        <div className="c-explorer__drawer">
-          <CSSTransitionGroup {...transitionProps}>
-            <div {...transitionTargetProps}>
-              <CSSTransitionGroup {...innerTransitionProps}>
-                {page.isFetching ? <LoadingSpinner key={1} /> : (
-                  <div key={0}>
-                    {this.getContents()}
-                    {(page.children.count > page.children.items.length) && (
-                      <PageCount id={page.id} count={page.meta.children.count} title={page.title} />
-                    )}
-                  </div>
-                )}
-              </CSSTransitionGroup>
+      <FocusTrap
+        paused={page.isFetching}
+        focusTrapOptions={{
+          onDeactivate: this.props.onClose,
+          clickOutsideDeactivates: true,
+        }}
+      >
+        {/* FocusTrap gets antsy while the page is loading, so we give it something to focus on. */}
+        {page.isFetching && <div tabIndex={0} />}
+        <div className={this.getClass()} tabIndex={-1}>
+          <ExplorerHeader {...headerProps} transName={this.state.animation} />
+          <div className="c-explorer__drawer">
+            <CSSTransitionGroup {...transitionProps}>
+              <div {...transitionTargetProps}>
+                <CSSTransitionGroup {...innerTransitionProps}>
+                  {page.isFetching ? <LoadingSpinner key={1} /> : (
+                    <div key={0}>
+                      {this.getContents()}
+                      {(page.children.count > page.children.items.length) && (
+                        <PageCount id={page.id} count={page.meta.children.count} title={page.title} />
+                      )}
+                    </div>
+                  )}
+                </CSSTransitionGroup>
 
-            </div>
-          </CSSTransitionGroup>
+              </div>
+            </CSSTransitionGroup>
+          </div>
         </div>
-      </div>
+      </FocusTrap>
     );
   }
 }

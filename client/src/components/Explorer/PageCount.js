@@ -6,6 +6,7 @@ const PageCount = ({ id, count, title }) => (
   <a
     href={`${ADMIN_URLS.PAGES}${id}/`}
     className="c-explorer__see-more"
+    tabIndex={0}
   >
     {STRINGS.EXPLORE_ALL_IN}{' '}
     <span className="c-explorer__see-more__title">{title}</span>{' '}

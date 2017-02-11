@@ -16,10 +16,14 @@ const ExplorerHeader = ({ page, depth, onPop, transName }) => {
     className: 'c-explorer__rel',
   };
 
-  // TODO Do not use a span for a clickable element.
   return (
     <div className="c-explorer__header">
-      <span className={`c-explorer__trigger${depth > 1 ? ' c-explorer__trigger--enabled' : ''}`} onClick={onPop}>
+      <button
+        role="button"
+        className={`c-explorer__trigger${depth > 1 ? ' c-explorer__trigger--enabled' : ''}`}
+        onClick={onPop}
+        tabIndex={depth === 1 ? -1 : 0}
+      >
         <span className="u-overflow c-explorer__overflow">
           <CSSTransitionGroup {...transitionProps}>
             <span className="c-explorer__parent-name" key={depth}>
@@ -32,7 +36,7 @@ const ExplorerHeader = ({ page, depth, onPop, transName }) => {
             </span>
           </CSSTransitionGroup>
         </span>
-      </span>
+      </button>
     </div>
   );
 };

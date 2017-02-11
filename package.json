@@ -54,6 +54,7 @@
     "webpack": "^1.12.14"
   },
   "dependencies": {
+    "focus-trap-react": "^3.0.2",
     "lodash": "^4.17.4",
     "moment": "^2.17.1",
     "react": "^15.4.2",
