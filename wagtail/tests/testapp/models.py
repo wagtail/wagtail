@@ -32,7 +32,7 @@ from wagtail.wagtaildocs.edit_handlers import DocumentChooserPanel
 from wagtail.wagtailforms.models import AbstractEmailForm, AbstractFormField, AbstractFormSubmission
 from wagtail.wagtailimages.blocks import ImageChooserBlock
 from wagtail.wagtailimages.edit_handlers import ImageChooserPanel
-from wagtail.wagtailimages.models import AbstractImage, Image
+from wagtail.wagtailimages.models import AbstractImage, AbstractRendition, Image
 from wagtail.wagtailsearch import index
 from wagtail.wagtailsnippets.edit_handlers import SnippetChooserPanel
 from wagtail.wagtailsnippets.models import register_snippet
@@ -638,6 +638,15 @@ class CustomImage(AbstractImage):
     admin_form_fields = Image.admin_form_fields + (
         'caption',
     )
+
+
+class CustomRendition(AbstractRendition):
+    image = models.ForeignKey(CustomImage, related_name='renditions', on_delete=models.CASCADE)
+
+    class Meta:
+        unique_together = (
+            ('image', 'filter_spec', 'focal_point_key'),
+        )
 
 
 class StreamModel(models.Model):
