@@ -21,23 +21,23 @@ const ExplorerItem = ({ title, typeName, data, onItemClick }) => {
   const hasChildren = count > 0;
 
   return (
-    <Button href={`${ADMIN_URLS.PAGES}${id}`} className="c-explorer__item">
+    <div className="c-explorer__item">
       {hasChildren ? (
-        <span
-          role="button"
-          className="c-explorer__children"
+        <button
+          type="button"
+          className="c-explorer__item__children"
           onClick={onItemClick.bind(null, id)}
         >
           <Icon name="arrow-right" title={STRINGS.SEE_CHILDREN} />
-        </span>
+        </button>
       ) : null}
-
-      <h3 className="c-explorer__title">{title}</h3>
-
-      <p className="c-explorer__meta">
-        <span className="c-explorer__meta__type">{typeName}</span> | <AbsoluteDate time={time} /> | <PublicationStatus status={status} />
-      </p>
-    </Button>
+      <Button href={`${ADMIN_URLS.PAGES}${id}`} className="c-explorer__item__link">
+        <h3 className="c-explorer__title">{title}</h3>
+        <p className="c-explorer__meta">
+          <span className="c-explorer__meta__type">{typeName}</span> | <AbsoluteDate time={time} /> | <PublicationStatus status={status} />
+        </p>
+      </Button>
+    </div>
   );
 };
 

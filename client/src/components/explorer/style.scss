@@ -32,15 +32,21 @@ $c-explorer-easing: cubic-bezier(0.075, 0.820, 0.165, 1.000);
     white-space: nowrap;
     overflow: hidden;
     width: 100%;
-    float: left;
+    background: none;
+    border: none;
+    text-align: left;
+    color: $c-explorer-secondary;
+    line-height: inherit;
+    font: inherit;
+    cursor: default;
 }
 
 .c-explorer__trigger--enabled {
     cursor: pointer;
-
-    &:hover {
+    &:hover, &:focus {
         color: $color-white;
         background: rgba(0,0,0,0.2);
+        outline: none;
     }
 }
 
@@ -70,16 +76,6 @@ $c-explorer-easing: cubic-bezier(0.075, 0.820, 0.165, 1.000);
     padding: 1rem;
 }
 
-.c-explorer__item {
-    padding: 1rem;
-    cursor: pointer;
-    border-bottom: solid 1px #676767;
-
-    &:last-child {
-        border-bottom: 0;
-    }
-}
-
 .c-explorer__placeholder {
     padding: 1rem;
     color: $color-white;
@@ -99,10 +95,42 @@ $c-explorer-easing: cubic-bezier(0.075, 0.820, 0.165, 1.000);
 .c-explorer__item {
     display: block;
     position: relative;
+    border-bottom: solid 1px #676767;
+    &:last-child {
+        border-bottom: 0;
+    }
+}
 
-    &:hover {
+.c-explorer__item__link {
+    display: block;
+    padding: 1rem;
+    cursor: pointer;
+
+    &:hover, &:focus {
         background: rgba(0, 0, 0, 0.25);
         color: $color-white;
+        outline: none;
+    }
+}
+
+.c-explorer__item__children {
+    display: inline-block;
+    color: $color-white;
+    line-height: 1;
+    padding: .7em .3em .7em .7em;
+    cursor: pointer;
+    display: inline-block;
+    position: absolute;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    font-size: 2em;
+    background: transparent;
+    border: 0;
+    &:hover, &:focus {
+        background: rgba(0,0,0,0.5);
+        color: $color-white;
+        outline: none;
     }
 }
 
@@ -112,35 +140,15 @@ $c-explorer-easing: cubic-bezier(0.075, 0.820, 0.165, 1.000);
     color: $c-explorer-secondary;
     display: block;
 
-    &:hover {
+    &:hover, &:focus {
         color: $c-explorer-secondary;
         background: rgba(0,0,0,0.4);
+        outline: none;
     }
 }
 
 .c-explorer__see-more__title {
     color: $color-white;
-}
-
-.c-explorer__children {
-    display: inline-block;
-    color: $color-white;
-    line-height: 1;
-    padding: .7em .3em .7em .7em;
-    float: right;
-    cursor: pointer;
-    display: inline-block;
-    position: absolute;
-    right: 0;
-    top: 0;
-    bottom: 0;
-    font-size: 2em;
-
-
-    &:hover {
-        background: rgba(0,0,0,0.5);
-        color: $color-white;
-    }
 }
 
 .c-status {
