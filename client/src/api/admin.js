@@ -1,22 +1,31 @@
 import { get } from '../api/client';
 
-import { ADMIN_API } from '../config/wagtail';
+import { ADMIN_API } from '../config/wagtailConfig';
 
-export const getChildPages = (id, options = {}) => {
+
+export const getPage = (id) => {
+  const url = `${ADMIN_API.PAGES}${id}/`;
+
+  return get(url);
+};
+
+export const getPageChildren = (id, options = {}) => {
   let url = `${ADMIN_API.PAGES}?child_of=${id}`;
 
   if (options.fields) {
     url += `&fields=${global.encodeURIComponent(options.fields.join(','))}`;
   }
 
-  // Only show pages that have children for now
-  url += `&has_children=1`;
+  if (options.onlyWithChildren) {
+    url += '&has_children=1';
+  }
 
-  return get(url).then(res => res.body);
-};
+  if (options.offset) {
+    url += `&offset=${options.offset}`;
+  }
 
-export const getPage = (id) => {
-  const url = `${ADMIN_API.PAGES}${id}/`;
+  // TODO To remove once we are done testing this.
+  url += ADMIN_API.EXTRA_CHILDREN_PARAMETERS;
 
-  return get(url).then(res => res.body);
+  return get(url);
 };

@@ -8,10 +8,6 @@ describe('PublicationStatus', () => {
     expect(PublicationStatus).toBeDefined();
   });
 
-  it('basic', () => {
-    expect(shallow(<PublicationStatus />)).toMatchSnapshot();
-  });
-
   it('#status live', () => {
     expect(shallow((
       <PublicationStatus

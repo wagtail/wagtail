@@ -231,51 +231,27 @@ body.nav-open {
     }
 }
 
-.explorer-close {
-    display: none;
-    padding: .9em;
-    border-bottom: 1px solid rgba(200, 200, 200, 0.1);
-    cursor: pointer;
-
-    &:hover {
-        color: $color-white;
-    }
-}
-
 // Explorer open condition, widens navigation area
 body.explorer-open {
-    overflow: hidden;
-
     .wrapper {
-        transform: translate3d($menu-width*2, 0, 0);
-        -webkit-transform: translate3d($menu-width*2, 0, 0);
+        transform: translate3d($menu-width-max, 0, 0);
     }
 
     .nav-wrapper {
-        margin-left: -$menu-width*2;
-        width: $menu-width*2;
+        margin-left: -$menu-width-max;
+        width: $menu-width-max;
     }
 
     .nav-main {
         display: none;
     }
-
-    .explorer {
-        display: block;
-    }
-
-    .explorer-close {
-        display: block;
-    }
-
-    @media screen and (min-width: $breakpoint-mobile) {
-        .explorer-close {
-            display: none;
-        }
-    }
 }
 
 @media screen and (min-width: $breakpoint-mobile) {
+    body.explorer-open {
+        overflow: hidden;
+    }
+
     .wrapper,
     body.nav-open .wrapper {
         -webkit-transform: none;
@@ -440,7 +416,7 @@ body.explorer-open {
     }
 
     .explorer {
-        width: 400px;
+        width: 485px;
         position: fixed;
         top: 0;
         left: $menu-width;
@@ -457,17 +433,9 @@ body.explorer-open {
     }
 
     body.explorer-open {
-        // TODO Do we want this layer appearing when the explorer is open?
         &:after {
-            content: '';
-            position: fixed;
-            background: rgba(255, 255, 255, 0.5);
-            width: 100%;
-            height: 100%;
-            top: 0;
-            left: 0;
             opacity: 1;
-            animation: opacity .2s ease-out;
+            visibility: visible;
         }
 
         .wrapper {
@@ -520,11 +488,11 @@ body.explorer-open {
     body.explorer-open {
         .wrapper {
             transform: none;
-            left: $menu-width*2;
+            left: $menu-width-max;
         }
 
         .nav-wrapper {
-            width: $menu-width*2;
+            width: $menu-width-max;
         }
     }
 }

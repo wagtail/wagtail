@@ -4,17 +4,22 @@
  */
 
 import Button from './components/Button/Button';
-import Explorer from './components/Explorer/Explorer';
 import Icon from './components/Icon/Icon';
-import LoadingIndicator from './components/LoadingIndicator/LoadingIndicator';
-import AbsoluteDate from './components/AbsoluteDate/AbsoluteDate';
 import PublicationStatus from './components/PublicationStatus/PublicationStatus';
+import LoadingSpinner from './components/LoadingSpinner/LoadingSpinner';
+import Transition from './components/Transition/Transition';
+import Explorer, {
+  ExplorerToggle,
+  initExplorer,
+} from './components/Explorer';
 
 export {
   Button,
-  Explorer,
   Icon,
-  LoadingIndicator,
-  AbsoluteDate,
   PublicationStatus,
+  LoadingSpinner,
+  Transition,
+  Explorer,
+  ExplorerToggle,
+  initExplorer,
 };

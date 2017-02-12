@@ -1,0 +1,12 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`LoadingSpinner basic 1`] = `
+<span>
+  <Icon
+    className="c-spinner"
+    name="spinner"
+    title={null}
+  />
+   Loading...
+</span>
+`;

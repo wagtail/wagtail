@@ -7,6 +7,7 @@ from django.core.urlresolvers import reverse
 from django.utils.translation import ugettext_lazy as _
 
 from wagtail.wagtailadmin.menu import MenuItem, SubmenuMenuItem, settings_menu
+from wagtail.wagtailadmin.navigation import get_explorable_root_page
 from wagtail.wagtailadmin.search import SearchArea
 from wagtail.wagtailadmin.utils import user_has_any_page_permission
 from wagtail.wagtailadmin.widgets import Button, ButtonWithDropdownFromHook, PageListingButton
@@ -15,6 +16,8 @@ from wagtail.wagtailcore.permissions import collection_permission_policy
 
 
 class ExplorerMenuItem(MenuItem):
+    template = 'wagtailadmin/shared/explorer_menu_item.html'
+
     @property
     def media(self):
         return forms.Media(js=[static('wagtailadmin/js/explorer-menu.js')])
@@ -22,14 +25,22 @@ class ExplorerMenuItem(MenuItem):
     def is_shown(self, request):
         return user_has_any_page_permission(request.user)
 
+    def get_context(self, request):
+        context = super(ExplorerMenuItem, self).get_context(request)
+        start_page = get_explorable_root_page(request.user)
+
+        if start_page:
+            context['start_page_id'] = start_page.id
+
+        return context
+
 
 @hooks.register('register_admin_menu_item')
 def register_explorer_menu_item():
     return ExplorerMenuItem(
         _('Pages'), reverse('wagtailadmin_explore_root'),
         name='explorer',
-        classnames='icon icon-folder-open-inverse dl-trigger',
-        attrs={'data-explorer-menu-url': reverse('wagtailadmin_explorer_nav')},
+        classnames='icon icon-folder-open-inverse',
         order=100)
 
 
