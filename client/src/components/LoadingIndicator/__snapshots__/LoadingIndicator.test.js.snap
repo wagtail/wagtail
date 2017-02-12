@@ -1,9 +1,0 @@
-exports[`LoadingIndicator basic 1`] = `
-<div
-  className="o-icon c-indicator is-spinning">
-  <span
-    ariaRole="presentation">
-    Loading...
-  </span>
-</div>
-`;

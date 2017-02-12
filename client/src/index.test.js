@@ -1,41 +1,44 @@
 import {
   Button,
-  Explorer,
   Icon,
-  LoadingIndicator,
-  AbsoluteDate,
   PublicationStatus,
+  LoadingSpinner,
+  Transition,
+  Explorer,
+  ExplorerToggle,
+  initExplorer,
 } from './index';
 
 describe('wagtail package API', () => {
-  describe('Button', () => {
-    it('exists', () => {
-      expect(Button).toBeDefined();
-    });
+  it('has Button', () => {
+    expect(Button).toBeDefined();
   });
-  describe('Explorer', () => {
-    it('exists', () => {
-      expect(Explorer).toBeDefined();
-    });
+
+  it('has Icon', () => {
+    expect(Icon).toBeDefined();
   });
-  describe('Icon', () => {
-    it('exists', () => {
-      expect(Icon).toBeDefined();
-    });
+
+  it('has PublicationStatus', () => {
+    expect(PublicationStatus).toBeDefined();
   });
-  describe('LoadingIndicator', () => {
-    it('exists', () => {
-      expect(LoadingIndicator).toBeDefined();
-    });
+
+  it('has LoadingSpinner', () => {
+    expect(LoadingSpinner).toBeDefined();
   });
-  describe('AbsoluteDate', () => {
-    it('exists', () => {
-      expect(AbsoluteDate).toBeDefined();
-    });
+
+  it('has Transition', () => {
+    expect(Transition).toBeDefined();
   });
-  describe('PublicationStatus', () => {
-    it('exists', () => {
-      expect(PublicationStatus).toBeDefined();
-    });
+
+  it('has Explorer', () => {
+    expect(Explorer).toBeDefined();
+  });
+
+  it('has ExplorerToggle', () => {
+    expect(ExplorerToggle).toBeDefined();
+  });
+
+  it('has initExplorer', () => {
+    expect(initExplorer).toBeDefined();
   });
 });

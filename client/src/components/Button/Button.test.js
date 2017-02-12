@@ -24,6 +24,14 @@ describe('Button', () => {
     expect(shallow(<Button icon="test-icon" />)).toMatchSnapshot();
   });
 
+  it('#target', () => {
+    expect(shallow(<Button target="_blank" />)).toMatchSnapshot();
+  });
+
+  it('#multiple icons', () => {
+    expect(shallow(<Button icon={['test-icon', 'secondary-icon']} />)).toMatchSnapshot();
+  });
+
   it('#icon changes with #isLoading', () => {
     expect(shallow(<Button icon="test-icon" isLoading={true} />)).toMatchSnapshot();
   });
@@ -35,5 +43,14 @@ describe('Button', () => {
       stopPropagation() {},
     });
     expect(onClick).toHaveBeenCalledTimes(1);
+  });
+
+  it('dismisses clicks', () => {
+    const preventDefault = jest.fn();
+    shallow(<Button />).simulate('click', {
+      preventDefault,
+      stopPropagation() {},
+    });
+    expect(preventDefault).toHaveBeenCalledTimes(1);
   });
 });

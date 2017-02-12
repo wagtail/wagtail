@@ -1,11 +1,10 @@
 import React from 'react';
-import { createStore } from 'redux';
 import { shallow } from 'enzyme';
+import configureMockStore from 'redux-mock-store';
 
 import ExplorerToggle from './ExplorerToggle';
-import rootReducer from './reducers';
 
-const store = createStore(rootReducer);
+const store = configureMockStore()({});
 
 describe('ExplorerToggle', () => {
   it('exists', () => {
@@ -13,19 +12,6 @@ describe('ExplorerToggle', () => {
   });
 
   it('basic', () => {
-    expect(shallow(<ExplorerToggle store={store} />)).toMatchSnapshot();
-  });
-
-  it('loading state', (done) => {
-    store.subscribe(() => {
-      expect(shallow(<ExplorerToggle store={store} />)).toMatchSnapshot();
-      done();
-    });
-
-    store.dispatch({ type: 'FETCH_START' });
-  });
-
-  it('#children', () => {
     expect(shallow((
       <ExplorerToggle store={store}>
         <span>
@@ -33,5 +19,19 @@ describe('ExplorerToggle', () => {
         </span>
       </ExplorerToggle>
     ))).toMatchSnapshot();
+  });
+
+  describe('actions', () => {
+    let wrapper;
+
+    beforeEach(() => {
+      store.dispatch = jest.fn();
+      wrapper = shallow(<ExplorerToggle store={store}>Test</ExplorerToggle>);
+    });
+
+    it('onToggle', () => {
+      wrapper.prop('onToggle')();
+      expect(store.dispatch).toHaveBeenCalled();
+    });
   });
 });

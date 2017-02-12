@@ -21,25 +21,23 @@
             wagtailConfig.ADMIN_API = {
                 PAGES: '{% url "wagtailadmin_api_v1:pages:listing" %}',
                 DOCUMENTS: '{% url "wagtailadmin_api_v1:documents:listing" %}',
-                IMAGES: '{% url "wagtailadmin_api_v1:images:listing" %}'
-            };
-
-            // We are using Moment.js formatting syntax for now,
-            // TODO: Use django settings defaults and find a way
-            // to parse them in moment.js
-            wagtailConfig.DATE_FORMATTING = {
-                DATE_FORMAT: 'MMM. D, YYYY',
-                SHORT_DATE_FORMAT: 'DD/MM/YYYY'
+                IMAGES: '{% url "wagtailadmin_api_v1:images:listing" %}',
+                {# // Use this to add an extra query string on all API requests. #}
+                {# // Example value: '&order=-id' #}
+                {# // TODO Hook it up to Django settings #}
+                EXTRA_CHILDREN_PARAMETERS: '',
             };
 
             wagtailConfig.STRINGS = {
+                EDIT: "{% trans 'Edit' %}",
                 PAGE: "{% trans 'Page' %}",
                 PAGES: "{% trans 'Pages' %}",
                 LOADING: "{% trans 'Loading...' %}",
                 NO_RESULTS: "{% trans 'No results' %}",
-                SEE_CHILDREN: "{% trans 'See Children' %}",
-                NO_DATE: "{% trans 'No date' %}",
-                EXPLORE_ALL_IN: "{% trans 'Explore all in' %}",
+                SERVER_ERROR: "{% trans 'Server Error' %}",
+                SEE_CHILDREN: "{% trans 'See children' %}",
+                SEE_ALL: "{% trans 'See all' %}",
+                CLOSE_EXPLORER: "{% trans 'Close explorer' %}",
             };
 
             wagtailConfig.ADMIN_URLS = {
@@ -57,10 +55,9 @@
     <script src="{% static 'wagtailadmin/js/vendor/jquery.dlmenu.js' %}"></script>
     <script src="{% static 'wagtailadmin/js/vendor/tag-it.js' %}"></script>
     <script src="{% static 'wagtailadmin/js/core.js' %}"></script>
-    {% hook_output 'insert_global_admin_js' %}
-
-    <script src="{% static 'wagtailadmin/js/common.js' %}"></script>
+    <script src="{% static 'wagtailadmin/js/vendor.js' %}"></script>
     <script src="{% static 'wagtailadmin/js/wagtailadmin.js' %}"></script>
+    {% hook_output 'insert_global_admin_js' %}
 
 
 

@@ -1,23 +1,26 @@
 import React from 'react';
 
-import { ADMIN_URLS, STRINGS } from '../../config/wagtail';
+import { ADMIN_URLS, STRINGS } from '../../config/wagtailConfig';
+import Icon from '../Icon/Icon';
 
-const PageCount = ({ id, count, title }) => (
-  <a
-    href={`${ADMIN_URLS.PAGES}${id}/`}
-    className="c-explorer__see-more"
-    tabIndex={0}
-  >
-    {STRINGS.EXPLORE_ALL_IN}{' '}
-    <span className="c-explorer__see-more__title">{title}</span>{' '}
-    ({count} {count !== 1 ? STRINGS.PAGES : STRINGS.PAGE})
-  </a>
-);
+const PageCount = ({ page }) => {
+  const count = page.children.count;
+
+  return (
+    <a
+      href={`${ADMIN_URLS.PAGES}${page.id}/`}
+      className="c-explorer__see-more"
+      tabIndex={0}
+    >
+      {STRINGS.SEE_ALL}
+      <span>{` ${count} ${count === 1 ? STRINGS.PAGE.toLowerCase() : STRINGS.PAGES.toLowerCase()}`}</span>
+      <Icon name="arrow-right" />
+    </a>
+  );
+};
 
 PageCount.propTypes = {
-  id: React.PropTypes.number.isRequired,
-  count: React.PropTypes.number.isRequired,
-  title: React.PropTypes.string.isRequired,
+  page: React.PropTypes.object.isRequired,
 };
 
 export default PageCount;

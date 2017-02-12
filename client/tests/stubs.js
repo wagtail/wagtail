@@ -9,6 +9,7 @@ global.wagtailConfig = {
     DOCUMENTS: '/admin/api/v2beta/documents/',
     IMAGES: '/admin/api/v2beta/images/',
     PAGES: '/admin/api/v2beta/pages/',
+    EXTRA_CHILDREN_PARAMETERS: '',
   },
   ADMIN_URLS: {
     PAGES: '/admin/pages/',
@@ -18,11 +19,15 @@ global.wagtailConfig = {
     SHORT_DATE_FORMAT: 'DD/MM/YYYY',
   },
   STRINGS: {
-    EXPLORER: 'Explorer',
+    EDIT: 'Edit',
+    PAGE: 'Page',
+    PAGES: 'Pages',
     LOADING: 'Loading...',
+    SERVER_ERROR: 'Server Error',
     NO_RESULTS: 'No results',
-    SEE_CHILDREN: 'See Children',
-    NO_DATE: 'No date',
+    SEE_CHILDREN: 'See children',
+    SEE_ALL: 'See all',
+    CLOSE_EXPLORER: 'Close explorer',
   },
 };
 

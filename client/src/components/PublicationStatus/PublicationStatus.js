@@ -1,13 +1,19 @@
 import React from 'react';
 
-const PublicationStatus = ({ status }) => (status ? (
+/**
+ * Displays the publication status of a page in a pill.
+ */
+const PublicationStatus = ({ status }) => (
   <span className={`o-pill c-status${status.live ? ' c-status--live' : ''}`}>
     {status.status}
   </span>
-) : null);
+);
 
 PublicationStatus.propTypes = {
-  status: React.PropTypes.object,
+  status: React.PropTypes.shape({
+    live: React.PropTypes.bool.isRequired,
+    status: React.PropTypes.string.isRequired,
+  }).isRequired,
 };
 
 export default PublicationStatus;
