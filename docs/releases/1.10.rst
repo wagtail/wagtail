@@ -22,6 +22,7 @@ Bug fixes
 ~~~~~~~~~
 
  * Marked 'Date from' / 'Date to' strings in wagtailforms for translation (Vorlif)
+ * Unreliable preview is now reliable by always opening in a new window (Kjartan Sverrisson)
 
 
 Upgrade considerations

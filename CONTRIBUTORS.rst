@@ -211,6 +211,7 @@ Contributors
 * David Ray
 * Alasdair Nicol
 * Vorlif
+* Kjartan Sverrisson
 
 Translators
 ===========

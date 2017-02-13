@@ -8,6 +8,7 @@ Changelog
  * Hooks can now specify the order in which they are run (Gagaro)
  * Added a `submit_buttons` block to login template (Gagaro)
  * Fix: Marked 'Date from' / 'Date to' strings in wagtailforms for translation (Vorlif)
+ * Fix: Unreliable preview is now reliable by always opening in a new window (Kjartan Sverrisson)
 
 
 1.9 (xx.xx.xxxx) - IN DEVELOPMENT
