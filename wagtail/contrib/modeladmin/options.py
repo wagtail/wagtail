@@ -159,12 +159,6 @@ class ModelAdmin(WagtailRegisterable):
             self.model, self.inspect_view_enabled)
         self.url_helper = self.get_url_helper_class()(self.model)
 
-    def get_form_fields_exclude(self, request):
-        """
-        Returns a list or tuple of fields names to be excluded from Create/Edit pages.
-        """
-        return self.form_fields_exclude
-
     def get_permission_helper_class(self):
         """
         Returns a permission_helper class to help with permission-based logic
@@ -304,6 +298,12 @@ class ModelAdmin(WagtailRegisterable):
         Must always return a dictionary.
         """
         return {}
+
+    def get_form_fields_exclude(self, request):
+        """
+        Returns a list or tuple of fields names to be excluded from Create/Edit pages.
+        """
+        return self.form_fields_exclude
 
     def get_index_view_extra_css(self):
         css = ['wagtailmodeladmin/css/index.css']
