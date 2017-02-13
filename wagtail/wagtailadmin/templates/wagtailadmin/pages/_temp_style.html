@@ -1,0 +1,134 @@
+<style media="screen">
+  .actions.variable {
+    width: auto;
+  }
+  .actions.variable .dropdown ul li a,
+  .actions.variable .dropdown ul li .button {
+    padding-right: 1em;
+    max-width: 18em;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .dropdown.dropdown-button.moreactions {
+      min-width: 3em;
+      height: 2.4em;
+      font-size: 0.9em;
+      /*margin: 0 auto;*/
+      margin: 0 0 0 auto;
+  }
+  .dropdown.moreactions.open ul {
+    left: auto;
+    right: 35%;
+    margin-right: -4em;
+
+    bottom: 3.9em;
+    min-width: 15em;
+    border-radius: 0.5em;
+    overflow: visible;
+    padding-top: 8px;
+    padding-bottom: 8px;
+  }
+  .dropdown.moreactions.open ul:after {
+    content: "";
+    position: absolute;
+    bottom: -2em;
+    margin-bottom: 2px;
+    right: 2em;
+    border-top: 2em solid #43b1b0;
+    border-left: 2em solid transparent;
+    border-right: 2em solid transparent;
+
+  }
+  .dropdown.moreactions.open ul li .noborder {
+    border: 0;
+    color: #fff;
+  }
+  .dropdown.moreactions.open ul li.spacer {
+    border-bottom-width: 4px;
+  }
+  .dropdown.dropdown-button.moreactions .dropdown-toggle {
+    border-radius: 3px;
+    border: 0;
+    width: 3em;
+    height: 2.4em;
+    line-height: 2.4em;
+    padding: 0;
+    text-align: center;
+  }
+  .dropdown.dropup.dropdown-button.moreactions.open .dropdown-toggle {
+    border-radius: 3px;
+  }
+  .hidesmall {
+    display: none;
+  }
+  .onlybig {
+    display: none;
+  }
+  .icon.rotate90:before {
+    -webkit-transform: rotate(0.25turn);
+    transform: rotate(0.25turn);
+    transform-origin: 50% 60% 0;
+    display: inline-block;
+
+  }
+  .spaced-flex {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+  }
+  .spaced-flex li {
+    flex: 1 0 auto;
+  }
+  .spaced-flex .dropdown.dropdown-button.moreactions .dropdown-toggle,
+  .spaced-flex li>button {
+    min-width: 70%;
+  }
+  .center-button button {
+    margin: 0 auto;
+    display: block;
+  }
+  @media screen and (min-width: 50em) {
+    .dropdown.moreactions.open ul {
+      bottom: 4.5em;
+      right: 35%;
+      margin-right: -7.5em;
+    }
+    .dropdown.moreactions.open ul:after {
+      left: auto;
+      right: 7.5em;
+      margin-right: -2em;
+    }
+    .dropdown.dropdown-button.moreactions {
+        height: 3em;
+        font-size: 0.95em;
+    }
+    .dropdown.dropdown-button.moreactions .dropdown-toggle {
+      height: 3em;
+      line-height: 3em;
+    }
+    .hidesmall {
+      display: inline-block;
+    }
+    .actions.variable .dropdown ul li a,
+    .actions.variable .dropdown ul li .button {
+      max-width: 22em;
+    }
+    .meta {
+      width: 30%;
+    }
+  }
+
+  @media screen and (min-width: 90em) {
+    .onlybig {
+      display: inline-block;
+    }
+    .actions.variable .dropdown ul li a,
+    .actions.variable .dropdown ul li .button {
+      max-width: 30em;
+    }
+    .meta {
+      width: 40%;
+    }
+  }
+</style>

@@ -24,7 +24,85 @@
 
         {% page_permissions parent_page as parent_page_perms %}
         <footer>
-            <ul>
+          {% include "wagtailadmin/pages/_temp_style.html" %}
+          <ul class="spaced-flex">
+            <li class="actions variable">
+              <button type="submit" class="button action-save button-longrunning {% if is_revision %}warning{% endif %}" tabindex="3"
+              data-clicked-text="{% trans 'Saving...' %}" {% if page.locked %}disabled {% endif %}>
+              <span class="icon icon-spinner"></span><em>
+                {% if page.locked %}
+                <b class="icon icon-locked"></b>
+                <b class="hidesmall">{% trans 'Page locked' %}</b>{% else %}
+                <i class="icon icon-doc-full-inverse"></i>
+                <b class="hidesmall">{% if is_revision %}{% trans 'Replace current draft' %}{% else %}{% trans 'Save draft' %}{% endif %}{% endif %}</b>
+              </em></button>
+            </li>
+            {% if parent_page_perms.can_publish_subpage %}
+              <li class="actions variable center-button">
+                <button type="submit" name="action-publish" value="action-publish" class="button button-longrunning"
+                tabindex="3" data-clicked-text="{% trans 'Publishing...' %}" {% if page.locked %}disabled {% endif %}><span
+                class="icon icon-spinner"></span><em>
+                  <i class="icon icon-arrow-up-big rotate90"></i>
+                  <b class="hidesmall">{% trans 'Publish' %}</b></em></button>
+              </li>
+            {% elif not is_revision and not page.locked %}
+              <li class="actions variable center-button">
+                  <button type="submit" name="action-submit" value="{% trans 'Submit for moderation' %}" title="{% trans 'Submit for moderation' %}" class="button icon icon-mail" >
+                    <b class="hidesmall">{% trans 'Submit for moderation' %}</b>
+                  </button>
+              </li>
+            {% endif %}
+            {% trans 'Preview' as preview_label %}
+            <li class="actions variable">
+              <div class="dropdown dropup dropdown-button moreactions {% if is_revision %}warning{% endif %}">
+                  <div class="dropdown-toggle" title="{% trans "More actions..." %}">
+                    &bull;&bull;&bull;
+                  </div>
+                  <ul role="menu">
+
+                    {% if preview_modes|length > 1 %}
+                    {% comment %}
+                    {% if not preview_modes|length > 1 %}
+
+                      <!-- dummy preview modes -->
+                      <li>
+                          {% include "wagtailadmin/pages/_preview_button_on_edit.html" with icon=1 label="Preview mode 1" %}
+                      </li>
+                      <li>
+                          {% include "wagtailadmin/pages/_preview_button_on_edit.html" with icon=1 label="Preview 2" %}
+                      </li>
+                      <li>
+                          {% include "wagtailadmin/pages/_preview_button_on_edit.html" with icon=1 label="Very long fake preview mode to test variable width" %}
+                      </li>
+                      {% comment %}
+                      {% endcomment %}
+                      {% for mode_name, mode_display_name in preview_modes %}
+                          <li>
+                              {% include "wagtailadmin/pages/_preview_button_on_create.html" with icon=1 mode=mode_name label=mode_display_name %}
+                          </li>
+                      {% endfor %}
+                    {% else %}
+                      <li>
+                        {% include "wagtailadmin/pages/_preview_button_on_create.html" with label=preview_label icon=1 %}
+                      </li>
+                    {% endif %}
+
+                    {% if parent_page_perms.can_publish and not page.locked %}
+                      <li class="spacer"></li>
+                      <li><input type="submit" name="action-submit" value="{% trans 'Submit for moderation' %}" class="button" /></li>
+                    {% endif %}
+
+                  </ul>
+              </div>
+            </li>
+
+            <li class="meta hidesmall">
+                <p class="modified">
+                  &nbsp;
+                </p>
+            </li>
+
+                {% comment %}
                 <li class="actions">
                     <div class="dropdown dropup dropdown-button match-width">
                         <button type="submit" class="button action-save button-longrunning" tabindex="3" data-clicked-text="{% trans 'Saving...' %}"><span class="icon icon-spinner"></span><em>{% trans 'Save draft' %}</em></button>
@@ -39,6 +117,7 @@
                         </ul>
                     </div>
                 </li>
+
 
                 <li class="actions preview">
                     {% trans 'Preview' as preview_label %}
@@ -58,6 +137,7 @@
                         {% include "wagtailadmin/pages/_preview_button_on_create.html" with label=preview_label icon=1 %}
                     {% endif %}
                 </li>
+                {% endcomment %}
             </ul>
         </footer>
     </form>
