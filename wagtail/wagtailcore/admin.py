@@ -11,9 +11,11 @@ from wagtail.wagtailcore.models import GroupPagePermission, Page, Site
 
 admin.site.register(Site)
 
+
 # Use the Treebeard treeadmin.
 class PageAdmin(TreeAdmin):
     form = movenodeform_factory(Page)
+
 
 admin.site.register(Page, PageAdmin)
 
