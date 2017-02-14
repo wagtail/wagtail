@@ -3,8 +3,8 @@
 {% block titletag %}{% blocktrans with snippet_type_name_plural=model_opts.verbose_name_plural|capfirst %}Snippets {{ snippet_type_name_plural }}{% endblocktrans %}{% endblock %}
 
 {% block extra_js %}
+    {{ block.super }}
     <script>
-        {{ block.super }}
         window.headerSearch = {
             url: "{% url 'wagtailsnippets:list' model_opts.app_label model_opts.model_name %}",
             termInput: "#id_q",

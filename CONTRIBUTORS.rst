@@ -212,6 +212,7 @@ Contributors
 * Alasdair Nicol
 * Vorlif
 * Kjartan Sverrisson
+* LB (Ben Johnston)
 
 Translators
 ===========
