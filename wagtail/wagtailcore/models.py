@@ -1800,11 +1800,11 @@ class PagePermissionTester(object):
         This is useful for shaving down systems that would otherwise need to check each of
         these permissions explicitly like in Django templates.
         """
-        return can_add_subpage() or \
-               can_edit() or \
-               can_delete() or \
-               can_unpublish() or \
-               can_publish()
+        return self.can_add_subpage() or \
+            self.can_edit() or \
+            self.can_delete() or \
+            self.can_unpublish() or \
+            self.can_publish()
 
 
 class PageViewRestriction(models.Model):
