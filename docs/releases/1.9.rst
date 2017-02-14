@@ -64,6 +64,7 @@ Bug fixes
  * "X minutes ago" timestamps are now marked for translation (Janneke Janssen, Matt Westcott)
  * Avoid indexing unsaved field content on `save(update_fields=[...])` operations (Matt Westcott)
  * Corrected ordering of arguments passed to ModelAdmin ``get_extra_class_names_for_field_col`` / ``get_extra_attrs_for_field_col`` methods (Andy Babic)
+ * ``pageurl`` / ``slugurl`` tags now function when request.site is not available (Tobias McNulty, Matt Westcott)
 
 
 Upgrade considerations

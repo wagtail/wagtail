@@ -210,6 +210,7 @@ Contributors
 * Martey Dodoo
 * David Ray
 * Alasdair Nicol
+* Tobias McNulty
 
 Translators
 ===========
