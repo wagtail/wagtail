@@ -11,6 +11,7 @@ Changelog
  * Fix: Marked 'Date from' / 'Date to' strings in wagtailforms for translation (Vorlif)
  * Fix: Unreliable preview is now reliable by always opening in a new window (Kjartan Sverrisson)
  * Fix: Fixed placement of `{{ block.super }}` in `snippets/type_index.html` (LB (Ben Johnston))
+ * Fix: Optimised database queries on group edit page (Ashia Zawaduk)
 
 
 1.9 (xx.xx.xxxx) - IN DEVELOPMENT
