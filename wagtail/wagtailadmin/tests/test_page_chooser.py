@@ -27,6 +27,21 @@ class TestChooserBrowse(TestCase, WagtailTestUtils):
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'wagtailadmin/chooser/browse.html')
 
+    def test_construct_queryset_hook(self):
+        page = SimplePage(title="Test shown", content="hello")
+        Page.get_first_root_node().add_child(instance=page)
+
+        page_not_shown = SimplePage(title="Test not shown", content="hello")
+        Page.get_first_root_node().add_child(instance=page_not_shown)
+
+        def filter_pages(pages, request):
+            return pages.filter(id=page.id)
+
+        with self.register_hook('construct_page_chooser_queryset', filter_pages):
+            response = self.get()
+        self.assertEqual(len(response.context['pages']), 1)
+        self.assertEqual(response.context['pages'][0].specific, page)
+
 
 class TestCanChooseRootFlag(TestCase, WagtailTestUtils):
     def setUp(self):
@@ -296,6 +311,21 @@ class TestChooserSearch(TestCase, WagtailTestUtils):
     def test_with_invalid_page_type(self):
         response = self.get({'page_type': 'foo'})
         self.assertEqual(response.status_code, 404)
+
+    def test_construct_queryset_hook(self):
+        page = SimplePage(title="Test shown", content="hello")
+        self.root_page.add_child(instance=page)
+
+        page_not_shown = SimplePage(title="Test not shown", content="hello")
+        self.root_page.add_child(instance=page_not_shown)
+
+        def filter_pages(pages, request):
+            return pages.filter(id=page.id)
+
+        with self.register_hook('construct_page_chooser_queryset', filter_pages):
+            response = self.get({'q': 'Test'})
+        self.assertEqual(len(response.context['pages']), 1)
+        self.assertEqual(response.context['pages'][0].specific, page)
 
 
 class TestAutomaticRootPageDetection(TestCase, WagtailTestUtils):

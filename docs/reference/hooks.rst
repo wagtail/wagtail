@@ -511,6 +511,66 @@ Hooks for customising the way users are directed through the process of creating
         return items.append( UserbarPuppyLinkItem() )
 
 
+Choosers
+--------
+
+.. _construct_page_chooser_queryset:
+
+``construct_page_chooser_queryset``
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+  Called when rendering the page chooser view, to allow the page listing queryset to be customised. The callable passed into the hook will receive the current page queryset and the request object, and must return a Page queryset (either the original one, or a new one).
+
+  .. code-block:: python
+
+    from wagtail.wagtailcore import hooks
+
+    @hooks.register('construct_page_chooser_queryset')
+    def show_my_pages_only(pages, request):
+        # Only show own pages
+        pages = pages.filter(owner=request.user)
+
+        return pages
+
+
+.. _construct_document_chooser_queryset:
+
+``construct_document_chooser_queryset``
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+  Called when rendering the document chooser view, to allow the document listing queryset to be customised. The callable passed into the hook will receive the current document queryset and the request object, and must return a Document queryset (either the original one, or a new one).
+
+  .. code-block:: python
+
+    from wagtail.wagtailcore import hooks
+
+    @hooks.register('construct_document_chooser_queryset')
+    def show_my_uploaded_documents_only(documents, request):
+        # Only show uploaded documents
+        documents = documents.filter(uploaded_by=request.user)
+
+        return documents
+
+
+.. _construct_image_chooser_queryset:
+
+``construct_image_chooser_queryset``
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+  Called when rendering the image chooser view, to allow the image listing queryset to be customised. The callable passed into the hook will receive the current image queryset and the request object, and must return a Document queryset (either the original one, or a new one).
+
+  .. code-block:: python
+
+    from wagtail.wagtailcore import hooks
+
+    @hooks.register('construct_image_chooser_queryset')
+    def show_my_uploaded_images_only(images, request):
+        # Only show uploaded images
+        images = images.filter(uploaded_by=request.user)
+
+        return images
+
+
 Page explorer
 -------------
 
