@@ -412,7 +412,7 @@ class TestImageDeleteView(TestCase, WagtailTestUtils):
 
 class TestImageChooserView(TestCase, WagtailTestUtils):
     def setUp(self):
-        self.login()
+        self.user = self.login()
 
     def get(self, params={}):
         return self.client.get(reverse('wagtailimages:chooser'), params)
@@ -451,6 +451,48 @@ class TestImageChooserView(TestCase, WagtailTestUtils):
 
         # Results should not include images that just have 'even' in the title
         self.assertNotContains(response, "Test image 3 is even better")
+
+    def test_construct_queryset_hook_browse(self):
+        image = Image.objects.create(
+            title="Test image shown" ,
+            file=get_test_image_file(),
+            uploaded_by_user=self.user,
+        )
+        Image.objects.create(
+            title="Test image not shown",
+            file=get_test_image_file(),
+        )
+
+        def filter_images(images, request):
+            # Filter on `uploaded_by_user` because it is
+            # the only default FilterField in search_fields
+            return images.filter(uploaded_by_user=self.user)
+
+        with self.register_hook('construct_image_chooser_queryset', filter_images):
+            response = self.get()
+        self.assertEqual(len(response.context['images']), 1)
+        self.assertEqual(response.context['images'][0], image)
+
+    def test_construct_queryset_hook_search(self):
+        image = Image.objects.create(
+            title="Test image shown",
+            file=get_test_image_file(),
+            uploaded_by_user=self.user,
+        )
+        Image.objects.create(
+            title="Test image not shown",
+            file=get_test_image_file(),
+        )
+
+        def filter_images(images, request):
+            # Filter on `uploaded_by_user` because it is
+            # the only default FilterField in search_fields
+            return images.filter(uploaded_by_user=self.user)
+
+        with self.register_hook('construct_image_chooser_queryset', filter_images):
+            response = self.get({'q': 'Test'})
+        self.assertEqual(len(response.context['images']), 1)
+        self.assertEqual(response.context['images'][0], image)
 
 
 class TestImageChooserChosenView(TestCase, WagtailTestUtils):
