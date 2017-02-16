@@ -40,6 +40,7 @@
                     </small>
                 </li>
             {% endif %}
+            {% if show_preferred_language_preferences %}
                 <li class="row row-flush">
                     <div class="col6">
                         <a href="{% url 'wagtailadmin_account_language_preferences' %}" class="button button-primary">{% trans "Language preferences" %}</a>
@@ -49,7 +50,7 @@
                         {% trans "Choose the language you want to use here." %}
                     </small>
                 </li>
-
+            {% endif %}
 
         </ul>
     </div>

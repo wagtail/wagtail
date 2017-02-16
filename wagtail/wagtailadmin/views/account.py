@@ -16,6 +16,7 @@ from django.views.decorators.debug import sensitive_post_parameters
 
 from wagtail.utils.compat import user_is_authenticated
 from wagtail.wagtailadmin import forms
+from wagtail.wagtailadmin.utils import get_available_admin_languages
 from wagtail.wagtailcore.models import UserPagePermissionsProxy
 from wagtail.wagtailusers.forms import NotificationPreferencesForm, PreferredLanguageForm
 from wagtail.wagtailusers.models import UserProfile
@@ -41,7 +42,8 @@ def account(request):
 
     return render(request, 'wagtailadmin/account/account.html', {
         'show_change_password': password_management_enabled() and request.user.has_usable_password(),
-        'show_notification_preferences': show_notification_preferences
+        'show_notification_preferences': show_notification_preferences,
+        'show_preferred_language_preferences': len(get_available_admin_languages()) > 1
     })
 
 

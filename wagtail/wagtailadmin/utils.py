@@ -19,6 +19,34 @@ from wagtail.wagtailusers.models import UserProfile
 
 logger = logging.getLogger('wagtail.admin')
 
+# Wagtail languages with >=90% coverage
+# This list is manually maintained
+WAGTAILADMIN_PROVIDED_LANGUAGES = [
+    ('en', 'English'),
+    ('de', 'German'),
+    ('pt-br', 'Brazilian Portuguese'),
+    ('es', 'Spanish'),
+    ('ro', 'Romanian'),
+    ('fr', 'French'),
+    ('is-is', 'Icelandic'),
+    ('it', 'Italian'),
+    ('nb', 'Norwegian Bokmål'),
+    ('pl', 'Polish'),
+    ('pt-pt', 'Portuguese'),
+    ('ru', 'Russian'),
+    ('nl-nl', 'Netherlands Dutch'),
+    ('fi', 'Finish'),
+    ('ga', 'Galician')
+]
+
+
+def get_available_admin_languages():
+    permitted_languages = getattr(settings, 'WAGTAILADMIN_PERMITTED_LANGUAGES', None)
+    if permitted_languages:
+        return permitted_languages
+
+    return WAGTAILADMIN_PROVIDED_LANGUAGES
+
 
 def get_object_usage(obj):
     "Returns a queryset of pages that link to a particular object"

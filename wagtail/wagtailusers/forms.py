@@ -10,6 +10,7 @@ from django.db import transaction
 from django.template.loader import render_to_string
 from django.utils.translation import ugettext_lazy as _
 
+from wagtail.wagtailadmin.utils import get_available_admin_languages
 from wagtail.wagtailadmin.widgets import AdminPageChooser
 from wagtail.wagtailcore import hooks
 from wagtail.wagtailcore.models import (
@@ -378,6 +379,8 @@ class NotificationPreferencesForm(forms.ModelForm):
 
 
 class PreferredLanguageForm(forms.ModelForm):
+    preferred_language = forms.ChoiceField(choices=get_available_admin_languages())
+
     def __init__(self, *args, **kwargs):
         super(PreferredLanguageForm, self).__init__(*args, **kwargs)
 

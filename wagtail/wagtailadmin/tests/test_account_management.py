@@ -8,6 +8,8 @@ from django.core.urlresolvers import reverse
 from django.test import TestCase, override_settings
 
 from wagtail.tests.utils import WagtailTestUtils
+from wagtail.wagtailadmin.utils import (
+    WAGTAILADMIN_PROVIDED_LANGUAGES, get_available_admin_languages)
 from wagtail.wagtailusers.models import UserProfile
 
 
@@ -316,6 +318,18 @@ class TestAccountSection(TestCase, WagtailTestUtils):
         response = self.client.post(reverse('wagtailadmin_account_language_preferences'), post_data)
         profile = UserProfile.get_for_user(get_user_model().objects.get(pk=self.user.pk))
         self.assertEqual(profile.preferred_language, 'en')
+
+    @override_settings(WAGTAILADMIN_PERMITTED_LANGUAGES=[('en', 'English'), ('es', 'Spanish')])
+    def test_available_admin_languages_with_permitted_languages(self):
+        self.assertListEqual(get_available_admin_languages(), [('en', 'English'), ('es', 'Spanish')])
+
+    def test_available_admin_languages_by_default(self):
+        self.assertListEqual(get_available_admin_languages(), WAGTAILADMIN_PROVIDED_LANGUAGES)
+
+    @override_settings(WAGTAILADMIN_PERMITTED_LANGUAGES=[('en', 'English')])
+    def test_not_show_options_if_only_one_language_is_permitted(self):
+        response = self.client.post(reverse('wagtailadmin_account'))
+        self.assertNotContains(response, 'Language Preferences')
 
 
 class TestAccountManagementForNonModerator(TestCase, WagtailTestUtils):
