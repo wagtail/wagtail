@@ -58,11 +58,6 @@ Here's an example:
     the image and entering custom data happen as two separate actions, and
     Wagtail needs to be able to create an image record immediately on upload.
 
-.. note::
-
-    If you are using image feature detection, follow these instructions to
-    enable it on your custom image model: :ref:`feature_detection_custom_image_model`
-
 Then set the ``WAGTAILIMAGES_IMAGE_MODEL`` setting to point to it:
 
 .. code-block:: python

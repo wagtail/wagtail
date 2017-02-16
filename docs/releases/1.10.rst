@@ -37,7 +37,7 @@ Upgrade considerations
 Signals on custom ``Image`` and ``Rendition`` models connected automatically
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Projects using :ref:`custom image models <custom_image_model>` no longer need to set up signal receivers to handle deletion of image files, as this is now handled automatically by Wagtail. The following lines of code should be removed:
+Projects using :ref:`custom image models <custom_image_model>` no longer need to set up signal receivers to handle deletion of image files and image feature detection, as these are now handled automatically by Wagtail. The following lines of code should be removed:
 
 .. code-block:: python
 
@@ -51,3 +51,10 @@ Projects using :ref:`custom image models <custom_image_model>` no longer need to
     @receiver(post_delete, sender=CustomRendition)
     def rendition_delete(sender, instance, **kwargs):
         instance.file.delete(False)
+
+
+    # Perform image feature detection (if enabled)
+    @receiver(pre_save, sender=CustomImage)
+    def image_feature_detection(sender, instance, **kwargs):
+        if not instance.has_focal_point():
+            instance.set_focal_point(instance.get_suggested_focal_point())
