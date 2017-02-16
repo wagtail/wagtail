@@ -13,8 +13,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-12-06 22:44+0000\n"
-"PO-Revision-Date: 2016-12-06 22:46+0000\n"
+"POT-Creation-Date: 2017-02-06 12:33+0000\n"
+"PO-Revision-Date: 2017-02-06 12:37+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Chinese (China) (http://www.transifex.com/torchbox/wagtail/"
 "language/zh_CN/)\n"
@@ -688,7 +688,7 @@ msgstr "查看'%(title)s'的子页面"
 msgid "Add a child page to '%(title)s'"
 msgstr "为'%(title)s'添加子页面"
 
-msgid "Add subpage"
+msgid "Add child page"
 msgstr "添加子页面"
 
 #, python-format
@@ -979,20 +979,8 @@ msgstr "页面 '{0}'已锁定"
 msgid "Page '{0}' is now unlocked."
 msgstr "页面 '{0}'已解锁。"
 
-msgid "Preview draft"
-msgstr "预览草稿"
-
-msgid "Add child page"
-msgstr "添加子页面"
-
 msgid "More"
 msgstr "更多"
-
-msgid "View more options"
-msgstr "查看更多"
-
-msgid "Delete this page"
-msgstr "删除此页面"
 
 msgid "Choose an item"
 msgstr "选择一项"

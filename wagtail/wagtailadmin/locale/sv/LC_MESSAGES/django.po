@@ -11,9 +11,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-12-06 22:44+0000\n"
-"PO-Revision-Date: 2017-01-18 01:59+0000\n"
-"Last-Translator: André Karlsson <andre@sess.se>\n"
+"POT-Creation-Date: 2017-02-06 12:33+0000\n"
+"PO-Revision-Date: 2017-02-06 12:37+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Swedish (http://www.transifex.com/torchbox/wagtail/language/"
 "sv/)\n"
 "MIME-Version: 1.0\n"
@@ -725,7 +725,7 @@ msgstr "Utforska undersidor till '%(title)s'"
 msgid "Add a child page to '%(title)s'"
 msgstr "Lägg till en undersida till '%(title)s'"
 
-msgid "Add subpage"
+msgid "Add child page"
 msgstr "Lägg till undersida"
 
 #, python-format
@@ -964,9 +964,6 @@ msgstr "Sida '{0}' är nu låst."
 #, python-brace-format
 msgid "Page '{0}' is now unlocked."
 msgstr "Sida '{0}' är nu olåst."
-
-msgid "Add child page"
-msgstr "Lägg till undersida"
 
 msgid "Choose an item"
 msgstr "Välj ett objekt"

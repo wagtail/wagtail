@@ -10,13 +10,13 @@
 # Yusuf (Josè) Luis <alagunajs@gmail.com>, 2015-2016
 # Mauricio Baeza <python@amigos.email>, 2015
 # Mauricio Baeza <python@amigos.email>, 2014
-# Yusuf (Josè) Luis <alagunajs@gmail.com>, 2016
+# Yusuf (Josè) Luis <alagunajs@gmail.com>, 2016-2017
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-12-06 22:44+0000\n"
-"PO-Revision-Date: 2016-08-01 19:25+0000\n"
+"POT-Creation-Date: 2017-02-06 12:33+0000\n"
+"PO-Revision-Date: 2017-02-13 21:55+0000\n"
 "Last-Translator: Yusuf (Josè) Luis <alagunajs@gmail.com>\n"
 "Language-Team: Spanish (http://www.transifex.com/torchbox/wagtail/language/"
 "es/)\n"
@@ -101,11 +101,25 @@ msgstr "Eliminar grupo"
 
 #, python-format
 msgid ""
-"The group '%(group_name)s' has <strong>%(group_user_count)s</strong> users "
-"assigned."
-msgstr ""
-"El grupo '%(group_name)s' tiene <strong>%(group_user_count)s</strong> "
-"usuarios asignados."
+"\n"
+"                The group '%(group_name)s' has <strong>%(group_user_count)s</"
+"strong> member.\n"
+"            "
+msgid_plural ""
+"\n"
+"                The group '%(group_name)s' has <strong>%(group_user_count)s</"
+"strong> members.\n"
+"            "
+msgstr[0] ""
+"\n"
+"                El grupo '%(group_name)s' tienes <strong>"
+"%(group_user_count)s</strong> miembro.\n"
+"            "
+msgstr[1] ""
+"\n"
+"                El grupo '%(group_name)s' tiene <strong>"
+"%(group_user_count)s</strong> miembros.\n"
+"            "
 
 msgid ""
 "Deleting this group will revoke this group's permissions from all member "

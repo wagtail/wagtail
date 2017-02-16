@@ -13,9 +13,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-12-06 22:44+0000\n"
-"PO-Revision-Date: 2016-09-20 12:49+0000\n"
-"Last-Translator: Yiannis Inglessis <negletios@users.noreply.github.com>\n"
+"POT-Creation-Date: 2017-02-06 12:33+0000\n"
+"PO-Revision-Date: 2017-02-06 12:40+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Greek (http://www.transifex.com/torchbox/wagtail/language/"
 "el/)\n"
 "MIME-Version: 1.0\n"
@@ -84,14 +84,6 @@ msgstr "Λήψη ειδοποίησης όταν σελίδα επεξεργασ
 
 msgid "Delete group"
 msgstr "Διαγραφή ομάδας"
-
-#, python-format
-msgid ""
-"The group '%(group_name)s' has <strong>%(group_user_count)s</strong> users "
-"assigned."
-msgstr ""
-"Στην ομάδα '%(group_name)s' εχουν <strong>%(group_user_count)s</strong> "
-"έχουν ανατεθεί χρήστες. "
 
 msgid ""
 "Deleting this group will revoke this group's permissions from all member "
