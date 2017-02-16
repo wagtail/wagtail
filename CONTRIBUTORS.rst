@@ -225,7 +225,7 @@ Translators
 * Catalan: Antoni Aloy, David Llop, Roger Pons
 * Chinese: hanfeng, Lihan Li, Leway Colin
 * Chinese (China): hanfeng, Daniel Hwang, Jian Li, Listeng Teng, Feng Wang, Fred Zeng, Joey Zhao, zhushajun
-* Chinese (Taiwan): Lihan Li, Jp Shieh
+* Chinese (Taiwan): gogobook, Lihan Li, Jp Shieh
 * Croatian (Croatia): Luka Matijević
 * Czech: Ivan Pomykacz, Jiri Stepanek, Marek Turnovec
 * Danish: Asger Sørensen

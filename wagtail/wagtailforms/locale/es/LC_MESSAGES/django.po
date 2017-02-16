@@ -8,13 +8,13 @@
 # Joaquín Tita <carpincho@gmail.com>, 2014
 # Yusuf (Josè) Luis <alagunajs@gmail.com>, 2015
 # Mauricio Baeza <python@amigos.email>, 2014
-# Yusuf (Josè) Luis <alagunajs@gmail.com>, 2016
+# Yusuf (Josè) Luis <alagunajs@gmail.com>, 2016-2017
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-12-06 22:44+0000\n"
-"PO-Revision-Date: 2016-09-26 05:48+0000\n"
+"POT-Creation-Date: 2017-02-06 12:33+0000\n"
+"PO-Revision-Date: 2017-02-13 21:46+0000\n"
 "Last-Translator: Yusuf (Josè) Luis <alagunajs@gmail.com>\n"
 "Language-Team: Spanish (http://www.transifex.com/torchbox/wagtail/language/"
 "es/)\n"
@@ -123,17 +123,32 @@ msgid "subject"
 msgstr "asunto"
 
 #, python-format
-msgid "Delete %(title)s"
-msgstr "Eliminar %(title)s"
+msgid "Delete form data %(title)s"
+msgstr "Eliminar el formulario de datas %(title)s"
+
+msgid "Delete form data"
+msgstr "Eliminar formulario de datos"
+
+msgid ""
+"\n"
+"                Are you sure you want to delete this form submission?\n"
+"            "
+msgid_plural ""
+"\n"
+"                Are you sure you want to delete these form submissions?\n"
+"            "
+msgstr[0] ""
+"\n"
+"                Está segirp de que desea eliminar este formulario de envío?\n"
+"            "
+msgstr[1] ""
+"\n"
+"               Está seguro de que desea eliminar estos formularios de "
+"envío?\n"
+"            "
 
 msgid "Delete"
 msgstr "Eliminar"
-
-msgid "Are you sure you want to delete this form submission?"
-msgstr "¿Seguro que quieres eliminar este formulario?"
-
-msgid "Delete it"
-msgstr "Elimínalo"
 
 msgid "Total submissions"
 msgstr "Presentaciones totales"
@@ -171,14 +186,11 @@ msgstr "Título"
 msgid "Origin"
 msgstr "Origen"
 
-msgid "Actions"
-msgstr "Acciones"
-
-msgid "delete"
-msgstr "eliminar"
-
 msgid "No form pages have been created."
 msgstr "No se han creado páginas de formularios."
 
-msgid "Submission deleted."
-msgstr "Eliminar presentación"
+#, python-format
+msgid "One submission has been deleted."
+msgid_plural "%(count)d submissions have been deleted."
+msgstr[0] "Un evío ha sido eliminado."
+msgstr[1] "%(count)d envíos han sido borrados."

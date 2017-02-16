@@ -11,13 +11,13 @@
 # Matt Westcott <matthew@torchbox.com>, 2016
 # Mauricio Baeza <python@amigos.email>, 2015
 # Unai Zalakain <inactive+unaizalakain@transifex.com>, 2014
-# Yusuf (Josè) Luis <alagunajs@gmail.com>, 2016
+# Yusuf (Josè) Luis <alagunajs@gmail.com>, 2016-2017
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-12-06 22:44+0000\n"
-"PO-Revision-Date: 2016-12-09 17:30+0000\n"
+"POT-Creation-Date: 2017-02-06 12:33+0000\n"
+"PO-Revision-Date: 2017-02-13 21:51+0000\n"
 "Last-Translator: Yusuf (Josè) Luis <alagunajs@gmail.com>\n"
 "Language-Team: Spanish (http://www.transifex.com/torchbox/wagtail/language/"
 "es/)\n"
@@ -26,6 +26,9 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: es\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "None"
+msgstr "Ninguno"
 
 msgid "You do not have permission to access the admin"
 msgstr "No tienes permisos para acceder al administrador."
@@ -373,6 +376,10 @@ msgstr "Editar"
 
 msgid "Preview"
 msgstr "Previsualizar"
+
+#, python-format
+msgid "%(time_period)s ago"
+msgstr "%(time_period)s antes"
 
 msgid "Your most recent edits"
 msgstr "Tus ediciones más recientes"
@@ -773,8 +780,8 @@ msgstr "Explorar páginas hijas de '%(title)s'"
 msgid "Add a child page to '%(title)s'"
 msgstr "Añadir página hija a '%(title)s'"
 
-msgid "Add subpage"
-msgstr "Añadir subpágina"
+msgid "Add child page"
+msgstr "Añadir página hija"
 
 #, python-format
 msgid ""
@@ -812,6 +819,68 @@ msgid "Select a new parent page for <span>%(title)s</span>"
 msgstr "Selecciona una nueva página padre para <span>%(title)s</span>"
 
 #, python-format
+msgid "Comparing %(title)s"
+msgstr "Comparando %(title)s"
+
+msgid "Comparing"
+msgstr "Comparando"
+
+msgid "View revisions"
+msgstr "Ver revisiones"
+
+msgid "Fields"
+msgstr "Campos"
+
+msgid "Changes"
+msgstr "Cambios"
+
+#, python-format
+msgid ""
+"\n"
+"                                                            Moved down 1 "
+"place.\n"
+"                                                        "
+msgid_plural ""
+"\n"
+"                                                            Moved down "
+"%(counter)s places.\n"
+"                                                        "
+msgstr[0] ""
+"\n"
+"                                                            Bajó 1 lugar.\n"
+"                                                        "
+msgstr[1] ""
+"\n"
+"                                                            Bajó %(counter)s "
+"lugares.\n"
+"                                                        "
+
+#, python-format
+msgid ""
+"\n"
+"                                                            Moved up 1 "
+"place.\n"
+"                                                        "
+msgid_plural ""
+"\n"
+"                                                            Moved up "
+"%(counter)s places.\n"
+"                                                        "
+msgstr[0] ""
+"\n"
+"                                                             Subió 1 "
+"lugares.\n"
+"                                                        "
+msgstr[1] ""
+"\n"
+"                                                             Subió "
+"%(counter)s lugares.\n"
+"                                                        "
+
+msgid "There are no differences between these two revisions"
+msgstr "No hay diferencias entre estas dos revisiones."
+
+#, python-format
 msgid "Revisions of %(title)s"
 msgstr "Revisiones de %(title)s"
 
@@ -830,6 +899,9 @@ msgstr "Borrador actual"
 
 msgid "Review this revision"
 msgstr "Resumen de esta revision"
+
+msgid "Compare with previous revision"
+msgstr "Comparar con versiones previas"
 
 msgid "No revisions of this page exist"
 msgstr "No existen revisiones de esta página"
@@ -1100,6 +1172,9 @@ msgstr "La página no pudo ser guardada debido a que se encuentra bloqueada"
 msgid "The page could not be saved due to validation errors"
 msgstr "La página no ha podido ser guardada debido a errores de validación"
 
+msgid "Compare with live version"
+msgstr "Comparar con la versión públicada"
+
 msgid "This page is currently awaiting moderation"
 msgstr "La página está a la espera de ser moderada"
 
@@ -1157,36 +1232,57 @@ msgstr ""
 "Está viendo una revisión previa de esta página del <b>%(created_at)s</b> de "
 "%(user)s"
 
+msgid "Earliest"
+msgstr "Primeros"
+
+msgid "Latest"
+msgstr "Últimos"
+
 msgid "Pages"
 msgstr "Páginas"
 
-msgid "Preview draft"
-msgstr "Previsualizar borrador"
-
-msgid "Add child page"
-msgstr "Añadir página hija"
+#, python-brace-format
+msgid "Edit '{title}'"
+msgstr "Editar '{title}'"
 
 #, python-brace-format
-msgid "Add a child page to '{0}' "
-msgstr "Añadir una página hija a '{0}' "
+msgid "Preview draft version of '{title}'"
+msgstr "Preveer version en borrador de '{title}'"
+
+#, python-brace-format
+msgid "View live version of '{title}'"
+msgstr "Ver versión en vivo de '{title}'"
+
+#, python-brace-format
+msgid "Add a child page to '{title}' "
+msgstr "Añadir una página hija a '{title}' "
 
 msgid "More"
 msgstr "Más"
 
-msgid "View more options"
-msgstr "Ver más opciones"
+#, python-brace-format
+msgid "View more options for '{title}'"
+msgstr "Ver más opciones para '{title}'"
 
-msgid "Move this page"
-msgstr "Mover esta página"
+#, python-brace-format
+msgid "Move page '{title}'"
+msgstr "Mover página '{title}'"
 
-msgid "Delete this page"
-msgstr "Eliminar esta página"
+#, python-brace-format
+msgid "Copy page '{title}'"
+msgstr "Copiar página '{title}'"
 
-msgid "Unpublish this page"
-msgstr "Despublicar esta página"
+#, python-brace-format
+msgid "Delete page '{title}'"
+msgstr "Eliminar página '{title}'"
 
-msgid "View this page's revision history"
-msgstr "Ver el historial de revisiones de ésta página"
+#, python-brace-format
+msgid "Unpublish page '{title}'"
+msgstr "Despublicar página '{title}'"
+
+#, python-brace-format
+msgid "View revision history for '{title}'"
+msgstr "Ver historial de revisiones para '{title}'"
 
 msgid "Choose an item"
 msgstr "Elige un elemento"

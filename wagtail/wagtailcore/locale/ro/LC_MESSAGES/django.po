@@ -3,14 +3,14 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# Dan Braghis, 2014-2016
+# Dan Braghis, 2014-2017
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-12-06 22:44+0000\n"
-"PO-Revision-Date: 2016-12-06 22:47+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2017-02-06 12:33+0000\n"
+"PO-Revision-Date: 2017-02-06 14:16+0000\n"
+"Last-Translator: Dan Braghis\n"
 "Language-Team: Romanian (http://www.transifex.com/torchbox/wagtail/language/"
 "ro/)\n"
 "MIME-Version: 1.0\n"
@@ -19,6 +19,13 @@ msgstr ""
 "Language: ro\n"
 "Plural-Forms: nplurals=3; plural=(n==1?0:(((n%100>19)||((n%100==0)&&(n!=0)))?"
 "2:1));\n"
+
+#, python-brace-format
+msgid "{label}: this block has no options."
+msgstr "{label}: acest block nu are nici o opțiune."
+
+msgid "This block has no options."
+msgstr "Acest bloc nu are nici o opțiune."
 
 msgid "Password"
 msgstr "Parolă"
@@ -209,6 +216,12 @@ msgstr "Publică"
 msgid "Publish any page"
 msgstr "Publică orice pagină"
 
+msgid "Bulk delete"
+msgstr "Șterge în masă"
+
+msgid "Delete pages with children"
+msgstr "Șterge pagini cu descendenți"
+
 msgid "Lock"
 msgstr "Încuie"
 
@@ -226,6 +239,18 @@ msgstr "permisie grup pagină"
 
 msgid "group page permissions"
 msgstr "permisiuni grup pagină"
+
+msgid "Public"
+msgstr "Public"
+
+msgid "Private, accessible to logged-in users"
+msgstr "Privat. accesibil utlizatorilor autentificați"
+
+msgid "Private, accessible with the following password"
+msgstr "Privat, accesibil cu parola următoare"
+
+msgid "Private, accessible to users in specific groups"
+msgstr "Privat, accesibil utilizatorilor în grupuri specifice"
 
 msgid "password"
 msgstr "parolă"
@@ -250,6 +275,13 @@ msgstr "permisiune"
 
 msgid "group collection permission"
 msgstr "permisiune grup colecție"
+
+msgid "Log in"
+msgstr "Logare"
+
+msgid "Your username and password didn't match. Please try again."
+msgstr ""
+"Numele de utilizator și parola nu corespund. Vă rugăm să încercați din nou."
 
 msgid "Password required"
 msgstr "Parolă necesară"

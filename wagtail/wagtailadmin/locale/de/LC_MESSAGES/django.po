@@ -15,7 +15,7 @@
 # Martin Löhle <martin.loehle@web-forest.de>, 2016
 # Matt Westcott <matthew@torchbox.com>, 2015
 # Max Pfeiffer <max.pfeiffer@alp-phone.ch>, 2015
-# Moritz Pfeiffer <moritz@alp-phone.ch>, 2016
+# Moritz Pfeiffer <moritz@alp-phone.ch>, 2016-2017
 # pcraston <patrick@craston.com>, 2014
 # pcraston <patrick@craston.com>, 2014
 # tobias schmidt <tobias.schmidt82@gmail.com>, 2016
@@ -25,8 +25,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-12-06 22:44+0000\n"
-"PO-Revision-Date: 2016-12-07 07:43+0000\n"
+"POT-Creation-Date: 2017-02-06 12:33+0000\n"
+"PO-Revision-Date: 2017-02-09 10:26+0000\n"
 "Last-Translator: Moritz Pfeiffer <moritz@alp-phone.ch>\n"
 "Language-Team: German (http://www.transifex.com/torchbox/wagtail/language/"
 "de/)\n"
@@ -35,6 +35,9 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: de\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "None"
+msgstr "Nichts"
 
 msgid "You do not have permission to access the admin"
 msgstr "Sie haben keinen Zugang zur Verwaltung."
@@ -387,6 +390,10 @@ msgstr "Bearbeiten"
 
 msgid "Preview"
 msgstr "Vorschau"
+
+#, python-format
+msgid "%(time_period)s ago"
+msgstr "vor %(time_period)s"
 
 msgid "Your most recent edits"
 msgstr "Ihre letzen Änderungen"
@@ -787,7 +794,7 @@ msgstr "Unterseiten von ‚%(title)s‘ durchsehen"
 msgid "Add a child page to '%(title)s'"
 msgstr "Unterseite zu ‚%(title)s‘ hinzufügen"
 
-msgid "Add subpage"
+msgid "Add child page"
 msgstr "Unterseite hinzufügen"
 
 #, python-format
@@ -827,6 +834,69 @@ msgid "Select a new parent page for <span>%(title)s</span>"
 msgstr "Wählen Sie eine neue übergeordnete Seite für <span>%(title)s</span>"
 
 #, python-format
+msgid "Comparing %(title)s"
+msgstr "%(title)s vergleichen"
+
+msgid "Comparing"
+msgstr "Vergleichen"
+
+msgid "View revisions"
+msgstr "Revisionen ansehen"
+
+msgid "Fields"
+msgstr "Felder"
+
+msgid "Changes"
+msgstr "Änderungen"
+
+#, python-format
+msgid ""
+"\n"
+"                                                            Moved down 1 "
+"place.\n"
+"                                                        "
+msgid_plural ""
+"\n"
+"                                                            Moved down "
+"%(counter)s places.\n"
+"                                                        "
+msgstr[0] ""
+"\n"
+"                                                            Wurde um 1 "
+"Stelle nach unten verschoben.\n"
+"                                                        "
+msgstr[1] ""
+"\n"
+"                                                            Wurde um "
+"%(counter)s Stellen nach unten verschoben.\n"
+"                                                        "
+
+#, python-format
+msgid ""
+"\n"
+"                                                            Moved up 1 "
+"place.\n"
+"                                                        "
+msgid_plural ""
+"\n"
+"                                                            Moved up "
+"%(counter)s places.\n"
+"                                                        "
+msgstr[0] ""
+"\n"
+"                                                            Wurde um 1 "
+"Stelle nach oben verschoben.\n"
+"                                                        "
+msgstr[1] ""
+"\n"
+"                                                            Wurde um "
+"%(counter)s Stellen nach oben verschoben.\n"
+"                                                        "
+
+msgid "There are no differences between these two revisions"
+msgstr "Diese zwei Revisionen weisen keine Unterschiede auf"
+
+#, python-format
 msgid "Revisions of %(title)s"
 msgstr "Revisionen von %(title)s"
 
@@ -845,6 +915,9 @@ msgstr "Aktueller Entwurf"
 
 msgid "Review this revision"
 msgstr "Diese Revision begutachten"
+
+msgid "Compare with previous revision"
+msgstr "Mit vorheriger Revision vergleichen"
 
 msgid "No revisions of this page exist"
 msgstr "Es existieren keine Revisionen dieser Seite"
@@ -1124,6 +1197,9 @@ msgstr ""
 "Aufgrund von Fehlern bei der Validierung konnte die Seite nicht gespeichert "
 "werden."
 
+msgid "Compare with live version"
+msgstr "Mit veröffentlichter Revision vergleichen"
+
 msgid "This page is currently awaiting moderation"
 msgstr "Diese Seite wartet derzeit auf Freischaltung"
 
@@ -1181,36 +1257,57 @@ msgstr ""
 "Sie betrachten eine frühere Version dieser Seite vom <b>%(created_at)s</b> "
 "von %(user)s"
 
+msgid "Earliest"
+msgstr "Früheste"
+
+msgid "Latest"
+msgstr "Späteste"
+
 msgid "Pages"
 msgstr "Seiten"
 
-msgid "Preview draft"
-msgstr "Entwurf anzeigen"
-
-msgid "Add child page"
-msgstr "Unterseite hinzufügen"
+#, python-brace-format
+msgid "Edit '{title}'"
+msgstr "'{title}' bearbeiten"
 
 #, python-brace-format
-msgid "Add a child page to '{0}' "
-msgstr "Unterseite zu '{0}' hinzufügen"
+msgid "Preview draft version of '{title}'"
+msgstr "Entwurf von '{title}' ansehen"
+
+#, python-brace-format
+msgid "View live version of '{title}'"
+msgstr "Veröffentlichte Version von '{title}' ansehen"
+
+#, python-brace-format
+msgid "Add a child page to '{title}' "
+msgstr "Unterseite zu '{title}' hinzufügen"
 
 msgid "More"
 msgstr "Mehr"
 
-msgid "View more options"
-msgstr "Weitere Optionen anzeigen"
+#, python-brace-format
+msgid "View more options for '{title}'"
+msgstr "Weitere Optionen für '{title}' anzeigen"
 
-msgid "Move this page"
-msgstr "Diese Seite verschieben"
+#, python-brace-format
+msgid "Move page '{title}'"
+msgstr "Seite '{title}' verschieben"
 
-msgid "Delete this page"
-msgstr "Diese Seite löschen"
+#, python-brace-format
+msgid "Copy page '{title}'"
+msgstr "Seite '{title}' kopieren"
 
-msgid "Unpublish this page"
-msgstr "Diese Seite depublizieren"
+#, python-brace-format
+msgid "Delete page '{title}'"
+msgstr "Seite '{title}' löschen"
 
-msgid "View this page's revision history"
-msgstr "Revisionsgeschichte dieser Seite anzeigen"
+#, python-brace-format
+msgid "Unpublish page '{title}'"
+msgstr "Seite '{title}' depublizieren"
+
+#, python-brace-format
+msgid "View revision history for '{title}'"
+msgstr "Revisionsgeschichte von '{title}' anzeigen"
 
 msgid "Choose an item"
 msgstr "Eintrag wählen"

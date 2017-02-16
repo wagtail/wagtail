@@ -20,9 +20,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-12-06 22:44+0000\n"
-"PO-Revision-Date: 2016-12-07 08:34+0000\n"
-"Last-Translator: Mikalai Radchuk <radchuk.m@gmail.com>\n"
+"POT-Creation-Date: 2017-02-06 12:33+0000\n"
+"PO-Revision-Date: 2017-02-06 12:37+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Russian (http://www.transifex.com/torchbox/wagtail/language/"
 "ru/)\n"
 "MIME-Version: 1.0\n"
@@ -822,8 +822,8 @@ msgstr "Обзор дочерних для '%(title)s' страниц"
 msgid "Add a child page to '%(title)s'"
 msgstr "Добавить дочернюю страницу к '%(title)s'"
 
-msgid "Add subpage"
-msgstr "Добавить подстраницу"
+msgid "Add child page"
+msgstr "Добавить дочернюю страницу"
 
 #, python-format
 msgid ""
@@ -1218,33 +1218,8 @@ msgstr ""
 msgid "Pages"
 msgstr "Страницы"
 
-msgid "Preview draft"
-msgstr "Предпросмотр черновика"
-
-msgid "Add child page"
-msgstr "Добавить дочернюю страницу"
-
-#, python-brace-format
-msgid "Add a child page to '{0}' "
-msgstr "Добавить дочернюю страницу к '{0}' "
-
 msgid "More"
 msgstr "Больше"
-
-msgid "View more options"
-msgstr "Показать больше опций"
-
-msgid "Move this page"
-msgstr "Переместить эту страницу"
-
-msgid "Delete this page"
-msgstr "Удалить эту страницу"
-
-msgid "Unpublish this page"
-msgstr "Отменить публикацию этой страницы"
-
-msgid "View this page's revision history"
-msgstr "Показать историю версий этой страницы"
 
 msgid "Choose an item"
 msgstr "Выбрать элемент"
